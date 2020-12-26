@@ -1,0 +1,25 @@
+import 'package:bldrs/models/author_model.dart';
+
+final List<AuthorModel> dbAuthors = [
+  AuthorModel(bzId: 'pp1', userID: 'u01', authorID: 'au01',),
+  AuthorModel(bzId: 'pp2', userID: 'u02', authorID: 'au02',),
+  AuthorModel(bzId: 'pp3', userID: 'u03', authorID: 'au03',),
+  AuthorModel(bzId: 'br1', userID: 'u04', authorID: 'au04',),
+  AuthorModel(bzId: 'cn1', userID: 'u05', authorID: 'au05',),
+  AuthorModel(bzId: 'cn2', userID: 'u06', authorID: 'au06',),
+  AuthorModel(bzId: 'mn1', userID: 'u07', authorID: 'au07',),
+  AuthorModel(bzId: 'mn2', userID: 'u08', authorID: 'au08',),
+  AuthorModel(bzId: 'mn3', userID: 'u09', authorID: 'au09',),
+  AuthorModel(bzId: 'mn4', userID: 'u10', authorID: 'au10',),
+  AuthorModel(bzId: 'mn5', userID: 'u11', authorID: 'au11',),
+  AuthorModel(bzId: 'sp1', userID: 'u12', authorID: 'au12',),
+  AuthorModel(bzId: 'sp2', userID: 'u13', authorID: 'au13',),
+  AuthorModel(bzId: 'sp3', userID: 'u14', authorID: 'au14',),
+  AuthorModel(bzId: 'dr1', userID: 'u15', authorID: 'au15',),
+  AuthorModel(bzId: 'dr2', userID: 'u16', authorID: 'au16',),
+  AuthorModel(bzId: 'dr3', userID: 'u17', authorID: 'au17',),
+  AuthorModel(bzId: 'ar1', userID: 'u18', authorID: 'au18',),
+  AuthorModel(bzId: 'ar2', userID: 'u19', authorID: 'au19',),
+  AuthorModel(bzId: 'br1', userID: 'u20', authorID: 'au20',),
+  AuthorModel(bzId: 'br1', userID: 'u21', authorID: 'au21',),
+];

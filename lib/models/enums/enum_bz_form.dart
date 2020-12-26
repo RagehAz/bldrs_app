@@ -1,0 +1,4 @@
+enum BzForm {
+  Individual,
+  Company,
+}
