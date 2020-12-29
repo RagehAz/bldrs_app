@@ -135,6 +135,7 @@ class Ask extends StatelessWidget {
             keyboardTextInputType: TextInputType.multiline,
             maxLength: 1000,
             counterIsOn: false,
+
           ),
         ),
 
@@ -148,6 +149,7 @@ class Ask extends StatelessWidget {
               child: DreamBox(
                 width: 150,
                 height: 40,
+                boxMargins: EdgeInsets.only(bottom: 10),
                 verse: 'Ask',
                 verseColor: Colorz.BlackBlack,
                 verseScaleFactor: 0.7,
