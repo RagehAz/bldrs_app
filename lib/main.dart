@@ -27,6 +27,22 @@ class BldrsApp extends StatefulWidget {
 
 class _BldrsAppState extends State<BldrsApp> {
   Locale _locale;
+  List<Locale> _supportedLocales = [
+    Locale('en', 'US'),
+    Locale('ar', 'EG'),
+    Locale('es', 'ES'),
+    Locale('fr', 'FR'),
+    Locale('ru', 'RU'),
+    Locale('it', 'IT'),
+    Locale('tr', 'TR'),
+  ];
+
+  List<LocalizationsDelegate> _localizationDelegates = [
+    DemoLocalization.delegate,
+    GlobalMaterialLocalizations.delegate,
+    GlobalWidgetsLocalizations.delegate,
+    GlobalCupertinoLocalizations.delegate,
+  ];
 
   void setLocale(Locale locale) {
     setState(() {
@@ -48,13 +64,22 @@ class _BldrsAppState extends State<BldrsApp> {
   Widget build(BuildContext context) {
     if (_locale == null) {
       return Container(
-        child: Center(child: CircularProgressIndicator(),),);}
-    else {
+        child: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    } else {
       return MultiProvider(
         providers: [
-          ChangeNotifierProvider(create: (ctx)=> GreatPlaces(),),
-          ChangeNotifierProvider(create: (ctx)=> CoBzProvider(),),
-          ChangeNotifierProvider(create: (ctx)=> CoFlyersProvider(),),
+          ChangeNotifierProvider(
+            create: (ctx) => GreatPlaces(),
+          ),
+          ChangeNotifierProvider(
+            create: (ctx) => CoBzProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (ctx) => CoFlyersProvider(),
+          ),
           // ChangeNotiFierProvider(create: (ctx)=> )
         ],
         child: MaterialApp(
@@ -67,21 +92,8 @@ class _BldrsAppState extends State<BldrsApp> {
           //   accentColor: Colorz.BlackBlack,
           // ),
           locale: _locale,
-          supportedLocales: [
-            Locale('en', 'US'),
-            Locale('ar', 'EG'),
-            Locale('es', 'ES'),
-            Locale('fr', 'FR'),
-            Locale('ru', 'RU'),
-            Locale('it', 'IT'),
-            Locale('tr', 'TR'),
-          ],
-          localizationsDelegates: [
-            DemoLocalization.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
+          supportedLocales: _supportedLocales,
+          localizationsDelegates: _localizationDelegates,
           localeResolutionCallback: (deviceLocale, supportedLocales) {
             for (var locale in supportedLocales) {
               if (locale.languageCode == deviceLocale.languageCode &&
@@ -98,8 +110,6 @@ class _BldrsAppState extends State<BldrsApp> {
           },
         ),
       );
-//       );
-
     }
   }
 }
