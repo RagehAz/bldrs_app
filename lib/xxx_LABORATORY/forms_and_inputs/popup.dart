@@ -20,7 +20,7 @@ class _PopUpTestScreenState extends State<PopUpTestScreen> {
 
     return MainLayout(
       tappingRageh: (){print('there is a function here');},
-      scrollableAppBar: false,
+      // scrollableAppBar: false,
       appBarRowWidgets: [
 
         Container(

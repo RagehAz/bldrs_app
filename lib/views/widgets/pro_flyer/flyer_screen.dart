@@ -17,9 +17,7 @@ import 'package:provider/provider.dart';
 // === === === === === === === === === === === === === === === === === === === === === === === === === === === ===
 
 class FlyerScreen extends StatelessWidget {
-
   static const routeName = Routez.FlyerScreen;
-
   final String flyerID;
 
   FlyerScreen({
@@ -37,9 +35,8 @@ class FlyerScreen extends StatelessWidget {
     String fID = flyerID == null ? 'f035' : flyerID;
 
     return MainLayout(
-      stratosphereIsOn: false,
-      appBarIsOn: false,
-      pyramidsAreOn: false,
+      // appBarIsOn: false,
+      // pyramids: false,
       // ragehIsOn: true,
       // tappingRageh: (){print()},
       layoutWidget: Center(

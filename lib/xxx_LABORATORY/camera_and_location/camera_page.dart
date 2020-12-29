@@ -75,7 +75,7 @@ void dispose() {
 
     final double screenWidth = superScreenWidth(context);
     final double flyerSizeFactor = 1;
-    final double flyerZoneWidth = superFlyerZoneWidth(flyerSizeFactor, screenWidth);
+    final double flyerZoneWidth = superFlyerZoneWidth(context, flyerSizeFactor);
 
     final double deviceRatio = superDeviceRatio(context);
     // double controllerRatio = _controller.value.aspectRatio;
@@ -90,9 +90,6 @@ void dispose() {
 
 
     return MainLayout(
-      appBarIsOn: false,
-      stratosphereIsOn: false,
-      pyramidsAreOn: false,
       tappingRageh: (){print('_controller = $_controller');},
       layoutWidget: FlyerZone(
         flyerSizeFactor: flyerSizeFactor,
@@ -116,7 +113,7 @@ void dispose() {
               coAuthor: coBz.coAuthors[2],
               flyerShowsAuthor: coFlyer.flyer.flyerShowsAuthor,
               followIsOn: false,
-              flyerZoneWidth: superFlyerZoneWidth(flyerSizeFactor, screenWidth),
+              flyerZoneWidth: superFlyerZoneWidth(context, flyerSizeFactor),
               bzPageIsOn: false,
               tappingHeader: (){},
               tappingFollow: (){},
@@ -146,6 +143,7 @@ void dispose() {
                 bubble: false,
               ),
           ),
+
         ],
       ),
     );

@@ -78,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             collectionTypes.length,
                             (index){
                               return
-                                  FlyersCompactCollection(flyersType: collectionTypes[index]);
+                                FlyersCompactCollection(flyersType: collectionTypes[index]);
                             }
                         ),
 

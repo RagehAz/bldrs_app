@@ -53,7 +53,7 @@ class _TesterScreenState extends State<TesterScreen> {
 
 
     return MainLayout(
-      scrollableAppBar: true,
+      appBarType: AppBarType.Basic,
       appBarRowWidgets: <Widget>[
         SuperVerse(
           verse: '$printResult',

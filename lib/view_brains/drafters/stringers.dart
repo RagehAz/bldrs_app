@@ -95,5 +95,12 @@ String verse = '${getTranslated(context, 'In')} $city, $country';
 return verse;
 }
 // ----------------------------------------------------------------------------
+String functionStringer(Function function) {
+  String functionNameAsAString = function.toString();
+  int s = functionNameAsAString.indexOf('\'');
+  int e = functionNameAsAString.lastIndexOf('\'');
+  print('functionNameAsAString : ${functionNameAsAString.substring(s + 1, e)}');
+  return functionNameAsAString.substring(s+1, e);  // return functionNameAsAString;
+}
 
 

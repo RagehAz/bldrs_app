@@ -5,10 +5,11 @@ import 'package:flutter_swiper/flutter_swiper.dart';
 class SwiperLayout extends StatelessWidget {
   final int pagesLength;
   final Function itemBuilder;
-
+  final Function onIndexChanged;
   SwiperLayout({
     this.pagesLength,
     this.itemBuilder,
+    this.onIndexChanged,
 });
 
   @override
@@ -20,8 +21,11 @@ class SwiperLayout extends StatelessWidget {
     //   return widgets;
     // }
 
+    int index;
+
     return Swiper(
       autoplay: false,
+      onIndexChanged: onIndexChanged,
       pagination: new SwiperPagination(
         builder: DotSwiperPaginationBuilder(
           color: Colorz.White,

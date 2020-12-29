@@ -1,3 +1,4 @@
+import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/localization/localization_constants.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/views/widgets/appbar/ab_main.dart';
@@ -8,25 +9,29 @@ import 'package:flutter/material.dart';
 import 'package:bldrs/views/widgets/buttons/bt_rageh.dart';
 import '../../../main.dart';
 
+enum AppBarType{
+  Basic,
+  Scrollable,
+  Main,
+}
+
 class MainLayout extends StatelessWidget {
   final List<Widget> appBarRowWidgets;
   final Widget layoutWidget;
-  final bool scrollableAppBar;
+  // final bool scrollableAppBar;
   // final bool ragehIsOn;
   final Function tappingRageh;
-  final bool appBarIsOn;
-  final bool pyramidsAreOn;
-  final bool stratosphereIsOn;
+  // final bool appBarIsOn;
+  final String pyramids;
+  final AppBarType appBarType;
 
   MainLayout({
     this.appBarRowWidgets,
     this.layoutWidget,
-    this.scrollableAppBar = false,
     // this.ragehIsOn = false,
     this.tappingRageh,
-    this.appBarIsOn = true,
-    this.pyramidsAreOn = true,
-    this.stratosphereIsOn = true,
+    this.pyramids,
+    this.appBarType,
 });
 
   @override
@@ -43,19 +48,21 @@ class MainLayout extends StatelessWidget {
             NightSky(),
 
             layoutWidget == null ? Container() :
-            Padding(
-              padding: stratosphereIsOn ? Stratosphere.stratosphereInsets : EdgeInsets.all(0),
-              child: layoutWidget,
-            ),
+            layoutWidget,
 
-            !pyramidsAreOn? Container() :
-            Pyramids(whichPyramid: Iconz.PyramidsYellow),
 
-            !appBarIsOn? Container() :
+            pyramids == null ? Container() :
+            Pyramids(whichPyramid: pyramids),
+
+            appBarType == AppBarType.Basic || appBarType == AppBarType.Scrollable?
             ABStrip(
-              scrollable: scrollableAppBar,
+              scrollable: appBarType == AppBarType.Scrollable ? true : false,
               rowWidgets: appBarRowWidgets == null ? [Container()] : appBarRowWidgets,
-            ),
+            ) :
+
+            appBarType == AppBarType.Main ?
+                ABMain()
+            : appBarType == null ? Container() : Container(),
 
             ragehIsOn == false ? Container() :
             Rageh(

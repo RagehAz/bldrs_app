@@ -46,7 +46,7 @@ class FlyersCompactCollection extends StatelessWidget {
       width: screenWidth,
       height: collectionHeight + 2*titleSpacing + (screenHeight * Ratioz.fontSize3) + 12,
       decoration: BoxDecoration(
-      color: Colorz.Nothing,
+      // color: Colorz.Nothing,
         border: Border.symmetric(
             vertical: BorderSide(width: 0.5, color: Colorz.BabyBlueAir, ),
         )
@@ -86,7 +86,7 @@ class FlyersCompactCollection extends StatelessWidget {
           Container(
             width: screenWidth,
             height: collectionHeight,
-            color: Colorz.Nothing,
+            // color: Colorz.BloodTest,
             child: ListView.separated(
               itemCount: flyersOfType.length,
               scrollDirection: Axis.horizontal,

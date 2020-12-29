@@ -23,9 +23,6 @@ class ProFlyersPageView extends StatelessWidget {
     // double screenHeight = MediaQuery.of(context).size.height;
 
     return MainLayout(
-      pyramidsAreOn: false,
-      appBarIsOn: false,
-      stratosphereIsOn: false,
       layoutWidget: PageView.builder(
         // itemExtent: ((screenWidth) * Ratioz.xxflyerZoneHeight ) + 20,
         // padding: Stratosphere.stratosphereInsets,
