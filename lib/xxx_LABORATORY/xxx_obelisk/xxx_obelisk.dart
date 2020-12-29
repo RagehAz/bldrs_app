@@ -19,6 +19,7 @@ import 'package:bldrs/views/widgets/pyramids/pyramids.dart';
 import 'package:bldrs/views/widgets/space/skies/night_sky.dart';
 import 'package:bldrs/views/widgets/space/stratosphere.dart';
 import 'package:bldrs/views/widgets/textings/the_golden_scroll.dart';
+import 'package:bldrs/xxx_LABORATORY/ask/ask_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/camera_and_location/camera_page.dart';
 import 'package:bldrs/xxx_LABORATORY/camera_and_location/google_map.dart';
 import 'package:bldrs/xxx_LABORATORY/camera_and_location/x12_image_picker.dart';
@@ -83,6 +84,16 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
           Stratosphere(),
 
           LogoSlogan(),
+
+          BTMain(
+            buttonVerse: 'AskScreen',
+            buttonColor: Colorz.BloodRed,
+            buttonIcon: Iconz.DvGouran,
+            buttonVerseShadow: true,
+            splashColor: Colorz.Yellow,
+            function: () => goToNewScreen(context, AskScreen()),
+            stretched: false,
+          ),
 
           BTMain(
             buttonVerse: getTranslated(context, 'Create_Flyer'),
