@@ -10,30 +10,40 @@ import 'package:bldrs/views/widgets/textings/super_text_field.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
-    String bldrsTypePageTitle (BzType bzType) {
-      return
-      bzType == BzType.Developer ? 'Real-Estate Developers' :
-      bzType == BzType.Broker ? 'Real-Estate Brokers' :
-      bzType == BzType.Manufacturer ? 'Manufacturers' :
-      bzType == BzType.Supplier ? 'Suppliers & Distributors' :
-      bzType == BzType.Designer ? 'Architects, Engineers, Designers & Decorators' :
-      bzType == BzType.Contractor ? 'General & Speciality Contractors' :
-      bzType == BzType.Artisan ? 'Artisans & Craftsmen' : 'The Builders';
-    }
+String bldrsTypePageTitle(BzType bzType) {
+  return bzType == BzType.Developer
+      ? 'Real-Estate Developers'
+      : bzType == BzType.Broker
+          ? 'Real-Estate Brokers'
+          : bzType == BzType.Manufacturer
+              ? 'Manufacturers'
+              : bzType == BzType.Supplier
+                  ? 'Suppliers & Distributors'
+                  : bzType == BzType.Designer
+                      ? 'Architects, Engineers, Designers & Decorators'
+                      : bzType == BzType.Contractor
+                          ? 'General & Speciality Contractors'
+                          : bzType == BzType.Artisan
+                              ? 'Artisans & Craftsmen'
+                              : 'The Builders';
+}
 
 class Ask extends StatelessWidget {
   final BzType bzType;
   final Function tappingAskInfo;
+  final TextEditingController _textController = TextEditingController();
+  String questionBody = '';
 
   Ask({
     this.bzType,
     @required this.tappingAskInfo,
   });
 
-  void tappingAskBt (){
-    print('question is tapped');
+  void submitQuestion() {
+    print(questionBody);
+    _textController.clear();
+    print('Your Question is Submitted');
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -42,17 +52,21 @@ class Ask extends StatelessWidget {
     double abHeight = Ratioz.ddAppBarHeight;
     double abButtonsHeight = abHeight - (abPadding);
 
-
-
-    String askHint =
-    bzType == BzType.Developer ? 'I\'m Looking for a property directly from the developer ...' :
-    bzType == BzType.Broker ? 'I\'m Looking for a property from brokers and re-sellers ...' :
-    bzType == BzType.Manufacturer ? 'I want to Manufacture or get big quantities ...' :
-    bzType == BzType.Supplier ? 'I\'m searching for a product ...' :
-    bzType == BzType.Designer ? 'I need consultation from a designer ...' :
-    bzType == BzType.Contractor ? 'I\'m Looking for a contractor to build a project ...' :
-    bzType == BzType.Artisan ? 'I want a craftsman to fix or build something ...' :
-    'Ask the Builders in your city';
+    String askHint = bzType == BzType.Developer
+        ? 'I\'m Looking for a property directly from the developer ...'
+        : bzType == BzType.Broker
+            ? 'I\'m Looking for a property from brokers and re-sellers ...'
+            : bzType == BzType.Manufacturer
+                ? 'I want to Manufacture or get big quantities ...'
+                : bzType == BzType.Supplier
+                    ? 'I\'m searching for a product ...'
+                    : bzType == BzType.Designer
+                        ? 'I need consultation from a designer ...'
+                        : bzType == BzType.Contractor
+                            ? 'I\'m Looking for a contractor to build a project ...'
+                            : bzType == BzType.Artisan
+                                ? 'I want a craftsman to fix or build something ...'
+                                : 'Ask the Builders in your city';
 
     // String askIcon =
     // bzType == BzType.Developer ? Iconz.BxPropertiesOff :
@@ -68,14 +82,11 @@ class Ask extends StatelessWidget {
       centered: true,
       bubbleColor: Colorz.WhiteAir,
       columnChildren: <Widget>[
-
-
         // --- USER LABEL
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-
             // --- USER PICTURE
             UserBubble(
               userPic: Iconz.DumAuthorPic,
@@ -113,7 +124,9 @@ class Ask extends StatelessWidget {
             ),
 
             // --- EXPANDER SPACE
-            Expanded(child: Container(),),
+            Expanded(
+              child: Container(),
+            ),
 
             // --- INFO BUTTON
             DreamBox(
@@ -130,13 +143,16 @@ class Ask extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: Ratioz.ddAppBarMargin),
           child: SuperTextField(
-            inputColor: Colorz.White,
-            hintText: askHint,
-            keyboardTextInputType: TextInputType.multiline,
-            maxLength: 1000,
-            counterIsOn: false,
-
-          ),
+              textController: _textController,
+              inputColor: Colorz.White,
+              hintText: askHint,
+              keyboardTextInputType: TextInputType.multiline,
+              maxLength: 1000,
+              counterIsOn: false,
+              onChanged: (text) {
+                this.questionBody = text;
+                print(questionBody);
+              }),
         ),
 
         // --- ASK BUTTON
@@ -155,7 +171,7 @@ class Ask extends StatelessWidget {
                 verseScaleFactor: 0.7,
                 color: Colorz.Yellow,
                 verseWeight: VerseWeight.bold,
-                boxFunction: tappingAskBt,
+                boxFunction: submitQuestion,
               ),
             )
           ],
