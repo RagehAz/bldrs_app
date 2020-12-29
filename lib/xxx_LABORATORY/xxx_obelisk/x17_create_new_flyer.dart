@@ -109,8 +109,8 @@ class _CreateFlyerScreenState extends State<CreateFlyerScreen> {
   }
   // ----------------------------------------------------------------------
   void slidingAction(int numberOfSlides, int currentSlide) {
-      slidingDecision(numberOfSlides, currentSlide) == SlidingDirection.next ? slideToNext(numberOfSlides, currentSlide) :
-      slidingDecision(numberOfSlides, currentSlide) == SlidingDirection.back ? slideToBack(currentSlide) :
+      slidingDecision(numberOfSlides, currentSlide) == SlidingDirection.next ? slideToBack(currentSlide) :
+      slidingDecision(numberOfSlides, currentSlide) == SlidingDirection.back ? slideToNext(numberOfSlides, currentSlide) :
           print('no sliding possible ');
   }
   // ----------------------------------------------------------------------
@@ -186,13 +186,14 @@ class _CreateFlyerScreenState extends State<CreateFlyerScreen> {
     {
       _hideAndSlide(numberOfSlides, currentSlide);
       _decreaseProgressBar();
+      // _currentSlidePlus();
       Future.delayed(
         Duration(milliseconds: Ratioz.fadingSlideMilliSeconds + Ratioz.slidingMilliSeconds),
           (){
             _simpleDelete(currentSlide);
-            // snapToBack(currentSlide - 1);
           }
       );
+            // snapToBack(currentSlide);
     }
     else
       {print('no slide to delete');}
