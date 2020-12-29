@@ -23,7 +23,7 @@ class FlyerZone extends StatelessWidget {
     double screenWidth = superScreenWidth(context);
     double screenWithoutSafeAreaHeight = superScreenHeightWithoutSafeArea(context);
     // ----------------------------------------------------------------------
-    double flyerZoneWidth = superFlyerZoneWidth(flyerSizeFactor, screenWidth);
+    double flyerZoneWidth = superFlyerZoneWidth(context, flyerSizeFactor);
     double flyerZoneHeight = flyerSizeFactor == 1 ?
     screenWithoutSafeAreaHeight : flyerZoneWidth * Ratioz.xxflyerZoneHeight;
     double flyerTopCorners = flyerZoneWidth * Ratioz.xxflyerTopCorners;
@@ -83,9 +83,13 @@ class FlyerZone extends StatelessWidget {
           child: ClipRRect(
             borderRadius: flyerBorders,
 
-            child: Stack(
-              alignment: Alignment.topCenter,
-              children: stackWidgets,
+            child: Container(
+              width: flyerZoneWidth,
+              height: flyerZoneHeight,
+              child: Stack(
+                alignment: Alignment.topCenter,
+                children: stackWidgets,
+              ),
             ),
           ),
         ),

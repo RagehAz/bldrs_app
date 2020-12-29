@@ -78,4 +78,9 @@ static const double bzLogoCorner = 0.17152;
 // -------------------------------------------------------------------------
 // paddings
 static const double stratosphere = 70;
+
+// -------------------------------------------------------------------------
+// Durations
+static const int slidingMilliSeconds = 500;
+static const int fadingSlideMilliSeconds = 100;
 }

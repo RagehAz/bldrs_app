@@ -11,9 +11,9 @@ double superScreenHeight (BuildContext context){
   return screenHeight;
 }
 // === === === === === === === === === === === === === === === === === === ===
-double superFlyerZoneWidth (double flyerSizeFactor, double screenWidth){
+double superFlyerZoneWidth (BuildContext context, double flyerSizeFactor){
+  double screenWidth = superScreenWidth(context);
   double flyerZoneWidth = screenWidth * flyerSizeFactor;
-  print('flyerZoneWidth = $flyerZoneWidth');
   return flyerZoneWidth;
 }
 // === === === === === === === === === === === === === === === === === === ===

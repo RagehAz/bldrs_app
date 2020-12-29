@@ -43,6 +43,7 @@ class _SlidesState extends State<Slides> {
         shares: widget.coSlides[0]?.sharesCount,
         views: widget.coSlides[0]?.horuseeCount,
         slideIndex: 0,
+        slideMode: SlideMode.View,
       )
           :
       // -- FLYER SLIDES
@@ -63,6 +64,7 @@ class _SlidesState extends State<Slides> {
             shares: widget.coSlides[i].sharesCount,
             views: widget.coSlides[i].horuseeCount,
             slideIndex : i,
+            slideMode: SlideMode.View,
           );
 
           },

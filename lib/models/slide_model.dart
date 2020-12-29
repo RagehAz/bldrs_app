@@ -1,12 +1,12 @@
 import 'package:flutter/foundation.dart';
 
 class SlideModel{
-  final flyerID;
-  final slideID;
-  final slideIndex;
-  final picture;
-  final headline;
-  final description;
+  final String flyerID;
+  final String slideID;
+  final int slideIndex;
+  final dynamic picture;
+  final String headline;
+  final String description;
 
   SlideModel({
     @required this.flyerID,

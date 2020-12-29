@@ -18,17 +18,19 @@ class ProgressBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int _numberOfSlides = numberOfSlides == 0 ? 1 : numberOfSlides;
     // ----------------------------------------------------------------------------
     double boxWidth = flyerZoneWidth;
     double boxHeight = flyerZoneWidth * 0.0125;
     EdgeInsets boxTopMargin = EdgeInsets.only(top: flyerZoneWidth * 0.27);
     double allStripsLength = flyerZoneWidth * 0.895;
+    double allStripsOneSideMargin = (flyerZoneWidth - allStripsLength) / 2;
     double aStripThickness = flyerZoneWidth * 0.007;
     double aStripOneMargin = aStripThickness / 2;
-    double aStripLength = (allStripsLength / numberOfSlides) - (aStripOneMargin*2);
+    double aStripLength = (allStripsLength / _numberOfSlides) - (aStripOneMargin*2);
     Color stripColor = Colorz.WhiteSmoke;
     double stripCorner = aStripThickness * 0.5;
-    Color currentStripColor = Colorz.WhiteLingerie;
+    Color currentStripColor = numberOfSlides == 0 ? Colorz. WhiteAir : Colorz.WhiteLingerie;
     // ----------------------------------------------------------------------------
     bool microMode = superFlyerMicroMode(context, flyerZoneWidth);
     // ----------------------------------------------------------------------------
@@ -40,6 +42,7 @@ class ProgressBar extends StatelessWidget {
           width: boxWidth,
           height: boxHeight,
           margin: boxTopMargin,
+          padding: EdgeInsets.symmetric(horizontal: allStripsOneSideMargin),
           alignment: Alignment.center,
           child: Stack(
             alignment: superCenterAlignment(context),
@@ -50,7 +53,7 @@ class ProgressBar extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
-                children: List.generate(numberOfSlides, (index) {
+                children: List.generate(_numberOfSlides, (index) {
 
                   // --- PROGRESS BAR BASE STRIP
                   return Flexible(

@@ -84,7 +84,7 @@ UserModel getUserByUserID(String userID){
   UserModel userData = xUsers.singleWhere((id) => id.userID == userID, orElse: ()=> null);
   return userData;
 }
-
+// ----------------------------------------------------------------------------
 List<ContactModel> getContactsFromContactsByOwnerID(List<ContactModel> list, String ownerID){
   List<ContactModel> outputList = new List();
   list.forEach((co) {
@@ -92,7 +92,7 @@ List<ContactModel> getContactsFromContactsByOwnerID(List<ContactModel> list, Str
   });
   return outputList; // can never be null only empty list
 }
-
+// ----------------------------------------------------------------------------
 List<ContactModel> getContactsByOwnerID(String ownerID){
   List<ContactModel> ownerContacts = new List();
 
@@ -108,19 +108,19 @@ List<ContactModel> getContactsByOwnerID(String ownerID){
 
   return ownerContacts.isEmpty ? null : ownerContacts;
 }
-
+// ----------------------------------------------------------------------------
 // List<ContactModel> getContactModelByContactTypeWithID(int index, String userID){
 //   List<ContactModel> contactList = getContactModelListByID(userID);
 //   if (contactList == null){contactList = [];}
 //   return index >= contactList?.length || index < 0 ? null :
 //   contactList[index];
 // }
-
+// ----------------------------------------------------------------------------
 LocationModel getUserLocationByUserID(String userID){
   LocationModel userLocation = xUsersLocations.singleWhere((lo) => lo.ownerID == userID, orElse: ()=> null);
   return userLocation;
 }
-
+// ----------------------------------------------------------------------------
 CoUser getCoUserByUserID(String userID){
 
   UserModel user = getUserByUserID(userID);
@@ -133,18 +133,18 @@ CoUser getCoUserByUserID(String userID){
       userLocation: userLocation,
   );
 }
-
+// ----------------------------------------------------------------------------
 // ----------------------------------------------------------------------------
 // --- AUTHOR FETCHERS
 
 // UserModel getAuthorByUserID(){} should go to provider
 // UserModel getUserByAuthorID(){} should go to provider
-
+// ----------------------------------------------------------------------------
 AuthorModel getAuthorByAuthorID(String authorID){
   AuthorModel author = xAuthors.singleWhere((au) => au.authorID == authorID, orElse: ()=> null);
   return author;
 }
-
+// ----------------------------------------------------------------------------
 List<ConnectionModel> getConnectionsByAuthorID(String authorID){
   List<ConnectionModel> connections = new List();
   xConnections.forEach((co) {
@@ -154,7 +154,7 @@ List<ConnectionModel> getConnectionsByAuthorID(String authorID){
   });
   return connections;
 }
-
+// ----------------------------------------------------------------------------
 CoAuthor getCoAuthorByAuthorID(String authorID){
 
   AuthorModel author = getAuthorByAuthorID(authorID);
@@ -169,7 +169,7 @@ CoAuthor getCoAuthorByAuthorID(String authorID){
       authorFlyersIDs: authorFlyersID,
   );
 }
-
+// ----------------------------------------------------------------------------
 List<CoAuthor> getAllCoAuthors(){
   List<CoAuthor> allCoAuthors = new List();
   xAuthors.forEach((au) {
@@ -177,7 +177,7 @@ List<CoAuthor> getAllCoAuthors(){
   });
   return allCoAuthors;
 }
-
+// ----------------------------------------------------------------------------
 // ----------------------------------------------------------------------------
 // --- BZ FETCHERS
 

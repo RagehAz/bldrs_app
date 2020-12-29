@@ -115,7 +115,7 @@ class _ProFlyerState extends State<ProFlyer> with AutomaticKeepAliveClientMixin{
 // ----------------------------------------------------------------------------
     // === === === === === === === === === === === === === === === === === === ===
     double screenWidth = superScreenWidth(context);
-    double flyerZoneWidth = superFlyerZoneWidth(widget.flyerSizeFactor, screenWidth);
+    double flyerZoneWidth = superFlyerZoneWidth(context, widget.flyerSizeFactor);
     // === === === === === === === === === === === === === === === === === === ===
     bool _barIsOn = widget.slidingIsOn == true && bzPageIsOn == false ? true : false;
     // === === === === === === === === === === === === === === === === === === ===
@@ -137,6 +137,7 @@ class _ProFlyerState extends State<ProFlyer> with AutomaticKeepAliveClientMixin{
             currentSlideIndex: widget.currentSlideIndex,
             sliding: slidingPages,
             coSlides: coSlides,
+
           ),
 
           Consumer<CoFlyer>(
