@@ -5,6 +5,7 @@ import 'package:bldrs/view_brains/localization/localization_constants.dart';
 import 'package:bldrs/view_brains/router/route_names.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
+import 'package:bldrs/views/screens/ask_screen.dart';
 import 'package:bldrs/views/widgets/appbar/ab_main.dart';
 import 'package:bldrs/views/widgets/appbar/pages/pg_country.dart';
 import 'package:bldrs/views/widgets/artworks/bldrs_name_logo_slogan.dart';
@@ -25,7 +26,8 @@ import 'package:bldrs/xxx_LABORATORY/camera_and_location/x13_camera.dart';
 import 'package:bldrs/xxx_LABORATORY/forms_and_inputs/popup.dart';
 import 'package:bldrs/xxx_LABORATORY/forms_and_inputs/form.dart';
 import 'package:bldrs/xxx_LABORATORY/testers/database_viewer_screen.dart';
-import 'package:bldrs/xxx_LABORATORY/testers/test_subjects.dart' as TestSubjects;
+import 'package:bldrs/xxx_LABORATORY/testers/test_subjects.dart'
+    as TestSubjects;
 import 'package:bldrs/xxx_LABORATORY/testers/testerScreen.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x11_pro_flyer_grid_view.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x16_sounds_screen.dart';
@@ -35,6 +37,7 @@ import 'package:flutter/material.dart';
 import '../CLEANING_SPACE.dart';
 import 'x10_pro_flyer_page_view.dart';
 import 'x12_checkbox_lesson.dart';
+
 // === === === === === === === === === === === === === === === === === === ===
 // ---------------------------------------------------------------------------
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
@@ -49,12 +52,10 @@ class ObeliskScreen extends StatefulWidget {
 
 class _ObeliskScreenState extends State<ObeliskScreen> {
   String theChosenFlag = flagFileNameSelectedFromPGLanguageList;
-  void flagSwitch(){
-    setState(
-        (){
-          theChosenFlag = flagFileNameSelectedFromPGLanguageList;
-        }
-    );
+  void flagSwitch() {
+    setState(() {
+      theChosenFlag = flagFileNameSelectedFromPGLanguageList;
+    });
     print(flagFileNameSelectedFromPGLanguageList);
   }
 
@@ -79,7 +80,6 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
       appBarType: AppBarType.Main,
       layoutWidget: ListView(
         children: <Widget>[
-
           Stratosphere(),
 
           LogoSlogan(),
@@ -91,6 +91,17 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
             buttonVerseShadow: true,
             splashColor: Colorz.Yellow,
             function: () => goToNewScreen(context, CreateFlyerScreen()),
+            stretched: false,
+          ),
+
+          //  Ask Page
+          BTMain(
+            buttonVerse: "Ask Page",
+            buttonColor: Colorz.BlackPlastic,
+            buttonIcon: Iconz.DvGouran,
+            buttonVerseShadow: true,
+            splashColor: Colorz.Yellow,
+            function: () => goToNewScreen(context, AskScreen()),
             stretched: false,
           ),
 
@@ -106,7 +117,9 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
 
           // --- PRINT TEST
           BTMain(
-            function: (){print('Testing print');},
+            function: () {
+              print('Testing print');
+            },
             buttonIcon: '',
             splashColor: Colorz.White,
             buttonColor: Colorz.BloodRed,
@@ -123,8 +136,9 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
             splashColor: Colorz.White,
             buttonVerseShadow: true,
             function:
-            // Routez.ProviderTest,
-                () => goToNewScreen(context, TesterScreen(testList: TestSubjects.dbGetters)),
+                // Routez.ProviderTest,
+                () => goToNewScreen(
+                    context, TesterScreen(testList: TestSubjects.dbGetters)),
             stretched: false,
           ),
 
@@ -136,8 +150,9 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
             splashColor: Colorz.White,
             buttonVerseShadow: true,
             function:
-            // Routez.ProviderTest,
-                () => goToNewScreen(context, TesterScreen(testList: TestSubjects.proHatters(context))),
+                // Routez.ProviderTest,
+                () => goToNewScreen(context,
+                    TesterScreen(testList: TestSubjects.proHatters(context))),
             stretched: false,
           ),
 
@@ -149,7 +164,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
             splashColor: Colorz.White,
             buttonVerseShadow: true,
             function:
-            // Routez.ProviderTest,
+                // Routez.ProviderTest,
                 () => goToNewScreen(context, DatabaseViewerScreen()),
             stretched: false,
           ),
@@ -228,7 +243,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
             splashColor: Colorz.White,
             buttonVerseShadow: true,
             function:
-            // Routez.ProviderTest,
+                // Routez.ProviderTest,
                 () => goToNewScreen(context, ProFlyersPageView()),
             stretched: false,
           ),
@@ -241,7 +256,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
             splashColor: Colorz.White,
             buttonVerseShadow: true,
             function:
-            // Routez.ProviderTest,
+                // Routez.ProviderTest,
                 () => goToNewScreen(context, ProFlyersGridView()),
             stretched: false,
           ),
@@ -267,7 +282,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
             splashColor: Colorz.White,
             buttonVerseShadow: true,
             function:
-            // Routez.ProviderTest,
+                // Routez.ProviderTest,
                 () => goToNewScreen(context, MaxCameraScreen()),
             // (){widget.controller.animateToPage(0, duration: Duration(milliseconds: 500), curve: Curves.ease);},
             stretched: false,
@@ -281,7 +296,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
             splashColor: Colorz.White,
             buttonVerseShadow: true,
             function:
-            // Routez.ProviderTest,
+                // Routez.ProviderTest,
                 () => goToNewScreen(context, CameraPage()),
             // (){widget.controller.animateToPage(1, duration: Duration(milliseconds: 500), curve: Curves.ease);},
             stretched: false,
@@ -295,7 +310,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
             splashColor: Colorz.White,
             buttonVerseShadow: true,
             function:
-            // Routez.ProviderTest,
+                // Routez.ProviderTest,
                 () => goToNewScreen(context, MainLayout()),
             // (){widget.controller.animateToPage(1, duration: Duration(milliseconds: 500), curve: Curves.ease);},
             stretched: false,
@@ -309,7 +324,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
             splashColor: Colorz.White,
             buttonVerseShadow: true,
             function:
-            // Routez.ProviderTest,
+                // Routez.ProviderTest,
                 () => goToNewScreen(context, CameraScreen()),
             stretched: false,
           ),
@@ -322,7 +337,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
             splashColor: Colorz.White,
             buttonVerseShadow: true,
             function:
-            // Routez.ProviderTest,
+                // Routez.ProviderTest,
                 () => goToNewScreen(context, SoundzScreen()),
             // (){widget.controller.animateToPage(1, duration: Duration(milliseconds: 500), curve: Curves.ease);},
             stretched: false,
@@ -336,7 +351,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
             splashColor: Colorz.White,
             buttonVerseShadow: true,
             function:
-            // Routez.ProviderTest,
+                // Routez.ProviderTest,
                 () => goToNewScreen(context, PopUpTestScreen()),
             stretched: false,
           ),
@@ -349,7 +364,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
             splashColor: Colorz.White,
             buttonVerseShadow: true,
             function:
-            // Routez.ProviderTest,
+                // Routez.ProviderTest,
                 () => goToNewScreen(context, TestFormScreen()),
             stretched: false,
           ),
@@ -406,7 +421,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
             buttonVerseShadow: true,
             splashColor: Colorz.Yellow,
             stretched: true,
-            function:  () => goToNewScreen(context, GoogleMapScreen2()),
+            function: () => goToNewScreen(context, GoogleMapScreen2()),
           ),
 
           // --- GOOGLE MAP IMAGE PIN -------------------------------
@@ -472,9 +487,8 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
             buttonVerseShadow: true,
             splashColor: Colorz.Yellow,
             stretched: true,
-            function:  () => goToNewScreen(context, CheckBoxLessonScreen()),
+            function: () => goToNewScreen(context, CheckBoxLessonScreen()),
           ),
-
 
           // --- DATE PICKER -------------------------------
           TextFormField(
@@ -510,7 +524,8 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
               ),
               GoldenScroll(
                 scrollTitle: 'Google Maps Platform API key',
-                scrollScript: 'AIzaSyDp6MMLw2LJflspqJ0x2uZCmQuZ32vS3XU', // AIzaSyD5CBTWvMaL6gU0X7gfdcnkpFmo-aNfgx4
+                scrollScript:
+                    'AIzaSyDp6MMLw2LJflspqJ0x2uZCmQuZ32vS3XU', // AIzaSyD5CBTWvMaL6gU0X7gfdcnkpFmo-aNfgx4
               ),
               GoldenScroll(
                 scrollTitle: 'To change terminal Directory',
@@ -518,10 +533,10 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
               ),
               GoldenScroll(
                 scrollTitle: 'Git repo URL',
-                scrollScript: 'git remote add origin https://github.com/RagehAz/bldrs.net \n'
+                scrollScript:
+                    'git remote add origin https://github.com/RagehAz/bldrs.net \n'
                     'git push -u origin master',
               ),
-
             ],
           ),
 
@@ -551,7 +566,6 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
           SizedBox(
             height: MediaQuery.of(context).size.height * .5,
           ),
-
         ],
       ),
     );
