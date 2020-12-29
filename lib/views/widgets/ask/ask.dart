@@ -31,14 +31,18 @@ String bldrsTypePageTitle(BzType bzType) {
 class Ask extends StatelessWidget {
   final BzType bzType;
   final Function tappingAskInfo;
+  final TextEditingController _textController = TextEditingController();
+  String questionBody = '';
 
   Ask({
     this.bzType,
     @required this.tappingAskInfo,
   });
 
-  void tappingAskBt() {
-    print('question is tapped');
+  void submitQuestion() {
+    print(questionBody);
+    _textController.clear();
+    print('Your Question is Submitted');
   }
 
   @override
@@ -139,13 +143,16 @@ class Ask extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: Ratioz.ddAppBarMargin),
           child: SuperTextField(
-            inputColor: Colorz.White,
-            hintText: askHint,
-            keyboardTextInputType: TextInputType.multiline,
-            maxLength: 1000,
-            counterIsOn: false,
-
-          ),
+              textController: _textController,
+              inputColor: Colorz.White,
+              hintText: askHint,
+              keyboardTextInputType: TextInputType.multiline,
+              maxLength: 1000,
+              counterIsOn: false,
+              onChanged: (text) {
+                this.questionBody = text;
+                print(questionBody);
+              }),
         ),
 
         // --- ASK BUTTON
@@ -164,7 +171,7 @@ class Ask extends StatelessWidget {
                 verseScaleFactor: 0.7,
                 color: Colorz.Yellow,
                 verseWeight: VerseWeight.bold,
-                boxFunction: tappingAskBt,
+                boxFunction: submitQuestion,
               ),
             )
           ],
