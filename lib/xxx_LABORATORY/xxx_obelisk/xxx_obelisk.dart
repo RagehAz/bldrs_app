@@ -89,21 +89,22 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
 
           LogoSlogan(),
 
+          // --- ADD FLYER
           BTMain(
             buttonVerse: getTranslated(context, 'Create_Flyer'),
             buttonColor: Colorz.BlackPlastic,
-            buttonIcon: Iconz.DvGouran,
+            buttonIcon: Iconz.AddFlyer,
             buttonVerseShadow: true,
             splashColor: Colorz.Yellow,
             function: () => goToNewScreen(context, CreateFlyerScreen()),
             stretched: false,
           ),
 
-          //  Ask Screen
+          // --- BISO ASK SCREEN
           BTMain(
             buttonVerse: "Biso Ask Screen",
             buttonColor: Colorz.BlackPlastic,
-            buttonIcon: Iconz.DvGouran,
+            buttonIcon: Iconz.UTPlanning,
             buttonVerseShadow: true,
             splashColor: Colorz.Yellow,
             function: () => goToNewScreen(context, AskScreen()),
@@ -177,7 +178,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
           // --- FLYERS SCREEN -------------------------------
           BTMain(
             buttonVerse: 'Flyer Screen',
-            buttonIcon: Iconz.Gallery,
+            buttonIcon: Iconz.Flyer,
             buttonColor: Colorz.Green,
             splashColor: Colorz.Yellow,
             buttonVerseShadow: false,
@@ -185,10 +186,10 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
             stretched: false,
           ),
 
-          // --- FLYERS TEST SCREEN -------------------------------
+          // --- FLYERS SIZES TEST -------------------------------
           BTMain(
             buttonVerse: 'Flyer Sizes tests',
-            buttonIcon: Iconz.Flyer,
+            buttonIcon: Iconz.FlyerScale,
             buttonColor: Colorz.Green,
             splashColor: Colorz.Yellow,
             buttonVerseShadow: false,
@@ -199,7 +200,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
           // --- FLYERS COLLECTION -------------------------------
           BTMain(
             buttonVerse: 'Single Collection Screen',
-            buttonIcon: Iconz.Gallery,
+            buttonIcon: Iconz.FlyerCollection,
             buttonColor: Colorz.Green,
             splashColor: Colorz.White,
             buttonVerseShadow: true,
@@ -256,7 +257,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
           // --- PRO FLYERS GRID VIEW -------------------------------
           BTMain(
             buttonVerse: 'ProFlyersGridView',
-            buttonIcon: Iconz.Statistics,
+            buttonIcon: Iconz.FlyerGrid,
             buttonColor: Colorz.Green,
             splashColor: Colorz.White,
             buttonVerseShadow: true,
