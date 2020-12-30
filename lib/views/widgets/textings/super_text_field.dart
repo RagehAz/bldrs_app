@@ -28,7 +28,7 @@ class SuperTextField extends StatefulWidget {
   final Function onChanged;
   TextEditingController textController;
 
-  SuperTextField({
+   SuperTextField({
     this.keyboardTextInputType = TextInputType.text,
     this.inputColor = Colorz.White,
     this.designMode = false,

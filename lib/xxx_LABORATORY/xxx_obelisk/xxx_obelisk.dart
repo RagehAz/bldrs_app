@@ -5,8 +5,6 @@ import 'package:bldrs/view_brains/localization/localization_constants.dart';
 import 'package:bldrs/view_brains/router/route_names.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
-import 'package:bldrs/views/screens/ask_screen.dart';
-import 'package:bldrs/views/widgets/appbar/ab_main.dart';
 import 'package:bldrs/views/widgets/appbar/pages/pg_country.dart';
 import 'package:bldrs/views/widgets/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/views/widgets/buttons/bt_main.dart';
@@ -15,9 +13,8 @@ import 'package:bldrs/views/widgets/planet/google_map_2.dart';
 import 'package:bldrs/views/widgets/planet/google_map_3.dart';
 import 'package:bldrs/views/widgets/planet/google_map_4.dart';
 import 'package:bldrs/views/widgets/planet/google_map_5.dart';
-import 'package:bldrs/views/widgets/pyramids/pyramids.dart';
-import 'package:bldrs/views/widgets/space/skies/night_sky.dart';
 import 'package:bldrs/views/widgets/space/stratosphere.dart';
+import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:bldrs/views/widgets/textings/the_golden_scroll.dart';
 import 'package:bldrs/xxx_LABORATORY/ask/ask_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/camera_and_location/camera_page.dart';
@@ -27,15 +24,12 @@ import 'package:bldrs/xxx_LABORATORY/camera_and_location/x13_camera.dart';
 import 'package:bldrs/xxx_LABORATORY/forms_and_inputs/popup.dart';
 import 'package:bldrs/xxx_LABORATORY/forms_and_inputs/form.dart';
 import 'package:bldrs/xxx_LABORATORY/testers/database_viewer_screen.dart';
-import 'package:bldrs/xxx_LABORATORY/testers/test_subjects.dart'
-    as TestSubjects;
+import 'package:bldrs/xxx_LABORATORY/testers/test_subjects.dart' as TestSubjects;
 import 'package:bldrs/xxx_LABORATORY/testers/testerScreen.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x11_pro_flyer_grid_view.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x16_sounds_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x17_create_new_flyer.dart';
-import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x18_multi_gallery_picker.dart';
 import 'package:flutter/material.dart';
-import '../CLEANING_SPACE.dart';
 import 'x10_pro_flyer_page_view.dart';
 import 'x12_checkbox_lesson.dart';
 
@@ -81,35 +75,36 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
       appBarType: AppBarType.Main,
       layoutWidget: ListView(
         children: <Widget>[
+
           Stratosphere(),
+
+          SuperVerse(
+            verse: 'Dear Lord\nPlease give us the power to finish this and reach the ends of planet earth',
+            size: 0,
+            italic: true,
+            weight: VerseWeight.thin,
+            color: Colorz.WhiteSmoke,
+            maxLines: 4,
+          ),
 
           LogoSlogan(),
 
-          BTMain(
-            buttonVerse: 'AskScreen',
-            buttonColor: Colorz.BloodRed,
-            buttonIcon: Iconz.DvGouran,
-            buttonVerseShadow: true,
-            splashColor: Colorz.Yellow,
-            function: () => goToNewScreen(context, AskScreen()),
-            stretched: false,
-          ),
-
+          // --- ADD FLYER
           BTMain(
             buttonVerse: getTranslated(context, 'Create_Flyer'),
             buttonColor: Colorz.BlackPlastic,
-            buttonIcon: Iconz.DvGouran,
+            buttonIcon: Iconz.AddFlyer,
             buttonVerseShadow: true,
             splashColor: Colorz.Yellow,
             function: () => goToNewScreen(context, CreateFlyerScreen()),
             stretched: false,
           ),
 
-          //  Ask Page
+          // --- BISO ASK SCREEN
           BTMain(
-            buttonVerse: "Ask Page",
+            buttonVerse: "Biso Ask Screen",
             buttonColor: Colorz.BlackPlastic,
-            buttonIcon: Iconz.DvGouran,
+            buttonIcon: Iconz.UTPlanning,
             buttonVerseShadow: true,
             splashColor: Colorz.Yellow,
             function: () => goToNewScreen(context, AskScreen()),
@@ -183,7 +178,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
           // --- FLYERS SCREEN -------------------------------
           BTMain(
             buttonVerse: 'Flyer Screen',
-            buttonIcon: Iconz.Gallery,
+            buttonIcon: Iconz.Flyer,
             buttonColor: Colorz.Green,
             splashColor: Colorz.Yellow,
             buttonVerseShadow: false,
@@ -191,10 +186,10 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
             stretched: false,
           ),
 
-          // --- FLYERS TEST SCREEN -------------------------------
+          // --- FLYERS SIZES TEST -------------------------------
           BTMain(
             buttonVerse: 'Flyer Sizes tests',
-            buttonIcon: Iconz.Flyer,
+            buttonIcon: Iconz.FlyerScale,
             buttonColor: Colorz.Green,
             splashColor: Colorz.Yellow,
             buttonVerseShadow: false,
@@ -205,7 +200,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
           // --- FLYERS COLLECTION -------------------------------
           BTMain(
             buttonVerse: 'Single Collection Screen',
-            buttonIcon: Iconz.Gallery,
+            buttonIcon: Iconz.FlyerCollection,
             buttonColor: Colorz.Green,
             splashColor: Colorz.White,
             buttonVerseShadow: true,
@@ -262,7 +257,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
           // --- PRO FLYERS GRID VIEW -------------------------------
           BTMain(
             buttonVerse: 'ProFlyersGridView',
-            buttonIcon: Iconz.Statistics,
+            buttonIcon: Iconz.FlyerGrid,
             buttonColor: Colorz.Green,
             splashColor: Colorz.White,
             buttonVerseShadow: true,
@@ -383,7 +378,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
           // --- HERO -------------------------------
           BTMain(
             buttonVerse: 'Hero Test',
-            buttonIcon: Iconz.Gallery,
+            buttonIcon: Iconz.FlyerScale,
             buttonColor: Colorz.Grey,
             splashColor: Colorz.White,
             buttonVerseShadow: true,
