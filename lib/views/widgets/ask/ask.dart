@@ -1,14 +1,18 @@
 import 'package:bldrs/models/enums/enum_bz_type.dart';
+import 'package:bldrs/providers/questions_provider.dart';
 import 'package:bldrs/view_brains/drafters/aligners.dart';
+import 'package:bldrs/view_brains/router/navigators.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
+import 'package:bldrs/views/screens/questions_screen.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/buttons/user_bubble.dart';
 import 'package:bldrs/views/widgets/in_pyramids/in_pyramids_items/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/textings/super_text_field.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 String bldrsTypePageTitle(BzType bzType) {
   return bzType == BzType.Developer
@@ -47,6 +51,7 @@ class Ask extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final questionsProvider = Provider.of<QuestionsProvider>(context);
     UserType userType = UserType.PlanningUser;
     double abPadding = Ratioz.ddAppBarMargin * 0.5;
     double abHeight = Ratioz.ddAppBarHeight;
@@ -163,17 +168,24 @@ class Ask extends StatelessWidget {
             Align(
               alignment: superInverseCenterAlignment(context),
               child: DreamBox(
-                width: 150,
-                height: 40,
-                boxMargins: EdgeInsets.only(bottom: 10),
-                verse: 'Ask',
-                verseColor: Colorz.BlackBlack,
-                verseScaleFactor: 0.7,
-                color: Colorz.Yellow,
-                verseWeight: VerseWeight.bold,
-                boxFunction: submitQuestion,
-              ),
-            )
+                  width: 150,
+                  height: 40,
+                  boxMargins: EdgeInsets.only(bottom: 10),
+                  verse: 'Ask',
+                  verseColor: Colorz.BlackBlack,
+                  verseScaleFactor: 0.7,
+                  color: Colorz.Yellow,
+                  verseWeight: VerseWeight.bold,
+                  boxFunction: () {
+                    if (questionBody == '') {
+                      print("Question cannot be empty");
+                    } else {
+                      questionsProvider.add(questionBody);
+                      submitQuestion();
+                      goToNewScreen(context, QuestionsScreen());
+                    }
+                  }),
+            ),
           ],
         ),
       ],
