@@ -14,6 +14,7 @@ import 'package:bldrs/views/widgets/planet/google_map_3.dart';
 import 'package:bldrs/views/widgets/planet/google_map_4.dart';
 import 'package:bldrs/views/widgets/planet/google_map_5.dart';
 import 'package:bldrs/views/widgets/space/stratosphere.dart';
+import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:bldrs/views/widgets/textings/the_golden_scroll.dart';
 import 'package:bldrs/xxx_LABORATORY/ask/ask_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/camera_and_location/camera_page.dart';
@@ -74,7 +75,17 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
       appBarType: AppBarType.Main,
       layoutWidget: ListView(
         children: <Widget>[
+
           Stratosphere(),
+
+          SuperVerse(
+            verse: 'Dear Lord\nPlease give us the power to finish this and reach the ends of planet earth',
+            size: 0,
+            italic: true,
+            weight: VerseWeight.thin,
+            color: Colorz.WhiteSmoke,
+            maxLines: 4,
+          ),
 
           LogoSlogan(),
 
@@ -88,9 +99,9 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
             stretched: false,
           ),
 
-          //  Ask Page
+          //  Ask Screen
           BTMain(
-            buttonVerse: "Biso Ask Page",
+            buttonVerse: "Biso Ask Screen",
             buttonColor: Colorz.BlackPlastic,
             buttonIcon: Iconz.DvGouran,
             buttonVerseShadow: true,
