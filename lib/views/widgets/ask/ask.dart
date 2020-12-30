@@ -160,6 +160,17 @@ class Ask extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
+
+            SuperVerse(
+              verse: 'We need to add the functionality\nfor the asker to choose which\nBzType he is asking,\nand which hashtags',
+              size: 0,
+              color: Colorz.BloodRed,
+              italic: true,
+              maxLines: 7,
+              centered: false,
+              margin: 5,
+            ),
+
             Align(
               alignment: superInverseCenterAlignment(context),
               child: DreamBox(
@@ -174,6 +185,7 @@ class Ask extends StatelessWidget {
                 boxFunction: submitQuestion,
               ),
             )
+
           ],
         ),
       ],

@@ -155,7 +155,7 @@ class AddBzScreen extends StatelessWidget {
                                     DreamBox(
                                       height: 50,
                                       width: 100,
-                                      verse: bzTypeStringer(context, _bzTypes[index]['BzType']),
+                                      verse: bzTypeSingleStringer(context, _bzTypes[index]['BzType']),
                                       verseWeight: VerseWeight.bold,
                                       verseScaleFactor: 0.5,
                                       boxMargins: EdgeInsets.symmetric(horizontal: 10, vertical: 5),

@@ -45,7 +45,7 @@ String sectionStringer (BuildContext context, BldrsSection section){
             'Home';
     }
 // ----------------------------------------------------------------------------
-String bzTypeStringer (BuildContext context, BzType bzType){
+String bzTypeSingleStringer (BuildContext context, BzType bzType){
   return
         bzType == BzType.Developer ? 'Real-Estate Developer' :
         bzType == BzType.Broker ? 'Real-Estate Broker' :
@@ -56,6 +56,18 @@ String bzTypeStringer (BuildContext context, BzType bzType){
         bzType == BzType.Supplier ? 'Supplier' :
             'Builder';
     }
+// ----------------------------------------------------------------------------
+String bzTypePluralStringer (BuildContext context, BzType bzType){
+  return
+    bzType == BzType.Developer ? 'Real-Estate Developers' :
+    bzType == BzType.Broker ? 'Real-Estate Brokers' :
+    bzType == BzType.Designer ? 'Designers' :
+    bzType == BzType.Contractor ? 'Contractors' :
+    bzType == BzType.Artisan ? 'Artisans' :
+    bzType == BzType.Manufacturer ? 'Manufacturers' :
+    bzType == BzType.Supplier ? 'Suppliers' :
+    'Builders';
+}
 // ----------------------------------------------------------------------------
 String flyerTypeSingleStringer (BuildContext context, FlyerType flyerType){
 
@@ -102,5 +114,5 @@ String functionStringer(Function function) {
   print('functionNameAsAString : ${functionNameAsAString.substring(s + 1, e)}');
   return functionNameAsAString.substring(s+1, e);  // return functionNameAsAString;
 }
-
+// ----------------------------------------------------------------------------
 
