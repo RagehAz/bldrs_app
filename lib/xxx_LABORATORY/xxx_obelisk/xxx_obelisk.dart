@@ -378,7 +378,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
           // --- HERO -------------------------------
           BTMain(
             buttonVerse: 'Hero Test',
-            buttonIcon: Iconz.Gallery,
+            buttonIcon: Iconz.FlyerScale,
             buttonColor: Colorz.Grey,
             splashColor: Colorz.White,
             buttonVerseShadow: true,
