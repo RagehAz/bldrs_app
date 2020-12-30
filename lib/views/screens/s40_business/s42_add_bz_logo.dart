@@ -47,7 +47,7 @@ class AddBzLogoScreen extends StatelessWidget {
     String bzCountry = 'Damn Country ' ;
     String bzCity = 'Fucking city' ;
 
-    String bzTypeString = bzTypeStringer(context, bzType);
+    String bzTypeString = bzTypeSingleStringer(context, bzType);
 
     // void tappingCity() {
     //   print('city is tapped');

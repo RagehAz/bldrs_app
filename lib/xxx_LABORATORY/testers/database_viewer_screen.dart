@@ -22,7 +22,7 @@ Widget allBzzDreamList = DreamList(
   itemBuilder: (BuildContext c, int x) =>
       DreamTile(
         index: x,
-        info: '${allBz[x]?.bzId}: ${bzTypeStringer(c, allBz[x]?.bzType)}, ${bzFormStringer(c,allBz[x]?.bzForm)}, ${allBz[x]?.bzCity}',
+        info: '${allBz[x]?.bzId}: ${bzTypeSingleStringer(c, allBz[x]?.bzType)}, ${bzFormStringer(c,allBz[x]?.bzForm)}, ${allBz[x]?.bzCity}',
         icon: allBz[x].bzLogo,
         verse: allBz[x].bzName,
         secondLine: 'canPublish:${allBz[x]?.bzAccountCanPublish} ... isPublished:${allBz[x]?.bzAccountIsPublished}',
