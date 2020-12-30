@@ -1,16 +1,14 @@
 import 'package:bldrs/models/enums/enum_bz_type.dart';
-import 'package:bldrs/providers/questions_provider.dart';
 import 'package:bldrs/view_brains/drafters/aligners.dart';
-import 'package:bldrs/view_brains/router/navigators.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
-import 'package:bldrs/views/screens/questions_screen.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/buttons/user_bubble.dart';
 import 'package:bldrs/views/widgets/in_pyramids/in_pyramids_items/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/textings/super_text_field.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
+import 'package:bldrs/xxx_LABORATORY/ask/questions_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -165,9 +163,9 @@ class Ask extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-
             SuperVerse(
-              verse: 'We need to add the functionality\nfor the asker to choose which\nBzType he is asking,\nand which hashtags',
+              verse:
+                  'We need to add the functionality\nfor the asker to choose which\nBzType he is asking,\nand which hashtags',
               size: 0,
               color: Colorz.BloodRed,
               italic: true,
@@ -175,7 +173,6 @@ class Ask extends StatelessWidget {
               centered: false,
               margin: 5,
             ),
-
             Align(
               alignment: superInverseCenterAlignment(context),
               child: DreamBox(

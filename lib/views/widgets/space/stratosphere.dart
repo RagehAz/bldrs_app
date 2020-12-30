@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 class Stratosphere extends StatelessWidget {
 
   static const EdgeInsets stratosphereInsets = EdgeInsets.only(top: Ratioz.stratosphere);
+  static const EdgeInsets stratosphereSandwich = EdgeInsets.only(top: Ratioz.stratosphere, bottom: Ratioz.stratosphere);
 
   @override
   Widget build(BuildContext context) {

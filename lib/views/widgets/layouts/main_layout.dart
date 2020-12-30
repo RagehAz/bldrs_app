@@ -1,10 +1,7 @@
-import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/localization/localization_constants.dart';
-import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/views/widgets/appbar/ab_main.dart';
 import 'package:bldrs/views/widgets/pyramids/pyramids.dart';
 import 'package:bldrs/views/widgets/space/skies/night_sky.dart';
-import 'package:bldrs/views/widgets/space/stratosphere.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/views/widgets/buttons/bt_rageh.dart';
 import '../../../main.dart';

@@ -13,7 +13,7 @@ class PyramidsHorizon extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: Ratioz.ddPyramidsHeight * 0.4 * heightFactor,
+      height: Ratioz.horizon * heightFactor,
     );
   }
 }
