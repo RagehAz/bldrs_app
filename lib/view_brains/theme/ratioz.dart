@@ -81,6 +81,7 @@ static const double stratosphere = 70;
 
 // -------------------------------------------------------------------------
 // Durations
-static const int slidingMilliSeconds = 500;
-static const int fadingSlideMilliSeconds = 100;
+static const Duration slidingDuration = Duration(milliseconds: 600);
+static const Duration fadingDuration = Duration(milliseconds: 150);
+static const Duration slidingAndFadingDuration = Duration(milliseconds: 750);
 }

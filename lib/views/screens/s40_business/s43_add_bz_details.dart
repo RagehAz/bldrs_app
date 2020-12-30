@@ -145,7 +145,7 @@ class AddBzDetailsScreen extends StatelessWidget {
                 height: 60,
                 width: 200,
                 color: Colorz.BloodRed,
-                verse: '${bzTypeStringer(context, bzType)}\n$bzName\n$bzCity\n$bzCountry',
+                verse: '${bzTypeSingleStringer(context, bzType)}\n$bzName\n$bzCity\n$bzCountry',
                 verseMaxLines: 4,
                 verseScaleFactor: 0.35,
               ),
