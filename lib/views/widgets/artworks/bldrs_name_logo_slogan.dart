@@ -62,7 +62,7 @@ import 'package:websafe_svg/websafe_svg.dart';
               child:
               SuperVerse(
                 verse: getTranslated(context, 'Bldrs_Description'),
-                size: 3,
+                size: 2,
                 weight: VerseWeight.thin,
                 designMode: false,
                 shadow: true,
