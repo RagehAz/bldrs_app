@@ -1,3 +1,5 @@
+import 'package:bldrs/view_brains/drafters/scalers.dart';
+import 'package:bldrs/view_brains/router/navigators.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/views/widgets/ask/ask.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
@@ -6,6 +8,7 @@ import 'package:bldrs/views/widgets/pyramids/enum_lister.dart';
 import 'package:bldrs/views/widgets/space/pyramids_horizon.dart';
 import 'package:bldrs/views/widgets/space/stratosphere.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
+import 'package:bldrs/xxx_LABORATORY/ask/questions_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'business_type_maps.dart';
@@ -101,6 +104,16 @@ class _AskScreenState extends State<AskScreen> {
                     verse: 'tap me',
                     boxFunction: () => _openEnumLister(bzTypesMap),
                   ),
+
+                  DreamBox(
+                    height: 80,
+                    width: superScreenWidth(context),
+                    verse: 'Go to Questions Screen',
+                    boxFunction: () => goToNewScreen(context, QuestionsScreen()),
+                  ),
+
+
+
 
 
 

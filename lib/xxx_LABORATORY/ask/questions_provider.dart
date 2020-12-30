@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'question_model.dart';
 
-import 'package:bldrs/models/question_model.dart';
 
 class QuestionsProvider with ChangeNotifier {
   List<Question> _questions = [];

@@ -78,6 +78,7 @@ static const double bzLogoCorner = 0.17152;
 // -------------------------------------------------------------------------
 // paddings
 static const double stratosphere = 70;
+static const double horizon = ddPyramidsHeight * 0.4;
 
 // -------------------------------------------------------------------------
 // Durations
