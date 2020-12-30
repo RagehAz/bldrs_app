@@ -165,27 +165,32 @@ class Ask extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
+
+            SuperVerse(
+              verse: 'We need to add the functionality\nfor the asker to choose which\nBzType he is asking,\nand which hashtags',
+              size: 0,
+              color: Colorz.BloodRed,
+              italic: true,
+              maxLines: 7,
+              centered: false,
+              margin: 5,
+            ),
+
             Align(
               alignment: superInverseCenterAlignment(context),
               child: DreamBox(
-                  width: 150,
-                  height: 40,
-                  boxMargins: EdgeInsets.only(bottom: 10),
-                  verse: 'Ask',
-                  verseColor: Colorz.BlackBlack,
-                  verseScaleFactor: 0.7,
-                  color: Colorz.Yellow,
-                  verseWeight: VerseWeight.bold,
-                  boxFunction: () {
-                    if (questionBody == '') {
-                      print("Question cannot be empty");
-                    } else {
-                      questionsProvider.add(questionBody);
-                      submitQuestion();
-                      goToNewScreen(context, QuestionsScreen());
-                    }
-                  }),
-            ),
+
+                width: 150,
+                height: 40,
+                boxMargins: EdgeInsets.only(bottom: 10),
+                verse: 'Ask',
+                verseColor: Colorz.BlackBlack,
+                verseScaleFactor: 0.7,
+                color: Colorz.Yellow,
+                verseWeight: VerseWeight.bold,
+                boxFunction: submitQuestion,
+              ),
+            )
           ],
         ),
       ],

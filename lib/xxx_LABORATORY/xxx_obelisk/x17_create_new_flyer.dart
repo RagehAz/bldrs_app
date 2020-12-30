@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:math';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/flyer/slides/slides_items/single_slide.dart';
@@ -53,49 +52,53 @@ class _CreateFlyerScreenState extends State<CreateFlyerScreen> {
     super.initState();
   }
   // ----------------------------------------------------------------------
-  void slideToNext(int numberOfSlides, int currentSlide){
-    print(currentSlide);
-
-    slidingController.animateToPage(currentSlide + 1,
-        duration: Duration(milliseconds: Ratioz.slidingMilliSeconds), curve: Curves.easeInOutCirc);
-    // setState(() {
-    //   currentSlide = currentSlide + 1;
-    // });
-    print(currentSlide);
+  void emptyTheList(){
+    print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> before emptyTheList');
+    setState(() {
+      newSlides.clear();
+      currentSlide = 0;
+      numberOfSlides = 0;
+    });
+    print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> after emptyTheList');
   }
-  void snapToNext(int numberOfSlides, int currentSlide){
-    print(currentSlide);
 
+  void slideToNext(int numberOfSlides, int currentSlide){
+    slidingController.animateToPage(currentSlide + 1,
+        duration: Ratioz.slidingDuration, curve: Curves.easeInOutCirc);
+  }
+  // ----------------------------------------------------------------------
+  void snapToNext(int numberOfSlides, int currentSlide){
     slidingController.animateToPage(currentSlide + 1,
         duration: Duration(milliseconds: 1), curve: Curves.easeInOutCirc);
     setState(() {
       currentSlide = currentSlide -1;
     });
-    print(currentSlide);
   }
   // ----------------------------------------------------------------------
   void slideToBack(int currentSlide){
-    print(currentSlide);
     if (currentSlide == 0){print('can not slide back');} else {
       slidingController.animateToPage(currentSlide - 1,
-          duration: Duration(milliseconds: Ratioz.slidingMilliSeconds),
+          duration: Ratioz.slidingDuration,
           curve: Curves.easeInOutCirc);
+
     }
-    print(currentSlide);
   }
+  // ----------------------------------------------------------------------
   void snapToBack(int currentSlide){
-    print(currentSlide);
     if (currentSlide == 0){print('can not slide back');} else {
       slidingController.animateToPage(currentSlide - 1,
           duration: Duration(milliseconds: 1),
           curve: Curves.easeInOutCirc);
     }
-    print(currentSlide);
   }
   // ----------------------------------------------------------------------
   void slideTo(int currentSlide){
     slidingController.animateToPage(currentSlide,
-        duration: Duration(milliseconds: Ratioz.slidingMilliSeconds), curve: Curves.easeInOutCirc);
+        duration: Ratioz.slidingDuration, curve: Curves.easeInOutCirc);
+  }
+
+  void snapTo(int currentSlide){
+    slidingController.jumpToPage(currentSlide,);
   }
   // ----------------------------------------------------------------------
   SlidingDirection slidingDecision(int numberOfSlides, int currentSlide){
@@ -104,68 +107,80 @@ class _CreateFlyerScreenState extends State<CreateFlyerScreen> {
     numberOfSlides == 1 ? SlidingDirection.freeze :
     numberOfSlides > 1 && currentSlide + 1 == numberOfSlides ? SlidingDirection.back :
     numberOfSlides > 1 && currentSlide == 0 ? SlidingDirection.next :
-    SlidingDirection.next;
+    SlidingDirection.back;
     return decision;
   }
   // ----------------------------------------------------------------------
   void slidingAction(int numberOfSlides, int currentSlide) {
-      slidingDecision(numberOfSlides, currentSlide) == SlidingDirection.next ? slideToBack(currentSlide) :
-      slidingDecision(numberOfSlides, currentSlide) == SlidingDirection.back ? slideToNext(numberOfSlides, currentSlide) :
-          print('no sliding possible ');
+    print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> before slidingAction');
+    slidingDecision(numberOfSlides, currentSlide) == SlidingDirection.next ? slideToNext(numberOfSlides, currentSlide) :
+    slidingDecision(numberOfSlides, currentSlide) == SlidingDirection.back ? slideToBack(currentSlide) :
+    slidingDecision(numberOfSlides, currentSlide) == SlidingDirection.freeze ? slideTo(currentSlide) :
+    print('no sliding possible ');
+    print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> after slidingAction');
   }
   // ----------------------------------------------------------------------
   void _triggerVisibility(int currentSlide)  {
+    print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> before _triggerVisibility');
       setState(() {
       slidesVisibility[currentSlide] = !slidesVisibility[currentSlide];
       });
+    print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> after _triggerVisibility');
   }
   // ----------------------------------------------------------------------
-  void _delayedVisibility(int currentSlide){
-    Future.delayed(
-        Duration(milliseconds: Ratioz.fadingSlideMilliSeconds),
-            (){
-          _triggerVisibility(currentSlide);
-        });
-  }
+  // void _delayedVisibility(int currentSlide){
+  //   Future.delayed(
+  //       Ratioz.fadingDuration,
+  //           (){
+  //         _triggerVisibility(currentSlide);
+  //       });
+  // }
   // ----------------------------------------------------------------------
   void _hideAndSlide (int numberOfSlides, int currentSlide)  {
     _triggerVisibility(currentSlide);
-    Future.delayed(Duration(milliseconds: Ratioz.fadingSlideMilliSeconds), (){
+    Future.delayed(Ratioz.fadingDuration, (){
     slidingAction(numberOfSlides, currentSlide);
     });
   }
   // ----------------------------------------------------------------------
-  void _increaseProgressBar(){
-    setState(() {
-      numberOfSlides = numberOfSlides + 1;
-    });
-  }
+  // void _increaseProgressBar(){
+  //   print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> before _increaseProgressBar');
+  //   setState(() {
+  //     numberOfSlides = numberOfSlides + 1;
+  //   });
+  //   print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> after _increaseProgressBar');
+  // }
   void _decreaseProgressBar(){
+    print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> before _decreaseProgressBar');
     setState(() {
     numberOfSlides > 0 ?
       numberOfSlides = numberOfSlides - 1 : print('can not decrease progressBar');
     });
+    print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> after _decreaseProgressBar');
   }
   // ----------------------------------------------------------------------
   void _simpleDelete(int currentSlide){
-    newSlides.isNotEmpty ?
-        setState((){
-          newSlides.removeAt(currentSlide);
-          slidesVisibility.removeAt(currentSlide);
-          numberOfSlides = newSlides.length;
-        })
-        :
-        print('no Slide to delete');
+    print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> before _simpleDelete');
+    if (newSlides.isNotEmpty)
+    {
+      if(currentSlide == 0){newSlides.removeAt(currentSlide);currentSlide=0;}else{newSlides.removeAt(currentSlide);}
+      slidesVisibility.removeAt(currentSlide);
+      setState(() {
+        // numberOfSlides = newSlides.length;
+        // currentSlide = currentSlide == 0 ? 0 : currentSlide;
+      });
+    } else { print('no Slide to delete'); }
+    print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> after _simpleDelete');
   }
   // ----------------------------------------------------------------------
-  void _currentSlidePlus(){
-    print('before : $currentSlide');
-    setState(() {
-      currentSlide = currentSlide + 1;
-    });
-    print('after : $currentSlide');
-  }
-
+  // void _currentSlidePlus(){
+  //   print('before : $currentSlide');
+  //   setState(() {
+  //     currentSlide = currentSlide + 1;
+  //   });
+  //   print('after : $currentSlide');
+  // }
+  //
   void _currentSlideMinus(){
     print('before : $currentSlide');
     setState(() {
@@ -173,26 +188,29 @@ class _CreateFlyerScreenState extends State<CreateFlyerScreen> {
     });
     print('after : $currentSlide');
   }
-
-  int currentSlideAnalyzer(){
-    return
-    slidingDecision(numberOfSlides, currentSlide) == SlidingDirection.next ? currentSlide - 1 :
-    slidingDecision(numberOfSlides, currentSlide) == SlidingDirection.back ? currentSlide + 1 :
-        currentSlide;
-  }
+  //
+  // int currentSlideAnalyzer(){
+  //   return
+  //   slidingDecision(numberOfSlides, currentSlide) == SlidingDirection.next ? currentSlide - 1 :
+  //   slidingDecision(numberOfSlides, currentSlide) == SlidingDirection.back ? currentSlide + 1 :
+  //       currentSlide;
+  // }
   // ----------------------------------------------------------------------
   void _deleteSlide (int numberOfSlides, int currentSlide) {
     if (newSlides.isNotEmpty)
     {
-      _hideAndSlide(numberOfSlides, currentSlide);
       _decreaseProgressBar();
-      // _currentSlidePlus();
+      _hideAndSlide(numberOfSlides, currentSlide);
+      numberOfSlides == 1 ?
+      _simpleDelete(currentSlide) :
       Future.delayed(
-        Duration(milliseconds: Ratioz.fadingSlideMilliSeconds + Ratioz.slidingMilliSeconds),
+        Ratioz.slidingAndFadingDuration,
           (){
-            _simpleDelete(currentSlide);
-          }
+            if(currentSlide == 0){_simpleDelete(currentSlide);snapTo(0);}
+            else{_simpleDelete(currentSlide);}
+      }
       );
+          print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> after _deleteSlide ------------ last shit');
             // snapToBack(currentSlide);
     }
     else
@@ -217,6 +235,7 @@ class _CreateFlyerScreenState extends State<CreateFlyerScreen> {
   }
   // ----------------------------------------------------------------------
   Future<void> _takeCameraPicture() async {
+    print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> before _takeCameraPicture');
     final picker = ImagePicker();
     final imageFile = await picker.getImage(
       source: ImageSource.camera,
@@ -244,10 +263,12 @@ class _CreateFlyerScreenState extends State<CreateFlyerScreen> {
     final fileName = path.basename(imageFile.path);
     final savedImage = await _storedImage.copy('${appDir.path}/$fileName');
     _selectImage(savedImage);
-    slidingController.animateToPage(currentSlide, duration: Duration(milliseconds: 750), curve: Curves.easeInOutCirc);
+    slideTo(currentSlide);
+    print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> after _takeCameraPicture');
   }
   // ----------------------------------------------------------------------
   Future<void> _takeGalleryPicture() async {
+    print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> before _takeGalleryPicture');
     final picker = ImagePicker();
     final imageFile = await picker.getImage(
       source: ImageSource.gallery,
@@ -275,7 +296,8 @@ class _CreateFlyerScreenState extends State<CreateFlyerScreen> {
     final fileName = path.basename(imageFile.path);
     final savedImage = await _storedImage.copy('${appDir.path}/$fileName');
     _selectImage(savedImage);
-    slidingController.animateToPage(currentSlide, duration: Duration(milliseconds: 750), curve: Curves.easeInOutCirc);
+    slideTo(currentSlide);
+    print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> after _takeGalleryPicture');
   }
   // ----------------------------------------------------------------------
   void tappingNewSlide(){
@@ -294,8 +316,9 @@ class _CreateFlyerScreenState extends State<CreateFlyerScreen> {
   }
   // ----------------------------------------------------------------------
   void slidingPages (int slideIndex){
+    print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> before slidingPages : onPageChanged --------');
     setState(() {currentSlide = slideIndex;});
-    // print('currentSlide: $currentSlide, newSlides.length : ${newSlides.length}, ${slidingController.offset}');
+    print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> after slidingPages : onPageChanged --------');
   }
   // ----------------------------------------------------------------------
 
@@ -308,17 +331,19 @@ class _CreateFlyerScreenState extends State<CreateFlyerScreen> {
     final double flyerSizeFactor = 0.75;
     final double flyerZoneWidth = superFlyerZoneWidth(context, flyerSizeFactor);
     // ----------------------------------------------------------------------
+    print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> building widget tree');
     return MainLayout(
       appBarType: AppBarType.Scrollable,
       appBarRowWidgets: <Widget>[
+        zorar(()=>emptyTheList(), 'emptyTheList'),
         zorar(()=>snapToBack(currentSlide), 'snapToBack'),
         zorar(()=>snapToNext(numberOfSlides, currentSlide), 'snapToNext'),
-        zorar(()=>_currentSlideMinus(), '_currentSlideMinus'),
-        zorar(()=>_currentSlidePlus(), '_currentSlidePlus'),
+        // zorar(()=>_currentSlideMinus(), '_currentSlideMinus'),
+        // zorar(()=>_currentSlidePlus(), '_currentSlidePlus'),
         zorar(()=>_simpleDelete(currentSlide), '_simpleDelete'),
-        zorar(()=>_decreaseProgressBar(), '_decreaseProgressBar'),
-        zorar(()=>_increaseProgressBar(), '_increaseProgressBar'),
-        zorar(()=>_delayedVisibility(currentSlide), '_delayedVisibility'),
+        // zorar(()=>_decreaseProgressBar(), '_decreaseProgressBar'),
+        // zorar(()=>_increaseProgressBar(), '_increaseProgressBar'),
+        // zorar(()=>_delayedVisibility(currentSlide), '_delayedVisibility'),
         zorar(()=>_triggerVisibility(currentSlide), '_triggerVisibility'),
         zorar(()=>_hideAndSlide(numberOfSlides, currentSlide), '_hideAndSlide'),
         zorar(()=>_deleteSlide(numberOfSlides, currentSlide), '_deleteSlide'),
