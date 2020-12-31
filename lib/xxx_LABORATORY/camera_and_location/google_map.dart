@@ -20,7 +20,6 @@ import 'location_helper.dart';
 // AIzaSyDQGuhqhKu1mSdNxAbS_BCP8NfCB1ENmaI
 
 // -------------------------------------------
-
 class GoogleMapScreen extends StatefulWidget {
     final PlaceLocation initialLocation;
     final bool isSelecting;
@@ -108,7 +107,6 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
    // double mapBoxHeight = mapBoxWidth;
    double boxCorners = Ratioz.rrFlyerBottomCorners *  screenWidth;
 
-
     return SafeArea(
 
       child: Scaffold(
@@ -125,6 +123,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
               child: Stack(
                 alignment: Alignment.topCenter,
                 children: <Widget>[
+
                   GoogleMap(
                     mapType: MapType.hybrid,
                     zoomGesturesEnabled: true,
