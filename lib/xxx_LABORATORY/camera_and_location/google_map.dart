@@ -132,7 +132,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                     myLocationEnabled: true,
                     initialCameraPosition:
                     CameraPosition(
-                      target: cityLocationByCityID(1682169241), // Mecca 1682169241 - Cairo 1818253931zoom: 10
+                      target: cityLocationByCityID(1818253931), // Mecca 1682169241 - Cairo 1818253931zoom: 10
                       zoom: 16,
                       // bearing: ,
                       // tilt: ,

@@ -11,6 +11,7 @@ import 'view_brains/router/router.dart';
 import 'package:provider/provider.dart';
 import 'views/widgets/pro_flyer/flyer_screen.dart';
 import 'xxx_LABORATORY/ask/questions_provider.dart';
+import 'xxx_LABORATORY/xxx_obelisk/x19_new_navigation_method.dart';
 
 main() => runApp(BldrsApp());
 
