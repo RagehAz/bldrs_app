@@ -13,6 +13,7 @@ import 'package:bldrs/views/widgets/planet/google_map_2.dart';
 import 'package:bldrs/views/widgets/planet/google_map_3.dart';
 import 'package:bldrs/views/widgets/planet/google_map_4.dart';
 import 'package:bldrs/views/widgets/planet/google_map_5.dart';
+import 'package:bldrs/views/widgets/space/pyramids_horizon.dart';
 import 'package:bldrs/views/widgets/space/stratosphere.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:bldrs/views/widgets/textings/the_golden_scroll.dart';
@@ -32,6 +33,7 @@ import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x17_create_new_flyer.dart';
 import 'package:flutter/material.dart';
 import 'x10_pro_flyer_page_view.dart';
 import 'x12_checkbox_lesson.dart';
+import 'x19_new_navigation_method.dart';
 
 // === === === === === === === === === === === === === === === === === === ===
 // ---------------------------------------------------------------------------
@@ -72,6 +74,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
 
     return MainLayout(
       pyramids: Iconz.PyramidsCrystal,
+      tappingRageh: (){},
       appBarType: AppBarType.Main,
       layoutWidget: ListView(
         children: <Widget>[
@@ -89,9 +92,9 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
 
           LogoSlogan(),
 
-          // --- ADD FLYER
+          // --- 1 - ADD FLYER
           BTMain(
-            buttonVerse: getTranslated(context, 'Create_Flyer'),
+            buttonVerse: '1 - Add new flyer',
             buttonColor: Colorz.BlackPlastic,
             buttonIcon: Iconz.AddFlyer,
             buttonVerseShadow: true,
@@ -100,9 +103,9 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
             stretched: false,
           ),
 
-          // --- BISO ASK SCREEN
+          // --- 2 - BISO ASK SCREEN
           BTMain(
-            buttonVerse: "Biso Ask Screen",
+            buttonVerse: "2 - Biso Ask Screen",
             buttonColor: Colorz.BlackPlastic,
             buttonIcon: Iconz.UTPlanning,
             buttonVerseShadow: true,
@@ -121,10 +124,10 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
           //   stretched: false,
           // ),
 
-          // --- PRINT TEST
+          // --- 3 - PRINT TEST
           BTMain(
             function: () {
-              print('Testing print');
+              print('3 - Testing print');
             },
             buttonIcon: '',
             splashColor: Colorz.White,
@@ -134,9 +137,9 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
             buttonVerse: 'print test',
           ),
 
-          // --- DATA BASE GETTERS -------------------------------
+          // --- 4 - DATA BASE GETTERS -------------------------------
           BTMain(
-            buttonVerse: 'Database Getters Tests',
+            buttonVerse: '4 - Database Getters Tests',
             buttonIcon: Iconz.DvGouran,
             buttonColor: Colorz.SkyDarkBlue,
             splashColor: Colorz.White,
@@ -148,9 +151,9 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
             stretched: false,
           ),
 
-          // --- PROVIDERS HATTERS -------------------------------
+          // --- 5 - PROVIDERS HATTERS -------------------------------
           BTMain(
-            buttonVerse: 'provider Hatters Tests',
+            buttonVerse: '5 - provider Hatters Tests',
             buttonIcon: Iconz.DvGouran,
             buttonColor: Colorz.SkyDarkBlue,
             splashColor: Colorz.White,
@@ -162,9 +165,9 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
             stretched: false,
           ),
 
-          // --- DATABASE VIEWER -------------------------------
+          // --- 6 - DATABASE VIEWER -------------------------------
           BTMain(
-            buttonVerse: 'Database viewer',
+            buttonVerse: '6 - Database viewer',
             buttonIcon: Iconz.DvGouran,
             buttonColor: Colorz.SkyDarkBlue,
             splashColor: Colorz.White,
@@ -175,9 +178,9 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
             stretched: false,
           ),
 
-          // --- FLYERS SCREEN -------------------------------
+          // --- 7 - FLYERS SCREEN -------------------------------
           BTMain(
-            buttonVerse: 'Flyer Screen',
+            buttonVerse: '7 - Flyer Screen',
             buttonIcon: Iconz.Flyer,
             buttonColor: Colorz.Green,
             splashColor: Colorz.Yellow,
@@ -186,9 +189,9 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
             stretched: false,
           ),
 
-          // --- FLYERS SIZES TEST -------------------------------
+          // --- 8 - FLYERS SIZES TEST -------------------------------
           BTMain(
-            buttonVerse: 'Flyer Sizes tests',
+            buttonVerse: '8 - Flyer Sizes tests',
             buttonIcon: Iconz.FlyerScale,
             buttonColor: Colorz.Green,
             splashColor: Colorz.Yellow,
@@ -197,9 +200,9 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
             stretched: false,
           ),
 
-          // --- FLYERS COLLECTION -------------------------------
+          // --- 9 - FLYERS COLLECTION -------------------------------
           BTMain(
-            buttonVerse: 'Single Collection Screen',
+            buttonVerse: '9 - Single Collection Screen',
             buttonIcon: Iconz.FlyerCollection,
             buttonColor: Colorz.Green,
             splashColor: Colorz.White,
@@ -208,9 +211,9 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
             stretched: false,
           ),
 
-          // --- FONT CORRECTION -------------------------------
+          // --- 10 - FONT CORRECTION -------------------------------
           BTMain(
-            buttonVerse: 'Font lab',
+            buttonVerse: '10 - Font lab',
             buttonIcon: Iconz.Language,
             buttonColor: Colorz.Green,
             splashColor: Colorz.White,
@@ -219,9 +222,9 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
             stretched: false,
           ),
 
-          // --- ID ISSUE -------------------------------
+          // --- 11 - ID ISSUE -------------------------------
           BTMain(
-            buttonVerse: 'ID ISSUE',
+            buttonVerse: '11 - ID ISSUE',
             buttonIcon: Iconz.Info,
             buttonColor: Colorz.Green,
             splashColor: Colorz.White,
@@ -230,9 +233,9 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
             stretched: false,
           ),
 
-          // --- SWIPER LAYOUT -------------------------------
+          // --- 12 - SWIPER LAYOUT -------------------------------
           BTMain(
-            buttonVerse: 'Swiper Layout',
+            buttonVerse: '12 - Swiper Layout',
             buttonColor: Colorz.Green,
             buttonIcon: Iconz.Gallery,
             buttonVerseShadow: true,
@@ -241,9 +244,9 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
             stretched: false,
           ),
 
-          // --- PRO FLYERS PAGE VIEW -------------------------------
+          // --- 13 - PRO FLYERS PAGE VIEW -------------------------------
           BTMain(
-            buttonVerse: 'ProFlyersPageView',
+            buttonVerse: '13 - ProFlyersPageView',
             buttonIcon: Iconz.Statistics,
             buttonColor: Colorz.Green,
             splashColor: Colorz.White,
@@ -254,9 +257,9 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
             stretched: false,
           ),
 
-          // --- PRO FLYERS GRID VIEW -------------------------------
+          // --- 14 - PRO FLYERS GRID VIEW -------------------------------
           BTMain(
-            buttonVerse: 'ProFlyersGridView',
+            buttonVerse: '14 - ProFlyersGridView',
             buttonIcon: Iconz.FlyerGrid,
             buttonColor: Colorz.Green,
             splashColor: Colorz.White,
@@ -267,9 +270,9 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
             stretched: false,
           ),
 
-          // --- PROBZ Test -------------------------------
+          // --- 16 - PROBZ Test -------------------------------
           // BTMain(
-          //   buttonVerse: 'ProBz',
+          //   buttonVerse: '16 - ProBz',
           //   buttonIcon: Iconz.Bz,
           //   buttonColor: Colorz.BloodRedPlastic,
           //   splashColor: Colorz.White,
@@ -280,9 +283,9 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
           //   stretched: false,
           // ),
 
-          // --- CAMERA BY MAX -------------------------------
+          // --- 17 - CAMERA BY MAX -------------------------------
           BTMain(
-            buttonVerse: 'Camera by Max',
+            buttonVerse: '17 - Camera by Max',
             buttonIcon: Iconz.Camera,
             buttonColor: Colorz.Nothing,
             splashColor: Colorz.White,
@@ -294,9 +297,9 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
             stretched: false,
           ),
 
-          // --- CAMERA PACKAGE -------------------------------
+          // --- 18 - CAMERA PACKAGE -------------------------------
           BTMain(
-            buttonVerse: 'Camera Package',
+            buttonVerse: '18 - Camera Package',
             buttonIcon: Iconz.Camera,
             buttonColor: Colorz.Nothing,
             splashColor: Colorz.White,
@@ -308,9 +311,9 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
             stretched: false,
           ),
 
-          // --- CAMERA PACKAGE -------------------------------
+          // --- 19 - CAMERA PACKAGE -------------------------------
           BTMain(
-            buttonVerse: 'MainLayout now not flutter Better Camera Package',
+            buttonVerse: '19 - MainLayout now not flutter Better Camera Package',
             buttonIcon: Iconz.Camera,
             buttonColor: Colorz.Nothing,
             splashColor: Colorz.White,
@@ -322,9 +325,9 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
             stretched: false,
           ),
 
-          // --- IMAGE PICKER -------------------------------
+          // --- 20 - IMAGE PICKER -------------------------------
           BTMain(
-            buttonVerse: 'Image Picker',
+            buttonVerse: '20 - Image Picker',
             buttonIcon: Iconz.PhoneGallery,
             buttonColor: Colorz.LightBlue,
             splashColor: Colorz.White,
@@ -335,9 +338,9 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
             stretched: false,
           ),
 
-          // --- SOUNDZ -------------------------------
+          // --- 21 - SOUNDZ -------------------------------
           BTMain(
-            buttonVerse: 'Soundz',
+            buttonVerse: '21 - Soundz',
             buttonIcon: Iconz.News,
             buttonColor: Colorz.Nothing,
             splashColor: Colorz.White,
@@ -349,9 +352,9 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
             stretched: false,
           ),
 
-          // --- POP UP -------------------------------
+          // --- 22 - POP UP -------------------------------
           BTMain(
-            buttonVerse: 'PopUp',
+            buttonVerse: '22 - PopUp',
             buttonIcon: Iconz.News,
             buttonColor: Colorz.GreyZircon,
             splashColor: Colorz.White,
@@ -362,9 +365,9 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
             stretched: false,
           ),
 
-          // --- FORM -------------------------------
+          // --- 23 - FORM -------------------------------
           BTMain(
-            buttonVerse: 'Form',
+            buttonVerse: '23 - Form',
             buttonIcon: Iconz.Terms,
             buttonColor: Colorz.GreyZircon,
             splashColor: Colorz.White,
@@ -375,9 +378,9 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
             stretched: false,
           ),
 
-          // --- HERO -------------------------------
+          // --- 24 - HERO -------------------------------
           BTMain(
-            buttonVerse: 'Hero Test',
+            buttonVerse: '24 - Hero Test',
             buttonIcon: Iconz.FlyerScale,
             buttonColor: Colorz.Grey,
             splashColor: Colorz.White,
@@ -386,9 +389,9 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
             stretched: false,
           ),
 
-          // --- CHAT SCREEN -------------------------------
+          // --- 25 - CHAT SCREEN -------------------------------
           BTMain(
-            buttonVerse: 'Chat Screen',
+            buttonVerse: '25 - Chat Screen',
             buttonColor: Colorz.BabyBlueSmoke,
             buttonIcon: Iconz.UTPlanning,
             buttonVerseShadow: true,
@@ -397,10 +400,10 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
             stretched: false,
           ),
 
-          // --- Earth -------------------------------
+          // --- 26 - City Dots -------------------------------
           BTMain(
-            buttonVerse: 'City Dots',
-            buttonColor: Colorz.Green,
+            buttonVerse: '26 - City Dots',
+            buttonColor: Colorz.BloodTest,
             buttonIcon: Iconz.Earth,
             buttonVerseShadow: true,
             splashColor: Colorz.Yellow,
@@ -408,10 +411,10 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
             stretched: false,
           ),
 
-          // --- GOOGLE MAP NON RESIZABLE PNG PIN -------------------------------
+          // --- 27 - GOOGLE MAP NON RESIZABLE PNG PIN -------------------------------
           BTMain(
-            buttonVerse: 'Google Maps - Custom non resizable fucking pin',
-            buttonColor: Colorz.Green,
+            buttonVerse: '27 - Google Maps - Custom non resizable fucking pin',
+            buttonColor: Colorz.BloodTest,
             buttonIcon: Iconz.ComMap,
             buttonVerseShadow: true,
             splashColor: Colorz.Yellow,
@@ -419,10 +422,10 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
             function: () => goToNewScreen(context, GoogleMapScreen()),
           ),
 
-          // --- GOOGLE MAP DEFINED SIZE PIN -------------------------------
+          // --- 28 - GOOGLE MAP DEFINED SIZE PIN -------------------------------
           BTMain(
-            buttonVerse: 'Google Maps - Defined size Pin',
-            buttonColor: Colorz.Green,
+            buttonVerse: '28 - Google Maps - Defined size Pin',
+            buttonColor: Colorz.BloodTest,
             buttonIcon: Iconz.ComMap,
             buttonVerseShadow: true,
             splashColor: Colorz.Yellow,
@@ -430,10 +433,10 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
             function: () => goToNewScreen(context, GoogleMapScreen2()),
           ),
 
-          // --- GOOGLE MAP IMAGE PIN -------------------------------
+          // --- 29 - GOOGLE MAP IMAGE PIN -------------------------------
           BTMain(
-            buttonVerse: 'Google Maps - Image Pin',
-            buttonColor: Colorz.Green,
+            buttonVerse: '29 - Google Maps - Image Pin',
+            buttonColor: Colorz.BloodTest,
             buttonIcon: Iconz.ComMap,
             buttonVerseShadow: true,
             splashColor: Colorz.Yellow,
@@ -441,10 +444,10 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
             function: () => goToNewScreen(context, GoogleMapScreen3()),
           ),
 
-          // --- GOOGLE MAP CANVAS -------------------------------
+          // --- 30 - GOOGLE MAP CANVAS -------------------------------
           BTMain(
-            buttonVerse: 'Google Maps - text box canvas',
-            buttonColor: Colorz.Green,
+            buttonVerse: '30 - Google Maps - text box canvas',
+            buttonColor: Colorz.BloodTest,
             buttonIcon: Iconz.ComMap,
             buttonVerseShadow: true,
             splashColor: Colorz.Yellow,
@@ -452,10 +455,10 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
             function: () => goToNewScreen(context, GoogleMapScreen4()),
           ),
 
-          // --- GOOGLE MAP -------------------------------
+          // --- 31 - GOOGLE MAP -------------------------------
           BTMain(
-            buttonVerse: 'Google Maps - testSpace',
-            buttonColor: Colorz.WhiteAir,
+            buttonVerse: '31 - Google Maps - testSpace',
+            buttonColor: Colorz.BloodTest,
             buttonIcon: Iconz.ComMap,
             buttonVerseShadow: true,
             splashColor: Colorz.Yellow,
@@ -463,9 +466,9 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
             function: () => goToNewScreen(context, GoogleMapScreen5()),
           ),
 
-          // --- CREATE A NEW ACCOUNT -------------------------------
+          // --- 32 - OLD CREATE A NEW ACCOUNT -------------------------------
           BTMain(
-            buttonVerse: getTranslated(context, 'Create_Account'),
+            buttonVerse: '32 - Old Create New Account',
             buttonIcon: Iconz.DvGouran,
             buttonColor: Colorz.BlackPlastic,
             splashColor: Colorz.Yellow,
@@ -474,9 +477,9 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
             stretched: true,
           ),
 
-          // --- SIGN IN -------------------------------
+          // --- 33 - OLD SIGN IN -------------------------------
           BTMain(
-            buttonVerse: getTranslated(context, 'Sign_In'),
+            buttonVerse: '33 - Old Sign In Screen',
             buttonIcon: Iconz.DvGouran,
             buttonColor: Colorz.BlackPlastic,
             splashColor: Colorz.Yellow,
@@ -485,15 +488,26 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
             stretched: true,
           ),
 
-          // --- CheckBox thing -------------------------------
+          // --- 34 -  OLD CHECKBOX THING -------------------------------
           BTMain(
-            buttonVerse: 'CheckBox thing',
-            buttonColor: Colorz.Grey,
+            buttonVerse: '34 - Old CheckBox thing',
+            buttonColor: Colorz.BlackBlack,
             buttonIcon: Iconz.Check,
             buttonVerseShadow: true,
             splashColor: Colorz.Yellow,
             stretched: true,
             function: () => goToNewScreen(context, CheckBoxLessonScreen()),
+          ),
+
+          // --- 35 -  NewNavigationMethodScreen -------------------------------
+          BTMain(
+            buttonVerse: '34 - NewNavigationMethodScreen',
+            buttonColor: Colorz.Grey,
+            buttonIcon: Iconz.Statistics,
+            buttonVerseShadow: true,
+            splashColor: Colorz.Yellow,
+            stretched: true,
+            function: () => goToNewScreen(context, NewNavigationMethodScreen()),
           ),
 
           // --- DATE PICKER -------------------------------
@@ -515,7 +529,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
 
           // --- BLDRS DEVELOPMENT SCROLLS --------------------------------
           Column(
-            children: [
+            children: <Widget>[
               GoldenScroll(
                 scrollTitle: 'To run on my Note3 mobile',
                 scrollScript: 'flutter run --release -d 4d00c32746ba80bf',
@@ -546,32 +560,19 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
             ],
           ),
 
-          SizedBox(
-            height: screenHeight * .1,
+          BTMain(
+            buttonIcon: Iconz.DvGouran,
+            buttonVerse: 'inApp Dash Board just for me\nbecause I can',
+            stretched: true,
+            buttonVerseShadow: true,
+            buttonColor: Colorz.BlackBlack,
+            splashColor: Colorz.White,
+            function: Routez.RagehDashBoard,
+            iconSizeFactor: 1,
           ),
 
-          // BTMain(
-          //   buttonIcon: DreamBox(
-          //     icon: Iconz.DvRageh,
-          //     corners: screenWidth * 0.02,
-          //     color: Colorz.Nothing,
-          //     width: double.infinity,
-          //     height: double.infinity,
-          //     iconSizeFactor: 1,
-          //   ),
-          //   buttonVerse: 'Rageh Dash Board',
-          //   stretched: true,
-          //   buttonVerseShadow: true,
-          //   buttonColor: Colorz.Yellow,
-          //   splashColor: Colorz.White,
-          //   function: Routez.RagehDashBoard,
-          //   iconSizeFactor: 1,
-          // ),
-          // ---------------------------------------------------------------------
-          // --- LAST THING TO GIVE SCROLLING SOME SPACE
-          SizedBox(
-            height: MediaQuery.of(context).size.height * .5,
-          ),
+          PyramidsHorizon(heightFactor: 3,),
+
         ],
       ),
     );
