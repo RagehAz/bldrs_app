@@ -1,5 +1,6 @@
 import 'package:bldrs/models/enums/enum_bz_type.dart';
 import 'package:bldrs/view_brains/drafters/aligners.dart';
+import 'package:bldrs/view_brains/router/navigators.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
@@ -9,6 +10,7 @@ import 'package:bldrs/views/widgets/in_pyramids/in_pyramids_items/in_pyramids_bu
 import 'package:bldrs/views/widgets/textings/super_text_field.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:bldrs/xxx_LABORATORY/ask/questions_provider.dart';
+import 'package:bldrs/xxx_LABORATORY/ask/questions_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -185,7 +187,15 @@ class Ask extends StatelessWidget {
                 verseScaleFactor: 0.7,
                 color: Colorz.Yellow,
                 verseWeight: VerseWeight.bold,
-                boxFunction: submitQuestion,
+                boxFunction: (){
+                  if (questionBody == '' || questionBody == null){
+                    print('question cannot be empty');
+                  } else {
+                    questionsProvider.add(questionBody);
+                    submitQuestion();
+                    goToNewScreen(context, QuestionsScreen());
+                  }
+                },
               ),
             )
           ],
