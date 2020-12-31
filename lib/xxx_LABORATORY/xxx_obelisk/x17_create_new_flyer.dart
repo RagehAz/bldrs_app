@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:bldrs/view_brains/controllers/flyer_sliding_controllers.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/flyer/slides/slides_items/single_slide.dart';
@@ -54,73 +55,18 @@ class _CreateFlyerScreenState extends State<CreateFlyerScreen> {
     super.initState();
   }
   // ----------------------------------------------------------------------
-  void slideToNext(int numberOfSlides, int currentSlide){
-    slidingController.animateToPage(currentSlide + 1,
-        duration: Ratioz.slidingDuration, curve: Curves.easeInOutCirc);
-  }
-  // ----------------------------------------------------------------------
-  void slideToBack(int currentSlide){
-    if (currentSlide == 0){print('can not slide back');} else {
-      slidingController.animateToPage(currentSlide - 1,
-          duration: Ratioz.slidingDuration,
-          curve: Curves.easeInOutCirc);
-
-    }
-  }
-  // ----------------------------------------------------------------------
-  void snapToBack(int currentSlide){
-    if (currentSlide == 0){print('can not slide back');} else {
-      slidingController.jumpToPage(currentSlide - 1);
-    }
-  }
-  // ----------------------------------------------------------------------
-  void slideTo(int currentSlide){
-    slidingController.animateToPage(currentSlide,
-        duration: Ratioz.slidingDuration, curve: Curves.easeInOutCirc);
-  }
-  // ----------------------------------------------------------------------
-  void snapTo(int currentSlide){
-    slidingController.jumpToPage(currentSlide,);
-  }
-  // ----------------------------------------------------------------------
-  SlidingDirection slidingDecision(int numberOfSlides, int currentSlide){
-    SlidingDirection decision =
-    numberOfSlides == 0 ? SlidingDirection.freeze :
-    numberOfSlides == 1 ? SlidingDirection.freeze :
-    numberOfSlides > 1 && currentSlide + 1 == numberOfSlides ? SlidingDirection.back :
-    numberOfSlides > 1 && currentSlide == 0 ? SlidingDirection.next :
-    SlidingDirection.back;
-    return decision;
-  }
-  // ----------------------------------------------------------------------
-  void slidingAction(int numberOfSlides, int currentSlide) {
-    // print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> before slidingAction');
-    slidingDecision(numberOfSlides, currentSlide) == SlidingDirection.next ? slideToNext(numberOfSlides, currentSlide) :
-    slidingDecision(numberOfSlides, currentSlide) == SlidingDirection.back ? slideToBack(currentSlide) :
-    slidingDecision(numberOfSlides, currentSlide) == SlidingDirection.freeze ? slideTo(currentSlide) :
-    print('no sliding possible ');
-    // print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> after slidingAction');
-  }
-  // ----------------------------------------------------------------------
   void _triggerVisibility(int currentSlide)  {
     // print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> before _triggerVisibility');
-      setState(() {
+    setState(() {
       slidesVisibility[currentSlide] = !slidesVisibility[currentSlide];
-      });
-    // print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> after _triggerVisibility');
-  }
-  // ----------------------------------------------------------------------
-  void _hideAndSlide (int numberOfSlides, int currentSlide)  {
-    _triggerVisibility(currentSlide);
-    Future.delayed(Ratioz.fadingDuration, (){
-    slidingAction(numberOfSlides, currentSlide);
     });
+    // print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> after _triggerVisibility');
   }
   // ----------------------------------------------------------------------
   void _decreaseProgressBar(){
     // print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> before _decreaseProgressBar');
     setState(() {
-    numberOfSlides > 0 ?
+      numberOfSlides > 0 ?
       numberOfSlides = numberOfSlides - 1 : print('can not decrease progressBar');
     });
     // print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> after _decreaseProgressBar');
@@ -150,26 +96,28 @@ class _CreateFlyerScreenState extends State<CreateFlyerScreen> {
     {
       _decreaseProgressBar();
       onPageChangedIsOn = false;
-      _hideAndSlide(numberOfSlides, currentSlide);
+      _triggerVisibility(currentSlide);
+      Future.delayed(Ratioz.fadingDuration, (){
+        slidingAction(slidingController, numberOfSlides, currentSlide);
+      });
       _currentSlideMinus();
       numberOfSlides <= 1 ?
       _simpleDelete(currentSlide) :
       Future.delayed(
-        Ratioz.slidingAndFadingDuration,
-          (){
-            if(currentSlide == 0){_simpleDelete(currentSlide);snapTo(0);}
+          Ratioz.slidingAndFadingDuration,
+              (){
+            if(currentSlide == 0){_simpleDelete(currentSlide);snapTo(slidingController, 0);}
             else{_simpleDelete(currentSlide);}
             setState(() {
               onPageChangedIsOn = true;
               numberOfSlides = newSlides.length;
             });
-      }
+          }
       );
-          // print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> after _deleteSlide ------------ last shit');
-            // snapToBack(currentSlide);
+      // print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> after _deleteSlide ------------ last shit');
     }
     else
-      {print('no slide to delete');}
+    {print('no slide to delete');}
   }
   // ----------------------------------------------------------------------
   void _selectImage(File pickedImage){
@@ -190,11 +138,11 @@ class _CreateFlyerScreenState extends State<CreateFlyerScreen> {
       _storedImage = File(imageFile.path);
       newSlides.add(
           SlideModel(
-              flyerID: 'f${DateTime.now()}',
-              slideID: 's${DateTime.now()}',
-              slideIndex: 0,
-              picture: _storedImage,
-              headline: '',
+            flyerID: 'f${DateTime.now()}',
+            slideID: 's${DateTime.now()}',
+            slideIndex: 0,
+            picture: _storedImage,
+            headline: '',
           ));
       currentSlide = newSlides.length - 1;
       numberOfSlides = newSlides.length;
@@ -206,7 +154,7 @@ class _CreateFlyerScreenState extends State<CreateFlyerScreen> {
     final fileName = path.basename(imageFile.path);
     final savedImage = await _storedImage.copy('${appDir.path}/$fileName');
     _selectImage(savedImage);
-    slideTo(currentSlide);
+    slideTo(slidingController, currentSlide);
     // print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> after _takeCameraPicture');
   }
   // ----------------------------------------------------------------------
@@ -240,7 +188,7 @@ class _CreateFlyerScreenState extends State<CreateFlyerScreen> {
     final fileName = path.basename(imageFile.path);
     final savedImage = await _storedImage.copy('${appDir.path}/$fileName');
     _selectImage(savedImage);
-    slideTo(currentSlide);
+    slideTo(slidingController, currentSlide);
     // print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> after _takeGalleryPicture');
   }
   // ----------------------------------------------------------------------
@@ -252,8 +200,8 @@ class _CreateFlyerScreenState extends State<CreateFlyerScreen> {
     // print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> after slidingPages : onPageChanged --------');
   }
   // ----------------------------------------------------------------------
-  void zombie (int slideIndex){
-      print('i wont fucking slide');
+  void _takeLocationPicture(){
+
   }
   // ----------------------------------------------------------------------
   @override
@@ -269,19 +217,19 @@ class _CreateFlyerScreenState extends State<CreateFlyerScreen> {
     return MainLayout(
       appBarType: AppBarType.Scrollable,
       appBarRowWidgets: <Widget>[
-        zorar(()=>snapToBack(currentSlide), 'snapToBack'),
-        zorar(()=>_simpleDelete(currentSlide), '_simpleDelete'),
-        zorar(()=>_triggerVisibility(currentSlide), '_triggerVisibility'),
-        zorar(()=>_hideAndSlide(numberOfSlides, currentSlide), '_hideAndSlide'),
-        zorar(()=>_deleteSlide(numberOfSlides, currentSlide), '_deleteSlide'),
-        zorar(()=>slideToBack(currentSlide), 'slideToBack'),
-        zorar(()=>slideToNext(numberOfSlides, currentSlide), 'slideToNext'),
-        zorar(_takeCameraPicture, '_takeCameraPicture'),
-        zorar(_takeGalleryPicture, '_takeGalleryPicture'),
+        // zorar(()=>snapToBack(currentSlide), 'snapToBack'),
+        // zorar(()=>_simpleDelete(currentSlide), '_simpleDelete'),
+        // zorar(()=>_triggerVisibility(currentSlide), '_triggerVisibility'),
+        // zorar(()=>_hideAndSlide(numberOfSlides, currentSlide), '_hideAndSlide'),
+        // zorar(()=>_deleteSlide(numberOfSlides, currentSlide), '_deleteSlide'),
+        // zorar(()=>slideToBack(currentSlide), 'slideToBack'),
+        // zorar(()=>slideToNext(numberOfSlides, currentSlide), 'slideToNext'),
+        // zorar(_takeCameraPicture, '_takeCameraPicture'),
+        // zorar(_takeGalleryPicture, '_takeGalleryPicture'),
       ],
       tappingRageh: (){
         print('slidesVisibility[currentSlide] : ${slidesVisibility[currentSlide]}');
-        },
+      },
       layoutWidget: Column(
         // alignment: Alignment.topCenter,
         children: <Widget>[
@@ -297,23 +245,23 @@ class _CreateFlyerScreenState extends State<CreateFlyerScreen> {
                 stackWidgets: <Widget>[
 
                   PageView.builder(
-                      controller: slidingController,
-                      itemCount: newSlides.length,
-                      onPageChanged: onPageChangedIsOn ? slidingPages : zombie,
-                      physics: ClampingScrollPhysics(),
-                      itemBuilder: (ctx, index) =>
-                          AnimatedOpacity(
-                            key: ObjectKey(newSlides[index].flyerID),
-                            opacity: slidesVisibility[index] == true ? 1 : 0,
-                            duration: Duration(milliseconds: 100),
-                            child: SingleSlide(
-                              flyerZoneWidth: flyerZoneWidth,
-                              // picture: Iconz.DumSlide1,
-                              picFile: newSlides[index].picture,
-                              slideMode: SlideMode.Creation,
-                              boxFit: BoxFit.fitWidth, // [fitWidth - contain - scaleDown] have the blur background
-                            ),
+                    controller: slidingController,
+                    itemCount: newSlides.length,
+                    onPageChanged: onPageChangedIsOn ? slidingPages : zombie,
+                    physics: ClampingScrollPhysics(),
+                    itemBuilder: (ctx, index) =>
+                        AnimatedOpacity(
+                          key: ObjectKey(newSlides[index].flyerID),
+                          opacity: slidesVisibility[index] == true ? 1 : 0,
+                          duration: Duration(milliseconds: 100),
+                          child: SingleSlide(
+                            flyerZoneWidth: flyerZoneWidth,
+                            // picture: Iconz.DumSlide1,
+                            picFile: newSlides[index].picture,
+                            slideMode: SlideMode.Creation,
+                            boxFit: BoxFit.fitWidth, // [fitWidth - contain - scaleDown] have the blur background
                           ),
+                        ),
                   ),
 
                   Header(
@@ -394,6 +342,16 @@ class _CreateFlyerScreenState extends State<CreateFlyerScreen> {
                       iconSizeFactor: 0.65,
                       bubble: true,
                       boxFunction: _takeCameraPicture,
+                    ),
+
+                    // --- NEW LOCATION SLIDE
+                    DreamBox(
+                      width: flyerZoneWidth * 0.15,
+                      height: flyerZoneWidth * 0.15,
+                      icon: Iconz.LocationPin,
+                      iconSizeFactor: 0.65,
+                      bubble: true,
+                      boxFunction: _takeLocationPicture,
                     ),
 
                     // --- DELETE SLIDE
