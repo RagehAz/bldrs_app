@@ -2,6 +2,8 @@ import 'package:bldrs/ambassadors/db_brain/locations_brain.dart';
 import 'package:bldrs/view_brains/drafters/zoomable_widget.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/flagz.dart';
+import 'package:bldrs/view_brains/theme/iconz.dart';
+import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 
 class EarthScreen extends StatefulWidget {
@@ -16,28 +18,25 @@ class EarthScreenState extends State<EarthScreen> {
     double screenHeight = MediaQuery.of(context).size.height;
     double countrySizeFactor = 1;
     double countryWidth = screenWidth * countrySizeFactor;
-    return MaterialApp(
-      title: 'The Entire Fucking Planet',
-      home: Scaffold(
-        backgroundColor: Colorz.SkyDarkBlue,
-          appBar: AppBar(
-            title: const Text('The Entire Fucking Planet'),
-          ),
-          body: ZoomableWidget(
+    return MainLayout(
+      pageTitle: 'The Entire Fucking Planet',
+      appBarType: AppBarType.Basic,
+      pyramids: Iconz.PyramidsYellow,
+      layoutWidget: ZoomableWidget(
 
-            child: Container(
-              width: screenWidth * countrySizeFactor,
-              height: screenHeight * countrySizeFactor,
-              color: Colorz.BloodTest,
-              alignment: Alignment.center,
-              child: Stack(
-                alignment: Alignment.center,
-                children:
-                    // worldDots(screenWidth,)
-                    countryDots(countryWidth, Flagz.Egypt),
-              ),
-            ),
-          )),
+        child: Container(
+          width: screenWidth * countrySizeFactor,
+          height: screenHeight * countrySizeFactor,
+          color: Colorz.BloodTest,
+          alignment: Alignment.center,
+          child: Stack(
+            alignment: Alignment.center,
+            children:
+            // worldDots(screenWidth,)
+            countryDots(countryWidth, Flagz.Egypt),
+          ),
+        ),
+      ),
     );
   }
 }
