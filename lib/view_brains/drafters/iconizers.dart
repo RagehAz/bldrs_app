@@ -1,26 +1,9 @@
 import 'dart:core';
-import 'dart:io';
-
 import 'package:bldrs/view_brains/localization/localization_constants.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/views/widgets/appbar/sliver_home_appbar.dart';
 import 'package:flutter/material.dart';
 
-// --- FILE EXTENSIONS
-extension FileExtention on FileSystemEntity{
-  String get fileNameWithExtension {
-    return this?.path?.split("/")?.last;
-  }
-
-  String get fileExtension {
-    return this?.path?.split(".")?.last;
-  }
-
-}
-
-fileExtensionOf(String file){
-  return File(file).fileExtension;
-}
 
 String sectionIcon (BldrsSection section){
     return
