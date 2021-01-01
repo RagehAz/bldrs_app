@@ -48,14 +48,6 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     ;
   }
   // ----------------------------------------------------------------------
-  // void _showPreview(double lat, double lng){
-  //   print('show Preview, Lat: $lat, lng: $lng');
-  //   final staticMapImageUrl = LocationHelper.generateLocationPreviewImage(lat, lng);
-  //   setState(() {
-  //     _previewImage = staticMapImageUrl;
-  //   });
-  // }
-  // ----------------------------------------------------------------------
   // // -- max get location method
   // Future<void> _getCurrentUserLocation() async {
   //   try {
@@ -67,20 +59,6 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   //   }
   // }
   // // ----------------------------------------------------------------------
-  // // --- to go to a new screen with default position,, why the fuck ?
-  // Future<void>_selectOnMap() async {
-  //   final LatLng selectedLocation = await Navigator.of(context).push<LatLng>(
-  //       MaterialPageRoute(
-  //           builder: (ctx) => GoogleMapScreen(
-  //             isSelecting: true,
-  //           )
-  //       )
-  //   );
-  //   if (selectedLocation == null){ return; }
-  //   _showPreview(selectedLocation.latitude, selectedLocation.longitude);
-  //   print("${selectedLocation.latitude},${selectedLocation.longitude}");
-  // }
-  // ----------------------------------------------------------------------
   void _selectLocation(LatLng position){
     setState(() {
       _pickedLocation = position;
@@ -106,15 +84,6 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     double boxCorners = Ratioz.rrFlyerBottomCorners *  screenWidth;
 
     return MainLayout(
-      appBarType: AppBarType.Scrollable,
-      appBarRowWidgets: <Widget>[
-        zorar(getCustomMarker, 'getCustomMarker'),
-        // zorar(() => _showPreview(20,20), '_showPreview(20,20)'),
-        // zorar(_getCurrentUserLocation, '_getCurrentUserLocation'),
-        // zorar( _selectOnMap, '_selectOnMap'),
-        zorar(() => _selectLocation(cityLocationByCityID(1682169241)), '_selectLocation(cityLocationByCityID(1682169241))'),
-
-      ],
       layoutWidget:
       Stack(
         alignment: Alignment.center,
@@ -144,6 +113,23 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
 
             ],
           ),
+
+          if (widget.isSelecting)
+            Positioned(
+              top: 10,
+              left: 10,
+              child: DreamBox(
+                height: 60,
+                verse: 'Tap The Map\nto pin flyer on map !',
+                verseWeight: VerseWeight.regular,
+                verseItalic: true,
+                verseMaxLines: 2,
+                color: Colorz.BlackLingerie,
+                bubble: false,
+                icon: Iconz.FingerTap,
+                iconSizeFactor: 0.7,
+              ),
+            ),
 
           if (widget.isSelecting)
           Positioned(

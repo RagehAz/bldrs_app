@@ -46,7 +46,7 @@ bool superFlyerMicroMode (BuildContext context, double flyerZoneWidth){
 }
 // === === === === === === === === === === === === === === === === === === ===
 bool superFlyerMiniMode (BuildContext context, double flyerZoneWidth){
-  bool miniMode = flyerZoneWidth < (superScreenWidth(context) * 0.75) ? true : false; // 0.4 needs calibration
+  bool miniMode = flyerZoneWidth < (superScreenWidth(context) * 0.70) ? true : false; // 0.4 needs calibration
   return miniMode;
 }
 // === === === === === === === === === === === === === === === === === === ===

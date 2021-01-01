@@ -1,5 +1,7 @@
 import 'package:bldrs/view_brains/localization/localization_constants.dart';
+import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/views/widgets/appbar/ab_main.dart';
+import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/pyramids/pyramids.dart';
 import 'package:bldrs/views/widgets/space/skies/night_sky.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
@@ -97,3 +99,16 @@ class MainLayout extends StatelessWidget {
     );
   }
 }
+
+// --- for testing purposes, only used in appBar
+Widget zorar(Function function, String functionName){
+  return DreamBox(
+    height: 40,
+    boxMargins: EdgeInsets.all(5),
+    color: Colorz.WhiteAir,
+    verse: functionName,
+    verseScaleFactor: 0.7,
+    boxFunction: function,
+  );
+}
+
