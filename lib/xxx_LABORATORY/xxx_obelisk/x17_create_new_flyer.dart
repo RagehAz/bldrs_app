@@ -244,7 +244,7 @@ class _CreateFlyerScreenState extends State<CreateFlyerScreen> {
   }
   // ----------------------------------------------------------------------
   void _showPreview(double lat, double lng) {
-    final staticMapImageUrl = LocationHelper.generateLocationPreviewImage(lat, lng,);
+    final staticMapImageUrl = getStaticMapImage(context, lat, lng);
     setState(() {
       _previewImageUrl = staticMapImageUrl;
     });

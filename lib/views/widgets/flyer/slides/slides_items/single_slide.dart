@@ -177,7 +177,7 @@ class _SingleSlideState extends State<SingleSlide> {
             fileIsURL(widget.picFile) == false ? Container() :
             Image.network(
                 widget.picFile,
-                fit: BoxFit.cover,
+                fit: BoxFit.fitWidth,
                 width: widget.flyerZoneWidth,
                 height: superFlyerZoneHeight(context, widget.flyerZoneWidth)
             ),
