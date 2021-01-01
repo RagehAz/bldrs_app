@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 23.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.0" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="50px" height="50px" viewBox="0 0 50 50" enable-background="new 0 0 50 50" xml:space="preserve">
+<g>
+	<g display="none">
+		<path display="inline" fill="#FFFFFF" d="M38.2,8c-7.2-7.3-19-7.4-26.4-0.1c-7.3,7.2-7.4,19-0.1,26.4l13.1,13.2L38,34.4
+			C45.4,27.1,45.5,15.3,38.2,8z M24.9,30.8c-5.1,0-9.2-4.1-9.2-9.2s4.1-9.2,9.2-9.2s9.2,4.1,9.2,9.2S29.9,30.8,24.9,30.8z"/>
+		
+			<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="25.0247" y1="48.7503" x2="25.0247" y2="6.694" gradientTransform="matrix(1 0 0 -1 0 52)">
+			<stop  offset="4.300000e-02" style="stop-color:#F2F2F2;stop-opacity:0.7"/>
+			<stop  offset="0.1826" style="stop-color:#F2F2F2;stop-opacity:0.5979"/>
+			<stop  offset="1" style="stop-color:#F2F2F2;stop-opacity:0"/>
+		</linearGradient>
+		<path display="inline" opacity="0.5" fill="url(#SVGID_1_)" enable-background="new    " d="M37.4,8.4c-6.8-6.8-17.8-6.9-24.6-0.1
+			S5.9,26.1,12.6,33l12.3,12.4l12.4-12.3C44.1,26.3,44.1,15.3,37.4,8.4z M24.9,30.8c-5.5,0-10-4.5-10-10s4.5-10,10-10s10,4.5,10,10
+			S30.4,30.8,24.9,30.8z"/>
+		
+			<linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="-9975.2188" y1="2405.3384" x2="-9975.2188" y2="2350.1755" gradientTransform="matrix(0.7624 3.500000e-03 3.500000e-03 -0.7624 7621.7925 1872.1237)">
+			<stop  offset="0" style="stop-color:#FFFFFF;stop-opacity:0.8"/>
+			<stop  offset="3.190000e-02" style="stop-color:#FAFAFA;stop-opacity:0.7479"/>
+			<stop  offset="6.980000e-02" style="stop-color:#ECECEC;stop-opacity:0.6861"/>
+			<stop  offset="0.1108" style="stop-color:#D4D4D4;stop-opacity:0.6193"/>
+			<stop  offset="0.1539" style="stop-color:#B2B2B2;stop-opacity:0.549"/>
+			<stop  offset="0.1987" style="stop-color:#878787;stop-opacity:0.4759"/>
+			<stop  offset="0.2449" style="stop-color:#525252;stop-opacity:0.4005"/>
+			<stop  offset="0.2914" style="stop-color:#151515;stop-opacity:0.3246"/>
+			<stop  offset="0.3065" style="stop-color:#000000;stop-opacity:0.3"/>
+			<stop  offset="1" style="stop-color:#000000;stop-opacity:0.4"/>
+		</linearGradient>
+		<path display="inline" opacity="0.5" fill="url(#SVGID_2_)" enable-background="new    " d="M37.4,8.4c-6.8-6.8-17.8-6.9-24.6-0.1
+			S5.9,26.1,12.6,33l12.3,12.4l12.4-12.3C44.1,26.3,44.1,15.3,37.4,8.4z M36.6,32.5L24.9,44.1L13.2,32.3c-3.1-3.1-4.8-7.3-4.8-11.7
+			s1.8-8.6,4.9-11.7S20.6,4.1,25,4.1S33.6,5.9,36.7,9c3.1,3.1,4.8,7.3,4.8,11.7S39.8,29.3,36.6,32.5z"/>
+		<path display="inline" opacity="0.1" fill="#FFFFFF" enable-background="new    " d="M37.7,15.2C37.7,10,32,5.7,25,5.7
+			s-12.7,4.2-12.8,9.4c0,2.1,0.9,4.1,2.6,5.7v-0.1c0-5.5,4.5-10,10-10s10,4.5,10,10c0,0.1,0,0.3,0,0.4
+			C36.7,19.5,37.7,17.5,37.7,15.2z"/>
+	</g>
+	<g>
+		<path fill="#E90000" d="M33.3,25.2c-4.1-4.1-10.7-4.2-14.9-0.1c-4.1,4.1-4.2,10.7-0.1,14.9l7.4,7.4l7.4-7.4
+			C37.3,36,37.4,29.4,33.3,25.2z M25.8,38.1c-2.9,0-5.2-2.3-5.2-5.2s2.3-5.2,5.2-5.2S31,30,31,32.9C31,35.8,28.6,38.1,25.8,38.1z"/>
+		<path id="shawod1_2_" fill="#30008F" fill-opacity="0" d="M25.2,38.1c-2.1-0.5-7.8-2.2-9.9-2.6c-2.1-0.5-3.1-2.9-2.2-4.9
+			c3.7-9.5,9.3-21,11-23.2c0.8-1,1.8-1.4,3.2-0.9c1.4,0.5,9.5,4.5,10.6,5.1c1.1,0.6,1.2,2.2,0.7,3.4c-2.2,4.8-4.8,11.5-8.4,21.2
+			C29.7,37.8,27.3,38.6,25.2,38.1z"/>
+	</g>
+</g>
+<g id="front_x5F_flyer">
+	<path id="shawod1_1_" opacity="0.25" enable-background="new    " d="M24.1,35.8c-2.1-0.5-7.8-2.2-9.9-2.6
+		c-2.1-0.5-3.1-2.9-2.2-4.9c3.7-9.5,9.3-21,11-23.2c0.8-1,1.8-1.4,3.2-0.9c1.4,0.5,9.5,4.5,10.6,5.1c1.1,0.6,1.2,2.2,0.7,3.4
+		c-2.2,4.8-4.8,11.5-8.4,21.2C28.6,35.5,26.2,36.3,24.1,35.8z"/>
+	<path id="slide1_1_" fill="#FFFFFF" d="M23.3,34.7c-3.9-1.1-6-1.5-9.8-2.8c-1.9-0.7-2.9-2.2-2.1-5C12.1,24.1,20,7.2,22.6,3.8
+		c1-1.3,2.3-1.5,3.4-1.2s6.8,2.9,10.6,5.1c1,0.5,1.2,2.2,0.6,3.3c-3.9,9.1-8.2,19.3-9.1,21.4S25.4,35.1,23.3,34.7z"/>
+	<path id="button1_1_" opacity="0.75" enable-background="new    " d="M27.5,32.3c-0.5,1.4-2.5,2-4.1,1.6s-2.6-2.2-2.1-3.5
+		s2.4-2,4.1-1.6C27.2,29.2,28.1,30.9,27.5,32.3z"/>
+</g>
+</svg>
