@@ -1,16 +1,17 @@
-import 'package:bldrs/view_brains/controllers/locations_brain.dart';
+import 'dart:async';
+import 'dart:typed_data';
 import 'package:bldrs/view_brains/theme/colorz.dart';
-import 'package:bldrs/view_brains/theme/flagz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
-import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/pro_flyer/flyer_parts/flyer_zone.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:bldrs/xxx_LABORATORY/camera_and_location/test_provider.dart';
-import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x17_create_new_flyer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'dart:ui' as ui;
 // ----------------------------------------------------------------------
 // Google Cloud Platform
 // Bldrs
@@ -32,56 +33,68 @@ class GoogleMapScreen extends StatefulWidget {
 }
 
 class _GoogleMapScreenState extends State<GoogleMapScreen> {
-  String _previewImage;
-  BitmapDescriptor customMarker;
   LatLng _pickedLocation;
+  BitmapDescriptor customMarker;
+  int markerWidth = 125;
+  Position currentUserPosition;
+  Position initialPosition;
+  bool confirmButtonIsActive;
   // ----------------------------------------------------------------------
   @override
   void initState(){
     super.initState();
-    getCustomMarker();
+    missingFunction();
+    getUserLocation();
+    confirmButtonIsActive = true;
   }
   // ----------------------------------------------------------------------
-  Future getCustomMarker()async{
-    customMarker = await BitmapDescriptor.
-    fromAssetImage(ImageConfiguration.empty, Iconz.DumPinPNG)
-    ;
+  void getUserLocation () async {
+    currentUserPosition = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.best,);
+    setState(() {
+      initialPosition = currentUserPosition;
+    });
   }
-  // ----------------------------------------------------------------------
-  // // -- max get location method
-  // Future<void> _getCurrentUserLocation() async {
-  //   try {
-  //     final locData = await Location().getLocation();
-  //     _showPreview(locData.latitude, locData.longitude);
-  //     // widget.onSelectPlace(locData.latitude, locData.longitude);
-  //   } catch (error){
-  //     return;
-  //   }
-  // }
   // // ----------------------------------------------------------------------
   void _selectLocation(LatLng position){
     setState(() {
       _pickedLocation = position;
+      confirmButtonIsActive = true;
     });
     print('The fucking position is $position');
+  }
+  // ----------------------------------------------------------------------
+  Future<Uint8List> getBytesFromAsset(String path, int width) async {
+    ByteData data = await rootBundle.load(path);
+    ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(), targetWidth: width);
+    ui.FrameInfo fi = await codec.getNextFrame();
+    return (await fi.image.toByteData(format: ui.ImageByteFormat.png)).buffer.asUint8List();
+  }
+  // ----------------------------------------------------------------------
+  missingFunction()async{
+    final Uint8List markerIcon = await getBytesFromAsset(Iconz.FlyerPinPNG, markerWidth);
+    customMarker = BitmapDescriptor.fromBytes(markerIcon);
   }
   // ----------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    var theMarkers = _pickedLocation == null ? countryCitiesMarkers(Flagz.Saudi_Arabia, customMarker) :
+    var theMarkers = _pickedLocation == null ? null :
     {
       Marker(
         markerId: MarkerId('m1'),
         position: _pickedLocation,
+        icon: customMarker,
+        // infoWindow: InfoWindow(
+        //   title: 'title',
+        //   snippet: 'snippet',
+        //   onTap: (){print('pin taps aho');},
+        //   // anchor: const Offset(0,0),
+        // ),
+
       )
     };
 
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
-    // double mapBoxWidth = screenWidth * 0.8;
-    // double mapBoxHeight = mapBoxWidth;
-    double boxCorners = Ratioz.rrFlyerBottomCorners *  screenWidth;
+    LatLng userCurrentLocation = LatLng(initialPosition.latitude, initialPosition.longitude);
 
     return MainLayout(
       layoutWidget:
@@ -99,10 +112,15 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                 zoomGesturesEnabled: true,
                 myLocationButtonEnabled: true,
                 myLocationEnabled: true,
+                liteModeEnabled: false,
+                buildingsEnabled: false,
+                compassEnabled: true,
+                trafficEnabled: false,
+                mapToolbarEnabled: false,
                 initialCameraPosition:
                 CameraPosition(
-                  target: cityLocationByCityID(1818253931), // Mecca 1682169241 - Cairo 1818253931zoom: 10
-                  zoom: 16,
+                  target: userCurrentLocation,
+                  zoom: 10,
                   // bearing: ,
                   // tilt: ,
                 ),
@@ -116,11 +134,11 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
 
           if (widget.isSelecting)
             Positioned(
-              top: 10,
+              top: 80,
               left: 10,
               child: DreamBox(
                 height: 60,
-                verse: 'Tap The Map\nto pin flyer on map !',
+                verse: 'Tap The Map\nto pin flyer on the map !',
                 verseWeight: VerseWeight.regular,
                 verseItalic: true,
                 verseMaxLines: 2,
@@ -137,13 +155,20 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
             child: DreamBox(
               height: 50,
               width: 220,
-              color: Colorz.Yellow,
-              verse: 'Confirm flyer Location',
+              color: confirmButtonIsActive == true ? Colorz.Yellow : Colorz.BloodRed,
+              verse: confirmButtonIsActive == true ? 'Confirm flyer Location' : 'Pin the Map first !',
               verseMaxLines: 2,
               verseScaleFactor: 0.7,
               verseWeight: VerseWeight.black,
-              verseColor: Colorz.BlackBlack,
-              boxFunction: _pickedLocation == null ? (){print('_pickedLocation : $_pickedLocation');} : (){
+              verseColor: confirmButtonIsActive == true ? Colorz.BlackBlack : Colorz.White,
+              boxFunction: _pickedLocation == null ?
+                  (){
+                setState(() {
+                  confirmButtonIsActive = false;
+                });;
+              }
+                  :
+                  (){
                 Navigator.of(context).pop(_pickedLocation);
                 print('a77a ba2a');
               },
