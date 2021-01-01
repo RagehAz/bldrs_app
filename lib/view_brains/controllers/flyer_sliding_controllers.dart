@@ -1,9 +1,5 @@
-import 'dart:io';
-
-import 'package:bldrs/models/slide_model.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 // ----------------------------------------------------------------------
 void slideToNext(PageController slidingController, int numberOfSlides, int currentSlide){
   slidingController.animateToPage(currentSlide + 1,

@@ -1,7 +1,6 @@
 import 'package:bldrs/view_brains/controllers/flyer_controllers.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
-import 'package:bldrs/view_brains/localization/localization_constants.dart';
 import 'package:bldrs/view_brains/router/route_names.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
@@ -70,7 +69,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
     // }
 
     // double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = superScreenHeight(context);
+    // double screenHeight = superScreenHeight(context);
 
     return MainLayout(
       pyramids: Iconz.PyramidsCrystal,
