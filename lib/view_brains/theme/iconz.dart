@@ -116,6 +116,8 @@ static const String FlyerScale = 'assets/gi/gi_flyer_scale.svg' ;
 static const String FlyerCollection = 'assets/gi/gi_flyer_collection.svg' ;
 static const String FlyerGrid = 'assets/gi/gi_flyer_grid.svg' ;
 static const String FingerTap = 'assets/gi/gi_finger_tap.svg' ;
+static const String FlyerPin = 'assets/gi/gi_flyer_pin.svg' ;
+static const String FlyerPinPNG = 'assets/gi/gi_flyer_pin_png.png' ;
 // -------------------------------------------------------------------------
 // PYRAMIDS
 static const String PyramidsYellow = 'assets/py/pyramids_yellow.svg' ;
