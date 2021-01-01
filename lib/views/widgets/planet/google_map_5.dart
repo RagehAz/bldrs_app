@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:typed_data';
-import 'package:bldrs/ambassadors/db_brain/locations_brain.dart';
+import 'package:bldrs/view_brains/controllers/locations_brain.dart';
 import 'package:bldrs/view_brains/drafters/borderers.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/flagz.dart';
@@ -23,15 +23,16 @@ class GoogleMapScreen5 extends StatefulWidget {
 class _GoogleMapScreen5State extends State<GoogleMapScreen5> {
   Completer<GoogleMapController> _controller = Completer();
 Position currentUserPosition;
+  Position loadedPosition;
   BitmapDescriptor customMarker;
   int markerWidth = 50;
+
 
   static final CameraPosition _kLake = CameraPosition(
       bearing: 192.8334901395799,
       target: LatLng(37.43296265331129, -122.08832357078792),
       tilt: 59.440717697143555,
       zoom: 19.151926040649414);
-
 
     Future<void> _goToTheLake() async {
     final GoogleMapController controller = await _controller.future;
@@ -41,6 +42,9 @@ Position currentUserPosition;
 
  getUserLocation () async {
   currentUserPosition = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
+  setState(() {
+    loadedPosition = currentUserPosition;
+  });
 }
 
 // --- this makes blue rounded rectangle with text inside
@@ -77,7 +81,7 @@ Future<Uint8List> getBytesFromCanvas(int width, int height, String verse) async 
 }
 
   @override
-  void initState(){
+  void initState() {
       getUserLocation();
       missingFunction();
       super.initState();
@@ -89,7 +93,7 @@ Future<Uint8List> getBytesFromCanvas(int width, int height, String verse) async 
 
   var cityMarkers = countryCitiesMarkers(Flagz.Egypt, customMarker);
 
-  LatLng aMarkerLatLng = LatLng(currentUserPosition.latitude, currentUserPosition.longitude);
+  LatLng aMarkerLatLng = LatLng(loadedPosition.latitude, loadedPosition.longitude);
   var aMarker = someMarker(customMarker, aMarkerLatLng.latitude , aMarkerLatLng.longitude);
 
   double screenWidth = MediaQuery.of(context).size.width;

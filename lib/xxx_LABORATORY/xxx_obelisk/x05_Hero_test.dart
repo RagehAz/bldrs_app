@@ -1,3 +1,4 @@
+import 'package:bldrs/view_brains/drafters/file_formatters.dart';
 import 'package:bldrs/view_brains/localization/localization_constants.dart';
 import 'package:bldrs/views/widgets/appbar/buttons/bt_search.dart';
 import 'package:bldrs/views/widgets/buttons/bt_rageh.dart';
@@ -10,7 +11,6 @@ import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
 import '../../main.dart';
-import 'package:bldrs/view_brains/drafters/iconizers.dart';
 import 'package:bldrs/view_brains/drafters/shadowers.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 

@@ -1,9 +1,13 @@
 import 'dart:io';
 import 'package:bldrs/view_brains/controllers/flyer_sliding_controllers.dart';
+import 'package:bldrs/view_brains/drafters/file_formatters.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/flyer/slides/slides_items/single_slide.dart';
 import 'package:bldrs/views/widgets/space/stratosphere.dart';
+import 'package:bldrs/xxx_LABORATORY/camera_and_location/google_map.dart';
+import 'package:bldrs/xxx_LABORATORY/camera_and_location/location_helper.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart' as sysPaths;
 import 'package:bldrs/models/location_model.dart';
@@ -43,11 +47,14 @@ class _CreateFlyerScreenState extends State<CreateFlyerScreen> {
   int numberOfSlides;
   List<bool> slidesVisibility;
   bool onPageChangedIsOn;
+  List<SlideMode> slidesModes;
+  String _previewImageUrl;
   // ----------------------------------------------------------------------
   @override
   void initState(){
     newSlides = new List();
     slidesVisibility = new List();
+    slidesModes = new List();
     numberOfSlides = newSlides.length;
     currentSlide = 0;
     slidingController = PageController(initialPage: 0,);
@@ -78,6 +85,7 @@ class _CreateFlyerScreenState extends State<CreateFlyerScreen> {
     {
       if(currentSlide == 0){newSlides.removeAt(currentSlide);currentSlide=0;}else{newSlides.removeAt(currentSlide);}
       slidesVisibility.removeAt(currentSlide);
+      slidesModes.removeAt(currentSlide);
     } else { print('no Slide to delete'); }
     // print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> after _simpleDelete');
   }
@@ -147,6 +155,7 @@ class _CreateFlyerScreenState extends State<CreateFlyerScreen> {
       currentSlide = newSlides.length - 1;
       numberOfSlides = newSlides.length;
       slidesVisibility.add(true);
+      slidesModes.add(SlideMode.Editor);
       onPageChangedIsOn = true;
     });
 
@@ -181,6 +190,7 @@ class _CreateFlyerScreenState extends State<CreateFlyerScreen> {
       currentSlide = newSlides.length - 1;
       numberOfSlides = newSlides.length;
       slidesVisibility.add(true);
+      slidesModes.add(SlideMode.Editor);
       onPageChangedIsOn = true;
     });
 
@@ -200,8 +210,68 @@ class _CreateFlyerScreenState extends State<CreateFlyerScreen> {
     // print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> after slidingPages : onPageChanged --------');
   }
   // ----------------------------------------------------------------------
-  void _takeLocationPicture(){
-
+  void tappingNewSlide(){
+    setState(() {
+      newSlides.add(SlideModel(
+        flyerID: 'f${DateTime.now()}',
+        slideID: 's${DateTime.now()}',
+        slideIndex: currentSlide+1,
+        picture:  null,
+        headline: '',
+      ));
+      currentSlide = newSlides.length - 1;
+      numberOfSlides = newSlides.length;
+      slidingController.animateToPage(currentSlide, duration: Duration(milliseconds: 750), curve: Curves.easeInOutCirc);
+      slidesVisibility.add(true);
+      slidesModes.add(SlideMode.Map);
+    });
+    }
+    // ----------------------------------------------------------------------
+  void _takeLocationSlide(){
+    tappingNewSlide();
+    setState(() {
+    });
+  }
+  // ----------------------------------------------------------------------
+  // --- to go to a new screen with default position
+  Future<void>_selectOnMap() async {
+    final LatLng selectedLocation = await Navigator.of(context).push<LatLng>(
+        MaterialPageRoute(
+            builder: (ctx) => GoogleMapScreen(
+              isSelecting: true,
+            )
+        )
+    );
+    if (selectedLocation == null){ return; }
+    _showPreview(selectedLocation.latitude, selectedLocation.longitude);
+    _newLocationSlide();
+    print("${selectedLocation.latitude},${selectedLocation.longitude}");
+  }
+  // ----------------------------------------------------------------------
+  void _showPreview(double lat, double lng) {
+    final staticMapImageUrl = LocationHelper.generateLocationPreviewImage(lat, lng,);
+    setState(() {
+      _previewImageUrl = staticMapImageUrl;
+    });
+  }
+  // ----------------------------------------------------------------------
+  void _newLocationSlide(){
+    setState(() {
+      newSlides.add(
+          SlideModel(
+            flyerID: 'f${DateTime.now()}',
+            slideID: 's${DateTime.now()}',
+            slideIndex: 0,
+            picture: _previewImageUrl,
+            headline: '',
+          ));
+      currentSlide = newSlides.length - 1;
+      numberOfSlides = newSlides.length;
+      slidesVisibility.add(true);
+      slidesModes.add(SlideMode.Editor);
+      onPageChangedIsOn = true;
+    });
+    slideTo(slidingController, currentSlide);
   }
   // ----------------------------------------------------------------------
   @override
@@ -215,9 +285,13 @@ class _CreateFlyerScreenState extends State<CreateFlyerScreen> {
     // ----------------------------------------------------------------------
     // print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> building widget tree');
     return MainLayout(
+      tappingRageh: (){
+        print(fileIsURL('http://www.google.com'));
+      },
+
       appBarType: AppBarType.Scrollable,
       appBarRowWidgets: <Widget>[
-        // zorar(()=>snapToBack(currentSlide), 'snapToBack'),
+                // zorar(()=>snapToBack(currentSlide), 'snapToBack'),
         // zorar(()=>_simpleDelete(currentSlide), '_simpleDelete'),
         // zorar(()=>_triggerVisibility(currentSlide), '_triggerVisibility'),
         // zorar(()=>_hideAndSlide(numberOfSlides, currentSlide), '_hideAndSlide'),
@@ -227,9 +301,6 @@ class _CreateFlyerScreenState extends State<CreateFlyerScreen> {
         // zorar(_takeCameraPicture, '_takeCameraPicture'),
         // zorar(_takeGalleryPicture, '_takeGalleryPicture'),
       ],
-      tappingRageh: (){
-        print('slidesVisibility[currentSlide] : ${slidesVisibility[currentSlide]}');
-      },
       layoutWidget: Column(
         // alignment: Alignment.topCenter,
         children: <Widget>[
@@ -258,7 +329,7 @@ class _CreateFlyerScreenState extends State<CreateFlyerScreen> {
                             flyerZoneWidth: flyerZoneWidth,
                             // picture: Iconz.DumSlide1,
                             picFile: newSlides[index].picture,
-                            slideMode: SlideMode.Creation,
+                            slideMode: slidesModes[index],
                             boxFit: BoxFit.fitWidth, // [fitWidth - contain - scaleDown] have the blur background
                           ),
                         ),
@@ -344,14 +415,14 @@ class _CreateFlyerScreenState extends State<CreateFlyerScreen> {
                       boxFunction: _takeCameraPicture,
                     ),
 
-                    // --- NEW LOCATION SLIDE
+                    // --- OPEN MAP SCREEN
                     DreamBox(
                       width: flyerZoneWidth * 0.15,
                       height: flyerZoneWidth * 0.15,
                       icon: Iconz.LocationPin,
                       iconSizeFactor: 0.65,
                       bubble: true,
-                      boxFunction: _takeLocationPicture,
+                      boxFunction: _selectOnMap,
                     ),
 
                     // --- DELETE SLIDE
