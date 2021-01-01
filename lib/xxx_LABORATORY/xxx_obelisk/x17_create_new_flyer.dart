@@ -1,8 +1,10 @@
 import 'dart:io';
 import 'package:bldrs/view_brains/controllers/flyer_sliding_controllers.dart';
+import 'package:bldrs/view_brains/drafters/aligners.dart';
 import 'package:bldrs/view_brains/drafters/file_formatters.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
+import 'package:bldrs/view_brains/theme/sizez.dart';
 import 'package:bldrs/views/widgets/flyer/slides/slides_items/single_slide.dart';
 import 'package:bldrs/views/widgets/space/stratosphere.dart';
 import 'package:bldrs/xxx_LABORATORY/camera_and_location/google_map.dart';
@@ -226,14 +228,7 @@ class _CreateFlyerScreenState extends State<CreateFlyerScreen> {
       slidesModes.add(SlideMode.Map);
     });
     }
-    // ----------------------------------------------------------------------
-  void _takeLocationSlide(){
-    tappingNewSlide();
-    setState(() {
-    });
-  }
   // ----------------------------------------------------------------------
-  // --- to go to a new screen with default position
   Future<void>_selectOnMap() async {
     final LatLng selectedLocation = await Navigator.of(context).push<LatLng>(
         MaterialPageRoute(
@@ -280,107 +275,117 @@ class _CreateFlyerScreenState extends State<CreateFlyerScreen> {
     final coFlyer = pro.hatCoFlyerByFlyerID('f035');
     final coBz = coFlyer.coBz;
     // ----------------------------------------------------------------------
-    final double flyerSizeFactor = 0.75;
+    final double flyerSizeFactor = 0.73;
     final double flyerZoneWidth = superFlyerZoneWidth(context, flyerSizeFactor);
     // ----------------------------------------------------------------------
     // print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> building widget tree');
     return MainLayout(
-      tappingRageh: (){
-        print(fileIsURL('http://www.google.com'));
-      },
-
-      appBarType: AppBarType.Scrollable,
-      appBarRowWidgets: <Widget>[
-                // zorar(()=>snapToBack(currentSlide), 'snapToBack'),
-        // zorar(()=>_simpleDelete(currentSlide), '_simpleDelete'),
-        // zorar(()=>_triggerVisibility(currentSlide), '_triggerVisibility'),
-        // zorar(()=>_hideAndSlide(numberOfSlides, currentSlide), '_hideAndSlide'),
-        // zorar(()=>_deleteSlide(numberOfSlides, currentSlide), '_deleteSlide'),
-        // zorar(()=>slideToBack(currentSlide), 'slideToBack'),
-        // zorar(()=>slideToNext(numberOfSlides, currentSlide), 'slideToNext'),
-        // zorar(_takeCameraPicture, '_takeCameraPicture'),
-        // zorar(_takeGalleryPicture, '_takeGalleryPicture'),
-      ],
-      layoutWidget: Column(
-        // alignment: Alignment.topCenter,
+      appBarType: AppBarType.Basic,
+      appBarRowWidgets: <Widget>[],
+      layoutWidget: Stack(
         children: <Widget>[
 
-          Stratosphere(),
-
-          Stack(
+          Column(
+            // alignment: Alignment.topCenter,
             children: <Widget>[
 
-              FlyerZone(
-                flyerSizeFactor: flyerSizeFactor,
-                tappingFlyerZone: (){},
-                stackWidgets: <Widget>[
+              Stratosphere(),
 
-                  PageView.builder(
-                    controller: slidingController,
-                    itemCount: newSlides.length,
-                    onPageChanged: onPageChangedIsOn ? slidingPages : zombie,
-                    physics: ClampingScrollPhysics(),
-                    itemBuilder: (ctx, index) =>
-                        AnimatedOpacity(
-                          key: ObjectKey(newSlides[index].flyerID),
-                          opacity: slidesVisibility[index] == true ? 1 : 0,
-                          duration: Duration(milliseconds: 100),
-                          child: SingleSlide(
-                            flyerZoneWidth: flyerZoneWidth,
-                            // picture: Iconz.DumSlide1,
-                            picFile: newSlides[index].picture,
-                            slideMode: slidesModes[index],
-                            boxFit: BoxFit.fitWidth, // [fitWidth - contain - scaleDown] have the blur background
-                          ),
-                        ),
+              Stack(
+                children: <Widget>[
+
+                  FlyerZone(
+                    flyerSizeFactor: flyerSizeFactor,
+                    tappingFlyerZone: (){},
+                    stackWidgets: <Widget>[
+
+                      PageView.builder(
+                        controller: slidingController,
+                        itemCount: newSlides.length,
+                        onPageChanged: onPageChangedIsOn ? slidingPages : zombie,
+                        physics: ClampingScrollPhysics(),
+                        itemBuilder: (ctx, index) =>
+                            AnimatedOpacity(
+                              key: ObjectKey(newSlides[index].flyerID),
+                              opacity: slidesVisibility[index] == true ? 1 : 0,
+                              duration: Duration(milliseconds: 100),
+                              child: SingleSlide(
+                                flyerZoneWidth: flyerZoneWidth,
+                                // picture: Iconz.DumSlide1,
+                                picFile: newSlides[index].picture,
+                                slideMode: slidesModes[index],
+                                boxFit: BoxFit.fitWidth, // [fitWidth - contain - scaleDown] have the blur background
+                              ),
+                            ),
+                      ),
+
+                      Header(
+                        coBz: coBz,
+                        coAuthor: coBz.coAuthors[2],
+                        flyerShowsAuthor: coFlyer.flyer.flyerShowsAuthor,
+                        followIsOn: false,
+                        flyerZoneWidth: superFlyerZoneWidth(context, flyerSizeFactor),
+                        bzPageIsOn: false,
+                        tappingHeader: (){},
+                        tappingFollow: (){},
+                        tappingUnfollow: (){},
+                        tappingGallery: (){},
+                      ),
+
+                      ProgressBar(
+                        flyerZoneWidth: flyerZoneWidth,
+                        numberOfSlides: numberOfSlides,
+                        currentSlide: currentSlide,
+                      ),
+
+                    ],
                   ),
 
-                  Header(
-                    coBz: coBz,
-                    coAuthor: coBz.coAuthors[2],
-                    flyerShowsAuthor: coFlyer.flyer.flyerShowsAuthor,
-                    followIsOn: false,
-                    flyerZoneWidth: superFlyerZoneWidth(context, flyerSizeFactor),
-                    bzPageIsOn: false,
-                    tappingHeader: (){},
-                    tappingFollow: (){},
-                    tappingUnfollow: (){},
-                    tappingGallery: (){},
-                  ),
-
-                  ProgressBar(
-                    flyerZoneWidth: flyerZoneWidth,
-                    numberOfSlides: numberOfSlides,
-                    currentSlide: currentSlide,
-                  ),
-
-                  1 == 1 ? Container() :
                   Positioned(
-                    bottom: 0,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                    right: ((1-flyerSizeFactor)/2)*superScreenWidth(context) - ((flyerZoneWidth * 0.15/2)),
+                    bottom: superScreenHeightWithoutSafeArea(context) * 0.07,
+                    child: Column(
                       children: <Widget>[
 
+                        // --- NEW SLIDE FROM CAMERA
                         DreamBox(
                           width: flyerZoneWidth * 0.15,
                           height: flyerZoneWidth * 0.15,
-                          boxMargins: EdgeInsets.all(flyerZoneWidth * 0.025),
                           icon: Iconz.PhoneGallery,
+                          iconSizeFactor: 0.6,
                           bubble: true,
-                          iconSizeFactor: 0.8,
                           boxFunction: _takeGalleryPicture,
                         ),
 
+                        // --- NEW SLIDE FROM GALLERY
                         DreamBox(
                           width: flyerZoneWidth * 0.15,
                           height: flyerZoneWidth * 0.15,
-                          boxMargins: EdgeInsets.all(flyerZoneWidth * 0.025),
                           icon: Iconz.Camera,
+                          iconSizeFactor: 0.65,
                           bubble: true,
-                          iconSizeFactor: 0.8,
                           boxFunction: _takeCameraPicture,
                         ),
+
+                        // --- OPEN MAP SCREEN
+                        DreamBox(
+                          width: flyerZoneWidth * 0.15,
+                          height: flyerZoneWidth * 0.15,
+                          icon: Iconz.LocationPin,
+                          iconSizeFactor: 0.65,
+                          bubble: true,
+                          boxFunction: _selectOnMap,
+                        ),
+
+                        // --- DELETE SLIDE
+                        DreamBox(
+                          width: flyerZoneWidth * 0.15,
+                          height: flyerZoneWidth * 0.15,
+                          icon: Iconz.XLarge,
+                          iconSizeFactor: 0.5,
+                          bubble: true,
+                          boxFunction: () => _deleteSlide(numberOfSlides, currentSlide),
+                        )
 
                       ],
                     ),
@@ -389,58 +394,28 @@ class _CreateFlyerScreenState extends State<CreateFlyerScreen> {
                 ],
               ),
 
-              Positioned(
-                right: ((1-flyerSizeFactor)/2)*superScreenWidth(context) - ((flyerZoneWidth * 0.15/2)),
-                bottom: superScreenHeightWithoutSafeArea(context) * 0.07,
-                child: Column(
-                  children: <Widget>[
 
-                    // --- NEW SLIDE FROM CAMERA
-                    DreamBox(
-                      width: flyerZoneWidth * 0.15,
-                      height: flyerZoneWidth * 0.15,
-                      icon: Iconz.PhoneGallery,
-                      iconSizeFactor: 0.6,
-                      bubble: true,
-                      boxFunction: _takeGalleryPicture,
-                    ),
-
-                    // --- NEW SLIDE FROM GALLERY
-                    DreamBox(
-                      width: flyerZoneWidth * 0.15,
-                      height: flyerZoneWidth * 0.15,
-                      icon: Iconz.Camera,
-                      iconSizeFactor: 0.65,
-                      bubble: true,
-                      boxFunction: _takeCameraPicture,
-                    ),
-
-                    // --- OPEN MAP SCREEN
-                    DreamBox(
-                      width: flyerZoneWidth * 0.15,
-                      height: flyerZoneWidth * 0.15,
-                      icon: Iconz.LocationPin,
-                      iconSizeFactor: 0.65,
-                      bubble: true,
-                      boxFunction: _selectOnMap,
-                    ),
-
-                    // --- DELETE SLIDE
-                    DreamBox(
-                      width: flyerZoneWidth * 0.15,
-                      height: flyerZoneWidth * 0.15,
-                      icon: Iconz.XLarge,
-                      iconSizeFactor: 0.5,
-                      bubble: true,
-                      boxFunction: () => _deleteSlide(numberOfSlides, currentSlide),
-                    )
-
-                  ],
-                ),
-              ),
 
             ],
           ),
+
+          Positioned(
+            bottom: 0,
+            child: Container(
+              width: superScreenWidth(context),
+              height: 60,
+              // color: Colorz.BloodTest,
+              alignment: Alignment.center,
+              child: DreamBox(
+                height: 50,
+                boxMargins: EdgeInsets.all(5),
+                verse: 'Publish flyer',
+                icon: Iconz.Flyer,
+                iconSizeFactor: 0.6,
+              ),
+            ),
+          ),
+
 
         ],
       ),
@@ -448,18 +423,3 @@ class _CreateFlyerScreenState extends State<CreateFlyerScreen> {
   }
 }
 
-Widget zorar(Function function, String functionName){
-  return DreamBox(
-    height: 40,
-    boxMargins: EdgeInsets.all(5),
-    color: Colorz.WhiteAir,
-    verse: functionName,
-    verseScaleFactor: 0.7,
-    boxFunction: function,
-  );
-}
-
-
-// numberOfSlides == 0? numberOfSlides = 0 :
-// numberOfSlides >= 1? numberOfSlides = numberOfSlides - 1 :
-// numberOfSlides = numberOfSlides;
