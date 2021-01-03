@@ -6,8 +6,8 @@ Gradient superSlideGradient(){
   Gradient slideGradient = LinearGradient(
       begin: Alignment.topCenter,
       end: Alignment.bottomCenter,
-      colors: [Color.fromARGB(50, 0, 0, 0), Colorz.Nothing],
-      stops: [0.45,1]
+      colors: [Colorz.BlackLingerie, Colorz.BlackNothing],
+      stops: [0,0.90]
   );
   return slideGradient;
 }

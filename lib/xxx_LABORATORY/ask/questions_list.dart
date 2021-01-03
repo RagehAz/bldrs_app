@@ -17,7 +17,7 @@ class QuestionsList extends StatelessWidget {
           return ListTile(
             title: SuperVerse(
               verse: '($index) :\n${questions[index].body}',
-              maxLines: 5,
+              maxLines: 100,
               labelColor: Colorz.WhiteAir,
               weight: VerseWeight.thin,
               size: 1,

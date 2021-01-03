@@ -31,6 +31,12 @@ BorderRadius superFlyerCorners (BuildContext context, double flyerZoneWidth){
   return flyerCorners;
 }
 // === === === === === === === === === === === === === === === === === === ===
+BorderRadius superHeaderShadowCorners (BuildContext context, double flyerZoneWidth){
+  double upperFlyerCorner = flyerZoneWidth * Ratioz.xxflyerTopCorners;
+  BorderRadius flyerCorners = superBorderRadius(context, upperFlyerCorner, 0, 0, upperFlyerCorner);
+  return flyerCorners;
+}
+// === === === === === === === === === === === === === === === === === === ===
 BorderRadius superHeaderCorners (BuildContext context, bool bzPageIsOn, double flyerZoneWidth){
   double headerMainCorners = flyerZoneWidth * Ratioz.xxflyerTopCorners;
   double headerZeroCorner = bzPageIsOn == true ? 0 : headerMainCorners;

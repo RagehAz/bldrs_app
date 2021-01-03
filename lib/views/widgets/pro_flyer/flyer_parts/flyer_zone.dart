@@ -1,4 +1,5 @@
 import 'package:bldrs/view_brains/drafters/borderers.dart';
+import 'package:bldrs/view_brains/drafters/keyboarders.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/drafters/shadowers.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
@@ -59,7 +60,10 @@ class FlyerZone extends StatelessWidget {
     BorderRadius flyerBorders = superBorderRadius(context, flyerTopCorners, flyerBottomCorners, flyerBottomCorners, flyerTopCorners);
 
     return GestureDetector(
-      onTap: tappingFlyerZone,
+      onTap: (){
+        tappingFlyerZone();
+        minimizeKeyboardOnTapOutSide(context);
+      },
       child: Center(
         child: Container(
           width: flyerZoneWidth,
