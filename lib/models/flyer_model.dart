@@ -1,3 +1,4 @@
+import 'enums/enum_flyer_state.dart';
 import 'enums/enum_flyer_type.dart';
 
 // dv - pp (property flyer - property source flyer)
@@ -14,6 +15,7 @@ class FlyerModel {
   final bool flyerShowsAuthor;
   final FlyerType flyerType;
   final List<String> keyWords;
+  final FlyerState flyerState;
   // final DateTime publishTime;
   // flyer x_dummy_database.location
 
@@ -23,6 +25,7 @@ class FlyerModel {
     this.flyerShowsAuthor,
     this.flyerType,
     this.keyWords,
+    this.flyerState,
   });
 }
 
