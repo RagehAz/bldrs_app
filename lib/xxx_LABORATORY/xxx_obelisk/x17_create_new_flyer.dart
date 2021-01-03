@@ -1,10 +1,6 @@
 import 'dart:io';
 import 'package:bldrs/view_brains/controllers/flyer_sliding_controllers.dart';
-import 'package:bldrs/view_brains/drafters/aligners.dart';
-import 'package:bldrs/view_brains/drafters/file_formatters.dart';
-import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
-import 'package:bldrs/view_brains/theme/sizez.dart';
 import 'package:bldrs/views/widgets/flyer/slides/slides_items/single_slide.dart';
 import 'package:bldrs/views/widgets/space/stratosphere.dart';
 import 'package:bldrs/xxx_LABORATORY/camera_and_location/google_map.dart';
