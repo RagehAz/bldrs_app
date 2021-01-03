@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:bldrs/view_brains/drafters/aligners.dart';
+import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/drafters/shadowers.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
@@ -13,10 +14,12 @@ import 'sliver_home_appbar.dart';
 class ABMain extends StatefulWidget {
   final bool searchButtonOn;
   final bool countryButtonOn;
+  final bool sectionsAreOn;
 
   ABMain({
     this.searchButtonOn = true,
     this.countryButtonOn = true,
+    this.sectionsAreOn = true,
   });
 
   @override
@@ -35,15 +38,19 @@ class _ABMainState extends State<ABMain> {
   }
 
   void expandingSections() {
-    if (sectionsAreExpanded == false) {
-      setState(() {
-        sectionsAreExpanded = true;
-      });
-    } else {
-      setState(() {
-        sectionsAreExpanded = false;
-      });
-    }
+    // if (sectionsAreExpanded == false) {
+    //   setState(() {
+    //     sectionsAreExpanded = true;
+    //   });
+    // } else {
+    //   setState(() {
+    //     sectionsAreExpanded = false;
+    //   });
+    // }
+
+    setState(() {
+      sectionsAreExpanded = !sectionsAreExpanded;
+    });
   }
 
   void choosingSection(BldrsSection section) {
@@ -55,21 +62,24 @@ class _ABMainState extends State<ABMain> {
 
   @override
   Widget build(BuildContext context) {
+
     double abPadding = Ratioz.ddAppBarMargin * 0.5;
-    double abHeight = sectionsAreExpanded == true
-        ? (Ratioz.ddAppBarHeight * 4) - (abPadding * 3)
-        : Ratioz.ddAppBarHeight;
+    double abHeight = sectionsAreExpanded == true ?
+    (Ratioz.ddAppBarHeight * 4) - (abPadding * 3) : Ratioz.ddAppBarHeight;
 
     return ABStrip(
       abHeight: abHeight,
+
       rowWidgets: [
         // --- SEARCH BUTTON
+        widget.searchButtonOn == true ?
         BtSearch(
           btSearchIsBackBt: sectionsAreExpanded == true ? true : false,
           tappingBack: expandingSections,
-        ),
+        ) : Container(),
 
         // --- SECTIONS BUTTON
+        widget.sectionsAreOn == true ?
         Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -86,59 +96,58 @@ class _ABMainState extends State<ABMain> {
             ),
 
             // --- SECTIONS BUTTONS
-            sectionsAreExpanded == false
-                ? Container()
-                : Container(
-                    // color: Colorz.BloodTest,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Divider(
-                          height: abPadding,
-                        ),
-                        SectionToChooseBT(
-                          section: BldrsSection.RealEstate,
-                          choosingSection: choosingSection,
-                        ),
-                        Divider(
-                          height: abPadding,
-                        ),
-                        SectionToChooseBT(
-                          section: BldrsSection.Construction,
-                          choosingSection: choosingSection,
-                        ),
-                        Divider(
-                          height: abPadding,
-                        ),
-                        SectionToChooseBT(
-                          section: BldrsSection.Supplies,
-                          choosingSection: choosingSection,
-                        ),
-                      ],
-                    ),
+            sectionsAreExpanded == false ? Container() :
+            Container(
+              // color: Colorz.BloodTest,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Divider(
+                    height: abPadding,
                   ),
+                  SectionToChooseBT(
+                    section: BldrsSection.RealEstate,
+                    choosingSection: choosingSection,
+                  ),
+                  Divider(
+                    height: abPadding,
+                  ),
+                  SectionToChooseBT(
+                    section: BldrsSection.Construction,
+                    choosingSection: choosingSection,
+                  ),
+                  Divider(
+                    height: abPadding,
+                  ),
+                  SectionToChooseBT(
+                    section: BldrsSection.Supplies,
+                    choosingSection: choosingSection,
+                  ),
+                ],
+              ),
+            ),
           ],
-        ),
+        ) : Container(),
 
         // --- FILLER SPACE BETWEEN ITEMS
-        sectionsAreExpanded == true
-            ? Container()
-            : Expanded(
-                child: Container(),
-              ),
+        sectionsAreExpanded == true ? Container() :
+        Expanded(
+          child: Container(),
+        ),
 
         // --- LOCALIZER BUTTON
-        sectionsAreExpanded == true
-            ? Container()
-            : Padding(
-                padding: EdgeInsets.only(top: Ratioz.ddAppBarMargin * 0.5),
-                child: ButtonLocalizer(
-                  buttonFlag: flagFileNameSelectedFromPGLanguageList,
-                ),
-              ),
+        sectionsAreExpanded == true || widget.countryButtonOn != true ? Container() :
+        Padding(
+          padding: EdgeInsets.only(top: Ratioz.ddAppBarMargin * 0.5),
+          child: ButtonLocalizer(
+            buttonFlag: flagFileNameSelectedFromPGLanguageList,
+          ),
+        ),
+
       ],
     );
+
   }
 }
 
@@ -154,9 +163,8 @@ class ABStrip extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
-    // double abPadding = Ratioz.ddAppBarMargin * 0.5;
-    // double abSpacings = abPadding;
-    double screenWidth = MediaQuery.of(context).size.width;
+
+    double screenWidth = superScreenWidth(context);
     double abWidth = screenWidth - (2 * Ratioz.ddAppBarMargin);
 
     return Container(
@@ -182,8 +190,7 @@ class ABStrip extends StatelessWidget {
             width: double.infinity,
             height: abHeight,
             decoration: BoxDecoration(
-                borderRadius:
-                    BorderRadius.all(Radius.circular(Ratioz.ddAppBarCorner)),
+                borderRadius: BorderRadius.all(Radius.circular(Ratioz.ddAppBarCorner)),
                 boxShadow: [
                   CustomBoxShadow(
                       color: Colorz.BlackBlack,
