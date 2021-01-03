@@ -41,7 +41,7 @@ class CreateFlyerScreen extends StatefulWidget {
 class _CreateFlyerScreenState extends State<CreateFlyerScreen> {
   List<SlideModel> newSlides;
   int currentSlide;
-  final _titleController = TextEditingController();
+  List<TextEditingController> _titleControllers;
   File _storedImage;
   File _pickedImage;
   LocationModel _pickedLocation;
@@ -57,6 +57,7 @@ class _CreateFlyerScreenState extends State<CreateFlyerScreen> {
     newSlides = new List();
     slidesVisibility = new List();
     slidesModes = new List();
+    _titleControllers = new List();
     numberOfSlides = newSlides.length;
     currentSlide = 0;
     slidingController = PageController(initialPage: 0,);
@@ -88,6 +89,7 @@ class _CreateFlyerScreenState extends State<CreateFlyerScreen> {
       if(currentSlide == 0){newSlides.removeAt(currentSlide);currentSlide=0;}else{newSlides.removeAt(currentSlide);}
       slidesVisibility.removeAt(currentSlide);
       slidesModes.removeAt(currentSlide);
+      _titleControllers.removeAt(currentSlide);
     } else { print('no Slide to delete'); }
     // print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> after _simpleDelete');
   }
@@ -158,6 +160,7 @@ class _CreateFlyerScreenState extends State<CreateFlyerScreen> {
       numberOfSlides = newSlides.length;
       slidesVisibility.add(true);
       slidesModes.add(SlideMode.Editor);
+      _titleControllers.add(TextEditingController());
       onPageChangedIsOn = true;
     });
 
@@ -193,6 +196,7 @@ class _CreateFlyerScreenState extends State<CreateFlyerScreen> {
       numberOfSlides = newSlides.length;
       slidesVisibility.add(true);
       slidesModes.add(SlideMode.Editor);
+      _titleControllers.add(TextEditingController());
       onPageChangedIsOn = true;
     });
 
@@ -264,6 +268,7 @@ class _CreateFlyerScreenState extends State<CreateFlyerScreen> {
       numberOfSlides = newSlides.length;
       slidesVisibility.add(true);
       slidesModes.add(SlideMode.Editor);
+      _titleControllers.add(TextEditingController());
       onPageChangedIsOn = true;
     });
     slideTo(slidingController, currentSlide);
@@ -315,6 +320,10 @@ class _CreateFlyerScreenState extends State<CreateFlyerScreen> {
                                 picFile: newSlides[index].picture,
                                 slideMode: slidesModes[index],
                                 boxFit: BoxFit.fitWidth, // [fitWidth - contain - scaleDown] have the blur background
+                                titleController: _titleControllers[index],
+                                textFieldOnChanged: (text){
+                                  print('text is : $text');
+                                },
                               ),
                             ),
                       ),

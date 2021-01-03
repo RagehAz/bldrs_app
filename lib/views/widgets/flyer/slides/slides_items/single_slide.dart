@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:bldrs/models/enums/enum_bz_type.dart';
 import 'package:bldrs/models/flyer_link_model.dart';
 import 'package:bldrs/view_brains/controllers/flyer_controllers.dart';
 import 'package:bldrs/view_brains/drafters/borderers.dart';
@@ -7,6 +8,8 @@ import 'package:bldrs/view_brains/drafters/file_formatters.dart';
 import 'package:bldrs/view_brains/drafters/imagers.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
+import 'package:bldrs/views/widgets/textings/super_text_field.dart';
+import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'footer.dart';
@@ -32,6 +35,8 @@ class SingleSlide extends StatefulWidget {
   final SlideMode slideMode;
   final dynamic picFile; // was of Type File
   final BoxFit boxFit;
+  final TextEditingController titleController;
+  final Function textFieldOnChanged;
 
   SingleSlide({
     @required this.flyerZoneWidth,
@@ -44,6 +49,8 @@ class SingleSlide extends StatefulWidget {
     this.slideMode,
     this.picFile,
     this.boxFit = BoxFit.cover,
+    this.titleController,
+    this.textFieldOnChanged,
   });
 
   @override
@@ -112,12 +119,10 @@ class _SingleSlideState extends State<SingleSlide> {
     FlyerLink theFlyerLink = FlyerLink(flyerLink: 'flyer @ index: ${widget.slideIndex}', description: 'flyer to be shared aho');
     // ----------------------------------------------------------------------
     bool dontBlur =
-    widget.picFile == null
-    ||
+    widget.picFile == null ||
         (widget.boxFit != BoxFit.fitWidth &&
-        widget.boxFit != BoxFit.contain &&
-        widget.boxFit != BoxFit.scaleDown )
-        ?
+            widget.boxFit != BoxFit.contain &&
+            widget.boxFit != BoxFit.scaleDown ) ?
     true : false;
     // ----------------------------------------------------------------------
 
@@ -140,18 +145,18 @@ class _SingleSlideState extends State<SingleSlide> {
           alignment: Alignment.topCenter,
           children: <Widget>[
 
-            // // --- IMAGE FILE FULL HEIGHT
+            // --- IMAGE FILE FULL HEIGHT
             dontBlur || widget.slideMode == SlideMode.Empty || fileIsURL(widget.picFile) == true ? Container() :
             Image.file(
               widget.picFile,
               fit: BoxFit.fitHeight,
-              width: widget.flyerZoneWidth,
-              height: superFlyerZoneHeight(context, widget.flyerZoneWidth),
+              width: widget.flyerZoneWidth*1.2,
+              height: superFlyerZoneHeight(context, widget.flyerZoneWidth*1.2),
               // colorBlendMode: BlendMode.overlay,
               // color: Colorz.WhiteAir,
             ),
 
-            // // --- IMAGE FILE BLUR LAYER
+            // --- IMAGE FILE BLUR LAYER
             dontBlur || widget.slideMode == SlideMode.Empty || fileIsURL(widget.picFile) == true ? Container() :
             ClipRRect( // this ClipRRect fixed a big blur issue,, never ever  delete
               child: BackdropFilter(
@@ -182,33 +187,12 @@ class _SingleSlideState extends State<SingleSlide> {
                 height: superFlyerZoneHeight(context, widget.flyerZoneWidth)
             ),
 
-            // widget.slideMode == SlideMode.Map ?
-            // GoogleMap(
-            //   mapType: MapType.hybrid,
-            //   zoomGesturesEnabled: true,
-            //   myLocationButtonEnabled: true,
-            //   myLocationEnabled: true,
-            //   initialCameraPosition: CameraPosition(
-            //       target: aMarkerLatLng,
-            //       zoom: 18
-            //   ),
-            //   onMapCreated: (GoogleMapController googleMapController){
-            //
-            //     // _controller.complete(googleMapController);
-            //     setState(() {
-            //       print('map has been created');
-            //     });
-            //   },
-            //
-            //   markers: aMarker,
-            // ) : Container(),
-
             // --- SHADOW UNDER PAGE HEADER & OVER PAGE PICTURE
             Container(
               width: widget.flyerZoneWidth,
-              height: widget.flyerZoneWidth * 0.65,
+              height: widget.flyerZoneWidth * 0.6,
               decoration: BoxDecoration(
-                  borderRadius: superFlyerCorners(context, widget.flyerZoneWidth),
+                  borderRadius: superHeaderShadowCorners(context, widget.flyerZoneWidth),
                   gradient: superSlideGradient(),
               ),
             ),
@@ -223,6 +207,26 @@ class _SingleSlideState extends State<SingleSlide> {
                 print('Flyer Title clicked');
                 },
             ),
+
+            widget.slideMode != SlideMode.Editor ? Container() :
+                SuperTextField(
+                  hintText: 'T i t l e',
+
+                  width: widget.flyerZoneWidth,
+                  // height: widget.flyerZoneWidth * 0.15,
+                  fieldColor: Colorz.BlackSmoke,
+                  margin: EdgeInsets.only(top: (widget.flyerZoneWidth * 0.3), left: 5, right: 5),
+                  maxLines: 4,
+                  keyboardTextInputType: TextInputType.multiline,
+                  designMode: false,
+                  counterIsOn: false,
+                  inputSize: 3,
+                  centered: true,
+                  textController: widget.titleController,
+                  onChanged: widget.textFieldOnChanged,
+                  inputWeight: VerseWeight.bold,
+                  inputShadow: true,
+                ),
 
             widget.slideMode != SlideMode.View ? Container() :
             FlyerFooter(

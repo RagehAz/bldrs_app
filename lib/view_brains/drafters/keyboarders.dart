@@ -4,6 +4,6 @@ import 'package:flutter/material.dart';
     // USE THIS TO CALL THE FUNCTION TO PASS THE context
     //  onTap: () => minimizeKeyboardOnTapOutSite(context),
 
-void minimizeKeyboardOnTapOutSite (BuildContext context){
+void minimizeKeyboardOnTapOutSide (BuildContext context){
 FocusScope.of(context).requestFocus(FocusNode());
 }

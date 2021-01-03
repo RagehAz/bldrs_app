@@ -1,4 +1,5 @@
 import 'package:bldrs/models/enums/enum_flyer_type.dart';
+import 'package:bldrs/view_brains/drafters/keyboarders.dart';
 import 'package:bldrs/view_brains/router/route_names.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
@@ -43,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
 // ----------------------------------------------------------------------------
     return GestureDetector(
       onTap: (){
-        FocusScope.of(context).requestFocus(FocusNode());
+        minimizeKeyboardOnTapOutSide(context);
         // // ANOTHER SOLUTION
         // FocusScopeNode currentFocus = FocusScope.of(context);
         // if(!currentFocus.hasPrimaryFocus){
