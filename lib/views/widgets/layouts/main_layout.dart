@@ -14,6 +14,7 @@ enum AppBarType{
   Basic,
   Scrollable,
   Main,
+  Localizer,
 }
 
 class MainLayout extends StatelessWidget {
@@ -78,8 +79,12 @@ class MainLayout extends StatelessWidget {
                 ],
               ) :
 
-              appBarType == AppBarType.Main ?
-                  ABMain()
+              appBarType == AppBarType.Main || appBarType == AppBarType.Localizer ?
+                  ABMain(
+                    countryButtonOn: true,
+                    searchButtonOn: appBarType == AppBarType.Localizer ? false : true,
+                    sectionsAreOn: appBarType == AppBarType.Localizer ? false : true,
+                  )
               : appBarType == null ? Container() : Container(),
 
               ragehIsOn == false ? Container() :

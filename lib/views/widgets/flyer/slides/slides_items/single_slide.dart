@@ -1,5 +1,4 @@
 import 'dart:ui';
-import 'package:bldrs/models/enums/enum_bz_type.dart';
 import 'package:bldrs/models/flyer_link_model.dart';
 import 'package:bldrs/view_brains/controllers/flyer_controllers.dart';
 import 'package:bldrs/view_brains/drafters/borderers.dart';
