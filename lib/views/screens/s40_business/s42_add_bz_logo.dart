@@ -58,7 +58,7 @@ class AddBzLogoScreen extends StatelessWidget {
     // }
 
     return GestureDetector(
-      onTap: () => minimizeKeyboardOnTapOutSite(context),
+      onTap: () => minimizeKeyboardOnTapOutSide(context),
       child: SafeArea(
         child: Scaffold(
           resizeToAvoidBottomPadding: false,
