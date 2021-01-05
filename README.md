@@ -200,11 +200,49 @@ amount of time for high price, pushes `bz` `exposure`, `footprint`, `reach` & `f
 
 - `flyer score` is quantified by several factors : `numberOfViews`, `numberOfShares`, `numberOfSaves`,
 `flyerAge`, `keyWordIndex`, `bzAccountType`, `exposure`, `footprint` & `reach`.
-  
+
 
 -----------------------------------------------------------------------------------
 
-.
+## Bldrs.net Widgets
+
+_Bldrs.net has a unique theme that forces the usage of special designed widgets in the code._
+
+`MainLayout();`
+_is the base layers of every screen consists of :-_
+
+- `ABMain();`
+_is the main interactive App Bar consists of `SearchBT();`, `SectionsBT();` & `LocalizerBT();`._
+
+- `LocalizerBT();`
+_Navigates to `counrty`/`city` & `languege` pages._
+  
+- `NightSky();` or `BlackSky();`
+_is the animated background of the app._
+  
+- `Pyramids();`
+_is the main button to navigate to user pages._
+  
+`Flyer();`
+_is the main app content holder and consists of :-_
+
+- `FlyerZone();`
+_is the footprint of the flyer that holds its children below._
+  
+- `Header();`
+_is the holder of `bz` data, has two states `MiniHeader();` while viewing the `flyer` `slides`, and state of
+  `MaxHeader();` while viewing `bz` data._
+
+- `Slides();`
+
+
+- `ProgressBar();`
+
+
+- `Footer();`
+
+-----------------------------------------------------------------------------------
+
 
 .
 
