@@ -1,5 +1,4 @@
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
-import 'package:bldrs/views/widgets/space/stratosphere.dart';
 import 'package:flutter/material.dart';
 
 class CheckBoxLesson extends StatefulWidget {

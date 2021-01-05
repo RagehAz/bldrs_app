@@ -1,9 +1,11 @@
 import 'package:bldrs/view_brains/drafters/keyboarders.dart';
 import 'package:bldrs/view_brains/localization/localization_constants.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
+import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/appbar/ab_main.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/pyramids/pyramids.dart';
+import 'package:bldrs/views/widgets/space/skies/black_sky.dart';
 import 'package:bldrs/views/widgets/space/skies/night_sky.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +19,11 @@ enum AppBarType{
   Localizer,
 }
 
+enum Sky {
+  Night,
+  Black,
+}
+
 class MainLayout extends StatelessWidget {
   final List<Widget> appBarRowWidgets;
   final Widget layoutWidget;
@@ -24,6 +31,7 @@ class MainLayout extends StatelessWidget {
   final String pyramids;
   final AppBarType appBarType;
   final String pageTitle;
+  final Sky sky;
 
   MainLayout({
     this.appBarRowWidgets,
@@ -32,6 +40,7 @@ class MainLayout extends StatelessWidget {
     this.pyramids,
     this.appBarType,
     this.pageTitle,
+    this.sky = Sky.Night,
 });
 
   @override
@@ -44,11 +53,12 @@ class MainLayout extends StatelessWidget {
       child: SafeArea(
         child: Scaffold(
           resizeToAvoidBottomPadding: false,
-
+          // resizeToAvoidBottomInset: false,
           body: Stack(
             alignment: Alignment.topCenter,
             children: <Widget>[
 
+              sky == Sky.Black ? BlackSky() :
               NightSky(),
 
               layoutWidget == null ? Container() :
@@ -120,5 +130,38 @@ Widget zorar(Function function, String functionName){
     verseScaleFactor: 0.7,
     boxFunction: function,
   );
+}
+
+// --- THE HORIZON IS JUST A BOTTOM PADDING AT THE BOTTOM OF ANY SCROLLABLE SCREEN
+class PyramidsHorizon extends StatelessWidget {
+  final double heightFactor;
+
+  PyramidsHorizon({
+    this.heightFactor = 1,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      height: Ratioz.horizon * heightFactor,
+    );
+  }
+}
+
+class Stratosphere extends StatelessWidget {
+
+  static const EdgeInsets stratosphereInsets = EdgeInsets.only(top: Ratioz.stratosphere);
+  static const EdgeInsets stratosphereSandwich = EdgeInsets.only(top: Ratioz.stratosphere, bottom: Ratioz.stratosphere);
+
+  @override
+  Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+
+    return Container(
+      width: screenWidth,
+      height: 70,
+    );
+  }
 }
 

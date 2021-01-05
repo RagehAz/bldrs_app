@@ -1,5 +1,5 @@
 import 'package:bldrs/views/widgets/flyer/grids/flyers_grid.dart';
-import 'package:bldrs/views/widgets/space/pyramids_horizon.dart';
+import 'package:bldrs/views/widgets/layouts/main_layout.dart' show PyramidsHorizon;
 import 'package:flutter/material.dart';
 
 class SavedFlyersPage extends StatelessWidget {

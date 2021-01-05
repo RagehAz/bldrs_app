@@ -1,6 +1,6 @@
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/views/widgets/buttons/user_bubble.dart';
-import 'package:bldrs/views/widgets/space/pyramids_horizon.dart';
+import 'package:bldrs/views/widgets/layouts/main_layout.dart' show PyramidsHorizon;
 import 'package:flutter/material.dart';
 import 'profile_items/bldrs_following.dart';
 import 'profile_items/user_contacts.dart';

@@ -5,9 +5,8 @@ import 'package:bldrs/views/widgets/in_pyramids/more_page.dart';
 import 'package:bldrs/views/widgets/in_pyramids/news/news_page.dart';
 import 'package:bldrs/views/widgets/in_pyramids/profile/profile_page.dart';
 import 'package:bldrs/views/widgets/in_pyramids/saved_flyers/saved_flyers_page.dart';
+import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/pyramids/enum_lister.dart';
-import 'package:bldrs/views/widgets/pyramids/pyramids.dart';
-import 'package:bldrs/views/widgets/space/skies/black_sky.dart';
 import 'package:flutter/material.dart';
 
 enum inPyramidsPage {
@@ -31,7 +30,19 @@ class InPyramidsScreen extends StatefulWidget {
 class _InPyramidsScreenState extends State<InPyramidsScreen> {
   UserType currentUserType;
   inPyramidsPage currentPage;
-
+  bool enumListerIsOn = false;
+  String enumListTitle = '';
+  List<String> enumListerStrings = [''];
+  List<bool> enumListerTriggers = [false];
+  // bool tileIsOn = false;
+// ----------------------------------------------------------------------------
+  @override
+  void initState(){
+  currentUserType = widget.userType; // UserType.PlanningUser
+  currentPage = inPyramidsPage.SavedFlyers;
+    super.initState();
+  }
+// ----------------------------------------------------------------------------
   final _status = [
     {
       'title': 'Property Status',
@@ -49,34 +60,19 @@ class _InPyramidsScreenState extends State<InPyramidsScreen> {
       ],
     },
   ];
-
-
-  @override
-  void initState(){
-  currentUserType = widget.userType; // UserType.PlanningUser
-  currentPage = inPyramidsPage.SavedFlyers;
-    super.initState();
-  }
-
-
+// ----------------------------------------------------------------------------
   void _switchingPages(inPyramidsPage page) {
     setState(() {
       currentPage = page;
     });
   }
-
+// ----------------------------------------------------------------------------
   void _switchUserType (UserType type){
     setState(() {
       currentUserType = type;
     });
   }
-
-  bool enumListerIsOn = false;
-
-  String enumListTitle = '';
-  List<String> enumListerStrings = [''];
-  List<bool> enumListerTriggers = [false];
-
+// ----------------------------------------------------------------------------
   void _openEnumLister(Map<String,Object> passedMap){
     setState(() {
       enumListTitle = passedMap['Title'];
@@ -85,20 +81,18 @@ class _InPyramidsScreenState extends State<InPyramidsScreen> {
       enumListerIsOn = true;
     });
   }
-
+// ----------------------------------------------------------------------------
   void _closeEnumLister(){
     setState(() {
       enumListerIsOn = false;
     });
   }
-
+// ----------------------------------------------------------------------------
   // Map<String, Object> listData = {
   //   'Strings' : ['Residential', 'Commercial', 'Admin', 'Medical', 'Religious'],
   //   'Triggers' : [false, false, false, false, false]
   // };
-
-  // bool tileIsOn = false;
-
+// ----------------------------------------------------------------------------
   void _triggerTile(int index) {
     setState(() {
 
@@ -110,73 +104,68 @@ class _InPyramidsScreenState extends State<InPyramidsScreen> {
       // listData['Triggers'] = updatedTriggersList;
     });
   }
- 
+// ----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    // double screenWidth = MediaQuery.of(context).size.width;
-    // double screenHeight = MediaQuery.of(context).size.height;
-    // double pageMargin = Ratioz.ddAppBarMargin;
+    return MainLayout(
+      pyramids: enumListerIsOn == true ? Iconz.PyramidzWhite : Iconz.PyramidsWhite,
+      sky: Sky.Black,
 
-    return SafeArea(
-      child: Scaffold(
-        body: Stack(
-          children: <Widget>[
+      // appBarType: AppBarType.Basic,
+      // appBarRowWidgets: <Widget>[
+      // ],
 
-            BlackSky(),
+      layoutWidget:
+      Stack(
+        children: <Widget>[
 
-            CustomScrollView(
-              slivers: <Widget>[
+          CustomScrollView(
+            slivers: <Widget>[
 
-                ABInPyramids(
-                  switchingPages: _switchingPages,
-                  currentPage: currentPage,
-                  userType: currentUserType,
-                ),
-                currentPage == inPyramidsPage.Profile ?
-                ProfilePage(
-                  status: _status,
-                  userType: currentUserType,
-                  switchUserType: _switchUserType,
-                  // bzLogos: dummyCollection,
-                  currentUserType: currentUserType,
-                  openEnumLister: _openEnumLister,
-                )
-                    :
-                currentPage == inPyramidsPage.SavedFlyers ?
-                SavedFlyersPage()
-                        :
-                currentPage == inPyramidsPage.News ?
-                NewsPage()
-                        :
-                currentPage == inPyramidsPage.More ?
-                MorePage()
-                        :
-                SavedFlyersPage()
-              ],
-            ),
+              ABInPyramids(
+                switchingPages: _switchingPages,
+                currentPage: currentPage,
+                userType: currentUserType,
+              ),
 
-            // --- LIST TEMPLATE
-            enumListerIsOn == true ?
-            EnumLister(
-              listTitle: enumListTitle,
-              stringsList: enumListerStrings,//listData['Strings'],
-              triggersList: enumListerTriggers,//listData['Triggers'],
-              triggerTile: _triggerTile,
-              closeEnumLister: _closeEnumLister,
-            ) : Container(),
+              currentPage == inPyramidsPage.Profile ?
+              ProfilePage(
+                status: _status,
+                userType: currentUserType,
+                switchUserType: _switchUserType,
+                // bzLogos: dummyCollection,
+                currentUserType: currentUserType,
+                openEnumLister: _openEnumLister,
+              )
+                  :
+              currentPage == inPyramidsPage.SavedFlyers ?
+              SavedFlyersPage()
+                  :
+              currentPage == inPyramidsPage.News ?
+              NewsPage()
+                  :
+              currentPage == inPyramidsPage.More ?
+              MorePage()
+                  :
+              SavedFlyersPage()
+            ],
+          ),
 
-            Pyramids(
-              whichPyramid: enumListerIsOn == true ? Iconz.PyramidzWhite : Iconz.PyramidsWhite,
-              onDoubleTap: (){
-                print(enumListTitle);
-                print(enumListerStrings);
-                print(enumListerTriggers);
-              },
-            ),
-          ],
-        ),
+          // --- LIST TEMPLATE
+          enumListerIsOn == true ?
+          EnumLister(
+            listTitle: enumListTitle,
+            stringsList: enumListerStrings,//listData['Strings'],
+            triggersList: enumListerTriggers,//listData['Triggers'],
+            triggerTile: _triggerTile,
+            closeEnumLister: _closeEnumLister,
+          ) : Container(),
+
+        ],
       ),
+
     );
+
   }
 }
