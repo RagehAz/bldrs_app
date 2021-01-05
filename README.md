@@ -208,41 +208,135 @@ amount of time for high price, pushes `bz` `exposure`, `footprint`, `reach` & `f
 
 _Bldrs.net has a unique theme that forces the usage of special designed widgets in the code._
 
+......................
+
 `MainLayout();`
 _is the base layers of every screen consists of :-_
 
 - `ABMain();`
-_is the main interactive App Bar consists of `SearchBT();`, `SectionsBT();` & `LocalizerBT();`._
+  _is the main interactive App Bar consists of `SearchBT();`, `SectionsBT();` & `LocalizerBT();`._
+
 
 - `LocalizerBT();`
-_Navigates to `counrty`/`city` & `languege` pages._
+  _Navigates to `counrty`/`city` & `languege` pages._
   
+
 - `NightSky();` or `BlackSky();`
-_is the animated background of the app._
+  _is the animated background of the app._
   
+
 - `Pyramids();`
-_is the main button to navigate to user pages._
-  
+  _is the main button to navigate to user pages._
+
+
+- `Stratosphere();`
+  _is a padding widget in the top of any `ListView` or `GridView` to the list/grid items some top space
+
+
+- `PyramidsHorizon();`
+  _is a padding widget in the bottom of any `ListView` or `GridView` to the list/grid items some top space
+
+
+......................
+
 `Flyer();`
 _is the main app content holder and consists of :-_
 
+
 - `FlyerZone();`
-_is the footprint of the flyer that holds its children below._
+  _is the footprint of the flyer that holds its children below._
   
+
 - `Header();`
-_is the holder of `bz` data, has two states `MiniHeader();` while viewing the `flyer` `slides`, and state of
+  _is the holder of `bz` data, has two states `MiniHeaderStrip();` while viewing the `flyer` `slides`, and state of
   `MaxHeader();` while viewing `bz` data._
+  
+
+- `MiniHeaderStrip();`
+  _is a Widget on top of `flyer` that holds `BzLogo();` , `HeaderLabels();` & `FollowCallBTs();`._
+  
+
+- `HeaderLabels();`
+  _is a widget containing `BzLabel();` that holds `bzName`, `bzLocale`, and the `authorLabel();` that 
+  holds `authorPic`, `authorName`, `authorTitle`, `bzTotalFollowers`._
+  
+
+- `MaxHeader();`
+  _is a Widget that expands when tapping `MiniHeaderStrip();` to show `BzPgFields();` , `BzAboutVerse();`,
+  multiple `BzPgCounter();` and the `bz` `Gallery();`_
+  
+
+- `Gallery();`
+  _is a Widget that shows `bz` group of `AuthorLabel` in a `List` and their `flyers` below_
+
 
 - `Slides();`
+  _is a `PageView();` of multiple `Slide();`._
 
 
 - `ProgressBar();`
+  _is a graphical counter that shows `numberOfSlides` & `currentSlideIndex`._
 
 
 - `Footer();`
+  _is a container that holds `FlyerCounters();` and `shareBT` that uses `FlyerFooterBT();` as a parent widget_
+  
+
+- `FlyerCounters();`
+  _is a group of counters showings flyer main statuses : `numberOfShars`, `numberOfViews`, `numberOfSaves`._
+  
+
+- `AnkhButton();`
+  _is the `save` button of the entire flyer._
+  
+......................
+
+`InPyramidsScreen();`
+_is the user pages when tapping `Pyramids();` and contains :-_
+
+
+- `ABInPyramids();`
+  _is a special app bar used `inPyramids` to switch between `SavedFlyersPage();`, `NewsPage();`, `MorePage();`
+  `ProfilePage();` & `BzPage();`._
+
+
+- `SavedFlyersPage();`
+  _shows organized saved flyers by the user_
+  
+
+- `NewsPage();`
+  _shows `Notifications`, `NewsLetters`_
+
+  
+- `MorePage();`
+  _shows `Create new Business Account`, `Share app`, `Change Locale`, `About Bldrs.net`, `Send Feedback`, 
+  `Terms & regulations`, `Advertise on Bldrs.net`, `Toturials`, `Sign Out`_
+  
+
+- `ProfilePage();`
+_shows `UserLabel();` , `StatusLabel();`, `UserContacts();` & `BldrsFollowing();`_
+  
+- `UserLabel();`
+_shows `userName` , `userTitle`, `userLocale`_
+
+- `StatusLabel();`
+_shows user's current status : { `looking for property`,
+  `want to sell/rent my property`, `planning construction`, `under construction` }_
+  
+- `BzPage();`
+_shows the `bzCard();` of user's `bz` account which is exactly `MiniHeaderStrip();` & `MaxHeader();`_
 
 -----------------------------------------------------------------------------------
+## Short terms & unique terminologies
 
+- bz      : business
+- bzz     : businesses
+- bt      : button
+- Locale  : Country & City
+- Ankh    : save flyer
+- ab      : app bar
+- pg      : page
+- verse   : text
 
 .
 

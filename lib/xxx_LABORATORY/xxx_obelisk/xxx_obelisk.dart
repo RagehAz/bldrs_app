@@ -11,8 +11,6 @@ import 'package:bldrs/views/widgets/planet/google_map_2.dart';
 import 'package:bldrs/views/widgets/planet/google_map_3.dart';
 import 'package:bldrs/views/widgets/planet/google_map_4.dart';
 import 'package:bldrs/views/widgets/planet/google_map_5.dart';
-import 'package:bldrs/views/widgets/space/pyramids_horizon.dart';
-import 'package:bldrs/views/widgets/space/stratosphere.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:bldrs/views/widgets/textings/the_golden_scroll.dart';
 import 'package:bldrs/xxx_LABORATORY/ask/ask_screen.dart';

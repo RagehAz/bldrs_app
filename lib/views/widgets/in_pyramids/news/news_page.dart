@@ -1,5 +1,5 @@
 import 'package:bldrs/view_brains/theme/iconz.dart';
-import 'package:bldrs/views/widgets/space/pyramids_horizon.dart';
+import 'package:bldrs/views/widgets/layouts/main_layout.dart' show PyramidsHorizon;
 import 'package:flutter/material.dart';
 import 'new_flyer.dart';
 
