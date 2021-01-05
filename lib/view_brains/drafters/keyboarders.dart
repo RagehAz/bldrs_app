@@ -6,4 +6,10 @@ import 'package:flutter/material.dart';
 
 void minimizeKeyboardOnTapOutSide (BuildContext context){
 FocusScope.of(context).requestFocus(FocusNode());
+  // // ANOTHER SOLUTION
+  // FocusScopeNode currentFocus = FocusScope.of(context);
+  // if(!currentFocus.hasPrimaryFocus){
+  //   currentFocus.unfocus();
+  // }
+
 }

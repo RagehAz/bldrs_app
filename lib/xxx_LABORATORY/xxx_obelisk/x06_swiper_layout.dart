@@ -2,14 +2,10 @@ import 'package:bldrs/models/enums/enum_bz_type.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
-import 'package:bldrs/views/widgets/appbar/ab_main.dart';
 import 'package:bldrs/views/widgets/ask/ask.dart';
 import 'package:bldrs/views/widgets/buttons/add_bz_bt.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
-import 'package:bldrs/views/widgets/pyramids/pyramids.dart';
-import 'package:bldrs/views/widgets/space/pyramids_horizon.dart';
-import 'package:bldrs/views/widgets/space/skies/night_sky.dart';
-import 'package:bldrs/views/widgets/space/stratosphere.dart';
+import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
@@ -55,135 +51,123 @@ class _SwiperLayoutState extends State<SwiperLayout> {
       BzType.Artisan,
     ];
 
-    return SafeArea(
-      child: Scaffold(
-        resizeToAvoidBottomPadding: false,
-        // resizeToAvoidBottomInset: false,
-        body: Stack(
-          children: <Widget>[
+    return MainLayout(
+      sky: Sky.Night,
+      appBarType: AppBarType.Main,
+      pyramids: Iconz.PyramidsYellow,
+      layoutWidget: Stack(
+        children: <Widget>[
 
-            NightSky(),
-
-            // --- LAYOUT
-            Column(
-              children: <Widget>[
-                Expanded(
-                  child: Swiper(
-                    autoplay: false,
-                    pagination: new SwiperPagination(
-                      builder: DotSwiperPaginationBuilder(
-                        color: Colorz.White,
-                        activeColor: Colorz.Yellow,
-                        activeSize: 8,
-                        size: 5,
-                        space: 2,
-                      ),
-                      alignment: Alignment.topRight,
-                      margin: EdgeInsets.only(top: 54, right: 25),
+          // --- LAYOUT
+          Column(
+            children: <Widget>[
+              Expanded(
+                child: Swiper(
+                  autoplay: false,
+                  pagination: new SwiperPagination(
+                    builder: DotSwiperPaginationBuilder(
+                      color: Colorz.White,
+                      activeColor: Colorz.Yellow,
+                      activeSize: 8,
+                      size: 5,
+                      space: 2,
                     ),
-
-                    // control: new SwiperControl(),
-
-                    viewportFraction: 1,
-                    scale: 0.6,
-                    itemCount: _bzTypes.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Container(
-                        height: screenHeight,
-                        width: screenWidth,
-                        // color: Colorz.Facebook,
-                        margin: EdgeInsets.all(Ratioz.ddAppBarMargin * 0),
-                        child: CustomScrollView(
-                          slivers: <Widget>[
-                            SliverList(
-                              // key: ,
-                              delegate: SliverChildListDelegate([
-
-                                Stratosphere(),
-
-                                //--- PAGE TITLE
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: <Widget>[
-
-                                    SuperVerse(
-                                      verse: bldrsTypePageTitle(_bzTypes[index]),
-                                      shadow: false,
-                                      size: 3,
-                                      maxLines: 5,
-                                      weight: VerseWeight.bold,
-                                      color: Colorz.White,
-                                      scaleFactor: 0.85,
-                                      centered: true,
-                                      margin: 5,
-                                    ),
-                                  ],
-                                ),
-
-                                Ask(
-                                  bzType: _bzTypes[index],
-                                  tappingAskInfo: (){print('Ask info is tapped aho');},
-                                ),
-
-                                // GrowingBz(
-                                //   bzType: _bzTypes[index],
-                                //   bzLogos: getAllBzLogosOfThisType(_bzTypes[index]),
-                                // ),
-
-                                // CollectionWithCover(
-                                //   flyersDataList: flyerTypeClassifier(FlyerType.Property),
-                                //   collectionTitle: 'Properties for sale around you'
-                                // ),
-                                //
-                                // CollectionTopFlyers(
-                                //   flyersDataList: flyerTypeClassifier(FlyerType.Design),
-                                //   collectionTitle: 'Top Trending Flyers',
-                                //   numberOfFlyers: 3,
-                                // ),
-                                //
-                                // FlyersCompactCollection(
-                                //   collectionTitle: 'Properties for sale around you',
-                                //   flyersDataList: flyerTypeClassifier(FlyerType.Craft),
-                                //   flyerSizeFactor: 0.20,
-                                // ),
-                                //
-                                // FlyersCompactCollection(
-                                //   collectionTitle: 'Properties for sale around you',
-                                //   flyersDataList: flyerTypeClassifier(FlyerType.Product),
-                                //   flyerSizeFactor: 0.3,
-                                // ),
-
-                                DreamBox(
-                                  height: 500,
-                                  width: screenWidth,
-                                  color: Colorz.YellowGlass,
-                                ),
-
-                                PyramidsHorizon(heightFactor: 10),
-                              ]),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
+                    alignment: Alignment.topRight,
+                    margin: EdgeInsets.only(top: 54, right: 25),
                   ),
+
+                  // control: new SwiperControl(),
+
+                  viewportFraction: 1,
+                  scale: 0.6,
+                  itemCount: _bzTypes.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Container(
+                      height: screenHeight,
+                      width: screenWidth,
+                      // color: Colorz.Facebook,
+                      margin: EdgeInsets.all(Ratioz.ddAppBarMargin * 0),
+                      child: CustomScrollView(
+                        slivers: <Widget>[
+                          SliverList(
+                            // key: ,
+                            delegate: SliverChildListDelegate([
+
+                              Stratosphere(),
+
+                              //--- PAGE TITLE
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: <Widget>[
+
+                                  SuperVerse(
+                                    verse: bldrsTypePageTitle(_bzTypes[index]),
+                                    shadow: false,
+                                    size: 3,
+                                    maxLines: 5,
+                                    weight: VerseWeight.bold,
+                                    color: Colorz.White,
+                                    scaleFactor: 0.85,
+                                    centered: true,
+                                    margin: 5,
+                                  ),
+                                ],
+                              ),
+
+                              Ask(
+                                bzType: _bzTypes[index],
+                                tappingAskInfo: (){print('Ask info is tapped aho');},
+                              ),
+
+                              // GrowingBz(
+                              //   bzType: _bzTypes[index],
+                              //   bzLogos: getAllBzLogosOfThisType(_bzTypes[index]),
+                              // ),
+
+                              // CollectionWithCover(
+                              //   flyersDataList: flyerTypeClassifier(FlyerType.Property),
+                              //   collectionTitle: 'Properties for sale around you'
+                              // ),
+                              //
+                              // CollectionTopFlyers(
+                              //   flyersDataList: flyerTypeClassifier(FlyerType.Design),
+                              //   collectionTitle: 'Top Trending Flyers',
+                              //   numberOfFlyers: 3,
+                              // ),
+                              //
+                              // FlyersCompactCollection(
+                              //   collectionTitle: 'Properties for sale around you',
+                              //   flyersDataList: flyerTypeClassifier(FlyerType.Craft),
+                              //   flyerSizeFactor: 0.20,
+                              // ),
+                              //
+                              // FlyersCompactCollection(
+                              //   collectionTitle: 'Properties for sale around you',
+                              //   flyersDataList: flyerTypeClassifier(FlyerType.Product),
+                              //   flyerSizeFactor: 0.3,
+                              // ),
+
+                              DreamBox(
+                                height: 500,
+                                width: screenWidth,
+                                color: Colorz.YellowGlass,
+                              ),
+
+                              PyramidsHorizon(heightFactor: 10),
+                            ]),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
                 ),
-              ],
-            ),
-// -------------------------------------------------------------------
+              ),
+            ],
+          ),
 
-            ABMain(),
-
-// -------------------------------------------------------------------
-
-            Pyramids(
-              whichPyramid: Iconz.PyramidsYellow,
-            ),
-
-           AddBzBt(),
-          ],
-        ),
+          AddBzBt(),
+        ],
       ),
     );
   }

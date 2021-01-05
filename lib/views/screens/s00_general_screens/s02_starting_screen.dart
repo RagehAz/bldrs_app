@@ -7,7 +7,6 @@ import 'package:bldrs/views/widgets/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/views/widgets/buttons/bt_main.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
-import 'package:bldrs/views/widgets/space/stratosphere.dart';
 import 'package:flutter/material.dart';
 
 

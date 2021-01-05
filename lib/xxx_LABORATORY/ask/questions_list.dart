@@ -1,5 +1,5 @@
 import 'package:bldrs/view_brains/theme/colorz.dart';
-import 'package:bldrs/views/widgets/space/stratosphere.dart';
+import 'package:bldrs/views/widgets/layouts/main_layout.dart' show Stratosphere;
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:bldrs/xxx_LABORATORY/ask/question_model.dart';
 import 'package:flutter/material.dart';
