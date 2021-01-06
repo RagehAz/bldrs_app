@@ -6,7 +6,7 @@ _Connect with Developers, Brokers, Manufacturers, Suppliers, Designers, Contract
 
 -----------------------------------------------------------------------------------
 
-## Introduction
+# Introduction
 
 **Bldrs.net is a Network of Businesses & Customers  to connect.**
 
@@ -18,7 +18,7 @@ _Customers aim to have easy access to information about businesses and be better
 
 -----------------------------------------------------------------------------------
 
-## Builders Sections & Businesses
+# Builders Sections & Businesses
 
 Builders businesses are divided in three main eco-system sections.
 
@@ -42,7 +42,7 @@ All Business Entities can have a `BusinessForm` of ( `Company` or `Individual en
 
 -----------------------------------------------------------------------------------
 
-## Design Philosophy
+# Design Philosophy
 
 **The Legacy of our Ancestors**
 
@@ -60,7 +60,7 @@ _**For the world to build together.**_
 
 -----------------------------------------------------------------------------------
 
-## Design Concepts
+# Design Concepts
 
 **1 - Bldrs.net is a directory of builders businesses**
 
@@ -204,7 +204,7 @@ amount of time for high price, pushes `bz` `exposure`, `footprint`, `reach` & `f
 
 -----------------------------------------------------------------------------------
 
-## Bldrs.net Widgets
+# Bldrs.net Widgets
 
 _Bldrs.net has a unique theme that forces the usage of special designed widgets in the code._
 
@@ -230,11 +230,11 @@ _is the base layers of every screen consists of :-_
 
 
 - `Stratosphere();`
-  _is a padding widget in the top of any `ListView` or `GridView` to the list/grid items some top space
+  _is a padding widget in the top of any `ListView` or `GridView` to the list / grid items some top space_
 
 
 - `PyramidsHorizon();`
-  _is a padding widget in the bottom of any `ListView` or `GridView` to the list/grid items some top space
+  _is a padding widget in the bottom of any `ListView` or `GridView` to the list / grid items some top space_
 
 
 ......................
@@ -327,6 +327,173 @@ _shows user's current status : { `looking for property`,
 _shows the `bzCard();` of user's `bz` account which is exactly `MiniHeaderStrip();` & `MaxHeader();`_
 
 -----------------------------------------------------------------------------------
+
+# Folder Structure
+
+......................
+
+##Ambassadors
+Contains the files & folders related to any communication between client device outside servers
+
+- **database** : _contains dummy data that acts as 'hard coded database' for development purpose only and will be 
+  deleted after finishing the live database.
+  this database respects the data models in the models' folder, it was initially designed as a sql database._
+  
+
+- **db_brain** : _contains functions that fetch / combine / separate data from the mentioned dummy database._
+
+
+- **services** : _contains authentication files & sharing functions and any other exterior related services._
+
+......................
+
+##firebase_collections
+Contains the new and final data models that will be implemented in firebase
+
+......................
+
+##models
+Contains the original normalized data models which were designed for a sql database.
+
+And contains as well :-
+
+- **enums** : _which define specific custom models parameters like `BldrsSection`, `BondState`, 
+  `BzType`, `BzForm`, `FlyerType`, `FlyerKeywords` ...etc._
+  
+- **planet** : _which has all data models of `city`, `county`, `region`, `continent`,
+
+......................
+
+##providers
+Contains all data providers, calls from the database, get / fetch / hat / khod / separate / combine data and sends
+them to widgets.
+
+contains some testing models that shall be deleted after finalizing firbase data models.
+
+- **combined_models** : _third attempt of creating data models, that aggregated the data as much as possible in
+  objects inside objects._
+
+
+- **processed_models** : _second attempt of creating data models, that normalized the data inside parent models 
+  as much as possible._
+
+......................
+
+##view_brains
+
+Contains all functions and classes that control the widgets .
+
+- **controllers** : _contain functions that control widget's behaviour like `animation`, `flyer` `navigation`, 
+  `flyer functions`, `sliding functions`, `google_map functions` ...etc_
+
+
+- **drafters** : _pre-defined ui functions that are repeated throughout most widgets like :-_
+
+`o` **aligners** : _has all functions returning values of type `Alignment`._
+
+`o` **borderers** : _has all functions returning values of type `BorderRadius`._
+
+`o` **colorizers** : _has all functions returning values of type `Gradient` & `ImageFilter`._
+
+`o` **file_formatters** : _has all functions related to a URL type or file's type or extension._
+
+`o` **iconizers** : _has all functions related to icons, and their ui conditions._
+
+`o` **imagers** : _has all functions related to any image ._
+
+`o` **keyboarders** : _has all functions related to devices keyboards ._
+
+`o` **numberers** : _has all functions related to any number like `seperateKilo` & `counterCaliber`._
+
+`o` **scalers** : _has all functions related to any size._
+
+`o` **scrollers** : _has all functions related to scroll physics._
+
+`o` **shadowers** : _has all functions related to any shadow._
+
+`o` **stringers** : _has all functions returning values of type `String`._
+
+`o` **zoomable_widget** : _a Widget using `matrix_gesture_detector.dart` package to add zooming gesture
+ability to any child widget._
+
+
+- **localization** : _has an entire module of localization to detect phone locale and allows translation
+  of app strings by defining translation json files in assets folder._
+
+
+- **router** : _has all pre-defined named `route names`, screen `navigators` and the `router` itself._
+
+
+- **theme** : _has all Bldrs custom values of ui graphics : `colorz`, `flagz`, `iconz`, `ratioz`, `sizez`,
+  `soundz`._
+
+......................
+
+##views
+
+Contains all screens and main UI widgets.
+
+_- a77a ana mesh ha3od ashra7 kol widget eh fi ehhhh,,anyways screens below aho_
+
+###`x` **screens**
+
+theoretically speaking these should be the screen titles of the entire app.
+
+_Note that not always each screen is a separate Scaffold() or separate file or stand-alone unit, most times those
+screens are widgets that show and hide with if conditions is their parent widgets creating a smart simple widget
+tree_
+
+_so a state is a temporary condition of a screen that is significant in the user experience_
+
+`o` `Splash Screen`
+
+`o` `Starting Screen` : _to authenticate user._
+
+`o` `Home Screens`
+
+- `Bz Home Screen` : _if `user` is `bz` `author`._
+- `User Home Screen` : _if `user` is not `bz` `author`._
+
+`o` `Localizer Screens`
+
+- `City List State` : _shows all cities & countries available to browse._
+- `Languages List State` : _shows all available languages of the app._
+
+`o` `Search Screen`
+
+`o` `Section Selector State` : in `User Home Screen` which shows list of `BldrsSections`
+
+`o` `Ask Screen`
+
+`o` `Flyer Screen`
+
+- `Flyer share state` : _shows native `popup` to `share` the `flyer link` to other apps or copy `flyer link`._
+- `Flyer save state` : _shows a different UI when `saving` `flyer`_
+- `Flyer Follow state` : _shows a different UI when `Following` `Bz`_
+
+`o` `Open a business account Screens`
+
+`o` `In Pyramids Screens`
+
+
+
+
+
+......................
+
+###xxx_LABORATORY
+
+contains all dev trials, design tests, options and variation for testing purposes and shall be deleted on 
+beta version
+
+
+
+
+
+
+
+-----------------------------------------------------------------------------------
+
 ## Short terms & unique terminologies
 
 - bz      : business
@@ -337,6 +504,22 @@ _shows the `bzCard();` of user's `bz` account which is exactly `MiniHeaderStrip(
 - ab      : app bar
 - pg      : page
 - verse   : text
+- db      : database
+
+assets folders
+
+- aw      : artworks
+- bt      : buttons as icons
+- com     : communication icons
+- dum     : dummy icons & images
+- dv      : development icons
+- ft      : flyer types
+- gi      : general icons
+- py      : pyramids icons
+- ut      : user types
+- xx      : extra dummy data
+
+-----------------------------------------------------------------------------------
 
 .
 
