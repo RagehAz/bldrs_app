@@ -188,6 +188,13 @@ amount of time for high price, pushes `bz` `exposure`, `footprint`, `reach` & `f
 
 **7 - Bldrs.net game rules**
 
+_Dear `Bz`_
+
+_this is not a social media, and our customers are usually short in time & budget, giving us limited screen time
+with lots of flyers to showcase, use your slots mindfully publishing your best, and most strategic content._
+
+_yours, Bldrs.net_
+
 
 - `Exposure` is quantified by `screen time` duration.
 
@@ -452,11 +459,13 @@ _so a state is a temporary condition of a screen that is significant in the user
 `o` `Home Screens`
 
 - `Bz Home Screen` : _if `user` is `bz` `author`._
+
 - `User Home Screen` : _if `user` is not `bz` `author`._
 
 `o` `Localizer Screens`
 
 - `City List State` : _shows all cities & countries available to browse._
+
 - `Languages List State` : _shows all available languages of the app._
 
 `o` `Search Screen`
@@ -465,19 +474,45 @@ _so a state is a temporary condition of a screen that is significant in the user
 
 `o` `Ask Screen`
 
+- `choose bzType state` : _shows available `bzTypes` to ask_
+
+- `chat screen` : _shows private conversation between `asker` `user` & `answerer` `bz`._
+
+
 `o` `Flyer Screen`
 
+- `Flyer sliding state` : _default state while viewing `flyer` `slides`_
+
 - `Flyer share state` : _shows native `popup` to `share` the `flyer link` to other apps or copy `flyer link`._
+
 - `Flyer save state` : _shows a different UI when `saving` `flyer`_
+
 - `Flyer Follow state` : _shows a different UI when `Following` `Bz`_
 
-`o` `Open a business account Screens`
+- `Flyer Call state` : _navigates to native phone app of the device with `bzPhone` ready to call_
+
+- `Flyer MaxHeader state` : _shows `bz` data including `authors` & `gallery`_
+
+`o` `Bz Screens`
+
+- `Bz Creator screen` : _shows one screen with an Editable `MaxHeader` or multiple screens to fill a `Form` of
+  `BzModel` parameters to create a new `bz`, then directs `bzAuthor` to `flyer Editor screen`._
+  
+- `Flyer Editor screen` : _shows a blank flyer ready to be filled with `gallery images`, `camera photos`,
+  `map pin`, `origin slide`, `bonds with saved flyers`, and a `remaining slides counter` on top of screen,
+  with `publish button` & `save draft button` on bottom of screen._
+
+- `Bz Profile screen` : _shows `bzCard which is the MaxHeader`, `edit profile button`, `remaining slides counter`
+  that navigates to `Bldrs store screen`_
+  
+- `Bz Home Page` : _shows the latest questions of the same `bzType` & list of `chats`._
+
+- `Bldrs store screen` : _shows `remaining slides counter`, list of `achievements` - `rewards` and their progress,
+  `offers`, `purchase Pro Account`, `purchase Sponsor Account`._
 
 `o` `In Pyramids Screens`
 
-
-
-
+as per mentioned and described in Widget section of this document.
 
 ......................
 
@@ -487,17 +522,14 @@ contains all dev trials, design tests, options and variation for testing purpose
 beta version
 
 
-
-
-
-
-
 -----------------------------------------------------------------------------------
 
 ## Short terms & unique terminologies
 
 - bz      : business
 - bzz     : businesses
+- author  : business account admin & flyer publisher
+- flyer   : digital multi-page brochure showcasing business account work.
 - bt      : button
 - Locale  : Country & City
 - Ankh    : save flyer
