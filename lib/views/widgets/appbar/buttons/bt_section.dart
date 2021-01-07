@@ -1,3 +1,4 @@
+import 'package:bldrs/models/enums/enum_bldrs_section.dart';
 import 'package:bldrs/view_brains/drafters/iconizers.dart';
 import 'package:bldrs/view_brains/drafters/stringers.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
@@ -5,7 +6,6 @@ import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:websafe_svg/websafe_svg.dart';
-import '../sliver_home_appbar.dart';
 
 class InitialSectionsBT extends StatelessWidget {
   final Function expandingSections;
