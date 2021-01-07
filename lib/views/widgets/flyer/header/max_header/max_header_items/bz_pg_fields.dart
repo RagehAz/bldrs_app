@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 class BzPgFields extends StatelessWidget {
   final double flyerZoneWidth;
   final bool bzPageIsOn;
-  final List<String> fieldo;
+  final List<String> bzFieldsList;
 
   BzPgFields({
     @required this.bzPageIsOn,
     @required this.flyerZoneWidth,
-    @required this.fieldo,
+    @required this.bzFieldsList,
 
 });
 
@@ -18,7 +18,7 @@ class BzPgFields extends StatelessWidget {
   Widget build(BuildContext context) {
 
     // === === === === === === === === === === === === === === === === === === === === === === === === === === === ===
-    final dynamic _fields = fieldo;
+    final dynamic _fields = bzFieldsList;
     // ['Architecture Design', 'abcd', 'Interior Design', 'Landscape Design'];
     // === === === === === === === === === === === === === === === === === === === === === === === === === === === ===
     dynamic bzPageBGColor = Colorz.BlackSmoke;
@@ -47,7 +47,7 @@ class BzPgFields extends StatelessWidget {
                       (int index) {
                         return
                           SuperVerse(
-                          verse: fieldo[index],
+                          verse: bzFieldsList[index],
                           italic: false,
                           shadow: false,
                           labelColor: Colorz.WhiteZircon,

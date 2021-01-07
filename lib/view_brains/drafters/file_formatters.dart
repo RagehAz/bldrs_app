@@ -14,7 +14,7 @@ extension FileExtention on FileSystemEntity{
 }
 
 fileExtensionOf(String file){
-  return File(file).fileExtension;
+  return file == null ? null : File(file).fileExtension;
 }
 
 valueIsString(dynamic value){

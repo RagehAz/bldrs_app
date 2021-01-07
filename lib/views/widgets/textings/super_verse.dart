@@ -208,7 +208,7 @@ class SuperVerse extends StatelessWidget {
                     color: labelColor
                 ),
                 child: Text(
-                  _verse,
+                  _verse == null ? '...' : _verse,
                   softWrap: false,
                   overflow: TextOverflow.ellipsis,
                   maxLines: _maxLines,

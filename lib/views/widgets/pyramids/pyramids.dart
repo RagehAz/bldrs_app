@@ -36,10 +36,8 @@ class Pyramids extends StatelessWidget {
                     return InPyramidsScreen();
                   }));
                 }
-              : whichPyramid == Iconz.PyramidsWhite
-                  ? () {
-                      Navigator.pop(context);
-                    }
+              : whichPyramid == Iconz.PyramidsWhite ?
+              () { Navigator.pop(context); }
                   : () {},
           child: WebsafeSvg.asset(whichPyramid),
         ),
