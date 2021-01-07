@@ -92,7 +92,7 @@ class FlyerZone extends StatelessWidget {
               height: flyerZoneHeight,
               child: Stack(
                 alignment: Alignment.topCenter,
-                children: stackWidgets,
+                children: stackWidgets == null ? [] : stackWidgets,
               ),
             ),
           ),

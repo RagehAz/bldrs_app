@@ -103,7 +103,9 @@ return
 }
 // ----------------------------------------------------------------------------
 String localeStringer (BuildContext context, String city, String country){
-String verse = '${getTranslated(context, 'In')} $city, $country';
+String verse =
+    city == null || country == null ? '...' :
+    '${getTranslated(context, 'In')} $city, $country';
 return verse;
 }
 // ----------------------------------------------------------------------------

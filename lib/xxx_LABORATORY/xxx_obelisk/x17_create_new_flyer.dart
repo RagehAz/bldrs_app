@@ -333,7 +333,6 @@ class _CreateFlyerScreenState extends State<CreateFlyerScreen> {
                         tappingHeader: (){},
                         tappingFollow: (){},
                         tappingUnfollow: (){},
-                        tappingGallery: (){},
                       ),
 
                       ProgressBar(

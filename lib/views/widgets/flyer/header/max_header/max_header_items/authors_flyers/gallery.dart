@@ -141,7 +141,7 @@ class _GalleryState extends State<Gallery> {
             // --- AUTHORS FLYERS
             GalleryGrid(
               gridZoneWidth: widget.flyerZoneWidth,
-              bzID: widget.coAuthors[0].author.bzId,
+              bzID: widget.coAuthors.isNotEmpty ? widget.coAuthors[0].author.bzId : '',
               flyersVisibilities: flyersVisibilities,
               // tappingMiniFlyer: widget.tappingMiniFlyer,
             ),

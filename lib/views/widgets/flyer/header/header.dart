@@ -95,20 +95,17 @@ class Header extends StatelessWidget {
   final Function tappingHeader;
   final Function tappingFollow;
   final Function tappingUnfollow;
-  final Function tappingGallery;
 
   Header({
-    @required this.coBz,
-    @required this.coAuthor,
-    @required this.flyerShowsAuthor,
-    // @required this.bzGalleryCoFlyers,
-    @required this.followIsOn,
+    this.coBz,
+    this.coAuthor,
+    this.flyerShowsAuthor = true,
+    this.followIsOn = false,
     @required this.flyerZoneWidth,
     @required this.bzPageIsOn,
     @required this.tappingHeader,
     @required this.tappingFollow,
     @required this.tappingUnfollow,
-    @required this.tappingGallery,
   });
 
   @override
@@ -117,7 +114,9 @@ class Header extends StatelessWidget {
     // === === === === === === === === === === === === === === === === === === ===
     String _phoneNumber = feinPhoneFromContacts(coBz?.bzContacts);
     // --- B.LOCALE --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-    String businessLocale = localeStringer(context, coBz.bz.bzCity, coBz.bz.bzCountry);
+    String bzCity = coBz != null ? coBz.bz.bzCountry : '';
+    String bzCountry = coBz != null ? coBz.bz.bzCity : '';
+    String businessLocale = localeStringer(context, bzCity, bzCountry);
     // === === === === === === === === === === === === === === === === === === ===
 
     return GestureDetector(
@@ -147,19 +146,19 @@ class Header extends StatelessWidget {
                       flyerZoneWidth: flyerZoneWidth,
                       bzPageIsOn: bzPageIsOn,
                       flyerShowsAuthor: flyerShowsAuthor,
-                      authorID: coAuthor.author.authorID,
-                      bzLogo: coBz.bz.bzLogo,
-                      bzName: coBz.bz.bzName,
-                      bzCity: coBz.bz.bzCity,
-                      bzCountry: coBz.bz.bzCountry,
+                      authorID: coAuthor?.author?.authorID,
+                      bzLogo: coBz?.bz?.bzLogo,
+                      bzName: coBz?.bz?.bzName,
+                      bzCity: coBz?.bz?.bzCity,
+                      bzCountry: coBz?.bz?.bzCountry,
                       phoneNumber: _phoneNumber,
-                      aPic: coAuthor.coUser.user.pic,
-                      aName: coAuthor.coUser.user.name,
-                      aTitle: coAuthor.coUser.user.title,
-                      followersCount: coBz.followsCount,
+                      aPic: coAuthor?.coUser?.user?.pic,
+                      aName: coAuthor?.coUser?.user?.name,
+                      aTitle: coAuthor?.coUser?.user?.title,
+                      followersCount: coBz?.followsCount,
                       followIsOn: followIsOn,
-                      bzGalleryCount: coAuthor.authorFlyersIDs.length,
-                      bzConnects: coBz.bzConnects,
+                      bzGalleryCount: coAuthor?.authorFlyersIDs?.length,
+                      bzConnects: coBz?.bzConnects,
                       tappingHeader: tappingHeader,
                       tappingFollow: tappingFollow,
                     ),
@@ -169,7 +168,7 @@ class Header extends StatelessWidget {
                       flyerZoneWidth: flyerZoneWidth,
                       bzPageIsOn: bzPageIsOn,
                       bzLocale: businessLocale,
-                      bzName: coBz.bz.bzName,
+                      bzName: coBz?.bz?.bzName,
                     ),
 
                   ],
@@ -177,14 +176,13 @@ class Header extends StatelessWidget {
               ),
 
               // 3ayzeen zorar follow gowwa el bzPage
-
-              // bzPageIsOn == false ? Container() :
+              bzPageIsOn == false ? Container() :
               MaxHeader(
                 flyerZoneWidth: flyerZoneWidth,
                 bzPageIsOn: bzPageIsOn,
                 coBz: coBz,
                 bzShowsTeam: coBz?.bz?.bzShowsTeam,
-                bzID: coBz.bz.bzId,
+                bzID: coBz?.bz?.bzId,
               ),
 
             ],

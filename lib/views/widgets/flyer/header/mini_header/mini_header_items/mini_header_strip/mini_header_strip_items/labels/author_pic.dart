@@ -1,4 +1,6 @@
 import 'package:bldrs/view_brains/localization/localization_constants.dart';
+import 'package:bldrs/view_brains/theme/colorz.dart';
+import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
@@ -26,7 +28,10 @@ class AuthorPic extends StatelessWidget {
         height: authorImageHeight,
         width: authorImageWidth,
         decoration: BoxDecoration(
-            image: DecorationImage(
+          color: Colorz.WhiteAir,
+            image:
+            authorPic == null ? null :
+            DecorationImage(
                 image: AssetImage(authorPic),
                 fit: BoxFit.fill
             ),

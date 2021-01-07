@@ -22,9 +22,9 @@ class MaxHeader extends StatelessWidget {
   MaxHeader({
     @required this.flyerZoneWidth,
     @required this.bzPageIsOn,
-    @required this.coBz,
-    @required this.bzShowsTeam,
-    @required this.bzID,
+    this.coBz,
+    this.bzShowsTeam,
+    this.bzID,
     // @required this.authorID,
   });
 
@@ -34,26 +34,27 @@ class MaxHeader extends StatelessWidget {
     // final CoBz coBz = pro.hatCoBzByBzID(), mesh wa2to
     final List<CoFlyer> galleryCoFlyers = pro.hatCoFlyersByBzID(bzID);
     // === === === === === === === === === === === === === === === === === === ===
-    List<CoAuthor> bzCoAuthors = coBz.coAuthors;
+    List<CoAuthor> bzCoAuthors = coBz != null ? coBz?.coAuthors : [];
     // === === === === === === === === === === === === === === === === === === ===
     List<String> bzTeamIDs = [];
     bzCoAuthors.forEach((au) {bzTeamIDs.add(au.author.authorID);});
     // === === === === === === === === === === === === === === === === === === ===
-    int bzConnects = coBz.bzConnects;
-    int followersCount = coBz.followsCount;
-    int bzTotalSaves = coBz.bzTotalSaves;
-    int bzTotalShares = coBz.bzTotalShares;
-    int bzTotalSlides = coBz.bzTotalSlides;
-    int bzTotalViews = coBz.bzTotalViews;
-    int callsCount = coBz.callsCount;
+    int bzConnects      = coBz != null ? coBz.bzConnects    : 0;
+    int followersCount  = coBz != null ? coBz.followsCount  : 0;
+    int bzTotalSaves    = coBz != null ? coBz.bzTotalSaves  : 0;
+    int bzTotalShares   = coBz != null ? coBz.bzTotalShares : 0;
+    int bzTotalSlides   = coBz != null ? coBz.bzTotalSlides : 0;
+    int bzTotalViews    = coBz != null ? coBz.bzTotalViews  : 0;
+    int callsCount      = coBz != null ? coBz.callsCount    : 0;
     // === === === === === === === === === === === === === === === === === === ===
+    List <String> bzFieldsList = coBz != null ? coBz.bz.bzFieldsList : [];
     return Column(
       children: <Widget>[
         // --- BUSINESS FIELD
         BzPgFields(
           flyerZoneWidth: flyerZoneWidth,
           bzPageIsOn: bzPageIsOn,
-          fieldo: coBz.bz.bzFieldsList,
+          bzFieldsList: bzFieldsList,
         ),
 
         // // --- BUSINESS BIRTH YEAR
@@ -76,8 +77,8 @@ class MaxHeader extends StatelessWidget {
         BzAboutVerse(
           flyerZoneWidth: flyerZoneWidth,
           bzPageIsOn: bzPageIsOn,
-          verse: coBz.bz.bzAbout,
-          bzName: coBz.bz.bzName,
+          verse: coBz != null ? coBz.bz.bzAbout : '',
+          bzName:  coBz != null ? coBz.bz.bzName : '',
         ),
 
         // --- BUILDERS CONNECTS
@@ -160,7 +161,7 @@ class MaxHeader extends StatelessWidget {
           bzConnects: bzConnects,
           coAuthors: bzCoAuthors,
           galleryCoFlyers: galleryCoFlyers,
-          bzName: coBz.bz.bzName,
+          bzName:  coBz != null ? coBz.bz.bzName : '',
           // tappingMiniFlyer: openFlyer,
         ),
 

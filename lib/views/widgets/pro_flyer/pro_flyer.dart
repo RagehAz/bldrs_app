@@ -9,7 +9,6 @@ import 'package:bldrs/views/widgets/flyer/slides/slides_items/progress_bar.dart'
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:bldrs/views/widgets/flyer/ankh_button.dart';
-
 import 'flyer_parts/flyer_zone.dart';
 
 class ProFlyer extends StatefulWidget {
@@ -153,7 +152,6 @@ class _ProFlyerState extends State<ProFlyer> with AutomaticKeepAliveClientMixin{
                 pro.toggleFollow();
                 },
               tappingUnfollow: () {print('UnFollow Tapped');},
-              tappingGallery: () {print('Gallery Tapped');},
               // bzGalleryCoFlyers: bzGalleryCoFlyers,
               coAuthor: coAuthor,
               followIsOn: pro.followIsOn,

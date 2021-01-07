@@ -1,5 +1,6 @@
 import 'package:bldrs/view_brains/drafters/borderers.dart';
 import 'package:bldrs/view_brains/drafters/file_formatters.dart';
+import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:websafe_svg/websafe_svg.dart';
@@ -32,20 +33,26 @@ class BzLogo extends StatelessWidget {
     BorderRadius bzLogoCorners = superBorderRadius(context, logoRoundCorners, logoRoundCorners, logoZeroCorner, logoRoundCorners);
     // === === === === === === === === === === === === === === === === === === ===
     return Container(
-      height: width,
-      width: width,
       decoration: BoxDecoration(
-          image:
-              fileExtensionOf(image) == 'jpeg' || fileExtensionOf(image) == 'jpg' || fileExtensionOf(image) == 'png' ?
-              DecorationImage(image: AssetImage(image), fit: BoxFit.cover) : null,
-
-          borderRadius: bzLogoCorners,
+        color: Colorz.WhiteAir,
+        borderRadius: bzLogoCorners,
       ),
-      child:
-      fileExtensionOf(image) == 'svg' ?
-      ClipRRect(
-          borderRadius: bzLogoCorners,
-          child: WebsafeSvg.asset(image, fit: BoxFit.cover, height:width, width: width)) : Container(),
+      child: Container(
+        height: width,
+        width: width,
+        decoration: BoxDecoration(
+            image:
+                fileExtensionOf(image) == 'jpeg' || fileExtensionOf(image) == 'jpg' || fileExtensionOf(image) == 'png' ?
+                DecorationImage(image: AssetImage(image), fit: BoxFit.cover) : null,
+
+            borderRadius: bzLogoCorners,
+        ),
+        child:
+        fileExtensionOf(image) == 'svg' ?
+        ClipRRect(
+            borderRadius: bzLogoCorners,
+            child: WebsafeSvg.asset(image, fit: BoxFit.cover, height:width, width: width)) : Container(),
+      ),
     );
   }
 }
