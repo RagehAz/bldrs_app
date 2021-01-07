@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:bldrs/models/enums/enum_bldrs_section.dart';
 import 'package:bldrs/view_brains/drafters/aligners.dart';
 import 'package:bldrs/view_brains/drafters/shadowers.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
@@ -10,13 +11,6 @@ import 'buttons/bt_localizer.dart';
 import 'buttons/bt_search.dart';
 import 'buttons/bt_section.dart';
 import 'pages/pg_country.dart';
-
-enum BldrsSection{
-  Home,
-  RealEstate,
-  Construction,
-  Supplies,
-}
 
 
 class SliverHomeAppBar extends StatefulWidget {

@@ -1,3 +1,4 @@
+import 'package:bldrs/models/enums/enum_bldrs_section.dart';
 import 'package:bldrs/models/enums/enum_bz_form.dart';
 import 'package:bldrs/models/enums/enum_bz_type.dart';
 import 'package:bldrs/models/enums/enum_flyer_type.dart';
@@ -44,6 +45,25 @@ String sectionStringer (BuildContext context, BldrsSection section){
         section == BldrsSection.Supplies ? 'Supplies' :
             'Home';
     }
+// ----------------------------------------------------------------------------
+List<String> sectionsListStrings (BuildContext context){
+  List<BldrsSection> sections = bldrsSectionsList;
+  List<String> sectionsStrings = new List();
+  for(BldrsSection bs in sections){
+    sectionsStrings.add(sectionStringer(context, bs));
+  }
+  return sectionsStrings;
+}
+
+List<String> bzTypesStrings (BuildContext context){
+  List<String> bzTypesStrings = new List();
+
+  for(BzType bt in bzTypesList){
+    bzTypesStrings.add(bzTypeSingleStringer(context, bt));
+  }
+  return bzTypesStrings;
+}
+
 // ----------------------------------------------------------------------------
 String bzTypeSingleStringer (BuildContext context, BzType bzType){
   return
