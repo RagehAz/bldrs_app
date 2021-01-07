@@ -118,7 +118,6 @@ void dispose() {
               tappingHeader: (){},
               tappingFollow: (){},
               tappingUnfollow: (){},
-              tappingGallery: (){},
           ),
 
           Positioned(

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 /// THE SEPARATOR AFTER EACH 3 DIGITS IN AN INTEGER X'XXX'XXX ...
 String separateKilos(int number) {
+  if (number == null) return '...';
   if (number > -1000 && number < 1000) return number.toString();
 
   final String digits = number.abs().toString();
