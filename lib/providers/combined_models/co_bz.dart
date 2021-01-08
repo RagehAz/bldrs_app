@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'co_author.dart';
 
 class CoBz with ChangeNotifier{
-  final BzModel bz;
+  BzModel bz; // was final
   final List<ContactModel> bzContacts;
   final LocationModel bzLocation;
   final List<CoAuthor> coAuthors;
@@ -19,17 +19,17 @@ class CoBz with ChangeNotifier{
   // bool followIsOn;
 
   CoBz({
-    @required this.bz,
-    @required this.bzContacts,
-    @required this.bzLocation,
-    @required this.coAuthors,
-    @required this.followsCount,
-    @required this.bzTotalSaves,
-    @required this.bzTotalShares,
-    @required this.bzTotalSlides,
-    @required this.bzTotalViews,
-    @required this.callsCount,
-    @required this.bzConnects,
+     this.bz, // -- was @required
+     this.bzContacts, // -- was @required
+     this.bzLocation, // -- was @required
+     this.coAuthors, // -- was @required
+     this.followsCount, // -- was @required
+     this.bzTotalSaves, // -- was @required
+     this.bzTotalShares, // -- was @required
+     this.bzTotalSlides, // -- was @required
+     this.bzTotalViews, // -- was @required
+     this.callsCount, // -- was @required
+     this.bzConnects, // -- was @required
     // this.followIsOn = false,
   });
 

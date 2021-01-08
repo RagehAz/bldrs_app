@@ -145,3 +145,8 @@ String functionStringer(Function function) {
   return functionNameAsAString.substring(s+1, e);  // return functionNameAsAString;
 }
 // ----------------------------------------------------------------------------
+String removeFirstCharacterFromAString(String string){
+  String stringWithoutFirstCharacter = string.substring(1);
+  return stringWithoutFirstCharacter;
+}
+// ----------------------------------------------------------------------------
