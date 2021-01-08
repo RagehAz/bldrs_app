@@ -5,10 +5,10 @@ import 'enums/enum_bz_type.dart';
 
 class BzModel {
   final String bzId;
-  final BzType bzType;
-  final BzForm bzForm;
-  final String bzName;
-  final String bzLogo;
+  BzType bzType; // was final
+  BzForm bzForm; // was final
+  String bzName; // was final
+  dynamic bzLogo; // was final String
   final String bzCountry; // countryID
   final String bzCity; // cityID
   final List<String> bzFieldsList;
@@ -22,21 +22,21 @@ class BzModel {
   final bool bzAccountIsPublished;
 
   BzModel({
-    @required this.bzId,
-    @required this.bzType,
-    @required this.bzForm,
-    @required this.bzName,
-    @required this.bzLogo,
-    @required this.bzCountry,
-    @required this.bzCity,
-    @required this.bzFieldsList,
-    @required this.bzAbout,
-    @required this.bzShowsTeam,
-    @required this.bldrBirth,
-    @required this.bzIsVerified,
-    @required this.bzAccountCanPublish,
-    @required this.bzAccountIsPublished,
-    @required this.bzWhatsAppIsOn,
-    @required this.bzBirth,
+    this.bzId, // -- was @required
+    this.bzType, // -- was @required
+    this.bzForm, // -- was @required
+    this.bzName, // -- was @required
+    this.bzLogo, // -- was @required
+    this.bzCountry, // -- was @required
+    this.bzCity, // -- was @required
+    this.bzFieldsList, // -- was @required
+    this.bzAbout, // -- was @required
+    this.bzShowsTeam, // -- was @required
+    this.bldrBirth, // -- was @required
+    this.bzIsVerified, // -- was @required
+    this.bzAccountCanPublish, // -- was @required
+    this.bzAccountIsPublished, // -- was @required
+    this.bzWhatsAppIsOn, // -- was @required
+    this.bzBirth, // -- was @required
 });
 }

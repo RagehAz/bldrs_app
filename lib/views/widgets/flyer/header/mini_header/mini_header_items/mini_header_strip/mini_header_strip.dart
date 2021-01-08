@@ -10,7 +10,7 @@ import 'mini_header_strip_items/header_labels.dart';
 class MiniHeaderStrip extends StatelessWidget {
   final double flyerZoneWidth;
   final bool bzPageIsOn;
-  final String bzLogo;
+  final dynamic bzLogo; // -- was String
   final String bzName;
   final String bzCity;
   final String bzCountry;
