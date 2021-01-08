@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bldrs/view_brains/drafters/borderers.dart';
 import 'package:bldrs/view_brains/drafters/file_formatters.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
@@ -7,19 +9,23 @@ import 'package:websafe_svg/websafe_svg.dart';
 
 class BzLogo extends StatelessWidget {
   final double width;
-  final String image;
+  final dynamic image;
   final bool miniMode;
   final double corner;
   final bool bzPageIsOn;
   final bool flyerShowsAuthor;
+  final EdgeInsets margins;
+  final File file;
 
   BzLogo({
     @required this.width,
-    @required this.image,
+    this.image,
     this.miniMode = true,
     this.corner,
     this.bzPageIsOn = false,
     this.flyerShowsAuthor,
+    this.margins,
+    this.file,
   });
 
 
@@ -37,6 +43,7 @@ class BzLogo extends StatelessWidget {
         color: Colorz.WhiteAir,
         borderRadius: bzLogoCorners,
       ),
+      margin: margins,
       child: Container(
         height: width,
         width: width,
@@ -51,7 +58,22 @@ class BzLogo extends StatelessWidget {
         fileExtensionOf(image) == 'svg' ?
         ClipRRect(
             borderRadius: bzLogoCorners,
-            child: WebsafeSvg.asset(image, fit: BoxFit.cover, height:width, width: width)) : Container(),
+            child: WebsafeSvg.asset(image, fit: BoxFit.cover, height:width, width: width)) :
+
+            file != null ?
+            ClipRRect(
+              borderRadius: bzLogoCorners,
+              child: Image.file(
+                file,
+                fit: BoxFit.cover,
+                width: width,
+                height: width,
+                // colorBlendMode: BlendMode.overlay,
+                // color: Colorz.WhiteAir,
+              ),
+            ) :
+
+        Container(),
       ),
     );
   }
