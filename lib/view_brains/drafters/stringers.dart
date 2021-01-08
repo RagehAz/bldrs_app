@@ -4,7 +4,6 @@ import 'package:bldrs/models/enums/enum_bz_type.dart';
 import 'package:bldrs/models/enums/enum_flyer_type.dart';
 import 'package:bldrs/view_brains/localization/localization_constants.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
-import 'package:bldrs/views/widgets/appbar/sliver_home_appbar.dart';
 import 'package:flutter/material.dart';
 // ----------------------------------------------------------------------------
 TextDirection superTextDirection(BuildContext context){
@@ -54,7 +53,7 @@ List<String> sectionsListStrings (BuildContext context){
   }
   return sectionsStrings;
 }
-
+// ----------------------------------------------------------------------------
 List<String> bzTypesStrings (BuildContext context){
   List<String> bzTypesStrings = new List();
 
@@ -122,6 +121,15 @@ return
 
 }
 // ----------------------------------------------------------------------------
+List<String> bzFormStrings (BuildContext context){
+  List<String> bzFormStrings = new List();
+
+  for(BzForm bt in bzFormsList){
+    bzFormStrings.add(bzFormStringer(context, bt));
+  }
+  return bzFormStrings;
+}
+// ----------------------------------------------------------------------------
 String localeStringer (BuildContext context, String city, String country){
 String verse =
     city == null || country == null ? '...' :
@@ -137,4 +145,3 @@ String functionStringer(Function function) {
   return functionNameAsAString.substring(s+1, e);  // return functionNameAsAString;
 }
 // ----------------------------------------------------------------------------
-

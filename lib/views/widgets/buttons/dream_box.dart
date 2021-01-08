@@ -31,6 +31,7 @@ class DreamBox extends StatelessWidget {
   final String secondLine;
   final Widget dreamChild;
   final double opacity;
+  final bool inActiveMode;
 
   DreamBox({
     @required this.height,
@@ -55,6 +56,7 @@ class DreamBox extends StatelessWidget {
     this.secondLine,
     this.dreamChild,
     this.opacity = 1,
+    this.inActiveMode = false,
   });
 
   @override
@@ -97,7 +99,7 @@ class DreamBox extends StatelessWidget {
     Color _iconColor = blackAndWhite == true ? Colorz.WhiteSmoke : iconColor;
 
     return GestureDetector(
-      onTap: boxFunction,
+      onTap: inActiveMode == true ? (){} : boxFunction,
 
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -108,14 +110,14 @@ class DreamBox extends StatelessWidget {
           IntrinsicWidth(
 
             child: Opacity(
-              opacity: opacity,
+              opacity: inActiveMode == true ? 0.5 : opacity,
               child: Container(
                 width: width,
                 height: boxHeight,
                 alignment: Alignment.center,
                 margin: boxMargins,
                 decoration: BoxDecoration(
-                    color: boxColor,
+                    color: inActiveMode == true ? Colorz.WhiteAir : boxColor,
                     borderRadius: BorderRadius.circular(corners),
                     boxShadow: [
                       CustomBoxShadow(
@@ -265,7 +267,7 @@ class DreamBox extends StatelessWidget {
                                   verse: verse,
                                   size: verseSize,
                                   weight: verseWeight,
-                                  color: blackAndWhite == true ? Colorz.WhiteSmoke : verseColor,
+                                  color: blackAndWhite == true || inActiveMode == true ? Colorz.WhiteSmoke : verseColor,
                                   shadow: blackAndWhite == true ? false : true,
                                   maxLines: verseMaxLines,
                                   designMode: false,

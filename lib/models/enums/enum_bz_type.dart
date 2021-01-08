@@ -5,24 +5,24 @@ enum BzType {
   Developer, // dv -> pp (property flyer - property source flyer)
   Broker, // br -> pp (property flyer)
 
-  Manufacturer, // mn - pd (product flyer - product source flyer)
-  Supplier, // sp - pd (product flyer)
-
   Designer, // dr - ds (design flyer)
   Contractor, // cn - pj (project flyer)
   Artisan, // ar - cr (craft flyer)
+
+  Manufacturer, // mn - pd (product flyer - product source flyer)
+  Supplier, // sp - pd (product flyer)
 }
 
 List<BzType> bzTypesList = [
   BzType.Developer,
   BzType.Broker,
 
-  BzType.Manufacturer,
-  BzType.Supplier,
-
   BzType.Designer,
   BzType.Contractor,
   BzType.Artisan,
+
+  BzType.Manufacturer,
+  BzType.Supplier,
 ];
 
 
@@ -31,11 +31,11 @@ Map<String, Object> bzTypesMap = {
   'Strings' : [
     'developers',
     'brokers',
-    'manufacturers',
-    'suppliers',
     'designers',
     'contractors',
     'artisans',
+    'manufacturers',
+    'suppliers',
   ],
   'Triggers' : [false, false, false, false, false, false, false],
 };
@@ -49,36 +49,36 @@ class BzTypeStrings {
 
   static String developers;
   static String brokers;
-  static String manufacturers;
-  static String suppliers;
   static String designers;
   static String contractors;
   static String artisans;
+  static String manufacturers;
+  static String suppliers;
 
   static String developer;
   static String broker;
-  static String manufacturer;
-  static String supplier;
   static String designer;
   static String contractor;
   static String artisan;
+  static String manufacturer;
+  static String supplier;
 
   void init(BuildContext context){
     developers     = bzTypePluralStringer(context, BzType.Developer);
     brokers        = bzTypePluralStringer(context, BzType.Broker);
-    manufacturers  = bzTypePluralStringer(context, BzType.Manufacturer);
-    suppliers      = bzTypePluralStringer(context, BzType.Supplier);
     designers      = bzTypePluralStringer(context, BzType.Designer);
     contractors    = bzTypePluralStringer(context, BzType.Contractor);
     artisans       = bzTypePluralStringer(context, BzType.Artisan);
+    manufacturers  = bzTypePluralStringer(context, BzType.Manufacturer);
+    suppliers      = bzTypePluralStringer(context, BzType.Supplier);
 
     developer      = bzTypeSingleStringer(context, BzType.Developer);
     broker         = bzTypeSingleStringer(context, BzType.Broker);
-    manufacturer   = bzTypeSingleStringer(context, BzType.Manufacturer);
-    supplier       = bzTypeSingleStringer(context, BzType.Supplier);
     designer       = bzTypeSingleStringer(context, BzType.Designer);
     contractor     = bzTypeSingleStringer(context, BzType.Contractor);
     artisan        = bzTypeSingleStringer(context, BzType.Artisan);
+    manufacturer   = bzTypeSingleStringer(context, BzType.Manufacturer);
+    supplier       = bzTypeSingleStringer(context, BzType.Supplier);
   }
 
 }

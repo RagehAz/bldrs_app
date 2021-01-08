@@ -237,12 +237,12 @@ class _CreateFlyerScreenState extends State<CreateFlyerScreen> {
         )
     );
     if (selectedLocation == null){ return; }
-    _showPreview(selectedLocation.latitude, selectedLocation.longitude);
+    _showMapPreview(selectedLocation.latitude, selectedLocation.longitude);
     _newLocationSlide();
     print("${selectedLocation.latitude},${selectedLocation.longitude}");
   }
   // ----------------------------------------------------------------------
-  void _showPreview(double lat, double lng) {
+  void _showMapPreview(double lat, double lng) {
     final staticMapImageUrl = getStaticMapImage(context, lat, lng);
     setState(() {
       _previewImageUrl = staticMapImageUrl;
@@ -350,7 +350,7 @@ class _CreateFlyerScreenState extends State<CreateFlyerScreen> {
                     child: Column(
                       children: <Widget>[
 
-                        // --- NEW SLIDE FROM CAMERA
+                        // --- NEW SLIDE FROM GALLERY
                         DreamBox(
                           width: flyerZoneWidth * 0.15,
                           height: flyerZoneWidth * 0.15,
@@ -360,7 +360,7 @@ class _CreateFlyerScreenState extends State<CreateFlyerScreen> {
                           boxFunction: _takeGalleryPicture,
                         ),
 
-                        // --- NEW SLIDE FROM GALLERY
+                        // --- NEW SLIDE FROM CAMERA
                         DreamBox(
                           width: flyerZoneWidth * 0.15,
                           height: flyerZoneWidth * 0.15,
