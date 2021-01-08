@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:bldrs/models/bz_model.dart';
+import 'package:bldrs/providers/combined_models/co_bz.dart';
 import 'package:path_provider/path_provider.dart' as sysPaths;
 import 'package:path/path.dart' as path;
 import 'package:bldrs/models/enums/enum_bldrs_section.dart';
@@ -35,6 +37,8 @@ class _AddBzScreen2State extends State<AddBzScreen2> {
   TextEditingController bzNameTextController;
   File _storedLogo;
   File _pickedLogo;
+  CoBz newCoBz;
+  BzModel newBzModel;
   // ----------------------------------------------------------------------
   void initState(){
     super.initState();
@@ -43,6 +47,9 @@ class _AddBzScreen2State extends State<AddBzScreen2> {
     createBzFormInActivityLst();
     scopeTextController = new TextEditingController();
     bzNameTextController = new TextEditingController();
+    newCoBz = new CoBz();
+    newBzModel = new BzModel();
+    newCoBz.bz = newBzModel;
   }
   // ----------------------------------------------------------------------
   void triggerMaxHeader(){
@@ -74,6 +81,8 @@ class _AddBzScreen2State extends State<AddBzScreen2> {
         chosenBzType == BzType.Manufacturer ? [true, false] :
         chosenBzType == BzType.Supplier ? [true, false] :
         bzFormInActivityList;
+
+        newCoBz.bz.bzType = chosenBzType;
       });
   }
   // ----------------------------------------------------------------------
@@ -86,6 +95,7 @@ class _AddBzScreen2State extends State<AddBzScreen2> {
   void selectBzForm(int index){
       setState(() {
         chosenBzForm = bzFormsList[index];
+        newCoBz.bz.bzForm = chosenBzForm;
       });
   }
   // ----------------------------------------------------------------------
@@ -107,6 +117,7 @@ class _AddBzScreen2State extends State<AddBzScreen2> {
 
     setState(() {
       _storedLogo = File(imageFile.path);
+      newCoBz.bz.bzLogo = _storedLogo;
     });
 
     final appDir = await sysPaths.getApplicationDocumentsDirectory();
@@ -124,106 +135,167 @@ class _AddBzScreen2State extends State<AddBzScreen2> {
       _storedLogo = null;
     });
   }
+  // ----------------------------------------------------------------------
+void typingBzName(String bzName){
+    print(bzName);
+    setState(() {
+      newCoBz.bz.bzName = bzName;
+    });
+    print(newCoBz.bz.bzName);
+}
+  // ----------------------------------------------------------------------
+
   @override
   Widget build(BuildContext context) {
+
+    double screenWidth = superScreenWidth(context);
+    double screenHeight = superScreenHeight(context);
 
     return MainLayout(
       appBarType: AppBarType.Basic,
       pyramids: Iconz.PyramidsYellow,
-      layoutWidget: SingleChildScrollView(
+      tappingRageh: (){ print(_storedLogo.runtimeType);},
+      layoutWidget: Stack(
+        children: <Widget>[
 
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
+          SingleChildScrollView(
 
-            Stratosphere(),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
 
-            MultipleChoiceBubble(
-                title: 'Sections :',
-                buttonsList: sectionsListStrings(context),
-                tappingAButton: selectASection,
-                chosenButton: sectionStringer(context, chosenSection),
-            ),
+                Stratosphere(),
 
-            // --- CHOOSE BzType
-            MultipleChoiceBubble(
-              title: 'Account type :',
-              buttonsList: bzTypesStrings(context),
-              tappingAButton: selectBzType,
-              chosenButton: bzTypeSingleStringer(context, chosenBzType),
-              buttonsInActivityList: bzTypeInActivityList,
-            ),
+                MultipleChoiceBubble(
+                  title: 'Sections :',
+                  buttonsList: sectionsListStrings(context),
+                  tappingAButton: selectASection,
+                  chosenButton: sectionStringer(context, chosenSection),
+                ),
 
-            // --- CHOOSE BzForm
-            MultipleChoiceBubble(
-              title: 'Business form :',
-              buttonsList: bzFormStrings(context),
-              tappingAButton: selectBzForm,
-              chosenButton: bzFormStringer(context, chosenBzForm),
-              buttonsInActivityList: bzFormInActivityList,
-            ),
+                // --- CHOOSE BzType
+                MultipleChoiceBubble(
+                  title: 'Account type :',
+                  buttonsList: bzTypesStrings(context),
+                  tappingAButton: selectBzType,
+                  chosenButton: bzTypeSingleStringer(context, chosenBzType),
+                  buttonsInActivityList: bzTypeInActivityList,
+                ),
 
-            // --- type BzName
-            TextFieldBubble(
-              title: chosenBzForm == BzForm.Individual ? 'Business Entity name' : 'Company name',
-              hintText: '...',
-              counterIsOn: true,
-              maxLength: 72,
-              maxLines: 2,
-              keyboardTextInputType: TextInputType.name,
-              textController: bzNameTextController,
-            ),
+                // --- CHOOSE BzForm
+                MultipleChoiceBubble(
+                  title: 'Business form :',
+                  buttonsList: bzFormStrings(context),
+                  tappingAButton: selectBzForm,
+                  chosenButton: bzFormStringer(context, chosenBzForm),
+                  buttonsInActivityList: bzFormInActivityList,
+                ),
 
-            // --- type BzFields
-            TextFieldBubble(
-              title: 'Scope of services :',
-              hintText: '...',
-              counterIsOn: true,
-              maxLength: 193,
-              maxLines: 4,
-              keyboardTextInputType: TextInputType.multiline,
-              textController: scopeTextController,
-            ),
-
-            AddLogoBubble(
-              logo: _storedLogo,
-              addBtFunction: _takeGalleryPicture,
-              deleteLogoFunction: _deleteLogo,
-            ),
+                // --- type BzName
+                TextFieldBubble(
+                  title: chosenBzForm == BzForm.Individual ? 'Business Entity name' : 'Company name',
+                  hintText: '...',
+                  counterIsOn: true,
+                  maxLength: 72,
+                  maxLines: 2,
+                  keyboardTextInputType: TextInputType.name,
+                  textController: bzNameTextController,
+                  textOnChanged: (bzName) => typingBzName(bzName),
 
 
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 150),
-              child: Stack(
-                children: <Widget>[
+                ),
 
-                  FlyerZone(
-                    flyerSizeFactor: 0.5,
-                    tappingFlyerZone: (){print('fuck you');},
-                    stackWidgets: <Widget>[
+                // --- type BzFields
+                TextFieldBubble(
+                  title: 'Scope of services :',
+                  hintText: '...',
+                  counterIsOn: true,
+                  maxLength: 193,
+                  maxLines: 4,
+                  keyboardTextInputType: TextInputType.multiline,
+                  textController: scopeTextController,
+                ),
 
-                      Header(
-                          coBz: null,
-                          coAuthor: null,
-                          flyerShowsAuthor: true,
-                          followIsOn: null,
-                          flyerZoneWidth: superFlyerZoneWidth(context, 0.5),
-                          bzPageIsOn: bzPageIsOn,
-                          tappingHeader: triggerMaxHeader,
-                          tappingFollow: null,
-                          tappingUnfollow: null,
+                // --- ADD LOGO
+                AddLogoBubble(
+                  logo: _storedLogo,
+                  addBtFunction: _takeGalleryPicture,
+                  deleteLogoFunction: _deleteLogo,
+                ),
+
+
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 150),
+                  child: Stack(
+                    children: <Widget>[
+
+                      FlyerZone(
+                        flyerSizeFactor: 0.7,
+                        tappingFlyerZone: (){print('fuck you');},
+                        stackWidgets: <Widget>[
+
+                          Header(
+                            coBz: newCoBz,
+                            coAuthor: null,
+                            flyerShowsAuthor: true,
+                            followIsOn: null,
+                            flyerZoneWidth: superFlyerZoneWidth(context, 0.7),
+                            bzPageIsOn: bzPageIsOn,
+                            tappingHeader: triggerMaxHeader,
+                            tappingFollow: null,
+                            tappingUnfollow: null,
+                          ),
+
+                        ],
                       ),
 
                     ],
                   ),
+                )
 
-                ],
+              ],
+            ),
+          ),
+
+          Positioned(
+            bottom: 0,
+            left: 10,
+            child: Builder(
+              builder: (context) =>
+              IconButton(
+                iconSize: 30,
+                icon: DreamBox(
+                  height: 30,
+                  verse: 'f  ',
+                  verseScaleFactor: 0.6,
+                ),
+                onPressed: (){
+                  Scaffold.of(context).hideCurrentSnackBar();
+                  Scaffold.of(context).showSnackBar(
+                      SnackBar(
+                        width: screenWidth * 0.6,
+                        backgroundColor: Colorz.BloodTest,
+                        behavior: SnackBarBehavior.floating,
+
+                        elevation: 0,
+                        content: SuperVerse(
+                          verse: 'wtf',
+                          labelColor: Colorz.BloodTest,
+                        ),
+                        duration: Duration(seconds: 2),
+                        action: SnackBarAction(
+                          label: 'koko',
+                          onPressed: (){},
+                        ),
+
+                      ));
+                },
               ),
-            )
+            ),
+          ),
 
-          ],
-        ),
+        ],
       ),
     );
   }
@@ -300,6 +372,7 @@ class TextFieldBubble extends StatelessWidget {
   final int maxLength;
   final TextEditingController textController;
   final TextInputType keyboardTextInputType;
+  final Function textOnChanged;
 
   TextFieldBubble({
     @required this.title,
@@ -309,7 +382,9 @@ class TextFieldBubble extends StatelessWidget {
     this.maxLength = 100,
     this.textController,
     @required this.keyboardTextInputType,
+    this.textOnChanged,
   });
+
   @override
   Widget build(BuildContext context) {
     return
@@ -329,6 +404,7 @@ class TextFieldBubble extends StatelessWidget {
               maxLines: maxLines,
               maxLength: maxLength,
               textController: textController,
+              onChanged: textOnChanged,
             )
           ]
       )
@@ -416,7 +492,7 @@ class AddLogoBubble extends StatelessWidget {
                 onTap: logo == null ? (){} : addBtFunction,
                 child: BzLogo(
                   width: logoWidth,
-                  file: logo,
+                  image: logo,
                   margins: EdgeInsets.all(10),
                 ),
               ),

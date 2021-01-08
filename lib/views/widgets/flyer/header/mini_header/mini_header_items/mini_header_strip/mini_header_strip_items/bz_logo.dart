@@ -15,7 +15,7 @@ class BzLogo extends StatelessWidget {
   final bool bzPageIsOn;
   final bool flyerShowsAuthor;
   final EdgeInsets margins;
-  final File file;
+  // final File file;
 
   BzLogo({
     @required this.width,
@@ -25,7 +25,7 @@ class BzLogo extends StatelessWidget {
     this.bzPageIsOn = false,
     this.flyerShowsAuthor,
     this.margins,
-    this.file,
+    // this.file,
   });
 
 
@@ -60,11 +60,11 @@ class BzLogo extends StatelessWidget {
             borderRadius: bzLogoCorners,
             child: WebsafeSvg.asset(image, fit: BoxFit.cover, height:width, width: width)) :
 
-            file != null ?
+        image != null && fileIsFileType(image) == true ?
             ClipRRect(
               borderRadius: bzLogoCorners,
               child: Image.file(
-                file,
+                image,
                 fit: BoxFit.cover,
                 width: width,
                 height: width,
@@ -72,8 +72,9 @@ class BzLogo extends StatelessWidget {
                 // color: Colorz.WhiteAir,
               ),
             ) :
-
         Container(),
+
+
       ),
     );
   }

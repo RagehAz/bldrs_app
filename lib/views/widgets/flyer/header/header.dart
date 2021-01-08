@@ -114,8 +114,8 @@ class Header extends StatelessWidget {
     // === === === === === === === === === === === === === === === === === === ===
     String _phoneNumber = feinPhoneFromContacts(coBz?.bzContacts);
     // --- B.LOCALE --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-    String bzCity = coBz != null ? coBz.bz.bzCountry : '';
-    String bzCountry = coBz != null ? coBz.bz.bzCity : '';
+    String bzCity = coBz != null ? coBz?.bz?.bzCountry : '';
+    String bzCountry = coBz != null ? coBz?.bz?.bzCity : '';
     String businessLocale = localeStringer(context, bzCity, bzCountry);
     // === === === === === === === === === === === === === === === === === === ===
 
