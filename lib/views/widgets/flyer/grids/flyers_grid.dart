@@ -7,7 +7,7 @@ import 'package:bldrs/views/widgets/pro_flyer/pro_flyer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class FlyersGrid extends StatelessWidget {
+class FlyersGrid extends StatefulWidget {
 
   final double gridZoneWidth;
   final int numberOfColumns;
@@ -20,6 +20,17 @@ class FlyersGrid extends StatelessWidget {
 });
 
   @override
+  _FlyersGridState createState() => _FlyersGridState();
+}
+
+class _FlyersGridState extends State<FlyersGrid> {
+
+  void rebuildGrid(){
+    setState(() {
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     final CoFlyersProvider pro = Provider.of<CoFlyersProvider>(context, listen: false);
     final List<CoFlyer> savedCoFlyers = pro.hatAllSavedCoFlyers;
@@ -28,9 +39,9 @@ class FlyersGrid extends StatelessWidget {
 // ----------------------------------------------------------------------------
     double screenWidth = superScreenWidth(context);
 // ----------------------------------------------------------------------------
-    int gridColumnsCount = numberOfColumns;
+    int gridColumnsCount = widget.numberOfColumns;
     double spacingRatioToGridWidth = 0.15;
-    double gridFlyerWidth = gridZoneWidth / (numberOfColumns + (numberOfColumns * spacingRatioToGridWidth) + spacingRatioToGridWidth);
+    double gridFlyerWidth = widget.gridZoneWidth / (widget.numberOfColumns + (widget.numberOfColumns * spacingRatioToGridWidth) + spacingRatioToGridWidth);
     double gridFlyerHeight = gridFlyerWidth * Ratioz.xxflyerZoneHeight;
     double gridSpacing = gridFlyerWidth * spacingRatioToGridWidth;
     int flyersCount = savedCoFlyers.length;
@@ -46,7 +57,7 @@ class FlyersGrid extends StatelessWidget {
 // ----------------------------------------------------------------------------
     return
       Container(
-          width: gridZoneWidth,
+          width: widget.gridZoneWidth,
           height: gridHeight,
           // padding: EdgeInsets.symmetric(horizontal: 0, vertical: flyerZoneWidth * 0.04),
           child:
@@ -69,8 +80,9 @@ class FlyersGrid extends StatelessWidget {
                   ChangeNotifierProvider.value(
                     value: savedCoFlyers[index],
                       child: ProFlyer(
-                        flyerSizeFactor: (((gridZoneWidth - (gridSpacing*(gridColumnsCount+1)))/gridColumnsCount))/screenWidth,
+                        flyerSizeFactor: (((widget.gridZoneWidth - (gridSpacing*(gridColumnsCount+1)))/gridColumnsCount))/screenWidth,
                         slidingIsOn: false,
+                        rebuildFlyerGrid: rebuildGrid,
                         tappingFlyerZone: (){
                           openFlyer(context, savedCoFlyers[index].flyer.flyerID);
                         },

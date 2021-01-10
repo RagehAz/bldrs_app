@@ -17,6 +17,7 @@ class ProFlyer extends StatefulWidget {
   int currentSlideIndex;
   bool slidingIsOn;
   final Function tappingFlyerZone;
+  final Function rebuildFlyerGrid;
 
   ProFlyer({
     @required this.flyerSizeFactor,
@@ -24,6 +25,7 @@ class ProFlyer extends StatefulWidget {
     this.currentSlideIndex = 0,
     this.slidingIsOn = true,
     this.tappingFlyerZone,
+    this.rebuildFlyerGrid,
   });
 
   @override
@@ -177,6 +179,7 @@ class _ProFlyerState extends State<ProFlyer> with AutomaticKeepAliveClientMixin{
                   tappingAnkh: (){
                     pro.toggleAnkh();
                     print('ankh : ${pro.ankhIsOn}');
+                    widget.rebuildFlyerGrid();
                     },
             ),
           ),
