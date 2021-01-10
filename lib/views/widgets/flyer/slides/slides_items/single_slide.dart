@@ -102,7 +102,6 @@ class _SingleSlideState extends State<SingleSlide> {
   // ----------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
     // ----------------------------------------------------------------------
     double screenWidth = superScreenWidth(context);
     // ----------------------------------------------------------------------

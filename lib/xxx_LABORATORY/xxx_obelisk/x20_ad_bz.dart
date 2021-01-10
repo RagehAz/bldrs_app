@@ -294,8 +294,6 @@ void openCityList(){
                   textOnChanged: (bzAbout) => typingBzAbout(bzAbout),
                 ),
 
-
-
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 150),
                   child: Stack(
