@@ -1,5 +1,3 @@
-import 'package:flutter/foundation.dart';
-
 import 'enums/enum_bz_form.dart';
 import 'enums/enum_bz_type.dart';
 
@@ -14,12 +12,13 @@ class BzModel {
   final List<String> bzFieldsList;
   final int bzBirth;
   final int bldrBirth;
-  final String bzAbout;
+  String bzAbout; // was final
   final bool bzShowsTeam;
   final bool bzWhatsAppIsOn;
   final bool bzIsVerified;
   final bool bzAccountCanPublish;
   final bool bzAccountIsPublished;
+  String bzScope;
 
   BzModel({
     this.bzId, // -- was @required
@@ -38,5 +37,6 @@ class BzModel {
     this.bzAccountIsPublished, // -- was @required
     this.bzWhatsAppIsOn, // -- was @required
     this.bzBirth, // -- was @required
+    this.bzScope,
 });
 }

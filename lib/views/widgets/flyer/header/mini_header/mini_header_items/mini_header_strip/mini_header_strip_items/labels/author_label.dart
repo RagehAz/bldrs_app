@@ -15,8 +15,8 @@ class AuthorLabel extends StatelessWidget {
   final String authorPic;
   final String authorName;
   final String authorTitle;
-  final int followersCount;
-  final int bzGalleryCount;
+  int followersCount;
+  int bzGalleryCount;
   final bool bzPageIsOn;
   // final int bzConnects; // not used in here
   final int authorGalleryCount;
@@ -69,6 +69,7 @@ class AuthorLabel extends StatelessWidget {
     // === === === === === === === === === === === === === === === === === === ===
     // --- FOLLOWERS COUNTER --- --- --- --- --- --- --- --- --- --- --- FOLLOWERS COUNTER
     String followersCounter =
+    (authorGalleryCount == 0 && followersCount == 0) || (authorGalleryCount == null && followersCount == null) ? '' :
     bzPageIsOn == true ?
         '${separateKilos(authorGalleryCount)} flyers' :
         '${separateKilos(followersCount)} ${getTranslated(context, 'Followers')} . ${separateKilos(bzGalleryCount)} flyers';
