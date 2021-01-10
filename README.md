@@ -533,10 +533,13 @@ beta version
 - bt      : button
 - Locale  : Country & City
 - Ankh    : save flyer
+- horus   : flyer slide view
+- horusee : flyer slide views
 - ab      : app bar
 - pg      : page
 - verse   : text
 - db      : database
+- bzCard  : the state of `MaxHeader();` when tapping `flyer`'s `MiniHeader();`
 
 assets folders
 
