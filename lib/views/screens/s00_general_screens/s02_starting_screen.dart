@@ -7,6 +7,7 @@ import 'package:bldrs/views/widgets/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/views/widgets/buttons/bt_main.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
+import 'package:bldrs/xxx_LABORATORY/email_auth/email_auth_screen.dart';
 import 'package:flutter/material.dart';
 
 
@@ -40,7 +41,7 @@ class StartingScreenState extends State<StartingScreen> {
 
               Stratosphere(),
 
-              LogoSlogan(),
+              LogoSlogan(sizeFactor: 0.87,),
 
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0,
@@ -80,6 +81,18 @@ class StartingScreenState extends State<StartingScreen> {
 
               ),
 
+              // --- CONTINUE WITH EMAIL
+              BTMain(
+                buttonVerse: 'Continue with E-mail',
+                buttonIcon: Iconz.ComEmail,
+                buttonColor: Colorz.WhiteAir,
+                splashColor: Colorz.Yellow,
+                buttonVerseShadow: false,
+                function: (){goToNewScreen(context, EmailAuth());},
+                stretched: false,
+
+              ),
+
             ],
           ),
 
@@ -91,8 +104,8 @@ class StartingScreenState extends State<StartingScreen> {
               height: 40,
               // width: 70,
               verse: 'Skip       ',
+              iconSizeFactor: 0.6,
               bubble: true,
-              verseScaleFactor: 0.6,
               boxFunction: () => goToRoute(context, Routez.Home),
             ),
           )
@@ -102,3 +115,5 @@ class StartingScreenState extends State<StartingScreen> {
     );
   }
 }
+
+

@@ -1,5 +1,7 @@
 import 'dart:io';
+import 'package:bldrs/models/author_model.dart';
 import 'package:bldrs/models/bz_model.dart';
+import 'package:bldrs/providers/combined_models/co_author.dart';
 import 'package:bldrs/providers/combined_models/co_bz.dart';
 import 'package:path_provider/path_provider.dart' as sysPaths;
 import 'package:path/path.dart' as path;
@@ -38,7 +40,9 @@ class _AddBzScreen2State extends State<AddBzScreen2> {
   File _storedLogo;
   File _pickedLogo;
   CoBz newCoBz;
+  CoAuthor newCoAuthor;
   BzModel newBzModel;
+  TextEditingController aboutTextController;
   // ----------------------------------------------------------------------
   void initState(){
     super.initState();
@@ -48,8 +52,17 @@ class _AddBzScreen2State extends State<AddBzScreen2> {
     scopeTextController = new TextEditingController();
     bzNameTextController = new TextEditingController();
     newCoBz = new CoBz();
+    newCoAuthor = new CoAuthor(
+      author: AuthorModel(
+          authorID: 'author${DateTime.now()}',
+          bzId: 'bz${DateTime.now()},',
+        userID: 'user${DateTime.now()}',
+      ),
+
+    );
     newBzModel = new BzModel();
     newCoBz.bz = newBzModel;
+    newCoBz.coAuthors = [newCoAuthor];
   }
   // ----------------------------------------------------------------------
   void triggerMaxHeader(){
@@ -137,14 +150,27 @@ class _AddBzScreen2State extends State<AddBzScreen2> {
   }
   // ----------------------------------------------------------------------
 void typingBzName(String bzName){
-    print(bzName);
     setState(() {
       newCoBz.bz.bzName = bzName;
     });
-    print(newCoBz.bz.bzName);
+    // print(newCoBz.bz.bzName);
 }
   // ----------------------------------------------------------------------
+  void typingBzScope(String bzScope){
+    setState(() {
+      newCoBz.bz.bzScope = bzScope;
+    });
+  }
+  // ----------------------------------------------------------------------
+  void typingBzAbout(String bzAbout){
+    setState(() {
+      newCoBz.bz.bzAbout = bzAbout;
+    });
+  }
+  // ----------------------------------------------------------------------
+void openCityList(){
 
+}
   @override
   Widget build(BuildContext context) {
 
@@ -154,6 +180,7 @@ void typingBzName(String bzName){
     return MainLayout(
       appBarType: AppBarType.Basic,
       pyramids: Iconz.PyramidsYellow,
+      pageTitle: 'Create New Business Account',
       tappingRageh: (){ print(_storedLogo.runtimeType);},
       layoutWidget: Stack(
         children: <Widget>[
@@ -192,6 +219,13 @@ void typingBzName(String bzName){
                   buttonsInActivityList: bzFormInActivityList,
                 ),
 
+                // --- ADD LOGO
+                AddLogoBubble(
+                  logo: _storedLogo,
+                  addBtFunction: _takeGalleryPicture,
+                  deleteLogoFunction: _deleteLogo,
+                ),
+
                 // --- type BzName
                 TextFieldBubble(
                   title: chosenBzForm == BzForm.Individual ? 'Business Entity name' : 'Company name',
@@ -202,11 +236,9 @@ void typingBzName(String bzName){
                   keyboardTextInputType: TextInputType.name,
                   textController: bzNameTextController,
                   textOnChanged: (bzName) => typingBzName(bzName),
-
-
                 ),
 
-                // --- type BzFields
+                // --- type BzScope
                 TextFieldBubble(
                   title: 'Scope of services :',
                   hintText: '...',
@@ -215,14 +247,53 @@ void typingBzName(String bzName){
                   maxLines: 4,
                   keyboardTextInputType: TextInputType.multiline,
                   textController: scopeTextController,
+                  textOnChanged: (bzScope) => typingBzScope(bzScope),
                 ),
 
-                // --- ADD LOGO
-                AddLogoBubble(
-                  logo: _storedLogo,
-                  addBtFunction: _takeGalleryPicture,
-                  deleteLogoFunction: _deleteLogo,
+                // --- type BzAbout
+                TextFieldBubble(
+                  title: newCoBz.bz.bzName == null  || newCoBz.bz.bzName == '' ? 'About Your Business' : 'About ${newCoBz.bz.bzName}',
+                  hintText: '...',
+                  counterIsOn: true,
+                  maxLength: 193,
+                  maxLines: 4,
+                  keyboardTextInputType: TextInputType.multiline,
+                  textController: aboutTextController,
+                  textOnChanged: (bzAbout) => typingBzAbout(bzAbout),
                 ),
+
+                // --- bzLocale
+                InPyramidsBubble(
+                    bubbleColor: Colorz.WhiteAir,
+                    columnChildren: <Widget>[
+
+                      SuperVerse(
+                        verse: 'Select HeadQuarters city',
+                        margin: 5,
+                      ),
+
+                      DreamBox(
+                        height: 40,
+                        bubble: false,
+                        verse: 'City, Country',
+                        color: Colorz.WhiteAir,
+                        boxFunction: openCityList,
+                      )
+                    ]
+                ),
+
+                // --- type BzAbout
+                TextFieldBubble(
+                  title: 'Business Author Name',
+                  hintText: '...',
+                  counterIsOn: true,
+                  maxLength: 193,
+                  maxLines: 4,
+                  keyboardTextInputType: TextInputType.multiline,
+                  textController: aboutTextController,
+                  textOnChanged: (bzAbout) => typingBzAbout(bzAbout),
+                ),
+
 
 
                 Padding(
@@ -237,7 +308,7 @@ void typingBzName(String bzName){
 
                           Header(
                             coBz: newCoBz,
-                            coAuthor: null,
+                            coAuthor: newCoAuthor,
                             flyerShowsAuthor: true,
                             followIsOn: null,
                             flyerZoneWidth: superFlyerZoneWidth(context, 0.7),
@@ -373,6 +444,7 @@ class TextFieldBubble extends StatelessWidget {
   final TextEditingController textController;
   final TextInputType keyboardTextInputType;
   final Function textOnChanged;
+  final bool obscured;
 
   TextFieldBubble({
     @required this.title,
@@ -383,6 +455,7 @@ class TextFieldBubble extends StatelessWidget {
     this.textController,
     @required this.keyboardTextInputType,
     this.textOnChanged,
+    this.obscured = false,
   });
 
   @override
@@ -405,6 +478,7 @@ class TextFieldBubble extends StatelessWidget {
               maxLength: maxLength,
               textController: textController,
               onChanged: textOnChanged,
+              obscured: obscured,
             )
           ]
       )

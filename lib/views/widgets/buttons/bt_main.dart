@@ -33,7 +33,7 @@ class BTMain extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
 
     double buttonCorner = screenHeight * Ratioz.rrButtonCorner;
-    double buttonZoneHeight = screenHeight * 0.1;
+    double buttonZoneHeight = screenHeight * 0.08;
     double buttonZonePaddings = screenHeight * 0.01;
 
     double buttonWidth = stretched == true ?
@@ -41,7 +41,7 @@ class BTMain extends StatelessWidget {
         :
     screenHeight * 22 * 0.017;
 
-    double buttonHeight = screenHeight * 0.08;
+    double buttonHeight = buttonZoneHeight * 0.85;
 
     // BUTTON FOOTPRINT
     return Container(
@@ -49,7 +49,7 @@ class BTMain extends StatelessWidget {
       height: buttonZoneHeight,
       // color: Colorz.Yellow,
       alignment: Alignment.center,
-      padding: EdgeInsets.all(buttonZonePaddings),
+      // padding: EdgeInsets.all(buttonZonePaddings),
 
       // BUTTON ITSELF
       child: Container(
@@ -176,7 +176,7 @@ class BTMain extends StatelessWidget {
                           Expanded(
                             flex: 4,
                             child: new Padding(
-                              padding: EdgeInsets.all(buttonZonePaddings),
+                              padding: EdgeInsets.symmetric(horizontal : buttonZonePaddings),
                               child: SuperVerse(
                                 verse: buttonVerse,
                                 color: Colorz.White,

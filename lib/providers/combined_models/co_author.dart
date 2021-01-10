@@ -1,6 +1,5 @@
 import 'package:bldrs/models/author_model.dart';
 import 'package:bldrs/models/connection_model.dart';
-import 'package:flutter/foundation.dart';
 import './co_user.dart';
 
 class CoAuthor {
@@ -10,9 +9,9 @@ class CoAuthor {
   List<String> authorFlyersIDs;
 
   CoAuthor({
-    @required this.author,
-    @required this.coUser,
-    @required this.connections,
-    @required this.authorFlyersIDs,
+    this.author, // was @required
+    this.coUser, // was @required
+    this.connections, // was @required
+    this.authorFlyersIDs, // was @required
   });
 }
