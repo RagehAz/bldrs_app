@@ -113,8 +113,9 @@ class _GalleryState extends State<Gallery> {
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 padding: EdgeInsets.symmetric(horizontal: widget.flyerZoneWidth * 0.01),
-                children: List<Widget>.generate(
-
+                children:
+                widget.coAuthors == null ? [Container()] :
+                List<Widget>.generate(
                   widget.coAuthors.length,
                       (authorIndex) => Row(
                         children: <Widget>[
@@ -141,7 +142,7 @@ class _GalleryState extends State<Gallery> {
             // --- AUTHORS FLYERS
             GalleryGrid(
               gridZoneWidth: widget.flyerZoneWidth,
-              bzID: widget.coAuthors.isNotEmpty ? widget.coAuthors[0].author.bzId : '',
+              bzID: widget.coAuthors?.isNotEmpty ? widget.coAuthors[0].author.bzId : '',
               flyersVisibilities: flyersVisibilities,
               // tappingMiniFlyer: widget.tappingMiniFlyer,
             ),

@@ -7,6 +7,11 @@ import 'package:websafe_svg/websafe_svg.dart';
 
 
     class LogoSlogan extends StatelessWidget {
+      final double sizeFactor;
+
+      LogoSlogan({
+        this.sizeFactor = 1,
+    });
 
       @override
       Widget build(BuildContext context) {
@@ -40,8 +45,8 @@ import 'package:websafe_svg/websafe_svg.dart';
             // --- NAME & LOGO
             Container(
               alignment: Alignment.center,
-              width: screenHeight * 22 * 0.016,
-              height: screenHeight * 18 * 0.016,
+              width: screenHeight * 22 * 0.016 * sizeFactor,
+              height: screenHeight * 18 * 0.016 * sizeFactor,
 //              color: varza.BloodTest,
               child: Container(
                 width: double.infinity,
@@ -56,8 +61,8 @@ import 'package:websafe_svg/websafe_svg.dart';
             ),
 
             Container(
-              width: screenHeight * 22 * 0.016 * 1.2,
-              height: screenHeight * 0.12,
+              width: screenHeight * 22 * 0.016 * 1.2 * sizeFactor * 1.2,
+              height: screenHeight * 0.12 * sizeFactor,
 //              color: varza.BloodTest,
               child:
               SuperVerse(
@@ -70,6 +75,8 @@ import 'package:websafe_svg/websafe_svg.dart';
                 italic: true,
                 color: Colorz.White,
                 maxLines: 5,
+                scaleFactor: sizeFactor,
+
               ),
 
 

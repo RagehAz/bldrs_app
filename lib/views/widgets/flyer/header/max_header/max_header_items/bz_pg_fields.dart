@@ -42,6 +42,7 @@ class BzPgFields extends StatelessWidget {
             runAlignment: WrapAlignment.center,
 
             children:
+            _fields == null ? [Container()] :
               List<Widget>.generate(
                   _fields.length,
                       (int index) {

@@ -37,7 +37,11 @@ class MaxHeader extends StatelessWidget {
     List<CoAuthor> bzCoAuthors = coBz != null ? coBz?.coAuthors : [];
     // === === === === === === === === === === === === === === === === === === ===
     List<String> bzTeamIDs = [];
-    bzCoAuthors.forEach((au) {bzTeamIDs.add(au.author.authorID);});
+    if(bzCoAuthors != null) {
+      bzCoAuthors.forEach((au) {
+        bzTeamIDs.add(au.author.authorID);
+      });
+    }
     // === === === === === === === === === === === === === === === === === === ===
     int bzConnects      = coBz != null ? coBz.bzConnects    : 0;
     int followersCount  = coBz != null ? coBz.followsCount  : 0;
