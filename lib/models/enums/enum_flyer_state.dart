@@ -3,7 +3,12 @@ enum FlyerState{
   UnPublished,
   Deleted,
 }
-
+// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+List<FlyerState> flyerStatesList = [
+  FlyerState.Published,
+  FlyerState.UnPublished,
+  FlyerState.Deleted,
+];
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
 FlyerState decipherFlyerState (int x){
   switch (x){

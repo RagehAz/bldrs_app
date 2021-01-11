@@ -44,6 +44,8 @@ static const String DvBlankSVG = 'assets/dv/dv_blank.svg' ;
 static const String DvGouran = 'assets/dv/dv_gouran.svg' ;
 static const String DvRageh = 'assets/dv/dv_rageh.svg' ;
 static const String DvBlankPNG = 'assets/dv/dv_blank.png' ;
+static const String DvBlackHole = 'assets/dv/dv_black_hole.png' ;
+static const String DvDonaldDuck = 'assets/dv/dv_donald_duck.png' ;
 // -------------------------------------------------------------------------
 // FLYER TYPE
 static const String BxPropertiesOn = 'assets/ft/ft_properties_on.svg' ;
