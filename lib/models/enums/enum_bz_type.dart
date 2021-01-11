@@ -82,3 +82,29 @@ class BzTypeStrings {
   }
 
 }
+
+// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+BzType decipherBzType (int x){
+  switch (x){
+  case 1:   return  BzType.Broker;        break;
+  case 2:   return  BzType.Designer;      break;
+  case 3:   return  BzType.Contractor;    break;
+  case 4:   return  BzType.Artisan;       break;
+  case 5:   return  BzType.Manufacturer;  break;
+  case 6:   return  BzType.Supplier;      break;
+    default : return   null;
+  }
+}
+// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+int cipherBzType (BzType x){
+  switch (x){
+    case BzType.Broker:         return  1;  break;
+    case BzType.Designer:       return  2;  break;
+    case BzType.Contractor:     return  3;  break;
+    case BzType.Artisan:        return  4;  break;
+    case BzType.Manufacturer:   return  5;  break;
+    case BzType.Supplier:       return  6;  break;
+    default : return null;
+  }
+}
+// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x

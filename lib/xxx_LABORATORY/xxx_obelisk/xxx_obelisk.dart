@@ -1,3 +1,4 @@
+import 'package:bldrs/models/enums/enum_bldrs_section.dart';
 import 'package:bldrs/view_brains/controllers/flyer_controllers.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
 import 'package:bldrs/view_brains/router/route_names.dart';
@@ -69,9 +70,15 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
     // double screenWidth = MediaQuery.of(context).size.width;
     // double screenHeight = superScreenHeight(context);
 
+    int x = 8;
+
     return MainLayout(
       pyramids: Iconz.PyramidsCrystal,
-      tappingRageh: (){},
+      tappingRageh: (){
+        print('before switch x = $x');
+        dynamic newSwitchValue = bldrsSectionSwitcher(x);
+        print('newSwitchValue = $newSwitchValue');
+        },
       appBarType: AppBarType.Main,
       layoutWidget: ListView(
         children: <Widget>[

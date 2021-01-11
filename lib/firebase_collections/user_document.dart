@@ -22,7 +22,8 @@ class UserDocument {
   /// if the user is not author, this will always be empty list,, which is stupid
   /// a3mel eh ?
   List<String> publishedFlyersIDs;
-  final String userName;
+  final String firstName;
+  final String lastName;
   final String userPic;
   final String userJobTitle;
   final String userCity;
@@ -42,7 +43,8 @@ class UserDocument {
     this.savedFlyersIDs,
     this.followedBzIDs,
     this.publishedFlyersIDs,
-    this.userName,
+    this.firstName,
+    this.lastName,
     this.userPic,
     this.userJobTitle,
     this.userCity,
