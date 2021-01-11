@@ -5,6 +5,13 @@ enum ConnectionState {
   UnSeen,
 }
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+List<ConnectionState> connectionStatesList = [
+  ConnectionState.Approved,
+  ConnectionState.Rejected,
+  ConnectionState.Seen,
+  ConnectionState.UnSeen,
+];
+// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
 ConnectionState decipherConnectionState (int x){
   switch (x){
     case 1:   return  ConnectionState.Approved;   break;

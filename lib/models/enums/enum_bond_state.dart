@@ -5,6 +5,13 @@ enum BondState {
   Unseen,
 }
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+List<BondState> bondStatesList = [
+  BondState.Accepted,
+  BondState.Declined,
+  BondState.Seen,
+  BondState.Unseen,
+];
+// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
 BondState decipherBondState (int x){
   switch (x){
     case 1:   return   BondState.Accepted;    break;

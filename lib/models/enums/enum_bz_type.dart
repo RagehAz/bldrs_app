@@ -12,7 +12,7 @@ enum BzType {
   Manufacturer, // mn - pd (product flyer - product source flyer)
   Supplier, // sp - pd (product flyer)
 }
-
+// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
 List<BzType> bzTypesList = [
   BzType.Developer,
   BzType.Broker,
@@ -24,8 +24,7 @@ List<BzType> bzTypesList = [
   BzType.Manufacturer,
   BzType.Supplier,
 ];
-
-
+// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
 Map<String, Object> bzTypesMap = {
   'Title' : 'Business Types',
   'Strings' : [
@@ -39,12 +38,12 @@ Map<String, Object> bzTypesMap = {
   ],
   'Triggers' : [false, false, false, false, false, false, false],
 };
-
-// dunno why I couldn't access this class below in the above map by referring from it like BzTypeStrings.develops masalan,,
-// but returned nulls,, maybe becuase of the context,, dunno
-// i'm gonna skip this for now,, just wanted to add the pop up menu as an example as I previously designed its UI,,
-// I don't like it anyways and it needs UI updates
-// then it needs to be merged with MainLayout();
+// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+/// dunno why I couldn't access this class below in the above map by referring from it like BzTypeStrings.develops masalan,,
+/// but returned nulls,, maybe becuase of the context,, dunno
+/// i'm gonna skip this for now,, just wanted to add the pop up menu as an example as I previously designed its UI,,
+/// I don't like it anyways and it needs UI updates
+/// then it needs to be merged with MainLayout();
 class BzTypeStrings {
 
   static String developers;
@@ -82,28 +81,29 @@ class BzTypeStrings {
   }
 
 }
-
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
 BzType decipherBzType (int x){
   switch (x){
-  case 1:   return  BzType.Broker;        break;
-  case 2:   return  BzType.Designer;      break;
-  case 3:   return  BzType.Contractor;    break;
-  case 4:   return  BzType.Artisan;       break;
-  case 5:   return  BzType.Manufacturer;  break;
-  case 6:   return  BzType.Supplier;      break;
+    case 1:   return  BzType.Developer;        break;
+    case 2:   return  BzType.Broker;        break;
+    case 3:   return  BzType.Designer;      break;
+    case 4:   return  BzType.Contractor;    break;
+    case 5:   return  BzType.Artisan;       break;
+    case 6:   return  BzType.Manufacturer;  break;
+    case 7:   return  BzType.Supplier;      break;
     default : return   null;
   }
 }
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
 int cipherBzType (BzType x){
   switch (x){
-    case BzType.Broker:         return  1;  break;
-    case BzType.Designer:       return  2;  break;
-    case BzType.Contractor:     return  3;  break;
-    case BzType.Artisan:        return  4;  break;
-    case BzType.Manufacturer:   return  5;  break;
-    case BzType.Supplier:       return  6;  break;
+    case BzType.Developer:      return  1;  break;
+    case BzType.Broker:         return  2;  break;
+    case BzType.Designer:       return  3;  break;
+    case BzType.Contractor:     return  4;  break;
+    case BzType.Artisan:        return  5;  break;
+    case BzType.Manufacturer:   return  6;  break;
+    case BzType.Supplier:       return  7;  break;
     default : return null;
   }
 }

@@ -526,20 +526,21 @@ beta version
 
 ## Short terms & unique terminologies
 
-- bz      : business
-- bzz     : businesses
-- author  : business account admin & flyer publisher
-- flyer   : digital multi-page brochure showcasing business account work.
-- bt      : button
-- Locale  : Country & City
-- Ankh    : save flyer
-- horus   : flyer slide view
-- horusee : flyer slide views
-- ab      : app bar
-- pg      : page
-- verse   : text
-- db      : database
-- bzCard  : the state of `MaxHeader();` when tapping `flyer`'s `MiniHeader();`
+- bz        : business
+- bzz       : businesses
+- author    : business account admin & flyer publisher
+- flyer     : digital multi-page brochure showcasing business account work.
+- bt        : button
+- Locale    : Country & City
+- Ankh      : save flyer
+- horus     : flyer slide view
+- horusee   : flyer slide views
+- ab        : app bar
+- pg        : page
+- verse     : text
+- db        : database
+- bzCard    : the state of `MaxHeader();` when tapping `flyer`'s `MiniHeader();`
+- blackHole : a stupid attempt to create a new set of widgets that depend on the new noSQL data models
 
 assets folders
 
