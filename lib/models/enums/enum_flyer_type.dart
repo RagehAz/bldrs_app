@@ -7,7 +7,16 @@ enum FlyerType {
   Equipment, // eq
   General,
 }
-
+// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+List<FlyerType> flyerTypesList = [
+  FlyerType.Property,
+  FlyerType.Design,
+  FlyerType.Product,
+  FlyerType.Project,
+  FlyerType.Craft,
+  FlyerType.Equipment,
+  FlyerType.General,
+];
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
 FlyerType decipherFlyerType (int x){
   switch (x){

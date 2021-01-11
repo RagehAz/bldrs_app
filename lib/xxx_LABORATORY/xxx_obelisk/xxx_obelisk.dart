@@ -7,6 +7,7 @@ import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/views/widgets/appbar/pages/pg_country.dart';
 import 'package:bldrs/views/widgets/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/views/widgets/buttons/bt_main.dart';
+import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/planet/google_map_2.dart';
 import 'package:bldrs/views/widgets/planet/google_map_3.dart';
@@ -21,6 +22,7 @@ import 'package:bldrs/xxx_LABORATORY/camera_and_location/x12_image_picker.dart';
 import 'package:bldrs/xxx_LABORATORY/camera_and_location/x13_camera.dart';
 import 'package:bldrs/xxx_LABORATORY/forms_and_inputs/popup.dart';
 import 'package:bldrs/xxx_LABORATORY/forms_and_inputs/form.dart';
+import 'package:bldrs/xxx_LABORATORY/testers/cipher_tester.dart';
 import 'package:bldrs/xxx_LABORATORY/testers/database_viewer_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/testers/test_subjects.dart' as TestSubjects;
 import 'package:bldrs/xxx_LABORATORY/testers/testerScreen.dart';
@@ -47,36 +49,30 @@ class ObeliskScreen extends StatefulWidget {
 
 class _ObeliskScreenState extends State<ObeliskScreen> {
   String theChosenFlag = flagFileNameSelectedFromPGLanguageList;
+// ---------------------------------------------------------------------------
   void flagSwitch() {
     setState(() {
       theChosenFlag = flagFileNameSelectedFromPGLanguageList;
     });
     print(flagFileNameSelectedFromPGLanguageList);
   }
-
+// ---------------------------------------------------------------------------
   // final GlobalKey<FormState> _key = GlobalKey<FormState>();
-
+// ---------------------------------------------------------------------------
+  void enterTheBlackHole(){
+    print('ezayak el awwal');
+  }
+// ---------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    // double buttonCorner = MediaQuery.of(context).size.height * varza.rrButtonCorner;
-    // double appBarCornerValue = MediaQuery.of(context).size.height * 0.0215;
-    // String theChosenFlag = flagfileNameSelectedFromPGLanguageList;
-    // void switchingCountry(){
-    //   setState(() {
-    //     theChosenFlag = flagFileNameSelectedFromPGLanguageList;
-    //   });
-    // }
-
-    // double screenWidth = MediaQuery.of(context).size.width;
-    // double screenHeight = superScreenHeight(context);
 
     int x = 8;
-
+// ---------------------------------------------------------------------------
     return MainLayout(
       pyramids: Iconz.PyramidsCrystal,
       tappingRageh: (){
         print('before switch x = $x');
-        dynamic newSwitchValue = bldrsSectionSwitcher(x);
+        dynamic newSwitchValue = decipherBldrsSection(x);
         print('newSwitchValue = $newSwitchValue');
         },
       appBarType: AppBarType.Main,
@@ -160,7 +156,6 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
             splashColor: Colorz.White,
             buttonVerseShadow: true,
             function:
-                // Routez.ProviderTest,
                 () => goToNewScreen(
                     context, TesterScreen(testList: TestSubjects.dbGetters)),
             stretched: false,
@@ -174,7 +169,6 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
             splashColor: Colorz.White,
             buttonVerseShadow: true,
             function:
-                // Routez.ProviderTest,
                 () => goToNewScreen(context,
                     TesterScreen(testList: TestSubjects.proHatters(context))),
             stretched: false,
@@ -188,8 +182,20 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
             splashColor: Colorz.White,
             buttonVerseShadow: true,
             function:
-                // Routez.ProviderTest,
                 () => goToNewScreen(context, DatabaseViewerScreen()),
+            stretched: false,
+          ),
+
+          // --- 6 - CipherTest -------------------------------
+          BTMain(
+            buttonVerse: '6 - CipherTest',
+            buttonIcon: Iconz.DvGouran,
+            buttonColor: Colorz.SkyDarkBlue,
+            splashColor: Colorz.White,
+            buttonVerseShadow: true,
+            function:
+            // Routez.ProviderTest,
+                () => goToNewScreen(context, CipherTest()),
             stretched: false,
           ),
 
@@ -525,6 +531,17 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
             function: () => goToNewScreen(context, NewNavigationMethodScreen()),
           ),
 
+          // --- 36 -  AnimationsScreen -------------------------------
+          BTMain(
+            buttonVerse: '36 - AnimationsScreen',
+            buttonColor: Colorz.Nothing,
+            buttonIcon: Iconz.DvDonaldDuck,
+            buttonVerseShadow: true,
+            splashColor: Colorz.Yellow,
+            stretched: true,
+            function: () => goToNewScreen(context, NewNavigationMethodScreen()),
+          ),
+
           // --- DATE PICKER -------------------------------
           TextFormField(
             decoration: InputDecoration(
@@ -584,6 +601,20 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
             splashColor: Colorz.White,
             function: Routez.RagehDashBoard,
             iconSizeFactor: 1,
+          ),
+
+          // -- BlackHole
+          DreamBox(
+            height: 300,
+            width: 300,
+            icon: Iconz.DvBlackHole,
+            iconSizeFactor: 0.95,
+            boxMargins: EdgeInsets.symmetric(vertical: 200),
+            corners: 150,
+            underLine: 'Enter\nThe Black Hole',
+            color: Colorz.WhiteAir,
+            verseScaleFactor: 0.8,
+            boxFunction: enterTheBlackHole,
           ),
 
           PyramidsHorizon(heightFactor: 3,),

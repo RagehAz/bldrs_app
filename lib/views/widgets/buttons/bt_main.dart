@@ -1,3 +1,4 @@
+import 'package:bldrs/view_brains/drafters/file_formatters.dart';
 import 'package:bldrs/view_brains/drafters/shadowers.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
@@ -166,8 +167,15 @@ class BTMain extends StatelessWidget {
                               margin: EdgeInsets.all(buttonZoneHeight * 0.1),
                               // padding: EdgeInsets.all(buttonHeight * 0),
                               child:
-                                  buttonIcon.runtimeType != String ?
-                                      buttonIcon :
+                                  buttonIcon.runtimeType != String ? buttonIcon :
+                                  fileExtensionOf(buttonIcon) == 'jpg' || fileExtensionOf(buttonIcon) == 'jpeg' || fileExtensionOf(buttonIcon) == 'png' ?
+                                  Container(
+                                    width: buttonZoneHeight * 0.4,
+                                    height: buttonZoneHeight * 0.4,
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(image: AssetImage(buttonIcon), fit: BoxFit.cover),
+                                    ),
+                                  ) :
                               WebsafeSvg.asset(buttonIcon, fit: BoxFit.fill,),
                             ),
                           ),

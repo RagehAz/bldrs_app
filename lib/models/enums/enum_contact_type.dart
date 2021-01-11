@@ -9,7 +9,18 @@ enum ContactType {
   Twitter,
   WebSite,
 }
-
+// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+List<ContactType> contactTypesList = [
+  ContactType.Email,
+  ContactType.Facebook,
+  ContactType.Instagram,
+  ContactType.LinkedIn,
+  ContactType.Phone,
+  ContactType.Pinterest,
+  ContactType.TikTok,
+  ContactType.Twitter,
+  ContactType.WebSite,
+];
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
 ContactType decipherContactType (int x){
   switch (x){
