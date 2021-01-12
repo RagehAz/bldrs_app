@@ -33,6 +33,9 @@ class DreamBox extends StatelessWidget {
   final double opacity;
   final bool inActiveMode;
   final String underLine;
+  final Color splashColor;
+  final Color underLineColor;
+  final Color underLineLabelColor;
 
   DreamBox({
     @required this.height,
@@ -59,6 +62,9 @@ class DreamBox extends StatelessWidget {
     this.opacity = 1,
     this.inActiveMode = false,
     this.underLine,
+    this.splashColor = Colorz.WhiteSmoke,
+    this.underLineColor = Colorz.White,
+    this.underLineLabelColor = Colorz.WhiteAir,
   });
 
   @override
@@ -100,270 +106,280 @@ class DreamBox extends StatelessWidget {
 
     Color _iconColor = blackAndWhite == true ? Colorz.WhiteSmoke : iconColor;
 
-    return GestureDetector(
-      onTap: inActiveMode == true ? (){} : boxFunction,
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
 
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
+        IntrinsicWidth(
 
-          IntrinsicWidth(
+          child: Opacity(
+            opacity: inActiveMode == true ? 0.5 : opacity,
+            child: Padding(
+              padding: boxMargins == null ? EdgeInsets.all(0) : boxMargins,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
 
-            child: Opacity(
-              opacity: inActiveMode == true ? 0.5 : opacity,
-              child: Padding(
-                padding: boxMargins == null ? EdgeInsets.all(0) : boxMargins,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-
-                    // --- THE BOX
-                    Container(
-                      width: width,
-                      height: boxHeight,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                          color: inActiveMode == true ? Colorz.WhiteAir : boxColor,
-                          borderRadius: BorderRadius.circular(corners),
-                          boxShadow: [
-                            CustomBoxShadow(
-                                color: bubble == true ? Colorz.BlackLingerie : Colorz.Nothing,
-                                offset: new Offset(0, height * -0.019 * 0 ),
-                                blurRadius: height * 0.15,
-                                blurStyle: BlurStyle.outer),
-                          ]
-                      ),
-                      child: ClipRRect(
+                  // --- THE BOX
+                  Container(
+                    width: width,
+                    height: boxHeight,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                        color: inActiveMode == true ? Colorz.WhiteAir : boxColor,
                         borderRadius: BorderRadius.circular(corners),
-                        child: Stack(
-                          alignment: Alignment.center,
-                          children: [
+                        boxShadow: [
+                          CustomBoxShadow(
+                              color: bubble == true ? Colorz.BlackLingerie : Colorz.Nothing,
+                              offset: new Offset(0, height * -0.019 * 0 ),
+                              blurRadius: height * 0.15,
+                              blurStyle: BlurStyle.outer),
+                        ]
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(corners),
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: [
 
-                            dreamChild == null ? Container() :
-                            Container(
-                              height: height,
-                              width: width,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(corners),
-                              ),
-                              child: dreamChild,
+                          dreamChild == null ? Container() :
+                          Container(
+                            height: height,
+                            width: width,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(corners),
                             ),
+                            child: dreamChild,
+                          ),
 
-                            Row(
-                              mainAxisAlignment: verse != null ? MainAxisAlignment.start : MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
+                          Row(
+                            mainAxisAlignment: verse != null ? MainAxisAlignment.start : MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
 
-                                // --- ICON
-                                Stack(
-                                  alignment: Alignment.center,
-                                  children: [
-                                    iconFile != null ?
-                                    Container(
-                                      width: jpgGraphicWidth,
-                                      height: jpgGraphicWidth,
-                                      margin: EdgeInsets.all(iconMargin),
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.all(Radius.circular(iconCorners)),
-                                          boxShadow: [
-                                            CustomBoxShadow(
-                                                color: bubble == true ? Colorz.BlackLingerie : Colorz.Nothing,
-                                                offset: new Offset(0, jpgGraphicWidth * -0.019 ),
-                                                blurRadius: jpgGraphicWidth * 0.2,
-                                                blurStyle: BlurStyle.outer),
-                                          ]
-                                      ),
-                                      child: ClipRRect(
+                              // --- ICON
+                              Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  iconFile != null ?
+                                  Container(
+                                    width: jpgGraphicWidth,
+                                    height: jpgGraphicWidth,
+                                    margin: EdgeInsets.all(iconMargin),
+                                    decoration: BoxDecoration(
                                         borderRadius: BorderRadius.all(Radius.circular(iconCorners)),
-                                        child: ColorFiltered(
-                                          colorFilter: ColorFilter.mode(
-                                              imageSaturationColor,
-                                              BlendMode.saturation),
-                                          child: Container(
-                                            width: jpgGraphicWidth,
-                                            height: jpgGraphicWidth,
-                                            decoration: BoxDecoration(
-                                              image: DecorationImage(image: FileImage(iconFile), fit: BoxFit.cover),
-                                            ),
+                                        boxShadow: [
+                                          CustomBoxShadow(
+                                              color: bubble == true ? Colorz.BlackLingerie : Colorz.Nothing,
+                                              offset: new Offset(0, jpgGraphicWidth * -0.019 ),
+                                              blurRadius: jpgGraphicWidth * 0.2,
+                                              blurStyle: BlurStyle.outer),
+                                        ]
+                                    ),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.all(Radius.circular(iconCorners)),
+                                      child: ColorFiltered(
+                                        colorFilter: ColorFilter.mode(
+                                            imageSaturationColor,
+                                            BlendMode.saturation),
+                                        child: Container(
+                                          width: jpgGraphicWidth,
+                                          height: jpgGraphicWidth,
+                                          decoration: BoxDecoration(
+                                            image: DecorationImage(image: FileImage(iconFile), fit: BoxFit.cover),
                                           ),
-                                        ),),
-                                    ) :
-                                    icon == null || icon == '' ?
-                                    Container()
-                                        :
-                                    fileExtensionOf(icon) == 'svg' ?
-                                    Padding(
-                                      padding: EdgeInsets.all(iconMargin),
-                                      child: ClipRRect(
-                                          borderRadius: BorderRadius.all(Radius.circular(iconCorners)),
-                                          child: WebsafeSvg.asset(icon, color: _iconColor, height: svgGraphicWidth, fit: BoxFit.cover)),
-                                    )
-                                        :
-                                    fileExtensionOf(icon) == 'jpg' || fileExtensionOf(icon) == 'jpeg' || fileExtensionOf(icon) == 'png' ?
-                                    Container(
-                                      width: jpgGraphicWidth,
-                                      height: jpgGraphicWidth,
-                                      margin: EdgeInsets.all(iconMargin),
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.all(Radius.circular(iconCorners)),
-                                          boxShadow: [
-                                            CustomBoxShadow(
-                                                color: bubble == true ? Colorz.BlackLingerie : Colorz.Nothing,
-                                                offset: new Offset(0, jpgGraphicWidth * -0.019 ),
-                                                blurRadius: jpgGraphicWidth * 0.2,
-                                                blurStyle: BlurStyle.outer),
-                                          ]
-                                      ),
-                                      child: ClipRRect(
+                                        ),
+                                      ),),
+                                  ) :
+                                  icon == null || icon == '' ?
+                                  Container()
+                                      :
+                                  fileExtensionOf(icon) == 'svg' ?
+                                  Padding(
+                                    padding: EdgeInsets.all(iconMargin),
+                                    child: ClipRRect(
                                         borderRadius: BorderRadius.all(Radius.circular(iconCorners)),
-                                        child: ColorFiltered(
-                                          colorFilter: ColorFilter.mode(
-                                              imageSaturationColor,
-                                              BlendMode.saturation),
-                                          child: Container(
-                                            width: jpgGraphicWidth,
-                                            height: jpgGraphicWidth,
-                                            decoration: BoxDecoration(
-                                              image: DecorationImage(image: AssetImage(icon), fit: BoxFit.cover),
-                                            ),
+                                        child: WebsafeSvg.asset(icon, color: _iconColor, height: svgGraphicWidth, fit: BoxFit.cover)),
+                                  )
+                                      :
+                                  fileExtensionOf(icon) == 'jpg' || fileExtensionOf(icon) == 'jpeg' || fileExtensionOf(icon) == 'png' ?
+                                  Container(
+                                    width: jpgGraphicWidth,
+                                    height: jpgGraphicWidth,
+                                    margin: EdgeInsets.all(iconMargin),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.all(Radius.circular(iconCorners)),
+                                        boxShadow: [
+                                          CustomBoxShadow(
+                                              color: bubble == true ? Colorz.BlackLingerie : Colorz.Nothing,
+                                              offset: new Offset(0, jpgGraphicWidth * -0.019 ),
+                                              blurRadius: jpgGraphicWidth * 0.2,
+                                              blurStyle: BlurStyle.outer),
+                                        ]
+                                    ),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.all(Radius.circular(iconCorners)),
+                                      child: ColorFiltered(
+                                        colorFilter: ColorFilter.mode(
+                                            imageSaturationColor,
+                                            BlendMode.saturation),
+                                        child: Container(
+                                          width: jpgGraphicWidth,
+                                          height: jpgGraphicWidth,
+                                          decoration: BoxDecoration(
+                                            image: DecorationImage(image: AssetImage(icon), fit: BoxFit.cover),
                                           ),
-                                        ),),
-                                    ) :
-                                    Container(),
+                                        ),
+                                      ),),
+                                  ) :
+                                  Container(),
 
-                                    // --- BUTTON BLACK LAYER IF GREYED OUT
-                                    blackAndWhite == true && icon != null && fileExtensionOf(icon) != 'svg'?
-                                    Container(
-                                      height: jpgGraphicWidth,
-                                      width: jpgGraphicWidth,
-                                      decoration: BoxDecoration(
-                                        // color: Colorz.Yellow,
-                                        borderRadius: BorderRadius.circular(iconCorners),
-                                        gradient: LinearGradient(
-                                            begin: Alignment.topCenter,
-                                            end: Alignment.bottomCenter,
-                                            colors: [Colorz.BlackSmoke, Colorz.BlackPlastic],
-                                            stops: [0.5, 1]),
-                                      ),
-                                    ) : Container(),
+                                  // --- BUTTON BLACK LAYER IF GREYED OUT
+                                  blackAndWhite == true && icon != null && fileExtensionOf(icon) != 'svg'?
+                                  Container(
+                                    height: jpgGraphicWidth,
+                                    width: jpgGraphicWidth,
+                                    decoration: BoxDecoration(
+                                      // color: Colorz.Yellow,
+                                      borderRadius: BorderRadius.circular(iconCorners),
+                                      gradient: LinearGradient(
+                                          begin: Alignment.topCenter,
+                                          end: Alignment.bottomCenter,
+                                          colors: [Colorz.BlackSmoke, Colorz.BlackPlastic],
+                                          stops: [0.5, 1]),
+                                    ),
+                                  ) : Container(),
 
+                                ],
+                              ),
+
+                              // --- SPACING
+                              SizedBox(
+                                width: iconSizeFactor != 1 && icon != null ? verseIconSpacing * 0.25 : verseIconSpacing,
+                                height: height,
+                              ),
+
+                              // --- VERSE
+                              verse == null ? Container() :
+                              Container(
+                                height: height,
+                                width: verseWidth,
+                                // color: Colorz.YellowSmoke, // for design purpose only
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: icon == null ? CrossAxisAlignment.center : CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    SuperVerse(
+                                      verse: verse,
+                                      size: verseSize,
+                                      weight: verseWeight,
+                                      color: blackAndWhite == true || inActiveMode == true ? Colorz.WhiteSmoke : verseColor,
+                                      shadow: blackAndWhite == true ? false : true,
+                                      maxLines: verseMaxLines,
+                                      designMode: false,
+                                      centered: icon == null ? true : false,
+                                      scaleFactor: iconSizeFactor * verseScaleFactor,
+                                      italic: verseItalic,
+                                    ),
+
+                                    secondLine == null ? Container() :
+                                    SuperVerse(
+                                      verse: secondLine,
+                                      weight: VerseWeight.regular,
+                                      size: 1,
+                                      color: Colorz.White,
+                                      maxLines: 1,
+                                      italic: true,
+                                      shadow: true,
+                                      centered: false,
+                                    ),
                                   ],
                                 ),
+                              ),
 
-                                // --- SPACING
-                                SizedBox(
-                                  width: iconSizeFactor != 1 && icon != null ? verseIconSpacing * 0.25 : verseIconSpacing,
-                                  height: height,
-                                ),
+                              // --- SPACING
+                              SizedBox(
+                                width: verseIconSpacing + iconMargin,
+                                height: height,
+                              ),
+                            ],
+                          ),
 
-                                // --- VERSE
-                                verse == null ? Container() :
-                                Container(
-                                  height: height,
-                                  width: verseWidth,
-                                  // color: Colorz.YellowSmoke, // for design purpose only
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment: icon == null ? CrossAxisAlignment.center : CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      SuperVerse(
-                                        verse: verse,
-                                        size: verseSize,
-                                        weight: verseWeight,
-                                        color: blackAndWhite == true || inActiveMode == true ? Colorz.WhiteSmoke : verseColor,
-                                        shadow: blackAndWhite == true ? false : true,
-                                        maxLines: verseMaxLines,
-                                        designMode: false,
-                                        centered: icon == null ? true : false,
-                                        scaleFactor: iconSizeFactor * verseScaleFactor,
-                                        italic: verseItalic,
-                                      ),
+                          // --- BOX HIGHLIGHT
+                          bubble == false ? Container() :
+                          Container(
+                            width: width,
+                            height: height * 0.27,
+                            decoration: BoxDecoration(
+                              // color: Colorz.White,
+                                borderRadius: BorderRadius.circular(
+                                    corners - (height * 0.8) ),
+                                boxShadow: [
+                                  CustomBoxShadow(
+                                      color: Colorz.WhiteZircon,
+                                      offset: new Offset(0, height * -0.33),
+                                      blurRadius: height * 0.2,
+                                      blurStyle: BlurStyle.normal),
+                                ]),
+                          ),
 
-                                      secondLine == null ? Container() :
-                                      SuperVerse(
-                                        verse: secondLine,
-                                        weight: VerseWeight.regular,
-                                        size: 1,
-                                        color: Colorz.White,
-                                        maxLines: 1,
-                                        italic: true,
-                                        shadow: true,
-                                        centered: false,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-
-                                // --- SPACING
-                                SizedBox(
-                                  width: verseIconSpacing + iconMargin,
-                                  height: height,
-                                ),
-                              ],
+                          // --- BOX GRADIENT
+                          bubble == false ? Container() :
+                          Container(
+                            height: height,
+                            width: width,
+                            decoration: BoxDecoration(
+                              // color: Colorz.Grey,
+                              borderRadius: BorderRadius.circular(corners),
+                              gradient: LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  colors: [Colorz.BlackNothing, Colorz.BlackPlastic],
+                                  stops: [0.5, 0.95]),
                             ),
+                          ),
 
-                            // --- BOX HIGHLIGHT
-                            bubble == false ? Container() :
-                            Container(
-                              width: width,
-                              height: height * 0.27,
-                              decoration: BoxDecoration(
-                                // color: Colorz.White,
-                                  borderRadius: BorderRadius.circular(
-                                      corners - (height * 0.8) ),
-                                  boxShadow: [
-                                    CustomBoxShadow(
-                                        color: Colorz.WhiteZircon,
-                                        offset: new Offset(0, height * -0.33),
-                                        blurRadius: height * 0.2,
-                                        blurStyle: BlurStyle.normal),
-                                  ]),
-                            ),
-
-                            // --- BOX GRADIENT
-                            bubble == false ? Container() :
-                            Container(
-                              height: height,
-                              width: width,
-                              decoration: BoxDecoration(
-                                // color: Colorz.Grey,
-                                borderRadius: BorderRadius.circular(corners),
-                                gradient: LinearGradient(
-                                    begin: Alignment.topCenter,
-                                    end: Alignment.bottomCenter,
-                                    colors: [Colorz.BlackNothing, Colorz.BlackPlastic],
-                                    stops: [0.5, 0.95]),
+                          // --- RIPPLE & TAP LAYER
+                          Container(
+                            width: width,
+                            height: height,
+                            child: Material(
+                              color: Colorz.Nothing,
+                              child: InkWell(
+                                splashColor: splashColor,
+                                onTap: inActiveMode == true ? (){} : boxFunction,
                               ),
                             ),
+                          ),
 
-                          ],
-                        ),
+                        ],
                       ),
                     ),
+                  ),
 
-                    // --- THE UNDERlINE
-                    underLine == null ? Container() :
-                        SuperVerse(
-                          verse: underLine,
-                          size: verseSize,
-                          scaleFactor: height * 0.005 * verseScaleFactor,
-                          maxLines: 2,
-                          shadow: true,
-                          labelColor: color,
-                        ),
+                  // --- THE UNDERlINE
+                  underLine == null ? Container() :
+                      SuperVerse(
+                        verse: underLine,
+                        color: underLineColor,
+                        size: verseSize,
+                        scaleFactor: height * 0.005 * verseScaleFactor,
+                        maxLines: 2,
+                        shadow: true,
+                        labelColor: underLineLabelColor,
+                      ),
 
-                  ],
-                ),
+                ],
               ),
             ),
           ),
+        ),
 
-        ],
-      ),
+      ],
     );
   }
 }

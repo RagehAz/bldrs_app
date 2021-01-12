@@ -2,6 +2,7 @@ import 'package:bldrs/view_brains/drafters/animators.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
+import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +35,12 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
       height = height == 100 ? superScreenHeight(context) : 100;
     });
   }
-  
+
+  bool condition(){
+    bool condition = width > 100 ? true : false;
+    return condition;
+  }
+
   @override
   Widget build(BuildContext context) {
     return MainLayout(
@@ -81,10 +87,10 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
         children: <Widget>[
 
           // width > 200 ? Container() :
-          ScaleTransition(
-            scale: Tween(begin: 1.0, end: 0.0).animate(_controller),
-              child: Stratosphere()
-          ),
+          // ScaleTransition(
+          //   scale: Tween(begin: 1.0, end: 0.0).animate(_controller),
+          //     child: Stratosphere()
+          // ),
           
           InkWell(
             onTap: resizeBox,
@@ -95,23 +101,60 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
               child: RotationTransition(
                 turns: Tween(begin: 0.0, end: 1.0).animate(_controller),
 
-                child: AnimatedContainer(
-                  duration: Duration(seconds: 10),
-                  curve: Curves.easeInOutCirc,
-                  width: width,
-                  height: height,
-                  color: Colorz.BloodRed,
-                  child: DreamBox(
-                    height: 50,
-                    icon: Iconz.ComYoutube,
-                    boxFunction: (){
-                      resizeBox();
-                    },
+                child: AnimatedOpacity(
+                  opacity: condition() == true ? 1 : 0.2,
+                  duration: Duration(seconds: 1),
+                  child: AnimatedContainer(
+                    duration: Duration(seconds: 1),
+                    curve: Curves.easeInOutCirc,
+                    width: width,
+                    height: height,
+                    margin: EdgeInsets.only(top: condition() == true ? 0 : Ratioz.stratosphere),
+                    color: condition() == true ? Colorz.BloodRed : Colorz.Yellow,
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: <Widget>[
+
+                        AnimatedPositioned(
+                          left: condition() == true ? (superScreenWidth(context) * 0.5) : 0,
+                          duration: Duration(seconds: 1),
+                          child: DreamBox(
+                            height: 50,
+                            icon: Iconz.ComYoutube,
+                            boxFunction: (){
+                              resizeBox();
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
           ),
+          
+          Stratosphere(),
+          
+          Container(
+            width: superScreenWidth(context),
+            height: superScreenWidth(context),
+            color: Colorz.BlackBlack,
+            alignment: Alignment.center,
+            child: DreamBox(
+              width: 200,
+              height: 200,
+              icon: Iconz.Clock,
+              color: Colorz.Yellow,
+              boxFunction: (){print('ripple effect works now');},
+              splashColor: Colorz.DarkRedPlastic,
+              underLine: 'Ripple Effect\n Works Now',
+              underLineColor: Colorz.BlackBlack,
+              underLineLabelColor: Colorz.YellowLingerie,
+            ),
+          ),
+
+
         ],
       ),
     );
