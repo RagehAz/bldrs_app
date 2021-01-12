@@ -5,7 +5,7 @@ import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:flutter/material.dart';
 
-class AnkhButton extends StatelessWidget {
+class AnkhButton extends StatefulWidget {
   // final String flyerID;
   final bool microMode;
   final bool bzPageIsOn;
@@ -23,6 +23,23 @@ class AnkhButton extends StatelessWidget {
     @required this.ankhIsOn,
     @required this.tappingAnkh,
 });
+
+  @override
+  _AnkhButtonState createState() => _AnkhButtonState();
+}
+
+class _AnkhButtonState extends State<AnkhButton> with SingleTickerProviderStateMixin{
+  AnimationController _ankhAnimation;
+
+  @override
+  void initState() {
+    // _ankhAnimation = AnimationController(
+    //   duration: Duration(seconds: 1),
+    //   vsync:
+    // );
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     // ----------------------------------------------------------------------------
@@ -32,21 +49,21 @@ class AnkhButton extends StatelessWidget {
     // ----------------------------------------------------------------------------
     double footerBTMargins =
     (
-        (ankhIsOn == true && microMode == true && slidingIsOn == false) ?
-        flyerZoneWidth * 0.01// for micro flyer when AnkhIsOn
+        (widget.ankhIsOn == true && widget.microMode == true && widget.slidingIsOn == false) ?
+        widget.flyerZoneWidth * 0.01// for micro flyer when AnkhIsOn
             :
-        (ankhIsOn == true) ?
-        flyerZoneWidth * 0.015 // for Normal flyer when AnkhIsOn
+        (widget.ankhIsOn == true) ?
+        widget.flyerZoneWidth * 0.015 // for Normal flyer when AnkhIsOn
             :
-        flyerZoneWidth * 0.025 // for Normal flyer when !AnkhIsOn
+        widget.flyerZoneWidth * 0.025 // for Normal flyer when !AnkhIsOn
     );
     // ----------------------------------------------------------------------------
-    double flyerBottomCorners = flyerZoneWidth * Ratioz.xxflyerBottomCorners;
+    double flyerBottomCorners = widget.flyerZoneWidth * Ratioz.xxflyerBottomCorners;
     double saveBTRadius = flyerBottomCorners - footerBTMargins;
     // String saveBTIcon = ankhIsOn == true ? Iconz.SaveOn : Iconz.SaveOff;
     // String saveBTVerse = ankhIsOn == true ? getTranslated(context, 'Saved') :
     // getTranslated(context, 'Save');
-    Color saveBTColor = ankhIsOn == true ? Colorz.YellowSmoke : Colorz.Nothing;
+    Color saveBTColor = widget.ankhIsOn == true ? Colorz.YellowSmoke : Colorz.Nothing;
     // ----------------------------------------------------------------------------
     // Color flyerShadowColor = ankhIsOn == true ? Colorz.BlackBlack : Colorz.BlackBlack;
     // ----------------------------------------------------------------------------
@@ -56,16 +73,16 @@ class AnkhButton extends StatelessWidget {
         right: getTranslated(context, 'Text_Direction') == 'ltr' ? 0 : null,
         bottom: 0,
         child:
-        (microMode == true && ankhIsOn == false) || bzPageIsOn == true ? Container():
+        (widget.microMode == true && widget.ankhIsOn == false) || widget.bzPageIsOn == true ? Container():
         DreamBox(
-          icon: ankhIsOn == true ? Iconz.SaveOn : Iconz.SaveOff, // saveBTIcon,
+          icon: widget.ankhIsOn == true ? Iconz.SaveOn : Iconz.SaveOff, // saveBTIcon,
           iconSizeFactor: 0.8,
           width: saveBTRadius*2,
           height: saveBTRadius*2,
           corners: saveBTRadius,
           boxMargins: EdgeInsets.all(footerBTMargins),
           color: saveBTColor,
-          boxFunction: tappingAnkh,
+          boxFunction: widget.tappingAnkh,
         ),
     );
   }

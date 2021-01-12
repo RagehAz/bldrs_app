@@ -11,10 +11,12 @@ import 'view_brains/router/router.dart';
 import 'package:provider/provider.dart';
 import 'views/widgets/pro_flyer/flyer_screen.dart';
 import 'xxx_LABORATORY/ask/questions_provider.dart';
+import 'package:bldrs/view_brains/theme/sizez.dart';
 
 main() => runApp(BldrsApp());
 
 class BldrsApp extends StatefulWidget {
+
   static void setLocale(BuildContext context, Locale locale) {
     _BldrsAppState state = context.findAncestorStateOfType<_BldrsAppState>();
     state.setLocale(locale);
@@ -88,6 +90,8 @@ class _BldrsAppState extends State<BldrsApp> {
 
   @override
   Widget build(BuildContext context) {
+
+
     if (_locale == null) {
       return Container(
         child: Center(

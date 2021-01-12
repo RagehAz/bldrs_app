@@ -13,7 +13,10 @@ class Sizez {
   static double safeBlockVerticalWithoutAppBar;
   static double allAppHaveAppBar;
 
-  void init(BuildContext context){
+  /// you could access this method anywhere by
+  /// Sizez().deviceSizez(context);
+  /// but there is a problem with the context that bugs the build,, can't solve it now
+  void deviceSizez(BuildContext context){
     _mediaQueryData = MediaQuery.of(context);
     screenWidth = _mediaQueryData.size.width;
     screenHeight = _mediaQueryData.size.height;
