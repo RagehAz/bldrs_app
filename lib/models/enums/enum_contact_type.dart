@@ -8,6 +8,7 @@ enum ContactType {
   TikTok,
   Twitter,
   WebSite,
+  YouTube,
 }
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
 List<ContactType> contactTypesList = [
@@ -20,6 +21,7 @@ List<ContactType> contactTypesList = [
   ContactType.TikTok,
   ContactType.Twitter,
   ContactType.WebSite,
+  ContactType.YouTube,
 ];
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
 ContactType decipherContactType (int x){
@@ -33,6 +35,7 @@ ContactType decipherContactType (int x){
     case 7:   return  ContactType.TikTok;     break;
     case 8:   return  ContactType.Twitter;    break;
     case 9:   return  ContactType.WebSite;    break;
+    case 10:  return  ContactType.YouTube;    break;
     default : return   null;
   }
 }
@@ -48,6 +51,7 @@ int cipherContactType (ContactType x){
     case ContactType.TikTok     :    return  7;  break;
     case ContactType.Twitter    :    return  8;  break;
     case ContactType.WebSite    :    return  9;  break;
+    case ContactType.YouTube    :    return  10; break;
     default : return null;
   }
 }
