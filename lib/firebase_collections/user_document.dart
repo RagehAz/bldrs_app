@@ -35,6 +35,7 @@ class UserDocument {
   final DateTime joinedAt;
   final String gender;
   final String language;
+  final int userStatus;
 
 
 
@@ -55,6 +56,7 @@ class UserDocument {
     this.joinedAt,
     this.gender,
     this.language,
+    this.userStatus,
 });
 }
 
