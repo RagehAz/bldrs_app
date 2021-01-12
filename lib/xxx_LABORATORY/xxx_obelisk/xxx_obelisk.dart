@@ -15,6 +15,7 @@ import 'package:bldrs/views/widgets/planet/google_map_4.dart';
 import 'package:bldrs/views/widgets/planet/google_map_5.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:bldrs/views/widgets/textings/the_golden_scroll.dart';
+import 'package:bldrs/xxx_LABORATORY/animations/animations_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/ask/ask_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/camera_and_location/camera_page.dart';
 import 'package:bldrs/xxx_LABORATORY/camera_and_location/google_map.dart';
@@ -533,13 +534,13 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
 
           // --- 36 -  AnimationsScreen -------------------------------
           BTMain(
-            buttonVerse: '36 - AnimationsScreen',
+            buttonVerse: '36 - Animations Screen',
             buttonColor: Colorz.Nothing,
             buttonIcon: Iconz.DvDonaldDuck,
             buttonVerseShadow: true,
             splashColor: Colorz.Yellow,
             stretched: true,
-            function: () => goToNewScreen(context, NewNavigationMethodScreen()),
+            function: () => goToNewScreen(context, AnimationsScreen()),
           ),
 
           // --- DATE PICKER -------------------------------

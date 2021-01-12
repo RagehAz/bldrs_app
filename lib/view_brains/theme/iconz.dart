@@ -21,6 +21,7 @@ static const String ComTwitter = 'assets/com/com_twitter.svg' ;
 static const String ComWebsite = 'assets/com/com_website.svg' ;
 static const String ComWhatsapp = 'assets/com/com_whatsapp.svg' ;
 static const String ComGooglePlay = 'assets/com/com_google_play.svg' ;
+static const String ComYoutube = 'assets/com/com_youtube.svg' ;
 // -------------------------------------------------------------------------
 // dummies
 static const String DumAuthorPic = 'assets/dum/dum_author_pic.jpg' ;
@@ -120,6 +121,9 @@ static const String FlyerGrid = 'assets/gi/gi_flyer_grid.svg' ;
 static const String FingerTap = 'assets/gi/gi_finger_tap.svg' ;
 static const String FlyerPin = 'assets/gi/gi_flyer_pin.svg' ;
 static const String FlyerPinPNG = 'assets/gi/gi_flyer_pin_png.png' ;
+static const String Stop = 'assets/gi/gi_stop.svg' ;
+static const String Play = 'assets/gi/gi_play.svg' ;
+static const String Pause = 'assets/gi/gi_pause.svg' ;
 // -------------------------------------------------------------------------
 // PYRAMIDS
 static const String PyramidsYellow = 'assets/py/pyramids_yellow.svg' ;
