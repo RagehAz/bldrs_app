@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bldrs/models/enums/enum_bldrs_section.dart';
 import 'package:bldrs/view_brains/controllers/flyer_controllers.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
@@ -48,9 +50,19 @@ class ObeliskScreen extends StatefulWidget {
   _ObeliskScreenState createState() => _ObeliskScreenState();
 }
 
-class _ObeliskScreenState extends State<ObeliskScreen> {
+class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateMixin{
   String theChosenFlag = flagFileNameSelectedFromPGLanguageList;
+  AnimationController _blackHoleController;
+  int spinsDuration = 1;
 // ---------------------------------------------------------------------------
+  @override
+  void initState() {
+    _blackHoleController = AnimationController(
+      duration: Duration(seconds: spinsDuration),
+      vsync: this
+    );
+    super.initState();
+  }
   void flagSwitch() {
     setState(() {
       theChosenFlag = flagFileNameSelectedFromPGLanguageList;
@@ -60,8 +72,28 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
 // ---------------------------------------------------------------------------
   // final GlobalKey<FormState> _key = GlobalKey<FormState>();
 // ---------------------------------------------------------------------------
+  Timer timoor(){
+    Timer timoor = Timer(Duration(seconds: spinsDuration),
+            (){
+          if(mounted){_blackHoleController.reset();}
+          if(mounted){enterTheBlackHole();}
+        }
+    );
+    return timoor;
+  }
+// ---------------------------------------------------------------------------
   void enterTheBlackHole(){
     print('ezayak el awwal');
+    if(mounted){_blackHoleController.forward();}
+    if(mounted){timoor();}
+  }
+// ---------------------------------------------------------------------------
+  @override
+  void dispose() {
+    timoor()?.cancel();
+    _blackHoleController.stop();
+    _blackHoleController.dispose();
+    super.dispose();
   }
 // ---------------------------------------------------------------------------
   @override
@@ -604,18 +636,28 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
             iconSizeFactor: 1,
           ),
 
+          SuperVerse(
+            verse: 'Enter\nThe Black-Hole',
+            size: 4,
+            maxLines: 2,
+            margin: 50,
+            labelTap: (){_blackHoleController.reset();},
+          ),
+
           // -- BlackHole
-          DreamBox(
-            height: 300,
-            width: 300,
-            icon: Iconz.DvBlackHole,
-            iconSizeFactor: 0.95,
-            boxMargins: EdgeInsets.symmetric(vertical: 200),
-            corners: 150,
-            underLine: 'Enter\nThe Black Hole',
-            color: Colorz.WhiteAir,
-            verseScaleFactor: 0.8,
-            boxFunction: enterTheBlackHole,
+          RotationTransition(
+            turns: Tween(begin: 0.0, end: 100.0).animate(_blackHoleController),
+            child: DreamBox(
+              height: 300,
+              width: 300,
+              icon: Iconz.DvBlackHole,
+              iconSizeFactor: 0.95,
+              boxMargins: EdgeInsets.symmetric(vertical: 25),
+              corners: 150,
+              color: Colorz.WhiteAir,
+              verseScaleFactor: 0.8,
+              boxFunction: enterTheBlackHole,
+            ),
           ),
 
           PyramidsHorizon(heightFactor: 3,),
