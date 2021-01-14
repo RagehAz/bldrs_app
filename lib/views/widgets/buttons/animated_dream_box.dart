@@ -89,10 +89,8 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
 
     double sizeFactor = widget.iconSizeFactor;
 
-
     Color imageSaturationColor =
     widget.blackAndWhite == true ? Colorz.Grey : Colorz.Nothing;
-
 
     double verseIconSpacing = widget.verse != null ? boxHeight * 0.3 * widget.iconSizeFactor * widget.verseScaleFactor : 0;
 
@@ -151,14 +149,15 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                             color: widget.bubble == true ? Colorz.BlackLingerie : Colorz.Nothing,
                             offset: new Offset(0, boxHeight * -0.019 * 0 ),
                             blurRadius: boxHeight * 0.15,
-                            blurStyle: BlurStyle.outer),
+                            blurStyle: BlurStyle.outer
+                        ),
                       ]
                   ),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(widget.corners),
                     child: Stack(
                       alignment: Alignment.center,
-                      children: [
+                      children: <Widget>[
 
                         widget.dreamChild == null ? Container() :
                         AnimatedContainer(
