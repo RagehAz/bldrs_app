@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:bldrs/models/enums/enum_bldrs_section.dart';
 import 'package:bldrs/view_brains/controllers/flyer_controllers.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
@@ -37,7 +36,6 @@ import 'x10_pro_flyer_page_view.dart';
 import 'x12_checkbox_lesson.dart';
 import 'x19_new_navigation_method.dart';
 import 'x20_ad_bz.dart';
-
 // === === === === === === === === === === === === === === === === === === ===
 // ---------------------------------------------------------------------------
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x

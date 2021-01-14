@@ -1,4 +1,5 @@
 import 'package:bldrs/view_brains/drafters/animators.dart';
+import 'package:bldrs/view_brains/drafters/borderers.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
@@ -17,20 +18,31 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
   double width;
   double height;
   AnimationController _controller;
-  AnimationController _controllerB;
+  AnimationController _btController;
+  double btWidth;
+  int btDuration = 200;
 
   @override
   void initState() {
     width = 100;
     height = 100;
+    btWidth = 100;
     _controller = AnimationController(
       duration: Duration(seconds: 2),
       vsync: this
     );
-    // _controllerB = AnimationController(
-    //   duration: Duration(seconds: 1),
-    //   vsync:
-    // );
+    _btController = AnimationController(
+      duration: Duration(milliseconds: btDuration),
+      vsync: this,
+
+      lowerBound: -0.5,
+      upperBound: 0.5,
+
+    )..addListener(() {
+      setState(() {
+
+      });
+    });
     super.initState();
   }
 
@@ -47,10 +59,22 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
     return condition;
   }
 
+  // void animateBT(){
+  //   setState(() {
+  //     btWidth == 100 ? btWidth = 80 : btWidth = 100;
+  //     Future.delayed(Duration(milliseconds: btDuration), (){
+  //       setState(() {
+  //         btWidth == 100 ? btWidth = 80 : btWidth = 100;
+  //       });
+  //     });
+  //   });
+  // }
+
   @override
   Widget build(BuildContext context) {
 
     double screenWidth = superScreenWidth(context);
+    double btCorner = btWidth * 0.2;
 
     return MainLayout(
       appBarType: AppBarType.Basic,
@@ -186,6 +210,120 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
                       MaterialPageRoute(builder: (context) => HeroMax())
                   );
                 },
+              ),
+            ),
+          ),
+
+          Container(
+            width: screenWidth,
+            height: screenWidth,
+            color: Colorz.BabyBlueSmoke,
+            alignment: Alignment.center,
+            child: GestureDetector(
+              onTap: (){
+                setState(() {
+                  btWidth = 80;
+                  Future.delayed(Duration(milliseconds: btDuration), (){setState(() {
+                    btWidth = 100;
+                  });});
+
+                });
+                print('onTap');
+                },
+              // onTapCancel: (){print('onTapCancel');},
+              // onDoubleTap: (){print('onDoubleTap');},
+              // onDoubleTapCancel: (){print('onDoubleTapCancel');},
+              // onHorizontalDragCancel: (){print('onHorizontalDragCancel');},
+              onTapDown: (TapDownDetails details){
+                // _btController.forward();
+                setState(() {
+                  btWidth = 80;
+                  Future.delayed(Duration(milliseconds: btDuration), (){setState(() {
+                    btWidth = 90;
+                  });});
+                });
+              },
+              onTapUp: (TapUpDetails details){
+                // _btController.reverse();
+                setState(() {
+                  btWidth = 110;
+                  Future.delayed(Duration(milliseconds: btDuration), (){setState(() {
+                    btWidth = 100;
+                  });});
+
+                });
+              },
+              // onLongPress: (){
+              //   print('onLongPress');
+              //   setState(() {
+              //     btWidth = 80;
+              //   });
+              //   },
+              // onLongPressUp: (){
+              //   print('onLongPressUp');
+              //   setState(() {
+              //     btWidth = 105;
+              //     Future.delayed(Duration(milliseconds: btDuration), (){
+              //       setState(() {
+              //         btWidth = 100;
+              //       });
+              //     });
+              //   });
+              //   },
+              // onPanCancel: (){print('onPanCancel');},
+              // onSecondaryLongPress: (){print('onSecondaryLongPress');},
+              // onSecondaryLongPressUp: (){print('onSecondaryLongPressUp');},
+              // onSecondaryTap: (){print('onSecondaryTap');},
+              // onSecondaryTapCancel: (){print('onSecondaryTapCancel');},
+              // onTertiaryTapCancel: (){print('onTertiaryTapCancel');},
+              // onVerticalDragCancel: (){print('onVerticalDragCancel');},
+              // onForcePressStart: (){},
+              // onForcePressUpdate: (){},
+              // onHorizontalDragEnd: (){},
+              // onHorizontalDragStart: (){},
+              // onHorizontalDragUpdate: (){},
+              // onLongPressEnd: (){},
+              // onLongPressMoveUpdate: (){},
+              // onLongPressStart: (){},
+              // onPanDown: (){},
+              // onPanEnd: (){},
+              // onPanStart: (){},
+              // onPanUpdate: (){},
+              // onScaleEnd: (){},
+              // onScaleStart: (){},
+              // onScaleUpdate: (){},
+              // onSecondaryLongPressEnd: (){},
+              // onSecondaryLongPressMoveUpdate: (){},
+              // onSecondaryLongPressStart: (){},
+              // onSecondaryTapDown: (){},
+              // onTapDown: (){},
+              // onSecondaryTapUp: (){},
+              // onTapUp: (){},
+              // onTertiaryTapDown: (){},
+              // onTertiaryTapUp: (){},
+              // onVerticalDragDown: (){},
+              // onForcePressPeak: (){},
+              // onHorizontalDragDown: (){},
+              // onForcePressEnd: (){},
+              // onDoubleTapDown: (){},
+              // onVerticalDragEnd: (){},
+              // onVerticalDragStart: (){},
+              // onVerticalDragUpdate: (){},
+
+              child: Transform.scale(
+                scale: 1 - _btController.value,
+
+                child: AnimatedContainer(
+                  duration: Duration(milliseconds: btDuration),
+                  curve: Curves.easeInOutQuint, // easeInOutBack was good
+                  width: btWidth,
+                  height: btWidth,
+                  decoration: BoxDecoration(
+                    color: Colorz.YellowSmoke,
+                    image: DecorationImage(image: AssetImage(Iconz.DumAuthorPic), fit: BoxFit.fitHeight),
+                    borderRadius: superBorderRadius(context, btCorner,btCorner,btCorner,btCorner),
+                  ),
+                ),
               ),
             ),
           ),
