@@ -4,6 +4,7 @@ import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
+import 'package:bldrs/views/widgets/buttons/animated_dream_box.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
@@ -237,7 +238,7 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
               onTapDown: (TapDownDetails details){
                 // _btController.forward();
                 setState(() {
-                  btWidth = 80;
+                  btWidth = 85;
                   Future.delayed(Duration(milliseconds: btDuration), (){setState(() {
                     btWidth = 90;
                   });});
@@ -246,7 +247,7 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
               onTapUp: (TapUpDetails details){
                 // _btController.reverse();
                 setState(() {
-                  btWidth = 110;
+                  btWidth = 105;
                   Future.delayed(Duration(milliseconds: btDuration), (){setState(() {
                     btWidth = 100;
                   });});
@@ -327,6 +328,16 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
               ),
             ),
           ),
+
+          AnimatedDreamBox(
+            height: 100,
+            width: 100,
+            icon: Iconz.DvGouran,
+            iconSizeFactor: 0.5,
+            corners: 35,
+            boxMargins: EdgeInsets.all(20),
+            boxFunction: (){},
+            ),
 
           PyramidsHorizon(heightFactor: 5,),
 
