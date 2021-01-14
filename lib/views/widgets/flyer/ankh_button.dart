@@ -11,7 +11,7 @@ class AnkhButton extends StatefulWidget {
   final bool bzPageIsOn;
   final bool slidingIsOn;
   final double flyerZoneWidth;
-  final bool ankhIsOn;
+  bool ankhIsOn;
   final Function tappingAnkh;
 
   AnkhButton({
@@ -29,15 +29,46 @@ class AnkhButton extends StatefulWidget {
 }
 
 class _AnkhButtonState extends State<AnkhButton> with SingleTickerProviderStateMixin{
-  AnimationController _ankhAnimation;
+  AnimationController _ankhAniController;
+  Animation _ankhColorAni;
 
   @override
   void initState() {
-    // _ankhAnimation = AnimationController(
-    //   duration: Duration(seconds: 1),
-    //   vsync:
-    // );
     super.initState();
+
+    _ankhAniController = AnimationController(
+      duration: Duration(milliseconds: 1000),
+      vsync: this
+    );
+
+    _ankhColorAni = ColorTween(begin: Colorz.WhiteAir, end: Colorz.YellowSmoke)
+        .animate(_ankhAniController);
+
+    _ankhAniController.addListener(() {
+      print(_ankhAniController.value);
+      print(_ankhColorAni.value);
+    });
+
+    _ankhAniController.addStatusListener((status) {
+      if(status == AnimationStatus.completed){
+        setState(() {
+          widget.ankhIsOn = true;
+        });
+      }
+      if(status == AnimationStatus.dismissed){
+        setState(() {
+          widget.ankhIsOn = false;
+        });
+      }
+
+    });
+
+  }
+
+  @override
+  void dispose() {
+    _ankhAniController.dispose();
+    super.dispose();
   }
 
   @override
@@ -68,22 +99,47 @@ class _AnkhButtonState extends State<AnkhButton> with SingleTickerProviderStateM
     // Color flyerShadowColor = ankhIsOn == true ? Colorz.BlackBlack : Colorz.BlackBlack;
     // ----------------------------------------------------------------------------
     return
-      Positioned(
-        left: getTranslated(context, 'Text_Direction') == 'ltr' ? null : 0,
-        right: getTranslated(context, 'Text_Direction') == 'ltr' ? 0 : null,
-        bottom: 0,
-        child:
-        (widget.microMode == true && widget.ankhIsOn == false) || widget.bzPageIsOn == true ? Container():
-        DreamBox(
-          icon: widget.ankhIsOn == true ? Iconz.SaveOn : Iconz.SaveOff, // saveBTIcon,
-          iconSizeFactor: 0.8,
-          width: saveBTRadius*2,
-          height: saveBTRadius*2,
-          corners: saveBTRadius,
-          boxMargins: EdgeInsets.all(footerBTMargins),
-          color: saveBTColor,
-          boxFunction: widget.tappingAnkh,
-        ),
-    );
+      AnimatedBuilder(
+        animation: _ankhAniController,
+        builder: (BuildContext context, _) =>
+            Positioned(
+              left: getTranslated(context, 'Text_Direction') == 'ltr' ? null : 0,
+              right: getTranslated(context, 'Text_Direction') == 'ltr' ? 0 : null,
+              bottom: 0,
+              child:
+              Stack(
+                alignment: Alignment.center,
+                children: <Widget>[
+
+                  AnimatedContainer(
+                    duration: Duration(milliseconds: 1000),
+                    width: saveBTRadius*2,
+                    height: saveBTRadius*2,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: widget.ankhIsOn == true ? Colorz.YellowSmoke : Colorz.Nothing,//_ankhColorAni.value,
+                    ),
+                  ),
+
+                  (widget.microMode == true && widget.ankhIsOn == false) || widget.bzPageIsOn == true ? Container():
+                  DreamBox(
+                      icon: widget.ankhIsOn == true ? Iconz.SaveOn : Iconz.SaveOff, // saveBTIcon,
+                      iconSizeFactor: 0.8,
+                      width: saveBTRadius*2,
+                      height: saveBTRadius*2,
+                      corners: saveBTRadius,
+                      boxMargins: EdgeInsets.all(footerBTMargins),
+                      color: Colorz.Nothing,
+                      boxFunction: (){
+                        widget.tappingAnkh();
+                        widget.ankhIsOn == false ? _ankhAniController.forward() :
+                        _ankhAniController.reverse();
+                      }
+                  ),
+
+                ],
+              ),
+            ),
+      );
   }
 }
