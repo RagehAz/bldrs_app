@@ -10,8 +10,10 @@ class UserChecker extends StatelessWidget {
     final userProvided = Provider.of<UserModel>(context);
     print('user id : ${userProvided?.iD}');
 
-    if (userProvided == null) { return StartingScreen(); }
-    else
-      { return HomeScreen(); }
+    return
+      userProvided == null ?
+      StartingScreen()
+          :
+      HomeScreen();
   }
 }

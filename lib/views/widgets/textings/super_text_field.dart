@@ -31,9 +31,9 @@ class SuperTextField extends StatefulWidget {
   final Color hintColor;
   final TextInputAction keyboardTextInputAction;
   final Function onSaved;
-  final String errorMessageIfEmpty;
   final bool fieldIsFormField;
   final String initialValue;
+  final Function validator;
 
   SuperTextField({
     this.keyboardTextInputType = TextInputType.text,
@@ -60,9 +60,9 @@ class SuperTextField extends StatefulWidget {
     this.hintColor = Colorz.WhiteSmoke,
     this.keyboardTextInputAction,
     this.onSaved,
-    this.errorMessageIfEmpty,
     this.fieldIsFormField = false,
     this.initialValue,
+    this.validator,
   });
 
   @override
@@ -120,10 +120,10 @@ class _SuperTextFieldState extends State<SuperTextField> {
     double labelCorner = widget.labelColor == Colorz.Nothing ? 0 : labelCornerValues;
     // --- LABEL PADDINGS -----------------------------------------------
     double sidePaddingValues = superVerseSidePaddingValues(context, size);
-
+// ---------------------------------------------------------------------------
     double sidePaddings =
     widget.labelColor == Colorz.Nothing ? 0 : sidePaddingValues;
-
+// ---------------------------------------------------------------------------
     TextStyle superTextStyle(Color textColor, double sizeFactor) {
       return TextStyle(
           backgroundColor: boxColor,
@@ -151,8 +151,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
           ]
       );
     }
-
-
+// ---------------------------------------------------------------------------
     TextStyle superHintStyle(Color textColor, double sizeFactor) {
       return TextStyle(
         backgroundColor: boxColor,
@@ -168,7 +167,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
         shadows: [],
       );
     }
-
+// ---------------------------------------------------------------------------
     OutlineInputBorder superOutlineInputBorder(Color borderColor) {
       return OutlineInputBorder(
         borderRadius: BorderRadius.circular(labelCorner),
@@ -179,7 +178,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
         gapPadding: 0,
       );
     }
-
+// ---------------------------------------------------------------------------
     return
 
       widget.fieldIsFormField == true ?
@@ -199,7 +198,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
           initialValue: widget.initialValue,
           textInputAction: widget.keyboardTextInputAction,
           onSaved: (String koko) => widget.onSaved(koko),
-          validator: (value) => value.isEmpty ? widget.errorMessageIfEmpty : null,
+          validator: widget.validator,
           controller: widget.textController,
           onChanged: widget.onChanged,
           onTap: () {

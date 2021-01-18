@@ -131,7 +131,7 @@ class _TestFormScreenState extends State<TestFormScreen> {
 
                 SuperTextField(
                   fieldIsFormField: true,
-                  errorMessageIfEmpty: 'Entry b',
+                  validator: (value) => value.isEmpty ? 'noooo' : 'ok',
                   hintText: 'b is here',
                   onSaved: (value){
                     _editedProduct = TempClass(a: _editedProduct.a, b: _editedProduct.b, c: value, d: _editedProduct.d);

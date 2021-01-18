@@ -4,7 +4,7 @@ import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/providers/combined_models/co_author.dart';
 import 'package:bldrs/providers/combined_models/co_bz.dart';
 import 'package:bldrs/views/widgets/textings/super_text_form_field.dart';
-import 'package:bldrs/views/widgets/textings/text_bubbles.dart';
+import 'package:bldrs/views/widgets/textings/text_field_bubble.dart';
 import 'package:path_provider/path_provider.dart' as sysPaths;
 import 'package:path/path.dart' as path;
 import 'package:bldrs/models/enums/enum_bldrs_section.dart';

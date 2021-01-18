@@ -1,11 +1,11 @@
 
 
-
+import 'package:email_validator/email_validator.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/views/widgets/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
-import 'package:bldrs/views/widgets/textings/text_bubbles.dart';
+import 'package:bldrs/views/widgets/textings/text_field_bubble.dart';
 import 'package:flutter/material.dart';
 
 class SignIn extends StatefulWidget {
@@ -32,6 +32,9 @@ class _SignInState extends State<SignIn> {
   String _email;
   String _password;
   bool signingIn = true;
+  final _formKey = GlobalKey<FormState>();
+  String error = '';
+
 
   @override
   void initState() {
@@ -40,10 +43,26 @@ class _SignInState extends State<SignIn> {
     super.initState();
   }
 
+  void _emailTextOnChanged(String val){
+    setState(() {
+      _email = val;
+    });
+    print('email : $_email, pass : $_password');
+  }
+
+  void _passwordTextOnChanged(String val){
+    setState(() {
+      _password = val;
+    });
+    print('email : $_email, pass : $_password');
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
     return Form(
+      key: _formKey,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -64,12 +83,17 @@ class _SignInState extends State<SignIn> {
             title: 'E-mail Address',
             hintText: '...',
             onSaved: (){print('onSaved');},
-            errorMessageIfEmpty: 'eh ya 3am',
             maxLines: 1,
             maxLength: 100,
             obscured: false,
             initialTextValue: _email,
             textOnChanged: (val) => widget.emailTextOnChanged(val),
+            validator: (val){
+              if (val.isEmpty){return 'Enter E-mail';}
+              else {
+                return EmailValidator.validate(val) == true ? null : 'E-mail is not valid';
+              }
+            },
           ),
 
           TextFieldBubble(
@@ -79,12 +103,18 @@ class _SignInState extends State<SignIn> {
             title: 'Password',
             hintText: '...',
             onSaved: (){print('onSaved');},
-            errorMessageIfEmpty: 'eh ya 3am',
             maxLines: 1,
             maxLength: 100,
             obscured: true,
             initialTextValue: _password,
             textOnChanged: (val) => widget.passwordTextOnChanged(val),
+            validator: (val){
+              return
+                val.isEmpty ? 'Enter password' :
+                val.length < 6 ? 'Password can not be less than 6 characters long' :
+                null;
+            },
+
           ),
 
           Row(

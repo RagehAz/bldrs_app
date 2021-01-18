@@ -138,5 +138,8 @@ double superVerseSidePaddingValues(BuildContext context, int size){
   return sidePaddingValues;
 }
 // === === === === === === === === === === === === === === === === === === ===
-
+double superVerseRealHeight(BuildContext context, int verseSize, double scalingFactor){
+  double verseHeight = superVerseSizeValue(context, verseSize, scalingFactor) * 1.42;
+  return verseHeight;
+}
 // === === === === === === === === === === === === === === === === === === ===
