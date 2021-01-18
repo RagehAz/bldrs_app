@@ -86,7 +86,7 @@ List<Map<String, Object>> dbGetters = [
         {'fnID': 'g30', 'color': Colorz.Yellow, 'functionName': 'getCoBzByAuthorID(authorID)?.bz?.bzName', 'function': getCoBzByAuthorID(authorID)?.bz?.bzName},
 
         {'fnID': 'g31', 'color': Colorz.Yellow, 'functionName': 'getCoBzByBzID(bzID)', 'function': getCoBzByBzID(bzID)},
-        {'fnID': 'g32', 'color': Colorz.Yellow, 'functionName': 'getCoBzByBzID(bzID)?.bz?.bzFieldsList', 'function': getCoBzByBzID(bzID)?.bz?.bzFieldsList},
+        {'fnID': 'g32', 'color': Colorz.Yellow, 'functionName': 'getCoBzByBzID(bzID)?.bz?.bzScope', 'function': getCoBzByBzID(bzID)?.bz?.bzScope},
 
         {'fnID': 'g33', 'color': Colorz.Yellow, 'functionName': 'getAllCoBz()', 'function': getAllCoBz()},
 

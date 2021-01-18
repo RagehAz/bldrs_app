@@ -1,6 +1,7 @@
 import 'package:bldrs/models/contact_model.dart';
 import 'package:bldrs/models/enums/enum_flyer_type.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
+import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
@@ -53,7 +54,8 @@ class _TesterScreenState extends State<TesterScreen> {
 
 
     return MainLayout(
-      appBarType: AppBarType.Basic,
+      appBarType: AppBarType.Scrollable,
+      pyramids: Iconz.PyramidsYellow,
       appBarRowWidgets: <Widget>[
         SuperVerse(
           verse: '$printResult',

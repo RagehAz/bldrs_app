@@ -1,6 +1,6 @@
+import 'package:bldrs/views/widgets/textings/super_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
-import 'package:bldrs/views/widgets/textings/super_text_form_field.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 
 class TempClass{
@@ -129,17 +129,17 @@ class _TestFormScreenState extends State<TestFormScreen> {
                   height: 10,
                 ),
 
-                SuperTextFormField(
+                SuperTextField(
+                  fieldIsFormField: true,
                   errorMessageIfEmpty: 'Entry b',
                   hintText: 'b is here',
                   onSaved: (value){
                     _editedProduct = TempClass(a: _editedProduct.a, b: _editedProduct.b, c: value, d: _editedProduct.d);
                     },
-                  fieldCorners: 20,
-                  fontSize: 20,
                   maxLength: 50,
                   maxLines: 2,
-                  obscureText: false,
+                  obscured: false,
+                  counterIsOn: true,
                 ),
 
                 Divider(

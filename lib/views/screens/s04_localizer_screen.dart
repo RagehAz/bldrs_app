@@ -7,8 +7,7 @@ import 'package:bldrs/views/widgets/appbar/buttons/bx_flagbox.dart';
 import 'package:bldrs/views/widgets/appbar/pages/pg_country.dart';
 import 'package:bldrs/views/widgets/appbar/pages/pg_language.dart';
 import 'package:bldrs/views/widgets/buttons/bt_main.dart';
-import 'package:bldrs/views/widgets/pyramids/pyramids.dart';
-import 'package:bldrs/views/widgets/space/skies/night_sky.dart';
+import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 
 class LocalizerScreen extends StatefulWidget {
@@ -51,53 +50,42 @@ class _LocalizerScreenState extends State<LocalizerScreen> {
   @override
   Widget build(BuildContext context) {
 
-    return SafeArea(
-      child: Scaffold(
-        body: Stack(
-          children: <Widget>[
+    return MainLayout(
+      pyramids: Iconz.PyramidsGlass,
+      layoutWidget: Column(
+        children: <Widget>[
 
-            NightSky(),
+          // --- LOCALIZER APPBAR
+          ABLocalizer(
+            currentFlag: theChosenFlag,
+            countryPageON: _btCountrySelected,
+            tappingBTCountry: _localizerPGSwitch,
+            tappingBTLanguage: _localizerPGSwitch,
+          ),
 
-            // ---  SCREEN CONTENTS
-            Column(
-              children: [
+          // --- COUNTRY OR LANGUAGE PAGE
 
-                // --- LOCALIZER APPBAR
-                ABLocalizer(
-                  currentFlag: theChosenFlag,
-                  countryPageON: _btCountrySelected,
-                  tappingBTCountry: _localizerPGSwitch,
-                  tappingBTLanguage: _localizerPGSwitch,
-                ),
+          _btCountrySelected == true ?
+          PGCountryList(
+            tappingFlag: flagSwitch,
+          )
+              :
+          PGLanguageList(),
 
-                // --- COUNTRY OR LANGUAGE PAGE
-
-                _btCountrySelected == true ?
-                PGCountryList(
-                  tappingFlag: flagSwitch,
-                )
-                :
-                PGLanguageList(),
-
-                // --- TEST SUBJECT FOR LANGUAGE CHANGE
-                BTMain(
-                  buttonVerse: 'Confirm $currentSelectedCountry',
-                  splashColor: Colorz.BlackBlack,
-                  buttonVerseShadow: true,
-                  buttonIcon: FlagBox(
-                    flag: theChosenFlag,
-                  ),
-                  buttonColor: Colorz.BlackSmoke,
-                  function: 'GoBackFucker',
-                  stretched: false,
-                ),
-
-              ],
+          // --- TEST SUBJECT FOR LANGUAGE CHANGE
+          BTMain(
+            buttonVerse: 'Confirm $currentSelectedCountry',
+            splashColor: Colorz.BlackBlack,
+            buttonVerseShadow: true,
+            buttonIcon: FlagBox(
+              flag: theChosenFlag,
             ),
+            buttonColor: Colorz.BlackSmoke,
+            function: 'GoBackFucker',
+            stretched: false,
+          ),
 
-            Pyramids(whichPyramid: Iconz.PyramidsGlass),
-          ],
-        ),
+        ],
       ),
     );
   }

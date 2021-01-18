@@ -1,3 +1,6 @@
+import 'package:bldrs/ambassadors/services/auth.dart';
+import 'package:bldrs/view_brains/router/navigators.dart';
+import 'package:bldrs/view_brains/router/route_names.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/flagz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
@@ -9,6 +12,9 @@ import 'package:flutter/material.dart';
 import 'in_pyramids_items/in_pyramids_bubble.dart';
 
 class MorePage extends StatelessWidget {
+
+  final AuthService _auth = AuthService();
+
   @override
   Widget build(BuildContext context) {
     // double screenWidth = MediaQuery.of(context).size.width;
@@ -126,6 +132,11 @@ class MorePage extends StatelessWidget {
           verse: 'Sign out',
           icon: Iconz.Exit,
           iconSizeFactor: 0.6,
+          btOnTap: () async {
+            print('Signing out');
+            await _auth.signOut();
+            goToRoute(context, Routez.Starting);
+            },
         ),
 
         PyramidsHorizon(),
@@ -143,6 +154,7 @@ class MorePGTile extends StatelessWidget {
   final Color iconBoxColor;
   final double iconSizeFactor;
   final Color verseColor;
+  final Function btOnTap;
 
   MorePGTile({
     @required this.verse,
@@ -150,6 +162,7 @@ class MorePGTile extends StatelessWidget {
     this.iconBoxColor = Colorz.Nothing,
     this.iconSizeFactor = 0.6,
     this.verseColor = Colorz.White,
+    this.btOnTap,
 });
 
   @override
@@ -159,52 +172,59 @@ class MorePGTile extends StatelessWidget {
     double iconWidth = (iconSizeFactor * iconBoxWidth);
     double iconBoxPadding = iconBoxWidth - iconWidth;
 
-    return InPyramidsBubble(
+    return Material(
+      color: Colorz.Nothing,
+      child: InkWell(
+        onTap: btOnTap,
+        splashColor: Colorz.WhiteSmoke,
+        child: InPyramidsBubble(
 
-      bubbleColor: Color.fromARGB(3, 255, 255, 255),
-      columnChildren: <Widget>[
+          bubbleColor: Color.fromARGB(3, 255, 255, 255),
+          columnChildren: <Widget>[
 
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
 
-            icon.runtimeType == String ?
-            DreamBox(
-              width: iconBoxWidth,
-              height: iconBoxWidth,
-              icon: icon,
-              iconSizeFactor: iconSizeFactor,
-              color: iconBoxColor,
-              iconRounded: false,
-              boxMargins: EdgeInsets.symmetric(horizontal: 0),
-            ) :
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 0),
-                child: Container(
+                icon.runtimeType == String ?
+                DreamBox(
                   width: iconBoxWidth,
                   height: iconBoxWidth,
-                  padding: EdgeInsets.all(iconBoxPadding),
-                  child: icon,
+                  icon: icon,
+                  iconSizeFactor: iconSizeFactor,
+                  color: iconBoxColor,
+                  iconRounded: false,
+                  boxMargins: EdgeInsets.symmetric(horizontal: 0),
+                ) :
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 0),
+                    child: Container(
+                      width: iconBoxWidth,
+                      height: iconBoxWidth,
+                      padding: EdgeInsets.all(iconBoxPadding),
+                      child: icon,
+                    ),
+                  ),
+
+
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 5),
+                  child: SuperVerse(
+                    verse: verse,
+                    margin: 5,
+                    color: verseColor,
+                    maxLines: 2,
+                    centered: false,
+                  ),
                 ),
-              ),
 
-
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 5),
-              child: SuperVerse(
-                verse: verse,
-                margin: 5,
-                color: verseColor,
-                maxLines: 2,
-                centered: false,
-              ),
+              ],
             ),
 
           ],
         ),
-
-      ],
+      ),
     );
   }
 }

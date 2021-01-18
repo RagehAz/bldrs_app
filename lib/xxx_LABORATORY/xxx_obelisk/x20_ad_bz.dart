@@ -3,6 +3,8 @@ import 'package:bldrs/models/author_model.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/providers/combined_models/co_author.dart';
 import 'package:bldrs/providers/combined_models/co_bz.dart';
+import 'package:bldrs/views/widgets/textings/super_text_form_field.dart';
+import 'package:bldrs/views/widgets/textings/text_bubbles.dart';
 import 'package:path_provider/path_provider.dart' as sysPaths;
 import 'package:path/path.dart' as path;
 import 'package:bldrs/models/enums/enum_bldrs_section.dart';
@@ -433,56 +435,7 @@ class MultipleChoiceBubble extends StatelessWidget {
   }
 }
 
-class TextFieldBubble extends StatelessWidget {
-  final String title;
-  final String hintText;
-  final bool counterIsOn;
-  final int maxLines;
-  final int maxLength;
-  final TextEditingController textController;
-  final TextInputType keyboardTextInputType;
-  final Function textOnChanged;
-  final bool obscured;
 
-  TextFieldBubble({
-    @required this.title,
-    this.hintText = '...',
-    this.counterIsOn = false,
-    this.maxLines = 5,
-    this.maxLength = 100,
-    this.textController,
-    @required this.keyboardTextInputType,
-    this.textOnChanged,
-    this.obscured = false,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return
-      InPyramidsBubble(
-          bubbleColor: Colorz.WhiteAir,
-          columnChildren: <Widget>[
-
-            SuperVerse(
-              verse: title,
-              margin: 5,
-            ),
-
-            SuperTextField(
-              hintText: hintText,
-              counterIsOn: counterIsOn,
-              keyboardTextInputType: keyboardTextInputType,
-              maxLines: maxLines,
-              maxLength: maxLength,
-              textController: textController,
-              onChanged: textOnChanged,
-              obscured: obscured,
-            )
-          ]
-      )
-    ;
-  }
-}
 
 class AddLogoBubble extends StatelessWidget {
   final Function addBtFunction;

@@ -1,8 +1,10 @@
+import 'package:bldrs/ambassadors/services/auth.dart';
 import 'package:bldrs/view_brains/localization/localization_constants.dart';
 import 'package:bldrs/xxx_LABORATORY/camera_and_location/test_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'models/user_model.dart';
 import 'providers/combined_models/cobz_provider.dart';
 import 'providers/combined_models/coflyer_provider.dart';
 import 'view_brains/localization/demo_localization.dart';
@@ -11,7 +13,6 @@ import 'view_brains/router/router.dart';
 import 'package:provider/provider.dart';
 import 'views/widgets/pro_flyer/flyer_screen.dart';
 import 'xxx_LABORATORY/ask/questions_provider.dart';
-import 'package:bldrs/view_brains/theme/sizez.dart';
 
 main() => runApp(BldrsApp());
 
@@ -44,13 +45,13 @@ class _BldrsAppState extends State<BldrsApp> {
     GlobalWidgetsLocalizations.delegate,
     GlobalCupertinoLocalizations.delegate,
   ];
-
+// ---------------------------------------------------------------------------
   void setLocale(Locale locale) {
     setState(() {
       _locale = locale;
     });
   }
-
+// ---------------------------------------------------------------------------
   @override
   void didChangeDependencies() {
     getLocale().then((locale) {
@@ -60,10 +61,10 @@ class _BldrsAppState extends State<BldrsApp> {
     });
     super.didChangeDependencies();
   }
-
+// ---------------------------------------------------------------------------
   bool _initialized = false;
   bool _error = false;
-
+// ---------------------------------------------------------------------------
   // Define an async function to initialize FlutterFire
   void initializeFlutterFire() async {
     try {
@@ -80,17 +81,16 @@ class _BldrsAppState extends State<BldrsApp> {
       });
     }
   }
-
+// ---------------------------------------------------------------------------
   @override
   void initState() {
     initializeFlutterFire();
     print("successfully initialized FlutterFire");
     super.initState();
   }
-
+// ---------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
 
     if (_locale == null) {
       return Container(
@@ -111,6 +111,11 @@ class _BldrsAppState extends State<BldrsApp> {
 
       return MultiProvider(
         providers: [
+
+          StreamProvider<UserModel>.value(
+              value: AuthService().userStream,
+          ),
+
           ChangeNotifierProvider(
             create: (ctx) => GreatPlaces(),
           ),
@@ -147,7 +152,7 @@ class _BldrsAppState extends State<BldrsApp> {
             return supportedLocales.first;
           },
           onGenerateRoute: Routerer.allRoutes,
-          initialRoute: Routez.Starting,
+          initialRoute: Routez.UserChecker,
           routes: {
             Routez.FlyerScreen: (ctx) => FlyerScreen(),
           },

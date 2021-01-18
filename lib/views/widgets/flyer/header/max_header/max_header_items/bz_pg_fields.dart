@@ -1,3 +1,4 @@
+import 'package:bldrs/view_brains/drafters/file_formatters.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
@@ -5,7 +6,7 @@ import 'package:flutter/material.dart';
 class BzPgFields extends StatelessWidget {
   final double flyerZoneWidth;
   final bool bzPageIsOn;
-  final List<String> bzFieldsList;
+  final dynamic bzFieldsList;
 
   BzPgFields({
     @required this.bzPageIsOn,
@@ -48,7 +49,7 @@ class BzPgFields extends StatelessWidget {
                       (int index) {
                         return
                           SuperVerse(
-                          verse: bzFieldsList[index],
+                          verse: valueIsString(bzFieldsList) == true ? bzFieldsList : bzFieldsList[index],
                           italic: false,
                           shadow: false,
                           labelColor: Colorz.WhiteZircon,

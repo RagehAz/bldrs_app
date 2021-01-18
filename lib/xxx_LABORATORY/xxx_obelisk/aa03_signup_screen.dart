@@ -40,7 +40,7 @@ class SignUpScreen extends StatelessWidget {
                     height: MediaQuery.of(context).size.height * .04,
                     alignment: Alignment.center,
                     child: Text(
-                      'Choose Aount\'s type',
+                      'Choose Account\'s type',
                     style: TextStyle(
                       color: Colorz.Yellow,
                       fontFamily: 'Verdana',
