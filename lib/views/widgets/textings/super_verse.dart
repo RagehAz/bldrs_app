@@ -24,6 +24,8 @@ class SuperVerse extends StatelessWidget {
   // final bool softWrap;
   final Color labelColor;
   final Function labelTap;
+  final bool leadingDot;
+  final bool redDot;
 
   SuperVerse({
     this.verse = 'Bldrs.net will shock planet Earth isa',
@@ -34,14 +36,26 @@ class SuperVerse extends StatelessWidget {
     this.shadow = false,
     this.centered = true,
     this.designMode = false,
-    this.scaleFactor,
+    this.scaleFactor = 1,
     this.maxLines = 1,
     this.margin,
     // this.softWrap = true,
-    this.labelColor = Colorz.Nothing,
+    this.labelColor,
     this.labelTap,
+    this.leadingDot = false,
+    this.redDot = false,
   });
 
+  Widget _dot(double dotSize, Color color){
+    return Container(
+      width: dotSize,
+      height: dotSize,
+      decoration: BoxDecoration(
+          color: color,
+          shape: BoxShape.circle
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,24 +87,35 @@ class SuperVerse extends StatelessWidget {
     FontStyle verseStyle = italic == true ? FontStyle.italic : FontStyle.normal;
     // --- VERSE BOX MARGIN -----------------------------------------------
     double _margin = margin == null ? 0 : margin;
-    // --- LABEL CORNERS -----------------------------------------------
+    // --- LABEL -----------------------------------------------
     double labelCornerValues = superVerseLabelCornerValue(context, size);
-    double labelCorner = labelColor == Colorz.Nothing ? 0 : labelCornerValues;
-    // --- LABEL PADDINGS -----------------------------------------------
+    double labelCorner = labelColor == null ? 0 : labelCornerValues;
     double sidePaddingValues = superVerseSidePaddingValues(context, size);
-    double sidePaddings = labelColor == Colorz.Nothing ? 0 : sidePaddingValues;
+    double sidePaddings = labelColor == null ? 0 : sidePaddingValues;
+    double labelHeight = superVerseRealHeight(context, size, scaleFactor);
+    // --- DOTS -----------------------------------------------
+    double dotSize = verseSizeValue * 0.3;
+    // --- RED DOT -----------------------------------------------
+
 
     return GestureDetector(
       onTap: labelTap,
-      child: Row(
-        mainAxisAlignment: centered == true ? MainAxisAlignment.center : MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Flexible(
-            flex: 1,//_maxLines >= 1 ? 1 : 0,
-            child: Padding(
-              padding: EdgeInsets.all(_margin),
+      child: Padding(
+        padding: EdgeInsets.all(_margin),
+        child: Row(
+          mainAxisAlignment: centered == true ? MainAxisAlignment.center : MainAxisAlignment.start,
+          crossAxisAlignment: redDot == true ? CrossAxisAlignment.center : CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+
+            leadingDot == false ? Container() :
+                Padding(
+                  padding: EdgeInsets.all(dotSize),
+                  child: _dot(dotSize, color),
+                ),
+
+            Flexible(
+              flex: 1,//_maxLines >= 1 ? 1 : 0,
               child: Container(
                 padding: EdgeInsets.only(right: sidePaddings, left: sidePaddings),
                 margin: EdgeInsets.all(sidePaddings * 0.25),
@@ -136,8 +161,26 @@ class SuperVerse extends StatelessWidget {
                 ),
               ),
             ),
-          )
-        ],
+
+            redDot == false ? Container() :
+            Container(
+              height: labelHeight,
+                margin:
+                labelColor == null ?
+                EdgeInsets.symmetric(horizontal: labelHeight * 0.2) :
+                EdgeInsets.symmetric(horizontal: labelHeight * 0.05),
+                alignment: Alignment.topCenter,
+                child: Padding(
+                  padding:
+                  labelColor == null ?
+                  EdgeInsets.only(top: labelHeight * 0.2) :
+                  EdgeInsets.only(top: labelHeight * 0.05) ,
+                  child: _dot(dotSize, Colorz.BloodRed),
+                ),
+            ),
+
+          ],
+        ),
       ),
     );
   }

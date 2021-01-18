@@ -150,6 +150,11 @@ class PyramidsHorizon extends StatelessWidget {
 }
 
 class Stratosphere extends StatelessWidget {
+  final double heightFactor;
+
+  Stratosphere({
+    this.heightFactor = 1,
+});
 
   static const EdgeInsets stratosphereInsets = EdgeInsets.only(top: Ratioz.stratosphere);
   static const EdgeInsets stratosphereSandwich = EdgeInsets.only(top: Ratioz.stratosphere, bottom: Ratioz.stratosphere);
@@ -160,7 +165,7 @@ class Stratosphere extends StatelessWidget {
 
     return Container(
       width: screenWidth,
-      height: 70,
+      height: 70 * heightFactor,
     );
   }
 }

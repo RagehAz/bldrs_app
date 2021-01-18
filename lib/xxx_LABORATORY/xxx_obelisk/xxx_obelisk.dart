@@ -398,8 +398,9 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
             splashColor: Colorz.White,
             buttonVerseShadow: true,
             function:
+            (){},
                 // Routez.ProviderTest,
-                () => goToNewScreen(context, SoundzScreen()),
+                // () => goToNewScreen(context, SoundzScreen()),
             // (){widget.controller.animateToPage(1, duration: Duration(milliseconds: 500), curve: Curves.ease);},
             stretched: false,
           ),
