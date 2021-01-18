@@ -1,7 +1,7 @@
 import 'package:bldrs/view_brains/router/route_names.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
-import 'package:bldrs/views/screens/s10_main_screens/s13_in_pyramids_screen.dart';
+import 'package:bldrs/views/screens/s13_in_pyramids_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 

@@ -1,5 +1,8 @@
 class Routez {
 // --- 000 STARTING SCREENS
+// 000
+  static const String UserChecker = 'UserChecker';
+
 // 010
   static const String Splash = 'SplashScreen';
 // 020

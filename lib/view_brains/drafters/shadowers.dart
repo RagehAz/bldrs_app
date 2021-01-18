@@ -1,6 +1,6 @@
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:flutter/material.dart';
-
+// === === === === === === === === === === === === === === === === === === ===
 class CustomBoxShadow extends BoxShadow {
   final BlurStyle blurStyle;
 
@@ -24,7 +24,7 @@ class CustomBoxShadow extends BoxShadow {
     return result;
   }
 }
-
+// === === === === === === === === === === === === === === === === === === ===
 List<BoxShadow> superHeaderShadower(double flyerZoneWidth){
   List<BoxShadow> shadows = [CustomBoxShadow(
       color: Colorz.BlackLingerie,
@@ -35,7 +35,7 @@ List<BoxShadow> superHeaderShadower(double flyerZoneWidth){
   ];
   return shadows;
 }
-
+// === === === === === === === === === === === === === === === === === === ===
 List<BoxShadow> superFollowBtShadow(double btHeight){
   List<BoxShadow> btShadow = <BoxShadow>[
     CustomBoxShadow(

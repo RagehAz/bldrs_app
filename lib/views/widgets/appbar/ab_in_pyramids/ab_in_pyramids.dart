@@ -1,7 +1,7 @@
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
-import 'package:bldrs/views/screens/s10_main_screens/s13_in_pyramids_screen.dart';
+import 'package:bldrs/views/screens/s13_in_pyramids_screen.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/buttons/user_bubble.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
