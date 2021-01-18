@@ -149,3 +149,37 @@ Consumer<ProcessedFlyerData>(
       child should be the widgets that do not listen to provider
 
 // -----------------------------------------------------------------
+to create constant complex class with predefined values and be able to change them
+ in other places
+
+instead of creating some function that returns predefined parameters like
+
+List<BoxShadow> superHeaderShadower(double flyerZoneWidth){
+  List<BoxShadow> shadows = [CustomBoxShadow(
+      color: Colorz.BlackLingerie,
+      offset: Offset(0, 0),
+      blurRadius: 10,
+      blurStyle: BlurStyle.outer
+  ),
+  ];
+  return shadows;
+}
+
+you can name it as a const
+
+const List<BoxShadow> theShadowMaster =
+    [CustomBoxShadow(
+        color: Colorz.BlackLingerie,
+        offset: Offset(0, 0),
+        blurRadius: 10,
+        blurStyle: BlurStyle.outer
+        ),
+   ];
+
+   then access it elsewhere like this and change some values keda
+
+   theShadowMaster.copyWith(bluerRadius: 20),
+
+   super cool huh
+
+// -----------------------------------------------------------------
