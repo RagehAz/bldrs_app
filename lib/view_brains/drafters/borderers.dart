@@ -1,7 +1,6 @@
 import 'package:bldrs/view_brains/localization/localization_constants.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:flutter/material.dart';
-
 // === === === === === === === === === === === === === === === === === === ===
 /// takes the damn context then goes english 'ltr' counter clockwise starting
 ///

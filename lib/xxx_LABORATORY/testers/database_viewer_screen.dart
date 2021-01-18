@@ -25,7 +25,7 @@ Widget allBzzDreamList = DreamList(
         info: '${allBz[x]?.bzId}: ${bzTypeSingleStringer(c, allBz[x]?.bzType)}, ${bzFormStringer(c,allBz[x]?.bzForm)}, ${allBz[x]?.bzCity}',
         icon: allBz[x].bzLogo,
         verse: allBz[x].bzName,
-        secondLine: 'canPublish:${allBz[x]?.bzAccountCanPublish} ... isPublished:${allBz[x]?.bzAccountIsPublished}',
+        secondLine: 'bzAccountIsDeactivated:${allBz[x]?.bzAccountIsBanned} ... bzAccountIsDeactivated:${allBz[x]?.bzAccountIsDeactivated}',
       ),
 
 );
@@ -35,7 +35,7 @@ Widget allUsersDreamList = DreamList(
   itemBuilder: (BuildContext c, int x) =>
       DreamTile(
         index: x,
-        info: '${allUsers[x]?.userID}: ${allUsers[x]?.userCity}, whatsapp: ${allUsers[x]?.userWhatsAppIsOn}',
+        info: '${allUsers[x]?.iD}: ${allUsers[x]?.city}, whatsapp: ${allUsers[x]?.whatsAppIsOn}',
         icon: allUsers[x]?.pic,
         verse: allUsers[x]?.name,
         secondLine: '${allUsers[x]?.title}',
@@ -47,7 +47,7 @@ Widget allAuthorsDreamList = DreamList(
   itemBuilder: (BuildContext c, int x) =>
       DreamTile(
         index: x,
-        info: '${allCoAuthors[x].author.authorID}: ${allCoAuthors[x].coUser.user.userCity}, bzID: ${allCoAuthors[x].author.bzId}',
+        info: '${allCoAuthors[x].author.authorID}: ${allCoAuthors[x].coUser.user.city}, bzID: ${allCoAuthors[x].author.bzId}',
         icon: allCoAuthors[x].coUser.user.pic,
         verse: allCoAuthors[x].coUser.user.name,
         secondLine: '${allCoAuthors[x].coUser.user.title}',

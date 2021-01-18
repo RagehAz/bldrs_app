@@ -51,14 +51,14 @@ class MaxHeader extends StatelessWidget {
     int bzTotalViews    = coBz != null ? coBz.bzTotalViews  : 0;
     int callsCount      = coBz != null ? coBz.callsCount    : 0;
     // === === === === === === === === === === === === === === === === === === ===
-    List <String> bzFieldsList = coBz != null ? coBz.bz.bzFieldsList : [];
+    String bzScope = coBz != null ? coBz.bz.bzScope : '';
     return Column(
       children: <Widget>[
         // --- BUSINESS FIELD
         BzPgFields(
           flyerZoneWidth: flyerZoneWidth,
           bzPageIsOn: bzPageIsOn,
-          bzFieldsList: bzFieldsList,
+          bzFieldsList: bzScope,
         ),
 
         // // --- BUSINESS BIRTH YEAR

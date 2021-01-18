@@ -1,17 +1,18 @@
+import 'package:bldrs/views/widgets/auth/user_checker.dart';
 import 'package:bldrs/views/widgets/pro_flyer/flyer_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/aa03_signup_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x10_pro_flyer_page_view.dart';
-import 'package:bldrs/views/screens/s00_general_screens/s01_splash_screen.dart';
-import 'package:bldrs/views/screens/s00_general_screens/s02_starting_screen.dart';
-import 'package:bldrs/views/screens/s00_general_screens/s03_user_type_screen.dart';
-import 'package:bldrs/views/screens/s00_general_screens/s04_localizer_screen.dart';
-import 'package:bldrs/views/screens/s10_main_screens/s11_home_screen.dart';
-import 'package:bldrs/views/screens/s10_main_screens/s13_in_pyramids_screen.dart';
-import 'package:bldrs/views/screens/s20_search_screens/s21_search_screen.dart';
-import 'package:bldrs/views/screens/s40_business/s41_add_bz.dart';
-import 'package:bldrs/views/screens/s40_business/s44_bz_card_review.dart';
-import 'package:bldrs/views/screens/s40_business/sss_bz_complete_profile_screen.dart';
-import 'package:bldrs/views/screens/s40_business/sss_flyer_maker.dart';
+import 'package:bldrs/views/screens/s01_wrapper.dart';
+import 'package:bldrs/views/screens/s02_starting_screen.dart';
+import 'package:bldrs/views/screens/s03_user_type_screen.dart';
+import 'package:bldrs/views/screens/s04_localizer_screen.dart';
+import 'package:bldrs/views/screens/s11_home_screen.dart';
+import 'package:bldrs/views/screens/s13_in_pyramids_screen.dart';
+import 'package:bldrs/views/screens/s21_search_screen.dart';
+import 'package:bldrs/views/screens/s41_add_bz.dart';
+import 'package:bldrs/views/screens/s44_bz_card_review.dart';
+import 'package:bldrs/views/screens/sss_bz_complete_profile_screen.dart';
+import 'package:bldrs/views/screens/sss_flyer_maker.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x01_access_denied_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x02_rageh_dash_board.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x03_font_test_screen.dart';
@@ -31,6 +32,9 @@ class Routerer {
     switch (settings.name) {
 
       // --- 000 STARTING SCREENS
+    // 010
+      case Routez.UserChecker:
+        return MaterialPageRoute(builder: (_) => UserChecker());
       // 010
       case Routez.Splash:
         return MaterialPageRoute(builder: (_) => SplashScreen());

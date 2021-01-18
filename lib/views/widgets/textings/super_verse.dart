@@ -1,6 +1,5 @@
-import 'package:bldrs/view_brains/localization/localization_constants.dart';
+import 'package:bldrs/view_brains/drafters/texters.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
-import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
 enum VerseWeight {
@@ -47,146 +46,38 @@ class SuperVerse extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double screenHeight = MediaQuery.of(context).size.height;
-
     String _verse = verse;
     Color verseColor = color;
     Color boxColor = designMode ? Colorz.BloodTest : Colorz.Nothing;
     double verseHeight = 1.42; //1.48; // The sacred golden reverse engineered factor
     double scalingFactor = scaleFactor == null ? 1: scaleFactor;
-
     int _maxLines =  maxLines;
-
-    // --- AVAILABLE FONT SIZES -----------------------------------------------
     // takes values from 0 to 8 in the entire app
-    double verseSize =
-    (size == 0) ? screenHeight * Ratioz.fontSize0 * scalingFactor // -- 8 -- A77A
-        :
-    (size == 1) ? screenHeight * Ratioz.fontSize1 * scalingFactor // -- 10 -- Nano
-        :
-    (size == 2) ? screenHeight * Ratioz.fontSize2 * scalingFactor // -- 12 -- Micro
-        :
-    (size == 3) ? screenHeight * Ratioz.fontSize3 * scalingFactor // -- 14 -- Mini
-        :
-    (size == 4) ? screenHeight * Ratioz.fontSize4 * scalingFactor // -- 16 -- Medium
-        :
-    (size == 5) ? screenHeight * Ratioz.fontSize5 * scalingFactor // -- 20 -- Macro
-        :
-    (size == 6) ? screenHeight * Ratioz.fontSize6 * scalingFactor // -- 24 -- Big
-        :
-    (size == 7) ? screenHeight * Ratioz.fontSize7 * scalingFactor // -- 28 -- Massive
-        :
-    (size == 8) ? screenHeight * Ratioz.fontSize8 * scalingFactor // -- 28 -- Gigantic
-        :
-    screenHeight * Ratioz.fontSize1
-    ;
-
-
+    double verseSizeValue = superVerseSizeValue(context, size, scalingFactor);
     // --- AVAILABLE FONT WEIGHTS -----------------------------------------------
-    FontWeight verseWeight =
-    weight == VerseWeight.thin ? FontWeight.w100 :
-    weight == VerseWeight.regular ? FontWeight.w600 :
-    weight == VerseWeight.bold ? FontWeight.w100 :
-    weight == VerseWeight.black ? FontWeight.w600 :
-    FontWeight.w100;
-
+    FontWeight verseWeight = superVerseWeight(weight);
     // --- AVAILABLE FONTS -----------------------------------------------
-    String verseFont =
-    weight == VerseWeight.thin ? getTranslated(context, 'Body_Font') :
-    weight == VerseWeight.regular ? getTranslated(context, 'Body_Font') :
-    weight == VerseWeight.bold ? getTranslated(context, 'Headline_Font') :
-    weight == VerseWeight.black ? getTranslated(context, 'Headline_Font') :
-    getTranslated(context, 'Body_Font')
-    ;
-
+    String verseFont = superVerseFont(context, weight);
     // --- LETTER SPACING -----------------------------------------------
-    double verseLetterSpacing =
-    weight == VerseWeight.thin ? verseSize * 0.035 :
-    weight == VerseWeight.regular ? verseSize * 0.09 :
-    weight == VerseWeight.bold ? verseSize * 0.05 :
-    weight == VerseWeight.black ? verseSize * 0.12
-        :
-    verseSize * 0
-    ;
-
+    double verseLetterSpacing = superVerseLetterSpacing(weight, verseSizeValue);
     // --- WORD SPACING -----------------------------------------------
-    double verseWordSpacing =
-    // weight == VerseWeight.thin ? verseSize * 0.1 :
-    // weight == VerseWeight.regular ? verseSize * 0.1 :
-    // weight == VerseWeight.bold ? verseSize * 0.1 :
-    // weight == VerseWeight.black ? verseSize * 0.1 :
-    verseSize * 0
-    ;
-
+    double verseWordSpacing = superVerseWordSpacing(verseSizeValue);
     // --- SHADOWS -----------------------------------------------
     double shadowBlur = 0;
     double shadowYOffset = 0;
-    double shadowXOffset =
-        weight == VerseWeight.thin ? verseSize * -0.07 :
-        weight == VerseWeight.regular ? verseSize * -0.09 :
-        weight == VerseWeight.bold ? verseSize * -0.11 :
-        weight == VerseWeight.black ? verseSize * -0.12:
-        verseSize * -0.06;
+    double shadowXOffset = superVerseXOffset(weight, verseSizeValue);
     double secondShadowXOffset = -0.35 * shadowXOffset;
     Color leftShadow = color == Colorz.BlackBlack ? Colorz.WhitePlastic : Colorz.BlackBlack;
     Color rightShadow = color == Colorz.BlackBlack ? Colorz.WhiteSmoke : Colorz.WhiteGlass;
-
     // --- ITALIC -----------------------------------------------
     FontStyle verseStyle = italic == true ? FontStyle.italic : FontStyle.normal;
-
     // --- VERSE BOX MARGIN -----------------------------------------------
     double _margin = margin == null ? 0 : margin;
-
-
     // --- LABEL CORNERS -----------------------------------------------
-    double labelCornerRatio = 0.4;
-    double labelCornerValues =
-    (size == 0) ? screenHeight * Ratioz.fontSize0 * labelCornerRatio// -- 8 -- A77A
-        :
-    (size == 1) ? screenHeight * Ratioz.fontSize1 * labelCornerRatio// -- 10 -- Nano
-        :
-    (size == 2) ? screenHeight * Ratioz.fontSize2 * labelCornerRatio// -- 12 -- Micro
-        :
-    (size == 3) ? screenHeight * Ratioz.fontSize3 * labelCornerRatio// -- 14 -- Mini
-        :
-    (size == 4) ? screenHeight * Ratioz.fontSize4 * labelCornerRatio// -- 16 -- Medium
-        :
-    (size == 5) ? screenHeight * Ratioz.fontSize5 * labelCornerRatio// -- 20 -- Macro
-        :
-    (size == 6) ? screenHeight * Ratioz.fontSize6 * labelCornerRatio// -- 24 -- Big
-        :
-    (size == 7) ? screenHeight * Ratioz.fontSize7 * labelCornerRatio// -- 28 -- Massive
-        :
-    (size == 8) ? screenHeight * Ratioz.fontSize8 * labelCornerRatio// -- 28 -- Gigantic
-        :
-     0 // -- 14 -- Medium as default
-    ;
+    double labelCornerValues = superVerseLabelCornerValue(context, size);
     double labelCorner = labelColor == Colorz.Nothing ? 0 : labelCornerValues;
-
     // --- LABEL PADDINGS -----------------------------------------------
-    double sidePaddingRatio = 0.45;
-    double sidePaddingValues =
-    (size == 0) ? screenHeight * Ratioz.fontSize0 * sidePaddingRatio// -- 8 -- A77A
-        :
-    (size == 1) ? screenHeight * Ratioz.fontSize1 * sidePaddingRatio// -- 10 -- Nano
-        :
-    (size == 2) ? screenHeight * Ratioz.fontSize2 * sidePaddingRatio// -- 12 -- Micro
-        :
-    (size == 3) ? screenHeight * Ratioz.fontSize3 * sidePaddingRatio// -- 14 -- Mini
-        :
-    (size == 4) ? screenHeight * Ratioz.fontSize4 * sidePaddingRatio// -- 16 -- Medium
-        :
-    (size == 5) ? screenHeight * Ratioz.fontSize5 * sidePaddingRatio // -- 20 -- Macro
-        :
-    (size == 6) ? screenHeight * Ratioz.fontSize6 * sidePaddingRatio// -- 24 -- Big
-        :
-    (size == 7) ? screenHeight * Ratioz.fontSize7 * sidePaddingRatio// -- 28 -- Massive
-        :
-    (size == 8) ? screenHeight * Ratioz.fontSize8 * sidePaddingRatio// -- 28 -- Gigantic
-        :
-     0 //
-    ;
-
+    double sidePaddingValues = superVerseSidePaddingValues(context, size);
     double sidePaddings = labelColor == Colorz.Nothing ? 0 : sidePaddingValues;
 
     return GestureDetector(
@@ -195,7 +86,7 @@ class SuperVerse extends StatelessWidget {
         mainAxisAlignment: centered == true ? MainAxisAlignment.center : MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
-        children: [
+        children: <Widget>[
           Flexible(
             flex: 1,//_maxLines >= 1 ? 1 : 0,
             child: Padding(
@@ -226,9 +117,9 @@ class SuperVerse extends StatelessWidget {
                       fontStyle: verseStyle,
                       letterSpacing: verseLetterSpacing,
                       wordSpacing: verseWordSpacing,
-                      fontSize: verseSize,
+                      fontSize: verseSizeValue,
                       fontWeight: verseWeight,
-                      shadows: [
+                      shadows: <Shadow>[
                         if (shadow)
                           Shadow(
                             blurRadius: shadowBlur,
