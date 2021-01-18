@@ -68,7 +68,16 @@ Future signInAnon() async {
 }
 // ---------------------------------------------------------------------------
   // sign in with email & password
-
+  Future signInWithEmailAndPassword(String email, String password) async {
+    try {
+      UserCredential result = await _auth.signInWithEmailAndPassword(email: email.trim(), password: password);
+      User user = result.user;
+      return _convertFirebaseUserToUserModel(user);
+    } catch(error) {
+      print('auth error is : ${error.toString()}');
+      return error;
+    }
+  }
 // ---------------------------------------------------------------------------
   // register with email & password
   Future registerWithEmailAndPassword(String email, String password) async {
