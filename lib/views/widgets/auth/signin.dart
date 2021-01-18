@@ -1,5 +1,8 @@
-
-
+import 'package:bldrs/ambassadors/services/auth.dart';
+import 'package:bldrs/models/user_model.dart';
+import 'package:bldrs/view_brains/router/navigators.dart';
+import 'package:bldrs/view_brains/router/route_names.dart';
+import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/views/widgets/artworks/bldrs_name_logo_slogan.dart';
@@ -29,36 +32,41 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
+  final AuthService _auth = AuthService();
   String _email;
   String _password;
   bool signingIn = true;
   final _formKey = GlobalKey<FormState>();
   String error = '';
-
-
+  bool loading = false;
+// ---------------------------------------------------------------------------
   @override
   void initState() {
     _email = widget.email;
     _password = widget.password;
     super.initState();
   }
-
+// ---------------------------------------------------------------------------
   void _emailTextOnChanged(String val){
     setState(() {
       _email = val;
     });
     print('email : $_email, pass : $_password');
   }
-
+// ---------------------------------------------------------------------------
   void _passwordTextOnChanged(String val){
     setState(() {
       _password = val;
     });
     print('email : $_email, pass : $_password');
   }
-
-
-
+// ---------------------------------------------------------------------------
+  void _triggerLoading(){
+    setState(() {
+      loading = !loading;
+    });
+  }
+// ---------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -77,7 +85,9 @@ class _SignInState extends State<SignIn> {
           ),
 
           TextFieldBubble(
+            loading: loading,
             fieldIsFormField: true,
+            fieldIsRequired: true,
             keyboardTextInputType: TextInputType.emailAddress,
             keyboardTextInputAction: TextInputAction.next,
             title: 'E-mail Address',
@@ -87,7 +97,10 @@ class _SignInState extends State<SignIn> {
             maxLength: 100,
             obscured: false,
             initialTextValue: _email,
-            textOnChanged: (val) => widget.emailTextOnChanged(val),
+            textOnChanged: (val){
+              widget.emailTextOnChanged(val);
+              _emailTextOnChanged(val);
+            },
             validator: (val){
               if (val.isEmpty){return 'Enter E-mail';}
               else {
@@ -97,7 +110,9 @@ class _SignInState extends State<SignIn> {
           ),
 
           TextFieldBubble(
+            loading: loading,
             fieldIsFormField: true,
+            fieldIsRequired: true,
             keyboardTextInputType: TextInputType.visiblePassword,
             keyboardTextInputAction: TextInputAction.done,
             title: 'Password',
@@ -107,7 +122,10 @@ class _SignInState extends State<SignIn> {
             maxLength: 100,
             obscured: true,
             initialTextValue: _password,
-            textOnChanged: (val) => widget.passwordTextOnChanged(val),
+            textOnChanged: (val){
+              widget.passwordTextOnChanged(val);
+              _passwordTextOnChanged(val);
+            },
             validator: (val){
               return
                 val.isEmpty ? 'Enter password' :
@@ -137,16 +155,34 @@ class _SignInState extends State<SignIn> {
                 verse: 'Sign In    ',
                 boxMargins: EdgeInsets.all(20),
                 boxFunction: () async {
-                  // blah
-                  if (widget.email == '' || widget.password == '')
-                  {print('no email nor password entered bitch');}
-                  else
-                  {print('email : ${widget.email}, password : ${widget.password}');}
+                  if(_formKey.currentState.validate()){
+                    _triggerLoading();
+                    dynamic result = await _auth.signInWithEmailAndPassword(_email, _password);
+                    print('signing result is : $result');
+
+                    if ('$result' == '[firebase_auth/wrong-password] The password is invalid or the user does not have a password.')
+                    {setState(() {error = 'Wrong password';}); _triggerLoading();}
+                    else if ('$result' == '[firebase_auth/user-not-found] There is no user record corresponding to this identifier. The user may have been deleted.')
+                    {setState(() {error = 'E-mail is not found';}); _triggerLoading();}
+                    else if(result == null){setState(() {error = 'Could not sign in';}); _triggerLoading();}
+                    else if(result.runtimeType == UserModel)
+                    {
+                      setState(() {error = ''; _triggerLoading();});
+                      goToRoute(context, Routez.Home);
+                    }
+                  }
                 },
               ),
 
             ],
           ),
+
+
+          SuperVerse(
+            verse: error,
+            color: Colorz.BloodRed,
+          ),
+
 
 
 

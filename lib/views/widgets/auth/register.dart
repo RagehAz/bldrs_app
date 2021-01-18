@@ -36,35 +36,42 @@ class _RegisterState extends State<Register> {
   String _confirmPassword;
   final _formKey = GlobalKey<FormState>();
   String error = '';
-
+  bool loading = false;
+// ---------------------------------------------------------------------------
   @override
   void initState() {
     _email = widget.email;
     _password = widget.password;
     super.initState();
   }
-
+// ---------------------------------------------------------------------------
   void _emailTextOnChanged(String val){
     setState(() {
       _email = val;
     });
     print('email : $_email, pass : $_password, conf : $_confirmPassword');
   }
-
+// ---------------------------------------------------------------------------
   void _passwordTextOnChanged(String val){
     setState(() {
       _password = val;
     });
     print('email : $_email, pass : $_password, conf : $_confirmPassword');
   }
-
+// ---------------------------------------------------------------------------
   void _confirmPasswordOnChanged(String val){
     setState(() {
       _confirmPassword = val;
     });
     print('email : $_email, pass : $_password, conf : $_confirmPassword');
   }
-
+// ---------------------------------------------------------------------------
+  void _triggerLoading(){
+    setState(() {
+      loading = !loading;
+    });
+  }
+// ---------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -83,7 +90,9 @@ class _RegisterState extends State<Register> {
           ),
 
           TextFieldBubble(
+            loading: loading,
             fieldIsFormField: true,
+            fieldIsRequired: true,
             keyboardTextInputType: TextInputType.emailAddress,
             keyboardTextInputAction: TextInputAction.next,
             title: 'E-mail Address',
@@ -105,7 +114,9 @@ class _RegisterState extends State<Register> {
           ),
 
           TextFieldBubble(
+            loading: loading,
             fieldIsFormField: true,
+            fieldIsRequired: true,
             keyboardTextInputType: TextInputType.visiblePassword,
             keyboardTextInputAction: TextInputAction.next,
             title: 'Password',
@@ -129,7 +140,9 @@ class _RegisterState extends State<Register> {
           ),
 
           TextFieldBubble(
+            loading: loading,
             fieldIsFormField: true,
+            fieldIsRequired: true,
             keyboardTextInputType: TextInputType.visiblePassword,
             keyboardTextInputAction: TextInputAction.done,
             title: 'Confirm Password',
@@ -170,14 +183,15 @@ class _RegisterState extends State<Register> {
                 boxMargins: EdgeInsets.all(20),
                 boxFunction: () async {
                   if(_formKey.currentState.validate()){
+                    _triggerLoading();
                     dynamic result = await _auth.registerWithEmailAndPassword(_email, _password);
-                    print('result is : $result');
+                    print('register result is : $result');
                     if ('$result' == '[firebase_auth/email-already-in-use] The email address is already in use by another account.')
-                    {setState(() {error = 'E-mail is Already registered';});}
-                    else if(result == null){setState(() {error = 'something is wrong';});}
+                    {setState(() {error = 'E-mail is Already registered';}); _triggerLoading();}
+                    else if(result == null){setState(() {error = 'something is wrong';}); _triggerLoading();}
                     else if(result.runtimeType == UserModel)
                     {
-                      setState(() {error = '';});
+                      setState(() {error = ''; _triggerLoading();});
                       goToRoute(context, Routez.Home); // should go to data entry page then confirm then homepage
                     }
                   }

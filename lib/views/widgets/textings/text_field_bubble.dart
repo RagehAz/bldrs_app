@@ -1,5 +1,7 @@
+import 'package:bldrs/view_brains/drafters/aligners.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/views/widgets/in_pyramids/in_pyramids_items/in_pyramids_bubble.dart';
+import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:bldrs/views/widgets/textings/super_text_field.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +22,8 @@ class TextFieldBubble extends StatelessWidget {
   final String initialTextValue;
   final Function validator;
   final String comments;
+  final bool fieldIsRequired;
+  final bool loading;
 
   TextFieldBubble({
     @required this.title,
@@ -37,6 +41,8 @@ class TextFieldBubble extends StatelessWidget {
     this.initialTextValue,
     this.validator,
     this.comments,
+    this.fieldIsRequired = false,
+    this.loading = false,
   });
 
   @override
@@ -50,23 +56,36 @@ class TextFieldBubble extends StatelessWidget {
               verse: title,
               size: 3,
               margin: 5,
-              redDot: true,
+              redDot: fieldIsRequired,
             ),
 
-            SuperTextField(
-              fieldIsFormField: fieldIsFormField,
-              hintText: hintText,
-              counterIsOn: counterIsOn,
-              keyboardTextInputType: keyboardTextInputType,
-              maxLines: maxLines,
-              maxLength: maxLength,
-              textController: textController,
-              onChanged: textOnChanged,
-              obscured: obscured,
-              onSaved: onSaved,
-              keyboardTextInputAction: keyboardTextInputAction,
-              initialValue: initialTextValue,
-              validator: validator,
+            Container(
+              // color: Colorz.BloodTest,
+              child: Stack(
+                alignment: superInverseTopAlignment(context),
+                children: <Widget>[
+
+                  SuperTextField(
+                    fieldIsFormField: fieldIsFormField,
+                    hintText: hintText,
+                    counterIsOn: counterIsOn,
+                    keyboardTextInputType: keyboardTextInputType,
+                    maxLines: maxLines,
+                    maxLength: maxLength,
+                    textController: textController,
+                    onChanged: textOnChanged,
+                    obscured: obscured,
+                    onSaved: onSaved,
+                    keyboardTextInputAction: keyboardTextInputAction,
+                    initialValue: initialTextValue,
+                    validator: validator,
+                  ),
+
+                  loading == false ? Container() :
+                  Loading(size: 35,),
+
+                ],
+              ),
             ),
 
             comments == null ? Container() :
