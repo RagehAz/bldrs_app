@@ -28,7 +28,7 @@ class ProFlyersPageView extends StatelessWidget {
         // padding: Stratosphere.stratosphereInsets,
         dragStartBehavior: DragStartBehavior.down,
         onPageChanged: (int){
-          playSound(Soundz.NextFlyer);
+          // playSound(Soundz.NextFlyer);
         },
         allowImplicitScrolling: true,
         itemCount: flyers.length,

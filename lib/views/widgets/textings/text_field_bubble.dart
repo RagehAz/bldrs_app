@@ -16,9 +16,10 @@ class TextFieldBubble extends StatelessWidget {
   final bool obscured;
   final bool fieldIsFormField;
   final Function onSaved;
-  final String errorMessageIfEmpty;
   final TextInputAction keyboardTextInputAction;
   final String initialTextValue;
+  final Function validator;
+  final String comments;
 
   TextFieldBubble({
     @required this.title,
@@ -32,9 +33,10 @@ class TextFieldBubble extends StatelessWidget {
     this.obscured = false,
     this.fieldIsFormField,
     this.onSaved,
-    this.errorMessageIfEmpty,
     this.keyboardTextInputAction,
     this.initialTextValue,
+    this.validator,
+    this.comments,
   });
 
   @override
@@ -46,7 +48,9 @@ class TextFieldBubble extends StatelessWidget {
 
             SuperVerse(
               verse: title,
+              size: 3,
               margin: 5,
+              redDot: true,
             ),
 
             SuperTextField(
@@ -60,10 +64,20 @@ class TextFieldBubble extends StatelessWidget {
               onChanged: textOnChanged,
               obscured: obscured,
               onSaved: onSaved,
-              errorMessageIfEmpty: errorMessageIfEmpty,
               keyboardTextInputAction: keyboardTextInputAction,
               initialValue: initialTextValue,
+              validator: validator,
             ),
+
+            comments == null ? Container() :
+                SuperVerse(
+                  verse: comments,
+                  italic: true,
+                  color: Colorz.WhiteSmoke,
+                  size: 2,
+                  weight: VerseWeight.thin,
+                  leadingDot: true,
+                ),
 
           ]
       )

@@ -1,13 +1,18 @@
+import 'package:bldrs/ambassadors/services/auth.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
-import 'package:bldrs/views/widgets/textings/text_bubbles.dart';
+import 'package:bldrs/views/widgets/textings/text_field_bubble.dart';
 import 'package:flutter/material.dart';
+import 'package:email_validator/email_validator.dart';
+import 'package:bldrs/view_brains/router/navigators.dart';
+import 'package:bldrs/view_brains/router/route_names.dart';
+import 'package:bldrs/models/user_model.dart';
 
 class Register extends StatefulWidget {
   final Function switchToSignIn;
-  final String email;
-  final String password;
+  String email;
+  String password;
   final Function emailTextOnChanged;
   final Function passwordTextOnChanged;
 
@@ -25,8 +30,12 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+  final AuthService _auth = AuthService();
   String _email;
   String _password;
+  String _confirmPassword;
+  final _formKey = GlobalKey<FormState>();
+  String error = '';
 
   @override
   void initState() {
@@ -35,10 +44,31 @@ class _RegisterState extends State<Register> {
     super.initState();
   }
 
+  void _emailTextOnChanged(String val){
+    setState(() {
+      _email = val;
+    });
+    print('email : $_email, pass : $_password, conf : $_confirmPassword');
+  }
+
+  void _passwordTextOnChanged(String val){
+    setState(() {
+      _password = val;
+    });
+    print('email : $_email, pass : $_password, conf : $_confirmPassword');
+  }
+
+  void _confirmPasswordOnChanged(String val){
+    setState(() {
+      _confirmPassword = val;
+    });
+    print('email : $_email, pass : $_password, conf : $_confirmPassword');
+  }
 
   @override
   Widget build(BuildContext context) {
     return Form(
+      key: _formKey,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -59,26 +89,64 @@ class _RegisterState extends State<Register> {
             title: 'E-mail Address',
             hintText: '...',
             onSaved: (){print('onSaved');},
-            errorMessageIfEmpty: 'eh ya 3am',
             maxLength: 100,
             obscured: false,
             initialTextValue: _email,
-            textOnChanged: (val) => widget.emailTextOnChanged(val),
+            textOnChanged: (val){
+              widget.emailTextOnChanged(val);
+              _emailTextOnChanged(val);
+            },
+            validator: (val){
+              if (val.isEmpty){return 'Enter E-mail';}
+              else {
+               return EmailValidator.validate(val) == true ? null : 'E-mail is not valid';
+              }
+            },
+          ),
+
+          TextFieldBubble(
+            fieldIsFormField: true,
+            keyboardTextInputType: TextInputType.visiblePassword,
+            keyboardTextInputAction: TextInputAction.next,
+            title: 'Password',
+            comments: 'minimum 6 characters long',
+            hintText: '...',
+            onSaved: (){print('onSaved');},
+            maxLines: 1,
+            maxLength: 100,
+            obscured: true,
+            initialTextValue: _password,
+            textOnChanged: (val){
+              widget.passwordTextOnChanged(val);
+              _passwordTextOnChanged(val);
+            },
+            validator: (val){
+              return
+              val.isEmpty ? 'Enter password' :
+              val.length < 6 ? 'Password should at least be 6 characters long' :
+              null;
+            },
           ),
 
           TextFieldBubble(
             fieldIsFormField: true,
             keyboardTextInputType: TextInputType.visiblePassword,
             keyboardTextInputAction: TextInputAction.done,
-            title: 'Password',
+            title: 'Confirm Password',
             hintText: '...',
             onSaved: (){print('onSaved');},
-            errorMessageIfEmpty: 'eh ya 3am',
             maxLines: 1,
             maxLength: 100,
             obscured: true,
-            initialTextValue: _password,
-            textOnChanged: (val) => widget.passwordTextOnChanged(val),
+            initialTextValue: null,
+            textOnChanged: (val) => _confirmPasswordOnChanged(val),
+            validator: (val){
+              return
+                val.isEmpty ? 'Confirm password' :
+                _confirmPassword != _password ? 'passwords don\'t match' :
+              null;
+
+            },
           ),
 
           Row(
@@ -101,15 +169,28 @@ class _RegisterState extends State<Register> {
                 verse: 'Register    ',
                 boxMargins: EdgeInsets.all(20),
                 boxFunction: () async {
-                  // blah
-                  if (widget.email == '' || widget.password == '')
-                  {print('no email nor password entered bitch');}
-                  else
-                  {print('email : ${widget.email}, password : ${widget.password}');}
+                  if(_formKey.currentState.validate()){
+                    dynamic result = await _auth.registerWithEmailAndPassword(_email, _password);
+                    print('result is : $result');
+                    if ('$result' == '[firebase_auth/email-already-in-use] The email address is already in use by another account.')
+                    {setState(() {error = 'E-mail is Already registered';});}
+                    else if(result == null){setState(() {error = 'something is wrong';});}
+                    else if(result.runtimeType == UserModel)
+                    {
+                      setState(() {error = '';});
+                      goToRoute(context, Routez.Home); // should go to data entry page then confirm then homepage
+                    }
+                  }
                 },
               ),
 
             ],
+          ),
+
+
+          SuperVerse(
+            verse: error,
+            color: Colorz.BloodRed,
           ),
 
 
