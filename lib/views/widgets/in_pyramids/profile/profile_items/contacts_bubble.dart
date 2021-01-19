@@ -6,7 +6,7 @@ import 'package:bldrs/views/widgets/in_pyramids/in_pyramids_items/in_pyramids_bu
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
-class UserContacts extends StatelessWidget {
+class ContactsBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {

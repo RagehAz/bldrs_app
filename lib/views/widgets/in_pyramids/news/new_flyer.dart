@@ -1,6 +1,6 @@
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
-import 'package:bldrs/views/widgets/buttons/user_bubble.dart';
+import 'package:bldrs/views/widgets/buttons/user_balloon.dart';
 import 'package:bldrs/views/widgets/flyer/header/mini_header/mini_header_items/mini_header_strip/mini_header_strip_items/bz_logo.dart';
 import 'package:bldrs/views/widgets/flyer/header/mini_header/mini_header_items/mini_header_strip/mini_header_strip_items/labels/author_pic.dart';
 import 'package:bldrs/views/widgets/in_pyramids/in_pyramids_items/in_pyramids_bubble.dart';
@@ -53,7 +53,7 @@ class NewFlyerNotification extends StatelessWidget {
                   authorPic: publisherPic,
                   flyerZoneWidth: screenWidth * 0.89,
                 ) :
-                UserBubble(
+                UserBalloon(
                   userPic: Iconz.DvRageh,
                   bubbleWidth: 55,
                   userType: UserType.PlanningUser,

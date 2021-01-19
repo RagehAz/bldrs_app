@@ -2,6 +2,7 @@ import 'package:bldrs/ambassadors/services/auth.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
 import 'package:bldrs/view_brains/router/route_names.dart';
+import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/views/widgets/artworks/bldrs_name_logo_slogan.dart';
@@ -38,6 +39,8 @@ class _SignInState extends State<SignIn> {
   final _formKey = GlobalKey<FormState>();
   String error = '';
   bool loading = false;
+  bool showPassword = false;
+  bool _passwordObscured = true;
 // ---------------------------------------------------------------------------
   @override
   void initState() {
@@ -66,6 +69,19 @@ class _SignInState extends State<SignIn> {
     });
   }
 // ---------------------------------------------------------------------------
+  void _horusOnTapDown(){
+    setState(() {
+      _passwordObscured = !_passwordObscured;
+    });
+  }
+// ---------------------------------------------------------------------------
+  void _horusOnTapUp(){
+    setState(() {
+      _passwordObscured = !_passwordObscured;
+    });
+  }
+// ---------------------------------------------------------------------------
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -94,7 +110,6 @@ class _SignInState extends State<SignIn> {
             onSaved: (){print('onSaved');},
             maxLines: 1,
             maxLength: 100,
-            obscured: false,
             initialTextValue: _email,
             textOnChanged: (val){
               widget.emailTextOnChanged(val);
@@ -119,8 +134,10 @@ class _SignInState extends State<SignIn> {
             onSaved: (){print('onSaved');},
             maxLines: 1,
             maxLength: 100,
-            obscured: true,
+            obscured: _passwordObscured,
             initialTextValue: _password,
+            horusOnTapDown: _horusOnTapDown,
+            horusOnTapUp: _horusOnTapUp,
             textOnChanged: (val){
               widget.passwordTextOnChanged(val);
               _passwordTextOnChanged(val);

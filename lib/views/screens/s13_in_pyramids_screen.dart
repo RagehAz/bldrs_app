@@ -1,6 +1,6 @@
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/views/widgets/appbar/ab_in_pyramids/ab_in_pyramids.dart';
-import 'package:bldrs/views/widgets/buttons/user_bubble.dart';
+import 'package:bldrs/views/widgets/buttons/user_balloon.dart';
 import 'package:bldrs/views/widgets/in_pyramids/more_page.dart';
 import 'package:bldrs/views/widgets/in_pyramids/news/news_page.dart';
 import 'package:bldrs/views/widgets/in_pyramids/profile/profile_page.dart';

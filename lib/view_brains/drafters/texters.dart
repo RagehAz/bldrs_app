@@ -138,8 +138,11 @@ double superVerseSidePaddingValues(BuildContext context, int size){
   return sidePaddingValues;
 }
 // === === === === === === === === === === === === === === === === === === ===
-double superVerseRealHeight(BuildContext context, int verseSize, double scalingFactor){
-  double verseHeight = superVerseSizeValue(context, verseSize, scalingFactor) * 1.42;
+/// when SuperVerse has label color, it gets extra margin height, and is included in the final value of this function
+double superVerseRealHeight(BuildContext context, int verseSize, double scalingFactor, Color labelColor){
+  double sidePaddingValues = superVerseSidePaddingValues(context, verseSize);
+  double sidePaddings = labelColor == null ? 0 : sidePaddingValues;
+  double verseHeight = (superVerseSizeValue(context, verseSize, scalingFactor) * 1.42) + (sidePaddings * 0.25);
   return verseHeight;
 }
 // === === === === === === === === === === === === === === === === === === ===

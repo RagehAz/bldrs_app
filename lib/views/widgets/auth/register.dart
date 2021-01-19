@@ -37,6 +37,9 @@ class _RegisterState extends State<Register> {
   final _formKey = GlobalKey<FormState>();
   String error = '';
   bool loading = false;
+  bool showPassword = false;
+  bool _passwordObscured = true;
+
 // ---------------------------------------------------------------------------
   @override
   void initState() {
@@ -72,6 +75,18 @@ class _RegisterState extends State<Register> {
     });
   }
 // ---------------------------------------------------------------------------
+  void _horusOnTapDown(){
+    setState(() {
+      _passwordObscured = !_passwordObscured;
+    });
+  }
+// ---------------------------------------------------------------------------
+  void _horusOnTapUp(){
+    setState(() {
+      _passwordObscured = !_passwordObscured;
+    });
+  }
+// ---------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -99,7 +114,6 @@ class _RegisterState extends State<Register> {
             hintText: '...',
             onSaved: (){print('onSaved');},
             maxLength: 100,
-            obscured: false,
             initialTextValue: _email,
             textOnChanged: (val){
               widget.emailTextOnChanged(val);
@@ -125,7 +139,9 @@ class _RegisterState extends State<Register> {
             onSaved: (){print('onSaved');},
             maxLines: 1,
             maxLength: 100,
-            obscured: true,
+            obscured: _passwordObscured,
+            horusOnTapDown: _horusOnTapDown,
+            horusOnTapUp: _horusOnTapUp,
             initialTextValue: _password,
             textOnChanged: (val){
               widget.passwordTextOnChanged(val);
@@ -135,6 +151,7 @@ class _RegisterState extends State<Register> {
               return
               val.isEmpty ? 'Enter password' :
               val.length < 6 ? 'Password should at least be 6 characters long' :
+              _confirmPassword != _password ? 'passwords don\'t match' :
               null;
             },
           ),
@@ -150,7 +167,9 @@ class _RegisterState extends State<Register> {
             onSaved: (){print('onSaved');},
             maxLines: 1,
             maxLength: 100,
-            obscured: true,
+            obscured: _passwordObscured,
+            horusOnTapDown: _horusOnTapDown,
+            horusOnTapUp: _horusOnTapUp,
             initialTextValue: null,
             textOnChanged: (val) => _confirmPasswordOnChanged(val),
             validator: (val){

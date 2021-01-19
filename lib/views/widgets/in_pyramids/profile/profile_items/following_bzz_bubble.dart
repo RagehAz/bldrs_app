@@ -4,7 +4,7 @@ import 'package:bldrs/views/widgets/in_pyramids/in_pyramids_items/in_pyramids_bu
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
-class BldrsFollowing extends StatelessWidget {
+class FollowingBzzBubble extends StatelessWidget {
   // final List<FlyerData> bzLogos;
 
   // BldrsFollowing({

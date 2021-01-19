@@ -1,5 +1,8 @@
 import 'package:bldrs/view_brains/drafters/aligners.dart';
+import 'package:bldrs/view_brains/drafters/texters.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
+import 'package:bldrs/view_brains/theme/iconz.dart';
+import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/in_pyramids/in_pyramids_items/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:bldrs/views/widgets/textings/super_text_field.dart';
@@ -24,6 +27,11 @@ class TextFieldBubble extends StatelessWidget {
   final String comments;
   final bool fieldIsRequired;
   final bool loading;
+  final String actionBtIcon;
+  final Color actionBtColor;
+  final Function actionBtFunction;
+  final Function horusOnTapDown;
+  final Function horusOnTapUp;
 
   TextFieldBubble({
     @required this.title,
@@ -34,7 +42,7 @@ class TextFieldBubble extends StatelessWidget {
     this.textController,
     @required this.keyboardTextInputType,
     this.textOnChanged,
-    this.obscured = false,
+    this.obscured,
     this.fieldIsFormField,
     this.onSaved,
     this.keyboardTextInputAction,
@@ -43,20 +51,57 @@ class TextFieldBubble extends StatelessWidget {
     this.comments,
     this.fieldIsRequired = false,
     this.loading = false,
+    this.actionBtColor,
+    this.actionBtIcon,
+    this.actionBtFunction,
+    this.horusOnTapDown,
+    this.horusOnTapUp,
   });
 
   @override
   Widget build(BuildContext context) {
+
+    int titleVerseSize = 3;
+    double actionBtSize = superVerseRealHeight(context, titleVerseSize, 1, null);
+    double actionBtCorner = actionBtSize * 0.4;
+
+
     return
       InPyramidsBubble(
           bubbleColor: Colorz.WhiteAir,
           columnChildren: <Widget>[
 
-            SuperVerse(
-              verse: title,
-              size: 3,
-              margin: 5,
-              redDot: fieldIsRequired,
+            Container(
+              // color: Colorz.YellowSmoke,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+
+                  // --- BUBBLE TITLE
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 10, left: 5, right: 5),
+                    child: SuperVerse(
+                      verse: title,
+                      size: titleVerseSize,
+                      redDot: fieldIsRequired,
+                    ),
+                  ),
+
+                  // --- ACTION BUTTON
+                  actionBtIcon == null ? Container() :
+                  DreamBox(
+                    height: actionBtSize,
+                    width: actionBtSize,
+                    corners: actionBtCorner,
+                    color: actionBtColor,
+                    icon: actionBtIcon,
+                    iconSizeFactor: 0.6,
+                    boxFunction: actionBtFunction,
+                  ),
+
+                ],
+              ),
             ),
 
             Container(
@@ -65,6 +110,7 @@ class TextFieldBubble extends StatelessWidget {
                 alignment: superInverseTopAlignment(context),
                 children: <Widget>[
 
+                  // --- TEXT FIELD
                   SuperTextField(
                     fieldIsFormField: fieldIsFormField,
                     hintText: hintText,
@@ -74,32 +120,74 @@ class TextFieldBubble extends StatelessWidget {
                     maxLength: maxLength,
                     textController: textController,
                     onChanged: textOnChanged,
-                    obscured: obscured,
+                    obscured: obscured == null ? false : obscured,
                     onSaved: onSaved,
                     keyboardTextInputAction: keyboardTextInputAction,
                     initialValue: initialTextValue,
                     validator: validator,
+                    inputSize: 2,
                   ),
 
+                  // --- LOADING INDICATOR
                   loading == false ? Container() :
                   Loading(size: 35,),
+
+                  // --- PASSWORD REVEALER ON TAP
+                  obscured == null ? Container() :
+                  ShowPassword(
+                    obscured: obscured,
+                    onTapDown: horusOnTapDown,
+                    onTapUp: horusOnTapUp,
+                    verseSize: 2,
+                  ),
 
                 ],
               ),
             ),
 
+            // --- BUBBLE COMMENTS
             comments == null ? Container() :
-                SuperVerse(
-                  verse: comments,
-                  italic: true,
-                  color: Colorz.WhiteSmoke,
-                  size: 2,
-                  weight: VerseWeight.thin,
-                  leadingDot: true,
-                ),
+            SuperVerse(
+              verse: comments,
+              italic: true,
+              color: Colorz.WhiteSmoke,
+              size: 2,
+              weight: VerseWeight.thin,
+              leadingDot: true,
+            ),
 
           ]
       )
     ;
+  }
+}
+
+class ShowPassword extends StatelessWidget {
+  final bool obscured;
+  final Function onTapDown;
+  final Function onTapUp;
+  final int verseSize;
+
+  ShowPassword({
+    this.obscured = false,
+    this.onTapDown,
+    this.onTapUp,
+    this.verseSize = 3,
+});
+
+  @override
+  Widget build(BuildContext context) {
+    return DreamBox(
+      height: 35,
+      width: 35,
+      color: obscured? Colorz.Nothing : Colorz.YellowLingerie,
+      icon: Iconz.Views,
+      iconColor: obscured? Colorz.WhiteGlass : Colorz.BlackBlack,
+      iconSizeFactor: 0.7,
+      bubble: false,
+      onTapDown: onTapDown == null ? (){} : onTapDown,
+      onTapUp: onTapUp == null ? (){} : onTapUp,
+      corners: superVerseLabelCornerValue(context, verseSize),
+    );
   }
 }

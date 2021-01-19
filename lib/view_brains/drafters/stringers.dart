@@ -62,7 +62,6 @@ List<String> bzTypesStrings (BuildContext context){
   }
   return bzTypesStrings;
 }
-
 // ----------------------------------------------------------------------------
 String bzTypeSingleStringer (BuildContext context, BzType bzType){
   return
@@ -148,5 +147,30 @@ String functionStringer(Function function) {
 String removeFirstCharacterFromAString(String string){
   String stringWithoutFirstCharacter = string.substring(1);
   return stringWithoutFirstCharacter;
+}
+// ----------------------------------------------------------------------------
+String askHinter (BzType bzType){
+  String askHint =
+  bzType == BzType.Developer ? 'I\'m Looking for a property directly from the developer ...' :
+  bzType == BzType.Broker ? 'I\'m Looking for a property from brokers and re-sellers ...' :
+  bzType == BzType.Manufacturer ? 'I want to Manufacture or get big quantities ...' :
+  bzType == BzType.Supplier ? 'I\'m searching for a product ...' :
+  bzType == BzType.Designer ? 'I need consultation from a designer ...' :
+  bzType == BzType.Contractor ? 'I\'m Looking for a contractor to build a project ...' :
+  bzType == BzType.Artisan ? 'I want a craftsman to fix or build something ...' :
+  'Ask the Builders in your city';
+  return askHint;
+}
+// ----------------------------------------------------------------------------
+String bldrsTypePageTitle(BzType bzType) {
+  return
+    bzType == BzType.Developer ? 'Real-Estate Developers' :
+    bzType == BzType.Broker ? 'Real-Estate Brokers' :
+    bzType == BzType.Manufacturer ? 'Manufacturers' :
+    bzType == BzType.Supplier ? 'Suppliers & Distributors' :
+    bzType == BzType.Designer ? 'Architects, Engineers, Designers & Decorators' :
+    bzType == BzType.Contractor ? 'General & Speciality Contractors' :
+    bzType == BzType.Artisan ? 'Artisans & Craftsmen' :
+    'The Builders';
 }
 // ----------------------------------------------------------------------------

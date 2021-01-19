@@ -1,13 +1,13 @@
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
-import 'package:bldrs/views/widgets/buttons/user_bubble.dart';
+import 'package:bldrs/views/widgets/buttons/user_balloon.dart';
 import 'package:bldrs/views/widgets/in_pyramids/in_pyramids_items/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'property_search_criteria.dart';
 import 'status_buttons.dart';
 
-class StatusLabel extends StatelessWidget {
+class StatusBubble extends StatelessWidget {
 
   final List<Map<String, Object>> status;
   final UserType userType;
@@ -16,7 +16,7 @@ class StatusLabel extends StatelessWidget {
   final Function openEnumLister;
 
 
-  StatusLabel({
+  StatusBubble({
     @required this.status,
     @required this.userType,
     @required this.switchUserType,

@@ -1,10 +1,14 @@
+import 'package:bldrs/view_brains/drafters/aligners.dart';
+import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
-import 'package:bldrs/views/widgets/buttons/user_bubble.dart';
+import 'package:bldrs/view_brains/theme/iconz.dart';
+import 'package:bldrs/views/widgets/buttons/dream_box.dart';
+import 'package:bldrs/views/widgets/buttons/user_balloon.dart';
 import 'package:bldrs/views/widgets/in_pyramids/in_pyramids_items/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
-class UserLabel extends StatelessWidget {
+class UserBubble extends StatelessWidget {
   final UserType userType;
   final Function switchUserType;
   final String userPicture;
@@ -13,8 +17,9 @@ class UserLabel extends StatelessWidget {
   final String userCompanyName;
   final String userCity;
   final String userCountry;
+  final Function editProfileBtOnTap;
 
-  UserLabel({
+  UserBubble({
     @required this.userType,
     @required this.switchUserType,
     @required this.userPicture,
@@ -23,34 +28,45 @@ class UserLabel extends StatelessWidget {
     @required this.userCompanyName,
     @required this.userCity,
     @required this.userCountry,
+    @required this.editProfileBtOnTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = superScreenWidth(context);
+    double screenHeight = superScreenHeight(context);
     // double pageMargin = Ratioz.ddAppBarMargin * 2;
 
     // double abPadding = Ratioz.ddAppBarMargin;
     // double abHeight = screenWidth * 0.25;
     // double profilePicHeight = abHeight;
     // double abButtonsHeight = abHeight - (2 * abPadding);
+    double topPadding = screenHeight * 0.05;
+    double editProfileBtSize = topPadding ;
 
     return InPyramidsBubble(
 
       centered: true,
       columnChildren: <Widget>[
 
-        SizedBox(
-          width: screenWidth,
-          height: screenHeight * 0.05,
+        Container(
+          height: topPadding,
+          alignment: superInverseCenterAlignment(context),
+          child: DreamBox(
+            height: editProfileBtSize,
+            width: editProfileBtSize,
+            icon: Iconz.Gears,
+            iconSizeFactor: 0.6,
+            bubble: true,
+            boxFunction: editProfileBtOnTap,
+          ),
         ),
 
-        UserBubble(
+        UserBalloon(
           bubbleWidth: 80,
           userType: userType,
           userPic: userPicture,
-          onTap: (){},
+          onTap: (){print('balloon tap');},
         ),
 
         // --- USER NAME
