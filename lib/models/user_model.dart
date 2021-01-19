@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:bldrs/ambassadors/services/database.dart';
 // ---------------------------------------------------------------------------
 
 // class UserModel{
@@ -21,10 +22,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 // });
 // }
 // ---------------------------------------------------------------------------
+
+/// any changes in this model should reflect on this [DatabaseService]
 class UserModel {
-  final String iD;
+  final String userID;
   /// should we save a List<String> savedFlyersIDs or List<MoFlyer> savedFlyers 3alatool
-  List<String> savedFlyersIDs;
+  List<dynamic> savedFlyersIDs;
   /// should we save a List<String> followedBzIDs or List<MoBz> followedBzz 3alatool
   /// take care,, if 1000 people saved a single flyer,, this flyer's data will occupy db storage space
   /// totalStorage = (flyerDataSizeInBytes * n) where n is number of saves
@@ -36,44 +39,42 @@ class UserModel {
   /// the INITIALFETCH
   ///
   /// can as well be store like this [userFollowsMaps]
-  List<String> followedBzzIDs;
+  List<dynamic> followedBzzIDs;
 
   /// for the user in case became author to a bz, and to be called in flyer when
   /// showing the bzGallery of authors flyers
   /// if the user is not author, this will always be empty list,, which is stupid
   /// a3mel eh ?
-  List<String> publishedFlyersIDs;
+  List<dynamic> publishedFlyersIDs;
   final String name;
-  final String lastName;
   final String pic;
   final String title;
   final String city;
   final String country;
   final bool whatsAppIsOn;
-  /// same as [bzContacts] in [BzDocument]
-  final List<Map<String, Object>> contacts;
+  // /// same as [bzContacts] in [BzDocument]
+  // final List<Map<String, Object>> contacts;
   final GeoPoint position;
-  final DateTime joinedAt;
+  // final DateTime joinedAt;
   final String gender;
   final String language;
   final int userStatus;
 
 
   UserModel({
-    this.iD,
+    this.userID,
     this.savedFlyersIDs,
     this.followedBzzIDs,
     this.publishedFlyersIDs,
     this.name,
-    this.lastName,
     this.pic,
     this.title,
     this.city,
     this.country,
     this.whatsAppIsOn,
-    this.contacts,
+    // this.contacts,
     this.position,
-    this.joinedAt,
+    // this.joinedAt,
     this.gender,
     this.language,
     this.userStatus,
@@ -86,5 +87,21 @@ class UserModel {
 List<Map<String,Object>> userFollowsMaps = [
   {'bzID' : ''  ,'followTime' : ''  ,'followState' : 'following'  ,'unFollowTime' : ''},
   {'bzID' : ''  ,'followTime' : ''  ,'followState' : 'unFollowed' ,'unFollowTime' : ''},
+];
+// ---------------------------------------------------------------------------
+List<Map<String,Object>> _bzContactsSample = [
+  {'type' : 'whatsapp'  , 'value' : '01554555107'             , 'show' : true    },
+  {'type' : 'email'     , 'value' : 'rageh-@hotmail.com'      , 'show' : true    },
+  {'type' : 'website'   , 'value' : 'bldrs.net'               , 'show' : true    },
+  {'type' : 'facebook'  , 'value' : 'www.facebook.com/rageh'  , 'show' : true    },
+  {'type' : 'twitter'   , 'value' : 'www.twitter.com/rageh'   , 'show' : true    },
+  {'type' : 'linkedIn'  , 'value' : 'www.linkedIn.com/rageh'  , 'show' : true    },
+  {'type' : 'pinterest' , 'value' : 'www.pinterest.com/rageh' , 'show' : false   },
+  {'type' : 'tiktok'    , 'value' : 'www.tiktok.com/rageh'    , 'show' : false   },
+  {'type' : 'instagram' , 'value' : 'www.instagram.com/rageh' , 'show' : true    },
+  {'type' : 'snapchat'  , 'value' : 'www.snapchat.com/rageh'  , 'show' : false   },
+  {'type' : 'email'     , 'value' : 'rageh.az@gmail.com'      , 'show' : true    },
+  {'type' : 'phone'     , 'value' : '07775000'                , 'show' : true    },
+  {'type' : '3afreet'   , 'value' : 'www.3afreet.com/rageh'   , 'show' : false   },
 ];
 // ---------------------------------------------------------------------------

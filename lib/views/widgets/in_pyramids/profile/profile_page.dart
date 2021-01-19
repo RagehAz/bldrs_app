@@ -1,13 +1,14 @@
 import 'package:bldrs/view_brains/theme/iconz.dart';
-import 'package:bldrs/views/widgets/buttons/user_bubble.dart';
+import 'package:bldrs/views/widgets/buttons/user_balloon.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart' show PyramidsHorizon;
 import 'package:flutter/material.dart';
-import 'profile_items/bldrs_following.dart';
-import 'profile_items/user_contacts.dart';
-import 'profile_items/user_label.dart';
-import 'profile_items/status_label.dart';
+import 'profile_items/following_bzz_bubble.dart';
+import 'profile_items/contacts_bubble.dart';
+import 'profile_items/user_bubble.dart';
+import 'profile_items/status_bubble.dart';
+import 'profile_items/edit_profile_bubble.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
 
   final List<Map<String, Object>> status;
   final UserType userType;
@@ -25,6 +26,20 @@ class ProfilePage extends StatelessWidget {
     @required this.openEnumLister,
 });
 
+  @override
+  _ProfilePageState createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  bool editMode = false;
+
+
+
+  void editProfile(){
+    setState(() {
+      editMode = !editMode;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,31 +53,41 @@ class ProfilePage extends StatelessWidget {
     // double abButtonsHeight = abHeight - (2 * abPadding);
 
     return SliverList(
-      delegate: SliverChildListDelegate([
+      delegate:
+      editMode == true ?
 
-        UserLabel(
-          userType: userType,
-          switchUserType: switchUserType,
+      SliverChildListDelegate([
+        EditProfileBubbles(),
+      ])
+
+      :
+
+      SliverChildListDelegate([
+
+        UserBubble(
+          userType: widget.userType,
+          switchUserType: widget.switchUserType,
           userPicture: Iconz.DumAuthorPic,
           userName: 'Rageh Mohamed',
           userJobTitle: 'Fucking CEO',
           userCompanyName: 'Bldrs.net',
           userCity: 'Cairo',
           userCountry: 'Egypt',
+          editProfileBtOnTap: editProfile,
         ),
 
         // --- STATUS LABEL : STATUS SURVEY WILL BE IN VERSION 2 ISA
-        StatusLabel(
-          status: status,
-          switchUserType: switchUserType,
-          userType: userType,
-          currentUserType: currentUserType,
-          openEnumLister: openEnumLister,
+        StatusBubble(
+          status: widget.status,
+          switchUserType: widget.switchUserType,
+          userType: widget.userType,
+          currentUserType: widget.currentUserType,
+          openEnumLister: widget.openEnumLister,
         ),
 
-        UserContacts(),
+        ContactsBubble(),
 
-        BldrsFollowing(
+        FollowingBzzBubble(
           // bzLogos: bzLogos,
         ),
 

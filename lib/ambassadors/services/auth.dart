@@ -1,5 +1,8 @@
+import 'package:bldrs/models/enums/enum_contact_type.dart';
 import 'package:bldrs/models/user_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:bldrs/ambassadors/services/database.dart';
 
 class AuthService{
 
@@ -9,7 +12,7 @@ class AuthService{
   UserModel _convertFirebaseUserToUserModel(User user){
     return user == null ? null :
     UserModel(
-      iD: user.uid,
+      userID: user.uid,
       // savedFlyersIDs: ,
       // followedBzzIDs: ,
       // publishedFlyersIDs: ,
@@ -66,6 +69,33 @@ Future signInAnon() async {
     try {
       UserCredential result = await _auth.createUserWithEmailAndPassword(email: email.trim(), password: password);
       User user = result.user;
+
+      // create a new firestore document for the user with the userID
+      await DatabaseService(userID: user.uid).updateUserData(
+        userID : user.uid                 ,      // userID
+        savedFlyersIDs : ['savedFlyersIDs']             ,      // savedFlyersIDs
+        followedBzzIDs : ['followedBzzIDs']             ,      // followedBzzIDs
+        publishedFlyersIDs : ['publishedFlyersIDs']         ,      // publishedFlyersIDs
+        name : user.displayName           ,      // name
+        pic : user.photoURL               ,      // pic
+        title : 'title'                   ,      // title
+        city : 'city'                     ,      // city
+        country : 'country'               ,      // country
+        whatsAppIsOn : false              ,      // whatsAppIsOn
+        // [
+        //   {
+        //     'type' : '${cipherContactType(ContactType.Email)}',
+        //     'value' : '${user.email}',
+        //     'show' : true
+        //   },
+        // ]                      ,      // contacts
+        position : GeoPoint(0, 0)         ,      // position
+        // DateTime.now()         ,      // joinedAt
+        gender : 'gender'                 ,      // gender
+        language : 'language'             ,      // language
+        userStatus : 1                    ,      // userStatus
+      );
+
       return _convertFirebaseUserToUserModel(user);
     } catch(error) {
       print('auth error is : ${error.toString()}');

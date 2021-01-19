@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'demo_localization.dart';
 
-
 //
 // --- BEHOLD ---
 //
@@ -17,7 +16,6 @@ import 'demo_localization.dart';
 // --- TAWAKAL 3ALA ALLAH ---
 //
 
-
 String getTranslated(BuildContext context, String key){
   return DemoLocalization.of(context).getTranslatedValue(key);
 }
@@ -30,7 +28,6 @@ const String Russian = 'ru';
 const String Turkish = 'tr';
 const String Italian = 'it';
 
-
 const String Language_Code = 'languageCode';
 
 Future<Locale> setLocale(String languageCode) async{
@@ -42,36 +39,14 @@ Future<Locale> setLocale(String languageCode) async{
 Locale _locale(String languageCode){
     Locale _temp;
     switch(languageCode){
-      case English:
-        _temp = Locale(languageCode, 'US');
-        break;
-
-      case Arabic:
-        _temp = Locale(languageCode, 'EG');
-        break;
-
-      case Spanish:
-        _temp = Locale(languageCode, 'ES');
-        break;
-
-      case French:
-        _temp = Locale(languageCode, 'FR');
-        break;
-
-      case Russian:
-        _temp = Locale(languageCode, 'RU');
-        break;
-
-      case Turkish:
-        _temp = Locale(languageCode, 'TR');
-        break;
-
-      case Italian:
-        _temp = Locale(languageCode, 'IT');
-        break;
-
-      default:
-        _temp = Locale(English, 'US');
+      case English:   _temp = Locale(languageCode, 'US'); break;
+      case Arabic:    _temp = Locale(languageCode, 'EG'); break;
+      case Spanish:   _temp = Locale(languageCode, 'ES'); break;
+      case French:    _temp = Locale(languageCode, 'FR'); break;
+      case Russian:   _temp = Locale(languageCode, 'RU'); break;
+      case Turkish:   _temp = Locale(languageCode, 'TR'); break;
+      case Italian:   _temp = Locale(languageCode, 'IT'); break;
+      default:        _temp = Locale(English, 'US');
     }
     return _temp;
 }

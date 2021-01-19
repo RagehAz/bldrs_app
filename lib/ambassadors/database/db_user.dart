@@ -5,7 +5,7 @@ import 'db_slide.dart';
 final List<UserModel> dbUsers = [
 
   UserModel(
-    iD: 'u01',
+    userID: 'u01',
     name: 'Ahmad Gamal',
     pic: Iconz.DumBzPNG,
     title: 'Author',
@@ -15,7 +15,7 @@ final List<UserModel> dbUsers = [
   ),
 
   UserModel(
-    iD: 'u02',
+    userID: 'u02',
     name: 'Ibrahim Mohsen',
     pic: Iconz.DumBzPNG,
     title: 'Author',
@@ -25,7 +25,7 @@ final List<UserModel> dbUsers = [
   ),
 
   UserModel(
-    iD: 'u03',
+    userID: 'u03',
     name: 'James Wallberg Jr.',
     pic: Dumz.XXburj_khalifa_author,
     title: 'Business development Manager',
@@ -35,7 +35,7 @@ final List<UserModel> dbUsers = [
   ),
 
   UserModel(
-    iD: 'u04',
+    userID: 'u04',
     name: 'Mahmoud Abou El Hassan',
     pic: Dumz.XXabohassan_author,
     title: 'Real Estate Consultant',
@@ -45,7 +45,7 @@ final List<UserModel> dbUsers = [
   ),
 
   UserModel(
-    iD: 'u05',
+    userID: 'u05',
     name: 'محمد احمد زهران',
     pic: Dumz.XXzah_author,
     title: 'CEO',
@@ -55,7 +55,7 @@ final List<UserModel> dbUsers = [
   ),
 
   UserModel(
-    iD: 'u06',
+    userID: 'u06',
     name: 'Eng. Mohamed Attia',
     pic: Iconz.DumBzPNG,
     title: 'Engineer',
@@ -65,7 +65,7 @@ final List<UserModel> dbUsers = [
   ),
 
   UserModel(
-    iD: 'u07',
+    userID: 'u07',
     name: 'George Zenhom',
     pic: Iconz.DumBzPNG,
     title: 'Manager',
@@ -75,7 +75,7 @@ final List<UserModel> dbUsers = [
   ),
 
   UserModel(
-    iD: 'u08',
+    userID: 'u08',
     name: 'Micheal Morad',
     pic: Iconz.DumBzPNG,
     title: 'Marketting manager',
@@ -85,7 +85,7 @@ final List<UserModel> dbUsers = [
   ),
 
   UserModel(
-    iD: 'u09',
+    userID: 'u09',
     name: 'Micheal Morad',
     pic: Iconz.DumBzPNG,
     title: 'Marketing executive',
@@ -95,7 +95,7 @@ final List<UserModel> dbUsers = [
   ),
 
   UserModel(
-    iD: 'u10',
+    userID: 'u10',
     name: 'Alaa btcino',
     pic: Iconz.DumBzPNG,
     title: 'Manager',
@@ -105,8 +105,8 @@ final List<UserModel> dbUsers = [
   ),
 
   UserModel(
-    iD: 'u11',
-    name: 'David Watson',
+    userID: 'u11',
+    name: 'DavuserID Watson',
     pic: Iconz.DumBzPNG,
     title: 'Manager',
     city: 'London',
@@ -115,7 +115,7 @@ final List<UserModel> dbUsers = [
   ),
 
   UserModel(
-    iD: 'u12',
+    userID: 'u12',
     name: 'Essam Alamonya',
     pic: Iconz.DumBzPNG,
     title: 'Modeer',
@@ -125,7 +125,7 @@ final List<UserModel> dbUsers = [
   ),
 
   UserModel(
-    iD: 'u13',
+    userID: 'u13',
     name: 'Sayyed rady',
     pic: Iconz.DumBzPNG,
     title: 'Boss',
@@ -135,7 +135,7 @@ final List<UserModel> dbUsers = [
   ),
 
   UserModel(
-    iD: 'u14',
+    userID: 'u14',
     name: 'Shady mohamed',
     pic: Iconz.DumBzPNG,
     title: 'Engineer',
@@ -145,7 +145,7 @@ final List<UserModel> dbUsers = [
   ),
 
   UserModel(
-    iD: 'u15',
+    userID: 'u15',
     name: 'Mona Hussein',
     pic: Dumz.XXmhdh_author,
     title: 'Founder & CEO',
@@ -155,7 +155,7 @@ final List<UserModel> dbUsers = [
   ),
 
   UserModel(
-    iD: 'u16',
+    userID: 'u16',
     name: 'Hany Saad',
     pic: Dumz.XXhs_author,
     title: 'Founder & CEO',
@@ -165,7 +165,7 @@ final List<UserModel> dbUsers = [
   ),
 
   UserModel(
-    iD: 'u17',
+    userID: 'u17',
     name: 'Hayam Hendi',
     pic: Iconz.DumBzPNG,
     title: 'Office Manager',
@@ -175,7 +175,7 @@ final List<UserModel> dbUsers = [
   ),
 
   UserModel(
-    iD: 'u18',
+    userID: 'u18',
     name: 'Fixawy team',
     pic: Iconz.DumBzPNG,
     title: 'Media Team',
@@ -185,17 +185,17 @@ final List<UserModel> dbUsers = [
   ),
 
   UserModel(
-    iD: 'u19',
+    userID: 'u19',
     name: 'Ahmad Hamada Ahmad',
     pic: Iconz.DumBzPNG,
-    title: 'President',
+    title: 'PresuserIDent',
     city: 'Cairo',
     country: 'Egypt',
     whatsAppIsOn: true,
   ),
 
   UserModel(
-    iD: 'u20',
+    userID: 'u20',
     name: 'Nazly Noman EL Mohammady',
     pic: Dumz.XXnazly_author,
     title: 'Real Estate Agent',
@@ -205,7 +205,7 @@ final List<UserModel> dbUsers = [
   ),
 
   UserModel(
-    iD: 'u21',
+    userID: 'u21',
     name: 'Rageh El Azzazy',
     pic: Iconz.DumAuthorPic,
     title: 'Founder & CEO',
@@ -214,13 +214,13 @@ final List<UserModel> dbUsers = [
     whatsAppIsOn: true,
     // position: ,
     // contacts: ,
-    // followedBzzIDs: ,
+    // followedBzzuserIDs: ,
     // gender: ,
     // joinedAt: ,
     // language: ,
     // lastName: ,
-    // publishedFlyersIDs: ,
-    // savedFlyersIDs: ,
+    // publishedFlyersuserIDs: ,
+    // savedFlyersuserIDs: ,
     // userStatus: ,
   ),
 

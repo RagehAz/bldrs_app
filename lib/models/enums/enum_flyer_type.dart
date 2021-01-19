@@ -17,6 +17,7 @@ List<FlyerType> flyerTypesList = [
   FlyerType.Equipment,
   FlyerType.General,
 ];
+
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
 FlyerType decipherFlyerType (int x){
   switch (x){

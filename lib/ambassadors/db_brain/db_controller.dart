@@ -81,7 +81,7 @@ List<ContactModel>    xWebsites         = emptyDB? [] : dbWebsites;
 // --- USER FETCHERS
 
 UserModel getUserByUserID(String userID){
-  UserModel userData = xUsers.singleWhere((user) => user.iD == userID, orElse: ()=> null);
+  UserModel userData = xUsers.singleWhere((user) => user.userID == userID, orElse: ()=> null);
   return userData;
 }
 // ----------------------------------------------------------------------------

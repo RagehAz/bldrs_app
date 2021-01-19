@@ -56,3 +56,13 @@ products                :   pro.hatAllCoFlyers
 product                 :   flyerData.....
 ProductItem             :   FlyerProvided.....
 ProductsGrid            :   ProviderTest.....
+
+
+--------------------------------------------------------------------
+NET NINJA BREWS TERMS TO BLDRS
+
+    brews               : userStream
+    database            : database
+    brewCollection      : usersCollection
+    'brews'             : 'users'
+    Brew()              : UserModel()

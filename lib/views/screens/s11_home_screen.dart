@@ -6,8 +6,9 @@ import 'package:bldrs/views/widgets/ask/ask.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/flyer/collection/flyers_compact_collection.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -28,14 +29,6 @@ class _HomeScreenState extends State<HomeScreen> {
     // List<CoFlyer> craftFlyers     =   pro.hatCoFlyersByFlyerType(FlyerType.Craft);
     // List<CoFlyer> equipmentFlyers =   pro.hatCoFlyersByFlyerType(FlyerType.Equipment);
 // ----------------------------------------------------------------------------
-    List<FlyerType> collectionTypes = [
-    FlyerType.Property,
-    FlyerType.Design,
-    FlyerType.Product,
-    FlyerType.Project,
-    FlyerType.Craft,
-    FlyerType.Equipment,
-    ];
 // ----------------------------------------------------------------------------
     return MainLayout(
       pyramids: Iconz.PyramidsYellow,
@@ -58,11 +51,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         tappingAskInfo: (){print('Ask info is tapped aho');},
                       ),
 
-                      ...List<Widget>.generate(
-                          collectionTypes.length,
+                      ...List<Widget>.generate(flyerTypesList.length,
                               (index){
                             return
-                              FlyersCompactCollection(flyersType: collectionTypes[index]);
+                              FlyersCompactCollection(flyersType: flyerTypesList[index]);
                           }
                       ),
 
