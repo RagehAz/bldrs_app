@@ -2,7 +2,6 @@ import 'package:bldrs/ambassadors/services/auth.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
 import 'package:bldrs/view_brains/router/route_names.dart';
-import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/views/widgets/artworks/bldrs_name_logo_slogan.dart';
