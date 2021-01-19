@@ -231,9 +231,9 @@ class _SuperTextFieldState extends State<SuperTextField> {
             enabledBorder: superOutlineInputBorder(Colorz.Nothing),
 
             errorStyle: superTextStyle(Colorz.BloodRed, 0.7),
-            focusedErrorBorder: superOutlineInputBorder(Colorz.BloodRed),
+            focusedErrorBorder: superOutlineInputBorder(Colorz.YellowSmoke),
 
-            errorBorder: superOutlineInputBorder(Colorz.Facebook),
+            errorBorder: superOutlineInputBorder(Colorz.BloodRedPlastic),
             border: superOutlineInputBorder(Colorz.LinkedIn),
             disabledBorder: superOutlineInputBorder(Colorz.Grey),
             counter: widget.counterIsOn ? null : Offstage(),

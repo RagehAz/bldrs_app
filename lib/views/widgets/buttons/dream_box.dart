@@ -36,6 +36,8 @@ class DreamBox extends StatelessWidget {
   final Color splashColor;
   final Color underLineColor;
   final Color underLineLabelColor;
+  final Function onTapDown;
+  final Function onTapUp;
 
   DreamBox({
     @required this.height,
@@ -65,6 +67,8 @@ class DreamBox extends StatelessWidget {
     this.splashColor = Colorz.WhiteSmoke,
     this.underLineColor = Colorz.White,
     this.underLineLabelColor = Colorz.WhiteAir,
+    this.onTapDown,
+    this.onTapUp,
   });
 
   @override
@@ -350,9 +354,13 @@ class DreamBox extends StatelessWidget {
                             height: height,
                             child: Material(
                               color: Colorz.Nothing,
-                              child: InkWell(
-                                splashColor: splashColor,
-                                onTap: inActiveMode == true ? (){} : boxFunction,
+                              child: GestureDetector(
+                                  onTapDown: inActiveMode == true ? (TapDownDetails details){} : (TapDownDetails details) => onTapDown(),
+                                  onTapUp: inActiveMode == true ? (TapUpDetails details){} : (TapUpDetails details) => onTapUp(),
+                                child: InkWell(
+                                  splashColor: splashColor,
+                                  onTap: inActiveMode == true ? (){} : boxFunction,
+                                ),
                               ),
                             ),
                           ),

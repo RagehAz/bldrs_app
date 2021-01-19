@@ -35,7 +35,7 @@ Widget allUsersDreamList = DreamList(
   itemBuilder: (BuildContext c, int x) =>
       DreamTile(
         index: x,
-        info: '${allUsers[x]?.iD}: ${allUsers[x]?.city}, whatsapp: ${allUsers[x]?.whatsAppIsOn}',
+        info: '${allUsers[x]?.userID}: ${allUsers[x]?.city}, whatsapp: ${allUsers[x]?.whatsAppIsOn}',
         icon: allUsers[x]?.pic,
         verse: allUsers[x]?.name,
         secondLine: '${allUsers[x]?.title}',

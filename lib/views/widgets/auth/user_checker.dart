@@ -8,7 +8,7 @@ class UserChecker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final userProvided = Provider.of<UserModel>(context);
-    print('user id : ${userProvided?.iD}');
+    print('user id : ${userProvided?.userID}');
 
     return
       userProvided == null ?

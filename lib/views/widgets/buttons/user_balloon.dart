@@ -20,14 +20,14 @@ enum UserType {
   SellingUser,
 }
 
-class UserBubble extends StatelessWidget {
+class UserBalloon extends StatelessWidget {
   final UserType userType;
   final String userPic;
   final double bubbleWidth;
   final bool blackAndWhite;
   final Function onTap;
 
-  UserBubble({
+  UserBalloon({
     @required this.userType,
     @required this.userPic,
     @required this.bubbleWidth,

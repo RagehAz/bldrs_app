@@ -92,7 +92,7 @@ class SuperVerse extends StatelessWidget {
     double labelCorner = labelColor == null ? 0 : labelCornerValues;
     double sidePaddingValues = superVerseSidePaddingValues(context, size);
     double sidePaddings = labelColor == null ? 0 : sidePaddingValues;
-    double labelHeight = superVerseRealHeight(context, size, scaleFactor);
+    double labelHeight = superVerseRealHeight(context, size, scaleFactor, labelColor);
     // --- DOTS -----------------------------------------------
     double dotSize = verseSizeValue * 0.3;
     // --- RED DOT -----------------------------------------------
