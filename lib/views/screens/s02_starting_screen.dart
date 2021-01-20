@@ -30,6 +30,7 @@ class StartingScreenState extends State<StartingScreen> {
 
     return MainLayout(
       pyramids: Iconz.PyramidzYellow,
+      sky: Sky.Black,
       appBarType: AppBarType.Localizer,
       layoutWidget: Stack(
         children: <Widget>[

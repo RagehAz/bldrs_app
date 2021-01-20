@@ -2,6 +2,7 @@ import 'package:bldrs/view_brains/localization/localization_constants.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'scalers.dart';
 // === === === === === === === === === === === === === === === === === === ===
 double superVerseSizeValue (BuildContext context, int verseSize, double scalingFactor){
@@ -146,3 +147,19 @@ double superVerseRealHeight(BuildContext context, int verseSize, double scalingF
   return verseHeight;
 }
 // === === === === === === === === === === === === === === === === === === ===
+Future<void> handlePaste(TextSelectionDelegate delegate) async {
+  final TextEditingValue value = delegate.textEditingValue; // Snapshot the input before using `await`.
+  final ClipboardData data = await Clipboard.getData(Clipboard.kTextPlain);
+  if (data != null) {
+    delegate.textEditingValue = TextEditingValue(
+      text: value.selection.textBefore(value.text)
+          + data.text
+          + value.selection.textAfter(value.text),
+      selection: TextSelection.collapsed(
+          offset: value.selection.start + data.text.length
+      ),
+    );
+  }
+  delegate.bringIntoView(delegate.textEditingValue.selection.extent);
+  delegate.hideToolbar();
+}
