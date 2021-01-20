@@ -1,8 +1,8 @@
 import 'package:bldrs/ambassadors/services/auth.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
+import 'package:bldrs/views/widgets/bubbles/text_field_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
-import 'package:bldrs/views/widgets/textings/text_field_bubble.dart';
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
