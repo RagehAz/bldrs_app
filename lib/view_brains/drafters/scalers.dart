@@ -89,3 +89,10 @@ double superDeviceRatio(BuildContext context){
   return deviceRatio;
 }
 // === === === === === === === === === === === === === === === === === === ===
+double superBubbleClearWidth(BuildContext context){
+  double screenWidth = superScreenWidth(context);
+  double bubbleMargins = Ratioz.ddAppBarMargin * 2;
+  double bubblePaddings = bubbleMargins;
+  double inBubbleClearWidth = screenWidth - bubbleMargins - bubblePaddings;
+  return inBubbleClearWidth;
+}

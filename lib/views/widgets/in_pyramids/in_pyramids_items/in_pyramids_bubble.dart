@@ -1,3 +1,4 @@
+import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/localization/localization_constants.dart';
 import 'package:bldrs/view_brains/router/route_names.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
@@ -21,11 +22,10 @@ final Color bubbleColor;
   @override
   Widget build(BuildContext context) {
 
-    double screenWidth = MediaQuery.of(context).size.width;
     double pageMargin = Ratioz.ddAppBarMargin ;
 
     return Container(
-      width: screenWidth,
+      width: superBubbleClearWidth(context) + 2*pageMargin,
       margin: EdgeInsets.only(right: pageMargin, left: pageMargin, bottom: pageMargin),
       padding: EdgeInsets.all(pageMargin),
       decoration: BoxDecoration(

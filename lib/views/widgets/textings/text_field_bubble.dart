@@ -1,4 +1,5 @@
 import 'package:bldrs/view_brains/drafters/aligners.dart';
+import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/drafters/texters.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
@@ -32,6 +33,8 @@ class TextFieldBubble extends StatelessWidget {
   final Function actionBtFunction;
   final Function horusOnTapDown;
   final Function horusOnTapUp;
+  final Function horusOnTapCancel;
+  final String leadingIcon;
 
   TextFieldBubble({
     @required this.title,
@@ -56,15 +59,20 @@ class TextFieldBubble extends StatelessWidget {
     this.actionBtFunction,
     this.horusOnTapDown,
     this.horusOnTapUp,
+    this.horusOnTapCancel,
+    this.leadingIcon,
   });
 
   @override
   Widget build(BuildContext context) {
 
-    int titleVerseSize = 3;
+    int titleVerseSize = 2;
     double actionBtSize = superVerseRealHeight(context, titleVerseSize, 1, null);
     double actionBtCorner = actionBtSize * 0.4;
-
+    double leadingIconSize = 35;
+    double leadingAndFieldSpacing = 5;
+    double bubbleClearWidth = superBubbleClearWidth(context);
+    double fieldWidth = leadingIcon == null ? bubbleClearWidth : bubbleClearWidth - leadingIconSize - leadingAndFieldSpacing;
 
     return
       InPyramidsBubble(
@@ -111,21 +119,49 @@ class TextFieldBubble extends StatelessWidget {
                 children: <Widget>[
 
                   // --- TEXT FIELD
-                  SuperTextField(
-                    fieldIsFormField: fieldIsFormField,
-                    hintText: hintText,
-                    counterIsOn: counterIsOn,
-                    keyboardTextInputType: keyboardTextInputType,
-                    maxLines: maxLines,
-                    maxLength: maxLength,
-                    textController: textController,
-                    onChanged: textOnChanged,
-                    obscured: obscured == null ? false : obscured,
-                    onSaved: onSaved,
-                    keyboardTextInputAction: keyboardTextInputAction,
-                    initialValue: initialTextValue,
-                    validator: validator,
-                    inputSize: 2,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+
+                      leadingIcon == null ? Container() :
+                      DreamBox(
+                        height: 35,
+                        width: 35,
+                        icon: leadingIcon,
+                        iconSizeFactor: leadingIcon == Iconz.ComWebsite ||
+                            leadingIcon == Iconz.ComEmail ||
+                            leadingIcon == Iconz.ComPhone ?
+                        0.6 : 1,
+                      ),
+
+                      leadingIcon == null ? Container() :
+                      Container(
+                        width: 5,
+                      ),
+
+                      Container(
+                        width: fieldWidth,
+                        child: SuperTextField(
+                          fieldIsFormField: fieldIsFormField,
+                          hintText: hintText,
+                          counterIsOn: counterIsOn,
+                          keyboardTextInputType: keyboardTextInputType,
+                          maxLines: maxLines,
+                          maxLength: maxLength,
+                          textController: textController,
+                          onChanged: textOnChanged,
+                          obscured: obscured == null ? false : obscured,
+                          onSaved: onSaved,
+                          keyboardTextInputAction: keyboardTextInputAction,
+                          initialValue: initialTextValue,
+                          validator: validator,
+                          inputSize: 2,
+
+                        ),
+                      ),
+
+                    ],
                   ),
 
                   // --- LOADING INDICATOR
@@ -138,6 +174,7 @@ class TextFieldBubble extends StatelessWidget {
                     obscured: obscured,
                     onTapDown: horusOnTapDown,
                     onTapUp: horusOnTapUp,
+                    onTapCancel: horusOnTapCancel,
                     verseSize: 2,
                   ),
 
@@ -166,12 +203,14 @@ class ShowPassword extends StatelessWidget {
   final bool obscured;
   final Function onTapDown;
   final Function onTapUp;
+  final Function onTapCancel;
   final int verseSize;
 
   ShowPassword({
     this.obscured = false,
     this.onTapDown,
     this.onTapUp,
+    this.onTapCancel,
     this.verseSize = 3,
 });
 
@@ -187,6 +226,8 @@ class ShowPassword extends StatelessWidget {
       bubble: false,
       onTapDown: onTapDown == null ? (){} : onTapDown,
       onTapUp: onTapUp == null ? (){} : onTapUp,
+      onTapCancel: onTapCancel == null ? (){} : onTapCancel,
+      boxFunction: onTapCancel == null ? (){} : onTapCancel,
       corners: superVerseLabelCornerValue(context, verseSize),
     );
   }
