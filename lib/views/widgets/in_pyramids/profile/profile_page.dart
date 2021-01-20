@@ -1,12 +1,13 @@
 import 'package:bldrs/view_brains/theme/iconz.dart';
+import 'package:bldrs/views/widgets/bubbles/contacts_bubble.dart';
+import 'package:bldrs/views/widgets/bubbles/following_bzz_bubble.dart';
+import 'package:bldrs/views/widgets/bubbles/status_bubble.dart';
+import 'package:bldrs/views/widgets/bubbles/user_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/user_balloon.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart' show PyramidsHorizon;
 import 'package:flutter/material.dart';
-import 'profile_items/following_bzz_bubble.dart';
-import 'profile_items/contacts_bubble.dart';
-import 'profile_items/user_bubble.dart';
-import 'profile_items/status_bubble.dart';
-import 'profile_items/edit_profile_bubble.dart';
+
+import 'edit_profile_page.dart';
 
 class ProfilePage extends StatefulWidget {
 
@@ -57,7 +58,7 @@ class _ProfilePageState extends State<ProfilePage> {
       editMode == true ?
 
       SliverChildListDelegate([
-        EditProfileBubbles(
+        EditProfilePage(
           cancelEdits: switchEditProfile,
         ),
       ])
