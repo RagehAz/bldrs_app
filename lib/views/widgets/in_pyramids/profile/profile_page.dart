@@ -35,7 +35,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
 
 
-  void editProfile(){
+  void switchEditProfile(){
     setState(() {
       editMode = !editMode;
     });
@@ -57,7 +57,9 @@ class _ProfilePageState extends State<ProfilePage> {
       editMode == true ?
 
       SliverChildListDelegate([
-        EditProfileBubbles(),
+        EditProfileBubbles(
+          cancelEdits: switchEditProfile,
+        ),
       ])
 
       :
@@ -73,7 +75,7 @@ class _ProfilePageState extends State<ProfilePage> {
           userCompanyName: 'Bldrs.net',
           userCity: 'Cairo',
           userCountry: 'Egypt',
-          editProfileBtOnTap: editProfile,
+          editProfileBtOnTap: switchEditProfile,
         ),
 
         // --- STATUS LABEL : STATUS SURVEY WILL BE IN VERSION 2 ISA

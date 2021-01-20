@@ -201,7 +201,6 @@ class _SuperTextFieldState extends State<SuperTextField> {
           validator: widget.validator,
           controller: widget.textController,
           onChanged: widget.onChanged,
-
           onTap: () {
             print('onTap is tapped');
           },

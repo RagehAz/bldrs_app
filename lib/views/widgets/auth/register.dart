@@ -87,6 +87,12 @@ class _RegisterState extends State<Register> {
     });
   }
 // ---------------------------------------------------------------------------
+  void _horusOnTapCancel(){
+    setState(() {
+      _passwordObscured = true;
+    });
+  }
+// ---------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -142,6 +148,7 @@ class _RegisterState extends State<Register> {
             obscured: _passwordObscured,
             horusOnTapDown: _horusOnTapDown,
             horusOnTapUp: _horusOnTapUp,
+            horusOnTapCancel: _horusOnTapCancel,
             initialTextValue: _password,
             textOnChanged: (val){
               widget.passwordTextOnChanged(val);
@@ -170,12 +177,14 @@ class _RegisterState extends State<Register> {
             obscured: _passwordObscured,
             horusOnTapDown: _horusOnTapDown,
             horusOnTapUp: _horusOnTapUp,
+            horusOnTapCancel: _horusOnTapCancel,
             initialTextValue: null,
             textOnChanged: (val) => _confirmPasswordOnChanged(val),
             validator: (val){
               return
                 val.isEmpty ? 'Confirm password' :
                 _confirmPassword != _password ? 'passwords don\'t match' :
+                val.length < 6 ? 'Password confirmation is less than 6 characters long' :
               null;
 
             },
