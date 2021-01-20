@@ -53,6 +53,7 @@ dependencies:
   video_player: ^1.0.1
   email_validator: ^1.0.6
   flutter_spinkit: ^4.1.2+1
+  clipboard: ^0.1.2+8
 
 dev_dependencies:
   flutter_test:

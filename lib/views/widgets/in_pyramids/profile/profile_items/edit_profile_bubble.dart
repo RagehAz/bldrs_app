@@ -1,12 +1,14 @@
+import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:bldrs/views/widgets/textings/text_field_bubble.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x20_ad_bz.dart';
+import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 
-class EditProfileBubbles extends StatelessWidget {
+class EditProfileBubbles extends StatefulWidget {
   final Function cancelEdits;
   final Function confirmEdits;
 
@@ -14,6 +16,13 @@ class EditProfileBubbles extends StatelessWidget {
     this.cancelEdits,
     this.confirmEdits,
 });
+
+  @override
+  _EditProfileBubblesState createState() => _EditProfileBubblesState();
+}
+
+class _EditProfileBubblesState extends State<EditProfileBubbles> {
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -38,7 +47,7 @@ class EditProfileBubbles extends StatelessWidget {
                 width: 35,
                 icon: Iconz.XLarge,
                 iconSizeFactor: 0.6,
-                boxFunction: cancelEdits,
+                boxFunction: widget.cancelEdits,
               )
             ],
           ),
@@ -50,8 +59,6 @@ class EditProfileBubbles extends StatelessWidget {
         //   addBtFunction: _takeGalleryPicture,
         //   deleteLogoFunction: _deleteLogo,
         // ),
-
-
 
         TextFieldBubble(
           title: 'Name',
@@ -90,49 +97,40 @@ class EditProfileBubbles extends StatelessWidget {
           leadingIcon: Iconz.ComPhone,
         ),
 
-        TextFieldBubble(
+        ContactFieldBubble(
           title: 'WebSite',
-          keyboardTextInputType: TextInputType.url,
           leadingIcon: Iconz.ComWebsite,
         ),
 
-        TextFieldBubble(
+        ContactFieldBubble(
           title: 'Facebook account',
-          keyboardTextInputType: TextInputType.url,
           leadingIcon: Iconz.ComFacebook,
         ),
 
-        TextFieldBubble(
+        ContactFieldBubble(
           title: 'Instagram account',
-          keyboardTextInputType: TextInputType.url,
           leadingIcon: Iconz.ComInstagram,
         ),
 
-        TextFieldBubble(
+        ContactFieldBubble(
           title: 'Linkedin account',
-          keyboardTextInputType: TextInputType.url,
           leadingIcon: Iconz.ComLinkedin,
         ),
 
-        TextFieldBubble(
+        ContactFieldBubble(
           title: 'YouTube channel',
-          keyboardTextInputType: TextInputType.url,
           leadingIcon: Iconz.ComYoutube,
         ),
 
-        TextFieldBubble(
+        ContactFieldBubble(
           title: 'Pinterest',
-          keyboardTextInputType: TextInputType.url,
           leadingIcon: Iconz.ComPinterest,
         ),
 
-        TextFieldBubble(
+        ContactFieldBubble(
           title: 'TikTok',
-          keyboardTextInputType: TextInputType.url,
           leadingIcon: Iconz.ComTikTok,
         ),
-
-
 
         PyramidsHorizon(heightFactor: 5,)
 
