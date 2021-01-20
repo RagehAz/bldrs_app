@@ -81,6 +81,12 @@ class _SignInState extends State<SignIn> {
     });
   }
 // ---------------------------------------------------------------------------
+  void _horusOnTapCancel(){
+    setState(() {
+      _passwordObscured = true;
+    });
+  }
+// ---------------------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
@@ -138,6 +144,7 @@ class _SignInState extends State<SignIn> {
             initialTextValue: _password,
             horusOnTapDown: _horusOnTapDown,
             horusOnTapUp: _horusOnTapUp,
+            horusOnTapCancel: _horusOnTapCancel,
             textOnChanged: (val){
               widget.passwordTextOnChanged(val);
               _passwordTextOnChanged(val);

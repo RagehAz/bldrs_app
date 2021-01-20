@@ -22,6 +22,8 @@ static const String ComWebsite = 'assets/com/com_website.svg' ;
 static const String ComWhatsapp = 'assets/com/com_whatsapp.svg' ;
 static const String ComGooglePlay = 'assets/com/com_google_play.svg' ;
 static const String ComYoutube = 'assets/com/com_youtube.svg' ;
+static const String ComTikTok = 'assets/com/com_tiktok.svg' ;
+static const String ComPinterest = 'assets/com/com_pinterest.svg' ;
 // -------------------------------------------------------------------------
 // dummies
 static const String DumAuthorPic = 'assets/dum/dum_author_pic.jpg' ;
