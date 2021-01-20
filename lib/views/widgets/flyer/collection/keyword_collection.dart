@@ -1,7 +1,7 @@
 import 'package:bldrs/providers/combined_models/co_flyer.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
-import 'package:bldrs/views/widgets/in_pyramids/in_pyramids_items/in_pyramids_bubble.dart';
+import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/pro_flyer/pro_flyer.dart';
 import 'package:flutter/material.dart';
 
