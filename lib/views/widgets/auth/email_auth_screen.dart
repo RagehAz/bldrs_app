@@ -52,6 +52,7 @@ class _EmailAuthState extends State<EmailAuth> {
   Widget build(BuildContext context) {
     return MainLayout(
       pyramids: Iconz.PyramidzYellow,
+      sky: Sky.Black,
       // tappingRageh: (){print('$email, $password');},
       layoutWidget: Container(
         width: superScreenWidth(context),
