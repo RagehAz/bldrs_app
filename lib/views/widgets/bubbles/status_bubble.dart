@@ -2,8 +2,8 @@ import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/user_balloon.dart';
-import 'package:bldrs/views/widgets/in_pyramids/profile/profile_items/property_search_criteria.dart';
-import 'package:bldrs/views/widgets/in_pyramids/profile/profile_items/status_buttons.dart';
+import 'package:bldrs/views/widgets/in_pyramids/profile/property_search_criteria.dart';
+import 'package:bldrs/views/widgets/in_pyramids/profile/status_buttons.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 

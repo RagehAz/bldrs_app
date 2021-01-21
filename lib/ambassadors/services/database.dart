@@ -27,7 +27,7 @@ class DatabaseService {
     String language,
     int userStatus,
   }) async {
-    return usersCollection.doc(userID).set({
+    return await usersCollection.doc(userID).set({
       'userID'              : userID                ,
       'savedFlyersIDs'      : savedFlyersIDs        ,
       'followedBzzIDs'      : followedBzzIDs        ,
@@ -50,7 +50,7 @@ class DatabaseService {
   // users list from snapshot
   List<UserModel> _usersListFromSnapshot(QuerySnapshot snapshot){
     return snapshot.docs.map((doc) {
-      print(doc.data()['savedFlyersIDs']);
+      // print(doc.data()['savedFlyersIDs']);
       List<dynamic> _savedFlyersIDs = doc.data()['savedFlyersIDs'] as List<dynamic>;
       List<dynamic> _followedBzzIDs = doc.data()['followedBzzIDs'] as List<dynamic>;
       List<dynamic> _publishedFlyersIDs = doc.data()['publishedFlyersIDs'] as List<dynamic>;
@@ -75,10 +75,41 @@ class DatabaseService {
     }).toList();
   }
 
+  // UserModel from Snapshot
+  UserModel _userModelFromSnapshot(DocumentSnapshot doc){
+    List<dynamic> _savedFlyersIDs = doc.data()['savedFlyersIDs'] as List<dynamic>;
+    List<dynamic> _followedBzzIDs = doc.data()['followedBzzIDs'] as List<dynamic>;
+    List<dynamic> _publishedFlyersIDs = doc.data()['publishedFlyersIDs'] as List<dynamic>;
+    return UserModel(
+      userID              : doc.data()['userID']                  ?? '',
+      savedFlyersIDs      : _savedFlyersIDs                       ?? [''],
+      followedBzzIDs      : _followedBzzIDs                       ?? [''],
+      publishedFlyersIDs  : _publishedFlyersIDs                   ?? [''],
+      name                : doc.data()['name']                    ?? '',
+      pic                 : doc.data()['pic']                     ?? '',
+      title               : doc.data()['title']                   ?? '',
+      city                : doc.data()['city']                    ?? '',
+      country             : doc.data()['country']                 ?? '',
+      whatsAppIsOn        : doc.data()['whatsAppIsOn']            ?? false,
+      // contacts            : doc.data()['contacts']                ?? [{'type': '', 'value': '', 'show': false}],
+      position            : doc.data()['position']                ?? GeoPoint(0, 0),
+      // joinedAt            : doc.data()['joinedAt']                ?? DateTime.june,
+      gender              : doc.data()['gender']                  ?? '',
+      language            : doc.data()['language']                ?? '',
+      userStatus          : doc.data()['userStatus']              ?? 1,
+    );
+  }
+
   // get user streams
 Stream<List<UserModel>> get userStream {
     return usersCollection.snapshots()
         .map(_usersListFromSnapshot);
+}
+
+// get user doc stream
+Stream<UserModel> get userData {
+    return usersCollection.doc(userID).snapshots()
+        .map(_userModelFromSnapshot);
 }
 
 }
