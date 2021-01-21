@@ -1,29 +1,28 @@
+import 'package:bldrs/views/screens/xxx_obelisk/aa03_signup_screen.dart';
+import 'package:bldrs/views/screens/xxx_obelisk/x01_access_denied_screen.dart';
+import 'package:bldrs/views/screens/xxx_obelisk/x02_rageh_dash_board.dart';
+import 'package:bldrs/views/screens/xxx_obelisk/x03_font_test_screen.dart';
+import 'package:bldrs/views/screens/xxx_obelisk/x05_Hero_test.dart';
+import 'package:bldrs/views/screens/xxx_obelisk/x06_single_collection_screen.dart';
+import 'package:bldrs/views/screens/xxx_obelisk/x06_swiper_layout.dart';
+import 'package:bldrs/views/screens/xxx_obelisk/x07_chat_screen.dart';
+import 'package:bldrs/views/screens/xxx_obelisk/x08_earth_screen.dart';
+import 'package:bldrs/views/screens/xxx_obelisk/x09_id_screen.dart';
+import 'package:bldrs/views/screens/xxx_obelisk/x10_pro_flyer_page_view.dart';
+import 'package:bldrs/views/screens/xxx_obelisk/x11_pro_flyer_grid_view.dart';
+import 'package:bldrs/views/screens/xxx_obelisk/xxx_obelisk.dart';
 import 'package:bldrs/views/widgets/auth/user_checker.dart';
 import 'package:bldrs/views/widgets/pro_flyer/flyer_screen.dart';
-import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/aa03_signup_screen.dart';
-import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x10_pro_flyer_page_view.dart';
-import 'package:bldrs/views/screens/s01_wrapper.dart';
-import 'package:bldrs/views/screens/s02_starting_screen.dart';
-import 'package:bldrs/views/screens/s03_user_type_screen.dart';
-import 'package:bldrs/views/screens/s04_localizer_screen.dart';
-import 'package:bldrs/views/screens/s11_home_screen.dart';
-import 'package:bldrs/views/screens/s13_in_pyramids_screen.dart';
-import 'package:bldrs/views/screens/s21_search_screen.dart';
+import 'package:bldrs/views/screens/s00_sc_splash_screen.dart';
+import 'package:bldrs/views/screens/s01_sc_starting_screen.dart';
+import 'package:bldrs/views/screens/s04_sc_localizer_screen.dart';
+import 'package:bldrs/views/screens/s11_sc_home_screen.dart';
+import 'package:bldrs/views/screens/s13_sc_inpyramids_screen.dart';
+import 'package:bldrs/views/screens/s21_sc_search_screen.dart';
 import 'package:bldrs/views/screens/s41_add_bz.dart';
 import 'package:bldrs/views/screens/s44_bz_card_review.dart';
 import 'package:bldrs/views/screens/sss_bz_complete_profile_screen.dart';
 import 'package:bldrs/views/screens/sss_flyer_maker.dart';
-import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x01_access_denied_screen.dart';
-import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x02_rageh_dash_board.dart';
-import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x03_font_test_screen.dart';
-import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x05_Hero_test.dart';
-import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x06_swiper_layout.dart';
-import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x06_single_collection_screen.dart';
-import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x07_chat_screen.dart';
-import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x08_earth_screen.dart';
-import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x09_id_screen.dart';
-import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x11_pro_flyer_grid_view.dart';
-import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/xxx_obelisk.dart';
 import 'package:flutter/material.dart';
 import 'route_names.dart';
 
@@ -44,9 +43,6 @@ class Routerer {
       // 021
       case Routez.Localizer:
         return MaterialPageRoute(builder: (_) => LocalizerScreen());
-      // 030
-      case Routez.ChooseUserType:
-        return MaterialPageRoute(builder: (_) => ChooseUserTypeScreen());
       // 040
       case Routez.BzCompleteProfile:
         return MaterialPageRoute(builder: (_) => BzCompleteProfileScreen());

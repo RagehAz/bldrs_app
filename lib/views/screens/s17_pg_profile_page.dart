@@ -1,3 +1,5 @@
+import 'package:bldrs/models/user_model.dart';
+import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/views/widgets/bubbles/contacts_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/following_bzz_bubble.dart';
@@ -5,9 +7,10 @@ import 'package:bldrs/views/widgets/bubbles/status_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/user_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/user_balloon.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart' show PyramidsHorizon;
+import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
-
-import 'edit_profile_page.dart';
+import 'package:provider/provider.dart';
+import 's18_pg_edit_profile_page.dart';
 
 class ProfilePage extends StatefulWidget {
 
@@ -44,14 +47,16 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    // double screenWidth = MediaQuery.of(context).size.width;
-    // double screenHeight = MediaQuery.of(context).size.height;
-    // double pageMargin = Ratioz.ddAppBarMargin * 2;
+    final List<UserModel> userStream = Provider.of<List<UserModel>>(context) ?? [];
+    String userID = userStream.length < 1 ? '' : userStream[0]?.userID;
 
-    // double abPadding = Ratioz.ddAppBarMargin;
-    // double abHeight = screenWidth * 0.25;
-    // double profilePicHeight = abHeight;
-    // double abButtonsHeight = abHeight - (2 * abPadding);
+    userStream?.forEach((user) {
+      print('name : ${user.name}');
+      print('userID : ${user.userID}');
+      print('savedFlyersIDs : ${user.savedFlyersIDs}');
+      // print('email : ${user.contacts[0]['value']}');
+      // print('joined at : ${user.joinedAt}');
+    });
 
     return SliverList(
       delegate:
@@ -66,6 +71,12 @@ class _ProfilePageState extends State<ProfilePage> {
       :
 
       SliverChildListDelegate([
+
+        // SuperVerse(
+        //   verse: userID == null ? '' : userID,
+        //   margin: 2,
+        //   color: Colorz.BloodTest,
+        // ),
 
         UserBubble(
           userType: widget.userType,

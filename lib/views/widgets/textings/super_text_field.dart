@@ -1,3 +1,4 @@
+import 'package:bldrs/view_brains/drafters/borderers.dart';
 import 'package:bldrs/view_brains/drafters/stringers.dart';
 import 'package:bldrs/view_brains/drafters/texters.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
@@ -168,16 +169,6 @@ class _SuperTextFieldState extends State<SuperTextField> {
       );
     }
 // ---------------------------------------------------------------------------
-    OutlineInputBorder superOutlineInputBorder(Color borderColor) {
-      return OutlineInputBorder(
-        borderRadius: BorderRadius.circular(labelCorner),
-        borderSide: BorderSide(
-          color: borderColor,
-          width: 0.5,
-        ),
-        gapPadding: 0,
-      );
-    }
 // ---------------------------------------------------------------------------
     return
 
@@ -187,8 +178,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
       Container(
         width: widget.width,
         // height: widget.height,
-        padding: EdgeInsets.only(
-            bottom: widget.counterIsOn == true ? sidePaddings : 0),
+        padding: EdgeInsets.only(bottom: widget.counterIsOn == true ? sidePaddings : 0),
         margin: widget.margin,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(labelCorner)),
@@ -226,15 +216,15 @@ class _SuperTextFieldState extends State<SuperTextField> {
             alignLabelWithHint: true,
             contentPadding: EdgeInsets.all(sidePaddings),
 
-            focusedBorder: superOutlineInputBorder(Colorz.YellowSmoke),
-            enabledBorder: superOutlineInputBorder(Colorz.Nothing),
+            focusedBorder: superOutlineInputBorder(Colorz.YellowSmoke, labelCorner),
+            enabledBorder: superOutlineInputBorder(Colorz.Nothing, labelCorner),
 
             errorStyle: superTextStyle(Colorz.BloodRed, 0.7),
-            focusedErrorBorder: superOutlineInputBorder(Colorz.YellowSmoke),
+            focusedErrorBorder: superOutlineInputBorder(Colorz.YellowSmoke, labelCorner),
 
-            errorBorder: superOutlineInputBorder(Colorz.BloodRedPlastic),
-            border: superOutlineInputBorder(Colorz.LinkedIn),
-            disabledBorder: superOutlineInputBorder(Colorz.Grey),
+            errorBorder: superOutlineInputBorder(Colorz.BloodRedPlastic, labelCorner),
+            border: superOutlineInputBorder(Colorz.LinkedIn, labelCorner),
+            disabledBorder: superOutlineInputBorder(Colorz.Grey, labelCorner),
             counter: widget.counterIsOn ? null : Offstage(),
             counterStyle: superTextStyle(Colorz.WhiteLingerie, 0.7),
 
@@ -323,15 +313,15 @@ class _SuperTextFieldState extends State<SuperTextField> {
             alignLabelWithHint: true,
             contentPadding: EdgeInsets.all(sidePaddings),
 
-            focusedBorder: superOutlineInputBorder(Colorz.YellowSmoke),
-            enabledBorder: superOutlineInputBorder(Colorz.Nothing),
+            focusedBorder: superOutlineInputBorder(Colorz.YellowSmoke, labelCorner),
+            enabledBorder: superOutlineInputBorder(Colorz.Nothing, labelCorner),
 
             errorStyle: superTextStyle(Colorz.BloodRed, 0.7),
-            focusedErrorBorder: superOutlineInputBorder(Colorz.BloodRed),
+            focusedErrorBorder: superOutlineInputBorder(Colorz.BloodRed, labelCorner),
 
-            errorBorder: superOutlineInputBorder(Colorz.Facebook),
-            border: superOutlineInputBorder(Colorz.LinkedIn),
-            disabledBorder: superOutlineInputBorder(Colorz.Grey),
+            errorBorder: superOutlineInputBorder(Colorz.Facebook, labelCorner),
+            border: superOutlineInputBorder(Colorz.LinkedIn, labelCorner),
+            disabledBorder: superOutlineInputBorder(Colorz.Grey, labelCorner),
             counter: widget.counterIsOn ? null : Offstage(),
             counterStyle: superTextStyle(Colorz.WhiteLingerie, 0.7),
 

@@ -4,11 +4,12 @@ import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/views/widgets/appbar/ab_localizer.dart';
 import 'package:bldrs/views/widgets/appbar/buttons/bx_flagbox.dart';
-import 'package:bldrs/views/widgets/appbar/pages/pg_country.dart';
-import 'package:bldrs/views/widgets/appbar/pages/pg_language.dart';
 import 'package:bldrs/views/widgets/buttons/bt_main.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
+
+import 's05_pg_countries_page.dart';
+import 's06_pg_languages_page.dart';
 
 class LocalizerScreen extends StatefulWidget {
   @override

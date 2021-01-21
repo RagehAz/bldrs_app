@@ -216,6 +216,8 @@ class _RegisterState extends State<Register> {
                     print('register result is : $result');
                     if ('$result' == '[firebase_auth/email-already-in-use] The email address is already in use by another account.')
                     {setState(() {error = 'E-mail is Already registered';}); _triggerLoading();}
+                    else if('$result' == '[firebase_auth/invalid-email] The email address is badly formatted.')
+                    {setState(() {error = 'E-mail is wrong';}); _triggerLoading();}
                     else if(result == null){setState(() {error = 'something is wrong';}); _triggerLoading();}
                     else if(result.runtimeType == UserModel)
                     {

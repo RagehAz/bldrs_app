@@ -66,3 +66,14 @@ BorderRadius superFollowOrCallCorners(BuildContext context, double flyerZoneWidt
       return gettingFollowCorner == true ? followCorners : callCorners;
 }
 // === === === === === === === === === === === === === === === === === === ===
+OutlineInputBorder superOutlineInputBorder(Color borderColor, double corner) {
+  return OutlineInputBorder(
+    borderRadius: BorderRadius.circular(corner),
+    borderSide: BorderSide(
+      color: borderColor,
+      width: 0.5,
+    ),
+    gapPadding: 0,
+  );
+}
+// === === === === === === === === === === === === === === === === === === ===
