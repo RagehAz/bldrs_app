@@ -27,7 +27,7 @@ class SectionPicker extends StatelessWidget {
 
     return sectionsListIsOpen == false
         ? SectionLabel(
-            label: getTranslated(context, currentSection),
+            label: translate(context, currentSection),
             labelDescription: '',
             sectionsListIsOpen: sectionsListIsOpen,
             tappingSection: openingTheList,
@@ -35,13 +35,13 @@ class SectionPicker extends StatelessWidget {
         : Column(
             children: [
               SectionLabel(
-                label: getTranslated(context, 'Properties'),
+                label: translate(context, 'Properties'),
                 sectionsListIsOpen: sectionsListIsOpen,
                 tappingSection: () {
                   selectingASection(properties);
                 },
                 labelDescription:
-                    getTranslated(context, 'Properties_description'),
+                    translate(context, 'Properties_description'),
               ),
               SizedBox(
                 width: double.infinity,
@@ -49,11 +49,11 @@ class SectionPicker extends StatelessWidget {
               ),
               SectionLabel(
                 sectionsListIsOpen: sectionsListIsOpen,
-                label: getTranslated(context, 'Designs'),
+                label: translate(context, 'Designs'),
                 tappingSection: () {
                   selectingASection(designs);
                 },
-                labelDescription: getTranslated(context, 'Designs_description'),
+                labelDescription: translate(context, 'Designs_description'),
               ),
               SizedBox(
                 width: double.infinity,
@@ -61,12 +61,12 @@ class SectionPicker extends StatelessWidget {
               ),
               SectionLabel(
                 sectionsListIsOpen: sectionsListIsOpen,
-                label: getTranslated(context, 'Products'),
+                label: translate(context, 'Products'),
                 tappingSection: () {
                   selectingASection(products);
                 },
                 labelDescription:
-                    getTranslated(context, 'Products_description'),
+                    translate(context, 'Products_description'),
               ),
               SizedBox(
                 width: double.infinity,
@@ -74,12 +74,12 @@ class SectionPicker extends StatelessWidget {
               ),
               SectionLabel(
                 sectionsListIsOpen: sectionsListIsOpen,
-                label: getTranslated(context, 'Projects'),
+                label: translate(context, 'Projects'),
                 tappingSection: () {
                   selectingASection(projects);
                 },
                 labelDescription:
-                    getTranslated(context, 'Projects_description'),
+                    translate(context, 'Projects_description'),
               ),
               SizedBox(
                 width: double.infinity,
@@ -87,11 +87,11 @@ class SectionPicker extends StatelessWidget {
               ),
               SectionLabel(
                 sectionsListIsOpen: sectionsListIsOpen,
-                label: getTranslated(context, 'Crafts'),
+                label: translate(context, 'Crafts'),
                 tappingSection: () {
                   selectingASection(crafts);
                 },
-                labelDescription: getTranslated(context, 'Crafts_description'),
+                labelDescription: translate(context, 'Crafts_description'),
               ),
               SizedBox(
                 width: double.infinity,
@@ -99,12 +99,12 @@ class SectionPicker extends StatelessWidget {
               ),
               SectionLabel(
                 sectionsListIsOpen: sectionsListIsOpen,
-                label: getTranslated(context, 'Equipment'),
+                label: translate(context, 'Equipment'),
                 tappingSection: () {
                   selectingASection(equipment);
                 },
                 labelDescription:
-                    getTranslated(context, 'Equipment_description'),
+                    translate(context, 'Equipment_description'),
               ),
             ],
           );

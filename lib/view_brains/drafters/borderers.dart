@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 /// context -> topLeft -> bottomLeft -> bottomRight -> topRight
 BorderRadius superBorderRadius(BuildContext context, double enTopLeft, double enBottomLeft, double enBottomRight, double enTopRight){
   return
-      getTranslated(context, 'Text_Direction') == 'rtl' ?
+    translate(context, 'Text_Direction') == 'rtl' ?
             BorderRadius.only(
               topLeft: Radius.circular(enTopRight),
               topRight: Radius.circular(enTopLeft),

@@ -1,6 +1,6 @@
 import 'package:bldrs/view_brains/localization/localization_constants.dart';
 import 'package:flutter/material.dart';
-
+// === === === === === === === === === === === === === === === === === === ===
 /// THE SEPARATOR AFTER EACH 3 DIGITS IN AN INTEGER X'XXX'XXX ...
 String separateKilos(int number) {
   if (number == null) return '0';
@@ -15,7 +15,7 @@ String separateKilos(int number) {
   }
   return result.toString();
 }
-
+// === === === === === === === === === === === === === === === === === === ===
 String counterCaliber(BuildContext context, int x){
        return
             // FROM 0 TO 999
@@ -25,16 +25,17 @@ String counterCaliber(BuildContext context, int x){
             // FROM 1000 TO 99995
             x >= 1000 && x < 99995 ?
             '${(x / 1000).toStringAsFixed(1).toString().replaceAll(RegExp('0.0'), '0').replaceAll(r'.0', '')}'
-                ' ${getTranslated(context, 'Thousand')}'
+                ' ${translate(context, 'Thousand')}'
                 :
             // FROM 99995 TO 999445
             x >= 99995 && x < 999445 ? '${int.parse((x/1000).toStringAsFixed(0))}'
-                ' ${getTranslated(context, 'Thousand')}'
+                ' ${translate(context, 'Thousand')}'
                 :
             // FROM 999445 TO INFINITY
             x>= 999445 ?
             '${(x / 1000000).toStringAsFixed(1).toString().replaceAll(RegExp('0.0'), '0').replaceAll(r'.0', '')}'
-                ' ${getTranslated(context, 'Million')}'
+                ' ${translate(context, 'Million')}'
                 :
             '${x.toStringAsFixed(0)}';
     }
+// === === === === === === === === === === === === === === === === === === ===

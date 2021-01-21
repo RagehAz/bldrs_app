@@ -33,7 +33,7 @@ final Color bubbleColor;
         borderRadius: BorderRadius.circular(Ratioz.ddAppBarCorner),
       ),
       alignment: centered == true ? Alignment.center :
-      getTranslated(context, 'Text_Direction') == 'ltr' ?
+      translate(context, 'Text_Direction') == 'ltr' ?
       Alignment.centerLeft : Alignment.centerRight,
 
       child: Column(

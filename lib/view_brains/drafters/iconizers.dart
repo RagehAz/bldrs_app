@@ -10,9 +10,8 @@ import 'package:bldrs/views/widgets/buttons/balloons/path_normal_user.dart';
 import 'package:bldrs/views/widgets/buttons/balloons/path_planning_user.dart';
 import 'package:bldrs/views/widgets/buttons/balloons/path_searching_user.dart';
 import 'package:bldrs/views/widgets/buttons/balloons/path_selling_user.dart';
-import 'package:bldrs/views/widgets/buttons/user_balloon.dart';
 import 'package:flutter/material.dart';
-// ---------------------------------------------------------------------------
+// === === === === === === === === === === === === === === === === === === ===
 String sectionIcon (BldrsSection section){
     return
         section == BldrsSection.RealEstate ? Iconz.BxPropertiesOff :
@@ -20,21 +19,21 @@ String sectionIcon (BldrsSection section){
         section == BldrsSection.Supplies ? Iconz.BxProductsOff :
             Iconz.Bz;
   }
-// ---------------------------------------------------------------------------
+// === === === === === === === === === === === === === === === === === === ===
 String superArrowENRight (BuildContext context){
-  if (getTranslated(context, 'Text_Direction') == 'ltr')
+  if (translate(context, 'Text_Direction') == 'ltr')
     {return Iconz.ArrowRight;}
   else
     {return Iconz.ArrowLeft;}
   }
-// ---------------------------------------------------------------------------
+// === === === === === === === === === === === === === === === === === === ===
 String superArrowENLeft (BuildContext context){
-  if (getTranslated(context, 'Text_Direction') == 'ltr')
+  if (translate(context, 'Text_Direction') == 'ltr')
     {return Iconz.ArrowLeft;}
   else
     {return Iconz.ArrowRight;}
   }
-// ---------------------------------------------------------------------------
+// === === === === === === === === === === === === === === === === === === ===
 String bzTypeIconOff (BzType bzType){
   String icon =
   bzType == BzType.Developer ? Iconz.BxPropertiesOff :
@@ -47,7 +46,7 @@ String bzTypeIconOff (BzType bzType){
   null;
   return icon;
   }
-// ---------------------------------------------------------------------------
+// === === === === === === === === === === === === === === === === === === ===
 String bzTypeIconOn (BzType bzType){
   String icon =
   bzType == BzType.Developer ? Iconz.BxPropertiesOn :
@@ -60,7 +59,7 @@ String bzTypeIconOn (BzType bzType){
   null;
   return icon;
 }
-// ---------------------------------------------------------------------------
+// === === === === === === === === === === === === === === === === === === ===
 CustomClipper<Path> userBalloon(UserType userType) {
   CustomClipper<Path> userBalloon =
   userType == UserType.NormalUser ? NormalUserBalloon() :
@@ -72,14 +71,17 @@ CustomClipper<Path> userBalloon(UserType userType) {
   NormalUserBalloon();
   return userBalloon;
 }
-
-// ---------------------------------------------------------------------------
-// MediaQueryData data = MediaQuery.of(context);
-// double ratio = data.devicePixelRatio;
-//
-// bool isIOS = Theme.of(context).platform == TargetPlatform.iOS;
-
-// If the platform is not iOS, you would implement the buckets in your code. Combining the logic into one method:
+// === === === === === === === === === === === === === === === === === === ===
+/// MediaQueryData data = MediaQuery.of(context);
+/// double ratio = data.devicePixelRatio;
+///
+/// bool isIOS = Theme.of(context).platform == TargetPlatform.iOS;
+///
+/// If the platform is not iOS, you would implement the buckets in your code. Combining the logic into one method:
+///
+/// double markerScale;
+/// bool isIOS = Theme.of(context).platform == TargetPlatform.iOS;
+/// if (isIOS){markerScale = 0.7;}else{markerScale = 1;}
 String imageDir(String prefix, String fileName, double pixelRatio, bool isIOS) {
     String directory = '/';
     if (!isIOS) {
@@ -95,8 +97,4 @@ String imageDir(String prefix, String fileName, double pixelRatio, bool isIOS) {
     }
     return '$prefix$directory$fileName';
 }
-// double markerScale;
-    // bool isIOS = Theme.of(context).platform == TargetPlatform.iOS;
-    // if (isIOS){markerScale = 0.7;}else{markerScale = 1;}
-
-  // ----------------------------------------------------
+// === === === === === === === === === === === === === === === === === === ===

@@ -32,12 +32,12 @@ class FieldTag extends StatelessWidget {
       ),
 
       child: Text(
-        getTranslated(context, tagText),
+        translate(context, tagText),
         textAlign: TextAlign.center,
         softWrap: true,
         style: TextStyle(
           color: Colorz.White,
-          fontFamily: getTranslated(context, 'Body_Font'),
+          fontFamily: translate(context, 'Body_Font'),
           fontStyle: FontStyle.italic,
           decoration: TextDecoration.none,
           fontSize: MediaQuery.of(context).size.height * 0.013,
@@ -66,12 +66,12 @@ class PublishTime extends StatelessWidget {
       padding: EdgeInsets.only(left: flyerTagTextPaddingValue, right: flyerTagTextPaddingValue),
 
       child: Text(
-        getTranslated(context, publishTimeText),
+        translate(context, publishTimeText),
         textAlign: TextAlign.start,
 
         style: TextStyle(
           color: Colorz.White,
-          fontFamily: getTranslated(context, 'Headline_Font'),
+          fontFamily: translate(context, 'Headline_Font'),
           fontStyle: FontStyle.italic,
           decoration: TextDecoration.none,
           fontSize: MediaQuery.of(context).size.height * 0.0115,
@@ -106,11 +106,11 @@ class KeywordTag extends StatelessWidget {
       ),
 
       child: Text(
-        getTranslated(context, keyTagText),
+        translate(context, keyTagText),
         textAlign: TextAlign.center,
         style: TextStyle(
           color: Colorz.White,
-          fontFamily: getTranslated(context, 'Body_Font'),
+          fontFamily: translate(context, 'Body_Font'),
           fontStyle: FontStyle.italic,
           decoration: TextDecoration.none,
           fontSize: MediaQuery.of(context).size.height * 0.013,
