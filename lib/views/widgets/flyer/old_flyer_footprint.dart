@@ -179,7 +179,7 @@ class FlyerFootPrint extends StatelessWidget {
                                   image: AssetImage(logoImage),
                                   fit: BoxFit.fill),
                               borderRadius:
-                                  getTranslated(context, 'Text_Direction') ==
+                                  translate(context, 'Text_Direction') ==
                                           'rtl'
                                       ? BorderRadius.only(
                                           topLeft:
@@ -340,8 +340,8 @@ class FlyerFootPrint extends StatelessWidget {
 
                                 // --- SAVE BUTTON
                                 Positioned(
-                                  left: getTranslated(context, 'Text_Direction') == 'ltr' ? null : 0,
-                                  right: getTranslated(context, 'Text_Direction') == 'ltr' ? 0 : null,
+                                  left: translate(context, 'Text_Direction') == 'ltr' ? null : 0,
+                                  right: translate(context, 'Text_Direction') == 'ltr' ? 0 : null,
                                   bottom: 0,
                                   child: Container(
                                       alignment: Alignment.center,

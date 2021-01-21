@@ -72,7 +72,7 @@ class AuthorLabel extends StatelessWidget {
     (authorGalleryCount == 0 && followersCount == 0) || (authorGalleryCount == null && followersCount == null) ? '' :
     bzPageIsOn == true ?
         '${separateKilos(authorGalleryCount)} flyers' :
-        '${separateKilos(followersCount)} ${getTranslated(context, 'Followers')} . ${separateKilos(bzGalleryCount)} flyers';
+        '${separateKilos(followersCount)} ${translate(context, 'Followers')} . ${separateKilos(bzGalleryCount)} flyers';
     // === === === === === === === === === === === === === === === === === === ===
     double authorImageCorners = flyerZoneWidth * Ratioz.xxflyerAuthorPicCorner;
     // === === === === === === === === === === === === === === === === === === ===

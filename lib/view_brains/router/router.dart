@@ -1,4 +1,3 @@
-import 'package:bldrs/views/screens/xxx_obelisk/aa03_signup_screen.dart';
 import 'package:bldrs/views/screens/xxx_obelisk/x01_access_denied_screen.dart';
 import 'package:bldrs/views/screens/xxx_obelisk/x02_rageh_dash_board.dart';
 import 'package:bldrs/views/screens/xxx_obelisk/x03_font_test_screen.dart';
@@ -114,11 +113,6 @@ class Routerer {
         return MaterialPageRoute(builder: (_) => ObeliskScreen());
 
       // --- ZEBALA
-      case Routez.SignUp:
-        return MaterialPageRoute(builder: (_) => SignUpScreen());
-
-      // case Routez.SignIn:
-      //   return MaterialPageRoute(builder: (_) => SignInScreen());
 
       case Routez.MainLayout:
         return MaterialPageRoute(builder: (_) => SwiperLayout());

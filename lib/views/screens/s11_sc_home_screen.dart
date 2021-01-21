@@ -1,4 +1,5 @@
 import 'package:bldrs/models/enums/enum_flyer_type.dart';
+import 'package:bldrs/view_brains/router/navigators.dart';
 import 'package:bldrs/view_brains/router/route_names.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
@@ -57,6 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
 
                       PyramidsHorizon(heightFactor: 10),
+
                     ]
                 ),
               ),
@@ -76,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
               icon: Iconz.Bz,
               iconSizeFactor: 0.55,
               boxFunction: (){
-                Navigator.pushNamed(context, Routez.AddBz);
+                goToRoute(context, Routez.AddBz);
               },
             ),
           )

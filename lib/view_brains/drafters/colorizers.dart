@@ -1,7 +1,7 @@
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui';
-
+// === === === === === === === === === === === === === === === === === === ===
 Gradient superSlideGradient(){
   Gradient slideGradient = LinearGradient(
       begin: Alignment.topCenter,
@@ -11,7 +11,7 @@ Gradient superSlideGradient(){
   );
   return slideGradient;
 }
-
+// === === === === === === === === === === === === === === === === === === ===
 Gradient superHeaderStripGradient(){
   Gradient headerStripGradient = LinearGradient(
       begin: Alignment.topCenter,
@@ -20,7 +20,7 @@ Gradient superHeaderStripGradient(){
       stops: [0.3, 1]);
 return headerStripGradient;
 }
-
+// === === === === === === === === === === === === === === === === === === ===
 Gradient superFollowBTGradient(){
   Gradient followBTGradient = LinearGradient(
       begin: Alignment.topCenter,
@@ -30,10 +30,10 @@ Gradient superFollowBTGradient(){
   );
 return followBTGradient;
 }
-
+// === === === === === === === === === === === === === === === === === === ===
 ImageFilter superBlur(bool trigger){
   double blueValue = trigger == true ? 8 : 0;
   ImageFilter blur = ImageFilter.blur(sigmaX: blueValue, sigmaY: blueValue);
   return blur;
 }
-
+// === === === === === === === === === === === === === === === === === === ===

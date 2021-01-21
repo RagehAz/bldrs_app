@@ -42,7 +42,7 @@ class ABLocalizer extends StatelessWidget {
 
           // ---  COUNTRY BUTTON
           ABLocalizerBT(
-            buttonVerse: getTranslated(context, 'Country'),
+            buttonVerse: translate(context, 'Country'),
             buttonIcon: currentFlag,
             buttonTap: tappingBTLanguage,
             buttonOn: countryPageON == true ? true : false,
@@ -60,7 +60,7 @@ class ABLocalizer extends StatelessWidget {
 
           // --- LANGUAGE BUTTON
           ABLocalizerBT(
-            buttonVerse: getTranslated(context, 'Language'),
+            buttonVerse: translate(context, 'Language'),
             buttonIcon: '',
             buttonTap: tappingBTLanguage,
             buttonOn: countryPageON == true ? false : true,

@@ -41,7 +41,7 @@ class _LocalizerScreenState extends State<LocalizerScreen> {
         ()async{
           theChosenFlag = flagFileNameSelectedFromPGLanguageList;
           theChosenCountryName = currentSelectedCountry;
-          Locale _temp = await setLocale(getTranslated(context, 'Language_Code'));
+          Locale _temp = await setLocale(translate(context, 'Language_Code'));
           BldrsApp.setLocale(context, _temp);
         }
     );

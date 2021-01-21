@@ -74,7 +74,7 @@ class BTLocalizerLanguage extends StatelessWidget {
                   ),
 
                   SuperVerse(
-                    verse: getTranslated(context, 'Language'),
+                    verse: translate(context, 'Language'),
                     color: Colorz.White,
                     designMode: false,
                     centered: true,
@@ -130,7 +130,7 @@ class BTLocalizerLanguage extends StatelessWidget {
                   ),
 
                   SuperVerse(
-                    verse: getTranslated(context, 'Language'),
+                    verse: translate(context, 'Language'),
                     color: Colorz.Grey,
                     designMode: false,
                     centered: true,

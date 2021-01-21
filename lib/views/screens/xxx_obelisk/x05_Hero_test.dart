@@ -293,7 +293,7 @@ class HeroTestScreen extends StatelessWidget {
             ),
             Rageh(
               tappingRageh:
-                  getTranslated(context, 'Active_Language') == 'Arabic'
+                  translate(context, 'Active_Language') == 'Arabic'
                       ? () async {
                           Locale temp = await setLocale('en');
                           BldrsApp.setLocale(context, temp);
@@ -376,7 +376,7 @@ class HeroTestScreen extends StatelessWidget {
 //             whichPyramid: Iconz.PyramidzYellow,
 //           ),
 //           Rageh(
-//             tappingRageh: getTranslated(context, 'Active_Language') == 'Arabic'
+//             tappingRageh: translate(context, 'Active_Language') == 'Arabic'
 //                 ? () async {
 //                     Locale temp = await setLocale('en');
 //                     BldrsApp.setLocale(context, temp);

@@ -49,7 +49,7 @@ class StartingScreenState extends State<StartingScreen> {
 
               // --- CONTINUE WITH APPLE
               BTMain(
-                buttonVerse: getTranslated(context, 'Continue_Apple'),
+                buttonVerse: translate(context, 'Continue_Apple'),
                 buttonIcon: Iconz.ComApple,
                 buttonColor: Colorz.BlackBlack,
                 splashColor: Colorz.Yellow,
@@ -60,7 +60,7 @@ class StartingScreenState extends State<StartingScreen> {
 
               // --- CONTINUE WITH FACEBOOK
               BTMain(
-                buttonVerse: getTranslated(context, 'Continue_Facebook'),
+                buttonVerse: translate(context, 'Continue_Facebook'),
                 buttonIcon: Iconz.ComFacebookWhite,
                 buttonColor: Colorz.Facebook,
                 splashColor: Colorz.Yellow,
@@ -71,7 +71,7 @@ class StartingScreenState extends State<StartingScreen> {
 
               // --- CONTINUE WITH LINKEDIN
               BTMain(
-                buttonVerse: getTranslated(context, 'Continue_LinkedIn'),
+                buttonVerse: translate(context, 'Continue_LinkedIn'),
                 buttonIcon: Iconz.ComLinkedin,
                 buttonColor: Colorz.LinkedIn,
                 splashColor: Colorz.Yellow,

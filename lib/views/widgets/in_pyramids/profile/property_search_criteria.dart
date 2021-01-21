@@ -43,7 +43,7 @@ class PropertySearchCriteria extends StatelessWidget {
     double boxHeight = 100 ;
     bool bubble = true;
 
-    Alignment defaultAlignment =  getTranslated(context, 'Text_Direction') == 'ltr' ? Alignment.centerLeft : Alignment.centerRight;
+    Alignment defaultAlignment =  translate(context, 'Text_Direction') == 'ltr' ? Alignment.centerLeft : Alignment.centerRight;
 
     double corners = Ratioz.ddBoxCorner *1.5;
 

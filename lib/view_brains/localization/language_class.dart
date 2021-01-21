@@ -22,13 +22,13 @@ class LanguageClass {
 
   static List<LanguageClass> languageList(){
     return <LanguageClass>[
-      LanguageClass(1,'English','assets/dv/dv_blank.svg','en'),
-      LanguageClass(2,'عربي','assets/dv/dv_blank.svg','ar'),
-      LanguageClass(3,'Español','assets/dv/dv_blank.svg','es'),
-      LanguageClass(4,'Française','assets/dv/dv_blank.svg','fr'),
-      LanguageClass(5,'русский','assets/dv/dv_blank.svg','ru'),
-      LanguageClass(6,'Türk','assets/dv/dv_blank.svg','tr'),
-      LanguageClass(7,'Italiano','assets/dv/dv_blank.svg','it'),
+      LanguageClass(1,'English'   ,'assets/dv/dv_blank.svg',  'en'),
+      LanguageClass(2,'عربي'      ,'assets/dv/dv_blank.svg',  'ar'),
+      LanguageClass(3,'Español'   ,'assets/dv/dv_blank.svg',  'es'),
+      LanguageClass(4,'Française' ,'assets/dv/dv_blank.svg',  'fr'),
+      LanguageClass(5,'русский'   ,'assets/dv/dv_blank.svg',  'ru'),
+      LanguageClass(6,'Türk'      ,'assets/dv/dv_blank.svg',  'tr'),
+      LanguageClass(7,'Italiano'  ,'assets/dv/dv_blank.svg',  'it'),
     ];
   }
 }

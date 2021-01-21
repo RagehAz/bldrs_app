@@ -97,7 +97,7 @@ class BTLocalizerCountry extends StatelessWidget {
                               color: Colorz.Nothing,
                               alignment: Alignment.center,
                               child: SuperVerse(
-                                verse: getTranslated(context, 'Country'),
+                                verse: translate(context, 'Country'),
                                 color: Colorz.White,
                                 italic: false,
                                 shadow: true,
@@ -189,7 +189,7 @@ class BTLocalizerCountry extends StatelessWidget {
                             color: Colorz.Nothing,
                             alignment: Alignment.center,
                             child: SuperVerse(
-                              verse: getTranslated(context, 'Country'),
+                              verse: translate(context, 'Country'),
                               color: Colorz.Grey,
                               italic: false,
                               shadow: false,

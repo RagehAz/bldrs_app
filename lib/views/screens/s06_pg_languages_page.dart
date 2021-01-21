@@ -28,7 +28,7 @@ class PGLanguageList extends StatelessWidget {
               stretched: true,
               buttonVerseShadow: true,
               buttonColor:
-              (LanguageClass.languageList()[index].langName) == (getTranslated(context, 'Language_Name')) ?
+              (LanguageClass.languageList()[index].langName) == (translate(context, 'Language_Name')) ?
                   Colorz.Yellow : Colorz.WhiteZircon,
               buttonIcon: '',
               splashColor: Colorz.White,

@@ -31,9 +31,9 @@ class Rageh extends StatelessWidget {
       left: 0,
       child:
       InkWell(
-        onTap: (){
-          tappingOnMyFace();
-        },
+        // onTap: (){
+        //   tappingOnMyFace();
+        // },
         onDoubleTap: (){
           doubleTappingOnMyFace();
         },
@@ -51,6 +51,9 @@ class Rageh extends StatelessWidget {
                 iconSizeFactor: 1,
                 corners: Ratioz.ddBoxCorner,
                 icon: Iconz.DvRageh,
+                boxFunction: (){
+                  tappingOnMyFace();
+                },
               ),
             ),
           ),

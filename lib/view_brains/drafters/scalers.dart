@@ -61,7 +61,7 @@ double superHeaderStripHeight(bool bzPageIsOn, double flyerZoneWidth){
   double headerStripHeight = bzPageIsOn == true ? flyerZoneWidth : flyerZoneWidth * Ratioz.xxflyerHeaderMiniHeight;
   return headerStripHeight;
 }
-
+// === === === === === === === === === === === === === === === === === === ===
 double superHeaderOffsetHeight(double flyerZoneWidth){
   double headerOffsetHeight = (flyerZoneWidth * Ratioz.xxflyerHeaderMiniHeight) - (2 * flyerZoneWidth * Ratioz.xxfollowCallSpacing);
   return headerOffsetHeight;
@@ -96,3 +96,4 @@ double superBubbleClearWidth(BuildContext context){
   double inBubbleClearWidth = screenWidth - bubbleMargins - bubblePaddings;
   return inBubbleClearWidth;
 }
+// === === === === === === === === === === === === === === === === === === ===
