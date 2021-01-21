@@ -1,3 +1,4 @@
+import 'package:bldrs/models/enums/enum_user_type.dart';
 import 'package:bldrs/view_brains/drafters/aligners.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
@@ -63,7 +64,7 @@ class UserBubble extends StatelessWidget {
         ),
 
         UserBalloon(
-          bubbleWidth: 80,
+          balloonWidth: 80,
           userType: userType,
           userPic: userPicture,
           onTap: (){print('balloon tap');},
