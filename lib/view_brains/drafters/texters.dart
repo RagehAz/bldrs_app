@@ -43,11 +43,11 @@ FontWeight superVerseWeight(VerseWeight weight){
 // === === === === === === === === === === === === === === === === === === ===
 String superVerseFont(BuildContext context, VerseWeight weight){
   String verseFont =
-  weight == VerseWeight.thin ? getTranslated(context, 'Body_Font') :
-  weight == VerseWeight.regular ? getTranslated(context, 'Body_Font') :
-  weight == VerseWeight.bold ? getTranslated(context, 'Headline_Font') :
-  weight == VerseWeight.black ? getTranslated(context, 'Headline_Font') :
-  getTranslated(context, 'Body_Font')
+  weight == VerseWeight.thin ? translate(context, 'Body_Font') :
+  weight == VerseWeight.regular ? translate(context, 'Body_Font') :
+  weight == VerseWeight.bold ? translate(context, 'Headline_Font') :
+  weight == VerseWeight.black ? translate(context, 'Headline_Font') :
+  translate(context, 'Body_Font')
   ;
   return verseFont;
 }
@@ -163,3 +163,4 @@ Future<void> handlePaste(TextSelectionDelegate delegate) async {
   delegate.bringIntoView(delegate.textEditingValue.selection.extent);
   delegate.hideToolbar();
 }
+// === === === === === === === === === === === === === === === === === === ===

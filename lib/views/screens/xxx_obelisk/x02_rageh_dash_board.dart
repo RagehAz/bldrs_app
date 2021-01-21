@@ -70,7 +70,7 @@ class GeneralStatistics extends StatelessWidget {
                 // ------------------------------------------------
 
                 BzPgVerse(
-                verse: getTranslated(context, 'Allaho_Akbar'),
+                verse: translate(context, 'Allaho_Akbar'),
                 size: 5,
                 flyerZoneWidth: screenWidth,
                 maxLines: 1,

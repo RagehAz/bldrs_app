@@ -1,6 +1,5 @@
-
 import 'package:flutter/material.dart';
-
+// === === === === === === === === === === === === === === === === === === ===
 DecorationImage superImage(String picture, BoxFit boxFit){
   DecorationImage image = DecorationImage(
     image: AssetImage(picture),
@@ -9,3 +8,4 @@ DecorationImage superImage(String picture, BoxFit boxFit){
 
   return picture == '' ? null : image;
 }
+// === === === === === === === === === === === === === === === === === === ===

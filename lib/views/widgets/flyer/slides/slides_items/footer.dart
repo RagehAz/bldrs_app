@@ -41,10 +41,10 @@ class FlyerFooter extends StatelessWidget {
     double footerBTRadius = flyerBottomCorners - footerBTMargins;
     dynamic footerBTColor = Colorz.GreySmoke;
     String shareBTIcon = Iconz.Share;
-    String shareBTVerse = getTranslated(context, 'Send');
+    String shareBTVerse = translate(context, 'Send');
     // String saveBTIcon = ankhOn == true ? Iconz.SaveOn : Iconz.SaveOff;
-    // String saveBTVerse = ankhOn == true ? getTranslated(context, 'Saved') :
-    getTranslated(context, 'Save');
+    // String saveBTVerse = ankhOn == true ? translate(context, 'Saved') :
+    translate(context, 'Save');
     // dynamic saveBTColor = ankhOn == true ? Colorz.SkyDarkBlue : footerBTColor;
 
 
@@ -97,8 +97,8 @@ class FlyerFooter extends StatelessWidget {
           miniMode == true ? Container() :
             // --- SHARE BUTTON
             Positioned(
-              right: getTranslated(context, 'Text_Direction') == 'ltr' ? null : 0,
-              left: getTranslated(context, 'Text_Direction') == 'ltr' ? 0 : null,
+              right: translate(context, 'Text_Direction') == 'ltr' ? null : 0,
+              left: translate(context, 'Text_Direction') == 'ltr' ? 0 : null,
               bottom: 0,
               child: FlyerFooterBT(
                 flyerZoneWidth: flyerZoneWidth,

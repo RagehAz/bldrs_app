@@ -28,7 +28,7 @@ import 'package:websafe_svg/websafe_svg.dart';
 
             // --- TAG LINE
             SuperVerse(
-              verse: '${getTranslated(context, 'Bldrs_Tag_Line')}',
+              verse: '${translate(context, 'Bldrs_Tag_Line')}',
               size: 4,
               designMode: false,
               shadow: true,
@@ -66,7 +66,7 @@ import 'package:websafe_svg/websafe_svg.dart';
 //              color: varza.BloodTest,
               child:
               SuperVerse(
-                verse: getTranslated(context, 'Bldrs_Description'),
+                verse: translate(context, 'Bldrs_Description'),
                 size: 2,
                 weight: VerseWeight.thin,
                 designMode: false,

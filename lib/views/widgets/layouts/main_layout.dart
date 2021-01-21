@@ -106,7 +106,7 @@ class MainLayout extends StatelessWidget {
                 Rageh(
                   tappingRageh: tappingRageh != null ? tappingRageh : (){print('no function here bitch');},
                   doubleTappingRageh:
-                  getTranslated(context, 'Active_Language') == 'Arabic' ?
+                  translate(context, 'Active_Language') == 'Arabic' ?
                       () async {
                     Locale temp = await setLocale('en');
                     BldrsApp.setLocale(context, temp);

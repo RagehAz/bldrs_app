@@ -92,8 +92,8 @@ class _AnkhButtonState extends State<AnkhButton> with SingleTickerProviderStateM
     double flyerBottomCorners = widget.flyerZoneWidth * Ratioz.xxflyerBottomCorners;
     double saveBTRadius = flyerBottomCorners - footerBTMargins;
     // String saveBTIcon = ankhIsOn == true ? Iconz.SaveOn : Iconz.SaveOff;
-    // String saveBTVerse = ankhIsOn == true ? getTranslated(context, 'Saved') :
-    // getTranslated(context, 'Save');
+    // String saveBTVerse = ankhIsOn == true ? translate(context, 'Saved') :
+    // translate(context, 'Save');
     Color saveBTColor = widget.ankhIsOn == true ? Colorz.YellowSmoke : Colorz.Nothing;
     // ----------------------------------------------------------------------------
     // Color flyerShadowColor = ankhIsOn == true ? Colorz.BlackBlack : Colorz.BlackBlack;
@@ -103,8 +103,8 @@ class _AnkhButtonState extends State<AnkhButton> with SingleTickerProviderStateM
         animation: _ankhAniController,
         builder: (BuildContext context, _) =>
             Positioned(
-              left: getTranslated(context, 'Text_Direction') == 'ltr' ? null : 0,
-              right: getTranslated(context, 'Text_Direction') == 'ltr' ? 0 : null,
+              left: translate(context, 'Text_Direction') == 'ltr' ? null : 0,
+              right: translate(context, 'Text_Direction') == 'ltr' ? 0 : null,
               bottom: 0,
               child:
               Stack(

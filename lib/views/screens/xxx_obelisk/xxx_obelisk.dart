@@ -30,6 +30,7 @@ import 'package:bldrs/xxx_LABORATORY/testers/database_viewer_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/testers/test_subjects.dart' as TestSubjects;
 import 'package:bldrs/xxx_LABORATORY/testers/testerScreen.dart';
 import 'package:flutter/material.dart';
+import 'o_01_translations.dart';
 import 'x10_pro_flyer_page_view.dart';
 import 'x11_pro_flyer_grid_view.dart';
 import 'x12_checkbox_lesson.dart';
@@ -316,9 +317,20 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
             splashColor: Colorz.White,
             buttonVerseShadow: true,
             function:
-                // Routez.ProviderTest,
                 () => goToNewScreen(context, ProFlyersGridView()),
             stretched: false,
+          ),
+
+          // --- 15 - TRANSLATIONS -------------------------------
+          BTMain(
+            buttonVerse: '15 - Translations',
+            buttonIcon: Iconz.Language,
+            buttonColor: Colorz.BloodRed,
+            splashColor: Colorz.White,
+            buttonVerseShadow: true,
+            stretched: false,
+            function:
+                () => goToNewScreen(context, Translations()),
           ),
 
           // --- 16 - PROBZ Test -------------------------------
@@ -516,28 +528,6 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
             splashColor: Colorz.Yellow,
             stretched: true,
             function: () => goToNewScreen(context, GoogleMapScreen5()),
-          ),
-
-          // --- 32 - OLD CREATE A NEW ACCOUNT -------------------------------
-          BTMain(
-            buttonVerse: '32 - Old Create New Account',
-            buttonIcon: Iconz.DvGouran,
-            buttonColor: Colorz.BlackPlastic,
-            splashColor: Colorz.Yellow,
-            buttonVerseShadow: false,
-            function: Routez.SignUp,
-            stretched: true,
-          ),
-
-          // --- 33 - OLD SIGN IN -------------------------------
-          BTMain(
-            buttonVerse: '33 - Old Sign In Screen',
-            buttonIcon: Iconz.DvGouran,
-            buttonColor: Colorz.BlackPlastic,
-            splashColor: Colorz.Yellow,
-            buttonVerseShadow: false,
-            function: Routez.SignIn,
-            stretched: true,
           ),
 
           // --- 34 -  OLD CHECKBOX THING -------------------------------

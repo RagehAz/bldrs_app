@@ -26,7 +26,7 @@ class FontTestScreen extends StatelessWidget {
     int fontSize6 = 6;
     int fontSize7 = 7;
     int fontSize8 = 8;
-    String testVerse = '${getTranslated(context, "Bldrs_Full_Name")}';
+    String testVerse = '${translate(context, "Bldrs_Full_Name")}';
 
     VerseWeight weightTest = VerseWeight.thin;
 
@@ -612,7 +612,7 @@ class FontTestScreen extends StatelessWidget {
 
             Rageh(
               tappingRageh:
-                getTranslated(context, 'Active_Language') == 'Arabic' ?
+                translate(context, 'Active_Language') == 'Arabic' ?
                     () async {
                 Locale temp = await setLocale('en');
                 BldrsApp.setLocale(context, temp);

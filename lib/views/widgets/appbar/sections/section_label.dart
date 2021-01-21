@@ -23,10 +23,10 @@ class SectionLabel extends StatelessWidget {
     String sectionPickerDropDownIcon = sectionsListIsOpen == false
         ? Iconz.ArrowDown
         : sectionsListIsOpen == true &&
-                (getTranslated(context, 'Text_Direction') == 'ltr')
+                (translate(context, 'Text_Direction') == 'ltr')
             ? Iconz.ArrowRight
             : sectionsListIsOpen == true &&
-                    (getTranslated(context, 'Text_Direction') == 'rtl')
+                    (translate(context, 'Text_Direction') == 'rtl')
                 ? Iconz.ArrowLeft
                 : Iconz.ArrowDown;
 

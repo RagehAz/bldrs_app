@@ -53,7 +53,7 @@ class FlyerFooterBT extends StatelessWidget {
           boxShadow: [
             CustomBoxShadow(
                 color:
-                buttonVerse == getTranslated(context, 'Saved') ? Colorz.Yellow:Colorz.BlackPlastic,
+                buttonVerse == translate(context, 'Saved') ? Colorz.Yellow:Colorz.BlackPlastic,
                 offset: new Offset(0, buttonMargins * -0.12),
                 blurRadius: buttonMargins * 0.99,
                 blurStyle: BlurStyle.outer),
@@ -77,7 +77,7 @@ class FlyerFooterBT extends StatelessWidget {
             alignment: Alignment.center,
             children: <Widget>[
 
-              buttonVerse == getTranslated(context, 'Saved') ? Container () :
+              buttonVerse == translate(context, 'Saved') ? Container () :
 
               // --- BUTTON OVAL HIGHLIGHT
               Container(
@@ -113,7 +113,7 @@ class FlyerFooterBT extends StatelessWidget {
               ),
 
               // --- ANKH GOLDEN BACKGROUND
-              buttonVerse == getTranslated(context, 'Saved') ?
+              buttonVerse == translate(context, 'Saved') ?
               Container(
                 width: 0.8 * buttonRadius * btOvalSizeFactor,
                 height: 0.8 * buttonRadius* btOvalSizeFactor,
@@ -150,7 +150,7 @@ class FlyerFooterBT extends StatelessWidget {
                   ),
 
                   flyerZoneWidth < MediaQuery.of(context).size.width * 0.75 ||
-                      buttonVerse == getTranslated(context, 'Saved') ?
+                      buttonVerse == translate(context, 'Saved') ?
                   Container() :
                   // --- BUTTON VERSE
                   SuperVerse(

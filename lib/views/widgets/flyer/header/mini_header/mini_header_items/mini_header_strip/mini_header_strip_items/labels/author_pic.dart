@@ -34,7 +34,7 @@ class AuthorPic extends StatelessWidget {
                 image: AssetImage(authorPic),
                 fit: BoxFit.fill
             ),
-            borderRadius: getTranslated(context, 'Text_Direction') == 'rtl' ?
+            borderRadius: translate(context, 'Text_Direction') == 'rtl' ?
             BorderRadius.only(
               topLeft: Radius.circular(authorImageCorners),
               topRight: Radius.circular(authorImageCorners),

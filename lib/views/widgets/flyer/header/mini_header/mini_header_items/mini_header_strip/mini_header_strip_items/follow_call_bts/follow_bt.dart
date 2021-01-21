@@ -40,7 +40,7 @@ class FollowBT extends StatelessWidget {
     String followIcon = Iconz.Follow;
     double followIconHeight = followBTHeight * 0.5;
     double followIconWidth = followIconHeight;
-    String followText = getTranslated(context, 'Follow');
+    String followText = translate(context, 'Follow');
     Color followTextColor = followOn == true ? Colorz.BlackBlack : Colorz.White;
     // === === === === === === === === === === === === === === === === === ===
     void followTap() {

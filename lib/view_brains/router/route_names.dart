@@ -62,10 +62,6 @@ class Routez {
   static const String Obelisk = 'ObeliskScreen';
 
 // --- ZEBALA
-  static const String SignUp = 'SignUpScreen';
-  static const String SignIn = 'SignInScreen';
-  static const String OwnerSignUp = 'OwnerSignUpScreen';
-  static const String BusinessSignUp = 'BusinessSignUpScreen';
 // static const String FlyerSlides = 'SlidesScreen';
   static const String MainLayout = 'MainLayout';
   static const String ChatScreen = 'ChatScreen';

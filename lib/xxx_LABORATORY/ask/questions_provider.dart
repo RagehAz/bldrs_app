@@ -2,19 +2,18 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'question_model.dart';
 
-
 class QuestionsProvider with ChangeNotifier {
   List<Question> _questions = [];
-
+// ----------------------------------------------------------------------------
   CollectionReference questionsFirebase =
       FirebaseFirestore.instance.collection('questions');
-
+// ----------------------------------------------------------------------------
   QuestionsProvider() {
     fetchQuestions();
   }
-
+// ----------------------------------------------------------------------------
   getQuestionsList() => _questions;
-
+// ----------------------------------------------------------------------------
   fetchQuestions() async {
     _questions.clear();
     questionsFirebase.get().then((QuerySnapshot querySnapshot) => {
@@ -25,7 +24,7 @@ class QuestionsProvider with ChangeNotifier {
         });
     notifyListeners();
   }
-
+// ----------------------------------------------------------------------------
   add(String question) {
     questionsFirebase
         .add({"body": question, "userID": 'kjhfkskfkfk'})
