@@ -1,5 +1,4 @@
 import 'package:bldrs/providers/combined_models/coflyer_provider.dart';
-import 'package:bldrs/view_brains/theme/soundz.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/pro_flyer/pro_flyer.dart';
 import 'package:flutter/gestures.dart';

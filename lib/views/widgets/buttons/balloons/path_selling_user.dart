@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 // ---  tamam
-class SellingUserBubble extends CustomClipper<Path> {
+class SellingUserBalloon extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     Path path = Path();

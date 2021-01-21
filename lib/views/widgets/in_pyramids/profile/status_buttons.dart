@@ -1,3 +1,4 @@
+import 'package:bldrs/models/enums/enum_user_type.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';

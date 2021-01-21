@@ -10,7 +10,6 @@ import 'package:bldrs/views/widgets/pyramids/pyramids.dart';
 import 'package:bldrs/views/widgets/space/skies/black_sky.dart';
 import 'package:bldrs/views/widgets/space/skies/night_sky.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/views/widgets/buttons/bt_rageh.dart';
 import 'package:provider/provider.dart';

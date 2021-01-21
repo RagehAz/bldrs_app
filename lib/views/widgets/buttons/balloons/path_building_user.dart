@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 // --- TAMAM
-class BuildingUserBubble extends CustomClipper<Path> {
+class BuildingUserBalloon extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     Path path = Path();
