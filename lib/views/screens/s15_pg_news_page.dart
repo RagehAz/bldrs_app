@@ -1,7 +1,7 @@
 import 'package:bldrs/view_brains/theme/iconz.dart';
+import 'package:bldrs/views/widgets/in_pyramids/news/new_flyer.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart' show PyramidsHorizon;
 import 'package:flutter/material.dart';
-import 'new_flyer.dart';
 
 class NewsPage extends StatelessWidget {
   @override

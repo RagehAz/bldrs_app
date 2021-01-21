@@ -38,15 +38,6 @@ class Ask extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final questionsProvider = Provider.of<QuestionsProvider>(context);
-    final List<UserModel> userStream = Provider.of<List<UserModel>>(context);
-    
-    // userStream?.forEach((user) {
-    //   print('name : ${user.name}');
-    //   print('userID : ${user.userID}');
-    //   print('savedFlyersIDs : ${user.savedFlyersIDs}');
-    //   // print('email : ${user.contacts[0]['value']}');
-    //   // print('joined at : ${user.joinedAt}');
-    // });
 
     UserType userType = UserType.PlanningUser;
     double abPadding = Ratioz.ddAppBarMargin * 0.5;

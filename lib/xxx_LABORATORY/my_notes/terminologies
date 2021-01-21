@@ -66,3 +66,4 @@ NET NINJA BREWS TERMS TO BLDRS
     brewCollection      : usersCollection
     'brews'             : 'users'
     Brew()              : UserModel()
+    userData            : userModel

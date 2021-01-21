@@ -186,6 +186,8 @@ class _SignInState extends State<SignIn> {
                     {setState(() {error = 'Wrong password';}); _triggerLoading();}
                     else if ('$result' == '[firebase_auth/user-not-found] There is no user record corresponding to this identifier. The user may have been deleted.')
                     {setState(() {error = 'E-mail is not found';}); _triggerLoading();}
+                    else if('$result' == '[firebase_auth/invalid-email] The email address is badly formatted.')
+                    {setState(() {error = 'E-mail is wrong';}); _triggerLoading();}
                     else if(result == null){setState(() {error = 'Could not sign in';}); _triggerLoading();}
                     else if(result.runtimeType == UserModel)
                     {
