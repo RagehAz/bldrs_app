@@ -1,13 +1,11 @@
+import 'package:bldrs/models/enums/enum_user_type.dart';
 import 'package:bldrs/models/user_model.dart';
-import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/views/widgets/bubbles/contacts_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/following_bzz_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/status_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/user_bubble.dart';
-import 'package:bldrs/views/widgets/buttons/user_balloon.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart' show PyramidsHorizon;
-import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 's18_pg_edit_profile_page.dart';

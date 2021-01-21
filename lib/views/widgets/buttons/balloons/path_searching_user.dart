@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 // --- Previously Normal
-class SearchingUserBubble extends CustomClipper<Path> {
+class SearchingUserBalloon extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     Path path1 = Path();

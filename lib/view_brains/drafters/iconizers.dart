@@ -1,8 +1,16 @@
 import 'dart:core';
 import 'package:bldrs/models/enums/enum_bldrs_section.dart';
 import 'package:bldrs/models/enums/enum_bz_type.dart';
+import 'package:bldrs/models/enums/enum_user_type.dart';
 import 'package:bldrs/view_brains/localization/localization_constants.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
+import 'package:bldrs/views/widgets/buttons/balloons/path_building_user.dart';
+import 'package:bldrs/views/widgets/buttons/balloons/path_constructing_user.dart';
+import 'package:bldrs/views/widgets/buttons/balloons/path_normal_user.dart';
+import 'package:bldrs/views/widgets/buttons/balloons/path_planning_user.dart';
+import 'package:bldrs/views/widgets/buttons/balloons/path_searching_user.dart';
+import 'package:bldrs/views/widgets/buttons/balloons/path_selling_user.dart';
+import 'package:bldrs/views/widgets/buttons/user_balloon.dart';
 import 'package:flutter/material.dart';
 // ---------------------------------------------------------------------------
 String sectionIcon (BldrsSection section){
@@ -52,6 +60,19 @@ String bzTypeIconOn (BzType bzType){
   null;
   return icon;
 }
+// ---------------------------------------------------------------------------
+CustomClipper<Path> userBalloon(UserType userType) {
+  CustomClipper<Path> userBalloon =
+  userType == UserType.NormalUser ? NormalUserBalloon() :
+  userType == UserType.SearchingUser ? SearchingUserBalloon() :
+  userType == UserType.ConstructingUser ? ConstructingUserBalloon() :
+  userType == UserType.PlanningUser ? PlanningUserBalloon() :
+  userType == UserType.BuildingUser ? BuildingUserBalloon() :
+  userType == UserType.SellingUser ? SellingUserBalloon() :
+  NormalUserBalloon();
+  return userBalloon;
+}
+
 // ---------------------------------------------------------------------------
 // MediaQueryData data = MediaQuery.of(context);
 // double ratio = data.devicePixelRatio;

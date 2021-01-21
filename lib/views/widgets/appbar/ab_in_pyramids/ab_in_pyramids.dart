@@ -1,3 +1,4 @@
+import 'package:bldrs/models/enums/enum_user_type.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
@@ -120,7 +121,7 @@ class ABInPyramids extends StatelessWidget {
            child: UserBalloon(
              userPic: Iconz.DumAuthorPic,
              userType: userType,
-             bubbleWidth: abButtonsHeight,
+             balloonWidth: abButtonsHeight,
              blackAndWhite: profileBlackAndWhite,
              onTap: () {switchingPages(inPyramidsPage.Profile);},
            ),
