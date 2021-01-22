@@ -1,5 +1,6 @@
 import 'package:bldrs/ambassadors/services/auth.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
+import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/widgets/bubbles/text_field_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
@@ -116,7 +117,7 @@ class _RegisterState extends State<Register> {
             fieldIsRequired: true,
             keyboardTextInputType: TextInputType.emailAddress,
             keyboardTextInputAction: TextInputAction.next,
-            title: 'E-mail Address',
+            title: Wordz.emailAddress(context),
             hintText: '...',
             onSaved: (){print('onSaved');},
             maxLength: 100,
@@ -126,9 +127,9 @@ class _RegisterState extends State<Register> {
               _emailTextOnChanged(val);
             },
             validator: (val){
-              if (val.isEmpty){return 'Enter E-mail';}
+              if (val.isEmpty){return Wordz.enterEmail(context);}
               else {
-               return EmailValidator.validate(val) == true ? null : 'E-mail is not valid';
+               return EmailValidator.validate(val) == true ? null : Wordz.emailInvalid(context);
               }
             },
           ),
@@ -139,8 +140,8 @@ class _RegisterState extends State<Register> {
             fieldIsRequired: true,
             keyboardTextInputType: TextInputType.visiblePassword,
             keyboardTextInputAction: TextInputAction.next,
-            title: 'Password',
-            comments: 'minimum 6 characters long',
+            title: Wordz.password(context),
+            comments: Wordz.min6Char(context),
             hintText: '...',
             onSaved: (){print('onSaved');},
             maxLines: 1,
@@ -156,9 +157,9 @@ class _RegisterState extends State<Register> {
             },
             validator: (val){
               return
-              val.isEmpty ? 'Enter password' :
-              val.length < 6 ? 'Password should at least be 6 characters long' :
-              _confirmPassword != _password ? 'passwords don\'t match' :
+              val.isEmpty ? Wordz.enterPassword(context) :
+              val.length < 6 ? Wordz.min6CharError(context) :
+              _confirmPassword != _password ? Wordz.passwordMismatch(context) :
               null;
             },
           ),
@@ -169,7 +170,7 @@ class _RegisterState extends State<Register> {
             fieldIsRequired: true,
             keyboardTextInputType: TextInputType.visiblePassword,
             keyboardTextInputAction: TextInputAction.done,
-            title: 'Confirm Password',
+            title: Wordz.confirmPassword(context),
             hintText: '...',
             onSaved: (){print('onSaved');},
             maxLines: 1,
@@ -182,9 +183,9 @@ class _RegisterState extends State<Register> {
             textOnChanged: (val) => _confirmPasswordOnChanged(val),
             validator: (val){
               return
-                val.isEmpty ? 'Confirm password' :
-                _confirmPassword != _password ? 'passwords don\'t match' :
-                val.length < 6 ? 'Password confirmation is less than 6 characters long' :
+                val.isEmpty ? Wordz.confirmPassword(context) :
+                _confirmPassword != _password ? Wordz.passwordMismatch(context) :
+                val.length < 6 ? Wordz.min6CharError(context) :
               null;
 
             },
@@ -196,7 +197,7 @@ class _RegisterState extends State<Register> {
             children: <Widget>[
 
               SuperVerse(
-                verse: 'Sign in Existing Account',
+                verse: Wordz.signInExisting(context),
                 color: Colorz.BabyBlue,
                 size: 2,
                 labelColor: Colorz.WhiteAir,
@@ -207,7 +208,7 @@ class _RegisterState extends State<Register> {
               DreamBox(
                 height: 50,
                 verseScaleFactor: 0.7,
-                verse: 'Register    ',
+                verse: Wordz.register(context),
                 boxMargins: EdgeInsets.all(20),
                 boxFunction: () async {
                   if(_formKey.currentState.validate()){
@@ -215,9 +216,9 @@ class _RegisterState extends State<Register> {
                     dynamic result = await _auth.registerWithEmailAndPassword(_email, _password);
                     print('register result is : $result');
                     if ('$result' == '[firebase_auth/email-already-in-use] The email address is already in use by another account.')
-                    {setState(() {error = 'E-mail is Already registered';}); _triggerLoading();}
+                    {setState(() {error = Wordz.emailAlreadyRegistered(context);}); _triggerLoading();}
                     else if('$result' == '[firebase_auth/invalid-email] The email address is badly formatted.')
-                    {setState(() {error = 'E-mail is wrong';}); _triggerLoading();}
+                    {setState(() {error = Wordz.emailWrong(context);}); _triggerLoading();}
                     else if(result == null){setState(() {error = 'something is wrong';}); _triggerLoading();}
                     else if(result.runtimeType == UserModel)
                     {
