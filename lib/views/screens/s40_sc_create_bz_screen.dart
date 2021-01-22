@@ -3,6 +3,7 @@ import 'package:bldrs/models/author_model.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/providers/combined_models/co_author.dart';
 import 'package:bldrs/providers/combined_models/co_bz.dart';
+import 'package:bldrs/view_brains/drafters/keyboarders.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/widgets/bubbles/add_logo_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
@@ -155,7 +156,6 @@ void typingBzName(String bzName){
     setState(() {
       newCoBz.bz.bzName = bzName;
     });
-    // print(newCoBz.bz.bzName);
 }
   // ----------------------------------------------------------------------
   void typingBzScope(String bzScope){
