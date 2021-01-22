@@ -1,4 +1,5 @@
 import 'package:bldrs/view_brains/drafters/borderers.dart';
+import 'package:bldrs/view_brains/drafters/keyboarders.dart';
 import 'package:bldrs/view_brains/drafters/stringers.dart';
 import 'package:bldrs/view_brains/drafters/texters.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
@@ -34,7 +35,7 @@ class SuperTextField extends StatefulWidget {
   final bool fieldIsFormField;
   final String initialValue;
   final Function validator;
-  final TextDirection textDirection;
+  TextDirection textDirection;
 
   SuperTextField({
     this.keyboardTextInputType = TextInputType.text,
@@ -72,6 +73,16 @@ class SuperTextField extends StatefulWidget {
 }
 
 class _SuperTextFieldState extends State<SuperTextField> {
+TextDirection textDirection;
+
+  void switchTextDirection(String val){
+    if(textIsEnglish(val) == true){
+      setState(() {textDirection = TextDirection.ltr;});
+    } else if
+    (textIsEnglish(val) == false){
+      setState(() {textDirection = TextDirection.rtl;});
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -170,8 +181,10 @@ class _SuperTextFieldState extends State<SuperTextField> {
       );
     }
 // ---------------------------------------------------------------------------
-    TextDirection textDirection = widget.textDirection == null ? superTextDirection(context) : widget.textDirection;
-// ---------------------------------------------------------------------------
+TextDirection concludedTextDirection =
+    widget.textDirection != null ? widget.textDirection :
+    widget.textDirection == null && textDirection == null? superTextDirection(context) :
+    textDirection;
 
     return
 
@@ -193,7 +206,10 @@ class _SuperTextFieldState extends State<SuperTextField> {
           onSaved: (String koko) => widget.onSaved(koko),
           validator: widget.validator,
           controller: widget.textController,
-          onChanged: widget.onChanged,
+          onChanged: (val){
+            widget.onChanged(val);
+            if(widget.textDirection == null) {switchTextDirection(val);}
+              },
           onTap: () {
             print('onTap is tapped');
           },
@@ -206,7 +222,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
           autocorrect: true, // -------------------------------------------NO IMPACT
           // scrollPadding: EdgeInsets.all(50),
           keyboardAppearance: Brightness.dark,
-          textDirection: textDirection,
+          textDirection: concludedTextDirection,
           obscureText: widget.obscured,
           // obscuringCharacter: '*',
           maxLengthEnforced: false,
@@ -290,7 +306,10 @@ class _SuperTextFieldState extends State<SuperTextField> {
         child: TextField(
 
           controller: widget.textController,
-          onChanged: widget.onChanged,
+          onChanged: (val){
+            widget.onChanged(val);
+            switchTextDirection(val);
+          },
           onTap: () {
             print('onTap is tapped');
           },
@@ -303,7 +322,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
           autocorrect: true, // -------------------------------------------NO IMPACT
           // scrollPadding: EdgeInsets.all(50),
           keyboardAppearance: Brightness.dark,
-          textDirection: superTextDirection(context),
+          textDirection: concludedTextDirection,
           obscureText: widget.obscured,
           // obscuringCharacter: '*',
           maxLengthEnforced: false,
