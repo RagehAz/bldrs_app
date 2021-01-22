@@ -2,6 +2,7 @@ import 'package:bldrs/providers/combined_models/co_author.dart';
 import 'package:bldrs/providers/combined_models/co_flyer.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
+import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/widgets/flyer/header/mini_header/mini_header_items/mini_header_strip/mini_header_strip_items/labels/author_label.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
@@ -82,7 +83,7 @@ class _GalleryState extends State<Gallery> {
             // --- GRID TITLE
             widget.bzShowsTeam == false ?
             SuperVerse(
-              verse: 'flyers published by ${widget.bzName}',
+              verse: '${Wordz.flyersPublishedBy(context)} ${widget.bzName}',
               size: 2,
               italic: true,
               margin: widget.flyerZoneWidth * Ratioz.xxflyersGridSpacing,
@@ -92,7 +93,7 @@ class _GalleryState extends State<Gallery> {
             )
                 :
             SuperVerse(
-              verse: widget.bzTeamIDs.length == 1 ? 'Flyers published by ${widget.coAuthors[0].coUser.user.name}' : '${widget.bzName} authors team',
+              verse: widget.bzTeamIDs.length == 1 ? '${Wordz.flyersPublishedBy(context)} ${widget.coAuthors[0].coUser.user.name}' : '${widget.bzName} ${Wordz.authorsTeam(context)}',
               size: 2,
               italic: true,
               margin: widget.flyerZoneWidth * Ratioz.xxflyersGridSpacing,
@@ -142,7 +143,7 @@ class _GalleryState extends State<Gallery> {
             // --- AUTHORS FLYERS
             GalleryGrid(
               gridZoneWidth: widget.flyerZoneWidth,
-              bzID: widget.coAuthors?.isNotEmpty ? widget.coAuthors[0].author.bzId : '',
+              bzID: widget.coAuthors.isNotEmpty ? widget.coAuthors[0].author.bzId : '',
               flyersVisibilities: flyersVisibilities,
               // tappingMiniFlyer: widget.tappingMiniFlyer,
             ),

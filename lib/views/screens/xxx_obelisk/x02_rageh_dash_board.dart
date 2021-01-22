@@ -1,6 +1,7 @@
 import 'package:bldrs/view_brains/localization/localization_constants.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
+import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/widgets/buttons/bt_main.dart';
 import 'package:bldrs/views/widgets/flyer/header/max_header/max_header_items/bz_pg_counter.dart';
 import 'package:bldrs/views/widgets/flyer/header/max_header/max_header_items/bz_pg_verse.dart';
@@ -70,7 +71,7 @@ class GeneralStatistics extends StatelessWidget {
                 // ------------------------------------------------
 
                 BzPgVerse(
-                verse: translate(context, 'Allaho_Akbar'),
+                verse: Wordz.allahoAkbar(context),
                 size: 5,
                 flyerZoneWidth: screenWidth,
                 maxLines: 1,
@@ -96,7 +97,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerZoneWidth: screenWidth,
-                  verse: 'Users',
+                  verse: 'users',
                   count: 1,
                   icon: Iconz.NormalUser,
                   iconSizeFactor: 0.95,
@@ -104,7 +105,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerZoneWidth: screenWidth,
-                  verse: 'Businesses',
+                  verse: Wordz.businesses(context),
                   count: 0,
                   icon: Iconz.Bz,
                   iconSizeFactor: 0.95,
@@ -112,7 +113,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerZoneWidth: screenWidth,
-                  verse: 'flyers',
+                  verse: Wordz.flyers(context),
                   count: 0,
                   icon: Iconz.Gallery,
                   iconSizeFactor: 0.8,
@@ -120,7 +121,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerZoneWidth: screenWidth,
-                  verse: 'Slides',
+                  verse: 'slides',//Wordz.slides,
                   count: 0,
                   icon: Iconz.Flyer,
                   iconSizeFactor: 0.8,
@@ -155,7 +156,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerZoneWidth: screenWidth,
-                  verse: 'Property flyers',
+                  verse: Wordz.propertyFlyer(context),
                   count: 0,
                   icon: Iconz.Flyer,
                   iconSizeFactor: 0.8,
@@ -173,7 +174,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerZoneWidth: screenWidth,
-                  verse: 'Designers',
+                  verse: Wordz.designers(context),
                   count: 0,
                   icon: Iconz.BxDesignsOn,
                   iconSizeFactor: 0.95,
@@ -181,7 +182,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerZoneWidth: screenWidth,
-                  verse: 'Design flyers',
+                  verse: Wordz.designFlyer(context),
                   count: 0,
                   icon: Iconz.Flyer,
                   iconSizeFactor: 0.8,
@@ -199,7 +200,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerZoneWidth: screenWidth,
-                  verse: 'Suppliers',
+                  verse: Wordz.suppliers(context),
                   count: 0,
                   icon: Iconz.BxEquipmentOn,
                   iconSizeFactor: 0.95,
@@ -207,7 +208,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerZoneWidth: screenWidth,
-                  verse: 'Product flyers',
+                  verse: Wordz.productFlyer(context),
                   count: 0,
                   icon: Iconz.Flyer,
                   iconSizeFactor: 0.8,
@@ -215,7 +216,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerZoneWidth: screenWidth,
-                  verse: 'Equipment flyers',
+                  verse: Wordz.equipmentFlyer(context),
                   count: 0,
                   icon: Iconz.Flyer,
                   iconSizeFactor: 0.8,
@@ -233,7 +234,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerZoneWidth: screenWidth,
-                  verse: 'Contractors',
+                  verse: Wordz.contractors(context),
                   count: 0,
                   icon: Iconz.BxProjectsOn,
                   iconSizeFactor: 0.95,
@@ -241,7 +242,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerZoneWidth: screenWidth,
-                  verse: 'Project Flyers',
+                  verse: Wordz.projectFlyer(context),
                   count: 0,
                   icon: Iconz.Flyer,
                   iconSizeFactor: 0.8,
@@ -259,7 +260,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerZoneWidth: screenWidth,
-                  verse: 'Craftsmen',
+                  verse: Wordz.craftsmen(context),
                   count: 0,
                   icon: Iconz.BxCraftsOn,
                   iconSizeFactor: 0.95,
@@ -267,7 +268,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerZoneWidth: screenWidth,
-                  verse: 'Craft flyers',
+                  verse: Wordz.craftFlyer(context),
                   count: 0,
                   icon: Iconz.Flyer,
                   iconSizeFactor: 0.8,
@@ -294,7 +295,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerZoneWidth: screenWidth,
-                  verse: 'Saves',
+                  verse: Wordz.totalSaves(context), // Wordz.saves
                   count: 0,
                   icon: Iconz.SaveOn,
                   iconSizeFactor: 0.8,
@@ -302,7 +303,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerZoneWidth: screenWidth,
-                  verse: 'Views',
+                  verse: Wordz.views(context),
                   count: 0,
                   icon: Iconz.Views,
                   iconSizeFactor: 0.8,
@@ -310,7 +311,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerZoneWidth: screenWidth,
-                  verse: 'Shares',
+                  verse: Wordz.totalShares(context), // Wordz.shares
                   count: 0,
                   icon: Iconz.Share,
                   iconSizeFactor: 0.8,
@@ -318,7 +319,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerZoneWidth: screenWidth,
-                  verse: 'Follows',
+                  verse: Wordz.followers(context),
                   count: 0,
                   icon: Iconz.Follow,
                   iconSizeFactor: 0.8,
@@ -326,7 +327,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerZoneWidth: screenWidth,
-                  verse: 'Connects',
+                  verse: Wordz.bldrsConnected(context),
                   count: 0,
                   icon: Iconz.HandShake,
                   iconSizeFactor: 0.9,

@@ -1,5 +1,6 @@
 import 'package:bldrs/view_brains/localization/localization_constants.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
+import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -32,12 +33,12 @@ class FieldTag extends StatelessWidget {
       ),
 
       child: Text(
-        translate(context, tagText),
+        Wordz.keywordTag(context),
         textAlign: TextAlign.center,
         softWrap: true,
         style: TextStyle(
           color: Colorz.White,
-          fontFamily: translate(context, 'Body_Font'),
+          fontFamily: Wordz.bodyFont(context),
           fontStyle: FontStyle.italic,
           decoration: TextDecoration.none,
           fontSize: MediaQuery.of(context).size.height * 0.013,
@@ -66,12 +67,12 @@ class PublishTime extends StatelessWidget {
       padding: EdgeInsets.only(left: flyerTagTextPaddingValue, right: flyerTagTextPaddingValue),
 
       child: Text(
-        translate(context, publishTimeText),
+        Wordz.published(context),
         textAlign: TextAlign.start,
 
         style: TextStyle(
           color: Colorz.White,
-          fontFamily: translate(context, 'Headline_Font'),
+          fontFamily: Wordz.headlineFont(context),
           fontStyle: FontStyle.italic,
           decoration: TextDecoration.none,
           fontSize: MediaQuery.of(context).size.height * 0.0115,
@@ -106,11 +107,11 @@ class KeywordTag extends StatelessWidget {
       ),
 
       child: Text(
-        translate(context, keyTagText),
+        Wordz.keywordTag(context),
         textAlign: TextAlign.center,
         style: TextStyle(
           color: Colorz.White,
-          fontFamily: translate(context, 'Body_Font'),
+          fontFamily: Wordz.bodyFont(context),
           fontStyle: FontStyle.italic,
           decoration: TextDecoration.none,
           fontSize: MediaQuery.of(context).size.height * 0.013,

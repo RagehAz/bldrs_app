@@ -2,6 +2,7 @@ import 'package:bldrs/view_brains/drafters/shadowers.dart';
 import 'package:bldrs/view_brains/localization/localization_constants.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
+import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -53,7 +54,7 @@ class FlyerFooterBT extends StatelessWidget {
           boxShadow: [
             CustomBoxShadow(
                 color:
-                buttonVerse == translate(context, 'Saved') ? Colorz.Yellow:Colorz.BlackPlastic,
+                buttonVerse == Wordz.saved(context) ? Colorz.Yellow:Colorz.BlackPlastic,
                 offset: new Offset(0, buttonMargins * -0.12),
                 blurRadius: buttonMargins * 0.99,
                 blurStyle: BlurStyle.outer),
@@ -77,7 +78,7 @@ class FlyerFooterBT extends StatelessWidget {
             alignment: Alignment.center,
             children: <Widget>[
 
-              buttonVerse == translate(context, 'Saved') ? Container () :
+              buttonVerse == Wordz.saved(context) ? Container () :
 
               // --- BUTTON OVAL HIGHLIGHT
               Container(
@@ -113,7 +114,7 @@ class FlyerFooterBT extends StatelessWidget {
               ),
 
               // --- ANKH GOLDEN BACKGROUND
-              buttonVerse == translate(context, 'Saved') ?
+              buttonVerse == Wordz.saved(context) ?
               Container(
                 width: 0.8 * buttonRadius * btOvalSizeFactor,
                 height: 0.8 * buttonRadius* btOvalSizeFactor,
@@ -150,7 +151,7 @@ class FlyerFooterBT extends StatelessWidget {
                   ),
 
                   flyerZoneWidth < MediaQuery.of(context).size.width * 0.75 ||
-                      buttonVerse == translate(context, 'Saved') ?
+                      buttonVerse == Wordz.saved(context) ?
                   Container() :
                   // --- BUTTON VERSE
                   SuperVerse(

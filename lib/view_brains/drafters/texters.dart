@@ -1,5 +1,6 @@
 import 'package:bldrs/view_brains/localization/localization_constants.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
+import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -43,12 +44,11 @@ FontWeight superVerseWeight(VerseWeight weight){
 // === === === === === === === === === === === === === === === === === === ===
 String superVerseFont(BuildContext context, VerseWeight weight){
   String verseFont =
-  weight == VerseWeight.thin ? translate(context, 'Body_Font') :
-  weight == VerseWeight.regular ? translate(context, 'Body_Font') :
-  weight == VerseWeight.bold ? translate(context, 'Headline_Font') :
-  weight == VerseWeight.black ? translate(context, 'Headline_Font') :
-  translate(context, 'Body_Font')
-  ;
+  weight == VerseWeight.thin ? Wordz.bodyFont(context) :
+  weight == VerseWeight.regular ? Wordz.bodyFont(context) :
+  weight == VerseWeight.bold ? Wordz.headlineFont(context) :
+  weight == VerseWeight.black ? Wordz.headlineFont(context) :
+  Wordz.bodyFont(context);
   return verseFont;
 }
 // === === === === === === === === === === === === === === === === === === ===

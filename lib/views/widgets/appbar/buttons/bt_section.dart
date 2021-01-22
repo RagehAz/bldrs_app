@@ -3,6 +3,7 @@ import 'package:bldrs/view_brains/drafters/iconizers.dart';
 import 'package:bldrs/view_brains/drafters/stringers.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
+import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:websafe_svg/websafe_svg.dart';
@@ -72,7 +73,7 @@ class SectionButton extends StatelessWidget {
 
     bool designMode = false;
 
-    String buttonTitle = sectionsAreExpanded == true ? 'Choose' : 'Section' ;
+    String buttonTitle = sectionsAreExpanded == true ? Wordz.choose(context) : Wordz.section(context) ;
 
     // double btThirdsOfScreenWidth = (screenWidth - (6*abPadding))/3;
 

@@ -3,6 +3,7 @@ import 'package:bldrs/models/author_model.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/providers/combined_models/co_author.dart';
 import 'package:bldrs/providers/combined_models/co_bz.dart';
+import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/text_field_bubble.dart';
 import 'package:path_provider/path_provider.dart' as sysPaths;
@@ -180,7 +181,7 @@ void openCityList(){
     return MainLayout(
       appBarType: AppBarType.Basic,
       pyramids: Iconz.PyramidsYellow,
-      pageTitle: 'Create New Business Account',
+      pageTitle: Wordz.createAccount(context), // createBzAccount
       tappingRageh: (){ print(_storedLogo.runtimeType);},
       layoutWidget: Stack(
         children: <Widget>[
@@ -195,7 +196,7 @@ void openCityList(){
                 Stratosphere(),
 
                 MultipleChoiceBubble(
-                  title: 'Sections :',
+                  title: '${Wordz.sections(context)} :',
                   buttonsList: sectionsListStrings(context),
                   tappingAButton: selectASection,
                   chosenButton: sectionStringer(context, chosenSection),
@@ -203,7 +204,7 @@ void openCityList(){
 
                 // --- CHOOSE BzType
                 MultipleChoiceBubble(
-                  title: 'Account type :',
+                  title: '${Wordz.accountType(context)} :',
                   buttonsList: bzTypesStrings(context),
                   tappingAButton: selectBzType,
                   chosenButton: bzTypeSingleStringer(context, chosenBzType),
@@ -212,7 +213,7 @@ void openCityList(){
 
                 // --- CHOOSE BzForm
                 MultipleChoiceBubble(
-                  title: 'Business form :',
+                  title: '${Wordz.businessForm(context)} :',
                   buttonsList: bzFormStrings(context),
                   tappingAButton: selectBzForm,
                   chosenButton: bzFormStringer(context, chosenBzForm),
@@ -228,7 +229,7 @@ void openCityList(){
 
                 // --- type BzName
                 TextFieldBubble(
-                  title: chosenBzForm == BzForm.Individual ? 'Business Entity name' : 'Company name',
+                  title: chosenBzForm == BzForm.Individual ? 'Business Entity name' : Wordz.companyName(context),
                   hintText: '...',
                   counterIsOn: true,
                   maxLength: 72,
@@ -240,7 +241,7 @@ void openCityList(){
 
                 // --- type BzScope
                 TextFieldBubble(
-                  title: 'Scope of services :',
+                  title: '${Wordz.scopeOfServices(context)} :',
                   hintText: '...',
                   counterIsOn: true,
                   maxLength: 193,
@@ -252,7 +253,7 @@ void openCityList(){
 
                 // --- type BzAbout
                 TextFieldBubble(
-                  title: newCoBz.bz.bzName == null  || newCoBz.bz.bzName == '' ? 'About Your Business' : 'About ${newCoBz.bz.bzName}',
+                  title: newCoBz.bz.bzName == null  || newCoBz.bz.bzName == '' ? '${Wordz.about(context)} ${Wordz.yourBusiness(context)}' : '${Wordz.about(context)} ${newCoBz.bz.bzName}',
                   hintText: '...',
                   counterIsOn: true,
                   maxLength: 193,
@@ -268,14 +269,14 @@ void openCityList(){
                     columnChildren: <Widget>[
 
                       SuperVerse(
-                        verse: 'Select HeadQuarters city',
+                        verse: Wordz.hqCity(context),
                         margin: 5,
                       ),
 
                       DreamBox(
                         height: 40,
                         bubble: false,
-                        verse: 'City, Country',
+                        verse: 'city, ${Wordz.country(context)}',
                         color: Colorz.WhiteAir,
                         boxFunction: openCityList,
                       )
@@ -284,7 +285,7 @@ void openCityList(){
 
                 // --- type BzAbout
                 TextFieldBubble(
-                  title: 'Business Author Name',
+                  title: Wordz.authorName(context),
                   hintText: '...',
                   counterIsOn: true,
                   maxLength: 193,

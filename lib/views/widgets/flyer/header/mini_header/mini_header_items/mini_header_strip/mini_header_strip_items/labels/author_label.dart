@@ -4,6 +4,7 @@ import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/localization/localization_constants.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
+import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -71,8 +72,8 @@ class AuthorLabel extends StatelessWidget {
     String followersCounter =
     (authorGalleryCount == 0 && followersCount == 0) || (authorGalleryCount == null && followersCount == null) ? '' :
     bzPageIsOn == true ?
-        '${separateKilos(authorGalleryCount)} flyers' :
-        '${separateKilos(followersCount)} ${translate(context, 'Followers')} . ${separateKilos(bzGalleryCount)} flyers';
+        '${separateKilos(authorGalleryCount)} ${Wordz.flyers(context)}' :
+        '${separateKilos(followersCount)} ${Wordz.followers(context)} . ${separateKilos(bzGalleryCount)} ${Wordz.flyers(context)}';
     // === === === === === === === === === === === === === === === === === === ===
     double authorImageCorners = flyerZoneWidth * Ratioz.xxflyerAuthorPicCorner;
     // === === === === === === === === === === === === === === === === === === ===

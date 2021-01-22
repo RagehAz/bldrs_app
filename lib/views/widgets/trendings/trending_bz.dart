@@ -29,7 +29,7 @@ class GrowingBz extends StatelessWidget {
       bubbleColor: Colorz.WhiteAir,
       columnChildren: <Widget>[
 
-        BubbleTitle(verse: 'Trending ${bldrsTypePageTitle(bzType)}'),
+        BubbleTitle(verse: 'Trending ${bldrsTypePageTitle(context, bzType)}'),
 
         Divider(
           height: spacings,

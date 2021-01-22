@@ -1,6 +1,7 @@
 import 'package:bldrs/view_brains/localization/localization_constants.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
+import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:websafe_svg/websafe_svg.dart';
@@ -23,10 +24,10 @@ class SectionLabel extends StatelessWidget {
     String sectionPickerDropDownIcon = sectionsListIsOpen == false
         ? Iconz.ArrowDown
         : sectionsListIsOpen == true &&
-                (translate(context, 'Text_Direction') == 'ltr')
+                (Wordz.textDirection(context) == 'ltr')
             ? Iconz.ArrowRight
             : sectionsListIsOpen == true &&
-                    (translate(context, 'Text_Direction') == 'rtl')
+                    (Wordz.textDirection(context) == 'rtl')
                 ? Iconz.ArrowLeft
                 : Iconz.ArrowDown;
 

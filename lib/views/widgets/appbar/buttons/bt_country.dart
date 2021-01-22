@@ -2,6 +2,7 @@ import 'package:bldrs/view_brains/drafters/shadowers.dart';
 import 'package:bldrs/view_brains/localization/localization_constants.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
+import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'bx_flagbox.dart';
@@ -97,7 +98,7 @@ class BTLocalizerCountry extends StatelessWidget {
                               color: Colorz.Nothing,
                               alignment: Alignment.center,
                               child: SuperVerse(
-                                verse: translate(context, 'Country'),
+                                verse: Wordz.country(context),
                                 color: Colorz.White,
                                 italic: false,
                                 shadow: true,
@@ -189,7 +190,7 @@ class BTLocalizerCountry extends StatelessWidget {
                             color: Colorz.Nothing,
                             alignment: Alignment.center,
                             child: SuperVerse(
-                              verse: translate(context, 'Country'),
+                              verse: Wordz.country(context),
                               color: Colorz.Grey,
                               italic: false,
                               shadow: false,

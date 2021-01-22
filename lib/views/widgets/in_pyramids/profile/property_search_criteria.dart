@@ -3,6 +3,7 @@ import 'package:bldrs/view_brains/localization/localization_constants.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
+import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +44,7 @@ class PropertySearchCriteria extends StatelessWidget {
     double boxHeight = 100 ;
     bool bubble = true;
 
-    Alignment defaultAlignment =  translate(context, 'Text_Direction') == 'ltr' ? Alignment.centerLeft : Alignment.centerRight;
+    Alignment defaultAlignment =  Wordz.textDirection(context) == 'ltr' ? Alignment.centerLeft : Alignment.centerRight;
 
     double corners = Ratioz.ddBoxCorner *1.5;
 
