@@ -5,7 +5,7 @@ import 'package:bldrs/view_brains/drafters/borderers.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/drafters/texters.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
-import 'package:bldrs/views/screens/xxx_obelisk/x20_ad_bz.dart';
+import 'package:bldrs/views/widgets/bubbles/add_logo_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/contact_field_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/text_field_bubble.dart';

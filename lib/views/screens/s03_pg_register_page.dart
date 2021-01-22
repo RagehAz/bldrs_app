@@ -113,6 +113,7 @@ class _RegisterState extends State<Register> {
 
           TextFieldBubble(
             loading: loading,
+            textDirection: TextDirection.ltr,
             fieldIsFormField: true,
             fieldIsRequired: true,
             keyboardTextInputType: TextInputType.emailAddress,
@@ -136,6 +137,7 @@ class _RegisterState extends State<Register> {
 
           TextFieldBubble(
             loading: loading,
+            textDirection: TextDirection.ltr,
             fieldIsFormField: true,
             fieldIsRequired: true,
             keyboardTextInputType: TextInputType.visiblePassword,
@@ -166,6 +168,7 @@ class _RegisterState extends State<Register> {
 
           TextFieldBubble(
             loading: loading,
+            textDirection: TextDirection.ltr,
             fieldIsFormField: true,
             fieldIsRequired: true,
             keyboardTextInputType: TextInputType.visiblePassword,
@@ -191,25 +194,21 @@ class _RegisterState extends State<Register> {
             },
           ),
 
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
 
               SuperVerse(
-                verse: Wordz.signInExisting(context),
-                color: Colorz.BabyBlue,
-                size: 2,
-                labelColor: Colorz.WhiteAir,
-                margin: 0,
-                labelTap: widget.switchToSignIn,
+                verse: error,
+                color: Colorz.BloodRed,
               ),
 
               DreamBox(
                 height: 50,
                 verseScaleFactor: 0.7,
                 verse: Wordz.register(context),
-                boxMargins: EdgeInsets.all(20),
+                boxMargins: EdgeInsets.all(10),
                 boxFunction: () async {
                   if(_formKey.currentState.validate()){
                     _triggerLoading();
@@ -229,16 +228,17 @@ class _RegisterState extends State<Register> {
                 },
               ),
 
+              SuperVerse(
+                verse: Wordz.signInExisting(context),
+                color: Colorz.BabyBlue,
+                size: 2,
+                labelColor: Colorz.WhiteAir,
+                margin: 0,
+                labelTap: widget.switchToSignIn,
+              ),
+
             ],
           ),
-
-
-          SuperVerse(
-            verse: error,
-            color: Colorz.BloodRed,
-          ),
-
-
 
         ],
       ),

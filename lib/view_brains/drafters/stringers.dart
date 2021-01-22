@@ -2,7 +2,6 @@ import 'package:bldrs/models/enums/enum_bldrs_section.dart';
 import 'package:bldrs/models/enums/enum_bz_form.dart';
 import 'package:bldrs/models/enums/enum_bz_type.dart';
 import 'package:bldrs/models/enums/enum_flyer_type.dart';
-import 'package:bldrs/view_brains/localization/localization_constants.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:flutter/material.dart';

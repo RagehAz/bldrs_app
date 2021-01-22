@@ -4,10 +4,10 @@ import 'package:bldrs/views/widgets/appbar/ab_in_pyramids/ab_in_pyramids.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/pyramids/enum_lister.dart';
 import 'package:flutter/material.dart';
-import 's14_pg_saved_flyers_page.dart';
-import 's15_pg_news_page.dart';
-import 's16_pg_more_page.dart';
-import 's17_pg_profile_page.dart';
+import 's12_pg_saved_flyers_page.dart';
+import 's13_pg_news_page.dart';
+import 's14_pg_more_page.dart';
+import 's15_pg_profile_page.dart';
 
 enum inPyramidsPage {
   SavedFlyers,

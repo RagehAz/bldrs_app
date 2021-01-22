@@ -1,6 +1,7 @@
 import 'package:bldrs/ambassadors/services/auth.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
 import 'package:bldrs/view_brains/router/route_names.dart';
+import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:flutter/material.dart';
 import 'dream_box.dart';
 
@@ -21,7 +22,7 @@ class _BtSkipAuthState extends State<BtSkipAuth> {
       child: DreamBox(
         height: 40,
         // width: 70,
-        verse: 'Skip       ',
+        verse: Wordz.skip(context),
         iconSizeFactor: 0.6,
         bubble: true,
         boxFunction: () async {

@@ -1,4 +1,3 @@
-import 'package:bldrs/view_brains/localization/localization_constants.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:flutter/material.dart';
 // === === === === === === === === === === === === === === === === === === ===

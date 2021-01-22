@@ -37,6 +37,7 @@ class TextFieldBubble extends StatelessWidget {
   final Function horusOnTapCancel;
   final String leadingIcon;
   final Function pasteFunction;
+  final TextDirection textDirection;
 
   TextFieldBubble({
     @required this.title,
@@ -64,6 +65,7 @@ class TextFieldBubble extends StatelessWidget {
     this.horusOnTapCancel,
     this.leadingIcon,
     this.pasteFunction,
+    this.textDirection,
   });
 
   @override
@@ -146,6 +148,7 @@ class TextFieldBubble extends StatelessWidget {
                       Container(
                         width: fieldWidth,
                         child: SuperTextField(
+                          textDirection: textDirection,
                           fieldIsFormField: fieldIsFormField,
                           hintText: hintText,
                           counterIsOn: counterIsOn,
@@ -173,12 +176,15 @@ class TextFieldBubble extends StatelessWidget {
 
                   // --- PASSWORD REVEALER ON TAP
                   obscured == null ? Container() :
-                  ShowPassword(
-                    obscured: obscured,
-                    onTapDown: horusOnTapDown,
-                    onTapUp: horusOnTapUp,
-                    onTapCancel: horusOnTapCancel,
-                    verseSize: 2,
+                  Align(
+                    alignment: textDirection == TextDirection.ltr ? Alignment.centerRight : superCenterAlignment(context),
+                    child: ShowPassword(
+                      obscured: obscured,
+                      onTapDown: horusOnTapDown,
+                      onTapUp: horusOnTapUp,
+                      onTapCancel: horusOnTapCancel,
+                      verseSize: 2,
+                    ),
                   ),
 
                   keyboardTextInputType != TextInputType.url ? Container() :

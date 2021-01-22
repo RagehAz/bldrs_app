@@ -27,13 +27,13 @@ enum SlidingDirection{
   freeze,
 }
 
-class CreateFlyerScreen extends StatefulWidget {
+class FlyerMakerScreen extends StatefulWidget {
 
   @override
-  _CreateFlyerScreenState createState() => _CreateFlyerScreenState();
+  _FlyerMakerScreenState createState() => _FlyerMakerScreenState();
 }
 
-class _CreateFlyerScreenState extends State<CreateFlyerScreen> {
+class _FlyerMakerScreenState extends State<FlyerMakerScreen> {
   List<SlideModel> newSlides;
   int currentSlide;
   List<TextEditingController> _titleControllers;

@@ -165,7 +165,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                   (){
                 setState(() {
                   confirmButtonIsActive = false;
-                });;
+                });
               }
                   :
                   (){

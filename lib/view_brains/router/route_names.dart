@@ -1,72 +1,43 @@
 class Routez {
-// --- 000 STARTING SCREENS
-// 000
+// ---------------------------------------------------------------------------
+  /// s00
   static const String UserChecker = 'UserChecker';
-
-// 010
+// ---------------------------------------------------------------------------
+  /// s00
   static const String Splash = 'SplashScreen';
-// 020
+// ---------------------------------------------------------------------------
+  /// s01
+  /// (s02 signin page, s03 register page) are pages insides StartingScreen();
   static const String Starting = 'StartingScreen';
-// 021
+// ---------------------------------------------------------------------------
+  /// s04
+  /// (s05 countries page, s06 language page) are pages inside LocalizerScreen();
   static const String Localizer = 'LocalizerScreen';
-// 030
-  static const String ChooseUserType = 'ChooseUserTypeScreen';
-// 040
-  static const String BzCompleteProfile = 'BzCompleteProfileScreen';
-
-// --- 100 MAIN SCREENS
-// 110
+// ---------------------------------------------------------------------------
+  /// s10
   static const String Home = 'HomeScreen';
-// 120
-  static const String FlyerScreen = 'FlyerFullScreen';
-// 130
+// ---------------------------------------------------------------------------
+  /// s11
+  /// (s12 saved flyers page, s13 news page, s14 more page, s15 profile page,
+  /// s16 edit profile page) are pages inside InPyramidsScreen();
   static const String InPyramids = 'InPyramidsScreen';
-// 140
-  static const String FlyerMaker = 'FlyerMakerScreen';
-
-// --- 200 SEARCH SCREENS
-// 210
+// ---------------------------------------------------------------------------
+  /// s20
   static const String Search = 'SearchScreen';
+// ---------------------------------------------------------------------------
+  /// s40
+  static const String CreateBz = 'CreateBzScreen';
+  // ---------------------------------------------------------------------------
+  /// s41
+  static const String FlyerMaker = 'FlyerMakerScreen';
+// ---------------------------------------------------------------------------
 
-// --- 300 PROFILE SCREENS
-  // ??
-  // ??
-// 320
-  static const String Profile = 'ProfileScreen';
-// 330
-  static const String SingleCollection = 'SingleCollectionScreen';
-
-// --- 400 BUSINESS SIGNUP SCREENS
-// 410
-  static const String AddBz = 'AddBzScreen';
-// 420
-  static const String AddBzLogo = 'AddBzLogoScreen';
-// 430
-  static const String AddBzDetails = 'AddBzDetailsScreen';
-// 440
-  static const String BzCardReview = 'BzCardReviewScreen';
-
-// --- XXX DASHBOARD
-// x01
-  static const String AccessDenied = 'AccessDeniedScreen';
-// x02
+// --- XXX GENERAL SCREENS
+  /// xxx
+  static const String FlyerScreen = 'FlyerFullScreen';
+  /// xxx
   static const String RagehDashBoard = 'RagehDashBoardScreen';
-// x03
-  static const String FontTest = 'FontTestScreen';
-// x04
-  static const String FlyersTest = 'FlyersTestScreen';
-// x05
-  static const String HeroTest = 'HeroTestScreen';
-
-// xx
+  /// xxx
   static const String Obelisk = 'ObeliskScreen';
 
-// --- ZEBALA
-// static const String FlyerSlides = 'SlidesScreen';
-  static const String MainLayout = 'MainLayout';
-  static const String ChatScreen = 'ChatScreen';
-  static const String EarthScreen = 'EarthScreen';
-  static const String IDScreen = 'IDScreen';
-  static const String ProFlyersPageView = 'ProFlyersPageView';
-  static const String ProFlyersGridView = 'ProFlyersGridView';
 }
