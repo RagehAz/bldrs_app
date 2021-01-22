@@ -1,5 +1,6 @@
 import 'package:bldrs/view_brains/localization/localization_constants.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
+import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:flutter/material.dart';
 
 import 'super_verse.dart';
@@ -57,7 +58,7 @@ class GoldenScroll extends StatelessWidget {
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colorz.White,
-                   fontFamily: translate(context, 'Body_Font'),
+                   fontFamily: Wordz.bodyFont(context),
                 fontStyle: FontStyle.italic,
                 decoration: TextDecoration.none,
                 fontSize: MediaQuery.of(context).size.height * 0.02,

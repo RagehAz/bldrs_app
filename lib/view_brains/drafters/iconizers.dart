@@ -4,6 +4,7 @@ import 'package:bldrs/models/enums/enum_bz_type.dart';
 import 'package:bldrs/models/enums/enum_user_type.dart';
 import 'package:bldrs/view_brains/localization/localization_constants.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
+import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/widgets/buttons/balloons/path_building_user.dart';
 import 'package:bldrs/views/widgets/buttons/balloons/path_constructing_user.dart';
 import 'package:bldrs/views/widgets/buttons/balloons/path_normal_user.dart';
@@ -21,14 +22,14 @@ String sectionIcon (BldrsSection section){
   }
 // === === === === === === === === === === === === === === === === === === ===
 String superArrowENRight (BuildContext context){
-  if (translate(context, 'Text_Direction') == 'ltr')
+  if (Wordz.textDirection(context) == 'ltr')
     {return Iconz.ArrowRight;}
   else
     {return Iconz.ArrowLeft;}
   }
 // === === === === === === === === === === === === === === === === === === ===
 String superArrowENLeft (BuildContext context){
-  if (translate(context, 'Text_Direction') == 'ltr')
+  if (Wordz.textDirection(context) == 'ltr')
     {return Iconz.ArrowLeft;}
   else
     {return Iconz.ArrowRight;}

@@ -4,6 +4,7 @@ import 'package:bldrs/view_brains/router/route_names.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
+import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +34,7 @@ final Color bubbleColor;
         borderRadius: BorderRadius.circular(Ratioz.ddAppBarCorner),
       ),
       alignment: centered == true ? Alignment.center :
-      translate(context, 'Text_Direction') == 'ltr' ?
+      Wordz.textDirection(context) == 'ltr' ?
       Alignment.centerLeft : Alignment.centerRight,
 
       child: Column(

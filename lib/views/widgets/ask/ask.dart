@@ -6,6 +6,7 @@ import 'package:bldrs/view_brains/router/navigators.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
+import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/buttons/user_balloon.dart';
@@ -44,7 +45,7 @@ class Ask extends StatelessWidget {
     double abHeight = Ratioz.ddAppBarHeight;
     double abButtonsHeight = abHeight - (abPadding);
 
-    String askHint = askHinter(bzType);
+    String askHint = askHinter(context, bzType);
 
     return InPyramidsBubble(
       centered: true,
@@ -137,7 +138,7 @@ class Ask extends StatelessWidget {
                 width: 150,
                 height: 40,
                 boxMargins: EdgeInsets.only(bottom: 10),
-                verse: 'Ask',
+                verse: Wordz.ask(context),
                 verseColor: Colorz.BlackBlack,
                 verseScaleFactor: 0.7,
                 color: Colorz.Yellow,

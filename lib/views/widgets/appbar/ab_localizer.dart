@@ -1,6 +1,7 @@
 import 'package:bldrs/view_brains/localization/localization_constants.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
+import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:flutter/material.dart';
 import 'buttons/ab_loc_bt.dart';
 
@@ -42,7 +43,7 @@ class ABLocalizer extends StatelessWidget {
 
           // ---  COUNTRY BUTTON
           ABLocalizerBT(
-            buttonVerse: translate(context, 'Country'),
+            buttonVerse: Wordz.country(context),
             buttonIcon: currentFlag,
             buttonTap: tappingBTLanguage,
             buttonOn: countryPageON == true ? true : false,
@@ -60,7 +61,7 @@ class ABLocalizer extends StatelessWidget {
 
           // --- LANGUAGE BUTTON
           ABLocalizerBT(
-            buttonVerse: translate(context, 'Language'),
+            buttonVerse: Wordz.language(context),
             buttonIcon: '',
             buttonTap: tappingBTLanguage,
             buttonOn: countryPageON == true ? false : true,

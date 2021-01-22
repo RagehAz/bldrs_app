@@ -4,10 +4,11 @@ import 'package:bldrs/models/enums/enum_bz_type.dart';
 import 'package:bldrs/models/enums/enum_flyer_type.dart';
 import 'package:bldrs/view_brains/localization/localization_constants.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
+import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:flutter/material.dart';
 // === === === === === === === === === === === === === === === === === === ===
 TextDirection superTextDirection(BuildContext context){
-  if (translate(context, 'Text_Direction') == 'ltr')
+  if (Wordz.textDirection(context) == 'ltr')
     {return TextDirection.ltr;}
   else
     {return TextDirection.rtl;}
@@ -39,10 +40,10 @@ double verseLabelHeight (int verseSize, double screenHeight){
 // === === === === === === === === === === === === === === === === === === ===
 String sectionStringer (BuildContext context, BldrsSection section){
   return
-        section == BldrsSection.RealEstate ? 'Real-Estate' :
-        section == BldrsSection.Construction ? 'Construction' :
-        section == BldrsSection.Supplies ? 'Supplies' :
-            'Home';
+        section == BldrsSection.RealEstate ? Wordz.realEstate(context) :
+        section == BldrsSection.Construction ? Wordz.construction(context) :
+        section == BldrsSection.Supplies ? Wordz.supplies(context) :
+            Wordz.bldrsShortName(context);
     }
 // === === === === === === === === === === === === === === === === === === ===
 List<String> sectionsListStrings (BuildContext context){
@@ -65,13 +66,13 @@ List<String> bzTypesStrings (BuildContext context){
 // === === === === === === === === === === === === === === === === === === ===
 String bzTypeSingleStringer (BuildContext context, BzType bzType){
   return
-        bzType == BzType.Developer ? 'Real-Estate Developer' :
-        bzType == BzType.Broker ? 'Real-Estate Broker' :
-        bzType == BzType.Designer ? 'Designer' :
-        bzType == BzType.Contractor ? 'Contractor' :
-        bzType == BzType.Artisan ? 'Artisan' :
-        bzType == BzType.Manufacturer ? 'Manufacturer' :
-        bzType == BzType.Supplier ? 'Supplier' :
+        bzType == BzType.Developer ? Wordz.realEstateDeveloper(context) :
+        bzType == BzType.Broker ? Wordz.realEstateBroker(context) :
+        bzType == BzType.Designer ? Wordz.designer(context) :
+        bzType == BzType.Contractor ? Wordz.contractor(context) :
+        bzType == BzType.Artisan ? Wordz.craftsman(context) :
+        bzType == BzType.Manufacturer ? Wordz.manufacturer(context) :
+        bzType == BzType.Supplier ? Wordz.supplier(context) :
             'Builder';
     }
 // === === === === === === === === === === === === === === === === === === ===
@@ -79,44 +80,44 @@ String bzTypePluralStringer (BuildContext context, BzType bzType){
   return
     bzType == BzType.Developer ? 'Real-Estate Developers' :
     bzType == BzType.Broker ? 'Real-Estate Brokers' :
-    bzType == BzType.Designer ? 'Designers' :
-    bzType == BzType.Contractor ? 'Contractors' :
-    bzType == BzType.Artisan ? 'Artisans' :
-    bzType == BzType.Manufacturer ? 'Manufacturers' :
-    bzType == BzType.Supplier ? 'Suppliers' :
+    bzType == BzType.Designer ? Wordz.designers(context) :
+    bzType == BzType.Contractor ? Wordz.contractors(context) :
+    bzType == BzType.Artisan ? Wordz.craftsmen(context) :
+    bzType == BzType.Manufacturer ? Wordz.manufacturers(context) :
+    bzType == BzType.Supplier ? Wordz.suppliers(context) :
     'Builders';
 }
 // === === === === === === === === === === === === === === === === === === ===
 String flyerTypeSingleStringer (BuildContext context, FlyerType flyerType){
 
   return
-    flyerType == FlyerType.Property   ? translate(context, 'Property')  :
-    flyerType == FlyerType.Design     ? translate(context, 'Design')  :
-    flyerType == FlyerType.Product    ? translate(context, 'Product')  :
-    flyerType == FlyerType.Project    ? translate(context, 'Project')  :
-    flyerType == FlyerType.Equipment  ? translate(context, 'Equipment')  :
-    flyerType == FlyerType.Craft      ? translate(context, 'Craft')  :
-    flyerType == FlyerType.General    ? translate(context, 'Bldrs_Short_Name')  :
-    'Builder';
+    flyerType == FlyerType.Property   ? Wordz.property(context)  :
+    flyerType == FlyerType.Design     ? Wordz.design(context)  :
+    flyerType == FlyerType.Product    ? Wordz.product(context)  :
+    flyerType == FlyerType.Project    ? Wordz.project(context)  :
+    flyerType == FlyerType.Equipment  ? Wordz.equipment(context)  :
+    flyerType == FlyerType.Craft      ? Wordz.craft(context)  :
+    flyerType == FlyerType.General    ? Wordz.general(context)  :
+    Wordz.general(context);
 }
 // === === === === === === === === === === === === === === === === === === ===
 String flyerTypePluralStringer (BuildContext context, FlyerType flyerType){
   return
-    flyerType == FlyerType.Property   ? translate(context, 'Properties')  :
-    flyerType == FlyerType.Design     ? translate(context, 'Designs')  :
-    flyerType == FlyerType.Product    ? translate(context, 'Products')  :
-    flyerType == FlyerType.Project    ? translate(context, 'Projects')  :
-    flyerType == FlyerType.Equipment  ? translate(context, 'Equipments')  :
-    flyerType == FlyerType.Craft      ? translate(context, 'Crafts')  :
-    flyerType == FlyerType.General    ? translate(context, 'Bldrs_Short_Name')  :
-    translate(context, 'Bldrs_Short_Name');
+    flyerType == FlyerType.Property   ? Wordz.properties(context)  :
+    flyerType == FlyerType.Design     ? Wordz.designs(context)  :
+    flyerType == FlyerType.Product    ? Wordz.products(context)  :
+    flyerType == FlyerType.Project    ? Wordz.projects(context)  :
+    flyerType == FlyerType.Equipment  ? Wordz.equipments(context)  :
+    flyerType == FlyerType.Craft      ? Wordz.crafts(context)  :
+    flyerType == FlyerType.General    ? Wordz.general(context)  :
+    Wordz.general(context);
 }
 // === === === === === === === === === === === === === === === === === === ===
 String bzFormStringer (BuildContext context, BzForm bzForm){
 return
-  bzForm == BzForm.Company ? 'Company' :
-  bzForm == BzForm.Individual ? 'Individual' :
-  'impossible bzForm';
+  bzForm == BzForm.Company ? Wordz.company(context) :
+  bzForm == BzForm.Individual ? Wordz.individual(context) :
+  Wordz.company(context);
 
 }
 // === === === === === === === === === === === === === === === === === === ===
@@ -132,7 +133,7 @@ List<String> bzFormStrings (BuildContext context){
 String localeStringer (BuildContext context, String city, String country){
 String verse =
     city == null || country == null ? '...' :
-    '${translate(context, 'In')} $city, $country';
+    '${Wordz.inn(context)} $city, $country';
 return verse;
 }
 // === === === === === === === === === === === === === === === === === === ===
@@ -149,7 +150,7 @@ String removeFirstCharacterFromAString(String string){
   return stringWithoutFirstCharacter;
 }
 // === === === === === === === === === === === === === === === === === === ===
-String askHinter (BzType bzType){
+String askHinter (BuildContext context, BzType bzType){
   String askHint =
   bzType == BzType.Developer ? 'I\'m Looking for a property directly from the developer ...' :
   bzType == BzType.Broker ? 'I\'m Looking for a property from brokers and re-sellers ...' :
@@ -158,19 +159,19 @@ String askHinter (BzType bzType){
   bzType == BzType.Designer ? 'I need consultation from a designer ...' :
   bzType == BzType.Contractor ? 'I\'m Looking for a contractor to build a project ...' :
   bzType == BzType.Artisan ? 'I want a craftsman to fix or build something ...' :
-  'Ask the Builders in your city';
+  Wordz.askHint(context);
   return askHint;
 }
 // === === === === === === === === === === === === === === === === === === ===
-String bldrsTypePageTitle(BzType bzType) {
+String bldrsTypePageTitle(BuildContext context, BzType bzType) {
   return
-    bzType == BzType.Developer ? 'Real-Estate Developers' :
-    bzType == BzType.Broker ? 'Real-Estate Brokers' :
-    bzType == BzType.Manufacturer ? 'Manufacturers' :
-    bzType == BzType.Supplier ? 'Suppliers & Distributors' :
-    bzType == BzType.Designer ? 'Architects, Engineers, Designers & Decorators' :
-    bzType == BzType.Contractor ? 'General & Speciality Contractors' :
-    bzType == BzType.Artisan ? 'Artisans & Craftsmen' :
-    'The Builders';
+    bzType == BzType.Developer ? Wordz.realEstateDeveloper(context) :
+    bzType == BzType.Broker ? Wordz.realEstateBroker(context) :
+    bzType == BzType.Manufacturer ? Wordz.manufacturers(context) :
+    bzType == BzType.Supplier ? Wordz.suppliers(context) : // and distributors
+    bzType == BzType.Designer ? Wordz.constructionTagLine(context) :
+    bzType == BzType.Contractor ? Wordz.contractors(context) :
+    bzType == BzType.Artisan ? Wordz.craftsmen(context) :
+    Wordz.bldrsShortName(context);
 }
 // === === === === === === === === === === === === === === === === === === ===

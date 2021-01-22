@@ -2,6 +2,7 @@ import 'package:bldrs/main.dart';
 import 'package:bldrs/view_brains/localization/localization_constants.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
+import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/widgets/appbar/ab_localizer.dart';
 import 'package:bldrs/views/widgets/appbar/buttons/bx_flagbox.dart';
 import 'package:bldrs/views/widgets/buttons/bt_main.dart';
@@ -41,7 +42,7 @@ class _LocalizerScreenState extends State<LocalizerScreen> {
         ()async{
           theChosenFlag = flagFileNameSelectedFromPGLanguageList;
           theChosenCountryName = currentSelectedCountry;
-          Locale _temp = await setLocale(translate(context, 'Language_Code'));
+          Locale _temp = await setLocale(Wordz.languageCode(context));
           BldrsApp.setLocale(context, _temp);
         }
     );

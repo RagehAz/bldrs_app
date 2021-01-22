@@ -1,4 +1,5 @@
 import 'package:bldrs/view_brains/theme/colorz.dart';
+import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
@@ -93,7 +94,7 @@ class _BzAboutVerseState extends State<BzAboutVerse> {
                 child: Column(
                   children: <Widget>[
                     SuperVerse(
-                      verse: 'About\n${widget.bzName}',
+                      verse: '${Wordz.about(context)}\n${widget.bzName}',
                       size: 2,
                       weight: VerseWeight.thin,
                       italic: false,

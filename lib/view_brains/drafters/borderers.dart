@@ -1,5 +1,5 @@
-import 'package:bldrs/view_brains/localization/localization_constants.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
+import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:flutter/material.dart';
 // === === === === === === === === === === === === === === === === === === ===
 /// takes the damn context then goes english 'ltr' counter clockwise starting
@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 /// context -> topLeft -> bottomLeft -> bottomRight -> topRight
 BorderRadius superBorderRadius(BuildContext context, double enTopLeft, double enBottomLeft, double enBottomRight, double enTopRight){
   return
-    translate(context, 'Text_Direction') == 'rtl' ?
+    Wordz.textDirection(context) == 'rtl' ?
             BorderRadius.only(
               topLeft: Radius.circular(enTopRight),
               topRight: Radius.circular(enTopLeft),

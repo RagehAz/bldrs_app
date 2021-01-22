@@ -2,6 +2,7 @@ import 'package:bldrs/models/enums/enum_user_type.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
+import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/screens/s13_sc_inpyramids_screen.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/buttons/user_balloon.dart';
@@ -35,7 +36,7 @@ class ABInPyramids extends StatelessWidget {
     dynamic newsColor = currentPage == inPyramidsPage.News ? Colorz.Yellow : Colorz.WhiteAir;
     dynamic moreColor = currentPage == inPyramidsPage.More ? Colorz.Yellow : Colorz.WhiteAir;
 
-    String collectionsPageTitle = currentPage == inPyramidsPage.SavedFlyers ? 'Saved flyers' : null;
+    String collectionsPageTitle = currentPage == inPyramidsPage.SavedFlyers ? Wordz.savedFlyers(context) : null;
     double collectionsBTWidth = currentPage == inPyramidsPage.SavedFlyers ? null : abButtonsHeight;
 
     return AppBarStrip(
@@ -80,7 +81,7 @@ class ABInPyramids extends StatelessWidget {
            iconSizeFactor: 0.6,
            icon: Iconz.News,
            boxFunction: () {switchingPages(inPyramidsPage.News);},
-           verse: currentPage == inPyramidsPage.News ? 'News' : null,
+           verse: currentPage == inPyramidsPage.News ? Wordz.news(context) : null,
            verseColor: Colorz.BlackBlack,
            verseWeight: VerseWeight.bold,
            verseScaleFactor: 0.9,
@@ -103,7 +104,7 @@ class ABInPyramids extends StatelessWidget {
            iconSizeFactor: 0.5,
            icon: Iconz.More,
            boxFunction: () {switchingPages(inPyramidsPage.More);},
-           verse: currentPage == inPyramidsPage.More ? 'More' : null,
+           verse: currentPage == inPyramidsPage.More ? Wordz.more(context) : null,
            verseColor: Colorz.BlackBlack,
            verseWeight: VerseWeight.bold,
            verseScaleFactor: 1.08,

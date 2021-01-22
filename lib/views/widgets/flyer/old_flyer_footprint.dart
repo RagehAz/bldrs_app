@@ -3,6 +3,7 @@ import 'package:bldrs/view_brains/localization/localization_constants.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
+import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:websafe_svg/websafe_svg.dart';
@@ -179,7 +180,7 @@ class FlyerFootPrint extends StatelessWidget {
                                   image: AssetImage(logoImage),
                                   fit: BoxFit.fill),
                               borderRadius:
-                                  translate(context, 'Text_Direction') ==
+                              Wordz.textDirection(context) ==
                                           'rtl'
                                       ? BorderRadius.only(
                                           topLeft:
@@ -340,8 +341,8 @@ class FlyerFootPrint extends StatelessWidget {
 
                                 // --- SAVE BUTTON
                                 Positioned(
-                                  left: translate(context, 'Text_Direction') == 'ltr' ? null : 0,
-                                  right: translate(context, 'Text_Direction') == 'ltr' ? 0 : null,
+                                  left: Wordz.textDirection(context) == 'ltr' ? null : 0,
+                                  right: Wordz.textDirection(context) == 'ltr' ? 0 : null,
                                   bottom: 0,
                                   child: Container(
                                       alignment: Alignment.center,

@@ -2,6 +2,7 @@ import 'package:bldrs/view_brains/localization/localization_constants.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
+import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:flutter/material.dart';
 
@@ -103,8 +104,8 @@ class _AnkhButtonState extends State<AnkhButton> with SingleTickerProviderStateM
         animation: _ankhAniController,
         builder: (BuildContext context, _) =>
             Positioned(
-              left: translate(context, 'Text_Direction') == 'ltr' ? null : 0,
-              right: translate(context, 'Text_Direction') == 'ltr' ? 0 : null,
+              left: Wordz.textDirection(context) == 'ltr' ? null : 0,
+              right: Wordz.textDirection(context) == 'ltr' ? 0 : null,
               bottom: 0,
               child:
               Stack(

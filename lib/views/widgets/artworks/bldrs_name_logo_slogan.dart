@@ -1,10 +1,9 @@
-import 'package:bldrs/view_brains/localization/localization_constants.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:websafe_svg/websafe_svg.dart';
-
+import 'package:bldrs/view_brains/theme/wordz.dart';
 
     class LogoSlogan extends StatelessWidget {
       final double sizeFactor;
@@ -28,7 +27,7 @@ import 'package:websafe_svg/websafe_svg.dart';
 
             // --- TAG LINE
             SuperVerse(
-              verse: '${translate(context, 'Bldrs_Tag_Line')}',
+              verse: Wordz.bldrsTagLine(context),
               size: 4,
               designMode: false,
               shadow: true,
@@ -66,7 +65,7 @@ import 'package:websafe_svg/websafe_svg.dart';
 //              color: varza.BloodTest,
               child:
               SuperVerse(
-                verse: translate(context, 'Bldrs_Description'),
+                verse: Wordz.bldrsDescription(context),
                 size: 2,
                 weight: VerseWeight.thin,
                 designMode: false,

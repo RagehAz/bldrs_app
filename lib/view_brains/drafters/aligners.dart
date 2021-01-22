@@ -1,27 +1,27 @@
-import 'package:bldrs/view_brains/localization/localization_constants.dart';
+import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:flutter/material.dart';
 // === === === === === === === === === === === === === === === === === === ===
 Alignment superTopAlignment(BuildContext context){
   return
       // Alignment.centerLeft ;
-  translate(context, 'Text_Direction') == 'ltr' ? Alignment.topLeft : Alignment.topRight;
+  Wordz.textDirection(context) == 'ltr' ? Alignment.topLeft : Alignment.topRight;
 }
 // === === === === === === === === === === === === === === === === === === ===
 Alignment superCenterAlignment(BuildContext context){
   return
       // Alignment.centerLeft ;
-  translate(context, 'Text_Direction') == 'ltr' ? Alignment.centerLeft : Alignment.centerRight;
+    Wordz.textDirection(context) == 'ltr' ? Alignment.centerLeft : Alignment.centerRight;
 }
 // === === === === === === === === === === === === === === === === === === ===
 Alignment superInverseCenterAlignment(BuildContext context){
   return
       // Alignment.centerLeft ;
-  translate(context, 'Text_Direction') == 'ltr' ? Alignment.centerRight : Alignment.centerLeft;
+    Wordz.textDirection(context) == 'ltr' ? Alignment.centerRight : Alignment.centerLeft;
 }
 // === === === === === === === === === === === === === === === === === === ===
 Alignment superInverseTopAlignment(BuildContext context){
   return
     // Alignment.centerLeft ;
-    translate(context, 'Text_Direction') == 'ltr' ? Alignment.topRight : Alignment.topLeft;
+    Wordz.textDirection(context) == 'ltr' ? Alignment.topRight : Alignment.topLeft;
 }
 // === === === === === === === === === === === === === === === === === === ===

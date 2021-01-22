@@ -4,6 +4,7 @@ import 'package:bldrs/view_brains/drafters/aligners.dart';
 import 'package:bldrs/view_brains/drafters/shadowers.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
+import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/screens/s05_pg_countries_page.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/foundation.dart';
@@ -219,16 +220,16 @@ class SectionToChooseBT extends StatelessWidget {
     double buttonWidth = (screenWidth - (2*Ratioz.ddAppBarMargin) - (3*abPadding) - 40) * 1;
 
     String sectionString =
-    section == BldrsSection.RealEstate ? 'Real-Estate' :
-    section == BldrsSection.Construction ? 'Construction' :
-    section == BldrsSection.Supplies ? 'Supplies' :
-    'Builders';
+    section == BldrsSection.RealEstate ? Wordz.realEstate(context) :
+    section == BldrsSection.Construction ? Wordz.construction(context) :
+    section == BldrsSection.Supplies ? Wordz.supplies(context) :
+    Wordz.bldrsShortName(context);
 
     String description =
-    section == BldrsSection.RealEstate ? 'Developers, Brokers, Property Owners' :
-    section == BldrsSection.Construction ? 'Architects, Designers, Engineers, Contractors, CraftsMen' :
-    section == BldrsSection.Supplies ? 'Manufacturers, Products & Equipments Suppliers' :
-    'Builders';
+    section == BldrsSection.RealEstate ? Wordz.realEstateTagLine(context) :
+    section == BldrsSection.Construction ? Wordz.constructionTagLine(context) :
+    section == BldrsSection.Supplies ? Wordz.suppliesTagLine(context) :
+    Wordz.bldrsShortName(context);
 
     return GestureDetector(
       onTap: () => choosingSection(section),

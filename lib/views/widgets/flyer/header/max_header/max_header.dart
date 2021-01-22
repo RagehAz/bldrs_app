@@ -3,6 +3,7 @@ import 'package:bldrs/providers/combined_models/co_bz.dart';
 import 'package:bldrs/providers/combined_models/co_flyer.dart';
 import 'package:bldrs/providers/combined_models/coflyer_provider.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
+import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'max_header_items/authors_flyers/gallery.dart';
@@ -90,7 +91,7 @@ class MaxHeader extends StatelessWidget {
           bzPageIsOn: bzPageIsOn,
           flyerZoneWidth: flyerZoneWidth,
           count: bzConnects,
-          verse: 'Builders connected',
+          verse: Wordz.bldrsConnected(context),
           icon: Iconz.HandShake,
           iconSizeFactor: 0.98,
         ),
@@ -100,7 +101,7 @@ class MaxHeader extends StatelessWidget {
           bzPageIsOn: bzPageIsOn,
           flyerZoneWidth: flyerZoneWidth,
           count: followersCount,
-          verse: 'followers',
+          verse: Wordz.followers(context),
           icon: Iconz.Follow,
           iconSizeFactor: 0.8,
         ),
@@ -110,7 +111,7 @@ class MaxHeader extends StatelessWidget {
           bzPageIsOn: bzPageIsOn,
           flyerZoneWidth: flyerZoneWidth,
           count: callsCount,
-          verse: 'calls received',
+          verse: Wordz.callsReceived(context),
           icon: Iconz.ComPhone,
           iconSizeFactor: 0.8,
         ),
@@ -120,7 +121,7 @@ class MaxHeader extends StatelessWidget {
           flyerZoneWidth: flyerZoneWidth,
           bzPageIsOn: bzPageIsOn,
           count: bzTotalSlides,
-          verse: 'slides published',
+          verse: Wordz.slidesPublished(context),
           icon: Iconz.Gallery,
           iconSizeFactor: 0.85,
         ),
@@ -130,7 +131,7 @@ class MaxHeader extends StatelessWidget {
           flyerZoneWidth: flyerZoneWidth,
           bzPageIsOn: bzPageIsOn,
           count: bzTotalViews,
-          verse: 'total flyers\' views',
+          verse: Wordz.totalViews(context),
           icon: Iconz.Views,
           iconSizeFactor: 0.85,
         ),
@@ -140,7 +141,7 @@ class MaxHeader extends StatelessWidget {
           flyerZoneWidth: flyerZoneWidth,
           bzPageIsOn: bzPageIsOn,
           count: bzTotalShares,
-          verse: 'total shared flyers',
+          verse: Wordz.totalShares(context),
           icon: Iconz.Share,
           iconSizeFactor: 0.85,
         ),
@@ -150,7 +151,7 @@ class MaxHeader extends StatelessWidget {
           flyerZoneWidth: flyerZoneWidth,
           bzPageIsOn: bzPageIsOn,
           count: bzTotalSaves,
-          verse: 'total saved flyers',
+          verse: Wordz.totalSaves(context),
           icon: Iconz.SaveOn,
           iconSizeFactor: 0.95,
         ),
