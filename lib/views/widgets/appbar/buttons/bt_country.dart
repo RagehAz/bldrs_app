@@ -1,12 +1,10 @@
 import 'package:bldrs/view_brains/drafters/shadowers.dart';
-import 'package:bldrs/view_brains/localization/localization_constants.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'bx_flagbox.dart';
-
 
 class BTLocalizerCountry extends StatelessWidget {
   final Function buttonTap;

@@ -8,18 +8,8 @@ import 'package:bldrs/views/widgets/space/skies/night_sky.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:circle_list/circle_list.dart';
 import 'package:flutter/material.dart';
-import 's42_add_bz_logo.dart';
 
-class AddBzScreen extends StatelessWidget {
-
-    void goToAddBzLogo(BuildContext ctx, BzType selectedBzType){
-    Navigator.of(ctx).push(
-      MaterialPageRoute(builder: (_){
-      return AddBzLogoScreen(bzType: selectedBzType);
-      },
-      ),
-    );
-    }
+class CircleListWidget extends StatelessWidget {
 
 
   @override
@@ -132,8 +122,8 @@ class AddBzScreen extends StatelessWidget {
                         // color: Colorz.YellowGlass,
                         child: CircleList(
                             animationSetting: AnimationSetting(
-                                duration: Duration(seconds: 3),
-                                curve: Curves.ease,),
+                              duration: Duration(seconds: 3),
+                              curve: Curves.ease,),
                             isChildrenVertical: true,
                             showInitialAnimation: false,
                             rotateMode: RotateMode.allRotate,
@@ -151,20 +141,20 @@ class AddBzScreen extends StatelessWidget {
                             // ),
                             children: List.generate(
                                 _bzTypes.length, (index) {
-                                  return
-                                    DreamBox(
-                                      height: 50,
-                                      width: 100,
-                                      verse: bzTypeSingleStringer(context, _bzTypes[index]['BzType']),
-                                      verseWeight: VerseWeight.bold,
-                                      verseScaleFactor: 0.5,
-                                      boxMargins: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                                      verseMaxLines: 2,
-                                      color: _bzTypes[index]['color'],
-                                      boxFunction: ()=> goToAddBzLogo(context, _bzTypes[index]['BzType']),
-                                    );
-                                }
-                                )
+                              return
+                                DreamBox(
+                                  height: 50,
+                                  width: 100,
+                                  verse: bzTypeSingleStringer(context, _bzTypes[index]['BzType']),
+                                  verseWeight: VerseWeight.bold,
+                                  verseScaleFactor: 0.5,
+                                  boxMargins: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                                  verseMaxLines: 2,
+                                  color: _bzTypes[index]['color'],
+                                  boxFunction: (){},
+                                );
+                            }
+                            )
                         ),
                       ),
                     ),

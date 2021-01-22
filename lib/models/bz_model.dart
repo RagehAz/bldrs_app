@@ -165,6 +165,7 @@ class BzModel {
 
 }
 
+// ignore: unused_element
 List<Map<String,Object>> _bzContactsSample = [
   {'type' : 'whatsapp'  , 'value' : '01554555107'             , 'showInFlyer' : true    },
   {'type' : 'email'     , 'value' : 'rageh-@hotmail.com'      , 'showInFlyer' : true    },

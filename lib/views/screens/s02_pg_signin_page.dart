@@ -10,6 +10,7 @@ import 'package:bldrs/views/widgets/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
+import 'dart:ui';
 
 class SignIn extends StatefulWidget {
   final Function switchToSignIn;
@@ -107,6 +108,7 @@ class _SignInState extends State<SignIn> {
 
           TextFieldBubble(
             loading: loading,
+            textDirection: TextDirection.ltr,
             fieldIsFormField: true,
             fieldIsRequired: true,
             keyboardTextInputType: TextInputType.emailAddress,
@@ -131,6 +133,7 @@ class _SignInState extends State<SignIn> {
 
           TextFieldBubble(
             loading: loading,
+            textDirection: TextDirection.ltr,
             fieldIsFormField: true,
             fieldIsRequired: true,
             keyboardTextInputType: TextInputType.visiblePassword,

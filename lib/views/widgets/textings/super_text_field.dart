@@ -6,7 +6,6 @@ import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'super_verse.dart';
 
-
 class SuperTextField extends StatefulWidget {
   final TextInputType keyboardTextInputType;
   final Color inputColor;
@@ -35,6 +34,7 @@ class SuperTextField extends StatefulWidget {
   final bool fieldIsFormField;
   final String initialValue;
   final Function validator;
+  final TextDirection textDirection;
 
   SuperTextField({
     this.keyboardTextInputType = TextInputType.text,
@@ -64,6 +64,7 @@ class SuperTextField extends StatefulWidget {
     this.fieldIsFormField = false,
     this.initialValue,
     this.validator,
+    this.textDirection,
   });
 
   @override
@@ -169,7 +170,9 @@ class _SuperTextFieldState extends State<SuperTextField> {
       );
     }
 // ---------------------------------------------------------------------------
+    TextDirection textDirection = widget.textDirection == null ? superTextDirection(context) : widget.textDirection;
 // ---------------------------------------------------------------------------
+
     return
 
       widget.fieldIsFormField == true ?
@@ -203,7 +206,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
           autocorrect: true, // -------------------------------------------NO IMPACT
           // scrollPadding: EdgeInsets.all(50),
           keyboardAppearance: Brightness.dark,
-          textDirection: superTextDirection(context),
+          textDirection: textDirection,
           obscureText: widget.obscured,
           // obscuringCharacter: '*',
           maxLengthEnforced: false,

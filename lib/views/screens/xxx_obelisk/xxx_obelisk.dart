@@ -6,7 +6,14 @@ import 'package:bldrs/view_brains/router/route_names.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/views/screens/s05_pg_countries_page.dart';
-import 'package:bldrs/views/screens/xxx_obelisk/x17_create_new_flyer.dart';
+import 'package:bldrs/views/screens/s40_sc_create_bz_screen.dart';
+import 'package:bldrs/views/screens/xxx_obelisk/x03_font_test_screen.dart';
+import 'package:bldrs/views/screens/xxx_obelisk/x04_flyers_sizes_screen.dart';
+import 'package:bldrs/views/screens/xxx_obelisk/x05_Hero_test.dart';
+import 'package:bldrs/views/screens/xxx_obelisk/x06_single_collection_screen.dart';
+import 'package:bldrs/views/screens/xxx_obelisk/x06_swiper_layout.dart';
+import 'package:bldrs/views/screens/xxx_obelisk/x08_earth_screen.dart';
+import 'package:bldrs/views/screens/xxx_obelisk/x09_id_screen.dart';
 import 'package:bldrs/views/widgets/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/views/widgets/buttons/bt_main.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
@@ -25,17 +32,18 @@ import 'package:bldrs/xxx_LABORATORY/camera_and_location/x12_image_picker.dart';
 import 'package:bldrs/xxx_LABORATORY/camera_and_location/x13_camera.dart';
 import 'package:bldrs/xxx_LABORATORY/forms_and_inputs/popup.dart';
 import 'package:bldrs/xxx_LABORATORY/forms_and_inputs/form.dart';
+import 'package:bldrs/xxx_LABORATORY/ideas/circle_list.dart';
 import 'package:bldrs/xxx_LABORATORY/testers/cipher_tester.dart';
 import 'package:bldrs/xxx_LABORATORY/testers/database_viewer_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/testers/test_subjects.dart' as TestSubjects;
 import 'package:bldrs/xxx_LABORATORY/testers/testerScreen.dart';
 import 'package:flutter/material.dart';
 import 'o_01_translations.dart';
+import 'x07_chat_screen.dart';
 import 'x10_pro_flyer_page_view.dart';
 import 'x11_pro_flyer_grid_view.dart';
 import 'x12_checkbox_lesson.dart';
 import 'x19_new_navigation_method.dart';
-import 'x20_ad_bz.dart';
 // === === === === === === === === === === === === === === === === === === ===
 // ---------------------------------------------------------------------------
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
@@ -130,7 +138,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
             buttonIcon: Iconz.AddFlyer,
             buttonVerseShadow: true,
             splashColor: Colorz.Yellow,
-            function: () => goToNewScreen(context, AddBzScreen2()),
+            function: () => goToNewScreen(context, CreateBzScreen()),
             stretched: false,
           ),
 
@@ -141,7 +149,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
             buttonIcon: Iconz.AddFlyer,
             buttonVerseShadow: true,
             splashColor: Colorz.Yellow,
-            function: () => goToNewScreen(context, CreateFlyerScreen()),
+            function: () => goToRoute(context, Routez.FlyerMaker),
             stretched: false,
           ),
 
@@ -224,9 +232,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
             buttonColor: Colorz.SkyDarkBlue,
             splashColor: Colorz.White,
             buttonVerseShadow: true,
-            function:
-            // Routez.ProviderTest,
-                () => goToNewScreen(context, CipherTest()),
+            function: () => goToNewScreen(context, CipherTest()),
             stretched: false,
           ),
 
@@ -248,7 +254,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
             buttonColor: Colorz.Green,
             splashColor: Colorz.Yellow,
             buttonVerseShadow: false,
-            function: Routez.FlyersTest,
+            function: () => goToNewScreen(context, FlyersSizesScreen()),
             stretched: false,
           ),
 
@@ -259,7 +265,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
             buttonColor: Colorz.Green,
             splashColor: Colorz.White,
             buttonVerseShadow: true,
-            function: Routez.SingleCollection,
+            function: () => goToNewScreen(context, SingleCollectionScreen()),
             stretched: false,
           ),
 
@@ -270,7 +276,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
             buttonColor: Colorz.Green,
             splashColor: Colorz.White,
             buttonVerseShadow: true,
-            function: Routez.FontTest,
+            function: () => goToNewScreen(context, FontTestScreen()),
             stretched: false,
           ),
 
@@ -281,7 +287,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
             buttonColor: Colorz.Green,
             splashColor: Colorz.White,
             buttonVerseShadow: true,
-            function: Routez.IDScreen,
+            function: () => goToNewScreen(context, IDscreen()),
             stretched: false,
           ),
 
@@ -292,7 +298,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
             buttonIcon: Iconz.Gallery,
             buttonVerseShadow: true,
             splashColor: Colorz.Yellow,
-            function: Routez.MainLayout,
+            function: () => goToNewScreen(context, SwiperLayout()),
             stretched: false,
           ),
 
@@ -303,9 +309,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
             buttonColor: Colorz.Green,
             splashColor: Colorz.White,
             buttonVerseShadow: true,
-            function:
-                // Routez.ProviderTest,
-                () => goToNewScreen(context, ProFlyersPageView()),
+            function: () => goToNewScreen(context, ProFlyersPageView()),
             stretched: false,
           ),
 
@@ -316,8 +320,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
             buttonColor: Colorz.Green,
             splashColor: Colorz.White,
             buttonVerseShadow: true,
-            function:
-                () => goToNewScreen(context, ProFlyersGridView()),
+            function: () => goToNewScreen(context, ProFlyersGridView()),
             stretched: false,
           ),
 
@@ -367,9 +370,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
             buttonColor: Colorz.Nothing,
             splashColor: Colorz.White,
             buttonVerseShadow: true,
-            function:
-                // Routez.ProviderTest,
-                () => goToNewScreen(context, CameraPage()),
+            function: () => goToNewScreen(context, CameraPage()),
             // (){widget.controller.animateToPage(1, duration: Duration(milliseconds: 500), curve: Curves.ease);},
             stretched: false,
           ),
@@ -381,9 +382,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
             buttonColor: Colorz.Nothing,
             splashColor: Colorz.White,
             buttonVerseShadow: true,
-            function:
-                // Routez.ProviderTest,
-                () => goToNewScreen(context, MainLayout()),
+            function: () => goToNewScreen(context, MainLayout()),
             // (){widget.controller.animateToPage(1, duration: Duration(milliseconds: 500), curve: Curves.ease);},
             stretched: false,
           ),
@@ -449,7 +448,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
             buttonColor: Colorz.Grey,
             splashColor: Colorz.White,
             buttonVerseShadow: true,
-            function: Routez.HeroTest,
+            function: () => goToNewScreen(context, HeroTestScreen()),
             stretched: false,
           ),
 
@@ -460,7 +459,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
             buttonIcon: Iconz.UTPlanning,
             buttonVerseShadow: true,
             splashColor: Colorz.Yellow,
-            function: Routez.ChatScreen,
+            function: () => goToNewScreen(context, ChatScreen()),
             stretched: false,
           ),
 
@@ -471,7 +470,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
             buttonIcon: Iconz.Earth,
             buttonVerseShadow: true,
             splashColor: Colorz.Yellow,
-            function: Routez.EarthScreen,
+            function: () => goToNewScreen(context, EarthScreen()),
             stretched: false,
           ),
 
@@ -563,6 +562,19 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
             function: () => goToNewScreen(context, AnimationsScreen()),
           ),
 
+
+          // --- 36 -  AnimationsScreen -------------------------------
+          BTMain(
+            buttonVerse: '36 - Circle list widget',
+            buttonColor: Colorz.Nothing,
+            buttonIcon: Iconz.Clock,
+            buttonVerseShadow: true,
+            splashColor: Colorz.Yellow,
+            stretched: true,
+            function: () => goToNewScreen(context, CircleListWidget()),
+          ),
+
+
           // --- DATE PICKER -------------------------------
           TextFormField(
             decoration: InputDecoration(
@@ -615,7 +627,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
 
           BTMain(
             buttonIcon: Iconz.DvGouran,
-            buttonVerse: 'inApp Dash Board just for me\nbecause I can',
+            buttonVerse: 'inApp Dash Board',
             stretched: true,
             buttonVerseShadow: true,
             buttonColor: Colorz.BlackBlack,
@@ -624,6 +636,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
             iconSizeFactor: 1,
           ),
 
+          // -- enter The black hole
           SuperVerse(
             verse: 'Enter\nThe Black-Hole',
             size: 4,

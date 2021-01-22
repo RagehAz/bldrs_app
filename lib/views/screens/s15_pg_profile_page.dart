@@ -8,7 +8,7 @@ import 'package:bldrs/views/widgets/bubbles/user_bubble.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart' show PyramidsHorizon;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 's18_pg_edit_profile_page.dart';
+import 's16_pg_edit_profile_page.dart';
 
 class ProfilePage extends StatefulWidget {
 

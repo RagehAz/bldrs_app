@@ -1,4 +1,3 @@
-import 'package:bldrs/view_brains/localization/localization_constants.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
 import 'package:bldrs/view_brains/router/route_names.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';

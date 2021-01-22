@@ -89,6 +89,7 @@ List<Map<String,Object>> userFollowsMaps = [
   {'bzID' : ''  ,'followTime' : ''  ,'followState' : 'unFollowed' ,'unFollowTime' : ''},
 ];
 // ---------------------------------------------------------------------------
+// ignore: unused_element
 List<Map<String,Object>> _bzContactsSample = [
   {'type' : 'whatsapp'  , 'value' : '01554555107'             , 'show' : true    },
   {'type' : 'email'     , 'value' : 'rageh-@hotmail.com'      , 'show' : true    },
