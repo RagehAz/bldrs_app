@@ -2,6 +2,7 @@ import 'package:bldrs/ambassadors/services/auth.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
 import 'package:bldrs/view_brains/router/route_names.dart';
+import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/widgets/bubbles/text_field_bubble.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
@@ -110,7 +111,7 @@ class _SignInState extends State<SignIn> {
             fieldIsRequired: true,
             keyboardTextInputType: TextInputType.emailAddress,
             keyboardTextInputAction: TextInputAction.next,
-            title: 'E-mail Address',
+            title: Wordz.emailAddress(context),
             hintText: '...',
             onSaved: (){print('onSaved');},
             maxLines: 1,
@@ -121,9 +122,9 @@ class _SignInState extends State<SignIn> {
               _emailTextOnChanged(val);
             },
             validator: (val){
-              if (val.isEmpty){return 'Enter E-mail';}
+              if (val.isEmpty){return Wordz.enterEmail(context);}
               else {
-                return EmailValidator.validate(val) == true ? null : 'E-mail is not valid';
+                return EmailValidator.validate(val) == true ? null : Wordz.emailInvalid(context);
               }
             },
           ),
@@ -134,7 +135,7 @@ class _SignInState extends State<SignIn> {
             fieldIsRequired: true,
             keyboardTextInputType: TextInputType.visiblePassword,
             keyboardTextInputAction: TextInputAction.done,
-            title: 'Password',
+            title: Wordz.password(context),
             hintText: '...',
             onSaved: (){print('onSaved');},
             maxLines: 1,
@@ -150,8 +151,8 @@ class _SignInState extends State<SignIn> {
             },
             validator: (val){
               return
-                val.isEmpty ? 'Enter password' :
-                val.length < 6 ? 'Password can not be less than 6 characters long' :
+                val.isEmpty ? Wordz.enterPassword(context) :
+                val.length < 6 ? Wordz.min6Char(context) :
                 null;
             },
 
@@ -163,7 +164,7 @@ class _SignInState extends State<SignIn> {
             children: <Widget>[
 
               SuperVerse(
-                verse: 'Create a new account',
+                verse: Wordz.createAccount(context),
                 color: Colorz.BabyBlue,
                 size: 2,
                 labelColor: Colorz.WhiteAir,
@@ -174,7 +175,7 @@ class _SignInState extends State<SignIn> {
               DreamBox(
                 height: 50,
                 verseScaleFactor: 0.7,
-                verse: 'Sign In    ',
+                verse: Wordz.signIn(context),
                 boxMargins: EdgeInsets.all(20),
                 boxFunction: () async {
                   if(_formKey.currentState.validate()){
@@ -183,12 +184,12 @@ class _SignInState extends State<SignIn> {
                     print('signing result is : $result');
 
                     if ('$result' == '[firebase_auth/wrong-password] The password is invalid or the user does not have a password.')
-                    {setState(() {error = 'Wrong password';}); _triggerLoading();}
+                    {setState(() {error = Wordz.wrongPassword(context);}); _triggerLoading();}
                     else if ('$result' == '[firebase_auth/user-not-found] There is no user record corresponding to this identifier. The user may have been deleted.')
-                    {setState(() {error = 'E-mail is not found';}); _triggerLoading();}
+                    {setState(() {error = Wordz.emailNotFound(context);}); _triggerLoading();}
                     else if('$result' == '[firebase_auth/invalid-email] The email address is badly formatted.')
-                    {setState(() {error = 'E-mail is wrong';}); _triggerLoading();}
-                    else if(result == null){setState(() {error = 'Could not sign in';}); _triggerLoading();}
+                    {setState(() {error = Wordz.emailWrong(context);}); _triggerLoading();}
+                    else if(result == null){setState(() {error = Wordz.signInFailure(context);}); _triggerLoading();}
                     else if(result.runtimeType == UserModel)
                     {
                       setState(() {error = ''; _triggerLoading();});

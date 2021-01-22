@@ -10,6 +10,7 @@ import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
+import 'package:bldrs/view_brains/theme/wordz.dart';
 
 class MorePage extends StatelessWidget {
 
@@ -25,7 +26,7 @@ class MorePage extends StatelessWidget {
       delegate: SliverChildListDelegate([
 
         MorePGTile(
-          verse: 'Create a New Business Profile',
+          verse: Wordz.createBzAccount(context),
           icon: Iconz.Bz,
           iconSizeFactor: 0.9,
         ),
@@ -33,14 +34,14 @@ class MorePage extends StatelessWidget {
         BubblesSeparator(),
 
         MorePGTile(
-          verse: 'Tell your friend about Bldrs.net',
+          verse: Wordz.inviteFriends(context),
           icon: Iconz.ComApple,
           iconBoxColor: Colorz.BlackBlack,
           verseColor: Colorz.White,
         ),
 
         MorePGTile(
-          verse: 'Tell your friend about Bldrs.net',
+          verse: Wordz.inviteBusinesses(context),
           icon: Iconz.ComGooglePlay,
           iconBoxColor: Colorz.BlackBlack,
           verseColor: Colorz.White,
@@ -49,26 +50,26 @@ class MorePage extends StatelessWidget {
         BubblesSeparator(),
 
         MorePGTile(
-          verse: 'Change Country',
+          verse: Wordz.changeCountry(context),
           icon: FlagBox(flag: Flagz.Egypt),
           iconSizeFactor: 0.9,
         ),
 
         MorePGTile(
-          verse: 'Change App language',
+          verse: Wordz.changeLanguage(context),
           icon: Iconz.Language,
         ),
 
         BubblesSeparator(),
 
         MorePGTile(
-          verse: 'About Bldrs.net',
+          verse: '${Wordz.about(context)} ${Wordz.bldrsShortName(context)}',
           icon: Iconz.PyramidSingleYellow,
           iconSizeFactor: 0.8,
         ),
 
         MorePGTile(
-          verse: 'Send us your feedback',
+          verse: Wordz.feedback(context),
           icon: Iconz.UTPlanning,
           // UserBubble(
           //   onTap: (){},
@@ -81,7 +82,7 @@ class MorePage extends StatelessWidget {
         ),
 
         MorePGTile(
-          verse: 'Terms & Regulations',
+          verse: Wordz.termsRegulations(context),
           icon: Iconz.Terms,
           iconSizeFactor: 0.6,
         ),
@@ -89,7 +90,7 @@ class MorePage extends StatelessWidget {
         BubblesSeparator(),
 
         MorePGTile(
-          verse: 'Advertise on Bldrs.net',
+          verse: Wordz.advertiseOnBldrs(context),
           icon: Iconz.Advertise,
           iconSizeFactor: 0.6,
         ),
@@ -109,19 +110,19 @@ class MorePage extends StatelessWidget {
         ),
 
         MorePGTile(
-          verse: 'What is a flyer?',
+          verse: Wordz.whatIsFlyer(context),
           icon: Iconz.Flyer,
           iconSizeFactor: 0.6,
         ),
 
         MorePGTile(
-          verse: 'Who Are The Builders ?',
+          verse: Wordz.whoAreBldrs(context),
           icon: Iconz.Bz,
           iconSizeFactor: 0.6,
         ),
 
         MorePGTile(
-          verse: 'How it Works ?',
+          verse: Wordz.howItWorks(context),
           icon: Iconz.Gears,
           iconSizeFactor: 0.6,
         ),
@@ -129,7 +130,7 @@ class MorePage extends StatelessWidget {
         BubblesSeparator(),
 
         MorePGTile(
-          verse: 'Sign out',
+          verse: Wordz.signOut(context),
           icon: Iconz.Exit,
           iconSizeFactor: 0.6,
           btOnTap: () async {
@@ -139,7 +140,7 @@ class MorePage extends StatelessWidget {
             },
         ),
 
-        PyramidsHorizon(),
+        PyramidsHorizon(heightFactor: 5,),
 
       ]
       ),
