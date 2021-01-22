@@ -3,6 +3,7 @@ import 'package:bldrs/view_brains/router/navigators.dart';
 import 'package:bldrs/view_brains/router/route_names.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
+import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/widgets/ask/ask.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/flyer/collection/flyers_compact_collection.dart';
@@ -71,14 +72,14 @@ class _HomeScreenState extends State<HomeScreen> {
             left: 0,
             child: DreamBox(
               height: 40,
-              verse: 'Open a business account',
+              verse: Wordz.createBzAccount(context),
               verseColor: Colorz.White,
               boxMargins: EdgeInsets.all(10),
               color: Colorz.WhiteAir,
               icon: Iconz.Bz,
               iconSizeFactor: 0.55,
               boxFunction: (){
-                goToRoute(context, Routez.AddBz);
+                goToRoute(context, Routez.CreateBz);
               },
             ),
           )

@@ -19,7 +19,7 @@ class AddBzBt extends StatelessWidget {
         icon: Iconz.Bz,
         iconSizeFactor: 0.55,
         boxFunction: () {
-          Navigator.pushNamed(context, Routez.AddBz);
+          Navigator.pushNamed(context, Routez.CreateBz);
         },
       ),
     );

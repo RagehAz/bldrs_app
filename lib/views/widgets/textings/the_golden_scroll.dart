@@ -1,10 +1,7 @@
-import 'package:bldrs/view_brains/localization/localization_constants.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:flutter/material.dart';
-
 import 'super_verse.dart';
-
 
 class GoldenScroll extends StatelessWidget {
 
@@ -65,6 +62,7 @@ class GoldenScroll extends StatelessWidget {
                 letterSpacing: 0.75,
               ),
             ),
+
           ],
         ),
       );

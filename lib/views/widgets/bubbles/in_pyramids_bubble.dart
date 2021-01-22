@@ -1,11 +1,7 @@
 import 'package:bldrs/view_brains/drafters/scalers.dart';
-import 'package:bldrs/view_brains/localization/localization_constants.dart';
-import 'package:bldrs/view_brains/router/route_names.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
-import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
-import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
@@ -108,13 +104,13 @@ class BubbleTitle extends StatelessWidget {
                 height: 30,
               ),
 
-              DreamBox(
-                height: 30,
-                icon: Iconz.Plus,
-                iconSizeFactor: 0.6,
-                verse: 'Add',
-                boxFunction: (){Navigator.pushNamed(context, Routez.AddBz);},
-              )
+              // DreamBox(
+              //   height: 30,
+              //   icon: Iconz.Plus,
+              //   iconSizeFactor: 0.6,
+              //   verse: 'Add',
+              //   boxFunction: (){Navigator.pushNamed(context, Routez.AddBz);},
+              // )
 
             ],
           ),

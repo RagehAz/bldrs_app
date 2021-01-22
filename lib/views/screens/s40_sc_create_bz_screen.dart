@@ -4,7 +4,9 @@ import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/providers/combined_models/co_author.dart';
 import 'package:bldrs/providers/combined_models/co_bz.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
+import 'package:bldrs/views/widgets/bubbles/add_logo_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
+import 'package:bldrs/views/widgets/bubbles/multiple_choice_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/text_field_bubble.dart';
 import 'package:path_provider/path_provider.dart' as sysPaths;
 import 'package:path/path.dart' as path;
@@ -17,19 +19,18 @@ import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/flyer/header/header.dart';
-import 'package:bldrs/views/widgets/flyer/header/mini_header/mini_header_items/mini_header_strip/mini_header_strip_items/bz_logo.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/pro_flyer/flyer_parts/flyer_zone.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-class AddBzScreen2 extends StatefulWidget {
+class CreateBzScreen extends StatefulWidget {
   @override
-  _AddBzScreen2State createState() => _AddBzScreen2State();
+  _CreateBzScreenState createState() => _CreateBzScreenState();
 }
 
-class _AddBzScreen2State extends State<AddBzScreen2> {
+class _CreateBzScreenState extends State<CreateBzScreen> {
   bool bzPageIsOn;
   BldrsSection chosenSection;
   BzType chosenBzType;
@@ -367,182 +368,6 @@ void openCityList(){
 
         ],
       ),
-    );
-  }
-}
-
-class MultipleChoiceBubble extends StatelessWidget {
-  final String title;
-  final List<String> buttonsList;
-  final Function tappingAButton;
-  final String chosenButton;
-  final List<bool> buttonsInActivityList;
-
-  MultipleChoiceBubble({
-    @required this.title,
-    @required this.buttonsList,
-    @required this.tappingAButton,
-    @required this.chosenButton,
-    this.buttonsInActivityList,
-});
-
-  @override
-  Widget build(BuildContext context) {
-    return InPyramidsBubble(
-        bubbleColor: Colorz.WhiteAir,
-        columnChildren: <Widget>[
-
-          SuperVerse(
-            verse: title,
-            margin: 5,
-          ),
-
-          Wrap(
-              spacing: 0,
-              runSpacing: 0,
-              alignment: WrapAlignment.start,
-              crossAxisAlignment: WrapCrossAlignment.start,
-              direction: Axis.horizontal,
-              runAlignment: WrapAlignment.center,
-
-              children:
-              List<Widget>.generate(
-                  buttonsList.length,
-                      (int index) {
-                    return
-                      DreamBox(
-                        height: 40,
-                        inActiveMode: buttonsInActivityList == null ? false : buttonsInActivityList[index],
-                        verse: buttonsList[index],
-                        verseItalic: false,
-                        color: chosenButton == buttonsList[index] ? Colorz.Yellow : Colorz.WhiteAir,
-                        verseColor: chosenButton == buttonsList[index] ? Colorz.BlackBlack : Colorz.White,
-                        verseWeight: chosenButton == buttonsList[index] ? VerseWeight.black :  VerseWeight.bold,
-                        verseScaleFactor: 0.6,
-                        boxMargins: EdgeInsets.all(5),
-                        boxFunction: () => tappingAButton(index),
-                      );
-                  }
-              )
-
-
-          ),
-
-
-        ]
-    );
-  }
-}
-
-
-
-class AddLogoBubble extends StatelessWidget {
-  final Function addBtFunction;
-  final File logo;
-  final Function deleteLogoFunction;
-
-  AddLogoBubble({
-    @required this.addBtFunction,
-    @required this.logo,
-    @required this.deleteLogoFunction,
-});
-  @override
-  Widget build(BuildContext context) {
-
-    final double logoWidth = 100;
-    final double btZoneWidth = logoWidth * 0.5;
-    final double btWidth = btZoneWidth * 0.8;
-
-    return InPyramidsBubble(
-        bubbleColor: Colorz.WhiteAir,
-        centered: true,
-        columnChildren: <Widget>[
-
-          Stack(
-            alignment: Alignment.center,
-            children: <Widget>[
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-
-                  Container(
-                    width: btZoneWidth,
-                    height: logoWidth,
-                  ),
-
-                  Container(
-                    width: logoWidth*1.1,
-                    height: logoWidth,
-                  ),
-
-                  Container(
-                    width: btZoneWidth,
-                    height: logoWidth,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-
-                        // --- GALLERY BUTTON
-                        DreamBox(
-                          width: btWidth,
-                          height: btWidth,
-                          icon: Iconz.PhoneGallery,
-                          iconSizeFactor: 0.6,
-                          bubble: true,
-                          boxFunction: addBtFunction,
-                        ),
-
-                        // --- DELETE LOGO
-                        DreamBox(
-                          width: btWidth,
-                          height: btWidth,
-                          icon: Iconz.XLarge,
-                          iconSizeFactor: 0.5,
-                          bubble: true,
-                          boxFunction: deleteLogoFunction,
-                        ),
-
-                      ],
-                    ),
-                  ),
-
-                ],
-              ),
-
-              GestureDetector(
-                onTap: logo == null ? (){} : addBtFunction,
-                child: BzLogo(
-                  width: logoWidth,
-                  image: logo,
-                  margins: EdgeInsets.all(10),
-                ),
-              ),
-
-              logo == null ?
-              DreamBox(
-                height: logoWidth,
-                width: logoWidth,
-                icon: Iconz.Plus,
-                iconSizeFactor: 0.4,
-                bubble: false,
-                opacity: 0.9,
-                iconColor: Colorz.White,
-                boxFunction: addBtFunction,
-              ) : Container(),
-
-            ],
-          ),
-
-          SuperVerse(
-            verse: 'Business Logo' ,
-            centered: true,
-            margin: 5,
-          ),
-
-        ]
     );
   }
 }

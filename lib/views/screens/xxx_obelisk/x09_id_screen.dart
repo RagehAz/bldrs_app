@@ -1,6 +1,5 @@
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/views/widgets/buttons/bt_rageh.dart';
-import 'package:bldrs/views/widgets/pro_flyer/pro_flyer.dart';
 import 'package:bldrs/views/widgets/pyramids/pyramids.dart';
 import 'package:bldrs/views/widgets/space/skies/night_sky.dart';
 import 'package:flutter/material.dart';
@@ -22,10 +21,10 @@ class IDscreen extends StatelessWidget {
             Pyramids(
               whichPyramid: Iconz.PyramidsYellow,
             ),
-            ProFlyer(
-              flyerSizeFactor: 0.95,
-              // flyerID: getFlyerByFlyerID('f034')?.flyerID,
-            ),
+            // ProFlyer(
+            //   flyerSizeFactor: 0.95,
+            //   // flyerID: getFlyerByFlyerID('f034')?.flyerID,
+            // ),
 
             Rageh(
               tappingRageh: _stuffToPrint,
