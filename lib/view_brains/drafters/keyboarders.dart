@@ -25,16 +25,18 @@ FocusScope.of(context).requestFocus(FocusNode());
 // on native Android?
 bool textIsEnglish (String val){
   RegExp exp = RegExp("[a-zA-Z]");
-  bool textIsEnglish = true;
+  bool textIsEnglish;
 
-  if(exp.hasMatch(val.substring(val.length-1)) && val.substring(val.length-1) != " "){
+  /// if you want to check the last character input by user let the [characterNumber = val.length-1;]
+  int characterNumber = 0;
+
+  if(exp.hasMatch(val.substring(characterNumber)) && val.substring(characterNumber) != " "){
     textIsEnglish = true;
   }
-  else if (val.substring(val.length-1) != " " && !exp.hasMatch(val.substring(val.length-1)))
+  else if (!exp.hasMatch(val.substring(characterNumber)) && val.substring(characterNumber) != " ")
   {
     textIsEnglish = false;
   }
-  print(exp.hasMatch(val.substring(val.length-1)).toString());
   return textIsEnglish;
 }
 // === === === === === === === === === === === === === === === === === === ===
