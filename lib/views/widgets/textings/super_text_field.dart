@@ -76,11 +76,13 @@ class _SuperTextFieldState extends State<SuperTextField> {
 TextDirection textDirection;
 
   void switchTextDirection(String val){
-    if(textIsEnglish(val) == true){
-      setState(() {textDirection = TextDirection.ltr;});
-    } else if
-    (textIsEnglish(val) == false){
-      setState(() {textDirection = TextDirection.rtl;});
+    if(val.length <= 1){ // only the first character defines the text direction
+      if(textIsEnglish(val) == true){
+        setState(() {textDirection = TextDirection.ltr;});
+      } else if
+      (textIsEnglish(val) == false){
+        setState(() {textDirection = TextDirection.rtl;});
+      }
     }
   }
 
