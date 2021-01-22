@@ -5,6 +5,7 @@ import 'package:bldrs/view_brains/drafters/shadowers.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
+import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -83,7 +84,7 @@ class CallBT extends StatelessWidget {
 
                   // --- FLYERS TEXT
                   SuperVerse(
-                    verse: 'call',//'$callText',
+                    verse: Wordz.call(context),//'$callText',
                     color: Colorz.White,
                     italic: false,
                     size: 1,

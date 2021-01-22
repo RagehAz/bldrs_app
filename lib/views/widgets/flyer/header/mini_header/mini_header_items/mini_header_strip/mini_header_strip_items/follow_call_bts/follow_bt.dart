@@ -6,6 +6,7 @@ import 'package:bldrs/view_brains/localization/localization_constants.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
+import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -40,7 +41,7 @@ class FollowBT extends StatelessWidget {
     String followIcon = Iconz.Follow;
     double followIconHeight = followBTHeight * 0.5;
     double followIconWidth = followIconHeight;
-    String followText = translate(context, 'Follow');
+    String followText = Wordz.follow(context);
     Color followTextColor = followOn == true ? Colorz.BlackBlack : Colorz.White;
     // === === === === === === === === === === === === === === === === === ===
     void followTap() {

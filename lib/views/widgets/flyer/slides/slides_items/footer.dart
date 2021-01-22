@@ -2,6 +2,7 @@ import 'package:bldrs/view_brains/localization/localization_constants.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
+import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:flutter/material.dart';
 import 'footer_items/ff_button.dart';
 import 'footer_items/ff_counters.dart';
@@ -41,10 +42,10 @@ class FlyerFooter extends StatelessWidget {
     double footerBTRadius = flyerBottomCorners - footerBTMargins;
     dynamic footerBTColor = Colorz.GreySmoke;
     String shareBTIcon = Iconz.Share;
-    String shareBTVerse = translate(context, 'Send');
+    String shareBTVerse = Wordz.send(context);
     // String saveBTIcon = ankhOn == true ? Iconz.SaveOn : Iconz.SaveOff;
     // String saveBTVerse = ankhOn == true ? translate(context, 'Saved') :
-    translate(context, 'Save');
+    // Wordz.save(context);
     // dynamic saveBTColor = ankhOn == true ? Colorz.SkyDarkBlue : footerBTColor;
 
 
@@ -97,8 +98,8 @@ class FlyerFooter extends StatelessWidget {
           miniMode == true ? Container() :
             // --- SHARE BUTTON
             Positioned(
-              right: translate(context, 'Text_Direction') == 'ltr' ? null : 0,
-              left: translate(context, 'Text_Direction') == 'ltr' ? 0 : null,
+              right: Wordz.textDirection(context) == 'ltr' ? null : 0,
+              left: Wordz.textDirection(context) == 'ltr' ? 0 : null,
               bottom: 0,
               child: FlyerFooterBT(
                 flyerZoneWidth: flyerZoneWidth,

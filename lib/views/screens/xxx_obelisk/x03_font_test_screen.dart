@@ -3,6 +3,7 @@ import 'package:bldrs/view_brains/localization/localization_constants.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
+import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/widgets/buttons/bt_rageh.dart';
 import 'package:bldrs/views/widgets/pyramids/pyramids.dart';
 import 'package:bldrs/views/widgets/space/skies/night_sky.dart';
@@ -26,7 +27,7 @@ class FontTestScreen extends StatelessWidget {
     int fontSize6 = 6;
     int fontSize7 = 7;
     int fontSize8 = 8;
-    String testVerse = '${translate(context, "Bldrs_Full_Name")}';
+    String testVerse = '${Wordz.bldrsFullName(context)}';
 
     VerseWeight weightTest = VerseWeight.thin;
 
@@ -612,7 +613,7 @@ class FontTestScreen extends StatelessWidget {
 
             Rageh(
               tappingRageh:
-                translate(context, 'Active_Language') == 'Arabic' ?
+                Wordz.activeLanguage(context) == 'Arabic' ?
                     () async {
                 Locale temp = await setLocale('en');
                 BldrsApp.setLocale(context, temp);

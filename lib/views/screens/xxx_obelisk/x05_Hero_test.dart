@@ -1,6 +1,7 @@
 import 'package:bldrs/main.dart';
 import 'package:bldrs/view_brains/drafters/file_formatters.dart';
 import 'package:bldrs/view_brains/localization/localization_constants.dart';
+import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/widgets/appbar/buttons/bt_search.dart';
 import 'package:bldrs/views/widgets/buttons/bt_rageh.dart';
 import 'package:bldrs/views/widgets/flyer/old_flyer_data.dart';
@@ -293,7 +294,7 @@ class HeroTestScreen extends StatelessWidget {
             ),
             Rageh(
               tappingRageh:
-                  translate(context, 'Active_Language') == 'Arabic'
+                  Wordz.activeLanguage(context) == 'Arabic'
                       ? () async {
                           Locale temp = await setLocale('en');
                           BldrsApp.setLocale(context, temp);

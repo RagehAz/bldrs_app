@@ -103,7 +103,7 @@ class _SwiperLayoutState extends State<SwiperLayout> {
                                 children: <Widget>[
 
                                   SuperVerse(
-                                    verse: bldrsTypePageTitle(_bzTypes[index]),
+                                    verse: bldrsTypePageTitle(context, _bzTypes[index]),
                                     shadow: false,
                                     size: 3,
                                     maxLines: 5,

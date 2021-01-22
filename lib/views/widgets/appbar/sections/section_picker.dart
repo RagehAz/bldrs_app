@@ -1,4 +1,5 @@
 import 'package:bldrs/view_brains/localization/localization_constants.dart';
+import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:flutter/material.dart';
 
 import 'section_label.dart';
@@ -18,16 +19,16 @@ class SectionPicker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String properties = 'Properties';
-    String designs = 'Designs';
-    String products = 'Products';
-    String projects = 'Projects';
-    String crafts = 'Crafts';
-    String equipment = 'Equipment';
+    String properties = Wordz.properties(context);
+    String designs = Wordz.designs(context);
+    String products = Wordz.products(context);
+    String projects = Wordz.projects(context);
+    String crafts = Wordz.crafts(context);
+    String equipment = Wordz.equipments(context);
 
     return sectionsListIsOpen == false
         ? SectionLabel(
-            label: translate(context, currentSection),
+            label: Wordz.section(context),
             labelDescription: '',
             sectionsListIsOpen: sectionsListIsOpen,
             tappingSection: openingTheList,
@@ -35,13 +36,13 @@ class SectionPicker extends StatelessWidget {
         : Column(
             children: [
               SectionLabel(
-                label: translate(context, 'Properties'),
+                label: Wordz.properties(context),
                 sectionsListIsOpen: sectionsListIsOpen,
                 tappingSection: () {
                   selectingASection(properties);
                 },
                 labelDescription:
-                    translate(context, 'Properties_description'),
+                    Wordz.propertiesDescription(context),
               ),
               SizedBox(
                 width: double.infinity,
@@ -49,11 +50,11 @@ class SectionPicker extends StatelessWidget {
               ),
               SectionLabel(
                 sectionsListIsOpen: sectionsListIsOpen,
-                label: translate(context, 'Designs'),
+                label: Wordz.designs(context),
                 tappingSection: () {
                   selectingASection(designs);
                 },
-                labelDescription: translate(context, 'Designs_description'),
+                labelDescription: Wordz.designsDescription(context),
               ),
               SizedBox(
                 width: double.infinity,
@@ -61,12 +62,12 @@ class SectionPicker extends StatelessWidget {
               ),
               SectionLabel(
                 sectionsListIsOpen: sectionsListIsOpen,
-                label: translate(context, 'Products'),
+                label: Wordz.products(context),
                 tappingSection: () {
                   selectingASection(products);
                 },
                 labelDescription:
-                    translate(context, 'Products_description'),
+                    Wordz.productsDescription(context),
               ),
               SizedBox(
                 width: double.infinity,
@@ -74,12 +75,12 @@ class SectionPicker extends StatelessWidget {
               ),
               SectionLabel(
                 sectionsListIsOpen: sectionsListIsOpen,
-                label: translate(context, 'Projects'),
+                label: Wordz.projects(context),
                 tappingSection: () {
                   selectingASection(projects);
                 },
                 labelDescription:
-                    translate(context, 'Projects_description'),
+                    Wordz.productsDescription(context),
               ),
               SizedBox(
                 width: double.infinity,
@@ -87,11 +88,11 @@ class SectionPicker extends StatelessWidget {
               ),
               SectionLabel(
                 sectionsListIsOpen: sectionsListIsOpen,
-                label: translate(context, 'Crafts'),
+                label: Wordz.crafts(context),
                 tappingSection: () {
                   selectingASection(crafts);
                 },
-                labelDescription: translate(context, 'Crafts_description'),
+                labelDescription: Wordz.craftsDescription(context),
               ),
               SizedBox(
                 width: double.infinity,
@@ -99,12 +100,12 @@ class SectionPicker extends StatelessWidget {
               ),
               SectionLabel(
                 sectionsListIsOpen: sectionsListIsOpen,
-                label: translate(context, 'Equipment'),
+                label: Wordz.equipment(context),
                 tappingSection: () {
                   selectingASection(equipment);
                 },
                 labelDescription:
-                    translate(context, 'Equipment_description'),
+                    Wordz.equipmentDescription(context),
               ),
             ],
           );

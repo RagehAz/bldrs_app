@@ -9,6 +9,7 @@ import 'package:bldrs/views/widgets/buttons/bt_main.dart';
 import 'package:bldrs/views/widgets/buttons/bt_skip_auth.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
+import 'package:bldrs/view_brains/theme/wordz.dart';
 
 void changingCountry(){
   Function switchingCountry;
@@ -49,7 +50,7 @@ class StartingScreenState extends State<StartingScreen> {
 
               // --- CONTINUE WITH APPLE
               BTMain(
-                buttonVerse: translate(context, 'Continue_Apple'),
+                buttonVerse: Wordz.continueApple(context),
                 buttonIcon: Iconz.ComApple,
                 buttonColor: Colorz.BlackBlack,
                 splashColor: Colorz.Yellow,
@@ -60,7 +61,7 @@ class StartingScreenState extends State<StartingScreen> {
 
               // --- CONTINUE WITH FACEBOOK
               BTMain(
-                buttonVerse: translate(context, 'Continue_Facebook'),
+                buttonVerse: Wordz.continueFacebook(context),
                 buttonIcon: Iconz.ComFacebookWhite,
                 buttonColor: Colorz.Facebook,
                 splashColor: Colorz.Yellow,
@@ -71,7 +72,7 @@ class StartingScreenState extends State<StartingScreen> {
 
               // --- CONTINUE WITH LINKEDIN
               BTMain(
-                buttonVerse: translate(context, 'Continue_LinkedIn'),
+                buttonVerse: Wordz.continueLinkedIn(context),
                 buttonIcon: Iconz.ComLinkedin,
                 buttonColor: Colorz.LinkedIn,
                 splashColor: Colorz.Yellow,
@@ -83,7 +84,7 @@ class StartingScreenState extends State<StartingScreen> {
 
               // --- CONTINUE WITH EMAIL
               BTMain(
-                buttonVerse: 'Continue with E-mail',
+                buttonVerse: Wordz.continueEmail(context),
                 buttonIcon: Iconz.ComEmail,
                 buttonColor: Colorz.WhiteAir,
                 splashColor: Colorz.Yellow,

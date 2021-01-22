@@ -4,6 +4,7 @@ import 'package:bldrs/view_brains/drafters/keyboarders.dart';
 import 'package:bldrs/view_brains/localization/localization_constants.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
+import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/widgets/appbar/ab_main.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/pyramids/pyramids.dart';
@@ -106,7 +107,7 @@ class MainLayout extends StatelessWidget {
                 Rageh(
                   tappingRageh: tappingRageh != null ? tappingRageh : (){print('no function here bitch');},
                   doubleTappingRageh:
-                  translate(context, 'Active_Language') == 'Arabic' ?
+                  Wordz.activeLanguage(context) == 'Arabic' ?
                       () async {
                     Locale temp = await setLocale('en');
                     BldrsApp.setLocale(context, temp);

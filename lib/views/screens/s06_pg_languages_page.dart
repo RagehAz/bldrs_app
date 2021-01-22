@@ -2,6 +2,7 @@ import 'package:bldrs/view_brains/localization/language_class.dart';
 import 'package:bldrs/view_brains/localization/localization_constants.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
+import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/widgets/buttons/bt_main.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/main.dart';
@@ -28,7 +29,7 @@ class PGLanguageList extends StatelessWidget {
               stretched: true,
               buttonVerseShadow: true,
               buttonColor:
-              (LanguageClass.languageList()[index].langName) == (translate(context, 'Language_Name')) ?
+              (LanguageClass.languageList()[index].langName) == (Wordz.languageName(context)) ?
                   Colorz.Yellow : Colorz.WhiteZircon,
               buttonIcon: '',
               splashColor: Colorz.White,
