@@ -8,7 +8,6 @@ import 'package:bldrs/views/widgets/appbar/buttons/bx_flagbox.dart';
 import 'package:bldrs/views/widgets/buttons/bt_main.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
-
 import 's05_pg_countries_page.dart';
 import 's06_pg_languages_page.dart';
 
@@ -17,13 +16,11 @@ class LocalizerScreen extends StatefulWidget {
   _LocalizerScreenState createState() => _LocalizerScreenState();
 }
 
-
 class _LocalizerScreenState extends State<LocalizerScreen> {
-
   var _btCountrySelected = true;
   String theChosenFlag = flagFileNameSelectedFromPGLanguageList;
   String theChosenCountryName = currentSelectedCountry;
-
+// ---------------------------------------------------------------------------
   void _localizerPGSwitch(){
     setState(
         (){
@@ -36,7 +33,7 @@ class _LocalizerScreenState extends State<LocalizerScreen> {
     );
   // print('dongol');
 }
-
+// ---------------------------------------------------------------------------
   void flagSwitch(){
     setState(
         ()async{
@@ -48,7 +45,7 @@ class _LocalizerScreenState extends State<LocalizerScreen> {
     );
     print(flagFileNameSelectedFromPGLanguageList);
   }
-
+// ---------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -66,22 +63,17 @@ class _LocalizerScreenState extends State<LocalizerScreen> {
           ),
 
           // --- COUNTRY OR LANGUAGE PAGE
-
           _btCountrySelected == true ?
-          PGCountryList(
-            tappingFlag: flagSwitch,
-          )
+          PGCountryList(tappingFlag: flagSwitch,)
               :
           PGLanguageList(),
 
           // --- TEST SUBJECT FOR LANGUAGE CHANGE
           BTMain(
-            buttonVerse: 'Confirm $currentSelectedCountry',
+            buttonVerse: '${Wordz.confirm(context)} $currentSelectedCountry',
             splashColor: Colorz.BlackBlack,
             buttonVerseShadow: true,
-            buttonIcon: FlagBox(
-              flag: theChosenFlag,
-            ),
+            buttonIcon: FlagBox(flag: theChosenFlag,),
             buttonColor: Colorz.BlackSmoke,
             function: 'GoBackFucker',
             stretched: false,

@@ -27,7 +27,7 @@ class SuperTextField extends StatefulWidget {
   final double width;
   final double height;
   final Function onChanged;
-  TextEditingController textController;
+  final TextEditingController textController;
   final Color fieldColor;
   final Color hintColor;
   final TextInputAction keyboardTextInputAction;
@@ -35,7 +35,7 @@ class SuperTextField extends StatefulWidget {
   final bool fieldIsFormField;
   final String initialValue;
   final Function validator;
-  TextDirection textDirection;
+  final TextDirection textDirection;
 
   SuperTextField({
     this.keyboardTextInputType = TextInputType.text,
@@ -88,15 +88,10 @@ TextDirection textDirection;
 
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
 
-    // Color verseColor = inputColor;
     Color boxColor = widget.designMode ? Colorz.BloodTest : Colorz.Nothing;
     double verseHeight = 1.42; //1.48; // The sacred golden reverse engineered factor
     double scalingFactor = 1; //scaleFactor == null ? 1: scaleFactor;
-
-    // int _maxLines =  maxLines;
-
     // --- AVAILABLE FONT SIZES -----------------------------------------------
     int size = widget.inputSize;
     // takes values from 0 to 8 in the entire app
@@ -104,7 +99,6 @@ TextDirection textDirection;
     // --- AVAILABLE FONT WEIGHTS -----------------------------------------------
     VerseWeight weight = widget.inputWeight;
     FontWeight verseWeight = superVerseWeight(weight);
-
     // --- AVAILABLE FONTS -----------------------------------------------
     String verseFont = superVerseFont(context, weight);
     // --- LETTER SPACING -----------------------------------------------
@@ -122,7 +116,6 @@ TextDirection textDirection;
 
     Color rightShadow = widget.inputColor == Colorz.BlackBlack ? Colorz.WhiteSmoke
         : Colorz.WhiteGlass;
-
     // --- ITALIC -----------------------------------------------
     FontStyle verseStyle =
     widget.italic == true ? FontStyle.italic : FontStyle.normal;
@@ -183,16 +176,16 @@ TextDirection textDirection;
       );
     }
 // ---------------------------------------------------------------------------
-TextDirection concludedTextDirection =
-    widget.textDirection != null ? widget.textDirection :
-    widget.textDirection == null && textDirection == null? superTextDirection(context) :
-    textDirection;
-
+    TextDirection concludedTextDirection =
+        widget.textDirection != null ? widget.textDirection :
+        widget.textDirection == null && textDirection == null? superTextDirection(context) :
+        textDirection;
+// ---------------------------------------------------------------------------
     return
 
       widget.fieldIsFormField == true ?
 
-          // TEXT FORM FIELD
+          /// TEXT FORM FIELD -------------------------------
       Container(
         width: widget.width,
         // height: widget.height,
@@ -294,7 +287,7 @@ TextDirection concludedTextDirection =
 
           :
 
-          // TEXT FIELD
+          /// TEXT FIELD -------------------------------
       Container(
         width: widget.width,
         // height: widget.height,
@@ -376,19 +369,8 @@ TextDirection concludedTextDirection =
           cursorRadius: Radius.circular(3),
           cursorWidth: 2,
           cursorHeight: null,
-
           textAlign: widget.centered == true ? TextAlign.center : TextAlign.start,
-          /*
-        ---  if keyboard lang is ltr ? ltr : rtl
-        On native iOS the current keyboard language can be gotten from
-        UITextInputMode
-        and listened to with
-        UITextInputCurrentInputModeDidChangeNotification.
-        On native Android you can use
-        getCurrentInputMethodSubtype
-        to get the keyboard language, but I'm not seeing a way to listen
-        to keyboard language changes.
-         */
+
         ),
       );
 

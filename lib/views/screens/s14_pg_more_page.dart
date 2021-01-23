@@ -5,10 +5,9 @@ import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/flagz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/views/widgets/appbar/buttons/bx_flagbox.dart';
-import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
-import 'package:bldrs/views/widgets/buttons/dream_box.dart';
+import 'package:bldrs/views/widgets/bubbles/bubbles_separator.dart';
+import 'package:bldrs/views/widgets/bubbles/tile_bubble.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
-import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
 
@@ -18,14 +17,11 @@ class MorePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // double screenWidth = MediaQuery.of(context).size.width;
-    // double screenHeight = MediaQuery.of(context).size.height;
-    // double pageMargin = Ratioz.ddAppBarMargin;
 
     return SliverList(
       delegate: SliverChildListDelegate([
 
-        MorePGTile(
+        TileBubble(
           verse: Wordz.createBzAccount(context),
           icon: Iconz.Bz,
           iconSizeFactor: 0.9,
@@ -33,14 +29,14 @@ class MorePage extends StatelessWidget {
 
         BubblesSeparator(),
 
-        MorePGTile(
+        TileBubble(
           verse: Wordz.inviteFriends(context),
           icon: Iconz.ComApple,
           iconBoxColor: Colorz.BlackBlack,
           verseColor: Colorz.White,
         ),
 
-        MorePGTile(
+        TileBubble(
           verse: Wordz.inviteBusinesses(context),
           icon: Iconz.ComGooglePlay,
           iconBoxColor: Colorz.BlackBlack,
@@ -49,26 +45,26 @@ class MorePage extends StatelessWidget {
 
         BubblesSeparator(),
 
-        MorePGTile(
+        TileBubble(
           verse: Wordz.changeCountry(context),
           icon: FlagBox(flag: Flagz.Egypt),
           iconSizeFactor: 0.9,
         ),
 
-        MorePGTile(
+        TileBubble(
           verse: Wordz.changeLanguage(context),
           icon: Iconz.Language,
         ),
 
         BubblesSeparator(),
 
-        MorePGTile(
+        TileBubble(
           verse: '${Wordz.about(context)} ${Wordz.bldrsShortName(context)}',
           icon: Iconz.PyramidSingleYellow,
           iconSizeFactor: 0.8,
         ),
 
-        MorePGTile(
+        TileBubble(
           verse: Wordz.feedback(context),
           icon: Iconz.UTPlanning,
           // UserBubble(
@@ -81,7 +77,7 @@ class MorePage extends StatelessWidget {
           iconSizeFactor: 0.6,
         ),
 
-        MorePGTile(
+        TileBubble(
           verse: Wordz.termsRegulations(context),
           icon: Iconz.Terms,
           iconSizeFactor: 0.6,
@@ -89,13 +85,13 @@ class MorePage extends StatelessWidget {
 
         BubblesSeparator(),
 
-        MorePGTile(
+        TileBubble(
           verse: Wordz.advertiseOnBldrs(context),
           icon: Iconz.Advertise,
           iconSizeFactor: 0.6,
         ),
 
-        MorePGTile(
+        TileBubble(
           verse: 'Get Blrs.net Marketing materials',
           icon: Iconz.Marketing,
           iconSizeFactor: 0.7,
@@ -103,25 +99,25 @@ class MorePage extends StatelessWidget {
 
         BubblesSeparator(),
 
-        MorePGTile(
+        TileBubble(
           verse: 'Open App Tutorial',
           icon: Iconz.Scholar,
           iconSizeFactor: 0.6,
         ),
 
-        MorePGTile(
+        TileBubble(
           verse: Wordz.whatIsFlyer(context),
           icon: Iconz.Flyer,
           iconSizeFactor: 0.6,
         ),
 
-        MorePGTile(
+        TileBubble(
           verse: Wordz.whoAreBldrs(context),
           icon: Iconz.Bz,
           iconSizeFactor: 0.6,
         ),
 
-        MorePGTile(
+        TileBubble(
           verse: Wordz.howItWorks(context),
           icon: Iconz.Gears,
           iconSizeFactor: 0.6,
@@ -129,7 +125,7 @@ class MorePage extends StatelessWidget {
 
         BubblesSeparator(),
 
-        MorePGTile(
+        TileBubble(
           verse: Wordz.signOut(context),
           icon: Iconz.Exit,
           iconSizeFactor: 0.6,
@@ -147,86 +143,3 @@ class MorePage extends StatelessWidget {
     );
   }
 }
-
-
-class MorePGTile extends StatelessWidget {
-  final String verse;
-  final dynamic icon;
-  final Color iconBoxColor;
-  final double iconSizeFactor;
-  final Color verseColor;
-  final Function btOnTap;
-
-  MorePGTile({
-    @required this.verse,
-    @required this.icon,
-    this.iconBoxColor = Colorz.Nothing,
-    this.iconSizeFactor = 0.6,
-    this.verseColor = Colorz.White,
-    this.btOnTap,
-});
-
-  @override
-  Widget build(BuildContext context) {
-
-    double iconBoxWidth = 30;
-    double iconWidth = (iconSizeFactor * iconBoxWidth);
-    double iconBoxPadding = iconBoxWidth - iconWidth;
-
-    return Material(
-      color: Colorz.Nothing,
-      child: InkWell(
-        onTap: btOnTap,
-        splashColor: Colorz.WhiteSmoke,
-        child: InPyramidsBubble(
-
-          bubbleColor: Color.fromARGB(3, 255, 255, 255),
-          columnChildren: <Widget>[
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-
-                icon.runtimeType == String ?
-                DreamBox(
-                  width: iconBoxWidth,
-                  height: iconBoxWidth,
-                  icon: icon,
-                  iconSizeFactor: iconSizeFactor,
-                  color: iconBoxColor,
-                  iconRounded: false,
-                  boxMargins: EdgeInsets.symmetric(horizontal: 0),
-                ) :
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 0),
-                    child: Container(
-                      width: iconBoxWidth,
-                      height: iconBoxWidth,
-                      padding: EdgeInsets.all(iconBoxPadding),
-                      child: icon,
-                    ),
-                  ),
-
-
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 5),
-                  child: SuperVerse(
-                    verse: verse,
-                    margin: 5,
-                    color: verseColor,
-                    maxLines: 2,
-                    centered: false,
-                  ),
-                ),
-
-              ],
-            ),
-
-          ],
-        ),
-      ),
-    );
-  }
-}
-

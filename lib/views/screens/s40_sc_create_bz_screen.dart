@@ -6,6 +6,7 @@ import 'package:bldrs/providers/combined_models/co_bz.dart';
 import 'package:bldrs/view_brains/drafters/keyboarders.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/widgets/bubbles/add_logo_bubble.dart';
+import 'package:bldrs/views/widgets/bubbles/bubbles_separator.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/multiple_choice_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/text_field_bubble.dart';
@@ -221,6 +222,8 @@ void openCityList(){
                   buttonsInActivityList: bzFormInActivityList,
                 ),
 
+                BubblesSeparator(),
+
                 // --- ADD LOGO
                 AddLogoBubble(
                   logo: _storedLogo,
@@ -264,6 +267,8 @@ void openCityList(){
                   textOnChanged: (bzAbout) => typingBzAbout(bzAbout),
                 ),
 
+                BubblesSeparator(),
+
                 // --- bzLocale
                 InPyramidsBubble(
                     bubbleColor: Colorz.WhiteAir,
@@ -283,6 +288,8 @@ void openCityList(){
                       )
                     ]
                 ),
+
+                BubblesSeparator(),
 
                 // --- type BzAbout
                 TextFieldBubble(
