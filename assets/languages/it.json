@@ -51,6 +51,8 @@
   "craftsmen" : "artigiani",
   "artisan" : "artigiano",
   "artisans" : "artigiani",
+  "bldr" : "Costruttore",
+  "bldrs" : "costruttori",
   "xxx4" : "-----------------------------------------------------------------------------------------Flyer Type Descriptions",
   "propertiesDescription" : "Da agenti immobiliari, agenti e mediatori ...",
   "designsDescription" : "Con architetti, interior designer, paesaggisti, pianificatori, consulenti ...",

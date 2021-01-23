@@ -178,7 +178,6 @@ void openCityList(){
   Widget build(BuildContext context) {
 
     double screenWidth = superScreenWidth(context);
-    double screenHeight = superScreenHeight(context);
 
     return MainLayout(
       appBarType: AppBarType.Basic,

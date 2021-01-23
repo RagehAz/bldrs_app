@@ -29,6 +29,7 @@ class LanguageClass {
       LanguageClass(5,'русский'   ,'assets/dv/dv_blank.svg',  'ru'),
       LanguageClass(6,'Türk'      ,'assets/dv/dv_blank.svg',  'tr'),
       LanguageClass(7,'Italiano'  ,'assets/dv/dv_blank.svg',  'it'),
+      LanguageClass(8,'中文'  ,'assets/dv/dv_blank.svg',  'zh'),
     ];
   }
 }
