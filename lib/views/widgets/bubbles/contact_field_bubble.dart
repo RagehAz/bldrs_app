@@ -3,6 +3,7 @@ import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/drafters/texters.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
+import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:bldrs/views/widgets/textings/super_text_field.dart';
@@ -130,6 +131,7 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
+                    textDirection: TextDirection.ltr,
                     children: <Widget>[
 
                       widget.leadingIcon == null ? Container() :
@@ -163,7 +165,7 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
                           initialValue: widget.initialTextValue,
                           validator: widget.validator,
                           inputSize: 2,
-
+                          textDirection: TextDirection.ltr,
                         ),
                       ),
 
@@ -172,17 +174,22 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
 
                   // --- LOADING INDICATOR
                   widget.loading == false ? Container() :
-                  Loading(size: 35,),
+                  Align(
+                      alignment: superCenterAlignment(context),
+                      child: Loading(size: 35,)),
 
 
-                  DreamBox(
-                    height: 35,
-                    verse: 'paste  ',
-                    verseScaleFactor: 0.5,
-                    verseWeight: VerseWeight.thin,
-                    verseItalic: true,
-                    color: Colorz.WhiteAir,
-                    boxFunction: _pasteFunction,
+                  Align(
+                    alignment: superCenterAlignment(context),
+                    child: DreamBox(
+                      height: 35,
+                      verse: '${Wordz.paste(context)}  ',
+                      verseScaleFactor: 0.5,
+                      verseWeight: VerseWeight.thin,
+                      verseItalic: true,
+                      color: Colorz.WhiteAir,
+                      boxFunction: _pasteFunction,
+                    ),
                   ),
 
                 ],

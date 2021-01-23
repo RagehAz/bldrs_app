@@ -163,6 +163,22 @@ class Wordz{
   static String whoAreBldrs (BuildContext context) => translate(context, 'whoAreBldrs');
   static String howItWorks (BuildContext context) => translate(context, 'howItWorks');
   static String signOut (BuildContext context) => translate(context, 'signOut');
+  static String editProfile (BuildContext context) => translate(context, 'editProfile');
+  static String updateProfile (BuildContext context) => translate(context, 'updateProfile');
+  static String name (BuildContext context) => translate(context, 'name');
+  static String enterName (BuildContext context) => translate(context, 'enterName');
+  static String jobTitle (BuildContext context) => translate(context, 'jobTitle');
+  static String enterJobTitle (BuildContext context) => translate(context, 'enterJobTitle');
+  static String enterCompanyName (BuildContext context) => translate(context, 'enterCompanyName');
+  static String selectCity (BuildContext context) => translate(context, 'selectCity');
+  static String phone (BuildContext context) => translate(context, 'phone');
+  static String website (BuildContext context) => translate(context, 'website');
+  static String facebookLink (BuildContext context) => translate(context, 'facebookLink');
+  static String instagramLink (BuildContext context) => translate(context, 'instagramLink');
+  static String linkedinLink (BuildContext context) => translate(context, 'linkedinLink');
+  static String youtubeChannel (BuildContext context) => translate(context, 'youtubeChannel');
+  static String tiktokLink (BuildContext context) => translate(context, 'tiktokLink');
+  static String pinterestLink (BuildContext context) => translate(context, 'pinterestLink');
   static String xxx11 (BuildContext context) => translate(context, 'xxx11');
   static String enterEmail (BuildContext context) => translate(context, 'enterEmail');
   static String emailInvalid (BuildContext context) => translate(context, 'emailInvalid');
@@ -189,6 +205,7 @@ class Wordz{
   static String language (BuildContext context) => translate(context, 'language');
   static String country (BuildContext context) => translate(context, 'country');
   static String chooseCountryTagline (BuildContext context) => translate(context, 'chooseCountryTagline');
+  static String city (BuildContext context) => translate(context, 'city');
   static String xxx13 (BuildContext context) => translate(context, 'xxx13');
   static String ask (BuildContext context) => translate(context, 'ask');
   static String question (BuildContext context) => translate(context, 'question');
@@ -199,5 +216,6 @@ class Wordz{
   static String xxx14 (BuildContext context) => translate(context, 'xxx14');
   static String confirm (BuildContext context) => translate(context, 'confirm');
   static String cancel (BuildContext context) => translate(context, 'cancel');
+  static String paste (BuildContext context) => translate(context, 'paste');
   static String xxxEND (BuildContext context) => translate(context, 'xxxEND');
 }

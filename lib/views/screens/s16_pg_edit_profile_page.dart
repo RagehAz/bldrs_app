@@ -5,6 +5,7 @@ import 'package:bldrs/view_brains/drafters/borderers.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/drafters/texters.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
+import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/widgets/bubbles/add_logo_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/contact_field_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
@@ -104,7 +105,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
                       // --- TITLE
                       SuperVerse(
-                        verse: 'Edit Profile',
+                        verse: Wordz.editProfile(context),
                         size: 3,
                       ),
 
@@ -129,39 +130,39 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
                 TextFieldBubble(
                   fieldIsFormField: true,
-                  title: 'Name',
+                  title: Wordz.name(context),
                   initialTextValue: userModel.name,
                   keyboardTextInputType: TextInputType.name,
                   keyboardTextInputAction: TextInputAction.next,
                   fieldIsRequired: true,
-                  validator: (val) => val.isEmpty ? 'Enter your name' : null,
+                  validator: (val) => val.isEmpty ? Wordz.enterName(context) : null,
                   textOnChanged: (val) => setState(()=> _currentName = val),
                 ),
 
                 TextFieldBubble(
                   fieldIsFormField: true,
-                  title: 'Job Title',
+                  title: Wordz.jobTitle(context),
                   initialTextValue: userModel.title,
                   keyboardTextInputType: TextInputType.name,
                   keyboardTextInputAction: TextInputAction.next,
                   fieldIsRequired: true,
-                  validator: (val) => val.isEmpty ? 'Enter your Job title' : null,
+                  validator: (val) => val.isEmpty ? Wordz.enterJobTitle(context) : null,
                   textOnChanged: (val) => setState(()=> _currentJobTitle = val),
                 ),
 
                 TextFieldBubble(
                   fieldIsFormField: true,
-                  title: 'Company Name',
+                  title: Wordz.companyName(context),
                   keyboardTextInputType: TextInputType.name,
                   keyboardTextInputAction: TextInputAction.next,
                   fieldIsRequired: true,
-                  validator: (val) => val.isEmpty ? 'Enter your Company Name' : null,
+                  validator: (val) => val.isEmpty ? Wordz.enterCompanyName(context) : null,
                   textOnChanged: (val) => setState(()=> _currentCompany = val),
                 ),
 
                 TextFieldBubble(
                   fieldIsFormField: true,
-                  title: 'Current City, Country',
+                  title: '${Wordz.city(context)}, ${Wordz.country(context)}',
                   keyboardTextInputType: TextInputType.name,
                   keyboardTextInputAction: TextInputAction.next,
                   fieldIsRequired: true,
@@ -169,7 +170,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
                 TextFieldBubble(
                   fieldIsFormField: true,
-                  title: 'E-mail',
+                  title: Wordz.emailAddress(context),
                   initialTextValue: userModel.userID, // works
                   keyboardTextInputType: TextInputType.emailAddress,
                   keyboardTextInputAction: TextInputAction.next,
@@ -179,57 +180,58 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
                 TextFieldBubble(
                   fieldIsFormField: true,
-                  title: 'Phone',
+                  title: Wordz.phone(context),
                   keyboardTextInputType: TextInputType.phone,
                   keyboardTextInputAction: TextInputAction.next,
                   leadingIcon: Iconz.ComPhone,
+                  textDirection: TextDirection.ltr,
                 ),
 
                 ContactFieldBubble(
                   fieldIsFormField: true,
-                  title: 'WebSite',
+                  title: Wordz.website(context),
                   leadingIcon: Iconz.ComWebsite,
                   keyboardTextInputAction: TextInputAction.next,
                 ),
 
                 ContactFieldBubble(
                   fieldIsFormField: true,
-                  title: 'Facebook account',
+                  title: Wordz.facebookLink(context),
                   leadingIcon: Iconz.ComFacebook,
                   keyboardTextInputAction: TextInputAction.next,
                 ),
 
                 ContactFieldBubble(
                   fieldIsFormField: true,
-                  title: 'Instagram account',
+                  title: Wordz.instagramLink(context),
                   leadingIcon: Iconz.ComInstagram,
                   keyboardTextInputAction: TextInputAction.next,
                 ),
 
                 ContactFieldBubble(
                   fieldIsFormField: true,
-                  title: 'Linkedin account',
+                  title: Wordz.linkedinLink(context),
                   leadingIcon: Iconz.ComLinkedin,
                   keyboardTextInputAction: TextInputAction.next,
                 ),
 
                 ContactFieldBubble(
                   fieldIsFormField: true,
-                  title: 'YouTube channel',
+                  title: Wordz.youtubeChannel(context),
                   leadingIcon: Iconz.ComYoutube,
                   keyboardTextInputAction: TextInputAction.next,
                 ),
 
                 ContactFieldBubble(
                   fieldIsFormField: true,
-                  title: 'Pinterest',
+                  title: Wordz.pinterestLink(context),
                   leadingIcon: Iconz.ComPinterest,
                   keyboardTextInputAction: TextInputAction.next,
                 ),
 
                 ContactFieldBubble(
                   fieldIsFormField: true,
-                  title: 'TikTok',
+                  title: Wordz.tiktokLink(context),
                   leadingIcon: Iconz.ComTikTok,
                   keyboardTextInputAction: TextInputAction.done,
                 ),
@@ -237,7 +239,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 // --- CONFIRM BUTTON
                 DreamBox(
                   height: 50,
-                  verse: 'Update profile : $_currentTiktok',
+                  verse: Wordz.updateProfile(context),
                   boxMargins: EdgeInsets.all(10),
                   boxFunction: ()async{
                     if(_formKey.currentState.validate()){
