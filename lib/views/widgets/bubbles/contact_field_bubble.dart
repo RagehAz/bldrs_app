@@ -172,24 +172,26 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
                     ],
                   ),
 
-                  // --- LOADING INDICATOR
-                  widget.loading == false ? Container() :
-                  Align(
-                      alignment: superCenterAlignment(context),
-                      child: Loading(size: 35,)),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    textDirection: TextDirection.ltr,
+                    children: <Widget>[
 
+                      // --- LOADING INDICATOR
+                      widget.loading == false ? Container() :
+                      Loading(size: 35,),
 
-                  Align(
-                    alignment: superCenterAlignment(context),
-                    child: DreamBox(
-                      height: 35,
-                      verse: '${Wordz.paste(context)}  ',
-                      verseScaleFactor: 0.5,
-                      verseWeight: VerseWeight.thin,
-                      verseItalic: true,
-                      color: Colorz.WhiteAir,
-                      boxFunction: _pasteFunction,
-                    ),
+                      DreamBox(
+                        height: 35,
+                        verse: '${Wordz.paste(context)}  ',
+                        verseScaleFactor: 0.5,
+                        verseWeight: VerseWeight.thin,
+                        verseItalic: true,
+                        color: Colorz.WhiteAir,
+                        boxFunction: _pasteFunction,
+                      ),
+
+                    ],
                   ),
 
                 ],

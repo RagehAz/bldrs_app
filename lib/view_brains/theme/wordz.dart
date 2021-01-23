@@ -54,6 +54,8 @@ class Wordz{
   static String craftsmen (BuildContext context) => translate(context, 'craftsmen');
   static String artisan (BuildContext context) => translate(context, 'artisan');
   static String artisans (BuildContext context) => translate(context, 'artisans');
+  static String bldr (BuildContext context) => translate(context, 'bldr');
+  static String bldrs (BuildContext context) => translate(context, 'bldrs');
   static String xxx4 (BuildContext context) => translate(context, 'xxx4');
   static String propertiesDescription (BuildContext context) => translate(context, 'propertiesDescription');
   static String designsDescription (BuildContext context) => translate(context, 'designsDescription');

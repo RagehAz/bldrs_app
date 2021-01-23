@@ -77,8 +77,8 @@ String bzTypeSingleStringer (BuildContext context, BzType bzType){
 // === === === === === === === === === === === === === === === === === === ===
 String bzTypePluralStringer (BuildContext context, BzType bzType){
   return
-    bzType == BzType.Developer ? 'Real-Estate Developers' :
-    bzType == BzType.Broker ? 'Real-Estate Brokers' :
+    bzType == BzType.Developer ? Wordz.realEstateDevelopers(context) :
+    bzType == BzType.Broker ? Wordz.brokers(context) :
     bzType == BzType.Designer ? Wordz.designers(context) :
     bzType == BzType.Contractor ? Wordz.contractors(context) :
     bzType == BzType.Artisan ? Wordz.craftsmen(context) :
