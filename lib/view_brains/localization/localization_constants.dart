@@ -26,6 +26,7 @@ const String French = 'fr';
 const String Russian = 'ru';
 const String Turkish = 'tr';
 const String Italian = 'it';
+const String Chinese = 'zh';
 const String Language_Code = 'languageCode';
 // === === === === === === === === === === === === === === === === === === ===
 Future<Locale> setLocale(String languageCode) async{
@@ -45,6 +46,7 @@ Locale _locale(String languageCode){
       case Russian:   _temp = Locale(languageCode, 'RU'); break;
       case Turkish:   _temp = Locale(languageCode, 'TR'); break;
       case Italian:   _temp = Locale(languageCode, 'IT'); break;
+      case Chinese:   _temp = Locale(languageCode, 'CN'); break;
       default:        _temp = Locale(English, 'US');
     }
     return _temp;
