@@ -5,7 +5,6 @@ import 'package:bldrs/providers/combined_models/co_slide.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import 'parts/ankh_button.dart';
 import 'parts/flyer_zone.dart';
 import 'parts/header.dart';
