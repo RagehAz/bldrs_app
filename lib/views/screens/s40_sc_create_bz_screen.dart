@@ -3,13 +3,14 @@ import 'package:bldrs/models/author_model.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/providers/combined_models/co_author.dart';
 import 'package:bldrs/providers/combined_models/co_bz.dart';
-import 'package:bldrs/view_brains/drafters/keyboarders.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/widgets/bubbles/add_logo_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/bubbles_separator.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/multiple_choice_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/text_field_bubble.dart';
+import 'package:bldrs/views/widgets/flyer/parts/flyer_zone.dart';
+import 'package:bldrs/views/widgets/flyer/parts/header.dart';
 import 'package:path_provider/path_provider.dart' as sysPaths;
 import 'package:path/path.dart' as path;
 import 'package:bldrs/models/enums/enum_bldrs_section.dart';
@@ -20,9 +21,7 @@ import 'package:bldrs/view_brains/drafters/stringers.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
-import 'package:bldrs/views/widgets/flyer/header/header.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
-import 'package:bldrs/views/widgets/pro_flyer/flyer_parts/flyer_zone.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -174,6 +173,7 @@ void typingBzName(String bzName){
 void openCityList(){
 
 }
+  // ----------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

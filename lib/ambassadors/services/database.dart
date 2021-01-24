@@ -6,7 +6,7 @@ class DatabaseService {
 
   DatabaseService({this.userID});
 
-  // collection reference
+  /// collection reference
   final CollectionReference usersCollection = FirebaseFirestore.instance.collection('users');
 
   Future updateUserData({
@@ -47,7 +47,7 @@ class DatabaseService {
     });
   }
 
-  // users list from snapshot
+  /// users list from snapshot
   List<UserModel> _usersListFromSnapshot(QuerySnapshot snapshot){
     return snapshot.docs.map((doc) {
       // print(doc.data()['savedFlyersIDs']);
@@ -75,7 +75,7 @@ class DatabaseService {
     }).toList();
   }
 
-  // UserModel from Snapshot
+  /// UserModel from Snapshot
   UserModel _userModelFromSnapshot(DocumentSnapshot doc){
     List<dynamic> _savedFlyersIDs = doc.data()['savedFlyersIDs'] as List<dynamic>;
     List<dynamic> _followedBzzIDs = doc.data()['followedBzzIDs'] as List<dynamic>;
@@ -100,13 +100,13 @@ class DatabaseService {
     );
   }
 
-  // get user streams
+  /// get user streams
 Stream<List<UserModel>> get userStream {
     return usersCollection.snapshots()
         .map(_usersListFromSnapshot);
 }
 
-// get user doc stream
+/// get user doc stream
 Stream<UserModel> get userData {
     return usersCollection.doc(userID).snapshots()
         .map(_userModelFromSnapshot);

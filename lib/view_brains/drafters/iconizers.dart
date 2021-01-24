@@ -2,6 +2,7 @@ import 'dart:core';
 import 'package:bldrs/models/enums/enum_bldrs_section.dart';
 import 'package:bldrs/models/enums/enum_bz_type.dart';
 import 'package:bldrs/models/enums/enum_user_type.dart';
+import 'package:bldrs/view_brains/drafters/localizers.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/widgets/buttons/balloons/path_building_user.dart';
@@ -96,5 +97,9 @@ String imageDir(String prefix, String fileName, double pixelRatio, bool isIOS) {
         }
     }
     return '$prefix$directory$fileName';
+}
+// === === === === === === === === === === === === === === === === === === ===
+String superBackIcon(BuildContext context){
+  return appIsLeftToRight(context) ? Iconz.Back : Iconz.BackArabic;
 }
 // === === === === === === === === === === === === === === === === === === ===

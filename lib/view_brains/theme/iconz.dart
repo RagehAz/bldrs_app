@@ -68,6 +68,7 @@ static const String BxOwnerOff = 'assets/ft/ft_owner_off.svg' ;
 // -------------------------------------------------------------------------
 // GENERAL ICONS
 static const String Back = 'assets/gi/gi_back.svg' ;
+static const String BackArabic = 'assets/gi/gi_back_arabic.svg' ;
 static const String DotPyramid = 'assets/gi/gi_dot_pyramid.svg' ;
 static const String Follow = 'assets/gi/gi_follow.svg' ;
 static const String Gallery = 'assets/gi/gi_gallery.svg' ;

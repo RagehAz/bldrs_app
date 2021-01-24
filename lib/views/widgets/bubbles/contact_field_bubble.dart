@@ -10,7 +10,6 @@ import 'package:bldrs/views/widgets/textings/super_text_field.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:clipboard/clipboard.dart';
-
 import 'in_pyramids_bubble.dart';
 
 class ContactFieldBubble extends StatefulWidget {
@@ -153,7 +152,6 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
                       Container(
                         width: fieldWidth,
                         child: SuperTextField(
-
                           fieldIsFormField: widget.fieldIsFormField,
                           hintText: widget.hintText,
                           counterIsOn: false,

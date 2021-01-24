@@ -1,11 +1,12 @@
 import 'package:bldrs/providers/combined_models/co_flyer.dart';
 import 'package:bldrs/providers/combined_models/coflyer_provider.dart';
-import 'package:bldrs/view_brains/controllers/flyer_controllers.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
+import 'package:bldrs/view_brains/router/navigators.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
-import 'package:bldrs/views/widgets/pro_flyer/pro_flyer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../pro_flyer.dart';
 
 class FlyersGrid extends StatefulWidget {
 

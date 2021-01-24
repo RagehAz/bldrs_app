@@ -6,7 +6,7 @@ import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/widgets/ask/ask.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
-import 'package:bldrs/views/widgets/flyer/collection/flyers_compact_collection.dart';
+import 'package:bldrs/views/widgets/flyer/stacks/flyer_stack.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 
@@ -54,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ...List<Widget>.generate(flyerTypesList.length,
                               (index){
                             return
-                              FlyersCompactCollection(flyersType: flyerTypesList[index]);
+                              FlyerStack(flyersType: flyerTypesList[index]);
                           }
                       ),
 
