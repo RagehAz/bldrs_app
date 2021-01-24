@@ -30,37 +30,27 @@ class ABMain extends StatefulWidget {
 class _ABMainState extends State<ABMain> {
   bool sectionsAreExpanded;
   BldrsSection currentSection;
-
+// ---------------------------------------------------------------------------
   @override
   void initState() {
     currentSection = BldrsSection.Home;
     sectionsAreExpanded = false;
     super.initState();
   }
-
+// ---------------------------------------------------------------------------
   void expandingSections() {
-    // if (sectionsAreExpanded == false) {
-    //   setState(() {
-    //     sectionsAreExpanded = true;
-    //   });
-    // } else {
-    //   setState(() {
-    //     sectionsAreExpanded = false;
-    //   });
-    // }
-
     setState(() {
       sectionsAreExpanded = !sectionsAreExpanded;
     });
   }
-
+// ---------------------------------------------------------------------------
   void choosingSection(BldrsSection section) {
     setState(() {
       currentSection = section;
       sectionsAreExpanded = false;
     });
   }
-
+// ---------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -80,11 +70,12 @@ class _ABMainState extends State<ABMain> {
         ) : Container(),
 
         // --- SECTIONS BUTTON
-        widget.sectionsAreOn == true ?
+        widget.sectionsAreOn == false ? Container() :
         Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+
             // --- INITIAL SECTION BUTTON
             Container(
               // color: Colorz.BloodTest,
@@ -104,32 +95,34 @@ class _ABMainState extends State<ABMain> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Divider(
-                    height: abPadding,
-                  ),
+
+                  Divider(height: abPadding,),
+
                   SectionToChooseBT(
                     section: BldrsSection.RealEstate,
                     choosingSection: choosingSection,
                   ),
-                  Divider(
-                    height: abPadding,
-                  ),
+
+                  Divider(height: abPadding,),
+
                   SectionToChooseBT(
                     section: BldrsSection.Construction,
                     choosingSection: choosingSection,
                   ),
-                  Divider(
-                    height: abPadding,
-                  ),
+
+                  Divider(height: abPadding,),
+
                   SectionToChooseBT(
                     section: BldrsSection.Supplies,
                     choosingSection: choosingSection,
                   ),
+
                 ],
               ),
             ),
+
           ],
-        ) : Container(),
+        ),
 
         // --- FILLER SPACE BETWEEN ITEMS
         sectionsAreExpanded == true ? Container() :
@@ -174,8 +167,7 @@ class ABStrip extends StatelessWidget {
       alignment: Alignment.center,
       margin: EdgeInsets.all(Ratioz.ddAppBarMargin),
       decoration: BoxDecoration(
-          borderRadius:
-              BorderRadius.all(Radius.circular(Ratioz.ddAppBarCorner)),
+          borderRadius: BorderRadius.all(Radius.circular(Ratioz.ddAppBarCorner)),
           boxShadow: [
             CustomBoxShadow(
                 color: Colorz.BlackSmoke,
@@ -186,6 +178,7 @@ class ABStrip extends StatelessWidget {
       child: Stack(
         alignment: superCenterAlignment(context),
         children: <Widget>[
+
           // APPBAR SHADOW
           Container(
             width: double.infinity,
@@ -221,30 +214,30 @@ class ABStrip extends StatelessWidget {
           // --- CONTENTS INSIDE THE APP BAR
           scrollable ?
           Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  // mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    ClipRRect(
-                      borderRadius:
-                          BorderRadius.circular(Ratioz.ddAppBarCorner),
-                      child: Container(
-                        width: screenWidth - (2 * Ratioz.ddAppBarMargin),
-                        height: 50,
-                        child: ListView(
-                          // controller: _controller,
-                          scrollDirection: Axis.horizontal,
-                          children: rowWidgets,
-                        ),
-                      ),
-                    )
-                  ],
-                )
-              : Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: rowWidgets,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            // mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              ClipRRect(
+                borderRadius: BorderRadius.circular(Ratioz.ddAppBarCorner),
+                child: Container(
+                  width: screenWidth - (2 * Ratioz.ddAppBarMargin),
+                  height: 50,
+                  alignment: Alignment.center,
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: rowWidgets,
+                  ),
                 ),
+              )
+            ],
+          )
+              :
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: rowWidgets,
+          ),
         ],
       ),
     );

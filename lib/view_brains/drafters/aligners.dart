@@ -1,23 +1,23 @@
-import 'package:bldrs/view_brains/theme/wordz.dart';
+import 'package:bldrs/view_brains/drafters/localizers.dart';
 import 'package:flutter/material.dart';
 // === === === === === === === === === === === === === === === === === === ===
 Alignment superTopAlignment(BuildContext context){
   return
-  Wordz.textDirection(context) == 'ltr' ? Alignment.topLeft : Alignment.topRight;
+  appIsLeftToRight(context) ? Alignment.topLeft : Alignment.topRight;
 }
 // === === === === === === === === === === === === === === === === === === ===
 Alignment superCenterAlignment(BuildContext context){
   return
-    Wordz.textDirection(context) == 'ltr' ? Alignment.centerLeft : Alignment.centerRight;
+    appIsLeftToRight(context) ? Alignment.centerLeft : Alignment.centerRight;
 }
 // === === === === === === === === === === === === === === === === === === ===
 Alignment superInverseCenterAlignment(BuildContext context){
   return
-    Wordz.textDirection(context) == 'ltr' ? Alignment.centerRight : Alignment.centerLeft;
+    appIsLeftToRight(context) ? Alignment.centerRight : Alignment.centerLeft;
 }
 // === === === === === === === === === === === === === === === === === === ===
 Alignment superInverseTopAlignment(BuildContext context){
   return
-    Wordz.textDirection(context) == 'ltr' ? Alignment.topRight : Alignment.topLeft;
+    appIsLeftToRight(context) ? Alignment.topRight : Alignment.topLeft;
 }
 // === === === === === === === === === === === === === === === === === === ===

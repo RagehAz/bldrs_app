@@ -1,6 +1,6 @@
 import 'package:bldrs/providers/combined_models/coflyer_provider.dart';
+import 'package:bldrs/views/widgets/flyer/pro_flyer.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
-import 'package:bldrs/views/widgets/pro_flyer/pro_flyer.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

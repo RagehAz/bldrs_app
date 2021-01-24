@@ -1,3 +1,5 @@
+import 'package:bldrs/view_brains/drafters/iconizers.dart';
+import 'package:bldrs/view_brains/router/navigators.dart';
 import 'package:bldrs/view_brains/router/route_names.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
@@ -18,41 +20,29 @@ class BtSearch extends StatelessWidget {
   Widget build(BuildContext context) {
 
       // double authorPictureCornerValue = MediaQuery.of(context).size.height * 0.015;
-      final dynamic boxesColor = Colorz.Nothing;
       double box1Width = 40;
       double box1Height = 40;
 
-      String btIcon = btSearchIsBackBt == true ? Iconz.Back : Iconz.Search ;
+      String btIcon = btSearchIsBackBt == true ? superBackIcon(context) : Iconz.Search ;
 
       void tappingTheGodDamnSearchButton(){
         btSearchIsBackBt == true ?
         tappingBack() :
-        Navigator.pushNamed(context, Routez.Search) ;
+        goToRoute(context, Routez.Search);
       }
 
-    return GestureDetector(
-      onTap: tappingTheGodDamnSearchButton,
-
-      child: Padding(
-        padding: EdgeInsets.all(Ratioz.ddAppBarMargin * 0.5),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-
-            DreamBox(
-              height: box1Height,
-              width: box1Width,
-              icon: btIcon,
-              // iconColor: Colorz.BlackBlack,
-              corners: Ratioz.ddAppBarButtonCorner,
-              iconSizeFactor: btSearchIsBackBt == true ? 1 : 0.5,
-              color: boxesColor,
-              iconRounded: false,
-            ),
-
-          ],
-        ),
+    return Container(
+      width: Ratioz.ddAppBarHeight,
+      height: Ratioz.ddAppBarHeight,
+      child: DreamBox(
+        height: box1Height,
+        width: box1Width,
+        icon: btIcon,
+        boxMargins: EdgeInsets.all(Ratioz.ddAppBarMargin * 0.5),
+        corners: Ratioz.ddAppBarButtonCorner,
+        iconSizeFactor: btSearchIsBackBt == true ? 1 : 0.5,
+        iconRounded: false,
+        boxFunction: tappingTheGodDamnSearchButton,
       ),
     );
   }
