@@ -1,6 +1,5 @@
+import 'package:bldrs/models/enums/enum_contact_type.dart';
 import 'package:flutter/foundation.dart';
-
-import 'enums/enum_contact_type.dart';
 
 enum ContactOwnerType {
   user,

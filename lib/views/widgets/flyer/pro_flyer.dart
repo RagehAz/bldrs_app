@@ -1,7 +1,7 @@
-import 'package:bldrs/providers/combined_models/co_author.dart';
-import 'package:bldrs/providers/combined_models/co_bz.dart';
-import 'package:bldrs/providers/combined_models/co_flyer.dart';
-import 'package:bldrs/providers/combined_models/co_slide.dart';
+import 'package:bldrs/models/old_models_to_delete_when_done/combined_models/co_author.dart';
+import 'package:bldrs/models/old_models_to_delete_when_done/combined_models/co_bz.dart';
+import 'package:bldrs/models/old_models_to_delete_when_done/combined_models/co_flyer.dart';
+import 'package:bldrs/models/old_models_to_delete_when_done/combined_models/co_slide.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

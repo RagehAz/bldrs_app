@@ -1,4 +1,4 @@
-import 'package:bldrs/models/horus_model.dart';
+import 'package:bldrs/models/old_models_to_delete_when_done/horus_model.dart';
 
 final List<HorusModel> dbHorusee = [
   HorusModel(horusID: 'view001', userID: 'u21', slideID: 's001'),

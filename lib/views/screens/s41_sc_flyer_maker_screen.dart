@@ -1,4 +1,7 @@
 import 'dart:io';
+import 'package:bldrs/models/old_models_to_delete_when_done/location_model.dart';
+import 'package:bldrs/models/old_models_to_delete_when_done/slide_model.dart';
+import 'package:bldrs/providers/coflyer_provider.dart';
 import 'package:bldrs/view_brains/controllers/flyer_sliding_controllers.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_zone.dart';
@@ -10,9 +13,6 @@ import 'package:bldrs/xxx_LABORATORY/camera_and_location/location_helper.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart' as sysPaths;
-import 'package:bldrs/models/location_model.dart';
-import 'package:bldrs/models/slide_model.dart';
-import 'package:bldrs/providers/combined_models/coflyer_provider.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';

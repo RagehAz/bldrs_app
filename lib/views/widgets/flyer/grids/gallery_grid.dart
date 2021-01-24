@@ -1,5 +1,5 @@
-import 'package:bldrs/providers/combined_models/co_flyer.dart';
-import 'package:bldrs/providers/combined_models/coflyer_provider.dart';
+import 'package:bldrs/models/old_models_to_delete_when_done/combined_models/co_flyer.dart';
+import 'package:bldrs/providers/coflyer_provider.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';

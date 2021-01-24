@@ -1,4 +1,4 @@
-import 'package:bldrs/models/author_model.dart';
+import 'package:bldrs/models/old_models_to_delete_when_done/author_model.dart';
 
 final List<AuthorModel> dbAuthors = [
   AuthorModel(bzId: 'pp1', userID: 'u01', authorID: 'au01',),

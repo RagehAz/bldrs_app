@@ -1,8 +1,8 @@
 import 'dart:io';
-import 'package:bldrs/models/author_model.dart';
 import 'package:bldrs/models/bz_model.dart';
-import 'package:bldrs/providers/combined_models/co_author.dart';
-import 'package:bldrs/providers/combined_models/co_bz.dart';
+import 'package:bldrs/models/old_models_to_delete_when_done/author_model.dart';
+import 'package:bldrs/models/old_models_to_delete_when_done/combined_models/co_author.dart';
+import 'package:bldrs/models/old_models_to_delete_when_done/combined_models/co_bz.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/widgets/bubbles/add_logo_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/bubbles_separator.dart';

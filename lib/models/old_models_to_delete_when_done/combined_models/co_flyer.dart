@@ -1,5 +1,5 @@
 import 'package:bldrs/models/flyer_model.dart';
-import 'package:bldrs/models/location_model.dart';
+import 'package:bldrs/models/old_models_to_delete_when_done/location_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import './co_bz.dart';

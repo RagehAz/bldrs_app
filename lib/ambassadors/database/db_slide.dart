@@ -1,4 +1,4 @@
-import 'package:bldrs/models/slide_model.dart';
+import 'package:bldrs/models/old_models_to_delete_when_done/slide_model.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 
 final List<SlideModel> dbSlides = [

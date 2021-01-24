@@ -1,12 +1,11 @@
-import 'package:bldrs/providers/combined_models/co_author.dart';
-import 'package:bldrs/providers/combined_models/co_bz.dart';
-import 'package:bldrs/providers/combined_models/co_flyer.dart';
-import 'package:bldrs/providers/combined_models/coflyer_provider.dart';
+import 'package:bldrs/models/old_models_to_delete_when_done/combined_models/co_author.dart';
+import 'package:bldrs/models/old_models_to_delete_when_done/combined_models/co_bz.dart';
+import 'package:bldrs/models/old_models_to_delete_when_done/combined_models/co_flyer.dart';
+import 'package:bldrs/providers/coflyer_provider.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import 'max_header_parts/bz_pg_counter.dart';
 import 'max_header_parts/bz_pg_fields.dart';
 import 'max_header_parts/bz_pg_verse.dart';

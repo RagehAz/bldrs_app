@@ -1,8 +1,8 @@
 import 'package:bldrs/ambassadors/db_brain/db_controller.dart';
 import 'package:bldrs/models/bz_model.dart';
-import 'package:bldrs/models/slide_model.dart';
+import 'package:bldrs/models/old_models_to_delete_when_done/combined_models/co_author.dart';
+import 'package:bldrs/models/old_models_to_delete_when_done/slide_model.dart';
 import 'package:bldrs/models/user_model.dart';
-import 'package:bldrs/providers/combined_models/co_author.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/drafters/stringers.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
