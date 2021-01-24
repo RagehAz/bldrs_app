@@ -1,4 +1,4 @@
-import 'package:bldrs/models/follow_model.dart';
+import 'package:bldrs/models/old_models_to_delete_when_done/follow_model.dart';
 
 final List<FollowModel> dbFollows = [
 

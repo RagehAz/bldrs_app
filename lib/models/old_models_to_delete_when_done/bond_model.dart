@@ -1,5 +1,5 @@
+import 'package:bldrs/models/enums/enum_bond_state.dart';
 import 'package:flutter/foundation.dart';
-import 'enums/enum_bond_state.dart';
 
 class BondModel {
   final String bondID;

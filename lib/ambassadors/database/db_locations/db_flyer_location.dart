@@ -1,4 +1,4 @@
-import 'package:bldrs/models/location_model.dart';
+import 'package:bldrs/models/old_models_to_delete_when_done/location_model.dart';
 
 final List<LocationModel> dbFlyersLocations = [
   LocationModel(locationID: 'l001', ownerID: 'f001', longitude: 15.5, latitude: 30.5),

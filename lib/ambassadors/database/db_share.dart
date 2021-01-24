@@ -1,4 +1,4 @@
-import 'package:bldrs/models/share_model.dart';
+import 'package:bldrs/models/old_models_to_delete_when_done/share_model.dart';
 
 final List<ShareModel> dbShares = [
   ShareModel(shareID: 'share001', userID: 'u21', slideID: 's001'),

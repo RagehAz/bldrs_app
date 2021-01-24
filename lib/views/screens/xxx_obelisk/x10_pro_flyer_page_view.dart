@@ -1,4 +1,4 @@
-import 'package:bldrs/providers/combined_models/coflyer_provider.dart';
+import 'package:bldrs/providers/coflyer_provider.dart';
 import 'package:bldrs/views/widgets/flyer/pro_flyer.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/gestures.dart';

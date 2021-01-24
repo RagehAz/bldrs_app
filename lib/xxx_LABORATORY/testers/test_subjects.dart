@@ -1,13 +1,13 @@
 import 'package:bldrs/ambassadors/database/db_contacts/db_phone.dart';
-import 'package:bldrs/models/contact_model.dart';
 import 'package:bldrs/models/enums/enum_flyer_type.dart';
-import 'package:bldrs/providers/combined_models/co_author.dart';
-import 'package:bldrs/providers/combined_models/coflyer_provider.dart';
+import 'package:bldrs/models/old_models_to_delete_when_done/combined_models/co_author.dart';
+import 'package:bldrs/models/old_models_to_delete_when_done/combined_models/co_flyer.dart';
+import 'package:bldrs/models/old_models_to_delete_when_done/contact_model.dart';
+import 'package:bldrs/providers/coflyer_provider.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/ambassadors/db_brain/db_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
-import 'package:bldrs/providers/combined_models/co_flyer.dart';
 
 String fankoooooosha(){return 'fankoooooosha';}
 

@@ -1,6 +1,6 @@
 import 'package:bldrs/models/bz_model.dart';
-import 'package:bldrs/models/contact_model.dart';
-import 'package:bldrs/models/location_model.dart';
+import 'package:bldrs/models/old_models_to_delete_when_done/contact_model.dart';
+import 'package:bldrs/models/old_models_to_delete_when_done/location_model.dart';
 import 'package:flutter/foundation.dart';
 import 'co_author.dart';
 
