@@ -1,5 +1,5 @@
-import 'package:bldrs/models/connection_model.dart';
 import 'package:bldrs/models/enums/enum_connection_state.dart';
+import 'package:bldrs/models/old_models_to_delete_when_done/connection_model.dart';
 
 final List<ConnectionModel> dbConnections = [
 

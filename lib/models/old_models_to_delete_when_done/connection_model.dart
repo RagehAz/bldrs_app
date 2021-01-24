@@ -1,6 +1,5 @@
+import 'package:bldrs/models/enums/enum_connection_state.dart';
 import 'package:flutter/foundation.dart';
-
-import 'enums/enum_connection_state.dart';
 
 class ConnectionModel {
   final String connectionID;

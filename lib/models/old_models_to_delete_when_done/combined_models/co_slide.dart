@@ -1,6 +1,6 @@
-import 'package:bldrs/models/bond_model.dart';
-import 'package:bldrs/models/origin_model.dart';
-import 'package:bldrs/models/slide_model.dart';
+import 'package:bldrs/models/old_models_to_delete_when_done/bond_model.dart';
+import 'package:bldrs/models/old_models_to_delete_when_done/origin_model.dart';
+import 'package:bldrs/models/old_models_to_delete_when_done/slide_model.dart';
 import 'package:flutter/foundation.dart';
 
 class CoSlide with ChangeNotifier{

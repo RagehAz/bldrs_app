@@ -1,5 +1,5 @@
-import 'package:bldrs/models/contact_model.dart';
 import 'package:bldrs/models/enums/enum_flyer_type.dart';
+import 'package:bldrs/models/old_models_to_delete_when_done/contact_model.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';

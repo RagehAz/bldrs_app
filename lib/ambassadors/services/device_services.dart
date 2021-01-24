@@ -1,9 +1,5 @@
-
-
 // this should have the functions of device camera, phone gallery, gps location
-
 import 'dart:io';
-
 import 'package:image_picker/image_picker.dart';
 
 Future<void> takeGalleryPicture() async {

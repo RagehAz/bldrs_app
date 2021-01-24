@@ -1,5 +1,5 @@
+import 'package:bldrs/models/enums/enum_flyer_type.dart';
 import 'package:flutter/foundation.dart';
-import 'enums/enum_flyer_type.dart';
 
 class OriginModel{
   final String originID;

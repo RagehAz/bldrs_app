@@ -1,11 +1,11 @@
 import 'package:bldrs/ambassadors/db_brain/db_controller.dart';
-import 'package:bldrs/models/contact_model.dart';
 import 'package:bldrs/models/enums/enum_contact_type.dart';
 import 'package:bldrs/models/enums/enum_flyer_type.dart';
-import 'package:bldrs/providers/combined_models/co_author.dart';
+import 'package:bldrs/models/old_models_to_delete_when_done/combined_models/co_author.dart';
+import 'package:bldrs/models/old_models_to_delete_when_done/combined_models/co_flyer.dart';
+import 'package:bldrs/models/old_models_to_delete_when_done/combined_models/co_slide.dart';
+import 'package:bldrs/models/old_models_to_delete_when_done/contact_model.dart';
 import 'package:flutter/cupertino.dart';
-import 'co_flyer.dart';
-import 'co_slide.dart';
 
 class CoFlyersProvider with ChangeNotifier {
   List<CoFlyer>  _loadedCoFlyers      = getAllCoFlyers().isEmpty?                [] : getAllCoFlyers();
