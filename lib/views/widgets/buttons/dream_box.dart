@@ -125,8 +125,8 @@ class DreamBox extends StatelessWidget {
             child: Padding(
               padding: boxMargins == null ? EdgeInsets.all(0) : boxMargins,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: underLine == null ? MainAxisAlignment.center : MainAxisAlignment.start,
+                crossAxisAlignment: underLine == null ? CrossAxisAlignment.center : CrossAxisAlignment.start,
                 children: <Widget>[
 
                   // --- THE BOX

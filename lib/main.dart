@@ -11,7 +11,7 @@ import 'view_brains/localization/demo_localization.dart';
 import 'view_brains/router/route_names.dart';
 import 'view_brains/router/router.dart';
 import 'package:provider/provider.dart';
-import 'views/widgets/pro_flyer/flyer_screen.dart';
+import 'views/screens/s50_flyer_screen.dart';
 import 'xxx_LABORATORY/ask/questions_provider.dart';
 
 main() => runApp(BldrsApp());

@@ -1,10 +1,10 @@
+import 'package:bldrs/views/screens/s50_flyer_screen.dart';
 import 'package:bldrs/views/screens/s40_sc_create_bz_screen.dart';
 import 'package:bldrs/views/screens/s41_sc_flyer_maker_screen.dart';
 import 'package:bldrs/views/screens/xxx_obelisk/x01_access_denied_screen.dart';
 import 'package:bldrs/views/screens/xxx_obelisk/x02_rageh_dash_board.dart';
 import 'package:bldrs/views/screens/xxx_obelisk/xxx_obelisk.dart';
 import 'package:bldrs/views/widgets/auth/user_checker.dart';
-import 'package:bldrs/views/widgets/pro_flyer/flyer_screen.dart';
 import 'package:bldrs/views/screens/s00_sc_splash_screen.dart';
 import 'package:bldrs/views/screens/s01_sc_starting_screen.dart';
 import 'package:bldrs/views/screens/s04_sc_localizer_screen.dart';

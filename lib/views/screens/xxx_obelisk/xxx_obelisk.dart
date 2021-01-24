@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:bldrs/models/enums/enum_bldrs_section.dart';
-import 'package:bldrs/view_brains/controllers/flyer_controllers.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
 import 'package:bldrs/view_brains/router/route_names.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
@@ -9,7 +8,6 @@ import 'package:bldrs/views/screens/s05_pg_countries_page.dart';
 import 'package:bldrs/views/screens/s40_sc_create_bz_screen.dart';
 import 'package:bldrs/views/screens/xxx_obelisk/x03_font_test_screen.dart';
 import 'package:bldrs/views/screens/xxx_obelisk/x04_flyers_sizes_screen.dart';
-import 'package:bldrs/views/screens/xxx_obelisk/x05_Hero_test.dart';
 import 'package:bldrs/views/screens/xxx_obelisk/x06_single_collection_screen.dart';
 import 'package:bldrs/views/screens/xxx_obelisk/x06_swiper_layout.dart';
 import 'package:bldrs/views/screens/xxx_obelisk/x08_earth_screen.dart';
@@ -438,17 +436,6 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
             function:
                 // Routez.ProviderTest,
                 () => goToNewScreen(context, TestFormScreen()),
-            stretched: false,
-          ),
-
-          // --- 24 - HERO -------------------------------
-          BTMain(
-            buttonVerse: '24 - Hero Test',
-            buttonIcon: Iconz.FlyerScale,
-            buttonColor: Colorz.Grey,
-            splashColor: Colorz.White,
-            buttonVerseShadow: true,
-            function: () => goToNewScreen(context, HeroTestScreen()),
             stretched: false,
           ),
 
