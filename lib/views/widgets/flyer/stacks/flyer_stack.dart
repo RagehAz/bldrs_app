@@ -1,6 +1,5 @@
-import 'package:bldrs/models/enums/enum_flyer_type.dart';
-import 'package:bldrs/models/old_models_to_delete_when_done/combined_models/co_flyer.dart';
-import 'package:bldrs/providers/coflyer_provider.dart';
+import 'package:bldrs/models/flyer_model.dart';
+import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/drafters/stringers.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
@@ -30,8 +29,8 @@ class FlyerStack extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final CoFlyersProvider pro = Provider.of<CoFlyersProvider>(context, listen: false);
-    final List<CoFlyer> flyersOfType = pro.hatCoFlyersByFlyerType(flyersType);
+    final FlyersProvider pro = Provider.of<FlyersProvider>(context, listen: false);
+    final List<FlyerModel> flyersOfType = pro.getFlyersByFlyerType(flyersType);
 // ----------------------------------------------------------------------------
     double screenWidth = superScreenWidth(context);
     double screenHeight = superScreenHeight(context);
@@ -107,7 +106,7 @@ class FlyerStack extends StatelessWidget {
                     flyerSizeFactor: flyerSizeFactor,
                     slidingIsOn: _slidingIsOn,
                     tappingFlyerZone: (){
-                      openFlyer(context, flyersOfType[_x].flyer.flyerID);
+                      openFlyer(context, flyersOfType[_x].flyerID);
                       // _slidingIsOff = false;
                       },
                   ),

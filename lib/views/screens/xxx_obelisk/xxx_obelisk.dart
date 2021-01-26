@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:bldrs/models/enums/enum_bldrs_section.dart';
+import 'package:bldrs/models/bldrs_sections.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
 import 'package:bldrs/view_brains/router/route_names.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
@@ -31,10 +31,10 @@ import 'package:bldrs/xxx_LABORATORY/camera_and_location/x13_camera.dart';
 import 'package:bldrs/xxx_LABORATORY/forms_and_inputs/popup.dart';
 import 'package:bldrs/xxx_LABORATORY/forms_and_inputs/form.dart';
 import 'package:bldrs/xxx_LABORATORY/ideas/circle_list.dart';
-import 'package:bldrs/xxx_LABORATORY/testers/cipher_tester.dart';
-import 'package:bldrs/xxx_LABORATORY/testers/database_viewer_screen.dart';
-import 'package:bldrs/xxx_LABORATORY/testers/test_subjects.dart' as TestSubjects;
-import 'package:bldrs/xxx_LABORATORY/testers/testerScreen.dart';
+// import 'package:bldrs/xxx_LABORATORY/testers/cipher_tester.dart';
+// import 'package:bldrs/xxx_LABORATORY/testers/database_viewer_screen.dart';
+// import 'package:bldrs/xxx_LABORATORY/testers/test_subjects.dart' as TestSubjects;
+// import 'package:bldrs/xxx_LABORATORY/testers/testerScreen.dart';
 import 'package:flutter/material.dart';
 import 'o_01_translations.dart';
 import 'x07_chat_screen.dart';
@@ -193,8 +193,9 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
             splashColor: Colorz.White,
             buttonVerseShadow: true,
             function:
-                () => goToNewScreen(
-                    context, TesterScreen(testList: TestSubjects.dbGetters)),
+            (){},
+                // () => goToNewScreen(
+                //     context, TesterScreen(testList: TestSubjects.dbGetters)),
             stretched: false,
           ),
 
@@ -206,8 +207,9 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
             splashColor: Colorz.White,
             buttonVerseShadow: true,
             function:
-                () => goToNewScreen(context,
-                    TesterScreen(testList: TestSubjects.proHatters(context))),
+                (){},
+                // () => goToNewScreen(context,
+                //     TesterScreen(testList: TestSubjects.proHatters(context))),
             stretched: false,
           ),
 
@@ -219,7 +221,8 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
             splashColor: Colorz.White,
             buttonVerseShadow: true,
             function:
-                () => goToNewScreen(context, DatabaseViewerScreen()),
+            (){},
+                // () => goToNewScreen(context, DatabaseViewerScreen()),
             stretched: false,
           ),
 
@@ -230,7 +233,9 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
             buttonColor: Colorz.SkyDarkBlue,
             splashColor: Colorz.White,
             buttonVerseShadow: true,
-            function: () => goToNewScreen(context, CipherTest()),
+            function:
+            (){},
+                // () => goToNewScreen(context, CipherTest()),
             stretched: false,
           ),
 

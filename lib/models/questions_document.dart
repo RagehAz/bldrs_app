@@ -1,7 +1,4 @@
-
-
-import 'package:bldrs/models/enums/enum_flyer_type.dart';
-
+import 'flyer_model.dart';
 /// as chats are private and only fetched between 2 users, and we don't wanna fetch
 /// the entire chats when fetching a user,, and only fetch the chat when entering
 /// the chat screen with help of pagination as well but I guess that wouldn't be possible

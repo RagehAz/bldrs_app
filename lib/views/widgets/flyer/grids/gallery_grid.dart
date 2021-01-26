@@ -1,24 +1,23 @@
-import 'package:bldrs/models/old_models_to_delete_when_done/combined_models/co_flyer.dart';
-import 'package:bldrs/providers/coflyer_provider.dart';
+import 'package:bldrs/models/flyer_model.dart';
+import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../pro_flyer.dart';
 
 class GalleryGrid extends StatelessWidget {
 
   final double gridZoneWidth;
-  // final List<CoFlyer> galleryCoFlyers;
+  // final List<CoFlyer> galleryFlyers;
   final List<bool> flyersVisibilities;
   final String bzID;
   // final Function tappingMiniFlyer;
 
   GalleryGrid({
     @required this.gridZoneWidth,
-    // @required this.galleryCoFlyers,
+    // @required this.galleryFlyers,
     @required this.flyersVisibilities,
     @required this.bzID,
     // @required this.tappingMiniFlyer,
@@ -26,18 +25,18 @@ class GalleryGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final pro = Provider.of<CoFlyersProvider>(context);
-    final List<CoFlyer> galleryCoFlyers = pro.hatCoFlyersByBzID(bzID);
+    final pro = Provider.of<FlyersProvider>(context);
+    final List<FlyerModel> galleryFlyers = pro.getAllFlyers;
     // -------------------------------------------------------------------------
     double screenWidth = superScreenWidth(context);
     // -------------------------------------------------------------------------
-    int gridColumnsCount = galleryCoFlyers.length > 12 ? 5 : galleryCoFlyers.length > 6 ? 4 : 3;
+    int gridColumnsCount = galleryFlyers.length > 12 ? 5 : galleryFlyers.length > 6 ? 4 : 3;
     // -------------------------------------------------------------------------
     double spacingRatioToGridWidth = 0.15;
     double gridFlyerWidth = gridZoneWidth / (gridColumnsCount + (gridColumnsCount * spacingRatioToGridWidth) + spacingRatioToGridWidth);
     double gridFlyerHeight = gridFlyerWidth * Ratioz.xxflyerZoneHeight;
     double gridSpacing = gridFlyerWidth * spacingRatioToGridWidth;
-    int flyersCount = galleryCoFlyers.length;
+    int flyersCount = galleryFlyers.length;
     // -------------------------------------------------------------------------
     int numOfGridRows(int flyersCount){
       return
@@ -65,19 +64,19 @@ class GalleryGrid extends StatelessWidget {
               maxCrossAxisExtent: gridFlyerWidth,//gridFlyerWidth,
             ),
 
-            children: List<Widget>.generate(galleryCoFlyers.length,
+            children: List<Widget>.generate(galleryFlyers.length,
                     (index) =>
                         Opacity(
                       opacity: flyersVisibilities[index] == true ? 1 : 0.1,
                       child: ChangeNotifierProvider.value(
-                        value: galleryCoFlyers[index],
+                        value: galleryFlyers[index],
                         child: ProFlyer(
                           flyerSizeFactor: (((gridZoneWidth - (gridSpacing*(gridColumnsCount+1)))/gridColumnsCount))/screenWidth,
                           slidingIsOn: false,
-                          // flyerID: galleryCoFlyers[index].flyer.flyerID,
+                          // flyerID: galleryFlyers[index].flyer.flyerID,
                           tappingFlyerZone:
                           flyersVisibilities[index] == true ?
-                              () => openFlyer(context, galleryCoFlyers[index].flyer.flyerID)
+                              () => openFlyer(context, galleryFlyers[index].flyerID)
                               :
                               (){}
                         ),

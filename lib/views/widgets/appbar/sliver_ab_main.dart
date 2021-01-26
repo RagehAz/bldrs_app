@@ -1,4 +1,4 @@
-import 'package:bldrs/models/enums/enum_bldrs_section.dart';
+import 'package:bldrs/models/bldrs_sections.dart';
 import 'package:bldrs/views/screens/s05_pg_countries_page.dart';
 import 'package:flutter/material.dart';
 import 'ab_strip.dart';

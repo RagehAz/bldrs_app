@@ -1,4 +1,4 @@
-import 'package:bldrs/models/enums/enum_user_type.dart';
+import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
@@ -10,17 +10,17 @@ import 'package:flutter/material.dart';
 class StatusBubble extends StatelessWidget {
 
   final List<Map<String, Object>> status;
-  final UserType userType;
-  final Function switchUserType;
-  final UserType currentUserType;
+  final UserStatus userStatus;
+  final Function switchUserStatus;
+  final UserStatus currentUserStatus;
   final Function openEnumLister;
 
 
   StatusBubble({
     @required this.status,
-    @required this.userType,
-    @required this.switchUserType,
-    @required this.currentUserType,
+    @required this.userStatus,
+    @required this.switchUserStatus,
+    @required this.currentUserStatus,
     @required this.openEnumLister,
 });
 
@@ -74,18 +74,18 @@ class StatusBubble extends StatelessWidget {
         StatusButtons(
           status: status,
           stateIndex: 0,
-          switchUserType: switchUserType,
-          currentUserType: currentUserType,
+          switchUserStatus: switchUserStatus,
+          currentUserStatus: currentUserStatus,
         ),
 
         // --- IF USER IS SEARCHING FOR PROPERTIES
-        currentUserType == UserType.SearchingUser ?
+        currentUserStatus == UserStatus.SearchingUser ?
         PropertySearchCriteria(
           openEnumLister: openEnumLister,
         ) :
 
             // --- IF USER WANT TO SELL OR RENT HIS PROPERTY
-        currentUserType == UserType.SellingUser ?
+        currentUserStatus == UserStatus.SellingUser ?
             Container(
           width: screenWidth - (abPadding * 4),
           height: 100,
@@ -97,12 +97,14 @@ class StatusBubble extends StatelessWidget {
             ) :
 
             // --- IF USER IS IN CONSTRUCTION
-            currentUserType == UserType.ConstructingUser || currentUserType == UserType.PlanningUser|| currentUserType == UserType.BuildingUser ?
+        currentUserStatus == UserStatus.ConstructingUser ||
+            currentUserStatus == UserStatus.PlanningUser||
+            currentUserStatus == UserStatus.BuildingUser ?
         StatusButtons(
           status: status,
           stateIndex: 1,
-          switchUserType: switchUserType,
-          currentUserType: currentUserType,
+          switchUserStatus: switchUserStatus,
+          currentUserStatus: currentUserStatus,
         ) :
             Container(),
 

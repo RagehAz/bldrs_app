@@ -34,15 +34,13 @@ class _LocalizerScreenState extends State<LocalizerScreen> {
   // print('dongol');
 }
 // ---------------------------------------------------------------------------
-  void flagSwitch(){
-    setState(
-        ()async{
-          theChosenFlag = flagFileNameSelectedFromPGLanguageList;
-          theChosenCountryName = currentSelectedCountry;
-          Locale _temp = await setLocale(Wordz.languageCode(context));
-          BldrsApp.setLocale(context, _temp);
-        }
-    );
+  void flagSwitch() async {
+    Locale _temp = await setLocale(Wordz.languageCode(context));
+    BldrsApp.setLocale(context, _temp);
+    setState(() {
+      theChosenFlag = flagFileNameSelectedFromPGLanguageList;
+      theChosenCountryName = currentSelectedCountry;
+    });
     print(flagFileNameSelectedFromPGLanguageList);
   }
 // ---------------------------------------------------------------------------

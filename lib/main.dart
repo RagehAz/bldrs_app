@@ -5,8 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'models/user_model.dart';
-import 'providers/cobz_provider.dart';
-import 'providers/coflyer_provider.dart';
+import 'providers/flyers_provider.dart';
 import 'view_brains/localization/demo_localization.dart';
 import 'view_brains/router/route_names.dart';
 import 'view_brains/router/router.dart';
@@ -120,11 +119,11 @@ class _BldrsAppState extends State<BldrsApp> {
           ChangeNotifierProvider(
             create: (ctx) => GreatPlaces(),
           ),
+          // ChangeNotifierProvider(
+          //   create: (ctx) => CoBzProvider(),
+          // ),
           ChangeNotifierProvider(
-            create: (ctx) => CoBzProvider(),
-          ),
-          ChangeNotifierProvider(
-            create: (ctx) => CoFlyersProvider(),
+            create: (ctx) => FlyersProvider(),
           ),
           ChangeNotifierProvider(
             create: (ctx) => QuestionsProvider(),

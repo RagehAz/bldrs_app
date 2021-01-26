@@ -1,8 +1,7 @@
 import 'dart:io';
+import 'package:bldrs/models/bldrs_sections.dart';
 import 'package:bldrs/models/bz_model.dart';
-import 'package:bldrs/models/old_models_to_delete_when_done/author_model.dart';
-import 'package:bldrs/models/old_models_to_delete_when_done/combined_models/co_author.dart';
-import 'package:bldrs/models/old_models_to_delete_when_done/combined_models/co_bz.dart';
+import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/widgets/bubbles/add_logo_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/bubbles_separator.dart';
@@ -13,9 +12,6 @@ import 'package:bldrs/views/widgets/flyer/parts/flyer_zone.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header.dart';
 import 'package:path_provider/path_provider.dart' as sysPaths;
 import 'package:path/path.dart' as path;
-import 'package:bldrs/models/enums/enum_bldrs_section.dart';
-import 'package:bldrs/models/enums/enum_bz_form.dart';
-import 'package:bldrs/models/enums/enum_bz_type.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/drafters/stringers.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
@@ -37,13 +33,15 @@ class _CreateBzScreenState extends State<CreateBzScreen> {
   BzType chosenBzType;
   List<bool> bzTypeInActivityList;
   BzForm chosenBzForm;
+  String currentBzScope;
+  String currentBzAbout;
   List<bool> bzFormInActivityList;
   TextEditingController scopeTextController;
   TextEditingController bzNameTextController;
   File _storedLogo;
   File _pickedLogo;
-  CoBz newCoBz;
-  CoAuthor newCoAuthor;
+  BzModel newBz;
+  AuthorModel newAuthor;
   BzModel newBzModel;
   TextEditingController aboutTextController;
   // ----------------------------------------------------------------------
@@ -54,18 +52,15 @@ class _CreateBzScreenState extends State<CreateBzScreen> {
     createBzFormInActivityLst();
     scopeTextController = new TextEditingController();
     bzNameTextController = new TextEditingController();
-    newCoBz = new CoBz();
-    newCoAuthor = new CoAuthor(
-      author: AuthorModel(
-          authorID: 'author${DateTime.now()}',
-          bzId: 'bz${DateTime.now()},',
+    newBz = new BzModel();
+    newAuthor = new AuthorModel(
+          // userID: 'author${DateTime.now()}',
+          // bzId: 'bz${DateTime.now()},',
         userID: 'user${DateTime.now()}',
-      ),
-
     );
     newBzModel = new BzModel();
-    newCoBz.bz = newBzModel;
-    newCoBz.coAuthors = [newCoAuthor];
+    // newBz.bz = newBzModel;
+    // newBz.authors = [newAuthor];
   }
   // ----------------------------------------------------------------------
   void triggerMaxHeader(){
@@ -98,7 +93,7 @@ class _CreateBzScreenState extends State<CreateBzScreen> {
         chosenBzType == BzType.Supplier ? [true, false] :
         bzFormInActivityList;
 
-        newCoBz.bz.bzType = chosenBzType;
+        // newBz.bz.bzType = chosenBzType;
       });
   }
   // ----------------------------------------------------------------------
@@ -111,7 +106,7 @@ class _CreateBzScreenState extends State<CreateBzScreen> {
   void selectBzForm(int index){
       setState(() {
         chosenBzForm = bzFormsList[index];
-        newCoBz.bz.bzForm = chosenBzForm;
+        // newBz.bz.bzForm = chosenBzForm;
       });
   }
   // ----------------------------------------------------------------------
@@ -133,7 +128,7 @@ class _CreateBzScreenState extends State<CreateBzScreen> {
 
     setState(() {
       _storedLogo = File(imageFile.path);
-      newCoBz.bz.bzLogo = _storedLogo;
+      // newBz.bz.bzLogo = _storedLogo;
     });
 
     final appDir = await sysPaths.getApplicationDocumentsDirectory();
@@ -154,19 +149,19 @@ class _CreateBzScreenState extends State<CreateBzScreen> {
   // ----------------------------------------------------------------------
 void typingBzName(String bzName){
     setState(() {
-      newCoBz.bz.bzName = bzName;
+      bzNameTextController.text = bzName;
     });
 }
   // ----------------------------------------------------------------------
   void typingBzScope(String bzScope){
     setState(() {
-      newCoBz.bz.bzScope = bzScope;
+      currentBzScope = bzScope;
     });
   }
   // ----------------------------------------------------------------------
   void typingBzAbout(String bzAbout){
     setState(() {
-      newCoBz.bz.bzAbout = bzAbout;
+      currentBzAbout = bzAbout;
     });
   }
   // ----------------------------------------------------------------------
@@ -256,7 +251,7 @@ void openCityList(){
 
                 // --- type BzAbout
                 TextFieldBubble(
-                  title: newCoBz.bz.bzName == null  || newCoBz.bz.bzName == '' ? '${Wordz.about(context)} ${Wordz.yourBusiness(context)}' : '${Wordz.about(context)} ${newCoBz.bz.bzName}',
+                  title: newBz.bzName == null  || newBz.bzName == '' ? '${Wordz.about(context)} ${Wordz.yourBusiness(context)}' : '${Wordz.about(context)} ${newBz.bzName}',
                   hintText: '...',
                   counterIsOn: true,
                   maxLength: 193,
@@ -313,8 +308,8 @@ void openCityList(){
                         stackWidgets: <Widget>[
 
                           Header(
-                            coBz: newCoBz,
-                            coAuthor: newCoAuthor,
+                            bz: newBz,
+                            author: newAuthor,
                             flyerShowsAuthor: true,
                             followIsOn: null,
                             flyerZoneWidth: superFlyerZoneWidth(context, 0.7),

@@ -1,5 +1,6 @@
-import 'package:bldrs/models/old_models_to_delete_when_done/combined_models/co_flyer.dart';
-import 'package:bldrs/providers/coflyer_provider.dart';
+import 'package:bldrs/models/flyer_model.dart';
+import 'package:bldrs/models/user_model.dart';
+import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
@@ -33,8 +34,10 @@ class _FlyersGridState extends State<FlyersGrid> {
 
   @override
   Widget build(BuildContext context) {
-    final CoFlyersProvider pro = Provider.of<CoFlyersProvider>(context, listen: false);
-    final List<CoFlyer> savedCoFlyers = pro.hatAllSavedCoFlyers;
+    final FlyersProvider pro = Provider.of<FlyersProvider>(context, listen: false);
+    final user = Provider.of<UserModel>(context);
+    List<dynamic> savedFlyersIDs = user.savedFlyersIDs;
+    final List<FlyerModel> savedFlyers = pro.getAllSavedFlyersFromDB(savedFlyersIDs);
 // ----------------------------------------------------------------------------
       // int flyerIndex = 0;
 // ----------------------------------------------------------------------------
@@ -45,7 +48,7 @@ class _FlyersGridState extends State<FlyersGrid> {
     double gridFlyerWidth = widget.gridZoneWidth / (widget.numberOfColumns + (widget.numberOfColumns * spacingRatioToGridWidth) + spacingRatioToGridWidth);
     double gridFlyerHeight = gridFlyerWidth * Ratioz.xxflyerZoneHeight;
     double gridSpacing = gridFlyerWidth * spacingRatioToGridWidth;
-    int flyersCount = savedCoFlyers.length;
+    int flyersCount = savedFlyers.length;
     int numOfGridRows(int flyersCount){
       return
         (flyersCount/gridColumnsCount).ceil();
@@ -75,17 +78,17 @@ class _FlyersGridState extends State<FlyersGrid> {
 
             ),
             children: List<Widget>.generate(
-              savedCoFlyers.length,
+              savedFlyers.length,
                 (index){
                 return
                   ChangeNotifierProvider.value(
-                    value: savedCoFlyers[index],
+                    value: savedFlyers[index],
                       child: ProFlyer(
                         flyerSizeFactor: (((widget.gridZoneWidth - (gridSpacing*(gridColumnsCount+1)))/gridColumnsCount))/screenWidth,
                         slidingIsOn: false,
                         rebuildFlyerGrid: rebuildGrid,
                         tappingFlyerZone: (){
-                          openFlyer(context, savedCoFlyers[index].flyer.flyerID);
+                          openFlyer(context, savedFlyers[index].flyerID);
                         },
                       ),
                     );
@@ -93,9 +96,9 @@ class _FlyersGridState extends State<FlyersGrid> {
             ),
 
 
-            // savedCoFlyers.map(
+            // savedFlyers.map(
             //       (coFlyer, i) => ChangeNotifierProvider.value(
-            //         value: savedCoFlyers[coFlyerIndex],
+            //         value: savedFlyers[coFlyerIndex],
             //         child: ProFlyer(
             //           flyerSizeFactor: (((gridZoneWidth - (gridSpacing*(gridColumnsCount+1)))/gridColumnsCount))/screenWidth,
             //           slidingIsOn: false,

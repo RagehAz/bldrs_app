@@ -1,17 +1,17 @@
-import 'package:bldrs/models/old_models_to_delete_when_done/combined_models/co_slide.dart';
+import 'package:bldrs/models/sub_models/slide_model.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:flutter/material.dart';
 import 'slides_parts/single_slide.dart';
 
 class Slides extends StatefulWidget {
-  final List<CoSlide> coSlides;
+  final List<SlideModel> slides;
   final double flyerZoneWidth;
   final bool slidingIsOn;
   final Function sliding;
   final int currentSlideIndex;
 
   Slides({
-    @required this.coSlides,
+    @required this.slides,
     @required this.flyerZoneWidth,
     @required this.slidingIsOn,
     @required this.sliding,
@@ -30,25 +30,25 @@ class _SlidesState extends State<Slides> {
     // ----------------------------------------------------------------------
     bool microMode = superFlyerMicroMode(context, widget.flyerZoneWidth);
     // ----------------------------------------------------------------------
-    int slideIndex = widget.currentSlideIndex >= widget.coSlides?.length ? 0 : widget.currentSlideIndex ;
+    int slideIndex = widget.currentSlideIndex >= widget.slides?.length ? 0 : widget.currentSlideIndex ;
     // ----------------------------------------------------------------------
 
     return
       microMode == true || widget.slidingIsOn == false ?
       SingleSlide(
         flyerZoneWidth: widget.flyerZoneWidth,
-        title: widget.coSlides[0]?.slide?.headline,
-        picture: widget.coSlides[0]?.slide?.picture,
-        saves: widget.coSlides[0]?.savesCount,
-        shares: widget.coSlides[0]?.sharesCount,
-        views: widget.coSlides[0]?.horuseeCount,
+        title: widget.slides[0]?.headline,
+        picture: widget.slides[0]?.picture,
+        saves: widget.slides[0]?.savesCount,
+        shares: widget.slides[0]?.sharesCount,
+        views: widget.slides[0]?.viewsCount,
         slideIndex: 0,
         slideMode: SlideMode.View,
       )
           :
       // -- FLYER SLIDES
       PageView.builder(
-        itemCount: widget.coSlides?.length,
+        itemCount: widget.slides?.length,
         controller: PageController(viewportFraction: 1, initialPage: slideIndex, keepPage: true),
         allowImplicitScrolling: true,
         pageSnapping: true,
@@ -58,11 +58,11 @@ class _SlidesState extends State<Slides> {
 
           return SingleSlide(
             flyerZoneWidth: widget.flyerZoneWidth,
-            title: widget.coSlides[i].slide.headline,
-            picture: widget.coSlides[i].slide.picture,
-            saves: widget.coSlides[i].savesCount,
-            shares: widget.coSlides[i].sharesCount,
-            views: widget.coSlides[i].horuseeCount,
+            title: widget.slides[i].headline,
+            picture: widget.slides[i].picture,
+            saves: widget.slides[i].savesCount,
+            shares: widget.slides[i].sharesCount,
+            views: widget.slides[i].viewsCount,
             slideIndex : i,
             slideMode: SlideMode.View,
           );

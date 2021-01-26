@@ -1,5 +1,5 @@
-import 'package:bldrs/models/enums/enum_bz_type.dart';
-import 'package:bldrs/models/enums/enum_user_type.dart';
+import 'package:bldrs/models/bz_model.dart';
+import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/view_brains/drafters/aligners.dart';
 import 'package:bldrs/view_brains/drafters/stringers.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
@@ -40,7 +40,7 @@ class Ask extends StatelessWidget {
   Widget build(BuildContext context) {
     final questionsProvider = Provider.of<QuestionsProvider>(context);
 
-    UserType userType = UserType.PlanningUser;
+    UserStatus userStatus = UserStatus.PlanningUser;
     double abPadding = Ratioz.ddAppBarMargin * 0.5;
     double abHeight = Ratioz.ddAppBarHeight;
     double abButtonsHeight = abHeight - (abPadding);
@@ -60,7 +60,7 @@ class Ask extends StatelessWidget {
             // --- USER PICTURE
             UserBalloon(
               userPic: Iconz.DumAuthorPic,
-              userType: userType,
+              userStatus: userStatus,
               balloonWidth: abButtonsHeight,
               blackAndWhite: false,
               onTap: () {
