@@ -183,3 +183,48 @@ const List<BoxShadow> theShadowMaster =
    super cool huh
 
 // -----------------------------------------------------------------
+ITERATION SYNTAX
+
+
+
+// /// Class searchResult = listOfClassObjects.singleWhere((x) =>
+// x.theSearchMatchWeAreLookingForInSearchList == inputToSearchFor);
+
+//   MoFlyer vFlyerData = xFlyersList.singleWhere((x) => x.flyerID == vFlyerID);
+
+//   xSlidesList.forEach((slide) {
+//     if(slide.flyerID == vFlyerID){vSlideData.add(slide);}
+//   });
+
+//   // 15--- loop in vSlideData to get all slides IDs to add them into the list vSlidesIDs
+//   for (MoSlide n in vSlideData){
+//     vSlidesIDs.add(n.slideID);
+//   }
+
+//   for (String x in vSlidesIDs){
+//     xViewsList.forEach((view) {
+//       if(view.slideID == x){vAllSlidesViewsData.add(view);}
+//     });
+//   }
+
+//   var viewsMap = Map();
+//   vSlideData.forEach((z) {
+//     viewsMap[z.slideID] = 0;
+//   });
+
+//   vAllSlidesViewsData.forEach((z) {
+//     if(!viewsMap.containsKey(z.slideID)){
+//       viewsMap[z.slideID] = 1;
+//     }
+//     else {
+//       viewsMap[z.slideID] += 1;
+//     }
+//   });
+
+//   for (MoFlyer f in xFlyersList)
+//   {return List<ProcessedFlyerData>.generate(
+//       xFlyersList.length,
+//           (index) => flyerIDProcessor(flyerIDs[index]));
+//   }
+
+// -----------------------------------------------------------------

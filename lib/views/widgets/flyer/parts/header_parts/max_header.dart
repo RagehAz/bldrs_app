@@ -1,7 +1,7 @@
-import 'package:bldrs/models/old_models_to_delete_when_done/combined_models/co_author.dart';
-import 'package:bldrs/models/old_models_to_delete_when_done/combined_models/co_bz.dart';
-import 'package:bldrs/models/old_models_to_delete_when_done/combined_models/co_flyer.dart';
-import 'package:bldrs/providers/coflyer_provider.dart';
+import 'package:bldrs/models/bz_model.dart';
+import 'package:bldrs/models/flyer_model.dart';
+import 'package:bldrs/models/sub_models/author_model.dart';
+import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +14,7 @@ import 'max_header_parts/gallery.dart';
 class MaxHeader extends StatelessWidget {
   final double flyerZoneWidth;
   final bool bzPageIsOn;
-  final CoBz coBz;
+  final BzModel bz;
   final bool bzShowsTeam;
   final String bzID;
   // final String authorID;
@@ -23,7 +23,7 @@ class MaxHeader extends StatelessWidget {
   MaxHeader({
     @required this.flyerZoneWidth,
     @required this.bzPageIsOn,
-    this.coBz,
+    this.bz,
     this.bzShowsTeam,
     this.bzID,
     // @required this.authorID,
@@ -31,28 +31,28 @@ class MaxHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final pro = Provider.of<CoFlyersProvider>(context);
-    // final CoBz coBz = pro.hatCoBzByBzID(), mesh wa2to
-    final List<CoFlyer> galleryCoFlyers = pro.hatCoFlyersByBzID(bzID);
+    final pro = Provider.of<FlyersProvider>(context);
+    // final bz bz = pro.hatbzByBzID(), mesh wa2to
+    final List<FlyerModel> galleryFlyers = pro.getAllFlyers;
     // === === === === === === === === === === === === === === === === === === ===
-    List<CoAuthor> bzCoAuthors = coBz != null ? coBz?.coAuthors : [];
+    List<AuthorModel> bzAuthors = bz != null ? bz?.authors : [];
     // === === === === === === === === === === === === === === === === === === ===
     List<String> bzTeamIDs = [];
-    if(bzCoAuthors != null) {
-      bzCoAuthors.forEach((au) {
-        bzTeamIDs.add(au.author.authorID);
+    if(bzAuthors != null) {
+      bzAuthors.forEach((au) {
+        bzTeamIDs.add(au.userID);
       });
     }
     // === === === === === === === === === === === === === === === === === === ===
-    int bzConnects      = coBz != null ? coBz.bzConnects    : 0;
-    int followersCount  = coBz != null ? coBz.followsCount  : 0;
-    int bzTotalSaves    = coBz != null ? coBz.bzTotalSaves  : 0;
-    int bzTotalShares   = coBz != null ? coBz.bzTotalShares : 0;
-    int bzTotalSlides   = coBz != null ? coBz.bzTotalSlides : 0;
-    int bzTotalViews    = coBz != null ? coBz.bzTotalViews  : 0;
-    int callsCount      = coBz != null ? coBz.callsCount    : 0;
+    int bzConnects      = bz != null ? bz.bzTotalConnects   : 0;
+    int followersCount  = bz != null ? bz.bzTotalFollowers  : 0;
+    int bzTotalSaves    = bz != null ? bz.bzTotalSaves      : 0;
+    int bzTotalShares   = bz != null ? bz.bzTotalShares     : 0;
+    int bzTotalSlides   = bz != null ? bz.bzTotalSlides     : 0;
+    int bzTotalViews    = bz != null ? bz.bzTotalViews      : 0;
+    int callsCount      = bz != null ? bz.bzTotalCalls      : 0;
     // === === === === === === === === === === === === === === === === === === ===
-    String bzScope = coBz != null ? coBz.bz.bzScope : '';
+    String bzScope = bz != null ? bz.bzScope : '';
     return Column(
       children: <Widget>[
         // --- BUSINESS FIELD
@@ -82,8 +82,8 @@ class MaxHeader extends StatelessWidget {
         BzAboutVerse(
           flyerZoneWidth: flyerZoneWidth,
           bzPageIsOn: bzPageIsOn,
-          verse: coBz != null ? coBz.bz.bzAbout : '',
-          bzName:  coBz != null ? coBz.bz.bzName : '',
+          verse: bz != null ? bz.bzAbout : '',
+          bzName:  bz != null ? bz.bzName : '',
         ),
 
         // --- BUILDERS CONNECTS
@@ -164,9 +164,9 @@ class MaxHeader extends StatelessWidget {
           bzTeamIDs: bzTeamIDs,
           bzPageIsOn: bzPageIsOn,
           bzConnects: bzConnects,
-          coAuthors: bzCoAuthors,
-          galleryCoFlyers: galleryCoFlyers,
-          bzName:  coBz != null ? coBz.bz.bzName : '',
+          authors: bzAuthors,
+          galleryCoFlyers: galleryFlyers,
+          bzName:  bz != null ? bz.bzName : '',
           // tappingMiniFlyer: openFlyer,
         ),
 

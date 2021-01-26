@@ -1,4 +1,4 @@
-import 'package:bldrs/models/enums/enum_user_type.dart';
+import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
@@ -14,12 +14,12 @@ import '../ab_strip.dart';
 class ABInPyramids extends StatelessWidget {
   final Function switchingPages;
   final inPyramidsPage currentPage;
-  final UserType userType;
+  final UserStatus userStatus;
 
   ABInPyramids({
     @required this.switchingPages,
     @required this.currentPage,
-    @required this.userType,
+    @required this.userStatus,
   });
 
 
@@ -121,7 +121,7 @@ class ABInPyramids extends StatelessWidget {
            padding: EdgeInsets.all(abPadding * 0.5),
            child: UserBalloon(
              userPic: Iconz.DumAuthorPic,
-             userType: userType,
+             userStatus: userStatus,
              balloonWidth: abButtonsHeight,
              blackAndWhite: profileBlackAndWhite,
              onTap: () {switchingPages(inPyramidsPage.Profile);},

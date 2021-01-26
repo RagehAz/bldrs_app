@@ -1,4 +1,3 @@
-import 'package:bldrs/models/enums/enum_user_type.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/views/widgets/bubbles/contacts_bubble.dart';
@@ -13,17 +12,17 @@ import 's16_pg_edit_profile_page.dart';
 class ProfilePage extends StatefulWidget {
 
   final List<Map<String, Object>> status;
-  final UserType userType;
-  final Function switchUserType;
-  final UserType currentUserType;
+  final UserStatus userStatus;
+  final Function switchUserStatus;
+  final UserStatus currentUserStatus;
   // final List<FlyerData> bzLogos;
   final Function openEnumLister;
 
   ProfilePage({
     @required this.status,
-    @required this.userType,
-    @required this.switchUserType,
-    @required this.currentUserType,
+    @required this.userStatus,
+    @required this.switchUserStatus,
+    @required this.currentUserStatus,
     // @required this.bzLogos,
     @required this.openEnumLister,
 });
@@ -77,8 +76,8 @@ class _ProfilePageState extends State<ProfilePage> {
         // ),
 
         UserBubble(
-          userType: widget.userType,
-          switchUserType: widget.switchUserType,
+          userStatus: widget.userStatus,
+          switchUserType: widget.switchUserStatus,
           userPicture: Iconz.DumAuthorPic,
           userName: 'Rageh Mohamed',
           userJobTitle: 'Fucking CEO',
@@ -91,9 +90,9 @@ class _ProfilePageState extends State<ProfilePage> {
         // --- STATUS LABEL : STATUS SURVEY WILL BE IN VERSION 2 ISA
         StatusBubble(
           status: widget.status,
-          switchUserType: widget.switchUserType,
-          userType: widget.userType,
-          currentUserType: widget.currentUserType,
+          switchUserStatus: widget.switchUserStatus,
+          userStatus: widget.userStatus,
+          currentUserStatus: widget.currentUserStatus,
           openEnumLister: widget.openEnumLister,
         ),
 

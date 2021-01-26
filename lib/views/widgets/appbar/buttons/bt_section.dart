@@ -1,4 +1,4 @@
-import 'package:bldrs/models/enums/enum_bldrs_section.dart';
+import 'package:bldrs/models/bldrs_sections.dart';
 import 'package:bldrs/view_brains/drafters/iconizers.dart';
 import 'package:bldrs/view_brains/drafters/stringers.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';

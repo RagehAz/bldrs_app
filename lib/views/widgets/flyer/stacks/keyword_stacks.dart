@@ -1,4 +1,4 @@
-import 'package:bldrs/models/old_models_to_delete_when_done/combined_models/co_flyer.dart';
+import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
@@ -12,7 +12,7 @@ List<int> otherFlyers = [0,1,2,3,4,5,6,7,8,9,];
     /// this flyers Collection is used in main layouts
     /// Grid of flyers are put in the bubble and showing one main flyer as a cover
 class FlyerCoversStack extends StatelessWidget {
-  final List<CoFlyer> flyersDataList;
+  final List<FlyerModel> flyersDataList;
   final String collectionTitle;
 
   FlyerCoversStack({
@@ -110,7 +110,7 @@ class FlyerCoversStack extends StatelessWidget {
 }
 
 class TopFlyersStack extends StatelessWidget {
-  final List<CoFlyer> flyersDataList;
+  final List<FlyerModel> flyersDataList;
   final String collectionTitle;
   final int numberOfFlyers;
 
@@ -159,7 +159,7 @@ class TopFlyersStack extends StatelessWidget {
                 for (int index = 0; index < gridLoopLength; index++)
 
                     Hero(
-                      tag: flyersDataList[index].flyer.flyerID,
+                      tag: flyersDataList[index].flyerID,
                       child: Material(
                         type: MaterialType.transparency,
                         child: ProFlyer(

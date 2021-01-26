@@ -1,6 +1,5 @@
-import 'package:bldrs/models/enums/enum_flyer_type.dart';
-import 'package:bldrs/models/old_models_to_delete_when_done/combined_models/co_flyer.dart';
-import 'package:bldrs/providers/coflyer_provider.dart';
+import 'package:bldrs/models/flyer_model.dart';
+import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/appbar/ab_main.dart';
@@ -36,25 +35,25 @@ class _ProFlyersGridViewState extends State<ProFlyersGridView> {
 
   @override
   Widget build(BuildContext context) {
-    final flyersData = Provider.of<CoFlyersProvider>(context, listen: true); // this is the FlyersProvider data wormHole
+    final flyersData = Provider.of<FlyersProvider>(context, listen: true); // this is the FlyersProvider data wormHole
     // final flyers = _showAnkhsOnly ? flyersData.savedFlyers : flyersData.allFlyers;
 
-    List<CoFlyer> propertyFlyers       = flyersData.hatCoFlyersByFlyerType(FlyerType.Property);
+    List<FlyerModel> propertyFlyers       = flyersData.getFlyersByFlyerType(FlyerType.Property);
     // List<CoFlyer> savedPropertyFlyers  = flyersData.findSavedFlyers(propertyFlyers);
 
-    List<CoFlyer> designFlyers         = flyersData.hatCoFlyersByFlyerType(FlyerType.Design);
+    List<FlyerModel> designFlyers         = flyersData.getFlyersByFlyerType(FlyerType.Design);
     // List<CoFlyer> savedDesignFlyers    = flyersData.findSavedFlyers(designFlyers);
 
-    List<CoFlyer> productFlyers        = flyersData.hatCoFlyersByFlyerType(FlyerType.Product);
+    List<FlyerModel> productFlyers        = flyersData.getFlyersByFlyerType(FlyerType.Product);
     // List<CoFlyer> savedProductFlyers   = flyersData.findSavedFlyers(productFlyers);
 
-    List<CoFlyer> projectFlyers        = flyersData.hatCoFlyersByFlyerType(FlyerType.Project);
+    List<FlyerModel> projectFlyers        = flyersData.getFlyersByFlyerType(FlyerType.Project);
     // List<CoFlyer> savedProjectFlyers   = flyersData.findSavedFlyers(projectFlyers);
 
-    List<CoFlyer> craftFlyers          = flyersData.hatCoFlyersByFlyerType(FlyerType.Craft);
+    List<FlyerModel> craftFlyers          = flyersData.getFlyersByFlyerType(FlyerType.Craft);
     // List<CoFlyer> savedCraftFlyers     = flyersData.findSavedFlyers(craftFlyers);
 
-    List<CoFlyer> equipmentFlyers      = flyersData.hatCoFlyersByFlyerType(FlyerType.Equipment);
+    List<FlyerModel> equipmentFlyers      = flyersData.getFlyersByFlyerType(FlyerType.Equipment);
     // List<CoFlyer> savedEquipmentFlyers = flyersData.findSavedFlyers(equipmentFlyers);
 
         final flyers =
@@ -77,7 +76,7 @@ class _ProFlyersGridViewState extends State<ProFlyersGridView> {
     // currentFlyerType == FlyerType.Equipment &&  _showAnkhsOnly? savedEquipmentFlyers :
 
     // _showAnkhsOnly ? flyersData.savedFlyers :
-    flyersData.hatAllCoFlyers ;
+    flyersData.getAllFlyers ;
 
       // int flyerIndex = 0;
 // -------------------------------------------------------------------------
@@ -137,7 +136,7 @@ class _ProFlyersGridViewState extends State<ProFlyersGridView> {
                       // or we can use other syntax like :-
                       // ChangeNotifierProvider(//     create: (c) => flyers[i],
                       child: Padding(
-                        key: Key(flyers[i].flyer.flyerID),
+                        key: Key(flyers[i].flyerID),
                         padding: const EdgeInsets.only(bottom: 0),
                         child: ProFlyer(
                           // flyerID: flyers[i].flyer.flyerID,

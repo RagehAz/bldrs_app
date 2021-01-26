@@ -1,6 +1,6 @@
 import 'dart:io';
-import 'package:bldrs/ambassadors/services/database.dart';
 import 'package:bldrs/models/user_model.dart';
+import 'package:bldrs/providers/users_provider.dart';
 import 'package:bldrs/view_brains/drafters/borderers.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/drafters/texters.dart';
@@ -82,7 +82,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     final user = Provider.of<UserModel>(context);
 
     return StreamBuilder<UserModel>(
-      stream: DatabaseService(userID: user.userID).userData,
+      stream: UserProvider(userID: user.userID).userData,
       builder: (context, snapshot){
         if(snapshot.hasData == false){
           return Container(
@@ -243,7 +243,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   boxMargins: EdgeInsets.all(10),
                   boxFunction: ()async{
                     if(_formKey.currentState.validate()){
-                      await DatabaseService(userID: user.userID).updateUserData(
+                      await UserProvider(userID: user.userID).updateUserData(
                         userID              : user.userID                  ?? '',
                         // savedFlyersIDs      : _savedFlyersIDs                       ?? [''],
                         // followedBzzIDs      : _followedBzzIDs                       ?? [''],

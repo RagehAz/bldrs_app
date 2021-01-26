@@ -1,7 +1,6 @@
 import 'dart:io';
-import 'package:bldrs/models/old_models_to_delete_when_done/location_model.dart';
-import 'package:bldrs/models/old_models_to_delete_when_done/slide_model.dart';
-import 'package:bldrs/providers/coflyer_provider.dart';
+import 'package:bldrs/models/sub_models/slide_model.dart';
+import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/view_brains/controllers/flyer_sliding_controllers.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_zone.dart';
@@ -10,6 +9,7 @@ import 'package:bldrs/views/widgets/flyer/parts/progress_bar.dart';
 import 'package:bldrs/views/widgets/flyer/parts/slides_parts/single_slide.dart';
 import 'package:bldrs/xxx_LABORATORY/camera_and_location/google_map.dart';
 import 'package:bldrs/xxx_LABORATORY/camera_and_location/location_helper.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart' as sysPaths;
@@ -39,7 +39,7 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> {
   List<TextEditingController> _titleControllers;
   File _storedImage;
   File _pickedImage;
-  LocationModel _pickedLocation;
+  GeoPoint _pickedLocation;
   PageController slidingController;
   int numberOfSlides;
   List<bool> slidesVisibility;
@@ -271,9 +271,9 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> {
   // ----------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    final pro = Provider.of<CoFlyersProvider>(context);
-    final coFlyer = pro.hatCoFlyerByFlyerID('f035');
-    final coBz = coFlyer.coBz;
+    final pro = Provider.of<FlyersProvider>(context);
+    final Flyer = pro.getFlyerByFlyerID('f035');
+    // final bz = Flyer.coBz;
     // ----------------------------------------------------------------------
     final double flyerSizeFactor = 0.73;
     final double flyerZoneWidth = superFlyerZoneWidth(context, flyerSizeFactor);
@@ -323,17 +323,17 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> {
                             ),
                       ),
 
-                      Header(
-                        coBz: coBz,
-                        coAuthor: coBz.coAuthors[2],
-                        flyerShowsAuthor: coFlyer.flyer.flyerShowsAuthor,
-                        followIsOn: false,
-                        flyerZoneWidth: superFlyerZoneWidth(context, flyerSizeFactor),
-                        bzPageIsOn: false,
-                        tappingHeader: (){},
-                        tappingFollow: (){},
-                        tappingUnfollow: (){},
-                      ),
+                      // Header(
+                      //   coBz: coBz,
+                      //   coAuthor: coBz.coAuthors[2],
+                      //   flyerShowsAuthor: coFlyer.flyer.flyerShowsAuthor,
+                      //   followIsOn: false,
+                      //   flyerZoneWidth: superFlyerZoneWidth(context, flyerSizeFactor),
+                      //   bzPageIsOn: false,
+                      //   tappingHeader: (){},
+                      //   tappingFollow: (){},
+                      //   tappingUnfollow: (){},
+                      // ),
 
                       ProgressBar(
                         flyerZoneWidth: flyerZoneWidth,

@@ -1,5 +1,5 @@
-import 'package:bldrs/ambassadors/services/database.dart';
 import 'package:bldrs/models/user_model.dart';
+import 'package:bldrs/providers/users_provider.dart';
 import 'package:bldrs/view_brains/drafters/keyboarders.dart';
 import 'package:bldrs/view_brains/localization/localization_constants.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
@@ -53,7 +53,7 @@ class MainLayout extends StatelessWidget {
     bool ragehIsOn = tappingRageh == null ? false : true;
 
     return StreamProvider<List<UserModel>>.value(
-      value: DatabaseService().userStream,
+      value: UserProvider().userStream,
       child: GestureDetector(
           onTap: (){minimizeKeyboardOnTapOutSide(context);},
         child: SafeArea(

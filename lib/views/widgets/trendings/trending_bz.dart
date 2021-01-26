@@ -1,4 +1,4 @@
-import 'package:bldrs/models/enums/enum_bz_type.dart';
+import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/view_brains/drafters/stringers.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';

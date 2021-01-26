@@ -1,4 +1,4 @@
-import 'package:bldrs/models/enums/enum_user_type.dart';
+import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/view_brains/drafters/aligners.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
@@ -10,7 +10,7 @@ import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class UserBubble extends StatelessWidget {
-  final UserType userType;
+  final UserStatus userStatus;
   final Function switchUserType;
   final String userPicture;
   final String userName;
@@ -21,7 +21,7 @@ class UserBubble extends StatelessWidget {
   final Function editProfileBtOnTap;
 
   UserBubble({
-    @required this.userType,
+    @required this.userStatus,
     @required this.switchUserType,
     @required this.userPicture,
     @required this.userName,
@@ -65,7 +65,7 @@ class UserBubble extends StatelessWidget {
 
         UserBalloon(
           balloonWidth: 80,
-          userType: userType,
+          userStatus: userStatus,
           userPic: userPicture,
           onTap: (){print('balloon tap');},
         ),

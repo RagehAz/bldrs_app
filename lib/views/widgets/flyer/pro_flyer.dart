@@ -1,7 +1,7 @@
-import 'package:bldrs/models/old_models_to_delete_when_done/combined_models/co_author.dart';
-import 'package:bldrs/models/old_models_to_delete_when_done/combined_models/co_bz.dart';
-import 'package:bldrs/models/old_models_to_delete_when_done/combined_models/co_flyer.dart';
-import 'package:bldrs/models/old_models_to_delete_when_done/combined_models/co_slide.dart';
+import 'package:bldrs/models/bz_model.dart';
+import 'package:bldrs/models/flyer_model.dart';
+import 'package:bldrs/models/sub_models/author_model.dart';
+import 'package:bldrs/models/sub_models/slide_model.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -19,6 +19,7 @@ class ProFlyer extends StatefulWidget {
   final Function tappingFlyerZone;
   final Function rebuildFlyerGrid;
   final bool flyerIsInGalleryNow;
+  final FlyerModel flyerModel;
 
   ProFlyer({
     @required this.flyerSizeFactor,
@@ -28,6 +29,7 @@ class ProFlyer extends StatefulWidget {
     this.tappingFlyerZone,
     this.rebuildFlyerGrid,
     this.flyerIsInGalleryNow = false,
+    this.flyerModel,
   });
 
   @override
@@ -35,27 +37,24 @@ class ProFlyer extends StatefulWidget {
 }
 
 class _ProFlyerState extends State<ProFlyer> with AutomaticKeepAliveClientMixin{
-
-  // === === === === === === === === === === === === === === === === === === ===
   bool get wantKeepAlive => true;
-  // === === === === === === === === === === === === === === === === === === ===
   bool bzPageIsOn;
-
+// ---------------------------------------------------------------------------
   @override
   void initState() {
     bzPageIsOn = false;
     super.initState();
   }
-
+// ---------------------------------------------------------------------------
   void switchBzPage (){
     setState(() {bzPageIsOn = !bzPageIsOn;});
     print('bzPageIsOn : $bzPageIsOn');
   }
-  // === === === === === === === === === === === === === === === === === === ===
+// ---------------------------------------------------------------------------
   void slidingPages (int slideIndex){
     setState(() {widget.currentSlideIndex = slideIndex;});
   }
-  // === === === === === === === === === === === === === === === === === === ===
+// ---------------------------------------------------------------------------
 
   // void tappingFollow (){
   //   setState(() {
@@ -83,23 +82,25 @@ class _ProFlyerState extends State<ProFlyer> with AutomaticKeepAliveClientMixin{
   //     widget.slidingIsOn = !widget.slidingIsOn;
   //   });
   // }
-
+// ---------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    final pro = Provider.of<CoFlyer>(context, listen: false);
+    final pro = Provider.of<FlyerModel>(context, listen: false);
+    final bro = Provider.of<BzModel>(context, listen: false);
+
     // final koko= Provider.of<CoFlyer>(context, listen: true);
 // ----------------------------------------------------------------------------
 //     final CoFlyer         coFlyer           = pro.;
-    final String          flyerID           = pro.flyer?.flyerID;
-    final CoBz            coBz              = pro.coBz;
-    final bool            flyerShowsAuthor  = pro.flyer?.flyerShowsAuthor;
-    final String          authorID          = pro.flyer?.authorID;
-    final int             numberOfSlides    = pro.coSlides?.length;
+    final String          flyerID           = pro.flyerID;
+    final BzModel         bz                = bro;
+    final bool            flyerShowsAuthor  = pro.flyerShowsAuthor;
+    final String          authorID          = pro.authorID;
+    final int             numberOfSlides    = pro.slides?.length;
     // final List<CoFlyer>   bzGalleryCoFlyers = pro.;
-    final List<CoAuthor>  bzAuthors         = pro.coBz?.coAuthors;
-    final CoAuthor        coAuthor          = bzAuthors?.singleWhere((coA) => coA.author.authorID == authorID, orElse: ()=> null);
-    final List<CoSlide>   coSlides          = pro.coSlides;
+    final List<AuthorModel>  bzAuthors         = bro.authors;
+    final AuthorModel       author          = bzAuthors?.singleWhere((au) => au.userID == authorID, orElse: ()=> null);
+    final List<SlideModel>   slides          = pro.slides;
           // bool            followIsOn        = pro.followIsOn;
           // bool            ankhIsOn          = pro.ankhIsOn;
 // ----------------------------------------------------------------------------
@@ -115,17 +116,17 @@ class _ProFlyerState extends State<ProFlyer> with AutomaticKeepAliveClientMixin{
 //     final List<CoSlide>   coSlides          = coFlyer?.coSlides;
 //           bool            followIsOn        = pro.hatFollowIsOnByFlyerID(flyerID);
 //           bool            ankhIsOn          = pro.hatAnkhByFlyerID(flyerID);
-// ----------------------------------------------------------------------------
-    // === === === === === === === === === === === === === === === === === === ===
-    double screenWidth = superScreenWidth(context);
+// ---------------------------------------------------------------------------
     double flyerZoneWidth = superFlyerZoneWidth(context, widget.flyerSizeFactor);
-    // === === === === === === === === === === === === === === === === === === ===
+// ---------------------------------------------------------------------------
     bool _barIsOn = widget.slidingIsOn == true && bzPageIsOn == false ? true : false;
-    // === === === === === === === === === === === === === === === === === === ===
+// ---------------------------------------------------------------------------
     bool microMode = superFlyerMicroMode(context, flyerZoneWidth);
-    // === === === === === === === === === === === === === === === === === === ===
+// ---------------------------------------------------------------------------
     // bool ankhIsOn = true;//flyerData.flyerAnkhIsOn;
-    // === === === === === === === === === === === === === === === === === === ===
+// ---------------------------------------------------------------------------
+    final bool bolbol = widget.flyerModel?.flyerShowsAuthor;
+    print('bolbol is : $bolbol : $flyerID');
 
     return
 
@@ -139,26 +140,26 @@ class _ProFlyerState extends State<ProFlyer> with AutomaticKeepAliveClientMixin{
             slidingIsOn: widget.slidingIsOn,
             currentSlideIndex: widget.currentSlideIndex,
             sliding: slidingPages,
-            coSlides: coSlides,
+            slides: slides,
 
           ),
 
-          Consumer<CoFlyer>(
+          Consumer<FlyerModel>(
             builder: (context, pro, _) =>
              Header(
               flyerZoneWidth: flyerZoneWidth,
-              coBz: coBz,
+              bz: bz,
               flyerShowsAuthor: flyerShowsAuthor,
               bzPageIsOn: bzPageIsOn,
               tappingHeader: () {switchBzPage();},
               tappingFollow: (){
-                print('followIsOn : ${pro.followIsOn}');
-                pro.toggleFollow();
+                print('followIsOn : ${bro.followIsOn}');
+                bro.toggleFollow();
                 },
               tappingUnfollow: () {print('UnFollow Tapped');},
               // bzGalleryCoFlyers: bzGalleryCoFlyers,
-              coAuthor: coAuthor,
-              followIsOn: pro.followIsOn,
+              author: author,
+              followIsOn: bro.followIsOn,
             ),
           ),
 
@@ -169,7 +170,7 @@ class _ProFlyerState extends State<ProFlyer> with AutomaticKeepAliveClientMixin{
             numberOfSlides: numberOfSlides,
           ),
 
-          Consumer<CoFlyer>(
+          Consumer<FlyerModel>(
             builder: (context, pro, _) =>
                 AnkhButton(
                   flyerZoneWidth: flyerZoneWidth,

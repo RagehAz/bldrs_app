@@ -1,4 +1,4 @@
-import 'package:bldrs/models/enums/enum_user_type.dart';
+import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/views/widgets/appbar/ab_in_pyramids/ab_in_pyramids.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
@@ -17,10 +17,10 @@ enum inPyramidsPage {
 }
 
 class InPyramidsScreen extends StatefulWidget {
-  final UserType userType;
+  final UserStatus userStatus;
 
   InPyramidsScreen({
-    this.userType = UserType.PlanningUser,
+    this.userStatus = UserStatus.PlanningUser,
 });
 
   @override
@@ -28,7 +28,7 @@ class InPyramidsScreen extends StatefulWidget {
 }
 
 class _InPyramidsScreenState extends State<InPyramidsScreen> {
-  UserType currentUserType;
+  UserStatus currentUserStatus;
   inPyramidsPage currentPage;
   bool enumListerIsOn = false;
   String enumListTitle = '';
@@ -38,7 +38,7 @@ class _InPyramidsScreenState extends State<InPyramidsScreen> {
 // ----------------------------------------------------------------------------
   @override
   void initState(){
-  currentUserType = widget.userType; // UserType.PlanningUser
+  currentUserStatus = widget.userStatus; // userStatus.PlanningUser
   currentPage = inPyramidsPage.SavedFlyers;
     super.initState();
   }
@@ -47,16 +47,16 @@ class _InPyramidsScreenState extends State<InPyramidsScreen> {
     {
       'title': 'Property Status',
     'buttons': [
-      {'state': 'Looking for a\nnew property', 'userType' : UserType.SearchingUser},
-      {'state': 'Constructing\nan existing\nproperty', 'userType' : UserType.ConstructingUser},
-      {'state': 'Want to\nSell / Rent\nmy property', 'userType' : UserType.SellingUser}
+      {'state': 'Looking for a\nnew property', 'userStatus' : UserStatus.SearchingUser},
+      {'state': 'Constructing\nan existing\nproperty', 'userStatus' : UserStatus.ConstructingUser},
+      {'state': 'Want to\nSell / Rent\nmy property', 'userStatus' : UserStatus.SellingUser}
       ],
     },
     {
       'title': 'Construction Status',
     'buttons': [
-      {'state': 'Planning Construction', 'userType' : UserType.PlanningUser},
-      {'state': 'Under Construction', 'userType' : UserType.BuildingUser}
+      {'state': 'Planning Construction', 'userStatus' : UserStatus.PlanningUser},
+      {'state': 'Under Construction', 'userStatus' : UserStatus.BuildingUser}
       ],
     },
   ];
@@ -67,9 +67,9 @@ class _InPyramidsScreenState extends State<InPyramidsScreen> {
     });
   }
 // ----------------------------------------------------------------------------
-  void _switchUserType (UserType type){
+  void _switchUserStatus (UserStatus type){
     setState(() {
-      currentUserType = type;
+      currentUserStatus = type;
     });
   }
 // ----------------------------------------------------------------------------
@@ -126,16 +126,16 @@ class _InPyramidsScreenState extends State<InPyramidsScreen> {
               ABInPyramids(
                 switchingPages: _switchingPages,
                 currentPage: currentPage,
-                userType: currentUserType,
+                userStatus: currentUserStatus,
               ),
 
               currentPage == inPyramidsPage.Profile ?
               ProfilePage(
                 status: _status,
-                userType: currentUserType,
-                switchUserType: _switchUserType,
+                userStatus: currentUserStatus,
+                switchUserStatus: _switchUserStatus,
                 // bzLogos: dummyCollection,
-                currentUserType: currentUserType,
+                currentUserStatus: currentUserStatus,
                 openEnumLister: _openEnumLister,
               )
                   :

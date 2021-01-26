@@ -1,7 +1,7 @@
 import 'dart:core';
-import 'package:bldrs/models/enums/enum_bldrs_section.dart';
-import 'package:bldrs/models/enums/enum_bz_type.dart';
-import 'package:bldrs/models/enums/enum_user_type.dart';
+import 'package:bldrs/models/bldrs_sections.dart';
+import 'package:bldrs/models/bz_model.dart';
+import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/view_brains/drafters/localizers.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
@@ -61,14 +61,14 @@ String bzTypeIconOn (BzType bzType){
   return icon;
 }
 // === === === === === === === === === === === === === === === === === === ===
-CustomClipper<Path> userBalloon(UserType userType) {
+CustomClipper<Path> userBalloon(UserStatus userType) {
   CustomClipper<Path> userBalloon =
-  userType == UserType.NormalUser ? NormalUserBalloon() :
-  userType == UserType.SearchingUser ? SearchingUserBalloon() :
-  userType == UserType.ConstructingUser ? ConstructingUserBalloon() :
-  userType == UserType.PlanningUser ? PlanningUserBalloon() :
-  userType == UserType.BuildingUser ? BuildingUserBalloon() :
-  userType == UserType.SellingUser ? SellingUserBalloon() :
+  userType == UserStatus.NormalUser ? NormalUserBalloon() :
+  userType == UserStatus.SearchingUser ? SearchingUserBalloon() :
+  userType == UserStatus.ConstructingUser ? ConstructingUserBalloon() :
+  userType == UserStatus.PlanningUser ? PlanningUserBalloon() :
+  userType == UserStatus.BuildingUser ? BuildingUserBalloon() :
+  userType == UserStatus.SellingUser ? SellingUserBalloon() :
   NormalUserBalloon();
   return userBalloon;
 }

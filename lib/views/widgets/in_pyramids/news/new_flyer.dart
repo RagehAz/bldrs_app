@@ -1,4 +1,4 @@
-import 'package:bldrs/models/enums/enum_user_type.dart';
+import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
@@ -57,7 +57,7 @@ class NewFlyerNotification extends StatelessWidget {
                 UserBalloon(
                   userPic: Iconz.DvRageh,
                   balloonWidth: 55,
-                  userType: UserType.PlanningUser,
+                  userStatus: UserStatus.PlanningUser,
                   onTap: (){},
                   blackAndWhite: false,
                 )

@@ -1,4 +1,4 @@
-// import 'package:bldrs/providers/combined_models/coflyer_provider.dart';
+// import 'package:bldrs/providers/combined_models/flyers_provider.dart';
 // import 'package:bldrs/view_brains/drafters/scalers.dart';
 // import 'package:bldrs/view_brains/theme/iconz.dart';
 // import 'package:bldrs/views/widgets/buttons/dream_box.dart';

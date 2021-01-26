@@ -1,4 +1,4 @@
-import 'package:bldrs/models/enums/enum_user_type.dart';
+import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
@@ -7,15 +7,15 @@ import 'package:flutter/material.dart';
 
 class StatusButtons extends StatelessWidget {
   final List<Map<String, Object>> status;
-  final Function switchUserType;
+  final Function switchUserStatus;
   final int stateIndex;
-  final UserType currentUserType;
+  final UserStatus currentUserStatus;
 
   const StatusButtons({
     @required this.status,
-    @required this.switchUserType,
+    @required this.switchUserStatus,
     @required this.stateIndex,
-    @required this.currentUserType,
+    @required this.currentUserStatus,
   });
 
 
@@ -57,37 +57,37 @@ class StatusButtons extends StatelessWidget {
                         width: propertyStatusBtWidth,
                         height: propertyStatusBtHeight,
                         verse: x['state'],
-                        verseScaleFactor: currentUserType == x['userType'] ? 0.55 : 0.55,
+                        verseScaleFactor: currentUserStatus == x['userStatus'] ? 0.55 : 0.55,
                         verseMaxLines: 4,
-                        boxFunction: () => switchUserType(x['userType']),
+                        boxFunction: () => switchUserStatus(x['userStatus']),
                         blackAndWhite: false,
                         color:
-                        x['userType'] == UserType.ConstructingUser &&
-                            ( currentUserType == UserType.ConstructingUser ||
-                                currentUserType == UserType.PlanningUser ||
-                                currentUserType == UserType.BuildingUser) ?
+                        x['userStatus'] == UserStatus.ConstructingUser &&
+                            ( currentUserStatus == UserStatus.ConstructingUser ||
+                                currentUserStatus == UserStatus.PlanningUser ||
+                                currentUserStatus == UserStatus.BuildingUser) ?
                         Colorz.Yellow :
-                        currentUserType == x['userType'] ?
+                        currentUserStatus == x['userStatus'] ?
                         Colorz.Yellow :
                         Colorz.Nothing,
 
                         verseColor:
-                        x['userType'] == UserType.ConstructingUser &&
-                            ( currentUserType == UserType.ConstructingUser ||
-                                currentUserType == UserType.PlanningUser ||
-                                currentUserType == UserType.BuildingUser) ?
+                        x['userStatus'] == UserStatus.ConstructingUser &&
+                            ( currentUserStatus == UserStatus.ConstructingUser ||
+                                currentUserStatus == UserStatus.PlanningUser ||
+                                currentUserStatus == UserStatus.BuildingUser) ?
                         Colorz.BlackBlack :
-                        currentUserType == x['userType'] ?
+                        currentUserStatus == x['userStatus'] ?
                         Colorz.BlackBlack :
                         Colorz.White,
 
                         verseWeight:
-                        x['userType'] == UserType.ConstructingUser &&
-                            ( currentUserType == UserType.ConstructingUser ||
-                                currentUserType == UserType.PlanningUser ||
-                                currentUserType == UserType.BuildingUser) ?
+                        x['userStatus'] == UserStatus.ConstructingUser &&
+                            ( currentUserStatus == UserStatus.ConstructingUser ||
+                                currentUserStatus == UserStatus.PlanningUser ||
+                                currentUserStatus == UserStatus.BuildingUser) ?
                         VerseWeight.black :
-                        currentUserType == x['userType'] ?
+                        currentUserStatus == x['userStatus'] ?
                         VerseWeight.black :
                         VerseWeight.thin,
 
