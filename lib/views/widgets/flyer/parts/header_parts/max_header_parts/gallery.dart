@@ -1,5 +1,5 @@
-import 'package:bldrs/models/old_models_to_delete_when_done/combined_models/co_author.dart';
-import 'package:bldrs/models/old_models_to_delete_when_done/combined_models/co_flyer.dart';
+import 'package:bldrs/models/flyer_model.dart';
+import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
@@ -16,8 +16,8 @@ class Gallery extends StatefulWidget {
   final List<String> bzTeamIDs;
   final bool bzPageIsOn;
   final bzConnects;
-  final List<CoFlyer> galleryCoFlyers;
-  final List<CoAuthor> coAuthors;
+  final List<FlyerModel> galleryCoFlyers;
+  final List<AuthorModel> authors;
   // final Function tappingMiniFlyer;
 
   Gallery({
@@ -29,7 +29,7 @@ class Gallery extends StatefulWidget {
     @required this.bzPageIsOn,
     @required this.bzConnects,
     @required this.galleryCoFlyers,
-    @required this.coAuthors,
+    @required this.authors,
     // @required this.tappingMiniFlyer,
   });
 
@@ -62,7 +62,7 @@ class _GalleryState extends State<Gallery> {
         currentSelectedAuthor == authorID ? currentSelectedAuthor = '' : currentSelectedAuthor = authorID;
         currentSelectedAuthor == '' ? flyersVisibilities = List.filled(widget.galleryCoFlyers.length, true) : currentSelectedAuthor = authorID;
         widget.galleryCoFlyers.asMap().forEach((index, flyer) {
-          if(widget.galleryCoFlyers[index].flyer.authorID == currentSelectedAuthor){flyersVisibilities[index] = true;}
+          if(widget.galleryCoFlyers[index].authorID == currentSelectedAuthor){flyersVisibilities[index] = true;}
         });
       });
     }
@@ -93,7 +93,8 @@ class _GalleryState extends State<Gallery> {
             )
                 :
             SuperVerse(
-              verse: widget.bzTeamIDs.length == 1 ? '${Wordz.flyersPublishedBy(context)} ${widget.coAuthors[0].coUser.user.name}' : '${widget.bzName} ${Wordz.authorsTeam(context)}',
+              verse: widget.bzTeamIDs.length == 1 ? '${Wordz.flyersPublishedBy(context)} ${widget.authors[0].authorName}' :
+              '${widget.bzName} ${Wordz.authorsTeam(context)}',
               size: 2,
               italic: true,
               margin: widget.flyerZoneWidth * Ratioz.xxflyersGridSpacing,
@@ -115,23 +116,23 @@ class _GalleryState extends State<Gallery> {
                 scrollDirection: Axis.horizontal,
                 padding: EdgeInsets.symmetric(horizontal: widget.flyerZoneWidth * 0.01),
                 children:
-                widget.coAuthors == null ? [Container()] :
+                widget.authors == null ? [Container()] :
                 List<Widget>.generate(
-                  widget.coAuthors.length,
+                  widget.authors.length,
                       (authorIndex) => Row(
                         children: <Widget>[
                           AuthorLabel(
                             bzPageIsOn: widget.bzPageIsOn,
                             flyerZoneWidth: widget.flyerZoneWidth,
                             followersCount: widget.followersCount,
-                            authorPic: widget.coAuthors[authorIndex].coUser.user.pic,
-                            authorName: widget.coAuthors[authorIndex].coUser.user.name,
-                            authorTitle: widget.coAuthors[authorIndex].coUser.user.title,
+                            authorPic: widget.authors[authorIndex].authorPic,
+                            authorName: widget.authors[authorIndex].authorName,
+                            authorTitle: widget.authors[authorIndex].authorTitle,
                             bzGalleryCount: 0,
-                            authorGalleryCount: widget.coAuthors[authorIndex].authorFlyersIDs?.length,
-                            authorID: widget.coAuthors[authorIndex].author.authorID,
+                            authorGalleryCount: widget.authors[authorIndex].publishedFlyersIDs?.length,
+                            authorID: widget.authors[authorIndex].userID,
                             tappingLabel: widget.bzTeamIDs.length == 1 ? (){} : tappingAuthorLabel,
-                            labelIsOn: currentSelectedAuthor == widget.coAuthors[authorIndex].author.authorID ? true : false,
+                            labelIsOn: currentSelectedAuthor == widget.authors[authorIndex].userID ? true : false,
                           )
                         ],
                       ),
@@ -143,7 +144,7 @@ class _GalleryState extends State<Gallery> {
             // --- AUTHORS FLYERS
             GalleryGrid(
               gridZoneWidth: widget.flyerZoneWidth,
-              bzID: widget.coAuthors.isNotEmpty ? widget.coAuthors[0].author.bzId : '',
+              bzID: widget.authors.isNotEmpty ? widget.authors[0].bzID : '',
               flyersVisibilities: flyersVisibilities,
               // tappingMiniFlyer: widget.tappingMiniFlyer,
             ),

@@ -1,10 +1,10 @@
-import 'package:bldrs/models/old_models_to_delete_when_done/combined_models/co_flyer.dart';
+import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import '../pro_flyer.dart';
 
 class SliverFlyersGrid extends StatelessWidget {
-  final List<CoFlyer> flyersData;
+  final List<FlyerModel> flyersData;
 
   SliverFlyersGrid({@required this.flyersData});
 
@@ -38,7 +38,7 @@ class SliverFlyersGrid extends StatelessWidget {
           // addSemanticIndexes: false,
           // addRepaintBoundaries: false,
         ),
-           key: new Key(flyersData[flyerIndex].flyer.flyerID),
+           key: new Key(flyersData[flyerIndex].flyerID),
 
 
       ),

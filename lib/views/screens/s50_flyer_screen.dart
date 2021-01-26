@@ -1,5 +1,5 @@
-import 'package:bldrs/models/old_models_to_delete_when_done/combined_models/co_flyer.dart';
-import 'package:bldrs/providers/coflyer_provider.dart';
+import 'package:bldrs/models/flyer_model.dart';
+import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/view_brains/router/route_names.dart';
 import 'package:bldrs/views/widgets/flyer/pro_flyer.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
@@ -27,8 +27,8 @@ class FlyerScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final String flyerIDDD = ModalRoute.of(context).settings.arguments as String;
-    final CoFlyersProvider pro = Provider.of<CoFlyersProvider>(context, listen: false);
-    final CoFlyer coFlyer = pro.hatCoFlyerByFlyerID(flyerIDDD);
+    final FlyersProvider pro = Provider.of<FlyersProvider>(context, listen: false);
+    final FlyerModel flyer = pro.getFlyerByFlyerID(flyerIDDD);
 
 
     // temporary condition
@@ -43,7 +43,7 @@ class FlyerScreen extends StatelessWidget {
         child:
 
         ChangeNotifierProvider.value(
-          value: coFlyer,
+          value: flyer,
           child: ProFlyer(
             flyerSizeFactor: 1,// golden factor 0.97,
             // flyerID: fID,

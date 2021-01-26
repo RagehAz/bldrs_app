@@ -1,5 +1,5 @@
-import 'package:bldrs/models/old_models_to_delete_when_done/combined_models/co_author.dart';
-import 'package:bldrs/models/old_models_to_delete_when_done/combined_models/co_bz.dart';
+import 'package:bldrs/models/bz_model.dart';
+import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/view_brains/controllers/flyer_controllers.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/drafters/stringers.dart';
@@ -9,8 +9,8 @@ import 'max_header_parts/bz_pg_headline.dart';
 import 'mini_header_parts/mini_header_strip.dart';
 
 class MiniHeader extends StatelessWidget {
-  final CoBz coBz;
-  final CoAuthor coAuthor;
+  final BzModel bz;
+  final AuthorModel author;
   final bool followIsOn;
   final double flyerZoneWidth;
   final bool flyerShowsAuthor;
@@ -20,8 +20,8 @@ class MiniHeader extends StatelessWidget {
   final Function tappingFollow;
 
   MiniHeader({
-    @required this.coBz,
-    @required this.coAuthor,
+    @required this.bz,
+    @required this.author,
     @required this.followIsOn,
     @required this.flyerShowsAuthor,
     @required this.bzGalleryCount,
@@ -34,9 +34,9 @@ class MiniHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // === === === === === === === === === === === === === === === === === === ===
-    String _phoneNumber = feinPhoneFromContacts(coBz?.bzContacts);
+    String _phoneNumber = feinPhoneFromContacts(bz?.bzContacts);
     // --- B.LOCALE --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-    String businessLocale = localeStringer(context, coBz.bz.bzCity, coBz.bz.bzCountry);
+    String businessLocale = localeStringer(context, bz.bzCity, bz.bzCountry);
     // === === === === === === === === === === === === === === === === === === ===
     return
       Container(
@@ -56,19 +56,19 @@ class MiniHeader extends StatelessWidget {
               flyerZoneWidth: flyerZoneWidth,
               bzPageIsOn: bzPageIsOn,
               flyerShowsAuthor: flyerShowsAuthor,
-              authorID: coAuthor.author.authorID,
-              bzLogo: coBz.bz.bzLogo,
-              bzName: coBz.bz.bzName,
-              bzCity: coBz.bz.bzCity,
-              bzCountry: coBz.bz.bzCountry,
+              authorID: author.userID,
+              bzLogo: bz.bzLogo,
+              bzName: bz.bzName,
+              bzCity: bz.bzCity,
+              bzCountry: bz.bzCountry,
               phoneNumber: _phoneNumber,
-              aPic: coAuthor.coUser.user.pic,
-              aName: coAuthor.coUser.user.name,
-              aTitle: coAuthor.coUser.user.title,
-              followersCount: coBz.followsCount,
+              aPic: author.authorPic,
+              aName: author.authorName,
+              aTitle: author.authorTitle,
+              followersCount: bz.bzTotalFollowers,
               followIsOn: followIsOn,
               bzGalleryCount: bzGalleryCount,
-              bzConnects: coBz.bzConnects,
+              bzConnects: bz.bzTotalConnects,
               tappingHeader: tappingHeader,
               tappingFollow: tappingFollow,
             ),
@@ -78,7 +78,7 @@ class MiniHeader extends StatelessWidget {
               flyerZoneWidth: flyerZoneWidth,
               bzPageIsOn: bzPageIsOn,
               bzLocale: businessLocale,
-              bzName: coBz.bz.bzName,
+              bzName: bz.bzName,
             ),
 
           ],

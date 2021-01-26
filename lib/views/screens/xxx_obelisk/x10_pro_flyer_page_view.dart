@@ -1,4 +1,4 @@
-import 'package:bldrs/providers/coflyer_provider.dart';
+import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/widgets/flyer/pro_flyer.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/gestures.dart';
@@ -14,8 +14,8 @@ class ProFlyersPageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final pro = Provider.of<CoFlyersProvider>(context, listen: false); // this is the FlyersProvider data wormHole
-    final flyers = pro.hatAllCoFlyers;
+    final pro = Provider.of<FlyersProvider>(context, listen: false); // this is the FlyersProvider data wormHole
+    final flyers = pro.getAllFlyers;
     // final someFlyer = flyersData.hatCoFlyerByID('f008');
 
     // double screenWidth = MediaQuery.of(context).size.width;
@@ -40,7 +40,7 @@ class ProFlyersPageView extends StatelessWidget {
                 // ChangeNotifierProvider(
                 //     create: (c) => flyers[i],
                 child: Padding(
-                  key: Key(flyers[i].flyer.flyerID),
+                  key: Key(flyers[i].flyerID),
                   padding: const EdgeInsets.only(bottom: 0),
                   child: ProFlyer(
                     flyerSizeFactor: 1,

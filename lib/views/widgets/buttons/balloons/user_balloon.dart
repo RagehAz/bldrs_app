@@ -1,22 +1,21 @@
-import 'package:bldrs/models/enums/enum_user_type.dart';
+import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/view_brains/drafters/file_formatters.dart';
 import 'package:bldrs/view_brains/drafters/iconizers.dart';
 import 'package:bldrs/view_brains/drafters/shadowers.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:flutter/material.dart';
 import 'package:websafe_svg/websafe_svg.dart';
-
 import 'clip_shadow_path.dart';
 
 class UserBalloon extends StatelessWidget {
-  final UserType userType;
+  final UserStatus userStatus;
   final String userPic;
   final double balloonWidth;
   final bool blackAndWhite;
   final Function onTap;
 
   UserBalloon({
-    @required this.userType,
+    @required this.userStatus,
     @required this.userPic,
     @required this.balloonWidth,
     this.blackAndWhite = false,
@@ -33,7 +32,7 @@ class UserBalloon extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: ClipShadowPath(
-        clipper: userBalloon(userType),
+        clipper: userBalloon(userStatus),
         shadow: BoxShadow(
           color: Colorz.BlackLingerie,
           offset: Offset(0, balloonWidth * -0.019),

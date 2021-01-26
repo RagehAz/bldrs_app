@@ -1,4 +1,4 @@
-import 'package:bldrs/providers/coflyer_provider.dart';
+import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
@@ -69,9 +69,9 @@ void dispose() {
 
   @override
   Widget build(BuildContext context) {
-    final pro = Provider.of<CoFlyersProvider>(context);
-    final coFlyer = pro.hatCoFlyerByFlyerID('f035');
-    final coBz = coFlyer.coBz;
+    final pro = Provider.of<FlyersProvider>(context);
+    final flyer = pro.getFlyerByFlyerID('f035');
+    // final bz = flyer.bz;
 
     final double screenWidth = superScreenWidth(context);
     final double flyerSizeFactor = 1;
@@ -108,17 +108,17 @@ void dispose() {
           ),
 
 
-          Header(
-              coBz: coBz,
-              coAuthor: coBz.coAuthors[2],
-              flyerShowsAuthor: coFlyer.flyer.flyerShowsAuthor,
-              followIsOn: false,
-              flyerZoneWidth: superFlyerZoneWidth(context, flyerSizeFactor),
-              bzPageIsOn: false,
-              tappingHeader: (){},
-              tappingFollow: (){},
-              tappingUnfollow: (){},
-          ),
+          // Header(
+          //     bz: bz,
+          //     author: bz.authors[2],
+          //     flyerShowsAuthor: flyer.flyerShowsAuthor,
+          //     followIsOn: false,
+          //     flyerZoneWidth: superFlyerZoneWidth(context, flyerSizeFactor),
+          //     bzPageIsOn: false,
+          //     tappingHeader: (){},
+          //     tappingFollow: (){},
+          //     tappingUnfollow: (){},
+          // ),
 
           Positioned(
             bottom: 0,

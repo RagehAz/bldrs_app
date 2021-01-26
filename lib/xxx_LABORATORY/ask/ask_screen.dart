@@ -1,4 +1,3 @@
-import 'package:bldrs/models/enums/enum_bz_type.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
@@ -10,6 +9,19 @@ import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:bldrs/xxx_LABORATORY/ask/questions_screen.dart';
 import 'package:flutter/material.dart';
 
+Map<String, Object> bzTypesMap = {
+  'Title' : 'Business Types',
+  'Strings' : [
+    'developers',
+    'brokers',
+    'designers',
+    'contractors',
+    'artisans',
+    'manufacturers',
+    'suppliers',
+  ],
+  'Triggers' : [false, false, false, false, false, false, false],
+};
 
 class AskScreen extends StatefulWidget {
   @override

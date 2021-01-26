@@ -1,4 +1,4 @@
-import 'package:bldrs/models/enums/enum_bz_type.dart';
+import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/view_brains/drafters/stringers.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
@@ -10,7 +10,6 @@ import 'package:circle_list/circle_list.dart';
 import 'package:flutter/material.dart';
 
 class CircleListWidget extends StatelessWidget {
-
 
   @override
   Widget build(BuildContext context) {

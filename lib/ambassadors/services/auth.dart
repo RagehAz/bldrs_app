@@ -1,7 +1,7 @@
 import 'package:bldrs/models/user_model.dart';
+import 'package:bldrs/providers/users_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:bldrs/ambassadors/services/database.dart';
 
 class AuthService{
 
@@ -70,17 +70,15 @@ Future signInAnon() async {
       User user = result.user;
 
       // create a new firestore document for the user with the userID
-      await DatabaseService(userID: user.uid).updateUserData(
+      await UserProvider(userID: user.uid).updateUserData(
         userID : user.uid                 ,      // userID
         savedFlyersIDs : ['savedFlyersIDs']             ,      // savedFlyersIDs
         followedBzzIDs : ['followedBzzIDs']             ,      // followedBzzIDs
-        publishedFlyersIDs : ['publishedFlyersIDs']         ,      // publishedFlyersIDs
         name : user.displayName           ,      // name
         pic : user.photoURL               ,      // pic
         title : 'title'                   ,      // title
         city : 'city'                     ,      // city
         country : 'country'               ,      // country
-        whatsAppIsOn : false              ,      // whatsAppIsOn
         // [
         //   {
         //     'type' : '${cipherContactType(ContactType.Email)}',
