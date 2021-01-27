@@ -1,12 +1,13 @@
+import 'package:bldrs/ambassadors/database/db_bzz.dart';
 import 'package:bldrs/ambassadors/database/db_flyer.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/sub_models/contact_model.dart';
-import 'package:bldrs/providers/bzz_provider.dart';
 import 'package:flutter/cupertino.dart';
 
 class FlyersProvider with ChangeNotifier {
-  List<FlyerModel> _loadedFlyers = dbFlyers.isEmpty? [] : dbFlyers;
+  List<FlyerModel> _loadedFlyers = geebAllFlyers();
+  List<BzModel> _loadedBzz = geebAllBzz();
 // ---------------------------------------------------------------------------
   List<FlyerModel> get getAllFlyers {
     return [..._loadedFlyers];
@@ -17,7 +18,7 @@ class FlyersProvider with ChangeNotifier {
     return flyer;
   }
 // ---------------------------------------------------------------------------
-  List<FlyerModel> getAllSavedFlyersFromDB (List<String> savedFlyersIDsList){
+  List<FlyerModel> getSavedFlyersByFlyersIDs (List<String> savedFlyersIDsList){
     List<FlyerModel> savedFlyersList = [];
     savedFlyersIDsList.forEach((id) {
       savedFlyersList.add(getFlyerByFlyerID(id));
@@ -25,9 +26,15 @@ class FlyersProvider with ChangeNotifier {
     return savedFlyersList;
   }
 // ---------------------------------------------------------------------------
+  List<FlyerModel> getFlyersByFlyersIDs(List<dynamic> flyersIDs){
+    List<FlyerModel> flyers = new List();
+    flyersIDs?.forEach((id) {flyers.add(getFlyerByFlyerID(id));});
+    return flyers;
+  }
+// ---------------------------------------------------------------------------
   List<String> getFlyersIDsByFlyerType(FlyerType flyerType){
     List<String> flyersIDs = new List();
-    _loadedFlyers.forEach((fl) {
+    _loadedFlyers?.forEach((fl) {
       if(fl.flyerType == flyerType){flyersIDs.add(fl.flyerID);}
     });
     return flyersIDs;
@@ -49,10 +56,6 @@ class FlyersProvider with ChangeNotifier {
     return ankhIsOn;
   }
 // ---------------------------------------------------------------------------
-  String getFlyerIDFromFlyerModel(FlyerModel flyer){
-    return flyer.flyerID;
-  }
-// ---------------------------------------------------------------------------
   List<FlyerModel> getSavedFlyersFromFlyersList (List<FlyerModel> inputList, String userID){
     List<FlyerModel> savedFlyers = new List();
     List<FlyerModel> _inputList = inputList.isEmpty || inputList == null ? [] : inputList;
@@ -71,7 +74,7 @@ class FlyersProvider with ChangeNotifier {
     }
     return authorFlyers;
   }
-// ---------------------------------------------------------------------------
+// ############################################################################
   List<FlyerModel> getFlyersByBzModel(BzModel bz){
     List<String> bzFlyersIDs = new List();
     bz.authors.forEach((au) {bzFlyersIDs.addAll(au.publishedFlyersIDs);});
@@ -79,53 +82,27 @@ class FlyersProvider with ChangeNotifier {
     bzFlyersIDs.forEach((id) {flyers.add(getFlyerByFlyerID(id));});
     return flyers;
   }
-
-  // CoAuthor hatCoAuthorFromCoAuthorsByAuthorID(List<CoAuthor> coAuthors, String authorID){
-  //   CoAuthor authorData = coAuthors?.singleWhere((coA) => coA.author.authorID == authorID, orElse: ()=> null);
-  //   return authorData;
-  // }
-
-  String hatContactFromContactsByContactType(List<ContactModel> contacts, ContactType contactType){
-    String contact = contacts?.singleWhere((co) => co.contactType == contactType, orElse: ()=> null)?.contact;
-    return contact;
+// ---------------------------------------------------------------------------
+  BzModel getBzByBzID(String bzID){
+    BzModel bz = _loadedBzz?.singleWhere((bz) => bz.bzID == bzID, orElse: ()=>null);
+    return bz;
   }
-
-  // List<CoSlide> hatCoSlidesByFlyerID(String flyerID){
-  //   List<CoSlide> flyerCoSlides = new List();
-  //   _loadedCoFlyers.forEach((coF) {
-  //     if(coF.flyer.flyerID == flyerID){flyerCoSlides.addAll(coF.coSlides,);}
-  //   });
-  //   return flyerCoSlides;
-  // }
-  //
-  // String hatBzIDByFlyerID(String flyerID){
-  //   String bzID = getBzIDByFlyerID(flyerID);
-  //   return bzID;
-  // }
-  //
-  // bool hatFollowIsOnByFlyerID(String flyerID){
-  //   String flyerBzID = hatBzIDByFlyerID(flyerID);
-  //   String bzFollow = _followedBzzIDs.singleWhere((bzID) => bzID == flyerBzID, orElse: ()=> null);
-  //   bool followIsOn = bzFollow == null ? false : true;
-  //   return followIsOn;
-  // }
-  //
-  //
-  // List<CoFlyer> get hatAllSavedCoFlyers {
-  //   return _loadedCoFlyers.where((coFlyer)=> coFlyer.ankhIsOn).toList();
-  // }
-
-
-
-
-// void addFlyerInBeginning(ProcessedFlyerData newFlyer){
-  //   _downloadedFlyers.insert(0, newFlyer);
-  //   notifyListeners();
-  // }
-  // void addFlyerInEnd(ProcessedFlyerData newFlyer){
-  //   _downloadedFlyers.add(newFlyer);
-  //   notifyListeners();
-  // }
-
+// ---------------------------------------------------------------------------
+  List<BzModel> getAllFollowedBzFromDB(List<String> followedBzzIDs){
+    List<BzModel> followedBzzList = [];
+    followedBzzIDs.forEach((id) {
+      followedBzzList.add(getBzByBzID(id));
+    });
+    return followedBzzList;
+  }
+// ---------------------------------------------------------------------------
+List<BzModel> getBzzOfFlyersList(List<FlyerModel> flyersList){
+    List<BzModel> bzz = new List();
+    flyersList.forEach((fl) {
+      bzz.add(getBzByBzID(fl.bzID));
+    });
+    return bzz;
+}
+// ---------------------------------------------------------------------------
 
 }

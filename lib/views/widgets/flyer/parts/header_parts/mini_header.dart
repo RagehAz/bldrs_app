@@ -34,7 +34,7 @@ class MiniHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // === === === === === === === === === === === === === === === === === === ===
-    String _phoneNumber = feinPhoneFromContacts(bz?.bzContacts);
+    String _phoneNumber = feinFirstPhoneFromContacts(bz?.bzContacts);
     // --- B.LOCALE --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
     String businessLocale = localeStringer(context, bz.bzCity, bz.bzCountry);
     // === === === === === === === === === === === === === === === === === === ===

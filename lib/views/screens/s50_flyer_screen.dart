@@ -1,6 +1,5 @@
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
-import 'package:bldrs/providers/bzz_provider.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/view_brains/router/route_names.dart';
 import 'package:bldrs/views/widgets/flyer/flyer.dart';
@@ -25,10 +24,9 @@ class FlyerScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final String flyerID = ModalRoute.of(context).settings.arguments as String;
-    final FlyersProvider prof = Provider.of<FlyersProvider>(context, listen: false);
-    final FlyerModel flyer = prof.getFlyerByFlyerID(flyerID);
-    final BzzProvider prob = Provider.of<BzzProvider>(context, listen: false);
-    final BzModel bz = prob.getBzByBzID(flyer.bzID);
+    final FlyersProvider pro = Provider.of<FlyersProvider>(context, listen: false);
+    final FlyerModel flyer = pro.getFlyerByFlyerID(flyerID);
+    final BzModel bz = pro.getBzByBzID(flyer.bzID);
 
     return MainLayout(
       // appBarIsOn: false,
@@ -39,12 +37,11 @@ class FlyerScreen extends StatelessWidget {
         child:
 
         ChangeNotifierProvider.value(
-          value: bz,
+          value: flyer,
           child: ChangeNotifierProvider.value(
-            value: flyer,
+            value: bz,
             child: Flyer(
               flyerSizeFactor: 1,// golden factor 0.97,
-              // flyerID: fID,
               currentSlideIndex: 0,
               slidingIsOn: true,
               tappingFlyerZone: (){},

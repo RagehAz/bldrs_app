@@ -1,3 +1,4 @@
+import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
@@ -34,10 +35,11 @@ class _FlyersGridState extends State<FlyersGrid> {
 
   @override
   Widget build(BuildContext context) {
-    final FlyersProvider pro = Provider.of<FlyersProvider>(context, listen: false);
+    final FlyersProvider pro = Provider.of<FlyersProvider>(context, listen: true);
     final user = Provider.of<UserModel>(context);
     List<dynamic> savedFlyersIDs = user.savedFlyersIDs;
-    final List<FlyerModel> savedFlyers = pro.getAllSavedFlyersFromDB(savedFlyersIDs);
+    final List<FlyerModel> savedFlyers = pro.getFlyersByFlyersIDs(savedFlyersIDs);
+    final List<BzModel> bzz = pro.getBzzOfFlyersList(savedFlyers);
 // ----------------------------------------------------------------------------
       // int flyerIndex = 0;
 // ----------------------------------------------------------------------------
@@ -83,13 +85,16 @@ class _FlyersGridState extends State<FlyersGrid> {
                 return
                   ChangeNotifierProvider.value(
                     value: savedFlyers[index],
-                      child: Flyer(
-                        flyerSizeFactor: (((widget.gridZoneWidth - (gridSpacing*(gridColumnsCount+1)))/gridColumnsCount))/screenWidth,
-                        slidingIsOn: false,
-                        rebuildFlyerGrid: rebuildGrid,
-                        tappingFlyerZone: (){
-                          openFlyer(context, savedFlyers[index].flyerID);
-                        },
+                      child: ChangeNotifierProvider.value(
+                        value: bzz[index],
+                        child: Flyer(
+                          flyerSizeFactor: (((widget.gridZoneWidth - (gridSpacing*(gridColumnsCount+1)))/gridColumnsCount))/screenWidth,
+                          slidingIsOn: false,
+                          rebuildFlyerGrid: rebuildGrid,
+                          tappingFlyerZone: (){
+                            openFlyer(context, savedFlyers[index].flyerID);
+                          },
+                        ),
                       ),
                     );
                 }
