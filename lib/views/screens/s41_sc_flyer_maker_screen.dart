@@ -272,7 +272,7 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> {
   @override
   Widget build(BuildContext context) {
     final pro = Provider.of<FlyersProvider>(context);
-    final Flyer = pro.getFlyerByFlyerID('f035');
+    final flyer = pro.getFlyerByFlyerID('f035');
     // final bz = Flyer.coBz;
     // ----------------------------------------------------------------------
     final double flyerSizeFactor = 0.73;

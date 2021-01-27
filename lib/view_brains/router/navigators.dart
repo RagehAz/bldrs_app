@@ -21,7 +21,7 @@ void openFlyerOldWay(BuildContext context, String flyerID){
             child: Material(
               type: MaterialType.transparency,
               child: new FlyerScreen(
-                flyerID: flyerID, // galleryCoFlyers[index].flyer.flyerID,
+                // flyerID: flyerID, // galleryCoFlyers[index].flyer.flyerID,
               ),
             ),
           );

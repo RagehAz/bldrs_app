@@ -16,7 +16,7 @@ class Gallery extends StatefulWidget {
   final List<String> bzTeamIDs;
   final bool bzPageIsOn;
   final bzConnects;
-  final List<FlyerModel> galleryCoFlyers;
+  final List<FlyerModel> galleryFlyers;
   final List<AuthorModel> authors;
   // final Function tappingMiniFlyer;
 
@@ -28,7 +28,7 @@ class Gallery extends StatefulWidget {
     @required this.bzTeamIDs,
     @required this.bzPageIsOn,
     @required this.bzConnects,
-    @required this.galleryCoFlyers,
+    @required this.galleryFlyers,
     @required this.authors,
     // @required this.tappingMiniFlyer,
   });
@@ -44,7 +44,7 @@ class _GalleryState extends State<Gallery> {
 // ----------------------------------------------------------------------------
   void visibilityShit () {
     setState(() {
-      flyersVisibilities = List.filled(widget.galleryCoFlyers.length, true);
+      flyersVisibilities = List.filled(widget.galleryFlyers.length, true);
       currentSelectedAuthor = widget.bzTeamIDs.length == 1 ? widget.bzTeamIDs[0] : '';
     });
 }
@@ -58,11 +58,11 @@ class _GalleryState extends State<Gallery> {
     tappingAuthorLabel(String authorID){
       print('label is tapped $authorID');
       setState(() {
-        flyersVisibilities = List.filled(widget.galleryCoFlyers.length, false);
+        flyersVisibilities = List.filled(widget.galleryFlyers.length, false);
         currentSelectedAuthor == authorID ? currentSelectedAuthor = '' : currentSelectedAuthor = authorID;
-        currentSelectedAuthor == '' ? flyersVisibilities = List.filled(widget.galleryCoFlyers.length, true) : currentSelectedAuthor = authorID;
-        widget.galleryCoFlyers.asMap().forEach((index, flyer) {
-          if(widget.galleryCoFlyers[index].authorID == currentSelectedAuthor){flyersVisibilities[index] = true;}
+        currentSelectedAuthor == '' ? flyersVisibilities = List.filled(widget.galleryFlyers.length, true) : currentSelectedAuthor = authorID;
+        widget.galleryFlyers.asMap().forEach((index, flyer) {
+          if(widget.galleryFlyers[index].authorID == currentSelectedAuthor){flyersVisibilities[index] = true;}
         });
       });
     }
@@ -146,6 +146,7 @@ class _GalleryState extends State<Gallery> {
               gridZoneWidth: widget.flyerZoneWidth,
               bzID: widget.authors.isNotEmpty ? widget.authors[0].bzID : '',
               flyersVisibilities: flyersVisibilities,
+              galleryFlyers: widget.galleryFlyers,
               // tappingMiniFlyer: widget.tappingMiniFlyer,
             ),
 

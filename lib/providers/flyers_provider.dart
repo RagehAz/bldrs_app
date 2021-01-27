@@ -1,6 +1,8 @@
 import 'package:bldrs/ambassadors/database/db_flyer.dart';
+import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/sub_models/contact_model.dart';
+import 'package:bldrs/providers/bzz_provider.dart';
 import 'package:flutter/cupertino.dart';
 
 class FlyersProvider with ChangeNotifier {
@@ -70,15 +72,13 @@ class FlyersProvider with ChangeNotifier {
     return authorFlyers;
   }
 // ---------------------------------------------------------------------------
-//   List<FlyerModel> getFlyersByBzID(String bzID){
-//     List<FlyerModel> flyers = new List();
-//     List<AuthorModel> authors = getAuthorsByBzID;
-//     BzModel bz = getBzByBzID(bzID);
-//
-//     for(String aID in authorsIDs){coFlyers.addAll(hatCoFlyersByAuthorID(aID));}
-//
-//     return FlyerModel;
-//   }
+  List<FlyerModel> getFlyersByBzModel(BzModel bz){
+    List<String> bzFlyersIDs = new List();
+    bz.authors.forEach((au) {bzFlyersIDs.addAll(au.publishedFlyersIDs);});
+    List<FlyerModel> flyers = new List();
+    bzFlyersIDs.forEach((id) {flyers.add(getFlyerByFlyerID(id));});
+    return flyers;
+  }
 
   // CoAuthor hatCoAuthorFromCoAuthorsByAuthorID(List<CoAuthor> coAuthors, String authorID){
   //   CoAuthor authorData = coAuthors?.singleWhere((coA) => coA.author.authorID == authorID, orElse: ()=> null);

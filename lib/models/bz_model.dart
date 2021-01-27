@@ -15,7 +15,7 @@ import 'sub_models/contact_model.dart';
 /// ];
 /// List<Map<String,Object>> progress; <------
 class BzModel with ChangeNotifier{
-  final String bzId;
+  final String bzID;
   // -------------------------
   final BzType bzType;
   final BzForm bzForm;
@@ -51,7 +51,7 @@ class BzModel with ChangeNotifier{
   bool followIsOn;
 // ###############################
   BzModel({
-    this.bzId,
+    this.bzID,
     // -------------------------
     this.bzType,
     this.bzForm,

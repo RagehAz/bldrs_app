@@ -1,3 +1,5 @@
+import 'package:bldrs/view_brains/theme/iconz.dart';
+
 class Dumz {
 
   // XX DUMBS
@@ -114,5 +116,6 @@ class Dumz {
   static const String XXnazly_3 = 'assets/xx/br_ultimate/nazly_3.jpg' ;
   static const String XXnazly_author = 'assets/xx/br_ultimate/nazly_author.jpg' ;
   static const String XXultimate_logo = 'assets/xx/br_ultimate/ultimate_logo.png' ;
+  static const String DumAuthorPic = Iconz.DumAuthorPic;
 
 }

@@ -1,7 +1,9 @@
+import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
+import 'package:bldrs/providers/bzz_provider.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/view_brains/router/route_names.dart';
-import 'package:bldrs/views/widgets/flyer/pro_flyer.dart';
+import 'package:bldrs/views/widgets/flyer/flyer.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -18,21 +20,15 @@ import 'package:provider/provider.dart';
 
 class FlyerScreen extends StatelessWidget {
   static const routeName = Routez.FlyerScreen;
-  final String flyerID;
-
-  FlyerScreen({
-    this.flyerID,
-});
 
   @override
   Widget build(BuildContext context) {
-    final String flyerIDDD = ModalRoute.of(context).settings.arguments as String;
-    final FlyersProvider pro = Provider.of<FlyersProvider>(context, listen: false);
-    final FlyerModel flyer = pro.getFlyerByFlyerID(flyerIDDD);
 
-
-    // temporary condition
-    String fID = flyerID == null ? 'f035' : flyerID;
+    final String flyerID = ModalRoute.of(context).settings.arguments as String;
+    final FlyersProvider prof = Provider.of<FlyersProvider>(context, listen: false);
+    final FlyerModel flyer = prof.getFlyerByFlyerID(flyerID);
+    final BzzProvider prob = Provider.of<BzzProvider>(context, listen: false);
+    final BzModel bz = prob.getBzByBzID(flyer.bzID);
 
     return MainLayout(
       // appBarIsOn: false,
@@ -43,13 +39,17 @@ class FlyerScreen extends StatelessWidget {
         child:
 
         ChangeNotifierProvider.value(
-          value: flyer,
-          child: ProFlyer(
-            flyerSizeFactor: 1,// golden factor 0.97,
-            // flyerID: fID,
-            currentSlideIndex: 0,
-            slidingIsOn: true,
-            tappingFlyerZone: (){},
+          value: bz,
+          child: ChangeNotifierProvider.value(
+            value: flyer,
+            child: Flyer(
+              flyerSizeFactor: 1,// golden factor 0.97,
+              // flyerID: fID,
+              currentSlideIndex: 0,
+              slidingIsOn: true,
+              tappingFlyerZone: (){},
+
+            ),
           ),
         ),
 
