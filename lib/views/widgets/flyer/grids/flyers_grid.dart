@@ -35,10 +35,10 @@ class _FlyersGridState extends State<FlyersGrid> {
 
   @override
   Widget build(BuildContext context) {
-    final FlyersProvider pro = Provider.of<FlyersProvider>(context, listen: true);
+    final FlyersProvider pro = Provider.of<FlyersProvider>(context, listen: false);
     final user = Provider.of<UserModel>(context);
-    List<dynamic> savedFlyersIDs = user.savedFlyersIDs;
-    final List<FlyerModel> savedFlyers = pro.getFlyersByFlyersIDs(savedFlyersIDs);
+    List<dynamic> savedFlyersIDs = [ 'f037'];
+    final List<FlyerModel> savedFlyers = pro.getSavedFlyers;
     final List<BzModel> bzz = pro.getBzzOfFlyersList(savedFlyers);
 // ----------------------------------------------------------------------------
       // int flyerIndex = 0;

@@ -1,12 +1,12 @@
+import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
+import 'package:bldrs/view_brains/router/navigators.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
-import 'package:bldrs/views/widgets/appbar/ab_main.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/flyer/flyer.dart';
-import 'package:bldrs/views/widgets/pyramids/pyramids.dart';
-import 'package:bldrs/views/widgets/space/skies/night_sky.dart';
+import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:provider/provider.dart';
@@ -22,61 +22,65 @@ class _FlyersGridViewState extends State<FlyersGridView> {
   var _showAnkhsOnly = false;
   FlyerType currentFlyerType = FlyerType.General;
 
-  List<FlyerType> flyerFilers = [
-    FlyerType.General,
-    FlyerType.Property,
-    FlyerType.Design,
-    FlyerType.Project,
-    FlyerType.Product,
-    FlyerType.Craft,
-    FlyerType.Equipment,
-  ];
+  // List<FlyerType> flyerFilers = [
+  //   FlyerType.General,
+  //   FlyerType.Property,
+  //   FlyerType.Design,
+  //   FlyerType.Project,
+  //   FlyerType.Product,
+  //   FlyerType.Craft,
+  //   FlyerType.Equipment,
+  // ];
 
 
   @override
   Widget build(BuildContext context) {
-    final flyersData = Provider.of<FlyersProvider>(context, listen: true); // this is the FlyersProvider data wormHole
+    final FlyersProvider pro = Provider.of<FlyersProvider>(context, listen: false);
+    final List<FlyerModel> allFlyersOfType = pro.getFlyersByFlyerType(currentFlyerType);
+    final List<FlyerModel> savedFlyersFilter = pro.getSavedFlyers;
+    final List<FlyerModel> flyers = _showAnkhsOnly ? savedFlyersFilter : allFlyersOfType;
+    final List<BzModel> bzz = pro.getBzzOfFlyersList(flyers);
     // final flyers = _showAnkhsOnly ? flyersData.savedFlyers : flyersData.allFlyers;
 
-    List<FlyerModel> propertyFlyers       = flyersData.getFlyersByFlyerType(FlyerType.Property);
-    // List<CoFlyer> savedPropertyFlyers  = flyersData.findSavedFlyers(propertyFlyers);
+    // List<FlyerModel> propertyFlyers       = flyersData.getFlyersByFlyerType(FlyerType.Property);
+    // // List<CoFlyer> savedPropertyFlyers  = flyersData.findSavedFlyers(propertyFlyers);
+    //
+    // List<FlyerModel> designFlyers         = flyersData.getFlyersByFlyerType(FlyerType.Design);
+    // // List<CoFlyer> savedDesignFlyers    = flyersData.findSavedFlyers(designFlyers);
+    //
+    // List<FlyerModel> productFlyers        = flyersData.getFlyersByFlyerType(FlyerType.Product);
+    // // List<CoFlyer> savedProductFlyers   = flyersData.findSavedFlyers(productFlyers);
+    //
+    // List<FlyerModel> projectFlyers        = flyersData.getFlyersByFlyerType(FlyerType.Project);
+    // // List<CoFlyer> savedProjectFlyers   = flyersData.findSavedFlyers(projectFlyers);
+    //
+    // List<FlyerModel> craftFlyers          = flyersData.getFlyersByFlyerType(FlyerType.Craft);
+    // // List<CoFlyer> savedCraftFlyers     = flyersData.findSavedFlyers(craftFlyers);
+    //
+    // List<FlyerModel> equipmentFlyers      = flyersData.getFlyersByFlyerType(FlyerType.Equipment);
+    // // List<CoFlyer> savedEquipmentFlyers = flyersData.findSavedFlyers(equipmentFlyers);
 
-    List<FlyerModel> designFlyers         = flyersData.getFlyersByFlyerType(FlyerType.Design);
-    // List<CoFlyer> savedDesignFlyers    = flyersData.findSavedFlyers(designFlyers);
-
-    List<FlyerModel> productFlyers        = flyersData.getFlyersByFlyerType(FlyerType.Product);
-    // List<CoFlyer> savedProductFlyers   = flyersData.findSavedFlyers(productFlyers);
-
-    List<FlyerModel> projectFlyers        = flyersData.getFlyersByFlyerType(FlyerType.Project);
-    // List<CoFlyer> savedProjectFlyers   = flyersData.findSavedFlyers(projectFlyers);
-
-    List<FlyerModel> craftFlyers          = flyersData.getFlyersByFlyerType(FlyerType.Craft);
-    // List<CoFlyer> savedCraftFlyers     = flyersData.findSavedFlyers(craftFlyers);
-
-    List<FlyerModel> equipmentFlyers      = flyersData.getFlyersByFlyerType(FlyerType.Equipment);
-    // List<CoFlyer> savedEquipmentFlyers = flyersData.findSavedFlyers(equipmentFlyers);
-
-        final flyers =
-    currentFlyerType == FlyerType.Property &&  !_showAnkhsOnly? propertyFlyers :
-    // currentFlyerType == FlyerType.Property &&  _showAnkhsOnly? savedPropertyFlyers :
-
-    currentFlyerType == FlyerType.Design &&  !_showAnkhsOnly? designFlyers :
-    // currentFlyerType == FlyerType.Design &&  _showAnkhsOnly? savedDesignFlyers :
-
-    currentFlyerType == FlyerType.Project &&  !_showAnkhsOnly? projectFlyers :
-    // currentFlyerType == FlyerType.Project &&  _showAnkhsOnly? savedProjectFlyers :
-
-    currentFlyerType == FlyerType.Product &&  !_showAnkhsOnly? productFlyers :
-    // currentFlyerType == FlyerType.Product &&  _showAnkhsOnly? savedProductFlyers :
-
-    currentFlyerType == FlyerType.Craft &&  !_showAnkhsOnly? craftFlyers :
-    // currentFlyerType == FlyerType.Craft &&  _showAnkhsOnly? savedCraftFlyers :
-
-    currentFlyerType == FlyerType.Equipment &&  !_showAnkhsOnly? equipmentFlyers :
-    // currentFlyerType == FlyerType.Equipment &&  _showAnkhsOnly? savedEquipmentFlyers :
+    //     final flyers =
+    // currentFlyerType == FlyerType.Property &&  !_showAnkhsOnly? propertyFlyers :
+    // // currentFlyerType == FlyerType.Property &&  _showAnkhsOnly? savedPropertyFlyers :
+    //
+    // currentFlyerType == FlyerType.Design &&  !_showAnkhsOnly? designFlyers :
+    // // currentFlyerType == FlyerType.Design &&  _showAnkhsOnly? savedDesignFlyers :
+    //
+    // currentFlyerType == FlyerType.Project &&  !_showAnkhsOnly? projectFlyers :
+    // // currentFlyerType == FlyerType.Project &&  _showAnkhsOnly? savedProjectFlyers :
+    //
+    // currentFlyerType == FlyerType.Product &&  !_showAnkhsOnly? productFlyers :
+    // // currentFlyerType == FlyerType.Product &&  _showAnkhsOnly? savedProductFlyers :
+    //
+    // currentFlyerType == FlyerType.Craft &&  !_showAnkhsOnly? craftFlyers :
+    // // currentFlyerType == FlyerType.Craft &&  _showAnkhsOnly? savedCraftFlyers :
+    //
+    // currentFlyerType == FlyerType.Equipment &&  !_showAnkhsOnly? equipmentFlyers :
+    // // currentFlyerType == FlyerType.Equipment &&  _showAnkhsOnly? savedEquipmentFlyers :
 
     // _showAnkhsOnly ? flyersData.savedFlyers :
-    flyersData.getAllFlyers ;
+    // flyersData.getAllFlyers ;
 
       // int flyerIndex = 0;
 // -------------------------------------------------------------------------
@@ -110,123 +114,71 @@ class _FlyersGridViewState extends State<FlyersGridView> {
 
     double flyerSizeFactor = (((gridZoneWidth - (gridSpacing*(gridColumnsCount+1)))/gridColumnsCount))/screenWidth;
 
-    return SafeArea(
-      child: Scaffold(
-        body: Stack(
-          alignment: Alignment.topCenter,
-          children: <Widget>[
+    return MainLayout(
+      pyramids: Iconz.PyramidsYellow,
+      appBarType: AppBarType.Scrollable,
+      appBarRowWidgets: <Widget>[
 
-            NightSky(),
-
-            GridView.builder(
-              // physics: NeverScrollableScrollPhysics(),
-              addAutomaticKeepAlives: true,
-              padding: EdgeInsets.only(right: gridSpacing, left: gridSpacing, top: ((10 )+Ratioz.stratosphere), bottom: gridSpacing * 5 ),
-              // key: new Key(loadedFlyers[flyerIndex].f01flyerID),
-              gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                crossAxisSpacing: gridSpacing,
-                mainAxisSpacing: gridSpacing,
-                childAspectRatio: 1 / Ratioz.xxflyerZoneHeight,
-                maxCrossAxisExtent: gridFlyerWidth,//gridFlyerWidth,
-              ),
-              itemCount: flyers.length,
-              itemBuilder: (ctx, i) =>
-                  ChangeNotifierProvider.value(
-                      value: flyers[i],
-                      // or we can use other syntax like :-
-                      // ChangeNotifierProvider(//     create: (c) => flyers[i],
-                      child: Padding(
-                        key: Key(flyers[i].flyerID),
-                        padding: const EdgeInsets.only(bottom: 0),
-                        child: Flyer(
-                          // flyerID: flyers[i].flyer.flyerID,
-                          flyerSizeFactor: flyerSizeFactor,
-                          currentSlideIndex: 0,
-                          slidingIsOn: true,
-                          tappingFlyerZone: (){
-                            // Navigator.of(context).pushNamed(
-                            //   FlyerScreen.routeName,
-                            //   arguments: flyers[i],
-                            // );
-                            },
-                        ),
-                      )
-                  ),
-            ),
-
-            Pyramids(whichPyramid: Iconz.PyramidsYellow),
-
-            ABStrip(
-              scrollable: true,
-              rowWidgets:[
-
-                DreamBox(
-                  height: 40,
-                  width: 40,
-                  boxMargins: EdgeInsets.all(5),
-                  icon: Iconz.SavedFlyers,
-                  iconSizeFactor: 0.8,
-                  // verse: 'Saved\nFlyers',
-                  // verseScaleFactor: 0.7,
-                  // verseMaxLines: 2,
-                  // verseColor: _showAnkhsOnly == true ? Colorz.BlackBlack : Colorz.White,
-                  color: _showAnkhsOnly == true ? Colorz.Yellow : Colorz.Nothing,
-                  boxFunction: (){
-                    setState(() {
-                      _showAnkhsOnly = !_showAnkhsOnly;
-                    });
-                    },
-                ),
-
-                // --- Property filter
-                // DreamBox(
-                //   height: 40,
-                //   width: 40,
-                //   boxMargins: EdgeInsets.all(5),
-                //   icon: flyerTypeFilter == FlyerType.Property ? Iconz.BxPropertiesOn : Iconz.BxPropertiesOff,
-                //   iconSizeFactor: 0.8,
-                //   color: flyerTypeFilter == FlyerType.Property ? Colorz.Yellow : Colorz.Nothing,
-                //   boxFunction: (){
-                //     setState(() {
-                //       flyerTypeFilter != FlyerType.Property ?
-                //       flyerTypeFilter = FlyerType.Property :
-                //       flyerTypeFilter = FlyerType.General
-                //       ;
-                //     });
-                //   },
-                // ),
-
-                ...List<Widget>.generate(
-                  flyerFilers.length,
-                      (i) => FilterButton(
-                      flyerTypeFilter: flyerFilers[i],
-                      currentFlyerType : currentFlyerType,
-                      tapButton: (FlyerType selectedFlyerType){setState(() {
-                        currentFlyerType = selectedFlyerType;
-                        _showAnkhsOnly = false;
-                      });},
-                    )),
-
-              ],
-            ),
-
-
-            // Rageh(
-            //   tappingRageh:
-            //       getTranslated(context, 'Active_Language') == 'Arabic' ?
-            //           () async {
-            //               Locale temp = await setLocale('en');
-            //               BldrsApp.setLocale(context, temp);
-            //             } :
-            //           () async {
-            //               Locale temp = await setLocale('ar');
-            //               BldrsApp.setLocale(context, temp);
-            //             },
-            //   doubleTappingRageh: () {print(screenHeight * 0.0075 / screenWidth);},
-            // ),
-
-          ],
+        DreamBox(
+          height: 40,
+          width: 40,
+          boxMargins: EdgeInsets.all(5),
+          icon: Iconz.SavedFlyers,
+          iconSizeFactor: 0.8,
+          color: _showAnkhsOnly == true ? Colorz.Yellow : Colorz.Nothing,
+          boxFunction: (){
+            setState(() {
+              _showAnkhsOnly = !_showAnkhsOnly;
+            });
+          },
         ),
+
+        ...List<Widget>.generate(
+            flyerTypesList.length,
+                (i) => FilterButton(
+              flyerTypeFilter: flyerTypesList[i],
+              currentFlyerType : currentFlyerType,
+              tapButton: (FlyerType selectedFlyerType){setState(() {
+                currentFlyerType = selectedFlyerType;
+                _showAnkhsOnly = false;
+              });},
+            )),
+
+      ],
+      layoutWidget: GridView.builder(
+        // physics: NeverScrollableScrollPhysics(),
+        addAutomaticKeepAlives: true,
+        padding: EdgeInsets.only(right: gridSpacing, left: gridSpacing, top: ((10 )+Ratioz.stratosphere), bottom: gridSpacing * 5 ),
+        // key: new Key(loadedFlyers[flyerIndex].f01flyerID),
+        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+          crossAxisSpacing: gridSpacing,
+          mainAxisSpacing: gridSpacing,
+          childAspectRatio: 1 / Ratioz.xxflyerZoneHeight,
+          maxCrossAxisExtent: gridFlyerWidth,//gridFlyerWidth,
+        ),
+        itemCount: flyers.length,
+        itemBuilder: (ctx, i) =>
+            ChangeNotifierProvider.value(
+                value: flyers[i],
+                // or we can use other syntax like :-
+                // ChangeNotifierProvider(//     create: (c) => flyers[i],
+                child: ChangeNotifierProvider.value(
+                  value: bzz[i],
+                  child: Padding(
+                    key: Key(flyers[i].flyerID),
+                    padding: const EdgeInsets.only(bottom: 0),
+                    child: Flyer(
+                      // flyerID: flyers[i].flyer.flyerID,
+                      flyerSizeFactor: flyerSizeFactor,
+                      currentSlideIndex: 0,
+                      slidingIsOn: true,
+                      tappingFlyerZone: (){
+                        openFlyer(context, flyers[i].flyerID);
+                      },
+                    ),
+                  ),
+                )
+            ),
       ),
     );
   }

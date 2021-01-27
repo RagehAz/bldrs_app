@@ -85,12 +85,12 @@ Future signInAnon() async {
         //     'value' : '${user.email}',
         //     'show' : true
         //   },
-        // ]                      ,      // contacts
-        position : GeoPoint(0, 0)         ,      // position
-        // DateTime.now()         ,      // joinedAt
-        gender : 'gender'                 ,      // gender
-        language : 'language'             ,      // language
-        userStatus : 1                    ,      // userStatus
+        // ],      // contacts
+        position : GeoPoint(0, 0),
+        // DateTime.now(),
+        gender : 'gender',
+        language : 'language',
+        userStatus : decipherUserStatus(1),
       );
 
       return _convertFirebaseUserToUserModel(user);

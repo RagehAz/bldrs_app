@@ -93,6 +93,7 @@ class _BzAboutVerseState extends State<BzAboutVerse> {
                 padding: EdgeInsets.only(left: _margins, right: _margins, bottom: _margins),
                 child: Column(
                   children: <Widget>[
+
                     SuperVerse(
                       verse: '${Wordz.about(context)}\n${widget.bzName}',
                       size: 2,
@@ -102,6 +103,7 @@ class _BzAboutVerseState extends State<BzAboutVerse> {
                       color: Colorz.Grey,
                       maxLines: 2,
                     ),
+
                     SuperVerse(
                       verse: widget.verse,
                       weight: VerseWeight.thin,
