@@ -1,11 +1,11 @@
 import 'package:bldrs/providers/flyers_provider.dart';
-import 'package:bldrs/views/widgets/flyer/pro_flyer.dart';
+import 'package:bldrs/views/widgets/flyer/flyer.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class ProFlyersPageView extends StatelessWidget {
+class FlyersPageView extends StatelessWidget {
 
   // Future<AudioPlayer> playLocalAsset() async {
   //   AudioCache cache = new AudioCache();
@@ -42,7 +42,7 @@ class ProFlyersPageView extends StatelessWidget {
                 child: Padding(
                   key: Key(flyers[i].flyerID),
                   padding: const EdgeInsets.only(bottom: 0),
-                  child: ProFlyer(
+                  child: Flyer(
                     flyerSizeFactor: 1,
                     // currentSlideIndex: 0,
                     slidingIsOn: true,

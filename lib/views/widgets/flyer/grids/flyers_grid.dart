@@ -7,7 +7,7 @@ import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../pro_flyer.dart';
+import '../flyer.dart';
 
 class FlyersGrid extends StatefulWidget {
 
@@ -83,7 +83,7 @@ class _FlyersGridState extends State<FlyersGrid> {
                 return
                   ChangeNotifierProvider.value(
                     value: savedFlyers[index],
-                      child: ProFlyer(
+                      child: Flyer(
                         flyerSizeFactor: (((widget.gridZoneWidth - (gridSpacing*(gridColumnsCount+1)))/gridColumnsCount))/screenWidth,
                         slidingIsOn: false,
                         rebuildFlyerGrid: rebuildGrid,

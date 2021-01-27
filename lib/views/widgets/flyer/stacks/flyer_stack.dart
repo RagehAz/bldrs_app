@@ -9,7 +9,7 @@ import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../pro_flyer.dart';
+import '../flyer.dart';
 
 class FlyerStack extends StatelessWidget {
   final FlyerType flyersType;
@@ -102,7 +102,7 @@ class FlyerStack extends StatelessWidget {
                 // --- works
                 ChangeNotifierProvider.value(
                   value: flyersOfType[_x],
-                  child: ProFlyer(
+                  child: Flyer(
                     flyerSizeFactor: flyerSizeFactor,
                     slidingIsOn: _slidingIsOn,
                     tappingFlyerZone: (){
