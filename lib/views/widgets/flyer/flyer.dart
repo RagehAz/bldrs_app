@@ -15,7 +15,7 @@ import 'parts/progress_bar.dart';
 import 'parts/slides.dart';
 
 class Flyer extends StatefulWidget {
-  // final String flyerID;
+  final BzModel bz;
   final double flyerSizeFactor;
   int currentSlideIndex;
   bool slidingIsOn;
@@ -25,7 +25,7 @@ class Flyer extends StatefulWidget {
 
   Flyer({
     @required this.flyerSizeFactor,
-    // @required this.flyerID,
+    this.bz,
     this.currentSlideIndex = 0,
     this.slidingIsOn = true,
     this.tappingFlyerZone,
@@ -88,7 +88,7 @@ class _FlyerState extends State<Flyer> with AutomaticKeepAliveClientMixin{
   Widget build(BuildContext context) {
 
     final flyer = Provider.of<FlyerModel>(context, listen: false);
-    final BzModel bz = geebBzByBzID(flyer.bzID);//Provider.of<BzModel>(context, listen: false);
+    final bz = Provider.of<BzModel>(context, listen: true);
 // ----------------------------------------------------------------------------
     final String flyerID = flyer.flyerID;
     final String authorID = flyer.authorID;
@@ -103,12 +103,6 @@ class _FlyerState extends State<Flyer> with AutomaticKeepAliveClientMixin{
           // bool            followIsOn        = pro.followIsOn;
           // bool            ankhIsOn          = pro.ankhIsOn;
 // ----------------------------------------------------------------------------
-//     final CoFlyer         coFlyer           = pro.hatCoFlyerByFlyerID(widget.flyerID);
-//     final String          flyerID           = coFlyer?.flyer?.flyerID;
-//     final CoBz            coBz              = coFlyer?.coBz;
-//     final bool            flyerShowsAuthor  = coFlyer?.flyer?.flyerShowsAuthor;
-//     final String          authorID          = coFlyer?.flyer?.authorID;
-//     final int             numberOfSlides    = coFlyer?.coSlides?.length;
 //     final List<CoFlyer>   bzGalleryCoFlyers   = pro.hatCoFlyersByBzID(coBz?.bz?.bzId);
 //     final List<CoAuthor>  bzAuthors         = coFlyer?.coBz?.coAuthors;
 //     final CoAuthor        coAuthor          = pro.hatCoAuthorFromCoAuthorsByAuthorID(bzAuthors, authorID);
@@ -142,7 +136,7 @@ class _FlyerState extends State<Flyer> with AutomaticKeepAliveClientMixin{
           ),
 
           Consumer<BzModel>(
-            builder: (context, pro, _) =>
+            builder: (context, bz, _) =>
              Header(
               flyerZoneWidth: flyerZoneWidth,
               bz: bz,
@@ -154,7 +148,6 @@ class _FlyerState extends State<Flyer> with AutomaticKeepAliveClientMixin{
                 bz.toggleFollow();
                 },
               tappingUnfollow: () {print('UnFollow Tapped');},
-              // bzGalleryCoFlyers: bzGalleryCoFlyers,
               author: author,
               followIsOn: bz.followIsOn,
             ),

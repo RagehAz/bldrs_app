@@ -1,3 +1,4 @@
+import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
@@ -31,6 +32,8 @@ class FlyerStack extends StatelessWidget {
   Widget build(BuildContext context) {
     final FlyersProvider pro = Provider.of<FlyersProvider>(context, listen: false);
     final List<FlyerModel> flyersOfType = pro.getFlyersByFlyerType(flyersType);
+    final List<BzModel> bzz = pro.getBzzOfFlyersList(flyersOfType);
+
 // ----------------------------------------------------------------------------
     double screenWidth = superScreenWidth(context);
     double screenHeight = superScreenHeight(context);
@@ -102,13 +105,16 @@ class FlyerStack extends StatelessWidget {
                 // --- works
                 ChangeNotifierProvider.value(
                   value: flyersOfType[_x],
-                  child: Flyer(
-                    flyerSizeFactor: flyerSizeFactor,
-                    slidingIsOn: _slidingIsOn,
-                    tappingFlyerZone: (){
-                      openFlyer(context, flyersOfType[_x].flyerID);
-                      // _slidingIsOff = false;
-                      },
+                  child: ChangeNotifierProvider.value(
+                    value: bzz[_x],
+                    child: Flyer(
+                      flyerSizeFactor: flyerSizeFactor,
+                      slidingIsOn: _slidingIsOn,
+                      tappingFlyerZone: (){
+                        openFlyer(context, flyersOfType[_x].flyerID);
+                        // _slidingIsOff = false;
+                        },
+                    ),
                   ),
                 );
 
