@@ -98,9 +98,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
         ContactsBubble(),
 
-        FollowingBzzBubble(
-          // bzLogos: bzLogos,
-        ),
+        FollowingBzzBubble(),
 
         PyramidsHorizon(),
 

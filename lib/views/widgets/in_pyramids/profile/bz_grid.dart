@@ -1,15 +1,17 @@
+import 'package:bldrs/models/bz_model.dart';
+import 'package:bldrs/views/widgets/flyer/parts/header_parts/common_parts/bz_logo.dart';
 import 'package:flutter/material.dart';
 
 class BzGrid extends StatelessWidget {
 
   final double gridZoneWidth;
   final int numberOfColumns;
-  // final List<FlyerData> bzLogos;
+  final List<BzModel> bzz;
 
   BzGrid({
     @required this.gridZoneWidth,
     this.numberOfColumns = 3,
-    // @required this.bzLogos,
+    @required this.bzz,
 });
 
   @override
@@ -65,16 +67,16 @@ class BzGrid extends StatelessWidget {
 
             ),
 
-            // children: bzLogos.map(
-            //       (flyerData) => BzLogo(
-            //         width: gridBzWidth,
-            //         image: flyerData.f03bzLogo,
-            //         authorIsOn: false,
-            //         bzPageIsOn: false,
-            //         miniMode: true,
-            //       ),
-            //
-              // ).toList(),
+            children: bzz.map(
+                  (bz) => BzLogo(
+                    width: gridBzWidth,
+                    image: bz.bzLogo,
+                    bzPageIsOn: false,
+                    miniMode: true,
+                    flyerShowsAuthor: false,
+                  ),
+
+              ).toList(),
 
           ),
     );

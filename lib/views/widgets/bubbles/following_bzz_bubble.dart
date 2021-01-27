@@ -1,26 +1,24 @@
+import 'package:bldrs/models/bz_model.dart';
+import 'package:bldrs/models/flyer_model.dart';
+import 'package:bldrs/models/user_model.dart';
+import 'package:bldrs/providers/flyers_provider.dart';
+import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
+import 'package:bldrs/views/widgets/in_pyramids/profile/bz_grid.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class FollowingBzzBubble extends StatelessWidget {
-  // final List<FlyerData> bzLogos;
-
-  // BldrsFollowing({
-  //   // @required this.bzLogos,
-  // });
 
   @override
   Widget build(BuildContext context) {
-    // double screenWidth = MediaQuery.of(context).size.width;
-    // double screenHeight = MediaQuery.of(context).size.height;
-    // double pageMargin = Ratioz.ddAppBarMargin * 2;
-
-    double abPadding = Ratioz.ddAppBarMargin;
-    // double abHeight = screenWidth * 0.25;
-    // double profilePicHeight = abHeight;
-    // double abButtonsHeight = abHeight - (2 * abPadding);
+    final FlyersProvider pro = Provider.of<FlyersProvider>(context, listen: false);
+    // final user = Provider.of<UserModel>(context);
+    // List<dynamic> followedBzzIDs = [ 'pp3', ...(user?.followedBzzIDs)];
+    final List<BzModel> followedBzz = pro.getFollowedBzz;
 
     return InPyramidsBubble(
       centered: false,
@@ -30,16 +28,16 @@ class FollowingBzzBubble extends StatelessWidget {
           verse: 'Following ${10} Businesses',
           size: 2,
           centered: false,
-          margin: abPadding,
+          margin: Ratioz.ddAppBarMargin,
           color: Colorz.Grey,
         ),
 
 
-        // BzGrid(
-        //   gridZoneWidth: screenWidth - pageMargin * 4,
-        //   bzLogos: bzLogos,
-        //   numberOfColumns: 7,
-        // ),
+        BzGrid(
+          gridZoneWidth: superScreenWidth(context) - Ratioz.ddAppBarMargin * 4,
+          bzz: followedBzz,
+          numberOfColumns: 7,
+        ),
 
 
       ],

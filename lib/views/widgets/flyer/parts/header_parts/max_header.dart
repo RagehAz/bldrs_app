@@ -56,7 +56,7 @@ class MaxHeader extends StatelessWidget {
         BzPgFields(
           flyerZoneWidth: flyerZoneWidth,
           bzPageIsOn: bzPageIsOn,
-          bzFieldsList: bzScope,
+          bzScope: bzScope,
         ),
 
         // --- BUSINESS BIRTH YEAR

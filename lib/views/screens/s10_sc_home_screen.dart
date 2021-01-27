@@ -19,17 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // final pro = Provider.of<CoFlyersProvider>(context, listen: true); // this is the FlyersProvider data wormHole
-    // final flyers = flyersData.hatAllFlyers;
-// ----------------------------------------------------------------------------
-    // List<CoFlyer> propertyFlyers  =   pro.hatCoFlyersByFlyerType(FlyerType.Property);
-    // List<CoFlyer> designFlyers    =   pro.hatCoFlyersByFlyerType(FlyerType.Design);
-    // List<CoFlyer> productFlyers   =   pro.hatCoFlyersByFlyerType(FlyerType.Product);
-    // List<CoFlyer> projectFlyers   =   pro.hatCoFlyersByFlyerType(FlyerType.Project);
-    // List<CoFlyer> craftFlyers     =   pro.hatCoFlyersByFlyerType(FlyerType.Craft);
-    // List<CoFlyer> equipmentFlyers =   pro.hatCoFlyersByFlyerType(FlyerType.Equipment);
-// ----------------------------------------------------------------------------
-// ----------------------------------------------------------------------------
+
     return MainLayout(
       pyramids: Iconz.PyramidsYellow,
       appBarType: AppBarType.Main,
