@@ -17,12 +17,12 @@ import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter/material.dart';
-
+// ----------------------------------------------------------------------------
   List<CityModel> cityDataBase = dbCities;
   List<CountryModel> countryDataBase = dbCountries;
   List<RegionModel> regionDataBase = dbRegions;
   List<ContinentModel> continentDataBase = dbContinents;
-
+// ----------------------------------------------------------------------------
 Widget aDot (){
   return
 Container(
@@ -34,7 +34,7 @@ Container(
   ),
 );
 }
-
+// ----------------------------------------------------------------------------
 List<Widget> worldDots(double width){
   final dots = <Widget>[];
   for(var i = 0; i < cityDataBase.length; i++ ){
@@ -48,7 +48,7 @@ List<Widget> worldDots(double width){
   }
   return dots;
 }
-
+// ----------------------------------------------------------------------------
 List<CityModel> countryCities(String countryFlag){
   final String countryISO3 = (countryDataBase.singleWhere((c) => c.countryFlag == countryFlag)).countryISO3;
 
@@ -60,7 +60,7 @@ List<CityModel> countryCities(String countryFlag){
 
   return foundCities;
 }
-
+// ----------------------------------------------------------------------------
 List<Widget> countryDots(double boxWidth, String countryFlag){
 
   final List<CityModel> foundCities = countryCities(countryFlag);
@@ -120,7 +120,7 @@ List<Widget> countryDots(double boxWidth, String countryFlag){
 
   return dots;
 }
-
+// ----------------------------------------------------------------------------
 class CityLabel extends StatelessWidget {
   final String cityName;
 
@@ -142,13 +142,13 @@ class CityLabel extends StatelessWidget {
     );
   }
 }
-
+// ----------------------------------------------------------------------------
 LatLng cityLocationByCityID(int cityID){
   final double latitude = (cityDataBase.singleWhere((city) => city.cityID == cityID)).latitude;
   final double longitude = (cityDataBase.singleWhere((city) => city.cityID == cityID)).longitude;
   return LatLng(latitude, longitude);
 }
-
+// ----------------------------------------------------------------------------
 Future<BitmapDescriptor> getTheFuckingMarker()async{
   BitmapDescriptor customMarker;
    customMarker = await BitmapDescriptor.fromAssetImage(
@@ -159,7 +159,7 @@ Future<BitmapDescriptor> getTheFuckingMarker()async{
     );
    return customMarker;
   }
-
+// ----------------------------------------------------------------------------
 HashSet<Marker> countryCitiesMarkers (String countryFlag, BitmapDescriptor customMarker){
   final List<CityModel> foundCities = countryCities(countryFlag);
   var citiesMarkers = HashSet<Marker>();
@@ -182,7 +182,7 @@ HashSet<Marker> countryCitiesMarkers (String countryFlag, BitmapDescriptor custo
 
   return citiesMarkers;
 }
-
+// ----------------------------------------------------------------------------
 HashSet<Marker> someMarker (BitmapDescriptor customMarker, double latitude, double longitude){
   var someMarker = HashSet<Marker>();
    someMarker.add(
@@ -200,14 +200,14 @@ HashSet<Marker> someMarker (BitmapDescriptor customMarker, double latitude, doub
    );
    return someMarker;
    }
-
+// ----------------------------------------------------------------------------
 Future<Uint8List> getBytesFromAsset(String iconPath, int width) async {
   ByteData data = await rootBundle.load(iconPath);
   ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(), targetWidth: width);
   ui.FrameInfo fi = await codec.getNextFrame();
   return (await fi.image.toByteData(format: ui.ImageByteFormat.png)).buffer.asUint8List();
 }
-
+// ----------------------------------------------------------------------------
 Future < Uint8List > getBytesFromCanvas(int width, int height, urlAsset) async {
     final ui.PictureRecorder pictureRecorder = ui.PictureRecorder();
     final Canvas canvas = Canvas(pictureRecorder);
@@ -233,7 +233,7 @@ Future < Uint8List > getBytesFromCanvas(int width, int height, urlAsset) async {
     final data = await img.toByteData(format: ui.ImageByteFormat.png);
     return data.buffer.asUint8List();
 }
-
+// ----------------------------------------------------------------------------
 Future < ui.Image > loadImage(List < int > img) async {
     final Completer < ui.Image > completer = new Completer();
     ui.decodeImageFromList(img, (ui.Image img) {
@@ -242,7 +242,7 @@ Future < ui.Image > loadImage(List < int > img) async {
     });
     return completer.future;
 }
-
+// ----------------------------------------------------------------------------
 // Future<Position> getUserLocation() async {
 //   dynamic currentLocation = LocationData;
 //   var error;
@@ -253,4 +253,4 @@ Future < ui.Image > loadImage(List < int > img) async {
 //   Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
 //   return position;
 // }
-
+// ----------------------------------------------------------------------------

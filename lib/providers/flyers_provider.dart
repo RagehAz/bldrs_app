@@ -2,7 +2,6 @@ import 'package:bldrs/ambassadors/database/db_bzz.dart';
 import 'package:bldrs/ambassadors/database/db_flyer.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
-import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:flutter/cupertino.dart';
 
 class FlyersProvider with ChangeNotifier {

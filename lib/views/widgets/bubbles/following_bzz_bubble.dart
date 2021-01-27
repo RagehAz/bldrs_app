@@ -1,6 +1,4 @@
 import 'package:bldrs/models/bz_model.dart';
-import 'package:bldrs/models/flyer_model.dart';
-import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
