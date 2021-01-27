@@ -5,7 +5,7 @@ import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/tile_bubble.dart';
 import 'package:flutter/material.dart';
 
-import '../pro_flyer.dart';
+import '../flyer.dart';
 
 List<int> otherFlyers = [0,1,2,3,4,5,6,7,8,9,];
 
@@ -54,7 +54,7 @@ class FlyerCoversStack extends StatelessWidget {
             Container(
               width: coverFlyerWidth,
               height: coverFlyerHeight,
-              child: ProFlyer(
+              child: Flyer(
                 flyerSizeFactor: coverFlyerWidth/screenWidth,
                 // flyerID: flyersDataList[0].flyer.flyerID,
                 slidingIsOn: false,
@@ -86,7 +86,7 @@ class FlyerCoversStack extends StatelessWidget {
                           Container(
                               width: otherFlyersWidth,
                               height: otherFlyersHeight,
-                              child: ProFlyer(
+                              child: Flyer(
                                 flyerSizeFactor: otherFlyersWidth/screenWidth,
                                 // flyerID: flyersDataList[index].flyer.flyerID,
                                 slidingIsOn: false,
@@ -162,7 +162,7 @@ class TopFlyersStack extends StatelessWidget {
                       tag: flyersDataList[index].flyerID,
                       child: Material(
                         type: MaterialType.transparency,
-                        child: ProFlyer(
+                        child: Flyer(
                           flyerSizeFactor: flyerWidth/screenWidth,
                           // flyerID: flyersDataList[index].flyer.flyerID,
                           slidingIsOn: false,

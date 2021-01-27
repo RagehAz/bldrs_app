@@ -4,20 +4,20 @@ import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/appbar/ab_main.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
-import 'package:bldrs/views/widgets/flyer/pro_flyer.dart';
+import 'package:bldrs/views/widgets/flyer/flyer.dart';
 import 'package:bldrs/views/widgets/pyramids/pyramids.dart';
 import 'package:bldrs/views/widgets/space/skies/night_sky.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:provider/provider.dart';
 
-class ProFlyersGridView extends StatefulWidget {
+class FlyersGridView extends StatefulWidget {
 
   @override
-  _ProFlyersGridViewState createState() => _ProFlyersGridViewState();
+  _FlyersGridViewState createState() => _FlyersGridViewState();
 }
 
-class _ProFlyersGridViewState extends State<ProFlyersGridView> {
+class _FlyersGridViewState extends State<FlyersGridView> {
   // ScrollController _controller;
   var _showAnkhsOnly = false;
   FlyerType currentFlyerType = FlyerType.General;
@@ -138,7 +138,7 @@ class _ProFlyersGridViewState extends State<ProFlyersGridView> {
                       child: Padding(
                         key: Key(flyers[i].flyerID),
                         padding: const EdgeInsets.only(bottom: 0),
-                        child: ProFlyer(
+                        child: Flyer(
                           // flyerID: flyers[i].flyer.flyerID,
                           flyerSizeFactor: flyerSizeFactor,
                           currentSlideIndex: 0,

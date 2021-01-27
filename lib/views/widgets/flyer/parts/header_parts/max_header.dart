@@ -16,7 +16,6 @@ class MaxHeader extends StatelessWidget {
   final bool bzPageIsOn;
   final BzModel bz;
   final bool bzShowsTeam;
-  final String bzID;
   // final String authorID;
 
 
@@ -25,15 +24,13 @@ class MaxHeader extends StatelessWidget {
     @required this.bzPageIsOn,
     this.bz,
     this.bzShowsTeam,
-    this.bzID,
     // @required this.authorID,
   });
 
   @override
   Widget build(BuildContext context) {
-    final pro = Provider.of<FlyersProvider>(context);
-    // final bz bz = pro.hatbzByBzID(), mesh wa2to
-    final List<FlyerModel> galleryFlyers = pro.getAllFlyers;
+    final prof = Provider.of<FlyersProvider>(context);
+    final List<FlyerModel> galleryFlyers = prof.getFlyersByBzModel(bz);
     // === === === === === === === === === === === === === === === === === === ===
     List<AuthorModel> bzAuthors = bz != null ? bz?.authors : [];
     // === === === === === === === === === === === === === === === === === === ===
@@ -62,21 +59,13 @@ class MaxHeader extends StatelessWidget {
           bzFieldsList: bzScope,
         ),
 
-        // // --- BUSINESS BIRTH YEAR
-        // BzPgVerse(
-        //   flyerZoneWidth: flyerZoneWidth,
-        //   bzPageIsOn: bzPageIsOn,
-        //   verse: 'Established in $bzBirth',
-        //   size: 2,
-        // ),
-        //
-        // // --- BUSINESS BIRTH YEAR
-        // BzPgVerse(
-        //   flyerZoneWidth: flyerZoneWidth,
-        //   bzPageIsOn: bzPageIsOn,
-        //   verse: 'In Bldrs.net since $bldrBirth',
-        //   size: 2,
-        // ),
+        // --- BUSINESS BIRTH YEAR
+        BzPgVerse(
+          flyerZoneWidth: flyerZoneWidth,
+          bzPageIsOn: bzPageIsOn,
+          verse: 'In Bldrs.net since ${bz.bldrBirth}',
+          size: 2,
+        ),
 
         // --- BUSINESS DESCRIPTION
         BzAboutVerse(
@@ -156,7 +145,7 @@ class MaxHeader extends StatelessWidget {
           iconSizeFactor: 0.95,
         ),
 
-        // --- PUBLISHED FLYERS AND BZ TEAM
+        // --- BZ GALLERY
         Gallery(
           flyerZoneWidth: flyerZoneWidth,
           bzShowsTeam: bzShowsTeam,
@@ -165,7 +154,7 @@ class MaxHeader extends StatelessWidget {
           bzPageIsOn: bzPageIsOn,
           bzConnects: bzConnects,
           authors: bzAuthors,
-          galleryCoFlyers: galleryFlyers,
+          galleryFlyers: galleryFlyers,
           bzName:  bz != null ? bz.bzName : '',
           // tappingMiniFlyer: openFlyer,
         ),

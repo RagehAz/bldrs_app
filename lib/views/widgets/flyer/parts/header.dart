@@ -11,83 +11,10 @@ import 'header_parts/max_header.dart';
 import 'header_parts/max_header_parts/bz_pg_headline.dart';
 import 'header_parts/mini_header_parts/mini_header_strip.dart';
 
-// class OLDHeader extends StatelessWidget {
-//   final bz bz;
-//   final CoAuthor coAuthor;
-//   final bool flyerShowsAuthor;
-//   // final List<CoFlyer> bzGalleryCoFlyers;
-//   final bool followIsOn;
-//   final double flyerZoneWidth;
-//   final bool bzPageIsOn;
-//   final Function tappingHeader;
-//   final Function tappingFollow;
-//   final Function tappingUnfollow;
-//   final Function tappingGallery;
-//
-//   OLDHeader({
-//     @required this.bz,
-//     @required this.coAuthor,
-//     @required this.flyerShowsAuthor,
-//     // @required this.bzGalleryCoFlyers,
-//     @required this.followIsOn,
-//     @required this.flyerZoneWidth,
-//     @required this.bzPageIsOn,
-//     @required this.tappingHeader,
-//     @required this.tappingFollow,
-//     @required this.tappingUnfollow,
-//     @required this.tappingGallery,
-//   });
-//
-//   @override
-//   Widget build(BuildContext context) {
-//
-//     return GestureDetector(
-//       onTap: tappingHeader,
-//       child: BackdropFilter(
-//         filter: superBlur(bzPageIsOn),
-//         child: ListView(
-//           physics: superScroller(bzPageIsOn),
-//           shrinkWrap: true,
-//           addAutomaticKeepAlives: true,
-//           children: <Widget>[
-//
-//             MiniHeader(
-//               bz: bz,
-//               coAuthor: coAuthor,
-//               flyerShowsAuthor: flyerShowsAuthor,
-//               bzGalleryCount: 0,//bzGalleryCoFlyers.length,
-//               flyerZoneWidth: flyerZoneWidth,
-//               bzPageIsOn: bzPageIsOn,
-//               tappingHeader: tappingFollow,
-//               tappingFollow: tappingFollow,
-//               followIsOn: followIsOn,
-//             ),
-//
-//             // 3ayzeen zorar follow gowwa el bzPage
-//
-//             // bzPageIsOn == false ? Container() :
-//             MaxHeader(
-//               // galleryCoFlyers: bzGalleryCoFlyers,
-//               flyerZoneWidth: flyerZoneWidth,
-//               bzPageIsOn: bzPageIsOn,
-//               bz: bz,
-//               bzShowsTeam: bz?.bz?.bzShowsTeam,
-//               bzID: bz.bz.bzId,
-//             ),
-//
-//           ],
-//         ),
-//       )
-//     );
-//
-//   }
-// }
-
 class Header extends StatelessWidget {
   final BzModel bz;
   final AuthorModel author;
   final bool flyerShowsAuthor;
-  // final List<CoFlyer> bzGalleryCoFlyers;
   final bool followIsOn;
   final double flyerZoneWidth;
   final bool bzPageIsOn;
@@ -181,7 +108,6 @@ class Header extends StatelessWidget {
                 bzPageIsOn: bzPageIsOn,
                 bz: bz,
                 bzShowsTeam: bz?.bzShowsTeam,
-                bzID: bz?.bzId,
               ),
 
             ],

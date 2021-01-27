@@ -307,23 +307,23 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
 
           // --- 13 - PRO FLYERS PAGE VIEW -------------------------------
           BTMain(
-            buttonVerse: '13 - ProFlyersPageView',
+            buttonVerse: '13 - FlyersPageView',
             buttonIcon: Iconz.Statistics,
             buttonColor: Colorz.Green,
             splashColor: Colorz.White,
             buttonVerseShadow: true,
-            function: () => goToNewScreen(context, ProFlyersPageView()),
+            function: () => goToNewScreen(context, FlyersPageView()),
             stretched: false,
           ),
 
           // --- 14 - PRO FLYERS GRID VIEW -------------------------------
           BTMain(
-            buttonVerse: '14 - ProFlyersGridView',
+            buttonVerse: '14 - FlyersGridView',
             buttonIcon: Iconz.FlyerGrid,
             buttonColor: Colorz.Green,
             splashColor: Colorz.White,
             buttonVerseShadow: true,
-            function: () => goToNewScreen(context, ProFlyersGridView()),
+            function: () => goToNewScreen(context, FlyersGridView()),
             stretched: false,
           ),
 
