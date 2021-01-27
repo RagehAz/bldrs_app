@@ -6,15 +6,11 @@ import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/views/screens/s05_pg_countries_page.dart';
 import 'package:bldrs/views/screens/s40_sc_create_bz_screen.dart';
-import 'package:bldrs/views/screens/xxx_obelisk/x03_font_test_screen.dart';
-import 'package:bldrs/views/screens/xxx_obelisk/x04_flyers_sizes_screen.dart';
-import 'package:bldrs/views/screens/xxx_obelisk/x06_single_collection_screen.dart';
-import 'package:bldrs/views/screens/xxx_obelisk/x06_swiper_layout.dart';
-import 'package:bldrs/views/screens/xxx_obelisk/x08_earth_screen.dart';
 import 'package:bldrs/views/widgets/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/views/widgets/buttons/bt_main.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/layouts/swiper_layout.dart';
 import 'package:bldrs/views/widgets/planet/google_map_2.dart';
 import 'package:bldrs/views/widgets/planet/google_map_3.dart';
 import 'package:bldrs/views/widgets/planet/google_map_4.dart';
@@ -30,17 +26,16 @@ import 'package:bldrs/xxx_LABORATORY/camera_and_location/x13_camera.dart';
 import 'package:bldrs/xxx_LABORATORY/forms_and_inputs/popup.dart';
 import 'package:bldrs/xxx_LABORATORY/forms_and_inputs/form.dart';
 import 'package:bldrs/xxx_LABORATORY/ideas/circle_list.dart';
-// import 'package:bldrs/xxx_LABORATORY/testers/cipher_tester.dart';
-// import 'package:bldrs/xxx_LABORATORY/testers/database_viewer_screen.dart';
-// import 'package:bldrs/xxx_LABORATORY/testers/test_subjects.dart' as TestSubjects;
-// import 'package:bldrs/xxx_LABORATORY/testers/testerScreen.dart';
+import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x03_font_test_screen.dart';
+import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x08_earth_screen.dart';
 import 'package:flutter/material.dart';
 import 'o_01_translations.dart';
+import 'x04_flyers_sizes_screen.dart';
+import 'x06_single_collection_screen.dart';
 import 'x07_chat_screen.dart';
 import 'x10_pro_flyer_page_view.dart';
 import 'x11_pro_flyer_grid_view.dart';
 import 'x12_checkbox_lesson.dart';
-import 'x19_new_navigation_method.dart';
 // === === === === === === === === === === === === === === === === === === ===
 // ---------------------------------------------------------------------------
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
@@ -518,17 +513,6 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
             splashColor: Colorz.Yellow,
             stretched: true,
             function: () => goToNewScreen(context, CheckBoxLessonScreen()),
-          ),
-
-          // --- 35 -  NewNavigationMethodScreen -------------------------------
-          BTMain(
-            buttonVerse: '34 - NewNavigationMethodScreen',
-            buttonColor: Colorz.Grey,
-            buttonIcon: Iconz.Statistics,
-            buttonVerseShadow: true,
-            splashColor: Colorz.Yellow,
-            stretched: true,
-            function: () => goToNewScreen(context, NewNavigationMethodScreen()),
           ),
 
           // --- 36 -  AnimationsScreen -------------------------------

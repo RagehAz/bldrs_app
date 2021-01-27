@@ -1,7 +1,4 @@
-import 'package:bldrs/ambassadors/database/db_bzz.dart';
-import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
-import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/sub_models/slide_model.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

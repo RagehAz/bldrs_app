@@ -9,7 +9,6 @@ UserModel geebUserByUserID(String userID){
   return user;
 }
 
-
 final List<UserModel> dbUsers = [
 
   /// userID: 'u01',

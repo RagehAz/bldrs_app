@@ -1,4 +1,3 @@
-import 'package:bldrs/ambassadors/database/db_bzz.dart';
 import 'package:bldrs/ambassadors/database/db_user.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';

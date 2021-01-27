@@ -6,16 +6,14 @@ import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:flutter/material.dart';
 
 class AnkhButton extends StatefulWidget {
-  // final String flyerID;
   final bool microMode;
   final bool bzPageIsOn;
   final bool slidingIsOn;
   final double flyerZoneWidth;
-  bool ankhIsOn;
+  final bool ankhIsOn;
   final Function tappingAnkh;
 
   AnkhButton({
-    // @required this.flyerID,
     @required this.microMode,
     @required this.bzPageIsOn,
     @required this.flyerZoneWidth,
@@ -31,10 +29,13 @@ class AnkhButton extends StatefulWidget {
 class _AnkhButtonState extends State<AnkhButton> with SingleTickerProviderStateMixin{
   AnimationController _ankhAniController;
   Animation _ankhColorAni;
+  bool _ankhIsOn;
 
   @override
   void initState() {
     super.initState();
+
+    _ankhIsOn = widget.ankhIsOn;
 
     _ankhAniController = AnimationController(
       duration: Duration(milliseconds: 1000),
@@ -52,12 +53,12 @@ class _AnkhButtonState extends State<AnkhButton> with SingleTickerProviderStateM
     _ankhAniController.addStatusListener((status) {
       if(status == AnimationStatus.completed){
         setState(() {
-          widget.ankhIsOn = true;
+          _ankhIsOn = true;
         });
       }
       if(status == AnimationStatus.dismissed){
         setState(() {
-          widget.ankhIsOn = false;
+          _ankhIsOn = false;
         });
       }
 
@@ -80,10 +81,10 @@ class _AnkhButtonState extends State<AnkhButton> with SingleTickerProviderStateM
     // ----------------------------------------------------------------------------
     double footerBTMargins =
     (
-        (widget.ankhIsOn == true && widget.microMode == true && widget.slidingIsOn == false) ?
+        (_ankhIsOn == true && widget.microMode == true && widget.slidingIsOn == false) ?
         widget.flyerZoneWidth * 0.01// for micro flyer when AnkhIsOn
             :
-        (widget.ankhIsOn == true) ?
+        (_ankhIsOn == true) ?
         widget.flyerZoneWidth * 0.015 // for Normal flyer when AnkhIsOn
             :
         widget.flyerZoneWidth * 0.025 // for Normal flyer when !AnkhIsOn
@@ -94,7 +95,7 @@ class _AnkhButtonState extends State<AnkhButton> with SingleTickerProviderStateM
     // String saveBTIcon = ankhIsOn == true ? Iconz.SaveOn : Iconz.SaveOff;
     // String saveBTVerse = ankhIsOn == true ? translate(context, 'Saved') :
     // translate(context, 'Save');
-    Color saveBTColor = widget.ankhIsOn == true ? Colorz.YellowSmoke : Colorz.Nothing;
+    Color saveBTColor = _ankhIsOn == true ? Colorz.YellowSmoke : Colorz.Nothing;
     // ----------------------------------------------------------------------------
     // Color flyerShadowColor = ankhIsOn == true ? Colorz.BlackBlack : Colorz.BlackBlack;
     // ----------------------------------------------------------------------------
@@ -112,7 +113,7 @@ class _AnkhButtonState extends State<AnkhButton> with SingleTickerProviderStateM
                 children: <Widget>[
 
                   AnimatedContainer(
-                    duration: Duration(milliseconds: 1000),
+                    duration: Duration(milliseconds: 200),
                     width: saveBTRadius*2,
                     height: saveBTRadius*2,
                     decoration: BoxDecoration(
@@ -132,7 +133,7 @@ class _AnkhButtonState extends State<AnkhButton> with SingleTickerProviderStateM
                       color: Colorz.Nothing,
                       boxFunction: (){
                         widget.tappingAnkh();
-                        widget.ankhIsOn == false ? _ankhAniController.forward() :
+                        _ankhIsOn == false ? _ankhAniController.forward() :
                         _ankhAniController.reverse();
                       }
                   ),
