@@ -110,9 +110,9 @@ class FollowBT extends StatelessWidget {
     String followText = Wordz.follow(context);
     Color followTextColor = followOn == true ? Colorz.BlackBlack : Colorz.White;
     // === === === === === === === === === === === === === === === === === ===
-    void followTap() {
-      tappingFollow();
-    }
+    // void followTap() {
+    //   tappingFollow();
+    // }
     // === === === === === === === === === === === === === === === === === ===
     // void unFollowTap() {
     //   tappingUnfollow();

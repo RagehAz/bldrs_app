@@ -3,7 +3,6 @@ import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_zone.dart';
-import 'package:bldrs/views/widgets/flyer/parts/header.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
@@ -73,11 +72,11 @@ void dispose() {
     final flyer = pro.getFlyerByFlyerID('f035');
     // final bz = flyer.bz;
 
-    final double screenWidth = superScreenWidth(context);
+    // final double screenWidth = superScreenWidth(context);
     final double flyerSizeFactor = 1;
     final double flyerZoneWidth = superFlyerZoneWidth(context, flyerSizeFactor);
 
-    final double deviceRatio = superDeviceRatio(context);
+    // final double deviceRatio = superDeviceRatio(context);
     // double controllerRatio = _controller.value.aspectRatio;
     // double fuckingRatio = controllerRatio / deviceRatio;
     // double scale =  controllerRatio < deviceRatio ? 1/fuckingRatio : fuckingRatio ;

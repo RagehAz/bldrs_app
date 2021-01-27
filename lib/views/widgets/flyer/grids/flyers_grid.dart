@@ -94,6 +94,7 @@ class _FlyersGridState extends State<FlyersGrid> {
                           tappingFlyerZone: (){
                             openFlyer(context, savedFlyers[index].flyerID);
                           },
+                          flyerIsInGalleryNow: true,
                         ),
                       ),
                     );

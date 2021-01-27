@@ -39,7 +39,6 @@ class Header extends StatelessWidget {
 
     // === === === === === === === === === === === === === === === === === === ===
     String _phoneNumber = feinFirstPhoneFromContacts(bz?.bzContacts);
-    print('bzzzzzbzzz aho ${_phoneNumber}, bzID : ${bz.bzID}');
     // --- B.LOCALE --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
     String bzCity = bz != null ? bz?.bzCountry : '';
     String bzCountry = bz != null ? bz?.bzCity : '';
