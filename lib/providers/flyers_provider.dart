@@ -18,12 +18,8 @@ class FlyersProvider with ChangeNotifier {
     return flyer;
   }
 // ---------------------------------------------------------------------------
-  List<FlyerModel> getSavedFlyersByFlyersIDs (List<String> savedFlyersIDsList){
-    List<FlyerModel> savedFlyersList = [];
-    savedFlyersIDsList.forEach((id) {
-      savedFlyersList.add(getFlyerByFlyerID(id));
-    });
-    return savedFlyersList;
+  List<FlyerModel> get getSavedFlyers {
+    return _loadedFlyers.where((fl) => fl.ankhIsOn).toList();
   }
 // ---------------------------------------------------------------------------
   List<FlyerModel> getFlyersByFlyersIDs(List<dynamic> flyersIDs){
@@ -88,14 +84,6 @@ class FlyersProvider with ChangeNotifier {
     return bz;
   }
 // ---------------------------------------------------------------------------
-  List<BzModel> getAllFollowedBzFromDB(List<String> followedBzzIDs){
-    List<BzModel> followedBzzList = [];
-    followedBzzIDs.forEach((id) {
-      followedBzzList.add(getBzByBzID(id));
-    });
-    return followedBzzList;
-  }
-// ---------------------------------------------------------------------------
 List<BzModel> getBzzOfFlyersList(List<FlyerModel> flyersList){
     List<BzModel> bzz = new List();
     flyersList.forEach((fl) {
@@ -104,5 +92,14 @@ List<BzModel> getBzzOfFlyersList(List<FlyerModel> flyersList){
     return bzz;
 }
 // ---------------------------------------------------------------------------
-
+List<BzModel> getBzzByBzzIDs(List<String> bzzIDs){
+List<BzModel> bzz = new List();
+bzzIDs.forEach((bzID) {bzz.add(getBzByBzID(bzID));});
+return bzz;
+}
+// ---------------------------------------------------------------------------
+List<BzModel> get getFollowedBzz{
+    return _loadedBzz.where((bz) => bz.followIsOn).toList();
+}
+// ---------------------------------------------------------------------------
 }

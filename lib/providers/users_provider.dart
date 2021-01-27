@@ -23,7 +23,7 @@ class UserProvider {
     // DateTime joinedAt,
     String gender,
     String language,
-    int userStatus,
+    UserStatus userStatus,
   }) async {
     return await usersCollection.doc(userID).set({
       'userID'              : userID                ,
@@ -39,7 +39,7 @@ class UserProvider {
       // 'joinedAt'            : joinedAt              ,
       'gender'              : gender                ,
       'language'            : language              ,
-      'userStatus'          : userStatus            ,
+      'userStatus'          : cipherUserStatus(userStatus)            ,
     });
   }
 
@@ -64,7 +64,7 @@ class UserProvider {
           // joinedAt            : doc.data()['joinedAt']                ?? DateTime.june,
           gender              : doc.data()['gender']                  ?? '',
           language            : doc.data()['language']                ?? '',
-          userStatus          : doc.data()['userStatus']              ?? 1,
+          userStatus          : decipherUserStatus(doc.data()['userStatus']?? 1),
       );
     }).toList();
   }
@@ -88,7 +88,7 @@ class UserProvider {
       // joinedAt            : doc.data()['joinedAt']                ?? DateTime.june,
       gender              : doc.data()['gender']                  ?? '',
       language            : doc.data()['language']                ?? '',
-      userStatus          : doc.data()['userStatus']              ?? 1,
+      userStatus          : decipherUserStatus(doc.data()['userStatus']?? 1),
     );
   }
 

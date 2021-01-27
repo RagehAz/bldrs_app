@@ -60,7 +60,7 @@ List<UserStatus> userTypesList = [
   UserStatus.BzAuthor,
 ];
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
-UserStatus decipherUserType (int userStatus){
+UserStatus decipherUserStatus (int userStatus){
   switch (userStatus){
     case 1:   return   UserStatus.NormalUser;         break;
     case 2:   return   UserStatus.SearchingUser;      break;
@@ -73,7 +73,7 @@ UserStatus decipherUserType (int userStatus){
   }
 }
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
-int cipherUserType (UserStatus userStatus){
+int cipherUserStatus (UserStatus userStatus){
   switch (userStatus){
     case UserStatus.NormalUser       :  return 1; break ;
     case UserStatus.SearchingUser    :  return 2; break ;

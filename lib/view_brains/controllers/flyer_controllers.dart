@@ -20,7 +20,7 @@ void shareFlyer (BuildContext context, FlyerLink flyerLink) {
 String feinFirstPhoneFromContacts(List<ContactModel> contacts){
   // String phone = contacts?.singleWhere((co) => co.contactType == ContactType.Phone, orElse: ()=> null)?.contact;
   List<String> phones = new List();
-  contacts.forEach((co) {
+  contacts?.forEach((co) {
     if(co.contactType == ContactType.Phone){phones.add(co.contact);}
   });
 return phones.length == 0 ? null : phones[0];

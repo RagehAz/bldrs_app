@@ -1,5 +1,8 @@
 import 'dart:io';
+import 'package:bldrs/models/bz_model.dart';
+import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/sub_models/slide_model.dart';
+import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/view_brains/controllers/flyer_sliding_controllers.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
@@ -271,9 +274,10 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> {
   // ----------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    final pro = Provider.of<FlyersProvider>(context);
-    final flyer = pro.getFlyerByFlyerID('f035');
-    // final bz = Flyer.coBz;
+    final FlyersProvider pro = Provider.of<FlyersProvider>(context, listen: false);
+    final user = Provider.of<UserModel>(context);
+    final BzModel bz = pro.getBzByBzID('br1');
+    final AuthorModel author = bz.authors[1];
     // ----------------------------------------------------------------------
     final double flyerSizeFactor = 0.73;
     final double flyerZoneWidth = superFlyerZoneWidth(context, flyerSizeFactor);
@@ -323,17 +327,17 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> {
                             ),
                       ),
 
-                      // Header(
-                      //   coBz: coBz,
-                      //   coAuthor: coBz.coAuthors[2],
-                      //   flyerShowsAuthor: coFlyer.flyer.flyerShowsAuthor,
-                      //   followIsOn: false,
-                      //   flyerZoneWidth: superFlyerZoneWidth(context, flyerSizeFactor),
-                      //   bzPageIsOn: false,
-                      //   tappingHeader: (){},
-                      //   tappingFollow: (){},
-                      //   tappingUnfollow: (){},
-                      // ),
+                      Header(
+                        bz: bz,
+                        author: author,
+                        flyerShowsAuthor: true,
+                        followIsOn: false,
+                        flyerZoneWidth: superFlyerZoneWidth(context, flyerSizeFactor),
+                        bzPageIsOn: false,
+                        tappingHeader: (){},
+                        tappingFollow: (){},
+                        tappingUnfollow: (){},
+                      ),
 
                       ProgressBar(
                         flyerZoneWidth: flyerZoneWidth,

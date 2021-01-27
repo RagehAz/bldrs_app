@@ -260,7 +260,7 @@ final List<BzModel> dbBzz =
     // -------------------------
     bzName: 'Sodic',
     bzLogo: Dumz.XXsodic_logo,
-    bzScope: 'Real Estate Development' 'Facility Management',
+    bzScope: 'Real Estate Development , Facility Management',
     bzCountry: 'Egypt',
     bzCity: 'Cairo',
     bzAbout: 'Soidc East, Sodic West, Sodic North, Sodic South, Sodic Center',

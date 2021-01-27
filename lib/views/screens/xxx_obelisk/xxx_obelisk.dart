@@ -11,7 +11,6 @@ import 'package:bldrs/views/screens/xxx_obelisk/x04_flyers_sizes_screen.dart';
 import 'package:bldrs/views/screens/xxx_obelisk/x06_single_collection_screen.dart';
 import 'package:bldrs/views/screens/xxx_obelisk/x06_swiper_layout.dart';
 import 'package:bldrs/views/screens/xxx_obelisk/x08_earth_screen.dart';
-import 'package:bldrs/views/screens/xxx_obelisk/x09_id_screen.dart';
 import 'package:bldrs/views/widgets/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/views/widgets/buttons/bt_main.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
@@ -280,17 +279,6 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
             splashColor: Colorz.White,
             buttonVerseShadow: true,
             function: () => goToNewScreen(context, FontTestScreen()),
-            stretched: false,
-          ),
-
-          // --- 11 - ID ISSUE -------------------------------
-          BTMain(
-            buttonVerse: '11 - ID ISSUE',
-            buttonIcon: Iconz.Info,
-            buttonColor: Colorz.Green,
-            splashColor: Colorz.White,
-            buttonVerseShadow: true,
-            function: () => goToNewScreen(context, IDscreen()),
             stretched: false,
           ),
 

@@ -1,26 +1,24 @@
 import 'package:bldrs/view_brains/drafters/file_formatters.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
+import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class BzPgFields extends StatelessWidget {
   final double flyerZoneWidth;
   final bool bzPageIsOn;
-  final dynamic bzFieldsList;
+  final String bzScope;
 
   BzPgFields({
     @required this.bzPageIsOn,
     @required this.flyerZoneWidth,
-    @required this.bzFieldsList,
+    @required this.bzScope,
 
 });
 
   @override
   Widget build(BuildContext context) {
 
-    // === === === === === === === === === === === === === === === === === === === === === === === === === === === ===
-    final dynamic _fields = bzFieldsList;
-    // ['Architecture Design', 'abcd', 'Interior Design', 'Landscape Design'];
     // === === === === === === === === === === === === === === === === === === === === === === === === === === === ===
     dynamic bzPageBGColor = Colorz.BlackSmoke;
     double bzPageDividers = flyerZoneWidth * 0.005;
@@ -34,34 +32,52 @@ class BzPgFields extends StatelessWidget {
           width: flyerZoneWidth,
           color: bzPageBGColor,
           padding: EdgeInsets.symmetric(vertical: flyerZoneWidth * 0.02),
-          child: Wrap(
-            spacing: 0,
-            runSpacing: 0,
-            alignment: WrapAlignment.center,
-            crossAxisAlignment: WrapCrossAlignment.center,
-            direction: Axis.horizontal,
-            runAlignment: WrapAlignment.center,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
 
-            children:
-            _fields == null ? [Container()] :
-              List<Widget>.generate(
-                  _fields.length,
-                      (int index) {
+              SuperVerse(
+                verse: '${Wordz.scopeOfServices(context)}',
+                size: 2,
+                weight: VerseWeight.thin,
+                italic: false,
+                margin: 10,
+                color: Colorz.Grey,
+                maxLines: 2,
+              ),
+
+              Wrap(
+                  spacing: 0,
+                  runSpacing: 0,
+                  alignment: WrapAlignment.center,
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  direction: Axis.horizontal,
+                  runAlignment: WrapAlignment.center,
+
+                  children:
+                  bzScope == '' ? [Container()] :
+                  List<Widget>.generate(
+                      1,
+                          (int index) {
                         return
                           SuperVerse(
-                          verse: valueIsString(bzFieldsList) == true ? bzFieldsList : bzFieldsList[index],
-                          italic: false,
-                          shadow: false,
-                          labelColor: Colorz.WhiteZircon,
-                          color: Colorz.White,
-                          weight: VerseWeight.bold,
-                          size: 2,
-                          margin: flyerZoneWidth * 0.02 * 0,
-                        );
+                            verse: bzScope,
+                            italic: false,
+                            shadow: false,
+                            labelColor: Colorz.WhiteZircon,
+                            color: Colorz.White,
+                            weight: VerseWeight.bold,
+                            size: 2,
+                            margin: flyerZoneWidth * 0.02 * 0,
+                          );
                       }
-              )
+                  )
 
 
+              ),
+
+            ],
           ),
 
         ),
