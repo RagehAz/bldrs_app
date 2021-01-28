@@ -31,6 +31,7 @@ import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x08_earth_screen.dart';
 import 'package:flutter/material.dart';
 import 'o_01_translations.dart';
 import 'x04_flyers_sizes_screen.dart';
+import 'x05_city_picker.dart';
 import 'x06_single_collection_screen.dart';
 import 'x07_chat_screen.dart';
 import 'x10_pro_flyer_page_view.dart';
@@ -526,7 +527,6 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
             function: () => goToNewScreen(context, AnimationsScreen()),
           ),
 
-
           // --- 36 -  AnimationsScreen -------------------------------
           BTMain(
             buttonVerse: '36 - Circle list widget',
@@ -537,6 +537,20 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
             stretched: true,
             function: () => goToNewScreen(context, CircleListWidget()),
           ),
+
+
+
+          // --- 36 -  AnimationsScreen -------------------------------
+          BTMain(
+            buttonVerse: '36 - SyncFusionMap',
+            buttonColor: Colorz.Nothing,
+            buttonIcon: Iconz.Earth,
+            buttonVerseShadow: true,
+            splashColor: Colorz.Yellow,
+            stretched: true,
+            function: () => goToNewScreen(context, CityPicker()),
+          ),
+
 
 
           // --- DATE PICKER -------------------------------

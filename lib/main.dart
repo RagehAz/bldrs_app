@@ -34,10 +34,9 @@ class _BldrsAppState extends State<BldrsApp> {
     Locale('ar', 'EG'),
     Locale('es', 'ES'),
     Locale('fr', 'FR'),
-    Locale('ru', 'RU'),
-    Locale('it', 'IT'),
-    Locale('tr', 'TR'),
     Locale('zh', 'CN'),
+    Locale('de', 'DE'),
+    Locale('it', 'IT'),
   ];
 
   List<LocalizationsDelegate> _localizationDelegates = [

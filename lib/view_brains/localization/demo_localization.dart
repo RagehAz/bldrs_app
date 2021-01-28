@@ -50,7 +50,7 @@ class _DemoLocalizationDelegate extends LocalizationsDelegate<DemoLocalization> 
 
   @override
   bool isSupported(Locale locale) {
-    return ['en', 'ar', 'es', 'fr', 'ru', 'tr', 'it', 'zh'].contains(locale.languageCode);
+    return ['en', 'ar', 'es', 'fr', 'zh', 'de', 'it'].contains(locale.languageCode);
   }
 
   @override
