@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 import 'package:bldrs/view_brains/controllers/locations_brain.dart';
 import 'package:bldrs/view_brains/drafters/borderers.dart';
+import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/flagz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
@@ -42,11 +43,11 @@ Future<Uint8List> getBytesFromAsset(String path, int width) async {
 
   @override
   Widget build(BuildContext context) {
-   var theMarkers = countryCitiesMarkers(Flagz.Egypt, customMarker);
+   var theMarkers = countryCitiesMarkers(Flagz.egy, customMarker);
 
 
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = superScreenWidth(context);
+    double screenHeight = superScreenHeight(context);
 
     // double mapBoxWidth = screenWidth * 0.8;
     // double mapBoxHeight = mapBoxWidth;
@@ -72,7 +73,7 @@ Future<Uint8List> getBytesFromAsset(String path, int width) async {
                     myLocationButtonEnabled: true,
                     myLocationEnabled: true,
                     initialCameraPosition: CameraPosition(
-                        target: cityLocationByCityID(1818253931), // Mecca 1682169241 - Cairo 1818253931
+                        target: cityLocationByCityID('1818253931'), // Mecca 1682169241 - Cairo 1818253931
                         zoom: 10
                     ),
                     onMapCreated: (GoogleMapController googleMapController){setState(() {

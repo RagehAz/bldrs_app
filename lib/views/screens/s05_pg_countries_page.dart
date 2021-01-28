@@ -1,4 +1,5 @@
 import 'package:bldrs/view_brains/localization/countries_list.dart';
+import 'package:bldrs/view_brains/localization/localization_constants.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/flagz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
@@ -6,18 +7,28 @@ import 'package:bldrs/views/widgets/appbar/buttons/bx_flagbox.dart';
 import 'package:bldrs/views/widgets/buttons/bt_main.dart';
 import 'package:flutter/material.dart';
 
-String flagFileNameSelectedFromPGLanguageList = Flagz.Egypt;
+String flagFileNameSelectedFromPGLanguageList = Flagz.egy;
 String currentSelectedCountry = 'Egypt';
 
-class PGCountryList extends StatelessWidget {
+class PGCountryList extends StatefulWidget {
 final Function tappingFlag;
 
 PGCountryList({
   @required this.tappingFlag
 });
 
-void tappingBTCountry(){
-  tappingFlag();
+  @override
+  _PGCountryListState createState() => _PGCountryListState();
+}
+
+class _PGCountryListState extends State<PGCountryList> {
+
+void tappingBTCountry(int index){
+  widget.tappingFlag();
+  setState(() {
+    flagFileNameSelectedFromPGLanguageList = flagsMaps[index]["flag"];
+    currentSelectedCountry = translate(context, flagsMaps[index]["iso3"]);
+  });
 }
 
   @override
@@ -41,20 +52,17 @@ void tappingBTCountry(){
         child: ClipRRect(
           borderRadius: BorderRadius.all(Radius.circular(Ratioz.ddAppBarButtonCorner)),
           child: ListView.builder(
-            itemCount: countriesList.length,
+            itemCount: flagsMaps.length,
             itemBuilder: (ctx, index) {
 
               // --- COUNTRY BUTTON
               return BTMain(
                 splashColor: Colorz.White,
-                buttonIcon: FlagBox(flag: countriesList[index]["countryFlag"],),
+                buttonIcon: FlagBox(flag: flagsMaps[index]["flag"],),
                 buttonColor: Colorz.WhiteZircon,
-                buttonVerse: countriesList[index]["countryName"],
+                buttonVerse: translate(context, flagsMaps[index]["iso3"]),
                 function: (){
-                    flagFileNameSelectedFromPGLanguageList = countriesList[index]["countryFlag"];
-                    currentSelectedCountry = countriesList[index]["countryName"];
-                    tappingBTCountry();
-                    // abMainFlagSwitch();
+                    tappingBTCountry(index);
                 },
                 buttonVerseShadow: true,
                 stretched: true,
@@ -66,5 +74,4 @@ void tappingBTCountry(){
       ),
     );
   }
-
 }

@@ -55,7 +55,7 @@ int markerWidth = 50;
 
   @override
   Widget build(BuildContext context) {
-   var theMarkers = countryCitiesMarkers(Flagz.Egypt, customMarker);
+   var theMarkers = countryCitiesMarkers(Flagz.egy, customMarker);
 
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
@@ -87,7 +87,7 @@ int markerWidth = 50;
                     myLocationButtonEnabled: true,
                     myLocationEnabled: true,
                     initialCameraPosition: CameraPosition(
-                        target: cityLocationByCityID(1818253931), // Mecca 1682169241 - Cairo 1818253931
+                        target: cityLocationByCityID('1818253931'), // Mecca 1682169241 - Cairo 1818253931
                         zoom: 10
                     ),
                     onMapCreated: (GoogleMapController googleMapController){setState(() {
