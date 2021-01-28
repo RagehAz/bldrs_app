@@ -4,13 +4,9 @@ import 'dart:math';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'package:bldrs/ambassadors/database/db_planet/db_cities.dart';
-import 'package:bldrs/ambassadors/database/db_planet/db_continents.dart';
 import 'package:bldrs/ambassadors/database/db_planet/db_countries.dart';
-import 'package:bldrs/ambassadors/database/db_planet/db_regions.dart';
 import 'package:bldrs/models/planet/city_model.dart';
-import 'package:bldrs/models/planet/continent_model.dart';
 import 'package:bldrs/models/planet/country_model.dart';
-import 'package:bldrs/models/planet/region_model.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
@@ -18,10 +14,8 @@ import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter/material.dart';
 // ----------------------------------------------------------------------------
-  List<CityModel> cityDataBase = dbCities;
-  List<CountryModel> countryDataBase = dbCountries;
-  List<RegionModel> regionDataBase = dbRegions;
-  List<ContinentModel> continentDataBase = dbContinents;
+  List<City> cityDataBase = dbCities;
+  List<Country> countryDataBase = dbCountries;
 // ----------------------------------------------------------------------------
 Widget aDot (){
   return
@@ -49,13 +43,13 @@ List<Widget> worldDots(double width){
   return dots;
 }
 // ----------------------------------------------------------------------------
-List<CityModel> countryCities(String countryFlag){
-  final String countryISO3 = (countryDataBase.singleWhere((c) => c.countryFlag == countryFlag)).countryISO3;
+List<City> countryCities(String countryFlag){
+  final String countryISO3 = (countryDataBase.singleWhere((c) => c.flag == countryFlag)).iso3;
 
-  final List<CityModel> foundCities = [];
+  final List<City> foundCities = [];
 
   for(var i = 0; i < cityDataBase.length; i++ ){
-    if(cityDataBase[i].countryISO3 == countryISO3){foundCities.add(cityDataBase[i]);}
+    if(cityDataBase[i].iso3 == countryISO3){foundCities.add(cityDataBase[i]);}
   }
 
   return foundCities;
@@ -63,7 +57,7 @@ List<CityModel> countryCities(String countryFlag){
 // ----------------------------------------------------------------------------
 List<Widget> countryDots(double boxWidth, String countryFlag){
 
-  final List<CityModel> foundCities = countryCities(countryFlag);
+  final List<City> foundCities = countryCities(countryFlag);
 
   final List<double> latitudes = [];
   final List<double> longitudes = [];
@@ -143,9 +137,9 @@ class CityLabel extends StatelessWidget {
   }
 }
 // ----------------------------------------------------------------------------
-LatLng cityLocationByCityID(int cityID){
-  final double latitude = (cityDataBase.singleWhere((city) => city.cityID == cityID)).latitude;
-  final double longitude = (cityDataBase.singleWhere((city) => city.cityID == cityID)).longitude;
+LatLng cityLocationByCityID(String cityID){
+  final double latitude = (cityDataBase.singleWhere((city) => city.id == cityID)).latitude;
+  final double longitude = (cityDataBase.singleWhere((city) => city.id == cityID)).longitude;
   return LatLng(latitude, longitude);
 }
 // ----------------------------------------------------------------------------
@@ -161,19 +155,19 @@ Future<BitmapDescriptor> getTheFuckingMarker()async{
   }
 // ----------------------------------------------------------------------------
 HashSet<Marker> countryCitiesMarkers (String countryFlag, BitmapDescriptor customMarker){
-  final List<CityModel> foundCities = countryCities(countryFlag);
+  final List<City> foundCities = countryCities(countryFlag);
   var citiesMarkers = HashSet<Marker>();
 
   foundCities.forEach((city) {
     citiesMarkers.add(
       Marker(
-        markerId: MarkerId('${city.cityID}'),
+        markerId: MarkerId('${city.id}'),
         position: LatLng(city.latitude, city.longitude),
         icon: customMarker,
         infoWindow: InfoWindow(
-          title: '${city.cityNameASCII}',
-          snippet: 'City ID : ${city.cityID}',
-          onTap: (){print('${city.cityNameAdmin} : ${city.cityID}');},
+          title: '${city.name}',
+          snippet: 'City ID : ${city.id}',
+          onTap: (){print('${city.name} : ${city.iso3}');},
           // anchor: const Offset(0,0),
         ),
       ),

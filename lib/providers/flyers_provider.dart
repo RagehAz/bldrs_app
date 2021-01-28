@@ -3,6 +3,12 @@ import 'package:bldrs/ambassadors/database/db_flyer.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+const String realtimeDatabaseLink = 'https://bldrsnet.firebaseio.com/';
+const String realtimeDatabaseFlyersPath = '${realtimeDatabaseLink}flyers.json';
+const String realtimeDatabaseBzzPath = '${realtimeDatabaseLink}bzz.json';
 
 class FlyersProvider with ChangeNotifier {
   List<FlyerModel> _loadedFlyers = geebAllFlyers();
@@ -100,5 +106,132 @@ return bzz;
 List<BzModel> get getFollowedBzz{
     return _loadedBzz.where((bz) => bz.followIsOn).toList();
 }
+// ############################################################################
+void addFlyer(FlyerModel flyer){
+    const url = realtimeDatabaseFlyersPath;
+    http.post(url,
+      body: json.encode({
+        'flyerID' : flyer.flyerID,
+        // -------------------------
+        'flyerType' : flyer.flyerType,
+        'flyerState' : flyer.flyerState,
+        'keyWords' : flyer.keyWords,
+        'flyerShowsAuthor' : flyer.flyerShowsAuthor,
+        'flyerURL' : flyer.flyerURL,
+        // -------------------------
+        'authorID' : flyer.authorID,
+        'bzID' : flyer.bzID,
+        // -------------------------
+        'publishTime' : flyer.publishTime,
+        'flyerPosition' : flyer.flyerPosition,
+        // -------------------------
+        'ankhIsOn' : flyer.ankhIsOn,
+        // -------------------------
+        'slides' : flyer.slides,
+      }),
+    );
+
+    final FlyerModel newFlyer = FlyerModel(
+    flyerID : flyer.flyerID,
+    // -------------------------
+    flyerType : flyer.flyerType,
+    flyerState : flyer.flyerState,
+    keyWords : flyer.keyWords,
+    flyerShowsAuthor : flyer.flyerShowsAuthor,
+    flyerURL : flyer.flyerURL,
+    // -------------------------
+    authorID : flyer.authorID,
+    bzID : flyer.bzID,
+    // -------------------------
+    publishTime : flyer.publishTime,
+    flyerPosition : flyer.flyerPosition,
+    // -------------------------
+    ankhIsOn : flyer.ankhIsOn, // will change in later max lessons to be user based
+      // -------------------------
+    slides : flyer.slides,
+    );
+    _loadedFlyers.add(newFlyer);
+    notifyListeners();
+}
 // ---------------------------------------------------------------------------
+void addBz(BzModel bz){
+  const url = realtimeDatabaseBzzPath;
+  http.post(url,
+    body: json.encode({
+      'bzID': bz.bzID,
+      // -------------------------
+      'bzType': bz.bzType,
+      'bzForm': bz.bzForm,
+      'bldrBirth': bz.bldrBirth,
+      'accountType': bz.accountType,
+      'bzURL': bz.bzURL,
+      // -------------------------
+      'bzName': bz.bzName,
+      'bzLogo': bz.bzLogo,
+      'bzScope': bz.bzScope,
+      'bzCountry': bz.bzCountry,
+      'bzCity': bz.bzCity,
+      'bzAbout': bz.bzAbout,
+      'bzPosition': bz.bzPosition,
+      'bzContacts': bz.bzContacts,
+      'authors': bz.authors,
+      'bzShowsTeam': bz.bzShowsTeam,
+      // -------------------------
+      'bzIsVerified': bz.bzIsVerified,
+      'bzAccountIsDeactivated': bz.bzAccountIsDeactivated,
+      'bzAccountIsBanned': bz.bzAccountIsBanned,
+      // -------------------------
+      'bzTotalFollowers': bz.bzTotalFollowers,
+      'bzTotalSaves': bz.bzTotalSaves,
+      'bzTotalShares': bz.bzTotalShares,
+      'bzTotalSlides': bz.bzTotalSlides,
+      'bzTotalViews': bz.bzTotalViews,
+      'bzTotalCalls': bz.bzTotalCalls,
+      'bzTotalConnects': bz.bzTotalConnects,
+      // -------------------------
+      'jointsBzzIDs': bz.jointsBzzIDs,
+      // -------------------------
+      'followIsOn': bz.followIsOn, // will change in later max lessons to be user based
+    }),
+  );
+
+  final BzModel newBz = BzModel(
+    bzID: bz.bzID,
+    // -------------------------
+    bzType: bz.bzType,
+    bzForm: bz.bzForm,
+    bldrBirth: bz.bldrBirth,
+    accountType: bz.accountType,
+    bzURL: bz.bzURL,
+    // -------------------------
+    bzName: bz.bzName,
+    bzLogo: bz.bzLogo,
+    bzScope: bz.bzScope,
+    bzCountry: bz.bzCountry,
+    bzCity: bz.bzCity,
+    bzAbout: bz.bzAbout,
+    bzPosition: bz.bzPosition,
+    bzContacts: bz.bzContacts,
+    authors: bz.authors,
+    bzShowsTeam: bz.bzShowsTeam,
+    // -------------------------
+    bzIsVerified: bz.bzIsVerified,
+    bzAccountIsDeactivated: bz.bzAccountIsDeactivated,
+    bzAccountIsBanned: bz.bzAccountIsBanned,
+    // -------------------------
+    bzTotalFollowers: bz.bzTotalFollowers,
+    bzTotalSaves: bz.bzTotalSaves,
+    bzTotalShares: bz.bzTotalShares,
+    bzTotalSlides: bz.bzTotalSlides,
+    bzTotalViews: bz.bzTotalViews,
+    bzTotalCalls: bz.bzTotalCalls,
+    bzTotalConnects: bz.bzTotalConnects,
+    // -------------------------
+    jointsBzzIDs: bz.jointsBzzIDs,
+    // -------------------------
+    followIsOn: bz.followIsOn,
+    );
+    _loadedBzz.add(newBz);
+    notifyListeners();
+}
 }

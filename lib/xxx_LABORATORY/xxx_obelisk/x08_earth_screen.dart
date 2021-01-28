@@ -1,4 +1,5 @@
 import 'package:bldrs/view_brains/controllers/locations_brain.dart';
+import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/drafters/zoomable_widget.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/flagz.dart';
@@ -14,8 +15,8 @@ class EarthScreen extends StatefulWidget {
 class EarthScreenState extends State<EarthScreen> {
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = superScreenWidth(context);
+    double screenHeight = superScreenHeight(context);
     double countrySizeFactor = 1;
     double countryWidth = screenWidth * countrySizeFactor;
     return MainLayout(
@@ -33,7 +34,7 @@ class EarthScreenState extends State<EarthScreen> {
             alignment: Alignment.center,
             children:
             // worldDots(screenWidth,)
-            countryDots(countryWidth, Flagz.Egypt),
+            countryDots(countryWidth, Flagz.egy),
           ),
         ),
       ),

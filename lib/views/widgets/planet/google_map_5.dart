@@ -91,7 +91,7 @@ Future<Uint8List> getBytesFromCanvas(int width, int height, String verse) async 
   Widget build(BuildContext context) {
   bool searchingCities = false;
 
-  var cityMarkers = countryCitiesMarkers(Flagz.Egypt, customMarker);
+  var cityMarkers = countryCitiesMarkers(Flagz.egy, customMarker);
 
   LatLng aMarkerLatLng = LatLng(loadedPosition.latitude, loadedPosition.longitude);
   var aMarker = someMarker(customMarker, aMarkerLatLng.latitude , aMarkerLatLng.longitude);
@@ -125,7 +125,7 @@ Future<Uint8List> getBytesFromCanvas(int width, int height, String verse) async 
                     myLocationButtonEnabled: true,
                     myLocationEnabled: true,
                     initialCameraPosition: CameraPosition(
-                        target: searchingCities == true ? cityLocationByCityID(1818253931) : aMarkerLatLng, // Mecca 1682169241 - Cairo 1818253931
+                        target: searchingCities == true ? cityLocationByCityID('1818253931') : aMarkerLatLng, // Mecca 1682169241 - Cairo 1818253931
                         zoom: 18
                     ),
                     onMapCreated: (GoogleMapController googleMapController){
@@ -181,7 +181,7 @@ Future<Uint8List> getBytesFromCanvas(int width, int height, String verse) async 
                           // Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
                           // print('YOUR FUCKING LOCATION IS : Latitude (${position.latitude}) ,Longitude (${position.longitude})');
                           setState(() {
-                            aMarkerLatLng = cityLocationByCityID(1682169241);
+                            aMarkerLatLng = cityLocationByCityID('1682169241');
                             print('the new position is Latitude (${aMarkerLatLng.latitude}) ,Longitude (${aMarkerLatLng.longitude})');
                           _goToTheLake();
                           });

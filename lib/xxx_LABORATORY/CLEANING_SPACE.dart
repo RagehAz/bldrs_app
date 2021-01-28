@@ -93,7 +93,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   @override
   Widget build(BuildContext context) {
 
-    var theMarkers = _pickedLocation == null ? countryCitiesMarkers(Flagz.Saudi_Arabia, customMarker) :
+    var theMarkers = _pickedLocation == null ? countryCitiesMarkers(Flagz.sau, customMarker) :
     {
       Marker(
         markerId: MarkerId('m1'),
@@ -131,7 +131,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                     myLocationEnabled: true,
                     initialCameraPosition:
                     CameraPosition(
-                      target: cityLocationByCityID(1818253931), // Mecca 1682169241 - Cairo 1818253931zoom: 10
+                      target: cityLocationByCityID('1818253931'), // Mecca 1682169241 - Cairo 1818253931zoom: 10
                       zoom: 16,
                       // bearing: ,
                       // tilt: ,

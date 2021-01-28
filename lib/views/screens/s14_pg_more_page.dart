@@ -47,7 +47,7 @@ class MorePage extends StatelessWidget {
 
         TileBubble(
           verse: Wordz.changeCountry(context),
-          icon: FlagBox(flag: Flagz.Egypt),
+          icon: FlagBox(flag: Flagz.egy),
           iconSizeFactor: 0.9,
         ),
 

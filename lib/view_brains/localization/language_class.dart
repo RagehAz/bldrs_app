@@ -26,10 +26,9 @@ class LanguageClass {
       LanguageClass(2,'عربي'        ,'assets/dv/dv_blank.svg',  'ar'),
       LanguageClass(3,'Español'     ,'assets/dv/dv_blank.svg',  'es'),
       LanguageClass(4,'Française'   ,'assets/dv/dv_blank.svg',  'fr'),
-      LanguageClass(5,'русский'     ,'assets/dv/dv_blank.svg',  'ru'),
-      LanguageClass(6,'Türk'        ,'assets/dv/dv_blank.svg',  'tr'),
+      LanguageClass(5,'中文'         ,'assets/dv/dv_blank.svg',  'zh'),
+      LanguageClass(6,'Deutsche'    ,'assets/dv/dv_blank.svg',  'de'),
       LanguageClass(7,'Italiano'    ,'assets/dv/dv_blank.svg',  'it'),
-      LanguageClass(8,'中文'         ,'assets/dv/dv_blank.svg',  'zh'),
     ];
   }
 }
