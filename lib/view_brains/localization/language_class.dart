@@ -18,7 +18,12 @@ class LanguageClass {
   final String langFlag;
   final String langCode;
 
-  LanguageClass (this.langId, this.langName, this.langFlag, this.langCode);
+  LanguageClass (
+      this.langId,
+      this.langName,
+      this.langFlag,
+      this.langCode
+      );
 
   static List<LanguageClass> languageList(){
     return <LanguageClass>[

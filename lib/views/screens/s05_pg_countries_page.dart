@@ -7,6 +7,9 @@ import 'package:bldrs/views/widgets/appbar/buttons/bx_flagbox.dart';
 import 'package:bldrs/views/widgets/buttons/bt_main.dart';
 import 'package:flutter/material.dart';
 
+// below link shows how to create clickable countries on google maps
+// https://stackoverflow.com/questions/60545216/can-we-fill-color-for-countries-in-google-maps-flutter
+
 String flagFileNameSelectedFromPGLanguageList = Flagz.egy;
 String currentSelectedCountry = 'Egypt';
 

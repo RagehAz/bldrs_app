@@ -12,6 +12,7 @@ import 'view_brains/router/route_names.dart';
 import 'view_brains/router/router.dart';
 import 'package:provider/provider.dart';
 import 'views/screens/s50_flyer_screen.dart';
+import 'views/widgets/loading/loading.dart';
 import 'xxx_LABORATORY/ask/questions_provider.dart';
 
 main() => runApp(BldrsApp());
@@ -22,6 +23,12 @@ class BldrsApp extends StatefulWidget {
     _BldrsAppState state = context.findAncestorStateOfType<_BldrsAppState>();
     state.setLocale(locale);
   }
+
+  // static void setCountry(BuildContext context, Locale locale) {
+  //   _BldrsAppState state = context.findAncestorStateOfType<_BldrsAppState>();
+  //   state.setLocale(locale);
+  // }
+
 
   @override
   _BldrsAppState createState() => _BldrsAppState();
@@ -38,14 +45,20 @@ class _BldrsAppState extends State<BldrsApp> {
     Locale('de', 'DE'),
     Locale('it', 'IT'),
   ];
-
   List<LocalizationsDelegate> _localizationDelegates = [
     DemoLocalization.delegate,
     GlobalMaterialLocalizations.delegate,
     GlobalWidgetsLocalizations.delegate,
     GlobalCupertinoLocalizations.delegate,
   ];
+  String _countryCode = 'a77a';
 // ---------------------------------------------------------------------------
+  void setCountry(String code){
+    setState(() {
+      _countryCode = code;
+    });
+  }
+
   void setLocale(Locale locale) {
     setState(() {
       _locale = locale;
@@ -92,10 +105,12 @@ class _BldrsAppState extends State<BldrsApp> {
   @override
   Widget build(BuildContext context) {
 
+    print({'_locale isssssss : $_locale'});
+
     if (_locale == null) {
       return Container(
         child: Center(
-          child: CircularProgressIndicator(),
+          child: Loading(),
         ),
       );
     } else {
@@ -127,7 +142,10 @@ class _BldrsAppState extends State<BldrsApp> {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           debugShowMaterialGrid: false,
+          showPerformanceOverlay: false,
+
           title: 'Bldrs.net',
+
           // theme:
           // ThemeData(
           //   primarySwatch: MaterialColor(),
