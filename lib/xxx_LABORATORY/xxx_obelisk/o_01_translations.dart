@@ -216,6 +216,12 @@ class Translations extends StatelessWidget {
     return MainLayout(
       pyramids: Iconz.PyramidsYellow,
       tappingRageh:
+
+      // (){
+      //   String thing = BldrsApp.country;
+      //   print(thing);
+      // },
+
       Wordz.activeLanguage(context) == 'Arabic' ?
           () async {
         Locale temp = await setLocale('en');

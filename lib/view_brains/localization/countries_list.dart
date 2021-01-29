@@ -1,6 +1,13 @@
-
-
 import 'package:bldrs/view_brains/theme/flagz.dart';
+
+// === === === === === === === === === === === === === === === === === === ===
+String superFlag(String iso3){
+  String flag;
+  flagsMaps.forEach((map) {
+    if(map['iso3'] == iso3){flag = map['flag'];}
+  });
+  return flag;
+}
 
 var flagsMaps = [
   {"iso3" : "afg", "flag" : Flagz.afg},

@@ -1,4 +1,5 @@
 import 'package:bldrs/main.dart';
+import 'package:bldrs/view_brains/localization/countries_list.dart';
 import 'package:bldrs/view_brains/localization/localization_constants.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
@@ -11,28 +12,37 @@ import 'package:flutter/material.dart';
 import 's05_pg_countries_page.dart';
 import 's06_pg_languages_page.dart';
 
+enum LocalizerPage {
+  Country,
+  City,
+  Language,
+}
+
 class LocalizerScreen extends StatefulWidget {
   @override
   _LocalizerScreenState createState() => _LocalizerScreenState();
 }
 
 class _LocalizerScreenState extends State<LocalizerScreen> {
-  var _btCountrySelected = true;
+  LocalizerPage _currentPage;
+  String _currentCountry;
+  String _currentCity;
   String theChosenFlag = flagFileNameSelectedFromPGLanguageList;
   String theChosenCountryName = currentSelectedCountry;
 // ---------------------------------------------------------------------------
-  void _localizerPGSwitch(){
-    setState(
-        (){
-          print(flagFileNameSelectedFromPGLanguageList);
-             _btCountrySelected == true ?
-             _btCountrySelected = false
-             :
-             _btCountrySelected =true ;
-        }
-    );
-  // print('dongol');
+  @override
+  void initState() {
+    _currentPage = LocalizerPage.Country;
+    super.initState();
+  }
+// ---------------------------------------------------------------------------
+  void _openCountriesList(){
+    setState((){_currentPage = LocalizerPage.Country;});
 }
+// ---------------------------------------------------------------------------
+  void _openLanguagesList(){
+    setState(() {_currentPage = LocalizerPage.Language;});
+  }
 // ---------------------------------------------------------------------------
   void flagSwitch() async {
     Locale _temp = await setLocale(Wordz.languageCode(context));
@@ -49,19 +59,24 @@ class _LocalizerScreenState extends State<LocalizerScreen> {
 
     return MainLayout(
       pyramids: Iconz.PyramidsGlass,
+      appBarType: AppBarType.Localizer,
+      tappingRageh: (){
+        superFlag('egy');
+      },
+
       layoutWidget: Column(
         children: <Widget>[
 
-          // --- LOCALIZER APPBAR
-          ABLocalizer(
-            currentFlag: theChosenFlag,
-            countryPageON: _btCountrySelected,
-            tappingBTCountry: _localizerPGSwitch,
-            tappingBTLanguage: _localizerPGSwitch,
-          ),
+          // // --- LOCALIZER APPBAR
+          // ABLocalizer(
+          //   currentFlag: theChosenFlag,
+          //   currentPage: _currentPage,
+          //   tappingBTCountry: _openCountriesList,
+          //   tappingBTLanguage: _openLanguagesList,
+          // ),
 
           // --- COUNTRY OR LANGUAGE PAGE
-          _btCountrySelected == true ?
+          _currentPage == LocalizerPage.Country ?
           PGCountryList(tappingFlag: flagSwitch,)
               :
           PGLanguageList(),

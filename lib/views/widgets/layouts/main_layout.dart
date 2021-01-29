@@ -5,6 +5,7 @@ import 'package:bldrs/view_brains/localization/localization_constants.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
+import 'package:bldrs/views/widgets/appbar/ab_localizer.dart';
 import 'package:bldrs/views/widgets/appbar/ab_main.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/pyramids/pyramids.dart';
@@ -95,13 +96,28 @@ class MainLayout extends StatelessWidget {
                   ],
                 ) :
 
-                appBarType == AppBarType.Main || appBarType == AppBarType.Localizer ?
+                appBarType == AppBarType.Main ?
                     ABMain(
                       countryButtonOn: true,
-                      searchButtonOn: appBarType == AppBarType.Localizer ? false : true,
-                      sectionsAreOn: appBarType == AppBarType.Localizer ? false : true,
+                      searchButtonOn: true,
+                      sectionsAreOn: true,
                     )
-                : appBarType == null ? Container() : Container(),
+                    // :
+
+                // appBarType == AppBarType.Localizer ?
+                // --- LOCALIZER APPBAR
+                // ABLocalizer(
+                //   pickedCountry: _pickedCountry,
+                //   pickedCity: _pickedCity,
+                //   pickedLanguage: _pickedLanguage,
+                //   pickCountry: _pickCountry,
+                //   pickCity: _pickCity,
+                //   pickLanguage: _pickLanguage,
+                // )
+
+
+
+            : appBarType == null ? Container() : Container(),
 
                 ragehIsOn == false ? Container() :
                 Rageh(
@@ -109,12 +125,12 @@ class MainLayout extends StatelessWidget {
                   doubleTappingRageh:
                   Wordz.activeLanguage(context) == 'Arabic' ?
                       () async {
-                    Locale temp = await setLocale('en');
-                    BldrsApp.setLocale(context, temp);
+                    // Locale temp = await setLocale('en');
+                    // BldrsApp.setLocale(context, temp);
                   } :
                       () async {
-                    Locale temp = await setLocale('ar');
-                    BldrsApp.setLocale(context, temp);
+                    // Locale temp = await setLocale('ar');
+                    // BldrsApp.setLocale(context, temp);
                     },
                 ),
 
