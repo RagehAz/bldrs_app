@@ -104,4 +104,14 @@ Stream<UserModel> get userData {
         .map(_userModelFromSnapshot);
 }
 
+
+/// get user country
+/// ...
+
+
+/// set app country
+String setCountry(String country){
+
+}
+
 }

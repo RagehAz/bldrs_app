@@ -1,23 +1,26 @@
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
+import 'package:bldrs/views/screens/s04_sc_localizer_screen.dart';
 import 'package:flutter/material.dart';
 import 'buttons/ab_loc_bt.dart';
 
 class ABLocalizer extends StatelessWidget {
-  final bool countryPageON;
-  final Function tappingBTCountry;
-  final Function tappingBTLanguage;
-  final String currentFlag;
+  final String pickedCountry;
+  final String pickedCity;
+  final String pickedLanguage;
+  final Function pickCountry;
+  final Function pickCity;
+  final Function pickLanguage;
 
   ABLocalizer({
-    @required this.countryPageON,
-    @required this.tappingBTCountry,
-    @required this.tappingBTLanguage,
-    @required this.currentFlag,
+    @required this.pickedCountry,
+    @required this.pickedCity,
+    @required this.pickedLanguage,
+    @required this.pickCountry,
+    @required this.pickCity,
+    @required this.pickLanguage,
   });
-
-  // we could have gone to the multiple constructor approach in max lesson # 41
 
   @override
   Widget build(BuildContext context) {
@@ -41,17 +44,17 @@ class ABLocalizer extends StatelessWidget {
         children: [
 
           // ---  COUNTRY BUTTON
-          ABLocalizerBT(
-            buttonVerse: Wordz.country(context),
-            buttonIcon: currentFlag,
-            buttonTap: tappingBTLanguage,
-            buttonOn: countryPageON == true ? true : false,
-          ),
+          // ABLocalizerBT(
+          //   buttonVerse: Wordz.country(context),
+          //   buttonIcon: currentFlag,
+          //   buttonTap: tappingBTLanguage,
+          //   buttonOn: currentPage == LocalizerPage.Country ? true : false,
+          // ),
 
           // BTLocalizerCountry(
           //   buttonFlag: currentFlag,
           //   buttonTap: tappingBTLanguage,
-          //   buttonON: countryPageON == true ? true : false
+          //   buttonON: countryPageIsOn == true ? true : false
           // ),
 
           SizedBox(
@@ -59,16 +62,16 @@ class ABLocalizer extends StatelessWidget {
           ),
 
           // --- LANGUAGE BUTTON
-          ABLocalizerBT(
-            buttonVerse: Wordz.language(context),
-            buttonIcon: '',
-            buttonTap: tappingBTLanguage,
-            buttonOn: countryPageON == true ? false : true,
-          ),
+          // ABLocalizerBT(
+          //   buttonVerse: Wordz.language(context),
+          //   buttonIcon: '',
+          //   buttonTap: tappingBTLanguage,
+          //   buttonOn: currentPage == LocalizerPage.Language ? true : false,
+          // ),
 
          //  BTLocalizerLanguage(
          //   buttonTap: tappingBTLanguage,
-         //   buttonON: countryPageON == true ? false : true
+         //   buttonON: countryPageIsOn == true ? false : true
          // ),
 
         ],
