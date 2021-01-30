@@ -77,3 +77,7 @@ OutlineInputBorder superOutlineInputBorder(Color borderColor, double corner) {
   );
 }
 // === === === === === === === === === === === === === === === === === === ===
+BorderRadius superBorderAll(BuildContext context, double corners){
+  return BorderRadius.all(Radius.circular(corners));
+}
+// === === === === === === === === === === === === === === === === === === ===
