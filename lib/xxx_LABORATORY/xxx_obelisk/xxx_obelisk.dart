@@ -50,7 +50,7 @@ class ObeliskScreen extends StatefulWidget {
 }
 
 class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateMixin{
-  String theChosenFlag = flagFileNameSelectedFromPGLanguageList;
+  String theChosenFlag = Iconz.DvDonaldDuck;
   AnimationController _blackHoleController;
   int spinsDuration = 1;
 // ---------------------------------------------------------------------------
@@ -64,9 +64,9 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
   }
   void flagSwitch() {
     setState(() {
-      theChosenFlag = flagFileNameSelectedFromPGLanguageList;
+      theChosenFlag = Iconz.DvDonaldDuck;
     });
-    print(flagFileNameSelectedFromPGLanguageList);
+    print(theChosenFlag);
   }
 // ---------------------------------------------------------------------------
   // final GlobalKey<FormState> _key = GlobalKey<FormState>();

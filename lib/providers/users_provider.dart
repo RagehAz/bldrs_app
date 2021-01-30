@@ -105,13 +105,5 @@ Stream<UserModel> get userData {
 }
 
 
-/// get user country
-/// ...
-
-
-/// set app country
-String setCountry(String country){
-
-}
 
 }

@@ -1,12 +1,12 @@
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/users_provider.dart';
 import 'package:bldrs/view_brains/drafters/keyboarders.dart';
-import 'package:bldrs/view_brains/localization/localization_constants.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/widgets/appbar/ab_localizer.dart';
 import 'package:bldrs/views/widgets/appbar/ab_main.dart';
+import 'package:bldrs/views/widgets/appbar/bldrs_appbar.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/pyramids/pyramids.dart';
 import 'package:bldrs/views/widgets/space/skies/black_sky.dart';
@@ -15,13 +15,13 @@ import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/views/widgets/buttons/bt_rageh.dart';
 import 'package:provider/provider.dart';
-import '../../../main.dart';
 
 enum AppBarType{
   Basic,
   Scrollable,
   Main,
   Localizer,
+  Intro,
 }
 
 enum Sky {
@@ -53,10 +53,14 @@ class MainLayout extends StatelessWidget {
 
     bool ragehIsOn = tappingRageh == null ? false : true;
 
+
     return StreamProvider<List<UserModel>>.value(
       value: UserProvider().userStream,
       child: GestureDetector(
-          onTap: (){minimizeKeyboardOnTapOutSide(context);},
+          onTap: (){
+            minimizeKeyboardOnTapOutSide(context);
+
+            },
         child: SafeArea(
           child: Scaffold(
             resizeToAvoidBottomPadding: false,
@@ -71,53 +75,59 @@ class MainLayout extends StatelessWidget {
                 layoutWidget == null ? Container() :
                 layoutWidget,
 
+                if(appBarType!=null)
+                BldrsAppBar(
+                  appBarType: appBarType,
+                  appBarRowWidgets: appBarRowWidgets,
+                  pageTitle: pageTitle,
+                ),
 
                 pyramids == null ? Container() :
                 Pyramids(whichPyramid: pyramids),
 
-                appBarType == AppBarType.Basic || appBarType == AppBarType.Scrollable?
-                ABStrip(
-                  scrollable: appBarType == AppBarType.Scrollable ? true : false,
-                  rowWidgets: (appBarRowWidgets == null && pageTitle == null) ? [Container()] :
-                  <Widget>[
-
-                    pageTitle == null ? Container() :
-                    Center(
-                      child: SuperVerse(
-                        verse: pageTitle,
-                        size: 3,
-                        margin: 10,
-                        shadow: true,
-                      ),
-                    ),
-
-                    ... appBarRowWidgets == null ? [Container()] : appBarRowWidgets,
-
-                  ],
-                ) :
-
-                appBarType == AppBarType.Main ?
-                    ABMain(
-                      countryButtonOn: true,
-                      searchButtonOn: true,
-                      sectionsAreOn: true,
-                    )
-                    // :
-
-                // appBarType == AppBarType.Localizer ?
-                // --- LOCALIZER APPBAR
-                // ABLocalizer(
-                //   pickedCountry: _pickedCountry,
-                //   pickedCity: _pickedCity,
-                //   pickedLanguage: _pickedLanguage,
-                //   pickCountry: _pickCountry,
-                //   pickCity: _pickCity,
-                //   pickLanguage: _pickLanguage,
-                // )
-
-
-
-            : appBarType == null ? Container() : Container(),
+            //     appBarType == AppBarType.Basic || appBarType == AppBarType.Scrollable?
+            //     ABStrip(
+            //       scrollable: appBarType == AppBarType.Scrollable ? true : false,
+            //       rowWidgets: (appBarRowWidgets == null && pageTitle == null) ? [Container()] :
+            //       <Widget>[
+            //
+            //         pageTitle == null ? Container() :
+            //         Center(
+            //           child: SuperVerse(
+            //             verse: pageTitle,
+            //             size: 3,
+            //             margin: 10,
+            //             shadow: true,
+            //           ),
+            //         ),
+            //
+            //         ... appBarRowWidgets == null ? [Container()] : appBarRowWidgets,
+            //
+            //       ],
+            //     ) :
+            //
+            //     appBarType == AppBarType.Main ?
+            //         ABMain(
+            //           tappingLocalizer: switchLocalizer,
+            //           searchButtonOn: true,
+            //           sectionsAreOn: true,
+            //         )
+            //         :
+            //
+            //     appBarType == AppBarType.Localizer ?
+            //     // --- LOCALIZER APPBAR
+            //     ABLocalizer(
+            //       pickedCountry: _pickedCountry,
+            //       pickedCity: _pickedCity,
+            //       pickedLanguage: _pickedLanguage,
+            //       pickCountry: _pickCountry,
+            //       pickCity: _pickCity,
+            //       pickLanguage: _pickLanguage,
+            //     )
+            //
+            //
+            //
+            // : appBarType == null ? Container() : Container(),
 
                 ragehIsOn == false ? Container() :
                 Rageh(

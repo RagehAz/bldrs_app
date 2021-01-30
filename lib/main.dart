@@ -1,4 +1,5 @@
 import 'package:bldrs/ambassadors/services/auth.dart';
+import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/view_brains/localization/localization_constants.dart';
 import 'package:bldrs/views/screens/s11_sc_inpyramids_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/camera_and_location/test_provider.dart';
@@ -24,12 +25,6 @@ class BldrsApp extends StatefulWidget {
     state.setLocale(locale);
   }
 
-  // static void setCountry(BuildContext context, Locale locale) {
-  //   _BldrsAppState state = context.findAncestorStateOfType<_BldrsAppState>();
-  //   state.setLocale(locale);
-  // }
-
-
   @override
   _BldrsAppState createState() => _BldrsAppState();
 }
@@ -51,14 +46,7 @@ class _BldrsAppState extends State<BldrsApp> {
     GlobalWidgetsLocalizations.delegate,
     GlobalCupertinoLocalizations.delegate,
   ];
-  String _countryCode = 'a77a';
 // ---------------------------------------------------------------------------
-  void setCountry(String code){
-    setState(() {
-      _countryCode = code;
-    });
-  }
-
   void setLocale(Locale locale) {
     setState(() {
       _locale = locale;
@@ -105,7 +93,7 @@ class _BldrsAppState extends State<BldrsApp> {
   @override
   Widget build(BuildContext context) {
 
-    print({'_locale isssssss : $_locale'});
+    print({'building Bldrs with _locale : $_locale'});
 
     if (_locale == null) {
       return Container(
@@ -131,6 +119,9 @@ class _BldrsAppState extends State<BldrsApp> {
           ),
           ChangeNotifierProvider(
             create: (ctx) => FlyersProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (ctx) => CountryProvider(),
           ),
           ChangeNotifierProvider(
             create: (ctx) => GreatPlaces(),
