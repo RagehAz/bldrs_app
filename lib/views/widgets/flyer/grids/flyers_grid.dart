@@ -64,12 +64,11 @@ class _FlyersGridState extends State<FlyersGrid> {
       Container(
           width: widget.gridZoneWidth,
           height: gridHeight,
-          // padding: EdgeInsets.symmetric(horizontal: 0, vertical: flyerZoneWidth * 0.04),
           child:
           GridView(
             physics: NeverScrollableScrollPhysics(),
             addAutomaticKeepAlives: true,
-            padding: EdgeInsets.only(right: gridSpacing, left: gridSpacing, top: gridSpacing * 2, bottom: gridSpacing ),
+            padding: EdgeInsets.all(gridSpacing),
             // key: new Key(loadedFlyers[flyerIndex].f01flyerID),
             gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
               crossAxisSpacing: gridSpacing,

@@ -4,7 +4,7 @@ import 'package:bldrs/views/widgets/bubbles/contacts_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/following_bzz_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/status_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/user_bubble.dart';
-import 'package:bldrs/views/widgets/layouts/main_layout.dart' show PyramidsHorizon;
+import 'package:bldrs/views/widgets/layouts/main_layout.dart' show PyramidsHorizon, Stratosphere;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 's16_pg_edit_profile_page.dart';
@@ -58,20 +58,20 @@ class _ProfilePageState extends State<ProfilePage> {
       editMode == true ?
 
       SliverChildListDelegate([
+
+        Stratosphere(),
+
         EditProfilePage(
           cancelEdits: switchEditProfile,
         ),
+
       ])
 
       :
 
       SliverChildListDelegate([
 
-        // SuperVerse(
-        //   verse: userID == null ? '' : userID,
-        //   margin: 2,
-        //   color: Colorz.BloodTest,
-        // ),
+        Stratosphere(),
 
         UserBubble(
           userStatus: widget.userStatus,
