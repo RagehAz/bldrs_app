@@ -16,8 +16,8 @@ import 'parts/slides.dart';
 class Flyer extends StatefulWidget {
   final BzModel bz;
   final double flyerSizeFactor;
-  int currentSlideIndex;
-  bool slidingIsOn;
+  final int initialSlide;
+  final bool slidingIsOn;
   final Function tappingFlyerZone;
   final Function rebuildFlyerGrid;
   final bool flyerIsInGalleryNow;
@@ -25,7 +25,7 @@ class Flyer extends StatefulWidget {
   Flyer({
     @required this.flyerSizeFactor,
     this.bz,
-    this.currentSlideIndex = 0,
+    this.initialSlide = 0,
     this.slidingIsOn = true,
     this.tappingFlyerZone,
     this.rebuildFlyerGrid,
@@ -39,9 +39,11 @@ class Flyer extends StatefulWidget {
 class _FlyerState extends State<Flyer> with AutomaticKeepAliveClientMixin{
   bool get wantKeepAlive => true;
   bool bzPageIsOn;
+  int _currentSlideIndex;
 // ---------------------------------------------------------------------------
   @override
   void initState() {
+    _currentSlideIndex = widget.initialSlide;
     bzPageIsOn = false;
     super.initState();
   }
@@ -52,7 +54,7 @@ class _FlyerState extends State<Flyer> with AutomaticKeepAliveClientMixin{
   }
 // ---------------------------------------------------------------------------
   void slidingPages (int slideIndex){
-    setState(() {widget.currentSlideIndex = slideIndex;});
+    setState(() {_currentSlideIndex = slideIndex;});
   }
 // ---------------------------------------------------------------------------
 
@@ -85,20 +87,20 @@ class _FlyerState extends State<Flyer> with AutomaticKeepAliveClientMixin{
 // ---------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
-    final flyer = Provider.of<FlyerModel>(context, listen: false);
-    final bz = Provider.of<BzModel>(context, listen: true);
+    super.build(context);
+    final _flyer = Provider.of<FlyerModel>(context, listen: false);
+    final _bz = Provider.of<BzModel>(context, listen: true);
 // ----------------------------------------------------------------------------
-    final String flyerID = flyer.flyerID;
-    final String authorID = flyer.authorID;
-    final AuthorModel author = getAuthorModelFromUserModelAndBzModel(geebUserByUserID(authorID), bz);
-    final bool flyerShowsAuthor = flyer.flyerShowsAuthor;
-    final int numberOfSlides = flyer.slides?.length;
-    print('authorID is = ${author.userID}');
+    final String _flyerID = _flyer.flyerID;
+    final String _authorID = _flyer.authorID;
+    final AuthorModel _author = getAuthorModelFromUserModelAndBzModel(geebUserByUserID(_authorID), _bz);
+    final bool _flyerShowsAuthor = _flyer.flyerShowsAuthor;
+    final int _numberOfSlides = _flyer.slides?.length;
+    print('authorID is = ${_author.userID}');
     // final List<CoFlyer>   bzGalleryCoFlyers = pro.;
     // final List<AuthorModel>  bzAuthors         = bro.authors;
     // final AuthorModel       author          = bzAuthors?.singleWhere((au) => au.userID == authorID, orElse: ()=> null);
-    final List<SlideModel>   slides          = flyer.slides;
+    final List<SlideModel>   _slides          = _flyer.slides;
           // bool            followIsOn        = pro.followIsOn;
           // bool            ankhIsOn          = pro.ankhIsOn;
 // ----------------------------------------------------------------------------
@@ -109,37 +111,37 @@ class _FlyerState extends State<Flyer> with AutomaticKeepAliveClientMixin{
 //           bool            followIsOn        = pro.hatFollowIsOnByFlyerID(flyerID);
 //           bool            ankhIsOn          = pro.hatAnkhByFlyerID(flyerID);
 // ---------------------------------------------------------------------------
-    double flyerZoneWidth = superFlyerZoneWidth(context, widget.flyerSizeFactor);
+    double _flyerZoneWidth = superFlyerZoneWidth(context, widget.flyerSizeFactor);
 // ---------------------------------------------------------------------------
     bool _barIsOn = widget.slidingIsOn == true && bzPageIsOn == false ? true : false;
 // ---------------------------------------------------------------------------
-    bool microMode = superFlyerMicroMode(context, flyerZoneWidth);
+    bool _microMode = superFlyerMicroMode(context, _flyerZoneWidth);
 // ---------------------------------------------------------------------------
     // bool ankhIsOn = true;//flyerData.flyerAnkhIsOn;
 // ---------------------------------------------------------------------------
-    print('flyer widget builds fID : $flyerID');
+    print('flyer widget builds fID : $_flyerID');
 
     return
 
        FlyerZone(
-         flyerSizeFactor: superFlyerSizeFactor(context, flyerZoneWidth),
+         flyerSizeFactor: superFlyerSizeFactor(context, _flyerZoneWidth),
          tappingFlyerZone: widget.tappingFlyerZone,
          stackWidgets: <Widget>[
 
           Slides(
-            flyerZoneWidth: flyerZoneWidth,
+            flyerZoneWidth: _flyerZoneWidth,
             slidingIsOn: widget.slidingIsOn,
-            currentSlideIndex: widget.currentSlideIndex,
+            currentSlideIndex: _currentSlideIndex,
             sliding: slidingPages,
-            slides: slides,
+            slides: _slides,
           ),
 
           Consumer<BzModel>(
             builder: (context, bz, _) =>
              Header(
-              flyerZoneWidth: flyerZoneWidth,
+              flyerZoneWidth: _flyerZoneWidth,
               bz: bz,
-              flyerShowsAuthor: flyerShowsAuthor,
+              flyerShowsAuthor: _flyerShowsAuthor,
               bzPageIsOn: bzPageIsOn,
               tappingHeader: () {switchBzPage();},
               tappingFollow: (){
@@ -147,26 +149,26 @@ class _FlyerState extends State<Flyer> with AutomaticKeepAliveClientMixin{
                 bz.toggleFollow();
                 },
               tappingUnfollow: () {print('UnFollow Tapped');},
-              author: author,
+              author: _author,
               followIsOn: bz.followIsOn,
             ),
           ),
 
           ProgressBar(
-            flyerZoneWidth: flyerZoneWidth,
+            flyerZoneWidth: _flyerZoneWidth,
             barIsOn: _barIsOn,
-            currentSlide: widget.currentSlideIndex >= numberOfSlides ? 0 : widget.currentSlideIndex,
-            numberOfSlides: numberOfSlides,
+            currentSlide: _currentSlideIndex >= _numberOfSlides ? 0 : _currentSlideIndex,
+            numberOfSlides: _numberOfSlides,
           ),
 
           Consumer<FlyerModel>(
             builder: (context, flyer, _) =>
                 AnkhButton(
-                  flyerZoneWidth: flyerZoneWidth,
+                  flyerZoneWidth: _flyerZoneWidth,
                   // flyerID: flyerID,
                   bzPageIsOn: bzPageIsOn,
                   slidingIsOn: widget.slidingIsOn,
-                  microMode: microMode,
+                  microMode: _microMode,
                   ankhIsOn: flyer.ankhIsOn,
                   tappingAnkh: (){
                     flyer.toggleAnkh();

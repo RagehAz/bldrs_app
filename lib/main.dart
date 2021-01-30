@@ -22,7 +22,7 @@ class BldrsApp extends StatefulWidget {
 
   static void setLocale(BuildContext context, Locale locale) {
     _BldrsAppState state = context.findAncestorStateOfType<_BldrsAppState>();
-    state.setLocale(locale);
+    state._setLocale(locale);
   }
 
   @override
@@ -47,7 +47,7 @@ class _BldrsAppState extends State<BldrsApp> {
     GlobalCupertinoLocalizations.delegate,
   ];
 // ---------------------------------------------------------------------------
-  void setLocale(Locale locale) {
+  void _setLocale(Locale locale) {
     setState(() {
       _locale = locale;
     });
@@ -67,7 +67,7 @@ class _BldrsAppState extends State<BldrsApp> {
   bool _error = false;
 // ---------------------------------------------------------------------------
   // Define an async function to initialize FlutterFire
-  void initializeFlutterFire() async {
+  void _initializeFlutterFire() async {
     try {
       // Wait for Firebase to initialize and set `_initialized` state to true
       await Firebase.initializeApp();
@@ -85,7 +85,7 @@ class _BldrsAppState extends State<BldrsApp> {
 // ---------------------------------------------------------------------------
   @override
   void initState() {
-    initializeFlutterFire();
+    _initializeFlutterFire();
     print("successfully initialized FlutterFire");
     super.initState();
   }

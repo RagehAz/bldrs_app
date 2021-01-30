@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:bldrs/view_brains/drafters/file_formatters.dart';
 import 'package:bldrs/view_brains/drafters/shadowers.dart';
+import 'package:bldrs/view_brains/drafters/stringers.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
@@ -39,6 +40,7 @@ class DreamBox extends StatelessWidget {
   final Function onTapDown;
   final Function onTapUp;
   final Function onTapCancel;
+  final TextDirection textDirection;
 
   DreamBox({
     @required this.height,
@@ -71,39 +73,38 @@ class DreamBox extends StatelessWidget {
     this.onTapDown,
     this.onTapUp,
     this.onTapCancel,
+    this.textDirection,
   });
 
   @override
   Widget build(BuildContext context) {
 
-    double sizeFactor = iconSizeFactor;
+    double _sizeFactor = iconSizeFactor;
+    double _boxHeight = height ;
 
-    // double boxWidth = width ;
-    double boxHeight = height ;
-
-    Color imageSaturationColor =
+    Color _imageSaturationColor =
         blackAndWhite == true ? Colorz.Grey : Colorz.Nothing;
 
 
-    double verseIconSpacing = verse != null ? height * 0.3 * iconSizeFactor * verseScaleFactor : 0;
+    double _verseIconSpacing = verse != null ? height * 0.3 * iconSizeFactor * verseScaleFactor : 0;
 
-    double svgGraphicWidth = height * sizeFactor;
-    double jpgGraphicWidth = height * sizeFactor;
-    double graphicWidth = icon == null ? 0 :
-        fileExtensionOf(icon) == 'svg' ? svgGraphicWidth :
+    double _svgGraphicWidth = height * _sizeFactor;
+    double _jpgGraphicWidth = height * _sizeFactor;
+    double _graphicWidth = icon == null ? 0 :
+        fileExtensionOf(icon) == 'svg' ? _svgGraphicWidth :
         fileExtensionOf(icon) == 'jpg' ||
         fileExtensionOf(icon) == 'jpeg' ||
-        fileExtensionOf(icon) == 'png' ? jpgGraphicWidth : height;
+        fileExtensionOf(icon) == 'png' ? _jpgGraphicWidth : height;
 
-    double iconMargin = verse == null || icon == null ? 0 : (height - graphicWidth)/2;
+    double _iconMargin = verse == null || icon == null ? 0 : (height - _graphicWidth)/2;
 
-    double verseWidth = width != null ? width - (iconMargin * 2) - graphicWidth - ((verseIconSpacing * 2) + iconMargin) : width;
+    double _verseWidth = width != null ? width - (_iconMargin * 2) - _graphicWidth - ((_verseIconSpacing * 2) + _iconMargin) : width;
 
-    int verseSize =  iconSizeFactor == 1 ? 4 : 4;
+    int _verseSize =  iconSizeFactor == 1 ? 4 : 4;
 
-    double iconCorners = iconRounded == true ? (corners-iconMargin) : 0;
+    double _iconCorners = iconRounded == true ? (corners-_iconMargin) : 0;
 
-    Color boxColor =
+    Color _boxColor =
     (blackAndWhite == true && color != Colorz.Nothing) ?
     Colorz.GreySmoke :
     (color == Colorz.Nothing && blackAndWhite == true) ?
@@ -111,6 +112,8 @@ class DreamBox extends StatelessWidget {
     color;
 
     Color _iconColor = blackAndWhite == true ? Colorz.WhiteSmoke : iconColor;
+
+    TextDirection _textDirection = textDirection == null ? superTextDirection(context) : textDirection;
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -132,10 +135,10 @@ class DreamBox extends StatelessWidget {
                   // --- THE BOX
                   Container(
                     width: width,
-                    height: boxHeight,
+                    height: _boxHeight,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
-                        color: inActiveMode == true ? Colorz.WhiteAir : boxColor,
+                        color: inActiveMode == true ? Colorz.WhiteAir : _boxColor,
                         borderRadius: BorderRadius.circular(corners),
                         boxShadow: [
                           CustomBoxShadow(
@@ -166,36 +169,37 @@ class DreamBox extends StatelessWidget {
                             mainAxisAlignment: verse != null ? MainAxisAlignment.start : MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisSize: MainAxisSize.min,
+                            textDirection: _textDirection,
                             children: <Widget>[
 
                               // --- ICON
                               Stack(
                                 alignment: Alignment.center,
-                                children: [
+                                children: <Widget>[
                                   iconFile != null ?
                                   Container(
-                                    width: jpgGraphicWidth,
-                                    height: jpgGraphicWidth,
-                                    margin: EdgeInsets.all(iconMargin),
+                                    width: _jpgGraphicWidth,
+                                    height: _jpgGraphicWidth,
+                                    margin: EdgeInsets.all(_iconMargin),
                                     decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.all(Radius.circular(iconCorners)),
+                                        borderRadius: BorderRadius.all(Radius.circular(_iconCorners)),
                                         boxShadow: [
                                           CustomBoxShadow(
                                               color: bubble == true ? Colorz.BlackLingerie : Colorz.Nothing,
-                                              offset: new Offset(0, jpgGraphicWidth * -0.019 ),
-                                              blurRadius: jpgGraphicWidth * 0.2,
+                                              offset: new Offset(0, _jpgGraphicWidth * -0.019 ),
+                                              blurRadius: _jpgGraphicWidth * 0.2,
                                               blurStyle: BlurStyle.outer),
                                         ]
                                     ),
                                     child: ClipRRect(
-                                      borderRadius: BorderRadius.all(Radius.circular(iconCorners)),
+                                      borderRadius: BorderRadius.all(Radius.circular(_iconCorners)),
                                       child: ColorFiltered(
                                         colorFilter: ColorFilter.mode(
-                                            imageSaturationColor,
+                                            _imageSaturationColor,
                                             BlendMode.saturation),
                                         child: Container(
-                                          width: jpgGraphicWidth,
-                                          height: jpgGraphicWidth,
+                                          width: _jpgGraphicWidth,
+                                          height: _jpgGraphicWidth,
                                           decoration: BoxDecoration(
                                             image: DecorationImage(image: FileImage(iconFile), fit: BoxFit.cover),
                                           ),
@@ -207,36 +211,36 @@ class DreamBox extends StatelessWidget {
                                       :
                                   fileExtensionOf(icon) == 'svg' ?
                                   Padding(
-                                    padding: EdgeInsets.all(iconMargin),
+                                    padding: EdgeInsets.all(_iconMargin),
                                     child: ClipRRect(
-                                        borderRadius: BorderRadius.all(Radius.circular(iconCorners)),
-                                        child: WebsafeSvg.asset(icon, color: _iconColor, height: svgGraphicWidth, fit: BoxFit.cover)),
+                                        borderRadius: BorderRadius.all(Radius.circular(_iconCorners)),
+                                        child: WebsafeSvg.asset(icon, color: _iconColor, height: _svgGraphicWidth, fit: BoxFit.cover)),
                                   )
                                       :
                                   fileExtensionOf(icon) == 'jpg' || fileExtensionOf(icon) == 'jpeg' || fileExtensionOf(icon) == 'png' ?
                                   Container(
-                                    width: jpgGraphicWidth,
-                                    height: jpgGraphicWidth,
-                                    margin: EdgeInsets.all(iconMargin),
+                                    width: _jpgGraphicWidth,
+                                    height: _jpgGraphicWidth,
+                                    margin: EdgeInsets.all(_iconMargin),
                                     decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.all(Radius.circular(iconCorners)),
+                                        borderRadius: BorderRadius.all(Radius.circular(_iconCorners)),
                                         boxShadow: [
                                           CustomBoxShadow(
                                               color: bubble == true ? Colorz.BlackLingerie : Colorz.Nothing,
-                                              offset: new Offset(0, jpgGraphicWidth * -0.019 ),
-                                              blurRadius: jpgGraphicWidth * 0.2,
+                                              offset: new Offset(0, _jpgGraphicWidth * -0.019 ),
+                                              blurRadius: _jpgGraphicWidth * 0.2,
                                               blurStyle: BlurStyle.outer),
                                         ]
                                     ),
                                     child: ClipRRect(
-                                      borderRadius: BorderRadius.all(Radius.circular(iconCorners)),
+                                      borderRadius: BorderRadius.all(Radius.circular(_iconCorners)),
                                       child: ColorFiltered(
                                         colorFilter: ColorFilter.mode(
-                                            imageSaturationColor,
+                                            _imageSaturationColor,
                                             BlendMode.saturation),
                                         child: Container(
-                                          width: jpgGraphicWidth,
-                                          height: jpgGraphicWidth,
+                                          width: _jpgGraphicWidth,
+                                          height: _jpgGraphicWidth,
                                           decoration: BoxDecoration(
                                             image: DecorationImage(image: AssetImage(icon), fit: BoxFit.cover),
                                           ),
@@ -248,11 +252,11 @@ class DreamBox extends StatelessWidget {
                                   // --- BUTTON BLACK LAYER IF GREYED OUT
                                   blackAndWhite == true && icon != null && fileExtensionOf(icon) != 'svg'?
                                   Container(
-                                    height: jpgGraphicWidth,
-                                    width: jpgGraphicWidth,
+                                    height: _jpgGraphicWidth,
+                                    width: _jpgGraphicWidth,
                                     decoration: BoxDecoration(
                                       // color: Colorz.Yellow,
-                                      borderRadius: BorderRadius.circular(iconCorners),
+                                      borderRadius: BorderRadius.circular(_iconCorners),
                                       gradient: LinearGradient(
                                           begin: Alignment.topCenter,
                                           end: Alignment.bottomCenter,
@@ -266,7 +270,7 @@ class DreamBox extends StatelessWidget {
 
                               // --- SPACING
                               SizedBox(
-                                width: iconSizeFactor != 1 && icon != null ? verseIconSpacing * 0.25 : verseIconSpacing,
+                                width: iconSizeFactor != 1 && icon != null ? _verseIconSpacing * 0.25 : _verseIconSpacing,
                                 height: height,
                               ),
 
@@ -274,7 +278,7 @@ class DreamBox extends StatelessWidget {
                               verse == null ? Container() :
                               Container(
                                 height: height,
-                                width: verseWidth,
+                                width: _verseWidth,
                                 // color: Colorz.YellowSmoke, // for design purpose only
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -282,7 +286,7 @@ class DreamBox extends StatelessWidget {
                                   children: <Widget>[
                                     SuperVerse(
                                       verse: verse,
-                                      size: verseSize,
+                                      size: _verseSize,
                                       weight: verseWeight,
                                       color: blackAndWhite == true || inActiveMode == true ? Colorz.WhiteSmoke : verseColor,
                                       shadow: blackAndWhite == true ? false : true,
@@ -310,7 +314,7 @@ class DreamBox extends StatelessWidget {
 
                               // --- SPACING
                               SizedBox(
-                                width: verseIconSpacing + iconMargin,
+                                width: _verseIconSpacing + _iconMargin,
                                 height: height,
                               ),
                             ],
@@ -378,7 +382,7 @@ class DreamBox extends StatelessWidget {
                       SuperVerse(
                         verse: underLine,
                         color: underLineColor,
-                        size: verseSize,
+                        size: _verseSize,
                         scaleFactor: height * 0.005 * verseScaleFactor,
                         maxLines: 2,
                         shadow: true,

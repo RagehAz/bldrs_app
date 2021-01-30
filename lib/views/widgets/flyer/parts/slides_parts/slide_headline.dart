@@ -19,7 +19,7 @@ class SlideTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double titleTopMargin = flyerZoneWidth * 0.3;
+    double _titleTopMargin = flyerZoneWidth * 0.3;
 
     // --- FLYER TITLE
     return GestureDetector(
@@ -28,7 +28,7 @@ class SlideTitle extends StatelessWidget {
           width: flyerZoneWidth,
           height: flyerZoneWidth*0.4,
           // color: Colorz.BloodTest,
-          margin: EdgeInsets.only(top: titleTopMargin),
+          margin: EdgeInsets.only(top: _titleTopMargin),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,

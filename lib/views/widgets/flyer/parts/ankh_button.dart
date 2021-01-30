@@ -79,7 +79,7 @@ class _AnkhButtonState extends State<AnkhButton> with SingleTickerProviderStateM
     // bool ankhIsOn = pro.ankhIsOn;
     // String flyerID = pro.flyer.flyerID;
     // ----------------------------------------------------------------------------
-    double footerBTMargins =
+    double _footerBTMargins =
     (
         (_ankhIsOn == true && widget.microMode == true && widget.slidingIsOn == false) ?
         widget.flyerZoneWidth * 0.01// for micro flyer when AnkhIsOn
@@ -90,12 +90,12 @@ class _AnkhButtonState extends State<AnkhButton> with SingleTickerProviderStateM
         widget.flyerZoneWidth * 0.025 // for Normal flyer when !AnkhIsOn
     );
     // ----------------------------------------------------------------------------
-    double flyerBottomCorners = widget.flyerZoneWidth * Ratioz.xxflyerBottomCorners;
-    double saveBTRadius = flyerBottomCorners - footerBTMargins;
+    double _flyerBottomCorners = widget.flyerZoneWidth * Ratioz.xxflyerBottomCorners;
+    double _saveBTRadius = _flyerBottomCorners - _footerBTMargins;
     // String saveBTIcon = ankhIsOn == true ? Iconz.SaveOn : Iconz.SaveOff;
     // String saveBTVerse = ankhIsOn == true ? translate(context, 'Saved') :
     // translate(context, 'Save');
-    Color saveBTColor = _ankhIsOn == true ? Colorz.YellowSmoke : Colorz.Nothing;
+    Color _saveBTColor = _ankhIsOn == true ? Colorz.YellowSmoke : Colorz.Nothing;
     // ----------------------------------------------------------------------------
     // Color flyerShadowColor = ankhIsOn == true ? Colorz.BlackBlack : Colorz.BlackBlack;
     // ----------------------------------------------------------------------------
@@ -114,8 +114,8 @@ class _AnkhButtonState extends State<AnkhButton> with SingleTickerProviderStateM
 
                   AnimatedContainer(
                     duration: Duration(milliseconds: 200),
-                    width: saveBTRadius*2,
-                    height: saveBTRadius*2,
+                    width: _saveBTRadius * 2,
+                    height: _saveBTRadius * 2,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: widget.ankhIsOn == true ? Colorz.YellowSmoke : Colorz.Nothing,//_ankhColorAni.value,
@@ -126,10 +126,10 @@ class _AnkhButtonState extends State<AnkhButton> with SingleTickerProviderStateM
                   DreamBox(
                       icon: widget.ankhIsOn == true ? Iconz.SaveOn : Iconz.SaveOff, // saveBTIcon,
                       iconSizeFactor: 0.8,
-                      width: saveBTRadius*2,
-                      height: saveBTRadius*2,
-                      corners: saveBTRadius,
-                      boxMargins: EdgeInsets.all(footerBTMargins),
+                      width: _saveBTRadius*2,
+                      height: _saveBTRadius*2,
+                      corners: _saveBTRadius,
+                      boxMargins: EdgeInsets.all(_footerBTMargins),
                       color: Colorz.Nothing,
                       boxFunction: (){
                         widget.tappingAnkh();

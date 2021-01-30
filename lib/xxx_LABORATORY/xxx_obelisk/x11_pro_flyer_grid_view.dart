@@ -170,7 +170,7 @@ class _FlyersGridViewState extends State<FlyersGridView> {
                     child: Flyer(
                       // flyerID: flyers[i].flyer.flyerID,
                       flyerSizeFactor: flyerSizeFactor,
-                      currentSlideIndex: 0,
+                      initialSlide: 0,
                       slidingIsOn: true,
                       tappingFlyerZone: (){
                         openFlyer(context, flyers[i].flyerID);

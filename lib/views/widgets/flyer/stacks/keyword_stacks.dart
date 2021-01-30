@@ -59,7 +59,7 @@ class FlyerCoversStack extends StatelessWidget {
                 // flyerID: flyersDataList[0].flyer.flyerID,
                 slidingIsOn: false,
                 tappingFlyerZone: (){},
-                currentSlideIndex: 0,
+                initialSlide: 0,
               ),
             ),
 
@@ -91,7 +91,7 @@ class FlyerCoversStack extends StatelessWidget {
                                 // flyerID: flyersDataList[index].flyer.flyerID,
                                 slidingIsOn: false,
                                 tappingFlyerZone: (){},
-                                currentSlideIndex: 0,
+                                initialSlide: 0,
                               )
                           )
                     ],

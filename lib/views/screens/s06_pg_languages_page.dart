@@ -16,7 +16,7 @@ class PGLanguageList extends StatelessWidget {
           right: 10,
           left: 10,
         ),
-        padding: EdgeInsets.all(5),
+        padding: const EdgeInsets.all(5),
         decoration: BoxDecoration(
             borderRadius:
                 BorderRadius.all(Radius.circular(Ratioz.ddAppBarCorner)),

@@ -46,12 +46,12 @@ class SuperVerse extends StatelessWidget {
     this.redDot = false,
   });
 
-  Widget _dot(double dotSize, Color color){
+  Widget _dot(double _dotSize, Color _color){
     return Container(
-      width: dotSize,
-      height: dotSize,
+      width: _dotSize,
+      height: _dotSize,
       decoration: BoxDecoration(
-          color: color,
+          color: _color,
           shape: BoxShape.circle
       ),
     );
@@ -61,40 +61,40 @@ class SuperVerse extends StatelessWidget {
   Widget build(BuildContext context) {
 
     String _verse = verse;
-    Color verseColor = color;
-    Color boxColor = designMode ? Colorz.BloodTest : Colorz.Nothing;
-    double verseHeight = 1.42; //1.48; // The sacred golden reverse engineered factor
-    double scalingFactor = scaleFactor == null ? 1: scaleFactor;
+    Color _verseColor = color;
+    Color _boxColor = designMode ? Colorz.BloodTest : Colorz.Nothing;
+    double _verseHeight = 1.42; //1.48; // The sacred golden reverse engineered factor
+    double _scalingFactor = scaleFactor == null ? 1: scaleFactor;
     int _maxLines =  maxLines;
     // takes values from 0 to 8 in the entire app
-    double verseSizeValue = superVerseSizeValue(context, size, scalingFactor);
+    double _verseSizeValue = superVerseSizeValue(context, size, _scalingFactor);
     // --- AVAILABLE FONT WEIGHTS -----------------------------------------------
-    FontWeight verseWeight = superVerseWeight(weight);
+    FontWeight _verseWeight = superVerseWeight(weight);
     // --- AVAILABLE FONTS -----------------------------------------------
-    String verseFont = superVerseFont(context, weight);
+    String _verseFont = superVerseFont(context, weight);
     // --- LETTER SPACING -----------------------------------------------
-    double verseLetterSpacing = superVerseLetterSpacing(weight, verseSizeValue);
+    double _verseLetterSpacing = superVerseLetterSpacing(weight, _verseSizeValue);
     // --- WORD SPACING -----------------------------------------------
-    double verseWordSpacing = superVerseWordSpacing(verseSizeValue);
+    double _verseWordSpacing = superVerseWordSpacing(_verseSizeValue);
     // --- SHADOWS -----------------------------------------------
-    double shadowBlur = 0;
-    double shadowYOffset = 0;
-    double shadowXOffset = superVerseXOffset(weight, verseSizeValue);
-    double secondShadowXOffset = -0.35 * shadowXOffset;
-    Color leftShadow = color == Colorz.BlackBlack ? Colorz.WhitePlastic : Colorz.BlackBlack;
-    Color rightShadow = color == Colorz.BlackBlack ? Colorz.WhiteSmoke : Colorz.WhiteGlass;
+    double _shadowBlur = 0;
+    double _shadowYOffset = 0;
+    double _shadowXOffset = superVerseXOffset(weight, _verseSizeValue);
+    double _secondShadowXOffset = -0.35 * _shadowXOffset;
+    Color _leftShadow = color == Colorz.BlackBlack ? Colorz.WhitePlastic : Colorz.BlackBlack;
+    Color _rightShadow = color == Colorz.BlackBlack ? Colorz.WhiteSmoke : Colorz.WhiteGlass;
     // --- ITALIC -----------------------------------------------
-    FontStyle verseStyle = italic == true ? FontStyle.italic : FontStyle.normal;
+    FontStyle _verseStyle = italic == true ? FontStyle.italic : FontStyle.normal;
     // --- VERSE BOX MARGIN -----------------------------------------------
     double _margin = margin == null ? 0 : margin;
     // --- LABEL -----------------------------------------------
-    double labelCornerValues = superVerseLabelCornerValue(context, size);
-    double labelCorner = labelColor == null ? 0 : labelCornerValues;
-    double sidePaddingValues = superVerseSidePaddingValues(context, size);
-    double sidePaddings = labelColor == null ? 0 : sidePaddingValues;
-    double labelHeight = superVerseRealHeight(context, size, scaleFactor, labelColor);
+    double _labelCornerValues = superVerseLabelCornerValue(context, size);
+    double _labelCorner = labelColor == null ? 0 : _labelCornerValues;
+    double _sidePaddingValues = superVerseSidePaddingValues(context, size);
+    double _sidePaddings = labelColor == null ? 0 : _sidePaddingValues;
+    double _labelHeight = superVerseRealHeight(context, size, scaleFactor, labelColor);
     // --- DOTS -----------------------------------------------
-    double dotSize = verseSizeValue * 0.3;
+    double _dotSize = _verseSizeValue * 0.3;
     // --- RED DOT -----------------------------------------------
 
 
@@ -110,17 +110,17 @@ class SuperVerse extends StatelessWidget {
 
             leadingDot == false ? Container() :
                 Padding(
-                  padding: EdgeInsets.all(dotSize),
-                  child: _dot(dotSize, color),
+                  padding: EdgeInsets.all(_dotSize),
+                  child: _dot(_dotSize, color),
                 ),
 
             Flexible(
               flex: 1,//_maxLines >= 1 ? 1 : 0,
               child: Container(
-                padding: EdgeInsets.only(right: sidePaddings, left: sidePaddings),
-                margin: EdgeInsets.all(sidePaddings * 0.25),
+                padding: EdgeInsets.only(right: _sidePaddings, left: _sidePaddings),
+                margin: EdgeInsets.all(_sidePaddings * 0.25),
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(labelCorner)),
+                    borderRadius: BorderRadius.all(Radius.circular(_labelCorner)),
                     color: labelColor
                 ),
                 child: Text(
@@ -134,27 +134,27 @@ class SuperVerse extends StatelessWidget {
                   TextAlign.start,
                   textScaleFactor: 1,
                   style: TextStyle(
-                      backgroundColor: boxColor,
+                      backgroundColor: _boxColor,
                       textBaseline: TextBaseline.alphabetic,
-                      height: verseHeight,
-                      color: verseColor,
-                      fontFamily: verseFont ,
-                      fontStyle: verseStyle,
-                      letterSpacing: verseLetterSpacing,
-                      wordSpacing: verseWordSpacing,
-                      fontSize: verseSizeValue,
-                      fontWeight: verseWeight,
+                      height: _verseHeight,
+                      color: _verseColor,
+                      fontFamily: _verseFont ,
+                      fontStyle: _verseStyle,
+                      letterSpacing: _verseLetterSpacing,
+                      wordSpacing: _verseWordSpacing,
+                      fontSize: _verseSizeValue,
+                      fontWeight: _verseWeight,
                       shadows: <Shadow>[
                         if (shadow)
                           Shadow(
-                            blurRadius: shadowBlur,
-                            color: leftShadow,
-                            offset: Offset(shadowXOffset, shadowYOffset),
+                            blurRadius: _shadowBlur,
+                            color: _leftShadow,
+                            offset: Offset(_shadowXOffset, _shadowYOffset),
                           ),
                         Shadow(
-                          blurRadius: shadowBlur,
-                          color: rightShadow,
-                          offset: Offset(secondShadowXOffset, shadowYOffset),
+                          blurRadius: _shadowBlur,
+                          color: _rightShadow,
+                          offset: Offset(_secondShadowXOffset, _shadowYOffset),
                         )
                       ]
                   ),
@@ -164,18 +164,18 @@ class SuperVerse extends StatelessWidget {
 
             redDot == false ? Container() :
             Container(
-              height: labelHeight,
+              height: _labelHeight,
                 margin:
                 labelColor == null ?
-                EdgeInsets.symmetric(horizontal: labelHeight * 0.2) :
-                EdgeInsets.symmetric(horizontal: labelHeight * 0.05),
+                EdgeInsets.symmetric(horizontal: _labelHeight * 0.2) :
+                EdgeInsets.symmetric(horizontal: _labelHeight * 0.05),
                 alignment: Alignment.topCenter,
                 child: Padding(
                   padding:
                   labelColor == null ?
-                  EdgeInsets.only(top: labelHeight * 0.2) :
-                  EdgeInsets.only(top: labelHeight * 0.05) ,
-                  child: _dot(dotSize, Colorz.BloodRed),
+                  EdgeInsets.only(top: _labelHeight * 0.2) :
+                  EdgeInsets.only(top: _labelHeight * 0.05) ,
+                  child: _dot(_dotSize, Colorz.BloodRed),
                 ),
             ),
 
