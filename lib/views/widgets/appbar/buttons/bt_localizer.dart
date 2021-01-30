@@ -9,9 +9,11 @@ import 'package:provider/provider.dart';
 
 class LocalizerButton extends StatelessWidget {
   final Function onTap;
+  final bool isOn;
 
   LocalizerButton({
     this.onTap,
+    this.isOn = false,
   });
 
 
@@ -35,7 +37,8 @@ class LocalizerButton extends StatelessWidget {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(
                       Radius.circular(Ratioz.ddAppBarButtonCorner)),
-                  color: Colorz.WhiteAir),
+                  color: isOn ? Colorz.Yellow : Colorz.WhiteAir
+              ),
               child: ChangeNotifierProvider.value(
                 value: _countryPro,
                 child: Row(
@@ -55,11 +58,13 @@ class LocalizerButton extends StatelessWidget {
                             SuperVerse(
                               verse: translate(context, _lastCountry),
                               size: 1,
+                              color: isOn? Colorz.BlackBlack : Colorz.White,
                             ),
                             SuperVerse(
                               verse: 'City Name',
                               size: 1,
                               scaleFactor: 0.8,
+                              color: isOn? Colorz.BlackBlack : Colorz.White,
                             ),
                           ],
                         ),

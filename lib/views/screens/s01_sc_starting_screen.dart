@@ -10,20 +10,7 @@ import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
 
-void changingCountry(){
-  Function switchingCountry;
-  switchingCountry();
-}
-
-class StartingScreen extends StatefulWidget {
-  StartingScreen({Key key}) : super(key: key);
-
-
-  @override
-  StartingScreenState createState() => StartingScreenState();
-}
-
-class StartingScreenState extends State<StartingScreen> {
+class StartingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {

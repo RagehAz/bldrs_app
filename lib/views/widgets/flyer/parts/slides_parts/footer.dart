@@ -1,3 +1,4 @@
+import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
@@ -28,20 +29,19 @@ class FlyerFooter extends StatelessWidget {
     // === === === === === === === === === === === === === === === === === === === === === === === === === === === ===
 
     // ----------------------------------------------------------------------
-    // double screenHeight = MediaQuery.of(context).size.height;
-    double screenWidth = MediaQuery.of(context).size.width;
+    double _screenWidth = superScreenWidth(context);
 
     double _flyerZoneWidth = flyerZoneWidth;
-    double flyerBottomCorners = flyerZoneWidth * Ratioz.xxflyerBottomCorners;
+    double _flyerBottomCorners = flyerZoneWidth * Ratioz.xxflyerBottomCorners;
     // ----------------------------------------------------------------------
-    bool miniMode = flyerZoneWidth < screenWidth * 0.75 ? true : false ;
+    bool _miniMode = flyerZoneWidth < _screenWidth * 0.75 ? true : false ;
 
     // --- SHARE & SAVE BUTTONS --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- SHARE & SAVE BUTTONS
-    double footerBTMargins = flyerZoneWidth * 0.025; //
-    double footerBTRadius = flyerBottomCorners - footerBTMargins;
-    dynamic footerBTColor = Colorz.GreySmoke;
-    String shareBTIcon = Iconz.Share;
-    String shareBTVerse = Wordz.send(context);
+    double _footerBTMargins = flyerZoneWidth * 0.025; //
+    double _footerBTRadius = _flyerBottomCorners - _footerBTMargins;
+    dynamic _footerBTColor = Colorz.GreySmoke;
+    String _shareBTIcon = Iconz.Share;
+    String _shareBTVerse = Wordz.send(context);
     // String saveBTIcon = ankhOn == true ? Iconz.SaveOn : Iconz.SaveOff;
     // String saveBTVerse = ankhOn == true ? translate(context, 'Saved') :
     // Wordz.save(context);
@@ -49,23 +49,23 @@ class FlyerFooter extends StatelessWidget {
 
 
     // --- FLYER FOOTER CONTAINER--- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- FLYER FOOTER
-    double flyerFooterWidth =
+    double _flyerFooterWidth =
         // flyerZoneWidth == MediaQuery.of(context).size.width ?
         // (flyerZoneWidth-(flyerZoneWidth * Ratioz.xxflyerMainMargins * 2 ))
         //     : // * only 1 because it starts from bottom left of the flyer neglecting flyer's left margin from screen boarder kalb
     flyerZoneWidth
     ;
-    double flyerFooterHeight = (2 * footerBTMargins) + (2 * footerBTRadius);
-    dynamic flyerFooterColor = Colorz.Nothing;
+    double _flyerFooterHeight = (2 * _footerBTMargins) + (2 * _footerBTRadius);
+    dynamic _flyerFooterColor = Colorz.Nothing;
 
     // --- FLYER FOOTER
     return Align(
       alignment: Alignment.bottomCenter,
       // --- FLYER FOOTER BOX
       child: Container(
-        width: flyerFooterWidth,
-        height: flyerFooterHeight,
-        color: flyerFooterColor,
+        width: _flyerFooterWidth,
+        height: _flyerFooterHeight,
+        color: _flyerFooterColor,
 
         // --- FLYER FOOTER COMPONENTS
         child: Stack(
@@ -77,8 +77,8 @@ class FlyerFooter extends StatelessWidget {
               height: double.infinity,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(flyerBottomCorners),
-                    bottomRight: Radius.circular(flyerBottomCorners),
+                    bottomLeft: Radius.circular(_flyerBottomCorners),
+                    bottomRight: Radius.circular(_flyerBottomCorners),
                   ),
                   gradient: LinearGradient(
                       begin: Alignment.topCenter,
@@ -94,7 +94,7 @@ class FlyerFooter extends StatelessWidget {
                         1
                       ])),
             ),
-          miniMode == true ? Container() :
+            _miniMode == true ? Container() :
             // --- SHARE BUTTON
             Positioned(
               right: Wordz.textDirection(context) == 'ltr' ? null : 0,
@@ -102,11 +102,11 @@ class FlyerFooter extends StatelessWidget {
               bottom: 0,
               child: ShareBT(
                 flyerZoneWidth: flyerZoneWidth,
-                buttonVerse: shareBTVerse,
-                buttonColor: footerBTColor,
-                buttonIcon: shareBTIcon,
-                buttonMargins: footerBTMargins,
-                buttonRadius: footerBTRadius,
+                buttonVerse: _shareBTVerse,
+                buttonColor: _footerBTColor,
+                buttonIcon: _shareBTIcon,
+                buttonMargins: _footerBTMargins,
+                buttonRadius: _footerBTRadius,
                 tappingButton: tappingShare,
 
                 //() => share(context, theFlyerLink),
@@ -151,13 +151,13 @@ class FlyerFooter extends StatelessWidget {
 
             // --- Fake space under save button
             Container(
-              width: footerBTRadius * 2,
-              height: footerBTRadius * 2,
+              width: _footerBTRadius * 2,
+              height: _footerBTRadius * 2,
               margin: EdgeInsets.only(
-                left: footerBTMargins,
-                top: footerBTMargins,
-                right: footerBTMargins,
-                bottom: footerBTMargins,
+                left: _footerBTMargins,
+                top: _footerBTMargins,
+                right: _footerBTMargins,
+                bottom: _footerBTMargins,
               ),
             ),
 

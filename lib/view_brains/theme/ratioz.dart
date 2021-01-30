@@ -26,6 +26,7 @@ static const double ddAppBarCorner = 18; // ORIGINALLY MediaQuery.of(context).si
 static const double ddAppBarButtonCorner = 13;
 static const double ddBoxCorner = 8;
 static const double ddAppBarMargin = 10;
+static const double ddAppBarPadding = 5;
 static const double ddAppBarHeight = 50;
 
 // flyer old default ratios to be deleted lamma attamen 3al application isa

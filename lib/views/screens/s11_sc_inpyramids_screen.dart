@@ -1,11 +1,9 @@
 import 'package:bldrs/models/user_model.dart';
-import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/views/widgets/appbar/ab_in_pyramids/ab_in_pyramids.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/pyramids/enum_lister.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 's12_pg_saved_flyers_page.dart';
 import 's13_pg_news_page.dart';
 import 's14_pg_more_page.dart';
@@ -30,19 +28,19 @@ class InPyramidsScreen extends StatefulWidget {
 }
 
 class _InPyramidsScreenState extends State<InPyramidsScreen> {
-  UserStatus currentUserStatus;
-  inPyramidsPage currentPage;
-  bool enumListerIsOn = false;
-  String enumListTitle = '';
-  List<String> enumListerStrings = [''];
-  List<bool> enumListerTriggers = [false];
+  UserStatus _currentUserStatus;
+  inPyramidsPage _currentPage;
+  bool _enumListerIsOn = false;
+  String _enumListTitle = '';
+  List<String> _enumListerStrings = [''];
+  List<bool> _enumListerTriggers = [false];
   // bool tileIsOn = false;
   String country;
 // ----------------------------------------------------------------------------
   @override
   void initState(){
-  currentUserStatus = widget.userStatus; // userStatus.PlanningUser
-  currentPage = inPyramidsPage.SavedFlyers;
+  _currentUserStatus = widget.userStatus; // userStatus.PlanningUser
+  _currentPage = inPyramidsPage.SavedFlyers;
     super.initState();
   }
 // ----------------------------------------------------------------------------
@@ -66,28 +64,28 @@ class _InPyramidsScreenState extends State<InPyramidsScreen> {
 // ----------------------------------------------------------------------------
   void _switchingPages(inPyramidsPage page) {
     setState(() {
-      currentPage = page;
+      _currentPage = page;
     });
   }
 // ----------------------------------------------------------------------------
   void _switchUserStatus (UserStatus type){
     setState(() {
-      currentUserStatus = type;
+      _currentUserStatus = type;
     });
   }
 // ----------------------------------------------------------------------------
   void _openEnumLister(Map<String,Object> passedMap){
     setState(() {
-      enumListTitle = passedMap['Title'];
-      enumListerStrings = passedMap['Strings'];
-      enumListerTriggers = passedMap['Triggers'];
-      enumListerIsOn = true;
+      _enumListTitle = passedMap['Title'];
+      _enumListerStrings = passedMap['Strings'];
+      _enumListerTriggers = passedMap['Triggers'];
+      _enumListerIsOn = true;
     });
   }
 // ----------------------------------------------------------------------------
   void _closeEnumLister(){
     setState(() {
-      enumListerIsOn = false;
+      _enumListerIsOn = false;
     });
   }
 // ----------------------------------------------------------------------------
@@ -100,9 +98,9 @@ class _InPyramidsScreenState extends State<InPyramidsScreen> {
     setState(() {
 
       // List<bool>  updatedTriggersList = listData['Triggers'];
-      enumListerTriggers[index] == false ?
-      enumListerTriggers[index] = true :
-      enumListerTriggers[index] = false;
+      _enumListerTriggers[index] == false ?
+      _enumListerTriggers[index] = true :
+      _enumListerTriggers[index] = false;
 
       // listData['Triggers'] = updatedTriggersList;
     });
@@ -111,10 +109,9 @@ class _InPyramidsScreenState extends State<InPyramidsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    String country = Provider.of<CountryProvider>(context, listen: false).currentCountry;
 
     return MainLayout(
-      pyramids: enumListerIsOn == true ? Iconz.PyramidzWhite : Iconz.PyramidsWhite,
+      pyramids: _enumListerIsOn == true ? Iconz.PyramidzWhite : Iconz.PyramidsWhite,
       sky: Sky.Black,
 
       // appBarType: AppBarType.Basic,
@@ -130,27 +127,27 @@ class _InPyramidsScreenState extends State<InPyramidsScreen> {
 
               ABInPyramids(
                 switchingPages: _switchingPages,
-                currentPage: currentPage,
-                userStatus: currentUserStatus,
+                currentPage: _currentPage,
+                userStatus: _currentUserStatus,
               ),
 
-              currentPage == inPyramidsPage.Profile ?
+              _currentPage == inPyramidsPage.Profile ?
               ProfilePage(
                 status: _status,
-                userStatus: currentUserStatus,
+                userStatus: _currentUserStatus,
                 switchUserStatus: _switchUserStatus,
                 // bzLogos: dummyCollection,
-                currentUserStatus: currentUserStatus,
+                currentUserStatus: _currentUserStatus,
                 openEnumLister: _openEnumLister,
               )
                   :
-              currentPage == inPyramidsPage.SavedFlyers ?
+              _currentPage == inPyramidsPage.SavedFlyers ?
               SavedFlyersPage()
                   :
-              currentPage == inPyramidsPage.News ?
+              _currentPage == inPyramidsPage.News ?
               NewsPage()
                   :
-              currentPage == inPyramidsPage.More ?
+              _currentPage == inPyramidsPage.More ?
               MorePage()
                   :
               SavedFlyersPage()
@@ -158,11 +155,11 @@ class _InPyramidsScreenState extends State<InPyramidsScreen> {
           ),
 
           // --- LIST TEMPLATE
-          enumListerIsOn == true ?
+          _enumListerIsOn == true ?
           EnumLister(
-            listTitle: enumListTitle,
-            stringsList: enumListerStrings,//listData['Strings'],
-            triggersList: enumListerTriggers,//listData['Triggers'],
+            listTitle: _enumListTitle,
+            stringsList: _enumListerStrings,//listData['Strings'],
+            triggersList: _enumListerTriggers,//listData['Triggers'],
             triggerTile: _triggerTile,
             closeEnumLister: _closeEnumLister,
           ) : Container(),

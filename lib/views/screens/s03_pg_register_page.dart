@@ -12,8 +12,8 @@ import 'package:bldrs/models/user_model.dart';
 
 class Register extends StatefulWidget {
   final Function switchToSignIn;
-  String email;
-  String password;
+  final String email;
+  final String password;
   final Function emailTextOnChanged;
   final Function passwordTextOnChanged;
 

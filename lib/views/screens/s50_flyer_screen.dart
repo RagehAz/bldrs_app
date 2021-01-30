@@ -23,10 +23,10 @@ class FlyerScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final String flyerID = ModalRoute.of(context).settings.arguments as String;
-    final FlyersProvider pro = Provider.of<FlyersProvider>(context, listen: false);
-    final FlyerModel flyer = pro.getFlyerByFlyerID(flyerID);
-    final BzModel bz = pro.getBzByBzID(flyer.bzID);
+    final String _flyerID = ModalRoute.of(context).settings.arguments as String;
+    final FlyersProvider _pro = Provider.of<FlyersProvider>(context, listen: false);
+    final FlyerModel _flyer = _pro.getFlyerByFlyerID(_flyerID);
+    final BzModel _bz = _pro.getBzByBzID(_flyer.bzID);
 
     return MainLayout(
       // appBarIsOn: false,
@@ -37,12 +37,12 @@ class FlyerScreen extends StatelessWidget {
         child:
 
         ChangeNotifierProvider.value(
-          value: flyer,
+          value: _flyer,
           child: ChangeNotifierProvider.value(
-            value: bz,
+            value: _bz,
             child: Flyer(
               flyerSizeFactor: 1,// golden factor 0.97,
-              currentSlideIndex: 0,
+              initialSlide: 0,
               slidingIsOn: true,
               tappingFlyerZone: (){},
 

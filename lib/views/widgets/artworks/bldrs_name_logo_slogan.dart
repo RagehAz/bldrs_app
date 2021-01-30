@@ -1,3 +1,4 @@
+import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
@@ -15,14 +16,14 @@ import 'package:bldrs/view_brains/theme/wordz.dart';
       @override
       Widget build(BuildContext context) {
 
-        double screenHeight = MediaQuery.of(context).size.height;
+        double _screenHeight = superScreenHeight(context);
 
         return Column(
 
           children: <Widget>[
 
             SizedBox(
-              height: screenHeight * .005,
+              height: _screenHeight * .005,
             ),
 
             // --- TAG LINE
@@ -38,14 +39,14 @@ import 'package:bldrs/view_brains/theme/wordz.dart';
             ),
 
             SizedBox(
-              height: screenHeight * .00,
+              height: _screenHeight * .00,
             ),
 
             // --- NAME & LOGO
             Container(
               alignment: Alignment.center,
-              width: screenHeight * 22 * 0.016 * sizeFactor,
-              height: screenHeight * 18 * 0.016 * sizeFactor,
+              width: _screenHeight * 22 * 0.016 * sizeFactor,
+              height: _screenHeight * 18 * 0.016 * sizeFactor,
 //              color: varza.BloodTest,
               child: Container(
                 width: double.infinity,
@@ -56,12 +57,12 @@ import 'package:bldrs/view_brains/theme/wordz.dart';
             ), // ---------------------------- NAME GRAPHIC
 
             SizedBox(
-              height: screenHeight * 0.00,
+              height: _screenHeight * 0.00,
             ),
 
             Container(
-              width: screenHeight * 22 * 0.016 * 1.2 * sizeFactor * 1.2,
-              height: screenHeight * 0.12 * sizeFactor,
+              width: _screenHeight * 22 * 0.016 * 1.2 * sizeFactor * 1.2,
+              height: _screenHeight * 0.12 * sizeFactor,
 //              color: varza.BloodTest,
               child:
               SuperVerse(

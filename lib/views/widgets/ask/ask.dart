@@ -17,35 +17,45 @@ import 'package:bldrs/xxx_LABORATORY/ask/questions_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-
-class Ask extends StatelessWidget {
+class Ask extends StatefulWidget {
   final BzType bzType;
   final Function tappingAskInfo;
-  final TextEditingController _textController = TextEditingController();
-  String questionBody = '';
 
   Ask({
     this.bzType,
     @required this.tappingAskInfo,
   });
 
+  @override
+  _AskState createState() => _AskState();
+}
+
+class _AskState extends State<Ask> {
+  TextEditingController _textController;
+  String questionBody;
+
+  @override
+  void initState() {
+    _textController = TextEditingController();
+    questionBody = '';
+    super.initState();
+  }
+// ---------------------------------------------------------------------------
   void submitQuestion() {
     print(questionBody);
     _textController.clear();
     print('Your Question is Submitted');
   }
-
-
+// ---------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    final questionsProvider = Provider.of<QuestionsProvider>(context);
+    final _questionsProvider = Provider.of<QuestionsProvider>(context);
+    UserStatus _userStatus = UserStatus.PlanningUser;
+    double _abPadding = Ratioz.ddAppBarPadding;
+    double _abHeight = Ratioz.ddAppBarHeight;
+    double _abButtonsHeight = _abHeight - (_abPadding);
 
-    UserStatus userStatus = UserStatus.PlanningUser;
-    double abPadding = Ratioz.ddAppBarMargin * 0.5;
-    double abHeight = Ratioz.ddAppBarHeight;
-    double abButtonsHeight = abHeight - (abPadding);
-
-    String askHint = askHinter(context, bzType);
+    String askHint = askHinter(context, widget.bzType);
 
     return InPyramidsBubble(
       centered: true,
@@ -60,8 +70,8 @@ class Ask extends StatelessWidget {
             // --- USER PICTURE
             UserBalloon(
               userPic: Iconz.DumAuthorPic,
-              userStatus: userStatus,
-              balloonWidth: abButtonsHeight,
+              userStatus: _userStatus,
+              balloonWidth: _abButtonsHeight,
               blackAndWhite: false,
               onTap: () {
                 print('this person should ask a fucking question');
@@ -71,7 +81,7 @@ class Ask extends StatelessWidget {
             // --- SPACER
             Container(
               width: Ratioz.ddAppBarMargin,
-              height: abButtonsHeight,
+              height: _abButtonsHeight,
             ),
 
             // --- USER NAME AND TITLE
@@ -100,11 +110,11 @@ class Ask extends StatelessWidget {
 
             // --- INFO BUTTON
             DreamBox(
-              height: abButtonsHeight * 0.8,
-              width: abButtonsHeight * 0.8,
+              height: _abButtonsHeight * 0.8,
+              width: _abButtonsHeight * 0.8,
               icon: Iconz.Info,
               iconSizeFactor: 0.5,
-              boxFunction: tappingAskInfo,
+              boxFunction: widget.tappingAskInfo,
             )
           ],
         ),
@@ -147,7 +157,7 @@ class Ask extends StatelessWidget {
                   if (questionBody == '' || questionBody == null){
                     print('question cannot be empty');
                   } else {
-                    questionsProvider.add(questionBody);
+                    _questionsProvider.add(questionBody);
                     submitQuestion();
                     goToNewScreen(context, QuestionsScreen());
                   }

@@ -8,12 +8,6 @@ import 'package:flutter/material.dart';
 import 's05_pg_countries_page.dart';
 import 's06_pg_languages_page.dart';
 
-enum LocalizerPage {
-  Country,
-  City,
-  Language,
-}
-
 class LocalizerScreen extends StatefulWidget {
   @override
   _LocalizerScreenState createState() => _LocalizerScreenState();
@@ -61,7 +55,7 @@ class _LocalizerScreenState extends State<LocalizerScreen> {
 
           // --- LOCALIZER APPBAR
           ABLocalizer(
-            currentPage: _currentPage,
+            // currentPage: _currentPage,
           ),
 
           // --- COUNTRY OR LANGUAGE PAGE

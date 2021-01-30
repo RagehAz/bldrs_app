@@ -21,33 +21,27 @@ class FlyerStack extends StatelessWidget {
     this.flyerSizeFactor = 0.3,
 });
 
-  int bobo = 0;
-
-  void indexBlackHole (int blackHoled){
-    blackHoled = bobo;
-  }
-
 
   @override
   Widget build(BuildContext context) {
-    final FlyersProvider pro = Provider.of<FlyersProvider>(context, listen: false);
-    final List<FlyerModel> flyersOfType = pro.getFlyersByFlyerType(flyersType);
-    final List<BzModel> bzz = pro.getBzzOfFlyersList(flyersOfType);
+    final FlyersProvider _pro = Provider.of<FlyersProvider>(context, listen: false);
+    final List<FlyerModel> _flyersOfType = _pro.getFlyersByFlyerType(flyersType);
+    final List<BzModel> _bzz = _pro.getBzzOfFlyersList(_flyersOfType);
 
 // ----------------------------------------------------------------------------
-    double screenWidth = superScreenWidth(context);
-    double screenHeight = superScreenHeight(context);
+    double _screenWidth = superScreenWidth(context);
+    double _screenHeight = superScreenHeight(context);
 // ----------------------------------------------------------------------------
-    double titleSpacing = 5;
-    double collectionHeight = (screenWidth * Ratioz.xxflyerZoneHeight * flyerSizeFactor) + 20 ;
+    double _titleSpacing = 5;
+    double _collectionHeight = (_screenWidth * Ratioz.xxflyerZoneHeight * flyerSizeFactor) + 20 ;
 // ----------------------------------------------------------------------------
     // int _x = 0;
 // ----------------------------------------------------------------------------
     bool _slidingIsOn = false;
 // ----------------------------------------------------------------------------
     return Container(
-      width: screenWidth,
-      height: collectionHeight + 2*titleSpacing + (screenHeight * Ratioz.fontSize3) + 12,
+      width: _screenWidth,
+      height: _collectionHeight + 2*_titleSpacing + (_screenHeight * Ratioz.fontSize3) + 12,
       decoration: BoxDecoration(
       // color: Colorz.Nothing,
         border: Border.symmetric(
@@ -62,8 +56,8 @@ class FlyerStack extends StatelessWidget {
 
           // ---  ABOVE TITLE SPACING
           SizedBox(
-            width: screenWidth,
-            height: titleSpacing,
+            width: _screenWidth,
+            height: _titleSpacing,
           ),
 
           // --- COLLECTION TITLE
@@ -81,17 +75,17 @@ class FlyerStack extends StatelessWidget {
 
           // --- BENEATH TITLE SPACING
           SizedBox(
-            width: screenWidth,
-            height: titleSpacing,
+            width: _screenWidth,
+            height: _titleSpacing,
           ),
 
           // --- COLLECTION FLYER'S ZONE
           Container(
-            width: screenWidth,
-            height: collectionHeight,
+            width: _screenWidth,
+            height: _collectionHeight,
             // color: Colorz.BloodTest,
             child: ListView.separated(
-              itemCount: flyersOfType.length,
+              itemCount: _flyersOfType.length,
               scrollDirection: Axis.horizontal,
               padding: EdgeInsets.symmetric(horizontal: 10),
               addAutomaticKeepAlives: true,
@@ -104,39 +98,20 @@ class FlyerStack extends StatelessWidget {
                 return
                 // --- works
                 ChangeNotifierProvider.value(
-                  value: flyersOfType[_x],
+                  value: _flyersOfType[_x],
                   child: ChangeNotifierProvider.value(
-                    value: bzz[_x],
+                    value: _bzz[_x],
                     child: Flyer(
                       flyerSizeFactor: flyerSizeFactor,
                       slidingIsOn: _slidingIsOn,
                       tappingFlyerZone: (){
-                        openFlyer(context, flyersOfType[_x].flyerID);
+                        openFlyer(context, _flyersOfType[_x].flyerID);
                         // _slidingIsOff = false;
                         },
                     ),
                   ),
                 );
 
-                // --- hero test
-                // Hero(
-                //   tag: flyersOfType[_x].flyer.flyerID,
-                //   child: Material(
-                //     type: MaterialType.transparency,
-                //     child: ChangeNotifierProvider.value(
-                //       value: flyersOfType[_x],
-                //       child: ProFlyer(
-                //         flyerSizeFactor: flyerSizeFactor,
-                //         // flyerID: flyersOfType[_x].flyer.flyerID,
-                //         slidingIsOn: _slidingIsOn,
-                //         tappingFlyerZone: (){
-                //           openFlyerOldWay(context, flyersOfType[_x].flyer.flyerID);
-                //           // _slidingIsOff = false;
-                //         },
-                //       ),
-                //     ),
-                //   ),
-                // );
                 },
 
             ),
