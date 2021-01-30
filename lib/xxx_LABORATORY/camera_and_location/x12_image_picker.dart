@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
@@ -60,8 +61,7 @@ class _MaxCameraScreenState extends State<MaxCameraScreen> {
   @override
   Widget build(BuildContext context) {
 
-    double screenWidth = MediaQuery.of(context).size.width;
-
+    double _screenWidth = superScreenWidth(context);
 
     return MainLayout(
       appBarType: AppBarType.Basic,
@@ -102,17 +102,17 @@ class _MaxCameraScreenState extends State<MaxCameraScreen> {
 
           Center(
             child: Container(
-              height: screenWidth * 0.8,
-              width: screenWidth * 0.8,
+              height: _screenWidth * 0.8,
+              width: _screenWidth * 0.8,
               child: _storedImage == null ?
               DreamBox(
-                height: screenWidth * 0.8,
+                height: _screenWidth * 0.8,
                 icon: Iconz.DumUniverse,
               ) :
               Image.file(
                 _storedImage,
                 fit: BoxFit.cover,
-                width: screenWidth * 0.8,
+                width: _screenWidth * 0.8,
               ),
             ),
           ),
@@ -123,7 +123,7 @@ class _MaxCameraScreenState extends State<MaxCameraScreen> {
           ),
 
           Container(
-            width: screenWidth,
+            width: _screenWidth,
             // height: screenWidth * 0.5,
             child: FutureBuilder(
               future: Provider.of<GreatPlaces>(context, listen: false).fetchAndSetPlaces(),

@@ -4,7 +4,6 @@ import 'package:bldrs/views/screens/s41_sc_flyer_maker_screen.dart';
 import 'package:bldrs/views/widgets/auth/user_checker.dart';
 import 'package:bldrs/views/screens/s00_sc_splash_screen.dart';
 import 'package:bldrs/views/screens/s01_sc_starting_screen.dart';
-import 'package:bldrs/views/screens/s04_sc_localizer_screen.dart';
 import 'package:bldrs/views/screens/s10_sc_home_screen.dart';
 import 'package:bldrs/views/screens/s11_sc_inpyramids_screen.dart';
 import 'package:bldrs/views/screens/s20_sc_search_screen.dart';
@@ -31,11 +30,6 @@ class Routerer {
     /// (s02 signin page, s03 register page) are pages insides StartingScreen();
       case Routez.Starting:
         return MaterialPageRoute(builder: (_) => StartingScreen());
-// ---------------------------------------------------------------------------
-    /// s04
-    /// (s05 countries page, s06 language page) are pages inside LocalizerScreen();
-      case Routez.Localizer:
-        return MaterialPageRoute(builder: (_) => LocalizerScreen());
 // ---------------------------------------------------------------------------
     /// s10
       case Routez.Home:

@@ -1,4 +1,3 @@
-import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
@@ -6,7 +5,6 @@ import 'package:bldrs/views/widgets/flyer/parts/flyer_zone.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
-import 'package:provider/provider.dart';
 
 // class CameraMainPageView extends StatelessWidget{
 //   final controller = PageController(initialPage: 1);
@@ -68,13 +66,13 @@ void dispose() {
 
   @override
   Widget build(BuildContext context) {
-    final pro = Provider.of<FlyersProvider>(context);
-    final flyer = pro.getFlyerByFlyerID('f035');
+    // final _pro = Provider.of<FlyersProvider>(context);
+    // final _flyer = _pro.getFlyerByFlyerID('f035');
     // final bz = flyer.bz;
 
     // final double screenWidth = superScreenWidth(context);
-    final double flyerSizeFactor = 1;
-    final double flyerZoneWidth = superFlyerZoneWidth(context, flyerSizeFactor);
+    final double _flyerSizeFactor = 1;
+    final double _flyerZoneWidth = superFlyerZoneWidth(context, _flyerSizeFactor);
 
     // final double deviceRatio = superDeviceRatio(context);
     // double controllerRatio = _controller.value.aspectRatio;
@@ -91,7 +89,7 @@ void dispose() {
     return MainLayout(
       tappingRageh: (){print('_controller = $_controller');},
       layoutWidget: FlyerZone(
-        flyerSizeFactor: flyerSizeFactor,
+        flyerSizeFactor: _flyerSizeFactor,
         tappingFlyerZone: (){},
         stackWidgets: <Widget>[
 
@@ -112,7 +110,7 @@ void dispose() {
           //     author: bz.authors[2],
           //     flyerShowsAuthor: flyer.flyerShowsAuthor,
           //     followIsOn: false,
-          //     flyerZoneWidth: superFlyerZoneWidth(context, flyerSizeFactor),
+          //     _flyerZoneWidth: super_FlyerZoneWidth(context, _flyerSizeFactor),
           //     bzPageIsOn: false,
           //     tappingHeader: (){},
           //     tappingFollow: (){},
@@ -122,9 +120,9 @@ void dispose() {
           Positioned(
             bottom: 0,
               child: DreamBox(
-                width: flyerZoneWidth * 0.2,
-                height: flyerZoneWidth * 0.2,
-                boxMargins: EdgeInsets.only(bottom: flyerZoneWidth * 0.025),
+                width: _flyerZoneWidth * 0.2,
+                height: _flyerZoneWidth * 0.2,
+                boxMargins: EdgeInsets.only(bottom: _flyerZoneWidth * 0.025),
                 icon: Iconz.CameraButton,
                 bubble: false,
               ),
@@ -134,9 +132,9 @@ void dispose() {
             bottom: 0,
               left: 0,
               child: DreamBox(
-                width: flyerZoneWidth * 0.15,
-                height: flyerZoneWidth * 0.15,
-                boxMargins: EdgeInsets.only(bottom: flyerZoneWidth * 0.05, left: flyerZoneWidth * 0.05),
+                width: _flyerZoneWidth * 0.15,
+                height: _flyerZoneWidth * 0.15,
+                boxMargins: EdgeInsets.only(bottom: _flyerZoneWidth * 0.05, left: _flyerZoneWidth * 0.05),
                 icon: Iconz.PhoneGallery,
                 bubble: false,
               ),

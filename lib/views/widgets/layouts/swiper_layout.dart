@@ -21,7 +21,7 @@ class SwiperLayout extends StatelessWidget {
     //   return widgets;
     // }
 
-    int index;
+    // int index;
 
     return Swiper(
       autoplay: false,

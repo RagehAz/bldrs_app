@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/sub_models/slide_model.dart';
-import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/view_brains/controllers/flyer_sliding_controllers.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
@@ -12,7 +11,6 @@ import 'package:bldrs/views/widgets/flyer/parts/progress_bar.dart';
 import 'package:bldrs/views/widgets/flyer/parts/slides_parts/single_slide.dart';
 import 'package:bldrs/xxx_LABORATORY/camera_and_location/google_map.dart';
 import 'package:bldrs/xxx_LABORATORY/camera_and_location/location_helper.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart' as sysPaths;
@@ -42,7 +40,7 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> {
   List<TextEditingController> _titleControllers;
   File _storedImage;
   File _pickedImage;
-  GeoPoint _pickedLocation;
+  // GeoPoint _pickedLocation;
   PageController slidingController;
   int numberOfSlides;
   List<bool> slidesVisibility;
@@ -274,14 +272,15 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> {
   // ----------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    final FlyersProvider pro = Provider.of<FlyersProvider>(context, listen: false);
-    final user = Provider.of<UserModel>(context);
-    final BzModel bz = pro.getBzByBzID('br1');
-    final AuthorModel author = bz.authors[1];
+    final FlyersProvider _pro = Provider.of<FlyersProvider>(context, listen: false);
+    // final user = Provider.of<UserModel>(context);
+    final BzModel _bz = _pro.getBzByBzID('br1');
+    final AuthorModel _author = _bz.authors[1];
     // ----------------------------------------------------------------------
-    final double flyerSizeFactor = 0.73;
-    final double flyerZoneWidth = superFlyerZoneWidth(context, flyerSizeFactor);
+    final double _flyerSizeFactor = 0.73;
+    final double _flyerZoneWidth = superFlyerZoneWidth(context, _flyerSizeFactor);
     // ----------------------------------------------------------------------
+    print('_pickedImage : $_pickedImage');
     // print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> building widget tree');
     return MainLayout(
       appBarType: AppBarType.Basic,
@@ -299,7 +298,7 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> {
                 children: <Widget>[
 
                   FlyerZone(
-                    flyerSizeFactor: flyerSizeFactor,
+                    flyerSizeFactor: _flyerSizeFactor,
                     tappingFlyerZone: (){},
                     stackWidgets: <Widget>[
 
@@ -314,7 +313,7 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> {
                               opacity: slidesVisibility[index] == true ? 1 : 0,
                               duration: Duration(milliseconds: 100),
                               child: SingleSlide(
-                                flyerZoneWidth: flyerZoneWidth,
+                                flyerZoneWidth: _flyerZoneWidth,
                                 // picture: Iconz.DumSlide1,
                                 picFile: newSlides[index].picture,
                                 slideMode: slidesModes[index],
@@ -328,11 +327,11 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> {
                       ),
 
                       Header(
-                        bz: bz,
-                        author: author,
+                        bz: _bz,
+                        author: _author,
                         flyerShowsAuthor: true,
                         followIsOn: false,
-                        flyerZoneWidth: superFlyerZoneWidth(context, flyerSizeFactor),
+                        flyerZoneWidth: superFlyerZoneWidth(context, _flyerSizeFactor),
                         bzPageIsOn: false,
                         tappingHeader: (){},
                         tappingFollow: (){},
@@ -340,7 +339,7 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> {
                       ),
 
                       ProgressBar(
-                        flyerZoneWidth: flyerZoneWidth,
+                        flyerZoneWidth: _flyerZoneWidth,
                         numberOfSlides: numberOfSlides,
                         currentSlide: currentSlide,
                       ),
@@ -349,15 +348,15 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> {
                   ),
 
                   Positioned(
-                    right: ((1-flyerSizeFactor)/2)*superScreenWidth(context) - ((flyerZoneWidth * 0.15/2)),
+                    right: ((1-_flyerSizeFactor)/2)*superScreenWidth(context) - ((_flyerZoneWidth * 0.15/2)),
                     bottom: superScreenHeightWithoutSafeArea(context) * 0.07,
                     child: Column(
                       children: <Widget>[
 
                         // --- NEW SLIDE FROM GALLERY
                         DreamBox(
-                          width: flyerZoneWidth * 0.15,
-                          height: flyerZoneWidth * 0.15,
+                          width: _flyerZoneWidth * 0.15,
+                          height: _flyerZoneWidth * 0.15,
                           icon: Iconz.PhoneGallery,
                           iconSizeFactor: 0.6,
                           bubble: true,
@@ -366,8 +365,8 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> {
 
                         // --- NEW SLIDE FROM CAMERA
                         DreamBox(
-                          width: flyerZoneWidth * 0.15,
-                          height: flyerZoneWidth * 0.15,
+                          width: _flyerZoneWidth * 0.15,
+                          height: _flyerZoneWidth * 0.15,
                           icon: Iconz.Camera,
                           iconSizeFactor: 0.65,
                           bubble: true,
@@ -376,8 +375,8 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> {
 
                         // --- OPEN MAP SCREEN
                         DreamBox(
-                          width: flyerZoneWidth * 0.15,
-                          height: flyerZoneWidth * 0.15,
+                          width: _flyerZoneWidth * 0.15,
+                          height: _flyerZoneWidth * 0.15,
                           icon: Iconz.LocationPin,
                           iconSizeFactor: 0.65,
                           bubble: true,
@@ -386,8 +385,8 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> {
 
                         // --- DELETE SLIDE
                         DreamBox(
-                          width: flyerZoneWidth * 0.15,
-                          height: flyerZoneWidth * 0.15,
+                          width: _flyerZoneWidth * 0.15,
+                          height: _flyerZoneWidth * 0.15,
                           icon: Iconz.XLarge,
                           iconSizeFactor: 0.5,
                           bubble: true,

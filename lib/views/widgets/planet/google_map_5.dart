@@ -2,11 +2,12 @@ import 'dart:async';
 import 'dart:typed_data';
 import 'package:bldrs/view_brains/controllers/locations_brain.dart';
 import 'package:bldrs/view_brains/drafters/borderers.dart';
+import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/flagz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
-import 'package:bldrs/views/widgets/appbar/bldrs_appbar.dart';
+import 'package:bldrs/views/widgets/appbar/ab_strip.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -22,11 +23,10 @@ class GoogleMapScreen5 extends StatefulWidget {
 
 class _GoogleMapScreen5State extends State<GoogleMapScreen5> {
   Completer<GoogleMapController> _controller = Completer();
-Position currentUserPosition;
-  Position loadedPosition;
-  BitmapDescriptor customMarker;
-  int markerWidth = 50;
-
+  Position _currentUserPosition;
+  Position _loadedPosition;
+  BitmapDescriptor _customMarker;
+  int _markerWidth = 100;
 
   static final CameraPosition _kLake = CameraPosition(
       bearing: 192.8334901395799,
@@ -40,15 +40,15 @@ Position currentUserPosition;
   }
 
 
- getUserLocation () async {
-  currentUserPosition = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
+ _getUserLocation () async {
+  _currentUserPosition = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
   setState(() {
-    loadedPosition = currentUserPosition;
+    _loadedPosition = _currentUserPosition;
   });
 }
 
 // --- this makes blue rounded rectangle with text inside
-Future<Uint8List> getBytesFromCanvas(int width, int height, String verse) async {
+Future<Uint8List> _getBytesFromCanvas(int width, int height, String verse) async {
   final ui.PictureRecorder pictureRecorder = ui.PictureRecorder();
   final Canvas canvas = Canvas(pictureRecorder);
   final Paint paint = Paint()..color = Colors.blue;
@@ -74,33 +74,33 @@ Future<Uint8List> getBytesFromCanvas(int width, int height, String verse) async 
   return data.buffer.asUint8List();
 }
 
- missingFunction()async{
+ _missingFunction()async{
     // int markerScale = 30;
-    final Uint8List markerIcon = await getBytesFromCanvas(100,100, 'Za7ma');
-    customMarker = BitmapDescriptor.fromBytes(markerIcon);
+    final Uint8List markerIcon = await _getBytesFromCanvas(_markerWidth,_markerWidth, 'Bldrs.net');
+    _customMarker = BitmapDescriptor.fromBytes(markerIcon);
 }
 
   @override
   void initState() {
-      getUserLocation();
-      missingFunction();
+      _getUserLocation();
+      _missingFunction();
       super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-  bool searchingCities = false;
+  bool _searchingCities = false;
 
-  var cityMarkers = countryCitiesMarkers(Flagz.egy, customMarker);
+  var _cityMarkers = countryCitiesMarkers(Flagz.egy, _customMarker);
 
-  LatLng aMarkerLatLng = LatLng(loadedPosition.latitude, loadedPosition.longitude);
-  var aMarker = someMarker(customMarker, aMarkerLatLng.latitude , aMarkerLatLng.longitude);
+  LatLng _aMarkerLatLng = LatLng(_loadedPosition.latitude, _loadedPosition.longitude);
+  var _aMarker = someMarker(_customMarker, _aMarkerLatLng.latitude , _aMarkerLatLng.longitude);
 
-  double screenWidth = MediaQuery.of(context).size.width;
-  double screenHeight = MediaQuery.of(context).size.height;
-  // double mapBoxWidth = screenWidth * 0.8;
-  // double mapBoxHeight = mapBoxWidth;
-  double boxCorners = Ratioz.rrFlyerBottomCorners *  screenWidth;
+  double _screenWidth = superScreenWidth(context);
+  double _screenHeight = superScreenHeight(context);
+  // double _mapBoxWidth = _screenWidth * 0.8;
+  // double _mapBoxHeight = _mapBoxWidth;
+  double _boxCorners = Ratioz.rrFlyerBottomCorners *  _screenWidth;
 
     return SafeArea(
 
@@ -108,12 +108,12 @@ Future<Uint8List> getBytesFromCanvas(int width, int height, String verse) async 
         backgroundColor: Colorz.SkyDarkBlue,
         body: Center(
           child: ClipRRect(
-            borderRadius: superBorderRadius(context, boxCorners, boxCorners, boxCorners, boxCorners),
+            borderRadius: superBorderRadius(context, _boxCorners, _boxCorners, _boxCorners, _boxCorners),
             child: Container(
-              width: screenWidth,
-              height: screenHeight,
+              width: _screenWidth,
+              height: _screenHeight,
               // decoration: BoxDecoration(
-              //   borderRadius: superBorderRadius(context, boxCorners, boxCorners, 0, boxCorners),
+              //   borderRadius: superBorderRadius(context, _boxCorners, _boxCorners, 0, _boxCorners),
               // ),
               child: Stack(
                 alignment: Alignment.topCenter,
@@ -125,7 +125,7 @@ Future<Uint8List> getBytesFromCanvas(int width, int height, String verse) async 
                     myLocationButtonEnabled: true,
                     myLocationEnabled: true,
                     initialCameraPosition: CameraPosition(
-                        target: searchingCities == true ? cityLocationByCityID('1818253931') : aMarkerLatLng, // Mecca 1682169241 - Cairo 1818253931
+                        target: _searchingCities == true ? cityLocationByCityID('1818253931') : _aMarkerLatLng, // Mecca 1682169241 - Cairo 1818253931
                         zoom: 18
                     ),
                     onMapCreated: (GoogleMapController googleMapController){
@@ -137,7 +137,7 @@ Future<Uint8List> getBytesFromCanvas(int width, int height, String verse) async 
                       });
                       },
 
-                    markers: searchingCities == true ? cityMarkers : aMarker,
+                    markers: _searchingCities == true ? _cityMarkers : _aMarker,
                   ),
 
                   ABStrip(
@@ -158,12 +158,12 @@ Future<Uint8List> getBytesFromCanvas(int width, int height, String verse) async 
                           print('.....');
                           // LocationPermission permission = await Geolocator.requestPermission();
                           // LocationPermission permission = await Geolocator.checkPermission();
-                          Position position = await getUserLocation();
+                          Position position = await _getUserLocation();
                           // --- LAST KNOWN LOCATION
                           // Position position = await Geolocator.getLastKnownPosition();
                           print('YOUR FUCKING LOCATION IS : Latitude (${position.latitude}) ,Longitude (${position.longitude})');
                           setState(() {
-                            aMarkerLatLng = LatLng(position.latitude, position.longitude);
+                            _aMarkerLatLng = LatLng(position.latitude, position.longitude);
                           });
                         },
                     ),
@@ -181,8 +181,8 @@ Future<Uint8List> getBytesFromCanvas(int width, int height, String verse) async 
                           // Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
                           // print('YOUR FUCKING LOCATION IS : Latitude (${position.latitude}) ,Longitude (${position.longitude})');
                           setState(() {
-                            aMarkerLatLng = cityLocationByCityID('1682169241');
-                            print('the new position is Latitude (${aMarkerLatLng.latitude}) ,Longitude (${aMarkerLatLng.longitude})');
+                            _aMarkerLatLng = cityLocationByCityID('1682169241');
+                            print('the new position is Latitude (${_aMarkerLatLng.latitude}) ,Longitude (${_aMarkerLatLng.longitude})');
                           _goToTheLake();
                           });
                         },

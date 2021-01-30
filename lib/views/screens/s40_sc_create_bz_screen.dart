@@ -12,8 +12,8 @@ import 'package:bldrs/views/widgets/bubbles/text_field_bubble.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_zone.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:path_provider/path_provider.dart' as sysPaths;
-import 'package:path/path.dart' as path;
+// import 'package:path_provider/path_provider.dart' as sysPaths;
+// import 'package:path/path.dart' as path;
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/drafters/stringers.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
@@ -133,9 +133,9 @@ class _CreateBzScreenState extends State<CreateBzScreen> {
       // newBz.bz.bzLogo = _storedLogo;
     });
 
-    final appDir = await sysPaths.getApplicationDocumentsDirectory();
-    final fileName = path.basename(imageFile.path);
-    final savedImage = await _currentLogo.copy('${appDir.path}/$fileName');
+    // final appDir = await sysPaths.getApplicationDocumentsDirectory();
+    // final fileName = path.basename(imageFile.path);
+    // final savedImage = await _currentLogo.copy('${appDir.path}/$fileName');
     // _selectImage(savedImage);
   }
   // ----------------------------------------------------------------------
@@ -171,6 +171,24 @@ void typingBzName(String bzName){
   Widget build(BuildContext context) {
 
     double screenWidth = superScreenWidth(context);
+
+    print(
+'_currentBz : $_currentBz, '
+'_currentBzType : $_currentBzType, '
+'_currentBzForm : $_currentBzForm, '
+'_currentAccountType : $_currentAccountType, '
+'_currentBzName : $_currentBzName, '
+'_currentBzScope : $_currentBzScope, '
+'_currentLogo : $_currentLogo, '
+'_currentScope : $_currentScope, '
+'_currentCountry : $_currentCountry, '
+'_currentCity : $_currentCity, '
+'_currentBzAbout : $_currentBzAbout, '
+'_currentLocation : $_currentLocation, '
+'_currentContacts : $_currentContacts, '
+'_currentAuthor : $_currentAuthor, '
+'_currentBzShowsTeam : $_currentBzShowsTeam, '
+    );
 
     return MainLayout(
       appBarType: AppBarType.Basic,

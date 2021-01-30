@@ -9,56 +9,45 @@ import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
-import '../ab_strip.dart';
+  List<Widget> inPyramidsAppBarButtons({
+    BuildContext context,
+    Function switchingPages,
+    inPyramidsPage currentPage,
+    UserStatus userStatus,
+  }) {
 
-class ABInPyramids extends StatelessWidget {
-  final Function switchingPages;
-  final inPyramidsPage currentPage;
-  final UserStatus userStatus;
+    double _abPadding = Ratioz.ddAppBarMargin;
+    double _abHeight = Ratioz.ddAppBarHeight;
+    double _profilePicHeight = _abHeight;
+    double _abButtonsHeight = _abHeight - (_abPadding);
 
-  ABInPyramids({
-    @required this.switchingPages,
-    @required this.currentPage,
-    @required this.userStatus,
-  });
+    bool _profileBlackAndWhite = currentPage == inPyramidsPage.Profile ? false : true;
+    Color _collectionsColor = currentPage == inPyramidsPage.SavedFlyers ? Colorz.Yellow : Colorz.WhiteAir;
+    Color _newsColor = currentPage == inPyramidsPage.News ? Colorz.Yellow : Colorz.WhiteAir;
+    Color _moreColor = currentPage == inPyramidsPage.More ? Colorz.Yellow : Colorz.WhiteAir;
 
+    String _collectionsPageTitle = currentPage == inPyramidsPage.SavedFlyers ? Wordz.savedFlyers(context) : null;
+    double _collectionsBTWidth = currentPage == inPyramidsPage.SavedFlyers ? null : _abButtonsHeight;
 
-  @override
-  Widget build(BuildContext context) {
-
-    double abPadding = Ratioz.ddAppBarMargin;
-    double abHeight = Ratioz.ddAppBarHeight;
-    double profilePicHeight = abHeight;
-    double abButtonsHeight = abHeight - (abPadding);
-
-    bool profileBlackAndWhite = currentPage == inPyramidsPage.Profile ? false : true;
-    dynamic collectionsColor = currentPage == inPyramidsPage.SavedFlyers ? Colorz.Yellow : Colorz.WhiteAir;
-    dynamic newsColor = currentPage == inPyramidsPage.News ? Colorz.Yellow : Colorz.WhiteAir;
-    dynamic moreColor = currentPage == inPyramidsPage.More ? Colorz.Yellow : Colorz.WhiteAir;
-
-    String collectionsPageTitle = currentPage == inPyramidsPage.SavedFlyers ? Wordz.savedFlyers(context) : null;
-    double collectionsBTWidth = currentPage == inPyramidsPage.SavedFlyers ? null : abButtonsHeight;
-
-    return AppBarStrip(
-      rowWidgets : <Widget>[
+    return <Widget>[
 
         // ---  SPACER
          SizedBox(
-           width: abPadding * 0.5,
-           height: abButtonsHeight,
+           width: _abPadding * 0.5,
+           height: _abButtonsHeight,
          ),
 
          // --- COLLECTIONS
          DreamBox(
-           width: collectionsBTWidth,
-           height: abButtonsHeight,
+           width: _collectionsBTWidth,
+           height: _abButtonsHeight,
            boxMargins: EdgeInsets.all(0),
-           color: collectionsColor,
-           corners: profilePicHeight * 0.22,
+           color: _collectionsColor,
+           corners: _profilePicHeight * 0.22,
            iconSizeFactor: 0.8,
            icon: Iconz.SavedFlyers,
            boxFunction: () {switchingPages(inPyramidsPage.SavedFlyers);},
-           verse: collectionsPageTitle,
+           verse: _collectionsPageTitle,
            verseColor: Colorz.BlackBlack,
            verseWeight: VerseWeight.bold,
            verseScaleFactor: 0.675,
@@ -67,17 +56,17 @@ class ABInPyramids extends StatelessWidget {
 
          // ---  SPACER
          SizedBox(
-           width: abPadding * 0.5,
-           height: abButtonsHeight,
+           width: _abPadding * 0.5,
+           height: _abButtonsHeight,
          ),
 
          // --- NEWS
          DreamBox(
-           width: currentPage == inPyramidsPage.News ? null : abButtonsHeight,
-           height: abButtonsHeight,
+           width: currentPage == inPyramidsPage.News ? null : _abButtonsHeight,
+           height: _abButtonsHeight,
            boxMargins: EdgeInsets.all(0),
-           color: newsColor,
-           corners: profilePicHeight * 0.22,
+           color: _newsColor,
+           corners: _profilePicHeight * 0.22,
            iconSizeFactor: 0.6,
            icon: Iconz.News,
            boxFunction: () {switchingPages(inPyramidsPage.News);},
@@ -90,16 +79,16 @@ class ABInPyramids extends StatelessWidget {
 
          // ---  SPACER
          SizedBox(
-           width: abPadding * 0.5,
-           height: abButtonsHeight,
+           width: _abPadding * 0.5,
+           height: _abButtonsHeight,
          ),
 
          // --- MORE
          DreamBox(
-           width: currentPage == inPyramidsPage.More ? null : abButtonsHeight,
-           height: abButtonsHeight,
-           // boxMargins: EdgeInsets.all(abPadding),
-           color: moreColor,
+           width: currentPage == inPyramidsPage.More ? null : _abButtonsHeight,
+           height: _abButtonsHeight,
+           // boxMargins: EdgeInsets.all(_abPadding),
+           color: _moreColor,
            corners: Ratioz.ddAppBarButtonCorner,
            iconSizeFactor: 0.5,
            icon: Iconz.More,
@@ -118,17 +107,15 @@ class ABInPyramids extends StatelessWidget {
 
          // --- PROFILE
          Padding(
-           padding: EdgeInsets.all(abPadding * 0.5),
+           padding: EdgeInsets.all(_abPadding * 0.5),
            child: UserBalloon(
              userPic: Iconz.DumAuthorPic,
              userStatus: userStatus,
-             balloonWidth: abButtonsHeight,
-             blackAndWhite: profileBlackAndWhite,
+             balloonWidth: _abButtonsHeight,
+             blackAndWhite: _profileBlackAndWhite,
              onTap: () {switchingPages(inPyramidsPage.Profile);},
            ),
          ),
 
-      ],
-    );
-  }
+      ];
 }

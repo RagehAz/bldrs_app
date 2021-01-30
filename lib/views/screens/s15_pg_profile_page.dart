@@ -34,8 +34,6 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   bool editMode = false;
 
-
-
   void switchEditProfile(){
     setState(() {
       editMode = !editMode;
@@ -44,10 +42,10 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    final List<UserModel> userStream = Provider.of<List<UserModel>>(context) ?? [];
-    String userID = userStream.length < 1 ? '' : userStream[0]?.userID;
-
-    userStream?.forEach((user) {
+    final List<UserModel> _userStream = Provider.of<List<UserModel>>(context) ?? [];
+    String _userID = _userStream.length < 1 ? '' : _userStream[0]?.userID;
+    print(_userID);
+    _userStream?.forEach((user) {
       print('name : ${user.name}');
       print('userID : ${user.userID}');
       print('savedFlyersIDs : ${user.savedFlyersIDs}');

@@ -1,7 +1,7 @@
 import 'package:bldrs/models/planet/country_model.dart';
 import 'package:bldrs/view_brains/theme/flagz.dart';
 
-final List<Country> dbCountries = [
+final List<Country> dbCountries = <Country>[
 Country(iso3: 'afg', name: 'Afghanistan', region: 'Southern Asia', continent: 'Asia', flag: Flagz.afg, isActivated: true, isGlobal: false, cities: [], language: 'en'),
 Country(iso3: 'ala', name: 'Åland Islands', region: 'Northern Europe', continent: 'Europe', flag: Flagz.ala, isActivated: true, isGlobal: false, cities: [], language: 'en'),
 Country(iso3: 'alb', name: 'Albania', region: 'Southern Europe', continent: 'Europe', flag: Flagz.alb, isActivated: true, isGlobal: false, cities: [], language: 'en'),

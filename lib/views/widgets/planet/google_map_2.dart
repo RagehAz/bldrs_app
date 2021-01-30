@@ -6,13 +6,12 @@ import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/flagz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
-import 'package:bldrs/views/widgets/appbar/bldrs_appbar.dart';
+import 'package:bldrs/views/widgets/appbar/ab_strip.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'dart:ui' as ui;
-
 
 class GoogleMapScreen2 extends StatefulWidget {
   @override
@@ -20,38 +19,38 @@ class GoogleMapScreen2 extends StatefulWidget {
 }
 
 class _GoogleMapScreen2State extends State<GoogleMapScreen2> {
-BitmapDescriptor customMarker;
-int markerWidth = 50;
+BitmapDescriptor _customMarker;
+int _markerWidth = 50;
 
-Future<Uint8List> getBytesFromAsset(String path, int width) async {
-  ByteData data = await rootBundle.load(path);
-  ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(), targetWidth: width);
-  ui.FrameInfo fi = await codec.getNextFrame();
-  return (await fi.image.toByteData(format: ui.ImageByteFormat.png)).buffer.asUint8List();
+Future<Uint8List> _getBytesFromAsset(String path, int width) async {
+  ByteData _data = await rootBundle.load(path);
+  ui.Codec _codec = await ui.instantiateImageCodec(_data.buffer.asUint8List(), targetWidth: width);
+  ui.FrameInfo _fi = await _codec.getNextFrame();
+  return (await _fi.image.toByteData(format: ui.ImageByteFormat.png)).buffer.asUint8List();
 }
 
- missingFunction()async{
-  final Uint8List markerIcon = await getBytesFromAsset(Iconz.DumPyramidPin, markerWidth);
-  customMarker = BitmapDescriptor.fromBytes(markerIcon);
+ _missingFunction()async{
+  final Uint8List _markerIcon = await _getBytesFromAsset(Iconz.DumPyramidPin, _markerWidth);
+  _customMarker = BitmapDescriptor.fromBytes(_markerIcon);
 }
 
   @override
   void initState(){
       super.initState();
-      missingFunction();
+      _missingFunction();
   }
 
   @override
   Widget build(BuildContext context) {
-   var theMarkers = countryCitiesMarkers(Flagz.egy, customMarker);
+   var _theMarkers = countryCitiesMarkers(Flagz.egy, _customMarker);
 
 
-    double screenWidth = superScreenWidth(context);
-    double screenHeight = superScreenHeight(context);
+    double _screenWidth = superScreenWidth(context);
+    double _screenHeight = superScreenHeight(context);
 
-    // double mapBoxWidth = screenWidth * 0.8;
-    // double mapBoxHeight = mapBoxWidth;
-    double boxCorners = Ratioz.rrFlyerBottomCorners *  screenWidth;
+    // double _mapBoxWidth = _screenWidth * 0.8;
+    // double _mapBoxHeight = _mapBoxWidth;
+    double _boxCorners = Ratioz.rrFlyerBottomCorners *  _screenWidth;
 
     return SafeArea(
 
@@ -59,10 +58,10 @@ Future<Uint8List> getBytesFromAsset(String path, int width) async {
         backgroundColor: Colorz.SkyDarkBlue,
         body: Center(
           child: ClipRRect(
-            borderRadius: superBorderRadius(context, boxCorners, boxCorners, boxCorners, boxCorners),
+            borderRadius: superBorderRadius(context, _boxCorners, _boxCorners, _boxCorners, _boxCorners),
             child: Container(
-              width: screenWidth,
-              height: screenHeight,
+              width: _screenWidth,
+              height: _screenHeight,
               child: Stack(
                 alignment: Alignment.topCenter,
                 children: <Widget>[
@@ -80,7 +79,7 @@ Future<Uint8List> getBytesFromAsset(String path, int width) async {
                       print('map has been created');
                     });},
 
-                    markers: theMarkers,
+                    markers: _theMarkers,
                   ),
 
                   ABStrip(

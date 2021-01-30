@@ -1,16 +1,17 @@
 import 'dart:typed_data';
 import 'package:bldrs/view_brains/controllers/locations_brain.dart';
 import 'package:bldrs/view_brains/drafters/borderers.dart';
+import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/flagz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
-import 'package:bldrs/views/widgets/appbar/bldrs_appbar.dart';
+import 'package:bldrs/views/widgets/appbar/ab_strip.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'dart:ui' as ui;
+// import 'package:flutter/services.dart';
+// import 'dart:ui' as ui;
 
 class GoogleMapScreen3 extends StatefulWidget {
   @override
@@ -18,51 +19,51 @@ class GoogleMapScreen3 extends StatefulWidget {
 }
 
 class _GoogleMapScreen3State extends State<GoogleMapScreen3> {
-BitmapDescriptor customMarker;
-int markerWidth = 50;
+BitmapDescriptor _customMarker;
+int _markerWidth = 100;
 
-    Future<Uint8List> getBytesFromCanvas(int width, int height, urlAsset) async {
-    final ui.PictureRecorder pictureRecorder = ui.PictureRecorder();
-    final Canvas canvas = Canvas(pictureRecorder);
+  //   Future<Uint8List> _getBytesFromCanvas(int width, int height, urlAsset) async {
+  //   final ui.PictureRecorder _pictureRecorder = ui.PictureRecorder();
+  //   final Canvas _canvas = Canvas(_pictureRecorder);
+  //
+  //   final ByteData _dataI = await rootBundle.load(urlAsset);
+  //   var _imaged = await loadImage(new Uint8List.view(_dataI.buffer));
+  //
+  //   _canvas.drawImageRect(
+  //     _imaged,
+  //     Rect.fromLTRB(0.0, 0.0, _imaged.width.toDouble(), _imaged.height.toDouble()),
+  //     Rect.fromLTRB(0.0, 0.0, width.toDouble(), height.toDouble()),
+  //     new Paint(),
+  //   );
+  //
+  //   final _img = await _pictureRecorder.endRecording().toImage(width, height);
+  //   final _data = await _img.toByteData(format: ui.ImageByteFormat.png);
+  //   return _data.buffer.asUint8List();
+  // }
 
-    final ByteData datai = await rootBundle.load(urlAsset);
-    var imaged = await loadImage(new Uint8List.view(datai.buffer));
 
-    canvas.drawImageRect(
-      imaged,
-      Rect.fromLTRB(0.0, 0.0, imaged.width.toDouble(), imaged.height.toDouble()),
-      Rect.fromLTRB(0.0, 0.0, width.toDouble(), height.toDouble()),
-      new Paint(),
-    );
-
-    final img = await pictureRecorder.endRecording().toImage(width, height);
-    final data = await img.toByteData(format: ui.ImageByteFormat.png);
-    return data.buffer.asUint8List();
-  }
-
-
- missingFunction()async{
+_missingFunction()async{
     // int markerScale = 30;
-    final Uint8List markerIcon = await getBytesFromCanvas(100,100, Iconz.DumAuthorPic);
-    customMarker = BitmapDescriptor.fromBytes(markerIcon);
+    final Uint8List _markerIcon = await getBytesFromCanvas(_markerWidth, _markerWidth, Iconz.DumAuthorPic);
+    _customMarker = BitmapDescriptor.fromBytes(_markerIcon);
 }
 
   @override
   void initState(){
       super.initState();
-      missingFunction();
+      _missingFunction();
   }
 
   @override
   Widget build(BuildContext context) {
-   var theMarkers = countryCitiesMarkers(Flagz.egy, customMarker);
+   var _theMarkers = countryCitiesMarkers(Flagz.egy, _customMarker);
 
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
+    double _screenWidth = superScreenWidth(context);
+    double _screenHeight = superScreenHeight(context);
 
-    // double mapBoxWidth = screenWidth * 0.8;
-    // double mapBoxHeight = mapBoxWidth;
-    double boxCorners = Ratioz.rrFlyerBottomCorners *  screenWidth;
+    // double _mapBoxWidth = _screenWidth * 0.8;
+    // double _mapBoxHeight = _mapBoxWidth;
+    double _boxCorners = Ratioz.rrFlyerBottomCorners *  _screenWidth;
 
     return SafeArea(
 
@@ -70,12 +71,12 @@ int markerWidth = 50;
         backgroundColor: Colorz.SkyDarkBlue,
         body: Center(
           child: ClipRRect(
-            borderRadius: superBorderRadius(context, boxCorners, boxCorners, boxCorners, boxCorners),
+            borderRadius: superBorderRadius(context, _boxCorners, _boxCorners, _boxCorners, _boxCorners),
             child: Container(
-              width: screenWidth,
-              height: screenHeight,
+              width: _screenWidth,
+              height: _screenHeight,
               // decoration: BoxDecoration(
-              //   borderRadius: superBorderRadius(context, boxCorners, boxCorners, 0, boxCorners),
+              //   borderRadius: superBorderRadius(context, _boxCorners, _boxCorners, 0, _boxCorners),
               // ),
               child: Stack(
                 alignment: Alignment.topCenter,
@@ -94,7 +95,7 @@ int markerWidth = 50;
                       print('map has been created');
                     });},
 
-                    markers: theMarkers,
+                    markers: _theMarkers,
                   ),
 
                   ABStrip(

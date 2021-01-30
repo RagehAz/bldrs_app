@@ -1,11 +1,10 @@
 import 'package:bldrs/models/bldrs_sections.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:flutter/material.dart';
-import 'bldrs_appbar.dart';
+import 'ab_strip.dart';
 import 'buttons/bt_localizer.dart';
 import 'buttons/bt_search.dart';
 import 'buttons/bt_section.dart';
-import 'sliver_home_appbar.dart';
 
 class ABMain extends StatefulWidget {
   final bool searchButtonOn;
@@ -23,26 +22,26 @@ class ABMain extends StatefulWidget {
 }
 
 class _ABMainState extends State<ABMain> {
-  bool sectionsAreExpanded;
-  BldrsSection currentSection;
+  bool _sectionsAreExpanded;
+  BldrsSection _currentSection;
 // ---------------------------------------------------------------------------
   @override
   void initState() {
-    currentSection = BldrsSection.Home;
-    sectionsAreExpanded = false;
+    _currentSection = BldrsSection.Home;
+    _sectionsAreExpanded = false;
     super.initState();
   }
 // ---------------------------------------------------------------------------
-  void expandingSections() {
+  void _expandingSections() {
     setState(() {
-      sectionsAreExpanded = !sectionsAreExpanded;
+      _sectionsAreExpanded = !_sectionsAreExpanded;
     });
   }
 // ---------------------------------------------------------------------------
-  void choosingSection(BldrsSection section) {
+  void _choosingSection(BldrsSection section) {
     setState(() {
-      currentSection = section;
-      sectionsAreExpanded = false;
+      _currentSection = section;
+      _sectionsAreExpanded = false;
     });
   }
 // ---------------------------------------------------------------------------
@@ -50,19 +49,19 @@ class _ABMainState extends State<ABMain> {
   Widget build(BuildContext context) {
     // CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: true);
     // String _lastCountry = _countryPro.currentCountry;
-    double abPadding = Ratioz.ddAppBarMargin * 0.5;
-    double abHeight = sectionsAreExpanded == true ?
-    (Ratioz.ddAppBarHeight * 4) - (abPadding * 3) : Ratioz.ddAppBarHeight;
+    double _abPadding = Ratioz.ddAppBarPadding;
+    double _abHeight = _sectionsAreExpanded == true ?
+    (Ratioz.ddAppBarHeight * 4) - (_abPadding * 3) : Ratioz.ddAppBarHeight;
 
     return ABStrip(
-      abHeight: abHeight,
+      abHeight: _abHeight,
 
-      rowWidgets: [
+      rowWidgets: <Widget>[
         // --- SEARCH BUTTON
         widget.searchButtonOn == true ?
         BtSearch(
-          btSearchIsBackBt: sectionsAreExpanded == true ? true : false,
-          tappingBack: expandingSections,
+          btSearchIsBackBt: _sectionsAreExpanded == true ? true : false,
+          tappingBack: _expandingSections,
         ) : Container(),
 
         // --- SECTIONS BUTTON
@@ -77,14 +76,14 @@ class _ABMainState extends State<ABMain> {
               // color: Colorz.BloodTest,
               margin: EdgeInsets.only(top: Ratioz.ddAppBarMargin * 0.5),
               child: InitialSectionsBT(
-                expandingSections: expandingSections,
-                currentSection: currentSection,
-                sectionsAreExpanded: sectionsAreExpanded,
+                expandingSections: _expandingSections,
+                currentSection: _currentSection,
+                sectionsAreExpanded: _sectionsAreExpanded,
               ),
             ),
 
             // --- SECTIONS BUTTONS
-            sectionsAreExpanded == false ? Container() :
+            _sectionsAreExpanded == false ? Container() :
             Container(
               // color: Colorz.BloodTest,
               child: Column(
@@ -92,25 +91,25 @@ class _ABMainState extends State<ABMain> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
 
-                  Divider(height: abPadding,),
+                  Divider(height: _abPadding,),
 
-                  SectionToChooseBT(
+                  SectionButton(
                     section: BldrsSection.RealEstate,
-                    choosingSection: choosingSection,
+                    choosingSection: _choosingSection,
                   ),
 
-                  Divider(height: abPadding,),
+                  Divider(height: _abPadding,),
 
-                  SectionToChooseBT(
+                  SectionButton(
                     section: BldrsSection.Construction,
-                    choosingSection: choosingSection,
+                    choosingSection: _choosingSection,
                   ),
 
-                  Divider(height: abPadding,),
+                  Divider(height: _abPadding,),
 
-                  SectionToChooseBT(
+                  SectionButton(
                     section: BldrsSection.Supplies,
-                    choosingSection: choosingSection,
+                    choosingSection: _choosingSection,
                   ),
 
                 ],
@@ -121,13 +120,13 @@ class _ABMainState extends State<ABMain> {
         ),
 
         // --- FILLER SPACE BETWEEN ITEMS
-        sectionsAreExpanded == true ? Container() :
+        _sectionsAreExpanded == true ? Container() :
         Expanded(
           child: Container(),
         ),
 
         // --- LOCALIZER BUTTON
-        sectionsAreExpanded == true || widget.tappingLocalizer == null ? Container() :
+        _sectionsAreExpanded == true || widget.tappingLocalizer == null ? Container() :
         Padding(
           padding: EdgeInsets.all(Ratioz.ddAppBarMargin * 0.5),
           child: LocalizerButton(
