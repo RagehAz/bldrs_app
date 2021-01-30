@@ -75,7 +75,7 @@ class SuperTextField extends StatefulWidget {
 class _SuperTextFieldState extends State<SuperTextField> {
 TextDirection textDirection;
 
-  void switchTextDirection(String val){
+  void _switchTextDirection(String val){
     if(val.length <= 1){ // only the first character defines the text direction
       if(textIsEnglish(val) == true){
         setState(() {textDirection = TextDirection.ltr;});
@@ -89,94 +89,94 @@ TextDirection textDirection;
   @override
   Widget build(BuildContext context) {
 
-    Color boxColor = widget.designMode ? Colorz.BloodTest : Colorz.Nothing;
-    double verseHeight = 1.42; //1.48; // The sacred golden reverse engineered factor
-    double scalingFactor = 1; //scaleFactor == null ? 1: scaleFactor;
+    Color _boxColor = widget.designMode ? Colorz.BloodTest : Colorz.Nothing;
+    double _verseHeight = 1.42; //1.48; // The sacred golden reverse engineered factor
+    double _scalingFactor = 1; //scaleFactor == null ? 1: scaleFactor;
     // --- AVAILABLE FONT SIZES -----------------------------------------------
-    int size = widget.inputSize;
+    int _size = widget.inputSize;
     // takes values from 0 to 8 in the entire app
-    double verseSize = superVerseSizeValue(context, size, scalingFactor);
+    double _verseSize = superVerseSizeValue(context, _size, _scalingFactor);
     // --- AVAILABLE FONT WEIGHTS -----------------------------------------------
-    VerseWeight weight = widget.inputWeight;
-    FontWeight verseWeight = superVerseWeight(weight);
+    VerseWeight _weight = widget.inputWeight;
+    FontWeight _verseWeight = superVerseWeight(_weight);
     // --- AVAILABLE FONTS -----------------------------------------------
-    String verseFont = superVerseFont(context, weight);
+    String _verseFont = superVerseFont(context, _weight);
     // --- LETTER SPACING -----------------------------------------------
-    double verseLetterSpacing = superVerseLetterSpacing(weight, verseSize);
+    double _verseLetterSpacing = superVerseLetterSpacing(_weight, _verseSize);
     // --- WORD SPACING -----------------------------------------------
-    double verseWordSpacing = superVerseWordSpacing(verseSize);
+    double _verseWordSpacing = superVerseWordSpacing(_verseSize);
     // --- SHADOWS -----------------------------------------------
-    bool shadow = widget.inputShadow;
-    double shadowBlur = 0;
-    double shadowYOffset = 0;
-    double shadowXOffset = superVerseXOffset(weight, verseSize);
-    double secondShadowXOffset = -0.35 * shadowXOffset;
-    Color leftShadow = widget.inputColor == Colorz.BlackBlack ? Colorz.WhitePlastic
+    bool _shadow = widget.inputShadow;
+    double _shadowBlur = 0;
+    double _shadowYOffset = 0;
+    double _shadowXOffset = superVerseXOffset(_weight, _verseSize);
+    double _secondShadowXOffset = -0.35 * _shadowXOffset;
+    Color _leftShadow = widget.inputColor == Colorz.BlackBlack ? Colorz.WhitePlastic
         : Colorz.BlackBlack;
 
-    Color rightShadow = widget.inputColor == Colorz.BlackBlack ? Colorz.WhiteSmoke
+    Color _rightShadow = widget.inputColor == Colorz.BlackBlack ? Colorz.WhiteSmoke
         : Colorz.WhiteGlass;
     // --- ITALIC -----------------------------------------------
-    FontStyle verseStyle =
+    FontStyle _verseStyle =
     widget.italic == true ? FontStyle.italic : FontStyle.normal;
 
     // --- VERSE BOX MARGIN -----------------------------------------------
     // double _margin = margin == null ? 0 : margin;
 
     // --- LABEL CORNERS -----------------------------------------------
-    double labelCornerValues = superVerseLabelCornerValue(context, size);
-    double labelCorner = widget.labelColor == Colorz.Nothing ? 0 : labelCornerValues;
+    double _labelCornerValues = superVerseLabelCornerValue(context, _size);
+    double _labelCorner = widget.labelColor == Colorz.Nothing ? 0 : _labelCornerValues;
     // --- LABEL PADDINGS -----------------------------------------------
-    double sidePaddingValues = superVerseSidePaddingValues(context, size);
+    double _sidePaddingValues = superVerseSidePaddingValues(context, _size);
 // ---------------------------------------------------------------------------
-    double sidePaddings =
-    widget.labelColor == Colorz.Nothing ? 0 : sidePaddingValues;
+    double _sidePaddings =
+    widget.labelColor == Colorz.Nothing ? 0 : _sidePaddingValues;
 // ---------------------------------------------------------------------------
     TextStyle superTextStyle(Color textColor, double sizeFactor) {
       return TextStyle(
-          backgroundColor: boxColor,
+          backgroundColor: _boxColor,
           textBaseline: TextBaseline.alphabetic,
-          height: verseHeight,
+          height: _verseHeight,
           color: textColor,
-          fontFamily: verseFont,
-          fontStyle: verseStyle,
-          letterSpacing: verseLetterSpacing,
-          wordSpacing: verseWordSpacing,
-          fontSize: verseSize * sizeFactor,
-          fontWeight: verseWeight,
+          fontFamily: _verseFont,
+          fontStyle: _verseStyle,
+          letterSpacing: _verseLetterSpacing,
+          wordSpacing: _verseWordSpacing,
+          fontSize: _verseSize * sizeFactor,
+          fontWeight: _verseWeight,
           shadows: [
-            if (shadow)
+            if (_shadow)
               Shadow(
-                blurRadius: shadowBlur,
-                color: leftShadow,
-                offset: Offset(shadowXOffset, shadowYOffset),
+                blurRadius: _shadowBlur,
+                color: _leftShadow,
+                offset: Offset(_shadowXOffset, _shadowYOffset),
               ),
             Shadow(
-              blurRadius: shadowBlur,
-              color: rightShadow,
-              offset: Offset(secondShadowXOffset, shadowYOffset),
+              blurRadius: _shadowBlur,
+              color: _rightShadow,
+              offset: Offset(_secondShadowXOffset, _shadowYOffset),
             )
           ]
       );
     }
 // ---------------------------------------------------------------------------
-    TextStyle superHintStyle(Color textColor, double sizeFactor) {
+    TextStyle superHintStyle(Color _textColor, double _sizeFactor) {
       return TextStyle(
-        backgroundColor: boxColor,
+        backgroundColor: _boxColor,
         textBaseline: TextBaseline.alphabetic,
-        height: verseHeight,
+        height: _verseHeight,
         color: widget.hintColor,
-        fontFamily: verseFont,
-        fontStyle: verseStyle,
-        letterSpacing: verseLetterSpacing,
-        wordSpacing: verseWordSpacing,
-        fontSize: verseSize * sizeFactor,
+        fontFamily: _verseFont,
+        fontStyle: _verseStyle,
+        letterSpacing: _verseLetterSpacing,
+        wordSpacing: _verseWordSpacing,
+        fontSize: _verseSize * _sizeFactor,
         fontWeight: superVerseWeight(VerseWeight.thin),
         shadows: [],
       );
     }
 // ---------------------------------------------------------------------------
-    TextDirection concludedTextDirection =
+    TextDirection _concludedTextDirection =
         widget.textDirection != null ? widget.textDirection :
         widget.textDirection == null && textDirection == null? superTextDirection(context) :
         textDirection;
@@ -189,10 +189,10 @@ TextDirection textDirection;
       Container(
         width: widget.width,
         // height: widget.height,
-        padding: EdgeInsets.only(bottom: widget.counterIsOn == true ? sidePaddings : 0),
+        padding: EdgeInsets.only(bottom: widget.counterIsOn == true ? _sidePaddings : 0),
         margin: widget.margin,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(labelCorner)),
+          borderRadius: BorderRadius.all(Radius.circular(_labelCorner)),
           color: widget.fieldColor,
         ),
         child: TextFormField(
@@ -203,7 +203,7 @@ TextDirection textDirection;
           controller: widget.textController,
           onChanged: (val){
             widget.onChanged(val);
-            if(widget.textDirection == null) {switchTextDirection(val);}
+            if(widget.textDirection == null) {_switchTextDirection(val);}
               },
           onTap: () {
             print('onTap is tapped');
@@ -217,7 +217,7 @@ TextDirection textDirection;
           autocorrect: true, // -------------------------------------------NO IMPACT
           // scrollPadding: EdgeInsets.all(50),
           keyboardAppearance: Brightness.dark,
-          textDirection: concludedTextDirection,
+          textDirection: _concludedTextDirection,
           obscureText: widget.obscured,
           // obscuringCharacter: '*',
           maxLengthEnforced: false,
@@ -228,17 +228,17 @@ TextDirection textDirection;
             hintMaxLines: 1,
             hintStyle: superHintStyle(Colorz.WhiteSmoke, 0.8),
             alignLabelWithHint: true,
-            contentPadding: EdgeInsets.all(sidePaddings),
+            contentPadding: EdgeInsets.all(_sidePaddings),
 
-            focusedBorder: superOutlineInputBorder(Colorz.YellowSmoke, labelCorner),
-            enabledBorder: superOutlineInputBorder(Colorz.Nothing, labelCorner),
+            focusedBorder: superOutlineInputBorder(Colorz.YellowSmoke, _labelCorner),
+            enabledBorder: superOutlineInputBorder(Colorz.Nothing, _labelCorner),
 
             errorStyle: superTextStyle(Colorz.BloodRed, 0.7),
-            focusedErrorBorder: superOutlineInputBorder(Colorz.YellowSmoke, labelCorner),
+            focusedErrorBorder: superOutlineInputBorder(Colorz.YellowSmoke, _labelCorner),
 
-            errorBorder: superOutlineInputBorder(Colorz.BloodRedPlastic, labelCorner),
-            border: superOutlineInputBorder(Colorz.LinkedIn, labelCorner),
-            disabledBorder: superOutlineInputBorder(Colorz.Grey, labelCorner),
+            errorBorder: superOutlineInputBorder(Colorz.BloodRedPlastic, _labelCorner),
+            border: superOutlineInputBorder(Colorz.LinkedIn, _labelCorner),
+            disabledBorder: superOutlineInputBorder(Colorz.Grey, _labelCorner),
             counter: widget.counterIsOn ? null : Offstage(),
             counterStyle: superTextStyle(Colorz.WhiteLingerie, 0.7),
 
@@ -292,10 +292,10 @@ TextDirection textDirection;
         width: widget.width,
         // height: widget.height,
         padding: EdgeInsets.only(
-            bottom: widget.counterIsOn == true ? sidePaddings : 0),
+            bottom: widget.counterIsOn == true ? _sidePaddings : 0),
         margin: widget.margin,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(labelCorner)),
+          borderRadius: BorderRadius.all(Radius.circular(_labelCorner)),
           color: widget.fieldColor,
         ),
         child: TextField(
@@ -303,7 +303,7 @@ TextDirection textDirection;
           controller: widget.textController,
           onChanged: (val){
             widget.onChanged(val);
-            switchTextDirection(val);
+            _switchTextDirection(val);
           },
           onTap: () {
             print('onTap is tapped');
@@ -317,7 +317,7 @@ TextDirection textDirection;
           autocorrect: true, // -------------------------------------------NO IMPACT
           // scrollPadding: EdgeInsets.all(50),
           keyboardAppearance: Brightness.dark,
-          textDirection: concludedTextDirection,
+          textDirection: _concludedTextDirection,
           obscureText: widget.obscured,
           // obscuringCharacter: '*',
           maxLengthEnforced: false,
@@ -328,17 +328,17 @@ TextDirection textDirection;
             hintMaxLines: 1,
             hintStyle: superHintStyle(Colorz.WhiteSmoke, 0.8),
             alignLabelWithHint: true,
-            contentPadding: EdgeInsets.all(sidePaddings),
+            contentPadding: EdgeInsets.all(_sidePaddings),
 
-            focusedBorder: superOutlineInputBorder(Colorz.YellowSmoke, labelCorner),
-            enabledBorder: superOutlineInputBorder(Colorz.Nothing, labelCorner),
+            focusedBorder: superOutlineInputBorder(Colorz.YellowSmoke, _labelCorner),
+            enabledBorder: superOutlineInputBorder(Colorz.Nothing, _labelCorner),
 
             errorStyle: superTextStyle(Colorz.BloodRed, 0.7),
-            focusedErrorBorder: superOutlineInputBorder(Colorz.BloodRed, labelCorner),
+            focusedErrorBorder: superOutlineInputBorder(Colorz.BloodRed, _labelCorner),
 
-            errorBorder: superOutlineInputBorder(Colorz.Facebook, labelCorner),
-            border: superOutlineInputBorder(Colorz.LinkedIn, labelCorner),
-            disabledBorder: superOutlineInputBorder(Colorz.Grey, labelCorner),
+            errorBorder: superOutlineInputBorder(Colorz.Facebook, _labelCorner),
+            border: superOutlineInputBorder(Colorz.LinkedIn, _labelCorner),
+            disabledBorder: superOutlineInputBorder(Colorz.Grey, _labelCorner),
             counter: widget.counterIsOn ? null : Offstage(),
             counterStyle: superTextStyle(Colorz.WhiteLingerie, 0.7),
 

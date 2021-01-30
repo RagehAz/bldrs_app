@@ -11,6 +11,14 @@ TextDirection superTextDirection(BuildContext context){
   else
     {return TextDirection.rtl;}
 }
+
+TextDirection superInverseTextDirection(BuildContext context){
+  if (Wordz.textDirection(context) == 'ltr')
+  {return TextDirection.rtl;}
+  else
+  {return TextDirection.ltr;}
+}
+
 // === === === === === === === === === === === === === === === === === === ===
 double verseLabelHeight (int verseSize, double screenHeight){
       return

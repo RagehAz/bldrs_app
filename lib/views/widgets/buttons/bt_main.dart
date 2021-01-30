@@ -1,4 +1,5 @@
 import 'package:bldrs/view_brains/drafters/file_formatters.dart';
+import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/drafters/shadowers.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
@@ -9,8 +10,8 @@ import 'package:websafe_svg/websafe_svg.dart';
 class BTMain extends StatelessWidget {
   final String buttonVerse;
   final dynamic buttonIcon;
-  final dynamic buttonColor;
-  final dynamic splashColor;
+  final Color buttonColor;
+  final Color splashColor;
   final bool buttonVerseShadow;
   final dynamic function;
   final bool stretched;
@@ -30,39 +31,39 @@ class BTMain extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double screenHeight = MediaQuery.of(context).size.height;
-    double screenWidth = MediaQuery.of(context).size.width;
+    double _screenHeight = superScreenHeight(context);
+    double _screenWidth = superScreenWidth(context);
 
-    double buttonCorner = screenHeight * Ratioz.rrButtonCorner;
-    double buttonZoneHeight = screenHeight * 0.08;
-    double buttonZonePaddings = screenHeight * 0.01;
+    double _buttonCorner = _screenHeight * Ratioz.rrButtonCorner;
+    double _buttonZoneHeight = _screenHeight * 0.08;
+    double _buttonZonePaddings = _screenHeight * 0.01;
 
-    double buttonWidth = stretched == true ?
-    screenWidth
+    double _buttonWidth = stretched == true ?
+    _screenWidth
         :
-    screenHeight * 22 * 0.017;
+    _screenHeight * 22 * 0.017;
 
-    double buttonHeight = buttonZoneHeight * 0.85;
+    double _buttonHeight = _buttonZoneHeight * 0.85;
 
     // BUTTON FOOTPRINT
     return Container(
-      width: screenWidth,
-      height: buttonZoneHeight,
+      width: _screenWidth,
+      height: _buttonZoneHeight,
       // color: Colorz.Yellow,
       alignment: Alignment.center,
-      // padding: EdgeInsets.all(buttonZonePaddings),
+      // padding: EdgeInsets.all(_buttonZonePaddings),
 
       // BUTTON ITSELF
       child: Container(
-        width: buttonWidth,
-        height: buttonHeight,
+        width: _buttonWidth,
+        height: _buttonHeight,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(buttonCorner),
+            borderRadius: BorderRadius.circular(_buttonCorner),
             boxShadow: [
               CustomBoxShadow(
                   color: Colorz.BlackBlack,
                   offset: new Offset(0, 0),
-                  blurRadius: buttonZoneHeight * 0.09,
+                  blurRadius: _buttonZoneHeight * 0.09,
                   blurStyle: BlurStyle.outer),
             ]
         ),
@@ -80,7 +81,7 @@ class BTMain extends StatelessWidget {
           elevation: 1,
           color: buttonColor,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(buttonCorner),
+            borderRadius: BorderRadius.circular(_buttonCorner),
           ),
           disabledColor: Colorz.GreySmoke,
           padding: EdgeInsets.all(0),
@@ -92,15 +93,15 @@ class BTMain extends StatelessWidget {
 
               // --- BUTTON HIGHLIGHT
               Container(
-                width: buttonWidth * 0.9,
-                height: buttonHeight * 0.22,
+                width: _buttonWidth * 0.9,
+                height: _buttonHeight * 0.22,
                 decoration: BoxDecoration(
                   // color: Colorz.White,
-                  borderRadius: BorderRadius.circular(buttonCorner-(buttonHeight-(buttonHeight * 0.22))),
+                  borderRadius: BorderRadius.circular(_buttonCorner-(_buttonHeight-(_buttonHeight * 0.22))),
                   boxShadow: [CustomBoxShadow(
                     color: Colorz.WhiteZircon,
-                    offset: new Offset(0, buttonHeight * -0.23),
-                    blurRadius: buttonHeight * 0.18 ,
+                    offset: new Offset(0, _buttonHeight * -0.23),
+                    blurRadius: _buttonHeight * 0.18 ,
                     blurStyle: BlurStyle.normal
                   ),]
                 ),
@@ -108,11 +109,11 @@ class BTMain extends StatelessWidget {
 
               // --- BUTTON GRADIENT
               Container(
-                height: buttonHeight,
-                width: buttonWidth,
+                height: _buttonHeight,
+                width: _buttonWidth,
                 decoration: BoxDecoration(
                     // color: Colorz.Grey,
-                    borderRadius: BorderRadius.circular(buttonCorner),
+                    borderRadius: BorderRadius.circular(_buttonCorner),
                     gradient: LinearGradient(
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
@@ -132,7 +133,7 @@ class BTMain extends StatelessWidget {
                       children: [
                         // --- ONLY THE BUTTON VERSE HERE
                         Padding(
-                          padding: EdgeInsets.all(buttonZonePaddings),
+                          padding: EdgeInsets.all(_buttonZonePaddings),
                           child: SuperVerse(
                             verse: buttonVerse,
                             color: Colorz.White,
@@ -149,7 +150,7 @@ class BTMain extends StatelessWidget {
                   :
                   // --- WHEN BUTTON HAS AN ICON
                   Padding(
-                    padding: EdgeInsets.only(left: buttonZonePaddings, right: buttonZonePaddings),
+                    padding: EdgeInsets.only(left: _buttonZonePaddings, right: _buttonZonePaddings),
                     child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -161,17 +162,17 @@ class BTMain extends StatelessWidget {
                             flex: 1,
                             child: new Container(
                               // color: Colorz.BloodTest,
-                              width: buttonZoneHeight * 0.4,
-                              height: buttonZoneHeight * 0.4,
+                              width: _buttonZoneHeight * 0.4,
+                              height: _buttonZoneHeight * 0.4,
                               alignment: Alignment.center,
-                              margin: EdgeInsets.all(buttonZoneHeight * 0.1),
-                              // padding: EdgeInsets.all(buttonHeight * 0),
+                              margin: EdgeInsets.all(_buttonZoneHeight * 0.1),
+                              // padding: EdgeInsets.all(_buttonHeight * 0),
                               child:
                                   buttonIcon.runtimeType != String ? buttonIcon :
                                   fileExtensionOf(buttonIcon) == 'jpg' || fileExtensionOf(buttonIcon) == 'jpeg' || fileExtensionOf(buttonIcon) == 'png' ?
                                   Container(
-                                    width: buttonZoneHeight * 0.4,
-                                    height: buttonZoneHeight * 0.4,
+                                    width: _buttonZoneHeight * 0.4,
+                                    height: _buttonZoneHeight * 0.4,
                                     decoration: BoxDecoration(
                                       image: DecorationImage(image: AssetImage(buttonIcon), fit: BoxFit.cover),
                                     ),
@@ -184,7 +185,7 @@ class BTMain extends StatelessWidget {
                           Expanded(
                             flex: 4,
                             child: new Padding(
-                              padding: EdgeInsets.symmetric(horizontal : buttonZonePaddings),
+                              padding: EdgeInsets.symmetric(horizontal : _buttonZonePaddings),
                               child: SuperVerse(
                                 verse: buttonVerse,
                                 color: Colorz.White,

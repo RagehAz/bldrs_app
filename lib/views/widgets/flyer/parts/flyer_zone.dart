@@ -21,14 +21,13 @@ class FlyerZone extends StatelessWidget {
   Widget build(BuildContext context) {
 
     // ----------------------------------------------------------------------
-    double screenWidth = superScreenWidth(context);
-    double screenWithoutSafeAreaHeight = superScreenHeightWithoutSafeArea(context);
+    double _screenWithoutSafeAreaHeight = superScreenHeightWithoutSafeArea(context);
     // ----------------------------------------------------------------------
-    double flyerZoneWidth = superFlyerZoneWidth(context, flyerSizeFactor);
-    double flyerZoneHeight = flyerSizeFactor == 1 ?
-    screenWithoutSafeAreaHeight : flyerZoneWidth * Ratioz.xxflyerZoneHeight;
-    double flyerTopCorners = flyerZoneWidth * Ratioz.xxflyerTopCorners;
-    double flyerBottomCorners = flyerZoneWidth * Ratioz.xxflyerBottomCorners;
+    double _flyerZoneWidth = superFlyerZoneWidth(context, flyerSizeFactor);
+    double _flyerZoneHeight = flyerSizeFactor == 1 ?
+    _screenWithoutSafeAreaHeight : _flyerZoneWidth * Ratioz.xxflyerZoneHeight;
+    double _flyerTopCorners = _flyerZoneWidth * Ratioz.xxflyerTopCorners;
+    double _flyerBottomCorners = _flyerZoneWidth * Ratioz.xxflyerBottomCorners;
     // ----------------------------------------------------------------------
     // void printingShit(){
     //   print('follow');
@@ -52,12 +51,12 @@ class FlyerZone extends StatelessWidget {
     // getTranslated(context, 'Save');
     // Color saveBTColor = ankhIsOn == true ? Colorz.YellowSmoke : Colorz.Nothing;
 
-    Color flyerShadowColor = Colorz.BlackBlack;
+    Color _flyerShadowColor = Colorz.BlackBlack;
     // ----------------------------------------------------------------------
 
     // print ('slidingIsOn value =$slidingIsOn');
 
-    BorderRadius flyerBorders = superBorderRadius(context, flyerTopCorners, flyerBottomCorners, flyerBottomCorners, flyerTopCorners);
+    BorderRadius _flyerBorders = superBorderRadius(context, _flyerTopCorners, _flyerBottomCorners, _flyerBottomCorners, _flyerTopCorners);
 
     return GestureDetector(
       onTap: (){
@@ -66,11 +65,11 @@ class FlyerZone extends StatelessWidget {
       },
       child: Center(
         child: Container(
-          width: flyerZoneWidth,
-          height: flyerZoneHeight,
+          width: _flyerZoneWidth,
+          height: _flyerZoneHeight,
           alignment: Alignment.topCenter,
           decoration: BoxDecoration(
-              borderRadius: flyerBorders,
+              borderRadius: _flyerBorders,
               gradient: RadialGradient(
                 colors: [Colorz.WhiteAir, Colorz.Nothing],
                 stops: [0, 0.3],
@@ -79,17 +78,17 @@ class FlyerZone extends StatelessWidget {
               ),
               boxShadow: [
                 CustomBoxShadow(
-                    color: flyerShadowColor,
-                    blurRadius: flyerZoneWidth * 0.055,
+                    color: _flyerShadowColor,
+                    blurRadius: _flyerZoneWidth * 0.055,
                     blurStyle: BlurStyle.outer),
               ]
           ),
           child: ClipRRect(
-            borderRadius: flyerBorders,
+            borderRadius: _flyerBorders,
 
             child: Container(
-              width: flyerZoneWidth,
-              height: flyerZoneHeight,
+              width: _flyerZoneWidth,
+              height: _flyerZoneHeight,
               child: Stack(
                 alignment: Alignment.topCenter,
                 children: stackWidgets == null ? [] : stackWidgets,

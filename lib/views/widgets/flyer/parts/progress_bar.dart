@@ -1,4 +1,5 @@
 import 'package:bldrs/view_brains/drafters/aligners.dart';
+import 'package:bldrs/view_brains/drafters/borderers.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:flutter/material.dart';
@@ -20,29 +21,29 @@ class ProgressBar extends StatelessWidget {
   Widget build(BuildContext context) {
     int _numberOfSlides = numberOfSlides == 0 ? 1 : numberOfSlides;
     // ----------------------------------------------------------------------------
-    double boxWidth = flyerZoneWidth;
-    double boxHeight = flyerZoneWidth * 0.0125;
-    EdgeInsets boxTopMargin = EdgeInsets.only(top: flyerZoneWidth * 0.27);
-    double allStripsLength = flyerZoneWidth * 0.895;
-    double allStripsOneSideMargin = (flyerZoneWidth - allStripsLength) / 2;
-    double aStripThickness = flyerZoneWidth * 0.007;
-    double aStripOneMargin = aStripThickness / 2;
-    double aStripLength = (allStripsLength / _numberOfSlides) - (aStripOneMargin*2);
-    Color stripColor = Colorz.WhiteSmoke;
-    double stripCorner = aStripThickness * 0.5;
-    Color currentStripColor = numberOfSlides == 0 ? Colorz. WhiteAir : Colorz.WhiteLingerie;
+    double _boxWidth = flyerZoneWidth;
+    double _boxHeight = flyerZoneWidth * 0.0125;
+    EdgeInsets _boxTopMargin = EdgeInsets.only(top: flyerZoneWidth * 0.27);
+    double _allStripsLength = flyerZoneWidth * 0.895;
+    double _allStripsOneSideMargin = (flyerZoneWidth - _allStripsLength) / 2;
+    double _aStripThickness = flyerZoneWidth * 0.007;
+    double _aStripOneMargin = _aStripThickness / 2;
+    double _aStripLength = (_allStripsLength / _numberOfSlides) - (_aStripOneMargin*2);
+    Color _stripColor = Colorz.WhiteSmoke;
+    double _stripCorner = _aStripThickness * 0.5;
+    Color _currentStripColor = numberOfSlides == 0 ? Colorz. WhiteAir : Colorz.WhiteLingerie;
     // ----------------------------------------------------------------------------
-    bool microMode = superFlyerMicroMode(context, flyerZoneWidth);
+    bool _microMode = superFlyerMicroMode(context, flyerZoneWidth);
     // ----------------------------------------------------------------------------
     return
-      microMode == true || barIsOn == false  ? Container() :
+      _microMode == true || barIsOn == false  ? Container() :
       Align(
         alignment: superTopAlignment(context),
         child: Container(
-          width: boxWidth,
-          height: boxHeight,
-          margin: boxTopMargin,
-          padding: EdgeInsets.symmetric(horizontal: allStripsOneSideMargin),
+          width: _boxWidth,
+          height: _boxHeight,
+          margin: _boxTopMargin,
+          padding: EdgeInsets.symmetric(horizontal: _allStripsOneSideMargin),
           alignment: Alignment.center,
           child: Stack(
             alignment: superCenterAlignment(context),
@@ -58,12 +59,12 @@ class ProgressBar extends StatelessWidget {
                   // --- PROGRESS BAR BASE STRIP
                   return Flexible(
                     child: Container(
-                      width: aStripLength,
-                      height: aStripThickness,
-                      margin: EdgeInsets.symmetric(horizontal: aStripOneMargin),
+                      width: _aStripLength,
+                      height: _aStripThickness,
+                      margin: EdgeInsets.symmetric(horizontal: _aStripOneMargin),
                       decoration: BoxDecoration(
-                          color: stripColor,
-                          borderRadius: BorderRadius.all(Radius.circular(stripCorner))),
+                          color: _stripColor,
+                          borderRadius: superBorderAll(context, _stripCorner)),
                     ),
                   );
 
@@ -79,12 +80,12 @@ class ProgressBar extends StatelessWidget {
                   // --- PROGRESS BAR BASE STRIP
                   return Flexible(
                     child: Container(
-                      width: aStripLength,
-                      height: aStripThickness,
-                      margin: EdgeInsets.symmetric(horizontal: aStripOneMargin),
+                      width: _aStripLength,
+                      height: _aStripThickness,
+                      margin: EdgeInsets.symmetric(horizontal: _aStripOneMargin),
                       decoration: BoxDecoration(
-                          color: currentStripColor,
-                          borderRadius: BorderRadius.all(Radius.circular(stripCorner))),
+                          color: _currentStripColor,
+                          borderRadius: superBorderAll(context, _stripCorner)),
                     ),
                   );
                 }),

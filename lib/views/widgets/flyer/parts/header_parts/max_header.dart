@@ -29,34 +29,34 @@ class MaxHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final prof = Provider.of<FlyersProvider>(context);
-    final List<FlyerModel> galleryFlyers = prof.getFlyersByBzModel(bz);
+    final _prof = Provider.of<FlyersProvider>(context);
+    final List<FlyerModel> _galleryFlyers = _prof.getFlyersByBzModel(bz);
     // === === === === === === === === === === === === === === === === === === ===
-    List<AuthorModel> bzAuthors = bz != null ? bz?.authors : [];
+    List<AuthorModel> _bzAuthors = bz != null ? bz?.authors : [];
     // === === === === === === === === === === === === === === === === === === ===
-    List<String> bzTeamIDs = [];
-    if(bzAuthors != null) {
-      bzAuthors.forEach((au) {
-        bzTeamIDs.add(au.userID);
+    List<String> _bzTeamIDs = [];
+    if(_bzAuthors != null) {
+      _bzAuthors.forEach((au) {
+        _bzTeamIDs.add(au.userID);
       });
     }
     // === === === === === === === === === === === === === === === === === === ===
-    int bzConnects      = bz != null ? bz.bzTotalConnects   : 0;
-    int followersCount  = bz != null ? bz.bzTotalFollowers  : 0;
-    int bzTotalSaves    = bz != null ? bz.bzTotalSaves      : 0;
-    int bzTotalShares   = bz != null ? bz.bzTotalShares     : 0;
-    int bzTotalSlides   = bz != null ? bz.bzTotalSlides     : 0;
-    int bzTotalViews    = bz != null ? bz.bzTotalViews      : 0;
-    int callsCount      = bz != null ? bz.bzTotalCalls      : 0;
+    int _bzConnects      = bz != null ? bz.bzTotalConnects   : 0;
+    int _followersCount  = bz != null ? bz.bzTotalFollowers  : 0;
+    int _bzTotalSaves    = bz != null ? bz.bzTotalSaves      : 0;
+    int _bzTotalShares   = bz != null ? bz.bzTotalShares     : 0;
+    int _bzTotalSlides   = bz != null ? bz.bzTotalSlides     : 0;
+    int _bzTotalViews    = bz != null ? bz.bzTotalViews      : 0;
+    int _callsCount      = bz != null ? bz.bzTotalCalls      : 0;
     // === === === === === === === === === === === === === === === === === === ===
-    String bzScope = bz != null ? bz.bzScope : '';
+    String _bzScope = bz != null ? bz.bzScope : '';
     return Column(
       children: <Widget>[
         // --- BUSINESS FIELD
         BzPgFields(
           flyerZoneWidth: flyerZoneWidth,
           bzPageIsOn: bzPageIsOn,
-          bzScope: bzScope,
+          bzScope: _bzScope,
         ),
 
         // --- BUSINESS BIRTH YEAR
@@ -79,7 +79,7 @@ class MaxHeader extends StatelessWidget {
         BzPgCounter(
           bzPageIsOn: bzPageIsOn,
           flyerZoneWidth: flyerZoneWidth,
-          count: bzConnects,
+          count: _bzConnects,
           verse: Wordz.bldrsConnected(context),
           icon: Iconz.HandShake,
           iconSizeFactor: 0.98,
@@ -89,7 +89,7 @@ class MaxHeader extends StatelessWidget {
         BzPgCounter(
           bzPageIsOn: bzPageIsOn,
           flyerZoneWidth: flyerZoneWidth,
-          count: followersCount,
+          count: _followersCount,
           verse: Wordz.followers(context),
           icon: Iconz.Follow,
           iconSizeFactor: 0.8,
@@ -99,7 +99,7 @@ class MaxHeader extends StatelessWidget {
         BzPgCounter(
           bzPageIsOn: bzPageIsOn,
           flyerZoneWidth: flyerZoneWidth,
-          count: callsCount,
+          count: _callsCount,
           verse: Wordz.callsReceived(context),
           icon: Iconz.ComPhone,
           iconSizeFactor: 0.8,
@@ -109,7 +109,7 @@ class MaxHeader extends StatelessWidget {
         BzPgCounter(
           flyerZoneWidth: flyerZoneWidth,
           bzPageIsOn: bzPageIsOn,
-          count: bzTotalSlides,
+          count: _bzTotalSlides,
           verse: Wordz.slidesPublished(context),
           icon: Iconz.Gallery,
           iconSizeFactor: 0.85,
@@ -119,7 +119,7 @@ class MaxHeader extends StatelessWidget {
         BzPgCounter(
           flyerZoneWidth: flyerZoneWidth,
           bzPageIsOn: bzPageIsOn,
-          count: bzTotalViews,
+          count: _bzTotalViews,
           verse: Wordz.totalViews(context),
           icon: Iconz.Views,
           iconSizeFactor: 0.85,
@@ -129,7 +129,7 @@ class MaxHeader extends StatelessWidget {
         BzPgCounter(
           flyerZoneWidth: flyerZoneWidth,
           bzPageIsOn: bzPageIsOn,
-          count: bzTotalShares,
+          count: _bzTotalShares,
           verse: Wordz.totalShares(context),
           icon: Iconz.Share,
           iconSizeFactor: 0.85,
@@ -139,7 +139,7 @@ class MaxHeader extends StatelessWidget {
         BzPgCounter(
           flyerZoneWidth: flyerZoneWidth,
           bzPageIsOn: bzPageIsOn,
-          count: bzTotalSaves,
+          count: _bzTotalSaves,
           verse: Wordz.totalSaves(context),
           icon: Iconz.SaveOn,
           iconSizeFactor: 0.95,
@@ -149,12 +149,12 @@ class MaxHeader extends StatelessWidget {
         Gallery(
           flyerZoneWidth: flyerZoneWidth,
           bzShowsTeam: bzShowsTeam,
-          followersCount: followersCount,
-          bzTeamIDs: bzTeamIDs,
+          followersCount: _followersCount,
+          bzTeamIDs: _bzTeamIDs,
           bzPageIsOn: bzPageIsOn,
-          bzConnects: bzConnects,
-          authors: bzAuthors,
-          galleryFlyers: galleryFlyers,
+          bzConnects: _bzConnects,
+          authors: _bzAuthors,
+          galleryFlyers: _galleryFlyers,
           bzName:  bz != null ? bz.bzName : '',
           // tappingMiniFlyer: openFlyer,
         ),

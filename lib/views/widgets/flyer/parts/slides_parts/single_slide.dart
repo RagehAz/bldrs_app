@@ -103,20 +103,20 @@ class _SingleSlideState extends State<SingleSlide> {
   @override
   Widget build(BuildContext context) {
     // ----------------------------------------------------------------------
-    double screenWidth = superScreenWidth(context);
+    double _screenWidth = superScreenWidth(context);
     // ----------------------------------------------------------------------
-    bool microMode = superFlyerMicroMode(context, widget.flyerZoneWidth);
+    bool _microMode = superFlyerMicroMode(context, widget.flyerZoneWidth);
     // ----------------------------------------------------------------------
-    int slideTitleSize =
-    widget.flyerZoneWidth <= screenWidth && widget.flyerZoneWidth > (screenWidth*0.75) ? 4 :
-    widget.flyerZoneWidth <= (screenWidth*0.75) && widget.flyerZoneWidth > (screenWidth*0.5) ? 3 :
-        widget.flyerZoneWidth <= (screenWidth*0.5) && widget.flyerZoneWidth > (screenWidth*0.25) ? 2 :
-        widget.flyerZoneWidth <= (screenWidth*0.25) && widget.flyerZoneWidth > (screenWidth*0.1) ? 1 : 0
+    int _slideTitleSize =
+    widget.flyerZoneWidth <= _screenWidth && widget.flyerZoneWidth > (_screenWidth*0.75) ? 4 :
+    widget.flyerZoneWidth <= (_screenWidth*0.75) && widget.flyerZoneWidth > (_screenWidth*0.5) ? 3 :
+        widget.flyerZoneWidth <= (_screenWidth*0.5) && widget.flyerZoneWidth > (_screenWidth*0.25) ? 2 :
+        widget.flyerZoneWidth <= (_screenWidth*0.25) && widget.flyerZoneWidth > (_screenWidth*0.1) ? 1 : 0
     ;
     // ----------------------------------------------------------------------
-    FlyerLink theFlyerLink = FlyerLink(flyerLink: 'flyer @ index: ${widget.slideIndex}', description: 'flyer to be shared aho');
+    FlyerLink _theFlyerLink = FlyerLink(flyerLink: 'flyer @ index: ${widget.slideIndex}', description: 'flyer to be shared aho');
     // ----------------------------------------------------------------------
-    bool dontBlur =
+    bool _dontBlur =
     widget.picFile == null ||
         (widget.boxFit != BoxFit.fitWidth &&
             widget.boxFit != BoxFit.contain &&
@@ -144,7 +144,7 @@ class _SingleSlideState extends State<SingleSlide> {
           children: <Widget>[
 
             // --- IMAGE FILE FULL HEIGHT
-            dontBlur || widget.slideMode == SlideMode.Empty || fileIsURL(widget.picFile) == true ? Container() :
+            _dontBlur || widget.slideMode == SlideMode.Empty || fileIsURL(widget.picFile) == true ? Container() :
             Image.file(
               widget.picFile,
               fit: BoxFit.fitHeight,
@@ -155,7 +155,7 @@ class _SingleSlideState extends State<SingleSlide> {
             ),
 
             // --- IMAGE FILE BLUR LAYER
-            dontBlur || widget.slideMode == SlideMode.Empty || fileIsURL(widget.picFile) == true ? Container() :
+            _dontBlur || widget.slideMode == SlideMode.Empty || fileIsURL(widget.picFile) == true ? Container() :
             ClipRRect( // this ClipRRect fixed a big blur issue,, never ever  delete
               child: BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 6, sigmaY: 6),
@@ -195,11 +195,11 @@ class _SingleSlideState extends State<SingleSlide> {
               ),
             ),
 
-            microMode == true || widget.title == null ? Container() :
+            _microMode == true || widget.title == null ? Container() :
             SlideTitle(
               flyerZoneWidth: widget.flyerZoneWidth,
               verse: widget.title,
-              verseSize: slideTitleSize,
+              verseSize: _slideTitleSize,
               verseColor: Colorz.White,
               tappingVerse: () {
                 print('Flyer Title clicked');
@@ -232,7 +232,7 @@ class _SingleSlideState extends State<SingleSlide> {
               views: widget.views,
               shares: widget.shares,
               saves: widget.saves,
-              tappingShare: () {shareFlyer(context, theFlyerLink);}, // this will user slide index
+              tappingShare: () {shareFlyer(context, _theFlyerLink);}, // this will user slide index
             ),
 
           ],

@@ -28,13 +28,13 @@ class _SlidesState extends State<Slides> {
   Widget build(BuildContext context) {
 
     // ----------------------------------------------------------------------
-    bool microMode = superFlyerMicroMode(context, widget.flyerZoneWidth);
+    bool _microMode = superFlyerMicroMode(context, widget.flyerZoneWidth);
     // ----------------------------------------------------------------------
-    int slideIndex = widget.currentSlideIndex >= widget.slides?.length ? 0 : widget.currentSlideIndex ;
+    int _slideIndex = widget.currentSlideIndex >= widget.slides?.length ? 0 : widget.currentSlideIndex ;
     // ----------------------------------------------------------------------
 
     return
-      microMode == true || widget.slidingIsOn == false ?
+      _microMode == true || widget.slidingIsOn == false ?
       SingleSlide(
         flyerZoneWidth: widget.flyerZoneWidth,
         title: widget.slides[0]?.headline,
@@ -49,7 +49,7 @@ class _SlidesState extends State<Slides> {
       // -- FLYER SLIDES
       PageView.builder(
         itemCount: widget.slides?.length,
-        controller: PageController(viewportFraction: 1, initialPage: slideIndex, keepPage: true),
+        controller: PageController(viewportFraction: 1, initialPage: _slideIndex, keepPage: true),
         allowImplicitScrolling: true,
         pageSnapping: true,
         onPageChanged: widget.sliding,
