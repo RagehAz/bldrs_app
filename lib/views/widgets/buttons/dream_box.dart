@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:bldrs/view_brains/drafters/file_formatters.dart';
+import 'package:bldrs/view_brains/drafters/localizers.dart';
 import 'package:bldrs/view_brains/drafters/shadowers.dart';
-import 'package:bldrs/view_brains/drafters/stringers.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
@@ -153,7 +153,7 @@ class DreamBox extends StatelessWidget {
                       borderRadius: BorderRadius.circular(corners),
                       child: Stack(
                         alignment: Alignment.center,
-                        children: [
+                        children: <Widget>[
 
                           dreamChild == null ? Container() :
                           Container(
@@ -183,7 +183,7 @@ class DreamBox extends StatelessWidget {
                                     margin: EdgeInsets.all(_iconMargin),
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.all(Radius.circular(_iconCorners)),
-                                        boxShadow: [
+                                        boxShadow: <CustomBoxShadow>[
                                           CustomBoxShadow(
                                               color: bubble == true ? Colorz.BlackLingerie : Colorz.Nothing,
                                               offset: new Offset(0, _jpgGraphicWidth * -0.019 ),
@@ -377,7 +377,7 @@ class DreamBox extends StatelessWidget {
                     ),
                   ),
 
-                  // --- THE UNDERlINE
+                  // --- THE UnderLine
                   underLine == null ? Container() :
                       SuperVerse(
                         verse: underLine,

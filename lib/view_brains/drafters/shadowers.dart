@@ -13,31 +13,31 @@ class CustomBoxShadow extends BoxShadow {
 
   @override
   Paint toPaint() {
-    final Paint result = Paint()
+    final Paint _result = Paint()
       ..color = color
       ..maskFilter = MaskFilter.blur(this.blurStyle, blurSigma);
     assert(() {
       if (debugDisableShadows)
-        result.maskFilter = null;
+        _result.maskFilter = null;
       return true;
     }());
-    return result;
+    return _result;
   }
 }
 // === === === === === === === === === === === === === === === === === === ===
 List<BoxShadow> superHeaderShadower(double flyerZoneWidth){
-  List<BoxShadow> shadows = [CustomBoxShadow(
+  List<BoxShadow> _shadows = <CustomBoxShadow>[CustomBoxShadow(
       color: Colorz.BlackLingerie,
       offset: Offset(0, 0),
       blurRadius: flyerZoneWidth * 0.1,
       blurStyle: BlurStyle.outer
   ),
   ];
-  return shadows;
+  return _shadows;
 }
 // === === === === === === === === === === === === === === === === === === ===
 List<BoxShadow> superFollowBtShadow(double btHeight){
-  List<BoxShadow> btShadow = <BoxShadow>[
+  List<BoxShadow> _btShadow = <CustomBoxShadow>[
     CustomBoxShadow(
         color: Colorz.BlackPlastic,
         offset: new Offset(0, 0),
@@ -49,6 +49,6 @@ List<BoxShadow> superFollowBtShadow(double btHeight){
         blurRadius: btHeight * 0.1,
         blurStyle: BlurStyle.outer),
   ];
-  return btShadow;
+  return _btShadow;
 }
 // === === === === === === === === === === === === === === === === === === ===

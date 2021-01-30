@@ -36,9 +36,8 @@ class _RegisterState extends State<Register> {
   String _password;
   String _confirmPassword;
   final _formKey = GlobalKey<FormState>();
-  String error = '';
-  bool loading = false;
-  bool showPassword = false;
+  String _error = '';
+  bool _loading = false;
   bool _passwordObscured = true;
 
 // ---------------------------------------------------------------------------
@@ -72,7 +71,7 @@ class _RegisterState extends State<Register> {
 // ---------------------------------------------------------------------------
   void _triggerLoading(){
     setState(() {
-      loading = !loading;
+      _loading = !_loading;
     });
   }
 // ---------------------------------------------------------------------------
@@ -112,7 +111,7 @@ class _RegisterState extends State<Register> {
           ),
 
           TextFieldBubble(
-            loading: loading,
+            loading: _loading,
             textDirection: TextDirection.ltr,
             fieldIsFormField: true,
             fieldIsRequired: true,
@@ -136,7 +135,7 @@ class _RegisterState extends State<Register> {
           ),
 
           TextFieldBubble(
-            loading: loading,
+            loading: _loading,
             textDirection: TextDirection.ltr,
             fieldIsFormField: true,
             fieldIsRequired: true,
@@ -167,7 +166,7 @@ class _RegisterState extends State<Register> {
           ),
 
           TextFieldBubble(
-            loading: loading,
+            loading: _loading,
             textDirection: TextDirection.ltr,
             fieldIsFormField: true,
             fieldIsRequired: true,
@@ -200,7 +199,7 @@ class _RegisterState extends State<Register> {
             children: <Widget>[
 
               SuperVerse(
-                verse: error,
+                verse: _error,
                 color: Colorz.BloodRed,
               ),
 
@@ -215,13 +214,13 @@ class _RegisterState extends State<Register> {
                     dynamic result = await _auth.registerWithEmailAndPassword(_email, _password);
                     print('register result is : $result');
                     if ('$result' == '[firebase_auth/email-already-in-use] The email address is already in use by another account.')
-                    {setState(() {error = Wordz.emailAlreadyRegistered(context);}); _triggerLoading();}
+                    {setState(() {_error = Wordz.emailAlreadyRegistered(context);}); _triggerLoading();}
                     else if('$result' == '[firebase_auth/invalid-email] The email address is badly formatted.')
-                    {setState(() {error = Wordz.emailWrong(context);}); _triggerLoading();}
-                    else if(result == null){setState(() {error = 'something is wrong';}); _triggerLoading();}
+                    {setState(() {_error = Wordz.emailWrong(context);}); _triggerLoading();}
+                    else if(result == null){setState(() {_error = 'something is wrong';}); _triggerLoading();}
                     else if(result.runtimeType == UserModel)
                     {
-                      setState(() {error = ''; _triggerLoading();});
+                      setState(() {_error = ''; _triggerLoading();});
                       goToRoute(context, Routez.Home); // should go to data entry page then confirm then homepage
                     }
                   }

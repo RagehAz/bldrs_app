@@ -49,7 +49,7 @@ class UserProvider {
       // print(doc.data()['savedFlyersIDs']);
       List<dynamic> _savedFlyersIDs = doc.data()['savedFlyersIDs'] as List<dynamic>;
       List<dynamic> _followedBzzIDs = doc.data()['followedBzzIDs'] as List<dynamic>;
-      List<dynamic> _publishedFlyersIDs = doc.data()['publishedFlyersIDs'] as List<dynamic>;
+      // List<dynamic> _publishedFlyersIDs = doc.data()['publishedFlyersIDs'] as List<dynamic>;
       return UserModel(
           userID              : doc.data()['userID']                  ?? '',
           savedFlyersIDs      : _savedFlyersIDs                       ?? [''],
@@ -73,7 +73,7 @@ class UserProvider {
   UserModel _userModelFromSnapshot(DocumentSnapshot doc){
     List<dynamic> _savedFlyersIDs = doc.data()['savedFlyersIDs'] as List<dynamic>;
     List<dynamic> _followedBzzIDs = doc.data()['followedBzzIDs'] as List<dynamic>;
-    List<dynamic> _publishedFlyersIDs = doc.data()['publishedFlyersIDs'] as List<dynamic>;
+    // List<dynamic> _publishedFlyersIDs = doc.data()['publishedFlyersIDs'] as List<dynamic>;
     return UserModel(
       userID              : doc.data()['userID']                  ?? '',
       savedFlyersIDs      : _savedFlyersIDs                       ?? [''],

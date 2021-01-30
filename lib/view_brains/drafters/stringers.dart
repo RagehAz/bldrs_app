@@ -5,21 +5,6 @@ import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:flutter/material.dart';
 // === === === === === === === === === === === === === === === === === === ===
-TextDirection superTextDirection(BuildContext context){
-  if (Wordz.textDirection(context) == 'ltr')
-    {return TextDirection.ltr;}
-  else
-    {return TextDirection.rtl;}
-}
-
-TextDirection superInverseTextDirection(BuildContext context){
-  if (Wordz.textDirection(context) == 'ltr')
-  {return TextDirection.rtl;}
-  else
-  {return TextDirection.ltr;}
-}
-
-// === === === === === === === === === === === === === === === === === === ===
 double verseLabelHeight (int verseSize, double screenHeight){
       return
     (verseSize == 0) ? screenHeight * Ratioz.fontSize0 * 1.42 // -- 8 -- A77A

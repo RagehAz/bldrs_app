@@ -1,7 +1,7 @@
 import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/view_brains/drafters/borderers.dart';
+import 'package:bldrs/view_brains/drafters/localizers.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
-import 'package:bldrs/view_brains/drafters/stringers.dart';
 import 'package:bldrs/view_brains/localization/language_class.dart';
 import 'package:bldrs/view_brains/localization/localization_constants.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
@@ -13,9 +13,9 @@ import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../main.dart';
-import 'bldrs_appbar.dart';
+import 'ab_strip.dart';
 import 'buttons/bt_localizer.dart';
-import 'buttons/bx_flagbox.dart';
+import 'buttons/flagbox.dart';
 
 enum LocalizerPage {
   Country,

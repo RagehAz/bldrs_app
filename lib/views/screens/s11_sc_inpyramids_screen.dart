@@ -1,6 +1,6 @@
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
-import 'package:bldrs/views/widgets/appbar/ab_in_pyramids/ab_in_pyramids.dart';
+import 'package:bldrs/views/widgets/appbar/ab_in_pyramids.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/pyramids/enum_lister.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +35,7 @@ class _InPyramidsScreenState extends State<InPyramidsScreen> {
   List<String> _enumListerStrings = [''];
   List<bool> _enumListerTriggers = [false];
   // bool tileIsOn = false;
-  String country;
+  String _country;
 // ----------------------------------------------------------------------------
   @override
   void initState(){
@@ -114,22 +114,24 @@ class _InPyramidsScreenState extends State<InPyramidsScreen> {
       pyramids: _enumListerIsOn == true ? Iconz.PyramidzWhite : Iconz.PyramidsWhite,
       sky: Sky.Black,
 
-      // appBarType: AppBarType.Basic,
-      // appBarRowWidgets: <Widget>[
-      // ],
-      tappingRageh: (){print(country);},
+      appBarType: AppBarType.InPyramids,
+      appBarRowWidgets: <Widget>[
+
+        ...inPyramidsAppBarButtons(
+          context: context,
+          userStatus: _currentUserStatus,
+          currentPage: _currentPage,
+          switchingPages: (page) => _switchingPages(page)
+        ),
+
+      ],
+      tappingRageh: (){print(_country);},
       layoutWidget:
       Stack(
         children: <Widget>[
 
           CustomScrollView(
             slivers: <Widget>[
-
-              ABInPyramids(
-                switchingPages: _switchingPages,
-                currentPage: _currentPage,
-                userStatus: _currentUserStatus,
-              ),
 
               _currentPage == inPyramidsPage.Profile ?
               ProfilePage(
@@ -151,6 +153,7 @@ class _InPyramidsScreenState extends State<InPyramidsScreen> {
               MorePage()
                   :
               SavedFlyersPage()
+
             ],
           ),
 

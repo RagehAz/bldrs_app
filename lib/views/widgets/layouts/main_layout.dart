@@ -23,6 +23,7 @@ enum AppBarType{
   Main,
   Localizer,
   Intro,
+  InPyramids
 }
 
 enum Sky {

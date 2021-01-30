@@ -11,8 +11,8 @@ import 'package:bldrs/views/widgets/bubbles/contact_field_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/text_field_bubble.dart';
 import 'package:bldrs/views/widgets/loading/loading.dart';
-import 'package:path_provider/path_provider.dart' as sysPaths;
-import 'package:path/path.dart' as path;
+// import 'package:path_provider/path_provider.dart' as sysPaths;
+// import 'package:path/path.dart' as path;
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
@@ -36,37 +36,37 @@ class EditProfilePage extends StatefulWidget {
 
 class _EditProfilePageState extends State<EditProfilePage> {
   final _formKey = GlobalKey<FormState>();
-  File _currentPic;
-  String _currentName;
-  String _currentJobTitle;
-  String _currentCompany;
-  String _currentCity;
-  String _currentCountry;
-  String _currentEmail;
-  String _currentPhone;
-  String _currentFacebook;
-  String _currentInstagram;
-  String _currentLinkedIn;
-  String _currentYouTube;
-  String _currentPinterest;
-  String _currentTiktok;
+  File    _currentPic;
+  String  _currentName;
+  String  _currentJobTitle;
+  String  _currentCompany;
+  String  _currentCity;
+  String  _currentCountry;
+  String  _currentEmail;
+  String  _currentPhone;
+  String  _currentFacebook;
+  String  _currentInstagram;
+  String  _currentLinkedIn;
+  String  _currentYouTube;
+  String  _currentPinterest;
+  String  _currentTiktok;
 // ---------------------------------------------------------------------------
   Future<void> _takeGalleryPicture() async {
-    final picker = ImagePicker();
-    final imageFile = await picker.getImage(
+    final _picker = ImagePicker();
+    final _imageFile = await _picker.getImage(
       source: ImageSource.gallery,
       maxWidth: 600,
     );
 
-    if (imageFile == null){return;}
+    if (_imageFile == null){return;}
 
     setState(() {
-      _currentPic = File(imageFile.path);
+      _currentPic = File(_imageFile.path);
     });
 
-    final appDir = await sysPaths.getApplicationDocumentsDirectory();
-    final fileName = path.basename(imageFile.path);
-    final savedImage = await _currentPic.copy('${appDir.path}/$fileName');
+    // final _appDir = await sysPaths.getApplicationDocumentsDirectory();
+    // final _fileName = path.basename(_imageFile.path);
+    // final _savedImage = await _currentPic.copy('${_appDir.path}/$_fileName');
     // _selectImage(savedImage);
   }
 // ---------------------------------------------------------------------------
@@ -79,10 +79,26 @@ class _EditProfilePageState extends State<EditProfilePage> {
   @override
   Widget build(BuildContext context) {
 
-    final user = Provider.of<UserModel>(context);
+    final _user = Provider.of<UserModel>(context);
+
+    print('_currentPic : $_currentPic ,'
+        '_currentName : $_currentName ,'
+        '_currentJobTitle : $_currentJobTitle ,'
+        '_currentCompany : $_currentCompany ,'
+        '_currentCity : $_currentCity ,'
+        '_currentCountry : $_currentCountry ,'
+        '_currentEmail : $_currentEmail ,'
+        '_currentPhone : $_currentPhone ,'
+        '_currentFacebook : $_currentFacebook ,'
+        ' _currentInstagram : $_currentInstagram ,'
+        ' _currentLinkedIn : $_currentLinkedIn ,'
+        ' _currentYouTube : $_currentYouTube ,'
+        ' _currentPinterest : $_currentPinterest ,'
+        ' _currentTiktok : $_currentTiktok ,'
+        '');
 
     return StreamBuilder<UserModel>(
-      stream: UserProvider(userID: user.userID).userData,
+      stream: UserProvider(userID: _user.userID).userData,
       builder: (context, snapshot){
         if(snapshot.hasData == false){
           return Container(
@@ -243,8 +259,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   boxMargins: EdgeInsets.all(10),
                   boxFunction: ()async{
                     if(_formKey.currentState.validate()){
-                      await UserProvider(userID: user.userID).updateUserData(
-                        userID              : user.userID                  ?? '',
+                      await UserProvider(userID: _user.userID).updateUserData(
+                        userID              : _user.userID                  ?? '',
                         // savedFlyersIDs      : _savedFlyersIDs                       ?? [''],
                         // followedBzzIDs      : _followedBzzIDs                       ?? [''],
                         // publishedFlyersIDs  : _publishedFlyersIDs                   ?? [''],

@@ -95,7 +95,7 @@ class _AnkhButtonState extends State<AnkhButton> with SingleTickerProviderStateM
     // String saveBTIcon = ankhIsOn == true ? Iconz.SaveOn : Iconz.SaveOff;
     // String saveBTVerse = ankhIsOn == true ? translate(context, 'Saved') :
     // translate(context, 'Save');
-    Color _saveBTColor = _ankhIsOn == true ? Colorz.YellowSmoke : Colorz.Nothing;
+    // Color _saveBTColor = _ankhIsOn == true ? Colorz.YellowSmoke : Colorz.Nothing;
     // ----------------------------------------------------------------------------
     // Color flyerShadowColor = ankhIsOn == true ? Colorz.BlackBlack : Colorz.BlackBlack;
     // ----------------------------------------------------------------------------
