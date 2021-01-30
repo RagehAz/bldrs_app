@@ -1,12 +1,7 @@
-import 'dart:ui';
 import 'package:bldrs/models/bldrs_sections.dart';
-import 'package:bldrs/view_brains/drafters/aligners.dart';
-import 'package:bldrs/view_brains/drafters/scalers.dart';
-import 'package:bldrs/view_brains/drafters/shadowers.dart';
-import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
-import 'package:bldrs/views/screens/s05_pg_countries_page.dart';
 import 'package:flutter/material.dart';
+import 'bldrs_appbar.dart';
 import 'buttons/bt_localizer.dart';
 import 'buttons/bt_search.dart';
 import 'buttons/bt_section.dart';
@@ -14,12 +9,12 @@ import 'sliver_home_appbar.dart';
 
 class ABMain extends StatefulWidget {
   final bool searchButtonOn;
-  final bool countryButtonOn;
+  final Function tappingLocalizer;
   final bool sectionsAreOn;
 
   ABMain({
     this.searchButtonOn = true,
-    this.countryButtonOn = true,
+    this.tappingLocalizer,
     this.sectionsAreOn = true,
   });
 
@@ -53,7 +48,8 @@ class _ABMainState extends State<ABMain> {
 // ---------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: true);
+    // String _lastCountry = _countryPro.currentCountry;
     double abPadding = Ratioz.ddAppBarMargin * 0.5;
     double abHeight = sectionsAreExpanded == true ?
     (Ratioz.ddAppBarHeight * 4) - (abPadding * 3) : Ratioz.ddAppBarHeight;
@@ -131,11 +127,11 @@ class _ABMainState extends State<ABMain> {
         ),
 
         // --- LOCALIZER BUTTON
-        sectionsAreExpanded == true || widget.countryButtonOn != true ? Container() :
+        sectionsAreExpanded == true || widget.tappingLocalizer == null ? Container() :
         Padding(
-          padding: EdgeInsets.only(top: Ratioz.ddAppBarMargin * 0.5),
-          child: ButtonLocalizer(
-            buttonFlag: flagFileNameSelectedFromPGLanguageList,
+          padding: EdgeInsets.all(Ratioz.ddAppBarMargin * 0.5),
+          child: LocalizerButton(
+            onTap: widget.tappingLocalizer,
           ),
         ),
 
@@ -145,101 +141,3 @@ class _ABMainState extends State<ABMain> {
   }
 }
 
-class ABStrip extends StatelessWidget {
-  final List<Widget> rowWidgets;
-  final double abHeight;
-  final bool scrollable;
-
-  ABStrip({
-    this.rowWidgets,
-    this.abHeight = Ratioz.ddAppBarHeight,
-    this.scrollable = false,
-  });
-  @override
-  Widget build(BuildContext context) {
-
-    double screenWidth = superScreenWidth(context);
-    double abWidth = screenWidth - (2 * Ratioz.ddAppBarMargin);
-
-    return Container(
-      width: abWidth,
-      height: abHeight,
-      alignment: Alignment.center,
-      margin: EdgeInsets.all(Ratioz.ddAppBarMargin),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(Ratioz.ddAppBarCorner)),
-          boxShadow: [
-            CustomBoxShadow(
-                color: Colorz.BlackSmoke,
-                offset: Offset(0, 0),
-                blurRadius: abHeight * 0.18,
-                blurStyle: BlurStyle.outer),
-          ]),
-      child: Stack(
-        alignment: superCenterAlignment(context),
-        children: <Widget>[
-
-          // APPBAR SHADOW
-          Container(
-            width: double.infinity,
-            height: abHeight,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(Ratioz.ddAppBarCorner)),
-                boxShadow: [
-                  CustomBoxShadow(
-                      color: Colorz.BlackBlack,
-                      offset: Offset(0, 0),
-                      blurRadius: abHeight * 0.18,
-                      blurStyle: BlurStyle.outer),
-                ]),
-          ),
-
-          // APPBAR BLUR
-          ClipRRect(
-            borderRadius:
-                BorderRadius.all(Radius.circular(Ratioz.ddAppBarCorner)),
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-              child: Container(
-                width: double.infinity,
-                height: abHeight,
-                decoration: BoxDecoration(
-                    color: Colorz.WhiteAir,
-                    borderRadius: BorderRadius.all(
-                        Radius.circular(Ratioz.ddAppBarCorner))),
-              ),
-            ),
-          ),
-
-          // --- CONTENTS INSIDE THE APP BAR
-          scrollable ?
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            // mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              ClipRRect(
-                borderRadius: BorderRadius.circular(Ratioz.ddAppBarCorner),
-                child: Container(
-                  width: screenWidth - (2 * Ratioz.ddAppBarMargin),
-                  height: 50,
-                  alignment: Alignment.center,
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: rowWidgets,
-                  ),
-                ),
-              )
-            ],
-          )
-              :
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: rowWidgets,
-          ),
-        ],
-      ),
-    );
-  }
-}

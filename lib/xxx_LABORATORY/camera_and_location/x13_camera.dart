@@ -1,6 +1,7 @@
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/views/widgets/appbar/ab_main.dart';
+import 'package:bldrs/views/widgets/appbar/bldrs_appbar.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/pyramids/pyramids.dart';
 import 'package:bldrs/views/widgets/space/skies/night_sky.dart';

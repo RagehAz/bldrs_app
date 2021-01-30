@@ -1,5 +1,5 @@
 import 'package:bldrs/models/bldrs_sections.dart';
-import 'package:bldrs/views/screens/s05_pg_countries_page.dart';
+import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:flutter/material.dart';
 import 'ab_strip.dart';
 import 'buttons/bt_localizer.dart';
@@ -83,8 +83,8 @@ void initState(){
         sectionsAreExpanded == true ? Container() :
         Padding(
             padding: EdgeInsets.symmetric(horizontal: abSpacings*0),
-            child: ButtonLocalizer(
-              buttonFlag: flagFileNameSelectedFromPGLanguageList,
+            child: LocalizerButton(
+              // buttonFlag: Iconz.DvDonaldDuck,
             ),
           ),
         ],

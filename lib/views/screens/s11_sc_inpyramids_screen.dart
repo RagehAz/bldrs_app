@@ -1,9 +1,11 @@
 import 'package:bldrs/models/user_model.dart';
+import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/views/widgets/appbar/ab_in_pyramids/ab_in_pyramids.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/pyramids/enum_lister.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 's12_pg_saved_flyers_page.dart';
 import 's13_pg_news_page.dart';
 import 's14_pg_more_page.dart';
@@ -35,6 +37,7 @@ class _InPyramidsScreenState extends State<InPyramidsScreen> {
   List<String> enumListerStrings = [''];
   List<bool> enumListerTriggers = [false];
   // bool tileIsOn = false;
+  String country;
 // ----------------------------------------------------------------------------
   @override
   void initState(){
@@ -105,8 +108,10 @@ class _InPyramidsScreenState extends State<InPyramidsScreen> {
     });
   }
 // ----------------------------------------------------------------------------
+
   @override
   Widget build(BuildContext context) {
+    String country = Provider.of<CountryProvider>(context, listen: false).currentCountry;
 
     return MainLayout(
       pyramids: enumListerIsOn == true ? Iconz.PyramidzWhite : Iconz.PyramidsWhite,
@@ -115,7 +120,7 @@ class _InPyramidsScreenState extends State<InPyramidsScreen> {
       // appBarType: AppBarType.Basic,
       // appBarRowWidgets: <Widget>[
       // ],
-
+      tappingRageh: (){print(country);},
       layoutWidget:
       Stack(
         children: <Widget>[
