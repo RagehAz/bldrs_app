@@ -1,6 +1,6 @@
 import 'package:bldrs/models/planet/city_model.dart';
 
-final List<City> dbCities = [
+final List<City> dbCities = <City>[
   City(iso3: 'deu', id: '1276451290', name: 'Berlin', province: '', type: 'primary', latitude: 52.5167, longitude: 13.3833, population: 3644826, isActivated: true, isPublic: false, names: []),
   City(iso3: 'deu', id: '1276041799', name: 'Hamburg', province: '', type: 'admin', latitude: 53.55, longitude: 10, population: 1841179, isActivated: true, isPublic: false, names: []),
   City(iso3: 'deu', id: '1276692352', name: 'Munich', province: '', type: 'admin', latitude: 48.1372, longitude: 11.5755, population: 1471508, isActivated: true, isPublic: false, names: []),

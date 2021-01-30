@@ -1,6 +1,5 @@
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
-import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
@@ -36,8 +35,8 @@ class _FlyersGridState extends State<FlyersGrid> {
   @override
   Widget build(BuildContext context) {
     final FlyersProvider pro = Provider.of<FlyersProvider>(context, listen: false);
-    final user = Provider.of<UserModel>(context);
-    List<dynamic> savedFlyersIDs = [ 'f037'];
+    // final user = Provider.of<UserModel>(context);
+    // List<dynamic> savedFlyersIDs = [ 'f037'];
     final List<FlyerModel> savedFlyers = pro.getSavedFlyers;
     final List<BzModel> bzz = pro.getBzzOfFlyersList(savedFlyers);
 // ----------------------------------------------------------------------------

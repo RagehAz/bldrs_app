@@ -10,10 +10,6 @@ class Routez {
   /// (s02 signin page, s03 register page) are pages insides StartingScreen();
   static const String Starting = 'StartingScreen';
 // ---------------------------------------------------------------------------
-  /// s04
-  /// (s05 countries page, s06 language page) are pages inside LocalizerScreen();
-  static const String Localizer = 'LocalizerScreen';
-// ---------------------------------------------------------------------------
   /// s10
   static const String Home = 'HomeScreen';
 // ---------------------------------------------------------------------------

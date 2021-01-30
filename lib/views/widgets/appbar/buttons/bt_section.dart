@@ -1,5 +1,7 @@
 import 'package:bldrs/models/bldrs_sections.dart';
+import 'package:bldrs/view_brains/drafters/aligners.dart';
 import 'package:bldrs/view_brains/drafters/iconizers.dart';
+import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/drafters/stringers.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
@@ -22,13 +24,18 @@ class InitialSectionsBT extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    // double abPadding = Ratioz.ddAppBarMargin * 2;
-    // double abHeight = Ratioz.ddAppBarHeight;
-    //
-    // double corners = Ratioz.ddBoxCorner *1.5;
-    //
-    // bool designMode = false;
+    double _corners = Ratioz.ddBoxCorner *1.5;
 
+    bool _designMode = false;
+
+    String _buttonTitle = sectionsAreExpanded == true ? Wordz.choose(context) : Wordz.section(context) ;
+
+    // double _btThirdsOfScreenWidth = (_screenWidth - (6*_abPadding))/3;
+
+    // double _buttonWidth = _sectionsAreExpanded == true ? _btThirdsOfScreenWidth : null;
+
+    String _currentSection = sectionsAreExpanded == true ? '...             ' :
+    sectionStringer(context, currentSection);
 
     return GestureDetector(
           onTap: expandingSections,
@@ -40,9 +47,65 @@ class InitialSectionsBT extends StatelessWidget {
 
               IntrinsicWidth(
 
-                child: SectionButton(
-                  section: currentSection,
-                  sectionsAreExpanded : sectionsAreExpanded,
+                child: Container(
+                  height: 40,
+                  // width: buttonWidth,
+                  // margin: EdgeInsets.symmetric(horizontal: Ratioz.ddAppBarMargin*0.5),
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: Colorz.WhiteAir,
+                    borderRadius: BorderRadius.circular(_corners),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: SuperVerse(
+                          verse: _buttonTitle,
+                          size: 0,
+                          italic: true,
+                          color: Colorz.Grey,
+                          weight: VerseWeight.thin,
+                          designMode: _designMode,
+                          centered: false,
+                        ),
+                      ),
+
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: <Widget>[
+
+                            SuperVerse(
+                              verse: _currentSection,
+                              size: 2,
+                              italic: false,
+                              color: Colorz.White,
+                              weight: VerseWeight.bold,
+                              scaleFactor: 1,
+                              designMode: _designMode,
+                              centered: false,
+                            ),
+
+                            sectionsAreExpanded == true ? Container() :
+                            Container(
+                              color: _designMode == true ? Colorz.BloodTest : null,
+                              margin: EdgeInsets.only(bottom: 1),
+                              child: Padding(
+                                padding: const EdgeInsets.all(5),
+                                child: WebsafeSvg.asset(superArrowENRight(context), height: 7.5),
+                              ),
+                            ),
+
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
 
@@ -53,93 +116,83 @@ class InitialSectionsBT extends StatelessWidget {
 }
 
 class SectionButton extends StatelessWidget {
+  final Function choosingSection;
   final BldrsSection section;
-  final bool sectionsAreExpanded;
 
   SectionButton({
+    @required this.choosingSection,
     @required this.section,
-    @required this.sectionsAreExpanded,
-});
+  });
 
   @override
   Widget build(BuildContext context) {
 
-    // double screenWidth = MediaQuery.of(context).size.width;
+    double _screenWidth = superScreenWidth(context);
 
-    // double abPadding = Ratioz.ddAppBarMargin * 2;
-    // double abHeight = Ratioz.ddAppBarHeight;
+    double _abPadding = Ratioz.ddAppBarPadding;
 
-    double corners = Ratioz.ddBoxCorner *1.5;
+    double _corners = Ratioz.ddBoxCorner * 1.5;
 
-    bool designMode = false;
+    bool _designMode = false;
 
-    String buttonTitle = sectionsAreExpanded == true ? Wordz.choose(context) : Wordz.section(context) ;
+    double _buttonWidth = (_screenWidth - (2*Ratioz.ddAppBarMargin) - (3*_abPadding) - 40) * 1;
 
-    // double btThirdsOfScreenWidth = (screenWidth - (6*abPadding))/3;
+    String _sectionString =
+    section == BldrsSection.RealEstate ? Wordz.realEstate(context) :
+    section == BldrsSection.Construction ? Wordz.construction(context) :
+    section == BldrsSection.Supplies ? Wordz.supplies(context) :
+    Wordz.bldrsShortName(context);
 
-    // double buttonWidth = sectionsAreExpanded == true ? btThirdsOfScreenWidth : null;
+    String _description =
+    section == BldrsSection.RealEstate ? Wordz.realEstateTagLine(context) :
+    section == BldrsSection.Construction ? Wordz.constructionTagLine(context) :
+    section == BldrsSection.Supplies ? Wordz.suppliesTagLine(context) :
+    Wordz.bldrsShortName(context);
 
-    String currentSection = sectionsAreExpanded == true ? '...             ' :
-        sectionStringer(context, section);
-
-    return Container(
-      height: 40,
-      // width: buttonWidth,
-      // margin: EdgeInsets.symmetric(horizontal: Ratioz.ddAppBarMargin*0.5),
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-        color: Colorz.WhiteAir,
-        borderRadius: BorderRadius.circular(corners),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: SuperVerse(
-              verse: buttonTitle,
-              size: 0,
-              italic: true,
-              color: Colorz.Grey,
-              weight: VerseWeight.thin,
-              designMode: designMode,
-              centered: false,
-            ),
+    return GestureDetector(
+      onTap: () => choosingSection(section),
+      child: IntrinsicWidth(
+        child: Container(
+          height: 40,
+          width: _buttonWidth,
+          // margin: EdgeInsets.symmetric(horizontal: Ratioz.ddAppBarMargin * 0.5),
+          alignment: superCenterAlignment(context),
+          decoration: BoxDecoration(
+            color: Colorz.WhiteAir,
+            borderRadius: BorderRadius.circular(_corners),
           ),
-
-          Padding(
+          child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.end,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-
                 SuperVerse(
-                  verse: currentSection,
+                  verse: _sectionString,
                   size: 2,
                   italic: false,
                   color: Colorz.White,
                   weight: VerseWeight.bold,
                   scaleFactor: 1,
-                  designMode: designMode,
+                  designMode: _designMode,
                   centered: false,
+                  maxLines: 1,
                 ),
-
-                sectionsAreExpanded == true ? Container() :
-                Container(
-                  color: designMode == true ? Colorz.BloodTest : null,
-                  margin: EdgeInsets.only(bottom: 1),
-                  child: Padding(
-                    padding: const EdgeInsets.all(5),
-                    child: WebsafeSvg.asset(superArrowENRight(context), height: 7.5),
-                  ),
-                ),
+                SuperVerse(
+                  verse: _description,
+                  size: 1,
+                  italic: true,
+                  color: Colorz.WhiteLingerie,
+                  centered: false,
+                  weight: VerseWeight.thin,
+                  designMode: _designMode,
+                  maxLines: 1,
+                )
 
               ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }

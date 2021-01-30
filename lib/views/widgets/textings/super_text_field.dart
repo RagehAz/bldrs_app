@@ -1,6 +1,6 @@
 import 'package:bldrs/view_brains/drafters/borderers.dart';
 import 'package:bldrs/view_brains/drafters/keyboarders.dart';
-import 'package:bldrs/view_brains/drafters/stringers.dart';
+import 'package:bldrs/view_brains/drafters/localizers.dart';
 import 'package:bldrs/view_brains/drafters/texters.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';

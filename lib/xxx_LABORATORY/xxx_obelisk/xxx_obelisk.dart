@@ -21,7 +21,6 @@ import 'package:bldrs/xxx_LABORATORY/ask/ask_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/camera_and_location/camera_page.dart';
 import 'package:bldrs/xxx_LABORATORY/camera_and_location/google_map.dart';
 import 'package:bldrs/xxx_LABORATORY/camera_and_location/x12_image_picker.dart';
-import 'package:bldrs/xxx_LABORATORY/camera_and_location/x13_camera.dart';
 import 'package:bldrs/xxx_LABORATORY/forms_and_inputs/popup.dart';
 import 'package:bldrs/xxx_LABORATORY/forms_and_inputs/form.dart';
 import 'package:bldrs/xxx_LABORATORY/ideas/circle_list.dart';
@@ -40,55 +39,52 @@ import 'x12_checkbox_lesson.dart';
 // ---------------------------------------------------------------------------
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
 class ObeliskScreen extends StatefulWidget {
-  ObeliskScreen({Key key, this.controller}) : super(key: key);
-
   final PageController controller;
+
+  ObeliskScreen({
+    this.controller,
+    Key key,
+  }) : super(key: key);
+
 
   @override
   _ObeliskScreenState createState() => _ObeliskScreenState();
 }
 
 class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateMixin{
-  String theChosenFlag = Iconz.DvDonaldDuck;
   AnimationController _blackHoleController;
-  int spinsDuration = 1;
+  int _spinsDuration = 1;
 // ---------------------------------------------------------------------------
   @override
   void initState() {
     _blackHoleController = AnimationController(
-      duration: Duration(seconds: spinsDuration),
+      duration: Duration(seconds: _spinsDuration),
       vsync: this
     );
     super.initState();
   }
-  void flagSwitch() {
-    setState(() {
-      theChosenFlag = Iconz.DvDonaldDuck;
-    });
-    print(theChosenFlag);
-  }
 // ---------------------------------------------------------------------------
   // final GlobalKey<FormState> _key = GlobalKey<FormState>();
 // ---------------------------------------------------------------------------
-  Timer timoor(){
-    Timer timoor = Timer(Duration(seconds: spinsDuration),
+  Timer _timoor(){
+    Timer _timoor = Timer(Duration(seconds: _spinsDuration),
             (){
           if(mounted){_blackHoleController.reset();}
-          if(mounted){enterTheBlackHole();}
+          if(mounted){_enterTheBlackHole();}
         }
     );
-    return timoor;
+    return _timoor;
   }
 // ---------------------------------------------------------------------------
-  void enterTheBlackHole(){
+  void _enterTheBlackHole(){
     print('ezayak el awwal');
     if(mounted){_blackHoleController.forward();}
-    if(mounted){timoor();}
+    if(mounted){_timoor();}
   }
 // ---------------------------------------------------------------------------
   @override
   void dispose() {
-    timoor()?.cancel();
+    _timoor()?.cancel();
     _blackHoleController.stop();
     _blackHoleController.dispose();
     super.dispose();
@@ -97,14 +93,14 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
   @override
   Widget build(BuildContext context) {
 
-    int x = 8;
+    int _x = 8;
 // ---------------------------------------------------------------------------
     return MainLayout(
       pyramids: Iconz.PyramidsCrystal,
       tappingRageh: (){
-        print('before switch x = $x');
-        dynamic newSwitchValue = decipherBldrsSection(x);
-        print('newSwitchValue = $newSwitchValue');
+        print('before switch x = $_x');
+        dynamic _newSwitchValue = decipherBldrsSection(_x);
+        print('newSwitchValue = $_newSwitchValue');
         },
       appBarType: AppBarType.Main,
       layoutWidget: ListView(
@@ -373,19 +369,6 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
             stretched: false,
           ),
 
-          // --- 20 - IMAGE PICKER -------------------------------
-          BTMain(
-            buttonVerse: '20 - Image Picker',
-            buttonIcon: Iconz.PhoneGallery,
-            buttonColor: Colorz.LightBlue,
-            splashColor: Colorz.White,
-            buttonVerseShadow: true,
-            function:
-                // Routez.ProviderTest,
-                () => goToNewScreen(context, CameraScreen()),
-            stretched: false,
-          ),
-
           // --- 21 - SOUNDZ -------------------------------
           BTMain(
             buttonVerse: '21 - Soundz',
@@ -634,7 +617,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
               corners: 150,
               color: Colorz.WhiteAir,
               verseScaleFactor: 0.8,
-              boxFunction: enterTheBlackHole,
+              boxFunction: _enterTheBlackHole,
             ),
           ),
 
