@@ -7,7 +7,7 @@ import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/views/widgets/appbar/buttons/flagbox.dart';
 import 'package:bldrs/views/widgets/bubbles/bubbles_separator.dart';
 import 'package:bldrs/views/widgets/bubbles/tile_bubble.dart';
-import 'package:bldrs/views/widgets/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/layouts/main_layout.dart' show PyramidsHorizon, Stratosphere;
 import 'package:flutter/material.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
 
@@ -20,6 +20,8 @@ class MorePage extends StatelessWidget {
 
     return SliverList(
       delegate: SliverChildListDelegate([
+
+        Stratosphere(),
 
         TileBubble(
           verse: Wordz.createBzAccount(context),
