@@ -134,7 +134,6 @@ class _BldrsAppState extends State<BldrsApp> {
           debugShowCheckedModeBanner: false,
           debugShowMaterialGrid: false,
           showPerformanceOverlay: false,
-
           title: 'Bldrs.net',
 
           // theme:

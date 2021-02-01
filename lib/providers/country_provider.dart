@@ -1,23 +1,36 @@
 
 
+import 'package:bldrs/ambassadors/database/db_planet/db_cities.dart';
+import 'package:bldrs/ambassadors/database/db_planet/db_countries.dart';
+import 'package:bldrs/models/planet/city_model.dart';
+import 'package:bldrs/models/planet/country_model.dart';
 import 'package:bldrs/view_brains/localization/localization_constants.dart';
 import 'package:bldrs/view_brains/theme/flagz.dart';
+import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:flutter/material.dart';
 
 class CountryProvider with ChangeNotifier{
+  /// get user country
   String _currentCountry = 'egy';
+  String _currentCity = 'Cairo';
+  List<Country> _countries = dbCountries;
+  List<City> _cities = dbCities;
 
   String get currentCountry {
     return _currentCountry;
   }
 
-  /// get user country
-  /// ...
+  String get currentCity {
+    return _currentCity;
+  }
 
-
-  /// set app country
   void changeCountry(String country){
     _currentCountry = country;
+    notifyListeners();
+  }
+
+  void changeCity(String city){
+    _currentCity = city;
     notifyListeners();
   }
 
@@ -33,7 +46,42 @@ class CountryProvider with ChangeNotifier{
     return translate(context, iso3);
   }
 
-  var flagsMaps = [
+  /// get available countries
+  List<Map<String,String>> getAvailableCountries(){
+    List<Map<String,String>> _countriesMaps = new List();
+    dbCountries.forEach((co) {
+      if (co.isActivated){_countriesMaps.add(
+        { "iso3" : co.iso3, "flag" : co.flag}
+      );}
+    });
+    return _countriesMaps;
+  }
+
+  /// get cities list by country iso3
+  List<String> getCitiesNames(BuildContext context, String iso3){
+    List<String> _citiesNames = new List();
+    String _currentLanguageCode = Wordz.languageCode(context);
+
+    for (City city in dbCities){
+      if (city.iso3 == iso3 && city.isActivated == true) {
+        List<Namez> cityNames = city.names;
+        String cityNameInCurrentLanguage = cityNames
+            .firstWhere((name) => name.languageCode == _currentLanguageCode,
+            orElse: () => null)?.value;
+
+        if (cityNameInCurrentLanguage != null) {
+          _citiesNames.add(cityNameInCurrentLanguage);
+        }
+        else {
+          _citiesNames.add(city.name);
+        }
+      }
+
+    }
+    return _citiesNames;
+  }
+
+  var flagsMaps = <Map<String, String>>[
     {"iso3" : "afg", "flag" : Flagz.afg},
     {"iso3" : "ala", "flag" : Flagz.ala},
     {"iso3" : "alb", "flag" : Flagz.alb},

@@ -17,7 +17,7 @@ class FlagBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double _flagWidth = 40;
+    double _flagWidth = 35;
     double _corner = Ratioz.ddBoxCorner*1.5;
 
     return GestureDetector(
