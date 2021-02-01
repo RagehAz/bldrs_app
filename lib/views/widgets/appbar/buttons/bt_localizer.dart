@@ -21,6 +21,7 @@ class LocalizerButton extends StatelessWidget {
   Widget build(BuildContext context) {
     CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: true);
     String _lastCountry = _countryPro.currentCountry;
+    String _lastCity = _countryPro.currentCity;
 
     return GestureDetector(
       onTap: onTap,
@@ -61,7 +62,7 @@ class LocalizerButton extends StatelessWidget {
                               color: isOn? Colorz.BlackBlack : Colorz.White,
                             ),
                             SuperVerse(
-                              verse: 'City Name',
+                              verse: _lastCity,
                               size: 1,
                               scaleFactor: 0.8,
                               color: isOn? Colorz.BlackBlack : Colorz.White,

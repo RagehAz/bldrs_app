@@ -282,7 +282,9 @@ class DreamBox extends StatelessWidget {
                                 // color: Colorz.YellowSmoke, // for design purpose only
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: icon == null ? CrossAxisAlignment.center : CrossAxisAlignment.start,
+                                  crossAxisAlignment: icon == null && textDirection == null? CrossAxisAlignment.center :
+                                  textDirection != null ? CrossAxisAlignment.end :
+                                  CrossAxisAlignment.center,
                                   children: <Widget>[
                                     SuperVerse(
                                       verse: verse,

@@ -39,7 +39,7 @@ class Colorz {
   static const SkyDarkBlue = Color.fromARGB(1000, 0, 19, 56);
   static const SkyLightBlue = Color.fromARGB(1000, 0, 71, 123);
 
-  static const Yellow = Color.fromARGB(1000, 255, 192, 0);
+  static const Yellow = Color.fromARGB(1000, 255, 192, 0); // #ffc000
   static const YellowSmoke = Color.fromARGB(smokeOpacity, 255, 192, 0);
   static const YellowAir = Color.fromARGB(airOpacity, 255, 192, 0);
   static const YellowGlass = Color.fromARGB(glassOpacity, 255, 192, 0);
