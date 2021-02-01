@@ -6,14 +6,14 @@ bool appIsLeftToRight(BuildContext context){
 }
 // === === === === === === === === === === === === === === === === === === ===
 TextDirection superTextDirection(BuildContext context){
-  if (Wordz.textDirection(context) == 'ltr')
+  if (appIsLeftToRight(context))
   {return TextDirection.ltr;}
   else
   {return TextDirection.rtl;}
 }
 // === === === === === === === === === === === === === === === === === === ===
 TextDirection superInverseTextDirection(BuildContext context){
-  if (Wordz.textDirection(context) == 'ltr')
+  if (appIsLeftToRight(context))
   {return TextDirection.rtl;}
   else
   {return TextDirection.ltr;}

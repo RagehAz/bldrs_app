@@ -24,10 +24,10 @@ enum LocalizerPage {
 }
 
 class ABLocalizer extends StatefulWidget {
-  final Function tappingLocalizer;
+  final Function triggerLocalizer;
 
   ABLocalizer({
-    this.tappingLocalizer,
+    this.triggerLocalizer,
   });
 
   @override
@@ -36,6 +36,8 @@ class ABLocalizer extends StatefulWidget {
 
 class _ABLocalizerState extends State<ABLocalizer> {
   LocalizerPage _localizerPage;
+  String _chosenCountry;
+  String _chosenCity;
 // ---------------------------------------------------------------------------
   @override
   void initState() {
@@ -43,16 +45,42 @@ class _ABLocalizerState extends State<ABLocalizer> {
     super.initState();
   }
 // ---------------------------------------------------------------------------
-  void _openLanguageList(){
+  void _triggerLanguageButton(){
+      _localizerPage != LocalizerPage.Language ?
     setState(() {
       _localizerPage = LocalizerPage.Language;
+    }):
+      widget.triggerLocalizer();
+  }
+// ---------------------------------------------------------------------------
+  void _triggerCountryButton(){
+    _localizerPage != LocalizerPage.Country ?
+    setState(() {
+      _localizerPage = LocalizerPage.Country;
+    }):
+    widget.triggerLocalizer();
+  }
+// ---------------------------------------------------------------------------
+  void _tapCountry(String iso3){
+    print(iso3);
+    setState(() {
+      _localizerPage = LocalizerPage.City;
+      _chosenCountry = iso3;
+    });
+  }
+// ---------------------------------------------------------------------------
+  void _tapCity(String cityName){
+    print(cityName);
+    setState(() {
+      _chosenCity = cityName;
     });
   }
 // ---------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: true);
-    List<Map<String,String>> _flags = _countryPro.flagsMaps;
+    List<Map<String,String>> _flags = _countryPro.getAvailableCountries();
+    List<String> _cities = _countryPro.getCitiesNames(context, _chosenCountry);
 
     double _abPadding =  Ratioz.ddAppBarPadding;
     double _inBarClearWidth = superScreenWidth(context)
@@ -62,7 +90,9 @@ class _ABLocalizerState extends State<ABLocalizer> {
     double _abHeight = superScreenHeight(context) - Ratioz.ddPyramidsHeight;
     double _listHeight = _abHeight - Ratioz.ddAppBarHeight - (_abPadding) ;
     double _listCorner = Ratioz.ddAppBarCorner - _abPadding;
-    double _languageButtonWidth = Ratioz.ddAppBarHeight - (_abPadding *2);
+    double _languageButtonHeight = Ratioz.ddAppBarHeight - (_abPadding *2);
+
+    double _countryNameButtonWidth = _inBarClearWidth - _abPadding*3 - 35;
 
     return ABStrip(
       abHeight: _abHeight,
@@ -83,7 +113,7 @@ class _ABLocalizerState extends State<ABLocalizer> {
 
                   // --- LANGUAGE BUTTON
                   DreamBox(
-                    height: _languageButtonWidth,
+                    height: _languageButtonHeight,
                     icon:Iconz.Language,
                     iconSizeFactor: 0.6,
                     boxMargins: EdgeInsets.symmetric(horizontal: _abPadding),
@@ -91,113 +121,111 @@ class _ABLocalizerState extends State<ABLocalizer> {
                     color: _localizerPage == LocalizerPage.Language ? Colorz.Yellow : Colorz.WhiteAir,
                     verse: Wordz.languageName(context),
                     textDirection: superInverseTextDirection(context),
-                    boxFunction: _openLanguageList,
+                    boxFunction: _triggerLanguageButton,
                   ),
 
                   // --- LOCALIZER BUTTON
                   LocalizerButton(
-                    onTap: widget.tappingLocalizer,
+                    onTap: _triggerCountryButton,
                     isOn: _localizerPage == LocalizerPage.Country ? true : false
                   ),
 
                 ],
               ),
 
-              // --- COUNTRIES, CITIES & LANGUAGES LISTS
+              // --- COUNTRIES LIST
               _localizerPage == LocalizerPage.Country ?
-              ClipRRect(
-                borderRadius: superBorderAll(context, _listCorner),
-                child: Container(
-                  height: _listHeight,
-                  width: _inBarClearWidth,
-                  margin: EdgeInsets.only(top: _abPadding),
-                  decoration: BoxDecoration(
-                  color: Colorz.WhiteAir,
-                    borderRadius: superBorderAll(context, _listCorner),
-                  ),
-                  alignment: Alignment.centerRight,
-                  child: SingleChildScrollView(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: List<Widget>.generate(
-                        _flags.length, (index){
-
-                        void _selectCountry(){
-                          String _newCountry = _flags[index]["iso3"];
-                          _countryPro.changeCountry(_flags[index]["iso3"]);
-                          widget.tappingLocalizer();
-                          print('country is : $_newCountry');
-                        }
-
-                          return
-                              ChangeNotifierProvider.value(
-                                value: _countryPro,
-                                child: Row(
-                                  children: <Widget>[
-
-                                    FlagBox(
-                                      flag: _countryPro.superFlag(_flags[index]["iso3"]),
-                                      onTap: _selectCountry,
-                                    ),
-
-                                    DreamBox(
-                                      height: 40,
-                                      bubble: false,
-                                      color: Colorz.WhiteAir,
-                                      verseScaleFactor: 0.6,
-                                      boxMargins: EdgeInsets.all(_abPadding),
-                                      // icon: _countryPro.superFlag(_flags[index]["iso3"]),
-                                      verse: translate(context, _flags[index]["iso3"]),
-                                      boxFunction: _selectCountry,
-                                    ),
-
-                                  ],
-                                ),
-                              );
-                      }
-                      ),
-                    ),
-                  ),
-
+              Container(
+                height: _listHeight,
+                width: _inBarClearWidth,
+                margin: EdgeInsets.only(top: _abPadding),
+                decoration: BoxDecoration(
+                color: Colorz.WhiteAir,
+                  borderRadius: superBorderAll(context, _listCorner),
                 ),
+                alignment: Alignment.centerRight,
+                child:
+
+                countryFlags(
+                  context: context,
+                  countryNameButtonWidth: _countryNameButtonWidth,
+                  countryPro: _countryPro,
+                  flags: _flags,
+                  tapCountry: (iso3)=> _tapCountry(iso3),
+                ),
+
               )
                   :
+              _localizerPage == LocalizerPage.City ?
+              Container(
+                height: _listHeight,
+                width: _inBarClearWidth,
+                margin: EdgeInsets.only(top: _abPadding),
+                decoration: BoxDecoration(
+                  color: Colorz.WhiteAir,
+                  borderRadius: superBorderAll(context, _listCorner),
+                ),
+                alignment: Alignment.centerRight,
+                child:
+                ListView.builder(
+                  itemCount: _cities.length,
+                    itemBuilder: (context, index){
+                    String _city = _cities[index];
+                    return
+                        ChangeNotifierProvider.value(
+                          value: _countryPro,
+                          child: DreamBox(
+                            height: 35,
+                            verse: _city,
+                            bubble: false,
+                            boxMargins: EdgeInsets.all(5),
+                            verseScaleFactor: 0.7,
+                            color: Colorz.WhiteAir,
+                            boxFunction: () {
+
+                              _tapCity(_city);
+                              _countryPro.changeCity(_city);
+                            }, // should be the id instead,, later
+                          ),
+                        );
+                    },
+                ),
+
+              )
+                  :
+              // --- LANGUAGES LIST
               _localizerPage == LocalizerPage.Language ?
-              ClipRRect(
-                borderRadius: superBorderAll(context, _listCorner),
-                child: Container(
-                  height: _listHeight,
-                  width: _inBarClearWidth,
-                  margin: EdgeInsets.only(top: _abPadding),
-                  decoration: BoxDecoration(
-                    color: Colorz.WhiteAir,
-                    borderRadius: superBorderAll(context, _listCorner),
-                  ),
-                  alignment: Alignment.centerRight,
-                  child: SingleChildScrollView(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: List<Widget>.generate(
-                          LanguageClass.languageList().length, (index){
-                        return
-                          DreamBox(
-                            height: 40,
-                            verseScaleFactor: 0.6,
-                            boxMargins: EdgeInsets.all(_abPadding),
-                            verse: LanguageClass.languageList()[index].langName,
-                            boxFunction: () async {
-                              Locale _temp = await setLocale(LanguageClass.languageList()[index].langCode);
-                              BldrsApp.setLocale(context, _temp);
-                            },
-                          );
-                      }
-                      ),
+              Container(
+                height: _listHeight,
+                width: _inBarClearWidth,
+                margin: EdgeInsets.only(top: _abPadding),
+                decoration: BoxDecoration(
+                  color: Colorz.WhiteAir,
+                  borderRadius: superBorderAll(context, _listCorner),
+                ),
+                alignment: Alignment.center,
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: List<Widget>.generate(
+                        LanguageClass.languageList().length, (index){
+                      return
+                        DreamBox(
+                          height: 40,
+                          verseScaleFactor: 0.6,
+                          boxMargins: EdgeInsets.all(_abPadding),
+                          verse: LanguageClass.languageList()[index].langName,
+                          boxFunction: () async {
+                            Locale _temp = await setLocale(LanguageClass.languageList()[index].langCode);
+                            BldrsApp.setLocale(context, _temp);
+                          },
+                        );
+                    }
                     ),
                   ),
-
                 ),
+
               )
                   :
               Container()
@@ -207,4 +235,68 @@ class _ABLocalizerState extends State<ABLocalizer> {
       ],
     );
 }
+}
+
+Widget countryFlags ({
+  BuildContext context,
+  CountryProvider countryPro,
+  List<Map<String,String>> flags,
+  Function tapCountry,
+  double countryNameButtonWidth,
+}){
+
+  double _abPadding = Ratioz.ddAppBarPadding;
+  return
+    ListView.builder(
+        itemCount: flags.length,
+        itemBuilder: (context, index){
+
+          String _newCountry = flags[index]["iso3"];
+
+
+          void _selectCountry(String iso3){
+            countryPro.changeCountry(iso3);
+            countryPro.changeCity('...');
+            print('country is : $_newCountry');
+          }
+
+          return ChangeNotifierProvider.value(
+            value: countryPro,
+            child: Row(
+              textDirection: superInverseTextDirection(context),
+              children: <Widget>[
+
+                SizedBox(
+                  width: (Ratioz.ddAppBarPadding),
+                ),
+
+                FlagBox(
+                  flag: countryPro.superFlag(_newCountry),
+                  onTap: (){
+                    tapCountry(_newCountry);
+                    _selectCountry(_newCountry);
+                    },
+                ),
+
+                DreamBox(
+                  height: 40,
+                  width: countryNameButtonWidth,
+                  bubble: false,
+                  color: Colorz.WhiteAir,
+                  verseScaleFactor: 0.6,
+                  boxMargins: EdgeInsets.all(_abPadding),
+                  verse: translate(context, _newCountry),
+                  boxFunction: (){
+                    tapCountry(_newCountry);
+                    _selectCountry(_newCountry);
+                    },
+                  textDirection: superInverseTextDirection(context),
+
+                ),
+
+              ],
+            ),
+          );
+        }
+        );
 }

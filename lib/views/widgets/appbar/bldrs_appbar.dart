@@ -29,7 +29,7 @@ class _BldrsAppBarState extends State<BldrsAppBar> {
     super.initState();
   }
 // ---------------------------------------------------------------------------
-  void _tappingLocalizer(){
+  void _triggerLocalizer(){
     setState(() {
       _appBarType == AppBarType.Localizer ?
       _appBarType = widget.appBarType
@@ -46,7 +46,7 @@ class _BldrsAppBarState extends State<BldrsAppBar> {
       _appBarType == AppBarType.Main
           || _appBarType == AppBarType.Intro?
           ABMain(
-            tappingLocalizer: _tappingLocalizer,
+            tappingLocalizer: _triggerLocalizer,
             sectionsAreOn:  _appBarType == AppBarType.Intro? false : true,
             searchButtonOn: _appBarType == AppBarType.Intro? false : true,
           )
@@ -76,7 +76,7 @@ class _BldrsAppBarState extends State<BldrsAppBar> {
 
       _appBarType == AppBarType.Localizer ?
           ABLocalizer(
-            tappingLocalizer: _tappingLocalizer,
+            triggerLocalizer: _triggerLocalizer,
           )
           :
       Container()
@@ -84,4 +84,6 @@ class _BldrsAppBarState extends State<BldrsAppBar> {
     ;
   }
 }
+
+
 
