@@ -21,13 +21,16 @@ class LocalizerButton extends StatelessWidget {
   Widget build(BuildContext context) {
     CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: true);
     String _lastCountry = _countryPro.currentCountry;
-    String _lastCity = _countryPro.currentCity;
+    String _lastProvince = _countryPro.currentProvince;
+    String _lastArea = _countryPro.currentArea;
+    String _lastAreaName = _countryPro.getAreaNameWithCurrentLanguageIfPossible(context, _lastArea);
+
 
     return GestureDetector(
       onTap: onTap,
       child: Row(
         mainAxisSize: MainAxisSize.min,
-        children: [
+        children: <Widget>[
           Flexible(
             flex: 1,
             child: Container(
@@ -47,7 +50,7 @@ class LocalizerButton extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
 
-                    // --- COUNTRY & CITY NAMES
+                    // --- COUNTRY & AREA NAMES
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 2.5),
                       child: FittedBox(
@@ -62,7 +65,7 @@ class LocalizerButton extends StatelessWidget {
                               color: isOn? Colorz.BlackBlack : Colorz.White,
                             ),
                             SuperVerse(
-                              verse: _lastCity,
+                              verse: _lastArea,
                               size: 1,
                               scaleFactor: 0.8,
                               color: isOn? Colorz.BlackBlack : Colorz.White,
