@@ -32,9 +32,9 @@ class EarthScreenState extends State<EarthScreen> {
           alignment: Alignment.center,
           child: Stack(
             alignment: Alignment.center,
-            children:
+            children: []
             // worldDots(screenWidth,)
-            countryDots(countryWidth, Flagz.egy),
+            // countryDots(countryWidth, Flagz.egy),
           ),
         ),
       ),

@@ -11,7 +11,7 @@ class Country{
   /// automatic switch when country reaches 'Global target' ~ 10'000 flyers
   /// then country flyers will be visible to other countries users 'bzz & users'
   final bool isGlobal;
-  final List<City> cities;
+  final List<Province> cities;
   /// lang codes tiers
   /// A:-
   /// AR:Arabic, ES:Spanish, FR:French, ZH:Chinese, DE:German, IT:Italian,
