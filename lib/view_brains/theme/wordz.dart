@@ -101,7 +101,7 @@ class Wordz{
   static String company (BuildContext context) => translate(context, 'company');
   static String companies (BuildContext context) => translate(context, 'companies');
   static String companyName (BuildContext context) => translate(context, 'companyName');
-  static String hqCity (BuildContext context) => translate(context, 'hqCity');
+  static String hqCity (BuildContext context) => translate(context, 'hqCity'); // موقع المقر الرئيسي
   static String authorName (BuildContext context) => translate(context, 'authorName');
   static String bldrsConnected (BuildContext context) => translate(context, 'bldrsConnected');
   static String callsReceived (BuildContext context) => translate(context, 'callsReceived');
