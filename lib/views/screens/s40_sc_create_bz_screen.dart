@@ -23,6 +23,7 @@ import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class CreateBzScreen extends StatefulWidget {
   @override
@@ -49,7 +50,8 @@ class _CreateBzScreenState extends State<CreateBzScreen> {
   File _currentLogo;
   String _currentScope;
   String _currentCountry;
-  String _currentCity;
+  String _currentProvince;
+  String _currentArea;
   String _currentBzAbout;
   GeoPoint _currentLocation;
   List<ContactModel> _currentContacts;
@@ -167,34 +169,46 @@ void typingBzName(String bzName){
     });
   }
   // ----------------------------------------------------------------------
+  void _tapCountryButton(){
+    print('_tapCountryButton');
+  }
+  // ----------------------------------------------------------------------
+  void _tapProvinceButton(){
+    print('_tapProvinceButton');
+  }
+  // ----------------------------------------------------------------------
+  void _tapAreaButton(){
+    print('_tapAreaButton');
+  }
+  // ----------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     double screenWidth = superScreenWidth(context);
 
-    print(
-'_currentBz : $_currentBz, '
-'_currentBzType : $_currentBzType, '
-'_currentBzForm : $_currentBzForm, '
-'_currentAccountType : $_currentAccountType, '
-'_currentBzName : $_currentBzName, '
-'_currentBzScope : $_currentBzScope, '
-'_currentLogo : $_currentLogo, '
-'_currentScope : $_currentScope, '
-'_currentCountry : $_currentCountry, '
-'_currentCity : $_currentCity, '
-'_currentBzAbout : $_currentBzAbout, '
-'_currentLocation : $_currentLocation, '
-'_currentContacts : $_currentContacts, '
-'_currentAuthor : $_currentAuthor, '
-'_currentBzShowsTeam : $_currentBzShowsTeam, '
-    );
+//     print(
+// '_currentBz : $_currentBz, '
+// '_currentBzType : $_currentBzType, '
+// '_currentBzForm : $_currentBzForm, '
+// '_currentAccountType : $_currentAccountType, '
+// '_currentBzName : $_currentBzName, '
+// '_currentBzScope : $_currentBzScope, '
+// '_currentLogo : $_currentLogo, '
+// '_currentScope : $_currentScope, '
+// '_currentCountry : $_currentCountry, '
+// '_currentCity : $_currentCity, '
+// '_currentBzAbout : $_currentBzAbout, '
+// '_currentLocation : $_currentLocation, '
+// '_currentContacts : $_currentContacts, '
+// '_currentAuthor : $_currentAuthor, '
+// '_currentBzShowsTeam : $_currentBzShowsTeam, '
+//     );
 
     return MainLayout(
       appBarType: AppBarType.Basic,
-      pyramids: Iconz.PyramidsYellow,
+      pyramids: Iconz.PyramidzYellow,
       pageTitle: Wordz.createAccount(context), // createBzAccount
-      tappingRageh: (){ print(_currentLogo.runtimeType);},
+      // tappingRageh: (){ print(_currentLogo.runtimeType);},
       layoutWidget: Stack(
         children: <Widget>[
 
@@ -281,7 +295,13 @@ void typingBzName(String bzName){
 
                 // --- bzLocale
                 LocaleBubble(
-                  title : Wordz.hqCity(context),
+                  title : Wordz.hqCity(context), // موقع المقر الرئيسي
+                  country: _currentCountry,
+                  province: _currentProvince,
+                  area: _currentArea,
+                  tapCountry: _tapCountryButton,
+                  tapProvince: _tapProvinceButton,
+                  tapArea: _tapAreaButton,
                 ),
 
                 BubblesSeparator(),
