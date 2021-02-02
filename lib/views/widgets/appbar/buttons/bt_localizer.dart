@@ -1,4 +1,5 @@
 import 'package:bldrs/providers/country_provider.dart';
+import 'package:bldrs/view_brains/drafters/localizers.dart';
 import 'package:bldrs/view_brains/localization/localization_constants.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
@@ -24,6 +25,11 @@ class LocalizerButton extends StatelessWidget {
     String _lastProvince = _countryPro.currentProvince;
     String _lastArea = _countryPro.currentArea;
     String _lastAreaName = _countryPro.getAreaNameWithCurrentLanguageIfPossible(context, _lastArea);
+
+    String _countryAndProvinceNames =
+        appIsLeftToRight(context) ? '$_lastProvince, ${translate(context, _lastCountry)}'
+    : '${translate(context, _lastCountry)}, $_lastProvince';
+
 
 
     return GestureDetector(
@@ -60,7 +66,7 @@ class LocalizerButton extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: <Widget>[
                             SuperVerse(
-                              verse: translate(context, _lastCountry),
+                              verse: _countryAndProvinceNames,
                               size: 1,
                               color: isOn? Colorz.BlackBlack : Colorz.White,
                             ),

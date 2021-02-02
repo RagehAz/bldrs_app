@@ -1,6 +1,7 @@
 import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/view_brains/drafters/aligners.dart';
 import 'package:bldrs/view_brains/drafters/borderers.dart';
+import 'package:bldrs/view_brains/drafters/iconizers.dart';
 import 'package:bldrs/view_brains/drafters/localizers.dart';
 import 'package:bldrs/view_brains/drafters/mappers.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
@@ -138,7 +139,8 @@ void _tapLanguage(String languageCode) async {
       scrollable: false,
       appBarType: AppBarType.Localizer,
       rowWidgets: <Widget>[
-        Padding(
+        Container(
+          width: _inBarClearWidth + _abPadding + _abPadding,
           padding: EdgeInsets.all(_abPadding),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -149,6 +151,28 @@ void _tapLanguage(String languageCode) async {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
+
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: DreamBox(
+                      height: _languageButtonHeight,
+                      width: _languageButtonHeight,
+                      icon: superBackIcon(context),
+                      iconSizeFactor: 1,
+                      bubble: true,
+                      color: Colorz.WhiteAir,
+                      textDirection: superInverseTextDirection(context),
+                      boxFunction: () => _exitLocalizer(),
+                    ),
+                  ),
+
+                  Expanded(
+                    child: Container(
+                      height: _languageButtonHeight,
+                      width: 20,
+                      // color: Colorz.BloodRedZircon,
+                    ),
+                  ),
 
                   // --- LANGUAGE BUTTON
                   DreamBox(
@@ -330,6 +354,13 @@ class ButtonsList extends StatelessWidget {
                       String _newCountry = mapFirstValues[index];
                       provider.changeCountry(_newCountry);
                       provider.changeArea('...');
+                      buttonTap(mapFirstValues[index]);
+                    }
+                    else if (localizerPage == LocalizerPage.Province)
+                    {
+                      String _newProvince = mapSecondValues[index];
+                      // String _newAreaName
+                      provider.changeProvince(_newProvince);
                       buttonTap(mapFirstValues[index]);
                     }
                     else if (localizerPage == LocalizerPage.Area)

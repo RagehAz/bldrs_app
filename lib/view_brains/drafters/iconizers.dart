@@ -102,3 +102,8 @@ String imageDir(String prefix, String fileName, double pixelRatio, bool isIOS) {
 String superBackIcon(BuildContext context){
   return appIsLeftToRight(context) ? Iconz.Back : Iconz.BackArabic;
 }
+// === === === === === === === === === === === === === === === === === === ===
+String superInverseBackIcon(BuildContext context){
+  return appIsLeftToRight(context) ? Iconz.BackArabic : Iconz.Back;
+}
+// === === === === === === === === === === === === === === === === === === ===
