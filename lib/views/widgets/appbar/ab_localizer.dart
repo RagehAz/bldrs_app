@@ -37,7 +37,8 @@ class ABLocalizer extends StatefulWidget {
 class _ABLocalizerState extends State<ABLocalizer> {
   LocalizerPage _localizerPage;
   String _chosenCountry;
-  String _chosenCity;
+  String _chosenProvince;
+  String _chosenArea;
 // ---------------------------------------------------------------------------
   @override
   void initState() {
@@ -69,10 +70,17 @@ class _ABLocalizerState extends State<ABLocalizer> {
     });
   }
 // ---------------------------------------------------------------------------
-  void _tapCity(String cityName){
-    print(cityName);
+  void _tapProvince(String provinceID){
+    print(provinceID);
     setState(() {
-      _chosenCity = cityName;
+      _chosenProvince = provinceID;
+    });
+  }
+
+  void _tapArea(String areaID){
+    print(areaID);
+    setState(() {
+      _chosenArea = areaID;
     });
   }
 // ---------------------------------------------------------------------------
@@ -80,7 +88,8 @@ class _ABLocalizerState extends State<ABLocalizer> {
   Widget build(BuildContext context) {
     CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: true);
     List<Map<String,String>> _flags = _countryPro.getAvailableCountries();
-    List<String> _cities = _countryPro.getCitiesNames(context, _chosenCountry);
+    List<Map<String,String>> _provinces = _countryPro.getProvincesNames(context, _chosenCountry);
+    List<Map<String,String>> _areas = _countryPro.getAreasNames(context, _chosenProvince);
 
     double _abPadding =  Ratioz.ddAppBarPadding;
     double _inBarClearWidth = superScreenWidth(context)
@@ -168,23 +177,26 @@ class _ABLocalizerState extends State<ABLocalizer> {
                 alignment: Alignment.centerRight,
                 child:
                 ListView.builder(
-                  itemCount: _cities.length,
+                  itemCount: _provinces.length,
                     itemBuilder: (context, index){
-                    String _city = _cities[index];
+                    Map<String,String> _province = _provinces[index];
+                    String _provinceID = _province['id'];
+                    String _provinceName = _province['name'];
+
                     return
                         ChangeNotifierProvider.value(
                           value: _countryPro,
                           child: DreamBox(
                             height: 35,
-                            verse: _city,
+                            verse: _provinceName,
                             bubble: false,
                             boxMargins: EdgeInsets.all(5),
                             verseScaleFactor: 0.7,
                             color: Colorz.WhiteAir,
                             boxFunction: () {
 
-                              _tapCity(_city);
-                              _countryPro.changeCity(_city);
+                              _tapProvince(_provinceID);
+                              _countryPro.changeArea(_provinceID);
                             }, // should be the id instead,, later
                           ),
                         );
@@ -256,7 +268,7 @@ Widget countryFlags ({
 
           void _selectCountry(String iso3){
             countryPro.changeCountry(iso3);
-            countryPro.changeCity('...');
+            countryPro.changeArea('...');
             print('country is : $_newCountry');
           }
 

@@ -443,49 +443,49 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
             function: () => goToNewScreen(context, GoogleMapScreen()),
           ),
 
-          // --- 28 - GOOGLE MAP DEFINED SIZE PIN -------------------------------
-          BTMain(
-            buttonVerse: '28 - Google Maps - Defined size Pin',
-            buttonColor: Colorz.BloodTest,
-            buttonIcon: Iconz.ComMap,
-            buttonVerseShadow: true,
-            splashColor: Colorz.Yellow,
-            stretched: true,
-            function: () => goToNewScreen(context, GoogleMapScreen2()),
-          ),
+          // // --- 28 - GOOGLE MAP DEFINED SIZE PIN -------------------------------
+          // BTMain(
+          //   buttonVerse: '28 - Google Maps - Defined size Pin',
+          //   buttonColor: Colorz.BloodTest,
+          //   buttonIcon: Iconz.ComMap,
+          //   buttonVerseShadow: true,
+          //   splashColor: Colorz.Yellow,
+          //   stretched: true,
+          //   function: () => goToNewScreen(context, GoogleMapScreen2()),
+          // ),
 
-          // --- 29 - GOOGLE MAP IMAGE PIN -------------------------------
-          BTMain(
-            buttonVerse: '29 - Google Maps - Image Pin',
-            buttonColor: Colorz.BloodTest,
-            buttonIcon: Iconz.ComMap,
-            buttonVerseShadow: true,
-            splashColor: Colorz.Yellow,
-            stretched: true,
-            function: () => goToNewScreen(context, GoogleMapScreen3()),
-          ),
+          // // --- 29 - GOOGLE MAP IMAGE PIN -------------------------------
+          // BTMain(
+          //   buttonVerse: '29 - Google Maps - Image Pin',
+          //   buttonColor: Colorz.BloodTest,
+          //   buttonIcon: Iconz.ComMap,
+          //   buttonVerseShadow: true,
+          //   splashColor: Colorz.Yellow,
+          //   stretched: true,
+          //   function: () => goToNewScreen(context, GoogleMapScreen3()),
+          // ),
 
-          // --- 30 - GOOGLE MAP CANVAS -------------------------------
-          BTMain(
-            buttonVerse: '30 - Google Maps - text box canvas',
-            buttonColor: Colorz.BloodTest,
-            buttonIcon: Iconz.ComMap,
-            buttonVerseShadow: true,
-            splashColor: Colorz.Yellow,
-            stretched: true,
-            function: () => goToNewScreen(context, GoogleMapScreen4()),
-          ),
+          // // --- 30 - GOOGLE MAP CANVAS -------------------------------
+          // BTMain(
+          //   buttonVerse: '30 - Google Maps - text box canvas',
+          //   buttonColor: Colorz.BloodTest,
+          //   buttonIcon: Iconz.ComMap,
+          //   buttonVerseShadow: true,
+          //   splashColor: Colorz.Yellow,
+          //   stretched: true,
+          //   function: () => goToNewScreen(context, GoogleMapScreen4()),
+          // ),
 
           // --- 31 - GOOGLE MAP -------------------------------
-          BTMain(
-            buttonVerse: '31 - Google Maps - testSpace',
-            buttonColor: Colorz.BloodTest,
-            buttonIcon: Iconz.ComMap,
-            buttonVerseShadow: true,
-            splashColor: Colorz.Yellow,
-            stretched: true,
-            function: () => goToNewScreen(context, GoogleMapScreen5()),
-          ),
+          // BTMain(
+          //   buttonVerse: '31 - Google Maps - testSpace',
+          //   buttonColor: Colorz.BloodTest,
+          //   buttonIcon: Iconz.ComMap,
+          //   buttonVerseShadow: true,
+          //   splashColor: Colorz.Yellow,
+          //   stretched: true,
+          //   function: () => goToNewScreen(context, GoogleMapScreen5()),
+          // ),
 
           // --- 34 -  OLD CHECKBOX THING -------------------------------
           BTMain(
