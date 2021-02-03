@@ -26,6 +26,7 @@ enum LocalizerPage {
   Province,
   Area,
   Language,
+  BottomSheet,
 }
 
 class ABLocalizer extends StatefulWidget {
@@ -338,17 +339,23 @@ class ButtonsList extends StatelessWidget {
             ChangeNotifierProvider.value(
               value: provider,
               child: Align(
-                alignment: localizerPage == LocalizerPage.Language ? Alignment.center : superInverseCenterAlignment(context),
+                alignment:
+                localizerPage == LocalizerPage.Language ? Alignment.center :
+                localizerPage == LocalizerPage.BottomSheet? Alignment.center :
+                superInverseCenterAlignment(context),
                 child: DreamBox(
                   height: 35,
-                  icon: localizerPage == LocalizerPage.Country ? mapSecondValues[index] : null,
+                  icon: localizerPage == LocalizerPage.Country || localizerPage == LocalizerPage.BottomSheet ? mapSecondValues[index] : null,
                   iconSizeFactor: 0.8,
-                  verse: localizerPage == LocalizerPage.Country ? provider.superCountryName(context, mapFirstValues[index]) :  mapSecondValues[index],
+                  verse:
+                  localizerPage == LocalizerPage.Country || localizerPage == LocalizerPage.BottomSheet?
+                  provider.superCountryName(context, mapFirstValues[index]) :
+                  mapSecondValues[index],
                   bubble: false,
                   boxMargins: EdgeInsets.all(5),
                   verseScaleFactor: 0.8,
                   color: Colorz.WhiteAir,
-                  textDirection: superInverseTextDirection(context),
+                  textDirection: localizerPage == LocalizerPage.BottomSheet? superTextDirection(context) : superInverseTextDirection(context),
                   boxFunction: (){
                     if (localizerPage == LocalizerPage.Country){
                       String _newCountry = mapFirstValues[index];
@@ -370,6 +377,10 @@ class ButtonsList extends StatelessWidget {
                       provider.changeArea(_newArea);
                     }
                     else if (localizerPage == LocalizerPage.Language)
+                    {
+                      buttonTap(mapFirstValues[index]);
+                    }
+                    else if (localizerPage == LocalizerPage.BottomSheet)
                     {
                       buttonTap(mapFirstValues[index]);
                     }
