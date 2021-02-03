@@ -39,16 +39,32 @@ class _BldrsAppBarState extends State<BldrsAppBar> {
     print('tapping localizer button, appbar is : $_appBarType');
   }
 // ---------------------------------------------------------------------------
+  void _triggerSections(bool _sectionsAreExpanded){
+      _sectionsAreExpanded == true ?
+    setState(() {
+      _appBarType = AppBarType.Sections;
+    })
+          :
+      setState(() {
+        _appBarType = widget.appBarType;
+      });
+    print('appBarType is : $_appBarType');
+
+  }
+// ---------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return
 
       _appBarType == AppBarType.Main
-          || _appBarType == AppBarType.Intro?
+          || _appBarType == AppBarType.Intro
+          || _appBarType == AppBarType.Sections ?
           ABMain(
             tappingLocalizer: _triggerLocalizer,
+            currentAppBarType: _appBarType,
             sectionsAreOn:  _appBarType == AppBarType.Intro? false : true,
             searchButtonOn: _appBarType == AppBarType.Intro? false : true,
+            expandingSections: (_sectionsAreExpanded)=> _triggerSections(_sectionsAreExpanded),
           )
 
       :
@@ -58,6 +74,7 @@ class _BldrsAppBarState extends State<BldrsAppBar> {
           || _appBarType == AppBarType.InPyramids ?
       ABStrip(
         scrollable: _appBarType == AppBarType.Scrollable ? true : false,
+        appBarType: _appBarType,
         rowWidgets: (_appBarType == null && widget.pageTitle == null) ? [Container()] :
         <Widget>[
           widget.pageTitle == null ? Container() :
