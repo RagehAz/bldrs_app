@@ -12,11 +12,11 @@ Gradient superSlideGradient(){
   return slideGradient;
 }
 // === === === === === === === === === === === === === === === === === === ===
-Gradient superHeaderStripGradient(){
+Gradient superHeaderStripGradient(Color color){
   Gradient headerStripGradient = LinearGradient(
       begin: Alignment.topCenter,
       end: Alignment.bottomCenter,
-      colors: [Colorz.Nothing, Colorz.WhiteZircon],
+      colors: [Colorz.Nothing, color],
       stops: [0.3, 1]);
 return headerStripGradient;
 }
@@ -37,3 +37,33 @@ ImageFilter superBlur(bool trigger){
   return blur;
 }
 // === === === === === === === === === === === === === === === === === === ===
+class BlurLayer extends StatelessWidget {
+  final BorderRadius borders;
+  final double blur;
+  final double width;
+  final double height;
+
+  BlurLayer({
+    this.borders,
+    this.blur = 10,
+    this.width = double.infinity,
+    this.height = double.infinity,
+});
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: borders,
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: blur, sigmaY: blur),
+        child: Container(
+          width: width,
+          height: height,
+          decoration: BoxDecoration(
+              color: Colorz.WhiteAir,
+              borderRadius: borders,
+          ),
+        ),
+      ),
+    );
+  }
+}

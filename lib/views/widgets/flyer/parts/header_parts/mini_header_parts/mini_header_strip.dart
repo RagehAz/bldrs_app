@@ -1,6 +1,7 @@
 import 'package:bldrs/view_brains/drafters/borderers.dart';
 import 'package:bldrs/view_brains/drafters/colorizers.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
+import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/common_parts/bz_logo.dart';
 import 'package:flutter/material.dart';
@@ -61,7 +62,7 @@ class MiniHeaderStrip extends StatelessWidget {
           padding: EdgeInsets.all(flyerZoneWidth * Ratioz.xxflyerHeaderMainPadding),
           decoration: BoxDecoration(
             borderRadius: superHeaderStripCorners(context, bzPageIsOn, flyerZoneWidth),
-            gradient: superHeaderStripGradient(),
+            gradient: superHeaderStripGradient(Colorz.WhiteZircon),
           ),
 
           child: Row(

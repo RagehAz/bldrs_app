@@ -3,9 +3,12 @@ import 'package:bldrs/models/bldrs_sections.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/sub_models/contact_model.dart';
+import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/view_brains/drafters/borderers.dart';
+import 'package:bldrs/view_brains/drafters/mappers.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
+import 'package:bldrs/views/widgets/appbar/ab_localizer.dart';
 import 'package:bldrs/views/widgets/bubbles/add_logo_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/bubbles_separator.dart';
 import 'package:bldrs/views/widgets/bubbles/locale_bubble.dart';
@@ -13,6 +16,7 @@ import 'package:bldrs/views/widgets/bubbles/multiple_choice_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/text_field_bubble.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_zone.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header.dart';
+import 'package:bldrs/views/widgets/layouts/bottom_sheet.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 // import 'package:path_provider/path_provider.dart' as sysPaths;
 // import 'package:path/path.dart' as path;
@@ -26,6 +30,7 @@ import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:provider/provider.dart';
 
 class CreateBzScreen extends StatefulWidget {
   @override
@@ -173,43 +178,82 @@ void typingBzName(String bzName){
     });
   }
   // ----------------------------------------------------------------------
-  void _tapCountryButton(BuildContext context){
+  void _tapCountryButton({BuildContext context, CountryProvider countryPro, List<Map<String, String>> flags}){
     print('_tapCountryButton');
-    showModalBottomSheet(
-        shape: RoundedRectangleBorder(borderRadius: superBorderRadius(context, Ratioz.ddBottomSheetCorner, 0, 0, Ratioz.ddBottomSheetCorner)),
-        backgroundColor: Colorz.ModalGrey,
-        barrierColor: Colorz.BlackSmoke,
-        enableDrag: true,
-        elevation: 20,
-        context: context,
-        builder: (bCtx){
-      return Container(
-        width: superScreenWidth(context) - (Ratioz.ddAppBarMargin * 2),
-        height: superScreenHeight(context)*0.45,
-        margin: EdgeInsets.only(left:Ratioz.ddAppBarMargin, right:Ratioz.ddAppBarMargin, top: Ratioz.ddAppBarMargin),
-        decoration: BoxDecoration(
-          borderRadius: superBorderRadius(context, Ratioz.ddAppBarCorner, 0, 0, Ratioz.ddAppBarCorner),
-          color: Colorz.BlackGlass,
-        ),
-      );
-    });
+    slideBottomSheet(
+      context: context,
+      draggable: true,
+      height: null,
+      child: ButtonsList(
+          mapFirstValues: geebListOfFirstValuesFromMaps(flags),
+          mapSecondValues: geebListOfSecondValuesFromMaps(flags),
+          provider: countryPro,
+          localizerPage: LocalizerPage.BottomSheet,
+          buttonTap: (value){
+            print('value issss : $value');
+            setState(() {
+              _currentCountry = value;
+            });
+            _closeBottomSheet();
+          },
+      ),
+    );
   }
 
   void _closeBottomSheet(){
     Navigator.of(context).pop();
   }
   // ----------------------------------------------------------------------
-  void _tapProvinceButton(){
-    print('_tapProvinceButton');
+  void _tapProvinceButton({BuildContext context, CountryProvider countryPro, List<Map<String, String>> provinces}){
+    slideBottomSheet(
+        context: context,
+        draggable: true,
+        height: null,
+        child: ButtonsList(
+        mapFirstValues: geebListOfFirstValuesFromMaps(provinces),
+        mapSecondValues: geebListOfSecondValuesFromMaps(provinces),
+        provider: countryPro,
+        localizerPage: LocalizerPage.Province,
+        buttonTap: (value){
+          print('value issss : $value');
+          setState(() {
+            _currentProvince = value;
+          });
+          _closeBottomSheet();
+          },
+        ),
+    );
   }
   // ----------------------------------------------------------------------
-  void _tapAreaButton(){
-    print('_tapAreaButton');
+  void _tapAreaButton({BuildContext context, CountryProvider countryPro, List<Map<String, String>> areas}){
+    slideBottomSheet(
+      context: context,
+      draggable: true,
+      height: null,
+      child: ButtonsList(
+        mapFirstValues: geebListOfFirstValuesFromMaps(areas),
+        mapSecondValues: geebListOfSecondValuesFromMaps(areas),
+        provider: countryPro,
+        localizerPage: LocalizerPage.Province,
+        buttonTap: (value){
+          print('value issss : $value');
+          setState(() {
+            _currentArea = value;
+          });
+          _closeBottomSheet();
+        },
+      ),
+    );
   }
   // ----------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: true);
+    List<Map<String,String>> _flags = _countryPro.getAvailableCountries();
+    List<Map<String,String>> _provinces = _countryPro.getProvincesNames(context, _currentCountry);//_chosenCountry);
+    List<Map<String,String>> _areas = _countryPro.getAreasNames(context, _currentProvince);//_chosenProvince);
+    print(_provinces);
+    print('current area issssssssssssssssss $_currentArea');
     double screenWidth = superScreenWidth(context);
     double screenHeight = superScreenHeight(context);
 //     print(
@@ -247,6 +291,7 @@ void typingBzName(String bzName){
 
                 Stratosphere(),
 
+                // --- CHOOSE SECTION
                 MultipleChoiceBubble(
                   title: '${Wordz.sections(context)} :',
                   buttonsList: sectionsListStrings(context),
@@ -325,9 +370,9 @@ void typingBzName(String bzName){
                   country: _currentCountry,
                   province: _currentProvince,
                   area: _currentArea,
-                  tapCountry: () => _tapCountryButton(context),
-                  tapProvince: _tapProvinceButton,
-                  tapArea: _tapAreaButton,
+                  tapCountry: () => _tapCountryButton(context: context, flags: _flags, countryPro: _countryPro ),
+                  tapProvince: () => _tapProvinceButton(context: context, provinces: _provinces, countryPro: _countryPro ),
+                  tapArea: ()=>_tapAreaButton(context: context, areas: _areas, countryPro: _countryPro),
                 ),
 
                 BubblesSeparator(),

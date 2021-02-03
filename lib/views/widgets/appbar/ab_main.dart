@@ -1,5 +1,6 @@
 import 'package:bldrs/models/bldrs_sections.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
+import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 import 'ab_strip.dart';
 import 'buttons/bt_localizer.dart';
@@ -9,12 +10,17 @@ import 'buttons/bt_section.dart';
 class ABMain extends StatefulWidget {
   final bool searchButtonOn;
   final Function tappingLocalizer;
+  /// either the button itself is there or not
   final bool sectionsAreOn;
+  final Function expandingSections;
+  final AppBarType currentAppBarType;
 
   ABMain({
     this.searchButtonOn = true,
     this.tappingLocalizer,
     this.sectionsAreOn = true,
+    @required this.expandingSections,
+    @required this.currentAppBarType,
   });
 
   @override
@@ -36,6 +42,7 @@ class _ABMainState extends State<ABMain> {
     setState(() {
       _sectionsAreExpanded = !_sectionsAreExpanded;
     });
+    widget.expandingSections(_sectionsAreExpanded);
   }
 // ---------------------------------------------------------------------------
   void _choosingSection(BldrsSection section) {
@@ -55,7 +62,8 @@ class _ABMainState extends State<ABMain> {
 
     return ABStrip(
       abHeight: _abHeight,
-
+      appBarType: widget.currentAppBarType,
+      scrollable: false,
       rowWidgets: <Widget>[
         // --- SEARCH BUTTON
         widget.searchButtonOn == true ?
