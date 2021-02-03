@@ -3,6 +3,8 @@ import 'package:bldrs/models/bldrs_sections.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/sub_models/contact_model.dart';
+import 'package:bldrs/view_brains/drafters/borderers.dart';
+import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/widgets/bubbles/add_logo_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/bubbles_separator.dart';
@@ -30,14 +32,15 @@ class CreateBzScreen extends StatefulWidget {
   _CreateBzScreenState createState() => _CreateBzScreenState();
 }
 
-class _CreateBzScreenState extends State<CreateBzScreen> {
-  bool bzPageIsOn;
+class _CreateBzScreenState extends State<CreateBzScreen> with TickerProviderStateMixin{
+  bool _bzPageIsOn;
   BldrsSection _currentSection;
-  List<bool> bzTypeInActivityList;
-  List<bool> bzFormInActivityList;
-  TextEditingController scopeTextController;
-  TextEditingController bzNameTextController;
-  TextEditingController aboutTextController;
+  List<bool> _bzTypeInActivityList;
+  List<bool> _bzFormInActivityList;
+  TextEditingController _scopeTextController;
+  TextEditingController _bzNameTextController;
+  TextEditingController _aboutTextController;
+  AnimationController _snackController;
   // -------------------------
   BzModel _currentBz;
   // -------------------------
@@ -60,36 +63,37 @@ class _CreateBzScreenState extends State<CreateBzScreen> {
   // ----------------------------------------------------------------------
   void initState(){
     super.initState();
-    bzPageIsOn = false;
-    createBzTypeInActivityList();
+    _snackController = AnimationController(duration: const Duration(seconds: 2), vsync: this, );
+    _bzPageIsOn = false;
+    create_BzTypeInActivityList();
     createBzFormInActivityLst();
-    scopeTextController = new TextEditingController();
-    bzNameTextController = new TextEditingController();
+    _scopeTextController = new TextEditingController();
+    _bzNameTextController = new TextEditingController();
     _currentBz = new BzModel();
     _currentAuthor = new AuthorModel();
   }
   // ----------------------------------------------------------------------
   void triggerMaxHeader(){
     setState(() {
-      bzPageIsOn = !bzPageIsOn;
+      _bzPageIsOn = !_bzPageIsOn;
     });
   }
   // ----------------------------------------------------------------------
   void selectASection(int index){
     setState(() {
       _currentSection = bldrsSectionsList[index];
-      bzTypeInActivityList =
+      _bzTypeInActivityList =
           _currentSection == BldrsSection.RealEstate ? [false, false, true, true, true, true, true] :
           _currentSection == BldrsSection.Construction ? [true, true, false, false, false, true, true] :
           _currentSection == BldrsSection.Supplies ? [true, true, true, true, true, false, false] :
-          bzTypeInActivityList;
+          _bzTypeInActivityList;
     });
   }
   // ----------------------------------------------------------------------
   void selectBzType(int index){
       setState(() {
         _currentBzType = bzTypesList[index];
-        bzFormInActivityList =
+        _bzFormInActivityList =
         _currentBzType == BzType.Developer ? [true, false] :
         _currentBzType == BzType.Broker ? [false, false] :
         _currentBzType == BzType.Designer ? [false, false] :
@@ -97,14 +101,14 @@ class _CreateBzScreenState extends State<CreateBzScreen> {
         _currentBzType == BzType.Artisan ? [false, false] :
         _currentBzType == BzType.Manufacturer ? [true, false] :
         _currentBzType == BzType.Supplier ? [true, false] :
-        bzFormInActivityList;
+        _bzFormInActivityList;
         // _currentBz.bzType = _currentBzType;
       });
   }
   // ----------------------------------------------------------------------
-  void createBzTypeInActivityList(){
+  void create_BzTypeInActivityList(){
       setState(() {
-        bzTypeInActivityList = List.filled(bzTypesList.length, true);
+        _bzTypeInActivityList = List.filled(bzTypesList.length, true);
       });
   }
   // ----------------------------------------------------------------------
@@ -116,7 +120,7 @@ class _CreateBzScreenState extends State<CreateBzScreen> {
   // ----------------------------------------------------------------------
   void createBzFormInActivityLst(){
       setState(() {
-        bzFormInActivityList = List.filled(bzFormsList.length, true);
+        _bzFormInActivityList = List.filled(bzFormsList.length, true);
       });
   }
   // ----------------------------------------------------------------------
@@ -169,8 +173,30 @@ void typingBzName(String bzName){
     });
   }
   // ----------------------------------------------------------------------
-  void _tapCountryButton(){
+  void _tapCountryButton(BuildContext context){
     print('_tapCountryButton');
+    showModalBottomSheet(
+        shape: RoundedRectangleBorder(borderRadius: superBorderRadius(context, Ratioz.ddBottomSheetCorner, 0, 0, Ratioz.ddBottomSheetCorner)),
+        backgroundColor: Colorz.ModalGrey,
+        barrierColor: Colorz.BlackSmoke,
+        enableDrag: true,
+        elevation: 20,
+        context: context,
+        builder: (bCtx){
+      return Container(
+        width: superScreenWidth(context) - (Ratioz.ddAppBarMargin * 2),
+        height: superScreenHeight(context)*0.45,
+        margin: EdgeInsets.only(left:Ratioz.ddAppBarMargin, right:Ratioz.ddAppBarMargin, top: Ratioz.ddAppBarMargin),
+        decoration: BoxDecoration(
+          borderRadius: superBorderRadius(context, Ratioz.ddAppBarCorner, 0, 0, Ratioz.ddAppBarCorner),
+          color: Colorz.BlackGlass,
+        ),
+      );
+    });
+  }
+
+  void _closeBottomSheet(){
+    Navigator.of(context).pop();
   }
   // ----------------------------------------------------------------------
   void _tapProvinceButton(){
@@ -185,7 +211,7 @@ void typingBzName(String bzName){
   Widget build(BuildContext context) {
 
     double screenWidth = superScreenWidth(context);
-
+    double screenHeight = superScreenHeight(context);
 //     print(
 // '_currentBz : $_currentBz, '
 // '_currentBzType : $_currentBzType, '
@@ -234,7 +260,7 @@ void typingBzName(String bzName){
                   buttonsList: bzTypesStrings(context),
                   tappingAButton: selectBzType,
                   chosenButton: bzTypeSingleStringer(context, _currentBzType),
-                  buttonsInActivityList: bzTypeInActivityList,
+                  buttonsInActivityList: _bzTypeInActivityList,
                 ),
 
                 // --- CHOOSE BzForm
@@ -243,7 +269,7 @@ void typingBzName(String bzName){
                   buttonsList: bzFormStrings(context),
                   tappingAButton: selectBzForm,
                   chosenButton: bzFormStringer(context, _currentBzForm),
-                  buttonsInActivityList: bzFormInActivityList,
+                  buttonsInActivityList: _bzFormInActivityList,
                 ),
 
                 BubblesSeparator(),
@@ -263,7 +289,7 @@ void typingBzName(String bzName){
                   maxLength: 72,
                   maxLines: 2,
                   keyboardTextInputType: TextInputType.name,
-                  textController: bzNameTextController,
+                  textController: _bzNameTextController,
                   textOnChanged: (bzName) => typingBzName(bzName),
                 ),
 
@@ -275,7 +301,7 @@ void typingBzName(String bzName){
                   maxLength: 193,
                   maxLines: 4,
                   keyboardTextInputType: TextInputType.multiline,
-                  textController: scopeTextController,
+                  textController: _scopeTextController,
                   textOnChanged: (bzScope) => typingBzScope(bzScope),
                 ),
 
@@ -287,7 +313,7 @@ void typingBzName(String bzName){
                   maxLength: 193,
                   maxLines: 4,
                   keyboardTextInputType: TextInputType.multiline,
-                  textController: aboutTextController,
+                  textController: _aboutTextController,
                   textOnChanged: (bzAbout) => typingBzAbout(bzAbout),
                 ),
 
@@ -299,7 +325,7 @@ void typingBzName(String bzName){
                   country: _currentCountry,
                   province: _currentProvince,
                   area: _currentArea,
-                  tapCountry: _tapCountryButton,
+                  tapCountry: () => _tapCountryButton(context),
                   tapProvince: _tapProvinceButton,
                   tapArea: _tapAreaButton,
                 ),
@@ -314,7 +340,7 @@ void typingBzName(String bzName){
                   maxLength: 193,
                   maxLines: 4,
                   keyboardTextInputType: TextInputType.multiline,
-                  textController: aboutTextController,
+                  textController: _aboutTextController,
                   textOnChanged: (bzAbout) => typingBzAbout(bzAbout),
                 ),
 
@@ -334,7 +360,7 @@ void typingBzName(String bzName){
                             flyerShowsAuthor: true,
                             followIsOn: null,
                             flyerZoneWidth: superFlyerZoneWidth(context, 0.7),
-                            bzPageIsOn: bzPageIsOn,
+                            bzPageIsOn: _bzPageIsOn,
                             tappingHeader: triggerMaxHeader,
                             tappingFollow: null,
                             tappingUnfollow: null,
@@ -357,33 +383,42 @@ void typingBzName(String bzName){
             child: Builder(
               builder: (context) =>
               IconButton(
-                iconSize: 30,
+                iconSize: 50,
+                onPressed: (){},
                 icon: DreamBox(
-                  height: 30,
-                  verse: 'f  ',
+                  height: 50,
+                  width: 50,
+                  verse: 'fuckkk  ',
                   verseScaleFactor: 0.6,
+                  boxFunction: (){
+
+                    print('snackjack');
+                    Scaffold.of(context).hideCurrentSnackBar();
+                    Scaffold.of(context).showSnackBar(
+                        SnackBar(
+
+                          // width: screenWidth,
+                          backgroundColor: Colorz.BloodTest,
+                          shape: RoundedRectangleBorder(borderRadius: superBorderRadius(context, 20, 0, 0, 20)),
+                          behavior: SnackBarBehavior.floating,
+                          elevation: 0,
+                          content: SuperVerse(
+                            verse: 'wtf',
+                            labelColor: Colorz.BloodTest,
+                          ),
+                          duration: Duration(seconds: 2),
+                          animation: CurvedAnimation(parent: _snackController, curve: Curves.easeIn,),
+                          action: SnackBarAction(
+                            label: 'koko',
+                            onPressed: (){},
+                          ),
+
+                          margin: EdgeInsets.only(top: screenHeight*0.5),
+                        ));
+                  },
                 ),
-                onPressed: (){
-                  Scaffold.of(context).hideCurrentSnackBar();
-                  Scaffold.of(context).showSnackBar(
-                      SnackBar(
-                        width: screenWidth * 0.6,
-                        backgroundColor: Colorz.BloodTest,
-                        behavior: SnackBarBehavior.floating,
 
-                        elevation: 0,
-                        content: SuperVerse(
-                          verse: 'wtf',
-                          labelColor: Colorz.BloodTest,
-                        ),
-                        duration: Duration(seconds: 2),
-                        action: SnackBarAction(
-                          label: 'koko',
-                          onPressed: (){},
-                        ),
 
-                      ));
-                },
               ),
             ),
           ),

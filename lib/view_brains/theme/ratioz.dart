@@ -28,6 +28,7 @@ static const double ddBoxCorner = 8;
 static const double ddAppBarMargin = 10;
 static const double ddAppBarPadding = 5;
 static const double ddAppBarHeight = 50;
+static const double ddBottomSheetCorner = ddAppBarCorner + ddAppBarMargin;
 
 // flyer old default ratios to be deleted lamma attamen 3al application isa
 static const double rrButtonCorner = 0.02; // ratio of any button's corner value from screen height
