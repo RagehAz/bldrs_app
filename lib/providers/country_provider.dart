@@ -107,7 +107,7 @@ class CountryProvider with ChangeNotifier{
     Area area = _areas.singleWhere((ar) => ar.id == areaID, orElse: ()=> null);
     String nameInCurrentLanguage = area?.names?.singleWhere((name) => name.code == _currentLanguageCode, orElse: ()=> null)?.value;
 
-    return nameInCurrentLanguage == null ? areaID : nameInCurrentLanguage;
+    return nameInCurrentLanguage == null ? area?.name : nameInCurrentLanguage;
   }
 
 String getProvinceNameWithCurrentLanguageIfPossible(BuildContext context, String provinceName){

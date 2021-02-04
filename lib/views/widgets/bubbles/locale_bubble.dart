@@ -62,6 +62,8 @@ class _LocaleBubbleState extends State<LocaleBubble> {
         buttonTap: (countryID){
           setState(() {
             _chosenCountryID = countryID;
+            _chosenProvinceID = null;
+            _chosenAreaID = null;
           });
           widget.changeCountry(countryID);
           print('_currentCountryID : $_chosenCountryID');
@@ -85,6 +87,7 @@ class _LocaleBubbleState extends State<LocaleBubble> {
         buttonTap: (provinceID){
           setState(() {
             _chosenProvinceID = provinceID;
+            _chosenAreaID = null;
           });
           widget.changeProvince(provinceID);
           print('_currentProvince : $_chosenProvinceID');
@@ -125,10 +128,10 @@ class _LocaleBubbleState extends State<LocaleBubble> {
     List<Map<String,String>> _provinces = _countryPro.getProvincesNamesByIso3(context, _chosenCountryID);//_chosenCountry);
     List<Map<String,String>> _areas = _countryPro.getAreasNamesByProvinceID(context, _chosenProvinceID);//_chosenProvince);
 
-    String _chosenCountryName = translate(context, _chosenCountryID);
-    String _chosenCountryFlag = _countryPro.getFlagByIso3(_chosenCountryID);
-    String _chosenProvinceName = _countryPro.getProvinceNameWithCurrentLanguageIfPossible(context, _chosenProvinceID);
-    String _chosenAreaName = _countryPro.getAreaNameWithCurrentLanguageIfPossible(context, _chosenAreaID);
+    String _chosenCountryName = _chosenCountryID == null ? '...' : translate(context, _chosenCountryID);
+    String _chosenCountryFlag = _chosenCountryID == null ? '' : _countryPro.getFlagByIso3(_chosenCountryID);
+    String _chosenProvinceName = _chosenProvinceID == null ? '...' : _countryPro.getProvinceNameWithCurrentLanguageIfPossible(context, _chosenProvinceID);
+    String _chosenAreaName = _chosenAreaID == null ? '...' : _countryPro.getAreaNameWithCurrentLanguageIfPossible(context, _chosenAreaID);
 
 
     double _bubbleClearWidth = superBubbleClearWidth(context);
@@ -144,7 +147,7 @@ class _LocaleBubbleState extends State<LocaleBubble> {
             margin: 5,
           ),
 
-          Row(
+          Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -195,40 +198,45 @@ class LocaleButton extends StatelessWidget {
   Widget build(BuildContext context) {
 
     double _bubbleClearWidth = superBubbleClearWidth(context);
-    double _buttonsSpacing = Ratioz.ddAppBarMargin;
+    const double _buttonsSpacing = Ratioz.ddAppBarPadding;
     double _buttonWidth = (_bubbleClearWidth / 3)-((2*_buttonsSpacing)/3);
 
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: _buttonsSpacing),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
 
-        Container(
-          width: _buttonWidth,
-          child: SuperVerse(
-            verse: title,
-            centered: false,
-            italic: true,
-            weight: VerseWeight.thin,
-            size: 2,
-            color: Colorz.WhiteSmoke,
+          // --- TITLE
+          Container(
+            width: _buttonWidth,
+            child: SuperVerse(
+              verse: title,
+              centered: false,
+              italic: true,
+              weight: VerseWeight.thin,
+              size: 2,
+              color: Colorz.WhiteSmoke,
+            ),
           ),
-        ),
 
-        DreamBox(
-          height: 40,
-          width: _buttonWidth,
-          verseScaleFactor: 0.7,
-          iconSizeFactor: 0.8,
-          icon: icon == null ? null : icon,
-          bubble: false,
-          verse: verse == null ? '' : verse,
-          verseMaxLines: 2,
-          color: Colorz.WhiteAir,
-          boxFunction: onTap,
-        ),
+          // --- BUTTON CONTENTS
+          DreamBox(
+            height: 40,
+            // width: _buttonWidth,
+            verseScaleFactor: 0.8,
+            iconSizeFactor: 0.8,
+            icon: icon == null ? null : icon,
+            bubble: false,
+            verse: verse == null ? '' : '$verse    ',
+            verseMaxLines: 2,
+            color: Colorz.WhiteAir,
+            boxFunction: onTap,
+          ),
 
-      ],
+        ],
+      ),
     );
   }
 }
