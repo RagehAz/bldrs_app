@@ -196,7 +196,7 @@ Country(iso3: 'vct', name: 'Saint Vincent and the Grenadines', region: 'Caribbea
 Country(iso3: 'wsm', name: 'Samoa', region: 'Polynesia', continent: 'Oceania', flag: Flagz.wsm, isActivated: false, isGlobal: false, cities: [], language: 'en'),
 Country(iso3: 'smr', name: 'San Marino', region: 'Southern Europe', continent: 'Europe', flag: Flagz.smr, isActivated: false, isGlobal: false, cities: [], language: 'en'),
 Country(iso3: 'stp', name: 'Sao Tome and Principe', region: 'Middle Africa', continent: 'Africa', flag: Flagz.stp, isActivated: false, isGlobal: false, cities: [], language: 'en'),
-Country(iso3: 'sau', name: 'Saudi Arabia', region: 'Western Asia', continent: 'Asia', flag: Flagz.sau, isActivated: false, isGlobal: false, cities: [], language: 'en'),
+Country(iso3: 'sau', name: 'Saudi Arabia', region: 'Western Asia', continent: 'Asia', flag: Flagz.sau, isActivated: true, isGlobal: false, cities: [], language: 'en'),
 Country(iso3: 'sen', name: 'Senegal', region: 'Western Africa', continent: 'Africa', flag: Flagz.sen, isActivated: false, isGlobal: false, cities: [], language: 'en'),
 Country(iso3: 'srb', name: 'Serbia', region: 'Southern Europe', continent: 'Europe', flag: Flagz.srb, isActivated: false, isGlobal: false, cities: [], language: 'en'),
 Country(iso3: 'syc', name: 'Seychelles', region: 'Eastern Africa', continent: 'Africa', flag: Flagz.syc, isActivated: false, isGlobal: false, cities: [], language: 'en'),

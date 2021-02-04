@@ -108,6 +108,7 @@ class _SignInState extends State<SignIn> {
 
           TextFieldBubble(
             loading: loading,
+            bubbleColor: Colorz.WhiteGlass,
             textDirection: TextDirection.ltr,
             fieldIsFormField: true,
             fieldIsRequired: true,
@@ -133,6 +134,7 @@ class _SignInState extends State<SignIn> {
 
           TextFieldBubble(
             loading: loading,
+            bubbleColor: Colorz.WhiteGlass,
             textDirection: TextDirection.ltr,
             fieldIsFormField: true,
             fieldIsRequired: true,
@@ -170,7 +172,7 @@ class _SignInState extends State<SignIn> {
                 verse: Wordz.createAccount(context),
                 color: Colorz.BabyBlue,
                 size: 2,
-                labelColor: Colorz.WhiteAir,
+                labelColor: Colorz.WhiteGlass,
                 margin: 0,
                 labelTap: widget.switchToSignIn,
               ),
@@ -178,6 +180,7 @@ class _SignInState extends State<SignIn> {
               DreamBox(
                 height: 50,
                 verseScaleFactor: 0.7,
+                color: Colorz.WhiteGlass,
                 verse: Wordz.signIn(context),
                 boxMargins: EdgeInsets.all(20),
                 boxFunction: () async {

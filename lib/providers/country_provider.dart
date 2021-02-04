@@ -10,78 +10,76 @@ import 'package:flutter/material.dart';
 
 class CountryProvider with ChangeNotifier{
   /// get user country
-  String _currentCountry = 'egy';
-  String _currentProvince = 'Cairo';
-  String _currentArea = 'Cairo';
+  String _currentCountryID = 'egy';
+  String _currentProvinceID = 'Cairo';
+  String _currentAreaID = 'Cairo';
   List<Country> _countries = dbCountries;
   List<Province> _provinces = dbProvinces;
   List<Area> _areas = dbAreas;
 
-
-  String get currentCountry {
-    return _currentCountry;
+  String get currentCountryID {
+    return _currentCountryID;
   }
 
-  String get currentProvince{
-    return _currentProvince;
+  String get currentProvinceID{
+    return _currentProvinceID;
   }
 
-  String get currentArea {
-    return _currentArea;
+  String get currentAreaID {
+    return _currentAreaID;
   }
 
   void changeCountry(String country){
-    _currentCountry = country;
+    _currentCountryID = country;
     notifyListeners();
   }
 
-  void changeProvince(String province){
-    _currentProvince = province;
+  void changeProvince(String provinceID){
+    _currentProvinceID = provinceID;
     notifyListeners();
   }
 
-
-  void changeArea(String area){
-    _currentArea = area;
+  void changeArea(String areaID){
+    _currentAreaID = areaID;
     notifyListeners();
   }
 
-  String superFlag(String iso3){
+  String getFlagByIso3(String iso3){
     String flag;
     flagsMaps.forEach((map) {
-      if(map['iso3'] == iso3){flag = map['flag'];}
+      if(map['id'] == iso3){flag = map['value'];}
     });
     return flag;
   }
 
-  String superCountryName(BuildContext context, String iso3){
+  String getCountryNameInCurrentLanguageByIso3(BuildContext context, String iso3){
     return translate(context, iso3);
   }
 
   /// get available countries
-  List<Map<String,String>> getAvailableCountries(){
+  List<Map<String,String>> getAvailableCountries(BuildContext context){
     List<Map<String,String>> _countriesMaps = new List();
     _countries.forEach((co) {
       if (co.isActivated){_countriesMaps.add(
-        { "iso3" : co.iso3, "flag" : co.flag}
+        { "id" : co.iso3, "value" : translate(context, co.iso3)}
       );}
     });
     return _countriesMaps;
   }
 
   /// get Provinces list by country iso3
-  List<Map<String,String>> getProvincesNames(BuildContext context, String iso3){
+  List<Map<String,String>> getProvincesNamesByIso3(BuildContext context, String iso3){
     List<Map<String,String>> _provincesNames = new List();
     String _currentLanguageCode = Wordz.languageCode(context);
 
     _provinces.forEach((pr) {
       if (pr.iso3 == iso3){
-        if (_currentLanguageCode == 'en'){_provincesNames.add({'id': pr.name, 'name': pr.name});}
+        if (_currentLanguageCode == 'en'){_provincesNames.add({'id': pr.name, 'value': pr.name});}
         else
           {
             String _areaNameInCurrentLanguage = pr.names.firstWhere((name) => name.code == _currentLanguageCode, orElse: ()=> null)?.value;
-            if (_areaNameInCurrentLanguage == null){_provincesNames.add({'id': pr.name, 'name': pr.name});}
-            else {_provincesNames.add({'id': pr.name, 'name': _areaNameInCurrentLanguage});}
+            if (_areaNameInCurrentLanguage == null){_provincesNames.add({'id': pr.name, 'value': pr.name});}
+            else {_provincesNames.add({'id': pr.name, 'value': _areaNameInCurrentLanguage});}
           }
       }
     });
@@ -91,25 +89,34 @@ class CountryProvider with ChangeNotifier{
 
   /// get Areas list by Province name
   /// uses provinceName in English as ID
-  List<Map<String, String>> getAreasNames(BuildContext context, String provinceID){
+  List<Map<String, String>> getAreasNamesByProvinceID(BuildContext context, String provinceID){
     List<Map<String, String>> _areasNames = new List();
     String _currentLanguageCode = Wordz.languageCode(context);
     _areas.forEach((ar) {
       if(ar.province == provinceID){
           String _areaNameInCurrentLanguage = ar.names.firstWhere((name) => name.code == _currentLanguageCode, orElse: ()=> null)?.value;
-          if (_areaNameInCurrentLanguage == null){_areasNames.add({'id': ar.name, 'name': ar.name});}
-          else {_areasNames.add({'id': ar.name, 'name': _areaNameInCurrentLanguage});}
+          if (_areaNameInCurrentLanguage == null){_areasNames.add({'id': ar.id, 'value': ar.name});}
+          else {_areasNames.add({'id': ar.id, 'value': _areaNameInCurrentLanguage});}
       }
     });
     return _areasNames;
   }
 
-  String getAreaNameWithCurrentLanguageIfPossible(BuildContext context, String areaName){
+  String getAreaNameWithCurrentLanguageIfPossible(BuildContext context, String areaID){
     String _currentLanguageCode = Wordz.languageCode(context);
-    Area area = _areas.singleWhere((ar) => ar.name == areaName, orElse: ()=> null);
+    Area area = _areas.singleWhere((ar) => ar.id == areaID, orElse: ()=> null);
     String nameInCurrentLanguage = area?.names?.singleWhere((name) => name.code == _currentLanguageCode, orElse: ()=> null)?.value;
 
-    return nameInCurrentLanguage == null ? areaName : nameInCurrentLanguage;
+    return nameInCurrentLanguage == null ? areaID : nameInCurrentLanguage;
   }
 
+String getProvinceNameWithCurrentLanguageIfPossible(BuildContext context, String provinceName){
+  String _currentLanguageCode = Wordz.languageCode(context);
+  Province province = _provinces.singleWhere((ar) => ar.name == provinceName, orElse: ()=> null);
+  String nameInCurrentLanguage = province?.names?.singleWhere((name) => name.code == _currentLanguageCode, orElse: ()=> null)?.value;
+
+  return nameInCurrentLanguage == null ? provinceName : nameInCurrentLanguage;
 }
+
+}
+

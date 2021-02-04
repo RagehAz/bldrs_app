@@ -112,6 +112,7 @@ class _RegisterState extends State<Register> {
 
           TextFieldBubble(
             loading: _loading,
+            bubbleColor: Colorz.WhiteGlass,
             textDirection: TextDirection.ltr,
             fieldIsFormField: true,
             fieldIsRequired: true,
@@ -136,6 +137,7 @@ class _RegisterState extends State<Register> {
 
           TextFieldBubble(
             loading: _loading,
+            bubbleColor: Colorz.WhiteGlass,
             textDirection: TextDirection.ltr,
             fieldIsFormField: true,
             fieldIsRequired: true,
@@ -167,6 +169,7 @@ class _RegisterState extends State<Register> {
 
           TextFieldBubble(
             loading: _loading,
+            bubbleColor: Colorz.WhiteGlass,
             textDirection: TextDirection.ltr,
             fieldIsFormField: true,
             fieldIsRequired: true,
@@ -205,6 +208,7 @@ class _RegisterState extends State<Register> {
 
               DreamBox(
                 height: 50,
+                color: Colorz.WhiteGlass,
                 verseScaleFactor: 0.7,
                 verse: Wordz.register(context),
                 boxMargins: EdgeInsets.all(10),
@@ -231,7 +235,7 @@ class _RegisterState extends State<Register> {
                 verse: Wordz.signInExisting(context),
                 color: Colorz.BabyBlue,
                 size: 2,
-                labelColor: Colorz.WhiteAir,
+                labelColor: Colorz.WhiteGlass,
                 margin: 0,
                 labelTap: widget.switchToSignIn,
               ),
