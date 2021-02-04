@@ -37,7 +37,7 @@ class BtSearch extends StatelessWidget {
         height: box1Height,
         width: box1Width,
         icon: btIcon,
-        boxMargins: EdgeInsets.all(Ratioz.ddAppBarMargin * 0.5),
+        boxMargins: EdgeInsets.symmetric(horizontal: (Ratioz.ddAppBarHeight - box1Height)/2),
         corners: Ratioz.ddAppBarButtonCorner,
         iconSizeFactor: btSearchIsBackBt == true ? 1 : 0.5,
         iconRounded: false,
