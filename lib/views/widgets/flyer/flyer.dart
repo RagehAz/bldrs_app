@@ -96,7 +96,7 @@ class _FlyerState extends State<Flyer> with AutomaticKeepAliveClientMixin{
     final AuthorModel _author = getAuthorModelFromUserModelAndBzModel(geebUserByUserID(_authorID), _bz);
     final bool _flyerShowsAuthor = _flyer.flyerShowsAuthor;
     final int _numberOfSlides = _flyer.slides?.length;
-    print('authorID is = ${_author.userID}');
+    // print('authorID is = ${_author.userID}');
     // final List<CoFlyer>   bzGalleryCoFlyers = pro.;
     // final List<AuthorModel>  bzAuthors         = bro.authors;
     // final AuthorModel       author          = bzAuthors?.singleWhere((au) => au.userID == authorID, orElse: ()=> null);
@@ -119,7 +119,7 @@ class _FlyerState extends State<Flyer> with AutomaticKeepAliveClientMixin{
 // ---------------------------------------------------------------------------
     // bool ankhIsOn = true;//flyerData.flyerAnkhIsOn;
 // ---------------------------------------------------------------------------
-    print('flyer widget builds fID : $_flyerID');
+//     print('flyer widget builds fID : $_flyerID');
 
     return
 

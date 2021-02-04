@@ -38,6 +38,7 @@ class TextFieldBubble extends StatelessWidget {
   final String leadingIcon;
   final Function pasteFunction;
   final TextDirection textDirection;
+  final Color bubbleColor;
 
   TextFieldBubble({
     @required this.title,
@@ -66,6 +67,7 @@ class TextFieldBubble extends StatelessWidget {
     this.leadingIcon,
     this.pasteFunction,
     this.textDirection,
+    this.bubbleColor = Colorz.WhiteAir,
   });
 
   @override
@@ -81,7 +83,7 @@ class TextFieldBubble extends StatelessWidget {
 
     return
       InPyramidsBubble(
-          bubbleColor: Colorz.WhiteAir,
+          bubbleColor: bubbleColor,
           columnChildren: <Widget>[
 
             Container(

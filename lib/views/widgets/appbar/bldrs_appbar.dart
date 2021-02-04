@@ -67,7 +67,7 @@ class _BldrsAppBarState extends State<BldrsAppBar> {
             expandingSections: (_sectionsAreExpanded)=> _triggerSections(_sectionsAreExpanded),
           )
 
-      :
+          :
 
       _appBarType == AppBarType.Basic
           || _appBarType == AppBarType.Scrollable
@@ -95,7 +95,9 @@ class _BldrsAppBarState extends State<BldrsAppBar> {
           ABLocalizer(
             triggerLocalizer: _triggerLocalizer,
           )
+
           :
+
       Container()
 
     ;

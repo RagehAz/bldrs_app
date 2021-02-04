@@ -40,8 +40,11 @@ class Province{
 }
 // ---------------------------------------------------------------------------
 class Area{
+  /// country id
   final String iso3;
   final String province;
+  /// Area id
+  final String id;
   final String name;
   final List<Namez> names;
   /// dashboard manual switch to deactivate entire cities.
@@ -54,6 +57,7 @@ class Area{
   Area({
     this.iso3,
     this.province,
+    this.id,
     this.name,
     this.names,
     this.isActivated,
@@ -89,4 +93,3 @@ class Namez {
   }
 }
 // ---------------------------------------------------------------------------
-Area bobo = Area(name:'Heliopolis', names:[Namez(code:'ar', value: 'مصر الجديدة'),],);

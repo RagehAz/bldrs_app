@@ -1,9 +1,8 @@
 // -----------------------------------------------------------------
 import 'package:bldrs/view_brains/localization/language_class.dart';
-
 /// [
-/// {'key' : 'firstValue', 'key' : 'secondValue'},
-/// {'key' : 'firstValue', 'key' : 'secondValue'},
+/// {'key' : 'ID'         , 'key' : 'Value'       },
+/// {'key' : 'firstValue' , 'key' : 'secondValue' },
 /// ]
 List<String> geebListOfFirstValuesFromMaps(List<Map<String, Object>> listOfMaps){
   List<String> listOfFirstValues = new List();
@@ -17,8 +16,8 @@ List<String> geebListOfFirstValuesFromMaps(List<Map<String, Object>> listOfMaps)
 }
 // -----------------------------------------------------------------
 /// [
-/// {'key' : 'firstValue', 'key' : 'secondValue'},
-/// {'key' : 'firstValue', 'key' : 'secondValue'},
+/// {'key' : 'ID'         , 'key' : 'Value'       },
+/// {'key' : 'firstValue' , 'key' : 'secondValue' },
 /// ]
 List<String> geebListOfSecondValuesFromMaps(List<Map<String, Object>> listOfMaps){
   List<String> listOfValues = new List();
@@ -35,7 +34,7 @@ List<Map<String,String>> geebMapsOfLanguagesFromLanguageClassList(List<LanguageC
   List<Map<String,String>> languagesMaps = new List();
   languages.forEach((lang) {
     languagesMaps.add(
-      {'code' : lang.langCode, 'value' : lang.langName},
+      {'id' : lang.langCode, 'value' : lang.langName},
     );
   });
   return languagesMaps;
