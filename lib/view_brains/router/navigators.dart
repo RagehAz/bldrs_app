@@ -7,7 +7,7 @@ goToNewScreen (BuildContext context, Widget screen){
 Navigator.of(context).push(MaterialPageRoute(builder: (_){return screen;},),);
   }
 // === === === === === === === === === === === === === === === === === === ===
-  goToRoute(BuildContext context, String routezName){
+goToRoute(BuildContext context, String routezName){
     Navigator.pushNamed(context, routezName);
   }
 // === === === === === === === === === === === === === === === === === === ===
@@ -37,3 +37,6 @@ void openFlyer(BuildContext context, String flyerID){
   );
 }
 // === === === === === === === === === === === === === === === === === === ===
+goBack(BuildContext context){
+  Navigator.pop(context);
+}
