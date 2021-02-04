@@ -77,6 +77,9 @@ class _BldrsAppBarState extends State<BldrsAppBar> {
         appBarType: _appBarType,
         rowWidgets: (_appBarType == null && widget.pageTitle == null) ? [Container()] :
         <Widget>[
+
+          ... widget.appBarRowWidgets == null ? [Container()] : widget.appBarRowWidgets,
+
           widget.pageTitle == null ? Container() :
           Center(
             child: SuperVerse(
@@ -85,7 +88,7 @@ class _BldrsAppBarState extends State<BldrsAppBar> {
               margin: 10,
               shadow: true,
             ),),
-          ... widget.appBarRowWidgets == null ? [Container()] : widget.appBarRowWidgets,
+
         ],
       )
 

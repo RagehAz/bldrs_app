@@ -16,6 +16,7 @@ import 'package:bldrs/views/widgets/bubbles/bubbles_separator.dart';
 import 'package:bldrs/views/widgets/bubbles/locale_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/multiple_choice_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/text_field_bubble.dart';
+import 'package:bldrs/views/widgets/buttons/bt_back.dart';
 import 'package:bldrs/views/widgets/buttons/bt_list.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_zone.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header.dart';
@@ -207,16 +208,6 @@ void typingBzName(String bzName){
   @override
   Widget build(BuildContext context) {
     CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: true);
-    List<Map<String,String>> _flags = _countryPro.getAvailableCountries(context);
-    List<Map<String,String>> _provinces = _countryPro.getProvincesNamesByIso3(context, _currentCountryID);//_chosenCountry);
-    List<Map<String,String>> _areas = _countryPro.getAreasNamesByProvinceID(context, _currentProvinceID);//_chosenProvince);
-    String _lastCountryID = _countryPro.currentCountryID;
-    String _lastProvinceID = _countryPro.currentProvinceID;
-    String _lastAreaID = _countryPro.currentAreaID;
-    String _lastCountryName = translate(context, _currentCountryID);
-    String _lastCountryFlag = _countryPro.getFlagByIso3(_currentCountryID);
-    String _lastProvinceName = _countryPro.getProvinceNameWithCurrentLanguageIfPossible(context, _currentProvinceID);
-    String _lastAreaName = _countryPro.getAreaNameWithCurrentLanguageIfPossible(context, _currentAreaID);
 
     double screenWidth = superScreenWidth(context);
     double screenHeight = superScreenHeight(context);
@@ -225,6 +216,11 @@ void typingBzName(String bzName){
       appBarType: AppBarType.Basic,
       pyramids: Iconz.PyramidzYellow,
       pageTitle: Wordz.createAccount(context), // createBzAccount
+      appBarRowWidgets: <Widget>[
+        BldrsBackButton(
+        onTap: (){},
+        ),
+      ],
       // tappingRageh: (){ print(_currentLogo.runtimeType);},
       layoutWidget: Stack(
         children: <Widget>[
