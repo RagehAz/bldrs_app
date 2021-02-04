@@ -78,7 +78,7 @@ class FlyersProvider with ChangeNotifier {
 // ############################################################################
   List<FlyerModel> getFlyersByBzModel(BzModel bz){
     List<String> bzFlyersIDs = new List();
-    bz.authors.forEach((au) {bzFlyersIDs.addAll(au.publishedFlyersIDs);});
+    bz?.authors?.forEach((au) {bzFlyersIDs.addAll(au.publishedFlyersIDs);});
     List<FlyerModel> flyers = new List();
     bzFlyersIDs.forEach((id) {flyers.add(getFlyerByFlyerID(id));});
     return flyers;
