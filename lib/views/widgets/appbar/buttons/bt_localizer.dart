@@ -21,16 +21,23 @@ class LocalizerButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: true);
-    String _lastCountry = _countryPro.currentCountry;
-    String _lastProvince = _countryPro.currentProvince;
-    String _lastArea = _countryPro.currentArea;
-    String _lastAreaName = _countryPro.getAreaNameWithCurrentLanguageIfPossible(context, _lastArea);
+    String _lastCountryID = _countryPro.currentCountryID;
+    String _lastProvinceID = _countryPro.currentProvinceID;
+    String _lastAreaID = _countryPro.currentAreaID;
+    String _lastCountryName = translate(context, _lastCountryID);
+    String _lastCountryFlag = _countryPro.getFlagByIso3(_lastCountryID);
+    String _lastProvinceName = _countryPro.getProvinceNameWithCurrentLanguageIfPossible(context, _lastProvinceID);
+    String _lastAreaName = _countryPro.getAreaNameWithCurrentLanguageIfPossible(context, _lastAreaID);
+
+    print('country ID : $_lastCountryID, provinceID : $_lastProvinceID, '
+        'areaID : $_lastAreaID, CountryName : $_lastCountryName,'
+        ' ProvinceName : $_lastProvinceName, AreaName : $_lastAreaName');
 
     String _countryAndProvinceNames =
-        appIsLeftToRight(context) ? '$_lastProvince, ${translate(context, _lastCountry)}'
-    : '${translate(context, _lastCountry)}, $_lastProvince';
+        appIsLeftToRight(context) ? '$_lastProvinceName - $_lastCountryName'
+    : '$_lastCountryName - $_lastProvinceName';
 
-
+    double _flagHorizontalMargins = 2;
 
     return GestureDetector(
       onTap: onTap,
@@ -71,7 +78,7 @@ class LocalizerButton extends StatelessWidget {
                               color: isOn? Colorz.BlackBlack : Colorz.White,
                             ),
                             SuperVerse(
-                              verse: _lastArea,
+                              verse: _lastAreaName,
                               size: 1,
                               scaleFactor: 0.8,
                               color: isOn? Colorz.BlackBlack : Colorz.White,
@@ -82,13 +89,27 @@ class LocalizerButton extends StatelessWidget {
                     ),
 
                     // --- FLAG
-                    DreamBox(
-                      height: 30,
-                      icon: _countryPro.superFlag(_lastCountry),
-                      corners: Ratioz.ddBoxCorner,
-                      boxMargins: EdgeInsets.symmetric(horizontal: 2.5),
-                      boxFunction: onTap,
+                    Stack(
+                      children: <Widget>[
+
+                        // --- FAKE FOOTPRINT to occupy space for flag while loading
+                        Container(
+                          width: 30,
+                          height: 30,
+                          margin: EdgeInsets.symmetric(horizontal: _flagHorizontalMargins),
+                        ),
+
+                        DreamBox(
+                          height: 30,
+                          icon: _lastCountryFlag,
+                          corners: Ratioz.ddBoxCorner,
+                          boxMargins: EdgeInsets.symmetric(horizontal: _flagHorizontalMargins),
+                          boxFunction: onTap,
+                        ),
+
+                      ],
                     ),
+
                   ],
                 ),
               ),
