@@ -28,6 +28,7 @@ class MultipleChoiceBubble extends StatelessWidget {
           SuperVerse(
             verse: title,
             margin: 5,
+            redDot: true,
           ),
 
           Wrap(
