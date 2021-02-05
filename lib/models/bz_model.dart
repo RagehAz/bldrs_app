@@ -27,7 +27,8 @@ class BzModel with ChangeNotifier{
   final dynamic bzLogo;
   final String bzScope;
   final String bzCountry; // countryID
-  final String bzCity; // cityID
+  final String bzProvince;
+  final String bzArea;// cityID
   final String bzAbout;
   final GeoPoint bzPosition;
   final List<ContactModel> bzContacts;
@@ -63,7 +64,8 @@ class BzModel with ChangeNotifier{
     this.bzLogo,
     this.bzScope,
     this.bzCountry,
-    this.bzCity,
+    this.bzProvince,
+    this.bzArea,
     this.bzAbout,
     this.bzPosition,
     this.bzContacts,

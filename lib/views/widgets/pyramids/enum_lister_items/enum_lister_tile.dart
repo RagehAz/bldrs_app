@@ -25,7 +25,7 @@ class EnumListerTile extends StatelessWidget {
         margin: EdgeInsets.all(Ratioz.ddAppBarMargin * 0.2),
         decoration: BoxDecoration(
           color: Color.fromARGB(5, 255, 255, 255),
-          borderRadius: BorderRadius.circular(Ratioz.ddBoxCorner),
+          borderRadius: BorderRadius.circular(Ratioz.ddBoxCorner8),
         ),
         child: Row(
           children: <Widget>[

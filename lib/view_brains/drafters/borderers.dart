@@ -81,3 +81,14 @@ BorderRadius superBorderAll(BuildContext context, double corners){
   return BorderRadius.all(Radius.circular(corners));
 }
 // === === === === === === === === === === === === === === === === === === ===
+/// used in [MiniHeaderStrip] widget
+BorderRadius superLogoCorner(BuildContext context, double flyerZoneWidth){
+  double headerMainPadding = flyerZoneWidth * Ratioz.xxflyerHeaderMainPadding;
+  double headerMainCorners = flyerZoneWidth * Ratioz.xxflyerTopCorners;//bzPageIsOn == false ? flyerZoneWidth * Ratioz.xxflyerTopCorners : flyerZoneWidth * Ratioz.bzLogCorner;
+  double headerOffsetCorner = headerMainCorners - headerMainPadding;
+  double logoRoundCorners = headerOffsetCorner;//bzPageIsOn == false ? headerOffsetCorner : logoWidth * Ratioz.bzLogCorner;
+
+  BorderRadius logoCorners = superBorderRadius(context, logoRoundCorners, logoRoundCorners, 0, logoRoundCorners);
+  return logoCorners;
+}
+// === === === === === === === === === === === === === === === === === === ===

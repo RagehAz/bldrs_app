@@ -9,7 +9,7 @@ class BzLogo extends StatelessWidget {
   final double width;
   final dynamic image;
   final bool miniMode;
-  final double corner;
+  final BorderRadius corners;
   final bool bzPageIsOn;
   final bool flyerShowsAuthor;
   final EdgeInsets margins;
@@ -19,7 +19,7 @@ class BzLogo extends StatelessWidget {
     @required this.width,
     this.image,
     this.miniMode = true,
-    this.corner,
+    this.corners,
     this.bzPageIsOn = false,
     this.flyerShowsAuthor,
     this.margins,
@@ -30,11 +30,15 @@ class BzLogo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // === === === === === === === === === === === === === === === === === === ===
-    double logoRoundCorners = corner == null ? width * Ratioz.bzLogoCorner : corner;
+    double logoRoundCorners = width * Ratioz.bzLogoCorner;
     // === === === === === === === === === === === === === === === === === === ===
     double logoZeroCorner = miniMode == true || flyerShowsAuthor == false ? logoRoundCorners : 0;
     // === === === === === === === === === === === === === === === === === === ===
-    BorderRadius bzLogoCorners = superBorderRadius(context, logoRoundCorners, logoRoundCorners, logoZeroCorner, logoRoundCorners);
+    BorderRadius bzLogoCorners = corners == null ?
+    superBorderRadius(context, logoRoundCorners, logoRoundCorners, logoZeroCorner, logoRoundCorners)
+    :
+    corners
+    ;
     // === === === === === === === === === === === === === === === === === === ===
     return Container(
       decoration: BoxDecoration(
@@ -47,18 +51,18 @@ class BzLogo extends StatelessWidget {
         width: width,
         decoration: BoxDecoration(
             image:
-                fileExtensionOf(image) == 'jpeg' || fileExtensionOf(image) == 'jpg' || fileExtensionOf(image) == 'png' ?
-                DecorationImage(image: AssetImage(image), fit: BoxFit.cover) : null,
+            objectIsJPGorPNG(image)?
+            DecorationImage(image: AssetImage(image), fit: BoxFit.cover) : null,
 
             borderRadius: bzLogoCorners,
         ),
         child:
-        fileExtensionOf(image) == 'svg' ?
+        objectIsSVG(image) ?
         ClipRRect(
             borderRadius: bzLogoCorners,
             child: WebsafeSvg.asset(image, fit: BoxFit.cover, height:width, width: width)) :
 
-        image != null && fileIsFileType(image) == true ?
+        image != null && objectIsFile(image) == true ?
             ClipRRect(
               borderRadius: bzLogoCorners,
               child: Image.file(
@@ -69,7 +73,10 @@ class BzLogo extends StatelessWidget {
                 // colorBlendMode: BlendMode.overlay,
                 // color: Colorz.WhiteAir,
               ),
-            ) :
+            )
+
+            :
+
         Container(),
 
 

@@ -1,40 +1,26 @@
+// import 'package:path_provider/path_provider.dart' as sysPaths;
+// import 'package:path/path.dart' as path;
 import 'dart:io';
 import 'package:bldrs/models/bldrs_sections.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/sub_models/contact_model.dart';
-import 'package:bldrs/providers/country_provider.dart';
-import 'package:bldrs/view_brains/drafters/borderers.dart';
-import 'package:bldrs/view_brains/drafters/mappers.dart';
-import 'package:bldrs/view_brains/localization/localization_constants.dart';
-import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
-import 'package:bldrs/views/widgets/appbar/ab_localizer.dart';
-import 'package:bldrs/views/widgets/appbar/ab_localizer.dart';
-import 'package:bldrs/views/widgets/bubbles/add_logo_bubble.dart';
+import 'package:bldrs/views/widgets/bubbles/add_gallery_pic_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/bubbles_separator.dart';
 import 'package:bldrs/views/widgets/bubbles/locale_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/multiple_choice_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/text_field_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/bt_back.dart';
-import 'package:bldrs/views/widgets/buttons/bt_list.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_zone.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header.dart';
-import 'package:bldrs/views/widgets/layouts/bottom_sheet.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-// import 'package:path_provider/path_provider.dart' as sysPaths;
-// import 'package:path/path.dart' as path;
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/drafters/stringers.dart';
-import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
-import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
-import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:provider/provider.dart';
 
 class CreateBzScreen extends StatefulWidget {
   @override
@@ -49,7 +35,6 @@ class _CreateBzScreenState extends State<CreateBzScreen> with TickerProviderStat
   TextEditingController _scopeTextController;
   TextEditingController _bzNameTextController;
   TextEditingController _aboutTextController;
-  AnimationController _snackController;
   // -------------------------
   BzModel _currentBz;
   // -------------------------
@@ -60,7 +45,6 @@ class _CreateBzScreenState extends State<CreateBzScreen> with TickerProviderStat
   String _currentBzName;
   String _currentBzScope;
   File _currentLogo;
-  String _currentScope;
   String _currentCountryID;
   String _currentProvinceID;
   String _currentAreaID;
@@ -69,26 +53,34 @@ class _CreateBzScreenState extends State<CreateBzScreen> with TickerProviderStat
   List<ContactModel> _currentContacts;
   AuthorModel _currentAuthor;
   bool _currentBzShowsTeam;
+  String _bzID;
+  String _userID;
+  String _authorName;
+  File _authorPic;
+  String _authorTitle;
+  List<String> _publishedFlyersIDs;
+  List<ContactModel> _authorContacts;
   // ----------------------------------------------------------------------
   void initState(){
     super.initState();
-    _snackController = AnimationController(duration: const Duration(seconds: 2), vsync: this, );
+    _authorName = 'current user name';
+    _userID = 'current user ID';
     _bzPageIsOn = false;
-    createBzTypeInActivityList();
-    createBzFormInActivityLst();
+    _createBzTypeInActivityList();
+    _createBzFormInActivityLst();
     _scopeTextController = new TextEditingController();
     _bzNameTextController = new TextEditingController();
     _currentBz = new BzModel();
     _currentAuthor = new AuthorModel();
   }
   // ----------------------------------------------------------------------
-  void triggerMaxHeader(){
+  void _triggerMaxHeader(){
     setState(() {
       _bzPageIsOn = !_bzPageIsOn;
     });
   }
   // ----------------------------------------------------------------------
-  void selectASection(int index){
+  void _selectASection(int index){
     setState(() {
       _currentSection = bldrsSectionsList[index];
       _bzTypeInActivityList =
@@ -99,7 +91,7 @@ class _CreateBzScreenState extends State<CreateBzScreen> with TickerProviderStat
     });
   }
   // ----------------------------------------------------------------------
-  void selectBzType(int index){
+  void _selectBzType(int index){
       setState(() {
         _currentBzType = bzTypesList[index];
         _bzFormInActivityList =
@@ -115,19 +107,19 @@ class _CreateBzScreenState extends State<CreateBzScreen> with TickerProviderStat
       });
   }
   // ----------------------------------------------------------------------
-  void createBzTypeInActivityList(){
+  void _createBzTypeInActivityList(){
       setState(() {
         _bzTypeInActivityList = List.filled(bzTypesList.length, true);
       });
   }
   // ----------------------------------------------------------------------
-  void selectBzForm(int index){
+  void _selectBzForm(int index){
       setState(() {
         _currentBzForm = bzFormsList[index];
       });
   }
   // ----------------------------------------------------------------------
-  void createBzFormInActivityLst(){
+  void _createBzFormInActivityLst(){
       setState(() {
         _bzFormInActivityList = List.filled(bzFormsList.length, true);
       });
@@ -154,6 +146,21 @@ class _CreateBzScreenState extends State<CreateBzScreen> with TickerProviderStat
     // _selectImage(savedImage);
   }
   // ----------------------------------------------------------------------
+  Future<void> _takeAuthorPicture() async {
+    final picker = ImagePicker();
+    final imageFile = await picker.getImage(
+      source: ImageSource.gallery,
+      maxWidth: 600,
+    );
+
+    if (imageFile == null){return;}
+
+    setState(() {
+      _authorPic = File(imageFile.path);
+      // newBz.bz.bzLogo = _storedLogo;
+    });
+  }
+  // ----------------------------------------------------------------------
   // void _selectImage(File pickedImage){
   //   _pickedLogo = pickedImage;
   // }
@@ -164,28 +171,29 @@ class _CreateBzScreenState extends State<CreateBzScreen> with TickerProviderStat
     });
   }
   // ----------------------------------------------------------------------
-void typingBzName(String bzName){
+  void _deleteAuthorPic(){
+    setState(() {
+      _authorPic = null;
+    });
+  }
+  // ----------------------------------------------------------------------
+  void _typingBzName(String bzName){
     setState(() {
       _currentBzName = bzName;
     });
 }
   // ----------------------------------------------------------------------
-  void typingBzScope(String bzScope){
+  void _typingBzScope(String bzScope){
     setState(() {
       _currentBzScope = bzScope;
     });
   }
   // ----------------------------------------------------------------------
-  void typingBzAbout(String bzAbout){
+  void _typingBzAbout(String bzAbout){
     setState(() {
       _currentBzAbout = bzAbout;
     });
   }
-  // ----------------------------------------------------------------------
-  void _closeBottomSheet(){
-    Navigator.of(context).pop();
-  }
-  // ----------------------------------------------------------------------
   // ----------------------------------------------------------------------
   void _changeCountry(String countryID){
     setState(() {
@@ -200,14 +208,26 @@ void typingBzName(String bzName){
   }
   // ----------------------------------------------------------------------
   void _changeArea(String areaID){
-          setState(() {
-            _currentAreaID = areaID;
-          });
+    setState(() {
+      _currentAreaID = areaID;
+    });
   }
   // ----------------------------------------------------------------------
+  void _typingAuthorName(String authorName){
+    setState(() {
+      _authorName = authorName;
+    });
+  }
+  // ----------------------------------------------------------------------
+  void _typingAuthorTitle(String authorTitle){
+    setState(() {
+      _authorTitle = authorTitle;
+    });
+  }
+  // ----------------------------------------------------------------------
+
   @override
   Widget build(BuildContext context) {
-    CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: true);
 
     double screenWidth = superScreenWidth(context);
     double screenHeight = superScreenHeight(context);
@@ -215,199 +235,226 @@ void typingBzName(String bzName){
     return MainLayout(
       appBarType: AppBarType.Basic,
       pyramids: Iconz.PyramidzYellow,
-      pageTitle: Wordz.createAccount(context), // createBzAccount
+      pageTitle: Wordz.createBzAccount(context), // createBzAccount
       appBarRowWidgets: <Widget>[
         BldrsBackButton(
         onTap: (){},
         ),
       ],
       // tappingRageh: (){ print(_currentLogo.runtimeType);},
-      layoutWidget: Stack(
-        children: <Widget>[
+      layoutWidget: SingleChildScrollView(
 
-          SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
 
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
+            Stratosphere(),
 
-                Stratosphere(),
+            // --- CHOOSE SECTION
+            MultipleChoiceBubble(
+              title: '${Wordz.sections(context)} :',
+              buttonsList: sectionsListStrings(context),
+              tappingAButton: _selectASection,
+              chosenButton: sectionStringer(context, _currentSection),
+            ),
 
-                // --- CHOOSE SECTION
-                MultipleChoiceBubble(
-                  title: '${Wordz.sections(context)} :',
-                  buttonsList: sectionsListStrings(context),
-                  tappingAButton: selectASection,
-                  chosenButton: sectionStringer(context, _currentSection),
-                ),
+            // --- CHOOSE BzType
+            MultipleChoiceBubble(
+              title: '${Wordz.accountType(context)} :',
+              buttonsList: bzTypesStrings(context),
+              tappingAButton: _selectBzType,
+              chosenButton: bzTypeSingleStringer(context, _currentBzType),
+              buttonsInActivityList: _bzTypeInActivityList,
+            ),
 
-                // --- CHOOSE BzType
-                MultipleChoiceBubble(
-                  title: '${Wordz.accountType(context)} :',
-                  buttonsList: bzTypesStrings(context),
-                  tappingAButton: selectBzType,
-                  chosenButton: bzTypeSingleStringer(context, _currentBzType),
-                  buttonsInActivityList: _bzTypeInActivityList,
-                ),
+            // --- CHOOSE BzForm
+            MultipleChoiceBubble(
+              title: '${Wordz.businessForm(context)} :',
+              buttonsList: bzFormStrings(context),
+              tappingAButton: _selectBzForm,
+              chosenButton: bzFormStringer(context, _currentBzForm),
+              buttonsInActivityList: _bzFormInActivityList,
+            ),
 
-                // --- CHOOSE BzForm
-                MultipleChoiceBubble(
-                  title: '${Wordz.businessForm(context)} :',
-                  buttonsList: bzFormStrings(context),
-                  tappingAButton: selectBzForm,
-                  chosenButton: bzFormStringer(context, _currentBzForm),
-                  buttonsInActivityList: _bzFormInActivityList,
-                ),
+            // --- SEPARATOR
+            BubblesSeparator(),
 
-                BubblesSeparator(),
+            // --- ADD LOGO
+            AddGalleryPicBubble(
+              logo: _currentLogo,
+              addBtFunction: _takeGalleryPicture,
+              deleteLogoFunction: _deleteLogo,
+              title: Wordz.businessLogo(context),
+              picOwner: PicOwner.bzLogo,
+            ),
 
-                // --- ADD LOGO
-                AddLogoBubble(
-                  logo: _currentLogo,
-                  addBtFunction: _takeGalleryPicture,
-                  deleteLogoFunction: _deleteLogo,
-                ),
+            // --- type BzName
+            TextFieldBubble(
+              title: _currentBzForm == BzForm.Individual ? 'Business Entity name' : Wordz.companyName(context),
+              hintText: '...',
+              counterIsOn: true,
+              maxLength: 72,
+              maxLines: 2,
+              keyboardTextInputType: TextInputType.name,
+              textController: _bzNameTextController,
+              textOnChanged: (bzName) => _typingBzName(bzName),
+            ),
 
-                // --- type BzName
-                TextFieldBubble(
-                  title: _currentBzForm == BzForm.Individual ? 'Business Entity name' : Wordz.companyName(context),
-                  hintText: '...',
-                  counterIsOn: true,
-                  maxLength: 72,
-                  maxLines: 2,
-                  keyboardTextInputType: TextInputType.name,
-                  textController: _bzNameTextController,
-                  textOnChanged: (bzName) => typingBzName(bzName),
-                ),
+            // --- type BzScope
+            TextFieldBubble(
+              title: '${Wordz.scopeOfServices(context)} :',
+              hintText: '...',
+              counterIsOn: true,
+              maxLength: 193,
+              maxLines: 4,
+              keyboardTextInputType: TextInputType.multiline,
+              textController: _scopeTextController,
+              textOnChanged: (bzScope) => _typingBzScope(bzScope),
+            ),
 
-                // --- type BzScope
-                TextFieldBubble(
-                  title: '${Wordz.scopeOfServices(context)} :',
-                  hintText: '...',
-                  counterIsOn: true,
-                  maxLength: 193,
-                  maxLines: 4,
-                  keyboardTextInputType: TextInputType.multiline,
-                  textController: _scopeTextController,
-                  textOnChanged: (bzScope) => typingBzScope(bzScope),
-                ),
+            // --- type BzAbout
+            TextFieldBubble(
+              title: _currentBz.bzName == null  || _currentBz.bzName == '' ? '${Wordz.about(context)} ${Wordz.yourBusiness(context)}' : '${Wordz.about(context)} ${_currentBz.bzName}',
+              hintText: '...',
+              counterIsOn: true,
+              maxLength: 193,
+              maxLines: 4,
+              keyboardTextInputType: TextInputType.multiline,
+              textController: _aboutTextController,
+              textOnChanged: (bzAbout) => _typingBzAbout(bzAbout),
+            ),
 
-                // --- type BzAbout
-                TextFieldBubble(
-                  title: _currentBz.bzName == null  || _currentBz.bzName == '' ? '${Wordz.about(context)} ${Wordz.yourBusiness(context)}' : '${Wordz.about(context)} ${_currentBz.bzName}',
-                  hintText: '...',
-                  counterIsOn: true,
-                  maxLength: 193,
-                  maxLines: 4,
-                  keyboardTextInputType: TextInputType.multiline,
-                  textController: _aboutTextController,
-                  textOnChanged: (bzAbout) => typingBzAbout(bzAbout),
-                ),
+            // --- SEPARATOR
+            BubblesSeparator(),
 
-                BubblesSeparator(),
+            // --- bzLocale
+            LocaleBubble(
+              changeCountry : (countryID) => _changeCountry(countryID),
+              changeProvince : (provinceID) => _changeProvince(provinceID),
+              changeArea : (areaID) => _changeArea(areaID),
+            ),
 
-                // --- bzLocale
-                LocaleBubble(
-                  changeCountry : (countryID) => _changeCountry(countryID),
-                  changeProvince : (provinceID) => _changeProvince(provinceID),
-                  changeArea : (areaID) => _changeArea(areaID),
-                ),
+            // --- SEPARATOR
+            BubblesSeparator(),
 
-                BubblesSeparator(),
+            // --- type AuthorName
+            TextFieldBubble(
+              title: Wordz.authorName(context),
+              hintText: '...',
+              counterIsOn: true,
+              maxLength: 20,
+              maxLines: 1,
+              keyboardTextInputType: TextInputType.name,
+              // textController: _authorNameTextController,
+              textOnChanged: (authorName) => _typingAuthorName(authorName),
+            ),
 
-                // --- type BzAbout
-                TextFieldBubble(
-                  title: Wordz.authorName(context),
-                  hintText: '...',
-                  counterIsOn: true,
-                  maxLength: 193,
-                  maxLines: 4,
-                  keyboardTextInputType: TextInputType.multiline,
-                  textController: _aboutTextController,
-                  textOnChanged: (bzAbout) => typingBzAbout(bzAbout),
-                ),
+            // --- type AuthorTitle
+            TextFieldBubble(
+              title: Wordz.jobTitle(context),
+              hintText: '...',
+              counterIsOn: true,
+              maxLength: 20,
+              maxLines: 1,
+              keyboardTextInputType: TextInputType.name,
+              // textController: _authorTitleTextController,
+              textOnChanged: (authorTitle) => _typingAuthorTitle(authorTitle),
+            ),
 
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 150),
-                  child: Stack(
-                    children: <Widget>[
+            // --- ADD AUTHOR PIC
+            AddGalleryPicBubble(
+              logo: _authorPic,
+              addBtFunction: _takeAuthorPicture,
+              deleteLogoFunction: _deleteAuthorPic,
+              title: 'Add a professional picture of yourself',
+              picOwner: PicOwner.author,
+            ),
 
-                      FlyerZone(
-                        flyerSizeFactor: 0.7,
-                        tappingFlyerZone: (){print('fuck you');},
-                        stackWidgets: <Widget>[
+            // --- FLYER PREVIEW
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 150),
+              child: Stack(
+                children: <Widget>[
 
-                          Header(
-                            bz: _currentBz,
-                            author: _currentAuthor,
-                            flyerShowsAuthor: true,
-                            followIsOn: null,
-                            flyerZoneWidth: superFlyerZoneWidth(context, 0.7),
-                            bzPageIsOn: _bzPageIsOn,
-                            tappingHeader: triggerMaxHeader,
-                            tappingFollow: null,
-                            tappingUnfollow: null,
-                          ),
+                  FlyerZone(
+                    flyerSizeFactor: 0.8,
+                    tappingFlyerZone: (){print('fuck you');},
+                    stackWidgets: <Widget>[
 
-                        ],
+                      // PreviewHeader(
+                      //   bz: _currentBz,
+                      //   author: _currentAuthor,
+                      //   flyerShowsAuthor: true,
+                      //   followIsOn: null,
+                      //   flyerZoneWidth: superFlyerZoneWidth(context, 0.7),
+                      //   bzPageIsOn: _bzPageIsOn,
+                      //   tappingHeader: _triggerMaxHeader,
+                      //   tappingFollow: null,
+                      //   tappingUnfollow: null,
+                      // ),
+
+                      Header(
+                        bz: BzModel(
+                          bzID: '',
+                          bzType: _currentBzType,
+                          bzForm: _currentBzForm,
+                          bldrBirth: DateTime.now(),
+                          accountType: _currentAccountType,
+                          bzURL: '',
+                          bzName: _currentBzName,
+                          bzLogo: _currentLogo,
+                          bzScope: _currentBzScope,
+                          bzCountry: _currentCountryID,
+                          bzProvince: _currentProvinceID,
+                          bzArea: _currentAreaID,
+                          bzAbout: _currentBzAbout,
+                          bzPosition: GeoPoint(0,0),
+                          bzContacts: [],
+                          authors: [],
+                          bzShowsTeam: true,
+                          bzIsVerified: false,
+                          bzAccountIsDeactivated: false,
+                          bzAccountIsBanned: false,
+                          bzTotalFollowers: 0,
+                          bzTotalSaves: 0,
+                          bzTotalShares: 0,
+                          bzTotalSlides: 0,
+                          bzTotalViews: 0,
+                          bzTotalCalls: 0,
+                          bzTotalConnects: 0,
+                          jointsBzzIDs: [],
+                          followIsOn: false,
+
+                        ),
+                        author: AuthorModel(
+                          bzID: _bzID,
+                          authorContacts: _authorContacts,
+                          publishedFlyersIDs: [],
+                          userID: _userID,
+                          authorPic: _authorPic,
+                          authorTitle: _authorTitle,
+                          authorName: _authorName,
+                        ),
+                        flyerShowsAuthor: true,
+                        followIsOn: null,
+                        flyerZoneWidth: superFlyerZoneWidth(context, 0.8),
+                        bzPageIsOn: _bzPageIsOn,
+                        tappingHeader: _triggerMaxHeader,
+                        tappingFollow: null,
+                        tappingUnfollow: null,
                       ),
+
 
                     ],
                   ),
-                )
 
-              ],
-            ),
-          ),
-
-          Positioned(
-            bottom: 0,
-            left: 10,
-            child: Builder(
-              builder: (context) =>
-              IconButton(
-                iconSize: 50,
-                onPressed: (){},
-                icon: DreamBox(
-                  height: 50,
-                  width: 50,
-                  verse: 'fuckkk  ',
-                  verseScaleFactor: 0.6,
-                  boxFunction: (){
-
-                    print('snackjack');
-                    Scaffold.of(context).hideCurrentSnackBar();
-                    Scaffold.of(context).showSnackBar(
-                        SnackBar(
-
-                          // width: screenWidth,
-                          backgroundColor: Colorz.BloodTest,
-                          shape: RoundedRectangleBorder(borderRadius: superBorderRadius(context, 20, 0, 0, 20)),
-                          behavior: SnackBarBehavior.floating,
-                          elevation: 0,
-                          content: SuperVerse(
-                            verse: 'wtf',
-                            labelColor: Colorz.BloodTest,
-                          ),
-                          duration: Duration(seconds: 2),
-                          animation: CurvedAnimation(parent: _snackController, curve: Curves.easeIn,),
-                          action: SnackBarAction(
-                            label: 'koko',
-                            onPressed: (){},
-                          ),
-
-                          margin: EdgeInsets.only(top: screenHeight*0.5),
-                        ));
-                  },
-                ),
-
-
+                ],
               ),
-            ),
-          ),
+            )
 
-        ],
+          ],
+        ),
       ),
     );
   }

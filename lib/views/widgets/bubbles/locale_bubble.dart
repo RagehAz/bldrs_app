@@ -1,8 +1,8 @@
 import 'package:bldrs/providers/country_provider.dart';
+import 'package:bldrs/view_brains/drafters/keyboarders.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/localization/localization_constants.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
-import 'package:bldrs/view_brains/theme/flagz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/widgets/appbar/ab_localizer.dart';
@@ -36,9 +36,10 @@ class _LocaleBubbleState extends State<LocaleBubble> {
 
   @override
   void initState() {
-    _chosenCountryID = Provider.of<CountryProvider>(context, listen: false).currentCountryID;
-    _chosenProvinceID = Provider.of<CountryProvider>(context, listen: false).currentProvinceID;
-    _chosenAreaID = Provider.of<CountryProvider>(context, listen: false).currentAreaID;
+    CountryProvider _countryPro = Provider.of<CountryProvider>(context, listen: false);
+    _chosenCountryID = _countryPro.currentCountryID;
+    _chosenProvinceID = _countryPro.currentProvinceID;
+    _chosenAreaID = _countryPro.currentAreaID;
     super.initState();
   }
 
@@ -48,7 +49,7 @@ class _LocaleBubbleState extends State<LocaleBubble> {
   }
   // ----------------------------------------------------------------------
   void _tapCountryButton({BuildContext context, CountryProvider countryPro, List<Map<String, String>> flags}){
-    print('_tapCountryButton');
+    minimizeKeyboardOnTapOutSide(context);
     slideBottomSheet(
       context: context,
       draggable: true,
@@ -74,6 +75,7 @@ class _LocaleBubbleState extends State<LocaleBubble> {
   }
   // ----------------------------------------------------------------------
   void _tapProvinceButton({BuildContext context, CountryProvider countryPro, List<Map<String, String>> provinces}){
+    minimizeKeyboardOnTapOutSide(context);
     slideBottomSheet(
       context: context,
       draggable: true,
@@ -98,6 +100,7 @@ class _LocaleBubbleState extends State<LocaleBubble> {
   }
   // ----------------------------------------------------------------------
   void _tapAreaButton({BuildContext context, CountryProvider countryPro, List<Map<String, String>> areas}){
+    minimizeKeyboardOnTapOutSide(context);
     slideBottomSheet(
       context: context,
       draggable: true,

@@ -67,15 +67,6 @@ double superHeaderOffsetHeight(double flyerZoneWidth){
   return headerOffsetHeight;
 }
 // === === === === === === === === === === === === === === === === === === ===
-/// used in [MiniHeaderStrip] widget
-double superLogoCorner(double flyerZoneWidth){
-  double headerMainPadding = flyerZoneWidth * Ratioz.xxflyerHeaderMainPadding;
-  double headerMainCorners = flyerZoneWidth * Ratioz.xxflyerTopCorners;//bzPageIsOn == false ? flyerZoneWidth * Ratioz.xxflyerTopCorners : flyerZoneWidth * Ratioz.bzLogCorner;
-  double headerOffsetCorner = headerMainCorners - headerMainPadding;
-  double logoRoundCorners = headerOffsetCorner;//bzPageIsOn == false ? headerOffsetCorner : logoWidth * Ratioz.bzLogCorner;
-  return logoRoundCorners;
-}
-// === === === === === === === === === === === === === === === === === === ===
 double superLogoWidth(bool bzPageIsOn, double flyerZoneWidth ){
   double headerMainPadding = flyerZoneWidth * Ratioz.xxflyerHeaderMainPadding;
   double headerOffsetWidth = flyerZoneWidth - (2 * headerMainPadding);
