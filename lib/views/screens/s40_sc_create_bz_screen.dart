@@ -253,7 +253,7 @@ class _CreateBzScreenState extends State<CreateBzScreen> with TickerProviderStat
 
             // --- CHOOSE SECTION
             MultipleChoiceBubble(
-              title: '${Wordz.sections(context)} :',
+              title: Wordz.sections(context),
               buttonsList: sectionsListStrings(context),
               tappingAButton: _selectASection,
               chosenButton: sectionStringer(context, _currentSection),
@@ -261,7 +261,7 @@ class _CreateBzScreenState extends State<CreateBzScreen> with TickerProviderStat
 
             // --- CHOOSE BzType
             MultipleChoiceBubble(
-              title: '${Wordz.accountType(context)} :',
+              title: Wordz.accountType(context),
               buttonsList: bzTypesStrings(context),
               tappingAButton: _selectBzType,
               chosenButton: bzTypeSingleStringer(context, _currentBzType),
@@ -270,7 +270,7 @@ class _CreateBzScreenState extends State<CreateBzScreen> with TickerProviderStat
 
             // --- CHOOSE BzForm
             MultipleChoiceBubble(
-              title: '${Wordz.businessForm(context)} :',
+              title: Wordz.businessForm(context),
               buttonsList: bzFormStrings(context),
               tappingAButton: _selectBzForm,
               chosenButton: bzFormStringer(context, _currentBzForm),
@@ -299,6 +299,7 @@ class _CreateBzScreenState extends State<CreateBzScreen> with TickerProviderStat
               keyboardTextInputType: TextInputType.name,
               textController: _bzNameTextController,
               textOnChanged: (bzName) => _typingBzName(bzName),
+              fieldIsRequired: true,
             ),
 
             // --- type BzScope
@@ -311,6 +312,7 @@ class _CreateBzScreenState extends State<CreateBzScreen> with TickerProviderStat
               keyboardTextInputType: TextInputType.multiline,
               textController: _scopeTextController,
               textOnChanged: (bzScope) => _typingBzScope(bzScope),
+              fieldIsRequired: true,
             ),
 
             // --- type BzAbout
@@ -348,6 +350,7 @@ class _CreateBzScreenState extends State<CreateBzScreen> with TickerProviderStat
               keyboardTextInputType: TextInputType.name,
               // textController: _authorNameTextController,
               textOnChanged: (authorName) => _typingAuthorName(authorName),
+              fieldIsRequired: true,
             ),
 
             // --- type AuthorTitle
@@ -360,6 +363,7 @@ class _CreateBzScreenState extends State<CreateBzScreen> with TickerProviderStat
               keyboardTextInputType: TextInputType.name,
               // textController: _authorTitleTextController,
               textOnChanged: (authorTitle) => _typingAuthorTitle(authorTitle),
+              fieldIsRequired: true,
             ),
 
             // --- ADD AUTHOR PIC

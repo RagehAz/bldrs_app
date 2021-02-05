@@ -142,6 +142,7 @@ class AddGalleryPicBubble extends StatelessWidget {
             verse: title,
             centered: true,
             margin: 5,
+            redDot: true,
           ),
 
         ]
