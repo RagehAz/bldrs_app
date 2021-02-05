@@ -146,8 +146,10 @@ class _LocaleBubbleState extends State<LocaleBubble> {
         columnChildren: <Widget>[
 
           SuperVerse(
-            verse: Wordz.hqCity(context),
+            verse: 'Headquarters Area',//Wordz.hqCity(context),
             margin: 5,
+            redDot: true,
+
           ),
 
           Column(
