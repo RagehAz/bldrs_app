@@ -24,7 +24,7 @@ class InitialSectionsBT extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double _corners = Ratioz.ddBoxCorner *1.5;
+    double _corners = Ratioz.ddBoxCorner12;
 
     bool _designMode = false;
 
@@ -131,7 +131,7 @@ class SectionButton extends StatelessWidget {
 
     double _abPadding = Ratioz.ddAppBarPadding;
 
-    double _corners = Ratioz.ddBoxCorner * 1.5;
+    double _corners = Ratioz.ddBoxCorner12;
 
     bool _designMode = false;
 

@@ -1,4 +1,5 @@
 import 'package:bldrs/view_brains/drafters/borderers.dart';
+import 'package:bldrs/view_brains/drafters/file_formatters.dart';
 import 'package:bldrs/view_brains/drafters/numberers.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
@@ -10,7 +11,7 @@ import 'package:flutter/painting.dart';
 
 class AuthorLabel extends StatelessWidget {
   final double flyerZoneWidth;
-  final String authorPic;
+  final dynamic authorPic;
   final String authorName;
   final String authorTitle;
   final int followersCount;
@@ -164,7 +165,7 @@ class AuthorLabel extends StatelessWidget {
 
 class AuthorPic extends StatelessWidget {
   final double flyerZoneWidth;
-  final String authorPic;
+  final dynamic authorPic;
 
   AuthorPic({
     @required this.flyerZoneWidth,
@@ -179,6 +180,7 @@ class AuthorPic extends StatelessWidget {
     double _authorImageHeight = _authorImageWidth;
     double _authorImageCorners = flyerZoneWidth * Ratioz.xxflyerAuthorPicCorner;
     // === === === === === === === === === === === === === === === === === === === === === === === === === === === ===
+    BorderRadius _authorPicBorders = superBorderRadius(context, _authorImageCorners, 0, _authorImageCorners, _authorImageCorners);
 
     return
       Container(
@@ -186,16 +188,32 @@ class AuthorPic extends StatelessWidget {
         width: _authorImageWidth,
         decoration: BoxDecoration(
             color: Colorz.WhiteAir,
+            borderRadius: _authorPicBorders,
             image:
-            authorPic == null ? null :
+            authorPic == null ? null
+                :
+            objectIsJPGorPNG(authorPic)?
             DecorationImage(
                 image: AssetImage(authorPic),
-                fit: BoxFit.fill
-            ),
-            borderRadius: superBorderRadius(context, _authorImageCorners, 0, _authorImageCorners, _authorImageCorners)
-
+                fit: BoxFit.cover
+            ) : null
         ),
-      )
-    ;
+
+       child:
+        objectIsFile(authorPic) ?
+        ClipRRect(
+          borderRadius: _authorPicBorders,
+          child: Image.file(
+            authorPic,
+            fit: BoxFit.cover,
+            width: _authorImageWidth,
+            height: _authorImageHeight,
+            // colorBlendMode: BlendMode.overlay,
+            // color: Colorz.WhiteAir,
+          ),
+        )
+            :
+        Container(),
+      );
   }
 }

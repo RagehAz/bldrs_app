@@ -12,7 +12,7 @@ class CountryProvider with ChangeNotifier{
   /// get user country
   String _currentCountryID = 'egy';
   String _currentProvinceID = 'Cairo';
-  String _currentAreaID = 'Cairo';
+  String _currentAreaID = '4';
   List<Country> _countries = dbCountries;
   List<Province> _provinces = dbProvinces;
   List<Area> _areas = dbAreas;

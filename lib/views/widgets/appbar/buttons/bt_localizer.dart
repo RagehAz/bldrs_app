@@ -102,7 +102,7 @@ class LocalizerButton extends StatelessWidget {
                         DreamBox(
                           height: 30,
                           icon: _lastCountryFlag,
-                          corners: Ratioz.ddBoxCorner,
+                          corners: Ratioz.ddBoxCorner8,
                           boxMargins: EdgeInsets.symmetric(horizontal: _flagHorizontalMargins),
                           boxFunction: onTap,
                         ),

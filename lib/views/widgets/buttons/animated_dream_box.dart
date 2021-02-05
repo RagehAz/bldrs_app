@@ -44,7 +44,7 @@ class AnimatedDreamBox extends StatefulWidget {
     this.iconFile,
     this.iconSizeFactor = 1,
     this.color = Colorz.Nothing,
-    this.corners = Ratioz.ddBoxCorner *1.5,
+    this.corners = Ratioz.ddBoxCorner12,
     this.iconColor,
     this.verse,
     this.verseColor = Colorz.White,

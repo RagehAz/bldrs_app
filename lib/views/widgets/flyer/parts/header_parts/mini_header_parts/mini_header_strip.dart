@@ -14,9 +14,10 @@ class MiniHeaderStrip extends StatelessWidget {
   final bool bzPageIsOn;
   final dynamic bzLogo; // -- was String
   final String bzName;
-  final String bzCity;
   final String bzCountry;
-  final String aPic;
+  final String bzProvince;
+  final String bzArea;
+  final dynamic aPic;
   final String aName;
   final String aTitle;
   final int followersCount;
@@ -34,8 +35,9 @@ class MiniHeaderStrip extends StatelessWidget {
     @required this.bzPageIsOn,
     @required this.bzLogo,
     @required this.bzName,
-    @required this.bzCity,
     @required this.bzCountry,
+    @required this.bzProvince,
+    @required this.bzArea,
     @required this.aPic,
     @required this.aName,
     @required this.aTitle,
@@ -78,7 +80,7 @@ class MiniHeaderStrip extends StatelessWidget {
                     width: superLogoWidth(bzPageIsOn, flyerZoneWidth),
                     image: bzLogo,
                     miniMode: superFlyerMiniMode(context, flyerZoneWidth),
-                    corner: superLogoCorner(flyerZoneWidth),
+                    corners: superLogoCorner(context, flyerZoneWidth),
                     bzPageIsOn: bzPageIsOn,
                     flyerShowsAuthor: flyerShowsAuthor
                 ),
@@ -92,8 +94,9 @@ class MiniHeaderStrip extends StatelessWidget {
                   bzPageIsOn: bzPageIsOn,
                   flyerShowsAuthor: flyerShowsAuthor,
                   bzName: bzName,
-                  bzCity: bzCity,
                   bzCountry: bzCountry,
+                  bzProvince: bzProvince,
+                  bzArea: bzArea,
                   aPic: aPic,
                   aName: aName,
                   aTitle: aTitle,

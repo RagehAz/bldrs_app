@@ -36,7 +36,11 @@ class MiniHeader extends StatelessWidget {
     // === === === === === === === === === === === === === === === === === === ===
     String _phoneNumber = feinFirstPhoneFromContacts(bz?.bzContacts);
     // --- B.LOCALE --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-    String businessLocale = localeStringer(context, bz.bzCity, bz.bzCountry);
+    String businessLocale = localeStringer(context: context,
+      countryISO3: bz?.bzCountry,
+      provinceID: bz?.bzProvince,
+      areaID: bz?.bzArea,
+    );
     // === === === === === === === === === === === === === === === === === === ===
     return
       Container(
@@ -59,8 +63,9 @@ class MiniHeader extends StatelessWidget {
               authorID: author.userID,
               bzLogo: bz.bzLogo,
               bzName: bz.bzName,
-              bzCity: bz.bzCity,
               bzCountry: bz.bzCountry,
+              bzProvince: bz.bzProvince,
+              bzArea: bz.bzArea,
               phoneNumber: _phoneNumber,
               aPic: author.authorPic,
               aName: author.authorName,

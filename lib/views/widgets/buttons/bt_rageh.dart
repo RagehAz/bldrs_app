@@ -49,7 +49,7 @@ class Rageh extends StatelessWidget {
                 width: 30,
                 height: 30,
                 iconSizeFactor: 1,
-                corners: Ratioz.ddBoxCorner,
+                corners: Ratioz.ddBoxCorner8,
                 icon: Iconz.DvRageh,
                 boxFunction: (){
                   tappingOnMyFace();

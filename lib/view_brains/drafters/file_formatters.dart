@@ -14,28 +14,39 @@ extension FileExtention on FileSystemEntity{
 fileExtensionOf(dynamic file){
   return
     file == null ? null :
-    valueIsString(file) == true ? File(file).fileExtension :
+    objectIsString(file) == true ? File(file).fileExtension :
   null;
 }
 // === === === === === === === === === === === === === === === === === === ===
-valueIsString(dynamic value){
+objectIsString(dynamic value){
   bool valueIsString = value.runtimeType == String ? true : false;
   return valueIsString;
 }
 // === === === === === === === === === === === === === === === === === === ===
-fileIsURL(dynamic file){
-  bool _validURL = valueIsString(file) == true ?
+objectIsURL(dynamic file){
+  bool _validURL = objectIsString(file) == true ?
       Uri.parse(file).isAbsolute :
       false;
   return _validURL;
 }
 // === === === === === === === === === === === === === === === === === === ===
-fileIsFileType(dynamic file){
+objectIsFile(dynamic file){
   // print('runtTimeType is : $file');
   String fileAsString = (file.runtimeType).toString();
   // print('fileAsString is : $fileAsString');
   String stringWithoutFirstCharacter = removeFirstCharacterFromAString(fileAsString);
   // print('stringWithoutFirstCharacter is : $stringWithoutFirstCharacter');
   return stringWithoutFirstCharacter == 'File' ? true : false;
+}
+// === === === === === === === === === === === === === === === === === === ===
+objectIsSVG(dynamic object){
+  return
+  fileExtensionOf(object) == 'svg' ? true : false;
+}
+// === === === === === === === === === === === === === === === === === === ===
+objectIsJPGorPNG(dynamic object){
+  return
+    fileExtensionOf(object) == 'jpeg' || fileExtensionOf(object) == 'jpg' || fileExtensionOf(object) == 'png' ?
+        true : false;
 }
 // === === === === === === === === === === === === === === === === === === ===
