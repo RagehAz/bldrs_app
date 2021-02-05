@@ -1,5 +1,6 @@
 import 'dart:io';
-import 'package:bldrs/view_brains/theme/wordz.dart';
+import 'package:bldrs/view_brains/drafters/borderers.dart';
+import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
@@ -8,15 +9,25 @@ import 'package:bldrs/views/widgets/flyer/parts/header_parts/common_parts/bz_log
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
-class AddLogoBubble extends StatelessWidget {
+enum PicOwner{
+  bzLogo,
+  author,
+  none,
+}
+
+class AddGalleryPicBubble extends StatelessWidget {
   final Function addBtFunction;
   final File logo;
   final Function deleteLogoFunction;
+  final String title;
+  final PicOwner picOwner;
 
-  AddLogoBubble({
+  AddGalleryPicBubble({
     @required this.addBtFunction,
     @required this.logo,
     @required this.deleteLogoFunction,
+    this.title = '',
+    this.picOwner = PicOwner.none,
   });
   @override
   Widget build(BuildContext context) {
@@ -24,6 +35,17 @@ class AddLogoBubble extends StatelessWidget {
     final double logoWidth = 100;
     final double btZoneWidth = logoWidth * 0.5;
     final double btWidth = btZoneWidth * 0.8;
+
+    final double corner = Ratioz.ddBoxCorner12;
+
+    BorderRadius _picBorders =
+    picOwner == PicOwner.bzLogo ?
+    superBorderRadius(context, corner, corner, 0, corner) :
+    picOwner == PicOwner.author ?
+    superBorderRadius(context, corner, 0, corner, corner) :
+
+    superBorderRadius(context, corner, corner, corner, corner);
+
 
     return InPyramidsBubble(
         bubbleColor: Colorz.WhiteAir,
@@ -34,21 +56,25 @@ class AddLogoBubble extends StatelessWidget {
             alignment: Alignment.center,
             children: <Widget>[
 
+              // --- GALLERY & DELETE LAYER
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
 
+                  // --- FAKE LEFT FOOTPRINT TO CENTER THE ROW IN THE MIDDLE O BUBBLE
                   Container(
                     width: btZoneWidth,
                     height: logoWidth,
                   ),
 
+                  // --- FAKE FOOTPRINT UNDER PIC
                   Container(
                     width: logoWidth*1.1,
                     height: logoWidth,
                   ),
 
+                  // --- GALLERY & DELETE BUTTONS
                   Container(
                     width: btZoneWidth,
                     height: logoWidth,
@@ -84,15 +110,18 @@ class AddLogoBubble extends StatelessWidget {
                 ],
               ),
 
+              // --- PICTURE LAYER
               GestureDetector(
                 onTap: logo == null ? (){} : addBtFunction,
                 child: BzLogo(
                   width: logoWidth,
                   image: logo,
                   margins: EdgeInsets.all(10),
+                  corners: _picBorders,
                 ),
               ),
 
+              // --- PLUS ICON LAYER
               logo == null ?
               DreamBox(
                 height: logoWidth,
@@ -108,8 +137,9 @@ class AddLogoBubble extends StatelessWidget {
             ],
           ),
 
+          // --- BUBBLE TITLE
           SuperVerse(
-            verse: Wordz.businessLogo(context) ,
+            verse: title,
             centered: true,
             margin: 5,
           ),

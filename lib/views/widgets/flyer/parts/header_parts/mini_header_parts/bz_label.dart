@@ -9,16 +9,18 @@ import 'package:flutter/painting.dart';
 class BzLabel extends StatelessWidget {
   final double flyerZoneWidth;
   final String bzName;
-  final String bzCity;
   final String bzCountry;
+  final String bzProvince;
+  final String bzArea;
   final bool bzPageIsOn;
   final bool flyerShowsAuthor;
 
   BzLabel({
     @required this.flyerZoneWidth,
     @required this.bzName,
-    @required this.bzCity,
     @required this.bzCountry,
+    @required this.bzProvince,
+    @required this.bzArea,
     @required this.bzPageIsOn,
     @required this.flyerShowsAuthor,
 });
@@ -37,7 +39,11 @@ class BzLabel extends StatelessWidget {
     double businessDataWidth = flyerZoneWidth * (Ratioz.xxflyerAuthorPicWidth + Ratioz.xxflyerAuthorNameWidth);
     double headerTextSidePadding = flyerZoneWidth * 0.02;
     // --- B.LOCALE --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- B.LOCALE
-    String businessLocale = localeStringer(context, bzCity, bzCountry);
+    String businessLocale = localeStringer(
+      context: context,
+      countryISO3: bzCountry,
+      provinceID: bzProvince
+    );
     // === === === === === === === === === === === === === === === === === === ===
     int bzNameSize = flyerShowsAuthor == true ? 3 : 5;
     int bLocaleSize = flyerShowsAuthor == true ? 1 : 1;

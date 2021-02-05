@@ -4,7 +4,7 @@ class AuthorModel{
   final String bzID; // temporary should delete later
   final String userID;
   final String authorName;
-  final String authorPic;
+  final dynamic authorPic;
   final String authorTitle;
   final List<String> publishedFlyersIDs;
   final List<ContactModel> authorContacts;

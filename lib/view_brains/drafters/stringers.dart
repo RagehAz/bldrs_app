@@ -1,6 +1,7 @@
 import 'package:bldrs/models/bldrs_sections.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
+import 'package:bldrs/view_brains/localization/localization_constants.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:flutter/material.dart';
@@ -121,10 +122,10 @@ List<String> bzFormStrings (BuildContext context){
   return bzFormStrings;
 }
 // === === === === === === === === === === === === === === === === === === ===
-String localeStringer (BuildContext context, String city, String country){
+String localeStringer ({BuildContext context, String countryISO3, String provinceID, String areaID}){
 String verse =
-    city == null || country == null ? '...' :
-    '${Wordz.inn(context)} $city, $country';
+    countryISO3 == null || provinceID == null ? '...' :
+    '${Wordz.inn(context)} ${translate(context, countryISO3)}, $provinceID, $areaID';
 return verse;
 }
 // === === === === === === === === === === === === === === === === === === ===

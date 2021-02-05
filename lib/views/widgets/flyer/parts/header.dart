@@ -40,9 +40,10 @@ class Header extends StatelessWidget {
     // === === === === === === === === === === === === === === === === === === ===
     String _phoneNumber = feinFirstPhoneFromContacts(bz?.bzContacts);
     // --- B.LOCALE --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-    String _bzCity = bz != null ? bz?.bzCountry : '';
-    String _bzCountry = bz != null ? bz?.bzCity : '';
-    String _businessLocale = localeStringer(context, _bzCity, _bzCountry);
+    String _bzCounty = bz != null ? bz?.bzCountry : '';
+    String _bzProvince = bz != null ? bz?.bzProvince : '';
+    String _bzArea = bz != null ? bz?.bzArea : '' ;
+    String _businessLocale = localeStringer(context: context, countryISO3: _bzCounty, provinceID: _bzProvince, areaID: _bzArea);
     // === === === === === === === === === === === === === === === === === === ===
 
     return GestureDetector(
@@ -75,8 +76,9 @@ class Header extends StatelessWidget {
                       authorID: author?.userID,
                       bzLogo: bz?.bzLogo,
                       bzName: bz?.bzName,
-                      bzCity: bz?.bzCity,
                       bzCountry: bz?.bzCountry,
+                      bzProvince: bz?.bzProvince,
+                      bzArea: bz?.bzArea,
                       phoneNumber: _phoneNumber,
                       aPic: author?.authorPic,
                       aName: author?.authorName,

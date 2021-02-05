@@ -6,7 +6,7 @@ import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/drafters/texters.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
-import 'package:bldrs/views/widgets/bubbles/add_logo_bubble.dart';
+import 'package:bldrs/views/widgets/bubbles/add_gallery_pic_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/contact_field_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/text_field_bubble.dart';
@@ -138,7 +138,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 ),
 
                 // --- ADD LOGO
-                AddLogoBubble(
+                AddGalleryPicBubble(
                   logo: _currentPic,
                   addBtFunction: _takeGalleryPicture,
                   deleteLogoFunction: _deleteLogo,

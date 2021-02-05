@@ -24,7 +24,8 @@ static const double fontSize8 = 0.058; // -- 30 -- Gigantic
 // BLDRS APPBARS
 static const double ddAppBarCorner = 18; // ORIGINALLY MediaQuery.of(context).size.height * 0.0215;
 static const double ddAppBarButtonCorner = 13;
-static const double ddBoxCorner = 8;
+static const double ddBoxCorner8 = 8;
+static const double ddBoxCorner12 = 12;
 static const double ddAppBarMargin = 10;
 static const double ddAppBarPadding = 5;
 static const double ddAppBarHeight = 50;

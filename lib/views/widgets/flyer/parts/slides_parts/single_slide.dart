@@ -132,8 +132,8 @@ class _SingleSlideState extends State<SingleSlide> {
         borderRadius: superFlyerCorners(context, widget.flyerZoneWidth),
         image: widget.picture == null ||
             widget.slideMode == SlideMode.Empty ||
-            fileIsURL(widget.picFile) == true ||
-          fileIsURL(widget.picture) == true ?
+            objectIsURL(widget.picFile) == true ||
+            objectIsURL(widget.picture) == true ?
         null : superImage(widget.picture, widget.boxFit),
       ),
 
@@ -144,7 +144,7 @@ class _SingleSlideState extends State<SingleSlide> {
           children: <Widget>[
 
             // --- IMAGE FILE FULL HEIGHT
-            _dontBlur || widget.slideMode == SlideMode.Empty || fileIsURL(widget.picFile) == true ? Container() :
+            _dontBlur || widget.slideMode == SlideMode.Empty || objectIsURL(widget.picFile) == true ? Container() :
             Image.file(
               widget.picFile,
               fit: BoxFit.fitHeight,
@@ -155,7 +155,7 @@ class _SingleSlideState extends State<SingleSlide> {
             ),
 
             // --- IMAGE FILE BLUR LAYER
-            _dontBlur || widget.slideMode == SlideMode.Empty || fileIsURL(widget.picFile) == true ? Container() :
+            _dontBlur || widget.slideMode == SlideMode.Empty || objectIsURL(widget.picFile) == true ? Container() :
             ClipRRect( // this ClipRRect fixed a big blur issue,, never ever  delete
               child: BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 6, sigmaY: 6),
@@ -168,7 +168,7 @@ class _SingleSlideState extends State<SingleSlide> {
             ),
 
             // --- IMAGE FILE
-            widget.picFile == null || widget.slideMode == SlideMode.Empty || fileIsURL(widget.picFile) == true ? Container() :
+            widget.picFile == null || widget.slideMode == SlideMode.Empty || objectIsURL(widget.picFile) == true ? Container() :
                 Image.file(
                     widget.picFile,
                     fit: widget.boxFit,
@@ -177,7 +177,7 @@ class _SingleSlideState extends State<SingleSlide> {
                 ),
 
             // --- IMAGE NETWORK
-            fileIsURL(widget.picFile) == false ? Container() :
+            objectIsURL(widget.picFile) == false ? Container() :
             Image.network(
                 widget.picFile,
                 fit: BoxFit.fitWidth,

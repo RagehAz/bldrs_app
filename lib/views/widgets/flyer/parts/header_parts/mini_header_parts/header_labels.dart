@@ -9,9 +9,10 @@ class HeaderLabels extends StatelessWidget {
   final double flyerZoneWidth;
   final bool bzPageIsOn;
   final String bzName;
-  final String bzCity;
   final String bzCountry;
-  final String aPic;
+  final String bzProvince;
+  final String bzArea;
+  final dynamic aPic;
   final String aName;
   final String aTitle;
   final int followersCount;
@@ -24,8 +25,9 @@ class HeaderLabels extends StatelessWidget {
     @required this.flyerZoneWidth,
     @required this.bzPageIsOn,
     @required this.bzName,
-    @required this.bzCity,
     @required this.bzCountry,
+    @required this.bzProvince,
+    @required this.bzArea,
     @required this.aPic,
     @required this.aName,
     @required this.aTitle,
@@ -60,7 +62,8 @@ class HeaderLabels extends StatelessWidget {
                 bzPageIsOn: bzPageIsOn,
                 bzName: bzName,
                 bzCountry: bzCountry,
-                bzCity: bzCity,
+                bzProvince: bzProvince,
+                bzArea: bzArea,
                 flyerShowsAuthor: flyerShowsAuthor,
               ),
 

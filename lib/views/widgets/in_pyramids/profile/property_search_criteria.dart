@@ -45,7 +45,7 @@ class PropertySearchCriteria extends StatelessWidget {
 
     Alignment defaultAlignment =  Wordz.textDirection(context) == 'ltr' ? Alignment.centerLeft : Alignment.centerRight;
 
-    double corners = Ratioz.ddBoxCorner *1.5;
+    double corners = Ratioz.ddBoxCorner12;
 
     bool designMode = false;
 

@@ -62,7 +62,7 @@ class FieldsRow extends StatelessWidget {
               width: buttonsZoneWidth,
                 decoration: BoxDecoration(
                     color: Colorz.WhiteAir,
-                    borderRadius: BorderRadius.circular(Ratioz.ddBoxCorner *1.5),
+                    borderRadius: BorderRadius.circular(Ratioz.ddBoxCorner12),
                     boxShadow: [
                       CustomBoxShadow(
                           color: Colorz.BlackLingerie,
