@@ -312,7 +312,7 @@ Future<void> fetchAndSetBzz() async {
         followIsOn : bzMap['followIsOn'],
       ));
     });
-    _loadedBzz.addAll(_loadedBzzFromDB); // BOOMMM
+    _loadedBzz.addAll(_loadedBzzFromDB); // BOOMMM : should be _loadedBzz = _loadedBzzFromDB,, but this bom bom crash crash
     notifyListeners();
     print('_loadedBzz :::: --------------- $_loadedBzz');
   } catch(error){
