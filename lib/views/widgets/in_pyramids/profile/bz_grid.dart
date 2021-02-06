@@ -7,11 +7,13 @@ class BzGrid extends StatelessWidget {
   final double gridZoneWidth;
   final int numberOfColumns;
   final List<BzModel> bzz;
+  final Function itemOnTap;
 
   BzGrid({
     @required this.gridZoneWidth,
     this.numberOfColumns = 3,
     @required this.bzz,
+    this.itemOnTap,
 });
 
   @override
@@ -31,7 +33,7 @@ class BzGrid extends StatelessWidget {
 
     double gridSpacing = gridBzWidth * spacingRatioToGridWidth;
 
-    int bzCount = 5;//bzLogos.length;
+    int bzCount = bzz.length;
 
     int numOfGridRows(int bzCount){
       return
@@ -74,6 +76,7 @@ class BzGrid extends StatelessWidget {
                     bzPageIsOn: false,
                     miniMode: true,
                     flyerShowsAuthor: false,
+                    onTap: () => itemOnTap(bz.bzID)
                   ),
 
               ).toList(),
