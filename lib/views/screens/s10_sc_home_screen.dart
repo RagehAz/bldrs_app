@@ -13,6 +13,7 @@ import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/flyer/stacks/flyer_stack.dart';
 import 'package:bldrs/views/widgets/in_pyramids/profile/bz_grid.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -26,6 +27,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   bool _isInit = true;
+  bool _isLoading = false;
 
   @override
   void initState() {
@@ -47,10 +49,20 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void didChangeDependencies() {
     if(_isInit){
-      Provider.of<FlyersProvider>(context,listen: true)?.fetchAndSetBzz();
+      _triggerLoading();
+      Provider.of<FlyersProvider>(context,listen: true)?.fetchAndSetBzz()
+          .then((_){
+        _triggerLoading();
+      });
     }
     _isInit = false;
     super.didChangeDependencies();
+  }
+
+  void _triggerLoading(){
+    setState(() {
+      _isLoading = !_isLoading;
+    });
   }
 
   @override
@@ -65,6 +77,9 @@ class _HomeScreenState extends State<HomeScreen> {
       layoutWidget: Stack(
         children: <Widget>[
 
+          _isLoading == true ?
+            Center(child: Loading())
+          :
           CustomScrollView(
             slivers: <Widget>[
 
@@ -78,6 +93,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Ask(
                         tappingAskInfo: (){print('Ask info is tapped aho');},
                       ),
+
 
                       InPyramidsBubble(
 
