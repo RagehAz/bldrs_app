@@ -5,6 +5,10 @@ import 'package:bldrs/models/bldrs_sections.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/sub_models/contact_model.dart';
+import 'package:bldrs/providers/flyers_provider.dart';
+import 'package:bldrs/view_brains/drafters/borderers.dart';
+import 'package:bldrs/view_brains/router/navigators.dart';
+import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/widgets/bubbles/add_gallery_pic_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/bubbles_separator.dart';
@@ -12,8 +16,11 @@ import 'package:bldrs/views/widgets/bubbles/locale_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/multiple_choice_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/text_field_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/bt_back.dart';
+import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_zone.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header.dart';
+import 'package:bldrs/views/widgets/loading/loading.dart';
+import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/drafters/stringers.dart';
@@ -21,6 +28,7 @@ import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
 class CreateBzScreen extends StatefulWidget {
   @override
@@ -35,6 +43,7 @@ class _CreateBzScreenState extends State<CreateBzScreen> with TickerProviderStat
   TextEditingController _scopeTextController;
   TextEditingController _bzNameTextController;
   TextEditingController _aboutTextController;
+  bool _isLoading;
   // -------------------------
   BzModel _currentBz;
   // -------------------------
@@ -49,7 +58,7 @@ class _CreateBzScreenState extends State<CreateBzScreen> with TickerProviderStat
   String _currentProvinceID;
   String _currentAreaID;
   String _currentBzAbout;
-  GeoPoint _currentLocation;
+  GeoPoint _currentPosition;
   List<ContactModel> _currentContacts;
   AuthorModel _currentAuthor;
   bool _currentBzShowsTeam;
@@ -63,6 +72,7 @@ class _CreateBzScreenState extends State<CreateBzScreen> with TickerProviderStat
   // ----------------------------------------------------------------------
   void initState(){
     super.initState();
+    _isLoading = false;
     _authorName = 'current user name';
     _userID = 'current user ID';
     _bzPageIsOn = false;
@@ -225,9 +235,96 @@ class _CreateBzScreenState extends State<CreateBzScreen> with TickerProviderStat
     });
   }
   // ----------------------------------------------------------------------
+  BzModel _createBzModel(){
+    return new BzModel(
+      bzID: 'autoCreated',
+      // -------------------------
+      bzType: _currentBzType,
+      bzForm: _currentBzForm,
+      bldrBirth: DateTime.now(),
+      accountType: _currentAccountType,
+      bzURL: 'some URL',
+      // -------------------------
+      bzName: _currentBzName,
+      bzLogo: _currentLogo,
+      bzScope: _currentBzScope,
+      bzCountry: _currentCountryID,
+      bzProvince: _currentProvinceID,
+      bzArea: _currentAreaID,
+      bzAbout: _currentBzAbout,
+      bzPosition: _currentPosition,
+      bzContacts: _currentContacts,
+      authors: [AuthorModel(
+        userID: _userID,
+        authorName: _authorName,
+        authorPic: _authorPic,
+        authorTitle: _authorTitle,
+        publishedFlyersIDs: [],
+        bzID: 'autoCreated',
+        authorContacts: _authorContacts,
+      ),],
+      bzShowsTeam: _currentBzShowsTeam,
+      // -------------------------
+      bzIsVerified: false,
+      bzAccountIsDeactivated: false,
+      bzAccountIsBanned: false,
+      // -------------------------
+      bzTotalFollowers: 0,
+      bzTotalSaves: 0,
+      bzTotalShares: 0,
+      bzTotalSlides: 0,
+      bzTotalViews: 0,
+      bzTotalCalls: 0,
+      bzTotalConnects: 0,
+      // -------------------------
+      jointsBzzIDs: [],
+      // -------------------------
+      followIsOn: false,
+    );
+  }
+  // ----------------------------------------------------------------------
+  Future <void> _confirmNewBz(BuildContext context, FlyersProvider pro) async {
+    // final bool isValid = _form.currentState.validate();
+    // if(!isValid){return;}
+    // _form.currentState.save();
+    _triggerLoading();
+    try { await pro.addBz(_createBzModel()); }
+    catch(error) {
+      await showDialog(
+        context: context,
+        builder: (ctx)=>
+            AlertDialog(
+              title: SuperVerse(verse: 'error man', color: Colorz.BlackBlack,),
+              content: SuperVerse(verse: 'error is : ${error.toString()}', color: Colorz.BlackBlack, maxLines: 10,),
+              backgroundColor: Colorz.Grey,
+              elevation: 10,
+              shape: RoundedRectangleBorder(borderRadius: superBorderAll(context, 20)),
+              contentPadding: EdgeInsets.all(10),
+              actionsOverflowButtonSpacing: 10,
+              actionsPadding: EdgeInsets.all(5),
+              insetPadding: EdgeInsets.symmetric(vertical: (superScreenHeight(context)*0.32), horizontal: 35),
+              buttonPadding:  EdgeInsets.all(5),
+              titlePadding:  EdgeInsets.all(20),
+              actions: <Widget>[BldrsBackButton(onTap: ()=> goBack(ctx)),],
 
+            ),
+      );
+    }
+    finally {
+      _triggerLoading();
+      goBack(context);
+    }
+  }
+  // ----------------------------------------------------------------------
+  void _triggerLoading(){
+    setState(() {
+      _isLoading = !_isLoading;
+    });
+  }
+  // ----------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+    final FlyersProvider _pro = Provider.of<FlyersProvider>(context, listen: false);
 
     double screenWidth = superScreenWidth(context);
     double screenHeight = superScreenHeight(context);
@@ -245,8 +342,8 @@ class _CreateBzScreenState extends State<CreateBzScreen> with TickerProviderStat
       layoutWidget: SingleChildScrollView(
 
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
 
             Stratosphere(),
@@ -300,6 +397,7 @@ class _CreateBzScreenState extends State<CreateBzScreen> with TickerProviderStat
               textController: _bzNameTextController,
               textOnChanged: (bzName) => _typingBzName(bzName),
               fieldIsRequired: true,
+
             ),
 
             // --- type BzScope
@@ -377,7 +475,7 @@ class _CreateBzScreenState extends State<CreateBzScreen> with TickerProviderStat
 
             // --- FLYER PREVIEW
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 150),
+              padding: const EdgeInsets.symmetric(vertical: 50),
               child: Stack(
                 children: <Widget>[
 
@@ -455,7 +553,19 @@ class _CreateBzScreenState extends State<CreateBzScreen> with TickerProviderStat
 
                 ],
               ),
-            )
+            ),
+
+            // --- CONFIRM BUTTON
+            DreamBox(
+              height: 50,
+              verse: 'confirm business info',
+              boxFunction: () => _confirmNewBz(context, _pro),
+            ),
+
+            _isLoading ?
+            Loading() : Container(),
+
+            PyramidsHorizon(heightFactor: 5,),
 
           ],
         ),

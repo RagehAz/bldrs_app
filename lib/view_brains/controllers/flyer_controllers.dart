@@ -32,22 +32,22 @@ String feinContactFromContactsByContactType(List<ContactModel> contacts, Contact
 }
 // ----------------------------------------------------------------------------
 AuthorModel getAuthorFromBzByAuthorID(BzModel bz, String authorID){
-  AuthorModel author = bz.authors?.singleWhere((au) => au.userID == authorID, orElse: ()=>null);
+  AuthorModel author = bz?.authors?.singleWhere((au) => au.userID == authorID, orElse: ()=>null);
   return author;
 }
 // ----------------------------------------------------------------------------
 /// temp
 AuthorModel getAuthorModelFromUserModelAndBzModel(UserModel user, BzModel bz){
-  String authorID = user.userID;
+  String authorID = user?.userID;
   AuthorModel authorFromBz = getAuthorFromBzByAuthorID(bz, authorID);
   AuthorModel author = AuthorModel(
-    userID: user.userID,
-    bzID: bz.bzID,
-    authorName: user.name,
-    authorPic: user.pic,
-    authorTitle: user.title,
-    authorContacts: user.contacts,
-    publishedFlyersIDs: authorFromBz.publishedFlyersIDs,
+    userID: user?.userID,
+    bzID: bz?.bzID,
+    authorName: user?.name,
+    authorPic: user?.pic,
+    authorTitle: user?.title,
+    authorContacts: user?.contacts,
+    publishedFlyersIDs: authorFromBz?.publishedFlyersIDs,
   );
   return author;
 }

@@ -19,15 +19,38 @@ class AuthorModel{
     this.authorContacts,
 });
 // ###############################
-  Map<String, Object> toMap(){
+  Map<String, dynamic> toMap(){
     return {
+      'bzID' : bzID,
       'userID' : userID,
       'authorName' : authorName,
       'authorPic' : authorPic,
       'authorTitle' : authorTitle,
       'publishedFlyersIDs' : publishedFlyersIDs,
-      'authorContacts' : moldContactModelsIntoListOfMaps(authorContacts),
+      'authorContacts' : cipherContactsModels(authorContacts),
     };
   }
 // ###############################
 }
+AuthorModel decipherAuthorMap(Map<String, dynamic> map){
+  return AuthorModel(
+    bzID : map['bzID'],
+    userID : map['userID'],
+    authorName : map['authorName'],
+    authorPic : map['authorPic'],
+    authorTitle : map['authorTitle'],
+    publishedFlyersIDs : map['publishedFlyersIDs'],
+    authorContacts : decipherContactsMaps(map['authorContacts']),
+  );
+}
+// -----------------------------------------------------------------
+List<AuthorModel> decipherAuthorsMaps(List<dynamic> listOfMaps){
+  List<AuthorModel> _authorsList = new List();
+
+  listOfMaps?.forEach((map) {
+    _authorsList.add(decipherAuthorMap(map));
+  });
+
+  return _authorsList;
+}
+// -----------------------------------------------------------------

@@ -27,7 +27,7 @@ class BldrsBackButton extends StatelessWidget {
       bubble: true,
       color: Colorz.WhiteAir,
       textDirection: superInverseTextDirection(context),
-      boxFunction: () => goBack(context),
+      boxFunction: onTap == null ? () => goBack(context) : onTap,
     );
   }
 }
