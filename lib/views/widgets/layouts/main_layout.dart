@@ -1,4 +1,5 @@
 import 'package:bldrs/models/user_model.dart';
+import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/providers/users_provider.dart';
 import 'package:bldrs/view_brains/drafters/keyboarders.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
@@ -52,6 +53,10 @@ class MainLayout extends StatelessWidget {
     this.sky = Sky.Night,
 });
 
+  Future<void> _refresh(BuildContext context) async {
+    await Provider.of<FlyersProvider>(context,listen: false).fetchAndSetBzz();
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -65,42 +70,49 @@ class MainLayout extends StatelessWidget {
           child: Scaffold(
             resizeToAvoidBottomPadding: false,
             // resizeToAvoidBottomInset: false,
-            body: Stack(
-              alignment: Alignment.topCenter,
-              children: <Widget>[
+            body: RefreshIndicator(
+              onRefresh: ()=> _refresh(context),
+              color: Colorz.BlackBlack,
+              backgroundColor: Colorz.Yellow,
+              displacement: Ratioz.ddAppBarMargin,
+              strokeWidth: 4,
+              child: Stack(
+                alignment: Alignment.topCenter,
+                children: <Widget>[
 
-                sky == Sky.Black ? BlackSky() :
-                NightSky(),
+                  sky == Sky.Black ? BlackSky() :
+                  NightSky(),
 
-                layoutWidget == null ? Container() :
-                layoutWidget,
+                  layoutWidget == null ? Container() :
+                  layoutWidget,
 
-                if(appBarType!=null)
-                BldrsAppBar(
-                  appBarType: appBarType,
-                  appBarRowWidgets: appBarRowWidgets,
-                  pageTitle: pageTitle,
-                ),
+                  if(appBarType!=null)
+                  BldrsAppBar(
+                    appBarType: appBarType,
+                    appBarRowWidgets: appBarRowWidgets,
+                    pageTitle: pageTitle,
+                  ),
 
-                pyramids == null ? Container() :
-                Pyramids(whichPyramid: appBarType == AppBarType.Localizer ? Iconz.PyramidzYellow : pyramids),
+                  pyramids == null ? Container() :
+                  Pyramids(whichPyramid: appBarType == AppBarType.Localizer ? Iconz.PyramidzYellow : pyramids),
 
-                _ragehIsOn == false ? Container() :
-                Rageh(
-                  tappingRageh: tappingRageh != null ? tappingRageh : (){print('no function here bitch');},
-                  doubleTappingRageh:
-                  Wordz.activeLanguage(context) == 'Arabic' ?
-                      () async {
-                    Locale temp = await setLocale('en');
-                    BldrsApp.setLocale(context, temp);
-                  } :
-                      () async {
-                    Locale temp = await setLocale('ar');
-                    BldrsApp.setLocale(context, temp);
-                    },
-                ),
+                  _ragehIsOn == false ? Container() :
+                  Rageh(
+                    tappingRageh: tappingRageh != null ? tappingRageh : (){print('no function here bitch');},
+                    doubleTappingRageh:
+                    Wordz.activeLanguage(context) == 'Arabic' ?
+                        () async {
+                      Locale temp = await setLocale('en');
+                      BldrsApp.setLocale(context, temp);
+                    } :
+                        () async {
+                      Locale temp = await setLocale('ar');
+                      BldrsApp.setLocale(context, temp);
+                      },
+                  ),
 
-              ],
+                ],
+              ),
             ),
           ),
         ),
