@@ -214,7 +214,7 @@ TextDirection textDirection;
           minLines: widget.minLines,
           maxLines: widget.obscured == true ? 1 : widget.maxLines,
           maxLength: widget.maxLength,
-          autocorrect: true, // -------------------------------------------NO IMPACT
+          autocorrect: false, // -------------------------------------------NO IMPACT
           // scrollPadding: EdgeInsets.all(50),
           keyboardAppearance: Brightness.dark,
           textDirection: _concludedTextDirection,

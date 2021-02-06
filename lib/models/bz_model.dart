@@ -37,7 +37,7 @@ class BzModel with ChangeNotifier{
   // -------------------------
   final bool bzIsVerified;
   final bool bzAccountIsDeactivated;
-  final bool bzAccountIsBanned;
+  final bool bzAccountIsBanned; // should use the word suspended instead
   // -------------------------
   int bzTotalFollowers;
   int bzTotalSaves;

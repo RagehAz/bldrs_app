@@ -24,12 +24,27 @@ class ContactModel{
 // ###############################
 }
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
-List<Map<String,Object>> moldContactModelsIntoListOfMaps(List<ContactModel> contactsList){
+List<Map<String,Object>> cipherContactsModels(List<ContactModel> contactsList){
   List<Map<String,Object>> listOfMaps = new List();
-  contactsList.forEach((contact) {
+  contactsList?.forEach((contact) {
     listOfMaps.add(contact.toMap());
   });
   return listOfMaps;
+}
+
+ContactModel decipherContactMap(Map<String,dynamic> map){
+  return ContactModel(
+      contact: map['contact'],
+      contactType: decipherContactType(map['contactType']),
+  );
+}
+
+List<ContactModel> decipherContactsMaps(List<Map<String,dynamic>> maps){
+  List<ContactModel> contacts = new List();
+  maps?.forEach((map) {
+    contacts.add(decipherContactMap(map));
+  });
+  return contacts;
 }
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
 enum ContactType {
