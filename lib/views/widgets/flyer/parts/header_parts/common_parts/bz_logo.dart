@@ -46,7 +46,7 @@ class BzLogo extends StatelessWidget {
       onTap: onTap == null ? (){} : onTap,
       child: Container(
         decoration: BoxDecoration(
-          color: Colorz.WhiteAir,
+          color: objectIsColor(image) ? image : Colorz.WhiteAir,
           borderRadius: bzLogoCorners,
         ),
         margin: margins,
