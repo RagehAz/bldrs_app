@@ -70,6 +70,7 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
     setState(() {
       paste = value;
       pasteController.text = paste;
+      // widget.textOnChanged(paste);
     });
   }
 
@@ -161,7 +162,7 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
                           onChanged: widget.textOnChanged,
                           onSaved: widget.onSaved,
                           keyboardTextInputAction: widget.keyboardTextInputAction,
-                          initialValue: widget.initialTextValue,
+                          initialValue: paste == '' ? widget.initialTextValue : null,
                           validator: widget.validator,
                           inputSize: 2,
                           textDirection: TextDirection.ltr,

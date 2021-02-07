@@ -69,6 +69,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
         EditProfilePage(
           cancelEdits: switchEditProfile,
+          confirmEdits: switchEditProfile,
         ),
 
       ])
@@ -153,7 +154,7 @@ class _ProfileBubblesListState extends State<ProfileBubblesList> {
                 StatusBubble(
                   status: widget.status,
                   switchUserStatus: widget.switchUserStatus,
-                  userStatus: userModel.userStatus,
+                  userStatus: widget.userStatus,
                   currentUserStatus: widget.currentUserStatus,
                   openEnumLister: widget.openEnumLister,
                 ),
