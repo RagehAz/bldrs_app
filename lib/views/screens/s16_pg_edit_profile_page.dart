@@ -64,7 +64,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   @override
   void initState() {
     UserModel user = Provider.of<UserModel>(context, listen: false);
-    print('getAContactFromContacts(user.contacts, ContactType.Phone) ${getAContactFromContacts(user.contacts, ContactType.Email)}');
+    print('getAContactStringFromContacts(user.contacts, ContactType.Phone) ${getAContactStringFromContacts(user.contacts, ContactType.Email)}');
     _currentName = user.name;
     // _currentPic = File(Iconz.DumAuthorPic);
     _currentTitle = user.title;
@@ -76,16 +76,16 @@ class _EditProfilePageState extends State<EditProfilePage> {
     _currentLanguageCode = user.language;
     _currentPosition = user.position;
     // --------------------
-    // _currentPhone = getAContactFromContacts(user.contacts, ContactType.Phone);
-    // _currentEmail = getAContactFromContacts(user.contacts, ContactType.Email);
-    // _currentWebsite = getAContactFromContacts(user.contacts, ContactType.WebSite);
-    // _currentFacebook = getAContactFromContacts(user.contacts, ContactType.Facebook);
-    // _currentLinkedIn = getAContactFromContacts(user.contacts, ContactType.LinkedIn);
-    // _currentYouTube = getAContactFromContacts(user.contacts, ContactType.YouTube);
-    // _currentInstagram = getAContactFromContacts(user.contacts, ContactType.Instagram);
-    // _currentPinterest = getAContactFromContacts(user.contacts, ContactType.Pinterest);
-    // _currentTikTok = getAContactFromContacts(user.contacts, ContactType.TikTok);
-    // _currentTwitter = getAContactFromContacts(user.contacts, ContactType.Twitter);
+    // _currentPhone = getAContactStringFromContacts(user.contacts, ContactType.Phone);
+    // _currentEmail = getAContactStringFromContacts(user.contacts, ContactType.Email);
+    // _currentWebsite = getAContactStringFromContacts(user.contacts, ContactType.WebSite);
+    // _currentFacebook = getAContactStringFromContacts(user.contacts, ContactType.Facebook);
+    // _currentLinkedIn = getAContactStringFromContacts(user.contacts, ContactType.LinkedIn);
+    // _currentYouTube = getAContactStringFromContacts(user.contacts, ContactType.YouTube);
+    // _currentInstagram = getAContactStringFromContacts(user.contacts, ContactType.Instagram);
+    // _currentPinterest = getAContactStringFromContacts(user.contacts, ContactType.Pinterest);
+    // _currentTikTok = getAContactStringFromContacts(user.contacts, ContactType.TikTok);
+    // _currentTwitter = getAContactStringFromContacts(user.contacts, ContactType.Twitter);
     // --------------------
     super.initState();
   }
@@ -199,15 +199,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
     setState(() => _currentTwitter = val );
   }
   // ---------------------------------------------------------------------------
-
-  void _testFunction(dynamic _user){
-
-    // DocumentSnapshot doc =
-
-    UserModel user = Provider.of<UserModel>(context, listen: false);
-    print(getAContactFromContacts(user.contacts, ContactType.Phone));
-  }
-
   List<ContactModel> _createContactList(List<ContactModel> existingContacts){
     List<ContactModel> newContacts = new List();
     // _currentEmail = getEmailFromContacts(existingContacts);
@@ -215,7 +206,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     /// _currentEmail
     if (_currentEmail != null){newContacts.add(ContactModel(contact: _currentEmail, contactType: ContactType.Email));}
     else{
-      String email = getAContactFromContacts(existingContacts, ContactType.Email);
+      String email = getAContactStringFromContacts(existingContacts, ContactType.Email);
       if (email != null){
         newContacts.add(
             ContactModel(
@@ -228,7 +219,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     /// _currentWebsite
     if (_currentWebsite != null){newContacts.add(ContactModel(contact: _currentWebsite, contactType: ContactType.WebSite));}
     else{
-      String webSite = getAContactFromContacts(existingContacts, ContactType.WebSite);
+      String webSite = getAContactStringFromContacts(existingContacts, ContactType.WebSite);
       if (webSite != null){
         newContacts.add(
             ContactModel(
@@ -241,7 +232,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     /// _currentPhone
     if (_currentPhone != null){newContacts.add(ContactModel(contact: _currentPhone, contactType: ContactType.Phone));}
     else{
-      String phone = getAContactFromContacts(existingContacts, ContactType.Phone);
+      String phone = getAContactStringFromContacts(existingContacts, ContactType.Phone);
       if (phone != null){
         newContacts.add(
             ContactModel(
@@ -254,7 +245,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     /// _currentFacebook
     if (_currentFacebook != null){newContacts.add(ContactModel(contact: _currentFacebook, contactType: ContactType.Facebook));}
     else{
-      String facebook = getAContactFromContacts(existingContacts, ContactType.Facebook);
+      String facebook = getAContactStringFromContacts(existingContacts, ContactType.Facebook);
       if (facebook != null){
         newContacts.add(
             ContactModel(
@@ -267,7 +258,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     /// _currentInstagram
     if (_currentInstagram != null){newContacts.add(ContactModel(contact: _currentInstagram, contactType: ContactType.Instagram));}
     else{
-      String instagram = getAContactFromContacts(existingContacts, ContactType.Instagram);
+      String instagram = getAContactStringFromContacts(existingContacts, ContactType.Instagram);
       if (instagram != null){
         newContacts.add(
             ContactModel(
@@ -280,7 +271,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     /// _currentLinkedIn
     if (_currentLinkedIn != null){newContacts.add(ContactModel(contact: _currentLinkedIn, contactType: ContactType.LinkedIn));}
     else{
-      String linkedIn = getAContactFromContacts(existingContacts, ContactType.LinkedIn);
+      String linkedIn = getAContactStringFromContacts(existingContacts, ContactType.LinkedIn);
       if (linkedIn != null){
         newContacts.add(
             ContactModel(
@@ -293,7 +284,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     /// _currentYouTube
     if (_currentYouTube != null){newContacts.add(ContactModel(contact: _currentYouTube, contactType: ContactType.YouTube));}
     else{
-      String youtube = getAContactFromContacts(existingContacts, ContactType.YouTube);
+      String youtube = getAContactStringFromContacts(existingContacts, ContactType.YouTube);
       if (youtube != null){
         newContacts.add(
             ContactModel(
@@ -306,7 +297,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     /// _currentPinterest
     if (_currentPinterest != null){newContacts.add(ContactModel(contact: _currentPinterest, contactType: ContactType.Pinterest));}
     else{
-      String pinterest = getAContactFromContacts(existingContacts, ContactType.Pinterest);
+      String pinterest = getAContactStringFromContacts(existingContacts, ContactType.Pinterest);
       if (pinterest != null){
         newContacts.add(
             ContactModel(
@@ -319,7 +310,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     /// _currentTikTok
     if (_currentTikTok != null){newContacts.add(ContactModel(contact: _currentTikTok, contactType: ContactType.TikTok));}
     else{
-      String tiktok = getAContactFromContacts(existingContacts, ContactType.TikTok);
+      String tiktok = getAContactStringFromContacts(existingContacts, ContactType.TikTok);
       if (tiktok != null){
         newContacts.add(
             ContactModel(
@@ -332,7 +323,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     /// _currentTwitter
     if (_currentTwitter != null){newContacts.add(ContactModel(contact: _currentTwitter, contactType: ContactType.Twitter));}
     else{
-      String twitter = getAContactFromContacts(existingContacts, ContactType.Twitter);
+      String twitter = getAContactStringFromContacts(existingContacts, ContactType.Twitter);
       if (twitter != null){
         newContacts.add(
             ContactModel(
@@ -401,7 +392,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         width: 35,
                         icon: Iconz.XLarge,
                         iconSizeFactor: 0.6,
-                        boxFunction: () => _testFunction(_user),//widget.cancelEdits,
+                        boxFunction: widget.cancelEdits,
                       )
                     ],
                   ),
@@ -467,7 +458,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   keyboardTextInputAction: TextInputAction.next,
                   fieldIsRequired: true,
                   keyboardTextInputType: TextInputType.emailAddress,
-                  initialTextValue: getAContactFromContacts(userModel.contacts, ContactType.Email),
+                  initialTextValue: getAContactStringFromContacts(userModel.contacts, ContactType.Email),
                   textOnChanged: (val) => _changeEmail(val),
                 ),
 
@@ -479,7 +470,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   keyboardTextInputAction: TextInputAction.next,
                   fieldIsRequired: false,
                   keyboardTextInputType: TextInputType.phone,
-                  initialTextValue: getAContactFromContacts(userModel.contacts, ContactType.Phone),
+                  initialTextValue: getAContactStringFromContacts(userModel.contacts, ContactType.Phone),
                   textOnChanged: (val) => _changePhone(val),
                 ),
 
@@ -491,7 +482,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   keyboardTextInputAction: TextInputAction.next,
                   fieldIsRequired: false,
                   keyboardTextInputType: TextInputType.url,
-                  initialTextValue: getAContactFromContacts(userModel.contacts, ContactType.WebSite),
+                  initialTextValue: getAContactStringFromContacts(userModel.contacts, ContactType.WebSite),
                   textOnChanged: (val) => _changeWebsite(val),
                 ),
 
@@ -503,7 +494,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   keyboardTextInputAction: TextInputAction.next,
                   fieldIsRequired: false,
                   keyboardTextInputType: TextInputType.url,
-                  initialTextValue: getAContactFromContacts(userModel.contacts, ContactType.Facebook),
+                  initialTextValue: getAContactStringFromContacts(userModel.contacts, ContactType.Facebook),
                   textOnChanged: (val) => _changeFacebook(val),
                 ),
 
@@ -515,7 +506,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   keyboardTextInputAction: TextInputAction.next,
                   fieldIsRequired: false,
                   keyboardTextInputType: TextInputType.url,
-                  initialTextValue: getAContactFromContacts(userModel.contacts, ContactType.Instagram),
+                  initialTextValue: getAContactStringFromContacts(userModel.contacts, ContactType.Instagram),
                   textOnChanged: (val) => _changeInstagram(val),
                 ),
 
@@ -527,7 +518,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   keyboardTextInputAction: TextInputAction.next,
                   fieldIsRequired: false,
                   keyboardTextInputType: TextInputType.url,
-                  initialTextValue: getAContactFromContacts(userModel.contacts, ContactType.LinkedIn),
+                  initialTextValue: getAContactStringFromContacts(userModel.contacts, ContactType.LinkedIn),
                   textOnChanged: (val) => _changeLinkedIn(val),
                 ),
 
@@ -539,7 +530,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   keyboardTextInputAction: TextInputAction.next,
                   fieldIsRequired: false,
                   keyboardTextInputType: TextInputType.url,
-                  initialTextValue: getAContactFromContacts(userModel.contacts, ContactType.YouTube),
+                  initialTextValue: getAContactStringFromContacts(userModel.contacts, ContactType.YouTube),
                   textOnChanged: (val) => _changeYouTube(val),
                 ),
 
@@ -551,7 +542,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   keyboardTextInputAction: TextInputAction.next,
                   fieldIsRequired: false,
                   keyboardTextInputType: TextInputType.url,
-                  initialTextValue: getAContactFromContacts(userModel.contacts, ContactType.Pinterest),
+                  initialTextValue: getAContactStringFromContacts(userModel.contacts, ContactType.Pinterest),
                   textOnChanged: (val) => _changePinterest(val),
                 ),
 
@@ -560,11 +551,23 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   fieldIsFormField: true,
                   title: Wordz.tiktokLink(context),
                   leadingIcon: Iconz.ComTikTok,
+                  keyboardTextInputAction: TextInputAction.next,
+                  fieldIsRequired: false,
+                  keyboardTextInputType: TextInputType.url,
+                  initialTextValue: getAContactStringFromContacts(userModel.contacts, ContactType.TikTok),
+                  textOnChanged: (val) => _changeTikTok(val),
+                ),
+
+                // --- EDIT TWITTER
+                ContactFieldBubble(
+                  fieldIsFormField: true,
+                  title: 'Twitter link',//Wordz.twitterLink(context),
+                  leadingIcon: Iconz.ComTwitter,
                   keyboardTextInputAction: TextInputAction.done,
                   fieldIsRequired: false,
                   keyboardTextInputType: TextInputType.url,
-                  initialTextValue: getAContactFromContacts(userModel.contacts, ContactType.TikTok),
-                  textOnChanged: (val) => _changeTikTok(val),
+                  initialTextValue: getAContactStringFromContacts(userModel.contacts, ContactType.Twitter),
+                  textOnChanged: (val) => _changeTwitter(val),
                 ),
 
                 // --- CONFIRM BUTTON

@@ -6,6 +6,7 @@ class Colorz {
   static const int NoOpacity = 0;
   static const int airOpacity = 10;
   static const int glassOpacity = 20;
+  static const int _30 = 30;
   static const int zirconOpacity = 50;
   static const int smokeOpacity = 80;
   static const int plasticOpacity = 125;
@@ -65,6 +66,7 @@ class Colorz {
   static const WhiteSilver = Color.fromARGB(700, 255, 255, 255);
   static const WhiteAir = Color.fromARGB(airOpacity, 255, 255, 255);
   static const WhiteGlass = Color.fromARGB(glassOpacity, 255, 255, 255);
+  static const White30 = Color.fromARGB(_30, 255, 255, 255);
   static const WhiteZircon = Color.fromARGB(zirconOpacity, 255, 255, 255);
   static const WhiteSmoke = Color.fromARGB(smokeOpacity, 255, 255, 255);
   static const WhitePlastic = Color.fromARGB(plasticOpacity, 255, 255, 255);

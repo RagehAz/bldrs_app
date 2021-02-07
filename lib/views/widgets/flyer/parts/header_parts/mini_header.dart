@@ -1,5 +1,6 @@
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
+import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:bldrs/view_brains/controllers/flyer_controllers.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/drafters/stringers.dart';
@@ -34,7 +35,7 @@ class MiniHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // === === === === === === === === === === === === === === === === === === ===
-    String _phoneNumber = feinFirstPhoneFromContacts(bz?.bzContacts);
+    String _phoneNumber = getAContactStringFromContacts(bz?.bzContacts, ContactType.Phone);
     // --- B.LOCALE --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
     String businessLocale = localeStringer(context: context,
       countryISO3: bz?.bzCountry,

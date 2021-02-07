@@ -1,9 +1,6 @@
 import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:bldrs/models/user_model.dart';
-import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/providers/users_provider.dart';
-import 'package:bldrs/view_brains/localization/localization_constants.dart';
-import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/views/widgets/bubbles/contacts_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/following_bzz_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/status_bubble.dart';
@@ -122,21 +119,15 @@ class _ProfileBubblesListState extends State<ProfileBubblesList> {
   @override
   Widget build(BuildContext context) {
 
-
     final _user = Provider.of<UserModel>(context);
-    String email = getAContactFromContacts(_user.contacts, ContactType.Email);
-    print('_user is ${_user.userID}');
-    print(UserProvider(userID: _user.userID).userData);
 
     return StreamBuilder<UserModel>(
       stream: UserProvider(userID: _user.userID).userData,
       builder: (context, snapshot){
-        // if(snapshot.hasData == false){
-        //   return LoadingFullScreenLayer();
-        // } else {
+        if(snapshot.hasData == false){
+          return LoadingFullScreenLayer();
+        } else {
           UserModel userModel = snapshot.data;
-          // print(UserProvider(userID: _user.userID).userData);
-          // print('user e-mail is : ${getEmailFromContacts(userModel?.contacts)}');
           return
             Column(
               children: <Widget>[
@@ -151,25 +142,27 @@ class _ProfileBubblesListState extends State<ProfileBubblesList> {
                 ),
 
                 // --- STATUS LABEL : STATUS SURVEY WILL BE IN VERSION 2 ISA
-                StatusBubble(
-                  status: widget.status,
-                  switchUserStatus: widget.switchUserStatus,
-                  userStatus: widget.userStatus,
-                  currentUserStatus: widget.currentUserStatus,
-                  openEnumLister: widget.openEnumLister,
-                ),
+                // StatusBubble(
+                //   status: widget.status,
+                //   switchUserStatus: widget.switchUserStatus,
+                //   userStatus: widget.userStatus,
+                //   currentUserStatus: widget.currentUserStatus,
+                //   openEnumLister: widget.openEnumLister,
+                // ),
 
-                ContactsBubble(),
+                ContactsBubble(
+                  contacts : userModel.contacts,
+                ),
 
                 FollowingBzzBubble(),
 
-                PyramidsHorizon(),
+                PyramidsHorizon(heightFactor: 5,),
 
 
 
               ],
             );
-        // }
+        } // bent el kalb dih when u comment off the Loading indicator widget part with its condition
       },
     );
   }

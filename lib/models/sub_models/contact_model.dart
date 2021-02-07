@@ -100,9 +100,65 @@ List<ContactType> contactTypesList = [
   ContactType.Twitter,
 ];
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
-String getAContactFromContacts(List<ContactModel> contacts, ContactType contactType){
-  String contactValue = contacts?.singleWhere((x) => x.contactType == contactType,
-      orElse: ()=>null)?.contact;
+ContactModel getAContactModelFromContacts(List<ContactModel> contacts, ContactType contactType){
+  ContactModel contactValue = contacts.singleWhere((x) => x.contactType == contactType,
+      orElse: ()=>null);
   return contactValue;
 }
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+String getAContactStringFromContacts(List<ContactModel> contacts, ContactType contactType){
+  String contactValue = getAContactModelFromContacts(contacts, contactType)?.contact;
+  return contactValue;
+}
+// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+/// contacts with strings
+/// are Phone, Email, WhatsApp, website
+/// which are presented by both string of value and an icon
+List<ContactModel> getContactsWithStringsFromContacts(List<ContactModel> contacts){
+  List<ContactModel> _contactsList = new List();
+
+  ContactModel _phone = getAContactModelFromContacts(contacts, ContactType.Phone);
+  ContactModel _email = getAContactModelFromContacts(contacts, ContactType.Email);
+  ContactModel _website = getAContactModelFromContacts(contacts, ContactType.WebSite);
+
+  if(_phone   != null || _phone?.contact?.isNotEmpty  == true){_contactsList.add(_phone);}
+  if(_email   != null || _email?.contact?.isNotEmpty  == true){_contactsList.add(_email);}
+  if(_website != null || _website?.contact?.isNotEmpty  == true){_contactsList.add(_website);}
+
+  return _contactsList;
+}
+// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+/// contacts without strings
+/// are Facebook LinkedIn YouTube Instagram Pinterest TikTok Twitter
+List<ContactModel> getSocialMediaContactsFromContacts(List<ContactModel> contacts){
+  List<ContactModel> _contactsList = new List();
+
+  ContactModel _facebook = getAContactModelFromContacts(contacts, ContactType.Facebook);
+  ContactModel _linkedin = getAContactModelFromContacts(contacts, ContactType.LinkedIn);
+  ContactModel _youtube = getAContactModelFromContacts(contacts, ContactType.YouTube);
+  ContactModel _instagram = getAContactModelFromContacts(contacts, ContactType.Instagram);
+  ContactModel _pinterest = getAContactModelFromContacts(contacts, ContactType.Pinterest);
+  ContactModel _tiktok = getAContactModelFromContacts(contacts, ContactType.TikTok);
+  ContactModel _twitter = getAContactModelFromContacts(contacts, ContactType.Twitter);
+
+  if(_facebook  != null && _facebook?.contact?.isNotEmpty  == true ){_contactsList.add(_facebook);}else{}
+  if(_linkedin  != null && _linkedin?.contact?.isNotEmpty  == true ){_contactsList.add(_linkedin);}else{}
+  if(_youtube   != null && _youtube?.contact?.isNotEmpty   == true ){_contactsList.add(_youtube);}else{}
+  if(_instagram != null && _instagram?.contact?.isNotEmpty == true ){_contactsList.add(_instagram);}else{}
+  if(_pinterest != null && _pinterest?.contact?.isNotEmpty == true ){_contactsList.add(_pinterest);}else{}
+  if(_tiktok    != null && _tiktok?.contact?.isNotEmpty    == true ){_contactsList.add(_tiktok);}else{}
+  if(_twitter   != null && _twitter?.contact?.isNotEmpty   == true ){_contactsList.add(_twitter);}else{}
+
+  return _contactsList;
+}
+// ----------------------------------------------------------------------------
+/// will only let user to have one phone only
+String getFirstPhoneFromContacts(List<ContactModel> contacts){
+  // String phone = contacts?.singleWhere((co) => co.contactType == ContactType.Phone, orElse: ()=> null)?.contact;
+  List<String> phones = new List();
+  contacts?.forEach((co) {
+    if(co.contactType == ContactType.Phone){phones.add(co.contact);}
+  });
+  return phones.length == 0 ? null : phones[0];
+}
+// ----------------------------------------------------------------------------

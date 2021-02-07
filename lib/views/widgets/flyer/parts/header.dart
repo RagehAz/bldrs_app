@@ -1,5 +1,6 @@
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
+import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:bldrs/view_brains/controllers/flyer_controllers.dart';
 import 'package:bldrs/view_brains/drafters/colorizers.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
@@ -38,7 +39,7 @@ class Header extends StatelessWidget {
   Widget build(BuildContext context) {
 
     // === === === === === === === === === === === === === === === === === === ===
-    String _phoneNumber = feinFirstPhoneFromContacts(bz?.bzContacts);
+    String _phoneNumber = getFirstPhoneFromContacts(bz?.bzContacts);
     // --- B.LOCALE --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
     String _bzCounty = bz != null ? bz?.bzCountry : '';
     String _bzProvince = bz != null ? bz?.bzProvince : '';

@@ -1,6 +1,7 @@
 import 'dart:core';
 import 'package:bldrs/models/bldrs_sections.dart';
 import 'package:bldrs/models/bz_model.dart';
+import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/view_brains/drafters/text_directionz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
@@ -106,5 +107,21 @@ String superBackIcon(BuildContext context){
 // === === === === === === === === === === === === === === === === === === ===
 String superInverseBackIcon(BuildContext context){
   return appIsLeftToRight(context) ? Iconz.BackArabic : Iconz.Back;
+}
+// === === === === === === === === === === === === === === === === === === ===
+String superContactIcon(ContactType contactType){
+  switch (contactType){
+    case ContactType.Phone      :    return  Iconz.ComPhone;  break;
+    case ContactType.Email      :    return  Iconz.ComEmail;  break;
+    case ContactType.WebSite    :    return  Iconz.ComWebsite;  break;
+    case ContactType.Facebook   :    return  Iconz.ComFacebook;  break;
+    case ContactType.LinkedIn   :    return  Iconz.ComLinkedin;  break;
+    case ContactType.YouTube    :    return  Iconz.ComYoutube;  break;
+    case ContactType.Instagram  :    return  Iconz.ComInstagram;  break;
+    case ContactType.Pinterest  :    return  Iconz.ComPinterest;  break;
+    case ContactType.TikTok     :    return  Iconz.ComTikTok;  break;
+    case ContactType.Twitter    :    return  Iconz.ComTwitter; break;
+    default : return null;
+  }
 }
 // === === === === === === === === === === === === === === === === === === ===
