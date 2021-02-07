@@ -88,6 +88,9 @@ class UserProvider{
   /// UserModel from Snapshot
   UserModel _userModelFromSnapshot(DocumentSnapshot doc){
 
+    // List<ContactModel> bolbol = decipherContactsMaps(doc.data()['contacts'] ?? []);
+    // print('kos om ommak = ${bolbol[2].contact}');
+
     try{
 
       List<dynamic> _savedFlyersIDs = doc.data()['savedFlyersIDs'] as List<dynamic>;

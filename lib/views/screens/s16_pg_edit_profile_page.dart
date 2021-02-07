@@ -64,9 +64,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
   @override
   void initState() {
     UserModel user = Provider.of<UserModel>(context, listen: false);
-    print('xxxxxxxxxxxxxxxxxxxxxxxxxxxx user is ${user.userID}');
+    print('getAContactFromContacts(user.contacts, ContactType.Phone) ${getAContactFromContacts(user.contacts, ContactType.Email)}');
     _currentName = user.name;
-    _currentPic = File(user.pic);
+    // _currentPic = File(Iconz.DumAuthorPic);
     _currentTitle = user.title;
     _currentCompany = user.company;
     _currentGender = user.gender;
@@ -76,19 +76,20 @@ class _EditProfilePageState extends State<EditProfilePage> {
     _currentLanguageCode = user.language;
     _currentPosition = user.position;
     // --------------------
-    _currentPhone = getAContactFromContacts(user.contacts, ContactType.Phone);
-    _currentEmail = getAContactFromContacts(user.contacts, ContactType.Email);
-    _currentWebsite = getAContactFromContacts(user.contacts, ContactType.WebSite);
-    _currentFacebook = getAContactFromContacts(user.contacts, ContactType.Facebook);
-    _currentLinkedIn = getAContactFromContacts(user.contacts, ContactType.LinkedIn);
-    _currentYouTube = getAContactFromContacts(user.contacts, ContactType.YouTube);
-    _currentInstagram = getAContactFromContacts(user.contacts, ContactType.Instagram);
-    _currentPinterest = getAContactFromContacts(user.contacts, ContactType.Pinterest);
-    _currentTikTok = getAContactFromContacts(user.contacts, ContactType.TikTok);
-    _currentTwitter = getAContactFromContacts(user.contacts, ContactType.Twitter);
+    // _currentPhone = getAContactFromContacts(user.contacts, ContactType.Phone);
+    // _currentEmail = getAContactFromContacts(user.contacts, ContactType.Email);
+    // _currentWebsite = getAContactFromContacts(user.contacts, ContactType.WebSite);
+    // _currentFacebook = getAContactFromContacts(user.contacts, ContactType.Facebook);
+    // _currentLinkedIn = getAContactFromContacts(user.contacts, ContactType.LinkedIn);
+    // _currentYouTube = getAContactFromContacts(user.contacts, ContactType.YouTube);
+    // _currentInstagram = getAContactFromContacts(user.contacts, ContactType.Instagram);
+    // _currentPinterest = getAContactFromContacts(user.contacts, ContactType.Pinterest);
+    // _currentTikTok = getAContactFromContacts(user.contacts, ContactType.TikTok);
+    // _currentTwitter = getAContactFromContacts(user.contacts, ContactType.Twitter);
     // --------------------
     super.initState();
   }
+
   // ---------------------------------------------------------------------------
   void _changeName(String val){
     setState(()=> _currentName = val);
@@ -171,6 +172,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   // ---------------------------------------------------------------------------
   void _changeFacebook(String val){
     setState(() => _currentFacebook = val );
+    print(_currentFacebook);
   }
   // ---------------------------------------------------------------------------
   void _changeLinkedIn(String val){
@@ -198,30 +200,148 @@ class _EditProfilePageState extends State<EditProfilePage> {
   }
   // ---------------------------------------------------------------------------
 
+  void _testFunction(dynamic _user){
+
+    // DocumentSnapshot doc =
+
+    UserModel user = Provider.of<UserModel>(context, listen: false);
+    print(getAContactFromContacts(user.contacts, ContactType.Phone));
+  }
+
   List<ContactModel> _createContactList(List<ContactModel> existingContacts){
     List<ContactModel> newContacts = new List();
     // _currentEmail = getEmailFromContacts(existingContacts);
 
     /// _currentEmail
     if (_currentEmail != null){newContacts.add(ContactModel(contact: _currentEmail, contactType: ContactType.Email));}
+    else{
+      String email = getAContactFromContacts(existingContacts, ContactType.Email);
+      if (email != null){
+        newContacts.add(
+            ContactModel(
+                contact: email,
+                contactType: ContactType.Email,
+            )
+        );
+      }
+    }
     /// _currentWebsite
     if (_currentWebsite != null){newContacts.add(ContactModel(contact: _currentWebsite, contactType: ContactType.WebSite));}
+    else{
+      String webSite = getAContactFromContacts(existingContacts, ContactType.WebSite);
+      if (webSite != null){
+        newContacts.add(
+            ContactModel(
+                contact: webSite,
+                contactType: ContactType.WebSite,
+            )
+        );
+      }
+    }
     /// _currentPhone
     if (_currentPhone != null){newContacts.add(ContactModel(contact: _currentPhone, contactType: ContactType.Phone));}
+    else{
+      String phone = getAContactFromContacts(existingContacts, ContactType.Phone);
+      if (phone != null){
+        newContacts.add(
+            ContactModel(
+                contact: phone,
+                contactType: ContactType.Phone,
+            )
+        );
+      }
+    }
     /// _currentFacebook
     if (_currentFacebook != null){newContacts.add(ContactModel(contact: _currentFacebook, contactType: ContactType.Facebook));}
+    else{
+      String facebook = getAContactFromContacts(existingContacts, ContactType.Facebook);
+      if (facebook != null){
+        newContacts.add(
+            ContactModel(
+                contact: facebook,
+                contactType: ContactType.Facebook,
+            )
+        );
+      }
+    }
     /// _currentInstagram
     if (_currentInstagram != null){newContacts.add(ContactModel(contact: _currentInstagram, contactType: ContactType.Instagram));}
+    else{
+      String instagram = getAContactFromContacts(existingContacts, ContactType.Instagram);
+      if (instagram != null){
+        newContacts.add(
+            ContactModel(
+                contact: instagram,
+                contactType: ContactType.Instagram,
+            )
+        );
+      }
+    }
     /// _currentLinkedIn
     if (_currentLinkedIn != null){newContacts.add(ContactModel(contact: _currentLinkedIn, contactType: ContactType.LinkedIn));}
+    else{
+      String linkedIn = getAContactFromContacts(existingContacts, ContactType.LinkedIn);
+      if (linkedIn != null){
+        newContacts.add(
+            ContactModel(
+              contact: linkedIn,
+              contactType: ContactType.LinkedIn,
+            )
+        );
+      }
+    }
     /// _currentYouTube
     if (_currentYouTube != null){newContacts.add(ContactModel(contact: _currentYouTube, contactType: ContactType.YouTube));}
+    else{
+      String youtube = getAContactFromContacts(existingContacts, ContactType.YouTube);
+      if (youtube != null){
+        newContacts.add(
+            ContactModel(
+              contact: youtube,
+              contactType: ContactType.YouTube,
+            )
+        );
+      }
+    }
     /// _currentPinterest
     if (_currentPinterest != null){newContacts.add(ContactModel(contact: _currentPinterest, contactType: ContactType.Pinterest));}
+    else{
+      String pinterest = getAContactFromContacts(existingContacts, ContactType.Pinterest);
+      if (pinterest != null){
+        newContacts.add(
+            ContactModel(
+              contact: pinterest,
+              contactType: ContactType.Pinterest,
+            )
+        );
+      }
+    }
     /// _currentTikTok
     if (_currentTikTok != null){newContacts.add(ContactModel(contact: _currentTikTok, contactType: ContactType.TikTok));}
+    else{
+      String tiktok = getAContactFromContacts(existingContacts, ContactType.TikTok);
+      if (tiktok != null){
+        newContacts.add(
+            ContactModel(
+              contact: tiktok,
+              contactType: ContactType.TikTok,
+            )
+        );
+      }
+    }
     /// _currentTwitter
     if (_currentTwitter != null){newContacts.add(ContactModel(contact: _currentTwitter, contactType: ContactType.Twitter));}
+    else{
+      String twitter = getAContactFromContacts(existingContacts, ContactType.Twitter);
+      if (twitter != null){
+        newContacts.add(
+            ContactModel(
+              contact: twitter,
+              contactType: ContactType.Twitter,
+            )
+        );
+      }
+    }
 
     return newContacts;
   }
@@ -255,7 +375,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
           return LoadingFullScreenLayer();
         } else {
           UserModel userModel = snapshot.data;
-          print('user e-mail is : ${getAContactFromContacts(userModel.contacts, ContactType.Email)}');
+          print('user e-phone is : ${userModel.contacts}');
           return Form(
             key: _formKey,
             child: Column(
@@ -281,7 +401,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         width: 35,
                         icon: Iconz.XLarge,
                         iconSizeFactor: 0.6,
-                        boxFunction: widget.cancelEdits,
+                        boxFunction: () => _testFunction(_user),//widget.cancelEdits,
                       )
                     ],
                   ),
@@ -322,6 +442,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 TextFieldBubble(
                   fieldIsFormField: true,
                   title: Wordz.companyName(context),
+                  initialTextValue: userModel.company,
                   keyboardTextInputType: TextInputType.name,
                   keyboardTextInputAction: TextInputAction.next,
                   fieldIsRequired: true,
@@ -329,6 +450,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   textOnChanged: (val) => _changeCompany(val),
                 ),
 
+                // --- EDIT HQ
                 LocaleBubble(
                   title : 'Preferred Location',
                   changeCountry : (countryID) => _changeCountry(countryID),
@@ -345,7 +467,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   keyboardTextInputAction: TextInputAction.next,
                   fieldIsRequired: true,
                   keyboardTextInputType: TextInputType.emailAddress,
-                  initialTextValue: _currentEmail,
+                  initialTextValue: getAContactFromContacts(userModel.contacts, ContactType.Email),
                   textOnChanged: (val) => _changeEmail(val),
                 ),
 
@@ -357,10 +479,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   keyboardTextInputAction: TextInputAction.next,
                   fieldIsRequired: false,
                   keyboardTextInputType: TextInputType.phone,
-                  initialTextValue: _currentPhone,
+                  initialTextValue: getAContactFromContacts(userModel.contacts, ContactType.Phone),
                   textOnChanged: (val) => _changePhone(val),
                 ),
 
+                // --- EDIT WEBSITE
                 ContactFieldBubble(
                   fieldIsFormField: true,
                   title: Wordz.website(context),
@@ -368,10 +491,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   keyboardTextInputAction: TextInputAction.next,
                   fieldIsRequired: false,
                   keyboardTextInputType: TextInputType.url,
-                  initialTextValue: _currentWebsite,
+                  initialTextValue: getAContactFromContacts(userModel.contacts, ContactType.WebSite),
                   textOnChanged: (val) => _changeWebsite(val),
                 ),
 
+                // --- EDIT FACEBOOK
                 ContactFieldBubble(
                   fieldIsFormField: true,
                   title: Wordz.facebookLink(context),
@@ -379,10 +503,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   keyboardTextInputAction: TextInputAction.next,
                   fieldIsRequired: false,
                   keyboardTextInputType: TextInputType.url,
-                  initialTextValue: _currentFacebook,
+                  initialTextValue: getAContactFromContacts(userModel.contacts, ContactType.Facebook),
                   textOnChanged: (val) => _changeFacebook(val),
                 ),
 
+                // --- EDIT INSTAGRAM
                 ContactFieldBubble(
                   fieldIsFormField: true,
                   title: Wordz.instagramLink(context),
@@ -390,10 +515,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   keyboardTextInputAction: TextInputAction.next,
                   fieldIsRequired: false,
                   keyboardTextInputType: TextInputType.url,
-                  initialTextValue: _currentInstagram,
+                  initialTextValue: getAContactFromContacts(userModel.contacts, ContactType.Instagram),
                   textOnChanged: (val) => _changeInstagram(val),
                 ),
 
+                // --- EDIT LINKEDIN
                 ContactFieldBubble(
                   fieldIsFormField: true,
                   title: Wordz.linkedinLink(context),
@@ -401,10 +527,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   keyboardTextInputAction: TextInputAction.next,
                   fieldIsRequired: false,
                   keyboardTextInputType: TextInputType.url,
-                  initialTextValue: _currentLinkedIn,
+                  initialTextValue: getAContactFromContacts(userModel.contacts, ContactType.LinkedIn),
                   textOnChanged: (val) => _changeLinkedIn(val),
                 ),
 
+                // --- EDIT YOUTUBE
                 ContactFieldBubble(
                   fieldIsFormField: true,
                   title: Wordz.youtubeChannel(context),
@@ -412,10 +539,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   keyboardTextInputAction: TextInputAction.next,
                   fieldIsRequired: false,
                   keyboardTextInputType: TextInputType.url,
-                  initialTextValue: _currentYouTube,
+                  initialTextValue: getAContactFromContacts(userModel.contacts, ContactType.YouTube),
                   textOnChanged: (val) => _changeYouTube(val),
                 ),
 
+                // --- EDIT PINTEREST
                 ContactFieldBubble(
                   fieldIsFormField: true,
                   title: Wordz.pinterestLink(context),
@@ -423,10 +551,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   keyboardTextInputAction: TextInputAction.next,
                   fieldIsRequired: false,
                   keyboardTextInputType: TextInputType.url,
-                  initialTextValue: _currentPinterest,
+                  initialTextValue: getAContactFromContacts(userModel.contacts, ContactType.Pinterest),
                   textOnChanged: (val) => _changePinterest(val),
                 ),
 
+                // --- EDIT TIKTOK
                 ContactFieldBubble(
                   fieldIsFormField: true,
                   title: Wordz.tiktokLink(context),
@@ -434,7 +563,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   keyboardTextInputAction: TextInputAction.done,
                   fieldIsRequired: false,
                   keyboardTextInputType: TextInputType.url,
-                  initialTextValue: _currentTikTok,
+                  initialTextValue: getAContactFromContacts(userModel.contacts, ContactType.TikTok),
                   textOnChanged: (val) => _changeTikTok(val),
                 ),
 
@@ -468,9 +597,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         // -------------------------
                       );
                     }
-                    print(_currentName);
-                    print(_currentTitle);
-                    print(_currentCompany);
+
+                    widget.confirmEdits();
+
                   },
                 ),
 
