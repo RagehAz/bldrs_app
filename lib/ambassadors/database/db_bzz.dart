@@ -545,7 +545,6 @@ final List<BzModel> dbBzz =
       ContactModel(contact: '01554555107', contactType: ContactType.Phone),
       ContactModel(contact: 'www.facebook.com', contactType: ContactType.Facebook),
       ContactModel(contact: 'rageh-@hotmail.com', contactType: ContactType.Email),
-      ContactModel(contact: '0123456789', contactType: ContactType.Phone, ),
     ],
     authors: <AuthorModel>[
       AuthorModel(userID: 'u05', publishedFlyersIDs: ['f008'],),

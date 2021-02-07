@@ -1,5 +1,7 @@
 import 'package:bldrs/view_brains/drafters/stringers.dart';
 import 'dart:io';
+
+import 'package:flutter/material.dart';
 // === === === === === === === === === === === === === === === === === === ===
 extension FileExtention on FileSystemEntity{
   String get fileNameWithExtension {
@@ -48,5 +50,10 @@ objectIsJPGorPNG(dynamic object){
   return
     fileExtensionOf(object) == 'jpeg' || fileExtensionOf(object) == 'jpg' || fileExtensionOf(object) == 'png' ?
         true : false;
+}
+// === === === === === === === === === === === === === === === === === === ===
+objectIsColor(dynamic object){
+  bool objectIsColor = object.runtimeType == Color ? true : false;
+  return objectIsColor;
 }
 // === === === === === === === === === === === === === === === === === === ===
