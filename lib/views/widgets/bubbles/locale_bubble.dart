@@ -14,15 +14,31 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'in_pyramids_bubble.dart';
 
+class HQ {
+  String countryID;
+  String provinceID;
+  String areaID;
+
+  HQ({
+    this.countryID,
+    this.provinceID,
+    this.areaID,
+  });
+}
+
 class LocaleBubble extends StatefulWidget {
   final Function changeCountry;
   final Function changeProvince;
   final Function changeArea;
+  final HQ hq;
+  final String title;
 
   LocaleBubble({
     @required this.changeCountry,
     @required this.changeProvince,
     @required this.changeArea,
+    @required this.hq,
+    this.title = 'Preferred Location',
 });
 
   @override
@@ -33,14 +49,21 @@ class _LocaleBubbleState extends State<LocaleBubble> {
   String _chosenCountryID;
   String _chosenProvinceID;
   String _chosenAreaID;
+  HQ _userHQ;
+
 
   @override
   void initState() {
+    _processUserHQ();
     CountryProvider _countryPro = Provider.of<CountryProvider>(context, listen: false);
-    _chosenCountryID = _countryPro.currentCountryID;
-    _chosenProvinceID = _countryPro.currentProvinceID;
-    _chosenAreaID = _countryPro.currentAreaID;
+    _chosenCountryID = _userHQ.countryID == null ? _countryPro.currentCountryID : _userHQ.countryID;
+    _chosenProvinceID = _userHQ.provinceID == null ? _countryPro.currentProvinceID : _userHQ.provinceID;
+    _chosenAreaID = _userHQ.areaID == null ? _countryPro.currentAreaID : _userHQ.areaID;
     super.initState();
+  }
+
+  void _processUserHQ(){
+    _userHQ = widget.hq;
   }
 
   // ----------------------------------------------------------------------
@@ -142,11 +165,10 @@ class _LocaleBubbleState extends State<LocaleBubble> {
     double _buttonWidth = (_bubbleClearWidth / 3)-((2*_buttonsSpacing)/3);
 
     return InPyramidsBubble(
-        bubbleColor: Colorz.WhiteAir,
         columnChildren: <Widget>[
 
           SuperVerse(
-            verse: 'Headquarters Area',//Wordz.hqCity(context),
+            verse: widget.title,
             margin: 5,
             redDot: true,
 

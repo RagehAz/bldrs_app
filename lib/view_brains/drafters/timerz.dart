@@ -4,10 +4,10 @@ import 'package:intl/intl.dart';
 DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:mm:ss");
 // -----------------------------------------------------------------
 String cipherDateTimeToString(DateTime dateTime){
-  return dateFormat.format(dateTime);
+  return dateFormat?.format(dateTime);
 }
 // -----------------------------------------------------------------
 DateTime decipherDateTimeString(String dateTimeString){
-  return dateFormat.parse(dateTimeString);
+  return dateFormat?.parse(dateTimeString);
 }
 // -----------------------------------------------------------------

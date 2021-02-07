@@ -1,7 +1,11 @@
+import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/users_provider.dart';
+import 'package:bldrs/view_brains/theme/wordz.dart';
+import 'package:bldrs/views/widgets/bubbles/locale_bubble.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 
 class AuthService{
 
@@ -12,22 +16,22 @@ class AuthService{
     return user == null ? null :
     UserModel(
       userID: user.uid,
-      // savedFlyersIDs: ,
-      // followedBzzIDs: ,
-      // publishedFlyersIDs: ,
-      // name: ,
-      // lastName: ,
-      // pic: ,
-      // title: ,
-      // city: ,
-      // country: ,
-      // whatsAppIsOn: ,
-      // contacts: ,
-      // position: ,
-      // joinedAt: ,
-      // gender: ,
-      // language: ,
-      // userStatus: ,
+      // joinedAt: DateTime.now(),
+      // userStatus: UserStatus.NormalUser,
+      // -------------------------
+      name: user.displayName,
+      pic: user.photoURL,
+      // title: '',
+      // gender: Gender.any,
+      // country: currentHQ.countryID,
+      // province: currentHQ.provinceID,
+      // area: currentHQ.areaID,
+      // language: Wordz.languageCode(context),
+      // position: GeoPoint(0, 0),
+      contacts: [ContactModel(contact: user.email, contactType: ContactType.Email)],
+      // -------------------------
+      // savedFlyersIDs: [''],
+      // followedBzzIDs: [''],
     );
   }
 // ---------------------------------------------------------------------------
@@ -64,33 +68,30 @@ Future signInAnon() async {
   }
 // ---------------------------------------------------------------------------
   // register with email & password
-  Future registerWithEmailAndPassword(String email, String password) async {
+  Future registerWithEmailAndPassword(BuildContext context,HQ currentHQ, String email, String password) async {
     try {
       UserCredential result = await _auth.createUserWithEmailAndPassword(email: email.trim(), password: password);
       User user = result.user;
 
       // create a new firestore document for the user with the userID
       await UserProvider(userID: user.uid).updateUserData(
-        userID : user.uid                 ,      // userID
-        savedFlyersIDs : ['savedFlyersIDs']             ,      // savedFlyersIDs
-        followedBzzIDs : ['followedBzzIDs']             ,      // followedBzzIDs
-        name : user.displayName           ,      // name
-        pic : user.photoURL               ,      // pic
-        title : 'title'                   ,      // title
-        city : 'city'                     ,      // city
-        country : 'country'               ,      // country
-        // [
-        //   {
-        //     'type' : '${cipherContactType(ContactType.Email)}',
-        //     'value' : '${user.email}',
-        //     'show' : true
-        //   },
-        // ],      // contacts
-        position : GeoPoint(0, 0),
-        // DateTime.now(),
-        gender : 'gender',
-        language : 'language',
-        userStatus : decipherUserStatus(1),
+          userID: user.uid,
+          joinedAt: DateTime.now(),
+          userStatus: UserStatus.NormalUser,
+          // -------------------------
+          name: user.displayName,
+          pic: user.photoURL,
+          title: '',
+          gender: Gender.any,
+          country: currentHQ.countryID,
+          province: currentHQ.provinceID,
+          area: currentHQ.areaID,
+          language: Wordz.languageCode(context),
+          position: GeoPoint(0, 0),
+          contacts: [ContactModel(contact: user.email, contactType: ContactType.Email)],
+          // -------------------------
+          savedFlyersIDs: [''],
+          followedBzzIDs: [''],
       );
 
       return _convertFirebaseUserToUserModel(user);

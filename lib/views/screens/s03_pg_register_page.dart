@@ -1,6 +1,8 @@
 import 'package:bldrs/ambassadors/services/auth.dart';
+import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
+import 'package:bldrs/views/widgets/bubbles/locale_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/text_field_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
@@ -9,6 +11,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
 import 'package:bldrs/view_brains/router/route_names.dart';
 import 'package:bldrs/models/user_model.dart';
+import 'package:provider/provider.dart';
 
 class Register extends StatefulWidget {
   final Function switchToSignIn;
@@ -95,6 +98,14 @@ class _RegisterState extends State<Register> {
 // ---------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+    CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: true);
+    HQ _currentHQ = new HQ(
+      countryID: _countryPro.currentCountryID,
+      provinceID: _countryPro.currentProvinceID,
+      areaID: _countryPro.currentAreaID,
+    );
+
+
     return Form(
       key: _formKey,
       child: Column(
@@ -206,29 +217,32 @@ class _RegisterState extends State<Register> {
                 color: Colorz.BloodRed,
               ),
 
-              DreamBox(
-                height: 50,
-                color: Colorz.WhiteGlass,
-                verseScaleFactor: 0.7,
-                verse: Wordz.register(context),
-                boxMargins: EdgeInsets.all(10),
-                boxFunction: () async {
-                  if(_formKey.currentState.validate()){
-                    _triggerLoading();
-                    dynamic result = await _auth.registerWithEmailAndPassword(_email, _password);
-                    print('register result is : $result');
-                    if ('$result' == '[firebase_auth/email-already-in-use] The email address is already in use by another account.')
-                    {setState(() {_error = Wordz.emailAlreadyRegistered(context);}); _triggerLoading();}
-                    else if('$result' == '[firebase_auth/invalid-email] The email address is badly formatted.')
-                    {setState(() {_error = Wordz.emailWrong(context);}); _triggerLoading();}
-                    else if(result == null){setState(() {_error = 'something is wrong';}); _triggerLoading();}
-                    else if(result.runtimeType == UserModel)
-                    {
-                      setState(() {_error = ''; _triggerLoading();});
-                      goToRoute(context, Routez.Home); // should go to data entry page then confirm then homepage
+              ChangeNotifierProvider.value(
+                value: _countryPro,
+                child: DreamBox(
+                  height: 50,
+                  color: Colorz.WhiteGlass,
+                  verseScaleFactor: 0.7,
+                  verse: Wordz.register(context),
+                  boxMargins: EdgeInsets.all(10),
+                  boxFunction: () async {
+                    if(_formKey.currentState.validate()){
+                      _triggerLoading();
+                      dynamic result = await _auth.registerWithEmailAndPassword(context, _currentHQ, _email, _password);
+                      print('register result is : $result');
+                      if ('$result' == '[firebase_auth/email-already-in-use] The email address is already in use by another account.')
+                      {setState(() {_error = Wordz.emailAlreadyRegistered(context);}); _triggerLoading();}
+                      else if('$result' == '[firebase_auth/invalid-email] The email address is badly formatted.')
+                      {setState(() {_error = Wordz.emailWrong(context);}); _triggerLoading();}
+                      else if(result == null){setState(() {_error = 'something is wrong';}); _triggerLoading();}
+                      else if(result.runtimeType == UserModel)
+                      {
+                        setState(() {_error = ''; _triggerLoading();});
+                        goToRoute(context, Routez.Home); // should go to data entry page then confirm then homepage
+                      }
                     }
-                  }
-                },
+                  },
+                ),
               ),
 
               SuperVerse(

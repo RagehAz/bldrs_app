@@ -32,6 +32,7 @@ class ContactFieldBubble extends StatefulWidget {
   final Function horusOnTapUp;
   final Function horusOnTapCancel;
   final String leadingIcon;
+  final TextInputType keyboardTextInputType;
 
   ContactFieldBubble({
     @required this.title,
@@ -53,6 +54,7 @@ class ContactFieldBubble extends StatefulWidget {
     this.horusOnTapUp,
     this.horusOnTapCancel,
     this.leadingIcon,
+    this.keyboardTextInputType = TextInputType.url,
   });
 
   @override
@@ -84,7 +86,6 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
 
     return
       InPyramidsBubble(
-          bubbleColor: Colorz.WhiteAir,
           columnChildren: <Widget>[
 
             Container(
@@ -155,7 +156,7 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
                           fieldIsFormField: widget.fieldIsFormField,
                           hintText: widget.hintText,
                           counterIsOn: false,
-                          keyboardTextInputType: TextInputType.url,
+                          keyboardTextInputType: widget.keyboardTextInputType,
                           textController: paste == '' ? widget.textController : pasteController,
                           onChanged: widget.textOnChanged,
                           onSaved: widget.onSaved,
