@@ -329,10 +329,6 @@ class _CreateBzScreenState extends State<CreateBzScreen> with TickerProviderStat
     final FlyersProvider _pro = Provider.of<FlyersProvider>(context, listen: false);
     final _user = Provider.of<UserModel>(context, listen: true);
 
-    double screenWidth = superScreenWidth(context);
-    double screenHeight = superScreenHeight(context);
-
-
     return MainLayout(
       tappingRageh: (){print(_currentAreaID);},
 

@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:bldrs/view_brains/drafters/file_formatters.dart';
-import 'package:bldrs/view_brains/drafters/localizers.dart';
+import 'package:bldrs/view_brains/drafters/text_directionz.dart';
 import 'package:bldrs/view_brains/drafters/shadowers.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';

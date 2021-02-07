@@ -1,6 +1,8 @@
 import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:bldrs/models/user_model.dart';
+import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/providers/users_provider.dart';
+import 'package:bldrs/view_brains/localization/localization_constants.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/views/widgets/bubbles/contacts_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/following_bzz_bubble.dart';
@@ -119,8 +121,9 @@ class _ProfileBubblesListState extends State<ProfileBubblesList> {
   @override
   Widget build(BuildContext context) {
 
+
     final _user = Provider.of<UserModel>(context);
-    String email = getEmailFromContacts(_user.contacts);
+    String email = getAContactFromContacts(_user.contacts, ContactType.Email);
     print('_user is ${_user.userID}');
     print(UserProvider(userID: _user.userID).userData);
 
@@ -142,15 +145,7 @@ class _ProfileBubblesListState extends State<ProfileBubblesList> {
 
                 UserBubble(
                   user: userModel,
-                  userStatus: widget.userStatus,
                   switchUserType: widget.switchUserStatus,
-                  userPicture: Iconz.DumAuthorPic,
-                  userName: userModel?.name,
-                  userJobTitle: userModel?.title,
-                  userCompanyName: '__',
-                  userCountry: userModel?.country,
-                  userProvince: userModel?.province,
-                  userArea: userModel?.area,
                   editProfileBtOnTap: widget.switchEditProfile,
                 ),
 
@@ -158,7 +153,7 @@ class _ProfileBubblesListState extends State<ProfileBubblesList> {
                 StatusBubble(
                   status: widget.status,
                   switchUserStatus: widget.switchUserStatus,
-                  userStatus: widget.userStatus,
+                  userStatus: userModel.userStatus,
                   currentUserStatus: widget.currentUserStatus,
                   openEnumLister: widget.openEnumLister,
                 ),

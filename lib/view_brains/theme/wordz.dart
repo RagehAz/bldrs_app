@@ -469,5 +469,18 @@ class Wordz{
   // static String yem (BuildContext context) => translate(context, 'yem');
   // static String zmb (BuildContext context) => translate(context, 'zmb');
   // static String zwe (BuildContext context) => translate(context, 'zwe');
+  static String xxx16 (BuildContext context) => translate(context, 'xxx16');
+  static String january (BuildContext context) => translate(context, 'january');
+  static String february (BuildContext context) => translate(context, 'february');
+  static String march (BuildContext context) => translate(context, 'march');
+  static String april (BuildContext context) => translate(context, 'april');
+  static String may (BuildContext context) => translate(context, 'may');
+  static String june (BuildContext context) => translate(context, 'june');
+  static String july (BuildContext context) => translate(context, 'july');
+  static String august (BuildContext context) => translate(context, 'august');
+  static String september (BuildContext context) => translate(context, 'september');
+  static String october (BuildContext context) => translate(context, 'october');
+  static String november (BuildContext context) => translate(context, 'november');
+  static String december (BuildContext context) => translate(context, 'december');
   static String xxxEND (BuildContext context) => translate(context, 'xxxEND');
 }

@@ -19,6 +19,7 @@ import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -38,22 +39,61 @@ class EditProfilePage extends StatefulWidget {
 
 class _EditProfilePageState extends State<EditProfilePage> {
   final _formKey = GlobalKey<FormState>();
-  File   _currentPic;
   String _currentName;
-  String _currentJobTitle;
+  File   _currentPic;
+  String _currentTitle;
   String _currentCompany;
+  Gender _currentGender;
   String _currentCountryID;
   String _currentProvinceID;
   String _currentAreaID;
-  String _currentEmail;
+  String _currentLanguageCode;
+  GeoPoint _currentPosition;
+  // --------------------
   String _currentPhone;
+  String _currentEmail;
+  String _currentWebsite;
   String _currentFacebook;
-  String _currentInstagram;
   String _currentLinkedIn;
   String _currentYouTube;
+  String _currentInstagram;
   String _currentPinterest;
-  String _currentTiktok;
-// ---------------------------------------------------------------------------
+  String _currentTikTok;
+  String _currentTwitter;
+  // ---------------------------------------------------------------------------
+  @override
+  void initState() {
+    UserModel user = Provider.of<UserModel>(context, listen: false);
+    print('xxxxxxxxxxxxxxxxxxxxxxxxxxxx user is ${user.userID}');
+    _currentName = user.name;
+    _currentPic = File(user.pic);
+    _currentTitle = user.title;
+    _currentCompany = user.company;
+    _currentGender = user.gender;
+    _currentCountryID = user.country;
+    _currentProvinceID = user.province;
+    _currentAreaID = user.area;
+    _currentLanguageCode = user.language;
+    _currentPosition = user.position;
+    // --------------------
+    _currentPhone = getAContactFromContacts(user.contacts, ContactType.Phone);
+    _currentEmail = getAContactFromContacts(user.contacts, ContactType.Email);
+    _currentWebsite = getAContactFromContacts(user.contacts, ContactType.WebSite);
+    _currentFacebook = getAContactFromContacts(user.contacts, ContactType.Facebook);
+    _currentLinkedIn = getAContactFromContacts(user.contacts, ContactType.LinkedIn);
+    _currentYouTube = getAContactFromContacts(user.contacts, ContactType.YouTube);
+    _currentInstagram = getAContactFromContacts(user.contacts, ContactType.Instagram);
+    _currentPinterest = getAContactFromContacts(user.contacts, ContactType.Pinterest);
+    _currentTikTok = getAContactFromContacts(user.contacts, ContactType.TikTok);
+    _currentTwitter = getAContactFromContacts(user.contacts, ContactType.Twitter);
+    // --------------------
+    super.initState();
+  }
+  // ---------------------------------------------------------------------------
+  void _changeName(String val){
+    setState(()=> _currentName = val);
+  }
+  // ---------------------------------------------------------------------------
   Future<void> _takeGalleryPicture() async {
     final _picker = ImagePicker();
     final _imageFile = await _picker.getImage(
@@ -72,31 +112,119 @@ class _EditProfilePageState extends State<EditProfilePage> {
     // final _savedImage = await _currentPic.copy('${_appDir.path}/$_fileName');
     // _selectImage(savedImage);
   }
-// ---------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------
   void _deleteLogo(){
     setState(() {
       _currentPic = null;
     });
   }
-  // ----------------------------------------------------------------------
+  // ---------------------------------------------------------------------------
+  void _changeTitle(String val){
+    setState(()=> _currentTitle = val);
+  }
+  // ---------------------------------------------------------------------------
+  void _changeCompany(String val){
+    setState(()=> _currentCompany = val);
+  }
+  // ---------------------------------------------------------------------------
+  void _changeGender(Gender gender){
+    setState(()=> _currentGender = gender);
+  }
+  // ---------------------------------------------------------------------------
   void _changeCountry(String countryID){
     setState(() {
       _currentCountryID = countryID;
     });
   }
-  // ----------------------------------------------------------------------
+  // ---------------------------------------------------------------------------
   void _changeProvince(String provinceID){
     setState(() {
       _currentProvinceID = provinceID;
     });
   }
-  // ----------------------------------------------------------------------
+  // ---------------------------------------------------------------------------
   void _changeArea(String areaID){
     setState(() {
       _currentAreaID = areaID;
     });
   }
-  // ----------------------------------------------------------------------
+  // ---------------------------------------------------------------------------
+  void _changeLanguage(String languageCode){
+    setState(() => _currentLanguageCode = languageCode );
+  }
+  // ---------------------------------------------------------------------------
+  void _changePosition(GeoPoint geoPoint){
+    setState(() => _currentPosition = geoPoint );
+  }
+  // ---------------------------------------------------------------------------
+  void _changePhone(String val){
+    setState(() => _currentPhone = val);
+  }
+  // ---------------------------------------------------------------------------
+  void _changeEmail(String val){
+    setState(() => _currentEmail = val );
+  }
+  // ---------------------------------------------------------------------------
+  void _changeWebsite(String val){
+    setState(() => _currentWebsite = val );
+  }
+  // ---------------------------------------------------------------------------
+  void _changeFacebook(String val){
+    setState(() => _currentFacebook = val );
+  }
+  // ---------------------------------------------------------------------------
+  void _changeLinkedIn(String val){
+    setState(() => _currentLinkedIn = val );
+  }
+  // ---------------------------------------------------------------------------
+  void _changeYouTube(String val){
+    setState(() => _currentYouTube = val );
+  }
+  // ---------------------------------------------------------------------------
+  void _changeInstagram(String val){
+    setState(() => _currentInstagram = val );
+  }
+  // ---------------------------------------------------------------------------
+  void _changePinterest(String val){
+    setState(() => _currentPinterest = val );
+  }
+  // ---------------------------------------------------------------------------
+  void _changeTikTok(String val){
+    setState(() => _currentTikTok = val );
+  }
+  // ---------------------------------------------------------------------------
+  void _changeTwitter(String val){
+    setState(() => _currentTwitter = val );
+  }
+  // ---------------------------------------------------------------------------
+
+  List<ContactModel> _createContactList(List<ContactModel> existingContacts){
+    List<ContactModel> newContacts = new List();
+    // _currentEmail = getEmailFromContacts(existingContacts);
+
+    /// _currentEmail
+    if (_currentEmail != null){newContacts.add(ContactModel(contact: _currentEmail, contactType: ContactType.Email));}
+    /// _currentWebsite
+    if (_currentWebsite != null){newContacts.add(ContactModel(contact: _currentWebsite, contactType: ContactType.WebSite));}
+    /// _currentPhone
+    if (_currentPhone != null){newContacts.add(ContactModel(contact: _currentPhone, contactType: ContactType.Phone));}
+    /// _currentFacebook
+    if (_currentFacebook != null){newContacts.add(ContactModel(contact: _currentFacebook, contactType: ContactType.Facebook));}
+    /// _currentInstagram
+    if (_currentInstagram != null){newContacts.add(ContactModel(contact: _currentInstagram, contactType: ContactType.Instagram));}
+    /// _currentLinkedIn
+    if (_currentLinkedIn != null){newContacts.add(ContactModel(contact: _currentLinkedIn, contactType: ContactType.LinkedIn));}
+    /// _currentYouTube
+    if (_currentYouTube != null){newContacts.add(ContactModel(contact: _currentYouTube, contactType: ContactType.YouTube));}
+    /// _currentPinterest
+    if (_currentPinterest != null){newContacts.add(ContactModel(contact: _currentPinterest, contactType: ContactType.Pinterest));}
+    /// _currentTikTok
+    if (_currentTikTok != null){newContacts.add(ContactModel(contact: _currentTikTok, contactType: ContactType.TikTok));}
+    /// _currentTwitter
+    if (_currentTwitter != null){newContacts.add(ContactModel(contact: _currentTwitter, contactType: ContactType.Twitter));}
+
+    return newContacts;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -105,7 +233,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
     // print('_currentPic : $_currentPic ,'
     //     '_currentName : $_currentName ,'
-    //     '_currentJobTitle : $_currentJobTitle ,'
+    //     '_currentTitle : $_currentTitle ,'
     //     '_currentCompany : $_currentCompany ,'
     //     '_currentCountryID : $_currentCountryID ,'
     //     '_currentProvinceID : $_currentProvinceID ,'
@@ -117,7 +245,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     //     ' _currentLinkedIn : $_currentLinkedIn ,'
     //     ' _currentYouTube : $_currentYouTube ,'
     //     ' _currentPinterest : $_currentPinterest ,'
-    //     ' _currentTiktok : $_currentTiktok ,'
+    //     ' _currentTikTok : $_currentTikTok ,'
     //     '');
 
     return StreamBuilder<UserModel>(
@@ -127,7 +255,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
           return LoadingFullScreenLayer();
         } else {
           UserModel userModel = snapshot.data;
-          print('user e-mail is : ${getEmailFromContacts(userModel.contacts)}');
+          print('user e-mail is : ${getAContactFromContacts(userModel.contacts, ContactType.Email)}');
           return Form(
             key: _formKey,
             child: Column(
@@ -175,7 +303,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   keyboardTextInputAction: TextInputAction.next,
                   fieldIsRequired: true,
                   validator: (val) => val.isEmpty ? Wordz.enterName(context) : null,
-                  textOnChanged: (val) => setState(()=> _currentName = val),
+                  textOnChanged: (val) => _changeName(val),
                 ),
 
                 // --- EDIT JOB TITLE
@@ -187,7 +315,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   keyboardTextInputAction: TextInputAction.next,
                   fieldIsRequired: true,
                   validator: (val) => val.isEmpty ? Wordz.enterJobTitle(context) : null,
-                  textOnChanged: (val) => setState(()=> _currentJobTitle = val),
+                  textOnChanged: (val) => _changeTitle(val),
                 ),
 
                 // --- EDIT COMPANY NAME
@@ -198,7 +326,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   keyboardTextInputAction: TextInputAction.next,
                   fieldIsRequired: true,
                   validator: (val) => val.isEmpty ? Wordz.enterCompanyName(context) : null,
-                  textOnChanged: (val) => setState(()=> _currentCompany = val),
+                  textOnChanged: (val) => _changeCompany(val),
                 ),
 
                 LocaleBubble(
@@ -217,7 +345,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   keyboardTextInputAction: TextInputAction.next,
                   fieldIsRequired: true,
                   keyboardTextInputType: TextInputType.emailAddress,
-                  initialTextValue: getEmailFromContacts(userModel.contacts),
+                  initialTextValue: _currentEmail,
+                  textOnChanged: (val) => _changeEmail(val),
                 ),
 
                 // --- EDIT PHONE
@@ -228,6 +357,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   keyboardTextInputAction: TextInputAction.next,
                   fieldIsRequired: false,
                   keyboardTextInputType: TextInputType.phone,
+                  initialTextValue: _currentPhone,
+                  textOnChanged: (val) => _changePhone(val),
                 ),
 
                 ContactFieldBubble(
@@ -235,6 +366,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   title: Wordz.website(context),
                   leadingIcon: Iconz.ComWebsite,
                   keyboardTextInputAction: TextInputAction.next,
+                  fieldIsRequired: false,
+                  keyboardTextInputType: TextInputType.url,
+                  initialTextValue: _currentWebsite,
+                  textOnChanged: (val) => _changeWebsite(val),
                 ),
 
                 ContactFieldBubble(
@@ -242,6 +377,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   title: Wordz.facebookLink(context),
                   leadingIcon: Iconz.ComFacebook,
                   keyboardTextInputAction: TextInputAction.next,
+                  fieldIsRequired: false,
+                  keyboardTextInputType: TextInputType.url,
+                  initialTextValue: _currentFacebook,
+                  textOnChanged: (val) => _changeFacebook(val),
                 ),
 
                 ContactFieldBubble(
@@ -249,6 +388,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   title: Wordz.instagramLink(context),
                   leadingIcon: Iconz.ComInstagram,
                   keyboardTextInputAction: TextInputAction.next,
+                  fieldIsRequired: false,
+                  keyboardTextInputType: TextInputType.url,
+                  initialTextValue: _currentInstagram,
+                  textOnChanged: (val) => _changeInstagram(val),
                 ),
 
                 ContactFieldBubble(
@@ -256,6 +399,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   title: Wordz.linkedinLink(context),
                   leadingIcon: Iconz.ComLinkedin,
                   keyboardTextInputAction: TextInputAction.next,
+                  fieldIsRequired: false,
+                  keyboardTextInputType: TextInputType.url,
+                  initialTextValue: _currentLinkedIn,
+                  textOnChanged: (val) => _changeLinkedIn(val),
                 ),
 
                 ContactFieldBubble(
@@ -263,6 +410,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   title: Wordz.youtubeChannel(context),
                   leadingIcon: Iconz.ComYoutube,
                   keyboardTextInputAction: TextInputAction.next,
+                  fieldIsRequired: false,
+                  keyboardTextInputType: TextInputType.url,
+                  initialTextValue: _currentYouTube,
+                  textOnChanged: (val) => _changeYouTube(val),
                 ),
 
                 ContactFieldBubble(
@@ -270,6 +421,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   title: Wordz.pinterestLink(context),
                   leadingIcon: Iconz.ComPinterest,
                   keyboardTextInputAction: TextInputAction.next,
+                  fieldIsRequired: false,
+                  keyboardTextInputType: TextInputType.url,
+                  initialTextValue: _currentPinterest,
+                  textOnChanged: (val) => _changePinterest(val),
                 ),
 
                 ContactFieldBubble(
@@ -277,6 +432,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   title: Wordz.tiktokLink(context),
                   leadingIcon: Iconz.ComTikTok,
                   keyboardTextInputAction: TextInputAction.done,
+                  fieldIsRequired: false,
+                  keyboardTextInputType: TextInputType.url,
+                  initialTextValue: _currentTikTok,
+                  textOnChanged: (val) => _changeTikTok(val),
                 ),
 
                 // --- CONFIRM BUTTON
@@ -286,28 +445,31 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   boxMargins: EdgeInsets.all(10),
                   boxFunction: ()async{
                     if(_formKey.currentState.validate()){
-                      await UserProvider(userID: _user.userID).updateUserData(
-                        userID: _user.userID ?? '',
-                        // savedFlyersIDs      : _savedFlyersIDs                       ?? [''],
-                        // followedBzzIDs      : _followedBzzIDs                       ?? [''],
-                        // publishedFlyersIDs  : _publishedFlyersIDs                   ?? [''],
-                        name: _currentName ?? userModel.name,
-                        pic: _currentPic ?? userModel.pic,
-                        title: _currentJobTitle ?? userModel.title,
-                        country: _currentCountryID ?? userModel.country,
-                        province: _currentProvinceID ?? userModel.province,
-                        area: _currentAreaID ?? userModel.area,
-                        // whatsAppIsOn        : _currentWhatsApp          ?? false,
-                        // // contacts            : doc.data()['contacts']                ?? [{'type': '', 'value': '', 'show': false}],
-                        // position            : doc.data()['position']                ?? GeoPoint(0, 0),
-                        // // joinedAt            : doc.data()['joinedAt']                ?? DateTime.june,
-                        // gender              : doc.data()['gender']                  ?? '',
-                        // language            : doc.data()['language']                ?? '',
-                        // userStatus          : doc.data()['userStatus']              ?? 1,
+                      await UserProvider(userID: userModel.userID).updateUserData(
+                        // -------------------------
+                        userID : userModel.userID,
+                        joinedAt : userModel.joinedAt,
+                        userStatus : userModel.userStatus ?? UserStatus.NormalUser,
+                        // -------------------------
+                        name : _currentName ?? userModel.name,
+                        pic : _currentPic ?? userModel.pic,
+                        title :  _currentTitle ?? userModel.title,
+                        company: _currentCompany ?? userModel.company,
+                        gender : _currentGender ?? userModel.gender,
+                        country : _currentCountryID ?? userModel.country,
+                        province : _currentProvinceID ?? userModel.province,
+                        area : _currentAreaID ?? userModel.area,
+                        language : Wordz.languageCode(context),
+                        position : _currentPosition ?? userModel.position,
+                        contacts : _createContactList(userModel.contacts),
+                        // -------------------------
+                        savedFlyersIDs : userModel.savedFlyersIDs,
+                        followedBzzIDs : userModel.followedBzzIDs,
+                        // -------------------------
                       );
                     }
                     print(_currentName);
-                    print(_currentJobTitle);
+                    print(_currentTitle);
                     print(_currentCompany);
                   },
                 ),
