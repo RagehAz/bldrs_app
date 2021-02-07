@@ -69,13 +69,14 @@ class UserBalloon extends StatelessWidget {
                   borderRadius: BorderRadius.all(Radius.elliptical(
                       balloonWidth * 0.8 * 0.5, balloonWidth * 0.7 * 0.8 * 0.5)),
                   color: Colorz.Nothing,
-                  boxShadow: [
+                  boxShadow: <CustomBoxShadow>[
                     CustomBoxShadow(
                         color: Colorz.WhiteZircon,
                         offset: new Offset(0, balloonWidth * 0.5 * -0.33),
                         blurRadius: balloonWidth * 0.2,
                         blurStyle: BlurStyle.normal),
-                  ]),
+                  ]
+              ),
             ),
 
             // --- BUTTON GRADIENT
@@ -86,8 +87,8 @@ class UserBalloon extends StatelessWidget {
                 gradient: LinearGradient(
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
-                    colors: [bubbleDarkness, Colorz.BlackLingerie],
-                    stops: [0.65, 0.85]),
+                    colors: <Color>[bubbleDarkness, Colorz.BlackLingerie],
+                    stops: <double>[0.65, 0.85]),
               ),
             ),
 
