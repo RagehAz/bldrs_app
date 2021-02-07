@@ -2,7 +2,7 @@ import 'dart:core';
 import 'package:bldrs/models/bldrs_sections.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/user_model.dart';
-import 'package:bldrs/view_brains/drafters/localizers.dart';
+import 'package:bldrs/view_brains/drafters/text_directionz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/widgets/buttons/balloons/path_building_user.dart';
@@ -69,6 +69,7 @@ CustomClipper<Path> userBalloon(UserStatus userType) {
   userType == UserStatus.PlanningUser ? PlanningUserBalloon() :
   userType == UserStatus.BuildingUser ? BuildingUserBalloon() :
   userType == UserStatus.SellingUser ? SellingUserBalloon() :
+  userType == null ? NormalUserBalloon() :
   NormalUserBalloon();
   return userBalloon;
 }

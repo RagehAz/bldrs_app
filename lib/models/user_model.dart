@@ -1,7 +1,7 @@
 import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
-/// any changes in this model should reflect on this [DatabaseService]
+/// any changes in this model should reflect on this [UserProvider]
 class UserModel {
   final String userID;
   final DateTime joinedAt;
@@ -10,7 +10,8 @@ class UserModel {
   final String name;
   final String pic;
   final String title;
-  final Gender gender;
+  final String company;
+  final Gender gender; // should be both gender and name tittle Mr, Mrs, Ms, Dr, Eng, Arch, ...
   final String country;
   final String province;
   final String area;
@@ -29,6 +30,7 @@ class UserModel {
     this.name,
     this.pic,
     this.title,
+    this.company,
     this.gender,
     this.country,
     this.province,

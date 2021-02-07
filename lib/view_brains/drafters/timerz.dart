@@ -1,3 +1,5 @@
+import 'package:bldrs/view_brains/theme/wordz.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 // -----------------------------------------------------------------
 /// "2019-07-19 8:40:23"
@@ -9,5 +11,22 @@ String cipherDateTimeToString(DateTime dateTime){
 // -----------------------------------------------------------------
 DateTime decipherDateTimeString(String dateTimeString){
   return dateFormat?.parse(dateTimeString);
+}
+// -----------------------------------------------------------------
+String getMonthNameByInt(BuildContext context, int month){
+  switch (month){
+    case 1    :    return  Wordz.january(context);  break;
+    case 2    :    return  Wordz.february(context);  break;
+    case 3    :    return  Wordz.march(context);  break;
+    case 4    :    return  Wordz.april(context);  break;
+    case 5    :    return  Wordz.may(context);  break;
+    case 6    :    return  Wordz.june(context);  break;
+    case 7    :    return  Wordz.july(context);  break;
+    case 8    :    return  Wordz.august(context);  break;
+    case 9    :    return  Wordz.september(context);  break;
+    case 11   :    return  Wordz.november(context);  break;
+    case 12   :    return  Wordz.december(context);  break;
+    default : return null;
+  }
 }
 // -----------------------------------------------------------------

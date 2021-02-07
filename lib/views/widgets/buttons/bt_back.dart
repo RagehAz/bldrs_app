@@ -1,5 +1,5 @@
 import 'package:bldrs/view_brains/drafters/iconizers.dart';
-import 'package:bldrs/view_brains/drafters/localizers.dart';
+import 'package:bldrs/view_brains/drafters/text_directionz.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
