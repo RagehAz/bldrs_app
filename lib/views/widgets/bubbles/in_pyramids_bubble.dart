@@ -12,7 +12,7 @@ final Color bubbleColor;
   InPyramidsBubble({
     @required this.columnChildren,
     this.centered = false,
-    this.bubbleColor = Colorz.WhiteAir,
+    this.bubbleColor = Colorz.WhiteGlass,
 });
 
   @override

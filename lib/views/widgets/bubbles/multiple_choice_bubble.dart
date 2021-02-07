@@ -62,7 +62,6 @@ class MultipleChoiceBubble extends StatelessWidget {
 
           ),
 
-
         ]
     );
   }

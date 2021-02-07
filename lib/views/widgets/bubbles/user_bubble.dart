@@ -10,25 +10,29 @@ import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class UserBubble extends StatelessWidget {
+  final UserModel user;
   final UserStatus userStatus;
   final Function switchUserType;
   final String userPicture;
   final String userName;
   final String userJobTitle;
   final String userCompanyName;
-  final String userCity;
   final String userCountry;
+  final String userProvince;
+  final String userArea;
   final Function editProfileBtOnTap;
 
   UserBubble({
+    @required this.user,
     @required this.userStatus,
     @required this.switchUserType,
     @required this.userPicture,
     @required this.userName,
     @required this.userJobTitle,
     @required this.userCompanyName,
-    @required this.userCity,
     @required this.userCountry,
+    @required this.userProvince,
+    @required this.userArea,
     @required this.editProfileBtOnTap,
   });
 
@@ -65,14 +69,14 @@ class UserBubble extends StatelessWidget {
 
         UserBalloon(
           balloonWidth: 80,
-          userStatus: userStatus,
-          userPic: userPicture,
+          userStatus: user.userStatus,
+          userPic: user.pic,
           onTap: (){print('balloon tap');},
         ),
 
         // --- USER NAME
         SuperVerse(
-          verse: userName,
+          verse: user.name,
           shadow: true,
           size: 4,
           margin: 5,
@@ -82,7 +86,7 @@ class UserBubble extends StatelessWidget {
 
         // --- USER JOB TITLE
         SuperVerse(
-          verse: '$userJobTitle @ $userCompanyName',
+          verse: '${user.title} @ \$user.company',
           size: 2,
           italic: true,
           weight: VerseWeight.thin,
@@ -90,12 +94,23 @@ class UserBubble extends StatelessWidget {
 
         // --- USER LOCALE
         SuperVerse(
-          verse: 'in $userCity, $userCountry',
+          verse: 'in ${user.area}, ${user.province}, ${user.country}',
           weight: VerseWeight.thin,
           italic: true,
           color: Colorz.Grey,
           size: 2,
         ),
+
+        // --- Joined at
+        SuperVerse(
+          verse: 'Joint in ${user.joinedAt}',
+          weight: VerseWeight.thin,
+          italic: true,
+          color: Colorz.Grey,
+          size: 1,
+        ),
+
+
 
         SizedBox(
           width: screenWidth,

@@ -4,15 +4,16 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 /// any changes in this model should reflect on this [DatabaseService]
 class UserModel {
   final String userID;
-  // final DateTime joinedAt;
+  final DateTime joinedAt;
   final UserStatus userStatus;
   // -------------------------
   final String name;
   final String pic;
   final String title;
-  final String gender;
+  final Gender gender;
   final String country;
-  final String city;
+  final String province;
+  final String area;
   final String language;
   final GeoPoint position;
   final List<ContactModel> contacts;
@@ -22,7 +23,7 @@ class UserModel {
 // ###############################
   UserModel({
     this.userID,
-    // this.joinedAt,
+    this.joinedAt,
     this.userStatus,
     // -------------------------
     this.name,
@@ -30,7 +31,8 @@ class UserModel {
     this.title,
     this.gender,
     this.country,
-    this.city,
+    this.province,
+    this.area,
     this.language,
     this.position,
     this.contacts,
@@ -82,6 +84,30 @@ int cipherUserStatus (UserStatus userStatus){
     case UserStatus.BuildingUser     :  return 5; break ;
     case UserStatus.SellingUser      :  return 6; break ;
     case UserStatus.BzAuthor         :  return 7; break ;
+    default : return null;
+  }
+}
+// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+enum Gender {
+  male,
+  female,
+  any,
+}
+// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+Gender decipherGender (int gender){
+  switch (gender){
+    case 0:   return   Gender.female; break;
+    case 1:   return   Gender.male; break;
+    case 2:   return   Gender.any; break;
+    default : return   null;
+  }
+}
+// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+int cipherGender(Gender gender){
+  switch (gender){
+    case Gender.female : return 0; break ;
+    case Gender.male : return 1; break ;
+    case Gender.any : return 2; break ;
     default : return null;
   }
 }

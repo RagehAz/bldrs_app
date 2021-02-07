@@ -48,7 +48,6 @@ class AddGalleryPicBubble extends StatelessWidget {
 
 
     return InPyramidsBubble(
-        bubbleColor: Colorz.WhiteAir,
         centered: true,
         columnChildren: <Widget>[
 

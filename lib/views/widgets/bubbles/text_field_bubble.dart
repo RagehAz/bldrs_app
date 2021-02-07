@@ -67,7 +67,7 @@ class TextFieldBubble extends StatelessWidget {
     this.leadingIcon,
     this.pasteFunction,
     this.textDirection,
-    this.bubbleColor = Colorz.WhiteAir,
+    this.bubbleColor = Colorz.WhiteGlass,
   });
 
   @override

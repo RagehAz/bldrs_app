@@ -1,22 +1,16 @@
 import 'package:flutter/foundation.dart';
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
 class ContactModel{
-  final String contactID; // can delete later
-  final String ownerID; // can delete later
   final String contact;
   final ContactType contactType;
 // ###############################
   ContactModel({
-    this.contactID,
-    this.ownerID,
     @required this.contact,
     @required this.contactType,
   });
 // ###############################
   Map<String,Object> toMap(){
     return {
-      'contactID' : contactID,
-      'ownerID' : ownerID,
       'contact' : contact,
       'contactType' : cipherContactType(contactType),
     };
@@ -105,3 +99,8 @@ List<ContactType> contactTypesList = [
   ContactType.YouTube,
 ];
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+String getEmailFromContacts(List<ContactModel> contacts){
+  String email = contacts?.singleWhere((x) => x.contactType == ContactType.Email, orElse: ()=>null)?.contact;
+
+  return email;
+}

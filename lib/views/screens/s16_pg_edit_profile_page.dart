@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/users_provider.dart';
 import 'package:bldrs/view_brains/drafters/borderers.dart';
@@ -9,6 +10,7 @@ import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/widgets/bubbles/add_gallery_pic_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/contact_field_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
+import 'package:bldrs/views/widgets/bubbles/locale_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/text_field_bubble.dart';
 import 'package:bldrs/views/widgets/loading/loading.dart';
 // import 'package:path_provider/path_provider.dart' as sysPaths;
@@ -36,20 +38,21 @@ class EditProfilePage extends StatefulWidget {
 
 class _EditProfilePageState extends State<EditProfilePage> {
   final _formKey = GlobalKey<FormState>();
-  File    _currentPic;
-  String  _currentName;
-  String  _currentJobTitle;
-  String  _currentCompany;
-  String  _currentCity;
-  String  _currentCountry;
-  String  _currentEmail;
-  String  _currentPhone;
-  String  _currentFacebook;
-  String  _currentInstagram;
-  String  _currentLinkedIn;
-  String  _currentYouTube;
-  String  _currentPinterest;
-  String  _currentTiktok;
+  File   _currentPic;
+  String _currentName;
+  String _currentJobTitle;
+  String _currentCompany;
+  String _currentCountryID;
+  String _currentProvinceID;
+  String _currentAreaID;
+  String _currentEmail;
+  String _currentPhone;
+  String _currentFacebook;
+  String _currentInstagram;
+  String _currentLinkedIn;
+  String _currentYouTube;
+  String _currentPinterest;
+  String _currentTiktok;
 // ---------------------------------------------------------------------------
   Future<void> _takeGalleryPicture() async {
     final _picker = ImagePicker();
@@ -75,43 +78,62 @@ class _EditProfilePageState extends State<EditProfilePage> {
       _currentPic = null;
     });
   }
-// ---------------------------------------------------------------------------
+  // ----------------------------------------------------------------------
+  void _changeCountry(String countryID){
+    setState(() {
+      _currentCountryID = countryID;
+    });
+  }
+  // ----------------------------------------------------------------------
+  void _changeProvince(String provinceID){
+    setState(() {
+      _currentProvinceID = provinceID;
+    });
+  }
+  // ----------------------------------------------------------------------
+  void _changeArea(String areaID){
+    setState(() {
+      _currentAreaID = areaID;
+    });
+  }
+  // ----------------------------------------------------------------------
+
   @override
   Widget build(BuildContext context) {
 
     final _user = Provider.of<UserModel>(context);
 
-    print('_currentPic : $_currentPic ,'
-        '_currentName : $_currentName ,'
-        '_currentJobTitle : $_currentJobTitle ,'
-        '_currentCompany : $_currentCompany ,'
-        '_currentCity : $_currentCity ,'
-        '_currentCountry : $_currentCountry ,'
-        '_currentEmail : $_currentEmail ,'
-        '_currentPhone : $_currentPhone ,'
-        '_currentFacebook : $_currentFacebook ,'
-        ' _currentInstagram : $_currentInstagram ,'
-        ' _currentLinkedIn : $_currentLinkedIn ,'
-        ' _currentYouTube : $_currentYouTube ,'
-        ' _currentPinterest : $_currentPinterest ,'
-        ' _currentTiktok : $_currentTiktok ,'
-        '');
+    // print('_currentPic : $_currentPic ,'
+    //     '_currentName : $_currentName ,'
+    //     '_currentJobTitle : $_currentJobTitle ,'
+    //     '_currentCompany : $_currentCompany ,'
+    //     '_currentCountryID : $_currentCountryID ,'
+    //     '_currentProvinceID : $_currentProvinceID ,'
+    //     '_currentAreaID : $_currentAreaID ,'
+    //     '_currentEmail : $_currentEmail ,'
+    //     '_currentPhone : $_currentPhone ,'
+    //     '_currentFacebook : $_currentFacebook ,'
+    //     ' _currentInstagram : $_currentInstagram ,'
+    //     ' _currentLinkedIn : $_currentLinkedIn ,'
+    //     ' _currentYouTube : $_currentYouTube ,'
+    //     ' _currentPinterest : $_currentPinterest ,'
+    //     ' _currentTiktok : $_currentTiktok ,'
+    //     '');
 
     return StreamBuilder<UserModel>(
       stream: UserProvider(userID: _user.userID).userData,
       builder: (context, snapshot){
         if(snapshot.hasData == false){
-          return Container(
-              width: superScreenWidth(context),
-              height: superScreenWidth(context),
-              child: Center(child: Loading()));
+          return LoadingFullScreenLayer();
         } else {
           UserModel userModel = snapshot.data;
+          print('user e-mail is : ${getEmailFromContacts(userModel.contacts)}');
           return Form(
             key: _formKey,
             child: Column(
               children: <Widget>[
 
+                // --- PAGE TITLE
                 Container(
                   margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   child: Row(
@@ -137,13 +159,14 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   ),
                 ),
 
-                // --- ADD LOGO
+                // --- EDIT PIC
                 AddGalleryPicBubble(
                   logo: _currentPic,
                   addBtFunction: _takeGalleryPicture,
                   deleteLogoFunction: _deleteLogo,
                 ),
 
+                // --- EDIT NAME
                 TextFieldBubble(
                   fieldIsFormField: true,
                   title: Wordz.name(context),
@@ -155,6 +178,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   textOnChanged: (val) => setState(()=> _currentName = val),
                 ),
 
+                // --- EDIT JOB TITLE
                 TextFieldBubble(
                   fieldIsFormField: true,
                   title: Wordz.jobTitle(context),
@@ -166,6 +190,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   textOnChanged: (val) => setState(()=> _currentJobTitle = val),
                 ),
 
+                // --- EDIT COMPANY NAME
                 TextFieldBubble(
                   fieldIsFormField: true,
                   title: Wordz.companyName(context),
@@ -176,31 +201,33 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   textOnChanged: (val) => setState(()=> _currentCompany = val),
                 ),
 
-                TextFieldBubble(
-                  fieldIsFormField: true,
-                  title: '${Wordz.city(context)}, ${Wordz.country(context)}',
-                  keyboardTextInputType: TextInputType.name,
-                  keyboardTextInputAction: TextInputAction.next,
-                  fieldIsRequired: true,
+                LocaleBubble(
+                  title : 'Preferred Location',
+                  changeCountry : (countryID) => _changeCountry(countryID),
+                  changeProvince : (provinceID) => _changeProvince(provinceID),
+                  changeArea : (areaID) => _changeArea(areaID),
+                  hq: HQ(countryID: userModel.country, provinceID: userModel.province, areaID: userModel.area),
                 ),
 
-                TextFieldBubble(
+                // --- EDIT EMAIL
+                ContactFieldBubble(
                   fieldIsFormField: true,
                   title: Wordz.emailAddress(context),
-                  initialTextValue: userModel.userID, // works
-                  keyboardTextInputType: TextInputType.emailAddress,
+                  leadingIcon: Iconz.ComEmail,
                   keyboardTextInputAction: TextInputAction.next,
                   fieldIsRequired: true,
-                  leadingIcon: Iconz.ComEmail,
+                  keyboardTextInputType: TextInputType.emailAddress,
+                  initialTextValue: getEmailFromContacts(userModel.contacts),
                 ),
 
-                TextFieldBubble(
+                // --- EDIT PHONE
+                ContactFieldBubble(
                   fieldIsFormField: true,
                   title: Wordz.phone(context),
-                  keyboardTextInputType: TextInputType.phone,
-                  keyboardTextInputAction: TextInputAction.next,
                   leadingIcon: Iconz.ComPhone,
-                  textDirection: TextDirection.ltr,
+                  keyboardTextInputAction: TextInputAction.next,
+                  fieldIsRequired: false,
+                  keyboardTextInputType: TextInputType.phone,
                 ),
 
                 ContactFieldBubble(
@@ -260,14 +287,16 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   boxFunction: ()async{
                     if(_formKey.currentState.validate()){
                       await UserProvider(userID: _user.userID).updateUserData(
-                        userID              : _user.userID                  ?? '',
+                        userID: _user.userID ?? '',
                         // savedFlyersIDs      : _savedFlyersIDs                       ?? [''],
                         // followedBzzIDs      : _followedBzzIDs                       ?? [''],
                         // publishedFlyersIDs  : _publishedFlyersIDs                   ?? [''],
-                        name                : _currentName ?? userModel.name,
-                        pic                 : _currentPic ?? userModel.pic,
-                        title               : _currentJobTitle ?? userModel.title,
-                        city                : _currentCity ?? userModel.city
+                        name: _currentName ?? userModel.name,
+                        pic: _currentPic ?? userModel.pic,
+                        title: _currentJobTitle ?? userModel.title,
+                        country: _currentCountryID ?? userModel.country,
+                        province: _currentProvinceID ?? userModel.province,
+                        area: _currentAreaID ?? userModel.area,
                         // whatsAppIsOn        : _currentWhatsApp          ?? false,
                         // // contacts            : doc.data()['contacts']                ?? [{'type': '', 'value': '', 'show': false}],
                         // position            : doc.data()['position']                ?? GeoPoint(0, 0),
