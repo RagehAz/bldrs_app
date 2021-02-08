@@ -1,9 +1,7 @@
-import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/users_provider.dart';
 import 'package:bldrs/views/widgets/bubbles/contacts_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/following_bzz_bubble.dart';
-import 'package:bldrs/views/widgets/bubbles/status_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/user_bubble.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart' show PyramidsHorizon, Stratosphere;
 import 'package:bldrs/views/widgets/loading/loading.dart';
@@ -17,7 +15,6 @@ class ProfilePage extends StatefulWidget {
   final UserStatus userStatus;
   final Function switchUserStatus;
   final UserStatus currentUserStatus;
-  // final List<FlyerData> bzLogos;
   final Function openEnumLister;
 
   ProfilePage({
@@ -25,7 +22,6 @@ class ProfilePage extends StatefulWidget {
     @required this.userStatus,
     @required this.switchUserStatus,
     @required this.currentUserStatus,
-    // @required this.bzLogos,
     @required this.openEnumLister,
 });
 
@@ -44,17 +40,9 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+
     // final List<UserModel> _userStream = Provider.of<List<UserModel>>(context) ?? [];
     // String _userID = _userStream.length < 1 ? '' : _userStream[0]?.userID;
-    // print(_userID);
-    // _userStream?.forEach((user) {
-    //   print('name : ${user.name}');
-    //   print('userID : ${user.userID}');
-    //   print('savedFlyersIDs : ${user.savedFlyersIDs}');
-    //   // print('email : ${user.contacts[0]['value']}');
-    //   // print('joined at : ${user.joinedAt}');
-    // });
-
 
     return SliverList(
       delegate:
@@ -95,7 +83,6 @@ class ProfileBubblesList extends StatefulWidget {
   final UserStatus userStatus;
   final Function switchUserStatus;
   final UserStatus currentUserStatus;
-  // final List<FlyerData> bzLogos;
   final Function openEnumLister;
   final Function switchEditProfile;
 
@@ -104,7 +91,6 @@ class ProfileBubblesList extends StatefulWidget {
     @required this.userStatus,
     @required this.switchUserStatus,
     @required this.currentUserStatus,
-    // @required this.bzLogos,
     @required this.openEnumLister,
     @required this.switchEditProfile,
   });
