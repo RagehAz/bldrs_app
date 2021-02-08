@@ -13,6 +13,7 @@ class FollowingBzzBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     final FlyersProvider pro = Provider.of<FlyersProvider>(context, listen: false);
     // final user = Provider.of<UserModel>(context);
     // List<dynamic> followedBzzIDs = [ 'pp3', ...(user?.followedBzzIDs)];
@@ -22,6 +23,7 @@ class FollowingBzzBubble extends StatelessWidget {
       centered: false,
       columnChildren: <Widget>[
 
+        // --- BUBBLE TITLE
         SuperVerse(
           verse: 'Following ${10} Businesses',
           size: 2,
@@ -30,13 +32,12 @@ class FollowingBzzBubble extends StatelessWidget {
           color: Colorz.Grey,
         ),
 
-
+        // --- FOLLOWING BZZ GRID
         BzGrid(
           gridZoneWidth: superScreenWidth(context) - Ratioz.ddAppBarMargin * 4,
           bzz: followedBzz,
           numberOfColumns: 7,
         ),
-
 
       ],
     );
