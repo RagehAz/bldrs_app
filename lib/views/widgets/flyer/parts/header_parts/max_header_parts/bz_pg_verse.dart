@@ -95,13 +95,13 @@ class _BzAboutVerseState extends State<BzAboutVerse> {
                   children: <Widget>[
 
                     SuperVerse(
-                      verse: '${Wordz.about(context)}\n${widget.bzName}',
+                      verse: '${Wordz.about(context)} ${widget.bzName}',
                       size: 2,
                       weight: VerseWeight.thin,
                       italic: false,
                       margin: 10,
                       color: Colorz.Grey,
-                      maxLines: 2,
+                      maxLines: 3,
                     ),
 
                     SuperVerse(

@@ -36,6 +36,7 @@ class SingleSlide extends StatefulWidget {
   final BoxFit boxFit;
   final TextEditingController titleController;
   final Function textFieldOnChanged;
+  final Color slideColor;
 
   SingleSlide({
     @required this.flyerZoneWidth,
@@ -50,6 +51,7 @@ class SingleSlide extends StatefulWidget {
     this.boxFit = BoxFit.cover,
     this.titleController,
     this.textFieldOnChanged,
+    this.slideColor,
   });
 
   @override
@@ -130,6 +132,7 @@ class _SingleSlideState extends State<SingleSlide> {
       alignment: Alignment.topCenter,
       decoration: BoxDecoration(
         borderRadius: superFlyerCorners(context, widget.flyerZoneWidth),
+        color: widget.slideColor,
         image: widget.picture == null ||
             widget.slideMode == SlideMode.Empty ||
             objectIsURL(widget.picFile) == true ||

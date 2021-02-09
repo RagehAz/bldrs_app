@@ -36,7 +36,7 @@ class TileBubble extends StatelessWidget {
         splashColor: Colorz.WhiteSmoke,
         child: InPyramidsBubble(
 
-          bubbleColor: Colorz.WhiteAir,
+          bubbleColor: Colorz.WhiteGlass,
           columnChildren: <Widget>[
 
             Row(

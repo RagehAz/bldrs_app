@@ -4,10 +4,13 @@ import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/sub_models/contact_model.dart';
+import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/view_brains/drafters/timerz.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+
+import 'users_provider.dart';
 
 const String realtimeDatabaseLink = 'https://bldrsnet.firebaseio.com/';
 const String realtimeDatabaseFlyersPath = '${realtimeDatabaseLink}flyers.json';
@@ -168,7 +171,7 @@ void addFlyer(FlyerModel flyer){
     notifyListeners();
 }
 // ---------------------------------------------------------------------------
-Future<void> addBz(BzModel bz) async {
+Future<void> addBz(BzModel bz, UserModel userModel) async {
   const url = realtimeDatabaseBzzPath;
   try {
     final response = await http.post(url,
@@ -257,9 +260,35 @@ Future<void> addBz(BzModel bz) async {
       // -------------------------
       followIsOn: bz.followIsOn,
     );
+
+    List<dynamic> tempFollowedBzzIDs = userModel.followedBzzIDs;
+    userModel.followedBzzIDs.insert(0, json.decode(response.body)['name']);
+    await UserProvider(userID: userModel.userID).
+    updateUserData(
+      // -------------------------
+      userID : userModel.userID,
+      joinedAt : userModel.joinedAt,
+      userStatus : UserStatus.BzAuthor,
+      // -------------------------
+      name : userModel.name,
+      pic : userModel.pic,
+      title : userModel.title,
+      company : userModel.company,
+      gender : userModel.gender,
+      country : userModel.country,
+      province : userModel.province,
+      area : userModel.area,
+      language : userModel.language,
+      position : userModel.position,
+      contacts : userModel.contacts,
+      // -------------------------
+      savedFlyersIDs : userModel.savedFlyersIDs,
+      followedBzzIDs : tempFollowedBzzIDs,
+    );
+
     _loadedBzz.add(newBz);
     notifyListeners();
-    print(json.decode(response.body));
+    print('bzzzzzzzzzz added response is :${json.decode(response.body)}');
   } catch (error){
     print(error);
     throw(error);

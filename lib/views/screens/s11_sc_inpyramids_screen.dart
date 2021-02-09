@@ -4,23 +4,28 @@ import 'package:bldrs/views/widgets/appbar/ab_in_pyramids.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/pyramids/enum_lister.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 's12_pg_saved_flyers_page.dart';
 import 's13_pg_news_page.dart';
 import 's14_pg_more_page.dart';
 import 's15_pg_profile_page.dart';
+import 's17_pg_my_bz_page.dart';
 
-enum inPyramidsPage {
+enum PageType {
   SavedFlyers,
   News,
   More,
   Profile,
+  MyBz,
 }
 
 class InPyramidsScreen extends StatefulWidget {
-  final UserStatus userStatus;
+  // final UserStatus userStatus;
+  final UserModel userModel;
 
   InPyramidsScreen({
-    this.userStatus = UserStatus.PlanningUser,
+    // this.userStatus = UserStatus.PlanningUser,
+    @required this.userModel,
 });
 
   @override
@@ -29,7 +34,7 @@ class InPyramidsScreen extends StatefulWidget {
 
 class _InPyramidsScreenState extends State<InPyramidsScreen> {
   UserStatus _currentUserStatus;
-  inPyramidsPage _currentPage;
+  PageType _currentPage;
   bool _enumListerIsOn = false;
   String _enumListTitle = '';
   List<String> _enumListerStrings = [''];
@@ -39,8 +44,8 @@ class _InPyramidsScreenState extends State<InPyramidsScreen> {
 // ----------------------------------------------------------------------------
   @override
   void initState(){
-  _currentUserStatus = widget.userStatus; // userStatus.PlanningUser
-  _currentPage = inPyramidsPage.SavedFlyers;
+  _currentUserStatus = widget.userModel.userStatus;
+  _currentPage = PageType.SavedFlyers;
     super.initState();
   }
 // ----------------------------------------------------------------------------
@@ -62,7 +67,7 @@ class _InPyramidsScreenState extends State<InPyramidsScreen> {
     },
   ];
 // ----------------------------------------------------------------------------
-  void _switchingPages(inPyramidsPage page) {
+  void _switchingPages(PageType page) {
     setState(() {
       _currentPage = page;
     });
@@ -109,23 +114,23 @@ class _InPyramidsScreenState extends State<InPyramidsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final _user = Provider.of<UserModel>(context);
+
 
     return MainLayout(
+      tappingRageh: (){print(_user.title);},
       pyramids: _enumListerIsOn == true ? Iconz.PyramidzWhite : Iconz.PyramidsWhite,
       sky: Sky.Black,
-
       appBarType: AppBarType.InPyramids,
       appBarRowWidgets: <Widget>[
 
-        ...inPyramidsAppBarButtons(
-          context: context,
-          userStatus: _currentUserStatus,
+        ABInPyramids(
+          switchingPages: (page) => _switchingPages(page),
           currentPage: _currentPage,
-          switchingPages: (page) => _switchingPages(page)
         ),
 
       ],
-      tappingRageh: (){print(_country);},
+
       layoutWidget:
       Stack(
         children: <Widget>[
@@ -133,7 +138,7 @@ class _InPyramidsScreenState extends State<InPyramidsScreen> {
           CustomScrollView(
             slivers: <Widget>[
 
-              _currentPage == inPyramidsPage.Profile ?
+              _currentPage == PageType.Profile ?
               ProfilePage(
                 status: _status,
                 userStatus: _currentUserStatus,
@@ -143,13 +148,16 @@ class _InPyramidsScreenState extends State<InPyramidsScreen> {
                 openEnumLister: _openEnumLister,
               )
                   :
-              _currentPage == inPyramidsPage.SavedFlyers ?
+              _currentPage == PageType.MyBz ?
+              MyBzPage(userModel: widget.userModel)
+                  :
+              _currentPage == PageType.SavedFlyers ?
               SavedFlyersPage()
                   :
-              _currentPage == inPyramidsPage.News ?
+              _currentPage == PageType.News ?
               NewsPage()
                   :
-              _currentPage == inPyramidsPage.More ?
+              _currentPage == PageType.More ?
               MorePage()
                   :
               SavedFlyersPage()

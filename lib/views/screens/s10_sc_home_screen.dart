@@ -1,24 +1,19 @@
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
-import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
 import 'package:bldrs/view_brains/router/route_names.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/widgets/ask/ask.dart';
-import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
+import 'package:bldrs/views/widgets/bubbles/bzz_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/flyer/stacks/flyer_stack.dart';
-import 'package:bldrs/views/widgets/in_pyramids/profile/bz_grid.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/loading/loading.dart';
-import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import 's51_sc_bz_card_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -31,7 +26,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-
     // works
     // Provider.of<FlyersProvider>(context,listen: false).fetchAndSetBzz();
 
@@ -48,10 +42,11 @@ class _HomeScreenState extends State<HomeScreen> {
   /// i will go with didChangeDependencies as init supposedly works only at start
   @override
   void didChangeDependencies() {
-    if(_isInit){
+    if (_isInit) {
       _triggerLoading();
-      Provider.of<FlyersProvider>(context,listen: true)?.fetchAndSetBzz()
-          .then((_){
+      Provider.of<FlyersProvider>(context, listen: true)
+          .fetchAndSetBzz()
+          .then((_) {
         _triggerLoading();
       });
     }
@@ -59,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.didChangeDependencies();
   }
 
-  void _triggerLoading(){
+  void _triggerLoading() {
     setState(() {
       _isLoading = !_isLoading;
     });
@@ -74,57 +69,32 @@ class _HomeScreenState extends State<HomeScreen> {
       pyramids: Iconz.PyramidsYellow,
       appBarType: AppBarType.Main,
       sky: Sky.Night,
+      canRefreshFlyers: true,
       layoutWidget: Stack(
         children: <Widget>[
-
           _isLoading == true ?
-            Center(child: Loading())
-          :
+          Center(child: Loading())
+              :
           CustomScrollView(
             slivers: <Widget>[
-
               SliverList(
                 // key: ,
-                delegate: SliverChildListDelegate(
-                    <Widget>[
+                delegate: SliverChildListDelegate(<Widget>[
 
-                      Stratosphere(),
+                  Stratosphere(),
 
-                      Ask(
-                        tappingAskInfo: (){print('Ask info is tapped aho');},
-                      ),
+                  Ask(
+                    tappingAskInfo: () {print('Ask info is tapped aho');},
+                  ),
 
+                  BzzBubble(bzz: bzz),
 
-                      InPyramidsBubble(
-
-                        columnChildren: <Widget>[
-
-                          // --- Title
-                          SuperVerse(
-                            verse: 'Businesses',
-                          ),
-
-                          BzGrid(
-                            gridZoneWidth: superBubbleClearWidth(context),
-                            bzz: bzz,
-                            numberOfColumns: 5,
-                            itemOnTap: (bzID)=> goToNewScreen(context, BzCardScreen(bzID: bzID,))
-                          ),
-
-                        ],
-                      ),
-
-                      ...List<Widget>.generate(flyerTypesList.length,
-                              (index){
-                            return
-                              FlyerStack(flyersType: flyerTypesList[index]);
-                          }
-                      ),
-
-                      PyramidsHorizon(heightFactor: 10),
-
-                    ]
-                ),
+                  ...List<Widget>.generate(flyerTypesList.length,
+                          (index) {
+                    return FlyerStack(flyersType: flyerTypesList[index]);
+                  }),
+                  PyramidsHorizon(heightFactor: 10),
+                ]),
               ),
             ],
           ),
@@ -141,17 +111,13 @@ class _HomeScreenState extends State<HomeScreen> {
               color: Colorz.WhiteAir,
               icon: Iconz.Bz,
               iconSizeFactor: 0.55,
-              boxFunction: (){
+              boxFunction: () {
                 goToRoute(context, Routez.CreateBz);
               },
             ),
           )
-
         ],
       ),
     );
-
-
   }
 }
-

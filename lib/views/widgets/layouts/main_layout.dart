@@ -42,6 +42,7 @@ class MainLayout extends StatelessWidget {
   final AppBarType appBarType;
   final String pageTitle;
   final Sky sky;
+  final bool canRefreshFlyers;
 
   MainLayout({
     this.appBarRowWidgets,
@@ -51,6 +52,7 @@ class MainLayout extends StatelessWidget {
     this.appBarType,
     this.pageTitle,
     this.sky = Sky.Night,
+    this.canRefreshFlyers = false,
 });
 
   Future<void> _refresh(BuildContext context) async {
@@ -70,7 +72,10 @@ class MainLayout extends StatelessWidget {
           child: Scaffold(
             resizeToAvoidBottomPadding: false,
             // resizeToAvoidBottomInset: false,
-            body: RefreshIndicator(
+            body:
+            canRefreshFlyers ?
+
+            RefreshIndicator(
               onRefresh: ()=> _refresh(context),
               color: Colorz.BlackBlack,
               backgroundColor: Colorz.Yellow,
@@ -87,11 +92,11 @@ class MainLayout extends StatelessWidget {
                   layoutWidget,
 
                   if(appBarType!=null)
-                  BldrsAppBar(
-                    appBarType: appBarType,
-                    appBarRowWidgets: appBarRowWidgets,
-                    pageTitle: pageTitle,
-                  ),
+                    BldrsAppBar(
+                      appBarType: appBarType,
+                      appBarRowWidgets: appBarRowWidgets,
+                      pageTitle: pageTitle,
+                    ),
 
                   pyramids == null ? Container() :
                   Pyramids(whichPyramid: appBarType == AppBarType.Localizer ? Iconz.PyramidzYellow : pyramids),
@@ -108,12 +113,53 @@ class MainLayout extends StatelessWidget {
                         () async {
                       Locale temp = await setLocale('ar');
                       BldrsApp.setLocale(context, temp);
-                      },
+                    },
                   ),
 
                 ],
               ),
+            )
+
+                :
+
+            Stack(
+              alignment: Alignment.topCenter,
+              children: <Widget>[
+
+                sky == Sky.Black ? BlackSky() :
+                NightSky(),
+
+                layoutWidget == null ? Container() :
+                layoutWidget,
+
+                if(appBarType!=null)
+                  BldrsAppBar(
+                    appBarType: appBarType,
+                    appBarRowWidgets: appBarRowWidgets,
+                    pageTitle: pageTitle,
+                  ),
+
+                pyramids == null ? Container() :
+                Pyramids(whichPyramid: appBarType == AppBarType.Localizer ? Iconz.PyramidzYellow : pyramids),
+
+                _ragehIsOn == false ? Container() :
+                Rageh(
+                  tappingRageh: tappingRageh != null ? tappingRageh : (){print('no function here bitch');},
+                  doubleTappingRageh:
+                  Wordz.activeLanguage(context) == 'Arabic' ?
+                      () async {
+                    Locale temp = await setLocale('en');
+                    BldrsApp.setLocale(context, temp);
+                  } :
+                      () async {
+                    Locale temp = await setLocale('ar');
+                    BldrsApp.setLocale(context, temp);
+                  },
+                ),
+
+              ],
             ),
+
           ),
         ),
       ),

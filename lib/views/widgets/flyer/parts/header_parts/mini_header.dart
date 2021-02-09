@@ -1,7 +1,6 @@
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/sub_models/contact_model.dart';
-import 'package:bldrs/view_brains/controllers/flyer_controllers.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/drafters/stringers.dart';
 import 'package:flutter/material.dart';
