@@ -56,7 +56,7 @@ class ContactsBubble extends StatelessWidget {
                           verseWeight: VerseWeight.thin,
                           verseItalic: true,
                           iconSizeFactor: 0.6,
-                          boxFunction: (){launchURL('http://${contactsWithStrings[index].contact}');},
+                          boxFunction: (){launchURL('https://${contactsWithStrings[index].contact}');},
                         );
                   }
               ),
@@ -76,7 +76,7 @@ class ContactsBubble extends StatelessWidget {
                         height: contactBoxHeight,
                         icon: superContactIcon(socialMediaContacts[index]?.contactType),
                         boxMargins: EdgeInsets.all(abPadding),
-                        boxFunction: (){launchURL('http://${socialMediaContacts[index].contact}');},
+                        boxFunction: (){launchURL('https://${socialMediaContacts[index].contact}');},
                       );
                   }
               ),
