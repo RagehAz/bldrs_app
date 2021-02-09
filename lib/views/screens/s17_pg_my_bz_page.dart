@@ -37,7 +37,7 @@ class _MyBzPageState extends State<MyBzPage> {
     FlyersProvider prof = Provider.of<FlyersProvider>(context, listen: true);
     BzModel bz = prof.getBzByBzID(bzID);
 
-    double _flyerSizeFactor = 0.7;
+    double _flyerSizeFactor = 0.75;
     double _flyerZoneWidth = superFlyerZoneWidth(context, _flyerSizeFactor);
 
     return SliverList(

@@ -56,7 +56,6 @@ class _GalleryState extends State<Gallery> {
   }
 // ----------------------------------------------------------------------------
     tappingAuthorLabel(String authorID){
-      print('label is tapped $authorID');
       setState(() {
         flyersVisibilities = List.filled(widget.galleryFlyers.length, false);
         currentSelectedAuthor == authorID ? currentSelectedAuthor = '' : currentSelectedAuthor = authorID;
@@ -131,7 +130,10 @@ class _GalleryState extends State<Gallery> {
                             bzGalleryCount: 0,
                             authorGalleryCount: widget.authors[authorIndex].publishedFlyersIDs?.length,
                             authorID: widget.authors[authorIndex].userID,
-                            tappingLabel: widget.bzTeamIDs.length == 1 ? (){} : tappingAuthorLabel,
+                            tappingLabel:
+                            // widget.bzTeamIDs.length == 1 ?
+                                (id){tappingAuthorLabel(id);},
+                            // :(id){print('a77a');// tappingAuthorLabel();},
                             labelIsOn: currentSelectedAuthor == widget.authors[authorIndex].userID ? true : false,
                           )
                         ],

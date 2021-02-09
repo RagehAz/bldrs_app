@@ -59,18 +59,18 @@ class _EditProfilePageState extends State<EditProfilePage> {
   // ---------------------------------------------------------------------------
   @override
   void initState() {
-    UserModel user = Provider.of<UserModel>(context, listen: false);
-    print('getAContactStringFromContacts(user.contacts, ContactType.Phone) ${getAContactStringFromContacts(user.contacts, ContactType.Email)}');
-    _currentName = user.name;
+    // UserModel user = Provider.of<UserModel>(context, listen: false);
+    // print('getAContactStringFromContacts(user.contacts, ContactType.Phone) ${getAContactStringFromContacts(user.contacts, ContactType.Email)}');
+    // _currentName = user.name;
     // _currentPic = File(Iconz.DumAuthorPic);
-    _currentTitle = user.title;
-    _currentCompany = user.company;
-    _currentGender = user.gender;
-    _currentCountryID = user.country;
-    _currentProvinceID = user.province;
-    _currentAreaID = user.area;
-    _currentLanguageCode = user.language;
-    _currentPosition = user.position;
+    // _currentTitle = user.title;
+    // _currentCompany = user.company;
+    // _currentGender = user.gender;
+    // _currentCountryID = user.country;
+    // _currentProvinceID = user.province;
+    // _currentAreaID = user.area;
+    // _currentLanguageCode = user.language;
+    // _currentPosition = user.position;
     // --------------------
     // _currentPhone = getAContactStringFromContacts(user.contacts, ContactType.Phone);
     // _currentEmail = getAContactStringFromContacts(user.contacts, ContactType.Email);
@@ -362,7 +362,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
           return LoadingFullScreenLayer();
         } else {
           UserModel userModel = snapshot.data;
-          print('user e-phone is : ${userModel.contacts}');
+          print('user naaamee : ${userModel.name}');
           return Form(
             key: _formKey,
             child: Column(
@@ -584,7 +584,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         userStatus : userModel.userStatus ?? UserStatus.NormalUser,
                         // -------------------------
                         name : _currentName ?? userModel.name,
-                        pic : _currentPic ?? userModel.pic,
+                        pic : 'userModel.pic', //_currentPic ?? userModel.pic,
                         title :  _currentTitle ?? userModel.title,
                         company: _currentCompany ?? userModel.company,
                         gender : _currentGender ?? userModel.gender,
