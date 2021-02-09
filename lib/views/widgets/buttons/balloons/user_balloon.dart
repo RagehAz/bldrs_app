@@ -1,4 +1,5 @@
 import 'package:bldrs/models/user_model.dart';
+import 'package:bldrs/view_brains/drafters/colorizers.dart';
 import 'package:bldrs/view_brains/drafters/file_formatters.dart';
 import 'package:bldrs/view_brains/drafters/iconizers.dart';
 import 'package:bldrs/view_brains/drafters/shadowers.dart';
@@ -25,9 +26,7 @@ class UserBalloon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    Color bubbleDarkness = blackAndWhite == false ? Colorz.BlackNothing :  Colorz.BlackSmoke;
-    Color imageSaturationColor = blackAndWhite == true ? Colorz.Grey : Colorz.Nothing;
-
+    Color _bubbleDarkness = blackAndWhite == false ? Colorz.BlackNothing :  Colorz.BlackSmoke;
 
     return GestureDetector(
       onTap: onTap,
@@ -48,16 +47,15 @@ class UserBalloon extends StatelessWidget {
               width: balloonWidth,
               height: balloonWidth,
               child: ColorFiltered(
-                colorFilter: ColorFilter.mode(
-                    imageSaturationColor,
-                    BlendMode.saturation
-                ),
+                colorFilter: superDesaturation(blackAndWhite),
                 child:
-                fileExtensionOf(userPic) == 'jpg' || fileExtensionOf(userPic) == 'jpeg' || fileExtensionOf(userPic) == 'png' ?
-                Image.asset(userPic, fit: BoxFit.cover,):
-
-                 fileExtensionOf(userPic) == 'svg' ?
-                     WebsafeSvg.asset(userPic, fit: BoxFit.cover) : Container()
+                objectIsJPGorPNG(userPic)?
+                Image.asset(userPic, fit: BoxFit.cover,)
+                    :
+                objectIsSVG(userPic)?
+                WebsafeSvg.asset(userPic, fit: BoxFit.cover)
+                    :
+                Container()
               ),
             ),
 
@@ -87,7 +85,7 @@ class UserBalloon extends StatelessWidget {
                 gradient: LinearGradient(
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
-                    colors: <Color>[bubbleDarkness, Colorz.BlackLingerie],
+                    colors: <Color>[_bubbleDarkness, Colorz.BlackLingerie],
                     stops: <double>[0.65, 0.85]),
               ),
             ),

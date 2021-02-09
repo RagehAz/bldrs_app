@@ -1,3 +1,4 @@
+import 'package:bldrs/ambassadors/services/launch_url.dart';
 import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:bldrs/view_brains/drafters/iconizers.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
@@ -55,6 +56,7 @@ class ContactsBubble extends StatelessWidget {
                           verseWeight: VerseWeight.thin,
                           verseItalic: true,
                           iconSizeFactor: 0.6,
+                          boxFunction: (){launchURL('http://${contactsWithStrings[index].contact}');},
                         );
                   }
               ),
@@ -74,6 +76,7 @@ class ContactsBubble extends StatelessWidget {
                         height: contactBoxHeight,
                         icon: superContactIcon(socialMediaContacts[index]?.contactType),
                         boxMargins: EdgeInsets.all(abPadding),
+                        boxFunction: (){launchURL('http://${socialMediaContacts[index].contact}');},
                       );
                   }
               ),

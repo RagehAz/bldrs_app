@@ -75,7 +75,7 @@ class AuthorLabel extends StatelessWidget {
 
     return
       GestureDetector(
-        onTap: bzPageIsOn == true ? () => tappingLabel(authorID) : null,
+        onTap: bzPageIsOn == true ? ()=> tappingLabel(authorID) : null,
         child:
         Container(
             height: _authorDataHeight,

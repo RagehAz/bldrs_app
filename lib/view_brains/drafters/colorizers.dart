@@ -67,3 +67,11 @@ class BlurLayer extends StatelessWidget {
     );
   }
 }
+
+ColorFilter superDesaturation(bool isItBlackAndWhite){
+  Color imageSaturationColor = isItBlackAndWhite == true ? Colorz.Grey : Colorz.Nothing;
+  return ColorFilter.mode(
+      imageSaturationColor,
+      BlendMode.saturation
+  );
+}
