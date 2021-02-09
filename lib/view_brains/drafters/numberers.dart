@@ -18,24 +18,25 @@ String separateKilos(int number) {
 // === === === === === === === === === === === === === === === === === === ===
 String counterCaliber(BuildContext context, int x){
        return
-            // FROM 0 TO 999
-            x >= 0 && x < 1000 ?
-                x.toString()
-            :
-            // FROM 1000 TO 99995
-            x >= 1000 && x < 99995 ?
-            '${(x / 1000).toStringAsFixed(1).toString().replaceAll(RegExp('0.0'), '0').replaceAll(r'.0', '')}'
-                ' ${Wordz.thousand(context)}'
-                :
-            // FROM 99995 TO 999445
-            x >= 99995 && x < 999445 ? '${int.parse((x/1000).toStringAsFixed(0))}'
-                ' ${Wordz.thousand(context)}'
-                :
-            // FROM 999445 TO INFINITY
-            x>= 999445 ?
-            '${(x / 1000000).toStringAsFixed(1).toString().replaceAll(RegExp('0.0'), '0').replaceAll(r'.0', '')}'
-                ' ${Wordz.million(context)}'
-                :
-            '${x.toStringAsFixed(0)}';
-    }
+         x == null ? 0 :
+         // FROM 0 TO 999
+         x >= 0 && x < 1000 ?
+         x.toString()
+             :
+         // FROM 1000 TO 99995
+         x >= 1000 && x < 99995 ?
+         '${(x / 1000).toStringAsFixed(1).toString().replaceAll(RegExp('0.0'), '0').replaceAll(r'.0', '')}'
+             ' ${Wordz.thousand(context)}'
+             :
+         // FROM 99995 TO 999445
+         x >= 99995 && x < 999445 ? '${int.parse((x/1000).toStringAsFixed(0))}'
+             ' ${Wordz.thousand(context)}'
+             :
+         // FROM 999445 TO INFINITY
+         x>= 999445 ?
+         '${(x / 1000000).toStringAsFixed(1).toString().replaceAll(RegExp('0.0'), '0').replaceAll(r'.0', '')}'
+             ' ${Wordz.million(context)}'
+             :
+         '${x.toStringAsFixed(0)}';
+}
 // === === === === === === === === === === === === === === === === === === ===

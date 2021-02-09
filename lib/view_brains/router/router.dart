@@ -5,7 +5,6 @@ import 'package:bldrs/views/widgets/auth/user_checker.dart';
 import 'package:bldrs/views/screens/s00_sc_splash_screen.dart';
 import 'package:bldrs/views/screens/s01_sc_starting_screen.dart';
 import 'package:bldrs/views/screens/s10_sc_home_screen.dart';
-import 'package:bldrs/views/screens/s11_sc_inpyramids_screen.dart';
 import 'package:bldrs/views/screens/s20_sc_search_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x01_access_denied_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x02_rageh_dash_board.dart';
@@ -38,8 +37,8 @@ class Routerer {
     /// s11
     /// (s12 saved flyers page, s13 news page, s14 more page, s15 profile page,
     /// s16 edit profile page) are pages inside InPyramidsScreen();
-      case Routez.InPyramids:
-        return MaterialPageRoute(builder: (_) => InPyramidsScreen());
+    //   case Routez.InPyramids:
+    //     return MaterialPageRoute(builder: (_) => InPyramidsScreen());
 // ---------------------------------------------------------------------------
     /// s20
       case Routez.Search:

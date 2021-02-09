@@ -1,10 +1,13 @@
 import 'package:bldrs/models/bldrs_sections.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
+import 'package:bldrs/providers/country_provider.dart';
+import 'package:bldrs/view_brains/drafters/timerz.dart';
 import 'package:bldrs/view_brains/localization/localization_constants.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 // === === === === === === === === === === === === === === === === === === ===
 double verseLabelHeight (int verseSize, double screenHeight){
       return
@@ -123,9 +126,14 @@ List<String> bzFormStrings (BuildContext context){
 }
 // === === === === === === === === === === === === === === === === === === ===
 String localeStringer ({BuildContext context, String countryISO3, String provinceID, String areaID}){
-String verse =
+  CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
+  String _countryName = translate(context, countryISO3);
+  String _provinceName = _countryPro.getProvinceNameWithCurrentLanguageIfPossible(context, provinceID);
+  String _areaName = _countryPro.getAreaNameWithCurrentLanguageIfPossible(context, areaID);
+
+  String verse =
     countryISO3 == null || provinceID == null ? '...' :
-    '${Wordz.inn(context)} ${translate(context, countryISO3)}, $provinceID, $areaID';
+    '${Wordz.inn(context)} $_areaName , $_provinceName , $_countryName . ';
 return verse;
 }
 // === === === === === === === === === === === === === === === === === === ===
@@ -167,3 +175,7 @@ String bldrsTypePageTitle(BuildContext context, BzType bzType) {
     Wordz.bldrsShortName(context);
 }
 // === === === === === === === === === === === === === === === === === === ===
+String monthYearStringer(BuildContext context, DateTime time){
+  return
+    '${Wordz.inn(context)} ${Wordz.bldrsShortName(context)} since : ${getMonthNameByInt(context, (time).month)} , ${(time).year} . ';
+}
