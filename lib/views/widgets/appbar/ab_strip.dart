@@ -34,6 +34,7 @@ class ABStrip extends StatelessWidget {
       margin: EdgeInsets.all(Ratioz.ddAppBarMargin),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(Ratioz.ddAppBarCorner)),
+          color: appBarType == AppBarType.InPyramids ? Colorz.WhiteGlass : null,
           boxShadow: <CustomBoxShadow>[
             CustomBoxShadow(
                 color: Colorz.BlackSmoke,
@@ -56,6 +57,7 @@ class ABStrip extends StatelessWidget {
           ),
 
           // --- APPBAR BLUR
+          // if (appBarType != AppBarType.InPyramids)
           BlurLayer(
             width: double.infinity,
             height: abHeight,

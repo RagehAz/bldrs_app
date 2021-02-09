@@ -82,7 +82,7 @@ class MiniHeaderStrip extends StatelessWidget {
                     miniMode: superFlyerMiniMode(context, flyerZoneWidth),
                     corners: superLogoCorner(context, flyerZoneWidth),
                     bzPageIsOn: bzPageIsOn,
-                    flyerShowsAuthor: flyerShowsAuthor
+                    zeroCornerIsOn: flyerShowsAuthor,
                 ),
               ),
 

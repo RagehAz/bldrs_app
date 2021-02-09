@@ -1,5 +1,7 @@
 import 'package:bldrs/models/bz_model.dart';
+import 'package:bldrs/view_brains/drafters/borderers.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
+import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/common_parts/bz_logo.dart';
 import 'package:flutter/material.dart';
 
@@ -9,12 +11,16 @@ class BzGrid extends StatelessWidget {
   final int numberOfColumns;
   final List<BzModel> bzz;
   final Function itemOnTap;
+  final Axis scrollDirection;
+  final int numberOfRows;
 
   BzGrid({
     @required this.gridZoneWidth,
     this.numberOfColumns = 3,
     @required this.bzz,
     this.itemOnTap,
+    this.scrollDirection,
+    this.numberOfRows,
 });
 
   @override
@@ -30,8 +36,8 @@ class BzGrid extends StatelessWidget {
     double _gridSpacing = _gridBzWidth * _spacingRatioToGridWidth;
     int _bzCount = bzz.length == 0 ? _boxesColors.length : bzz.length;
     int _numOfGridRows(int _bzCount){return (_bzCount/_gridColumnsCount).ceil();}
-    int _numOfRows = _numOfGridRows(_bzCount);
-    double gridHeight = _gridBzHeight * (_numOfRows + (_numOfRows * _spacingRatioToGridWidth) + _spacingRatioToGridWidth);
+    int _numOfRows = numberOfRows == null ? _numOfGridRows(_bzCount) : numberOfRows;
+    double _gridHeight = _gridBzHeight * (_numOfRows + (_numOfRows * _spacingRatioToGridWidth) + _spacingRatioToGridWidth);
 
     SliverGridDelegateWithMaxCrossAxisExtent _gridDelegate = SliverGridDelegateWithMaxCrossAxisExtent(
       crossAxisSpacing: _gridSpacing,
@@ -40,54 +46,65 @@ class BzGrid extends StatelessWidget {
       maxCrossAxisExtent: _gridBzWidth,//gridFlyerWidth,
     );
 
+    double zoneCorners = (_gridBzWidth * Ratioz.bzLogoCorner) + _gridSpacing;
+
     return
-      Container(
+      ClipRRect(
+        borderRadius: superBorderAll(context, zoneCorners),
+        child: Container(
           width: gridZoneWidth,
-          height: gridHeight,
+          height: _gridHeight,
+          color: Colorz.WhiteAir,
           child: Stack(
             children: <Widget>[
 
-              // --- GRID FOOTPRINTS
-              bzz.length != 0 ? Container() :
-              GridView(
-                physics: NeverScrollableScrollPhysics(),
-                padding: EdgeInsets.all(_gridSpacing),
-                gridDelegate: _gridDelegate,
-                children: _boxesColors.map(
-                      (color) => BzLogo(
-                      width: _gridBzWidth,
-                      image: color,
-                      bzPageIsOn: false,
-                      miniMode: true,
-                      flyerShowsAuthor: false,
-                      // onTap: () => itemOnTap(bz.bzID)
-                  ),
-                ).toList(),
-              ),
+                // --- GRID FOOTPRINTS
+                bzz.length != 0 ? Container() :
+                GridView(
+                  physics: scrollDirection == null ? NeverScrollableScrollPhysics() : null,
+                  scrollDirection: scrollDirection,
+                  addAutomaticKeepAlives: true,
+                  shrinkWrap: true,
+                  padding: EdgeInsets.all(_gridSpacing),
+                  gridDelegate: _gridDelegate,
+                  children: _boxesColors.map(
+                        (color) => BzLogo(
+                          width: _gridBzWidth,
+                          image: color,
+                          bzPageIsOn: false,
+                          miniMode: true,
+                          zeroCornerIsOn: false,
+                        // onTap: () => itemOnTap(bz.bzID)
+                    ),
+                  ).toList(),
+                ),
 
-              // --- REAL GRID
-              GridView(
-                physics: NeverScrollableScrollPhysics(),
-                addAutomaticKeepAlives: true,
-                padding: EdgeInsets.all(_gridSpacing),
-                // key: new Key(loadedFlyers[flyerIndex].f01flyerID),
-                gridDelegate: _gridDelegate,
-                children: bzz.map(
-                      (bz) => BzLogo(
-                      width: _gridBzWidth,
-                      image: bz.bzLogo,
-                      bzPageIsOn: false,
-                      miniMode: true,
-                      flyerShowsAuthor: false,
-                      onTap: () => itemOnTap(bz.bzID)
-                  ),
+                // --- REAL GRID
+                GridView(
+                  physics: scrollDirection == null ? NeverScrollableScrollPhysics() : null,
+                  scrollDirection: scrollDirection,
+                  addAutomaticKeepAlives: true,
+                  shrinkWrap: true,
+                  padding: EdgeInsets.all(_gridSpacing),
+                  // key: new Key(loadedFlyers[flyerIndex].f01flyerID),
+                  gridDelegate: _gridDelegate,
+                  children: bzz.map(
+                        (bz) => BzLogo(
+                            width: _gridBzWidth,
+                            image: bz.bzLogo,
+                            bzPageIsOn: false,
+                            miniMode: true,
+                            zeroCornerIsOn: false,
+                            onTap: () => itemOnTap(bz.bzID)
+                        ),
 
-                ).toList(),
+                  ).toList(),
 
-              ),
+                ),
 
-            ],
-          ),
-    );
+              ],
+            ),
+    ),
+      );
   }
 }

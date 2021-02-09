@@ -1,3 +1,5 @@
+import 'package:bldrs/models/user_model.dart';
+import 'package:bldrs/views/screens/s11_sc_inpyramids_screen.dart';
 import 'package:bldrs/views/widgets/appbar/ab_localizer.dart';
 import 'package:bldrs/views/widgets/appbar/ab_main.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
@@ -9,11 +11,17 @@ class BldrsAppBar extends StatefulWidget {
   final AppBarType appBarType;
   final List<Widget> appBarRowWidgets;
   final String pageTitle;
+  final Function switchPages;
+  final PageType currentPage;
+  final UserModel userModel;
 
   BldrsAppBar({
     this.appBarType = AppBarType.Main,
     this.appBarRowWidgets,
     this.pageTitle,
+    this.switchPages,
+    this.currentPage,
+    this.userModel,
 });
 
   @override
@@ -59,15 +67,26 @@ class _BldrsAppBarState extends State<BldrsAppBar> {
       _appBarType == AppBarType.Main
           || _appBarType == AppBarType.Intro
           || _appBarType == AppBarType.Sections ?
-          ABMain(
-            tappingLocalizer: _triggerLocalizer,
-            currentAppBarType: _appBarType,
-            sectionsAreOn:  _appBarType == AppBarType.Intro? false : true,
-            searchButtonOn: _appBarType == AppBarType.Intro? false : true,
-            expandingSections: (_sectionsAreExpanded)=> _triggerSections(_sectionsAreExpanded),
-          )
+      ABMain(
+        tappingLocalizer: _triggerLocalizer,
+        currentAppBarType: _appBarType,
+        sectionsAreOn: _appBarType == AppBarType.Intro ? false : true,
+        searchButtonOn: _appBarType == AppBarType.Intro ? false : true,
+        expandingSections: (_sectionsAreExpanded) =>
+            _triggerSections(_sectionsAreExpanded),
+      )
 
           :
+
+      //     ABInPyramids(
+      //         currentPage: widget.currentPage,
+      //         switchingPages: (page){
+      //           print(page);
+      //           widget.switchPages(page);
+      //         },
+      //     )
+      //
+      // :
 
       _appBarType == AppBarType.Basic
           || _appBarType == AppBarType.Scrollable

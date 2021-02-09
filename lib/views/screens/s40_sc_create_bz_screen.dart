@@ -62,6 +62,7 @@ class _CreateBzScreenState extends State<CreateBzScreen> with TickerProviderStat
   String _currentProvinceID;
   String _currentAreaID;
   String _currentBzAbout;
+  List<ContactModel> _currentBzContacts;
   GeoPoint _currentPosition;
   List<ContactModel> _currentContacts;
   AuthorModel _currentAuthor;
@@ -124,12 +125,6 @@ class _CreateBzScreenState extends State<CreateBzScreen> with TickerProviderStat
       });
   }
   // ----------------------------------------------------------------------
-  void _selectBzForm(int index){
-      setState(() {
-        _currentBzForm = bzFormsList[index];
-      });
-  }
-  // ----------------------------------------------------------------------
   void _createBzFormInActivityLst(){
       setState(() {
         _bzFormInActivityList = List.filled(bzFormsList.length, true);
@@ -176,93 +171,33 @@ class _CreateBzScreenState extends State<CreateBzScreen> with TickerProviderStat
   //   _pickedLogo = pickedImage;
   // }
   // ----------------------------------------------------------------------
-  void _deleteLogo(){
-    setState(() {
-      _currentLogo = null;
-    });
-  }
-  // ----------------------------------------------------------------------
-  void _deleteAuthorPic(){
-    setState(() {
-      _authorPic = null;
-    });
-  }
-  // ----------------------------------------------------------------------
-  void _typingBzName(String bzName){
-    setState(() {
-      _currentBzName = bzName;
-    });
-}
-  // ----------------------------------------------------------------------
-  void _typingBzScope(String bzScope){
-    setState(() {
-      _currentBzScope = bzScope;
-    });
-  }
-  // ----------------------------------------------------------------------
-  void _typingBzAbout(String bzAbout){
-    setState(() {
-      _currentBzAbout = bzAbout;
-    });
-  }
-  // ----------------------------------------------------------------------
-  void _changeCountry(String countryID){
-    setState(() {
-      _currentCountryID = countryID;
-    });
-  }
-  // ----------------------------------------------------------------------
-  void _changeProvince(String provinceID){
-    setState(() {
-      _currentProvinceID = provinceID;
-    });
-  }
-  // ----------------------------------------------------------------------
-  void _changeArea(String areaID){
-    setState(() {
-      _currentAreaID = areaID;
-    });
-  }
-  // ----------------------------------------------------------------------
-  void _typingAuthorName(String authorName){
-    setState(() {
-      _authorName = authorName;
-    });
-  }
-  // ----------------------------------------------------------------------
-  void _typingAuthorTitle(String authorTitle){
-    setState(() {
-      _authorTitle = authorTitle;
-    });
-  }
-  // ----------------------------------------------------------------------
   BzModel _createBzModel(UserModel user){
     return new BzModel(
-      bzID: 'autoCreated',
+      bzID: '...',
       // -------------------------
       bzType: _currentBzType,
       bzForm: _currentBzForm,
       bldrBirth: DateTime.now(),
       accountType: _currentAccountType,
-      bzURL: 'some URL',
+      bzURL: '...',
       // -------------------------
-      bzName: _currentBzName,
+      bzName: _currentBzName ?? user.company,
       bzLogo: _currentLogo,
       bzScope: _currentBzScope,
-      bzCountry: _currentCountryID,
-      bzProvince: _currentProvinceID,
-      bzArea: _currentAreaID,
+      bzCountry: _currentCountryID ?? user.country,
+      bzProvince: _currentProvinceID ?? user.province,
+      bzArea: _currentAreaID ?? user.area,
       bzAbout: _currentBzAbout,
       bzPosition: _currentPosition,
-      bzContacts: _currentContacts,
+      bzContacts: _currentContacts ?? user.contacts,
       authors: [AuthorModel(
         userID: user.userID,
-        authorName: _authorName == null ? user.name : _authorName,
-        authorPic: _authorPic == null ? user.pic : _authorPic,
-        authorTitle: _authorTitle == null ? user.title : _authorTitle,
+        authorName: _authorName ?? user.name,
+        authorPic: _authorPic ?? user.pic,
+        authorTitle: _authorTitle ?? user.title,
         publishedFlyersIDs: [],
-        bzID: 'autoCreated',
-        authorContacts: _authorContacts,
+        bzID: '...',
+        authorContacts: _authorContacts ?? user.contacts,
       ),],
       bzShowsTeam: _currentBzShowsTeam,
       // -------------------------
@@ -289,7 +224,7 @@ class _CreateBzScreenState extends State<CreateBzScreen> with TickerProviderStat
     // if(!isValid){return;}
     // _form.currentState.save();
     _triggerLoading();
-    try { await pro.addBz(_createBzModel(userModel)); }
+    try { await pro.addBz(_createBzModel(userModel), userModel); }
     catch(error) {
       await showDialog(
         context: context,
@@ -323,11 +258,22 @@ class _CreateBzScreenState extends State<CreateBzScreen> with TickerProviderStat
     });
   }
   // ----------------------------------------------------------------------
+  void _assignUserData(UserModel user){
+    setState(() {
+      _currentBzName = user.company;
+      _currentCountryID = user.country;
+      _currentProvinceID = user.province;
+      _currentAreaID = user.area;
+      _authorName = user.name;
+      _authorTitle = user.title;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     final FlyersProvider _pro = Provider.of<FlyersProvider>(context, listen: false);
     final _user = Provider.of<UserModel>(context, listen: true);
+
 
     return MainLayout(
       tappingRageh: (){print(_currentAreaID);},
@@ -336,7 +282,7 @@ class _CreateBzScreenState extends State<CreateBzScreen> with TickerProviderStat
       pyramids: Iconz.PyramidzYellow,
       pageTitle: Wordz.createBzAccount(context), // createBzAccount
 
-      appBarRowWidgets: <Widget>[BldrsBackButton(onTap: (){},),],
+      appBarRowWidgets: <Widget>[BldrsBackButton(onTap: () => goBack(context),),],
 
       layoutWidget: StreamBuilder<UserModel>(
           stream: UserProvider(userID: _user.userID).userData,
@@ -375,7 +321,7 @@ class _CreateBzScreenState extends State<CreateBzScreen> with TickerProviderStat
                     MultipleChoiceBubble(
                     title: Wordz.businessForm(context),
                     buttonsList: bzFormStrings(context),
-                    tappingAButton: _selectBzForm,
+                    tappingAButton: (index) => setState(() {_currentBzForm = bzFormsList[index];}),
                     chosenButton: bzFormStringer(context, _currentBzForm),
                     buttonsInActivityList: _bzFormInActivityList,
                   ),
@@ -387,7 +333,7 @@ class _CreateBzScreenState extends State<CreateBzScreen> with TickerProviderStat
                     AddGalleryPicBubble(
                       logo: _currentLogo,
                       addBtFunction: _takeGalleryPicture,
-                      deleteLogoFunction: _deleteLogo,
+                      deleteLogoFunction: () => setState(() {_currentLogo = null;}),
                       title: Wordz.businessLogo(context),
                       picOwner: PicOwner.bzLogo,
                     ),
@@ -400,9 +346,11 @@ class _CreateBzScreenState extends State<CreateBzScreen> with TickerProviderStat
                       maxLength: 72,
                       maxLines: 2,
                       keyboardTextInputType: TextInputType.name,
-                      textController: _bzNameTextController,
-                      textOnChanged: (bzName) => _typingBzName(bzName),
+                      // textController: _bzNameTextController,
+                      textOnChanged: (bzName) => setState(() {_currentBzName = bzName;}),
                       fieldIsRequired: true,
+                      initialTextValue: userModel.company,
+                      fieldIsFormField: true,
                     ),
 
                     // --- type BzScope
@@ -413,9 +361,10 @@ class _CreateBzScreenState extends State<CreateBzScreen> with TickerProviderStat
                       maxLength: 193,
                       maxLines: 4,
                       keyboardTextInputType: TextInputType.multiline,
-                      textController: _scopeTextController,
-                      textOnChanged: (bzScope) => _typingBzScope(bzScope),
+                      // textController: _scopeTextController,
+                      textOnChanged: (bzScope) => setState(() {_currentBzScope = bzScope;}),
                       fieldIsRequired: true,
+                      fieldIsFormField: true,
                     ),
 
                     // --- type BzAbout
@@ -427,7 +376,7 @@ class _CreateBzScreenState extends State<CreateBzScreen> with TickerProviderStat
                       maxLines: 4,
                       keyboardTextInputType: TextInputType.multiline,
                       textController: _aboutTextController,
-                      textOnChanged: (bzAbout) => _typingBzAbout(bzAbout),
+                      textOnChanged: (bzAbout) => setState(() {_currentBzAbout = bzAbout;}),
                     ),
 
                     // --- SEPARATOR
@@ -435,9 +384,9 @@ class _CreateBzScreenState extends State<CreateBzScreen> with TickerProviderStat
 
                     // --- bzLocale
                     LocaleBubble(
-                      changeCountry : (countryID) => _changeCountry(countryID),
-                      changeProvince : (provinceID) => _changeProvince(provinceID),
-                      changeArea : (areaID) => _changeArea(areaID),
+                      changeCountry : (countryID) => setState(() {_currentCountryID = countryID;}),
+                      changeProvince : (provinceID) => setState(() {_currentProvinceID = provinceID;}),
+                      changeArea : (areaID) => setState(() {_currentAreaID = areaID;}),
                       hq: HQ(countryID: userModel.country, provinceID: userModel.province, areaID: userModel.area),
                       title: 'Headquarters Area',//Wordz.hqCity(context),
                     ),
@@ -454,7 +403,7 @@ class _CreateBzScreenState extends State<CreateBzScreen> with TickerProviderStat
                       maxLines: 1,
                       keyboardTextInputType: TextInputType.name,
                       // textController: _authorNameTextController,
-                      textOnChanged: (authorName) => _typingAuthorName(authorName),
+                      textOnChanged: (authorName) => setState(() {_authorName = authorName;}),
                       fieldIsRequired: true,
                       initialTextValue: userModel.name,
                       fieldIsFormField: true,
@@ -469,7 +418,7 @@ class _CreateBzScreenState extends State<CreateBzScreen> with TickerProviderStat
                       maxLines: 1,
                       keyboardTextInputType: TextInputType.name,
                       // textController: _authorTitleTextController,
-                      textOnChanged: (authorTitle) => _typingAuthorTitle(authorTitle),
+                      textOnChanged: (authorTitle) => setState(() {_authorTitle = authorTitle;}),
                       fieldIsRequired: true,
                       fieldIsFormField: true,
                       initialTextValue: userModel.title,
@@ -479,7 +428,7 @@ class _CreateBzScreenState extends State<CreateBzScreen> with TickerProviderStat
                     AddGalleryPicBubble(
                       logo: _authorPic,
                       addBtFunction: _takeAuthorPicture,
-                      deleteLogoFunction: _deleteAuthorPic,
+                      deleteLogoFunction: () => setState(() {_authorPic = null;}),
                       title: 'Add a professional picture of yourself',
                       picOwner: PicOwner.author,
                     ),
@@ -503,16 +452,24 @@ class _CreateBzScreenState extends State<CreateBzScreen> with TickerProviderStat
                                   bldrBirth: DateTime.now(),
                                   accountType: _currentAccountType,
                                   bzURL: '',
-                                  bzName: _currentBzName,
+                                  bzName: _currentBzName ?? userModel.company,
                                   bzLogo: _currentLogo,
                                   bzScope: _currentBzScope,
-                                  bzCountry: _currentCountryID,
-                                  bzProvince: _currentProvinceID,
-                                  bzArea: _currentAreaID,
+                                  bzCountry: _currentCountryID ?? userModel.country,
+                                  bzProvince: _currentProvinceID ?? userModel.province,
+                                  bzArea: _currentAreaID ?? userModel.area,
                                   bzAbout: _currentBzAbout,
                                   bzPosition: GeoPoint(0,0),
-                                  bzContacts: [],
-                                  authors: [],
+                                  bzContacts: _currentBzContacts ?? userModel.contacts,
+                                  authors: [AuthorModel(
+                                    userID: userModel.userID,
+                                    bzID: '',
+                                    authorName: _authorName ?? userModel.name,
+                                    authorTitle: _authorTitle ?? userModel.title,
+                                    authorPic: _authorPic ?? userModel.pic,
+                                    authorContacts: _authorContacts ?? userModel.contacts,
+                                    publishedFlyersIDs: [],
+                                  ),],
                                   bzShowsTeam: true,
                                   bzIsVerified: false,
                                   bzAccountIsDeactivated: false,
@@ -529,21 +486,21 @@ class _CreateBzScreenState extends State<CreateBzScreen> with TickerProviderStat
 
                                 ),
                                 author: AuthorModel(
-                                  bzID: _bzID,
-                                  authorContacts: _authorContacts,
+                                  userID: userModel.userID,
+                                  bzID: '',
+                                  authorName: _authorName ?? userModel.name,
+                                  authorTitle: _authorTitle ?? userModel.title,
+                                  authorPic: _authorPic ?? userModel.pic,
+                                  authorContacts: _authorContacts ?? userModel.contacts,
                                   publishedFlyersIDs: [],
-                                  userID: _currentUserID,
-                                  authorPic: _authorPic,
-                                  authorTitle: _authorTitle,
-                                  authorName: _authorName,
                                 ),
                                 flyerShowsAuthor: true,
-                                followIsOn: null,
+                                followIsOn: false,
                                 flyerZoneWidth: superFlyerZoneWidth(context, 0.8),
                                 bzPageIsOn: _bzPageIsOn,
                                 tappingHeader: _triggerMaxHeader,
-                                tappingFollow: null,
-                                tappingUnfollow: null,
+                                tappingFollow: (){},
+                                tappingUnfollow: (){},
                               ),
 
                             ],
@@ -557,11 +514,44 @@ class _CreateBzScreenState extends State<CreateBzScreen> with TickerProviderStat
                     DreamBox(
                       height: 50,
                       verse: 'confirm business info',
+                      verseScaleFactor: .8,
                       boxFunction: () => _confirmNewBz(context, _pro, userModel),
                     ),
 
-                    _isLoading ?
-                    Loading() : Container(),
+                    // --- CONFIRM BUTTON
+                    DreamBox(
+                      height: 50,
+                      boxMargins: EdgeInsets.all(20),
+                      verse: 'only update user here',
+                      verseScaleFactor: .8,
+                      boxFunction: ()async{
+                        setState(() { _bzID = 'bolbol ID';});
+                        List<dynamic> tempFollowedBzzIDs = userModel.followedBzzIDs;
+                        userModel.followedBzzIDs.insert(0, _bzID);
+                        await UserProvider(userID: userModel.userID).updateUserData(
+                        // -------------------------
+                          userID : userModel.userID,
+                          joinedAt : userModel.joinedAt,
+                          userStatus : UserStatus.BzAuthor,
+                          // -------------------------
+                          name : userModel.name,
+                          pic : userModel.pic,
+                          title : userModel.title,
+                          company : userModel.company,
+                          gender : userModel.gender,
+                          country : userModel.country,
+                          province : userModel.province,
+                          area : userModel.area,
+                          language : userModel.language,
+                          position : userModel.position,
+                          contacts : userModel.contacts,
+                          // -------------------------
+                          savedFlyersIDs : userModel.savedFlyersIDs,
+                          followedBzzIDs : tempFollowedBzzIDs,
+                        );
+
+                      },
+                    ),
 
                     PyramidsHorizon(heightFactor: 5,),
 

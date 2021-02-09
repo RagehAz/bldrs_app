@@ -11,7 +11,7 @@ class BzLogo extends StatelessWidget {
   final bool miniMode;
   final BorderRadius corners;
   final bool bzPageIsOn;
-  final bool flyerShowsAuthor;
+  final bool zeroCornerIsOn;
   final EdgeInsets margins;
   final Function onTap;
   // final File file;
@@ -22,7 +22,7 @@ class BzLogo extends StatelessWidget {
     this.miniMode = true,
     this.corners,
     this.bzPageIsOn = false,
-    this.flyerShowsAuthor,
+    this.zeroCornerIsOn,
     this.margins,
     this.onTap,
     // this.file,
@@ -34,7 +34,7 @@ class BzLogo extends StatelessWidget {
     // === === === === === === === === === === === === === === === === === === ===
     double logoRoundCorners = width * Ratioz.bzLogoCorner;
     // === === === === === === === === === === === === === === === === === === ===
-    double logoZeroCorner = miniMode == true || flyerShowsAuthor == false ? logoRoundCorners : 0;
+    double logoZeroCorner = miniMode == true || zeroCornerIsOn == false ? logoRoundCorners : 0;
     // === === === === === === === === === === === === === === === === === === ===
     BorderRadius bzLogoCorners = corners == null ?
     superBorderRadius(context, logoRoundCorners, logoRoundCorners, logoZeroCorner, logoRoundCorners)

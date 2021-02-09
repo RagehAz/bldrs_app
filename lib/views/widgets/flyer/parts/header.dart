@@ -1,7 +1,6 @@
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/sub_models/contact_model.dart';
-import 'package:bldrs/view_brains/controllers/flyer_controllers.dart';
 import 'package:bldrs/view_brains/drafters/colorizers.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/drafters/scrollers.dart';
@@ -84,9 +83,9 @@ class Header extends StatelessWidget {
                       aPic: author?.authorPic,
                       aName: author?.authorName,
                       aTitle: author?.authorTitle,
-                      followersCount: bz?.bzTotalFollowers,
+                      followersCount: bz?.bzTotalFollowers ?? 0,
                       followIsOn: followIsOn,
-                      bzGalleryCount: author?.publishedFlyersIDs?.length,
+                      bzGalleryCount: author?.publishedFlyersIDs?.length ?? 0,
                       bzConnects: bz?.bzTotalConnects,
                       tappingHeader: tappingHeader,
                       tappingFollow: tappingFollow,

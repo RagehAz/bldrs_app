@@ -2,7 +2,7 @@ import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/view_brains/drafters/aligners.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
-import 'package:bldrs/view_brains/drafters/timerz.dart';
+import 'package:bldrs/view_brains/drafters/stringers.dart';
 import 'package:bldrs/view_brains/localization/localization_constants.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
@@ -94,7 +94,7 @@ class UserBubble extends StatelessWidget {
 
         // --- Joined at
         SuperVerse(
-          verse: '${Wordz.inn(context)} ${Wordz.bldrsShortName(context)}   : ${getMonthNameByInt(context, (user?.joinedAt)?.month)} ${(user?.joinedAt)?.year}',
+          verse: monthYearStringer(context,user?.joinedAt),
           weight: VerseWeight.thin,
           italic: true,
           color: Colorz.Grey,
