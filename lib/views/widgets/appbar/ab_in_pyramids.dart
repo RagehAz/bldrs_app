@@ -1,4 +1,5 @@
 import 'package:bldrs/models/user_model.dart';
+import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/providers/users_provider.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
@@ -25,8 +26,8 @@ class ABInPyramids extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final _user = Provider.of<UserModel>(context);
+    FlyersProvider prof = Provider.of<FlyersProvider>(context, listen: true);
 
     double _abPadding = Ratioz.ddAppBarMargin;
     double _abHeight = Ratioz.ddAppBarHeight;
@@ -34,7 +35,10 @@ class ABInPyramids extends StatelessWidget {
     double _abButtonsHeight = _abHeight - (_abPadding);
 
     bool _profileBlackAndWhite = currentPage == PageType.Profile ? false : true;
-    Color _collectionsColor = currentPage == PageType.SavedFlyers ? Colorz.Yellow : Colorz.WhiteAir;
+    bool _bzPageBlackAndWhite = currentPage == PageType.MyBz ? false : true;
+
+
+        Color _collectionsColor = currentPage == PageType.SavedFlyers ? Colorz.Yellow : Colorz.WhiteAir;
     Color _newsColor = currentPage == PageType.News ? Colorz.Yellow : Colorz.WhiteAir;
     Color _moreColor = currentPage == PageType.More ? Colorz.Yellow : Colorz.WhiteAir;
 
@@ -145,10 +149,11 @@ class ABInPyramids extends StatelessWidget {
                 alignment: Alignment.center,
                 child: BzLogo(
                   width: _abButtonsHeight,
-                  image: Iconz.DumBusinessLogo,
+                  image: prof.getBzByBzID(userModel.followedBzzIDs[0])?.bzLogo,
                   // margins: ,
                   zeroCornerIsOn: false,
                   onTap: () {switchingPages(PageType.MyBz);},
+                blackAndWhite: _bzPageBlackAndWhite,
                 ),
               ),
 
@@ -158,7 +163,7 @@ class ABInPyramids extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.all(_abPadding * 0.5),
                 child: UserBalloon(
-                  userPic: Iconz.DumAuthorPic, /// should be userModel.pic
+                  userPic: userModel.pic, //Iconz.DumAuthorPic, /// should be userModel.pic
                   userStatus: userModel.userStatus,
                   balloonWidth: _abButtonsHeight,
                   blackAndWhite: _profileBlackAndWhite,

@@ -62,7 +62,7 @@ class BzGrid extends StatelessWidget {
                 bzz.length != 0 ? Container() :
                 GridView(
                   physics: scrollDirection == null ? NeverScrollableScrollPhysics() : null,
-                  scrollDirection: scrollDirection,
+                  scrollDirection: scrollDirection == null ? Axis.vertical : scrollDirection,
                   addAutomaticKeepAlives: true,
                   shrinkWrap: true,
                   padding: EdgeInsets.all(_gridSpacing),
@@ -82,7 +82,7 @@ class BzGrid extends StatelessWidget {
                 // --- REAL GRID
                 GridView(
                   physics: scrollDirection == null ? NeverScrollableScrollPhysics() : null,
-                  scrollDirection: scrollDirection,
+                  scrollDirection: scrollDirection == null ? Axis.vertical : scrollDirection,
                   addAutomaticKeepAlives: true,
                   shrinkWrap: true,
                   padding: EdgeInsets.all(_gridSpacing),

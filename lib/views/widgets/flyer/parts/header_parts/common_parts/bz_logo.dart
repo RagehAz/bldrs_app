@@ -1,4 +1,5 @@
 import 'package:bldrs/view_brains/drafters/borderers.dart';
+import 'package:bldrs/view_brains/drafters/colorizers.dart';
 import 'package:bldrs/view_brains/drafters/file_formatters.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
@@ -14,7 +15,7 @@ class BzLogo extends StatelessWidget {
   final bool zeroCornerIsOn;
   final EdgeInsets margins;
   final Function onTap;
-  // final File file;
+  final bool blackAndWhite;
 
   BzLogo({
     @required this.width,
@@ -25,7 +26,7 @@ class BzLogo extends StatelessWidget {
     this.zeroCornerIsOn,
     this.margins,
     this.onTap,
-    // this.file,
+    this.blackAndWhite = false,
   });
 
 
@@ -42,48 +43,50 @@ class BzLogo extends StatelessWidget {
     corners
     ;
     // === === === === === === === === === === === === === === === === === === ===
+
     return GestureDetector(
       onTap: onTap == null ? (){} : onTap,
-      child: Container(
-        decoration: BoxDecoration(
-          color: objectIsColor(image) ? image : Colorz.WhiteAir,
-          borderRadius: bzLogoCorners,
-        ),
-        margin: margins,
-        child: Container(
-          height: width,
-          width: width,
-          decoration: BoxDecoration(
-              image:
-              objectIsJPGorPNG(image)?
-              DecorationImage(image: AssetImage(image), fit: BoxFit.cover) : null,
+      child: ClipRRect(
+        borderRadius: bzLogoCorners,
+        child: ColorFiltered(
+          colorFilter: superDesaturation(blackAndWhite),
+          child: Container(
+            height: width,
+            width: width,
+            margin: margins,
+            decoration: BoxDecoration(
+              color: objectIsColor(image) ? image : Colorz.WhiteAir,
+                image:
+                objectIsJPGorPNG(image)?
+                DecorationImage(image: AssetImage(image), fit: BoxFit.cover) : null,
 
-              borderRadius: bzLogoCorners,
-          ),
-          child:
-          objectIsSVG(image) ?
-          ClipRRect(
-              borderRadius: bzLogoCorners,
-              child: WebsafeSvg.asset(image, fit: BoxFit.cover, height:width, width: width)) :
-
-          image != null && objectIsFile(image) == true ?
-              ClipRRect(
                 borderRadius: bzLogoCorners,
-                child: Image.file(
-                  image,
-                  fit: BoxFit.cover,
-                  width: width,
-                  height: width,
-                  // colorBlendMode: BlendMode.overlay,
-                  // color: Colorz.WhiteAir,
-                ),
-              )
+            ),
+            child:
+            objectIsSVG(image) ?
+            ClipRRect(
+                borderRadius: bzLogoCorners,
+                child: WebsafeSvg.asset(image, fit: BoxFit.cover, height:width, width: width)) :
 
-              :
+            image != null && objectIsFile(image) == true ?
+                ClipRRect(
+                  borderRadius: bzLogoCorners,
+                  child: Image.file(
+                    image,
+                    fit: BoxFit.cover,
+                    width: width,
+                    height: width,
+                    // colorBlendMode: BlendMode.overlay,
+                    // color: Colorz.WhiteAir,
+                  ),
+                )
 
-          Container(),
+                :
+
+            Container(),
 
 
+          ),
         ),
       ),
     );
