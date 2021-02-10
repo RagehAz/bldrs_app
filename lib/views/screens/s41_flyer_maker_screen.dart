@@ -275,7 +275,7 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> {
     final FlyersProvider _pro = Provider.of<FlyersProvider>(context, listen: false);
     // final user = Provider.of<UserModel>(context);
     final BzModel _bz = _pro.getBzByBzID('br1');
-    final AuthorModel _author = _bz.authors[1];
+    final AuthorModel _author = _bz.bzAuthors[1];
     // ----------------------------------------------------------------------
     final double _flyerSizeFactor = 0.73;
     final double _flyerZoneWidth = superFlyerZoneWidth(context, _flyerSizeFactor);

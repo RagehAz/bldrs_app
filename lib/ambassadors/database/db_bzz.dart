@@ -13,7 +13,7 @@ BzModel geebBzByBzID(String bzID){
 AuthorModel geebAuthorByAuthorID(String authorID){
   AuthorModel author = new AuthorModel();
   dbBzz.forEach((bz) {
-    bz.authors.forEach((au) {
+    bz.bzAuthors.forEach((au) {
       if(au.userID == authorID){
         au = author;
       }
@@ -51,7 +51,7 @@ final List<BzModel> dbBzz =
       ContactModel(contact: 'www.facebook.com', contactType: ContactType.Facebook),
       ContactModel(contact: 'rageh-@hotmail.com', contactType: ContactType.Email),
     ],
-    authors: <AuthorModel>[
+    bzAuthors: <AuthorModel>[
       AuthorModel(userID: 'u07', publishedFlyersIDs: ['f010', 'f011'],),
     ],
     bzShowsTeam: true,
@@ -96,7 +96,7 @@ final List<BzModel> dbBzz =
       ContactModel(contact: 'www.facebook.com', contactType: ContactType.Facebook),
       ContactModel(contact: 'rageh-@hotmail.com', contactType: ContactType.Email),
     ],
-    authors: <AuthorModel>[
+    bzAuthors: <AuthorModel>[
       AuthorModel(userID: 'u08', publishedFlyersIDs: ['f012'],),
     ],
     bzShowsTeam: true,
@@ -141,7 +141,7 @@ final List<BzModel> dbBzz =
       ContactModel(contact: 'www.facebook.com', contactType: ContactType.Facebook),
       ContactModel(contact: 'rageh-@hotmail.com', contactType: ContactType.Email),
     ],
-    authors: <AuthorModel>[
+    bzAuthors: <AuthorModel>[
       AuthorModel(userID: 'u09', publishedFlyersIDs: ['f013','f014','f015','f016'],),
     ],
     bzShowsTeam: true,
@@ -186,7 +186,7 @@ final List<BzModel> dbBzz =
       ContactModel(contact: 'www.facebook.com', contactType: ContactType.Facebook),
       ContactModel(contact: 'rageh-@hotmail.com', contactType: ContactType.Email),
     ],
-    authors: <AuthorModel>[
+    bzAuthors: <AuthorModel>[
       AuthorModel(userID: 'u10', publishedFlyersIDs: ['f017'],),
     ],
     bzShowsTeam: true,
@@ -231,7 +231,7 @@ final List<BzModel> dbBzz =
       ContactModel(contact: 'www.facebook.com', contactType: ContactType.Facebook),
       ContactModel(contact: 'rageh-@hotmail.com', contactType: ContactType.Email),
     ],
-    authors: <AuthorModel>[
+    bzAuthors: <AuthorModel>[
       AuthorModel(userID: 'u11', publishedFlyersIDs: ['f019', 'f020'],),
     ],
     bzShowsTeam: true,
@@ -276,7 +276,7 @@ final List<BzModel> dbBzz =
       ContactModel(contact: 'www.facebook.com', contactType: ContactType.Facebook),
       ContactModel(contact: 'rageh-@hotmail.com', contactType: ContactType.Email),
     ],
-    authors: <AuthorModel>[
+    bzAuthors: <AuthorModel>[
       AuthorModel(userID: 'u01', publishedFlyersIDs: ['f001', 'f002'],),
     ],
     bzShowsTeam: false,
@@ -321,7 +321,7 @@ final List<BzModel> dbBzz =
       ContactModel(contact: 'www.facebook.com', contactType: ContactType.Facebook),
       ContactModel(contact: 'rageh-@hotmail.com', contactType: ContactType.Email),
     ],
-    authors: <AuthorModel>[
+    bzAuthors: <AuthorModel>[
       AuthorModel(userID: 'u02', publishedFlyersIDs: ['f003'],),
     ],
     bzShowsTeam: false,
@@ -366,7 +366,7 @@ final List<BzModel> dbBzz =
       ContactModel(contact: 'www.facebook.com', contactType: ContactType.Facebook),
       ContactModel(contact: 'rageh-@hotmail.com', contactType: ContactType.Email),
     ],
-    authors: <AuthorModel>[
+    bzAuthors: <AuthorModel>[
       AuthorModel(userID: 'u03', publishedFlyersIDs: ['f004', 'f005'],),
     ],
     bzShowsTeam: true,
@@ -411,7 +411,7 @@ final List<BzModel> dbBzz =
       ContactModel(contact: 'www.facebook.com', contactType: ContactType.Facebook),
       ContactModel(contact: 'rageh-@hotmail.com', contactType: ContactType.Email),
     ],
-    authors: <AuthorModel>[
+    bzAuthors: <AuthorModel>[
       AuthorModel(userID: 'u15', publishedFlyersIDs: ['f024', 'f025','f026'],),
     ],
     bzShowsTeam: true,
@@ -456,7 +456,7 @@ final List<BzModel> dbBzz =
       ContactModel(contact: 'www.facebook.com', contactType: ContactType.Facebook),
       ContactModel(contact: 'rageh-@hotmail.com', contactType: ContactType.Email),
     ],
-    authors: <AuthorModel>[
+    bzAuthors: <AuthorModel>[
       AuthorModel(userID: 'u16', publishedFlyersIDs: ['f027', 'f028', 'f029'],),
     ],
     bzShowsTeam: true,
@@ -501,7 +501,7 @@ final List<BzModel> dbBzz =
       ContactModel(contact: 'www.facebook.com', contactType: ContactType.Facebook),
       ContactModel(contact: 'rageh-@hotmail.com', contactType: ContactType.Email),
     ],
-    authors: <AuthorModel>[
+    bzAuthors: <AuthorModel>[
       AuthorModel(userID: 'u17', publishedFlyersIDs: ['f030', 'f031'],),
     ],
     bzShowsTeam: true,
@@ -546,7 +546,7 @@ final List<BzModel> dbBzz =
       ContactModel(contact: 'www.facebook.com', contactType: ContactType.Facebook),
       ContactModel(contact: 'rageh-@hotmail.com', contactType: ContactType.Email),
     ],
-    authors: <AuthorModel>[
+    bzAuthors: <AuthorModel>[
       AuthorModel(userID: 'u05', publishedFlyersIDs: ['f008'],),
     ],
     bzShowsTeam: true,
@@ -591,7 +591,7 @@ final List<BzModel> dbBzz =
       ContactModel(contact: 'www.facebook.com', contactType: ContactType.Facebook),
       ContactModel(contact: 'rageh-@hotmail.com', contactType: ContactType.Email),
     ],
-    authors: <AuthorModel>[
+    bzAuthors: <AuthorModel>[
       AuthorModel(userID: 'u06', publishedFlyersIDs: ['f009'],),
     ],
     bzShowsTeam: true,
@@ -636,7 +636,7 @@ final List<BzModel> dbBzz =
       ContactModel(contact: 'www.facebook.com', contactType: ContactType.Facebook),
       ContactModel(contact: 'rageh-@hotmail.com', contactType: ContactType.Email),
     ],
-    authors: <AuthorModel>[
+    bzAuthors: <AuthorModel>[
       AuthorModel(userID: 'u20', publishedFlyersIDs: ['f007', 'f038', 'f034'],
         authorName: 'Nazly Noman EL Mohammady', authorTitle: 'Real Estate Agent', authorPic: Dumz.XXnazly_author, authorContacts: [
             ContactModel(contact: '01065014107', contactType: ContactType.Phone),
@@ -701,7 +701,7 @@ final List<BzModel> dbBzz =
       ContactModel(contact: 'www.facebook.com', contactType: ContactType.Facebook),
       ContactModel(contact: 'rageh-@hotmail.com', contactType: ContactType.Email),
     ],
-    authors: <AuthorModel>[
+    bzAuthors: <AuthorModel>[
       AuthorModel(userID: 'u12', publishedFlyersIDs: ['f018'],),
     ],
     bzShowsTeam: true,
@@ -746,7 +746,7 @@ final List<BzModel> dbBzz =
       ContactModel(contact: 'www.facebook.com', contactType: ContactType.Facebook),
       ContactModel(contact: 'rageh-@hotmail.com', contactType: ContactType.Email),
     ],
-    authors: <AuthorModel>[
+    bzAuthors: <AuthorModel>[
       AuthorModel(userID: 'u13', publishedFlyersIDs: ['f021', 'f022'],),
     ],
     bzShowsTeam: true,
@@ -791,7 +791,7 @@ final List<BzModel> dbBzz =
       ContactModel(contact: 'www.facebook.com', contactType: ContactType.Facebook),
       ContactModel(contact: 'rageh-@hotmail.com', contactType: ContactType.Email),
     ],
-    authors: <AuthorModel>[
+    bzAuthors: <AuthorModel>[
       AuthorModel(userID: 'u14', publishedFlyersIDs: ['f023'],),
     ],
     bzShowsTeam: true,
@@ -836,7 +836,7 @@ final List<BzModel> dbBzz =
       ContactModel(contact: 'www.facebook.com', contactType: ContactType.Facebook),
       ContactModel(contact: 'rageh-@hotmail.com', contactType: ContactType.Email),
     ],
-    authors: <AuthorModel>[
+    bzAuthors: <AuthorModel>[
       AuthorModel(userID: 'u18', publishedFlyersIDs: ['f032'],),
     ],
     bzShowsTeam: true,
@@ -881,7 +881,7 @@ final List<BzModel> dbBzz =
       ContactModel(contact: 'www.facebook.com', contactType: ContactType.Facebook),
       ContactModel(contact: 'rageh-@hotmail.com', contactType: ContactType.Email),
     ],
-    authors: <AuthorModel>[
+    bzAuthors: <AuthorModel>[
       AuthorModel(userID: 'u19', publishedFlyersIDs: ['f033'],),
     ],
     bzShowsTeam: true,

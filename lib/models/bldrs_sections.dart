@@ -1,4 +1,6 @@
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+import 'package:bldrs/models/bz_model.dart';
+
 enum BldrsSection{
   Home,
   RealEstate,
@@ -30,5 +32,18 @@ int cipherBldrsSection (BldrsSection x){
     case BldrsSection.Supplies:     return 4; break ;
     default : return null;
   }
+}
+// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+BldrsSection getBldrsSectionByBzType(BzType bzType){
+  switch (bzType){
+    case BzType.Developer:    return   BldrsSection.RealEstate;     break;
+    case BzType.Broker:       return   BldrsSection.RealEstate;     break;
+    case BzType.Designer:     return   BldrsSection.Construction;   break;
+    case BzType.Contractor:   return   BldrsSection.Construction;   break;
+    case BzType.Artisan:      return   BldrsSection.Construction;   break;
+    case BzType.Manufacturer: return   BldrsSection.Supplies;       break;
+    case BzType.Supplier:     return   BldrsSection.Supplies;       break;
+    default : return   null;
+}
 }
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x

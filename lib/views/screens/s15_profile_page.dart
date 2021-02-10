@@ -7,7 +7,7 @@ import 'package:bldrs/views/widgets/layouts/main_layout.dart' show PyramidsHoriz
 import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 's16_pg_edit_profile_page.dart';
+import 's16_edit_profile_page.dart';
 
 class ProfilePage extends StatefulWidget {
 

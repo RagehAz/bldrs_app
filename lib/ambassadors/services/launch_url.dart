@@ -1,5 +1,5 @@
 import 'package:url_launcher/url_launcher.dart';
-
+// ---------------------------------------------------------------------------
 void launchURL(link) async {
   // should make a condition
   // if it starts with http:// or not
@@ -10,7 +10,7 @@ void launchURL(link) async {
     print('Can Not launch link');
   }
 }
-
+// ---------------------------------------------------------------------------
 void launchCall(String link) async {
   if (await canLaunch(link)) {
     await launch(link);
@@ -18,3 +18,4 @@ void launchCall(String link) async {
     print('cant call');
   }
 }
+// ---------------------------------------------------------------------------
