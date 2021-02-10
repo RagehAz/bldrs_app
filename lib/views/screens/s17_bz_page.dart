@@ -7,6 +7,7 @@ import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/providers/users_provider.dart';
 import 'package:bldrs/view_brains/drafters/borderers.dart';
+import 'package:bldrs/view_brains/drafters/file_formatters.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/drafters/stringers.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
@@ -31,11 +32,15 @@ import 'package:bldrs/views/widgets/layouts/main_layout.dart' show PyramidsHoriz
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
+import 's11_inpyramids_screen.dart' show PageType;
+
 class BzPage extends StatefulWidget {
   final UserModel userModel;
+  final Function switchPage;
 
   BzPage({
     @required this.userModel,
+    @required this.switchPage,
   });
 
   @override
@@ -71,7 +76,7 @@ class _BzPageState extends State<BzPage> {
   // -------------------------
   String _authorName;
   String _authorTitle;
-  File _authorPic;
+  dynamic _authorPic;
   List<ContactModel> _authorContacts;
 // ---------------------------------------------------------------------------
   FlyersProvider _prof;
@@ -94,7 +99,7 @@ class _BzPageState extends State<BzPage> {
     _currentAccountType = BzAccountType.Default; // ----- mankash
     // -------------------------
     _currentBzName = _bz.bzName;
-    _currentBzLogo = _bz.bzLogo;
+    _currentBzLogo = objectIsFile(_bz.bzLogo) ? null : _bz.bzLogo; // temp
     _currentBzScope = _bz.bzScope;
     _currentBzCountry = _bz.bzCountry;
     _currentBzProvince = _bz.bzProvince;
@@ -107,12 +112,12 @@ class _BzPageState extends State<BzPage> {
     // -------------------------
     _authorName = _bz.bzAuthors[0].authorName;
     _authorTitle = _bz.bzAuthors[0].authorTitle;
-    _authorPic = _bz.bzAuthors[0].authorPic;
+    _authorPic = objectIsFile(_bz.bzAuthors[0].authorPic) ? null : _bz.bzAuthors[0].authorPic; // temp
     _authorContacts = _bz.bzAuthors[0].authorContacts;
     super.initState();
   }
 // ---------------------------------------------------------------------------
-  void switchEditProfile(){
+  void _switchEditProfile(){
     setState(() {
       editMode = !editMode;
     });
@@ -198,7 +203,7 @@ class _BzPageState extends State<BzPage> {
       bzURL: _bz.bzURL,
       // -------------------------
       bzName: _currentBzName,
-      bzLogo: _currentBzLogo,
+      bzLogo: '',
       bzScope: _currentBzScope,
       bzCountry: _currentBzCountry,
       bzProvince: _currentBzProvince,
@@ -236,6 +241,27 @@ class _BzPageState extends State<BzPage> {
     catch(error) {
       await showDialog(
         context: context,
+        builder: (ctx)=> superAlert(context, ctx, error),
+      );
+    }
+    finally {
+      _triggerLoading();
+      _switchEditProfile();
+    }
+  }
+  // ----------------------------------------------------------------------
+  void _triggerLoading(){
+    setState(() {
+      _isLoading = !_isLoading;
+    });
+  }
+  // ----------------------------------------------------------------------
+  Future<void> _deleteBzProfile(BuildContext context, FlyersProvider pro, UserModel userModel) async {
+    _triggerLoading();
+    try { await pro.deleteBz(_bzID, userModel); }
+    catch(error) {
+      await showDialog(
+        context: context,
         builder: (ctx)=>
             AlertDialog(
               title: SuperVerse(verse: 'error man', color: Colorz.BlackBlack,),
@@ -256,16 +282,11 @@ class _BzPageState extends State<BzPage> {
     }
     finally {
       _triggerLoading();
-      switchEditProfile();
+      widget.switchPage(PageType.Profile);
     }
+
   }
-  // ----------------------------------------------------------------------
-  void _triggerLoading(){
-    setState(() {
-      _isLoading = !_isLoading;
-    });
-  }
-  // ----------------------------------------------------------------------
+
   @override
   Widget build(BuildContext context) {
 
@@ -356,7 +377,7 @@ class _BzPageState extends State<BzPage> {
                   height: _flyerZoneWidth * 0.14,
                   // color: Colorz.Facebook,
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
 
@@ -372,7 +393,22 @@ class _BzPageState extends State<BzPage> {
                         verseItalic: true,
                         verseWeight: VerseWeight.thin,
                         boxMargins: EdgeInsets.symmetric(vertical : _flyerZoneWidth * 0.02),
-                        boxFunction: switchEditProfile,
+                        boxFunction: _switchEditProfile,
+                      ),
+
+                      DreamBox(
+                        width: _flyerZoneWidth * 0.1,
+                        height: _flyerZoneWidth * 0.1,
+                        icon: Iconz.XLarge,
+                        iconColor: Colorz.BloodRed,
+                        color: Colorz.WhiteGlass,
+                        bubble: false,
+                        iconSizeFactor: 0.6,
+                        // verse: 'Delete Account',
+                        verseItalic: true,
+                        verseWeight: VerseWeight.thin,
+                        boxMargins: EdgeInsets.symmetric(vertical : _flyerZoneWidth * 0.02),
+                        boxFunction: () =>_deleteBzProfile(context, _prof, widget.userModel),
                       ),
 
                     ],
@@ -646,4 +682,25 @@ class _BzPageState extends State<BzPage> {
       );
 
   }
+}
+
+AlertDialog superAlert (BuildContext context, BuildContext ctx, dynamic error) {
+  return
+    AlertDialog(
+      title: SuperVerse(verse: 'error man', color: Colorz.BlackBlack,),
+      content: SuperVerse(verse: 'error is : ${error.toString()}',
+        color: Colorz.BlackBlack,
+        maxLines: 10,),
+      backgroundColor: Colorz.Grey,
+      elevation: 10,
+      shape: RoundedRectangleBorder(borderRadius: superBorderAll(context, 20)),
+      contentPadding: EdgeInsets.all(10),
+      actionsOverflowButtonSpacing: 10,
+      actionsPadding: EdgeInsets.all(5),
+      insetPadding: EdgeInsets.symmetric(
+          vertical: (superScreenHeight(context) * 0.32), horizontal: 35),
+      buttonPadding: EdgeInsets.all(5),
+      titlePadding: EdgeInsets.all(20),
+      actions: <Widget>[BldrsBackButton(onTap: () => goBack(ctx)),],
+    );
 }
