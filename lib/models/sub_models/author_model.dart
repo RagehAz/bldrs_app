@@ -24,7 +24,7 @@ class AuthorModel{
       'bzID' : bzID,
       'userID' : userID,
       'authorName' : authorName,
-      'authorPic' : authorPic,
+      'authorPic' : '',//authorPic,
       'authorTitle' : authorTitle,
       'publishedFlyersIDs' : publishedFlyersIDs,
       'authorContacts' : cipherContactsModels(authorContacts),
@@ -54,3 +54,12 @@ List<AuthorModel> decipherBzAuthorsMaps(List<dynamic> listOfMaps){
   return _authorsList;
 }
 // -----------------------------------------------------------------
+List<Map<String,Object>> cipherAuthorsModels(List<AuthorModel> authorsList){
+  List<Map<String,Object>> listOfAuthors = new List();
+  authorsList?.forEach((author) {
+    listOfAuthors.add(author.toMap());
+  });
+  return listOfAuthors;
+}
+// -----------------------------------------------------------------
+
