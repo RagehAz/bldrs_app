@@ -17,7 +17,7 @@ enum PicOwner{
 
 class AddGalleryPicBubble extends StatelessWidget {
   final Function addBtFunction;
-  final File logo;
+  final dynamic logo;
   final Function deleteLogoFunction;
   final String title;
   final PicOwner picOwner;

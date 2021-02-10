@@ -153,6 +153,7 @@ class _InPyramidsScreenState extends State<InPyramidsScreen> {
               _currentPage == PageType.MyBz ?
               BzPage(
                   userModel: widget.userModel,
+                switchPage : (page) => _switchingPages(page),
                 // bz:
               )
                   :

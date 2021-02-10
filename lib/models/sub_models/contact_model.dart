@@ -25,14 +25,14 @@ List<Map<String,Object>> cipherContactsModels(List<ContactModel> contactsList){
   });
   return listOfMaps;
 }
-
+// -----------------------------------------------------------------
 ContactModel decipherContactMap(Map<String,dynamic> map){
   return ContactModel(
       contact: map['contact'],
       contactType: decipherContactType(map['contactType']),
   );
 }
-
+// -----------------------------------------------------------------
 List<ContactModel> decipherContactsMaps(List<dynamic> maps){
   List<ContactModel> contacts = new List();
   maps?.forEach((map) {

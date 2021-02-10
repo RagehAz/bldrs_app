@@ -2,6 +2,7 @@ import 'package:bldrs/ambassadors/database/db_bzz.dart';
 import 'package:bldrs/ambassadors/database/db_flyer.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
+import 'package:bldrs/models/http_exceptions.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:bldrs/models/user_model.dart';
@@ -13,8 +14,8 @@ import 'dart:convert';
 import 'users_provider.dart';
 
 const String realtimeDatabaseLink = 'https://bldrsnet.firebaseio.com/';
-const String realtimeDatabaseFlyersPath = '${realtimeDatabaseLink}flyers.json';
-const String realtimeDatabaseBzzPath = '${realtimeDatabaseLink}bzz.json';
+const String realtimeDatabaseFlyersPath = 'https://bldrsnet.firebaseio.com/flyers.json';
+const String realtimeDatabaseBzzPath = 'https://bldrsnet.firebaseio.com/bzz.json';
 
 class FlyersProvider with ChangeNotifier {
   List<FlyerModel> _loadedFlyers = geebAllFlyers();
@@ -176,7 +177,7 @@ Future<void> addBz(BzModel bz, UserModel userModel) async {
   try {
     final response = await http.post(url,
       body: json.encode({
-        'bzID': bz.bzID,
+        // 'bzID': bz.bzID,
         // -------------------------
         'bzType': cipherBzType(bz.bzType),
         'bzForm': cipherBzForm(bz.bzForm),
@@ -295,10 +296,110 @@ Future<void> addBz(BzModel bz, UserModel userModel) async {
   }
 
 }
-
+// ---------------------------------------------------------------------------
 Future<void> updateBz(BzModel bz, UserModel userModel) async {
-    print('ya 7alolly');
+    final bzIndex = _loadedBzz.indexWhere((bzModel) => bzModel.bzID == bz.bzID);
+    if (bzIndex >= 0){
+      final url = 'https://bldrsnet.firebaseio.com/bzz/${bz.bzID}.json';
+      await http.patch(url, body: json.encode({
+        'bzID': bz.bzID,
+        // -------------------------
+        'bzType': cipherBzType(bz.bzType),
+        'bzForm': cipherBzForm(bz.bzForm),
+        'bldrBirth': cipherDateTimeToString(bz.bldrBirth),
+        'accountType': cipherBzAccountType(bz.accountType),
+        'bzURL': bz.bzURL,
+        // -------------------------
+        'bzName': bz.bzName,
+        'bzLogo': 'bz.bzLogo',
+        'bzScope': bz.bzScope,
+        'bzCountry': bz.bzCountry,
+        'bzProvince': bz.bzProvince,
+        'bzArea': bz.bzArea,
+        'bzAbout': bz.bzAbout,
+        'bzPosition': bz.bzPosition,
+        'bzContacts': cipherContactsModels(bz.bzContacts),
+        'bzAuthors': cipherAuthorsModels(bz.bzAuthors),
+        'bzShowsTeam': bz.bzShowsTeam,
+        // -------------------------
+        'bzIsVerified': bz.bzIsVerified,
+        'bzAccountIsDeactivated': bz.bzAccountIsDeactivated,
+        'bzAccountIsBanned': bz.bzAccountIsBanned,
+        // -------------------------
+        'bzTotalFollowers': bz.bzTotalFollowers,
+        'bzTotalSaves': bz.bzTotalSaves,
+        'bzTotalShares': bz.bzTotalShares,
+        'bzTotalSlides': bz.bzTotalSlides,
+        'bzTotalViews': bz.bzTotalViews,
+        'bzTotalCalls': bz.bzTotalCalls,
+        'bzTotalConnects': bz.bzTotalConnects,
+        // -------------------------
+        'jointsBzzIDs': bz.jointsBzzIDs,
+        // -------------------------
+        // 'followIsOn': bz.followIsOn,
+        // will change in later max lessons to be user based
+      }));
+      _loadedBzz[bzIndex] = bz;
+      notifyListeners();
+    } else {
+      print('could not update this fucking bz : ${bz.bzName} : ${bz.bzID}');
+    }
 }
+// ---------------------------------------------------------------------------
+ Future<void> deleteBz(String bzID, UserModel userModel) async {
+    // status codes
+   // 200 201 everything worked
+   // 300 redirected
+   // 400 something went wrong
+   // 500 https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
+   final url = 'https://bldrsnet.firebaseio.com/bzz/$bzID.json';
+   /// OPTIMISTIC UPDATING
+   /// to save the bz in this object like max did, to get it back to _loadedBzz
+   /// incase deleting from firebase fails
+   final existingBzIndex = _loadedBzz.indexWhere((bz) => bz.bzID == bzID);
+   var existingBz = _loadedBzz[existingBzIndex];
+   _loadedBzz.removeAt(existingBzIndex);
+   final _response = await http.delete(url).then((response) async {
+
+     if(response.statusCode >= 400){
+       throw HttpException('Could not delete Business');
+     }
+
+     existingBz = null;
+     print('Bz is deleted from firebase successfully');
+
+     List<dynamic> newFollowedBzzIDs = userModel.followedBzzIDs;
+     newFollowedBzzIDs.remove(bzID);
+     await UserProvider(userID: userModel.userID).
+     updateUserData(
+       // -------------------------
+       userID : userModel.userID,
+       joinedAt : userModel.joinedAt,
+       userStatus : UserStatus.NormalUser,
+       // -------------------------
+       name : userModel.name,
+       pic : userModel.pic,
+       title : userModel.title,
+       company : userModel.company,
+       gender : userModel.gender,
+       country : userModel.country,
+       province : userModel.province,
+       area : userModel.area,
+       language : userModel.language,
+       position : userModel.position,
+       contacts : userModel.contacts,
+       // -------------------------
+       savedFlyersIDs : userModel.savedFlyersIDs,
+       followedBzzIDs : newFollowedBzzIDs,
+     );
+
+
+   }).catchError((_){
+     _loadedBzz.insert(existingBzIndex, existingBz);
+     print('Bz is NOT deleted from firebase, and returned back to local bzz list');
+   });
+   notifyListeners();
+ }
 // ---------------------------------------------------------------------------
 Future<void> fetchAndSetBzz() async {
   const url = realtimeDatabaseBzzPath;
