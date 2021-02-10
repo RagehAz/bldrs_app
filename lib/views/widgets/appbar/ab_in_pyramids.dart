@@ -6,7 +6,7 @@ import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
-import 'package:bldrs/views/screens/s11_sc_inpyramids_screen.dart';
+import 'package:bldrs/views/screens/s11_inpyramids_screen.dart';
 import 'package:bldrs/views/widgets/buttons/balloons/user_balloon.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/common_parts/bz_logo.dart';

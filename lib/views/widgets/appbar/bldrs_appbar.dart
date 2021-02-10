@@ -1,5 +1,5 @@
 import 'package:bldrs/models/user_model.dart';
-import 'package:bldrs/views/screens/s11_sc_inpyramids_screen.dart';
+import 'package:bldrs/views/screens/s11_inpyramids_screen.dart';
 import 'package:bldrs/views/widgets/appbar/ab_localizer.dart';
 import 'package:bldrs/views/widgets/appbar/ab_main.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';

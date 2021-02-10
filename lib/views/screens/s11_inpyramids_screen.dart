@@ -1,15 +1,16 @@
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
+import 'package:bldrs/views/screens/s17_bz_page.dart';
 import 'package:bldrs/views/widgets/appbar/ab_in_pyramids.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/pyramids/enum_lister.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 's12_pg_saved_flyers_page.dart';
-import 's13_pg_news_page.dart';
-import 's14_pg_more_page.dart';
-import 's15_pg_profile_page.dart';
-import 's17_pg_my_bz_page.dart';
+import 's12_saved_flyers_page.dart';
+import 's13_news_page.dart';
+import 's14_more_page.dart';
+import 's15_profile_page.dart';
+import 's17_my_bz_page.dart';
 
 enum PageType {
   SavedFlyers,
@@ -17,6 +18,7 @@ enum PageType {
   More,
   Profile,
   MyBz,
+  EditMyBz,
 }
 
 class InPyramidsScreen extends StatefulWidget {
@@ -149,7 +151,10 @@ class _InPyramidsScreenState extends State<InPyramidsScreen> {
               )
                   :
               _currentPage == PageType.MyBz ?
-              MyBzPage(userModel: widget.userModel)
+              BzPage(
+                  userModel: widget.userModel,
+                // bz:
+              )
                   :
               _currentPage == PageType.SavedFlyers ?
               SavedFlyersPage()

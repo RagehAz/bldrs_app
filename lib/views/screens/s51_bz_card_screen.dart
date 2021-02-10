@@ -53,7 +53,7 @@ class _BzCardScreenState extends State<BzCardScreen> {
 
             Header(
               bz: bz,
-              author: bz.authors[0],
+              author: bz.bzAuthors[0],
               flyerShowsAuthor: true,
               followIsOn: null,
               flyerZoneWidth: superFlyerZoneWidth(context, flyerSizeFactor),
@@ -62,7 +62,6 @@ class _BzCardScreenState extends State<BzCardScreen> {
               tappingFollow: null,
               tappingUnfollow: null,
             ),
-
 
           ],
         ),

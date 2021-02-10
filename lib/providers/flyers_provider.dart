@@ -92,7 +92,7 @@ class FlyersProvider with ChangeNotifier {
 // ############################################################################
   List<FlyerModel> getFlyersByBzModel(BzModel bz){
     List<String> bzFlyersIDs = new List();
-    bz?.authors?.forEach((au) {
+    bz?.bzAuthors?.forEach((au) {
       List<String> _publishedFlyersIDs = new List();
       if(au?.publishedFlyersIDs == null || _publishedFlyersIDs == [])
       {_publishedFlyersIDs = [];}
@@ -193,14 +193,14 @@ Future<void> addBz(BzModel bz, UserModel userModel) async {
         'bzAbout': bz.bzAbout,
         'bzPosition': bz.bzPosition,
         'bzContacts': cipherContactsModels(bz.bzContacts),
-        'authors': [AuthorModel(
-          bzID: bz.authors[0].bzID,
-          userID: bz.authors[0].userID,
-          authorName: bz.authors[0].authorName,
-          authorPic: 'bz.authors[0].authorPic',
-          authorTitle: bz.authors[0].authorTitle,
-          publishedFlyersIDs: bz.authors[0].publishedFlyersIDs,
-          authorContacts: bz.authors[0].authorContacts,
+        'bzAuthors': [AuthorModel(
+          bzID: bz.bzAuthors[0].bzID,
+          userID: bz.bzAuthors[0].userID,
+          authorName: bz.bzAuthors[0].authorName,
+          authorPic: 'bz.bzAuthors[0].authorPic',
+          authorTitle: bz.bzAuthors[0].authorTitle,
+          publishedFlyersIDs: bz.bzAuthors[0].publishedFlyersIDs,
+          authorContacts: bz.bzAuthors[0].authorContacts,
         ).toMap(),],
         'bzShowsTeam': bz.bzShowsTeam,
         // -------------------------
@@ -241,7 +241,7 @@ Future<void> addBz(BzModel bz, UserModel userModel) async {
       bzAbout: bz.bzAbout,
       bzPosition: bz.bzPosition,
       bzContacts: bz.bzContacts,
-      authors: bz.authors,
+      bzAuthors: bz.bzAuthors,
       bzShowsTeam: bz.bzShowsTeam,
       // -------------------------
       bzIsVerified: bz.bzIsVerified,
@@ -295,6 +295,10 @@ Future<void> addBz(BzModel bz, UserModel userModel) async {
   }
 
 }
+
+Future<void> updateBz(BzModel bz, UserModel userModel) async {
+    print('ya 7alolly');
+}
 // ---------------------------------------------------------------------------
 Future<void> fetchAndSetBzz() async {
   const url = realtimeDatabaseBzzPath;
@@ -321,7 +325,7 @@ Future<void> fetchAndSetBzz() async {
         bzAbout : bzMap['bzAbout'],
         bzPosition : bzMap['bzPosition'],
         bzContacts : decipherContactsMaps(bzMap['bzContacts']),
-        authors : decipherAuthorsMaps(bzMap['authors']),
+        bzAuthors : decipherBzAuthorsMaps(bzMap['bzAuthors']),
         bzShowsTeam : bzMap['bzShowsTeam'],
         // -------------------------
         bzIsVerified : bzMap['bzIsVerified'],

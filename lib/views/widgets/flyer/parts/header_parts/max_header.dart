@@ -33,7 +33,7 @@ class MaxHeader extends StatelessWidget {
     final _prof = Provider.of<FlyersProvider>(context);
     final List<FlyerModel> _galleryFlyers = _prof.getFlyersByBzModel(bz);
     // === === === === === === === === === === === === === === === === === === ===
-    List<AuthorModel> _bzAuthors = bz != null ? bz?.authors : [];
+    List<AuthorModel> _bzAuthors = bz != null ? bz?.bzAuthors : [];
     // === === === === === === === === === === === === === === === === === === ===
     List<String> _bzTeamIDs = [];
     if(_bzAuthors != null) {

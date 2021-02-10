@@ -1,11 +1,11 @@
 import 'package:bldrs/views/screens/s50_flyer_screen.dart';
-import 'package:bldrs/views/screens/s40_sc_create_bz_screen.dart';
-import 'package:bldrs/views/screens/s41_sc_flyer_maker_screen.dart';
+import 'package:bldrs/views/screens/s40_create_bz_screen.dart';
+import 'package:bldrs/views/screens/s41_flyer_maker_screen.dart';
 import 'package:bldrs/views/widgets/auth/user_checker.dart';
-import 'package:bldrs/views/screens/s00_sc_splash_screen.dart';
-import 'package:bldrs/views/screens/s01_sc_starting_screen.dart';
-import 'package:bldrs/views/screens/s10_sc_home_screen.dart';
-import 'package:bldrs/views/screens/s20_sc_search_screen.dart';
+import 'package:bldrs/views/screens/s00_splash_screen.dart';
+import 'package:bldrs/views/screens/s01_starting_screen.dart';
+import 'package:bldrs/views/screens/s10_home_screen.dart';
+import 'package:bldrs/views/screens/s20_search_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x01_access_denied_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x02_rageh_dash_board.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/xxx_obelisk.dart';

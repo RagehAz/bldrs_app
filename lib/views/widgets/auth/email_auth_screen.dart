@@ -1,7 +1,7 @@
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
-import 'package:bldrs/views/screens/s02_pg_signin_page.dart';
-import 'package:bldrs/views/screens/s03_pg_register_page.dart';
+import 'package:bldrs/views/screens/s02_signin_page.dart';
+import 'package:bldrs/views/screens/s03_register_page.dart';
 import 'package:bldrs/views/widgets/buttons/bt_skip_auth.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
