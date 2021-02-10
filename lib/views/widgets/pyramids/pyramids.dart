@@ -3,7 +3,7 @@ import 'package:bldrs/providers/users_provider.dart';
 import 'package:bldrs/view_brains/router/route_names.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
-import 'package:bldrs/views/screens/s11_sc_inpyramids_screen.dart';
+import 'package:bldrs/views/screens/s11_inpyramids_screen.dart';
 import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

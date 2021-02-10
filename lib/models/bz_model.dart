@@ -32,7 +32,7 @@ class BzModel with ChangeNotifier{
   final String bzAbout;
   final GeoPoint bzPosition;
   final List<ContactModel> bzContacts;
-  final List<AuthorModel> authors;
+  final List<AuthorModel> bzAuthors;
   final bool bzShowsTeam;
   // -------------------------
   final bool bzIsVerified;
@@ -69,7 +69,7 @@ class BzModel with ChangeNotifier{
     this.bzAbout,
     this.bzPosition,
     this.bzContacts,
-    this.authors,
+    this.bzAuthors,
     this.bzShowsTeam,
     // -------------------------
     this.bzIsVerified,

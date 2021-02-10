@@ -56,15 +56,14 @@ class _CreateBzScreenState extends State<CreateBzScreen> with TickerProviderStat
   UserModel _currentUser;
   String _currentUserID;
   String _currentBzName;
+  File _currentBzLogo;
   String _currentBzScope;
-  File _currentLogo;
-  String _currentCountryID;
-  String _currentProvinceID;
-  String _currentAreaID;
+  String _currentBzCountry;
+  String _currentBzProvince;
+  String _currentBzArea;
   String _currentBzAbout;
+  GeoPoint _currentBzPosition;
   List<ContactModel> _currentBzContacts;
-  GeoPoint _currentPosition;
-  List<ContactModel> _currentContacts;
   AuthorModel _currentAuthor;
   bool _currentBzShowsTeam;
   String _bzID;
@@ -142,13 +141,13 @@ class _CreateBzScreenState extends State<CreateBzScreen> with TickerProviderStat
     if (imageFile == null){return;}
 
     setState(() {
-      _currentLogo = File(imageFile.path);
+      _currentBzLogo = File(imageFile.path);
       // newBz.bz.bzLogo = _storedLogo;
     });
 
     // final appDir = await sysPaths.getApplicationDocumentsDirectory();
     // final fileName = path.basename(imageFile.path);
-    // final savedImage = await _currentLogo.copy('${appDir.path}/$fileName');
+    // final savedImage = await _currentBzLogo.copy('${appDir.path}/$fileName');
     // _selectImage(savedImage);
   }
   // ----------------------------------------------------------------------
@@ -182,15 +181,15 @@ class _CreateBzScreenState extends State<CreateBzScreen> with TickerProviderStat
       bzURL: '...',
       // -------------------------
       bzName: _currentBzName ?? user.company,
-      bzLogo: _currentLogo,
+      bzLogo: _currentBzLogo,
       bzScope: _currentBzScope,
-      bzCountry: _currentCountryID ?? user.country,
-      bzProvince: _currentProvinceID ?? user.province,
-      bzArea: _currentAreaID ?? user.area,
+      bzCountry: _currentBzCountry ?? user.country,
+      bzProvince: _currentBzProvince ?? user.province,
+      bzArea: _currentBzArea ?? user.area,
       bzAbout: _currentBzAbout,
-      bzPosition: _currentPosition,
-      bzContacts: _currentContacts ?? user.contacts,
-      authors: [AuthorModel(
+      bzPosition: _currentBzPosition,
+      bzContacts: _currentBzContacts ?? user.contacts,
+      bzAuthors: [AuthorModel(
         userID: user.userID,
         authorName: _authorName ?? user.name,
         authorPic: _authorPic ?? user.pic,
@@ -261,9 +260,9 @@ class _CreateBzScreenState extends State<CreateBzScreen> with TickerProviderStat
   void _assignUserData(UserModel user){
     setState(() {
       _currentBzName = user.company;
-      _currentCountryID = user.country;
-      _currentProvinceID = user.province;
-      _currentAreaID = user.area;
+      _currentBzCountry = user.country;
+      _currentBzProvince = user.province;
+      _currentBzArea = user.area;
       _authorName = user.name;
       _authorTitle = user.title;
     });
@@ -276,7 +275,7 @@ class _CreateBzScreenState extends State<CreateBzScreen> with TickerProviderStat
 
 
     return MainLayout(
-      tappingRageh: (){print(_currentAreaID);},
+      tappingRageh: (){print(_currentBzArea);},
 
       appBarType: AppBarType.Basic,
       pyramids: Iconz.PyramidzYellow,
@@ -331,9 +330,9 @@ class _CreateBzScreenState extends State<CreateBzScreen> with TickerProviderStat
 
                     // --- ADD LOGO
                     AddGalleryPicBubble(
-                      logo: _currentLogo,
+                      logo: _currentBzLogo,
                       addBtFunction: _takeGalleryPicture,
-                      deleteLogoFunction: () => setState(() {_currentLogo = null;}),
+                      deleteLogoFunction: () => setState(() {_currentBzLogo = null;}),
                       title: Wordz.businessLogo(context),
                       picOwner: PicOwner.bzLogo,
                     ),
@@ -384,9 +383,9 @@ class _CreateBzScreenState extends State<CreateBzScreen> with TickerProviderStat
 
                     // --- bzLocale
                     LocaleBubble(
-                      changeCountry : (countryID) => setState(() {_currentCountryID = countryID;}),
-                      changeProvince : (provinceID) => setState(() {_currentProvinceID = provinceID;}),
-                      changeArea : (areaID) => setState(() {_currentAreaID = areaID;}),
+                      changeCountry : (countryID) => setState(() {_currentBzCountry = countryID;}),
+                      changeProvince : (provinceID) => setState(() {_currentBzProvince = provinceID;}),
+                      changeArea : (areaID) => setState(() {_currentBzArea = areaID;}),
                       hq: HQ(countryID: userModel.country, provinceID: userModel.province, areaID: userModel.area),
                       title: 'Headquarters Area',//Wordz.hqCity(context),
                     ),
@@ -453,15 +452,15 @@ class _CreateBzScreenState extends State<CreateBzScreen> with TickerProviderStat
                                   accountType: _currentAccountType,
                                   bzURL: '',
                                   bzName: _currentBzName ?? userModel.company,
-                                  bzLogo: _currentLogo,
+                                  bzLogo: _currentBzLogo,
                                   bzScope: _currentBzScope,
-                                  bzCountry: _currentCountryID ?? userModel.country,
-                                  bzProvince: _currentProvinceID ?? userModel.province,
-                                  bzArea: _currentAreaID ?? userModel.area,
+                                  bzCountry: _currentBzCountry ?? userModel.country,
+                                  bzProvince: _currentBzProvince ?? userModel.province,
+                                  bzArea: _currentBzArea ?? userModel.area,
                                   bzAbout: _currentBzAbout,
                                   bzPosition: GeoPoint(0,0),
                                   bzContacts: _currentBzContacts ?? userModel.contacts,
-                                  authors: [AuthorModel(
+                                  bzAuthors: [AuthorModel(
                                     userID: userModel.userID,
                                     bzID: '',
                                     authorName: _authorName ?? userModel.name,

@@ -32,7 +32,7 @@ class AuthorModel{
   }
 // ###############################
 }
-AuthorModel decipherAuthorMap(Map<String, dynamic> map){
+AuthorModel decipherBzAuthorMap(Map<String, dynamic> map){
   return AuthorModel(
     bzID : map['bzID'],
     userID : map['userID'],
@@ -44,11 +44,11 @@ AuthorModel decipherAuthorMap(Map<String, dynamic> map){
   );
 }
 // -----------------------------------------------------------------
-List<AuthorModel> decipherAuthorsMaps(List<dynamic> listOfMaps){
+List<AuthorModel> decipherBzAuthorsMaps(List<dynamic> listOfMaps){
   List<AuthorModel> _authorsList = new List();
 
-  listOfMaps?.forEach((map) {
-    _authorsList.add(decipherAuthorMap(map));
+  listOfMaps.forEach((map) {
+    _authorsList.add(decipherBzAuthorMap(map));
   });
 
   return _authorsList;
