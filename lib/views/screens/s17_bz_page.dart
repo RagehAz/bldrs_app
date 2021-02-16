@@ -80,6 +80,8 @@ class _BzPageState extends State<BzPage> {
   List<ContactModel> _authorContacts;
 // ---------------------------------------------------------------------------
   FlyersProvider _prof;
+
+
   @override
   void initState() {
     _bzID = widget.userModel.followedBzzIDs[0];
@@ -117,8 +119,8 @@ class _BzPageState extends State<BzPage> {
     super.initState();
   }
 // ---------------------------------------------------------------------------
-  void _switchEditProfile(){
-    setState(() {
+  void _switchEditProfile() {
+     setState(() {
       editMode = !editMode;
     });
   }
@@ -248,6 +250,7 @@ class _BzPageState extends State<BzPage> {
       _triggerLoading();
       _switchEditProfile();
     }
+
   }
   // ----------------------------------------------------------------------
   void _triggerLoading(){
@@ -287,6 +290,10 @@ class _BzPageState extends State<BzPage> {
 
   }
 
+  void _tapAchievements(){
+    setState(() {print('Bz data edited successfully');});
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -313,7 +320,7 @@ class _BzPageState extends State<BzPage> {
             columnChildren: <Widget>[
 
               GestureDetector(
-                onTap: (){print(_testPrint);},
+                onTap: _tapAchievements,
                 child: Container(
                   width: superBubbleClearWidth(context),
                   child: Row(
@@ -455,57 +462,57 @@ class _BzPageState extends State<BzPage> {
           Stratosphere(),
 
             // --- CHOOSE SECTION
-            MultipleChoiceBubble(
-    title: Wordz.sections(context),
-    buttonsList: sectionsListStrings(context),
-    tappingAButton: _selectASection,
-    chosenButton: sectionStringer(context, _currentSection),
-    ),
+          MultipleChoiceBubble(
+            title: Wordz.sections(context),
+            buttonsList: sectionsListStrings(context),
+            tappingAButton: _selectASection,
+            chosenButton: sectionStringer(context, _currentSection),
+          ),
 
             // --- CHOOSE BzType
-            MultipleChoiceBubble(
-              title: Wordz.accountType(context),
-              buttonsList: bzTypesStrings(context),
-              tappingAButton: _selectBzType,
-              chosenButton: bzTypeSingleStringer(context, _currentBzType),
-              buttonsInActivityList: _bzTypeInActivityList,
-            ),
+          MultipleChoiceBubble(
+            title: Wordz.accountType(context),
+            buttonsList: bzTypesStrings(context),
+            tappingAButton: _selectBzType,
+            chosenButton: bzTypeSingleStringer(context, _currentBzType),
+            buttonsInActivityList: _bzTypeInActivityList,
+          ),
 
             // --- CHOOSE BzForm
-            MultipleChoiceBubble(
-              title: Wordz.businessForm(context),
-              buttonsList: bzFormStrings(context),
-              tappingAButton: (index) => setState(() {_currentBzForm = bzFormsList[index];}),
-              chosenButton: bzFormStringer(context, _currentBzForm),
-              buttonsInActivityList: _bzFormInActivityList,
-            ),
+          MultipleChoiceBubble(
+            title: Wordz.businessForm(context),
+            buttonsList: bzFormStrings(context),
+            tappingAButton: (index) => setState(() {_currentBzForm = bzFormsList[index];}),
+            chosenButton: bzFormStringer(context, _currentBzForm),
+            buttonsInActivityList: _bzFormInActivityList,
+          ),
 
             // --- SEPARATOR
-            BubblesSeparator(),
+          BubblesSeparator(),
 
             // --- ADD LOGO
-            AddGalleryPicBubble(
-              logo: _currentBzLogo,
-              addBtFunction: _takeGalleryPicture,
-              deleteLogoFunction: () => setState(() {_currentBzLogo = null;}),
-              title: Wordz.businessLogo(context),
-              picOwner: PicOwner.bzLogo,
-            ),
+          AddGalleryPicBubble(
+            logo: _currentBzLogo,
+            addBtFunction: _takeGalleryPicture,
+            deleteLogoFunction: () => setState(() {_currentBzLogo = null;}),
+            title: Wordz.businessLogo(context),
+            picOwner: PicOwner.bzLogo,
+          ),
 
             // --- type BzName
-            TextFieldBubble(
-              title: _currentBzForm == BzForm.Individual ? 'Business Entity name' : Wordz.companyName(context),
-              hintText: '...',
-              counterIsOn: true,
-              maxLength: 72,
-              maxLines: 2,
-              keyboardTextInputType: TextInputType.name,
+          TextFieldBubble(
+            title: _currentBzForm == BzForm.Individual ? 'Business Entity name' : Wordz.companyName(context),
+            hintText: '...',
+            counterIsOn: true,
+            maxLength: 72,
+            maxLines: 2,
+            keyboardTextInputType: TextInputType.name,
               // textController: _bzNameTextController,
-              textOnChanged: (bzName) => setState(() {_currentBzName = bzName;}),
-              fieldIsRequired: true,
-              initialTextValue: _currentBzName,
-              fieldIsFormField: true,
-            ),
+            textOnChanged: (bzName) => setState(() {_currentBzName = bzName;}),
+            fieldIsRequired: true,
+            initialTextValue: _currentBzName,
+            fieldIsFormField: true,
+          ),
 
             // --- type BzScope
             TextFieldBubble(

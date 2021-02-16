@@ -84,7 +84,7 @@ class Header extends StatelessWidget {
                       aName: author?.authorName,
                       aTitle: author?.authorTitle,
                       followersCount: bz?.bzTotalFollowers ?? 0,
-                      followIsOn: followIsOn,
+                      followIsOn: bz?.followIsOn,
                       bzGalleryCount: author?.publishedFlyersIDs?.length ?? 0,
                       bzConnects: bz?.bzTotalConnects,
                       tappingHeader: tappingHeader,

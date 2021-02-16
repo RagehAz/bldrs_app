@@ -30,3 +30,11 @@ String getMonthNameByInt(BuildContext context, int month){
   }
 }
 // -----------------------------------------------------------------
+String cipherDateTimeIso8601(DateTime dateTime){
+  return dateTime.toIso8601String();
+}
+// -----------------------------------------------------------------
+DateTime decipherDateTimeIso8601(String cipheredDateTimeIso8601){
+  return DateTime.parse(cipheredDateTimeIso8601);
+}
+// -----------------------------------------------------------------
