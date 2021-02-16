@@ -1,9 +1,9 @@
 import 'dart:core';
-import 'package:bldrs/models/bldrs_sections.dart';
-import 'package:bldrs/models/bz_model.dart';
-import 'package:bldrs/models/sub_models/contact_model.dart';
+import 'package:bldrs/models/bldrs_sections.dart' show BldrsSection;
+import 'package:bldrs/models/bz_model.dart' show BzType;
+import 'package:bldrs/models/sub_models/contact_model.dart' show ContactType;
 import 'package:bldrs/models/user_model.dart';
-import 'package:bldrs/view_brains/drafters/text_directionz.dart';
+import 'package:bldrs/view_brains/drafters/text_directionz.dart' show appIsLeftToRight;
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/widgets/buttons/balloons/path_building_user.dart';

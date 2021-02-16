@@ -228,3 +228,9 @@ ITERATION SYNTAX
 //   }
 
 // -----------------------------------------------------------------
+
+    // status codes
+   // 200 201 everything worked
+   // 300 redirected
+   // 400 something went wrong
+   // 500 https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
