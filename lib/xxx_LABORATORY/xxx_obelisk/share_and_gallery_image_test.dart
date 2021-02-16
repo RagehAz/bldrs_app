@@ -6,12 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:share/share.dart';
 
-class ChatScreen extends StatefulWidget {
+class ShareAndAddImageTest extends StatefulWidget {
   @override
-  ChatScreenState createState() => ChatScreenState();
+  ShareAndAddImageTestState createState() => ShareAndAddImageTestState();
 }
 
-class ChatScreenState extends State<ChatScreen> {
+class ShareAndAddImageTestState extends State<ShareAndAddImageTest> {
   String text = 'Earth';
   String subject = 'Sharing Planet Earth';
   List<String> imagePaths = [Iconz.DumUniverse, Iconz.DumBusinessLogo];

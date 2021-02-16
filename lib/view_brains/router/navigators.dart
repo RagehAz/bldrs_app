@@ -1,6 +1,5 @@
 import 'package:bldrs/views/screens/s50_flyer_screen.dart';
 import 'package:flutter/material.dart';
-
 import 'route_names.dart';
 // === === === === === === === === === === === === === === === === === === ===
 goToNewScreen (BuildContext context, Widget screen){
