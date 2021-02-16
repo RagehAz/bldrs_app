@@ -107,7 +107,7 @@ class FlyersProvider with ChangeNotifier {
   }
 // ---------------------------------------------------------------------------
   BzModel getBzByBzID(String bzID){
-    BzModel bz = _loadedBzz?.singleWhere((bz) => bz.bzID == bzID, orElse: ()=>null);
+    BzModel bz = _loadedBzz?.firstWhere((bz) => bz.bzID == bzID, orElse: ()=>null);
     return bz;
   }
 // ---------------------------------------------------------------------------

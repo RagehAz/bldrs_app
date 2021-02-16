@@ -10,7 +10,6 @@ import 's12_saved_flyers_page.dart';
 import 's13_news_page.dart';
 import 's14_more_page.dart';
 import 's15_profile_page.dart';
-import 's17_my_bz_page.dart';
 
 enum PageType {
   SavedFlyers,
