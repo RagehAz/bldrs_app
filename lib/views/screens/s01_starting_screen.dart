@@ -1,3 +1,4 @@
+import 'package:bldrs/ambassadors/services/google.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
 import 'package:bldrs/view_brains/router/route_names.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
@@ -11,24 +12,22 @@ import 'package:flutter/material.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
 
 class StartingScreen extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
-
     return MainLayout(
       pyramids: Iconz.PyramidzYellow,
       sky: Sky.Black,
       appBarType: AppBarType.Intro,
       layoutWidget: Stack(
         children: <Widget>[
-
           // --- stuff
           Column(
             children: <Widget>[
-
               Stratosphere(),
 
-              LogoSlogan(sizeFactor: 0.87,),
+              LogoSlogan(
+                sizeFactor: 0.87,
+              ),
 
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0,
@@ -42,6 +41,22 @@ class StartingScreen extends StatelessWidget {
                 splashColor: Colorz.Yellow,
                 buttonVerseShadow: false,
                 function: Routez.Home,
+                stretched: false,
+              ),
+              // CONTINUE WITH GOOGLE
+              BTMain(
+                buttonVerse: "Continue with Google",
+                buttonIcon: Iconz.ComGooglePlay,
+                buttonColor: Colorz.GreenPlastic,
+                splashColor: Colorz.Yellow,
+                buttonVerseShadow: false,
+                function: () {
+                  signInWithGoogle().then((result) {
+                    if (result != null) {
+                      return Routez.Home;
+                    }
+                  });
+                },
                 stretched: false,
               ),
 
@@ -65,7 +80,6 @@ class StartingScreen extends StatelessWidget {
                 buttonVerseShadow: false,
                 function: Routez.Home,
                 stretched: false,
-
               ),
 
               // --- CONTINUE WITH EMAIL
@@ -75,20 +89,18 @@ class StartingScreen extends StatelessWidget {
                 buttonColor: Colorz.WhiteAir,
                 splashColor: Colorz.Yellow,
                 buttonVerseShadow: false,
-                function: (){goToNewScreen(context, EmailAuth());},
+                function: () {
+                  goToNewScreen(context, EmailAuth());
+                },
                 stretched: false,
-
               ),
-
             ],
           ),
 
           // --- SKIP BUTTON
           BtSkipAuth(),
-
         ],
       ),
     );
   }
 }
-
