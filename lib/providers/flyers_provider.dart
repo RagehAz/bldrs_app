@@ -347,11 +347,6 @@ Future<void> updateBz(BzModel bz, UserModel userModel) async {
 }
 // ---------------------------------------------------------------------------
  Future<void> deleteBz(String bzID, UserModel userModel) async {
-    // status codes
-   // 200 201 everything worked
-   // 300 redirected
-   // 400 something went wrong
-   // 500 https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
    final url = 'https://bldrsnet.firebaseio.com/bzz/$bzID.json';
    /// OPTIMISTIC UPDATING
    /// to save the bz in this object like max did, to get it back to _loadedBzz
@@ -359,13 +354,17 @@ Future<void> updateBz(BzModel bz, UserModel userModel) async {
    final existingBzIndex = _loadedBzz.indexWhere((bz) => bz.bzID == bzID);
    var existingBz = _loadedBzz[existingBzIndex];
    _loadedBzz.removeAt(existingBzIndex);
-   final _response = await http.delete(url).then((response) async {
+   notifyListeners();
+   final _response = await http.delete(url);
 
-     if(response.statusCode >= 400){
+     if(_response.statusCode >= 400){
+       _loadedBzz.insert(existingBzIndex, existingBz);
+       print('Bz is NOT deleted from firebase, and returned back to local bzz list');
+       notifyListeners();
        throw HttpException('Could not delete Business');
      }
 
-     existingBz = null;
+   existingBz = null;
      print('Bz is deleted from firebase successfully');
 
      List<dynamic> newFollowedBzzIDs = userModel.followedBzzIDs;
@@ -393,12 +392,6 @@ Future<void> updateBz(BzModel bz, UserModel userModel) async {
        followedBzzIDs : newFollowedBzzIDs,
      );
 
-
-   }).catchError((_){
-     _loadedBzz.insert(existingBzIndex, existingBz);
-     print('Bz is NOT deleted from firebase, and returned back to local bzz list');
-   });
-   notifyListeners();
  }
 // ---------------------------------------------------------------------------
 Future<void> fetchAndSetBzz() async {

@@ -19,7 +19,7 @@ class BzCardScreen extends StatefulWidget {
 }
 
 class _BzCardScreenState extends State<BzCardScreen> {
-  bool _bzPageIsOn = true;
+  bool _bzPageIsOn = false;
 
   // @override
   // void initState() {
@@ -28,9 +28,13 @@ class _BzCardScreenState extends State<BzCardScreen> {
   // }
 
   void _triggerMaxHeader(){
-    // setState(() {
-      // _bzPageIsOn = !_bzPageIsOn;
-    // });
+    setState(() {
+      _bzPageIsOn = !_bzPageIsOn;
+    });
+  }
+
+  void _tappingFollow(){
+    print('follow is tapped');
   }
 
   @override
@@ -55,11 +59,15 @@ class _BzCardScreenState extends State<BzCardScreen> {
               bz: bz,
               author: bz.bzAuthors[0],
               flyerShowsAuthor: true,
-              followIsOn: null,
+              followIsOn: bz.followIsOn,
               flyerZoneWidth: superFlyerZoneWidth(context, flyerSizeFactor),
               bzPageIsOn: _bzPageIsOn,
               tappingHeader: _triggerMaxHeader,
-              tappingFollow: null,
+              tappingFollow: () async {
+                await bz.toggleFollow();
+                setState(() {});
+                print('rebuilding widget with new followIsOn value : ${bz.followIsOn}');
+              },
               tappingUnfollow: null,
             ),
 

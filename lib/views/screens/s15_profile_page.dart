@@ -95,8 +95,6 @@ class ProfileBubblesList extends StatefulWidget {
     @required this.switchEditProfile,
   });
 
-
-
   @override
   _ProfileBubblesListState createState() => _ProfileBubblesListState();
 }

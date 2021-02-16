@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'sub_models/author_model.dart';
 import 'sub_models/contact_model.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
 /// Bz account has limited amount of available slides, with each published slide,
 /// credit decreases,
@@ -90,9 +92,35 @@ class BzModel with ChangeNotifier{
     // -------------------------
   });
 // ###############################
-  void toggleFollow(){
-    followIsOn = !followIsOn;
+  void _setFollowValue(bool newValue){
+    followIsOn = newValue;
     notifyListeners();
+  }
+
+  Future<void> toggleFollow() async {
+    final oldStatus = followIsOn;
+    print('oldStatus is : $oldStatus');
+    _setFollowValue(!followIsOn);
+    print('new followIsOn is : $followIsOn');
+    final url = 'https://bldrsnet.firebaseio.com/bzz/$bzID.json';
+    print('url is : $url');
+    try {
+      final response = await http.patch(url,
+          body: json.encode({
+            'followIsOn' : followIsOn,
+          }));
+      if (response.statusCode >= 400){
+        _setFollowValue(oldStatus);
+        print('response.statusCode is : ${response.body}');
+      } else {
+      print('followIsOn changed on server to : $followIsOn');
+      // add the id in user's firebase document in  followedBzzIDs
+      }
+    } catch (error){
+      _setFollowValue(oldStatus);
+      print('error is : $error');
+
+    }
   }
 // ###############################
 }
