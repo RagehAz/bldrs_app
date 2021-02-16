@@ -27,7 +27,7 @@ import 'o_01_translations.dart';
 import 'x04_flyers_sizes_screen.dart';
 import 'x05_city_picker.dart';
 import 'x06_single_collection_screen.dart';
-import 'x07_chat_screen.dart';
+import 'share_and_gallery_image_test.dart';
 import 'x10_pro_flyer_page_view.dart';
 import 'x11_pro_flyer_grid_view.dart';
 import 'x12_checkbox_lesson.dart';
@@ -420,12 +420,12 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
 
           // --- 25 - CHAT SCREEN -------------------------------
           BTMain(
-            buttonVerse: '25 - Chat Screen',
+            buttonVerse: '25 - ShareAndAddImageTest',
             buttonColor: Colorz.BabyBlueSmoke,
-            buttonIcon: Iconz.UTPlanning,
+            buttonIcon: Iconz.Share,
             buttonVerseShadow: true,
             splashColor: Colorz.Yellow,
-            function: () => goToNewScreen(context, ChatScreen()),
+            function: () => goToNewScreen(context, ShareAndAddImageTest()),
             stretched: false,
           ),
 

@@ -4,10 +4,12 @@ import 'package:bldrs/providers/users_provider.dart';
 import 'package:bldrs/view_brains/drafters/keyboarders.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/localization/localization_constants.dart';
+import 'package:bldrs/view_brains/router/navigators.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
+import 'package:bldrs/views/screens/s30_chat_screen.dart';
 import 'package:bldrs/views/widgets/appbar/bldrs_appbar.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/pyramids/pyramids.dart';
@@ -101,6 +103,23 @@ class MainLayout extends StatelessWidget {
                   pyramids == null ? Container() :
                   Pyramids(whichPyramid: appBarType == AppBarType.Localizer ? Iconz.PyramidzYellow : pyramids),
 
+                  // --- CHAT BUTTON
+                  Positioned(
+                    right: 10,
+                    bottom: 50,
+                    child: DreamBox(
+                      height: 40,
+                      width: 40,
+                      icon: Iconz.UTPlanning,
+                      iconColor: Colorz.BabyBlue,
+                      bubble: false,
+                      boxFunction: (){
+                        print('go to Chat Screen');
+                        goToNewScreen(context, ChatScreen());
+                        },
+                    ),
+                  ),
+
                   _ragehIsOn == false ? Container() :
                   Rageh(
                     tappingRageh: tappingRageh != null ? tappingRageh : (){print('no function here bitch');},
@@ -126,12 +145,15 @@ class MainLayout extends StatelessWidget {
               alignment: Alignment.topCenter,
               children: <Widget>[
 
+                // --- BACKGROUND SKY
                 sky == Sky.Black ? BlackSky() :
                 NightSky(),
 
+                // --- LAYOUT WIDGET
                 layoutWidget == null ? Container() :
                 layoutWidget,
 
+                // --- BLDRS APPBAR
                 if(appBarType!=null)
                   BldrsAppBar(
                     appBarType: appBarType,
@@ -139,9 +161,12 @@ class MainLayout extends StatelessWidget {
                     pageTitle: pageTitle,
                   ),
 
+                // --- PYRAMIDS
                 pyramids == null ? Container() :
                 Pyramids(whichPyramid: appBarType == AppBarType.Localizer ? Iconz.PyramidzYellow : pyramids),
 
+
+                // --- RAGEH BUTTON
                 _ragehIsOn == false ? Container() :
                 Rageh(
                   tappingRageh: tappingRageh != null ? tappingRageh : (){print('no function here bitch');},
