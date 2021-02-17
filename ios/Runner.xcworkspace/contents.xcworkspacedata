@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
-      x_dummy_database.location = "group:Runner.xcodeproj">
+      location = "group:Runner.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Pods/Pods.xcodeproj">
    </FileRef>
 </Workspace>

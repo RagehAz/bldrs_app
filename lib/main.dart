@@ -15,7 +15,13 @@ import 'views/screens/s50_flyer_screen.dart';
 import 'views/widgets/loading/loading.dart';
 import 'xxx_LABORATORY/ask/questions_provider.dart';
 
-main() => runApp(BldrsApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(BldrsApp());
+}
+
+// main() => runApp(BldrsApp());
 
 class BldrsApp extends StatefulWidget {
 
