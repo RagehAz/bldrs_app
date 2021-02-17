@@ -82,7 +82,7 @@ class InitialSectionsBT extends StatelessWidget {
 
                             SuperVerse(
                               verse: _currentSection,
-                              size: 2,
+                              size: 1,
                               italic: false,
                               color: Colorz.White,
                               weight: VerseWeight.bold,
