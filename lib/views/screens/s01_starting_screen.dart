@@ -1,3 +1,4 @@
+import 'package:bldrs/ambassadors/services/facebook.dart';
 import 'package:bldrs/ambassadors/services/google.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
 import 'package:bldrs/view_brains/router/route_names.dart';
@@ -67,7 +68,13 @@ class StartingScreen extends StatelessWidget {
                 buttonColor: Colorz.Facebook,
                 splashColor: Colorz.Yellow,
                 buttonVerseShadow: false,
-                function: Routez.Home,
+                function: () {
+                  signInWithFacebook().then((result) {
+                    if (result != null) {
+                      return Routez.Home;
+                    }
+                  });
+                },
                 stretched: false,
               ),
 
