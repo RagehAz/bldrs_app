@@ -18,6 +18,7 @@ class _DateFuckingTimersState extends State<DateFuckingTimers> {
     DateTime decipheredDateTime = decipherDateTimeString(cipheredDateTime);
     int day = decipheredDateTime.day;
     int weekday = decipheredDateTime.weekday;
+    int year = decipheredDateTime.year;
 
     return MainLayout(
       layoutWidget: Center(
@@ -63,6 +64,15 @@ class _DateFuckingTimersState extends State<DateFuckingTimers> {
 
             SuperVerse(
               verse: 'weekday \n $weekday',
+              labelColor: Colorz.BlackBlack,
+              margin: 20,
+              size: 2,
+              maxLines: 2,
+              centered: false,
+            ),
+
+            SuperVerse(
+              verse: 'year \n $year',
               labelColor: Colorz.BlackBlack,
               margin: 20,
               size: 2,

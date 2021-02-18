@@ -60,6 +60,7 @@ class NewFlyerNotification extends StatelessWidget {
                   userStatus: UserStatus.PlanningUser,
                   onTap: (){},
                   blackAndWhite: false,
+                  loading: false,
                 )
                 ,
 

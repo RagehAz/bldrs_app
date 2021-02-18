@@ -50,7 +50,7 @@ class SuperTextField extends StatefulWidget {
     this.labelColor = Colorz.WhiteAir,
     this.inputShadow = false,
     this.centered = false,
-    @required this.hintText,
+    this.hintText = '...',
     this.maxLength = 50,
     this.obscured = false,
     this.counterIsOn = true,
@@ -73,15 +73,21 @@ class SuperTextField extends StatefulWidget {
 }
 
 class _SuperTextFieldState extends State<SuperTextField> {
-TextDirection textDirection;
+TextDirection _textDirection;
+
+// @override
+//   void initState() {
+//     textDirection = superTextDirection(context);
+//     super.initState();
+//   }
 
   void _switchTextDirection(String val){
     if(val.length <= 1){ // only the first character defines the text direction
       if(textIsEnglish(val) == true){
-        setState(() {textDirection = TextDirection.ltr;});
+        setState(() {_textDirection = TextDirection.ltr;});
       } else if
       (textIsEnglish(val) == false){
-        setState(() {textDirection = TextDirection.rtl;});
+        setState(() {_textDirection = TextDirection.rtl;});
       }
     }
   }
@@ -178,8 +184,8 @@ TextDirection textDirection;
 // ---------------------------------------------------------------------------
     TextDirection _concludedTextDirection =
         widget.textDirection != null ? widget.textDirection :
-        widget.textDirection == null && textDirection == null? superTextDirection(context) :
-        textDirection;
+        widget.textDirection == null && _textDirection == null? superTextDirection(context) :
+        _textDirection;
 // ---------------------------------------------------------------------------
     return
 

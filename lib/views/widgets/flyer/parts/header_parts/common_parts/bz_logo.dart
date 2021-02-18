@@ -71,6 +71,7 @@ class BzLogo extends StatelessWidget {
             image != null && objectIsFile(image) == true ?
                 ClipRRect(
                   borderRadius: bzLogoCorners,
+                  /// here max used FileImage(image), we can test this later
                   child: Image.file(
                     image,
                     fit: BoxFit.cover,

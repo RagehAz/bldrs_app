@@ -18,11 +18,13 @@ class UserBubble extends StatelessWidget {
   final UserModel user;
   final Function switchUserType;
   final Function editProfileBtOnTap;
+  final bool loading;
 
   UserBubble({
     @required this.user,
     @required this.switchUserType,
     @required this.editProfileBtOnTap,
+    @required this.loading,
   });
 
   @override
@@ -62,6 +64,7 @@ class UserBubble extends StatelessWidget {
           userStatus: user?.userStatus,
           userPic: user?.pic,
           onTap: (){print('balloon tap');},
+          loading: loading,
         ),
 
         // --- USER NAME

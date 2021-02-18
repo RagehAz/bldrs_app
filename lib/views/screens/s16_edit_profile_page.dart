@@ -19,6 +19,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class EditProfilePage extends StatefulWidget {
   final Function cancelEdits;
@@ -95,7 +96,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
     final _picker = ImagePicker();
     final _imageFile = await _picker.getImage(
       source: ImageSource.gallery,
-      maxWidth: 600,
+      imageQuality: 50,
+      maxWidth: 150,
     );
 
     if (_imageFile == null){return;}
@@ -577,6 +579,17 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   boxMargins: EdgeInsets.all(20),
                   boxFunction: ()async{
                     if(_formKey.currentState.validate()){
+
+                      final ref = FirebaseStorage.instance
+                          .ref()
+                          .child('usersPics')
+                          .child(userModel.userID + '.jpg');
+
+                      await ref.putFile(_currentPic);
+
+                      final _userPicURL = await ref.getDownloadURL();
+
+                      try{
                       await UserProvider(userID: userModel.userID).updateUserData(
                         // -------------------------
                         userID : userModel.userID,
@@ -584,7 +597,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         userStatus : userModel.userStatus ?? UserStatus.NormalUser,
                         // -------------------------
                         name : _currentName ?? userModel.name,
-                        pic : 'userModel.pic', //_currentPic ?? userModel.pic,
+                        pic : _userPicURL ?? userModel.pic,
                         title :  _currentTitle ?? userModel.title,
                         company: _currentCompany ?? userModel.company,
                         gender : _currentGender ?? userModel.gender,
@@ -599,9 +612,14 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         followedBzzIDs : userModel.followedBzzIDs,
                         // -------------------------
                       );
-                    }
+                      print('usermodel successfully edited');
+                      widget.confirmEdits();
 
-                    widget.confirmEdits();
+                      }catch(error){
+                        print(error.toString());
+                      }
+
+                    }
 
                   },
                 ),
