@@ -73,6 +73,7 @@ class _AskState extends State<Ask> {
               userStatus: _userStatus,
               balloonWidth: _abButtonsHeight,
               blackAndWhite: false,
+              loading: false,
               onTap: () {
                 print('this person should ask a fucking question');
               },

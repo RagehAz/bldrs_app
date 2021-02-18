@@ -4,6 +4,7 @@ import 'package:bldrs/view_brains/drafters/file_formatters.dart';
 import 'package:bldrs/view_brains/drafters/iconizers.dart';
 import 'package:bldrs/view_brains/drafters/shadowers.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
+import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 import 'clip_shadow_path.dart';
@@ -14,6 +15,7 @@ class UserBalloon extends StatelessWidget {
   final double balloonWidth;
   final bool blackAndWhite;
   final Function onTap;
+  final bool loading;
 
   UserBalloon({
     @required this.userStatus,
@@ -21,6 +23,7 @@ class UserBalloon extends StatelessWidget {
     @required this.balloonWidth,
     this.blackAndWhite = false,
     @required this.onTap,
+    @required this.loading,
   });
 
   @override
@@ -49,11 +52,18 @@ class UserBalloon extends StatelessWidget {
               child: ColorFiltered(
                 colorFilter: superDesaturation(blackAndWhite),
                 child:
+                    loading ?
+                    Loading()
+                    :
                 objectIsJPGorPNG(userPic)?
                 Image.asset(userPic, fit: BoxFit.cover,)
                     :
                 objectIsSVG(userPic)?
                 WebsafeSvg.asset(userPic, fit: BoxFit.cover)
+                    :
+                    /// max user NetworkImage(userPic), to try it later
+                objectIsURL(userPic)?
+                    Image.network(userPic, fit: BoxFit.cover,)
                     :
                 Container()
               ),

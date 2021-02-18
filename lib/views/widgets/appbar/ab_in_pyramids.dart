@@ -1,6 +1,7 @@
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/providers/users_provider.dart';
+import 'package:bldrs/view_brains/controllers/streamerz.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
@@ -56,7 +57,7 @@ class ABInPyramids extends StatelessWidget {
 
 
     return StreamBuilder<UserModel>(
-      stream: UserProvider(userID: _user.userID).userData,
+      stream: UserProvider(userID: _user?.userID)?.userData,
       builder: (context, snapshot){
         if(snapshot.hasData == false){
           return Container(
@@ -167,6 +168,7 @@ class ABInPyramids extends StatelessWidget {
                   userStatus: userModel.userStatus,
                   balloonWidth: _abButtonsHeight,
                   blackAndWhite: _profileBlackAndWhite,
+                  loading: connectionIsWaiting(snapshot),
                   onTap: () {switchingPages(PageType.Profile);},
                 ),
               ),
