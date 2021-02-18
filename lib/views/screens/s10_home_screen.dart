@@ -93,7 +93,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           (index) {
                     return FlyerStack(flyersType: flyerTypesList[index]);
                   }),
+
                   PyramidsHorizon(heightFactor: 10),
+
                 ]),
               ),
             ],

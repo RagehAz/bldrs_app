@@ -1,5 +1,6 @@
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/users_provider.dart';
+import 'package:bldrs/view_brains/controllers/streamerz.dart';
 import 'package:bldrs/views/widgets/bubbles/contacts_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/following_bzz_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/user_bubble.dart';
@@ -123,6 +124,7 @@ class _ProfileBubblesListState extends State<ProfileBubblesList> {
                   user: userModel,
                   switchUserType: widget.switchUserStatus,
                   editProfileBtOnTap: widget.switchEditProfile,
+                  loading: connectionIsWaiting(snapshot),
                 ),
 
                 // --- STATUS LABEL : STATUS SURVEY WILL BE IN VERSION 2 ISA

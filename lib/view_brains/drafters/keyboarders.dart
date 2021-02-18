@@ -13,6 +13,10 @@ FocusScope.of(context).requestFocus(FocusNode());
   // }
 }
 // === === === === === === === === === === === === === === === === === === ===
+void closeKeyboard(BuildContext context){
+  FocusScope.of(context).unfocus();
+}
+// === === === === === === === === === === === === === === === === === === ===
 // HOW TO DETECT CURRENT KEYBOARD LANGUAGE OF THE DEVICE (NOT SOLVED)
 // BEST COMMENT HERE https://github.com/flutter/flutter/issues/25841
 // justinmc commented on Jul 9, 2020 •
