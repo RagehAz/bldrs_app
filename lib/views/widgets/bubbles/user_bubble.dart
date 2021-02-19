@@ -62,7 +62,7 @@ class UserBubble extends StatelessWidget {
         UserBalloon(
           balloonWidth: 80,
           userStatus: user?.userStatus,
-          userPic: user?.pic,
+          // userPic: user?.pic,
           onTap: (){print('balloon tap');},
           loading: loading,
         ),

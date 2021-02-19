@@ -55,7 +55,7 @@ class NewFlyerNotification extends StatelessWidget {
                   flyerZoneWidth: screenWidth * 0.89,
                 ) :
                 UserBalloon(
-                  userPic: Iconz.DvRageh,
+                  // userPic: Iconz.DvRageh,
                   balloonWidth: 55,
                   userStatus: UserStatus.PlanningUser,
                   onTap: (){},

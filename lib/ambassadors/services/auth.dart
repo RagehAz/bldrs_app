@@ -3,10 +3,13 @@ import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/users_provider.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
-import 'package:bldrs/views/widgets/bubbles/locale_bubble.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+
+// bug to fix when try sign in with email that was already signed in by facebook
+// I/flutter (18102): auth error is : [firebase_auth/wrong-password] The password is invalid or the user does not have a password.
+// I/flutter (18102): signing result is : [firebase_auth/wrong-password] The password is invalid or the user does not have a password.
 
 class AuthService{
 

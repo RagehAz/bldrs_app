@@ -24,7 +24,7 @@ class BldrsBackButton extends StatelessWidget {
       boxMargins: EdgeInsets.symmetric(horizontal: ((Ratioz.ddAppBarHeight - size)/2)),
       icon: superBackIcon(context),
       iconSizeFactor: 1,
-      bubble: true,
+      bubble: false,
       color: Colorz.WhiteAir,
       textDirection: superInverseTextDirection(context),
       boxFunction: onTap == null ? () => goBack(context) : onTap,

@@ -8,9 +8,11 @@ import 'package:bldrs/view_brains/theme/wordz.dart';
 
     class LogoSlogan extends StatelessWidget {
       final double sizeFactor;
+      final bool onlyLogo;
 
       LogoSlogan({
         this.sizeFactor = 1,
+        this.onlyLogo = false,
     });
 
       @override
@@ -18,29 +20,28 @@ import 'package:bldrs/view_brains/theme/wordz.dart';
 
         double _screenHeight = superScreenHeight(context);
 
+        SuperVerse _slogan = SuperVerse(
+          verse: Wordz.bldrsTagLine(context),
+          size: 4,
+          designMode: false,
+          shadow: true,
+          weight: VerseWeight.bold,
+          color: Colorz.White,
+          centered: true,
+          italic: true,
+        );
+
+        SizedBox _spacer = SizedBox(height: _screenHeight * 0.005);
+
         return Column(
 
           children: <Widget>[
 
-            SizedBox(
-              height: _screenHeight * .005,
-            ),
+            _spacer,
 
-            // --- TAG LINE
-            SuperVerse(
-              verse: Wordz.bldrsTagLine(context),
-              size: 4,
-              designMode: false,
-              shadow: true,
-              weight: VerseWeight.bold,
-              color: Colorz.White,
-              centered: true,
-              italic: true,
-            ),
-
-            SizedBox(
-              height: _screenHeight * .00,
-            ),
+            // --- SLOGAN
+            if (!onlyLogo)
+            _slogan,
 
             // --- NAME & LOGO
             Container(
@@ -54,16 +55,16 @@ import 'package:bldrs/view_brains/theme/wordz.dart';
                 child: WebsafeSvg.asset(Iconz.BldrsNameEn,
                     fit: BoxFit.fitWidth),
               ),
-            ), // ---------------------------- NAME GRAPHIC
-
-            SizedBox(
-              height: _screenHeight * 0.00,
             ),
 
+            if (onlyLogo)
+              _slogan,
+
+            // --- TAG LINE
+            if (!onlyLogo)
             Container(
               width: _screenHeight * 22 * 0.016 * 1.2 * sizeFactor * 1.2,
               height: _screenHeight * 0.12 * sizeFactor,
-//              color: varza.BloodTest,
               child:
               SuperVerse(
                 verse: Wordz.bldrsDescription(context),
@@ -80,7 +81,7 @@ import 'package:bldrs/view_brains/theme/wordz.dart';
               ),
 
 
-            ), // ---------------------------- DESCRIPTION
+            ),
 
           ],
         );

@@ -4,15 +4,14 @@ import 'package:bldrs/providers/users_provider.dart';
 import 'package:bldrs/view_brains/drafters/keyboarders.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/localization/localization_constants.dart';
-import 'package:bldrs/view_brains/router/navigators.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
-import 'package:bldrs/views/screens/s30_chat_screen.dart';
 import 'package:bldrs/views/widgets/appbar/bldrs_appbar.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/pyramids/pyramids.dart';
+import 'package:bldrs/views/widgets/pyramids/pyramids_menu.dart';
 import 'package:bldrs/views/widgets/space/skies/black_sky.dart';
 import 'package:bldrs/views/widgets/space/skies/night_sky.dart';
 import 'package:flutter/material.dart';
@@ -104,21 +103,7 @@ class MainLayout extends StatelessWidget {
                   Pyramids(whichPyramid: appBarType == AppBarType.Localizer ? Iconz.PyramidzYellow : pyramids),
 
                   // --- CHAT BUTTON
-                  Positioned(
-                    right: 10,
-                    bottom: 50,
-                    child: DreamBox(
-                      height: 40,
-                      width: 40,
-                      icon: Iconz.UTPlanning,
-                      iconColor: Colorz.BabyBlue,
-                      bubble: false,
-                      boxFunction: (){
-                        print('go to Chat Screen');
-                        goToNewScreen(context, ChatScreen());
-                        },
-                    ),
-                  ),
+                  PyramidsMenu(),
 
                   _ragehIsOn == false ? Container() :
                   Rageh(
@@ -240,4 +225,5 @@ class Stratosphere extends StatelessWidget {
     );
   }
 }
+
 

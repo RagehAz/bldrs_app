@@ -16,16 +16,21 @@ class BTMain extends StatelessWidget {
   final dynamic function;
   final bool stretched;
   final double iconSizeFactor;
+  final Color verseColor;
+  final VerseWeight verseWeight;
 
   BTMain({
     @required this.buttonVerse,
     @required this.buttonIcon,
     @required this.buttonColor,
     @required this.splashColor,
-    @required this.buttonVerseShadow,
+    this.buttonVerseShadow = true,
     @required this.function,
     @required this.stretched,
+
     this.iconSizeFactor = 0.75,
+    this.verseColor = Colorz.White,
+    this.verseWeight = VerseWeight.bold,
   });
 
   @override
@@ -136,11 +141,11 @@ class BTMain extends StatelessWidget {
                           padding: EdgeInsets.all(_buttonZonePaddings),
                           child: SuperVerse(
                             verse: buttonVerse,
-                            color: Colorz.White,
+                            color: verseColor,
                             italic: false,
-                            weight: VerseWeight.bold,
+                            weight: verseWeight,
                             centered: true,
-                            shadow: true,
+                            shadow: buttonVerseShadow,
                             designMode: false,
                             size: 2,
                           ),
@@ -188,11 +193,11 @@ class BTMain extends StatelessWidget {
                               padding: EdgeInsets.symmetric(horizontal : _buttonZonePaddings),
                               child: SuperVerse(
                                 verse: buttonVerse,
-                                color: Colorz.White,
+                                color: verseColor,
                                 italic: false,
-                                weight: VerseWeight.bold,
+                                weight: verseWeight,
                                 centered: false,
-                                shadow: true,
+                                shadow: buttonVerseShadow,
                                 designMode: false,
                                 size: 2,
                                 maxLines: 2,
