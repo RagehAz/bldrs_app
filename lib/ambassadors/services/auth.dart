@@ -1,3 +1,4 @@
+import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/users_provider.dart';
@@ -23,9 +24,9 @@ class AuthService{
       pic: user.photoURL,
       // title: '',
       // gender: Gender.any,
-      // country: currentHQ.countryID,
-      // province: currentHQ.provinceID,
-      // area: currentHQ.areaID,
+      // country: currentZone.countryID,
+      // province: currentZone.provinceID,
+      // area: currentZone.areaID,
       // language: Wordz.languageCode(context),
       // position: GeoPoint(0, 0),
       contacts: [ContactModel(contact: user.email, contactType: ContactType.Email)],
@@ -68,7 +69,7 @@ Future signInAnon() async {
   }
 // ---------------------------------------------------------------------------
   // register with email & password
-  Future registerWithEmailAndPassword(BuildContext context,HQ currentHQ, String email, String password) async {
+  Future registerWithEmailAndPassword(BuildContext context,Zone currentZone, String email, String password) async {
     try {
       UserCredential result = await _auth.createUserWithEmailAndPassword(email: email.trim(), password: password);
       User user = result.user;
@@ -83,9 +84,9 @@ Future signInAnon() async {
           pic: user.photoURL,
           title: '',
           gender: Gender.any,
-          country: currentHQ.countryID,
-          province: currentHQ.provinceID,
-          area: currentHQ.areaID,
+          country: currentZone.countryID,
+          province: currentZone.provinceID,
+          area: currentZone.areaID,
           language: Wordz.languageCode(context),
           position: GeoPoint(0, 0),
           contacts: [ContactModel(contact: user.email, contactType: ContactType.Email)],

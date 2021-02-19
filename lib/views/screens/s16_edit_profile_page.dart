@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/users_provider.dart';
@@ -445,7 +446,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   changeCountry : (countryID) => _changeCountry(countryID),
                   changeProvince : (provinceID) => _changeProvince(provinceID),
                   changeArea : (areaID) => _changeArea(areaID),
-                  hq: HQ(countryID: userModel.country, provinceID: userModel.province, areaID: userModel.area),
+                  zone: Zone(countryID: userModel.country, provinceID: userModel.province, areaID: userModel.area),
                 ),
 
                 // --- EDIT EMAIL

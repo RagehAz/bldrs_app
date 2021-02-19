@@ -1,5 +1,8 @@
 import 'package:bldrs/ambassadors/services/facebook.dart';
 import 'package:bldrs/ambassadors/services/google.dart';
+import 'package:bldrs/ambassadors/services/google.dart';
+import 'package:bldrs/models/planet/zone_model.dart';
+import 'package:bldrs/view_brains/controllers/devicerz.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
 import 'package:bldrs/view_brains/router/route_names.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
@@ -13,8 +16,10 @@ import 'package:flutter/material.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
 
 class StartingScreen extends StatelessWidget {
+  final Zone currentZone = Zone(countryID: '', provinceID: '', areaID: '');
   @override
   Widget build(BuildContext context) {
+
     return MainLayout(
       pyramids: Iconz.PyramidzYellow,
       sky: Sky.Black,
@@ -35,6 +40,7 @@ class StartingScreen extends StatelessWidget {
               ),
 
               // --- CONTINUE WITH APPLE
+              deviceIsIOS() ?
               BTMain(
                 buttonVerse: Wordz.continueApple(context),
                 buttonIcon: Iconz.ComApple,
@@ -43,8 +49,11 @@ class StartingScreen extends StatelessWidget {
                 buttonVerseShadow: false,
                 function: Routez.Home,
                 stretched: false,
-              ),
+
+              ) :
+
               // CONTINUE WITH GOOGLE
+              deviceIsAndroid() ?
               BTMain(
                 buttonVerse: "Continue with Google",
                 buttonIcon: Iconz.ComGooglePlay,
@@ -52,14 +61,17 @@ class StartingScreen extends StatelessWidget {
                 splashColor: Colorz.Yellow,
                 buttonVerseShadow: false,
                 function: () {
-                  signInWithGoogle().then((result) {
+                  signInWithGoogle(context, currentZone).then((result) {
                     if (result != null) {
                       return Routez.Home;
                     }
                   });
                 },
                 stretched: false,
-              ),
+              )
+              :
+              Container(),
+
 
               // --- CONTINUE WITH FACEBOOK
               BTMain(

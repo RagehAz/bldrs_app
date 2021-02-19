@@ -1,3 +1,4 @@
+import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/view_brains/drafters/keyboarders.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
@@ -14,30 +15,19 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'in_pyramids_bubble.dart';
 
-class HQ {
-  String countryID;
-  String provinceID;
-  String areaID;
-
-  HQ({
-    this.countryID,
-    this.provinceID,
-    this.areaID,
-  });
-}
 
 class LocaleBubble extends StatefulWidget {
   final Function changeCountry;
   final Function changeProvince;
   final Function changeArea;
-  final HQ hq;
+  final Zone zone;
   final String title;
 
   LocaleBubble({
     @required this.changeCountry,
     @required this.changeProvince,
     @required this.changeArea,
-    @required this.hq,
+    @required this.zone,
     this.title = 'Preferred Location',
 });
 
@@ -49,21 +39,21 @@ class _LocaleBubbleState extends State<LocaleBubble> {
   String _chosenCountryID;
   String _chosenProvinceID;
   String _chosenAreaID;
-  HQ _userHQ;
+  Zone _userZone;
 
 
   @override
   void initState() {
-    _processUserHQ();
+    _processUserZone();
     CountryProvider _countryPro = Provider.of<CountryProvider>(context, listen: false);
-    _chosenCountryID = _userHQ.countryID == null ? _countryPro.currentCountryID : _userHQ.countryID;
-    _chosenProvinceID = _userHQ.provinceID == null ? _countryPro.currentProvinceID : _userHQ.provinceID;
-    _chosenAreaID = _userHQ.areaID == null ? _countryPro.currentAreaID : _userHQ.areaID;
+    _chosenCountryID = _userZone.countryID == null ? _countryPro.currentCountryID : _userZone.countryID;
+    _chosenProvinceID = _userZone.provinceID == null ? _countryPro.currentProvinceID : _userZone.provinceID;
+    _chosenAreaID = _userZone.areaID == null ? _countryPro.currentAreaID : _userZone.areaID;
     super.initState();
   }
 
-  void _processUserHQ(){
-    _userHQ = widget.hq;
+  void _processUserZone(){
+    _userZone = widget.zone;
   }
 
   // ----------------------------------------------------------------------

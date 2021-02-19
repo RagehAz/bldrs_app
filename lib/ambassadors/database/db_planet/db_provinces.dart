@@ -1,4 +1,5 @@
-import 'package:bldrs/models/planet/city_model.dart';
+import 'package:bldrs/models/planet/province_model.dart';
+import 'package:bldrs/models/planet/namez_model.dart';
 
 final List<Province> dbProvinces = <Province>[
   Province(iso3: 'egy', name: 'Cairo', names: [Namez(code: 'ar', value: 'القاهرة',),],),
