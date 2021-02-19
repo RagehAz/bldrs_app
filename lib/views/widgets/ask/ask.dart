@@ -69,7 +69,7 @@ class _AskState extends State<Ask> {
 
             // --- USER PICTURE
             UserBalloon(
-              userPic: Iconz.DumAuthorPic,
+              // userPic: Iconz.DumAuthorPic,
               userStatus: _userStatus,
               balloonWidth: _abButtonsHeight,
               blackAndWhite: false,
