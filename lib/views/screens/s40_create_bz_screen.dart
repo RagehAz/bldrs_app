@@ -3,6 +3,7 @@
 import 'dart:io';
 import 'package:bldrs/models/bldrs_sections.dart';
 import 'package:bldrs/models/bz_model.dart';
+import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:bldrs/models/user_model.dart';
@@ -386,7 +387,7 @@ class _CreateBzScreenState extends State<CreateBzScreen> with TickerProviderStat
                       changeCountry : (countryID) => setState(() {_currentBzCountry = countryID;}),
                       changeProvince : (provinceID) => setState(() {_currentBzProvince = provinceID;}),
                       changeArea : (areaID) => setState(() {_currentBzArea = areaID;}),
-                      hq: HQ(countryID: userModel.country, provinceID: userModel.province, areaID: userModel.area),
+                      zone: Zone(countryID: userModel.country, provinceID: userModel.province, areaID: userModel.area),
                       title: 'Headquarters Area',//Wordz.hqCity(context),
                     ),
 

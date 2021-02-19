@@ -1,5 +1,5 @@
-
-import 'package:bldrs/models/planet/city_model.dart';
+import 'package:bldrs/models/planet/area_model.dart';
+import 'package:bldrs/models/planet/namez_model.dart';
 
 List<Area> dbAreas = <Area>[
   Area(iso3: 'egy', province: 'Cairo', id:'1', name:'Heliopolis', names:[Namez(code:'ar', value: 'مصر الجديدة'),], isActivated: true, isPublic: false, ),

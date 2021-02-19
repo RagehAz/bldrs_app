@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:bldrs/models/bldrs_sections.dart';
 import 'package:bldrs/models/bz_model.dart';
+import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:bldrs/models/user_model.dart';
@@ -552,7 +553,7 @@ class _BzPageState extends State<BzPage> {
               changeCountry : (countryID) => setState(() {_currentBzCountry = countryID;}),
               changeProvince : (provinceID) => setState(() {_currentBzProvince = provinceID;}),
               changeArea : (areaID) => setState(() {_currentBzArea = areaID;}),
-              hq: HQ(countryID: _bz.bzCountry, provinceID: _bz.bzProvince, areaID: _bz.bzArea),
+              zone: Zone(countryID: _bz.bzCountry, provinceID: _bz.bzProvince, areaID: _bz.bzArea),
               title: 'Headquarters Area',//Wordz.hqCity(context),
             ),
 

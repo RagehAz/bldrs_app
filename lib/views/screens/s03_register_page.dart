@@ -1,4 +1,5 @@
 import 'package:bldrs/ambassadors/services/auth.dart';
+import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
@@ -99,7 +100,7 @@ class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: true);
-    HQ _currentHQ = new HQ(
+    Zone _currentZone = new Zone(
       countryID: _countryPro.currentCountryID,
       provinceID: _countryPro.currentProvinceID,
       areaID: _countryPro.currentAreaID,
@@ -228,7 +229,7 @@ class _RegisterState extends State<Register> {
                   boxFunction: () async {
                     if(_formKey.currentState.validate()){
                       _triggerLoading();
-                      dynamic result = await _auth.registerWithEmailAndPassword(context, _currentHQ, _email, _password);
+                      dynamic result = await _auth.registerWithEmailAndPassword(context, _currentZone, _email, _password);
                       print('register result is : $result');
                       if ('$result' == '[firebase_auth/email-already-in-use] The email address is already in use by another account.')
                       {setState(() {_error = Wordz.emailAlreadyRegistered(context);}); _triggerLoading();}

@@ -1,5 +1,5 @@
-import 'city_model.dart';
-
+import 'province_model.dart';
+// ---------------------------------------------------------------------------
 class Country{
   final String iso3;
   final String name;
@@ -37,4 +37,4 @@ class Country{
     this.language,
   });
 }
-
+// ---------------------------------------------------------------------------
