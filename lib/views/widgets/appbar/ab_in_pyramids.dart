@@ -164,7 +164,7 @@ class ABInPyramids extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.all(_abPadding * 0.5),
                 child: UserBalloon(
-                  userPic: userModel.pic, //Iconz.DumAuthorPic, /// should be userModel.pic
+                  // userPic: userModel.pic, //Iconz.DumAuthorPic, /// should be userModel.pic
                   userStatus: userModel.userStatus,
                   balloonWidth: _abButtonsHeight,
                   blackAndWhite: _profileBlackAndWhite,
