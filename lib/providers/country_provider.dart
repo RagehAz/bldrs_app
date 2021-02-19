@@ -1,7 +1,8 @@
 import 'package:bldrs/ambassadors/database/db_planet/db_areas.dart';
 import 'package:bldrs/ambassadors/database/db_planet/db_countries.dart';
 import 'package:bldrs/ambassadors/database/db_planet/db_provinces.dart';
-import 'package:bldrs/models/planet/city_model.dart';
+import 'package:bldrs/models/planet/area_model.dart';
+import 'package:bldrs/models/planet/province_model.dart';
 import 'package:bldrs/models/planet/country_model.dart';
 import 'package:bldrs/view_brains/localization/localization_constants.dart';
 import 'package:bldrs/view_brains/theme/flagz.dart';
