@@ -5,6 +5,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
+// an alert error should be thrown when firebase replies with the following line
+// Firebase Suthentication Error
+// An account already exists with the same email address but different sign-in credentials. Sign in using a provider associated with this email address.
+// we should consider same scenario with other auth methods that have this conflict with existing signed up e-mail
+
 Future<UserCredential> signInWithFacebook() async {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
