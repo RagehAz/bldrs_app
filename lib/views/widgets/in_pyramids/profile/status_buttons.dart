@@ -62,30 +62,30 @@ class StatusButtons extends StatelessWidget {
                         boxFunction: () => switchUserStatus(x['userStatus']),
                         blackAndWhite: false,
                         color:
-                        x['userStatus'] == UserStatus.ConstructingUser &&
-                            ( currentUserStatus == UserStatus.ConstructingUser ||
-                                currentUserStatus == UserStatus.PlanningUser ||
-                                currentUserStatus == UserStatus.BuildingUser) ?
+                        x['userStatus'] == UserStatus.Finishing &&
+                            ( currentUserStatus == UserStatus.Finishing ||
+                                currentUserStatus == UserStatus.PlanningTalking ||
+                                currentUserStatus == UserStatus.Building) ?
                         Colorz.Yellow :
                         currentUserStatus == x['userStatus'] ?
                         Colorz.Yellow :
                         Colorz.Nothing,
 
                         verseColor:
-                        x['userStatus'] == UserStatus.ConstructingUser &&
-                            ( currentUserStatus == UserStatus.ConstructingUser ||
-                                currentUserStatus == UserStatus.PlanningUser ||
-                                currentUserStatus == UserStatus.BuildingUser) ?
+                        x['userStatus'] == UserStatus.Finishing &&
+                            ( currentUserStatus == UserStatus.Finishing ||
+                                currentUserStatus == UserStatus.PlanningTalking ||
+                                currentUserStatus == UserStatus.Building) ?
                         Colorz.BlackBlack :
                         currentUserStatus == x['userStatus'] ?
                         Colorz.BlackBlack :
                         Colorz.White,
 
                         verseWeight:
-                        x['userStatus'] == UserStatus.ConstructingUser &&
-                            ( currentUserStatus == UserStatus.ConstructingUser ||
-                                currentUserStatus == UserStatus.PlanningUser ||
-                                currentUserStatus == UserStatus.BuildingUser) ?
+                        x['userStatus'] == UserStatus.Finishing &&
+                            ( currentUserStatus == UserStatus.Finishing ||
+                                currentUserStatus == UserStatus.PlanningTalking ||
+                                currentUserStatus == UserStatus.Building) ?
                         VerseWeight.black :
                         currentUserStatus == x['userStatus'] ?
                         VerseWeight.black :

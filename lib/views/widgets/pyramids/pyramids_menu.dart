@@ -88,7 +88,7 @@ class PyramidsMenu extends StatelessWidget {
                 // --- CHAT BUTTON
                 UserBalloon(
                   balloonWidth: _buttonWidth,
-                  userStatus: UserStatus.PlanningUser,
+                  userStatus: UserStatus.PlanningTalking,
                   // userPic: null,
                   balloonColor: Colorz.Nothing,
                   onTap: (){
@@ -132,7 +132,7 @@ class PyramidsMenu extends StatelessWidget {
                 // --- USER PROFILE
                 UserBalloon(
                   balloonWidth: _buttonWidth,
-                  userStatus: UserStatus.SearchingUser,
+                  userStatus: UserStatus.SearchingThinking,
                   // userPic: null,
                   onTap: (){
                     print('go to Chat Screen');

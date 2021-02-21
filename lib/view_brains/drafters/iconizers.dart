@@ -64,14 +64,14 @@ String bzTypeIconOn (BzType bzType){
 // === === === === === === === === === === === === === === === === === === ===
 CustomClipper<Path> userBalloon(UserStatus userType) {
   CustomClipper<Path> userBalloon =
-  userType == UserStatus.NormalUser ? NormalUserBalloon() :
-  userType == UserStatus.SearchingUser ? SearchingUserBalloon() :
-  userType == UserStatus.ConstructingUser ? ConstructingUserBalloon() :
-  userType == UserStatus.PlanningUser ? PlanningUserBalloon() :
-  userType == UserStatus.BuildingUser ? BuildingUserBalloon() :
-  userType == UserStatus.SellingUser ? SellingUserBalloon() :
-  userType == null ? NormalUserBalloon() :
-  NormalUserBalloon();
+  userType == UserStatus.Normal ? NormalCircle() :
+  userType == UserStatus.SearchingThinking ? SearchingThinking() :
+  userType == UserStatus.Finishing ? FinishingBalloon() :
+  userType == UserStatus.PlanningTalking ? PlanningTalkingBalloon() :
+  userType == UserStatus.Building ? BuildingBalloon() :
+  userType == UserStatus.Selling ? SellingBalloon() :
+  userType == null ? NormalCircle() :
+  NormalCircle();
   return userBalloon;
 }
 // === === === === === === === === === === === === === === === === === === ===
