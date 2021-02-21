@@ -35,26 +35,21 @@ class ABStrip extends StatelessWidget {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(Ratioz.ddAppBarCorner)),
           color: appBarType == AppBarType.InPyramids ? Colorz.WhiteGlass : null,
-          boxShadow: <CustomBoxShadow>[
-            CustomBoxShadow(
-                color: Colorz.BlackSmoke,
-                offset: Offset(0, 0),
-                blurRadius: abHeight * 0.18,
-                blurStyle: BlurStyle.outer),
-          ]),
+          boxShadow: Shadowz.appBarShadow,
+      ),
       child: Stack(
         alignment: superCenterAlignment(context),
         children: <Widget>[
 
           // --- APPBAR SHADOW
-          Container(
-            width: double.infinity,
-            height: abHeight,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(Ratioz.ddAppBarCorner)),
-                boxShadow: Shadowz.appBarShadow,
-            ),
-          ),
+          // Container(
+          //   width: double.infinity,
+          //   height: abHeight,
+          //   decoration: BoxDecoration(
+          //       borderRadius: BorderRadius.all(Radius.circular(Ratioz.ddAppBarCorner)),
+          //       boxShadow: Shadowz.appBarShadow,
+          //   ),
+          // ),
 
           // --- APPBAR BLUR
           // if (appBarType != AppBarType.InPyramids)

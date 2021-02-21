@@ -54,13 +54,16 @@ List<BoxShadow> superFollowBtShadow(double btHeight){
 // === === === === === === === === === === === === === === === === === === ===
 class Shadowz {
 
-  static const List<BoxShadow>appBarShadow = <CustomBoxShadow>[
-    const CustomBoxShadow(
-        color: Colorz.BlackLingerie,
-        offset: Offset(0, 0),
-        blurRadius: 10,
-        blurStyle: BlurStyle.outer
-    ),
+  static const CustomBoxShadow basicOuterShadow = CustomBoxShadow(
+      color: Colorz.BlackLingerie,
+      offset: Offset(0, 0),
+      blurRadius: 10,
+      blurStyle: BlurStyle.outer
+  );
+
+  static const List<BoxShadow> appBarShadow = <CustomBoxShadow>[
+     basicOuterShadow,
   ];
 
 }
+

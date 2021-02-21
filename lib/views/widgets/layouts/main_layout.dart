@@ -99,8 +99,8 @@ class MainLayout extends StatelessWidget {
                       pageTitle: pageTitle,
                     ),
 
-                  pyramids == null ? Container() :
-                  Pyramids(whichPyramid: appBarType == AppBarType.Localizer ? Iconz.PyramidzYellow : pyramids),
+                  // pyramids == null ? Container() :
+                  // Pyramids(whichPyramid: appBarType == AppBarType.Localizer ? Iconz.PyramidzYellow : pyramids),
 
                   // --- CHAT BUTTON
                   PyramidsMenu(),
@@ -147,8 +147,8 @@ class MainLayout extends StatelessWidget {
                   ),
 
                 // --- PYRAMIDS
-                pyramids == null ? Container() :
-                Pyramids(whichPyramid: appBarType == AppBarType.Localizer ? Iconz.PyramidzYellow : pyramids),
+                // pyramids == null ? Container() :
+                // Pyramids(whichPyramid: appBarType == AppBarType.Localizer ? Iconz.PyramidzYellow : pyramids),
 
 
                 // --- RAGEH BUTTON
