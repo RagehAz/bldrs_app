@@ -1,64 +1,20 @@
 import 'package:flutter/material.dart';
 
-// --- previously Owner
-class PlanningUserBalloon extends CustomClipper<Path> {
+class PlanningTalkingBalloon extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     Path path = Path();
-    final double _xScaling = size.width / 50;
-    final double _yScaling = size.height / 50;
-    path.lineTo(2.85 * _xScaling, 47.85 * _yScaling);
-    path.cubicTo(
-      7.85 * _xScaling,
-      45.6 * _yScaling,
-      13.49 * _xScaling,
-      45.24 * _yScaling,
-      18.73 * _xScaling,
-      46.85 * _yScaling,
-    );
-    path.cubicTo(
-      35.29 * _xScaling,
-      51.95 * _yScaling,
-      51.16 * _xScaling,
-      37.2 * _yScaling,
-      47.29 * _xScaling,
-      20.31 * _yScaling,
-    );
-    path.cubicTo(
-      43.42 * _xScaling,
-      3.42 * _yScaling,
-      22.72 * _xScaling,
-      -2.95 * _yScaling,
-      10.03 * _xScaling,
-      8.85 * _yScaling,
-    );
-    path.cubicTo(
-      2.41 * _xScaling,
-      15.93 * _yScaling,
-      0.63 * _xScaling,
-      27.31 * _yScaling,
-      5.73 * _xScaling,
-      36.37 * _yScaling,
-    );
-    path.cubicTo(
-      7.98 * _xScaling,
-      40.35 * _yScaling,
-      6.71 * _xScaling,
-      45.4 * _yScaling,
-      2.85 * _xScaling,
-      47.85 * _yScaling,
-    );
-    path.cubicTo(
-      2.85 * _xScaling,
-      47.85 * _yScaling,
-      2.85 * _xScaling,
-      47.85 * _yScaling,
-      2.85 * _xScaling,
-      47.85 * _yScaling,
-    );
+    final double _x = (size.width / 50);
+    final double _y = (size.height / 50);
+    path.lineTo(0 * _x,50 * _y);
+    path.cubicTo(5.55 * _x,47.5 * _y,11.82 * _x,47.11 * _y,17.64 * _x,48.9 * _y,);
+    path.cubicTo(36.03 * _x,54.57 * _y,53.67 * _x,38.21 * _y,49.38 * _x,19.48 * _y,);
+    path.cubicTo(45.10 * _x,0.69 * _y,22.11 * _x,-6.41 * _y,8.05 * _x,6.68 * _y,);
+    path.cubicTo(-0.46 * _x,14.54 * _y,-2.45 * _x,27.18 * _y,3.21 * _x,37.25 * _y,);
+    path.cubicTo(5.75 * _x,41.68 * _y,4.3 * _x,47.28 * _y,0 * _x,50 * _y,);
+    path.cubicTo(0 * _x,50 * _y,0 * _x,50 * _y,0 * _x,50 * _y,);
     return path;
   }
-
   @override
   bool shouldReclip(CustomClipper<Path> oldClipper) => true;
 }

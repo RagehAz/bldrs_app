@@ -50,7 +50,7 @@ class _AskState extends State<Ask> {
   @override
   Widget build(BuildContext context) {
     final _questionsProvider = Provider.of<QuestionsProvider>(context);
-    UserStatus _userStatus = UserStatus.PlanningUser;
+    UserStatus _userStatus = UserStatus.PlanningTalking;
     double _abPadding = Ratioz.ddAppBarPadding;
     double _abHeight = Ratioz.ddAppBarHeight;
     double _abButtonsHeight = _abHeight - (_abPadding);

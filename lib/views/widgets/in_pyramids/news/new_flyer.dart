@@ -57,7 +57,7 @@ class NewFlyerNotification extends StatelessWidget {
                 UserBalloon(
                   // userPic: Iconz.DvRageh,
                   balloonWidth: 55,
-                  userStatus: UserStatus.PlanningUser,
+                  userStatus: UserStatus.PlanningTalking,
                   onTap: (){},
                   blackAndWhite: false,
                   loading: false,

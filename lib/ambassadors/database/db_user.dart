@@ -15,7 +15,7 @@ final List<UserModel> dbUsers = [
   UserModel(
     userID: 'u01',
     // joinedAt: ,
-    userStatus: UserStatus.NormalUser,
+    userStatus: UserStatus.Normal,
     // -------------------------
     name: 'Ahmad Gamal',
     pic: Iconz.DumBzPNG,
@@ -40,7 +40,7 @@ final List<UserModel> dbUsers = [
   UserModel(
     userID: 'u02',
     // joinedAt: ,
-    userStatus: UserStatus.NormalUser,
+    userStatus: UserStatus.Normal,
     // -------------------------
     name: 'Ibrahim Mohsen',
     pic: Iconz.DumBzPNG,
@@ -65,7 +65,7 @@ final List<UserModel> dbUsers = [
   UserModel(
     userID: 'u03',
     // joinedAt: ,
-    userStatus: UserStatus.NormalUser,
+    userStatus: UserStatus.Normal,
     // -------------------------
     name: 'James Wallberg Jr.',
     pic: Dumz.XXburj_khalifa_author,
@@ -90,7 +90,7 @@ final List<UserModel> dbUsers = [
   UserModel(
     userID: 'u04',
     // joinedAt: ,
-    userStatus: UserStatus.NormalUser,
+    userStatus: UserStatus.Normal,
     // -------------------------
     name: 'Mahmoud Abou El Hassan',
     pic: Dumz.XXabohassan_author,
@@ -115,7 +115,7 @@ final List<UserModel> dbUsers = [
   UserModel(
     userID: 'u05',
     // joinedAt: ,
-    userStatus: UserStatus.NormalUser,
+    userStatus: UserStatus.Normal,
     // -------------------------
     name: 'محمد احمد زهران',
     pic: Dumz.XXzah_author,
@@ -140,7 +140,7 @@ final List<UserModel> dbUsers = [
   UserModel(
     userID: 'u06',
     // joinedAt: ,
-    userStatus: UserStatus.NormalUser,
+    userStatus: UserStatus.Normal,
     // -------------------------
     name: 'Eng. Mohamed Attia',
     pic: Iconz.DumBzPNG,
@@ -165,7 +165,7 @@ final List<UserModel> dbUsers = [
   UserModel(
     userID: 'u07',
     // joinedAt: ,
-    userStatus: UserStatus.NormalUser,
+    userStatus: UserStatus.Normal,
     // -------------------------
     name: 'George Zenhom',
     pic: Iconz.DumBzPNG,
@@ -190,7 +190,7 @@ final List<UserModel> dbUsers = [
   UserModel(
     userID: 'u08',
     // joinedAt: ,
-    userStatus: UserStatus.NormalUser,
+    userStatus: UserStatus.Normal,
     // -------------------------
     name: 'Micheal Morad',
     pic: Iconz.DumBzPNG,
@@ -215,7 +215,7 @@ final List<UserModel> dbUsers = [
   UserModel(
     userID: 'u09',
     // joinedAt: ,
-    userStatus: UserStatus.NormalUser,
+    userStatus: UserStatus.Normal,
     // -------------------------
     name: 'Micheal Morad',
     pic: Iconz.DumBzPNG,
@@ -240,7 +240,7 @@ final List<UserModel> dbUsers = [
   UserModel(
     userID: 'u10',
     // joinedAt: ,
-    userStatus: UserStatus.NormalUser,
+    userStatus: UserStatus.Normal,
     // -------------------------
     name: 'Alaa btcino',
     pic: Iconz.DumBzPNG,
@@ -265,7 +265,7 @@ final List<UserModel> dbUsers = [
   UserModel(
     userID: 'u11',
     // joinedAt: ,
-    userStatus: UserStatus.NormalUser,
+    userStatus: UserStatus.Normal,
     // -------------------------
     name: 'DavuserID Watson',
     // joinedAt: ,
@@ -291,7 +291,7 @@ final List<UserModel> dbUsers = [
   UserModel(
     userID: 'u12',
     // joinedAt: ,
-    userStatus: UserStatus.NormalUser,
+    userStatus: UserStatus.Normal,
     // -------------------------
     name: 'Essam Alamonya',
     pic: Iconz.DumBzPNG,
@@ -316,7 +316,7 @@ final List<UserModel> dbUsers = [
   UserModel(
     userID: 'u13',
     // joinedAt: ,
-    userStatus: UserStatus.NormalUser,
+    userStatus: UserStatus.Normal,
     // -------------------------
     name: 'Sayyed rady',
     pic: Iconz.DumBzPNG,
@@ -341,7 +341,7 @@ final List<UserModel> dbUsers = [
   UserModel(
     userID: 'u14',
     // joinedAt: ,
-    userStatus: UserStatus.NormalUser,
+    userStatus: UserStatus.Normal,
     // -------------------------
     name: 'Shady mohamed',
     pic: Iconz.DumBzPNG,
@@ -366,7 +366,7 @@ final List<UserModel> dbUsers = [
   UserModel(
     userID: 'u15',
     // joinedAt: ,
-    userStatus: UserStatus.NormalUser,
+    userStatus: UserStatus.Normal,
     // -------------------------
     name: 'Mona Hussein',
     pic: Dumz.XXmhdh_author,
@@ -391,7 +391,7 @@ final List<UserModel> dbUsers = [
   UserModel(
     userID: 'u16',
     // joinedAt: ,
-    userStatus: UserStatus.NormalUser,
+    userStatus: UserStatus.Normal,
     // -------------------------
     name: 'Hany Saad',
     pic: Dumz.XXhs_author,
@@ -416,7 +416,7 @@ final List<UserModel> dbUsers = [
   UserModel(
     userID: 'u17',
     // joinedAt: ,
-    userStatus: UserStatus.NormalUser,
+    userStatus: UserStatus.Normal,
     // -------------------------
     name: 'Hayam Hendi',
     pic: Iconz.DumBzPNG,
@@ -441,7 +441,7 @@ final List<UserModel> dbUsers = [
   UserModel(
     userID: 'u18',
     // joinedAt: ,
-    userStatus: UserStatus.NormalUser,
+    userStatus: UserStatus.Normal,
     // -------------------------
     name: 'Fixawy team',
     pic: Iconz.DumBzPNG,
@@ -466,7 +466,7 @@ final List<UserModel> dbUsers = [
   UserModel(
     userID: 'u19',
     // joinedAt: ,
-    userStatus: UserStatus.NormalUser,
+    userStatus: UserStatus.Normal,
     // -------------------------
     name: 'Ahmad Hamada Ahmad',
     pic: Iconz.DumBzPNG,
@@ -491,7 +491,7 @@ final List<UserModel> dbUsers = [
   UserModel(
     userID: 'u20',
     // joinedAt: ,
-    userStatus: UserStatus.NormalUser,
+    userStatus: UserStatus.Normal,
     // -------------------------
     name: 'Nazly Noman EL Mohammady',
     pic: Dumz.XXnazly_author,
@@ -516,7 +516,7 @@ final List<UserModel> dbUsers = [
   UserModel(
     userID: 'u21',
     // joinedAt: ,
-    userStatus: UserStatus.NormalUser,
+    userStatus: UserStatus.Normal,
     // -------------------------
     name: 'Rageh El Azzazy',
     pic: Iconz.DumAuthorPic,
