@@ -595,7 +595,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         // -------------------------
                         userID : userModel.userID,
                         joinedAt : userModel.joinedAt,
-                        userStatus : userModel.userStatus ?? UserStatus.NormalUser,
+                        userStatus : userModel.userStatus ?? UserStatus.Normal,
                         // -------------------------
                         name : _currentName ?? userModel.name,
                         pic : _userPicURL ?? userModel.pic,

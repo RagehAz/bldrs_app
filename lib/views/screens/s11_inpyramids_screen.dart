@@ -25,7 +25,7 @@ class InPyramidsScreen extends StatefulWidget {
   final UserModel userModel;
 
   InPyramidsScreen({
-    // this.userStatus = UserStatus.PlanningUser,
+    // this.userStatus = UserStatus.PlanningTalking,
     @required this.userModel,
 });
 
@@ -54,16 +54,16 @@ class _InPyramidsScreenState extends State<InPyramidsScreen> {
     {
       'title': 'Property Status',
     'buttons': [
-      {'state': 'Looking for a\nnew property', 'userStatus' : UserStatus.SearchingUser},
-      {'state': 'Constructing\nan existing\nproperty', 'userStatus' : UserStatus.ConstructingUser},
-      {'state': 'Want to\nSell / Rent\nmy property', 'userStatus' : UserStatus.SellingUser}
+      {'state': 'Looking for a\nnew property', 'userStatus' : UserStatus.SearchingThinking},
+      {'state': 'Constructing\nan existing\nproperty', 'userStatus' : UserStatus.Finishing},
+      {'state': 'Want to\nSell / Rent\nmy property', 'userStatus' : UserStatus.Selling}
       ],
     },
     {
       'title': 'Construction Status',
     'buttons': [
-      {'state': 'Planning Construction', 'userStatus' : UserStatus.PlanningUser},
-      {'state': 'Under Construction', 'userStatus' : UserStatus.BuildingUser}
+      {'state': 'Planning Construction', 'userStatus' : UserStatus.PlanningTalking},
+      {'state': 'Under Construction', 'userStatus' : UserStatus.Building}
       ],
     },
   ];

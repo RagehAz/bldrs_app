@@ -21,7 +21,7 @@ class AuthService{
     UserModel(
       userID: user.uid,
       // joinedAt: DateTime.now(),
-      // userStatus: UserStatus.NormalUser,
+      // userStatus: UserStatus.Normal,
       // -------------------------
       name: user.displayName,
       pic: user.photoURL,
@@ -81,7 +81,7 @@ Future signInAnon() async {
       await UserProvider(userID: user.uid).updateUserData(
           userID: user.uid,
           joinedAt: DateTime.now(),
-          userStatus: UserStatus.NormalUser,
+          userStatus: UserStatus.Normal,
           // -------------------------
           name: user.displayName,
           pic: user.photoURL,

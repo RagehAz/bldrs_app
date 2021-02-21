@@ -374,7 +374,7 @@ Future<void> updateBz(BzModel bz, UserModel userModel) async {
        // -------------------------
        userID : userModel.userID,
        joinedAt : userModel.joinedAt,
-       userStatus : UserStatus.NormalUser,
+       userStatus : UserStatus.Normal,
        // -------------------------
        name : userModel.name,
        pic : userModel.pic,

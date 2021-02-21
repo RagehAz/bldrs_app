@@ -45,46 +45,46 @@ class UserModel {
 }
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
 enum UserStatus {
-  NormalUser,
-  SearchingUser,
-  ConstructingUser,
-  PlanningUser,
-  BuildingUser,
-  SellingUser,
+  Normal,
+  SearchingThinking,
+  Finishing,
+  PlanningTalking,
+  Building,
+  Selling,
   BzAuthor,
 }
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
 List<UserStatus> userTypesList = [
-  UserStatus.NormalUser,
-  UserStatus.SearchingUser,
-  UserStatus.ConstructingUser,
-  UserStatus.PlanningUser,
-  UserStatus.BuildingUser,
-  UserStatus.SellingUser,
+  UserStatus.Normal,
+  UserStatus.SearchingThinking,
+  UserStatus.Finishing,
+  UserStatus.PlanningTalking,
+  UserStatus.Building,
+  UserStatus.Selling,
   UserStatus.BzAuthor,
 ];
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
 UserStatus decipherUserStatus (int userStatus){
   switch (userStatus){
-    case 1:   return   UserStatus.NormalUser;         break;
-    case 2:   return   UserStatus.SearchingUser;      break;
-    case 3:   return   UserStatus.ConstructingUser;   break;
-    case 4:   return   UserStatus.PlanningUser;       break;
-    case 5:   return   UserStatus.BuildingUser;       break;
-    case 6:   return   UserStatus.SellingUser;        break;
-    case 7:   return   UserStatus.BzAuthor;           break;
+    case 1:   return   UserStatus.Normal;                 break;
+    case 2:   return   UserStatus.SearchingThinking;      break;
+    case 3:   return   UserStatus.Finishing;              break;
+    case 4:   return   UserStatus.PlanningTalking;        break;
+    case 5:   return   UserStatus.Building;               break;
+    case 6:   return   UserStatus.Selling;                break;
+    case 7:   return   UserStatus.BzAuthor;               break;
     default : return   null;
   }
 }
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
 int cipherUserStatus (UserStatus userStatus){
   switch (userStatus){
-    case UserStatus.NormalUser       :  return 1; break ;
-    case UserStatus.SearchingUser    :  return 2; break ;
-    case UserStatus.ConstructingUser :  return 3; break ;
-    case UserStatus.PlanningUser     :  return 4; break ;
-    case UserStatus.BuildingUser     :  return 5; break ;
-    case UserStatus.SellingUser      :  return 6; break ;
+    case UserStatus.Normal       :  return 1; break ;
+    case UserStatus.SearchingThinking    :  return 2; break ;
+    case UserStatus.Finishing :  return 3; break ;
+    case UserStatus.PlanningTalking     :  return 4; break ;
+    case UserStatus.Building     :  return 5; break ;
+    case UserStatus.Selling      :  return 6; break ;
     case UserStatus.BzAuthor         :  return 7; break ;
     default : return null;
   }
