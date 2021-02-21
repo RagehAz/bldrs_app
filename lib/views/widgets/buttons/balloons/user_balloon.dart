@@ -8,10 +8,12 @@ import 'package:bldrs/view_brains/drafters/shadowers.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 import '../dream_box.dart';
 import 'clip_shadow_path.dart';
+import 'no_clip.dart';
 
 class UserBalloon extends StatelessWidget {
   final UserStatus userStatus;
@@ -38,6 +40,9 @@ class UserBalloon extends StatelessWidget {
   }
 
   Widget _balloon([UserModel userModel]){
+
+    CustomClipper _nullClipper;
+
     return
       Container(
         width: balloonWidth,
@@ -46,7 +51,7 @@ class UserBalloon extends StatelessWidget {
         child: GestureDetector(
           onTap: onTap,
           child: ClipShadowPath(
-            clipper: userBalloon(userStatus),
+            clipper: userBalloon(userModel?.userStatus),
             shadow: Shadowz.basicOuterShadow,
             child: Stack(
               alignment: Alignment.center,
