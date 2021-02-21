@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 @immutable
 class ClipShadowPath extends StatelessWidget {
-  final BoxShadow shadow;
+  final Shadow shadow;
   final CustomClipper<Path> clipper;
   final Widget child;
 
@@ -15,7 +15,8 @@ class ClipShadowPath extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
-      painter: _ClipShadowShadowPainter(
+      key: UniqueKey(),
+      painter: _ClipShadowPainter(
         clipper: this.clipper,
         shadow: this.shadow,
       ),
@@ -24,19 +25,15 @@ class ClipShadowPath extends StatelessWidget {
   }
 }
 
-class _ClipShadowShadowPainter extends CustomPainter {
-  final BoxShadow shadow;
+class _ClipShadowPainter extends CustomPainter {
+  final Shadow shadow;
   final CustomClipper<Path> clipper;
 
-  _ClipShadowShadowPainter({@required this.shadow, @required this.clipper});
+  _ClipShadowPainter({@required this.shadow, @required this.clipper});
 
   @override
   void paint(Canvas canvas, Size size) {
-    var paint = shadow.toPaint()
-      ..maskFilter = MaskFilter.blur(
-        BlurStyle.normal,
-        shadow.spreadRadius,
-      );
+    var paint = shadow.toPaint();
     var clipPath = clipper.getClip(size).shift(shadow.offset);
     canvas.drawPath(clipPath, paint);
   }
