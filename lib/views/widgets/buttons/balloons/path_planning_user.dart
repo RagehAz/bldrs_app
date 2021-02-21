@@ -5,8 +5,8 @@ class PlanningUserBalloon extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     Path path = Path();
-    final double _xScaling = size.width * 0.02;
-    final double _yScaling = size.height * 0.02;
+    final double _xScaling = size.width / 50;
+    final double _yScaling = size.height / 50;
     path.lineTo(2.85 * _xScaling, 47.85 * _yScaling);
     path.cubicTo(
       7.85 * _xScaling,
