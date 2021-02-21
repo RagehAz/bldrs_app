@@ -5,13 +5,11 @@ import 'package:bldrs/view_brains/drafters/keyboarders.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/localization/localization_constants.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
-import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/widgets/appbar/bldrs_appbar.dart';
+import 'package:bldrs/views/widgets/bottom_menu/bottom_bar.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
-import 'package:bldrs/views/widgets/pyramids/pyramids.dart';
-import 'package:bldrs/views/widgets/pyramids/pyramids_menu.dart';
 import 'package:bldrs/views/widgets/space/skies/black_sky.dart';
 import 'package:bldrs/views/widgets/space/skies/night_sky.dart';
 import 'package:flutter/material.dart';
@@ -103,7 +101,9 @@ class MainLayout extends StatelessWidget {
                   // Pyramids(whichPyramid: appBarType == AppBarType.Localizer ? Iconz.PyramidzYellow : pyramids),
 
                   // --- CHAT BUTTON
-                  PyramidsMenu(),
+                  BottomBar(
+                    barType: BarType.min,
+                  ),
 
                   _ragehIsOn == false ? Container() :
                   Rageh(
