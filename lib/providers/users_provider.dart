@@ -91,19 +91,19 @@ class UserProvider{
     // print('kos om ommak = ${bolbol[2].contact}');
 
     try{
-
-      List<dynamic> _savedFlyersIDs = doc.data()['savedFlyersIDs'] as List<dynamic>;
-      List<dynamic> _followedBzzIDs = doc.data()['followedBzzIDs'] as List<dynamic>;
+      var _doc = doc.data();
+      List<dynamic> _savedFlyersIDs = _doc['savedFlyersIDs'] as List<dynamic>;
+      List<dynamic> _followedBzzIDs = _doc['followedBzzIDs'] as List<dynamic>;
       // List<dynamic> _publishedFlyersIDs = doc.data()['publishedFlyersIDs'] as List<dynamic>;
       return UserModel(
-        userID : doc.data()['userID'] ?? '',
-        joinedAt : decipherDateTimeString(doc.data()['joinedAt'] ?? ''),
-        userStatus : decipherUserStatus(doc.data()['userStatus']?? 1),
+        userID : _doc['userID'] ?? '',
+        joinedAt : decipherDateTimeString(_doc['joinedAt'] ?? ''),
+        userStatus : decipherUserStatus(_doc['userStatus']?? 1),
         // -------------------------
-        name : doc.data()['name'] ?? '',
-        pic : doc.data()['pic'] ?? '',
-        title : doc.data()['title'] ?? '',
-        company : doc.data()['company'] ?? '',
+        name : _doc['name'] ?? '',
+        pic : _doc['pic'] ?? '',
+        title : _doc['title'] ?? '',
+        company : _doc['company'] ?? '',
         gender : decipherGender(doc.data()['gender'] ?? 2),
         country : doc.data()['country'] ?? '',
         province :  doc.data()['province'] ?? '',
@@ -122,7 +122,7 @@ class UserProvider{
     }
   }
 
-  /// get user streams
+  /// get users streams
   Stream<List<UserModel>> get userStream {
     return usersCollection.snapshots()
         .map(_usersListFromSnapshot);
@@ -134,13 +134,14 @@ class UserProvider{
         .map(_userModelFromSnapshot);
   }
 
-  // UserModel getUserModel(){
-  //   Stream<DocumentSnapshot> docStream = usersCollection.doc(userID).snapshots();
-  //   UserModel user;
-  //   docStream.listen((DocumentSnapshot snap) {
-  //     user = _userModelFromSnapshot(snap);
-  //   });
-  //   return user;
-  // }
+UserModel getUserModel(){
+  Stream<DocumentSnapshot> docStream = usersCollection.doc(userID).snapshots();
+  UserModel user;
+  docStream.listen((DocumentSnapshot snap) {
+    user = _userModelFromSnapshot(snap);
+  });
+  return user;
+}
 
 }
+

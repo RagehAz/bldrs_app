@@ -1,6 +1,7 @@
 // import 'package:path_provider/path_provider.dart' as sysPaths;
 // import 'package:path/path.dart' as path;
 import 'dart:io';
+import 'package:bldrs/ambassadors/services/firebase_storage.dart';
 import 'package:bldrs/models/bldrs_sections.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
@@ -20,6 +21,7 @@ import 'package:bldrs/views/widgets/bubbles/multiple_choice_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/text_field_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/bt_back.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
+import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_zone.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header.dart';
 import 'package:bldrs/views/widgets/loading/loading.dart';
@@ -29,6 +31,7 @@ import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/drafters/stringers.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -132,37 +135,37 @@ class _CreateBzScreenState extends State<CreateBzScreen> with TickerProviderStat
   }
   // ----------------------------------------------------------------------
   Future<void> _takeGalleryPicture() async {
-    // print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> before _takeCameraPicture');
-    final picker = ImagePicker();
-    final imageFile = await picker.getImage(
+    final _picker = ImagePicker();
+    final _imageFile = await _picker.getImage(
       source: ImageSource.gallery,
-      maxWidth: 600,
+      imageQuality: 50,
+      maxWidth: 150,
     );
 
-    if (imageFile == null){return;}
+    if (_imageFile == null){return;}
 
     setState(() {
-      _currentBzLogo = File(imageFile.path);
-      // newBz.bz.bzLogo = _storedLogo;
+      _currentBzLogo = File(_imageFile.path);
     });
 
-    // final appDir = await sysPaths.getApplicationDocumentsDirectory();
-    // final fileName = path.basename(imageFile.path);
-    // final savedImage = await _currentBzLogo.copy('${appDir.path}/$fileName');
+    // final _appDir = await sysPaths.getApplicationDocumentsDirectory();
+    // final _fileName = path.basename(_imageFile.path);
+    // final _savedImage = await _currentPic.copy('${_appDir.path}/$_fileName');
     // _selectImage(savedImage);
   }
   // ----------------------------------------------------------------------
   Future<void> _takeAuthorPicture() async {
-    final picker = ImagePicker();
-    final imageFile = await picker.getImage(
+    final _picker = ImagePicker();
+    final _imageFile = await _picker.getImage(
       source: ImageSource.gallery,
-      maxWidth: 600,
+      imageQuality: 50,
+      maxWidth: 150,
     );
 
-    if (imageFile == null){return;}
+    if (_imageFile == null){return;}
 
     setState(() {
-      _authorPic = File(imageFile.path);
+      _authorPic = File(_imageFile.path);
       // newBz.bz.bzLogo = _storedLogo;
     });
   }
@@ -171,7 +174,14 @@ class _CreateBzScreenState extends State<CreateBzScreen> with TickerProviderStat
   //   _pickedLogo = pickedImage;
   // }
   // ----------------------------------------------------------------------
-  BzModel _createBzModel(UserModel user){
+  Future<BzModel> _createBzModel(UserModel user) async {
+
+    /// saving bzLogo on firebase storage by bzCreator / first Author's userID,,
+    /// instead of saving bzID which will be generated later in the creating
+    /// bzModel process
+    final _bzLogoURL = await saveBzLogoOnFirebaseStorageAndGetURL(inputFile: _currentBzLogo,fileName: user.userID);
+    final _authorPicURL = await saveAuthorPicOnFirebaseStorageAndGetURL(inputFile: _authorPic, fileName: user.userID);
+
     return new BzModel(
       bzID: '...',
       // -------------------------
@@ -182,7 +192,7 @@ class _CreateBzScreenState extends State<CreateBzScreen> with TickerProviderStat
       bzURL: '...',
       // -------------------------
       bzName: _currentBzName ?? user.company,
-      bzLogo: _currentBzLogo,
+      bzLogo: _bzLogoURL,
       bzScope: _currentBzScope,
       bzCountry: _currentBzCountry ?? user.country,
       bzProvince: _currentBzProvince ?? user.province,
@@ -193,7 +203,7 @@ class _CreateBzScreenState extends State<CreateBzScreen> with TickerProviderStat
       bzAuthors: [AuthorModel(
         userID: user.userID,
         authorName: _authorName ?? user.name,
-        authorPic: _authorPic ?? user.pic,
+        authorPic: _authorPicURL ?? user.pic,
         authorTitle: _authorTitle ?? user.title,
         publishedFlyersIDs: [],
         bzID: '...',
@@ -223,27 +233,16 @@ class _CreateBzScreenState extends State<CreateBzScreen> with TickerProviderStat
     // final bool isValid = _form.currentState.validate();
     // if(!isValid){return;}
     // _form.currentState.save();
+
+    BzModel _bzModel = await _createBzModel(userModel);
+
     _triggerLoading();
-    try { await pro.addBz(_createBzModel(userModel), userModel); }
+    try { await pro.addBz(_bzModel, userModel); }
     catch(error) {
       await showDialog(
         context: context,
         builder: (ctx)=>
-            AlertDialog(
-              title: SuperVerse(verse: 'error man', color: Colorz.BlackBlack,),
-              content: SuperVerse(verse: 'error is : ${error.toString()}', color: Colorz.BlackBlack, maxLines: 10,),
-              backgroundColor: Colorz.Grey,
-              elevation: 10,
-              shape: RoundedRectangleBorder(borderRadius: superBorderAll(context, 20)),
-              contentPadding: EdgeInsets.all(10),
-              actionsOverflowButtonSpacing: 10,
-              actionsPadding: EdgeInsets.all(5),
-              insetPadding: EdgeInsets.symmetric(vertical: (superScreenHeight(context)*0.32), horizontal: 35),
-              buttonPadding:  EdgeInsets.all(5),
-              titlePadding:  EdgeInsets.all(20),
-              actions: <Widget>[BldrsBackButton(onTap: ()=> goBack(ctx)),],
-
-            ),
+        superAlert(context, ctx, error),
       );
     }
     finally {
@@ -331,11 +330,11 @@ class _CreateBzScreenState extends State<CreateBzScreen> with TickerProviderStat
 
                     // --- ADD LOGO
                     AddGalleryPicBubble(
-                      logo: _currentBzLogo,
+                      pic: _currentBzLogo,
                       addBtFunction: _takeGalleryPicture,
-                      deleteLogoFunction: () => setState(() {_currentBzLogo = null;}),
+                      deletePicFunction: () => setState(() {_currentBzLogo = null;}),
                       title: Wordz.businessLogo(context),
-                      picOwner: PicOwner.bzLogo,
+                      bubbleType: BubbleType.bzLogo,
                     ),
 
                     // --- type BzName
@@ -426,11 +425,11 @@ class _CreateBzScreenState extends State<CreateBzScreen> with TickerProviderStat
 
                     // --- ADD AUTHOR PIC
                     AddGalleryPicBubble(
-                      logo: _authorPic,
+                      pic: _authorPic,
                       addBtFunction: _takeAuthorPicture,
-                      deleteLogoFunction: () => setState(() {_authorPic = null;}),
+                      deletePicFunction: () => setState(() {_authorPic = null;}),
                       title: 'Add a professional picture of yourself',
-                      picOwner: PicOwner.author,
+                      bubbleType: BubbleType.authorPic,
                     ),
 
                     // --- FLYER PREVIEW
@@ -516,41 +515,6 @@ class _CreateBzScreenState extends State<CreateBzScreen> with TickerProviderStat
                       verse: 'confirm business info',
                       verseScaleFactor: .8,
                       boxFunction: () => _confirmNewBz(context, _pro, userModel),
-                    ),
-
-                    // --- CONFIRM BUTTON
-                    DreamBox(
-                      height: 50,
-                      boxMargins: EdgeInsets.all(20),
-                      verse: 'only update user here',
-                      verseScaleFactor: .8,
-                      boxFunction: ()async{
-                        setState(() { _bzID = 'bolbol ID';});
-                        List<dynamic> tempFollowedBzzIDs = userModel.followedBzzIDs;
-                        userModel.followedBzzIDs.insert(0, _bzID);
-                        await UserProvider(userID: userModel.userID).updateUserData(
-                        // -------------------------
-                          userID : userModel.userID,
-                          joinedAt : userModel.joinedAt,
-                          userStatus : UserStatus.BzAuthor,
-                          // -------------------------
-                          name : userModel.name,
-                          pic : userModel.pic,
-                          title : userModel.title,
-                          company : userModel.company,
-                          gender : userModel.gender,
-                          country : userModel.country,
-                          province : userModel.province,
-                          area : userModel.area,
-                          language : userModel.language,
-                          position : userModel.position,
-                          contacts : userModel.contacts,
-                          // -------------------------
-                          savedFlyersIDs : userModel.savedFlyersIDs,
-                          followedBzzIDs : tempFollowedBzzIDs,
-                        );
-
-                      },
                     ),
 
                     PyramidsHorizon(heightFactor: 5,),

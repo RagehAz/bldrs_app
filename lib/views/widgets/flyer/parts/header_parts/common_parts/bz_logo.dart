@@ -1,6 +1,7 @@
 import 'package:bldrs/view_brains/drafters/borderers.dart';
 import 'package:bldrs/view_brains/drafters/colorizers.dart';
 import 'package:bldrs/view_brains/drafters/file_formatters.dart';
+import 'package:bldrs/view_brains/drafters/imagers.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,7 @@ class BzLogo extends StatelessWidget {
   final EdgeInsets margins;
   final Function onTap;
   final bool blackAndWhite;
+  final bool shadowIsOn;
 
   BzLogo({
     @required this.width,
@@ -27,6 +29,7 @@ class BzLogo extends StatelessWidget {
     this.margins,
     this.onTap,
     this.blackAndWhite = false,
+    this.shadowIsOn,
   });
 
 
@@ -63,28 +66,11 @@ class BzLogo extends StatelessWidget {
                 borderRadius: bzLogoCorners,
             ),
             child:
-            objectIsSVG(image) ?
+
             ClipRRect(
-                borderRadius: bzLogoCorners,
-                child: WebsafeSvg.asset(image, fit: BoxFit.cover, height:width, width: width)) :
-
-            image != null && objectIsFile(image) == true ?
-                ClipRRect(
                   borderRadius: bzLogoCorners,
-                  /// here max used FileImage(image), we can test this later
-                  child: Image.file(
-                    image,
-                    fit: BoxFit.cover,
-                    width: width,
-                    height: width,
-                    // colorBlendMode: BlendMode.overlay,
-                    // color: Colorz.WhiteAir,
-                  ),
-                )
-
-                :
-
-            Container(),
+                  child: superImageWidget(image)
+              ),
 
 
           ),

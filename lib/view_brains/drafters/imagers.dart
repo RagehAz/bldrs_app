@@ -1,3 +1,4 @@
+import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:flutter/material.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 
@@ -25,5 +26,11 @@ Widget superImageWidget(dynamic pic){
     objectIsURL(pic)?
     Image.network(pic, fit: BoxFit.cover,)
         :
-    Container();
+    objectIsFile(pic)?
+    Image.file(
+        pic,
+        fit: BoxFit.cover,
+    )
+    :
+  Container();
 }
