@@ -79,13 +79,13 @@ UserStatus decipherUserStatus (int userStatus){
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
 int cipherUserStatus (UserStatus userStatus){
   switch (userStatus){
-    case UserStatus.Normal       :  return 1; break ;
-    case UserStatus.SearchingThinking    :  return 2; break ;
-    case UserStatus.Finishing :  return 3; break ;
+    case UserStatus.Normal              :  return 1; break ;
+    case UserStatus.SearchingThinking   :  return 2; break ;
+    case UserStatus.Finishing           :  return 3; break ;
     case UserStatus.PlanningTalking     :  return 4; break ;
-    case UserStatus.Building     :  return 5; break ;
-    case UserStatus.Selling      :  return 6; break ;
-    case UserStatus.BzAuthor         :  return 7; break ;
+    case UserStatus.Building            :  return 5; break ;
+    case UserStatus.Selling             :  return 6; break ;
+    case UserStatus.BzAuthor            :  return 7; break ;
     default : return null;
   }
 }
@@ -112,5 +112,10 @@ int cipherGender(Gender gender){
     case Gender.any : return 2; break ;
     default : return null;
   }
+}
+// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+bool userIsAuthor(UserStatus userStatus){
+  return
+      userStatus == UserStatus.BzAuthor ? true : false ;
 }
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x

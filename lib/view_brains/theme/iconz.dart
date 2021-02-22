@@ -23,6 +23,7 @@ static const String ComGooglePlay = 'assets/com/com_google_play.svg' ;
 static const String ComYoutube = 'assets/com/com_youtube.svg' ;
 static const String ComTikTok = 'assets/com/com_tiktok.svg' ;
 static const String ComPinterest = 'assets/com/com_pinterest.svg' ;
+static const String ComGooglePlus = 'assets/com/com_google_plus.svg' ;
 // -------------------------------------------------------------------------
 // dummies
 static const String DumAuthorPic = 'assets/dum/dum_author_pic.jpg' ;
