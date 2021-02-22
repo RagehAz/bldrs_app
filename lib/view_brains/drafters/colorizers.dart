@@ -49,18 +49,22 @@ class BlurLayer extends StatelessWidget {
     this.width = double.infinity,
     this.height = double.infinity,
 });
+
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: borders,
-      child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: blur, sigmaY: blur),
-        child: Container(
-          width: width,
-          height: height,
-          decoration: BoxDecoration(
+    return Container(
+      // color: Colorz.BloodTest,
+      child: ClipRRect(
+        borderRadius: borders,
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: blur, sigmaY: blur),
+          child: Container(
+            // width: 100,
+            height: height,
+            decoration: BoxDecoration(
               color: Colorz.WhiteAir,
               borderRadius: borders,
+            ),
           ),
         ),
       ),

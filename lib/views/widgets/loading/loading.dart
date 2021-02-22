@@ -5,22 +5,27 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class Loading extends StatelessWidget {
   final double size;
+  final Function onTap;
 
   Loading({
     this.size = 50,
+    this.onTap,
 });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: size,
-      height: size,
-      // color: Colorz.BlackSmoke,
-      child: Center(
-        child: SpinKitPulse(
-          color: Colorz.Yellow,
-          size: size,
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: size,
+        height: size,
+        color: Colorz.Nothing,
+        child: Center(
+          child: SpinKitPulse(
+            color: Colorz.Yellow,
+            size: size,
 
+          ),
         ),
       ),
     );

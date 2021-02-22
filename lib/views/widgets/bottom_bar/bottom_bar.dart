@@ -42,13 +42,15 @@ class BottomBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    final _user = Provider.of<UserModel>(context);
+    bool _userIsAuthor = userIsAuthor(_user.userStatus);
     // --- MAIN CONTROLS
     double _circleWidth = 40;
     double _paddings = Ratioz.ddAppBarPadding * 1.5;
     double _textScaleFactor = 0.95;
     int _textSize = 0;
     double _spacingFactor = 0.5;
-    int _numberOfButtons = 5;
+    int _numberOfButtons = _userIsAuthor ? 5 : 4;
     // -------------------------
     int _numberOfSpacings = _numberOfButtons - 1 ;
     double _buttonCircleCorner = _circleWidth * 0.5;
@@ -115,8 +117,6 @@ class BottomBar extends StatelessWidget {
     barType == BarType.min || barType == BarType.minWithText ? _paddings :
     barType == BarType.max || barType == BarType.maxWithText ? 0 : 0;
 
-    final _user = Provider.of<UserModel>(context);
-
     return StreamBuilder<UserModel>(
       stream: UserProvider(userID: _user.userID).userData,
       builder: (context, snapshot){
@@ -124,131 +124,139 @@ class BottomBar extends StatelessWidget {
           return
             Positioned(
               bottom: _bottomOffset,
-              child: Container(
-                width: _boxWidth,
-                height: _boxHeight,
-                decoration: BoxDecoration(
-                  color: Colorz.WhiteGlass,
-                  borderRadius: _boxBorders,
-                  boxShadow: Shadowz.appBarShadow,
-                ),
-                child: Stack(
-                  children: <Widget>[
+              child: Row(
+                children: <Widget>[
 
-                    // --- BLUR LAYER
-                    BlurLayer(
-                      width: _boxWidth,
-                      height: _boxHeight,
-                      blur: 10,
-                      borders: _boxBorders,
+                  Container(
+                    // width: _boxWidth,
+                    height: _boxHeight,
+                    decoration: BoxDecoration(
+                      color: Colorz.WhiteGlass,
+                      borderRadius: _boxBorders,
+                      boxShadow: Shadowz.appBarShadow,
                     ),
-
-                    // --- BUTTONS
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                    child: Stack(
                       children: <Widget>[
 
-                        _halfSpacer,
-
-                        // --- SAVED FLYERS
-                        BarButton(
-                          width: _buttonWidth,
-                          text: 'Choices',
-                          icon: Iconz.SaveOn,
-                          iconSizeFactor: 0.7,
-                          barType: barType,
-                          onTap: () => goToNewScreen(context, SavedFlyersScreen()),
+                        // --- BLUR LAYER
+                        BlurLayer(
+                          width: _boxWidth,
+                          height: _boxHeight,
+                          blur: 10,
+                          borders: _boxBorders,
                         ),
 
-                        _spacer,
+                        // --- BUTTONS
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
 
-                        // --- ASK
-                        BarButton(
-                          width: _buttonWidth,
-                          text: Wordz.ask(context),
-                          icon: Iconz.SaveOn,
-                          iconSizeFactor: 0.7,
-                          barType: barType,
-                          onTap: () => goToNewScreen(context, ChatScreen()),
-                          clipperWidget : UserBalloon(
-                            balloonWidth: _circleWidth,
-                            balloonType: UserStatus.PlanningTalking,
-                            // userPic: null,
-                            balloonColor: Colorz.Nothing,
-                            loading: false,
-                            child: SuperVerse(
-                              verse: Wordz.ask(context),
-                              size: 1,
-                              shadow: true,
+                            _halfSpacer,
+
+                            // --- SAVED FLYERS
+                            BarButton(
+                              width: _buttonWidth,
+                              text: 'Choices',
+                              icon: Iconz.SaveOn,
+                              iconSizeFactor: 0.7,
+                              barType: barType,
+                              onTap: () => goToNewScreen(context, SavedFlyersScreen()),
                             ),
-                          ),
+
+                            _spacer,
+
+                            // --- ASK
+                            BarButton(
+                              width: _buttonWidth,
+                              text: Wordz.ask(context),
+                              icon: Iconz.SaveOn,
+                              iconSizeFactor: 0.7,
+                              barType: barType,
+                              onTap: () => goToNewScreen(context, ChatScreen()),
+                              clipperWidget : UserBalloon(
+                                balloonWidth: _circleWidth,
+                                balloonType: UserStatus.PlanningTalking,
+                                // userPic: null,
+                                balloonColor: Colorz.Nothing,
+                                loading: false,
+                                child: SuperVerse(
+                                  verse: Wordz.ask(context),
+                                  size: 1,
+                                  shadow: true,
+                                ),
+                              ),
+                            ),
+
+                            _spacer,
+
+                            // --- MORE
+                            BarButton(
+                              width: _buttonWidth,
+                              text: Wordz.more(context),
+                              icon: Iconz.More,
+                              iconSizeFactor: 0.45,
+                              barType: barType,
+                              onTap: (){
+                                print('fish');
+                                goToNewScreen(context, MoreScreen());
+                              },
+                            ),
+
+                            _spacer,
+
+
+                            // --- BZ PAGE
+                            _userIsAuthor ?
+                            BarButton(
+                              width: _buttonWidth,
+                              text: 'business',
+                              barType: barType,
+                              onTap: ()=> goToNewScreen(context, MyBzScreen(
+                                userModel: userModel,
+                                switchPage: (){},
+                              )),
+                              clipperWidget:
+                              BzLogo(
+                                width: _circleWidth,
+                                image: Dumz.XXeklego_logo,
+                                margins: EdgeInsets.all(0),
+                                zeroCornerIsOn: false,
+                                corners: superBorderAll(context, _buttonCircleCorner),
+                                onTap: ()=> goToNewScreen(context, MyBzScreen(
+                                  userModel: userModel,
+                                  switchPage: (){},
+                                )),
+                                blackAndWhite: false,
+                              ),
+                            ) : Container(),
+
+                            _spacer,
+
+                            // --- PROFILE
+                            BarButton(
+                                width: _buttonWidth,
+                                text: Wordz.profile(context),
+                                icon: Iconz.SaveOn,
+                                iconSizeFactor: 0.7,
+                                barType: barType,
+                                onTap: () => goToNewScreen(context, UserProfileScreen()),
+                                clipperWidget : UserBalloon(
+                                  balloonWidth: _circleWidth,
+                                  loading: false,
+                                )
+                            ),
+
+                            _halfSpacer,
+
+                          ],
                         ),
-
-                        _spacer,
-
-                        // --- MORE
-                        BarButton(
-                          width: _buttonWidth,
-                          text: Wordz.more(context),
-                          icon: Iconz.More,
-                          iconSizeFactor: 0.45,
-                          barType: barType,
-                          onTap: (){
-                            print('fish');
-                            goToNewScreen(context, MoreScreen());
-                          },
-                        ),
-
-                        _spacer,
-
-
-                        // --- BZ PAGE
-                        BarButton(
-                          width: _buttonWidth,
-                          text: 'business',
-                          barType: barType,
-                          onTap: ()=> goToNewScreen(context, MyBzScreen(
-                            userModel: userModel,
-                            switchPage: (){},
-                          )),
-                          clipperWidget:
-                          BzLogo(
-                            width: _circleWidth,
-                            image: Dumz.XXeklego_logo,
-                            margins: EdgeInsets.all(0),
-                            zeroCornerIsOn: false,
-                            onTap: ()=> goToNewScreen(context, MyBzScreen(
-                              userModel: userModel,
-                              switchPage: (){},
-                            )),
-                            blackAndWhite: false,
-                          ),
-                        ),
-
-                        _spacer,
-
-                        // --- PROFILE
-                        BarButton(
-                            width: _buttonWidth,
-                            text: Wordz.profile(context),
-                            icon: Iconz.SaveOn,
-                            iconSizeFactor: 0.7,
-                            barType: barType,
-                            onTap: () => goToNewScreen(context, UserProfileScreen()),
-                            clipperWidget : UserBalloon(
-                              balloonWidth: _circleWidth,
-                              loading: false,
-                            )
-                        ),
-
-                        _halfSpacer,
 
                       ],
                     ),
+                  )
 
-                  ],
-                ),
+                ],
               ),
             );
       },

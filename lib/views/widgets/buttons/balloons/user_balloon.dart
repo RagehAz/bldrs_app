@@ -5,6 +5,8 @@ import 'package:bldrs/view_brains/drafters/file_formatters.dart';
 import 'package:bldrs/view_brains/drafters/iconizers.dart';
 import 'package:bldrs/view_brains/drafters/imagers.dart';
 import 'package:bldrs/view_brains/drafters/shadowers.dart';
+import 'package:bldrs/view_brains/router/navigators.dart';
+import 'package:bldrs/view_brains/router/route_names.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:flutter/material.dart';
@@ -138,7 +140,10 @@ class UserBalloon extends StatelessWidget {
         stream: UserProvider(userID: _user.userID).userData,
         builder: (context, snapshot){
           if(snapshot.hasData == false){
-            return Loading(size: balloonWidth,);
+            return Loading(
+              size: balloonWidth,
+              onTap: () => goToRoute(context, Routez.Starting),
+            );
           } else {
             UserModel userModel = snapshot.data;
             return
