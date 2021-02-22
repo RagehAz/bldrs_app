@@ -6,6 +6,7 @@ import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/flagz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
+import 'package:bldrs/views/screens/s40_create_bz_screen.dart';
 import 'package:bldrs/views/widgets/appbar/buttons/flagbox.dart';
 import 'package:bldrs/views/widgets/bubbles/bubbles_separator.dart';
 import 'package:bldrs/views/widgets/bubbles/tile_bubble.dart';
@@ -26,6 +27,7 @@ class MoreScreen extends StatelessWidget {
             verse: Wordz.createBzAccount(context),
             icon: Iconz.Bz,
             iconSizeFactor: 0.9,
+            btOnTap: () => goToNewScreen(context, CreateBzScreen()),
           ),
           BubblesSeparator(),
           TileBubble(

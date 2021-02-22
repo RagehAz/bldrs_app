@@ -1,6 +1,7 @@
 import 'package:bldrs/ambassadors/services/auth.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/providers/country_provider.dart';
+import 'package:bldrs/view_brains/drafters/keyboarders.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/widgets/bubbles/locale_bubble.dart';
@@ -13,6 +14,8 @@ import 'package:bldrs/view_brains/router/navigators.dart';
 import 'package:bldrs/view_brains/router/route_names.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:provider/provider.dart';
+
+import 's04_fill_profile_screen.dart';
 
 class Register extends StatefulWidget {
   final Function switchToSignIn;
@@ -227,6 +230,7 @@ class _RegisterState extends State<Register> {
                   verse: Wordz.register(context),
                   boxMargins: EdgeInsets.all(10),
                   boxFunction: () async {
+                    minimizeKeyboardOnTapOutSide(context);
                     if(_formKey.currentState.validate()){
                       _triggerLoading();
                       dynamic result = await _auth.registerWithEmailAndPassword(context, _currentZone, _email, _password);
@@ -239,7 +243,7 @@ class _RegisterState extends State<Register> {
                       else if(result.runtimeType == UserModel)
                       {
                         setState(() {_error = ''; _triggerLoading();});
-                        goToRoute(context, Routez.Home); // should go to data entry page then confirm then homepage
+                        goToNewScreen(context, FillProfileScreen());
                       }
                     }
                   },
