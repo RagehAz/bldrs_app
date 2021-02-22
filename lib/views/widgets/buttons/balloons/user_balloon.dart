@@ -16,7 +16,7 @@ import 'clip_shadow_path.dart';
 import 'no_clip.dart';
 
 class UserBalloon extends StatelessWidget {
-  final UserStatus userStatus;
+  final UserStatus balloonType;
   final double balloonWidth;
   final bool blackAndWhite;
   final Function onTap;
@@ -25,10 +25,10 @@ class UserBalloon extends StatelessWidget {
   final Widget child;
 
   UserBalloon({
-    @required this.userStatus,
+    this.balloonType,
     @required this.balloonWidth,
     this.blackAndWhite = false,
-    @required this.onTap,
+    this.onTap,
     @required this.loading,
     this.balloonColor,
     this.child,
@@ -51,7 +51,7 @@ class UserBalloon extends StatelessWidget {
         child: GestureDetector(
           onTap: onTap,
           child: ClipShadowPath(
-            clipper: userBalloon(userModel?.userStatus),
+            clipper: balloonType == null ? userBalloon(userModel?.userStatus) : userBalloon(balloonType),
             shadow: Shadowz.basicOuterShadow,
             child: Stack(
               alignment: Alignment.center,
