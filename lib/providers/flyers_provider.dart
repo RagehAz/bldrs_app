@@ -186,7 +186,7 @@ Future<void> addBz(BzModel bz, UserModel userModel) async {
         'bzURL': bz.bzURL,
         // -------------------------
         'bzName': bz.bzName,
-        'bzLogo': 'bz.bzLogo',
+        'bzLogo': bz.bzLogo,
         'bzScope': bz.bzScope,
         'bzCountry': bz.bzCountry,
         'bzProvince': bz.bzProvince,
@@ -198,7 +198,7 @@ Future<void> addBz(BzModel bz, UserModel userModel) async {
           bzID: bz.bzAuthors[0].bzID,
           userID: bz.bzAuthors[0].userID,
           authorName: bz.bzAuthors[0].authorName,
-          authorPic: 'bz.bzAuthors[0].authorPic',
+          authorPic: bz.bzAuthors[0].authorPic,
           authorTitle: bz.bzAuthors[0].authorTitle,
           publishedFlyersIDs: bz.bzAuthors[0].publishedFlyersIDs,
           authorContacts: bz.bzAuthors[0].authorContacts,
@@ -311,7 +311,7 @@ Future<void> updateBz(BzModel bz) async {
         'bzURL': bz.bzURL,
         // -------------------------
         'bzName': bz.bzName,
-        'bzLogo': 'bz.bzLogo',
+        'bzLogo': bz.bzLogo,
         'bzScope': bz.bzScope,
         'bzCountry': bz.bzCountry,
         'bzProvince': bz.bzProvince,

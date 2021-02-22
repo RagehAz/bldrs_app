@@ -24,7 +24,7 @@ class AuthorModel{
       'bzID' : bzID,
       'userID' : userID,
       'authorName' : authorName,
-      'authorPic' : '',//authorPic,
+      'authorPic' : authorPic,
       'authorTitle' : authorTitle,
       'publishedFlyersIDs' : publishedFlyersIDs,
       'authorContacts' : cipherContactsModels(authorContacts),

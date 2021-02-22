@@ -2,27 +2,52 @@ import 'package:bldrs/view_brains/drafters/borderers.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
+import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/widgets/buttons/bt_back.dart';
+import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 AlertDialog superAlert (BuildContext context, BuildContext ctx, dynamic error) {
   return
     AlertDialog(
-      title: SuperVerse(verse: 'error man', color: Colorz.BlackBlack,),
-      content: SuperVerse(verse: 'error is : ${error.toString()}',
+
+      title: SuperVerse(verse: 'ops !', color: Colorz.BlackBlack,),
+
+      content: SuperVerse(
+        verse: 'error is : ${error.toString()}',
         color: Colorz.BlackBlack,
-        maxLines: 10,),
-      backgroundColor: Colorz.Grey,
+        maxLines: 10,
+      ),
+
+      backgroundColor: Colorz.White,
       elevation: 10,
       shape: RoundedRectangleBorder(borderRadius: superBorderAll(context, 20)),
       contentPadding: EdgeInsets.all(10),
       actionsOverflowButtonSpacing: 10,
       actionsPadding: EdgeInsets.all(5),
+
       insetPadding: EdgeInsets.symmetric(
-          vertical: (superScreenHeight(context) * 0.32), horizontal: 35),
+          vertical: (superScreenHeight(context) * 0.32), horizontal: 35
+      ),
+
       buttonPadding: EdgeInsets.all(5),
       titlePadding: EdgeInsets.all(20),
-      actions: <Widget>[BldrsBackButton(onTap: () => goBack(ctx)),],
+
+      actions: <Widget>[
+
+        DreamBox(
+          width: 321,
+          height: 50,
+          color: Colorz.Yellow,
+          verse: 'I Understand',
+          verseColor: Colorz.BlackBlack,
+          verseScaleFactor: 0.8,
+          verseWeight: VerseWeight.bold,
+          boxFunction: () => goBack(context),
+        ),
+
+      ],
+
     );
 }

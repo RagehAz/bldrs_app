@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:bldrs/ambassadors/services/firebase_storage.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:bldrs/models/user_model.dart';
@@ -96,9 +97,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
     if (_imageFile == null){return;}
 
+    print('image file path is : ${_imageFile.path}');
+
     setState(() {
       _currentPic = File(_imageFile.path);
     });
+
+    print('saved current pic in : $_currentPic');
+
 
     // final _appDir = await sysPaths.getApplicationDocumentsDirectory();
     // final _fileName = path.basename(_imageFile.path);
@@ -383,9 +389,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
                       // --- EDIT PIC
                       AddGalleryPicBubble(
-                        logo: _currentPic,
+                        pic: _currentPic == null ? userModel.pic : _currentPic,
                         addBtFunction: _takeGalleryPicture,
-                        deleteLogoFunction: _deleteLogo,
+                        deletePicFunction: _deleteLogo,
+                        bubbleType: BubbleType.userPic,
                       ),
 
                       // --- EDIT NAME
@@ -564,17 +571,20 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         boxMargins: EdgeInsets.all(20),
                         boxFunction: ()async{
                           if(_formKey.currentState.validate()){
-
-                            final ref = FirebaseStorage.instance
-                                .ref()
-                                .child('usersPics')
-                                .child(userModel.userID + '.jpg');
-
-                            await ref.putFile(_currentPic);
-
-                            final _userPicURL = await ref.getDownloadURL();
-
                             try{
+
+                            String _userPicURL;
+
+                            if(_currentPic != null){
+                              _userPicURL =
+                              await saveUserPicOnFirebaseStorageAndGetURL(
+                                  inputFile: _currentPic,
+                                  fileName: userModel.userID
+                              );
+                            }
+
+                            print('_userPicURL : $_userPicURL');
+
                               await UserProvider(userID: userModel.userID).updateUserData(
                                 // -------------------------
                                 userID : userModel.userID,
@@ -598,7 +608,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 // -------------------------
                               );
                               print('usermodel successfully edited');
-                              _confirmEdits();
+                              goBack(context);
 
                             }catch(error){
                               print(error.toString());

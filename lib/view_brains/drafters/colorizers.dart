@@ -59,7 +59,7 @@ class BlurLayer extends StatelessWidget {
         child: BackdropFilter(
           filter: ImageFilter.blur(sigmaX: blur, sigmaY: blur),
           child: Container(
-            // width: 100,
+            width: width,
             height: height,
             decoration: BoxDecoration(
               color: Colorz.WhiteAir,

@@ -342,11 +342,11 @@ class _EditBzScreenState extends State<EditBzScreen> {
 
           // --- ADD LOGO
           AddGalleryPicBubble(
-            logo: _currentBzLogo,
+            pic: _currentBzLogo,
             addBtFunction: _takeGalleryPicture,
-            deleteLogoFunction: () => setState(() {_currentBzLogo = null;}),
+            deletePicFunction: () => setState(() {_currentBzLogo = null;}),
             title: Wordz.businessLogo(context),
-            picOwner: PicOwner.bzLogo,
+            bubbleType: BubbleType.bzLogo,
           ),
 
           // --- type BzName
@@ -441,11 +441,11 @@ class _EditBzScreenState extends State<EditBzScreen> {
 
           // --- ADD AUTHOR PIC
           AddGalleryPicBubble(
-            logo: _authorPic,
+            pic: _authorPic,
             addBtFunction: _takeAuthorPicture,
-            deleteLogoFunction: () => setState(() {_authorPic = null;}),
+            deletePicFunction: () => setState(() {_authorPic = null;}),
             title: 'Add a _professional picture of yourself',
-            picOwner: PicOwner.author,
+            bubbleType: BubbleType.authorPic,
           ),
 
           // --- FLYER PREVIEW

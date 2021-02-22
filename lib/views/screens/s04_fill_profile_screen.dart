@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:bldrs/ambassadors/services/firebase_storage.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:bldrs/models/user_model.dart';
@@ -381,9 +382,10 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
 
                       // --- EDIT PIC
                       AddGalleryPicBubble(
-                        logo: _currentPic,
+                        pic: _currentPic,
                         addBtFunction: _takeGalleryPicture,
-                        deleteLogoFunction: _deleteLogo,
+                        deletePicFunction: _deleteLogo,
+                        bubbleType: BubbleType.userPic,
                       ),
 
                       // --- EDIT NAME
@@ -563,14 +565,17 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                         boxFunction: ()async{
                           if(_formKey.currentState.validate()){
 
-                            final ref = FirebaseStorage.instance
-                                .ref()
-                                .child('usersPics')
-                                .child(userModel.userID + '.jpg');
+                            String _userPicURL;
 
-                            await ref.putFile(_currentPic);
+                            if(_currentPic != null){
+                              _userPicURL =
+                              await saveUserPicOnFirebaseStorageAndGetURL(
+                                  inputFile: _currentPic,
+                                  fileName: userModel.userID
+                              );
+                            }
 
-                            final _userPicURL = await ref.getDownloadURL();
+                            print('_userPicURL : $_userPicURL');
 
                             try{
                               await UserProvider(userID: userModel.userID).updateUserData(

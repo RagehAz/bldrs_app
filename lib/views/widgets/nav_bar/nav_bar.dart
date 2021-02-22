@@ -1,5 +1,7 @@
 import 'package:bldrs/ambassadors/database/dumz.dart';
+import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/user_model.dart';
+import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/providers/users_provider.dart';
 import 'package:bldrs/view_brains/drafters/borderers.dart';
 import 'package:bldrs/view_brains/drafters/colorizers.dart';
@@ -21,6 +23,7 @@ import 'package:bldrs/views/widgets/buttons/balloons/user_balloon.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/common_parts/bz_logo.dart';
 import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'bar_button.dart';
@@ -32,37 +35,78 @@ enum BarType{
   maxWithText,
 }
 
-class BottomBar extends StatelessWidget {
+class NavBar extends StatelessWidget {
   final BarType barType;
 
-  BottomBar({
+  NavBar({
     this.barType = BarType.maxWithText,
 });
+// ----------------------------------------------------------------------------
+  /// --- MAIN CONTROLS
+  double _circleWidth = 40;
+  double _paddings = Ratioz.ddAppBarPadding * 1.5;
+  double _textScaleFactor = 0.95;
+  int _textSize = 0;
+// ----------------------------------------------------------------------------
+  double _calculateButtonWidth(){
+    double _buttonWidth =_circleWidth + (_paddings * 0.5 * 2) + (_paddings * 0.5 * 2);
+    return _buttonWidth;
+}
+// ----------------------------------------------------------------------------
+  int _calculateNumberOfButtons(UserStatus userStatus){
+    int _numberOfButtons = userIsAuthor(userStatus) ? 5 : 4;
+    return _numberOfButtons;
+  }
+// ----------------------------------------------------------------------------
+  double _calculateSpacings(BuildContext context, double buttonWidth, int numberOfButtons, int numberOfSpacings, double spacingFactor){
+    double _spacings =
+    barType == BarType.max || barType == BarType.maxWithText ?
+    ((superScreenWidth(context) - (buttonWidth * numberOfButtons) ) / numberOfSpacings) * spacingFactor
+        :
+    _paddings * 0
+    ;
+    return _spacings;
+  }
+// ----------------------------------------------------------------------------
+  double _calculateBoxWidth(BuildContext context, UserStatus userStatus){
+    double _buttonWidth = _calculateButtonWidth();
+    int _numberOfButtons = _calculateNumberOfButtons(userStatus);
+    int _numberOfSpacings = _numberOfButtons - 1;
+    double _spacingFactor = 0.5;
+    double _spacings = _calculateSpacings(context, _buttonWidth, _numberOfButtons, _numberOfSpacings, _spacingFactor);
 
+    double _boxWidth =
+    barType == BarType.maxWithText || barType == BarType.max ?
+    superScreenWidth(context)
+        :
+    ( _buttonWidth * _numberOfButtons ) + (_spacings * _numberOfSpacings) ;
+
+    return _boxWidth;
+  }
+// ----------------------------------------------------------------------------
+  double _calculateSpacerWidth(BuildContext context, UserStatus userStatus){
+    double _buttonWidth = _calculateButtonWidth();
+    int _numberOfButtons = _calculateNumberOfButtons(userStatus);
+    int _numberOfSpacings = _numberOfButtons - 1;
+    double _spacingFactor = 0.5;
+    double _spacings = _calculateSpacings(context, _buttonWidth, _numberOfButtons, _numberOfSpacings, _spacingFactor);
+
+    double _halfSpacer = _spacings * 0.5;
+
+    return _halfSpacer;
+  }
+// ----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
-    final _user = Provider.of<UserModel>(context);
-    bool _userIsAuthor = userIsAuthor(_user.userStatus);
-    // --- MAIN CONTROLS
-    double _circleWidth = 40;
-    double _paddings = Ratioz.ddAppBarPadding * 1.5;
-    double _textScaleFactor = 0.95;
-    int _textSize = 0;
-    double _spacingFactor = 0.5;
-    int _numberOfButtons = _userIsAuthor ? 5 : 4;
-    // -------------------------
-    int _numberOfSpacings = _numberOfButtons - 1 ;
+    // -------------------------------------------------------------------------
     double _buttonCircleCorner = _circleWidth * 0.5;
+    // -------------------------
     double _textBoxHeight =
     barType == BarType.maxWithText || barType == BarType.minWithText ?
-    superVerseRealHeight(context, _textSize, _textScaleFactor, null)
-        :
-    0
-    ;
-    double _textBoxWidth = superScreenWidth(context) / _numberOfButtons ;
-
+    superVerseRealHeight(context, _textSize, _textScaleFactor, null) : 0;
+    // -------------------------
     double _boxCorner = _buttonCircleCorner + _paddings;
+    // -------------------------
     BorderRadius _boxBorders =
     barType == BarType.min ?
     superBorderRadius(context, _boxCorner, _boxCorner, _boxCorner, _boxCorner)
@@ -73,33 +117,7 @@ class BottomBar extends StatelessWidget {
     superBorderRadius(context, _boxCorner, _boxCorner * 0.5, _boxCorner * 0.5, _boxCorner)
     ;
     // -------------------------
-
-
     double _buttonHeight = _circleWidth + ( 2 * _paddings ) + _textBoxHeight;
-    double _buttonWidth = _circleWidth + (_paddings * 0.5 * 2) + (_paddings * 0.5 * 2);
-    // -------------------------
-
-    Color _designModeColor = Colorz.BloodTest;
-    bool _designMode = false;
-
-    double _spacings =
-    barType == BarType.max || barType == BarType.maxWithText ?
-        ((superScreenWidth(context) - (_buttonWidth * _numberOfButtons) ) / _numberOfSpacings) * _spacingFactor
-        :
-    _paddings * 0
-    ;
-
-    SizedBox _halfSpacer = SizedBox(
-      width: _spacings * 0.5,
-    );
-
-
-    // -------------------------
-    double _boxWidth =
-    barType == BarType.maxWithText || barType == BarType.max ?
-    superScreenWidth(context)
-        :
-    ( _buttonWidth * _numberOfButtons ) + (_spacings * _numberOfSpacings) ;
     // -------------------------
     double _boxHeight =
         barType == BarType.maxWithText || barType == BarType.minWithText ?
@@ -107,20 +125,32 @@ class BottomBar extends StatelessWidget {
             :
         _circleWidth + ( _paddings * 2);
     // -------------------------
-    SizedBox _spacer = SizedBox(
-      width: _spacings,
-      // height: _circleWidth * 0.1,
-    );
-
-
     double _bottomOffset =
     barType == BarType.min || barType == BarType.minWithText ? _paddings :
     barType == BarType.max || barType == BarType.maxWithText ? 0 : 0;
+    // -------------------------
+    final _userID = (FirebaseAuth.instance.currentUser).uid;
+    // -------------------------------------------------------------------------
+    FlyersProvider prof = Provider.of<FlyersProvider>(context, listen: true);
 
     return StreamBuilder<UserModel>(
-      stream: UserProvider(userID: _user.userID).userData,
+      stream: UserProvider(userID: _userID).userData,
       builder: (context, snapshot){
+
           UserModel userModel = snapshot.data;
+
+          Widget _spacer = SizedBox(width: _calculateSpacerWidth(context, userModel?.userStatus),);
+          Widget _halfSpacer = SizedBox(width: _calculateSpacerWidth(context, userModel?.userStatus) * 0.5,);
+
+          double _buttonWidth = _calculateButtonWidth();
+          double _boxWidth = _calculateBoxWidth(context, userModel?.userStatus);
+
+          List<dynamic> _followedBzzIDs = userModel != null ? userModel?.followedBzzIDs : [];
+          String _bzID = _followedBzzIDs.length > 0 ?  _followedBzzIDs[0] : '';
+          String _bzLogo = prof.getBzByBzID(_bzID)?.bzLogo;
+
+          print('NAAAAAAAAAAAAAMEEEEEEEEEEEEEEEEEEE ${userModel?.name}');
+
           return
             Positioned(
               bottom: _bottomOffset,
@@ -128,7 +158,7 @@ class BottomBar extends StatelessWidget {
                 children: <Widget>[
 
                   Container(
-                    // width: _boxWidth,
+                    width: _boxWidth,
                     height: _boxHeight,
                     decoration: BoxDecoration(
                       color: Colorz.WhiteGlass,
@@ -207,29 +237,19 @@ class BottomBar extends StatelessWidget {
 
 
                             // --- BZ PAGE
-                            _userIsAuthor ?
-                            BarButton(
+                            if (userIsAuthor(userModel?.userStatus))
+                            BarButton (
                               width: _buttonWidth,
                               text: 'business',
                               barType: barType,
+                              icon: _bzLogo,
+                              iconSizeFactor: 1,
                               onTap: ()=> goToNewScreen(context, MyBzScreen(
                                 userModel: userModel,
                                 switchPage: (){},
-                              )),
-                              clipperWidget:
-                              BzLogo(
-                                width: _circleWidth,
-                                image: Dumz.XXeklego_logo,
-                                margins: EdgeInsets.all(0),
-                                zeroCornerIsOn: false,
-                                corners: superBorderAll(context, _buttonCircleCorner),
-                                onTap: ()=> goToNewScreen(context, MyBzScreen(
-                                  userModel: userModel,
-                                  switchPage: (){},
-                                )),
-                                blackAndWhite: false,
+                              )
                               ),
-                            ) : Container(),
+                            ),
 
                             _spacer,
 
