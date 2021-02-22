@@ -1,3 +1,4 @@
+import 'package:bldrs/ambassadors/database/dumz.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/view_brains/drafters/borderers.dart';
 import 'package:bldrs/view_brains/drafters/colorizers.dart';
@@ -9,9 +10,12 @@ import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
+import 'package:bldrs/views/screens/s12_saved_flyers_screen.dart';
+import 'package:bldrs/views/screens/s14_more_screen.dart';
 import 'package:bldrs/views/screens/s15_user_profile_screen.dart';
 import 'package:bldrs/views/screens/s30_chat_screen.dart';
 import 'package:bldrs/views/widgets/buttons/balloons/user_balloon.dart';
+import 'package:bldrs/views/widgets/flyer/parts/header_parts/common_parts/bz_logo.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'bar_button.dart';
@@ -39,7 +43,7 @@ class BottomBar extends StatelessWidget {
     double _textScaleFactor = 0.95;
     int _textSize = 0;
     double _spacingFactor = 0.5;
-    int _numberOfButtons = 4;
+    int _numberOfButtons = 5;
     // -------------------------
     int _numberOfSpacings = _numberOfButtons - 1 ;
     double _buttonCircleCorner = _circleWidth * 0.5;
@@ -58,8 +62,9 @@ class BottomBar extends StatelessWidget {
     ;
     // -------------------------
 
+
     double _buttonHeight = _circleWidth + ( 2 * _paddings ) + _textBoxHeight;
-    double _buttonWidth = _circleWidth * 1.5;
+    double _buttonWidth = _circleWidth + (_paddings * 0.5 * 2) + (_paddings * 0.5 * 2);
     // -------------------------
 
     Color _designModeColor = Colorz.BloodTest;
@@ -71,6 +76,11 @@ class BottomBar extends StatelessWidget {
         :
     _paddings * 0
     ;
+
+    SizedBox _halfSpacer = SizedBox(
+      width: _spacings * 0.5,
+    );
+
 
     // -------------------------
     double _boxWidth =
@@ -89,6 +99,7 @@ class BottomBar extends StatelessWidget {
       width: _spacings,
       // height: _circleWidth * 0.1,
     );
+
 
     double _bottomOffset =
     barType == BarType.min || barType == BarType.minWithText ? _paddings :
@@ -121,31 +132,33 @@ class BottomBar extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
 
+                _halfSpacer,
+
                 // --- SAVED FLYERS
                 BarButton(
+                  width: _buttonWidth,
                   text: 'Choices',
                   icon: Iconz.SaveOn,
                   iconSizeFactor: 0.7,
                   barType: barType,
+                  onTap: () => goToNewScreen(context, SavedFlyersScreen()),
                 ),
 
                 _spacer,
 
                 // --- ASK
                 BarButton(
+                  width: _buttonWidth,
                   text: Wordz.ask(context),
                   icon: Iconz.SaveOn,
                   iconSizeFactor: 0.7,
                   barType: barType,
+                  onTap: () => goToNewScreen(context, ChatScreen()),
                   clipperWidget : UserBalloon(
                     balloonWidth: _circleWidth,
-                    userStatus: UserStatus.PlanningTalking,
+                    balloonType: UserStatus.PlanningTalking,
                     // userPic: null,
-                     balloonColor: Colorz.Nothing,
-                     onTap: (){
-                       print('go to Chat Screen');
-                       goToNewScreen(context, ChatScreen());
-                     },
+                    balloonColor: Colorz.Nothing,
                     loading: false,
                     child: SuperVerse(
                       verse: Wordz.ask(context),
@@ -159,31 +172,47 @@ class BottomBar extends StatelessWidget {
 
                 // --- MORE
                 BarButton(
+                  width: _buttonWidth,
                   text: Wordz.more(context),
                   icon: Iconz.More,
                   iconSizeFactor: 0.45,
                   barType: barType,
+                  onTap: (){
+                    print('fish');
+                   goToNewScreen(context, MoreScreen());
+                  },
                 ),
 
                 _spacer,
 
+                BarButton(
+                  width: _buttonWidth,
+                  text: 'business',
+                  clipperWidget: BzLogo(
+                    width: _circleWidth,
+                    image: Dumz.XXeklego_logo,
+                    margins: EdgeInsets.all(0),
+                    zeroCornerIsOn: false,
+                    onTap: () {print('fuck off');},
+                    blackAndWhite: false,
+                  ),
+                ),
+
                 // --- PROFILE
                 BarButton(
+                    width: _buttonWidth,
                     text: Wordz.profile(context),
                     icon: Iconz.SaveOn,
                     iconSizeFactor: 0.7,
                     barType: barType,
+                    onTap: () => goToNewScreen(context, UserProfileScreen()),
                     clipperWidget : UserBalloon(
                       balloonWidth: _circleWidth,
-                      userStatus: UserStatus.Finishing,
-                      // userPic: null,
-                      onTap: (){
-                        print('go to Chat Screen');
-                        goToNewScreen(context, UserProfileScreen());
-                      },
                       loading: false,
                     )
                 ),
+
+                _halfSpacer,
 
 
                 // Container(
