@@ -32,7 +32,7 @@ class BarButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double _circleWidth = 45;
+    double _circleWidth = 40;
     double _buttonCircleCorner = _circleWidth * 0.5;
     double _paddings = Ratioz.ddAppBarPadding * 1.5;
 

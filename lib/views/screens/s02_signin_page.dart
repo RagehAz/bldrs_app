@@ -1,5 +1,6 @@
 import 'package:bldrs/ambassadors/services/auth.dart';
 import 'package:bldrs/models/user_model.dart';
+import 'package:bldrs/view_brains/drafters/keyboarders.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
 import 'package:bldrs/view_brains/router/route_names.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
@@ -184,6 +185,7 @@ class _SignInState extends State<SignIn> {
                 verse: Wordz.signIn(context),
                 boxMargins: EdgeInsets.all(20),
                 boxFunction: () async {
+                  minimizeKeyboardOnTapOutSide(context);
                   if(_formKey.currentState.validate()){
                     _triggerLoading();
                     dynamic result = await _auth.signInWithEmailAndPassword(_email, _password);

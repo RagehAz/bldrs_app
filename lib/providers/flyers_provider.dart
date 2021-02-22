@@ -297,7 +297,7 @@ Future<void> addBz(BzModel bz, UserModel userModel) async {
 
 }
 // ---------------------------------------------------------------------------
-Future<void> updateBz(BzModel bz, UserModel userModel) async {
+Future<void> updateBz(BzModel bz) async {
     final bzIndex = _loadedBzz.indexWhere((bzModel) => bzModel.bzID == bz.bzID);
     if (bzIndex >= 0){
       final url = 'https://bldrsnet.firebaseio.com/bzz/${bz.bzID}.json';

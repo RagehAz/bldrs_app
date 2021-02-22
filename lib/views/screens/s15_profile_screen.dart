@@ -1,15 +1,24 @@
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/users_provider.dart';
 import 'package:bldrs/view_brains/controllers/streamerz.dart';
+import 'package:bldrs/view_brains/router/navigators.dart';
+import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
+import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/widgets/bubbles/contacts_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/following_bzz_bubble.dart';
+import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/status_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/user_bubble.dart';
+import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/loading/loading.dart';
+import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 's13_news_screen.dart';
+import 's16_edit_profile_screen.dart';
 
 class UserProfileScreen extends StatefulWidget {
 
@@ -57,6 +66,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     final _user = Provider.of<UserModel>(context);
 
     return MainLayout(
+      tappingRageh: () => goToNewScreen(context, NewsScreen()),
 
       layoutWidget: StreamBuilder<UserModel>(
         stream: UserProvider(userID: _user.userID).userData,
@@ -77,8 +87,22 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                   UserBubble(
                     user: userModel,
                     switchUserType: (type) =>_switchUserStatus(type),
-                    editProfileBtOnTap: (){print('go to edit screen');},
+                    editProfileBtOnTap: () => goToNewScreen(context, EditProfileScreen()),
                     loading: connectionIsWaiting(snapshot),
+                  ),
+
+                  InPyramidsBubble(
+                      centered: true,
+                      columnChildren: <Widget>[
+                        DreamBox(
+                          height: 40,
+                          verse: Wordz.news(context),
+                          icon: Iconz.News,
+                          iconSizeFactor: 0.6,
+                          verseWeight: VerseWeight.bold,
+                          boxFunction: ()=> goToNewScreen(context, NewsScreen()),
+                        ),
+                      ],
                   ),
 
 

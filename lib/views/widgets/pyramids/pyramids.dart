@@ -3,7 +3,6 @@ import 'package:bldrs/providers/users_provider.dart';
 import 'package:bldrs/view_brains/router/route_names.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
-import 'package:bldrs/views/screens/s11_inpyramids_screen.dart';
 import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -50,7 +49,8 @@ class Pyramids extends StatelessWidget {
                           } else {
                             UserModel userModel = snapshot.data;
                             return
-                              InPyramidsScreen(userModel: userModel);
+                                Container();
+                              // InPyramidsScreen(userModel: userModel);
                           } // bent el kalb dih when u comment off the Loading indicator widget part with its condition
                         },
                       );

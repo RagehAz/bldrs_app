@@ -1,5 +1,6 @@
 import 'package:bldrs/ambassadors/database/dumz.dart';
 import 'package:bldrs/models/user_model.dart';
+import 'package:bldrs/providers/users_provider.dart';
 import 'package:bldrs/view_brains/drafters/borderers.dart';
 import 'package:bldrs/view_brains/drafters/colorizers.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
@@ -12,12 +13,16 @@ import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/screens/s12_saved_flyers_screen.dart';
 import 'package:bldrs/views/screens/s14_more_screen.dart';
-import 'package:bldrs/views/screens/s15_user_profile_screen.dart';
+import 'package:bldrs/views/screens/s15_profile_screen.dart';
+import 'package:bldrs/views/screens/s17_bz_screen.dart';
+import 'package:bldrs/views/screens/s17_edit_bz_screen.dart';
 import 'package:bldrs/views/screens/s30_chat_screen.dart';
 import 'package:bldrs/views/widgets/buttons/balloons/user_balloon.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/common_parts/bz_logo.dart';
+import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'bar_button.dart';
 
 enum BarType{
@@ -38,7 +43,7 @@ class BottomBar extends StatelessWidget {
   Widget build(BuildContext context) {
 
     // --- MAIN CONTROLS
-    double _circleWidth = 45;
+    double _circleWidth = 40;
     double _paddings = Ratioz.ddAppBarPadding * 1.5;
     double _textScaleFactor = 0.95;
     int _textSize = 0;
@@ -110,227 +115,251 @@ class BottomBar extends StatelessWidget {
     barType == BarType.min || barType == BarType.minWithText ? _paddings :
     barType == BarType.max || barType == BarType.maxWithText ? 0 : 0;
 
-    return Positioned(
-      bottom: _bottomOffset,
-      child: Container(
-        width: _boxWidth,
-        height: _boxHeight,
-        decoration: BoxDecoration(
-          color: Colorz.WhiteGlass,
-          borderRadius: _boxBorders,
-          boxShadow: Shadowz.appBarShadow,
-        ),
-        child: Stack(
-          children: <Widget>[
+    final _user = Provider.of<UserModel>(context);
 
-            // --- BLUR LAYER
-            BlurLayer(
-              width: _boxWidth,
-              height: _boxHeight,
-              blur: 10,
-              borders: _boxBorders,
-            ),
-
-            // --- BUTTONS
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-
-                _halfSpacer,
-
-                // --- SAVED FLYERS
-                BarButton(
-                  width: _buttonWidth,
-                  text: 'Choices',
-                  icon: Iconz.SaveOn,
-                  iconSizeFactor: 0.7,
-                  barType: barType,
-                  onTap: () => goToNewScreen(context, SavedFlyersScreen()),
+    return StreamBuilder<UserModel>(
+      stream: UserProvider(userID: _user.userID).userData,
+      builder: (context, snapshot){
+        if(snapshot.hasData == false){
+          return Loading();
+        } else {
+          UserModel userModel = snapshot.data;
+          return
+            Positioned(
+              bottom: _bottomOffset,
+              child: Container(
+                width: _boxWidth,
+                height: _boxHeight,
+                decoration: BoxDecoration(
+                  color: Colorz.WhiteGlass,
+                  borderRadius: _boxBorders,
+                  boxShadow: Shadowz.appBarShadow,
                 ),
+                child: Stack(
+                  children: <Widget>[
 
-                _spacer,
-
-                // --- ASK
-                BarButton(
-                  width: _buttonWidth,
-                  text: Wordz.ask(context),
-                  icon: Iconz.SaveOn,
-                  iconSizeFactor: 0.7,
-                  barType: barType,
-                  onTap: () => goToNewScreen(context, ChatScreen()),
-                  clipperWidget : UserBalloon(
-                    balloonWidth: _circleWidth,
-                    balloonType: UserStatus.PlanningTalking,
-                    // userPic: null,
-                    balloonColor: Colorz.Nothing,
-                    loading: false,
-                    child: SuperVerse(
-                      verse: Wordz.ask(context),
-                      size: 1,
-                      shadow: true,
+                    // --- BLUR LAYER
+                    BlurLayer(
+                      width: _boxWidth,
+                      height: _boxHeight,
+                      blur: 10,
+                      borders: _boxBorders,
                     ),
-                  ),
+
+                    // --- BUTTONS
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+
+                        _halfSpacer,
+
+                        // --- SAVED FLYERS
+                        BarButton(
+                          width: _buttonWidth,
+                          text: 'Choices',
+                          icon: Iconz.SaveOn,
+                          iconSizeFactor: 0.7,
+                          barType: barType,
+                          onTap: () => goToNewScreen(context, SavedFlyersScreen()),
+                        ),
+
+                        _spacer,
+
+                        // --- ASK
+                        BarButton(
+                          width: _buttonWidth,
+                          text: Wordz.ask(context),
+                          icon: Iconz.SaveOn,
+                          iconSizeFactor: 0.7,
+                          barType: barType,
+                          onTap: () => goToNewScreen(context, ChatScreen()),
+                          clipperWidget : UserBalloon(
+                            balloonWidth: _circleWidth,
+                            balloonType: UserStatus.PlanningTalking,
+                            // userPic: null,
+                            balloonColor: Colorz.Nothing,
+                            loading: false,
+                            child: SuperVerse(
+                              verse: Wordz.ask(context),
+                              size: 1,
+                              shadow: true,
+                            ),
+                          ),
+                        ),
+
+                        _spacer,
+
+                        // --- MORE
+                        BarButton(
+                          width: _buttonWidth,
+                          text: Wordz.more(context),
+                          icon: Iconz.More,
+                          iconSizeFactor: 0.45,
+                          barType: barType,
+                          onTap: (){
+                            print('fish');
+                            goToNewScreen(context, MoreScreen());
+                          },
+                        ),
+
+                        _spacer,
+
+
+                        // --- BZ PAGE
+                        BarButton(
+                          width: _buttonWidth,
+                          text: 'business',
+                          barType: barType,
+                          onTap: ()=> goToNewScreen(context, MyBzScreen(
+                            userModel: userModel,
+                            switchPage: (){},
+                          )),
+                          clipperWidget:
+                          BzLogo(
+                            width: _circleWidth,
+                            image: Dumz.XXeklego_logo,
+                            margins: EdgeInsets.all(0),
+                            zeroCornerIsOn: false,
+                            onTap: ()=> goToNewScreen(context, MyBzScreen(
+                              userModel: userModel,
+                              switchPage: (){},
+                            )),
+                            blackAndWhite: false,
+                          ),
+                        ),
+
+                        _spacer,
+
+                        // --- PROFILE
+                        BarButton(
+                            width: _buttonWidth,
+                            text: Wordz.profile(context),
+                            icon: Iconz.SaveOn,
+                            iconSizeFactor: 0.7,
+                            barType: barType,
+                            onTap: () => goToNewScreen(context, UserProfileScreen()),
+                            clipperWidget : UserBalloon(
+                              balloonWidth: _circleWidth,
+                              loading: false,
+                            )
+                        ),
+
+                        _halfSpacer,
+
+
+                        // Container(
+                        //   height: _buttonHeight,
+                        //   width: _buttonWidth,
+                        //   color: _designModeColor,
+                        //   padding: EdgeInsets.symmetric(horizontal: _paddings * 0.25),
+                        //   child: Column(
+                        //     mainAxisAlignment: MainAxisAlignment.center,
+                        //     crossAxisAlignment: CrossAxisAlignment.center,
+                        //     children: <Widget>[
+                        //
+                        //       DreamBox(
+                        //         width: _circleWidth,
+                        //         height: _circleWidth,
+                        //         icon: Iconz.SaveOn,
+                        //         iconSizeFactor: 0.7,
+                        //         bubble: true,
+                        //         color: Colorz.Nothing,
+                        //         corners: _buttonCircleCorner,
+                        //         designMode: _designMode,
+                        //         boxFunction: ()=> goToNewScreen(context, SavedFlyersScreen()),
+                        //       ),
+                        //
+                        //       SuperVerse(
+                        //         verse: Wordz.savedFlyers(context),
+                        //         maxLines: 2,
+                        //         size: 1,
+                        //         weight: VerseWeight.thin,
+                        //         shadow: true,
+                        //         scaleFactor: _textScaleFactor,
+                        //         designMode: _designMode,
+                        //       ),
+                        //
+                        //     ],
+                        //   ),
+                        // ),
+
+                        // _spacer,
+                        //
+                        // // --- CHAT BUTTON
+                        // UserBalloon(
+                        //   balloonWidth: _circleWidth,
+                        //   userStatus: UserStatus.PlanningTalking,
+                        //   // userPic: null,
+                        //   balloonColor: Colorz.Nothing,
+                        //   onTap: (){
+                        //     print('go to Chat Screen');
+                        //     goToNewScreen(context, ChatScreen());
+                        //   },
+                        //   loading: false,
+                        //   child: SuperVerse(
+                        //     verse: Wordz.ask(context),
+                        //     size: 1,
+                        //     shadow: true,
+                        //   ),
+                        // ),
+
+                        // _spacer,
+                        //
+                        // // --- MORE
+                        // DreamBox(
+                        //   width: _circleWidth,
+                        //   height: _circleWidth,
+                        //   icon: Iconz.More,
+                        //   iconSizeFactor: 0.45,
+                        //   bubble: true,
+                        //   color: Colorz.Nothing,
+                        //   corners: _buttonCircleCorner,
+                        //   boxFunction: ()=> goToNewScreen(context, MoreScreen()),
+                        // ),
+
+                        // _spacer,
+
+                        // --- ADD BZ ACCOUNT
+                        // DreamBox(
+                        //   width: _circleWidth,
+                        //   height: _circleWidth,
+                        //   icon: Iconz.Bz,
+                        //   iconSizeFactor: 0.65,
+                        //   bubble: true,
+                        //   color: Colorz.Nothing,
+                        //   corners: _buttonCircleCorner,
+                        //   boxFunction: ()=> goToNewScreen(context, CreateBzScreen()),
+                        // ),
+
+                        // _spacer,
+
+                        // --- USER PROFILE
+                        // UserBalloon(
+                        //   balloonWidth: _circleWidth,
+                        //   userStatus: UserStatus.SearchingThinking,
+                        //   // userPic: null,
+                        //   onTap: (){
+                        //     print('go to Chat Screen');
+                        //     goToNewScreen(context, UserProfileScreen());
+                        //   },
+                        //   loading: false,
+                        // ),
+
+                      ],
+                    ),
+
+                  ],
                 ),
-
-                _spacer,
-
-                // --- MORE
-                BarButton(
-                  width: _buttonWidth,
-                  text: Wordz.more(context),
-                  icon: Iconz.More,
-                  iconSizeFactor: 0.45,
-                  barType: barType,
-                  onTap: (){
-                    print('fish');
-                   goToNewScreen(context, MoreScreen());
-                  },
-                ),
-
-                _spacer,
-
-                BarButton(
-                  width: _buttonWidth,
-                  text: 'business',
-                  barType: barType,
-                  clipperWidget:
-                  BzLogo(
-                    width: _circleWidth,
-                    image: Dumz.XXeklego_logo,
-                    margins: EdgeInsets.all(0),
-                    zeroCornerIsOn: false,
-                    onTap: () {print('fuck off');},
-                    blackAndWhite: false,
-                  ),
-                ),
-
-                _spacer,
-
-                // --- PROFILE
-                BarButton(
-                    width: _buttonWidth,
-                    text: Wordz.profile(context),
-                    icon: Iconz.SaveOn,
-                    iconSizeFactor: 0.7,
-                    barType: barType,
-                    onTap: () => goToNewScreen(context, UserProfileScreen()),
-                    clipperWidget : UserBalloon(
-                      balloonWidth: _circleWidth,
-                      loading: false,
-                    )
-                ),
-
-                _halfSpacer,
-
-
-                // Container(
-                //   height: _buttonHeight,
-                //   width: _buttonWidth,
-                //   color: _designModeColor,
-                //   padding: EdgeInsets.symmetric(horizontal: _paddings * 0.25),
-                //   child: Column(
-                //     mainAxisAlignment: MainAxisAlignment.center,
-                //     crossAxisAlignment: CrossAxisAlignment.center,
-                //     children: <Widget>[
-                //
-                //       DreamBox(
-                //         width: _circleWidth,
-                //         height: _circleWidth,
-                //         icon: Iconz.SaveOn,
-                //         iconSizeFactor: 0.7,
-                //         bubble: true,
-                //         color: Colorz.Nothing,
-                //         corners: _buttonCircleCorner,
-                //         designMode: _designMode,
-                //         boxFunction: ()=> goToNewScreen(context, SavedFlyersScreen()),
-                //       ),
-                //
-                //       SuperVerse(
-                //         verse: Wordz.savedFlyers(context),
-                //         maxLines: 2,
-                //         size: 1,
-                //         weight: VerseWeight.thin,
-                //         shadow: true,
-                //         scaleFactor: _textScaleFactor,
-                //         designMode: _designMode,
-                //       ),
-                //
-                //     ],
-                //   ),
-                // ),
-
-                // _spacer,
-                //
-                // // --- CHAT BUTTON
-                // UserBalloon(
-                //   balloonWidth: _circleWidth,
-                //   userStatus: UserStatus.PlanningTalking,
-                //   // userPic: null,
-                //   balloonColor: Colorz.Nothing,
-                //   onTap: (){
-                //     print('go to Chat Screen');
-                //     goToNewScreen(context, ChatScreen());
-                //   },
-                //   loading: false,
-                //   child: SuperVerse(
-                //     verse: Wordz.ask(context),
-                //     size: 1,
-                //     shadow: true,
-                //   ),
-                // ),
-
-                // _spacer,
-                //
-                // // --- MORE
-                // DreamBox(
-                //   width: _circleWidth,
-                //   height: _circleWidth,
-                //   icon: Iconz.More,
-                //   iconSizeFactor: 0.45,
-                //   bubble: true,
-                //   color: Colorz.Nothing,
-                //   corners: _buttonCircleCorner,
-                //   boxFunction: ()=> goToNewScreen(context, MoreScreen()),
-                // ),
-
-                // _spacer,
-
-                // --- ADD BZ ACCOUNT
-                // DreamBox(
-                //   width: _circleWidth,
-                //   height: _circleWidth,
-                //   icon: Iconz.Bz,
-                //   iconSizeFactor: 0.65,
-                //   bubble: true,
-                //   color: Colorz.Nothing,
-                //   corners: _buttonCircleCorner,
-                //   boxFunction: ()=> goToNewScreen(context, CreateBzScreen()),
-                // ),
-
-                // _spacer,
-
-                // --- USER PROFILE
-                // UserBalloon(
-                //   balloonWidth: _circleWidth,
-                //   userStatus: UserStatus.SearchingThinking,
-                //   // userPic: null,
-                //   onTap: (){
-                //     print('go to Chat Screen');
-                //     goToNewScreen(context, UserProfileScreen());
-                //   },
-                //   loading: false,
-                // ),
-
-              ],
-            ),
-
-          ],
-        ),
-      ),
+              ),
+            );
+        } // bent el kalb dih when u comment off the Loading indicator widget part with its condition
+      },
     );
   }
 }
+
+
 
 // // --- TEMP : DASHBOARD
 // DreamBox(
