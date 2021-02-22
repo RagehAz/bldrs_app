@@ -1,4 +1,5 @@
 import 'package:bldrs/views/screens/s00_user_checker_widget.dart';
+import 'package:bldrs/views/screens/s04_fill_profile_screen.dart';
 import 'package:bldrs/views/screens/s50_flyer_screen.dart';
 import 'package:bldrs/views/screens/s40_create_bz_screen.dart';
 import 'package:bldrs/views/screens/s41_flyer_maker_screen.dart';
@@ -28,6 +29,10 @@ class Routerer {
     /// (s02 signin page, s03 register page) are pages insides StartingScreen();
       case Routez.Starting:
         return MaterialPageRoute(builder: (_) => StartingScreen());
+// ---------------------------------------------------------------------------
+    /// s04
+      case Routez.FillProfile:
+        return MaterialPageRoute(builder: (_) => FillProfileScreen());
 // ---------------------------------------------------------------------------
     /// s10
       case Routez.Home:

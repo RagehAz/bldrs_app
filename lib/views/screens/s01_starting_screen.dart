@@ -56,14 +56,14 @@ class StartingScreen extends StatelessWidget {
               deviceIsAndroid() ?
               BTMain(
                 buttonVerse: "Continue with Google",
-                buttonIcon: Iconz.ComGooglePlay,
-                buttonColor: Colorz.GreenPlastic,
+                buttonIcon: Iconz.ComGooglePlus,
+                buttonColor: Colorz.GoogleRed,
                 splashColor: Colorz.Yellow,
                 buttonVerseShadow: false,
                 function: () {
                   signInWithGoogle(context, currentZone).then((result) {
                     if (result != null) {
-                      return Routez.Home;
+                      return goToRoute(context, Routez.FillProfile);
                     }
                   });
                 },
@@ -83,7 +83,7 @@ class StartingScreen extends StatelessWidget {
                 function: () {
                   signInWithFacebook(context).then((result) {
                     if (result != null) {
-                      return goToRoute(context, Routez.Home);
+                      return goToRoute(context, Routez.FillProfile);
                     }
                   });
                 },

@@ -80,6 +80,7 @@ class Colorz {
 
   static const Facebook = Color.fromARGB(solid, 59, 89, 152);
   static const LinkedIn = Color.fromARGB(solid, 0, 115, 176);
+  static const GoogleRed = Color.fromARGB(solid, 234, 67, 53);
 
   static const AppBarColor = WhiteGlass;
   static const bzPageBGColor = Colorz.BlackSmoke;
