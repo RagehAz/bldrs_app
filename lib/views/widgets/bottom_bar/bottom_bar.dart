@@ -120,9 +120,6 @@ class BottomBar extends StatelessWidget {
     return StreamBuilder<UserModel>(
       stream: UserProvider(userID: _user.userID).userData,
       builder: (context, snapshot){
-        if(snapshot.hasData == false){
-          return Loading();
-        } else {
           UserModel userModel = snapshot.data;
           return
             Positioned(
@@ -247,105 +244,6 @@ class BottomBar extends StatelessWidget {
 
                         _halfSpacer,
 
-
-                        // Container(
-                        //   height: _buttonHeight,
-                        //   width: _buttonWidth,
-                        //   color: _designModeColor,
-                        //   padding: EdgeInsets.symmetric(horizontal: _paddings * 0.25),
-                        //   child: Column(
-                        //     mainAxisAlignment: MainAxisAlignment.center,
-                        //     crossAxisAlignment: CrossAxisAlignment.center,
-                        //     children: <Widget>[
-                        //
-                        //       DreamBox(
-                        //         width: _circleWidth,
-                        //         height: _circleWidth,
-                        //         icon: Iconz.SaveOn,
-                        //         iconSizeFactor: 0.7,
-                        //         bubble: true,
-                        //         color: Colorz.Nothing,
-                        //         corners: _buttonCircleCorner,
-                        //         designMode: _designMode,
-                        //         boxFunction: ()=> goToNewScreen(context, SavedFlyersScreen()),
-                        //       ),
-                        //
-                        //       SuperVerse(
-                        //         verse: Wordz.savedFlyers(context),
-                        //         maxLines: 2,
-                        //         size: 1,
-                        //         weight: VerseWeight.thin,
-                        //         shadow: true,
-                        //         scaleFactor: _textScaleFactor,
-                        //         designMode: _designMode,
-                        //       ),
-                        //
-                        //     ],
-                        //   ),
-                        // ),
-
-                        // _spacer,
-                        //
-                        // // --- CHAT BUTTON
-                        // UserBalloon(
-                        //   balloonWidth: _circleWidth,
-                        //   userStatus: UserStatus.PlanningTalking,
-                        //   // userPic: null,
-                        //   balloonColor: Colorz.Nothing,
-                        //   onTap: (){
-                        //     print('go to Chat Screen');
-                        //     goToNewScreen(context, ChatScreen());
-                        //   },
-                        //   loading: false,
-                        //   child: SuperVerse(
-                        //     verse: Wordz.ask(context),
-                        //     size: 1,
-                        //     shadow: true,
-                        //   ),
-                        // ),
-
-                        // _spacer,
-                        //
-                        // // --- MORE
-                        // DreamBox(
-                        //   width: _circleWidth,
-                        //   height: _circleWidth,
-                        //   icon: Iconz.More,
-                        //   iconSizeFactor: 0.45,
-                        //   bubble: true,
-                        //   color: Colorz.Nothing,
-                        //   corners: _buttonCircleCorner,
-                        //   boxFunction: ()=> goToNewScreen(context, MoreScreen()),
-                        // ),
-
-                        // _spacer,
-
-                        // --- ADD BZ ACCOUNT
-                        // DreamBox(
-                        //   width: _circleWidth,
-                        //   height: _circleWidth,
-                        //   icon: Iconz.Bz,
-                        //   iconSizeFactor: 0.65,
-                        //   bubble: true,
-                        //   color: Colorz.Nothing,
-                        //   corners: _buttonCircleCorner,
-                        //   boxFunction: ()=> goToNewScreen(context, CreateBzScreen()),
-                        // ),
-
-                        // _spacer,
-
-                        // --- USER PROFILE
-                        // UserBalloon(
-                        //   balloonWidth: _circleWidth,
-                        //   userStatus: UserStatus.SearchingThinking,
-                        //   // userPic: null,
-                        //   onTap: (){
-                        //     print('go to Chat Screen');
-                        //     goToNewScreen(context, UserProfileScreen());
-                        //   },
-                        //   loading: false,
-                        // ),
-
                       ],
                     ),
 
@@ -353,7 +251,6 @@ class BottomBar extends StatelessWidget {
                 ),
               ),
             );
-        } // bent el kalb dih when u comment off the Loading indicator widget part with its condition
       },
     );
   }
