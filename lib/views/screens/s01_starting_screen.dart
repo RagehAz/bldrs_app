@@ -81,9 +81,9 @@ class StartingScreen extends StatelessWidget {
                 splashColor: Colorz.Yellow,
                 buttonVerseShadow: false,
                 function: () {
-                  signInWithFacebook().then((result) {
+                  signInWithFacebook(context).then((result) {
                     if (result != null) {
-                      return Routez.Home;
+                      return goToRoute(context, Routez.Home);
                     }
                   });
                 },
