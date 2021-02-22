@@ -1,5 +1,4 @@
 import 'package:bldrs/models/user_model.dart';
-import 'package:bldrs/views/screens/s11_inpyramids_screen.dart';
 import 'package:bldrs/views/widgets/appbar/ab_localizer.dart';
 import 'package:bldrs/views/widgets/appbar/ab_main.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
@@ -12,7 +11,7 @@ class BldrsAppBar extends StatefulWidget {
   final List<Widget> appBarRowWidgets;
   final String pageTitle;
   final Function switchPages;
-  final PageType currentPage;
+  // final PageType currentPage;
   final UserModel userModel;
 
   BldrsAppBar({
@@ -20,7 +19,7 @@ class BldrsAppBar extends StatefulWidget {
     this.appBarRowWidgets,
     this.pageTitle,
     this.switchPages,
-    this.currentPage,
+    // this.currentPage,
     this.userModel,
 });
 
