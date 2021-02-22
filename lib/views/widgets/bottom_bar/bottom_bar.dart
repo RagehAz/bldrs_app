@@ -47,7 +47,12 @@ class BottomBar extends StatelessWidget {
     // -------------------------
     int _numberOfSpacings = _numberOfButtons - 1 ;
     double _buttonCircleCorner = _circleWidth * 0.5;
-    double _textBoxHeight = superVerseRealHeight(context, _textSize, _textScaleFactor, null);
+    double _textBoxHeight =
+    barType == BarType.maxWithText || barType == BarType.minWithText ?
+    superVerseRealHeight(context, _textSize, _textScaleFactor, null)
+        :
+    0
+    ;
     double _textBoxWidth = superScreenWidth(context) / _numberOfButtons ;
 
     double _boxCorner = _buttonCircleCorner + _paddings;
@@ -188,7 +193,9 @@ class BottomBar extends StatelessWidget {
                 BarButton(
                   width: _buttonWidth,
                   text: 'business',
-                  clipperWidget: BzLogo(
+                  barType: barType,
+                  clipperWidget:
+                  BzLogo(
                     width: _circleWidth,
                     image: Dumz.XXeklego_logo,
                     margins: EdgeInsets.all(0),
@@ -197,6 +204,8 @@ class BottomBar extends StatelessWidget {
                     blackAndWhite: false,
                   ),
                 ),
+
+                _spacer,
 
                 // --- PROFILE
                 BarButton(
