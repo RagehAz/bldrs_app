@@ -1,47 +1,50 @@
 import 'dart:io';
+import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/view_brains/drafters/borderers.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
+import 'package:bldrs/views/widgets/buttons/balloons/user_balloon.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/common_parts/bz_logo.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
-enum PicOwner{
+enum BubbleType{
   bzLogo,
-  author,
+  authorPic,
+  userPic,
   none,
 }
 
 class AddGalleryPicBubble extends StatelessWidget {
   final Function addBtFunction;
-  final dynamic logo;
-  final Function deleteLogoFunction;
+  final dynamic pic;
+  final Function deletePicFunction;
   final String title;
-  final PicOwner picOwner;
+  final BubbleType bubbleType;
 
   AddGalleryPicBubble({
     @required this.addBtFunction,
-    @required this.logo,
-    @required this.deleteLogoFunction,
+    @required this.pic,
+    @required this.deletePicFunction,
     this.title = '',
-    this.picOwner = PicOwner.none,
+    this.bubbleType = BubbleType.none,
   });
   @override
   Widget build(BuildContext context) {
 
-    final double logoWidth = 100;
-    final double btZoneWidth = logoWidth * 0.5;
+    final double picWidth = 100;
+    final double btZoneWidth = picWidth * 0.5;
     final double btWidth = btZoneWidth * 0.8;
 
     final double corner = Ratioz.ddBoxCorner12;
 
     BorderRadius _picBorders =
-    picOwner == PicOwner.bzLogo ?
+    bubbleType == BubbleType.bzLogo ?
     superBorderRadius(context, corner, corner, 0, corner) :
-    picOwner == PicOwner.author ?
+    bubbleType == BubbleType.authorPic ?
     superBorderRadius(context, corner, 0, corner, corner) :
 
     superBorderRadius(context, corner, corner, corner, corner);
@@ -64,19 +67,19 @@ class AddGalleryPicBubble extends StatelessWidget {
                   // --- FAKE LEFT FOOTPRINT TO CENTER THE ROW IN THE MIDDLE O BUBBLE
                   Container(
                     width: btZoneWidth,
-                    height: logoWidth,
+                    height: picWidth,
                   ),
 
                   // --- FAKE FOOTPRINT UNDER PIC
                   Container(
-                    width: logoWidth*1.1,
-                    height: logoWidth,
+                    width: picWidth*1.1,
+                    height: picWidth,
                   ),
 
                   // --- GALLERY & DELETE BUTTONS
                   Container(
                     width: btZoneWidth,
-                    height: logoWidth,
+                    height: picWidth,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -92,14 +95,14 @@ class AddGalleryPicBubble extends StatelessWidget {
                           boxFunction: addBtFunction,
                         ),
 
-                        // --- DELETE LOGO
+                        // --- DELETE pic
                         DreamBox(
                           width: btWidth,
                           height: btWidth,
                           icon: Iconz.XLarge,
                           iconSizeFactor: 0.5,
                           bubble: true,
-                          boxFunction: deleteLogoFunction,
+                          boxFunction: deletePicFunction,
                         ),
 
                       ],
@@ -111,27 +114,45 @@ class AddGalleryPicBubble extends StatelessWidget {
 
               // --- PICTURE LAYER
               GestureDetector(
-                onTap: logo == null ? (){} : addBtFunction,
-                child: BzLogo(
-                  width: logoWidth,
-                  image: logo,
+                onTap: pic == null ? (){} : addBtFunction,
+                child:
+
+                bubbleType == BubbleType.bzLogo || bubbleType == BubbleType.authorPic ?
+                BzLogo(
+                  width: picWidth,
+                  image: pic,
                   margins: EdgeInsets.all(10),
                   corners: _picBorders,
+                )
+                :
+                bubbleType == BubbleType.userPic ?
+                UserBalloon(
+                  balloonWidth: picWidth,
+                  loading: false,
+                  pic: pic,
+                  balloonType: UserStatus.SearchingThinking,
+                )
+                    :
+                DreamBox(
+                  width: picWidth,
+                  height: picWidth,
+                  icon: pic,
+                  bubble: false,
                 ),
               ),
 
               // --- PLUS ICON LAYER
-              logo == null ?
+              if (pic == null)
               DreamBox(
-                height: logoWidth,
-                width: logoWidth,
+                height: picWidth,
+                width: picWidth,
                 icon: Iconz.Plus,
                 iconSizeFactor: 0.4,
                 bubble: false,
                 opacity: 0.9,
                 iconColor: Colorz.White,
                 boxFunction: addBtFunction,
-              ) : Container(),
+              ),
 
             ],
           ),

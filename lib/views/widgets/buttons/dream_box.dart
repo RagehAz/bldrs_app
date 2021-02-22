@@ -180,6 +180,7 @@ class DreamBox extends StatelessWidget {
                                 Stack(
                                   alignment: Alignment.center,
                                   children: <Widget>[
+
                                     iconFile != null ?
                                     Container(
                                       width: _jpgGraphicWidth,
@@ -209,11 +210,12 @@ class DreamBox extends StatelessWidget {
                                             ),
                                           ),
                                         ),),
-                                    ) :
+                                    )
+                                        :
                                     icon == null || icon == '' ?
                                     Container()
                                         :
-                                    fileExtensionOf(icon) == 'svg' ?
+                                    objectIsSVG(icon) ?
                                     Padding(
                                       padding: EdgeInsets.all(_iconMargin),
                                       child: ClipRRect(
@@ -221,7 +223,7 @@ class DreamBox extends StatelessWidget {
                                           child: WebsafeSvg.asset(icon, color: _iconColor, height: _svgGraphicWidth, fit: BoxFit.cover)),
                                     )
                                         :
-                                    fileExtensionOf(icon) == 'jpg' || fileExtensionOf(icon) == 'jpeg' || fileExtensionOf(icon) == 'png' ?
+                                    objectIsJPGorPNG(icon) ?
                                     Container(
                                       width: _jpgGraphicWidth,
                                       height: _jpgGraphicWidth,
@@ -250,7 +252,39 @@ class DreamBox extends StatelessWidget {
                                             ),
                                           ),
                                         ),),
-                                    ) :
+                                    )
+                                        :
+                                    objectIsURL(icon) ?
+                                    Container(
+                                          width: _jpgGraphicWidth,
+                                          height: _jpgGraphicWidth,
+                                          margin: EdgeInsets.all(_iconMargin),
+                                          decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.all(Radius.circular(_iconCorners)),
+                                              boxShadow: [
+                                                CustomBoxShadow(
+                                                    color: bubble == true ? Colorz.BlackLingerie : Colorz.Nothing,
+                                                    offset: new Offset(0, _jpgGraphicWidth * -0.019 ),
+                                                    blurRadius: _jpgGraphicWidth * 0.2,
+                                                    blurStyle: BlurStyle.outer),
+                                              ]
+                                          ),
+                                          child: ClipRRect(
+                                            borderRadius: BorderRadius.all(Radius.circular(_iconCorners)),
+                                            child: ColorFiltered(
+                                              colorFilter: ColorFilter.mode(
+                                                  _imageSaturationColor,
+                                                  BlendMode.saturation),
+                                              child: Container(
+                                                width: _jpgGraphicWidth,
+                                                height: _jpgGraphicWidth,
+                                                decoration: BoxDecoration(
+                                                  image: DecorationImage(image: NetworkImage(icon), fit: BoxFit.cover),
+                                                ),
+                                              ),
+                                            ),),
+                                        )
+                                        :
                                     Container(),
 
                                     // --- BUTTON BLACK LAYER IF GREYED OUT

@@ -158,6 +158,7 @@ class _SingleSlideState extends State<SingleSlide> {
             ),
 
             // --- IMAGE FILE BLUR LAYER
+            // objectIsURL ? are you sure,, lets see about you later
             _dontBlur || widget.slideMode == SlideMode.Empty || objectIsURL(widget.picFile) == true ? Container() :
             ClipRRect( // this ClipRRect fixed a big blur issue,, never ever  delete
               child: BackdropFilter(
@@ -171,6 +172,7 @@ class _SingleSlideState extends State<SingleSlide> {
             ),
 
             // --- IMAGE FILE
+            // objectIsURL ? are you sure,, lets see about you later
             widget.picFile == null || widget.slideMode == SlideMode.Empty || objectIsURL(widget.picFile) == true ? Container() :
                 Image.file(
                     widget.picFile,

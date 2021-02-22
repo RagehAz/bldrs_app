@@ -25,6 +25,7 @@ class UserBalloon extends StatelessWidget {
   final bool loading;
   final Color balloonColor;
   final Widget child;
+  final dynamic pic;
 
   UserBalloon({
     this.balloonType,
@@ -34,6 +35,7 @@ class UserBalloon extends StatelessWidget {
     @required this.loading,
     this.balloonColor,
     this.child,
+    this.pic
   });
 
   Color _bubbleDarkness(){
@@ -72,7 +74,7 @@ class UserBalloon extends StatelessWidget {
                         Loading()
                             :
                         balloonColor == null?
-                        superImageWidget(userModel?.pic)
+                        superImageWidget(pic == null ? userModel?.pic : pic)
                             :
                         Container()
                     )

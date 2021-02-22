@@ -8,7 +8,7 @@ import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/widgets/appbar/bldrs_appbar.dart';
-import 'package:bldrs/views/widgets/bottom_bar/bottom_bar.dart';
+import 'package:bldrs/views/widgets/nav_bar/nav_bar.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/space/skies/black_sky.dart';
 import 'package:bldrs/views/widgets/space/skies/night_sky.dart';
@@ -101,7 +101,7 @@ class MainLayout extends StatelessWidget {
                   // Pyramids(whichPyramid: appBarType == AppBarType.Localizer ? Iconz.PyramidzYellow : pyramids),
 
                   // --- CHAT BUTTON
-                  BottomBar(
+                  NavBar(
                     barType: BarType.min,
                   ),
 

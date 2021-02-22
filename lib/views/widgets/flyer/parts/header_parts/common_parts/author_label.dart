@@ -1,5 +1,6 @@
 import 'package:bldrs/view_brains/drafters/borderers.dart';
 import 'package:bldrs/view_brains/drafters/file_formatters.dart';
+import 'package:bldrs/view_brains/drafters/imagers.dart';
 import 'package:bldrs/view_brains/drafters/numberers.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
@@ -199,21 +200,26 @@ class AuthorPic extends StatelessWidget {
             ) : null
         ),
 
-       child:
-        objectIsFile(authorPic) ?
+        child:
         ClipRRect(
-          borderRadius: _authorPicBorders,
-          child: Image.file(
-            authorPic,
-            fit: BoxFit.cover,
-            width: _authorImageWidth,
-            height: _authorImageHeight,
-            // colorBlendMode: BlendMode.overlay,
-            // color: Colorz.WhiteAir,
-          ),
-        )
-            :
-        Container(),
+            borderRadius: _authorPicBorders,
+            child: superImageWidget(authorPic)
+        ),
+
+        // objectIsFile(authorPic) ?
+        // ClipRRect(
+        //   borderRadius: _authorPicBorders,
+        //   child: Image.file(
+        //     authorPic,
+        //     fit: BoxFit.cover,
+        //     width: _authorImageWidth,
+        //     height: _authorImageHeight,
+        //     // colorBlendMode: BlendMode.overlay,
+        //     // color: Colorz.WhiteAir,
+        //   ),
+        // )
+        //     :
+        // Container(),
       );
   }
 }
