@@ -38,7 +38,13 @@ class BarButton extends StatelessWidget {
 
     double _textScaleFactor = 0.95;
     int _textSize = 1;
-    double _textBoxHeight = superVerseRealHeight(context, _textSize, _textScaleFactor, null);
+
+    double _textBoxHeight =
+    barType == BarType.maxWithText || barType == BarType.minWithText ?
+    superVerseRealHeight(context, _textSize, _textScaleFactor, null)
+        :
+    0
+    ;
 
     double _buttonHeight = _circleWidth + ( 2 * _paddings ) + _textBoxHeight;
     double _buttonWidth = width;
@@ -79,8 +85,11 @@ class BarButton extends StatelessWidget {
                 boxFunction: onTap,
               )
                   :
-              clipperWidget
-              ,
+              Container(
+                width: _circleWidth,
+                  height: _circleWidth,
+                  child: clipperWidget
+              ),
 
               if (barType == BarType.maxWithText || barType == BarType.minWithText)
               Container(
