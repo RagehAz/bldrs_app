@@ -1,28 +1,19 @@
 import 'dart:io';
 import 'package:bldrs/models/bldrs_sections.dart';
 import 'package:bldrs/models/bz_model.dart';
-import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
-import 'package:bldrs/providers/users_provider.dart';
 import 'package:bldrs/view_brains/drafters/borderers.dart';
 import 'package:bldrs/view_brains/drafters/file_formatters.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
-import 'package:bldrs/view_brains/drafters/stringers.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
-import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/screens/s15_profile_screen.dart';
-import 'package:bldrs/views/screens/s17_edit_bz_screen.dart';
-import 'package:bldrs/views/widgets/bubbles/add_gallery_pic_bubble.dart';
-import 'package:bldrs/views/widgets/bubbles/bubbles_separator.dart';
+import 'package:bldrs/views/screens/s42_edit_bz_screen.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
-import 'package:bldrs/views/widgets/bubbles/locale_bubble.dart';
-import 'package:bldrs/views/widgets/bubbles/multiple_choice_bubble.dart';
-import 'package:bldrs/views/widgets/bubbles/text_field_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/bt_back.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
@@ -41,8 +32,8 @@ class MyBzScreen extends StatefulWidget {
   final Function switchPage;
 
   MyBzScreen({
-    @required this.userModel,
-    @required this.switchPage,
+    this.userModel,
+    this.switchPage,
   });
 
   @override
@@ -301,6 +292,7 @@ class _MyBzScreenState extends State<MyBzScreen> {
 
   @override
   Widget build(BuildContext context) {
+
 
     double _flyerSizeFactor = 0.70;
     double _flyerZoneWidth = superFlyerZoneWidth(context, _flyerSizeFactor);

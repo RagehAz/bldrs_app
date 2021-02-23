@@ -1,8 +1,9 @@
-import 'dart:io';
+// import 'package:path_provider/path_provider.dart' as sysPaths;
+// import 'package:path/path.dart' as path;
+// import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:websafe_svg/websafe_svg.dart';
-
 import 'file_formatters.dart';
 // === === === === === === === === === === === === === === === === === === ===
 DecorationImage superImage(String picture, BoxFit boxFit){
@@ -57,10 +58,10 @@ int concludeImageQuality(PicType picType){
 double concludeImageMaxWidth(PicType picType){
   switch (picType){
     case PicType.userPic      :   return  150   ;     break;
-    case PicType.authorPic    :   return  200   ;     break;
-    case PicType.bzLogo       :   return  400   ;     break;
-    case PicType.slideHighRes :   return  800   ;     break;
-    case PicType.slideLowRes  :   return  400   ;     break;
+    case PicType.authorPic    :   return  150   ;     break;
+    case PicType.bzLogo       :   return  150   ;     break;
+    case PicType.slideHighRes :   return  150   ;     break;
+    case PicType.slideLowRes  :   return  150   ;     break;
     default : return   null;
   }
 }

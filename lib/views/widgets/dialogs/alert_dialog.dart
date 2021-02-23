@@ -2,12 +2,10 @@ import 'package:bldrs/view_brains/drafters/borderers.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
-import 'package:bldrs/view_brains/theme/wordz.dart';
-import 'package:bldrs/views/widgets/buttons/bt_back.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
-
+// ----------------------------------------------------------------------
 AlertDialog superAlert (BuildContext context, BuildContext ctx, dynamic error) {
   return
     AlertDialog(
@@ -51,3 +49,12 @@ AlertDialog superAlert (BuildContext context, BuildContext ctx, dynamic error) {
 
     );
 }
+// ----------------------------------------------------------------------
+Future<dynamic> superDialog(BuildContext context, dynamic error) async {
+  Future<dynamic> _dialog = showDialog(
+    context: context,
+    builder: (ctx)=> superAlert(context, ctx, error),
+  );
+  return _dialog;
+}
+// ----------------------------------------------------------------------

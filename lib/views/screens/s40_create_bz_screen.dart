@@ -237,15 +237,13 @@ class _CreateBzScreenState extends State<CreateBzScreen> with TickerProviderStat
     BzModel _bzModel = await _createBzModel(userModel);
 
     _triggerLoading();
-    try { await pro.addBz(_bzModel, userModel); }
-    catch(error) {
-      await showDialog(
-        context: context,
-        builder: (ctx)=>
-        superAlert(context, ctx, error),
-      );
+    try {
+      await pro.addBz(_bzModel, userModel);
     }
-    finally {
+    catch(error) {
+      await superDialog(context, error);
+    }
+    finally{
       _triggerLoading();
       goBack(context);
     }
