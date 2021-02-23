@@ -3,6 +3,7 @@ import 'package:bldrs/ambassadors/services/google.dart';
 import 'package:bldrs/ambassadors/services/google.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/view_brains/controllers/devicerz.dart';
+import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
 import 'package:bldrs/view_brains/router/route_names.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
@@ -16,7 +17,22 @@ import 'package:flutter/material.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
 
 class StartingScreen extends StatelessWidget {
+// ----------------------------------------------------------------------------
+/// should fetch user current location automatically and suggest them here
   final Zone currentZone = Zone(countryID: '', provinceID: '', areaID: '');
+// ----------------------------------------------------------------------------
+  void _tapGoogleContinue(BuildContext context) {
+      signInWithGoogle(context, currentZone).then((result) {
+        if (result != null) {return goToRoute(context, Routez.FillProfile);}
+      });
+  }
+// ----------------------------------------------------------------------------
+  void _tapFacebookContinue(BuildContext context){
+    signInWithFacebook(context).then((result) {
+      if (result != null) {return goToRoute(context, Routez.FillProfile);}
+    });
+  }
+// ----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -29,15 +45,10 @@ class StartingScreen extends StatelessWidget {
           // --- stuff
           Column(
             children: <Widget>[
+
               Stratosphere(),
 
-              LogoSlogan(
-                sizeFactor: 0.87,
-              ),
-
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0,
-              ),
+              LogoSlogan(sizeFactor: 0.87,),
 
               // --- CONTINUE WITH APPLE
               deviceIsIOS() ?
@@ -50,8 +61,8 @@ class StartingScreen extends StatelessWidget {
                 function: Routez.Home,
                 stretched: false,
 
-              ) :
-
+              )
+                  :
               // CONTINUE WITH GOOGLE
               deviceIsAndroid() ?
               BTMain(
@@ -60,16 +71,10 @@ class StartingScreen extends StatelessWidget {
                 buttonColor: Colorz.GoogleRed,
                 splashColor: Colorz.Yellow,
                 buttonVerseShadow: false,
-                function: () {
-                  signInWithGoogle(context, currentZone).then((result) {
-                    if (result != null) {
-                      return goToRoute(context, Routez.FillProfile);
-                    }
-                  });
-                },
+                function: ()=> _tapGoogleContinue(context),
                 stretched: false,
               )
-              :
+                  :
               Container(),
 
 
@@ -80,13 +85,7 @@ class StartingScreen extends StatelessWidget {
                 buttonColor: Colorz.Facebook,
                 splashColor: Colorz.Yellow,
                 buttonVerseShadow: false,
-                function: () {
-                  signInWithFacebook(context).then((result) {
-                    if (result != null) {
-                      return goToRoute(context, Routez.FillProfile);
-                    }
-                  });
-                },
+                function: () => _tapFacebookContinue(context),
                 stretched: false,
               ),
 
@@ -108,16 +107,16 @@ class StartingScreen extends StatelessWidget {
                 buttonColor: Colorz.WhiteAir,
                 splashColor: Colorz.Yellow,
                 buttonVerseShadow: false,
-                function: () {
-                  goToNewScreen(context, EmailAuth());
-                },
+                function: () => goToNewScreen(context, EmailAuth()),
                 stretched: false,
               ),
+
             ],
           ),
 
           // --- SKIP BUTTON
           BtSkipAuth(),
+
         ],
       ),
     );

@@ -6,19 +6,17 @@ import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
-import 'package:bldrs/providers/users_provider.dart';
 import 'package:bldrs/view_brains/drafters/borderers.dart';
 import 'package:bldrs/view_brains/drafters/file_formatters.dart';
+import 'package:bldrs/view_brains/drafters/imagers.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/drafters/stringers.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
-import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/screens/s15_profile_screen.dart';
 import 'package:bldrs/views/widgets/bubbles/add_gallery_pic_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/bubbles_separator.dart';
-import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/locale_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/multiple_choice_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/text_field_bubble.dart';
@@ -27,12 +25,10 @@ import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_zone.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header.dart';
-import 'package:bldrs/views/widgets/flyer/parts/slides_parts/single_slide.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart' show MainLayout, PyramidsHorizon, Stratosphere;
-import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 class EditBzScreen extends StatefulWidget {
@@ -82,7 +78,6 @@ class _EditBzScreenState extends State<EditBzScreen> {
 // ---------------------------------------------------------------------------
   FlyersProvider _prof;
 
-
   @override
   void initState() {
     _bzID = widget.bzID;
@@ -121,15 +116,11 @@ class _EditBzScreenState extends State<EditBzScreen> {
   }
 // ---------------------------------------------------------------------------
   void _switchEditProfile() {
-    setState(() {
-      editMode = !editMode;
-    });
+    setState(() {editMode = !editMode;});
   }
 // ---------------------------------------------------------------------------
   void _triggerMaxHeader(){
-    setState(() {
-      _bzPageIsOn = !_bzPageIsOn;
-    });
+    setState(() {_bzPageIsOn = !_bzPageIsOn;});
   }
   // ----------------------------------------------------------------------
   void _selectASection(int index){
@@ -159,40 +150,14 @@ class _EditBzScreenState extends State<EditBzScreen> {
     });
   }
   // ----------------------------------------------------------------------
-  Future<void> _takeGalleryPicture() async {
-    // print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> before _takeCameraPicture');
-    final picker = ImagePicker();
-    final imageFile = await picker.getImage(
-      source: ImageSource.gallery,
-      maxWidth: 600,
-    );
-
-    if (imageFile == null){return;}
-
-    setState(() {
-      _currentBzLogo = File(imageFile.path);
-      // newBz.bz.bzLogo = _storedLogo;
-    });
-
-    // final appDir = await sysPaths.getApplicationDocumentsDirectory();
-    // final fileName = path.basename(imageFile.path);
-    // final savedImage = await _currentBzLogo.copy('${appDir.path}/$fileName');
-    // _selectImage(savedImage);
+  Future<void> _changeBzLogo() async {
+    final _imageFile = await takeGalleryPicture(PicType.authorPic);
+    setState(() {_currentBzLogo = File(_imageFile.path);});
   }
   // ----------------------------------------------------------------------
-  Future<void> _takeAuthorPicture() async {
-    final picker = ImagePicker();
-    final imageFile = await picker.getImage(
-      source: ImageSource.gallery,
-      maxWidth: 600,
-    );
-
-    if (imageFile == null){return;}
-
-    setState(() {
-      _authorPic = File(imageFile.path);
-      // newBz.bz.bzLogo = _storedLogo;
-    });
+  Future<void> _changeAuthorPic() async {
+    final _imageFile = await takeGalleryPicture(PicType.authorPic);
+    setState(() {_authorPic = File(_imageFile.path);});
   }
   // ----------------------------------------------------------------------
   BzModel _createBzModel(){
@@ -343,7 +308,7 @@ class _EditBzScreenState extends State<EditBzScreen> {
           // --- ADD LOGO
           AddGalleryPicBubble(
             pic: _currentBzLogo,
-            addBtFunction: _takeGalleryPicture,
+            addBtFunction: _changeBzLogo,
             deletePicFunction: () => setState(() {_currentBzLogo = null;}),
             title: Wordz.businessLogo(context),
             bubbleType: BubbleType.bzLogo,
@@ -442,7 +407,7 @@ class _EditBzScreenState extends State<EditBzScreen> {
           // --- ADD AUTHOR PIC
           AddGalleryPicBubble(
             pic: _authorPic,
-            addBtFunction: _takeAuthorPicture,
+            addBtFunction: _changeAuthorPic,
             deletePicFunction: () => setState(() {_authorPic = null;}),
             title: 'Add a _professional picture of yourself',
             bubbleType: BubbleType.authorPic,
