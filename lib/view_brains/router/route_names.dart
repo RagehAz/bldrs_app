@@ -28,12 +28,19 @@ class Routez {
   static const String CreateBz = 'CreateBzScreen';
   // ---------------------------------------------------------------------------
   /// s41
+  static const String MyBz = 'MyBzScreen';
+  // ---------------------------------------------------------------------------
+  /// s42
+  static const String EditBz = 'EditBzScreen';
+// ---------------------------------------------------------------------------
+  /// s50
   static const String FlyerMaker = 'FlyerMakerScreen';
+// ---------------------------------------------------------------------------
+  /// s51
+  static const String FlyerScreen = 'FlyerFullScreen';
 // ---------------------------------------------------------------------------
 
 // --- XXX GENERAL SCREENS
-  /// xxx
-  static const String FlyerScreen = 'FlyerFullScreen';
   /// xxx
   static const String RagehDashBoard = 'RagehDashBoardScreen';
   /// xxx

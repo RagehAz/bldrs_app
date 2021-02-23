@@ -3,7 +3,7 @@ import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
-import 'package:bldrs/views/screens/s51_bz_card_screen.dart';
+import 'package:bldrs/views/screens/s52_bz_card_screen.dart';
 import 'package:bldrs/views/widgets/in_pyramids/profile/bz_grid.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';

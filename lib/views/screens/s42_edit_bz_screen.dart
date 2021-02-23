@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:bldrs/ambassadors/services/firebase_storage.dart';
 import 'package:bldrs/models/bldrs_sections.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
@@ -12,9 +13,11 @@ import 'package:bldrs/view_brains/drafters/imagers.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/drafters/stringers.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
+import 'package:bldrs/view_brains/router/route_names.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/screens/s15_profile_screen.dart';
+import 'package:bldrs/views/screens/s41_my_bz_screen.dart';
 import 'package:bldrs/views/widgets/bubbles/add_gallery_pic_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/bubbles_separator.dart';
 import 'package:bldrs/views/widgets/bubbles/locale_bubble.dart';
@@ -35,7 +38,7 @@ class EditBzScreen extends StatefulWidget {
   final String bzID;
 
   EditBzScreen({
-    @required this.bzID,
+    this.bzID,
   });
 
 
@@ -97,7 +100,7 @@ class _EditBzScreenState extends State<EditBzScreen> {
     _currentAccountType = BzAccountType.Default; // ----- mankash
     // -------------------------
     _currentBzName = _bz.bzName;
-    _currentBzLogo = objectIsFile(_bz.bzLogo) ? null : _bz.bzLogo; // temp
+    _currentBzLogo = _bz.bzLogo; // temp
     _currentBzScope = _bz.bzScope;
     _currentBzCountry = _bz.bzCountry;
     _currentBzProvince = _bz.bzProvince;
@@ -110,7 +113,7 @@ class _EditBzScreenState extends State<EditBzScreen> {
     // -------------------------
     _authorName = _bz.bzAuthors[0].authorName;
     _authorTitle = _bz.bzAuthors[0].authorTitle;
-    _authorPic = objectIsFile(_bz.bzAuthors[0].authorPic) ? null : _bz.bzAuthors[0].authorPic; // temp
+    _authorPic = _bz.bzAuthors[0].authorPic; // temp
     _authorContacts = _bz.bzAuthors[0].authorContacts;
     super.initState();
   }
@@ -151,79 +154,104 @@ class _EditBzScreenState extends State<EditBzScreen> {
   }
   // ----------------------------------------------------------------------
   Future<void> _changeBzLogo() async {
-    final _imageFile = await takeGalleryPicture(PicType.authorPic);
+    final _imageFile = await takeGalleryPicture(PicType.bzLogo);
     setState(() {_currentBzLogo = File(_imageFile.path);});
   }
   // ----------------------------------------------------------------------
   Future<void> _changeAuthorPic() async {
     final _imageFile = await takeGalleryPicture(PicType.authorPic);
     setState(() {_authorPic = File(_imageFile.path);});
+
   }
   // ----------------------------------------------------------------------
-  BzModel _createBzModel(){
-    return new BzModel(
-      bzID: _bz.bzID,
-      // -------------------------
-      bzType: _currentBzType,
-      bzForm: _currentBzForm,
-      bldrBirth: _bz.bldrBirth,
-      accountType: _currentAccountType,
-      bzURL: _bz.bzURL,
-      // -------------------------
-      bzName: _currentBzName,
-      bzLogo: '',
-      bzScope: _currentBzScope,
-      bzCountry: _currentBzCountry,
-      bzProvince: _currentBzProvince,
-      bzArea: _currentBzArea,
-      bzAbout: _currentBzAbout,
-      bzPosition: _currentBzPosition,
-      bzContacts: _currentBzContacts,
-      bzAuthors: _currentBzAuthors,
-      bzShowsTeam: _currentBzShowsTeam,
-      // -------------------------
-      bzIsVerified: _bz.bzIsVerified,
-      bzAccountIsDeactivated: _bz.bzAccountIsDeactivated,
-      bzAccountIsBanned: _bz.bzAccountIsBanned,
-      // -------------------------
-      bzTotalFollowers: _bz.bzTotalFollowers,
-      bzTotalSaves: _bz.bzTotalSaves,
-      bzTotalShares: _bz.bzTotalShares,
-      bzTotalSlides: _bz.bzTotalSlides,
-      bzTotalViews: _bz.bzTotalViews,
-      bzTotalCalls: _bz.bzTotalCalls,
-      bzTotalConnects: _bz.bzTotalCalls,
-      // -------------------------
-      jointsBzzIDs: _bz.jointsBzzIDs,
-      // -------------------------
-      followIsOn: _bz.followIsOn,
-    );
+  Future<BzModel> _createBzModel(String userID) async {
+
+      final _bzLogoURL = objectIsURL(_currentBzLogo) ? _currentBzLogo :
+      await saveBzLogoOnFirebaseStorageAndGetURL(inputFile: _currentBzLogo,fileName: userID);
+
+      final _authorPicURL = objectIsURL(_authorPic) ? _authorPic :
+      await saveAuthorPicOnFirebaseStorageAndGetURL(inputFile: _authorPic, fileName: userID);
+
+    try{
+
+      int _authorIndex = _currentBzAuthors.indexWhere((au) => au.userID == userID);
+      AuthorModel _author = _currentBzAuthors.singleWhere((au) => au.userID == userID);
+      _currentBzAuthors.removeAt(_authorIndex);
+      AuthorModel newAuthorModel = AuthorModel(
+        bzID: _author.bzID,
+        userID: _author.userID,
+        authorName: _authorName,
+        authorPic: _authorPicURL,
+        authorTitle: _authorTitle,
+        publishedFlyersIDs: _author.publishedFlyersIDs,
+        authorContacts: _authorContacts,
+      );
+      _currentBzAuthors.insert(_authorIndex, newAuthorModel);
+
+    }
+    catch(error){
+      await superDialog(context, error);
+    }
+
+      return new BzModel(
+        bzID: _bz.bzID,
+        // -------------------------
+        bzType: _currentBzType,
+        bzForm: _currentBzForm,
+        bldrBirth: _bz.bldrBirth,
+        accountType: _currentAccountType,
+        bzURL: _bz.bzURL,
+        // -------------------------
+        bzName: _currentBzName,
+        bzLogo: _bzLogoURL,
+        bzScope: _currentBzScope,
+        bzCountry: _currentBzCountry,
+        bzProvince: _currentBzProvince,
+        bzArea: _currentBzArea,
+        bzAbout: _currentBzAbout,
+        bzPosition: _currentBzPosition,
+        bzContacts: _currentBzContacts,
+        bzAuthors: _currentBzAuthors,
+        bzShowsTeam: _currentBzShowsTeam,
+        // -------------------------
+        bzIsVerified: _bz.bzIsVerified,
+        bzAccountIsDeactivated: _bz.bzAccountIsDeactivated,
+        bzAccountIsBanned: _bz.bzAccountIsBanned,
+        // -------------------------
+        bzTotalFollowers: _bz.bzTotalFollowers,
+        bzTotalSaves: _bz.bzTotalSaves,
+        bzTotalShares: _bz.bzTotalShares,
+        bzTotalSlides: _bz.bzTotalSlides,
+        bzTotalViews: _bz.bzTotalViews,
+        bzTotalCalls: _bz.bzTotalCalls,
+        bzTotalConnects: _bz.bzTotalCalls,
+        // -------------------------
+        jointsBzzIDs: _bz.jointsBzzIDs,
+        // -------------------------
+        followIsOn: _bz.followIsOn,
+      );
+
   }
   // ----------------------------------------------------------------------
-  Future <void> _updateBz(BuildContext context, FlyersProvider pro) async {
+
+  Future <void> _updateBz(BuildContext context, FlyersProvider pro, String userID) async {
     // final bool isValid = _form.currentState.validate();
     // if(!isValid){return;}
     // _form.currentState.save();
     _triggerLoading();
-    try { await pro.updateBz(_createBzModel(), ); }
-    catch(error) {
-      await showDialog(
-        context: context,
-        builder: (ctx)=> superAlert(context, ctx, error),
-      );
+    BzModel _newBzModel = await _createBzModel(userID);
+    try {
+      await pro.updateBz(_newBzModel);
     }
+    catch(error) { await superDialog(context, error); }
     finally {
       _triggerLoading();
-      _switchEditProfile();
+      goBack(context);
     }
 
   }
   // ----------------------------------------------------------------------
-  void _triggerLoading(){
-    setState(() {
-      _isLoading = !_isLoading;
-    });
-  }
+  void _triggerLoading(){setState(() {_isLoading = !_isLoading;});}
   // ----------------------------------------------------------------------
   Future<void> _deleteBzProfile(BuildContext context, FlyersProvider pro, UserModel userModel) async {
     _triggerLoading();
@@ -269,6 +297,7 @@ class _EditBzScreenState extends State<EditBzScreen> {
 
     String _testPrint = '${_bz.bzAuthors}';
 
+    String _userID = superUserID();
 
     return MainLayout(
       layoutWidget: ListView(
@@ -409,7 +438,7 @@ class _EditBzScreenState extends State<EditBzScreen> {
             pic: _authorPic,
             addBtFunction: _changeAuthorPic,
             deletePicFunction: () => setState(() {_authorPic = null;}),
-            title: 'Add a _professional picture of yourself',
+            title: 'Add a professional picture of yourself',
             bubbleType: BubbleType.authorPic,
           ),
 
@@ -495,7 +524,7 @@ class _EditBzScreenState extends State<EditBzScreen> {
             height: 50,
             verse: 'confirm business info',
             verseScaleFactor: .8,
-            boxFunction: () => _updateBz(context, _prof),
+            boxFunction: () => _updateBz(context, _prof, _userID),
           ),
 
           PyramidsHorizon(heightFactor: 5,),
