@@ -1,9 +1,11 @@
 import 'dart:io';
+import 'package:bldrs/ambassadors/services/device_services.dart';
 import 'package:bldrs/ambassadors/services/firebase_storage.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/users_provider.dart';
+import 'package:bldrs/view_brains/drafters/imagers.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
 import 'package:bldrs/view_brains/router/route_names.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
@@ -54,94 +56,33 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
   String _currentTikTok;
   String _currentTwitter;
   // ---------------------------------------------------------------------------
-  @override
-  void initState() {
-    // UserModel user = Provider.of<UserModel>(context, listen: false);
-    // print('getAContactStringFromContacts(user.contacts, ContactType.Phone) ${getAContactStringFromContacts(user.contacts, ContactType.Email)}');
-    // _currentName = user.name;
-    // _currentPic = File(Iconz.DumAuthorPic);
-    // _currentTitle = user.title;
-    // _currentCompany = user.company;
-    // _currentGender = user.gender;
-    // _currentCountryID = user.country;
-    // _currentProvinceID = user.province;
-    // _currentAreaID = user.area;
-    // _currentLanguageCode = user.language;
-    // _currentPosition = user.position;
-    // --------------------
-    // _currentPhone = getAContactStringFromContacts(user.contacts, ContactType.Phone);
-    // _currentEmail = getAContactStringFromContacts(user.contacts, ContactType.Email);
-    // _currentWebsite = getAContactStringFromContacts(user.contacts, ContactType.WebSite);
-    // _currentFacebook = getAContactStringFromContacts(user.contacts, ContactType.Facebook);
-    // _currentLinkedIn = getAContactStringFromContacts(user.contacts, ContactType.LinkedIn);
-    // _currentYouTube = getAContactStringFromContacts(user.contacts, ContactType.YouTube);
-    // _currentInstagram = getAContactStringFromContacts(user.contacts, ContactType.Instagram);
-    // _currentPinterest = getAContactStringFromContacts(user.contacts, ContactType.Pinterest);
-    // _currentTikTok = getAContactStringFromContacts(user.contacts, ContactType.TikTok);
-    // _currentTwitter = getAContactStringFromContacts(user.contacts, ContactType.Twitter);
-    // --------------------
-    super.initState();
-  }
-
-  // ---------------------------------------------------------------------------
   void _changeName(String val){
     setState(()=> _currentName = val);
   }
   // ---------------------------------------------------------------------------
-  Future<void> _takeGalleryPicture() async {
-    final _picker = ImagePicker();
-    final _imageFile = await _picker.getImage(
-      source: ImageSource.gallery,
-      imageQuality: 50,
-      maxWidth: 150,
-    );
-
-    if (_imageFile == null){return;}
-
-    setState(() {
-      _currentPic = File(_imageFile.path);
-    });
-
-    // final _appDir = await sysPaths.getApplicationDocumentsDirectory();
-    // final _fileName = path.basename(_imageFile.path);
-    // final _savedImage = await _currentPic.copy('${_appDir.path}/$_fileName');
-    // _selectImage(savedImage);
+  Future<void> _changeUserPic() async {
+    final _imageFile = await takeGalleryPicture(PicType.userPic);
+    setState(() {_currentPic = File(_imageFile.path);});
   }
   // ---------------------------------------------------------------------------
-  void _deleteLogo(){
-    setState(() {
-      _currentPic = null;
-    });
-  }
+  void _deleteLogo(){setState(() {_currentPic = null;});}
   // ---------------------------------------------------------------------------
-  void _changeTitle(String val){
-    setState(()=> _currentTitle = val);
-  }
+  void _changeTitle(String val){setState(()=> _currentTitle = val);}
   // ---------------------------------------------------------------------------
-  void _changeCompany(String val){
-    setState(()=> _currentCompany = val);
-  }
+  void _changeCompany(String val){setState(()=> _currentCompany = val);}
   // ---------------------------------------------------------------------------
-  void _changeGender(Gender gender){
-    setState(()=> _currentGender = gender);
-  }
+  void _changeGender(Gender gender){setState(()=> _currentGender = gender);}
   // ---------------------------------------------------------------------------
   void _changeCountry(String countryID){
-    setState(() {
-      _currentCountryID = countryID;
-    });
+    setState(() {_currentCountryID = countryID;});
   }
   // ---------------------------------------------------------------------------
   void _changeProvince(String provinceID){
-    setState(() {
-      _currentProvinceID = provinceID;
-    });
+    setState(() {_currentProvinceID = provinceID;});
   }
   // ---------------------------------------------------------------------------
   void _changeArea(String areaID){
-    setState(() {
-      _currentAreaID = areaID;
-    });
+    setState(() {_currentAreaID = areaID;});
   }
   // ---------------------------------------------------------------------------
   void _changeLanguage(String languageCode){
@@ -348,7 +289,7 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                 return LoadingFullScreenLayer();
               } else {
                 UserModel userModel = snapshot.data;
-                print('user naaamee : ${userModel.name}');
+                // print('user name : ${userModel.name}');
                 return Form(
                   key: _formKey,
                   child: Column(
@@ -369,13 +310,14 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                             ),
 
                             // --- CANCEL BUTTON
-                            DreamBox(
-                              height: 35,
-                              width: 35,
-                              icon: Iconz.XLarge,
-                              iconSizeFactor: 0.6,
-                              boxFunction: (){print('cancel edits');},
-                            )
+                            // DreamBox(
+                            //   height: 35,
+                            //   width: 35,
+                            //   icon: Iconz.XLarge,
+                            //   iconSizeFactor: 0.6,
+                            //   boxFunction: (){print('cancel edits');},
+                            // )
+
                           ],
                         ),
                       ),
@@ -383,7 +325,7 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                       // --- EDIT PIC
                       AddGalleryPicBubble(
                         pic: _currentPic,
-                        addBtFunction: _takeGalleryPicture,
+                        addBtFunction: _changeUserPic,
                         deletePicFunction: _deleteLogo,
                         bubbleType: BubbleType.userPic,
                       ),

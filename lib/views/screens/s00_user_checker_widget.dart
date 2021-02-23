@@ -7,8 +7,9 @@ import 'package:provider/provider.dart';
 class UserChecker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
     final _userProvided = Provider.of<UserModel>(context);
-    print('user id : ${_userProvided?.userID}');
+    // print('user id : ${_userProvided?.userID}');
 
     return
       _userProvided == null ?

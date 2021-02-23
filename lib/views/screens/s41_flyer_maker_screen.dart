@@ -4,6 +4,7 @@ import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/sub_models/slide_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/view_brains/controllers/flyer_sliding_controllers.dart';
+import 'package:bldrs/view_brains/drafters/imagers.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_zone.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header.dart';
@@ -133,17 +134,11 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> {
   }
   // ----------------------------------------------------------------------
   Future<void> _takeCameraPicture() async {
-    // print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> before _takeCameraPicture');
-    final picker = ImagePicker();
-    final imageFile = await picker.getImage(
-      source: ImageSource.camera,
-      maxWidth: 600,
-    );
 
-    if (imageFile == null){return;}
+    final _imageFile = await takeCameraPicture(PicType.slideHighRes);
 
     setState(() {
-      _storedImage = File(imageFile.path);
+      _storedImage = File(_imageFile.path);
       newSlides.add(
           SlideModel(
             flyerID: 'f${DateTime.now()}',
@@ -161,7 +156,7 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> {
     });
 
     final appDir = await sysPaths.getApplicationDocumentsDirectory();
-    final fileName = path.basename(imageFile.path);
+    final fileName = path.basename(_imageFile.path);
     final savedImage = await _storedImage.copy('${appDir.path}/$fileName');
     _selectImage(savedImage);
     slideTo(slidingController, currentSlide);
@@ -169,17 +164,11 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> {
   }
   // ----------------------------------------------------------------------
   Future<void> _takeGalleryPicture() async {
-    // print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> before _takeGalleryPicture');
-    final picker = ImagePicker();
-    final imageFile = await picker.getImage(
-      source: ImageSource.gallery,
-      maxWidth: 600,
-    );
 
-    if (imageFile == null){return;}
+    final _imageFile = await takeGalleryPicture(PicType.slideHighRes);
 
     setState(() {
-      _storedImage = File(imageFile.path);
+      _storedImage = File(_imageFile.path);
       newSlides.add(
           SlideModel(
             flyerID: 'f${DateTime.now()}',
@@ -197,7 +186,7 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> {
     });
 
     final appDir = await sysPaths.getApplicationDocumentsDirectory();
-    final fileName = path.basename(imageFile.path);
+    final fileName = path.basename(_imageFile.path);
     final savedImage = await _storedImage.copy('${appDir.path}/$fileName');
     _selectImage(savedImage);
     slideTo(slidingController, currentSlide);

@@ -70,6 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBarType: AppBarType.Main,
       sky: Sky.Night,
       canRefreshFlyers: true,
+      tappingRageh: () => goToRoute(context, Routez.Obelisk),
       layoutWidget: Stack(
         children: <Widget>[
           _isLoading == true ?

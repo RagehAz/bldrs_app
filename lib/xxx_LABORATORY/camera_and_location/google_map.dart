@@ -94,7 +94,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
       )
     };
 
-    LatLng userCurrentLocation = LatLng(initialPosition.latitude, initialPosition.longitude);
+    LatLng userCurrentLocation = LatLng(initialPosition?.latitude ?? 0, initialPosition?.longitude ?? 0);
 
     return MainLayout(
       layoutWidget:
