@@ -1,4 +1,4 @@
-import 'package:bldrs/views/screens/s50_flyer_screen.dart';
+import 'package:bldrs/views/screens/s51_flyer_screen.dart';
 import 'package:flutter/material.dart';
 import 'route_names.dart';
 // === === === === === === === === === === === === === === === === === === ===

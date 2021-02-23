@@ -1,5 +1,6 @@
 import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
 /// any changes in this model should reflect on this [UserProvider]
 class UserModel {
@@ -117,5 +118,10 @@ int cipherGender(Gender gender){
 bool userIsAuthor(UserStatus userStatus){
   return
       userStatus == UserStatus.BzAuthor ? true : false ;
+}
+// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+String superUserID(){
+  String userID = (FirebaseAuth.instance.currentUser).uid;
+  return userID;
 }
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x

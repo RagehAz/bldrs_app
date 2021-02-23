@@ -1,8 +1,10 @@
 import 'package:bldrs/views/screens/s00_user_checker_widget.dart';
 import 'package:bldrs/views/screens/s04_fill_profile_screen.dart';
-import 'package:bldrs/views/screens/s50_flyer_screen.dart';
+import 'package:bldrs/views/screens/s41_my_bz_screen.dart';
+import 'package:bldrs/views/screens/s42_edit_bz_screen.dart';
+import 'package:bldrs/views/screens/s51_flyer_screen.dart';
 import 'package:bldrs/views/screens/s40_create_bz_screen.dart';
-import 'package:bldrs/views/screens/s41_flyer_maker_screen.dart';
+import 'package:bldrs/views/screens/s50_flyer_maker_screen.dart';
 import 'package:bldrs/views/screens/s00_splash_screen.dart';
 import 'package:bldrs/views/screens/s01_starting_screen.dart';
 import 'package:bldrs/views/screens/s10_home_screen.dart';
@@ -53,14 +55,23 @@ class Routerer {
         return MaterialPageRoute(builder: (_) => CreateBzScreen());
 // ---------------------------------------------------------------------------
     /// s41
+      case Routez.MyBz:
+        return MaterialPageRoute(builder: (_) => MyBzScreen());
+// ---------------------------------------------------------------------------
+    /// s42
+      case Routez.EditBz:
+        return MaterialPageRoute(builder: (_) => EditBzScreen());
+// ---------------------------------------------------------------------------
+    /// s50
       case Routez.FlyerMaker:
         return MaterialPageRoute(builder: (_) => FlyerMakerScreen());
 // ---------------------------------------------------------------------------
-
-    // --- XXX GENERAL SCREENS
-    ///  xxx
+    ///  s51
       case Routez.FlyerScreen:
         return MaterialPageRoute(builder: (_) => FlyerScreen());
+// ---------------------------------------------------------------------------
+
+    // --- XXX GENERAL SCREENS
     ///  xxx
       case Routez.Obelisk:
         return MaterialPageRoute(builder: (_) => ObeliskScreen());
