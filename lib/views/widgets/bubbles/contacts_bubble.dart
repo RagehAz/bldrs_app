@@ -1,4 +1,4 @@
-import 'package:bldrs/ambassadors/services/launch_url.dart';
+import 'package:bldrs/ambassadors/services/launchers.dart';
 import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:bldrs/view_brains/drafters/iconizers.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';

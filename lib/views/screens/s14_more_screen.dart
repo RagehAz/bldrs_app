@@ -1,5 +1,8 @@
 import 'package:bldrs/ambassadors/services/auth.dart';
 import 'package:bldrs/ambassadors/services/google.dart';
+import 'package:bldrs/ambassadors/services/launchers.dart';
+import 'package:bldrs/models/sub_models/link_model.dart';
+import 'package:bldrs/view_brains/controllers/devicerz.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
 import 'package:bldrs/view_brains/router/route_names.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
@@ -30,18 +33,22 @@ class MoreScreen extends StatelessWidget {
             btOnTap: () => goToNewScreen(context, CreateBzScreen()),
           ),
           BubblesSeparator(),
+
           TileBubble(
             verse: Wordz.inviteFriends(context),
-            icon: Iconz.ComApple,
+            icon: deviceIsIOS() ? Iconz.ComApple : deviceIsAndroid() ? Iconz.ComGooglePlay : Iconz.Share,
             iconBoxColor: Colorz.BlackBlack,
             verseColor: Colorz.White,
+            btOnTap: () => shareLink(context, LinkModel.bldrsWebSiteLink),
           ),
+
           TileBubble(
             verse: Wordz.inviteBusinesses(context),
-            icon: Iconz.ComGooglePlay,
+            icon: Iconz.Bz,
             iconBoxColor: Colorz.BlackBlack,
             verseColor: Colorz.White,
           ),
+
           BubblesSeparator(),
           TileBubble(
             verse: Wordz.changeCountry(context),

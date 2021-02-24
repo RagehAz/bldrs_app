@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:bldrs/models/flyer_model.dart';
+import 'package:bldrs/models/sub_models/link_model.dart';
 import 'package:bldrs/view_brains/controllers/flyer_controllers.dart';
 import 'package:bldrs/view_brains/drafters/borderers.dart';
 import 'package:bldrs/view_brains/drafters/colorizers.dart';
@@ -116,7 +117,7 @@ class _SingleSlideState extends State<SingleSlide> {
         widget.flyerZoneWidth <= (_screenWidth*0.25) && widget.flyerZoneWidth > (_screenWidth*0.1) ? 1 : 0
     ;
     // ----------------------------------------------------------------------
-    FlyerLink _theFlyerLink = FlyerLink(flyerLink: 'flyer @ index: ${widget.slideIndex}', description: 'flyer to be shared aho');
+    LinkModel _theFlyerLink = LinkModel(url: 'flyer @ index: ${widget.slideIndex}', description: 'flyer to be shared aho');
     // ----------------------------------------------------------------------
     bool _dontBlur =
     widget.picFile == null ||

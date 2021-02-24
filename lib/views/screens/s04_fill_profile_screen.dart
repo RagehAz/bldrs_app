@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:bldrs/ambassadors/services/device_services.dart';
 import 'package:bldrs/ambassadors/services/firebase_storage.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/sub_models/contact_model.dart';
