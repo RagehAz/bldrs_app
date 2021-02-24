@@ -172,7 +172,7 @@ class NavBar extends StatelessWidget {
                         BlurLayer(
                           width: _boxWidth,
                           height: _boxHeight,
-                          blur: 10,
+                          blur: Ratioz.blur1,
                           borders: _boxBorders,
                         ),
 

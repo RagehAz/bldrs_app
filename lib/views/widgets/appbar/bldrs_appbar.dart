@@ -1,4 +1,5 @@
 import 'package:bldrs/models/user_model.dart';
+import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/views/widgets/appbar/ab_localizer.dart';
 import 'package:bldrs/views/widgets/appbar/ab_main.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
@@ -100,11 +101,17 @@ class _BldrsAppBarState extends State<BldrsAppBar> {
 
           widget.pageTitle == null ? Container() :
           Center(
-            child: SuperVerse(
-              verse: widget.pageTitle,
-              size: 3,
-              margin: 10,
-              shadow: true,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: SuperVerse(
+                verse: widget.pageTitle,
+                weight: VerseWeight.thin,
+                color: Colorz.WhiteLingerie,
+                size: 3,
+                margin: 0,
+                shadow: true,
+                italic: true,
+              ),
             ),),
 
         ],

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:bldrs/dashboard/s01_dashboard.dart';
 import 'package:bldrs/models/bldrs_sections.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
 import 'package:bldrs/view_brains/router/route_names.dart';
@@ -31,7 +32,6 @@ import 'share_and_gallery_image_test.dart';
 import 'x10_pro_flyer_page_view.dart';
 import 'x11_pro_flyer_grid_view.dart';
 import 'x12_checkbox_lesson.dart';
-import 'xxx_date_fucking_timers.dart';
 // === === === === === === === === === === === === === === === === === === ===
 // ---------------------------------------------------------------------------
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
@@ -90,15 +90,9 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
   @override
   Widget build(BuildContext context) {
 
-    int _x = 8;
 // ---------------------------------------------------------------------------
     return MainLayout(
       pyramids: Iconz.PyramidsCrystal,
-      tappingRageh: (){
-        print('before switch x = $_x');
-        dynamic _newSwitchValue = decipherBldrsSection(_x);
-        print('newSwitchValue = $_newSwitchValue');
-        },
       appBarType: AppBarType.Main,
       layoutWidget: ListView(
         children: <Widget>[
@@ -116,25 +110,14 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
 
           LogoSlogan(),
 
-          // --- zeft - ADD Bz
+          // --- 0 - DASHBOARD
           BTMain(
-            buttonVerse: 'zeft - DateFuckingTimers',
-            buttonColor: Colorz.BlackBlack,
-            buttonIcon: Iconz.Clock,
-            buttonVerseShadow: true,
-            splashColor: Colorz.Yellow,
-            function: () => goToNewScreen(context, DateFuckingTimers()),
-            stretched: false,
-          ),
-
-          // --- 0 - ADD Bz
-          BTMain(
-            buttonVerse: '0 - Add new Bz',
+            buttonVerse: 'DASH BOARD',
             buttonColor: Colorz.BlackPlastic,
-            buttonIcon: Iconz.AddFlyer,
+            buttonIcon: Iconz.DashBoard,
             buttonVerseShadow: true,
             splashColor: Colorz.Yellow,
-            function: () => goToNewScreen(context, CreateBzScreen()),
+            function: () => goToNewScreen(context, DashBoard()),
             stretched: false,
           ),
 

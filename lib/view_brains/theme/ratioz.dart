@@ -82,10 +82,16 @@ static const double bzLogoCorner = 0.17152;
 // paddings
 static const double stratosphere = 70;
 static const double horizon = ddPyramidsHeight * 0.4;
-
 // -------------------------------------------------------------------------
 // Durations
 static const Duration slidingDuration = Duration(milliseconds: 600);
 static const Duration fadingDuration = Duration(milliseconds: 150);
 static const Duration slidingAndFadingDuration = Duration(milliseconds: 750);
+// -------------------------------------------------------------------------
+// Blur
+static const double blur1 = 10;
+static const double blur2 = 15;
+static const double blur3 = 20;
+// -------------------------------------------------------------------------
+
 }

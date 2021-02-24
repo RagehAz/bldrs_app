@@ -1,6 +1,6 @@
-import 'package:bldrs/ambassadors/database/db_planet/db_areas.dart';
-import 'package:bldrs/ambassadors/database/db_planet/db_countries.dart';
-import 'package:bldrs/ambassadors/database/db_planet/db_provinces.dart';
+import 'package:bldrs/dashboard/zones_manager/db_areas.dart';
+import 'package:bldrs/dashboard/zones_manager/db_countries.dart';
+import 'package:bldrs/dashboard/zones_manager/db_provinces.dart';
 import 'package:bldrs/models/planet/area_model.dart';
 import 'package:bldrs/models/planet/province_model.dart';
 import 'package:bldrs/models/planet/country_model.dart';
@@ -78,7 +78,7 @@ class CountryProvider with ChangeNotifier{
         if (_currentLanguageCode == 'en'){_provincesNames.add({'id': pr.name, 'value': pr.name});}
         else
           {
-            String _areaNameInCurrentLanguage = pr.names.firstWhere((name) => name.code == _currentLanguageCode, orElse: ()=> null)?.value;
+            String _areaNameInCurrentLanguage = pr.namez.firstWhere((name) => name.code == _currentLanguageCode, orElse: ()=> null)?.value;
             if (_areaNameInCurrentLanguage == null){_provincesNames.add({'id': pr.name, 'value': pr.name});}
             else {_provincesNames.add({'id': pr.name, 'value': _areaNameInCurrentLanguage});}
           }
@@ -95,7 +95,7 @@ class CountryProvider with ChangeNotifier{
     String _currentLanguageCode = Wordz.languageCode(context);
     _areas.forEach((ar) {
       if(ar.province == provinceID){
-          String _areaNameInCurrentLanguage = ar.names.firstWhere((name) => name.code == _currentLanguageCode, orElse: ()=> null)?.value;
+          String _areaNameInCurrentLanguage = ar.namez.firstWhere((name) => name.code == _currentLanguageCode, orElse: ()=> null)?.value;
           if (_areaNameInCurrentLanguage == null){_areasNames.add({'id': ar.id, 'value': ar.name});}
           else {_areasNames.add({'id': ar.id, 'value': _areaNameInCurrentLanguage});}
       }
@@ -106,7 +106,7 @@ class CountryProvider with ChangeNotifier{
   String getAreaNameWithCurrentLanguageIfPossible(BuildContext context, String areaID){
     String _currentLanguageCode = Wordz.languageCode(context);
     Area area = _areas.singleWhere((ar) => ar.id == areaID, orElse: ()=> null);
-    String nameInCurrentLanguage = area?.names?.singleWhere((name) => name.code == _currentLanguageCode, orElse: ()=> null)?.value;
+    String nameInCurrentLanguage = area?.namez?.singleWhere((name) => name.code == _currentLanguageCode, orElse: ()=> null)?.value;
 
     return nameInCurrentLanguage == null ? area?.name : nameInCurrentLanguage;
   }
@@ -114,7 +114,7 @@ class CountryProvider with ChangeNotifier{
   String getProvinceNameWithCurrentLanguageIfPossible(BuildContext context, String provinceName){
   String _currentLanguageCode = Wordz.languageCode(context);
   Province province = _provinces.singleWhere((ar) => ar.name == provinceName, orElse: ()=> null);
-  String nameInCurrentLanguage = province?.names?.singleWhere((name) => name.code == _currentLanguageCode, orElse: ()=> null)?.value;
+  String nameInCurrentLanguage = province?.namez?.singleWhere((name) => name.code == _currentLanguageCode, orElse: ()=> null)?.value;
 
   return nameInCurrentLanguage == null ? provinceName : nameInCurrentLanguage;
 }

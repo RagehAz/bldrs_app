@@ -66,7 +66,6 @@ class _HomeScreenState extends State<HomeScreen> {
     List<BzModel> bzz = prof.getAllBzz;
 
     return MainLayout(
-      pyramids: Iconz.PyramidsYellow,
       appBarType: AppBarType.Main,
       sky: Sky.Night,
       canRefreshFlyers: true,

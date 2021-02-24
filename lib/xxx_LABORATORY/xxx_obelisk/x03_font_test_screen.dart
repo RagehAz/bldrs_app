@@ -608,7 +608,8 @@ class FontTestScreen extends StatelessWidget {
             ),
 
             Pyramids(
-              whichPyramid: Iconz.PyramidsYellow,
+              pyramidsIcon: Iconz.PyramidsYellow,
+              loading: true,
             ),
 
             Rageh(

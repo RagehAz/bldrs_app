@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:bldrs/ambassadors/services/auth.dart';
 import 'package:bldrs/ambassadors/services/firebase_storage.dart';
 import 'package:bldrs/models/bldrs_sections.dart';
 import 'package:bldrs/models/bz_model.dart';
