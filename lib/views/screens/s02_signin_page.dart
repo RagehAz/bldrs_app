@@ -52,23 +52,17 @@ class _SignInState extends State<SignIn> {
   }
 // ---------------------------------------------------------------------------
   void _emailTextOnChanged(String val){
-    setState(() {
-      _email = val;
-    });
+    setState(() {_email = val;});
     print('email : $_email, pass : $_password');
   }
 // ---------------------------------------------------------------------------
   void _passwordTextOnChanged(String val){
-    setState(() {
-      _password = val;
-    });
+    setState(() {_password = val;});
     print('email : $_email, pass : $_password');
   }
 // ---------------------------------------------------------------------------
   void _triggerLoading(){
-    setState(() {
-      loading = !loading;
-    });
+    setState(() {loading = !loading;});
   }
 // ---------------------------------------------------------------------------
   void _horusOnTapDown(){
