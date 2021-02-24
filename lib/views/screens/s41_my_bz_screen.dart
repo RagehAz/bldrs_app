@@ -239,7 +239,7 @@ class _MyBzScreenState extends State<MyBzScreen> {
     catch(error) {
       await showDialog(
         context: context,
-        builder: (ctx)=> superAlert(context, ctx, error),
+        builder: (ctx)=> superAlert(context, ctx, error, 'Error updating Business profile'),
       );
     }
     finally {

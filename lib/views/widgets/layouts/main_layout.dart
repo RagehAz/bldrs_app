@@ -9,6 +9,7 @@ import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/widgets/appbar/bldrs_appbar.dart';
+import 'package:bldrs/views/widgets/buttons/bt_back.dart';
 import 'package:bldrs/views/widgets/nav_bar/nav_bar.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/pyramids/pyramids.dart';
@@ -108,6 +109,15 @@ class MainLayout extends StatelessWidget {
           BldrsApp.setLocale(context, temp);
         },
       ),
+
+      if (pyramids != null)
+        Positioned(
+            bottom: 0,
+            left: 0,
+            child: BldrsBackButton(
+              color: sky == Sky.Black ? Colorz.YellowZircon : Colorz.WhiteGlass,
+            ),
+    ),
 
 
     ];

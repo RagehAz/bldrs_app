@@ -38,23 +38,23 @@ class ChatBubble extends StatelessWidget {
       crossAxisAlignment: myVerse ? CrossAxisAlignment.end : CrossAxisAlignment.start,
       children: <Widget>[
 
-        FutureBuilder(
-          future: FirebaseFirestore.instance.collection('users').doc(userID).get(), // this should be removed from inside the fucking bubble ya max ya 5ara
-          builder: (context, snapshot){
-
-            if (connectionIsWaiting(snapshot)){
-              return Loading();
-            } else {
-              String _userName = snapshot.data['name'];
-              return
-                SuperVerse(
-                  verse: _userName,
-                );
-            }
-
-
-          },
-        ),
+        // FutureBuilder(
+        //   future: FirebaseFirestore.instance.collection('users').doc(userID).get(), // this should be removed from inside the fucking bubble ya max ya 5ara
+        //   builder: (context, snapshot){
+        //
+        //     if (connectionIsWaiting(snapshot)){
+        //       return Loading();
+        //     } else {
+        //       String _userName = snapshot.data['name'];
+        //       return
+        //         SuperVerse(
+        //           verse: _userName,
+        //         );
+        //     }
+        //
+        //
+        //   },
+        // ),
 
         Row(
           mainAxisAlignment: myVerse ? MainAxisAlignment.end : MainAxisAlignment.start,
