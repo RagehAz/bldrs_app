@@ -124,22 +124,3 @@ int cipherFlyerType (FlyerType x){
     default : return null;
   }
 }
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
-class FlyerLink{
-  final String flyerLink;
-  final String description;
-
-  FlyerLink({
-    @required this.flyerLink,
-    @required this.description,
-  });
-
-  Map<String, Object> toMap(){
-    return {
-    'flyerLink' : flyerLink,
-    'description' : description,
-    };
-  }
-
-}
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x

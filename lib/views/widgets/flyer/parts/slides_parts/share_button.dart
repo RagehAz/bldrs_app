@@ -1,3 +1,4 @@
+import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/drafters/shadowers.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
@@ -135,23 +136,24 @@ class ShareBT extends StatelessWidget {
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
+                children: <Widget>[
+
                   // --- BUTTON ICON
                   Container(
                     width: iconWidth,
                     height: iconHeight,
-                    padding: buttonIcon == Iconz.Share
-                        ? EdgeInsets.all(iconWidth * 0.075)
-                        : EdgeInsets.all(0),
+                    padding: buttonIcon == Iconz.Share ?
+                    EdgeInsets.all(iconWidth * 0.075) : EdgeInsets.all(0),
                     color: iconTestBoxColor, // for designing
                     child: WebsafeSvg.asset(
                       buttonIcon,
                     ),
                   ),
 
-                  flyerZoneWidth < MediaQuery.of(context).size.width * 0.75 ||
-                      buttonVerse == Wordz.saved(context) ?
-                  Container() :
+                  if (
+                  superFlyerMiniMode(context, flyerZoneWidth) ||
+                      buttonVerse == Wordz.saved(context)
+                  )
                   // --- BUTTON VERSE
                   SuperVerse(
                     verse: buttonVerse,
@@ -164,6 +166,7 @@ class ShareBT extends StatelessWidget {
                     designMode: false,
                     scaleFactor: flyerZoneWidth/screenWidth,
                   ),
+
                 ],
               )
             ],

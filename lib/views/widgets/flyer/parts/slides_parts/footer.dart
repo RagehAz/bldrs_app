@@ -34,7 +34,7 @@ class FlyerFooter extends StatelessWidget {
     double _flyerZoneWidth = flyerZoneWidth;
     double _flyerBottomCorners = flyerZoneWidth * Ratioz.xxflyerBottomCorners;
     // ----------------------------------------------------------------------
-    bool _miniMode = flyerZoneWidth < _screenWidth * 0.75 ? true : false ;
+    bool _miniMode = superFlyerMiniMode(context, flyerZoneWidth) ;
 
     // --- SHARE & SAVE BUTTONS --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- SHARE & SAVE BUTTONS
     double _footerBTMargins = flyerZoneWidth * 0.025; //
@@ -83,18 +83,16 @@ class FlyerFooter extends StatelessWidget {
                   gradient: LinearGradient(
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
-                      colors: [
+                      colors: <Color>[
                         Colorz.BlackNothing,
                         Colorz.BlackPlastic,
                         Colorz.BlackBlack
                       ],
-                      stops: [
-                        0.35,
-                        0.85,
-                        1
-                      ])),
+                      stops: <double>[0.35, 0.85, 1])
+              ),
             ),
-            _miniMode == true ? Container() :
+
+            if (!_miniMode)
             // --- SHARE BUTTON
             Positioned(
               right: Wordz.textDirection(context) == 'ltr' ? null : 0,
