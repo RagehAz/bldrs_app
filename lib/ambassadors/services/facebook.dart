@@ -1,8 +1,10 @@
+import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/users_provider.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
 import 'package:bldrs/view_brains/router/route_names.dart';
+import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -15,7 +17,7 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 // need to fix if user signed in with facebook previously,, use the existing proile and not overwrite the existing user profile data
 // === === === === === === === === === === === === === === === === === === ===
-Future<UserCredential> signInWithFacebook(BuildContext context) async {
+Future<UserCredential> signUpWithFacebook(BuildContext context, Zone zone) async {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   // ---------------------------------------------------------------------------
   try {
@@ -37,14 +39,23 @@ Future<UserCredential> signInWithFacebook(BuildContext context) async {
       name: user.displayName,
       pic: user.photoURL,
       title: '',
+      company: '',
       gender: Gender.any,
-      country: "egy",
-      language: "en",
+      country: zone.countryID,
+      province: zone.provinceID,
+      area: zone.areaID,
+      language: Wordz.languageCode(context),
       position: GeoPoint(0, 0),
-      contacts: [
+      contacts: <ContactModel>[
         ContactModel(
-          contact: user.email,
-            contactType: ContactType.Email)
+            contact: user.email,
+            contactType: ContactType.Email
+        ),
+        ContactModel(
+            contact: user.phoneNumber,
+            contactType: ContactType.Phone,
+        ),
+
       ],
       // -------------------------
       savedFlyersIDs: [''],
@@ -64,4 +75,9 @@ Future<UserCredential> signInWithFacebook(BuildContext context) async {
     print(e.message);
   } finally {}
   return null;
+}
+
+
+dynamic signInWithFacebook(BuildContext context) async {
+
 }

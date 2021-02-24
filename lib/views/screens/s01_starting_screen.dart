@@ -1,9 +1,7 @@
 import 'package:bldrs/ambassadors/services/facebook.dart';
 import 'package:bldrs/ambassadors/services/google.dart';
-import 'package:bldrs/ambassadors/services/google.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/view_brains/controllers/devicerz.dart';
-import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
 import 'package:bldrs/view_brains/router/route_names.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
@@ -28,10 +26,10 @@ class StartingScreen extends StatelessWidget {
   }
 // ----------------------------------------------------------------------------
   void _tapFacebookContinue(BuildContext context){
-    signInWithFacebook(context).then((result) {
-      if (result != null) {return goToRoute(context, Routez.FillProfile);}
-    });
-  }
+      signUpWithFacebook(context, currentZone).then((result) {
+        if (result != null) {return goToRoute(context, Routez.FillProfile);}
+      });
+    }
 // ----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

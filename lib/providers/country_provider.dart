@@ -17,34 +17,34 @@ class CountryProvider with ChangeNotifier{
   List<Country> _countries = dbCountries;
   List<Province> _provinces = dbProvinces;
   List<Area> _areas = dbAreas;
-
+// ---------------------------------------------------------------------------
   String get currentCountryID {
     return _currentCountryID;
   }
-
+// ---------------------------------------------------------------------------
   String get currentProvinceID{
     return _currentProvinceID;
   }
-
+// ---------------------------------------------------------------------------
   String get currentAreaID {
     return _currentAreaID;
   }
-
+// ---------------------------------------------------------------------------
   void changeCountry(String country){
     _currentCountryID = country;
     notifyListeners();
   }
-
+// ---------------------------------------------------------------------------
   void changeProvince(String provinceID){
     _currentProvinceID = provinceID;
     notifyListeners();
   }
-
+// ---------------------------------------------------------------------------
   void changeArea(String areaID){
     _currentAreaID = areaID;
     notifyListeners();
   }
-
+// ---------------------------------------------------------------------------
   String getFlagByIso3(String iso3){
     String flag;
     flagsMaps.forEach((map) {
@@ -52,11 +52,11 @@ class CountryProvider with ChangeNotifier{
     });
     return flag;
   }
-
+// ---------------------------------------------------------------------------
   String getCountryNameInCurrentLanguageByIso3(BuildContext context, String iso3){
     return translate(context, iso3);
   }
-
+// ---------------------------------------------------------------------------
   /// get available countries
   List<Map<String,String>> getAvailableCountries(BuildContext context){
     List<Map<String,String>> _countriesMaps = new List();
@@ -67,7 +67,7 @@ class CountryProvider with ChangeNotifier{
     });
     return _countriesMaps;
   }
-
+// ---------------------------------------------------------------------------
   /// get Provinces list by country iso3
   List<Map<String,String>> getProvincesNamesByIso3(BuildContext context, String iso3){
     List<Map<String,String>> _provincesNames = new List();
@@ -87,7 +87,7 @@ class CountryProvider with ChangeNotifier{
 
     return _provincesNames;
   }
-
+// ---------------------------------------------------------------------------
   /// get Areas list by Province name
   /// uses provinceName in English as ID
   List<Map<String, String>> getAreasNamesByProvinceID(BuildContext context, String provinceID){
@@ -102,7 +102,7 @@ class CountryProvider with ChangeNotifier{
     });
     return _areasNames;
   }
-
+// ---------------------------------------------------------------------------
   String getAreaNameWithCurrentLanguageIfPossible(BuildContext context, String areaID){
     String _currentLanguageCode = Wordz.languageCode(context);
     Area area = _areas.singleWhere((ar) => ar.id == areaID, orElse: ()=> null);
@@ -110,14 +110,14 @@ class CountryProvider with ChangeNotifier{
 
     return nameInCurrentLanguage == null ? area?.name : nameInCurrentLanguage;
   }
-
-String getProvinceNameWithCurrentLanguageIfPossible(BuildContext context, String provinceName){
+// ---------------------------------------------------------------------------
+  String getProvinceNameWithCurrentLanguageIfPossible(BuildContext context, String provinceName){
   String _currentLanguageCode = Wordz.languageCode(context);
   Province province = _provinces.singleWhere((ar) => ar.name == provinceName, orElse: ()=> null);
   String nameInCurrentLanguage = province?.names?.singleWhere((name) => name.code == _currentLanguageCode, orElse: ()=> null)?.value;
 
   return nameInCurrentLanguage == null ? provinceName : nameInCurrentLanguage;
 }
-
+// ---------------------------------------------------------------------------
 }
 
