@@ -7,7 +7,7 @@ class Area{
   /// Area id
   final String id;
   final String name;
-  final List<Namez> names;
+  final List<Namez> namez;
   /// dashboard manual switch to deactivate entire cities.
   final bool isActivated;
   /// automatic switch when flyers reach 'city publishing-target ~ 1000 flyers'
@@ -20,19 +20,51 @@ class Area{
     this.province,
     this.id,
     this.name,
-    this.names,
+    this.namez,
     this.isActivated,
     this.isPublic,
   });
 
-// Map<String, Object> toMap(){
-//   return {
-//     'iso3' : iso3,
-//     'province' : province,
-//     'name' : name,
-//     'names' : names,
-//
-//   };
-// }
+  Map<String, Object> toMap(){
+    return {
+      'iso3' : iso3,
+      'province' : province,
+      'id' : id,
+      'name' : name,
+      'namez' : cipherNamezz(namez),
+      'isActivated' : isActivated,
+      'isPublic' : isPublic,
+    };
+  }
+
+}
+// ---------------------------------------------------------------------------
+List<Map<String,dynamic>> cipherAreas(List<Area> areas){
+  List<Map<String, dynamic>> _areasList = new List();
+  areas.forEach((ar) {
+    _areasList.add(ar.toMap());
+  });
+  return _areasList;
+}
+// ---------------------------------------------------------------------------
+Area decipherAreaMap(Map<String, dynamic> map){
+  return Area(
+    iso3 : map['iso3'],
+    province : map['province'],
+    id : map['id'],
+    name : map['name'],
+    namez : decipherNamezzMaps(map['names']),
+    isActivated : map['isActivated'],
+    isPublic : map['isPublic'],
+  );
+}
+
+// ---------------------------------------------------------------------------
+List<Area> decipherAreasMaps(List<dynamic> maps){
+  List<Area> _areas = new List();
+  maps?.forEach((map) {
+    _areas.add(decipherAreaMap(map));
+  });
+  return _areas;
 }
 // ---------------------------------------------------------------------------

@@ -1,3 +1,4 @@
+import 'package:bldrs/ambassadors/services/auth.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/users_provider.dart';
 import 'package:bldrs/view_brains/controllers/streamerz.dart';
@@ -31,9 +32,9 @@ class _ChatScreenState extends State<ChatScreen> {
 
   void _sendMessage(String val) {
     closeKeyboard(context);
-    final _user = FirebaseAuth.instance.currentUser;
+    final _userID = superUserID();
     _chatsCollection.add({
-      'userID': _user.uid,
+      'userID': _userID,
       'text': _enteredMessage,
       'at': Timestamp.now(),
     });

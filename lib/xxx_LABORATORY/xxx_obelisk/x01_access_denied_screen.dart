@@ -30,7 +30,8 @@ class AccessDeniedScreen extends StatelessWidget {
             ),
 
             Pyramids(
-              whichPyramid: Iconz.PyramidzYellow,
+              pyramidsIcon: Iconz.PyramidzYellow,
+              loading: true,
             ),
 
           ],

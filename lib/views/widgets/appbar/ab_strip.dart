@@ -25,7 +25,7 @@ class ABStrip extends StatelessWidget {
 
     double _screenWidth = superScreenWidth(context);
     double _abWidth = _screenWidth - (2 * Ratioz.ddAppBarMargin);
-    double _blurValue = appBarType == AppBarType.Localizer || appBarType == AppBarType.Sections? 10 : 5;
+    double _blurValue = appBarType == AppBarType.Localizer || appBarType == AppBarType.Sections? Ratioz.blur2 : Ratioz.blur1;
 
     return Container(
       width: _abWidth,
