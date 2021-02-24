@@ -1,3 +1,4 @@
+import 'package:bldrs/ambassadors/services/auth.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/users_provider.dart';
 import 'package:bldrs/view_brains/drafters/colorizers.dart';
@@ -133,13 +134,13 @@ class UserBalloon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final _user = Provider.of<UserModel>(context);
+    final String _userID = superUserID();
 
     return
     balloonColor == null ?
 
       StreamBuilder<UserModel>(
-        stream: UserProvider(userID: _user.userID).userData,
+        stream: UserProvider(userID: _userID)?.userData,
         builder: (context, snapshot){
           if(snapshot.hasData == false){
             return Loading(
