@@ -26,19 +26,26 @@ class _ZonesManagerState extends State<ZonesManager> {
   final List<Area> _areas = dbAreas;
   final FirebaseFirestore _fireInstance = FirebaseFirestore.instance;
   CollectionReference _countriesCollection;
+// ---------------------------------------------------------------------------
+  /// --- LOADING BLOCK
   bool _loading = false;
-
+  void _triggerLoading(){
+    setState(() {_loading = !_loading;});
+    _loading == true?
+    print('LOADING') : print('LOADING COMPLETE');
+  }
+// ---------------------------------------------------------------------------
   @override
   void initState() {
     _countriesCollection = _fireInstance.collection('countries');
     super.initState();
   }
-
-
+// ---------------------------------------------------------------------------
   Future<void> _uploadCountriesToFirebase() async {
     print('starting countries uploading');
+    _triggerLoading();
     try {
-      Map<String, dynamic> _postData = geebCountryByIso3('egy').toMap();
+      Map<String, dynamic> _postData = geebCountryByIso3('sau').toMap();
 
       /// this specifies country name as Firestore document's id
       await _countriesCollection.doc(_postData['name']).set(_postData);
@@ -46,16 +53,9 @@ class _ZonesManagerState extends State<ZonesManager> {
     } catch(error) {
       superDialog(context, error);
     }
+    _triggerLoading();
   }
-
-  void _triggerLoading(){
-    setState(() {
-      _loading = !_loading;
-    });
-    _loading == true?
-    print('LOADING') : print('LOADING COMPLETE');
-  }
-
+// ---------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -85,15 +85,6 @@ class _ZonesManagerState extends State<ZonesManager> {
               verseColor: Colorz.BlackBlack,
               verseWeight: VerseWeight.black,
               boxFunction: _uploadCountriesToFirebase,
-            ),
-
-            DreamBox(
-              height: 50,
-              verse: 'trigger loading',
-              icon: Iconz.Clock,
-              color: _loading ? Colorz.Green : Colorz.Grey,
-              boxMargins: EdgeInsets.all(20),
-              boxFunction: _triggerLoading,
             ),
 
           ],

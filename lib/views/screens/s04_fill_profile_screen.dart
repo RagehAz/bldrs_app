@@ -54,7 +54,15 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
   String _currentPinterest;
   String _currentTikTok;
   String _currentTwitter;
-  // ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
+  /// --- LOADING BLOCK
+  bool _loading = false;
+  void _triggerLoading(){
+    setState(() {_loading = !_loading;});
+    _loading == true?
+    print('LOADING') : print('LOADING COMPLETE');
+  }
+// ---------------------------------------------------------------------------
   void _changeName(String val){
     setState(()=> _currentName = val);
   }
@@ -278,6 +286,8 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
     final _user = Provider.of<UserModel>(context);
 
     return MainLayout(
+      pyramids: Iconz.PyramidzYellow,
+      loading: _loading,
       layoutWidget: ListView(
         children: <Widget>[
 
@@ -504,7 +514,10 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                         verseScaleFactor: 1.5,
                         boxMargins: EdgeInsets.all(20),
                         boxFunction: ()async{
+
                           if(_formKey.currentState.validate()){
+
+                            _triggerLoading();
 
                             String _userPicURL;
 
@@ -547,7 +560,7 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                             }catch(error){
                               print(error.toString());
                             }
-
+                            _triggerLoading();
                           }
 
                         },
