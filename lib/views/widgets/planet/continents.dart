@@ -38,7 +38,8 @@ class Continents extends StatelessWidget {
             // ABMain(),
 
             Pyramids(
-              whichPyramid: Iconz.PyramidzYellow,
+              pyramidsIcon: Iconz.PyramidzYellow,
+              loading: true,
             ),
 
           ],

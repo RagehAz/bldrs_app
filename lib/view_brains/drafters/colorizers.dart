@@ -1,4 +1,5 @@
 import 'package:bldrs/view_brains/theme/colorz.dart';
+import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui';
 // === === === === === === === === === === === === === === === === === === ===
@@ -6,8 +7,8 @@ Gradient superSlideGradient(){
   Gradient slideGradient = LinearGradient(
       begin: Alignment.topCenter,
       end: Alignment.bottomCenter,
-      colors: [Colorz.BlackLingerie, Colorz.BlackNothing],
-      stops: [0,0.90]
+      colors: <Color>[Colorz.BlackLingerie, Colorz.BlackNothing],
+      stops: <double>[0,0.90]
   );
   return slideGradient;
 }
@@ -16,8 +17,8 @@ Gradient superHeaderStripGradient(Color color){
   Gradient headerStripGradient = LinearGradient(
       begin: Alignment.topCenter,
       end: Alignment.bottomCenter,
-      colors: [Colorz.Nothing, color],
-      stops: [0.3, 1]);
+      colors: <Color>[Colorz.Nothing, color],
+      stops: <double>[0.3, 1]);
 return headerStripGradient;
 }
 // === === === === === === === === === === === === === === === === === === ===
@@ -25,8 +26,8 @@ Gradient superFollowBTGradient(){
   Gradient followBTGradient = LinearGradient(
       begin: Alignment.topCenter,
       end: Alignment.bottomCenter,
-      colors: [Colorz.WhiteZircon, Colorz.Nothing],
-      stops: [0, 0.5]
+      colors: <Color>[Colorz.WhiteZircon, Colorz.Nothing],
+      stops: <double>[0, 0.5]
   );
 return followBTGradient;
 }
@@ -45,7 +46,7 @@ class BlurLayer extends StatelessWidget {
 
   BlurLayer({
     this.borders,
-    this.blur = 10,
+    this.blur = Ratioz.blur1,
     this.width = double.infinity,
     this.height = double.infinity,
 });
@@ -62,7 +63,7 @@ class BlurLayer extends StatelessWidget {
             width: width,
             height: height,
             decoration: BoxDecoration(
-              color: Colorz.WhiteAir,
+              color: Colorz.WhiteGlass,
               borderRadius: borders,
             ),
           ),
@@ -71,7 +72,7 @@ class BlurLayer extends StatelessWidget {
     );
   }
 }
-
+// === === === === === === === === === === === === === === === === === === ===
 ColorFilter superDesaturation(bool isItBlackAndWhite){
   Color imageSaturationColor = isItBlackAndWhite == true ? Colorz.Grey : Colorz.Nothing;
   return ColorFilter.mode(
@@ -79,3 +80,4 @@ ColorFilter superDesaturation(bool isItBlackAndWhite){
       BlendMode.saturation
   );
 }
+// === === === === === === === === === === === === === === === === === === ===

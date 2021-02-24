@@ -120,8 +120,3 @@ bool userIsAuthor(UserStatus userStatus){
       userStatus == UserStatus.BzAuthor ? true : false ;
 }
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
-String superUserID(){
-  String userID = (FirebaseAuth.instance.currentUser).uid;
-  return userID;
-}
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x

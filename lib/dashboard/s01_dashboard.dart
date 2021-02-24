@@ -1,5 +1,7 @@
 // this in app dashboard will be separated into separate app to control database and audit app content
 // or now it will be developed here until launch version is complete
+import 'package:bldrs/dashboard/s02_statistics.dart';
+import 'package:bldrs/dashboard/s05_keywords_manager.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
@@ -9,13 +11,10 @@ import 'package:bldrs/views/widgets/buttons/bt_back.dart';
 import 'package:bldrs/views/widgets/buttons/bt_main.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
-import 'package:bldrs/xxx_LABORATORY/dashboard/s02_statistics.dart';
-import 'package:bldrs/xxx_LABORATORY/dashboard/s05_keywords_manager.dart';
-import 'package:bldrs/xxx_LABORATORY/dashboard/s06_flyers_auditor.dart';
 import 'package:flutter/material.dart';
-
-import 's03_zones_manager.dart';
 import 's04_notifications_manager.dart';
+import 's06_flyers_auditor.dart';
+import 'zones_manager/zones_manager.dart';
 
 class DashBoard extends StatefulWidget {
 

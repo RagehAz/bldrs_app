@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/users_provider.dart';
 import 'package:bldrs/view_brains/router/route_names.dart';
@@ -8,17 +10,51 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 
-class Pyramids extends StatelessWidget {
-  final String whichPyramid;
+class Pyramids extends StatefulWidget {
+  final String pyramidsIcon;
   final Function onDoubleTap;
+  final bool loading;
 
   Pyramids({
-    @required this.whichPyramid,
+    @required this.pyramidsIcon,
     this.onDoubleTap,
+    @required this.loading,
   });
 
   @override
+  _PyramidsState createState() => _PyramidsState();
+}
+
+class _PyramidsState extends State<Pyramids> with TickerProviderStateMixin {
+AnimationController _controller;
+Animation _pyramidsAnimation;
+int _fadeCycleDuration = 750;
+
+  @override
+  void initState() {
+
+    _controller = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: _fadeCycleDuration),
+    );
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+
+    if (widget.loading == true){
+      _controller.repeat(reverse: true);
+    } else {
+      _controller.forward();
+    }
 
     final _user = Provider.of<UserModel>(context);
 
@@ -33,11 +69,11 @@ class Pyramids extends StatelessWidget {
 //           alignment: Alignment.bottomRight,
 
         child: GestureDetector(
-          onDoubleTap: onDoubleTap,
+          onDoubleTap: widget.onDoubleTap,
           onLongPress: () {
             Navigator.pushNamed(context, Routez.Obelisk);
           },
-          onTap: whichPyramid == Iconz.PyramidsYellow ? () {
+          onTap: widget.pyramidsIcon == Iconz.PyramidsYellow ? () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
                     return
 
@@ -57,10 +93,13 @@ class Pyramids extends StatelessWidget {
 
                   }));
                 }
-              : whichPyramid == Iconz.PyramidsWhite ?
+              : widget.pyramidsIcon == Iconz.PyramidsWhite ?
               () { Navigator.pop(context); }
                   : () {},
-          child: WebsafeSvg.asset(whichPyramid),
+          child: FadeTransition(
+            opacity: _controller,
+            child: WebsafeSvg.asset(widget.pyramidsIcon),
+          ),
         ),
       ),
     );

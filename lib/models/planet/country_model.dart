@@ -11,7 +11,7 @@ class Country{
   /// automatic switch when country reaches 'Global target' ~ 10'000 flyers
   /// then country flyers will be visible to other countries users 'bzz & users'
   final bool isGlobal;
-  final List<Province> cities;
+  final List<Province> provinces;
   /// lang codes tiers
   /// A:-
   /// AR:Arabic, ES:Spanish, FR:French, ZH:Chinese, DE:German, IT:Italian,
@@ -33,8 +33,23 @@ class Country{
     this.flag,
     this.isActivated,
     this.isGlobal,
-    this.cities,
+    this.provinces,
     this.language,
   });
+
+  Map<String, dynamic> toMap(){
+    return {
+      'iso3' : iso3,
+      'name' : name,
+      'region' : region,
+      'continent' : continent,
+      'flag' : flag,
+      'isActivated' : isActivated,
+      'isGlobal' : isGlobal,
+      'provinces' : cipherProvinces(provinces),
+      'language' : language,
+    };
+  }
+
 }
 // ---------------------------------------------------------------------------

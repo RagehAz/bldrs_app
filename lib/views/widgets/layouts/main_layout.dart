@@ -5,11 +5,13 @@ import 'package:bldrs/view_brains/drafters/keyboarders.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/localization/localization_constants.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
+import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/widgets/appbar/bldrs_appbar.dart';
 import 'package:bldrs/views/widgets/nav_bar/nav_bar.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
+import 'package:bldrs/views/widgets/pyramids/pyramids.dart';
 import 'package:bldrs/views/widgets/space/skies/black_sky.dart';
 import 'package:bldrs/views/widgets/space/skies/night_sky.dart';
 import 'package:flutter/material.dart';
@@ -42,6 +44,7 @@ class MainLayout extends StatelessWidget {
   final String pageTitle;
   final Sky sky;
   final bool canRefreshFlyers;
+  final bool loading;
 
   MainLayout({
     this.appBarRowWidgets,
@@ -52,6 +55,7 @@ class MainLayout extends StatelessWidget {
     this.pageTitle,
     this.sky = Sky.Night,
     this.canRefreshFlyers = false,
+    this.loading = false,
 });
 
   Future<void> _refresh(BuildContext context) async {
@@ -62,6 +66,51 @@ class MainLayout extends StatelessWidget {
   Widget build(BuildContext context) {
 
     bool _ragehIsOn = tappingRageh == null ? false : true;
+
+    final List<Widget> _mainLayoutStackWidgets = <Widget>[
+
+      sky == Sky.Black ? BlackSky() :
+      NightSky(),
+
+      layoutWidget == null ? Container() :
+      layoutWidget,
+
+      if(appBarType!=null)
+        BldrsAppBar(
+          appBarType: appBarType,
+          appBarRowWidgets: appBarRowWidgets,
+          pageTitle: pageTitle,
+        ),
+
+      if (pyramids != null)
+        Pyramids(
+          pyramidsIcon: pyramids,
+          loading: loading,
+        ),
+
+      // --- NAV BAR
+      if (pyramids == null)
+      NavBar(
+        barType: BarType.min,
+      ),
+
+      _ragehIsOn == false ? Container() :
+      Rageh(
+        tappingRageh: tappingRageh != null ? tappingRageh : (){print('no function here bitch');},
+        doubleTappingRageh:
+        Wordz.activeLanguage(context) == 'Arabic' ?
+            () async {
+          Locale temp = await setLocale('en');
+          BldrsApp.setLocale(context, temp);
+        } :
+            () async {
+          Locale temp = await setLocale('ar');
+          BldrsApp.setLocale(context, temp);
+        },
+      ),
+
+
+    ];
 
     return StreamProvider<List<UserModel>>.value(
       value: UserProvider().userStream,
@@ -82,45 +131,7 @@ class MainLayout extends StatelessWidget {
               strokeWidth: 4,
               child: Stack(
                 alignment: Alignment.topCenter,
-                children: <Widget>[
-
-                  sky == Sky.Black ? BlackSky() :
-                  NightSky(),
-
-                  layoutWidget == null ? Container() :
-                  layoutWidget,
-
-                  if(appBarType!=null)
-                    BldrsAppBar(
-                      appBarType: appBarType,
-                      appBarRowWidgets: appBarRowWidgets,
-                      pageTitle: pageTitle,
-                    ),
-
-                  // pyramids == null ? Container() :
-                  // Pyramids(whichPyramid: appBarType == AppBarType.Localizer ? Iconz.PyramidzYellow : pyramids),
-
-                  // --- CHAT BUTTON
-                  NavBar(
-                    barType: BarType.min,
-                  ),
-
-                  _ragehIsOn == false ? Container() :
-                  Rageh(
-                    tappingRageh: tappingRageh != null ? tappingRageh : (){print('no function here bitch');},
-                    doubleTappingRageh:
-                    Wordz.activeLanguage(context) == 'Arabic' ?
-                        () async {
-                      Locale temp = await setLocale('en');
-                      BldrsApp.setLocale(context, temp);
-                    } :
-                        () async {
-                      Locale temp = await setLocale('ar');
-                      BldrsApp.setLocale(context, temp);
-                    },
-                  ),
-
-                ],
+                children: _mainLayoutStackWidgets,
               ),
             )
 
@@ -128,46 +139,7 @@ class MainLayout extends StatelessWidget {
 
             Stack(
               alignment: Alignment.topCenter,
-              children: <Widget>[
-
-                // --- BACKGROUND SKY
-                sky == Sky.Black ? BlackSky() :
-                NightSky(),
-
-                // --- LAYOUT WIDGET
-                layoutWidget == null ? Container() :
-                layoutWidget,
-
-                // --- BLDRS APPBAR
-                if(appBarType!=null)
-                  BldrsAppBar(
-                    appBarType: appBarType,
-                    appBarRowWidgets: appBarRowWidgets,
-                    pageTitle: pageTitle,
-                  ),
-
-                // --- PYRAMIDS
-                // pyramids == null ? Container() :
-                // Pyramids(whichPyramid: appBarType == AppBarType.Localizer ? Iconz.PyramidzYellow : pyramids),
-
-
-                // --- RAGEH BUTTON
-                _ragehIsOn == false ? Container() :
-                Rageh(
-                  tappingRageh: tappingRageh != null ? tappingRageh : (){print('no function here bitch');},
-                  doubleTappingRageh:
-                  Wordz.activeLanguage(context) == 'Arabic' ?
-                      () async {
-                    Locale temp = await setLocale('en');
-                    BldrsApp.setLocale(context, temp);
-                  } :
-                      () async {
-                    Locale temp = await setLocale('ar');
-                    BldrsApp.setLocale(context, temp);
-                  },
-                ),
-
-              ],
+              children: _mainLayoutStackWidgets,
             ),
 
           ),
@@ -189,7 +161,7 @@ Widget zorar(Function function, String functionName){
   );
 }
 
-// --- THE HORIZON IS JUST A BOTTOM PADDING AT THE BOTTOM OF ANY SCROLLABLE SCREEN
+/// --- THE HORIZON IS BOTTOM PADDING THAT RESPECTS PYRAMIDS HEIGHT
 class PyramidsHorizon extends StatelessWidget {
   final double heightFactor;
 
@@ -206,6 +178,7 @@ class PyramidsHorizon extends StatelessWidget {
   }
 }
 
+/// --- STRATOSPHERE IS UPPER SCREEN PADDING THAT RESPECTS APPBAR HEIGHT
 class Stratosphere extends StatelessWidget {
   final double heightFactor;
 
