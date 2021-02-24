@@ -18,7 +18,6 @@ import 'package:provider/provider.dart';
 
 class ChatScreen extends StatefulWidget {
 
-
   @override
   _ChatScreenState createState() => _ChatScreenState();
 }
