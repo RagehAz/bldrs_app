@@ -9,10 +9,12 @@ import 'dream_box.dart';
 class BldrsBackButton extends StatelessWidget {
   final double size;
   final Function onTap;
+  final Color color;
 
   BldrsBackButton({
     this.size = 40,
     this.onTap,
+    this.color = Colorz.WhiteAir,
 });
 
   @override
@@ -25,7 +27,7 @@ class BldrsBackButton extends StatelessWidget {
       icon: superBackIcon(context),
       iconSizeFactor: 1,
       bubble: false,
-      color: Colorz.WhiteAir,
+      color: color,
       textDirection: superInverseTextDirection(context),
       boxFunction: onTap == null ? () => goBack(context) : onTap,
     );

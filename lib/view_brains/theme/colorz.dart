@@ -45,6 +45,7 @@ class Colorz {
   static const YellowSmoke = Color.fromARGB(smokeOpacity, 255, 192, 0);
   static const YellowAir = Color.fromARGB(airOpacity, 255, 192, 0);
   static const YellowGlass = Color.fromARGB(glassOpacity, 255, 192, 0);
+  static const YellowZircon = Color.fromARGB(zirconOpacity, 255, 192, 0);
   static const YellowPlastic = Color.fromARGB(plasticOpacity, 255, 192, 0);
   static const YellowLingerie = Color.fromARGB(lingerieOpacity, 255, 192, 0);
 
