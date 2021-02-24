@@ -1,15 +1,22 @@
 import 'package:bldrs/models/planet/area_model.dart';
 import 'package:bldrs/models/planet/country_model.dart';
 import 'package:bldrs/models/planet/province_model.dart';
+import 'package:bldrs/view_brains/controllers/streamerz.dart';
+import 'package:bldrs/view_brains/drafters/aligners.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
+import 'package:bldrs/view_brains/drafters/texters.dart';
+import 'package:bldrs/view_brains/router/navigators.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
+import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'country_screen.dart';
 import 'db_areas.dart';
 import 'db_countries.dart';
 import 'db_provinces.dart';
@@ -51,16 +58,21 @@ class _ZonesManagerState extends State<ZonesManager> {
       await _countriesCollection.doc(_postData['name']).set(_postData);
 
     } catch(error) {
-      superDialog(context, error);
+      superDialog(context, error, 'Uploading error');
     }
     _triggerLoading();
   }
 // ---------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+    final Stream<QuerySnapshot> _countriesList = _countriesCollection.snapshots();
+    // List<Country> _countriesList = dbCountries;
 
     double _screenWidth = superScreenWidth(context);
     double _screenHeight = superScreenHeight(context);
+
+    double _countryButtonWidth = _screenWidth - superVerseRealHeight(context, 2, 1, null);
+
 
     return MainLayout(
       pyramids: Iconz.PyramidzYellow,
@@ -85,6 +97,69 @@ class _ZonesManagerState extends State<ZonesManager> {
               verseColor: Colorz.BlackBlack,
               verseWeight: VerseWeight.black,
               boxFunction: _uploadCountriesToFirebase,
+              boxMargins: EdgeInsets.all(10),
+            ),
+
+            InPyramidsBubble(
+              centered: true,
+              bubbleColor: Colorz.WhiteGlass,
+              columnChildren: <Widget>[
+
+                Container(
+                  width: _screenWidth,
+                  height: _screenWidth,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+
+                      SuperVerse(
+                        verse: 'Countries in FireStore',
+                        size: 2,
+                        weight: VerseWeight.bold,
+                        italic: true,
+                        centered: true,
+                      ),
+
+                      Container(
+                        width: _screenWidth,
+                        height: _countryButtonWidth,
+                        child: StreamBuilder(
+                          stream: _countriesList,
+                          builder: (ctx, streamSnapshots){
+                            List<dynamic> _countriesMaps = streamSnapshots?.data?.docs;
+                            List<Country> _countries = decipherCountriesMaps(_countriesMaps);
+
+                            if (connectionIsWaiting(streamSnapshots)){
+                              return Loading();
+                            }
+                            return ListView.builder(
+                              itemCount: _countries.length,
+                              itemBuilder: (context, index){
+
+                                return
+                                  DreamBox(
+                                    height: _countryButtonWidth * 0.12,
+                                    width: _countryButtonWidth - _screenWidth * 0.2,
+                                    icon: _countries[index].flag,
+                                    verse: _countries[index].name,
+                                    verseMaxLines: 2,
+                                    verseScaleFactor: 0.6,
+                                    boxMargins: EdgeInsets.all(7.5),
+                                    boxFunction: () => goToNewScreen(context, CountryScreen(country: _countries[index])),
+                                  );
+
+                              },
+                            );
+                          },
+                        ),
+                      ),
+
+                    ],
+                  ),
+                ),
+
+              ],
             ),
 
           ],

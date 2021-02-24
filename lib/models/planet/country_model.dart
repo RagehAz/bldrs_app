@@ -53,3 +53,25 @@ class Country{
 
 }
 // ---------------------------------------------------------------------------
+Country decipherCountryMap(dynamic map){
+  return Country(
+    iso3 : map['iso3'],
+    name : map['name'],
+    region : map['region'],
+    continent : map['continent'],
+    flag : map['flag'],
+    isActivated : map['isActivated'],
+    isGlobal : map['isGlobal'],
+    provinces : decipherProvincesMaps(map['provinces']),
+    language : map['language'],
+  );
+}
+// ---------------------------------------------------------------------------
+List<Country> decipherCountriesMaps(List<dynamic> maps){
+  List<Country> _countries = new List();
+  maps.forEach((map) {
+    _countries.add(decipherCountryMap(map));
+  });
+  return _countries;
+ }
+// ---------------------------------------------------------------------------

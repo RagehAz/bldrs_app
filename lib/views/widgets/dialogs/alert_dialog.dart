@@ -6,14 +6,14 @@ import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 // ----------------------------------------------------------------------
-AlertDialog superAlert (BuildContext context, BuildContext ctx, dynamic error) {
+AlertDialog superAlert (BuildContext context, BuildContext ctx, dynamic error, String title) {
   return
     AlertDialog(
 
-      title: SuperVerse(verse: 'ops !', color: Colorz.BlackBlack,),
+      title: SuperVerse(verse: title, color: Colorz.BlackBlack,),
 
       content: SuperVerse(
-        verse: 'error is : ${error.toString()}',
+        verse: error.toString(),
         color: Colorz.BlackBlack,
         maxLines: 10,
       ),
@@ -50,10 +50,10 @@ AlertDialog superAlert (BuildContext context, BuildContext ctx, dynamic error) {
     );
 }
 // ----------------------------------------------------------------------
-Future<dynamic> superDialog(BuildContext context, dynamic error) async {
+Future<dynamic> superDialog(BuildContext context, dynamic error, String title) async {
   Future<dynamic> _dialog = showDialog(
     context: context,
-    builder: (ctx)=> superAlert(context, ctx, error),
+    builder: (ctx)=> superAlert(context, ctx, error, title),
   );
   return _dialog;
 }

@@ -191,7 +191,7 @@ class _EditBzScreenState extends State<EditBzScreen> {
 
     }
     catch(error){
-      await superDialog(context, error);
+      await superDialog(context, error, 'Error Editing Business profile');
     }
 
       return new BzModel(
@@ -244,7 +244,7 @@ class _EditBzScreenState extends State<EditBzScreen> {
     try {
       await pro.updateBz(_newBzModel);
     }
-    catch(error) { await superDialog(context, error); }
+    catch(error) { await superDialog(context, error, 'Error updating Business profile'); }
     finally {
       _triggerLoading();
       goBack(context);
