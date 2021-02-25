@@ -1,3 +1,5 @@
+import 'package:bldrs/view_brains/drafters/stringers.dart';
+
 import 'province_model.dart';
 // ---------------------------------------------------------------------------
 class Country{
@@ -69,9 +71,23 @@ Country decipherCountryMap(dynamic map){
 // ---------------------------------------------------------------------------
 List<Country> decipherCountriesMaps(List<dynamic> maps){
   List<Country> _countries = new List();
-  maps.forEach((map) {
+  maps?.forEach((map) {
     _countries.add(decipherCountryMap(map));
   });
   return _countries;
  }
+// ---------------------------------------------------------------------------
+List<String> getProvincesNamesFromCountryModel(Country country){
+  List<String> _provincesNames = new List();
+
+  List<Province> _provinces = country.provinces;
+
+  _provinces.forEach((pr) {
+    _provincesNames.add(pr.name);
+  });
+
+  _provincesNames = sortAlphabetically(_provincesNames);
+
+  return _provincesNames;
+}
 // ---------------------------------------------------------------------------

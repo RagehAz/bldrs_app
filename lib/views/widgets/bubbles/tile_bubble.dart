@@ -1,4 +1,5 @@
 import 'package:bldrs/view_brains/drafters/scalers.dart';
+import 'package:bldrs/view_brains/drafters/texters.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
@@ -12,6 +13,9 @@ class TileBubble extends StatelessWidget {
   final double iconSizeFactor;
   final Color verseColor;
   final Function btOnTap;
+  final String secondLine;
+  bool switchIsOn;
+  final Function switching;
 
   TileBubble({
     @required this.verse,
@@ -20,6 +24,9 @@ class TileBubble extends StatelessWidget {
     this.iconSizeFactor = 0.6,
     this.verseColor = Colorz.White,
     this.btOnTap,
+    this.secondLine,
+    this.switchIsOn,
+    this.switching,
   });
 
   @override
@@ -44,6 +51,7 @@ class TileBubble extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
 
+                // --- LEADING ICON
                 icon.runtimeType == String ?
                 DreamBox(
                   width: iconBoxWidth,
@@ -53,7 +61,8 @@ class TileBubble extends StatelessWidget {
                   color: iconBoxColor,
                   iconRounded: false,
                   boxMargins: EdgeInsets.symmetric(horizontal: 0),
-                ) :
+                )
+                    :
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 0),
                   child: Container(
@@ -64,15 +73,51 @@ class TileBubble extends StatelessWidget {
                   ),
                 ),
 
+                // --- MAIN TEXT
                 Container(
-                  width: superBubbleClearWidth(context) - 30,
+                  width: superBubbleClearWidth(context) - 30 - 50,
                   padding: EdgeInsets.symmetric(horizontal: 5),
-                  child: SuperVerse(
-                    verse: verse,
-                    margin: 5,
-                    color: verseColor,
-                    maxLines: 2,
-                    centered: false,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+
+                      SuperVerse(
+                        verse: verse,
+                        margin: 5,
+                        color: verseColor,
+                        maxLines: 2,
+                        centered: false,
+                      ),
+
+                      if (secondLine != null)
+                      SuperVerse(
+                        verse: secondLine,
+                        color: Colorz.WhiteLingerie,
+                        size: 1,
+                        italic: true,
+                        shadow: false,
+                        maxLines: 10,
+                        centered: false,
+                        weight: VerseWeight.thin,
+                      ),
+
+                    ],
+                  ),
+                ),
+
+                if (switchIsOn != null)
+                Container(
+                  width: 50,
+                  height: 35,
+                  child: Switch(
+                    activeColor: Colorz.Yellow,
+                    activeTrackColor: Colorz.YellowSmoke,
+                    focusColor: Colorz.DarkBlue,
+                    inactiveThumbColor: Colorz.Grey,
+                    inactiveTrackColor: Colorz.GreySmoke,
+                    value: switchIsOn,
+                    onChanged: (val) => switching(val),
                   ),
                 ),
 
