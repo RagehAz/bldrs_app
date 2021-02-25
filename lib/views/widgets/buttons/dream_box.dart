@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:bldrs/view_brains/drafters/colorizers.dart';
 import 'package:bldrs/view_brains/drafters/file_formatters.dart';
 import 'package:bldrs/view_brains/drafters/text_directionz.dart';
 import 'package:bldrs/view_brains/drafters/shadowers.dart';
@@ -42,6 +43,7 @@ class DreamBox extends StatelessWidget {
   final Function onTapCancel;
   final TextDirection textDirection;
   final bool designMode;
+  final double blur;
 
   DreamBox({
     @required this.height,
@@ -76,6 +78,7 @@ class DreamBox extends StatelessWidget {
     this.onTapCancel,
     this.textDirection,
     this.designMode = false,
+    this.blur,
   });
 
   @override
@@ -144,7 +147,7 @@ class DreamBox extends StatelessWidget {
                       decoration: BoxDecoration(
                           color: inActiveMode == true ? Colorz.WhiteAir : _boxColor,
                           borderRadius: BorderRadius.circular(corners),
-                          boxShadow: [
+                          boxShadow: <CustomBoxShadow>[
                             CustomBoxShadow(
                                 color: bubble == true ? Colorz.BlackLingerie : Colorz.Nothing,
                                 offset: new Offset(0, height * -0.019 * 0 ),
@@ -159,7 +162,17 @@ class DreamBox extends StatelessWidget {
                           alignment: Alignment.center,
                           children: <Widget>[
 
-                            dreamChild == null ? Container() :
+                            // --- BLUR LAYER
+                            if (blur != null)
+                            BlurLayer(
+                              width: width,
+                              height: height,
+                              blur: blur,
+                              borders: BorderRadius.circular(corners),
+                            ),
+
+                            // --- DREAM CHILD
+                             if (dreamChild != null)
                             Container(
                               height: height,
                               width: width,
