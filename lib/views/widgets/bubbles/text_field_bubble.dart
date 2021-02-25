@@ -47,7 +47,7 @@ class TextFieldBubble extends StatelessWidget {
     this.maxLines = 1,
     this.maxLength = 100,
     this.textController,
-    @required this.keyboardTextInputType,
+    this.keyboardTextInputType = TextInputType.text,
     this.textOnChanged,
     this.obscured,
     this.fieldIsFormField,

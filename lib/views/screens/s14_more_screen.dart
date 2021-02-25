@@ -21,6 +21,9 @@ class MoreScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    Widget _separator = BubblesSeparator();
+
     return MainLayout(
       layoutWidget: ListView(
         children: <Widget>[
@@ -32,7 +35,8 @@ class MoreScreen extends StatelessWidget {
             iconSizeFactor: 0.9,
             btOnTap: () => goToNewScreen(context, CreateBzScreen()),
           ),
-          BubblesSeparator(),
+
+          _separator,
 
           TileBubble(
             verse: Wordz.inviteFriends(context),
@@ -49,7 +53,8 @@ class MoreScreen extends StatelessWidget {
             verseColor: Colorz.White,
           ),
 
-          BubblesSeparator(),
+          _separator,
+
           TileBubble(
             verse: Wordz.changeCountry(context),
             icon: FlagBox(flag: Flagz.egy),
@@ -59,7 +64,9 @@ class MoreScreen extends StatelessWidget {
             verse: Wordz.changeLanguage(context),
             icon: Iconz.Language,
           ),
-          BubblesSeparator(),
+
+          _separator,
+
           TileBubble(
             verse: '${Wordz.about(context)} ${Wordz.bldrsShortName(context)}',
             icon: Iconz.PyramidSingleYellow,
@@ -82,7 +89,9 @@ class MoreScreen extends StatelessWidget {
             icon: Iconz.Terms,
             iconSizeFactor: 0.6,
           ),
-          BubblesSeparator(),
+
+          _separator,
+
           TileBubble(
             verse: Wordz.advertiseOnBldrs(context),
             icon: Iconz.Advertise,
@@ -93,7 +102,9 @@ class MoreScreen extends StatelessWidget {
             icon: Iconz.Marketing,
             iconSizeFactor: 0.7,
           ),
-          BubblesSeparator(),
+
+          _separator,
+
           TileBubble(
             verse: 'Open App Tutorial',
             icon: Iconz.Scholar,
@@ -114,7 +125,9 @@ class MoreScreen extends StatelessWidget {
             icon: Iconz.Gears,
             iconSizeFactor: 0.6,
           ),
-          BubblesSeparator(),
+
+          _separator,
+
           TileBubble(
             verse: Wordz.signOut(context),
             icon: Iconz.Exit,
@@ -126,6 +139,17 @@ class MoreScreen extends StatelessWidget {
               goToRoute(context, Routez.Starting);
             },
           ),
+
+          _separator,
+
+          TileBubble(
+            verse: 'To the Beyond and Further',
+            icon: Iconz.DvRageh,
+            iconSizeFactor: 1,
+            btOnTap: () => goToRoute(context, Routez.Obelisk),
+          ),
+
+
           PyramidsHorizon(
             heightFactor: 5,
           ),

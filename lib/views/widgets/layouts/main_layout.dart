@@ -1,6 +1,7 @@
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/providers/users_provider.dart';
+import 'package:bldrs/view_brains/controllers/devicerz.dart';
 import 'package:bldrs/view_brains/drafters/keyboarders.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/localization/localization_constants.dart';
@@ -110,7 +111,7 @@ class MainLayout extends StatelessWidget {
         },
       ),
 
-      if (pyramids != null)
+      if (pyramids != null && deviceIsIOS() == true)
         Positioned(
             bottom: 0,
             left: 0,
