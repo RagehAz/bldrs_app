@@ -2,6 +2,7 @@ import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/views/widgets/appbar/ab_localizer.dart';
 import 'package:bldrs/views/widgets/appbar/ab_main.dart';
+import 'package:bldrs/views/widgets/buttons/bt_back.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,7 @@ class BldrsAppBar extends StatefulWidget {
   final Function switchPages;
   // final PageType currentPage;
   final UserModel userModel;
+  final bool backButton;
 
   BldrsAppBar({
     this.appBarType = AppBarType.Main,
@@ -22,6 +24,7 @@ class BldrsAppBar extends StatefulWidget {
     this.switchPages,
     // this.currentPage,
     this.userModel,
+    this.backButton,
 });
 
   @override
@@ -62,6 +65,9 @@ class _BldrsAppBarState extends State<BldrsAppBar> {
 // ---------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
+    double _titleHorizontalMargins = widget.backButton == true ? 5 : 15;
+
     return
 
       _appBarType == AppBarType.Main
@@ -97,12 +103,16 @@ class _BldrsAppBarState extends State<BldrsAppBar> {
         rowWidgets: (_appBarType == null && widget.pageTitle == null) ? [Container()] :
         <Widget>[
 
-          ... widget.appBarRowWidgets == null ? [Container()] : widget.appBarRowWidgets,
+          if (widget.appBarRowWidgets != null)
+          ... widget.appBarRowWidgets,
 
-          widget.pageTitle == null ? Container() :
+          if(widget.backButton == true)
+            BldrsBackButton(),
+
+          if (widget.pageTitle != null)
           Center(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
+              padding: EdgeInsets.symmetric(horizontal: _titleHorizontalMargins),
               child: SuperVerse(
                 verse: widget.pageTitle,
                 weight: VerseWeight.thin,

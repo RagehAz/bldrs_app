@@ -101,24 +101,6 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
 
-          // // --- ADD NEW BZ ACCOUNT
-          // Positioned(
-          //   bottom: 0,
-          //   left: 0,
-          //   child: DreamBox(
-          //     height: 40,
-          //     verse: Wordz.createBzAccount(context),
-          //     verseColor: Colorz.White,
-          //     boxMargins: EdgeInsets.all(10),
-          //     color: Colorz.WhiteAir,
-          //     icon: Iconz.Bz,
-          //     iconSizeFactor: 0.55,
-          //     boxFunction: () {
-          //       goToRoute(context, Routez.CreateBz);
-          //     },
-          //   ),
-          // )
-
         ],
       ),
     );

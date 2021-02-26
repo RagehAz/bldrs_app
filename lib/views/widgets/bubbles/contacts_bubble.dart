@@ -49,14 +49,14 @@ class ContactsBubble extends StatelessWidget {
                     return
                         DreamBox(
                           height: contactBoxHeight,
-                          icon: superContactIcon(contactsWithStrings[index].contactType),
+                          icon: superContactIcon(contactsWithStrings[index].type),
                           boxMargins: EdgeInsets.all(abPadding),
-                          verse: contactsWithStrings[index].contact,
+                          verse: contactsWithStrings[index].value,
                           verseColor: Colorz.White,
                           verseWeight: VerseWeight.thin,
                           verseItalic: true,
                           iconSizeFactor: 0.6,
-                          boxFunction: (){launchURL('https://${contactsWithStrings[index].contact}');},
+                          boxFunction: (){launchURL('https://${contactsWithStrings[index].value}');},
                         );
                   }
               ),
@@ -74,9 +74,9 @@ class ContactsBubble extends StatelessWidget {
                     return
                       DreamBox(
                         height: contactBoxHeight,
-                        icon: superContactIcon(socialMediaContacts[index]?.contactType),
+                        icon: superContactIcon(socialMediaContacts[index]?.type),
                         boxMargins: EdgeInsets.all(abPadding),
-                        boxFunction: (){launchURL('https://${socialMediaContacts[index].contact}');},
+                        boxFunction: (){launchURL('https://${socialMediaContacts[index].value}');},
                       );
                   }
               ),

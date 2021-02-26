@@ -48,12 +48,12 @@ Future<UserCredential> signUpWithFacebook(BuildContext context, Zone zone) async
       position: GeoPoint(0, 0),
       contacts: <ContactModel>[
         ContactModel(
-            contact: user.email,
-            contactType: ContactType.Email
+            value: user.email,
+            type: ContactType.Email
         ),
         ContactModel(
-            contact: user.phoneNumber,
-            contactType: ContactType.Phone,
+            value: user.phoneNumber,
+            type: ContactType.Phone,
         ),
 
       ],
