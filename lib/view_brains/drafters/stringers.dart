@@ -180,6 +180,11 @@ String monthYearStringer(BuildContext context, DateTime time){
     '${Wordz.inn(context)} ${Wordz.bldrsShortName(context)} since : ${getMonthNameByInt(context, (time).month)} , ${(time).year} . ';
 }
 // === === === === === === === === === === === === === === === === === === ===
+String dayMonthYearStringer(BuildContext context, DateTime time){
+  return
+    '${Wordz.inn(context)} ${Wordz.bldrsShortName(context)} since : ${(time).day} ${getMonthNameByInt(context, (time).month)} ${(time).year} . ';
+}
+// === === === === === === === === === === === === === === === === === === ===
 List<String> sortAlphabetically(List<String> inputList){
   List<String> _outputList = new List();
   inputList.sort();

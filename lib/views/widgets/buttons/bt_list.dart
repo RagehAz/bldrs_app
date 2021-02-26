@@ -73,7 +73,7 @@ class ButtonsList extends StatelessWidget {
                 alignment: alignment,
                 child: DreamBox(
                     height: 35,
-                    icon: mapValueIs == MapValueIs.flag ? _countryPro.getFlagByIso3(id) : null,
+                    icon: mapValueIs == MapValueIs.flag ? getFlagByIso3(id) : null,
                     iconSizeFactor: 0.8,
                     verse: value,
                     bubble: false,

@@ -11,8 +11,25 @@ bool connectionIsWaiting(AsyncSnapshot<dynamic> snapshot){
     snapshot.connectionState == ConnectionState.waiting? true : false;
 }
 // ----------------------------------------------------------------------------
-
-Widget test(BuildContext context, Widget widget){
+bool connectionHasNoData(AsyncSnapshot<dynamic> snapshot){
+  return
+      snapshot.hasData == false ? true : false;
+}
+// ----------------------------------------------------------------------------
+bool userModelIsLoading(UserModel userModel){
+  return
+      userModel == null ? true : false;
+}
+// ----------------------------------------------------------------------------
+typedef userModelWidgetBuilder = Widget Function(
+    BuildContext context,
+    UserModel userModel,
+    );
+// ----------------------------------------------------------------------------
+Widget userStreamBuilder({
+  BuildContext context,
+  userModelWidgetBuilder builder,
+}){
 
   final _user = Provider.of<UserModel>(context);
 
@@ -21,14 +38,15 @@ Widget test(BuildContext context, Widget widget){
     StreamBuilder<UserModel>(
       stream: UserProvider(userID: _user.userID).userData,
       builder: (context, snapshot){
-        if(snapshot.hasData == false){
+        if(connectionHasNoData(snapshot) || connectionIsWaiting(snapshot)){
           return LoadingFullScreenLayer();
         } else {
-          UserModel userModel = snapshot.data; // cant use this date like this
+          UserModel userModel = snapshot.data;
           return
-            widget;
+            builder(context, userModel);
         }
       },
     );
 
 }
+// ----------------------------------------------------------------------------

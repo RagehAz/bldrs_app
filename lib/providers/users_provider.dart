@@ -123,7 +123,7 @@ class UserProvider{
   }
 
   /// get users streams
-  Stream<List<UserModel>> get userStream {
+  Stream<List<UserModel>> get allUsersStream {
     return usersCollection.snapshots()
         .map(_usersListFromSnapshot);
   }

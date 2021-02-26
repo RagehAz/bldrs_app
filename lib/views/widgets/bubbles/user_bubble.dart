@@ -31,7 +31,7 @@ class UserBubble extends StatelessWidget {
   Widget build(BuildContext context) {
     CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
     String _countryName = translate(context, user?.country);
-    String _countryFlag = _countryPro.getFlagByIso3(user?.country);
+    String _countryFlag = getFlagByIso3(user?.country);
     String _provinceName = _countryPro.getProvinceNameWithCurrentLanguageIfPossible(context, user?.province);
     String _areaName = _countryPro.getAreaNameWithCurrentLanguageIfPossible(context, user?.area);
 
