@@ -137,7 +137,7 @@ class NavBar extends StatelessWidget {
     barType == BarType.min || barType == BarType.minWithText ? _paddings :
     barType == BarType.max || barType == BarType.maxWithText ? 0 : 0;
     // -------------------------
-    final _userID = (FirebaseAuth.instance.currentUser).uid;
+    final _userID = (FirebaseAuth.instance.currentUser)?.uid;
     // -------------------------------------------------------------------------
     FlyersProvider prof = Provider.of<FlyersProvider>(context, listen: true);
 

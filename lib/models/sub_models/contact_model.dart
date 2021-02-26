@@ -1,3 +1,4 @@
+import 'package:bldrs/view_brains/drafters/iconizers.dart';
 import 'package:flutter/foundation.dart';
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
 class ContactModel{
@@ -106,7 +107,7 @@ ContactModel getAContactModelFromContacts(List<ContactModel> contacts, ContactTy
   return contactValue;
 }
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
-String getAContactStringFromContacts(List<ContactModel> contacts, ContactType contactType){
+String getAContactValueFromContacts(List<ContactModel> contacts, ContactType contactType){
   String contactValue = getAContactModelFromContacts(contacts, contactType)?.value;
   return contactValue;
 }
@@ -162,159 +163,74 @@ String getFirstPhoneFromContacts(List<ContactModel> contacts){
   return phones.length == 0 ? null : phones[0];
 }
 // ----------------------------------------------------------------------------
-// List<ContactModel> _createContactList(List<ContactModel> existingContacts){
-//   List<ContactModel> newContacts = new List();
-//   // _currentEmail = getEmailFromContacts(existingContacts);
-//
-//   /// _currentEmail
-//   if (_currentEmail != null){newContacts.add(ContactModel(contact: _currentEmail, contactType: ContactType.Email));}
-//   else{
-//     String email = getAContactStringFromContacts(existingContacts, ContactType.Email);
-//     if (email != null){
-//       newContacts.add(
-//           ContactModel(
-//             contact: email,
-//             contactType: ContactType.Email,
-//           )
-//       );
-//     }
-//   }
-//
-//   /// _currentWebsite
-//   if (_currentWebsite != null){newContacts.add(ContactModel(contact: _currentWebsite, contactType: ContactType.WebSite));}
-//   else{
-//     String webSite = getAContactStringFromContacts(existingContacts, ContactType.WebSite);
-//     if (webSite != null){
-//       newContacts.add(
-//           ContactModel(
-//             contact: webSite,
-//             contactType: ContactType.WebSite,
-//           )
-//       );
-//     }
-//   }
-//   /// _currentPhone
-//   if (_currentPhone != null){newContacts.add(ContactModel(contact: _currentPhone, contactType: ContactType.Phone));}
-//   else{
-//     String phone = getAContactStringFromContacts(existingContacts, ContactType.Phone);
-//     if (phone != null){
-//       newContacts.add(
-//           ContactModel(
-//             contact: phone,
-//             contactType: ContactType.Phone,
-//           )
-//       );
-//     }
-//   }
-//   /// _currentFacebook
-//   if (_currentFacebook != null){newContacts.add(ContactModel(contact: _currentFacebook, contactType: ContactType.Facebook));}
-//   else{
-//     String facebook = getAContactStringFromContacts(existingContacts, ContactType.Facebook);
-//     if (facebook != null){
-//       newContacts.add(
-//           ContactModel(
-//             contact: facebook,
-//             contactType: ContactType.Facebook,
-//           )
-//       );
-//     }
-//   }
-//   /// _currentInstagram
-//   if (_currentInstagram != null){newContacts.add(ContactModel(contact: _currentInstagram, contactType: ContactType.Instagram));}
-//   else{
-//     String instagram = getAContactStringFromContacts(existingContacts, ContactType.Instagram);
-//     if (instagram != null){
-//       newContacts.add(
-//           ContactModel(
-//             contact: instagram,
-//             contactType: ContactType.Instagram,
-//           )
-//       );
-//     }
-//   }
-//   /// _currentLinkedIn
-//   if (_currentLinkedIn != null){newContacts.add(ContactModel(contact: _currentLinkedIn, contactType: ContactType.LinkedIn));}
-//   else{
-//     String linkedIn = getAContactStringFromContacts(existingContacts, ContactType.LinkedIn);
-//     if (linkedIn != null){
-//       newContacts.add(
-//           ContactModel(
-//             contact: linkedIn,
-//             contactType: ContactType.LinkedIn,
-//           )
-//       );
-//     }
-//   }
-//   /// _currentYouTube
-//   if (_currentYouTube != null){newContacts.add(ContactModel(contact: _currentYouTube, contactType: ContactType.YouTube));}
-//   else{
-//     String youtube = getAContactStringFromContacts(existingContacts, ContactType.YouTube);
-//     if (youtube != null){
-//       newContacts.add(
-//           ContactModel(
-//             contact: youtube,
-//             contactType: ContactType.YouTube,
-//           )
-//       );
-//     }
-//   }
-//   /// _currentPinterest
-//   if (_currentPinterest != null){newContacts.add(ContactModel(contact: _currentPinterest, contactType: ContactType.Pinterest));}
-//   else{
-//     String pinterest = getAContactStringFromContacts(existingContacts, ContactType.Pinterest);
-//     if (pinterest != null){
-//       newContacts.add(
-//           ContactModel(
-//             contact: pinterest,
-//             contactType: ContactType.Pinterest,
-//           )
-//       );
-//     }
-//   }
-//   /// _currentTikTok
-//   if (_currentTikTok != null){newContacts.add(ContactModel(contact: _currentTikTok, contactType: ContactType.TikTok));}
-//   else{
-//     String tiktok = getAContactStringFromContacts(existingContacts, ContactType.TikTok);
-//     if (tiktok != null){
-//       newContacts.add(
-//           ContactModel(
-//             contact: tiktok,
-//             contactType: ContactType.TikTok,
-//           )
-//       );
-//     }
-//   }
-//   /// _currentTwitter
-//   if (_currentTwitter != null){newContacts.add(ContactModel(contact: _currentTwitter, contactType: ContactType.Twitter));}
-//   else{
-//     String twitter = getAContactStringFromContacts(existingContacts, ContactType.Twitter);
-//     if (twitter != null){
-//       newContacts.add(
-//           ContactModel(
-//             contact: twitter,
-//             contactType: ContactType.Twitter,
-//           )
-//       );
-//     }
-//   }
-//
-//   return newContacts;
-// }
+List<ContactModel> createContactsList ({
+  List<ContactModel> existingContacts,
+  String phone,
+  String email,
+  String webSite,
+  String facebook,
+  String linkedIn,
+  String youTube,
+  String instagram,
+  String pinterest,
+  String tikTok,
+  String twitter,
+}){
+  List<ContactModel> _newContacts = new List();
+  // ---------------
+  addContactIfPossibleToANewContactsList(existingContacts, phone, ContactType.Phone, _newContacts);
+  addContactIfPossibleToANewContactsList(existingContacts, email, ContactType.Email, _newContacts);
+  addContactIfPossibleToANewContactsList(existingContacts, webSite, ContactType.WebSite, _newContacts);
+  addContactIfPossibleToANewContactsList(existingContacts, facebook, ContactType.Facebook, _newContacts);
+  addContactIfPossibleToANewContactsList(existingContacts, linkedIn, ContactType.LinkedIn, _newContacts);
+  addContactIfPossibleToANewContactsList(existingContacts, youTube, ContactType.YouTube, _newContacts);
+  addContactIfPossibleToANewContactsList(existingContacts, instagram, ContactType.Instagram, _newContacts);
+  addContactIfPossibleToANewContactsList(existingContacts, pinterest, ContactType.Pinterest, _newContacts);
+  addContactIfPossibleToANewContactsList(existingContacts, tikTok, ContactType.TikTok, _newContacts);
+  addContactIfPossibleToANewContactsList(existingContacts, twitter, ContactType.Twitter, _newContacts);
+  // ---------------
+  return _newContacts;
+}
+// ----------------------------------------------------------------------------
+void addContactIfPossibleToANewContactsList(
+    List<ContactModel> existingContacts,
+    String value,
+    ContactType type,
+    List<ContactModel> newContacts,
+    ){
 
-// void addContactModelToContactsList(List<ContactModel> existingContacts, List<ContactModel> newContacts, String contactValueToAdd, ContactType contactType){
-//   // contactValueToAdd is initially null when user starts the screen
-//   // and when user edits the contact value, it becomes non-null value so ..
-//   if (contactValueToAdd != null){newContacts.add(ContactModel(contact: contactValueToAdd, contactType: contactType));}
-//   else{
-//     String con = getAContactStringFromContacts(existingContacts, ContactType.Email);
-//     if (email != null){
-//       newContacts.add(
-//           ContactModel(
-//             contact: email,
-//             contactType: ContactType.Email,
-//           )
-//       );
-//     }
-//   }
-//
-// }
+  String _existingContactValue = getAContactValueFromContacts(existingContacts, type);
+
+  bool _contactExistsInExistingContacts =
+  _existingContactValue == null || _existingContactValue == ''? false : true;
+
+  bool _userChangedValue = value == null ? false : true;
+
+  /// when contact already exists in existingContacts
+  if (_contactExistsInExistingContacts == true){
+    /// if value have changed add this new value otherwise ass the existing value
+    if (_userChangedValue == true){
+      newContacts.add(ContactModel(value: value, type: type));
+    } else { newContacts.add(ContactModel(value: _existingContactValue, type: type)); }
+  }
+  /// when contact is new to existingContacts
+  else {
+    /// add new ContactModel to the new list only if a new value is assigned ( value != null )
+    if (_userChangedValue == true){
+      newContacts.add(ContactModel(value: value, type: type));
+    }
+  }
+}
+// ----------------------------------------------------------------------------
+List<String> getListOfValuesFromContactsModelsList(List<ContactModel> contacts){
+  List<String> values = new List();
+  contacts.forEach((co) {values.add(co.value); });
+  return values;
+}
+// ----------------------------------------------------------------------------
+List<String> getListOfIconzFromContactsModelsList(List<ContactModel> contacts){
+  List<String> icons = new List();
+  contacts.forEach((co) {icons.add(superContactIcon(co.type));});
+  return icons;
+}
+// ----------------------------------------------------------------------------

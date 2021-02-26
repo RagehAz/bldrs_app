@@ -25,7 +25,7 @@ class LocalizerButton extends StatelessWidget {
     String _lastProvinceID = _countryPro.currentProvinceID;
     String _lastAreaID = _countryPro.currentAreaID;
     String _lastCountryName = translate(context, _lastCountryID);
-    String _lastCountryFlag = _countryPro.getFlagByIso3(_lastCountryID);
+    String _lastCountryFlag = getFlagByIso3(_lastCountryID);
     String _lastProvinceName = _countryPro.getProvinceNameWithCurrentLanguageIfPossible(context, _lastProvinceID);
     String _lastAreaName = _countryPro.getAreaNameWithCurrentLanguageIfPossible(context, _lastAreaID);
 

@@ -14,6 +14,7 @@ import 'package:bldrs/views/widgets/bubbles/add_gallery_pic_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/contact_field_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/locale_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/text_field_bubble.dart';
+import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/loading/loading.dart';
 // import 'package:path_provider/path_provider.dart' as sysPaths;
 // import 'package:path/path.dart' as path;
@@ -64,6 +65,15 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
     print('LOADING') : print('LOADING COMPLETE');
   }
 // ---------------------------------------------------------------------------
+  @override
+  void initState() {
+    final _user = superFirebaseUser();
+    _currentName = _user.displayName;
+    _currentEmail = _user.email;
+    super.initState();
+  }
+
+
   void _changeName(String val){
     setState(()=> _currentName = val);
   }
@@ -143,148 +153,164 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
   }
   // ---------------------------------------------------------------------------
   List<ContactModel> _createContactList(List<ContactModel> existingContacts){
-    List<ContactModel> newContacts = new List();
-    // _currentEmail = getEmailFromContacts(existingContacts);
+    return createContactsList(
+      existingContacts: existingContacts,
+      phone: _currentPhone,
+      email: _currentEmail,
+      webSite: _currentWebsite,
+      facebook: _currentFacebook,
+      linkedIn: _currentLinkedIn,
+      youTube: _currentYouTube,
+      instagram: _currentInstagram,
+      pinterest: _currentPinterest,
+      tikTok: _currentTikTok,
+      twitter: _currentTwitter,
+    );
 
-    /// _currentEmail
-    if (_currentEmail != null){newContacts.add(ContactModel(value: _currentEmail, type: ContactType.Email));}
-    else{
-      String email = getAContactStringFromContacts(existingContacts, ContactType.Email);
-      if (email != null){
-        newContacts.add(
-            ContactModel(
-              value: email,
-              type: ContactType.Email,
-            )
-        );
-      }
-    }
-    /// _currentWebsite
-    if (_currentWebsite != null){newContacts.add(ContactModel(value: _currentWebsite, type: ContactType.WebSite));}
-    else{
-      String webSite = getAContactStringFromContacts(existingContacts, ContactType.WebSite);
-      if (webSite != null){
-        newContacts.add(
-            ContactModel(
-              value: webSite,
-              type: ContactType.WebSite,
-            )
-        );
-      }
-    }
-    /// _currentPhone
-    if (_currentPhone != null){newContacts.add(ContactModel(value: _currentPhone, type: ContactType.Phone));}
-    else{
-      String phone = getAContactStringFromContacts(existingContacts, ContactType.Phone);
-      if (phone != null){
-        newContacts.add(
-            ContactModel(
-              value: phone,
-              type: ContactType.Phone,
-            )
-        );
-      }
-    }
-    /// _currentFacebook
-    if (_currentFacebook != null){newContacts.add(ContactModel(value: _currentFacebook, type: ContactType.Facebook));}
-    else{
-      String facebook = getAContactStringFromContacts(existingContacts, ContactType.Facebook);
-      if (facebook != null){
-        newContacts.add(
-            ContactModel(
-              value: facebook,
-              type: ContactType.Facebook,
-            )
-        );
-      }
-    }
-    /// _currentInstagram
-    if (_currentInstagram != null){newContacts.add(ContactModel(value: _currentInstagram, type: ContactType.Instagram));}
-    else{
-      String instagram = getAContactStringFromContacts(existingContacts, ContactType.Instagram);
-      if (instagram != null){
-        newContacts.add(
-            ContactModel(
-              value: instagram,
-              type: ContactType.Instagram,
-            )
-        );
-      }
-    }
-    /// _currentLinkedIn
-    if (_currentLinkedIn != null){newContacts.add(ContactModel(value: _currentLinkedIn, type: ContactType.LinkedIn));}
-    else{
-      String linkedIn = getAContactStringFromContacts(existingContacts, ContactType.LinkedIn);
-      if (linkedIn != null){
-        newContacts.add(
-            ContactModel(
-              value: linkedIn,
-              type: ContactType.LinkedIn,
-            )
-        );
-      }
-    }
-    /// _currentYouTube
-    if (_currentYouTube != null){newContacts.add(ContactModel(value: _currentYouTube, type: ContactType.YouTube));}
-    else{
-      String youtube = getAContactStringFromContacts(existingContacts, ContactType.YouTube);
-      if (youtube != null){
-        newContacts.add(
-            ContactModel(
-              value: youtube,
-              type: ContactType.YouTube,
-            )
-        );
-      }
-    }
-    /// _currentPinterest
-    if (_currentPinterest != null){newContacts.add(ContactModel(value: _currentPinterest, type: ContactType.Pinterest));}
-    else{
-      String pinterest = getAContactStringFromContacts(existingContacts, ContactType.Pinterest);
-      if (pinterest != null){
-        newContacts.add(
-            ContactModel(
-              value: pinterest,
-              type: ContactType.Pinterest,
-            )
-        );
-      }
-    }
-    /// _currentTikTok
-    if (_currentTikTok != null){newContacts.add(ContactModel(value: _currentTikTok, type: ContactType.TikTok));}
-    else{
-      String tiktok = getAContactStringFromContacts(existingContacts, ContactType.TikTok);
-      if (tiktok != null){
-        newContacts.add(
-            ContactModel(
-              value: tiktok,
-              type: ContactType.TikTok,
-            )
-        );
-      }
-    }
-    /// _currentTwitter
-    if (_currentTwitter != null){newContacts.add(ContactModel(value: _currentTwitter, type: ContactType.Twitter));}
-    else{
-      String twitter = getAContactStringFromContacts(existingContacts, ContactType.Twitter);
-      if (twitter != null){
-        newContacts.add(
-            ContactModel(
-              value: twitter,
-              type: ContactType.Twitter,
-            )
-        );
-      }
-    }
-
-    return newContacts;
+    ////////////////////////////////////////////////////////////////// delete below solution if the above works
+    // List<ContactModel> newContacts = new List();
+    // // _currentEmail = getEmailFromContacts(existingContacts);
+    //
+    // /// _currentEmail
+    // if (_currentEmail != null){newContacts.add(ContactModel(value: _currentEmail, type: ContactType.Email));}
+    // else{
+    //   String email = getAContactValueFromContacts(existingContacts, ContactType.Email);
+    //   if (email != null){
+    //     newContacts.add(
+    //         ContactModel(
+    //           value: email,
+    //           type: ContactType.Email,
+    //         )
+    //     );
+    //   }
+    // }
+    // /// _currentWebsite
+    // if (_currentWebsite != null){newContacts.add(ContactModel(value: _currentWebsite, type: ContactType.WebSite));}
+    // else{
+    //   String webSite = getAContactValueFromContacts(existingContacts, ContactType.WebSite);
+    //   if (webSite != null){
+    //     newContacts.add(
+    //         ContactModel(
+    //           value: webSite,
+    //           type: ContactType.WebSite,
+    //         )
+    //     );
+    //   }
+    // }
+    // /// _currentPhone
+    // if (_currentPhone != null){newContacts.add(ContactModel(value: _currentPhone, type: ContactType.Phone));}
+    // else{
+    //   String phone = getAContactValueFromContacts(existingContacts, ContactType.Phone);
+    //   if (phone != null){
+    //     newContacts.add(
+    //         ContactModel(
+    //           value: phone,
+    //           type: ContactType.Phone,
+    //         )
+    //     );
+    //   }
+    // }
+    // /// _currentFacebook
+    // if (_currentFacebook != null){newContacts.add(ContactModel(value: _currentFacebook, type: ContactType.Facebook));}
+    // else{
+    //   String facebook = getAContactValueFromContacts(existingContacts, ContactType.Facebook);
+    //   if (facebook != null){
+    //     newContacts.add(
+    //         ContactModel(
+    //           value: facebook,
+    //           type: ContactType.Facebook,
+    //         )
+    //     );
+    //   }
+    // }
+    // /// _currentInstagram
+    // if (_currentInstagram != null){newContacts.add(ContactModel(value: _currentInstagram, type: ContactType.Instagram));}
+    // else{
+    //   String instagram = getAContactValueFromContacts(existingContacts, ContactType.Instagram);
+    //   if (instagram != null){
+    //     newContacts.add(
+    //         ContactModel(
+    //           value: instagram,
+    //           type: ContactType.Instagram,
+    //         )
+    //     );
+    //   }
+    // }
+    // /// _currentLinkedIn
+    // if (_currentLinkedIn != null){newContacts.add(ContactModel(value: _currentLinkedIn, type: ContactType.LinkedIn));}
+    // else{
+    //   String linkedIn = getAContactValueFromContacts(existingContacts, ContactType.LinkedIn);
+    //   if (linkedIn != null){
+    //     newContacts.add(
+    //         ContactModel(
+    //           value: linkedIn,
+    //           type: ContactType.LinkedIn,
+    //         )
+    //     );
+    //   }
+    // }
+    // /// _currentYouTube
+    // if (_currentYouTube != null){newContacts.add(ContactModel(value: _currentYouTube, type: ContactType.YouTube));}
+    // else{
+    //   String youtube = getAContactValueFromContacts(existingContacts, ContactType.YouTube);
+    //   if (youtube != null){
+    //     newContacts.add(
+    //         ContactModel(
+    //           value: youtube,
+    //           type: ContactType.YouTube,
+    //         )
+    //     );
+    //   }
+    // }
+    // /// _currentPinterest
+    // if (_currentPinterest != null){newContacts.add(ContactModel(value: _currentPinterest, type: ContactType.Pinterest));}
+    // else{
+    //   String pinterest = getAContactValueFromContacts(existingContacts, ContactType.Pinterest);
+    //   if (pinterest != null){
+    //     newContacts.add(
+    //         ContactModel(
+    //           value: pinterest,
+    //           type: ContactType.Pinterest,
+    //         )
+    //     );
+    //   }
+    // }
+    // /// _currentTikTok
+    // if (_currentTikTok != null){newContacts.add(ContactModel(value: _currentTikTok, type: ContactType.TikTok));}
+    // else{
+    //   String tiktok = getAContactValueFromContacts(existingContacts, ContactType.TikTok);
+    //   if (tiktok != null){
+    //     newContacts.add(
+    //         ContactModel(
+    //           value: tiktok,
+    //           type: ContactType.TikTok,
+    //         )
+    //     );
+    //   }
+    // }
+    // /// _currentTwitter
+    // if (_currentTwitter != null){newContacts.add(ContactModel(value: _currentTwitter, type: ContactType.Twitter));}
+    // else{
+    //   String twitter = getAContactValueFromContacts(existingContacts, ContactType.Twitter);
+    //   if (twitter != null){
+    //     newContacts.add(
+    //         ContactModel(
+    //           value: twitter,
+    //           type: ContactType.Twitter,
+    //         )
+    //     );
+    //   }
+    // }
+    //
+    // return newContacts;
   }
 
 
   @override
   Widget build(BuildContext context) {
 
-    final _userID = superUserID();
+    final _user = superFirebaseUser();
+    final _userID = _user?.uid;
 
     return MainLayout(
       pyramids: Iconz.PyramidzYellow,
@@ -344,7 +370,7 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                       TextFieldBubble(
                         fieldIsFormField: true,
                         title: Wordz.name(context),
-                        initialTextValue: userModel.name,
+                        initialTextValue: _currentName, //userModel.name,
                         keyboardTextInputType: TextInputType.name,
                         keyboardTextInputAction: TextInputAction.next,
                         fieldIsRequired: true,
@@ -393,7 +419,7 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                         keyboardTextInputAction: TextInputAction.next,
                         fieldIsRequired: true,
                         keyboardTextInputType: TextInputType.emailAddress,
-                        initialTextValue: getAContactStringFromContacts(userModel.contacts, ContactType.Email),
+                        initialTextValue: _currentEmail,//getAContactValueFromContacts(userModel.contacts, ContactType.Email),
                         textOnChanged: (val) => _changeEmail(val),
                       ),
 
@@ -405,7 +431,7 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                         keyboardTextInputAction: TextInputAction.next,
                         fieldIsRequired: false,
                         keyboardTextInputType: TextInputType.phone,
-                        initialTextValue: getAContactStringFromContacts(userModel.contacts, ContactType.Phone),
+                        initialTextValue: getAContactValueFromContacts(userModel.contacts, ContactType.Phone),
                         textOnChanged: (val) => _changePhone(val),
                       ),
 
@@ -417,7 +443,7 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                         keyboardTextInputAction: TextInputAction.next,
                         fieldIsRequired: false,
                         keyboardTextInputType: TextInputType.url,
-                        initialTextValue: getAContactStringFromContacts(userModel.contacts, ContactType.WebSite),
+                        initialTextValue: getAContactValueFromContacts(userModel.contacts, ContactType.WebSite),
                         textOnChanged: (val) => _changeWebsite(val),
                       ),
 
@@ -429,7 +455,7 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                         keyboardTextInputAction: TextInputAction.next,
                         fieldIsRequired: false,
                         keyboardTextInputType: TextInputType.url,
-                        initialTextValue: getAContactStringFromContacts(userModel.contacts, ContactType.Facebook),
+                        initialTextValue: getAContactValueFromContacts(userModel.contacts, ContactType.Facebook),
                         textOnChanged: (val) => _changeFacebook(val),
                       ),
 
@@ -441,7 +467,7 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                         keyboardTextInputAction: TextInputAction.next,
                         fieldIsRequired: false,
                         keyboardTextInputType: TextInputType.url,
-                        initialTextValue: getAContactStringFromContacts(userModel.contacts, ContactType.Instagram),
+                        initialTextValue: getAContactValueFromContacts(userModel.contacts, ContactType.Instagram),
                         textOnChanged: (val) => _changeInstagram(val),
                       ),
 
@@ -453,7 +479,7 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                         keyboardTextInputAction: TextInputAction.next,
                         fieldIsRequired: false,
                         keyboardTextInputType: TextInputType.url,
-                        initialTextValue: getAContactStringFromContacts(userModel.contacts, ContactType.LinkedIn),
+                        initialTextValue: getAContactValueFromContacts(userModel.contacts, ContactType.LinkedIn),
                         textOnChanged: (val) => _changeLinkedIn(val),
                       ),
 
@@ -465,7 +491,7 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                         keyboardTextInputAction: TextInputAction.next,
                         fieldIsRequired: false,
                         keyboardTextInputType: TextInputType.url,
-                        initialTextValue: getAContactStringFromContacts(userModel.contacts, ContactType.YouTube),
+                        initialTextValue: getAContactValueFromContacts(userModel.contacts, ContactType.YouTube),
                         textOnChanged: (val) => _changeYouTube(val),
                       ),
 
@@ -477,7 +503,7 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                         keyboardTextInputAction: TextInputAction.next,
                         fieldIsRequired: false,
                         keyboardTextInputType: TextInputType.url,
-                        initialTextValue: getAContactStringFromContacts(userModel.contacts, ContactType.Pinterest),
+                        initialTextValue: getAContactValueFromContacts(userModel.contacts, ContactType.Pinterest),
                         textOnChanged: (val) => _changePinterest(val),
                       ),
 
@@ -489,7 +515,7 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                         keyboardTextInputAction: TextInputAction.next,
                         fieldIsRequired: false,
                         keyboardTextInputType: TextInputType.url,
-                        initialTextValue: getAContactStringFromContacts(userModel.contacts, ContactType.TikTok),
+                        initialTextValue: getAContactValueFromContacts(userModel.contacts, ContactType.TikTok),
                         textOnChanged: (val) => _changeTikTok(val),
                       ),
 
@@ -501,7 +527,7 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                         keyboardTextInputAction: TextInputAction.done,
                         fieldIsRequired: false,
                         keyboardTextInputType: TextInputType.url,
-                        initialTextValue: getAContactStringFromContacts(userModel.contacts, ContactType.Twitter),
+                        initialTextValue: getAContactValueFromContacts(userModel.contacts, ContactType.Twitter),
                         textOnChanged: (val) => _changeTwitter(val),
                       ),
 
@@ -511,7 +537,7 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                         color: Colorz.WhiteGlass,
                         icon: Iconz.Check,
                         iconSizeFactor: 0.5,
-                        verse: Wordz.updateProfile(context),
+                        verse: 'Confirm',
                         verseScaleFactor: 1.5,
                         boxMargins: EdgeInsets.all(20),
                         boxFunction: ()async{
@@ -555,11 +581,12 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                                 followedBzzIDs : userModel.followedBzzIDs,
                                 // -------------------------
                               );
-                              print('usermodel successfully edited');
+                              print('user model successfully edited');
                               goToRoute(context, Routez.Home);
 
                             }catch(error){
                               print(error.toString());
+                              superDialog(context, error, 'Error Creating profile');
                             }
                             _triggerLoading();
                           }

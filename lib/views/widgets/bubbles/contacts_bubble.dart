@@ -12,13 +12,18 @@ import 'package:flutter/material.dart';
 
 class ContactsBubble extends StatelessWidget {
   final List<ContactModel> contacts;
+  final bool stretchy;
+  final Function onTap;
 
   ContactsBubble({
     @required this.contacts,
+    this.stretchy = false,
+    this.onTap,
 });
 
   @override
   Widget build(BuildContext context) {
+
 
 
     double abPadding = Ratioz.ddAppBarPadding;
@@ -29,6 +34,7 @@ class ContactsBubble extends StatelessWidget {
 
     return InPyramidsBubble(
       centered: false,
+      stretchy: stretchy,
       columnChildren: <Widget>[
 
         // --- TITLE
@@ -46,17 +52,24 @@ class ContactsBubble extends StatelessWidget {
               ...List<Widget>.generate(
                   contactsWithStrings.length,
                   (index){
+
+                    String _value = contactsWithStrings[index].value;
+
                     return
                         DreamBox(
                           height: contactBoxHeight,
                           icon: superContactIcon(contactsWithStrings[index].type),
                           boxMargins: EdgeInsets.all(abPadding),
-                          verse: contactsWithStrings[index].value,
+                          verse: _value,
                           verseColor: Colorz.White,
                           verseWeight: VerseWeight.thin,
                           verseItalic: true,
                           iconSizeFactor: 0.6,
-                          boxFunction: (){launchURL('https://${contactsWithStrings[index].value}');},
+                          boxFunction:
+                              onTap == null ?
+                              (){launchURL('https://${contactsWithStrings[index].value}');}
+                              :
+                              () => onTap(_value)
                         );
                   }
               ),
@@ -71,12 +84,20 @@ class ContactsBubble extends StatelessWidget {
               ...List<Widget>.generate(
                   socialMediaContacts.length,
                       (index){
-                    return
+
+                        String _value = socialMediaContacts[index].value;
+
+                        return
                       DreamBox(
                         height: contactBoxHeight,
                         icon: superContactIcon(socialMediaContacts[index]?.type),
                         boxMargins: EdgeInsets.all(abPadding),
-                        boxFunction: (){launchURL('https://${socialMediaContacts[index].value}');},
+                        boxFunction:
+                        onTap == null ?
+                            (){launchURL('https://${socialMediaContacts[index].value}');}
+                            :
+                            () => onTap(_value)
+
                       );
                   }
               ),
@@ -95,3 +116,5 @@ class ContactsBubble extends StatelessWidget {
     );
   }
 }
+
+
