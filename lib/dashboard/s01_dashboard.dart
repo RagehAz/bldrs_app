@@ -8,9 +8,8 @@ import 'package:bldrs/view_brains/router/navigators.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/views/widgets/artworks/bldrs_name_logo_slogan.dart';
-import 'package:bldrs/views/widgets/buttons/bt_back.dart';
 import 'package:bldrs/views/widgets/buttons/bt_main.dart';
-import 'package:bldrs/views/widgets/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/layouts/dashboard_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 's04_notifications_manager.dart';
@@ -25,13 +24,6 @@ class DashBoard extends StatefulWidget {
 
 class _DashBoardState extends State<DashBoard> {
 
-  String currentPage = 'Main';
-
-  void pageSwitcher (String pageName){
-    setState(() {
-      currentPage = pageName;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,109 +31,64 @@ class _DashBoardState extends State<DashBoard> {
     double _screenWidth = superScreenWidth(context);
     double _screenHeight = superScreenHeight(context);
 
-    return MainLayout(
-      sky: Sky.Black,
-      pyramids: Iconz.PyramidzYellow,
-      appBarType: AppBarType.Basic,
-      appBarRowWidgets: [BldrsBackButton()],
-      layoutWidget: Container(
-        width: _screenWidth,
-        height: _screenHeight,
-        child: ListView(
-          children: <Widget>[
+    Widget _button ({String title, String icon, Function onTap,}){
+      return BTMain(
+        buttonVerse: title,
+        function: onTap,
+        splashColor: Colorz.Yellow,
+        buttonColor: Colorz.Yellow,
+        verseColor: Colorz.BlackBlack,
+        verseWeight : VerseWeight.black,
+        buttonVerseShadow: false,
+        stretched: false,
+        buttonIcon: icon,
+      );
+    }
 
-            Stratosphere(),
+    return DashBoardLayout(
+        pageTitle: 'DashBoard',
+        loading: false,
+        listWidgets: <Widget>[
 
-            LogoSlogan(onlyLogo: true,),
+          LogoSlogan(onlyLogo: true,),
 
-            Stratosphere(heightFactor: 0.5,),
+          _button(
+              title: 'General Statistics',
+              icon: Iconz.Statistics,
+              onTap: () => goToNewScreen(context, GeneralStatistics()),
+          ),
 
-            // --- General Statistics
-            BTMain(
-              buttonVerse: 'General Statistics',
-              function: () => goToNewScreen(context, GeneralStatistics()),
-              splashColor: Colorz.Yellow,
-              buttonColor: Colorz.Yellow,
-              verseColor: Colorz.BlackBlack,
-              verseWeight : VerseWeight.black,
-              buttonVerseShadow: false,
-              stretched: false,
-              buttonIcon: Iconz.Statistics,
-            ),
+          _button(
+              title: 'Users Manager',
+              icon: Iconz.NormalUser,
+              onTap: () => goToNewScreen(context, UsersManagerScreen()),
+          ),
 
-            // --- USERS MANAGER
-            BTMain(
-              buttonVerse: 'Users Manager',
-              function: () => goToNewScreen(context, UsersManagerScreen()),
-              splashColor: Colorz.Yellow,
-              buttonColor: Colorz.Yellow,
-              verseColor: Colorz.BlackBlack,
-              verseWeight : VerseWeight.black,
-              buttonVerseShadow: false,
-              stretched: false,
-              buttonIcon: Iconz.NormalUser,
-              iconColor: Colorz.BlackBlack,
-            ),
+          _button(
+            title: 'Zones Manager',
+            icon: Iconz.Earth,
+            onTap: () => goToNewScreen(context, ZonesManagerScreen()),
+          ),
 
-            // --- ZONES MANAGER
-            BTMain(
-              buttonVerse: 'Zones Manager',
-              function: () => goToNewScreen(context, ZonesManagerScreen()),
-              splashColor: Colorz.Yellow,
-              buttonColor: Colorz.Yellow,
-              verseColor: Colorz.BlackBlack,
-              verseWeight : VerseWeight.black,
-              buttonVerseShadow: false,
-              stretched: false,
-              buttonIcon: Iconz.Earth,
-              iconColor: Colorz.BlackBlack,
-            ),
+          _button(
+            title: 'Notifications Manager',
+            icon: Iconz.News,
+            onTap: () => goToNewScreen(context, NotificationsManager()),
+          ),
 
-            // --- NOTIFICATIONS MANAGER
-            BTMain(
-              buttonVerse: 'Notifications Manager',
-              function: () => goToNewScreen(context, NotificationsManager()),
-              splashColor: Colorz.Yellow,
-              buttonColor: Colorz.Yellow,
-              verseColor: Colorz.BlackBlack,
-              verseWeight : VerseWeight.black,
-              buttonVerseShadow: false,
-              stretched: false,
-              buttonIcon: Iconz.News,
-              iconColor: Colorz.BlackBlack,
-            ),
+          _button(
+            title: 'Keywords Manager',
+            icon: Iconz.Language,
+            onTap: () => goToNewScreen(context, KeywordsManager()),
+          ),
 
-            // --- KEYWORD MANAGER
-            BTMain(
-              buttonVerse: 'Keywords Manager',
-              function: () => goToNewScreen(context, KeywordsManager()),
-              splashColor: Colorz.Yellow,
-              buttonColor: Colorz.Yellow,
-              verseColor: Colorz.BlackBlack,
-              verseWeight : VerseWeight.black,
-              buttonVerseShadow: false,
-              stretched: false,
-              buttonIcon: Iconz.Language,
-              iconColor: Colorz.BlackBlack,
-            ),
+          _button(
+            title: 'Flyers Auditor',
+            icon: Iconz.FlyerGrid,
+            onTap: () => goToNewScreen(context, FlyersAuditor()),
+          ),
 
-            // --- FLYERS AUDITOR
-            BTMain(
-              buttonVerse: 'Flyers Auditor',
-              function: () => goToNewScreen(context, FlyersAuditor()),
-              splashColor: Colorz.Yellow,
-              buttonColor: Colorz.Yellow,
-              verseColor: Colorz.BlackBlack,
-              verseWeight : VerseWeight.black,
-              buttonVerseShadow: false,
-              stretched: false,
-              buttonIcon: Iconz.FlyerGrid,
-              iconColor: Colorz.BlackBlack,
-            ),
-
-          ],
-        ),
-      ),
+        ]
     );
   }
 }

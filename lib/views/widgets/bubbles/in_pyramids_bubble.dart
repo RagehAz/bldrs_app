@@ -9,17 +9,23 @@ class InPyramidsBubble extends StatelessWidget {
 final List<Widget> columnChildren;
 final bool centered;
 final Color bubbleColor;
+final bool stretchy;
 
   InPyramidsBubble({
     @required this.columnChildren,
     this.centered = false,
     this.bubbleColor = Colorz.WhiteGlass,
+    this.stretchy = false,
 });
 
   @override
   Widget build(BuildContext context) {
 
     double _pageMargin = Ratioz.ddAppBarMargin ;
+
+    EdgeInsets _bubbleMargins =
+    stretchy == true ? EdgeInsets.all(0) :
+    EdgeInsets.only(right: _pageMargin, left: _pageMargin, bottom: _pageMargin);
 
     ///////////////////////////////////////////////////////////////////////////
     /// bos keda we need to consider this tree here in this bubble
@@ -33,8 +39,8 @@ final Color bubbleColor;
 
 
         return Container(
-          width: superBubbleClearWidth(context) + 2*_pageMargin,
-          margin: EdgeInsets.only(right: _pageMargin, left: _pageMargin, bottom: _pageMargin),
+          width: stretchy == true ? null : superBubbleClearWidth(context) + 2*_pageMargin,
+          margin: _bubbleMargins,
           padding: EdgeInsets.all(_pageMargin),
           decoration: BoxDecoration(
             color: bubbleColor,
@@ -43,7 +49,7 @@ final Color bubbleColor;
           alignment: centered == true ? Alignment.center : superCenterAlignment(context),
 
           child: Column(
-            mainAxisSize: MainAxisSize.max,
+            mainAxisSize: stretchy ? MainAxisSize.min : MainAxisSize.max,
             crossAxisAlignment: centered == true ? CrossAxisAlignment.center : CrossAxisAlignment.start,
             mainAxisAlignment: centered == true ? MainAxisAlignment.center : MainAxisAlignment.start,
             children: columnChildren,

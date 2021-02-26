@@ -135,7 +135,7 @@ class MoreScreen extends StatelessWidget {
             btOnTap: () async {
               print('Signing out');
               await signOutGoogle();
-              await _auth.signOut();
+              await _auth.signOut(context);
               goToRoute(context, Routez.Starting);
             },
           ),

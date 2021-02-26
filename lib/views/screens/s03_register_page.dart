@@ -7,6 +7,7 @@ import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/widgets/bubbles/locale_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/text_field_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
+import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
@@ -232,18 +233,37 @@ class _RegisterState extends State<Register> {
                   boxFunction: () async {
                     minimizeKeyboardOnTapOutSide(context);
                     if(_formKey.currentState.validate()){
+
+                      try{
                       _triggerLoading();
                       dynamic result = await _auth.registerWithEmailAndPassword(context, _currentZone, _email, _password);
                       print('register result is : $result');
                       if ('$result' == '[firebase_auth/email-already-in-use] The email address is already in use by another account.')
-                      {setState(() {_error = Wordz.emailAlreadyRegistered(context);}); _triggerLoading();}
+                      {
+                        superDialog(context, Wordz.emailAlreadyRegistered(context), 'E-mail Taken');
+                        setState(() {_error = Wordz.emailAlreadyRegistered(context);});
+                        _triggerLoading();
+                      }
                       else if('$result' == '[firebase_auth/invalid-email] The email address is badly formatted.')
-                      {setState(() {_error = Wordz.emailWrong(context);}); _triggerLoading();}
-                      else if(result == null){setState(() {_error = 'something is wrong';}); _triggerLoading();}
+                      {
+                        setState(() {_error = Wordz.emailWrong(context);});
+                        _triggerLoading();
+                      }
+
+                      else if(result == null){setState(() {
+                        _error = 'something is wrong';});
+                      _triggerLoading();
+                      }
+
                       else if(result.runtimeType == UserModel)
                       {
-                        setState(() {_error = ''; _triggerLoading();});
+                        setState(() {
+                        _error = ''; _triggerLoading();});
                         goToNewScreen(context, FillProfileScreen());
+                      }
+
+                      }catch(error){
+                        superDialog(context, error, 'SignUp error');
                       }
                     }
                   },

@@ -3,6 +3,7 @@ import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/users_provider.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
+import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -32,7 +33,7 @@ class AuthService{
       // area: currentZone.areaID,
       // language: Wordz.languageCode(context),
       // position: GeoPoint(0, 0),
-      contacts: [ContactModel(value: user.email, type: ContactType.Email)],
+      contacts: <ContactModel>[ContactModel(value: user.email, type: ContactType.Email)],
       // -------------------------
       // savedFlyersIDs: [''],
       // followedBzzIDs: [''],
@@ -106,11 +107,11 @@ class AuthService{
   }
   // ---------------------------------------------------------------------------
   /// sign out
-  Future signOut() async {
+  Future signOut(BuildContext context) async {
       try{
         return await _auth.signOut();
-      } catch (e) {
-        print (e.toString());
+      } catch (error) {
+        superDialog(context, error, 'Trouble Signing out');
         return null;
       }
   }
@@ -118,7 +119,12 @@ class AuthService{
 }
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
 String superUserID(){
-  String userID = (FirebaseAuth.instance.currentUser).uid;
+  String userID = superFirebaseUser()?.uid;
   return userID;
+}
+// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+User superFirebaseUser(){
+  User _user = FirebaseAuth.instance.currentUser;
+  return _user;
 }
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x

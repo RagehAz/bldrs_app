@@ -34,7 +34,7 @@ class MiniHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // === === === === === === === === === === === === === === === === === === ===
-    String _phoneNumber = getAContactStringFromContacts(bz?.bzContacts, ContactType.Phone);
+    String _phoneNumber = getAContactValueFromContacts(bz?.bzContacts, ContactType.Phone);
     // --- B.LOCALE --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
     String businessLocale = localeStringer(context: context,
       countryISO3: bz?.bzCountry,
