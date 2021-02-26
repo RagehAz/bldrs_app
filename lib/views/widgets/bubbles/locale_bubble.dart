@@ -145,7 +145,7 @@ class _LocaleBubbleState extends State<LocaleBubble> {
     List<Map<String,String>> _areas = _countryPro.getAreasNamesByProvinceID(context, _chosenProvinceID);//_chosenProvince);
 
     String _chosenCountryName = _chosenCountryID == null ? '...' : translate(context, _chosenCountryID);
-    String _chosenCountryFlag = _chosenCountryID == null ? '' : _countryPro.getFlagByIso3(_chosenCountryID);
+    String _chosenCountryFlag = _chosenCountryID == null ? '' : getFlagByIso3(_chosenCountryID);
     String _chosenProvinceName = _chosenProvinceID == null ? '...' : _countryPro.getProvinceNameWithCurrentLanguageIfPossible(context, _chosenProvinceID);
     String _chosenAreaName = _chosenAreaID == null ? '...' : _countryPro.getAreaNameWithCurrentLanguageIfPossible(context, _chosenAreaID);
 

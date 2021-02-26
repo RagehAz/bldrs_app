@@ -45,14 +45,6 @@ class CountryProvider with ChangeNotifier{
     notifyListeners();
   }
 // ---------------------------------------------------------------------------
-  String getFlagByIso3(String iso3){
-    String flag;
-    flagsMaps.forEach((map) {
-      if(map['id'] == iso3){flag = map['value'];}
-    });
-    return flag;
-  }
-// ---------------------------------------------------------------------------
   String getCountryNameInCurrentLanguageByIso3(BuildContext context, String iso3){
     return translate(context, iso3);
   }
@@ -120,4 +112,12 @@ class CountryProvider with ChangeNotifier{
 }
 // ---------------------------------------------------------------------------
 }
+String getFlagByIso3(String iso3){
+  String flag;
+  flagsMaps.forEach((map) {
+    if(map['id'] == iso3){flag = map['value'];}
+  });
+  return flag;
+}
+// ---------------------------------------------------------------------------
 

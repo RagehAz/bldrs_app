@@ -68,68 +68,63 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     return MainLayout(
       tappingRageh: () => goToNewScreen(context, NewsScreen()),
 
-      layoutWidget: StreamBuilder<UserModel>(
-        stream: UserProvider(userID: _user.userID).userData,
-        builder: (context, snapshot){
-          if(snapshot.hasData == false){
-            return LoadingFullScreenLayer();
-          } else {
-            UserModel userModel = snapshot.data;
-            return
-              ListView(
+      layoutWidget: userStreamBuilder(
+        context: context,
+        builder: (context, UserModel userModel){
+          return
+            ListView(
 
-                children: <Widget>[
+              children: <Widget>[
 
-                  SizedBox(
-                    height: Ratioz.ddAppBarMargin,
-                  ),
+                SizedBox(
+                  height: Ratioz.ddAppBarMargin,
+                ),
 
-                  UserBubble(
-                    user: userModel,
-                    switchUserType: (type) =>_switchUserStatus(type),
-                    editProfileBtOnTap: () => goToNewScreen(context, EditProfileScreen()),
-                    loading: connectionIsWaiting(snapshot),
-                  ),
+                UserBubble(
+                  user: userModel,
+                  switchUserType: (type) =>_switchUserStatus(type),
+                  editProfileBtOnTap: () => goToNewScreen(context, EditProfileScreen()),
+                  loading: userModelIsLoading(userModel),
+                ),
 
-                  InPyramidsBubble(
-                      centered: true,
-                      columnChildren: <Widget>[
-                        DreamBox(
-                          height: 40,
-                          verse: Wordz.news(context),
-                          icon: Iconz.News,
-                          iconSizeFactor: 0.6,
-                          verseWeight: VerseWeight.bold,
-                          boxFunction: ()=> goToNewScreen(context, NewsScreen()),
-                        ),
-                      ],
-                  ),
+                InPyramidsBubble(
+                  centered: true,
+                  columnChildren: <Widget>[
+                    DreamBox(
+                      height: 40,
+                      verse: Wordz.news(context),
+                      icon: Iconz.News,
+                      iconSizeFactor: 0.6,
+                      verseWeight: VerseWeight.bold,
+                      boxFunction: ()=> goToNewScreen(context, NewsScreen()),
+                    ),
+                  ],
+                ),
 
 
-                  FollowingBzzBubble(),
+                FollowingBzzBubble(),
 
 
-                  // --- STATUS LABEL : STATUS SURVEY WILL BE IN VERSION 2 ISA
-                  StatusBubble(
-                    status:_status,
-                    switchUserStatus: (type) =>_switchUserStatus(type),
-                    userStatus: _currentUserStatus == null ? userModel?.userStatus : _currentUserStatus,
-                    currentUserStatus: _currentUserStatus,
-                    // openEnumLister: widget.openEnumLister,
-                  ),
+                // --- STATUS LABEL : STATUS SURVEY WILL BE IN VERSION 2 ISA
+                StatusBubble(
+                  status:_status,
+                  switchUserStatus: (type) =>_switchUserStatus(type),
+                  userStatus: _currentUserStatus == null ? userModel?.userStatus : _currentUserStatus,
+                  currentUserStatus: _currentUserStatus,
+                  // openEnumLister: widget.openEnumLister,
+                ),
 
-                  ContactsBubble(
-                    contacts : userModel.contacts,
-                  ),
+                ContactsBubble(
+                  contacts : userModel.contacts,
+                ),
 
-                  PyramidsHorizon(heightFactor: 5,),
+                PyramidsHorizon(heightFactor: 5,),
 
 
 
-                ],
-              );
-          } // bent el kalb dih when u comment off the Loading indicator widget part with its condition
-        },
+              ],
+            );
+        }
       ),
     );
   }

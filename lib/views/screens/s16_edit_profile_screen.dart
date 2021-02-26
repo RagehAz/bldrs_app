@@ -4,6 +4,7 @@ import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/users_provider.dart';
+import 'package:bldrs/view_brains/controllers/streamerz.dart';
 import 'package:bldrs/view_brains/drafters/imagers.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
@@ -143,7 +144,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     /// _currentEmail
     if (_currentEmail != null){newContacts.add(ContactModel(value: _currentEmail, type: ContactType.Email));}
     else{
-      String email = getAContactStringFromContacts(existingContacts, ContactType.Email);
+      String email = getAContactValueFromContacts(existingContacts, ContactType.Email);
       if (email != null){
         newContacts.add(
             ContactModel(
@@ -156,7 +157,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     /// _currentWebsite
     if (_currentWebsite != null){newContacts.add(ContactModel(value: _currentWebsite, type: ContactType.WebSite));}
     else{
-      String webSite = getAContactStringFromContacts(existingContacts, ContactType.WebSite);
+      String webSite = getAContactValueFromContacts(existingContacts, ContactType.WebSite);
       if (webSite != null){
         newContacts.add(
             ContactModel(
@@ -169,7 +170,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     /// _currentPhone
     if (_currentPhone != null){newContacts.add(ContactModel(value: _currentPhone, type: ContactType.Phone));}
     else{
-      String phone = getAContactStringFromContacts(existingContacts, ContactType.Phone);
+      String phone = getAContactValueFromContacts(existingContacts, ContactType.Phone);
       if (phone != null){
         newContacts.add(
             ContactModel(
@@ -182,7 +183,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     /// _currentFacebook
     if (_currentFacebook != null){newContacts.add(ContactModel(value: _currentFacebook, type: ContactType.Facebook));}
     else{
-      String facebook = getAContactStringFromContacts(existingContacts, ContactType.Facebook);
+      String facebook = getAContactValueFromContacts(existingContacts, ContactType.Facebook);
       if (facebook != null){
         newContacts.add(
             ContactModel(
@@ -195,7 +196,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     /// _currentInstagram
     if (_currentInstagram != null){newContacts.add(ContactModel(value: _currentInstagram, type: ContactType.Instagram));}
     else{
-      String instagram = getAContactStringFromContacts(existingContacts, ContactType.Instagram);
+      String instagram = getAContactValueFromContacts(existingContacts, ContactType.Instagram);
       if (instagram != null){
         newContacts.add(
             ContactModel(
@@ -208,7 +209,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     /// _currentLinkedIn
     if (_currentLinkedIn != null){newContacts.add(ContactModel(value: _currentLinkedIn, type: ContactType.LinkedIn));}
     else{
-      String linkedIn = getAContactStringFromContacts(existingContacts, ContactType.LinkedIn);
+      String linkedIn = getAContactValueFromContacts(existingContacts, ContactType.LinkedIn);
       if (linkedIn != null){
         newContacts.add(
             ContactModel(
@@ -221,7 +222,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     /// _currentYouTube
     if (_currentYouTube != null){newContacts.add(ContactModel(value: _currentYouTube, type: ContactType.YouTube));}
     else{
-      String youtube = getAContactStringFromContacts(existingContacts, ContactType.YouTube);
+      String youtube = getAContactValueFromContacts(existingContacts, ContactType.YouTube);
       if (youtube != null){
         newContacts.add(
             ContactModel(
@@ -234,7 +235,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     /// _currentPinterest
     if (_currentPinterest != null){newContacts.add(ContactModel(value: _currentPinterest, type: ContactType.Pinterest));}
     else{
-      String pinterest = getAContactStringFromContacts(existingContacts, ContactType.Pinterest);
+      String pinterest = getAContactValueFromContacts(existingContacts, ContactType.Pinterest);
       if (pinterest != null){
         newContacts.add(
             ContactModel(
@@ -247,7 +248,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     /// _currentTikTok
     if (_currentTikTok != null){newContacts.add(ContactModel(value: _currentTikTok, type: ContactType.TikTok));}
     else{
-      String tiktok = getAContactStringFromContacts(existingContacts, ContactType.TikTok);
+      String tiktok = getAContactValueFromContacts(existingContacts, ContactType.TikTok);
       if (tiktok != null){
         newContacts.add(
             ContactModel(
@@ -260,7 +261,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     /// _currentTwitter
     if (_currentTwitter != null){newContacts.add(ContactModel(value: _currentTwitter, type: ContactType.Twitter));}
     else{
-      String twitter = getAContactStringFromContacts(existingContacts, ContactType.Twitter);
+      String twitter = getAContactValueFromContacts(existingContacts, ContactType.Twitter);
       if (twitter != null){
         newContacts.add(
             ContactModel(
@@ -287,230 +288,226 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       layoutWidget: ListView(
         children: <Widget>[
 
-          StreamBuilder<UserModel>(
-            stream: UserProvider(userID: _user.userID).userData,
-            builder: (context, snapshot){
-              if(snapshot.hasData == false){
-                return LoadingFullScreenLayer();
-              } else {
-                UserModel userModel = snapshot.data;
-                print('user naaamee : ${userModel.name}');
-                return Form(
-                  key: _formKey,
-                  child: Column(
-                    children: <Widget>[
+          userStreamBuilder(
+            context: context,
+            builder: (context, UserModel userModel){
 
-                      // --- PAGE TITLE
-                      Container(
-                        margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
+              return Form(
+                key: _formKey,
+                child: Column(
+                  children: <Widget>[
 
-                            // --- TITLE
-                            SuperVerse(
-                              verse: Wordz.editProfile(context),
-                              size: 3,
-                            ),
+                    // --- PAGE TITLE
+                    Container(
+                      margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
 
-                            // --- CANCEL BUTTON
-                            DreamBox(
-                              height: 35,
-                              width: 35,
-                              icon: Iconz.XLarge,
-                              iconSizeFactor: 0.6,
-                              boxFunction: () => goBack(context),
-                            )
-                          ],
-                        ),
+                          // --- TITLE
+                          SuperVerse(
+                            verse: Wordz.editProfile(context),
+                            size: 3,
+                          ),
+
+                          // --- CANCEL BUTTON
+                          DreamBox(
+                            height: 35,
+                            width: 35,
+                            icon: Iconz.XLarge,
+                            iconSizeFactor: 0.6,
+                            boxFunction: () => goBack(context),
+                          )
+                        ],
                       ),
+                    ),
 
-                      // --- EDIT PIC
-                      AddGalleryPicBubble(
-                        pic: _currentPic == null ? userModel.pic : _currentPic,
-                        addBtFunction: _takeGalleryPicture,
-                        deletePicFunction: _deleteLogo,
-                        bubbleType: BubbleType.userPic,
-                      ),
+                    // --- EDIT PIC
+                    AddGalleryPicBubble(
+                      pic: _currentPic == null ? userModel.pic : _currentPic,
+                      addBtFunction: _takeGalleryPicture,
+                      deletePicFunction: _deleteLogo,
+                      bubbleType: BubbleType.userPic,
+                    ),
 
-                      // --- EDIT NAME
-                      TextFieldBubble(
-                        fieldIsFormField: true,
-                        title: Wordz.name(context),
-                        initialTextValue: userModel.name,
-                        keyboardTextInputType: TextInputType.name,
-                        keyboardTextInputAction: TextInputAction.next,
-                        fieldIsRequired: true,
-                        validator: (val) => val.isEmpty ? Wordz.enterName(context) : null,
-                        textOnChanged: (val) => _changeName(val),
-                      ),
+                    // --- EDIT NAME
+                    TextFieldBubble(
+                      fieldIsFormField: true,
+                      title: Wordz.name(context),
+                      initialTextValue: userModel.name,
+                      keyboardTextInputType: TextInputType.name,
+                      keyboardTextInputAction: TextInputAction.next,
+                      fieldIsRequired: true,
+                      validator: (val) => val.isEmpty ? Wordz.enterName(context) : null,
+                      textOnChanged: (val) => _changeName(val),
+                    ),
 
-                      // --- EDIT JOB TITLE
-                      TextFieldBubble(
-                        fieldIsFormField: true,
-                        title: Wordz.jobTitle(context),
-                        initialTextValue: userModel.title,
-                        keyboardTextInputType: TextInputType.name,
-                        keyboardTextInputAction: TextInputAction.next,
-                        fieldIsRequired: true,
-                        validator: (val) => val.isEmpty ? Wordz.enterJobTitle(context) : null,
-                        textOnChanged: (val) => _changeTitle(val),
-                      ),
+                    // --- EDIT JOB TITLE
+                    TextFieldBubble(
+                      fieldIsFormField: true,
+                      title: Wordz.jobTitle(context),
+                      initialTextValue: userModel.title,
+                      keyboardTextInputType: TextInputType.name,
+                      keyboardTextInputAction: TextInputAction.next,
+                      fieldIsRequired: true,
+                      validator: (val) => val.isEmpty ? Wordz.enterJobTitle(context) : null,
+                      textOnChanged: (val) => _changeTitle(val),
+                    ),
 
-                      // --- EDIT COMPANY NAME
-                      TextFieldBubble(
-                        fieldIsFormField: true,
-                        title: Wordz.companyName(context),
-                        initialTextValue: userModel.company,
-                        keyboardTextInputType: TextInputType.name,
-                        keyboardTextInputAction: TextInputAction.next,
-                        fieldIsRequired: true,
-                        validator: (val) => val.isEmpty ? Wordz.enterCompanyName(context) : null,
-                        textOnChanged: (val) => _changeCompany(val),
-                      ),
+                    // --- EDIT COMPANY NAME
+                    TextFieldBubble(
+                      fieldIsFormField: true,
+                      title: Wordz.companyName(context),
+                      initialTextValue: userModel.company,
+                      keyboardTextInputType: TextInputType.name,
+                      keyboardTextInputAction: TextInputAction.next,
+                      fieldIsRequired: true,
+                      validator: (val) => val.isEmpty ? Wordz.enterCompanyName(context) : null,
+                      textOnChanged: (val) => _changeCompany(val),
+                    ),
 
-                      // --- EDIT HQ
-                      LocaleBubble(
-                        title : 'Preferred Location',
-                        changeCountry : (countryID) => _changeCountry(countryID),
-                        changeProvince : (provinceID) => _changeProvince(provinceID),
-                        changeArea : (areaID) => _changeArea(areaID),
-                        zone: Zone(countryID: userModel.country, provinceID: userModel.province, areaID: userModel.area),
-                      ),
+                    // --- EDIT HQ
+                    LocaleBubble(
+                      title : 'Preferred Location',
+                      changeCountry : (countryID) => _changeCountry(countryID),
+                      changeProvince : (provinceID) => _changeProvince(provinceID),
+                      changeArea : (areaID) => _changeArea(areaID),
+                      zone: Zone(countryID: userModel.country, provinceID: userModel.province, areaID: userModel.area),
+                    ),
 
-                      // --- EDIT EMAIL
-                      ContactFieldBubble(
-                        fieldIsFormField: true,
-                        title: Wordz.emailAddress(context),
-                        leadingIcon: Iconz.ComEmail,
-                        keyboardTextInputAction: TextInputAction.next,
-                        fieldIsRequired: true,
-                        keyboardTextInputType: TextInputType.emailAddress,
-                        initialTextValue: getAContactStringFromContacts(userModel.contacts, ContactType.Email),
-                        textOnChanged: (val) => _changeEmail(val),
-                      ),
+                    // --- EDIT EMAIL
+                    ContactFieldBubble(
+                      fieldIsFormField: true,
+                      title: Wordz.emailAddress(context),
+                      leadingIcon: Iconz.ComEmail,
+                      keyboardTextInputAction: TextInputAction.next,
+                      fieldIsRequired: true,
+                      keyboardTextInputType: TextInputType.emailAddress,
+                      initialTextValue: getAContactValueFromContacts(userModel.contacts, ContactType.Email),
+                      textOnChanged: (val) => _changeEmail(val),
+                    ),
 
-                      // --- EDIT PHONE
-                      ContactFieldBubble(
-                        fieldIsFormField: true,
-                        title: Wordz.phone(context),
-                        leadingIcon: Iconz.ComPhone,
-                        keyboardTextInputAction: TextInputAction.next,
-                        fieldIsRequired: false,
-                        keyboardTextInputType: TextInputType.phone,
-                        initialTextValue: getAContactStringFromContacts(userModel.contacts, ContactType.Phone),
-                        textOnChanged: (val) => _changePhone(val),
-                      ),
+                    // --- EDIT PHONE
+                    ContactFieldBubble(
+                      fieldIsFormField: true,
+                      title: Wordz.phone(context),
+                      leadingIcon: Iconz.ComPhone,
+                      keyboardTextInputAction: TextInputAction.next,
+                      fieldIsRequired: false,
+                      keyboardTextInputType: TextInputType.phone,
+                      initialTextValue: getAContactValueFromContacts(userModel.contacts, ContactType.Phone),
+                      textOnChanged: (val) => _changePhone(val),
+                    ),
 
-                      // --- EDIT WEBSITE
-                      ContactFieldBubble(
-                        fieldIsFormField: true,
-                        title: Wordz.website(context),
-                        leadingIcon: Iconz.ComWebsite,
-                        keyboardTextInputAction: TextInputAction.next,
-                        fieldIsRequired: false,
-                        keyboardTextInputType: TextInputType.url,
-                        initialTextValue: getAContactStringFromContacts(userModel.contacts, ContactType.WebSite),
-                        textOnChanged: (val) => _changeWebsite(val),
-                      ),
+                    // --- EDIT WEBSITE
+                    ContactFieldBubble(
+                      fieldIsFormField: true,
+                      title: Wordz.website(context),
+                      leadingIcon: Iconz.ComWebsite,
+                      keyboardTextInputAction: TextInputAction.next,
+                      fieldIsRequired: false,
+                      keyboardTextInputType: TextInputType.url,
+                      initialTextValue: getAContactValueFromContacts(userModel.contacts, ContactType.WebSite),
+                      textOnChanged: (val) => _changeWebsite(val),
+                    ),
 
-                      // --- EDIT FACEBOOK
-                      ContactFieldBubble(
-                        fieldIsFormField: true,
-                        title: Wordz.facebookLink(context),
-                        leadingIcon: Iconz.ComFacebook,
-                        keyboardTextInputAction: TextInputAction.next,
-                        fieldIsRequired: false,
-                        keyboardTextInputType: TextInputType.url,
-                        initialTextValue: getAContactStringFromContacts(userModel.contacts, ContactType.Facebook),
-                        textOnChanged: (val) => _changeFacebook(val),
-                      ),
+                    // --- EDIT FACEBOOK
+                    ContactFieldBubble(
+                      fieldIsFormField: true,
+                      title: Wordz.facebookLink(context),
+                      leadingIcon: Iconz.ComFacebook,
+                      keyboardTextInputAction: TextInputAction.next,
+                      fieldIsRequired: false,
+                      keyboardTextInputType: TextInputType.url,
+                      initialTextValue: getAContactValueFromContacts(userModel.contacts, ContactType.Facebook),
+                      textOnChanged: (val) => _changeFacebook(val),
+                    ),
 
-                      // --- EDIT INSTAGRAM
-                      ContactFieldBubble(
-                        fieldIsFormField: true,
-                        title: Wordz.instagramLink(context),
-                        leadingIcon: Iconz.ComInstagram,
-                        keyboardTextInputAction: TextInputAction.next,
-                        fieldIsRequired: false,
-                        keyboardTextInputType: TextInputType.url,
-                        initialTextValue: getAContactStringFromContacts(userModel.contacts, ContactType.Instagram),
-                        textOnChanged: (val) => _changeInstagram(val),
-                      ),
+                    // --- EDIT INSTAGRAM
+                    ContactFieldBubble(
+                      fieldIsFormField: true,
+                      title: Wordz.instagramLink(context),
+                      leadingIcon: Iconz.ComInstagram,
+                      keyboardTextInputAction: TextInputAction.next,
+                      fieldIsRequired: false,
+                      keyboardTextInputType: TextInputType.url,
+                      initialTextValue: getAContactValueFromContacts(userModel.contacts, ContactType.Instagram),
+                      textOnChanged: (val) => _changeInstagram(val),
+                    ),
 
-                      // --- EDIT LINKEDIN
-                      ContactFieldBubble(
-                        fieldIsFormField: true,
-                        title: Wordz.linkedinLink(context),
-                        leadingIcon: Iconz.ComLinkedin,
-                        keyboardTextInputAction: TextInputAction.next,
-                        fieldIsRequired: false,
-                        keyboardTextInputType: TextInputType.url,
-                        initialTextValue: getAContactStringFromContacts(userModel.contacts, ContactType.LinkedIn),
-                        textOnChanged: (val) => _changeLinkedIn(val),
-                      ),
+                    // --- EDIT LINKEDIN
+                    ContactFieldBubble(
+                      fieldIsFormField: true,
+                      title: Wordz.linkedinLink(context),
+                      leadingIcon: Iconz.ComLinkedin,
+                      keyboardTextInputAction: TextInputAction.next,
+                      fieldIsRequired: false,
+                      keyboardTextInputType: TextInputType.url,
+                      initialTextValue: getAContactValueFromContacts(userModel.contacts, ContactType.LinkedIn),
+                      textOnChanged: (val) => _changeLinkedIn(val),
+                    ),
 
-                      // --- EDIT YOUTUBE
-                      ContactFieldBubble(
-                        fieldIsFormField: true,
-                        title: Wordz.youtubeChannel(context),
-                        leadingIcon: Iconz.ComYoutube,
-                        keyboardTextInputAction: TextInputAction.next,
-                        fieldIsRequired: false,
-                        keyboardTextInputType: TextInputType.url,
-                        initialTextValue: getAContactStringFromContacts(userModel.contacts, ContactType.YouTube),
-                        textOnChanged: (val) => _changeYouTube(val),
-                      ),
+                    // --- EDIT YOUTUBE
+                    ContactFieldBubble(
+                      fieldIsFormField: true,
+                      title: Wordz.youtubeChannel(context),
+                      leadingIcon: Iconz.ComYoutube,
+                      keyboardTextInputAction: TextInputAction.next,
+                      fieldIsRequired: false,
+                      keyboardTextInputType: TextInputType.url,
+                      initialTextValue: getAContactValueFromContacts(userModel.contacts, ContactType.YouTube),
+                      textOnChanged: (val) => _changeYouTube(val),
+                    ),
 
-                      // --- EDIT PINTEREST
-                      ContactFieldBubble(
-                        fieldIsFormField: true,
-                        title: Wordz.pinterestLink(context),
-                        leadingIcon: Iconz.ComPinterest,
-                        keyboardTextInputAction: TextInputAction.next,
-                        fieldIsRequired: false,
-                        keyboardTextInputType: TextInputType.url,
-                        initialTextValue: getAContactStringFromContacts(userModel.contacts, ContactType.Pinterest),
-                        textOnChanged: (val) => _changePinterest(val),
-                      ),
+                    // --- EDIT PINTEREST
+                    ContactFieldBubble(
+                      fieldIsFormField: true,
+                      title: Wordz.pinterestLink(context),
+                      leadingIcon: Iconz.ComPinterest,
+                      keyboardTextInputAction: TextInputAction.next,
+                      fieldIsRequired: false,
+                      keyboardTextInputType: TextInputType.url,
+                      initialTextValue: getAContactValueFromContacts(userModel.contacts, ContactType.Pinterest),
+                      textOnChanged: (val) => _changePinterest(val),
+                    ),
 
-                      // --- EDIT TIKTOK
-                      ContactFieldBubble(
-                        fieldIsFormField: true,
-                        title: Wordz.tiktokLink(context),
-                        leadingIcon: Iconz.ComTikTok,
-                        keyboardTextInputAction: TextInputAction.next,
-                        fieldIsRequired: false,
-                        keyboardTextInputType: TextInputType.url,
-                        initialTextValue: getAContactStringFromContacts(userModel.contacts, ContactType.TikTok),
-                        textOnChanged: (val) => _changeTikTok(val),
-                      ),
+                    // --- EDIT TIKTOK
+                    ContactFieldBubble(
+                      fieldIsFormField: true,
+                      title: Wordz.tiktokLink(context),
+                      leadingIcon: Iconz.ComTikTok,
+                      keyboardTextInputAction: TextInputAction.next,
+                      fieldIsRequired: false,
+                      keyboardTextInputType: TextInputType.url,
+                      initialTextValue: getAContactValueFromContacts(userModel.contacts, ContactType.TikTok),
+                      textOnChanged: (val) => _changeTikTok(val),
+                    ),
 
-                      // --- EDIT TWITTER
-                      ContactFieldBubble(
-                        fieldIsFormField: true,
-                        title: 'Twitter link',//Wordz.twitterLink(context),
-                        leadingIcon: Iconz.ComTwitter,
-                        keyboardTextInputAction: TextInputAction.done,
-                        fieldIsRequired: false,
-                        keyboardTextInputType: TextInputType.url,
-                        initialTextValue: getAContactStringFromContacts(userModel.contacts, ContactType.Twitter),
-                        textOnChanged: (val) => _changeTwitter(val),
-                      ),
+                    // --- EDIT TWITTER
+                    ContactFieldBubble(
+                      fieldIsFormField: true,
+                      title: 'Twitter link',//Wordz.twitterLink(context),
+                      leadingIcon: Iconz.ComTwitter,
+                      keyboardTextInputAction: TextInputAction.done,
+                      fieldIsRequired: false,
+                      keyboardTextInputType: TextInputType.url,
+                      initialTextValue: getAContactValueFromContacts(userModel.contacts, ContactType.Twitter),
+                      textOnChanged: (val) => _changeTwitter(val),
+                    ),
 
-                      // --- CONFIRM BUTTON
-                      DreamBox(
-                        height: 50,
-                        color: Colorz.WhiteGlass,
-                        icon: Iconz.Check,
-                        iconSizeFactor: 0.5,
-                        verse: Wordz.updateProfile(context),
-                        verseScaleFactor: 1.5,
-                        boxMargins: EdgeInsets.all(20),
-                        boxFunction: ()async{
-                          if(_formKey.currentState.validate()){
-                            try{
+                    // --- CONFIRM BUTTON
+                    DreamBox(
+                      height: 50,
+                      color: Colorz.WhiteGlass,
+                      icon: Iconz.Check,
+                      iconSizeFactor: 0.5,
+                      verse: Wordz.updateProfile(context),
+                      verseScaleFactor: 1.5,
+                      boxMargins: EdgeInsets.all(20),
+                      boxFunction: ()async{
+                        if(_formKey.currentState.validate()){
+                          try{
 
                             String _userPicURL;
 
@@ -524,48 +521,48 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
                             print('_userPicURL : $_userPicURL');
 
-                              await UserProvider(userID: userModel.userID).updateUserData(
-                                // -------------------------
-                                userID : userModel.userID,
-                                joinedAt : userModel.joinedAt,
-                                userStatus : userModel.userStatus ?? UserStatus.Normal,
-                                // -------------------------
-                                name : _currentName ?? userModel.name,
-                                pic : _userPicURL ?? userModel.pic,
-                                title :  _currentTitle ?? userModel.title,
-                                company: _currentCompany ?? userModel.company,
-                                gender : _currentGender ?? userModel.gender,
-                                country : _currentCountryID ?? userModel.country,
-                                province : _currentProvinceID ?? userModel.province,
-                                area : _currentAreaID ?? userModel.area,
-                                language : Wordz.languageCode(context),
-                                position : _currentPosition ?? userModel.position,
-                                contacts : _createContactList(userModel.contacts),
-                                // -------------------------
-                                savedFlyersIDs : userModel.savedFlyersIDs,
-                                followedBzzIDs : userModel.followedBzzIDs,
-                                // -------------------------
-                              );
-                              print('usermodel successfully edited');
-                              goBack(context);
+                            await UserProvider(userID: userModel.userID).updateUserData(
+                              // -------------------------
+                              userID : userModel.userID,
+                              joinedAt : userModel.joinedAt,
+                              userStatus : userModel.userStatus ?? UserStatus.Normal,
+                              // -------------------------
+                              name : _currentName ?? userModel.name,
+                              pic : _userPicURL ?? userModel.pic,
+                              title :  _currentTitle ?? userModel.title,
+                              company: _currentCompany ?? userModel.company,
+                              gender : _currentGender ?? userModel.gender,
+                              country : _currentCountryID ?? userModel.country,
+                              province : _currentProvinceID ?? userModel.province,
+                              area : _currentAreaID ?? userModel.area,
+                              language : Wordz.languageCode(context),
+                              position : _currentPosition ?? userModel.position,
+                              contacts : _createContactList(userModel.contacts),
+                              // -------------------------
+                              savedFlyersIDs : userModel.savedFlyersIDs,
+                              followedBzzIDs : userModel.followedBzzIDs,
+                              // -------------------------
+                            );
+                            print('usermodel successfully edited');
+                            goBack(context);
 
-                            }catch(error){
-                              print(error.toString());
-                            }
-
+                          }catch(error){
+                            print(error.toString());
                           }
 
-                        },
-                      ),
+                        }
 
-                      PyramidsHorizon(heightFactor: 5,)
+                      },
+                    ),
 
-                    ],
-                  ),
-                );
-              }
-            },
-          )
+                    PyramidsHorizon(heightFactor: 5,)
+
+                  ],
+                ),
+              );
+
+            }
+          ),
 
         ],
       ),

@@ -123,11 +123,10 @@ class MainLayout extends StatelessWidget {
             ),
     ),
 
-
     ];
 
     return StreamProvider<List<UserModel>>.value(
-      value: UserProvider().userStream,
+      value: UserProvider().allUsersStream,
       child: GestureDetector(
           onTap: (){minimizeKeyboardOnTapOutSide(context);},
         child: SafeArea(
