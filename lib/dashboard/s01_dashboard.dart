@@ -2,6 +2,7 @@
 // or now it will be developed here until launch version is complete
 import 'package:bldrs/dashboard/s02_statistics.dart';
 import 'package:bldrs/dashboard/s05_keywords_manager.dart';
+import 'package:bldrs/dashboard/users_manager/users_manager_screen.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
@@ -14,7 +15,7 @@ import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 's04_notifications_manager.dart';
 import 's06_flyers_auditor.dart';
-import 'zones_manager/zones_manager.dart';
+import 'zones_manager/zones_manager_screen.dart';
 
 class DashBoard extends StatefulWidget {
 
@@ -68,10 +69,24 @@ class _DashBoardState extends State<DashBoard> {
               buttonIcon: Iconz.Statistics,
             ),
 
+            // --- USERS MANAGER
+            BTMain(
+              buttonVerse: 'Users Manager',
+              function: () => goToNewScreen(context, UsersManagerScreen()),
+              splashColor: Colorz.Yellow,
+              buttonColor: Colorz.Yellow,
+              verseColor: Colorz.BlackBlack,
+              verseWeight : VerseWeight.black,
+              buttonVerseShadow: false,
+              stretched: false,
+              buttonIcon: Iconz.NormalUser,
+              iconColor: Colorz.BlackBlack,
+            ),
+
             // --- ZONES MANAGER
             BTMain(
               buttonVerse: 'Zones Manager',
-              function: () => goToNewScreen(context, ZonesManager()),
+              function: () => goToNewScreen(context, ZonesManagerScreen()),
               splashColor: Colorz.Yellow,
               buttonColor: Colorz.Yellow,
               verseColor: Colorz.BlackBlack,
@@ -79,6 +94,7 @@ class _DashBoardState extends State<DashBoard> {
               buttonVerseShadow: false,
               stretched: false,
               buttonIcon: Iconz.Earth,
+              iconColor: Colorz.BlackBlack,
             ),
 
             // --- NOTIFICATIONS MANAGER
@@ -92,6 +108,7 @@ class _DashBoardState extends State<DashBoard> {
               buttonVerseShadow: false,
               stretched: false,
               buttonIcon: Iconz.News,
+              iconColor: Colorz.BlackBlack,
             ),
 
             // --- KEYWORD MANAGER
@@ -105,6 +122,7 @@ class _DashBoardState extends State<DashBoard> {
               buttonVerseShadow: false,
               stretched: false,
               buttonIcon: Iconz.Language,
+              iconColor: Colorz.BlackBlack,
             ),
 
             // --- FLYERS AUDITOR
@@ -118,6 +136,7 @@ class _DashBoardState extends State<DashBoard> {
               buttonVerseShadow: false,
               stretched: false,
               buttonIcon: Iconz.FlyerGrid,
+              iconColor: Colorz.BlackBlack,
             ),
 
           ],

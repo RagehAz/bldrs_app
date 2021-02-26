@@ -2,7 +2,6 @@ import 'package:bldrs/models/planet/area_model.dart';
 import 'package:bldrs/models/planet/country_model.dart';
 import 'package:bldrs/models/planet/province_model.dart';
 import 'package:bldrs/view_brains/controllers/streamerz.dart';
-import 'package:bldrs/view_brains/drafters/aligners.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/drafters/texters.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
@@ -21,13 +20,13 @@ import 'db_areas.dart';
 import 'db_countries.dart';
 import 'db_provinces.dart';
 
-class ZonesManager extends StatefulWidget {
+class ZonesManagerScreen extends StatefulWidget {
 
   @override
-  _ZonesManagerState createState() => _ZonesManagerState();
+  _ZonesManagerScreenState createState() => _ZonesManagerScreenState();
 }
 
-class _ZonesManagerState extends State<ZonesManager> {
+class _ZonesManagerScreenState extends State<ZonesManagerScreen> {
   final List<Country> _countries = dbCountries;
   final List<Province> _provinces = dbProvinces;
   final List<Area> _areas = dbAreas;
@@ -78,6 +77,7 @@ class _ZonesManagerState extends State<ZonesManager> {
       pyramids: Iconz.PyramidzYellow,
       appBarType: AppBarType.Basic,
       pageTitle: 'Zones Manager',
+      appBarBackButton: true,
       sky: Sky.Black,
       loading: _loading,
       layoutWidget: Container(

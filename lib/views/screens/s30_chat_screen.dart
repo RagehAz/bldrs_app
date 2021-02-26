@@ -12,10 +12,8 @@ import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/views/widgets/textings/super_text_field.dart';
-import 'package:provider/provider.dart';
 
 class ChatScreen extends StatefulWidget {
 
@@ -45,7 +43,7 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     final Stream<QuerySnapshot> _chatSnapshots = _chatsCollection.orderBy(
         'at', descending: false).snapshots();
-    final _user = Provider.of<UserModel>(context);
+    final _userID = superUserID();
 
     print('wtf');
 
@@ -59,7 +57,7 @@ class _ChatScreenState extends State<ChatScreen> {
         children: <Widget>[
 
           StreamBuilder<UserModel>(
-              stream: UserProvider(userID: _user.userID).userData,
+              stream: UserProvider(userID: _userID).userData,
               builder: (ctx, snapshot) {
                 if (connectionIsWaiting(snapshot)) {
                   return Loading();

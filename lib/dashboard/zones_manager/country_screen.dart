@@ -63,9 +63,9 @@ class _CountryScreenState extends State<CountryScreen> {
     super.initState();
   }
 // ---------------------------------------------------------------------------
-  Future <void> _updateCountryFieldOnFirebase(String _field, dynamic _input) async {
+  Future <void> _updateCountryFieldOnFirestore(String _field, dynamic _input) async {
     _triggerLoading();
-    await updateFieldOnFirebase(
+    await updateFieldOnFirestore(
       context: context,
       collectionName: _countriesCollectionName,
       documentName: widget.country.iso3,
@@ -131,7 +131,7 @@ class _CountryScreenState extends State<CountryScreen> {
               initialTextValue: _name,
               bubbleColor: Colorz.WhiteGlass,
               actionBtIcon: Iconz.Check,
-              actionBtFunction: () => _updateCountryFieldOnFirebase('name', _name),
+              actionBtFunction: () => _updateCountryFieldOnFirestore('name', _name),
             ),
 
             // --- Language
@@ -143,7 +143,7 @@ class _CountryScreenState extends State<CountryScreen> {
               initialTextValue: _language,
               bubbleColor: Colorz.WhiteGlass,
               actionBtIcon: Iconz.Check,
-              actionBtFunction: () => _updateCountryFieldOnFirebase('language', _language),
+              actionBtFunction: () => _updateCountryFieldOnFirestore('language', _language),
             ),
 
             // --- FLAG
@@ -155,7 +155,7 @@ class _CountryScreenState extends State<CountryScreen> {
               initialTextValue: _flag,
               bubbleColor: Colorz.WhiteGlass,
               actionBtIcon: Iconz.Check,
-              actionBtFunction: () => _updateCountryFieldOnFirebase('flag', _flag),
+              actionBtFunction: () => _updateCountryFieldOnFirestore('flag', _flag),
               leadingIcon: _flag,
             ),
 
@@ -170,7 +170,7 @@ class _CountryScreenState extends State<CountryScreen> {
               initialTextValue: _region,
               bubbleColor: Colorz.WhiteGlass,
               actionBtIcon: Iconz.Check,
-              actionBtFunction: () => _updateCountryFieldOnFirebase('region', _region),
+              actionBtFunction: () => _updateCountryFieldOnFirestore('region', _region),
             ),
 
             // --- CONTINENT
@@ -182,7 +182,7 @@ class _CountryScreenState extends State<CountryScreen> {
               initialTextValue: _continent,
               bubbleColor: Colorz.WhiteGlass,
               actionBtIcon: Iconz.Check,
-              actionBtFunction: () => _updateCountryFieldOnFirebase('continent', _continent),
+              actionBtFunction: () => _updateCountryFieldOnFirestore('continent', _continent),
             ),
 
             BubblesSeparator(),
@@ -198,7 +198,7 @@ class _CountryScreenState extends State<CountryScreen> {
               switchIsOn: _isActivated,
               switching: (val){
                 setState(() {_isActivated = val;});
-                _updateCountryFieldOnFirebase('isActivated', _isActivated);
+                _updateCountryFieldOnFirestore('isActivated', _isActivated);
                 print(val);
               },
             ),
@@ -214,7 +214,7 @@ class _CountryScreenState extends State<CountryScreen> {
               switchIsOn: _isGlobal,
               switching: (val){
                 setState(() {_isGlobal = val;});
-                _updateCountryFieldOnFirebase('isGlobal', _isGlobal);
+                _updateCountryFieldOnFirestore('isGlobal', _isGlobal);
                 print(val);
               },
             ),

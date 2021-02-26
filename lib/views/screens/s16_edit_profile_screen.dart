@@ -141,131 +141,131 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     // _currentEmail = getEmailFromContacts(existingContacts);
 
     /// _currentEmail
-    if (_currentEmail != null){newContacts.add(ContactModel(contact: _currentEmail, contactType: ContactType.Email));}
+    if (_currentEmail != null){newContacts.add(ContactModel(value: _currentEmail, type: ContactType.Email));}
     else{
       String email = getAContactStringFromContacts(existingContacts, ContactType.Email);
       if (email != null){
         newContacts.add(
             ContactModel(
-              contact: email,
-              contactType: ContactType.Email,
+              value: email,
+              type: ContactType.Email,
             )
         );
       }
     }
     /// _currentWebsite
-    if (_currentWebsite != null){newContacts.add(ContactModel(contact: _currentWebsite, contactType: ContactType.WebSite));}
+    if (_currentWebsite != null){newContacts.add(ContactModel(value: _currentWebsite, type: ContactType.WebSite));}
     else{
       String webSite = getAContactStringFromContacts(existingContacts, ContactType.WebSite);
       if (webSite != null){
         newContacts.add(
             ContactModel(
-              contact: webSite,
-              contactType: ContactType.WebSite,
+              value: webSite,
+              type: ContactType.WebSite,
             )
         );
       }
     }
     /// _currentPhone
-    if (_currentPhone != null){newContacts.add(ContactModel(contact: _currentPhone, contactType: ContactType.Phone));}
+    if (_currentPhone != null){newContacts.add(ContactModel(value: _currentPhone, type: ContactType.Phone));}
     else{
       String phone = getAContactStringFromContacts(existingContacts, ContactType.Phone);
       if (phone != null){
         newContacts.add(
             ContactModel(
-              contact: phone,
-              contactType: ContactType.Phone,
+              value: phone,
+              type: ContactType.Phone,
             )
         );
       }
     }
     /// _currentFacebook
-    if (_currentFacebook != null){newContacts.add(ContactModel(contact: _currentFacebook, contactType: ContactType.Facebook));}
+    if (_currentFacebook != null){newContacts.add(ContactModel(value: _currentFacebook, type: ContactType.Facebook));}
     else{
       String facebook = getAContactStringFromContacts(existingContacts, ContactType.Facebook);
       if (facebook != null){
         newContacts.add(
             ContactModel(
-              contact: facebook,
-              contactType: ContactType.Facebook,
+              value: facebook,
+              type: ContactType.Facebook,
             )
         );
       }
     }
     /// _currentInstagram
-    if (_currentInstagram != null){newContacts.add(ContactModel(contact: _currentInstagram, contactType: ContactType.Instagram));}
+    if (_currentInstagram != null){newContacts.add(ContactModel(value: _currentInstagram, type: ContactType.Instagram));}
     else{
       String instagram = getAContactStringFromContacts(existingContacts, ContactType.Instagram);
       if (instagram != null){
         newContacts.add(
             ContactModel(
-              contact: instagram,
-              contactType: ContactType.Instagram,
+              value: instagram,
+              type: ContactType.Instagram,
             )
         );
       }
     }
     /// _currentLinkedIn
-    if (_currentLinkedIn != null){newContacts.add(ContactModel(contact: _currentLinkedIn, contactType: ContactType.LinkedIn));}
+    if (_currentLinkedIn != null){newContacts.add(ContactModel(value: _currentLinkedIn, type: ContactType.LinkedIn));}
     else{
       String linkedIn = getAContactStringFromContacts(existingContacts, ContactType.LinkedIn);
       if (linkedIn != null){
         newContacts.add(
             ContactModel(
-              contact: linkedIn,
-              contactType: ContactType.LinkedIn,
+              value: linkedIn,
+              type: ContactType.LinkedIn,
             )
         );
       }
     }
     /// _currentYouTube
-    if (_currentYouTube != null){newContacts.add(ContactModel(contact: _currentYouTube, contactType: ContactType.YouTube));}
+    if (_currentYouTube != null){newContacts.add(ContactModel(value: _currentYouTube, type: ContactType.YouTube));}
     else{
       String youtube = getAContactStringFromContacts(existingContacts, ContactType.YouTube);
       if (youtube != null){
         newContacts.add(
             ContactModel(
-              contact: youtube,
-              contactType: ContactType.YouTube,
+              value: youtube,
+              type: ContactType.YouTube,
             )
         );
       }
     }
     /// _currentPinterest
-    if (_currentPinterest != null){newContacts.add(ContactModel(contact: _currentPinterest, contactType: ContactType.Pinterest));}
+    if (_currentPinterest != null){newContacts.add(ContactModel(value: _currentPinterest, type: ContactType.Pinterest));}
     else{
       String pinterest = getAContactStringFromContacts(existingContacts, ContactType.Pinterest);
       if (pinterest != null){
         newContacts.add(
             ContactModel(
-              contact: pinterest,
-              contactType: ContactType.Pinterest,
+              value: pinterest,
+              type: ContactType.Pinterest,
             )
         );
       }
     }
     /// _currentTikTok
-    if (_currentTikTok != null){newContacts.add(ContactModel(contact: _currentTikTok, contactType: ContactType.TikTok));}
+    if (_currentTikTok != null){newContacts.add(ContactModel(value: _currentTikTok, type: ContactType.TikTok));}
     else{
       String tiktok = getAContactStringFromContacts(existingContacts, ContactType.TikTok);
       if (tiktok != null){
         newContacts.add(
             ContactModel(
-              contact: tiktok,
-              contactType: ContactType.TikTok,
+              value: tiktok,
+              type: ContactType.TikTok,
             )
         );
       }
     }
     /// _currentTwitter
-    if (_currentTwitter != null){newContacts.add(ContactModel(contact: _currentTwitter, contactType: ContactType.Twitter));}
+    if (_currentTwitter != null){newContacts.add(ContactModel(value: _currentTwitter, type: ContactType.Twitter));}
     else{
       String twitter = getAContactStringFromContacts(existingContacts, ContactType.Twitter);
       if (twitter != null){
         newContacts.add(
             ContactModel(
-              contact: twitter,
-              contactType: ContactType.Twitter,
+              value: twitter,
+              type: ContactType.Twitter,
             )
         );
       }

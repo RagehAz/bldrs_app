@@ -18,6 +18,7 @@ class BTMain extends StatelessWidget {
   final double iconSizeFactor;
   final Color verseColor;
   final VerseWeight verseWeight;
+  final Color iconColor;
 
   BTMain({
     @required this.buttonVerse,
@@ -31,6 +32,7 @@ class BTMain extends StatelessWidget {
     this.iconSizeFactor = 0.75,
     this.verseColor = Colorz.White,
     this.verseWeight = VerseWeight.bold,
+    this.iconColor,
   });
 
   @override
@@ -135,7 +137,7 @@ class BTMain extends StatelessWidget {
                   Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
+                      children: <Widget>[
                         // --- ONLY THE BUTTON VERSE HERE
                         Padding(
                           padding: EdgeInsets.all(_buttonZonePaddings),
@@ -160,7 +162,7 @@ class BTMain extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisSize: MainAxisSize.max,
-                        children: [
+                        children: <Widget>[
 
                           // --- OLD BUTTON ICON
                           Flexible(
@@ -179,10 +181,10 @@ class BTMain extends StatelessWidget {
                                     width: _buttonZoneHeight * 0.4,
                                     height: _buttonZoneHeight * 0.4,
                                     decoration: BoxDecoration(
-                                      image: DecorationImage(image: AssetImage(buttonIcon), fit: BoxFit.cover),
+                                      image: DecorationImage(image: AssetImage(buttonIcon), fit: BoxFit.cover, ),
                                     ),
                                   ) :
-                              WebsafeSvg.asset(buttonIcon, fit: BoxFit.fill,),
+                              WebsafeSvg.asset(buttonIcon, fit: BoxFit.fill, color: iconColor),
                             ),
                           ),
 

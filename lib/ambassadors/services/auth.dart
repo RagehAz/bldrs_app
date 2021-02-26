@@ -32,7 +32,7 @@ class AuthService{
       // area: currentZone.areaID,
       // language: Wordz.languageCode(context),
       // position: GeoPoint(0, 0),
-      contacts: [ContactModel(contact: user.email, contactType: ContactType.Email)],
+      contacts: [ContactModel(value: user.email, type: ContactType.Email)],
       // -------------------------
       // savedFlyersIDs: [''],
       // followedBzzIDs: [''],
@@ -92,7 +92,7 @@ class AuthService{
           area: currentZone.areaID,
           language: Wordz.languageCode(context),
           position: GeoPoint(0, 0),
-          contacts: [ContactModel(contact: user.email, contactType: ContactType.Email)],
+          contacts: [ContactModel(value: user.email, type: ContactType.Email)],
           // -------------------------
           savedFlyersIDs: [''],
           followedBzzIDs: [''],
