@@ -47,6 +47,7 @@ class MainLayout extends StatelessWidget {
   final Sky sky;
   final bool canRefreshFlyers;
   final bool loading;
+  final bool appBarBackButton;
 
   MainLayout({
     this.appBarRowWidgets,
@@ -58,6 +59,7 @@ class MainLayout extends StatelessWidget {
     this.sky = Sky.Night,
     this.canRefreshFlyers = false,
     this.loading = false,
+    this.appBarBackButton = false,
 });
 
   Future<void> _refresh(BuildContext context) async {
@@ -82,6 +84,7 @@ class MainLayout extends StatelessWidget {
           appBarType: appBarType,
           appBarRowWidgets: appBarRowWidgets,
           pageTitle: pageTitle,
+          backButton: appBarBackButton,
         ),
 
       if (pyramids != null)
