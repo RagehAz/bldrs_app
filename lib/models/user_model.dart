@@ -1,4 +1,5 @@
 import 'package:bldrs/models/sub_models/contact_model.dart';
+import 'package:bldrs/view_brains/drafters/timerz.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
@@ -43,6 +44,29 @@ class UserModel {
     this.savedFlyersIDs,
     this.followedBzzIDs,
   });
+
+  Map<String, dynamic> toMap(){
+    return {
+      'userID' : userID,
+      'joinedAt' : cipherDateTimeToString(joinedAt),
+      'userStatus' : cipherUserStatus(userStatus),
+// -------------------------
+      'name' : name,
+      'pic' : pic,
+      'title' : title,
+      'company' : company,
+      'gender' : cipherGender(gender),
+      'country' : country,
+      'province' : province,
+      'area' : area,
+      'language' : language,
+      'position' : position,
+      'contacts' : cipherContactsModels(contacts),
+// -------------------------
+      'savedFlyersIDs' : savedFlyersIDs,
+      'followedBzzIDs' : followedBzzIDs,
+    };
+  }
 }
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
 enum UserStatus {

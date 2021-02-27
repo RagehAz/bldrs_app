@@ -46,7 +46,7 @@ Future<String> signInWithGoogle(BuildContext context, Zone currentZone) async {
       language: Wordz.languageCode(context),
       position: GeoPoint(0, 0),
       contacts: [
-        ContactModel(value: user.email, type: ContactType.Email)
+        ContactModel(contact: user.email, contactType: ContactType.Email)
       ],
       // -------------------------
       savedFlyersIDs: [''],

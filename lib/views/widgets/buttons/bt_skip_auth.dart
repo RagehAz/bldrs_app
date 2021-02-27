@@ -26,7 +26,7 @@ class _BtSkipAuthState extends State<BtSkipAuth> {
         iconSizeFactor: 0.6,
         bubble: true,
         boxFunction: () async {
-          dynamic result = await _auth.signInAnon();
+          dynamic result = await _auth.signInAnon(context);
           if (result == null){
             print('Couldn\'t sign in');
             goToRoute(context, Routez.Home);
