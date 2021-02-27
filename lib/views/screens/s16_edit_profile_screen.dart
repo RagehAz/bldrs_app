@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:bldrs/ambassadors/services/auth.dart';
 import 'package:bldrs/ambassadors/services/firebase_storage.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/sub_models/contact_model.dart';
@@ -13,6 +14,7 @@ import 'package:bldrs/views/widgets/bubbles/add_gallery_pic_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/contact_field_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/locale_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/text_field_bubble.dart';
+import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
@@ -50,7 +52,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   String _currentPinterest;
   String _currentTikTok;
   String _currentTwitter;
-  // ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
+  /// --- LOADING BLOCK
+  bool _loading = false;
+  void _triggerLoading(){
+    setState(() {_loading = !_loading;});
+    _loading == true?
+    print('LOADING') : print('LOADING COMPLETE');
+  }
+// ---------------------------------------------------------------------------
   void _changeName(String val){
     setState(()=> _currentName = val);
   }
@@ -142,131 +152,131 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     // _currentEmail = getEmailFromContacts(existingContacts);
 
     /// _currentEmail
-    if (_currentEmail != null){newContacts.add(ContactModel(value: _currentEmail, type: ContactType.Email));}
+    if (_currentEmail != null){newContacts.add(ContactModel(contact: _currentEmail, contactType: ContactType.Email));}
     else{
       String email = getAContactValueFromContacts(existingContacts, ContactType.Email);
       if (email != null){
         newContacts.add(
             ContactModel(
-              value: email,
-              type: ContactType.Email,
+              contact: email,
+              contactType: ContactType.Email,
             )
         );
       }
     }
     /// _currentWebsite
-    if (_currentWebsite != null){newContacts.add(ContactModel(value: _currentWebsite, type: ContactType.WebSite));}
+    if (_currentWebsite != null){newContacts.add(ContactModel(contact: _currentWebsite, contactType: ContactType.WebSite));}
     else{
       String webSite = getAContactValueFromContacts(existingContacts, ContactType.WebSite);
       if (webSite != null){
         newContacts.add(
             ContactModel(
-              value: webSite,
-              type: ContactType.WebSite,
+              contact: webSite,
+              contactType: ContactType.WebSite,
             )
         );
       }
     }
     /// _currentPhone
-    if (_currentPhone != null){newContacts.add(ContactModel(value: _currentPhone, type: ContactType.Phone));}
+    if (_currentPhone != null){newContacts.add(ContactModel(contact: _currentPhone, contactType: ContactType.Phone));}
     else{
       String phone = getAContactValueFromContacts(existingContacts, ContactType.Phone);
       if (phone != null){
         newContacts.add(
             ContactModel(
-              value: phone,
-              type: ContactType.Phone,
+              contact: phone,
+              contactType: ContactType.Phone,
             )
         );
       }
     }
     /// _currentFacebook
-    if (_currentFacebook != null){newContacts.add(ContactModel(value: _currentFacebook, type: ContactType.Facebook));}
+    if (_currentFacebook != null){newContacts.add(ContactModel(contact: _currentFacebook, contactType: ContactType.Facebook));}
     else{
       String facebook = getAContactValueFromContacts(existingContacts, ContactType.Facebook);
       if (facebook != null){
         newContacts.add(
             ContactModel(
-              value: facebook,
-              type: ContactType.Facebook,
+              contact: facebook,
+              contactType: ContactType.Facebook,
             )
         );
       }
     }
     /// _currentInstagram
-    if (_currentInstagram != null){newContacts.add(ContactModel(value: _currentInstagram, type: ContactType.Instagram));}
+    if (_currentInstagram != null){newContacts.add(ContactModel(contact: _currentInstagram, contactType: ContactType.Instagram));}
     else{
       String instagram = getAContactValueFromContacts(existingContacts, ContactType.Instagram);
       if (instagram != null){
         newContacts.add(
             ContactModel(
-              value: instagram,
-              type: ContactType.Instagram,
+              contact: instagram,
+              contactType: ContactType.Instagram,
             )
         );
       }
     }
     /// _currentLinkedIn
-    if (_currentLinkedIn != null){newContacts.add(ContactModel(value: _currentLinkedIn, type: ContactType.LinkedIn));}
+    if (_currentLinkedIn != null){newContacts.add(ContactModel(contact: _currentLinkedIn, contactType: ContactType.LinkedIn));}
     else{
       String linkedIn = getAContactValueFromContacts(existingContacts, ContactType.LinkedIn);
       if (linkedIn != null){
         newContacts.add(
             ContactModel(
-              value: linkedIn,
-              type: ContactType.LinkedIn,
+              contact: linkedIn,
+              contactType: ContactType.LinkedIn,
             )
         );
       }
     }
     /// _currentYouTube
-    if (_currentYouTube != null){newContacts.add(ContactModel(value: _currentYouTube, type: ContactType.YouTube));}
+    if (_currentYouTube != null){newContacts.add(ContactModel(contact: _currentYouTube, contactType: ContactType.YouTube));}
     else{
       String youtube = getAContactValueFromContacts(existingContacts, ContactType.YouTube);
       if (youtube != null){
         newContacts.add(
             ContactModel(
-              value: youtube,
-              type: ContactType.YouTube,
+              contact: youtube,
+              contactType: ContactType.YouTube,
             )
         );
       }
     }
     /// _currentPinterest
-    if (_currentPinterest != null){newContacts.add(ContactModel(value: _currentPinterest, type: ContactType.Pinterest));}
+    if (_currentPinterest != null){newContacts.add(ContactModel(contact: _currentPinterest, contactType: ContactType.Pinterest));}
     else{
       String pinterest = getAContactValueFromContacts(existingContacts, ContactType.Pinterest);
       if (pinterest != null){
         newContacts.add(
             ContactModel(
-              value: pinterest,
-              type: ContactType.Pinterest,
+              contact: pinterest,
+              contactType: ContactType.Pinterest,
             )
         );
       }
     }
     /// _currentTikTok
-    if (_currentTikTok != null){newContacts.add(ContactModel(value: _currentTikTok, type: ContactType.TikTok));}
+    if (_currentTikTok != null){newContacts.add(ContactModel(contact: _currentTikTok, contactType: ContactType.TikTok));}
     else{
       String tiktok = getAContactValueFromContacts(existingContacts, ContactType.TikTok);
       if (tiktok != null){
         newContacts.add(
             ContactModel(
-              value: tiktok,
-              type: ContactType.TikTok,
+              contact: tiktok,
+              contactType: ContactType.TikTok,
             )
         );
       }
     }
     /// _currentTwitter
-    if (_currentTwitter != null){newContacts.add(ContactModel(value: _currentTwitter, type: ContactType.Twitter));}
+    if (_currentTwitter != null){newContacts.add(ContactModel(contact: _currentTwitter, contactType: ContactType.Twitter));}
     else{
       String twitter = getAContactValueFromContacts(existingContacts, ContactType.Twitter);
       if (twitter != null){
         newContacts.add(
             ContactModel(
-              value: twitter,
-              type: ContactType.Twitter,
+              contact: twitter,
+              contactType: ContactType.Twitter,
             )
         );
       }
@@ -550,6 +560,31 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             print(error.toString());
                           }
 
+                        }
+
+                      },
+                    ),
+
+                    // --- DELETE ACCOUNT
+                    DreamBox(
+                      height: 50,
+                      color: Colorz.WhiteGlass,
+                      icon: Iconz.XLarge,
+                      iconColor: Colorz.BloodRed,
+                      iconSizeFactor: 0.5,
+                      verse: 'Delete Account',
+                      verseScaleFactor: 1.5,
+                      boxMargins: EdgeInsets.all(20),
+                      boxFunction: () async {
+                        _triggerLoading();
+                        await superDialog(context, 'You will delete your account, and there is no going back !', 'Take Care !');
+                        try{
+                          String _email = getAContactValueFromContacts(userModel.contacts, ContactType.Email);
+                          await deleteUserDocument(userModel);
+                          await AuthService().deleteFirebaseUser(context, _email, '123456');
+
+                        }catch(error){
+                          superDialog(context, error, 'Error deleting Account');
                         }
 
                       },

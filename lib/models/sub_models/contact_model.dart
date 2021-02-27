@@ -2,18 +2,18 @@ import 'package:bldrs/view_brains/drafters/iconizers.dart';
 import 'package:flutter/foundation.dart';
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
 class ContactModel{
-  final String value;
-  final ContactType type;
+  final String contact;
+  final ContactType contactType;
 // ###############################
   ContactModel({
-    @required this.value,
-    @required this.type,
+    @required this.contact,
+    @required this.contactType,
   });
 // ###############################
   Map<String,Object> toMap(){
     return {
-      'value' : value,
-      'type' : cipherContactType(type),
+      'contact' : contact,
+      'contactType' : cipherContactType(contactType),
     };
   }
 // ###############################
@@ -29,8 +29,8 @@ List<Map<String,Object>> cipherContactsModels(List<ContactModel> contactsList){
 // -----------------------------------------------------------------
 ContactModel decipherContactMap(Map<String,dynamic> map){
   return ContactModel(
-      value: map['contact'],
-      type: decipherContactType(map['contactType']),
+    contact: map['contact'],
+    contactType: decipherContactType(map['contactType']),
   );
 }
 // -----------------------------------------------------------------
@@ -102,13 +102,13 @@ List<ContactType> contactTypesList = [
 ];
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
 ContactModel getAContactModelFromContacts(List<ContactModel> contacts, ContactType contactType){
-  ContactModel contactValue = contacts.singleWhere((x) => x.type == contactType,
+  ContactModel contactValue = contacts.singleWhere((x) => x.contactType == contactType,
       orElse: ()=>null);
   return contactValue;
 }
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
 String getAContactValueFromContacts(List<ContactModel> contacts, ContactType contactType){
-  String contactValue = getAContactModelFromContacts(contacts, contactType)?.value;
+  String contactValue = getAContactModelFromContacts(contacts, contactType)?.contact;
   return contactValue;
 }
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
@@ -122,9 +122,9 @@ List<ContactModel> getContactsWithStringsFromContacts(List<ContactModel> contact
   ContactModel _email = getAContactModelFromContacts(contacts, ContactType.Email);
   ContactModel _website = getAContactModelFromContacts(contacts, ContactType.WebSite);
 
-  if(_phone   != null || _phone?.value?.isNotEmpty  == true){_contactsList.add(_phone);}
-  if(_email   != null || _email?.value?.isNotEmpty  == true){_contactsList.add(_email);}
-  if(_website != null || _website?.value?.isNotEmpty  == true){_contactsList.add(_website);}
+  if(_phone   != null || _phone?.contact?.isNotEmpty  == true){_contactsList.add(_phone);}
+  if(_email   != null || _email?.contact?.isNotEmpty  == true){_contactsList.add(_email);}
+  if(_website != null || _website?.contact?.isNotEmpty  == true){_contactsList.add(_website);}
 
   return _contactsList;
 }
@@ -142,13 +142,13 @@ List<ContactModel> getSocialMediaContactsFromContacts(List<ContactModel> contact
   ContactModel _tiktok = getAContactModelFromContacts(contacts, ContactType.TikTok);
   ContactModel _twitter = getAContactModelFromContacts(contacts, ContactType.Twitter);
 
-  if(_facebook  != null && _facebook?.value?.isNotEmpty  == true ){_contactsList.add(_facebook);}else{}
-  if(_linkedin  != null && _linkedin?.value?.isNotEmpty  == true ){_contactsList.add(_linkedin);}else{}
-  if(_youtube   != null && _youtube?.value?.isNotEmpty   == true ){_contactsList.add(_youtube);}else{}
-  if(_instagram != null && _instagram?.value?.isNotEmpty == true ){_contactsList.add(_instagram);}else{}
-  if(_pinterest != null && _pinterest?.value?.isNotEmpty == true ){_contactsList.add(_pinterest);}else{}
-  if(_tiktok    != null && _tiktok?.value?.isNotEmpty    == true ){_contactsList.add(_tiktok);}else{}
-  if(_twitter   != null && _twitter?.value?.isNotEmpty   == true ){_contactsList.add(_twitter);}else{}
+  if(_facebook  != null && _facebook?.contact?.isNotEmpty  == true ){_contactsList.add(_facebook);}else{}
+  if(_linkedin  != null && _linkedin?.contact?.isNotEmpty  == true ){_contactsList.add(_linkedin);}else{}
+  if(_youtube   != null && _youtube?.contact?.isNotEmpty   == true ){_contactsList.add(_youtube);}else{}
+  if(_instagram != null && _instagram?.contact?.isNotEmpty == true ){_contactsList.add(_instagram);}else{}
+  if(_pinterest != null && _pinterest?.contact?.isNotEmpty == true ){_contactsList.add(_pinterest);}else{}
+  if(_tiktok    != null && _tiktok?.contact?.isNotEmpty    == true ){_contactsList.add(_tiktok);}else{}
+  if(_twitter   != null && _twitter?.contact?.isNotEmpty   == true ){_contactsList.add(_twitter);}else{}
 
   return _contactsList;
 }
@@ -158,7 +158,7 @@ String getFirstPhoneFromContacts(List<ContactModel> contacts){
   // String phone = contacts?.singleWhere((co) => co.contactType == ContactType.Phone, orElse: ()=> null)?.contact;
   List<String> phones = new List();
   contacts?.forEach((co) {
-    if(co.type == ContactType.Phone){phones.add(co.value);}
+    if(co.contactType == ContactType.Phone){phones.add(co.contact);}
   });
   return phones.length == 0 ? null : phones[0];
 }
@@ -210,27 +210,27 @@ void addContactIfPossibleToANewContactsList(
   if (_contactExistsInExistingContacts == true){
     /// if value have changed add this new value otherwise ass the existing value
     if (_userChangedValue == true){
-      newContacts.add(ContactModel(value: value, type: type));
-    } else { newContacts.add(ContactModel(value: _existingContactValue, type: type)); }
+      newContacts.add(ContactModel(contact: value, contactType: type));
+    } else { newContacts.add(ContactModel(contact: _existingContactValue, contactType: type)); }
   }
   /// when contact is new to existingContacts
   else {
     /// add new ContactModel to the new list only if a new value is assigned ( value != null )
     if (_userChangedValue == true){
-      newContacts.add(ContactModel(value: value, type: type));
+      newContacts.add(ContactModel(contact: value, contactType: type));
     }
   }
 }
 // ----------------------------------------------------------------------------
 List<String> getListOfValuesFromContactsModelsList(List<ContactModel> contacts){
   List<String> values = new List();
-  contacts.forEach((co) {values.add(co.value); });
+  contacts.forEach((co) {values.add(co.contact); });
   return values;
 }
 // ----------------------------------------------------------------------------
 List<String> getListOfIconzFromContactsModelsList(List<ContactModel> contacts){
   List<String> icons = new List();
-  contacts.forEach((co) {icons.add(superContactIcon(co.type));});
+  contacts.forEach((co) {icons.add(superContactIcon(co.contactType));});
   return icons;
 }
 // ----------------------------------------------------------------------------
