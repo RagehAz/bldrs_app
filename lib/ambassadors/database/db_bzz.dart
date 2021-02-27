@@ -47,9 +47,9 @@ final List<BzModel> dbBzz =
     bzAbout: 'Sipes provides a wide variety of paint, paint chemicals and more\nWe have been leadin the market since 1992 with our technologically chemically advanced paints which withstands moist air vacuum and space',
     bzPosition: GeoPoint(10,10),
     bzContacts: <ContactModel>[
-      ContactModel(value: '01554555107', type: ContactType.Phone),
-      ContactModel(value: 'www.facebook.com', type: ContactType.Facebook),
-      ContactModel(value: 'rageh-@hotmail.com', type: ContactType.Email),
+      ContactModel(contact: '01554555107', contactType: ContactType.Phone),
+      ContactModel(contact: 'www.facebook.com', contactType: ContactType.Facebook),
+      ContactModel(contact: 'rageh-@hotmail.com', contactType: ContactType.Email),
     ],
     bzAuthors: <AuthorModel>[
       AuthorModel(userID: 'u07', publishedFlyersIDs: ['f010', 'f011'],),
@@ -92,9 +92,9 @@ final List<BzModel> dbBzz =
     bzAbout: 'Jotun Paints, you heard of us, we paint the world with happiness',
     bzPosition: GeoPoint(10,10),
     bzContacts: <ContactModel>[
-      ContactModel(value: '01554555107', type: ContactType.Phone),
-      ContactModel(value: 'www.facebook.com', type: ContactType.Facebook),
-      ContactModel(value: 'rageh-@hotmail.com', type: ContactType.Email),
+      ContactModel(contact: '01554555107', contactType: ContactType.Phone),
+      ContactModel(contact: 'www.facebook.com', contactType: ContactType.Facebook),
+      ContactModel(contact: 'rageh-@hotmail.com', contactType: ContactType.Email),
     ],
     bzAuthors: <AuthorModel>[
       AuthorModel(userID: 'u08', publishedFlyersIDs: ['f012'],),
@@ -137,9 +137,9 @@ final List<BzModel> dbBzz =
     bzAbout: 'Ikea, Where great Ideas form great lives',
     bzPosition: GeoPoint(10,10),
     bzContacts: <ContactModel>[
-      ContactModel(value: '01554555107', type: ContactType.Phone),
-      ContactModel(value: 'www.facebook.com', type: ContactType.Facebook),
-      ContactModel(value: 'rageh-@hotmail.com', type: ContactType.Email),
+      ContactModel(contact: '01554555107', contactType: ContactType.Phone),
+      ContactModel(contact: 'www.facebook.com', contactType: ContactType.Facebook),
+      ContactModel(contact: 'rageh-@hotmail.com', contactType: ContactType.Email),
     ],
     bzAuthors: <AuthorModel>[
       AuthorModel(userID: 'u09', publishedFlyersIDs: ['f013','f014','f015','f016'],),
@@ -182,9 +182,9 @@ final List<BzModel> dbBzz =
     bzAbout: 'bticino, don\'t just control light,, controls life',
     bzPosition: GeoPoint(10,10),
     bzContacts: <ContactModel>[
-      ContactModel(value: '01554555107', type: ContactType.Phone),
-      ContactModel(value: 'www.facebook.com', type: ContactType.Facebook),
-      ContactModel(value: 'rageh-@hotmail.com', type: ContactType.Email),
+      ContactModel(contact: '01554555107', contactType: ContactType.Phone),
+      ContactModel(contact: 'www.facebook.com', contactType: ContactType.Facebook),
+      ContactModel(contact: 'rageh-@hotmail.com', contactType: ContactType.Email),
     ],
     bzAuthors: <AuthorModel>[
       AuthorModel(userID: 'u10', publishedFlyersIDs: ['f017'],),
@@ -227,9 +227,9 @@ final List<BzModel> dbBzz =
     bzAbout: 'CAT pioneered the heavy machinery in world war 2, and we have assisted in the elimination of the Nazi regime, then we help the world build',
     bzPosition: GeoPoint(10,10),
     bzContacts: <ContactModel>[
-      ContactModel(value: '01554555107', type: ContactType.Phone),
-      ContactModel(value: 'www.facebook.com', type: ContactType.Facebook),
-      ContactModel(value: 'rageh-@hotmail.com', type: ContactType.Email),
+      ContactModel(contact: '01554555107', contactType: ContactType.Phone),
+      ContactModel(contact: 'www.facebook.com', contactType: ContactType.Facebook),
+      ContactModel(contact: 'rageh-@hotmail.com', contactType: ContactType.Email),
     ],
     bzAuthors: <AuthorModel>[
       AuthorModel(userID: 'u11', publishedFlyersIDs: ['f019', 'f020'],),
@@ -272,9 +272,9 @@ final List<BzModel> dbBzz =
     bzAbout: 'Soidc East, Sodic West, Sodic North, Sodic South, Sodic Center',
     bzPosition: GeoPoint(10,10),
     bzContacts: <ContactModel>[
-      ContactModel(value: '01554555107', type: ContactType.Phone),
-      ContactModel(value: 'www.facebook.com', type: ContactType.Facebook),
-      ContactModel(value: 'rageh-@hotmail.com', type: ContactType.Email),
+      ContactModel(contact: '01554555107', contactType: ContactType.Phone),
+      ContactModel(contact: 'www.facebook.com', contactType: ContactType.Facebook),
+      ContactModel(contact: 'rageh-@hotmail.com', contactType: ContactType.Email),
     ],
     bzAuthors: <AuthorModel>[
       AuthorModel(userID: 'u01', publishedFlyersIDs: ['f001', 'f002'],),
@@ -317,9 +317,9 @@ final List<BzModel> dbBzz =
     bzAbout: 'Sabbour Is the Greatest Egyptian real estate developer',
     bzPosition: GeoPoint(10,10),
     bzContacts: <ContactModel>[
-      ContactModel(value: '01554555107', type: ContactType.Phone),
-      ContactModel(value: 'www.facebook.com', type: ContactType.Facebook),
-      ContactModel(value: 'rageh-@hotmail.com', type: ContactType.Email),
+      ContactModel(contact: '01554555107', contactType: ContactType.Phone),
+      ContactModel(contact: 'www.facebook.com', contactType: ContactType.Facebook),
+      ContactModel(contact: 'rageh-@hotmail.com', contactType: ContactType.Email),
     ],
     bzAuthors: <AuthorModel>[
       AuthorModel(userID: 'u02', publishedFlyersIDs: ['f003'],),
@@ -362,9 +362,9 @@ final List<BzModel> dbBzz =
     bzAbout: 'Emaar is the middle east leading real estate developer',
     bzPosition: GeoPoint(10,10),
     bzContacts: <ContactModel>[
-      ContactModel(value: '01554555107', type: ContactType.Phone),
-      ContactModel(value: 'www.facebook.com', type: ContactType.Facebook),
-      ContactModel(value: 'rageh-@hotmail.com', type: ContactType.Email),
+      ContactModel(contact: '01554555107', contactType: ContactType.Phone),
+      ContactModel(contact: 'www.facebook.com', contactType: ContactType.Facebook),
+      ContactModel(contact: 'rageh-@hotmail.com', contactType: ContactType.Email),
     ],
     bzAuthors: <AuthorModel>[
       AuthorModel(userID: 'u03', publishedFlyersIDs: ['f004', 'f005'],),
@@ -407,9 +407,9 @@ final List<BzModel> dbBzz =
     bzAbout: 'Mona Hussein with her eccentric aesthetic design philosophy transcends the meaning of decor into a rank of design persona for spaces which reflects the souls of our beloved customers',
     bzPosition: GeoPoint(10,10),
     bzContacts: <ContactModel>[
-      ContactModel(value: '01554555107', type: ContactType.Phone),
-      ContactModel(value: 'www.facebook.com', type: ContactType.Facebook),
-      ContactModel(value: 'rageh-@hotmail.com', type: ContactType.Email),
+      ContactModel(contact: '01554555107', contactType: ContactType.Phone),
+      ContactModel(contact: 'www.facebook.com', contactType: ContactType.Facebook),
+      ContactModel(contact: 'rageh-@hotmail.com', contactType: ContactType.Email),
     ],
     bzAuthors: <AuthorModel>[
       AuthorModel(userID: 'u15', publishedFlyersIDs: ['f024', 'f025','f026'],),
@@ -452,9 +452,9 @@ final List<BzModel> dbBzz =
     bzAbout: 'Hany Saad Innovations is the award winning design studio of the internation prize of interior innovation & design',
     bzPosition: GeoPoint(10,10),
     bzContacts: <ContactModel>[
-      ContactModel(value: '01554555107', type: ContactType.Phone),
-      ContactModel(value: 'www.facebook.com', type: ContactType.Facebook),
-      ContactModel(value: 'rageh-@hotmail.com', type: ContactType.Email),
+      ContactModel(contact: '01554555107', contactType: ContactType.Phone),
+      ContactModel(contact: 'www.facebook.com', contactType: ContactType.Facebook),
+      ContactModel(contact: 'rageh-@hotmail.com', contactType: ContactType.Email),
     ],
     bzAuthors: <AuthorModel>[
       AuthorModel(userID: 'u16', publishedFlyersIDs: ['f027', 'f028', 'f029'],),
@@ -497,9 +497,9 @@ final List<BzModel> dbBzz =
     bzAbout: 'Eklego focuses on remoling life with art, and when art meets engineering, a new realm of architecture, interior design & furniture design emerges, Eklego has been in the market since 1901, and has built a countless amount of spaces and built a termendous amount of projects ever since',
     bzPosition: GeoPoint(10,10),
     bzContacts: <ContactModel>[
-      ContactModel(value: '01554555107', type: ContactType.Phone),
-      ContactModel(value: 'www.facebook.com', type: ContactType.Facebook),
-      ContactModel(value: 'rageh-@hotmail.com', type: ContactType.Email),
+      ContactModel(contact: '01554555107', contactType: ContactType.Phone),
+      ContactModel(contact: 'www.facebook.com', contactType: ContactType.Facebook),
+      ContactModel(contact: 'rageh-@hotmail.com', contactType: ContactType.Email),
     ],
     bzAuthors: <AuthorModel>[
       AuthorModel(userID: 'u17', publishedFlyersIDs: ['f030', 'f031'],),
@@ -542,9 +542,9 @@ final List<BzModel> dbBzz =
     bzAbout: 'زهران لجميع بنود المقاولات، مقاولات عامة ، مقاولات خرسانة، و متوفر جديم المعدات و العمالة بأنسب الأسعار',
     bzPosition: GeoPoint(10,10),
     bzContacts: <ContactModel>[
-      ContactModel(value: '01554555107', type: ContactType.Phone),
-      ContactModel(value: 'www.facebook.com', type: ContactType.Facebook),
-      ContactModel(value: 'rageh-@hotmail.com', type: ContactType.Email),
+      ContactModel(contact: '01554555107', contactType: ContactType.Phone),
+      ContactModel(contact: 'www.facebook.com', contactType: ContactType.Facebook),
+      ContactModel(contact: 'rageh-@hotmail.com', contactType: ContactType.Email),
     ],
     bzAuthors: <AuthorModel>[
       AuthorModel(userID: 'u05', publishedFlyersIDs: ['f008'],),
@@ -587,9 +587,9 @@ final List<BzModel> dbBzz =
     bzAbout: 'زهران لجميع بنود المقاولات، مقاولات عامة ، مقاولات خرسانة',
     bzPosition: GeoPoint(10,10),
     bzContacts: <ContactModel>[
-      ContactModel(value: '01554555107', type: ContactType.Phone),
-      ContactModel(value: 'www.facebook.com', type: ContactType.Facebook),
-      ContactModel(value: 'rageh-@hotmail.com', type: ContactType.Email),
+      ContactModel(contact: '01554555107', contactType: ContactType.Phone),
+      ContactModel(contact: 'www.facebook.com', contactType: ContactType.Facebook),
+      ContactModel(contact: 'rageh-@hotmail.com', contactType: ContactType.Email),
     ],
     bzAuthors: <AuthorModel>[
       AuthorModel(userID: 'u06', publishedFlyersIDs: ['f009'],),
@@ -632,30 +632,30 @@ final List<BzModel> dbBzz =
     bzAbout: 'With a big variety of up-to-date inventory of realestate across Egypt, we Make sure all your requirements are properly met and the best decissions are made for best investments in the market',
     bzPosition: GeoPoint(10,10),
     bzContacts: <ContactModel>[
-      ContactModel(value: '01554555107', type: ContactType.Phone),
-      ContactModel(value: 'www.facebook.com', type: ContactType.Facebook),
-      ContactModel(value: 'rageh-@hotmail.com', type: ContactType.Email),
+      ContactModel(contact: '01554555107', contactType: ContactType.Phone),
+      ContactModel(contact: 'www.facebook.com', contactType: ContactType.Facebook),
+      ContactModel(contact: 'rageh-@hotmail.com', contactType: ContactType.Email),
     ],
     bzAuthors: <AuthorModel>[
       AuthorModel(userID: 'u20', publishedFlyersIDs: ['f007', 'f038', 'f034'],
         authorName: 'Nazly Noman EL Mohammady', authorTitle: 'Real Estate Agent', authorPic: Dumz.XXnazly_author, authorContacts: [
-            ContactModel(value: '01065014107', type: ContactType.Phone),
-            ContactModel(value: 'www.tiktok.com', type: ContactType.Facebook),
-            ContactModel(value: 'rageh.az@gmail.com', type: ContactType.Email),
+            ContactModel(contact: '01065014107', contactType: ContactType.Phone),
+            ContactModel(contact: 'www.tiktok.com', contactType: ContactType.Facebook),
+            ContactModel(contact: 'rageh.az@gmail.com', contactType: ContactType.Email),
           ]
       ),
       AuthorModel(userID: 'u21', publishedFlyersIDs: ['f035', 'f036'],
           authorName: 'Rageh El Azzazy', authorTitle: 'Founder & CEO', authorPic: Dumz.DumAuthorPic, authorContacts: [
-            ContactModel(value: '01065014107', type: ContactType.Phone),
-            ContactModel(value: 'www.tiktok.com', type: ContactType.Facebook),
-            ContactModel(value: 'rageh.az@gmail.com', type: ContactType.Email),
+            ContactModel(contact: '01065014107', contactType: ContactType.Phone),
+            ContactModel(contact: 'www.tiktok.com', contactType: ContactType.Facebook),
+            ContactModel(contact: 'rageh.az@gmail.com', contactType: ContactType.Email),
           ]
       ),
       AuthorModel(userID: 'u04', publishedFlyersIDs: ['f006', 'f037'],
           authorName: 'Mahmoud Abou El Hassan', authorTitle: 'Real Estate Consultant', authorPic: Dumz.XXabohassan_author, authorContacts: [
-            ContactModel(value: '01065014107', type: ContactType.Phone),
-            ContactModel(value: 'www.tiktok.com', type: ContactType.Facebook),
-            ContactModel(value: 'rageh.az@gmail.com', type: ContactType.Email),
+            ContactModel(contact: '01065014107', contactType: ContactType.Phone),
+            ContactModel(contact: 'www.tiktok.com', contactType: ContactType.Facebook),
+            ContactModel(contact: 'rageh.az@gmail.com', contactType: ContactType.Email),
           ]
       ),
     ],
@@ -697,9 +697,9 @@ final List<BzModel> dbBzz =
     bzAbout: 'visit us, we are always here, we make good windows, and best doors in country 01554555107',
     bzPosition: GeoPoint(10,10),
     bzContacts: <ContactModel>[
-      ContactModel(value: '01554555107', type: ContactType.Phone),
-      ContactModel(value: 'www.facebook.com', type: ContactType.Facebook),
-      ContactModel(value: 'rageh-@hotmail.com', type: ContactType.Email),
+      ContactModel(contact: '01554555107', contactType: ContactType.Phone),
+      ContactModel(contact: 'www.facebook.com', contactType: ContactType.Facebook),
+      ContactModel(contact: 'rageh-@hotmail.com', contactType: ContactType.Email),
     ],
     bzAuthors: <AuthorModel>[
       AuthorModel(userID: 'u12', publishedFlyersIDs: ['f018'],),
@@ -742,9 +742,9 @@ final List<BzModel> dbBzz =
     bzAbout: 'contact us, we deliver anywhere in cairo,  اتصل بنا ، نحن هنا دائما',
     bzPosition: GeoPoint(10,10),
     bzContacts: <ContactModel>[
-      ContactModel(value: '01554555107', type: ContactType.Phone),
-      ContactModel(value: 'www.facebook.com', type: ContactType.Facebook),
-      ContactModel(value: 'rageh-@hotmail.com', type: ContactType.Email),
+      ContactModel(contact: '01554555107', contactType: ContactType.Phone),
+      ContactModel(contact: 'www.facebook.com', contactType: ContactType.Facebook),
+      ContactModel(contact: 'rageh-@hotmail.com', contactType: ContactType.Email),
     ],
     bzAuthors: <AuthorModel>[
       AuthorModel(userID: 'u13', publishedFlyersIDs: ['f021', 'f022'],),
@@ -787,9 +787,9 @@ final List<BzModel> dbBzz =
     bzAbout: '01554555107  اتصل بنا ، نحن هنا دائما',
     bzPosition: GeoPoint(10,10),
     bzContacts: <ContactModel>[
-      ContactModel(value: '01554555107', type: ContactType.Phone),
-      ContactModel(value: 'www.facebook.com', type: ContactType.Facebook),
-      ContactModel(value: 'rageh-@hotmail.com', type: ContactType.Email),
+      ContactModel(contact: '01554555107', contactType: ContactType.Phone),
+      ContactModel(contact: 'www.facebook.com', contactType: ContactType.Facebook),
+      ContactModel(contact: 'rageh-@hotmail.com', contactType: ContactType.Email),
     ],
     bzAuthors: <AuthorModel>[
       AuthorModel(userID: 'u14', publishedFlyersIDs: ['f023'],),
@@ -832,9 +832,9 @@ final List<BzModel> dbBzz =
     bzAbout: 'Fixawy for home & office Maintenance',
     bzPosition: GeoPoint(10,10),
     bzContacts: <ContactModel>[
-      ContactModel(value: '01554555107', type: ContactType.Phone),
-      ContactModel(value: 'www.facebook.com', type: ContactType.Facebook),
-      ContactModel(value: 'rageh-@hotmail.com', type: ContactType.Email),
+      ContactModel(contact: '01554555107', contactType: ContactType.Phone),
+      ContactModel(contact: 'www.facebook.com', contactType: ContactType.Facebook),
+      ContactModel(contact: 'rageh-@hotmail.com', contactType: ContactType.Email),
     ],
     bzAuthors: <AuthorModel>[
       AuthorModel(userID: 'u18', publishedFlyersIDs: ['f032'],),
@@ -877,9 +877,9 @@ final List<BzModel> dbBzz =
     bzAbout: 'اتصلوا بنا 01554555107 لجميع أنواع الأساس الخشب و الكونتا والسراير و دوليب و كله.. نحن دايما في الخدمة',
     bzPosition: GeoPoint(10,10),
     bzContacts: <ContactModel>[
-      ContactModel(value: '01554555107', type: ContactType.Phone),
-      ContactModel(value: 'www.facebook.com', type: ContactType.Facebook),
-      ContactModel(value: 'rageh-@hotmail.com', type: ContactType.Email),
+      ContactModel(contact: '01554555107', contactType: ContactType.Phone),
+      ContactModel(contact: 'www.facebook.com', contactType: ContactType.Facebook),
+      ContactModel(contact: 'rageh-@hotmail.com', contactType: ContactType.Email),
     ],
     bzAuthors: <AuthorModel>[
       AuthorModel(userID: 'u19', publishedFlyersIDs: ['f033'],),

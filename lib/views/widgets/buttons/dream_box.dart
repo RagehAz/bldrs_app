@@ -44,6 +44,7 @@ class DreamBox extends StatelessWidget {
   final TextDirection textDirection;
   final bool designMode;
   final double blur;
+  final Color secondLineColor;
 
   DreamBox({
     @required this.height,
@@ -79,6 +80,7 @@ class DreamBox extends StatelessWidget {
     this.textDirection,
     this.designMode = false,
     this.blur,
+    this.secondLineColor = Colorz.White,
   });
 
   @override
@@ -350,13 +352,13 @@ class DreamBox extends StatelessWidget {
                                         italic: verseItalic,
                                       ),
 
-                                      secondLine == null ? Container() :
+                                      if (secondLine != null)
                                       SuperVerse(
                                         verse: secondLine,
                                         weight: VerseWeight.regular,
                                         size: 1,
-                                        color: Colorz.White,
-                                        maxLines: 1,
+                                        color: secondLineColor,
+                                        maxLines: 10,
                                         italic: true,
                                         shadow: true,
                                         centered: false,

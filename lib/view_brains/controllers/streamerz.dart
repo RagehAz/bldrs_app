@@ -36,7 +36,7 @@ Widget userStreamBuilder({
   return
 
     StreamBuilder<UserModel>(
-      stream: UserProvider(userID: _user.userID).userData,
+      stream: UserProvider(userID: _user?.userID)?.userData,
       builder: (context, snapshot){
         if(connectionHasNoData(snapshot) || connectionIsWaiting(snapshot)){
           return LoadingFullScreenLayer();

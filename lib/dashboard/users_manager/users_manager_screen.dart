@@ -1,3 +1,4 @@
+import 'package:bldrs/ambassadors/services/firestore.dart';
 import 'package:bldrs/models/planet/area_model.dart';
 import 'package:bldrs/models/planet/country_model.dart';
 import 'package:bldrs/models/planet/province_model.dart';
@@ -80,31 +81,82 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
 
       listWidgets: <Widget>[
 
-
         StreamBuilder<List<UserModel>>(
             stream: UserProvider().allUsersStream,
             builder: (context, snapshot){
               if(connectionHasNoData(snapshot) || connectionIsWaiting(snapshot)){
-                _loading = true;
                 return LoadingFullScreenLayer();
               } else {
-                _loading = true;
                 List<UserModel> usersModels = snapshot.data;
                 return
-                  Container(
-                    width: _screenWidth,
-                    height: _screenHeight - Ratioz.stratosphere,
-                    child: ListView.builder(
-                      itemCount: usersModels.length,
-                      padding: EdgeInsets.only(bottom: Ratioz.grandHorizon),
-                      itemBuilder: (context, index){
 
-                        UserModel _userModel = usersModels[index];
-                        String _countryName = _countryPro .getCountryNameInCurrentLanguageByIso3(context, _userModel.country);
-                        String _provinceName = _countryPro.getProvinceNameWithCurrentLanguageIfPossible(context, _userModel.province);
-                        String _areaName = _countryPro.getAreaNameWithCurrentLanguageIfPossible(context, _userModel.area);
+                Column(
+                  children: <Widget>[
 
-                        return
+                    DreamBox(
+                      width: _screenWidth,
+                      height: 100,
+                      color: Colorz.Yellow,
+                      verse: 'User Contacts Surgery',
+                      verseColor: Colorz.BlackBlack,
+                      verseMaxLines: 5,
+                      secondLine: 'need to change the fields names in of Contacts list maps in firebase from (contact) to (value) and from (contactType) to (type)',
+                      secondLineColor: Colorz.BlackLingerie,
+                      boxFunction: ()async{
+
+                        _triggerLoading();
+
+                        try{
+                          List<UserModel> _users = usersModels;
+                          createUserDocument(_users[0]);
+
+                        } catch(error) {
+                          superDialog(context, error, 'OPS !');
+                        }
+
+                        _triggerLoading();
+
+                      },
+                    ),
+                    DreamBox(
+                      width: _screenWidth,
+                      height: 100,
+                      color: Colorz.Yellow,
+                      verse: 'delete that bitch',
+                      verseColor: Colorz.BlackBlack,
+                      verseMaxLines: 5,
+                      secondLine: 'deleting that shit',
+                      secondLineColor: Colorz.BlackLingerie,
+                      boxFunction: ()async{
+
+                        _triggerLoading();
+
+                        try{
+                          List<UserModel> _users = usersModels;
+                          deleteUserDocument(_users[0]);
+
+                        } catch(error) {
+                          superDialog(context, error, 'OPS !');
+                        }
+
+                        _triggerLoading();
+
+                      },
+                    ),
+                    Container(
+                      width: _screenWidth,
+                      height: _screenHeight - Ratioz.stratosphere,
+                      child: ListView.builder(
+                        itemCount: usersModels.length,
+                        padding: EdgeInsets.only(bottom: Ratioz.grandHorizon),
+                        itemBuilder: (context, index){
+
+                          UserModel _userModel = usersModels[index];
+                          String _countryName = _countryPro .getCountryNameInCurrentLanguageByIso3(context, _userModel.country);
+                          String _provinceName = _countryPro.getProvinceNameWithCurrentLanguageIfPossible(context, _userModel.province);
+                          String _areaName = _countryPro.getAreaNameWithCurrentLanguageIfPossible(context, _userModel.area);
+
+                          return
                             Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -213,15 +265,20 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
                                     ),
 
                                   ],
-                                )
+                                ),
+
                               ],
                             );
-                      },
+                          },
+                      ),
                     ),
-                  );
+
+
+                  ],
+                );
               }
             }
-        )
+            ),
 
       ],
     );

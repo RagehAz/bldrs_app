@@ -53,12 +53,12 @@ class ContactsBubble extends StatelessWidget {
                   contactsWithStrings.length,
                   (index){
 
-                    String _value = contactsWithStrings[index].value;
+                    String _value = contactsWithStrings[index].contact;
 
                     return
                         DreamBox(
                           height: contactBoxHeight,
-                          icon: superContactIcon(contactsWithStrings[index].type),
+                          icon: superContactIcon(contactsWithStrings[index].contactType),
                           boxMargins: EdgeInsets.all(abPadding),
                           verse: _value,
                           verseColor: Colorz.White,
@@ -67,7 +67,7 @@ class ContactsBubble extends StatelessWidget {
                           iconSizeFactor: 0.6,
                           boxFunction:
                               onTap == null ?
-                              (){launchURL('https://${contactsWithStrings[index].value}');}
+                              (){launchURL('https://${contactsWithStrings[index].contact}');}
                               :
                               () => onTap(_value)
                         );
@@ -85,16 +85,16 @@ class ContactsBubble extends StatelessWidget {
                   socialMediaContacts.length,
                       (index){
 
-                        String _value = socialMediaContacts[index].value;
+                        String _value = socialMediaContacts[index].contact;
 
                         return
                       DreamBox(
                         height: contactBoxHeight,
-                        icon: superContactIcon(socialMediaContacts[index]?.type),
+                        icon: superContactIcon(socialMediaContacts[index]?.contactType),
                         boxMargins: EdgeInsets.all(abPadding),
                         boxFunction:
                         onTap == null ?
-                            (){launchURL('https://${socialMediaContacts[index].value}');}
+                            (){launchURL('https://${socialMediaContacts[index].contact}');}
                             :
                             () => onTap(_value)
 
