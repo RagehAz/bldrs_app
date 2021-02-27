@@ -1,3 +1,4 @@
+import 'package:bldrs/ambassadors/services/firestore.dart';
 import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/view_brains/drafters/timerz.dart';
@@ -142,5 +143,19 @@ UserModel getUserModel(){
   });
   return user;
 }
+
+}
+// ---------------------------------------------------------------------------
+Future<void> createUserDocument(UserModel userModel) async {
+  CollectionReference _usersCollection = getFirestoreCollectionReference('users');
+  await _usersCollection.doc(userModel.userID).set(userModel.toMap());
+
+}
+// ---------------------------------------------------------------------------
+Future<void> deleteUserDocument(UserModel userModel) async {
+  DocumentReference _userDocument = getFirestoreDocumentReference('users', userModel.userID);
+  await _userDocument.delete();
+
+
 
 }

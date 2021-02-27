@@ -27,9 +27,9 @@ final List<UserModel> dbUsers = [
     language: 'English',
     position: GeoPoint(10,10),
     contacts: [
-      ContactModel(value: '01065014107', type: ContactType.Phone),
-      ContactModel(value: 'www.tiktok.com', type: ContactType.Facebook),
-      ContactModel(value: 'rageh.az@gmail.com', type: ContactType.Email),
+      ContactModel(contact: '01065014107', contactType: ContactType.Phone),
+      ContactModel(contact: 'www.tiktok.com', contactType: ContactType.Facebook),
+      ContactModel(contact: 'rageh.az@gmail.com', contactType: ContactType.Email),
     ],
     // -------------------------
     savedFlyersIDs: ['f001', 'f002'],
@@ -52,9 +52,9 @@ final List<UserModel> dbUsers = [
     language: 'English',
     position: GeoPoint(10,10),
     contacts: [
-      ContactModel(value: '01065014107', type: ContactType.Phone),
-      ContactModel(value: 'www.tiktok.com', type: ContactType.Facebook),
-      ContactModel(value: 'rageh.az@gmail.com', type: ContactType.Email),
+      ContactModel(contact: '01065014107', contactType: ContactType.Phone),
+      ContactModel(contact: 'www.tiktok.com', contactType: ContactType.Facebook),
+      ContactModel(contact: 'rageh.az@gmail.com', contactType: ContactType.Email),
     ],
     // -------------------------
     savedFlyersIDs: ['f001', 'f002'],
@@ -77,9 +77,9 @@ final List<UserModel> dbUsers = [
     language: 'English',
     position: GeoPoint(10,10),
     contacts: [
-      ContactModel(value: '01065014107', type: ContactType.Phone),
-      ContactModel(value: 'www.tiktok.com', type: ContactType.Facebook),
-      ContactModel(value: 'rageh.az@gmail.com', type: ContactType.Email),
+      ContactModel(contact: '01065014107', contactType: ContactType.Phone),
+      ContactModel(contact: 'www.tiktok.com', contactType: ContactType.Facebook),
+      ContactModel(contact: 'rageh.az@gmail.com', contactType: ContactType.Email),
     ],
     // -------------------------
     savedFlyersIDs: ['f001', 'f002'],
@@ -102,9 +102,9 @@ final List<UserModel> dbUsers = [
     language: 'English',
     position: GeoPoint(10,10),
     contacts: [
-      ContactModel(value: '01065014107', type: ContactType.Phone),
-      ContactModel(value: 'www.tiktok.com', type: ContactType.Facebook),
-      ContactModel(value: 'rageh.az@gmail.com', type: ContactType.Email),
+      ContactModel(contact: '01065014107', contactType: ContactType.Phone),
+      ContactModel(contact: 'www.tiktok.com', contactType: ContactType.Facebook),
+      ContactModel(contact: 'rageh.az@gmail.com', contactType: ContactType.Email),
     ],
     // -------------------------
     savedFlyersIDs: ['f001', 'f002'],
@@ -127,9 +127,9 @@ final List<UserModel> dbUsers = [
     language: 'English',
     position: GeoPoint(10,10),
     contacts: [
-      ContactModel(value: '01065014107', type: ContactType.Phone),
-      ContactModel(value: 'www.tiktok.com', type: ContactType.Facebook),
-      ContactModel(value: 'rageh.az@gmail.com', type: ContactType.Email),
+      ContactModel(contact: '01065014107', contactType: ContactType.Phone),
+      ContactModel(contact: 'www.tiktok.com', contactType: ContactType.Facebook),
+      ContactModel(contact: 'rageh.az@gmail.com', contactType: ContactType.Email),
     ],
     // -------------------------
     savedFlyersIDs: ['f001', 'f002'],
@@ -152,9 +152,9 @@ final List<UserModel> dbUsers = [
     language: 'English',
     position: GeoPoint(10,10),
     contacts: [
-      ContactModel(value: '01065014107', type: ContactType.Phone),
-      ContactModel(value: 'www.tiktok.com', type: ContactType.Facebook),
-      ContactModel(value: 'rageh.az@gmail.com', type: ContactType.Email),
+      ContactModel(contact: '01065014107', contactType: ContactType.Phone),
+      ContactModel(contact: 'www.tiktok.com', contactType: ContactType.Facebook),
+      ContactModel(contact: 'rageh.az@gmail.com', contactType: ContactType.Email),
     ],
     // -------------------------
     savedFlyersIDs: ['f001', 'f002'],
@@ -177,9 +177,9 @@ final List<UserModel> dbUsers = [
     language: 'English',
     position: GeoPoint(10,10),
     contacts: [
-      ContactModel(value: '01065014107', type: ContactType.Phone),
-      ContactModel(value: 'www.tiktok.com', type: ContactType.Facebook),
-      ContactModel(value: 'rageh.az@gmail.com', type: ContactType.Email),
+      ContactModel(contact: '01065014107', contactType: ContactType.Phone),
+      ContactModel(contact: 'www.tiktok.com', contactType: ContactType.Facebook),
+      ContactModel(contact: 'rageh.az@gmail.com', contactType: ContactType.Email),
     ],
     // -------------------------
     savedFlyersIDs: ['f001', 'f002'],
@@ -202,9 +202,9 @@ final List<UserModel> dbUsers = [
     language: 'English',
     position: GeoPoint(10,10),
     contacts: [
-      ContactModel(value: '01065014107', type: ContactType.Phone),
-      ContactModel(value: 'www.tiktok.com', type: ContactType.Facebook),
-      ContactModel(value: 'rageh.az@gmail.com', type: ContactType.Email),
+      ContactModel(contact: '01065014107', contactType: ContactType.Phone),
+      ContactModel(contact: 'www.tiktok.com', contactType: ContactType.Facebook),
+      ContactModel(contact: 'rageh.az@gmail.com', contactType: ContactType.Email),
     ],
     // -------------------------
     savedFlyersIDs: ['f001', 'f002'],
@@ -227,9 +227,9 @@ final List<UserModel> dbUsers = [
     language: 'English',
     position: GeoPoint(10,10),
     contacts: [
-      ContactModel(value: '01065014107', type: ContactType.Phone),
-      ContactModel(value: 'www.tiktok.com', type: ContactType.Facebook),
-      ContactModel(value: 'rageh.az@gmail.com', type: ContactType.Email),
+      ContactModel(contact: '01065014107', contactType: ContactType.Phone),
+      ContactModel(contact: 'www.tiktok.com', contactType: ContactType.Facebook),
+      ContactModel(contact: 'rageh.az@gmail.com', contactType: ContactType.Email),
     ],
     // -------------------------
     savedFlyersIDs: ['f001', 'f002'],
@@ -252,9 +252,9 @@ final List<UserModel> dbUsers = [
     language: 'English',
     position: GeoPoint(10,10),
     contacts: [
-      ContactModel(value: '01065014107', type: ContactType.Phone),
-      ContactModel(value: 'www.tiktok.com', type: ContactType.Facebook),
-      ContactModel(value: 'rageh.az@gmail.com', type: ContactType.Email),
+      ContactModel(contact: '01065014107', contactType: ContactType.Phone),
+      ContactModel(contact: 'www.tiktok.com', contactType: ContactType.Facebook),
+      ContactModel(contact: 'rageh.az@gmail.com', contactType: ContactType.Email),
     ],
     // -------------------------
     savedFlyersIDs: ['f001', 'f002'],
@@ -277,9 +277,9 @@ final List<UserModel> dbUsers = [
     language: 'English',
     position: GeoPoint(10,10),
     contacts: [
-      ContactModel(value: '01065014107', type: ContactType.Phone),
-      ContactModel(value: 'www.tiktok.com', type: ContactType.Facebook),
-      ContactModel(value: 'rageh.az@gmail.com', type: ContactType.Email),
+      ContactModel(contact: '01065014107', contactType: ContactType.Phone),
+      ContactModel(contact: 'www.tiktok.com', contactType: ContactType.Facebook),
+      ContactModel(contact: 'rageh.az@gmail.com', contactType: ContactType.Email),
     ],
     // -------------------------
     savedFlyersIDs: ['f001', 'f002'],
@@ -303,9 +303,9 @@ final List<UserModel> dbUsers = [
     language: 'English',
     position: GeoPoint(10,10),
     contacts: [
-      ContactModel(value: '01065014107', type: ContactType.Phone),
-      ContactModel(value: 'www.tiktok.com', type: ContactType.Facebook),
-      ContactModel(value: 'rageh.az@gmail.com', type: ContactType.Email),
+      ContactModel(contact: '01065014107', contactType: ContactType.Phone),
+      ContactModel(contact: 'www.tiktok.com', contactType: ContactType.Facebook),
+      ContactModel(contact: 'rageh.az@gmail.com', contactType: ContactType.Email),
     ],
     // -------------------------
     savedFlyersIDs: ['f001', 'f002'],
@@ -328,9 +328,9 @@ final List<UserModel> dbUsers = [
     language: 'English',
     position: GeoPoint(10,10),
     contacts: [
-      ContactModel(value: '01065014107', type: ContactType.Phone),
-      ContactModel(value: 'www.tiktok.com', type: ContactType.Facebook),
-      ContactModel(value: 'rageh.az@gmail.com', type: ContactType.Email),
+      ContactModel(contact: '01065014107', contactType: ContactType.Phone),
+      ContactModel(contact: 'www.tiktok.com', contactType: ContactType.Facebook),
+      ContactModel(contact: 'rageh.az@gmail.com', contactType: ContactType.Email),
     ],
     // -------------------------
     savedFlyersIDs: ['f001', 'f002'],
@@ -353,9 +353,9 @@ final List<UserModel> dbUsers = [
     language: 'English',
     position: GeoPoint(10,10),
     contacts: [
-      ContactModel(value: '01065014107', type: ContactType.Phone),
-      ContactModel(value: 'www.tiktok.com', type: ContactType.Facebook),
-      ContactModel(value: 'rageh.az@gmail.com', type: ContactType.Email),
+      ContactModel(contact: '01065014107', contactType: ContactType.Phone),
+      ContactModel(contact: 'www.tiktok.com', contactType: ContactType.Facebook),
+      ContactModel(contact: 'rageh.az@gmail.com', contactType: ContactType.Email),
     ],
     // -------------------------
     savedFlyersIDs: ['f001', 'f002'],
@@ -378,9 +378,9 @@ final List<UserModel> dbUsers = [
     language: 'English',
     position: GeoPoint(10,10),
     contacts: [
-      ContactModel(value: '01065014107', type: ContactType.Phone),
-      ContactModel(value: 'www.tiktok.com', type: ContactType.Facebook),
-      ContactModel(value: 'rageh.az@gmail.com', type: ContactType.Email),
+      ContactModel(contact: '01065014107', contactType: ContactType.Phone),
+      ContactModel(contact: 'www.tiktok.com', contactType: ContactType.Facebook),
+      ContactModel(contact: 'rageh.az@gmail.com', contactType: ContactType.Email),
     ],
     // -------------------------
     savedFlyersIDs: ['f001', 'f002'],
@@ -403,9 +403,9 @@ final List<UserModel> dbUsers = [
     language: 'English',
     position: GeoPoint(10,10),
     contacts: [
-      ContactModel(value: '01065014107', type: ContactType.Phone),
-      ContactModel(value: 'www.tiktok.com', type: ContactType.Facebook),
-      ContactModel(value: 'rageh.az@gmail.com', type: ContactType.Email),
+      ContactModel(contact: '01065014107', contactType: ContactType.Phone),
+      ContactModel(contact: 'www.tiktok.com', contactType: ContactType.Facebook),
+      ContactModel(contact: 'rageh.az@gmail.com', contactType: ContactType.Email),
     ],
     // -------------------------
     savedFlyersIDs: ['f001', 'f002'],
@@ -428,9 +428,9 @@ final List<UserModel> dbUsers = [
     language: 'English',
     position: GeoPoint(10,10),
     contacts: [
-      ContactModel(value: '01065014107', type: ContactType.Phone),
-      ContactModel(value: 'www.tiktok.com', type: ContactType.Facebook),
-      ContactModel(value: 'rageh.az@gmail.com', type: ContactType.Email),
+      ContactModel(contact: '01065014107', contactType: ContactType.Phone),
+      ContactModel(contact: 'www.tiktok.com', contactType: ContactType.Facebook),
+      ContactModel(contact: 'rageh.az@gmail.com', contactType: ContactType.Email),
     ],
     // -------------------------
     savedFlyersIDs: ['f001', 'f002'],
@@ -453,9 +453,9 @@ final List<UserModel> dbUsers = [
     language: 'English',
     position: GeoPoint(10,10),
     contacts: [
-      ContactModel(value: '01065014107', type: ContactType.Phone),
-      ContactModel(value: 'www.tiktok.com', type: ContactType.Facebook),
-      ContactModel(value: 'rageh.az@gmail.com', type: ContactType.Email),
+      ContactModel(contact: '01065014107', contactType: ContactType.Phone),
+      ContactModel(contact: 'www.tiktok.com', contactType: ContactType.Facebook),
+      ContactModel(contact: 'rageh.az@gmail.com', contactType: ContactType.Email),
     ],
     // -------------------------
     savedFlyersIDs: ['f001', 'f002'],
@@ -478,9 +478,9 @@ final List<UserModel> dbUsers = [
     language: 'English',
     position: GeoPoint(10,10),
     contacts: [
-      ContactModel(value: '01065014107', type: ContactType.Phone),
-      ContactModel(value: 'www.tiktok.com', type: ContactType.Facebook),
-      ContactModel(value: 'rageh.az@gmail.com', type: ContactType.Email),
+      ContactModel(contact: '01065014107', contactType: ContactType.Phone),
+      ContactModel(contact: 'www.tiktok.com', contactType: ContactType.Facebook),
+      ContactModel(contact: 'rageh.az@gmail.com', contactType: ContactType.Email),
     ],
     // -------------------------
     savedFlyersIDs: ['f001', 'f002'],
@@ -503,9 +503,9 @@ final List<UserModel> dbUsers = [
     language: 'English',
     position: GeoPoint(10,10),
     contacts: [
-      ContactModel(value: '01065014107', type: ContactType.Phone),
-      ContactModel(value: 'www.tiktok.com', type: ContactType.Facebook),
-      ContactModel(value: 'rageh.az@gmail.com', type: ContactType.Email),
+      ContactModel(contact: '01065014107', contactType: ContactType.Phone),
+      ContactModel(contact: 'www.tiktok.com', contactType: ContactType.Facebook),
+      ContactModel(contact: 'rageh.az@gmail.com', contactType: ContactType.Email),
     ],
     // -------------------------
     savedFlyersIDs: ['f001', 'f002'],
@@ -528,9 +528,9 @@ final List<UserModel> dbUsers = [
     language: 'English',
     position: GeoPoint(10,10),
     contacts: [
-      ContactModel(value: '01065014107', type: ContactType.Phone),
-      ContactModel(value: 'www.tiktok.com', type: ContactType.Facebook),
-      ContactModel(value: 'rageh.az@gmail.com', type: ContactType.Email),
+      ContactModel(contact: '01065014107', contactType: ContactType.Phone),
+      ContactModel(contact: 'www.tiktok.com', contactType: ContactType.Facebook),
+      ContactModel(contact: 'rageh.az@gmail.com', contactType: ContactType.Email),
     ],
     // -------------------------
     savedFlyersIDs: ['f001', 'f002'],
