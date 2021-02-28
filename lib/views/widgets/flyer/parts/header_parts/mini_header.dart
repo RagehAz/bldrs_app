@@ -2,7 +2,7 @@ import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
-import 'package:bldrs/view_brains/drafters/stringers.dart';
+import 'package:bldrs/view_brains/drafters/text_generators.dart';
 import 'package:flutter/material.dart';
 import 'common_parts/header_shadow.dart';
 import 'max_header_parts/bz_pg_headline.dart';

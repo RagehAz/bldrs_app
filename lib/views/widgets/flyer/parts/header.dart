@@ -4,7 +4,7 @@ import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:bldrs/view_brains/drafters/colorizers.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/drafters/scrollers.dart';
-import 'package:bldrs/view_brains/drafters/stringers.dart';
+import 'package:bldrs/view_brains/drafters/text_generators.dart';
 import 'package:flutter/material.dart';
 import 'header_parts/common_parts/header_shadow.dart';
 import 'header_parts/max_header.dart';

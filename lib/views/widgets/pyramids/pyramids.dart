@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/users_provider.dart';
 import 'package:bldrs/view_brains/router/route_names.dart';

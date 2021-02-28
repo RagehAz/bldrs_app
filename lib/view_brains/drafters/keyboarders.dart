@@ -1,5 +1,5 @@
-import 'package:bldrs/view_brains/drafters/text_directionz.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 // === === === === === === === === === === === === === === === === === === ===
 /// TO MINIMIZE KEYBOARD WHEN TAPPING OUTSIDE
@@ -28,100 +28,22 @@ void closeKeyboard(BuildContext context){
 // language, but I'm not seeing a way to listen to keyboard language changes.
 // Does anyone know if it's possible to listen for a keyboard language change
 // on native Android?
-bool textIsEnglish (String val){
-  RegExp exp = RegExp("[a-zA-Z]", multiLine: true, unicode: true);
-  bool textIsEnglish;
-
-  /// if you want to check the last character input by user let the [characterNumber = val.length-1;]
-  int characterNumber = 0;
-
-  if(exp.hasMatch(val.substring(characterNumber)) && val.substring(characterNumber) != " "){
-    textIsEnglish = true;
+// === === === === === === === === === === === === === === === === === === ===
+Future<void> handlePaste(TextSelectionDelegate delegate) async {
+  final TextEditingValue value = delegate.textEditingValue; // Snapshot the input before using `await`.
+  final ClipboardData data = await Clipboard.getData(Clipboard.kTextPlain);
+  if (data != null) {
+    delegate.textEditingValue = TextEditingValue(
+      text: value.selection.textBefore(value.text)
+          + data.text
+          + value.selection.textAfter(value.text),
+      selection: TextSelection.collapsed(
+          offset: value.selection.start + data.text.length
+      ),
+    );
   }
-  else if (!exp.hasMatch(val.substring(characterNumber)) && val.substring(characterNumber) != " ")
-  {
-    textIsEnglish = false;
-  }
-  return textIsEnglish;
+  delegate.bringIntoView(delegate.textEditingValue.selection.extent);
+  delegate.hideToolbar();
 }
 // === === === === === === === === === === === === === === === === === === ===
-bool textControllerHasNoValue(TextEditingController controller){
-  bool controllerIsEmpty =
-  controller == null || controller.text == '' || controller.text.length == 0 ||
-  firstCharacterAfterRemovingSpacesFromAString(controller.text) == '' ||
-      firstCharacterAfterRemovingSpacesFromAString(controller.text) == null
-      ?
-  true : false;
-  return controllerIsEmpty;
-}
-// === === === === === === === === === === === === === === === === === === ===
-bool stringHasNoValue(String val){
-  bool controllerIsEmpty =
-  val == null || val == '' || val.length == 0 ||
-      firstCharacterAfterRemovingSpacesFromAString(val) == '' ||
-      firstCharacterAfterRemovingSpacesFromAString(val) == null
-      ?
-  true : false;
-  return controllerIsEmpty;
-}
-// === === === === === === === === === === === === === === === === === === ===
-bool textStartsInArabic (String val){
 
-  /// \p{N} will match any unicode numeric digit.
-  // String _reg = r"^[\u0621-\u064A\s\p{N}]+$" ;
-
-  /// To match only ASCII digit use:
-  // String _reg = r"^[\u0621-\u064A\s0-9]+$" ;
-
-  /// this gets all arabic and english together
-  // String _reg = r"^[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z]+[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z-_]*$" ;
-
-  // others
-  // String _reg = r"^[\u0621-\u064A\u0660-\u0669 ]+$";
-  // "[\u0600-\u06ff]|[\u0750-\u077f]|[\ufb50-\ufc3f]|[\ufe70-\ufefc]"
-
-  /// This works for Arabic/Persian even numbers.
-  String _reg = r"^[؀-ۿ]+$" ;
-
-  RegExp exp = RegExp(_reg, unicode: false, multiLine: true);
-  bool isArabic;
-
-  String _firstCharacter = firstCharacterAfterRemovingSpacesFromAString(val);
-
-  // if(exp.hasMatch(_firstCharacter)
-  //     // && val.substring(characterNumber) != " "
-  // ){
-  //   isArabic = true;
-  // }
-  // // else if (!exp.hasMatch(val.substring(characterNumber)) && val.substring(characterNumber) != " ")
-  // else
-  // {
-  //   isArabic = false;
-  // }
-
-  return
-    _firstCharacter == null  || _firstCharacter == '' ? false :
-    exp.hasMatch(_firstCharacter) == true ? true : false;
-
-}
-// === === === === === === === === === === === === === === === === === === ===
-bool textStartsInEnglish (String val){
-  bool isEnglish;
-  String _reg = r"[a-zA-Z]";
-  RegExp exp = RegExp(_reg, unicode: false, multiLine: true);
-  String _firstCharacter = firstCharacterAfterRemovingSpacesFromAString(val);
-
-  // if (){
-  // }
-  // else if(exp.hasMatch(_firstCharacter)){
-  //   isEnglish = true;
-  // } else {
-  //   isEnglish = false;
-  // }
-
-  return
-    _firstCharacter == null  || _firstCharacter == '' ? false :
-    exp.hasMatch(_firstCharacter) == true ? true : false;
-
-}
-// === === === === === === === === === === === === === === === === === === ===

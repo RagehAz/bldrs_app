@@ -1,6 +1,7 @@
 import 'package:bldrs/ambassadors/services/auth.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/view_brains/drafters/keyboarders.dart';
+import 'package:bldrs/view_brains/drafters/text_checkers.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
 import 'package:bldrs/view_brains/router/route_names.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
@@ -38,8 +39,8 @@ class _SignInState extends State<SignIn> {
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passWordController = TextEditingController();
   final AuthService _auth = AuthService();
-  String _email;
-  String _password;
+  // String _email;
+  // String _password;
   bool signingIn = true;
   final _formKey = GlobalKey<FormState>();
   String error = '';
@@ -49,8 +50,8 @@ class _SignInState extends State<SignIn> {
 // ---------------------------------------------------------------------------
   @override
   void initState() {
-    _email = widget.email;
-    _password = widget.password;
+    // _email = widget.email;
+    // _password = widget.password;
     _emailController.text = widget.email;
     _passWordController.text = widget.password;
     super.initState();
@@ -58,20 +59,20 @@ class _SignInState extends State<SignIn> {
 // ---------------------------------------------------------------------------
   @override
   void dispose() {
-    _emailController.dispose();
-    _passWordController.dispose();
+    if (textControllerHasNoValue(_emailController))_emailController.dispose();
+    if (textControllerHasNoValue(_passWordController))_passWordController.dispose();
     super.dispose();
   }
 
-  void _emailTextOnChanged(String val){
-    setState(() {_email = val;});
-    print('email : $_email, pass : $_password');
-  }
+  // void _emailTextOnChanged(String val){
+  //   setState(() {_email = val;});
+  //   print('email : $_email, pass : $_password');
+  // }
 // ---------------------------------------------------------------------------
-  void _passwordTextOnChanged(String val){
-    setState(() {_password = val;});
-    print('email : $_email, pass : $_password');
-  }
+//   void _passwordTextOnChanged(String val){
+//     setState(() {_password = val;});
+//     print('email : $_email, pass : $_password');
+//   }
 // ---------------------------------------------------------------------------
   void _triggerLoading(){
     setState(() {loading = !loading;});
@@ -125,13 +126,13 @@ class _SignInState extends State<SignIn> {
             keyboardTextInputAction: TextInputAction.next,
             title: Wordz.emailAddress(context),
             hintText: '...',
-            onSaved: (){print('onSaved');},
+            // onSaved: (){print('onSaved');},
             maxLines: 1,
             maxLength: 100,
             // initialTextValue: _email,
             textOnChanged: (val){
               widget.emailTextOnChanged(val);
-              _emailTextOnChanged(val);
+              // _emailTextOnChanged(val);
             },
             validator: (val){
               if (val.isEmpty){return Wordz.enterEmail(context);}
@@ -163,7 +164,7 @@ class _SignInState extends State<SignIn> {
             horusOnTapCancel: _horusOnTapCancel,
             textOnChanged: (val){
               widget.passwordTextOnChanged(val);
-              _passwordTextOnChanged(val);
+              // _passwordTextOnChanged(val);
             },
             validator: (val){
               return
@@ -200,7 +201,7 @@ class _SignInState extends State<SignIn> {
 
                     if(_formKey.currentState.validate()){
                       _triggerLoading();
-                      dynamic result = await _auth.signInWithEmailAndPassword(_email, _password);
+                      dynamic result = await _auth.signInWithEmailAndPassword(_emailController.text, _passWordController.text);
                       print('signing result is : $result');
 
                       if ('$result' == '[firebase_auth/wrong-password] The password is invalid or the user does not have a password.')

@@ -1,5 +1,5 @@
 import 'package:bldrs/providers/country_provider.dart';
-import 'package:bldrs/view_brains/drafters/text_directionz.dart';
+import 'package:bldrs/view_brains/drafters/text_directionerz.dart';
 import 'package:bldrs/view_brains/localization/localization_constants.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
