@@ -401,7 +401,7 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                         changeCountry : (countryID) => _changeCountry(countryID),
                         changeProvince : (provinceID) => _changeProvince(provinceID),
                         changeArea : (areaID) => _changeArea(areaID),
-                        zone: Zone(countryID: userModel.country, provinceID: userModel.province, areaID: userModel.area),
+                        currentZone: Zone(countryID: userModel.country, provinceID: userModel.province, areaID: userModel.area),
                       ),
 
                       // --- EDIT EMAIL
