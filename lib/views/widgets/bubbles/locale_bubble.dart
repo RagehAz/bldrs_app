@@ -20,14 +20,14 @@ class LocaleBubble extends StatefulWidget {
   final Function changeCountry;
   final Function changeProvince;
   final Function changeArea;
-  final Zone zone;
+  final Zone currentZone;
   final String title;
 
   LocaleBubble({
     @required this.changeCountry,
     @required this.changeProvince,
     @required this.changeArea,
-    @required this.zone,
+    @required this.currentZone,
     this.title = 'Preferred Location',
 });
 
@@ -44,16 +44,12 @@ class _LocaleBubbleState extends State<LocaleBubble> {
 
   @override
   void initState() {
-    _processUserZone();
+    _userZone = widget.currentZone;
     CountryProvider _countryPro = Provider.of<CountryProvider>(context, listen: false);
     _chosenCountryID = _userZone.countryID == null ? _countryPro.currentCountryID : _userZone.countryID;
     _chosenProvinceID = _userZone.provinceID == null ? _countryPro.currentProvinceID : _userZone.provinceID;
     _chosenAreaID = _userZone.areaID == null ? _countryPro.currentAreaID : _userZone.areaID;
     super.initState();
-  }
-
-  void _processUserZone(){
-    _userZone = widget.zone;
   }
 
   // ----------------------------------------------------------------------
@@ -152,7 +148,7 @@ class _LocaleBubbleState extends State<LocaleBubble> {
 
     double _bubbleClearWidth = superBubbleClearWidth(context);
     double _buttonsSpacing = Ratioz.ddAppBarMargin;
-    double _buttonWidth = (_bubbleClearWidth / 3)-((2*_buttonsSpacing)/3);
+    // double _buttonWidth = (_bubbleClearWidth / 3)-((2*_buttonsSpacing)/3);
 
     return InPyramidsBubble(
         columnChildren: <Widget>[

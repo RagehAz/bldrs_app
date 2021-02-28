@@ -88,7 +88,7 @@ int cipherContactType (ContactType contactType){
   }
 }
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
-List<ContactType> contactTypesList = [
+List<ContactType> contactTypesList = <ContactType>[
   ContactType.Phone,
   ContactType.Email,
   ContactType.WebSite,

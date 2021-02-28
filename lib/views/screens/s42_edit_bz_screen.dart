@@ -395,7 +395,7 @@ class _EditBzScreenState extends State<EditBzScreen> {
             changeCountry : (countryID) => setState(() {_currentBzCountry = countryID;}),
             changeProvince : (provinceID) => setState(() {_currentBzProvince = provinceID;}),
             changeArea : (areaID) => setState(() {_currentBzArea = areaID;}),
-            zone: Zone(countryID: _bz.bzCountry, provinceID: _bz.bzProvince, areaID: _bz.bzArea),
+            currentZone: Zone(countryID: _bz.bzCountry, provinceID: _bz.bzProvince, areaID: _bz.bzArea),
             title: 'Headquarters Area',//Wordz.hqCity(context),
           ),
 
