@@ -16,10 +16,20 @@ class Routez {
   /// s10
   static const String Home = 'HomeScreen';
 // ---------------------------------------------------------------------------
-  /// s11
-  /// (s12 saved flyers page, s13 news page, s14 more page, s15 profile page,
-  /// s16 edit profile page) are pages inside InPyramidsScreen();
-  static const String InPyramids = 'InPyramidsScreen';
+  /// s12
+  static const String SavedFlyers = 'SavedFlyersScreen';
+  // ---------------------------------------------------------------------------
+  /// s13
+  static const String News = 'NewsScreen';
+  // ---------------------------------------------------------------------------
+  /// s14
+  static const String More = 'MoreScreen';
+  // ---------------------------------------------------------------------------
+  /// s15
+  static const String Profile = 'UserProfileScreen';
+  // ---------------------------------------------------------------------------
+  /// s16
+  static const String EditProfile = 'EditProfileScreen';
 // ---------------------------------------------------------------------------
   /// s20
   static const String Search = 'SearchScreen';

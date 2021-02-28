@@ -1,4 +1,4 @@
-import 'package:bldrs/view_brains/drafters/texters.dart';
+import 'package:bldrs/view_brains/drafters/text_shapers.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:flutter/material.dart';
 

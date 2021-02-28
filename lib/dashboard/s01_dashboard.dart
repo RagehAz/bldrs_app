@@ -3,7 +3,6 @@
 import 'package:bldrs/dashboard/s02_statistics.dart';
 import 'package:bldrs/dashboard/s05_keywords_manager.dart';
 import 'package:bldrs/dashboard/users_manager/users_manager_screen.dart';
-import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
@@ -28,8 +27,8 @@ class _DashBoardState extends State<DashBoard> {
   @override
   Widget build(BuildContext context) {
 
-    double _screenWidth = superScreenWidth(context);
-    double _screenHeight = superScreenHeight(context);
+    // double _screenWidth = superScreenWidth(context);
+    // double _screenHeight = superScreenHeight(context);
 
     Widget _button ({String title, String icon, Function onTap,}){
       return BTMain(

@@ -1,8 +1,6 @@
-import 'package:bldrs/view_brains/drafters/texters.dart';
-import 'package:bldrs/view_brains/router/navigators.dart';
+import 'package:bldrs/view_brains/drafters/text_shapers.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
-import 'package:bldrs/views/screens/s12_saved_flyers_screen.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';

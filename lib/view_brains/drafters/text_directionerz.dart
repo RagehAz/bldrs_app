@@ -1,7 +1,7 @@
-import 'package:bldrs/view_brains/drafters/stringers.dart';
+import 'package:bldrs/view_brains/drafters/text_checkers.dart';
+import 'package:bldrs/view_brains/drafters/text_manipulators.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:flutter/material.dart';
-import 'keyboarders.dart';
 // === === === === === === === === === === === === === === === === === === ===
 bool appIsLeftToRight(BuildContext context){
   return Wordz.textDirection(context) == 'ltr' ? true : false;
@@ -45,7 +45,7 @@ TextDirection superTextDirectionSwitcherByController(TextEditingController contr
 
     String _val = _trimmedVal; // first character defines the direction
 
-    print('_firstCharacter is ($_firstCharacter)');
+    // print('_firstCharacter is ($_firstCharacter)');
 
     if(textStartsInEnglish(_firstCharacter)){
       _textDirection = TextDirection.ltr;
@@ -58,24 +58,6 @@ TextDirection superTextDirectionSwitcherByController(TextEditingController contr
   } else {_textDirection = null;}
 
   return _textDirection;
-}
-// === === === === === === === === === === === === === === === === === === ===
-String firstCharacterAfterRemovingSpacesFromAString(String string){
-  String _output;
-
-  String _stringTrimmed = string.trim();
-
-  String _stringWithoutSpaces = removeSpacesFromAString(_stringTrimmed);
-
-  String _firstCharacter = firstCharacterOfAString(_stringWithoutSpaces);
-
-  _output =
-  _stringWithoutSpaces == null || _stringWithoutSpaces == '' || _stringWithoutSpaces == ' '? null :
-      _firstCharacter == '' ? null : _firstCharacter;
-
-  print('string($string) - _stringTrimmed($_stringTrimmed) - _stringWithoutSpaces($_stringWithoutSpaces) - _firstCharacter($_firstCharacter) - _output($_output)');
-  return
-    _output;
 }
 // === === === === === === === === === === === === === === === === === === ===
 TextDirection superTextDirectionSwitcher(String val){
@@ -93,7 +75,7 @@ TextDirection superTextDirectionSwitcher(String val){
 
     String _val = _trimmedVal; // first character defines the direction
 
-    print('_firstCharacter is ($_firstCharacter)');
+    // print('_firstCharacter is ($_firstCharacter)');
 
     if(textStartsInEnglish(_firstCharacter)){
       _textDirection = TextDirection.ltr;
@@ -107,3 +89,4 @@ TextDirection superTextDirectionSwitcher(String val){
 
   return _textDirection;
 }
+// === === === === === === === === === === === === === === === === === === ===

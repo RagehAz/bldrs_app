@@ -1,5 +1,9 @@
 import 'package:bldrs/views/screens/s00_user_checker_widget.dart';
 import 'package:bldrs/views/screens/s04_fill_profile_screen.dart';
+import 'package:bldrs/views/screens/s12_saved_flyers_screen.dart';
+import 'package:bldrs/views/screens/s13_news_screen.dart';
+import 'package:bldrs/views/screens/s14_more_screen.dart';
+import 'package:bldrs/views/screens/s15_profile_screen.dart';
 import 'package:bldrs/views/screens/s41_my_bz_screen.dart';
 import 'package:bldrs/views/screens/s42_edit_bz_screen.dart';
 import 'package:bldrs/views/screens/s51_flyer_screen.dart';
@@ -40,11 +44,25 @@ class Routerer {
       case Routez.Home:
         return MaterialPageRoute(builder: (_) => HomeScreen());
 // ---------------------------------------------------------------------------
-    /// s11
-    /// (s12 saved flyers page, s13 news page, s14 more page, s15 profile page,
-    /// s16 edit profile page) are pages inside InPyramidsScreen();
-    //   case Routez.InPyramids:
-    //     return MaterialPageRoute(builder: (_) => InPyramidsScreen());
+    /// s12
+      case Routez.SavedFlyers:
+        return MaterialPageRoute(builder: (_) => SavedFlyersScreen());
+// ---------------------------------------------------------------------------
+    /// s13
+      case Routez.News:
+        return MaterialPageRoute(builder: (_) => NewsScreen());
+// ---------------------------------------------------------------------------
+    /// s14
+      case Routez.More:
+        return MaterialPageRoute(builder: (_) => MoreScreen());
+// ---------------------------------------------------------------------------
+    /// s15
+      case Routez.Profile:
+        return MaterialPageRoute(builder: (_) => UserProfileScreen());
+// ---------------------------------------------------------------------------
+//     /// s16
+//       case Routez.EditProfile:
+//         return MaterialPageRoute(builder: (_) => EditProfileScreen(user: superUserID()));
 // ---------------------------------------------------------------------------
     /// s20
       case Routez.Search:
