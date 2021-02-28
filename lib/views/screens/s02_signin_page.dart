@@ -35,6 +35,8 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passWordController = TextEditingController();
   final AuthService _auth = AuthService();
   String _email;
   String _password;
@@ -49,9 +51,18 @@ class _SignInState extends State<SignIn> {
   void initState() {
     _email = widget.email;
     _password = widget.password;
+    _emailController.text = widget.email;
+    _passWordController.text = widget.password;
     super.initState();
   }
 // ---------------------------------------------------------------------------
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passWordController.dispose();
+    super.dispose();
+  }
+
   void _emailTextOnChanged(String val){
     setState(() {_email = val;});
     print('email : $_email, pass : $_password');
@@ -102,7 +113,9 @@ class _SignInState extends State<SignIn> {
             height: 20,
           ),
 
+          // --- ENTER E-MAIL
           TextFieldBubble(
+            textController: _emailController,
             loading: loading,
             bubbleColor: Colorz.WhiteGlass,
             textDirection: TextDirection.ltr,
@@ -115,7 +128,7 @@ class _SignInState extends State<SignIn> {
             onSaved: (){print('onSaved');},
             maxLines: 1,
             maxLength: 100,
-            initialTextValue: _email,
+            // initialTextValue: _email,
             textOnChanged: (val){
               widget.emailTextOnChanged(val);
               _emailTextOnChanged(val);
@@ -128,7 +141,9 @@ class _SignInState extends State<SignIn> {
             },
           ),
 
+          // --- ENTER PASSWORD
           TextFieldBubble(
+            textController: _passWordController,
             loading: loading,
             bubbleColor: Colorz.WhiteGlass,
             textDirection: TextDirection.ltr,
@@ -142,7 +157,7 @@ class _SignInState extends State<SignIn> {
             maxLines: 1,
             maxLength: 100,
             obscured: _passwordObscured,
-            initialTextValue: _password,
+            // initialTextValue: _password,
             horusOnTapDown: _horusOnTapDown,
             horusOnTapUp: _horusOnTapUp,
             horusOnTapCancel: _horusOnTapCancel,

@@ -125,6 +125,7 @@ List<String> bzFormStrings (BuildContext context){
   return bzFormStrings;
 }
 // === === === === === === === === === === === === === === === === === === ===
+/// should be renamed to Zone Stringer
 String localeStringer ({BuildContext context, String countryISO3, String provinceID, String areaID}){
   CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
   String _countryName = translate(context, countryISO3);
@@ -146,9 +147,52 @@ String functionStringer(Function function) {
 }
 // === === === === === === === === === === === === === === === === === === ===
 String removeFirstCharacterFromAString(String string){
-  String stringWithoutFirstCharacter = string.substring(1);
+  String stringWithoutFirstCharacter = string.length >0 ? string?.substring(1) : null;
   return stringWithoutFirstCharacter;
 }
+// === === === === === === === === === === === === === === === === === === ===
+String removeSpacesFromAString(String string){
+  /// solution 1,, won't work, not tested
+  // string.replaceAll(new RegExp(r"\s+\b|\b\s"), "");
+  /// solution 2
+  // string.replaceAll(new RegExp(r"\s+"), "");
+  /// solution 3
+  // string.replaceAll(' ', '');
+  /// solution 4
+  // string.split(" ").join("");
+  /// solution 5
+  String _output = string.toLowerCase().replaceAll(' ', '');
+  /// solution 6
+  /// String replaceWhitespacesUsingRegex(String s, String replace) {
+  ///   if (s == null) {
+  ///     return null;
+  ///   }
+  ///
+  ///   // This pattern means "at least one space, or more"
+  ///   // \\s : space
+  ///   // +   : one or more
+  ///   final pattern = RegExp('\\s+');
+  ///   return s.replaceAll(pattern, replace);
+  ///
+  /// ---> I'm just going to shortcut the above method here below
+  // string?.replaceAll(new RegExp('\\s+'),'');
+  String _output2 = _output?.replaceAll('‎', '');
+  String _output3 = _output2?.replaceAll('‏', '');
+  String _output4 = _output3?.replaceAll('‎ ', '');
+  String _output5 = _output4?.replaceAll(' ‏', '');
+  return
+    _output5;
+}
+// === === === === === === === === === === === === === === === === === === ===
+String firstCharacterOfAString(String string){
+    String _output = string == null || string.length == 0 || string == '' || string == ' '? null :
+    string?.substring(0,1);
+
+
+  return
+  _output == null || _output == '' || _output == "" ? null : _output;
+
+  }
 // === === === === === === === === === === === === === === === === === === ===
 String askHinter (BuildContext context, BzType bzType){
   String askHint =
