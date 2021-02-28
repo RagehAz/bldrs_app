@@ -85,12 +85,14 @@ class AuthService {
   Future registerWithEmailAndPassword(BuildContext context, Zone currentZone,
       String email, String password) async {
     try {
+
       UserCredential result = await _auth.createUserWithEmailAndPassword(
           email: email.trim(), password: password);
+
       User user = result.user;
 
-      /// create a new firestore document for the user with the userID
-      await UserProvider(userID: user.uid).updateUserData(
+      /// create new UserModel
+      UserModel _newUserModel = UserModel(
         userID: user.uid,
         joinedAt: DateTime.now(),
         userStatus: UserStatus.Normal,
@@ -104,7 +106,7 @@ class AuthService {
         area: currentZone.areaID,
         language: Wordz.languageCode(context),
         position: GeoPoint(0, 0),
-        contacts: [
+        contacts: <ContactModel>[
           ContactModel(contact: user.email, contactType: ContactType.Email)
         ],
         // -------------------------
@@ -112,8 +114,14 @@ class AuthService {
         followedBzzIDs: [''],
       );
 
+      /// create a new firestore document for the user with the userID
+      await UserProvider(userID: user.uid)
+          .updateFirestoreUserDocument(_newUserModel);
+
       return _convertFirebaseUserToUserModel(user);
+
     } catch (error) {
+      superDialog(context, error, 'Couldn\'t sign up');
       print('auth error is : ${error.toString()}');
       return error;
     }

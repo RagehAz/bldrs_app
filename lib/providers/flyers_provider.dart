@@ -7,6 +7,7 @@ import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:bldrs/models/sub_models/http_exceptions.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/view_brains/drafters/timerz.dart';
+import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -172,9 +173,10 @@ void addFlyer(FlyerModel flyer){
     notifyListeners();
 }
 // ---------------------------------------------------------------------------
-Future<void> addBz(BzModel bz, UserModel userModel) async {
+Future<void> addBz(BuildContext context, BzModel bz, UserModel userModel) async {
   const url = realtimeDatabaseBzzPath;
   try {
+
     final response = await http.post(url,
       body: json.encode({
         // 'bzID': bz.bzID,
@@ -264,8 +266,8 @@ Future<void> addBz(BzModel bz, UserModel userModel) async {
 
     List<dynamic> tempFollowedBzzIDs = userModel.followedBzzIDs;
     userModel.followedBzzIDs.insert(0, json.decode(response.body)['name']);
-    await UserProvider(userID: userModel.userID).
-    updateUserData(
+
+    UserModel _newUserModel = UserModel(
       // -------------------------
       userID : userModel.userID,
       joinedAt : userModel.joinedAt,
@@ -287,11 +289,15 @@ Future<void> addBz(BzModel bz, UserModel userModel) async {
       followedBzzIDs : tempFollowedBzzIDs,
     );
 
+    await UserProvider(userID: userModel.userID).
+    updateFirestoreUserDocument(_newUserModel);
+
     _loadedBzz.add(newBz);
     notifyListeners();
     print('bzzzzzzzzzz added response is :${json.decode(response.body)}');
   } catch (error){
     print(error);
+    superDialog(context, error, 'Could\'nt add Business');
     throw(error);
   }
 
@@ -369,8 +375,8 @@ Future<void> updateBz(BzModel bz) async {
 
      List<dynamic> newFollowedBzzIDs = userModel.followedBzzIDs;
      newFollowedBzzIDs.remove(bzID);
-     await UserProvider(userID: userModel.userID).
-     updateUserData(
+
+     UserModel _newUserModel = UserModel(
        // -------------------------
        userID : userModel.userID,
        joinedAt : userModel.joinedAt,
@@ -391,6 +397,9 @@ Future<void> updateBz(BzModel bz) async {
        savedFlyersIDs : userModel.savedFlyersIDs,
        followedBzzIDs : newFollowedBzzIDs,
      );
+
+     await UserProvider(userID: userModel.userID).
+     updateFirestoreUserDocument(_newUserModel);
 
  }
 // ---------------------------------------------------------------------------

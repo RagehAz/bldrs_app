@@ -37,5 +37,7 @@ void openFlyer(BuildContext context, String flyerID){
 }
 // === === === === === === === === === === === === === === === === === === ===
 goBack(BuildContext context){
+  // you can send whatever you want in Navigator.pop(context,whtever you want to pass)
   Navigator.pop(context);
 }
+// === === === === === === === === === === === === === === === === === === ===
