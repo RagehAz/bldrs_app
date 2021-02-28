@@ -5,6 +5,7 @@ import 'package:bldrs/providers/users_provider.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
 import 'package:bldrs/view_brains/router/route_names.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
+import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -30,8 +31,8 @@ Future<UserCredential> signUpWithFacebook(BuildContext context, Zone zone) async
     // -------------------------
     final User user = authResult.user;
     // -------------------------
-    /// create a new firestore document for the user with the userID
-    await UserProvider(userID: user.uid).updateUserData(
+    /// create new UserModel
+    UserModel _newUserModel = UserModel(
       userID: user.uid,
       joinedAt: DateTime.now(),
       userStatus: UserStatus.Normal,
@@ -46,33 +47,34 @@ Future<UserCredential> signUpWithFacebook(BuildContext context, Zone zone) async
       area: zone.areaID,
       language: Wordz.languageCode(context),
       position: GeoPoint(0, 0),
-      contacts: <ContactModel>[
-        ContactModel(
-            contact: user.email,
-            contactType: ContactType.Email
-        ),
-        ContactModel(
-            contact: user.phoneNumber,
-            contactType: ContactType.Phone,
-        ),
-
-      ],
+      contacts: <ContactModel>[ContactModel(
+          contact: user.email,
+          contactType: ContactType.Email
+      ), ContactModel(
+        contact: user.phoneNumber,
+        contactType: ContactType.Phone,
+      ),],
       // -------------------------
       savedFlyersIDs: [''],
       followedBzzIDs: [''],
     );
     // -------------------------
+    /// create a new firestore document for the user with the userID
+    await UserProvider(userID: user.uid).updateFirestoreUserDocument(_newUserModel);
+    // -------------------------
     /// Once signed in, return the UserCredential
     return await FirebaseAuth.instance.signInWithCredential(credential);
     // -------------------------
-  } on FacebookAuthException catch (e) {
+  } on FacebookAuthException catch (error) {
     // handle the FacebookAuthException
     print("Facebook Authentication Error");
-    print(e.message);
-  } on FirebaseAuthException catch (e) {
+    print(error.message);
+    superDialog(context, error, 'Couldn\'t continue with Facebook');
+  } on FirebaseAuthException catch (error) {
     // handle the FirebaseAuthException
     print("Firebase Authentication Error");
-    print(e.message);
+    print(error.message);
+    superDialog(context, error, 'Couldn\'t continue with Facebook');
   } finally {}
   return null;
 }
