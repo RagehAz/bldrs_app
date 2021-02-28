@@ -1,4 +1,4 @@
-import 'package:bldrs/view_brains/drafters/text_directionz.dart';
+import 'package:bldrs/view_brains/drafters/text_directionerz.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';

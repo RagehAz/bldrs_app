@@ -1,4 +1,4 @@
-import 'package:bldrs/view_brains/drafters/text_directionz.dart';
+import 'package:bldrs/view_brains/drafters/text_directionerz.dart';
 import 'package:flutter/material.dart';
 // === === === === === === === === === === === === === === === === === === ===
 Alignment superTopAlignment(BuildContext context){

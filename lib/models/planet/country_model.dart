@@ -1,4 +1,4 @@
-import 'package:bldrs/view_brains/drafters/stringers.dart';
+import 'package:bldrs/view_brains/drafters/text_manipulators.dart';
 
 import 'province_model.dart';
 // ---------------------------------------------------------------------------

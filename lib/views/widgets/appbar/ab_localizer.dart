@@ -1,7 +1,7 @@
 import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/view_brains/drafters/aligners.dart';
 import 'package:bldrs/view_brains/drafters/iconizers.dart';
-import 'package:bldrs/view_brains/drafters/text_directionz.dart';
+import 'package:bldrs/view_brains/drafters/text_directionerz.dart';
 import 'package:bldrs/view_brains/drafters/mappers.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/localization/language_class.dart';

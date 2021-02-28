@@ -1,7 +1,7 @@
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/view_brains/drafters/aligners.dart';
-import 'package:bldrs/view_brains/drafters/stringers.dart';
+import 'package:bldrs/view_brains/drafters/text_generators.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';

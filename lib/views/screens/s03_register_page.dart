@@ -4,7 +4,6 @@ import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/view_brains/drafters/keyboarders.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
-import 'package:bldrs/views/widgets/bubbles/locale_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/text_field_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
@@ -12,7 +11,6 @@ import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
-import 'package:bldrs/view_brains/router/route_names.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:provider/provider.dart';
 

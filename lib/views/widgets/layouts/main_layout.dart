@@ -6,7 +6,6 @@ import 'package:bldrs/view_brains/drafters/keyboarders.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/localization/localization_constants.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
-import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/widgets/appbar/bldrs_appbar.dart';
@@ -65,6 +64,8 @@ class MainLayout extends StatelessWidget {
   Future<void> _refresh(BuildContext context) async {
     await Provider.of<FlyersProvider>(context,listen: false).fetchAndSetBzz();
   }
+
+  // final static GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -131,6 +132,7 @@ class MainLayout extends StatelessWidget {
           onTap: (){minimizeKeyboardOnTapOutSide(context);},
         child: SafeArea(
           child: Scaffold(
+            // key: _scaffoldKey,
             resizeToAvoidBottomPadding: false,
             // resizeToAvoidBottomInset: false,
             body:

@@ -1,7 +1,7 @@
-import 'package:bldrs/view_brains/drafters/stringers.dart';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
+
+import 'text_manipulators.dart';
 // === === === === === === === === === === === === === === === === === === ===
 extension FileExtention on FileSystemEntity{
   String get fileNameWithExtension {

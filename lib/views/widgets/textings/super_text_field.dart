@@ -1,7 +1,6 @@
 import 'package:bldrs/view_brains/drafters/borderers.dart';
-import 'package:bldrs/view_brains/drafters/keyboarders.dart';
-import 'package:bldrs/view_brains/drafters/text_directionz.dart';
-import 'package:bldrs/view_brains/drafters/texters.dart';
+import 'package:bldrs/view_brains/drafters/text_directionerz.dart';
+import 'package:bldrs/view_brains/drafters/text_shapers.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
@@ -75,20 +74,20 @@ class SuperTextField extends StatefulWidget {
 }
 
 class _SuperTextFieldState extends State<SuperTextField> {
-  TextEditingController _textController;
+  // TextEditingController widget.textController;
 // ---------------------------------------------------------------------------
 @override
   void initState() {
-  _textController = widget.textController ;
-  _textDirection = superTextDirectionSwitcher(_textController.text);
+  // widget.textController = widget.textController ;
+  _textDirection = superTextDirectionSwitcher(widget.textController?.text);
     super.initState();
   }
 
-  @override
-  void dispose(){
-  _textController.dispose();
-  super.dispose();
-  }
+  // @override
+  // void dispose(){
+  // widget.textController.dispose();
+  // super.dispose();
+  // }
 
 // ---------------------------------------------------------------------------
   /// --- TEXT DIRECTION BLOCK
@@ -266,13 +265,13 @@ class _SuperTextFieldState extends State<SuperTextField> {
         decoration: _boxDecoration,
         child: TextFormField(
           key: widget.key,
-          initialValue: widget.initialValue,
-          controller: _textController,
+          // initialValue: widget.initialValue,
+          controller: widget.textController,
           textInputAction: widget.keyboardTextInputAction,
-          onSaved: (String koko) => widget.onSaved(koko),
+          // onSaved: (String koko) => widget.onSaved(koko),
           validator: widget.validator,
           onChanged: (val) => _onChanged(val),
-          onTap: () {print('TextField is Changing');},
+          // onTap: () {print('TextField is Changing');},
           keyboardType: widget.keyboardTextInputType,
           style: superTextStyle(widget.inputColor, 1),
           enabled: true, // THIS DISABLES THE ABILITY TO OPEN THE KEYBOARD
@@ -303,9 +302,10 @@ class _SuperTextFieldState extends State<SuperTextField> {
         margin: widget.margin,
         decoration: _boxDecoration,
         child: TextField(
-          controller: _textController,
+          key: widget.key,
+          controller: widget.textController,
           onChanged: (val) => _onChanged(val),
-          onTap: () {print('onTap is tapped');},
+          // onTap: () {print('onTap is tapped');},
           keyboardType: widget.keyboardTextInputType,
           style: superTextStyle(widget.inputColor, 1),
           enabled: true, // THIS DISABLES THE ABILITY TO OPEN THE KEYBOARD

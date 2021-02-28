@@ -1,7 +1,6 @@
 import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:bldrs/view_brains/drafters/timerz.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
 /// any changes in this model should reflect on this [UserProvider]
 class UserModel {
