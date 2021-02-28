@@ -12,48 +12,52 @@ class UserProvider{
   /// collection reference
   final CollectionReference usersCollection = FirebaseFirestore.instance.collection('users');
 
-  /// create user document
-  Future updateUserData({
-    String userID,
-    DateTime joinedAt,
-    UserStatus userStatus,
-// -------------------------
-    String name,
-    String pic,
-    String title,
-    String company,
-    Gender gender,
-    String country,
-    String province,
-    String area,
-    String language,
-    GeoPoint position,
-    List<ContactModel> contacts,
-// -------------------------
-    List<dynamic> savedFlyersIDs,
-    List<dynamic> followedBzzIDs,
-  }) async {
-    return await usersCollection.doc(userID).set({
-      'userID' : userID,
-      'joinedAt' : cipherDateTimeToString(joinedAt),
-      'userStatus' : cipherUserStatus(userStatus),
-// -------------------------
-      'name' : name,
-      'pic' : pic,
-      'title' : title,
-      'company' : company,
-      'gender' : cipherGender(gender),
-      'country' : country,
-      'province' : province,
-      'area' : area,
-      'language' : language,
-      'position' : position,
-      'contacts' : cipherContactsModels(contacts),
-// -------------------------
-      'savedFlyersIDs' : savedFlyersIDs,
-      'followedBzzIDs' : followedBzzIDs,
-    });
+  Future<void> updateFirestoreUserDocument(UserModel userModel) async {
+    usersCollection.doc(userID).set(userModel.toMap());
   }
+
+  /// create user document
+//   Future updateUserData({
+//     String userID,
+//     DateTime joinedAt,
+//     UserStatus userStatus,
+// // -------------------------
+//     String name,
+//     String pic,
+//     String title,
+//     String company,
+//     Gender gender,
+//     String country,
+//     String province,
+//     String area,
+//     String language,
+//     GeoPoint position,
+//     List<ContactModel> contacts,
+// // -------------------------
+//     List<dynamic> savedFlyersIDs,
+//     List<dynamic> followedBzzIDs,
+//   }) async {
+//     return await usersCollection.doc(userID).set({
+//       'userID' : userID,
+//       'joinedAt' : cipherDateTimeToString(joinedAt),
+//       'userStatus' : cipherUserStatus(userStatus),
+// // -------------------------
+//       'name' : name,
+//       'pic' : pic,
+//       'title' : title,
+//       'company' : company,
+//       'gender' : cipherGender(gender),
+//       'country' : country,
+//       'province' : province,
+//       'area' : area,
+//       'language' : language,
+//       'position' : position,
+//       'contacts' : cipherContactsModels(contacts),
+// // -------------------------
+//       'savedFlyersIDs' : savedFlyersIDs,
+//       'followedBzzIDs' : followedBzzIDs,
+//     });
+//   }
 
   /// users list from snapshot
   List<UserModel> _usersListFromSnapshot(QuerySnapshot snapshot){

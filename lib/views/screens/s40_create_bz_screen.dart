@@ -238,7 +238,7 @@ class _CreateBzScreenState extends State<CreateBzScreen> with TickerProviderStat
 
     _triggerLoading();
     try {
-      await pro.addBz(_bzModel, userModel);
+      await pro.addBz(context, _bzModel, userModel);
     }
     catch(error) {
       await superDialog(context, error, 'Error Creating Business Profile');
