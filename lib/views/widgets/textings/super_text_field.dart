@@ -36,6 +36,7 @@ class SuperTextField extends StatefulWidget {
   final String initialValue;
   final Function validator;
   final TextDirection textDirection;
+  final Key key;
 
   SuperTextField({
     this.keyboardTextInputType = TextInputType.text,
@@ -66,6 +67,7 @@ class SuperTextField extends StatefulWidget {
     this.initialValue,
     this.validator,
     this.textDirection,
+    this.key,
   });
 
   @override
@@ -73,23 +75,31 @@ class SuperTextField extends StatefulWidget {
 }
 
 class _SuperTextFieldState extends State<SuperTextField> {
+  TextEditingController _textController;
 // ---------------------------------------------------------------------------
 @override
   void initState() {
-  _textController = widget.textController;
+  _textController = widget.textController ;
+  _textDirection = superTextDirectionSwitcher(_textController.text);
     super.initState();
   }
+
+  @override
+  void dispose(){
+  _textController.dispose();
+  super.dispose();
+  }
+
 // ---------------------------------------------------------------------------
   /// --- TEXT DIRECTION BLOCK
   /// USER LIKE THIS :-
   /// onChanged: (val){_changeTextDirection();},
-  TextEditingController _textController = TextEditingController();
   TextDirection _textDirection;
-  void _changeTextDirection(){
+  void _changeTextDirection(String val){
     setState(() {
-      _textDirection = superTextDirectionSwitcher(_textController);
+      _textDirection = superTextDirectionSwitcher(val);
     });
-    print('${_textController.text}, $_textDirection');
+    print('${val}, $_textDirection');
   }
 // ---------------------------------------------------------------------------
   @override
@@ -237,8 +247,10 @@ class _SuperTextFieldState extends State<SuperTextField> {
 // ---------------------------------------------------------------------------
     TextAlign _textAlign = widget.centered == true ? TextAlign.center : TextAlign.start;
 // ---------------------------------------------------------------------------
+    int _maxLines = widget.obscured == true ? 1 : widget.maxLines;
+// ---------------------------------------------------------------------------
     void _onChanged(val){
-      _changeTextDirection();
+      _changeTextDirection(val);
       widget.onChanged(val);
     }
 // ---------------------------------------------------------------------------
@@ -253,6 +265,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
         margin: widget.margin,
         decoration: _boxDecoration,
         child: TextFormField(
+          key: widget.key,
           initialValue: widget.initialValue,
           controller: _textController,
           textInputAction: widget.keyboardTextInputAction,
@@ -264,7 +277,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
           style: superTextStyle(widget.inputColor, 1),
           enabled: true, // THIS DISABLES THE ABILITY TO OPEN THE KEYBOARD
           minLines: widget.minLines,
-          maxLines: widget.obscured == true ? 1 : widget.maxLines,
+          // maxLines: _maxLines,
           maxLength: widget.maxLength,
           autocorrect: false, // NO IMPACT
           keyboardAppearance: Brightness.dark,
@@ -297,7 +310,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
           style: superTextStyle(widget.inputColor, 1),
           enabled: true, // THIS DISABLES THE ABILITY TO OPEN THE KEYBOARD
           minLines: widget.minLines,
-          maxLines: widget.obscured == true ? 1 : widget.maxLines,
+          maxLines: _maxLines,
           maxLength: widget.maxLength,
           autocorrect: true, // -------------------------------------------NO IMPACT
           keyboardAppearance: Brightness.dark,
