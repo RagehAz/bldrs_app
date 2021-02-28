@@ -5,6 +5,7 @@ import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/users_provider.dart';
+import 'package:bldrs/view_brains/controllers/streamerz.dart';
 import 'package:bldrs/view_brains/drafters/imagers.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
 import 'package:bldrs/view_brains/router/route_names.dart';
@@ -318,15 +319,11 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
       layoutWidget: ListView(
         children: <Widget>[
 
-          StreamBuilder<UserModel>(
-            stream: UserProvider(userID: _userID).userData,
-            builder: (context, snapshot){
-              if(snapshot.hasData == false){
-                return LoadingFullScreenLayer();
-              } else {
-                UserModel userModel = snapshot.data;
-                // print('user name : ${userModel.name}');
-                return Form(
+          userStreamBuilder(
+            context: context,
+            builder: (context, UserModel userModel){
+              return
+                Form(
                   key: _formKey,
                   child: Column(
                     children: <Widget>[
@@ -559,7 +556,7 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                             print('_userPicURL : $_userPicURL');
 
                             try{
-                              await UserProvider(userID: userModel.userID).updateUserData(
+                              UserModel _newUserModel = UserModel(
                                 // -------------------------
                                 userID : userModel.userID,
                                 joinedAt : userModel.joinedAt,
@@ -581,6 +578,10 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                                 followedBzzIDs : userModel.followedBzzIDs,
                                 // -------------------------
                               );
+
+                              await UserProvider(userID: userModel.userID)
+                                  .updateFirestoreUserDocument(_newUserModel);
+
                               print('user model successfully edited');
                               goToRoute(context, Routez.Home);
 
@@ -599,9 +600,8 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                     ],
                   ),
                 );
-              }
-            },
-          )
+            }
+          ),
 
         ],
       ),

@@ -73,25 +73,25 @@ class SuperTextField extends StatefulWidget {
 }
 
 class _SuperTextFieldState extends State<SuperTextField> {
-TextDirection _textDirection;
-
-// @override
-//   void initState() {
-//     textDirection = superTextDirection(context);
-//     super.initState();
-//   }
-
-  void _switchTextDirection(String val){
-    if(val.length <= 1){ // only the first character defines the text direction
-      if(textIsEnglish(val) == true){
-        setState(() {_textDirection = TextDirection.ltr;});
-      } else if
-      (textIsEnglish(val) == false){
-        setState(() {_textDirection = TextDirection.rtl;});
-      }
-    }
+// ---------------------------------------------------------------------------
+@override
+  void initState() {
+  _textController = widget.textController;
+    super.initState();
   }
-
+// ---------------------------------------------------------------------------
+  /// --- TEXT DIRECTION BLOCK
+  /// USER LIKE THIS :-
+  /// onChanged: (val){_changeTextDirection();},
+  TextEditingController _textController = TextEditingController();
+  TextDirection _textDirection;
+  void _changeTextDirection(){
+    setState(() {
+      _textDirection = superTextDirectionSwitcher(_textController);
+    });
+    print('${_textController.text}, $_textDirection');
+  }
+// ---------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -183,9 +183,64 @@ TextDirection _textDirection;
     }
 // ---------------------------------------------------------------------------
     TextDirection _concludedTextDirection =
-        widget.textDirection != null ? widget.textDirection :
-        widget.textDirection == null && _textDirection == null? superTextDirection(context) :
-        _textDirection;
+    /// when widget.textDirection is already defined, it overrides all
+    widget.textDirection != null ? widget.textDirection :
+    /// when it is not defined outside, and _textDirection hadn't changed yet we
+    /// use default superTextDirection that detects current app language
+    widget.textDirection == null && _textDirection == null? superTextDirection(context) :
+    /// so otherwise we use _textDirection that auto detects current input
+    /// language
+    // textIsEnglish(widget.textController.text) == true ? TextDirection.ltr :
+    // textIsEnglish(widget.textController.text) == false ? TextDirection.rtl :
+    _textDirection;
+// ---------------------------------------------------------------------------
+    InputDecoration _inputDecoration = InputDecoration(
+      hintText: widget.hintText,
+      hintMaxLines: 1,
+      hintStyle: superHintStyle(Colorz.WhiteSmoke, 0.8),
+      alignLabelWithHint: true,
+      contentPadding: EdgeInsets.all(_sidePaddings),
+
+      focusedBorder: superOutlineInputBorder(Colorz.YellowSmoke, _labelCorner),
+      enabledBorder: superOutlineInputBorder(Colorz.Nothing, _labelCorner),
+
+      errorStyle: superTextStyle(Colorz.BloodRed, 0.7),
+      focusedErrorBorder: superOutlineInputBorder(Colorz.YellowSmoke, _labelCorner),
+
+      errorBorder: superOutlineInputBorder(Colorz.BloodRedPlastic, _labelCorner),
+      border: superOutlineInputBorder(Colorz.LinkedIn, _labelCorner),
+      disabledBorder: superOutlineInputBorder(Colorz.Grey, _labelCorner),
+      counter: widget.counterIsOn ? null : Offstage(),
+      counterStyle: superTextStyle(Colorz.WhiteLingerie, 0.7),
+
+      // SOME BULLSHIT
+      isDense: true,
+      isCollapsed: true,
+      // semanticCounterText: 'semantic',
+      focusColor: Colorz.Green,
+      enabled: true,
+      filled: true,
+      fillColor: Colorz.WhiteAir,
+
+      // helperText: 'helper',
+      // errorText: 'there is some error here',
+      // icon: WebsafeSvg.asset(Iconz.DvRageh, height: 20),
+    );
+// ---------------------------------------------------------------------------
+    EdgeInsets _boxPadding = EdgeInsets.only(
+        bottom: widget.counterIsOn == true ? _sidePaddings : 0);
+// ---------------------------------------------------------------------------
+    BoxDecoration _boxDecoration = BoxDecoration(
+      borderRadius: BorderRadius.all(Radius.circular(_labelCorner)),
+      color: widget.fieldColor,
+    );
+// ---------------------------------------------------------------------------
+    TextAlign _textAlign = widget.centered == true ? TextAlign.center : TextAlign.start;
+// ---------------------------------------------------------------------------
+    void _onChanged(val){
+      _changeTextDirection();
+      widget.onChanged(val);
+    }
 // ---------------------------------------------------------------------------
     return
 
@@ -194,100 +249,35 @@ TextDirection _textDirection;
           /// TEXT FORM FIELD -------------------------------
       Container(
         width: widget.width,
-        // height: widget.height,
-        padding: EdgeInsets.only(bottom: widget.counterIsOn == true ? _sidePaddings : 0),
+        padding: _boxPadding,
         margin: widget.margin,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(_labelCorner)),
-          color: widget.fieldColor,
-        ),
+        decoration: _boxDecoration,
         child: TextFormField(
           initialValue: widget.initialValue,
+          controller: _textController,
           textInputAction: widget.keyboardTextInputAction,
           onSaved: (String koko) => widget.onSaved(koko),
           validator: widget.validator,
-          controller: widget.textController,
-          onChanged: (val){
-            widget.onChanged(val);
-            if(widget.textDirection == null) {_switchTextDirection(val);}
-              },
-          onTap: () {
-            print('onTap is tapped');
-          },
+          onChanged: (val) => _onChanged(val),
+          onTap: () {print('TextField is Changing');},
           keyboardType: widget.keyboardTextInputType,
           style: superTextStyle(widget.inputColor, 1),
           enabled: true, // THIS DISABLES THE ABILITY TO OPEN THE KEYBOARD
           minLines: widget.minLines,
           maxLines: widget.obscured == true ? 1 : widget.maxLines,
           maxLength: widget.maxLength,
-          autocorrect: false, // -------------------------------------------NO IMPACT
-          // scrollPadding: EdgeInsets.all(50),
+          autocorrect: false, // NO IMPACT
           keyboardAppearance: Brightness.dark,
           textDirection: _concludedTextDirection,
           obscureText: widget.obscured,
-          // obscuringCharacter: '*',
           maxLengthEnforced: false,
           enableInteractiveSelection: true, // makes test selectable
-
-          decoration: InputDecoration(
-            hintText: widget.hintText,
-            hintMaxLines: 1,
-            hintStyle: superHintStyle(Colorz.WhiteSmoke, 0.8),
-            alignLabelWithHint: true,
-            contentPadding: EdgeInsets.all(_sidePaddings),
-
-            focusedBorder: superOutlineInputBorder(Colorz.YellowSmoke, _labelCorner),
-            enabledBorder: superOutlineInputBorder(Colorz.Nothing, _labelCorner),
-
-            errorStyle: superTextStyle(Colorz.BloodRed, 0.7),
-            focusedErrorBorder: superOutlineInputBorder(Colorz.YellowSmoke, _labelCorner),
-
-            errorBorder: superOutlineInputBorder(Colorz.BloodRedPlastic, _labelCorner),
-            border: superOutlineInputBorder(Colorz.LinkedIn, _labelCorner),
-            disabledBorder: superOutlineInputBorder(Colorz.Grey, _labelCorner),
-            counter: widget.counterIsOn ? null : Offstage(),
-            counterStyle: superTextStyle(Colorz.WhiteLingerie, 0.7),
-
-            // SOME BULLSHIT
-            isDense: true,
-            isCollapsed: true,
-            // semanticCounterText: 'semantic',
-            focusColor: Colorz.Green,
-            enabled: true,
-            filled: true,
-            fillColor: Colorz.WhiteAir,
-
-            // helperText: 'helper',
-            // errorText: 'there is some error here',
-            // icon: WebsafeSvg.asset(Iconz.DvRageh, height: 20),
-          ),
-
-          // buildCounter:
-          //     (_, {currentLength, maxLength, isFocused}) =>
-          //         Padding(
-          //           padding: const EdgeInsets.only(left: 16.0),
-          //           child: Container(
-          //               alignment: Alignment.centerLeft,
-          //               child: Text(currentLength.toString() + "/" + maxLength.toString())),
-          //         ),
-
+          decoration: _inputDecoration,
           cursorColor: Colorz.Yellow,
           cursorRadius: Radius.circular(3),
           cursorWidth: 2,
           cursorHeight: null,
-
-          textAlign: widget.centered == true ? TextAlign.center : TextAlign.start,
-          /*
-        ---  if keyboard lang is ltr ? ltr : rtl
-        On native iOS the current keyboard language can be gotten from
-        UITextInputMode
-        and listened to with
-        UITextInputCurrentInputModeDidChangeNotification.
-        On native Android you can use
-        getCurrentInputMethodSubtype
-        to get the keyboard language, but I'm not seeing a way to listen
-        to keyboard language changes.
-         */
+          textAlign: _textAlign,
         ),
       )
 
@@ -296,24 +286,13 @@ TextDirection _textDirection;
           /// TEXT FIELD -------------------------------
       Container(
         width: widget.width,
-        // height: widget.height,
-        padding: EdgeInsets.only(
-            bottom: widget.counterIsOn == true ? _sidePaddings : 0),
+        padding: _boxPadding,
         margin: widget.margin,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(_labelCorner)),
-          color: widget.fieldColor,
-        ),
+        decoration: _boxDecoration,
         child: TextField(
-
-          controller: widget.textController,
-          onChanged: (val){
-            widget.onChanged(val);
-            _switchTextDirection(val);
-          },
-          onTap: () {
-            print('onTap is tapped');
-          },
+          controller: _textController,
+          onChanged: (val) => _onChanged(val),
+          onTap: () {print('onTap is tapped');},
           keyboardType: widget.keyboardTextInputType,
           style: superTextStyle(widget.inputColor, 1),
           enabled: true, // THIS DISABLES THE ABILITY TO OPEN THE KEYBOARD
@@ -321,62 +300,17 @@ TextDirection _textDirection;
           maxLines: widget.obscured == true ? 1 : widget.maxLines,
           maxLength: widget.maxLength,
           autocorrect: true, // -------------------------------------------NO IMPACT
-          // scrollPadding: EdgeInsets.all(50),
           keyboardAppearance: Brightness.dark,
           textDirection: _concludedTextDirection,
           obscureText: widget.obscured,
-          // obscuringCharacter: '*',
           maxLengthEnforced: false,
           enableInteractiveSelection: true, // makes test selectable
-
-          decoration: InputDecoration(
-            hintText: widget.hintText,
-            hintMaxLines: 1,
-            hintStyle: superHintStyle(Colorz.WhiteSmoke, 0.8),
-            alignLabelWithHint: true,
-            contentPadding: EdgeInsets.all(_sidePaddings),
-
-            focusedBorder: superOutlineInputBorder(Colorz.YellowSmoke, _labelCorner),
-            enabledBorder: superOutlineInputBorder(Colorz.Nothing, _labelCorner),
-
-            errorStyle: superTextStyle(Colorz.BloodRed, 0.7),
-            focusedErrorBorder: superOutlineInputBorder(Colorz.BloodRed, _labelCorner),
-
-            errorBorder: superOutlineInputBorder(Colorz.Facebook, _labelCorner),
-            border: superOutlineInputBorder(Colorz.LinkedIn, _labelCorner),
-            disabledBorder: superOutlineInputBorder(Colorz.Grey, _labelCorner),
-            counter: widget.counterIsOn ? null : Offstage(),
-            counterStyle: superTextStyle(Colorz.WhiteLingerie, 0.7),
-
-            // SOME BULLSHIT
-            isDense: true,
-            isCollapsed: true,
-            // semanticCounterText: 'semantic',
-            focusColor: Colorz.Green,
-            enabled: true,
-            filled: true,
-            fillColor: Colorz.WhiteAir,
-
-            // helperText: 'helper',
-            // errorText: 'there is some error here',
-            // icon: WebsafeSvg.asset(Iconz.DvRageh, height: 20),
-          ),
-
-          // buildCounter:
-          //     (_, {currentLength, maxLength, isFocused}) =>
-          //         Padding(
-          //           padding: const EdgeInsets.only(left: 16.0),
-          //           child: Container(
-          //               alignment: Alignment.centerLeft,
-          //               child: Text(currentLength.toString() + "/" + maxLength.toString())),
-          //         ),
-
+          decoration: _inputDecoration,
           cursorColor: Colorz.Yellow,
           cursorRadius: Radius.circular(3),
           cursorWidth: 2,
           cursorHeight: null,
-          textAlign: widget.centered == true ? TextAlign.center : TextAlign.start,
-
+          textAlign: _textAlign,
         ),
       );
 

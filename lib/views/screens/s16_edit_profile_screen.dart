@@ -25,6 +25,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class EditProfileScreen extends StatefulWidget {
+  final UserModel user;
+
+  EditProfileScreen({
+    @required this.user,
+});
+
   @override
   _EditProfileScreenState createState() => _EditProfileScreenState();
 }
@@ -32,9 +38,12 @@ class EditProfileScreen extends StatefulWidget {
 class _EditProfileScreenState extends State<EditProfileScreen> {
   final _formKey = GlobalKey<FormState>();
   String _currentName;
+  TextEditingController _nameController = TextEditingController();
   File   _currentPic;
   String _currentTitle;
+  TextEditingController _titleController = TextEditingController();
   String _currentCompany;
+  TextEditingController _companyController = TextEditingController();
   Gender _currentGender;
   String _currentCountryID;
   String _currentProvinceID;
@@ -52,6 +61,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   String _currentPinterest;
   String _currentTikTok;
   String _currentTwitter;
+
+  // Important: Call dispose of the TextEditingController when you’ve
+  // finished using it. This ensures that you discard any resources used
+  // by the object.
+
 // ---------------------------------------------------------------------------
   /// --- LOADING BLOCK
   bool _loading = false;
@@ -61,8 +75,30 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     print('LOADING') : print('LOADING COMPLETE');
   }
 // ---------------------------------------------------------------------------
+  @override
+  void initState() {
+    _nameController.text = widget.user.name;
+    _companyController.text = widget.user.company;
+    _titleController.text = widget.user.title;
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _companyController.dispose();
+    _titleController.dispose();
+    super.dispose();
+  }
+
+  void _changeTextController(String val, TextEditingController controller){
+    controller.text = val;
+  }
+
   void _changeName(String val){
-    setState(()=> _currentName = val);
+    _nameController.text = val;
+    _currentName = val;
+    // setState(()=> _currentName = val);
   }
   // ---------------------------------------------------------------------------
   Future<void> _takeGalleryPicture() async {
@@ -75,11 +111,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }
   // ---------------------------------------------------------------------------
   void _changeTitle(String val){
-    setState(()=> _currentTitle = val);
+    _titleController.text = val;
+    _currentTitle = val;
+    // setState(()=> _currentTitle = val);
   }
   // ---------------------------------------------------------------------------
   void _changeCompany(String val){
-    setState(()=> _currentCompany = val);
+    _companyController.text = val;
+    _currentCompany = val;
+    // setState(()=> _currentCompany = val);
   }
   // ---------------------------------------------------------------------------
   void _changeGender(Gender gender){
@@ -295,12 +335,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     final _user = Provider.of<UserModel>(context);
 
     return MainLayout(
+      pyramids: Iconz.PyramidzYellow,
       layoutWidget: ListView(
         children: <Widget>[
 
           userStreamBuilder(
             context: context,
             builder: (context, UserModel userModel){
+
 
               return Form(
                 key: _formKey,
@@ -345,36 +387,40 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     TextFieldBubble(
                       fieldIsFormField: true,
                       title: Wordz.name(context),
-                      initialTextValue: userModel.name,
+                      // initialTextValue: userModel.name,
+                      textController: _nameController,
                       keyboardTextInputType: TextInputType.name,
                       keyboardTextInputAction: TextInputAction.next,
                       fieldIsRequired: true,
                       validator: (val) => val.isEmpty ? Wordz.enterName(context) : null,
-                      textOnChanged: (val) => _changeName(val),
+                      // textOnChanged: (val) => _changeTextController(val, _nameController),
+                      // textDirection: TextDirection.ltr,
                     ),
 
                     // --- EDIT JOB TITLE
                     TextFieldBubble(
                       fieldIsFormField: true,
                       title: Wordz.jobTitle(context),
-                      initialTextValue: userModel.title,
+                      // initialTextValue: userModel.title,
+                      textController: _titleController,
                       keyboardTextInputType: TextInputType.name,
                       keyboardTextInputAction: TextInputAction.next,
                       fieldIsRequired: true,
                       validator: (val) => val.isEmpty ? Wordz.enterJobTitle(context) : null,
-                      textOnChanged: (val) => _changeTitle(val),
+                      // textOnChanged: (val) => _changeTitle(val),
                     ),
 
                     // --- EDIT COMPANY NAME
                     TextFieldBubble(
                       fieldIsFormField: true,
                       title: Wordz.companyName(context),
-                      initialTextValue: userModel.company,
+                      // initialTextValue: userModel.company,
+                      textController: _companyController,
                       keyboardTextInputType: TextInputType.name,
                       keyboardTextInputAction: TextInputAction.next,
                       fieldIsRequired: true,
                       validator: (val) => val.isEmpty ? Wordz.enterCompanyName(context) : null,
-                      textOnChanged: (val) => _changeCompany(val),
+                      // textOnChanged: (val) => _changeCompany(val),
                     ),
 
                     // --- EDIT HQ
@@ -519,6 +565,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         if(_formKey.currentState.validate()){
                           try{
 
+                            print('wtf');
                             String _userPicURL;
 
                             if(_currentPic != null){
@@ -531,13 +578,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
                             print('_userPicURL : $_userPicURL');
 
-                            await UserProvider(userID: userModel.userID).updateUserData(
+                            UserModel _newUserModel = UserModel(
                               // -------------------------
                               userID : userModel.userID,
                               joinedAt : userModel.joinedAt,
                               userStatus : userModel.userStatus ?? UserStatus.Normal,
                               // -------------------------
-                              name : _currentName ?? userModel.name,
+                              name : _nameController.text ?? userModel.name,
                               pic : _userPicURL ?? userModel.pic,
                               title :  _currentTitle ?? userModel.title,
                               company: _currentCompany ?? userModel.company,
@@ -553,10 +600,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               followedBzzIDs : userModel.followedBzzIDs,
                               // -------------------------
                             );
+
+                            await UserProvider(userID: userModel.userID)
+                                .updateFirestoreUserDocument(_newUserModel);
+
                             print('usermodel successfully edited');
                             goBack(context);
 
                           }catch(error){
+                            superDialog(context, error, 'Could\'nt update profile');
                             print(error.toString());
                           }
 

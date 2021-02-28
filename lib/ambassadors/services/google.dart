@@ -30,8 +30,9 @@ Future<String> signInWithGoogle(BuildContext context, Zone currentZone) async {
   if (user != null) {
     assert(!user.isAnonymous);
     assert(await user.getIdToken() != null);
-    // create a new firestore document for the user with the userID
-    await UserProvider(userID: user.uid).updateUserData(
+
+    /// create a new UserModel
+    UserModel _newUserModel = UserModel(
       userID: user.uid,
       joinedAt: DateTime.now(),
       userStatus: UserStatus.Normal,
@@ -45,14 +46,20 @@ Future<String> signInWithGoogle(BuildContext context, Zone currentZone) async {
       area: currentZone.areaID,
       language: Wordz.languageCode(context),
       position: GeoPoint(0, 0),
-      contacts: [
-        ContactModel(contact: user.email, contactType: ContactType.Email)
+      contacts: <ContactModel>[
+        ContactModel(contact: user.email, contactType: ContactType.Email),
+        ContactModel(contact: user.phoneNumber, contactType: ContactType.Phone),
       ],
       // -------------------------
       savedFlyersIDs: [''],
       followedBzzIDs: [''],
     );
+
+    /// create a new firestore document for the user with the userID
+    await UserProvider(userID: user.uid).updateFirestoreUserDocument(_newUserModel);
+
     final User currentUser = _auth.currentUser;
+
     assert(user.uid == currentUser.uid);
 
     print('signInWithGoogle succeeded: $user');

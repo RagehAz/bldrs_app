@@ -21,6 +21,7 @@ import 'package:bldrs/xxx_LABORATORY/camera_and_location/x12_image_picker.dart';
 import 'package:bldrs/xxx_LABORATORY/forms_and_inputs/popup.dart';
 import 'package:bldrs/xxx_LABORATORY/forms_and_inputs/form.dart';
 import 'package:bldrs/xxx_LABORATORY/ideas/circle_list.dart';
+import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/text_field_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x03_font_test_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x08_earth_screen.dart';
 import 'package:flutter/material.dart';
@@ -109,6 +110,17 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
           ),
 
           LogoSlogan(),
+
+          // --- 0 - DASHBOARD
+          BTMain(
+            buttonVerse: 'Text field test',
+            buttonColor: Colorz.BlackPlastic,
+            buttonIcon: Iconz.Language,
+            buttonVerseShadow: true,
+            splashColor: Colorz.Yellow,
+            function: () => goToNewScreen(context, TextFieldTest()),
+            stretched: false,
+          ),
 
           // --- 0 - DASHBOARD
           BTMain(

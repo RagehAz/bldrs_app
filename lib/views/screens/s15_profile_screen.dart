@@ -36,7 +36,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     super.initState();
   }
 
-  final _status = [
+  final _status = <Map<String, dynamic>>[
     {
       'title': 'Property Status',
       'buttons': [
@@ -83,7 +83,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                 UserBubble(
                   user: userModel,
                   switchUserType: (type) =>_switchUserStatus(type),
-                  editProfileBtOnTap: () => goToNewScreen(context, EditProfileScreen()),
+                  editProfileBtOnTap: () => goToNewScreen(context, EditProfileScreen(user: userModel,)),
                   loading: userModelIsLoading(userModel),
                 ),
 
