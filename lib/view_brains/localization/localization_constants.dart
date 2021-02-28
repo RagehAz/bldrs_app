@@ -1,9 +1,6 @@
-import 'package:bldrs/main.dart';
-import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'demo_localization.dart';
-
 // === === === === === === === === === === === === === === === === === === ===
 /// --- BEHOLD ---
 ///

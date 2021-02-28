@@ -2,8 +2,31 @@ import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'scalers.dart';
+// === === === === === === === === === === === === === === === === === === ===
+double verseLabelHeight (int verseSize, double screenHeight){
+  return
+    (verseSize == 0) ? screenHeight * Ratioz.fontSize0 * 1.42 // -- 8 -- A77A
+        :
+    (verseSize == 1) ? screenHeight * Ratioz.fontSize1 * 1.42 // -- 10 -- Nano
+        :
+    (verseSize == 2) ? screenHeight * Ratioz.fontSize2 * 1.42 // -- 12 -- Micro
+        :
+    (verseSize == 3) ? screenHeight * Ratioz.fontSize3 * 1.42 // -- 14 -- Mini
+        :
+    (verseSize == 4) ? screenHeight * Ratioz.fontSize4 * 1.42 // -- 16 -- Medium
+        :
+    (verseSize == 5) ? screenHeight * Ratioz.fontSize5 * 1.42 // -- 20 -- Macro
+        :
+    (verseSize == 6) ? screenHeight * Ratioz.fontSize6 * 1.42 // -- 24 -- Big
+        :
+    (verseSize == 7) ? screenHeight * Ratioz.fontSize7 * 1.42 // -- 28 -- Massive
+        :
+    (verseSize == 8) ? screenHeight * Ratioz.fontSize8 * 1.42 // -- 28 -- Gigantic
+        :
+    screenHeight * Ratioz.fontSize1 * 1.42
+  ;
+}
 // === === === === === === === === === === === === === === === === === === ===
 double superVerseSizeValue (BuildContext context, int verseSize, double scalingFactor){
   double screenHeight = superScreenHeight(context);
@@ -27,7 +50,7 @@ double superVerseSizeValue (BuildContext context, int verseSize, double scalingF
   (verseSize == 8) ? screenHeight * Ratioz.fontSize8 * scalingFactor // -- 28 -- Gigantic
       :
   screenHeight * Ratioz.fontSize1
-      ;
+  ;
   return verseSizeValue;
 }
 // === === === === === === === === === === === === === === === === === === ===
@@ -144,22 +167,5 @@ double superVerseRealHeight(BuildContext context, int verseSize, double scalingF
   double sidePaddings = labelColor == null ? 0 : sidePaddingValues;
   double verseHeight = (superVerseSizeValue(context, verseSize, scalingFactor) * 1.42) + (sidePaddings * 0.25);
   return verseHeight;
-}
-// === === === === === === === === === === === === === === === === === === ===
-Future<void> handlePaste(TextSelectionDelegate delegate) async {
-  final TextEditingValue value = delegate.textEditingValue; // Snapshot the input before using `await`.
-  final ClipboardData data = await Clipboard.getData(Clipboard.kTextPlain);
-  if (data != null) {
-    delegate.textEditingValue = TextEditingValue(
-      text: value.selection.textBefore(value.text)
-          + data.text
-          + value.selection.textAfter(value.text),
-      selection: TextSelection.collapsed(
-          offset: value.selection.start + data.text.length
-      ),
-    );
-  }
-  delegate.bringIntoView(delegate.textEditingValue.selection.extent);
-  delegate.hideToolbar();
 }
 // === === === === === === === === === === === === === === === === === === ===

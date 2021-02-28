@@ -1,11 +1,4 @@
-import 'package:bldrs/models/planet/area_model.dart';
-import 'package:bldrs/models/planet/country_model.dart';
-import 'package:bldrs/models/planet/province_model.dart';
-import 'package:bldrs/view_brains/controllers/streamerz.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
-import 'package:bldrs/view_brains/drafters/texters.dart';
-import 'package:bldrs/view_brains/router/navigators.dart';
-import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';

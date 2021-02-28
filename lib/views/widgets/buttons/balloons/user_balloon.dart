@@ -2,7 +2,6 @@ import 'package:bldrs/ambassadors/services/auth.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/users_provider.dart';
 import 'package:bldrs/view_brains/drafters/colorizers.dart';
-import 'package:bldrs/view_brains/drafters/file_formatters.dart';
 import 'package:bldrs/view_brains/drafters/iconizers.dart';
 import 'package:bldrs/view_brains/drafters/imagers.dart';
 import 'package:bldrs/view_brains/drafters/shadowers.dart';
@@ -12,11 +11,7 @@ import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:provider/provider.dart';
-import 'package:websafe_svg/websafe_svg.dart';
-import '../dream_box.dart';
 import 'clip_shadow_path.dart';
-import 'no_clip.dart';
 
 class UserBalloon extends StatelessWidget {
   final UserStatus balloonType;
