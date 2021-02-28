@@ -1,3 +1,4 @@
+import 'package:bldrs/view_brains/drafters/stringers.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:flutter/material.dart';
 import 'keyboarders.dart';
@@ -29,25 +30,80 @@ TextDirection superInverseTextDirection(BuildContext context){
 /// getCurrentInputMethodSubtype
 /// to get the keyboard language, but I'm not seeing a way to listen
 /// to keyboard language changes.
-TextDirection superTextDirectionSwitcher(TextEditingController controller){
+TextDirection superTextDirectionSwitcherByController(TextEditingController controller){
   TextDirection _textDirection;
 
-  bool controllerIsEmpty =
-  controller == null || controller.text == '' || controller.text.length == 0 ?
-  true : false;
+  bool controllerIsEmpty = textControllerHasNoValue(controller);
 
   if (!controllerIsEmpty){
 
-    String _val = controller.text[0]; // first character defines the direction
+    String _string = controller.text;
 
-    if(textIsEnglish(_val)){
+    String _trimmedVal = removeSpacesFromAString(_string.trim());
+
+    String _firstCharacter = firstCharacterOfAString(_trimmedVal);
+
+    String _val = _trimmedVal; // first character defines the direction
+
+    print('_firstCharacter is ($_firstCharacter)');
+
+    if(textStartsInEnglish(_firstCharacter)){
       _textDirection = TextDirection.ltr;
-    } else {
+    } else if (textStartsInArabic(_firstCharacter)){
       _textDirection = TextDirection.rtl;
+    } else {
+      _textDirection = null;
     }
 
-  }
+  } else {_textDirection = null;}
 
   return _textDirection;
 }
 // === === === === === === === === === === === === === === === === === === ===
+String firstCharacterAfterRemovingSpacesFromAString(String string){
+  String _output;
+
+  String _stringTrimmed = string.trim();
+
+  String _stringWithoutSpaces = removeSpacesFromAString(_stringTrimmed);
+
+  String _firstCharacter = firstCharacterOfAString(_stringWithoutSpaces);
+
+  _output =
+  _stringWithoutSpaces == null || _stringWithoutSpaces == '' || _stringWithoutSpaces == ' '? null :
+      _firstCharacter == '' ? null : _firstCharacter;
+
+  print('string($string) - _stringTrimmed($_stringTrimmed) - _stringWithoutSpaces($_stringWithoutSpaces) - _firstCharacter($_firstCharacter) - _output($_output)');
+  return
+    _output;
+}
+// === === === === === === === === === === === === === === === === === === ===
+TextDirection superTextDirectionSwitcher(String val){
+  TextDirection _textDirection;
+
+  bool controllerIsEmpty = stringHasNoValue(val);
+
+  if (!controllerIsEmpty){
+
+    String _string = val;
+
+    String _trimmedVal = removeSpacesFromAString(_string.trim());
+
+    String _firstCharacter = firstCharacterOfAString(_trimmedVal);
+
+    String _val = _trimmedVal; // first character defines the direction
+
+    print('_firstCharacter is ($_firstCharacter)');
+
+    if(textStartsInEnglish(_firstCharacter)){
+      _textDirection = TextDirection.ltr;
+    } else if (textStartsInArabic(_firstCharacter)){
+      _textDirection = TextDirection.rtl;
+    } else {
+      _textDirection = null;
+    }
+
+  } else {_textDirection = null;}
+
+  return _textDirection;
+}

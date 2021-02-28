@@ -39,6 +39,7 @@ class TextFieldBubble extends StatelessWidget {
   final Function pasteFunction;
   final TextDirection textDirection;
   final Color bubbleColor;
+  final Key key;
 
   TextFieldBubble({
     @required this.title,
@@ -68,6 +69,7 @@ class TextFieldBubble extends StatelessWidget {
     this.pasteFunction,
     this.textDirection,
     this.bubbleColor = Colorz.WhiteGlass,
+    this.key,
   });
 
   @override
@@ -165,7 +167,7 @@ class TextFieldBubble extends StatelessWidget {
                           initialValue: initialTextValue,
                           validator: validator,
                           inputSize: 2,
-
+                          key: key,
                         ),
                       ),
 
