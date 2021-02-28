@@ -380,7 +380,7 @@ class _CreateBzScreenState extends State<CreateBzScreen> with TickerProviderStat
                       changeCountry : (countryID) => setState(() {_currentBzCountry = countryID;}),
                       changeProvince : (provinceID) => setState(() {_currentBzProvince = provinceID;}),
                       changeArea : (areaID) => setState(() {_currentBzArea = areaID;}),
-                      zone: Zone(countryID: userModel.country, provinceID: userModel.province, areaID: userModel.area),
+                      currentZone: Zone(countryID: userModel.country, provinceID: userModel.province, areaID: userModel.area),
                       title: 'Headquarters Area',//Wordz.hqCity(context),
                     ),
 

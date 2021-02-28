@@ -13,7 +13,7 @@ class CountryProvider with ChangeNotifier{
   /// get user country
   String _currentCountryID = 'egy';
   String _currentProvinceID = 'Cairo';
-  String _currentAreaID = '4';
+  String _currentAreaID = '1';
   List<Country> _countries = dbCountries;
   List<Province> _provinces = dbProvinces;
   List<Area> _areas = dbAreas;
@@ -99,6 +99,8 @@ class CountryProvider with ChangeNotifier{
     String _currentLanguageCode = Wordz.languageCode(context);
     Area area = _areas.singleWhere((ar) => ar.id == areaID, orElse: ()=> null);
     String nameInCurrentLanguage = area?.namez?.singleWhere((name) => name.code == _currentLanguageCode, orElse: ()=> null)?.value;
+
+    print('Area nameInCurrentLanguage = ($nameInCurrentLanguage) ,,area?.name is (${area?.name}) ');
 
     return nameInCurrentLanguage == null ? area?.name : nameInCurrentLanguage;
   }
