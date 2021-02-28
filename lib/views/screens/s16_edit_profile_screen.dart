@@ -19,6 +19,7 @@ import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/textings/super_text_field.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -91,15 +92,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     super.dispose();
   }
 
-  void _changeTextController(String val, TextEditingController controller){
-    controller.text = val;
-  }
+  // void _changeTextController(String val, TextEditingController controller){
+  //   controller.text = val;
+  // }
 
-  void _changeName(String val){
-    _nameController.text = val;
-    _currentName = val;
-    // setState(()=> _currentName = val);
-  }
+  // void _changeName(String val){
+  //   _nameController.text = val;
+  //   _currentName = val;
+  //   // setState(()=> _currentName = val);
+  // }
   // ---------------------------------------------------------------------------
   Future<void> _takeGalleryPicture() async {
     final _imageFile = await takeGalleryPicture(PicType.userPic);
@@ -349,41 +350,48 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 child: Column(
                   children: <Widget>[
 
-                    // --- PAGE TITLE
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-
-                          // --- TITLE
-                          SuperVerse(
-                            verse: Wordz.editProfile(context),
-                            size: 3,
-                          ),
-
-                          // --- CANCEL BUTTON
-                          DreamBox(
-                            height: 35,
-                            width: 35,
-                            icon: Iconz.XLarge,
-                            iconSizeFactor: 0.6,
-                            boxFunction: () => goBack(context),
-                          )
-                        ],
-                      ),
-                    ),
-
-                    // --- EDIT PIC
-                    AddGalleryPicBubble(
-                      pic: _currentPic == null ? userModel.pic : _currentPic,
-                      addBtFunction: _takeGalleryPicture,
-                      deletePicFunction: _deleteLogo,
-                      bubbleType: BubbleType.userPic,
-                    ),
+                    // // --- PAGE TITLE
+                    // Container(
+                    //   margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    //   child: Row(
+                    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //     crossAxisAlignment: CrossAxisAlignment.center,
+                    //     children: <Widget>[
+                    //
+                    //       // --- TITLE
+                    //       SuperVerse(
+                    //         verse: Wordz.editProfile(context),
+                    //         size: 3,
+                    //       ),
+                    //
+                    //       // --- CANCEL BUTTON
+                    //       DreamBox(
+                    //         height: 35,
+                    //         width: 35,
+                    //         icon: Iconz.XLarge,
+                    //         iconSizeFactor: 0.6,
+                    //         boxFunction: () => goBack(context),
+                    //       )
+                    //     ],
+                    //   ),
+                    // ),
+                    //
+                    // // --- EDIT PIC
+                    // AddGalleryPicBubble(
+                    //   pic: _currentPic == null ? userModel.pic : _currentPic,
+                    //   addBtFunction: _takeGalleryPicture,
+                    //   deletePicFunction: _deleteLogo,
+                    //   bubbleType: BubbleType.userPic,
+                    // ),
 
                     // --- EDIT NAME
+
+                    SuperTextField(
+                      textController: _nameController,
+                      fieldIsFormField: true,
+                      // maxLines: 100,
+                    ),
+
                     TextFieldBubble(
                       fieldIsFormField: true,
                       title: Wordz.name(context),
@@ -395,254 +403,255 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       validator: (val) => val.isEmpty ? Wordz.enterName(context) : null,
                       // textOnChanged: (val) => _changeTextController(val, _nameController),
                       // textDirection: TextDirection.ltr,
+                      // key: ValueKey('name'),
                     ),
 
-                    // --- EDIT JOB TITLE
-                    TextFieldBubble(
-                      fieldIsFormField: true,
-                      title: Wordz.jobTitle(context),
-                      // initialTextValue: userModel.title,
-                      textController: _titleController,
-                      keyboardTextInputType: TextInputType.name,
-                      keyboardTextInputAction: TextInputAction.next,
-                      fieldIsRequired: true,
-                      validator: (val) => val.isEmpty ? Wordz.enterJobTitle(context) : null,
-                      // textOnChanged: (val) => _changeTitle(val),
-                    ),
-
-                    // --- EDIT COMPANY NAME
-                    TextFieldBubble(
-                      fieldIsFormField: true,
-                      title: Wordz.companyName(context),
-                      // initialTextValue: userModel.company,
-                      textController: _companyController,
-                      keyboardTextInputType: TextInputType.name,
-                      keyboardTextInputAction: TextInputAction.next,
-                      fieldIsRequired: true,
-                      validator: (val) => val.isEmpty ? Wordz.enterCompanyName(context) : null,
-                      // textOnChanged: (val) => _changeCompany(val),
-                    ),
-
-                    // --- EDIT HQ
-                    LocaleBubble(
-                      title : 'Preferred Location',
-                      changeCountry : (countryID) => _changeCountry(countryID),
-                      changeProvince : (provinceID) => _changeProvince(provinceID),
-                      changeArea : (areaID) => _changeArea(areaID),
-                      zone: Zone(countryID: userModel.country, provinceID: userModel.province, areaID: userModel.area),
-                    ),
-
-                    // --- EDIT EMAIL
-                    ContactFieldBubble(
-                      fieldIsFormField: true,
-                      title: Wordz.emailAddress(context),
-                      leadingIcon: Iconz.ComEmail,
-                      keyboardTextInputAction: TextInputAction.next,
-                      fieldIsRequired: true,
-                      keyboardTextInputType: TextInputType.emailAddress,
-                      initialTextValue: getAContactValueFromContacts(userModel.contacts, ContactType.Email),
-                      textOnChanged: (val) => _changeEmail(val),
-                    ),
-
-                    // --- EDIT PHONE
-                    ContactFieldBubble(
-                      fieldIsFormField: true,
-                      title: Wordz.phone(context),
-                      leadingIcon: Iconz.ComPhone,
-                      keyboardTextInputAction: TextInputAction.next,
-                      fieldIsRequired: false,
-                      keyboardTextInputType: TextInputType.phone,
-                      initialTextValue: getAContactValueFromContacts(userModel.contacts, ContactType.Phone),
-                      textOnChanged: (val) => _changePhone(val),
-                    ),
-
-                    // --- EDIT WEBSITE
-                    ContactFieldBubble(
-                      fieldIsFormField: true,
-                      title: Wordz.website(context),
-                      leadingIcon: Iconz.ComWebsite,
-                      keyboardTextInputAction: TextInputAction.next,
-                      fieldIsRequired: false,
-                      keyboardTextInputType: TextInputType.url,
-                      initialTextValue: getAContactValueFromContacts(userModel.contacts, ContactType.WebSite),
-                      textOnChanged: (val) => _changeWebsite(val),
-                    ),
-
-                    // --- EDIT FACEBOOK
-                    ContactFieldBubble(
-                      fieldIsFormField: true,
-                      title: Wordz.facebookLink(context),
-                      leadingIcon: Iconz.ComFacebook,
-                      keyboardTextInputAction: TextInputAction.next,
-                      fieldIsRequired: false,
-                      keyboardTextInputType: TextInputType.url,
-                      initialTextValue: getAContactValueFromContacts(userModel.contacts, ContactType.Facebook),
-                      textOnChanged: (val) => _changeFacebook(val),
-                    ),
-
-                    // --- EDIT INSTAGRAM
-                    ContactFieldBubble(
-                      fieldIsFormField: true,
-                      title: Wordz.instagramLink(context),
-                      leadingIcon: Iconz.ComInstagram,
-                      keyboardTextInputAction: TextInputAction.next,
-                      fieldIsRequired: false,
-                      keyboardTextInputType: TextInputType.url,
-                      initialTextValue: getAContactValueFromContacts(userModel.contacts, ContactType.Instagram),
-                      textOnChanged: (val) => _changeInstagram(val),
-                    ),
-
-                    // --- EDIT LINKEDIN
-                    ContactFieldBubble(
-                      fieldIsFormField: true,
-                      title: Wordz.linkedinLink(context),
-                      leadingIcon: Iconz.ComLinkedin,
-                      keyboardTextInputAction: TextInputAction.next,
-                      fieldIsRequired: false,
-                      keyboardTextInputType: TextInputType.url,
-                      initialTextValue: getAContactValueFromContacts(userModel.contacts, ContactType.LinkedIn),
-                      textOnChanged: (val) => _changeLinkedIn(val),
-                    ),
-
-                    // --- EDIT YOUTUBE
-                    ContactFieldBubble(
-                      fieldIsFormField: true,
-                      title: Wordz.youtubeChannel(context),
-                      leadingIcon: Iconz.ComYoutube,
-                      keyboardTextInputAction: TextInputAction.next,
-                      fieldIsRequired: false,
-                      keyboardTextInputType: TextInputType.url,
-                      initialTextValue: getAContactValueFromContacts(userModel.contacts, ContactType.YouTube),
-                      textOnChanged: (val) => _changeYouTube(val),
-                    ),
-
-                    // --- EDIT PINTEREST
-                    ContactFieldBubble(
-                      fieldIsFormField: true,
-                      title: Wordz.pinterestLink(context),
-                      leadingIcon: Iconz.ComPinterest,
-                      keyboardTextInputAction: TextInputAction.next,
-                      fieldIsRequired: false,
-                      keyboardTextInputType: TextInputType.url,
-                      initialTextValue: getAContactValueFromContacts(userModel.contacts, ContactType.Pinterest),
-                      textOnChanged: (val) => _changePinterest(val),
-                    ),
-
-                    // --- EDIT TIKTOK
-                    ContactFieldBubble(
-                      fieldIsFormField: true,
-                      title: Wordz.tiktokLink(context),
-                      leadingIcon: Iconz.ComTikTok,
-                      keyboardTextInputAction: TextInputAction.next,
-                      fieldIsRequired: false,
-                      keyboardTextInputType: TextInputType.url,
-                      initialTextValue: getAContactValueFromContacts(userModel.contacts, ContactType.TikTok),
-                      textOnChanged: (val) => _changeTikTok(val),
-                    ),
-
-                    // --- EDIT TWITTER
-                    ContactFieldBubble(
-                      fieldIsFormField: true,
-                      title: 'Twitter link',//Wordz.twitterLink(context),
-                      leadingIcon: Iconz.ComTwitter,
-                      keyboardTextInputAction: TextInputAction.done,
-                      fieldIsRequired: false,
-                      keyboardTextInputType: TextInputType.url,
-                      initialTextValue: getAContactValueFromContacts(userModel.contacts, ContactType.Twitter),
-                      textOnChanged: (val) => _changeTwitter(val),
-                    ),
-
-                    // --- CONFIRM BUTTON
-                    DreamBox(
-                      height: 50,
-                      color: Colorz.WhiteGlass,
-                      icon: Iconz.Check,
-                      iconSizeFactor: 0.5,
-                      verse: Wordz.updateProfile(context),
-                      verseScaleFactor: 1.5,
-                      boxMargins: EdgeInsets.all(20),
-                      boxFunction: ()async{
-                        if(_formKey.currentState.validate()){
-                          try{
-
-                            print('wtf');
-                            String _userPicURL;
-
-                            if(_currentPic != null){
-                              _userPicURL =
-                              await saveUserPicOnFirebaseStorageAndGetURL(
-                                  inputFile: _currentPic,
-                                  fileName: userModel.userID
-                              );
-                            }
-
-                            print('_userPicURL : $_userPicURL');
-
-                            UserModel _newUserModel = UserModel(
-                              // -------------------------
-                              userID : userModel.userID,
-                              joinedAt : userModel.joinedAt,
-                              userStatus : userModel.userStatus ?? UserStatus.Normal,
-                              // -------------------------
-                              name : _nameController.text ?? userModel.name,
-                              pic : _userPicURL ?? userModel.pic,
-                              title :  _currentTitle ?? userModel.title,
-                              company: _currentCompany ?? userModel.company,
-                              gender : _currentGender ?? userModel.gender,
-                              country : _currentCountryID ?? userModel.country,
-                              province : _currentProvinceID ?? userModel.province,
-                              area : _currentAreaID ?? userModel.area,
-                              language : Wordz.languageCode(context),
-                              position : _currentPosition ?? userModel.position,
-                              contacts : _createContactList(userModel.contacts),
-                              // -------------------------
-                              savedFlyersIDs : userModel.savedFlyersIDs,
-                              followedBzzIDs : userModel.followedBzzIDs,
-                              // -------------------------
-                            );
-
-                            await UserProvider(userID: userModel.userID)
-                                .updateFirestoreUserDocument(_newUserModel);
-
-                            print('usermodel successfully edited');
-                            goBack(context);
-
-                          }catch(error){
-                            superDialog(context, error, 'Could\'nt update profile');
-                            print(error.toString());
-                          }
-
-                        }
-
-                      },
-                    ),
-
-                    // --- DELETE ACCOUNT
-                    DreamBox(
-                      height: 50,
-                      color: Colorz.WhiteGlass,
-                      icon: Iconz.XLarge,
-                      iconColor: Colorz.BloodRed,
-                      iconSizeFactor: 0.5,
-                      verse: 'Delete Account',
-                      verseScaleFactor: 1.5,
-                      boxMargins: EdgeInsets.all(20),
-                      boxFunction: () async {
-                        _triggerLoading();
-                        await superDialog(context, 'You will delete your account, and there is no going back !', 'Take Care !');
-                        try{
-                          String _email = getAContactValueFromContacts(userModel.contacts, ContactType.Email);
-                          await deleteUserDocument(userModel);
-                          await AuthService().deleteFirebaseUser(context, _email, '123456');
-
-                        }catch(error){
-                          superDialog(context, error, 'Error deleting Account');
-                        }
-
-                      },
-                    ),
-
-                    PyramidsHorizon(heightFactor: 5,)
+                    // // --- EDIT JOB TITLE
+                    // TextFieldBubble(
+                    //   fieldIsFormField: true,
+                    //   title: Wordz.jobTitle(context),
+                    //   // initialTextValue: userModel.title,
+                    //   textController: _titleController,
+                    //   keyboardTextInputType: TextInputType.name,
+                    //   keyboardTextInputAction: TextInputAction.next,
+                    //   fieldIsRequired: true,
+                    //   validator: (val) => val.isEmpty ? Wordz.enterJobTitle(context) : null,
+                    //   // textOnChanged: (val) => _changeTitle(val),
+                    // ),
+                    //
+                    // // --- EDIT COMPANY NAME
+                    // TextFieldBubble(
+                    //   fieldIsFormField: true,
+                    //   title: Wordz.companyName(context),
+                    //   // initialTextValue: userModel.company,
+                    //   textController: _companyController,
+                    //   keyboardTextInputType: TextInputType.name,
+                    //   keyboardTextInputAction: TextInputAction.next,
+                    //   fieldIsRequired: true,
+                    //   validator: (val) => val.isEmpty ? Wordz.enterCompanyName(context) : null,
+                    //   // textOnChanged: (val) => _changeCompany(val),
+                    // ),
+                    //
+                    // // --- EDIT HQ
+                    // LocaleBubble(
+                    //   title : 'Preferred Location',
+                    //   changeCountry : (countryID) => _changeCountry(countryID),
+                    //   changeProvince : (provinceID) => _changeProvince(provinceID),
+                    //   changeArea : (areaID) => _changeArea(areaID),
+                    //   zone: Zone(countryID: userModel.country, provinceID: userModel.province, areaID: userModel.area),
+                    // ),
+                    //
+                    // // --- EDIT EMAIL
+                    // ContactFieldBubble(
+                    //   fieldIsFormField: true,
+                    //   title: Wordz.emailAddress(context),
+                    //   leadingIcon: Iconz.ComEmail,
+                    //   keyboardTextInputAction: TextInputAction.next,
+                    //   fieldIsRequired: true,
+                    //   keyboardTextInputType: TextInputType.emailAddress,
+                    //   initialTextValue: getAContactValueFromContacts(userModel.contacts, ContactType.Email),
+                    //   textOnChanged: (val) => _changeEmail(val),
+                    // ),
+                    //
+                    // // --- EDIT PHONE
+                    // ContactFieldBubble(
+                    //   fieldIsFormField: true,
+                    //   title: Wordz.phone(context),
+                    //   leadingIcon: Iconz.ComPhone,
+                    //   keyboardTextInputAction: TextInputAction.next,
+                    //   fieldIsRequired: false,
+                    //   keyboardTextInputType: TextInputType.phone,
+                    //   initialTextValue: getAContactValueFromContacts(userModel.contacts, ContactType.Phone),
+                    //   textOnChanged: (val) => _changePhone(val),
+                    // ),
+                    //
+                    // // --- EDIT WEBSITE
+                    // ContactFieldBubble(
+                    //   fieldIsFormField: true,
+                    //   title: Wordz.website(context),
+                    //   leadingIcon: Iconz.ComWebsite,
+                    //   keyboardTextInputAction: TextInputAction.next,
+                    //   fieldIsRequired: false,
+                    //   keyboardTextInputType: TextInputType.url,
+                    //   initialTextValue: getAContactValueFromContacts(userModel.contacts, ContactType.WebSite),
+                    //   textOnChanged: (val) => _changeWebsite(val),
+                    // ),
+                    //
+                    // // --- EDIT FACEBOOK
+                    // ContactFieldBubble(
+                    //   fieldIsFormField: true,
+                    //   title: Wordz.facebookLink(context),
+                    //   leadingIcon: Iconz.ComFacebook,
+                    //   keyboardTextInputAction: TextInputAction.next,
+                    //   fieldIsRequired: false,
+                    //   keyboardTextInputType: TextInputType.url,
+                    //   initialTextValue: getAContactValueFromContacts(userModel.contacts, ContactType.Facebook),
+                    //   textOnChanged: (val) => _changeFacebook(val),
+                    // ),
+                    //
+                    // // --- EDIT INSTAGRAM
+                    // ContactFieldBubble(
+                    //   fieldIsFormField: true,
+                    //   title: Wordz.instagramLink(context),
+                    //   leadingIcon: Iconz.ComInstagram,
+                    //   keyboardTextInputAction: TextInputAction.next,
+                    //   fieldIsRequired: false,
+                    //   keyboardTextInputType: TextInputType.url,
+                    //   initialTextValue: getAContactValueFromContacts(userModel.contacts, ContactType.Instagram),
+                    //   textOnChanged: (val) => _changeInstagram(val),
+                    // ),
+                    //
+                    // // --- EDIT LINKEDIN
+                    // ContactFieldBubble(
+                    //   fieldIsFormField: true,
+                    //   title: Wordz.linkedinLink(context),
+                    //   leadingIcon: Iconz.ComLinkedin,
+                    //   keyboardTextInputAction: TextInputAction.next,
+                    //   fieldIsRequired: false,
+                    //   keyboardTextInputType: TextInputType.url,
+                    //   initialTextValue: getAContactValueFromContacts(userModel.contacts, ContactType.LinkedIn),
+                    //   textOnChanged: (val) => _changeLinkedIn(val),
+                    // ),
+                    //
+                    // // --- EDIT YOUTUBE
+                    // ContactFieldBubble(
+                    //   fieldIsFormField: true,
+                    //   title: Wordz.youtubeChannel(context),
+                    //   leadingIcon: Iconz.ComYoutube,
+                    //   keyboardTextInputAction: TextInputAction.next,
+                    //   fieldIsRequired: false,
+                    //   keyboardTextInputType: TextInputType.url,
+                    //   initialTextValue: getAContactValueFromContacts(userModel.contacts, ContactType.YouTube),
+                    //   textOnChanged: (val) => _changeYouTube(val),
+                    // ),
+                    //
+                    // // --- EDIT PINTEREST
+                    // ContactFieldBubble(
+                    //   fieldIsFormField: true,
+                    //   title: Wordz.pinterestLink(context),
+                    //   leadingIcon: Iconz.ComPinterest,
+                    //   keyboardTextInputAction: TextInputAction.next,
+                    //   fieldIsRequired: false,
+                    //   keyboardTextInputType: TextInputType.url,
+                    //   initialTextValue: getAContactValueFromContacts(userModel.contacts, ContactType.Pinterest),
+                    //   textOnChanged: (val) => _changePinterest(val),
+                    // ),
+                    //
+                    // // --- EDIT TIKTOK
+                    // ContactFieldBubble(
+                    //   fieldIsFormField: true,
+                    //   title: Wordz.tiktokLink(context),
+                    //   leadingIcon: Iconz.ComTikTok,
+                    //   keyboardTextInputAction: TextInputAction.next,
+                    //   fieldIsRequired: false,
+                    //   keyboardTextInputType: TextInputType.url,
+                    //   initialTextValue: getAContactValueFromContacts(userModel.contacts, ContactType.TikTok),
+                    //   textOnChanged: (val) => _changeTikTok(val),
+                    // ),
+                    //
+                    // // --- EDIT TWITTER
+                    // ContactFieldBubble(
+                    //   fieldIsFormField: true,
+                    //   title: 'Twitter link',//Wordz.twitterLink(context),
+                    //   leadingIcon: Iconz.ComTwitter,
+                    //   keyboardTextInputAction: TextInputAction.done,
+                    //   fieldIsRequired: false,
+                    //   keyboardTextInputType: TextInputType.url,
+                    //   initialTextValue: getAContactValueFromContacts(userModel.contacts, ContactType.Twitter),
+                    //   textOnChanged: (val) => _changeTwitter(val),
+                    // ),
+                    //
+                    // // --- CONFIRM BUTTON
+                    // DreamBox(
+                    //   height: 50,
+                    //   color: Colorz.WhiteGlass,
+                    //   icon: Iconz.Check,
+                    //   iconSizeFactor: 0.5,
+                    //   verse: Wordz.updateProfile(context),
+                    //   verseScaleFactor: 1.5,
+                    //   boxMargins: EdgeInsets.all(20),
+                    //   boxFunction: ()async{
+                    //     if(_formKey.currentState.validate()){
+                    //       try{
+                    //
+                    //         print('wtf');
+                    //         String _userPicURL;
+                    //
+                    //         if(_currentPic != null){
+                    //           _userPicURL =
+                    //           await saveUserPicOnFirebaseStorageAndGetURL(
+                    //               inputFile: _currentPic,
+                    //               fileName: userModel.userID
+                    //           );
+                    //         }
+                    //
+                    //         print('_userPicURL : $_userPicURL');
+                    //
+                    //         UserModel _newUserModel = UserModel(
+                    //           // -------------------------
+                    //           userID : userModel.userID,
+                    //           joinedAt : userModel.joinedAt,
+                    //           userStatus : userModel.userStatus ?? UserStatus.Normal,
+                    //           // -------------------------
+                    //           name : _nameController.text ?? userModel.name,
+                    //           pic : _userPicURL ?? userModel.pic,
+                    //           title :  _currentTitle ?? userModel.title,
+                    //           company: _currentCompany ?? userModel.company,
+                    //           gender : _currentGender ?? userModel.gender,
+                    //           country : _currentCountryID ?? userModel.country,
+                    //           province : _currentProvinceID ?? userModel.province,
+                    //           area : _currentAreaID ?? userModel.area,
+                    //           language : Wordz.languageCode(context),
+                    //           position : _currentPosition ?? userModel.position,
+                    //           contacts : _createContactList(userModel.contacts),
+                    //           // -------------------------
+                    //           savedFlyersIDs : userModel.savedFlyersIDs,
+                    //           followedBzzIDs : userModel.followedBzzIDs,
+                    //           // -------------------------
+                    //         );
+                    //
+                    //         await UserProvider(userID: userModel.userID)
+                    //             .updateFirestoreUserDocument(_newUserModel);
+                    //
+                    //         print('usermodel successfully edited');
+                    //         goBack(context);
+                    //
+                    //       }catch(error){
+                    //         superDialog(context, error, 'Could\'nt update profile');
+                    //         print(error.toString());
+                    //       }
+                    //
+                    //     }
+                    //
+                    //   },
+                    // ),
+                    //
+                    // // --- DELETE ACCOUNT
+                    // DreamBox(
+                    //   height: 50,
+                    //   color: Colorz.WhiteGlass,
+                    //   icon: Iconz.XLarge,
+                    //   iconColor: Colorz.BloodRed,
+                    //   iconSizeFactor: 0.5,
+                    //   verse: 'Delete Account',
+                    //   verseScaleFactor: 1.5,
+                    //   boxMargins: EdgeInsets.all(20),
+                    //   boxFunction: () async {
+                    //     _triggerLoading();
+                    //     await superDialog(context, 'You will delete your account, and there is no going back !', 'Take Care !');
+                    //     try{
+                    //       String _email = getAContactValueFromContacts(userModel.contacts, ContactType.Email);
+                    //       await deleteUserDocument(userModel);
+                    //       await AuthService().deleteFirebaseUser(context, _email, '123456');
+                    //
+                    //     }catch(error){
+                    //       superDialog(context, error, 'Error deleting Account');
+                    //     }
+                    //
+                    //   },
+                    // ),
+                    //
+                    // PyramidsHorizon(heightFactor: 5,)
 
                   ],
                 ),
