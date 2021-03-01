@@ -11,6 +11,7 @@ import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/buttons/dream_wrapper.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
+import 'package:bldrs/views/widgets/dialogs/bottom_sheet.dart';
 import 'package:bldrs/views/widgets/layouts/dashboard_layout.dart';
 import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
@@ -66,7 +67,6 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
     return DashBoardLayout(
       loading: _loading,
       pageTitle: 'Users Manager',
-
       listWidgets: <Widget>[
 
         StreamBuilder<List<UserModel>>(
@@ -75,71 +75,29 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
               if(connectionHasNoData(snapshot) || connectionIsWaiting(snapshot)){
                 return LoadingFullScreenLayer();
               } else {
-                List<UserModel> usersModels = snapshot.data;
+                List<UserModel> _usersModels = snapshot.data;
                 return
 
                 Column(
                   children: <Widget>[
 
-                    DreamBox(
-                      width: _screenWidth,
-                      height: 100,
-                      color: Colorz.Yellow,
-                      verse: 'User Contacts Surgery',
-                      verseColor: Colorz.BlackBlack,
-                      verseMaxLines: 5,
-                      secondLine: 'need to change the fields names in of Contacts list maps in firebase from (contact) to (value) and from (contactType) to (type)',
-                      secondLineColor: Colorz.BlackLingerie,
-                      boxFunction: ()async{
-
-                        _triggerLoading();
-
-                        try{
-                          List<UserModel> _users = usersModels;
-                          createUserDocument(_users[0]);
-
-                        } catch(error) {
-                          superDialog(context, error, 'OPS !');
-                        }
-
-                        _triggerLoading();
-
-                      },
+                    SuperVerse(
+                      verse: '${_usersModels.length} users in Bldrs.net',
+                      labelColor: Colorz.WhiteGlass,
+                      centered: true,
+                      size: 4,
+                      margin: 5,
                     ),
-                    DreamBox(
-                      width: _screenWidth,
-                      height: 100,
-                      color: Colorz.Yellow,
-                      verse: 'delete that bitch',
-                      verseColor: Colorz.BlackBlack,
-                      verseMaxLines: 5,
-                      secondLine: 'deleting that shit',
-                      secondLineColor: Colorz.BlackLingerie,
-                      boxFunction: ()async{
 
-                        _triggerLoading();
-
-                        try{
-                          List<UserModel> _users = usersModels;
-                          deleteUserDocument(_users[0]);
-
-                        } catch(error) {
-                          superDialog(context, error, 'OPS !');
-                        }
-
-                        _triggerLoading();
-
-                      },
-                    ),
                     Container(
                       width: _screenWidth,
                       height: _screenHeight - Ratioz.stratosphere,
                       child: ListView.builder(
-                        itemCount: usersModels.length,
+                        itemCount: _usersModels.length,
                         padding: EdgeInsets.only(bottom: Ratioz.grandHorizon),
                         itemBuilder: (context, index){
 
-                          UserModel _userModel = usersModels[index];
+                          UserModel _userModel = _usersModels[index];
                           String _countryName = _countryPro .getCountryNameInCurrentLanguageByIso3(context, _userModel.country);
                           String _provinceName = _countryPro.getProvinceNameWithCurrentLanguageIfPossible(context, _userModel.province);
                           String _areaName = _countryPro.getAreaNameWithCurrentLanguageIfPossible(context, _userModel.area);
@@ -173,6 +131,37 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
                                           height: 70,
                                           width: 70,
                                           icon: _userModel.pic,
+                                          boxFunction: () => slideBottomSheet(
+                                            context: context,
+                                            draggable: true,
+                                            height: null,
+                                            child: Column(
+                                              children: <Widget>[
+
+                                                DreamBox(
+                                                  height: 60,
+                                                  width: bottomSheetClearWidth(context),
+                                                  icon: _userModel.pic,
+                                                  verse: 'Delete this fucker (${_userModel.name})',
+                                                  verseScaleFactor: 0.7,
+                                                  secondLine: 'This will delete user document from firebase, and delete his firebase User authentication record',
+                                                  secondLineColor: Colorz.BloodRed,
+                                                  boxFunction: () async {
+                                                    _triggerLoading();
+
+                                                    try{
+                                                      await deleteUserDocument(_userModel);
+                                                    } catch (error){
+                                                      superDialog(context, error, 'a77a');
+                                                    }
+
+                                                    _triggerLoading();
+                                                  },
+                                                ),
+
+                                              ],
+                                            ),
+                                          ),
                                         ),
 
                                         SizedBox(

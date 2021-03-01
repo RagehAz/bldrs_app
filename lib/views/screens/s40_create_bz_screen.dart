@@ -10,6 +10,7 @@ import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/providers/users_provider.dart';
+import 'package:bldrs/view_brains/controllers/streamerz.dart';
 import 'package:bldrs/view_brains/drafters/text_generators.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
@@ -277,246 +278,242 @@ class _CreateBzScreenState extends State<CreateBzScreen> with TickerProviderStat
 
       appBarRowWidgets: <Widget>[BldrsBackButton(onTap: () => goBack(context),),],
 
-      layoutWidget: StreamBuilder<UserModel>(
-          stream: UserProvider(userID: _user.userID).userData,
-          builder: (context, snapshot) {
-            if (snapshot.hasData == false) {
-              return LoadingFullScreenLayer();
-            } else {
-              UserModel userModel = snapshot.data;
-              return SingleChildScrollView(
+      layoutWidget: userStreamBuilder(
+        context: context,
+        listen: false,
+        builder: (context, UserModel userModel){
+          return SingleChildScrollView(
 
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
 
-                    Stratosphere(),
+                Stratosphere(),
 
-                    // --- CHOOSE SECTION
-                    MultipleChoiceBubble(
-                      title: Wordz.sections(context),
-                      buttonsList: sectionsListStrings(context),
-                      tappingAButton: _selectASection,
-                      chosenButton: sectionStringer(context, _currentSection),
-                    ),
+                // --- CHOOSE SECTION
+                MultipleChoiceBubble(
+                  title: Wordz.sections(context),
+                  buttonsList: sectionsListStrings(context),
+                  tappingAButton: _selectASection,
+                  chosenButton: sectionStringer(context, _currentSection),
+                ),
 
-                    // --- CHOOSE BzType
-                    MultipleChoiceBubble(
-                       title: Wordz.accountType(context),
-                       buttonsList: bzTypesStrings(context),
-                       tappingAButton: _selectBzType,
-                       chosenButton: bzTypeSingleStringer(context, _currentBzType),
-                       buttonsInActivityList: _bzTypeInActivityList,
-                     ),
+                // --- CHOOSE BzType
+                MultipleChoiceBubble(
+                  title: Wordz.accountType(context),
+                  buttonsList: bzTypesStrings(context),
+                  tappingAButton: _selectBzType,
+                  chosenButton: bzTypeSingleStringer(context, _currentBzType),
+                  buttonsInActivityList: _bzTypeInActivityList,
+                ),
 
-                    // --- CHOOSE BzForm
-                    MultipleChoiceBubble(
-                    title: Wordz.businessForm(context),
-                    buttonsList: bzFormStrings(context),
-                    tappingAButton: (index) => setState(() {_currentBzForm = bzFormsList[index];}),
-                    chosenButton: bzFormStringer(context, _currentBzForm),
-                    buttonsInActivityList: _bzFormInActivityList,
-                  ),
+                // --- CHOOSE BzForm
+                MultipleChoiceBubble(
+                  title: Wordz.businessForm(context),
+                  buttonsList: bzFormStrings(context),
+                  tappingAButton: (index) => setState(() {_currentBzForm = bzFormsList[index];}),
+                  chosenButton: bzFormStringer(context, _currentBzForm),
+                  buttonsInActivityList: _bzFormInActivityList,
+                ),
 
-                    // --- SEPARATOR
-                    BubblesSeparator(),
+                // --- SEPARATOR
+                BubblesSeparator(),
 
-                    // --- ADD LOGO
-                    AddGalleryPicBubble(
-                      pic: _currentBzLogo,
-                      addBtFunction: _takeGalleryPicture,
-                      deletePicFunction: () => setState(() {_currentBzLogo = null;}),
-                      title: Wordz.businessLogo(context),
-                      bubbleType: BubbleType.bzLogo,
-                    ),
+                // --- ADD LOGO
+                AddGalleryPicBubble(
+                  pic: _currentBzLogo,
+                  addBtFunction: _takeGalleryPicture,
+                  deletePicFunction: () => setState(() {_currentBzLogo = null;}),
+                  title: Wordz.businessLogo(context),
+                  bubbleType: BubbleType.bzLogo,
+                ),
 
-                    // --- type BzName
-                    TextFieldBubble(
-                      title: _currentBzForm == BzForm.Individual ? 'Business Entity name' : Wordz.companyName(context),
-                      hintText: '...',
-                      counterIsOn: true,
-                      maxLength: 72,
-                      maxLines: 2,
-                      keyboardTextInputType: TextInputType.name,
-                      // textController: _bzNameTextController,
-                      textOnChanged: (bzName) => setState(() {_currentBzName = bzName;}),
-                      fieldIsRequired: true,
-                      initialTextValue: userModel.company,
-                      fieldIsFormField: true,
-                    ),
+                // --- type BzName
+                TextFieldBubble(
+                  title: _currentBzForm == BzForm.Individual ? 'Business Entity name' : Wordz.companyName(context),
+                  hintText: '...',
+                  counterIsOn: true,
+                  maxLength: 72,
+                  maxLines: 2,
+                  keyboardTextInputType: TextInputType.name,
+                  // textController: _bzNameTextController,
+                  textOnChanged: (bzName) => setState(() {_currentBzName = bzName;}),
+                  fieldIsRequired: true,
+                  initialTextValue: userModel.company,
+                  fieldIsFormField: true,
+                ),
 
-                    // --- type BzScope
-                    TextFieldBubble(
-                      title: '${Wordz.scopeOfServices(context)} :',
-                      hintText: '...',
-                      counterIsOn: true,
-                      maxLength: 193,
-                      maxLines: 4,
-                      keyboardTextInputType: TextInputType.multiline,
-                      // textController: _scopeTextController,
-                      textOnChanged: (bzScope) => setState(() {_currentBzScope = bzScope;}),
-                      fieldIsRequired: true,
-                      fieldIsFormField: true,
-                    ),
+                // --- type BzScope
+                TextFieldBubble(
+                  title: '${Wordz.scopeOfServices(context)} :',
+                  hintText: '...',
+                  counterIsOn: true,
+                  maxLength: 193,
+                  maxLines: 4,
+                  keyboardTextInputType: TextInputType.multiline,
+                  // textController: _scopeTextController,
+                  textOnChanged: (bzScope) => setState(() {_currentBzScope = bzScope;}),
+                  fieldIsRequired: true,
+                  fieldIsFormField: true,
+                ),
 
-                    // --- type BzAbout
-                    TextFieldBubble(
-                      title: _currentBz.bzName == null  || _currentBz.bzName == '' ? '${Wordz.about(context)} ${Wordz.yourBusiness(context)}' : '${Wordz.about(context)} ${_currentBz.bzName}',
-                      hintText: '...',
-                      counterIsOn: true,
-                      maxLength: 193,
-                      maxLines: 4,
-                      keyboardTextInputType: TextInputType.multiline,
-                      textController: _aboutTextController,
-                      textOnChanged: (bzAbout) => setState(() {_currentBzAbout = bzAbout;}),
-                    ),
+                // --- type BzAbout
+                TextFieldBubble(
+                  title: _currentBz.bzName == null  || _currentBz.bzName == '' ? '${Wordz.about(context)} ${Wordz.yourBusiness(context)}' : '${Wordz.about(context)} ${_currentBz.bzName}',
+                  hintText: '...',
+                  counterIsOn: true,
+                  maxLength: 193,
+                  maxLines: 4,
+                  keyboardTextInputType: TextInputType.multiline,
+                  textController: _aboutTextController,
+                  textOnChanged: (bzAbout) => setState(() {_currentBzAbout = bzAbout;}),
+                ),
 
-                    // --- SEPARATOR
-                    BubblesSeparator(),
+                // --- SEPARATOR
+                BubblesSeparator(),
 
-                    // --- bzLocale
-                    LocaleBubble(
-                      changeCountry : (countryID) => setState(() {_currentBzCountry = countryID;}),
-                      changeProvince : (provinceID) => setState(() {_currentBzProvince = provinceID;}),
-                      changeArea : (areaID) => setState(() {_currentBzArea = areaID;}),
-                      currentZone: Zone(countryID: userModel.country, provinceID: userModel.province, areaID: userModel.area),
-                      title: 'Headquarters Area',//Wordz.hqCity(context),
-                    ),
+                // --- bzLocale
+                LocaleBubble(
+                  changeCountry : (countryID) => setState(() {_currentBzCountry = countryID;}),
+                  changeProvince : (provinceID) => setState(() {_currentBzProvince = provinceID;}),
+                  changeArea : (areaID) => setState(() {_currentBzArea = areaID;}),
+                  currentZone: Zone(countryID: userModel.country, provinceID: userModel.province, areaID: userModel.area),
+                  title: 'Headquarters Area',//Wordz.hqCity(context),
+                ),
 
-                    // --- SEPARATOR
-                    BubblesSeparator(),
+                // --- SEPARATOR
+                BubblesSeparator(),
 
-                    // --- type AuthorName
-                    TextFieldBubble(
-                      title: Wordz.authorName(context),
-                      hintText: '...',
-                      counterIsOn: true,
-                      maxLength: 20,
-                      maxLines: 1,
-                      keyboardTextInputType: TextInputType.name,
-                      // textController: _authorNameTextController,
-                      textOnChanged: (authorName) => setState(() {_authorName = authorName;}),
-                      fieldIsRequired: true,
-                      initialTextValue: userModel.name,
-                      fieldIsFormField: true,
-                    ),
+                // --- type AuthorName
+                TextFieldBubble(
+                  title: Wordz.authorName(context),
+                  hintText: '...',
+                  counterIsOn: true,
+                  maxLength: 20,
+                  maxLines: 1,
+                  keyboardTextInputType: TextInputType.name,
+                  // textController: _authorNameTextController,
+                  textOnChanged: (authorName) => setState(() {_authorName = authorName;}),
+                  fieldIsRequired: true,
+                  initialTextValue: userModel.name,
+                  fieldIsFormField: true,
+                ),
 
-                    // --- type AuthorTitle
-                    TextFieldBubble(
-                      title: Wordz.jobTitle(context),
-                      hintText: '...',
-                      counterIsOn: true,
-                      maxLength: 20,
-                      maxLines: 1,
-                      keyboardTextInputType: TextInputType.name,
-                      // textController: _authorTitleTextController,
-                      textOnChanged: (authorTitle) => setState(() {_authorTitle = authorTitle;}),
-                      fieldIsRequired: true,
-                      fieldIsFormField: true,
-                      initialTextValue: userModel.title,
-                    ),
+                // --- type AuthorTitle
+                TextFieldBubble(
+                  title: Wordz.jobTitle(context),
+                  hintText: '...',
+                  counterIsOn: true,
+                  maxLength: 20,
+                  maxLines: 1,
+                  keyboardTextInputType: TextInputType.name,
+                  // textController: _authorTitleTextController,
+                  textOnChanged: (authorTitle) => setState(() {_authorTitle = authorTitle;}),
+                  fieldIsRequired: true,
+                  fieldIsFormField: true,
+                  initialTextValue: userModel.title,
+                ),
 
-                    // --- ADD AUTHOR PIC
-                    AddGalleryPicBubble(
-                      pic: _authorPic,
-                      addBtFunction: _takeAuthorPicture,
-                      deletePicFunction: () => setState(() {_authorPic = null;}),
-                      title: 'Add a professional picture of yourself',
-                      bubbleType: BubbleType.authorPic,
-                    ),
+                // --- ADD AUTHOR PIC
+                AddGalleryPicBubble(
+                  pic: _authorPic,
+                  addBtFunction: _takeAuthorPicture,
+                  deletePicFunction: () => setState(() {_authorPic = null;}),
+                  title: 'Add a professional picture of yourself',
+                  bubbleType: BubbleType.authorPic,
+                ),
 
-                    // --- FLYER PREVIEW
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 50),
-                      child: Stack(
-                        children: <Widget>[
+                // --- FLYER PREVIEW
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 50),
+                  child: Stack(
+                    children: <Widget>[
 
-                          FlyerZone(
-                            flyerSizeFactor: 0.8,
-                            tappingFlyerZone: (){print('fuck you');},
-                            stackWidgets: <Widget>[
+                      FlyerZone(
+                        flyerSizeFactor: 0.8,
+                        tappingFlyerZone: (){print('fuck you');},
+                        stackWidgets: <Widget>[
 
-                              Header(
-                                bz: BzModel(
-                                  bzID: '',
-                                  bzType: _currentBzType,
-                                  bzForm: _currentBzForm,
-                                  bldrBirth: DateTime.now(),
-                                  accountType: _currentAccountType,
-                                  bzURL: '',
-                                  bzName: _currentBzName ?? userModel.company,
-                                  bzLogo: _currentBzLogo,
-                                  bzScope: _currentBzScope,
-                                  bzCountry: _currentBzCountry ?? userModel.country,
-                                  bzProvince: _currentBzProvince ?? userModel.province,
-                                  bzArea: _currentBzArea ?? userModel.area,
-                                  bzAbout: _currentBzAbout,
-                                  bzPosition: GeoPoint(0,0),
-                                  bzContacts: _currentBzContacts ?? userModel.contacts,
-                                  bzAuthors: [AuthorModel(
-                                    userID: userModel.userID,
-                                    bzID: '',
-                                    authorName: _authorName ?? userModel.name,
-                                    authorTitle: _authorTitle ?? userModel.title,
-                                    authorPic: _authorPic ?? userModel.pic,
-                                    authorContacts: _authorContacts ?? userModel.contacts,
-                                    publishedFlyersIDs: [],
-                                  ),],
-                                  bzShowsTeam: true,
-                                  bzIsVerified: false,
-                                  bzAccountIsDeactivated: false,
-                                  bzAccountIsBanned: false,
-                                  bzTotalFollowers: 0,
-                                  bzTotalSaves: 0,
-                                  bzTotalShares: 0,
-                                  bzTotalSlides: 0,
-                                  bzTotalViews: 0,
-                                  bzTotalCalls: 0,
-                                  bzTotalConnects: 0,
-                                  jointsBzzIDs: [],
-                                  followIsOn: false,
+                          Header(
+                            bz: BzModel(
+                              bzID: '',
+                              bzType: _currentBzType,
+                              bzForm: _currentBzForm,
+                              bldrBirth: DateTime.now(),
+                              accountType: _currentAccountType,
+                              bzURL: '',
+                              bzName: _currentBzName ?? userModel.company,
+                              bzLogo: _currentBzLogo,
+                              bzScope: _currentBzScope,
+                              bzCountry: _currentBzCountry ?? userModel.country,
+                              bzProvince: _currentBzProvince ?? userModel.province,
+                              bzArea: _currentBzArea ?? userModel.area,
+                              bzAbout: _currentBzAbout,
+                              bzPosition: GeoPoint(0,0),
+                              bzContacts: _currentBzContacts ?? userModel.contacts,
+                              bzAuthors: [AuthorModel(
+                                userID: userModel.userID,
+                                bzID: '',
+                                authorName: _authorName ?? userModel.name,
+                                authorTitle: _authorTitle ?? userModel.title,
+                                authorPic: _authorPic ?? userModel.pic,
+                                authorContacts: _authorContacts ?? userModel.contacts,
+                                publishedFlyersIDs: [],
+                              ),],
+                              bzShowsTeam: true,
+                              bzIsVerified: false,
+                              bzAccountIsDeactivated: false,
+                              bzAccountIsBanned: false,
+                              bzTotalFollowers: 0,
+                              bzTotalSaves: 0,
+                              bzTotalShares: 0,
+                              bzTotalSlides: 0,
+                              bzTotalViews: 0,
+                              bzTotalCalls: 0,
+                              bzTotalConnects: 0,
+                              jointsBzzIDs: [],
+                              followIsOn: false,
 
-                                ),
-                                author: AuthorModel(
-                                  userID: userModel.userID,
-                                  bzID: '',
-                                  authorName: _authorName ?? userModel.name,
-                                  authorTitle: _authorTitle ?? userModel.title,
-                                  authorPic: _authorPic ?? userModel.pic,
-                                  authorContacts: _authorContacts ?? userModel.contacts,
-                                  publishedFlyersIDs: [],
-                                ),
-                                flyerShowsAuthor: true,
-                                followIsOn: false,
-                                flyerZoneWidth: superFlyerZoneWidth(context, 0.8),
-                                bzPageIsOn: _bzPageIsOn,
-                                tappingHeader: _triggerMaxHeader,
-                                tappingFollow: (){},
-                                tappingUnfollow: (){},
-                              ),
-
-                            ],
+                            ),
+                            author: AuthorModel(
+                              userID: userModel.userID,
+                              bzID: '',
+                              authorName: _authorName ?? userModel.name,
+                              authorTitle: _authorTitle ?? userModel.title,
+                              authorPic: _authorPic ?? userModel.pic,
+                              authorContacts: _authorContacts ?? userModel.contacts,
+                              publishedFlyersIDs: [],
+                            ),
+                            flyerShowsAuthor: true,
+                            followIsOn: false,
+                            flyerZoneWidth: superFlyerZoneWidth(context, 0.8),
+                            bzPageIsOn: _bzPageIsOn,
+                            tappingHeader: _triggerMaxHeader,
+                            tappingFollow: (){},
+                            tappingUnfollow: (){},
                           ),
 
                         ],
                       ),
-                    ),
 
-                    // --- CONFIRM BUTTON
-                    DreamBox(
-                      height: 50,
-                      verse: 'confirm business info',
-                      verseScaleFactor: .8,
-                      boxFunction: () => _confirmNewBz(context, _pro, userModel),
-                    ),
+                    ],
+                  ),
+                ),
 
-                    PyramidsHorizon(heightFactor: 5,),
+                // --- CONFIRM BUTTON
+                DreamBox(
+                  height: 50,
+                  verse: 'confirm business info',
+                  verseScaleFactor: .8,
+                  boxFunction: () => _confirmNewBz(context, _pro, userModel),
+                ),
 
-                ],
-              ),
-            );
-          }
+                PyramidsHorizon(heightFactor: 5,),
+
+              ],
+            ),
+          );
         }
       ),
     );

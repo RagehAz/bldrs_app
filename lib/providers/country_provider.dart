@@ -8,7 +8,7 @@ import 'package:bldrs/view_brains/localization/localization_constants.dart';
 import 'package:bldrs/view_brains/theme/flagz.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:flutter/material.dart';
-
+// === === === === === === === === === === === === === === === === === === ===
 class CountryProvider with ChangeNotifier{
   /// get user country
   String _currentCountryID = 'egy';
@@ -114,6 +114,7 @@ class CountryProvider with ChangeNotifier{
 }
 // ---------------------------------------------------------------------------
 }
+// === === === === === === === === === === === === === === === === === === ===
 String getFlagByIso3(String iso3){
   String flag;
   flagsMaps.forEach((map) {
@@ -121,5 +122,5 @@ String getFlagByIso3(String iso3){
   });
   return flag;
 }
-// ---------------------------------------------------------------------------
+// === === === === === === === === === === === === === === === === === === ===
 

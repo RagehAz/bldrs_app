@@ -10,9 +10,6 @@ class Routez {
   /// (s02 signin page, s03 register page) are pages insides StartingScreen();
   static const String Starting = 'StartingScreen';
 // ---------------------------------------------------------------------------
-  /// s04
-  static const String FillProfile = 'FillUserProfile';
-// ---------------------------------------------------------------------------
   /// s10
   static const String Home = 'HomeScreen';
 // ---------------------------------------------------------------------------
