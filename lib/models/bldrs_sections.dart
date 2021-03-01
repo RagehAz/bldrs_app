@@ -8,7 +8,7 @@ enum BldrsSection{
   Supplies,
 }
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
-List<BldrsSection> bldrsSectionsList = [
+List<BldrsSection> bldrsSectionsList = <BldrsSection>[
   BldrsSection.RealEstate,
   BldrsSection.Construction,
   BldrsSection.Supplies,

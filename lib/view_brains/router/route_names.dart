@@ -26,13 +26,13 @@ class Routez {
   static const String Profile = 'UserProfileScreen';
   // ---------------------------------------------------------------------------
   /// s16
-  static const String EditProfile = 'EditProfileScreen';
+  static const String ProfileEditor = 'ProfileEditorScreen';
 // ---------------------------------------------------------------------------
   /// s20
   static const String Search = 'SearchScreen';
 // ---------------------------------------------------------------------------
   /// s40
-  static const String CreateBz = 'CreateBzScreen';
+  static const String BzEditor = 'BzEditorScreen';
   // ---------------------------------------------------------------------------
   /// s41
   static const String MyBz = 'MyBzScreen';
@@ -41,7 +41,7 @@ class Routez {
   static const String EditBz = 'EditBzScreen';
 // ---------------------------------------------------------------------------
   /// s50
-  static const String FlyerMaker = 'FlyerMakerScreen';
+  static const String FlyerEditor = 'FlyerEditorScreen';
 // ---------------------------------------------------------------------------
   /// s51
   static const String FlyerScreen = 'FlyerFullScreen';

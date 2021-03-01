@@ -9,7 +9,7 @@ class UserProvider{
 
   UserProvider({this.userID});
 // ---------------------------------------------------------------------------
-  /// collection reference
+  /// users collection reference
   final CollectionReference usersCollection = FirebaseFirestore.instance.collection('users');
 // ---------------------------------------------------------------------------
   /// create user document
@@ -109,13 +109,13 @@ UserModel getUserModel(){
 }
 // === === === === === === === === === === === === === === === === === === ===
 Future<void> createUserDocument(UserModel userModel) async {
-  CollectionReference _usersCollection = getFirestoreCollectionReference('users');
+  CollectionReference _usersCollection = getFirestoreCollectionReference(FireStoreCollection.users);
   await _usersCollection.doc(userModel.userID).set(userModel.toMap());
 
 }
 // === === === === === === === === === === === === === === === === === === ===
 Future<void> deleteUserDocument(UserModel userModel) async {
-  DocumentReference _userDocument = getFirestoreDocumentReference('users', userModel.userID);
+  DocumentReference _userDocument = getFirestoreDocumentReference(FireStoreCollection.users, userModel.userID);
   await _userDocument.delete();
 }
 // === === === === === === === === === === === === === === === === === === ===

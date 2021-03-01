@@ -138,7 +138,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
             buttonIcon: Iconz.AddFlyer,
             buttonVerseShadow: true,
             splashColor: Colorz.Yellow,
-            function: () => goToRoute(context, Routez.FlyerMaker),
+            function: () => goToRoute(context, Routez.FlyerEditor),
             stretched: false,
           ),
 

@@ -1,5 +1,3 @@
-import 'package:bldrs/ambassadors/services/facebook.dart';
-import 'package:bldrs/ambassadors/services/google.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/view_brains/controllers/devicerz.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
@@ -13,8 +11,6 @@ import 'package:bldrs/views/widgets/buttons/bt_skip_auth.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
-
-import 's16_edit_profile_screen.dart';
 
 class StartingScreen extends StatelessWidget {
 // ----------------------------------------------------------------------------
