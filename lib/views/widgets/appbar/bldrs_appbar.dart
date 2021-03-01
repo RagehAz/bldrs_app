@@ -16,6 +16,7 @@ class BldrsAppBar extends StatefulWidget {
   // final PageType currentPage;
   final UserModel userModel;
   final bool backButton;
+  final bool loading;
 
   BldrsAppBar({
     this.appBarType = AppBarType.Main,
@@ -25,6 +26,7 @@ class BldrsAppBar extends StatefulWidget {
     // this.currentPage,
     this.userModel,
     this.backButton,
+    this.loading,
 });
 
   @override
@@ -100,11 +102,9 @@ class _BldrsAppBarState extends State<BldrsAppBar> {
       ABStrip(
         scrollable: _appBarType == AppBarType.Scrollable ? true : false,
         appBarType: _appBarType,
+        loading: widget.loading,
         rowWidgets: (_appBarType == null && widget.pageTitle == null) ? [Container()] :
         <Widget>[
-
-          if (widget.appBarRowWidgets != null)
-          ... widget.appBarRowWidgets,
 
           if(widget.backButton == true)
             BldrsBackButton(),
@@ -123,6 +123,9 @@ class _BldrsAppBarState extends State<BldrsAppBar> {
                 italic: true,
               ),
             ),),
+
+          if (widget.appBarRowWidgets != null)
+            ... widget.appBarRowWidgets,
 
         ],
       )

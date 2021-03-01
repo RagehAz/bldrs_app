@@ -67,7 +67,7 @@ class UserBalloon extends StatelessWidget {
                         colorFilter: superDesaturation(blackAndWhite),
                         child:
                         loading ?
-                        Loading()
+                        Loading(loading: loading,)
                             :
                         balloonColor == null?
                         superImageWidget(pic == null ? userModel?.pic : pic)
