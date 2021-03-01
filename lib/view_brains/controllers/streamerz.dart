@@ -33,7 +33,7 @@ typedef userModelWidgetBuilder = Widget Function(
 ///         builder: (context, UserModel userModel){
 ///           return WidgetThatUsesTheAboveUserModel;
 ///         }
-///      ),
+///      ) xxxxxxxxxxxxx ; or , xxxxxxxxxxxxx
 Widget userStreamBuilder({
   BuildContext context,
   userModelWidgetBuilder builder,

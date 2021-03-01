@@ -1,3 +1,4 @@
+import 'package:bldrs/view_brains/drafters/timerz.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'sub_models/author_model.dart';
@@ -123,6 +124,46 @@ class BzModel with ChangeNotifier{
     }
   }
 // ###############################
+Map<String, dynamic> toMap(){
+  return {
+    'bzID' : bzID,
+    // -------------------------
+    'bzType' : cipherBzType(bzType),
+    'bzForm' : cipherBzForm(bzForm),
+    'bldrBirth' : cipherDateTimeToString(bldrBirth),
+    'accountType' : cipherBzAccountType(accountType),
+    'bzURL' : bzURL,
+    // -------------------------
+    'bzName' : bzName,
+    'bzLogo' : bzLogo,
+    'bzScope' : bzScope,
+    'bzCountry' : bzCountry,
+    'bzProvince' : bzProvince,
+    'bzArea' : bzArea,
+    'bzAbout' : bzAbout,
+    'bzPosition' : bzPosition,
+    'bzContacts' : cipherContactsModels(bzContacts),
+    'bzAuthors' : cipherAuthorsModels(bzAuthors),
+    'bzShowsTeam' : bzShowsTeam,
+    // -------------------------
+    'bzIsVerified' : bzIsVerified,
+    'bzAccountIsDeactivated' : bzAccountIsDeactivated,
+    'bzAccountIsBanned' : bzAccountIsBanned,
+    // -------------------------
+    'bzTotalFollowers' : bzTotalFollowers,
+    'bzTotalSaves' : bzTotalSaves,
+    'bzTotalShares' : bzTotalShares,
+    'bzTotalSlides' : bzTotalSlides,
+    'bzTotalViews' : bzTotalViews,
+    'bzTotalCalls' : bzTotalCalls,
+    'bzTotalConnects' : bzTotalConnects,
+    // -------------------------
+    'jointsBzzIDs' : jointsBzzIDs,
+    // -------------------------
+    'followIsOn' : followIsOn,
+    // -------------------------
+    };
+}
 }
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
 enum BzType {

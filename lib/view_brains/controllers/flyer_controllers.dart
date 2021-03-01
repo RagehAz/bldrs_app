@@ -22,7 +22,7 @@ AuthorModel getAuthorFromBzByAuthorID(BzModel bz, String authorID){
 }
 // ----------------------------------------------------------------------------
 /// temp
-AuthorModel getAuthorModelFromUserModelAndBzModel(UserModel user, BzModel bz){
+AuthorModel createAuthorModelFromUserModelAndBzModel(UserModel user, BzModel bz){
   String authorID = user?.userID;
   AuthorModel authorFromBz = getAuthorFromBzByAuthorID(bz, authorID);
   AuthorModel author = AuthorModel(
@@ -35,4 +35,15 @@ AuthorModel getAuthorModelFromUserModelAndBzModel(UserModel user, BzModel bz){
     publishedFlyersIDs: authorFromBz?.publishedFlyersIDs,
   );
   return author;
+}
+// ----------------------------------------------------------------------------
+AuthorModel createTempAuthorModelFromUserModel(UserModel userModel){
+  return
+    AuthorModel(
+        userID: userModel.userID,
+        authorName: userModel.name,
+        authorPic: userModel.pic,
+        authorTitle: userModel.title,
+        authorContacts: userModel.contacts
+    );
 }
