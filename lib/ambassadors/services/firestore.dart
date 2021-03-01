@@ -2,6 +2,15 @@ import 'package:bldrs/view_brains/drafters/keyboarders.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+// === === === === === === === === === === === === === === === === === === ===
+class FireStoreCollection{
+  static const String users = 'users';
+  static const String countries = 'countries';
+  static const String questions = 'questions';
+  static const String bzz = 'bzz';
+  static const String flyers = 'flyers';
+}
+
 // ---------------------------------------------------------------------------
 CollectionReference getFirestoreCollectionReference (String collectionName){
   final FirebaseFirestore _fireInstance = FirebaseFirestore.instance;

@@ -5,7 +5,6 @@ import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/users_provider.dart';
-import 'package:bldrs/view_brains/controllers/streamerz.dart';
 import 'package:bldrs/view_brains/drafters/imagers.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/drafters/text_checkers.dart';
@@ -389,36 +388,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         key: _formKey,
         child: ListView(
           children: <Widget>[
-
-            // --- PAGE TITLE
-            // Container(
-            //   margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            //   child: Row(
-            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //     crossAxisAlignment: CrossAxisAlignment.center,
-            //     children: <Widget>[
-            //
-            //       // --- TITLE
-            //       SuperVerse(
-            //         verse: widget.firstTimer == true ? 'Add your profile data' : Wordz.editProfile(context),
-            //         size: 3,
-            //       ),
-            //
-            //       // --- CANCEL BUTTON
-            //       if(!widget.firstTimer)
-            //       DreamBox(
-            //         height: 35,
-            //         width: 35,
-            //         icon: Iconz.XLarge,
-            //         iconSizeFactor: 0.6,
-            //         boxFunction: () {goBack(context);},
-            //       ),
-            //
-            //     ],
-            //   ),
-            // ),
-
-            // --- EDIT PIC
 
             Stratosphere(),
 

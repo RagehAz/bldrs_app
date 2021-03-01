@@ -2,6 +2,7 @@ import 'package:bldrs/ambassadors/services/auth.dart';
 import 'package:bldrs/ambassadors/services/google.dart';
 import 'package:bldrs/ambassadors/services/launchers.dart';
 import 'package:bldrs/models/sub_models/link_model.dart';
+import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/view_brains/controllers/devicerz.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
 import 'package:bldrs/view_brains/router/route_names.dart';
@@ -9,7 +10,7 @@ import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/flagz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
-import 'package:bldrs/views/screens/s40_create_bz_screen.dart';
+import 'package:bldrs/views/screens/s40_bz_editor_screen.dart';
 import 'package:bldrs/views/widgets/appbar/buttons/flagbox.dart';
 import 'package:bldrs/views/widgets/bubbles/bubbles_separator.dart';
 import 'package:bldrs/views/widgets/bubbles/tile_bubble.dart';
@@ -18,6 +19,11 @@ import 'package:flutter/material.dart';
 
 class MoreScreen extends StatelessWidget {
   final AuthService _auth = AuthService();
+  final UserModel userModel;
+
+  MoreScreen({
+    @required this.userModel,
+});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +39,7 @@ class MoreScreen extends StatelessWidget {
             verse: Wordz.createBzAccount(context),
             icon: Iconz.Bz,
             iconSizeFactor: 0.9,
-            btOnTap: () => goToNewScreen(context, CreateBzScreen()),
+            btOnTap: () => goToNewScreen(context, BzEditorScreen(firstTimer: true, userModel: userModel)),
           ),
 
           _separator,

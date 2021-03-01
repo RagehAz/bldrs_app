@@ -93,7 +93,7 @@ class _FlyerState extends State<Flyer> with AutomaticKeepAliveClientMixin{
 // ----------------------------------------------------------------------------
     final String _flyerID = _flyer.flyerID;
     final String _authorID = _flyer.authorID;
-    final AuthorModel _author = getAuthorModelFromUserModelAndBzModel(geebUserByUserID(_authorID), _bz);
+    final AuthorModel _author = createAuthorModelFromUserModelAndBzModel(geebUserByUserID(_authorID), _bz);
     final bool _flyerShowsAuthor = _flyer.flyerShowsAuthor;
     final int _numberOfSlides = _flyer.slides?.length;
     // print('authorID is = ${_author.userID}');
