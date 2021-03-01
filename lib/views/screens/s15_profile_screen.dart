@@ -68,6 +68,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
 
       layoutWidget: userStreamBuilder(
         context: context,
+        listen: true,
         builder: (context, UserModel userModel){
           return
             ListView(

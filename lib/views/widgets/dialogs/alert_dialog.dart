@@ -58,3 +58,12 @@ Future<dynamic> superDialog(BuildContext context, dynamic error, String title) a
   return _dialog;
 }
 // ----------------------------------------------------------------------
+Future<void> tryAndCatch({BuildContext context, Function functions,}) async {
+  try{
+    await functions();
+  } catch (error){
+    superDialog(context, error, 'ops');
+    print('TRY CATCH ERROR IS : ($error)');
+  }
+}
+// ----------------------------------------------------------------------

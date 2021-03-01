@@ -7,9 +7,11 @@ import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/users_provider.dart';
 import 'package:bldrs/view_brains/controllers/streamerz.dart';
 import 'package:bldrs/view_brains/drafters/imagers.dart';
+import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/drafters/text_checkers.dart';
 import 'package:bldrs/view_brains/drafters/text_manipulators.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
+import 'package:bldrs/view_brains/router/route_names.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/widgets/bubbles/add_gallery_pic_bubble.dart';
@@ -26,9 +28,11 @@ import 'package:flutter/material.dart';
 
 class EditProfileScreen extends StatefulWidget {
   final UserModel user;
+  final bool firstTimer;
 
   EditProfileScreen({
     @required this.user,
+    this.firstTimer = false,
 });
 
   @override
@@ -65,7 +69,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   void _triggerLoading(){
     setState(() {_loading = !_loading;});
     _loading == true?
-    print('LOADING') : print('LOADING COMPLETE');
+    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
   }
 // ---------------------------------------------------------------------------
   @override
@@ -166,69 +170,209 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   // ---------------------------------------------------------------------------
   void _confirmEdits() async {
     if(_formKey.currentState.validate()){
-      try{
-        _triggerLoading();
-        String _userPicURL;
 
-        if(_currentPic != null){
-          _userPicURL =
-          await saveUserPicOnFirebaseStorageAndGetURL(
-              inputFile: _currentPic,
-              fileName: widget.user.userID
-          );
-        }
+      _triggerLoading();
 
-        // print('_userPicURL : $_userPicURL');
+      await tryAndCatch(
+          context: context,
+          functions: () async {
+            String _userPicURL;
 
-        UserModel _newUserModel = UserModel(
-          // -------------------------
-          userID : widget.user.userID,
-          joinedAt : widget.user.joinedAt,
-          userStatus : widget.user.userStatus ?? UserStatus.Normal,
-          // -------------------------
-          name : _nameController.text ?? widget.user.name,
-          pic : _userPicURL ?? widget.user.pic,
-          title :  _titleController.text ?? widget.user.title,
-          company: _companyController.text ?? widget.user.company,
-          gender : _currentGender ?? widget.user.gender,
-          country : _currentCountryID ?? widget.user.country,
-          province : _currentProvinceID ?? widget.user.province,
-          area : _currentAreaID ?? widget.user.area,
-          language : Wordz.languageCode(context),
-          position : _currentPosition ?? widget.user.position,
-          contacts : _createContactList(widget.user.contacts),
-          // -------------------------
-          savedFlyersIDs : widget.user.savedFlyersIDs,
-          followedBzzIDs : widget.user.followedBzzIDs,
-          // -------------------------
-        );
+            if(_currentPic != null){
+              _userPicURL =
+              await saveUserPicOnFirebaseStorageAndGetURL(
+                  inputFile: _currentPic,
+                  fileName: widget.user.userID
+              );
+            }
 
-        await UserProvider(userID: widget.user.userID)
-            .updateFirestoreUserDocument(_newUserModel);
+            // print('_userPicURL : $_userPicURL');
 
-        print('User Model successfully edited');
-        _triggerLoading();
-        goBack(context);
+            UserModel _newUserModel = UserModel(
+              // -------------------------
+              userID : widget.user.userID,
+              joinedAt : widget.firstTimer == true ? DateTime.now() : widget.user.joinedAt ?? DateTime.now(),
+              userStatus : widget.user.userStatus ?? UserStatus.Normal,
+              // -------------------------
+              name : _nameController.text ?? widget.user.name,
+              pic : _userPicURL ?? widget.user.pic,
+              title :  _titleController.text ?? widget.user.title,
+              company: _companyController.text ?? widget.user.company,
+              gender : _currentGender ?? widget.user.gender,
+              country : _currentCountryID ?? widget.user.country,
+              province : _currentProvinceID ?? widget.user.province,
+              area : _currentAreaID ?? widget.user.area,
+              language : Wordz.languageCode(context),
+              position : _currentPosition ?? widget.user.position,
+              contacts : _createContactList(widget.user.contacts),
+              // -------------------------
+              savedFlyersIDs : widget.user.savedFlyersIDs,
+              followedBzzIDs : widget.user.followedBzzIDs,
+              // -------------------------
+            );
 
-      }catch(error){
-        superDialog(context, error, 'Could\'nt update profile');
-        // print(error.toString());
-      }
+            await UserProvider(userID: widget.user.userID)
+                .updateFirestoreUserDocument(_newUserModel);
+
+            print('User Model successfully edited');
+            _triggerLoading();
+
+            if (widget.firstTimer){
+              goToRoute(context, Routez.Home);
+            } else {
+              goBack(context);
+            }
+
+          }
+      );
+
+      _triggerLoading();
+
+      ///////////////////////////////////////////////////////////
+      // try{
+      //   _triggerLoading();
+      //   String _userPicURL;
+      //
+      //   if(_currentPic != null){
+      //     _userPicURL =
+      //     await saveUserPicOnFirebaseStorageAndGetURL(
+      //         inputFile: _currentPic,
+      //         fileName: widget.user.userID
+      //     );
+      //   }
+      //
+      //   // print('_userPicURL : $_userPicURL');
+      //
+      //   UserModel _newUserModel = UserModel(
+      //     // -------------------------
+      //     userID : widget.user.userID,
+      //     joinedAt : widget.user.joinedAt,
+      //     userStatus : widget.user.userStatus ?? UserStatus.Normal,
+      //     // -------------------------
+      //     name : _nameController.text ?? widget.user.name,
+      //     pic : _userPicURL ?? widget.user.pic,
+      //     title :  _titleController.text ?? widget.user.title,
+      //     company: _companyController.text ?? widget.user.company,
+      //     gender : _currentGender ?? widget.user.gender,
+      //     country : _currentCountryID ?? widget.user.country,
+      //     province : _currentProvinceID ?? widget.user.province,
+      //     area : _currentAreaID ?? widget.user.area,
+      //     language : Wordz.languageCode(context),
+      //     position : _currentPosition ?? widget.user.position,
+      //     contacts : _createContactList(widget.user.contacts),
+      //     // -------------------------
+      //     savedFlyersIDs : widget.user.savedFlyersIDs,
+      //     followedBzzIDs : widget.user.followedBzzIDs,
+      //     // -------------------------
+      //   );
+      //
+      //   await UserProvider(userID: widget.user.userID)
+      //       .updateFirestoreUserDocument(_newUserModel);
+      //
+      //   print('User Model successfully edited');
+      //   _triggerLoading();
+      //
+      //   if (widget.firstTimer){
+      //     goToRoute(context, Routez.Home);
+      //   } else {
+      //   goBack(context);
+      //   }
+      //
+      // }catch(error){
+      //   superDialog(context, error, 'Could\'nt update profile');
+      //   print(error.toString());
+      // }
+      ///////////////////////////////////////////////////////////
 
     }
   }
   // ---------------------------------------------------------------------------
+  // void _createNewProfile() async {
+  //   if(_formKey.currentState.validate()){
+  //
+  //     _triggerLoading();
+  //
+  //     String _userPicURL;
+  //
+  //     if(_currentPic != null){
+  //       _userPicURL =
+  //       await saveUserPicOnFirebaseStorageAndGetURL(
+  //           inputFile: _currentPic,
+  //           fileName: userModel.userID
+  //       );
+  //     }
+  //
+  //     print('_userPicURL : $_userPicURL');
+  //
+  //     try{
+  //       UserModel _newUserModel = UserModel(
+  //         // -------------------------
+  //         userID : userModel.userID,
+  //         joinedAt : userModel.joinedAt,
+  //         userStatus : userModel.userStatus ?? UserStatus.Normal,
+  //         // -------------------------
+  //         name : _currentName ?? userModel.name,
+  //         pic : _userPicURL ?? userModel.pic,
+  //         title :  _currentTitle ?? userModel.title,
+  //         company: _currentCompany ?? userModel.company,
+  //         gender : _currentGender ?? userModel.gender,
+  //         country : _currentCountryID ?? userModel.country,
+  //         province : _currentProvinceID ?? userModel.province,
+  //         area : _currentAreaID ?? userModel.area,
+  //         language : Wordz.languageCode(context),
+  //         position : _currentPosition ?? userModel.position,
+  //         contacts : _createContactList(userModel.contacts),
+  //         // -------------------------
+  //         savedFlyersIDs : userModel.savedFlyersIDs,
+  //         followedBzzIDs : userModel.followedBzzIDs,
+  //         // -------------------------
+  //       );
+  //
+  //       await UserProvider(userID: userModel.userID)
+  //           .updateFirestoreUserDocument(_newUserModel);
+  //
+  //       print('user model successfully edited');
+  //       goToRoute(context, Routez.Home);
+  //
+  //     }catch(error){
+  //       print(error.toString());
+  //       superDialog(context, error, 'Error Creating profile');
+  //     }
+  //     _triggerLoading();
+  //   }
+  // }
+  // ---------------------------------------------------------------------------
+  // void _confirmEdits() async {
+  //
+  // }
+  // ---------------------------------------------------------------------------
   void _deleteAccount () async {
     _triggerLoading();
     await superDialog(context, 'You will delete your account, and there is no going back !', 'Take Care !');
-    try{
-      String _email = getAContactValueFromContacts(widget.user.contacts, ContactType.Email);
-      await deleteUserDocument(widget.user);
-      await AuthService().deleteFirebaseUser(context, _email, '123456');
 
-    }catch(error){
-      superDialog(context, error, 'Error deleting Account');
-    }
+    await tryAndCatch(
+      context: context,
+      functions: () async {
+
+        String _email = getAContactValueFromContacts(widget.user.contacts, ContactType.Email);
+        await deleteUserDocument(widget.user);
+        await AuthService().deleteFirebaseUser(context, _email, '123456');
+
+      }
+    );
+
+    // try{
+    //   String _email = getAContactValueFromContacts(widget.user.contacts, ContactType.Email);
+    //   await deleteUserDocument(widget.user);
+    //   await AuthService().deleteFirebaseUser(context, _email, '123456');
+    //
+    // }catch(error){
+    //   superDialog(context, error, 'Error deleting Account');
+    // }
+
+    _triggerLoading();
+
+    goToRoute(context, Routez.Starting);
 
   }
   // ---------------------------------------------------------------------------
@@ -238,43 +382,46 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     return MainLayout(
       pyramids: Iconz.PyramidzYellow,
       loading: _loading,
+      appBarType: AppBarType.Basic,
+      tappingRageh: _triggerLoading,
+      pageTitle: widget.firstTimer == true ? 'Add your profile data' : Wordz.editProfile(context),
       layoutWidget: Form(
         key: _formKey,
         child: ListView(
           children: <Widget>[
 
             // --- PAGE TITLE
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-
-                  // --- TITLE
-                  SuperVerse(
-                    verse: Wordz.editProfile(context),
-                    size: 3,
-                  ),
-
-                  // --- CANCEL BUTTON
-                  DreamBox(
-                    height: 35,
-                    width: 35,
-                    icon: Iconz.XLarge,
-                    iconSizeFactor: 0.6,
-                    boxFunction: () {
-                      // goBack(context);
-                      setState(() {
-
-                      });
-                    },
-                  )
-                ],
-              ),
-            ),
+            // Container(
+            //   margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //     crossAxisAlignment: CrossAxisAlignment.center,
+            //     children: <Widget>[
+            //
+            //       // --- TITLE
+            //       SuperVerse(
+            //         verse: widget.firstTimer == true ? 'Add your profile data' : Wordz.editProfile(context),
+            //         size: 3,
+            //       ),
+            //
+            //       // --- CANCEL BUTTON
+            //       if(!widget.firstTimer)
+            //       DreamBox(
+            //         height: 35,
+            //         width: 35,
+            //         icon: Iconz.XLarge,
+            //         iconSizeFactor: 0.6,
+            //         boxFunction: () {goBack(context);},
+            //       ),
+            //
+            //     ],
+            //   ),
+            // ),
 
             // --- EDIT PIC
+
+            Stratosphere(),
+
             AddGalleryPicBubble(
               pic: _currentPic == null ? widget.user.pic : _currentPic,
               addBtFunction: _takeGalleryPicture,
@@ -460,16 +607,21 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             // --- CONFIRM BUTTON
             DreamBox(
               height: 50,
-              color: Colorz.WhiteGlass,
-              icon: Iconz.Check,
-              iconSizeFactor: 0.5,
-              verse: Wordz.updateProfile(context),
-              verseScaleFactor: 1.5,
+              width: superBubbleClearWidth(context),
+              color: Colorz.Yellow,
+              // icon: Iconz.Check,
+              // iconColor: Colorz.BlackBlack,
+              // iconSizeFactor: 0.5,
+              verse: widget.firstTimer == true ? Wordz.confirm(context) : Wordz.updateProfile(context),
+              verseColor: Colorz.BlackBlack,
+              verseScaleFactor: 0.9,
+              verseWeight: VerseWeight.black,
               boxMargins: EdgeInsets.all(20),
               boxFunction: _confirmEdits,
             ),
 
             // --- DELETE ACCOUNT
+            if(!widget.firstTimer)
             DreamBox(
               height: 50,
               color: Colorz.WhiteGlass,

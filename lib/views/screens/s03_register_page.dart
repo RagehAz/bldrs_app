@@ -4,6 +4,7 @@ import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/view_brains/drafters/keyboarders.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
+import 'package:bldrs/views/screens/s16_edit_profile_screen.dart';
 import 'package:bldrs/views/widgets/bubbles/text_field_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
@@ -13,8 +14,6 @@ import 'package:email_validator/email_validator.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:provider/provider.dart';
-
-import 's04_fill_profile_screen.dart';
 
 class Register extends StatefulWidget {
   final Function switchToSignIn;
@@ -232,37 +231,41 @@ class _RegisterState extends State<Register> {
                     minimizeKeyboardOnTapOutSide(context);
                     if(_formKey.currentState.validate()){
 
-                      try{
                       _triggerLoading();
-                      dynamic result = await _auth.registerWithEmailAndPassword(context, _currentZone, _email, _password);
-                      print('register result is : $result');
-                      if ('$result' == '[firebase_auth/email-already-in-use] The email address is already in use by another account.')
-                      {
-                        superDialog(context, Wordz.emailAlreadyRegistered(context), 'E-mail Taken');
-                        setState(() {_error = Wordz.emailAlreadyRegistered(context);});
-                        _triggerLoading();
-                      }
-                      else if('$result' == '[firebase_auth/invalid-email] The email address is badly formatted.')
-                      {
-                        setState(() {_error = Wordz.emailWrong(context);});
-                        _triggerLoading();
-                      }
 
-                      else if(result == null){setState(() {
-                        _error = 'something is wrong';});
+                      tryAndCatch(
+                        context: context,
+                        functions: () async {
+
+                          dynamic result = await _auth.registerWithEmailAndPassword(context, _currentZone, _email, _password);
+                          print('register result is : $result');
+
+                          if ('$result' == '[firebase_auth/email-already-in-use] The email address is already in use by another account.'){
+                            superDialog(context, Wordz.emailAlreadyRegistered(context), 'E-mail Taken');
+                            setState(() {_error = Wordz.emailAlreadyRegistered(context);});
+                            _triggerLoading();
+                          }
+
+                          else if('$result' == '[firebase_auth/invalid-email] The email address is badly formatted.'){
+                            setState(() {_error = Wordz.emailWrong(context);});
+                            _triggerLoading();
+                          }
+
+                          else if(result == null){setState(() {
+                            _error = 'something is wrong';});
+                          _triggerLoading();
+                          }
+
+                          else if(result.runtimeType == UserModel){
+                            setState(() {_error = '';});
+                            _triggerLoading();
+                            // goToNewScreen(context, FillProfileScreen());
+                            goToNewScreen(context, EditProfileScreen(user: result, firstTimer: true,),);
+                          }
+                        });
+
                       _triggerLoading();
-                      }
 
-                      else if(result.runtimeType == UserModel)
-                      {
-                        setState(() {
-                        _error = ''; _triggerLoading();});
-                        goToNewScreen(context, FillProfileScreen());
-                      }
-
-                      }catch(error){
-                        superDialog(context, error, 'SignUp error');
-                      }
                     }
                   },
                 ),

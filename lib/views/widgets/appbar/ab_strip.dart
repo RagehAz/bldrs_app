@@ -6,6 +6,7 @@ import 'package:bldrs/view_brains/drafters/shadowers.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:flutter/material.dart';
 
 class ABStrip extends StatelessWidget {
@@ -13,12 +14,14 @@ class ABStrip extends StatelessWidget {
   final double abHeight;
   final bool scrollable;
   final AppBarType appBarType;
+  final bool loading;
 
   ABStrip({
     this.rowWidgets,
     this.abHeight = Ratioz.ddAppBarHeight,
     this.scrollable = false,
     this.appBarType,
+    this.loading,
   });
   @override
   Widget build(BuildContext context) {
@@ -54,10 +57,17 @@ class ABStrip extends StatelessWidget {
           // --- APPBAR BLUR
           // if (appBarType != AppBarType.InPyramids)
           BlurLayer(
-            width: double.infinity,
+            width: _abWidth,
             height: abHeight,
             blur: _blurValue,
             borders: BorderRadius.all(Radius.circular(Ratioz.ddAppBarCorner)),
+          ),
+
+          Container(
+            width: _abWidth,
+            height: abHeight,
+            alignment: superInverseCenterAlignment(context),
+            child: Loading(loading: loading),
           ),
 
 

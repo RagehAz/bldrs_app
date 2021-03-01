@@ -9,6 +9,7 @@ import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/drafters/shadowers.dart';
 import 'package:bldrs/view_brains/drafters/text_shapers.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
+import 'package:bldrs/view_brains/router/route_names.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
@@ -155,7 +156,7 @@ class NavBar extends StatelessWidget {
           String _bzID = _followedBzzIDs.length > 0 ?  _followedBzzIDs[0] : '';
           String _bzLogo = prof.getBzByBzID(_bzID)?.bzLogo;
 
-          print('NAAAAAAAAAAAAAMEEEEEEEEEEEEEEEEEEE ${userModel?.name}');
+          // print('NAAAAAAAAAAAAAMEEEEEEEEEEEEEEEEEEE ${userModel?.name}');
 
           return
             Positioned(
@@ -216,7 +217,7 @@ class NavBar extends StatelessWidget {
                                 icon: Iconz.SaveOn,
                                 iconSizeFactor: 0.7,
                                 barType: barType,
-                                onTap: () => goToNewScreen(context, SavedFlyersScreen()),
+                                onTap: () => goToRoute(context, Routez.SavedFlyers),
                               ),
 
                               _spacer,
@@ -254,7 +255,7 @@ class NavBar extends StatelessWidget {
                                 barType: barType,
                                 onTap: (){
                                   print('fish');
-                                  goToNewScreen(context, MoreScreen());
+                                  goToRoute(context, Routez.More);
                                 },
                               ),
 
