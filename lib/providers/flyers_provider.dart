@@ -1,13 +1,16 @@
 import 'package:bldrs/ambassadors/database/db_bzz.dart';
 import 'package:bldrs/ambassadors/database/db_flyer.dart';
+import 'package:bldrs/ambassadors/services/firestore.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:bldrs/models/sub_models/http_exceptions.dart';
 import 'package:bldrs/models/user_model.dart';
+import 'package:bldrs/view_brains/controllers/flyer_controllers.dart';
 import 'package:bldrs/view_brains/drafters/timerz.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -172,138 +175,298 @@ void addFlyer(FlyerModel flyer){
     _loadedFlyers.add(newFlyer);
     notifyListeners();
 }
-// ---------------------------------------------------------------------------
+// ############################################################################
+  /// BZZ ON REAL TIME DATA BASE
+  // ---------------------------
+  /// POST request to add new bz in firebase realtime database
 Future<void> addBz(BuildContext context, BzModel bz, UserModel userModel) async {
   const url = realtimeDatabaseBzzPath;
-  try {
 
-    final response = await http.post(url,
-      body: json.encode({
-        // 'bzID': bz.bzID,
-        // -------------------------
-        'bzType': cipherBzType(bz.bzType),
-        'bzForm': cipherBzForm(bz.bzForm),
-        'bldrBirth': cipherDateTimeToString(bz.bldrBirth),
-        'accountType': cipherBzAccountType(bz.accountType),
-        'bzURL': bz.bzURL,
-        // -------------------------
-        'bzName': bz.bzName,
-        'bzLogo': bz.bzLogo,
-        'bzScope': bz.bzScope,
-        'bzCountry': bz.bzCountry,
-        'bzProvince': bz.bzProvince,
-        'bzArea': bz.bzArea,
-        'bzAbout': bz.bzAbout,
-        'bzPosition': bz.bzPosition,
-        'bzContacts': cipherContactsModels(bz.bzContacts),
-        'bzAuthors': [AuthorModel(
-          bzID: bz.bzAuthors[0].bzID,
-          userID: bz.bzAuthors[0].userID,
-          authorName: bz.bzAuthors[0].authorName,
-          authorPic: bz.bzAuthors[0].authorPic,
-          authorTitle: bz.bzAuthors[0].authorTitle,
-          publishedFlyersIDs: bz.bzAuthors[0].publishedFlyersIDs,
-          authorContacts: bz.bzAuthors[0].authorContacts,
-        ).toMap(),],
-        'bzShowsTeam': bz.bzShowsTeam,
-        // -------------------------
-        'bzIsVerified': bz.bzIsVerified,
-        'bzAccountIsDeactivated': bz.bzAccountIsDeactivated,
-        'bzAccountIsBanned': bz.bzAccountIsBanned,
-        // -------------------------
-        'bzTotalFollowers': bz.bzTotalFollowers,
-        'bzTotalSaves': bz.bzTotalSaves,
-        'bzTotalShares': bz.bzTotalShares,
-        'bzTotalSlides': bz.bzTotalSlides,
-        'bzTotalViews': bz.bzTotalViews,
-        'bzTotalCalls': bz.bzTotalCalls,
-        'bzTotalConnects': bz.bzTotalConnects,
-        // -------------------------
-        'jointsBzzIDs': bz.jointsBzzIDs,
-        // -------------------------
-        'followIsOn': bz.followIsOn,
-        // will change in later max lessons to be user based
-      }),
-    );
+  await tryAndCatch(
+    context: context,
+    functions: () async {
 
-    final BzModel newBz = BzModel(
-      bzID: json.decode(response.body)['name'],
-      // -------------------------
-      bzType: bz.bzType,
-      bzForm: bz.bzForm,
-      bldrBirth: bz.bldrBirth,
-      accountType: bz.accountType,
-      bzURL: bz.bzURL,
-      // -------------------------
-      bzName: bz.bzName,
-      bzLogo: bz.bzLogo,
-      bzScope: bz.bzScope,
-      bzCountry: bz.bzCountry,
-      bzProvince: bz.bzProvince,
-      bzArea: bz.bzArea,
-      bzAbout: bz.bzAbout,
-      bzPosition: bz.bzPosition,
-      bzContacts: bz.bzContacts,
-      bzAuthors: bz.bzAuthors,
-      bzShowsTeam: bz.bzShowsTeam,
-      // -------------------------
-      bzIsVerified: bz.bzIsVerified,
-      bzAccountIsDeactivated: bz.bzAccountIsDeactivated,
-      bzAccountIsBanned: bz.bzAccountIsBanned,
-      // -------------------------
-      bzTotalFollowers: bz.bzTotalFollowers,
-      bzTotalSaves: bz.bzTotalSaves,
-      bzTotalShares: bz.bzTotalShares,
-      bzTotalSlides: bz.bzTotalSlides,
-      bzTotalViews: bz.bzTotalViews,
-      bzTotalCalls: bz.bzTotalCalls,
-      bzTotalConnects: bz.bzTotalConnects,
-      // -------------------------
-      jointsBzzIDs: bz.jointsBzzIDs,
-      // -------------------------
-      followIsOn: bz.followIsOn,
-    );
+      /// post bz map to realtime database
+      final response = await http.post(url,
+        body: json.encode({
+          bz.toMap()
+          // 'bzID': bz.bzID,
+          // -------------------------
+          // 'bzType': cipherBzType(bz.bzType),
+          // 'bzForm': cipherBzForm(bz.bzForm),
+          // 'bldrBirth': cipherDateTimeToString(bz.bldrBirth),
+          // 'accountType': cipherBzAccountType(bz.accountType),
+          // 'bzURL': bz.bzURL,
+          // // -------------------------
+          // 'bzName': bz.bzName,
+          // 'bzLogo': bz.bzLogo,
+          // 'bzScope': bz.bzScope,
+          // 'bzCountry': bz.bzCountry,
+          // 'bzProvince': bz.bzProvince,
+          // 'bzArea': bz.bzArea,
+          // 'bzAbout': bz.bzAbout,
+          // 'bzPosition': bz.bzPosition,
+          // 'bzContacts': cipherContactsModels(bz.bzContacts),
+          // 'bzAuthors': [AuthorModel(
+          //   bzID: bz.bzAuthors[0].bzID,
+          //   userID: bz.bzAuthors[0].userID,
+          //   authorName: bz.bzAuthors[0].authorName,
+          //   authorPic: bz.bzAuthors[0].authorPic,
+          //   authorTitle: bz.bzAuthors[0].authorTitle,
+          //   publishedFlyersIDs: bz.bzAuthors[0].publishedFlyersIDs,
+          //   authorContacts: bz.bzAuthors[0].authorContacts,
+          // ).toMap(),],
+          // 'bzShowsTeam': bz.bzShowsTeam,
+          // // -------------------------
+          // 'bzIsVerified': bz.bzIsVerified,
+          // 'bzAccountIsDeactivated': bz.bzAccountIsDeactivated,
+          // 'bzAccountIsBanned': bz.bzAccountIsBanned,
+          // // -------------------------
+          // 'bzTotalFollowers': bz.bzTotalFollowers,
+          // 'bzTotalSaves': bz.bzTotalSaves,
+          // 'bzTotalShares': bz.bzTotalShares,
+          // 'bzTotalSlides': bz.bzTotalSlides,
+          // 'bzTotalViews': bz.bzTotalViews,
+          // 'bzTotalCalls': bz.bzTotalCalls,
+          // 'bzTotalConnects': bz.bzTotalConnects,
+          // // -------------------------
+          // 'jointsBzzIDs': bz.jointsBzzIDs,
+          // // -------------------------
+          // 'followIsOn': bz.followIsOn,
+          // will change in later max lessons to be user based
+        }),
+      );
 
-    List<dynamic> tempFollowedBzzIDs = userModel.followedBzzIDs;
-    userModel.followedBzzIDs.insert(0, json.decode(response.body)['name']);
+      /// --- get bzID from previous response
+      String bzID = json.decode(response.body)['name'];
 
-    UserModel _newUserModel = UserModel(
-      // -------------------------
-      userID : userModel.userID,
-      joinedAt : userModel.joinedAt,
-      userStatus : UserStatus.BzAuthor,
-      // -------------------------
-      name : userModel.name,
-      pic : userModel.pic,
-      title : userModel.title,
-      company : userModel.company,
-      gender : userModel.gender,
-      country : userModel.country,
-      province : userModel.province,
-      area : userModel.area,
-      language : userModel.language,
-      position : userModel.position,
-      contacts : userModel.contacts,
-      // -------------------------
-      savedFlyersIDs : userModel.savedFlyersIDs,
-      followedBzzIDs : tempFollowedBzzIDs,
-    );
 
-    await UserProvider(userID: userModel.userID).
-    updateFirestoreUserDocument(_newUserModel);
+      /// create local bzModel adding the bzId
+      final BzModel _newBz = BzModel(
+        bzID: bzID,
+        // -------------------------
+        bzType: bz.bzType,
+        bzForm: bz.bzForm,
+        bldrBirth: bz.bldrBirth,
+        accountType: bz.accountType,
+        bzURL: bz.bzURL,
+        // -------------------------
+        bzName: bz.bzName,
+        bzLogo: bz.bzLogo,
+        bzScope: bz.bzScope,
+        bzCountry: bz.bzCountry,
+        bzProvince: bz.bzProvince,
+        bzArea: bz.bzArea,
+        bzAbout: bz.bzAbout,
+        bzPosition: bz.bzPosition,
+        bzContacts: bz.bzContacts,
+        bzAuthors: bz.bzAuthors,
+        bzShowsTeam: bz.bzShowsTeam,
+        // -------------------------
+        bzIsVerified: bz.bzIsVerified,
+        bzAccountIsDeactivated: bz.bzAccountIsDeactivated,
+        bzAccountIsBanned: bz.bzAccountIsBanned,
+        // -------------------------
+        bzTotalFollowers: bz.bzTotalFollowers,
+        bzTotalSaves: bz.bzTotalSaves,
+        bzTotalShares: bz.bzTotalShares,
+        bzTotalSlides: bz.bzTotalSlides,
+        bzTotalViews: bz.bzTotalViews,
+        bzTotalCalls: bz.bzTotalCalls,
+        bzTotalConnects: bz.bzTotalConnects,
+        // -------------------------
+        jointsBzzIDs: bz.jointsBzzIDs,
+        // -------------------------
+        followIsOn: bz.followIsOn,
+      );
 
-    _loadedBzz.add(newBz);
-    notifyListeners();
-    print('bzzzzzzzzzz added response is :${json.decode(response.body)}');
-  } catch (error){
-    print(error);
-    superDialog(context, error, 'Could\'nt add Business');
-    throw(error);
-  }
+
+      /// save the bzID as the first id in the list of followedBzzIDs
+      List<dynamic> tempFollowedBzzIDs = userModel.followedBzzIDs;
+      userModel.followedBzzIDs.insert(0, bzID);
+
+      /// create new userModel with the new list of tempFollowedBzzIDs
+      UserModel _newUserModel = UserModel(
+        // -------------------------
+        userID : userModel.userID,
+        joinedAt : userModel.joinedAt,
+        userStatus : UserStatus.BzAuthor,
+        // -------------------------
+        name : userModel.name,
+        pic : userModel.pic,
+        title : userModel.title,
+        company : userModel.company,
+        gender : userModel.gender,
+        country : userModel.country,
+        province : userModel.province,
+        area : userModel.area,
+        language : userModel.language,
+        position : userModel.position,
+        contacts : userModel.contacts,
+        // -------------------------
+        savedFlyersIDs : userModel.savedFlyersIDs,
+        followedBzzIDs : tempFollowedBzzIDs,
+      );
+
+      /// update firestore with the _newUserModel
+      await UserProvider(userID: userModel.userID).
+      updateFirestoreUserDocument(_newUserModel);
+
+      /// add the local bzModel to the local list of bzModels _loadedBzz
+      _loadedBzz.add(_newBz);
+
+      /// for sure never forget
+      notifyListeners();
+
+      print('bzzzzzzzzzz added response is :${json.decode(response.body)}');
+
+    }
+  );
+
+  // try {
+  //
+  //   /// post bz map to realtime database
+  //   final response = await http.post(url,
+  //     body: json.encode({
+  //       bz.toMap()
+  //       // 'bzID': bz.bzID,
+  //       // -------------------------
+  //       // 'bzType': cipherBzType(bz.bzType),
+  //       // 'bzForm': cipherBzForm(bz.bzForm),
+  //       // 'bldrBirth': cipherDateTimeToString(bz.bldrBirth),
+  //       // 'accountType': cipherBzAccountType(bz.accountType),
+  //       // 'bzURL': bz.bzURL,
+  //       // // -------------------------
+  //       // 'bzName': bz.bzName,
+  //       // 'bzLogo': bz.bzLogo,
+  //       // 'bzScope': bz.bzScope,
+  //       // 'bzCountry': bz.bzCountry,
+  //       // 'bzProvince': bz.bzProvince,
+  //       // 'bzArea': bz.bzArea,
+  //       // 'bzAbout': bz.bzAbout,
+  //       // 'bzPosition': bz.bzPosition,
+  //       // 'bzContacts': cipherContactsModels(bz.bzContacts),
+  //       // 'bzAuthors': [AuthorModel(
+  //       //   bzID: bz.bzAuthors[0].bzID,
+  //       //   userID: bz.bzAuthors[0].userID,
+  //       //   authorName: bz.bzAuthors[0].authorName,
+  //       //   authorPic: bz.bzAuthors[0].authorPic,
+  //       //   authorTitle: bz.bzAuthors[0].authorTitle,
+  //       //   publishedFlyersIDs: bz.bzAuthors[0].publishedFlyersIDs,
+  //       //   authorContacts: bz.bzAuthors[0].authorContacts,
+  //       // ).toMap(),],
+  //       // 'bzShowsTeam': bz.bzShowsTeam,
+  //       // // -------------------------
+  //       // 'bzIsVerified': bz.bzIsVerified,
+  //       // 'bzAccountIsDeactivated': bz.bzAccountIsDeactivated,
+  //       // 'bzAccountIsBanned': bz.bzAccountIsBanned,
+  //       // // -------------------------
+  //       // 'bzTotalFollowers': bz.bzTotalFollowers,
+  //       // 'bzTotalSaves': bz.bzTotalSaves,
+  //       // 'bzTotalShares': bz.bzTotalShares,
+  //       // 'bzTotalSlides': bz.bzTotalSlides,
+  //       // 'bzTotalViews': bz.bzTotalViews,
+  //       // 'bzTotalCalls': bz.bzTotalCalls,
+  //       // 'bzTotalConnects': bz.bzTotalConnects,
+  //       // // -------------------------
+  //       // 'jointsBzzIDs': bz.jointsBzzIDs,
+  //       // // -------------------------
+  //       // 'followIsOn': bz.followIsOn,
+  //       // will change in later max lessons to be user based
+  //     }),
+  //   );
+  //
+  //   /// --- get bzID from previous response
+  //   String bzID = json.decode(response.body)['name'];
+  //
+  //
+  //   /// create local bzModel adding the bzId
+  //   final BzModel newBz = BzModel(
+  //     bzID: bzID,
+  //     // -------------------------
+  //     bzType: bz.bzType,
+  //     bzForm: bz.bzForm,
+  //     bldrBirth: bz.bldrBirth,
+  //     accountType: bz.accountType,
+  //     bzURL: bz.bzURL,
+  //     // -------------------------
+  //     bzName: bz.bzName,
+  //     bzLogo: bz.bzLogo,
+  //     bzScope: bz.bzScope,
+  //     bzCountry: bz.bzCountry,
+  //     bzProvince: bz.bzProvince,
+  //     bzArea: bz.bzArea,
+  //     bzAbout: bz.bzAbout,
+  //     bzPosition: bz.bzPosition,
+  //     bzContacts: bz.bzContacts,
+  //     bzAuthors: bz.bzAuthors,
+  //     bzShowsTeam: bz.bzShowsTeam,
+  //     // -------------------------
+  //     bzIsVerified: bz.bzIsVerified,
+  //     bzAccountIsDeactivated: bz.bzAccountIsDeactivated,
+  //     bzAccountIsBanned: bz.bzAccountIsBanned,
+  //     // -------------------------
+  //     bzTotalFollowers: bz.bzTotalFollowers,
+  //     bzTotalSaves: bz.bzTotalSaves,
+  //     bzTotalShares: bz.bzTotalShares,
+  //     bzTotalSlides: bz.bzTotalSlides,
+  //     bzTotalViews: bz.bzTotalViews,
+  //     bzTotalCalls: bz.bzTotalCalls,
+  //     bzTotalConnects: bz.bzTotalConnects,
+  //     // -------------------------
+  //     jointsBzzIDs: bz.jointsBzzIDs,
+  //     // -------------------------
+  //     followIsOn: bz.followIsOn,
+  //   );
+  //
+  //
+  //   /// save the bzID as the first id in the list of followedBzzIDs
+  //   List<dynamic> tempFollowedBzzIDs = userModel.followedBzzIDs;
+  //   userModel.followedBzzIDs.insert(0, bzID);
+  //
+  //   /// create new userModel with the new list of tempFollowedBzzIDs
+  //   UserModel _newUserModel = UserModel(
+  //     // -------------------------
+  //     userID : userModel.userID,
+  //     joinedAt : userModel.joinedAt,
+  //     userStatus : UserStatus.BzAuthor,
+  //     // -------------------------
+  //     name : userModel.name,
+  //     pic : userModel.pic,
+  //     title : userModel.title,
+  //     company : userModel.company,
+  //     gender : userModel.gender,
+  //     country : userModel.country,
+  //     province : userModel.province,
+  //     area : userModel.area,
+  //     language : userModel.language,
+  //     position : userModel.position,
+  //     contacts : userModel.contacts,
+  //     // -------------------------
+  //     savedFlyersIDs : userModel.savedFlyersIDs,
+  //     followedBzzIDs : tempFollowedBzzIDs,
+  //   );
+  //
+  //   /// update firestore with the _newUserModel
+  //   await UserProvider(userID: userModel.userID).
+  //   updateFirestoreUserDocument(_newUserModel);
+  //
+  //   /// add the local bzModel to the local list of bzModels _loadedBzz
+  //   _loadedBzz.add(newBz);
+  //
+  //   /// for sure never forget
+  //   notifyListeners();
+  //   print('bzzzzzzzzzz added response is :${json.decode(response.body)}');
+  // } catch (error){
+  //   print(error);
+  //   superDialog(context, error, 'Could\'nt add Business');
+  //   throw(error);
+  // }
 
 }
 // ---------------------------------------------------------------------------
-Future<void> updateBz(BzModel bz) async {
+  /// PATCH request to edit existing bz in firebase realtime database
+  Future<void> updateBz(BzModel bz) async {
     final bzIndex = _loadedBzz.indexWhere((bzModel) => bzModel.bzID == bz.bzID);
     if (bzIndex >= 0){
       final url = 'https://bldrsnet.firebaseio.com/bzz/${bz.bzID}.json';
@@ -352,7 +515,8 @@ Future<void> updateBz(BzModel bz) async {
     }
 }
 // ---------------------------------------------------------------------------
- Future<void> deleteBz(String bzID, UserModel userModel) async {
+  /// DELETE request to remove existing bz in firebase realtime database
+  Future<void> deleteBz(String bzID, UserModel userModel) async {
    final url = 'https://bldrsnet.firebaseio.com/bzz/$bzID.json';
    /// OPTIMISTIC UPDATING
    /// to save the bz in this object like max did, to get it back to _loadedBzz
@@ -403,6 +567,7 @@ Future<void> updateBz(BzModel bz) async {
 
  }
 // ---------------------------------------------------------------------------
+  /// READs all Bzz in firebase realtime database
 Future<void> fetchAndSetBzz() async {
   const url = realtimeDatabaseBzzPath;
   try{
@@ -455,6 +620,142 @@ Future<void> fetchAndSetBzz() async {
     throw(error);
   }
 }
+// ############################################################################
+/// BZZ ON FIRE STORE
 // ---------------------------------------------------------------------------
+/// bzz collection reference
+final CollectionReference bzzCollection = FirebaseFirestore.instance.collection(FireStoreCollection.bzz);
+// ---------------------------------------------------------------------------
+/// create Bz document
+Future<void> createBzDocument(BzModel bz, UserModel userModel) async {
+
+  /// add bz to firestore
+  DocumentReference _docRef = bzzCollection.doc();
+  await _docRef.set(bz.toMap());
+
+  /// get back the document id and patch/update the document with id value
+  String bzID = _docRef.id;
+  await bzzCollection.doc(bzID).update({'bzID' : bzID});
+
+  /// create local bzModel adding the bzId
+  final BzModel _newBz = BzModel(
+    bzID: bzID,
+    // -------------------------
+    bzType: bz.bzType,
+    bzForm: bz.bzForm,
+    bldrBirth: bz.bldrBirth,
+    accountType: bz.accountType,
+    bzURL: bz.bzURL,
+    // -------------------------
+    bzName: bz.bzName,
+    bzLogo: bz.bzLogo,
+    bzScope: bz.bzScope,
+    bzCountry: bz.bzCountry,
+    bzProvince: bz.bzProvince,
+    bzArea: bz.bzArea,
+    bzAbout: bz.bzAbout,
+    bzPosition: bz.bzPosition,
+    bzContacts: bz.bzContacts,
+    bzAuthors: bz.bzAuthors,
+    bzShowsTeam: bz.bzShowsTeam,
+    // -------------------------
+    bzIsVerified: bz.bzIsVerified,
+    bzAccountIsDeactivated: bz.bzAccountIsDeactivated,
+    bzAccountIsBanned: bz.bzAccountIsBanned,
+    // -------------------------
+    bzTotalFollowers: bz.bzTotalFollowers,
+    bzTotalSaves: bz.bzTotalSaves,
+    bzTotalShares: bz.bzTotalShares,
+    bzTotalSlides: bz.bzTotalSlides,
+    bzTotalViews: bz.bzTotalViews,
+    bzTotalCalls: bz.bzTotalCalls,
+    bzTotalConnects: bz.bzTotalConnects,
+    // -------------------------
+    jointsBzzIDs: bz.jointsBzzIDs,
+    // -------------------------
+    followIsOn: bz.followIsOn,
+  );
+
+
+  /// save the bzID as the first id in the list of followedBzzIDs
+  List<dynamic> tempFollowedBzzIDs = userModel.followedBzzIDs;
+  userModel.followedBzzIDs.insert(0, bzID);
+
+  /// create new userModel with the new list of tempFollowedBzzIDs
+  UserModel _newUserModel = UserModel(
+    // -------------------------
+    userID : userModel.userID,
+    joinedAt : userModel.joinedAt,
+    userStatus : UserStatus.BzAuthor,
+    // -------------------------
+    name : userModel.name,
+    pic : userModel.pic,
+    title : userModel.title,
+    company : userModel.company,
+    gender : userModel.gender,
+    country : userModel.country,
+    province : userModel.province,
+    area : userModel.area,
+    language : userModel.language,
+    position : userModel.position,
+    contacts : userModel.contacts,
+    // -------------------------
+    savedFlyersIDs : userModel.savedFlyersIDs,
+    followedBzzIDs : tempFollowedBzzIDs,
+  );
+
+  /// update firestore with the _newUserModel
+  await UserProvider(userID: userModel.userID).
+  updateFirestoreUserDocument(_newUserModel);
+
+  /// add the local bzModel to the local list of bzModels _loadedBzz
+  _loadedBzz.add(_newBz);
+
+  /// for sure never forget
+  notifyListeners();
+
+}
+
+// === === === === === === === === === === === === === === === === === === ===
+Future<void> deleteBzDocument(BzModel bzModel) async {
+  DocumentReference _bzDocument = getFirestoreDocumentReference(FireStoreCollection.bzz, bzModel.bzID);
+  await _bzDocument.delete();
+}
+// ############################################################################
+}
+// === === === === === === === === === === === === === === === === === === ===
+BzModel createTempBzModelFromUserData(UserModel userModel){
+  return BzModel(
+    bzName: userModel.company,
+    bzCountry: userModel.country,
+    bzProvince: userModel.province,
+    bzArea: userModel.area,
+    bzContacts: <ContactModel>[
+      ContactModel(
+          contact: getAContactValueFromContacts(userModel.contacts, ContactType.Email),
+          contactType: ContactType.Email
+      ),
+      ContactModel(
+          contact: getAContactValueFromContacts(userModel.contacts, ContactType.Phone),
+          contactType: ContactType.Phone
+      ),
+    ],
+    bzAuthors: <AuthorModel>[createTempAuthorModelFromUserModel(userModel)],
+    bzShowsTeam: true,
+    // -------------------------
+    bzIsVerified: false,
+    bzAccountIsDeactivated: false,
+    bzAccountIsBanned: false,
+    // -------------------------
+    bzTotalFollowers: 0,
+    bzTotalSaves: 0,
+    bzTotalShares: 0,
+    bzTotalSlides: 0,
+    bzTotalViews: 0,
+    bzTotalCalls: 0,
+    bzTotalConnects: 0,
+    followIsOn: false,
+    // -------------------------
+  );
 }
 // === === === === === === === === === === === === === === === === === === ===

@@ -16,7 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 's13_news_screen.dart';
-import 's16_edit_profile_screen.dart';
+import 's16_user_editor_screen.dart';
 
 class UserProfileScreen extends StatefulWidget {
 

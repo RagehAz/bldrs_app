@@ -55,11 +55,11 @@ List<AuthorModel> decipherBzAuthorsMaps(List<dynamic> listOfMaps){
 }
 // -----------------------------------------------------------------
 List<Map<String,Object>> cipherAuthorsModels(List<AuthorModel> authorsList){
-  List<Map<String,Object>> listOfAuthors = new List();
+  List<Map<String,Object>> listOfAuthorsMaps = new List();
   authorsList?.forEach((author) {
-    listOfAuthors.add(author.toMap());
+    listOfAuthorsMaps.add(author.toMap());
   });
-  return listOfAuthors;
+  return listOfAuthorsMaps;
 }
 // -----------------------------------------------------------------
 

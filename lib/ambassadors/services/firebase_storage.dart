@@ -1,5 +1,8 @@
 import 'dart:io';
+import 'package:bldrs/view_brains/drafters/imagers.dart';
+import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
 // === === === === === === === === === === === === === === === === === === ===
 Reference _getReferenceFromFirebaseStorage({String documentName, String fileName,}) {
   final ref = FirebaseStorage.instance
@@ -48,5 +51,34 @@ Future<String> saveSlidePicOnFirebaseStorageAndGetURL({File inputFile, String fi
   final _imageURL = await _ref.getDownloadURL();
 
   return _imageURL;
+}
+// === === === === === === === === === === === === === === === === === === ===
+Future<String> savePicOnFirebaseStorageAndGetURL({BuildContext context, File inputFile, String fileName, PicType picType}) async {
+  String _imageURL;
+
+  await tryAndCatch(
+    context: context,
+    functions: () async {
+
+      final _ref = _getReferenceFromFirebaseStorage(documentName: firebaseStorageDocument(picType), fileName: fileName);
+
+      await _ref.putFile(inputFile);
+
+      _imageURL = await _ref.getDownloadURL();
+
+    }
+  );
+      return _imageURL;
+}
+// === === === === === === === === === === === === === === === === === === ===
+String firebaseStorageDocument(PicType picType){
+  switch (picType){
+    case PicType.userPic        :   return   'usersPics';       break;
+    case PicType.authorPic      :   return   'authorsPics';     break;
+    case PicType.bzLogo         :   return   'bzLogos';         break;
+    case PicType.slideHighRes   :   return   'slidesPics';      break;
+    case PicType.slideLowRes    :   return   'slidesPicsLow';   break;
+    default : return   null;
+  }
 }
 // === === === === === === === === === === === === === === === === === === ===
