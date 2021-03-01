@@ -14,21 +14,23 @@ import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
 
+import 's16_edit_profile_screen.dart';
+
 class StartingScreen extends StatelessWidget {
 // ----------------------------------------------------------------------------
 /// should fetch user current location automatically and suggest them here
   final Zone currentZone = Zone(countryID: '', provinceID: '', areaID: '');
 // ----------------------------------------------------------------------------
   void _tapGoogleContinue(BuildContext context) {
-      signInWithGoogle(context, currentZone).then((result) {
-        if (result != null) {return goToRoute(context, Routez.FillProfile);}
-      });
+      // signInWithGoogle(context, currentZone).then((result) {
+      //   if (result != null) {return goToNewScreen(context, EditProfileScreen(firstTimer: true, user: xxxxxxxxxxxxxxxxxxxxxx,));}
+      // });
   }
 // ----------------------------------------------------------------------------
   void _tapFacebookContinue(BuildContext context){
-      signUpWithFacebook(context, currentZone).then((result) {
-        if (result != null) {return goToRoute(context, Routez.FillProfile);}
-      });
+      // signUpWithFacebook(context, currentZone).then((result) {
+      //   if (result != null) {return goToNewScreen(context, EditProfileScreen(firstTimer: true, user: xxxxxxxxxxxxxxxxxxxxxx,));}
+      // });
     }
 // ----------------------------------------------------------------------------
   @override

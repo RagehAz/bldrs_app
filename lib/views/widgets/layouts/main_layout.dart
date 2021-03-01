@@ -86,6 +86,7 @@ class MainLayout extends StatelessWidget {
           appBarRowWidgets: appBarRowWidgets,
           pageTitle: pageTitle,
           backButton: appBarBackButton,
+          loading: loading,
         ),
 
       if (pyramids != null)

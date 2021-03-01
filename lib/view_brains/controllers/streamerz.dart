@@ -26,12 +26,21 @@ typedef userModelWidgetBuilder = Widget Function(
     UserModel userModel,
     );
 // ----------------------------------------------------------------------------
+/// IMPLEMENTATION
+/// userStreamBuilder(
+///         context: context,
+///         listen: false,
+///         builder: (context, UserModel userModel){
+///           return WidgetThatUsesTheAboveUserModel;
+///         }
+///      ),
 Widget userStreamBuilder({
   BuildContext context,
   userModelWidgetBuilder builder,
+  bool listen,
 }){
 
-  final _user = Provider.of<UserModel>(context);
+  final _user = Provider.of<UserModel>(context, listen: listen);
 
   return
 
@@ -39,7 +48,7 @@ Widget userStreamBuilder({
       stream: UserProvider(userID: _user?.userID)?.userData,
       builder: (context, snapshot){
         if(connectionHasNoData(snapshot) || connectionIsWaiting(snapshot)){
-          return LoadingFullScreenLayer();
+          return Loading();
         } else {
           UserModel userModel = snapshot.data;
           return

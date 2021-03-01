@@ -9,7 +9,7 @@ import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/widgets/appbar/ab_localizer.dart';
 import 'package:bldrs/views/widgets/buttons/bt_list.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
-import 'package:bldrs/views/widgets/layouts/bottom_sheet.dart';
+import 'package:bldrs/views/widgets/dialogs/bottom_sheet.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

@@ -197,33 +197,81 @@ class _SignInState extends State<SignIn> {
                 boxMargins: EdgeInsets.all(20),
                 boxFunction: () async {
                   minimizeKeyboardOnTapOutSide(context);
-                  try{
 
-                    if(_formKey.currentState.validate()){
-                      _triggerLoading();
-                      dynamic result = await _auth.signInWithEmailAndPassword(_emailController.text, _passWordController.text);
-                      print('signing result is : $result');
+                  _triggerLoading();
 
-                      if ('$result' == '[firebase_auth/wrong-password] The password is invalid or the user does not have a password.')
-                      {setState(() {error = Wordz.wrongPassword(context);}); _triggerLoading();}
-                      else if ('$result' == '[firebase_auth/user-not-found] There is no user record corresponding to this identifier. The user may have been deleted.')
-                      {setState(() {error = Wordz.emailNotFound(context);}); _triggerLoading();}
-                      else if('$result' == '[firebase_auth/invalid-email] The email address is badly formatted.')
-                      {setState(() {error = Wordz.emailWrong(context);}); _triggerLoading();}
-                      else if(result == null){setState(() {error = Wordz.signInFailure(context);}); _triggerLoading();}
-                      else if(result.runtimeType == UserModel)
-                      {
-                        setState(() {error = ''; _triggerLoading();});
-                        goToRoute(context, Routez.Home);
+                  await tryAndCatch(
+                    context: context,
+                    functions: () async {
+                      if(_formKey.currentState.validate()){
+                        _triggerLoading();
+                        // ---------------------
+                        dynamic result = await _auth.signInWithEmailAndPassword(_emailController.text, _passWordController.text);
+                        // ---------------------
+                        if ('$result' == '[firebase_auth/wrong-password] The password is invalid or the user does not have a password.') {
+                          setState(() {error = Wordz.wrongPassword(context);});
+                          superDialog(context, error, 'Ops!');
+                          _triggerLoading();
+                        }
+                        // ---------------------
+                        else if ('$result' == '[firebase_auth/user-not-found] There is no user record corresponding to this identifier. The user may have been deleted.') {
+                          setState(() {error = Wordz.emailNotFound(context);});
+                          superDialog(context, error, 'Ops!');
+                          _triggerLoading();
+                        }
+                        // ---------------------
+                        else if('$result' == '[firebase_auth/invalid-email] The email address is badly formatted.') {
+                          setState(() {error = Wordz.emailWrong(context);});
+                          superDialog(context, error, 'Ops!');
+                          _triggerLoading();
+                        }
+                        // ---------------------
+                        else if(result == null){
+                          setState(() {error = Wordz.signInFailure(context);});
+                          superDialog(context, error, 'Ops!');
+                          _triggerLoading();
+                        }
+                        // ---------------------
+                        else if(result.runtimeType == UserModel) {
+                          setState(() {error = '';});
+                          _triggerLoading();
+                          goToRoute(context, Routez.Home);
+                        }
+                        // ---------------------
                       }
                     }
+                  );
 
+                  // _triggerLoading();
 
-                  }catch(error){
+                  // try{
+                  //
+                  //   if(_formKey.currentState.validate()){
+                  //     _triggerLoading();
+                  //     dynamic result = await _auth.signInWithEmailAndPassword(_emailController.text, _passWordController.text);
+                  //     print('signing result is : $result');
+                  //
+                  //     if ('$result' == '[firebase_auth/wrong-password] The password is invalid or the user does not have a password.')
+                  //     {setState(() {error = Wordz.wrongPassword(context);}); _triggerLoading();}
+                  //     else if ('$result' == '[firebase_auth/user-not-found] There is no user record corresponding to this identifier. The user may have been deleted.')
+                  //     {setState(() {error = Wordz.emailNotFound(context);}); _triggerLoading();}
+                  //     else if('$result' == '[firebase_auth/invalid-email] The email address is badly formatted.')
+                  //     {setState(() {error = Wordz.emailWrong(context);}); _triggerLoading();}
+                  //     else if(result == null){setState(() {error = Wordz.signInFailure(context);}); _triggerLoading();}
+                  //     else if(result.runtimeType == UserModel)
+                  //     {
+                  //       setState(() {error = ''; _triggerLoading();});
+                  //       goToRoute(context, Routez.Home);
+                  //     }
+                  //   }
+                  //
+                  //
+                  // }catch(error){
+                  //
+                  //   superDialog(context, error, 'Can\'t sign in');
+                  //
+                  // }
 
-                    superDialog(context, error, 'Can\'t sign in');
-
-                  }
                 },
               ),
 

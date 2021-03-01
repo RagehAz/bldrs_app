@@ -6,10 +6,12 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 class Loading extends StatelessWidget {
   final double size;
   final Function onTap;
+  final bool loading;
 
   Loading({
     this.size = 50,
     this.onTap,
+    this.loading,
 });
 
   @override
@@ -21,11 +23,14 @@ class Loading extends StatelessWidget {
         height: size,
         color: Colorz.Nothing,
         child: Center(
-          child: SpinKitPulse(
+          child:
+          loading == true ?
+          SpinKitPulse(
             color: Colorz.Yellow,
             size: size,
 
-          ),
+          ) : Container()
+          ,
         ),
       ),
     );
