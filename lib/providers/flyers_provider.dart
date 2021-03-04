@@ -844,3 +844,8 @@ BzModel createTempBzModelFromUserData(UserModel userModel){
   );
 }
 // === === === === === === === === === === === === === === === === === === ===
+BzModel getBzFromBzzByBzID(List<BzModel> bzz, String bzID){
+  BzModel _bz = bzz.singleWhere((_b) => _b.bzID == bzID, orElse: ()=> null);
+  return _bz;
+}
+// === === === === === === === === === === === === === === === === === === ===
