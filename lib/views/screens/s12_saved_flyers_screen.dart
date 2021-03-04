@@ -10,9 +10,26 @@ class SavedFlyersScreen extends StatelessWidget {
     double screenWidth = superScreenWidth(context);
 
     return MainLayout(
-      layoutWidget: FlyersGrid(
-        gridZoneWidth: screenWidth,
-        numberOfColumns: 3,
+      appBarType: AppBarType.Basic,
+      appBarBackButton: true,
+      sky: Sky.Black,
+      layoutWidget: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+
+            Stratosphere(),
+
+            FlyersGrid(
+              gridZoneWidth: screenWidth,
+              numberOfColumns: 3,
+            ),
+
+            PyramidsHorizon(heightFactor: 5,),
+
+          ],
+        ),
       ),
     );
   }

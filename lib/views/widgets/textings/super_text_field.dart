@@ -98,7 +98,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
     setState(() {
       _textDirection = superTextDirectionSwitcher(val);
     });
-    print('${val}, $_textDirection');
+    print('$val, $_textDirection');
   }
 // ---------------------------------------------------------------------------
   @override

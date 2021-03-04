@@ -10,7 +10,7 @@ class UserProvider{
   UserProvider({this.userID});
 // ---------------------------------------------------------------------------
   /// users collection reference
-  final CollectionReference usersCollection = FirebaseFirestore.instance.collection('users');
+  final CollectionReference usersCollection = FirebaseFirestore.instance.collection(FireStoreCollection.users);
 // ---------------------------------------------------------------------------
   /// create user document
   Future<void> updateFirestoreUserDocument(UserModel userModel) async {
@@ -49,9 +49,6 @@ class UserProvider{
 // ---------------------------------------------------------------------------
   /// UserModel from Snapshot
   UserModel _userModelFromSnapshot(DocumentSnapshot doc){
-
-    // List<ContactModel> bolbol = decipherContactsMaps(doc.data()['contacts'] ?? []);
-    // print('kos om ommak = ${bolbol[2].contact}');
 
     try{
       var _doc = doc.data();

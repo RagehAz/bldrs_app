@@ -43,7 +43,7 @@ TextDirection superTextDirectionSwitcherByController(TextEditingController contr
 
     String _firstCharacter = firstCharacterOfAString(_trimmedVal);
 
-    String _val = _trimmedVal; // first character defines the direction
+    // String _val = _trimmedVal; // first character defines the direction
 
     // print('_firstCharacter is ($_firstCharacter)');
 
@@ -73,7 +73,7 @@ TextDirection superTextDirectionSwitcher(String val){
 
     String _firstCharacter = firstCharacterOfAString(_trimmedVal);
 
-    String _val = _trimmedVal; // first character defines the direction
+    // String _val = _trimmedVal; // first character defines the direction
 
     // print('_firstCharacter is ($_firstCharacter)');
 
