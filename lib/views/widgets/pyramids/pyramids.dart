@@ -1,9 +1,6 @@
 import 'package:bldrs/models/user_model.dart';
-import 'package:bldrs/providers/users_provider.dart';
 import 'package:bldrs/view_brains/router/route_names.dart';
-import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
-import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:websafe_svg/websafe_svg.dart';
@@ -71,29 +68,31 @@ int _fadeCycleDuration = 750;
           onLongPress: () {
             Navigator.pushNamed(context, Routez.Obelisk);
           },
-          onTap: widget.pyramidsIcon == Iconz.PyramidsYellow ? () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return
 
-                      StreamBuilder<UserModel>(
-                        stream: UserProvider(userID: _user.userID).userData,
-                        builder: (context, snapshot){
-                          if(snapshot.hasData == false){
-                            return LoadingFullScreenLayer();
-                          } else {
-                            UserModel userModel = snapshot.data;
-                            return
-                                Container();
-                              // InPyramidsScreen(userModel: userModel);
-                          } // bent el kalb dih when u comment off the Loading indicator widget part with its condition
-                        },
-                      );
+          // onTap: widget.pyramidsIcon == Iconz.PyramidsYellow ? () {
+          //         Navigator.push(context, MaterialPageRoute(builder: (context) {
+          //           return
+          //
+          //             StreamBuilder<UserModel>(
+          //               stream: UserProvider(userID: _user.userID).userData,
+          //               builder: (context, snapshot){
+          //                 if(snapshot.hasData == false){
+          //                   return LoadingFullScreenLayer();
+          //                 } else {
+          //                   UserModel userModel = snapshot.data;
+          //                   return
+          //                       Container();
+          //                     // InPyramidsScreen(userModel: userModel);
+          //                 }
+          //               },
+          //             );
+          //
+          //         }));
+          //       }
+          //     : widget.pyramidsIcon == Iconz.PyramidsWhite ?
+          //     () { Navigator.pop(context); }
+          //         : () {},
 
-                  }));
-                }
-              : widget.pyramidsIcon == Iconz.PyramidsWhite ?
-              () { Navigator.pop(context); }
-                  : () {},
           child: FadeTransition(
             opacity: _controller,
             child: WebsafeSvg.asset(widget.pyramidsIcon),

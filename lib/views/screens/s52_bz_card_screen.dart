@@ -21,21 +21,15 @@ class BzCardScreen extends StatefulWidget {
 class _BzCardScreenState extends State<BzCardScreen> {
   bool _bzPageIsOn = false;
 
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   super.initState();
-  // }
-
   void _triggerMaxHeader(){
     setState(() {
       _bzPageIsOn = !_bzPageIsOn;
     });
   }
 
-  void _tappingFollow(){
-    print('follow is tapped');
-  }
+  // void _tappingFollow(){
+  //   print('follow is tapped');
+  // }
 
   @override
   Widget build(BuildContext context) {

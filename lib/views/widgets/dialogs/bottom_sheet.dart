@@ -11,8 +11,9 @@ void slideBottomSheet({BuildContext context, double height, bool draggable, Widg
     shape: RoundedRectangleBorder(borderRadius: superBorderRadius(context, Ratioz.ddBottomSheetCorner, 0, 0, Ratioz.ddBottomSheetCorner)),
     backgroundColor: Colorz.Nothing,
     barrierColor: Colorz.BlackAir,
-    enableDrag: true,
+    enableDrag: draggable,
     elevation: 20,
+    isScrollControlled: true,
     context: context,
     builder: (bCtx){
       return BldrsBottomSheet(

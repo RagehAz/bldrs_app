@@ -2,8 +2,6 @@ import 'package:bldrs/views/screens/s00_user_checker_widget.dart';
 import 'package:bldrs/views/screens/s12_saved_flyers_screen.dart';
 import 'package:bldrs/views/screens/s13_news_screen.dart';
 import 'package:bldrs/views/screens/s15_profile_screen.dart';
-import 'package:bldrs/views/screens/s41_my_bz_screen.dart';
-import 'package:bldrs/views/screens/s42_edit_bz_screen.dart';
 import 'package:bldrs/views/screens/s51_flyer_screen.dart';
 import 'package:bldrs/views/screens/s50_flyer_editor_screen.dart';
 import 'package:bldrs/views/screens/s00_splash_screen.dart';
@@ -65,13 +63,13 @@ class Routerer {
 //       case Routez.BzEditor:
 //         return MaterialPageRoute(builder: (_) => BzEditorScreen());
 // ---------------------------------------------------------------------------
-    /// s41
-      case Routez.MyBz:
-        return MaterialPageRoute(builder: (_) => MyBzScreen());
+//     /// s41
+//       case Routez.MyBz:
+//         return MaterialPageRoute(builder: (_) => MyBzScreen());
 // ---------------------------------------------------------------------------
-    /// s42
-      case Routez.EditBz:
-        return MaterialPageRoute(builder: (_) => EditBzScreen());
+//     /// s42
+//       case Routez.EditBz:
+//         return MaterialPageRoute(builder: (_) => EditBzScreen());
 // ---------------------------------------------------------------------------
     /// s50
       case Routez.FlyerEditor:

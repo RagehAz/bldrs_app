@@ -2,7 +2,6 @@ import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/view_brains/controllers/streamerz.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
-import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/widgets/bubbles/contacts_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/following_bzz_bubble.dart';
@@ -13,7 +12,6 @@ import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import 's13_news_screen.dart';
 import 's16_user_editor_screen.dart';
@@ -61,11 +59,12 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   @override
   Widget build(BuildContext context) {
 
-    final _user = Provider.of<UserModel>(context);
+    // final _user = Provider.of<UserModel>(context);
 
     return MainLayout(
-      tappingRageh: () => goToNewScreen(context, NewsScreen()),
-
+      appBarType: AppBarType.Basic,
+      sky: Sky.Black,
+      appBarBackButton: true,
       layoutWidget: userStreamBuilder(
         context: context,
         listen: true,
@@ -75,9 +74,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
 
               children: <Widget>[
 
-                SizedBox(
-                  height: Ratioz.ddAppBarMargin,
-                ),
+
+                Stratosphere(),
 
                 UserBubble(
                   user: userModel,

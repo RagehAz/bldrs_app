@@ -49,7 +49,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   String _currentCountryID;
   String _currentProvinceID;
   String _currentAreaID;
-  String _currentLanguageCode;
+  // String _currentLanguageCode;
   GeoPoint _currentPosition;
   // --------------------
  TextEditingController _phoneController = TextEditingController();
@@ -142,9 +142,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     setState(() {_currentAreaID = areaID;});
   }
   // ---------------------------------------------------------------------------
-  void _changeLanguage(String languageCode){
-    setState(() => _currentLanguageCode = languageCode );
-  }
+  // void _changeLanguage(String languageCode){
+  //   setState(() => _currentLanguageCode = languageCode );
+  // }
   // ---------------------------------------------------------------------------
   void _changePosition(GeoPoint geoPoint){
     setState(() => _currentPosition = geoPoint );
