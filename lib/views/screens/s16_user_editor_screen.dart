@@ -380,6 +380,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
     return MainLayout(
       pyramids: Iconz.PyramidzYellow,
+      sky: Sky.Black,
+      appBarBackButton: true,
       loading: _loading,
       appBarType: AppBarType.Basic,
       tappingRageh: _triggerLoading,
