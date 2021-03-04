@@ -65,9 +65,6 @@ class _TextFieldTestState extends State<TextFieldTest> {
   @override
   Widget build(BuildContext context) {
 
-
-
-
     String _verse = firstCharacterAfterRemovingSpacesFromAString(x);
     print('_verse is ($_verse)');
 

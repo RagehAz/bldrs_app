@@ -57,7 +57,7 @@ bool textStartsInArabic (String val){
   String _reg = r"^[؀-ۿ]+$" ;
 
   RegExp exp = RegExp(_reg, unicode: false, multiLine: true);
-  bool isArabic;
+  // bool isArabic;
 
   String _firstCharacter = firstCharacterAfterRemovingSpacesFromAString(val);
 
@@ -68,7 +68,7 @@ bool textStartsInArabic (String val){
 }
 // === === === === === === === === === === === === === === === === === === ===
 bool textStartsInEnglish (String val){
-  bool isEnglish;
+  // bool isEnglish;
   String _reg = r"[a-zA-Z]";
   RegExp exp = RegExp(_reg, unicode: false, multiLine: true);
   String _firstCharacter = firstCharacterAfterRemovingSpacesFromAString(val);

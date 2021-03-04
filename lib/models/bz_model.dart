@@ -50,7 +50,7 @@ class BzModel with ChangeNotifier{
   int bzTotalCalls;
   int bzTotalConnects;
   // -------------------------
-  List<String> jointsBzzIDs;
+  List<dynamic> jointsBzzIDs;
   // -------------------------
   bool followIsOn;
 // ###############################
@@ -270,5 +270,65 @@ int cipherBzAccountType (BzAccountType bzAccountType){
     case BzAccountType.Super        :    return  3;  break;
     default : return null;
   }
+}
+// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+BzModel decipherBzMap(String bzID, dynamic map){
+  return BzModel(
+    bzID : bzID,
+    // -------------------------
+    bzType : decipherBzType(map['bzType']),
+    bzForm : decipherBzForm(map['bzForm']),
+    bldrBirth : decipherDateTimeString(map['bldrBirth']),
+    accountType : decipherBzAccountType(map['accountType']),
+    bzURL : map['bzURL'],
+    // -------------------------
+    bzName : map['bzName'],
+    bzLogo : map['bzLogo'],
+    bzScope : map['bzScope'],
+    bzCountry : map['bzCountry'],
+    bzProvince : map['bzProvince'],
+    bzArea : map['bzArea'],
+    bzAbout : map['bzAbout'],
+    bzPosition : map['bzPosition'],
+    bzContacts : decipherContactsMaps(map['bzContacts']),
+    bzAuthors : decipherBzAuthorsMaps(map['bzAuthors']),
+    bzShowsTeam : map['bzShowsTeam'],
+    // -------------------------
+    bzIsVerified : map['bzIsVerified'],
+    bzAccountIsDeactivated : map['bzAccountIsDeactivated'],
+    bzAccountIsBanned : map['bzAccountIsBanned'],
+    // -------------------------
+    bzTotalFollowers : map['bzTotalFollowers'],
+    bzTotalSaves : map['bzTotalSaves'],
+    bzTotalShares : map['bzTotalShares'],
+    bzTotalSlides : map['bzTotalSlides'],
+    bzTotalViews : map['bzTotalViews'],
+    bzTotalCalls : map['bzTotalCalls'],
+    bzTotalConnects : map['bzTotalConnects'],
+    // -------------------------
+    jointsBzzIDs : map['jointsBzzIDs'],
+    // -------------------------
+    followIsOn : map['followIsOn'],
+  );
+}
+// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+List<BzModel> decipherBzMapsFromRealTimeDatabase(Map<String, dynamic> bigMap){
+  List<BzModel> _bzList = new List();
+
+  bigMap?.forEach((bzID, bzMap) {
+    _bzList.add(decipherBzMap(bzID, bzMap));
+  });
+
+  return _bzList;
+}
+// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+List<BzModel> decipherBzMapsFromFireStore(List<dynamic> maps) {
+  List<BzModel> _bzList = new List();
+
+  maps?.forEach((map) {
+    _bzList.add(decipherBzMap(map['bzID'], map));
+  });
+
+  return _bzList;
 }
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x

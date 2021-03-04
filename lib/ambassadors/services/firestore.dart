@@ -60,4 +60,22 @@ Stream<DocumentSnapshot> getFirestoreDocumentSnapshots(String collectionName, St
   return _snapshots;
 }
 // ---------------------------------------------------------------------------
+Future<dynamic> getFireStoreDocumentMap(String collectionName, String documentName) async {
 
+  final DocumentReference document = getFirestoreDocumentReference(collectionName, documentName);
+
+  Map<String, dynamic> _map; //QueryDocumentSnapshot
+
+  await document.get().then<dynamic>((DocumentSnapshot snapshot) async{
+    _map = snapshot.data();
+  });
+
+  return _map;
+}
+// ---------------------------------------------------------------------------
+Future<List<QueryDocumentSnapshot>> getFireStoreCollectionMaps(String collectionName) async {
+  QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection(FireStoreCollection.bzz).get();
+  List<QueryDocumentSnapshot> _maps = querySnapshot.docs;
+  return _maps;
+}
+// ---------------------------------------------------------------------------

@@ -39,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
     if (_isInit) {
       _triggerLoading();
       Provider.of<FlyersProvider>(context, listen: true)
-          .fetchAndSetBzz()
+          .fetchAndSetBzz(context)
           .then((_) {
         _triggerLoading();
       });

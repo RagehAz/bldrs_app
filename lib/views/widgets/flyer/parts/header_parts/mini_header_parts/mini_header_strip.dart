@@ -1,3 +1,4 @@
+import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/view_brains/drafters/borderers.dart';
 import 'package:bldrs/view_brains/drafters/colorizers.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
@@ -12,11 +13,7 @@ import 'header_labels.dart';
 class MiniHeaderStrip extends StatelessWidget {
   final double flyerZoneWidth;
   final bool bzPageIsOn;
-  final dynamic bzLogo; // -- was String
-  final String bzName;
-  final String bzCountry;
-  final String bzProvince;
-  final String bzArea;
+  final BzModel bz;
   final dynamic aPic;
   final String aName;
   final String aTitle;
@@ -27,17 +24,12 @@ class MiniHeaderStrip extends StatelessWidget {
   final Function tappingHeader;
   final Function tappingFollow;
   final bool flyerShowsAuthor;
-  final int bzConnects;
   final String authorID;
 
   MiniHeaderStrip({
     @required this.flyerZoneWidth,
     @required this.bzPageIsOn,
-    @required this.bzLogo,
-    @required this.bzName,
-    @required this.bzCountry,
-    @required this.bzProvince,
-    @required this.bzArea,
+    @required this.bz,
     @required this.aPic,
     @required this.aName,
     @required this.aTitle,
@@ -48,7 +40,6 @@ class MiniHeaderStrip extends StatelessWidget {
     @required this.tappingHeader,
     @required this.tappingFollow,
     @required this.flyerShowsAuthor,
-    @required this.bzConnects,
     @required this.authorID,
   });
 
@@ -76,13 +67,16 @@ class MiniHeaderStrip extends StatelessWidget {
               // --- BzLogo
               Expanded(
                 flex: bzPageIsOn ? 1 : 26,
-                child: BzLogo(
-                    width: superLogoWidth(bzPageIsOn, flyerZoneWidth),
-                    image: bzLogo,
-                    miniMode: superFlyerMiniMode(context, flyerZoneWidth),
-                    corners: superLogoCorner(context, flyerZoneWidth),
-                    bzPageIsOn: bzPageIsOn,
-                    zeroCornerIsOn: flyerShowsAuthor,
+                child: GestureDetector(
+                  onLongPress: (){print('bzID is : (${bz.bzID})');},
+                  child: BzLogo(
+                      width: superLogoWidth(bzPageIsOn, flyerZoneWidth),
+                      image: bz.bzLogo,
+                      miniMode: superFlyerMiniMode(context, flyerZoneWidth),
+                      corners: superLogoCorner(context, flyerZoneWidth),
+                      bzPageIsOn: bzPageIsOn,
+                      zeroCornerIsOn: flyerShowsAuthor,
+                  ),
                 ),
               ),
 
@@ -93,16 +87,16 @@ class MiniHeaderStrip extends StatelessWidget {
                   flyerZoneWidth: flyerZoneWidth,
                   bzPageIsOn: bzPageIsOn,
                   flyerShowsAuthor: flyerShowsAuthor,
-                  bzName: bzName,
-                  bzCountry: bzCountry,
-                  bzProvince: bzProvince,
-                  bzArea: bzArea,
+                  bzName: bz.bzName,
+                  bzCountry: bz.bzCountry,
+                  bzProvince: bz.bzProvince,
+                  bzArea: bz.bzArea,
                   aPic: aPic,
                   aName: aName,
                   aTitle: aTitle,
                   followersCount: followersCount,
                   bzGalleryCount: bzGalleryCount,
-                  bzConnects: bzConnects,
+                  bzConnects: bz.bzTotalConnects,
                   authorID: authorID,
                 ),
               ),

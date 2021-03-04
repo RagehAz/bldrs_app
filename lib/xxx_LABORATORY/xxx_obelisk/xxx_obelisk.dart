@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'package:bldrs/dashboard/s01_dashboard.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
-import 'package:bldrs/view_brains/router/route_names.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
+import 'package:bldrs/views/screens/s50_flyer_editor_screen.dart';
 import 'package:bldrs/views/widgets/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/views/widgets/buttons/bt_main.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
@@ -19,6 +19,7 @@ import 'package:bldrs/xxx_LABORATORY/camera_and_location/x12_image_picker.dart';
 import 'package:bldrs/xxx_LABORATORY/forms_and_inputs/popup.dart';
 import 'package:bldrs/xxx_LABORATORY/forms_and_inputs/form.dart';
 import 'package:bldrs/xxx_LABORATORY/ideas/circle_list.dart';
+import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/firebase_reader.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/text_field_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x03_font_test_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x08_earth_screen.dart';
@@ -86,6 +87,19 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
     super.dispose();
   }
 // ---------------------------------------------------------------------------
+  Widget oButton (String title, String icon, Widget screen){
+    return
+      BTMain(
+        buttonVerse: title,
+        buttonColor: Colorz.BlackPlastic,
+        buttonIcon: icon,
+        buttonVerseShadow: true,
+        splashColor: Colorz.Yellow,
+        function: () => goToNewScreen(context, screen),
+        stretched: false,
+      );
+  }
+// ---------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -109,432 +123,73 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
 
           LogoSlogan(),
 
-          // --- 0 - DASHBOARD
-          BTMain(
-            buttonVerse: 'Text field test',
-            buttonColor: Colorz.BlackPlastic,
-            buttonIcon: Iconz.Language,
-            buttonVerseShadow: true,
-            splashColor: Colorz.Yellow,
-            function: () => goToNewScreen(context, TextFieldTest()),
-            stretched: false,
-          ),
+          oButton('FireBase Reader', Iconz.Statistics, FireBaseReader()),
 
-          // --- 0 - DASHBOARD
-          BTMain(
-            buttonVerse: 'DASH BOARD',
-            buttonColor: Colorz.BlackPlastic,
-            buttonIcon: Iconz.DashBoard,
-            buttonVerseShadow: true,
-            splashColor: Colorz.Yellow,
-            function: () => goToNewScreen(context, DashBoard()),
-            stretched: false,
-          ),
+          oButton('Dash Board', Iconz.DashBoard, DashBoard()),
 
-          // --- 1 - ADD FLYER
-          BTMain(
-            buttonVerse: '1 - Add new flyer',
-            buttonColor: Colorz.BlackPlastic,
-            buttonIcon: Iconz.AddFlyer,
-            buttonVerseShadow: true,
-            splashColor: Colorz.Yellow,
-            function: () => goToRoute(context, Routez.FlyerEditor),
-            stretched: false,
-          ),
+          oButton('Text field test', Iconz.Language, TextFieldTest()),
 
-          // --- 2 - BISO ASK SCREEN
-          BTMain(
-            buttonVerse: "2 - Biso Ask Screen",
-            buttonColor: Colorz.BlackPlastic,
-            buttonIcon: Iconz.UTPlanning,
-            buttonVerseShadow: true,
-            splashColor: Colorz.Yellow,
-            function: () => goToNewScreen(context, AskScreen()),
-            stretched: false,
-          ),
+          oButton('1 - Add new flyer', Iconz.AddFlyer, FlyerEditorScreen()),
 
-          // BTMain(
-          //   buttonVerse: 'MultiGalleryPicker',
-          //   buttonColor: Colorz.BlackPlastic,
-          //   buttonIcon: Iconz.DvGouran,
-          //   buttonVerseShadow: true,
-          //   splashColor: Colorz.Yellow,
-          //   function: () => goToNewScreen(context, MultiGalleryPicker()),
-          //   stretched: false,
-          // ),
+          oButton('2 - Biso Ask Screen', Iconz.UTPlanning, AskScreen()),
 
-          // --- 3 - PRINT TEST
-          BTMain(
-            function: () {
-              print('3 - Testing print');
-            },
-            buttonIcon: '',
-            splashColor: Colorz.White,
-            buttonColor: Colorz.BloodRed,
-            buttonVerseShadow: true,
-            stretched: true,
-            buttonVerse: 'print test',
-          ),
+          // oButton('MultiGalleryPicker', Iconz.DvGouran, MultiGalleryPicker()),
 
-          // --- 4 - DATA BASE GETTERS -------------------------------
-          BTMain(
-            buttonVerse: '4 - Database Getters Tests',
-            buttonIcon: Iconz.DvGouran,
-            buttonColor: Colorz.SkyDarkBlue,
-            splashColor: Colorz.White,
-            buttonVerseShadow: true,
-            function:
-            (){},
-                // () => goToNewScreen(
-                //     context, TesterScreen(testList: TestSubjects.dbGetters)),
-            stretched: false,
-          ),
+          oButton('2 - Biso Ask Screen', Iconz.UTPlanning, AskScreen()),
 
-          // --- 5 - PROVIDERS HATTERS -------------------------------
-          BTMain(
-            buttonVerse: '5 - provider Hatters Tests',
-            buttonIcon: Iconz.DvGouran,
-            buttonColor: Colorz.SkyDarkBlue,
-            splashColor: Colorz.White,
-            buttonVerseShadow: true,
-            function:
-                (){},
-                // () => goToNewScreen(context,
-                //     TesterScreen(testList: TestSubjects.proHatters(context))),
-            stretched: false,
-          ),
+          // oButton('7 - Flyer Screen', Iconz.Flyer, FlyerScreen()), // () => openFlyer(context, 'f034')
 
-          // --- 6 - DATABASE VIEWER -------------------------------
-          BTMain(
-            buttonVerse: '6 - Database viewer',
-            buttonIcon: Iconz.DvGouran,
-            buttonColor: Colorz.SkyDarkBlue,
-            splashColor: Colorz.White,
-            buttonVerseShadow: true,
-            function:
-            (){},
-                // () => goToNewScreen(context, DatabaseViewerScreen()),
-            stretched: false,
-          ),
+          oButton('8 - Flyer Sizes tests', Iconz.FlyerScale, FlyersSizesScreen()),
 
-          // --- 6 - CipherTest -------------------------------
-          BTMain(
-            buttonVerse: '6 - CipherTest',
-            buttonIcon: Iconz.DvGouran,
-            buttonColor: Colorz.SkyDarkBlue,
-            splashColor: Colorz.White,
-            buttonVerseShadow: true,
-            function:
-            (){},
-                // () => goToNewScreen(context, CipherTest()),
-            stretched: false,
-          ),
+          oButton('9 - Single Collection Screen', Iconz.FlyerScale, SingleCollectionScreen()),
 
-          // --- 7 - FLYERS SCREEN -------------------------------
-          BTMain(
-            buttonVerse: '7 - Flyer Screen',
-            buttonIcon: Iconz.Flyer,
-            buttonColor: Colorz.Green,
-            splashColor: Colorz.Yellow,
-            buttonVerseShadow: false,
-            function: () => openFlyer(context, 'f034'),
-            stretched: false,
-          ),
+          oButton('10 - Font lab', Iconz.Language, FontTestScreen()),
 
-          // --- 8 - FLYERS SIZES TEST -------------------------------
-          BTMain(
-            buttonVerse: '8 - Flyer Sizes tests',
-            buttonIcon: Iconz.FlyerScale,
-            buttonColor: Colorz.Green,
-            splashColor: Colorz.Yellow,
-            buttonVerseShadow: false,
-            function: () => goToNewScreen(context, FlyersSizesScreen()),
-            stretched: false,
-          ),
+          oButton('12 - Swiper Layout', Iconz.Gallery, SwiperLayout()),
 
-          // --- 9 - FLYERS COLLECTION -------------------------------
-          BTMain(
-            buttonVerse: '9 - Single Collection Screen',
-            buttonIcon: Iconz.FlyerCollection,
-            buttonColor: Colorz.Green,
-            splashColor: Colorz.White,
-            buttonVerseShadow: true,
-            function: () => goToNewScreen(context, SingleCollectionScreen()),
-            stretched: false,
-          ),
+          oButton('13 - FlyersPageView', Iconz.Statistics, FlyersPageView()),
 
-          // --- 10 - FONT CORRECTION -------------------------------
-          BTMain(
-            buttonVerse: '10 - Font lab',
-            buttonIcon: Iconz.Language,
-            buttonColor: Colorz.Green,
-            splashColor: Colorz.White,
-            buttonVerseShadow: true,
-            function: () => goToNewScreen(context, FontTestScreen()),
-            stretched: false,
-          ),
+          oButton('14 - FlyersGridView', Iconz.FlyerGrid, FlyersGridView()),
 
-          // --- 12 - SWIPER LAYOUT -------------------------------
-          BTMain(
-            buttonVerse: '12 - Swiper Layout',
-            buttonColor: Colorz.Green,
-            buttonIcon: Iconz.Gallery,
-            buttonVerseShadow: true,
-            splashColor: Colorz.Yellow,
-            function: () => goToNewScreen(context, SwiperLayout()),
-            stretched: false,
-          ),
+          oButton('15 - Translations', Iconz.Language, Translations()),
 
-          // --- 13 - PRO FLYERS PAGE VIEW -------------------------------
-          BTMain(
-            buttonVerse: '13 - FlyersPageView',
-            buttonIcon: Iconz.Statistics,
-            buttonColor: Colorz.Green,
-            splashColor: Colorz.White,
-            buttonVerseShadow: true,
-            function: () => goToNewScreen(context, FlyersPageView()),
-            stretched: false,
-          ),
+          oButton('15 - Translations', Iconz.Language, Translations()),
 
-          // --- 14 - PRO FLYERS GRID VIEW -------------------------------
-          BTMain(
-            buttonVerse: '14 - FlyersGridView',
-            buttonIcon: Iconz.FlyerGrid,
-            buttonColor: Colorz.Green,
-            splashColor: Colorz.White,
-            buttonVerseShadow: true,
-            function: () => goToNewScreen(context, FlyersGridView()),
-            stretched: false,
-          ),
+          // oButton('16 - ProBz', Iconz.Bz, ProBzScreen()),
 
-          // --- 15 - TRANSLATIONS -------------------------------
-          BTMain(
-            buttonVerse: '15 - Translations',
-            buttonIcon: Iconz.Language,
-            buttonColor: Colorz.BloodRed,
-            splashColor: Colorz.White,
-            buttonVerseShadow: true,
-            stretched: false,
-            function:
-                () => goToNewScreen(context, Translations()),
-          ),
+          oButton('17 - Camera by Max', Iconz.Camera, MaxCameraScreen()),  // (){widget.controller.animateToPage(0, duration: Duration(milliseconds: 500), curve: Curves.ease);},
 
-          // --- 16 - PROBZ Test -------------------------------
-          // BTMain(
-          //   buttonVerse: '16 - ProBz',
-          //   buttonIcon: Iconz.Bz,
-          //   buttonColor: Colorz.BloodRedPlastic,
-          //   splashColor: Colorz.White,
-          //   buttonVerseShadow: true,
-          //   function:
-          //   // Routez.ProviderTest,
-          //       () => goToNewScreen(context, ProBzScreen()),
-          //   stretched: false,
-          // ),
+          oButton('18 - Camera Package', Iconz.Camera, CameraPage()),
 
-          // --- 17 - CAMERA BY MAX -------------------------------
-          BTMain(
-            buttonVerse: '17 - Camera by Max',
-            buttonIcon: Iconz.Camera,
-            buttonColor: Colorz.Nothing,
-            splashColor: Colorz.White,
-            buttonVerseShadow: true,
-            function:
-                // Routez.ProviderTest,
-                () => goToNewScreen(context, MaxCameraScreen()),
-            // (){widget.controller.animateToPage(0, duration: Duration(milliseconds: 500), curve: Curves.ease);},
-            stretched: false,
-          ),
+          oButton('19 - MainLayout now not flutter Better Camera Package', Iconz.Camera, MainLayout()),
 
-          // --- 18 - CAMERA PACKAGE -------------------------------
-          BTMain(
-            buttonVerse: '18 - Camera Package',
-            buttonIcon: Iconz.Camera,
-            buttonColor: Colorz.Nothing,
-            splashColor: Colorz.White,
-            buttonVerseShadow: true,
-            function: () => goToNewScreen(context, CameraPage()),
-            // (){widget.controller.animateToPage(1, duration: Duration(milliseconds: 500), curve: Curves.ease);},
-            stretched: false,
-          ),
+          // oButton('21 - Soundz', Iconz.News, SoundzScreen()),
 
-          // --- 19 - CAMERA PACKAGE -------------------------------
-          BTMain(
-            buttonVerse: '19 - MainLayout now not flutter Better Camera Package',
-            buttonIcon: Iconz.Camera,
-            buttonColor: Colorz.Nothing,
-            splashColor: Colorz.White,
-            buttonVerseShadow: true,
-            function: () => goToNewScreen(context, MainLayout()),
-            // (){widget.controller.animateToPage(1, duration: Duration(milliseconds: 500), curve: Curves.ease);},
-            stretched: false,
-          ),
+          oButton('22 - PopUp', Iconz.News, PopUpTestScreen()),
 
-          // --- 21 - SOUNDZ -------------------------------
-          BTMain(
-            buttonVerse: '21 - Soundz',
-            buttonIcon: Iconz.News,
-            buttonColor: Colorz.Nothing,
-            splashColor: Colorz.White,
-            buttonVerseShadow: true,
-            function:
-            (){},
-                // Routez.ProviderTest,
-                // () => goToNewScreen(context, SoundzScreen()),
-            // (){widget.controller.animateToPage(1, duration: Duration(milliseconds: 500), curve: Curves.ease);},
-            stretched: false,
-          ),
+          oButton('23 - Form', Iconz.Terms, TestFormScreen()),
 
-          // --- 22 - POP UP -------------------------------
-          BTMain(
-            buttonVerse: '22 - PopUp',
-            buttonIcon: Iconz.News,
-            buttonColor: Colorz.GreyZircon,
-            splashColor: Colorz.White,
-            buttonVerseShadow: true,
-            function:
-                // Routez.ProviderTest,
-                () => goToNewScreen(context, PopUpTestScreen()),
-            stretched: false,
-          ),
+          oButton('25 - ShareAndAddImageTest', Iconz.Share, ShareAndAddImageTest()),
 
-          // --- 23 - FORM -------------------------------
-          BTMain(
-            buttonVerse: '23 - Form',
-            buttonIcon: Iconz.Terms,
-            buttonColor: Colorz.GreyZircon,
-            splashColor: Colorz.White,
-            buttonVerseShadow: true,
-            function:
-                // Routez.ProviderTest,
-                () => goToNewScreen(context, TestFormScreen()),
-            stretched: false,
-          ),
+          oButton('26 - City Dots', Iconz.Earth, EarthScreen()),
 
-          // --- 25 - CHAT SCREEN -------------------------------
-          BTMain(
-            buttonVerse: '25 - ShareAndAddImageTest',
-            buttonColor: Colorz.BabyBlueSmoke,
-            buttonIcon: Iconz.Share,
-            buttonVerseShadow: true,
-            splashColor: Colorz.Yellow,
-            function: () => goToNewScreen(context, ShareAndAddImageTest()),
-            stretched: false,
-          ),
+          oButton('27 - Google Maps - Custom non resizable fucking pin', Iconz.ComMap, GoogleMapScreen()),
 
-          // --- 26 - City Dots -------------------------------
-          BTMain(
-            buttonVerse: '26 - City Dots',
-            buttonColor: Colorz.BloodTest,
-            buttonIcon: Iconz.Earth,
-            buttonVerseShadow: true,
-            splashColor: Colorz.Yellow,
-            function: () => goToNewScreen(context, EarthScreen()),
-            stretched: false,
-          ),
+          // oButton('28 - Google Maps - Defined size Pin', Iconz.ComMap, GoogleMapScreen2()),
 
-          // --- 27 - GOOGLE MAP NON RESIZABLE PNG PIN -------------------------------
-          BTMain(
-            buttonVerse: '27 - Google Maps - Custom non resizable fucking pin',
-            buttonColor: Colorz.BloodTest,
-            buttonIcon: Iconz.ComMap,
-            buttonVerseShadow: true,
-            splashColor: Colorz.Yellow,
-            stretched: true,
-            function: () => goToNewScreen(context, GoogleMapScreen()),
-          ),
+          // oButton('29 - Google Maps - Image Pin', Iconz.ComMap, GoogleMapScreen3()),
 
-          // // --- 28 - GOOGLE MAP DEFINED SIZE PIN -------------------------------
-          // BTMain(
-          //   buttonVerse: '28 - Google Maps - Defined size Pin',
-          //   buttonColor: Colorz.BloodTest,
-          //   buttonIcon: Iconz.ComMap,
-          //   buttonVerseShadow: true,
-          //   splashColor: Colorz.Yellow,
-          //   stretched: true,
-          //   function: () => goToNewScreen(context, GoogleMapScreen2()),
-          // ),
+          // oButton('30 - Google Maps - text box canvas', Iconz.ComMap, GoogleMapScreen4()),
 
-          // // --- 29 - GOOGLE MAP IMAGE PIN -------------------------------
-          // BTMain(
-          //   buttonVerse: '29 - Google Maps - Image Pin',
-          //   buttonColor: Colorz.BloodTest,
-          //   buttonIcon: Iconz.ComMap,
-          //   buttonVerseShadow: true,
-          //   splashColor: Colorz.Yellow,
-          //   stretched: true,
-          //   function: () => goToNewScreen(context, GoogleMapScreen3()),
-          // ),
+          // oButton('31 - Google Maps - testSpace', Iconz.ComMap, GoogleMapScreen5()),
 
-          // // --- 30 - GOOGLE MAP CANVAS -------------------------------
-          // BTMain(
-          //   buttonVerse: '30 - Google Maps - text box canvas',
-          //   buttonColor: Colorz.BloodTest,
-          //   buttonIcon: Iconz.ComMap,
-          //   buttonVerseShadow: true,
-          //   splashColor: Colorz.Yellow,
-          //   stretched: true,
-          //   function: () => goToNewScreen(context, GoogleMapScreen4()),
-          // ),
+          oButton('34 - Old CheckBox thing', Iconz.Check, CheckBoxLessonScreen()),
 
-          // --- 31 - GOOGLE MAP -------------------------------
-          // BTMain(
-          //   buttonVerse: '31 - Google Maps - testSpace',
-          //   buttonColor: Colorz.BloodTest,
-          //   buttonIcon: Iconz.ComMap,
-          //   buttonVerseShadow: true,
-          //   splashColor: Colorz.Yellow,
-          //   stretched: true,
-          //   function: () => goToNewScreen(context, GoogleMapScreen5()),
-          // ),
+          oButton('36 - Animations Screen', Iconz.DvDonaldDuck, AnimationsScreen()),
 
-          // --- 34 -  OLD CHECKBOX THING -------------------------------
-          BTMain(
-            buttonVerse: '34 - Old CheckBox thing',
-            buttonColor: Colorz.BlackBlack,
-            buttonIcon: Iconz.Check,
-            buttonVerseShadow: true,
-            splashColor: Colorz.Yellow,
-            stretched: true,
-            function: () => goToNewScreen(context, CheckBoxLessonScreen()),
-          ),
+          oButton('36 - Circle list widget', Iconz.Clock, CircleListWidget()),
 
-          // --- 36 -  AnimationsScreen -------------------------------
-          BTMain(
-            buttonVerse: '36 - Animations Screen',
-            buttonColor: Colorz.Nothing,
-            buttonIcon: Iconz.DvDonaldDuck,
-            buttonVerseShadow: true,
-            splashColor: Colorz.Yellow,
-            stretched: true,
-            function: () => goToNewScreen(context, AnimationsScreen()),
-          ),
-
-          // --- 36 -  AnimationsScreen -------------------------------
-          BTMain(
-            buttonVerse: '36 - Circle list widget',
-            buttonColor: Colorz.Nothing,
-            buttonIcon: Iconz.Clock,
-            buttonVerseShadow: true,
-            splashColor: Colorz.Yellow,
-            stretched: true,
-            function: () => goToNewScreen(context, CircleListWidget()),
-          ),
-
-
-
-          // --- 36 -  AnimationsScreen -------------------------------
-          BTMain(
-            buttonVerse: '36 - SyncFusionMap',
-            buttonColor: Colorz.Nothing,
-            buttonIcon: Iconz.Earth,
-            buttonVerseShadow: true,
-            splashColor: Colorz.Yellow,
-            stretched: true,
-            function: () => goToNewScreen(context, CityPicker()),
-          ),
-
-
+          oButton('36 - SyncFusionMap', Iconz.Earth, CityPicker()),
 
           // --- DATE PICKER -------------------------------
           TextFormField(
@@ -584,17 +239,6 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
                     'git push -u origin master',
               ),
             ],
-          ),
-
-          BTMain(
-            buttonIcon: Iconz.DvGouran,
-            buttonVerse: 'inApp Dash Board',
-            stretched: true,
-            buttonVerseShadow: true,
-            buttonColor: Colorz.BlackBlack,
-            splashColor: Colorz.White,
-            function: Routez.RagehDashBoard,
-            iconSizeFactor: 1,
           ),
 
           // -- enter The black hole

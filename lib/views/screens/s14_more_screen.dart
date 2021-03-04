@@ -31,6 +31,9 @@ class MoreScreen extends StatelessWidget {
     Widget _separator = BubblesSeparator();
 
     return MainLayout(
+      appBarType: AppBarType.Basic,
+      appBarBackButton: true,
+      sky: Sky.Black,
       layoutWidget: ListView(
         children: <Widget>[
 

@@ -1,4 +1,7 @@
+import 'package:bldrs/ambassadors/services/firestore.dart';
+import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/user_model.dart';
+import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/providers/users_provider.dart';
 import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +28,7 @@ typedef userModelWidgetBuilder = Widget Function(
     BuildContext context,
     UserModel userModel,
     );
-// ----------------------------------------------------------------------------
+// ----------------------
 /// IMPLEMENTATION
 /// userStreamBuilder(
 ///         context: context,
@@ -59,3 +62,69 @@ Widget userStreamBuilder({
 
 }
 // ----------------------------------------------------------------------------
+typedef bzModelWidgetBuilder = Widget Function(
+    BuildContext context,
+    BzModel bzModel,
+    );
+// ----------------------
+/// IMPLEMENTATION
+/// bzModelBuilder(
+///         bzID: bzID,
+///         context: context,
+///         builder: (context, BzModel bzModel){
+///           return WidgetThatUsesTheAboveBzModel;
+///         }
+///      ) xxxxxxxxxxxxx ; or , xxxxxxxxxxxxx
+Widget bzModelBuilder({
+  String bzID,
+  BuildContext context,
+  bzModelWidgetBuilder builder,
+}){
+
+  return FutureBuilder(
+      future: getFireStoreDocumentMap(FireStoreCollection.bzz, bzID),
+      builder: (ctx, snapshot){
+
+        if (snapshot.connectionState == ConnectionState.waiting){
+          return Loading();
+        } else {
+          if (snapshot.error != null){
+            return Container(); // superDialog(context, snapshot.error, 'error');
+          } else {
+
+            Map<String, dynamic> _map = snapshot.data;
+            BzModel bzModel = decipherBzMap(_map['bzID'], _map);
+
+            return builder(context, bzModel);
+          }
+        }
+      }
+  );
+}
+// ----------------------------------------------------------------------------
+Widget bzModelStreamBuilder({
+  String bzID,
+  BuildContext context,
+  bzModelWidgetBuilder builder,
+}){
+
+  final _prof = Provider.of<FlyersProvider>(context, listen: true);
+
+  return
+
+    StreamBuilder<BzModel>(
+      stream: _prof.getBzStream(bzID),
+      builder: (context, snapshot){
+        if(connectionHasNoData(snapshot) || connectionIsWaiting(snapshot)){
+          return Loading();
+        } else {
+          BzModel bzModel = snapshot.data;
+          return
+            builder(context, bzModel);
+        }
+      },
+    );
+
+}
+// ----------------------------------------------------------------------------
+
