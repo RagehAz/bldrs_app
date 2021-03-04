@@ -96,9 +96,9 @@ class FlyersProvider with ChangeNotifier {
   }
 // ############################################################################
   List<FlyerModel> getFlyersByBzModel(BzModel bz){
-    List<String> bzFlyersIDs = new List();
+    List<dynamic> bzFlyersIDs = new List();
     bz?.bzAuthors?.forEach((au) {
-      List<String> _publishedFlyersIDs = new List();
+      List<dynamic> _publishedFlyersIDs = new List();
       if(au?.publishedFlyersIDs == null || _publishedFlyersIDs == [])
       {_publishedFlyersIDs = [];}
       else {_publishedFlyersIDs = au?.publishedFlyersIDs;}
@@ -466,7 +466,7 @@ Future<void> addBz(BuildContext context, BzModel bz, UserModel userModel) async 
 }
 // ---------------------------------------------------------------------------
   /// PATCH request to edit existing bz in firebase realtime database
-  Future<void> updateBz(BzModel bz) async {
+  Future<void> updateRealtimeDatabaseBz(BzModel bz) async {
     final bzIndex = _loadedBzz.indexWhere((bzModel) => bzModel.bzID == bz.bzID);
     if (bzIndex >= 0){
       final url = 'https://bldrsnet.firebaseio.com/bzz/${bz.bzID}.json';
@@ -568,57 +568,75 @@ Future<void> addBz(BuildContext context, BzModel bz, UserModel userModel) async 
  }
 // ---------------------------------------------------------------------------
   /// READs all Bzz in firebase realtime database
-Future<void> fetchAndSetBzz() async {
+Future<void> fetchAndSetBzz(BuildContext context) async {
   const url = realtimeDatabaseBzzPath;
-  try{
-    final response = await http.get(url);
-    final _extractedData = json.decode(response.body) as Map<String, dynamic>;
-    final List<BzModel> _loadedBzzFromDB = new List();
-    _extractedData?.forEach((bzID, bzMap) {
-      _loadedBzzFromDB.add(BzModel(
-        bzID : bzID,
-        // -------------------------
-        bzType : decipherBzType(bzMap['bzType']),
-        bzForm : decipherBzForm(bzMap['bzForm']),
-        bldrBirth : decipherDateTimeString(bzMap['bldrBirth']),
-        accountType : decipherBzAccountType(bzMap['accountType']),
-        bzURL : bzMap['bzURL'],
-        // -------------------------
-        bzName : bzMap['bzName'],
-        bzLogo : bzMap['bzLogo'],
-        bzScope : bzMap['bzScope'],
-        bzCountry : bzMap['bzCountry'],
-        bzProvince : bzMap['bzProvince'],
-        bzArea : bzMap['bzArea'],
-        bzAbout : bzMap['bzAbout'],
-        bzPosition : bzMap['bzPosition'],
-        bzContacts : decipherContactsMaps(bzMap['bzContacts']),
-        bzAuthors : decipherBzAuthorsMaps(bzMap['bzAuthors']),
-        bzShowsTeam : bzMap['bzShowsTeam'],
-        // -------------------------
-        bzIsVerified : bzMap['bzIsVerified'],
-        bzAccountIsDeactivated : bzMap['bzAccountIsDeactivated'],
-        bzAccountIsBanned : bzMap['bzAccountIsBanned'],
-        // -------------------------
-        bzTotalFollowers : bzMap['bzTotalFollowers'],
-        bzTotalSaves : bzMap['bzTotalSaves'],
-        bzTotalShares : bzMap['bzTotalShares'],
-        bzTotalSlides : bzMap['bzTotalSlides'],
-        bzTotalViews : bzMap['bzTotalViews'],
-        bzTotalCalls : bzMap['bzTotalCalls'],
-        bzTotalConnects : bzMap['bzTotalConnects'],
-        // -------------------------
-        jointsBzzIDs : bzMap['jointsBzzIDs'],
-        // -------------------------
-        followIsOn : bzMap['followIsOn'],
-      ));
-    });
-    _loadedBzz.addAll(_loadedBzzFromDB); // BOOMMM : should be _loadedBzz = _loadedBzzFromDB,, but this bom bom crash crash
-    notifyListeners();
-    print('_loadedBzz :::: --------------- $_loadedBzz');
-  } catch(error){
-    throw(error);
-  }
+
+  await tryAndCatch(
+    context: context,
+    functions: () async {
+
+      /// READ data from realtime database and add them to local list
+      final response = await http.get(url);
+      // final _extractedData = json.decode(response.body) as Map<String, dynamic>;
+      // final List<BzModel> _loadedBzzFromDB = new List();
+      //
+      // _extractedData?.forEach((bzID, bzMap) {
+      //   _loadedBzzFromDB.add(BzModel(
+      //     bzID : bzID,
+      //     // -------------------------
+      //     bzType : decipherBzType(bzMap['bzType']),
+      //     bzForm : decipherBzForm(bzMap['bzForm']),
+      //     bldrBirth : decipherDateTimeString(bzMap['bldrBirth']),
+      //     accountType : decipherBzAccountType(bzMap['accountType']),
+      //     bzURL : bzMap['bzURL'],
+      //     // -------------------------
+      //     bzName : bzMap['bzName'],
+      //     bzLogo : bzMap['bzLogo'],
+      //     bzScope : bzMap['bzScope'],
+      //     bzCountry : bzMap['bzCountry'],
+      //     bzProvince : bzMap['bzProvince'],
+      //     bzArea : bzMap['bzArea'],
+      //     bzAbout : bzMap['bzAbout'],
+      //     bzPosition : bzMap['bzPosition'],
+      //     bzContacts : decipherContactsMaps(bzMap['bzContacts']),
+      //     bzAuthors : decipherBzAuthorsMaps(bzMap['bzAuthors']),
+      //     bzShowsTeam : bzMap['bzShowsTeam'],
+      //     // -------------------------
+      //     bzIsVerified : bzMap['bzIsVerified'],
+      //     bzAccountIsDeactivated : bzMap['bzAccountIsDeactivated'],
+      //     bzAccountIsBanned : bzMap['bzAccountIsBanned'],
+      //     // -------------------------
+      //     bzTotalFollowers : bzMap['bzTotalFollowers'],
+      //     bzTotalSaves : bzMap['bzTotalSaves'],
+      //     bzTotalShares : bzMap['bzTotalShares'],
+      //     bzTotalSlides : bzMap['bzTotalSlides'],
+      //     bzTotalViews : bzMap['bzTotalViews'],
+      //     bzTotalCalls : bzMap['bzTotalCalls'],
+      //     bzTotalConnects : bzMap['bzTotalConnects'],
+      //     // -------------------------
+      //     jointsBzzIDs : bzMap['jointsBzzIDs'],
+      //     // -------------------------
+      //     followIsOn : bzMap['followIsOn'],
+      //   ));
+      // });
+      /// this is realtime database bzz data come in a for of one big map
+      Map<String, dynamic> _bzzMap = json.decode(response.body);
+      /// convert the big map into BzzModels list
+      final List<BzModel> _bzzModels = decipherBzMapsFromRealTimeDatabase(_bzzMap);
+      /// add the BzzModels List to local bzz List
+      _loadedBzz.addAll(_bzzModels); // BOOMMM : should be _loadedBzz = _loadedBzzFromDB,, but this bom bom crash crash
+
+      /// READ data from cloud Firestore bzz collection
+      List<QueryDocumentSnapshot> _fireStoreBzzMaps = await getFireStoreCollectionMaps(FireStoreCollection.bzz);
+      final List<BzModel> _fireStoreBzzModels = decipherBzMapsFromFireStore(_fireStoreBzzMaps);
+      _loadedBzz.addAll(_fireStoreBzzModels);
+
+      notifyListeners();
+      print('_loadedBzz :::: --------------- $_loadedBzz');
+
+    }
+  );
+
 }
 // ############################################################################
 /// BZZ ON FIRE STORE
@@ -676,7 +694,6 @@ Future<void> createBzDocument(BzModel bz, UserModel userModel) async {
     followIsOn: bz.followIsOn,
   );
 
-
   /// save the bzID as the first id in the list of followedBzzIDs
   List<dynamic> tempFollowedBzzIDs = userModel.followedBzzIDs;
   userModel.followedBzzIDs.insert(0, bzID);
@@ -721,6 +738,74 @@ Future<void> deleteBzDocument(BzModel bzModel) async {
   DocumentReference _bzDocument = getFirestoreDocumentReference(FireStoreCollection.bzz, bzModel.bzID);
   await _bzDocument.delete();
 }
+// === === === === === === === === === === === === === === === === === === ===
+  Future<void> updateFirestoreBz(BzModel bz) async {
+    final bzIndex = _loadedBzz.indexWhere((bzModel) => bzModel.bzID == bz.bzID);
+    if (bzIndex >= 0){
+
+      bzzCollection.doc(bz.bzID).set(bz.toMap());
+
+      // final url = 'https://bldrsnet.firebaseio.com/bzz/${bz.bzID}.json';
+      // await http.patch(url, body: json.encode({
+      //   'bzID': bz.bzID,
+      //   // -------------------------
+      //   'bzType': cipherBzType(bz.bzType),
+      //   'bzForm': cipherBzForm(bz.bzForm),
+      //   'bldrBirth': cipherDateTimeToString(bz.bldrBirth),
+      //   'accountType': cipherBzAccountType(bz.accountType),
+      //   'bzURL': bz.bzURL,
+      //   // -------------------------
+      //   'bzName': bz.bzName,
+      //   'bzLogo': bz.bzLogo,
+      //   'bzScope': bz.bzScope,
+      //   'bzCountry': bz.bzCountry,
+      //   'bzProvince': bz.bzProvince,
+      //   'bzArea': bz.bzArea,
+      //   'bzAbout': bz.bzAbout,
+      //   'bzPosition': bz.bzPosition,
+      //   'bzContacts': cipherContactsModels(bz.bzContacts),
+      //   'bzAuthors': cipherAuthorsModels(bz.bzAuthors),
+      //   'bzShowsTeam': bz.bzShowsTeam,
+      //   // -------------------------
+      //   'bzIsVerified': bz.bzIsVerified,
+      //   'bzAccountIsDeactivated': bz.bzAccountIsDeactivated,
+      //   'bzAccountIsBanned': bz.bzAccountIsBanned,
+      //   // -------------------------
+      //   'bzTotalFollowers': bz.bzTotalFollowers,
+      //   'bzTotalSaves': bz.bzTotalSaves,
+      //   'bzTotalShares': bz.bzTotalShares,
+      //   'bzTotalSlides': bz.bzTotalSlides,
+      //   'bzTotalViews': bz.bzTotalViews,
+      //   'bzTotalCalls': bz.bzTotalCalls,
+      //   'bzTotalConnects': bz.bzTotalConnects,
+      //   // -------------------------
+      //   'jointsBzzIDs': bz.jointsBzzIDs,
+        // -------------------------
+        // 'followIsOn': bz.followIsOn,
+        // will change in later max lessons to be user based
+      // }
+    // )
+    // );
+
+      _loadedBzz[bzIndex] = bz;
+      notifyListeners();
+    } else {
+      print('could not update this fucking bz : ${bz.bzName} : ${bz.bzID}');
+    }
+  }
+// === === === === === === === === === === === === === === === === === === ===
+  /// get bz doc stream
+  Stream<BzModel> getBzStream(String bzID) {
+    Stream<DocumentSnapshot> _bzSnapshot = getFirestoreDocumentSnapshots(FireStoreCollection.bzz, bzID);
+    Stream<BzModel> _bzStream = _bzSnapshot.map(_bzModelFromSnapshot);
+    return _bzStream;
+  }
+
+  BzModel _bzModelFromSnapshot(DocumentSnapshot doc){
+  var map = doc.data();
+  BzModel _bzModel = decipherBzMap(map['bzID'], map);
+  return _bzModel;
+  }
 // ############################################################################
 }
 // === === === === === === === === === === === === === === === === === === ===

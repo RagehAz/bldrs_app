@@ -263,17 +263,25 @@ class NavBar extends StatelessWidget {
 
                                  // --- BZ PAGE
                                  if (userIsAuthor(userModel?.userStatus))
-                                   BarButton (
-                                     width: _buttonWidth,
-                                     text: 'business',
-                                     barType: barType,
-                                     icon: _bzLogo,
-                                     iconSizeFactor: 1,
-                                     onTap: ()=> goToNewScreen(context, MyBzScreen(
-                                       userModel: userModel,
-                                       switchPage: (){},
-                                     )
-                                     ),
+                                   bzModelStreamBuilder(
+                                       bzID: userModel.followedBzzIDs[0],
+                                       context: context,
+                                       builder: (ctx, _bzModel){
+                                         return
+                                           BarButton (
+                                             width: _buttonWidth,
+                                             text: 'business',
+                                             barType: barType,
+                                             icon: _bzModel.bzLogo,
+                                             iconSizeFactor: 1,
+                                             onTap: ()=> goToNewScreen(context, MyBzScreen(
+                                               userModel: userModel,
+                                               // bzModel: _bzModel,
+                                               switchPage: (){},
+                                             )
+                                             ),
+                                           );
+                                       }
                                    ),
 
                                  _spacer,

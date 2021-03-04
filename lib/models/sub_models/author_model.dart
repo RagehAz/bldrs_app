@@ -6,7 +6,7 @@ class AuthorModel{
   final String authorName;
   final dynamic authorPic;
   final String authorTitle;
-  final List<String> publishedFlyersIDs;
+  final List<dynamic> publishedFlyersIDs;
   final List<ContactModel> authorContacts;
 // ###############################
   AuthorModel({
@@ -32,7 +32,7 @@ class AuthorModel{
   }
 // ###############################
 }
-AuthorModel decipherBzAuthorMap(Map<String, dynamic> map){
+AuthorModel decipherBzAuthorMap(dynamic map){
   return AuthorModel(
     bzID : map['bzID'],
     userID : map['userID'],

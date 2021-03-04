@@ -18,9 +18,8 @@ import 'package:bldrs/views/widgets/space/skies/night_sky.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/views/widgets/buttons/bt_rageh.dart';
 import 'package:provider/provider.dart';
-
 import '../../../main.dart';
-
+// === === === === === === === === === === === === === === === === === === ===
 enum AppBarType{
   Basic,
   Scrollable,
@@ -30,12 +29,12 @@ enum AppBarType{
   InPyramids,
   Sections,
 }
-
+// === === === === === === === === === === === === === === === === === === ===
 enum Sky {
   Night,
   Black,
 }
-
+// === === === === === === === === === === === === === === === === === === ===
 class MainLayout extends StatelessWidget {
   final List<Widget> appBarRowWidgets;
   final Widget layoutWidget;
@@ -62,7 +61,7 @@ class MainLayout extends StatelessWidget {
 });
 
   Future<void> _refresh(BuildContext context) async {
-    await Provider.of<FlyersProvider>(context,listen: false).fetchAndSetBzz();
+    await Provider.of<FlyersProvider>(context,listen: false).fetchAndSetBzz(context);
   }
 
   // final static GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -164,8 +163,8 @@ class MainLayout extends StatelessWidget {
     );
   }
 }
-
-// --- for testing purposes, only used in appBar
+// === === === === === === === === === === === === === === === === === === ===
+/// --- for testing purposes, only used in appBar
 Widget zorar(Function function, String functionName){
   return DreamBox(
     height: 40,
@@ -176,7 +175,7 @@ Widget zorar(Function function, String functionName){
     boxFunction: function,
   );
 }
-
+// === === === === === === === === === === === === === === === === === === ===
 /// --- THE HORIZON IS BOTTOM PADDING THAT RESPECTS PYRAMIDS HEIGHT
 class PyramidsHorizon extends StatelessWidget {
   final double heightFactor;
@@ -193,7 +192,7 @@ class PyramidsHorizon extends StatelessWidget {
     );
   }
 }
-
+// === === === === === === === === === === === === === === === === === === ===
 /// --- STRATOSPHERE IS UPPER SCREEN PADDING THAT RESPECTS APPBAR HEIGHT
 class Stratosphere extends StatelessWidget {
   final double heightFactor;
@@ -214,5 +213,5 @@ class Stratosphere extends StatelessWidget {
     );
   }
 }
-
+// === === === === === === === === === === === === === === === === === === ===
 

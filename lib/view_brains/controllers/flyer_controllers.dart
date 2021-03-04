@@ -47,3 +47,4 @@ AuthorModel createTempAuthorModelFromUserModel(UserModel userModel){
         authorContacts: userModel.contacts
     );
 }
+// ----------------------------------------------------------------------------

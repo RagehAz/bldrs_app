@@ -1,6 +1,4 @@
-import 'package:bldrs/models/planet/area_model.dart';
 import 'package:bldrs/models/planet/country_model.dart';
-import 'package:bldrs/models/planet/province_model.dart';
 import 'package:bldrs/view_brains/controllers/streamerz.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/drafters/text_shapers.dart';
@@ -16,9 +14,7 @@ import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'country_screen.dart';
-import 'db_areas.dart';
 import 'db_countries.dart';
-import 'db_provinces.dart';
 
 class ZonesManagerScreen extends StatefulWidget {
 
@@ -27,9 +23,9 @@ class ZonesManagerScreen extends StatefulWidget {
 }
 
 class _ZonesManagerScreenState extends State<ZonesManagerScreen> {
-  final List<Country> _countries = dbCountries;
-  final List<Province> _provinces = dbProvinces;
-  final List<Area> _areas = dbAreas;
+  // final List<Country> _countries = dbCountries;
+  // final List<Province> _provinces = dbProvinces;
+  // final List<Area> _areas = dbAreas;
   final FirebaseFirestore _fireInstance = FirebaseFirestore.instance;
   CollectionReference _countriesCollection;
 // ---------------------------------------------------------------------------
