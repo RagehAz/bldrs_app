@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:bldrs/dashboard/bzz_manager_screen.dart';
 import 'package:bldrs/dashboard/s01_dashboard.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
@@ -19,7 +20,6 @@ import 'package:bldrs/xxx_LABORATORY/camera_and_location/x12_image_picker.dart';
 import 'package:bldrs/xxx_LABORATORY/forms_and_inputs/popup.dart';
 import 'package:bldrs/xxx_LABORATORY/forms_and_inputs/form.dart';
 import 'package:bldrs/xxx_LABORATORY/ideas/circle_list.dart';
-import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/firebase_reader.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/text_field_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x03_font_test_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x08_earth_screen.dart';
@@ -122,8 +122,6 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
           ),
 
           LogoSlogan(),
-
-          oButton('FireBase Reader', Iconz.Statistics, FireBaseReader()),
 
           oButton('Dash Board', Iconz.DashBoard, DashBoard()),
 

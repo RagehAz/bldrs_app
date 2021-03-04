@@ -11,6 +11,7 @@ import 'package:bldrs/views/widgets/buttons/bt_main.dart';
 import 'package:bldrs/views/widgets/layouts/dashboard_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
+import 'bzz_manager_screen.dart';
 import 's04_notifications_manager.dart';
 import 's06_flyers_auditor.dart';
 import 'zones_manager/zones_manager_screen.dart';
@@ -67,6 +68,12 @@ class _DashBoardState extends State<DashBoard> {
             title: 'Zones Manager',
             icon: Iconz.Earth,
             onTap: () => goToNewScreen(context, ZonesManagerScreen()),
+          ),
+
+          _button(
+            title: 'Bzz Manager',
+            icon: Iconz.Bz,
+            onTap: () => goToNewScreen(context, BzzManagerScreen()),
           ),
 
           _button(

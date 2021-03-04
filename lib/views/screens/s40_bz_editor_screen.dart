@@ -25,6 +25,7 @@ import 'package:bldrs/views/widgets/bubbles/text_field_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_sheet.dart';
+import 'package:bldrs/views/widgets/dialogs/bz_bottom_sheet.dart';
 import 'package:bldrs/views/widgets/flyer/bz_card_preview.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -385,57 +386,52 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   // ----------------------------------------------------------------------
   void _showBzCard (){
     setState(() {});
-    slideBottomSheet(
-        context: context,
-        height: superScreenHeight(context) - 100 ,
-        draggable: true,
-        child: Center(
-          child: BzCardPreview(
-            flyerSizeFactor: 0.71,
-            bz: BzModel(
-              bzID: '',
-              bzType: _currentBzType,
-              bzForm: _currentBzForm,
-              bldrBirth: DateTime.now(),
-              accountType: _currentAccountType,
-              bzURL: '',
-              bzName: _bzNameTextController.text,
-              bzLogo: _currentBzLogoFile ?? _currentBzLogoURL,
-              bzScope: _bzScopeTextController.text,
-              bzCountry: _currentBzCountry,
-              bzProvince: _currentBzProvince,
-              bzArea: _currentBzArea,
-              bzAbout: _bzAboutTextController.text,
-              bzPosition: _currentBzPosition,
-              bzContacts: _currentBzContacts,
-              bzAuthors: _currentBzAuthors,
-              bzShowsTeam: _currentBzShowsTeam,
-              bzIsVerified: false,
-              bzAccountIsDeactivated: false,
-              bzAccountIsBanned: false,
-              bzTotalFollowers: 0,
-              bzTotalSaves: 0,
-              bzTotalShares: 0,
-              bzTotalSlides: 0,
-              bzTotalViews: 0,
-              bzTotalCalls: 0,
-              bzTotalConnects: 0,
-              jointsBzzIDs: [],
-              followIsOn: false,
 
-            ),
-            author: AuthorModel(
-              userID: '',
-              bzID: '',
-              authorName: _authorNameTextController.text,
-              authorTitle: _authorTitleTextController.text,
-              authorPic: _currentAuthorPicFile ?? _currentAuthorPicURL,
-              authorContacts: _currentAuthorContacts,
-              publishedFlyersIDs: [],
-            ),
-          ),
-        )
+    slideBzBottomSheet(
+        context: context,
+        bz: BzModel(
+          bzID: '',
+          bzType: _currentBzType,
+          bzForm: _currentBzForm,
+          bldrBirth: DateTime.now(),
+          accountType: _currentAccountType,
+          bzURL: '',
+          bzName: _bzNameTextController.text,
+          bzLogo: _currentBzLogoFile ?? _currentBzLogoURL,
+          bzScope: _bzScopeTextController.text,
+          bzCountry: _currentBzCountry,
+          bzProvince: _currentBzProvince,
+          bzArea: _currentBzArea,
+          bzAbout: _bzAboutTextController.text,
+          bzPosition: _currentBzPosition,
+          bzContacts: _currentBzContacts,
+          bzAuthors: _currentBzAuthors,
+          bzShowsTeam: _currentBzShowsTeam,
+          bzIsVerified: false,
+          bzAccountIsDeactivated: false,
+          bzAccountIsBanned: false,
+          bzTotalFollowers: 0,
+          bzTotalSaves: 0,
+          bzTotalShares: 0,
+          bzTotalSlides: 0,
+          bzTotalViews: 0,
+          bzTotalCalls: 0,
+          bzTotalConnects: 0,
+          jointsBzzIDs: [],
+          followIsOn: false,
+
+        ),
+        author: AuthorModel(
+          userID: '',
+          bzID: '',
+          authorName: _authorNameTextController.text,
+          authorTitle: _authorTitleTextController.text,
+          authorPic: _currentAuthorPicFile ?? _currentAuthorPicURL,
+          authorContacts: _currentAuthorContacts,
+          publishedFlyersIDs: [],
+        ),
     );
+
   }
   // ----------------------------------------------------------------------
   @override

@@ -12,9 +12,19 @@ import 'in_pyramids_bubble.dart';
 
 class BzzBubble extends StatelessWidget {
   final List<BzModel> bzz;
+  final String title;
+  final int numberOfColumns;
+  final int numberOfRows;
+  final Axis scrollDirection;
+  final Function onTap;
 
   BzzBubble({
     @required this.bzz,
+    this.title  = 'Businesses',
+    this.numberOfColumns = 5,
+    this.numberOfRows = 2,
+    this.scrollDirection = Axis.horizontal,
+    this.onTap,
 });
 
   @override
@@ -27,17 +37,23 @@ class BzzBubble extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(bottom: Ratioz.ddAppBarPadding, left: Ratioz.ddAppBarMargin, right: Ratioz.ddAppBarMargin),
           child: SuperVerse(
-            verse: 'Businesses',
+            verse: title,
           ),
         ),
 
         BzGrid(
             gridZoneWidth: superBubbleClearWidth(context),
             bzz: bzz,
-            numberOfColumns: 5,
-            numberOfRows: 2,
-            scrollDirection: Axis.horizontal,
-            itemOnTap: (bzID)=> goToNewScreen(context, BzCardScreen(bzID: bzID,))
+            numberOfColumns: numberOfColumns,
+            numberOfRows: numberOfRows,
+            scrollDirection: scrollDirection,
+            itemOnTap: (bzID) {
+              if (onTap == null) {
+                goToNewScreen(context, BzCardScreen(bzID: bzID,));
+              } else {
+                onTap(bzID);
+              }
+            },
         ),
 
       ],
