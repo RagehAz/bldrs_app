@@ -1,3 +1,4 @@
+import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
@@ -10,6 +11,7 @@ import 'package:flutter/material.dart';
 
 class Gallery extends StatefulWidget {
   final double flyerZoneWidth;
+  final BzModel bz;
   final bool bzShowsTeam;
   final String bzName;
   final int followersCount;
@@ -22,6 +24,7 @@ class Gallery extends StatefulWidget {
 
   Gallery({
     @required this.flyerZoneWidth,
+    @required this.bz,
     @required this.bzShowsTeam,
     @required this.bzName,
     @required this.followersCount,
@@ -149,6 +152,8 @@ class _GalleryState extends State<Gallery> {
               bzID: widget.authors == null || widget.authors == [] || widget.authors.isEmpty ?  '': widget.authors[0]?.bzID,
               flyersVisibilities: flyersVisibilities,
               galleryFlyers: widget.galleryFlyers,
+              bzAuthors: widget.authors,
+              bz: widget.bz,
               // tappingMiniFlyer: widget.tappingMiniFlyer,
             ),
 
