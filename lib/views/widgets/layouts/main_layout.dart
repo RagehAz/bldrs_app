@@ -6,6 +6,7 @@ import 'package:bldrs/view_brains/drafters/keyboarders.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/localization/localization_constants.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
+import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/widgets/appbar/bldrs_appbar.dart';
@@ -88,7 +89,7 @@ class MainLayout extends StatelessWidget {
           loading: loading,
         ),
 
-      if (pyramids != null)
+      if (pyramids != null && pyramids != Iconz.DvBlankSVG)
         Pyramids(
           pyramidsIcon: pyramids,
           loading: loading,

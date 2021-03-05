@@ -5,6 +5,7 @@ import 'package:bldrs/models/sub_models/slide_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/view_brains/controllers/flyer_sliding_controllers.dart';
 import 'package:bldrs/view_brains/drafters/imagers.dart';
+import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_zone.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header.dart';
@@ -263,6 +264,18 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
     slideTo(slidingController, currentSlide);
   }
   // ----------------------------------------------------------------------
+  void _publishFlyer(){
+    print('Will publish this flyer to the world '
+        'by simply saving flyer data on fire store'
+        'and read the flyer data by a simple streamBuilder'
+        'or future builder'
+        'or call it once'
+        'baby'
+    );
+
+  }
+  // ----------------------------------------------------------------------
+
   @override
   Widget build(BuildContext context) {
     final FlyersProvider _pro = Provider.of<FlyersProvider>(context, listen: false);
@@ -270,14 +283,33 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
     final BzModel _bz = _pro.getBzByBzID(widget.bzModel.bzID);
     final AuthorModel _author = _bz.bzAuthors[0];
     // ----------------------------------------------------------------------
-    final double _flyerSizeFactor = 0.73;
+    final double _flyerSizeFactor = 0.8;
     final double _flyerZoneWidth = superFlyerZoneWidth(context, _flyerSizeFactor);
     // ----------------------------------------------------------------------
     print('_pickedImage : $_pickedImage');
     // print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> building widget tree');
     return MainLayout(
       appBarType: AppBarType.Basic,
-      appBarRowWidgets: <Widget>[],
+      pyramids: Iconz.DvBlankSVG,
+      appBarBackButton: true,
+      sky: Sky.Black,
+      pageTitle: 'Create a New Flyer',
+      appBarRowWidgets: <Widget>[
+
+        Expanded(child: Container(),),
+
+        DreamBox(
+        height: 35,
+        boxMargins: EdgeInsets.symmetric(horizontal: Ratioz.ddAppBarPadding),
+        verse: 'Publish flyer',
+        verseColor: Colorz.BlackBlack,
+        color: Colorz.Yellow,
+        icon: Iconz.AddFlyer,
+        iconSizeFactor: 0.6,
+          boxFunction: _publishFlyer,
+      ),
+
+      ],
       layoutWidget: Stack(
         children: <Widget>[
 
@@ -393,28 +425,8 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
                 ],
               ),
 
-
-
             ],
           ),
-
-          Positioned(
-            bottom: 0,
-            child: Container(
-              width: superScreenWidth(context),
-              height: 60,
-              // color: Colorz.BloodTest,
-              alignment: Alignment.center,
-              child: DreamBox(
-                height: 50,
-                boxMargins: EdgeInsets.all(5),
-                verse: 'Publish flyer',
-                icon: Iconz.Flyer,
-                iconSizeFactor: 0.6,
-              ),
-            ),
-          ),
-
 
         ],
       ),
