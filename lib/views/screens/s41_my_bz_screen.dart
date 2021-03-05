@@ -101,7 +101,6 @@ class _MyBzScreenState extends State<MyBzScreen> {
     double _achievementsIconWidth = 60;
 
     double _spacing = _flyerZoneWidth * 0.05;
-
     double _bWidth = _flyerZoneWidth * 0.9;
 
     return

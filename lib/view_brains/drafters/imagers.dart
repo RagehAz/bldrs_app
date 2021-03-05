@@ -60,7 +60,7 @@ double concludeImageMaxWidth(PicType picType){
     case PicType.userPic      :   return  150   ;     break;
     case PicType.authorPic    :   return  150   ;     break;
     case PicType.bzLogo       :   return  150   ;     break;
-    case PicType.slideHighRes :   return  150   ;     break;
+    case PicType.slideHighRes :   return  1000   ;     break;
     case PicType.slideLowRes  :   return  150   ;     break;
     default : return   null;
   }
