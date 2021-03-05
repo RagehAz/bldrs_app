@@ -1,3 +1,4 @@
+import 'package:bldrs/view_brains/drafters/text_directionerz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 // === === === === === === === === === === === === === === === === === === ===
@@ -86,5 +87,18 @@ double superBubbleClearWidth(BuildContext context){
   double bubblePaddings = bubbleMargins;
   double inBubbleClearWidth = screenWidth - bubbleMargins - bubblePaddings;
   return inBubbleClearWidth;
+}
+// === === === === === === === === === === === === === === === === === === ===
+EdgeInsets superInsets(BuildContext context,{double enBottom, double enLeft, double enRight, double enTop}){
+
+  double _enBottom = enBottom ?? 0;
+  double _enLeft = enLeft ?? 0;
+  double _enRight = enRight ?? 0;
+  double _enTop = enTop ?? 0;
+
+  return
+  appIsLeftToRight(context) ?
+  EdgeInsets.only(bottom: _enBottom, left: _enLeft, right: _enRight, top: _enTop) :
+  EdgeInsets.only(bottom: _enBottom, left: _enRight, right: _enLeft, top: _enTop);
 }
 // === === === === === === === === === === === === === === === === === === ===
