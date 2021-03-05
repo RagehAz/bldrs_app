@@ -29,6 +29,11 @@ enum SlidingDirection{
 }
 
 class FlyerEditorScreen extends StatefulWidget {
+  final BzModel bzModel;
+
+  FlyerEditorScreen({
+    this.bzModel,
+});
 
   @override
   _FlyerEditorScreenState createState() => _FlyerEditorScreenState();
@@ -262,8 +267,8 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
   Widget build(BuildContext context) {
     final FlyersProvider _pro = Provider.of<FlyersProvider>(context, listen: false);
     // final user = Provider.of<UserModel>(context);
-    final BzModel _bz = _pro.getBzByBzID('br1');
-    final AuthorModel _author = _bz.bzAuthors[1];
+    final BzModel _bz = _pro.getBzByBzID(widget.bzModel.bzID);
+    final AuthorModel _author = _bz.bzAuthors[0];
     // ----------------------------------------------------------------------
     final double _flyerSizeFactor = 0.73;
     final double _flyerZoneWidth = superFlyerZoneWidth(context, _flyerSizeFactor);

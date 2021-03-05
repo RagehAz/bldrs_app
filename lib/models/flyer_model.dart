@@ -55,7 +55,7 @@ enum FlyerState{
   Deleted,
 }
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
-List<FlyerState> flyerStatesList = [
+List<FlyerState> flyerStatesList = <FlyerState>[
   FlyerState.Published,
   FlyerState.Draft,
   FlyerState.Deleted,
@@ -89,7 +89,7 @@ enum FlyerType {
   General,
 }
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
-List<FlyerType> flyerTypesList = [
+List<FlyerType> flyerTypesList = <FlyerType>[
   FlyerType.Property,
   FlyerType.Design,
   FlyerType.Product,

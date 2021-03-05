@@ -178,7 +178,7 @@ enum BzType {
   Supplier, // sp - pd (product flyer)
 }
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
-List<BzType> bzTypesList = [
+List<BzType> bzTypesList = <BzType>[
   BzType.Developer,
   BzType.Broker,
 
@@ -221,7 +221,7 @@ enum BzForm {
   Company,
 }
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
-List<BzForm> bzFormsList = [
+List<BzForm> bzFormsList = <BzForm>[
   BzForm.Individual,
   BzForm.Company,
 ];
@@ -248,7 +248,7 @@ enum BzAccountType{
   Super,
 }
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
-List<BzAccountType> bzAccountTypesList = [
+List<BzAccountType> bzAccountTypesList = <BzAccountType>[
   BzAccountType.Default,
   BzAccountType.Premium,
   BzAccountType.Super,
