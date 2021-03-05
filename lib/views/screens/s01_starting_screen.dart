@@ -85,17 +85,6 @@ class StartingScreen extends StatelessWidget {
                 stretched: false,
               ),
 
-              // --- CONTINUE WITH LINKEDIN
-              BTMain(
-                buttonVerse: Wordz.continueLinkedIn(context),
-                buttonIcon: Iconz.ComLinkedin,
-                buttonColor: Colorz.LinkedIn,
-                splashColor: Colorz.Yellow,
-                buttonVerseShadow: false,
-                function: Routez.Home,
-                stretched: false,
-              ),
-
               // --- CONTINUE WITH EMAIL
               BTMain(
                 buttonVerse: Wordz.continueEmail(context),

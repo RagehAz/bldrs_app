@@ -23,7 +23,7 @@ class MaxHeader extends StatelessWidget {
   MaxHeader({
     @required this.flyerZoneWidth,
     @required this.bzPageIsOn,
-    this.bz,
+    @required this.bz,
     this.bzShowsTeam,
     // @required this.authorID,
   });
@@ -157,6 +157,7 @@ class MaxHeader extends StatelessWidget {
           authors: _bzAuthors,
           galleryFlyers: _galleryFlyers,
           bzName:  bz != null ? bz.bzName : '',
+          bz: bz,
           // tappingMiniFlyer: openFlyer,
         ),
 

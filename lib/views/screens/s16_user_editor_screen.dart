@@ -227,123 +227,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
       _triggerLoading();
 
-      ///////////////////////////////////////////////////////////
-      // try{
-      //   _triggerLoading();
-      //   String _userPicURL;
-      //
-      //   if(_currentPic != null){
-      //     _userPicURL =
-      //     await saveUserPicOnFirebaseStorageAndGetURL(
-      //         inputFile: _currentPic,
-      //         fileName: widget.user.userID
-      //     );
-      //   }
-      //
-      //   // print('_userPicURL : $_userPicURL');
-      //
-      //   UserModel _newUserModel = UserModel(
-      //     // -------------------------
-      //     userID : widget.user.userID,
-      //     joinedAt : widget.user.joinedAt,
-      //     userStatus : widget.user.userStatus ?? UserStatus.Normal,
-      //     // -------------------------
-      //     name : _nameController.text ?? widget.user.name,
-      //     pic : _userPicURL ?? widget.user.pic,
-      //     title :  _titleController.text ?? widget.user.title,
-      //     company: _companyController.text ?? widget.user.company,
-      //     gender : _currentGender ?? widget.user.gender,
-      //     country : _currentCountryID ?? widget.user.country,
-      //     province : _currentProvinceID ?? widget.user.province,
-      //     area : _currentAreaID ?? widget.user.area,
-      //     language : Wordz.languageCode(context),
-      //     position : _currentPosition ?? widget.user.position,
-      //     contacts : _createContactList(widget.user.contacts),
-      //     // -------------------------
-      //     savedFlyersIDs : widget.user.savedFlyersIDs,
-      //     followedBzzIDs : widget.user.followedBzzIDs,
-      //     // -------------------------
-      //   );
-      //
-      //   await UserProvider(userID: widget.user.userID)
-      //       .updateFirestoreUserDocument(_newUserModel);
-      //
-      //   print('User Model successfully edited');
-      //   _triggerLoading();
-      //
-      //   if (widget.firstTimer){
-      //     goToRoute(context, Routez.Home);
-      //   } else {
-      //   goBack(context);
-      //   }
-      //
-      // }catch(error){
-      //   superDialog(context, error, 'Could\'nt update profile');
-      //   print(error.toString());
-      // }
-      ///////////////////////////////////////////////////////////
-
     }
   }
-  // ---------------------------------------------------------------------------
-  // void _createNewProfile() async {
-  //   if(_formKey.currentState.validate()){
-  //
-  //     _triggerLoading();
-  //
-  //     String _userPicURL;
-  //
-  //     if(_currentPic != null){
-  //       _userPicURL =
-  //       await saveUserPicOnFirebaseStorageAndGetURL(
-  //           inputFile: _currentPic,
-  //           fileName: userModel.userID
-  //       );
-  //     }
-  //
-  //     print('_userPicURL : $_userPicURL');
-  //
-  //     try{
-  //       UserModel _newUserModel = UserModel(
-  //         // -------------------------
-  //         userID : userModel.userID,
-  //         joinedAt : userModel.joinedAt,
-  //         userStatus : userModel.userStatus ?? UserStatus.Normal,
-  //         // -------------------------
-  //         name : _currentName ?? userModel.name,
-  //         pic : _userPicURL ?? userModel.pic,
-  //         title :  _currentTitle ?? userModel.title,
-  //         company: _currentCompany ?? userModel.company,
-  //         gender : _currentGender ?? userModel.gender,
-  //         country : _currentCountryID ?? userModel.country,
-  //         province : _currentProvinceID ?? userModel.province,
-  //         area : _currentAreaID ?? userModel.area,
-  //         language : Wordz.languageCode(context),
-  //         position : _currentPosition ?? userModel.position,
-  //         contacts : _createContactList(userModel.contacts),
-  //         // -------------------------
-  //         savedFlyersIDs : userModel.savedFlyersIDs,
-  //         followedBzzIDs : userModel.followedBzzIDs,
-  //         // -------------------------
-  //       );
-  //
-  //       await UserProvider(userID: userModel.userID)
-  //           .updateFirestoreUserDocument(_newUserModel);
-  //
-  //       print('user model successfully edited');
-  //       goToRoute(context, Routez.Home);
-  //
-  //     }catch(error){
-  //       print(error.toString());
-  //       superDialog(context, error, 'Error Creating profile');
-  //     }
-  //     _triggerLoading();
-  //   }
-  // }
-  // ---------------------------------------------------------------------------
-  // void _confirmEdits() async {
-  //
-  // }
   // ---------------------------------------------------------------------------
   void _deleteAccount () async {
     _triggerLoading();
@@ -455,124 +340,105 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               keyboardTextInputAction: TextInputAction.next,
               fieldIsRequired: true,
               keyboardTextInputType: TextInputType.emailAddress,
-              // initialTextValue: getAContactValueFromContacts(userModel.contacts, ContactType.Email),
             ),
 
             // --- EDIT PHONE
             ContactFieldBubble(
               textController: _phoneController,
-              // key: Key('phone');
               fieldIsFormField: true,
               title: Wordz.phone(context),
               leadingIcon: Iconz.ComPhone,
               keyboardTextInputAction: TextInputAction.next,
               fieldIsRequired: false,
               keyboardTextInputType: TextInputType.phone,
-              // initialTextValue: getAContactValueFromContacts(userModel.contacts, ContactType.Phone),
             ),
 
             // --- EDIT WEBSITE
             ContactFieldBubble(
               textController: _websiteController,
-              // key: Key('website');
               fieldIsFormField: true,
               title: Wordz.website(context),
               leadingIcon: Iconz.ComWebsite,
               keyboardTextInputAction: TextInputAction.next,
               fieldIsRequired: false,
               keyboardTextInputType: TextInputType.url,
-              // initialTextValue: getAContactValueFromContacts(userModel.contacts, ContactType.WebSite),
             ),
 
             // --- EDIT FACEBOOK
             ContactFieldBubble(
               textController: _facebookController,
-              // key: Key('facebook');
               fieldIsFormField: true,
               title: Wordz.facebookLink(context),
               leadingIcon: Iconz.ComFacebook,
               keyboardTextInputAction: TextInputAction.next,
               fieldIsRequired: false,
               keyboardTextInputType: TextInputType.url,
-              // initialTextValue: getAContactValueFromContacts(widget.user.contacts, ContactType.Facebook),
             ),
 
             // --- EDIT INSTAGRAM
             ContactFieldBubble(
               textController: _instagramController,
-              // key: Key('instagram');
               fieldIsFormField: true,
               title: Wordz.instagramLink(context),
               leadingIcon: Iconz.ComInstagram,
               keyboardTextInputAction: TextInputAction.next,
               fieldIsRequired: false,
               keyboardTextInputType: TextInputType.url,
-              // initialTextValue: getAContactValueFromContacts(widget.user.contacts, ContactType.Instagram),
             ),
 
             // --- EDIT LINKEDIN
             ContactFieldBubble(
               textController: _linkedInController,
-              // key: Key('linkedin');
               fieldIsFormField: true,
               title: Wordz.linkedinLink(context),
               leadingIcon: Iconz.ComLinkedin,
               keyboardTextInputAction: TextInputAction.next,
               fieldIsRequired: false,
               keyboardTextInputType: TextInputType.url,
-              // initialTextValue: getAContactValueFromContacts(widget.user.contacts, ContactType.LinkedIn),
             ),
 
             // --- EDIT YOUTUBE
             ContactFieldBubble(
               textController: _youTubeController,
-              // key: Key('youtube');
               fieldIsFormField: true,
               title: Wordz.youtubeChannel(context),
               leadingIcon: Iconz.ComYoutube,
               keyboardTextInputAction: TextInputAction.next,
               fieldIsRequired: false,
               keyboardTextInputType: TextInputType.url,
-              // initialTextValue: getAContactValueFromContacts(widget.user.contacts, ContactType.YouTube),
             ),
 
             // --- EDIT PINTEREST
             ContactFieldBubble(
               textController: _pinterestController,
-              // key: Key('pinterest');
               fieldIsFormField: true,
               title: Wordz.pinterestLink(context),
               leadingIcon: Iconz.ComPinterest,
               keyboardTextInputAction: TextInputAction.next,
               fieldIsRequired: false,
               keyboardTextInputType: TextInputType.url,
-              // initialTextValue: getAContactValueFromContacts(widget.user.contacts, ContactType.Pinterest),
             ),
 
             // --- EDIT TIKTOK
             ContactFieldBubble(
               textController: _tiktokController,
-              // key: Key('tiktok');
               fieldIsFormField: true,
               title: Wordz.tiktokLink(context),
               leadingIcon: Iconz.ComTikTok,
               keyboardTextInputAction: TextInputAction.next,
               fieldIsRequired: false,
               keyboardTextInputType: TextInputType.url,
-              // initialTextValue: getAContactValueFromContacts(widget.user.contacts, ContactType.TikTok),
             ),
 
             // --- EDIT TWITTER
             ContactFieldBubble(
               textController: _twitterController,
-              // key: Key('twitter');
               fieldIsFormField: true,
               title: 'Twitter link',//Wordz.twitterLink(context),
               leadingIcon: Iconz.ComTwitter,
               keyboardTextInputAction: TextInputAction.done,
               fieldIsRequired: false,
               keyboardTextInputType: TextInputType.url,
-              // initialTextValue: getAContactValueFromContacts(widget.user.contacts, ContactType.Twitter),
             ),
 
             // --- CONFIRM BUTTON
