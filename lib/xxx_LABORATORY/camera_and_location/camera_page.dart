@@ -35,7 +35,7 @@ class CameraPage extends StatefulWidget {
 class _CameraPageState extends State<CameraPage> {
 CameraController _controller;
 Future<void> _controllerInitializer;
-double scale;
+// double _scale;
 
 Future<CameraDescription> getCamera() async {
   final c = await availableCameras();
@@ -47,7 +47,7 @@ void initState(){
   super.initState();
   getCamera().then((camera){
     setState(() {
-      _controller = CameraController(camera, ResolutionPreset.ultraHigh, enableAudio: false);
+      _controller = CameraController(camera, ResolutionPreset.medium, enableAudio: false);
       _controllerInitializer = _controller.initialize();
 
     print('controller is building : $_controller');
@@ -58,7 +58,7 @@ void initState(){
 
 @override
 void dispose() {
-    // TODO: implement dispose
+
   _controller.dispose();
     super.dispose();
   }
@@ -87,7 +87,8 @@ void dispose() {
 
 
     return MainLayout(
-      tappingRageh: (){print('_controller = $_controller');},
+      // tappingRageh: (){print('_controller = $_controller');},
+      pyramids: Iconz.DvBlankSVG,
       layoutWidget: FlyerZone(
         flyerSizeFactor: _flyerSizeFactor,
         tappingFlyerZone: (){},

@@ -17,6 +17,8 @@ import 'package:bldrs/xxx_LABORATORY/ask/ask_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/camera_and_location/camera_page.dart';
 import 'package:bldrs/xxx_LABORATORY/camera_and_location/google_map.dart';
 import 'package:bldrs/xxx_LABORATORY/camera_and_location/x12_image_picker.dart';
+import 'package:bldrs/xxx_LABORATORY/camera_and_location/x_camera_screen.dart';
+import 'package:bldrs/xxx_LABORATORY/camera_and_location/x_preview_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/forms_and_inputs/popup.dart';
 import 'package:bldrs/xxx_LABORATORY/forms_and_inputs/form.dart';
 import 'package:bldrs/xxx_LABORATORY/ideas/circle_list.dart';
@@ -122,6 +124,14 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
 
           LogoSlogan(),
 
+          oButton('17 - Camera by Max', Iconz.Camera, MaxCameraScreen()),  // (){widget.controller.animateToPage(0, duration: Duration(milliseconds: 500), curve: Curves.ease);},
+
+          oButton('18 - Camera Package', Iconz.Camera, CameraPage()),
+
+          oButton('x Camera Screen', Iconz.Camera, CameraScreen()),
+
+          oButton('x Camera Screen', Iconz.Camera, PreviewScreen()),
+
           oButton('Dash Board', Iconz.DashBoard, DashBoard()),
 
           oButton('Text field test', Iconz.Language, TextFieldTest()),
@@ -147,12 +157,6 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
           oButton('13 - FlyersPageView', Iconz.Statistics, FlyersPageView()),
 
           oButton('14 - FlyersGridView', Iconz.FlyerGrid, FlyersGridView()),
-
-          // oButton('16 - ProBz', Iconz.Bz, ProBzScreen()),
-
-          oButton('17 - Camera by Max', Iconz.Camera, MaxCameraScreen()),  // (){widget.controller.animateToPage(0, duration: Duration(milliseconds: 500), curve: Curves.ease);},
-
-          oButton('18 - Camera Package', Iconz.Camera, CameraPage()),
 
           oButton('19 - MainLayout now not flutter Better Camera Package', Iconz.Camera, MainLayout()),
 
