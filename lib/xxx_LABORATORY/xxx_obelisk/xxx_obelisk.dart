@@ -24,7 +24,6 @@ import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/text_field_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x03_font_test_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x08_earth_screen.dart';
 import 'package:flutter/material.dart';
-import 'o_01_translations.dart';
 import 'x04_flyers_sizes_screen.dart';
 import 'x05_city_picker.dart';
 import 'x06_single_collection_screen.dart';
@@ -148,10 +147,6 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
           oButton('13 - FlyersPageView', Iconz.Statistics, FlyersPageView()),
 
           oButton('14 - FlyersGridView', Iconz.FlyerGrid, FlyersGridView()),
-
-          oButton('15 - Translations', Iconz.Language, Translations()),
-
-          oButton('15 - Translations', Iconz.Language, Translations()),
 
           // oButton('16 - ProBz', Iconz.Bz, ProBzScreen()),
 
