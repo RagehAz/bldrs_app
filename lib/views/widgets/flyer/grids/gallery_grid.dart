@@ -1,9 +1,17 @@
+import 'package:bldrs/ambassadors/services/auth.dart';
+import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
+import 'package:bldrs/models/sub_models/author_model.dart';
+import 'package:bldrs/models/sub_models/slide_model.dart';
+import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
+import 'package:bldrs/views/widgets/flyer/parts/flyer_zone.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../bz_card_preview.dart';
 import '../flyer.dart';
 
 class GalleryGrid extends StatelessWidget {
@@ -12,6 +20,8 @@ class GalleryGrid extends StatelessWidget {
   final List<FlyerModel> galleryFlyers;
   final List<bool> flyersVisibilities;
   final String bzID;
+  final List<AuthorModel> bzAuthors;
+  final BzModel bz;
   // final Function tappingMiniFlyer;
 
   GalleryGrid({
@@ -19,13 +29,26 @@ class GalleryGrid extends StatelessWidget {
     this.galleryFlyers,
     @required this.flyersVisibilities,
     @required this.bzID,
+    @required this.bzAuthors,
+    @required this.bz,
     // @required this.tappingMiniFlyer,
 });
 
+  bool _concludeUserIsAuthor(){
+    List<String> _authorsIDsList = new List();
+    bzAuthors.forEach((au) {_authorsIDsList.add(au.userID);});
+    String _viewerID = superUserID();
+
+    bool _viewerIsAuthor = _authorsIDsList.contains(_viewerID);
+    return _viewerIsAuthor;
+  }
+
   @override
   Widget build(BuildContext context) {
-    // final pro = Provider.of<FlyersProvider>(context);
+    // final _prof = Provider.of<FlyersProvider>(context, listen: false);
+    // final _bz = _prof.getBzByBzID(bzID);
     final List<FlyerModel> _gridFlyers = galleryFlyers == null ? [] : galleryFlyers;//pro.getAllFlyers;
+    bool _viewerIsAuthor = _concludeUserIsAuthor();
     // -------------------------------------------------------------------------
     double _screenWidth = superScreenWidth(context);
     // -------------------------------------------------------------------------
@@ -35,7 +58,7 @@ class GalleryGrid extends StatelessWidget {
     double _gridFlyerWidth = gridZoneWidth / (_gridColumnsCount + (_gridColumnsCount * _spacingRatioToGridWidth) + _spacingRatioToGridWidth);
     double _gridFlyerHeight = _gridFlyerWidth * Ratioz.xxflyerZoneHeight;
     double _gridSpacing = _gridFlyerWidth * _spacingRatioToGridWidth;
-    int _flyersCount = _gridFlyers.length;
+    int _flyersCount = _viewerIsAuthor ? _gridFlyers.length + 1 : _gridFlyers.length;
     // -------------------------------------------------------------------------
     int _numOfGridRows(int _flyersCount){
       return
@@ -45,6 +68,8 @@ class GalleryGrid extends StatelessWidget {
     int _numOfRows = _numOfGridRows(_flyersCount);
     // -------------------------------------------------------------------------
     double _gridHeight = _gridFlyerHeight * (_numOfRows + (_numOfRows * _spacingRatioToGridWidth) + _spacingRatioToGridWidth);
+    // -------------------------------------------------------------------------
+    double _flyerSizeFactor = (((gridZoneWidth - (_gridSpacing*(_gridColumnsCount+1)))/_gridColumnsCount))/_screenWidth;
     // -------------------------------------------------------------------------
     return
       Container(
@@ -63,14 +88,25 @@ class GalleryGrid extends StatelessWidget {
               maxCrossAxisExtent: _gridFlyerWidth,//_gridFlyerWidth,
             ),
 
-            children: List<Widget>.generate(_gridFlyers.length,
-                    (index) =>
-                        Opacity(
-                      opacity: flyersVisibilities[index] == true ? 1 : 0.1,
-                      child: ChangeNotifierProvider.value(
-                        value: _gridFlyers[index],
-                        child: Flyer(
-                          flyerSizeFactor: (((gridZoneWidth - (_gridSpacing*(_gridColumnsCount+1)))/_gridColumnsCount))/_screenWidth,
+            children: <Widget>[
+
+              if (_viewerIsAuthor)
+              BzCardPreview(
+                bz: bz,
+                author: bz.bzAuthors[0],
+                flyerSizeFactor: _flyerSizeFactor,
+                addFlyerButton: true,
+              ),
+
+              ...List<Widget>.generate(_gridFlyers.length,
+                      (index) =>
+
+                  Opacity(
+                    opacity: flyersVisibilities[index] == true ? 1 : 0.1,
+                    child: ChangeNotifierProvider.value(
+                      value: _gridFlyers[index],
+                      child: Flyer(
+                          flyerSizeFactor: _flyerSizeFactor,
                           slidingIsOn: false,
                           // flyerID: _gridFlyers[index].flyer.flyerID,
                           tappingFlyerZone:
@@ -78,11 +114,13 @@ class GalleryGrid extends StatelessWidget {
                               () => openFlyer(context, _gridFlyers[index].flyerID)
                               :
                               (){}
-                        ),
                       ),
-                    )
+                    ),
+                  )
 
-            )
+              ),
+
+            ],
 
           ),
     );

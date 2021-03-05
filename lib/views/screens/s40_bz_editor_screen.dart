@@ -11,7 +11,6 @@ import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/view_brains/controllers/flyer_controllers.dart';
 import 'package:bldrs/view_brains/drafters/imagers.dart';
-import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/drafters/text_checkers.dart';
 import 'package:bldrs/view_brains/drafters/text_generators.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
@@ -24,9 +23,7 @@ import 'package:bldrs/views/widgets/bubbles/multiple_choice_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/text_field_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
-import 'package:bldrs/views/widgets/dialogs/bottom_sheet.dart';
 import 'package:bldrs/views/widgets/dialogs/bz_bottom_sheet.dart';
-import 'package:bldrs/views/widgets/flyer/bz_card_preview.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
@@ -361,25 +358,6 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   //   finally {
   //     _triggerLoading();
   //     goToNewScreen(context, UserProfileScreen());
-  //   }
-  //
-  // }
-  // ----------------------------------------------------------------------
-  // Future <void> _updateBz(BuildContext context, FlyersProvider pro,) async {
-  //   // final bool isValid = _form.currentState.validate();
-  //   // if(!isValid){return;}
-  //   // _form.currentState.save();
-  //   _triggerLoading();
-  //   try { await pro.updateBz(_createBzModel()); }
-  //   catch(error) {
-  //     await showDialog(
-  //       context: context,
-  //       builder: (ctx)=> superAlert(context, ctx, error, 'Error updating Business profile'),
-  //     );
-  //   }
-  //   finally {
-  //     _triggerLoading();
-  //     _goToEditBzProfile();
   //   }
   //
   // }
