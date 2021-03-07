@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:bldrs/dashboard/s01_dashboard.dart';
+import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
@@ -15,7 +16,6 @@ import 'package:bldrs/xxx_LABORATORY/animations/animations_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/ask/ask_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/camera_and_location/cam_play_ground.dart';
 import 'package:bldrs/xxx_LABORATORY/camera_and_location/camera_awesome.dart';
-import 'package:bldrs/xxx_LABORATORY/camera_and_location/camera_example.dart';
 import 'package:bldrs/xxx_LABORATORY/camera_and_location/camera_page.dart';
 import 'package:bldrs/xxx_LABORATORY/camera_and_location/google_map.dart';
 import 'package:bldrs/xxx_LABORATORY/camera_and_location/x12_image_picker.dart';
@@ -127,11 +127,11 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
 
           LogoSlogan(),
 
-          oButton('FlyerOuterMaskLayer', Iconz.Camera, FlyerOuterMaskLayer(flyerSizeFactor: 0.6,color: Colorz.WhiteGlass,)),
+          oButton('FlyerOuterMaskLayer', Iconz.Camera, FlyerOuterMaskLayer(flyerSizeFactor: 0.6,color: Colorz.WhiteGlass, screenHeight: superScreenHeight(context),)),
 
           oButton('Camera Awesome', Iconz.Camera, AwesomeCameraScreen()),
 
-          oButton('CameraApp', Iconz.Camera, CameraApp()),
+          // oButton('CameraApp', Iconz.Camera, CameraApp()),
 
           oButton('CamPlayGround', Iconz.Camera, CamPlayGround()),
 

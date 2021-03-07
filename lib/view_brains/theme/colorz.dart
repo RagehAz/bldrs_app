@@ -11,6 +11,7 @@ class Colorz {
   static const int smokeOpacity = 80;
   static const int plasticOpacity = 125;
   static const int lingerieOpacity = 200;
+  static const int _225 = 225;
   static const int solid = 255; // out of range,, should be 255 max
 
   static const BloodTest = Color.fromARGB(100, 255, 0, 0); // used to visualize containers on emulator
@@ -27,6 +28,7 @@ class Colorz {
   static const BlackSmoke = Color.fromARGB(smokeOpacity, 0, 0, 0);
   static const BlackPlastic = Color.fromARGB(plasticOpacity, 0, 0, 0);
   static const BlackLingerie = Color.fromARGB(lingerieOpacity, 0, 0, 0);
+  static const Black225 = Color.fromARGB(_225, 0, 0, 0);
 
   static const DarkBlue = Color.fromARGB(solid, 20, 20, 80);
   static const BabyBlue = Color.fromARGB(solid, 133, 203, 218);

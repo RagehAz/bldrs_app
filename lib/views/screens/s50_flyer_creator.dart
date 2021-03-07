@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:bldrs/ambassadors/database/dumz.dart';
+import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/users_provider.dart';
 import 'package:bldrs/view_brains/drafters/borderers.dart';
+import 'package:bldrs/view_brains/drafters/keyboarders.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
@@ -11,6 +13,7 @@ import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_sheet.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_zone.dart';
+import 'package:bldrs/views/widgets/flyer/parts/header.dart';
 import 'package:bldrs/views/widgets/flyer/parts/slides_parts/single_slide.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/loading/loading.dart';
@@ -21,22 +24,28 @@ import 'package:provider/provider.dart';
 import 'package:video_player/video_player.dart';
 // === === === === === === === === === === === === === === === === === === ===
 /// CODE BELOW SHOULD BE INTEGRATED IN main(); in main.dart,, or now,, we redirect
-/// from Obeisk to CameraApp directly
-Future<void> mainCam() async {
-  // Fetch the available cameras before initializing the app.
-  try {
-    WidgetsFlutterBinding.ensureInitialized();
-    cameras = await availableCameras();
-  } on CameraException catch (e) {
-    logError(e.code, e.description);
-  }
-  runApp(CameraApp());
-}
+/// from Obeisk to FlyerCreator directly
+// Future<void> mainCam() async {
+//   // Fetch the available cameras before initializing the app.
+//   try {
+//     WidgetsFlutterBinding.ensureInitialized();
+//     cameras = await availableCameras();
+//   } on CameraException catch (e) {
+//     logError(e.code, e.description);
+//   }
+//   runApp(FlyerCreator());
+// }
 // === === === === === === === === === === === === === === === === === === ===
-class CameraApp extends StatefulWidget {
+class FlyerCreator extends StatefulWidget {
+  final BzModel bz;
+
+  FlyerCreator({
+    @required this.bz,
+});
+
   @override
-  _CameraAppState createState() {
-    return _CameraAppState();
+  _FlyerCreatorState createState() {
+    return _FlyerCreatorState();
   }
 }
 
@@ -62,7 +71,7 @@ void logError(String code, String message) {
   }
 }
 
-class _CameraAppState extends State<CameraApp>
+class _FlyerCreatorState extends State<FlyerCreator>
     with WidgetsBindingObserver, TickerProviderStateMixin {
   CameraController controller;
   XFile imageFile;
@@ -162,16 +171,61 @@ void _triggerLoading(){
     // final double _flyerZoneWidth = superFlyerZoneWidth(context, _flyerSizeFactor);
     // final double _flyerZoneHeight = superFlyerZoneHeight(context, _flyerZoneWidth);
 
-    double _cameraAspectRatio = controller?.value?.aspectRatio ?? 1.3333333;
+    double _cameraAspectRatio =
+        controller == null || !controller.value.isInitialized ? 1.33333 :
+        controller?.value?.aspectRatio ?? 1.3333333;
     double _cameraPreviewWidth = superScreenWidth(context);
     double _cameraPreviewHeight = _cameraAspectRatio == null ?
     0 : (_cameraAspectRatio * _cameraPreviewWidth);
 
     double _flyerZoneHeight = _cameraPreviewHeight; // = flyerZoneWidth * Ratioz.xxflyerZoneHeight
     double _flyerZoneWidth = _flyerZoneHeight / Ratioz.xxflyerZoneHeight;
+    double _flyerSizeFactor = superFlyerSizeFactor(context, _flyerZoneWidth);
 
     double _screenWidth = superScreenWidth(context);
+    double _screenHeight = superScreenHeightWithoutSafeArea(context);
 
+    // return GestureDetector(
+    //   onTap: (){minimizeKeyboardOnTapOutSide(context);},
+    //   child: SafeArea(
+    //     top: true,
+    //     child: Scaffold(
+    //       resizeToAvoidBottomInset: false,
+    //       body: Container(
+    //         width: _screenWidth,
+    //         height: _screenHeight,
+    //         color: Colorz.Yellow,
+    //         alignment: Alignment.center,
+    //         child: Stack(
+    //           alignment: Alignment.center,
+    //           children: <Widget>[
+    //
+    //             /// CAMERA LAYER
+    //             Container(
+    //               width: _cameraPreviewWidth,
+    //               height: _cameraPreviewHeight,
+    //               alignment: Alignment.center,
+    //               // child: _cameraPreviewWidget(_cameraPreviewWidth, _cameraPreviewHeight),
+    //               decoration: BoxDecoration(
+    //                 color: Colorz.BloodRed,
+    //               ),
+    //             ),
+    //
+    //             /// FLYER MASK
+    //             FlyerOuterMaskLayer(
+    //               flyerSizeFactor: superFlyerSizeFactor(context, _flyerZoneWidth),
+    //               color: Colorz.BlackSmoke,
+    //               screenHeight: _screenHeight,
+    //             ),
+    //
+    //
+    //
+    //           ],
+    //         ),
+    //       ),
+    //     ),
+    //   ),
+    // );
 
     return MainLayout(
       // appBarBackButton: true,
@@ -212,100 +266,76 @@ void _triggerLoading(){
             width: _cameraPreviewWidth,
             height: _cameraPreviewHeight,
             alignment: Alignment.center,
-            // child: _cameraPreviewWidget(_cameraPreviewWidth, _cameraPreviewHeight),
+            child: _cameraPreviewWidget(_cameraPreviewWidth, _cameraPreviewHeight),
             decoration: BoxDecoration(
               color: Colorz.BloodRed,
             ),
           ),
 
+          /// FLYER LAYER
+          FlyerZone(
+            flyerSizeFactor: _flyerSizeFactor,
+            tappingFlyerZone: (){},
+            stackWidgets: <Widget>[
 
-          // FlyerZone(
-          //   flyerSizeFactor: _flyerSizeFactor,
-          //   tappingFlyerZone: (){},
-          //   stackWidgets: <Widget>[
-          //
-          //     SingleSlide(
-          //       slideMode: SlideMode.Empty,
-          //       flyerZoneWidth: _flyerZoneWidth,
-          //       slideColor: Colorz.BabyBlue,
-          //     ),
-          //
-          //
-          //
-          //     // _cameraPreviewWidget(),
-          //
-          //
-          //     // Column(
-          //     //   children: <Widget>[
-          //     //     Expanded(
-          //     //       child: Container(
-          //     //         child: Padding(
-          //     //           padding: const EdgeInsets.all(1.0),
-          //     //           child: Center(
-          //     //             child: _cameraPreviewWidget(),
-          //     //           ),
-          //     //         ),
-          //     //         decoration: BoxDecoration(
-          //     //           color: Colors.black,
-          //     //           border: Border.all(
-          //     //             color:
-          //     //             controller != null && controller.value.isRecordingVideo
-          //     //                 ? Colors.redAccent
-          //     //                 : Colors.grey,
-          //     //             width: 3.0,
-          //     //           ),
-          //     //         ),
-          //     //       ),
-          //     //     ),
-          //     //   ],
-          //     // )
-          //
-          //   ],
-          // ),
+              /// SLIDE SHADOW
+              SingleSlide(
+                slideMode: SlideMode.Empty,
+                flyerZoneWidth: _flyerZoneWidth,
+                slideColor: Colorz.Nothing,
+              ),
 
-          // Center(
-          //   child: Container(
-          //     width: _flyerZoneWidth,
-          //     height: _cameraHeight,
-          //     decoration: BoxDecoration(
-          //       color: Colorz.BloodTest,
-          //       borderRadius: superFlyerCorners(context, _flyerZoneWidth),
-          //     ),
-          //   ),
-          // ),
+              /// HEADER
+              Header(
+                bz: widget.bz,
+                author: widget.bz.bzAuthors[0],
+                flyerShowsAuthor: true,
+                followIsOn: false,
+                flyerZoneWidth: _flyerZoneWidth,
+                bzPageIsOn: false,
+                tappingHeader: (){},
+                tappingFollow: (){},
+                tappingUnfollow: (){},
+              ),
+
+              /// CAMERA BUTTON
+              Positioned(
+                bottom: 0,
+                child: DreamBox(
+                  width: _flyerZoneWidth * 0.2,
+                  height: _flyerZoneWidth * 0.2,
+                  boxMargins: EdgeInsets.only(bottom: _flyerZoneWidth * 0.025),
+                  icon: Iconz.CameraButton,
+                  iconColor: controller != null && controller.value.isRecordingVideo
+                      ? Colorz.BloodRed
+                      : Colorz.White,
+                  bubble: false,
+                  boxFunction: (){
+                    print('_screenWidth = $_screenWidth');
+                    print('_flyerZoneWidth = $_flyerZoneWidth');
+                    print('_flyerZoneHeight = $_flyerZoneHeight');
+                    // print('controller.cameraId = ${controller?.cameraId}');
+                    // print('controller.description.name = ${controller.description.name}');
+                    // print('controller.description.lensDirection = ${controller.description.lensDirection}');
+                    // print('controller.description.sensorOrientation = ${controller.description.sensorOrientation}');
+                    // print('controller.imageFormatGroup = ${controller.imageFormatGroup}');
+                    // print('controller.value.aspectRatio = ${controller.value.aspectRatio}');
+                    // print('_flyerZoneWidth / controller.value.aspectRatio = ${controller.value.aspectRatio / _flyerZoneWidth}');
+                  },
+                ),
+              ),
+
+
+            ],
+          ),
+
 
           /// FLYER MASK
           FlyerOuterMaskLayer(
             flyerSizeFactor: superFlyerSizeFactor(context, _flyerZoneWidth),
-            color: Colorz.BlackSmoke,
+            color: Colorz.Black225,
+            screenHeight: _screenHeight,
           ),
-
-          Positioned(
-            bottom: 0,
-            child: DreamBox(
-              width: _flyerZoneWidth * 0.2,
-              height: _flyerZoneWidth * 0.2,
-              boxMargins: EdgeInsets.only(bottom: _flyerZoneWidth * 0.025),
-              icon: Iconz.CameraButton,
-              iconColor: controller != null && controller.value.isRecordingVideo
-                  ? Colors.redAccent
-                  : Colors.grey,
-              bubble: false,
-              boxFunction: (){
-                print('_screenWidth = $_screenWidth');
-                print('_flyerZoneWidth = $_flyerZoneWidth');
-                print('_flyerZoneHeight = $_flyerZoneHeight');
-                // print('controller.cameraId = ${controller?.cameraId}');
-                // print('controller.description.name = ${controller.description.name}');
-                // print('controller.description.lensDirection = ${controller.description.lensDirection}');
-                // print('controller.description.sensorOrientation = ${controller.description.sensorOrientation}');
-                // print('controller.imageFormatGroup = ${controller.imageFormatGroup}');
-                // print('controller.value.aspectRatio = ${controller.value.aspectRatio}');
-                // print('_flyerZoneWidth / controller.value.aspectRatio = ${controller.value.aspectRatio / _flyerZoneWidth}');
-              },
-            ),
-          ),
-
 
         ],
       ),
