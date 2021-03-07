@@ -67,7 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
       layoutWidget: Stack(
         children: <Widget>[
           _isLoading == true ?
-          Center(child: Loading())
+          Center(child: Loading(loading: _isLoading,))
               :
           CustomScrollView(
             slivers: <Widget>[

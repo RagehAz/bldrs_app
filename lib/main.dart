@@ -2,6 +2,7 @@ import 'package:bldrs/ambassadors/services/auth.dart';
 import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/view_brains/localization/localization_constants.dart';
 import 'package:bldrs/xxx_LABORATORY/camera_and_location/test_provider.dart';
+import 'package:camera/camera.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -14,14 +15,25 @@ import 'package:provider/provider.dart';
 import 'views/screens/s51_flyer_screen.dart';
 import 'views/widgets/loading/loading.dart';
 import 'xxx_LABORATORY/ask/questions_provider.dart';
+import 'xxx_LABORATORY/camera_and_location/camera_example.dart';
 
 
 // kos om github
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  try {
+    WidgetsFlutterBinding.ensureInitialized();
+    cameras = await availableCameras();
+  } on CameraException catch (e) {
+    logError(e.code, e.description);
+    await Firebase.initializeApp();
+  }
   runApp(BldrsApp());
+
+
+  // WidgetsFlutterBinding.ensureInitialized();
+  // await Firebase.initializeApp();
+  // runApp(BldrsApp());
 }
 
 // main() => runApp(BldrsApp());
@@ -76,6 +88,7 @@ class _BldrsAppState extends State<BldrsApp> {
 // ---------------------------------------------------------------------------
   // Define an async function to initialize FlutterFire
   void _initializeFlutterFire() async {
+    _triggerLoading();
     try {
       // Wait for Firebase to initialize and set `_initialized` state to true
       await Firebase.initializeApp();
@@ -89,6 +102,7 @@ class _BldrsAppState extends State<BldrsApp> {
         _error = true;
       });
     }
+    _triggerLoading();
   }
 // ---------------------------------------------------------------------------
   @override
@@ -96,6 +110,14 @@ class _BldrsAppState extends State<BldrsApp> {
     _initializeFlutterFire();
     print("successfully initialized FlutterFire");
     super.initState();
+  }
+// ---------------------------------------------------------------------------
+  /// --- LOADING BLOCK
+  bool _loading = false;
+  void _triggerLoading(){
+    setState(() {_loading = !_loading;});
+    _loading == true?
+    print('LOADING') : print('LOADING COMPLETE');
   }
 // ---------------------------------------------------------------------------
   @override
@@ -106,7 +128,7 @@ class _BldrsAppState extends State<BldrsApp> {
     if (_locale == null) {
       return Container(
         child: Center(
-          child: Loading(),
+          child: Loading(loading: _loading,),
         ),
       );
     } else {

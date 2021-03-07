@@ -1,10 +1,19 @@
+import 'dart:io';
+
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_zone.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart' as sysPaths;
+import 'package:path/path.dart' as path;
+import 'package:flutter_image_compress/flutter_image_compress.dart';
+import 'package:exif/exif.dart';
 
 // class CameraMainPageView extends StatelessWidget{
 //   final controller = PageController(initialPage: 1);
@@ -38,8 +47,8 @@ Future<void> _controllerInitializer;
 // double _scale;
 
 Future<CameraDescription> getCamera() async {
-  final c = await availableCameras();
-  return c.first;
+  final _cam = await availableCameras();
+  return _cam.first;
 }
 
 @override
@@ -55,12 +64,75 @@ void initState(){
     });
   });
 }
+bool _loading;
+
+void _triggerLoading(){
+  print('loading------------------');
+  setState(() {
+    _loading = !_loading;
+  });
+  print('loading complete --------');
+
+}
 
 @override
 void dispose() {
 
   _controller.dispose();
     super.dispose();
+  }
+
+  File _theImageFile;
+
+  Future<void> _imagePickerCamera() async {
+    _triggerLoading();
+  final ImagePicker picker = ImagePicker();
+  final PickedFile imageFile = await picker.getImage(
+      source: ImageSource.camera,
+    maxWidth: 1000,
+    imageQuality: 100,
+    preferredCameraDevice: CameraDevice.rear,
+  );
+  final File correctedImageFile = await rotateAndCompressAndSaveImage(File(imageFile.path));
+
+  setState(() {
+    _theImageFile = correctedImageFile;
+  });
+
+    _triggerLoading();
+
+  }
+
+  Future<File> rotateAndCompressAndSaveImage(File image) async {
+    int rotate = 0;
+    List<int> imageBytes = await image.readAsBytes();
+    Map<String, IfdTag> exifData = await readExifFromBytes(imageBytes);
+
+    if (exifData != null &&
+        exifData.isNotEmpty &&
+        exifData.containsKey("Image Orientation")) {
+      IfdTag orientation = exifData["Image Orientation"];
+      int orientationValue = orientation.values[0];
+
+      if (orientationValue == 3) {
+        rotate = 180;
+      }
+
+      if (orientationValue == 6) {
+        rotate = -90;
+      }
+
+      if (orientationValue == 8) {
+        rotate = 90;
+      }
+    }
+
+    List<int> result = await FlutterImageCompress.compressWithList(imageBytes,
+        quality: 100, rotate: rotate);
+
+    await image.writeAsBytes(result);
+
+    return image;
   }
 
 
@@ -126,6 +198,7 @@ void dispose() {
                 boxMargins: EdgeInsets.only(bottom: _flyerZoneWidth * 0.025),
                 icon: Iconz.CameraButton,
                 bubble: false,
+                boxFunction: _imagePickerCamera,
               ),
           ),
 
@@ -139,6 +212,20 @@ void dispose() {
                 icon: Iconz.PhoneGallery,
                 bubble: false,
               ),
+          ),
+
+          Center(
+            child: DreamBox(
+              height: 200,
+              width: 200,
+              iconFile: _theImageFile,
+            ),
+          ),
+
+          Positioned(
+            top: 0,
+            right: 0,
+            child: Loading(loading: true,),
           ),
 
         ],
