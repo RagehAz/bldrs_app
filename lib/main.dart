@@ -12,10 +12,10 @@ import 'view_brains/localization/demo_localization.dart';
 import 'view_brains/router/route_names.dart';
 import 'view_brains/router/router.dart';
 import 'package:provider/provider.dart';
+import 'views/screens/s50_flyer_creator.dart';
 import 'views/screens/s51_flyer_screen.dart';
 import 'views/widgets/loading/loading.dart';
 import 'xxx_LABORATORY/ask/questions_provider.dart';
-import 'xxx_LABORATORY/camera_and_location/camera_example.dart';
 
 
 // kos om github

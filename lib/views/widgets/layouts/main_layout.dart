@@ -154,8 +154,9 @@ class MainLayout extends StatelessWidget {
           bottom: true,
           child: Scaffold(
             key: key,
-            resizeToAvoidBottomPadding: false,
-            // resizeToAvoidBottomInset: false,
+            // resizeToAvoidBottomPadding: false,
+            resizeToAvoidBottomInset: true,
+            backgroundColor: sky == Sky.Non ? Colorz.BlackBlack : null,
             body:
             canRefreshFlyers ?
 
