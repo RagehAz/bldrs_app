@@ -140,6 +140,7 @@ class UserBalloon extends StatelessWidget {
           if(snapshot.hasData == false){
             return Loading(
               size: balloonWidth,
+              loading: true,
               onTap: () => goToRoute(context, Routez.Starting),
             );
           } else {

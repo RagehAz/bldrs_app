@@ -51,7 +51,7 @@ Widget userStreamBuilder({
       stream: UserProvider(userID: _user?.userID)?.userData,
       builder: (context, snapshot){
         if(connectionHasNoData(snapshot) || connectionIsWaiting(snapshot)){
-          return Loading();
+          return Loading(loading: true,);
         } else {
           UserModel userModel = snapshot.data;
           return
@@ -86,7 +86,7 @@ Widget bzModelBuilder({
       builder: (ctx, snapshot){
 
         if (snapshot.connectionState == ConnectionState.waiting){
-          return Loading();
+          return Loading(loading: true,);
         } else {
           if (snapshot.error != null){
             return Container(); // superDialog(context, snapshot.error, 'error');
@@ -116,7 +116,7 @@ Widget bzModelStreamBuilder({
       stream: _prof.getBzStream(bzID),
       builder: (context, snapshot){
         if(connectionHasNoData(snapshot) || connectionIsWaiting(snapshot)){
-          return Loading();
+          return Loading(loading: true,);
         } else {
           BzModel bzModel = snapshot.data;
           return

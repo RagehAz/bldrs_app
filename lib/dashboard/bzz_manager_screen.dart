@@ -25,7 +25,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
   dynamic thing;
 // ---------------------------------------------------------------------------
   Future<dynamic> getFirestoreBzz() async {
-
+    _triggerLoading();
     List<QueryDocumentSnapshot> _bzzMaps = await getFireStoreCollectionMaps(FireStoreCollection.bzz);
 
     setState(() {
@@ -34,7 +34,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
     });
 
     print(thing);
-
+    _triggerLoading();
   }
 // ---------------------------------------------------------------------------
   void _printer(){
@@ -46,7 +46,17 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
     getFirestoreBzz();
     super.initState();
   }
-// ---------------------------------------------------------------------------
+  // LOADING BLOCK -----------------------------------------------------------
+  bool _loading = false;
+  void _triggerLoading(){
+    print('loading------------------');
+    setState(() {
+      _loading = !_loading;
+    });
+    print('loading complete --------');
+
+  }
+  // -------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -67,7 +77,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
             builder: (ctx, snapshot){
 
               if (snapshot.connectionState == ConnectionState.waiting){
-                return Loading();
+                return Loading(loading: _loading,);
               } else {
                 if (snapshot.error != null){
                   return Container(); // superDialog(context, snapshot.error, 'error');
