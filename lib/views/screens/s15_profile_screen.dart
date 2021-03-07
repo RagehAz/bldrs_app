@@ -74,7 +74,6 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
 
               children: <Widget>[
 
-
                 Stratosphere(),
 
                 UserBubble(
@@ -98,9 +97,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                   ],
                 ),
 
-
                 FollowingBzzBubble(),
-
 
                 // --- STATUS LABEL : STATUS SURVEY WILL BE IN VERSION 2 ISA
                 StatusBubble(
