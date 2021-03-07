@@ -17,7 +17,7 @@ class SlideCounters extends StatelessWidget {
     @required this.flyerZoneWidth,
     this.shares = 0,
     this.views = 0,
-    this.saves = 5,
+    this.saves = 0,
   });
 
   @override

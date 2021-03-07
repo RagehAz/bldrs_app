@@ -139,7 +139,6 @@ class _SingleSlideState extends State<SingleSlide> {
             objectIsURL(widget.picture) == true ?
         null : superImage(widget.picture, widget.boxFit),
       ),
-
       child: ClipRRect(
         borderRadius: superFlyerCorners(context, widget.flyerZoneWidth),
         child: Stack(
@@ -242,7 +241,9 @@ class _SingleSlideState extends State<SingleSlide> {
 
           ],
         ),
+
       ),
     );
+
   }
 }

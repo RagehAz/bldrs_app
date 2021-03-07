@@ -178,8 +178,8 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
                     children: <Widget>[
 
                       // --- LOADING INDICATOR
-                      widget.loading == false ? Container() :
-                      Loading(size: 35,),
+                      if (widget.loading)
+                      Loading(size: 35,loading: widget.loading,),
 
                       DreamBox(
                         height: 35,
