@@ -1,15 +1,16 @@
 import 'package:bldrs/view_brains/drafters/scalers.dart';
-import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
 class FlyerOuterMaskLayer extends StatelessWidget {
   final double flyerSizeFactor;
   final Color color;
+  final double screenHeight;
 
   FlyerOuterMaskLayer({
     @required this.flyerSizeFactor,
     @required this.color,
+    @required this.screenHeight,
 });
 
   @override
@@ -26,6 +27,7 @@ class FlyerOuterMaskLayer extends StatelessWidget {
             context: context,
             flyerZoneWidth: superFlyerZoneWidth(context, flyerSizeFactor),
             outerColor: color,
+            screenHeight: screenHeight,
           ),
           child: Container(),
         ),
@@ -38,11 +40,13 @@ class FlyerHolePainter extends CustomPainter {
   final BuildContext context;
   final double flyerZoneWidth;
   final Color outerColor;
+  final double screenHeight;
 
   FlyerHolePainter({
     @required this.context,
     @required this.flyerZoneWidth,
     @required this.outerColor,
+    @required this.screenHeight,
 });
 
   @override
@@ -55,9 +59,9 @@ class FlyerHolePainter extends CustomPainter {
     double _outerZeroY = 0;
     //--------------------------------------------------------------------------
     double _outerWidth = superScreenWidth(context);
-    double _outerHeight = superScreenHeightWithoutSafeArea(context);
+    double _outerHeight = screenHeight; //superScreenHeight(context);
 
-    print(' a77aaaa   superScreenHeightWithoutSafeArea(context) = ${superScreenHeightWithoutSafeArea(context)},, superScreenHeight(context) = ${superScreenHeight(context)}');
+    // print('superScreenHeightWithoutSafeArea(context) = ${superScreenHeightWithoutSafeArea(context)},, superScreenHeight(context) = ${superScreenHeight(context)}');
     //--------------------------------------------------------------------------
     /// if its not full size
     Radius _outerTopCorners = Radius.circular(0); //Radius.circular(_outerWidth * Ratioz.xxflyerTopCorners);

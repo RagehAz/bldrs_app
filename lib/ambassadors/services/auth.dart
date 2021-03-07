@@ -14,7 +14,7 @@ import 'package:flutter/cupertino.dart';
 
 class AuthService {
 
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth = FirebaseAuth?.instance;
 
   /// create user object based on firebase user
   UserModel _convertFirebaseUserToUserModel(User user) {
