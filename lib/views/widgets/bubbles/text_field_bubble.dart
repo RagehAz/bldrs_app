@@ -175,8 +175,8 @@ class TextFieldBubble extends StatelessWidget {
                   ),
 
                   // --- LOADING INDICATOR
-                  loading == false ? Container() :
-                  Loading(size: 35,),
+                  if (loading)
+                  Loading(size: 35, loading: loading,),
 
                   // --- PASSWORD REVEALER ON TAP
                   obscured == null ? Container() :

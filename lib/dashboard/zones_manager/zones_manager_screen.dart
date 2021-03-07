@@ -126,7 +126,7 @@ class _ZonesManagerScreenState extends State<ZonesManagerScreen> {
                             List<Country> _countries = decipherCountriesMaps(_countriesMaps);
 
                             if (connectionIsWaiting(streamSnapshots)){
-                              return Loading();
+                              return Loading(loading: _loading,);
                             }
                             return ListView.builder(
                               itemCount: _countries.length,

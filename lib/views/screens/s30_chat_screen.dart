@@ -60,7 +60,7 @@ class _ChatScreenState extends State<ChatScreen> {
               stream: UserProvider(userID: _userID).userData,
               builder: (ctx, snapshot) {
                 if (connectionIsWaiting(snapshot)) {
-                  return Loading();
+                  return Loading(loading: true,);
                 } else {
                   UserModel userModel = snapshot.data;
 
@@ -81,7 +81,7 @@ class _ChatScreenState extends State<ChatScreen> {
                             List<dynamic> conversation = streamSnapshot?.data?.docs;
 
                             if (connectionIsWaiting(streamSnapshot)) {
-                              return Loading();
+                              return Loading(loading: true,);
                             }
                             return ListView.builder(
                               reverse: false,

@@ -3,6 +3,18 @@ import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
+/// // LOADING BLOCK -----------------------------------------------------------
+/// bool _loading = false;
+/// void _triggerLoading(){
+///   print('loading------------------');
+///   setState(() {
+///     _loading = !_loading;
+///   });
+///   print('loading complete --------');
+///
+/// }
+/// // -------------------------------------------------------------------------
+
 class Loading extends StatelessWidget {
   final double size;
   final Function onTap;
@@ -11,7 +23,7 @@ class Loading extends StatelessWidget {
   Loading({
     this.size = 50,
     this.onTap,
-    this.loading,
+    @required this.loading,
 });
 
   @override
@@ -44,6 +56,6 @@ class LoadingFullScreenLayer extends StatelessWidget {
     return Container(
         width: superScreenWidth(context),
         height: superScreenWidth(context),
-        child: Center(child: Loading()));
+        child: Center(child: Loading(loading: true,)));
   }
 }

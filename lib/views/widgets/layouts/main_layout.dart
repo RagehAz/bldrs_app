@@ -34,7 +34,18 @@ enum AppBarType{
 enum Sky {
   Night,
   Black,
+  Non,
 }
+// === === === === === === === === === === === === === === === === === === ===
+// // ---------------------------------------------------------------------------
+// /// --- LOADING BLOCK
+// bool _loading = false;
+// void _triggerLoading(){
+//   setState(() {_loading = !_loading;});
+//   _loading == true?
+//   print('LOADING') : print('LOADING COMPLETE');
+// }
+// // ---------------------------------------------------------------------------
 // === === === === === === === === === === === === === === === === === === ===
 class MainLayout extends StatelessWidget {
   final List<Widget> appBarRowWidgets;
@@ -47,6 +58,7 @@ class MainLayout extends StatelessWidget {
   final bool canRefreshFlyers;
   final bool loading;
   final bool appBarBackButton;
+  final Key key;
 
   MainLayout({
     this.appBarRowWidgets,
@@ -59,6 +71,7 @@ class MainLayout extends StatelessWidget {
     this.canRefreshFlyers = false,
     this.loading = false,
     this.appBarBackButton = false,
+    this.key,
 });
 
   Future<void> _refresh(BuildContext context) async {
@@ -72,10 +85,12 @@ class MainLayout extends StatelessWidget {
 
     bool _ragehIsOn = tappingRageh == null ? false : true;
 
+    // ------------------------------------------------------------------
     final List<Widget> _mainLayoutStackWidgets = <Widget>[
 
       sky == Sky.Black ? BlackSky() :
-      NightSky(),
+      sky == Sky.Night ? NightSky() :
+      Container(),
 
       layoutWidget == null ? Container() :
       layoutWidget,
@@ -126,14 +141,19 @@ class MainLayout extends StatelessWidget {
     ),
 
     ];
+    // ------------------------------------------------------------------
+    print('beeed superScreenHeightWithoutSafeArea(context) = ${superScreenHeightWithoutSafeArea(context)},, superScreenHeight(context) = ${superScreenHeight(context)}');
+
 
     return StreamProvider<List<UserModel>>.value(
       value: UserProvider().allUsersStream,
       child: GestureDetector(
           onTap: (){minimizeKeyboardOnTapOutSide(context);},
         child: SafeArea(
+          top: true,
+          bottom: true,
           child: Scaffold(
-            // key: _scaffoldKey,
+            key: key,
             resizeToAvoidBottomPadding: false,
             // resizeToAvoidBottomInset: false,
             body:

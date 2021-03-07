@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:bldrs/dashboard/bzz_manager_screen.dart';
 import 'package:bldrs/dashboard/s01_dashboard.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
@@ -14,6 +13,9 @@ import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:bldrs/views/widgets/textings/the_golden_scroll.dart';
 import 'package:bldrs/xxx_LABORATORY/animations/animations_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/ask/ask_screen.dart';
+import 'package:bldrs/xxx_LABORATORY/camera_and_location/cam_play_ground.dart';
+import 'package:bldrs/xxx_LABORATORY/camera_and_location/camera_awesome.dart';
+import 'package:bldrs/xxx_LABORATORY/camera_and_location/camera_example.dart';
 import 'package:bldrs/xxx_LABORATORY/camera_and_location/camera_page.dart';
 import 'package:bldrs/xxx_LABORATORY/camera_and_location/google_map.dart';
 import 'package:bldrs/xxx_LABORATORY/camera_and_location/x12_image_picker.dart';
@@ -22,6 +24,7 @@ import 'package:bldrs/xxx_LABORATORY/camera_and_location/x_preview_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/forms_and_inputs/popup.dart';
 import 'package:bldrs/xxx_LABORATORY/forms_and_inputs/form.dart';
 import 'package:bldrs/xxx_LABORATORY/ideas/circle_list.dart';
+import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/flyer_outer_mask_layer.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/text_field_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x03_font_test_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x08_earth_screen.dart';
@@ -124,6 +127,14 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
 
           LogoSlogan(),
 
+          oButton('FlyerOuterMaskLayer', Iconz.Camera, FlyerOuterMaskLayer(flyerSizeFactor: 0.6,color: Colorz.WhiteGlass,)),
+
+          oButton('Camera Awesome', Iconz.Camera, AwesomeCameraScreen()),
+
+          oButton('CameraApp', Iconz.Camera, CameraApp()),
+
+          oButton('CamPlayGround', Iconz.Camera, CamPlayGround()),
+
           oButton('17 - Camera by Max', Iconz.Camera, MaxCameraScreen()),  // (){widget.controller.animateToPage(0, duration: Duration(milliseconds: 500), curve: Curves.ease);},
 
           oButton('18 - Camera Package', Iconz.Camera, CameraPage()),
@@ -157,8 +168,6 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
           oButton('13 - FlyersPageView', Iconz.Statistics, FlyersPageView()),
 
           oButton('14 - FlyersGridView', Iconz.FlyerGrid, FlyersGridView()),
-
-          oButton('19 - MainLayout now not flutter Better Camera Package', Iconz.Camera, MainLayout()),
 
           // oButton('21 - Soundz', Iconz.News, SoundzScreen()),
 

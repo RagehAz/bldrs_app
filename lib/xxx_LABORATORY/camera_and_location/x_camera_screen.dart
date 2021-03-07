@@ -194,7 +194,7 @@ class _CameraScreenState extends State {
     try {
       final path =
       join((await getTemporaryDirectory()).path, '${DateTime.now()}.png');
-      await controller.takePicture(path);
+      await controller.takePicture();
 
       Navigator.push(
         context,
