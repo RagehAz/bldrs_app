@@ -388,17 +388,19 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
                           boxFunction: _takeGalleryPicture,
                         ),
 
-                        // --- NEW SLIDE FROM CAMERA
-                        DreamBox(
-                          width: _flyerZoneWidth * 0.15,
-                          height: _flyerZoneWidth * 0.15,
-                          icon: Iconz.Camera,
-                          iconSizeFactor: 0.65,
-                          bubble: true,
-                          boxFunction: _takeCameraPicture,
-                        ),
+                        // PHASE 2 ISA
+                        // // --- NEW SLIDE FROM CAMERA
+                        // DreamBox(
+                        //   width: _flyerZoneWidth * 0.15,
+                        //   height: _flyerZoneWidth * 0.15,
+                        //   icon: Iconz.Camera,
+                        //   iconSizeFactor: 0.65,
+                        //   bubble: true,
+                        //   boxFunction: _takeCameraPicture,
+                        // ),
 
                         // --- OPEN MAP SCREEN
+
                         DreamBox(
                           width: _flyerZoneWidth * 0.15,
                           height: _flyerZoneWidth * 0.15,
