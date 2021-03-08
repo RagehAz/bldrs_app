@@ -1,8 +1,8 @@
 import 'package:bldrs/ambassadors/services/auth.dart';
 import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/view_brains/localization/localization_constants.dart';
+import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/xxx_LABORATORY/camera_and_location/test_provider.dart';
-import 'package:camera/camera.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -12,28 +12,14 @@ import 'view_brains/localization/demo_localization.dart';
 import 'view_brains/router/route_names.dart';
 import 'view_brains/router/router.dart';
 import 'package:provider/provider.dart';
-import 'views/screens/s50_flyer_creator.dart';
 import 'views/screens/s51_flyer_screen.dart';
 import 'views/widgets/loading/loading.dart';
 import 'xxx_LABORATORY/ask/questions_provider.dart';
 
-
-// kos om github
-
 void main() async {
-  try {
-    WidgetsFlutterBinding.ensureInitialized();
-    cameras = await availableCameras();
-  } on CameraException catch (e) {
-    logError(e.code, e.description);
-    await Firebase.initializeApp();
-  }
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(BldrsApp());
-
-
-  // WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp();
-  // runApp(BldrsApp());
 }
 
 // main() => runApp(BldrsApp());
