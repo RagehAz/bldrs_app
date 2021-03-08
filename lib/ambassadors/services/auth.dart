@@ -14,6 +14,7 @@ import 'package:flutter/cupertino.dart';
 
 class AuthService {
 
+  // dynamic cc = Firebase.
   final FirebaseAuth _auth = FirebaseAuth?.instance;
 
   /// create user object based on firebase user
