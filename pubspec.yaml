@@ -25,13 +25,9 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  camera: ^0.7.0+2
-  camerawesome: ^0.2.2
-  circle_list: ^1.0.4
   clipboard: ^0.1.2+8
   cloud_firestore: ^0.14.4
   country_state_city_picker: ^1.2.5
-  dotted_line: ^2.0.2
   email_validator: ^1.0.6
   esys_flutter_share: ^1.0.2
   exif: ^1.0.3

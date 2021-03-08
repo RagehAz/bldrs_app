@@ -15,8 +15,6 @@ import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart' show MainLayout, PyramidsHorizon, Stratosphere;
-
-import 's50_flyer_creator.dart';
 import 's50_flyer_editor_screen.dart';
 
 class MyBzScreen extends StatefulWidget {
@@ -215,7 +213,7 @@ class _MyBzScreenState extends State<MyBzScreen> {
                                     verse: 'Add New Flyer',
                                     verseScaleFactor: 1.6,
                                     bubble: false,
-                                    boxFunction: () => goToNewScreen(context, FlyerCreator(bz: _bzModel,)),
+                                    boxFunction: () => goToNewScreen(context, FlyerEditorScreen(bzModel: _bzModel,)),
                                   ),
 
                                   // --- EDIT BZ

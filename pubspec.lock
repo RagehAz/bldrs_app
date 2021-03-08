@@ -29,27 +29,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0-nullsafety.1"
-  camera:
-    dependency: "direct main"
-    description:
-      name: camera
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.7.0+2"
-  camera_platform_interface:
-    dependency: transitive
-    description:
-      name: camera_platform_interface
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.5.0"
-  camerawesome:
-    dependency: "direct main"
-    description:
-      name: camerawesome
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.2.2"
   characters:
     dependency: transitive
     description:
@@ -64,13 +43,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.0-nullsafety.1"
-  circle_list:
-    dependency: "direct main"
-    description:
-      name: circle_list
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.4"
   clipboard:
     dependency: "direct main"
     description:
@@ -127,13 +99,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.7"
-  cross_file:
-    dependency: transitive
-    description:
-      name: cross_file
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.0"
   crypto:
     dependency: transitive
     description:
@@ -141,13 +106,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.5"
-  dotted_line:
-    dependency: "direct main"
-    description:
-      name: dotted_line
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.2"
   email_validator:
     dependency: "direct main"
     description:
@@ -644,13 +602,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.5"
-  rxdart:
-    dependency: transitive
-    description:
-      name: rxdart
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.25.0"
   share:
     dependency: "direct main"
     description:
