@@ -29,9 +29,9 @@ class LocalizerButton extends StatelessWidget {
     String _lastProvinceName = _countryPro.getProvinceNameWithCurrentLanguageIfPossible(context, _lastProvinceID);
     String _lastAreaName = _countryPro.getAreaNameWithCurrentLanguageIfPossible(context, _lastAreaID);
 
-    print('country ID : $_lastCountryID, provinceID : $_lastProvinceID, '
-        'areaID : $_lastAreaID, CountryName : $_lastCountryName,'
-        ' ProvinceName : $_lastProvinceName, AreaName : $_lastAreaName');
+    // print('country ID : $_lastCountryID, provinceID : $_lastProvinceID, '
+    //     'areaID : $_lastAreaID, CountryName : $_lastCountryName,'
+    //     ' ProvinceName : $_lastProvinceName, AreaName : $_lastAreaName');
 
     String _countryAndProvinceNames =
         appIsLeftToRight(context) ? '$_lastProvinceName - $_lastCountryName'

@@ -47,6 +47,10 @@
     <string>Allow access to Camera.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Allow access to Microphone.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Allow access to your current location</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Allow access to your location</key>
 
 </dict>
 </plist>

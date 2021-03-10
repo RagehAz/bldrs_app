@@ -100,7 +100,7 @@ class CountryProvider with ChangeNotifier{
     Area area = _areas.singleWhere((ar) => ar.id == areaID, orElse: ()=> null);
     String nameInCurrentLanguage = area?.namez?.singleWhere((name) => name.code == _currentLanguageCode, orElse: ()=> null)?.value;
 
-    print('Area nameInCurrentLanguage = ($nameInCurrentLanguage) ,,area?.name is (${area?.name}) ');
+    // print('Area nameInCurrentLanguage = ($nameInCurrentLanguage) ,,area?.name is (${area?.name}) ');
 
     return nameInCurrentLanguage == null ? area?.name : nameInCurrentLanguage;
   }
