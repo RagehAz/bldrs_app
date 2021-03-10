@@ -1,9 +1,11 @@
 import 'package:bldrs/view_brains/drafters/borderers.dart';
+import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/drafters/text_directionerz.dart';
 import 'package:bldrs/view_brains/drafters/text_shapers.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_keyboard_size/flutter_keyboard_size.dart';
 import 'super_verse.dart';
 
 class SuperTextField extends StatefulWidget {
@@ -36,6 +38,7 @@ class SuperTextField extends StatefulWidget {
   final Function validator;
   final TextDirection textDirection;
   final Key key;
+  final Function onTap;
 
   SuperTextField({
     this.keyboardTextInputType = TextInputType.text,
@@ -67,6 +70,7 @@ class SuperTextField extends StatefulWidget {
     this.validator,
     this.textDirection,
     this.key,
+    this.onTap,
   });
 
   @override
@@ -101,6 +105,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
     print('$val, $_textDirection');
   }
 // ---------------------------------------------------------------------------
+
   @override
   Widget build(BuildContext context) {
 
@@ -263,33 +268,52 @@ class _SuperTextFieldState extends State<SuperTextField> {
         padding: _boxPadding,
         margin: widget.margin,
         decoration: _boxDecoration,
-        child: TextFormField(
-          key: widget.key,
-          // initialValue: widget.initialValue,
-          controller: widget.textController,
-          textInputAction: widget.keyboardTextInputAction,
-          // onSaved: (String koko) => widget.onSaved(koko),
-          validator: widget.validator,
-          onChanged: (val) => _onChanged(val),
-          // onTap: () {print('TextField is Changing');},
-          keyboardType: widget.keyboardTextInputType,
-          style: superTextStyle(widget.inputColor, 1),
-          enabled: true, // THIS DISABLES THE ABILITY TO OPEN THE KEYBOARD
-          minLines: widget.minLines,
-          // maxLines: _maxLines,
-          maxLength: widget.maxLength,
-          autocorrect: false, // NO IMPACT
-          keyboardAppearance: Brightness.dark,
-          textDirection: _concludedTextDirection,
-          obscureText: widget.obscured,
-          maxLengthEnforced: false,
-          enableInteractiveSelection: true, // makes test selectable
-          decoration: _inputDecoration,
-          cursorColor: Colorz.Yellow,
-          cursorRadius: Radius.circular(3),
-          cursorWidth: 2,
-          cursorHeight: null,
-          textAlign: _textAlign,
+        child: Consumer<ScreenHeight>(
+          builder: (context, _keyboard, child){
+            return TextFormField(
+              key: widget.key,
+              // initialValue: widget.initialValue,
+              controller: widget.textController,
+              textInputAction: widget.keyboardTextInputAction,
+              // onSaved: (String koko) => widget.onSaved(koko),
+              validator: widget.validator,
+              onChanged: (val) => _onChanged(val),
+              autofocus: true,
+              onTap: (){
+                double _keyboardHeight;
+
+                if (_keyboard.isOpen){
+                  setState(() {
+                    _keyboardHeight = _keyboard.keyboardHeight;
+                  });
+                } else {
+                  return;
+                }
+                // print('superScreenHeight(context) : ${superScreenHeight(context)}');
+                // print('_keyboardHeight : ${_keyboardHeight}');
+                widget.onTap(_keyboardHeight);
+                // print('source keyboard height is ${_keyboard.keyboardHeight}');
+              },
+              keyboardType: widget.keyboardTextInputType,
+              style: superTextStyle(widget.inputColor, 1),
+              enabled: true, // THIS DISABLES THE ABILITY TO OPEN THE KEYBOARD
+              minLines: widget.minLines,
+              // maxLines: _maxLines,
+              maxLength: widget.maxLength,
+              autocorrect: false, // NO IMPACT
+              keyboardAppearance: Brightness.dark,
+              textDirection: _concludedTextDirection,
+              obscureText: widget.obscured,
+              maxLengthEnforced: false,
+              enableInteractiveSelection: true, // makes test selectable
+              decoration: _inputDecoration,
+              cursorColor: Colorz.Yellow,
+              cursorRadius: Radius.circular(3),
+              cursorWidth: 2,
+              cursorHeight: null,
+              textAlign: _textAlign,
+            );
+          },
         ),
       )
 
@@ -301,29 +325,33 @@ class _SuperTextFieldState extends State<SuperTextField> {
         padding: _boxPadding,
         margin: widget.margin,
         decoration: _boxDecoration,
-        child: TextField(
-          key: widget.key,
-          controller: widget.textController,
-          onChanged: (val) => _onChanged(val),
-          // onTap: () {print('onTap is tapped');},
-          keyboardType: widget.keyboardTextInputType,
-          style: superTextStyle(widget.inputColor, 1),
-          enabled: true, // THIS DISABLES THE ABILITY TO OPEN THE KEYBOARD
-          minLines: widget.minLines,
-          maxLines: _maxLines,
-          maxLength: widget.maxLength,
-          autocorrect: true, // -------------------------------------------NO IMPACT
-          keyboardAppearance: Brightness.dark,
-          textDirection: _concludedTextDirection,
-          obscureText: widget.obscured,
-          maxLengthEnforced: false,
-          enableInteractiveSelection: true, // makes test selectable
-          decoration: _inputDecoration,
-          cursorColor: Colorz.Yellow,
-          cursorRadius: Radius.circular(3),
-          cursorWidth: 2,
-          cursorHeight: null,
-          textAlign: _textAlign,
+        child: Consumer<ScreenHeight>(
+          builder: (context, _keyboard, child){
+            return TextField(
+              key: widget.key,
+              controller: widget.textController,
+              onChanged: (val) => _onChanged(val),
+              onTap: () => widget.onTap(_keyboard),
+              keyboardType: widget.keyboardTextInputType,
+              style: superTextStyle(widget.inputColor, 1),
+              enabled: true, // THIS DISABLES THE ABILITY TO OPEN THE KEYBOARD
+              minLines: widget.minLines,
+              maxLines: _maxLines,
+              maxLength: widget.maxLength,
+              autocorrect: true, // -------------------------------------------NO IMPACT
+              keyboardAppearance: Brightness.dark,
+              textDirection: _concludedTextDirection,
+              obscureText: widget.obscured,
+              maxLengthEnforced: false,
+              enableInteractiveSelection: true, // makes test selectable
+              decoration: _inputDecoration,
+              cursorColor: Colorz.Yellow,
+              cursorRadius: Radius.circular(3),
+              cursorWidth: 2,
+              cursorHeight: null,
+              textAlign: _textAlign,
+            );
+          },
         ),
       );
 

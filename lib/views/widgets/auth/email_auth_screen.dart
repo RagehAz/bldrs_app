@@ -5,6 +5,7 @@ import 'package:bldrs/views/screens/s03_register_page.dart';
 import 'package:bldrs/views/widgets/buttons/bt_skip_auth.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_keyboard_size/flutter_keyboard_size.dart';
 
 class EmailAuth extends StatefulWidget {
   @override
@@ -15,11 +16,14 @@ class _EmailAuthState extends State<EmailAuth> {
   bool signingIn = true;
   String email = '';
   String password = '';
-
-// ---------------------------------------------------------------------------
+  ScrollController _scrollController;
+  final _keyboardHeight = EdgeInsets.fromWindowPadding(WidgetsBinding.instance.window.viewInsets,WidgetsBinding.instance.window.devicePixelRatio).bottom;
+  // final _keyboardHeight = viewInsets.bottom;
+  // ---------------------------------------------------------------------------
 
   @override
   void initState() {
+    _scrollController = ScrollController();
     super.initState();
   }
 // ---------------------------------------------------------------------------
@@ -27,6 +31,12 @@ class _EmailAuthState extends State<EmailAuth> {
     setState(() {
       signingIn = ! signingIn;
     });
+  }
+// ---------------------------------------------------------------------------
+  void moveScreen(double keyboardHeight){
+    // double _keyBoardHeight = keyboard.keyboardHeight;
+    print('_keyBoardHeight : ${keyboardHeight}');
+    _scrollController.animateTo(keyboardHeight, duration: Duration(milliseconds: 200), curve: Curves.bounceInOut);
   }
 // ---------------------------------------------------------------------------
   void emailTextOnChanged(String val){
@@ -46,7 +56,7 @@ class _EmailAuthState extends State<EmailAuth> {
     return MainLayout(
       pyramids: Iconz.PyramidzYellow,
       sky: Sky.Black,
-      // tappingRageh: (){print('$email, $password');},
+      tappingRageh: (){print('$_keyboardHeight');},
       layoutWidget: Container(
         width: superScreenWidth(context),
         height: superScreenHeight(context),
@@ -54,36 +64,37 @@ class _EmailAuthState extends State<EmailAuth> {
         child: Stack(
           children: <Widget>[
 
-            SingleChildScrollView(
-              child: Column(
-                children: <Widget>[
+            ListView(
+              controller: _scrollController,
+              shrinkWrap: true,
+              // keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.manual,
+              children: <Widget>[
 
-                  Stratosphere(heightFactor: 0.5,),
+                Stratosphere(heightFactor: 0.5,),
 
-                  signingIn == true ?
-                  SignIn(
-                    switchToSignIn: switchSignIn,
-                    email: email,
-                    password: password,
-                    emailTextOnChanged: emailTextOnChanged,
-                    passwordTextOnChanged: passwordTextOnChanged,
-                  )
-                      :
-                      // REGISTER NEW ACCOUNT
-                  Register(
-                    switchToSignIn: switchSignIn,
-                    email: email,
-                    password: password,
-                    emailTextOnChanged: emailTextOnChanged,
-                    passwordTextOnChanged: passwordTextOnChanged,
-                  ),
+                signingIn == true ?
+                SignIn(
+                  switchToSignIn: switchSignIn,
+                  email: email,
+                  password: password,
+                  emailTextOnChanged: (val) => emailTextOnChanged(val),
+                  passwordTextOnChanged: (val) => passwordTextOnChanged(val),
+                  fieldOnTap: (keyboard) => moveScreen(keyboard),
+                )
+                    :
+                // REGISTER NEW ACCOUNT
+                Register(
+                  switchToSignIn: switchSignIn,
+                  email: email,
+                  password: password,
+                  emailTextOnChanged: emailTextOnChanged,
+                  passwordTextOnChanged: passwordTextOnChanged,
+                ),
 
-                  PyramidsHorizon(heightFactor: 13,),
+                PyramidsHorizon(heightFactor: 13,),
 
-                ],
-              ),
+              ],
             ),
-
 
             BtSkipAuth(),
 

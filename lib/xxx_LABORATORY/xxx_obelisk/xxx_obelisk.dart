@@ -13,7 +13,6 @@ import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:bldrs/views/widgets/textings/the_golden_scroll.dart';
 import 'package:bldrs/xxx_LABORATORY/animations/animations_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/ask/ask_screen.dart';
-import 'package:bldrs/xxx_LABORATORY/camera_and_location/google_map.dart';
 import 'package:bldrs/xxx_LABORATORY/forms_and_inputs/popup.dart';
 import 'package:bldrs/xxx_LABORATORY/forms_and_inputs/form.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/text_field_test.dart';
@@ -154,8 +153,6 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
           oButton('25 - ShareAndAddImageTest', Iconz.Share, ShareAndAddImageTest()),
 
           oButton('26 - City Dots', Iconz.Earth, EarthScreen()),
-
-          oButton('27 - Google Maps - Custom non resizable fucking pin', Iconz.ComMap, GoogleMapScreen()),
 
           // oButton('28 - Google Maps - Defined size Pin', Iconz.ComMap, GoogleMapScreen2()),
 

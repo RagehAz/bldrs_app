@@ -20,6 +20,7 @@ import 'package:flutter/material.dart';
 import 'package:bldrs/views/widgets/buttons/bt_rageh.dart';
 import 'package:provider/provider.dart';
 import '../../../main.dart';
+import 'package:flutter_keyboard_size/flutter_keyboard_size.dart';
 // === === === === === === === === === === === === === === === === === === ===
 enum AppBarType{
   Basic,
@@ -142,43 +143,45 @@ class MainLayout extends StatelessWidget {
 
     ];
     // ------------------------------------------------------------------
-    print('beeed superScreenHeightWithoutSafeArea(context) = ${superScreenHeightWithoutSafeArea(context)},, superScreenHeight(context) = ${superScreenHeight(context)}');
+    // print('superScreenHeightWithoutSafeArea(context) = ${superScreenHeightWithoutSafeArea(context)},, superScreenHeight(context) = ${superScreenHeight(context)}');
 
 
     return StreamProvider<List<UserModel>>.value(
       value: UserProvider().allUsersStream,
-      child: GestureDetector(
-          onTap: (){minimizeKeyboardOnTapOutSide(context);},
-        child: SafeArea(
-          top: true,
-          bottom: true,
-          child: Scaffold(
-            key: key,
-            // resizeToAvoidBottomPadding: false,
-            resizeToAvoidBottomInset: true,
-            backgroundColor: sky == Sky.Non ? Colorz.BlackBlack : null,
-            body:
-            canRefreshFlyers ?
+      child: KeyboardSizeProvider(
+        smallSize: 400,
+        child: GestureDetector(
+            onTap: (){minimizeKeyboardOnTapOutSide(context);},
+          child: SafeArea(
+            top: true,
+            bottom: true,
+            child: Scaffold(
+              key: key,
+              resizeToAvoidBottomInset: false, // this false prevents keyboard from pushing pyramids up
+              backgroundColor: sky == Sky.Non ? Colorz.BlackBlack : null,
+              body:
+              canRefreshFlyers ?
 
-            RefreshIndicator(
-              onRefresh: ()=> _refresh(context),
-              color: Colorz.BlackBlack,
-              backgroundColor: Colorz.Yellow,
-              displacement: Ratioz.ddAppBarMargin,
-              strokeWidth: 4,
-              child: Stack(
+              RefreshIndicator(
+                onRefresh: ()=> _refresh(context),
+                color: Colorz.BlackBlack,
+                backgroundColor: Colorz.Yellow,
+                displacement: Ratioz.ddAppBarMargin,
+                strokeWidth: 4,
+                child: Stack(
+                  alignment: Alignment.topCenter,
+                  children: _mainLayoutStackWidgets,
+                ),
+              )
+
+                  :
+
+              Stack(
                 alignment: Alignment.topCenter,
                 children: _mainLayoutStackWidgets,
               ),
-            )
 
-                :
-
-            Stack(
-              alignment: Alignment.topCenter,
-              children: _mainLayoutStackWidgets,
             ),
-
           ),
         ),
       ),
