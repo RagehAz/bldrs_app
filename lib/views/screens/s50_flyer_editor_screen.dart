@@ -11,7 +11,6 @@ import 'package:bldrs/views/widgets/flyer/parts/flyer_zone.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header.dart';
 import 'package:bldrs/views/widgets/flyer/parts/progress_bar.dart';
 import 'package:bldrs/views/widgets/flyer/parts/slides_parts/single_slide.dart';
-import 'package:bldrs/xxx_LABORATORY/camera_and_location/google_map.dart';
 import 'package:bldrs/xxx_LABORATORY/camera_and_location/location_helper.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:path/path.dart' as path;
@@ -22,6 +21,8 @@ import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 's50_flyer_on_map.dart';
 
 enum SlidingDirection{
   next,
@@ -173,7 +174,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
     final _imageFile = await takeGalleryPicture(PicType.slideHighRes);
 
     setState(() {
-      _storedImage = File(_imageFile.path);
+      _storedImage = File(_imageFile?.path);
       newSlides.add(
           SlideModel(
             flyerID: 'f${DateTime.now()}',
@@ -228,6 +229,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
         MaterialPageRoute(
             builder: (ctx) => GoogleMapScreen(
               isSelecting: true,
+              flyerZoneWidth: superFlyerZoneWidth(context, 0.8),
             )
         )
     );
@@ -299,13 +301,14 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
         Expanded(child: Container(),),
 
         DreamBox(
-        height: 35,
-        boxMargins: EdgeInsets.symmetric(horizontal: Ratioz.ddAppBarPadding),
-        verse: 'Publish flyer',
-        verseColor: Colorz.BlackBlack,
-        color: Colorz.Yellow,
-        icon: Iconz.AddFlyer,
-        iconSizeFactor: 0.6,
+          height: 35,
+          boxMargins: EdgeInsets.symmetric(horizontal: Ratioz.ddAppBarPadding),
+          verse: 'Publish flyer',
+          verseColor: Colorz.BlackBlack,
+          verseScaleFactor: 0.8,
+          color: Colorz.Yellow,
+          icon: Iconz.AddFlyer,
+          iconSizeFactor: 0.6,
           boxFunction: _publishFlyer,
       ),
 

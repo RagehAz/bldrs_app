@@ -21,6 +21,7 @@ class SignIn extends StatefulWidget {
   final String password;
   final Function emailTextOnChanged;
   final Function passwordTextOnChanged;
+  final Function fieldOnTap;
 
 
   SignIn({
@@ -29,6 +30,7 @@ class SignIn extends StatefulWidget {
     @required this.password,
     @required this.emailTextOnChanged,
     @required this.passwordTextOnChanged,
+    @required this.fieldOnTap,
   });
 
   @override
@@ -116,6 +118,7 @@ class _SignInState extends State<SignIn> {
 
           // --- ENTER E-MAIL
           TextFieldBubble(
+            fieldOnTap: widget.fieldOnTap,
             textController: _emailController,
             loading: loading,
             bubbleColor: Colorz.WhiteGlass,
@@ -144,6 +147,7 @@ class _SignInState extends State<SignIn> {
 
           // --- ENTER PASSWORD
           TextFieldBubble(
+            fieldOnTap: widget.fieldOnTap,
             textController: _passWordController,
             loading: loading,
             bubbleColor: Colorz.WhiteGlass,
@@ -180,21 +184,24 @@ class _SignInState extends State<SignIn> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
 
-              SuperVerse(
+              DreamBox(
+                height: 50,
+                width: 150,
+                verseMaxLines: 2,
+                verseScaleFactor: 0.55,
                 verse: Wordz.createAccount(context),
-                color: Colorz.BabyBlue,
-                size: 2,
-                labelColor: Colorz.WhiteGlass,
-                margin: 0,
-                labelTap: widget.switchToSignIn,
+                color: Colorz.WhiteGlass,
+                boxMargins: EdgeInsets.all(0),
+                boxFunction: widget.switchToSignIn,
               ),
 
               DreamBox(
                 height: 50,
                 verseScaleFactor: 0.7,
-                color: Colorz.WhiteGlass,
+                color: Colorz.Yellow,
                 verse: Wordz.signIn(context),
-                boxMargins: EdgeInsets.all(20),
+                verseColor: Colorz.BlackBlack,
+                boxMargins: EdgeInsets.symmetric(horizontal: 10),
                 boxFunction: () async {
                   minimizeKeyboardOnTapOutSide(context);
 
