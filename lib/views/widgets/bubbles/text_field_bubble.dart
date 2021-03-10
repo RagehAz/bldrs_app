@@ -40,6 +40,7 @@ class TextFieldBubble extends StatelessWidget {
   final TextDirection textDirection;
   final Color bubbleColor;
   final Key key;
+  final Function fieldOnTap;
 
   TextFieldBubble({
     @required this.title,
@@ -70,6 +71,7 @@ class TextFieldBubble extends StatelessWidget {
     this.textDirection,
     this.bubbleColor = Colorz.WhiteGlass,
     this.key,
+    this.fieldOnTap,
   });
 
   @override
@@ -152,6 +154,7 @@ class TextFieldBubble extends StatelessWidget {
                       Container(
                         width: fieldWidth,
                         child: SuperTextField(
+                          onTap: fieldOnTap,
                           textDirection: textDirection,
                           fieldIsFormField: fieldIsFormField,
                           hintText: hintText,
