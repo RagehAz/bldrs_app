@@ -1,24 +1,79 @@
 import 'package:bldrs/view_brains/drafters/borderers.dart';
+import 'package:bldrs/view_brains/drafters/colorizers.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
+import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 // ----------------------------------------------------------------------
 AlertDialog superAlert (BuildContext context, BuildContext ctx, dynamic error, String title) {
+
+  BorderRadius _borders = superBorderAll(context, 20);
+
   return
     AlertDialog(
 
-      title: SuperVerse(verse: title, color: Colorz.BlackBlack,),
+      // title: SuperVerse(verse: title, color: Colorz.BlackBlack,),
 
-      content: SuperVerse(
-        verse: error.toString(),
-        color: Colorz.BlackBlack,
-        maxLines: 10,
+      content: Builder(
+        builder: (context){
+          return
+              Stack(
+                children: <Widget>[
+
+                  BlurLayer(
+                    borders: _borders,
+                  ),
+
+                  Container(
+                    width: double.infinity,
+                    height: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Colorz.WhiteGlass,
+                      borderRadius: _borders
+                    ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: <Widget>[
+
+                        SuperVerse(
+                          verse: title,
+                          color: Colorz.White,
+                          margin: Ratioz.ddAppBarMargin,
+                        ),
+
+                        Expanded(child: Container(),),
+
+                        SuperVerse(
+                          verse: error.toString(),
+                          color: Colorz.White,
+                          maxLines: 10,
+                        ),
+
+                        Expanded(child: Container(),),
+
+                        DreamBox(
+                            height: 50,
+                            boxMargins: EdgeInsets.all(Ratioz.ddAppBarMargin),
+                            verse: 'I Understand',
+                            verseColor: Colorz.BlackBlack,
+                            color: Colorz.Yellow,
+                            verseScaleFactor: 0.6,
+                            boxFunction: () => goBack(context)
+                        )
+
+                      ],
+                    ),
+                  ),
+
+                ],
+              );
+        },
       ),
 
-      backgroundColor: Colorz.White,
+      backgroundColor: Colorz.Nothing,
       elevation: 10,
       shape: RoundedRectangleBorder(borderRadius: superBorderAll(context, 20)),
       contentPadding: EdgeInsets.all(10),
@@ -32,20 +87,21 @@ AlertDialog superAlert (BuildContext context, BuildContext ctx, dynamic error, S
       buttonPadding: EdgeInsets.all(5),
       titlePadding: EdgeInsets.all(20),
 
-      actions: <Widget>[
 
-        DreamBox(
-          width: 321,
-          height: 50,
-          color: Colorz.Yellow,
-          verse: 'I Understand',
-          verseColor: Colorz.BlackBlack,
-          verseScaleFactor: 0.8,
-          verseWeight: VerseWeight.bold,
-          boxFunction: () => goBack(context),
-        ),
 
-      ],
+      // actions: <Widget>[
+      //
+      //   DreamBox(
+      //     width: 321,
+      //     height: 50,
+      //     color: Colorz.Yellow,
+      //     verse: 'I Understand',
+      //     verseColor: Colorz.BlackBlack,
+      //     verseScaleFactor: 0.8,
+      //     verseWeight: VerseWeight.bold,
+      //     boxFunction: () => goBack(context),
+      //   ),
+      // ],
 
     );
 }
@@ -57,6 +113,18 @@ Future<dynamic> superDialog(BuildContext context, dynamic error, String title) a
   );
   return _dialog;
 }
+// ----------------------------------------------------------------------
+// Future<dynamic> superDialog2(BuildContext context, dynamic error, String title) async {
+//   Future<dynamic> _dialog = showDialog(
+//       context: context,
+//       builder: (_)
+//       Dialog(
+//     backgroundColor: Colorz.White,
+//     insetPadding: EdgeInsets.all(Ratioz.ddAppBarMargin * 2),
+//
+//   ));
+//   return _dialog;
+// }
 // ----------------------------------------------------------------------
 Future<void> tryAndCatch({Function finals, BuildContext context, Function functions,}) async {
   try{

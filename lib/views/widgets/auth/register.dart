@@ -209,23 +209,31 @@ class _RegisterState extends State<Register> {
             },
           ),
 
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
 
-              SuperVerse(
-                verse: _error,
-                color: Colorz.BloodRed,
+              DreamBox(
+                height: 50,
+                width: 150,
+                verse: 'Sign in',
+                secondLine: 'Existing account',
+                verseMaxLines: 2,
+                verseScaleFactor: 0.55,
+                color: Colorz.WhiteGlass,
+                boxFunction: widget.switchToSignIn,
               ),
 
               ChangeNotifierProvider.value(
                 value: _countryPro,
                 child: DreamBox(
                   height: 50,
-                  color: Colorz.WhiteGlass,
+                  color: Colorz.Yellow,
                   verseScaleFactor: 0.7,
                   verse: Wordz.register(context),
+                  verseColor: Colorz.BlackBlack,
+                  verseWeight: VerseWeight.black,
                   boxMargins: EdgeInsets.all(10),
                   boxFunction: () async {
                     minimizeKeyboardOnTapOutSide(context);
@@ -269,15 +277,6 @@ class _RegisterState extends State<Register> {
                     }
                   },
                 ),
-              ),
-
-              SuperVerse(
-                verse: Wordz.signInExisting(context),
-                color: Colorz.BabyBlue,
-                size: 2,
-                labelColor: Colorz.WhiteGlass,
-                margin: 0,
-                labelTap: widget.switchToSignIn,
               ),
 
             ],
