@@ -1,5 +1,6 @@
 import 'package:bldrs/view_brains/drafters/borderers.dart';
 import 'package:bldrs/view_brains/drafters/scalers.dart';
+import 'package:bldrs/view_brains/drafters/shadowers.dart';
 import 'package:bldrs/view_brains/drafters/text_directionerz.dart';
 import 'package:bldrs/view_brains/drafters/text_shapers.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
@@ -164,7 +165,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
           wordSpacing: _verseWordSpacing,
           fontSize: _verseSize * sizeFactor,
           fontWeight: _verseWeight,
-          shadows: [
+          shadows: <Shadow>[
             if (_shadow)
               Shadow(
                 blurRadius: _shadowBlur,

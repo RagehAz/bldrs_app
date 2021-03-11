@@ -42,7 +42,6 @@ class AuthService {
       // followedBzzIDs: [''],
     );
   }
-
   // ---------------------------------------------------------------------------
   /// auth change user stream
   Stream<UserModel> get userStream {
@@ -51,7 +50,6 @@ class AuthService {
         .map(
         _convertFirebaseUserToUserModel); // different syntax than previous snippet
   }
-
   // ---------------------------------------------------------------------------
   /// sign in anonymously
   Future signInAnon(BuildContext context) async {
@@ -66,7 +64,6 @@ class AuthService {
       return null;
     }
   }
-
   // ---------------------------------------------------------------------------
   /// sign in with email & password
   Future signInWithEmailAndPassword(String email, String password) async {
@@ -77,10 +74,10 @@ class AuthService {
       return _convertFirebaseUserToUserModel(user);
     } catch (error) {
       print('auth error is : ${error.toString()}');
+
       return error;
     }
   }
-
   // ---------------------------------------------------------------------------
   /// register with email & password
   Future registerWithEmailAndPassword(BuildContext context, Zone currentZone,
@@ -127,7 +124,6 @@ class AuthService {
       return error;
     }
   }
-
   // ---------------------------------------------------------------------------
   /// sign out
   Future signOut(BuildContext context) async {
@@ -138,7 +134,6 @@ class AuthService {
       return null;
     }
   }
-
   // ---------------------------------------------------------------------------
   Future deleteFirebaseUser(BuildContext context, String email, String password)
   async {
@@ -157,7 +152,6 @@ class AuthService {
       return null;
     }
   }
-
 }
   // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
   String superUserID(){

@@ -1,18 +1,17 @@
 import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/view_brains/theme/iconz.dart';
-import 'package:bldrs/views/screens/s02_signin_page.dart';
-import 'package:bldrs/views/screens/s03_register_page.dart';
+import 'package:bldrs/views/widgets/auth/register.dart';
+import 'package:bldrs/views/widgets/auth/signin.dart';
 import 'package:bldrs/views/widgets/buttons/bt_skip_auth.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_keyboard_size/flutter_keyboard_size.dart';
 
-class EmailAuth extends StatefulWidget {
+class AuthScreen extends StatefulWidget {
   @override
-  _EmailAuthState createState() => _EmailAuthState();
+  _AuthScreenState createState() => _AuthScreenState();
 }
 
-class _EmailAuthState extends State<EmailAuth> {
+class _AuthScreenState extends State<AuthScreen> {
   bool signingIn = true;
   String email = '';
   String password = '';
@@ -56,11 +55,11 @@ class _EmailAuthState extends State<EmailAuth> {
     return MainLayout(
       pyramids: Iconz.PyramidzYellow,
       sky: Sky.Black,
-      tappingRageh: (){print('$_keyboardHeight');},
+      // tappingRageh: (){print('$_keyboardHeight');},
       layoutWidget: Container(
         width: superScreenWidth(context),
         height: superScreenHeight(context),
-        alignment: Alignment.center,
+        alignment: Alignment.topCenter,
         child: Stack(
           children: <Widget>[
 
@@ -70,7 +69,7 @@ class _EmailAuthState extends State<EmailAuth> {
               // keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.manual,
               children: <Widget>[
 
-                Stratosphere(heightFactor: 0.5,),
+                // Stratosphere(heightFactor: 0.5,),
 
                 signingIn == true ?
                 SignIn(
@@ -95,8 +94,6 @@ class _EmailAuthState extends State<EmailAuth> {
 
               ],
             ),
-
-            BtSkipAuth(),
 
           ],
         ),
