@@ -4,8 +4,10 @@ import 'package:bldrs/view_brains/drafters/keyboarders.dart';
 import 'package:bldrs/view_brains/drafters/text_checkers.dart';
 import 'package:bldrs/view_brains/router/navigators.dart';
 import 'package:bldrs/view_brains/router/route_names.dart';
+import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/widgets/bubbles/text_field_bubble.dart';
+import 'package:bldrs/views/widgets/buttons/bt_skip_auth.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
@@ -108,9 +110,9 @@ class _SignInState extends State<SignIn> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
 
-          LogoSlogan(
-            sizeFactor: 0.8,
-          ),
+          // LogoSlogan(
+          //   sizeFactor: 0.8,
+          // ),
 
           SizedBox(
             height: 20,
@@ -184,12 +186,17 @@ class _SignInState extends State<SignIn> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
 
+              // BtSkipAuth(),
+
+              Expanded(child: Container(),),
+
               DreamBox(
                 height: 50,
                 width: 150,
                 verseMaxLines: 2,
                 verseScaleFactor: 0.55,
-                verse: Wordz.createAccount(context),
+                verse: 'Create',
+                secondLine: 'New Account',
                 color: Colorz.WhiteGlass,
                 boxMargins: EdgeInsets.all(0),
                 boxFunction: widget.switchToSignIn,
@@ -200,8 +207,9 @@ class _SignInState extends State<SignIn> {
                 verseScaleFactor: 0.7,
                 color: Colorz.Yellow,
                 verse: Wordz.signIn(context),
+                verseWeight: VerseWeight.black,
                 verseColor: Colorz.BlackBlack,
-                boxMargins: EdgeInsets.symmetric(horizontal: 10),
+                boxMargins: EdgeInsets.symmetric(horizontal: Ratioz.ddAppBarMargin),
                 boxFunction: () async {
                   minimizeKeyboardOnTapOutSide(context);
 
@@ -223,6 +231,12 @@ class _SignInState extends State<SignIn> {
                         // ---------------------
                         else if ('$result' == '[firebase_auth/user-not-found] There is no user record corresponding to this identifier. The user may have been deleted.') {
                           setState(() {error = Wordz.emailNotFound(context);});
+                          superDialog(context, error, 'Ops!');
+                          _triggerLoading();
+                        }
+                        // ---------------------
+                        else if('$result' == '[firebase_auth/network-request-failed] A network error (such as timeout, interrupted connection or unreachable host) has occurred.') {
+                          setState(() {error = 'No Internet connection available';});
                           superDialog(context, error, 'Ops!');
                           _triggerLoading();
                         }
@@ -285,14 +299,10 @@ class _SignInState extends State<SignIn> {
             ],
           ),
 
-
-          SuperVerse(
-            verse: error,
-            color: Colorz.BloodRed,
-          ),
-
-
-
+          // SuperVerse(
+          //   verse: error,
+          //   color: Colorz.BloodRed,
+          // ),
 
         ],
       ),
