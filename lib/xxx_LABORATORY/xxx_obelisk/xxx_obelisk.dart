@@ -122,8 +122,6 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
 
           oButton('Text field test', Iconz.Language, TextFieldTest()),
 
-          oButton('1 - Add new flyer', Iconz.AddFlyer, FlyerEditorScreen()),
-
           oButton('2 - Biso Ask Screen', Iconz.UTPlanning, AskScreen()),
 
           // oButton('MultiGalleryPicker', Iconz.DvGouran, MultiGalleryPicker()),

@@ -15,12 +15,11 @@ import 'footer.dart';
 import 'slide_headline.dart';
 
 enum SlideMode {
-  View,
-  MicroView,
-  Editor,
-  Creation,
-  Map,
-  Empty,
+  View, // when viewing a slide as default
+  MicroView, // when viewing slide in flyer micro mode
+  Editor, // while editing or creating the flyer
+  Map, // when the slide is a map slide
+  Empty, // while editing the flyer and before picking slide content
 }
 
 class SingleSlide extends StatefulWidget {
