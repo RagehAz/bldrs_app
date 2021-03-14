@@ -71,9 +71,9 @@ class Routerer {
 //       case Routez.EditBz:
 //         return MaterialPageRoute(builder: (_) => EditBzScreen());
 // ---------------------------------------------------------------------------
-    /// s50
-      case Routez.FlyerEditor:
-        return MaterialPageRoute(builder: (_) => FlyerEditorScreen());
+//     /// s50
+//       case Routez.FlyerEditor:
+//         return MaterialPageRoute(builder: (_) => FlyerEditorScreen());
 // ---------------------------------------------------------------------------
     ///  s51
       case Routez.FlyerScreen:

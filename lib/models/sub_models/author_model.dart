@@ -1,3 +1,4 @@
+import '../bz_model.dart';
 import 'contact_model.dart';
 // ###############################
 class AuthorModel{
@@ -62,4 +63,8 @@ List<Map<String,Object>> cipherAuthorsModels(List<AuthorModel> authorsList){
   return listOfAuthorsMaps;
 }
 // -----------------------------------------------------------------
-
+AuthorModel getAuthorFromBzByAuthorID(BzModel bz, String authorID){
+  AuthorModel author = bz?.bzAuthors?.singleWhere((au) => au.userID == authorID, orElse: ()=>null);
+  return author;
+}
+// ----------------------------------------------------------------------------
