@@ -213,7 +213,12 @@ class _MyBzScreenState extends State<MyBzScreen> {
                                     verse: 'Add New Flyer',
                                     verseScaleFactor: 1.6,
                                     bubble: false,
-                                    boxFunction: () => goToNewScreen(context, FlyerEditorScreen(bzModel: _bzModel,)),
+                                    boxFunction: () => goToNewScreen(context,
+                                        FlyerEditorScreen(
+                                          bzModel: _bzModel,
+                                          firstTimer: true,
+                                        )
+                                    ),
                                   ),
 
                                   // --- EDIT BZ

@@ -1,3 +1,4 @@
+import 'package:bldrs/models/bz_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'sub_models/slide_model.dart';
@@ -46,6 +47,28 @@ class FlyerModel with ChangeNotifier{
     ankhIsOn = !ankhIsOn;
     notifyListeners();
   }
+
+  // void toMap(){
+  //   return {
+  //   'flyerID' : flyerID,
+  //   // -------------------------
+  //   'flyerType'
+  //   flyerState
+  //   keyWords
+  //   flyerShowsAuthor
+  //   flyerURL
+  //   // -------------------------
+  //   authorID
+  //   bzID
+  //   // -------------------------
+  //   publishTime
+  //   flyerPosition
+  //   // -------------------------
+  //   ankhIsOn
+  //   // -------------------------
+  //   slides
+  //   }
+  // }
 
 }
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
@@ -121,6 +144,19 @@ int cipherFlyerType (FlyerType x){
     case FlyerType.Craft       :    return  5;  break;
     case FlyerType.Equipment   :    return  6;  break;
     case FlyerType.General     :    return  7;  break;
+    default : return null;
+  }
+}
+// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+FlyerType concludeFlyerType(BzType bzType){
+  switch (bzType){
+    case BzType.Developer    :   return FlyerType.Property;   break;
+    case BzType.Broker       :   return FlyerType.Property;   break;
+    case BzType.Designer     :   return FlyerType.Design;     break;
+    case BzType.Contractor   :   return FlyerType.Project;    break;
+    case BzType.Artisan      :   return FlyerType.Craft;      break;
+    case BzType.Manufacturer :   return null;    break; // product or equipment for author to choose while creating flyer
+    case BzType.Supplier     :   return null;    break; // product or equipment for author to choose while creating flyer
     default : return null;
   }
 }
