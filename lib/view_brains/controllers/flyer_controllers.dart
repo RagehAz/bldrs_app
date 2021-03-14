@@ -16,11 +16,6 @@ void shareFlyer (BuildContext context, LinkModel flyerLink) {
   );
 }
 // ----------------------------------------------------------------------------
-AuthorModel getAuthorFromBzByAuthorID(BzModel bz, String authorID){
-  AuthorModel author = bz?.bzAuthors?.singleWhere((au) => au.userID == authorID, orElse: ()=>null);
-  return author;
-}
-// ----------------------------------------------------------------------------
 /// temp
 AuthorModel createAuthorModelFromUserModelAndBzModel(UserModel user, BzModel bz){
   String authorID = user?.userID;

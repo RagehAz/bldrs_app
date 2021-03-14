@@ -332,7 +332,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
               key: widget.key,
               controller: widget.textController,
               onChanged: (val) => _onChanged(val),
-              onTap: () => widget.onTap(_keyboard),
+              // onTap: () => widget.onTap(_keyboard),
               keyboardType: widget.keyboardTextInputType,
               style: superTextStyle(widget.inputColor, 1),
               enabled: true, // THIS DISABLES THE ABILITY TO OPEN THE KEYBOARD

@@ -1,12 +1,12 @@
 // ###############################
-class HorusModel{
-  final String horusID;
+class SaveModel{
+  final String saveID;
   final String userID;
   final String slideID;
   final DateTime viewTime;
 // ###############################
-  HorusModel({
-  this.horusID,
+  SaveModel({
+  this.saveID,
   this.userID,
   this.slideID,
   this.viewTime,
@@ -14,7 +14,7 @@ class HorusModel{
 // ###############################
 Map<String, Object> toMap(){
   return {
-    'horusID' : horusID,
+    'saveID' : saveID,
     'userID' : userID,
     'slideID' : slideID,
     'viewTime' : viewTime,
