@@ -67,3 +67,37 @@ String getStaticMapImage(BuildContext context, double latitude, double longitude
   return 'https://maps.googleapis.com/maps/api/staticmap?$parameters';
 }
 // ----------------------------------------------------------------------
+// Completer<GoogleMapController> _controller = Completer();
+// Position loadedPosition;
+// Position currentUserPosition;
+// BitmapDescriptor customMarker;
+// LatLng aMarkerLatLng;
+// var aMarker;
+// ----------------------------------------------------------------------
+// missingFunction()async{
+//   // int markerScale = 30;
+//   final Uint8List markerIcon = await getBytesFromCanvas(100,100, 'Za7ma');
+//   customMarker = BitmapDescriptor.fromBytes(markerIcon);
+// }
+// ----------------------------------------------------------------------
+// getUserLocation () async {
+//   currentUserPosition = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
+//   missingFunction();
+//   setState(() {
+//     loadedPosition = currentUserPosition;
+//     aMarkerLatLng = LatLng(loadedPosition.latitude, loadedPosition.longitude);
+//     aMarker = someMarker(customMarker, aMarkerLatLng.latitude , aMarkerLatLng.longitude);
+//   });
+// }
+// ----------------------------------------------------------------------
+// static final CameraPosition _kLake = CameraPosition(
+//     bearing: 192.8334901395799,
+//     target: LatLng(37.43296265331129, -122.08832357078792),
+//     tilt: 59.440717697143555,
+//     zoom: 19.151926040649414);
+// // ----------------------------------------------------------------------
+// Future<void> _goToTheLake() async {
+//   final GoogleMapController controller = await _controller.future;
+//   controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
+// }
+// ----------------------------------------------------------------------

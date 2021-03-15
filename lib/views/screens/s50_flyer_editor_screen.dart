@@ -371,6 +371,52 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
 
   }
   // ----------------------------------------------------------------------
+  Future<List<String>> savePicturesToFireStorageAndGetListOfURL(List<SlideModel> currentSlides) async {
+    List<String> _picturesURLs = new List();
+
+    for (var slide in currentSlides) {
+
+      String _picURL = await savePicOnFirebaseStorageAndGetURL(
+          context: context,
+          inputFile: slide.picture,
+          picType: PicType.slideHighRes,
+          fileName: '${_currentFlyerID}_${slide.slideIndex}'
+         );
+
+        _picturesURLs.add(_picURL);
+
+    }
+
+    return _picturesURLs;
+  }
+  // ----------------------------------------------------------------------
+  Future<List<SlideModel>> processSlides(List<String> picturesURLs, List<SlideModel> currentSlides, List<TextEditingController> titleControllers) async {
+    List<SlideModel> _slides = new List();
+
+    for (var slide in currentSlides){
+
+      int i = slide.slideIndex;
+
+          SlideModel _newSlide = SlideModel(
+            slideIndex: currentSlides[i].slideIndex,
+            picture: picturesURLs[i],
+            headline: titleControllers[i].text,
+            description: '',
+            callsCount: widget.firstTimer ? 0 : _flyer.slides[i].callsCount,
+            savesCount: widget.firstTimer ? 0 : _flyer.slides[i].savesCount,
+            sharesCount: widget.firstTimer ? 0 : _flyer.slides[i].sharesCount,
+            viewsCount: widget.firstTimer ? 0 : _flyer.slides[i].viewsCount,
+          );
+
+          _slides.add(_newSlide);
+
+    }
+
+    print('slides are $_slides');
+
+    return _slides;
+  }
+  // ----------------------------------------------------------------------
   Future<void> _publishFlyer() async {
     print('Starting to publish');
 
@@ -395,27 +441,39 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
           }
           /// 2 - create slides to store on firebase, and save each pic file to
           /// firebase storage and get its url to save to firestore
-          List<SlideModel> _slides = new List();
-          _currentSlides.forEach((sl) async {
+          //   List<SlideModel> _tempSlides = new List();
+          //
+          // print('_currentSlides.length = ${_currentSlides.length}');
+          //
+          // _currentSlides.forEach((sl) async {
+          //
+          //   String _picURL = await savePicOnFirebaseStorageAndGetURL(
+          //       context: context,
+          //       inputFile: sl.picture,
+          //       picType: PicType.slideHighRes,
+          //       fileName: '${_currentFlyerID}_${sl.slideIndex}'
+          //   );
+          //
+          //   print('picture URL is $_picURL');
+          //
+          //   _tempSlides.add(
+          //       SlideModel(
+          //           slideIndex: sl.slideIndex,
+          //           picture: _picURL,
+          //           headline: _titleControllers[sl.slideIndex].text,
+          //           description: '',
+          //           callsCount: widget.firstTimer ? 0 : _flyer.slides[sl.slideIndex].callsCount,
+          //           savesCount: widget.firstTimer ? 0 : _flyer.slides[sl.slideIndex].savesCount,
+          //           sharesCount: widget.firstTimer ? 0 : _flyer.slides[sl.slideIndex].sharesCount,
+          //           viewsCount: widget.firstTimer ? 0 : _flyer.slides[sl.slideIndex].viewsCount,
+          //         ));
+          // }
+          // );
 
-            String _picURL = await savePicOnFirebaseStorageAndGetURL(
-                context: context,
-                inputFile: sl.picture,
-                fileName: '${_currentFlyerID}_${sl.slideIndex}'
-              );
-            _slides.add(
-                SlideModel(
-                  slideIndex: sl.slideIndex,
-                  picture: _picURL,
-                  headline: _titleControllers[sl.slideIndex].text,
-                  description: '',
-                  callsCount: widget.firstTimer ? 0 : _flyer.slides[sl.slideIndex].callsCount,
-                  savesCount: widget.firstTimer ? 0 : _flyer.slides[sl.slideIndex].savesCount,
-                  sharesCount: widget.firstTimer ? 0 : _flyer.slides[sl.slideIndex].sharesCount,
-                  viewsCount: widget.firstTimer ? 0 : _flyer.slides[sl.slideIndex].viewsCount,
-            ));
-          });
-          /// 3 - create FlyerModel
+            List<String> _picturesURLs = await savePicturesToFireStorageAndGetListOfURL(_currentSlides);
+          List<SlideModel> _slides = await processSlides(_picturesURLs, _currentSlides, _titleControllers);
+
+            /// 3 - create FlyerModel
           FlyerModel _newFlyerModel = FlyerModel(
               flyerID: _currentFlyerID,
               // -------------------------
@@ -442,92 +500,187 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
 
           superDialog(context, 'Flyer Published', '');
 
-        }
+        },
       );
 
       _triggerLoading();
+      print('flyer publishing ended');
 
     }
 
   }
   // ----------------------------------------------------------------------
-void _addKeywords(){
+  void _addKeywords(){
 
-    double _bottomSheetHeightFactor = 0.5;
+      double _bottomSheetHeightFactor = 0.7;
 
-    slideBottomSheet(
+      slideStatefulBottomSheet(
+        context: context,
+        height: superScreenHeight(context) * _bottomSheetHeightFactor,
+        draggable: true,
+        builder: (context){
+          return StatefulBuilder(
+              builder: (BuildContext context, StateSetter setSheetState){
+                return BldrsBottomSheet(
+                  height: superScreenHeight(context) * _bottomSheetHeightFactor,
+                  draggable: true,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+
+                      SuperVerse(
+                        verse: 'Add Keywords to the flyer',
+                        size: 3,
+                        weight: VerseWeight.thin,
+                        italic: true,
+                      ),
+
+                      Container(
+                        width: bottomSheetClearWidth(context),
+                        height: bottomSheetClearHeight(context, _bottomSheetHeightFactor) - superVerseRealHeight(context, 3, 1, null),
+                        child: ListView(
+                          // key: UniqueKey(),
+
+                          children: <Widget>[
+
+                            SizedBox(
+                              height: Ratioz.ddAppBarPadding,
+                            ),
+
+                            WordsBubble(
+                              verseSize: 1,
+                              bubbles: false,
+                              title: 'Selected keywords',
+                              words: _currentKeywords,
+                              selectedWords: _currentKeywords,
+                              onTap: (value){
+                                setSheetState(() {
+                                  _currentKeywords.remove(value);
+                                });
+                              },
+                            ),
+
+                            WordsBubble(
+                              verseSize: 1,
+                              bubbles: true,
+                              title: 'Space Type',
+                              words: Keywordz.spaceType,
+                              selectedWords: _currentKeywords,
+                              onTap: (value){
+                                setSheetState(() {
+                                  _currentKeywords.add(value);
+                                });
+                              },
+                            ),
+
+                            WordsBubble(
+                              verseSize: 1,
+                              bubbles: true,
+                              title: 'Product Use',
+                              words: Keywordz.productUse,
+                              selectedWords: _currentKeywords,
+                              onTap: (value){setSheetState(() {_currentKeywords.add(value);});},
+                            ),
+
+                            // Container(
+                            //   width: bottomSheetClearWidth(context),
+                            //   height: 800,
+                            //   color: Colorz.BloodTest,
+                            // ),
+
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              }
+          );
+        },
+      );
+  }
+  // ----------------------------------------------------------------------
+  void _selectFlyerType(){
+
+    double _bottomSheetHeightFactor = 0.25;
+
+    slideStatefulBottomSheet(
       context: context,
       height: superScreenHeight(context) * _bottomSheetHeightFactor,
       draggable: true,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
+      builder: (context){
+        return StatefulBuilder(
+            builder: (BuildContext context, StateSetter setSheetState){
 
-          SuperVerse(
-            verse: 'Add Keywords to the flyer',
-            size: 3,
-            weight: VerseWeight.thin,
-            italic: true,
-          ),
 
-          Container(
-            width: bottomSheetClearWidth(context),
-            height: bottomSheetClearHeight(context, _bottomSheetHeightFactor) - superVerseRealHeight(context, 3, 1, null),
-            child: ListView(
-              addAutomaticKeepAlives: true,
+              return BldrsBottomSheet(
+                height: superScreenHeight(context) * _bottomSheetHeightFactor,
+                draggable: true,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
 
-              children: <Widget>[
+                    SuperVerse(
+                      verse: 'Choose Flyer Type',
+                      size: 3,
+                      weight: VerseWeight.thin,
+                      italic: true,
+                    ),
 
-                SizedBox(
-                  height: Ratioz.ddAppBarPadding,
+                    Container(
+                      width: bottomSheetClearWidth(context),
+                      height: bottomSheetClearHeight(context, _bottomSheetHeightFactor) - superVerseRealHeight(context, 3, 1, null),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+
+                          DreamBox(
+                            height: 60,
+                            width: bottomSheetClearWidth(context) / 2.2,
+                            verse: 'Product Flyer',
+                            verseMaxLines: 2,
+                            verseScaleFactor: 0.7,
+                            color: _currentFlyerType == FlyerType.Product ? Colorz.Yellow : Colorz.WhiteGlass,
+                            verseColor: _currentFlyerType == FlyerType.Product ? Colorz.BlackBlack : Colorz.White,
+                            boxFunction: (){
+                              setSheetState(() {
+                                _currentFlyerType = FlyerType.Product;
+                              });
+                            },
+                          ),
+
+                          DreamBox(
+                            height: 60,
+                            width: bottomSheetClearWidth(context) / 2.2,
+                            verse: 'Equipment Flyer',
+                            verseMaxLines: 2,
+                            verseScaleFactor: 0.7,
+                            color: _currentFlyerType == FlyerType.Equipment ? Colorz.Yellow : Colorz.WhiteGlass,
+                            verseColor: _currentFlyerType == FlyerType.Equipment ? Colorz.BlackBlack : Colorz.White,
+                            boxFunction: (){
+                              setSheetState(() {
+                                _currentFlyerType = FlyerType.Equipment;
+                              });
+                            },
+                          ),
+
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-
-                WordsBubble(
-                  verseSize: 1,
-                  bubbles: false,
-                  title: 'Selected keywords',
-                  words: _currentKeywords,
-                  onTap: (value){
-                    setState(() {
-                      _currentKeywords.remove(value);
-                    });
-                  },
-                ),
-
-                WordsBubble(
-                  verseSize: 1,
-                  bubbles: true,
-                  title: 'Space Type',
-                  words: Keywordz.spaceType,
-                  onTap: (value){
-                    setState(() {
-                      _currentKeywords.add(value);
-                    });
-                  },
-                ),
-
-                WordsBubble(
-                  verseSize: 1,
-                  bubbles: true,
-                  title: 'Product Use',
-                  words: Keywordz.productUse,
-                  onTap: (value){setState(() {_currentKeywords.add(value);});},
-                ),
-
-                // Container(
-                //   width: bottomSheetClearWidth(context),
-                //   height: 800,
-                //   color: Colorz.BloodTest,
-                // ),
-
-              ],
-            ),
-          ),
-        ],
-      ),
+              );
+            }
+        );
+      },
     );
-}
+
+
+  }
+  // ----------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // final FlyersProvider _pro = Provider.of<FlyersProvider>(context, listen: false);
@@ -564,9 +717,11 @@ void _addKeywords(){
       sky: Sky.Black,
       pageTitle: 'Create a New Flyer',
       tappingRageh: (){
-        _currentSlides.forEach((slide) {
-          // print('i: ${slide.slideIndex} || flyerID : (${slide.flyerID}), slideID : (${slide.slideID}), headline : (${slide.headline}), picture : (${slide.picture})');
-        });
+
+        dynamic _shit = cipherSlidesModels(_currentSlides);
+
+        print(_shit);
+
       },
       appBarRowWidgets: <Widget>[
 
@@ -614,8 +769,7 @@ void _addKeywords(){
                               duration: Duration(milliseconds: 100),
                               child: SingleSlide(
                                 flyerZoneWidth: _flyerZoneWidth,
-                                // picture: Iconz.DumSlide1,
-                                picFile: _currentSlides[index].picture,
+                                picture: _currentSlides[index].picture,
                                 slideMode: slidesModes[index],
                                 boxFit: BoxFit.fitWidth, // [fitWidth - contain - scaleDown] have the blur background
                                 titleController: _titleControllers[index],
@@ -657,9 +811,7 @@ void _addKeywords(){
 
                         /// --- FLYER TYPE TEMP
                         if(_bz.bzType == BzType.Manufacturer || _bz.bzType == BzType.Supplier)
-                        _fButton(icon: Iconz.Flyer, function: (){
-                          superDialog(context, 'choose flyer type', 'later');
-                        }),
+                        _fButton(icon: Iconz.Flyer, function: _selectFlyerType,),
 
                         /// --- NEW SLIDE FROM GALLERY
                         _fButton(
@@ -690,20 +842,6 @@ void _addKeywords(){
                       ],
                     ),
                   ),
-
-                  WordsBubble(
-                    verseSize: 1,
-                    bubbles: false,
-                    title: 'Selected keywords',
-                    words: _currentKeywords,
-                    bubbleColor: Colorz.BabyBlue,
-                    onTap: (value){
-                      setState(() {
-                        _currentKeywords.remove(value);
-                      });
-                    },
-                  ),
-
 
                 ],
               ),
