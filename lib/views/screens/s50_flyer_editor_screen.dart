@@ -9,14 +9,20 @@ import 'package:bldrs/models/sub_models/slide_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/view_brains/controllers/flyer_controllers.dart';
 import 'package:bldrs/view_brains/controllers/flyer_sliding_controllers.dart';
+import 'package:bldrs/view_brains/drafters/borderers.dart';
 import 'package:bldrs/view_brains/drafters/imagers.dart';
+import 'package:bldrs/view_brains/drafters/text_shapers.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
+import 'package:bldrs/view_brains/theme/flyer_keyz.dart';
 import 'package:bldrs/view_brains/theme/ratioz.dart';
+import 'package:bldrs/views/widgets/bubbles/words_bubble.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
+import 'package:bldrs/views/widgets/dialogs/bottom_sheet.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_zone.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header.dart';
 import 'package:bldrs/views/widgets/flyer/parts/progress_bar.dart';
 import 'package:bldrs/views/widgets/flyer/parts/slides_parts/single_slide.dart';
+import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:bldrs/xxx_LABORATORY/camera_and_location/location_helper.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -430,7 +436,11 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
               slides: _slides,
           );
           /// 4- save flyer to firestore
-          // await _flyersCollection.doc(_currentFlyerID).update(_newFlyerModel.toMap());
+          await _flyersCollection.doc(_currentFlyerID).update(_newFlyerModel.toMap());
+          /// 5- save flyer to local flyers List
+          _prof.addFlyerToLocalFlyersList(_newFlyerModel);
+
+          superDialog(context, 'Flyer Published', '');
 
         }
       );
@@ -441,7 +451,83 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
 
   }
   // ----------------------------------------------------------------------
+void _addKeywords(){
 
+    double _bottomSheetHeightFactor = 0.5;
+
+    slideBottomSheet(
+      context: context,
+      height: superScreenHeight(context) * _bottomSheetHeightFactor,
+      draggable: true,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+
+          SuperVerse(
+            verse: 'Add Keywords to the flyer',
+            size: 3,
+            weight: VerseWeight.thin,
+            italic: true,
+          ),
+
+          Container(
+            width: bottomSheetClearWidth(context),
+            height: bottomSheetClearHeight(context, _bottomSheetHeightFactor) - superVerseRealHeight(context, 3, 1, null),
+            child: ListView(
+              addAutomaticKeepAlives: true,
+
+              children: <Widget>[
+
+                SizedBox(
+                  height: Ratioz.ddAppBarPadding,
+                ),
+
+                WordsBubble(
+                  verseSize: 1,
+                  bubbles: false,
+                  title: 'Selected keywords',
+                  words: _currentKeywords,
+                  onTap: (value){
+                    setState(() {
+                      _currentKeywords.remove(value);
+                    });
+                  },
+                ),
+
+                WordsBubble(
+                  verseSize: 1,
+                  bubbles: true,
+                  title: 'Space Type',
+                  words: Keywordz.spaceType,
+                  onTap: (value){
+                    setState(() {
+                      _currentKeywords.add(value);
+                    });
+                  },
+                ),
+
+                WordsBubble(
+                  verseSize: 1,
+                  bubbles: true,
+                  title: 'Product Use',
+                  words: Keywordz.productUse,
+                  onTap: (value){setState(() {_currentKeywords.add(value);});},
+                ),
+
+                // Container(
+                //   width: bottomSheetClearWidth(context),
+                //   height: 800,
+                //   color: Colorz.BloodTest,
+                // ),
+
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+}
   @override
   Widget build(BuildContext context) {
     // final FlyersProvider _pro = Provider.of<FlyersProvider>(context, listen: false);
@@ -567,6 +653,8 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
                     child: Column(
                       children: <Widget>[
 
+                        _fButton(icon: Iconz.Info, function: _addKeywords),
+
                         /// --- FLYER TYPE TEMP
                         if(_bz.bzType == BzType.Manufacturer || _bz.bzType == BzType.Supplier)
                         _fButton(icon: Iconz.Flyer, function: (){
@@ -602,6 +690,20 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
                       ],
                     ),
                   ),
+
+                  WordsBubble(
+                    verseSize: 1,
+                    bubbles: false,
+                    title: 'Selected keywords',
+                    words: _currentKeywords,
+                    bubbleColor: Colorz.BabyBlue,
+                    onTap: (value){
+                      setState(() {
+                        _currentKeywords.remove(value);
+                      });
+                    },
+                  ),
+
 
                 ],
               ),

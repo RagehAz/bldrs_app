@@ -24,6 +24,29 @@ void slideBottomSheet({BuildContext context, double height, bool draggable, Widg
     );
 }
 // ---------------------------------------------------------------------------
+void slideStatefulBottomSheet({BuildContext context, double height, bool draggable, Widget child}){
+  showModalBottomSheet(
+      shape: RoundedRectangleBorder(borderRadius: superBorderRadius(context, Ratioz.ddBottomSheetCorner, 0, 0, Ratioz.ddBottomSheetCorner)),
+      backgroundColor: Colorz.Nothing,
+      barrierColor: Colorz.BlackAir,
+      enableDrag: draggable,
+      elevation: 20,
+      isScrollControlled: true,
+      context: context,
+      builder: (context){
+        return StatefulBuilder(
+            builder: (BuildContext context, StateSetter setState){
+              return BldrsBottomSheet(
+                height: height,
+                draggable: draggable,
+                child: child,
+              );
+            }
+        );
+      },
+  );
+}
+// ---------------------------------------------------------------------------
 class BldrsBottomSheet extends StatelessWidget {
   final double height;
   final bool draggable;
@@ -44,11 +67,11 @@ class BldrsBottomSheet extends StatelessWidget {
     double _sheetHeight = height == null ? _screenHeight*0.5 : height;
     BorderRadius _sheetBorders = superBorderRadius(context, Ratioz.ddBottomSheetCorner, 0, 0, Ratioz.ddBottomSheetCorner);
 
-    double _draggerZoneHeight = Ratioz.ddAppBarMargin * 2;
-    double _draggerHeight = _draggerZoneHeight * 0.35 * 0.5;
+    double _draggerZoneHeight = draggerZoneHeight();
+    double _draggerHeight = draggerHeight();
     double _draggerWidth = _screenWidth * 0.35;
     double _draggerCorner = _draggerHeight *0.5;
-    double _draggerMarginValue = (_draggerZoneHeight - _draggerHeight)/2;
+    double _draggerMarginValue = draggerMarginValue();
     EdgeInsets _draggerMargins = EdgeInsets.symmetric(vertical: _draggerMarginValue);
 
     double _contentWidth = _screenWidth - (_draggerZoneHeight*2*0.5);
@@ -118,9 +141,42 @@ class BldrsBottomSheet extends StatelessWidget {
   }
 }
 // ---------------------------------------------------------------------------
+/// one side value only
+double draggerMarginValue(){
+  double _draggerHeight = draggerHeight();
+  double _draggerZoneHeight = draggerZoneHeight();
+  double _draggerMarginValue = (_draggerZoneHeight - _draggerHeight)/2;
+  return _draggerMarginValue;
+}
+// ---------------------------------------------------------------------------
+double draggerZoneHeight(){
+  double _draggerZoneHeight = Ratioz.ddAppBarMargin * 2;
+  return _draggerZoneHeight;
+}
+// ---------------------------------------------------------------------------
+double draggerHeight(){
+  double _draggerZoneHeight = draggerZoneHeight();
+  double _draggerHeight = _draggerZoneHeight * 0.35 * 0.5;
+  return _draggerHeight;
+}
+// ---------------------------------------------------------------------------
 double bottomSheetClearWidth (BuildContext context){
-  double _clearWidth = superScreenWidth(context) - Ratioz.ddAppBarMargin;
+  double _clearWidth = superScreenWidth(context) - (Ratioz.ddAppBarMargin);
   return
-      _clearWidth * 0.95; // 0.95 to avoid having the parent container trim buttons shadows
+      _clearWidth * 1; // 0.95 to avoid having the parent container trim buttons shadows
+}
+// ---------------------------------------------------------------------------
+/// height ratio is by which factor from 0 to 1 the bottom sheet occupy the space
+/// from screen height
+double bottomSheetClearHeight (BuildContext context, double heightRatio){
+  double _clearHeight =
+  // bottom sheet height
+  (superScreenHeight(context) * heightRatio) -
+  // dragger height
+  draggerHeight() -
+  // dragger margins
+  (draggerMarginValue() *2)
+  ;
+  return _clearHeight;
 }
 // ---------------------------------------------------------------------------
