@@ -1,4 +1,5 @@
 import 'package:bldrs/models/bz_model.dart';
+import 'package:bldrs/view_brains/drafters/timerz.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'sub_models/slide_model.dart';
@@ -48,27 +49,27 @@ class FlyerModel with ChangeNotifier{
     notifyListeners();
   }
 
-  // void toMap(){
-  //   return {
-  //   'flyerID' : flyerID,
-  //   // -------------------------
-  //   'flyerType'
-  //   flyerState
-  //   keyWords
-  //   flyerShowsAuthor
-  //   flyerURL
-  //   // -------------------------
-  //   authorID
-  //   bzID
-  //   // -------------------------
-  //   publishTime
-  //   flyerPosition
-  //   // -------------------------
-  //   ankhIsOn
-  //   // -------------------------
-  //   slides
-  //   }
-  // }
+  Map<String, dynamic> toMap(){
+    return {
+    'flyerID' : flyerID,
+    // -------------------------
+    'flyerType' : cipherFlyerType(flyerType),
+    'flyerState' : cipherFlyerState(flyerState),
+    'keyWords' : keyWords,
+    'flyerShowsAuthor' : flyerShowsAuthor,
+    'flyerURL' : flyerURL,
+    // -------------------------
+    'authorID' : authorID,
+    'bzID' : bzID,
+    // -------------------------
+    'publishTime' : cipherDateTimeToString(publishTime),
+    'flyerPosition' : flyerPosition,
+    // -------------------------
+    'ankhIsOn' : ankhIsOn,
+    // -------------------------
+    'slides' : cipherSlidesModels(slides),
+    };
+  }
 
 }
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
