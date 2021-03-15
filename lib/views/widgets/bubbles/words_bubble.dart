@@ -11,6 +11,7 @@ class WordsBubble extends StatelessWidget {
   final int verseSize;
   final Function onTap;
   final bool bubbles;
+  final Color bubbleColor;
 
   WordsBubble({
     @required this.title,
@@ -18,6 +19,7 @@ class WordsBubble extends StatelessWidget {
     this.verseSize = 2,
     this.onTap,
     this.bubbles,
+    this.bubbleColor,
   });
 
   @override
@@ -28,6 +30,7 @@ class WordsBubble extends StatelessWidget {
 
     return InPyramidsBubble(
       centered: false,
+      bubbleColor: bubbleColor,
       columnChildren: <Widget>[
 
         InBubbleTitle(
