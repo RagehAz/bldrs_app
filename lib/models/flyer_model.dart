@@ -161,3 +161,26 @@ FlyerType concludeFlyerType(BzType bzType){
     default : return null;
   }
 }
+// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+List<FlyerModel> decipherFlyersMapsFromFireStore(List<dynamic> maps){
+  List<FlyerModel> _flyersList = new List();
+
+  maps?.forEach((map) {
+    _flyersList.add(decipherFlyerMap(map));
+  });
+
+  return _flyersList;
+}
+// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+FlyerModel decipherFlyerMap(dynamic map){
+  return FlyerModel(
+      flyerID: map['flyerID'],
+      flyerType: decipherFlyerType(map['flyerType']),
+      flyerURL: map['flyerURL'],
+      authorID: map['authorID'],
+      bzID: map['bzID'],
+      publishTime: decipherDateTimeString(map['publishTime']),
+      slides: decipherSlidesMaps(map['slides']),
+  );
+}
+// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x

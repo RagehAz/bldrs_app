@@ -24,7 +24,7 @@ void slideBottomSheet({BuildContext context, double height, bool draggable, Widg
     );
 }
 // ---------------------------------------------------------------------------
-void slideStatefulBottomSheet({BuildContext context, double height, bool draggable, Widget child}){
+void slideStatefulBottomSheet({BuildContext context, double height, bool draggable, Widget Function(BuildContext) builder}){
   showModalBottomSheet(
       shape: RoundedRectangleBorder(borderRadius: superBorderRadius(context, Ratioz.ddBottomSheetCorner, 0, 0, Ratioz.ddBottomSheetCorner)),
       backgroundColor: Colorz.Nothing,
@@ -33,17 +33,7 @@ void slideStatefulBottomSheet({BuildContext context, double height, bool draggab
       elevation: 20,
       isScrollControlled: true,
       context: context,
-      builder: (context){
-        return StatefulBuilder(
-            builder: (BuildContext context, StateSetter setState){
-              return BldrsBottomSheet(
-                height: height,
-                draggable: draggable,
-                child: child,
-              );
-            }
-        );
-      },
+      builder: builder,
   );
 }
 // ---------------------------------------------------------------------------

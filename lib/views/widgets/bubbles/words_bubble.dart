@@ -12,6 +12,7 @@ class WordsBubble extends StatelessWidget {
   final Function onTap;
   final bool bubbles;
   final Color bubbleColor;
+  final List<String> selectedWords;
 
   WordsBubble({
     @required this.title,
@@ -20,6 +21,7 @@ class WordsBubble extends StatelessWidget {
     this.onTap,
     this.bubbles,
     this.bubbleColor,
+    this.selectedWords,
   });
 
   @override
@@ -27,6 +29,7 @@ class WordsBubble extends StatelessWidget {
 
     double abPadding = Ratioz.ddAppBarPadding;
     double contactBoxHeight = 35;
+
 
     return InPyramidsBubble(
       centered: false,
@@ -45,7 +48,17 @@ class WordsBubble extends StatelessWidget {
             ...List<Widget>.generate(
                 words.length,
                     (index){
-                  return
+
+                  bool wordIsSelected(){
+                    bool _wordIsSelected = selectedWords.contains(words[index]) ?? false;
+                    return _wordIsSelected;
+                  }
+
+                  Color _buttonColor = wordIsSelected() ? Colorz.Yellow : Colorz.WhiteGlass;
+                  Color _verseColor = wordIsSelected() ? Colorz.BlackBlack : Colorz.White;
+                  VerseWeight _verseWeight = wordIsSelected() ? VerseWeight.bold : VerseWeight.thin;
+
+                      return
 
                   bubbles == true ?
 
@@ -53,21 +66,22 @@ class WordsBubble extends StatelessWidget {
                     height: 40,
                     verse: words[index],
                     verseScaleFactor: 0.6,
-                    verseWeight: VerseWeight.thin,
+                    verseWeight: _verseWeight,
+                    verseColor: _verseColor,
                     boxMargins: EdgeInsets.all(5),
                     bubble: true,
-                    color: Colorz.WhiteGlass,
+                    color: _buttonColor,
                     boxFunction: () => onTap(words[index]),
                   )
                       :
-                    SuperVerse(
+                  SuperVerse(
                       verse: words[index],
                       margin: 0,
-                      color: Colorz.White,
-                      weight: VerseWeight.thin,
+                      color: _verseColor,
+                      weight: _verseWeight,
                       italic: true,
                       shadow: false,
-                      labelColor: Colorz.WhiteGlass,
+                      labelColor: _buttonColor,
                       labelTap: () => onTap(words[index]),
                     );
 

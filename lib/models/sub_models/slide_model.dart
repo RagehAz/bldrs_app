@@ -24,10 +24,8 @@ class SlideModel {
     this.callsCount,
   });
 // ###############################
-  Map<String, Object> toMap() {
+  Map<String, dynamic> toMap() {
     return {
-      // 'flyerID'     : flyerID,
-      // 'slideID'     : slideID,
       'slideIndex': slideIndex,
       'picture': picture,
       'headline': headline,
@@ -40,15 +38,36 @@ class SlideModel {
   }
 // ###############################
 }
-List<Map<String, dynamic>> cipherSlidesModels(List<SlideModel> slidesList) {
-  List<Map<String, dynamic>> _slidesMaps = new List();
+List<Map<String,Object>> cipherSlidesModels(List<SlideModel> slidesList) {
+  List<Map<String,Object>> _slidesMaps = new List();
   slidesList.forEach((sl) {
     _slidesMaps.add(sl.toMap());
   });
   return _slidesMaps;
 }
 // ###############################
+List<SlideModel> decipherSlidesMaps(List<dynamic> maps){
+  List<SlideModel> _slidesList = new List();
 
-// List<SlideModel> moldSlidesMapsListIntoSlidesModelsList(List<Map<String,Object>> slidesMaps){
-//     return slidesMaps.entries.map().toList();
-// }
+  maps?.forEach((map) {
+    _slidesList.add(decipherSlideMap(map));
+  });
+
+  return _slidesList;
+}
+// ###############################
+SlideModel decipherSlideMap(dynamic map){
+  return SlideModel(
+  slideIndex : map['slideIndex'],
+  picture : map['picture'],
+  headline : map['headline'],
+  description : map['description'],
+  // -------------------------
+  sharesCount : map['sharesCount'],
+  viewsCount : map['viewsCount'],
+  savesCount : map['savesCount'],
+  callsCount : map['callsCount'],
+  );
+}
+// ###############################
+
