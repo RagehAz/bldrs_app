@@ -176,6 +176,12 @@ void addFlyer(FlyerModel flyer){
     notifyListeners();
 }
 // ############################################################################
+  void addFlyerToLocalFlyersList(FlyerModel flyer){
+
+    _loadedFlyers.add(flyer);
+    notifyListeners();
+  }
+// ############################################################################
   /// BZZ ON REAL TIME DATA BASE
   // ---------------------------
   /// POST request to add new bz in firebase realtime database

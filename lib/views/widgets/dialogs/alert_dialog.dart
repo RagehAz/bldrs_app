@@ -132,7 +132,7 @@ Future<void> tryAndCatch({Function finals, BuildContext context, Function functi
   } catch (error){
     superDialog(context, error, 'ops');
     print('TRY CATCH ERROR IS : ($error)');
-    // throw(error);
+    throw(error);
   }
 }
 // ----------------------------------------------------------------------
