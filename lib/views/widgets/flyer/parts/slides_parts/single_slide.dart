@@ -22,16 +22,15 @@ enum SlideMode {
   Empty, // while editing the flyer and before picking slide content
 }
 
-class SingleSlide extends StatefulWidget {
+class SingleSlide extends StatelessWidget {
   final double flyerZoneWidth;
-  final String picture;
+  final dynamic picture;
   final String title;
   final int shares;
   final int views;
   final int saves;
   final int slideIndex;
   final SlideMode slideMode;
-  final dynamic picFile; // was of Type File
   final BoxFit boxFit;
   final TextEditingController titleController;
   final Function textFieldOnChanged;
@@ -46,162 +45,129 @@ class SingleSlide extends StatefulWidget {
     this.saves,
     this.slideIndex,
     this.slideMode,
-    this.picFile,
     this.boxFit = BoxFit.cover,
     this.titleController,
     this.textFieldOnChanged,
     this.slideColor,
   });
 
-  @override
-  _SingleSlideState createState() => _SingleSlideState();
-}
 
-class _SingleSlideState extends State<SingleSlide> {
-  // Completer<GoogleMapController> _controller = Completer();
-  // Position loadedPosition;
-  // Position currentUserPosition;
-  // BitmapDescriptor customMarker;
-  // LatLng aMarkerLatLng;
-  // var aMarker;
-  // ----------------------------------------------------------------------
-  @override
-  void initState() {
-    super.initState();
-    // if (widget.slideMode == SlideMode.Map)
-    // {
-    //   getUserLocation();
-    // }
-  }
-  // ----------------------------------------------------------------------
-  // missingFunction()async{
-  //   // int markerScale = 30;
-  //   final Uint8List markerIcon = await getBytesFromCanvas(100,100, 'Za7ma');
-  //   customMarker = BitmapDescriptor.fromBytes(markerIcon);
-  // }
-  // ----------------------------------------------------------------------
-  // getUserLocation () async {
-  //   currentUserPosition = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
-  //   missingFunction();
-  //   setState(() {
-  //     loadedPosition = currentUserPosition;
-  //     aMarkerLatLng = LatLng(loadedPosition.latitude, loadedPosition.longitude);
-  //     aMarker = someMarker(customMarker, aMarkerLatLng.latitude , aMarkerLatLng.longitude);
-  //   });
-  // }
-  // ----------------------------------------------------------------------
-  // static final CameraPosition _kLake = CameraPosition(
-  //     bearing: 192.8334901395799,
-  //     target: LatLng(37.43296265331129, -122.08832357078792),
-  //     tilt: 59.440717697143555,
-  //     zoom: 19.151926040649414);
-  // // ----------------------------------------------------------------------
-  // Future<void> _goToTheLake() async {
-  //   final GoogleMapController controller = await _controller.future;
-  //   controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
-  // }
-  // ----------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // ----------------------------------------------------------------------
     double _screenWidth = superScreenWidth(context);
     // ----------------------------------------------------------------------
-    bool _microMode = superFlyerMicroMode(context, widget.flyerZoneWidth);
+    bool _microMode = superFlyerMicroMode(context, flyerZoneWidth);
     // ----------------------------------------------------------------------
     int _slideTitleSize =
-    widget.flyerZoneWidth <= _screenWidth && widget.flyerZoneWidth > (_screenWidth*0.75) ? 4 :
-    widget.flyerZoneWidth <= (_screenWidth*0.75) && widget.flyerZoneWidth > (_screenWidth*0.5) ? 3 :
-        widget.flyerZoneWidth <= (_screenWidth*0.5) && widget.flyerZoneWidth > (_screenWidth*0.25) ? 2 :
-        widget.flyerZoneWidth <= (_screenWidth*0.25) && widget.flyerZoneWidth > (_screenWidth*0.1) ? 1 : 0
+    flyerZoneWidth <= _screenWidth && flyerZoneWidth > (_screenWidth*0.75) ? 4 :
+    flyerZoneWidth <= (_screenWidth*0.75) && flyerZoneWidth > (_screenWidth*0.5) ? 3 :
+        flyerZoneWidth <= (_screenWidth*0.5) && flyerZoneWidth > (_screenWidth*0.25) ? 2 :
+        flyerZoneWidth <= (_screenWidth*0.25) && flyerZoneWidth > (_screenWidth*0.1) ? 1 : 0
     ;
     // ----------------------------------------------------------------------
-    LinkModel _theFlyerLink = LinkModel(url: 'flyer @ index: ${widget.slideIndex}', description: 'flyer to be shared aho');
+    LinkModel _theFlyerLink = LinkModel(url: 'flyer @ index: ${slideIndex}', description: 'flyer to be shared aho');
     // ----------------------------------------------------------------------
-    bool _dontBlur =
-    widget.picFile == null ||
-        (widget.boxFit != BoxFit.fitWidth &&
-            widget.boxFit != BoxFit.contain &&
-            widget.boxFit != BoxFit.scaleDown ) ?
-    true : false;
+    /// blur layer shall only be active if the height of image supplied is smaller
+    /// than flyer height when image width = flyerWidth
+    /// hangebha ezzay dih
+    bool _blurLayerIsActive =
+    picture == null ? false :
+    objectIsJPGorPNG(picture) ? false :
+    // boxFit == BoxFit.cover ? true :
+    // boxFit == BoxFit.fitWidth || boxFit == BoxFit.contain || boxFit == BoxFit.scaleDown ? true :
+        false;
     // ----------------------------------------------------------------------
 
+    // int _imageWidth = getImageWidth();
+
     return Container(
-      width: widget.flyerZoneWidth,
-      height: superFlyerZoneHeight(context, widget.flyerZoneWidth),
+      width: flyerZoneWidth,
+      height: superFlyerZoneHeight(context, flyerZoneWidth),
       alignment: Alignment.topCenter,
       decoration: BoxDecoration(
-        borderRadius: superFlyerCorners(context, widget.flyerZoneWidth),
-        color: widget.slideColor,
-        image: widget.picture == null ||
-            widget.slideMode == SlideMode.Empty ||
-            objectIsURL(widget.picFile) == true ||
-            objectIsURL(widget.picture) == true ?
-        null : superImage(widget.picture, widget.boxFit),
+        borderRadius: superFlyerCorners(context, flyerZoneWidth),
+        color: slideColor,
+        image: picture == null ||
+            slideMode == SlideMode.Empty ||
+            objectIsURL(picture) == true ||
+            objectIsFile(picture) == true ?
+        null : superImage(picture, boxFit),
       ),
       child: ClipRRect(
-        borderRadius: superFlyerCorners(context, widget.flyerZoneWidth),
+        borderRadius: superFlyerCorners(context, flyerZoneWidth),
         child: Stack(
           alignment: Alignment.topCenter,
           children: <Widget>[
 
-            // --- IMAGE FILE FULL HEIGHT
-            _dontBlur || widget.slideMode == SlideMode.Empty || objectIsURL(widget.picFile) == true ? Container() :
+            /// --- IMAGE FILE FULL HEIGHT
+            if (objectIsFile(picture) && _blurLayerIsActive)
             Image.file(
-              widget.picFile,
+              picture,
               fit: BoxFit.fitHeight,
-              width: widget.flyerZoneWidth*1.2,
-              height: superFlyerZoneHeight(context, widget.flyerZoneWidth*1.2),
+              width: flyerZoneWidth*1.2,
+              height: superFlyerZoneHeight(context, flyerZoneWidth*1.2),
               // colorBlendMode: BlendMode.overlay,
               // color: Colorz.WhiteAir,
             ),
 
-            // --- IMAGE FILE BLUR LAYER
-            // objectIsURL ? are you sure,, lets see about you later
-            _dontBlur || widget.slideMode == SlideMode.Empty || objectIsURL(widget.picFile) == true ? Container() :
+            /// --- IMAGE URL FULL HEIGHT
+            if (objectIsURL(picture) && _blurLayerIsActive)
+              Image.network(
+                picture,
+                fit: BoxFit.fitHeight,
+                width: flyerZoneWidth*1.2,
+                height: superFlyerZoneHeight(context, flyerZoneWidth*1.2),
+              ),
+
+            /// --- IMAGE FILE BLUR LAYER
+            if (_blurLayerIsActive || slideMode != SlideMode.Empty)
             ClipRRect( // this ClipRRect fixed a big blur issue,, never ever  delete
               child: BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 6, sigmaY: 6),
                 child: Container(
-                  width: widget.flyerZoneWidth,
-                  height: superFlyerZoneHeight(context, widget.flyerZoneWidth),
+                  width: flyerZoneWidth,
+                  height: superFlyerZoneHeight(context, flyerZoneWidth),
                   color: Colorz.Nothing,
                 ),
               ),
             ),
 
-            // --- IMAGE FILE
-            // objectIsURL ? are you sure,, lets see about you later
-            widget.picFile == null || widget.slideMode == SlideMode.Empty || objectIsURL(widget.picFile) == true ? Container() :
+            if (picture == null || slideMode == SlideMode.Empty)
+              Container(),
+
+            /// --- IMAGE FILE
+            if (objectIsFile(picture))
                 Image.file(
-                    widget.picFile,
-                    fit: widget.boxFit,
-                    width: widget.flyerZoneWidth,
-                    height: superFlyerZoneHeight(context, widget.flyerZoneWidth)
+                    picture,
+                    fit: boxFit,
+                    width: flyerZoneWidth,
+                    height: superFlyerZoneHeight(context, flyerZoneWidth)
                 ),
 
-            // --- IMAGE NETWORK
-            objectIsURL(widget.picFile) == false ? Container() :
+            /// --- IMAGE NETWORK
+            if (objectIsURL(picture))
             Image.network(
-                widget.picFile,
+                picture,
                 fit: BoxFit.fitWidth,
-                width: widget.flyerZoneWidth,
-                height: superFlyerZoneHeight(context, widget.flyerZoneWidth)
+                width: flyerZoneWidth,
+                height: superFlyerZoneHeight(context, flyerZoneWidth)
             ),
 
-            // --- SHADOW UNDER PAGE HEADER & OVER PAGE PICTURE
+            /// --- SHADOW UNDER PAGE HEADER & OVER PAGE PICTURE
             Container(
-              width: widget.flyerZoneWidth,
-              height: widget.flyerZoneWidth * 0.6,
+              width: flyerZoneWidth,
+              height: flyerZoneWidth * 0.6,
               decoration: BoxDecoration(
-                  borderRadius: superHeaderShadowCorners(context, widget.flyerZoneWidth),
+                  borderRadius: superHeaderShadowCorners(context, flyerZoneWidth),
                   gradient: superSlideGradient(),
               ),
             ),
 
-            _microMode == true || widget.title == null ? Container() :
+            if (_microMode == false && title != null && title != '')
             SlideTitle(
-              flyerZoneWidth: widget.flyerZoneWidth,
-              verse: widget.title,
+              flyerZoneWidth: flyerZoneWidth,
+              verse: title,
               verseSize: _slideTitleSize,
               verseColor: Colorz.White,
               tappingVerse: () {
@@ -209,32 +175,32 @@ class _SingleSlideState extends State<SingleSlide> {
                 },
             ),
 
-            widget.slideMode != SlideMode.Editor ? Container() :
+            if (slideMode == SlideMode.Editor)
                 SuperTextField(
                   hintText: 'T i t l e',
 
-                  width: widget.flyerZoneWidth,
-                  // height: widget.flyerZoneWidth * 0.15,
+                  width: flyerZoneWidth,
+                  // height: flyerZoneWidth * 0.15,
                   fieldColor: Colorz.BlackSmoke,
-                  margin: EdgeInsets.only(top: (widget.flyerZoneWidth * 0.3), left: 5, right: 5),
+                  margin: EdgeInsets.only(top: (flyerZoneWidth * 0.3), left: 5, right: 5),
                   maxLines: 4,
                   keyboardTextInputType: TextInputType.multiline,
                   designMode: false,
                   counterIsOn: false,
                   inputSize: 3,
                   centered: true,
-                  textController: widget.titleController,
-                  onChanged: widget.textFieldOnChanged,
+                  textController: titleController,
+                  onChanged: textFieldOnChanged,
                   inputWeight: VerseWeight.bold,
                   inputShadow: true,
                 ),
 
-            widget.slideMode != SlideMode.View ? Container() :
+            slideMode != SlideMode.View ? Container() :
             FlyerFooter(
-              flyerZoneWidth: widget.flyerZoneWidth,
-              views: widget.views,
-              shares: widget.shares,
-              saves: widget.saves,
+              flyerZoneWidth: flyerZoneWidth,
+              views: views,
+              shares: shares,
+              saves: saves,
               tappingShare: () {shareFlyer(context, _theFlyerLink);}, // this will user slide index
             ),
 
