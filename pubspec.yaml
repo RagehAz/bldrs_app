@@ -101,6 +101,8 @@ flutter:
     - assets/xx/cr_ahmad/
     - assets/xx/cr_fixawy/
     - assets/xx/ds_eklego/
+    - assets/xx/ds_eklego/eklego_1/
+    - assets/xx/ds_eklego/eklego_2/
     - assets/xx/ds_hs/
     - assets/xx/ds_hs/hs_1/
     - assets/xx/ds_hs/hs_2/
@@ -113,6 +115,7 @@ flutter:
     - assets/xx/eq_cat/cat_1/
     - assets/xx/eq_cat/cat_2/
     - assets/xx/eq_loader/
+    - assets/xx/eq_loader/loader_1/
     - assets/xx/eq_power/
     - assets/xx/eq_power/power_1/
     - assets/xx/eq_power/power_2/

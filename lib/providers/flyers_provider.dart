@@ -637,6 +637,12 @@ Future<void> fetchAndSetBzz(BuildContext context) async {
       final List<BzModel> _fireStoreBzzModels = decipherBzMapsFromFireStore(_fireStoreBzzMaps);
       _loadedBzz.addAll(_fireStoreBzzModels);
 
+      /// READ data from cloud Firestore flyers collection
+      List<QueryDocumentSnapshot> _fireStoreFlyersMaps = await getFireStoreCollectionMaps(FireStoreCollection.flyers);
+      final List<FlyerModel> _fireStoreFlyersModels = decipherFlyersMapsFromFireStore(_fireStoreFlyersMaps);
+      _loadedFlyers.addAll(_fireStoreFlyersModels);
+
+
       notifyListeners();
       print('_loadedBzz :::: --------------- $_loadedBzz');
 

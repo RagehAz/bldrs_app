@@ -74,7 +74,7 @@ Future<dynamic> getFireStoreDocumentMap(String collectionName, String documentNa
 }
 // ---------------------------------------------------------------------------
 Future<List<QueryDocumentSnapshot>> getFireStoreCollectionMaps(String collectionName) async {
-  QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection(FireStoreCollection.bzz).get();
+  QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection(collectionName).get();
   List<QueryDocumentSnapshot> _maps = querySnapshot.docs;
   return _maps;
 }
