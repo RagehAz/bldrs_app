@@ -165,7 +165,7 @@ with TickerProviderStateMixin {
 
 
     return Scaffold(
-        resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomInset: false,
       body: Center(
           child: Container(
             height: heightMQ,

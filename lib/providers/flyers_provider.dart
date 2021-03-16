@@ -42,7 +42,7 @@ class FlyersProvider with ChangeNotifier {
   }
 // ############################################################################
   FlyerModel getFlyerByFlyerID (String flyerID){
-    FlyerModel flyer = _loadedFlyers?.singleWhere((x) => x.flyerID == flyerID, orElse: ()=>null);
+    FlyerModel flyer = _loadedFlyers?.firstWhere((x) => x.flyerID == flyerID, orElse: ()=>null);
     return flyer;
   }
 // ---------------------------------------------------------------------------

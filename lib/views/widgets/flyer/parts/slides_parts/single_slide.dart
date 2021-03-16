@@ -74,8 +74,8 @@ class SingleSlide extends StatelessWidget {
     bool _blurLayerIsActive =
     picture == null ? false :
     objectIsJPGorPNG(picture) ? false :
-    // boxFit == BoxFit.cover ? true :
-    // boxFit == BoxFit.fitWidth || boxFit == BoxFit.contain || boxFit == BoxFit.scaleDown ? true :
+    boxFit == BoxFit.cover ? true :
+    boxFit == BoxFit.fitWidth || boxFit == BoxFit.contain || boxFit == BoxFit.scaleDown ? true :
         false;
     // ----------------------------------------------------------------------
 
@@ -121,7 +121,7 @@ class SingleSlide extends StatelessWidget {
               ),
 
             /// --- IMAGE FILE BLUR LAYER
-            if (_blurLayerIsActive || slideMode != SlideMode.Empty)
+            if (_blurLayerIsActive)
             ClipRRect( // this ClipRRect fixed a big blur issue,, never ever  delete
               child: BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 6, sigmaY: 6),
