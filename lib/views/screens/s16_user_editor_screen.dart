@@ -9,6 +9,7 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/firestore/auth/auth.dart';
+import 'package:bldrs/firestore/crud/user_ops.dart';
 import 'package:bldrs/firestore/firebase_storage.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/sub_models/contact_model.dart';
@@ -210,8 +211,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               // -------------------------
             );
 
-            await UserProvider(userID: widget.user.userID)
-                .updateFirestoreUserDocument(_newUserModel);
+            await UserCRUD().createUserDoc(userModel: _newUserModel);
 
             print('User Model successfully edited');
             _triggerLoading();
@@ -239,7 +239,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       functions: () async {
 
         String _email = getAContactValueFromContacts(widget.user.contacts, ContactType.Email);
-        await deleteUserDocument(widget.user);
+        await UserCRUD().deleteUserDoc(userModel: widget.user);
         await AuthService().deleteFirebaseUser(context, _email, '123456');
 
       }

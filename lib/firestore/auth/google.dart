@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/theme/wordz.dart';
+import 'package:bldrs/firestore/crud/user_ops.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:bldrs/models/user_model.dart';
@@ -56,7 +57,7 @@ Future<String> signInWithGoogle(BuildContext context, Zone currentZone) async {
     );
 
     /// create a new firestore document for the user with the userID
-    await UserProvider(userID: user.uid).updateFirestoreUserDocument(_newUserModel);
+    await UserCRUD().createUserDoc(userModel: _newUserModel);
 
     final User currentUser = _auth.currentUser;
 

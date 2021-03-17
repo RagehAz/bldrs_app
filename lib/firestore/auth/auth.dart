@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/theme/wordz.dart';
+import 'package:bldrs/firestore/crud/user_ops.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:bldrs/models/user_model.dart';
@@ -52,7 +53,7 @@ class AuthService {
   }
   // ---------------------------------------------------------------------------
   /// sign in anonymously
-  Future signInAnon(BuildContext context) async {
+  Future<dynamic> signInAnon(BuildContext context) async {
     try {
       // they have renamed the class 'AuthResult' to 'UserCredential'
       UserCredential result = await _auth.signInAnonymously();
@@ -66,7 +67,7 @@ class AuthService {
   }
   // ---------------------------------------------------------------------------
   /// sign in with email & password
-  Future signInWithEmailAndPassword(String email, String password) async {
+  Future<dynamic> signInWithEmailAndPassword(String email, String password) async {
     try {
       UserCredential result = await _auth.signInWithEmailAndPassword(
           email: email.trim(), password: password);
@@ -80,7 +81,7 @@ class AuthService {
   }
   // ---------------------------------------------------------------------------
   /// register with email & password
-  Future registerWithEmailAndPassword(BuildContext context, Zone currentZone,
+  Future<dynamic> registerWithEmailAndPassword(BuildContext context, Zone currentZone,
       String email, String password) async {
     try {
 
@@ -113,8 +114,7 @@ class AuthService {
       );
 
       /// create a new firestore document for the user with the userID
-      await UserProvider(userID: user.uid)
-          .updateFirestoreUserDocument(_newUserModel);
+      await UserCRUD().createUserDoc(userModel: _newUserModel);
 
       return _convertFirebaseUserToUserModel(user);
 
@@ -126,7 +126,7 @@ class AuthService {
   }
   // ---------------------------------------------------------------------------
   /// sign out
-  Future signOut(BuildContext context) async {
+  Future<void> signOut(BuildContext context) async {
     try {
       return await _auth.signOut();
     } catch (error) {
@@ -135,7 +135,7 @@ class AuthService {
     }
   }
   // ---------------------------------------------------------------------------
-  Future deleteFirebaseUser(BuildContext context, String email, String password)
+  Future<void> deleteFirebaseUser(BuildContext context, String email, String password)
   async {
     try {
       User user = _auth.currentUser;
