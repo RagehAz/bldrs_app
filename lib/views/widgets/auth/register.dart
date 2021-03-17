@@ -41,7 +41,6 @@ class _RegisterState extends State<Register> {
   String _password;
   String _confirmPassword;
   final _formKey = GlobalKey<FormState>();
-  String _error = '';
   bool _loading = false;
   bool _passwordObscured = true;
 
@@ -250,22 +249,20 @@ class _RegisterState extends State<Register> {
 
                           if ('$result' == '[firebase_auth/email-already-in-use] The email address is already in use by another account.'){
                             superDialog(context, Wordz.emailAlreadyRegistered(context), 'E-mail Taken');
-                            setState(() {_error = Wordz.emailAlreadyRegistered(context);});
                             _triggerLoading();
                           }
 
                           else if('$result' == '[firebase_auth/invalid-email] The email address is badly formatted.'){
-                            setState(() {_error = Wordz.emailWrong(context);});
+                            superDialog(context, Wordz.emailWrong(context), 'E-mail Taken');
                             _triggerLoading();
                           }
 
-                          else if(result == null){setState(() {
-                            _error = 'something is wrong';});
+                          else if(result == null){
+                            superDialog(context, 'something is wrong', 'E-mail Taken');
                           _triggerLoading();
                           }
 
                           else if(result.runtimeType == UserModel){
-                            setState(() {_error = '';});
                             _triggerLoading();
                             // goToNewScreen(context, FillProfileScreen());
                             goToNewScreen(context, EditProfileScreen(user: result, firstTimer: true,),);
