@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/timerz.dart';
+import 'package:bldrs/firestore/crud/user_ops.dart';
 import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
@@ -251,8 +252,7 @@ Future<void> addBz(BuildContext context, BzModel bz, UserModel userModel) async 
       );
 
       /// update firestore with the _newUserModel
-      await UserProvider(userID: userModel.userID).
-      updateFirestoreUserDocument(_newUserModel);
+      await UserCRUD().createUserDoc(userModel: _newUserModel);
 
       /// add the local bzModel to the local list of bzModels _loadedBzz
       _loadedBzz.add(_newBz);
@@ -504,8 +504,7 @@ Future<void> addBz(BuildContext context, BzModel bz, UserModel userModel) async 
        followedBzzIDs : newFollowedBzzIDs,
      );
 
-     await UserProvider(userID: userModel.userID).
-     updateFirestoreUserDocument(_newUserModel);
+   await UserCRUD().createUserDoc(userModel: _newUserModel);
 
  }
 // ---------------------------------------------------------------------------
@@ -669,8 +668,8 @@ Future<void> createBzDocument(BzModel bz, UserModel userModel) async {
   );
 
   /// update firestore with the _newUserModel
-  await UserProvider(userID: userModel.userID).
-  updateFirestoreUserDocument(_newUserModel);
+  /// when firebase finds the same userID
+  await UserCRUD().createUserDoc(userModel: _newUserModel);
 
   /// add the local bzModel to the local list of bzModels _loadedBzz
   _loadedBzz.add(_newBz);
