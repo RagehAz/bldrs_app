@@ -42,7 +42,7 @@ class SlideTitle extends StatelessWidget {
                 size: verseSize,
                 centered: true,
                 designMode: false,
-                maxLines: 2,
+                maxLines: 3,
               ),
             ],
           ),

@@ -3,19 +3,12 @@ import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:bldrs/firestore/crud/user_ops.dart';
 // === === === === === === === === === === === === === === === === === === ===
 class UserProvider{
   final String userID;
 
   UserProvider({this.userID});
-// ---------------------------------------------------------------------------
-  /// users collection reference
-  final CollectionReference usersCollection = FirebaseFirestore.instance.collection(FireStoreCollection.users);
-// ---------------------------------------------------------------------------
-  /// create user document
-  Future<void> updateFirestoreUserDocument(UserModel userModel) async {
-    usersCollection.doc(userID).set(userModel.toMap());
-  }
 // ---------------------------------------------------------------------------
   /// users list from snapshot
   List<UserModel> _usersListFromSnapshot(QuerySnapshot snapshot){
@@ -84,18 +77,21 @@ class UserProvider{
 // ---------------------------------------------------------------------------
   /// get users streams
   Stream<List<UserModel>> get allUsersStream {
-    return usersCollection.snapshots()
+    CollectionReference _userCollection = UserCRUD().userCollection();
+    return _userCollection.snapshots()
         .map(_usersListFromSnapshot);
   }
 // ---------------------------------------------------------------------------
   /// get user doc stream
   Stream<UserModel> get userData {
-    return usersCollection.doc(userID).snapshots()
+    CollectionReference _userCollection = UserCRUD().userCollection();
+    return _userCollection.doc(userID).snapshots()
         .map(_userModelFromSnapshot);
   }
 // ---------------------------------------------------------------------------
 UserModel getUserModel(){
-  Stream<DocumentSnapshot> docStream = usersCollection.doc(userID).snapshots();
+  CollectionReference _userCollection = UserCRUD().userCollection();
+  Stream<DocumentSnapshot> docStream = _userCollection.doc(userID).snapshots();
   UserModel user;
   docStream.listen((DocumentSnapshot snap) {
     user = _userModelFromSnapshot(snap);
@@ -104,15 +100,3 @@ UserModel getUserModel(){
 }
 // ---------------------------------------------------------------------------
 }
-// === === === === === === === === === === === === === === === === === === ===
-Future<void> createUserDocument(UserModel userModel) async {
-  CollectionReference _usersCollection = getFirestoreCollectionReference(FireStoreCollection.users);
-  await _usersCollection.doc(userModel.userID).set(userModel.toMap());
-
-}
-// === === === === === === === === === === === === === === === === === === ===
-Future<void> deleteUserDocument(UserModel userModel) async {
-  DocumentReference _userDocument = getFirestoreDocumentReference(FireStoreCollection.users, userModel.userID);
-  await _userDocument.delete();
-}
-// === === === === === === === === === === === === === === === === === === ===
