@@ -1,6 +1,6 @@
-import 'package:bldrs/view_brains/drafters/shadowers.dart';
-import 'package:bldrs/view_brains/theme/colorz.dart';
-import 'package:bldrs/view_brains/theme/iconz.dart';
+import 'package:bldrs/controllers/drafters/shadowers.dart';
+import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 
@@ -66,7 +66,7 @@ class CheckBox extends StatelessWidget {
                       borderRadius: BorderRadius.all(
                           Radius.elliptical(checkBoxRadius * btOvalSizeFactor, checkBoxRadius * 0.7 * btOvalSizeFactor)),
                       color: Colorz.Nothing,
-                      boxShadow: [CustomBoxShadow(
+                      boxShadow: <BoxShadow>[CustomBoxShadow(
                         color: Colorz.WhiteSmoke,
                         offset: Offset(0, checkBoxRadius * -0.5),
                         blurRadius: checkBoxRadius * 0.3 ,

@@ -1,4 +1,4 @@
-import 'package:bldrs/view_brains/drafters/timerz.dart';
+import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'sub_models/author_model.dart';

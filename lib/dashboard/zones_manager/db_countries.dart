@@ -1,5 +1,5 @@
+import 'package:bldrs/controllers/theme/flagz.dart';
 import 'package:bldrs/models/planet/country_model.dart';
-import 'package:bldrs/view_brains/theme/flagz.dart';
 import 'db_provinces.dart' show geebProvincesByIso3;
 
 Country geebCountryByIso3(String iso3){

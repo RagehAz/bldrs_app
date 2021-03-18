@@ -1,9 +1,9 @@
-import 'package:bldrs/view_brains/drafters/scalers.dart';
-import 'package:bldrs/view_brains/drafters/text_checkers.dart';
-import 'package:bldrs/view_brains/drafters/text_directionerz.dart';
-import 'package:bldrs/view_brains/drafters/text_manipulators.dart';
-import 'package:bldrs/view_brains/localization/change_language.dart';
-import 'package:bldrs/view_brains/theme/iconz.dart';
+import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/drafters/text_checkers.dart';
+import 'package:bldrs/controllers/drafters/text_directionerz.dart';
+import 'package:bldrs/controllers/drafters/text_manipulators.dart';
+import 'package:bldrs/controllers/localization/change_language.dart';
+import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_text_field.dart';

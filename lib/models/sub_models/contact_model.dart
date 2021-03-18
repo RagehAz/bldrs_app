@@ -1,4 +1,4 @@
-import 'package:bldrs/view_brains/drafters/iconizers.dart';
+import 'package:bldrs/controllers/drafters/iconizers.dart';
 import 'package:flutter/foundation.dart';
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
 class ContactModel{

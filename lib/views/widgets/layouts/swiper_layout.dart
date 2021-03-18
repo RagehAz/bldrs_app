@@ -1,4 +1,4 @@
-import 'package:bldrs/view_brains/theme/colorz.dart';
+import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 

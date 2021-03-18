@@ -1,8 +1,8 @@
 import 'dart:io';
-import 'package:bldrs/view_brains/drafters/file_formatters.dart';
-import 'package:bldrs/view_brains/drafters/shadowers.dart';
-import 'package:bldrs/view_brains/theme/colorz.dart';
-import 'package:bldrs/view_brains/theme/ratioz.dart';
+import 'package:bldrs/controllers/drafters/file_formatters.dart';
+import 'package:bldrs/controllers/drafters/shadowers.dart';
+import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:websafe_svg/websafe_svg.dart';
@@ -144,7 +144,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                   decoration: BoxDecoration(
                       color: widget.inActiveMode == true ? Colorz.WhiteAir : boxColor,
                       borderRadius: BorderRadius.circular(widget.corners),
-                      boxShadow: [
+                      boxShadow: <BoxShadow>[
                         CustomBoxShadow(
                             color: widget.bubble == true ? Colorz.BlackLingerie : Colorz.Nothing,
                             offset: new Offset(0, boxHeight * -0.019 * 0 ),

@@ -1,11 +1,10 @@
-import 'package:bldrs/ambassadors/database/db_user.dart';
+import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/sub_models/slide_model.dart';
-import 'package:bldrs/view_brains/controllers/flyer_controllers.dart';
-import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header.dart';
+import 'package:bldrs/xxx_temp_hard_database/db_user.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'parts/ankh_button.dart';
