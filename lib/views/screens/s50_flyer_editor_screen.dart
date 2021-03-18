@@ -7,9 +7,7 @@ import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/sub_models/slide_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
-import 'package:bldrs/view_brains/controllers/flyer_controllers.dart';
 import 'package:bldrs/view_brains/controllers/flyer_sliding_controllers.dart';
-import 'package:bldrs/view_brains/drafters/borderers.dart';
 import 'package:bldrs/view_brains/drafters/imagers.dart';
 import 'package:bldrs/view_brains/drafters/text_shapers.dart';
 import 'package:bldrs/view_brains/theme/colorz.dart';
@@ -34,7 +32,6 @@ import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import 's50_flyer_on_map.dart';
 
 enum SlidingDirection{
@@ -422,8 +419,10 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
 
     if(numberOfSlides == 0) {
       superDialog(context, 'You have to add some slides first', '');
-    } else if (_currentKeywords.length == 0){
-      superDialog(context, 'Add Flyer HashTags', 'Add Hashtags');
+    } else if (_currentKeywords.length == 0) {
+      _addKeywords();
+    } else if (_currentFlyerType == null){
+      superDialog(context, 'You have to choose flyer type', '');
     } else {
 
       _triggerLoading();
@@ -473,7 +472,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
             List<String> _picturesURLs = await savePicturesToFireStorageAndGetListOfURL(_currentSlides);
           List<SlideModel> _slides = await processSlides(_picturesURLs, _currentSlides, _titleControllers);
 
-            /// 3 - create FlyerModel
+          /// 3 - create FlyerModel
           FlyerModel _newFlyerModel = FlyerModel(
               flyerID: _currentFlyerID,
               // -------------------------
@@ -495,16 +494,34 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
           );
           /// 4- save flyer to firestore
           await _flyersCollection.doc(_currentFlyerID).update(_newFlyerModel.toMap());
-          /// 5- save flyer to local flyers List
+          /// 5- save the flyer in Author's published list
+            String _currentUserId = superUserID();
+            List<AuthorModel> _existingAuthors = widget.bzModel.bzAuthors;
+            AuthorModel _currentAuthor = getAuthorFromBzByAuthorID(widget.bzModel, _currentUserId);
+            int _currentAuthorIndex = _existingAuthors.indexWhere((au) => au.userID == _currentUserId);
+            _currentAuthor.publishedFlyersIDs.add(_currentFlyerID);
+            _existingAuthors.removeAt(_currentAuthorIndex);
+            _existingAuthors.insert(_currentAuthorIndex, _currentAuthor);
+
+            if (widget.firstTimer) {
+              updateFieldOnFirestore(
+                context: context,
+                collectionName: FireStoreCollection.bzz,
+                documentName: widget.bzModel.bzID,
+                field: 'bzAuthors',
+                input: _existingAuthors,
+              );
+            }
+
+          /// 6- save flyer to local flyers List
           _prof.addFlyerToLocalFlyersList(_newFlyerModel);
 
           superDialog(context, 'Flyer Published', '');
+          _triggerLoading();
+          print('flyer publishing ended');
 
         },
       );
-
-      _triggerLoading();
-      print('flyer publishing ended');
 
     }
 
@@ -681,6 +698,21 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
 
   }
   // ----------------------------------------------------------------------
+  Widget _publishButton(){
+    return
+      DreamBox(
+        height: 35,
+        boxMargins: EdgeInsets.symmetric(horizontal: Ratioz.ddAppBarPadding),
+        verse: 'Publish flyer',
+        verseColor: Colorz.BlackBlack,
+        verseScaleFactor: 0.8,
+        color: Colorz.Yellow,
+        icon: Iconz.AddFlyer,
+        iconSizeFactor: 0.6,
+        boxFunction: _publishFlyer,
+      );
+  }
+  // ----------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // final FlyersProvider _pro = Provider.of<FlyersProvider>(context, listen: false);
@@ -696,7 +728,6 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
     print('_pickedImage : $_pickedImage');
     // print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> building widget tree');
     // ----------------------------------------------------------------------
-
     Widget _fButton({String icon, Function function}){
       return
           DreamBox(
@@ -708,36 +739,22 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
             boxFunction: function,
           );
     }
-
     // ----------------------------------------------------------------------
     return MainLayout(
       appBarType: AppBarType.Basic,
       pyramids: Iconz.DvBlankSVG,
       appBarBackButton: true,
       sky: Sky.Black,
-      pageTitle: 'Create a New Flyer',
+      pageTitle: _loading ? 'Create a New Flyer' : 'Waiting ...',
+      loading: _loading,
       tappingRageh: (){
-
-        dynamic _shit = cipherSlidesModels(_currentSlides);
-
-        print(_shit);
-
+        _triggerLoading();
       },
       appBarRowWidgets: <Widget>[
 
         Expanded(child: Container(),),
 
-        DreamBox(
-          height: 35,
-          boxMargins: EdgeInsets.symmetric(horizontal: Ratioz.ddAppBarPadding),
-          verse: 'Publish flyer',
-          verseColor: Colorz.BlackBlack,
-          verseScaleFactor: 0.8,
-          color: Colorz.Yellow,
-          icon: Iconz.AddFlyer,
-          iconSizeFactor: 0.6,
-          boxFunction: _publishFlyer,
-      ),
+        _publishButton(),
 
       ],
       layoutWidget: Stack(
