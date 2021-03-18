@@ -1,6 +1,6 @@
-import 'package:bldrs/view_brains/drafters/shadowers.dart';
-import 'package:bldrs/view_brains/theme/colorz.dart';
-import 'package:bldrs/view_brains/theme/ratioz.dart';
+import 'package:bldrs/controllers/drafters/shadowers.dart';
+import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
@@ -63,7 +63,7 @@ class FieldsRow extends StatelessWidget {
                 decoration: BoxDecoration(
                     color: Colorz.WhiteAir,
                     borderRadius: BorderRadius.circular(Ratioz.ddBoxCorner12),
-                    boxShadow: [
+                    boxShadow: <BoxShadow>[
                       CustomBoxShadow(
                           color: Colorz.BlackLingerie,
                           offset: new Offset(0,0 ),

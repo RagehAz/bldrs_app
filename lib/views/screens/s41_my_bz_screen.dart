@@ -1,11 +1,11 @@
+import 'package:bldrs/controllers/drafters/borderers.dart';
+import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/drafters/streamerz.dart';
+import 'package:bldrs/controllers/router/navigators.dart';
+import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/user_model.dart';
-import 'package:bldrs/view_brains/controllers/streamerz.dart';
-import 'package:bldrs/view_brains/drafters/borderers.dart';
-import 'package:bldrs/view_brains/drafters/scalers.dart';
-import 'package:bldrs/view_brains/router/navigators.dart';
-import 'package:bldrs/view_brains/theme/colorz.dart';
-import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/views/screens/s40_bz_editor_screen.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_zone.dart';

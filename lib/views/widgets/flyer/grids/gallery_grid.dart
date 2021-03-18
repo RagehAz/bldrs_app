@@ -1,14 +1,10 @@
-import 'package:bldrs/ambassadors/services/auth.dart';
+import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/router/navigators.dart';
+import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/firestore/auth/auth.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
-import 'package:bldrs/models/sub_models/slide_model.dart';
-import 'package:bldrs/providers/flyers_provider.dart';
-import 'package:bldrs/view_brains/drafters/scalers.dart';
-import 'package:bldrs/view_brains/router/navigators.dart';
-import 'package:bldrs/view_brains/theme/ratioz.dart';
-import 'package:bldrs/views/widgets/flyer/parts/flyer_zone.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../bz_card_preview.dart';
@@ -47,7 +43,7 @@ class GalleryGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     // final _prof = Provider.of<FlyersProvider>(context, listen: false);
     // final _bz = _prof.getBzByBzID(bzID);
-    final List<FlyerModel> _gridFlyers = galleryFlyers == null ? [] : galleryFlyers;//pro.getAllFlyers;
+    final List<FlyerModel> _gridFlyers = galleryFlyers == null ? <FlyerModel>[] : galleryFlyers;//pro.getAllFlyers;
     bool _viewerIsAuthor = _concludeUserIsAuthor();
     // -------------------------------------------------------------------------
     double _screenWidth = superScreenWidth(context);

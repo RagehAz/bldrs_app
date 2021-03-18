@@ -1,20 +1,18 @@
-import 'package:bldrs/ambassadors/database/db_bzz.dart';
-import 'package:bldrs/ambassadors/database/db_flyer.dart';
-import 'package:bldrs/ambassadors/services/firestore.dart';
+import 'package:bldrs/controllers/drafters/timerz.dart';
+import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:bldrs/models/sub_models/http_exceptions.dart';
 import 'package:bldrs/models/user_model.dart';
-import 'package:bldrs/view_brains/controllers/flyer_controllers.dart';
-import 'package:bldrs/view_brains/drafters/timerz.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
+import 'package:bldrs/xxx_temp_hard_database/db_bzz.dart';
+import 'package:bldrs/xxx_temp_hard_database/db_flyer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
 import 'users_provider.dart';
 // === === === === === === === === === === === === === === === === === === ===
 const String realtimeDatabaseLink = 'https://bldrsnet.firebaseio.com/';
@@ -129,55 +127,39 @@ bzzIDs.forEach((bzID) {bzz.add(getBzByBzID(bzID));});
 return bzz;
 }
 // ############################################################################
-void addFlyer(FlyerModel flyer){
-    const url = realtimeDatabaseFlyersPath;
-    http.post(url,
-      body: json.encode({
-        'flyerID' : flyer.flyerID,
-        // -------------------------
-        'flyerType' : flyer.flyerType,
-        'flyerState' : flyer.flyerState,
-        'keyWords' : flyer.keyWords,
-        'flyerShowsAuthor' : flyer.flyerShowsAuthor,
-        'flyerURL' : flyer.flyerURL,
-        // -------------------------
-        'authorID' : flyer.authorID,
-        'bzID' : flyer.bzID,
-        // -------------------------
-        'publishTime' : flyer.publishTime,
-        'flyerPosition' : flyer.flyerPosition,
-        // -------------------------
-        'ankhIsOn' : flyer.ankhIsOn,
-        // -------------------------
-        'slides' : flyer.slides,
-      }),
-    );
-
-    final FlyerModel newFlyer = FlyerModel(
-    flyerID : flyer.flyerID,
-    // -------------------------
-    flyerType : flyer.flyerType,
-    flyerState : flyer.flyerState,
-    keyWords : flyer.keyWords,
-    flyerShowsAuthor : flyer.flyerShowsAuthor,
-    flyerURL : flyer.flyerURL,
-    // -------------------------
-    authorID : flyer.authorID,
-    bzID : flyer.bzID,
-    // -------------------------
-    publishTime : flyer.publishTime,
-    flyerPosition : flyer.flyerPosition,
-    // -------------------------
-    ankhIsOn : flyer.ankhIsOn, // will change in later max lessons to be user based
-      // -------------------------
-    slides : flyer.slides,
-    );
-    _loadedFlyers.add(newFlyer);
-    notifyListeners();
-}
+  /// add flyer to realtime database
+//   void addFlyerToRealtimeDatabase(FlyerModel flyer){
+//     const url = realtimeDatabaseFlyersPath;
+//     http.post(url,
+//       body: json.encode({
+//         'flyerID' : flyer.flyerID,
+//         // -------------------------
+//         'flyerType' : flyer.flyerType,
+//         'flyerState' : flyer.flyerState,
+//         'keyWords' : flyer.keyWords,
+//         'flyerShowsAuthor' : flyer.flyerShowsAuthor,
+//         'flyerURL' : flyer.flyerURL,
+//         // -------------------------
+//         'authorID' : flyer.authorID,
+//         'bzID' : flyer.bzID,
+//         // -------------------------
+//         'publishTime' : flyer.publishTime,
+//         'flyerPosition' : flyer.flyerPosition,
+//         // -------------------------
+//         'ankhIsOn' : flyer.ankhIsOn,
+//         // -------------------------
+//         'slides' : flyer.slides,
+//       }),
+//     );
+//
+//     final FlyerModel newFlyer = flyer;
+//
+//     addFlyerToLocalFlyersList(newFlyer);
+//
+// }
 // ############################################################################
+  /// add flyer to local list
   void addFlyerToLocalFlyersList(FlyerModel flyer){
-
     _loadedFlyers.add(flyer);
     notifyListeners();
   }
@@ -196,56 +178,11 @@ Future<void> addBz(BuildContext context, BzModel bz, UserModel userModel) async 
       final response = await http.post(url,
         body: json.encode({
           bz.toMap()
-          // 'bzID': bz.bzID,
-          // -------------------------
-          // 'bzType': cipherBzType(bz.bzType),
-          // 'bzForm': cipherBzForm(bz.bzForm),
-          // 'bldrBirth': cipherDateTimeToString(bz.bldrBirth),
-          // 'accountType': cipherBzAccountType(bz.accountType),
-          // 'bzURL': bz.bzURL,
-          // // -------------------------
-          // 'bzName': bz.bzName,
-          // 'bzLogo': bz.bzLogo,
-          // 'bzScope': bz.bzScope,
-          // 'bzCountry': bz.bzCountry,
-          // 'bzProvince': bz.bzProvince,
-          // 'bzArea': bz.bzArea,
-          // 'bzAbout': bz.bzAbout,
-          // 'bzPosition': bz.bzPosition,
-          // 'bzContacts': cipherContactsModels(bz.bzContacts),
-          // 'bzAuthors': [AuthorModel(
-          //   bzID: bz.bzAuthors[0].bzID,
-          //   userID: bz.bzAuthors[0].userID,
-          //   authorName: bz.bzAuthors[0].authorName,
-          //   authorPic: bz.bzAuthors[0].authorPic,
-          //   authorTitle: bz.bzAuthors[0].authorTitle,
-          //   publishedFlyersIDs: bz.bzAuthors[0].publishedFlyersIDs,
-          //   authorContacts: bz.bzAuthors[0].authorContacts,
-          // ).toMap(),],
-          // 'bzShowsTeam': bz.bzShowsTeam,
-          // // -------------------------
-          // 'bzIsVerified': bz.bzIsVerified,
-          // 'bzAccountIsDeactivated': bz.bzAccountIsDeactivated,
-          // 'bzAccountIsBanned': bz.bzAccountIsBanned,
-          // // -------------------------
-          // 'bzTotalFollowers': bz.bzTotalFollowers,
-          // 'bzTotalSaves': bz.bzTotalSaves,
-          // 'bzTotalShares': bz.bzTotalShares,
-          // 'bzTotalSlides': bz.bzTotalSlides,
-          // 'bzTotalViews': bz.bzTotalViews,
-          // 'bzTotalCalls': bz.bzTotalCalls,
-          // 'bzTotalConnects': bz.bzTotalConnects,
-          // // -------------------------
-          // 'jointsBzzIDs': bz.jointsBzzIDs,
-          // // -------------------------
-          // 'followIsOn': bz.followIsOn,
-          // will change in later max lessons to be user based
         }),
       );
 
       /// --- get bzID from previous response
       String bzID = json.decode(response.body)['name'];
-
 
       /// create local bzModel adding the bzId
       final BzModel _newBz = BzModel(
@@ -285,7 +222,6 @@ Future<void> addBz(BuildContext context, BzModel bz, UserModel userModel) async 
         // -------------------------
         followIsOn: bz.followIsOn,
       );
-
 
       /// save the bzID as the first id in the list of followedBzzIDs
       List<dynamic> tempFollowedBzzIDs = userModel.followedBzzIDs;
@@ -641,7 +577,6 @@ Future<void> fetchAndSetBzz(BuildContext context) async {
       List<QueryDocumentSnapshot> _fireStoreFlyersMaps = await getFireStoreCollectionMaps(FireStoreCollection.flyers);
       final List<FlyerModel> _fireStoreFlyersModels = decipherFlyersMapsFromFireStore(_fireStoreFlyersMaps);
       _loadedFlyers.addAll(_fireStoreFlyersModels);
-
 
       notifyListeners();
       print('_loadedBzz :::: --------------- $_loadedBzz');

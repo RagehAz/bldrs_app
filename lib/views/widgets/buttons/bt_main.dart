@@ -1,8 +1,8 @@
-import 'package:bldrs/view_brains/drafters/file_formatters.dart';
-import 'package:bldrs/view_brains/drafters/scalers.dart';
-import 'package:bldrs/view_brains/drafters/shadowers.dart';
-import 'package:bldrs/view_brains/theme/colorz.dart';
-import 'package:bldrs/view_brains/theme/ratioz.dart';
+import 'package:bldrs/controllers/drafters/file_formatters.dart';
+import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/drafters/shadowers.dart';
+import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:websafe_svg/websafe_svg.dart';
@@ -66,7 +66,7 @@ class BTMain extends StatelessWidget {
         height: _buttonHeight,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(_buttonCorner),
-            boxShadow: [
+            boxShadow: <BoxShadow>[
               CustomBoxShadow(
                   color: Colorz.BlackBlack,
                   offset: new Offset(0, 0),

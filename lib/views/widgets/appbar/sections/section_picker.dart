@@ -1,4 +1,4 @@
-import 'package:bldrs/view_brains/theme/wordz.dart';
+import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:flutter/material.dart';
 import 'section_label.dart';
 

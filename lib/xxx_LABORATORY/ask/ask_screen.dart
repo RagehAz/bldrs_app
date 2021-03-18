@@ -1,6 +1,6 @@
-import 'package:bldrs/view_brains/drafters/scalers.dart';
-import 'package:bldrs/view_brains/router/navigators.dart';
-import 'package:bldrs/view_brains/theme/colorz.dart';
+import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/router/navigators.dart';
+import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/views/widgets/ask/ask.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';

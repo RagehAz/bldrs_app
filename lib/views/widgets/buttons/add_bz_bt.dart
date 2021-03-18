@@ -1,6 +1,6 @@
-import 'package:bldrs/view_brains/router/route_names.dart';
-import 'package:bldrs/view_brains/theme/colorz.dart';
-import 'package:bldrs/view_brains/theme/iconz.dart';
+import 'package:bldrs/controllers/router/route_names.dart';
+import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 import 'dream_box.dart';
 

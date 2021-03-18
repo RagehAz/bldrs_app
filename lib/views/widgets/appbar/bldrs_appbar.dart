@@ -1,5 +1,5 @@
+import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/models/user_model.dart';
-import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/views/widgets/appbar/ab_localizer.dart';
 import 'package:bldrs/views/widgets/appbar/ab_main.dart';
 import 'package:bldrs/views/widgets/buttons/bt_back.dart';

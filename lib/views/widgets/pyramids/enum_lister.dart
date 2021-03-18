@@ -1,8 +1,8 @@
 import 'dart:ui';
-import 'package:bldrs/view_brains/drafters/shadowers.dart';
-import 'package:bldrs/view_brains/theme/colorz.dart';
-import 'package:bldrs/view_brains/theme/iconz.dart';
-import 'package:bldrs/view_brains/theme/ratioz.dart';
+import 'package:bldrs/controllers/drafters/shadowers.dart';
+import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
@@ -55,7 +55,7 @@ class EnumLister extends StatelessWidget {
                   topLeft: Radius.circular(Ratioz.ddAppBarButtonCorner),
                   topRight: Radius.circular(Ratioz.ddAppBarButtonCorner),
                 ),
-                boxShadow: [
+                boxShadow: <BoxShadow>[
                   CustomBoxShadow(
                       color: Colorz.BlackBlack,
                       offset: const Offset(0, 0),

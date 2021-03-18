@@ -1,6 +1,6 @@
-import 'package:bldrs/view_brains/drafters/borderers.dart';
-import 'package:bldrs/view_brains/drafters/shadowers.dart';
-import 'package:bldrs/view_brains/theme/colorz.dart';
+import 'package:bldrs/controllers/drafters/borderers.dart';
+import 'package:bldrs/controllers/drafters/shadowers.dart';
+import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
 class HeaderShadow extends StatelessWidget {

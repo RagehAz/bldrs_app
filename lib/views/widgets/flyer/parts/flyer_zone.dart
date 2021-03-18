@@ -1,9 +1,9 @@
-import 'package:bldrs/view_brains/drafters/borderers.dart';
-import 'package:bldrs/view_brains/drafters/keyboarders.dart';
-import 'package:bldrs/view_brains/drafters/scalers.dart';
-import 'package:bldrs/view_brains/drafters/shadowers.dart';
-import 'package:bldrs/view_brains/theme/colorz.dart';
-import 'package:bldrs/view_brains/theme/ratioz.dart';
+import 'package:bldrs/controllers/drafters/borderers.dart';
+import 'package:bldrs/controllers/drafters/keyboarders.dart';
+import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/drafters/shadowers.dart';
+import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
 class FlyerZone extends StatelessWidget {
@@ -71,12 +71,12 @@ class FlyerZone extends StatelessWidget {
           decoration: BoxDecoration(
               borderRadius: _flyerBorders,
               gradient: RadialGradient(
-                colors: [Colorz.WhiteAir, Colorz.Nothing],
-                stops: [0, 0.3],
+                colors: <Color>[Colorz.WhiteAir, Colorz.Nothing],
+                stops: <double>[0, 0.3],
                 center: Alignment.center,
                 radius:  0.18,
               ),
-              boxShadow: [
+              boxShadow: <BoxShadow>[
                 CustomBoxShadow(
                     color: _flyerShadowColor,
                     blurRadius: _flyerZoneWidth * 0.055,

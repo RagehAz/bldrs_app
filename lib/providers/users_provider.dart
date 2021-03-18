@@ -1,7 +1,7 @@
-import 'package:bldrs/ambassadors/services/firestore.dart';
+import 'package:bldrs/controllers/drafters/timerz.dart';
+import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:bldrs/models/user_model.dart';
-import 'package:bldrs/view_brains/drafters/timerz.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 // === === === === === === === === === === === === === === === === === === ===
 class UserProvider{
