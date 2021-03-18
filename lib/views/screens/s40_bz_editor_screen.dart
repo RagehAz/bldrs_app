@@ -97,7 +97,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
     _prof = Provider.of<FlyersProvider>(context, listen: false);
     _bz = widget.firstTimer == true ? createTempBzModelFromUserData(widget.userModel) : widget.bzModel;
     // -------------------------
-    _currentBzID = widget.bzModel.bzID;
+    _currentBzID = _bz.bzID;
     _currentAccountType = _bz.accountType;
     // -------------------------
     _currentBzType = _bz.bzType;

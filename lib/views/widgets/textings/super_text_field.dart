@@ -279,20 +279,20 @@ class _SuperTextFieldState extends State<SuperTextField> {
               // onSaved: (String koko) => widget.onSaved(koko),
               validator: widget.validator,
               onChanged: (val) => _onChanged(val),
-              autofocus: true,
+              autofocus: false,
               onTap: (){
-                double _keyboardHeight;
-
-                if (_keyboard.isOpen){
-                  setState(() {
-                    _keyboardHeight = _keyboard.keyboardHeight;
-                  });
-                } else {
-                  return;
-                }
+                // double _keyboardHeight;
+                //
+                // if (_keyboard.isOpen){
+                //   setState(() {
+                //     _keyboardHeight = _keyboard.keyboardHeight;
+                //   });
+                // } else {
+                //   return;
+                // }
                 // print('superScreenHeight(context) : ${superScreenHeight(context)}');
                 // print('_keyboardHeight : ${_keyboardHeight}');
-                widget.onTap(_keyboardHeight);
+                // widget.onTap(_keyboardHeight);
                 // print('source keyboard height is ${_keyboard.keyboardHeight}');
               },
               keyboardType: widget.keyboardTextInputType,

@@ -111,17 +111,19 @@ Future<PickedFile> takeCameraPicture(PicType picType) async {
 // final _savedImage = await _currentPic.copy('${_appDir.path}/$_fileName');
 // _selectImage(savedImage);
 // // === === === === === === === === === === === === === === === === === === ===
-// /// we should combine this function with [superImageHeight] below to avoid
-// /// decoding each image twice
-// Future<int> superImageWidth(dynamic image) async {
-//   var decodedImage = await decodeImageFromList(image.readAsBytesSync());
-//   int width =  decodedImage.width;
-//   return width;
-// }
-// // === === === === === === === === === === === === === === === === === === ===
-// Future<int> superImageHeight(dynamic image) async {
-//   var decodedImage = await decodeImageFromList(image.readAsBytesSync());
-//   int width =  decodedImage.height;
-//   return width;
-// }
+class ImageSize{
+  final int width;
+  final int height;
+
+  ImageSize({
+    @required this.width,
+    @required this.height,
+});
+}
+// === === === === === === === === === === === === === === === === === === ===
+Future<ImageSize> superImageSize(dynamic image) async {
+  var decodedImage = await decodeImageFromList(image.readAsBytesSync());
+  ImageSize imageSize =  ImageSize(width: decodedImage.width, height: decodedImage.height);
+  return imageSize;
+}
 // // === === === === === === === === === === === === === === === === === === ===

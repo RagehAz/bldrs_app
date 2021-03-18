@@ -62,7 +62,16 @@ Future<String> savePicOnFirebaseStorageAndGetURL({BuildContext context, File inp
 
       final _ref = _getReferenceFromFirebaseStorage(documentName: firebaseStorageDocument(picType), fileName: fileName);
 
-      await _ref.putFile(inputFile);
+      ImageSize imageSize = await superImageSize(inputFile);
+
+      SettableMetadata metaData = SettableMetadata(
+        customMetadata: {'width': '${imageSize.width}', 'height': '${imageSize.height}'}
+      );
+
+      await _ref.putFile(
+          inputFile,
+          metaData,
+      );
 
       _imageURL = await _ref.getDownloadURL();
 
