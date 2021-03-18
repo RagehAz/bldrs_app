@@ -1,7 +1,6 @@
 import 'package:bldrs/ambassadors/services/auth.dart';
 import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/view_brains/localization/localization_constants.dart';
-import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/xxx_LABORATORY/camera_and_location/test_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';

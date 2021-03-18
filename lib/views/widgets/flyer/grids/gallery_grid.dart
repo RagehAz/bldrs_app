@@ -90,6 +90,7 @@ class GalleryGrid extends StatelessWidget {
 
             children: <Widget>[
 
+              /// Add new flyer button
               if (_viewerIsAuthor)
               BzCardPreview(
                 bz: bz,
