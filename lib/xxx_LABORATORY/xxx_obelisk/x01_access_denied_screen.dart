@@ -1,5 +1,5 @@
-import 'package:bldrs/view_brains/theme/colorz.dart';
-import 'package:bldrs/view_brains/theme/iconz.dart';
+import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/views/widgets/pyramids/pyramids.dart';
 import 'package:bldrs/views/widgets/space/skies/black_sky.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
@@ -13,7 +13,7 @@ class AccessDeniedScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         body: Stack(
-          children: [
+          children: <Widget>[
 
             BlackSky(),
 

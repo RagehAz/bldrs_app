@@ -1,5 +1,5 @@
+import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/models/sub_models/contact_model.dart';
-import 'package:bldrs/view_brains/drafters/timerz.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
 /// any changes in this model should reflect on this [UserProvider]
@@ -78,7 +78,7 @@ enum UserStatus {
   BzAuthor,
 }
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
-List<UserStatus> userTypesList = [
+List<UserStatus> userTypesList = <UserStatus>[
   UserStatus.Normal,
   UserStatus.SearchingThinking,
   UserStatus.Finishing,

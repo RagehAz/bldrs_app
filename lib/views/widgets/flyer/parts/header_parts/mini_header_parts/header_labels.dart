@@ -1,8 +1,7 @@
-import 'package:bldrs/view_brains/drafters/scalers.dart';
-import 'package:bldrs/view_brains/theme/ratioz.dart';
+import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/common_parts/author_label.dart';
 import 'package:flutter/material.dart';
-
 import 'bz_label.dart';
 
 class HeaderLabels extends StatelessWidget {

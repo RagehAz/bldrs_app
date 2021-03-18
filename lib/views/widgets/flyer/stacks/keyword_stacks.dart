@@ -1,13 +1,13 @@
+import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer_model.dart';
-import 'package:bldrs/view_brains/theme/colorz.dart';
-import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/tile_bubble.dart';
 import 'package:flutter/material.dart';
 
 import '../flyer.dart';
 
-List<int> otherFlyers = [0,1,2,3,4,5,6,7,8,9,];
+List<int> otherFlyers = <int>[0,1,2,3,4,5,6,7,8,9,];
 
     /// this flyers Collection is used in main layouts
     /// Grid of flyers are put in the bubble and showing one main flyer as a cover

@@ -1,8 +1,8 @@
+import 'package:bldrs/controllers/drafters/streamerz.dart';
+import 'package:bldrs/controllers/router/navigators.dart';
+import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/user_model.dart';
-import 'package:bldrs/view_brains/controllers/streamerz.dart';
-import 'package:bldrs/view_brains/router/navigators.dart';
-import 'package:bldrs/view_brains/theme/iconz.dart';
-import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/widgets/bubbles/contacts_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/following_bzz_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';

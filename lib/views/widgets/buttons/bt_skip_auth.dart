@@ -1,8 +1,8 @@
-import 'package:bldrs/ambassadors/services/auth.dart';
-import 'package:bldrs/view_brains/router/navigators.dart';
-import 'package:bldrs/view_brains/router/route_names.dart';
-import 'package:bldrs/view_brains/theme/ratioz.dart';
-import 'package:bldrs/view_brains/theme/wordz.dart';
+import 'package:bldrs/controllers/router/navigators.dart';
+import 'package:bldrs/controllers/router/route_names.dart';
+import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/controllers/theme/wordz.dart';
+import 'package:bldrs/firestore/auth/auth.dart';
 import 'package:flutter/material.dart';
 import 'dream_box.dart';
 

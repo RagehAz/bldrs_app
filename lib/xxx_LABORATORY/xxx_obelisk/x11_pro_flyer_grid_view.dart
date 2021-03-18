@@ -1,14 +1,14 @@
+import 'package:bldrs/controllers/router/navigators.dart';
+import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
-import 'package:bldrs/view_brains/router/navigators.dart';
-import 'package:bldrs/view_brains/theme/colorz.dart';
-import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/flyer/flyer.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:provider/provider.dart';
 
 class FlyersGridView extends StatefulWidget {
@@ -148,7 +148,7 @@ class _FlyersGridViewState extends State<FlyersGridView> {
       layoutWidget: GridView.builder(
         // physics: NeverScrollableScrollPhysics(),
         addAutomaticKeepAlives: true,
-        padding: EdgeInsets.only(right: gridSpacing, left: gridSpacing, top: ((10 )+Ratioz.stratosphere), bottom: gridSpacing * 5 ),
+        padding: EdgeInsets.only(right: gridSpacing, left: gridSpacing, top: ( (10) + Ratioz.stratosphere), bottom: gridSpacing * 5 ),
         // key: new Key(loadedFlyers[flyerIndex].f01flyerID),
         gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
           crossAxisSpacing: gridSpacing,

@@ -1,14 +1,14 @@
+import 'package:bldrs/controllers/drafters/device_checkers.dart';
+import 'package:bldrs/controllers/router/navigators.dart';
+import 'package:bldrs/controllers/router/route_names.dart';
+import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
-import 'package:bldrs/view_brains/controllers/devicerz.dart';
-import 'package:bldrs/view_brains/router/navigators.dart';
-import 'package:bldrs/view_brains/router/route_names.dart';
-import 'package:bldrs/view_brains/theme/colorz.dart';
-import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/views/widgets/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/views/widgets/buttons/bt_main.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/view_brains/theme/wordz.dart';
 import 's02_auth_screen.dart';
 
 class StartingScreen extends StatelessWidget {

@@ -1,4 +1,4 @@
-import 'package:bldrs/view_brains/theme/iconz.dart';
+import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/views/widgets/pyramids/pyramids.dart';
 import 'package:bldrs/views/widgets/space/skies/night_sky.dart';
 import 'package:flutter/material.dart';

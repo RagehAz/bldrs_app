@@ -1,13 +1,13 @@
-import 'package:bldrs/ambassadors/services/auth.dart';
+import 'package:bldrs/controllers/drafters/colorizers.dart';
+import 'package:bldrs/controllers/drafters/iconizers.dart';
+import 'package:bldrs/controllers/drafters/imagers.dart';
+import 'package:bldrs/controllers/drafters/shadowers.dart';
+import 'package:bldrs/controllers/router/navigators.dart';
+import 'package:bldrs/controllers/router/route_names.dart';
+import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/firestore/auth/auth.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/users_provider.dart';
-import 'package:bldrs/view_brains/drafters/colorizers.dart';
-import 'package:bldrs/view_brains/drafters/iconizers.dart';
-import 'package:bldrs/view_brains/drafters/imagers.dart';
-import 'package:bldrs/view_brains/drafters/shadowers.dart';
-import 'package:bldrs/view_brains/router/navigators.dart';
-import 'package:bldrs/view_brains/router/route_names.dart';
-import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -34,10 +34,10 @@ class UserBalloon extends StatelessWidget {
     this.pic
   });
 
-  Color _bubbleDarkness(){
-    return
-      blackAndWhite == false ? Colorz.BlackSmoke :  Colorz.BlackNothing;
-  }
+  // Color _bubbleDarkness(){
+  //   return
+  //     blackAndWhite == false ? Colorz.BlackSmoke :  Colorz.BlackNothing;
+  // }
 
   Widget _balloon([UserModel userModel]){
 

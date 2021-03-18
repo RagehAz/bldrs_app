@@ -1,12 +1,12 @@
 import 'dart:ui';
+import 'package:bldrs/controllers/drafters/borderers.dart';
+import 'package:bldrs/controllers/drafters/colorizers.dart';
+import 'package:bldrs/controllers/drafters/file_formatters.dart';
+import 'package:bldrs/controllers/drafters/flyer_controllers.dart';
+import 'package:bldrs/controllers/drafters/imagers.dart';
+import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/models/sub_models/link_model.dart';
-import 'package:bldrs/view_brains/controllers/flyer_controllers.dart';
-import 'package:bldrs/view_brains/drafters/borderers.dart';
-import 'package:bldrs/view_brains/drafters/colorizers.dart';
-import 'package:bldrs/view_brains/drafters/file_formatters.dart';
-import 'package:bldrs/view_brains/drafters/imagers.dart';
-import 'package:bldrs/view_brains/drafters/scalers.dart';
-import 'package:bldrs/view_brains/theme/colorz.dart';
 import 'package:bldrs/views/widgets/textings/super_text_field.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
@@ -66,7 +66,7 @@ class SingleSlide extends StatelessWidget {
         flyerZoneWidth <= (_screenWidth*0.25) && flyerZoneWidth > (_screenWidth*0.1) ? 1 : 0
     ;
     // ----------------------------------------------------------------------
-    LinkModel _theFlyerLink = LinkModel(url: 'flyer @ index: ${slideIndex}', description: 'flyer to be shared aho');
+    LinkModel _theFlyerLink = LinkModel(url: 'flyer @ index: $slideIndex', description: 'flyer to be shared aho');
     // ----------------------------------------------------------------------
     /// blur layer shall only be active if the height of image supplied is smaller
     /// than flyer height when image width = flyerWidth

@@ -1,5 +1,5 @@
+import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/models/sub_models/slide_model.dart';
-import 'package:bldrs/view_brains/drafters/scalers.dart';
 import 'package:flutter/material.dart';
 import 'slides_parts/single_slide.dart';
 

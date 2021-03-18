@@ -1,4 +1,4 @@
-import 'package:bldrs/view_brains/theme/colorz.dart';
+import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
@@ -187,11 +187,11 @@ with TickerProviderStateMixin {
               gradient: RadialGradient(
                 center: const Alignment(0.75, 1.25),
                 radius: 1,
-                colors: [
+                colors: <Color>[
                   Colorz.BlackBlack,
                    Colorz.BlackBlack
                 ],
-                stops: [0.0, 0.65]
+                stops: <double>[0.0, 0.65]
               )
             ),
 

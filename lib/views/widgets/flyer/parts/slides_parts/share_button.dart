@@ -1,8 +1,8 @@
-import 'package:bldrs/view_brains/drafters/scalers.dart';
-import 'package:bldrs/view_brains/drafters/shadowers.dart';
-import 'package:bldrs/view_brains/theme/colorz.dart';
-import 'package:bldrs/view_brains/theme/iconz.dart';
-import 'package:bldrs/view_brains/theme/wordz.dart';
+import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/drafters/shadowers.dart';
+import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -51,7 +51,7 @@ class ShareBT extends StatelessWidget {
       ),
       decoration: BoxDecoration(
           shape: BoxShape.circle,
-          boxShadow: [
+          boxShadow: <BoxShadow>[
             CustomBoxShadow(
                 color:
                 buttonVerse == Wordz.saved(context) ? Colorz.Yellow:Colorz.BlackPlastic,

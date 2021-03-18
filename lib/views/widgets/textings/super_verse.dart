@@ -1,5 +1,5 @@
-import 'package:bldrs/view_brains/drafters/text_shapers.dart';
-import 'package:bldrs/view_brains/theme/colorz.dart';
+import 'package:bldrs/controllers/drafters/text_shapers.dart';
+import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
 enum VerseWeight {

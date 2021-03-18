@@ -1,6 +1,6 @@
-import 'package:bldrs/view_brains/drafters/shadowers.dart';
-import 'package:bldrs/view_brains/theme/colorz.dart';
-import 'package:bldrs/view_brains/theme/ratioz.dart';
+import 'package:bldrs/controllers/drafters/shadowers.dart';
+import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 
@@ -28,7 +28,7 @@ class FlagBox extends StatelessWidget {
         decoration: BoxDecoration(
             // color: boxColor,
               borderRadius: BorderRadius.circular(_corner),
-              boxShadow: [
+              boxShadow: <BoxShadow>[
                 CustomBoxShadow(
                     color: Colorz.BlackBlack,
                     offset: new Offset(0, 0),

@@ -1,5 +1,5 @@
-import 'package:bldrs/view_brains/drafters/scalers.dart';
-import 'package:bldrs/view_brains/theme/iconz.dart';
+import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/views/widgets/auth/register.dart';
 import 'package:bldrs/views/widgets/auth/signin.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
@@ -33,7 +33,7 @@ class _AuthScreenState extends State<AuthScreen> {
 // ---------------------------------------------------------------------------
   void moveScreen(double keyboardHeight){
     // double _keyBoardHeight = keyboard.keyboardHeight;
-    print('_keyBoardHeight : ${keyboardHeight}');
+    // print('_keyBoardHeight : ${keyboardHeight}');
     _scrollController.animateTo(keyboardHeight, duration: Duration(milliseconds: 200), curve: Curves.bounceInOut);
   }
 // ---------------------------------------------------------------------------

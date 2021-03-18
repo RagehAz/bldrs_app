@@ -1,6 +1,5 @@
-
-import 'package:bldrs/view_brains/theme/colorz.dart';
-import 'package:bldrs/view_brains/theme/iconz.dart';
+import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +20,7 @@ class _PopUpTestScreenState extends State<PopUpTestScreen> {
     return MainLayout(
       tappingRageh: (){print('there is a function here');},
       // scrollableAppBar: false,
-      appBarRowWidgets: [
+      appBarRowWidgets: <Widget>[
 
         Container(
           width: 5,
