@@ -1,7 +1,7 @@
-import 'package:bldrs/view_brains/drafters/scalers.dart';
-import 'package:bldrs/view_brains/drafters/zoomable_widget.dart';
-import 'package:bldrs/view_brains/theme/colorz.dart';
-import 'package:bldrs/view_brains/theme/iconz.dart';
+import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/drafters/zoomable_widget.dart';
+import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 
@@ -30,7 +30,7 @@ class EarthScreenState extends State<EarthScreen> {
           alignment: Alignment.center,
           child: Stack(
             alignment: Alignment.center,
-            children: []
+            children: <Widget>[]
             // worldDots(screenWidth,)
             // countryDots(countryWidth, Flagz.egy),
           ),

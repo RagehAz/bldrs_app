@@ -1,8 +1,8 @@
-import 'package:bldrs/view_brains/drafters/scalers.dart';
-import 'package:bldrs/view_brains/theme/colorz.dart';
-import 'package:bldrs/view_brains/theme/iconz.dart';
-import 'package:bldrs/view_brains/theme/ratioz.dart';
-import 'package:bldrs/view_brains/theme/wordz.dart';
+import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/views/widgets/flyer/parts/slides_parts/share_button.dart';
 import 'package:bldrs/views/widgets/flyer/parts/slides_parts/slide_counters.dart';
 import 'package:flutter/material.dart';

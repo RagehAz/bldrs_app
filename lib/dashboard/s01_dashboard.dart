@@ -1,11 +1,11 @@
 // this in app dashboard will be separated into separate app to control database and audit app content
 // or now it will be developed here until launch version is complete
+import 'package:bldrs/controllers/router/navigators.dart';
+import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/dashboard/s02_statistics.dart';
 import 'package:bldrs/dashboard/s05_keywords_manager.dart';
 import 'package:bldrs/dashboard/users_manager/users_manager_screen.dart';
-import 'package:bldrs/view_brains/router/navigators.dart';
-import 'package:bldrs/view_brains/theme/colorz.dart';
-import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/views/widgets/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/views/widgets/buttons/bt_main.dart';
 import 'package:bldrs/views/widgets/layouts/dashboard_layout.dart';

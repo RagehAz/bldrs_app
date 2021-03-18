@@ -1,5 +1,5 @@
+import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer_model.dart';
-import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import '../flyer.dart';
 

@@ -1,4 +1,5 @@
 import '../bz_model.dart';
+import '../user_model.dart';
 import 'contact_model.dart';
 // ###############################
 class AuthorModel{
@@ -66,5 +67,32 @@ List<Map<String,Object>> cipherAuthorsModels(List<AuthorModel> authorsList){
 AuthorModel getAuthorFromBzByAuthorID(BzModel bz, String authorID){
   AuthorModel author = bz?.bzAuthors?.singleWhere((au) => au.userID == authorID, orElse: ()=>null);
   return author;
+}
+// ----------------------------------------------------------------------------
+/// temp
+AuthorModel createAuthorModelFromUserModelAndBzModel(UserModel user, BzModel bz){
+  String authorID = user?.userID;
+  AuthorModel authorFromBz = getAuthorFromBzByAuthorID(bz, authorID);
+  AuthorModel author = AuthorModel(
+    userID: user?.userID,
+    bzID: bz?.bzID,
+    authorName: user?.name,
+    authorPic: user?.pic,
+    authorTitle: user?.title,
+    authorContacts: user?.contacts,
+    publishedFlyersIDs: authorFromBz?.publishedFlyersIDs,
+  );
+  return author;
+}
+// ----------------------------------------------------------------------------
+AuthorModel createTempAuthorModelFromUserModel(UserModel userModel){
+  return
+    AuthorModel(
+        userID: userModel.userID,
+        authorName: userModel.name,
+        authorPic: userModel.pic,
+        authorTitle: userModel.title,
+        authorContacts: userModel.contacts
+    );
 }
 // ----------------------------------------------------------------------------

@@ -1,8 +1,8 @@
-import 'package:bldrs/view_brains/drafters/shadowers.dart';
-import 'package:bldrs/view_brains/theme/colorz.dart';
-import 'package:bldrs/view_brains/theme/iconz.dart';
-import 'package:bldrs/view_brains/theme/ratioz.dart';
-import 'package:bldrs/view_brains/theme/wordz.dart';
+import 'package:bldrs/controllers/drafters/shadowers.dart';
+import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
@@ -57,20 +57,20 @@ class PropertySearchCriteria extends StatelessWidget {
 
   Map<String, Object> propertyUseMap = {
     'Title' : 'Use of property',
-    'Strings' : ['Residential', 'Commercial', 'Industrial', 'Governmental', 'Administration', 'Transportation', 'Utilities', 'Religious', 'Educational', 'Agricultural', 'Medical', 'Hotel room', 'Sports', 'Entertainment',],
-    'Triggers' : [false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+    'Strings' : <String>['Residential', 'Commercial', 'Industrial', 'Governmental', 'Administration', 'Transportation', 'Utilities', 'Religious', 'Educational', 'Agricultural', 'Medical', 'Hotel room', 'Sports', 'Entertainment',],
+    'Triggers' : <bool>[false, false, false, false, false, false, false, false, false, false, false, false, false, false],
   };
 
   Map<String, Object> propertyTypeMap = {
     'Title' : 'Type of property',
-    'Strings' : ['Apartment', 'Penthouse', 'Chalet', 'TwinHouse', 'FullFloor', 'HalfFloor', 'Building', 'Land', 'Bungalow', 'Cabana', 'HotelRoom', 'Villa', 'Room', 'Office', 'Store', 'WareHouse', 'ExhibitionHall', 'MeetingRoom', 'Hostel', 'MedicalFacility',],
-    'Triggers' : [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, ],
+    'Strings' : <String>['Apartment', 'Penthouse', 'Chalet', 'TwinHouse', 'FullFloor', 'HalfFloor', 'Building', 'Land', 'Bungalow', 'Cabana', 'HotelRoom', 'Villa', 'Room', 'Office', 'Store', 'WareHouse', 'ExhibitionHall', 'MeetingRoom', 'Hostel', 'MedicalFacility',],
+    'Triggers' : <bool>[false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, ],
   };
 
   Map<String, Object> contractTypeMap = {
     'Title' : 'Contract type of property',
-    'Strings' : ['For Sale', 'For Rent'],
-    'Triggers' : [false, false],
+    'Strings' : <String>['For Sale', 'For Rent'],
+    'Triggers' : <bool>[false, false],
   };
 
   // Map<String, Object> propertyUse = {
@@ -83,7 +83,7 @@ class PropertySearchCriteria extends StatelessWidget {
       decoration: BoxDecoration(
           color: Colorz.WhiteAir,
           borderRadius: BorderRadius.circular(corners),
-          boxShadow: [
+          boxShadow: <BoxShadow>[
             CustomBoxShadow(
                 color: bubble == true ? Colorz.BlackLingerie : Colorz.Nothing,
                 offset: new Offset(0, 0),
@@ -107,7 +107,7 @@ class PropertySearchCriteria extends StatelessWidget {
                       // color: Colorz.White,
                         borderRadius: BorderRadius.circular(
                             corners - (boxHeight * 0.8) ),
-                        boxShadow: [
+                        boxShadow: <BoxShadow>[
                           CustomBoxShadow(
                               color: Colorz.WhiteZircon,
                               offset: new Offset(0, boxWidth * -0.01),

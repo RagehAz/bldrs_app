@@ -1,11 +1,11 @@
+import 'package:bldrs/controllers/drafters/keyboarders.dart';
+import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/localization/localization_constants.dart';
+import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/providers/country_provider.dart';
-import 'package:bldrs/view_brains/drafters/keyboarders.dart';
-import 'package:bldrs/view_brains/drafters/scalers.dart';
-import 'package:bldrs/view_brains/localization/localization_constants.dart';
-import 'package:bldrs/view_brains/theme/colorz.dart';
-import 'package:bldrs/view_brains/theme/ratioz.dart';
-import 'package:bldrs/view_brains/theme/wordz.dart';
 import 'package:bldrs/views/widgets/appbar/ab_localizer.dart';
 import 'package:bldrs/views/widgets/buttons/bt_list.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';

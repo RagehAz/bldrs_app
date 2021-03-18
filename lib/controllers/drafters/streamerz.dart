@@ -1,0 +1,130 @@
+import 'package:bldrs/firestore/firestore.dart';
+import 'package:bldrs/models/bz_model.dart';
+import 'package:bldrs/models/user_model.dart';
+import 'package:bldrs/providers/flyers_provider.dart';
+import 'package:bldrs/providers/users_provider.dart';
+import 'package:bldrs/views/widgets/loading/loading.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+// ----------------------------------------------------------------------------
+/// this page has all functions that are related to streams & device connectivity
+// ----------------------------------------------------------------------------
+bool connectionIsWaiting(AsyncSnapshot<dynamic> snapshot){
+  return
+    snapshot.connectionState == ConnectionState.waiting? true : false;
+}
+// ----------------------------------------------------------------------------
+bool connectionHasNoData(AsyncSnapshot<dynamic> snapshot){
+  return
+      snapshot.hasData == false ? true : false;
+}
+// ----------------------------------------------------------------------------
+bool userModelIsLoading(UserModel userModel){
+  return
+      userModel == null ? true : false;
+}
+// ----------------------------------------------------------------------------
+typedef userModelWidgetBuilder = Widget Function(
+    BuildContext context,
+    UserModel userModel,
+    );
+// ----------------------
+/// IMPLEMENTATION
+/// userStreamBuilder(
+///         context: context,
+///         listen: false,
+///         builder: (context, UserModel userModel){
+///           return WidgetThatUsesTheAboveUserModel;
+///         }
+///      ) xxxxxxxxxxxxx ; or , xxxxxxxxxxxxx
+Widget userStreamBuilder({
+  BuildContext context,
+  userModelWidgetBuilder builder,
+  bool listen,
+}){
+
+  final _user = Provider.of<UserModel>(context, listen: listen);
+
+  return
+
+    StreamBuilder<UserModel>(
+      stream: UserProvider(userID: _user?.userID)?.userData,
+      builder: (context, snapshot){
+        if(connectionHasNoData(snapshot) || connectionIsWaiting(snapshot)){
+          return Loading(loading: true,);
+        } else {
+          UserModel userModel = snapshot.data;
+          return
+            builder(context, userModel);
+        }
+      },
+    );
+
+}
+// ----------------------------------------------------------------------------
+typedef bzModelWidgetBuilder = Widget Function(
+    BuildContext context,
+    BzModel bzModel,
+    );
+// ----------------------
+/// IMPLEMENTATION
+/// bzModelBuilder(
+///         bzID: bzID,
+///         context: context,
+///         builder: (context, BzModel bzModel){
+///           return WidgetThatUsesTheAboveBzModel;
+///         }
+///      ) xxxxxxxxxxxxx ; or , xxxxxxxxxxxxx
+Widget bzModelBuilder({
+  String bzID,
+  BuildContext context,
+  bzModelWidgetBuilder builder,
+}){
+
+  return FutureBuilder(
+      future: getFireStoreDocumentMap(FireStoreCollection.bzz, bzID),
+      builder: (ctx, snapshot){
+
+        if (snapshot.connectionState == ConnectionState.waiting){
+          return Loading(loading: true,);
+        } else {
+          if (snapshot.error != null){
+            return Container(); // superDialog(context, snapshot.error, 'error');
+          } else {
+
+            Map<String, dynamic> _map = snapshot.data;
+            BzModel bzModel = decipherBzMap(_map['bzID'], _map);
+
+            return builder(context, bzModel);
+          }
+        }
+      }
+  );
+}
+// ----------------------------------------------------------------------------
+Widget bzModelStreamBuilder({
+  String bzID,
+  BuildContext context,
+  bzModelWidgetBuilder builder,
+}){
+
+  final _prof = Provider.of<FlyersProvider>(context, listen: true);
+
+  return
+
+    StreamBuilder<BzModel>(
+      stream: _prof.getBzStream(bzID),
+      builder: (context, snapshot){
+        if(connectionHasNoData(snapshot) || connectionIsWaiting(snapshot)){
+          return Loading(loading: true,);
+        } else {
+          BzModel bzModel = snapshot.data;
+          return
+            builder(context, bzModel);
+        }
+      },
+    );
+
+}
+// ----------------------------------------------------------------------------
+

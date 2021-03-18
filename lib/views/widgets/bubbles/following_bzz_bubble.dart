@@ -1,8 +1,8 @@
+import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
-import 'package:bldrs/view_brains/drafters/scalers.dart';
-import 'package:bldrs/view_brains/theme/colorz.dart';
-import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/in_pyramids/profile/bz_grid.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';

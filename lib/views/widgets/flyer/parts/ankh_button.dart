@@ -1,7 +1,7 @@
-import 'package:bldrs/view_brains/theme/colorz.dart';
-import 'package:bldrs/view_brains/theme/iconz.dart';
-import 'package:bldrs/view_brains/theme/ratioz.dart';
-import 'package:bldrs/view_brains/theme/wordz.dart';
+import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:flutter/material.dart';
 

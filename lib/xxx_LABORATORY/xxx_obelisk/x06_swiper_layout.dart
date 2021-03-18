@@ -1,8 +1,8 @@
+import 'package:bldrs/controllers/drafters/text_generators.dart';
+import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/bz_model.dart';
-import 'package:bldrs/view_brains/drafters/text_generators.dart';
-import 'package:bldrs/view_brains/theme/colorz.dart';
-import 'package:bldrs/view_brains/theme/iconz.dart';
-import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/ask/ask.dart';
 import 'package:bldrs/views/widgets/buttons/add_bz_bt.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';

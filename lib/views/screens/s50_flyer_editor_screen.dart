@@ -1,18 +1,20 @@
 import 'dart:io';
-import 'package:bldrs/ambassadors/services/auth.dart';
-import 'package:bldrs/ambassadors/services/firebase_storage.dart';
-import 'package:bldrs/ambassadors/services/firestore.dart';
+import 'package:bldrs/controllers/drafters/flyer_sliders.dart';
+import 'package:bldrs/controllers/drafters/imagers.dart';
+import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/drafters/text_shapers.dart';
+import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/controllers/theme/flyer_keyz.dart';
+import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/firestore/auth/auth.dart';
+import 'package:bldrs/firestore/firebase_storage.dart';
+import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/sub_models/slide_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
-import 'package:bldrs/view_brains/controllers/flyer_sliding_controllers.dart';
-import 'package:bldrs/view_brains/drafters/imagers.dart';
-import 'package:bldrs/view_brains/drafters/text_shapers.dart';
-import 'package:bldrs/view_brains/theme/colorz.dart';
-import 'package:bldrs/view_brains/theme/flyer_keyz.dart';
-import 'package:bldrs/view_brains/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/bubbles/words_bubble.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_sheet.dart';
@@ -26,8 +28,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart' as sysPaths;
-import 'package:bldrs/view_brains/drafters/scalers.dart';
-import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
@@ -226,37 +226,35 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
     {print('no slide to delete');}
   }
   // ----------------------------------------------------------------------
-  void _selectImage(File pickedImage){
-    _pickedImage = pickedImage;
-  }
+  void _selectImage(File pickedImage){_pickedImage = pickedImage;}
   // ----------------------------------------------------------------------
-  Future<void> _takeCameraPicture() async {
-
-    final _imageFile = await takeCameraPicture(PicType.slideHighRes);
-
-    setState(() {
-      _storedImage = File(_imageFile.path);
-      _currentSlides.add(
-          SlideModel(
-            slideIndex: 0,
-            picture: _storedImage,
-            headline: _titleControllers[_currentSlides.length].text,
-          ));
-      currentSlide = _currentSlides.length - 1;
-      numberOfSlides = _currentSlides.length;
-      _slidesVisibility.add(true);
-      slidesModes.add(SlideMode.Editor);
-      _titleControllers.add(TextEditingController());
-      onPageChangedIsOn = true;
-    });
-
-    final appDir = await sysPaths.getApplicationDocumentsDirectory();
-    final fileName = path.basename(_imageFile.path);
-    final savedImage = await _storedImage.copy('${appDir.path}/$fileName');
-    _selectImage(savedImage);
-    slideTo(slidingController, currentSlide);
-    // print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> after _takeCameraPicture');
-  }
+  // Future<void> _takeCameraPicture() async {
+  //
+  //   final _imageFile = await takeCameraPicture(PicType.slideHighRes);
+  //
+  //   setState(() {
+  //     _storedImage = File(_imageFile.path);
+  //     _currentSlides.add(
+  //         SlideModel(
+  //           slideIndex: 0,
+  //           picture: _storedImage,
+  //           headline: _titleControllers[_currentSlides.length].text,
+  //         ));
+  //     currentSlide = _currentSlides.length - 1;
+  //     numberOfSlides = _currentSlides.length;
+  //     _slidesVisibility.add(true);
+  //     slidesModes.add(SlideMode.Editor);
+  //     _titleControllers.add(TextEditingController());
+  //     onPageChangedIsOn = true;
+  //   });
+  //
+  //   final appDir = await sysPaths.getApplicationDocumentsDirectory();
+  //   final fileName = path.basename(_imageFile.path);
+  //   final savedImage = await _storedImage.copy('${appDir.path}/$fileName');
+  //   _selectImage(savedImage);
+  //   slideTo(slidingController, currentSlide);
+  //   // print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> after _takeCameraPicture');
+  // }
   // ----------------------------------------------------------------------
   Future<void> _takeGalleryPicture() async {
 
@@ -286,13 +284,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
     // print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> after _takeGalleryPicture');
   }
   // ----------------------------------------------------------------------
-  void slidingPages (int slideIndex){
-    // print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> before slidingPages : onPageChanged --------');
-    setState(() {
-      currentSlide = slideIndex;
-    });
-    // print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> after slidingPages : onPageChanged --------');
-  }
+  void slidingPages (int slideIndex){setState(() {currentSlide = slideIndex;});}
   // ----------------------------------------------------------------------
   // void tappingNewSlide(){
   //   setState(() {
@@ -366,25 +358,6 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
 
     }
 
-  }
-  // ----------------------------------------------------------------------
-  Future<List<String>> savePicturesToFireStorageAndGetListOfURL(List<SlideModel> currentSlides) async {
-    List<String> _picturesURLs = new List();
-
-    for (var slide in currentSlides) {
-
-      String _picURL = await savePicOnFirebaseStorageAndGetURL(
-          context: context,
-          inputFile: slide.picture,
-          picType: PicType.slideHighRes,
-          fileName: '${_currentFlyerID}_${slide.slideIndex}'
-         );
-
-        _picturesURLs.add(_picURL);
-
-    }
-
-    return _picturesURLs;
   }
   // ----------------------------------------------------------------------
   Future<List<SlideModel>> processSlides(List<String> picturesURLs, List<SlideModel> currentSlides, List<TextEditingController> titleControllers) async {
@@ -469,7 +442,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
           // }
           // );
 
-            List<String> _picturesURLs = await savePicturesToFireStorageAndGetListOfURL(_currentSlides);
+            List<String> _picturesURLs = await savePicturesToFireStorageAndGetListOfURL(context, _currentSlides, _currentFlyerID);
           List<SlideModel> _slides = await processSlides(_picturesURLs, _currentSlides, _titleControllers);
 
           /// 3 - create FlyerModel
@@ -492,12 +465,12 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
               // -------------------------
               slides: _slides,
           );
-          /// 4- save flyer to firestore
+          /// 4- update flyer doc on firestore
           await _flyersCollection.doc(_currentFlyerID).update(_newFlyerModel.toMap());
           /// 5- save the flyer in Author's published list
             String _currentUserId = superUserID();
-            List<AuthorModel> _existingAuthors = widget.bzModel.bzAuthors;
-            AuthorModel _currentAuthor = getAuthorFromBzByAuthorID(widget.bzModel, _currentUserId);
+            List<AuthorModel> _existingAuthors = _bz.bzAuthors;
+            AuthorModel _currentAuthor = getAuthorFromBzByAuthorID(_bz, _currentUserId);
             int _currentAuthorIndex = _existingAuthors.indexWhere((au) => au.userID == _currentUserId);
             _currentAuthor.publishedFlyersIDs.add(_currentFlyerID);
             _existingAuthors.removeAt(_currentAuthorIndex);
@@ -507,7 +480,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
               updateFieldOnFirestore(
                 context: context,
                 collectionName: FireStoreCollection.bzz,
-                documentName: widget.bzModel.bzID,
+                documentName: _bz.bzID,
                 field: 'bzAuthors',
                 input: _existingAuthors,
               );
@@ -698,26 +671,8 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
 
   }
   // ----------------------------------------------------------------------
-  Widget _publishButton(){
-    return
-      DreamBox(
-        height: 35,
-        boxMargins: EdgeInsets.symmetric(horizontal: Ratioz.ddAppBarPadding),
-        verse: 'Publish flyer',
-        verseColor: Colorz.BlackBlack,
-        verseScaleFactor: 0.8,
-        color: Colorz.Yellow,
-        icon: Iconz.AddFlyer,
-        iconSizeFactor: 0.6,
-        boxFunction: _publishFlyer,
-      );
-  }
-  // ----------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    // final FlyersProvider _pro = Provider.of<FlyersProvider>(context, listen: false);
-    // final user = Provider.of<UserModel>(context);
-    // final BzModel _bz = _prof.getBzByBzID(widget.bzModel.bzID);
     final AuthorModel _author = widget.firstTimer ?
     getAuthorFromBzByAuthorID(_bz, superUserID()) :
     getAuthorFromBzByAuthorID(_bz, _flyer.authorID);
@@ -740,12 +695,27 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
           );
     }
     // ----------------------------------------------------------------------
+    Widget _publishButton(){
+      return
+        DreamBox(
+          height: 35,
+          boxMargins: EdgeInsets.symmetric(horizontal: Ratioz.ddAppBarPadding),
+          verse: 'Publish flyer',
+          verseColor: Colorz.BlackBlack,
+          verseScaleFactor: 0.8,
+          color: Colorz.Yellow,
+          icon: Iconz.AddFlyer,
+          iconSizeFactor: 0.6,
+          boxFunction: _publishFlyer,
+        );
+    }
+    // ----------------------------------------------------------------------
     return MainLayout(
       appBarType: AppBarType.Basic,
       pyramids: Iconz.DvBlankSVG,
       appBarBackButton: true,
       sky: Sky.Black,
-      pageTitle: _loading ? 'Create a New Flyer' : 'Waiting ...',
+      pageTitle: !_loading ? 'Create a New Flyer' : 'Waiting ...',
       loading: _loading,
       tappingRageh: (){
         _triggerLoading();

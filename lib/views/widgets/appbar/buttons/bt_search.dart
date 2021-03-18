@@ -1,8 +1,8 @@
-import 'package:bldrs/view_brains/drafters/iconizers.dart';
-import 'package:bldrs/view_brains/router/navigators.dart';
-import 'package:bldrs/view_brains/router/route_names.dart';
-import 'package:bldrs/view_brains/theme/iconz.dart';
-import 'package:bldrs/view_brains/theme/ratioz.dart';
+import 'package:bldrs/controllers/drafters/iconizers.dart';
+import 'package:bldrs/controllers/router/navigators.dart';
+import 'package:bldrs/controllers/router/route_names.dart';
+import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/buttons/bt_back.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:flutter/material.dart';

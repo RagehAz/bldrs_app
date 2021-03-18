@@ -1,8 +1,8 @@
-import 'package:bldrs/ambassadors/services/firestore.dart';
+import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
-import 'package:bldrs/view_brains/theme/iconz.dart';
 import 'package:bldrs/views/widgets/bubbles/bzz_bubble.dart';
 import 'package:bldrs/views/widgets/dialogs/bz_bottom_sheet.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
