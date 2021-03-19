@@ -23,13 +23,13 @@ class UserCRUD{
 }
 // ---------------------------------------------------------------------------
   /// delete user document and its consequences
-Future<void> deleteUserDoc({UserModel userModel}) async {
+  Future<void> deleteUserDoc({UserModel userModel}) async {
     String _userID = userModel.userID;
     DocumentReference _userDocument = userDocument(_userID);
     await _userDocument.delete();
-}
+  }
 // ---------------------------------------------------------------------------
-Future<void> readUserDoc() async {}
+// Future<void> readUserDoc() async {}
 // ---------------------------------------------------------------------------
 // Future<void> updateUserDoc({UserModel userModel}) async {
 //
