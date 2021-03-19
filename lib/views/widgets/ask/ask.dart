@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/aligners.dart';
+import 'package:bldrs/controllers/drafters/streamerz.dart';
 import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
@@ -85,24 +86,32 @@ class _AskState extends State<Ask> {
               height: _abButtonsHeight,
             ),
 
-            // --- USER NAME AND TITLE
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                SuperVerse(
-                  verse: 'Rageh El Azzazy',
-                  size: 2,
-                  weight: VerseWeight.regular,
-                  margin: 0,
-                ),
-                SuperVerse(
-                  verse: 'Founder & CEO & Bldrs.net',
-                  size: 1,
-                  weight: VerseWeight.thin,
-                ),
-              ],
+            userStreamBuilder(
+              context: context,
+              listen: false,
+              builder: (context, userModel){
+                return
+                  // --- USER NAME AND TITLE
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      SuperVerse(
+                        verse: userModel.name,
+                        size: 2,
+                        weight: VerseWeight.regular,
+                        margin: 0,
+                      ),
+                      SuperVerse(
+                        verse: userModel.company == null || userModel.company == '' ? userModel.title : '${userModel.title} @ ${userModel.company}',
+                        size: 1,
+                        weight: VerseWeight.thin,
+                      ),
+                    ],
+                  );
+              }
             ),
+
 
             // --- EXPANDER SPACE
             Expanded(
