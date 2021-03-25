@@ -1,4 +1,5 @@
-import 'package:bldrs/models/stenographs/call_model.dart';
+
+import 'package:bldrs/models/records/call_model.dart';
 
 final List<CallModel> dbCalls = [
 

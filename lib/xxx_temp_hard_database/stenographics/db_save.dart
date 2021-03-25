@@ -1,4 +1,4 @@
-import 'package:bldrs/models/stenographs/save_model.dart';
+import 'package:bldrs/models/records/save_model.dart';
 
 final List<SaveModel> dbSaves =[
   SaveModel(saveID: 'sv001', userID: 'u21', slideID: 's001', saveState: SaveState.Saved),

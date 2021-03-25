@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/text_manipulators.dart';
 import 'package:flutter/foundation.dart';
 // ###############################
 class SlideModel {
@@ -70,4 +71,20 @@ SlideModel decipherSlideMap(dynamic map){
   );
 }
 // ###############################
-
+String generateSlideID(String flyerID, int slideIndex){
+  // slide index shall never have more than two digits
+  String _slideIndexString = slideIndex <= 9 ? '0$slideIndex' : '$slideIndex';
+  String _slideID = '${flyerID}_$_slideIndexString';
+  return _slideID;
+}
+// ###############################
+int getSlideIndexFromSlideID(String slideID){
+  // slide index shall never have more than two digits
+  int _slideIndex = lastTwoIntegersFromAString(slideID);
+  return _slideIndex;
+}
+// ###############################
+// String getFlyerIDFromSlideID(String slideID){
+  // I guess no need for this, no use cases,, flyerID will always be there
+  // beside slideID
+// }

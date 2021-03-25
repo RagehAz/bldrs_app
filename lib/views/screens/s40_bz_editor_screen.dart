@@ -209,9 +209,8 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   // ----------------------------------------------------------------------
   Future<BzModel> _createBzModel(UserModel user) async {
     // -------------------------------------
-    /// saving bzLogo on firebase storage by bzCreator / first Author's userID,,
-    /// instead of saving bzID which will be generated later in the creating
-    /// bzModel process
+    /// SHOULD USE bzID as logoFile name in fire storage
+    /// so this process should come after creating the bzDocument
     String _bzLogoURL;
     if (_currentBzLogoFile != null){
       _bzLogoURL = await savePicOnFirebaseStorageAndGetURL(
@@ -285,7 +284,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
       bzTotalSlides: widget.firstTimer ? 0 : widget.bzModel.bzTotalSlides,
       bzTotalViews: widget.firstTimer ? 0 : widget.bzModel.bzTotalViews,
       bzTotalCalls: widget.firstTimer ? 0 : widget.bzModel.bzTotalCalls,
-      bzTotalConnects: widget.firstTimer ? 0 : widget.bzModel.bzTotalConnects,
+      bzTotalJoints: widget.firstTimer ? 0 : widget.bzModel.bzTotalJoints,
       // -------------------------
       jointsBzzIDs: widget.firstTimer ? [] : widget.bzModel.jointsBzzIDs,
       // -------------------------
@@ -393,7 +392,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
           bzTotalSlides: 0,
           bzTotalViews: 0,
           bzTotalCalls: 0,
-          bzTotalConnects: 0,
+          bzTotalJoints: 0,
           jointsBzzIDs: [],
           followIsOn: false,
 
