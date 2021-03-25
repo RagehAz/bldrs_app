@@ -8,6 +8,7 @@ import 'package:bldrs/controllers/theme/flyer_keyz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/firestore/auth/auth.dart';
+import 'package:bldrs/firestore/crud/flyer_ops.dart';
 import 'package:bldrs/firestore/firebase_storage.dart';
 import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/models/bz_model.dart';
@@ -405,44 +406,12 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
         functions: () async {
           /// 1 - save a flyer document on firestore to get its auto generated
           /// flyerID if creating a new flyer
-            final CollectionReference _flyersCollection = FirebaseFirestore.instance.collection(FireStoreCollection.flyers);
-            DocumentReference _flyerDocRef = _flyersCollection.doc();
           if(widget.firstTimer){
-            await _flyerDocRef.set({});
-            _currentFlyerID = _flyerDocRef.id;
+            _currentFlyerID = await FlyerCRUD().createFlyerDoc();
           }
           /// 2 - create slides to store on firebase, and save each pic file to
           /// firebase storage and get its url to save to firestore
-          //   List<SlideModel> _tempSlides = new List();
-          //
-          // print('_currentSlides.length = ${_currentSlides.length}');
-          //
-          // _currentSlides.forEach((sl) async {
-          //
-          //   String _picURL = await savePicOnFirebaseStorageAndGetURL(
-          //       context: context,
-          //       inputFile: sl.picture,
-          //       picType: PicType.slideHighRes,
-          //       fileName: '${_currentFlyerID}_${sl.slideIndex}'
-          //   );
-          //
-          //   print('picture URL is $_picURL');
-          //
-          //   _tempSlides.add(
-          //       SlideModel(
-          //           slideIndex: sl.slideIndex,
-          //           picture: _picURL,
-          //           headline: _titleControllers[sl.slideIndex].text,
-          //           description: '',
-          //           callsCount: widget.firstTimer ? 0 : _flyer.slides[sl.slideIndex].callsCount,
-          //           savesCount: widget.firstTimer ? 0 : _flyer.slides[sl.slideIndex].savesCount,
-          //           sharesCount: widget.firstTimer ? 0 : _flyer.slides[sl.slideIndex].sharesCount,
-          //           viewsCount: widget.firstTimer ? 0 : _flyer.slides[sl.slideIndex].viewsCount,
-          //         ));
-          // }
-          // );
-
-            List<String> _picturesURLs = await savePicturesToFireStorageAndGetListOfURL(context, _currentSlides, _currentFlyerID);
+          List<String> _picturesURLs = await savePicturesToFireStorageAndGetListOfURL(context, _currentSlides, _currentFlyerID);
           List<SlideModel> _slides = await processSlides(_picturesURLs, _currentSlides, _titleControllers);
 
           /// 3 - create FlyerModel
@@ -466,7 +435,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
               slides: _slides,
           );
           /// 4- update flyer doc on firestore
-          await _flyersCollection.doc(_currentFlyerID).update(_newFlyerModel.toMap());
+          await FlyerCRUD().updateFlyerDoc(_newFlyerModel);
           /// 5- save the flyer in Author's published list
             String _currentUserId = superUserID();
             List<AuthorModel> _existingAuthors = _bz.bzAuthors;

@@ -1,12 +1,12 @@
 // ###############################
-class SaveModel{
-  final String saveID;
+class ViewModel{
+  final String viewID;
   final String userID;
   final String slideID;
   final DateTime viewTime;
 // ###############################
-  SaveModel({
-  this.saveID,
+  ViewModel({
+  this.viewID,
   this.userID,
   this.slideID,
   this.viewTime,
@@ -14,7 +14,7 @@ class SaveModel{
 // ###############################
 Map<String, Object> toMap(){
   return {
-    'saveID' : saveID,
+    'saveID' : viewID,
     'userID' : userID,
     'slideID' : slideID,
     'viewTime' : viewTime,

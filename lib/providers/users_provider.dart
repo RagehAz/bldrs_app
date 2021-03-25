@@ -76,20 +76,20 @@ class UserProvider{
 // ---------------------------------------------------------------------------
   /// get users streams
   Stream<List<UserModel>> get allUsersStream {
-    CollectionReference _userCollection = UserCRUD().userCollection();
+    CollectionReference _userCollection = UserCRUD().userCollectionRef();
     return _userCollection.snapshots()
         .map(_usersListFromSnapshot);
   }
 // ---------------------------------------------------------------------------
   /// get user doc stream
   Stream<UserModel> get userData {
-    CollectionReference _userCollection = UserCRUD().userCollection();
+    CollectionReference _userCollection = UserCRUD().userCollectionRef();
     return _userCollection.doc(userID).snapshots()
         .map(_userModelFromSnapshot);
   }
 // ---------------------------------------------------------------------------
 UserModel getUserModel(){
-  CollectionReference _userCollection = UserCRUD().userCollection();
+  CollectionReference _userCollection = UserCRUD().userCollectionRef();
   Stream<DocumentSnapshot> docStream = _userCollection.doc(userID).snapshots();
   UserModel user;
   docStream.listen((DocumentSnapshot snap) {

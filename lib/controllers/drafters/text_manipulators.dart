@@ -74,3 +74,24 @@ String firstCharacterOfAString(String string){
 
 }
 // === === === === === === === === === === === === === === === === === === ===
+String lastTwoSubStringsFromAString(String string){
+  List<String> _stringSplit = string.split('');
+  int _listLength = _stringSplit.length;
+  int _lastIndex = _listLength - 1;
+  int _beforeLastIndex = _listLength - 2;
+
+  return
+    _listLength == 0 ? null :
+    '${_stringSplit[_beforeLastIndex]}${_stringSplit[_lastIndex]}';
+}
+// === === === === === === === === === === === === === === === === === === ===
+int stringToInt(String string){
+  return int.parse(string);
+}
+// === === === === === === === === === === === === === === === === === === ===
+int lastTwoIntegersFromAString(String string){
+  String _lastTwoSubStrings = lastTwoSubStringsFromAString(string);
+  int _asIntegers = stringToInt(_lastTwoSubStrings);
+  return _asIntegers;
+}
+// === === === === === === === === === === === === === === === === === === ===

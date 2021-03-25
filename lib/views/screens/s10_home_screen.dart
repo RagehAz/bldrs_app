@@ -1,5 +1,6 @@
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
+import 'package:bldrs/models/sub_models/slide_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/widgets/ask/ask.dart';
 import 'package:bldrs/views/widgets/bubbles/bzz_bubble.dart';
@@ -63,7 +64,6 @@ class _HomeScreenState extends State<HomeScreen> {
       appBarType: AppBarType.Main,
       sky: Sky.Night,
       canRefreshFlyers: true,
-      // tappingRageh: () => goToRoute(context, Routez.Obelisk),
       layoutWidget: Stack(
         children: <Widget>[
           _isLoading == true ?
