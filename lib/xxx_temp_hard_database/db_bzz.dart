@@ -66,7 +66,7 @@ final List<BzModel> dbBzz =
     bzTotalSlides: 1000,
     bzTotalViews: 100000,
     bzTotalCalls: 1000,
-    bzTotalConnects: 1000,
+    bzTotalJoints: 1000,
     // -------------------------
     jointsBzzIDs: ['br1', 'sp1', 'sp2',],
     followIsOn: false,
@@ -111,7 +111,7 @@ final List<BzModel> dbBzz =
     bzTotalSlides: 1000,
     bzTotalViews: 100000,
     bzTotalCalls: 1000,
-    bzTotalConnects: 1000,
+    bzTotalJoints: 1000,
     // -------------------------
     jointsBzzIDs: ['br1', 'sp1', 'sp2',],
     followIsOn: false,
@@ -156,7 +156,7 @@ final List<BzModel> dbBzz =
     bzTotalSlides: 1000,
     bzTotalViews: 100000,
     bzTotalCalls: 1000,
-    bzTotalConnects: 1000,
+    bzTotalJoints: 1000,
     // -------------------------
     jointsBzzIDs: ['br1', 'sp1', 'sp2',],
     followIsOn: false,
@@ -201,7 +201,7 @@ final List<BzModel> dbBzz =
     bzTotalSlides: 1000,
     bzTotalViews: 100000,
     bzTotalCalls: 1000,
-    bzTotalConnects: 1000,
+    bzTotalJoints: 1000,
     // -------------------------
     jointsBzzIDs: ['br1', 'sp1', 'sp2',],
     followIsOn: false,
@@ -246,7 +246,7 @@ final List<BzModel> dbBzz =
     bzTotalSlides: 1000,
     bzTotalViews: 100000,
     bzTotalCalls: 1000,
-    bzTotalConnects: 1000,
+    bzTotalJoints: 1000,
     // -------------------------
     jointsBzzIDs: ['br1', 'sp1', 'sp2',],
     followIsOn: false,
@@ -291,7 +291,7 @@ final List<BzModel> dbBzz =
     bzTotalSlides: 1000,
     bzTotalViews: 100000,
     bzTotalCalls: 1000,
-    bzTotalConnects: 1000,
+    bzTotalJoints: 1000,
     // -------------------------
     jointsBzzIDs: ['br1', 'sp1', 'sp2',],
     followIsOn: false,
@@ -336,7 +336,7 @@ final List<BzModel> dbBzz =
     bzTotalSlides: 1000,
     bzTotalViews: 100000,
     bzTotalCalls: 1000,
-    bzTotalConnects: 1000,
+    bzTotalJoints: 1000,
     // -------------------------
     jointsBzzIDs: ['br1', 'sp1', 'sp2',],
     followIsOn: false,
@@ -381,7 +381,7 @@ final List<BzModel> dbBzz =
     bzTotalSlides: 1000,
     bzTotalViews: 100000,
     bzTotalCalls: 1000,
-    bzTotalConnects: 1000,
+    bzTotalJoints: 1000,
     // -------------------------
     jointsBzzIDs: ['br1', 'sp1', 'sp2',],
     followIsOn: false,
@@ -426,7 +426,7 @@ final List<BzModel> dbBzz =
     bzTotalSlides: 1000,
     bzTotalViews: 100000,
     bzTotalCalls: 1000,
-    bzTotalConnects: 1000,
+    bzTotalJoints: 1000,
     // -------------------------
     jointsBzzIDs: ['br1', 'sp1', 'sp2',],
     followIsOn: false,
@@ -471,7 +471,7 @@ final List<BzModel> dbBzz =
     bzTotalSlides: 1000,
     bzTotalViews: 100000,
     bzTotalCalls: 1000,
-    bzTotalConnects: 1000,
+    bzTotalJoints: 1000,
     // -------------------------
     jointsBzzIDs: ['br1', 'sp1', 'sp2',],
     followIsOn: false,
@@ -516,7 +516,7 @@ final List<BzModel> dbBzz =
     bzTotalSlides: 1000,
     bzTotalViews: 100000,
     bzTotalCalls: 1000,
-    bzTotalConnects: 1000,
+    bzTotalJoints: 1000,
     // -------------------------
     jointsBzzIDs: ['br1', 'sp1', 'sp2',],
     followIsOn: false,
@@ -561,7 +561,7 @@ final List<BzModel> dbBzz =
     bzTotalSlides: 1000,
     bzTotalViews: 100000,
     bzTotalCalls: 1000,
-    bzTotalConnects: 1000,
+    bzTotalJoints: 1000,
     // -------------------------
     jointsBzzIDs: ['br1', 'sp1', 'sp2',],
     followIsOn: false,
@@ -606,7 +606,7 @@ final List<BzModel> dbBzz =
     bzTotalSlides: 1000,
     bzTotalViews: 100000,
     bzTotalCalls: 1000,
-    bzTotalConnects: 1000,
+    bzTotalJoints: 1000,
     // -------------------------
     jointsBzzIDs: ['br1', 'sp1', 'sp2',],
     followIsOn: false,
@@ -671,7 +671,7 @@ final List<BzModel> dbBzz =
     bzTotalSlides: 1000,
     bzTotalViews: 100000,
     bzTotalCalls: 1000,
-    bzTotalConnects: 1000,
+    bzTotalJoints: 1000,
     // -------------------------
     jointsBzzIDs: ['pp1', 'sp1', 'sp2',],
     followIsOn: false,
@@ -716,7 +716,7 @@ final List<BzModel> dbBzz =
     bzTotalSlides: 1000,
     bzTotalViews: 100000,
     bzTotalCalls: 1000,
-    bzTotalConnects: 1000,
+    bzTotalJoints: 1000,
     // -------------------------
     jointsBzzIDs: ['br1', 'pp1', 'sp2',],
     followIsOn: false,
@@ -761,7 +761,7 @@ final List<BzModel> dbBzz =
     bzTotalSlides: 1000,
     bzTotalViews: 100000,
     bzTotalCalls: 1000,
-    bzTotalConnects: 1000,
+    bzTotalJoints: 1000,
     // -------------------------
     jointsBzzIDs: ['br1', 'sp1', 'pp1',],
     followIsOn: false,
@@ -806,7 +806,7 @@ final List<BzModel> dbBzz =
     bzTotalSlides: 1000,
     bzTotalViews: 100000,
     bzTotalCalls: 1000,
-    bzTotalConnects: 1000,
+    bzTotalJoints: 1000,
     // -------------------------
     jointsBzzIDs: ['br1', 'sp1', 'sp2',],
     followIsOn: false,
@@ -851,7 +851,7 @@ final List<BzModel> dbBzz =
     bzTotalSlides: 1000,
     bzTotalViews: 100000,
     bzTotalCalls: 1000,
-    bzTotalConnects: 1000,
+    bzTotalJoints: 1000,
     // -------------------------
     jointsBzzIDs: ['br1', 'sp1', 'sp2',],
     followIsOn: false,
@@ -896,7 +896,7 @@ final List<BzModel> dbBzz =
     bzTotalSlides: 1000,
     bzTotalViews: 100000,
     bzTotalCalls: 1000,
-    bzTotalConnects: 1000,
+    bzTotalJoints: 1000,
     // -------------------------
     jointsBzzIDs: ['br1', 'sp1', 'sp2',],
     followIsOn: false,

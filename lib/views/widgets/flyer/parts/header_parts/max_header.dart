@@ -42,7 +42,7 @@ class MaxHeader extends StatelessWidget {
       });
     }
     // === === === === === === === === === === === === === === === === === === ===
-    int _bzConnects      = bz != null ? bz.bzTotalConnects   : 0;
+    int _bzConnects      = bz != null ? bz.bzTotalJoints   : 0;
     int _followersCount  = bz != null ? bz.bzTotalFollowers  : 0;
     int _bzTotalSaves    = bz != null ? bz.bzTotalSaves      : 0;
     int _bzTotalShares   = bz != null ? bz.bzTotalShares     : 0;

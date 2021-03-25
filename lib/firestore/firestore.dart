@@ -62,11 +62,11 @@ Stream<DocumentSnapshot> getFirestoreDocumentSnapshots(String collectionName, St
 // ---------------------------------------------------------------------------
 Future<dynamic> getFireStoreDocumentMap(String collectionName, String documentName) async {
 
-  final DocumentReference document = getFirestoreDocumentReference(collectionName, documentName);
+  final DocumentReference _document = getFirestoreDocumentReference(collectionName, documentName);
 
   Map<String, dynamic> _map; //QueryDocumentSnapshot
 
-  await document.get().then<dynamic>((DocumentSnapshot snapshot) async{
+  await _document.get().then<dynamic>((DocumentSnapshot snapshot) async{
     _map = snapshot.data();
   });
 

@@ -1,4 +1,4 @@
-import 'package:bldrs/models/stenographs/share_model.dart';
+import 'package:bldrs/models/records/share_model.dart';
 
 final List<ShareModel> dbShares = [
   ShareModel(shareID: 'share001', userID: 'u21', slideID: 's001'),

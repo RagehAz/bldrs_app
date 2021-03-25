@@ -5,6 +5,8 @@ import 'sub_models/author_model.dart';
 import 'sub_models/contact_model.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+
+import 'user_model.dart';
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
 /// Bz account has limited amount of available slides, with each published slide,
 /// credit decreases,
@@ -48,7 +50,7 @@ class BzModel with ChangeNotifier{
   int bzTotalSlides;
   int bzTotalViews;
   int bzTotalCalls;
-  int bzTotalConnects;
+  int bzTotalJoints;
   // -------------------------
   List<dynamic> jointsBzzIDs;
   // -------------------------
@@ -85,7 +87,7 @@ class BzModel with ChangeNotifier{
     this.bzTotalSlides,
     this.bzTotalViews,
     this.bzTotalCalls,
-    this.bzTotalConnects,
+    this.bzTotalJoints,
     // -------------------------
     this.jointsBzzIDs,
     // -------------------------
@@ -156,7 +158,7 @@ Map<String, dynamic> toMap(){
     'bzTotalSlides' : bzTotalSlides,
     'bzTotalViews' : bzTotalViews,
     'bzTotalCalls' : bzTotalCalls,
-    'bzTotalConnects' : bzTotalConnects,
+    'bzTotalJoints' : bzTotalJoints,
     // -------------------------
     'jointsBzzIDs' : jointsBzzIDs,
     // -------------------------
@@ -304,7 +306,7 @@ BzModel decipherBzMap(String bzID, dynamic map){
     bzTotalSlides : map['bzTotalSlides'],
     bzTotalViews : map['bzTotalViews'],
     bzTotalCalls : map['bzTotalCalls'],
-    bzTotalConnects : map['bzTotalConnects'],
+    bzTotalJoints : map['bzTotalJoints'],
     // -------------------------
     jointsBzzIDs : map['jointsBzzIDs'],
     // -------------------------
@@ -331,4 +333,39 @@ List<BzModel> decipherBzMapsFromFireStore(List<dynamic> maps) {
 
   return _bzList;
 }
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+// === === === === === === === === === === === === === === === === === === ===
+BzModel createTempBzModelFromUserData(UserModel userModel){
+  return BzModel(
+    bzID: null,
+    bzName: userModel.company,
+    bzCountry: userModel.country,
+    bzProvince: userModel.province,
+    bzArea: userModel.area,
+    bzContacts: <ContactModel>[
+      ContactModel(
+          contact: getAContactValueFromContacts(userModel.contacts, ContactType.Email),
+          contactType: ContactType.Email
+      ),
+      ContactModel(
+          contact: getAContactValueFromContacts(userModel.contacts, ContactType.Phone),
+          contactType: ContactType.Phone
+      ),
+    ],
+    bzAuthors: <AuthorModel>[createTempAuthorModelFromUserModel(userModel)],
+    bzShowsTeam: true,
+    // -------------------------
+    bzIsVerified: false,
+    bzAccountIsDeactivated: false,
+    bzAccountIsBanned: false,
+    // -------------------------
+    bzTotalFollowers: 0,
+    bzTotalSaves: 0,
+    bzTotalShares: 0,
+    bzTotalSlides: 0,
+    bzTotalViews: 0,
+    bzTotalCalls: 0,
+    bzTotalJoints: 0,
+    followIsOn: false,
+    // -------------------------
+  );
+}
