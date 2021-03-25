@@ -1,6 +1,7 @@
 import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
 /// any changes in this model should reflect on this [UserProvider]
 class UserModel {
@@ -66,6 +67,43 @@ class UserModel {
       'followedBzzIDs' : followedBzzIDs,
     };
   }
+}
+// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+class TinyUser {
+  final String userID;
+  final String name;
+  final String title;
+  final String pic;
+  final UserStatus userStatus;
+
+  TinyUser({
+    @required this.userID,
+    @required this.name,
+    @required this.title,
+    @required this.pic,
+    @required this.userStatus,
+});
+
+  Map<String, dynamic> toMap(){
+    return {
+    'userID' : userID,
+    'name' : name,
+    'title' : title,
+    'pic' : pic,
+    'userStatus' : cipherUserStatus(userStatus),
+    };
+  }
+}
+
+TinyUser decipherTinyUser(Map<String, dynamic> tinyUserMap){
+  return
+      TinyUser(
+          userID: tinyUserMap['userID'],
+          name: tinyUserMap['name'],
+          title: tinyUserMap['title'],
+          pic: tinyUserMap['pic'],
+          userStatus: decipherUserStatus(tinyUserMap['userStatus']),
+      );
 }
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
 enum UserStatus {
@@ -141,5 +179,34 @@ int cipherGender(Gender gender){
 bool userIsAuthor(UserStatus userStatus){
   return
       userStatus == UserStatus.BzAuthor ? true : false ;
+}
+// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+class ShortUser{
+  final String id;
+  final String name;
+  final String pic;
+
+  ShortUser({
+    @required this.id,
+    @required this.name,
+    @required this.pic,
+});
+
+  Map<String, dynamic> toMap(){
+    return {
+    'id' : id,
+    'name' : name,
+    'pic' : pic,
+  };
+  }
+
+}
+// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+ShortUser decipherShortUser(Map<String, dynamic> shortUserMap){
+  return ShortUser(
+      id: shortUserMap['id'],
+      name: shortUserMap['name'],
+      pic: shortUserMap['pic']
+  );
 }
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x

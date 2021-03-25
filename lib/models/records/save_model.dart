@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:flutter/foundation.dart';
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
 class SaveModel with ChangeNotifier{
@@ -17,6 +18,16 @@ class SaveModel with ChangeNotifier{
     this.updateTime,
 });
 // ###############################
+Map<String, Object> toMap(){
+  return {
+    'saveID' : saveID,
+    'userID' : userID,
+    'slideID' : slideID,
+    'saveState' : cipherSaveState(saveState),
+    'saveTime' : cipherDateTimeToString(saveTime),
+    'updateTime' : cipherDateTimeToString(updateTime),
+  };
+}
 }
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
 enum SaveState{

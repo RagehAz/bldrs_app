@@ -27,25 +27,22 @@ class FollowModel{
 }
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
 enum FollowState {
-  accepted,
-  declined,
-  pending,
+  following,
+  unfollowing,
 }
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
 FollowState decipherFollowState (int followState){
   switch (followState){
-    case 1:   return  FollowState.accepted;     break;
-    case 2:   return  FollowState.declined;     break;
-    case 3:   return  FollowState.pending;      break;
+    case 1:   return  FollowState.following;     break;
+    case 2:   return  FollowState.unfollowing;     break;
     default : return   null;
   }
 }
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
 int cipherFollowState (FollowState followState){
   switch (followState){
-    case FollowState.accepted    :    return  1;  break;
-    case FollowState.declined    :    return  2;  break;
-    case FollowState.pending     :    return  3;  break;
+    case FollowState.following      :    return  1;  break;
+    case FollowState.unfollowing    :    return  2;  break;
     default : return null;
   }
 }

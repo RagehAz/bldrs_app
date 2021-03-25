@@ -143,10 +143,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     setState(() {_currentAreaID = areaID;});
   }
   // ---------------------------------------------------------------------------
-  // void _changeLanguage(String languageCode){
-  //   setState(() => _currentLanguageCode = languageCode );
-  // }
-  // ---------------------------------------------------------------------------
   void _changePosition(GeoPoint geoPoint){
     setState(() => _currentPosition = geoPoint );
   }
@@ -231,28 +227,20 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }
   // ---------------------------------------------------------------------------
   void _deleteAccount () async {
-    _triggerLoading();
-    await superDialog(context, 'You will delete your account, and there is no going back !', 'Take Care !');
+    /// bool dialog ( i yes continue delete and ask for password , if no cancel operation and don't delete
+    await superDialog(context, 'You will delete your account, and there is no going back !', 'Take Care !'); // should be bool dialog
 
+    _triggerLoading();
     await tryAndCatch(
       context: context,
       functions: () async {
 
         String _email = getAContactValueFromContacts(widget.user.contacts, ContactType.Email);
-        await UserCRUD().deleteUserDoc(userModel: widget.user);
+        await UserCRUD().deleteUserDoc(widget.user.userID);
         await AuthService().deleteFirebaseUser(context, _email, '123456');
 
       }
     );
-
-    // try{
-    //   String _email = getAContactValueFromContacts(widget.user.contacts, ContactType.Email);
-    //   await deleteUserDocument(widget.user);
-    //   await AuthService().deleteFirebaseUser(context, _email, '123456');
-    //
-    // }catch(error){
-    //   superDialog(context, error, 'Error deleting Account');
-    // }
 
     _triggerLoading();
 

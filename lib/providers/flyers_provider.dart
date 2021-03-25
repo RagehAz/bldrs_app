@@ -128,37 +128,6 @@ bzzIDs.forEach((bzID) {bzz.add(getBzByBzID(bzID));});
 return bzz;
 }
 // ############################################################################
-  /// add flyer to realtime database
-//   void addFlyerToRealtimeDatabase(FlyerModel flyer){
-//     const url = realtimeDatabaseFlyersPath;
-//     http.post(url,
-//       body: json.encode({
-//         'flyerID' : flyer.flyerID,
-//         // -------------------------
-//         'flyerType' : flyer.flyerType,
-//         'flyerState' : flyer.flyerState,
-//         'keyWords' : flyer.keyWords,
-//         'flyerShowsAuthor' : flyer.flyerShowsAuthor,
-//         'flyerURL' : flyer.flyerURL,
-//         // -------------------------
-//         'authorID' : flyer.authorID,
-//         'bzID' : flyer.bzID,
-//         // -------------------------
-//         'publishTime' : flyer.publishTime,
-//         'flyerPosition' : flyer.flyerPosition,
-//         // -------------------------
-//         'ankhIsOn' : flyer.ankhIsOn,
-//         // -------------------------
-//         'slides' : flyer.slides,
-//       }),
-//     );
-//
-//     final FlyerModel newFlyer = flyer;
-//
-//     addFlyerToLocalFlyersList(newFlyer);
-//
-// }
-// ############################################################################
   /// add flyer to local list
   void addFlyerToLocalFlyersList(FlyerModel flyer){
     _loadedFlyers.add(flyer);
@@ -217,7 +186,7 @@ Future<void> addBz(BuildContext context, BzModel bz, UserModel userModel) async 
         bzTotalSlides: bz.bzTotalSlides,
         bzTotalViews: bz.bzTotalViews,
         bzTotalCalls: bz.bzTotalCalls,
-        bzTotalConnects: bz.bzTotalConnects,
+        bzTotalJoints: bz.bzTotalJoints,
         // -------------------------
         jointsBzzIDs: bz.jointsBzzIDs,
         // -------------------------
@@ -309,7 +278,7 @@ Future<void> addBz(BuildContext context, BzModel bz, UserModel userModel) async 
   //       // 'bzTotalSlides': bz.bzTotalSlides,
   //       // 'bzTotalViews': bz.bzTotalViews,
   //       // 'bzTotalCalls': bz.bzTotalCalls,
-  //       // 'bzTotalConnects': bz.bzTotalConnects,
+  //       // 'bzTotalJoints': bz.bzTotalJoints,
   //       // // -------------------------
   //       // 'jointsBzzIDs': bz.jointsBzzIDs,
   //       // // -------------------------
@@ -354,7 +323,7 @@ Future<void> addBz(BuildContext context, BzModel bz, UserModel userModel) async 
   //     bzTotalSlides: bz.bzTotalSlides,
   //     bzTotalViews: bz.bzTotalViews,
   //     bzTotalCalls: bz.bzTotalCalls,
-  //     bzTotalConnects: bz.bzTotalConnects,
+  //     bzTotalJoints: bz.bzTotalJoints,
   //     // -------------------------
   //     jointsBzzIDs: bz.jointsBzzIDs,
   //     // -------------------------
@@ -443,7 +412,7 @@ Future<void> addBz(BuildContext context, BzModel bz, UserModel userModel) async 
         'bzTotalSlides': bz.bzTotalSlides,
         'bzTotalViews': bz.bzTotalViews,
         'bzTotalCalls': bz.bzTotalCalls,
-        'bzTotalConnects': bz.bzTotalConnects,
+        'bzTotalJoints': bz.bzTotalJoints,
         // -------------------------
         'jointsBzzIDs': bz.jointsBzzIDs,
         // -------------------------
@@ -553,7 +522,7 @@ Future<void> fetchAndSetBzz(BuildContext context) async {
       //     bzTotalSlides : bzMap['bzTotalSlides'],
       //     bzTotalViews : bzMap['bzTotalViews'],
       //     bzTotalCalls : bzMap['bzTotalCalls'],
-      //     bzTotalConnects : bzMap['bzTotalConnects'],
+      //     bzTotalJoints : bzMap['bzTotalJoints'],
       //     // -------------------------
       //     jointsBzzIDs : bzMap['jointsBzzIDs'],
       //     // -------------------------
@@ -633,7 +602,7 @@ Future<void> createBzDocument(BzModel bz, UserModel userModel) async {
     bzTotalSlides: bz.bzTotalSlides,
     bzTotalViews: bz.bzTotalViews,
     bzTotalCalls: bz.bzTotalCalls,
-    bzTotalConnects: bz.bzTotalConnects,
+    bzTotalJoints: bz.bzTotalJoints,
     // -------------------------
     jointsBzzIDs: bz.jointsBzzIDs,
     // -------------------------
@@ -723,7 +692,7 @@ Future<void> deleteBzDocument(BzModel bzModel) async {
       //   'bzTotalSlides': bz.bzTotalSlides,
       //   'bzTotalViews': bz.bzTotalViews,
       //   'bzTotalCalls': bz.bzTotalCalls,
-      //   'bzTotalConnects': bz.bzTotalConnects,
+      //   'bzTotalJoints': bz.bzTotalJoints,
       //   // -------------------------
       //   'jointsBzzIDs': bz.jointsBzzIDs,
         // -------------------------
@@ -753,41 +722,6 @@ Future<void> deleteBzDocument(BzModel bzModel) async {
   return _bzModel;
   }
 // ############################################################################
-}
-// === === === === === === === === === === === === === === === === === === ===
-BzModel createTempBzModelFromUserData(UserModel userModel){
-  return BzModel(
-    bzName: userModel.company,
-    bzCountry: userModel.country,
-    bzProvince: userModel.province,
-    bzArea: userModel.area,
-    bzContacts: <ContactModel>[
-      ContactModel(
-          contact: getAContactValueFromContacts(userModel.contacts, ContactType.Email),
-          contactType: ContactType.Email
-      ),
-      ContactModel(
-          contact: getAContactValueFromContacts(userModel.contacts, ContactType.Phone),
-          contactType: ContactType.Phone
-      ),
-    ],
-    bzAuthors: <AuthorModel>[createTempAuthorModelFromUserModel(userModel)],
-    bzShowsTeam: true,
-    // -------------------------
-    bzIsVerified: false,
-    bzAccountIsDeactivated: false,
-    bzAccountIsBanned: false,
-    // -------------------------
-    bzTotalFollowers: 0,
-    bzTotalSaves: 0,
-    bzTotalShares: 0,
-    bzTotalSlides: 0,
-    bzTotalViews: 0,
-    bzTotalCalls: 0,
-    bzTotalConnects: 0,
-    followIsOn: false,
-    // -------------------------
-  );
 }
 // === === === === === === === === === === === === === === === === === === ===
 BzModel getBzFromBzzByBzID(List<BzModel> bzz, String bzID){

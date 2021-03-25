@@ -83,11 +83,11 @@ Future<String> savePicOnFirebaseStorageAndGetURL({BuildContext context, File inp
 // === === === === === === === === === === === === === === === === === === ===
 String firebaseStorageDocument(PicType picType){
   switch (picType){
-    case PicType.userPic        :   return   'usersPics';       break;
-    case PicType.authorPic      :   return   'authorsPics';     break;
-    case PicType.bzLogo         :   return   'bzLogos';         break;
-    case PicType.slideHighRes   :   return   'slidesPics';      break;
-    case PicType.slideLowRes    :   return   'slidesPicsLow';   break;
+    case PicType.userPic        :   return   'usersPics';       break; // uses userID as file name
+    case PicType.authorPic      :   return   'authorsPics';     break; // uses userID as file name
+    case PicType.bzLogo         :   return   'bzLogos';         break; // uses bzID as file name
+    case PicType.slideHighRes   :   return   'slidesPics';      break; // uses flyerID_slideIndex as file name
+    case PicType.slideLowRes    :   return   'slidesPicsLow';   break; // uses flyerID_slideIndex as file name
     default : return   null;
   }
 }
