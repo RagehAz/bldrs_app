@@ -202,8 +202,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               position : _currentPosition ?? widget.user.position,
               contacts : _createContactList(widget.user.contacts),
               // -------------------------
-              savedFlyersIDs : widget.user.savedFlyersIDs,
-              followedBzzIDs : widget.user.followedBzzIDs,
+              myBzzIDs: widget.firstTimer == true ? [] : widget.user.myBzzIDs
               // -------------------------
             );
 

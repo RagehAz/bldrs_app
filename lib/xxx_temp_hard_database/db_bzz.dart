@@ -1,15 +1,16 @@
+import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/models/bz_model.dart';
+import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
 import 'dumz.dart';
-
+// -----------------------------------------------------------------------------
 BzModel geebBzByBzID(String bzID){
   BzModel bz = dbBzz?.singleWhere((u) => u.bzID == bzID, orElse: ()=>null);
   return bz;
 }
-
+// -----------------------------------------------------------------------------
 AuthorModel geebAuthorByAuthorID(String authorID){
   AuthorModel author = new AuthorModel();
   dbBzz.forEach((bz) {
@@ -21,13 +22,37 @@ AuthorModel geebAuthorByAuthorID(String authorID){
   });
   return author;
 }
-
+// -----------------------------------------------------------------------------
 List<BzModel> geebAllBzz(){
   return dbBzz;
 }
+// -----------------------------------------------------------------------------
+List<TinyBz> geebAllTinyBzz(){
+  List<TinyBz> _tinyBzz = new List();
 
+  dbBzz.forEach((bz) {
+    _tinyBzz.add(
+      TinyBz(
+          bzID: bz.bzID,
+          bzLogo: bz.bzLogo,
+          bzName: bz.bzName,
+          bzType: bz.bzType
+      ),
+    );
+  });
+
+  return _tinyBzz;
+}
+// -----------------------------------------------------------------------------
+List<ContactModel> dummyContacts = <ContactModel>[
+  ContactModel(contact: '01065014107', contactType: ContactType.Phone),
+  ContactModel(contact: 'www.tiktok.com', contactType: ContactType.Facebook),
+  ContactModel(contact: 'rageh.az@gmail.com', contactType: ContactType.Email),
+];
+// -----------------------------------------------------------------------------
 final List<BzModel> dbBzz =
-[
+<BzModel>[
+
 // --- mn1
   BzModel(
     bzID: 'mn1',
@@ -46,13 +71,16 @@ final List<BzModel> dbBzz =
     bzArea: '12',
     bzAbout: 'Sipes provides a wide variety of paint, paint chemicals and more\nWe have been leadin the market since 1992 with our technologically chemically advanced paints which withstands moist air vacuum and space',
     bzPosition: GeoPoint(10,10),
-    bzContacts: <ContactModel>[
-      ContactModel(contact: '01554555107', contactType: ContactType.Phone),
-      ContactModel(contact: 'www.facebook.com', contactType: ContactType.Facebook),
-      ContactModel(contact: 'rageh-@hotmail.com', contactType: ContactType.Email),
-    ],
+    bzContacts: dummyContacts,
     bzAuthors: <AuthorModel>[
-      AuthorModel(userID: 'u07', publishedFlyersIDs: ['f010', 'f011'],),
+      AuthorModel(
+        userID: 'u07',
+        authorName: 'George Zenhom',
+        authorPic: Iconz.DumBzPNG,
+        authorTitle: 'Manager',
+        authorIsMaster: true,
+        authorContacts: dummyContacts,
+      ),
     ],
     bzShowsTeam: true,
     // -------------------------
@@ -68,10 +96,11 @@ final List<BzModel> dbBzz =
     bzTotalCalls: 1000,
     bzTotalJoints: 1000,
     // -------------------------
-    jointsBzzIDs: ['br1', 'sp1', 'sp2',],
-    followIsOn: false,
+    bzFlyers: <TinyFlyer>[
+      TinyFlyer(flyerID: 'f010', authorID: 'u07', slideIndex: 0, slidePic: Dumz.XXorgento),
+      TinyFlyer(flyerID: 'f011', authorID: 'u07', slideIndex: 0, slidePic: Dumz.XXsi_1),
+    ],
   ),
-
 
 // --- mn2
   BzModel(
@@ -91,13 +120,16 @@ final List<BzModel> dbBzz =
     bzArea: '12',
     bzAbout: 'Jotun Paints, you heard of us, we paint the world with happiness',
     bzPosition: GeoPoint(10,10),
-    bzContacts: <ContactModel>[
-      ContactModel(contact: '01554555107', contactType: ContactType.Phone),
-      ContactModel(contact: 'www.facebook.com', contactType: ContactType.Facebook),
-      ContactModel(contact: 'rageh-@hotmail.com', contactType: ContactType.Email),
-    ],
+    bzContacts: dummyContacts,
     bzAuthors: <AuthorModel>[
-      AuthorModel(userID: 'u08', publishedFlyersIDs: ['f012'],),
+      AuthorModel(
+        userID: 'u08',
+        authorName: 'Micheal Morad',
+        authorPic: Iconz.DumBzPNG,
+        authorTitle: 'Marketing manager',
+        authorIsMaster: true,
+        authorContacts: dummyContacts,
+      ),
     ],
     bzShowsTeam: true,
     // -------------------------
@@ -113,10 +145,10 @@ final List<BzModel> dbBzz =
     bzTotalCalls: 1000,
     bzTotalJoints: 1000,
     // -------------------------
-    jointsBzzIDs: ['br1', 'sp1', 'sp2',],
-    followIsOn: false,
+    bzFlyers: <TinyFlyer>[
+      TinyFlyer(flyerID: 'f012', authorID: 'u08', slideIndex: 0, slidePic: Dumz.XXfenomastic_1),
+    ],
   ),
-
 
 // --- mn3
   BzModel(
@@ -136,13 +168,17 @@ final List<BzModel> dbBzz =
     bzArea: '12',
     bzAbout: 'Ikea, Where great Ideas form great lives',
     bzPosition: GeoPoint(10,10),
-    bzContacts: <ContactModel>[
-      ContactModel(contact: '01554555107', contactType: ContactType.Phone),
-      ContactModel(contact: 'www.facebook.com', contactType: ContactType.Facebook),
-      ContactModel(contact: 'rageh-@hotmail.com', contactType: ContactType.Email),
-    ],
+    bzContacts: dummyContacts,
     bzAuthors: <AuthorModel>[
-      AuthorModel(userID: 'u09', publishedFlyersIDs: ['f013','f014','f015','f016'],),
+      AuthorModel(
+        userID: 'u09',
+        authorName: 'John Cena',
+        authorPic: Iconz.DumBzPNG,
+        authorTitle: 'Marketing executive',
+        authorIsMaster: true,
+        authorContacts: dummyContacts,
+      ),
+
     ],
     bzShowsTeam: true,
     // -------------------------
@@ -158,10 +194,13 @@ final List<BzModel> dbBzz =
     bzTotalCalls: 1000,
     bzTotalJoints: 1000,
     // -------------------------
-    jointsBzzIDs: ['br1', 'sp1', 'sp2',],
-    followIsOn: false,
+    bzFlyers: <TinyFlyer>[
+      TinyFlyer(flyerID: 'f013', authorID: 'u09', slideIndex: 0, slidePic: Dumz.XXcharger_1),
+      TinyFlyer(flyerID: 'f014', authorID: 'u09', slideIndex: 0, slidePic: Dumz.XXrack_1),
+      TinyFlyer(flyerID: 'f015', authorID: 'u09', slideIndex: 0, slidePic: Dumz.XXchair_1),
+      TinyFlyer(flyerID: 'f016', authorID: 'u09', slideIndex: 0, slidePic: Dumz.XXch_1),
+    ],
   ),
-
 
 // --- mn4
   BzModel(
@@ -181,13 +220,16 @@ final List<BzModel> dbBzz =
     bzArea: '12',
     bzAbout: 'bticino, don\'t just control light,, controls life',
     bzPosition: GeoPoint(10,10),
-    bzContacts: <ContactModel>[
-      ContactModel(contact: '01554555107', contactType: ContactType.Phone),
-      ContactModel(contact: 'www.facebook.com', contactType: ContactType.Facebook),
-      ContactModel(contact: 'rageh-@hotmail.com', contactType: ContactType.Email),
-    ],
+    bzContacts: dummyContacts,
     bzAuthors: <AuthorModel>[
-      AuthorModel(userID: 'u10', publishedFlyersIDs: ['f017'],),
+      AuthorModel(
+        userID: 'u10',
+        authorName: 'Alaa btcino',
+        authorPic: Iconz.DumBzPNG,
+        authorTitle: 'Manager',
+        authorIsMaster: true,
+        authorContacts: dummyContacts,
+      ),
     ],
     bzShowsTeam: true,
     // -------------------------
@@ -203,10 +245,10 @@ final List<BzModel> dbBzz =
     bzTotalCalls: 1000,
     bzTotalJoints: 1000,
     // -------------------------
-    jointsBzzIDs: ['br1', 'sp1', 'sp2',],
-    followIsOn: false,
+    bzFlyers: <TinyFlyer>[
+      TinyFlyer(flyerID: 'f017', authorID: 'u10', slideIndex: 0, slidePic: Dumz.XXswitch_1),
+    ],
   ),
-
 
 // --- mn5
   BzModel(
@@ -226,13 +268,16 @@ final List<BzModel> dbBzz =
     bzArea: '12',
     bzAbout: 'CAT pioneered the heavy machinery in world war 2, and we have assisted in the elimination of the Nazi regime, then we help the world build',
     bzPosition: GeoPoint(10,10),
-    bzContacts: <ContactModel>[
-      ContactModel(contact: '01554555107', contactType: ContactType.Phone),
-      ContactModel(contact: 'www.facebook.com', contactType: ContactType.Facebook),
-      ContactModel(contact: 'rageh-@hotmail.com', contactType: ContactType.Email),
-    ],
+    bzContacts: dummyContacts,
     bzAuthors: <AuthorModel>[
-      AuthorModel(userID: 'u11', publishedFlyersIDs: ['f019', 'f020'],),
+      AuthorModel(
+        userID: 'u11',
+        authorName: 'David Watson',
+        authorPic: Iconz.DumBzPNG,
+        authorTitle: 'Manager',
+        authorIsMaster: true,
+        authorContacts: dummyContacts,
+      ),
     ],
     bzShowsTeam: true,
     // -------------------------
@@ -248,10 +293,11 @@ final List<BzModel> dbBzz =
     bzTotalCalls: 1000,
     bzTotalJoints: 1000,
     // -------------------------
-    jointsBzzIDs: ['br1', 'sp1', 'sp2',],
-    followIsOn: false,
+    bzFlyers: <TinyFlyer>[
+      TinyFlyer(flyerID: 'f019', authorID: 'u11', slideIndex: 0, slidePic: Dumz.XXcat_1),
+      TinyFlyer(flyerID: 'f020', authorID: 'u11', slideIndex: 0, slidePic: Dumz.XXmachine_1),
+    ],
   ),
-
 
 // --- dv1
   BzModel(
@@ -271,13 +317,16 @@ final List<BzModel> dbBzz =
     bzArea: '12',
     bzAbout: 'Soidc East, Sodic West, Sodic North, Sodic South, Sodic Center',
     bzPosition: GeoPoint(10,10),
-    bzContacts: <ContactModel>[
-      ContactModel(contact: '01554555107', contactType: ContactType.Phone),
-      ContactModel(contact: 'www.facebook.com', contactType: ContactType.Facebook),
-      ContactModel(contact: 'rageh-@hotmail.com', contactType: ContactType.Email),
-    ],
+    bzContacts: dummyContacts,
     bzAuthors: <AuthorModel>[
-      AuthorModel(userID: 'u01', publishedFlyersIDs: ['f001', 'f002'],),
+      AuthorModel(
+        userID: 'u01',
+        authorName: 'Ahmad Gamal',
+        authorPic: Iconz.DumBzPNG,
+        authorTitle: 'Author',
+        authorIsMaster: true,
+        authorContacts: dummyContacts,
+      ),
     ],
     bzShowsTeam: false,
     // -------------------------
@@ -293,10 +342,11 @@ final List<BzModel> dbBzz =
     bzTotalCalls: 1000,
     bzTotalJoints: 1000,
     // -------------------------
-    jointsBzzIDs: ['br1', 'sp1', 'sp2',],
-    followIsOn: false,
+    bzFlyers: <TinyFlyer>[
+      TinyFlyer(flyerID: 'f001', authorID: 'u01', slideIndex: 0, slidePic: Dumz.XXbuilds_1),
+      TinyFlyer(flyerID: 'f002', authorID: 'u01', slideIndex: 0, slidePic: Dumz.XXeast_1),
+    ],
   ),
-
 
 // --- dv2
   BzModel(
@@ -316,13 +366,16 @@ final List<BzModel> dbBzz =
     bzArea: '12',
     bzAbout: 'Sabbour Is the Greatest Egyptian real estate developer',
     bzPosition: GeoPoint(10,10),
-    bzContacts: <ContactModel>[
-      ContactModel(contact: '01554555107', contactType: ContactType.Phone),
-      ContactModel(contact: 'www.facebook.com', contactType: ContactType.Facebook),
-      ContactModel(contact: 'rageh-@hotmail.com', contactType: ContactType.Email),
-    ],
+    bzContacts: dummyContacts,
     bzAuthors: <AuthorModel>[
-      AuthorModel(userID: 'u02', publishedFlyersIDs: ['f003'],),
+      AuthorModel(
+        userID: 'u02',
+        authorName: 'Ibrahim Mohsen',
+        authorPic: Iconz.DumBzPNG,
+        authorTitle: 'Author',
+        authorIsMaster: true,
+        authorContacts: dummyContacts,
+      ),
     ],
     bzShowsTeam: false,
     // -------------------------
@@ -338,10 +391,10 @@ final List<BzModel> dbBzz =
     bzTotalCalls: 1000,
     bzTotalJoints: 1000,
     // -------------------------
-    jointsBzzIDs: ['br1', 'sp1', 'sp2',],
-    followIsOn: false,
+    bzFlyers: <TinyFlyer>[
+      TinyFlyer(flyerID: 'f003', authorID: 'u02', slideIndex: 0, slidePic: Dumz.XXamwaj_1),
+    ],
   ),
-
 
 // --- dv3
   BzModel(
@@ -361,13 +414,16 @@ final List<BzModel> dbBzz =
     bzArea: '12',
     bzAbout: 'Emaar is the middle east leading real estate developer',
     bzPosition: GeoPoint(10,10),
-    bzContacts: <ContactModel>[
-      ContactModel(contact: '01554555107', contactType: ContactType.Phone),
-      ContactModel(contact: 'www.facebook.com', contactType: ContactType.Facebook),
-      ContactModel(contact: 'rageh-@hotmail.com', contactType: ContactType.Email),
-    ],
+    bzContacts: dummyContacts,
     bzAuthors: <AuthorModel>[
-      AuthorModel(userID: 'u03', publishedFlyersIDs: ['f004', 'f005'],),
+      AuthorModel(
+        userID: 'u03',
+        authorName: 'James Wallberg Jr.',
+        authorPic: Dumz.XXburj_khalifa_author,
+        authorTitle: 'Business development Manager',
+        authorIsMaster: true,
+        authorContacts: dummyContacts,
+      ),
     ],
     bzShowsTeam: true,
     // -------------------------
@@ -383,10 +439,11 @@ final List<BzModel> dbBzz =
     bzTotalCalls: 1000,
     bzTotalJoints: 1000,
     // -------------------------
-    jointsBzzIDs: ['br1', 'sp1', 'sp2',],
-    followIsOn: false,
+    bzFlyers: <TinyFlyer>[
+      TinyFlyer(flyerID: 'f004', authorID: 'u03', slideIndex: 0, slidePic: Dumz.XXburj_khalifa_1),
+      TinyFlyer(flyerID: 'f005', authorID: 'u03', slideIndex: 0, slidePic: Dumz.XXmivida_1),
+    ],
   ),
-
 
 // --- dr1
   BzModel(
@@ -406,13 +463,16 @@ final List<BzModel> dbBzz =
     bzArea: '12',
     bzAbout: 'Mona Hussein with her eccentric aesthetic design philosophy transcends the meaning of decor into a rank of design persona for spaces which reflects the souls of our beloved customers',
     bzPosition: GeoPoint(10,10),
-    bzContacts: <ContactModel>[
-      ContactModel(contact: '01554555107', contactType: ContactType.Phone),
-      ContactModel(contact: 'www.facebook.com', contactType: ContactType.Facebook),
-      ContactModel(contact: 'rageh-@hotmail.com', contactType: ContactType.Email),
-    ],
+    bzContacts: dummyContacts,
     bzAuthors: <AuthorModel>[
-      AuthorModel(userID: 'u15', publishedFlyersIDs: ['f024', 'f025','f026'],),
+      AuthorModel(
+        userID: 'u15',
+        authorName: 'Mona Hussein',
+        authorPic: Dumz.XXmhdh_author,
+        authorTitle: 'Founder & CEO',
+        authorIsMaster: true,
+        authorContacts: dummyContacts,
+      ),
     ],
     bzShowsTeam: true,
     // -------------------------
@@ -428,10 +488,12 @@ final List<BzModel> dbBzz =
     bzTotalCalls: 1000,
     bzTotalJoints: 1000,
     // -------------------------
-    jointsBzzIDs: ['br1', 'sp1', 'sp2',],
-    followIsOn: false,
+    bzFlyers: <TinyFlyer>[
+      TinyFlyer(flyerID: 'f024', authorID: 'u15', slideIndex: 0, slidePic: Dumz.XXm_1),
+      TinyFlyer(flyerID: 'f025', authorID: 'u15', slideIndex: 0, slidePic: Dumz.XXoffice_1),
+      TinyFlyer(flyerID: 'f026', authorID: 'u15', slideIndex: 0, slidePic: Dumz.XXp_1),
+    ],
   ),
-
 
 // --- dr2
   BzModel(
@@ -451,13 +513,16 @@ final List<BzModel> dbBzz =
     bzArea: '12',
     bzAbout: 'Hany Saad Innovations is the award winning design studio of the internation prize of interior innovation & design',
     bzPosition: GeoPoint(10,10),
-    bzContacts: <ContactModel>[
-      ContactModel(contact: '01554555107', contactType: ContactType.Phone),
-      ContactModel(contact: 'www.facebook.com', contactType: ContactType.Facebook),
-      ContactModel(contact: 'rageh-@hotmail.com', contactType: ContactType.Email),
-    ],
+    bzContacts: dummyContacts,
     bzAuthors: <AuthorModel>[
-      AuthorModel(userID: 'u16', publishedFlyersIDs: ['f027', 'f028', 'f029'],),
+      AuthorModel(
+        userID: 'u16',
+        authorName: 'Hany Saad',
+        authorPic: Dumz.XXhs_author,
+        authorTitle: 'Founder & CEO',
+        authorIsMaster: true,
+        authorContacts: dummyContacts,
+      ),
     ],
     bzShowsTeam: true,
     // -------------------------
@@ -473,10 +538,12 @@ final List<BzModel> dbBzz =
     bzTotalCalls: 1000,
     bzTotalJoints: 1000,
     // -------------------------
-    jointsBzzIDs: ['br1', 'sp1', 'sp2',],
-    followIsOn: false,
+    bzFlyers: <TinyFlyer>[
+      TinyFlyer(flyerID: 'f027', authorID: 'u16', slideIndex: 0, slidePic: Dumz.XXhsi_1),
+      TinyFlyer(flyerID: 'f028', authorID: 'u16', slideIndex: 0, slidePic: Dumz.XXalleg_1),
+      TinyFlyer(flyerID: 'f029', authorID: 'u16', slideIndex: 0, slidePic: Dumz.XXrec_1),
+    ],
   ),
-
 
 // --- dr2
   BzModel(
@@ -496,13 +563,16 @@ final List<BzModel> dbBzz =
     bzArea: '12',
     bzAbout: 'Eklego focuses on remoling life with art, and when art meets engineering, a new realm of architecture, interior design & furniture design emerges, Eklego has been in the market since 1901, and has built a countless amount of spaces and built a termendous amount of projects ever since',
     bzPosition: GeoPoint(10,10),
-    bzContacts: <ContactModel>[
-      ContactModel(contact: '01554555107', contactType: ContactType.Phone),
-      ContactModel(contact: 'www.facebook.com', contactType: ContactType.Facebook),
-      ContactModel(contact: 'rageh-@hotmail.com', contactType: ContactType.Email),
-    ],
+    bzContacts: dummyContacts,
     bzAuthors: <AuthorModel>[
-      AuthorModel(userID: 'u17', publishedFlyersIDs: ['f030', 'f031'],),
+      AuthorModel(
+        userID: 'u17',
+        authorName: 'Hayam Hendi',
+        authorPic: Iconz.DumBzPNG,
+        authorTitle: 'Office Manager',
+        authorIsMaster: true,
+        authorContacts: dummyContacts,
+      ),
     ],
     bzShowsTeam: true,
     // -------------------------
@@ -518,10 +588,11 @@ final List<BzModel> dbBzz =
     bzTotalCalls: 1000,
     bzTotalJoints: 1000,
     // -------------------------
-    jointsBzzIDs: ['br1', 'sp1', 'sp2',],
-    followIsOn: false,
+    bzFlyers: <TinyFlyer>[
+      TinyFlyer(flyerID: 'f030', authorID: 'u17', slideIndex: 0, slidePic: Dumz.XXek_1),
+      TinyFlyer(flyerID: 'f031', authorID: 'u17', slideIndex: 0, slidePic: Dumz.XXe_1),
+    ],
   ),
-
 
 // --- cn1
   BzModel(
@@ -541,13 +612,16 @@ final List<BzModel> dbBzz =
     bzArea: '12',
     bzAbout: 'زهران لجميع بنود المقاولات، مقاولات عامة ، مقاولات خرسانة، و متوفر جديم المعدات و العمالة بأنسب الأسعار',
     bzPosition: GeoPoint(10,10),
-    bzContacts: <ContactModel>[
-      ContactModel(contact: '01554555107', contactType: ContactType.Phone),
-      ContactModel(contact: 'www.facebook.com', contactType: ContactType.Facebook),
-      ContactModel(contact: 'rageh-@hotmail.com', contactType: ContactType.Email),
-    ],
+    bzContacts: dummyContacts,
     bzAuthors: <AuthorModel>[
-      AuthorModel(userID: 'u05', publishedFlyersIDs: ['f008'],),
+      AuthorModel(
+        userID: 'u05',
+        authorName: 'محمد احمد زهران',
+        authorPic: Dumz.XXzah_author,
+        authorTitle: 'CEO',
+        authorIsMaster: true,
+        authorContacts: dummyContacts,
+      ),
     ],
     bzShowsTeam: true,
     // -------------------------
@@ -563,10 +637,10 @@ final List<BzModel> dbBzz =
     bzTotalCalls: 1000,
     bzTotalJoints: 1000,
     // -------------------------
-    jointsBzzIDs: ['br1', 'sp1', 'sp2',],
-    followIsOn: false,
+    bzFlyers: <TinyFlyer>[
+      TinyFlyer(flyerID: 'f008', authorID: 'u05', slideIndex: 0, slidePic: Dumz.XXzah_1),
+    ],
   ),
-
 
 // --- cn2
   BzModel(
@@ -586,13 +660,16 @@ final List<BzModel> dbBzz =
     bzArea: '12',
     bzAbout: 'زهران لجميع بنود المقاولات، مقاولات عامة ، مقاولات خرسانة',
     bzPosition: GeoPoint(10,10),
-    bzContacts: <ContactModel>[
-      ContactModel(contact: '01554555107', contactType: ContactType.Phone),
-      ContactModel(contact: 'www.facebook.com', contactType: ContactType.Facebook),
-      ContactModel(contact: 'rageh-@hotmail.com', contactType: ContactType.Email),
-    ],
+    bzContacts: dummyContacts,
     bzAuthors: <AuthorModel>[
-      AuthorModel(userID: 'u06', publishedFlyersIDs: ['f009'],),
+      AuthorModel(
+        userID: 'u06',
+        authorName: 'Eng. Mohamed Attia',
+        authorPic: Iconz.DumBzPNG,
+        authorTitle: 'Engineer',
+        authorIsMaster: true,
+        authorContacts: dummyContacts,
+      ),
     ],
     bzShowsTeam: true,
     // -------------------------
@@ -608,10 +685,10 @@ final List<BzModel> dbBzz =
     bzTotalCalls: 1000,
     bzTotalJoints: 1000,
     // -------------------------
-    jointsBzzIDs: ['br1', 'sp1', 'sp2',],
-    followIsOn: false,
+    bzFlyers: <TinyFlyer>[
+      TinyFlyer(flyerID: 'f009', authorID: 'u06', slideIndex: 0, slidePic: Dumz.XXeng_1),
+    ],
   ),
-
 
 // --- br1
   BzModel(
@@ -631,32 +708,31 @@ final List<BzModel> dbBzz =
     bzArea: '12',
     bzAbout: 'With a big variety of up-to-date inventory of realestate across Egypt, we Make sure all your requirements are properly met and the best decissions are made for best investments in the market',
     bzPosition: GeoPoint(10,10),
-    bzContacts: <ContactModel>[
-      ContactModel(contact: '01554555107', contactType: ContactType.Phone),
-      ContactModel(contact: 'www.facebook.com', contactType: ContactType.Facebook),
-      ContactModel(contact: 'rageh-@hotmail.com', contactType: ContactType.Email),
-    ],
+    bzContacts: dummyContacts,
     bzAuthors: <AuthorModel>[
-      AuthorModel(userID: 'u20', publishedFlyersIDs: ['f007', 'f038', 'f034'],
-        authorName: 'Nazly Noman EL Mohammady', authorTitle: 'Real Estate Agent', authorPic: Dumz.XXnazly_author, authorContacts: [
-            ContactModel(contact: '01065014107', contactType: ContactType.Phone),
-            ContactModel(contact: 'www.tiktok.com', contactType: ContactType.Facebook),
-            ContactModel(contact: 'rageh.az@gmail.com', contactType: ContactType.Email),
-          ]
+      AuthorModel(
+        userID: 'u20',
+        authorName: 'Nazly Noman EL Mohammady',
+        authorPic: Dumz.XXnazly_author,
+        authorTitle: 'Real Estate Agent',
+        authorIsMaster: false,
+        authorContacts: dummyContacts,
       ),
-      AuthorModel(userID: 'u21', publishedFlyersIDs: ['f035', 'f036'],
-          authorName: 'Rageh El Azzazy', authorTitle: 'Founder & CEO', authorPic: Dumz.DumAuthorPic, authorContacts: [
-            ContactModel(contact: '01065014107', contactType: ContactType.Phone),
-            ContactModel(contact: 'www.tiktok.com', contactType: ContactType.Facebook),
-            ContactModel(contact: 'rageh.az@gmail.com', contactType: ContactType.Email),
-          ]
+      AuthorModel(
+        userID: 'u21',
+        authorName: 'Rageh El Azzazy',
+        authorPic: Dumz.DumAuthorPic,
+        authorTitle: 'Founder & CEO',
+        authorIsMaster: true,
+        authorContacts: dummyContacts,
       ),
-      AuthorModel(userID: 'u04', publishedFlyersIDs: ['f006', 'f037'],
-          authorName: 'Mahmoud Abou El Hassan', authorTitle: 'Real Estate Consultant', authorPic: Dumz.XXabohassan_author, authorContacts: [
-            ContactModel(contact: '01065014107', contactType: ContactType.Phone),
-            ContactModel(contact: 'www.tiktok.com', contactType: ContactType.Facebook),
-            ContactModel(contact: 'rageh.az@gmail.com', contactType: ContactType.Email),
-          ]
+      AuthorModel(
+        userID: 'u04',
+        authorName: 'Mahmoud Abou El Hassan',
+        authorPic: Dumz.XXabohassan_author,
+        authorTitle: 'Real Estate Consultant',
+        authorIsMaster: false,
+        authorContacts: dummyContacts,
       ),
     ],
     bzShowsTeam: true,
@@ -673,10 +749,16 @@ final List<BzModel> dbBzz =
     bzTotalCalls: 1000,
     bzTotalJoints: 1000,
     // -------------------------
-    jointsBzzIDs: ['pp1', 'sp1', 'sp2',],
-    followIsOn: false,
+    bzFlyers: <TinyFlyer>[
+      TinyFlyer(flyerID: 'f007', authorID: 'u20', slideIndex: 0, slidePic: Dumz.XXnazly_1),
+      TinyFlyer(flyerID: 'f038', authorID: 'u20', slideIndex: 0, slidePic: Iconz.DumUniverse),
+      TinyFlyer(flyerID: 'f034', authorID: 'u20', slideIndex: 0, slidePic: Iconz.DumSlide1),
+      TinyFlyer(flyerID: 'f035', authorID: 'u21', slideIndex: 0, slidePic: Iconz.DumSlide7),
+      TinyFlyer(flyerID: 'f036', authorID: 'u21', slideIndex: 0, slidePic: Iconz.DumSlide4),
+      TinyFlyer(flyerID: 'f006', authorID: 'u04', slideIndex: 0, slidePic: Dumz.XXabohassan_1),
+      TinyFlyer(flyerID: 'f037', authorID: 'u04', slideIndex: 0, slidePic: Iconz.DumSlide6),
+    ],
   ),
-
 
 // --- sp1
   BzModel(
@@ -696,13 +778,16 @@ final List<BzModel> dbBzz =
     bzArea: '12',
     bzAbout: 'visit us, we are always here, we make good windows, and best doors in country 01554555107',
     bzPosition: GeoPoint(10,10),
-    bzContacts: <ContactModel>[
-      ContactModel(contact: '01554555107', contactType: ContactType.Phone),
-      ContactModel(contact: 'www.facebook.com', contactType: ContactType.Facebook),
-      ContactModel(contact: 'rageh-@hotmail.com', contactType: ContactType.Email),
-    ],
+    bzContacts: dummyContacts,
     bzAuthors: <AuthorModel>[
-      AuthorModel(userID: 'u12', publishedFlyersIDs: ['f018'],),
+      AuthorModel(
+        userID: 'u12',
+        authorName: 'Essam Alamonya',
+        authorPic: Iconz.DumBzPNG,
+        authorTitle: 'Modeer',
+        authorIsMaster: true,
+        authorContacts: dummyContacts,
+      ),
     ],
     bzShowsTeam: true,
     // -------------------------
@@ -718,10 +803,10 @@ final List<BzModel> dbBzz =
     bzTotalCalls: 1000,
     bzTotalJoints: 1000,
     // -------------------------
-    jointsBzzIDs: ['br1', 'pp1', 'sp2',],
-    followIsOn: false,
+    bzFlyers: <TinyFlyer>[
+      TinyFlyer(flyerID: 'f018', authorID: 'u12', slideIndex: 0, slidePic: Dumz.XXwindow_1),
+    ],
   ),
-
 
 // --- sp2
   BzModel(
@@ -741,13 +826,16 @@ final List<BzModel> dbBzz =
     bzArea: '12',
     bzAbout: 'contact us, we deliver anywhere in cairo,  اتصل بنا ، نحن هنا دائما',
     bzPosition: GeoPoint(10,10),
-    bzContacts: <ContactModel>[
-      ContactModel(contact: '01554555107', contactType: ContactType.Phone),
-      ContactModel(contact: 'www.facebook.com', contactType: ContactType.Facebook),
-      ContactModel(contact: 'rageh-@hotmail.com', contactType: ContactType.Email),
-    ],
+    bzContacts: dummyContacts,
     bzAuthors: <AuthorModel>[
-      AuthorModel(userID: 'u13', publishedFlyersIDs: ['f021', 'f022'],),
+      AuthorModel(
+        userID: 'u13',
+        authorName: 'Sayyed rady',
+        authorPic: Iconz.DumBzPNG,
+        authorTitle: 'Boss',
+        authorIsMaster: true,
+        authorContacts: dummyContacts,
+      ),
     ],
     bzShowsTeam: true,
     // -------------------------
@@ -763,10 +851,11 @@ final List<BzModel> dbBzz =
     bzTotalCalls: 1000,
     bzTotalJoints: 1000,
     // -------------------------
-    jointsBzzIDs: ['br1', 'sp1', 'pp1',],
-    followIsOn: false,
+    bzFlyers: <TinyFlyer>[
+      TinyFlyer(flyerID: 'f021', authorID: 'u13', slideIndex: 0, slidePic: Dumz.XXpower_1),
+      TinyFlyer(flyerID: 'f022', authorID: 'u13', slideIndex: 0, slidePic: Dumz.XXgenerator_1),
+    ],
   ),
-
 
 // --- sp3
   BzModel(
@@ -786,13 +875,16 @@ final List<BzModel> dbBzz =
     bzArea: '12',
     bzAbout: '01554555107  اتصل بنا ، نحن هنا دائما',
     bzPosition: GeoPoint(10,10),
-    bzContacts: <ContactModel>[
-      ContactModel(contact: '01554555107', contactType: ContactType.Phone),
-      ContactModel(contact: 'www.facebook.com', contactType: ContactType.Facebook),
-      ContactModel(contact: 'rageh-@hotmail.com', contactType: ContactType.Email),
-    ],
+    bzContacts: dummyContacts,
     bzAuthors: <AuthorModel>[
-      AuthorModel(userID: 'u14', publishedFlyersIDs: ['f023'],),
+      AuthorModel(
+        userID: 'u14',
+        authorName: 'Shady mohamed',
+        authorPic: Iconz.DumBzPNG,
+        authorTitle: 'Engineer',
+        authorIsMaster: true,
+        authorContacts: dummyContacts,
+      ),
     ],
     bzShowsTeam: true,
     // -------------------------
@@ -808,10 +900,10 @@ final List<BzModel> dbBzz =
     bzTotalCalls: 1000,
     bzTotalJoints: 1000,
     // -------------------------
-    jointsBzzIDs: ['br1', 'sp1', 'sp2',],
-    followIsOn: false,
+    bzFlyers: <TinyFlyer>[
+      TinyFlyer(flyerID: 'f023', authorID: 'u14', slideIndex: 0, slidePic: Dumz.XXloader_1),
+    ],
   ),
-
 
   // --- ar1
   BzModel(
@@ -831,13 +923,16 @@ final List<BzModel> dbBzz =
     bzArea: '12',
     bzAbout: 'Fixawy for home & office Maintenance',
     bzPosition: GeoPoint(10,10),
-    bzContacts: <ContactModel>[
-      ContactModel(contact: '01554555107', contactType: ContactType.Phone),
-      ContactModel(contact: 'www.facebook.com', contactType: ContactType.Facebook),
-      ContactModel(contact: 'rageh-@hotmail.com', contactType: ContactType.Email),
-    ],
+    bzContacts: dummyContacts,
     bzAuthors: <AuthorModel>[
-      AuthorModel(userID: 'u18', publishedFlyersIDs: ['f032'],),
+      AuthorModel(
+        userID: 'u18',
+        authorName: 'Fixawy team',
+        authorPic: Iconz.DumBzPNG,
+        authorTitle: 'Media Team',
+        authorIsMaster: true,
+        authorContacts: dummyContacts,
+      ),
     ],
     bzShowsTeam: true,
     // -------------------------
@@ -853,10 +948,10 @@ final List<BzModel> dbBzz =
     bzTotalCalls: 1000,
     bzTotalJoints: 1000,
     // -------------------------
-    jointsBzzIDs: ['br1', 'sp1', 'sp2',],
-    followIsOn: false,
+    bzFlyers: <TinyFlyer>[
+      TinyFlyer(flyerID: 'f032', authorID: 'u18', slideIndex: 0, slidePic: Dumz.XXfixawy_1),
+    ],
   ),
-
 
 // --- ar2
   BzModel(
@@ -876,13 +971,16 @@ final List<BzModel> dbBzz =
     bzArea: '12',
     bzAbout: 'اتصلوا بنا 01554555107 لجميع أنواع الأساس الخشب و الكونتا والسراير و دوليب و كله.. نحن دايما في الخدمة',
     bzPosition: GeoPoint(10,10),
-    bzContacts: <ContactModel>[
-      ContactModel(contact: '01554555107', contactType: ContactType.Phone),
-      ContactModel(contact: 'www.facebook.com', contactType: ContactType.Facebook),
-      ContactModel(contact: 'rageh-@hotmail.com', contactType: ContactType.Email),
-    ],
+    bzContacts: dummyContacts,
     bzAuthors: <AuthorModel>[
-      AuthorModel(userID: 'u19', publishedFlyersIDs: ['f033'],),
+      AuthorModel(
+        userID: 'u19',
+        authorName: 'Ahmad Hamada Ahmad',
+        authorPic: Iconz.DumBzPNG,
+        authorTitle: 'President',
+        authorIsMaster: true,
+        authorContacts: dummyContacts,
+      ),
     ],
     bzShowsTeam: true,
     // -------------------------
@@ -898,8 +996,9 @@ final List<BzModel> dbBzz =
     bzTotalCalls: 1000,
     bzTotalJoints: 1000,
     // -------------------------
-    jointsBzzIDs: ['br1', 'sp1', 'sp2',],
-    followIsOn: false,
+    bzFlyers: <TinyFlyer>[
+      TinyFlyer(flyerID: 'f033', authorID: 'u19', slideIndex: 0, slidePic: Dumz.XXahmad_1),
+    ],
   ),
 
 ];

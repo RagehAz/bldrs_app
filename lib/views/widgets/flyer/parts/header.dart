@@ -80,8 +80,8 @@ class Header extends StatelessWidget {
                       aName: author?.authorName,
                       aTitle: author?.authorTitle,
                       followersCount: bz?.bzTotalFollowers ?? 0,
-                      followIsOn: bz?.followIsOn,
-                      bzGalleryCount: author?.publishedFlyersIDs?.length ?? 0,
+                      followIsOn: false, // TASK : fix following issue
+                      bzGalleryCount: bz?.bzFlyers?.length ?? 0,
                       tappingHeader: tappingHeader,
                       tappingFollow: tappingFollow,
                     ),

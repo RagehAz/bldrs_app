@@ -5,10 +5,18 @@ import 'package:flutter/material.dart';
 // === === === === === === === === === === === === === === === === === === ===
 class FireStoreCollection{
   static const String users = 'users';
+  static const String tinyUsers = 'tinyUsers';
+
   static const String countries = 'countries';
-  static const String questions = 'questions';
+
+  static const String asks = 'asks';
+
   static const String bzz = 'bzz';
+  static const String tinyBzz = 'tinyBzz';
+
   static const String flyers = 'flyers';
+  static const String tinyFlyers = 'tinyFlyers';
+  static const String flyersKeys = 'flyersKeys';
 }
 
 // ---------------------------------------------------------------------------

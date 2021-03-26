@@ -107,7 +107,8 @@ class _MyBzScreenState extends State<MyBzScreen> {
           appBarType: AppBarType.Basic,
           appBarBackButton: true,
           layoutWidget: bzModelStreamBuilder(
-            bzID: widget.userModel.followedBzzIDs[0],
+            // TASK : myBz screen should be specified for only one bzID, and we should update design to cope with multiple bzz in user's myBzz
+            bzID: widget.userModel.myBzzIDs[0],
             context: context,
             builder: (ctx, _bzModel){
               return

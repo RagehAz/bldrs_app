@@ -9,7 +9,7 @@ class BzGrid extends StatelessWidget {
 
   final double gridZoneWidth;
   final int numberOfColumns;
-  final List<BzModel> bzz;
+  final List<TinyBz> tinyBzz;
   final Function itemOnTap;
   final Axis scrollDirection;
   final int numberOfRows;
@@ -17,7 +17,7 @@ class BzGrid extends StatelessWidget {
   BzGrid({
     @required this.gridZoneWidth,
     this.numberOfColumns = 3,
-    @required this.bzz,
+    @required this.tinyBzz,
     this.itemOnTap,
     this.scrollDirection,
     this.numberOfRows,
@@ -34,7 +34,7 @@ class BzGrid extends StatelessWidget {
     double _gridBzWidth = gridZoneWidth / (numberOfColumns + (numberOfColumns * _spacingRatioToGridWidth) + _spacingRatioToGridWidth);
     double _gridBzHeight = _gridBzWidth;
     double _gridSpacing = _gridBzWidth * _spacingRatioToGridWidth;
-    int _bzCount = bzz.length == 0 ? _boxesColors.length : bzz.length;
+    int _bzCount = tinyBzz.length == 0 ? _boxesColors.length : tinyBzz.length;
     int _numOfGridRows(int _bzCount){return (_bzCount/_gridColumnsCount).ceil();}
     int _numOfRows = numberOfRows == null ? _numOfGridRows(_bzCount) : numberOfRows;
     double _gridHeight = _gridBzHeight * (_numOfRows + (_numOfRows * _spacingRatioToGridWidth) + _spacingRatioToGridWidth);
@@ -59,7 +59,7 @@ class BzGrid extends StatelessWidget {
             children: <Widget>[
 
                 // --- GRID FOOTPRINTS
-                bzz.length != 0 ? Container() :
+              tinyBzz.length != 0 ? Container() :
                 GridView(
                   physics: scrollDirection == null ? NeverScrollableScrollPhysics() : null,
                   scrollDirection: scrollDirection == null ? Axis.vertical : scrollDirection,
@@ -88,7 +88,7 @@ class BzGrid extends StatelessWidget {
                   padding: EdgeInsets.all(_gridSpacing),
                   // key: new Key(loadedFlyers[flyerIndex].f01flyerID),
                   gridDelegate: _gridDelegate,
-                  children: bzz.map(
+                  children: tinyBzz.map(
                         (bz) => BzLogo(
                             width: _gridBzWidth,
                             image: bz.bzLogo,

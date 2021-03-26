@@ -117,7 +117,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
     _currentFlyerURL = _flyer.flyerURL; // no need for this
     // -------------------------
     _currentAuthorID = _flyer.authorID;
-    _currentBzID = _flyer.bzID;
+    _currentBzID = _flyer.tinyBz.bzID;
     // -------------------------
     _currentPublishTime = _flyer.publishTime;
     _currentFlyerPosition = _flyer.flyerPosition;
@@ -151,7 +151,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
     flyerURL : '...',
     // -------------------------
     authorID : superUserID(),
-    bzID : _bz.bzID,
+    tinyBz : TinyBz(bzID: _bz.bzID, bzLogo: null, bzName: '', bzType: _bz.bzType),
     // -------------------------
     publishTime : DateTime.now(),
     flyerPosition : null,
@@ -373,7 +373,6 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
             picture: picturesURLs[i],
             headline: titleControllers[i].text,
             description: '',
-            callsCount: widget.firstTimer ? 0 : _flyer.slides[i].callsCount,
             savesCount: widget.firstTimer ? 0 : _flyer.slides[i].savesCount,
             sharesCount: widget.firstTimer ? 0 : _flyer.slides[i].sharesCount,
             viewsCount: widget.firstTimer ? 0 : _flyer.slides[i].viewsCount,
@@ -425,7 +424,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
               flyerURL: _currentFlyerURL,
               // -------------------------
               authorID: _currentAuthorID,
-              bzID: _currentBzID,
+              tinyBz: TinyBz(bzID: _currentBzID, bzLogo: widget.bzModel.bzLogo, bzName: widget.bzModel.bzName, bzType: widget.bzModel.bzType),
               // -------------------------
               publishTime: _currentPublishTime,
               flyerPosition: _currentFlyerPosition,
@@ -436,24 +435,24 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
           );
           /// 4- update flyer doc on firestore
           await FlyerCRUD().updateFlyerDoc(_newFlyerModel);
-          /// 5- save the flyer in Author's published list
-            String _currentUserId = superUserID();
-            List<AuthorModel> _existingAuthors = _bz.bzAuthors;
-            AuthorModel _currentAuthor = getAuthorFromBzByAuthorID(_bz, _currentUserId);
-            int _currentAuthorIndex = _existingAuthors.indexWhere((au) => au.userID == _currentUserId);
-            _currentAuthor.publishedFlyersIDs.add(_currentFlyerID);
-            _existingAuthors.removeAt(_currentAuthorIndex);
-            _existingAuthors.insert(_currentAuthorIndex, _currentAuthor);
-
-            if (widget.firstTimer) {
-              updateFieldOnFirestore(
-                context: context,
-                collectionName: FireStoreCollection.bzz,
-                documentName: _bz.bzID,
-                field: 'bzAuthors',
-                input: _existingAuthors,
-              );
-            }
+          /// TASK : when publishing flyer => 5- save a TinyFlyer bz['bzFlyers']
+          //   String _currentUserId = superUserID();
+          //   List<AuthorModel> _existingAuthors = _bz.bzAuthors;
+          //   AuthorModel _currentAuthor = getAuthorFromBzByAuthorID(_bz, _currentUserId);
+          //   int _currentAuthorIndex = _existingAuthors.indexWhere((au) => au.userID == _currentUserId);
+          //   _currentAuthor.publishedFlyersIDs.add(_currentFlyerID);
+          //   _existingAuthors.removeAt(_currentAuthorIndex);
+          //   _existingAuthors.insert(_currentAuthorIndex, _currentAuthor);
+          //
+          //   if (widget.firstTimer) {
+          //     updateFieldOnFirestore(
+          //       context: context,
+          //       collectionName: FireStoreCollection.bzz,
+          //       documentName: _bz.bzID,
+          //       field: 'bzAuthors',
+          //       input: _existingAuthors,
+          //     );
+          //   }
 
           /// 6- save flyer to local flyers List
           _prof.addFlyerToLocalFlyersList(_newFlyerModel);

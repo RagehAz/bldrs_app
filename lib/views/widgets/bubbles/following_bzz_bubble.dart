@@ -17,7 +17,7 @@ class FollowingBzzBubble extends StatelessWidget {
     final FlyersProvider pro = Provider.of<FlyersProvider>(context, listen: false);
     // final user = Provider.of<UserModel>(context);
     // List<dynamic> followedBzzIDs = [ 'pp3', ...(user?.followedBzzIDs)];
-    final List<BzModel> followedBzz = pro.getFollowedBzz;
+    final List<TinyBz> _followedBzz = pro.getFollowedBzz;
 
     return InPyramidsBubble(
       centered: false,
@@ -35,7 +35,7 @@ class FollowingBzzBubble extends StatelessWidget {
         // --- FOLLOWING BZZ GRID
         BzGrid(
           gridZoneWidth: superScreenWidth(context) - Ratioz.ddAppBarMargin * 4,
-          bzz: followedBzz,
+          tinyBzz: _followedBzz,
           numberOfColumns: 7,
         ),
 

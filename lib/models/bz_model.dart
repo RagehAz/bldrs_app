@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/timerz.dart';
+import 'package:bldrs/models/flyer_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'sub_models/author_model.dart';
@@ -7,7 +8,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import 'user_model.dart';
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+// -----------------------------------------------------------------------------
 /// Bz account has limited amount of available slides, with each published slide,
 /// credit decreases,
 /// slides can be purchased or rewarded
@@ -51,10 +52,9 @@ class BzModel with ChangeNotifier{
   int bzTotalViews;
   int bzTotalCalls;
   int bzTotalJoints;
-  // -------------------------
-  List<dynamic> jointsBzzIDs;
-  // -------------------------
-  bool followIsOn;
+  // // -------------------------
+  // bool followIsOn;
+  final List<TinyFlyer> bzFlyers;
 // ###############################
   BzModel({
     this.bzID,
@@ -89,42 +89,42 @@ class BzModel with ChangeNotifier{
     this.bzTotalCalls,
     this.bzTotalJoints,
     // -------------------------
-    this.jointsBzzIDs,
+    // this.followIsOn,
     // -------------------------
-    this.followIsOn,
-    // -------------------------
+    this.bzFlyers,
   });
 // ###############################
-  void _setFollowValue(bool newValue){
-    followIsOn = newValue;
-    notifyListeners();
-  }
+  // TASK : this technique to revert back the status if firestore operation fails needs to be adapted elsewhere
+//   void _setFollowValue(bool newValue){
+//     followIsOn = newValue;
+//     notifyListeners();
+//   }
 
-  Future<void> toggleFollow() async {
-    final oldStatus = followIsOn;
-    print('oldStatus is : $oldStatus');
-    _setFollowValue(!followIsOn);
-    print('new followIsOn is : $followIsOn');
-    final url = 'https://bldrsnet.firebaseio.com/bzz/$bzID.json';
-    print('url is : $url');
-    try {
-      final response = await http.patch(url,
-          body: json.encode({
-            'followIsOn' : followIsOn,
-          }));
-      if (response.statusCode >= 400){
-        _setFollowValue(oldStatus);
-        print('response.statusCode is : ${response.body}');
-      } else {
-      print('followIsOn changed on server to : $followIsOn');
-      // add the id in user's firebase document in  followedBzzIDs
-      }
-    } catch (error){
-      _setFollowValue(oldStatus);
-      print('error is : $error');
-
-    }
-  }
+  // Future<void> toggleFollow() async {
+  //   final oldStatus = followIsOn;
+  //   print('oldStatus is : $oldStatus');
+  //   _setFollowValue(!followIsOn);
+  //   print('new followIsOn is : $followIsOn');
+  //   final url = 'https://bldrsnet.firebaseio.com/bzz/$bzID.json';
+  //   print('url is : $url');
+  //   try {
+  //     final response = await http.patch(url,
+  //         body: json.encode({
+  //           'followIsOn' : followIsOn,
+  //         }));
+  //     if (response.statusCode >= 400){
+  //       _setFollowValue(oldStatus);
+  //       print('response.statusCode is : ${response.body}');
+  //     } else {
+  //     print('followIsOn changed on server to : $followIsOn');
+  //     // add the id in user's firebase document in  followedBzzIDs
+  //     }
+  //   } catch (error){
+  //     _setFollowValue(oldStatus);
+  //     print('error is : $error');
+  //
+  //   }
+  // }
 // ###############################
 Map<String, dynamic> toMap(){
   return {
@@ -160,14 +160,64 @@ Map<String, dynamic> toMap(){
     'bzTotalCalls' : bzTotalCalls,
     'bzTotalJoints' : bzTotalJoints,
     // -------------------------
-    'jointsBzzIDs' : jointsBzzIDs,
+    // 'jointsBzzIDs' : jointsBzzIDs,
     // -------------------------
-    'followIsOn' : followIsOn,
+    // 'followIsOn' : followIsOn,
     // -------------------------
+    'bzflyers' : cipherTinyFlyers(bzFlyers),
     };
 }
 }
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+// -----------------------------------------------------------------------------
+class TinyBz {
+  final String bzID;
+  final String bzLogo;
+  final String bzName;
+  final BzType bzType;
+
+  TinyBz({
+    @required this.bzID,
+    @required this.bzLogo,
+    @required this.bzName,
+    @required this.bzType,
+});
+
+  Map<String,dynamic> toMap(){
+    return {
+      'bzID' : bzID,
+      'bzLogo' : bzLogo,
+      'bzName' : bzName,
+      'bzType' : cipherBzType(bzType),
+    };
+  }
+
+}
+// -----------------------------------------------------------------------------
+List<dynamic> cipherTinyBzzModels(List<TinyBz> tinyBzz){
+  List<dynamic> _tinyBzzMaps = new List();
+  tinyBzz.forEach((b) {
+    _tinyBzzMaps.add(b.toMap());
+  });
+  return _tinyBzzMaps;
+}
+// -----------------------------------------------------------------------------
+TinyBz decipherTinyBzMap(Map<String, dynamic> map){
+  return TinyBz(
+      bzID: map['bzID'],
+      bzLogo: map['bzLogo'],
+      bzName: map['bzName'],
+      bzType: decipherBzType(map['bzType']),
+  );
+}
+// -----------------------------------------------------------------------------
+List<TinyBz> decipherTinyBzzMaps(List<dynamic> maps){
+  List<TinyBz> _tinyBzz = new List();
+  maps.forEach((map){
+    _tinyBzz.add(decipherTinyBzMap(map));
+  });
+  return _tinyBzz;
+}
+// -----------------------------------------------------------------------------
 enum BzType {
   Developer, // dv -> pp (property flyer - property source flyer)
   Broker, // br -> pp (property flyer)
@@ -179,7 +229,7 @@ enum BzType {
   Manufacturer, // mn - pd (product flyer - product source flyer)
   Supplier, // sp - pd (product flyer)
 }
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+// -----------------------------------------------------------------------------
 List<BzType> bzTypesList = <BzType>[
   BzType.Developer,
   BzType.Broker,
@@ -191,7 +241,7 @@ List<BzType> bzTypesList = <BzType>[
   BzType.Manufacturer,
   BzType.Supplier,
 ];
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+// -----------------------------------------------------------------------------
 BzType decipherBzType (int x){
   switch (x){
     case 1:   return  BzType.Developer;        break;
@@ -204,7 +254,7 @@ BzType decipherBzType (int x){
     default : return   null;
   }
 }
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+// -----------------------------------------------------------------------------
 int cipherBzType (BzType x){
   switch (x){
     case BzType.Developer:      return  1;  break;
@@ -217,17 +267,17 @@ int cipherBzType (BzType x){
     default : return null;
   }
 }
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+// -----------------------------------------------------------------------------
 enum BzForm {
   Individual,
   Company,
 }
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+// -----------------------------------------------------------------------------
 List<BzForm> bzFormsList = <BzForm>[
   BzForm.Individual,
   BzForm.Company,
 ];
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+// -----------------------------------------------------------------------------
 BzForm decipherBzForm (int x){
   switch (x){
     case 1:   return   BzForm.Individual;   break;
@@ -235,7 +285,7 @@ BzForm decipherBzForm (int x){
     default : return   null;
   }
 }
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+// -----------------------------------------------------------------------------
 int cipherBzForm (BzForm x){
   switch (x){
     case BzForm.Individual:   return 1; break;
@@ -243,19 +293,19 @@ int cipherBzForm (BzForm x){
     default : return null;
   }
 }
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+// -----------------------------------------------------------------------------
 enum BzAccountType{
   Default,
   Premium,
   Super,
 }
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+// -----------------------------------------------------------------------------
 List<BzAccountType> bzAccountTypesList = <BzAccountType>[
   BzAccountType.Default,
   BzAccountType.Premium,
   BzAccountType.Super,
 ];
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+// -----------------------------------------------------------------------------
 BzAccountType decipherBzAccountType (int bzAccountType){
   switch (bzAccountType){
     case 1:   return  BzAccountType.Default;     break;
@@ -264,7 +314,7 @@ BzAccountType decipherBzAccountType (int bzAccountType){
     default : return   null;
   }
 }
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+// -----------------------------------------------------------------------------
 int cipherBzAccountType (BzAccountType bzAccountType){
   switch (bzAccountType){
     case BzAccountType.Default      :    return  1;  break;
@@ -273,7 +323,7 @@ int cipherBzAccountType (BzAccountType bzAccountType){
     default : return null;
   }
 }
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+// -----------------------------------------------------------------------------
 BzModel decipherBzMap(String bzID, dynamic map){
   return BzModel(
     bzID : bzID,
@@ -308,12 +358,13 @@ BzModel decipherBzMap(String bzID, dynamic map){
     bzTotalCalls : map['bzTotalCalls'],
     bzTotalJoints : map['bzTotalJoints'],
     // -------------------------
-    jointsBzzIDs : map['jointsBzzIDs'],
+    // jointsBzzIDs : map['jointsBzzIDs'],
     // -------------------------
-    followIsOn : map['followIsOn'],
+    // followIsOn : map['followIsOn'],
+    bzFlyers: decipherTinyFlyers(map['bzFlyers']),
   );
 }
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+// -----------------------------------------------------------------------------
 List<BzModel> decipherBzMapsFromRealTimeDatabase(Map<String, dynamic> bigMap){
   List<BzModel> _bzList = new List();
 
@@ -323,7 +374,7 @@ List<BzModel> decipherBzMapsFromRealTimeDatabase(Map<String, dynamic> bigMap){
 
   return _bzList;
 }
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+// -----------------------------------------------------------------------------
 List<BzModel> decipherBzMapsFromFireStore(List<dynamic> maps) {
   List<BzModel> _bzList = new List();
 
@@ -333,8 +384,8 @@ List<BzModel> decipherBzMapsFromFireStore(List<dynamic> maps) {
 
   return _bzList;
 }
-// === === === === === === === === === === === === === === === === === === ===
-BzModel createTempBzModelFromUserData(UserModel userModel){
+// -----------------------------------------------------------------------------
+BzModel createInitialBzModelFromUserData(UserModel userModel){
   return BzModel(
     bzID: null,
     bzName: userModel.company,
@@ -351,7 +402,7 @@ BzModel createTempBzModelFromUserData(UserModel userModel){
           contactType: ContactType.Phone
       ),
     ],
-    bzAuthors: <AuthorModel>[createTempAuthorModelFromUserModel(userModel)],
+    bzAuthors: <AuthorModel>[createMasterAuthorModelFromUserModel(userModel)],
     bzShowsTeam: true,
     // -------------------------
     bzIsVerified: false,
@@ -365,7 +416,9 @@ BzModel createTempBzModelFromUserData(UserModel userModel){
     bzTotalViews: 0,
     bzTotalCalls: 0,
     bzTotalJoints: 0,
-    followIsOn: false,
+    // followIsOn: false,
     // -------------------------
+    bzFlyers: [],
   );
 }
+// -----------------------------------------------------------------------------

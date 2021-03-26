@@ -54,8 +54,8 @@ Future<UserCredential> signUpWithFacebook(BuildContext context, Zone zone) async
         contactType: ContactType.Phone,
       ),],
       // -------------------------
-      savedFlyersIDs: [''],
-      followedBzzIDs: [''],
+      // savedFlyersIDs: [''],
+      // followedBzzIDs: [''],
     );
     // -------------------------
     /// create a new firestore document for the user with the userID
