@@ -33,8 +33,7 @@ class UserProvider{
         position : doc.data()['position'] ?? GeoPoint(0, 0),
         contacts : decipherContactsMaps(doc.data()['contacts'] ?? []),
         // -------------------------
-        savedFlyersIDs : _savedFlyersIDs ?? [''],
-        followedBzzIDs : _followedBzzIDs ?? [''],
+        myBzzIDs: doc.data()['myBzzIDs'] ?? [],
       );
     }).toList();
   }
@@ -64,8 +63,7 @@ class UserProvider{
         position : doc.data()['position'] ?? GeoPoint(0, 0),
         contacts : decipherContactsMaps(doc.data()['contacts'] ?? []),
         // -------------------------
-        savedFlyersIDs : _savedFlyersIDs ?? [''],
-        followedBzzIDs : _followedBzzIDs ?? [''],
+        myBzzIDs: doc.data()['myBzzIDs'] ?? [],
       );
 
     } catch(error){

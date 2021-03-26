@@ -52,8 +52,8 @@ Future<String> signInWithGoogle(BuildContext context, Zone currentZone) async {
         ContactModel(contact: user.phoneNumber, contactType: ContactType.Phone),
       ],
       // -------------------------
-      savedFlyersIDs: [''],
-      followedBzzIDs: [''],
+      // savedFlyersIDs: [''],
+      // followedBzzIDs: [''],
     );
 
     /// create a new firestore document for the user with the userID

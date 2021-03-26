@@ -197,10 +197,10 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
                                             _smallVerse(_userModel.language),
 
                                             _titleVerse('Following'),
-                                            _smallVerse('${_userModel.followedBzzIDs.length} Businesses'),
+                                            // _smallVerse('${_userModel.followedBzzIDs.length} Businesses'),
 
                                             _titleVerse('Saved flyers'),
-                                            _smallVerse('${_userModel.savedFlyersIDs.length} flyers'),
+                                            // _smallVerse('${_userModel.savedFlyersIDs.length} flyers'),
 
                                             _titleVerse('Main Contacts'),
                                             DreamWrapper(

@@ -53,16 +53,16 @@ class _BzCardScreenState extends State<BzCardScreen> {
               bz: bz,
               author: bz.bzAuthors[0],
               flyerShowsAuthor: true,
-              followIsOn: bz.followIsOn,
+              followIsOn: false, // TASK : fix following on/off issue
               flyerZoneWidth: superFlyerZoneWidth(context, flyerSizeFactor),
               bzPageIsOn: _bzPageIsOn,
               tappingHeader: _triggerMaxHeader,
               tappingFollow: () async {
-                await bz.toggleFollow();
-                setState(() {});
-                print('rebuilding widget with new followIsOn value : ${bz.followIsOn}');
+                // await bz.toggleFollow();
+                // setState(() {});
+                // print('rebuilding widget with new followIsOn value : ${bz.followIsOn}');
               },
-              tappingUnfollow: null,
+              tappingUnfollow: null, // Task : delete unfollow function and combine all following operations in one method
             ),
 
           ],

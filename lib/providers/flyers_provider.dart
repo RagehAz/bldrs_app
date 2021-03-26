@@ -12,17 +12,12 @@ import 'package:bldrs/xxx_temp_hard_database/db_bzz.dart';
 import 'package:bldrs/xxx_temp_hard_database/db_flyer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 import 'users_provider.dart';
-// === === === === === === === === === === === === === === === === === === ===
-const String realtimeDatabaseLink = 'https://bldrsnet.firebaseio.com/';
-const String realtimeDatabaseFlyersPath = 'https://bldrsnet.firebaseio.com/flyers.json';
-const String realtimeDatabaseBzzPath = 'https://bldrsnet.firebaseio.com/bzz.json';
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 class FlyersProvider with ChangeNotifier {
   List<FlyerModel> _loadedFlyers = geebAllFlyers();
   List<BzModel> _loadedBzz = geebAllBzz();
+  List<TinyBz> _loadedTinyBzz = geebAllTinyBzz();
 // ############################################################################
   List<FlyerModel> get getAllFlyers {
     return [..._loadedFlyers];
@@ -32,12 +27,19 @@ class FlyersProvider with ChangeNotifier {
     return [..._loadedBzz];
   }
 // ---------------------------------------------------------------------------
+  List<TinyBz> get getAllTinyBzz {
+    return [..._loadedTinyBzz];
+  }
+// ---------------------------------------------------------------------------
   List<FlyerModel> get getSavedFlyers {
     return _loadedFlyers.where((fl) => fl.ankhIsOn).toList();
   }
   // ---------------------------------------------------------------------------
-  List<BzModel> get getFollowedBzz{
-    return _loadedBzz.where((bz) => bz.followIsOn).toList();
+  /// this reads db/users/userID/saves/followedBzz document
+  /// TASK: get user followed bzz from firestore as document
+  List<TinyBz> get getFollowedBzz{
+    List<TinyBz> _followedBzz = new List();
+    return _followedBzz;
   }
 // ############################################################################
   FlyerModel getFlyerByFlyerID (String flyerID){
@@ -94,20 +96,20 @@ class FlyersProvider with ChangeNotifier {
     return authorFlyers;
   }
 // ############################################################################
-  List<FlyerModel> getFlyersByBzModel(BzModel bz){
-    List<dynamic> bzFlyersIDs = new List();
-    bz?.bzAuthors?.forEach((au) {
-      List<dynamic> _publishedFlyersIDs = new List();
-      if(au?.publishedFlyersIDs == null || _publishedFlyersIDs == [])
-      {_publishedFlyersIDs = [];}
-      else {_publishedFlyersIDs = au?.publishedFlyersIDs;}
-      bzFlyersIDs.addAll(_publishedFlyersIDs);
-    });
-    List<FlyerModel> flyers = new List();
-    print('bzFlyersIDs = $bzFlyersIDs');
-    bzFlyersIDs?.forEach((id) {flyers.add(getFlyerByFlyerID(id));});
-    return flyers;
-  }
+//   List<FlyerModel> getFlyersByBzModel(BzModel bz){
+//     List<dynamic> bzFlyersIDs = new List();
+//     bz?.bzAuthors?.forEach((au) {
+//       List<dynamic> _publishedFlyersIDs = new List();
+//       if(au?.publishedFlyersIDs == null || _publishedFlyersIDs == [])
+//       {_publishedFlyersIDs = [];}
+//       else {_publishedFlyersIDs = au?.publishedFlyersIDs;}
+//       bzFlyersIDs.addAll(_publishedFlyersIDs);
+//     });
+//     List<FlyerModel> flyers = new List();
+//     print('bzFlyersIDs = $bzFlyersIDs');
+//     bzFlyersIDs?.forEach((id) {flyers.add(getFlyerByFlyerID(id));});
+//     return flyers;
+//   }
 // ---------------------------------------------------------------------------
   BzModel getBzByBzID(String bzID){
     BzModel bz = _loadedBzz?.firstWhere((bz) => bz.bzID == bzID, orElse: ()=>null);
@@ -117,7 +119,7 @@ class FlyersProvider with ChangeNotifier {
 List<BzModel> getBzzOfFlyersList(List<FlyerModel> flyersList){
     List<BzModel> bzz = new List();
     flyersList.forEach((fl) {
-      bzz.add(getBzByBzID(fl.bzID));
+      bzz.add(getBzByBzID(fl.tinyBz.bzID));
     });
     return bzz;
 }
@@ -133,426 +135,6 @@ return bzz;
     _loadedFlyers.add(flyer);
     notifyListeners();
   }
-// ############################################################################
-  /// BZZ ON REAL TIME DATA BASE
-  // ---------------------------
-  /// POST request to add new bz in firebase realtime database
-Future<void> addBz(BuildContext context, BzModel bz, UserModel userModel) async {
-  const url = realtimeDatabaseBzzPath;
-
-  await tryAndCatch(
-    context: context,
-    functions: () async {
-
-      /// post bz map to realtime database
-      final response = await http.post(url,
-        body: json.encode({
-          bz.toMap()
-        }),
-      );
-
-      /// --- get bzID from previous response
-      String bzID = json.decode(response.body)['name'];
-
-      /// create local bzModel adding the bzId
-      final BzModel _newBz = BzModel(
-        bzID: bzID,
-        // -------------------------
-        bzType: bz.bzType,
-        bzForm: bz.bzForm,
-        bldrBirth: bz.bldrBirth,
-        accountType: bz.accountType,
-        bzURL: bz.bzURL,
-        // -------------------------
-        bzName: bz.bzName,
-        bzLogo: bz.bzLogo,
-        bzScope: bz.bzScope,
-        bzCountry: bz.bzCountry,
-        bzProvince: bz.bzProvince,
-        bzArea: bz.bzArea,
-        bzAbout: bz.bzAbout,
-        bzPosition: bz.bzPosition,
-        bzContacts: bz.bzContacts,
-        bzAuthors: bz.bzAuthors,
-        bzShowsTeam: bz.bzShowsTeam,
-        // -------------------------
-        bzIsVerified: bz.bzIsVerified,
-        bzAccountIsDeactivated: bz.bzAccountIsDeactivated,
-        bzAccountIsBanned: bz.bzAccountIsBanned,
-        // -------------------------
-        bzTotalFollowers: bz.bzTotalFollowers,
-        bzTotalSaves: bz.bzTotalSaves,
-        bzTotalShares: bz.bzTotalShares,
-        bzTotalSlides: bz.bzTotalSlides,
-        bzTotalViews: bz.bzTotalViews,
-        bzTotalCalls: bz.bzTotalCalls,
-        bzTotalJoints: bz.bzTotalJoints,
-        // -------------------------
-        jointsBzzIDs: bz.jointsBzzIDs,
-        // -------------------------
-        followIsOn: bz.followIsOn,
-      );
-
-      /// save the bzID as the first id in the list of followedBzzIDs
-      List<dynamic> tempFollowedBzzIDs = userModel.followedBzzIDs;
-      userModel.followedBzzIDs.insert(0, bzID);
-
-      /// create new userModel with the new list of tempFollowedBzzIDs
-      UserModel _newUserModel = UserModel(
-        // -------------------------
-        userID : userModel.userID,
-        joinedAt : userModel.joinedAt,
-        userStatus : UserStatus.BzAuthor,
-        // -------------------------
-        name : userModel.name,
-        pic : userModel.pic,
-        title : userModel.title,
-        company : userModel.company,
-        gender : userModel.gender,
-        country : userModel.country,
-        province : userModel.province,
-        area : userModel.area,
-        language : userModel.language,
-        position : userModel.position,
-        contacts : userModel.contacts,
-        // -------------------------
-        savedFlyersIDs : userModel.savedFlyersIDs,
-        followedBzzIDs : tempFollowedBzzIDs,
-      );
-
-      /// update firestore with the _newUserModel
-      await UserCRUD().createUserDoc(userModel: _newUserModel);
-
-      /// add the local bzModel to the local list of bzModels _loadedBzz
-      _loadedBzz.add(_newBz);
-
-      /// for sure never forget
-      notifyListeners();
-
-      print('bzzzzzzzzzz added response is :${json.decode(response.body)}');
-
-    }
-  );
-
-  // try {
-  //
-  //   /// post bz map to realtime database
-  //   final response = await http.post(url,
-  //     body: json.encode({
-  //       bz.toMap()
-  //       // 'bzID': bz.bzID,
-  //       // -------------------------
-  //       // 'bzType': cipherBzType(bz.bzType),
-  //       // 'bzForm': cipherBzForm(bz.bzForm),
-  //       // 'bldrBirth': cipherDateTimeToString(bz.bldrBirth),
-  //       // 'accountType': cipherBzAccountType(bz.accountType),
-  //       // 'bzURL': bz.bzURL,
-  //       // // -------------------------
-  //       // 'bzName': bz.bzName,
-  //       // 'bzLogo': bz.bzLogo,
-  //       // 'bzScope': bz.bzScope,
-  //       // 'bzCountry': bz.bzCountry,
-  //       // 'bzProvince': bz.bzProvince,
-  //       // 'bzArea': bz.bzArea,
-  //       // 'bzAbout': bz.bzAbout,
-  //       // 'bzPosition': bz.bzPosition,
-  //       // 'bzContacts': cipherContactsModels(bz.bzContacts),
-  //       // 'bzAuthors': [AuthorModel(
-  //       //   bzID: bz.bzAuthors[0].bzID,
-  //       //   userID: bz.bzAuthors[0].userID,
-  //       //   authorName: bz.bzAuthors[0].authorName,
-  //       //   authorPic: bz.bzAuthors[0].authorPic,
-  //       //   authorTitle: bz.bzAuthors[0].authorTitle,
-  //       //   publishedFlyersIDs: bz.bzAuthors[0].publishedFlyersIDs,
-  //       //   authorContacts: bz.bzAuthors[0].authorContacts,
-  //       // ).toMap(),],
-  //       // 'bzShowsTeam': bz.bzShowsTeam,
-  //       // // -------------------------
-  //       // 'bzIsVerified': bz.bzIsVerified,
-  //       // 'bzAccountIsDeactivated': bz.bzAccountIsDeactivated,
-  //       // 'bzAccountIsBanned': bz.bzAccountIsBanned,
-  //       // // -------------------------
-  //       // 'bzTotalFollowers': bz.bzTotalFollowers,
-  //       // 'bzTotalSaves': bz.bzTotalSaves,
-  //       // 'bzTotalShares': bz.bzTotalShares,
-  //       // 'bzTotalSlides': bz.bzTotalSlides,
-  //       // 'bzTotalViews': bz.bzTotalViews,
-  //       // 'bzTotalCalls': bz.bzTotalCalls,
-  //       // 'bzTotalJoints': bz.bzTotalJoints,
-  //       // // -------------------------
-  //       // 'jointsBzzIDs': bz.jointsBzzIDs,
-  //       // // -------------------------
-  //       // 'followIsOn': bz.followIsOn,
-  //       // will change in later max lessons to be user based
-  //     }),
-  //   );
-  //
-  //   /// --- get bzID from previous response
-  //   String bzID = json.decode(response.body)['name'];
-  //
-  //
-  //   /// create local bzModel adding the bzId
-  //   final BzModel newBz = BzModel(
-  //     bzID: bzID,
-  //     // -------------------------
-  //     bzType: bz.bzType,
-  //     bzForm: bz.bzForm,
-  //     bldrBirth: bz.bldrBirth,
-  //     accountType: bz.accountType,
-  //     bzURL: bz.bzURL,
-  //     // -------------------------
-  //     bzName: bz.bzName,
-  //     bzLogo: bz.bzLogo,
-  //     bzScope: bz.bzScope,
-  //     bzCountry: bz.bzCountry,
-  //     bzProvince: bz.bzProvince,
-  //     bzArea: bz.bzArea,
-  //     bzAbout: bz.bzAbout,
-  //     bzPosition: bz.bzPosition,
-  //     bzContacts: bz.bzContacts,
-  //     bzAuthors: bz.bzAuthors,
-  //     bzShowsTeam: bz.bzShowsTeam,
-  //     // -------------------------
-  //     bzIsVerified: bz.bzIsVerified,
-  //     bzAccountIsDeactivated: bz.bzAccountIsDeactivated,
-  //     bzAccountIsBanned: bz.bzAccountIsBanned,
-  //     // -------------------------
-  //     bzTotalFollowers: bz.bzTotalFollowers,
-  //     bzTotalSaves: bz.bzTotalSaves,
-  //     bzTotalShares: bz.bzTotalShares,
-  //     bzTotalSlides: bz.bzTotalSlides,
-  //     bzTotalViews: bz.bzTotalViews,
-  //     bzTotalCalls: bz.bzTotalCalls,
-  //     bzTotalJoints: bz.bzTotalJoints,
-  //     // -------------------------
-  //     jointsBzzIDs: bz.jointsBzzIDs,
-  //     // -------------------------
-  //     followIsOn: bz.followIsOn,
-  //   );
-  //
-  //
-  //   /// save the bzID as the first id in the list of followedBzzIDs
-  //   List<dynamic> tempFollowedBzzIDs = userModel.followedBzzIDs;
-  //   userModel.followedBzzIDs.insert(0, bzID);
-  //
-  //   /// create new userModel with the new list of tempFollowedBzzIDs
-  //   UserModel _newUserModel = UserModel(
-  //     // -------------------------
-  //     userID : userModel.userID,
-  //     joinedAt : userModel.joinedAt,
-  //     userStatus : UserStatus.BzAuthor,
-  //     // -------------------------
-  //     name : userModel.name,
-  //     pic : userModel.pic,
-  //     title : userModel.title,
-  //     company : userModel.company,
-  //     gender : userModel.gender,
-  //     country : userModel.country,
-  //     province : userModel.province,
-  //     area : userModel.area,
-  //     language : userModel.language,
-  //     position : userModel.position,
-  //     contacts : userModel.contacts,
-  //     // -------------------------
-  //     savedFlyersIDs : userModel.savedFlyersIDs,
-  //     followedBzzIDs : tempFollowedBzzIDs,
-  //   );
-  //
-  //   /// update firestore with the _newUserModel
-  //   await UserProvider(userID: userModel.userID).
-  //   updateFirestoreUserDocument(_newUserModel);
-  //
-  //   /// add the local bzModel to the local list of bzModels _loadedBzz
-  //   _loadedBzz.add(newBz);
-  //
-  //   /// for sure never forget
-  //   notifyListeners();
-  //   print('bzzzzzzzzzz added response is :${json.decode(response.body)}');
-  // } catch (error){
-  //   print(error);
-  //   superDialog(context, error, 'Could\'nt add Business');
-  //   throw(error);
-  // }
-
-}
-// ---------------------------------------------------------------------------
-  /// PATCH request to edit existing bz in firebase realtime database
-  Future<void> updateRealtimeDatabaseBz(BzModel bz) async {
-    final bzIndex = _loadedBzz.indexWhere((bzModel) => bzModel.bzID == bz.bzID);
-    if (bzIndex >= 0){
-      final url = 'https://bldrsnet.firebaseio.com/bzz/${bz.bzID}.json';
-      await http.patch(url, body: json.encode({
-        'bzID': bz.bzID,
-        // -------------------------
-        'bzType': cipherBzType(bz.bzType),
-        'bzForm': cipherBzForm(bz.bzForm),
-        'bldrBirth': cipherDateTimeToString(bz.bldrBirth),
-        'accountType': cipherBzAccountType(bz.accountType),
-        'bzURL': bz.bzURL,
-        // -------------------------
-        'bzName': bz.bzName,
-        'bzLogo': bz.bzLogo,
-        'bzScope': bz.bzScope,
-        'bzCountry': bz.bzCountry,
-        'bzProvince': bz.bzProvince,
-        'bzArea': bz.bzArea,
-        'bzAbout': bz.bzAbout,
-        'bzPosition': bz.bzPosition,
-        'bzContacts': cipherContactsModels(bz.bzContacts),
-        'bzAuthors': cipherAuthorsModels(bz.bzAuthors),
-        'bzShowsTeam': bz.bzShowsTeam,
-        // -------------------------
-        'bzIsVerified': bz.bzIsVerified,
-        'bzAccountIsDeactivated': bz.bzAccountIsDeactivated,
-        'bzAccountIsBanned': bz.bzAccountIsBanned,
-        // -------------------------
-        'bzTotalFollowers': bz.bzTotalFollowers,
-        'bzTotalSaves': bz.bzTotalSaves,
-        'bzTotalShares': bz.bzTotalShares,
-        'bzTotalSlides': bz.bzTotalSlides,
-        'bzTotalViews': bz.bzTotalViews,
-        'bzTotalCalls': bz.bzTotalCalls,
-        'bzTotalJoints': bz.bzTotalJoints,
-        // -------------------------
-        'jointsBzzIDs': bz.jointsBzzIDs,
-        // -------------------------
-        // 'followIsOn': bz.followIsOn,
-        // will change in later max lessons to be user based
-      }));
-      _loadedBzz[bzIndex] = bz;
-      notifyListeners();
-    } else {
-      print('could not update this fucking bz : ${bz.bzName} : ${bz.bzID}');
-    }
-}
-// ---------------------------------------------------------------------------
-  /// DELETE request to remove existing bz in firebase realtime database
-  Future<void> deleteBz(String bzID, UserModel userModel) async {
-   final url = 'https://bldrsnet.firebaseio.com/bzz/$bzID.json';
-   /// OPTIMISTIC UPDATING
-   /// to save the bz in this object like max did, to get it back to _loadedBzz
-   /// incase deleting from firebase fails
-   final existingBzIndex = _loadedBzz.indexWhere((bz) => bz.bzID == bzID);
-   var existingBz = _loadedBzz[existingBzIndex];
-   _loadedBzz.removeAt(existingBzIndex);
-   notifyListeners();
-   final _response = await http.delete(url);
-
-     if(_response.statusCode >= 400){
-       _loadedBzz.insert(existingBzIndex, existingBz);
-       print('Bz is NOT deleted from firebase, and returned back to local bzz list');
-       notifyListeners();
-       throw HttpException('Could not delete Business');
-     }
-
-   existingBz = null;
-     print('Bz is deleted from firebase successfully');
-
-     List<dynamic> newFollowedBzzIDs = userModel.followedBzzIDs;
-     newFollowedBzzIDs.remove(bzID);
-
-     UserModel _newUserModel = UserModel(
-       // -------------------------
-       userID : userModel.userID,
-       joinedAt : userModel.joinedAt,
-       userStatus : UserStatus.Normal,
-       // -------------------------
-       name : userModel.name,
-       pic : userModel.pic,
-       title : userModel.title,
-       company : userModel.company,
-       gender : userModel.gender,
-       country : userModel.country,
-       province : userModel.province,
-       area : userModel.area,
-       language : userModel.language,
-       position : userModel.position,
-       contacts : userModel.contacts,
-       // -------------------------
-       savedFlyersIDs : userModel.savedFlyersIDs,
-       followedBzzIDs : newFollowedBzzIDs,
-     );
-
-   await UserCRUD().createUserDoc(userModel: _newUserModel);
-
- }
-// ---------------------------------------------------------------------------
-  /// READs all Bzz in firebase realtime database
-Future<void> fetchAndSetBzz(BuildContext context) async {
-  const url = realtimeDatabaseBzzPath;
-
-  await tryAndCatch(
-    context: context,
-    functions: () async {
-
-      /// READ data from realtime database and add them to local list
-      final response = await http.get(url);
-      // final _extractedData = json.decode(response.body) as Map<String, dynamic>;
-      // final List<BzModel> _loadedBzzFromDB = new List();
-      //
-      // _extractedData?.forEach((bzID, bzMap) {
-      //   _loadedBzzFromDB.add(BzModel(
-      //     bzID : bzID,
-      //     // -------------------------
-      //     bzType : decipherBzType(bzMap['bzType']),
-      //     bzForm : decipherBzForm(bzMap['bzForm']),
-      //     bldrBirth : decipherDateTimeString(bzMap['bldrBirth']),
-      //     accountType : decipherBzAccountType(bzMap['accountType']),
-      //     bzURL : bzMap['bzURL'],
-      //     // -------------------------
-      //     bzName : bzMap['bzName'],
-      //     bzLogo : bzMap['bzLogo'],
-      //     bzScope : bzMap['bzScope'],
-      //     bzCountry : bzMap['bzCountry'],
-      //     bzProvince : bzMap['bzProvince'],
-      //     bzArea : bzMap['bzArea'],
-      //     bzAbout : bzMap['bzAbout'],
-      //     bzPosition : bzMap['bzPosition'],
-      //     bzContacts : decipherContactsMaps(bzMap['bzContacts']),
-      //     bzAuthors : decipherBzAuthorsMaps(bzMap['bzAuthors']),
-      //     bzShowsTeam : bzMap['bzShowsTeam'],
-      //     // -------------------------
-      //     bzIsVerified : bzMap['bzIsVerified'],
-      //     bzAccountIsDeactivated : bzMap['bzAccountIsDeactivated'],
-      //     bzAccountIsBanned : bzMap['bzAccountIsBanned'],
-      //     // -------------------------
-      //     bzTotalFollowers : bzMap['bzTotalFollowers'],
-      //     bzTotalSaves : bzMap['bzTotalSaves'],
-      //     bzTotalShares : bzMap['bzTotalShares'],
-      //     bzTotalSlides : bzMap['bzTotalSlides'],
-      //     bzTotalViews : bzMap['bzTotalViews'],
-      //     bzTotalCalls : bzMap['bzTotalCalls'],
-      //     bzTotalJoints : bzMap['bzTotalJoints'],
-      //     // -------------------------
-      //     jointsBzzIDs : bzMap['jointsBzzIDs'],
-      //     // -------------------------
-      //     followIsOn : bzMap['followIsOn'],
-      //   ));
-      // });
-      /// this is realtime database bzz data come in a for of one big map
-      Map<String, dynamic> _bzzMap = json.decode(response.body);
-      /// convert the big map into BzzModels list
-      final List<BzModel> _bzzModels = decipherBzMapsFromRealTimeDatabase(_bzzMap);
-      /// add the BzzModels List to local bzz List
-      _loadedBzz.addAll(_bzzModels); // BOOMMM : should be _loadedBzz = _loadedBzzFromDB,, but this bom bom crash crash
-
-      /// READ data from cloud Firestore bzz collection
-      List<QueryDocumentSnapshot> _fireStoreBzzMaps = await getFireStoreCollectionMaps(FireStoreCollection.bzz);
-      final List<BzModel> _fireStoreBzzModels = decipherBzMapsFromFireStore(_fireStoreBzzMaps);
-      _loadedBzz.addAll(_fireStoreBzzModels);
-
-      /// READ data from cloud Firestore flyers collection
-      List<QueryDocumentSnapshot> _fireStoreFlyersMaps = await getFireStoreCollectionMaps(FireStoreCollection.flyers);
-      final List<FlyerModel> _fireStoreFlyersModels = decipherFlyersMapsFromFireStore(_fireStoreFlyersMaps);
-      _loadedFlyers.addAll(_fireStoreFlyersModels);
-
-      notifyListeners();
-      print('_loadedBzz :::: --------------- $_loadedBzz');
-
-    }
-  );
-
-}
 // ############################################################################
 /// BZZ ON FIRE STORE
 // ---------------------------------------------------------------------------
@@ -604,14 +186,12 @@ Future<void> createBzDocument(BzModel bz, UserModel userModel) async {
     bzTotalCalls: bz.bzTotalCalls,
     bzTotalJoints: bz.bzTotalJoints,
     // -------------------------
-    jointsBzzIDs: bz.jointsBzzIDs,
-    // -------------------------
-    followIsOn: bz.followIsOn,
+    bzFlyers: bz.bzFlyers,
   );
 
-  /// save the bzID as the first id in the list of followedBzzIDs
-  List<dynamic> tempFollowedBzzIDs = userModel.followedBzzIDs;
-  userModel.followedBzzIDs.insert(0, bzID);
+  /// add this bz in author's userModel['myBzz']
+  userModel.myBzzIDs.insert(0, bzID);
+  List<String> _newMyBzzIDsList = userModel.myBzzIDs;
 
   /// create new userModel with the new list of tempFollowedBzzIDs
   UserModel _newUserModel = UserModel(
@@ -632,8 +212,7 @@ Future<void> createBzDocument(BzModel bz, UserModel userModel) async {
     position : userModel.position,
     contacts : userModel.contacts,
     // -------------------------
-    savedFlyersIDs : userModel.savedFlyersIDs,
-    followedBzzIDs : tempFollowedBzzIDs,
+    myBzzIDs: _newMyBzzIDsList,
   );
 
   /// update firestore with the _newUserModel
@@ -721,11 +300,41 @@ Future<void> deleteBzDocument(BzModel bzModel) async {
   BzModel _bzModel = decipherBzMap(map['bzID'], map);
   return _bzModel;
   }
+// ---------------------------------------------------------------------------
+  /// READs all Bzz in firebase realtime database
+  Future<void> fetchAndSetBzz(BuildContext context) async {
+
+    await tryAndCatch(
+        context: context,
+        functions: () async {
+
+          /// READ data from cloud Firestore bzz collection
+          List<QueryDocumentSnapshot> _fireStoreBzzMaps = await getFireStoreCollectionMaps(FireStoreCollection.bzz);
+          final List<BzModel> _fireStoreBzzModels = decipherBzMapsFromFireStore(_fireStoreBzzMaps);
+
+          /// TASK : BOOMMM : should be _loadedBzz = _loadedBzzFromDB,, but this bom bom crash crash
+          _loadedBzz.addAll(_fireStoreBzzModels);
+
+          /// READ data from cloud Firestore flyers collection
+          List<QueryDocumentSnapshot> _fireStoreFlyersMaps = await getFireStoreCollectionMaps(FireStoreCollection.flyers);
+          final List<FlyerModel> _fireStoreFlyersModels = decipherFlyersMapsFromFireStore(_fireStoreFlyersMaps);
+
+         /// TASK : after migrating local flyers to firestore, _loadedFlyers should = _fireStoreFlyersModels;
+          _loadedFlyers.addAll(_fireStoreFlyersModels);
+
+          notifyListeners();
+          print('_loadedBzz :::: --------------- $_loadedBzz');
+
+        }
+    );
+
+  }
 // ############################################################################
+
 }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 BzModel getBzFromBzzByBzID(List<BzModel> bzz, String bzID){
   BzModel _bz = bzz.singleWhere((_b) => _b.bzID == bzID, orElse: ()=> null);
   return _bz;
 }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------

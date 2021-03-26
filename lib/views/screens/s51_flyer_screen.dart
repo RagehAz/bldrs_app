@@ -27,7 +27,7 @@ class FlyerScreen extends StatelessWidget {
     final String _flyerID = ModalRoute.of(context).settings.arguments as String;
     final FlyersProvider _pro = Provider.of<FlyersProvider>(context, listen: false);
     final FlyerModel _flyer = _pro.getFlyerByFlyerID(_flyerID);
-    final BzModel _bz = _pro.getBzByBzID(_flyer.bzID);
+    final BzModel _bz = _pro.getBzByBzID(_flyer.tinyBz.bzID);
 
     return MainLayout(
       // appBarIsOn: false,

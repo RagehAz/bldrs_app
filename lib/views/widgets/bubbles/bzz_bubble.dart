@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'in_pyramids_bubble.dart';
 
 class BzzBubble extends StatelessWidget {
-  final List<BzModel> bzz;
+  final List<TinyBz> tinyBzz;
   final String title;
   final int numberOfColumns;
   final int numberOfRows;
@@ -19,7 +19,7 @@ class BzzBubble extends StatelessWidget {
   final Function onTap;
 
   BzzBubble({
-    @required this.bzz,
+    @required this.tinyBzz,
     this.title  = 'Businesses',
     this.numberOfColumns = 5,
     this.numberOfRows = 2,
@@ -43,7 +43,7 @@ class BzzBubble extends StatelessWidget {
 
         BzGrid(
             gridZoneWidth: superBubbleClearWidth(context),
-            bzz: bzz,
+            tinyBzz: tinyBzz,
             numberOfColumns: numberOfColumns,
             numberOfRows: numberOfRows,
             scrollDirection: scrollDirection,

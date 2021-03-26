@@ -94,7 +94,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   void initState(){
     // -------------------------
     _prof = Provider.of<FlyersProvider>(context, listen: false);
-    _bz = widget.firstTimer == true ? createTempBzModelFromUserData(widget.userModel) : widget.bzModel;
+    _bz = widget.firstTimer == true ? createInitialBzModelFromUserData(widget.userModel) : widget.bzModel;
     // -------------------------
     _currentBzID = _bz.bzID;
     _currentAccountType = _bz.accountType;
@@ -209,7 +209,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   // ----------------------------------------------------------------------
   Future<BzModel> _createBzModel(UserModel user) async {
     // -------------------------------------
-    /// SHOULD USE bzID as logoFile name in fire storage
+    /// TASK : SHOULD USE bzID as logoFile name in fire storage
     /// so this process should come after creating the bzDocument
     String _bzLogoURL;
     if (_currentBzLogoFile != null){
@@ -236,8 +236,8 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         authorName: _authorNameTextController.text,
         authorPic: _authorPicURL ?? _currentAuthorPicURL,
         authorTitle: _authorTitleTextController.text,
-        publishedFlyersIDs: _currentAuthor.publishedFlyersIDs ?? [],
-        bzID: _currentBzID,
+        authorIsMaster: _currentAuthor.authorIsMaster,
+        // bzID: _currentBzID,
         authorContacts: _currentAuthorContacts,
     );
     // -------------------------------------
@@ -286,9 +286,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
       bzTotalCalls: widget.firstTimer ? 0 : widget.bzModel.bzTotalCalls,
       bzTotalJoints: widget.firstTimer ? 0 : widget.bzModel.bzTotalJoints,
       // -------------------------
-      jointsBzzIDs: widget.firstTimer ? [] : widget.bzModel.jointsBzzIDs,
-      // -------------------------
-      followIsOn: widget.firstTimer ? false : widget.bzModel.followIsOn,
+      bzFlyers: widget.firstTimer ? [] : widget.bzModel.bzFlyers,
     );
   }
   // ----------------------------------------------------------------------
@@ -393,18 +391,17 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
           bzTotalViews: 0,
           bzTotalCalls: 0,
           bzTotalJoints: 0,
-          jointsBzzIDs: [],
-          followIsOn: false,
+          bzFlyers: [],
 
         ),
         author: AuthorModel(
           userID: '',
-          bzID: '',
+          // bzID: '',
           authorName: _authorNameTextController.text,
           authorTitle: _authorTitleTextController.text,
           authorPic: _currentAuthorPicFile ?? _currentAuthorPicURL,
           authorContacts: _currentAuthorContacts,
-          publishedFlyersIDs: [],
+          authorIsMaster: _currentAuthor.authorIsMaster,
         ),
     );
 

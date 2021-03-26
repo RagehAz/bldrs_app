@@ -109,8 +109,8 @@ class AuthService {
           ContactModel(contact: user.email, contactType: ContactType.Email)
         ],
         // -------------------------
-        savedFlyersIDs: [''],
-        followedBzzIDs: [''],
+        // savedFlyersIDs: [''],
+        // followedBzzIDs: [''],
       );
 
       /// create a new firestore document for the user with the userID
