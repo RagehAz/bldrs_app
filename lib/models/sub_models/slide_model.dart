@@ -1,6 +1,6 @@
 import 'package:bldrs/controllers/drafters/text_manipulators.dart';
 import 'package:flutter/foundation.dart';
-// ###############################
+// -----------------------------------------------------------------------------
 class SlideModel {
   final int slideIndex;
   final dynamic picture;
@@ -10,9 +10,7 @@ class SlideModel {
   int sharesCount;
   int viewsCount;
   int savesCount;
-  int callsCount;
-
-// ###############################
+// -----------------------------------------------------------------------------
   SlideModel({
     @required this.slideIndex,
     @required this.picture,
@@ -22,9 +20,8 @@ class SlideModel {
     this.sharesCount,
     this.viewsCount,
     this.savesCount,
-    this.callsCount,
   });
-// ###############################
+  // -------------------------
   Map<String, dynamic> toMap() {
     return {
       'slideIndex': slideIndex,
@@ -34,11 +31,11 @@ class SlideModel {
       'sharesCount': sharesCount,
       'viewsCount': viewsCount,
       'savesCount': savesCount,
-      'callsCount': callsCount,
     };
   }
-// ###############################
+// -------------------------
 }
+// -----------------------------------------------------------------------------
 List<Map<String,Object>> cipherSlidesModels(List<SlideModel> slidesList) {
   List<Map<String,Object>> _slidesMaps = new List();
   slidesList.forEach((sl) {
@@ -46,7 +43,7 @@ List<Map<String,Object>> cipherSlidesModels(List<SlideModel> slidesList) {
   });
   return _slidesMaps;
 }
-// ###############################
+// -----------------------------------------------------------------------------
 List<SlideModel> decipherSlidesMaps(List<dynamic> maps){
   List<SlideModel> _slidesList = new List();
 
@@ -56,7 +53,7 @@ List<SlideModel> decipherSlidesMaps(List<dynamic> maps){
 
   return _slidesList;
 }
-// ###############################
+// -----------------------------------------------------------------------------
 SlideModel decipherSlideMap(dynamic map){
   return SlideModel(
   slideIndex : map['slideIndex'],
@@ -67,23 +64,22 @@ SlideModel decipherSlideMap(dynamic map){
   sharesCount : map['sharesCount'],
   viewsCount : map['viewsCount'],
   savesCount : map['savesCount'],
-  callsCount : map['callsCount'],
   );
 }
-// ###############################
+// -----------------------------------------------------------------------------
 String generateSlideID(String flyerID, int slideIndex){
   // slide index shall never have more than two digits
   String _slideIndexString = slideIndex <= 9 ? '0$slideIndex' : '$slideIndex';
   String _slideID = '${flyerID}_$_slideIndexString';
   return _slideID;
 }
-// ###############################
+// -----------------------------------------------------------------------------
 int getSlideIndexFromSlideID(String slideID){
   // slide index shall never have more than two digits
   int _slideIndex = lastTwoIntegersFromAString(slideID);
   return _slideIndex;
 }
-// ###############################
+// -----------------------------------------------------------------------------
 // String getFlyerIDFromSlideID(String slideID){
   // I guess no need for this, no use cases,, flyerID will always be there
   // beside slideID

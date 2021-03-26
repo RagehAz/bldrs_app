@@ -1,51 +1,52 @@
 import '../bz_model.dart';
 import '../user_model.dart';
 import 'contact_model.dart';
-// ###############################
+// -----------------------------------------------------------------------------
 class AuthorModel{
-  final String bzID; // temporary should delete later
+  // final String bzID; // temporary should delete later
   final String userID;
   final String authorName;
   final dynamic authorPic;
   final String authorTitle;
-  final List<dynamic> publishedFlyersIDs;
+  final bool authorIsMaster;
   final List<ContactModel> authorContacts;
 // ###############################
   AuthorModel({
-    this.bzID,
+    // this.bzID,
     this.userID,
     this.authorName,
     this.authorPic,
     this.authorTitle,
-    this.publishedFlyersIDs,
+    this.authorIsMaster,
     this.authorContacts,
 });
 // ###############################
   Map<String, dynamic> toMap(){
     return {
-      'bzID' : bzID,
+      // 'bzID' : bzID,
       'userID' : userID,
       'authorName' : authorName,
       'authorPic' : authorPic,
       'authorTitle' : authorTitle,
-      'publishedFlyersIDs' : publishedFlyersIDs,
+      'authorIsMaster' : authorIsMaster,
       'authorContacts' : cipherContactsModels(authorContacts),
     };
   }
 // ###############################
 }
+// -----------------------------------------------------------------------------
 AuthorModel decipherBzAuthorMap(dynamic map){
   return AuthorModel(
-    bzID : map['bzID'],
+    // bzID : map['bzID'],
     userID : map['userID'],
     authorName : map['authorName'],
     authorPic : map['authorPic'],
     authorTitle : map['authorTitle'],
-    publishedFlyersIDs : map['publishedFlyersIDs'],
+    authorIsMaster : map['authorIsMaster'],
     authorContacts : decipherContactsMaps(map['authorContacts']),
   );
 }
-// -----------------------------------------------------------------
+// -----------------------------------------------------------------------------
 List<AuthorModel> decipherBzAuthorsMaps(List<dynamic> listOfMaps){
   List<AuthorModel> _authorsList = new List();
 
@@ -55,7 +56,7 @@ List<AuthorModel> decipherBzAuthorsMaps(List<dynamic> listOfMaps){
 
   return _authorsList;
 }
-// -----------------------------------------------------------------
+// -----------------------------------------------------------------------------
 List<Map<String,Object>> cipherAuthorsModels(List<AuthorModel> authorsList){
   List<Map<String,Object>> listOfAuthorsMaps = new List();
   authorsList?.forEach((author) {
@@ -63,36 +64,37 @@ List<Map<String,Object>> cipherAuthorsModels(List<AuthorModel> authorsList){
   });
   return listOfAuthorsMaps;
 }
-// -----------------------------------------------------------------
+// -----------------------------------------------------------------------------
 AuthorModel getAuthorFromBzByAuthorID(BzModel bz, String authorID){
   AuthorModel author = bz?.bzAuthors?.singleWhere((au) => au.userID == authorID, orElse: ()=>null);
   return author;
 }
-// ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 /// temp
 AuthorModel createAuthorModelFromUserModelAndBzModel(UserModel user, BzModel bz){
   String authorID = user?.userID;
   AuthorModel authorFromBz = getAuthorFromBzByAuthorID(bz, authorID);
   AuthorModel author = AuthorModel(
     userID: user?.userID,
-    bzID: bz?.bzID,
+    // bzID: bz?.bzID,
     authorName: user?.name,
     authorPic: user?.pic,
     authorTitle: user?.title,
     authorContacts: user?.contacts,
-    publishedFlyersIDs: authorFromBz?.publishedFlyersIDs,
+    authorIsMaster: authorFromBz?.authorIsMaster,
   );
   return author;
 }
-// ----------------------------------------------------------------------------
-AuthorModel createTempAuthorModelFromUserModel(UserModel userModel){
+// -----------------------------------------------------------------------------
+AuthorModel createMasterAuthorModelFromUserModel(UserModel userModel){
   return
     AuthorModel(
         userID: userModel.userID,
         authorName: userModel.name,
         authorPic: userModel.pic,
         authorTitle: userModel.title,
-        authorContacts: userModel.contacts
+        authorContacts: userModel.contacts,
+        authorIsMaster: true, // need to make sure about this
     );
 }
-// ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------

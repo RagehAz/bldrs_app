@@ -3,7 +3,7 @@ import 'package:bldrs/models/bz_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'sub_models/slide_model.dart';
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+// -----------------------------------------------------------------------------
 class FlyerModel with ChangeNotifier{
   final String flyerID;
   // -------------------------
@@ -14,7 +14,7 @@ class FlyerModel with ChangeNotifier{
   final String flyerURL;
   // -------------------------
   final String authorID;
-  final String bzID;
+  final TinyBz tinyBz;
   // -------------------------
   final DateTime publishTime;
   final GeoPoint flyerPosition;
@@ -34,7 +34,7 @@ class FlyerModel with ChangeNotifier{
     @required this.flyerURL,
     // -------------------------
     @required this.authorID,
-    @required this.bzID,
+    @required this.tinyBz,
     // -------------------------
     @required this.publishTime,
     this.flyerPosition,
@@ -51,40 +51,99 @@ class FlyerModel with ChangeNotifier{
 
   Map<String, dynamic> toMap(){
     return {
-    'flyerID' : flyerID,
-    // -------------------------
-    'flyerType' : cipherFlyerType(flyerType),
-    'flyerState' : cipherFlyerState(flyerState),
-    'keyWords' : keyWords,
-    'flyerShowsAuthor' : flyerShowsAuthor,
-    'flyerURL' : flyerURL,
-    // -------------------------
-    'authorID' : authorID,
-    'bzID' : bzID,
-    // -------------------------
-    'publishTime' : cipherDateTimeToString(publishTime),
-    'flyerPosition' : flyerPosition,
-    // -------------------------
-    'ankhIsOn' : ankhIsOn,
-    // -------------------------
-    'slides' : cipherSlidesModels(slides),
+      'flyerID' : flyerID,
+      // -------------------------
+      'flyerType' : cipherFlyerType(flyerType),
+      'flyerState' : cipherFlyerState(flyerState),
+      'keyWords' : keyWords,
+      'flyerShowsAuthor' : flyerShowsAuthor,
+      'flyerURL' : flyerURL,
+      // -------------------------
+      'authorID' : authorID,
+      'tinyBz' : tinyBz.toMap(),
+      // -------------------------
+      'publishTime' : cipherDateTimeToString(publishTime),
+      'flyerPosition' : flyerPosition,
+      // -------------------------
+      'ankhIsOn' : ankhIsOn,
+      // -------------------------
+      'slides' : cipherSlidesModels(slides),
     };
   }
 
 }
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+// -----------------------------------------------------------------------------
+class TinyFlyer {
+  final String flyerID;
+  final String bzID;
+  final String bzLogo;
+  final String authorID;
+  final int slideIndex;
+  final String slidePic;
+
+  TinyFlyer({
+    @required this.flyerID,
+    this.bzID,
+    this.bzLogo,
+    @required this.authorID,
+    @required this.slideIndex,
+    @required this.slidePic,
+});
+
+  Map<String,dynamic> toMap (){
+    return {
+    'flyerID' : flyerID,
+    'bzID' : bzID,
+    'bzLogo' : bzLogo,
+    'authorID' : authorID,
+    'slideIndex' : slideIndex,
+    'slidePic' : slidePic,
+    };
+  }
+
+}
+// -----------------------------------------------------------------------------
+List<dynamic> cipherTinyFlyers (List<TinyFlyer> tinyFlyers){
+  List<dynamic> _tinyFlyersMaps = new List();
+
+  tinyFlyers.forEach((f) {
+    _tinyFlyersMaps.add(f.toMap());
+  });
+
+  return _tinyFlyersMaps;
+}
+// -----------------------------------------------------------------------------
+List<TinyFlyer> decipherTinyFlyers (List<dynamic> tinyFlyersMaps){
+  List<TinyFlyer> _tinyFlyers = new List();
+  tinyFlyersMaps.forEach((map) {
+    _tinyFlyers.add(decipherTinyFlyerMap(map));
+  });
+  return _tinyFlyers;
+}
+// -----------------------------------------------------------------------------
+TinyFlyer decipherTinyFlyerMap(Map<String, dynamic> map){
+  return TinyFlyer(
+      flyerID: map['flyerID'],
+      bzID: map['bzID:'],
+      bzLogo: map['bzLogo'],
+      authorID: map['authorID'],
+      slideIndex: map['slideIndex'],
+      slidePic: map['slidePic'],
+  );
+}
+// -----------------------------------------------------------------------------
 enum FlyerState{
   Published,
   Draft,
   Deleted,
 }
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+// -----------------------------------------------------------------------------
 List<FlyerState> flyerStatesList = <FlyerState>[
   FlyerState.Published,
   FlyerState.Draft,
   FlyerState.Deleted,
 ];
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+// -----------------------------------------------------------------------------
 FlyerState decipherFlyerState (int x){
   switch (x){
     case 1:   return  FlyerState.Published;     break;
@@ -93,7 +152,7 @@ FlyerState decipherFlyerState (int x){
     default : return   null;
   }
 }
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+// -----------------------------------------------------------------------------
 int cipherFlyerState (FlyerState x){
   switch (x){
     case FlyerState.Published     :    return  1;  break;
@@ -102,7 +161,7 @@ int cipherFlyerState (FlyerState x){
     default : return null;
   }
 }
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+// -----------------------------------------------------------------------------
 enum FlyerType {
   Property, // pp
   Design, // ds
@@ -112,7 +171,7 @@ enum FlyerType {
   Equipment, // eq
   General,
 }
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+// -----------------------------------------------------------------------------
 List<FlyerType> flyerTypesList = <FlyerType>[
   FlyerType.Property,
   FlyerType.Design,
@@ -122,7 +181,7 @@ List<FlyerType> flyerTypesList = <FlyerType>[
   FlyerType.Equipment,
   FlyerType.General,
 ];
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+// -----------------------------------------------------------------------------
 FlyerType decipherFlyerType (int x){
   switch (x){
     case 1:   return  FlyerType.Property;     break;
@@ -135,7 +194,7 @@ FlyerType decipherFlyerType (int x){
     default : return   null;
   }
 }
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+// -----------------------------------------------------------------------------
 int cipherFlyerType (FlyerType x){
   switch (x){
     case FlyerType.Property    :    return  1;  break;
@@ -148,7 +207,7 @@ int cipherFlyerType (FlyerType x){
     default : return null;
   }
 }
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+// -----------------------------------------------------------------------------
 FlyerType concludeFlyerType(BzType bzType){
   switch (bzType){
     case BzType.Developer    :   return FlyerType.Property;   break;
@@ -161,7 +220,7 @@ FlyerType concludeFlyerType(BzType bzType){
     default : return null;
   }
 }
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+// -----------------------------------------------------------------------------
 List<FlyerModel> decipherFlyersMapsFromFireStore(List<dynamic> maps){
   List<FlyerModel> _flyersList = new List();
 
@@ -171,16 +230,24 @@ List<FlyerModel> decipherFlyersMapsFromFireStore(List<dynamic> maps){
 
   return _flyersList;
 }
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+// -----------------------------------------------------------------------------
 FlyerModel decipherFlyerMap(dynamic map){
   return FlyerModel(
-      flyerID: map['flyerID'],
-      flyerType: decipherFlyerType(map['flyerType']),
-      flyerURL: map['flyerURL'],
-      authorID: map['authorID'],
-      bzID: map['bzID'],
-      publishTime: decipherDateTimeString(map['publishTime']),
-      slides: decipherSlidesMaps(map['slides']),
+    flyerID: map['flyerID'],
+    // -------------------------
+    flyerType: decipherFlyerType(map['flyerType']),
+    flyerState: decipherFlyerState(map['flyerState']),
+    keyWords: map['keyWords'],
+    flyerShowsAuthor: map['flyerShowsAuthor'],
+    flyerURL: map['flyerURL'],
+    // -------------------------
+    authorID: map['authorID'],
+    tinyBz: decipherTinyBzMap(map['tinyBz']),
+    // -------------------------
+    publishTime: decipherDateTimeString(map['publishTime']),
+    flyerPosition: map['flyerPosition'],
+    // -------------------------
+    slides: decipherSlidesMaps(map['slides']),
   );
 }
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x

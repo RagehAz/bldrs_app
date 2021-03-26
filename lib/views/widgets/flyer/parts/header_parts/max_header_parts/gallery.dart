@@ -18,7 +18,7 @@ class Gallery extends StatefulWidget {
   final List<String> bzTeamIDs;
   final bool bzPageIsOn;
   final bzConnects;
-  final List<FlyerModel> galleryFlyers;
+  final List<TinyFlyer> galleryFlyers;
   final List<AuthorModel> authors;
   // final Function tappingMiniFlyer;
 
@@ -130,8 +130,8 @@ class _GalleryState extends State<Gallery> {
                             authorPic: widget.authors[authorIndex].authorPic,
                             authorName: widget.authors[authorIndex].authorName,
                             authorTitle: widget.authors[authorIndex].authorTitle,
-                            bzGalleryCount: 0,
-                            authorGalleryCount: widget.authors[authorIndex].publishedFlyersIDs?.length,
+                            bzGalleryCount: widget.bz.bzFlyers.length, // TASK : calculate bz gallery
+                            authorGalleryCount: 0, // TASK : calculate author's number of flyers from BzModel.bzFlyers,
                             authorID: widget.authors[authorIndex].userID,
                             tappingLabel:
                             // widget.bzTeamIDs.length == 1 ?
@@ -149,9 +149,9 @@ class _GalleryState extends State<Gallery> {
             // --- AUTHORS FLYERS
             GalleryGrid(
               gridZoneWidth: widget.flyerZoneWidth,
-              bzID: widget.authors == null || widget.authors == [] || widget.authors.isEmpty ?  '': widget.authors[0]?.bzID,
+              bzID: widget.authors == null || widget.authors == [] || widget.authors.isEmpty ?  '': widget.bz.bzID,
               flyersVisibilities: flyersVisibilities,
-              galleryFlyers: widget.galleryFlyers,
+              galleryFlyers: widget.bz.bzFlyers,
               bzAuthors: widget.authors,
               bz: widget.bz,
               // tappingMiniFlyer: widget.tappingMiniFlyer,

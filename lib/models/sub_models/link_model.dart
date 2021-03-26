@@ -1,6 +1,5 @@
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
 import 'package:flutter/foundation.dart';
-
+// -----------------------------------------------------------------------------
 class LinkModel{
   final String url;
   final String description;
@@ -36,3 +35,4 @@ class LinkModel{
 
 
 }
+// -----------------------------------------------------------------------------

@@ -2,7 +2,10 @@ import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+
+import 'bz_model.dart';
+import 'flyer_model.dart';
+// -----------------------------------------------------------------------------
 /// any changes in this model should reflect on this [UserProvider]
 class UserModel {
   final String userID;
@@ -21,8 +24,7 @@ class UserModel {
   final GeoPoint position;
   final List<ContactModel> contacts;
   // -------------------------
-  List<dynamic> savedFlyersIDs;
-  List<dynamic> followedBzzIDs;
+  final List<String> myBzzIDs;
 // ###############################
   UserModel({
     this.userID,
@@ -41,8 +43,7 @@ class UserModel {
     this.position,
     this.contacts,
     // -------------------------
-    this.savedFlyersIDs,
-    this.followedBzzIDs,
+    this.myBzzIDs,
   });
 
   Map<String, dynamic> toMap(){
@@ -63,12 +64,11 @@ class UserModel {
       'position' : position,
       'contacts' : cipherContactsModels(contacts),
 // -------------------------
-      'savedFlyersIDs' : savedFlyersIDs,
-      'followedBzzIDs' : followedBzzIDs,
+      'myBzzIDs' : myBzzIDs,
     };
   }
 }
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+// -----------------------------------------------------------------------------
 class TinyUser {
   final String userID;
   final String name;
@@ -94,18 +94,65 @@ class TinyUser {
     };
   }
 }
-
-TinyUser decipherTinyUser(Map<String, dynamic> tinyUserMap){
+// -----------------------------------------------------------------------------
+TinyUser decipherTinyUserMap(Map<String, dynamic> map){
   return
       TinyUser(
-          userID: tinyUserMap['userID'],
-          name: tinyUserMap['name'],
-          title: tinyUserMap['title'],
-          pic: tinyUserMap['pic'],
-          userStatus: decipherUserStatus(tinyUserMap['userStatus']),
+          userID: map['userID'],
+          name: map['name'],
+          title: map['title'],
+          pic: map['pic'],
+          userStatus: decipherUserStatus(map['userStatus']),
       );
 }
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+// -----------------------------------------------------------------------------
+class SavedFlyers {
+  final String userID;
+  final List<TinyFlyer> savedFlyers;
+
+  SavedFlyers({
+    @required this.userID,
+    @required this.savedFlyers,
+});
+
+  Map<String, dynamic> toMap(){
+    return {
+     'userID' : userID,
+     'savedFlyers' : cipherTinyFlyers(savedFlyers),
+    };
+  }
+}
+// -----------------------------------------------------------------------------
+SavedFlyers decipherSavedFlyersMaps(Map<String, dynamic> map){
+  return SavedFlyers(
+      userID: map['userID'],
+      savedFlyers: map['savedFlyers']
+  );
+}
+// -----------------------------------------------------------------------------
+class FollowedBzz {
+  final String userID;
+  final List<TinyBz> followedBz;
+
+  FollowedBzz({
+    @required this.userID,
+    @required this.followedBz,
+});
+  Map<String, dynamic> toMap(){
+    return {
+      'userID' : userID,
+      'followedBz' : cipherTinyBzzModels(followedBz),
+    };
+  }
+}
+// -----------------------------------------------------------------------------
+FollowedBzz decipherFollowedBzzMaps(Map<String, dynamic> map){
+  return FollowedBzz(
+    userID : map['userID'],
+    followedBz : map['followedBz'],
+  );
+}
+// -----------------------------------------------------------------------------
 enum UserStatus {
   Normal,
   SearchingThinking,
@@ -115,7 +162,7 @@ enum UserStatus {
   Selling,
   BzAuthor,
 }
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+// -----------------------------------------------------------------------------
 List<UserStatus> userTypesList = <UserStatus>[
   UserStatus.Normal,
   UserStatus.SearchingThinking,
@@ -125,7 +172,7 @@ List<UserStatus> userTypesList = <UserStatus>[
   UserStatus.Selling,
   UserStatus.BzAuthor,
 ];
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+// -----------------------------------------------------------------------------
 UserStatus decipherUserStatus (int userStatus){
   switch (userStatus){
     case 1:   return   UserStatus.Normal;                 break;
@@ -138,7 +185,7 @@ UserStatus decipherUserStatus (int userStatus){
     default : return   null;
   }
 }
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+// -----------------------------------------------------------------------------
 int cipherUserStatus (UserStatus userStatus){
   switch (userStatus){
     case UserStatus.Normal              :  return 1; break ;
@@ -151,13 +198,13 @@ int cipherUserStatus (UserStatus userStatus){
     default : return null;
   }
 }
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+// -----------------------------------------------------------------------------
 enum Gender {
   male,
   female,
   any,
 }
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+// -----------------------------------------------------------------------------
 Gender decipherGender (int gender){
   switch (gender){
     case 0:   return   Gender.female; break;
@@ -166,7 +213,7 @@ Gender decipherGender (int gender){
     default : return   null;
   }
 }
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+// -----------------------------------------------------------------------------
 int cipherGender(Gender gender){
   switch (gender){
     case Gender.female : return 0; break ;
@@ -175,38 +222,9 @@ int cipherGender(Gender gender){
     default : return null;
   }
 }
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+// -----------------------------------------------------------------------------
 bool userIsAuthor(UserStatus userStatus){
   return
       userStatus == UserStatus.BzAuthor ? true : false ;
 }
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
-class ShortUser{
-  final String id;
-  final String name;
-  final String pic;
-
-  ShortUser({
-    @required this.id,
-    @required this.name,
-    @required this.pic,
-});
-
-  Map<String, dynamic> toMap(){
-    return {
-    'id' : id,
-    'name' : name,
-    'pic' : pic,
-  };
-  }
-
-}
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
-ShortUser decipherShortUser(Map<String, dynamic> shortUserMap){
-  return ShortUser(
-      id: shortUserMap['id'],
-      name: shortUserMap['name'],
-      pic: shortUserMap['pic']
-  );
-}
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+// -----------------------------------------------------------------------------

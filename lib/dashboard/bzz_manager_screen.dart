@@ -17,28 +17,28 @@ class BzzManagerScreen extends StatefulWidget {
 }
 
 class _BzzManagerScreenState extends State<BzzManagerScreen> {
-  List<BzModel> _bzz;
+  List<TinyBz> _tinyBzz;
   // BzModel _someBz;
   final String _bzID = '85XtJiWDEmPJ54ZPHmzO';
   // dynamic _name;
   List<QueryDocumentSnapshot> _bzzSnapshots;
-  dynamic thing;
+  dynamic _toPrint;
 // ---------------------------------------------------------------------------
   Future<dynamic> getFirestoreBzz() async {
     _triggerLoading();
-    List<QueryDocumentSnapshot> _bzzMaps = await getFireStoreCollectionMaps(FireStoreCollection.bzz);
+    List<QueryDocumentSnapshot> _bzzMaps = await getFireStoreCollectionMaps(FireStoreCollection.tinyBzz);
 
     setState(() {
-    _bzz = decipherBzMapsFromFireStore(_bzzMaps);
-    thing = '${_bzz[0].bzID} - ${_bzz[1].bzID}';
+    _tinyBzz = decipherTinyBzzMaps(_bzzMaps);
+    _toPrint = '${_tinyBzz[0].bzID} - ${_tinyBzz[1].bzID}';
     });
 
-    print(thing);
+    print(_toPrint);
     _triggerLoading();
   }
 // ---------------------------------------------------------------------------
   void _printer(){
-    print(thing);
+    print(_toPrint);
   }
 // ---------------------------------------------------------------------------
   @override
@@ -62,7 +62,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
 
     return
 
-    _bzz == null ?
+    _tinyBzz == null ?
     LoadingFullScreenLayer()
         :
       MainLayout(
@@ -93,21 +93,21 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
 
                       // if(_bzz != null)
                       BzzBubble(
-                        bzz: _bzz,
-                        title: '${_bzz.length} Firestore Businesses',
+                        tinyBzz: _tinyBzz,
+                        title: '${_tinyBzz.length} Firestore Businesses',
                         numberOfColumns: 5,
                         numberOfRows: 7,
                         scrollDirection: Axis.vertical,
                         onTap: (bzID){
 
-                          BzModel _bz = getBzFromBzzByBzID(_bzz, bzID);
-                          AuthorModel _author = _bz.bzAuthors[0];
+                          // BzModel _bz = getBzFromBzzByBzID(_bzz, bzID);
+                          // AuthorModel _author = _bz.bzAuthors[0];
 
-                          slideBzBottomSheet(
-                            context: context,
-                            bz: _bz,
-                            author: _author,
-                          );
+                          // slideBzBottomSheet(
+                          //   context: context,
+                          //   bz: _bz,
+                          //   author: _author,
+                          // );
                           },
                       ),
 
