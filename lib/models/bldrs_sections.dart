@@ -1,4 +1,4 @@
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+// -----------------------------------------------------------------------------
 import 'package:bldrs/models/bz_model.dart';
 
 enum BldrsSection{
@@ -7,13 +7,13 @@ enum BldrsSection{
   Construction,
   Supplies,
 }
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+// -----------------------------------------------------------------------------
 List<BldrsSection> bldrsSectionsList = <BldrsSection>[
   BldrsSection.RealEstate,
   BldrsSection.Construction,
   BldrsSection.Supplies,
 ];
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+// -----------------------------------------------------------------------------
 BldrsSection decipherBldrsSection (int x){
   switch (x){
     case 1:   return   BldrsSection.Home;           break;
@@ -23,7 +23,7 @@ BldrsSection decipherBldrsSection (int x){
     default : return   null;
   }
 }
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+// -----------------------------------------------------------------------------
 int cipherBldrsSection (BldrsSection x){
   switch (x){
     case BldrsSection.Home:         return 1; break;
@@ -33,7 +33,7 @@ int cipherBldrsSection (BldrsSection x){
     default : return null;
   }
 }
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+// -----------------------------------------------------------------------------
 BldrsSection getBldrsSectionByBzType(BzType bzType){
   switch (bzType){
     case BzType.Developer:    return   BldrsSection.RealEstate;     break;
@@ -46,4 +46,4 @@ BldrsSection getBldrsSectionByBzType(BzType bzType){
     default : return   null;
 }
 }
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+// -----------------------------------------------------------------------------

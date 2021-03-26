@@ -1,6 +1,6 @@
 import 'package:bldrs/controllers/drafters/iconizers.dart';
 import 'package:flutter/foundation.dart';
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+// -----------------------------------------------------------------------------
 class ContactModel{
   final String contact;
   final ContactType contactType;
@@ -18,7 +18,7 @@ class ContactModel{
   }
 // ###############################
 }
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+// -----------------------------------------------------------------------------
 List<Map<String,Object>> cipherContactsModels(List<ContactModel> contactsList){
   List<Map<String,Object>> listOfMaps = new List();
   contactsList?.forEach((contact) {
@@ -26,7 +26,7 @@ List<Map<String,Object>> cipherContactsModels(List<ContactModel> contactsList){
   });
   return listOfMaps;
 }
-// -----------------------------------------------------------------
+// -----------------------------------------------------------------------------
 ContactModel decipherContactMap(Map<String,dynamic> map){
   return ContactModel(
     contact: map['contact'],
@@ -42,7 +42,7 @@ List<ContactModel> decipherContactsMaps(List<dynamic> maps){
   // print('contacts are $contacts');
   return contacts;
 }
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+// -----------------------------------------------------------------------------
 enum ContactType {
   Phone,
   Email,
@@ -55,7 +55,7 @@ enum ContactType {
   TikTok,
   Twitter,
 }
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+// -----------------------------------------------------------------------------
 ContactType decipherContactType (int contactType){
   switch (contactType){
     case 1:   return  ContactType.Phone;      break;
@@ -71,7 +71,7 @@ ContactType decipherContactType (int contactType){
     default : return   null;
   }
 }
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+// -----------------------------------------------------------------------------
 int cipherContactType (ContactType contactType){
   switch (contactType){
     case ContactType.Phone      :    return  1;  break;
@@ -87,7 +87,7 @@ int cipherContactType (ContactType contactType){
     default : return null;
   }
 }
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+// -----------------------------------------------------------------------------
 List<ContactType> contactTypesList = <ContactType>[
   ContactType.Phone,
   ContactType.Email,
@@ -100,18 +100,18 @@ List<ContactType> contactTypesList = <ContactType>[
   ContactType.TikTok,
   ContactType.Twitter,
 ];
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+// -----------------------------------------------------------------------------
 ContactModel getAContactModelFromContacts(List<ContactModel> contacts, ContactType contactType){
   ContactModel contactValue = contacts.singleWhere((x) => x.contactType == contactType,
       orElse: ()=>null);
   return contactValue;
 }
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+// -----------------------------------------------------------------------------
 String getAContactValueFromContacts(List<ContactModel> contacts, ContactType contactType){
   String contactValue = getAContactModelFromContacts(contacts, contactType)?.contact;
   return contactValue;
 }
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+// -----------------------------------------------------------------------------
 /// contacts with strings
 /// are Phone, Email, WhatsApp, website
 /// which are presented by both string of value and an icon
@@ -128,7 +128,7 @@ List<ContactModel> getContactsWithStringsFromContacts(List<ContactModel> contact
 
   return _contactsList;
 }
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+// -----------------------------------------------------------------------------
 /// contacts without strings
 /// are Facebook LinkedIn YouTube Instagram Pinterest TikTok Twitter
 List<ContactModel> getSocialMediaContactsFromContacts(List<ContactModel> contacts){

@@ -152,9 +152,9 @@ class NavBar extends StatelessWidget {
              double _buttonWidth = _calculateButtonWidth();
              double _boxWidth = _calculateBoxWidth(context, userModel?.userStatus);
 
-             List<dynamic> _followedBzzIDs = userModel != null ? userModel?.followedBzzIDs : [];
-             String _bzID = _followedBzzIDs.length > 0 ?  _followedBzzIDs[0] : '';
-             String _bzLogo = prof.getBzByBzID(_bzID)?.bzLogo;
+             // List<dynamic> _followedBzzIDs = userModel != null ? userModel?.followedBzzIDs : [];
+             // String _bzID = _followedBzzIDs.length > 0 ?  _followedBzzIDs[0] : '';
+             // String _bzLogo = prof.getBzByBzID(_bzID)?.bzLogo;
 
              return
 
@@ -264,7 +264,7 @@ class NavBar extends StatelessWidget {
                                  // --- BZ PAGE
                                  if (userIsAuthor(userModel?.userStatus))
                                    bzModelStreamBuilder(
-                                       bzID: userModel.followedBzzIDs[0],
+                                       bzID: userModel.myBzzIDs[0], // TASK : showing multiple bzz owned by user['myBzzIDs'] will impact this
                                        context: context,
                                        builder: (ctx, _bzModel){
                                          return

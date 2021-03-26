@@ -1,3 +1,4 @@
+// -----------------------------------------------------------------------------
 class HttpException implements Exception{
   final String message;
 
@@ -9,3 +10,4 @@ class HttpException implements Exception{
     // return super.toString(); // instance of HttpException
   }
 }
+// -----------------------------------------------------------------------------

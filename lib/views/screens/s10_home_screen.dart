@@ -58,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: true);
-    List<BzModel> _bzz = _prof.getAllBzz;
+    List<TinyBz> _tinyBzz = _prof.getAllTinyBzz;
 
     return MainLayout(
       appBarType: AppBarType.Main,
@@ -81,7 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     tappingAskInfo: () {print('Ask info is tapped aho');},
                   ),
 
-                  BzzBubble(bzz: _bzz),
+                  BzzBubble(tinyBzz: _tinyBzz),
 
                   ...List<Widget>.generate(flyerTypesList.length,
                           (index) {

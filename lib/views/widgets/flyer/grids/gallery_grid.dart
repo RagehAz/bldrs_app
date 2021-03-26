@@ -13,7 +13,7 @@ import '../flyer.dart';
 class GalleryGrid extends StatelessWidget {
 
   final double gridZoneWidth;
-  final List<FlyerModel> galleryFlyers;
+  final List<TinyFlyer> galleryFlyers;
   final List<bool> flyersVisibilities;
   final String bzID;
   final List<AuthorModel> bzAuthors;

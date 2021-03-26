@@ -31,7 +31,7 @@ class MaxHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _prof = Provider.of<FlyersProvider>(context);
-    final List<FlyerModel> _galleryFlyers = _prof.getFlyersByBzModel(bz);
+    final List<TinyFlyer> _galleryFlyers = bz.bzFlyers;
     // === === === === === === === === === === === === === === === === === === ===
     List<AuthorModel> _bzAuthors = bz != null ? bz?.bzAuthors : [];
     // === === === === === === === === === === === === === === === === === === ===

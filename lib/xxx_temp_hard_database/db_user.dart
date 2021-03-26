@@ -1,15 +1,27 @@
 import 'package:bldrs/controllers/theme/iconz.dart';
-import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'db_bzz.dart';
 import 'dumz.dart';
-
+// -----------------------------------------------------------------------------
 UserModel geebUserByUserID(String userID){
   UserModel user = dbUsers?.singleWhere((u) => u.userID == userID, orElse: ()=>null);
   return user;
 }
-
-final List<UserModel> dbUsers = [
+// -----------------------------------------------------------------------------
+TinyUser geebTinyUserByUserID(String userID){
+  UserModel _userModel = geebUserByUserID(userID);
+  TinyUser _tinyUser = TinyUser(
+      userID: _userModel.userID,
+      name: _userModel.name,
+      title: _userModel.title,
+      pic: _userModel.pic,
+      userStatus: _userModel.userStatus,
+  );
+  return _tinyUser;
+}
+// -----------------------------------------------------------------------------
+final List<UserModel> dbUsers = <UserModel>[
 
   /// userID: 'u01',
   UserModel(
@@ -26,14 +38,9 @@ final List<UserModel> dbUsers = [
     area: '12',
     language: 'English',
     position: GeoPoint(10,10),
-    contacts: [
-      ContactModel(contact: '01065014107', contactType: ContactType.Phone),
-      ContactModel(contact: 'www.tiktok.com', contactType: ContactType.Facebook),
-      ContactModel(contact: 'rageh.az@gmail.com', contactType: ContactType.Email),
-    ],
+    contacts: dummyContacts,
     // -------------------------
-    savedFlyersIDs: ['f001', 'f002'],
-    followedBzzIDs: ['pp1', 'pp2', 'br1'],
+    myBzzIDs: <String>['pp1'],
   ),
 
   /// userID: 'u02',
@@ -51,14 +58,9 @@ final List<UserModel> dbUsers = [
     area: '12',
     language: 'English',
     position: GeoPoint(10,10),
-    contacts: [
-      ContactModel(contact: '01065014107', contactType: ContactType.Phone),
-      ContactModel(contact: 'www.tiktok.com', contactType: ContactType.Facebook),
-      ContactModel(contact: 'rageh.az@gmail.com', contactType: ContactType.Email),
-    ],
+    contacts: dummyContacts,
     // -------------------------
-    savedFlyersIDs: ['f001', 'f002'],
-    followedBzzIDs: ['pp1', 'pp2', 'br1'],
+    myBzzIDs: <String>['pp2'],
   ),
 
   /// userID: 'u03',
@@ -76,14 +78,9 @@ final List<UserModel> dbUsers = [
     area: '12',
     language: 'English',
     position: GeoPoint(10,10),
-    contacts: [
-      ContactModel(contact: '01065014107', contactType: ContactType.Phone),
-      ContactModel(contact: 'www.tiktok.com', contactType: ContactType.Facebook),
-      ContactModel(contact: 'rageh.az@gmail.com', contactType: ContactType.Email),
-    ],
+    contacts: dummyContacts,
     // -------------------------
-    savedFlyersIDs: ['f001', 'f002'],
-    followedBzzIDs: ['pp1', 'pp2', 'br1'],
+    myBzzIDs: <String>['pp3'],
   ),
 
   /// userID: 'u04',
@@ -101,14 +98,9 @@ final List<UserModel> dbUsers = [
     area: '12',
     language: 'English',
     position: GeoPoint(10,10),
-    contacts: [
-      ContactModel(contact: '01065014107', contactType: ContactType.Phone),
-      ContactModel(contact: 'www.tiktok.com', contactType: ContactType.Facebook),
-      ContactModel(contact: 'rageh.az@gmail.com', contactType: ContactType.Email),
-    ],
+    contacts: dummyContacts,
     // -------------------------
-    savedFlyersIDs: ['f001', 'f002'],
-    followedBzzIDs: ['pp1', 'pp2', 'br1'],
+    myBzzIDs: <String>['br1'],
   ),
 
   /// userID: 'u05',
@@ -126,14 +118,9 @@ final List<UserModel> dbUsers = [
     area: '12',
     language: 'English',
     position: GeoPoint(10,10),
-    contacts: [
-      ContactModel(contact: '01065014107', contactType: ContactType.Phone),
-      ContactModel(contact: 'www.tiktok.com', contactType: ContactType.Facebook),
-      ContactModel(contact: 'rageh.az@gmail.com', contactType: ContactType.Email),
-    ],
+    contacts: dummyContacts,
     // -------------------------
-    savedFlyersIDs: ['f001', 'f002'],
-    followedBzzIDs: ['pp1', 'pp2', 'br1'],
+    myBzzIDs: <String>['cn1'],
   ),
 
   /// userID: 'u06',
@@ -151,14 +138,9 @@ final List<UserModel> dbUsers = [
     area: '12',
     language: 'English',
     position: GeoPoint(10,10),
-    contacts: [
-      ContactModel(contact: '01065014107', contactType: ContactType.Phone),
-      ContactModel(contact: 'www.tiktok.com', contactType: ContactType.Facebook),
-      ContactModel(contact: 'rageh.az@gmail.com', contactType: ContactType.Email),
-    ],
+    contacts: dummyContacts,
     // -------------------------
-    savedFlyersIDs: ['f001', 'f002'],
-    followedBzzIDs: ['pp1', 'pp2', 'br1'],
+    myBzzIDs: <String>['cn2'],
   ),
 
   /// userID: 'u07',
@@ -176,14 +158,9 @@ final List<UserModel> dbUsers = [
     area: '12',
     language: 'English',
     position: GeoPoint(10,10),
-    contacts: [
-      ContactModel(contact: '01065014107', contactType: ContactType.Phone),
-      ContactModel(contact: 'www.tiktok.com', contactType: ContactType.Facebook),
-      ContactModel(contact: 'rageh.az@gmail.com', contactType: ContactType.Email),
-    ],
+    contacts: dummyContacts,
     // -------------------------
-    savedFlyersIDs: ['f001', 'f002'],
-    followedBzzIDs: ['pp1', 'pp2', 'br1'],
+    myBzzIDs: <String>['mn1'],
   ),
 
   /// userID: 'u08',
@@ -194,21 +171,16 @@ final List<UserModel> dbUsers = [
     // -------------------------
     name: 'Micheal Morad',
     pic: Iconz.DumBzPNG,
-    title: 'Marketting manager',
+    title: 'Marketing manager',
     gender: Gender.male,
     country: 'Egypt',
     province: 'Cairo',
     area: '12',
     language: 'English',
     position: GeoPoint(10,10),
-    contacts: [
-      ContactModel(contact: '01065014107', contactType: ContactType.Phone),
-      ContactModel(contact: 'www.tiktok.com', contactType: ContactType.Facebook),
-      ContactModel(contact: 'rageh.az@gmail.com', contactType: ContactType.Email),
-    ],
+    contacts: dummyContacts,
     // -------------------------
-    savedFlyersIDs: ['f001', 'f002'],
-    followedBzzIDs: ['pp1', 'pp2', 'br1'],
+    myBzzIDs: <String>['mn2'],
   ),
 
   /// userID: 'u09',
@@ -217,7 +189,7 @@ final List<UserModel> dbUsers = [
     // joinedAt: ,
     userStatus: UserStatus.Normal,
     // -------------------------
-    name: 'Micheal Morad',
+    name: 'John Cena',
     pic: Iconz.DumBzPNG,
     title: 'Marketing executive',
     gender: Gender.male,
@@ -226,14 +198,9 @@ final List<UserModel> dbUsers = [
     area: '12',
     language: 'English',
     position: GeoPoint(10,10),
-    contacts: [
-      ContactModel(contact: '01065014107', contactType: ContactType.Phone),
-      ContactModel(contact: 'www.tiktok.com', contactType: ContactType.Facebook),
-      ContactModel(contact: 'rageh.az@gmail.com', contactType: ContactType.Email),
-    ],
+    contacts: dummyContacts,
     // -------------------------
-    savedFlyersIDs: ['f001', 'f002'],
-    followedBzzIDs: ['pp1', 'pp2', 'br1'],
+    myBzzIDs: <String>['mn3'],
   ),
 
   /// userID: 'u10',
@@ -251,14 +218,9 @@ final List<UserModel> dbUsers = [
     area: '12',
     language: 'English',
     position: GeoPoint(10,10),
-    contacts: [
-      ContactModel(contact: '01065014107', contactType: ContactType.Phone),
-      ContactModel(contact: 'www.tiktok.com', contactType: ContactType.Facebook),
-      ContactModel(contact: 'rageh.az@gmail.com', contactType: ContactType.Email),
-    ],
+    contacts: dummyContacts,
     // -------------------------
-    savedFlyersIDs: ['f001', 'f002'],
-    followedBzzIDs: ['pp1', 'pp2', 'br1'],
+    myBzzIDs: <String>['mn4'],
   ),
 
   /// userID: 'u11',
@@ -267,24 +229,19 @@ final List<UserModel> dbUsers = [
     // joinedAt: ,
     userStatus: UserStatus.Normal,
     // -------------------------
-    name: 'DavuserID Watson',
+    name: 'David Watson',
     // joinedAt: ,
     pic: Iconz.DumBzPNG,
     gender: Gender.male,
+    country: 'UK',
     province: 'London',
     area: '12n',
     title: 'Manager',
     language: 'English',
     position: GeoPoint(10,10),
-    contacts: [
-      ContactModel(contact: '01065014107', contactType: ContactType.Phone),
-      ContactModel(contact: 'www.tiktok.com', contactType: ContactType.Facebook),
-      ContactModel(contact: 'rageh.az@gmail.com', contactType: ContactType.Email),
-    ],
+    contacts: dummyContacts,
     // -------------------------
-    savedFlyersIDs: ['f001', 'f002'],
-    followedBzzIDs: ['pp1', 'pp2', 'br1'],
-    country: 'UK',
+    myBzzIDs: <String>['mn5'],
   ),
 
   /// userID: 'u12',
@@ -302,14 +259,9 @@ final List<UserModel> dbUsers = [
     area: '12',
     language: 'English',
     position: GeoPoint(10,10),
-    contacts: [
-      ContactModel(contact: '01065014107', contactType: ContactType.Phone),
-      ContactModel(contact: 'www.tiktok.com', contactType: ContactType.Facebook),
-      ContactModel(contact: 'rageh.az@gmail.com', contactType: ContactType.Email),
-    ],
+    contacts: dummyContacts,
     // -------------------------
-    savedFlyersIDs: ['f001', 'f002'],
-    followedBzzIDs: ['pp1', 'pp2', 'br1'],
+    myBzzIDs: <String>['sp1'],
   ),
 
   /// userID: 'u13',
@@ -327,14 +279,9 @@ final List<UserModel> dbUsers = [
     area: '12',
     language: 'English',
     position: GeoPoint(10,10),
-    contacts: [
-      ContactModel(contact: '01065014107', contactType: ContactType.Phone),
-      ContactModel(contact: 'www.tiktok.com', contactType: ContactType.Facebook),
-      ContactModel(contact: 'rageh.az@gmail.com', contactType: ContactType.Email),
-    ],
+    contacts: dummyContacts,
     // -------------------------
-    savedFlyersIDs: ['f001', 'f002'],
-    followedBzzIDs: ['pp1', 'pp2', 'br1'],
+    myBzzIDs: <String>['sp2'],
   ),
 
   /// userID: 'u14',
@@ -352,14 +299,9 @@ final List<UserModel> dbUsers = [
     area: '12',
     language: 'English',
     position: GeoPoint(10,10),
-    contacts: [
-      ContactModel(contact: '01065014107', contactType: ContactType.Phone),
-      ContactModel(contact: 'www.tiktok.com', contactType: ContactType.Facebook),
-      ContactModel(contact: 'rageh.az@gmail.com', contactType: ContactType.Email),
-    ],
+    contacts: dummyContacts,
     // -------------------------
-    savedFlyersIDs: ['f001', 'f002'],
-    followedBzzIDs: ['pp1', 'pp2', 'br1'],
+    myBzzIDs: <String>['sp3'],
   ),
 
   /// userID: 'u15',
@@ -377,14 +319,9 @@ final List<UserModel> dbUsers = [
     area: '12',
     language: 'English',
     position: GeoPoint(10,10),
-    contacts: [
-      ContactModel(contact: '01065014107', contactType: ContactType.Phone),
-      ContactModel(contact: 'www.tiktok.com', contactType: ContactType.Facebook),
-      ContactModel(contact: 'rageh.az@gmail.com', contactType: ContactType.Email),
-    ],
+    contacts: dummyContacts,
     // -------------------------
-    savedFlyersIDs: ['f001', 'f002'],
-    followedBzzIDs: ['pp1', 'pp2', 'br1'],
+    myBzzIDs: <String>['dr1'],
   ),
 
   /// userID: 'u16',
@@ -402,14 +339,9 @@ final List<UserModel> dbUsers = [
     area: '12',
     language: 'English',
     position: GeoPoint(10,10),
-    contacts: [
-      ContactModel(contact: '01065014107', contactType: ContactType.Phone),
-      ContactModel(contact: 'www.tiktok.com', contactType: ContactType.Facebook),
-      ContactModel(contact: 'rageh.az@gmail.com', contactType: ContactType.Email),
-    ],
+    contacts: dummyContacts,
     // -------------------------
-    savedFlyersIDs: ['f001', 'f002'],
-    followedBzzIDs: ['pp1', 'pp2', 'br1'],
+    myBzzIDs: <String>['dr2'],
   ),
 
   /// userID: 'u17',
@@ -427,14 +359,9 @@ final List<UserModel> dbUsers = [
     area: '12',
     language: 'English',
     position: GeoPoint(10,10),
-    contacts: [
-      ContactModel(contact: '01065014107', contactType: ContactType.Phone),
-      ContactModel(contact: 'www.tiktok.com', contactType: ContactType.Facebook),
-      ContactModel(contact: 'rageh.az@gmail.com', contactType: ContactType.Email),
-    ],
+    contacts: dummyContacts,
     // -------------------------
-    savedFlyersIDs: ['f001', 'f002'],
-    followedBzzIDs: ['pp1', 'pp2', 'br1'],
+    myBzzIDs: <String>['dr3'],
   ),
 
   /// userID: 'u18',
@@ -452,14 +379,9 @@ final List<UserModel> dbUsers = [
     area: '12',
     language: 'English',
     position: GeoPoint(10,10),
-    contacts: [
-      ContactModel(contact: '01065014107', contactType: ContactType.Phone),
-      ContactModel(contact: 'www.tiktok.com', contactType: ContactType.Facebook),
-      ContactModel(contact: 'rageh.az@gmail.com', contactType: ContactType.Email),
-    ],
+    contacts: dummyContacts,
     // -------------------------
-    savedFlyersIDs: ['f001', 'f002'],
-    followedBzzIDs: ['pp1', 'pp2', 'br1'],
+    myBzzIDs: <String>['ar1'],
   ),
 
   /// userID: 'u19',
@@ -470,21 +392,16 @@ final List<UserModel> dbUsers = [
     // -------------------------
     name: 'Ahmad Hamada Ahmad',
     pic: Iconz.DumBzPNG,
-    title: 'PresuserIDent',
+    title: 'President',
     gender: Gender.male,
     country: 'Egypt',
     province: 'Cairo',
     area: '12',
     language: 'English',
     position: GeoPoint(10,10),
-    contacts: [
-      ContactModel(contact: '01065014107', contactType: ContactType.Phone),
-      ContactModel(contact: 'www.tiktok.com', contactType: ContactType.Facebook),
-      ContactModel(contact: 'rageh.az@gmail.com', contactType: ContactType.Email),
-    ],
+    contacts: dummyContacts,
     // -------------------------
-    savedFlyersIDs: ['f001', 'f002'],
-    followedBzzIDs: ['pp1', 'pp2', 'br1'],
+    myBzzIDs: <String>['ar2'],
   ),
 
   /// userID: 'u20',
@@ -502,14 +419,9 @@ final List<UserModel> dbUsers = [
     area: '12',
     language: 'English',
     position: GeoPoint(10,10),
-    contacts: [
-      ContactModel(contact: '01065014107', contactType: ContactType.Phone),
-      ContactModel(contact: 'www.tiktok.com', contactType: ContactType.Facebook),
-      ContactModel(contact: 'rageh.az@gmail.com', contactType: ContactType.Email),
-    ],
+    contacts: dummyContacts,
     // -------------------------
-    savedFlyersIDs: ['f001', 'f002'],
-    followedBzzIDs: ['pp1', 'pp2', 'br1'],
+    myBzzIDs: <String>['br1'],
   ),
 
   /// userID: 'u21',
@@ -527,14 +439,9 @@ final List<UserModel> dbUsers = [
     area: '12',
     language: 'English',
     position: GeoPoint(10,10),
-    contacts: [
-      ContactModel(contact: '01065014107', contactType: ContactType.Phone),
-      ContactModel(contact: 'www.tiktok.com', contactType: ContactType.Facebook),
-      ContactModel(contact: 'rageh.az@gmail.com', contactType: ContactType.Email),
-    ],
+    contacts: dummyContacts,
     // -------------------------
-    savedFlyersIDs: ['f001', 'f002'],
-    followedBzzIDs: ['pp1', 'pp2', 'br1'],
+    myBzzIDs: <String>['br1'],
   ),
 
 ];

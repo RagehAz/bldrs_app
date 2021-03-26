@@ -26,11 +26,10 @@ class UserProfileScreen extends StatefulWidget {
 class _UserProfileScreenState extends State<UserProfileScreen> {
   UserStatus _currentUserStatus;
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
+// @override
+//   void initState() {
+//    super.initState();
+//   }
 
   final _status = <Map<String, dynamic>>[
     {
