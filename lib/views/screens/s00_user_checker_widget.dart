@@ -12,7 +12,7 @@ class UserChecker extends StatelessWidget {
     // print('user id : ${_userProvided?.userID}');
 
     return
-      _userProvided == null ?
+      _userProvided?.userID == null ?
       StartingScreen()
           :
       HomeScreen();

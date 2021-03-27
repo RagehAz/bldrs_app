@@ -59,7 +59,7 @@ Future<UserCredential> signUpWithFacebook(BuildContext context, Zone zone) async
     );
     // -------------------------
     /// create a new firestore document for the user with the userID
-    await UserCRUD().createUserDoc(userModel: _newUserModel);
+    await UserCRUD().createUserOps(userModel: _newUserModel);
     // -------------------------
     /// Once signed in, return the UserCredential
     return await FirebaseAuth.instance.signInWithCredential(credential);
