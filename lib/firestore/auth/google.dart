@@ -57,7 +57,7 @@ Future<String> signInWithGoogle(BuildContext context, Zone currentZone) async {
     );
 
     /// create a new firestore document for the user with the userID
-    await UserCRUD().createUserDoc(userModel: _newUserModel);
+    await UserCRUD().createUserOps(userModel: _newUserModel);
 
     final User currentUser = _auth.currentUser;
 

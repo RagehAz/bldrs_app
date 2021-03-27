@@ -42,7 +42,7 @@ class EditProfileScreen extends StatefulWidget {
 class _EditProfileScreenState extends State<EditProfileScreen> {
   final _formKey = GlobalKey<FormState>();
   // --------------------
-  File   _currentPic;
+  File _currentPic;
   TextEditingController _nameController = TextEditingController();
   TextEditingController _titleController = TextEditingController();
   TextEditingController _companyController = TextEditingController();
@@ -206,7 +206,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               // -------------------------
             );
 
-            await UserCRUD().createUserDoc(userModel: _newUserModel);
+            await UserCRUD().updateUserOps(newUserModel: _newUserModel, oldUserModel: widget.user);
 
             print('User Model successfully edited');
             _triggerLoading();
@@ -256,7 +256,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       appBarBackButton: true,
       loading: _loading,
       appBarType: AppBarType.Basic,
-      tappingRageh: _triggerLoading,
+      tappingRageh: (){
+        print(_currentAreaID,);
+        print(_currentProvinceID,);
+        print(_currentCountryID,);
+      },
       pageTitle: widget.firstTimer == true ? 'Add your profile data' : Wordz.editProfile(context),
       layoutWidget: Form(
         key: _formKey,

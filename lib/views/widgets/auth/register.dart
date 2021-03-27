@@ -3,6 +3,7 @@ import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/firestore/auth/auth.dart';
+import 'package:bldrs/firestore/crud/user_ops.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/views/screens/s16_user_editor_screen.dart';
@@ -106,7 +107,6 @@ class _RegisterState extends State<Register> {
       areaID: _countryPro.currentAreaID,
     );
 
-
     return Form(
       key: _formKey,
       child: Column(
@@ -114,14 +114,11 @@ class _RegisterState extends State<Register> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
 
-          // LogoSlogan(
-          //   sizeFactor: 0.8,
-          // ),
-
           SizedBox(
             height: 20,
           ),
 
+          // --- ENTER E-MAIL
           TextFieldBubble(
             loading: _loading,
             bubbleColor: Colorz.WhiteGlass,
@@ -132,7 +129,7 @@ class _RegisterState extends State<Register> {
             keyboardTextInputAction: TextInputAction.next,
             title: Wordz.emailAddress(context),
             hintText: '...',
-            onSaved: (){print('onSaved');},
+            // onSaved: (){print('onSaved');},
             maxLength: 100,
             initialTextValue: _email,
             textOnChanged: (val){
@@ -154,11 +151,11 @@ class _RegisterState extends State<Register> {
             fieldIsFormField: true,
             fieldIsRequired: true,
             keyboardTextInputType: TextInputType.visiblePassword,
-            keyboardTextInputAction: TextInputAction.done,
+            keyboardTextInputAction: TextInputAction.next,
             title: Wordz.password(context),
             comments: Wordz.min6Char(context),
             hintText: '...',
-            onSaved: (){print('onSaved');},
+            // onSaved: (){print('onSaved');},
             // maxLines: 1,
             maxLength: 100,
             obscured: _passwordObscured,
@@ -186,10 +183,10 @@ class _RegisterState extends State<Register> {
             fieldIsFormField: true,
             fieldIsRequired: true,
             keyboardTextInputType: TextInputType.visiblePassword,
-            keyboardTextInputAction: TextInputAction.send,
+            keyboardTextInputAction: TextInputAction.done,
             title: Wordz.confirmPassword(context),
             hintText: '...',
-            onSaved: (){print('onSaved');},
+            // onSaved: (){print('onSaved');},
             maxLines: 1,
             maxLength: 100,
             obscured: _passwordObscured,
@@ -236,42 +233,41 @@ class _RegisterState extends State<Register> {
                   boxMargins: EdgeInsets.all(10),
                   boxFunction: () async {
                     minimizeKeyboardOnTapOutSide(context);
+
                     if(_formKey.currentState.validate()){
-
                       _triggerLoading();
+                      // ---------------------
+                      dynamic result = await _auth.registerWithEmailAndPassword(context, _currentZone, _email, _password);
+                      print('register result is : $result');
+                      // ---------------------
+                      if ('$result' == '[firebase_auth/email-already-in-use] The email address is already in use by another account.'){
+                        await superDialog(context, Wordz.emailAlreadyRegistered(context), 'E-mail Taken');
+                        _triggerLoading();
+                      }
+                      // ---------------------
+                      else if('$result' == '[firebase_auth/invalid-email] The email address is badly formatted.'){
+                        await superDialog(context, Wordz.emailWrong(context), 'E-mail Taken');
+                        _triggerLoading();
+                      }
+                      // ---------------------
+                      else if(result == null){
+                        await superDialog(context, 'something is wrong', '');
+                        _triggerLoading();
+                      }
+                      // ---------------------
+                      else if(result.runtimeType == UserModel){
 
-                      tryAndCatch(
-                        context: context,
-                        functions: () async {
+                        /// create a new firestore document for the user with the userID
+                        UserModel _initialUserModel = result;
+                        await UserCRUD().createUserOps(userModel: _initialUserModel);
 
-                          dynamic result = await _auth.registerWithEmailAndPassword(context, _currentZone, _email, _password);
-                          print('register result is : $result');
 
-                          if ('$result' == '[firebase_auth/email-already-in-use] The email address is already in use by another account.'){
-                            superDialog(context, Wordz.emailAlreadyRegistered(context), 'E-mail Taken');
-                            _triggerLoading();
-                          }
-
-                          else if('$result' == '[firebase_auth/invalid-email] The email address is badly formatted.'){
-                            superDialog(context, Wordz.emailWrong(context), 'E-mail Taken');
-                            _triggerLoading();
-                          }
-
-                          else if(result == null){
-                            superDialog(context, 'something is wrong', 'E-mail Taken');
-                          _triggerLoading();
-                          }
-
-                          else if(result.runtimeType == UserModel){
-                            _triggerLoading();
-                            // goToNewScreen(context, FillProfileScreen());
-                            goToNewScreen(context, EditProfileScreen(user: result, firstTimer: true,),);
-                          }
-                        });
-
-                      _triggerLoading();
-
+                        _triggerLoading();
+                        goToNewScreen(context, EditProfileScreen(user: result, firstTimer: true,),);
+                      }
+                      // ---------------------
                     }
+
                   },
                 ),
               ),

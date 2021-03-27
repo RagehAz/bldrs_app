@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 class FireStoreCollection{
   static const String users = 'users';
   static const String tinyUsers = 'tinyUsers';
+  static const String subUserAsks = 'asks' ;
+  static const String subUserSaves = 'saves';
 
   static const String countries = 'countries';
 
@@ -48,8 +50,6 @@ Future<void> updateFieldOnFirestore({
 
     await superDialog(context, 'Successfully updated\n$collectionName\\$documentName\\$field to :\n"$input"','Success');
 
-    minimizeKeyboardOnTapOutSide(context);
-
   } catch(error) {
     superDialog(context, error, 'Ops !');
   }
@@ -83,6 +83,17 @@ Future<dynamic> getFireStoreDocumentMap(String collectionName, String documentNa
 // ---------------------------------------------------------------------------
 Future<List<QueryDocumentSnapshot>> getFireStoreCollectionMaps(String collectionName) async {
   QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection(collectionName).get();
+  List<QueryDocumentSnapshot> _maps = querySnapshot.docs;
+  return _maps;
+}
+// ---------------------------------------------------------------------------
+Future<List<QueryDocumentSnapshot>> getFireStoreSubCollectionMaps(
+    {String collectionName, String docName, String subCollectionName}) async {
+
+  final CollectionReference _subCollection = FirebaseFirestore.instance
+      .collection('$collectionName/$docName/$subCollectionName');
+
+  QuerySnapshot querySnapshot = await _subCollection.get();
   List<QueryDocumentSnapshot> _maps = querySnapshot.docs;
   return _maps;
 }

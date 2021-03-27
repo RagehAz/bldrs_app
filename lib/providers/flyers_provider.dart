@@ -217,7 +217,7 @@ Future<void> createBzDocument(BzModel bz, UserModel userModel) async {
 
   /// update firestore with the _newUserModel
   /// when firebase finds the same userID
-  await UserCRUD().createUserDoc(userModel: _newUserModel);
+  await UserCRUD().updateUserOps(newUserModel: _newUserModel, oldUserModel: userModel);
 
   /// add the local bzModel to the local list of bzModels _loadedBzz
   _loadedBzz.add(_newBz);
