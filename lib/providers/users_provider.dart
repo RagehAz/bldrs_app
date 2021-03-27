@@ -1,4 +1,6 @@
 import 'package:bldrs/controllers/drafters/timerz.dart';
+import 'package:bldrs/firestore/auth/auth.dart';
+import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -86,14 +88,10 @@ class UserProvider{
         .map(_userModelFromSnapshot);
   }
 // ---------------------------------------------------------------------------
-UserModel getUserModel(){
-  CollectionReference _userCollection = UserCRUD().userCollectionRef();
-  Stream<DocumentSnapshot> docStream = _userCollection.doc(userID).snapshots();
-  UserModel user;
-  docStream.listen((DocumentSnapshot snap) {
-    user = _userModelFromSnapshot(snap);
-  });
-  return user;
+Future<UserModel> getUserModel(String userID) async {
+  Map<String, dynamic> _userMap = await getFireStoreDocumentMap(FireStoreCollection.users, userID);
+  UserModel _userModel = decipherUserMap(_userMap);
+  return _userModel;
 }
 // ---------------------------------------------------------------------------
 }
