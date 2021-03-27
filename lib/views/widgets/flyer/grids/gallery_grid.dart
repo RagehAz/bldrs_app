@@ -43,7 +43,7 @@ class GalleryGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     // final _prof = Provider.of<FlyersProvider>(context, listen: false);
     // final _bz = _prof.getBzByBzID(bzID);
-    final List<FlyerModel> _gridFlyers = galleryFlyers == null ? <FlyerModel>[] : galleryFlyers;//pro.getAllFlyers;
+    final List<TinyFlyer> _gridFlyers = galleryFlyers == null ? <TinyFlyer>[] : galleryFlyers;//pro.getAllFlyers;
     bool _viewerIsAuthor = _concludeUserIsAuthor();
     // -------------------------------------------------------------------------
     double _screenWidth = superScreenWidth(context);

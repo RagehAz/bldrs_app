@@ -246,9 +246,9 @@ class _SignInState extends State<SignIn> {
                           _triggerLoading();
                         }
                         // ---------------------
-                        // TASK : if user signedup but did not properly complete userdata
-                        // then need to fill these fields ( name, pic, title, company, Zone)
-                        // to be able to go to home screen
+                        /// if user signed up but did not properly complete userdata
+                        /// then need to fill these fields ( name, pic, title, company, Zone)
+                        /// to be able to go to home screen
                         else if(result.runtimeType == UserModel) {
                           UserModel userModel = result;
 
@@ -257,6 +257,7 @@ class _SignInState extends State<SignIn> {
                               userModel.pic == null ||
                               userModel.title == null ||
                               userModel.company == null
+                          // TASK : need to rethink which fields are required by user
                           ){
                             await superDialog(context, 'You have to complete your profile info', '');
                             _triggerLoading();
