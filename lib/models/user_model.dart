@@ -69,6 +69,32 @@ class UserModel {
   }
 }
 // -----------------------------------------------------------------------------
+UserModel decipherUserMap(Map<String, dynamic> map){
+
+  List<dynamic> _myBzzIDs = map['myBzzIDs'] as List<dynamic>;
+
+  return UserModel(
+    userID : map['userID'] ?? '',
+    joinedAt : decipherDateTimeString(map['joinedAt'] ?? ''),
+    userStatus : decipherUserStatus(map['userStatus']?? 1),
+    // -------------------------
+    name : map['name'] ?? '',
+    pic : map['pic'] ?? '',
+    title : map['title'] ?? '',
+    company : map['company'] ?? '',
+    gender : decipherGender(map['gender'] ?? 2),
+    country : map['country'] ?? '',
+    province : map['province'] ?? '',
+    area : map['area'] ?? '',
+    language : map['language'] ?? 'en',
+    position : map['position'] ?? GeoPoint(0, 0),
+    contacts : decipherContactsMaps(map['contacts'] ?? []),
+    // -------------------------
+    myBzzIDs: _myBzzIDs,
+  );
+
+}
+// -----------------------------------------------------------------------------
 class TinyUser {
   final String userID;
   final String name;
