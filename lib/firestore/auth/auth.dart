@@ -3,57 +3,67 @@ import 'package:bldrs/firestore/crud/user_ops.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:bldrs/models/user_model.dart';
+import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/providers/users_provider.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:path/path.dart';
+import 'package:provider/provider.dart';
 
 // bug to fix when try sign in with email that was already signed in by facebook
 // I/flutter (18102): auth error is : [firebase_auth/wrong-password] The password is invalid or the user does not have a password.
 // I/flutter (18102): signing result is : [firebase_auth/wrong-password] The password is invalid or the user does not have a password.
 
 class AuthService {
+//   BuildContext context;
+//   Zone currentZone;
+//
+//   AuthService({
+//     this.context,
+//     this.currentZone,
+// });
 
   // dynamic cc = Firebase.
   final FirebaseAuth _auth = FirebaseAuth?.instance;
 
   /// create user object based on firebase user
   UserModel _convertFirebaseUserToUserModel(User user) {
-    return user == null ? null :
+
+    return
+      user == null ? null :
     UserModel(
       userID: user.uid,
-      // joinedAt: DateTime.now(),
-      // userStatus: UserStatus.Normal,
+      joinedAt: DateTime.now(),
+      userStatus: UserStatus.Normal,
       // -------------------------
       name: user.displayName,
       pic: user.photoURL,
-      // title: '',
-      // gender: Gender.any,
-      // country: currentZone.countryID,
-      // province: currentZone.provinceID,
-      // area: currentZone.areaID,
-      // language: Wordz.languageCode(context),
-      // position: GeoPoint(0, 0),
-      contacts: <ContactModel>[
-        ContactModel(contact: user.email, contactType: ContactType.Email)
-      ],
+      title: '',
+      gender: Gender.any,
+      country: null,
+      province: null,
+      area: null,
+      language: 'en',
+      position: GeoPoint(0, 0),
+      contacts: [],
       // -------------------------
-      // savedFlyersIDs: [''],
-      // followedBzzIDs: [''],
+      myBzzIDs: [],
     );
+
   }
   // ---------------------------------------------------------------------------
   /// auth change user stream
   Stream<UserModel> get userStream {
     return _auth.authStateChanges()
-    // .map((User user) => _convertFirebaseUserToUserModel(user));
-        .map(
-        _convertFirebaseUserToUserModel); // different syntax than previous snippet
+    .map((User user) => _convertFirebaseUserToUserModel(user));
+    //     .map(
+    //     _convertFirebaseUserToUserModel); // different syntax than previous snippet
   }
   // ---------------------------------------------------------------------------
   /// sign in anonymously
-  Future<dynamic> signInAnon(BuildContext context) async {
+  Future<dynamic> signInAnon(BuildContext context, Zone currentZone) async {
     try {
       // they have renamed the class 'AuthResult' to 'UserCredential'
       UserCredential result = await _auth.signInAnonymously();
@@ -81,17 +91,49 @@ class AuthService {
   }
   // ---------------------------------------------------------------------------
   /// register with email & password
-  Future<dynamic> registerWithEmailAndPassword(BuildContext context, Zone currentZone,
-      String email, String password) async {
+  Future<dynamic> registerWithEmailAndPassword(
+      BuildContext context,
+      Zone currentZone,
+      String email,
+      String password
+      ) async {
+
     try {
 
-      UserCredential result = await _auth.createUserWithEmailAndPassword(
+      /// create firebase user
+      UserCredential _result = await _auth.createUserWithEmailAndPassword(
           email: email.trim(), password: password);
 
-      User user = result.user;
+      User user = _result.user;
 
-      /// create new UserModel
-      UserModel _newUserModel = UserModel(
+      /// conclude user contacts
+      List<ContactModel> _concludeUserContacts(User user){
+        List<ContactModel> _userContacts = new List();
+        String _userEmail = user.email;
+        String _userPhone = user.phoneNumber;
+
+        if (_userEmail != null){
+          _userContacts.add(
+              ContactModel(contact: _userEmail, contactType: ContactType.Email)
+          );
+        }
+
+        if (_userPhone != null){
+          _userContacts.add(
+              ContactModel(contact: _userPhone, contactType: ContactType.Phone)
+          );
+        }
+
+        return _userContacts;
+      }
+
+      /// get user current location
+      // TASK : need to trace user current location and pass it here while creating the userModel from firebase User
+      CountryProvider _countryPro = Provider.of<CountryProvider>(context, listen: false);
+
+      /// create initial UserModel
+      UserModel _initialUserModel =
+      UserModel(
         userID: user.uid,
         joinedAt: DateTime.now(),
         userStatus: UserStatus.Normal,
@@ -100,26 +142,20 @@ class AuthService {
         pic: user.photoURL,
         title: '',
         gender: Gender.any,
-        country: currentZone.countryID,
-        province: currentZone.provinceID,
-        area: currentZone.areaID,
+        country: _countryPro.currentCountryID,
+        province: _countryPro.currentProvinceID,
+        area: _countryPro.currentAreaID,
         language: Wordz.languageCode(context),
         position: GeoPoint(0, 0),
-        contacts: <ContactModel>[
-          ContactModel(contact: user.email, contactType: ContactType.Email)
-        ],
+        contacts: _concludeUserContacts(user),
         // -------------------------
-        // savedFlyersIDs: [''],
-        // followedBzzIDs: [''],
+        myBzzIDs: [],
       );
 
-      /// create a new firestore document for the user with the userID
-      await UserCRUD().createUserDoc(userModel: _newUserModel);
-
-      return _convertFirebaseUserToUserModel(user);
+      return _initialUserModel;
 
     } catch (error) {
-      superDialog(context, error, 'Couldn\'t sign up');
+      // superDialog(context, error, 'Couldn\'t sign up');
       print('auth error is : ${error.toString()}');
       return error;
     }

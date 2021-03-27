@@ -24,7 +24,7 @@ class UserModel {
   final GeoPoint position;
   final List<ContactModel> contacts;
   // -------------------------
-  final List<String> myBzzIDs;
+  final List<dynamic> myBzzIDs;
 // ###############################
   UserModel({
     this.userID,
@@ -226,5 +226,15 @@ int cipherGender(Gender gender){
 bool userIsAuthor(UserStatus userStatus){
   return
       userStatus == UserStatus.BzAuthor ? true : false ;
+}
+// -----------------------------------------------------------------------------
+TinyUser getTinyUserFromUserModel(UserModel userModel){
+  return TinyUser(
+      userID: userModel.userID,
+      name: userModel.name,
+      title: userModel.title,
+      pic: userModel.pic,
+      userStatus: userModel.userStatus,
+  );
 }
 // -----------------------------------------------------------------------------

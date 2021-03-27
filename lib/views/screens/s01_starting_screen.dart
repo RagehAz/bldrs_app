@@ -6,7 +6,6 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
-import 'package:bldrs/models/sub_models/slide_model.dart';
 import 'package:bldrs/views/widgets/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/views/widgets/buttons/bt_main.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
@@ -37,10 +36,6 @@ class StartingScreen extends StatelessWidget {
       pyramids: Iconz.PyramidzYellow,
       sky: Sky.Black,
       appBarType: AppBarType.Intro,
-      tappingRageh: (){
-        int string = lastTwoIntegersFromAString('abcdefghijklmnopqr_65');
-        print(string);
-        },
       layoutWidget: Stack(
         children: <Widget>[
           // --- stuff
