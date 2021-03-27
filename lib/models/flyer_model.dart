@@ -73,7 +73,7 @@ class FlyerModel with ChangeNotifier{
 
 }
 // -----------------------------------------------------------------------------
-class TinyFlyer {
+class TinyFlyer with ChangeNotifier{
   final String flyerID;
   final String bzID;
   final String bzLogo;
