@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/keyboarders.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
@@ -60,6 +61,9 @@ class _CountryScreenState extends State<CountryScreen> {
 // ---------------------------------------------------------------------------
   Future <void> _updateCountryFieldOnFirestore(String _field, dynamic _input) async {
     _triggerLoading();
+
+    minimizeKeyboardOnTapOutSide(context);
+
     await updateFieldOnFirestore(
       context: context,
       collectionName: _countriesCollectionName,

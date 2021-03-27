@@ -43,9 +43,9 @@ class UserProvider{
 
     try{
       var _doc = doc.data();
-      List<dynamic> _savedFlyersIDs = _doc['savedFlyersIDs'] as List<dynamic>;
-      List<dynamic> _followedBzzIDs = _doc['followedBzzIDs'] as List<dynamic>;
-      // List<dynamic> _publishedFlyersIDs = doc.data()['publishedFlyersIDs'] as List<dynamic>;
+
+      List<dynamic> _myBzzIDs = _doc['myBzzIDs'] as List<dynamic>;
+
       return UserModel(
         userID : _doc['userID'] ?? '',
         joinedAt : decipherDateTimeString(_doc['joinedAt'] ?? ''),
@@ -55,19 +55,19 @@ class UserProvider{
         pic : _doc['pic'] ?? '',
         title : _doc['title'] ?? '',
         company : _doc['company'] ?? '',
-        gender : decipherGender(doc.data()['gender'] ?? 2),
-        country : doc.data()['country'] ?? '',
-        province :  doc.data()['province'] ?? '',
-        area :  doc.data()['area'] ?? '',
-        language : doc.data()['language'] ?? 'en',
-        position : doc.data()['position'] ?? GeoPoint(0, 0),
-        contacts : decipherContactsMaps(doc.data()['contacts'] ?? []),
+        gender : decipherGender(_doc['gender'] ?? 2),
+        country : _doc['country'] ?? '',
+        province : _doc['province'] ?? '',
+        area : _doc['area'] ?? '',
+        language : _doc['language'] ?? 'en',
+        position : _doc['position'] ?? GeoPoint(0, 0),
+        contacts : decipherContactsMaps(_doc['contacts'] ?? []),
         // -------------------------
-        myBzzIDs: doc.data()['myBzzIDs'] ?? [],
+        myBzzIDs: _myBzzIDs,
       );
 
     } catch(error){
-      print('error is $error');
+      print('_userModelFromSnapshot error is : $error');
       throw(error);
     }
   }
