@@ -42,7 +42,6 @@ class MaxHeader extends StatelessWidget {
       });
     }
     // === === === === === === === === === === === === === === === === === === ===
-    int _bzConnects      = bz != null ? bz.bzTotalJoints   : 0;
     int _followersCount  = bz != null ? bz.bzTotalFollowers  : 0;
     int _bzTotalSaves    = bz != null ? bz.bzTotalSaves      : 0;
     int _bzTotalShares   = bz != null ? bz.bzTotalShares     : 0;
@@ -74,16 +73,6 @@ class MaxHeader extends StatelessWidget {
           bzPageIsOn: bzPageIsOn,
           verse: bz != null ? bz.bzAbout : '',
           bzName:  bz != null ? bz.bzName : '',
-        ),
-
-        // --- BUILDERS CONNECTS
-        BzPgCounter(
-          bzPageIsOn: bzPageIsOn,
-          flyerZoneWidth: flyerZoneWidth,
-          count: _bzConnects,
-          verse: Wordz.bldrsConnected(context),
-          icon: Iconz.HandShake,
-          iconSizeFactor: 0.98,
         ),
 
         // --- FOLLOWERS
@@ -153,7 +142,6 @@ class MaxHeader extends StatelessWidget {
           followersCount: _followersCount,
           bzTeamIDs: _bzTeamIDs,
           bzPageIsOn: bzPageIsOn,
-          bzConnects: _bzConnects,
           authors: _bzAuthors,
           galleryFlyers: _galleryFlyers,
           bzName:  bz != null ? bz.bzName : '',

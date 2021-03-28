@@ -3,7 +3,6 @@ import '../user_model.dart';
 import 'contact_model.dart';
 // -----------------------------------------------------------------------------
 class AuthorModel{
-  // final String bzID; // temporary should delete later
   final String userID;
   final String authorName;
   final dynamic authorPic;
@@ -12,7 +11,6 @@ class AuthorModel{
   final List<ContactModel> authorContacts;
 // ###############################
   AuthorModel({
-    // this.bzID,
     this.userID,
     this.authorName,
     this.authorPic,
@@ -96,5 +94,57 @@ AuthorModel createMasterAuthorModelFromUserModel(UserModel userModel){
         authorContacts: userModel.contacts,
         authorIsMaster: true, // need to make sure about this
     );
+}
+// -----------------------------------------------------------------------------
+int getAuthorIndexByAuthorID(List<AuthorModel> authors, String authorID){
+  int _currentAuthorIndex = authors.indexWhere((au) => authorID == au.userID);
+return _currentAuthorIndex;
+}
+// -----------------------------------------------------------------------------
+BzModel replaceAuthorModelInBzModel(BzModel bzModel, AuthorModel inputAuthor){
+
+  List<AuthorModel> _modifiedAuthorsList =
+  replaceAuthorModelInAuthorsList(bzModel.bzAuthors, inputAuthor);
+
+  return BzModel(
+    bzID : bzModel.bzID,
+    bzType : bzModel.bzType,
+    bzForm : bzModel.bzForm,
+    bldrBirth : bzModel.bldrBirth,
+    accountType : bzModel.accountType,
+    bzURL : bzModel.bzURL,
+    bzName : bzModel.bzName,
+    bzLogo : bzModel.bzLogo,
+    bzScope : bzModel.bzScope,
+    bzCountry : bzModel.bzCountry,
+    bzProvince : bzModel.bzProvince,
+    bzArea : bzModel.bzArea,
+    bzAbout : bzModel.bzAbout,
+    bzPosition : bzModel.bzPosition,
+    bzContacts : bzModel.bzContacts,
+    bzAuthors : _modifiedAuthorsList,
+    bzShowsTeam : bzModel.bzShowsTeam,
+    bzIsVerified : bzModel.bzIsVerified,
+    bzAccountIsDeactivated : bzModel.bzAccountIsDeactivated,
+    bzAccountIsBanned : bzModel.bzAccountIsBanned,
+    bzTotalFollowers : bzModel.bzTotalFollowers,
+    bzTotalSaves : bzModel.bzTotalSaves,
+    bzTotalShares : bzModel.bzTotalShares,
+    bzTotalSlides : bzModel.bzTotalSlides,
+    bzTotalViews : bzModel.bzTotalViews,
+    bzTotalCalls : bzModel.bzTotalCalls,
+    bzFlyers : bzModel.bzFlyers,
+  );
+}
+// -----------------------------------------------------------------------------
+List<AuthorModel> replaceAuthorModelInAuthorsList(List<AuthorModel> originalAuthors, AuthorModel inputAuthor){
+  List<AuthorModel> _modifiedAuthorsList;
+  List<AuthorModel> _originalAuthors = originalAuthors;
+  int _indexOfCurrentAuthor = getAuthorIndexByAuthorID(_originalAuthors, inputAuthor.userID);
+  _originalAuthors.removeAt(_indexOfCurrentAuthor);
+  _originalAuthors.insert(_indexOfCurrentAuthor, inputAuthor);
+  _modifiedAuthorsList = _originalAuthors;
+
+  return _modifiedAuthorsList;
 }
 // -----------------------------------------------------------------------------

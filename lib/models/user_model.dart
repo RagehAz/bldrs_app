@@ -249,9 +249,10 @@ int cipherGender(Gender gender){
   }
 }
 // -----------------------------------------------------------------------------
-bool userIsAuthor(UserStatus userStatus){
+bool userIsAuthor(UserModel userModel){
+  bool _userIsAuthor = userModel.myBzzIDs.length > 0 ? true : false;
   return
-      userStatus == UserStatus.BzAuthor ? true : false ;
+    _userIsAuthor;
 }
 // -----------------------------------------------------------------------------
 TinyUser getTinyUserFromUserModel(UserModel userModel){

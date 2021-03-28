@@ -455,7 +455,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
           //   }
 
           /// 6- save flyer to local flyers List
-          _prof.addFlyerToLocalFlyersList(_newFlyerModel);
+          _prof.addFlyerModelToLocalList(_newFlyerModel);
 
           superDialog(context, 'Flyer Published', '');
           _triggerLoading();

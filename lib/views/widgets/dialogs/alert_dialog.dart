@@ -114,6 +114,20 @@ Future<dynamic> superDialog(BuildContext context, dynamic error, String title) a
   return _dialog;
 }
 // ----------------------------------------------------------------------
+/// TASK : create bool dialog
+// Future<bool> boolDialog(BuildContext context, String message, ) async {
+//   bool _result;
+//
+//   Future<dynamic> _dialog = showDialog(
+//     context: context,
+//     builder: (ctx){
+//       _result = await boolAlert(context, ctx, error, title);
+//     },
+//   );
+//
+//   return _result;
+// }
+// ----------------------------------------------------------------------
 // Future<dynamic> superDialog2(BuildContext context, dynamic error, String title) async {
 //   Future<dynamic> _dialog = showDialog(
 //       context: context,

@@ -8,6 +8,7 @@ import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
+import 'package:bldrs/firestore/crud/bz_ops.dart';
 import 'package:bldrs/firestore/firebase_storage.dart';
 import 'package:bldrs/models/bldrs_sections.dart';
 import 'package:bldrs/models/bz_model.dart';
@@ -79,7 +80,6 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   File _currentAuthorPicFile;
   String _currentAuthorPicURL;
   TextEditingController _authorTitleTextController = TextEditingController();
-  // List<dynamic> _publishedFlyersIDs;
   List<ContactModel> _currentAuthorContacts;
 // ---------------------------------------------------------------------------
   /// --- LOADING BLOCK
@@ -122,7 +122,6 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
     _authorNameTextController.text = _currentAuthor.authorName;
     _currentAuthorPicURL = _currentAuthor.authorPic;
     _authorTitleTextController.text = _currentAuthor.authorTitle;
-    // _publishedFlyersIDs = _currentAuthor.publishedFlyersIDs;
     _currentAuthorContacts = _currentAuthor.authorContacts;
     // -------------------------
     super.initState();
@@ -136,6 +135,54 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
     if (textControllerHasNoValue(_authorNameTextController))_authorNameTextController.dispose();
     if (textControllerHasNoValue(_authorTitleTextController))_authorTitleTextController.dispose();
     super.dispose();
+  }
+  // ----------------------------------------------------------------------
+  void _showBzCard (){
+    setState(() {});
+
+    slideBzBottomSheet(
+      context: context,
+      bz: BzModel(
+        bzID: '',
+        bzType: _currentBzType,
+        bzForm: _currentBzForm,
+        bldrBirth: DateTime.now(),
+        accountType: _currentAccountType,
+        bzURL: '',
+        bzName: _bzNameTextController.text,
+        bzLogo: _currentBzLogoFile ?? _currentBzLogoURL,
+        bzScope: _bzScopeTextController.text,
+        bzCountry: _currentBzCountry,
+        bzProvince: _currentBzProvince,
+        bzArea: _currentBzArea,
+        bzAbout: _bzAboutTextController.text,
+        bzPosition: _currentBzPosition,
+        bzContacts: _currentBzContacts,
+        bzAuthors: _currentBzAuthors,
+        bzShowsTeam: _currentBzShowsTeam,
+        bzIsVerified: _bz.bzIsVerified,
+        bzAccountIsDeactivated: _bz.bzAccountIsDeactivated,
+        bzAccountIsBanned: _bz.bzAccountIsBanned,
+        bzTotalFollowers: _bz.bzTotalFollowers,
+        bzTotalSaves: _bz.bzTotalSaves,
+        bzTotalShares: _bz.bzTotalShares,
+        bzTotalSlides: _bz.bzTotalSlides,
+        bzTotalViews: _bz.bzTotalViews,
+        bzTotalCalls: _bz.bzTotalCalls,
+        bzFlyers: _bz.bzFlyers,
+
+      ),
+      author: AuthorModel(
+        userID: '',
+        // bzID: '',
+        authorName: _authorNameTextController.text,
+        authorTitle: _authorTitleTextController.text,
+        authorPic: _currentAuthorPicFile ?? _currentAuthorPicURL,
+        authorContacts: _currentAuthorContacts,
+        authorIsMaster: _currentAuthor.authorIsMaster,
+      ),
+    );
+
   }
   // ----------------------------------------------------------------------
   void _selectASection(int index){
@@ -207,125 +254,130 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
     setState(() {_currentAuthorPicFile = File(_imageFile.path);});
   }
   // ----------------------------------------------------------------------
-  Future<BzModel> _createBzModel(UserModel user) async {
-    // -------------------------------------
-    /// TASK : SHOULD USE bzID as logoFile name in fire storage
-    /// so this process should come after creating the bzDocument
-    String _bzLogoURL;
-    if (_currentBzLogoFile != null){
-      _bzLogoURL = await savePicOnFirebaseStorageAndGetURL(
-          context: context,
-          inputFile: _currentBzLogoFile,
-          fileName: user.userID,
-          picType: PicType.bzLogo
-      );
-    }
-    // -------------------------------------
-    String _authorPicURL;
-    if(_currentAuthorPicFile != null){
-      _authorPicURL = await savePicOnFirebaseStorageAndGetURL(
-          context: context,
-          inputFile: _currentAuthorPicFile,
-          fileName: user.userID,
-          picType: PicType.authorPic
-      );
-    }
-    // -------------------------------------
-    AuthorModel _modifiedAuthor = AuthorModel(
-        userID: user.userID,
-        authorName: _authorNameTextController.text,
-        authorPic: _authorPicURL ?? _currentAuthorPicURL,
-        authorTitle: _authorTitleTextController.text,
-        authorIsMaster: _currentAuthor.authorIsMaster,
-        // bzID: _currentBzID,
-        authorContacts: _currentAuthorContacts,
-    );
-    // -------------------------------------
-    List<AuthorModel> _firstTimeAuthorsList = <AuthorModel>[_modifiedAuthor,];
-    // -------------------------------------
-    List<AuthorModel> _modifiedAuthorsList;
-    if (widget.firstTimer == false){
-      _modifiedAuthorsList = new List();
-      List<AuthorModel> _originalAuthors = _currentBzAuthors;
-      int _indexOfCurrentAuthor = _originalAuthors.indexWhere((au) => _currentAuthor.userID == au.userID);
-      _originalAuthors.removeAt(_indexOfCurrentAuthor);
-      _originalAuthors.insert(_indexOfCurrentAuthor, _modifiedAuthor);
-      _modifiedAuthorsList = _originalAuthors;
-    }
-    // -------------------------------------
-    return new BzModel(
-      bzID: widget.firstTimer? _currentBzID : widget.bzModel.bzID,
-      // -------------------------
-      bzType: _currentBzType,
-      bzForm: _currentBzForm,
-      bldrBirth:  widget.firstTimer? DateTime.now() : widget.bzModel.bldrBirth,
-      accountType: widget.firstTimer? BzAccountType.Default : _currentAccountType,
-      bzURL: widget.firstTimer ? '...' : widget.bzModel.bzURL,
-      // -------------------------
-      bzName: _bzNameTextController.text ?? user.company,
-      bzLogo: _bzLogoURL ??  _currentBzLogoURL,
-      bzScope: _bzScopeTextController.text,
-      bzCountry: _currentBzCountry ?? user.country, // i guess mloosh lazma ?? user.country as _currentBzCountry is already defined in initstate
-      bzProvince: _currentBzProvince ?? user.province, // i guess mloosh lazma ?? user.province
-      bzArea: _currentBzArea ?? user.area,  // i guess mloosh lazma ?? user.area
-      bzAbout: _bzAboutTextController.text,
-      bzPosition: _currentBzPosition,
-      bzContacts: _currentBzContacts ?? user.contacts,
-      bzAuthors: widget.firstTimer ? _firstTimeAuthorsList : _modifiedAuthorsList,
-      bzShowsTeam: _currentBzShowsTeam,
-      // -------------------------
-      bzIsVerified: widget.firstTimer ? false : widget.bzModel.bzIsVerified,
-      bzAccountIsDeactivated: widget.firstTimer ? false : widget.bzModel.bzAccountIsDeactivated,
-      bzAccountIsBanned: widget.firstTimer ? false : widget.bzModel.bzAccountIsBanned,
-      // -------------------------
-      bzTotalFollowers: widget.firstTimer ? 0 : widget.bzModel.bzTotalFollowers,
-      bzTotalSaves: widget.firstTimer ? 0 : widget.bzModel.bzTotalSaves,
-      bzTotalShares: widget.firstTimer ? 0 : widget.bzModel.bzTotalShares,
-      bzTotalSlides: widget.firstTimer ? 0 : widget.bzModel.bzTotalSlides,
-      bzTotalViews: widget.firstTimer ? 0 : widget.bzModel.bzTotalViews,
-      bzTotalCalls: widget.firstTimer ? 0 : widget.bzModel.bzTotalCalls,
-      bzTotalJoints: widget.firstTimer ? 0 : widget.bzModel.bzTotalJoints,
-      // -------------------------
-      bzFlyers: widget.firstTimer ? [] : widget.bzModel.bzFlyers,
-    );
-  }
+  // Future<BzModel> _createBzModel(UserModel user) async {
+  //   // -------------------------------------
+  //   /// TASK : SHOULD USE bzID as logoFile name in fire storage
+  //   /// so this process should come after creating the bzDocument
+  //   String _bzLogoURL;
+  //   if (_currentBzLogoFile != null){
+  //     _bzLogoURL = await savePicOnFirebaseStorageAndGetURL(
+  //         context: context,
+  //         inputFile: _currentBzLogoFile,
+  //         fileName: user.userID,
+  //         picType: PicType.bzLogo
+  //     );
+  //   }
+  //   // -------------------------------------
+  //   String _authorPicURL;
+  //   if(_currentAuthorPicFile != null){
+  //     _authorPicURL = await savePicOnFirebaseStorageAndGetURL(
+  //         context: context,
+  //         inputFile: _currentAuthorPicFile,
+  //         fileName: user.userID,
+  //         picType: PicType.authorPic
+  //     );
+  //   }
+  //   // -------------------------------------
+  //   AuthorModel _modifiedAuthor = AuthorModel(
+  //       userID: user.userID,
+  //       authorName: _authorNameTextController.text,
+  //       authorPic: _authorPicURL ?? _currentAuthorPicURL,
+  //       authorTitle: _authorTitleTextController.text,
+  //       authorIsMaster: _currentAuthor.authorIsMaster,
+  //       authorContacts: _currentAuthorContacts,
+  //   );
+  //   // -------------------------------------
+  //   List<AuthorModel> _firstTimeAuthorsList = <AuthorModel>[_modifiedAuthor,];
+  //   // -------------------------------------
+  //   List<AuthorModel> _modifiedAuthorsList;
+  //   if (widget.firstTimer == false){
+  //     _modifiedAuthorsList = new List();
+  //     List<AuthorModel> _originalAuthors = _currentBzAuthors;
+  //     int _indexOfCurrentAuthor = _originalAuthors.indexWhere((au) => _currentAuthor.userID == au.userID);
+  //     _originalAuthors.removeAt(_indexOfCurrentAuthor);
+  //     _originalAuthors.insert(_indexOfCurrentAuthor, _modifiedAuthor);
+  //     _modifiedAuthorsList = _originalAuthors;
+  //   }
+  //   // -------------------------------------
+  //   return new BzModel(
+  //     bzID: widget.firstTimer? _currentBzID : widget.bzModel.bzID,
+  //     // -------------------------
+  //     bzType: _currentBzType,
+  //     bzForm: _currentBzForm,
+  //     bldrBirth:  widget.firstTimer? DateTime.now() : widget.bzModel.bldrBirth,
+  //     accountType: widget.firstTimer? BzAccountType.Default : _currentAccountType,
+  //     bzURL: widget.firstTimer ? '...' : widget.bzModel.bzURL,
+  //     // -------------------------
+  //     bzName: _bzNameTextController.text ?? user.company,
+  //     bzLogo: _bzLogoURL ??  _currentBzLogoURL,
+  //     bzScope: _bzScopeTextController.text,
+  //     bzCountry: _currentBzCountry ?? user.country, // i guess mloosh lazma ?? user.country as _currentBzCountry is already defined in initstate
+  //     bzProvince: _currentBzProvince ?? user.province, // i guess mloosh lazma ?? user.province
+  //     bzArea: _currentBzArea ?? user.area,  // i guess mloosh lazma ?? user.area
+  //     bzAbout: _bzAboutTextController.text,
+  //     bzPosition: _currentBzPosition,
+  //     bzContacts: _currentBzContacts ?? user.contacts,
+  //     bzAuthors: widget.firstTimer ? _firstTimeAuthorsList : _modifiedAuthorsList,
+  //     bzShowsTeam: _currentBzShowsTeam,
+  //     // -------------------------
+  //     bzIsVerified: widget.firstTimer ? false : widget.bzModel.bzIsVerified,
+  //     bzAccountIsDeactivated: widget.firstTimer ? false : widget.bzModel.bzAccountIsDeactivated,
+  //     bzAccountIsBanned: widget.firstTimer ? false : widget.bzModel.bzAccountIsBanned,
+  //     // -------------------------
+  //     bzTotalFollowers: widget.firstTimer ? 0 : widget.bzModel.bzTotalFollowers,
+  //     bzTotalSaves: widget.firstTimer ? 0 : widget.bzModel.bzTotalSaves,
+  //     bzTotalShares: widget.firstTimer ? 0 : widget.bzModel.bzTotalShares,
+  //     bzTotalSlides: widget.firstTimer ? 0 : widget.bzModel.bzTotalSlides,
+  //     bzTotalViews: widget.firstTimer ? 0 : widget.bzModel.bzTotalViews,
+  //     bzTotalCalls: widget.firstTimer ? 0 : widget.bzModel.bzTotalCalls,
+  //     // -------------------------
+  //     bzFlyers: widget.firstTimer ? [] : widget.bzModel.bzFlyers,
+  //   );
+  // }
   // ----------------------------------------------------------------------
-  Future <void> _confirmBz(BuildContext context, FlyersProvider pro, UserModel userModel) async {
-    /// need to validate that
-    /// any change hs happened to allow this function in first place, otherwise, confirm button must be inactive
-    /// then we need to validate
-    /// all required fields are not null
-    /// and validate the correct user input syntax in fields like phone e-mail & social media links
-    // final bool isValid = _form.currentState.validate();
-    // if(!isValid){return;}
-    // _form.currentState.save();
-
-    _triggerLoading();
-
-    BzModel _bzModel = await _createBzModel(userModel);
-
-    await tryAndCatch(
-      context: context,
-      functions: () async {
-        // await pro.addBz(context, _bzModel, userModel);
-
-        if (widget.firstTimer){
-        await _prof.createBzDocument(_bzModel, userModel);
-
-        superDialog(context, 'Successfully added new Business Account', 'Great !');
-
-        } else {
-          await pro.updateFirestoreBz(_bzModel);
-
-          await superDialog(context, 'Successfully Edited your Business Account', 'Great !');
-          goBack(context, argument: 'ok');
-        }
-      },
-    );
-
-    _triggerLoading();
-
-  }
+  // Future <void> _confirmBz(BuildContext context, FlyersProvider pro, UserModel userModel) async {
+  //   /// TASK : need to validate inputs creating new bz
+  //   /// any change hs happened to allow this function in first place, otherwise, confirm button must be inactive
+  //   /// then we need to validate
+  //   /// all required fields are not null
+  //   /// and validate the correct user input syntax in fields like phone e-mail & social media links
+  //   // final bool isValid = _form.currentState.validate();
+  //   // if(!isValid){return;}
+  //   // _form.currentState.save();
+  //
+  //   _triggerLoading();
+  //
+  //   BzModel _bzModelWithoutID = await _createBzModel(userModel);
+  //
+  //   if(widget.firstTimer){
+  //     BzModel _bzModel = await BzCRUD().createBzOps(context, _bzModelWithoutID, userModel);
+  //     superDialog(context, 'Successfully added new Business Account', 'Great !');
+  //   } else {
+  //
+  //   }
+  //
+  //   await tryAndCatch(
+  //     context: context,
+  //     functions: () async {
+  //       // await pro.addBz(context, _bzModel, userModel);
+  //
+  //       if (widget.firstTimer){
+  //       await _prof.createBzDocument(_bzModel, userModel);
+  //
+  //       superDialog(context, 'Successfully added new Business Account', 'Great !');
+  //
+  //       } else {
+  //         await pro.updateFirestoreBz(_bzModel);
+  //
+  //         await superDialog(context, 'Successfully Edited your Business Account', 'Great !');
+  //         goBack(context, argument: 'ok');
+  //       }
+  //     },
+  //   );
+  //
+  //   _triggerLoading();
+  //
+  // }
   // ----------------------------------------------------------------------
   // Future<void> _deleteBzProfile(BuildContext context, FlyersProvider pro, UserModel userModel) async {
   //   _triggerLoading();
@@ -358,52 +410,195 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   //
   // }
   // ----------------------------------------------------------------------
-  void _showBzCard (){
-    setState(() {});
+  // ----------------------------------------------------------------------
+  /// TASK : create bzEditors validators for bubbles instead of this basic null checker
+  /// TASK : need to validate inputs creating new bz
+  bool _inputsAreValid(){
+    // final bool isValid = _form.currentState.validate();
+    // if(!isValid){return;}
+    // _form.currentState.save();
+    bool _inputsAreValid;
+    if (
+    _currentBzType == null ||
+        _currentBzForm == null ||
+        _bzNameTextController.text == null ||
+        _bzNameTextController.text.length < 3 ||
+        _currentBzLogoFile == null ||
+        _bzScopeTextController.text == null ||
+        _bzScopeTextController.text.length < 3 ||
+        _currentBzCountry == null ||
+        _currentBzProvince == null ||
+        _currentBzArea == null ||
+        _bzAboutTextController.text == null ||
+        _bzAboutTextController.text.length < 6
+        // _currentBzContacts.length == 0 ||
+        // _currentBzShowsTeam == null
+    ) {
+      _inputsAreValid = false;
+    } else {
+      _inputsAreValid = true;
+    }
 
-    slideBzBottomSheet(
+    /// TASK : temp bzEditor validator = true
+    return true;
+    }
+  // ----------------------------------------------------------------------
+  /// create new bzModel with current data and start createBzOps
+  Future<void> _createNewBz() async {
+    /// assert that all required fields are added and valid
+    if (_inputsAreValid() == false) {
+      /// TASK : add error missing data indicator in UI bubbles
+      await superDialog(context, 'Please add all required fields', 'incomplete');
+
+    } else {
+
+      _triggerLoading();
+
+      /// create new master AuthorModel
+      AuthorModel _firstMasterAuthor = AuthorModel(
+        userID: widget.userModel.userID,
+        authorName: _authorNameTextController.text,
+        authorPic: _currentAuthorPicFile, // if null createBzOps uses user.pic URL instead
+        authorTitle: _authorTitleTextController.text,
+        authorIsMaster: true,
+        authorContacts: _currentAuthorContacts,
+      );
+      List<AuthorModel> _firstTimeAuthorsList = <AuthorModel>[_firstMasterAuthor,];
+
+      /// create new first time bzModel
+      BzModel _newBzModel = BzModel(
+        bzID: null, // will be generated in createBzOps
+        // -------------------------
+        bzType: _currentBzType,
+        bzForm: _currentBzForm,
+        bldrBirth: null, // timestamp will be generated inside createBzOps
+        accountType: BzAccountType.Default, // changing this is not in bzEditor
+        bzURL: null, // will be generated inside createBzOps
+        // -------------------------
+        bzName: _bzNameTextController.text,
+        bzLogo: _currentBzLogoFile,
+        bzScope: _bzScopeTextController.text,
+        bzCountry: _currentBzCountry,
+        bzProvince: _currentBzProvince,
+        bzArea: _currentBzArea,
+        bzAbout: _bzAboutTextController.text,
+        bzPosition: _currentBzPosition,
+        bzContacts: _currentBzContacts,
+        bzAuthors: _firstTimeAuthorsList,
+        bzShowsTeam: _currentBzShowsTeam,
+        // -------------------------
+        bzIsVerified: false,
+        bzAccountIsDeactivated: false,
+        bzAccountIsBanned: false,
+        // -------------------------
+        bzTotalFollowers: 0,
+        bzTotalSaves: 0,
+        bzTotalShares: 0,
+        bzTotalSlides: 0,
+        bzTotalViews: 0,
+        bzTotalCalls: 0,
+        // -------------------------
+        bzFlyers: [],
+      );
+
+      /// start createBzOps
+      BzModel _bzModel = await BzCRUD().createBzOps(context, _newBzModel, widget.userModel);
+
+      /// add the final _bzModel to local list and notifyListeners
+      _prof.addBzModelToLocalList(_bzModel);
+
+      _triggerLoading();
+
+      await superDialog(context, 'Successfully added your Business Account ', 'Great !');
+
+    }
+
+  }
+  // ----------------------------------------------------------------------
+  /// create updated bzModel with changed data and start updateBzOps
+  Future<void> _updateExistingBz() async {
+
+    if (_inputsAreValid() == false) {
+      await superDialog(context, 'Please add all required fields', 'incomplete');
+    } else {
+
+      _triggerLoading();
+
+      /// create modified authorModel
+      AuthorModel _modifiedAuthor = AuthorModel(
+        userID: widget.userModel.userID,
+        authorName: _authorNameTextController.text,
+        authorPic: _currentAuthorPicFile ?? _currentAuthorPicURL,
+        authorTitle: _authorTitleTextController.text,
+        authorIsMaster: _currentAuthor.authorIsMaster,
+        authorContacts: _currentAuthorContacts,
+      );
+      List<AuthorModel> _modifiedAuthorsList = replaceAuthorModelInAuthorsList(_currentBzAuthors, _modifiedAuthor);
+
+      /// create modified bzModel
+      BzModel _modifiedBzModel = BzModel(
+        bzID: widget.bzModel.bzID,
+        // -------------------------
+        bzType: _currentBzType,
+        bzForm: _currentBzForm,
+        bldrBirth: widget.bzModel.bldrBirth,
+        accountType: _currentAccountType,
+        bzURL: widget.bzModel.bzURL,
+        // -------------------------
+        bzName: _bzNameTextController.text,
+        bzLogo: _currentBzLogoFile ?? _currentBzLogoURL,
+        bzScope: _bzScopeTextController.text,
+        bzCountry: _currentBzCountry,
+        bzProvince: _currentBzProvince,
+        bzArea: _currentBzArea,
+        bzAbout: _bzAboutTextController.text,
+        bzPosition: _currentBzPosition,
+        bzContacts: _currentBzContacts,
+        bzAuthors: _modifiedAuthorsList,
+        bzShowsTeam: _currentBzShowsTeam,
+        // -------------------------
+        bzIsVerified: widget.bzModel.bzIsVerified,
+        bzAccountIsDeactivated: widget.bzModel.bzAccountIsDeactivated,
+        bzAccountIsBanned: widget.bzModel.bzAccountIsBanned,
+        // -------------------------
+        bzTotalFollowers: widget.bzModel.bzTotalFollowers,
+        bzTotalSaves: widget.bzModel.bzTotalSaves,
+        bzTotalShares: widget.bzModel.bzTotalShares,
+        bzTotalSlides: widget.bzModel.bzTotalSlides,
+        bzTotalViews: widget.bzModel.bzTotalViews,
+        bzTotalCalls: widget.bzModel.bzTotalCalls,
+        // -------------------------
+        bzFlyers: widget.bzModel.bzFlyers,
+      );
+
+      /// start updateBzOps
+      await BzCRUD().updateBzOps(
         context: context,
-        bz: BzModel(
-          bzID: '',
-          bzType: _currentBzType,
-          bzForm: _currentBzForm,
-          bldrBirth: DateTime.now(),
-          accountType: _currentAccountType,
-          bzURL: '',
-          bzName: _bzNameTextController.text,
-          bzLogo: _currentBzLogoFile ?? _currentBzLogoURL,
-          bzScope: _bzScopeTextController.text,
-          bzCountry: _currentBzCountry,
-          bzProvince: _currentBzProvince,
-          bzArea: _currentBzArea,
-          bzAbout: _bzAboutTextController.text,
-          bzPosition: _currentBzPosition,
-          bzContacts: _currentBzContacts,
-          bzAuthors: _currentBzAuthors,
-          bzShowsTeam: _currentBzShowsTeam,
-          bzIsVerified: false,
-          bzAccountIsDeactivated: false,
-          bzAccountIsBanned: false,
-          bzTotalFollowers: 0,
-          bzTotalSaves: 0,
-          bzTotalShares: 0,
-          bzTotalSlides: 0,
-          bzTotalViews: 0,
-          bzTotalCalls: 0,
-          bzTotalJoints: 0,
-          bzFlyers: [],
+        modifiedBz: _modifiedBzModel,
+        originalBz: _bz,
+        bzLogoFile: _currentBzLogoFile,
+        authorPicFile: _currentAuthorPicFile,
+      );
 
-        ),
-        author: AuthorModel(
-          userID: '',
-          // bzID: '',
-          authorName: _authorNameTextController.text,
-          authorTitle: _authorTitleTextController.text,
-          authorPic: _currentAuthorPicFile ?? _currentAuthorPicURL,
-          authorContacts: _currentAuthorContacts,
-          authorIsMaster: _currentAuthor.authorIsMaster,
-        ),
-    );
+      /// update _bzModel in local list with the modified one and notifyListeners
+      _prof.updateBzModelInLocalList(_modifiedBzModel);
+
+      _triggerLoading();
+
+      await superDialog(context, 'Successfully updated your Business Account ', 'Great !');
+
+    }
+
+    }
+  // ----------------------------------------------------------------------
+  Future<void> _confirmButton() async {
+    // TASK : create bool dialog and use it here before confirming bz edits in bzEditor
+    // temp solution here below to just notify
+      bool _continueOps = await superDialog(context, 'Are you sure you want to continue ?', '');
+      _continueOps = true;
+      if (_continueOps == true){
+        widget.firstTimer ? _createNewBz() : _updateExistingBz();
+      }
 
   }
   // ----------------------------------------------------------------------
@@ -594,9 +789,10 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                   verseColor: Colorz.BlackBlack,
                   verseWeight: VerseWeight.black,
                   verse: 'Confirm',
+                  secondLine: widget.firstTimer ? 'Create new business profile' : 'Update business profile',
                   verseScaleFactor: 0.7,
                   boxMargins: EdgeInsets.all(5),
-                  boxFunction: () => _confirmBz(context, _prof, widget.userModel),
+                  boxFunction: _confirmButton,
                 ),
 
               ],

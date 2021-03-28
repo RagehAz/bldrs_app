@@ -94,7 +94,6 @@ final List<BzModel> dbBzz =
     bzTotalSlides: 1000,
     bzTotalViews: 100000,
     bzTotalCalls: 1000,
-    bzTotalJoints: 1000,
     // -------------------------
     bzFlyers: <TinyFlyer>[
       TinyFlyer(flyerID: 'f010', authorID: 'u07', slideIndex: 0, slidePic: Dumz.XXorgento),
@@ -143,7 +142,6 @@ final List<BzModel> dbBzz =
     bzTotalSlides: 1000,
     bzTotalViews: 100000,
     bzTotalCalls: 1000,
-    bzTotalJoints: 1000,
     // -------------------------
     bzFlyers: <TinyFlyer>[
       TinyFlyer(flyerID: 'f012', authorID: 'u08', slideIndex: 0, slidePic: Dumz.XXfenomastic_1),
@@ -192,7 +190,6 @@ final List<BzModel> dbBzz =
     bzTotalSlides: 1000,
     bzTotalViews: 100000,
     bzTotalCalls: 1000,
-    bzTotalJoints: 1000,
     // -------------------------
     bzFlyers: <TinyFlyer>[
       TinyFlyer(flyerID: 'f013', authorID: 'u09', slideIndex: 0, slidePic: Dumz.XXcharger_1),
@@ -243,7 +240,6 @@ final List<BzModel> dbBzz =
     bzTotalSlides: 1000,
     bzTotalViews: 100000,
     bzTotalCalls: 1000,
-    bzTotalJoints: 1000,
     // -------------------------
     bzFlyers: <TinyFlyer>[
       TinyFlyer(flyerID: 'f017', authorID: 'u10', slideIndex: 0, slidePic: Dumz.XXswitch_1),
@@ -291,7 +287,6 @@ final List<BzModel> dbBzz =
     bzTotalSlides: 1000,
     bzTotalViews: 100000,
     bzTotalCalls: 1000,
-    bzTotalJoints: 1000,
     // -------------------------
     bzFlyers: <TinyFlyer>[
       TinyFlyer(flyerID: 'f019', authorID: 'u11', slideIndex: 0, slidePic: Dumz.XXcat_1),
@@ -340,7 +335,6 @@ final List<BzModel> dbBzz =
     bzTotalSlides: 1000,
     bzTotalViews: 100000,
     bzTotalCalls: 1000,
-    bzTotalJoints: 1000,
     // -------------------------
     bzFlyers: <TinyFlyer>[
       TinyFlyer(flyerID: 'f001', authorID: 'u01', slideIndex: 0, slidePic: Dumz.XXbuilds_1),
@@ -389,7 +383,6 @@ final List<BzModel> dbBzz =
     bzTotalSlides: 1000,
     bzTotalViews: 100000,
     bzTotalCalls: 1000,
-    bzTotalJoints: 1000,
     // -------------------------
     bzFlyers: <TinyFlyer>[
       TinyFlyer(flyerID: 'f003', authorID: 'u02', slideIndex: 0, slidePic: Dumz.XXamwaj_1),
@@ -437,7 +430,6 @@ final List<BzModel> dbBzz =
     bzTotalSlides: 1000,
     bzTotalViews: 100000,
     bzTotalCalls: 1000,
-    bzTotalJoints: 1000,
     // -------------------------
     bzFlyers: <TinyFlyer>[
       TinyFlyer(flyerID: 'f004', authorID: 'u03', slideIndex: 0, slidePic: Dumz.XXburj_khalifa_1),
@@ -486,7 +478,6 @@ final List<BzModel> dbBzz =
     bzTotalSlides: 1000,
     bzTotalViews: 100000,
     bzTotalCalls: 1000,
-    bzTotalJoints: 1000,
     // -------------------------
     bzFlyers: <TinyFlyer>[
       TinyFlyer(flyerID: 'f024', authorID: 'u15', slideIndex: 0, slidePic: Dumz.XXm_1),
@@ -536,7 +527,6 @@ final List<BzModel> dbBzz =
     bzTotalSlides: 1000,
     bzTotalViews: 100000,
     bzTotalCalls: 1000,
-    bzTotalJoints: 1000,
     // -------------------------
     bzFlyers: <TinyFlyer>[
       TinyFlyer(flyerID: 'f027', authorID: 'u16', slideIndex: 0, slidePic: Dumz.XXhsi_1),
@@ -586,7 +576,6 @@ final List<BzModel> dbBzz =
     bzTotalSlides: 1000,
     bzTotalViews: 100000,
     bzTotalCalls: 1000,
-    bzTotalJoints: 1000,
     // -------------------------
     bzFlyers: <TinyFlyer>[
       TinyFlyer(flyerID: 'f030', authorID: 'u17', slideIndex: 0, slidePic: Dumz.XXek_1),
@@ -635,7 +624,6 @@ final List<BzModel> dbBzz =
     bzTotalSlides: 1000,
     bzTotalViews: 100000,
     bzTotalCalls: 1000,
-    bzTotalJoints: 1000,
     // -------------------------
     bzFlyers: <TinyFlyer>[
       TinyFlyer(flyerID: 'f008', authorID: 'u05', slideIndex: 0, slidePic: Dumz.XXzah_1),
@@ -683,7 +671,6 @@ final List<BzModel> dbBzz =
     bzTotalSlides: 1000,
     bzTotalViews: 100000,
     bzTotalCalls: 1000,
-    bzTotalJoints: 1000,
     // -------------------------
     bzFlyers: <TinyFlyer>[
       TinyFlyer(flyerID: 'f009', authorID: 'u06', slideIndex: 0, slidePic: Dumz.XXeng_1),
@@ -747,7 +734,6 @@ final List<BzModel> dbBzz =
     bzTotalSlides: 1000,
     bzTotalViews: 100000,
     bzTotalCalls: 1000,
-    bzTotalJoints: 1000,
     // -------------------------
     bzFlyers: <TinyFlyer>[
       TinyFlyer(flyerID: 'f007', authorID: 'u20', slideIndex: 0, slidePic: Dumz.XXnazly_1),
@@ -801,7 +787,6 @@ final List<BzModel> dbBzz =
     bzTotalSlides: 1000,
     bzTotalViews: 100000,
     bzTotalCalls: 1000,
-    bzTotalJoints: 1000,
     // -------------------------
     bzFlyers: <TinyFlyer>[
       TinyFlyer(flyerID: 'f018', authorID: 'u12', slideIndex: 0, slidePic: Dumz.XXwindow_1),
@@ -849,7 +834,6 @@ final List<BzModel> dbBzz =
     bzTotalSlides: 1000,
     bzTotalViews: 100000,
     bzTotalCalls: 1000,
-    bzTotalJoints: 1000,
     // -------------------------
     bzFlyers: <TinyFlyer>[
       TinyFlyer(flyerID: 'f021', authorID: 'u13', slideIndex: 0, slidePic: Dumz.XXpower_1),
@@ -898,7 +882,6 @@ final List<BzModel> dbBzz =
     bzTotalSlides: 1000,
     bzTotalViews: 100000,
     bzTotalCalls: 1000,
-    bzTotalJoints: 1000,
     // -------------------------
     bzFlyers: <TinyFlyer>[
       TinyFlyer(flyerID: 'f023', authorID: 'u14', slideIndex: 0, slidePic: Dumz.XXloader_1),
@@ -946,7 +929,6 @@ final List<BzModel> dbBzz =
     bzTotalSlides: 1000,
     bzTotalViews: 100000,
     bzTotalCalls: 1000,
-    bzTotalJoints: 1000,
     // -------------------------
     bzFlyers: <TinyFlyer>[
       TinyFlyer(flyerID: 'f032', authorID: 'u18', slideIndex: 0, slidePic: Dumz.XXfixawy_1),
@@ -994,7 +976,6 @@ final List<BzModel> dbBzz =
     bzTotalSlides: 1000,
     bzTotalViews: 100000,
     bzTotalCalls: 1000,
-    bzTotalJoints: 1000,
     // -------------------------
     bzFlyers: <TinyFlyer>[
       TinyFlyer(flyerID: 'f033', authorID: 'u19', slideIndex: 0, slidePic: Dumz.XXahmad_1),

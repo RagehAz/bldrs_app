@@ -54,8 +54,8 @@ class NavBar extends StatelessWidget {
     return _buttonWidth;
 }
 // ----------------------------------------------------------------------------
-  int _calculateNumberOfButtons(UserStatus userStatus){
-    int _numberOfButtons = userIsAuthor(userStatus) ? 5 : 4;
+  int _calculateNumberOfButtons(UserModel userModel){
+    int _numberOfButtons = userIsAuthor(userModel) ? 5 : 4;
     return _numberOfButtons;
   }
 // ----------------------------------------------------------------------------
@@ -69,9 +69,9 @@ class NavBar extends StatelessWidget {
     return _spacings;
   }
 // ----------------------------------------------------------------------------
-  double _calculateBoxWidth(BuildContext context, UserStatus userStatus){
+  double _calculateBoxWidth(BuildContext context, UserModel userModel){
     double _buttonWidth = _calculateButtonWidth();
-    int _numberOfButtons = _calculateNumberOfButtons(userStatus);
+    int _numberOfButtons = _calculateNumberOfButtons(userModel);
     int _numberOfSpacings = _numberOfButtons - 1;
     double _spacingFactor = 0.5;
     double _spacings = _calculateSpacings(context, _buttonWidth, _numberOfButtons, _numberOfSpacings, _spacingFactor);
@@ -85,9 +85,9 @@ class NavBar extends StatelessWidget {
     return _boxWidth;
   }
 // ----------------------------------------------------------------------------
-  double _calculateSpacerWidth(BuildContext context, UserStatus userStatus){
+  double _calculateSpacerWidth(BuildContext context, UserModel userModel){
     double _buttonWidth = _calculateButtonWidth();
-    int _numberOfButtons = _calculateNumberOfButtons(userStatus);
+    int _numberOfButtons = _calculateNumberOfButtons(userModel);
     int _numberOfSpacings = _numberOfButtons - 1;
     double _spacingFactor = 0.5;
     double _spacings = _calculateSpacings(context, _buttonWidth, _numberOfButtons, _numberOfSpacings, _spacingFactor);
@@ -146,11 +146,11 @@ class NavBar extends StatelessWidget {
            listen: false,
            builder: (context, UserModel userModel){
 
-             Widget _spacer = SizedBox(width: _calculateSpacerWidth(context, userModel?.userStatus),);
-             Widget _halfSpacer = SizedBox(width: _calculateSpacerWidth(context, userModel?.userStatus) * 0.5,);
+             Widget _spacer = SizedBox(width: _calculateSpacerWidth(context, userModel),);
+             Widget _halfSpacer = SizedBox(width: _calculateSpacerWidth(context, userModel) * 0.5,);
 
              double _buttonWidth = _calculateButtonWidth();
-             double _boxWidth = _calculateBoxWidth(context, userModel?.userStatus);
+             double _boxWidth = _calculateBoxWidth(context, userModel);
 
              // List<dynamic> _followedBzzIDs = userModel != null ? userModel?.followedBzzIDs : [];
              // String _bzID = _followedBzzIDs.length > 0 ?  _followedBzzIDs[0] : '';
@@ -167,7 +167,7 @@ class NavBar extends StatelessWidget {
                      crossAxisAlignment: CrossAxisAlignment.center,
                      children: <Widget>[
 
-                       // back button
+                       /// ios back button
                        if (_deviceIsIOS)
                          DreamBox(
                            height: _circleWidth,
@@ -182,6 +182,7 @@ class NavBar extends StatelessWidget {
 
                        _expander,
 
+                       /// navBar widgets
                        Container(
                          width: _boxWidth,
                          height: _boxHeight,
@@ -193,7 +194,7 @@ class NavBar extends StatelessWidget {
                          child: Stack(
                            children: <Widget>[
 
-                             // --- BLUR LAYER
+                             /// --- BLUR LAYER
                              BlurLayer(
                                width: _boxWidth,
                                height: _boxHeight,
@@ -201,7 +202,7 @@ class NavBar extends StatelessWidget {
                                borders: _boxBorders,
                              ),
 
-                             // --- BUTTONS
+                             /// --- BUTTONS
                              Row(
                                mainAxisAlignment: MainAxisAlignment.center,
                                crossAxisAlignment: CrossAxisAlignment.center,
@@ -209,7 +210,7 @@ class NavBar extends StatelessWidget {
 
                                  _halfSpacer,
 
-                                 // --- SAVED FLYERS
+                                 /// --- SAVED FLYERS
                                  BarButton(
                                    width: _buttonWidth,
                                    text: 'Choices',
@@ -221,7 +222,7 @@ class NavBar extends StatelessWidget {
 
                                  _spacer,
 
-                                 // --- ASK
+                                 /// --- ASK
                                  BarButton(
                                    width: _buttonWidth,
                                    text: Wordz.ask(context),
@@ -245,7 +246,7 @@ class NavBar extends StatelessWidget {
 
                                  _spacer,
 
-                                 // --- MORE
+                                 /// --- MORE
                                  BarButton(
                                    width: _buttonWidth,
                                    text: Wordz.more(context),
@@ -261,8 +262,8 @@ class NavBar extends StatelessWidget {
                                  _spacer,
 
 
-                                 // --- BZ PAGE
-                                 if (userIsAuthor(userModel?.userStatus))
+                                 /// --- BZ PAGE
+                                 if (userIsAuthor(userModel))
                                    bzModelStreamBuilder(
                                        bzID: userModel.myBzzIDs[0], // TASK : showing multiple bzz owned by user['myBzzIDs'] will impact this
                                        context: context,
@@ -310,6 +311,7 @@ class NavBar extends StatelessWidget {
 
                        _expander,
 
+                       /// IOS balance container
                        if (_deviceIsIOS)
                          Container(
                            width: _circleWidth,

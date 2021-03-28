@@ -18,7 +18,6 @@ class AuthorLabel extends StatelessWidget {
   final int followersCount;
   final int bzGalleryCount;
   final bool bzPageIsOn;
-  // final int bzConnects; // not used in here
   final int authorGalleryCount;
   final bool labelIsOn;
   final String authorID;
@@ -32,7 +31,6 @@ class AuthorLabel extends StatelessWidget {
     @required this.followersCount,
     @required this.bzGalleryCount,
     @required this.bzPageIsOn,
-    // @required this.bzConnects, // not used in here
     this.authorGalleryCount,
     this.labelIsOn = false,
     @required this.authorID,
