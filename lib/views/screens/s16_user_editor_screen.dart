@@ -227,23 +227,23 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   // ---------------------------------------------------------------------------
   void _deleteAccount () async {
     /// bool dialog ( i yes continue delete and ask for password , if no cancel operation and don't delete
-    await superDialog(context, 'You will delete your account, and there is no going back !', 'Take Care !'); // should be bool dialog
-
-    _triggerLoading();
-    await tryAndCatch(
-      context: context,
-      functions: () async {
-
-        String _email = getAContactValueFromContacts(widget.user.contacts, ContactType.Email);
-        await UserCRUD().deleteUserDoc(widget.user.userID);
-        await AuthService().deleteFirebaseUser(context, _email, '123456');
-
-      }
-    );
-
-    _triggerLoading();
-
-    goToRoute(context, Routez.Starting);
+    // await superDialog(context, 'You will delete your account, and there is no going back !', 'Take Care !'); // should be bool dialog
+    //
+    // _triggerLoading();
+    // await tryAndCatch(
+    //   context: context,
+    //   functions: () async {
+    //
+    //     String _email = getAContactValueFromContacts(widget.user.contacts, ContactType.Email);
+        // await UserCRUD().deleteUserDoc(widget.user.userID);
+    //     await AuthService().deleteFirebaseUser(context, _email, '123456');
+    //
+    //   }
+    // );
+    //
+    // _triggerLoading();
+    //
+    // goToRoute(context, Routez.Starting);
 
   }
   // ---------------------------------------------------------------------------

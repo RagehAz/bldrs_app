@@ -17,7 +17,6 @@ class HeaderLabels extends StatelessWidget {
   final int followersCount;
   final int bzGalleryCount;
   final bool flyerShowsAuthor;
-  final int bzConnects;
   final String authorID;
 
   HeaderLabels({
@@ -33,7 +32,6 @@ class HeaderLabels extends StatelessWidget {
     @required this.followersCount,
     @required this.bzGalleryCount,
     @required this.flyerShowsAuthor,
-    @required this.bzConnects,
     @required this.authorID,
   });
 

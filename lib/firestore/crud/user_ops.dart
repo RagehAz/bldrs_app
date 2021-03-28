@@ -24,19 +24,31 @@ class UserCRUD{
 // ---------------------------------------------------------------------------
   /// create or update user document
   /// or update user document
-  Future<void> _createOrUpdateUserDoc({UserModel userModel}) async {
-    await _usersCollectionRef.doc(userModel.userID).set(userModel.toMap());
+  Future<void> _createOrUpdateUserDoc({BuildContext context, UserModel userModel}) async {
+
+    await replaceFirestoreDocument(
+      context: context,
+      collectionName: FireStoreCollection.users,
+      documentName: userModel.userID,
+      input: userModel.toMap(),
+    );
+
 }
 // ---------------------------------------------------------------------------
   Future<void> createUserOps({BuildContext context, UserModel userModel}) async {
     /// create user doc in fireStore
-    tryAndCatch(
+    await _createOrUpdateUserDoc(
       context: context,
-      functions: () async {
-        await _createOrUpdateUserDoc(userModel: userModel);
-      }
+      userModel: userModel,
     );
 
+    /// create TinyUser in firestore
+    await createFireStoreNamedDocument(
+      context: context,
+      collectionName: FireStoreCollection.tinyUsers,
+      documentName: userModel.userID,
+      input: getTinyUserFromUserModel(userModel).toMap(),
+    );
 
   }
 // ---------------------------------------------------------------------------
@@ -77,17 +89,15 @@ class UserCRUD{
     }
 
     /// update firestore user doc
-    await tryAndCatch(
-        context: context,
-        functions: () async {
-          await _createOrUpdateUserDoc(userModel: newUserModel);
-        }
+    await _createOrUpdateUserDoc(
+      context: context,
+      userModel: newUserModel,
     );
 
   }
 // ---------------------------------------------------------------------------
   /// delete user document and its consequences
-  Future<void> deleteUserDoc(String userID) async {
+  Future<void> _deleteUserDoc(String userID) async {
     final DocumentReference _userDocument = userDocRef(userID);
     await _userDocument.delete();
   }
@@ -104,14 +114,14 @@ class UserCRUD{
     /// flyers, all records, pictures) in [bool dialog]
     ///
     /// 2. if Author is not alone : Alert author to either 'delete' (will lose
-    /// all flyer records including saves, shares, views, calls, and bzJoints records) or
+    /// all flyer records including saves, shares, views, calls records) or
     /// 'migrate to other author' his published flyers (if publishedFlyersIDs.length > 0)
     /// & Joints (if joints.length > 0) in [choice dialog]
     ///
     /// 3. according to 1 & 2 :-
-    ///     - migrate published flyers & joints to another author
+    ///     - migrate published flyers to another author
     ///       + change authorID in all these flyers
-    ///       + change requesterID or responderID in all his joint records
+    ///
     ///     - delete published flyers
     /// 4. delete author doc from authors collection in bz doc
   }

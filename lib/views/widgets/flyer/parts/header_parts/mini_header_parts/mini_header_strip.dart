@@ -96,7 +96,6 @@ class MiniHeaderStrip extends StatelessWidget {
                   aTitle: aTitle,
                   followersCount: followersCount,
                   bzGalleryCount: bzGalleryCount,
-                  bzConnects: bz.bzTotalJoints,
                   authorID: authorID,
                 ),
               ),

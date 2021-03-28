@@ -148,7 +148,7 @@ class AuthService {
         province: _countryPro.currentProvinceID,
         area: _countryPro.currentAreaID,
         language: Wordz.languageCode(context),
-        position: GeoPoint(0, 0),
+        position: null,
         contacts: _concludeUserContacts(user),
         // -------------------------
         myBzzIDs: [],
