@@ -36,7 +36,6 @@ class _FirebasetestingState extends State<Firebasetesting> {
   void initState() {
 
     final FirebaseFirestore _fireInstance = FirebaseFirestore.instance;
-    CollectionReference _collection = _fireInstance.collection('test');
 
     functions = [
       // -----------------------------------------------------------------------
@@ -60,8 +59,11 @@ class _FirebasetestingState extends State<Firebasetesting> {
           functions: () async {
             dynamic ref = {
               'content' : 'Content ...',
-              'test' : UserCRUD().userCollectionRef().doc('/' + superUserID()),
+              'ref' : UserCRUD().userCollectionRef().doc('/' + superUserID()),
             };
+
+            CollectionReference _collection = _fireInstance.collection('test');
+
             await _collection.add(ref);
           }
         );
@@ -81,7 +83,6 @@ class _FirebasetestingState extends State<Firebasetesting> {
   // -----------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
 
 
     return MainLayout(

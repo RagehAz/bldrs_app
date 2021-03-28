@@ -130,16 +130,31 @@ bzzIDs.forEach((bzID) {bzz.add(getBzByBzID(bzID));});
 return bzz;
 }
 // ############################################################################
+  /// add bz to local list
+  void addBzModelToLocalList(BzModel bzModel){
+    _loadedBzz.add(bzModel);
+    notifyListeners();
+  }
+// ############################################################################
+  void updateBzModelInLocalList(BzModel modifiedBzModel){
+    int _indexOfOldBzModel = _loadedBzz.indexWhere((bz) => modifiedBzModel.bzID == bz.bzID);
+    _loadedBzz.removeAt(_indexOfOldBzModel);
+    _loadedBzz.insert(_indexOfOldBzModel, modifiedBzModel);
+    notifyListeners();
+  }
+// ############################################################################
   /// add flyer to local list
-  void addFlyerToLocalFlyersList(FlyerModel flyer){
+  void addFlyerModelToLocalList(FlyerModel flyer){
     _loadedFlyers.add(flyer);
     notifyListeners();
   }
+
 // ############################################################################
 /// BZZ ON FIRE STORE
 // ---------------------------------------------------------------------------
 /// bzz collection reference
-final CollectionReference bzzCollection = FirebaseFirestore.instance.collection(FireStoreCollection.bzz);
+final CollectionReference bzzCollection =
+FirebaseFirestore.instance.collection(FireStoreCollection.bzz);
 // ---------------------------------------------------------------------------
 /// create Bz document
 Future<void> createBzDocument(BzModel bz, UserModel userModel) async {
@@ -184,7 +199,6 @@ Future<void> createBzDocument(BzModel bz, UserModel userModel) async {
     bzTotalSlides: bz.bzTotalSlides,
     bzTotalViews: bz.bzTotalViews,
     bzTotalCalls: bz.bzTotalCalls,
-    bzTotalJoints: bz.bzTotalJoints,
     // -------------------------
     bzFlyers: bz.bzFlyers,
   );
@@ -238,48 +252,6 @@ Future<void> deleteBzDocument(BzModel bzModel) async {
     if (bzIndex >= 0){
 
       bzzCollection.doc(bz.bzID).set(bz.toMap());
-
-      // final url = 'https://bldrsnet.firebaseio.com/bzz/${bz.bzID}.json';
-      // await http.patch(url, body: json.encode({
-      //   'bzID': bz.bzID,
-      //   // -------------------------
-      //   'bzType': cipherBzType(bz.bzType),
-      //   'bzForm': cipherBzForm(bz.bzForm),
-      //   'bldrBirth': cipherDateTimeToString(bz.bldrBirth),
-      //   'accountType': cipherBzAccountType(bz.accountType),
-      //   'bzURL': bz.bzURL,
-      //   // -------------------------
-      //   'bzName': bz.bzName,
-      //   'bzLogo': bz.bzLogo,
-      //   'bzScope': bz.bzScope,
-      //   'bzCountry': bz.bzCountry,
-      //   'bzProvince': bz.bzProvince,
-      //   'bzArea': bz.bzArea,
-      //   'bzAbout': bz.bzAbout,
-      //   'bzPosition': bz.bzPosition,
-      //   'bzContacts': cipherContactsModels(bz.bzContacts),
-      //   'bzAuthors': cipherAuthorsModels(bz.bzAuthors),
-      //   'bzShowsTeam': bz.bzShowsTeam,
-      //   // -------------------------
-      //   'bzIsVerified': bz.bzIsVerified,
-      //   'bzAccountIsDeactivated': bz.bzAccountIsDeactivated,
-      //   'bzAccountIsBanned': bz.bzAccountIsBanned,
-      //   // -------------------------
-      //   'bzTotalFollowers': bz.bzTotalFollowers,
-      //   'bzTotalSaves': bz.bzTotalSaves,
-      //   'bzTotalShares': bz.bzTotalShares,
-      //   'bzTotalSlides': bz.bzTotalSlides,
-      //   'bzTotalViews': bz.bzTotalViews,
-      //   'bzTotalCalls': bz.bzTotalCalls,
-      //   'bzTotalJoints': bz.bzTotalJoints,
-      //   // -------------------------
-      //   'jointsBzzIDs': bz.jointsBzzIDs,
-        // -------------------------
-        // 'followIsOn': bz.followIsOn,
-        // will change in later max lessons to be user based
-      // }
-    // )
-    // );
 
       _loadedBzz[bzIndex] = bz;
       notifyListeners();

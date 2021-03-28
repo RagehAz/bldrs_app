@@ -51,9 +51,7 @@ class BzModel with ChangeNotifier{
   int bzTotalSlides;
   int bzTotalViews;
   int bzTotalCalls;
-  int bzTotalJoints;
-  // // -------------------------
-  // bool followIsOn;
+  // -------------------------
   final List<TinyFlyer> bzFlyers;
 // ###############################
   BzModel({
@@ -87,9 +85,6 @@ class BzModel with ChangeNotifier{
     this.bzTotalSlides,
     this.bzTotalViews,
     this.bzTotalCalls,
-    this.bzTotalJoints,
-    // -------------------------
-    // this.followIsOn,
     // -------------------------
     this.bzFlyers,
   });
@@ -158,13 +153,8 @@ Map<String, dynamic> toMap(){
     'bzTotalSlides' : bzTotalSlides,
     'bzTotalViews' : bzTotalViews,
     'bzTotalCalls' : bzTotalCalls,
-    'bzTotalJoints' : bzTotalJoints,
     // -------------------------
-    // 'jointsBzzIDs' : jointsBzzIDs,
-    // -------------------------
-    // 'followIsOn' : followIsOn,
-    // -------------------------
-    'bzflyers' : cipherTinyFlyers(bzFlyers),
+    'bzFlyers' : cipherTinyFlyers(bzFlyers),
     };
 }
 }
@@ -191,6 +181,16 @@ class TinyBz {
     };
   }
 
+}
+
+TinyBz getTinyBzFromBzModel(BzModel bzModel){
+  return
+      TinyBz(
+          bzID: bzModel.bzID,
+          bzLogo: bzModel.bzLogo,
+          bzName: bzModel.bzName,
+          bzType: bzModel.bzType,
+      );
 }
 // -----------------------------------------------------------------------------
 List<dynamic> cipherTinyBzzModels(List<TinyBz> tinyBzz){
@@ -356,11 +356,7 @@ BzModel decipherBzMap(String bzID, dynamic map){
     bzTotalSlides : map['bzTotalSlides'],
     bzTotalViews : map['bzTotalViews'],
     bzTotalCalls : map['bzTotalCalls'],
-    bzTotalJoints : map['bzTotalJoints'],
     // -------------------------
-    // jointsBzzIDs : map['jointsBzzIDs'],
-    // -------------------------
-    // followIsOn : map['followIsOn'],
     bzFlyers: decipherTinyFlyers(map['bzFlyers']),
   );
 }
@@ -415,8 +411,6 @@ BzModel createInitialBzModelFromUserData(UserModel userModel){
     bzTotalSlides: 0,
     bzTotalViews: 0,
     bzTotalCalls: 0,
-    bzTotalJoints: 0,
-    // followIsOn: false,
     // -------------------------
     bzFlyers: [],
   );
