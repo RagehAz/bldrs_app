@@ -17,7 +17,6 @@ class Gallery extends StatefulWidget {
   final int followersCount;
   final List<String> bzTeamIDs;
   final bool bzPageIsOn;
-  final bzConnects;
   final List<TinyFlyer> galleryFlyers;
   final List<AuthorModel> authors;
   // final Function tappingMiniFlyer;
@@ -30,7 +29,6 @@ class Gallery extends StatefulWidget {
     @required this.followersCount,
     @required this.bzTeamIDs,
     @required this.bzPageIsOn,
-    @required this.bzConnects,
     @required this.galleryFlyers,
     @required this.authors,
     // @required this.tappingMiniFlyer,

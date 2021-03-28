@@ -151,7 +151,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
                                                     _triggerLoading();
 
                                                     try{
-                                                      await UserCRUD().deleteUserDoc(_userModel.userID);
+                                                      // await UserCRUD().deleteUserDoc(_userModel.userID);
                                                     } catch (error){
                                                       superDialog(context, error, 'Ops');
                                                     }

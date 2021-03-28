@@ -107,7 +107,7 @@ class CountryProvider with ChangeNotifier{
 // ---------------------------------------------------------------------------
   String getProvinceNameWithCurrentLanguageIfPossible(BuildContext context, String provinceName){
   String _currentLanguageCode = Wordz.languageCode(context);
-  Province province = _provinces.singleWhere((ar) => ar.name == provinceName, orElse: ()=> null);
+  Province province = _provinces.firstWhere((ar) => ar.name == provinceName, orElse: ()=> null);
   String nameInCurrentLanguage = province?.namez?.singleWhere((name) => name.code == _currentLanguageCode, orElse: ()=> null)?.value;
 
   return nameInCurrentLanguage == null ? provinceName : nameInCurrentLanguage;

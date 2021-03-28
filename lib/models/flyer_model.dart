@@ -251,3 +251,12 @@ FlyerModel decipherFlyerMap(dynamic map){
   );
 }
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+List<String> getListOfFlyerIDsFromTinyFlyers(List<TinyFlyer> tinyFlyers){
+  List<String> _flyerIDs = new List();
+
+  tinyFlyers.forEach((flyer) {
+    _flyerIDs.add(flyer.flyerID);
+  });
+
+  return _flyerIDs;
+}
