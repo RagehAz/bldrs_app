@@ -113,7 +113,7 @@ List<dynamic> cipherTinyFlyers (List<TinyFlyer> tinyFlyers){
   return _tinyFlyersMaps;
 }
 // -----------------------------------------------------------------------------
-List<TinyFlyer> decipherTinyFlyers (List<dynamic> tinyFlyersMaps){
+List<TinyFlyer> decipherTinyFlyersMaps(List<dynamic> tinyFlyersMaps){
   List<TinyFlyer> _tinyFlyers = new List();
   tinyFlyersMaps.forEach((map) {
     _tinyFlyers.add(decipherTinyFlyerMap(map));
@@ -121,7 +121,7 @@ List<TinyFlyer> decipherTinyFlyers (List<dynamic> tinyFlyersMaps){
   return _tinyFlyers;
 }
 // -----------------------------------------------------------------------------
-TinyFlyer decipherTinyFlyerMap(Map<String, dynamic> map){
+TinyFlyer decipherTinyFlyerMap(dynamic map){
   return TinyFlyer(
       flyerID: map['flyerID'],
       bzID: map['bzID:'],
@@ -129,6 +129,15 @@ TinyFlyer decipherTinyFlyerMap(Map<String, dynamic> map){
       authorID: map['authorID'],
       slideIndex: map['slideIndex'],
       slidePic: map['slidePic'],
+  );
+}
+// -----------------------------------------------------------------------------
+TinyFlyer getTinyFlyerFromFlyerModel(FlyerModel flyerModel){
+  return TinyFlyer(
+      flyerID: flyerModel.flyerID,
+      authorID: flyerModel.authorID,
+      slideIndex: 0,
+      slidePic: flyerModel.slides[0].picture,
   );
 }
 // -----------------------------------------------------------------------------

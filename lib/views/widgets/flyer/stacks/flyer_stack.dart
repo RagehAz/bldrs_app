@@ -6,6 +6,10 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
+import 'package:bldrs/views/widgets/flyer/parts/flyer_zone.dart';
+import 'package:bldrs/views/widgets/flyer/parts/header.dart';
+import 'package:bldrs/views/widgets/flyer/parts/header_parts/mini_header.dart';
+import 'package:bldrs/views/widgets/flyer/parts/slides_parts/single_slide.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -25,8 +29,8 @@ class FlyerStack extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final FlyersProvider _pro = Provider.of<FlyersProvider>(context, listen: false);
-    final List<FlyerModel> _flyersOfType = _pro.getFlyersByFlyerType(flyersType);
-    final List<BzModel> _bzz = _pro.getBzzOfFlyersList(_flyersOfType);
+    final List<TinyFlyer> _tinyFlyersOfType = _pro.getTinyFlyersByFlyerType(flyersType);
+    final List<TinyBz> _tinyBzz = _pro.getTinyBzzOfTinyFlyersList(_tinyFlyersOfType);
 
 // ----------------------------------------------------------------------------
     double _screenWidth = superScreenWidth(context);
@@ -85,7 +89,7 @@ class FlyerStack extends StatelessWidget {
             height: _collectionHeight,
             // color: Colorz.BloodTest,
             child: ListView.separated(
-              itemCount: _flyersOfType.length,
+              itemCount: _tinyFlyersOfType.length,
               scrollDirection: Axis.horizontal,
               padding: EdgeInsets.symmetric(horizontal: 10),
               addAutomaticKeepAlives: true,
@@ -97,20 +101,39 @@ class FlyerStack extends StatelessWidget {
               itemBuilder: (context,_x) {
                 return
                 // --- works
-                ChangeNotifierProvider.value(
-                  value: _flyersOfType[_x],
-                  child: ChangeNotifierProvider.value(
-                    value: _bzz[_x],
-                    child: Flyer(
-                      flyerSizeFactor: flyerSizeFactor,
-                      slidingIsOn: _slidingIsOn,
-                      tappingFlyerZone: (){
-                        openFlyer(context, _flyersOfType[_x].flyerID);
-                        // _slidingIsOff = false;
-                        },
-                    ),
-                  ),
-                );
+                // ChangeNotifierProvider.value(
+                //   value: _tinyFlyersOfType[_x],
+                //   child: ChangeNotifierProvider.value(
+                //     value: _tinyBzz[_x],
+                //     // child:
+                //     // Flyer(
+                //     //   flyerSizeFactor: flyerSizeFactor,
+                //     //   slidingIsOn: _slidingIsOn,
+                //     //   tappingFlyerZone: (){
+                //     //     openFlyer(context, _tinyFlyersOfType[_x].flyerID);
+                //     //     // _slidingIsOff = false;
+                //     //     },
+                //     // ),
+                //
+                //     // FlyerZone(
+                //     //   flyerSizeFactor: flyerSizeFactor,
+                //     //   stackWidgets: <Widget>[
+                //     //
+                //     //     MiniHeader(
+                //     //
+                //     //     )
+                //     //
+                //     //     SingleSlide(
+                //     //         flyerZoneWidth: superFlyerZoneWidth(context, flyerSizeFactor),
+                //     //
+                //     //     ),
+                //     //
+                //     //   ],
+                //     // ),
+                //
+                //   ),
+                // )
+                ;
 
                 },
 
