@@ -16,6 +16,7 @@ import 'users_provider.dart';
 // -----------------------------------------------------------------------------
 class FlyersProvider with ChangeNotifier {
   List<FlyerModel> _loadedFlyers = geebAllFlyers();
+  List<TinyFlyer> _loadedTinyFlyers = geebAllTinyFlyers();
   List<BzModel> _loadedBzz = geebAllBzz();
   List<TinyBz> _loadedTinyBzz = geebAllTinyBzz();
 // ############################################################################
@@ -43,10 +44,16 @@ class FlyersProvider with ChangeNotifier {
   }
 // ############################################################################
   FlyerModel getFlyerByFlyerID (String flyerID){
-    FlyerModel flyer = _loadedFlyers?.firstWhere((x) => x.flyerID == flyerID, orElse: ()=>null);
-    return flyer;
+    FlyerModel _flyer = _loadedFlyers?.firstWhere((x) => x.flyerID == flyerID, orElse: ()=>null);
+    return _flyer;
   }
 // ---------------------------------------------------------------------------
+  TinyFlyer getTinyFlyerByFlyerID (String flyerID){
+    TinyFlyer _tinyFlyer = _loadedTinyFlyers?.firstWhere((x) => x.flyerID == flyerID, orElse: ()=>null);
+    return _tinyFlyer;
+  }
+// ---------------------------------------------------------------------------
+
   List<FlyerModel> getFlyersByFlyersIDs(List<dynamic> flyersIDs){
     List<FlyerModel> flyers = new List();
     flyersIDs?.forEach((id) {flyers.add(getFlyerByFlyerID(id));});
@@ -62,12 +69,21 @@ class FlyersProvider with ChangeNotifier {
   }
 // ---------------------------------------------------------------------------
   List<FlyerModel> getFlyersByFlyerType(FlyerType flyerType){
-    List<FlyerModel> flyers = new List();
-    List<String> flyersIDs = getFlyersIDsByFlyerType(flyerType);
-    flyersIDs.forEach((fID) {
-      flyers.add(getFlyerByFlyerID(fID));
+    List<FlyerModel> _flyers = new List();
+    List<String> _flyersIDs = getFlyersIDsByFlyerType(flyerType);
+    _flyersIDs.forEach((fID) {
+      _flyers.add(getFlyerByFlyerID(fID));
     });
-    return flyers;
+    return _flyers;
+  }
+// ---------------------------------------------------------------------------
+  List<TinyFlyer> getTinyFlyersByFlyerType(FlyerType flyerType){
+    List<TinyFlyer> _tinyFlyers = new List();
+    List<String> _flyersIDs = getFlyersIDsByFlyerType(flyerType);
+    _flyersIDs.forEach((fID) {
+      _tinyFlyers.add(getTinyFlyerByFlyerID(fID));
+    });
+    return _tinyFlyers;
   }
 // ---------------------------------------------------------------------------
   bool getAnkhByFlyerID(String flyerID, String useID){
@@ -116,13 +132,27 @@ class FlyersProvider with ChangeNotifier {
     return bz;
   }
 // ---------------------------------------------------------------------------
-List<BzModel> getBzzOfFlyersList(List<FlyerModel> flyersList){
-    List<BzModel> bzz = new List();
+  TinyBz getTinyBzByBzID(String bzID){
+    TinyBz _tinyBz = _loadedTinyBzz?.firstWhere((bz) => bz.bzID == bzID, orElse: ()=>null);
+    return _tinyBz;
+  }
+// ---------------------------------------------------------------------------
+
+  List<BzModel> getBzzOfFlyersList(List<FlyerModel> flyersList){
+    List<BzModel> _bzz = new List();
     flyersList.forEach((fl) {
-      bzz.add(getBzByBzID(fl.tinyBz.bzID));
+      _bzz.add(getBzByBzID(fl.tinyBz.bzID));
     });
-    return bzz;
+    return _bzz;
 }
+// ---------------------------------------------------------------------------
+  List<TinyBz> getTinyBzzOfTinyFlyersList(List<TinyFlyer> tinyFlyersList){
+    List<TinyBz> _tinyBzz = new List();
+    tinyFlyersList.forEach((fl) {
+      _tinyBzz.add(getTinyBzByBzID(fl.bzID));
+    });
+    return _tinyBzz;
+  }
 // ---------------------------------------------------------------------------
 List<BzModel> getBzzByBzzIDs(List<String> bzzIDs){
 List<BzModel> bzz = new List();
@@ -301,6 +331,36 @@ Future<void> deleteBzDocument(BzModel bzModel) async {
     );
 
   }
+  // ---------------------------------------------------------------------------
+  /// READs all TinyBzz in firebase realtime database
+  Future<void> fetchAndSetTinyBzzAndTinyFlyers(BuildContext context) async {
+
+    await tryAndCatch(
+        context: context,
+        functions: () async {
+
+          /// READ data from cloud Firestore bzz collection
+          List<dynamic> _fireStoreTinyBzzMaps = await getFireStoreCollectionMaps(FireStoreCollection.tinyBzz);
+          final List<TinyBz> _fireStoreTinyBzzModels = decipherTinyBzzMaps(_fireStoreTinyBzzMaps);
+
+          /// TASK : BOOMMM : should be _loadedBzz = _loadedBzzFromDB,, but this bom bom crash crash
+          _loadedTinyBzz.addAll(_fireStoreTinyBzzModels);
+
+          /// READ data from cloud Firestore flyers collection
+          List<dynamic> _fireStoreTinyFlyersMaps = await getFireStoreCollectionMaps(FireStoreCollection.tinyFlyers);
+          final List<TinyFlyer> _fireStoreTinyFlyersModels = decipherTinyFlyersMaps(_fireStoreTinyFlyersMaps);
+
+          /// TASK : after migrating local flyers to firestore, _loadedFlyers should = _fireStoreFlyersModels;
+          _loadedTinyFlyers.addAll(_fireStoreTinyFlyersModels);
+
+          notifyListeners();
+          print('_loadedTinyBzz :::: --------------- $_loadedTinyBzz');
+
+        }
+    );
+
+  }
+
 // ############################################################################
 
 }
