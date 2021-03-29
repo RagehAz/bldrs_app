@@ -185,7 +185,7 @@ class BzCRUD{
           context: context,
           inputFile: authorPicFile,
           fileName: _authorID,
-          picType: PicType.userPic,
+          picType: PicType.authorPic,
       );
     }
 

@@ -14,6 +14,17 @@ List<FlyerModel> geebAllFlyers(){
   return dbFlyers;
 }
 // -----------------------------------------------------------------------------
+List<TinyFlyer> geebAllTinyFlyers(){
+  List<TinyFlyer> _allTinyFlyers = new List();
+
+  dbFlyers.forEach((flyer) {
+    _allTinyFlyers.add(getTinyFlyerFromFlyerModel(flyer));
+  });
+
+  return _allTinyFlyers;
+}
+// -----------------------------------------------------------------------------
+
 final List<FlyerModel> dbFlyers = <FlyerModel>[
 
   // flyerID: 'f001',
