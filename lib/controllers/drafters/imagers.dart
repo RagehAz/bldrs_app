@@ -4,11 +4,17 @@
 import 'dart:async';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
+import 'package:bldrs/controllers/drafters/text_manipulators.dart';
+import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 import 'file_formatters.dart';
+import 'dart:io';
+import 'package:flutter/services.dart' show rootBundle;
+import 'package:path_provider/path_provider.dart';
+import 'package:path_provider/path_provider.dart';
 // === === === === === === === === === === === === === === === === === === ===
 DecorationImage superImage(String picture, BoxFit boxFit){
   DecorationImage image = DecorationImage(
@@ -46,6 +52,7 @@ enum PicType{
   bzLogo,
   slideHighRes,
   slideLowRes,
+  dum,
 }
 // === === === === === === === === === === === === === === === === === === ===
 int concludeImageQuality(PicType picType){
@@ -55,6 +62,7 @@ int concludeImageQuality(PicType picType){
     case PicType.bzLogo       :   return  80   ;     break;
     case PicType.slideHighRes :   return  100  ;     break;
     case PicType.slideLowRes  :   return  60   ;     break;
+    case PicType.dum          :   return  100  ;     break;
     default : return   null;
 }
 }
@@ -64,8 +72,9 @@ double concludeImageMaxWidth(PicType picType){
     case PicType.userPic      :   return  150   ;     break;
     case PicType.authorPic    :   return  150   ;     break;
     case PicType.bzLogo       :   return  150   ;     break;
-    case PicType.slideHighRes :   return  1000   ;     break;
+    case PicType.slideHighRes :   return  1000  ;     break;
     case PicType.slideLowRes  :   return  150   ;     break;
+    case PicType.dum          :   return  null  ;     break;
     default : return   null;
   }
 }
@@ -171,5 +180,29 @@ Future < ui.Image > loadImage(List < int > img) async {
     return completer.complete(img);
   });
   return completer.future;
+}
+// === === === === === === === === === === === === === === === === === === ===
+Future<File> getImageFileFromAssets(BuildContext context, String asset) async {
+
+  File _file;
+
+  await tryAndCatch(
+      context: context,
+      functions: () async {
+        print('0. removing assets/ from input image path');
+        String _pathTrimmed = removeNumberOfCharactersFromAString(asset, 7);
+        print('1. starting getting image from assets');
+        final _byteData = await rootBundle.load('assets/$_pathTrimmed');
+        print('2. we got byteData and creating the File aho');
+        final _tempFile = File('${(await getTemporaryDirectory()).path}/${getFileNameFromAsset(_pathTrimmed)}');
+        print('3. we created the FILE and will overwrite image data as bytes');
+        await _tempFile.writeAsBytes(_byteData.buffer.asUint8List(_byteData.offsetInBytes, _byteData.lengthInBytes));
+        await _tempFile.create(recursive: true);
+        _file = _tempFile;
+        print('4. file is ${_file.path}');
+
+      }
+  );
+  return _file;
 }
 // === === === === === === === === === === === === === === === === === === ===

@@ -107,7 +107,7 @@ Future<DocumentReference> createFireStoreDocument({
 
   DocumentReference _docRef;
 
-  tryAndCatch(
+  await tryAndCatch(
     context: context,
     functions: () async {
 
@@ -155,7 +155,7 @@ Future<void> replaceFirestoreDocument({
   Map<String, dynamic> input,
 }) async {
 
-  tryAndCatch(
+  await tryAndCatch(
     context: context,
     functions: () async {
 
