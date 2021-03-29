@@ -134,10 +134,12 @@ TinyFlyer decipherTinyFlyerMap(dynamic map){
 // -----------------------------------------------------------------------------
 TinyFlyer getTinyFlyerFromFlyerModel(FlyerModel flyerModel){
   return TinyFlyer(
-      flyerID: flyerModel.flyerID,
-      authorID: flyerModel.authorID,
-      slideIndex: 0,
-      slidePic: flyerModel.slides[0].picture,
+    flyerID: flyerModel.flyerID,
+    authorID: flyerModel.authorID,
+    slideIndex: 0,
+    slidePic: flyerModel.slides[0].picture,
+    bzLogo: flyerModel.tinyBz.bzLogo,
+    bzID: flyerModel.tinyBz.bzID,
   );
 }
 // -----------------------------------------------------------------------------
