@@ -1,5 +1,3 @@
-
-
 // === === === === === === === === === === === === === === === === === === ===
 List<String> sortAlphabetically(List<String> inputList){
   List<String> _outputList = new List();
@@ -29,6 +27,17 @@ String firstCharacterAfterRemovingSpacesFromAString(String string){
 String removeFirstCharacterFromAString(String string){
   String stringWithoutFirstCharacter = string.length >0 ? string?.substring(1) : null;
   return stringWithoutFirstCharacter;
+}
+// === === === === === === === === === === === === === === === === === === ===
+String removeNumberOfCharactersFromAString(String string, int numberOfCharacters){
+  String _stringTrimmed;
+  if (numberOfCharacters > string.length){
+    print('can not remove ($numberOfCharacters) from the given string because : numberOfCharacters > string.length');
+    throw('can not remove ($numberOfCharacters) from the given string because');
+  } else {
+    _stringTrimmed = string.length >0 ? string?.substring(numberOfCharacters) : null;
+  }
+  return _stringTrimmed;
 }
 // === === === === === === === === === === === === === === === === === === ===
 String removeSpacesFromAString(String string){
@@ -93,5 +102,23 @@ int lastTwoIntegersFromAString(String string){
   String _lastTwoSubStrings = lastTwoSubStringsFromAString(string);
   int _asIntegers = stringToInt(_lastTwoSubStrings);
   return _asIntegers;
+}
+// === === === === === === === === === === === === === === === === === === ===
+String trimTextAfterFirstSpecialCharacter(String verse, String specialCharacter){
+  String _result = verse.substring(0, verse.indexOf('specialCharacter'));
+  return _result;
+}
+// === === === === === === === === === === === === === === === === === === ===
+String trimTextBeforeLastSpecialCharacter(String verse, String specialCharacter){
+  int _position = verse.lastIndexOf(specialCharacter);
+  String _result = (_position != -1)? verse.substring(_position+1, verse.length): verse;
+  return _result;
+}
+// === === === === === === === === === === === === === === === === === === ===
+/// this trims paths like
+/// 'assets/xx/pp_sodic/builds_1.jpg' to 'builds_1.jpg'
+String getFileNameFromAsset(String asset){
+  String _fileName = trimTextBeforeLastSpecialCharacter(asset, '/');
+  return _fileName;
 }
 // === === === === === === === === === === === === === === === === === === ===
