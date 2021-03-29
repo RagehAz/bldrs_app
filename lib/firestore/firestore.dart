@@ -127,20 +127,23 @@ Future<DocumentReference> createFireStoreDocument({
 Future<DocumentReference> createFireStoreNamedDocument({
   BuildContext context,
   String collectionName,
-  String documentName,
+  String docName,
   Map<String, dynamic> input,
 }) async {
 
   DocumentReference _docRef;
 
-  tryAndCatch(
+  await tryAndCatch(
       context: context,
       functions: () async {
 
         final CollectionReference _collectionReference =
         getFirestoreCollectionReference(collectionName);
 
-        await _collectionReference.doc(documentName).set(input);
+        _docRef = _collectionReference.doc(docName);
+
+        await _docRef.set(input);
+
 
       }
   );
@@ -151,7 +154,7 @@ Future<DocumentReference> createFireStoreNamedDocument({
 Future<void> replaceFirestoreDocument({
   BuildContext context,
   String collectionName,
-  String documentName,
+  String docName,
   Map<String, dynamic> input,
 }) async {
 
@@ -161,9 +164,41 @@ Future<void> replaceFirestoreDocument({
 
       CollectionReference _collectionReference = getFirestoreCollectionReference(collectionName);
 
-      await _collectionReference.doc(documentName).set(input);
+      await _collectionReference.doc(docName).set(input);
 
     }
   );
+}
+// ---------------------------------------------------------------------------
+/// creates a new sub doc and new sub collection if didn't exists
+/// and uses the same directory i existed to add a new doc
+/// updates the sub doc if existed
+/// and creates random for sub doc if sub doc name is null
+Future<DocumentReference> insertFireStoreSubDocument({
+  BuildContext context,
+  String collectionName,
+  String docName,
+  String subCollectionName,
+  String subDocName,
+  Map<String, dynamic> input,
+}) async {
+
+  DocumentReference _subDocRef;
+
+  await tryAndCatch(
+      context: context,
+      functions: () async {
+
+        final CollectionReference _collectionRef =
+        getFirestoreCollectionReference(collectionName);
+
+        _subDocRef = _collectionRef.doc(docName).collection(subCollectionName).doc(subDocName);
+
+        await _subDocRef.set(input);
+
+      }
+  );
+
+  return _subDocRef;
 }
 // ---------------------------------------------------------------------------
