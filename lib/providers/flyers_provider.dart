@@ -149,7 +149,7 @@ class FlyersProvider with ChangeNotifier {
   List<TinyBz> getTinyBzzOfTinyFlyersList(List<TinyFlyer> tinyFlyersList){
     List<TinyBz> _tinyBzz = new List();
     tinyFlyersList.forEach((fl) {
-      _tinyBzz.add(getTinyBzByBzID(fl.bzID));
+      _tinyBzz.add(getTinyBzByBzID(fl?.tinyBz?.bzID));
     });
     return _tinyBzz;
   }

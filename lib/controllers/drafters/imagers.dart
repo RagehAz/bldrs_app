@@ -183,24 +183,21 @@ Future < ui.Image > loadImage(List < int > img) async {
 }
 // === === === === === === === === === === === === === === === === === === ===
 Future<File> getImageFileFromAssets(BuildContext context, String asset) async {
-
   File _file;
-
   await tryAndCatch(
       context: context,
       functions: () async {
-        print('0. removing assets/ from input image path');
+        // print('0. removing assets/ from input image path');
         String _pathTrimmed = removeNumberOfCharactersFromAString(asset, 7);
-        print('1. starting getting image from assets');
+        // print('1. starting getting image from assets');
         final _byteData = await rootBundle.load('assets/$_pathTrimmed');
-        print('2. we got byteData and creating the File aho');
+        // print('2. we got byteData and creating the File aho');
         final _tempFile = File('${(await getTemporaryDirectory()).path}/${getFileNameFromAsset(_pathTrimmed)}');
-        print('3. we created the FILE and will overwrite image data as bytes');
+        // print('3. we created the FILE and will overwrite image data as bytes');
         await _tempFile.writeAsBytes(_byteData.buffer.asUint8List(_byteData.offsetInBytes, _byteData.lengthInBytes));
         await _tempFile.create(recursive: true);
         _file = _tempFile;
-        print('4. file is ${_file.path}');
-
+        // print('4. file is ${_file.path}');
       }
   );
   return _file;

@@ -388,6 +388,9 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
   }
   // ----------------------------------------------------------------------
   Future<void> _publishFlyer() async {
+
+    /// TASK : assert that flyer.slide.lenght >= 5 slides only for default accounts, >= 15 for premium
+
     print('Starting to publish');
 
     if(numberOfSlides == 0) {
@@ -406,7 +409,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
           /// 1 - save a flyer document on firestore to get its auto generated
           /// flyerID if creating a new flyer
           if(widget.firstTimer){
-            _currentFlyerID = await FlyerCRUD().createFlyerDoc();
+            // _currentFlyerID = await FlyerCRUD().createFlyerOps();
           }
           /// 2 - create slides to store on firebase, and save each pic file to
           /// firebase storage and get its url to save to firestore
@@ -435,7 +438,6 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
           );
           /// 4- update flyer doc on firestore
           await FlyerCRUD().updateFlyerDoc(_newFlyerModel);
-          /// TASK : when publishing flyer => 5- save a TinyFlyer bz['bzFlyers']
           //   String _currentUserId = superUserID();
           //   List<AuthorModel> _existingAuthors = _bz.bzAuthors;
           //   AuthorModel _currentAuthor = getAuthorFromBzByAuthorID(_bz, _currentUserId);

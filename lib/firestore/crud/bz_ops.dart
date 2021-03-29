@@ -1,6 +1,4 @@
 import 'dart:io';
-
-import 'package:bldrs/controllers/drafters/file_formatters.dart';
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/firestore/auth/auth.dart';
 import 'package:bldrs/models/bz_model.dart';
@@ -9,10 +7,8 @@ import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
 import '../firebase_storage.dart';
 import '../firestore.dart';
-import 'user_ops.dart';
 
 /// create, read, update, delete bz doc in cloud firestore
 class BzCRUD{
@@ -123,7 +119,7 @@ class BzCRUD{
     await replaceFirestoreDocument(
       context: context,
       collectionName: FireStoreCollection.bzz,
-      documentName: _bzID,
+      docName: _bzID,
       input: _outputBz.toMap(),
     );
 
@@ -131,7 +127,7 @@ class BzCRUD{
     await createFireStoreNamedDocument(
       context: context,
       collectionName: FireStoreCollection.tinyBzz,
-      documentName: _bzID,
+      docName: _bzID,
       input: (getTinyBzFromBzModel(_outputBz)).toMap(),
     );
 
@@ -240,7 +236,7 @@ class BzCRUD{
     await replaceFirestoreDocument(
       context: context,
       collectionName: FireStoreCollection.bzz,
-      documentName: modifiedBz.bzID,
+      docName: modifiedBz.bzID,
       input: _finalBz.toMap(),
     );
 
@@ -257,7 +253,7 @@ class BzCRUD{
     await replaceFirestoreDocument(
       context: context,
       collectionName: FireStoreCollection.tinyBzz,
-      documentName: _finalBz.bzID,
+      docName: _finalBz.bzID,
       input: _modifiedTinyBzMap,
     );
 

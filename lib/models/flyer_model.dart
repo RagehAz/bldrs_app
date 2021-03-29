@@ -75,16 +75,14 @@ class FlyerModel with ChangeNotifier{
 // -----------------------------------------------------------------------------
 class TinyFlyer with ChangeNotifier{
   final String flyerID;
-  final String bzID;
-  final String bzLogo;
+  final TinyBz tinyBz;
   final String authorID;
   final int slideIndex;
   final String slidePic;
 
   TinyFlyer({
     @required this.flyerID,
-    this.bzID,
-    this.bzLogo,
+    this.tinyBz,
     @required this.authorID,
     @required this.slideIndex,
     @required this.slidePic,
@@ -93,8 +91,7 @@ class TinyFlyer with ChangeNotifier{
   Map<String,dynamic> toMap (){
     return {
     'flyerID' : flyerID,
-    'bzID' : bzID,
-    'bzLogo' : bzLogo,
+    'tinyBz' : tinyBz.toMap(),
     'authorID' : authorID,
     'slideIndex' : slideIndex,
     'slidePic' : slidePic,
@@ -124,8 +121,7 @@ List<TinyFlyer> decipherTinyFlyersMaps(List<dynamic> tinyFlyersMaps){
 TinyFlyer decipherTinyFlyerMap(dynamic map){
   return TinyFlyer(
       flyerID: map['flyerID'],
-      bzID: map['bzID:'],
-      bzLogo: map['bzLogo'],
+      tinyBz: decipherTinyBzMap(map['tinyBz:']),
       authorID: map['authorID'],
       slideIndex: map['slideIndex'],
       slidePic: map['slidePic'],
@@ -138,8 +134,7 @@ TinyFlyer getTinyFlyerFromFlyerModel(FlyerModel flyerModel){
     authorID: flyerModel.authorID,
     slideIndex: 0,
     slidePic: flyerModel.slides[0].picture,
-    bzLogo: flyerModel.tinyBz.bzLogo,
-    bzID: flyerModel.tinyBz.bzID,
+    tinyBz: flyerModel.tinyBz,
   );
 }
 // -----------------------------------------------------------------------------
@@ -261,7 +256,7 @@ FlyerModel decipherFlyerMap(dynamic map){
     slides: decipherSlidesMaps(map['slides']),
   );
 }
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+// -----------------------------------------------------------------------------
 List<String> getListOfFlyerIDsFromTinyFlyers(List<TinyFlyer> tinyFlyers){
   List<String> _flyerIDs = new List();
 
@@ -271,3 +266,16 @@ List<String> getListOfFlyerIDsFromTinyFlyers(List<TinyFlyer> tinyFlyers){
 
   return _flyerIDs;
 }
+// -----------------------------------------------------------------------------
+FlyerModel replaceFlyerSlidesWithNewSlides(FlyerModel inputFlyerModel, List<SlideModel> updatedSlides){
+  return FlyerModel(
+      flyerID: inputFlyerModel.flyerID,
+      flyerType: inputFlyerModel.flyerType,
+      flyerURL: inputFlyerModel.flyerURL,
+      authorID: inputFlyerModel.authorID,
+      tinyBz: inputFlyerModel.tinyBz,
+      publishTime: inputFlyerModel.publishTime,
+      slides: updatedSlides,
+  );
+}
+// -----------------------------------------------------------------------------
