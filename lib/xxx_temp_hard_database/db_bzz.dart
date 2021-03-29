@@ -96,8 +96,8 @@ final List<BzModel> dbBzz =
     bzTotalCalls: 1000,
     // -------------------------
     bzFlyers: <TinyFlyer>[
-      TinyFlyer(flyerID: 'f010', authorID: 'u07', slideIndex: 0, slidePic: Dumz.XXorgento),
-      TinyFlyer(flyerID: 'f011', authorID: 'u07', slideIndex: 0, slidePic: Dumz.XXsi_1),
+      TinyFlyer(flyerType: FlyerType.Product ,flyerID: 'f010', authorID: 'u07', slideIndex: 0, slidePic: Dumz.XXorgento),
+      TinyFlyer(flyerType: FlyerType.Product ,flyerID: 'f011', authorID: 'u07', slideIndex: 0, slidePic: Dumz.XXsi_1),
     ],
   ),
 
@@ -144,7 +144,7 @@ final List<BzModel> dbBzz =
     bzTotalCalls: 1000,
     // -------------------------
     bzFlyers: <TinyFlyer>[
-      TinyFlyer(flyerID: 'f012', authorID: 'u08', slideIndex: 0, slidePic: Dumz.XXfenomastic_1),
+      TinyFlyer(flyerType: FlyerType.Product ,flyerID: 'f012', authorID: 'u08', slideIndex: 0, slidePic: Dumz.XXfenomastic_1),
     ],
   ),
 
@@ -192,10 +192,10 @@ final List<BzModel> dbBzz =
     bzTotalCalls: 1000,
     // -------------------------
     bzFlyers: <TinyFlyer>[
-      TinyFlyer(flyerID: 'f013', authorID: 'u09', slideIndex: 0, slidePic: Dumz.XXcharger_1),
-      TinyFlyer(flyerID: 'f014', authorID: 'u09', slideIndex: 0, slidePic: Dumz.XXrack_1),
-      TinyFlyer(flyerID: 'f015', authorID: 'u09', slideIndex: 0, slidePic: Dumz.XXchair_1),
-      TinyFlyer(flyerID: 'f016', authorID: 'u09', slideIndex: 0, slidePic: Dumz.XXch_1),
+      TinyFlyer(flyerType: FlyerType.Product ,flyerID: 'f013', authorID: 'u09', slideIndex: 0, slidePic: Dumz.XXcharger_1),
+      TinyFlyer(flyerType: FlyerType.Product ,flyerID: 'f014', authorID: 'u09', slideIndex: 0, slidePic: Dumz.XXrack_1),
+      TinyFlyer(flyerType: FlyerType.Product ,flyerID: 'f015', authorID: 'u09', slideIndex: 0, slidePic: Dumz.XXchair_1),
+      TinyFlyer(flyerType: FlyerType.Product ,flyerID: 'f016', authorID: 'u09', slideIndex: 0, slidePic: Dumz.XXch_1),
     ],
   ),
 
@@ -242,7 +242,7 @@ final List<BzModel> dbBzz =
     bzTotalCalls: 1000,
     // -------------------------
     bzFlyers: <TinyFlyer>[
-      TinyFlyer(flyerID: 'f017', authorID: 'u10', slideIndex: 0, slidePic: Dumz.XXswitch_1),
+      TinyFlyer(flyerType: FlyerType.Product ,flyerID: 'f017', authorID: 'u10', slideIndex: 0, slidePic: Dumz.XXswitch_1),
     ],
   ),
 
@@ -289,8 +289,8 @@ final List<BzModel> dbBzz =
     bzTotalCalls: 1000,
     // -------------------------
     bzFlyers: <TinyFlyer>[
-      TinyFlyer(flyerID: 'f019', authorID: 'u11', slideIndex: 0, slidePic: Dumz.XXcat_1),
-      TinyFlyer(flyerID: 'f020', authorID: 'u11', slideIndex: 0, slidePic: Dumz.XXmachine_1),
+      TinyFlyer(flyerType: FlyerType.Equipment ,flyerID: 'f019', authorID: 'u11', slideIndex: 0, slidePic: Dumz.XXcat_1),
+      TinyFlyer(flyerType: FlyerType.Equipment ,flyerID: 'f020', authorID: 'u11', slideIndex: 0, slidePic: Dumz.XXmachine_1),
     ],
   ),
 
@@ -337,8 +337,8 @@ final List<BzModel> dbBzz =
     bzTotalCalls: 1000,
     // -------------------------
     bzFlyers: <TinyFlyer>[
-      TinyFlyer(flyerID: 'f001', authorID: 'u01', slideIndex: 0, slidePic: Dumz.XXbuilds_1),
-      TinyFlyer(flyerID: 'f002', authorID: 'u01', slideIndex: 0, slidePic: Dumz.XXeast_1),
+      TinyFlyer(flyerType: FlyerType.Property ,flyerID: 'f001', authorID: 'u01', slideIndex: 0, slidePic: Dumz.XXbuilds_1),
+      TinyFlyer(flyerType: FlyerType.Property ,flyerID: 'f002', authorID: 'u01', slideIndex: 0, slidePic: Dumz.XXeast_1),
     ],
   ),
 
@@ -385,7 +385,7 @@ final List<BzModel> dbBzz =
     bzTotalCalls: 1000,
     // -------------------------
     bzFlyers: <TinyFlyer>[
-      TinyFlyer(flyerID: 'f003', authorID: 'u02', slideIndex: 0, slidePic: Dumz.XXamwaj_1),
+      TinyFlyer(flyerType: FlyerType.Property ,flyerID: 'f003', authorID: 'u02', slideIndex: 0, slidePic: Dumz.XXamwaj_1),
     ],
   ),
 
@@ -432,8 +432,8 @@ final List<BzModel> dbBzz =
     bzTotalCalls: 1000,
     // -------------------------
     bzFlyers: <TinyFlyer>[
-      TinyFlyer(flyerID: 'f004', authorID: 'u03', slideIndex: 0, slidePic: Dumz.XXburj_khalifa_1),
-      TinyFlyer(flyerID: 'f005', authorID: 'u03', slideIndex: 0, slidePic: Dumz.XXmivida_1),
+      TinyFlyer(flyerType: FlyerType.Design ,flyerID: 'f004', authorID: 'u03', slideIndex: 0, slidePic: Dumz.XXburj_khalifa_1),
+      TinyFlyer(flyerType: FlyerType.Design ,flyerID: 'f005', authorID: 'u03', slideIndex: 0, slidePic: Dumz.XXmivida_1),
     ],
   ),
 
@@ -480,9 +480,9 @@ final List<BzModel> dbBzz =
     bzTotalCalls: 1000,
     // -------------------------
     bzFlyers: <TinyFlyer>[
-      TinyFlyer(flyerID: 'f024', authorID: 'u15', slideIndex: 0, slidePic: Dumz.XXm_1),
-      TinyFlyer(flyerID: 'f025', authorID: 'u15', slideIndex: 0, slidePic: Dumz.XXoffice_1),
-      TinyFlyer(flyerID: 'f026', authorID: 'u15', slideIndex: 0, slidePic: Dumz.XXp_1),
+      TinyFlyer(flyerType: FlyerType.Design ,flyerID: 'f024', authorID: 'u15', slideIndex: 0, slidePic: Dumz.XXm_1),
+      TinyFlyer(flyerType: FlyerType.Design ,flyerID: 'f025', authorID: 'u15', slideIndex: 0, slidePic: Dumz.XXoffice_1),
+      TinyFlyer(flyerType: FlyerType.Design ,flyerID: 'f026', authorID: 'u15', slideIndex: 0, slidePic: Dumz.XXp_1),
     ],
   ),
 
@@ -529,9 +529,9 @@ final List<BzModel> dbBzz =
     bzTotalCalls: 1000,
     // -------------------------
     bzFlyers: <TinyFlyer>[
-      TinyFlyer(flyerID: 'f027', authorID: 'u16', slideIndex: 0, slidePic: Dumz.XXhsi_1),
-      TinyFlyer(flyerID: 'f028', authorID: 'u16', slideIndex: 0, slidePic: Dumz.XXalleg_1),
-      TinyFlyer(flyerID: 'f029', authorID: 'u16', slideIndex: 0, slidePic: Dumz.XXrec_1),
+      TinyFlyer(flyerType: FlyerType.Design ,flyerID: 'f027', authorID: 'u16', slideIndex: 0, slidePic: Dumz.XXhsi_1),
+      TinyFlyer(flyerType: FlyerType.Design ,flyerID: 'f028', authorID: 'u16', slideIndex: 0, slidePic: Dumz.XXalleg_1),
+      TinyFlyer(flyerType: FlyerType.Design ,flyerID: 'f029', authorID: 'u16', slideIndex: 0, slidePic: Dumz.XXrec_1),
     ],
   ),
 
@@ -578,8 +578,8 @@ final List<BzModel> dbBzz =
     bzTotalCalls: 1000,
     // -------------------------
     bzFlyers: <TinyFlyer>[
-      TinyFlyer(flyerID: 'f030', authorID: 'u17', slideIndex: 0, slidePic: Dumz.XXek_1),
-      TinyFlyer(flyerID: 'f031', authorID: 'u17', slideIndex: 0, slidePic: Dumz.XXe_1),
+      TinyFlyer(flyerType: FlyerType.Design ,flyerID: 'f030', authorID: 'u17', slideIndex: 0, slidePic: Dumz.XXek_1),
+      TinyFlyer(flyerType: FlyerType.Design ,flyerID: 'f031', authorID: 'u17', slideIndex: 0, slidePic: Dumz.XXe_1),
     ],
   ),
 
@@ -626,7 +626,7 @@ final List<BzModel> dbBzz =
     bzTotalCalls: 1000,
     // -------------------------
     bzFlyers: <TinyFlyer>[
-      TinyFlyer(flyerID: 'f008', authorID: 'u05', slideIndex: 0, slidePic: Dumz.XXzah_1),
+      TinyFlyer(flyerType: FlyerType.Project ,flyerID: 'f008', authorID: 'u05', slideIndex: 0, slidePic: Dumz.XXzah_1),
     ],
   ),
 
@@ -673,7 +673,7 @@ final List<BzModel> dbBzz =
     bzTotalCalls: 1000,
     // -------------------------
     bzFlyers: <TinyFlyer>[
-      TinyFlyer(flyerID: 'f009', authorID: 'u06', slideIndex: 0, slidePic: Dumz.XXeng_1),
+      TinyFlyer(flyerType: FlyerType.Project ,flyerID: 'f009', authorID: 'u06', slideIndex: 0, slidePic: Dumz.XXeng_1),
     ],
   ),
 
@@ -736,13 +736,13 @@ final List<BzModel> dbBzz =
     bzTotalCalls: 1000,
     // -------------------------
     bzFlyers: <TinyFlyer>[
-      TinyFlyer(flyerID: 'f007', authorID: 'u20', slideIndex: 0, slidePic: Dumz.XXnazly_1),
-      TinyFlyer(flyerID: 'f038', authorID: 'u20', slideIndex: 0, slidePic: Iconz.DumUniverse),
-      TinyFlyer(flyerID: 'f034', authorID: 'u20', slideIndex: 0, slidePic: Iconz.DumSlide1),
-      TinyFlyer(flyerID: 'f035', authorID: 'u21', slideIndex: 0, slidePic: Iconz.DumSlide7),
-      TinyFlyer(flyerID: 'f036', authorID: 'u21', slideIndex: 0, slidePic: Iconz.DumSlide4),
-      TinyFlyer(flyerID: 'f006', authorID: 'u04', slideIndex: 0, slidePic: Dumz.XXabohassan_1),
-      TinyFlyer(flyerID: 'f037', authorID: 'u04', slideIndex: 0, slidePic: Iconz.DumSlide6),
+      TinyFlyer(flyerType: FlyerType.Property ,flyerID: 'f007', authorID: 'u20', slideIndex: 0, slidePic: Dumz.XXnazly_1),
+      TinyFlyer(flyerType: FlyerType.Property ,flyerID: 'f038', authorID: 'u20', slideIndex: 0, slidePic: Iconz.DumUniverse),
+      TinyFlyer(flyerType: FlyerType.Property ,flyerID: 'f034', authorID: 'u20', slideIndex: 0, slidePic: Iconz.DumSlide1),
+      TinyFlyer(flyerType: FlyerType.Property ,flyerID: 'f035', authorID: 'u21', slideIndex: 0, slidePic: Iconz.DumSlide7),
+      TinyFlyer(flyerType: FlyerType.Property ,flyerID: 'f036', authorID: 'u21', slideIndex: 0, slidePic: Iconz.DumSlide4),
+      TinyFlyer(flyerType: FlyerType.Property ,flyerID: 'f006', authorID: 'u04', slideIndex: 0, slidePic: Dumz.XXabohassan_1),
+      TinyFlyer(flyerType: FlyerType.Property ,flyerID: 'f037', authorID: 'u04', slideIndex: 0, slidePic: Iconz.DumSlide6),
     ],
   ),
 
@@ -789,7 +789,7 @@ final List<BzModel> dbBzz =
     bzTotalCalls: 1000,
     // -------------------------
     bzFlyers: <TinyFlyer>[
-      TinyFlyer(flyerID: 'f018', authorID: 'u12', slideIndex: 0, slidePic: Dumz.XXwindow_1),
+      TinyFlyer(flyerType: FlyerType.Product ,flyerID: 'f018', authorID: 'u12', slideIndex: 0, slidePic: Dumz.XXwindow_1),
     ],
   ),
 
@@ -836,8 +836,8 @@ final List<BzModel> dbBzz =
     bzTotalCalls: 1000,
     // -------------------------
     bzFlyers: <TinyFlyer>[
-      TinyFlyer(flyerID: 'f021', authorID: 'u13', slideIndex: 0, slidePic: Dumz.XXpower_1),
-      TinyFlyer(flyerID: 'f022', authorID: 'u13', slideIndex: 0, slidePic: Dumz.XXgenerator_1),
+      TinyFlyer(flyerType: FlyerType.Equipment ,flyerID: 'f021', authorID: 'u13', slideIndex: 0, slidePic: Dumz.XXpower_1),
+      TinyFlyer(flyerType: FlyerType.Equipment ,flyerID: 'f022', authorID: 'u13', slideIndex: 0, slidePic: Dumz.XXgenerator_1),
     ],
   ),
 
@@ -884,7 +884,7 @@ final List<BzModel> dbBzz =
     bzTotalCalls: 1000,
     // -------------------------
     bzFlyers: <TinyFlyer>[
-      TinyFlyer(flyerID: 'f023', authorID: 'u14', slideIndex: 0, slidePic: Dumz.XXloader_1),
+      TinyFlyer(flyerType: FlyerType.Equipment ,flyerID: 'f023', authorID: 'u14', slideIndex: 0, slidePic: Dumz.XXloader_1),
     ],
   ),
 
@@ -931,7 +931,7 @@ final List<BzModel> dbBzz =
     bzTotalCalls: 1000,
     // -------------------------
     bzFlyers: <TinyFlyer>[
-      TinyFlyer(flyerID: 'f032', authorID: 'u18', slideIndex: 0, slidePic: Dumz.XXfixawy_1),
+      TinyFlyer(flyerType: FlyerType.Craft ,flyerID: 'f032', authorID: 'u18', slideIndex: 0, slidePic: Dumz.XXfixawy_1),
     ],
   ),
 
@@ -978,7 +978,7 @@ final List<BzModel> dbBzz =
     bzTotalCalls: 1000,
     // -------------------------
     bzFlyers: <TinyFlyer>[
-      TinyFlyer(flyerID: 'f033', authorID: 'u19', slideIndex: 0, slidePic: Dumz.XXahmad_1),
+      TinyFlyer(flyerType: FlyerType.Craft ,flyerID: 'f033', authorID: 'u19', slideIndex: 0, slidePic: Dumz.XXahmad_1),
     ],
   ),
 

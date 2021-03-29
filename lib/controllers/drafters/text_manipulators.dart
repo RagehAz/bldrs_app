@@ -122,3 +122,42 @@ String getFileNameFromAsset(String asset){
   return _fileName;
 }
 // === === === === === === === === === === === === === === === === === === ===
+  /// converts list of strings to map of keywords with true map value
+  /// List<String> listExample = <String>['construction', 'architecture', 'decor'];
+  /// will result a map like this :-
+  /// {
+  ///   construction : true,
+  ///   architecture : true,
+  ///   decor        : true,
+  /// }
+///
+/// UPDATE
+///
+/// MAP SHOULD LOOK LIKE THIS
+/// {
+///   construction : 0 ,
+///   architecture : 1 ,
+///   decor : 2 ,
+/// }
+Future<Map<String, dynamic>> getKeyWordsMap(List<String> list) async {
+  // old solution
+  // Map<String, dynamic> _result = { for (var keyword in list) keyword : true };
+
+  // new solution won't work as key value should be string on firestore
+  // Map<int, String> _result = list.asMap();
+
+  // mirroring the map
+  Map<String, dynamic> _stringIndexMap = {};
+  int _index = 0;
+  await Future.forEach(list, (keyword){
+
+    _stringIndexMap.addAll({
+      keyword : _index,
+    });
+    _index++;
+
+  });
+
+  return _stringIndexMap;
+}
+// === === === === === === === === === === === === === === === === === === ===

@@ -12,13 +12,23 @@ class FireStoreCollection{
   static const String countries = 'countries';
 
   static const String asks = 'asks';
+  static const String subAskChats = 'chats';
+  static const String subAskCounters = 'counters';
 
   static const String bzz = 'bzz';
   static const String tinyBzz = 'tinyBzz';
+  static const String subBzCounters = 'counters';
+  static const String subBzFollows = 'follows';
+  static const String subBzCalls = 'calls';
+  static const String subBzChats = 'chats';
 
   static const String flyers = 'flyers';
   static const String tinyFlyers = 'tinyFlyers';
   static const String flyersKeys = 'flyersKeys';
+  static const String subFlyerCounters = 'counters';
+  static const String subFlyerSaves = 'saves';
+  static const String subFlyerShares = 'shares';
+  static const String subFlyerViews = 'views';
 }
 // ---------------------------------------------------------------------------
 CollectionReference getFirestoreCollectionReference (String collectionName){
@@ -47,7 +57,7 @@ Future<void> updateFieldOnFirestore({
 
     await _doc.update({field : input});
 
-    await superDialog(context, 'Successfully updated\n$collectionName\\$documentName\\$field to :\n"$input"','Success');
+    // await superDialog(context, 'Successfully updated\n$collectionName\\$documentName\\$field to :\n"$input"','Success');
 
   } catch(error) {
     superDialog(context, error, 'Ops !');
@@ -180,7 +190,7 @@ Future<DocumentReference> insertFireStoreSubDocument({
   String docName,
   String subCollectionName,
   String subDocName,
-  Map<String, dynamic> input,
+  dynamic input,
 }) async {
 
   DocumentReference _subDocRef;

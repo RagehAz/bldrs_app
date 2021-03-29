@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/text_manipulators.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/sub_models/slide_model.dart';
@@ -25,7 +26,9 @@ class FlyerCRUD{
   final CollectionReference _flyersCollectionRef = getFirestoreCollectionReference(FireStoreCollection.flyers);
 // ---------------------------------------------------------------------------
   /// create empty firestore flyer doc and return flyerID 'docID'
-Future<FlyerModel> createFlyerOps(BuildContext context, FlyerModel inputFlyerModel, BzModel bzModel) async {
+  Future<FlyerModel> createFlyerOps(BuildContext context, FlyerModel inputFlyerModel, BzModel bzModel) async {
+
+    print('1- staring create flyer ops');
 
   /// create empty firestore flyer document to get back _flyerID
   DocumentReference _docRef = await createFireStoreDocument(
@@ -35,71 +38,108 @@ Future<FlyerModel> createFlyerOps(BuildContext context, FlyerModel inputFlyerMod
   );
   String _flyerID = _docRef.id;
 
-  /// save slide pictures on fireStorage and get back their URLs
+  print('2- flyer doc ID created : $_flyerID');
+
+    /// save slide pictures on fireStorage and get back their URLs
   List<String> _picturesURLs = await savePicturesToFireStorageAndGetListOfURL(context, inputFlyerModel.slides, _flyerID);
 
-  /// update slides with URLs
+  print('3- _picturesURLs created index 0 is : ${_picturesURLs[0]}');
+
+    /// update slides with URLs
   List<SlideModel> _updatedSlides = await replaceSlidesPicturesWithNewURLs(_picturesURLs, inputFlyerModel.slides);
 
-  /// TASK : generate flyerURL
+  print('4- slides updated with URLs');
+
+    /// TASK : generate flyerURL
   String _flyerURL = 'www.bldrs.net' ;
 
   /// update FlyerModel with newSlides & flyerURL
-  FlyerModel _updatedFlyerModel = FlyerModel(
-    flyerID: inputFlyerModel.flyerID,
+  FlyerModel _finalFlyerModel = FlyerModel(
+    flyerID: _flyerID,
+    // -------------------------
     flyerType: inputFlyerModel.flyerType,
+    flyerState: inputFlyerModel.flyerState,
+    keyWords: inputFlyerModel.keyWords,
+    flyerShowsAuthor: inputFlyerModel.flyerShowsAuthor,
     flyerURL: _flyerURL,
+    // -------------------------
     authorID: inputFlyerModel.authorID,
     tinyBz: inputFlyerModel.tinyBz,
-    publishTime: inputFlyerModel.publishTime,
+    // -------------------------
+    publishTime: DateTime.now(),
+    flyerPosition: inputFlyerModel.flyerPosition,
+    // -------------------------
+    ankhIsOn: false,
+    // -------------------------
     slides: _updatedSlides,
   );
 
-  /// replace empty flyer document with the new refactored one _updatedFlyerModel
+    print('5- flyer model updated with flyerID, flyerURL & updates slides pic URLs');
+
+    /// replace empty flyer document with the new refactored one _finalFlyerModel
   await replaceFirestoreDocument(
     context: context,
     collectionName: FireStoreCollection.flyers,
     docName: _flyerID,
-    input: _updatedFlyerModel.toMap(),
+    input: _finalFlyerModel.toMap(),
   );
 
-  /// add new TinyFlyer in firestore
+    print('6- flyer model added to flyers/$_flyerID');
+
+    /// add new TinyFlyer in firestore
+  TinyFlyer _finalTinyFlyer = getTinyFlyerFromFlyerModel(_finalFlyerModel);
   await createFireStoreNamedDocument(
     context: context,
     collectionName: FireStoreCollection.tinyFlyers,
     docName: _flyerID,
-    input: (getTinyFlyerFromFlyerModel(_updatedFlyerModel)).toMap(),
+    input: _finalTinyFlyer.toMap(),
   );
 
-  /// add new flyerIndex in fireStore
+    print('7- Tiny flyer model added to tinyFlyers/$_flyerID');
 
+    /// add new flyerKeys in fireStore
+  await createFireStoreNamedDocument(
+    context: context,
+    collectionName: FireStoreCollection.flyersKeys,
+    docName: _flyerID,
+    input: await getKeyWordsMap(_finalFlyerModel.keyWords),
+  );
 
-  /// add flyer counters sub collection and document in flyer store
-  ///
-  ///
-  /// add flyer saved sub collection in firestore
-  ///
-  ///
-  /// add flyer shares sub collection in firestore
-  ///
-  ///
-  /// add flyer views sub collection in firestore
-  ///
-  ///
-  /// add tiny flyer to bz document in 'tinyFlyers' field
-  ///
-  ///
-  /// add tiny flyer to local list and notifyListeners
+    print('8- flyer keys add');
 
+    /// add flyer counters sub collection and document in flyer store
+  await insertFireStoreSubDocument(
+    context: context,
+    collectionName: FireStoreCollection.flyers,
+    docName: _flyerID,
+    subCollectionName: FireStoreCollection.subFlyerCounters,
+    subDocName: FireStoreCollection.subFlyerCounters,
+    input: await cipherSlidesCounters(_updatedSlides),
+  );
 
-  return _updatedFlyerModel;
+    print('9- flyer counters added');
+
+    /// add tiny flyer to bz document in 'tinyFlyers' field
+  List<TinyFlyer> _bzTinyFlyers = bzModel.bzFlyers;
+  _bzTinyFlyers.add(_finalTinyFlyer);
+  await updateFieldOnFirestore(
+      context: context,
+      collectionName: FireStoreCollection.bzz,
+      documentName: _finalFlyerModel.tinyBz.bzID,
+      field: 'bzFlyers',
+      input: cipherTinyFlyers(_bzTinyFlyers),
+  );
+
+    print('10- tiny flyer added to bzID in bzz/${_finalFlyerModel.tinyBz.bzID}');
+
+    return _finalFlyerModel;
 }
 // ----------------------------------------------------------------------
   Future<void> updateFlyerDoc(FlyerModel flyerModel) async {
   await _flyersCollectionRef.doc(flyerModel.flyerID).update(flyerModel.toMap());
 }
 // ----------------------------------------------------------------------
-Future<void> deleteFlyerDoc(String flyerID) async {
+  Future<void> deleteFlyerDoc(String flyerID) async {
   final DocumentReference _flyerDocRef = flyerDocRef(flyerID);
   await _flyerDocRef.delete();
 }
