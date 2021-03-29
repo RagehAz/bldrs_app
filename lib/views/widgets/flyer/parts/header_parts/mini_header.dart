@@ -43,45 +43,48 @@ class MiniHeader extends StatelessWidget {
     );
     // === === === === === === === === === === === === === === === === === === ===
     return
-      Container(
-        height: superHeaderHeight(bzPageIsOn, flyerZoneWidth),
-        width: flyerZoneWidth,
-        child: Stack(
-          children: <Widget>[
+      GestureDetector(
+        onTap: tappingHeader,
+        child: Container(
+          height: superHeaderHeight(bzPageIsOn, flyerZoneWidth),
+          width: flyerZoneWidth,
+          child: Stack(
+            children: <Widget>[
 
-            // --- HEADER SHADOW
-            HeaderShadow(
-              flyerZoneWidth: flyerZoneWidth,
-              bzPageIsOn: bzPageIsOn,
-            ),
+              // --- HEADER SHADOW
+              HeaderShadow(
+                flyerZoneWidth: flyerZoneWidth,
+                bzPageIsOn: bzPageIsOn,
+              ),
 
-            // --- HEADER COMPONENTS
-            MiniHeaderStrip(
-              flyerZoneWidth: flyerZoneWidth,
-              bzPageIsOn: bzPageIsOn,
-              bz: bz,
-              flyerShowsAuthor: flyerShowsAuthor,
-              authorID: author.userID,
-              phoneNumber: _phoneNumber,
-              aPic: author.authorPic,
-              aName: author.authorName,
-              aTitle: author.authorTitle,
-              followersCount: bz.bzTotalFollowers,
-              followIsOn: followIsOn,
-              bzGalleryCount: bzGalleryCount,
-              tappingHeader: tappingHeader,
-              tappingFollow: tappingFollow,
-            ),
+              // --- HEADER COMPONENTS
+              MiniHeaderStrip(
+                flyerZoneWidth: flyerZoneWidth,
+                bzPageIsOn: bzPageIsOn,
+                bz: bz,
+                flyerShowsAuthor: flyerShowsAuthor,
+                authorID: author.userID,
+                phoneNumber: _phoneNumber,
+                aPic: author.authorPic,
+                aName: author.authorName,
+                aTitle: author.authorTitle,
+                followersCount: bz.bzTotalFollowers,
+                followIsOn: followIsOn,
+                bzGalleryCount: bzGalleryCount,
+                tappingHeader: tappingHeader,
+                tappingFollow: tappingFollow,
+              ),
 
-            // --- HEADER'S MAX STATE'S HEADLINE : BZ.NAME AND BZ.LOCALE
-            BzPageHeadline(
-              flyerZoneWidth: flyerZoneWidth,
-              bzPageIsOn: bzPageIsOn,
-              bzLocale: businessLocale,
-              bzName: bz.bzName,
-            ),
+              // --- HEADER'S MAX STATE'S HEADLINE : BZ.NAME AND BZ.LOCALE
+              BzPageHeadline(
+                flyerZoneWidth: flyerZoneWidth,
+                bzPageIsOn: bzPageIsOn,
+                bzLocale: businessLocale,
+                bzName: bz.bzName,
+              ),
 
-          ],
+            ],
+          ),
         ),
       )
     ;

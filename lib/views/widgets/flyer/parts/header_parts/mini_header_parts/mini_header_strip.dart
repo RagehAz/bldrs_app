@@ -67,16 +67,14 @@ class MiniHeaderStrip extends StatelessWidget {
               // --- BzLogo
               Expanded(
                 flex: bzPageIsOn ? 1 : 26,
-                child: GestureDetector(
-                  onLongPress: (){print('bzID is : (${bz.bzID})');},
-                  child: BzLogo(
-                      width: superLogoWidth(bzPageIsOn, flyerZoneWidth),
-                      image: bz.bzLogo,
-                      miniMode: superFlyerMiniMode(context, flyerZoneWidth),
-                      corners: superLogoCorner(context, flyerZoneWidth),
-                      bzPageIsOn: bzPageIsOn,
-                      zeroCornerIsOn: flyerShowsAuthor,
-                  ),
+                child: BzLogo(
+                  width: superLogoWidth(bzPageIsOn, flyerZoneWidth),
+                  image: bz.bzLogo,
+                  miniMode: superFlyerMiniMode(context, flyerZoneWidth),
+                  corners: superLogoCorner(context, flyerZoneWidth),
+                  bzPageIsOn: bzPageIsOn,
+                  zeroCornerIsOn: flyerShowsAuthor,
+                  onTap: tappingHeader,
                 ),
               ),
 

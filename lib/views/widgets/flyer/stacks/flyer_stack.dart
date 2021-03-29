@@ -10,6 +10,7 @@ import 'package:bldrs/views/widgets/flyer/parts/flyer_zone.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/mini_header.dart';
 import 'package:bldrs/views/widgets/flyer/parts/slides_parts/single_slide.dart';
+import 'package:bldrs/views/widgets/flyer/tiny_flyer_widget.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -99,7 +100,9 @@ class FlyerStack extends StatelessWidget {
               // key: const PageStorageKey<String>('flyers'),
               // cacheExtent: screenHeight*5,
               itemBuilder: (context,_x) {
+
                 return
+
                 // --- works
                 // ChangeNotifierProvider.value(
                 //   value: _tinyFlyersOfType[_x],
@@ -133,6 +136,11 @@ class FlyerStack extends StatelessWidget {
                 //
                 //   ),
                 // )
+
+                  TinyFlyerWidget(
+                    flyerSizeFactor: flyerSizeFactor,
+                    tinyFlyer: _tinyFlyersOfType[_x],
+                  )
                 ;
 
                 },
