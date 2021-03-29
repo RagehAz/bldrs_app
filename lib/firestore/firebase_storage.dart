@@ -88,6 +88,7 @@ String firebaseStorageDocument(PicType picType){
     case PicType.bzLogo         :   return   'bzLogos';         break; // uses bzID as file name
     case PicType.slideHighRes   :   return   'slidesPics';      break; // uses flyerID_slideIndex as file name
     case PicType.slideLowRes    :   return   'slidesPicsLow';   break; // uses flyerID_slideIndex as file name
+    case PicType.dum            :   return    'dumz';           break;
     default : return   null;
   }
 }
@@ -109,5 +110,20 @@ Future<List<String>> savePicturesToFireStorageAndGetListOfURL(BuildContext conte
   }
 
   return _picturesURLs;
+}
+// === === === === === === === === === === === === === === === === === === ===
+Future<String> saveAssetToFireStorageAndGetURL ({BuildContext context, String asset, String fileName, PicType picType}) async {
+  String _url;
+
+  File _result = await getImageFileFromAssets(context, asset);
+
+  _url = await savePicOnFirebaseStorageAndGetURL(
+    context: context,
+    fileName: fileName,
+    picType: picType,
+    inputFile: _result,
+  );
+
+  return _url;
 }
 // === === === === === === === === === === === === === === === === === === ===
