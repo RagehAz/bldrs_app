@@ -60,9 +60,9 @@ class FlyersProvider with ChangeNotifier {
     return flyers;
   }
 // ---------------------------------------------------------------------------
-  List<String> getFlyersIDsByFlyerType(FlyerType flyerType){
+  List<String> getTinyFlyersIDsByFlyerType(FlyerType flyerType){
     List<String> flyersIDs = new List();
-    _loadedFlyers?.forEach((fl) {
+    _loadedTinyFlyers?.forEach((fl) {
       if(fl.flyerType == flyerType){flyersIDs.add(fl.flyerID);}
     });
     return flyersIDs;
@@ -70,7 +70,7 @@ class FlyersProvider with ChangeNotifier {
 // ---------------------------------------------------------------------------
   List<FlyerModel> getFlyersByFlyerType(FlyerType flyerType){
     List<FlyerModel> _flyers = new List();
-    List<String> _flyersIDs = getFlyersIDsByFlyerType(flyerType);
+    List<String> _flyersIDs = getTinyFlyersIDsByFlyerType(flyerType);
     _flyersIDs.forEach((fID) {
       _flyers.add(getFlyerByFlyerID(fID));
     });
@@ -79,7 +79,7 @@ class FlyersProvider with ChangeNotifier {
 // ---------------------------------------------------------------------------
   List<TinyFlyer> getTinyFlyersByFlyerType(FlyerType flyerType){
     List<TinyFlyer> _tinyFlyers = new List();
-    List<String> _flyersIDs = getFlyersIDsByFlyerType(flyerType);
+    List<String> _flyersIDs = getTinyFlyersIDsByFlyerType(flyerType);
     _flyersIDs.forEach((fID) {
       _tinyFlyers.add(getTinyFlyerByFlyerID(fID));
     });
@@ -178,7 +178,11 @@ return bzz;
     _loadedFlyers.add(flyer);
     notifyListeners();
   }
-
+// ############################################################################
+  void addTinyFlyerToLocalList(TinyFlyer tinyFlyer){
+    _loadedTinyFlyers.add(tinyFlyer);
+    notifyListeners();
+  }
 // ############################################################################
 /// BZZ ON FIRE STORE
 // ---------------------------------------------------------------------------
