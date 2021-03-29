@@ -102,7 +102,7 @@ List<ContactType> contactTypesList = <ContactType>[
 ];
 // -----------------------------------------------------------------------------
 ContactModel getAContactModelFromContacts(List<ContactModel> contacts, ContactType contactType){
-  ContactModel contactValue = contacts.singleWhere((x) => x.contactType == contactType,
+  ContactModel contactValue = contacts?.singleWhere((x) => x.contactType == contactType,
       orElse: ()=>null);
   return contactValue;
 }
