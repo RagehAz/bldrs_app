@@ -29,7 +29,7 @@ class UserCRUD{
     await replaceFirestoreDocument(
       context: context,
       collectionName: FireStoreCollection.users,
-      documentName: userModel.userID,
+      docName: userModel.userID,
       input: userModel.toMap(),
     );
 
@@ -46,7 +46,7 @@ class UserCRUD{
     await createFireStoreNamedDocument(
       context: context,
       collectionName: FireStoreCollection.tinyUsers,
-      documentName: userModel.userID,
+      docName: userModel.userID,
       input: getTinyUserFromUserModel(userModel).toMap(),
     );
 

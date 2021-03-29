@@ -29,7 +29,7 @@ class FlyersSizesScreen extends StatelessWidget {
       pageTitle: 'FlyerSizes Screen',
       appBarBackButton: true,
       appBarType: AppBarType.Basic,
-      tappingRageh: (){print(tinyFlyer.bzLogo,);},
+      tappingRageh: (){print(tinyFlyer?.tinyBz?.bzLogo,);},
       layoutWidget: ListView(
         children: <Widget>[
 
