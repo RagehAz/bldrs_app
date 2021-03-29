@@ -3,7 +3,6 @@ import 'package:bldrs/firestore/crud/user_ops.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:bldrs/models/user_model.dart';
-import 'package:bldrs/providers/users_provider.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -11,7 +10,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 // an alert error should be thrown when firebase replies with the following line
-// Firebase Suthentication Error
+// Firebase Authentication Error
 // An account already exists with the same email address but different sign-in credentials. Sign in using a provider associated with this email address.
 // we should consider same scenario with other auth methods that have this conflict with existing signed up e-mail
 

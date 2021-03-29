@@ -41,7 +41,7 @@ class TinyFlyerWidget extends StatelessWidget {
         MiniHeader(
           flyerZoneWidth: superFlyerZoneWidth(context, _flyerSizeFactor),
           bz: BzModel(
-            bzLogo: tinyFlyer?.bzLogo,
+            bzLogo: tinyFlyer?.tinyBz?.bzLogo,
           ),
           author: AuthorModel(),
           followIsOn: false,

@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/file_formatters.dart';
 import 'package:bldrs/controllers/drafters/text_manipulators.dart';
 import 'package:flutter/foundation.dart';
 // -----------------------------------------------------------------------------
@@ -69,6 +70,7 @@ SlideModel decipherSlideMap(dynamic map){
 // -----------------------------------------------------------------------------
 String generateSlideID(String flyerID, int slideIndex){
   // slide index shall never have more than two digits
+  // ass flyer should never be more than 10 slides long
   String _slideIndexString = slideIndex <= 9 ? '0$slideIndex' : '$slideIndex';
   String _slideID = '${flyerID}_$_slideIndexString';
   return _slideID;
@@ -80,7 +82,29 @@ int getSlideIndexFromSlideID(String slideID){
   return _slideIndex;
 }
 // -----------------------------------------------------------------------------
-// String getFlyerIDFromSlideID(String slideID){
-  // I guess no need for this, no use cases,, flyerID will always be there
-  // beside slideID
-// }
+Future<List<SlideModel>> replaceSlidesPicturesWithNewURLs(List<String> newPicturesURLs, List<SlideModel> inputSlides) async {
+  List<SlideModel> _outputSlides = new List();
+
+  for (var slide in inputSlides){
+
+    int i = slide.slideIndex;
+
+    SlideModel _newSlide = SlideModel(
+      slideIndex: inputSlides[i].slideIndex,
+      picture: newPicturesURLs[i],
+      headline: inputSlides[i].headline,
+      description: inputSlides[i].description,
+      savesCount: inputSlides[i].savesCount,
+      sharesCount: inputSlides[i].sharesCount,
+      viewsCount: inputSlides[i].viewsCount,
+    );
+
+    _outputSlides.add(_newSlide);
+
+  }
+
+  print('slides are $_outputSlides');
+
+  return _outputSlides;
+}
+// -----------------------------------------------------------------------------

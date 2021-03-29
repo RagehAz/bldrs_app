@@ -103,6 +103,42 @@ class _FirebasetestingState extends State<Firebasetesting> {
       },
     },
       // -----------------------------------------------------------------------
+      {'Name' : 'create empty sub collection', 'function' : () async {
+        _triggerLoading();
+
+        String _usersCollection = FireStoreCollection.users;
+        String _docName = superUserID();//_userID;
+        String _subCollectionName = 'asks';
+
+        // final CollectionReference _userAsksCollection = FirebaseFirestore.instance
+        //     .collection('$_usersCollection/$_docName/$_subCollectionName');
+        //
+        // // _userAsksCollection.
+        //
+        // final databaseReference = Firestore.instance;
+        // databaseReference.
+        // collection(_usersCollection).
+        // doc(_docName).
+        // collection(_subCollectionName).
+        // doc().
+        // set({}); // your answer missing **.document()**  before setData
+
+        await insertFireStoreSubDocument(
+          context: context,
+          collectionName: _usersCollection,
+          docName: _docName,
+          subCollectionName: 'balbool',
+          subDocName: null,
+          input: {
+            'bobo' : 'koko33',
+            'toto' : '55',
+            'oh' : 'baby',
+          },
+        );
+
+        _triggerLoading();
+      },},
+      // -----------------------------------------------------------------------
     ];
 
 
