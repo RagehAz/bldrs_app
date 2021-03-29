@@ -284,8 +284,3 @@ FlyerModel replaceFlyerSlidesWithNewSlides(FlyerModel inputFlyerModel, List<Slid
   );
 }
 // -----------------------------------------------------------------------------
-Map<String, dynamic> cipherFlyerKeys(FlyerModel flyerModel){
-  List<dynamic> _keys = flyerModel.keyWords;
-
-
-}
