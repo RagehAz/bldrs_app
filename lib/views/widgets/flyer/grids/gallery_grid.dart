@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../bz_card_preview.dart';
 import '../flyer.dart';
+import '../tiny_flyer_widget.dart';
 
 class GalleryGrid extends StatelessWidget {
 
@@ -100,19 +101,29 @@ class GalleryGrid extends StatelessWidget {
 
                   Opacity(
                     opacity: flyersVisibilities[index] == true ? 1 : 0.1,
-                    child: ChangeNotifierProvider.value(
-                      value: _gridFlyers[index],
-                      child: Flyer(
-                          flyerSizeFactor: _flyerSizeFactor,
-                          slidingIsOn: false,
-                          // flyerID: _gridFlyers[index].flyer.flyerID,
-                          tappingFlyerZone:
-                          flyersVisibilities[index] == true ?
-                              () => openFlyer(context, _gridFlyers[index].flyerID)
-                              :
-                              (){}
-                      ),
-                    ),
+                    child: TinyFlyerWidget(
+                      tinyFlyer: _gridFlyers[index],
+                      flyerSizeFactor: _flyerSizeFactor,
+                    )
+
+
+                    // ChangeNotifierProvider.value(
+                    //   value: _gridFlyers[index],
+                    //   child:
+                    //
+                    //   // Flyer(
+                    //   //     flyerSizeFactor: _flyerSizeFactor,
+                    //   //     slidingIsOn: false,
+                    //   //     // flyerID: _gridFlyers[index].flyer.flyerID,
+                    //   //     tappingFlyerZone:
+                    //   //     flyersVisibilities[index] == true ?
+                    //   //         () => openFlyer(context, _gridFlyers[index].flyerID)
+                    //   //         :
+                    //   //         (){}
+                    //   // ),
+                    //
+                    //
+                    // ),
                   )
 
               ),
