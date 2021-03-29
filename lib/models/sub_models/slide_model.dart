@@ -108,3 +108,20 @@ Future<List<SlideModel>> replaceSlidesPicturesWithNewURLs(List<String> newPictur
   return _outputSlides;
 }
 // -----------------------------------------------------------------------------
+Future<dynamic> cipherSlidesCounters(List<SlideModel> slides) async {
+
+  Map<String, dynamic> _combinedMap = {};
+
+  await Future.forEach(slides, (slide){
+
+    _combinedMap.addAll({
+      'saves/${slide.slideIndex}' : slide.savesCount,
+      'shares/${slide.slideIndex}' : slide.sharesCount,
+      'views/${slide.slideIndex}' : slide.viewsCount,
+    });
+
+  });
+
+  return _combinedMap;
+}
+// -----------------------------------------------------------------------------

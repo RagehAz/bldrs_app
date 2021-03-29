@@ -9,6 +9,7 @@ import 'package:bldrs/firestore/auth/auth.dart';
 import 'package:bldrs/firestore/crud/user_ops.dart';
 import 'package:bldrs/firestore/firebase_storage.dart';
 import 'package:bldrs/firestore/firestore.dart';
+import 'package:bldrs/models/sub_models/slide_model.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/users_provider.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
@@ -17,6 +18,7 @@ import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/common_parts/author_label.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
+import 'package:bldrs/xxx_temp_hard_database/db_flyer.dart';
 import 'package:bldrs/xxx_temp_hard_database/dumz.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -103,38 +105,15 @@ class _FirebasetestingState extends State<Firebasetesting> {
       },
     },
       // -----------------------------------------------------------------------
-      {'Name' : 'create empty sub collection', 'function' : () async {
+      {'Name' : 'slides counters map creator', 'function' : () async {
+
         _triggerLoading();
 
-        String _usersCollection = FireStoreCollection.users;
-        String _docName = superUserID();//_userID;
-        String _subCollectionName = 'asks';
+        List<String> _list = ['bobo', 'koko', 'dodo'];
 
-        // final CollectionReference _userAsksCollection = FirebaseFirestore.instance
-        //     .collection('$_usersCollection/$_docName/$_subCollectionName');
-        //
-        // // _userAsksCollection.
-        //
-        // final databaseReference = Firestore.instance;
-        // databaseReference.
-        // collection(_usersCollection).
-        // doc(_docName).
-        // collection(_subCollectionName).
-        // doc().
-        // set({}); // your answer missing **.document()**  before setData
+        dynamic _map = await getKeyWordsMap(_list);
 
-        await insertFireStoreSubDocument(
-          context: context,
-          collectionName: _usersCollection,
-          docName: _docName,
-          subCollectionName: 'balbool',
-          subDocName: null,
-          input: {
-            'bobo' : 'koko33',
-            'toto' : '55',
-            'oh' : 'baby',
-          },
-        );
+        printResult(_map.toString());
 
         _triggerLoading();
       },},

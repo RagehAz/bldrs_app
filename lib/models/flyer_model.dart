@@ -75,6 +75,7 @@ class FlyerModel with ChangeNotifier{
 // -----------------------------------------------------------------------------
 class TinyFlyer with ChangeNotifier{
   final String flyerID;
+  final FlyerType flyerType;
   final TinyBz tinyBz;
   final String authorID;
   final int slideIndex;
@@ -82,6 +83,7 @@ class TinyFlyer with ChangeNotifier{
 
   TinyFlyer({
     @required this.flyerID,
+    @required this.flyerType,
     this.tinyBz,
     @required this.authorID,
     @required this.slideIndex,
@@ -90,11 +92,12 @@ class TinyFlyer with ChangeNotifier{
 
   Map<String,dynamic> toMap (){
     return {
-    'flyerID' : flyerID,
-    'tinyBz' : tinyBz.toMap(),
-    'authorID' : authorID,
-    'slideIndex' : slideIndex,
-    'slidePic' : slidePic,
+      'flyerID' : flyerID,
+      'flyerType' : cipherFlyerType(flyerType),
+      'tinyBz' : tinyBz.toMap(),
+      'authorID' : authorID,
+      'slideIndex' : slideIndex,
+      'slidePic' : slidePic,
     };
   }
 
@@ -121,7 +124,8 @@ List<TinyFlyer> decipherTinyFlyersMaps(List<dynamic> tinyFlyersMaps){
 TinyFlyer decipherTinyFlyerMap(dynamic map){
   return TinyFlyer(
       flyerID: map['flyerID'],
-      tinyBz: decipherTinyBzMap(map['tinyBz:']),
+      flyerType: decipherFlyerType(map['flyerType']),
+      tinyBz: decipherTinyBzMap(map['tinyBz']),
       authorID: map['authorID'],
       slideIndex: map['slideIndex'],
       slidePic: map['slidePic'],
@@ -131,6 +135,7 @@ TinyFlyer decipherTinyFlyerMap(dynamic map){
 TinyFlyer getTinyFlyerFromFlyerModel(FlyerModel flyerModel){
   return TinyFlyer(
     flyerID: flyerModel.flyerID,
+    flyerType: flyerModel.flyerType,
     authorID: flyerModel.authorID,
     slideIndex: 0,
     slidePic: flyerModel.slides[0].picture,
@@ -279,3 +284,8 @@ FlyerModel replaceFlyerSlidesWithNewSlides(FlyerModel inputFlyerModel, List<Slid
   );
 }
 // -----------------------------------------------------------------------------
+Map<String, dynamic> cipherFlyerKeys(FlyerModel flyerModel){
+  List<dynamic> _keys = flyerModel.keyWords;
+
+
+}

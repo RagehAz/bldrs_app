@@ -151,7 +151,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
     flyerURL : '...',
     // -------------------------
     authorID : superUserID(),
-    tinyBz : TinyBz(bzID: _bz.bzID, bzLogo: null, bzName: '', bzType: _bz.bzType),
+    tinyBz : TinyBz(bzID: _bz.bzID, bzLogo: _bz.bzLogo, bzName: _bz.bzName, bzType: _bz.bzType),
     // -------------------------
     publishTime : DateTime.now(),
     flyerPosition : null,
@@ -641,6 +641,80 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
 
   }
   // ----------------------------------------------------------------------
+  bool _inputsAreValid(){
+    // TASK : figure out flyer required fields needed for validity assertion
+    return true;
+  }
+  // ----------------------------------------------------------------------
+  Future<List<SlideModel>> _processNewSlides(List<SlideModel> currentSlides, List<TextEditingController> titleControllers) async {
+    List<SlideModel> _slides = new List();
+
+    for (var slide in currentSlides){
+
+      int i = slide.slideIndex;
+
+      SlideModel _newSlide = SlideModel(
+        slideIndex: currentSlides[i].slideIndex,
+        picture: currentSlides[i].picture,
+        headline: titleControllers[i].text,
+        description: null,
+        savesCount: 0,
+        sharesCount: 0,
+        viewsCount: 0,
+      );
+
+      _slides.add(_newSlide);
+
+    }
+
+    return _slides;
+  }
+  // ----------------------------------------------------------------------
+  Future<void> _createNewFlyer() async {
+    /// assert that all required fields are valid
+    if (_inputsAreValid() == false){
+      // show something for user to know
+      await superDialog(context, 'Please add all required fields', 'incomplete');
+    } else {
+
+      _triggerLoading();
+
+      /// create slides models
+      List<SlideModel> _slides = await _processNewSlides(_currentSlides, _titleControllers);
+
+      ///create FlyerModel
+      FlyerModel _newFlyerModel = FlyerModel(
+        flyerID: _currentFlyerID, // will be created in creatFlyerOps
+        // -------------------------
+        flyerType: _currentFlyerType,
+        flyerState: _currentFlyerState,
+        keyWords: _currentKeywords,
+        flyerShowsAuthor: _currentFlyerShowsAuthor,
+        flyerURL: _currentFlyerURL,
+        // -------------------------
+        authorID: _currentAuthorID,
+        tinyBz: TinyBz(bzID: _currentBzID, bzLogo: widget.bzModel.bzLogo, bzName: widget.bzModel.bzName, bzType: widget.bzModel.bzType),
+        // -------------------------
+        publishTime: _currentPublishTime,
+        flyerPosition: _currentFlyerPosition,
+        // -------------------------
+        ankhIsOn: false, // shouldn't be saved here but will leave this now
+        // -------------------------
+        slides: _slides,
+      );
+
+      /// start create flyer ops
+      FlyerModel _uploadedFlyerModel = await FlyerCRUD().createFlyerOps(context, _newFlyerModel, widget.bzModel);
+
+      /// add the result final Tinyflyer to local list and notifyListeners
+      /// TASK : should be TinyFlyer not Flyer
+      _prof.addTinyFlyerToLocalList(getTinyFlyerFromFlyerModel(_uploadedFlyerModel));
+
+      _triggerLoading();
+
+    }
+  }
+  // ----------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     final AuthorModel _author = widget.firstTimer ?
@@ -670,13 +744,13 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
         DreamBox(
           height: 35,
           boxMargins: EdgeInsets.symmetric(horizontal: Ratioz.ddAppBarPadding),
-          verse: 'Publish flyer',
+          verse: widget.firstTimer ? 'Publish flyer' : 'update flyer',
           verseColor: Colorz.BlackBlack,
           verseScaleFactor: 0.8,
           color: Colorz.Yellow,
           icon: Iconz.AddFlyer,
           iconSizeFactor: 0.6,
-          boxFunction: _publishFlyer,
+          boxFunction: widget.firstTimer ? _createNewFlyer : (){print('should update flyer');},
         );
     }
     // ----------------------------------------------------------------------
