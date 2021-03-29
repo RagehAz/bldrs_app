@@ -40,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
     if (_isInit) {
       _triggerLoading();
       Provider.of<FlyersProvider>(context, listen: true)
-          .fetchAndSetBzz(context)
+          .fetchAndSetTinyBzzAndTinyFlyers(context)
           .then((_) {
         _triggerLoading();
       });
@@ -85,7 +85,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
                   ...List<Widget>.generate(flyerTypesList.length,
                           (index) {
-                    return FlyerStack(flyersType: flyerTypesList[index]);
+                    return
+                      FlyerStack(flyersType: flyerTypesList[index]);
+
                   }),
 
                   PyramidsHorizon(heightFactor: 10),

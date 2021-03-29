@@ -159,7 +159,7 @@ Map<String, dynamic> toMap(){
 }
 }
 // -----------------------------------------------------------------------------
-class TinyBz {
+class TinyBz with ChangeNotifier{
   final String bzID;
   final String bzLogo;
   final String bzName;
@@ -201,7 +201,7 @@ List<dynamic> cipherTinyBzzModels(List<TinyBz> tinyBzz){
   return _tinyBzzMaps;
 }
 // -----------------------------------------------------------------------------
-TinyBz decipherTinyBzMap(Map<String, dynamic> map){
+TinyBz decipherTinyBzMap(dynamic map){
   return TinyBz(
       bzID: map['bzID'],
       bzLogo: map['bzLogo'],
@@ -357,7 +357,7 @@ BzModel decipherBzMap(String bzID, dynamic map){
     bzTotalViews : map['bzTotalViews'],
     bzTotalCalls : map['bzTotalCalls'],
     // -------------------------
-    bzFlyers: decipherTinyFlyers(map['bzFlyers']),
+    bzFlyers: decipherTinyFlyersMaps(map['bzFlyers']),
   );
 }
 // -----------------------------------------------------------------------------
