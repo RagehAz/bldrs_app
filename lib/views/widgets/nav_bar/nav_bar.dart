@@ -16,6 +16,7 @@ import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/screens/s14_more_screen.dart';
 import 'package:bldrs/views/screens/s15_profile_screen.dart';
+import 'package:bldrs/views/screens/s30_ask_screen.dart';
 import 'package:bldrs/views/screens/s41_my_bz_screen.dart';
 import 'package:bldrs/views/screens/s30_chat_screen.dart';
 import 'package:bldrs/views/widgets/buttons/balloons/user_balloon.dart';
@@ -229,7 +230,7 @@ class NavBar extends StatelessWidget {
                                    icon: Iconz.SaveOn,
                                    iconSizeFactor: 0.7,
                                    barType: barType,
-                                   onTap: () => goToNewScreen(context, ChatScreen()),
+                                   onTap: () => goToNewScreen(context, AskScreen()),
                                    clipperWidget : UserBalloon(
                                      balloonWidth: _circleWidth,
                                      balloonType: UserStatus.PlanningTalking,
