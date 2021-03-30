@@ -3,6 +3,7 @@ import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/dashboard/s01_dashboard.dart';
+import 'package:bldrs/views/screens/s30_chat_screen.dart';
 import 'package:bldrs/views/widgets/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/views/widgets/buttons/bt_main.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
@@ -125,11 +126,11 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
 
           oButton('Text field test', Iconz.Language, TextFieldTest()),
 
-          oButton('2 - Biso Ask Screen', Iconz.UTPlanning, AskScreen()),
+          oButton('2 - Old Ask Screen', Iconz.UTPlanning, OldAskScreen()),
+
+          oButton('2 - Old Chat Screen', Iconz.UTPlanning, ChatScreen()),
 
           // oButton('MultiGalleryPicker', Iconz.DvGouran, MultiGalleryPicker()),
-
-          oButton('2 - Biso Ask Screen', Iconz.UTPlanning, AskScreen()),
 
           // oButton('7 - Flyer Screen', Iconz.Flyer, FlyerScreen()), // () => openFlyer(context, 'f034')
 
