@@ -106,7 +106,6 @@ class GalleryGrid extends StatelessWidget {
                       flyerSizeFactor: _flyerSizeFactor,
                     )
 
-
                     // ChangeNotifierProvider.value(
                     //   value: _gridFlyers[index],
                     //   child:
@@ -124,6 +123,7 @@ class GalleryGrid extends StatelessWidget {
                     //
                     //
                     // ),
+
                   )
 
               ),
