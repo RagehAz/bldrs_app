@@ -77,9 +77,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
                   Stratosphere(),
 
-                  Ask(
-                    tappingAskInfo: () {print('Ask info is tapped aho');},
-                  ),
+                  // Ask(
+                  //   tappingAskInfo: () {print('Ask info is tapped aho');},
+                  // ),
 
                   BzzBubble(tinyBzz: _tinyBzz),
 

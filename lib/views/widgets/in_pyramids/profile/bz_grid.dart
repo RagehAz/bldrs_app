@@ -59,7 +59,7 @@ class BzGrid extends StatelessWidget {
             children: <Widget>[
 
                 // --- GRID FOOTPRINTS
-              tinyBzz.length != 0 ? Container() :
+              if (tinyBzz.length == 0)
                 GridView(
                   physics: scrollDirection == null ? NeverScrollableScrollPhysics() : null,
                   scrollDirection: scrollDirection == null ? Axis.vertical : scrollDirection,

@@ -14,7 +14,6 @@ import 'file_formatters.dart';
 import 'dart:io';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:path_provider/path_provider.dart';
-import 'package:path_provider/path_provider.dart';
 // === === === === === === === === === === === === === === === === === === ===
 DecorationImage superImage(String picture, BoxFit boxFit){
   DecorationImage image = DecorationImage(
@@ -53,28 +52,31 @@ enum PicType{
   slideHighRes,
   slideLowRes,
   dum,
+  askPic,
 }
 // === === === === === === === === === === === === === === === === === === ===
 int concludeImageQuality(PicType picType){
   switch (picType){
-    case PicType.userPic      :   return  70   ;     break;
-    case PicType.authorPic    :   return  80   ;     break;
-    case PicType.bzLogo       :   return  80   ;     break;
-    case PicType.slideHighRes :   return  100  ;     break;
-    case PicType.slideLowRes  :   return  60   ;     break;
-    case PicType.dum          :   return  100  ;     break;
+    case PicType.userPic      :  return  70   ;  break;
+    case PicType.authorPic    :  return  80   ;  break;
+    case PicType.bzLogo       :  return  80   ;  break;
+    case PicType.slideHighRes :  return  100  ;  break;
+    case PicType.slideLowRes  :  return  60   ;  break;
+    case PicType.dum          :  return  100  ;  break;
+    case PicType.askPic       :  return  100  ;  break;
     default : return   null;
 }
 }
 // === === === === === === === === === === === === === === === === === === ===
 double concludeImageMaxWidth(PicType picType){
   switch (picType){
-    case PicType.userPic      :   return  150   ;     break;
-    case PicType.authorPic    :   return  150   ;     break;
-    case PicType.bzLogo       :   return  150   ;     break;
-    case PicType.slideHighRes :   return  1000  ;     break;
-    case PicType.slideLowRes  :   return  150   ;     break;
-    case PicType.dum          :   return  null  ;     break;
+    case PicType.userPic      :  return  150   ;  break;
+    case PicType.authorPic    :  return  150   ;  break;
+    case PicType.bzLogo       :  return  150   ;  break;
+    case PicType.slideHighRes :  return  1000  ;  break;
+    case PicType.slideLowRes  :  return  150   ;  break;
+    case PicType.dum          :  return  null  ;  break;
+    case PicType.askPic       :  return  null  ;  break;
     default : return   null;
   }
 }

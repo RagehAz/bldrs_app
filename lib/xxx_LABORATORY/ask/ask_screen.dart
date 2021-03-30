@@ -23,12 +23,12 @@ Map<String, Object> bzTypesMap = {
   'Triggers' : [false, false, false, false, false, false, false],
 };
 
-class AskScreen extends StatefulWidget {
+class OldAskScreen extends StatefulWidget {
   @override
-  _AskScreenState createState() => _AskScreenState();
+  _OldAskScreenState createState() => _OldAskScreenState();
 }
 
-class _AskScreenState extends State<AskScreen> {
+class _OldAskScreenState extends State<OldAskScreen> {
 
   bool enumListerIsOn = false;
 
@@ -82,25 +82,6 @@ class _AskScreenState extends State<AskScreen> {
 
                   Stratosphere(),
 
-                  SuperVerse(
-                    verse: 'Go Bissssooooo Goooo',
-                    size: 5,
-                    shadow: true,
-                    color: Colorz.Yellow,
-                    margin: 10,
-                    weight: VerseWeight.black,
-                    labelColor: Colorz.GreenSmoke,
-                  ),
-
-                  SuperVerse(
-                    verse: '😇😇😇',
-                    size: 5,
-                    shadow: true,
-                    color: Colorz.Yellow,
-                    margin: 10,
-                    weight: VerseWeight.black,
-                    labelColor: Colorz.GreenSmoke,
-                  ),
 
                   Ask(
                     tappingAskInfo: () {
