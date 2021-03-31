@@ -502,7 +502,11 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
       );
 
       /// start createBzOps
-      BzModel _bzModel = await BzCRUD().createBzOps(context, _newBzModel, widget.userModel);
+      BzModel _bzModel = await BzCRUD().createBzOps(
+          context: context,
+          inputBz : _newBzModel,
+          userModel: widget.userModel
+      );
 
       /// add the final _bzModel to local list and notifyListeners
       _prof.addBzModelToLocalList(_bzModel);
@@ -510,6 +514,8 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
       _triggerLoading();
 
       await superDialog(context, 'Successfully added your Business Account ', 'Great !');
+
+      goBack(context);
 
     }
 
@@ -586,6 +592,8 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
       _triggerLoading();
 
       await superDialog(context, 'Successfully updated your Business Account ', 'Great !');
+
+      goBack(context);
 
     }
 

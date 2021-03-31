@@ -42,8 +42,9 @@ class EditProfileScreen extends StatefulWidget {
 class _EditProfileScreenState extends State<EditProfileScreen> {
   final _formKey = GlobalKey<FormState>();
   // --------------------
-  File _currentPic;
   TextEditingController _nameController = TextEditingController();
+  File _currentPicFile;
+  String _currentPicURL;
   TextEditingController _titleController = TextEditingController();
   TextEditingController _companyController = TextEditingController();
   Gender _currentGender;
@@ -75,7 +76,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   void initState() {
     _nameController.text = widget.user.name;
+    _currentPicURL = widget.user.pic;
     _companyController.text = widget.user.company;
+    _currentGender = widget.user.gender;
     _titleController.text = widget.user.title;
     _currentCountryID = widget.user.country;
     _currentProvinceID = widget.user.province;
@@ -113,11 +116,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   // ---------------------------------------------------------------------------
   Future<void> _takeGalleryPicture() async {
     final _imageFile = await takeGalleryPicture(PicType.userPic);
-    setState(() {_currentPic = File(_imageFile.path);});
+    setState(() {_currentPicFile = File(_imageFile.path);});
   }
   // ---------------------------------------------------------------------------
   void _deleteLogo(){
-    setState(() {_currentPic = null;});
+    setState(() {_currentPicFile = null;});
   }
   // ---------------------------------------------------------------------------
   void _changeGender(Gender gender){
@@ -147,7 +150,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     setState(() => _currentPosition = geoPoint );
   }
   // ---------------------------------------------------------------------------
-  List<ContactModel> _createContactList(List<ContactModel> existingContacts){
+  List<ContactModel> _createContactList({List<ContactModel> existingContacts}){
+  /// takes current contacts, overrides them on existing contact list, then
+  /// return a new contacts list with all old values and new overridden values
     List<ContactModel> newContacts = createContactsList(
       existingContacts: existingContacts,
       phone: removeSpacesFromAString(_phoneController.text),
@@ -164,68 +169,124 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     return newContacts;
   }
   // ---------------------------------------------------------------------------
+  bool _inputsAreValid(){
+    bool _inputsAreValid;
+    if (_formKey.currentState.validate()){
+      _inputsAreValid = true;
+    } else {
+      _inputsAreValid = false;
+    }
+    return _inputsAreValid;
+  }
+  // ---------------------------------------------------------------------------
   void _confirmEdits() async {
-    if(_formKey.currentState.validate()){
+    // TASK : create bool dialog and use it here before confirming bz edits in bzEditor
+    // temp solution here below to just notify
+    bool _continueOps = await superDialog(context, 'Are you sure you want to continue ?', '');
+    _continueOps = true;
+    if (_continueOps == true){
+      widget.firstTimer ? _createNewUser() : _updateExistingUser();
+    }
+  }
+  // ---------------------------------------------------------------------------
+  /// create new user
+  void _createNewUser() async {
+    /// validate all required fields are valid
+    if(_inputsAreValid() == false){
+      /// TASK : add error missing data indicator in UI bubbles
+      await superDialog(context, 'Please add all required fields', 'incomplete');
+    } else {
 
       _triggerLoading();
 
-      await tryAndCatch(
+      /// create new UserModel
+      UserModel _newUserModel = UserModel(
+          userID : widget.user.userID,
+          joinedAt : DateTime.now(), // will be overridden in createUserOps
+          userStatus : UserStatus.Normal,
+          // -------------------------
+          name : _nameController.text,
+          pic : _currentPicFile ?? _currentPicURL,
+          title :  _titleController.text,
+          company: _companyController.text,
+          gender : _currentGender,
+          country : _currentCountryID,
+          province : _currentProvinceID,
+          area : _currentAreaID,
+          language : Wordz.languageCode(context),
+          position : _currentPosition,
+          contacts : _createContactList(existingContacts : widget.user.contacts),
+          // -------------------------
+          myBzzIDs: [],
+        // -------------------------
+      );
+
+      /// start create user ops
+      await UserCRUD().createUserOps(
           context: context,
-          functions: () async {
-            String _userPicURL;
-
-            if(_currentPic != null){
-              _userPicURL =
-              await saveUserPicOnFirebaseStorageAndGetURL(
-                  inputFile: _currentPic,
-                  fileName: widget.user.userID
-              );
-            }
-
-            // print('_userPicURL : $_userPicURL');
-
-            UserModel _newUserModel = UserModel(
-              // -------------------------
-              userID : widget.user.userID,
-              joinedAt : widget.firstTimer == true ? DateTime.now() : widget.user.joinedAt ?? DateTime.now(),
-              userStatus : widget.user.userStatus ?? UserStatus.Normal,
-              // -------------------------
-              name : _nameController.text ?? widget.user.name,
-              pic : _userPicURL ?? widget.user.pic,
-              title :  _titleController.text ?? widget.user.title,
-              company: _companyController.text ?? widget.user.company,
-              gender : _currentGender ?? widget.user.gender,
-              country : _currentCountryID ?? widget.user.country,
-              province : _currentProvinceID ?? widget.user.province,
-              area : _currentAreaID ?? widget.user.area,
-              language : Wordz.languageCode(context),
-              position : _currentPosition ?? widget.user.position,
-              contacts : _createContactList(widget.user.contacts),
-              // -------------------------
-              myBzzIDs: widget.firstTimer == true ? [] : widget.user.myBzzIDs
-              // -------------------------
-            );
-
-            await UserCRUD().updateUserOps(newUserModel: _newUserModel, oldUserModel: widget.user);
-
-            print('User Model successfully edited');
-            _triggerLoading();
-
-            if (widget.firstTimer){
-              goToRoute(context, Routez.Home);
-            } else {
-              goBack(context);
-            }
-
-          }
+          userModel: _newUserModel
       );
 
       _triggerLoading();
 
+      await superDialog(context, 'Successfully created your user account', 'Great !');
+
+      goToRoute(context, Routez.Home);
+
+    }
+
+  }
+  // ---------------------------------------------------------------------------
+  /// update user
+  void _updateExistingUser() async {
+    /// validate all required fields are valid
+    if(_inputsAreValid() == false){
+      /// TASK : add error missing data indicator in UI bubbles
+      await superDialog(context, 'Please add all required fields', 'incomplete');
+    } else {
+
+      _triggerLoading();
+
+      /// create new updated user model
+      UserModel _updatedModel = UserModel(
+        // -------------------------
+          userID : widget.user.userID,
+          joinedAt : widget.user.joinedAt,
+          userStatus : widget.user.userStatus,
+          // -------------------------
+          name : _nameController.text,
+          pic :  _currentPicFile ?? _currentPicURL,
+          title :  _titleController.text,
+          company: _companyController.text,
+          gender : _currentGender,
+          country : _currentCountryID,
+          province : _currentProvinceID,
+          area : _currentAreaID,
+          language : Wordz.languageCode(context),
+          position : _currentPosition,
+          contacts : _createContactList(existingContacts : widget.user.contacts),
+          // -------------------------
+          myBzzIDs: widget.user.myBzzIDs,
+        // -------------------------
+      );
+
+      /// start create user ops
+      await UserCRUD().updateUserOps(
+        context: context,
+        oldUserModel: widget.user,
+        updatedUserModel: _updatedModel,
+      );
+
+      _triggerLoading();
+
+      await superDialog(context, 'Successfully updated your user account', 'Great !');
+
+      goBack(context);
+
     }
   }
   // ---------------------------------------------------------------------------
-  void _deleteAccount () async {
+  void _deleteUserAccount() async {
     /// bool dialog ( i yes continue delete and ask for password , if no cancel operation and don't delete
     // await superDialog(context, 'You will delete your account, and there is no going back !', 'Take Care !'); // should be bool dialog
     //
@@ -235,7 +296,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     //   functions: () async {
     //
     //     String _email = getAContactValueFromContacts(widget.user.contacts, ContactType.Email);
-        // await UserCRUD().deleteUserDoc(widget.user.userID);
+    // await UserCRUD().deleteUserDoc(widget.user.userID);
     //     await AuthService().deleteFirebaseUser(context, _email, '123456');
     //
     //   }
@@ -270,7 +331,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             Stratosphere(),
 
             AddGalleryPicBubble(
-              pic: _currentPic == null ? widget.user.pic : _currentPic,
+              pic: _currentPicFile == null ? _currentPicURL : _currentPicFile,
               addBtFunction: _takeGalleryPicture,
               deletePicFunction: _deleteLogo,
               bubbleType: BubbleType.userPic,
@@ -459,7 +520,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               verse: 'Delete Account',
               verseScaleFactor: 1.5,
               boxMargins: EdgeInsets.all(20),
-              boxFunction: _deleteAccount,
+              boxFunction: _deleteUserAccount,
             ),
 
             PyramidsHorizon(heightFactor: 5,)

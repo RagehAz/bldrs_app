@@ -13,7 +13,7 @@ class UserModel {
   final UserStatus userStatus;
   // -------------------------
   final String name;
-  final String pic;
+  final dynamic pic;
   final String title;
   final String company;
   final Gender gender; // should be both gender and name tittle Mr, Mrs, Ms, Dr, Eng, Arch, ...
@@ -99,7 +99,7 @@ class TinyUser {
   final String userID;
   final String name;
   final String title;
-  final String pic;
+  final dynamic pic;
   final UserStatus userStatus;
 
   TinyUser({
