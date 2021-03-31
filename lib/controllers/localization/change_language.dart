@@ -1,11 +1,26 @@
 import 'package:bldrs/controllers/theme/wordz.dart';
+import 'package:bldrs/firestore/auth/auth.dart';
+import 'package:bldrs/firestore/firestore.dart';
 import 'package:flutter/material.dart';
 import '../../main.dart';
 import 'localization_constants.dart';
 // === === === === === === === === === === === === === === === === === === ===
 Future<void> changeAppLanguage(BuildContext context, String code) async {
-  Locale temp = await setLocale(code);
-  BldrsApp.setLocale(context, temp);
+  Locale _temp = await setLocale(code);
+  BldrsApp.setLocale(context, _temp);
+
+  if (superUserID() != null){
+    await updateFieldOnFirestore(
+      context: context,
+      collectionName: FireStoreCollection.users,
+      documentName: superUserID(),
+      field: 'language',
+      input: code,
+    );
+
+    print('changed local language and firestore.user[\'language\']  updated to $code');
+  }
+
 }
 // === === === === === === === === === === === === === === === === === === ===
 Future<void> switchBetweenArabicAndEnglish(BuildContext context) async {

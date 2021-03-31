@@ -208,7 +208,7 @@ void addContactIfPossibleToANewContactsList(
 
   /// when contact already exists in existingContacts
   if (_contactExistsInExistingContacts == true){
-    /// if value have changed add this new value otherwise ass the existing value
+    /// if value have changed add this new value otherwise add the existing value
     if (_userChangedValue == true){
       newContacts.add(ContactModel(contact: value, contactType: type));
     } else { newContacts.add(ContactModel(contact: _existingContactValue, contactType: type)); }
