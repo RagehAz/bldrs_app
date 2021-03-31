@@ -3,7 +3,6 @@ import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/dashboard/s01_dashboard.dart';
-import 'package:bldrs/views/screens/s30_chat_screen.dart';
 import 'package:bldrs/views/widgets/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/views/widgets/buttons/bt_main.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
@@ -12,7 +11,6 @@ import 'package:bldrs/views/widgets/layouts/swiper_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:bldrs/views/widgets/textings/the_golden_scroll.dart';
 import 'package:bldrs/xxx_LABORATORY/animations/animations_screen.dart';
-import 'package:bldrs/xxx_LABORATORY/ask/ask_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/forms_and_inputs/popup.dart';
 import 'package:bldrs/xxx_LABORATORY/forms_and_inputs/form.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/text_field_test.dart';
@@ -125,10 +123,6 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
           oButton('Dash Board', Iconz.DashBoard, DashBoard()),
 
           oButton('Text field test', Iconz.Language, TextFieldTest()),
-
-          oButton('2 - Old Ask Screen', Iconz.UTPlanning, OldAskScreen()),
-
-          oButton('2 - Old Chat Screen', Iconz.UTPlanning, ChatScreen()),
 
           // oButton('MultiGalleryPicker', Iconz.DvGouran, MultiGalleryPicker()),
 

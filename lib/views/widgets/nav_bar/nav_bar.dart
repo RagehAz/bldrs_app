@@ -16,13 +16,10 @@ import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/screens/s14_more_screen.dart';
 import 'package:bldrs/views/screens/s15_profile_screen.dart';
-import 'package:bldrs/views/screens/s30_ask_screen.dart';
 import 'package:bldrs/views/screens/s41_my_bz_screen.dart';
-import 'package:bldrs/views/screens/s30_chat_screen.dart';
 import 'package:bldrs/views/widgets/buttons/balloons/user_balloon.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart' show Sky;
-import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -56,7 +53,8 @@ class NavBar extends StatelessWidget {
 }
 // ----------------------------------------------------------------------------
   int _calculateNumberOfButtons(UserModel userModel){
-    int _numberOfButtons = userIsAuthor(userModel) ? 5 : 4;
+    /// PLAN : number of buttons will be 5 : 4 after putting asks button in nav bar
+    int _numberOfButtons = userIsAuthor(userModel) ? 4 : 3;
     return _numberOfButtons;
   }
 // ----------------------------------------------------------------------------
@@ -221,29 +219,30 @@ class NavBar extends StatelessWidget {
                                    onTap: () => goToRoute(context, Routez.SavedFlyers),
                                  ),
 
-                                 _spacer,
-
-                                 /// --- ASK
-                                 BarButton(
-                                   width: _buttonWidth,
-                                   text: Wordz.ask(context),
-                                   icon: Iconz.SaveOn,
-                                   iconSizeFactor: 0.7,
-                                   barType: barType,
-                                   onTap: () => goToNewScreen(context, AskScreen()),
-                                   clipperWidget : UserBalloon(
-                                     balloonWidth: _circleWidth,
-                                     balloonType: UserStatus.PlanningTalking,
-                                     // userPic: null,
-                                     balloonColor: Colorz.Nothing,
-                                     loading: false,
-                                     child: SuperVerse(
-                                       verse: Wordz.ask(context),
-                                       size: 1,
-                                       shadow: true,
-                                     ),
-                                   ),
-                                 ),
+                                 /// PLAN : Asks & chats in version 2 isa
+                                 // _spacer,
+                                 //
+                                 // /// --- ASK
+                                 // BarButton(
+                                 //   width: _buttonWidth,
+                                 //   text: Wordz.ask(context),
+                                 //   icon: Iconz.SaveOn,
+                                 //   iconSizeFactor: 0.7,
+                                 //   barType: barType,
+                                 //   onTap: () => goToNewScreen(context, AskScreen()),
+                                 //   clipperWidget : UserBalloon(
+                                 //     balloonWidth: _circleWidth,
+                                 //     balloonType: UserStatus.PlanningTalking,
+                                 //     // userPic: null,
+                                 //     balloonColor: Colorz.Nothing,
+                                 //     loading: false,
+                                 //     child: SuperVerse(
+                                 //       verse: Wordz.ask(context),
+                                 //       size: 1,
+                                 //       shadow: true,
+                                 //     ),
+                                 //   ),
+                                 // ),
 
                                  _spacer,
 

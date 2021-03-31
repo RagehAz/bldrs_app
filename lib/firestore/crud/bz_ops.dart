@@ -29,7 +29,11 @@ class BzCRUD{
   }
 // ----------------------------------------------------------------------
   /// create bz operations on firestore
-  Future<BzModel> createBzOps(BuildContext context, BzModel inputBz, UserModel userModel) async {
+  Future<BzModel> createBzOps({
+    BuildContext context,
+    BzModel inputBz,
+    UserModel userModel
+  }) async {
     // Notes :-
     // inputBz has inputBz.bzLogo & inputBz.authors[0].authorPic as Files not URLs
 
@@ -271,8 +275,6 @@ class BzCRUD{
           );
         }
       }
-
-    /// TASK : update tinyBz in all chats
 
     }
 
