@@ -66,6 +66,11 @@ typedef bzModelWidgetBuilder = Widget Function(
     BuildContext context,
     BzModel bzModel,
     );
+// ----------------------------------------------------------------------------
+typedef tinyBzModelWidgetBuilder = Widget Function(
+    BuildContext context,
+    TinyBz tinyBz,
+    );
 // ----------------------
 /// IMPLEMENTATION
 /// bzModelBuilder(
@@ -121,6 +126,34 @@ Widget bzModelStreamBuilder({
           BzModel bzModel = snapshot.data;
           return
             builder(context, bzModel);
+        }
+      },
+    );
+
+}
+// ----------------------------------------------------------------------------
+Widget tinyBzModelStreamBuilder({
+  String bzID,
+  BuildContext context,
+  tinyBzModelWidgetBuilder builder,
+  bool listen,
+}){
+
+  bool _listen = listen == null ? true : listen;
+
+  final _prof = Provider.of<FlyersProvider>(context, listen: _listen);
+
+  return
+
+    StreamBuilder<TinyBz>(
+      stream: _prof.getTinyBzStream(bzID),
+      builder: (context, snapshot){
+        if(connectionHasNoData(snapshot) || connectionIsWaiting(snapshot)){
+          return Loading(loading: true,);
+        } else {
+          TinyBz tinyBz = snapshot.data;
+          return
+            builder(context, tinyBz);
         }
       },
     );

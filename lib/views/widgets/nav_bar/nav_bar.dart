@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/aligners.dart';
 import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/drafters/colorizers.dart';
 import 'package:bldrs/controllers/drafters/device_checkers.dart';
@@ -5,6 +6,7 @@ import 'package:bldrs/controllers/drafters/iconizers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/shadowers.dart';
 import 'package:bldrs/controllers/drafters/streamerz.dart';
+import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/controllers/drafters/text_shapers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/router/route_names.dart';
@@ -19,11 +21,14 @@ import 'package:bldrs/views/screens/s15_profile_screen.dart';
 import 'package:bldrs/views/screens/s41_my_bz_screen.dart';
 import 'package:bldrs/views/widgets/buttons/balloons/user_balloon.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
+import 'package:bldrs/views/widgets/dialogs/bottom_sheet.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart' show Sky;
+import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'bar_button.dart';
+import 'bzz_button.dart';
 
 enum BarType{
   min,
@@ -96,6 +101,18 @@ class NavBar extends StatelessWidget {
     return _halfSpacer;
   }
 // ----------------------------------------------------------------------------
+  double _myBzzListSlideHeight(BuildContext context, UserModel userModel){
+    double _wantedHeight = (superScreenWidth(context) * 0.3 * userModel.myBzzIDs.length);
+    double _maxHeight = superScreenHeight(context) * 0.75;
+    double _finalHeight;
+    if(_wantedHeight >= _maxHeight){
+      _finalHeight = _maxHeight;
+    } else {
+      _finalHeight = _wantedHeight;
+    }
+    return _finalHeight;
+  }
+  // ----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // -------------------------------------------------------------------------
@@ -155,7 +172,8 @@ class NavBar extends StatelessWidget {
              // String _bzID = _followedBzzIDs.length > 0 ?  _followedBzzIDs[0] : '';
              // String _bzLogo = prof.getBzByBzID(_bzID)?.bzLogo;
 
-             return
+
+                 return
 
                Positioned(
                  bottom: _bottomOffset,
@@ -193,7 +211,7 @@ class NavBar extends StatelessWidget {
                          child: Stack(
                            children: <Widget>[
 
-                             /// --- BLUR LAYER
+                             // --- BLUR LAYER
                              BlurLayer(
                                width: _boxWidth,
                                height: _boxHeight,
@@ -201,7 +219,7 @@ class NavBar extends StatelessWidget {
                                borders: _boxBorders,
                              ),
 
-                             /// --- BUTTONS
+                             // --- BUTTONS
                              Row(
                                mainAxisAlignment: MainAxisAlignment.center,
                                crossAxisAlignment: CrossAxisAlignment.center,
@@ -209,7 +227,7 @@ class NavBar extends StatelessWidget {
 
                                  _halfSpacer,
 
-                                 /// --- SAVED FLYERS
+                                 // --- SAVED FLYERS
                                  BarButton(
                                    width: _buttonWidth,
                                    text: 'Choices',
@@ -219,34 +237,10 @@ class NavBar extends StatelessWidget {
                                    onTap: () => goToRoute(context, Routez.SavedFlyers),
                                  ),
 
-                                 /// PLAN : Asks & chats in version 2 isa
-                                 // _spacer,
-                                 //
-                                 // /// --- ASK
-                                 // BarButton(
-                                 //   width: _buttonWidth,
-                                 //   text: Wordz.ask(context),
-                                 //   icon: Iconz.SaveOn,
-                                 //   iconSizeFactor: 0.7,
-                                 //   barType: barType,
-                                 //   onTap: () => goToNewScreen(context, AskScreen()),
-                                 //   clipperWidget : UserBalloon(
-                                 //     balloonWidth: _circleWidth,
-                                 //     balloonType: UserStatus.PlanningTalking,
-                                 //     // userPic: null,
-                                 //     balloonColor: Colorz.Nothing,
-                                 //     loading: false,
-                                 //     child: SuperVerse(
-                                 //       verse: Wordz.ask(context),
-                                 //       size: 1,
-                                 //       shadow: true,
-                                 //     ),
-                                 //   ),
-                                 // ),
 
                                  _spacer,
 
-                                 /// --- MORE
+                                 // --- MORE
                                  BarButton(
                                    width: _buttonWidth,
                                    text: Wordz.more(context),
@@ -261,29 +255,82 @@ class NavBar extends StatelessWidget {
 
                                  _spacer,
 
+                                 // --- BZZ BUTTON
+                                 BzzButton(
+                                   width: _buttonWidth,
+                                   circleWidth: _circleWidth,
+                                   barType: barType,
+                                   bzzIDs: userModel.myBzzIDs,
+                                   onTap: (){
+                                     print('fish');
 
-                                 /// --- BZ PAGE
-                                 if (userIsAuthor(userModel))
-                                   bzModelStreamBuilder(
-                                       bzID: userModel.myBzzIDs[0], // TASK : showing multiple bzz owned by user['myBzzIDs'] will impact this
-                                       context: context,
-                                       builder: (ctx, _bzModel){
-                                         return
-                                           BarButton (
-                                             width: _buttonWidth,
-                                             text: 'business',
-                                             barType: barType,
-                                             icon: _bzModel.bzLogo,
-                                             iconSizeFactor: 1,
-                                             onTap: ()=> goToNewScreen(context, MyBzScreen(
-                                               userModel: userModel,
-                                               // bzModel: _bzModel,
-                                               switchPage: (){},
-                                             )
+                                     if (userModel.myBzzIDs.length == 1){
+                                       goToNewScreen(context, MyBzScreen(
+                                         userModel: userModel,
+                                         bzID: userModel.myBzzIDs[0],
+                                         switchPage: (){},
+                                       ));
+                                     } else {
+                                       slideBottomSheet(
+                                         context: context,
+                                         draggable: true,
+                                         height: _myBzzListSlideHeight(context, userModel),
+                                         child: ListView(
+                                           padding: EdgeInsets.all(_paddings),
+                                           children: <Widget>[
+
+                                             Align(
+                                               alignment: superCenterAlignment(context),
+                                               child: SuperVerse(
+                                                 verse: 'My Business accounts',
+                                                 size: 2,
+                                                 margin: 5,
+                                               ),
                                              ),
-                                           );
-                                       }
-                                   ),
+
+                                             ...List.generate(userModel.myBzzIDs.length, (index){
+                                               return
+                                                 tinyBzModelStreamBuilder(
+                                                     bzID: userModel.myBzzIDs[index],
+                                                     context: context,
+                                                     listen: false,
+                                                     builder: (ctx, _tinyBz){
+                                                       return
+                                                         Align(
+                                                           alignment: superCenterAlignment(context),
+                                                           child: DreamBox(
+                                                             height: 60,
+                                                             boxMargins: EdgeInsets.all(Ratioz.ddAppBarPadding),
+                                                             icon: _tinyBz.bzLogo,
+                                                             verse: _tinyBz.bzName,
+                                                             secondLine: bzTypeSingleStringer(context, _tinyBz.bzType),
+                                                             iconSizeFactor: 1,
+                                                             verseScaleFactor: 0.7,
+                                                             bubble: true,
+                                                             color: Colorz.Nothing,
+                                                             boxFunction: (){
+                                                               print('${_tinyBz.bzID}');
+                                                               goToNewScreen(context,
+                                                                   MyBzScreen(
+                                                                     userModel: userModel,
+                                                                     bzID: _tinyBz.bzID,
+                                                                     switchPage: (){},
+                                                                   ));
+                                                             },
+                                                           ),
+                                                         );
+                                                     });
+
+                                             }),
+
+                                           ],
+                                         ),
+                                       );
+                                     }
+
+
+                                   },
+                                 ),
 
                                  _spacer,
 
@@ -291,7 +338,7 @@ class NavBar extends StatelessWidget {
                                  BarButton(
                                      width: _buttonWidth,
                                      text: Wordz.profile(context),
-                                     icon: Iconz.SaveOn,
+                                     icon: Iconz.NormalUser,
                                      iconSizeFactor: 0.7,
                                      barType: barType,
                                      onTap: () => goToNewScreen(context, UserProfileScreen()),

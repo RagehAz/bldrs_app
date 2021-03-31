@@ -2,6 +2,7 @@
 // import 'package:path/path.dart' as path;
 import 'dart:io';
 import 'package:bldrs/controllers/drafters/imagers.dart';
+import 'package:bldrs/controllers/drafters/keyboarders.dart';
 import 'package:bldrs/controllers/drafters/text_checkers.dart';
 import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
@@ -336,7 +337,6 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   // }
   // ----------------------------------------------------------------------
   // Future <void> _confirmBz(BuildContext context, FlyersProvider pro, UserModel userModel) async {
-  //   /// TASK : need to validate inputs creating new bz
   //   /// any change hs happened to allow this function in first place, otherwise, confirm button must be inactive
   //   /// then we need to validate
   //   /// all required fields are not null
@@ -417,6 +417,9 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
     // final bool isValid = _form.currentState.validate();
     // if(!isValid){return;}
     // _form.currentState.save();
+
+    minimizeKeyboardOnTapOutSide(context);
+
     bool _inputsAreValid;
     if (
     _currentBzType == null ||
@@ -578,7 +581,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
       );
 
       /// start updateBzOps
-      await BzCRUD().updateBzOps(
+      BzModel _finalBzModel = await BzCRUD().updateBzOps(
         context: context,
         modifiedBz: _modifiedBzModel,
         originalBz: _bz,
@@ -587,7 +590,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
       );
 
       /// update _bzModel in local list with the modified one and notifyListeners
-      _prof.updateBzModelInLocalList(_modifiedBzModel);
+      _prof.updateBzModelInLocalList(_finalBzModel);
 
       _triggerLoading();
 

@@ -299,11 +299,24 @@ Future<void> deleteBzDocument(BzModel bzModel) async {
     Stream<BzModel> _bzStream = _bzSnapshot.map(_bzModelFromSnapshot);
     return _bzStream;
   }
-
+// ---------------------------------------------------------------------------
+  /// get bz doc stream
+  Stream<TinyBz> getTinyBzStream(String bzID) {
+    Stream<DocumentSnapshot> _bzSnapshot = getFirestoreDocumentSnapshots(FireStoreCollection.tinyBzz, bzID);
+    Stream<TinyBz> _tinyBzStream = _bzSnapshot.map(_tinyBzModelFromSnapshot);
+    return _tinyBzStream;
+  }
+// ---------------------------------------------------------------------------
   BzModel _bzModelFromSnapshot(DocumentSnapshot doc){
   var map = doc.data();
   BzModel _bzModel = decipherBzMap(map['bzID'], map);
   return _bzModel;
+  }
+// ---------------------------------------------------------------------------
+  TinyBz _tinyBzModelFromSnapshot(DocumentSnapshot doc){
+    var map = doc.data();
+    TinyBz _tinyBz = decipherTinyBzMap(map);
+    return _tinyBz;
   }
 // ---------------------------------------------------------------------------
   /// READs all Bzz in firebase realtime database

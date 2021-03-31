@@ -20,10 +20,12 @@ import 's50_flyer_editor_screen.dart';
 class MyBzScreen extends StatefulWidget {
   final UserModel userModel;
   final Function switchPage;
+  final String bzID;
 
   MyBzScreen({
     @required this.userModel,
     this.switchPage,
+    @required this.bzID,
   });
 
   @override
@@ -107,8 +109,7 @@ class _MyBzScreenState extends State<MyBzScreen> {
           appBarType: AppBarType.Basic,
           appBarBackButton: true,
           layoutWidget: bzModelStreamBuilder(
-            // TASK : myBz screen should be specified for only one bzID, and we should update design to cope with multiple bzz in user's myBzz
-            bzID: widget.userModel.myBzzIDs[0],
+            bzID: widget.bzID,
             context: context,
             builder: (ctx, _bzModel){
               return
