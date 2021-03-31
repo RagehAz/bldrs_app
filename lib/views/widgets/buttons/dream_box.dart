@@ -152,7 +152,7 @@ class DreamBox extends StatelessWidget {
                           boxShadow: <CustomBoxShadow>[
                             CustomBoxShadow(
                                 color: bubble == true ? Colorz.BlackLingerie : Colorz.Nothing,
-                                offset: new Offset(0, height * -0.019 * 0 ),
+                                offset: new Offset(0, 0),
                                 blurRadius: height * 0.15,
                                 blurStyle: BlurStyle.outer
                             ),

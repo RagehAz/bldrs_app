@@ -76,7 +76,7 @@ class MainLayout extends StatelessWidget {
 });
 
   Future<void> _refresh(BuildContext context) async {
-    await Provider.of<FlyersProvider>(context,listen: false).fetchAndSetBzz(context);
+    await Provider.of<FlyersProvider>(context,listen: false).fetchAndSetTinyBzzAndTinyFlyers(context);
   }
 
   // final static GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -114,7 +114,7 @@ class MainLayout extends StatelessWidget {
       // --- NAV BAR
       if (pyramids == null)
       NavBar(
-        barType: BarType.min,
+        barType: BarType.minWithText,
       ),
 
       _ragehIsOn == false ? Container() :
