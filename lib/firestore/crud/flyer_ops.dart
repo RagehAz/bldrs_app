@@ -98,6 +98,7 @@ class FlyerCRUD{
     print('7- Tiny flyer model added to tinyFlyers/$_flyerID');
 
     /// add new flyerKeys in fireStore
+    /// TASK : perform string.toLowerCase() on each string before upload
   await createFireStoreNamedDocument(
     context: context,
     collectionName: FireStoreCollection.flyersKeys,

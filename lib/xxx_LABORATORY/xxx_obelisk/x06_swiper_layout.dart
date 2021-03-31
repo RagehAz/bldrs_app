@@ -3,7 +3,6 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/bz_model.dart';
-import 'package:bldrs/views/widgets/ask/ask.dart';
 import 'package:bldrs/views/widgets/buttons/add_bz_bt.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
@@ -116,10 +115,6 @@ class _SwiperLayoutState extends State<SwiperLayout> {
                                 ],
                               ),
 
-                              Ask(
-                                bzType: _bzTypes[index],
-                                tappingAskInfo: (){print('Ask info is tapped aho');},
-                              ),
 
                               // GrowingBz(
                               //   bzType: _bzTypes[index],

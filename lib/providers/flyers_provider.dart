@@ -53,7 +53,6 @@ class FlyersProvider with ChangeNotifier {
     return _tinyFlyer;
   }
 // ---------------------------------------------------------------------------
-
   List<FlyerModel> getFlyersByFlyersIDs(List<dynamic> flyersIDs){
     List<FlyerModel> flyers = new List();
     flyersIDs?.forEach((id) {flyers.add(getFlyerByFlyerID(id));});
@@ -265,7 +264,7 @@ Future<void> createBzDocument(BzModel bz, UserModel userModel) async {
 
   /// update firestore with the _newUserModel
   /// when firebase finds the same userID
-  await UserCRUD().updateUserOps(newUserModel: _newUserModel, oldUserModel: userModel);
+  await UserCRUD().updateUserOps(updatedUserModel: _newUserModel, oldUserModel: userModel);
 
   /// add the local bzModel to the local list of bzModels _loadedBzz
   _loadedBzz.add(_newBz);

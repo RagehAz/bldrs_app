@@ -13,7 +13,6 @@ import 'providers/flyers_provider.dart';
 import 'package:provider/provider.dart';
 import 'views/screens/s51_flyer_screen.dart';
 import 'views/widgets/loading/loading.dart';
-import 'xxx_LABORATORY/ask/questions_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -140,9 +139,6 @@ class _BldrsAppState extends State<BldrsApp> {
           ),
           ChangeNotifierProvider(
             create: (ctx) => GreatPlaces(),
-          ),
-          ChangeNotifierProvider(
-            create: (ctx) => QuestionsProvider(),
           ),
         ],
         child: MaterialApp(

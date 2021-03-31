@@ -3,6 +3,7 @@ import 'package:bldrs/controllers/drafters/iconizers.dart';
 import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/text_directionerz.dart';
+import 'package:bldrs/controllers/localization/change_language.dart';
 import 'package:bldrs/controllers/localization/language_class.dart';
 import 'package:bldrs/controllers/localization/localization_constants.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
@@ -100,10 +101,8 @@ class _ABLocalizerState extends State<ABLocalizer> {
     _exitLocalizer();
   }
 // ---------------------------------------------------------------------------
-void _tapLanguage(String languageCode) async {
-    print(languageCode);
-    Locale _temp = await setLocale(languageCode);
-    BldrsApp.setLocale(context, _temp);
+Future<void> _tapLanguage(String languageCode) async {
+    await changeAppLanguage(context, languageCode);
 }
 // ---------------------------------------------------------------------------
   @override

@@ -1,7 +1,10 @@
+import 'package:bldrs/controllers/drafters/file_formatters.dart';
+import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import '../firebase_storage.dart';
 import '../firestore.dart';
 /// Should include all user firestore operations
 /// except reading data for widgets injection
@@ -23,7 +26,6 @@ class UserCRUD{
   }
 // ---------------------------------------------------------------------------
   /// create or update user document
-  /// or update user document
   Future<void> _createOrUpdateUserDoc({BuildContext context, UserModel userModel}) async {
 
     await replaceFirestoreDocument(
@@ -36,10 +38,43 @@ class UserCRUD{
 }
 // ---------------------------------------------------------------------------
   Future<void> createUserOps({BuildContext context, UserModel userModel}) async {
+
+    /// check if user pic is file to upload or URL from facebook to keep
+    String _userPicURL;
+    if (objectIsFile(userModel.pic) == true){
+      _userPicURL = await savePicOnFirebaseStorageAndGetURL(
+            context: context,
+            inputFile: userModel.pic,
+            fileName: userModel.userID,
+            picType: PicType.userPic
+        );
+    }
+
+    /// create final UserModel
+    UserModel _finalUserModel = UserModel(
+      userID : userModel.userID,
+      joinedAt : DateTime.now(),
+      userStatus : userModel.userStatus,
+      // -------------------------
+      name : userModel.name,
+      pic : _userPicURL ?? userModel.pic,
+      title : userModel.title,
+      company : userModel.company,
+      gender : userModel.gender,
+      country : userModel.country,
+      province : userModel.province,
+      area : userModel.area,
+      language : userModel.language,
+      position : userModel.position,
+      contacts : userModel.contacts,
+      // -------------------------
+      myBzzIDs : userModel.myBzzIDs,
+    );
+
     /// create user doc in fireStore
     await _createOrUpdateUserDoc(
       context: context,
-      userModel: userModel,
+      userModel: _finalUserModel,
     );
 
     /// create TinyUser in firestore
@@ -47,52 +82,66 @@ class UserCRUD{
       context: context,
       collectionName: FireStoreCollection.tinyUsers,
       docName: userModel.userID,
-      input: getTinyUserFromUserModel(userModel).toMap(),
+      input: getTinyUserFromUserModel(_finalUserModel).toMap(),
     );
 
   }
 // ---------------------------------------------------------------------------
-  Future<void> updateUserOps({BuildContext context, UserModel oldUserModel, UserModel newUserModel}) async {
+  Future<void> updateUserOps({BuildContext context, UserModel oldUserModel, UserModel updatedUserModel}) async {
 
-   /// update all tiny user instances in asks collection in case TinyUser is changed:-
-    if (
-    oldUserModel.name != newUserModel.name ||
-    oldUserModel.title != newUserModel.title ||
-    oldUserModel.pic != newUserModel.pic ||
-    oldUserModel.userStatus != newUserModel.userStatus
-    ){
-      /// get all asks IDs in a list
-      List<String> _userAsksIDs = new List();
-      List<QueryDocumentSnapshot> _asksMaps = await getFireStoreSubCollectionMaps(
-        collectionName: FireStoreCollection.users,
-        docName: oldUserModel.userID,
-        subCollectionName: FireStoreCollection.subUserAsks,
+    /// update picture if changed or continue without changing pic
+    String _userPicURL;
+    if (objectIsFile(updatedUserModel.pic) == true){
+      _userPicURL = await savePicOnFirebaseStorageAndGetURL(
+          context: context,
+          inputFile: updatedUserModel.pic,
+          fileName: updatedUserModel.userID,
+          picType: PicType.userPic
       );
-      for (var map in _asksMaps){_userAsksIDs.add(map.id);}
-
-      /// for all asks IDs update the the tiny user
-      if (_userAsksIDs.length > 0){
-        TinyUser _newTinyUser = getTinyUserFromUserModel(newUserModel);
-        for (var id in _userAsksIDs){
-          await updateFieldOnFirestore(
-            context: context,
-            collectionName: FireStoreCollection.users,
-            documentName: id,
-            field: 'tinyUser',
-            input: _newTinyUser,
-            // TASK : check dialogs as they will pop with each ask doc update loop
-          );
-        }
-
-      }
-
     }
+
+    /// create final UserModel
+    UserModel _finalUserModel = UserModel(
+      userID : updatedUserModel.userID,
+      joinedAt : oldUserModel.joinedAt,
+      userStatus : updatedUserModel.userStatus,
+      // -------------------------
+      name : updatedUserModel.name,
+      pic : _userPicURL ?? oldUserModel.pic,
+      title : updatedUserModel.title,
+      company : updatedUserModel.company,
+      gender : updatedUserModel.gender,
+      country : updatedUserModel.country,
+      province : updatedUserModel.province,
+      area : updatedUserModel.area,
+      language : updatedUserModel.language,
+      position : updatedUserModel.position,
+      contacts : updatedUserModel.contacts,
+      // -------------------------
+      myBzzIDs : updatedUserModel.myBzzIDs,
+    );
 
     /// update firestore user doc
     await _createOrUpdateUserDoc(
       context: context,
-      userModel: newUserModel,
+      userModel: _finalUserModel,
     );
+
+
+    /// update tiny user if changed:-
+    if (
+    oldUserModel.name != updatedUserModel.name ||
+    oldUserModel.title != updatedUserModel.title ||
+    oldUserModel.pic != updatedUserModel.pic ||
+    oldUserModel.userStatus != updatedUserModel.userStatus
+    ){
+      await replaceFirestoreDocument(
+        context: context,
+        collectionName: FireStoreCollection.tinyUsers,
+        docName: updatedUserModel.userID,
+        input: getTinyUserFromUserModel(_finalUserModel).toMap(),
+      );
+    }
 
   }
 // ---------------------------------------------------------------------------
@@ -125,4 +174,6 @@ class UserCRUD{
     ///     - delete published flyers
     /// 4. delete author doc from authors collection in bz doc
   }
+// ---------------------------------------------------------------------------
+
 }
