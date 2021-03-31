@@ -2,6 +2,7 @@ import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/drafters/colorizers.dart';
 import 'package:bldrs/controllers/drafters/file_formatters.dart';
 import 'package:bldrs/controllers/drafters/imagers.dart';
+import 'package:bldrs/controllers/drafters/shadowers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -48,32 +49,34 @@ class BzLogo extends StatelessWidget {
 
     return GestureDetector(
       onTap: onTap == null ? (){} : onTap,
-      child: ClipRRect(
-        borderRadius: bzLogoCorners,
-        child: ColorFiltered(
-          colorFilter: superDesaturation(blackAndWhite),
-          child: Container(
-            height: width,
-            width: width,
-            margin: margins,
-            decoration: BoxDecoration(
-              color: objectIsColor(image) ? image : Colorz.WhiteAir,
-                image:
-                objectIsJPGorPNG(image)?
-                DecorationImage(image: AssetImage(image), fit: BoxFit.cover) : null,
+      child: Container(
+        height: width,
+        width: width,
+        margin: margins,
+        decoration: BoxDecoration(
+          color: objectIsColor(image) ? image : Colorz.WhiteAir,
+            image:
+            objectIsJPGorPNG(image)?
+            DecorationImage(image: AssetImage(image), fit: BoxFit.cover) : null,
 
-                borderRadius: bzLogoCorners,
-            ),
-            child:
-
-            ClipRRect(
-                  borderRadius: bzLogoCorners,
-                  child: superImageWidget(image)
+            borderRadius: bzLogoCorners,
+            boxShadow: <CustomBoxShadow>[
+              if (shadowIsOn == true)
+              CustomBoxShadow(
+                  color: Colorz.BlackLingerie,
+                  offset: new Offset(0, 0),
+                  blurRadius: width * 0.15,
+                  blurStyle: BlurStyle.outer
               ),
-
-
-          ),
+            ]
         ),
+
+        child:
+        ClipRRect(
+            borderRadius: bzLogoCorners,
+            child: superImageWidget(image)
+        ),
+
       ),
     );
   }

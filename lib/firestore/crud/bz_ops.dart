@@ -150,7 +150,7 @@ class BzCRUD{
   }
 // ----------------------------------------------------------------------
   /// update bz operations on firestore
-  Future<void> updateBzOps({
+  Future<BzModel> updateBzOps({
     BuildContext context,
     BzModel modifiedBz,
     BzModel originalBz,
@@ -248,6 +248,7 @@ class BzCRUD{
     if(
     // bzID and BzLogo URL will always stay the same after creation
     _finalBz.bzName != originalBz.bzName ||
+        _finalBz.bzLogo != originalBz.bzLogo ||
         _finalBz.bzType != originalBz.bzType
     ){
     TinyBz _modifiedTinyBz = getTinyBzFromBzModel(_finalBz)  ;
@@ -276,8 +277,23 @@ class BzCRUD{
         }
       }
 
+    /// update tinyBz in all Tinyflyers
+    /// TASK : this may require firestore batch write
+    if(_bzFlyersIDs.length > 0){
+      for (var id in _bzFlyersIDs){
+        await updateFieldOnFirestore(
+          context: context,
+          collectionName: FireStoreCollection.tinyFlyers,
+          documentName: id,
+          field: 'tinyBz',
+          input: _modifiedTinyBzMap,
+        );
+      }
     }
 
+    }
+
+    return _finalBz;
   }
 // ----------------------------------------------------------------------
   Future<void> deleteBzDoc() async {}
