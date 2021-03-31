@@ -73,6 +73,11 @@ class BlurLayer extends StatelessWidget {
   }
 }
 // === === === === === === === === === === === === === === === === === === ===
+/// if i want to black and white a widget, put it as child in here
+// child: ColorFiltered(
+//     colorFilter: superDesaturation(blackAndWhite),
+//     child: ,
+
 ColorFilter superDesaturation(bool isItBlackAndWhite){
   Color imageSaturationColor = isItBlackAndWhite == true ? Colorz.Grey : Colorz.Nothing;
   return ColorFilter.mode(

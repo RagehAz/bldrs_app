@@ -29,7 +29,7 @@ class FlyerStack extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final FlyersProvider _pro = Provider.of<FlyersProvider>(context, listen: false);
+    final FlyersProvider _pro = Provider.of<FlyersProvider>(context, listen: true);
     final List<TinyFlyer> _tinyFlyersOfType = _pro.getTinyFlyersByFlyerType(flyersType);
     final List<TinyBz> _tinyBzz = _pro.getTinyBzzOfTinyFlyersList(_tinyFlyersOfType);
 
