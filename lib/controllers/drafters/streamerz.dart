@@ -61,6 +61,43 @@ Widget userStreamBuilder({
     );
 
 }
+// ----------------------
+/// IMPLEMENTATION
+/// bzModelBuilder(
+///         bzID: bzID,
+///         context: context,
+///         builder: (context, BzModel bzModel){
+///           return WidgetThatUsesTheAboveBzModel;
+///         }
+///      ) xxxxxxxxxxxxx ; or , xxxxxxxxxxxxx
+Widget userModelBuilder({
+  String userID,
+  BuildContext context,
+  userModelWidgetBuilder builder,
+}){
+
+  return FutureBuilder(
+      future: getFireStoreDocumentMap(
+        collectionName: FireStoreCollection.users,
+        documentName: userID,
+      ),
+      builder: (ctx, snapshot){
+
+        if (snapshot.connectionState == ConnectionState.waiting){
+          return Loading(loading: true,);
+        } else if (snapshot.error != null){
+            return Container(); // superDialog(context, snapshot.error, 'error');
+          } else {
+
+            Map<String, dynamic> _map = snapshot.data;
+            UserModel userModel = decipherUserMap(_map);
+
+            return builder(context, userModel);
+          }
+        }
+
+  );
+}
 // ----------------------------------------------------------------------------
 typedef bzModelWidgetBuilder = Widget Function(
     BuildContext context,
@@ -87,7 +124,10 @@ Widget bzModelBuilder({
 }){
 
   return FutureBuilder(
-      future: getFireStoreDocumentMap(FireStoreCollection.bzz, bzID),
+      future: getFireStoreDocumentMap(
+          collectionName: FireStoreCollection.bzz,
+          documentName: bzID,
+      ),
       builder: (ctx, snapshot){
 
         if (snapshot.connectionState == ConnectionState.waiting){

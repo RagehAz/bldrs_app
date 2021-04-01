@@ -698,19 +698,19 @@ final List<BzModel> dbBzz =
     bzContacts: dummyContacts,
     bzAuthors: <AuthorModel>[
       AuthorModel(
-        userID: 'u20',
-        authorName: 'Nazly Noman EL Mohammady',
-        authorPic: Dumz.XXnazly_author,
-        authorTitle: 'Real Estate Agent',
-        authorIsMaster: false,
-        authorContacts: dummyContacts,
-      ),
-      AuthorModel(
         userID: 'u21',
         authorName: 'Rageh El Azzazy',
         authorPic: Dumz.DumAuthorPic,
         authorTitle: 'Founder & CEO',
         authorIsMaster: true,
+        authorContacts: dummyContacts,
+      ),
+      AuthorModel(
+        userID: 'u20',
+        authorName: 'Nazly Noman EL Mohammady',
+        authorPic: Dumz.XXnazly_author,
+        authorTitle: 'Real Estate Agent',
+        authorIsMaster: false,
         authorContacts: dummyContacts,
       ),
       AuthorModel(

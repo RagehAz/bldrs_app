@@ -225,6 +225,7 @@ class _CountryScreenState extends State<CountryScreen> {
               bubbles: true,
               words: _provincesNames,
               onTap: (val) {print(val);},
+              selectedWords: [],
             ),
 
             PyramidsHorizon(heightFactor: 10,),
