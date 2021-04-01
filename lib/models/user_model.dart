@@ -71,7 +71,7 @@ class UserModel {
 // -----------------------------------------------------------------------------
 UserModel decipherUserMap(Map<String, dynamic> map){
 
-  List<dynamic> _myBzzIDs = map['myBzzIDs'] as List<dynamic>;
+  // List<dynamic> _myBzzIDs = map['myBzzIDs'] ?? [];
 
   return UserModel(
     userID : map['userID'] ?? '',
@@ -90,7 +90,7 @@ UserModel decipherUserMap(Map<String, dynamic> map){
     position : map['position'] ?? GeoPoint(0, 0),
     contacts : decipherContactsMaps(map['contacts'] ?? []),
     // -------------------------
-    myBzzIDs: _myBzzIDs,
+    myBzzIDs: map['myBzzIDs'],
   );
 
 }

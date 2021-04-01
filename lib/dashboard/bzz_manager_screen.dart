@@ -70,7 +70,11 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
         tappingRageh: _printer,
         // loading: _loading,
         layoutWidget: FutureBuilder(
-            future: getFireStoreDocumentMap(FireStoreCollection.bzz, _bzID),
+          // TASK : can use bzModelBuilder here
+            future: getFireStoreDocumentMap(
+                collectionName: FireStoreCollection.bzz,
+                documentName: _bzID,
+            ),
             builder: (ctx, snapshot){
 
               if (snapshot.connectionState == ConnectionState.waiting){

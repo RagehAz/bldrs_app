@@ -5,7 +5,9 @@ import 'dart:async';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'package:bldrs/controllers/drafters/text_manipulators.dart';
+import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
+import 'package:bldrs/xxx_temp_hard_database/dumz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
@@ -184,8 +186,9 @@ Future < ui.Image > loadImage(List < int > img) async {
   return completer.future;
 }
 // === === === === === === === === === === === === === === === === === === ===
-Future<File> getImageFileFromAssets(BuildContext context, String asset) async {
+Future<File> getImageFileFromAssets(BuildContext context, String inputAsset) async {
   File _file;
+  String asset = objectIsSVG(inputAsset) ? Iconz.DumBusinessLogo : inputAsset;
   await tryAndCatch(
       context: context,
       functions: () async {

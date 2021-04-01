@@ -46,7 +46,7 @@ class UserProvider{
     try{
       var _doc = doc.data();
 
-      List<dynamic> _myBzzIDs = _doc['myBzzIDs'] as List<dynamic>;
+      List<dynamic> _myBzzIDs = _doc['myBzzIDs'] == null ? [] : _doc['myBzzIDs'] as List<dynamic>;
 
       return UserModel(
         userID : _doc['userID'] ?? '',
@@ -65,7 +65,7 @@ class UserProvider{
         position : _doc['position'] ?? GeoPoint(0, 0),
         contacts : decipherContactsMaps(_doc['contacts'] ?? []),
         // -------------------------
-        myBzzIDs: _myBzzIDs,
+        myBzzIDs: _myBzzIDs ?? [],
       );
 
     } catch(error){
@@ -89,7 +89,10 @@ class UserProvider{
   }
 // ---------------------------------------------------------------------------
 Future<UserModel> getUserModel(String userID) async {
-  Map<String, dynamic> _userMap = await getFireStoreDocumentMap(FireStoreCollection.users, userID);
+  Map<String, dynamic> _userMap = await getFireStoreDocumentMap(
+    collectionName: FireStoreCollection.users,
+    documentName: userID,
+  );
   UserModel _userModel = decipherUserMap(_userMap);
   return _userModel;
 }

@@ -331,14 +331,16 @@ Future<void> deleteBzDocument(BzModel bzModel) async {
           final List<BzModel> _fireStoreBzzModels = decipherBzMapsFromFireStore(_fireStoreBzzMaps);
 
           /// TASK : BOOMMM : should be _loadedBzz = _loadedBzzFromDB,, but this bom bom crash crash
-          _loadedBzz.addAll(_fireStoreBzzModels);
+          // _loadedBzz.addAll(_fireStoreBzzModels);
+          _loadedBzz = _fireStoreBzzModels;
 
           /// READ data from cloud Firestore flyers collection
           List<QueryDocumentSnapshot> _fireStoreFlyersMaps = await getFireStoreCollectionMaps(FireStoreCollection.flyers);
           final List<FlyerModel> _fireStoreFlyersModels = decipherFlyersMapsFromFireStore(_fireStoreFlyersMaps);
 
          /// TASK : after migrating local flyers to firestore, _loadedFlyers should = _fireStoreFlyersModels;
-          _loadedFlyers.addAll(_fireStoreFlyersModels);
+         //  _loadedFlyers.addAll(_fireStoreFlyersModels);
+          _loadedFlyers = _fireStoreFlyersModels;
 
           notifyListeners();
           print('_loadedBzz :::: --------------- $_loadedBzz');
@@ -359,15 +361,17 @@ Future<void> deleteBzDocument(BzModel bzModel) async {
           List<dynamic> _fireStoreTinyBzzMaps = await getFireStoreCollectionMaps(FireStoreCollection.tinyBzz);
           final List<TinyBz> _fireStoreTinyBzzModels = decipherTinyBzzMaps(_fireStoreTinyBzzMaps);
 
-          /// TASK : BOOMMM : should be _loadedBzz = _loadedBzzFromDB,, but this bom bom crash crash
-          _loadedTinyBzz.addAll(_fireStoreTinyBzzModels);
+          /// TASK : BOOMMM : should be _loadedTinyBzz = _fireStoreTinyBzzModels,, but this bom bom crash crash
+          // _loadedTinyBzz.addAll(_fireStoreTinyBzzModels);
+          _loadedTinyBzz = _fireStoreTinyBzzModels;
 
           /// READ data from cloud Firestore flyers collection
           List<dynamic> _fireStoreTinyFlyersMaps = await getFireStoreCollectionMaps(FireStoreCollection.tinyFlyers);
           final List<TinyFlyer> _fireStoreTinyFlyersModels = decipherTinyFlyersMaps(_fireStoreTinyFlyersMaps);
 
-          /// TASK : after migrating local flyers to firestore, _loadedFlyers should = _fireStoreFlyersModels;
-          _loadedTinyFlyers.addAll(_fireStoreTinyFlyersModels);
+          /// TASK : after migrating local flyers to firestore, _loadedTinyFlyers = _fireStoreTinyFlyersModels;;
+          // _loadedTinyFlyers.addAll(_fireStoreTinyFlyersModels);
+          _loadedTinyFlyers = _fireStoreTinyFlyersModels;
 
           notifyListeners();
           print('_loadedTinyBzz :::: --------------- $_loadedTinyBzz');
