@@ -9,12 +9,14 @@ class ProgressBar extends StatelessWidget {
   final bool barIsOn;
   final int numberOfSlides;
   final int currentSlide;
+  final EdgeInsets margins;
 
   ProgressBar({
     @required this.flyerZoneWidth,
     this.barIsOn = true,
     @required this.numberOfSlides,
     this.currentSlide = 0,
+    this.margins,
   });
 
   @override
@@ -23,7 +25,7 @@ class ProgressBar extends StatelessWidget {
     // ----------------------------------------------------------------------------
     double _boxWidth = flyerZoneWidth;
     double _boxHeight = flyerZoneWidth * 0.0125;
-    EdgeInsets _boxTopMargin = EdgeInsets.only(top: flyerZoneWidth * 0.27);
+    EdgeInsets _margins = margins == null ? EdgeInsets.only(top: flyerZoneWidth * 0.27) : margins;
     double _allStripsLength = flyerZoneWidth * 0.895;
     double _allStripsOneSideMargin = (flyerZoneWidth - _allStripsLength) / 2;
     double _aStripThickness = flyerZoneWidth * 0.007;
@@ -42,7 +44,7 @@ class ProgressBar extends StatelessWidget {
         child: Container(
           width: _boxWidth,
           height: _boxHeight,
-          margin: _boxTopMargin,
+          margin: _margins,
           padding: EdgeInsets.symmetric(horizontal: _allStripsOneSideMargin),
           alignment: Alignment.center,
           child: Stack(

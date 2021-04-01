@@ -58,7 +58,6 @@ class NavBar extends StatelessWidget {
 }
 // ----------------------------------------------------------------------------
   int _calculateNumberOfButtons(UserModel userModel){
-    /// PLAN : number of buttons will be 5 : 4 after putting asks button in nav bar
     int _numberOfButtons = userIsAuthor(userModel) ? 4 : 3;
     return _numberOfButtons;
   }
@@ -256,6 +255,7 @@ class NavBar extends StatelessWidget {
                                  _spacer,
 
                                  // --- BZZ BUTTON
+                                  if (userIsAuthor(userModel))
                                  BzzButton(
                                    width: _buttonWidth,
                                    circleWidth: _circleWidth,
@@ -300,6 +300,7 @@ class NavBar extends StatelessWidget {
                                                            alignment: superCenterAlignment(context),
                                                            child: DreamBox(
                                                              height: 60,
+                                                             width: superScreenWidth(context) - 50,
                                                              boxMargins: EdgeInsets.all(Ratioz.ddAppBarPadding),
                                                              icon: _tinyBz.bzLogo,
                                                              verse: _tinyBz.bzName,

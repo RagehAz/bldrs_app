@@ -34,7 +34,7 @@ class _ZonesManagerScreenState extends State<ZonesManagerScreen> {
   void _triggerLoading(){
     setState(() {_loading = !_loading;});
     _loading == true?
-    print('LOADING') : print('LOADING COMPLETE');
+    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
   }
 // ---------------------------------------------------------------------------
   @override
