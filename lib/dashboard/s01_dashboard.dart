@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'bzz_manager_screen.dart';
 import 's04_notifications_manager.dart';
 import 's06_flyers_auditor.dart';
+import 's07_local_flyers_uploader.dart';
 import 'zones_manager/zones_manager_screen.dart';
 
 class DashBoard extends StatefulWidget {
@@ -92,6 +93,12 @@ class _DashBoardState extends State<DashBoard> {
             title: 'Flyers Auditor',
             icon: Iconz.FlyerGrid,
             onTap: () => goToNewScreen(context, FlyersAuditor()),
+          ),
+
+          _button(
+            title: 'Local Bz & Flyers Uploader',
+            icon: Iconz.AddFlyer,
+            onTap: () => goToNewScreen(context, LocalFlyersUploader()),
           ),
 
         ]

@@ -79,7 +79,7 @@ Widget _nanoBzLogo(BuildContext context, String bzID){
         child: Container(
           height: _buttonHeight,
           width: _buttonWidth,
-          // color: Colorz.BloodTest,
+          color: Colorz.Nothing,
           // padding: EdgeInsets.symmetric(horizontal: _paddings * 0.25),
           // alignment: Alignment.topCenter,
           child: Column(
@@ -93,6 +93,7 @@ Widget _nanoBzLogo(BuildContext context, String bzID){
               ),
 
               // --- BZZ LOGOS
+              bzzIDs.length == 0 ? Container(width: _circleWidth, height: _circleWidth,) :
               Container(
                 width: _circleWidth,
                 height: _circleWidth,

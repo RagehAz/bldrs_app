@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 
 class WordsBubble extends StatelessWidget {
   final String title;
-  final List<String> words;
+  final List<dynamic> words;
   final int verseSize;
   final Function onTap;
   final bool bubbles;
@@ -21,7 +21,7 @@ class WordsBubble extends StatelessWidget {
     this.onTap,
     this.bubbles,
     this.bubbleColor,
-    this.selectedWords,
+    @required this.selectedWords,
   });
 
   @override

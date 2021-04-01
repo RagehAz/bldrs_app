@@ -101,7 +101,7 @@ class _BldrsAppState extends State<BldrsApp> {
   void _triggerLoading(){
     setState(() {_loading = !_loading;});
     _loading == true?
-    print('LOADING') : print('LOADING COMPLETE');
+    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
   }
 // ---------------------------------------------------------------------------
   @override
