@@ -9,7 +9,7 @@ class FlyerModel with ChangeNotifier{
   // -------------------------
   final FlyerType flyerType;
   final FlyerState flyerState;
-  final List<String> keyWords;
+  final List<dynamic> keyWords;
   final bool flyerShowsAuthor;
   final String flyerURL;
   // -------------------------
@@ -134,12 +134,12 @@ TinyFlyer decipherTinyFlyerMap(dynamic map){
 // -----------------------------------------------------------------------------
 TinyFlyer getTinyFlyerFromFlyerModel(FlyerModel flyerModel){
   return TinyFlyer(
-    flyerID: flyerModel.flyerID,
-    flyerType: flyerModel.flyerType,
-    authorID: flyerModel.authorID,
+    flyerID: flyerModel?.flyerID,
+    flyerType: flyerModel?.flyerType,
+    authorID: flyerModel?.authorID,
     slideIndex: 0,
-    slidePic: flyerModel.slides[0].picture,
-    tinyBz: flyerModel.tinyBz,
+    slidePic: flyerModel == null ? null : flyerModel?.slides[0]?.picture,
+    tinyBz: flyerModel?.tinyBz,
   );
 }
 // -----------------------------------------------------------------------------
@@ -260,6 +260,16 @@ FlyerModel decipherFlyerMap(dynamic map){
     // -------------------------
     slides: decipherSlidesMaps(map['slides']),
   );
+}
+// -----------------------------------------------------------------------------
+List<String> getListOfFlyerIDsFromFlyers(List<FlyerModel> flyers){
+  List<String> _flyerIDs = new List();
+
+  flyers.forEach((flyer) {
+    _flyerIDs.add(flyer.flyerID);
+  });
+
+  return _flyerIDs;
 }
 // -----------------------------------------------------------------------------
 List<String> getListOfFlyerIDsFromTinyFlyers(List<TinyFlyer> tinyFlyers){

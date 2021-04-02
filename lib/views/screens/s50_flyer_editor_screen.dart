@@ -3,6 +3,7 @@ import 'package:bldrs/controllers/drafters/flyer_sliders.dart';
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/text_shapers.dart';
+import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/flyer_keyz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
@@ -438,23 +439,6 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
           );
           /// 4- update flyer doc on firestore
           await FlyerCRUD().updateFlyerDoc(_newFlyerModel);
-          //   String _currentUserId = superUserID();
-          //   List<AuthorModel> _existingAuthors = _bz.bzAuthors;
-          //   AuthorModel _currentAuthor = getAuthorFromBzByAuthorID(_bz, _currentUserId);
-          //   int _currentAuthorIndex = _existingAuthors.indexWhere((au) => au.userID == _currentUserId);
-          //   _currentAuthor.publishedFlyersIDs.add(_currentFlyerID);
-          //   _existingAuthors.removeAt(_currentAuthorIndex);
-          //   _existingAuthors.insert(_currentAuthorIndex, _currentAuthor);
-          //
-          //   if (widget.firstTimer) {
-          //     updateFieldOnFirestore(
-          //       context: context,
-          //       collectionName: FireStoreCollection.bzz,
-          //       documentName: _bz.bzID,
-          //       field: 'bzAuthors',
-          //       input: _existingAuthors,
-          //     );
-          //   }
 
           /// 6- save flyer to local flyers List
           _prof.addFlyerModelToLocalList(_newFlyerModel);
@@ -711,6 +695,8 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
       _prof.addTinyFlyerToLocalList(getTinyFlyerFromFlyerModel(_uploadedFlyerModel));
 
       _triggerLoading();
+
+      goBack(context);
 
     }
   }

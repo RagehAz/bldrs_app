@@ -100,7 +100,7 @@ class GalleryGrid extends StatelessWidget {
                       (index) =>
 
                   Opacity(
-                    opacity: flyersVisibilities[index] == true ? 1 : 0.1,
+                    opacity: flyersVisibilities == null || flyersVisibilities.length == 0 || flyersVisibilities[index] == true ? 1 : 0.1,
                     child: TinyFlyerWidget(
                       tinyFlyer: _gridFlyers[index],
                       flyerSizeFactor: _flyerSizeFactor,
