@@ -24,6 +24,10 @@ class FlyersProvider with ChangeNotifier {
     return [..._loadedFlyers];
   }
 // ---------------------------------------------------------------------------
+  List<TinyFlyer> get getAllTinyFlyers {
+    return [..._loadedTinyFlyers];
+  }
+// ---------------------------------------------------------------------------
   List<BzModel> get getAllBzz {
     return [..._loadedBzz];
   }
@@ -293,6 +297,13 @@ Future<void> deleteBzDocument(BzModel bzModel) async {
     }
   }
 // === === === === === === === === === === === === === === === === === === ===
+  /// get flyer doc stream
+  Stream<FlyerModel> getFlyerStream(String flyerID) {
+    Stream<DocumentSnapshot> _flyerSnapshot = getFirestoreDocumentSnapshots(FireStoreCollection.flyers, flyerID);
+    Stream<FlyerModel> _flyerStream = _flyerSnapshot.map(_flyerModelFromSnapshot);
+    return _flyerStream;
+  }
+// ---------------------------------------------------------------------------
   /// get bz doc stream
   Stream<BzModel> getBzStream(String bzID) {
     Stream<DocumentSnapshot> _bzSnapshot = getFirestoreDocumentSnapshots(FireStoreCollection.bzz, bzID);
@@ -307,15 +318,21 @@ Future<void> deleteBzDocument(BzModel bzModel) async {
     return _tinyBzStream;
   }
 // ---------------------------------------------------------------------------
+  FlyerModel _flyerModelFromSnapshot(DocumentSnapshot doc){
+    var _map = doc.data();
+    FlyerModel _flyerModel = decipherFlyerMap(_map);
+    return _flyerModel;
+  }
+// ---------------------------------------------------------------------------
   BzModel _bzModelFromSnapshot(DocumentSnapshot doc){
-  var map = doc.data();
-  BzModel _bzModel = decipherBzMap(map['bzID'], map);
+  var _map = doc.data();
+  BzModel _bzModel = decipherBzMap(_map['bzID'], _map);
   return _bzModel;
   }
 // ---------------------------------------------------------------------------
   TinyBz _tinyBzModelFromSnapshot(DocumentSnapshot doc){
-    var map = doc.data();
-    TinyBz _tinyBz = decipherTinyBzMap(map);
+    var _map = doc.data();
+    TinyBz _tinyBz = decipherTinyBzMap(_map);
     return _tinyBz;
   }
 // ---------------------------------------------------------------------------
