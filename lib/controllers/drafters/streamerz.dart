@@ -1,5 +1,6 @@
 import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/models/bz_model.dart';
+import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/providers/users_provider.dart';
@@ -104,49 +105,6 @@ typedef bzModelWidgetBuilder = Widget Function(
     BzModel bzModel,
     );
 // ----------------------------------------------------------------------------
-typedef tinyBzModelWidgetBuilder = Widget Function(
-    BuildContext context,
-    TinyBz tinyBz,
-    );
-// ----------------------
-/// IMPLEMENTATION
-/// bzModelBuilder(
-///         bzID: bzID,
-///         context: context,
-///         builder: (context, BzModel bzModel){
-///           return WidgetThatUsesTheAboveBzModel;
-///         }
-///      ) xxxxxxxxxxxxx ; or , xxxxxxxxxxxxx
-Widget bzModelBuilder({
-  String bzID,
-  BuildContext context,
-  bzModelWidgetBuilder builder,
-}){
-
-  return FutureBuilder(
-      future: getFireStoreDocumentMap(
-          collectionName: FireStoreCollection.bzz,
-          documentName: bzID,
-      ),
-      builder: (ctx, snapshot){
-
-        if (snapshot.connectionState == ConnectionState.waiting){
-          return Loading(loading: true,);
-        } else {
-          if (snapshot.error != null){
-            return Container(); // superDialog(context, snapshot.error, 'error');
-          } else {
-
-            Map<String, dynamic> _map = snapshot.data;
-            BzModel bzModel = decipherBzMap(_map['bzID'], _map);
-
-            return builder(context, bzModel);
-          }
-        }
-      }
-  );
-}
-// ----------------------------------------------------------------------------
 Widget bzModelStreamBuilder({
   String bzID,
   BuildContext context,
@@ -172,6 +130,49 @@ Widget bzModelStreamBuilder({
 
 }
 // ----------------------------------------------------------------------------
+Widget bzModelBuilder({
+  String bzID,
+  BuildContext context,
+  bzModelWidgetBuilder builder,
+}){
+
+  return FutureBuilder(
+      future: getFireStoreDocumentMap(
+        collectionName: FireStoreCollection.bzz,
+        documentName: bzID,
+      ),
+      builder: (ctx, snapshot){
+
+        if (snapshot.connectionState == ConnectionState.waiting){
+          return Loading(loading: true,);
+        } else {
+          if (snapshot.error != null){
+            return Container(); // superDialog(context, snapshot.error, 'error');
+          } else {
+
+            Map<String, dynamic> _map = snapshot.data;
+            BzModel bzModel = decipherBzMap(_map['bzID'], _map);
+
+            return builder(context, bzModel);
+          }
+        }
+      }
+  );
+}
+// ----------------------------------------------------------------------------
+typedef tinyBzModelWidgetBuilder = Widget Function(
+    BuildContext context,
+    TinyBz tinyBz,
+    );
+// ----------------------
+/// IMPLEMENTATION
+/// bzModelBuilder(
+///         bzID: bzID,
+///         context: context,
+///         builder: (context, BzModel bzModel){
+///           return WidgetThatUsesTheAboveBzModel;
+///         }
+///      ) xxxxxxxxxxxxx ; or , xxxxxxxxxxxxx
 Widget tinyBzModelStreamBuilder({
   String bzID,
   BuildContext context,
@@ -198,6 +199,69 @@ Widget tinyBzModelStreamBuilder({
       },
     );
 
+}
+// ----------------------------------------------------------------------------
+typedef FlyerModelWidgetBuilder = Widget Function(
+    BuildContext context,
+    FlyerModel flyerModel,
+    );
+// ----------------------------------------------------------------------------
+Widget flyerStreamBuilder({
+  String flyerID,
+  BuildContext context,
+  FlyerModelWidgetBuilder builder,
+  bool listen,
+}){
+
+  bool _listen = listen == null ? true : listen;
+
+  final _prof = Provider.of<FlyersProvider>(context, listen: _listen);
+
+  return
+
+    StreamBuilder<FlyerModel>(
+      stream: _prof.getFlyerStream(flyerID),
+      builder: (context, snapshot){
+        if(connectionHasNoData(snapshot) || connectionIsWaiting(snapshot)){
+          return Loading(loading: true,);
+        } else {
+          FlyerModel flyerModel = snapshot.data;
+          return
+            builder(context, flyerModel);
+        }
+      },
+    );
+
+}
+// ----------------------------------------------------------------------------
+Widget flyerModelBuilder({
+  String flyerID,
+  BuildContext context,
+  FlyerModelWidgetBuilder builder,
+}){
+
+  return FutureBuilder(
+      future: getFireStoreDocumentMap(
+        collectionName: FireStoreCollection.flyers,
+        documentName: flyerID,
+      ),
+      builder: (ctx, snapshot){
+
+        if (snapshot.connectionState == ConnectionState.waiting){
+          return Loading(loading: true,);
+        } else {
+          if (snapshot.error != null){
+            return Container(); // superDialog(context, snapshot.error, 'error');
+          } else {
+
+            Map<String, dynamic> _map = snapshot.data;
+            FlyerModel flyerModel = decipherFlyerMap(_map);
+
+            return builder(context, flyerModel);
+          }
+        }
+      }
+  );
 }
 // ----------------------------------------------------------------------------
 

@@ -42,7 +42,7 @@ class _FlyerState extends State<Flyer> with AutomaticKeepAliveClientMixin{
 // ---------------------------------------------------------------------------
   @override
   void initState() {
-    _currentSlideIndex = widget.initialSlide;
+    _currentSlideIndex = widget.initialSlide ?? 0;
     bzPageIsOn = false;
     super.initState();
   }
@@ -90,16 +90,16 @@ class _FlyerState extends State<Flyer> with AutomaticKeepAliveClientMixin{
     final _flyer = Provider.of<FlyerModel>(context, listen: false);
     final _bz = Provider.of<BzModel>(context, listen: true);
 // ----------------------------------------------------------------------------
-    final String _flyerID = _flyer.flyerID;
-    final String _authorID = _flyer.authorID;
+    final String _flyerID = _flyer?.flyerID;
+    final String _authorID = _flyer?.authorID;
     final AuthorModel _author = createAuthorModelFromUserModelAndBzModel(geebUserByUserID(_authorID), _bz);
-    final bool _flyerShowsAuthor = _flyer.flyerShowsAuthor;
-    final int _numberOfSlides = _flyer.slides?.length;
+    final bool _flyerShowsAuthor = _flyer?.flyerShowsAuthor;
+    final int _numberOfSlides = _flyer?.slides?.length ?? 0;
     // print('authorID is = ${_author.userID}');
     // final List<CoFlyer>   bzGalleryCoFlyers = pro.;
     // final List<AuthorModel>  bzAuthors         = bro.authors;
     // final AuthorModel       author          = bzAuthors?.singleWhere((au) => au.userID == authorID, orElse: ()=> null);
-    final List<SlideModel>   _slides          = _flyer.slides;
+    final List<SlideModel>   _slides          = _flyer?.slides;
           // bool            followIsOn        = pro.followIsOn;
           // bool            ankhIsOn          = pro.ankhIsOn;
 // ----------------------------------------------------------------------------
@@ -169,7 +169,7 @@ class _FlyerState extends State<Flyer> with AutomaticKeepAliveClientMixin{
                   bzPageIsOn: bzPageIsOn,
                   slidingIsOn: widget.slidingIsOn,
                   microMode: _microMode,
-                  ankhIsOn: flyer.ankhIsOn,
+                  ankhIsOn: flyer?.ankhIsOn ?? false,
                   tappingAnkh: (){
                     flyer.toggleAnkh();
                     print('ankh : ${flyer.ankhIsOn}');
