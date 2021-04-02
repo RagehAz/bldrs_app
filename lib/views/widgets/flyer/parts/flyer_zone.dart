@@ -10,11 +10,13 @@ class FlyerZone extends StatelessWidget {
   final double flyerSizeFactor;
   final Function tappingFlyerZone;
   final List<Widget> stackWidgets;
+  final Function onLongPress;
 
   FlyerZone({
     @required this.flyerSizeFactor,
     @required this.tappingFlyerZone,
     this.stackWidgets,
+    this.onLongPress,
   });
 
   @override
@@ -63,6 +65,7 @@ class FlyerZone extends StatelessWidget {
         tappingFlyerZone();
         minimizeKeyboardOnTapOutSide(context);
       },
+      onLongPress: onLongPress,
       child: Center(
         child: Container(
           width: _flyerZoneWidth,

@@ -23,6 +23,15 @@ class Slides extends StatefulWidget {
 }
 
 class _SlidesState extends State<Slides> {
+  int _currentSlideIndex;
+  int _slidesLength;
+
+  @override
+  void initState() {
+    _currentSlideIndex = widget.currentSlideIndex ?? 0;
+    _slidesLength = widget.slides?.length ?? 0;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +39,7 @@ class _SlidesState extends State<Slides> {
     // ----------------------------------------------------------------------
     bool _microMode = superFlyerMicroMode(context, widget.flyerZoneWidth);
     // ----------------------------------------------------------------------
-    int _slideIndex = widget.currentSlideIndex >= widget.slides?.length ? 0 : widget.currentSlideIndex ;
+    int _slideIndex = _currentSlideIndex >= _slidesLength ? 0 : _currentSlideIndex ;
     // ----------------------------------------------------------------------
 
     return
@@ -48,7 +57,7 @@ class _SlidesState extends State<Slides> {
           :
       // -- FLYER SLIDES
       PageView.builder(
-        itemCount: widget.slides?.length,
+        itemCount: _slidesLength,
         controller: PageController(viewportFraction: 1, initialPage: _slideIndex, keepPage: true),
         allowImplicitScrolling: true,
         pageSnapping: true,
