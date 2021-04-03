@@ -1,8 +1,11 @@
 import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/models/bz_model.dart';
+import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'sub_models/slide_model.dart';
+import 'tiny_models/tiny_flyer.dart';
+import 'tiny_models/tiny_user.dart';
 // -----------------------------------------------------------------------------
 class FlyerModel with ChangeNotifier{
   final String flyerID;
@@ -13,7 +16,7 @@ class FlyerModel with ChangeNotifier{
   final bool flyerShowsAuthor;
   final String flyerURL;
   // -------------------------
-  final String authorID;
+  final TinyUser tinyAuthor;
   final TinyBz tinyBz;
   // -------------------------
   final DateTime publishTime;
@@ -33,7 +36,7 @@ class FlyerModel with ChangeNotifier{
     this.flyerShowsAuthor = false,
     @required this.flyerURL,
     // -------------------------
-    @required this.authorID,
+    @required this.tinyAuthor,
     @required this.tinyBz,
     // -------------------------
     @required this.publishTime,
@@ -59,7 +62,7 @@ class FlyerModel with ChangeNotifier{
       'flyerShowsAuthor' : flyerShowsAuthor,
       'flyerURL' : flyerURL,
       // -------------------------
-      'authorID' : authorID,
+      'tinyAuthor' : tinyAuthor.toMap(),
       'tinyBz' : tinyBz.toMap(),
       // -------------------------
       'publishTime' : cipherDateTimeToString(publishTime),
@@ -73,75 +76,8 @@ class FlyerModel with ChangeNotifier{
 
 }
 // -----------------------------------------------------------------------------
-class TinyFlyer with ChangeNotifier{
-  final String flyerID;
-  final FlyerType flyerType;
-  final TinyBz tinyBz;
-  final String authorID;
-  final int slideIndex;
-  final String slidePic;
+// List<dynamic> decipherBzzlessTinyFlyerMap()
 
-  TinyFlyer({
-    @required this.flyerID,
-    @required this.flyerType,
-    this.tinyBz,
-    @required this.authorID,
-    @required this.slideIndex,
-    @required this.slidePic,
-});
-
-  Map<String,dynamic> toMap (){
-    return {
-      'flyerID' : flyerID,
-      'flyerType' : cipherFlyerType(flyerType),
-      'tinyBz' : tinyBz.toMap(),
-      'authorID' : authorID,
-      'slideIndex' : slideIndex,
-      'slidePic' : slidePic,
-    };
-  }
-
-}
-// -----------------------------------------------------------------------------
-List<dynamic> cipherTinyFlyers (List<TinyFlyer> tinyFlyers){
-  List<dynamic> _tinyFlyersMaps = new List();
-
-  tinyFlyers.forEach((f) {
-    _tinyFlyersMaps.add(f.toMap());
-  });
-
-  return _tinyFlyersMaps;
-}
-// -----------------------------------------------------------------------------
-List<TinyFlyer> decipherTinyFlyersMaps(List<dynamic> tinyFlyersMaps){
-  List<TinyFlyer> _tinyFlyers = new List();
-  tinyFlyersMaps.forEach((map) {
-    _tinyFlyers.add(decipherTinyFlyerMap(map));
-  });
-  return _tinyFlyers;
-}
-// -----------------------------------------------------------------------------
-TinyFlyer decipherTinyFlyerMap(dynamic map){
-  return TinyFlyer(
-      flyerID: map['flyerID'],
-      flyerType: decipherFlyerType(map['flyerType']),
-      tinyBz: decipherTinyBzMap(map['tinyBz']),
-      authorID: map['authorID'],
-      slideIndex: map['slideIndex'],
-      slidePic: map['slidePic'],
-  );
-}
-// -----------------------------------------------------------------------------
-TinyFlyer getTinyFlyerFromFlyerModel(FlyerModel flyerModel){
-  return TinyFlyer(
-    flyerID: flyerModel?.flyerID,
-    flyerType: flyerModel?.flyerType,
-    authorID: flyerModel?.authorID,
-    slideIndex: 0,
-    slidePic: flyerModel == null ? null : flyerModel?.slides[0]?.picture,
-    tinyBz: flyerModel?.tinyBz,
-  );
-}
 // -----------------------------------------------------------------------------
 enum FlyerState{
   Published,
@@ -252,7 +188,7 @@ FlyerModel decipherFlyerMap(dynamic map){
     flyerShowsAuthor: map['flyerShowsAuthor'],
     flyerURL: map['flyerURL'],
     // -------------------------
-    authorID: map['authorID'],
+    tinyAuthor: decipherTinyUserMap(map['tinyAuthor']),
     tinyBz: decipherTinyBzMap(map['tinyBz']),
     // -------------------------
     publishTime: decipherDateTimeString(map['publishTime']),
@@ -287,7 +223,7 @@ FlyerModel replaceFlyerSlidesWithNewSlides(FlyerModel inputFlyerModel, List<Slid
       flyerID: inputFlyerModel.flyerID,
       flyerType: inputFlyerModel.flyerType,
       flyerURL: inputFlyerModel.flyerURL,
-      authorID: inputFlyerModel.authorID,
+      tinyAuthor: inputFlyerModel.tinyAuthor,
       tinyBz: inputFlyerModel.tinyBz,
       publishTime: inputFlyerModel.publishTime,
       slides: updatedSlides,

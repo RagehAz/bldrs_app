@@ -1,3 +1,4 @@
+import 'package:bldrs/models/tiny_models/tiny_user.dart';
 import '../bz_model.dart';
 import '../user_model.dart';
 import 'contact_model.dart';
@@ -21,7 +22,6 @@ class AuthorModel{
 // ###############################
   Map<String, dynamic> toMap(){
     return {
-      // 'bzID' : bzID,
       'userID' : userID,
       'authorName' : authorName,
       'authorPic' : authorPic,
@@ -35,7 +35,6 @@ class AuthorModel{
 // -----------------------------------------------------------------------------
 AuthorModel decipherBzAuthorMap(dynamic map){
   return AuthorModel(
-    // bzID : map['bzID'],
     userID : map['userID'],
     authorName : map['authorName'],
     authorPic : map['authorPic'],
@@ -146,5 +145,15 @@ List<AuthorModel> replaceAuthorModelInAuthorsList(List<AuthorModel> originalAuth
   _modifiedAuthorsList = _originalAuthors;
 
   return _modifiedAuthorsList;
+}
+// -----------------------------------------------------------------------------
+TinyUser getTinyAuthorFromAuthorModel(AuthorModel author){
+  return TinyUser(
+      userID: author.userID,
+      name: author.authorName,
+      title: author.authorTitle,
+      pic: author.authorPic,
+      userStatus: UserStatus.BzAuthor,
+  );
 }
 // -----------------------------------------------------------------------------

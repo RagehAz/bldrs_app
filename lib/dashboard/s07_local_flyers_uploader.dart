@@ -14,6 +14,10 @@ import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/sub_models/slide_model.dart';
+import 'package:bldrs/models/tiny_models/nano_flyer.dart';
+import 'package:bldrs/models/tiny_models/tiny_bz.dart';
+import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
+import 'package:bldrs/models/tiny_models/tiny_user.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/views/widgets/bubbles/words_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/bt_main.dart';
@@ -219,6 +223,14 @@ void _doBz(int length, int index, String name, String id){
           );
         }
 
+        TinyUser _tinyAuthor = TinyUser(
+            userID: _userID,
+            name: userModel.name,
+            title: userModel.title,
+            pic: userModel.pic,
+            userStatus: userModel.userStatus,
+        );
+
         /// create final flyer model
         FlyerModel _finalFlyer = FlyerModel(
           flyerID: _flyer.flyerID,
@@ -227,7 +239,7 @@ void _doBz(int length, int index, String name, String id){
           keyWords: _flyer.keyWords,
           flyerShowsAuthor: _flyer.flyerShowsAuthor,
           flyerURL: _flyer.flyerURL,
-          authorID: _userID,
+          tinyAuthor: _tinyAuthor,
           tinyBz: _tinyBz,
           publishTime: DateTime.now(),
           flyerPosition: _flyer.flyerPosition,
@@ -391,7 +403,7 @@ Future<FlyerModel> createNamedFlyersOps(BuildContext context, FlyerModel inputFl
     flyerShowsAuthor: inputFlyerModel.flyerShowsAuthor,
     flyerURL: _flyerURL,
     // -------------------------
-    authorID: inputFlyerModel.authorID,
+    tinyAuthor: inputFlyerModel.tinyAuthor,
     tinyBz: inputFlyerModel.tinyBz,
     // -------------------------
     publishTime: DateTime.now(),
@@ -448,15 +460,16 @@ Future<FlyerModel> createNamedFlyersOps(BuildContext context, FlyerModel inputFl
 
   print('9- flyer counters added');
 
-  /// add tiny flyer to bz document in 'tinyFlyers' field
-  List<TinyFlyer> _bzTinyFlyers = bzModel.bzFlyers;
-  _bzTinyFlyers.add(_finalTinyFlyer);
+  /// add nano flyer to bz document in 'tinyFlyers' field
+  List<NanoFlyer> _bzNanoFlyers = bzModel.bzFlyers;
+  NanoFlyer _nanoFlyer = getNanoFlyerFromFlyerModel(_finalFlyerModel);
+  _bzNanoFlyers.add(_nanoFlyer);
   await updateFieldOnFirestore(
     context: context,
     collectionName: FireStoreCollection.bzz,
     documentName: _finalFlyerModel.tinyBz.bzID,
     field: 'bzFlyers',
-    input: cipherTinyFlyers(_bzTinyFlyers),
+    input: cipherNanoFlyers(_bzNanoFlyers),
   );
 
   print('10- tiny flyer added to bzID in bzz/${_finalFlyerModel.tinyBz.bzID}');

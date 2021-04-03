@@ -222,4 +222,10 @@ Future<dynamic> getFireStoreDocumentField({String collectionName, String documen
   return _map[fieldName];
 }
 // ---------------------------------------------------------------------------
+Future<void> deleteDocumentOnFirestore({String collectionName, String documentName,}) async {
+  DocumentReference _doc = getFirestoreDocumentReference(collectionName, documentName);
+  await _doc.delete();
+}
+// ---------------------------------------------------------------------------
+
 
