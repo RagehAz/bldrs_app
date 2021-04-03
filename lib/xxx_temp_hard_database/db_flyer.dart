@@ -2,6 +2,10 @@ import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/sub_models/slide_model.dart';
+import 'package:bldrs/models/tiny_models/tiny_bz.dart';
+import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
+import 'package:bldrs/models/tiny_models/tiny_user.dart';
+import 'package:bldrs/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dumz.dart';
 // -----------------------------------------------------------------------------
@@ -37,7 +41,7 @@ final List<FlyerModel> dbFlyers = <FlyerModel>[
     flyerShowsAuthor: false,
     flyerURL: 'www.bldrs.net',
     // -------------------------
-    authorID: 'u01',
+    tinyAuthor: TinyUser(userID: 'u01',name: 'Ahmad Gamal',pic: Iconz.DumBzPNG,title: 'Author',userStatus: UserStatus.BzAuthor),
     tinyBz: TinyBz(bzID: 'pp1', bzLogo: Dumz.XXsodic_logo, bzName: 'Sodic', bzType: BzType.Developer),
     // -------------------------
     publishTime: DateTime.now(),
@@ -86,7 +90,7 @@ final List<FlyerModel> dbFlyers = <FlyerModel>[
     flyerShowsAuthor: false,
     flyerURL: 'www.bldrs.net',
     // -------------------------
-    authorID: 'u01',
+    tinyAuthor: TinyUser(userID: 'u01',name: 'Ahmad Gamal',pic: Iconz.DumBzPNG,title: 'Author',userStatus: UserStatus.BzAuthor),
     tinyBz: TinyBz(bzID: 'pp1', bzLogo: Dumz.XXsodic_logo, bzName: 'Sodic', bzType: BzType.Developer),
     // -------------------------
     publishTime: DateTime.now(),
@@ -144,7 +148,7 @@ final List<FlyerModel> dbFlyers = <FlyerModel>[
     flyerShowsAuthor: false,
     flyerURL: 'www.bldrs.net',
     // -------------------------
-    authorID: 'u02',
+    tinyAuthor: TinyUser(userID: 'u02',name: 'Ibrahim Mohsen',pic: Iconz.DumBzPNG,title: 'Author',userStatus: UserStatus.BzAuthor),
     tinyBz: TinyBz(bzID: 'pp2', bzLogo: Dumz.XXsabbour_logo, bzName: 'Sabbour developments', bzType: BzType.Developer),
     // -------------------------
     publishTime: DateTime.now(),
@@ -193,7 +197,7 @@ final List<FlyerModel> dbFlyers = <FlyerModel>[
     flyerShowsAuthor: true,
     flyerURL: 'www.bldrs.net',
     // -------------------------
-    authorID: 'u03',
+    tinyAuthor: TinyUser(userID: 'u03',name: 'James Wallberg Jr.',pic: Dumz.XXburj_khalifa_author,title: 'Business development Manager',userStatus: UserStatus.BzAuthor),
     tinyBz: TinyBz(bzID: 'pp3', bzLogo: Dumz.XXemaar_logo, bzName: 'Emaar', bzType: BzType.Developer),
     // -------------------------
     publishTime: DateTime.now(),
@@ -242,7 +246,7 @@ final List<FlyerModel> dbFlyers = <FlyerModel>[
     flyerShowsAuthor: false,
     flyerURL: 'www.bldrs.net',
     // -------------------------
-    authorID: 'u03',
+    tinyAuthor: TinyUser(userID: 'u03',name: 'James Wallberg Jr.',pic: Dumz.XXburj_khalifa_author,title: 'Business development Manager',userStatus: UserStatus.BzAuthor),
     tinyBz: TinyBz(bzID: 'pp3', bzLogo: Dumz.XXemaar_logo, bzName: 'Emaar', bzType: BzType.Developer),
     // -------------------------
     publishTime: DateTime.now(),
@@ -300,7 +304,7 @@ final List<FlyerModel> dbFlyers = <FlyerModel>[
     flyerShowsAuthor: true,
     flyerURL: 'www.bldrs.net',
     // -------------------------
-    authorID: 'u04',
+    tinyAuthor: TinyUser(userID: 'u04',name: 'Mahmoud Abou El Hassan',pic: Dumz.XXabohassan_author,title: 'Real Estate Consultant',userStatus: UserStatus.BzAuthor),
     tinyBz: TinyBz(bzID: 'br1', bzLogo: Dumz.XXultimate_logo, bzName: 'Ultimate Real Estate', bzType: BzType.Broker),
     // -------------------------
     publishTime: DateTime.now(),
@@ -349,7 +353,7 @@ final List<FlyerModel> dbFlyers = <FlyerModel>[
     flyerShowsAuthor: true,
     flyerURL: 'www.bldrs.net',
     // -------------------------
-    authorID: 'u20',
+    tinyAuthor: TinyUser(userID: 'u20',name: 'Nazly Noman EL Mohammady',pic: Dumz.XXnazly_author,title: 'Real Estate Agent',userStatus: UserStatus.BzAuthor),
     tinyBz: TinyBz(bzID: 'br1', bzLogo: Dumz.XXultimate_logo, bzName: 'Ultimate Real Estate', bzType: BzType.Broker),
     // -------------------------
     publishTime: DateTime.now(),
@@ -398,7 +402,7 @@ final List<FlyerModel> dbFlyers = <FlyerModel>[
     flyerShowsAuthor: true,
     flyerURL: 'www.bldrs.net',
     // -------------------------
-    authorID: 'u05',
+    tinyAuthor: TinyUser(userID: 'u05',name: 'محمد احمد زهران',pic: Dumz.XXzah_author,title: 'CEO',userStatus: UserStatus.BzAuthor),
     tinyBz: TinyBz(bzID: 'cn1', bzLogo: Dumz.XXzahran_logo, bzName: 'Zahran Contracting', bzType: BzType.Contractor),
     // -------------------------
     publishTime: DateTime.now(),
@@ -438,7 +442,7 @@ final List<FlyerModel> dbFlyers = <FlyerModel>[
     flyerShowsAuthor: false,
     flyerURL: 'www.bldrs.net',
     // -------------------------
-    authorID: 'u06',
+    tinyAuthor: TinyUser(userID: 'u06',name: 'Eng. Mohamed Attia',pic: Iconz.DumBzPNG,title: 'Engineer',userStatus: UserStatus.BzAuthor),
     tinyBz: TinyBz(bzID: 'cn2', bzLogo: Dumz.XXeng_logo, bzName: 'مكتب المهندس للمقاولات العامة', bzType: BzType.Contractor),
     // -------------------------
     publishTime: DateTime.now(),
@@ -471,7 +475,7 @@ final List<FlyerModel> dbFlyers = <FlyerModel>[
     flyerShowsAuthor: false,
     flyerURL: 'www.bldrs.net',
     // -------------------------
-    authorID: 'u07',
+    tinyAuthor: TinyUser(userID: 'u07',name: 'George Zenhom',pic: Iconz.DumBzPNG,title: 'Manager',userStatus: UserStatus.BzAuthor),
     tinyBz: TinyBz(bzID: 'mn1', bzLogo: Dumz.XXsipes_logo, bzName: 'Sipes paints', bzType: BzType.Manufacturer),
     // -------------------------
     publishTime: DateTime.now(),
@@ -502,7 +506,7 @@ final List<FlyerModel> dbFlyers = <FlyerModel>[
     flyerShowsAuthor: false,
     flyerURL: 'www.bldrs.net',
     // -------------------------
-    authorID: 'u07',
+    tinyAuthor: TinyUser(userID: 'u07',name: 'George Zenhom',pic: Iconz.DumBzPNG,title: 'Manager',userStatus: UserStatus.BzAuthor),
     tinyBz: TinyBz(bzID: 'mn1', bzLogo: Dumz.XXsipes_logo, bzName: 'Sipes paints', bzType: BzType.Manufacturer),
     // -------------------------
     publishTime: DateTime.now(),
@@ -533,7 +537,7 @@ final List<FlyerModel> dbFlyers = <FlyerModel>[
     flyerShowsAuthor: false,
     flyerURL: 'www.bldrs.net',
     // -------------------------
-    authorID: 'u08',
+    tinyAuthor: TinyUser(userID: 'u08',name: 'Micheal Morad',pic: Iconz.DumBzPNG,title: 'Marketing manager',userStatus: UserStatus.BzAuthor),
     tinyBz: TinyBz(bzID: 'mn2', bzLogo: Dumz.XXjotun_logo, bzName: 'Jotun, Egypt', bzType: BzType.Manufacturer),
     // -------------------------
     publishTime: DateTime.now(),
@@ -573,7 +577,7 @@ final List<FlyerModel> dbFlyers = <FlyerModel>[
     flyerShowsAuthor: false,
     flyerURL: 'www.bldrs.net',
     // -------------------------
-    authorID: 'u09',
+    tinyAuthor: TinyUser(userID: 'u09',name: 'John Cena',pic: Iconz.DumBzPNG,title: 'Marketing executive',userStatus: UserStatus.BzAuthor),
     tinyBz: TinyBz(bzID: 'mn3', bzLogo: Dumz.XXikea_logo, bzName: 'Ikea, Egypt', bzType: BzType.Manufacturer),
     // -------------------------
     publishTime: DateTime.now(),
@@ -631,7 +635,7 @@ final List<FlyerModel> dbFlyers = <FlyerModel>[
     flyerShowsAuthor: false,
     flyerURL: 'www.bldrs.net',
     // -------------------------
-    authorID: 'u09',
+    tinyAuthor: TinyUser(userID: 'u09',name: 'John Cena',pic: Iconz.DumBzPNG,title: 'Marketing executive',userStatus: UserStatus.BzAuthor),
     tinyBz: TinyBz(bzID: 'mn3', bzLogo: Dumz.XXikea_logo, bzName: 'Ikea, Egypt', bzType: BzType.Manufacturer),
     // -------------------------
     publishTime: DateTime.now(),
@@ -698,7 +702,7 @@ final List<FlyerModel> dbFlyers = <FlyerModel>[
     flyerShowsAuthor: false,
     flyerURL: 'www.bldrs.net',
     // -------------------------
-    authorID: 'u09',
+    tinyAuthor: TinyUser(userID: 'u09',name: 'John Cena',pic: Iconz.DumBzPNG,title: 'Marketing executive',userStatus: UserStatus.BzAuthor),
     tinyBz: TinyBz(bzID: 'mn3', bzLogo: Dumz.XXikea_logo, bzName: 'Ikea, Egypt', bzType: BzType.Manufacturer),
     // -------------------------
     publishTime: DateTime.now(),
@@ -756,7 +760,7 @@ final List<FlyerModel> dbFlyers = <FlyerModel>[
     flyerShowsAuthor: false,
     flyerURL: 'www.bldrs.net',
     // -------------------------
-    authorID: 'u09',
+    tinyAuthor: TinyUser(userID: 'u09',name: 'John Cena',pic: Iconz.DumBzPNG,title: 'Marketing executive',userStatus: UserStatus.BzAuthor),
     tinyBz: TinyBz(bzID: 'mn3', bzLogo: Dumz.XXikea_logo, bzName: 'Ikea, Egypt', bzType: BzType.Manufacturer),
     // -------------------------
     publishTime: DateTime.now(),
@@ -814,7 +818,7 @@ final List<FlyerModel> dbFlyers = <FlyerModel>[
     flyerShowsAuthor: false,
     flyerURL: 'www.bldrs.net',
     // -------------------------
-    authorID: 'u10',
+    tinyAuthor: TinyUser(userID: 'u10',name: 'Alaa btcino',pic: Iconz.DumBzPNG,title: 'Manager',userStatus: UserStatus.BzAuthor),
     tinyBz: TinyBz(bzID: 'mn4', bzLogo: Dumz.XXbticino_logo, bzName: 'Bticino', bzType: BzType.Manufacturer),
     // -------------------------
     publishTime: DateTime.now(),
@@ -863,7 +867,7 @@ final List<FlyerModel> dbFlyers = <FlyerModel>[
     flyerShowsAuthor: false,
     flyerURL: 'www.bldrs.net',
     // -------------------------
-    authorID: 'u12',
+    tinyAuthor: TinyUser(userID: 'u12',name: 'Essam Alamonya',pic: Iconz.DumBzPNG,title: 'Modeer',userStatus: UserStatus.BzAuthor),
     tinyBz: TinyBz(bzID: 'sp1', bzLogo: Dumz.XXalumital_logo, bzName: 'Mohamed Ali for All Alumital windows & doors', bzType: BzType.Supplier),
     // -------------------------
     publishTime: DateTime.now(),
@@ -903,7 +907,7 @@ final List<FlyerModel> dbFlyers = <FlyerModel>[
     flyerShowsAuthor: false,
     flyerURL: 'www.bldrs.net',
     // -------------------------
-    authorID: 'u11',
+    tinyAuthor: TinyUser(userID: 'u11',name: 'David Watson',pic: Iconz.DumBzPNG,title: 'Manager',userStatus: UserStatus.BzAuthor),
     tinyBz: TinyBz(bzID: 'mn5', bzLogo: Dumz.XXcat_logo, bzName: 'CAT', bzType: BzType.Manufacturer),
     // -------------------------
     publishTime: DateTime.now(),
@@ -943,7 +947,7 @@ final List<FlyerModel> dbFlyers = <FlyerModel>[
     flyerShowsAuthor: false,
     flyerURL: 'www.bldrs.net',
     // -------------------------
-    authorID: 'u11',
+    tinyAuthor: TinyUser(userID: 'u11',name: 'David Watson',pic: Iconz.DumBzPNG,title: 'Manager',userStatus: UserStatus.BzAuthor),
     tinyBz: TinyBz(bzID: 'mn5', bzLogo: Dumz.XXcat_logo, bzName: 'CAT', bzType: BzType.Manufacturer),
     // -------------------------
     publishTime: DateTime.now(),
@@ -992,7 +996,7 @@ final List<FlyerModel> dbFlyers = <FlyerModel>[
     flyerShowsAuthor: false,
     flyerURL: 'www.bldrs.net',
     // -------------------------
-    authorID: 'u13',
+    tinyAuthor: TinyUser(userID: 'u13',name: 'Sayyed rady',pic: Iconz.DumBzPNG,title: 'Boss',userStatus: UserStatus.BzAuthor),
     tinyBz: TinyBz(bzID: 'sp2', bzLogo: Dumz.XXpower_logo, bzName: 'Powerezza for powerfull power tools', bzType: BzType.Supplier),
     // -------------------------
     publishTime: DateTime.now(),
@@ -1032,7 +1036,7 @@ final List<FlyerModel> dbFlyers = <FlyerModel>[
     flyerShowsAuthor: false,
     flyerURL: 'www.bldrs.net',
     // -------------------------
-    authorID: 'u13',
+    tinyAuthor: TinyUser(userID: 'u13',name: 'Sayyed rady',pic: Iconz.DumBzPNG,title: 'Boss',userStatus: UserStatus.BzAuthor),
     tinyBz: TinyBz(bzID: 'sp2', bzLogo: Dumz.XXpower_logo, bzName: 'Powerezza for powerfull power tools', bzType: BzType.Supplier),
     // -------------------------
     publishTime: DateTime.now(),
@@ -1063,7 +1067,7 @@ final List<FlyerModel> dbFlyers = <FlyerModel>[
     flyerShowsAuthor: false,
     flyerURL: 'www.bldrs.net',
     // -------------------------
-    authorID: 'u14',
+    tinyAuthor: TinyUser(userID: 'u14',name: 'Shady mohamed',pic: Iconz.DumBzPNG,title: 'Engineer',userStatus: UserStatus.BzAuthor),
     tinyBz: TinyBz(bzID: 'sp3', bzLogo: Dumz.XXloader_logo, bzName: 'علاء لوادر للوادر', bzType: BzType.Supplier),
     // -------------------------
     publishTime: DateTime.now(),
@@ -1103,7 +1107,7 @@ final List<FlyerModel> dbFlyers = <FlyerModel>[
     flyerShowsAuthor: true,
     flyerURL: 'www.bldrs.net',
     // -------------------------
-    authorID: 'u15',
+    tinyAuthor: TinyUser(userID: 'u15',name: 'Mona Hussein',pic: Dumz.XXmhdh_author,title: 'Founder & CEO',userStatus: UserStatus.BzAuthor),
     tinyBz: TinyBz(bzID: 'dr1', bzLogo: Dumz.XXmhdh_logo, bzName: 'MHDH, Mona Hussein Design House', bzType: BzType.Designer),
     // -------------------------
     publishTime: DateTime.now(),
@@ -1143,7 +1147,7 @@ final List<FlyerModel> dbFlyers = <FlyerModel>[
     flyerShowsAuthor: true,
     flyerURL: 'www.bldrs.net',
     // -------------------------
-    authorID: 'u15',
+    tinyAuthor: TinyUser(userID: 'u15',name: 'Mona Hussein',pic: Dumz.XXmhdh_author,title: 'Founder & CEO',userStatus: UserStatus.BzAuthor),
     tinyBz: TinyBz(bzID: 'dr1', bzLogo: Dumz.XXmhdh_logo, bzName: 'MHDH, Mona Hussein Design House', bzType: BzType.Designer),
     // -------------------------
     publishTime: DateTime.now(),
@@ -1201,7 +1205,7 @@ final List<FlyerModel> dbFlyers = <FlyerModel>[
     flyerShowsAuthor: true,
     flyerURL: 'www.bldrs.net',
     // -------------------------
-    authorID: 'u15',
+    tinyAuthor: TinyUser(userID: 'u15',name: 'Mona Hussein',pic: Dumz.XXmhdh_author,title: 'Founder & CEO',userStatus: UserStatus.BzAuthor),
     tinyBz: TinyBz(bzID: 'dr1', bzLogo: Dumz.XXmhdh_logo, bzName: 'MHDH, Mona Hussein Design House', bzType: BzType.Designer),
     // -------------------------
     publishTime: DateTime.now(),
@@ -1250,7 +1254,7 @@ final List<FlyerModel> dbFlyers = <FlyerModel>[
     flyerShowsAuthor: true,
     flyerURL: 'www.bldrs.net',
     // -------------------------
-    authorID: 'u16',
+    tinyAuthor: TinyUser(userID: 'u16',name: 'Hany Saad',pic: Dumz.XXhs_author,title: 'Founder & CEO',userStatus: UserStatus.BzAuthor),
     tinyBz: TinyBz(bzID: 'dr2', bzLogo: Dumz.XXhs_logo, bzName: 'HSI . Hany Saad Innovations', bzType: BzType.Designer),
     // -------------------------
     publishTime: DateTime.now(),
@@ -1299,7 +1303,7 @@ final List<FlyerModel> dbFlyers = <FlyerModel>[
     flyerShowsAuthor: true,
     flyerURL: 'www.bldrs.net',
     // -------------------------
-    authorID: 'u16',
+    tinyAuthor: TinyUser(userID: 'u16',name: 'Hany Saad',pic: Dumz.XXhs_author,title: 'Founder & CEO',userStatus: UserStatus.BzAuthor),
     tinyBz: TinyBz(bzID: 'dr2', bzLogo: Dumz.XXhs_logo, bzName: 'HSI . Hany Saad Innovations', bzType: BzType.Designer),
     // -------------------------
     publishTime: DateTime.now(),
@@ -1348,7 +1352,7 @@ final List<FlyerModel> dbFlyers = <FlyerModel>[
     flyerShowsAuthor: true,
     flyerURL: 'www.bldrs.net',
     // -------------------------
-    authorID: 'u16',
+    tinyAuthor: TinyUser(userID: 'u16',name: 'Hany Saad',pic: Dumz.XXhs_author,title: 'Founder & CEO',userStatus: UserStatus.BzAuthor),
     tinyBz: TinyBz(bzID: 'dr2', bzLogo: Dumz.XXhs_logo, bzName: 'HSI . Hany Saad Innovations', bzType: BzType.Designer),
     // -------------------------
     publishTime: DateTime.now(),
@@ -1397,7 +1401,7 @@ final List<FlyerModel> dbFlyers = <FlyerModel>[
     flyerShowsAuthor: true,
     flyerURL: 'www.bldrs.net',
     // -------------------------
-    authorID: 'u17',
+    tinyAuthor: TinyUser(userID: 'u17',name: 'Hayam Hendi',pic: Iconz.DumBzPNG,title: 'Office Manager',userStatus: UserStatus.BzAuthor),
     tinyBz: TinyBz(bzID: 'dr3', bzLogo: Dumz.XXeklego_logo, bzName: 'Eklego', bzType: BzType.Designer),
     // -------------------------
     publishTime: DateTime.now(),
@@ -1437,7 +1441,7 @@ final List<FlyerModel> dbFlyers = <FlyerModel>[
     flyerShowsAuthor: true,
     flyerURL: 'www.bldrs.net',
     // -------------------------
-    authorID: 'u17',
+    tinyAuthor: TinyUser(userID: 'u17',name: 'Hayam Hendi',pic: Iconz.DumBzPNG,title: 'Office Manager',userStatus: UserStatus.BzAuthor),
     tinyBz: TinyBz(bzID: 'dr3', bzLogo: Dumz.XXeklego_logo, bzName: 'Eklego', bzType: BzType.Designer),
     // -------------------------
     publishTime: DateTime.now(),
@@ -1486,7 +1490,7 @@ final List<FlyerModel> dbFlyers = <FlyerModel>[
     flyerShowsAuthor: false,
     flyerURL: 'www.bldrs.net',
     // -------------------------
-    authorID: 'u18',
+    tinyAuthor: TinyUser(userID: 'u18',name: 'Fixawy team',pic: Iconz.DumBzPNG,title: 'Media Team',userStatus: UserStatus.BzAuthor),
     tinyBz: TinyBz(bzID: 'ar1', bzLogo: Dumz.XXfixawy_logo, bzName: 'Fixawy', bzType: BzType.Artisan),
     // -------------------------
     publishTime: DateTime.now(),
@@ -1517,7 +1521,7 @@ final List<FlyerModel> dbFlyers = <FlyerModel>[
     flyerShowsAuthor: false,
     flyerURL: 'www.bldrs.net',
     // -------------------------
-    authorID: 'u19',
+    tinyAuthor: TinyUser(userID: 'u19',name: 'Ahmad Hamada Ahmad',pic: Iconz.DumBzPNG,title: 'President',userStatus: UserStatus.BzAuthor),
     tinyBz: TinyBz(bzID: 'ar2', bzLogo: Dumz.XXahmad_logo, bzName: 'Ahmad for wood', bzType: BzType.Artisan),
     // -------------------------
     publishTime: DateTime.now(),
@@ -1557,7 +1561,7 @@ final List<FlyerModel> dbFlyers = <FlyerModel>[
     flyerShowsAuthor: true,
     flyerURL: 'www.bldrs.net',
     // -------------------------
-    authorID: 'u20',
+    tinyAuthor: TinyUser(userID: 'u20',name: 'Nazly Noman EL Mohammady',pic: Dumz.XXnazly_author,title: 'Real Estate Agent',userStatus: UserStatus.BzAuthor),
     tinyBz: TinyBz(bzID: 'br1', bzLogo: Dumz.XXultimate_logo, bzName: 'Ultimate Real Estate', bzType: BzType.Broker),
     // -------------------------
     publishTime: DateTime.now(),
@@ -1606,7 +1610,7 @@ final List<FlyerModel> dbFlyers = <FlyerModel>[
     flyerShowsAuthor: true,
     flyerURL: 'www.bldrs.net',
     // -------------------------
-    authorID: 'u21',
+    tinyAuthor: TinyUser(userID: 'u21',name: 'Rageh El Azzazy',pic: Iconz.DumAuthorPic,title: 'Founder & CEO',userStatus: UserStatus.BzAuthor),
     tinyBz: TinyBz(bzID: 'br1', bzLogo: Dumz.XXultimate_logo, bzName: 'Ultimate Real Estate', bzType: BzType.Broker),
     // -------------------------
     publishTime: DateTime.now(),
@@ -1646,7 +1650,7 @@ final List<FlyerModel> dbFlyers = <FlyerModel>[
     flyerShowsAuthor: true,
     flyerURL: 'www.bldrs.net',
     // -------------------------
-    authorID: 'u21',
+    tinyAuthor: TinyUser(userID: 'u21',name: 'Rageh El Azzazy',pic: Iconz.DumAuthorPic,title: 'Founder & CEO',userStatus: UserStatus.BzAuthor),
     tinyBz: TinyBz(bzID: 'br1', bzLogo: Dumz.XXultimate_logo, bzName: 'Ultimate Real Estate', bzType: BzType.Broker),
     // -------------------------
     publishTime: DateTime.now(),
@@ -1677,7 +1681,7 @@ final List<FlyerModel> dbFlyers = <FlyerModel>[
     flyerShowsAuthor: true,
     flyerURL: 'www.bldrs.net',
     // -------------------------
-    authorID: 'u04',
+    tinyAuthor: TinyUser(userID: 'u04',name: 'Mahmoud Abou El Hassan',pic: Dumz.XXabohassan_author,title: 'Real Estate Consultant',userStatus: UserStatus.BzAuthor),
     tinyBz: TinyBz(bzID: 'br1', bzLogo: Dumz.XXultimate_logo, bzName: 'Ultimate Real Estate', bzType: BzType.Broker),
     // -------------------------
     publishTime: DateTime.now(),
@@ -1708,7 +1712,7 @@ final List<FlyerModel> dbFlyers = <FlyerModel>[
     flyerShowsAuthor: true,
     flyerURL: 'www.bldrs.net',
     // -------------------------
-    authorID: 'u20',
+    tinyAuthor: TinyUser(userID: 'u20',name: 'Nazly Noman EL Mohammady',pic: Dumz.XXnazly_author,title: 'Real Estate Agent',userStatus: UserStatus.BzAuthor),
     tinyBz: TinyBz(bzID: 'br1', bzLogo: Dumz.XXultimate_logo, bzName: 'Ultimate Real Estate', bzType: BzType.Broker),
     // -------------------------
     publishTime: DateTime.now(),

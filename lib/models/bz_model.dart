@@ -1,12 +1,9 @@
 import 'package:bldrs/controllers/drafters/timerz.dart';
-import 'package:bldrs/models/flyer_model.dart';
+import 'package:bldrs/models/tiny_models/nano_flyer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'sub_models/author_model.dart';
 import 'sub_models/contact_model.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-
 import 'user_model.dart';
 // -----------------------------------------------------------------------------
 /// Bz account has limited amount of available slides, with each published slide,
@@ -52,7 +49,7 @@ class BzModel with ChangeNotifier{
   int bzTotalViews;
   int bzTotalCalls;
   // -------------------------
-  final List<TinyFlyer> bzFlyers;
+  final List<NanoFlyer> bzFlyers;
 // ###############################
   BzModel({
     this.bzID,
@@ -154,68 +151,9 @@ Map<String, dynamic> toMap(){
     'bzTotalViews' : bzTotalViews,
     'bzTotalCalls' : bzTotalCalls,
     // -------------------------
-    'bzFlyers' : cipherTinyFlyers(bzFlyers),
+    'bzFlyers' : cipherNanoFlyers(bzFlyers),
     };
 }
-}
-// -----------------------------------------------------------------------------
-class TinyBz with ChangeNotifier{
-  final String bzID;
-  final String bzLogo;
-  final String bzName;
-  final BzType bzType;
-
-  TinyBz({
-    @required this.bzID,
-    @required this.bzLogo,
-    @required this.bzName,
-    @required this.bzType,
-});
-
-  Map<String,dynamic> toMap(){
-    return {
-      'bzID' : bzID,
-      'bzLogo' : bzLogo,
-      'bzName' : bzName,
-      'bzType' : cipherBzType(bzType),
-    };
-  }
-
-}
-
-TinyBz getTinyBzFromBzModel(BzModel bzModel){
-  return
-      TinyBz(
-          bzID: bzModel.bzID,
-          bzLogo: bzModel.bzLogo,
-          bzName: bzModel.bzName,
-          bzType: bzModel.bzType,
-      );
-}
-// -----------------------------------------------------------------------------
-List<dynamic> cipherTinyBzzModels(List<TinyBz> tinyBzz){
-  List<dynamic> _tinyBzzMaps = new List();
-  tinyBzz.forEach((b) {
-    _tinyBzzMaps.add(b.toMap());
-  });
-  return _tinyBzzMaps;
-}
-// -----------------------------------------------------------------------------
-TinyBz decipherTinyBzMap(dynamic map){
-  return TinyBz(
-      bzID: map['bzID'],
-      bzLogo: map['bzLogo'],
-      bzName: map['bzName'],
-      bzType: decipherBzType(map['bzType']),
-  );
-}
-// -----------------------------------------------------------------------------
-List<TinyBz> decipherTinyBzzMaps(List<dynamic> maps){
-  List<TinyBz> _tinyBzz = new List();
-  maps.forEach((map){
-    _tinyBzz.add(decipherTinyBzMap(map));
-  });
-  return _tinyBzz;
 }
 // -----------------------------------------------------------------------------
 enum BzType {
@@ -357,7 +295,7 @@ BzModel decipherBzMap(String bzID, dynamic map){
     bzTotalViews : map['bzTotalViews'],
     bzTotalCalls : map['bzTotalCalls'],
     // -------------------------
-    bzFlyers: decipherTinyFlyersMaps(map['bzFlyers']),
+    bzFlyers: decipherNanoFlyersMaps(map['bzFlyers']),
   );
 }
 // -----------------------------------------------------------------------------
