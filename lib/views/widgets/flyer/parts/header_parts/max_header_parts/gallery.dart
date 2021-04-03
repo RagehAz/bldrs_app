@@ -2,8 +2,9 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/bz_model.dart';
-import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
+import 'package:bldrs/models/tiny_models/nano_flyer.dart';
+import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/views/widgets/flyer/grids/gallery_grid.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/common_parts/author_label.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
@@ -17,7 +18,7 @@ class Gallery extends StatefulWidget {
   final int followersCount;
   final List<String> bzTeamIDs;
   final bool bzPageIsOn;
-  final List<TinyFlyer> galleryFlyers;
+  // final List<NanoFlyer> galleryFlyers;
   final List<AuthorModel> authors;
   // final Function tappingMiniFlyer;
 
@@ -29,7 +30,7 @@ class Gallery extends StatefulWidget {
     @required this.followersCount,
     @required this.bzTeamIDs,
     @required this.bzPageIsOn,
-    @required this.galleryFlyers,
+    // @required this.galleryFlyers,
     @required this.authors,
     // @required this.tappingMiniFlyer,
   });
@@ -42,27 +43,29 @@ class _GalleryState extends State<Gallery> {
   List<bool> flyersVisibilities;
   List<bool> authorsVisibility;
   String currentSelectedAuthor;
+  List<TinyFlyer> _tinyFlyers;
 // ----------------------------------------------------------------------------
-  void visibilityShit () {
+  void setFlyersVisibility () {
     setState(() {
-      flyersVisibilities = List.filled(widget.galleryFlyers.length, true);
+      flyersVisibilities = List.filled(_tinyFlyers.length, true);
       currentSelectedAuthor = widget.bzTeamIDs.length == 1 ? widget.bzTeamIDs[0] : '';
     });
 }
 // ----------------------------------------------------------------------------
   @override
   void initState(){
-    visibilityShit();
+    _tinyFlyers = getTinyFlyersFromBzModel(widget.bz);
+    setFlyersVisibility();
     super.initState();
   }
 // ----------------------------------------------------------------------------
     tappingAuthorLabel(String authorID){
       setState(() {
-        flyersVisibilities = List.filled(widget.galleryFlyers.length, false);
+        flyersVisibilities = List.filled(_tinyFlyers.length, false);
         currentSelectedAuthor == authorID ? currentSelectedAuthor = '' : currentSelectedAuthor = authorID;
-        currentSelectedAuthor == '' ? flyersVisibilities = List.filled(widget.galleryFlyers.length, true) : currentSelectedAuthor = authorID;
-        widget.galleryFlyers.asMap().forEach((index, flyer) {
-          if(widget.galleryFlyers[index].authorID == currentSelectedAuthor){flyersVisibilities[index] = true;}
+        currentSelectedAuthor == '' ? flyersVisibilities = List.filled(_tinyFlyers.length, true) : currentSelectedAuthor = authorID;
+        _tinyFlyers.asMap().forEach((index, flyer) {
+          if(_tinyFlyers[index].authorID == currentSelectedAuthor){flyersVisibilities[index] = true;}
         });
       });
     }
@@ -149,7 +152,7 @@ class _GalleryState extends State<Gallery> {
               gridZoneWidth: widget.flyerZoneWidth,
               bzID: widget.authors == null || widget.authors == [] || widget.authors.isEmpty ?  '': widget.bz.bzID,
               flyersVisibilities: flyersVisibilities,
-              galleryFlyers: widget.bz.bzFlyers,
+              galleryFlyers: _tinyFlyers,
               bzAuthors: widget.authors,
               bz: widget.bz,
               // tappingMiniFlyer: widget.tappingMiniFlyer,

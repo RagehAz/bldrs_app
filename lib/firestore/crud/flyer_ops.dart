@@ -2,6 +2,8 @@ import 'package:bldrs/controllers/drafters/text_manipulators.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/sub_models/slide_model.dart';
+import 'package:bldrs/models/tiny_models/nano_flyer.dart';
+import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -63,7 +65,7 @@ class FlyerCRUD{
     flyerShowsAuthor: inputFlyerModel.flyerShowsAuthor,
     flyerURL: _flyerURL,
     // -------------------------
-    authorID: inputFlyerModel.authorID,
+    tinyAuthor: inputFlyerModel.tinyAuthor,
     tinyBz: inputFlyerModel.tinyBz,
     // -------------------------
     publishTime: DateTime.now(),
@@ -120,21 +122,30 @@ class FlyerCRUD{
 
     print('9- flyer counters added');
 
-    /// add tiny flyer to bz document in 'tinyFlyers' field
-  List<TinyFlyer> _bzTinyFlyers = bzModel.bzFlyers;
-  _bzTinyFlyers.add(_finalTinyFlyer);
+    /// add nano flyer to bz document in 'bzFlyers' field
+  List<NanoFlyer> _bzNanoFlyers = bzModel.bzFlyers;
+  NanoFlyer _finalNanoFlyer = getNanoFlyerFromFlyerModel(_finalFlyerModel);
+    _bzNanoFlyers.add(_finalNanoFlyer);
   await updateFieldOnFirestore(
       context: context,
       collectionName: FireStoreCollection.bzz,
       documentName: _finalFlyerModel.tinyBz.bzID,
       field: 'bzFlyers',
-      input: cipherTinyFlyers(_bzTinyFlyers),
+      input: cipherNanoFlyers(_bzNanoFlyers),
   );
 
     print('10- tiny flyer added to bzID in bzz/${_finalFlyerModel.tinyBz.bzID}');
 
     return _finalFlyerModel;
 }
+// ----------------------------------------------------------------------
+  static Future<FlyerModel> readFlyerOps({String flyerID}) async {
+
+    dynamic _flyerMap = await getFireStoreDocumentMap(collectionName: FireStoreCollection.flyers, documentName: flyerID);
+    FlyerModel _flyer = decipherFlyerMap(_flyerMap);
+
+    return _flyer;
+  }
 // ----------------------------------------------------------------------
   Future<void> updateFlyerDoc(FlyerModel flyerModel) async {
   await _flyersCollectionRef.doc(flyerModel.flyerID).update(flyerModel.toMap());

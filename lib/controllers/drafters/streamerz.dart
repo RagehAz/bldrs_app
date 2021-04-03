@@ -1,9 +1,11 @@
 import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
+import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/providers/users_provider.dart';
+import 'package:bldrs/views/widgets/flyer/aflyer.dart';
 import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -144,7 +146,7 @@ Widget bzModelBuilder({
       builder: (ctx, snapshot){
 
         if (snapshot.connectionState == ConnectionState.waiting){
-          return Loading(loading: true,);
+          return Container();
         } else {
           if (snapshot.error != null){
             return Container(); // superDialog(context, snapshot.error, 'error');
@@ -238,6 +240,7 @@ Widget flyerModelBuilder({
   String flyerID,
   BuildContext context,
   FlyerModelWidgetBuilder builder,
+  double flyerSizeFactor,
 }){
 
   return FutureBuilder(
@@ -248,7 +251,13 @@ Widget flyerModelBuilder({
       builder: (ctx, snapshot){
 
         if (snapshot.connectionState == ConnectionState.waiting){
-          return Loading(loading: true,);
+          return
+            AFlyer(
+                flyer: null,
+                bz: null,
+                flyerSizeFactor: flyerSizeFactor,
+            );
+
         } else {
           if (snapshot.error != null){
             return Container(); // superDialog(context, snapshot.error, 'error');

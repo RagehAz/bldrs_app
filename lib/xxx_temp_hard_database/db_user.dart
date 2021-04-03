@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/models/tiny_models/tiny_user.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'db_bzz.dart';
