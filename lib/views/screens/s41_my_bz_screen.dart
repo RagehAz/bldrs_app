@@ -108,6 +108,7 @@ class _MyBzScreenState extends State<MyBzScreen> {
           sky: Sky.Black,
           appBarType: AppBarType.Basic,
           appBarBackButton: true,
+          pyramids: Iconz.PyramidzYellow,
           layoutWidget: bzModelStreamBuilder(
             bzID: widget.bzID,
             context: context,

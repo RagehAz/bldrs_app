@@ -16,6 +16,10 @@ import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/sub_models/slide_model.dart';
+import 'package:bldrs/models/tiny_models/tiny_bz.dart';
+import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
+import 'package:bldrs/models/tiny_models/tiny_user.dart';
+import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/widgets/bubbles/words_bubble.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
@@ -117,7 +121,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
     _currentFlyerShowsAuthor = _flyer.flyerShowsAuthor;
     _currentFlyerURL = _flyer.flyerURL; // no need for this
     // -------------------------
-    _currentAuthorID = _flyer.authorID;
+    _currentAuthorID = _flyer.tinyAuthor.userID;
     _currentBzID = _flyer.tinyBz.bzID;
     // -------------------------
     _currentPublishTime = _flyer.publishTime;
@@ -142,6 +146,10 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
   // }
   // ----------------------------------------------------------------------
   FlyerModel _createTempEmptyFlyer(){
+
+    AuthorModel _author = getAuthorFromBzByAuthorID(_bz, superUserID());
+    TinyUser _tinyAuthor = getTinyAuthorFromAuthorModel(_author);
+
     return new FlyerModel(
     flyerID : '...',
     // -------------------------
@@ -151,7 +159,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
     flyerShowsAuthor : true,
     flyerURL : '...',
     // -------------------------
-    authorID : superUserID(),
+    tinyAuthor : _tinyAuthor,
     tinyBz : TinyBz(bzID: _bz.bzID, bzLogo: _bz.bzLogo, bzName: _bz.bzName, bzType: _bz.bzType),
     // -------------------------
     publishTime : DateTime.now(),
@@ -417,6 +425,10 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
           List<String> _picturesURLs = await savePicturesToFireStorageAndGetListOfURL(context, _currentSlides, _currentFlyerID);
           List<SlideModel> _slides = await processSlides(_picturesURLs, _currentSlides, _titleControllers);
 
+          /// create tiny author model from bz.authors
+          AuthorModel _author = getAuthorFromBzByAuthorID(_bz, superUserID());
+          TinyUser _tinyAuthor = getTinyAuthorFromAuthorModel(_author);
+
           /// 3 - create FlyerModel
           FlyerModel _newFlyerModel = FlyerModel(
               flyerID: _currentFlyerID,
@@ -427,7 +439,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
               flyerShowsAuthor: _currentFlyerShowsAuthor,
               flyerURL: _currentFlyerURL,
               // -------------------------
-              authorID: _currentAuthorID,
+              tinyAuthor: _tinyAuthor,
               tinyBz: TinyBz(bzID: _currentBzID, bzLogo: widget.bzModel.bzLogo, bzName: widget.bzModel.bzName, bzType: widget.bzModel.bzType),
               // -------------------------
               publishTime: _currentPublishTime,
@@ -666,6 +678,10 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
       /// create slides models
       List<SlideModel> _slides = await _processNewSlides(_currentSlides, _titleControllers);
 
+      /// create tiny author model from bz.authors
+      AuthorModel _author = getAuthorFromBzByAuthorID(_bz, superUserID());
+      TinyUser _tinyAuthor = getTinyAuthorFromAuthorModel(_author);
+
       ///create FlyerModel
       FlyerModel _newFlyerModel = FlyerModel(
         flyerID: _currentFlyerID, // will be created in creatFlyerOps
@@ -676,7 +692,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
         flyerShowsAuthor: _currentFlyerShowsAuthor,
         flyerURL: _currentFlyerURL,
         // -------------------------
-        authorID: _currentAuthorID,
+        tinyAuthor: _tinyAuthor,
         tinyBz: TinyBz(bzID: _currentBzID, bzLogo: widget.bzModel.bzLogo, bzName: widget.bzModel.bzName, bzType: widget.bzModel.bzType),
         // -------------------------
         publishTime: _currentPublishTime,
@@ -705,7 +721,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
   Widget build(BuildContext context) {
     final AuthorModel _author = widget.firstTimer ?
     getAuthorFromBzByAuthorID(_bz, superUserID()) :
-    getAuthorFromBzByAuthorID(_bz, _flyer.authorID);
+    getAuthorFromBzByAuthorID(_bz, _flyer.tinyAuthor.userID);
     // ----------------------------------------------------------------------
     final double _flyerSizeFactor = 0.8;
     final double _flyerZoneWidth = superFlyerZoneWidth(context, _flyerSizeFactor);

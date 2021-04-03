@@ -4,6 +4,8 @@ import 'package:bldrs/firestore/auth/auth.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
+import 'package:bldrs/models/tiny_models/nano_flyer.dart';
+import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -149,6 +151,14 @@ class BzCRUD{
     return _outputBz;
   }
 // ----------------------------------------------------------------------
+  static Future<BzModel> readBzOps({String bzID}) async {
+
+    dynamic _bzMap = await getFireStoreDocumentMap(collectionName: FireStoreCollection.bzz, documentName: bzID);
+    BzModel _bz = decipherBzMap(bzID, _bzMap);
+
+    return _bz;
+  }
+// ----------------------------------------------------------------------
   /// update bz operations on firestore
   Future<BzModel> updateBzOps({
     BuildContext context,
@@ -264,7 +274,7 @@ class BzCRUD{
 
     /// update tinyBz in all flyers
     /// TASK : this may require firestore batch write
-      List<String> _bzFlyersIDs = getListOfFlyerIDsFromTinyFlyers(_finalBz.bzFlyers);
+      List<String> _bzFlyersIDs = getListOfFlyerIDsFromNanoFlyers(_finalBz.bzFlyers);
       if(_bzFlyersIDs.length > 0){
         for (var id in _bzFlyersIDs){
           await updateFieldOnFirestore(

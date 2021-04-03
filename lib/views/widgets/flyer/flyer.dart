@@ -91,7 +91,7 @@ class _FlyerState extends State<Flyer> with AutomaticKeepAliveClientMixin{
     final _bz = Provider.of<BzModel>(context, listen: true);
 // ----------------------------------------------------------------------------
     final String _flyerID = _flyer?.flyerID;
-    final String _authorID = _flyer?.authorID;
+    final String _authorID = _flyer?.tinyAuthor?.userID;
     final AuthorModel _author = createAuthorModelFromUserModelAndBzModel(geebUserByUserID(_authorID), _bz);
     final bool _flyerShowsAuthor = _flyer?.flyerShowsAuthor;
     final int _numberOfSlides = _flyer?.slides?.length ?? 0;

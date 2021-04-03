@@ -41,6 +41,7 @@ class _BzCardScreenState extends State<BzCardScreen> {
 
     return MainLayout(
       pyramids: Iconz.PyramidsYellow,
+
       // appBarType: AppBarType.Basic,
       layoutWidget: ChangeNotifierProvider.value(
         value: bz,

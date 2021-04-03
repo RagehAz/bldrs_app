@@ -5,6 +5,8 @@ import 'package:flutter/foundation.dart';
 
 import 'bz_model.dart';
 import 'flyer_model.dart';
+import 'tiny_models/tiny_bz.dart';
+import 'tiny_models/tiny_flyer.dart';
 // -----------------------------------------------------------------------------
 /// any changes in this model should reflect on this [UserProvider]
 class UserModel {
@@ -93,43 +95,6 @@ UserModel decipherUserMap(Map<String, dynamic> map){
     myBzzIDs: map['myBzzIDs'],
   );
 
-}
-// -----------------------------------------------------------------------------
-class TinyUser {
-  final String userID;
-  final String name;
-  final String title;
-  final dynamic pic;
-  final UserStatus userStatus;
-
-  TinyUser({
-    @required this.userID,
-    @required this.name,
-    @required this.title,
-    @required this.pic,
-    @required this.userStatus,
-});
-
-  Map<String, dynamic> toMap(){
-    return {
-    'userID' : userID,
-    'name' : name,
-    'title' : title,
-    'pic' : pic,
-    'userStatus' : cipherUserStatus(userStatus),
-    };
-  }
-}
-// -----------------------------------------------------------------------------
-TinyUser decipherTinyUserMap(Map<String, dynamic> map){
-  return
-      TinyUser(
-          userID: map['userID'],
-          name: map['name'],
-          title: map['title'],
-          pic: map['pic'],
-          userStatus: decipherUserStatus(map['userStatus']),
-      );
 }
 // -----------------------------------------------------------------------------
 class SavedFlyers {
@@ -253,15 +218,5 @@ bool userIsAuthor(UserModel userModel){
   bool _userIsAuthor = userModel.myBzzIDs.length > 0 ? true : false;
   return
     _userIsAuthor;
-}
-// -----------------------------------------------------------------------------
-TinyUser getTinyUserFromUserModel(UserModel userModel){
-  return TinyUser(
-      userID: userModel.userID,
-      name: userModel.name,
-      title: userModel.title,
-      pic: userModel.pic,
-      userStatus: userModel.userStatus,
-  );
 }
 // -----------------------------------------------------------------------------
