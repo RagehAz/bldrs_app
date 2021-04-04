@@ -1,4 +1,3 @@
-import 'package:bldrs/controllers/drafters/file_formatters.dart';
 import 'package:bldrs/controllers/drafters/text_manipulators.dart';
 import 'package:flutter/foundation.dart';
 // -----------------------------------------------------------------------------

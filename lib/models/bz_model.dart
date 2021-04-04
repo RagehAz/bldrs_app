@@ -309,7 +309,7 @@ List<BzModel> decipherBzMapsFromRealTimeDatabase(Map<String, dynamic> bigMap){
   return _bzList;
 }
 // -----------------------------------------------------------------------------
-List<BzModel> decipherBzMapsFromFireStore(List<dynamic> maps) {
+List<BzModel> decipherBzzMapsFromFireStore(List<dynamic> maps) {
   List<BzModel> _bzList = new List();
 
   maps?.forEach((map) {

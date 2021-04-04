@@ -3,7 +3,6 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/firestore/auth/auth.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
-import 'package:bldrs/models/tiny_models/nano_flyer.dart';
 import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:flutter/material.dart';
 import '../bz_card_preview.dart';

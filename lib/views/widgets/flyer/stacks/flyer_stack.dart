@@ -11,8 +11,6 @@ import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../flyer.dart';
-
 class FlyerStack extends StatelessWidget {
   final FlyerType flyersType;
   final double flyerSizeFactor;
