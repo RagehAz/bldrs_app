@@ -3,7 +3,6 @@ import 'package:bldrs/firestore/crud/user_ops.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:bldrs/models/user_model.dart';
-import 'package:bldrs/providers/users_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

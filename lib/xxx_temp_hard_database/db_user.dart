@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_user.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -18,6 +19,7 @@ TinyUser geebTinyUserByUserID(String userID){
       title: _userModel.title,
       pic: _userModel.pic,
       userStatus: _userModel.userStatus,
+      contact: getAContactValueFromContacts(_userModel.contacts, ContactType.Phone),
   );
   return _tinyUser;
 }

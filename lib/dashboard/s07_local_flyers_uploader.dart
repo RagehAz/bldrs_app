@@ -7,7 +7,6 @@ import 'package:bldrs/controllers/drafters/text_manipulators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/firestore/auth/auth.dart';
-import 'package:bldrs/firestore/crud/flyer_ops.dart';
 import 'package:bldrs/firestore/firebase_storage.dart';
 import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/models/bz_model.dart';
@@ -29,7 +28,6 @@ import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:bldrs/xxx_temp_hard_database/db_bzz.dart';
 import 'package:bldrs/xxx_temp_hard_database/db_flyer.dart';
-import 'package:bldrs/xxx_temp_hard_database/dumz.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
