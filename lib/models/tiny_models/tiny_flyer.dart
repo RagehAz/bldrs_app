@@ -45,7 +45,7 @@ TinyFlyer decipherTinyFlyerMap(dynamic map){
   return TinyFlyer(
     flyerID: map['flyerID'],
     flyerType: decipherFlyerType(map['flyerType']),
-    tinyBz: decipherTinyBzMap(map['tinyBz']),
+    tinyBz: TinyBz.decipherTinyBzMap(map['tinyBz']),
     authorID: map['authorID'],
     slideIndex: map['slideIndex'],
     slidePic: map['slidePic'],
@@ -86,7 +86,7 @@ List<TinyFlyer> getTinyFlyersFromBzModel(BzModel bzModel){
           authorID: nano.authorID,
           slideIndex: 0,
           slidePic: nano.slidePic,
-          tinyBz: getTinyBzFromBzModel(bzModel)
+          tinyBz: TinyBz.getTinyBzFromBzModel(bzModel)
       )
     );
   }

@@ -27,7 +27,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
     List<QueryDocumentSnapshot> _bzzMaps = await getFireStoreCollectionMaps(FireStoreCollection.tinyBzz);
 
     setState(() {
-    _tinyBzz = decipherTinyBzzMaps(_bzzMaps);
+    _tinyBzz = TinyBz.decipherTinyBzzMaps(_bzzMaps);
     _toPrint = '${_tinyBzz[0].bzID} - ${_tinyBzz[1].bzID}';
     });
 

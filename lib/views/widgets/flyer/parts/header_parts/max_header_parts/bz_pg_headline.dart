@@ -1,18 +1,18 @@
+import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class BzPageHeadline extends StatelessWidget {
   final double flyerZoneWidth;
   final bool bzPageIsOn;
-  final String bzName;
-  final String bzLocale;
+  final TinyBz tinyBz;
 
   BzPageHeadline({
     @required this.flyerZoneWidth,
     @required this.bzPageIsOn,
-    @required this.bzName,
-    @required this.bzLocale,
+    @required this.tinyBz,
 });
 
   @override
@@ -31,7 +31,7 @@ class BzPageHeadline extends StatelessWidget {
             children: <Widget>[
               // -- BUSINESS NAME
               SuperVerse(
-                verse: bzName,
+                verse: tinyBz.bzName,
                 size: 5,
                 shadow: true,
                 centered: true,
@@ -40,7 +40,10 @@ class BzPageHeadline extends StatelessWidget {
               ),
               // -- BUSINESS LOCALE
               SuperVerse(
-                verse: bzLocale,
+                verse: zoneStringer(
+                  context: context,
+                  zone: tinyBz.bzZone,
+                ),
                 size: 2,
                 centered: true,
                 italic: true,

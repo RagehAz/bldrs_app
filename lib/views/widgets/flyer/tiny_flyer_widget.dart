@@ -3,6 +3,7 @@ import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
+import 'package:bldrs/models/tiny_models/tiny_user.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_zone.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/mini_header.dart';
 import 'package:bldrs/views/widgets/flyer/parts/slides_parts/single_slide.dart';
@@ -50,10 +51,8 @@ class TinyFlyerWidget extends StatelessWidget {
 
         MiniHeader(
           flyerZoneWidth: superFlyerZoneWidth(context, _flyerSizeFactor),
-          bz: BzModel(
-            bzLogo: tinyFlyer?.tinyBz?.bzLogo,
-          ),
-          author: AuthorModel(),
+          tinyBz: tinyFlyer.tinyBz,
+          tinyAuthor: TinyUser(userID: tinyFlyer.authorID, name: null, title: null, pic: null, contact: null, userStatus: null),
           followIsOn: false,
           flyerShowsAuthor: false,
           bzGalleryCount: 0,

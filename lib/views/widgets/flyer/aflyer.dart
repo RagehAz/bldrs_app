@@ -11,12 +11,10 @@ import 'package:flutter/material.dart';
 
 class AFlyer extends StatefulWidget {
   final FlyerModel flyer;
-  final BzModel bz;
   final double flyerSizeFactor;
 
   AFlyer({
     @required this.flyer,
-    @required this.bz,
     @required this.flyerSizeFactor,
   });
 
@@ -77,14 +75,14 @@ class _AFlyerState extends State<AFlyer> with AutomaticKeepAliveClientMixin{
 
         if (widget.flyer != null)
         Header(
+          tinyBz: widget.flyer.tinyBz,
+          tinyAuthor: widget.flyer.tinyAuthor,
           flyerZoneWidth: _flyerZoneWidth,
           bzPageIsOn: _bzPageIsOn,
           tappingHeader: () {switchBzPage();},
           tappingFollow: (){},
           tappingUnfollow: (){},
-          bz: widget.bz,
           flyerShowsAuthor: widget.flyer?.flyerShowsAuthor,
-          author: getAuthorFromBzByAuthorID(widget.bz, widget.flyer?.tinyAuthor?.userID),
           followIsOn: false,
         ),
 

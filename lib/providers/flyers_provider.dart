@@ -334,7 +334,7 @@ Future<void> deleteBzDocument(BzModel bzModel) async {
 // ---------------------------------------------------------------------------
   TinyBz _tinyBzModelFromSnapshot(DocumentSnapshot doc){
     var _map = doc.data();
-    TinyBz _tinyBz = decipherTinyBzMap(_map);
+    TinyBz _tinyBz = TinyBz.decipherTinyBzMap(_map);
     return _tinyBz;
   }
 // ---------------------------------------------------------------------------
@@ -378,7 +378,7 @@ Future<void> deleteBzDocument(BzModel bzModel) async {
 
           /// READ data from cloud Firestore bzz collection
           List<dynamic> _fireStoreTinyBzzMaps = await getFireStoreCollectionMaps(FireStoreCollection.tinyBzz);
-          final List<TinyBz> _fireStoreTinyBzzModels = decipherTinyBzzMaps(_fireStoreTinyBzzMaps);
+          final List<TinyBz> _fireStoreTinyBzzModels = TinyBz.decipherTinyBzzMaps(_fireStoreTinyBzzMaps);
 
           /// TASK : BOOMMM : should be _loadedTinyBzz = _fireStoreTinyBzzModels,, but this bom bom crash crash
           // _loadedTinyBzz.addAll(_fireStoreTinyBzzModels);

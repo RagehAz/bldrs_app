@@ -105,7 +105,18 @@ int lastTwoIntegersFromAString(String string){
 }
 // === === === === === === === === === === === === === === === === === === ===
 String trimTextAfterFirstSpecialCharacter(String verse, String specialCharacter){
-  String _result = verse.substring(0, verse.indexOf('specialCharacter'));
+  String _result = verse.substring(0, verse.indexOf(specialCharacter));
+  return _result;
+}
+// === === === === === === === === === === === === === === === === === === ===
+String trimTextBeforeFirstSpecialCharacter(String verse, String specialCharacter){
+  int _position = verse.indexOf(specialCharacter);
+  String _result = (_position != -1)? verse.substring(_position+1, verse.length): verse;
+  return _result;
+}
+// === === === === === === === === === === === === === === === === === === ===
+String trimTextAfterLastSpecialCharacter(String verse, String specialCharacter){
+  String _result = verse.substring(0, verse.lastIndexOf(specialCharacter));
   return _result;
 }
 // === === === === === === === === === === === === === === === === === === ===
