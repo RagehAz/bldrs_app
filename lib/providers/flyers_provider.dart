@@ -1,11 +1,7 @@
-import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/firestore/crud/user_ops.dart';
 import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
-import 'package:bldrs/models/sub_models/author_model.dart';
-import 'package:bldrs/models/sub_models/contact_model.dart';
-import 'package:bldrs/models/sub_models/http_exceptions.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/models/user_model.dart';
@@ -14,7 +10,6 @@ import 'package:bldrs/xxx_temp_hard_database/db_bzz.dart';
 import 'package:bldrs/xxx_temp_hard_database/db_flyer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
-import 'users_provider.dart';
 // -----------------------------------------------------------------------------
 class FlyersProvider with ChangeNotifier {
   List<FlyerModel> _loadedFlyers = geebAllFlyers();
@@ -347,7 +342,7 @@ Future<void> deleteBzDocument(BzModel bzModel) async {
 
           /// READ data from cloud Firestore bzz collection
           List<QueryDocumentSnapshot> _fireStoreBzzMaps = await getFireStoreCollectionMaps(FireStoreCollection.bzz);
-          final List<BzModel> _fireStoreBzzModels = decipherBzMapsFromFireStore(_fireStoreBzzMaps);
+          final List<BzModel> _fireStoreBzzModels = decipherBzzMapsFromFireStore(_fireStoreBzzMaps);
 
           /// TASK : BOOMMM : should be _loadedBzz = _loadedBzzFromDB,, but this bom bom crash crash
           // _loadedBzz.addAll(_fireStoreBzzModels);
