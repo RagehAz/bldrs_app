@@ -3,14 +3,16 @@ import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/sub_models/contact_model.dart';
+import 'package:bldrs/models/tiny_models/tiny_bz.dart';
+import 'package:bldrs/models/tiny_models/tiny_user.dart';
 import 'package:flutter/material.dart';
 import 'common_parts/header_shadow.dart';
 import 'max_header_parts/bz_pg_headline.dart';
 import 'mini_header_parts/mini_header_strip.dart';
 
 class MiniHeader extends StatelessWidget {
-  final BzModel bz;
-  final AuthorModel author;
+  final TinyBz tinyBz;
+  final TinyUser tinyAuthor;
   final bool followIsOn;
   final double flyerZoneWidth;
   final bool flyerShowsAuthor;
@@ -20,8 +22,8 @@ class MiniHeader extends StatelessWidget {
   final Function tappingFollow;
 
   MiniHeader({
-    @required this.bz,
-    @required this.author,
+    @required this.tinyBz,
+    @required this.tinyAuthor,
     @required this.followIsOn,
     @required this.flyerShowsAuthor,
     @required this.bzGalleryCount,
@@ -34,13 +36,9 @@ class MiniHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // === === === === === === === === === === === === === === === === === === ===
-    String _phoneNumber = getAContactValueFromContacts(bz?.bzContacts, ContactType.Phone);
+    String _phoneNumber = tinyAuthor.contact;//getAContactValueFromContacts(bz?.bzContacts, ContactType.Phone);
     // --- B.LOCALE --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-    String businessLocale = localeStringer(context: context,
-      countryISO3: bz?.bzCountry,
-      provinceID: bz?.bzProvince,
-      areaID: bz?.bzArea,
-    );
+    String businessLocale = zoneStringer(context: context, zone: tinyBz?.bzZone,);
     // === === === === === === === === === === === === === === === === === === ===
     return
       GestureDetector(
@@ -59,18 +57,12 @@ class MiniHeader extends StatelessWidget {
 
               // --- HEADER COMPONENTS
               MiniHeaderStrip(
+                tinyBz: tinyBz,
+                tinyAuthor: tinyAuthor,
                 flyerZoneWidth: flyerZoneWidth,
                 bzPageIsOn: bzPageIsOn,
-                bz: bz,
                 flyerShowsAuthor: flyerShowsAuthor,
-                authorID: author.userID,
-                phoneNumber: _phoneNumber,
-                aPic: author.authorPic,
-                aName: author.authorName,
-                aTitle: author.authorTitle,
-                followersCount: bz.bzTotalFollowers,
                 followIsOn: followIsOn,
-                bzGalleryCount: bzGalleryCount,
                 tappingHeader: tappingHeader,
                 tappingFollow: tappingFollow,
               ),
@@ -79,8 +71,7 @@ class MiniHeader extends StatelessWidget {
               BzPageHeadline(
                 flyerZoneWidth: flyerZoneWidth,
                 bzPageIsOn: bzPageIsOn,
-                bzLocale: businessLocale,
-                bzName: bz.bzName,
+                tinyBz: tinyBz,
               ),
 
             ],

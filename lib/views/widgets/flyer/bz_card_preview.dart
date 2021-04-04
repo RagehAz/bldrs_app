@@ -4,6 +4,7 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
+import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/views/screens/s50_flyer_editor_screen.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
@@ -75,8 +76,8 @@ class _BzCardPreviewState extends State<BzCardPreview> {
       stackWidgets: <Widget>[
 
         Header(
-          bz: widget.bz,
-          author: widget.author,
+          tinyBz: TinyBz.getTinyBzFromBzModel(widget.bz),
+          tinyAuthor: getTinyAuthorFromAuthorModel(widget.author),
           flyerShowsAuthor: true,
           followIsOn: false,
           flyerZoneWidth: superFlyerZoneWidth(context, widget.flyerSizeFactor),

@@ -3,6 +3,7 @@ import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/sub_models/slide_model.dart';
+import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header.dart';
 import 'package:bldrs/xxx_temp_hard_database/db_user.dart';
 import 'package:flutter/material.dart';
@@ -139,7 +140,8 @@ class _FlyerState extends State<Flyer> with AutomaticKeepAliveClientMixin{
             builder: (context, bz, _) =>
              Header(
               flyerZoneWidth: _flyerZoneWidth,
-              bz: bz,
+              tinyBz: TinyBz.getTinyBzFromBzModel(bz),
+              tinyAuthor: getTinyAuthorFromAuthorModel(_author),
               flyerShowsAuthor: _flyerShowsAuthor,
               bzPageIsOn: bzPageIsOn,
               tappingHeader: () {switchBzPage();},
@@ -149,7 +151,6 @@ class _FlyerState extends State<Flyer> with AutomaticKeepAliveClientMixin{
                 // bz.toggleFollow();
                 },
               tappingUnfollow: () {print('UnFollow Tapped');},
-              author: _author,
               followIsOn: false, // TASK : fix following issue
             ),
           ),

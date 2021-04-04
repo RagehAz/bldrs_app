@@ -189,7 +189,7 @@ FlyerModel decipherFlyerMap(dynamic map){
     flyerURL: map['flyerURL'],
     // -------------------------
     tinyAuthor: decipherTinyUserMap(map['tinyAuthor']),
-    tinyBz: decipherTinyBzMap(map['tinyBz']),
+    tinyBz: TinyBz.decipherTinyBzMap(map['tinyBz']),
     // -------------------------
     publishTime: decipherDateTimeString(map['publishTime']),
     flyerPosition: map['flyerPosition'],

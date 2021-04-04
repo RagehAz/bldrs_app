@@ -1,3 +1,4 @@
+import 'package:bldrs/models/tiny_models/nano_flyer.dart';
 import 'package:bldrs/models/tiny_models/tiny_user.dart';
 import '../bz_model.dart';
 import '../user_model.dart';
@@ -31,6 +32,24 @@ class AuthorModel{
     };
   }
 // ###############################
+
+static int getAuthorGalleryCountFromBzModel(BzModel bzModel, AuthorModel author){
+    String _authorID = author.userID;
+    List<NanoFlyer> _bzFlyers = bzModel.bzFlyers;
+
+    List<String> _authorFlyersIDs = new List();
+
+    for (var flyer in _bzFlyers){
+      if(flyer.authorID == _authorID){
+        _authorFlyersIDs.add(flyer.flyerID);
+      }
+    }
+
+    int _authorGalleryCount = _authorFlyersIDs.length;
+
+    return _authorGalleryCount;
+}
+
 }
 // -----------------------------------------------------------------------------
 AuthorModel decipherBzAuthorMap(dynamic map){
@@ -154,6 +173,7 @@ TinyUser getTinyAuthorFromAuthorModel(AuthorModel author){
       title: author.authorTitle,
       pic: author.authorPic,
       userStatus: UserStatus.BzAuthor,
+    contact: getAContactValueFromContacts(author.authorContacts, ContactType.Phone),
   );
 }
 // -----------------------------------------------------------------------------

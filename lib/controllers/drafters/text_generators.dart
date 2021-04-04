@@ -3,6 +3,7 @@ import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/bldrs_sections.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
+import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/providers/country_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -101,15 +102,19 @@ List<String> bzFormStrings (BuildContext context){
   return bzFormStrings;
 }
 // === === === === === === === === === === === === === === === === === === ===
-/// should be renamed to Zone Stringer
-String localeStringer ({BuildContext context, String countryISO3, String provinceID, String areaID}){
+String zoneStringer ({BuildContext context, Zone zone,}){
   CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
-  String _countryName = translate(context, countryISO3);
-  String _provinceName = _countryPro.getProvinceNameWithCurrentLanguageIfPossible(context, provinceID);
-  String _areaName = _countryPro.getAreaNameWithCurrentLanguageIfPossible(context, areaID);
+
+  String _countryID = zone.countryID;
+  String _provinceID = zone.provinceID;
+  String _areaID = zone.areaID;
+
+  String _countryName = translate(context, _countryID);
+  String _provinceName = _countryPro.getProvinceNameWithCurrentLanguageIfPossible(context, _provinceID);
+  String _areaName = _countryPro.getAreaNameWithCurrentLanguageIfPossible(context, _areaID);
 
   String verse =
-  countryISO3 == null || provinceID == null ? '...' :
+  _countryID == null || _provinceID == null ? '...' :
   '${Wordz.inn(context)} $_areaName , $_provinceName , $_countryName . ';
   return verse;
 }

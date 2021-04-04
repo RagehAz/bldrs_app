@@ -13,6 +13,7 @@ import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
+import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:bldrs/models/sub_models/slide_model.dart';
 import 'package:bldrs/models/tiny_models/nano_flyer.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
@@ -172,7 +173,7 @@ void _doBz(int length, int index, String name, String id){
       );
 
       /// create TinyBz
-      TinyBz _tinyBz = getTinyBzFromBzModel(_bzModel);
+      TinyBz _tinyBz = TinyBz.getTinyBzFromBzModel(_bzModel);
 
       /// upload the new tiny bz to FireStore
       await createFireStoreNamedDocument(
@@ -224,11 +225,12 @@ void _doBz(int length, int index, String name, String id){
         }
 
         TinyUser _tinyAuthor = TinyUser(
-            userID: _userID,
-            name: userModel.name,
-            title: userModel.title,
-            pic: userModel.pic,
-            userStatus: userModel.userStatus,
+          userID: _userID,
+          name: userModel.name,
+          title: userModel.title,
+          pic: userModel.pic,
+          userStatus: userModel.userStatus,
+          contact: getAContactValueFromContacts(userModel.contacts, ContactType.Phone),
         );
 
         /// create final flyer model

@@ -134,7 +134,7 @@ class BzCRUD{
       context: context,
       collectionName: FireStoreCollection.tinyBzz,
       docName: _bzID,
-      input: (getTinyBzFromBzModel(_outputBz)).toMap(),
+      input: (TinyBz.getTinyBzFromBzModel(_outputBz)).toMap(),
     );
 
     /// add bzID in user's myBzIDs
@@ -261,7 +261,7 @@ class BzCRUD{
         _finalBz.bzLogo != originalBz.bzLogo ||
         _finalBz.bzType != originalBz.bzType
     ){
-    TinyBz _modifiedTinyBz = getTinyBzFromBzModel(_finalBz)  ;
+    TinyBz _modifiedTinyBz = TinyBz.getTinyBzFromBzModel(_finalBz)  ;
     Map<String, dynamic> _modifiedTinyBzMap = _modifiedTinyBz.toMap();
 
     /// update tinyBz document
