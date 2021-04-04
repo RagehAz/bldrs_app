@@ -5,7 +5,6 @@ import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/sub_models/slide_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header.dart';
-import 'package:bldrs/xxx_temp_hard_database/db_user.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'parts/ankh_button.dart';
@@ -93,7 +92,7 @@ class _FlyerState extends State<Flyer> with AutomaticKeepAliveClientMixin{
 // ----------------------------------------------------------------------------
     final String _flyerID = _flyer?.flyerID;
     final String _authorID = _flyer?.tinyAuthor?.userID;
-    final AuthorModel _author = createAuthorModelFromUserModelAndBzModel(geebUserByUserID(_authorID), _bz);
+    final AuthorModel _author = getAuthorFromBzByAuthorID(_bz, _flyer.tinyAuthor.userID);//createAuthorModelFromUserModelAndBzModel(geebUserByUserID(_authorID), _bz);
     final bool _flyerShowsAuthor = _flyer?.flyerShowsAuthor;
     final int _numberOfSlides = _flyer?.slides?.length ?? 0;
     // print('authorID is = ${_author.userID}');

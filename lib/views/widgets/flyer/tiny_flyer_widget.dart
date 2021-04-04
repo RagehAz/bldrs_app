@@ -43,7 +43,7 @@ class TinyFlyerWidget extends StatelessWidget {
           flyerZoneWidth: superFlyerZoneWidth(context, _flyerSizeFactor),
           slideMode: SlideMode.View,
           picture: tinyFlyer?.slidePic,
-          slideIndex: 0,
+          slideIndex: tinyFlyer?.slideIndex,
 
         ),
 
