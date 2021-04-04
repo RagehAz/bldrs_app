@@ -6,16 +6,14 @@ import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
-import 'package:bldrs/xxx_temp_hard_database/db_bzz.dart';
-import 'package:bldrs/xxx_temp_hard_database/db_flyer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 // -----------------------------------------------------------------------------
 class FlyersProvider with ChangeNotifier {
-  List<FlyerModel> _loadedFlyers = geebAllFlyers();
-  List<TinyFlyer> _loadedTinyFlyers = geebAllTinyFlyers();
-  List<BzModel> _loadedBzz = geebAllBzz();
-  List<TinyBz> _loadedTinyBzz = geebAllTinyBzz();
+  List<FlyerModel> _loadedFlyers; //= geebAllFlyers();
+  List<TinyFlyer> _loadedTinyFlyers; // = geebAllTinyFlyers();
+  List<BzModel> _loadedBzz; // = geebAllBzz();
+  List<TinyBz> _loadedTinyBzz; // = geebAllTinyBzz();
 // ############################################################################
   List<FlyerModel> get getAllFlyers {
     return [..._loadedFlyers];
@@ -131,6 +129,14 @@ class FlyersProvider with ChangeNotifier {
     BzModel bz = _loadedBzz?.firstWhere((bz) => bz.bzID == bzID, orElse: ()=>null);
     return bz;
   }
+
+  // Future<BzModel> getBzByBzID(String bzID) async {
+  //   // BzModel bz = _loadedBzz?.firstWhere((bz) => bz.bzID == bzID, orElse: ()=>null);
+  //   BzModel bz = await BzCRUD.readBzOps(bzID: bzID);
+  //   return bz;
+  // }
+
+
 // ---------------------------------------------------------------------------
   TinyBz getTinyBzByBzID(String bzID){
     TinyBz _tinyBz = _loadedTinyBzz?.firstWhere((bz) => bz.bzID == bzID, orElse: ()=>null);

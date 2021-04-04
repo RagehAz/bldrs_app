@@ -1,8 +1,6 @@
 import 'package:bldrs/controllers/drafters/borderers.dart';
-import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/streamerz.dart';
-import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/controllers/drafters/text_manipulators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
@@ -11,13 +9,9 @@ import 'package:bldrs/firestore/firebase_storage.dart';
 import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
-import 'package:bldrs/models/sub_models/author_model.dart';
-import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:bldrs/models/sub_models/slide_model.dart';
 import 'package:bldrs/models/tiny_models/nano_flyer.dart';
-import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
-import 'package:bldrs/models/tiny_models/tiny_user.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/views/widgets/bubbles/words_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/bt_main.dart';
@@ -26,8 +20,6 @@ import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/flyer/parts/progress_bar.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
-import 'package:bldrs/xxx_temp_hard_database/db_bzz.dart';
-import 'package:bldrs/xxx_temp_hard_database/db_flyer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -81,190 +73,190 @@ void _doBz(int length, int index, String name, String id){
   }
   // ---------------------------------------------------------------------------
 
-  Future<void> _upload(UserModel userModel) async {
-  print('starting upload ---------------------------------');
-    _triggerLoading();
-
-    List<BzModel> _localBzz = dbBzz;
-    List<FlyerModel> _localFlyers = dbFlyers;
-    List<dynamic> _localBzzIDs = [];
-    int _bi = 17;
-    int _fi = 0;
-    int _batchLength = 5;
-
-    /// upload all bzz ops without their tiny flyers
-
-  for (int i = _bi; i< _batchLength+_bi ; i++ ){
-
-    BzModel bz = _localBzz[i];
-
-    _doBz(_localBzz.length, _bi, bz.bzName, bz.bzID);
-
-    if(userModel.myBzzIDs.contains(bz.bzID) || i >= _localBzz.length){
-
-      print('skipping bz ${bz.bzID}');
-
-    } else {
-
-
-      /// save logo to fireStorage and get its URL
-      String _bzLogoURL = await savePicOnFirebaseStorageAndGetURL(
-          context: context,
-          fileName: bz.bzID,
-          picType: PicType.bzLogo,
-          inputFile: await getImageFileFromAssets(context, bz.bzLogo)
-      );
-
-      /// create master author model in a list
-      List<AuthorModel> _updatedAuthors = [
-        AuthorModel(
-          userID: _userID,
-          authorName: userModel.name,
-          authorPic: userModel.pic,
-          authorTitle: userModel.title  ,
-          authorIsMaster: true,
-          authorContacts: userModel.contacts,
-        )];
-
-      /// create final bzModel
-      BzModel _bzModel = BzModel(
-        bzID: bz.bzID,
-        // -------------------------
-        bzType: bz.bzType,
-        bzForm: bz.bzForm,
-        bldrBirth: DateTime.now(),
-        accountType: bz.accountType,
-        bzURL: bz.bzURL,
-        // -------------------------
-        bzName: bz.bzName,
-        bzLogo: _bzLogoURL,
-        bzScope: bz.bzScope,
-        bzCountry: bz.bzCountry,
-        bzProvince: bz.bzProvince,
-        bzArea: bz.bzArea,
-        bzAbout: bz.bzAbout,
-        bzPosition: bz.bzPosition,
-        bzContacts: bz.bzContacts,
-        bzAuthors: _updatedAuthors,
-        bzShowsTeam: bz.bzShowsTeam,
-        // -------------------------
-        bzIsVerified: bz.bzIsVerified,
-        bzAccountIsDeactivated: bz.bzAccountIsDeactivated,
-        bzAccountIsBanned: bz.bzAccountIsBanned,
-        // -------------------------
-        bzTotalFollowers: bz.bzTotalFollowers,
-        bzTotalSaves: bz.bzTotalSaves,
-        bzTotalShares: bz.bzTotalShares,
-        bzTotalSlides: bz.bzTotalSlides,
-        bzTotalViews: bz.bzTotalViews,
-        bzTotalCalls: bz.bzTotalCalls,
-        // -------------------------
-        bzFlyers: [], // will update this after uploading flyers
-      );
-
-      /// upload the new bz to FireStore
-      await createFireStoreNamedDocument(
-        context: context,
-        collectionName: FireStoreCollection.bzz,
-        docName: bz.bzID,
-        input: _bzModel.toMap(),
-      );
-
-      /// create TinyBz
-      TinyBz _tinyBz = TinyBz.getTinyBzFromBzModel(_bzModel);
-
-      /// upload the new tiny bz to FireStore
-      await createFireStoreNamedDocument(
-        context: context,
-        collectionName: FireStoreCollection.tinyBzz,
-        docName: bz.bzID,
-        input: _tinyBz.toMap(),
-      );
-
-
-      /// add _bzID to users existing list
-      List<dynamic> _userBzzIDs = await getFireStoreDocumentField(
-        collectionName: FireStoreCollection.users,
-        documentName: superUserID(),
-        fieldName: 'myBzzIDs',
-      );
-      _userBzzIDs.add(bz.bzID);
-
-      await updateFieldOnFirestore(
-        context: context,
-        collectionName: FireStoreCollection.users,
-        documentName: _userID,
-        field: 'myBzzIDs',
-        input: _userBzzIDs,
-      );
-
-      /// for every tiny flyer in bz.tinyFlyers,, will start create flyer ops
-      for (var tinyFlyer in bz.bzFlyers){
-
-        _doFlyer(bz.bzFlyers.length, _fi, flyerTypeSingleStringer(context, tinyFlyer.flyerType), tinyFlyer.flyerID);
-
-        /// get flyer
-        FlyerModel _flyer = geebFlyerByFlyerID(tinyFlyer.flyerID);
-
-        /// convert flyer slide pics to files
-        List<SlideModel> _updatedSlides = new List();
-        for (var slide in _flyer.slides){
-          _updatedSlides.add(
-              SlideModel(
-                slideIndex: slide.slideIndex,
-                picture: await getImageFileFromAssets(context, slide.picture),
-                headline: slide.headline,
-                description: slide.description,
-                sharesCount: slide.sharesCount,
-                viewsCount: slide.viewsCount,
-                savesCount: slide.savesCount,
-              )
-          );
-        }
-
-        TinyUser _tinyAuthor = TinyUser(
-          userID: _userID,
-          name: userModel.name,
-          title: userModel.title,
-          pic: userModel.pic,
-          userStatus: userModel.userStatus,
-          contact: getAContactValueFromContacts(userModel.contacts, ContactType.Phone),
-        );
-
-        /// create final flyer model
-        FlyerModel _finalFlyer = FlyerModel(
-          flyerID: _flyer.flyerID,
-          flyerType: _flyer.flyerType,
-          flyerState: _flyer.flyerState,
-          keyWords: _flyer.keyWords,
-          flyerShowsAuthor: _flyer.flyerShowsAuthor,
-          flyerURL: _flyer.flyerURL,
-          tinyAuthor: _tinyAuthor,
-          tinyBz: _tinyBz,
-          publishTime: DateTime.now(),
-          flyerPosition: _flyer.flyerPosition,
-          ankhIsOn: _flyer.ankhIsOn,
-          slides: _updatedSlides,
-        );
-
-        /// start create flyer ops
-        await createNamedFlyersOps(context, _finalFlyer, _bzModel);
-
-        print('uploaded flyer:${_finalFlyer.flyerID}');
-      }
-
-      print('uploaded bz:${bz.bzID}');
-
-    }  }
-
-      await superDialog(context, 'Congratulations', 'Great');
-
-  _triggerLoading();
-  print('upload finished ---------------------------------');
-
-}
+//   Future<void> _upload(UserModel userModel) async {
+//   print('starting upload ---------------------------------');
+//     _triggerLoading();
+//
+//     List<BzModel> _localBzz = dbBzz;
+//     List<FlyerModel> _localFlyers = dbFlyers;
+//     List<dynamic> _localBzzIDs = [];
+//     int _bi = 17;
+//     int _fi = 0;
+//     int _batchLength = 5;
+//
+//     /// upload all bzz ops without their tiny flyers
+//
+//   for (int i = _bi; i< _batchLength+_bi ; i++ ){
+//
+//     BzModel bz = _localBzz[i];
+//
+//     _doBz(_localBzz.length, _bi, bz.bzName, bz.bzID);
+//
+//     if(userModel.myBzzIDs.contains(bz.bzID) || i >= _localBzz.length){
+//
+//       print('skipping bz ${bz.bzID}');
+//
+//     } else {
+//
+//
+//       /// save logo to fireStorage and get its URL
+//       String _bzLogoURL = await savePicOnFirebaseStorageAndGetURL(
+//           context: context,
+//           fileName: bz.bzID,
+//           picType: PicType.bzLogo,
+//           inputFile: await getImageFileFromAssets(context, bz.bzLogo)
+//       );
+//
+//       /// create master author model in a list
+//       List<AuthorModel> _updatedAuthors = [
+//         AuthorModel(
+//           userID: _userID,
+//           authorName: userModel.name,
+//           authorPic: userModel.pic,
+//           authorTitle: userModel.title  ,
+//           authorIsMaster: true,
+//           authorContacts: userModel.contacts,
+//         )];
+//
+//       /// create final bzModel
+//       BzModel _bzModel = BzModel(
+//         bzID: bz.bzID,
+//         // -------------------------
+//         bzType: bz.bzType,
+//         bzForm: bz.bzForm,
+//         bldrBirth: DateTime.now(),
+//         accountType: bz.accountType,
+//         bzURL: bz.bzURL,
+//         // -------------------------
+//         bzName: bz.bzName,
+//         bzLogo: _bzLogoURL,
+//         bzScope: bz.bzScope,
+//         bzCountry: bz.bzCountry,
+//         bzProvince: bz.bzProvince,
+//         bzArea: bz.bzArea,
+//         bzAbout: bz.bzAbout,
+//         bzPosition: bz.bzPosition,
+//         bzContacts: bz.bzContacts,
+//         bzAuthors: _updatedAuthors,
+//         bzShowsTeam: bz.bzShowsTeam,
+//         // -------------------------
+//         bzIsVerified: bz.bzIsVerified,
+//         bzAccountIsDeactivated: bz.bzAccountIsDeactivated,
+//         bzAccountIsBanned: bz.bzAccountIsBanned,
+//         // -------------------------
+//         bzTotalFollowers: bz.bzTotalFollowers,
+//         bzTotalSaves: bz.bzTotalSaves,
+//         bzTotalShares: bz.bzTotalShares,
+//         bzTotalSlides: bz.bzTotalSlides,
+//         bzTotalViews: bz.bzTotalViews,
+//         bzTotalCalls: bz.bzTotalCalls,
+//         // -------------------------
+//         bzFlyers: [], // will update this after uploading flyers
+//       );
+//
+//       /// upload the new bz to FireStore
+//       await createFireStoreNamedDocument(
+//         context: context,
+//         collectionName: FireStoreCollection.bzz,
+//         docName: bz.bzID,
+//         input: _bzModel.toMap(),
+//       );
+//
+//       /// create TinyBz
+//       TinyBz _tinyBz = TinyBz.getTinyBzFromBzModel(_bzModel);
+//
+//       /// upload the new tiny bz to FireStore
+//       await createFireStoreNamedDocument(
+//         context: context,
+//         collectionName: FireStoreCollection.tinyBzz,
+//         docName: bz.bzID,
+//         input: _tinyBz.toMap(),
+//       );
+//
+//
+//       /// add _bzID to users existing list
+//       List<dynamic> _userBzzIDs = await getFireStoreDocumentField(
+//         collectionName: FireStoreCollection.users,
+//         documentName: superUserID(),
+//         fieldName: 'myBzzIDs',
+//       );
+//       _userBzzIDs.add(bz.bzID);
+//
+//       await updateFieldOnFirestore(
+//         context: context,
+//         collectionName: FireStoreCollection.users,
+//         documentName: _userID,
+//         field: 'myBzzIDs',
+//         input: _userBzzIDs,
+//       );
+//
+//       /// for every tiny flyer in bz.tinyFlyers,, will start create flyer ops
+//       for (var tinyFlyer in bz.bzFlyers){
+//
+//         _doFlyer(bz.bzFlyers.length, _fi, flyerTypeSingleStringer(context, tinyFlyer.flyerType), tinyFlyer.flyerID);
+//
+//         /// get flyer
+//         FlyerModel _flyer = geebFlyerByFlyerID(tinyFlyer.flyerID);
+//
+//         /// convert flyer slide pics to files
+//         List<SlideModel> _updatedSlides = new List();
+//         for (var slide in _flyer.slides){
+//           _updatedSlides.add(
+//               SlideModel(
+//                 slideIndex: slide.slideIndex,
+//                 picture: await getImageFileFromAssets(context, slide.picture),
+//                 headline: slide.headline,
+//                 description: slide.description,
+//                 sharesCount: slide.sharesCount,
+//                 viewsCount: slide.viewsCount,
+//                 savesCount: slide.savesCount,
+//               )
+//           );
+//         }
+//
+//         TinyUser _tinyAuthor = TinyUser(
+//           userID: _userID,
+//           name: userModel.name,
+//           title: userModel.title,
+//           pic: userModel.pic,
+//           userStatus: userModel.userStatus,
+//           contact: getAContactValueFromContacts(userModel.contacts, ContactType.Phone),
+//         );
+//
+//         /// create final flyer model
+//         FlyerModel _finalFlyer = FlyerModel(
+//           flyerID: _flyer.flyerID,
+//           flyerType: _flyer.flyerType,
+//           flyerState: _flyer.flyerState,
+//           keyWords: _flyer.keyWords,
+//           flyerShowsAuthor: _flyer.flyerShowsAuthor,
+//           flyerURL: _flyer.flyerURL,
+//           tinyAuthor: _tinyAuthor,
+//           tinyBz: _tinyBz,
+//           publishTime: DateTime.now(),
+//           flyerPosition: _flyer.flyerPosition,
+//           ankhIsOn: _flyer.ankhIsOn,
+//           slides: _updatedSlides,
+//         );
+//
+//         /// start create flyer ops
+//         await createNamedFlyersOps(context, _finalFlyer, _bzModel);
+//
+//         print('uploaded flyer:${_finalFlyer.flyerID}');
+//       }
+//
+//       print('uploaded bz:${bz.bzID}');
+//
+//     }  }
+//
+//       await superDialog(context, 'Congratulations', 'Great');
+//
+//   _triggerLoading();
+//   print('upload finished ---------------------------------');
+//
+// }
   // ---------------------------------------------------------------------------
-Future<void> _fixUserBzzIDsList() async {
+  Future<void> _fixUserBzzIDsList() async {
 
   /// add _bzID to users existing list
   List<dynamic> _userBzzIDs = await getFireStoreDocumentField(
@@ -309,7 +301,7 @@ Future<void> _fixUserBzzIDsList() async {
       tappingRageh: () async {
         _triggerLoading();
 
-        print(dbBzz.length);
+        // print(dbBzz.length);
 
         _triggerLoading();
       },
@@ -346,9 +338,9 @@ Future<void> _fixUserBzzIDsList() async {
           ),
 
 
-          MyDreamBox(
-            upload: (userModel) => _upload(userModel),
-          ),
+          // MyDreamBox(
+          //   upload: (userModel) => _upload(userModel),
+          // ),
 
 
           PyramidsHorizon(heightFactor: 5,),
