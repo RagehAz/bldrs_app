@@ -27,7 +27,7 @@ class TinyBz with ChangeNotifier{
       'bzLogo' : bzLogo,
       'bzName' : bzName,
       'bzType' : cipherBzType(bzType),
-      'bzZone' : bzZone,
+      'bzZone' : bzZone.cipherToString(),
       'bzTotalFollowers' : bzTotalFollowers,
       'bzTotalFlyers' : bzTotalFlyers,
     };
