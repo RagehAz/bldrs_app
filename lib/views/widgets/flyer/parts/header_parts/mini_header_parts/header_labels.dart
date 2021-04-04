@@ -1,5 +1,7 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/models/tiny_models/tiny_bz.dart';
+import 'package:bldrs/models/tiny_models/tiny_user.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/common_parts/author_label.dart';
 import 'package:flutter/material.dart';
 import 'bz_label.dart';
@@ -7,32 +9,16 @@ import 'bz_label.dart';
 class HeaderLabels extends StatelessWidget {
   final double flyerZoneWidth;
   final bool bzPageIsOn;
-  final String bzName;
-  final String bzCountry;
-  final String bzProvince;
-  final String bzArea;
-  final dynamic aPic;
-  final String aName;
-  final String aTitle;
-  final int followersCount;
-  final int bzGalleryCount;
   final bool flyerShowsAuthor;
-  final String authorID;
+  final TinyBz tinyBz;
+  final TinyUser tinyAuthor;
 
   HeaderLabels({
     @required this.flyerZoneWidth,
     @required this.bzPageIsOn,
-    @required this.bzName,
-    @required this.bzCountry,
-    @required this.bzProvince,
-    @required this.bzArea,
-    @required this.aPic,
-    @required this.aName,
-    @required this.aTitle,
-    @required this.followersCount,
-    @required this.bzGalleryCount,
     @required this.flyerShowsAuthor,
-    @required this.authorID,
+    @required this.tinyBz,
+    @required this.tinyAuthor,
   });
 
   @override
@@ -51,16 +37,13 @@ class HeaderLabels extends StatelessWidget {
           child: Column(
             mainAxisAlignment: flyerShowsAuthor == true ? MainAxisAlignment.end : MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+            children: <Widget>[
 
               // --- BUSINESS LABEL : BZ.NAME & BZ.LOCALE
               BzLabel(
                 flyerZoneWidth: flyerZoneWidth,
                 bzPageIsOn: bzPageIsOn,
-                bzName: bzName,
-                bzCountry: bzCountry,
-                bzProvince: bzProvince,
-                bzArea: bzArea,
+                tinyBz: tinyBz,
                 flyerShowsAuthor: flyerShowsAuthor,
               ),
 
@@ -74,15 +57,11 @@ class HeaderLabels extends StatelessWidget {
               flyerShowsAuthor == false ? Container() :
               AuthorLabel(
                 flyerZoneWidth: flyerZoneWidth,
-                authorPic: aPic,
-                authorName: aName,
-                authorTitle: aTitle,
-                followersCount: followersCount,
+                tinyAuthor: tinyAuthor,
+                tinyBz: tinyBz,
                 bzPageIsOn: bzPageIsOn,
-                bzGalleryCount: bzGalleryCount,
                 // authorGalleryCount: 0, // is not needed here
                 labelIsOn: true,
-                authorID: authorID,
               ),
             ],
           )

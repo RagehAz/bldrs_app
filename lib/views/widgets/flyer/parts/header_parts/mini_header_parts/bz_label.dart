@@ -2,25 +2,20 @@ import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 
 class BzLabel extends StatelessWidget {
   final double flyerZoneWidth;
-  final String bzName;
-  final String bzCountry;
-  final String bzProvince;
-  final String bzArea;
+  final TinyBz tinyBz;
   final bool bzPageIsOn;
   final bool flyerShowsAuthor;
 
   BzLabel({
     @required this.flyerZoneWidth,
-    @required this.bzName,
-    @required this.bzCountry,
-    @required this.bzProvince,
-    @required this.bzArea,
+    @required this.tinyBz,
     @required this.bzPageIsOn,
     @required this.flyerShowsAuthor,
 });
@@ -39,13 +34,7 @@ class BzLabel extends StatelessWidget {
     double businessDataWidth = flyerZoneWidth * (Ratioz.xxflyerAuthorPicWidth + Ratioz.xxflyerAuthorNameWidth);
     double headerTextSidePadding = flyerZoneWidth * 0.02;
     // --- B.LOCALE --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- B.LOCALE
-
-    String businessLocale = localeStringer(
-      context: context,
-      countryISO3: bzCountry,
-      provinceID: bzProvince,
-      areaID: bzArea,
-    );
+    String businessLocale = zoneStringer(context: context, zone: tinyBz.bzZone,);
     // === === === === === === === === === === === === === === === === === === ===
     int bzNameSize = flyerShowsAuthor == true ? 3 : 5;
     int bLocaleSize = flyerShowsAuthor == true ? 1 : 1;
@@ -66,7 +55,7 @@ class BzLabel extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: headerTextSidePadding),
               child: SuperVerse(
-                verse: bzName,
+                verse: tinyBz.bzName,
                 color: Colorz.White,
                 italic: false,
                 centered: false,

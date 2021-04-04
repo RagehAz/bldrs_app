@@ -4,6 +4,8 @@ import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/bz_model.dart';
+import 'package:bldrs/models/tiny_models/tiny_bz.dart';
+import 'package:bldrs/models/tiny_models/tiny_user.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/common_parts/bz_logo.dart';
 import 'package:flutter/material.dart';
 
@@ -11,36 +13,24 @@ import 'follow_and_call_bts.dart';
 import 'header_labels.dart';
 
 class MiniHeaderStrip extends StatelessWidget {
+  final TinyBz tinyBz;
+  final TinyUser tinyAuthor;
   final double flyerZoneWidth;
   final bool bzPageIsOn;
-  final BzModel bz;
-  final dynamic aPic;
-  final String aName;
-  final String aTitle;
-  final int followersCount;
-  final int bzGalleryCount;
   final bool followIsOn;
-  final String phoneNumber;
   final Function tappingHeader;
   final Function tappingFollow;
   final bool flyerShowsAuthor;
-  final String authorID;
 
   MiniHeaderStrip({
+    @required this.tinyBz,
+    @required this.tinyAuthor,
     @required this.flyerZoneWidth,
     @required this.bzPageIsOn,
-    @required this.bz,
-    @required this.aPic,
-    @required this.aName,
-    @required this.aTitle,
-    @required this.followersCount,
-    @required this.bzGalleryCount,
     @required this.followIsOn,
-    @required this.phoneNumber,
     @required this.tappingHeader,
     @required this.tappingFollow,
     @required this.flyerShowsAuthor,
-    @required this.authorID,
   });
 
   @override
@@ -69,7 +59,7 @@ class MiniHeaderStrip extends StatelessWidget {
                 flex: bzPageIsOn ? 1 : 26,
                 child: BzLogo(
                   width: superLogoWidth(bzPageIsOn, flyerZoneWidth),
-                  image: bz?.bzLogo,
+                  image: tinyBz.bzLogo,
                   miniMode: superFlyerMiniMode(context, flyerZoneWidth),
                   corners: superLogoCorner(context, flyerZoneWidth),
                   bzPageIsOn: bzPageIsOn,
@@ -85,16 +75,8 @@ class MiniHeaderStrip extends StatelessWidget {
                   flyerZoneWidth: flyerZoneWidth,
                   bzPageIsOn: bzPageIsOn,
                   flyerShowsAuthor: flyerShowsAuthor ?? false,
-                  bzName: bz?.bzName,
-                  bzCountry: bz?.bzCountry,
-                  bzProvince: bz?.bzProvince,
-                  bzArea: bz?.bzArea,
-                  aPic: aPic,
-                  aName: aName,
-                  aTitle: aTitle,
-                  followersCount: followersCount,
-                  bzGalleryCount: bzGalleryCount,
-                  authorID: authorID,
+                  tinyBz: tinyBz,
+                  tinyAuthor: tinyAuthor,
                 ),
               ),
 
@@ -106,7 +88,7 @@ class MiniHeaderStrip extends StatelessWidget {
                   bzPageIsOn: bzPageIsOn,
                   followIsOn: followIsOn,
                   tappingFollow: tappingFollow,
-                  phoneNumber: phoneNumber,
+                  phoneNumber: tinyAuthor.contact,
                 ),
               ),
 

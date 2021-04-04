@@ -14,6 +14,7 @@ import 'package:bldrs/firestore/firebase_storage.dart';
 import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
+import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/sub_models/slide_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
@@ -160,7 +161,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
     flyerURL : '...',
     // -------------------------
     tinyAuthor : _tinyAuthor,
-    tinyBz : TinyBz(bzID: _bz.bzID, bzLogo: _bz.bzLogo, bzName: _bz.bzName, bzType: _bz.bzType),
+    tinyBz : TinyBz(bzID: _bz.bzID, bzLogo: _bz.bzLogo, bzName: _bz.bzName, bzType: _bz.bzType, bzZone: Zone.getZoneFromBzModel(_bz), bzTotalFollowers: _bz.bzTotalFollowers, bzTotalFlyers: _bz.bzFlyers.length),
     // -------------------------
     publishTime : DateTime.now(),
     flyerPosition : null,
@@ -440,7 +441,15 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
               flyerURL: _currentFlyerURL,
               // -------------------------
               tinyAuthor: _tinyAuthor,
-              tinyBz: TinyBz(bzID: _currentBzID, bzLogo: widget.bzModel.bzLogo, bzName: widget.bzModel.bzName, bzType: widget.bzModel.bzType),
+              tinyBz: TinyBz(
+                bzID: _currentBzID,
+                bzLogo: widget.bzModel.bzLogo,
+                bzName: widget.bzModel.bzName,
+                bzType: widget.bzModel.bzType,
+                bzZone: Zone.getZoneFromBzModel(widget.bzModel),
+                bzTotalFollowers: widget.bzModel.bzTotalFollowers,
+                bzTotalFlyers: widget.bzModel.bzFlyers.length,
+              ),
               // -------------------------
               publishTime: _currentPublishTime,
               flyerPosition: _currentFlyerPosition,
@@ -693,7 +702,15 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
         flyerURL: _currentFlyerURL,
         // -------------------------
         tinyAuthor: _tinyAuthor,
-        tinyBz: TinyBz(bzID: _currentBzID, bzLogo: widget.bzModel.bzLogo, bzName: widget.bzModel.bzName, bzType: widget.bzModel.bzType),
+        tinyBz: TinyBz(
+          bzID: _currentBzID,
+          bzLogo: widget.bzModel.bzLogo,
+          bzName: widget.bzModel.bzName,
+          bzType: widget.bzModel.bzType,
+          bzZone: Zone.getZoneFromBzModel(widget.bzModel),
+          bzTotalFollowers: widget.bzModel.bzTotalFollowers,
+          bzTotalFlyers: widget.bzModel.bzFlyers.length,
+        ),
         // -------------------------
         publishTime: _currentPublishTime,
         flyerPosition: _currentFlyerPosition,
@@ -814,8 +831,8 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
                       ),
 
                       Header(
-                        bz: _bz,
-                        author: _author,
+                        tinyBz: TinyBz.getTinyBzFromBzModel(_bz),
+                        tinyAuthor: getTinyAuthorFromAuthorModel(_author),
                         flyerShowsAuthor: true,
                         followIsOn: false,
                         flyerZoneWidth: superFlyerZoneWidth(context, _flyerSizeFactor),
