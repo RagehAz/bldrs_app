@@ -254,7 +254,6 @@ Widget flyerModelBuilder({
           return
             AFlyer(
                 flyer: null,
-                bz: null,
                 flyerSizeFactor: flyerSizeFactor,
             );
 

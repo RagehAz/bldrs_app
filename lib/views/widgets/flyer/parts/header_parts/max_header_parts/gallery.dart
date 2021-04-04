@@ -4,7 +4,9 @@ import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/tiny_models/nano_flyer.dart';
+import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
+import 'package:bldrs/models/tiny_models/tiny_user.dart';
 import 'package:bldrs/views/widgets/flyer/grids/gallery_grid.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/common_parts/author_label.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
@@ -122,27 +124,32 @@ class _GalleryState extends State<Gallery> {
                 widget.authors == null ? [Container()] :
                 List<Widget>.generate(
                   widget.authors.length,
-                      (authorIndex) => Row(
-                        children: <Widget>[
-                          AuthorLabel(
-                            bzPageIsOn: widget.bzPageIsOn,
-                            flyerZoneWidth: widget.flyerZoneWidth,
-                            followersCount: widget.followersCount,
-                            authorPic: widget.authors[authorIndex].authorPic,
-                            authorName: widget.authors[authorIndex].authorName,
-                            authorTitle: widget.authors[authorIndex].authorTitle,
-                            bzGalleryCount: widget.bz.bzFlyers.length, // TASK : calculate bz gallery
-                            authorGalleryCount: 0, // TASK : calculate author's number of flyers from BzModel.bzFlyers,
-                            authorID: widget.authors[authorIndex].userID,
-                            tappingLabel:
-                            // widget.bzTeamIDs.length == 1 ?
-                                (id){tappingAuthorLabel(id);},
-                            // :(id){print('a77a');// tappingAuthorLabel();},
-                            labelIsOn: currentSelectedAuthor == widget.authors[authorIndex].userID ? true : false,
-                          )
-                        ],
-                      ),
+                      (authorIndex) {
 
+                    AuthorModel _author = widget.authors[authorIndex];
+                    TinyUser _tinyAuthor = getTinyAuthorFromAuthorModel(_author);
+
+                    return
+                        Row(
+                          children: <Widget>[
+                            AuthorLabel(
+                              bzPageIsOn: widget.bzPageIsOn,
+                              flyerZoneWidth: widget.flyerZoneWidth,
+                              tinyAuthor: _tinyAuthor,
+                              tinyBz: TinyBz.getTinyBzFromBzModel(widget.bz),
+                              authorGalleryCount: AuthorModel.getAuthorGalleryCountFromBzModel(widget.bz, _author),
+                              tappingLabel:
+                              // widget.bzTeamIDs.length == 1 ?
+                                  (id) {
+                                tappingAuthorLabel(id);
+                              },
+                              // :(id){print('a77a');// tappingAuthorLabel();},
+                              labelIsOn: currentSelectedAuthor == widget
+                                  .authors[authorIndex].userID ? true : false,
+                            )
+                          ],
+                        );
+                      }
                 ),
               ),
             ),

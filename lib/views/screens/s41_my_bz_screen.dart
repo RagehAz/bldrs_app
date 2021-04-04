@@ -5,6 +5,8 @@ import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/models/bz_model.dart';
+import 'package:bldrs/models/sub_models/author_model.dart';
+import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/views/screens/s40_bz_editor_screen.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
@@ -245,8 +247,8 @@ class _MyBzScreenState extends State<MyBzScreen> {
                               ),
 
                               Header(
-                                bz: _bzModel,
-                                author: _bzModel.bzAuthors[0] ?? null,
+                                tinyBz: TinyBz.getTinyBzFromBzModel(_bzModel),
+                                tinyAuthor: getTinyAuthorFromAuthorModel(_bzModel.bzAuthors[0] ?? null),
                                 flyerShowsAuthor: true,
                                 followIsOn: false,
                                 flyerZoneWidth: _flyerZoneWidth,

@@ -132,7 +132,7 @@ class FollowedBzz {
   Map<String, dynamic> toMap(){
     return {
       'userID' : userID,
-      'followedBz' : cipherTinyBzzModels(followedBz),
+      'followedBz' : TinyBz.cipherTinyBzzModels(followedBz),
     };
   }
 }

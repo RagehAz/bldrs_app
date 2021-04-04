@@ -5,6 +5,8 @@ import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/sub_models/contact_model.dart';
+import 'package:bldrs/models/tiny_models/tiny_bz.dart';
+import 'package:bldrs/models/tiny_models/tiny_user.dart';
 import 'package:flutter/material.dart';
 import 'header_parts/common_parts/header_shadow.dart';
 import 'header_parts/max_header.dart';
@@ -12,8 +14,8 @@ import 'header_parts/max_header_parts/bz_pg_headline.dart';
 import 'header_parts/mini_header_parts/mini_header_strip.dart';
 
 class Header extends StatelessWidget {
-  final BzModel bz;
-  final AuthorModel author;
+  final TinyBz tinyBz;
+  final TinyUser tinyAuthor;
   final bool flyerShowsAuthor;
   final bool followIsOn;
   final double flyerZoneWidth;
@@ -23,8 +25,8 @@ class Header extends StatelessWidget {
   final Function tappingUnfollow;
 
   Header({
-    this.bz,
-    this.author,
+    this.tinyBz,
+    this.tinyAuthor,
     this.flyerShowsAuthor = true,
     this.followIsOn = false,
     @required this.flyerZoneWidth,
@@ -38,12 +40,12 @@ class Header extends StatelessWidget {
   Widget build(BuildContext context) {
 
     // === === === === === === === === === === === === === === === === === === ===
-    String _phoneNumber = getFirstPhoneFromContacts(bz?.bzContacts);
+    // String _phoneNumber = getFirstPhoneFromContacts(bz?.bzContacts);
     // --- B.LOCALE --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-    String _bzCounty = bz != null ? bz?.bzCountry : '';
-    String _bzProvince = bz != null ? bz?.bzProvince : '';
-    String _bzArea = bz != null ? bz?.bzArea : '' ;
-    String _businessLocale = localeStringer(context: context, countryISO3: _bzCounty, provinceID: _bzProvince, areaID: _bzArea);
+    // String _bzCounty = bz != null ? bz?.bzCountry : '';
+    // String _bzProvince = bz != null ? bz?.bzProvince : '';
+    // String _bzArea = bz != null ? bz?.bzArea : '' ;
+    // String _businessLocale = localeStringer(context: context, countryISO3: _bzCounty, provinceID: _bzProvince, areaID: _bzArea);
     // === === === === === === === === === === === === === === === === === === ===
 
     return GestureDetector(
@@ -72,16 +74,10 @@ class Header extends StatelessWidget {
                     MiniHeaderStrip(
                       flyerZoneWidth: flyerZoneWidth,
                       bzPageIsOn: bzPageIsOn,
-                      bz: bz,
+                      tinyBz: tinyBz,
+                      tinyAuthor: tinyAuthor,
                       flyerShowsAuthor: flyerShowsAuthor,
-                      authorID: author?.userID,
-                      phoneNumber: _phoneNumber,
-                      aPic: author?.authorPic,
-                      aName: author?.authorName,
-                      aTitle: author?.authorTitle,
-                      followersCount: bz?.bzTotalFollowers ?? 0,
                       followIsOn: false, // TASK : fix following issue
-                      bzGalleryCount: bz?.bzFlyers?.length ?? 0,
                       tappingHeader: tappingHeader,
                       tappingFollow: tappingFollow,
                     ),
@@ -90,8 +86,7 @@ class Header extends StatelessWidget {
                     BzPageHeadline(
                       flyerZoneWidth: flyerZoneWidth,
                       bzPageIsOn: bzPageIsOn,
-                      bzLocale: _businessLocale,
-                      bzName: bz?.bzName,
+                      tinyBz: tinyBz,
                     ),
 
                   ],
@@ -103,8 +98,7 @@ class Header extends StatelessWidget {
               MaxHeader(
                 flyerZoneWidth: flyerZoneWidth,
                 bzPageIsOn: bzPageIsOn,
-                bz: bz,
-                bzShowsTeam: bz?.bzShowsTeam,
+                tinyBz: tinyBz,
               ),
 
             ],

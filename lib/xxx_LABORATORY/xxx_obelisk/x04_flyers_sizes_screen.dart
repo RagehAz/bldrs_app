@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/streamerz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/firestore/auth/auth.dart';
 import 'package:bldrs/firestore/firestore.dart';
@@ -6,6 +7,7 @@ import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
+import 'package:bldrs/views/widgets/flyer/aflyer.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -101,26 +103,18 @@ class _FlyersSizesScreenState extends State<FlyersSizesScreen> {
 
           Stratosphere(),
 
-          // flyerModelBuilder(
-          //     context: context,
-          //     flyerID: 'Z6mmaU5ETompAIsW5hau',//_tinyFlyer.flyerID,
-          //     flyerSizeFactor: 0.78,
-          //     builder: (ctx, flyerModel){
-          //       return
-          //         bzModelBuilder(
-          //             context: context,
-          //             bzID: flyerModel.tinyBz.bzID,
-          //             builder: (xxx, bzModel){
-          //               return
-          //                 AFlyer(
-          //                     flyer: flyerModel,
-          //                     bz: bzModel,
-          //                     flyerSizeFactor: 0.78
-          //                 );
-          //             }
-          //       );
-          //   }
-          // ),
+          flyerModelBuilder(
+              context: context,
+              flyerID: 'Z6mmaU5ETompAIsW5hau',//_tinyFlyer.flyerID,
+              flyerSizeFactor: 0.78,
+              builder: (ctx, flyerModel){
+                return
+                  AFlyer(
+                      flyer: flyerModel,
+                      flyerSizeFactor: 0.78
+                  );
+            }
+          ),
 
 
           PyramidsHorizon(heightFactor: 5,),

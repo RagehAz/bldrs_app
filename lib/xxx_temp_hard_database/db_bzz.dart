@@ -1,6 +1,7 @@
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
+import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:bldrs/models/tiny_models/nano_flyer.dart';
@@ -35,10 +36,13 @@ List<TinyBz> geebAllTinyBzz(){
   dbBzz.forEach((bz) {
     _tinyBzz.add(
       TinyBz(
-          bzID: bz.bzID,
-          bzLogo: bz.bzLogo,
-          bzName: bz.bzName,
-          bzType: bz.bzType
+        bzID: bz.bzID,
+        bzLogo: bz.bzLogo,
+        bzName: bz.bzName,
+        bzType: bz.bzType,
+        bzZone: Zone.getZoneFromBzModel(bz),
+        bzTotalFollowers: bz.bzTotalFollowers,
+        bzTotalFlyers: bz.bzFlyers.length,
       ),
     );
   });

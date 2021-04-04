@@ -6,34 +6,28 @@ import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
+import 'package:bldrs/models/tiny_models/tiny_bz.dart';
+import 'package:bldrs/models/tiny_models/tiny_user.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 
 class AuthorLabel extends StatelessWidget {
   final double flyerZoneWidth;
-  final dynamic authorPic;
-  final String authorName;
-  final String authorTitle;
-  final int followersCount;
-  final int bzGalleryCount;
+  final TinyUser tinyAuthor;
+  final TinyBz tinyBz;
   final bool bzPageIsOn;
   final int authorGalleryCount;
   final bool labelIsOn;
-  final String authorID;
   final Function tappingLabel;
 
   AuthorLabel({
     @required this.flyerZoneWidth,
-    @required this.authorPic,
-    @required this.authorName,
-    @required this.authorTitle,
-    @required this.followersCount,
-    @required this.bzGalleryCount,
+    @required this.tinyAuthor,
+    @required this.tinyBz,
     @required this.bzPageIsOn,
     this.authorGalleryCount,
     this.labelIsOn = false,
-    @required this.authorID,
     this.tappingLabel,
 });
 
@@ -63,18 +57,20 @@ class AuthorLabel extends StatelessWidget {
     double _authorDataWidth = flyerZoneWidth * (Ratioz.xxflyerAuthorPicWidth+Ratioz.xxflyerAuthorNameWidth);
     // === === === === === === === === === === === === === === === === === === ===
     // --- FOLLOWERS COUNTER --- --- --- --- --- --- --- --- --- --- --- FOLLOWERS COUNTER
+    int _followersCount = tinyBz.bzTotalFollowers;
+    int _bzGalleryCount = tinyBz.bzTotalFlyers;
     String _followersCounter =
-    (authorGalleryCount == 0 && followersCount == 0) || (authorGalleryCount == null && followersCount == null) ? '' :
+    (authorGalleryCount == 0 && _followersCount == 0) || (authorGalleryCount == null && _followersCount == null) ? '' :
     bzPageIsOn == true ?
         '${separateKilos(authorGalleryCount)} ${Wordz.flyers(context)}' :
-        '${counterCaliber(context, followersCount)} ${Wordz.followers(context)} . ${counterCaliber(context, bzGalleryCount)} ${Wordz.flyers(context)}';
+        '${counterCaliber(context, _followersCount)} ${Wordz.followers(context)} . ${counterCaliber(context, _bzGalleryCount)} ${Wordz.flyers(context)}';
     // === === === === === === === === === === === === === === === === === === ===
     double _authorImageCorners = flyerZoneWidth * Ratioz.xxflyerAuthorPicCorner;
     // === === === === === === === === === === === === === === === === === === ===
 
     return
       GestureDetector(
-        onTap: bzPageIsOn == true ? ()=> tappingLabel(authorID) : null,
+        onTap: bzPageIsOn == true ? ()=> tappingLabel(tinyAuthor.userID) : null,
         child:
         Container(
             height: _authorDataHeight,
@@ -96,7 +92,7 @@ class AuthorLabel extends StatelessWidget {
                   flex: 15,
                   child: AuthorPic(
                     flyerZoneWidth: flyerZoneWidth,
-                    authorPic: authorPic,
+                    authorPic: tinyAuthor.pic,
                   ),
                 ),
 
@@ -115,7 +111,7 @@ class AuthorLabel extends StatelessWidget {
 
                         // --- AUTHOR NAME
                         SuperVerse(
-                          verse: authorName,
+                          verse: tinyAuthor.name,
                           italic: false,
                           centered: false,
                           shadow: _versesShadow,
@@ -127,7 +123,7 @@ class AuthorLabel extends StatelessWidget {
 
                             // --- AUTHOR TITLE
                         SuperVerse(
-                          verse: authorTitle,
+                          verse: tinyAuthor.title,
                           designMode: _versesDesignMode,
                           size: 1,
                           weight: VerseWeight.regular,
