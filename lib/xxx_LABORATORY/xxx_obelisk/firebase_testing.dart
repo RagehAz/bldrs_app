@@ -173,7 +173,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
 
           TinyFlyer _fixedTinyFlyer = TinyFlyer(
             flyerID: map['flyerID'],
-            flyerType: decipherFlyerType(map['flyerType']),
+            flyerType: FlyerModel.decipherFlyerType(map['flyerType']),
             authorID: map['authorID'],
             slideIndex: map['slideIndex'],
             slidePic: map['slidePic'],

@@ -80,16 +80,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     _currentCountryID = widget.user.country;
     _currentProvinceID = widget.user.province;
     _currentAreaID = widget.user.area;
-    _phoneController.text = getAContactValueFromContacts(widget.user.contacts, ContactType.Phone);
-    _emailController.text = getAContactValueFromContacts(widget.user.contacts, ContactType.Email);
-    _websiteController.text = getAContactValueFromContacts(widget.user.contacts, ContactType.WebSite);
-    _facebookController.text = getAContactValueFromContacts(widget.user.contacts, ContactType.Facebook);
-    _linkedInController.text = getAContactValueFromContacts(widget.user.contacts, ContactType.LinkedIn);
-    _youTubeController.text = getAContactValueFromContacts(widget.user.contacts, ContactType.YouTube);
-    _instagramController.text = getAContactValueFromContacts(widget.user.contacts, ContactType.Instagram);
-    _pinterestController.text = getAContactValueFromContacts(widget.user.contacts, ContactType.Pinterest);
-    _tiktokController.text = getAContactValueFromContacts(widget.user.contacts, ContactType.TikTok);
-    _twitterController.text = getAContactValueFromContacts(widget.user.contacts, ContactType.Twitter);
+    _phoneController.text = ContactModel.getAContactValueFromContacts(widget.user.contacts, ContactType.Phone);
+    _emailController.text = ContactModel.getAContactValueFromContacts(widget.user.contacts, ContactType.Email);
+    _websiteController.text = ContactModel.getAContactValueFromContacts(widget.user.contacts, ContactType.WebSite);
+    _facebookController.text = ContactModel.getAContactValueFromContacts(widget.user.contacts, ContactType.Facebook);
+    _linkedInController.text = ContactModel.getAContactValueFromContacts(widget.user.contacts, ContactType.LinkedIn);
+    _youTubeController.text = ContactModel.getAContactValueFromContacts(widget.user.contacts, ContactType.YouTube);
+    _instagramController.text = ContactModel.getAContactValueFromContacts(widget.user.contacts, ContactType.Instagram);
+    _pinterestController.text = ContactModel.getAContactValueFromContacts(widget.user.contacts, ContactType.Pinterest);
+    _tiktokController.text = ContactModel.getAContactValueFromContacts(widget.user.contacts, ContactType.TikTok);
+    _twitterController.text = ContactModel.getAContactValueFromContacts(widget.user.contacts, ContactType.Twitter);
     super.initState();
   }
   // ---------------------------------------------------------------------------
@@ -150,7 +150,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   List<ContactModel> _createContactList({List<ContactModel> existingContacts}){
   /// takes current contacts, overrides them on existing contact list, then
   /// return a new contacts list with all old values and new overridden values
-    List<ContactModel> newContacts = createContactsList(
+    List<ContactModel> newContacts = ContactModel.createContactsList(
       existingContacts: existingContacts,
       phone: removeSpacesFromAString(_phoneController.text),
       email: removeSpacesFromAString(_emailController.text),

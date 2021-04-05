@@ -5,7 +5,6 @@ import 'package:flutter/foundation.dart';
 import 'tiny_models/tiny_bz.dart';
 import 'tiny_models/tiny_flyer.dart';
 // -----------------------------------------------------------------------------
-/// any changes in this model should reflect on this [UserProvider]
 class UserModel {
   final String userID;
   final DateTime joinedAt;
@@ -44,7 +43,7 @@ class UserModel {
     // -------------------------
     this.myBzzIDs,
   });
-
+// -----------------------------------------------------------------------------
   Map<String, dynamic> toMap(){
     return {
       'userID' : userID,
@@ -61,84 +60,98 @@ class UserModel {
       'area' : area,
       'language' : language,
       'position' : position,
-      'contacts' : cipherContactsModels(contacts),
+      'contacts' : ContactModel.cipherContactsModels(contacts),
 // -------------------------
       'myBzzIDs' : myBzzIDs,
     };
   }
-}
 // -----------------------------------------------------------------------------
-UserModel decipherUserMap(Map<String, dynamic> map){
+  static UserModel decipherUserMap(Map<String, dynamic> map){
 
-  // List<dynamic> _myBzzIDs = map['myBzzIDs'] ?? [];
+    // List<dynamic> _myBzzIDs = map['myBzzIDs'] ?? [];
 
-  return UserModel(
-    userID : map['userID'] ?? '',
-    joinedAt : decipherDateTimeString(map['joinedAt'] ?? ''),
-    userStatus : decipherUserStatus(map['userStatus']?? 1),
-    // -------------------------
-    name : map['name'] ?? '',
-    pic : map['pic'] ?? '',
-    title : map['title'] ?? '',
-    company : map['company'] ?? '',
-    gender : decipherGender(map['gender'] ?? 2),
-    country : map['country'] ?? '',
-    province : map['province'] ?? '',
-    area : map['area'] ?? '',
-    language : map['language'] ?? 'en',
-    position : map['position'] ?? GeoPoint(0, 0),
-    contacts : decipherContactsMaps(map['contacts'] ?? []),
-    // -------------------------
-    myBzzIDs: map['myBzzIDs'],
-  );
+    return UserModel(
+      userID : map['userID'] ?? '',
+      joinedAt : decipherDateTimeString(map['joinedAt'] ?? ''),
+      userStatus : decipherUserStatus(map['userStatus']?? 1),
+      // -------------------------
+      name : map['name'] ?? '',
+      pic : map['pic'] ?? '',
+      title : map['title'] ?? '',
+      company : map['company'] ?? '',
+      gender : decipherGender(map['gender'] ?? 2),
+      country : map['country'] ?? '',
+      province : map['province'] ?? '',
+      area : map['area'] ?? '',
+      language : map['language'] ?? 'en',
+      position : map['position'] ?? GeoPoint(0, 0),
+      contacts : ContactModel.decipherContactsMaps(map['contacts'] ?? []),
+      // -------------------------
+      myBzzIDs: map['myBzzIDs'],
+    );
 
-}
-// -----------------------------------------------------------------------------
-class SavedFlyers {
-  final String userID;
-  final List<TinyFlyer> savedFlyers;
-
-  SavedFlyers({
-    @required this.userID,
-    @required this.savedFlyers,
-});
-
-  Map<String, dynamic> toMap(){
-    return {
-     'userID' : userID,
-     'savedFlyers' : cipherTinyFlyers(savedFlyers),
-    };
   }
-}
 // -----------------------------------------------------------------------------
-SavedFlyers decipherSavedFlyersMaps(Map<String, dynamic> map){
-  return SavedFlyers(
-      userID: map['userID'],
-      savedFlyers: map['savedFlyers']
-  );
-}
-// -----------------------------------------------------------------------------
-class FollowedBzz {
-  final String userID;
-  final List<TinyBz> followedBz;
-
-  FollowedBzz({
-    @required this.userID,
-    @required this.followedBz,
-});
-  Map<String, dynamic> toMap(){
-    return {
-      'userID' : userID,
-      'followedBz' : TinyBz.cipherTinyBzzModels(followedBz),
-    };
+  static UserStatus decipherUserStatus (int userStatus){
+    switch (userStatus){
+      case 1:   return   UserStatus.Normal;                 break;
+      case 2:   return   UserStatus.SearchingThinking;      break;
+      case 3:   return   UserStatus.Finishing;              break;
+      case 4:   return   UserStatus.PlanningTalking;        break;
+      case 5:   return   UserStatus.Building;               break;
+      case 6:   return   UserStatus.Selling;                break;
+      case 7:   return   UserStatus.BzAuthor;               break;
+      default : return   null;
+    }
   }
-}
 // -----------------------------------------------------------------------------
-FollowedBzz decipherFollowedBzzMaps(Map<String, dynamic> map){
-  return FollowedBzz(
-    userID : map['userID'],
-    followedBz : map['followedBz'],
-  );
+  static int cipherUserStatus (UserStatus userStatus){
+    switch (userStatus){
+      case UserStatus.Normal              :  return 1; break ;
+      case UserStatus.SearchingThinking   :  return 2; break ;
+      case UserStatus.Finishing           :  return 3; break ;
+      case UserStatus.PlanningTalking     :  return 4; break ;
+      case UserStatus.Building            :  return 5; break ;
+      case UserStatus.Selling             :  return 6; break ;
+      case UserStatus.BzAuthor            :  return 7; break ;
+      default : return null;
+    }
+  }
+// -----------------------------------------------------------------------------
+  static Gender decipherGender (int gender){
+    switch (gender){
+      case 0:   return   Gender.female; break;
+      case 1:   return   Gender.male; break;
+      case 2:   return   Gender.any; break;
+      default : return   null;
+    }
+  }
+// -----------------------------------------------------------------------------
+  static int cipherGender(Gender gender){
+    switch (gender){
+      case Gender.female : return 0; break ;
+      case Gender.male : return 1; break ;
+      case Gender.any : return 2; break ;
+      default : return null;
+    }
+  }
+// -----------------------------------------------------------------------------
+  static bool userIsAuthor(UserModel userModel){
+    bool _userIsAuthor = userModel.myBzzIDs.length > 0 ? true : false;
+    return
+      _userIsAuthor;
+  }
+// -----------------------------------------------------------------------------
+  static List<UserStatus> userTypesList = <UserStatus>[
+    UserStatus.Normal,
+    UserStatus.SearchingThinking,
+    UserStatus.Finishing,
+    UserStatus.PlanningTalking,
+    UserStatus.Building,
+    UserStatus.Selling,
+    UserStatus.BzAuthor,
+  ];
+// -----------------------------------------------------------------------------
 }
 // -----------------------------------------------------------------------------
 enum UserStatus {
@@ -151,69 +164,9 @@ enum UserStatus {
   BzAuthor,
 }
 // -----------------------------------------------------------------------------
-List<UserStatus> userTypesList = <UserStatus>[
-  UserStatus.Normal,
-  UserStatus.SearchingThinking,
-  UserStatus.Finishing,
-  UserStatus.PlanningTalking,
-  UserStatus.Building,
-  UserStatus.Selling,
-  UserStatus.BzAuthor,
-];
-// -----------------------------------------------------------------------------
-UserStatus decipherUserStatus (int userStatus){
-  switch (userStatus){
-    case 1:   return   UserStatus.Normal;                 break;
-    case 2:   return   UserStatus.SearchingThinking;      break;
-    case 3:   return   UserStatus.Finishing;              break;
-    case 4:   return   UserStatus.PlanningTalking;        break;
-    case 5:   return   UserStatus.Building;               break;
-    case 6:   return   UserStatus.Selling;                break;
-    case 7:   return   UserStatus.BzAuthor;               break;
-    default : return   null;
-  }
-}
-// -----------------------------------------------------------------------------
-int cipherUserStatus (UserStatus userStatus){
-  switch (userStatus){
-    case UserStatus.Normal              :  return 1; break ;
-    case UserStatus.SearchingThinking   :  return 2; break ;
-    case UserStatus.Finishing           :  return 3; break ;
-    case UserStatus.PlanningTalking     :  return 4; break ;
-    case UserStatus.Building            :  return 5; break ;
-    case UserStatus.Selling             :  return 6; break ;
-    case UserStatus.BzAuthor            :  return 7; break ;
-    default : return null;
-  }
-}
-// -----------------------------------------------------------------------------
 enum Gender {
   male,
   female,
   any,
-}
-// -----------------------------------------------------------------------------
-Gender decipherGender (int gender){
-  switch (gender){
-    case 0:   return   Gender.female; break;
-    case 1:   return   Gender.male; break;
-    case 2:   return   Gender.any; break;
-    default : return   null;
-  }
-}
-// -----------------------------------------------------------------------------
-int cipherGender(Gender gender){
-  switch (gender){
-    case Gender.female : return 0; break ;
-    case Gender.male : return 1; break ;
-    case Gender.any : return 2; break ;
-    default : return null;
-  }
-}
-// -----------------------------------------------------------------------------
-bool userIsAuthor(UserModel userModel){
-  bool _userIsAuthor = userModel.myBzzIDs.length > 0 ? true : false;
-  return
-    _userIsAuthor;
 }
 // -----------------------------------------------------------------------------

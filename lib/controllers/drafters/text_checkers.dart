@@ -79,3 +79,24 @@ bool textStartsInEnglish (String val){
 
 }
 // === === === === === === === === === === === === === === === === === === ===
+bool listsAreTheSame(List<dynamic> list1, List<dynamic> list2){
+  bool listsAreTheSame = true;
+
+  if (list1.length == list2.length){
+
+    for (int i = 0; i < list1.length; i++){
+
+      if(list1[i] != list2[i]){
+        listsAreTheSame = false;
+        break;
+      }
+
+    }
+
+  } else {
+    listsAreTheSame = false;
+  }
+
+  return listsAreTheSame;
+}
+// === === === === === === === === === === === === === === === === === === ===

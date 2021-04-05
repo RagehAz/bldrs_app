@@ -45,7 +45,7 @@ class _FlyersSizesScreenState extends State<FlyersSizesScreen> {
     // final List<TinyFlyer> _allTinyFlyers = _pro.getAllTinyFlyers;
     // List<String> _flyerIDs = getListOfFlyerIDsFromFlyers(_allFlyers);
     final FlyerModel _flyer = _pro.getFlyerByFlyerID(_flyerID);
-    final TinyFlyer _tinyFlyer = getTinyFlyerFromFlyerModel(_flyer);
+    final TinyFlyer _tinyFlyer = TinyFlyer.getTinyFlyerFromFlyerModel(_flyer);
     final BzModel _bz = _pro.getBzByBzID(_flyer.tinyBz.bzID);
 
     double _flyerSizeFactor = widget.flyerSizeFactor ?? 0.5;
@@ -62,12 +62,12 @@ class _FlyersSizesScreenState extends State<FlyersSizesScreen> {
         _triggerLoading();
         // -----------------------------------------------------------------------------
         dynamic _userMap = await getFireStoreDocumentMap(collectionName: FireStoreCollection.users, documentName: superUserID());
-        UserModel _userModel = decipherUserMap(_userMap);
+        UserModel _userModel = UserModel.decipherUserMap(_userMap);
 
         /// uploading flyers 27, 28, 29
 
         List<dynamic> _allFlyersMaps = await getFireStoreCollectionMaps(FireStoreCollection.flyers);
-        List<FlyerModel> _allFlyers = decipherFlyersMapsFromFireStore(_allFlyersMaps);
+        List<FlyerModel> _allFlyers = FlyerModel.decipherFlyersMapsFromFireStore(_allFlyersMaps);
 
         List<FlyerModel> _flyersOfHanySaad = new List();
         String _hanyBzID = _allFlyers.firstWhere((flyer) => flyer.tinyBz.bzName.contains('HSI')).tinyBz.bzID;
@@ -80,7 +80,7 @@ class _FlyersSizesScreenState extends State<FlyersSizesScreen> {
 
         List<TinyFlyer> _hanyTinyFlyers = new List();
         _flyersOfHanySaad.forEach((flyer) {
-          TinyFlyer _tinyFlyer = getTinyFlyerFromFlyerModel(flyer);
+          TinyFlyer _tinyFlyer = TinyFlyer.getTinyFlyerFromFlyerModel(flyer);
           _hanyTinyFlyers.add(_tinyFlyer);
         });
 
@@ -88,7 +88,7 @@ class _FlyersSizesScreenState extends State<FlyersSizesScreen> {
           context: context,
           collectionName: FireStoreCollection.bzz,
           documentName: _hanyBzID,
-          input: cipherTinyFlyers(_hanyTinyFlyers),
+          input: TinyFlyer.cipherTinyFlyers(_hanyTinyFlyers),
           field: 'bzFlyers',
         );
 

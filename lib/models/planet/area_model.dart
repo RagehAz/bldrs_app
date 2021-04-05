@@ -31,40 +31,38 @@ class Area{
       'province' : province,
       'id' : id,
       'name' : name,
-      'namez' : cipherNamezz(namez),
+      'namez' : Namez.cipherNamezz(namez),
       'isActivated' : isActivated,
       'isPublic' : isPublic,
     };
   }
-
-}
 // ---------------------------------------------------------------------------
-List<Map<String,dynamic>> cipherAreas(List<Area> areas){
-  List<Map<String, dynamic>> _areasList = new List();
-  areas.forEach((ar) {
-    _areasList.add(ar.toMap());
-  });
-  return _areasList;
-}
+  static List<Map<String,dynamic>> cipherAreas(List<Area> areas){
+    List<Map<String, dynamic>> _areasList = new List();
+    areas.forEach((ar) {
+      _areasList.add(ar.toMap());
+    });
+    return _areasList;
+  }
 // ---------------------------------------------------------------------------
-Area decipherAreaMap(Map<String, dynamic> map){
-  return Area(
-    iso3 : map['iso3'],
-    province : map['province'],
-    id : map['id'],
-    name : map['name'],
-    namez : decipherNamezzMaps(map['names']),
-    isActivated : map['isActivated'],
-    isPublic : map['isPublic'],
-  );
-}
-
+  static Area decipherAreaMap(Map<String, dynamic> map){
+    return Area(
+      iso3 : map['iso3'],
+      province : map['province'],
+      id : map['id'],
+      name : map['name'],
+      namez : Namez.decipherNamezzMaps(map['names']),
+      isActivated : map['isActivated'],
+      isPublic : map['isPublic'],
+    );
+  }
 // ---------------------------------------------------------------------------
-List<Area> decipherAreasMaps(List<dynamic> maps){
-  List<Area> _areas = new List();
-  maps?.forEach((map) {
-    _areas.add(decipherAreaMap(map));
-  });
-  return _areas;
-}
+  static List<Area> decipherAreasMaps(List<dynamic> maps){
+    List<Area> _areas = new List();
+    maps?.forEach((map) {
+      _areas.add(decipherAreaMap(map));
+    });
+    return _areas;
+  }
 // ---------------------------------------------------------------------------
+}

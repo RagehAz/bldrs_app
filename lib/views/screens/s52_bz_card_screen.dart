@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/drafters/streamerz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
@@ -35,8 +36,8 @@ class _BzCardScreenState extends State<BzCardScreen> {
 
   @override
   Widget build(BuildContext context) {
-    FlyersProvider pro = Provider.of<FlyersProvider>(context, listen: false);
-    final bz = pro.getBzByBzID(widget.bzID);
+    // FlyersProvider pro = Provider.of<FlyersProvider>(context, listen: false);
+    // final bz = pro.getBzByBzID(widget.bzID);
 
 
     double flyerSizeFactor = 0.8;
@@ -45,32 +46,64 @@ class _BzCardScreenState extends State<BzCardScreen> {
       pyramids: Iconz.PyramidsYellow,
 
       // appBarType: AppBarType.Basic,
-      layoutWidget: ChangeNotifierProvider.value(
-        value: bz,
-        child: FlyerZone(
-          flyerSizeFactor: flyerSizeFactor,
-          tappingFlyerZone: (){print('fuck you');},
-          stackWidgets: <Widget>[
+      // layoutWidget: ChangeNotifierProvider.value(
+      //   value: bz,
+      //   child: FlyerZone(
+      //     flyerSizeFactor: flyerSizeFactor,
+      //     tappingFlyerZone: (){print('fuck you');},
+      //     stackWidgets: <Widget>[
+      //
+      //       Header(
+      //         tinyBz: TinyBz.getTinyBzFromBzModel(bz),
+      //         tinyAuthor: getTinyAuthorFromAuthorModel(bz.bzAuthors[0]),
+      //         flyerShowsAuthor: true,
+      //         followIsOn: false, // TASK : fix following on/off issue
+      //         flyerZoneWidth: superFlyerZoneWidth(context, flyerSizeFactor),
+      //         bzPageIsOn: _bzPageIsOn,
+      //         tappingHeader: _triggerMaxHeader,
+      //         tappingFollow: () async {
+      //           // await bz.toggleFollow();
+      //           // setState(() {});
+      //           // print('rebuilding widget with new followIsOn value : ${bz.followIsOn}');
+      //         },
+      //         tappingUnfollow: null, // Task : delete unfollow function and combine all following operations in one method
+      //       ),
+      //
+      //     ],
+      //   ),
+      // ),
 
-            Header(
-              tinyBz: TinyBz.getTinyBzFromBzModel(bz),
-              tinyAuthor: getTinyAuthorFromAuthorModel(bz.bzAuthors[0]),
-              flyerShowsAuthor: true,
-              followIsOn: false, // TASK : fix following on/off issue
-              flyerZoneWidth: superFlyerZoneWidth(context, flyerSizeFactor),
-              bzPageIsOn: _bzPageIsOn,
-              tappingHeader: _triggerMaxHeader,
-              tappingFollow: () async {
-                // await bz.toggleFollow();
-                // setState(() {});
-                // print('rebuilding widget with new followIsOn value : ${bz.followIsOn}');
-              },
-              tappingUnfollow: null, // Task : delete unfollow function and combine all following operations in one method
-            ),
+      layoutWidget: bzModelBuilder(
+        context: context,
+        bzID: widget.bzID,
+        builder: (ctx, bz){
+          return
+            FlyerZone(
+                  flyerSizeFactor: flyerSizeFactor,
+                  tappingFlyerZone: (){print('fuck you');},
+                  stackWidgets: <Widget>[
 
-          ],
-        ),
+                    Header(
+                      tinyBz: TinyBz.getTinyBzFromBzModel(bz),
+                      tinyAuthor: AuthorModel.getTinyAuthorFromAuthorModel(bz.bzAuthors[0]),
+                      flyerShowsAuthor: true,
+                      followIsOn: false, // TASK : fix following on/off issue
+                      flyerZoneWidth: superFlyerZoneWidth(context, flyerSizeFactor),
+                      bzPageIsOn: _bzPageIsOn,
+                      tappingHeader: _triggerMaxHeader,
+                      tappingFollow: () async {
+                        // await bz.toggleFollow();
+                        // setState(() {});
+                        // print('rebuilding widget with new followIsOn value : ${bz.followIsOn}');
+                      },
+                      tappingUnfollow: null, // Task : delete unfollow function and combine all following operations in one method
+                    ),
+
+                  ],
+                );
+        }
       ),
+
     );
   }
 }

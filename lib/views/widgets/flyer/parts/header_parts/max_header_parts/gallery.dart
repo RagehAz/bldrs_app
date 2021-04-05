@@ -55,7 +55,7 @@ class _GalleryState extends State<Gallery> {
 // ----------------------------------------------------------------------------
   @override
   void initState(){
-    _tinyFlyers = getTinyFlyersFromBzModel(widget.bz);
+    _tinyFlyers = TinyFlyer.getTinyFlyersFromBzModel(widget.bz);
     setFlyersVisibility();
     super.initState();
   }
@@ -126,7 +126,7 @@ class _GalleryState extends State<Gallery> {
                       (authorIndex) {
 
                     AuthorModel _author = widget.authors[authorIndex];
-                    TinyUser _tinyAuthor = getTinyAuthorFromAuthorModel(_author);
+                    TinyUser _tinyAuthor = AuthorModel.getTinyAuthorFromAuthorModel(_author);
 
                     return
                         Row(

@@ -80,7 +80,7 @@ class _CountryScreenState extends State<CountryScreen> {
     double _screenWidth = superScreenWidth(context);
     double _screenHeight = superScreenHeight(context);
 
-    List<String> _provincesNames = getProvincesNamesFromCountryModel(widget.country);
+    List<String> _provincesNames = Province.getProvincesNamesFromCountryModel(widget.country);
 
     return MainLayout(
       sky: Sky.Black,

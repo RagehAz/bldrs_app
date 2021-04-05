@@ -16,6 +16,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   bool _isInit = true;
   bool _isLoading = false;
+  List<TinyBz> _tinyBzz;
 
   @override
   void initState() {
@@ -37,9 +38,16 @@ class _HomeScreenState extends State<HomeScreen> {
   void didChangeDependencies() {
     if (_isInit) {
       _triggerLoading();
-      Provider.of<FlyersProvider>(context, listen: true)
-          .fetchAndSetTinyBzzAndTinyFlyers(context)
+
+      FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: true);
+
+      _prof.fetchAndSetTinyBzzAndTinyFlyers(context)
           .then((_) {
+
+            setState(() {
+              _tinyBzz = _prof.getAllTinyBzz;
+            });
+
         _triggerLoading();
       });
     }
@@ -56,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: true);
-    List<TinyBz> _tinyBzz = _prof.getAllTinyBzz;
+    // List<TinyBz> _tinyBzz = _prof.getAllTinyBzz;
 
     return MainLayout(
       appBarType: AppBarType.Main,
@@ -81,10 +89,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
                   BzzBubble(tinyBzz: _tinyBzz),
 
-                  ...List<Widget>.generate(flyerTypesList.length,
+                  ...List<Widget>.generate(FlyerModel.flyerTypesList.length,
                           (index) {
                     return
-                      FlyerStack(flyersType: flyerTypesList[index]);
+                      FlyerStack(flyersType: FlyerModel.flyerTypesList[index]);
 
                   }),
 

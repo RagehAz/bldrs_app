@@ -94,7 +94,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   void initState(){
     // -------------------------
     _prof = Provider.of<FlyersProvider>(context, listen: false);
-    _bz = widget.firstTimer == true ? createInitialBzModelFromUserData(widget.userModel) : widget.bzModel;
+    _bz = widget.firstTimer == true ? BzModel.createInitialBzModelFromUserData(widget.userModel) : widget.bzModel;
     // -------------------------
     _currentBzID = _bz.bzID;
     _currentAccountType = _bz.accountType;
@@ -118,7 +118,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
     _currentBzAuthors = _bz.bzAuthors;
     _currentBzShowsTeam = _currentBzShowsTeam;
     // -------------------------
-    _currentAuthor = getAuthorFromBzByAuthorID(_bz, widget.userModel.userID);
+    _currentAuthor = AuthorModel.getAuthorFromBzByAuthorID(_bz, widget.userModel.userID);
     _authorNameTextController.text = _currentAuthor.authorName;
     _currentAuthorPicURL = _currentAuthor.authorPic;
     _authorTitleTextController.text = _currentAuthor.authorTitle;
@@ -198,7 +198,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   // ----------------------------------------------------------------------
   void _selectBzType(int index){
       setState(() {
-        _currentBzType = bzTypesList[index];
+        _currentBzType = BzModel.bzTypesList[index];
         _bzFormInActivityList =
         _currentBzType == BzType.Developer ? [true, false] :
         _currentBzType == BzType.Broker ? [false, false] :
@@ -215,7 +215,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   void _createBzTypeInActivityList(){
     if(widget.firstTimer){
       setState(() {
-        _bzTypeInActivityList = List.filled(bzTypesList.length, true);
+        _bzTypeInActivityList = List.filled(BzModel.bzTypesList.length, true);
       });
     } else {
       _bzTypeInActivityList =
@@ -229,7 +229,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   void _createBzFormInActivityLst(){
     if (widget.firstTimer){
       setState(() {
-        _bzFormInActivityList = List.filled(bzFormsList.length, true);
+        _bzFormInActivityList = List.filled(BzModel.bzFormsList.length, true);
       });
     } else {
       _bzFormInActivityList =
@@ -541,7 +541,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         authorIsMaster: _currentAuthor.authorIsMaster,
         authorContacts: _currentAuthorContacts,
       );
-      List<AuthorModel> _modifiedAuthorsList = replaceAuthorModelInAuthorsList(_currentBzAuthors, _modifiedAuthor);
+      List<AuthorModel> _modifiedAuthorsList = AuthorModel.replaceAuthorModelInAuthorsList(_currentBzAuthors, _modifiedAuthor);
 
       /// create modified bzModel
       BzModel _modifiedBzModel = BzModel(
@@ -660,7 +660,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
               MultipleChoiceBubble(
                 title: Wordz.businessForm(context),
                 buttonsList: bzFormStrings(context),
-                tappingAButton: (index) => setState(() {_currentBzForm = bzFormsList[index];}),
+                tappingAButton: (index) => setState(() {_currentBzForm = BzModel.bzFormsList[index];}),
                 chosenButton: bzFormStringer(context, _currentBzForm),
                 buttonsInActivityList: _bzFormInActivityList,
               ),

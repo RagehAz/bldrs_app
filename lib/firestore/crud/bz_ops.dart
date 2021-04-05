@@ -153,7 +153,7 @@ class BzCRUD{
   static Future<BzModel> readBzOps({String bzID}) async {
 
     dynamic _bzMap = await getFireStoreDocumentMap(collectionName: FireStoreCollection.bzz, documentName: bzID);
-    BzModel _bz = decipherBzMap(bzID, _bzMap);
+    BzModel _bz = BzModel.decipherBzMap(bzID, _bzMap);
 
     return _bz;
   }
@@ -182,7 +182,7 @@ class BzCRUD{
     }
 
     /// update authorPic if changed
-    AuthorModel _modifiedAuthor = getAuthorFromBzByAuthorID(modifiedBz, superUserID());
+    AuthorModel _modifiedAuthor = AuthorModel.getAuthorFromBzByAuthorID(modifiedBz, superUserID());
     String _authorPicURL;
     if(authorPicFile == null) {
       // do Nothing, author pic was not changed, will keep as
@@ -202,12 +202,12 @@ class BzCRUD{
     AuthorModel _finalAuthorModel = AuthorModel(
       userID : _modifiedAuthor.userID,
       authorName : _modifiedAuthor.authorName,
-      authorPic : _authorPicURL ?? originalBz.bzAuthors[getAuthorIndexByAuthorID(originalBz.bzAuthors, _modifiedAuthor.userID)].authorPic,
+      authorPic : _authorPicURL ?? originalBz.bzAuthors[AuthorModel.getAuthorIndexByAuthorID(originalBz.bzAuthors, _modifiedAuthor.userID)].authorPic,
       authorTitle : _modifiedAuthor.authorTitle,
       authorIsMaster : _modifiedAuthor.authorIsMaster,
       authorContacts : _modifiedAuthor.authorContacts,
     );
-    List<AuthorModel> _finalAuthorList = replaceAuthorModelInAuthorsList(modifiedBz.bzAuthors, _finalAuthorModel);
+    List<AuthorModel> _finalAuthorList = AuthorModel.replaceAuthorModelInAuthorsList(modifiedBz.bzAuthors, _finalAuthorModel);
 
     /// update bzModel if images changed
     BzModel _finalBz = BzModel(
@@ -273,7 +273,7 @@ class BzCRUD{
 
     /// update tinyBz in all flyers
     /// TASK : this may require firestore batch write
-      List<String> _bzFlyersIDs = getListOfFlyerIDsFromNanoFlyers(_finalBz.bzFlyers);
+      List<String> _bzFlyersIDs = NanoFlyer.getListOfFlyerIDsFromNanoFlyers(_finalBz.bzFlyers);
       if(_bzFlyersIDs.length > 0){
         for (var id in _bzFlyersIDs){
           await updateFieldOnFirestore(

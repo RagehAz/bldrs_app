@@ -82,7 +82,7 @@ class UserCRUD{
       context: context,
       collectionName: FireStoreCollection.tinyUsers,
       docName: userModel.userID,
-      input: getTinyUserFromUserModel(_finalUserModel).toMap(),
+      input: TinyUser.getTinyUserFromUserModel(_finalUserModel).toMap(),
     );
 
   }
@@ -139,7 +139,7 @@ class UserCRUD{
         context: context,
         collectionName: FireStoreCollection.tinyUsers,
         docName: updatedUserModel.userID,
-        input: getTinyUserFromUserModel(_finalUserModel).toMap(),
+        input: TinyUser.getTinyUserFromUserModel(_finalUserModel).toMap(),
       );
     }
 

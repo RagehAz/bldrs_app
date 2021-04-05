@@ -1,4 +1,7 @@
+import 'package:bldrs/controllers/drafters/text_manipulators.dart';
+
 import 'area_model.dart';
+import 'country_model.dart';
 import 'namez_model.dart';
 // ---------------------------------------------------------------------------
 class Province{
@@ -19,45 +22,60 @@ class Province{
     this.isPublic,
     this.namez,
   });
-
+// ---------------------------------------------------------------------------
   Map<String, Object> toMap(){
     return {
       'iso3' : iso3,
       'name' : name,
-      'areas' : cipherAreas(areas),
+      'areas' : Area.cipherAreas(areas),
       'population' : population,
       'isActivated' : isActivated,
       'isPublic' : isPublic,
-      'namez' : cipherNamezz(namez),
+      'namez' : Namez.cipherNamezz(namez),
     };
   }
+// ---------------------------------------------------------------------------
+  static List<Map<String, dynamic>> cipherProvinces(List<Province> provinces){
+    List<Map<String, dynamic>> _provincesMaps = new List();
+    provinces.forEach((pr) {
+      _provincesMaps.add(pr.toMap());
+    });
+    return _provincesMaps;
+  }
+// ---------------------------------------------------------------------------
+  static Province decipherProvinceMap(Map<String, dynamic> map){
+    return Province(
+      iso3 : map['iso3'],
+      name : map['name'],
+      areas : Area.decipherAreasMaps(map['areas']),
+      population : map['population'],
+      isActivated : map['isActivated'],
+      isPublic : map['isPublic'],
+      namez : Namez.decipherNamezzMaps(map['names']),
+    );
+  }
+// ---------------------------------------------------------------------------
+  static List<Province> decipherProvincesMaps(List<dynamic> maps){
+    List<Province> _provinces = new List();
+    maps?.forEach((map) {
+      _provinces.add(decipherProvinceMap(map));
+    });
+    return _provinces;
+  }
+// ---------------------------------------------------------------------------
+  static List<String> getProvincesNamesFromCountryModel(Country country){
+    List<String> _provincesNames = new List();
 
-}
+    List<Province> _provinces = country.provinces;
+
+    _provinces.forEach((pr) {
+      _provincesNames.add(pr.name);
+    });
+
+    _provincesNames = sortAlphabetically(_provincesNames);
+
+    return _provincesNames;
+  }
 // ---------------------------------------------------------------------------
-List<Map<String, dynamic>> cipherProvinces(List<Province> provinces){
-  List<Map<String, dynamic>> _provincesMaps = new List();
-  provinces.forEach((pr) {
-    _provincesMaps.add(pr.toMap());
-  });
-  return _provincesMaps;
-}
-// ---------------------------------------------------------------------------
-Province decipherProvinceMap(Map<String, dynamic> map){
-  return Province(
-    iso3 : map['iso3'],
-    name : map['name'],
-    areas : decipherAreasMaps(map['areas']),
-    population : map['population'],
-    isActivated : map['isActivated'],
-    isPublic : map['isPublic'],
-    namez : decipherNamezzMaps(map['names']),
-  );
-}
-// ---------------------------------------------------------------------------
-List<Province> decipherProvincesMaps(List<dynamic> maps){
-  List<Province> _provinces = new List();
-  maps?.forEach((map) {
-    _provinces.add(decipherProvinceMap(map));
-  });
-  return _provinces;
+
 }
