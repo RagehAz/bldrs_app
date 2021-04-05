@@ -20,17 +20,31 @@ class TinyBz with ChangeNotifier{
     @required this.bzTotalFollowers,
     @required this.bzTotalFlyers,
   });
-
+// -----------------------------------------------------------------------------
   Map<String,dynamic> toMap(){
     return {
       'bzID' : bzID,
       'bzLogo' : bzLogo,
       'bzName' : bzName,
-      'bzType' : cipherBzType(bzType),
+      'bzType' : BzModel.cipherBzType(bzType),
       'bzZone' : bzZone.cipherToString(),
       'bzTotalFollowers' : bzTotalFollowers,
       'bzTotalFlyers' : bzTotalFlyers,
     };
+  }
+// -----------------------------------------------------------------------------
+  static bool tinyBzzAreTheSame(TinyBz finalBz, TinyBz originalBz){
+    bool _tinyBzzAreTheSame = true;
+
+    if (finalBz.bzLogo != originalBz.bzLogo) {_tinyBzzAreTheSame = false;}
+    else if (finalBz.bzName != originalBz.bzName) {_tinyBzzAreTheSame = false;}
+    else if (finalBz.bzType != originalBz.bzType) {_tinyBzzAreTheSame = false;}
+    else if (Zone.zonesAreTheSame(finalBz.bzZone, originalBz.bzZone)) {_tinyBzzAreTheSame = false;}
+    else if (finalBz.bzTotalFollowers != originalBz.bzTotalFollowers) {_tinyBzzAreTheSame = false;}
+    else if (finalBz.bzTotalFlyers != originalBz.bzTotalFlyers) {_tinyBzzAreTheSame = false;}
+    else {_tinyBzzAreTheSame = true;}
+
+    return _tinyBzzAreTheSame;
   }
 // -----------------------------------------------------------------------------
   static TinyBz getTinyBzFromBzModel(BzModel bzModel){
@@ -59,7 +73,7 @@ class TinyBz with ChangeNotifier{
       bzID: map['bzID'],
       bzLogo: map['bzLogo'],
       bzName: map['bzName'],
-      bzType: decipherBzType(map['bzType']),
+      bzType: BzModel.decipherBzType(map['bzType']),
       bzZone: Zone.decipherZoneString(map['bzZone']),
       bzTotalFollowers: map['bzTotalFollowers'],
       bzTotalFlyers: map['bzTotalFlyers'],

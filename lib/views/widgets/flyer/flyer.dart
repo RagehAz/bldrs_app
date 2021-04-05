@@ -92,7 +92,7 @@ class _FlyerState extends State<Flyer> with AutomaticKeepAliveClientMixin{
 // ----------------------------------------------------------------------------
     final String _flyerID = _flyer?.flyerID;
     final String _authorID = _flyer?.tinyAuthor?.userID;
-    final AuthorModel _author = getAuthorFromBzByAuthorID(_bz, _flyer.tinyAuthor.userID);//createAuthorModelFromUserModelAndBzModel(geebUserByUserID(_authorID), _bz);
+    final AuthorModel _author = AuthorModel.getAuthorFromBzByAuthorID(_bz, _flyer.tinyAuthor.userID);//createAuthorModelFromUserModelAndBzModel(geebUserByUserID(_authorID), _bz);
     final bool _flyerShowsAuthor = _flyer?.flyerShowsAuthor;
     final int _numberOfSlides = _flyer?.slides?.length ?? 0;
     // print('authorID is = ${_author.userID}');
@@ -140,7 +140,7 @@ class _FlyerState extends State<Flyer> with AutomaticKeepAliveClientMixin{
              Header(
               flyerZoneWidth: _flyerZoneWidth,
               tinyBz: TinyBz.getTinyBzFromBzModel(bz),
-              tinyAuthor: getTinyAuthorFromAuthorModel(_author),
+              tinyAuthor: AuthorModel.getTinyAuthorFromAuthorModel(_author),
               flyerShowsAuthor: _flyerShowsAuthor,
               bzPageIsOn: bzPageIsOn,
               tappingHeader: () {switchBzPage();},

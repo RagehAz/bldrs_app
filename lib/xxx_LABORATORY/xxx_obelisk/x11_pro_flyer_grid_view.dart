@@ -134,9 +134,9 @@ class _FlyersGridViewState extends State<FlyersGridView> {
         ),
 
         ...List<Widget>.generate(
-            flyerTypesList.length,
+            FlyerModel.flyerTypesList.length,
                 (i) => FilterButton(
-              flyerTypeFilter: flyerTypesList[i],
+              flyerTypeFilter: FlyerModel.flyerTypesList[i],
               currentFlyerType : currentFlyerType,
               tapButton: (FlyerType selectedFlyerType){setState(() {
                 currentFlyerType = selectedFlyerType;

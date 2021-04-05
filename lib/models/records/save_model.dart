@@ -51,3 +51,31 @@ int cipherSaveState (SaveState saveState){
   }
 }
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+class SavedFlyers {
+  final String userID;
+  final List<dynamic> savedFlyersIDs;
+
+  SavedFlyers({
+    @required this.userID,
+    @required this.savedFlyersIDs,
+  });
+
+  Map<String, dynamic> toMap(){
+    return {
+      'userID' : userID,
+      'savedFlyersIDs' : savedFlyersIDs,
+    };
+  }
+
+  // -----------------------------------------------------------------------------
+  static SavedFlyers decipherSavedFlyersMaps(Map<String, dynamic> map){
+    return SavedFlyers(
+        userID: map['userID'],
+        savedFlyersIDs: map['savedFlyersIDs']
+    );
+  }
+
+
+}
+// -----------------------------------------------------------------------------
+

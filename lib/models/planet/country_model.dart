@@ -38,7 +38,7 @@ class Country{
     this.provinces,
     this.language,
   });
-
+// ---------------------------------------------------------------------------
   Map<String, dynamic> toMap(){
     return {
       'iso3' : iso3,
@@ -48,46 +48,32 @@ class Country{
       'flag' : flag,
       'isActivated' : isActivated,
       'isGlobal' : isGlobal,
-      'provinces' : cipherProvinces(provinces),
+      'provinces' : Province.cipherProvinces(provinces),
       'language' : language,
     };
   }
+// ---------------------------------------------------------------------------
+  static Country decipherCountryMap(dynamic map){
+    return Country(
+      iso3 : map['iso3'],
+      name : map['name'],
+      region : map['region'],
+      continent : map['continent'],
+      flag : map['flag'],
+      isActivated : map['isActivated'],
+      isGlobal : map['isGlobal'],
+      provinces : Province.decipherProvincesMaps(map['provinces']),
+      language : map['language'],
+    );
+  }
+// ---------------------------------------------------------------------------
+  static List<Country> decipherCountriesMaps(List<dynamic> maps){
+    List<Country> _countries = new List();
+    maps?.forEach((map) {
+      _countries.add(decipherCountryMap(map));
+    });
+    return _countries;
+  }
+// ---------------------------------------------------------------------------
 
 }
-// ---------------------------------------------------------------------------
-Country decipherCountryMap(dynamic map){
-  return Country(
-    iso3 : map['iso3'],
-    name : map['name'],
-    region : map['region'],
-    continent : map['continent'],
-    flag : map['flag'],
-    isActivated : map['isActivated'],
-    isGlobal : map['isGlobal'],
-    provinces : decipherProvincesMaps(map['provinces']),
-    language : map['language'],
-  );
-}
-// ---------------------------------------------------------------------------
-List<Country> decipherCountriesMaps(List<dynamic> maps){
-  List<Country> _countries = new List();
-  maps?.forEach((map) {
-    _countries.add(decipherCountryMap(map));
-  });
-  return _countries;
- }
-// ---------------------------------------------------------------------------
-List<String> getProvincesNamesFromCountryModel(Country country){
-  List<String> _provincesNames = new List();
-
-  List<Province> _provinces = country.provinces;
-
-  _provinces.forEach((pr) {
-    _provincesNames.add(pr.name);
-  });
-
-  _provincesNames = sortAlphabetically(_provincesNames);
-
-  return _provincesNames;
-}
-// ---------------------------------------------------------------------------

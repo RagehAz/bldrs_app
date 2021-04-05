@@ -30,7 +30,7 @@ List<String> sectionsListStrings (BuildContext context){
 List<String> bzTypesStrings (BuildContext context){
   List<String> bzTypesStrings = new List();
 
-  for(BzType bt in bzTypesList){
+  for(BzType bt in BzModel.bzTypesList){
     bzTypesStrings.add(bzTypeSingleStringer(context, bt));
   }
   return bzTypesStrings;
@@ -96,7 +96,7 @@ String bzFormStringer (BuildContext context, BzForm bzForm){
 List<String> bzFormStrings (BuildContext context){
   List<String> bzFormStrings = new List();
 
-  for(BzForm bt in bzFormsList){
+  for(BzForm bt in BzModel.bzFormsList){
     bzFormStrings.add(bzFormStringer(context, bt));
   }
   return bzFormStrings;

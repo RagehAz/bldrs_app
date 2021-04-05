@@ -378,7 +378,7 @@ Future<FlyerModel> createNamedFlyersOps(BuildContext context, FlyerModel inputFl
   print('3- _picturesURLs created index 0 is : ${_picturesURLs[0]}');
 
   /// update slides with URLs
-  List<SlideModel> _updatedSlides = await replaceSlidesPicturesWithNewURLs(_picturesURLs, inputFlyerModel.slides);
+  List<SlideModel> _updatedSlides = await SlideModel.replaceSlidesPicturesWithNewURLs(_picturesURLs, inputFlyerModel.slides);
 
   print('4- slides updated with URLs');
 
@@ -419,7 +419,7 @@ Future<FlyerModel> createNamedFlyersOps(BuildContext context, FlyerModel inputFl
   print('6- flyer model added to flyers/$_flyerID');
 
   /// add new TinyFlyer in firestore
-  TinyFlyer _finalTinyFlyer = getTinyFlyerFromFlyerModel(_finalFlyerModel);
+  TinyFlyer _finalTinyFlyer = TinyFlyer.getTinyFlyerFromFlyerModel(_finalFlyerModel);
   await createFireStoreNamedDocument(
     context: context,
     collectionName: FireStoreCollection.tinyFlyers,
@@ -447,21 +447,21 @@ Future<FlyerModel> createNamedFlyersOps(BuildContext context, FlyerModel inputFl
     docName: _flyerID,
     subCollectionName: FireStoreCollection.subFlyerCounters,
     subDocName: FireStoreCollection.subFlyerCounters,
-    input: await cipherSlidesCounters(_updatedSlides),
+    input: await SlideModel.cipherSlidesCounters(_updatedSlides),
   );
 
   print('9- flyer counters added');
 
   /// add nano flyer to bz document in 'tinyFlyers' field
   List<NanoFlyer> _bzNanoFlyers = bzModel.bzFlyers;
-  NanoFlyer _nanoFlyer = getNanoFlyerFromFlyerModel(_finalFlyerModel);
+  NanoFlyer _nanoFlyer = NanoFlyer.getNanoFlyerFromFlyerModel(_finalFlyerModel);
   _bzNanoFlyers.add(_nanoFlyer);
   await updateFieldOnFirestore(
     context: context,
     collectionName: FireStoreCollection.bzz,
     documentName: _finalFlyerModel.tinyBz.bzID,
     field: 'bzFlyers',
-    input: cipherNanoFlyers(_bzNanoFlyers),
+    input: NanoFlyer.cipherNanoFlyers(_bzNanoFlyers),
   );
 
   print('10- tiny flyer added to bzID in bzz/${_finalFlyerModel.tinyBz.bzID}');

@@ -93,7 +93,7 @@ Widget userModelBuilder({
           } else {
 
             Map<String, dynamic> _map = snapshot.data;
-            UserModel userModel = decipherUserMap(_map);
+            UserModel userModel = UserModel.decipherUserMap(_map);
 
             return builder(context, userModel);
           }
@@ -153,7 +153,7 @@ Widget bzModelBuilder({
           } else {
 
             Map<String, dynamic> _map = snapshot.data;
-            BzModel bzModel = decipherBzMap(_map['bzID'], _map);
+            BzModel bzModel = BzModel.decipherBzMap(_map['bzID'], _map);
 
             return builder(context, bzModel);
           }
@@ -263,7 +263,7 @@ Widget flyerModelBuilder({
           } else {
 
             Map<String, dynamic> _map = snapshot.data;
-            FlyerModel flyerModel = decipherFlyerMap(_map);
+            FlyerModel flyerModel = FlyerModel.decipherFlyerMap(_map);
 
             return builder(context, flyerModel);
           }

@@ -102,6 +102,16 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
                           String _provinceName = _countryPro.getProvinceNameWithCurrentLanguageIfPossible(context, _userModel.province);
                           String _areaName = _countryPro.getAreaNameWithCurrentLanguageIfPossible(context, _userModel.area);
 
+                          List<ContactModel> _stringyContacts = ContactModel.getContactsWithStringsFromContacts(_userModel.contacts);
+                          List<String> _stringyContactsValues = ContactModel.getListOfValuesFromContactsModelsList(_stringyContacts);
+                          List<String> _stringyContactsIcons = ContactModel.getListOfIconzFromContactsModelsList(_stringyContacts);
+
+                          List<ContactModel> _socialContacts = ContactModel.getSocialMediaContactsFromContacts(_userModel.contacts);
+                          List<String> _socialContactsValues = ContactModel.getListOfValuesFromContactsModelsList(_socialContacts);
+                          List<String> _socialContactsIcons = ContactModel.getListOfIconzFromContactsModelsList(_socialContacts);
+
+                          // dynamic bobo = ContactModel.getListOfValuesFromContactsModelsList(_stringyContacts);
+
                           return
                             Column(
                               mainAxisAlignment: MainAxisAlignment.start,
@@ -205,24 +215,24 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
                                             DreamWrapper(
                                               boxWidth: 250,
                                               boxHeight: 100,
-                                              verses: getListOfValuesFromContactsModelsList(getContactsWithStringsFromContacts(_userModel.contacts)),
-                                              icons: getListOfIconzFromContactsModelsList(getContactsWithStringsFromContacts(_userModel.contacts)),
+                                              verses: _stringyContactsValues,
+                                              icons: _stringyContactsIcons,
                                               buttonHeight: 20,
                                               spacing: 2.5,
                                               margins: EdgeInsets.all(2.5),
-                                              onTap: () => superDialog(context, '${getListOfValuesFromContactsModelsList(getContactsWithStringsFromContacts(_userModel.contacts))}', 'Contact'),
+                                              onTap: () => superDialog(context, '$_stringyContactsValues', 'Contact'),
                                             ),
 
                                             _titleVerse('Social Media Contacts'),
                                             DreamWrapper(
                                               boxWidth: 250,
                                               boxHeight: 100,
-                                              verses: getListOfValuesFromContactsModelsList(getSocialMediaContactsFromContacts(_userModel.contacts)),
-                                              icons: getListOfIconzFromContactsModelsList(getSocialMediaContactsFromContacts(_userModel.contacts)),
+                                              verses: _socialContactsValues,
+                                              icons: _socialContactsIcons,
                                               buttonHeight: 20,
                                               spacing: 2.5,
                                               margins: EdgeInsets.all(2.5),
-                                              onTap: () => superDialog(context, '${getListOfValuesFromContactsModelsList(getSocialMediaContactsFromContacts(_userModel.contacts))}', 'Contact'),
+                                              onTap: () => superDialog(context, '$_socialContactsValues', 'Contact'),
                                             ),
 
                                           ],

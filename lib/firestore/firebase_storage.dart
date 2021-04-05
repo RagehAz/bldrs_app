@@ -71,7 +71,7 @@ Future<List<String>> savePicturesToFireStorageAndGetListOfURL(BuildContext conte
         context: context,
         inputFile: slide.picture,
         picType: PicType.slideHighRes,
-        fileName: generateSlideID(flyerID, slide.slideIndex),
+        fileName: SlideModel.generateSlideID(flyerID, slide.slideIndex),
     );
 
     _picturesURLs.add(_picURL);
