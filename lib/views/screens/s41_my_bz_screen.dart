@@ -248,7 +248,7 @@ class _MyBzScreenState extends State<MyBzScreen> {
 
                               Header(
                                 tinyBz: TinyBz.getTinyBzFromBzModel(_bzModel),
-                                tinyAuthor: getTinyAuthorFromAuthorModel(_bzModel.bzAuthors[0] ?? null),
+                                tinyAuthor: AuthorModel.getTinyAuthorFromAuthorModel(_bzModel.bzAuthors[0] ?? null),
                                 flyerShowsAuthor: true,
                                 followIsOn: false,
                                 flyerZoneWidth: _flyerZoneWidth,

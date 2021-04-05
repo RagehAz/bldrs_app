@@ -1,4 +1,7 @@
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+import 'package:bldrs/models/tiny_models/tiny_bz.dart';
+import 'package:flutter/foundation.dart';
+
 class FollowModel{
    final String followID;
    final String userID;
@@ -47,5 +50,30 @@ int cipherFollowState (FollowState followState){
   }
 }
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+// -----------------------------------------------------------------------------
+class FollowedBzz {
+  final String userID;
+  final List<TinyBz> followedBz;
+
+  FollowedBzz({
+    @required this.userID,
+    @required this.followedBz,
+  });
+  Map<String, dynamic> toMap(){
+    return {
+      'userID' : userID,
+      'followedBz' : TinyBz.cipherTinyBzzModels(followedBz),
+    };
+  }
+
+  // -----------------------------------------------------------------------------
+  static FollowedBzz decipherFollowedBzzMaps(Map<String, dynamic> map){
+    return FollowedBzz(
+      userID : map['userID'],
+      followedBz : map['followedBz'],
+    );
+  }
+
+}
 
 

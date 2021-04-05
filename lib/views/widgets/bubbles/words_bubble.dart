@@ -12,7 +12,7 @@ class WordsBubble extends StatelessWidget {
   final Function onTap;
   final bool bubbles;
   final Color bubbleColor;
-  final List<String> selectedWords;
+  final List<dynamic> selectedWords;
 
   WordsBubble({
     @required this.title,

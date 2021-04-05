@@ -1,8 +1,10 @@
+import 'package:bldrs/controllers/drafters/streamerz.dart';
 import 'package:bldrs/controllers/router/route_names.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
+import 'package:bldrs/views/widgets/flyer/aflyer.dart';
 import 'package:bldrs/views/widgets/flyer/flyer.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
@@ -38,18 +40,32 @@ class FlyerScreen extends StatelessWidget {
       layoutWidget: Center(
         child:
 
-        ChangeNotifierProvider.value(
-          value: _flyer,
-          child: ChangeNotifierProvider.value(
-            value: _bz,
-            child: Flyer(
-              flyerSizeFactor: 1,// golden factor 0.97,
-              initialSlide: 0,
-              slidingIsOn: true,
-              tappingFlyerZone: (){},
+        // ChangeNotifierProvider.value(
+        //   value: _flyer,
+        //   child: ChangeNotifierProvider.value(
+        //     value: _bz,
+        //     child: Flyer(
+        //       flyerSizeFactor: 1,// golden factor 0.97,
+        //       initialSlide: 0,
+        //       slidingIsOn: true,
+        //       tappingFlyerZone: (){},
+        //
+        //     ),
+        //   ),
+        // ),
 
-            ),
-          ),
+        flyerModelBuilder(
+          context: context,
+          flyerID : _flyerID,
+          flyerSizeFactor: 1,
+          builder: (ctx, flyerModel){
+            return
+                AFlyer(
+                    flyer: flyerModel,
+                    flyerSizeFactor: 1,
+                );
+          }
+
         ),
 
       ),

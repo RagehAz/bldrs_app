@@ -323,13 +323,13 @@ Future<void> deleteBzDocument(BzModel bzModel) async {
 // ---------------------------------------------------------------------------
   FlyerModel _flyerModelFromSnapshot(DocumentSnapshot doc){
     var _map = doc.data();
-    FlyerModel _flyerModel = decipherFlyerMap(_map);
+    FlyerModel _flyerModel = FlyerModel.decipherFlyerMap(_map);
     return _flyerModel;
   }
 // ---------------------------------------------------------------------------
   BzModel _bzModelFromSnapshot(DocumentSnapshot doc){
   var _map = doc.data();
-  BzModel _bzModel = decipherBzMap(_map['bzID'], _map);
+  BzModel _bzModel = BzModel.decipherBzMap(_map['bzID'], _map);
   return _bzModel;
   }
 // ---------------------------------------------------------------------------
@@ -348,7 +348,7 @@ Future<void> deleteBzDocument(BzModel bzModel) async {
 
           /// READ data from cloud Firestore bzz collection
           List<QueryDocumentSnapshot> _fireStoreBzzMaps = await getFireStoreCollectionMaps(FireStoreCollection.bzz);
-          final List<BzModel> _fireStoreBzzModels = decipherBzzMapsFromFireStore(_fireStoreBzzMaps);
+          final List<BzModel> _fireStoreBzzModels = BzModel.decipherBzzMapsFromFireStore(_fireStoreBzzMaps);
 
           /// TASK : BOOMMM : should be _loadedBzz = _loadedBzzFromDB,, but this bom bom crash crash
           // _loadedBzz.addAll(_fireStoreBzzModels);
@@ -356,7 +356,7 @@ Future<void> deleteBzDocument(BzModel bzModel) async {
 
           /// READ data from cloud Firestore flyers collection
           List<QueryDocumentSnapshot> _fireStoreFlyersMaps = await getFireStoreCollectionMaps(FireStoreCollection.flyers);
-          final List<FlyerModel> _fireStoreFlyersModels = decipherFlyersMapsFromFireStore(_fireStoreFlyersMaps);
+          final List<FlyerModel> _fireStoreFlyersModels = FlyerModel.decipherFlyersMapsFromFireStore(_fireStoreFlyersMaps);
 
          /// TASK : after migrating local flyers to firestore, _loadedFlyers should = _fireStoreFlyersModels;
          //  _loadedFlyers.addAll(_fireStoreFlyersModels);
@@ -387,7 +387,7 @@ Future<void> deleteBzDocument(BzModel bzModel) async {
 
           /// READ data from cloud Firestore flyers collection
           List<dynamic> _fireStoreTinyFlyersMaps = await getFireStoreCollectionMaps(FireStoreCollection.tinyFlyers);
-          final List<TinyFlyer> _fireStoreTinyFlyersModels = decipherTinyFlyersMaps(_fireStoreTinyFlyersMaps);
+          final List<TinyFlyer> _fireStoreTinyFlyersModels = TinyFlyer.decipherTinyFlyersMaps(_fireStoreTinyFlyersMaps);
 
           /// TASK : after migrating local flyers to firestore, _loadedTinyFlyers = _fireStoreTinyFlyersModels;;
           // _loadedTinyFlyers.addAll(_fireStoreTinyFlyersModels);
