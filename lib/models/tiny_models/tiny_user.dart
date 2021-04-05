@@ -18,39 +18,39 @@ class TinyUser {
     @required this.userStatus,
     @required this.contact,
   });
-
+// -----------------------------------------------------------------------------
   Map<String, dynamic> toMap(){
     return {
       'userID' : userID,
       'name' : name,
       'title' : title,
       'pic' : pic,
-      'userStatus' : cipherUserStatus(userStatus),
+      'userStatus' : UserModel.cipherUserStatus(userStatus),
       'contact' : contact,
     };
   }
-}
 // -----------------------------------------------------------------------------
-TinyUser decipherTinyUserMap(Map<String, dynamic> map){
-  return
-    TinyUser(
-      userID: map['userID'],
-      name: map['name'],
-      title: map['title'],
-      pic: map['pic'],
-      userStatus: decipherUserStatus(map['userStatus']),
-      contact: map['contact'],
+  static TinyUser decipherTinyUserMap(Map<String, dynamic> map){
+    return
+      TinyUser(
+        userID: map['userID'],
+        name: map['name'],
+        title: map['title'],
+        pic: map['pic'],
+        userStatus: UserModel.decipherUserStatus(map['userStatus']),
+        contact: map['contact'],
+      );
+  }
+// -----------------------------------------------------------------------------
+  static TinyUser getTinyUserFromUserModel(UserModel userModel){
+    return TinyUser(
+        userID: userModel.userID,
+        name: userModel.name,
+        title: userModel.title,
+        pic: userModel.pic,
+        userStatus: userModel.userStatus,
+        contact: ContactModel.getAContactValueFromContacts(userModel.contacts, ContactType.Phone) ?? ContactModel.getAContactValueFromContacts(userModel.contacts, ContactType.Email)
     );
-}
+  }
 // -----------------------------------------------------------------------------
-TinyUser getTinyUserFromUserModel(UserModel userModel){
-  return TinyUser(
-    userID: userModel.userID,
-    name: userModel.name,
-    title: userModel.title,
-    pic: userModel.pic,
-    userStatus: userModel.userStatus,
-    contact: getAContactValueFromContacts(userModel.contacts, ContactType.Phone) ?? getAContactValueFromContacts(userModel.contacts, ContactType.Email)
-  );
 }
-// -----------------------------------------------------------------------------

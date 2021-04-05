@@ -3,6 +3,10 @@ import 'package:bldrs/views/widgets/flyer/grids/flyers_grid.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 
+/// TASK : if flyer is deleted from database, its ID will still remain in user's saved flyers
+/// then we need to handle this situation
+
+
 class SavedFlyersScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

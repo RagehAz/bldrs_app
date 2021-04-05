@@ -150,7 +150,7 @@ String getFileNameFromAsset(String asset){
 ///   architecture : 1 ,
 ///   decor : 2 ,
 /// }
-Future<Map<String, dynamic>> getKeyWordsMap(List<String> list) async {
+Future<Map<String, dynamic>> getKeyWordsMap(List<dynamic> list) async {
   // old solution
   // Map<String, dynamic> _result = { for (var keyword in list) keyword : true };
 

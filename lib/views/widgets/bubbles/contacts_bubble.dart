@@ -29,8 +29,8 @@ class ContactsBubble extends StatelessWidget {
     double abPadding = Ratioz.ddAppBarPadding;
     double contactBoxHeight = 35;
 
-    List<ContactModel> contactsWithStrings = getContactsWithStringsFromContacts(contacts);
-    List<ContactModel> socialMediaContacts = getSocialMediaContactsFromContacts(contacts);
+    List<ContactModel> contactsWithStrings = ContactModel.getContactsWithStringsFromContacts(contacts);
+    List<ContactModel> socialMediaContacts = ContactModel.getSocialMediaContactsFromContacts(contacts);
 
     return InPyramidsBubble(
       centered: false,

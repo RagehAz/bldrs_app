@@ -58,7 +58,7 @@ class NavBar extends StatelessWidget {
 }
 // ----------------------------------------------------------------------------
   int _calculateNumberOfButtons(UserModel userModel){
-    int _numberOfButtons = userIsAuthor(userModel) ? 4 : 3;
+    int _numberOfButtons = UserModel.userIsAuthor(userModel) ? 4 : 3;
     return _numberOfButtons;
   }
 // ----------------------------------------------------------------------------
@@ -255,7 +255,7 @@ class NavBar extends StatelessWidget {
                                  _spacer,
 
                                  // --- BZZ BUTTON
-                                  if (userIsAuthor(userModel))
+                                  if (UserModel.userIsAuthor(userModel))
                                  BzzButton(
                                    width: _buttonWidth,
                                    circleWidth: _circleWidth,

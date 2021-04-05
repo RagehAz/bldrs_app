@@ -20,19 +20,19 @@ class UserProvider{
       return UserModel(
         userID : doc.data()['userID'] ?? '',
         joinedAt : decipherDateTimeString(doc.data()['joinedAt'] ?? ''),
-        userStatus : decipherUserStatus(doc.data()['userStatus']?? 1),
+        userStatus : UserModel.decipherUserStatus(doc.data()['userStatus']?? 1),
         // -------------------------
         name : doc.data()['name'] ?? '',
         pic : doc.data()['pic'] ?? '',
         title : doc.data()['title'] ?? '',
         company : doc.data()['company'] ?? '',
-        gender : decipherGender(doc.data()['gender'] ?? 2),
+        gender : UserModel.decipherGender(doc.data()['gender'] ?? 2),
         country : doc.data()['country'] ?? '',
         province :  doc.data()['province'] ?? '',
         area :  doc.data()['area'] ?? '',
         language : doc.data()['language'] ?? 'en',
         position : doc.data()['position'] ?? GeoPoint(0, 0),
-        contacts : decipherContactsMaps(doc.data()['contacts'] ?? []),
+        contacts : ContactModel.decipherContactsMaps(doc.data()['contacts'] ?? []),
         // -------------------------
         myBzzIDs: doc.data()['myBzzIDs'] ?? [],
       );
@@ -50,19 +50,19 @@ class UserProvider{
       return UserModel(
         userID : _doc['userID'] ?? '',
         joinedAt : decipherDateTimeString(_doc['joinedAt'] ?? ''),
-        userStatus : decipherUserStatus(_doc['userStatus']?? 1),
+        userStatus : UserModel.decipherUserStatus(_doc['userStatus']?? 1),
         // -------------------------
         name : _doc['name'] ?? '',
         pic : _doc['pic'] ?? '',
         title : _doc['title'] ?? '',
         company : _doc['company'] ?? '',
-        gender : decipherGender(_doc['gender'] ?? 2),
+        gender : UserModel.decipherGender(_doc['gender'] ?? 2),
         country : _doc['country'] ?? '',
         province : _doc['province'] ?? '',
         area : _doc['area'] ?? '',
         language : _doc['language'] ?? 'en',
         position : _doc['position'] ?? GeoPoint(0, 0),
-        contacts : decipherContactsMaps(_doc['contacts'] ?? []),
+        contacts : ContactModel.decipherContactsMaps(_doc['contacts'] ?? []),
         // -------------------------
         myBzzIDs: _myBzzIDs ?? [],
       );
@@ -92,7 +92,7 @@ Future<UserModel> getUserModel(String userID) async {
     collectionName: FireStoreCollection.users,
     documentName: userID,
   );
-  UserModel _userModel = decipherUserMap(_userMap);
+  UserModel _userModel = UserModel.decipherUserMap(_userMap);
   return _userModel;
 }
 // ---------------------------------------------------------------------------

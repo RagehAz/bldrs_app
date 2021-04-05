@@ -123,7 +123,7 @@ class _ZonesManagerScreenState extends State<ZonesManagerScreen> {
                           stream: _countriesList,
                           builder: (ctx, streamSnapshots){
                             List<dynamic> _countriesMaps = streamSnapshots?.data?.docs;
-                            List<Country> _countries = decipherCountriesMaps(_countriesMaps);
+                            List<Country> _countries = Country.decipherCountriesMaps(_countriesMaps);
 
                             if (connectionIsWaiting(streamSnapshots)){
                               return Loading(loading: _loading,);

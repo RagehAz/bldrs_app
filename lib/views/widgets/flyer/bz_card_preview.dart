@@ -77,7 +77,7 @@ class _BzCardPreviewState extends State<BzCardPreview> {
 
         Header(
           tinyBz: TinyBz.getTinyBzFromBzModel(widget.bz),
-          tinyAuthor: getTinyAuthorFromAuthorModel(widget.author),
+          tinyAuthor: AuthorModel.getTinyAuthorFromAuthorModel(widget.author),
           flyerShowsAuthor: true,
           followIsOn: false,
           flyerZoneWidth: superFlyerZoneWidth(context, widget.flyerSizeFactor),

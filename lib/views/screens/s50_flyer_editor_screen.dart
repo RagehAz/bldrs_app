@@ -81,7 +81,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
   // -------------------------
   FlyerType _currentFlyerType;
   FlyerState _currentFlyerState;
-  List<String> _currentKeywords;
+  List<dynamic> _currentKeywords;
   bool _currentFlyerShowsAuthor;
   String _currentFlyerURL; // no need for this
   // -------------------------
@@ -146,13 +146,13 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
   // ----------------------------------------------------------------------
   FlyerModel _createTempEmptyFlyer(){
 
-    AuthorModel _author = getAuthorFromBzByAuthorID(_bz, superUserID());
-    TinyUser _tinyAuthor = getTinyAuthorFromAuthorModel(_author);
+    AuthorModel _author = AuthorModel.getAuthorFromBzByAuthorID(_bz, superUserID());
+    TinyUser _tinyAuthor = AuthorModel.getTinyAuthorFromAuthorModel(_author);
 
     return new FlyerModel(
     flyerID : '...',
     // -------------------------
-    flyerType : concludeFlyerType(_bz.bzType),
+    flyerType : FlyerModel.concludeFlyerType(_bz.bzType),
     flyerState : FlyerState.Draft,
     keyWords : new List(),
     flyerShowsAuthor : true,
@@ -425,8 +425,8 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
           List<SlideModel> _slides = await processSlides(_picturesURLs, _currentSlides, _titleControllers);
 
           /// create tiny author model from bz.authors
-          AuthorModel _author = getAuthorFromBzByAuthorID(_bz, superUserID());
-          TinyUser _tinyAuthor = getTinyAuthorFromAuthorModel(_author);
+          AuthorModel _author = AuthorModel.getAuthorFromBzByAuthorID(_bz, superUserID());
+          TinyUser _tinyAuthor = AuthorModel.getTinyAuthorFromAuthorModel(_author);
 
           /// 3 - create FlyerModel
           FlyerModel _newFlyerModel = FlyerModel(
@@ -686,8 +686,8 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
       List<SlideModel> _slides = await _processNewSlides(_currentSlides, _titleControllers);
 
       /// create tiny author model from bz.authors
-      AuthorModel _author = getAuthorFromBzByAuthorID(_bz, superUserID());
-      TinyUser _tinyAuthor = getTinyAuthorFromAuthorModel(_author);
+      AuthorModel _author = AuthorModel.getAuthorFromBzByAuthorID(_bz, superUserID());
+      TinyUser _tinyAuthor = AuthorModel.getTinyAuthorFromAuthorModel(_author);
 
       ///create FlyerModel
       FlyerModel _newFlyerModel = FlyerModel(
@@ -723,7 +723,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
 
       /// add the result final Tinyflyer to local list and notifyListeners
       /// TASK : should be TinyFlyer not Flyer
-      _prof.addTinyFlyerToLocalList(getTinyFlyerFromFlyerModel(_uploadedFlyerModel));
+      _prof.addTinyFlyerToLocalList(TinyFlyer.getTinyFlyerFromFlyerModel(_uploadedFlyerModel));
 
       _triggerLoading();
 
@@ -735,8 +735,8 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
   @override
   Widget build(BuildContext context) {
     final AuthorModel _author = widget.firstTimer ?
-    getAuthorFromBzByAuthorID(_bz, superUserID()) :
-    getAuthorFromBzByAuthorID(_bz, _flyer.tinyAuthor.userID);
+    AuthorModel.getAuthorFromBzByAuthorID(_bz, superUserID()) :
+    AuthorModel.getAuthorFromBzByAuthorID(_bz, _flyer.tinyAuthor.userID);
     // ----------------------------------------------------------------------
     final double _flyerSizeFactor = 0.8;
     final double _flyerZoneWidth = superFlyerZoneWidth(context, _flyerSizeFactor);
@@ -830,7 +830,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
 
                       Header(
                         tinyBz: TinyBz.getTinyBzFromBzModel(_bz),
-                        tinyAuthor: getTinyAuthorFromAuthorModel(_author),
+                        tinyAuthor: AuthorModel.getTinyAuthorFromAuthorModel(_author),
                         flyerShowsAuthor: true,
                         followIsOn: false,
                         flyerZoneWidth: superFlyerZoneWidth(context, _flyerSizeFactor),
