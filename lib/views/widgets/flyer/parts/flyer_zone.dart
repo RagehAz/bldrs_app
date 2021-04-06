@@ -73,12 +73,6 @@ class FlyerZone extends StatelessWidget {
           alignment: Alignment.topCenter,
           decoration: BoxDecoration(
               borderRadius: _flyerBorders,
-              gradient: RadialGradient(
-                colors: <Color>[Colorz.WhiteAir, Colorz.Nothing],
-                stops: <double>[0, 0.3],
-                center: Alignment.center,
-                radius:  0.18,
-              ),
               boxShadow: <BoxShadow>[
                 CustomBoxShadow(
                     color: _flyerShadowColor,

@@ -16,7 +16,7 @@ class AuthorLabel extends StatelessWidget {
   final double flyerZoneWidth;
   final TinyUser tinyAuthor;
   final TinyBz tinyBz;
-  final bool bzPageIsOn;
+  final bool showLabel;
   final int authorGalleryCount;
   final bool labelIsOn;
   final Function tappingLabel;
@@ -25,7 +25,7 @@ class AuthorLabel extends StatelessWidget {
     @required this.flyerZoneWidth,
     @required this.tinyAuthor,
     @required this.tinyBz,
-    @required this.bzPageIsOn,
+    @required this.showLabel,
     this.authorGalleryCount,
     this.labelIsOn = false,
     this.tappingLabel,
@@ -61,7 +61,7 @@ class AuthorLabel extends StatelessWidget {
     int _bzGalleryCount = tinyBz.bzTotalFlyers;
     String _followersCounter =
     (authorGalleryCount == 0 && _followersCount == 0) || (authorGalleryCount == null && _followersCount == null) ? '' :
-    bzPageIsOn == true ?
+    showLabel == true ?
         '${separateKilos(authorGalleryCount)} ${Wordz.flyers(context)}' :
         '${counterCaliber(context, _followersCount)} ${Wordz.followers(context)} . ${counterCaliber(context, _bzGalleryCount)} ${Wordz.flyers(context)}';
     // === === === === === === === === === === === === === === === === === === ===
@@ -70,14 +70,14 @@ class AuthorLabel extends StatelessWidget {
 
     return
       GestureDetector(
-        onTap: bzPageIsOn == true ? ()=> tappingLabel(tinyAuthor.userID) : null,
+        onTap: showLabel == true ? ()=> tappingLabel(tinyAuthor.userID) : null,
         child:
         Container(
             height: _authorDataHeight,
             width: labelIsOn == true? _authorDataWidth : _authorDataHeight,
-            margin: bzPageIsOn == true ? EdgeInsets.symmetric(horizontal : flyerZoneWidth * 0.01) : EdgeInsets.all(0),
+            margin: showLabel == true ? EdgeInsets.symmetric(horizontal : flyerZoneWidth * 0.01) : EdgeInsets.all(0),
             decoration: BoxDecoration(
-                color: bzPageIsOn == false ? Colorz.Nothing : Colorz.WhiteGlass,
+                color: showLabel == false ? Colorz.Nothing : Colorz.WhiteGlass,
                 borderRadius: superBorderRadius(context, _authorImageCorners, 0, _authorImageCorners, _authorImageCorners)
             ),
 

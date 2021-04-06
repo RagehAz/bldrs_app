@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/drafters/colorizers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/scrollers.dart';
@@ -19,6 +20,7 @@ class Header extends StatelessWidget {
   final Function tappingHeader;
   final Function tappingFollow;
   final Function tappingUnfollow;
+  final bool stripBlurIsOn;
 
   Header({
     this.tinyBz,
@@ -30,6 +32,7 @@ class Header extends StatelessWidget {
     @required this.tappingHeader,
     @required this.tappingFollow,
     @required this.tappingUnfollow,
+    this.stripBlurIsOn = false,
   });
 
   @override
@@ -60,6 +63,14 @@ class Header extends StatelessWidget {
                 child: Stack(
                   children: <Widget>[
 
+                    // if (stripBlurIsOn)
+                    BlurLayer(
+                      height: superHeaderHeight(bzPageIsOn, flyerZoneWidth),
+                      width: flyerZoneWidth,
+                      borders: superHeaderStripCorners(context, bzPageIsOn, flyerZoneWidth),
+                    ),
+
+
                     // --- HEADER SHADOW
                     HeaderShadow(
                       flyerZoneWidth: flyerZoneWidth,
@@ -76,6 +87,7 @@ class Header extends StatelessWidget {
                       followIsOn: false, // TASK : fix following issue
                       tappingHeader: tappingHeader,
                       tappingFollow: tappingFollow,
+                      stripBlurIsOn: stripBlurIsOn,
                     ),
 
                     // --- HEADER'S MAX STATE'S HEADLINE : BZ.NAME AND BZ.LOCALE
@@ -90,7 +102,7 @@ class Header extends StatelessWidget {
               ),
 
               // 3ayzeen zorar follow gowwa el bzPage
-              bzPageIsOn == false ? Container() :
+              if (bzPageIsOn)
               MaxHeader(
                 flyerZoneWidth: flyerZoneWidth,
                 bzPageIsOn: bzPageIsOn,

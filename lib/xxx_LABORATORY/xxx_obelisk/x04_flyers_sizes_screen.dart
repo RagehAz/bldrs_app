@@ -61,7 +61,11 @@ class _FlyersSizesScreenState extends State<FlyersSizesScreen> {
 
         _triggerLoading();
         // -----------------------------------------------------------------------------
-        dynamic _userMap = await getFireStoreDocumentMap(collectionName: FireStoreCollection.users, documentName: superUserID());
+        dynamic _userMap = await getFireStoreDocumentMap(
+          context: context,
+            collectionName: FireStoreCollection.users,
+            documentName: superUserID(),
+        );
         UserModel _userModel = UserModel.decipherUserMap(_userMap);
 
         /// uploading flyers 27, 28, 29
