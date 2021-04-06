@@ -136,7 +136,7 @@ class MainLayout extends StatelessWidget {
         },
       ),
 
-      if (pyramids != null && deviceIsIOS() == true)
+      if (pyramids != null && DeviceChecker.deviceIsIOS() == true)
         Positioned(
             bottom: 0,
             left: 0,

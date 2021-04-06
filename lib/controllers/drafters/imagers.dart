@@ -27,17 +27,17 @@ DecorationImage superImage(String picture, BoxFit boxFit){
 // === === === === === === === === === === === === === === === === === === ===
 Widget superImageWidget(dynamic pic){
   return
-    objectIsJPGorPNG(pic)?
+    ObjectChecker.objectIsJPGorPNG(pic)?
     Image.asset(pic, fit: BoxFit.cover,)
         :
-    objectIsSVG(pic)?
+    ObjectChecker.objectIsSVG(pic)?
     WebsafeSvg.asset(pic, fit: BoxFit.cover)
         :
     /// max user NetworkImage(userPic), to try it later
-    objectIsURL(pic)?
+    ObjectChecker.objectIsURL(pic)?
     Image.network(pic, fit: BoxFit.cover,)
         :
-    objectIsFile(pic)?
+    ObjectChecker.objectIsFile(pic)?
     Image.file(
         pic,
         fit: BoxFit.cover,
@@ -187,7 +187,7 @@ Future < ui.Image > loadImage(List < int > img) async {
 // === === === === === === === === === === === === === === === === === === ===
 Future<File> getImageFileFromAssets(BuildContext context, String inputAsset) async {
   File _file;
-  String asset = objectIsSVG(inputAsset) ? Iconz.DumBusinessLogo : inputAsset;
+  String asset = ObjectChecker.objectIsSVG(inputAsset) ? Iconz.DumBusinessLogo : inputAsset;
   await tryAndCatch(
       context: context,
       functions: () async {

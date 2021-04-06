@@ -137,11 +137,3 @@ class Borderers{
 // === === === === === === === === === === === === === === === === === === ===
 }
 
-
-// context:
-// enTopLeft:
-// enBottomLeft:
-// enBottomRight:
-// enTopRight:
-
-

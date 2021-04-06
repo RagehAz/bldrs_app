@@ -67,10 +67,10 @@ class SuperBox extends StatelessWidget {
     double svgGraphicWidth = height * sizeFactor;
     double jpgGraphicWidth = height * sizeFactor;
     double graphicWidth = icon == null ? 0 :
-        fileExtensionOf(icon) == 'svg' ? svgGraphicWidth :
-        fileExtensionOf(icon) == 'jpg' ||
-        fileExtensionOf(icon) == 'jpeg' ||
-        fileExtensionOf(icon) == 'png' ? jpgGraphicWidth : height;
+    ObjectChecker.fileExtensionOf(icon) == 'svg' ? svgGraphicWidth :
+    ObjectChecker.fileExtensionOf(icon) == 'jpg' ||
+        ObjectChecker.fileExtensionOf(icon) == 'jpeg' ||
+        ObjectChecker.fileExtensionOf(icon) == 'png' ? jpgGraphicWidth : height;
 
     double iconMargin = verse == null || icon == null ? 0 : (height - graphicWidth)/2;
 
@@ -136,7 +136,7 @@ class SuperBox extends StatelessWidget {
                           icon == null || icon == '' ?
                           Container()
                               :
-                          fileExtensionOf(icon) == 'svg' ?
+                          ObjectChecker.fileExtensionOf(icon) == 'svg' ?
                           Padding(
                             padding: EdgeInsets.all(iconMargin),
                             child: ClipRRect(
@@ -144,7 +144,7 @@ class SuperBox extends StatelessWidget {
                                 child: WebsafeSvg.asset(icon, color: _iconColor, height: svgGraphicWidth, fit: BoxFit.cover)),
                           )
                               :
-                          fileExtensionOf(icon) == 'jpg' || fileExtensionOf(icon) == 'jpeg' || fileExtensionOf(icon) == 'png' ?
+                          ObjectChecker.fileExtensionOf(icon) == 'jpg' || ObjectChecker.fileExtensionOf(icon) == 'jpeg' || ObjectChecker.fileExtensionOf(icon) == 'png' ?
                           Container(
                             width: jpgGraphicWidth,
                             height: jpgGraphicWidth,
@@ -176,7 +176,7 @@ class SuperBox extends StatelessWidget {
                           ) : Container(),
 
                             // --- BUTTON BLACK LAYER IF GREYED OUT
-                            blackAndWhite == true && icon != null && fileExtensionOf(icon) != 'svg'?
+                            blackAndWhite == true && icon != null && ObjectChecker.fileExtensionOf(icon) != 'svg'?
                             Container(
                               height: jpgGraphicWidth,
                               width: jpgGraphicWidth,

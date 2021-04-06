@@ -200,7 +200,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
                                             _smallVerse('in [ $_areaName ] - [ $_provinceName ] - [ $_countryName ]'),
 
                                             _titleVerse('joined At'),
-                                            _smallVerse(dayMonthYearStringer(context, _userModel.joinedAt)),
+                                            _smallVerse(TextGenerator.dayMonthYearStringer(context, _userModel.joinedAt)),
 
                                             _titleVerse('preferred language'),
                                             _smallVerse(_userModel.language),

@@ -174,5 +174,11 @@ class AuthorModel{
     );
   }
 // -----------------------------------------------------------------------------
+  static TinyUser getTinyAuthorFromBzModel({BzModel bzModel, String authorID}){
+    AuthorModel _author = bzModel.bzAuthors.singleWhere((au) => au.userID == authorID, orElse: ()=> null);
+    TinyUser _tinyAuthor = getTinyAuthorFromAuthorModel(_author);
+    return _tinyAuthor;
+  }
+// -----------------------------------------------------------------------------
 
 }

@@ -173,7 +173,7 @@ class ContactModel{
 // ----------------------------------------------------------------------------
   static List<String> getListOfIconzFromContactsModelsList(List<ContactModel> contacts){
     List<String> icons = new List();
-    contacts.forEach((co) {icons.add(superContactIcon(co.contactType));});
+    contacts.forEach((co) {icons.add(Iconizer.superContactIcon(co.contactType));});
     return icons;
   }
 // ----------------------------------------------------------------------------

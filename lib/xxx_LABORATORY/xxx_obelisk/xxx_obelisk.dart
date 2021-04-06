@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:bldrs/controllers/drafters/streamerz.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
@@ -13,6 +14,7 @@ import 'package:bldrs/views/widgets/textings/the_golden_scroll.dart';
 import 'package:bldrs/xxx_LABORATORY/animations/animations_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/forms_and_inputs/popup.dart';
 import 'package:bldrs/xxx_LABORATORY/forms_and_inputs/form.dart';
+import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/new__mybz_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/text_field_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x03_font_test_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x08_earth_screen.dart';
@@ -115,6 +117,27 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
           ),
 
           LogoSlogan(),
+
+          userStreamBuilder(
+            context: context,
+            listen: false,
+            builder: (xxx, userModel){
+              return
+                tinyBzModelBuilder(
+                    context: context,
+                    bzID: 'br1',
+                    builder: (ctx, tinyBz){
+                      return
+                        oButton('New My Bz Screen', Iconz.Bz,
+                            NewMyBzScreen(
+                                tinyBz: tinyBz,
+                              userModel: userModel,
+                            )
+                        );
+                    }
+                );
+            }
+          ),
 
 
 

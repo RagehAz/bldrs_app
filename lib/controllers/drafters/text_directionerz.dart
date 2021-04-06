@@ -4,6 +4,12 @@ import 'package:flutter/material.dart';
 import 'text_checkers.dart';
 import 'text_manipulators.dart';
 // === === === === === === === === === === === === === === === === === === ===
+/// TASK : need to test this method to detect text direction
+// import 'package:intl/intl.dart' as international;
+// bool isRTL(String text) {
+//   return international.Bidi.detectRtlDirectionality(text);
+// }
+// === === === === === === === === === === === === === === === === === === ===
 bool appIsLeftToRight(BuildContext context){
   return Wordz.textDirection(context) == 'ltr' ? true : false;
 }

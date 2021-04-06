@@ -34,11 +34,12 @@ class WordsBubble extends StatelessWidget {
     return InPyramidsBubble(
       centered: false,
       bubbleColor: bubbleColor,
+      title: title,
       columnChildren: <Widget>[
 
-        InBubbleTitle(
-          title: title,
-        ),
+        // InBubbleTitle(
+        //   title: title,
+        // ),
 
         // --- STRINGS
         Wrap(

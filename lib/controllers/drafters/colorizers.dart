@@ -3,39 +3,54 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui';
 // === === === === === === === === === === === === === === === === === === ===
-Gradient superSlideGradient(){
-  Gradient slideGradient = LinearGradient(
-      begin: Alignment.topCenter,
-      end: Alignment.bottomCenter,
-      colors: <Color>[Colorz.BlackLingerie, Colorz.BlackNothing],
-      stops: <double>[0,0.90]
-  );
-  return slideGradient;
-}
+class Colorizer{
+  static Gradient superSlideGradient(){
+    Gradient slideGradient = LinearGradient(
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+        colors: <Color>[Colorz.BlackLingerie, Colorz.BlackNothing],
+        stops: <double>[0,0.90]
+    );
+    return slideGradient;
+  }
 // === === === === === === === === === === === === === === === === === === ===
-Gradient superHeaderStripGradient(Color color){
-  Gradient headerStripGradient = LinearGradient(
-      begin: Alignment.topCenter,
-      end: Alignment.bottomCenter,
-      colors: <Color>[Colorz.Nothing, color],
-      stops: <double>[0.3, 1]);
-return headerStripGradient;
-}
+  static Gradient superHeaderStripGradient(Color color){
+    Gradient headerStripGradient = LinearGradient(
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+        colors: <Color>[Colorz.Nothing, color],
+        stops: <double>[0.3, 1]);
+    return headerStripGradient;
+  }
 // === === === === === === === === === === === === === === === === === === ===
-Gradient superFollowBTGradient(){
-  Gradient followBTGradient = LinearGradient(
-      begin: Alignment.topCenter,
-      end: Alignment.bottomCenter,
-      colors: <Color>[Colorz.WhiteZircon, Colorz.Nothing],
-      stops: <double>[0, 0.5]
-  );
-return followBTGradient;
-}
+  static Gradient superFollowBTGradient(){
+    Gradient followBTGradient = LinearGradient(
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+        colors: <Color>[Colorz.WhiteZircon, Colorz.Nothing],
+        stops: <double>[0, 0.5]
+    );
+    return followBTGradient;
+  }
 // === === === === === === === === === === === === === === === === === === ===
-ImageFilter superBlur(bool trigger){
-  double blueValue = trigger == true ? 8 : 0;
-  ImageFilter blur = ImageFilter.blur(sigmaX: blueValue, sigmaY: blueValue);
-  return blur;
+  static ImageFilter superBlur(bool trigger){
+    double blueValue = trigger == true ? 8 : 0;
+    ImageFilter blur = ImageFilter.blur(sigmaX: blueValue, sigmaY: blueValue);
+    return blur;
+  }
+// === === === === === === === === === === === === === === === === === === ===
+  /// if i want to black and white a widget, put it as child in here
+  /// child: ColorFiltered(
+  ///     colorFilter: superDesaturation(blackAndWhite),
+  ///     child: ,
+  static ColorFilter superDesaturation(bool isItBlackAndWhite){
+    Color imageSaturationColor = isItBlackAndWhite == true ? Colorz.Grey : Colorz.Nothing;
+    return ColorFilter.mode(
+        imageSaturationColor,
+        BlendMode.saturation
+    );
+  }
+
 }
 // === === === === === === === === === === === === === === === === === === ===
 class BlurLayer extends StatelessWidget {
@@ -49,7 +64,7 @@ class BlurLayer extends StatelessWidget {
     this.blur = Ratioz.blur1,
     this.width = double.infinity,
     this.height = double.infinity,
-});
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -71,18 +86,5 @@ class BlurLayer extends StatelessWidget {
       ),
     );
   }
-}
-// === === === === === === === === === === === === === === === === === === ===
-/// if i want to black and white a widget, put it as child in here
-// child: ColorFiltered(
-//     colorFilter: superDesaturation(blackAndWhite),
-//     child: ,
-
-ColorFilter superDesaturation(bool isItBlackAndWhite){
-  Color imageSaturationColor = isItBlackAndWhite == true ? Colorz.Grey : Colorz.Nothing;
-  return ColorFilter.mode(
-      imageSaturationColor,
-      BlendMode.saturation
-  );
 }
 // === === === === === === === === === === === === === === === === === === ===
