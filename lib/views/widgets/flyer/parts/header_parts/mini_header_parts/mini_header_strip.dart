@@ -19,6 +19,7 @@ class MiniHeaderStrip extends StatelessWidget {
   final Function tappingHeader;
   final Function tappingFollow;
   final bool flyerShowsAuthor;
+  final bool stripBlurIsOn;
 
   MiniHeaderStrip({
     @required this.tinyBz,
@@ -29,20 +30,24 @@ class MiniHeaderStrip extends StatelessWidget {
     @required this.tappingHeader,
     @required this.tappingFollow,
     @required this.flyerShowsAuthor,
+    this.stripBlurIsOn = false,
   });
 
   @override
   Widget build(BuildContext context) {
     // ----------------------------------------------------------------------
+    double _stripHeight = superHeaderStripHeight(bzPageIsOn, flyerZoneWidth);
+    BorderRadius _stripBorders = superHeaderStripCorners(context, bzPageIsOn, flyerZoneWidth);
+
     return
       Align(
         alignment: Alignment.topCenter,
         child: Container( // there was Align(Alignment: Alignment.topCenter above this container ,, delete this comment if you see me again
-          height: superHeaderStripHeight(bzPageIsOn, flyerZoneWidth),
+          height: _stripHeight,
           width: flyerZoneWidth,
           padding: EdgeInsets.all(flyerZoneWidth * Ratioz.xxflyerHeaderMainPadding),
           decoration: BoxDecoration(
-            borderRadius: superHeaderStripCorners(context, bzPageIsOn, flyerZoneWidth),
+            borderRadius: _stripBorders,
             gradient: superHeaderStripGradient(Colorz.WhiteZircon),
           ),
 

@@ -141,13 +141,17 @@ class FlyerCRUD{
     return _finalFlyerModel;
 }
 // ----------------------------------------------------------------------
-  static Future<FlyerModel> readFlyerOps({String flyerID}) async {
-
-    dynamic _flyerMap = await getFireStoreDocumentMap(collectionName: FireStoreCollection.flyers, documentName: flyerID);
-    FlyerModel _flyer = FlyerModel.decipherFlyerMap(_flyerMap);
-
-    return _flyer;
-  }
+//   static Future<FlyerModel> readFlyerOps({BuildContext context, String flyerID}) async {
+//
+//     dynamic _flyerMap = await getFireStoreDocumentMap(
+//         context: context,
+//         collectionName: FireStoreCollection.flyers,
+//         documentName: flyerID
+//     );
+//     FlyerModel _flyer = FlyerModel.decipherFlyerMap(_flyerMap);
+//
+//     return _flyer;
+//   }
 // ----------------------------------------------------------------------
   Future<void> updateFlyerOps({BuildContext context, FlyerModel updatedFlyer, FlyerModel originalFlyer}) async {
     FlyerModel _finalFlyer = updatedFlyer;
@@ -188,7 +192,7 @@ class FlyerCRUD{
     if(NanoFlyer.nanoFlyersAreTheSame(_finalFlyer, originalFlyer) == false){
       NanoFlyer _finalNanoFlyer = NanoFlyer.getNanoFlyerFromFlyerModel(_finalFlyer);
 
-      BzModel _bzModel = await BzCRUD.readBzOps(bzID : _finalFlyer.tinyBz.bzID);
+      BzModel _bzModel = await BzCRUD.readBzOps(context: context, bzID : _finalFlyer.tinyBz.bzID);
       List<NanoFlyer> _finalBzFlyers = NanoFlyer.replaceNanoFlyerInAList(
           originalNanoFlyers :_bzModel.bzFlyers,
           finalNanoFlyer:  _finalNanoFlyer

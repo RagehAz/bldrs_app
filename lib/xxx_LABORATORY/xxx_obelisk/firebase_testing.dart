@@ -167,6 +167,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
           String _bzID = map['tinyBz']['bzID'];
 
           dynamic _tinyBzMap = await getFireStoreDocumentMap(
+            context: context,
             collectionName: FireStoreCollection.tinyBzz,
             documentName: _bzID,
           );

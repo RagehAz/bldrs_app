@@ -150,9 +150,13 @@ class BzCRUD{
     return _outputBz;
   }
 // ----------------------------------------------------------------------
-  static Future<BzModel> readBzOps({String bzID}) async {
+  static Future<BzModel> readBzOps({BuildContext context, String bzID}) async {
 
-    dynamic _bzMap = await getFireStoreDocumentMap(collectionName: FireStoreCollection.bzz, documentName: bzID);
+    dynamic _bzMap = await getFireStoreDocumentMap(
+        context: context,
+        collectionName: FireStoreCollection.bzz,
+        documentName: bzID
+    );
     BzModel _bz = BzModel.decipherBzMap(bzID, _bzMap);
 
     return _bz;

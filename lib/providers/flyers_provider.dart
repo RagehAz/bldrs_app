@@ -1,3 +1,4 @@
+import 'package:bldrs/firestore/auth/auth.dart';
 import 'package:bldrs/firestore/crud/user_ops.dart';
 import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/models/bz_model.dart';
@@ -172,10 +173,10 @@ return bzz;
     notifyListeners();
   }
 // ############################################################################
-  void updateBzModelInLocalList(BzModel modifiedBzModel){
-    int _indexOfOldBzModel = _loadedBzz.indexWhere((bz) => modifiedBzModel.bzID == bz.bzID);
-    _loadedBzz.removeAt(_indexOfOldBzModel);
-    _loadedBzz.insert(_indexOfOldBzModel, modifiedBzModel);
+  void updateTinyBzModelInLocalList(TinyBz modifiedTinyBzModel){
+    int _indexOfOldTinyBzModel = _loadedTinyBzz.indexWhere((bz) => modifiedTinyBzModel.bzID == bz.bzID);
+    _loadedTinyBzz.removeAt(_indexOfOldTinyBzModel);
+    _loadedTinyBzz.insert(_indexOfOldTinyBzModel, modifiedTinyBzModel);
     notifyListeners();
   }
 // ############################################################################
@@ -402,6 +403,37 @@ Future<void> deleteBzDocument(BzModel bzModel) async {
   }
 
 // ############################################################################
+
+  Future<List<TinyBz>> getUserTinyBzz(BuildContext context) async {
+  String _userID = superUserID();
+
+  Map<String, dynamic> _userMap = await getFireStoreDocumentMap(
+    context: context,
+    collectionName: FireStoreCollection.users,
+    documentName: _userID,
+  );
+
+  UserModel _userModel = UserModel.decipherUserMap(_userMap);
+
+  List<dynamic> _userBzzIDs = _userModel.myBzzIDs;
+
+  List<TinyBz> _userTinyBzz = new List();
+
+  for (var id in _userBzzIDs){
+    dynamic _tinyBzMap = await getFireStoreDocumentMap(
+      context: context,
+      collectionName: FireStoreCollection.tinyBzz,
+      documentName: id,
+    );
+
+    TinyBz _tinyBz = TinyBz.decipherTinyBzMap(_tinyBzMap);
+
+    _userTinyBzz.add(_tinyBz);
+  }
+
+  return _userTinyBzz;
+  }
+
 
 }
 // -----------------------------------------------------------------------------
