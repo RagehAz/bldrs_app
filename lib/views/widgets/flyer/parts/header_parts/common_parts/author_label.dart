@@ -197,7 +197,7 @@ class AuthorPic extends StatelessWidget {
             image:
             authorPic == null ? null
                 :
-            objectIsJPGorPNG(authorPic)?
+            ObjectChecker.objectIsJPGorPNG(authorPic)?
             DecorationImage(
                 image: AssetImage(authorPic),
                 fit: BoxFit.cover

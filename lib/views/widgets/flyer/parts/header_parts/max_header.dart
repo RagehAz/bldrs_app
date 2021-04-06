@@ -55,6 +55,7 @@ class MaxHeader extends StatelessWidget {
         return
           Column(
             children: <Widget>[
+
               // --- BUSINESS FIELD
               BzPgFields(
                 flyerZoneWidth: flyerZoneWidth,
@@ -66,7 +67,7 @@ class MaxHeader extends StatelessWidget {
               BzPgVerse(
                 flyerZoneWidth: flyerZoneWidth,
                 bzPageIsOn: bzPageIsOn,
-                verse: monthYearStringer(context,bz.bldrBirth),
+                verse: TextGenerator.monthYearStringer(context,bz.bldrBirth),
                 size: 2,
               ),
 

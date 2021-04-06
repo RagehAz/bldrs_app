@@ -15,6 +15,7 @@ class TileBubble extends StatelessWidget {
   final String secondLine;
   bool switchIsOn;
   final Function switching;
+  final bool iconIsBubble;
 
   TileBubble({
     @required this.verse,
@@ -26,6 +27,7 @@ class TileBubble extends StatelessWidget {
     this.secondLine,
     this.switchIsOn,
     this.switching,
+    this.iconIsBubble = true,
   });
 
   @override
@@ -60,6 +62,7 @@ class TileBubble extends StatelessWidget {
                   color: iconBoxColor,
                   iconRounded: false,
                   boxMargins: EdgeInsets.symmetric(horizontal: 0),
+                  bubble: iconIsBubble,
                 )
                     :
                 Padding(
@@ -129,55 +132,3 @@ class TileBubble extends StatelessWidget {
     );
   }
 }
-
-class BubbleTitle extends StatelessWidget {
-  final String verse;
-
-  BubbleTitle({
-    @required this.verse,
-  });
-  @override
-  Widget build(BuildContext context) {
-
-    double spacings = 10;
-
-    return Padding(
-      padding: EdgeInsets.only(bottom: spacings),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-
-          Flexible(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: spacings * 0.5),
-              child: SuperVerse(
-                verse: verse,
-                size: 2,
-                scaleFactor: 0.85,
-                maxLines: 2,
-                centered: false,
-
-              ),
-            ),
-          ),
-
-          Container(
-            width: spacings,
-            height: 30,
-          ),
-
-          // DreamBox(
-          //   height: 30,
-          //   icon: Iconz.Plus,
-          //   iconSizeFactor: 0.6,
-          //   verse: 'Add',
-          //   boxFunction: (){Navigator.pushNamed(context, Routez.AddBz);},
-          // )
-
-        ],
-      ),
-    );
-  }
-}
-

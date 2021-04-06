@@ -19,7 +19,6 @@ class Header extends StatelessWidget {
   final bool bzPageIsOn;
   final Function tappingHeader;
   final Function tappingFollow;
-  final Function tappingUnfollow;
   final bool stripBlurIsOn;
 
   Header({
@@ -31,7 +30,6 @@ class Header extends StatelessWidget {
     @required this.bzPageIsOn,
     @required this.tappingHeader,
     @required this.tappingFollow,
-    @required this.tappingUnfollow,
     this.stripBlurIsOn = false,
   });
 

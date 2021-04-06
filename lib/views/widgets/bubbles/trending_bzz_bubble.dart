@@ -29,9 +29,8 @@ class TrendingBzBubble extends StatelessWidget {
     return InPyramidsBubble(
       centered: true,
       bubbleColor: Colorz.WhiteAir,
+      title: 'Trending ${TextGenerator.bldrsTypePageTitle(context, bzType)}',
       columnChildren: <Widget>[
-
-        BubbleTitle(verse: 'Trending ${bldrsTypePageTitle(context, bzType)}'),
 
         Divider(
           height: spacings,

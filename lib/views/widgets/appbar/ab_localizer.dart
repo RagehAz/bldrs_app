@@ -160,7 +160,7 @@ Future<void> _tapLanguage(String languageCode) async {
                     child: DreamBox(
                       height: _languageButtonHeight,
                       width: _languageButtonHeight,
-                      icon: superBackIcon(context),
+                      icon: Iconizer.superBackIcon(context),
                       iconSizeFactor: 1,
                       bubble: true,
                       color: Colorz.WhiteAir,

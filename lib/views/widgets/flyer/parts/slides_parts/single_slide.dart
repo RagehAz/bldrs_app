@@ -73,7 +73,7 @@ class SingleSlide extends StatelessWidget {
     /// hangebha ezzay dih
     bool _blurLayerIsActive =
     picture == null ? false :
-    objectIsJPGorPNG(picture) ? false :
+    ObjectChecker.objectIsJPGorPNG(picture) ? false :
     boxFit == BoxFit.cover ? true :
     boxFit == BoxFit.fitWidth || boxFit == BoxFit.contain || boxFit == BoxFit.scaleDown ? true :
         false;
@@ -90,8 +90,8 @@ class SingleSlide extends StatelessWidget {
         color: slideColor,
         image: picture == null ||
             slideMode == SlideMode.Empty ||
-            objectIsURL(picture) == true ||
-            objectIsFile(picture) == true ?
+            ObjectChecker.objectIsURL(picture) == true ||
+            ObjectChecker.objectIsFile(picture) == true ?
         null : superImage(picture, boxFit),
       ),
       child: ClipRRect(
@@ -101,7 +101,7 @@ class SingleSlide extends StatelessWidget {
           children: <Widget>[
 
             /// --- IMAGE FILE FULL HEIGHT
-            if (objectIsFile(picture) && _blurLayerIsActive)
+            if (ObjectChecker.objectIsFile(picture) && _blurLayerIsActive)
             Image.file(
               picture,
               fit: BoxFit.fitHeight,
@@ -112,7 +112,7 @@ class SingleSlide extends StatelessWidget {
             ),
 
             /// --- IMAGE URL FULL HEIGHT
-            if (objectIsURL(picture) && _blurLayerIsActive)
+            if (ObjectChecker.objectIsURL(picture) && _blurLayerIsActive)
               Image.network(
                 picture,
                 fit: BoxFit.fitHeight,
@@ -137,7 +137,7 @@ class SingleSlide extends StatelessWidget {
               Container(),
 
             /// --- IMAGE FILE
-            if (objectIsFile(picture))
+            if (ObjectChecker.objectIsFile(picture))
                 Image.file(
                     picture,
                     fit: boxFit,
@@ -146,7 +146,7 @@ class SingleSlide extends StatelessWidget {
                 ),
 
             /// --- IMAGE NETWORK
-            if (objectIsURL(picture))
+            if (ObjectChecker.objectIsURL(picture))
             Image.network(
                 picture,
                 fit: BoxFit.fitWidth,
@@ -160,7 +160,7 @@ class SingleSlide extends StatelessWidget {
               height: flyerZoneWidth * 0.6,
               decoration: BoxDecoration(
                   borderRadius: Borderers.superHeaderShadowCorners(context, flyerZoneWidth),
-                  gradient: superSlideGradient(),
+                  gradient: Colorizer.superSlideGradient(),
               ),
             ),
 
