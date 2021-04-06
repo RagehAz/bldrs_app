@@ -130,12 +130,12 @@ class NavBar extends StatelessWidget {
     // -------------------------
     BorderRadius _boxBorders =
     barType == BarType.min ?
-    superBorderRadius(context, _boxCorner, _boxCorner, _boxCorner, _boxCorner)
+    Borderers.superBorderRadius(context: context, enTopLeft: _boxCorner, enBottomLeft: _boxCorner, enBottomRight: _boxCorner, enTopRight: _boxCorner)
         :
     barType == BarType.max  || barType == BarType.maxWithText?
-    superBorderRadius(context, _boxCorner, 0, 0, _boxCorner)
+    Borderers.superBorderRadius(context: context, enTopLeft: _boxCorner, enBottomLeft: 0, enBottomRight: 0, enTopRight: _boxCorner)
         :
-    superBorderRadius(context, _boxCorner, _boxCorner * 0.5, _boxCorner * 0.5, _boxCorner)
+    Borderers.superBorderRadius(context: context, enTopLeft: _boxCorner, enBottomLeft: _boxCorner * 0.5, enBottomRight: _boxCorner * 0.5, enTopRight: _boxCorner)
     ;
     // -------------------------
     double _buttonHeight = _circleWidth + ( 2 * _paddings ) + _textBoxHeight;
@@ -287,7 +287,7 @@ class NavBar extends StatelessWidget {
                                            children: <Widget>[
 
                                              Align(
-                                               alignment: superCenterAlignment(context),
+                                               alignment: Aligners.superCenterAlignment(context),
                                                child: SuperVerse(
                                                  verse: 'My Business accounts',
                                                  size: 2,
@@ -301,7 +301,7 @@ class NavBar extends StatelessWidget {
 
                                                return
                                                  Align(
-                                                   alignment: superCenterAlignment(context),
+                                                   alignment: Aligners.superCenterAlignment(context),
                                                    child: DreamBox(
                                                      height: 60,
                                                      width: superScreenWidth(context) - 50,

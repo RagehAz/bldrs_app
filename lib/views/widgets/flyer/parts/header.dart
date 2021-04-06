@@ -49,68 +49,65 @@ class Header extends StatelessWidget {
 
     return GestureDetector(
         onTap: tappingHeader,
-        child: BackdropFilter(
-          filter: superBlur(bzPageIsOn),
-          child: ListView(
-            physics: superScroller(bzPageIsOn),
-            shrinkWrap: true,
-            addAutomaticKeepAlives: true,
-            children: <Widget>[
+        child: ListView(
+          physics: superScroller(bzPageIsOn),
+          shrinkWrap: true,
+          addAutomaticKeepAlives: true,
+          children: <Widget>[
 
-              Container(
-                height: superHeaderHeight(bzPageIsOn, flyerZoneWidth),
-                width: flyerZoneWidth,
-                child: Stack(
-                  children: <Widget>[
+            Container(
+              height: superHeaderHeight(bzPageIsOn, flyerZoneWidth),
+              width: flyerZoneWidth,
+              child: Stack(
+                children: <Widget>[
 
-                    // if (stripBlurIsOn)
-                    BlurLayer(
-                      height: superHeaderHeight(bzPageIsOn, flyerZoneWidth),
-                      width: flyerZoneWidth,
-                      borders: superHeaderStripCorners(context, bzPageIsOn, flyerZoneWidth),
-                    ),
+                  if (stripBlurIsOn)
+                  BlurLayer(
+                    height: superHeaderHeight(bzPageIsOn, flyerZoneWidth),
+                    width: flyerZoneWidth,
+                    borders: Borderers.superHeaderStripCorners(context, bzPageIsOn, flyerZoneWidth),
+                  ),
 
 
-                    // --- HEADER SHADOW
-                    HeaderShadow(
-                      flyerZoneWidth: flyerZoneWidth,
-                      bzPageIsOn: bzPageIsOn,
-                    ),
+                  // --- HEADER SHADOW
+                  HeaderShadow(
+                    flyerZoneWidth: flyerZoneWidth,
+                    bzPageIsOn: bzPageIsOn,
+                  ),
 
-                    // --- HEADER COMPONENTS
-                    MiniHeaderStrip(
-                      flyerZoneWidth: flyerZoneWidth,
-                      bzPageIsOn: bzPageIsOn,
-                      tinyBz: tinyBz,
-                      tinyAuthor: tinyAuthor,
-                      flyerShowsAuthor: flyerShowsAuthor,
-                      followIsOn: false, // TASK : fix following issue
-                      tappingHeader: tappingHeader,
-                      tappingFollow: tappingFollow,
-                      stripBlurIsOn: stripBlurIsOn,
-                    ),
+                  // --- HEADER COMPONENTS
+                  MiniHeaderStrip(
+                    flyerZoneWidth: flyerZoneWidth,
+                    bzPageIsOn: bzPageIsOn,
+                    tinyBz: tinyBz,
+                    tinyAuthor: tinyAuthor,
+                    flyerShowsAuthor: flyerShowsAuthor,
+                    followIsOn: false, // TASK : fix following issue
+                    tappingHeader: tappingHeader,
+                    tappingFollow: tappingFollow,
+                    stripBlurIsOn: stripBlurIsOn,
+                  ),
 
-                    // --- HEADER'S MAX STATE'S HEADLINE : BZ.NAME AND BZ.LOCALE
-                    BzPageHeadline(
-                      flyerZoneWidth: flyerZoneWidth,
-                      bzPageIsOn: bzPageIsOn,
-                      tinyBz: tinyBz,
-                    ),
+                  // --- HEADER'S MAX STATE'S HEADLINE : BZ.NAME AND BZ.LOCALE
+                  BzPageHeadline(
+                    flyerZoneWidth: flyerZoneWidth,
+                    bzPageIsOn: bzPageIsOn,
+                    tinyBz: tinyBz,
+                  ),
 
-                  ],
-                ),
+                ],
               ),
+            ),
 
-              // 3ayzeen zorar follow gowwa el bzPage
-              if (bzPageIsOn)
-              MaxHeader(
-                flyerZoneWidth: flyerZoneWidth,
-                bzPageIsOn: bzPageIsOn,
-                tinyBz: tinyBz,
-              ),
+            // TASK : 3ayzeen zorar follow gowwa el bzPage
+            if (bzPageIsOn)
+            MaxHeader(
+              flyerZoneWidth: flyerZoneWidth,
+              bzPageIsOn: bzPageIsOn,
+              tinyBz: tinyBz,
+            ),
 
-            ],
-          ),
+          ],
         )
     );
 

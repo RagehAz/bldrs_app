@@ -125,7 +125,7 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
             Container(
               // color: Colorz.BloodTest,
               child: Stack(
-                alignment: superInverseTopAlignment(context),
+                alignment: Aligners.superInverseTopAlignment(context),
                 children: <Widget>[
 
                   // --- TEXT FIELD

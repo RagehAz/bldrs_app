@@ -126,7 +126,7 @@ class TextFieldBubble extends StatelessWidget {
             Container(
               // color: Colorz.BloodTest,
               child: Stack(
-                alignment: superInverseTopAlignment(context),
+                alignment: Aligners.superInverseTopAlignment(context),
                 children: <Widget>[
 
                   // --- TEXT FIELD
@@ -184,7 +184,7 @@ class TextFieldBubble extends StatelessWidget {
                   // --- PASSWORD REVEALER ON TAP
                   obscured == null ? Container() :
                   Align(
-                    alignment: textDirection == TextDirection.ltr ? Alignment.centerRight : superCenterAlignment(context),
+                    alignment: textDirection == TextDirection.ltr ? Alignment.centerRight : Aligners.superCenterAlignment(context),
                     child: ShowPassword(
                       obscured: obscured,
                       onTapDown: horusOnTapDown,

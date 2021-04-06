@@ -156,7 +156,7 @@ class SectionButton extends StatelessWidget {
           height: 40,
           width: _buttonWidth,
           // margin: EdgeInsets.symmetric(horizontal: Ratioz.ddAppBarMargin * 0.5),
-          alignment: superCenterAlignment(context),
+          alignment: Aligners.superCenterAlignment(context),
           decoration: BoxDecoration(
             color: Colorz.WhiteAir,
             borderRadius: BorderRadius.circular(_corners),

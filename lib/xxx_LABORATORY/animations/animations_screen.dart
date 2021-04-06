@@ -321,7 +321,7 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
                   decoration: BoxDecoration(
                     color: Colorz.YellowSmoke,
                     image: DecorationImage(image: AssetImage(Iconz.DumAuthorPic), fit: BoxFit.fitHeight),
-                    borderRadius: superBorderRadius(context, btCorner,btCorner,btCorner,btCorner),
+                    borderRadius: Borderers.superBorderRadius(context: context, enTopLeft: btCorner, enBottomLeft: btCorner, enBottomRight: btCorner, enTopRight: btCorner),
                   ),
                 ),
               ),
