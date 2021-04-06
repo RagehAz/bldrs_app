@@ -82,6 +82,7 @@ class _AFlyerState extends State<AFlyer> with AutomaticKeepAliveClientMixin{
           tappingUnfollow: (){},
           flyerShowsAuthor: widget.flyer?.flyerShowsAuthor,
           followIsOn: false,
+          stripBlurIsOn: true,
         ),
 
         if (widget.flyer != null)

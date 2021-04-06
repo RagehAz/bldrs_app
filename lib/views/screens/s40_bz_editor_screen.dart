@@ -15,6 +15,7 @@ import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/sub_models/contact_model.dart';
+import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/widgets/bubbles/add_gallery_pic_bubble.dart';
@@ -588,8 +589,9 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         authorPicFile: _currentAuthorPicFile,
       );
 
-      /// update _bzModel in local list with the modified one and notifyListeners
-      _prof.updateBzModelInLocalList(_finalBzModel);
+      /// update _TinyBzModel in local list with the modified one and notifyListeners
+      TinyBz _tinyBz = TinyBz.getTinyBzFromBzModel(_finalBzModel);
+      _prof.updateTinyBzModelInLocalList(_tinyBz);
 
       _triggerLoading();
 

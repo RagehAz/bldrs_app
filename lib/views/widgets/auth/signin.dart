@@ -219,7 +219,7 @@ class _SignInState extends State<SignIn> {
                     functions: () async {
                       if(_formKey.currentState.validate()){
                         // ---------------------
-                        dynamic result = await _auth.signInWithEmailAndPassword(_emailController.text, _passWordController.text);
+                        dynamic result = await _auth.signInWithEmailAndPassword(context, _emailController.text, _passWordController.text);
                         // ---------------------
                         if ('$result' == '[firebase_auth/wrong-password] The password is invalid or the user does not have a password.') {
                           await superDialog(context, Wordz.wrongPassword(context), 'Ops!');

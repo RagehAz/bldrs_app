@@ -14,6 +14,7 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
+import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/screens/s14_more_screen.dart';
@@ -40,10 +41,12 @@ enum BarType{
 class NavBar extends StatelessWidget {
   final BarType barType;
   final Sky sky;
+  final List<TinyBz> myTinyBzz;
 
   NavBar({
     this.barType = BarType.maxWithText,
     this.sky = Sky.Night,
+    this.myTinyBzz,
 });
 // ----------------------------------------------------------------------------
   /// --- MAIN CONTROLS
@@ -111,7 +114,8 @@ class NavBar extends StatelessWidget {
     }
     return _finalHeight;
   }
-  // ----------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
+
   @override
   Widget build(BuildContext context) {
     // -------------------------------------------------------------------------
@@ -154,6 +158,7 @@ class NavBar extends StatelessWidget {
 
     Widget _expander = _deviceIsIOS ? Expanded(child: Container(),) : Container();
 
+
     return
 
        userStreamBuilder(
@@ -166,6 +171,8 @@ class NavBar extends StatelessWidget {
 
              double _buttonWidth = _calculateButtonWidth();
              double _boxWidth = _calculateBoxWidth(context, userModel);
+
+
 
              // List<dynamic> _followedBzzIDs = userModel != null ? userModel?.followedBzzIDs : [];
              // String _bzID = _followedBzzIDs.length > 0 ?  _followedBzzIDs[0] : '';
@@ -289,38 +296,34 @@ class NavBar extends StatelessWidget {
                                              ),
 
                                              ...List.generate(userModel.myBzzIDs.length, (index){
+
+                                               TinyBz _tinyBz = myTinyBzz[index];
+
                                                return
-                                                 tinyBzModelStreamBuilder(
-                                                     bzID: userModel.myBzzIDs[index],
-                                                     context: context,
-                                                     listen: false,
-                                                     builder: (ctx, _tinyBz){
-                                                       return
-                                                         Align(
-                                                           alignment: superCenterAlignment(context),
-                                                           child: DreamBox(
-                                                             height: 60,
-                                                             width: superScreenWidth(context) - 50,
-                                                             boxMargins: EdgeInsets.all(Ratioz.ddAppBarPadding),
-                                                             icon: _tinyBz.bzLogo,
-                                                             verse: _tinyBz.bzName,
-                                                             secondLine: bzTypeSingleStringer(context, _tinyBz.bzType),
-                                                             iconSizeFactor: 1,
-                                                             verseScaleFactor: 0.7,
-                                                             bubble: true,
-                                                             color: Colorz.Nothing,
-                                                             boxFunction: (){
-                                                               print('${_tinyBz.bzID}');
-                                                               goToNewScreen(context,
-                                                                   MyBzScreen(
-                                                                     userModel: userModel,
-                                                                     bzID: _tinyBz.bzID,
-                                                                     switchPage: (){},
-                                                                   ));
-                                                             },
-                                                           ),
-                                                         );
-                                                     });
+                                                 Align(
+                                                   alignment: superCenterAlignment(context),
+                                                   child: DreamBox(
+                                                     height: 60,
+                                                     width: superScreenWidth(context) - 50,
+                                                     boxMargins: EdgeInsets.all(Ratioz.ddAppBarPadding),
+                                                     icon: _tinyBz.bzLogo,
+                                                     verse: _tinyBz.bzName,
+                                                     secondLine: bzTypeSingleStringer(context, _tinyBz.bzType),
+                                                     iconSizeFactor: 1,
+                                                     verseScaleFactor: 0.7,
+                                                     bubble: true,
+                                                     color: Colorz.Nothing,
+                                                     boxFunction: (){
+                                                       print('${_tinyBz.bzID}');
+                                                       goToNewScreen(context,
+                                                           MyBzScreen(
+                                                             userModel: userModel,
+                                                             bzID: _tinyBz.bzID,
+                                                             switchPage: (){},
+                                                           ));
+                                                     },
+                                                   ),
+                                                 );
 
                                              }),
 

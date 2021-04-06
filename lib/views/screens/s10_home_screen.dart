@@ -17,6 +17,7 @@ class _HomeScreenState extends State<HomeScreen> {
   bool _isInit = true;
   bool _isLoading = false;
   List<TinyBz> _tinyBzz;
+  List<TinyBz> _myTinyBzz;
 
   @override
   void initState() {
@@ -42,10 +43,13 @@ class _HomeScreenState extends State<HomeScreen> {
       FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: true);
 
       _prof.fetchAndSetTinyBzzAndTinyFlyers(context)
-          .then((_) {
+          .then((_) async {
+
+            List<TinyBz> _myTinyBzzList = await _prof.getUserTinyBzz(context);
 
             setState(() {
               _tinyBzz = _prof.getAllTinyBzz;
+              _myTinyBzz = _myTinyBzzList;
             });
 
         _triggerLoading();
@@ -70,6 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBarType: AppBarType.Main,
       sky: Sky.Night,
       canRefreshFlyers: true,
+      myTinyBzz: _myTinyBzz,
       layoutWidget: Stack(
         children: <Widget>[
           _isLoading == true ?

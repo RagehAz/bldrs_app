@@ -6,6 +6,7 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
+import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/providers/users_provider.dart';
@@ -60,6 +61,7 @@ class MainLayout extends StatelessWidget {
   final bool loading;
   final bool appBarBackButton;
   final Key key;
+  final List<TinyBz> myTinyBzz;
 
   MainLayout({
     this.appBarRowWidgets,
@@ -73,6 +75,7 @@ class MainLayout extends StatelessWidget {
     this.loading = false,
     this.appBarBackButton = false,
     this.key,
+    this.myTinyBzz,
 });
 
   Future<void> _refresh(BuildContext context) async {
@@ -115,6 +118,7 @@ class MainLayout extends StatelessWidget {
       if (pyramids == null)
       NavBar(
         barType: BarType.minWithText,
+        myTinyBzz: myTinyBzz,
       ),
 
       _ragehIsOn == false ? Container() :

@@ -12,6 +12,7 @@ import 'package:bldrs/views/screens/s40_bz_editor_screen.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_zone.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header.dart';
+import 'package:bldrs/views/widgets/flyer/parts/header_parts/max_header_parts/gallery.dart';
 import 'package:bldrs/views/widgets/flyer/parts/slides_parts/single_slide.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
@@ -110,7 +111,7 @@ class _MyBzScreenState extends State<MyBzScreen> {
           sky: Sky.Black,
           appBarType: AppBarType.Basic,
           appBarBackButton: true,
-          pyramids: Iconz.PyramidzYellow,
+          pyramids: Iconz.DvBlankSVG,
           layoutWidget: bzModelStreamBuilder(
             bzID: widget.bzID,
             context: context,
@@ -135,11 +136,11 @@ class _MyBzScreenState extends State<MyBzScreen> {
 
                               SingleSlide(
                                 flyerZoneWidth: _flyerZoneWidth,
-                                slideColor: Colorz.WhiteGlass,
+                                slideColor: Colorz.WhiteSmoke,
                               ),
 
                               // --- BZ BUTTONS
-                              Column(
+                              ListView(
                                 children: <Widget>[
 
                                   // --- HEADER FOOTPRINT
@@ -147,86 +148,86 @@ class _MyBzScreenState extends State<MyBzScreen> {
                                     height: superHeaderHeight(false, _flyerZoneWidth),
                                   ),
 
-                                  // --- ACHIEVEMENTS
-                                  GestureDetector(
-                                    onTap: _tapAchievements,
-                                    child: Container(
-                                      width: _bWidth,
-                                      padding: superInsets(context, enRight: _spacing, enTop: _spacing, enBottom: _spacing),
-                                      margin: EdgeInsets.symmetric(vertical: _spacing),
-                                      decoration: BoxDecoration(
-                                        color: Colorz.WhiteGlass,
-                                        borderRadius: superBorderAll(context, _flyerZoneWidth * 0.05),
-                                      ),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: <Widget>[
-
-                                          DreamBox(
-                                            height: _achievementsIconWidth,
-                                            width: _achievementsIconWidth,
-                                            bubble: false,
-                                            icon: Iconz.Achievement,
-                                          ),
-
-                                          Container(
-                                            width: _bWidth - _achievementsIconWidth - _spacing,
-                                            child: Column(
-                                              mainAxisAlignment: MainAxisAlignment.start,
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: <Widget>[
-
-                                                SuperVerse(
-                                                  verse: 'Achievements',
-                                                  color: Colorz.Yellow,
-                                                  size: 3,
-                                                  maxLines: 2,
-                                                ),
-
-                                                SuperVerse(
-                                                  verse:
-                                                  // 'Market your Brand,\n'
-                                                      'Advertise your Flyers,\n'
-                                                      'Grow your Bldrs network\n'
-                                                      'Reach your customers & help them reach you.',
-                                                  color: Colorz.Grey,
-                                                  size: 2,
-                                                  italic: true,
-                                                  weight: VerseWeight.thin,
-                                                  maxLines: 5,
-                                                  centered: false,
-                                                ),
-
-                                              ],
-                                            ),
-                                          ),
-
-                                        ],
-                                      ),
-                                    ),
-                                  ),
+                                  // // --- ACHIEVEMENTS
+                                  // GestureDetector(
+                                  //   onTap: _tapAchievements,
+                                  //   child: Container(
+                                  //     width: _bWidth,
+                                  //     padding: superInsets(context, enRight: _spacing, enTop: _spacing, enBottom: _spacing),
+                                  //     margin: EdgeInsets.symmetric(vertical: _spacing),
+                                  //     decoration: BoxDecoration(
+                                  //       color: Colorz.WhiteGlass,
+                                  //       borderRadius: superBorderAll(context, _flyerZoneWidth * 0.05),
+                                  //     ),
+                                  //     child: Row(
+                                  //       mainAxisAlignment: MainAxisAlignment.start,
+                                  //       crossAxisAlignment: CrossAxisAlignment.start,
+                                  //       children: <Widget>[
+                                  //
+                                  //         DreamBox(
+                                  //           height: _achievementsIconWidth,
+                                  //           width: _achievementsIconWidth,
+                                  //           bubble: false,
+                                  //           icon: Iconz.Achievement,
+                                  //         ),
+                                  //
+                                  //         Container(
+                                  //           width: _bWidth - _achievementsIconWidth - _spacing,
+                                  //           child: Column(
+                                  //             mainAxisAlignment: MainAxisAlignment.start,
+                                  //             crossAxisAlignment: CrossAxisAlignment.start,
+                                  //             children: <Widget>[
+                                  //
+                                  //               SuperVerse(
+                                  //                 verse: 'Achievements',
+                                  //                 color: Colorz.Yellow,
+                                  //                 size: 3,
+                                  //                 maxLines: 2,
+                                  //               ),
+                                  //
+                                  //               SuperVerse(
+                                  //                 verse:
+                                  //                 // 'Market your Brand,\n'
+                                  //                     'Advertise your Flyers,\n'
+                                  //                     'Grow your Bldrs network\n'
+                                  //                     'Reach your customers & help them reach you.',
+                                  //                 color: Colorz.Grey,
+                                  //                 size: 2,
+                                  //                 italic: true,
+                                  //                 weight: VerseWeight.thin,
+                                  //                 maxLines: 5,
+                                  //                 centered: false,
+                                  //               ),
+                                  //
+                                  //             ],
+                                  //           ),
+                                  //         ),
+                                  //
+                                  //       ],
+                                  //     ),
+                                  //   ),
+                                  // ),
 
                                   // --- ADD FLYER
-                                  DreamBox(
-                                    width: _flyerZoneWidth * 0.9,
-                                    height: _flyerZoneWidth * 0.3,
-                                    color: Colorz.WhiteGlass,
-                                    corners: _flyerZoneWidth * 0.05,
-                                    icon: Iconz.AddFlyer,
-                                    iconSizeFactor: 0.5,
-                                    verse: 'Add New Flyer',
-                                    verseScaleFactor: 1.6,
-                                    bubble: false,
-                                    boxFunction: () => goToNewScreen(context,
-                                        FlyerEditorScreen(
-                                          bzModel: _bzModel,
-                                          firstTimer: true,
-                                        )
-                                    ),
-                                  ),
+                                  // DreamBox(
+                                  //   width: _flyerZoneWidth * 0.9,
+                                  //   height: _flyerZoneWidth * 0.3,
+                                  //   color: Colorz.WhiteGlass,
+                                  //   corners: _flyerZoneWidth * 0.05,
+                                  //   icon: Iconz.AddFlyer,
+                                  //   iconSizeFactor: 0.5,
+                                  //   verse: 'Add New Flyer',
+                                  //   verseScaleFactor: 1.6,
+                                  //   bubble: false,
+                                  //   boxFunction: () => goToNewScreen(context,
+                                  //       FlyerEditorScreen(
+                                  //         bzModel: _bzModel,
+                                  //         firstTimer: true,
+                                  //       )
+                                  //   ),
+                                  // ),
 
-                                  // --- EDIT BZ
+                                  /// --- EDIT BZ
                                   DreamBox(
                                     width: _bWidth,
                                     height: _flyerZoneWidth * 0.2,
@@ -241,6 +242,15 @@ class _MyBzScreenState extends State<MyBzScreen> {
                                     boxFunction: () => _goToEditBzProfile(_bzModel),
                                   ),
 
+                                  /// flyersGrid
+                                  // --- BZ GALLERY
+                                  Gallery(
+                                    flyerZoneWidth: _flyerZoneWidth,
+                                    showFlyers: true,
+                                    bz: _bzModel,
+                                  ),
+
+
                                   // () =>_deleteBzProfile(context, _prof, widget.userModel)
 
                                 ],
@@ -249,13 +259,14 @@ class _MyBzScreenState extends State<MyBzScreen> {
                               Header(
                                 tinyBz: TinyBz.getTinyBzFromBzModel(_bzModel),
                                 tinyAuthor: AuthorModel.getTinyAuthorFromAuthorModel(_bzModel.bzAuthors[0] ?? null),
-                                flyerShowsAuthor: true,
+                                flyerShowsAuthor: false,
                                 followIsOn: false,
                                 flyerZoneWidth: _flyerZoneWidth,
                                 bzPageIsOn: _bzPageIsOn,
                                 tappingHeader: _triggerMaxHeader,
                                 tappingFollow: (){},
                                 tappingUnfollow: (){},
+                                stripBlurIsOn: true,
                               ),
 
                             ],

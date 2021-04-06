@@ -81,6 +81,7 @@ Widget userModelBuilder({
 
   return FutureBuilder(
       future: getFireStoreDocumentMap(
+        context: context,
         collectionName: FireStoreCollection.users,
         documentName: userID,
       ),
@@ -140,6 +141,7 @@ Widget bzModelBuilder({
 
   return FutureBuilder(
       future: getFireStoreDocumentMap(
+        context: context,
         collectionName: FireStoreCollection.bzz,
         documentName: bzID,
       ),
@@ -203,6 +205,37 @@ Widget tinyBzModelStreamBuilder({
 
 }
 // ----------------------------------------------------------------------------
+Widget tinyBzModelBuilder({
+  String bzID,
+  BuildContext context,
+  tinyBzModelWidgetBuilder builder,
+}){
+
+  return FutureBuilder(
+      future: getFireStoreDocumentMap(
+        context: context,
+        collectionName: FireStoreCollection.tinyBzz,
+        documentName: bzID,
+      ),
+      builder: (ctx, snapshot){
+
+        if (snapshot.connectionState == ConnectionState.waiting){
+          return Loading(loading: true,);
+        } else {
+          if (snapshot.error != null){
+            return Container(); // superDialog(context, snapshot.error, 'error');
+          } else {
+
+            Map<String, dynamic> _map = snapshot.data;
+            TinyBz tinyBz = TinyBz.decipherTinyBzMap(_map);
+
+            return builder(context, tinyBz);
+          }
+        }
+      }
+  );
+}
+// ----------------------------------------------------------------------------
 typedef FlyerModelWidgetBuilder = Widget Function(
     BuildContext context,
     FlyerModel flyerModel,
@@ -245,6 +278,7 @@ Widget flyerModelBuilder({
 
   return FutureBuilder(
       future: getFireStoreDocumentMap(
+        context: context,
         collectionName: FireStoreCollection.flyers,
         documentName: flyerID,
       ),
