@@ -492,7 +492,7 @@ class Progressor extends StatelessWidget {
       margin: EdgeInsets.symmetric(vertical: 5),
       decoration: BoxDecoration(
         color: Colorz.WhiteGlass,
-        borderRadius: superBorderAll(context, 5),
+        borderRadius: Borderers.superBorderAll(context, 5),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,

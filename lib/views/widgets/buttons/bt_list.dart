@@ -56,7 +56,7 @@ class ButtonsList extends StatelessWidget {
       margin: EdgeInsets.only(top: _abPadding),
       decoration: BoxDecoration(
         color: Colorz.WhiteAir,
-        borderRadius: superBorderAll(context, _listCorner),
+        borderRadius: Borderers.superBorderAll(context, _listCorner),
       ),
       child: ListView.builder(
         itemCount: listOfMaps.length,

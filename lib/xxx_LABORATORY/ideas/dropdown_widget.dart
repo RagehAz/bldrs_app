@@ -83,7 +83,7 @@ class _DropDownBubbleState extends State<DropDownBubble> {
           height: 35,
           decoration: BoxDecoration(
             color: Colorz.BloodTest,
-            borderRadius: superBorderRadius(context, 10, 10, 10, 10),
+            borderRadius: Borderers.superBorderRadius(context: context, enTopLeft: 10, enBottomLeft: 10, enBottomRight: 10, enTopRight: 10),
           ),
           child: DropdownButtonFormField(
             // value: widget.list[0] ?? widget.list[0],
@@ -98,7 +98,7 @@ class _DropDownBubbleState extends State<DropDownBubble> {
             onTap: (){print('ganzabeel');},
             icon: DreamBox(height: 20, icon: Iconz.ArrowDown, bubble: false,),
             decoration: InputDecoration(
-              border: superOutlineInputBorder(Colorz.BloodRed, 10),
+              border: Borderers.superOutlineInputBorder(Colorz.BloodRed, 10),
               isDense: true,
               contentPadding: EdgeInsets.all(0),
               // labelText: 'label text',

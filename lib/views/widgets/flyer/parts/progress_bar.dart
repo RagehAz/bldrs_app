@@ -40,7 +40,7 @@ class ProgressBar extends StatelessWidget {
     return
       _microMode == true || barIsOn == false  ? Container() :
       Align(
-        alignment: superTopAlignment(context),
+        alignment: Aligners.superTopAlignment(context),
         child: Container(
           width: _boxWidth,
           height: _boxHeight,
@@ -48,7 +48,7 @@ class ProgressBar extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: _allStripsOneSideMargin),
           alignment: Alignment.center,
           child: Stack(
-            alignment: superCenterAlignment(context),
+            alignment: Aligners.superCenterAlignment(context),
             children: <Widget>[
 
               // --- BASE STRIP
@@ -66,7 +66,7 @@ class ProgressBar extends StatelessWidget {
                       margin: EdgeInsets.symmetric(horizontal: _aStripOneMargin),
                       decoration: BoxDecoration(
                           color: _stripColor,
-                          borderRadius: superBorderAll(context, _stripCorner)),
+                          borderRadius: Borderers.superBorderAll(context, _stripCorner)),
                     ),
                   );
 
@@ -87,7 +87,7 @@ class ProgressBar extends StatelessWidget {
                       margin: EdgeInsets.symmetric(horizontal: _aStripOneMargin),
                       decoration: BoxDecoration(
                           color: _currentStripColor,
-                          borderRadius: superBorderAll(context, _stripCorner)),
+                          borderRadius: Borderers.superBorderAll(context, _stripCorner)),
                     ),
                   );
                 }),

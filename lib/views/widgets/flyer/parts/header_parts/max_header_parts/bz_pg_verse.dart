@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/colorizers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
@@ -26,8 +27,7 @@ class BzPgVerse extends StatelessWidget {
     double _margins =
         maxLines > 1 ? flyerZoneWidth * 0.05 : flyerZoneWidth * 0.02;
 
-    return bzPageIsOn == false
-        ? Container()
+    return bzPageIsOn == false ? Container()
         : Padding(
             padding: EdgeInsets.only(top: bzPageDividers),
             child: Container(

@@ -41,7 +41,7 @@ class ABStrip extends StatelessWidget {
           boxShadow: Shadowz.appBarShadow,
       ),
       child: Stack(
-        alignment: superCenterAlignment(context),
+        alignment: Aligners.superCenterAlignment(context),
         children: <Widget>[
 
           // --- APPBAR SHADOW
@@ -66,7 +66,7 @@ class ABStrip extends StatelessWidget {
           Container(
             width: _abWidth,
             height: abHeight,
-            alignment: superInverseCenterAlignment(context),
+            alignment: Aligners.superInverseCenterAlignment(context),
             child: Loading(loading: loading),
           ),
 

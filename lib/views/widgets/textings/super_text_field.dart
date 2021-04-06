@@ -214,15 +214,15 @@ class _SuperTextFieldState extends State<SuperTextField> {
       alignLabelWithHint: true,
       contentPadding: EdgeInsets.all(_sidePaddings),
 
-      focusedBorder: superOutlineInputBorder(Colorz.YellowSmoke, _labelCorner),
-      enabledBorder: superOutlineInputBorder(Colorz.Nothing, _labelCorner),
+      focusedBorder: Borderers.superOutlineInputBorder(Colorz.YellowSmoke, _labelCorner),
+      enabledBorder: Borderers.superOutlineInputBorder(Colorz.Nothing, _labelCorner),
 
       errorStyle: superTextStyle(Colorz.BloodRed, 0.7),
-      focusedErrorBorder: superOutlineInputBorder(Colorz.YellowSmoke, _labelCorner),
+      focusedErrorBorder: Borderers.superOutlineInputBorder(Colorz.YellowSmoke, _labelCorner),
 
-      errorBorder: superOutlineInputBorder(Colorz.BloodRedPlastic, _labelCorner),
-      border: superOutlineInputBorder(Colorz.LinkedIn, _labelCorner),
-      disabledBorder: superOutlineInputBorder(Colorz.Grey, _labelCorner),
+      errorBorder: Borderers.superOutlineInputBorder(Colorz.BloodRedPlastic, _labelCorner),
+      border: Borderers.superOutlineInputBorder(Colorz.LinkedIn, _labelCorner),
+      disabledBorder: Borderers.superOutlineInputBorder(Colorz.Grey, _labelCorner),
       counter: widget.counterIsOn ? null : Offstage(),
       counterStyle: superTextStyle(Colorz.WhiteLingerie, 0.7),
 

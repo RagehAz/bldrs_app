@@ -48,7 +48,7 @@ class UserBubble extends StatelessWidget {
 
         Container(
           height: topPadding,
-          alignment: superInverseCenterAlignment(context),
+          alignment: Aligners.superInverseCenterAlignment(context),
           child: DreamBox(
             height: editProfileBtSize,
             width: editProfileBtSize,
