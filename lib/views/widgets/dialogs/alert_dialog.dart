@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 // ----------------------------------------------------------------------
 AlertDialog superAlert (BuildContext context, BuildContext ctx, dynamic error, String title) {
 
-  BorderRadius _borders = superBorderAll(context, 20);
+  BorderRadius _borders = Borderers.superBorderAll(context, 20);
 
   return
     AlertDialog(
@@ -75,7 +75,7 @@ AlertDialog superAlert (BuildContext context, BuildContext ctx, dynamic error, S
 
       backgroundColor: Colorz.Nothing,
       elevation: 10,
-      shape: RoundedRectangleBorder(borderRadius: superBorderAll(context, 20)),
+      shape: RoundedRectangleBorder(borderRadius: Borderers.superBorderAll(context, 20)),
       contentPadding: EdgeInsets.all(10),
       actionsOverflowButtonSpacing: 10,
       actionsPadding: EdgeInsets.all(5),

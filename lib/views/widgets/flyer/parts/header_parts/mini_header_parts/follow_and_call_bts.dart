@@ -128,7 +128,7 @@ class FollowBT extends StatelessWidget {
           decoration: BoxDecoration(
             color: followBTColor,
             boxShadow: superFollowBtShadow(followBTHeight),
-            borderRadius: superFollowOrCallCorners(context, flyerZoneWidth, true),
+            borderRadius: Borderers.superFollowOrCallCorners(context, flyerZoneWidth, true),
           ),
           child: Stack(
             alignment: Alignment.center,
@@ -139,7 +139,7 @@ class FollowBT extends StatelessWidget {
                 height: followBTHeight,
                 width: followBTWidth,
                 decoration: BoxDecoration(
-                  borderRadius: superFollowOrCallCorners(context, flyerZoneWidth, true),
+                  borderRadius: Borderers.superFollowOrCallCorners(context, flyerZoneWidth, true),
                   gradient: superFollowBTGradient(),
                 ),
               ),
@@ -203,7 +203,7 @@ class CallBT extends StatelessWidget {
     String callIcon = Iconz.ComPhone;
     double callIconWidth = flyerZoneWidth * 0.05;
     // === === === === === === === === === === === === === === === === === === ===
-    BorderRadius roundCorners = superFollowOrCallCorners(context, flyerZoneWidth, false);
+    BorderRadius roundCorners = Borderers.superFollowOrCallCorners(context, flyerZoneWidth, false);
     // === === === === === === === === === === === === === === === === === === ===
     return
       miniMode == true ? Container() :

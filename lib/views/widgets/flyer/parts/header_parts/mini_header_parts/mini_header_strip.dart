@@ -37,7 +37,7 @@ class MiniHeaderStrip extends StatelessWidget {
   Widget build(BuildContext context) {
     // ----------------------------------------------------------------------
     double _stripHeight = superHeaderStripHeight(bzPageIsOn, flyerZoneWidth);
-    BorderRadius _stripBorders = superHeaderStripCorners(context, bzPageIsOn, flyerZoneWidth);
+    BorderRadius _stripBorders = Borderers.superHeaderStripCorners(context, bzPageIsOn, flyerZoneWidth);
 
     return
       Align(
@@ -64,7 +64,7 @@ class MiniHeaderStrip extends StatelessWidget {
                   width: superLogoWidth(bzPageIsOn, flyerZoneWidth),
                   image: tinyBz.bzLogo,
                   miniMode: superFlyerMiniMode(context, flyerZoneWidth),
-                  corners: superLogoCorner(context, flyerZoneWidth),
+                  corners: Borderers.superLogoCorner(context, flyerZoneWidth),
                   bzPageIsOn: bzPageIsOn,
                   zeroCornerIsOn: flyerShowsAuthor,
                   onTap: tappingHeader,

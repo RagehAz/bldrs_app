@@ -8,7 +8,14 @@ import 'package:flutter/material.dart';
 // ---------------------------------------------------------------------------
 void slideBottomSheet({BuildContext context, double height, bool draggable, Widget child}){
     showModalBottomSheet(
-    shape: RoundedRectangleBorder(borderRadius: superBorderRadius(context, Ratioz.ddBottomSheetCorner, 0, 0, Ratioz.ddBottomSheetCorner)),
+    shape: RoundedRectangleBorder(borderRadius:
+    Borderers.superBorderRadius(
+        context:context,
+        enTopLeft:Ratioz.ddBottomSheetCorner,
+        enBottomLeft:0,
+        enBottomRight:0,
+        enTopRight:Ratioz.ddBottomSheetCorner,
+    )),
     backgroundColor: Colorz.Nothing,
     barrierColor: Colorz.BlackAir,
     enableDrag: draggable,
@@ -26,7 +33,13 @@ void slideBottomSheet({BuildContext context, double height, bool draggable, Widg
 // ---------------------------------------------------------------------------
 void slideStatefulBottomSheet({BuildContext context, double height, bool draggable, Widget Function(BuildContext) builder}){
   showModalBottomSheet(
-      shape: RoundedRectangleBorder(borderRadius: superBorderRadius(context, Ratioz.ddBottomSheetCorner, 0, 0, Ratioz.ddBottomSheetCorner)),
+      shape: RoundedRectangleBorder(borderRadius: Borderers.superBorderRadius(
+          context: context,
+          enTopLeft: Ratioz.ddBottomSheetCorner,
+          enBottomLeft: 0,
+          enBottomRight: 0,
+          enTopRight: Ratioz.ddBottomSheetCorner
+      )),
       backgroundColor: Colorz.Nothing,
       barrierColor: Colorz.BlackAir,
       enableDrag: draggable,
@@ -55,7 +68,13 @@ class BldrsBottomSheet extends StatelessWidget {
     double _screenWidth = superScreenWidth(context);
     double _screenHeight = superScreenHeight(context);
     double _sheetHeight = height == null ? _screenHeight*0.5 : height;
-    BorderRadius _sheetBorders = superBorderRadius(context, Ratioz.ddBottomSheetCorner, 0, 0, Ratioz.ddBottomSheetCorner);
+    BorderRadius _sheetBorders = Borderers.superBorderRadius(
+        context: context,
+        enTopLeft: Ratioz.ddBottomSheetCorner,
+        enBottomLeft: 0,
+        enBottomRight: 0,
+        enTopRight: Ratioz.ddBottomSheetCorner
+    );
 
     double _draggerZoneHeight = draggerZoneHeight();
     double _draggerHeight = draggerHeight();
@@ -107,7 +126,7 @@ class BldrsBottomSheet extends StatelessWidget {
                 margin: _draggerMargins,
                 decoration: BoxDecoration(
                   color: Colorz.WhiteLingerie,
-                  borderRadius: superBorderAll(context, _draggerCorner),
+                  borderRadius: Borderers.superBorderAll(context, _draggerCorner),
                 ),
               ),
 
@@ -117,7 +136,13 @@ class BldrsBottomSheet extends StatelessWidget {
                 height: _contentHeight,
                 decoration: BoxDecoration(
                   // color: Colorz.WhiteAir,
-                  borderRadius: superBorderRadius(context, _contentCorners, 0, 0, _contentCorners),
+                  borderRadius: Borderers.superBorderRadius(
+                      context: context,
+                      enTopLeft: _contentCorners,
+                      enBottomLeft: 0,
+                      enBottomRight: 0,
+                      enTopRight: _contentCorners
+                  ),
                   gradient: superHeaderStripGradient(Colorz.WhiteGlass)
                 ),
                 child: child,

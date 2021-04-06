@@ -86,7 +86,7 @@ class SingleSlide extends StatelessWidget {
       height: superFlyerZoneHeight(context, flyerZoneWidth),
       alignment: Alignment.topCenter,
       decoration: BoxDecoration(
-        borderRadius: superFlyerCorners(context, flyerZoneWidth),
+        borderRadius: Borderers.superFlyerCorners(context, flyerZoneWidth),
         color: slideColor,
         image: picture == null ||
             slideMode == SlideMode.Empty ||
@@ -95,7 +95,7 @@ class SingleSlide extends StatelessWidget {
         null : superImage(picture, boxFit),
       ),
       child: ClipRRect(
-        borderRadius: superFlyerCorners(context, flyerZoneWidth),
+        borderRadius: Borderers.superFlyerCorners(context, flyerZoneWidth),
         child: Stack(
           alignment: Alignment.topCenter,
           children: <Widget>[
@@ -159,7 +159,7 @@ class SingleSlide extends StatelessWidget {
               width: flyerZoneWidth,
               height: flyerZoneWidth * 0.6,
               decoration: BoxDecoration(
-                  borderRadius: superHeaderShadowCorners(context, flyerZoneWidth),
+                  borderRadius: Borderers.superHeaderShadowCorners(context, flyerZoneWidth),
                   gradient: superSlideGradient(),
               ),
             ),

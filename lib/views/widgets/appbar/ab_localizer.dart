@@ -227,7 +227,7 @@ Future<void> _tapLanguage(String languageCode) async {
               ButtonsList(
                 listOfMaps: _flags,
                 mapValueIs: MapValueIs.flag,
-                alignment: superInverseCenterAlignment(context),
+                alignment: Aligners.superInverseCenterAlignment(context),
                 provider: _countryPro,
                 localizerPage: LocalizerPage.Country,
                 buttonTap: (id) => _tapCountry(id, _countryPro),

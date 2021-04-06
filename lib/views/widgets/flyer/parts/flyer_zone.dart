@@ -58,7 +58,13 @@ class FlyerZone extends StatelessWidget {
 
     // print ('slidingIsOn value =$slidingIsOn');
 
-    BorderRadius _flyerBorders = superBorderRadius(context, _flyerTopCorners, _flyerBottomCorners, _flyerBottomCorners, _flyerTopCorners);
+    BorderRadius _flyerBorders = Borderers.superBorderRadius(
+        context: context,
+        enTopLeft: _flyerTopCorners,
+        enBottomLeft: _flyerBottomCorners,
+        enBottomRight: _flyerBottomCorners,
+        enTopRight: _flyerTopCorners
+    );
 
     return GestureDetector(
       onTap: (){

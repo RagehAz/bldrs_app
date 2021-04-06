@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/colorizers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
