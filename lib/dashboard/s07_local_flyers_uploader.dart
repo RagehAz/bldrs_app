@@ -578,7 +578,7 @@ class MyDreamBox extends StatelessWidget {
               ),
 
               WordsBubble(
-                title: '${userModel.name} ${userModel?.myBzzIDs.length} bzz IDs list',
+                title: '${userModel.name} ${userModel?.myBzzIDs?.length} bzz IDs list',
                 words: userModel?.myBzzIDs ?? [],
                 verseSize: 2,
                 onTap: (){},

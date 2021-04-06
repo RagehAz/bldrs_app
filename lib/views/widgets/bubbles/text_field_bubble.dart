@@ -8,7 +8,6 @@ import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:bldrs/views/widgets/textings/super_text_field.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
-
 import 'in_pyramids_bubble.dart';
 
 class TextFieldBubble extends StatelessWidget {
@@ -30,7 +29,6 @@ class TextFieldBubble extends StatelessWidget {
   final bool fieldIsRequired;
   final bool loading;
   final String actionBtIcon;
-  final Color actionBtColor;
   final Function actionBtFunction;
   final Function horusOnTapDown;
   final Function horusOnTapUp;
@@ -60,7 +58,6 @@ class TextFieldBubble extends StatelessWidget {
     this.comments,
     this.fieldIsRequired = false,
     this.loading = false,
-    this.actionBtColor,
     this.actionBtIcon,
     this.actionBtFunction,
     this.horusOnTapDown,
@@ -88,40 +85,11 @@ class TextFieldBubble extends StatelessWidget {
     return
       InPyramidsBubble(
           bubbleColor: bubbleColor,
+          title: title,
+          redDot: fieldIsRequired,
+          actionBtIcon: actionBtIcon,
+          actionBtFunction: actionBtFunction,
           columnChildren: <Widget>[
-
-            Container(
-              // color: Colorz.YellowSmoke,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-
-                  // --- BUBBLE TITLE
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 10, left: 5, right: 5),
-                    child: SuperVerse(
-                      verse: title,
-                      size: titleVerseSize,
-                      redDot: fieldIsRequired,
-                    ),
-                  ),
-
-                  // --- ACTION BUTTON
-                  actionBtIcon == null ? Container() :
-                  DreamBox(
-                    height: actionBtSize,
-                    width: actionBtSize,
-                    corners: actionBtCorner,
-                    color: actionBtColor,
-                    icon: actionBtIcon,
-                    iconSizeFactor: 0.6,
-                    boxFunction: actionBtFunction,
-                  ),
-
-                ],
-              ),
-            ),
 
             Container(
               // color: Colorz.BloodTest,

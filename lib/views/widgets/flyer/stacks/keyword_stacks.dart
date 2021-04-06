@@ -42,9 +42,8 @@ class FlyerCoversStack extends StatelessWidget {
     return InPyramidsBubble(
       centered: true,
       bubbleColor: Colorz.WhiteAir,
+      title: collectionTitle,
       columnChildren: <Widget>[
-
-        BubbleTitle(verse: collectionTitle),
 
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -140,9 +139,8 @@ class TopFlyersStack extends StatelessWidget {
     return InPyramidsBubble(
       centered: false,
       bubbleColor: Colorz.WhiteAir,
+      title: collectionTitle,
       columnChildren: <Widget>[
-
-        BubbleTitle(verse: collectionTitle),
 
         Container(
           width: gridWidth,

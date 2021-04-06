@@ -35,7 +35,7 @@ class InitialSectionsBT extends StatelessWidget {
     // double _buttonWidth = _sectionsAreExpanded == true ? _btThirdsOfScreenWidth : null;
 
     String _currentSection = sectionsAreExpanded == true ? '...             ' :
-    sectionStringer(context, currentSection);
+    TextGenerator.sectionStringer(context, currentSection);
 
     return GestureDetector(
           onTap: expandingSections,
@@ -97,7 +97,7 @@ class InitialSectionsBT extends StatelessWidget {
                               margin: EdgeInsets.only(bottom: 1),
                               child: Padding(
                                 padding: const EdgeInsets.all(5),
-                                child: WebsafeSvg.asset(superArrowENRight(context), height: 7.5),
+                                child: WebsafeSvg.asset(Iconizer.superArrowENRight(context), height: 7.5),
                               ),
                             ),
 

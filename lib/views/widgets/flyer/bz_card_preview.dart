@@ -84,7 +84,6 @@ class _BzCardPreviewState extends State<BzCardPreview> {
           bzPageIsOn: _bzPageIsOn,
           tappingHeader: _triggerMaxHeader,
           tappingFollow: (){},
-          tappingUnfollow: (){},
         ),
 
         // --- ADD FLYER BUTTON

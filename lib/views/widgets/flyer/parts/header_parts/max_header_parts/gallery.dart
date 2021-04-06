@@ -67,37 +67,38 @@ class _GalleryState extends State<Gallery> {
     return Container(
       width: widget.flyerZoneWidth,
       margin: EdgeInsets.only(top: widget.flyerZoneWidth * 0.005),
-      color: Colorz.bzPageBGColor,
+      // color: Colorz.bzPageBGColor,
       child: widget.showFlyers == false ? Container() :
       Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
 
-            // --- GRID TITLE
-            widget.bz.bzShowsTeam == false ?
-            SuperVerse(
-              verse: '${Wordz.flyersPublishedBy(context)} ${widget.bz.bzName}',
-              size: 2,
-              italic: true,
-              margin: widget.flyerZoneWidth * Ratioz.xxflyersGridSpacing,
-              maxLines: 3,
-              centered: false,
-              shadow: true,
-            )
-                :
-            SuperVerse(
-              verse: _bzTeamIDs.length == 1 ? '${Wordz.flyersPublishedBy(context)} ${widget.bz.bzAuthors[0].authorName}' :
-              '${widget.bz.bzName} ${Wordz.authorsTeam(context)}',
-              size: 2,
-              italic: true,
-              margin: widget.flyerZoneWidth * Ratioz.xxflyersGridSpacing,
-              maxLines: 3,
-              centered: false,
-              shadow: true,
-            ),
+            // // --- GRID TITLE
+            // widget.bz.bzShowsTeam == false ?
+            // SuperVerse(
+            //   verse: '${Wordz.flyersPublishedBy(context)} ${widget.bz.bzName}',
+            //   size: 2,
+            //   italic: true,
+            //   margin: widget.flyerZoneWidth * Ratioz.xxflyersGridSpacing,
+            //   maxLines: 3,
+            //   centered: false,
+            //   shadow: true,
+            // )
+            //     :
+            // SuperVerse(
+            //   verse: _bzTeamIDs.length == 1 ? '${Wordz.flyersPublishedBy(context)} ${widget.bz.bzAuthors[0].authorName}' :
+            //   '${widget.bz.bzName} ${Wordz.authorsTeam(context)}',
+            //   size: 2,
+            //   italic: true,
+            //   margin: widget.flyerZoneWidth * Ratioz.xxflyersGridSpacing,
+            //   maxLines: 3,
+            //   centered: false,
+            //   shadow: true,
+            // ),
 
             // --- AUTHORS LABELS
+
             widget.bz.bzShowsTeam == false ? Container() :
             Container(
               width: widget.flyerZoneWidth,

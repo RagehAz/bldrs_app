@@ -35,7 +35,7 @@ class MiniHeader extends StatelessWidget {
     // === === === === === === === === === === === === === === === === === === ===
     String _phoneNumber = tinyAuthor.contact;//getAContactValueFromContacts(bz?.bzContacts, ContactType.Phone);
     // --- B.LOCALE --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-    String businessLocale = zoneStringer(context: context, zone: tinyBz?.bzZone,);
+    String businessLocale = TextGenerator.zoneStringer(context: context, zone: tinyBz?.bzZone,);
     // === === === === === === === === === === === === === === === === === === ===
     return
       GestureDetector(

@@ -98,10 +98,10 @@ class DreamBox extends StatelessWidget {
     double _svgGraphicWidth = height * _sizeFactor;
     double _jpgGraphicWidth = height * _sizeFactor;
     double _graphicWidth = icon == null ? 0 :
-        fileExtensionOf(icon) == 'svg' ? _svgGraphicWidth :
-        fileExtensionOf(icon) == 'jpg' ||
-        fileExtensionOf(icon) == 'jpeg' ||
-        fileExtensionOf(icon) == 'png' ? _jpgGraphicWidth : height;
+    ObjectChecker.fileExtensionOf(icon) == 'svg' ? _svgGraphicWidth :
+    ObjectChecker.fileExtensionOf(icon) == 'jpg' ||
+        ObjectChecker.fileExtensionOf(icon) == 'jpeg' ||
+        ObjectChecker.fileExtensionOf(icon) == 'png' ? _jpgGraphicWidth : height;
 
     double _iconMargin = verse == null || icon == null ? 0 : (height - _graphicWidth)/2;
 
@@ -230,7 +230,7 @@ class DreamBox extends StatelessWidget {
                                     icon == null || icon == '' ?
                                     Container()
                                         :
-                                    objectIsSVG(icon) ?
+                                    ObjectChecker.objectIsSVG(icon) ?
                                     Padding(
                                       padding: EdgeInsets.all(_iconMargin),
                                       child: ClipRRect(
@@ -238,7 +238,7 @@ class DreamBox extends StatelessWidget {
                                           child: WebsafeSvg.asset(icon, color: _iconColor, height: _svgGraphicWidth, fit: BoxFit.cover)),
                                     )
                                         :
-                                    objectIsJPGorPNG(icon) ?
+                                    ObjectChecker.objectIsJPGorPNG(icon) ?
                                     Container(
                                       width: _jpgGraphicWidth,
                                       height: _jpgGraphicWidth,
@@ -269,14 +269,14 @@ class DreamBox extends StatelessWidget {
                                         ),),
                                     )
                                         :
-                                    objectIsURL(icon) ?
+                                    ObjectChecker.objectIsURL(icon) ?
                                     Container(
                                           width: _jpgGraphicWidth,
                                           height: _jpgGraphicWidth,
                                           margin: EdgeInsets.all(_iconMargin),
                                           decoration: BoxDecoration(
                                               borderRadius: BorderRadius.all(Radius.circular(_iconCorners)),
-                                              boxShadow: [
+                                              boxShadow: <BoxShadow>[
                                                 CustomBoxShadow(
                                                     color: bubble == true ? Colorz.BlackLingerie : Colorz.Nothing,
                                                     offset: new Offset(0, _jpgGraphicWidth * -0.019 ),
@@ -303,7 +303,7 @@ class DreamBox extends StatelessWidget {
                                     Container(),
 
                                     // --- BUTTON BLACK LAYER IF GREYED OUT
-                                    blackAndWhite == true && icon != null && fileExtensionOf(icon) != 'svg'?
+                                    blackAndWhite == true && icon != null && ObjectChecker.fileExtensionOf(icon) != 'svg'?
                                     Container(
                                       height: _jpgGraphicWidth,
                                       width: _jpgGraphicWidth,

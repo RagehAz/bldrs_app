@@ -41,7 +41,7 @@ class UserCRUD{
 
     /// check if user pic is file to upload or URL from facebook to keep
     String _userPicURL;
-    if (objectIsFile(userModel.pic) == true){
+    if (ObjectChecker.objectIsFile(userModel.pic) == true){
       _userPicURL = await savePicOnFirebaseStorageAndGetURL(
             context: context,
             inputFile: userModel.pic,
@@ -91,7 +91,7 @@ class UserCRUD{
 
     /// update picture if changed or continue without changing pic
     String _userPicURL;
-    if (objectIsFile(updatedUserModel.pic) == true){
+    if (ObjectChecker.objectIsFile(updatedUserModel.pic) == true){
       _userPicURL = await savePicOnFirebaseStorageAndGetURL(
           context: context,
           inputFile: updatedUserModel.pic,

@@ -22,7 +22,7 @@ class BtSearch extends StatelessWidget {
       double _box1Width = 40;
       double _box1Height = 40;
 
-      String _btIcon = btSearchIsBackBt == true ? superBackIcon(context) : Iconz.Search ;
+      String _btIcon = btSearchIsBackBt == true ? Iconizer.superBackIcon(context) : Iconz.Search ;
 
       void _tappingTheGodDamnSearchButton(){
         btSearchIsBackBt == true ?

@@ -40,7 +40,7 @@ class BzPageHeadline extends StatelessWidget {
               ),
               // -- BUSINESS LOCALE
               SuperVerse(
-                verse: zoneStringer(
+                verse: TextGenerator.zoneStringer(
                   context: context,
                   zone: tinyBz.bzZone,
                 ),

@@ -837,7 +837,6 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
                         bzPageIsOn: false,
                         tappingHeader: (){},
                         tappingFollow: (){},
-                        tappingUnfollow: (){},
                       ),
 
                       ProgressBar(
