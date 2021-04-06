@@ -73,6 +73,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
         layoutWidget: FutureBuilder(
           // TASK : can use bzModelBuilder here
             future: getFireStoreDocumentMap(
+              context: context,
                 collectionName: FireStoreCollection.bzz,
                 documentName: _bzID,
             ),

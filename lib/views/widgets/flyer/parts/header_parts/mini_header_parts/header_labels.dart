@@ -59,7 +59,7 @@ class HeaderLabels extends StatelessWidget {
                 flyerZoneWidth: flyerZoneWidth,
                 tinyAuthor: tinyAuthor,
                 tinyBz: tinyBz,
-                bzPageIsOn: bzPageIsOn,
+                showLabel: bzPageIsOn,
                 // authorGalleryCount: 0, // is not needed here
                 labelIsOn: true,
               ),

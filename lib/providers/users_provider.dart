@@ -4,6 +4,7 @@ import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:bldrs/firestore/crud/user_ops.dart';
+import 'package:flutter/material.dart';
 // === === === === === === === === === === === === === === === === === === ===
 class UserProvider{
   final String userID;
@@ -87,8 +88,9 @@ class UserProvider{
         .map(_userModelFromSnapshot);
   }
 // ---------------------------------------------------------------------------
-Future<UserModel> getUserModel(String userID) async {
+Future<UserModel> getUserModel(BuildContext context, String userID) async {
   Map<String, dynamic> _userMap = await getFireStoreDocumentMap(
+    context: context,
     collectionName: FireStoreCollection.users,
     documentName: userID,
   );

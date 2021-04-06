@@ -14,25 +14,13 @@ import 'package:flutter/material.dart';
 class Gallery extends StatefulWidget {
   final double flyerZoneWidth;
   final BzModel bz;
-  final bool bzShowsTeam;
-  final String bzName;
-  final int followersCount;
-  final List<String> bzTeamIDs;
-  final bool bzPageIsOn;
-  // final List<NanoFlyer> galleryFlyers;
-  final List<AuthorModel> authors;
+  final bool showFlyers;
   // final Function tappingMiniFlyer;
 
   Gallery({
     @required this.flyerZoneWidth,
     @required this.bz,
-    @required this.bzShowsTeam,
-    @required this.bzName,
-    @required this.followersCount,
-    @required this.bzTeamIDs,
-    @required this.bzPageIsOn,
-    // @required this.galleryFlyers,
-    @required this.authors,
+    @required this.showFlyers,
     // @required this.tappingMiniFlyer,
   });
 
@@ -45,17 +33,19 @@ class _GalleryState extends State<Gallery> {
   List<bool> authorsVisibility;
   String currentSelectedAuthor;
   List<TinyFlyer> _tinyFlyers;
+  List<String> _bzTeamIDs;
 // ----------------------------------------------------------------------------
   void setFlyersVisibility () {
     setState(() {
       flyersVisibilities = List.filled(_tinyFlyers.length, true);
-      currentSelectedAuthor = widget.bzTeamIDs.length == 1 ? widget.bzTeamIDs[0] : '';
+      currentSelectedAuthor = _bzTeamIDs.length == 1 ? _bzTeamIDs[0] : '';
     });
 }
 // ----------------------------------------------------------------------------
   @override
   void initState(){
     _tinyFlyers = TinyFlyer.getTinyFlyersFromBzModel(widget.bz);
+    _bzTeamIDs = BzModel.getBzTeamIDs(widget.bz);
     setFlyersVisibility();
     super.initState();
   }
@@ -78,16 +68,16 @@ class _GalleryState extends State<Gallery> {
       width: widget.flyerZoneWidth,
       margin: EdgeInsets.only(top: widget.flyerZoneWidth * 0.005),
       color: Colorz.bzPageBGColor,
-      child: widget.bzPageIsOn == false ? Container() :
+      child: widget.showFlyers == false ? Container() :
       Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
 
             // --- GRID TITLE
-            widget.bzShowsTeam == false ?
+            widget.bz.bzShowsTeam == false ?
             SuperVerse(
-              verse: '${Wordz.flyersPublishedBy(context)} ${widget.bzName}',
+              verse: '${Wordz.flyersPublishedBy(context)} ${widget.bz.bzName}',
               size: 2,
               italic: true,
               margin: widget.flyerZoneWidth * Ratioz.xxflyersGridSpacing,
@@ -97,8 +87,8 @@ class _GalleryState extends State<Gallery> {
             )
                 :
             SuperVerse(
-              verse: widget.bzTeamIDs.length == 1 ? '${Wordz.flyersPublishedBy(context)} ${widget.authors[0].authorName}' :
-              '${widget.bzName} ${Wordz.authorsTeam(context)}',
+              verse: _bzTeamIDs.length == 1 ? '${Wordz.flyersPublishedBy(context)} ${widget.bz.bzAuthors[0].authorName}' :
+              '${widget.bz.bzName} ${Wordz.authorsTeam(context)}',
               size: 2,
               italic: true,
               margin: widget.flyerZoneWidth * Ratioz.xxflyersGridSpacing,
@@ -108,7 +98,7 @@ class _GalleryState extends State<Gallery> {
             ),
 
             // --- AUTHORS LABELS
-            widget.bzShowsTeam == false ? Container() :
+            widget.bz.bzShowsTeam == false ? Container() :
             Container(
               width: widget.flyerZoneWidth,
               height: widget.flyerZoneWidth * Ratioz.xxflyerAuthorPicWidth,
@@ -120,19 +110,19 @@ class _GalleryState extends State<Gallery> {
                 scrollDirection: Axis.horizontal,
                 padding: EdgeInsets.symmetric(horizontal: widget.flyerZoneWidth * 0.01),
                 children:
-                widget.authors == null ? [Container()] :
+                widget.bz.bzAuthors == null ? [Container()] :
                 List<Widget>.generate(
-                  widget.authors.length,
+                  widget.bz.bzAuthors.length,
                       (authorIndex) {
 
-                    AuthorModel _author = widget.authors[authorIndex];
+                    AuthorModel _author = widget.bz.bzAuthors[authorIndex];
                     TinyUser _tinyAuthor = AuthorModel.getTinyAuthorFromAuthorModel(_author);
 
                     return
                         Row(
                           children: <Widget>[
                             AuthorLabel(
-                              bzPageIsOn: widget.bzPageIsOn,
+                              showLabel: widget.showFlyers == true ? true : false,
                               flyerZoneWidth: widget.flyerZoneWidth,
                               tinyAuthor: _tinyAuthor,
                               tinyBz: TinyBz.getTinyBzFromBzModel(widget.bz),
@@ -143,8 +133,7 @@ class _GalleryState extends State<Gallery> {
                                 tappingAuthorLabel(id);
                               },
                               // :(id){print('a77a');// tappingAuthorLabel();},
-                              labelIsOn: currentSelectedAuthor == widget
-                                  .authors[authorIndex].userID ? true : false,
+                              labelIsOn: currentSelectedAuthor == widget.bz.bzAuthors[authorIndex].userID ? true : false,
                             )
                           ],
                         );
@@ -156,10 +145,10 @@ class _GalleryState extends State<Gallery> {
             // --- AUTHORS FLYERS
             GalleryGrid(
               gridZoneWidth: widget.flyerZoneWidth,
-              bzID: widget.authors == null || widget.authors == [] || widget.authors.isEmpty ?  '': widget.bz.bzID,
+              bzID: widget.bz.bzAuthors == null || widget.bz.bzAuthors == [] || widget.bz.bzAuthors.isEmpty ?  '': widget.bz.bzID,
               flyersVisibilities: flyersVisibilities,
               galleryFlyers: _tinyFlyers,
-              bzAuthors: widget.authors,
+              bzAuthors: widget.bz.bzAuthors,
               bz: widget.bz,
               // tappingMiniFlyer: widget.tappingMiniFlyer,
             ),

@@ -76,15 +76,23 @@ Stream<DocumentSnapshot> getFirestoreDocumentSnapshots(String collectionName, St
   return _snapshots;
 }
 // ---------------------------------------------------------------------------
-Future<dynamic> getFireStoreDocumentMap({String collectionName, String documentName}) async {
-
-  final DocumentReference _document = getFirestoreDocumentReference(collectionName, documentName);
+Future<dynamic> getFireStoreDocumentMap({BuildContext context, String collectionName, String documentName}) async {
 
   Map<String, dynamic> _map; //QueryDocumentSnapshot
 
-  await _document.get().then<dynamic>((DocumentSnapshot snapshot) async{
-    _map = snapshot.data();
-  });
+  await tryAndCatch(
+    context: context,
+    functions: () async {
+
+      final DocumentReference _document = getFirestoreDocumentReference(collectionName, documentName);
+
+      await _document.get().then<dynamic>((DocumentSnapshot snapshot) async{
+        _map = snapshot.data();
+      });
+
+    },
+  );
+
 
   return _map;
 }
@@ -211,9 +219,10 @@ Future<DocumentReference> insertFireStoreSubDocument({
   return _subDocRef;
 }
 // ---------------------------------------------------------------------------
-Future<dynamic> getFireStoreDocumentField({String collectionName, String documentName, String fieldName}) async {
+Future<dynamic> getFireStoreDocumentField({BuildContext context, String collectionName, String documentName, String fieldName}) async {
 
   dynamic _map = await getFireStoreDocumentMap(
+    context: context,
       collectionName: collectionName,
     documentName: documentName,
   );

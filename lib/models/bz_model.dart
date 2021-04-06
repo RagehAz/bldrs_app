@@ -330,6 +330,17 @@ Map<String, dynamic> toMap(){
     BzType.Supplier,
   ];
 // -----------------------------------------------------------------------------
+static List<String> getBzTeamIDs(BzModel bzModel){
+  List<AuthorModel> _authors = bzModel.bzAuthors;
+  List<String> _bzTeamIDs = new List();
+
+  _authors.forEach((au) {
+    _bzTeamIDs.add(au.userID);
+  });
+
+  return _bzTeamIDs;
+}
+// -----------------------------------------------------------------------------
 }
 // -----------------------------------------------------------------------------
 enum BzType {

@@ -75,13 +75,13 @@ class AuthService {
   }
   // ---------------------------------------------------------------------------
   /// sign in with email & password
-  Future<dynamic> signInWithEmailAndPassword(String email, String password) async {
+  Future<dynamic> signInWithEmailAndPassword(BuildContext context, String email, String password) async {
     try {
       UserCredential result = await _auth.signInWithEmailAndPassword(
           email: email.trim(), password: password);
       User user = result.user;
       String userID = user.uid;
-      UserModel _userModel = await UserProvider(userID: userID).getUserModel(userID);
+      UserModel _userModel = await UserProvider(userID: userID).getUserModel(context, userID);
       return _userModel;
     } catch (error) {
       print('auth error is : ${error.toString()}');
