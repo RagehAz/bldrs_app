@@ -27,7 +27,7 @@ class HeaderShadow extends StatelessWidget {
           height: flyerZoneWidth,
           decoration: BoxDecoration(
               shape: BoxShape.rectangle,
-              borderRadius: superHeaderCorners(context, bzPageIsOn, flyerZoneWidth),
+              borderRadius: Borderers.superHeaderCorners(context, bzPageIsOn, flyerZoneWidth),
               boxShadow: superHeaderShadower(flyerZoneWidth),
           ),
         ),

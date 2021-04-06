@@ -43,7 +43,7 @@ class DreamWrapper extends StatelessWidget {
       // height: boxHeight,
       decoration: BoxDecoration(
         color: Colorz.BloodTest,
-        borderRadius: superBorderAll(context, 10),
+        borderRadius: Borderers.superBorderAll(context, 10),
       ),
       child: Wrap(
         spacing: spacing,

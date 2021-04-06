@@ -46,7 +46,7 @@ final bool stretchy;
             color: bubbleColor,
             borderRadius: BorderRadius.circular(Ratioz.ddAppBarCorner),
           ),
-          alignment: centered == true ? Alignment.center : superCenterAlignment(context),
+          alignment: centered == true ? Alignment.center : Aligners.superCenterAlignment(context),
 
           child: Column(
             mainAxisSize: stretchy ? MainAxisSize.min : MainAxisSize.max,

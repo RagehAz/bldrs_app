@@ -10,7 +10,7 @@ void showSnackBar(BuildContext context, AnimationController _snackController) {
   Scaffold.of(context).showSnackBar(SnackBar(
     backgroundColor: Colorz.BloodTest,
     shape: RoundedRectangleBorder(
-        borderRadius: superBorderRadius(context, 20, 0, 0, 20)),
+        borderRadius: Borderers.superBorderRadius(context: context, enTopLeft: 20, enBottomLeft: 0, enBottomRight: 0, enTopRight: 20)),
     behavior: SnackBarBehavior.floating,
     elevation: 0,
     content: SuperVerse(

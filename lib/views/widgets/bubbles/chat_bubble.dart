@@ -23,12 +23,12 @@ class ChatBubble extends StatelessWidget {
 
     double _bubbleWidth = superScreenWidth(context);
     double _corner = Ratioz.ddAppBarCorner;
-    BorderRadius _bubbleBorderss = superBorderAll(context, _corner);
+    BorderRadius _bubbleBorderss = Borderers.superBorderAll(context, _corner);
 
-    BorderRadius _bubbleBorders =
-    myVerse ?
-    superBorderRadius(context, _corner, _corner, 0, _corner) :
-    superBorderRadius(context, 0, _corner, _corner, _corner) ;
+    BorderRadius _bubbleBorders = myVerse ?
+    Borderers.superBorderRadius(context: context, enTopLeft: _corner, enBottomLeft: _corner, enBottomRight: 0, enTopRight: _corner)
+        :
+    Borderers.superBorderRadius(context: context, enTopLeft: 0, enBottomLeft: _corner, enBottomRight: _corner, enTopRight: _corner) ;
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,

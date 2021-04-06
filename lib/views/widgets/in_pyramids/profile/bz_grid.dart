@@ -50,7 +50,7 @@ class BzGrid extends StatelessWidget {
 
     return
       ClipRRect(
-        borderRadius: superBorderAll(context, zoneCorners),
+        borderRadius: Borderers.superBorderAll(context, zoneCorners),
         child: Container(
           width: gridZoneWidth,
           height: _gridHeight,

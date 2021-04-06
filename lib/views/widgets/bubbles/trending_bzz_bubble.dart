@@ -53,7 +53,7 @@ class TrendingBzBubble extends StatelessWidget {
                     BzLogo(
                       width: logoHeight,
                       image: bzLogos[_x],
-                      corners: superBorderAll(context, 10),
+                      corners: Borderers.superBorderAll(context, 10),
                     );
                 }
             ),
