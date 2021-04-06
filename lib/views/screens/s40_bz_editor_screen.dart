@@ -644,26 +644,26 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
               // --- CHOOSE SECTION
               MultipleChoiceBubble(
                 title: Wordz.sections(context),
-                buttonsList: sectionsListStrings(context),
+                buttonsList: TextGenerator.sectionsListStrings(context),
                 tappingAButton: _selectASection,
-                chosenButton: sectionStringer(context, _currentSection),
+                chosenButton: TextGenerator.sectionStringer(context, _currentSection),
               ),
 
               // --- CHOOSE BzType
               MultipleChoiceBubble(
                 title: 'Profession',
-                buttonsList: bzTypesStrings(context),
+                buttonsList: TextGenerator.bzTypesStrings(context),
                 tappingAButton: _selectBzType,
-                chosenButton: bzTypeSingleStringer(context, _currentBzType),
+                chosenButton: TextGenerator.bzTypeSingleStringer(context, _currentBzType),
                 buttonsInActivityList: _bzTypeInActivityList,
               ),
 
               // --- CHOOSE BzForm
               MultipleChoiceBubble(
                 title: Wordz.businessForm(context),
-                buttonsList: bzFormStrings(context),
+                buttonsList: TextGenerator.bzFormStrings(context),
                 tappingAButton: (index) => setState(() {_currentBzForm = BzModel.bzFormsList[index];}),
-                chosenButton: bzFormStringer(context, _currentBzForm),
+                chosenButton: TextGenerator.bzFormStringer(context, _currentBzForm),
                 buttonsInActivityList: _bzFormInActivityList,
               ),
 

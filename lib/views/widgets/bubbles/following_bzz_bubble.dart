@@ -1,11 +1,9 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
-import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/in_pyramids/profile/bz_grid.dart';
-import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -21,17 +19,8 @@ class FollowingBzzBubble extends StatelessWidget {
 
     return InPyramidsBubble(
       centered: false,
+      title: 'Following ${10} Businesses',
       columnChildren: <Widget>[
-
-        // --- BUBBLE TITLE
-        SuperVerse(
-          verse: 'Following ${10} Businesses',
-          size: 2,
-          centered: false,
-          margin: Ratioz.ddAppBarMargin,
-          color: Colorz.Grey,
-        ),
-
 
         // --- FOLLOWING BZZ GRID
         BzGrid(

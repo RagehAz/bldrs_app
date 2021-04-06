@@ -63,7 +63,7 @@ class FlyerStack extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 15),
             child: SuperVerse(
-              verse: flyerTypePluralStringer(context, flyersType),
+              verse: TextGenerator.flyerTypePluralStringer(context, flyersType),
               size: 2,
               weight: VerseWeight.bold,
               centered: false,

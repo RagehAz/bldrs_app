@@ -149,7 +149,6 @@ class _FlyerState extends State<Flyer> with AutomaticKeepAliveClientMixin{
                 // print('followIsOn : ${bz.followIsOn}');
                 // bz.toggleFollow();
                 },
-              tappingUnfollow: () {print('UnFollow Tapped');},
               followIsOn: false, // TASK : fix following issue
             ),
           ),

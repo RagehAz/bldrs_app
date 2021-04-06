@@ -151,14 +151,9 @@ class _LocaleBubbleState extends State<LocaleBubble> {
     // double _buttonWidth = (_bubbleClearWidth / 3)-((2*_buttonsSpacing)/3);
 
     return InPyramidsBubble(
+      title: widget.title,
+        redDot: true,
         columnChildren: <Widget>[
-
-          SuperVerse(
-            verse: widget.title,
-            margin: 5,
-            redDot: true,
-
-          ),
 
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

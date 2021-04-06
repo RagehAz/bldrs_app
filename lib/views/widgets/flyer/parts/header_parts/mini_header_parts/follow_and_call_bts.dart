@@ -140,7 +140,7 @@ class FollowBT extends StatelessWidget {
                 width: followBTWidth,
                 decoration: BoxDecoration(
                   borderRadius: Borderers.superFollowOrCallCorners(context, flyerZoneWidth, true),
-                  gradient: superFollowBTGradient(),
+                  gradient: Colorizer.superFollowBTGradient(),
                 ),
               ),
 
@@ -227,7 +227,7 @@ class CallBT extends StatelessWidget {
                 width: callBTWidth,
                 decoration: BoxDecoration(
                   borderRadius: roundCorners,
-                  gradient: superFollowBTGradient(),
+                  gradient: Colorizer.superFollowBTGradient(),
                 ),
               ),
 

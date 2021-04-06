@@ -265,7 +265,6 @@ class _MyBzScreenState extends State<MyBzScreen> {
                                 bzPageIsOn: _bzPageIsOn,
                                 tappingHeader: _triggerMaxHeader,
                                 tappingFollow: (){},
-                                tappingUnfollow: (){},
                                 stripBlurIsOn: true,
                               ),
 

@@ -96,7 +96,6 @@ class _BzCardScreenState extends State<BzCardScreen> {
                         // setState(() {});
                         // print('rebuilding widget with new followIsOn value : ${bz.followIsOn}');
                       },
-                      tappingUnfollow: null, // Task : delete unfollow function and combine all following operations in one method
                     ),
 
                   ],

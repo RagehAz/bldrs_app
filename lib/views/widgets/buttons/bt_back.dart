@@ -24,7 +24,7 @@ class BldrsBackButton extends StatelessWidget {
       height: size,
       width: size,
       boxMargins: EdgeInsets.symmetric(horizontal: ((Ratioz.ddAppBarHeight - size)/2)),
-      icon: superBackIcon(context),
+      icon: Iconizer.superBackIcon(context),
       iconSizeFactor: 1,
       bubble: false,
       color: color,

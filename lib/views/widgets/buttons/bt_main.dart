@@ -176,7 +176,7 @@ class BTMain extends StatelessWidget {
                               // padding: EdgeInsets.all(_buttonHeight * 0),
                               child:
                                   buttonIcon.runtimeType != String ? buttonIcon :
-                                  fileExtensionOf(buttonIcon) == 'jpg' || fileExtensionOf(buttonIcon) == 'jpeg' || fileExtensionOf(buttonIcon) == 'png' ?
+                                  ObjectChecker.fileExtensionOf(buttonIcon) == 'jpg' || ObjectChecker.fileExtensionOf(buttonIcon) == 'jpeg' || ObjectChecker.fileExtensionOf(buttonIcon) == 'png' ?
                                   Container(
                                     width: _buttonZoneHeight * 0.4,
                                     height: _buttonZoneHeight * 0.4,

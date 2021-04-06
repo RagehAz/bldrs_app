@@ -79,7 +79,6 @@ class _AFlyerState extends State<AFlyer> with AutomaticKeepAliveClientMixin{
           bzPageIsOn: _bzPageIsOn,
           tappingHeader: () {switchBzPage();},
           tappingFollow: (){},
-          tappingUnfollow: (){},
           flyerShowsAuthor: widget.flyer?.flyerShowsAuthor,
           followIsOn: false,
           stripBlurIsOn: true,

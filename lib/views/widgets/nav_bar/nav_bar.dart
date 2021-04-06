@@ -25,6 +25,7 @@ import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_sheet.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart' show Sky;
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
+import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/new__mybz_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -154,7 +155,7 @@ class NavBar extends StatelessWidget {
     // -------------------------------------------------------------------------
     FlyersProvider prof = Provider.of<FlyersProvider>(context, listen: true);
 
-    bool _deviceIsIOS = deviceIsIOS() ? true : false;
+    bool _deviceIsIOS = DeviceChecker.deviceIsIOS() ? true : false;
 
     Widget _expander = _deviceIsIOS ? Expanded(child: Container(),) : Container();
 
@@ -198,7 +199,7 @@ class NavBar extends StatelessWidget {
                            color: sky == Sky.Black ? Colorz.YellowZircon : Colorz.WhiteGlass,
                            corners: _buttonCircleCorner,
                            boxMargins: EdgeInsets.all(Ratioz.ddAppBarPadding),
-                           icon: superBackIcon(context),
+                           icon: Iconizer.superBackIcon(context),
                            blur : Ratioz.blur1,
                            boxFunction: () => goBack(context),
                          ),
@@ -308,7 +309,7 @@ class NavBar extends StatelessWidget {
                                                      boxMargins: EdgeInsets.all(Ratioz.ddAppBarPadding),
                                                      icon: _tinyBz.bzLogo,
                                                      verse: _tinyBz.bzName,
-                                                     secondLine: bzTypeSingleStringer(context, _tinyBz.bzType),
+                                                     secondLine: TextGenerator.bzTypeSingleStringer(context, _tinyBz.bzType),
                                                      iconSizeFactor: 1,
                                                      verseScaleFactor: 0.7,
                                                      bubble: true,
@@ -316,10 +317,9 @@ class NavBar extends StatelessWidget {
                                                      boxFunction: (){
                                                        print('${_tinyBz.bzID}');
                                                        goToNewScreen(context,
-                                                           MyBzScreen(
+                                                           NewMyBzScreen(
                                                              userModel: userModel,
-                                                             bzID: _tinyBz.bzID,
-                                                             switchPage: (){},
+                                                             tinyBz: _tinyBz,
                                                            ));
                                                      },
                                                    ),

@@ -6,6 +6,7 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
+import 'package:bldrs/views/widgets/bubbles/tile_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
@@ -35,14 +36,8 @@ class ContactsBubble extends StatelessWidget {
     return InPyramidsBubble(
       centered: false,
       stretchy: stretchy,
+      title: '${Wordz.contacts(context)} :',
       columnChildren: <Widget>[
-
-        // --- TITLE
-        SuperVerse(
-          verse: '${Wordz.contacts(context)} :',
-          margin: abPadding,
-          color: Colorz.Grey,
-        ),
 
         // --- CONTACTS WITH STRINGS
         Wrap(
@@ -58,7 +53,7 @@ class ContactsBubble extends StatelessWidget {
                     return
                         DreamBox(
                           height: contactBoxHeight,
-                          icon: superContactIcon(contactsWithStrings[index].contactType),
+                          icon: Iconizer.superContactIcon(contactsWithStrings[index].contactType),
                           boxMargins: EdgeInsets.all(abPadding),
                           verse: _value,
                           verseColor: Colorz.White,
@@ -90,7 +85,7 @@ class ContactsBubble extends StatelessWidget {
                         return
                       DreamBox(
                         height: contactBoxHeight,
-                        icon: superContactIcon(socialMediaContacts[index]?.contactType),
+                        icon: Iconizer.superContactIcon(socialMediaContacts[index]?.contactType),
                         boxMargins: EdgeInsets.all(abPadding),
                         boxFunction:
                         onTap == null ?

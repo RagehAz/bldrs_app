@@ -34,7 +34,7 @@ class BzLabel extends StatelessWidget {
     double businessDataWidth = flyerZoneWidth * (Ratioz.xxflyerAuthorPicWidth + Ratioz.xxflyerAuthorNameWidth);
     double headerTextSidePadding = flyerZoneWidth * 0.02;
     // --- B.LOCALE --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- B.LOCALE
-    String businessLocale = zoneStringer(context: context, zone: tinyBz.bzZone,);
+    String businessLocale = TextGenerator.zoneStringer(context: context, zone: tinyBz.bzZone,);
     // === === === === === === === === === === === === === === === === === === ===
     int bzNameSize = flyerShowsAuthor == true ? 3 : 5;
     int bLocaleSize = flyerShowsAuthor == true ? 1 : 1;

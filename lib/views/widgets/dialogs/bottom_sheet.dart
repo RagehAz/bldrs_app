@@ -143,7 +143,7 @@ class BldrsBottomSheet extends StatelessWidget {
                       enBottomRight: 0,
                       enTopRight: _contentCorners
                   ),
-                  gradient: superHeaderStripGradient(Colorz.WhiteGlass)
+                  gradient: Colorizer.superHeaderStripGradient(Colorz.WhiteGlass)
                 ),
                 child: child,
               ),

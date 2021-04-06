@@ -46,7 +46,7 @@ class StartingScreen extends StatelessWidget {
               LogoSlogan(sizeFactor: 0.87,),
 
               // --- CONTINUE WITH APPLE
-              deviceIsIOS() ?
+              DeviceChecker.deviceIsIOS() ?
               BTMain(
                 buttonVerse: Wordz.continueApple(context),
                 buttonIcon: Iconz.ComApple,
@@ -59,7 +59,7 @@ class StartingScreen extends StatelessWidget {
               )
                   :
               // CONTINUE WITH GOOGLE
-              deviceIsAndroid() ?
+              DeviceChecker.deviceIsAndroid() ?
               BTMain(
                 buttonVerse: "Continue with Google",
                 buttonIcon: Iconz.ComGooglePlus,

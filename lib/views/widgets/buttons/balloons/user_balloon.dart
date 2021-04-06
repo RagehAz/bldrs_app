@@ -51,7 +51,7 @@ class UserBalloon extends StatelessWidget {
         child: GestureDetector(
           onTap: onTap,
           child: ClipShadowPath(
-            clipper: balloonType == null ? userBalloon(userModel?.userStatus) : userBalloon(balloonType),
+            clipper: balloonType == null ? Iconizer.userBalloon(userModel?.userStatus) : Iconizer.userBalloon(balloonType),
             shadow: Shadowz.basicOuterShadow,
             child: Stack(
               alignment: Alignment.center,
@@ -64,7 +64,7 @@ class UserBalloon extends StatelessWidget {
                     height: balloonWidth,
                     color: balloonColor,
                     child: ColorFiltered(
-                        colorFilter: superDesaturation(blackAndWhite),
+                        colorFilter: Colorizer.superDesaturation(blackAndWhite),
                         child:
                         loading ?
                         Loading(loading: loading,)

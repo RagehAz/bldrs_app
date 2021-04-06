@@ -97,10 +97,10 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
     double svgGraphicWidth = boxHeight * sizeFactor;
     double jpgGraphicWidth = boxHeight * sizeFactor;
     double graphicWidth = widget.icon == null ? 0 :
-    fileExtensionOf(widget.icon) == 'svg' ? svgGraphicWidth :
-    fileExtensionOf(widget.icon) == 'jpg' ||
-        fileExtensionOf(widget.icon) == 'jpeg' ||
-        fileExtensionOf(widget.icon) == 'png' ? jpgGraphicWidth : boxHeight;
+    ObjectChecker.fileExtensionOf(widget.icon) == 'svg' ? svgGraphicWidth :
+    ObjectChecker.fileExtensionOf(widget.icon) == 'jpg' ||
+        ObjectChecker.fileExtensionOf(widget.icon) == 'jpeg' ||
+        ObjectChecker.fileExtensionOf(widget.icon) == 'png' ? jpgGraphicWidth : boxHeight;
 
     double iconMargin = widget.verse == null || widget.icon == null ? 0 : (boxHeight - graphicWidth)/2;
 
@@ -218,7 +218,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                                 widget.icon == null || widget.icon == '' ?
                                 Container()
                                     :
-                                fileExtensionOf(widget.icon) == 'svg' ?
+                                ObjectChecker.fileExtensionOf(widget.icon) == 'svg' ?
                                 Padding(
                                   padding: EdgeInsets.all(iconMargin),
                                   child: ClipRRect(
@@ -226,7 +226,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                                       child: WebsafeSvg.asset(widget.icon, color: _iconColor, height: svgGraphicWidth, fit: BoxFit.cover)),
                                 )
                                     :
-                                fileExtensionOf(widget.icon) == 'jpg' || fileExtensionOf(widget.icon) == 'jpeg' || fileExtensionOf(widget.icon) == 'png' ?
+                                ObjectChecker.fileExtensionOf(widget.icon) == 'jpg' || ObjectChecker.fileExtensionOf(widget.icon) == 'jpeg' || ObjectChecker.fileExtensionOf(widget.icon) == 'png' ?
                                 AnimatedContainer(
                                   duration: Duration(milliseconds: bounceDuration),
                                   curve: Curves.easeInOutQuint,
@@ -263,7 +263,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                                 Container(),
 
                                 // --- BUTTON BLACK LAYER IF GREYED OUT
-                                widget.blackAndWhite == true && widget.icon != null && fileExtensionOf(widget.icon) != 'svg'?
+                                widget.blackAndWhite == true && widget.icon != null && ObjectChecker.fileExtensionOf(widget.icon) != 'svg'?
                                 AnimatedContainer(
                                   duration: Duration(milliseconds: bounceDuration),
                                   curve: Curves.easeInOutQuint,
