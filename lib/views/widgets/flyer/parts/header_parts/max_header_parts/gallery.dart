@@ -15,13 +15,13 @@ class Gallery extends StatefulWidget {
   final double flyerZoneWidth;
   final BzModel bz;
   final bool showFlyers;
-  // final Function tappingMiniFlyer;
+  final Function flyerOnTap;
 
   Gallery({
     @required this.flyerZoneWidth,
     @required this.bz,
     @required this.showFlyers,
-    // @required this.tappingMiniFlyer,
+    @required this.flyerOnTap,
   });
 
   @override
@@ -151,7 +151,7 @@ class _GalleryState extends State<Gallery> {
               galleryFlyers: _tinyFlyers,
               bzAuthors: widget.bz.bzAuthors,
               bz: widget.bz,
-              // tappingMiniFlyer: widget.tappingMiniFlyer,
+              flyerOnTap: widget.flyerOnTap,
             ),
 
           ]

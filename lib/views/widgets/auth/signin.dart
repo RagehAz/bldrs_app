@@ -261,10 +261,10 @@ class _SignInState extends State<SignIn> {
                           ){
                             await superDialog(context, 'You have to complete your profile info', '');
                             _triggerLoading();
-                            goToNewScreen(context, EditProfileScreen(user: result, firstTimer: false,),);
+                            Nav.goToNewScreen(context, EditProfileScreen(user: result, firstTimer: false,),);
                           } else {
                           _triggerLoading();
-                          goToRoute(context, Routez.Home);
+                          Nav.goToRoute(context, Routez.Home);
 
                           }
 

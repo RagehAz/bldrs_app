@@ -1,7 +1,5 @@
-import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/streamerz.dart';
-import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/models/bz_model.dart';
@@ -15,27 +13,25 @@ import 'package:bldrs/views/widgets/flyer/parts/header.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/max_header_parts/gallery.dart';
 import 'package:bldrs/views/widgets/flyer/parts/slides_parts/single_slide.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
-import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart' show MainLayout, PyramidsHorizon, Stratosphere;
-import 's50_flyer_editor_screen.dart';
 
-class MyBzScreen extends StatefulWidget {
+class OldMyBzScreen extends StatefulWidget {
   final UserModel userModel;
   final Function switchPage;
   final String bzID;
 
-  MyBzScreen({
+  OldMyBzScreen({
     @required this.userModel,
     this.switchPage,
     @required this.bzID,
   });
 
   @override
-  _MyBzScreenState createState() => _MyBzScreenState();
+  _OldMyBzScreenState createState() => _OldMyBzScreenState();
 }
 
-class _MyBzScreenState extends State<MyBzScreen> {
+class _OldMyBzScreenState extends State<OldMyBzScreen> {
   bool _bzPageIsOn = false;
 // ---------------------------------------------------------------------------
   Future <void> _goToEditBzProfile(BzModel bzModel) async {
@@ -248,6 +244,7 @@ class _MyBzScreenState extends State<MyBzScreen> {
                                     flyerZoneWidth: _flyerZoneWidth,
                                     showFlyers: true,
                                     bz: _bzModel,
+                                    flyerOnTap: (){},
                                   ),
 
 

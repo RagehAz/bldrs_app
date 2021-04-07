@@ -61,7 +61,7 @@ AlertDialog superAlert (BuildContext context, BuildContext ctx, dynamic error, S
                             verseColor: Colorz.BlackBlack,
                             color: Colorz.Yellow,
                             verseScaleFactor: 0.6,
-                            boxFunction: () => goBack(context)
+                            boxFunction: () => Nav.goBack(context)
                         )
 
                       ],

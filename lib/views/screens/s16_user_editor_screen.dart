@@ -228,7 +228,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
       await superDialog(context, 'Successfully created your user account', 'Great !');
 
-      goToRoute(context, Routez.Home);
+      Nav.goToRoute(context, Routez.Home);
 
     }
 
@@ -278,7 +278,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
       await superDialog(context, 'Successfully updated your user account', 'Great !');
 
-      goBack(context);
+      Nav.goBack(context);
 
     }
   }
