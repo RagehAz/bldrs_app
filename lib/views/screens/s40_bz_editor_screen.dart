@@ -518,7 +518,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
 
       await superDialog(context, 'Successfully added your Business Account ', 'Great !');
 
-      goBack(context);
+      Nav.goBack(context);
 
     }
 
@@ -597,7 +597,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
 
       await superDialog(context, 'Successfully updated your Business Account ', 'Great !');
 
-      goBack(context);
+      Nav.goBack(context);
 
     }
 

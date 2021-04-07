@@ -173,7 +173,7 @@ class _FlyersGridViewState extends State<FlyersGridView> {
                       initialSlide: 0,
                       slidingIsOn: true,
                       tappingFlyerZone: (){
-                        openFlyer(context, flyers[i].flyerID);
+                        Nav.openFlyer(context, flyers[i].flyerID);
                       },
                     ),
                   ),

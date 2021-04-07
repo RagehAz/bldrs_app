@@ -19,13 +19,12 @@ import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/screens/s14_more_screen.dart';
 import 'package:bldrs/views/screens/s15_profile_screen.dart';
-import 'package:bldrs/views/screens/s41_my_bz_screen.dart';
+import 'package:bldrs/views/screens/s41_mybz_screen.dart';
 import 'package:bldrs/views/widgets/buttons/balloons/user_balloon.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_sheet.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart' show Sky;
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
-import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/new__mybz_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -201,7 +200,7 @@ class NavBar extends StatelessWidget {
                            boxMargins: EdgeInsets.all(Ratioz.ddAppBarPadding),
                            icon: Iconizer.superBackIcon(context),
                            blur : Ratioz.blur1,
-                           boxFunction: () => goBack(context),
+                           boxFunction: () => Nav.goBack(context),
                          ),
 
                        _expander,
@@ -241,7 +240,7 @@ class NavBar extends StatelessWidget {
                                    icon: Iconz.SaveOn,
                                    iconSizeFactor: 0.7,
                                    barType: barType,
-                                   onTap: () => goToRoute(context, Routez.SavedFlyers),
+                                   onTap: () => Nav.goToRoute(context, Routez.SavedFlyers),
                                  ),
 
 
@@ -256,7 +255,7 @@ class NavBar extends StatelessWidget {
                                    barType: barType,
                                    onTap: (){
                                      print('fish');
-                                     goToNewScreen(context, MoreScreen(userModel: userModel));
+                                     Nav.goToNewScreen(context, MoreScreen(userModel: userModel));
                                      },
                                  ),
 
@@ -273,10 +272,9 @@ class NavBar extends StatelessWidget {
                                      print('fish');
 
                                      if (userModel.myBzzIDs.length == 1){
-                                       goToNewScreen(context, MyBzScreen(
+                                       Nav.goToNewScreen(context, MyBzScreen(
                                          userModel: userModel,
-                                         bzID: userModel.myBzzIDs[0],
-                                         switchPage: (){},
+                                         tinyBz: myTinyBzz[0],
                                        ));
                                      } else {
                                        slideBottomSheet(
@@ -316,8 +314,8 @@ class NavBar extends StatelessWidget {
                                                      color: Colorz.Nothing,
                                                      boxFunction: (){
                                                        print('${_tinyBz.bzID}');
-                                                       goToNewScreen(context,
-                                                           NewMyBzScreen(
+                                                       Nav.goToNewScreen(context,
+                                                           MyBzScreen(
                                                              userModel: userModel,
                                                              tinyBz: _tinyBz,
                                                            ));
@@ -345,7 +343,7 @@ class NavBar extends StatelessWidget {
                                      icon: Iconz.NormalUser,
                                      iconSizeFactor: 0.7,
                                      barType: barType,
-                                     onTap: () => goToNewScreen(context, UserProfileScreen()),
+                                     onTap: () => Nav.goToNewScreen(context, UserProfileScreen()),
                                      clipperWidget : UserBalloon(
                                        balloonWidth: _circleWidth,
                                        loading: false,

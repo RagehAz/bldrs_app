@@ -90,7 +90,7 @@ class _FlyersGridState extends State<FlyersGrid> {
                           slidingIsOn: false,
                           rebuildFlyerGrid: rebuildGrid,
                           tappingFlyerZone: (){
-                            openFlyer(context, savedFlyers[index].flyerID);
+                            Nav.openFlyer(context, savedFlyers[index].flyerID);
                           },
                           flyerIsInGalleryNow: true,
                         ),

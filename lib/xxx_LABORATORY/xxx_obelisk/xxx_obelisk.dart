@@ -4,6 +4,7 @@ import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/dashboard/s01_dashboard.dart';
+import 'package:bldrs/views/screens/s41_mybz_screen.dart';
 import 'package:bldrs/views/widgets/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/views/widgets/buttons/bt_main.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
@@ -14,7 +15,6 @@ import 'package:bldrs/views/widgets/textings/the_golden_scroll.dart';
 import 'package:bldrs/xxx_LABORATORY/animations/animations_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/forms_and_inputs/popup.dart';
 import 'package:bldrs/xxx_LABORATORY/forms_and_inputs/form.dart';
-import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/new__mybz_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/text_field_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x03_font_test_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x08_earth_screen.dart';
@@ -90,7 +90,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
         buttonIcon: icon,
         buttonVerseShadow: true,
         splashColor: Colorz.Yellow,
-        function: () => goToNewScreen(context, screen),
+        function: () => Nav.goToNewScreen(context, screen),
         stretched: false,
       );
   }
@@ -129,8 +129,8 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
                     builder: (ctx, tinyBz){
                       return
                         oButton('New My Bz Screen', Iconz.Bz,
-                            NewMyBzScreen(
-                                tinyBz: tinyBz,
+                            MyBzScreen(
+                              tinyBz: tinyBz,
                               userModel: userModel,
                             )
                         );

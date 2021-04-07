@@ -297,7 +297,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
               style: superTextStyle(widget.inputColor, 1),
               enabled: true, // THIS DISABLES THE ABILITY TO OPEN THE KEYBOARD
               minLines: widget.minLines,
-              // maxLines: _maxLines,
+              maxLines: _maxLines,
               maxLength: widget.maxLength,
               autocorrect: false, // NO IMPACT
               keyboardAppearance: Brightness.dark,

@@ -16,7 +16,7 @@ class GalleryGrid extends StatelessWidget {
   final String bzID;
   final List<AuthorModel> bzAuthors;
   final BzModel bz;
-  // final Function tappingMiniFlyer;
+  final Function flyerOnTap;
 
   GalleryGrid({
     @required this.gridZoneWidth,
@@ -25,7 +25,7 @@ class GalleryGrid extends StatelessWidget {
     @required this.bzID,
     @required this.bzAuthors,
     @required this.bz,
-    // @required this.tappingMiniFlyer,
+    @required this.flyerOnTap,
 });
 
   bool _concludeUserIsAuthor(){
@@ -101,6 +101,7 @@ class GalleryGrid extends StatelessWidget {
                     child: TinyFlyerWidget(
                       tinyFlyer: _gridFlyers[index],
                       flyerSizeFactor: _flyerSizeFactor,
+                      onTap: flyerOnTap,
                     )
 
                     // ChangeNotifierProvider.value(
