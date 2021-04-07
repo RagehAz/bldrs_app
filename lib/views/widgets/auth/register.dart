@@ -263,7 +263,7 @@ class _RegisterState extends State<Register> {
 
 
                         _triggerLoading();
-                        goToNewScreen(context, EditProfileScreen(user: result, firstTimer: true,),);
+                        Nav.goToNewScreen(context, EditProfileScreen(user: result, firstTimer: true,),);
                       }
                       // ---------------------
                     }

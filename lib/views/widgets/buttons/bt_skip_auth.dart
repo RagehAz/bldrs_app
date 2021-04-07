@@ -34,12 +34,12 @@ class _BtSkipAuthState extends State<BtSkipAuth> {
         dynamic result = await _auth.signInAnon(context, widget.currentZone);
         if (result == null){
           print('Couldn\'t sign in');
-          goToRoute(context, Routez.Home);
+          Nav.goToRoute(context, Routez.Home);
         }
         else {
           print('Signed in successfully');
           print(result);
-          goToRoute(context, Routez.Home);
+          Nav.goToRoute(context, Routez.Home);
         }
       },
     );

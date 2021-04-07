@@ -27,7 +27,7 @@ class BtSearch extends StatelessWidget {
       void _tappingTheGodDamnSearchButton(){
         btSearchIsBackBt == true ?
         tappingBack() :
-        goToRoute(context, Routez.Search);
+        Nav.goToRoute(context, Routez.Search);
       }
 
     return

@@ -141,7 +141,7 @@ class UserBalloon extends StatelessWidget {
             return Loading(
               size: balloonWidth,
               loading: true,
-              onTap: () => goToRoute(context, Routez.Starting),
+              onTap: () => Nav.goToRoute(context, Routez.Starting),
             );
           } else {
             UserModel userModel = snapshot.data;

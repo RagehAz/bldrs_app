@@ -141,7 +141,7 @@ class _ZonesManagerScreenState extends State<ZonesManagerScreen> {
                                     verseMaxLines: 2,
                                     verseScaleFactor: 0.6,
                                     boxMargins: EdgeInsets.all(7.5),
-                                    boxFunction: () => goToNewScreen(context, CountryScreen(country: _countries[index])),
+                                    boxFunction: () => Nav.goToNewScreen(context, CountryScreen(country: _countries[index])),
                                   );
 
                               },

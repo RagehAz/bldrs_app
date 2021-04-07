@@ -54,7 +54,7 @@ class _BzCardPreviewState extends State<BzCardPreview> {
   }
   // ----------------------------------------------------------------------
   void _goToFlyerEditor(){
-   goToNewScreen(context, FlyerEditorScreen(bzModel: widget.bz,firstTimer: true,));
+    Nav.goToNewScreen(context, FlyerEditorScreen(bzModel: widget.bz,firstTimer: true,));
   }
   // ----------------------------------------------------------------------
   @override

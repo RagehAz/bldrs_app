@@ -78,7 +78,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                 UserBubble(
                   user: userModel,
                   switchUserType: (type) =>_switchUserStatus(type),
-                  editProfileBtOnTap: () => goToNewScreen(context, EditProfileScreen(user: userModel,)),
+                  editProfileBtOnTap: () => Nav.goToNewScreen(context, EditProfileScreen(user: userModel,)),
                   loading: userModelIsLoading(userModel),
                 ),
 
@@ -91,7 +91,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                       icon: Iconz.News,
                       iconSizeFactor: 0.6,
                       verseWeight: VerseWeight.bold,
-                      boxFunction: ()=> goToNewScreen(context, NewsScreen()),
+                      boxFunction: ()=> Nav.goToNewScreen(context, NewsScreen()),
                     ),
                   ],
                 ),

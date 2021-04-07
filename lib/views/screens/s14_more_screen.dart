@@ -42,7 +42,7 @@ class MoreScreen extends StatelessWidget {
             verse: Wordz.createBzAccount(context),
             icon: Iconz.Bz,
             iconSizeFactor: 0.9,
-            btOnTap: () => goToNewScreen(context, BzEditorScreen(firstTimer: true, userModel: userModel)),
+            btOnTap: () => Nav.goToNewScreen(context, BzEditorScreen(firstTimer: true, userModel: userModel)),
           ),
 
           _separator,
@@ -145,7 +145,7 @@ class MoreScreen extends StatelessWidget {
               print('Signing out');
               await signOutGoogle();
               await _auth.signOut(context);
-              goToRoute(context, Routez.Starting);
+              Nav.goToRoute(context, Routez.Starting);
             },
           ),
 
@@ -155,7 +155,7 @@ class MoreScreen extends StatelessWidget {
             verse: 'To the Beyond and Further',
             icon: Iconz.DvRageh,
             iconSizeFactor: 1,
-            btOnTap: () => goToRoute(context, Routez.Obelisk),
+            btOnTap: () => Nav.goToRoute(context, Routez.Obelisk),
           ),
 
 
