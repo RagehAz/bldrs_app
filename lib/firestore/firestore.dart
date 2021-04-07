@@ -221,18 +221,32 @@ Future<DocumentReference> insertFireStoreSubDocument({
 // ---------------------------------------------------------------------------
 Future<dynamic> getFireStoreDocumentField({BuildContext context, String collectionName, String documentName, String fieldName}) async {
 
-  dynamic _map = await getFireStoreDocumentMap(
+  dynamic _map;
+
+  tryAndCatch(
     context: context,
-      collectionName: collectionName,
-    documentName: documentName,
+    functions: () async {
+      _map = await getFireStoreDocumentMap(
+        context: context,
+        collectionName: collectionName,
+        documentName: documentName,
+      );
+
+    }
   );
 
   return _map[fieldName];
 }
 // ---------------------------------------------------------------------------
-Future<void> deleteDocumentOnFirestore({String collectionName, String documentName,}) async {
-  DocumentReference _doc = getFirestoreDocumentReference(collectionName, documentName);
-  await _doc.delete();
+Future<void> deleteDocumentOnFirestore({BuildContext context, String collectionName, String documentName,}) async {
+
+  await tryAndCatch(
+    context: context,
+    functions: () async {
+      DocumentReference _doc = getFirestoreDocumentReference(collectionName, documentName);
+      await _doc.delete();
+    }
+  );
 }
 // ---------------------------------------------------------------------------
 

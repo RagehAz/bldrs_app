@@ -29,7 +29,6 @@ class TinyFlyerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-
     double _flyerSizeFactor = flyerSizeFactor ?? 0.5;
 
     return FlyerZone(
@@ -43,7 +42,6 @@ class TinyFlyerWidget extends StatelessWidget {
           slideMode: SlideMode.View,
           picture: tinyFlyer?.slidePic,
           slideIndex: tinyFlyer?.slideIndex,
-
         ),
 
         MiniHeader(
@@ -56,7 +54,6 @@ class TinyFlyerWidget extends StatelessWidget {
           bzPageIsOn: false,
           tappingHeader: () => onTap(context, tinyFlyer.flyerID),
           tappingFollow: (){},
-
         ),
 
       ],
