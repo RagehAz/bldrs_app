@@ -19,7 +19,7 @@ import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/screens/s14_more_screen.dart';
 import 'package:bldrs/views/screens/s15_profile_screen.dart';
-import 'package:bldrs/views/screens/s41_mybz_screen.dart';
+import 'package:bldrs/views/screens/s41_my_bz_screen.dart';
 import 'package:bldrs/views/widgets/buttons/balloons/user_balloon.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_sheet.dart';
