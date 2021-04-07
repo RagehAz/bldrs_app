@@ -77,6 +77,18 @@ class Iconizer{
     return icon;
   }
 // -----------------------------------------------------------------------------
+  static String flyerTypeIconOff (FlyerType flyerType){
+    String icon =
+    flyerType == FlyerType.Property ? Iconz.BxPropertiesOff :
+    flyerType == FlyerType.Design ? Iconz.BxDesignsOff :
+    flyerType == FlyerType.Project ? Iconz.BxProjectsOff :
+    flyerType == FlyerType.Craft ? Iconz.BxCraftsOff :
+    flyerType == FlyerType.Product ? Iconz.BxProductsOff :
+    flyerType == FlyerType.Equipment ? Iconz.BxEquipmentOff :
+    null;
+    return icon;
+  }
+// -----------------------------------------------------------------------------
   static CustomClipper<Path> userBalloon(UserStatus userType) {
     CustomClipper<Path> userBalloon =
     userType == UserStatus.Normal ? NormalCircle() :

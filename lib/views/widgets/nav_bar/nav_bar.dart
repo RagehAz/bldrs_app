@@ -277,7 +277,7 @@ class NavBar extends StatelessWidget {
                                          tinyBz: myTinyBzz[0],
                                        ));
                                      } else {
-                                       slideBottomSheet(
+                                       BottomSlider.slideBottomSheet(
                                          context: context,
                                          draggable: true,
                                          height: _myBzzListSlideHeight(context, userModel),

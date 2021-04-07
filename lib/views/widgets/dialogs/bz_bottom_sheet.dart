@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'bottom_sheet.dart';
 
 void slideBzBottomSheet({BuildContext context, BzModel bz, AuthorModel author}) {
-  slideBottomSheet(
+  BottomSlider.slideBottomSheet(
       context: context,
       height: superScreenHeight(context) - 100,
       draggable: true,
