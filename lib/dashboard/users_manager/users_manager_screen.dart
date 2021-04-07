@@ -141,7 +141,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
                                           height: 70,
                                           width: 70,
                                           icon: _userModel.pic,
-                                          boxFunction: () => slideBottomSheet(
+                                          boxFunction: () => BottomSlider.slideBottomSheet(
                                             context: context,
                                             draggable: true,
                                             height: null,
@@ -150,7 +150,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
 
                                                 DreamBox(
                                                   height: 60,
-                                                  width: bottomSheetClearWidth(context),
+                                                  width: BottomSlider.bottomSheetClearWidth(context),
                                                   icon: _userModel.pic,
                                                   verse: 'Delete this fucker (${_userModel.name})',
                                                   verseScaleFactor: 0.7,
