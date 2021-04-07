@@ -132,8 +132,14 @@ class _MyBzScreenState extends State<MyBzScreen> {
                           flyerZoneWidth: superBubbleClearWidth(context),
                           showFlyers: true,
                           bz: bzModel,
-                          flyerOnTap: (flyerID) => Nav.goToNewScreen(context, BzFlyerScreen(flyerID : flyerID),
-                          ),
+                          flyerOnTap: (flyerID){
+                            Nav.goToNewScreen(context,
+                              BzFlyerScreen(
+                                flyerID : flyerID,
+                                bzModel: bzModel,
+                              ),
+                            );
+                          },
                         ),
 
                       ],
