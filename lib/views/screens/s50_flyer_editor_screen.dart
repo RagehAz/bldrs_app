@@ -128,9 +128,9 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
     // -------------------------
     _currentSlides = _flyer.slides;
     // -------------------------
-    _slidesVisibility = new List();
-    slidesModes = new List();
-    _titleControllers = new List();
+    _slidesVisibility = widget.firstTimer == true ? new List() : _createSlidesVisibilityList();
+    slidesModes = widget.firstTimer == true ? new List() : _createSlidesModesList();
+    _titleControllers = widget.firstTimer == true ? new List() : _createTitlesControllersList();
     numberOfSlides = _currentSlides.length;
     currentSlide = 0;
     slidingController = PageController(initialPage: 0,);
@@ -143,6 +143,30 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
   //   if (textControllerHasNoValue(_nameController))_nameController.dispose();
   //   super.dispose();
   // }
+  // ----------------------------------------------------------------------
+  List<TextEditingController> _createTitlesControllersList(){
+    List<TextEditingController> _controllers = new List();
+
+    widget.flyerModel.slides.forEach((slide) {
+      TextEditingController _controller = new TextEditingController();
+      _controller.text = slide.headline;
+      _controllers.add(_controller);
+    });
+
+    return _controllers;
+  }
+  // ----------------------------------------------------------------------
+  List<SlideMode> _createSlidesModesList(){
+    int _listLength = widget.flyerModel.slides.length;
+    List<SlideMode> _slidesModesList = List.filled(_listLength, SlideMode.Editor);
+    return _slidesModesList;
+  }
+  // ----------------------------------------------------------------------
+  List<bool> _createSlidesVisibilityList(){
+    int _listLength = widget.flyerModel.slides.length;
+    List<bool> _visibilityList = List.filled(_listLength, true);
+    return _visibilityList;
+  }
   // ----------------------------------------------------------------------
   FlyerModel _createTempEmptyFlyer(){
 
@@ -477,7 +501,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
 
       double _bottomSheetHeightFactor = 0.7;
 
-      slideStatefulBottomSheet(
+      BottomSlider.slideStatefulBottomSheet(
         context: context,
         height: superScreenHeight(context) * _bottomSheetHeightFactor,
         draggable: true,
@@ -500,8 +524,8 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
                       ),
 
                       Container(
-                        width: bottomSheetClearWidth(context),
-                        height: bottomSheetClearHeight(context, _bottomSheetHeightFactor) - superVerseRealHeight(context, 3, 1, null),
+                        width: BottomSlider.bottomSheetClearWidth(context),
+                        height: BottomSlider.bottomSheetClearHeight(context, _bottomSheetHeightFactor) - superVerseRealHeight(context, 3, 1, null),
                         child: ListView(
                           // key: UniqueKey(),
 
@@ -568,7 +592,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
 
     double _bottomSheetHeightFactor = 0.25;
 
-    slideStatefulBottomSheet(
+    BottomSlider.slideStatefulBottomSheet(
       context: context,
       height: superScreenHeight(context) * _bottomSheetHeightFactor,
       draggable: true,
@@ -593,8 +617,8 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
                     ),
 
                     Container(
-                      width: bottomSheetClearWidth(context),
-                      height: bottomSheetClearHeight(context, _bottomSheetHeightFactor) - superVerseRealHeight(context, 3, 1, null),
+                      width: BottomSlider.bottomSheetClearWidth(context),
+                      height: BottomSlider.bottomSheetClearHeight(context, _bottomSheetHeightFactor) - superVerseRealHeight(context, 3, 1, null),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -602,7 +626,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
 
                           DreamBox(
                             height: 60,
-                            width: bottomSheetClearWidth(context) / 2.2,
+                            width: BottomSlider.bottomSheetClearWidth(context) / 2.2,
                             verse: 'Product Flyer',
                             verseMaxLines: 2,
                             verseScaleFactor: 0.7,
@@ -617,7 +641,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
 
                           DreamBox(
                             height: 60,
-                            width: bottomSheetClearWidth(context) / 2.2,
+                            width: BottomSlider.bottomSheetClearWidth(context) / 2.2,
                             verse: 'Equipment Flyer',
                             verseMaxLines: 2,
                             verseScaleFactor: 0.7,
@@ -732,6 +756,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
     }
   }
   // ----------------------------------------------------------------------
+  Future<void> _updateExistingFlyer() async {}
   @override
   Widget build(BuildContext context) {
     final AuthorModel _author = widget.firstTimer ?
@@ -767,7 +792,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
           color: Colorz.Yellow,
           icon: Iconz.AddFlyer,
           iconSizeFactor: 0.6,
-          boxFunction: widget.firstTimer ? _createNewFlyer : (){print('should update flyer');},
+          boxFunction: widget.firstTimer ? _createNewFlyer : _updateExistingFlyer,
         );
     }
     // ----------------------------------------------------------------------
@@ -778,9 +803,9 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
       sky: Sky.Black,
       pageTitle: !_loading ? 'Create a New Flyer' : 'Waiting ...',
       loading: _loading,
-      tappingRageh: (){
-        _triggerLoading();
-      },
+      // tappingRageh: (){
+      //   _triggerLoading();
+      // },
       appBarRowWidgets: <Widget>[
 
         Expanded(child: Container(),),
@@ -805,6 +830,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
                     tappingFlyerZone: (){},
                     stackWidgets: <Widget>[
 
+                      // --- SLIDES
                       PageView.builder(
                         controller: slidingController,
                         itemCount: _currentSlides.length,
@@ -828,6 +854,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
                             ),
                       ),
 
+                      // --- FLYER HEADER
                       Header(
                         tinyBz: TinyBz.getTinyBzFromBzModel(_bz),
                         tinyAuthor: AuthorModel.getTinyAuthorFromAuthorModel(_author),
@@ -839,6 +866,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
                         tappingFollow: (){},
                       ),
 
+                      // --- PROGRESS BAR
                       ProgressBar(
                         flyerZoneWidth: _flyerZoneWidth,
                         numberOfSlides: numberOfSlides,
@@ -848,6 +876,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
                     ],
                   ),
 
+                  // --- FLYER EDITING BUTTONS
                   Positioned(
                     right: ((1-_flyerSizeFactor)/2)*superScreenWidth(context) - ((_flyerZoneWidth * 0.15/2)),
                     bottom: superScreenHeightWithoutSafeArea(context) * 0.07,
