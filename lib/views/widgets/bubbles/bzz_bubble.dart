@@ -49,7 +49,7 @@ class BzzBubble extends StatelessWidget {
             scrollDirection: scrollDirection,
             itemOnTap: (bzID) {
               if (onTap == null) {
-                goToNewScreen(context, BzCardScreen(bzID: bzID,));
+                Nav.goToNewScreen(context, BzCardScreen(bzID: bzID,));
               } else {
                 onTap(bzID);
               }

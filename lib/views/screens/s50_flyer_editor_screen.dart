@@ -727,7 +727,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
 
       _triggerLoading();
 
-      goBack(context);
+      Nav.goBack(context);
 
     }
   }

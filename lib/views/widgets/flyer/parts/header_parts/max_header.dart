@@ -1,5 +1,6 @@
 import 'package:bldrs/controllers/drafters/streamerz.dart';
 import 'package:bldrs/controllers/drafters/text_generators.dart';
+import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
@@ -142,15 +143,9 @@ class MaxHeader extends StatelessWidget {
               // --- BZ GALLERY
               Gallery(
                 flyerZoneWidth: flyerZoneWidth,
-                // bzShowsTeam: bz.bzShowsTeam,
-                // followersCount: _followersCount,
-                // bzTeamIDs: _bzTeamIDs,
                 showFlyers: bzPageIsOn ? true : false,
-                // authors: _bzAuthors,
-                // galleryFlyers: _galleryFlyers,
-                // bzName:  bz != null ? bz.bzName : '',
                 bz: bz,
-                // tappingMiniFlyer: openFlyer,
+                flyerOnTap: (flyerID) => Nav.openFlyer(context, flyerID),
               ),
 
             ],

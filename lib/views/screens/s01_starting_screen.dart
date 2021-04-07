@@ -91,7 +91,7 @@ class StartingScreen extends StatelessWidget {
                 buttonColor: Colorz.WhiteAir,
                 splashColor: Colorz.Yellow,
                 buttonVerseShadow: false,
-                function: () => goToNewScreen(context, AuthScreen()),
+                function: () => Nav.goToNewScreen(context, AuthScreen()),
                 stretched: false,
               ),
 

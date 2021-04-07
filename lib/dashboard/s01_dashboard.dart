@@ -56,49 +56,49 @@ class _DashBoardState extends State<DashBoard> {
           _button(
               title: 'General Statistics',
               icon: Iconz.Statistics,
-              onTap: () => goToNewScreen(context, GeneralStatistics()),
+              onTap: () => Nav.goToNewScreen(context, GeneralStatistics()),
           ),
 
           _button(
               title: 'Users Manager',
               icon: Iconz.NormalUser,
-              onTap: () => goToNewScreen(context, UsersManagerScreen()),
+              onTap: () => Nav.goToNewScreen(context, UsersManagerScreen()),
           ),
 
           _button(
             title: 'Zones Manager',
             icon: Iconz.Earth,
-            onTap: () => goToNewScreen(context, ZonesManagerScreen()),
+            onTap: () => Nav.goToNewScreen(context, ZonesManagerScreen()),
           ),
 
           _button(
             title: 'Bzz Manager',
             icon: Iconz.Bz,
-            onTap: () => goToNewScreen(context, BzzManagerScreen()),
+            onTap: () => Nav.goToNewScreen(context, BzzManagerScreen()),
           ),
 
           _button(
             title: 'Notifications Manager',
             icon: Iconz.News,
-            onTap: () => goToNewScreen(context, NotificationsManager()),
+            onTap: () => Nav.goToNewScreen(context, NotificationsManager()),
           ),
 
           _button(
             title: 'Keywords Manager',
             icon: Iconz.Language,
-            onTap: () => goToNewScreen(context, KeywordsManager()),
+            onTap: () => Nav.goToNewScreen(context, KeywordsManager()),
           ),
 
           _button(
             title: 'Flyers Auditor',
             icon: Iconz.FlyerGrid,
-            onTap: () => goToNewScreen(context, FlyersAuditor()),
+            onTap: () => Nav.goToNewScreen(context, FlyersAuditor()),
           ),
 
           _button(
             title: 'Local Bz & Flyers Uploader',
             icon: Iconz.AddFlyer,
-            onTap: () => goToNewScreen(context, LocalFlyersUploader()),
+            onTap: () => Nav.goToNewScreen(context, LocalFlyersUploader()),
           ),
 
         ]

@@ -29,7 +29,7 @@ class BldrsBackButton extends StatelessWidget {
       bubble: false,
       color: color,
       textDirection: superInverseTextDirection(context),
-      boxFunction: onTap == null ? () => goBack(context) : onTap,
+      boxFunction: onTap == null ? () => Nav.goBack(context) : onTap,
 
     );
   }
