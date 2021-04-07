@@ -4,6 +4,7 @@ import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/bldrs_sections.dart' show BldrsSection;
 import 'package:bldrs/models/bz_model.dart' show BzType;
+import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/sub_models/contact_model.dart' show ContactType;
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/views/widgets/buttons/balloons/path_building_user.dart';
@@ -60,6 +61,18 @@ class Iconizer{
     bzType == BzType.Designer ? Iconz.BxDesignsOn :
     bzType == BzType.Contractor ? Iconz.BxProjectsOn :
     bzType == BzType.Artisan ? Iconz.BxCraftsOn :
+    null;
+    return icon;
+  }
+// -----------------------------------------------------------------------------
+  static String flyerTypeIconOn (FlyerType flyerType){
+    String icon =
+    flyerType == FlyerType.Property ? Iconz.BxPropertiesOn :
+    flyerType == FlyerType.Design ? Iconz.BxDesignsOn :
+    flyerType == FlyerType.Project ? Iconz.BxProjectsOn :
+    flyerType == FlyerType.Craft ? Iconz.BxCraftsOn :
+    flyerType == FlyerType.Product ? Iconz.BxProductsOn :
+    flyerType == FlyerType.Equipment ? Iconz.BxEquipmentOn :
     null;
     return icon;
   }
