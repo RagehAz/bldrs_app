@@ -1,6 +1,9 @@
 import 'dart:io';
+import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/firestore/crud/flyer_ops.dart';
+import 'package:bldrs/firestore/firebase_storage.dart';
 import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
@@ -11,6 +14,7 @@ import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class Firebasetesting extends StatefulWidget {
 
@@ -40,10 +44,33 @@ class _FirebasetestingState extends State<Firebasetesting> {
 
     functions = [
       // -----------------------------------------------------------------------
-      {'Name' : 'update field on fire store', 'function' : () async {
+      {'Name' : 'add pic to fireStorage', 'function' : () async {
         _triggerLoading();
 
-        printResult('done');
+        File _file = await takeGalleryPicture(PicType.askPic);
+
+        await savePicOnFirebaseStorageAndGetURL(
+          context: context,
+          picType: PicType.askPic,
+          inputFile: _file,
+          fileName: 'highSky',
+        );
+
+        printResult('Added');
+
+        _triggerLoading();
+      },},
+      // -----------------------------------------------------------------------
+      {'Name' : 'delete pic from fireStorage', 'function' : () async {
+        _triggerLoading();
+
+        await deleteFireBaseStoragePic(
+          context: context,
+          picType: PicType.askPic,
+          fileName: 'highSky',
+        );
+
+        printResult('Deleted');
 
         _triggerLoading();
       },},

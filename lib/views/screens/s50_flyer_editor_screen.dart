@@ -306,7 +306,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
     final _imageFile = await takeGalleryPicture(PicType.slideHighRes);
 
     setState(() {
-      _storedImage = File(_imageFile?.path);
+      _storedImage = _imageFile;
       _currentSlides.add(
           new SlideModel(
             slideIndex: _currentSlides.length,
@@ -692,12 +692,10 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
   Future<List<SlideModel>> _processNewSlides(List<SlideModel> currentSlides, List<TextEditingController> titleControllers) async {
     List<SlideModel> _slides = new List();
 
-    for (var slide in currentSlides){
-
-      int i = slide.slideIndex;
+    for (int i = 0; i<currentSlides.length; i++){
 
       SlideModel _newSlide = SlideModel(
-        slideIndex: currentSlides[i].slideIndex,
+        slideIndex: i,
         picture: currentSlides[i].picture,
         headline: titleControllers[i].text,
         description: currentSlides[i].description,
@@ -885,44 +883,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
       tappingRageh: () async {
         _triggerLoading();
 
-        /// create slides models
-        List<SlideModel> _slides = await _processNewSlides(_currentSlides, _titleControllers);
-
-        ///create updated FlyerModel
-        FlyerModel _updatedFlyerModel = FlyerModel(
-          flyerID: _currentFlyerID,
-          // -------------------------
-          flyerType: _currentFlyerType,
-          flyerState: _currentFlyerState,
-          keyWords: _currentKeywords,
-          flyerShowsAuthor: _currentFlyerShowsAuthor,
-          flyerURL: _currentFlyerURL,
-          // -------------------------
-          tinyAuthor: _flyer.tinyAuthor,
-          tinyBz: _flyer.tinyBz,
-          // -------------------------
-          publishTime: _currentPublishTime,
-          flyerPosition: _currentFlyerPosition,
-          // -------------------------
-          ankhIsOn: false, // shouldn't be saved here but will leave this now
-          // -------------------------
-          slides: _slides,
-        );
-
-        bool _check = SlideModel.allSlidesPicsAreTheSame(
-            finalFlyer: _updatedFlyerModel,
-            originalFlyer: _originalFlyer,
-        );
-
-        print('slides are the same ? $_check');
-
-        _updatedFlyerModel.slides.forEach((slide) {
-          print(slide.picture);
-        });
-
-        _originalFlyer.slides.forEach((slide) {
-          print(slide.picture);
-        });
+        print(_flyer.flyerID);
 
       },
 
