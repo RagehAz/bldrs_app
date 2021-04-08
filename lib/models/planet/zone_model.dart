@@ -12,6 +12,15 @@ class Zone {
     this.provinceID,
     this.areaID,
   });
+
+  Zone clone(){
+    return Zone(
+      countryID: countryID,
+      provinceID: provinceID,
+      areaID: areaID,
+    );
+  }
+
 // -----------------------------------------------------------------------------
   String cipherToString(){
     return '$countryID/$provinceID/$areaID';

@@ -12,9 +12,9 @@ class SlideModel {
   int savesCount;
 
   SlideModel({
-    @required this.slideIndex,
-    @required this.picture,
-    @required this.headline,
+    this.slideIndex,
+    this.picture,
+    this.headline,
     this.description,
     this.sharesCount,
     this.viewsCount,
@@ -33,6 +33,28 @@ class SlideModel {
     };
   }
 // -------------------------
+  SlideModel clone(){
+    return SlideModel(
+      slideIndex : slideIndex,
+      picture : picture,
+      headline : headline,
+      description : description,
+      // -------------------------
+      sharesCount : sharesCount,
+      viewsCount : viewsCount,
+      savesCount : savesCount,
+    );
+  }
+// -------------------------
+  static List<SlideModel> cloneSlides(List<SlideModel> slides){
+    List<SlideModel> _newSlides = new List();
+
+    for (var slide in slides){
+      _newSlides.add(slide.clone());
+    }
+    return _newSlides;
+  }
+// -------------------------
   static bool slidesPicsAreTheSame(SlideModel finalSlide, SlideModel originalSlide){
     bool _slidesPicsAreTheSame = true;
 
@@ -42,8 +64,11 @@ class SlideModel {
     return _slidesPicsAreTheSame;
   }
 // -----------------------------------------------------------------------------
-  static bool allSlidesPicsAreTheSame(FlyerModel finalFlyer, FlyerModel originalFlyer){
-    bool _allSlidesPicsAreTheSame = true;
+  static bool allSlidesPicsAreTheSame({FlyerModel finalFlyer, FlyerModel originalFlyer}){
+    bool _allSlidesPicsAreTheSame;
+
+    print('finalFlyer.slides.length = ${finalFlyer.slides.length}');
+    print('originalFlyer.slides.length = ${originalFlyer.slides.length}');
 
     if (finalFlyer.slides.length == originalFlyer.slides.length){
 
@@ -58,7 +83,7 @@ class SlideModel {
 
       }
 
-    } else {
+    } else if (finalFlyer.slides.length != originalFlyer.slides.length){
       _allSlidesPicsAreTheSame = false;
     }
 
