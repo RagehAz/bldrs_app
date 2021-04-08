@@ -40,3 +40,11 @@ List<Map<String,String>> geebMapsOfLanguagesFromLanguageClassList(List<LanguageC
   return languagesMaps;
 }
 // -----------------------------------------------------------------
+List<dynamic> cloneListOfStrings(List<dynamic> list){
+  List<dynamic> _newList = new List();
+
+  for (var x in list){
+    _newList.add(x);
+  }
+  return _newList;
+}

@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
@@ -28,23 +29,23 @@ class FlyerModel with ChangeNotifier{
   // -------------------------
 
   FlyerModel({
-    @required this.flyerID,
+    this.flyerID,
     // -------------------------
-    @required this.flyerType,
+    this.flyerType,
     this.flyerState = FlyerState.Draft,
     this.keyWords,
     this.flyerShowsAuthor = false,
-    @required this.flyerURL,
+    this.flyerURL,
     // -------------------------
-    @required this.tinyAuthor,
-    @required this.tinyBz,
+    this.tinyAuthor,
+    this.tinyBz,
     // -------------------------
-    @required this.publishTime,
+    this.publishTime,
     this.flyerPosition,
     // -------------------------
     this.ankhIsOn,
     // -------------------------
-    @required this.slides,
+    this.slides,
   });
 // -----------------------------------------------------------------------------
   void toggleAnkh(){
@@ -72,6 +73,22 @@ class FlyerModel with ChangeNotifier{
       // -------------------------
       'slides' : SlideModel.cipherSlidesModels(slides),
     };
+  }
+// -----------------------------------------------------------------------------
+  FlyerModel clone(){
+    return FlyerModel(
+      flyerID: flyerID,
+      flyerType: flyerType,
+      flyerState: flyerState,
+      keyWords: cloneListOfStrings(keyWords),
+      flyerShowsAuthor: flyerShowsAuthor,
+      flyerURL: flyerURL,
+      tinyAuthor: tinyAuthor.clone(),
+      tinyBz: tinyBz.clone(),
+      publishTime: publishTime,
+      flyerPosition: flyerPosition,
+      slides: SlideModel.cloneSlides(slides),
+    );
   }
 // -----------------------------------------------------------------------------
   static FlyerModel replaceSlides(FlyerModel flyer, List<SlideModel> updatedSlides){

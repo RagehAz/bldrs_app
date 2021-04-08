@@ -4,6 +4,8 @@ import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/dashboard/s01_dashboard.dart';
+import 'package:bldrs/models/flyer_model.dart';
+import 'package:bldrs/models/sub_models/slide_model.dart';
 import 'package:bldrs/views/screens/s41_my_bz_screen.dart';
 import 'package:bldrs/views/widgets/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/views/widgets/buttons/bt_main.dart';
@@ -19,6 +21,7 @@ import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/text_field_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x03_font_test_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x08_earth_screen.dart';
 import 'package:flutter/material.dart';
+import 'aaa_state_test.dart';
 import 'firebase_testing.dart';
 import 'x04_flyers_sizes_screen.dart';
 import 'x05_city_picker.dart';
@@ -140,6 +143,13 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
           ),
 
 
+          oButton('StateTest', Iconz.XSmall, StateTest(
+            bolbol: Bolbol(
+                tots: [Totta(name: 'tot 1', times: 5)],
+                name: 'shosho',
+                length: 3
+            ),
+          )),
 
           oButton('Firebase testing', Iconz.Filter, Firebasetesting()),
 

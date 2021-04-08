@@ -81,8 +81,8 @@ class SuperVerse extends StatelessWidget {
     double _shadowYOffset = 0;
     double _shadowXOffset = superVerseXOffset(weight, _verseSizeValue);
     double _secondShadowXOffset = -0.35 * _shadowXOffset;
-    Color _leftShadow = color == Colorz.BlackBlack || color == Colorz.BloodRed ? Colorz.WhitePlastic : Colorz.BlackBlack;
-    Color _rightShadow = color == Colorz.BlackBlack || color == Colorz.BloodRed ? Colorz.WhiteSmoke : Colorz.WhiteGlass;
+    Color _leftShadow = color == Colorz.BlackBlack ? Colorz.WhitePlastic : Colorz.BlackBlack;
+    Color _rightShadow = color == Colorz.BlackBlack ? Colorz.WhiteSmoke : Colorz.WhiteGlass;
     // --- ITALIC -----------------------------------------------
     FontStyle _verseStyle = italic == true ? FontStyle.italic : FontStyle.normal;
     // --- VERSE BOX MARGIN -----------------------------------------------

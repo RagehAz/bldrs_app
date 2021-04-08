@@ -32,6 +32,18 @@ class TinyBz with ChangeNotifier{
       'bzTotalFlyers' : bzTotalFlyers,
     };
   }
+
+  TinyBz clone(){
+    return TinyBz(
+        bzID: bzID,
+        bzLogo: bzLogo,
+        bzName: bzName,
+        bzType: bzType,
+        bzZone: bzZone.clone(),
+        bzTotalFollowers: bzTotalFollowers,
+        bzTotalFlyers: bzTotalFlyers,
+    );
+  }
 // -----------------------------------------------------------------------------
   static bool tinyBzzAreTheSame(TinyBz finalBz, TinyBz originalBz){
     bool _tinyBzzAreTheSame = true;
