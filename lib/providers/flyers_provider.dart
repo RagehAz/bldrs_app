@@ -191,6 +191,13 @@ return bzz;
     notifyListeners();
   }
 // ############################################################################
+  void replaceTinyFlyerInLocalList(TinyFlyer tinyFlyer){
+    int _tinyFlyerIndex = _loadedTinyFlyers.indexWhere((t) => t.flyerID == tinyFlyer.flyerID);
+    _loadedTinyFlyers.removeAt(_tinyFlyerIndex);
+    _loadedTinyFlyers.insert(_tinyFlyerIndex, tinyFlyer);
+    notifyListeners();
+  }
+// ############################################################################
 /// BZZ ON FIRE STORE
 // ---------------------------------------------------------------------------
 /// bzz collection reference

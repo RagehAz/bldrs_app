@@ -30,6 +30,17 @@ class TinyUser {
     };
   }
 // -----------------------------------------------------------------------------
+  TinyUser clone(){
+    return TinyUser(
+        userID: userID,
+        name: name,
+        title: title,
+        pic: pic,
+        userStatus: userStatus,
+        contact: contact,
+    );
+  }
+// -----------------------------------------------------------------------------
   static TinyUser decipherTinyUserMap(Map<String, dynamic> map){
     return
       TinyUser(

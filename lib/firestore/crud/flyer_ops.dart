@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/file_formatters.dart';
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/text_checkers.dart';
 import 'package:bldrs/controllers/drafters/text_manipulators.dart';
@@ -153,22 +154,68 @@ class FlyerCRUD{
 //     return _flyer;
 //   }
 // ----------------------------------------------------------------------
-  Future<void> updateFlyerOps({BuildContext context, FlyerModel updatedFlyer, FlyerModel originalFlyer}) async {
+  Future<FlyerModel> updateFlyerOps({BuildContext context, FlyerModel updatedFlyer, FlyerModel originalFlyer, BzModel bzModel}) async {
     FlyerModel _finalFlyer = updatedFlyer;
+
+    print('besm allah');
+
     /// if slide pics changed, update pics on storage and get their URL
-    if(SlideModel.allSlidesPicsAreTheSame(updatedFlyer, originalFlyer) == false){
+    if(SlideModel.allSlidesPicsAreTheSame(finalFlyer: updatedFlyer, originalFlyer: originalFlyer) == false){
 
-      /// save slide pictures on fireStorage and get back their URLs
-      /// TASK : should check which slide pic was changed first then update only the changed one
-      List<String> _picturesURLs = await savePicturesToFireStorageAndGetListOfURL(context, updatedFlyer.slides, updatedFlyer.flyerID);
+      print('1 - slides are not the same');
 
-      /// update slides with URLs
-      List<SlideModel> _updatedSlides = await SlideModel.replaceSlidesPicturesWithNewURLs(_picturesURLs, updatedFlyer.slides);
+      /// only for the slides which have pics as Files, should upload them and recreate their slideModels
+      List<SlideModel> _updatedSlides = new List();
+      for (var slide in updatedFlyer.slides){
+
+        print('2a - checking slide ${slide.slideIndex}');
+
+        if (ObjectChecker.objectIsFile(slide.picture) == true){
+
+          print('2aa - slide ${slide.slideIndex} is FILE');
+
+          /// upload file and get url into new SlideModel to add in _updatedSlides
+          String _newPicURL = await savePicOnFirebaseStorageAndGetURL(
+            context: context,
+            picType: PicType.slideHighRes,
+            fileName: SlideModel.generateSlideID(updatedFlyer.flyerID, slide.slideIndex),
+            inputFile: slide.picture,
+          );
+
+          print('2ab - slide ${slide.slideIndex} got this URL : $_newPicURL');
+
+          SlideModel _updatedSlide = SlideModel(
+            slideIndex : slide.slideIndex,
+            picture : _newPicURL,
+            headline : slide.headline,
+            description : slide.description,
+            // -------------------------
+            sharesCount : slide.sharesCount,
+            viewsCount : slide.viewsCount,
+            savesCount : slide.savesCount,
+          );
+
+          _updatedSlides.add(_updatedSlide);
+
+          print('2ac - slide ${slide.slideIndex} added to the _updatedSlides');
+
+        } else {
+          _updatedSlides.add(slide);
+
+          print('2aa - slide ${slide.slideIndex} is URL');
+
+        }
+
+        print('2b - all slides checked');
+
+      }
 
       FlyerModel _updatedFlyer = FlyerModel.replaceSlides(updatedFlyer, _updatedSlides);
 
       _finalFlyer = _updatedFlyer;
     }
+
+    print('2 - all slides Got URLs');
 
     /// update flyer doc
     await replaceFirestoreDocument(
@@ -177,6 +224,8 @@ class FlyerCRUD{
       docName: _finalFlyer.flyerID,
       input: _finalFlyer.toMap(),
     );
+
+    print('3 - flyer updated on fireStore');
 
     /// if keywords changed, update flyerKeys doc
     if (listsAreTheSame(_finalFlyer.keyWords, originalFlyer.keyWords) == false){
@@ -188,25 +237,30 @@ class FlyerCRUD{
       );
     }
 
+    print('4 - flyer keywords updated on FireStore');
+
     /// if nanoFlyer is changed, update it in Bz doc
     if(NanoFlyer.nanoFlyersAreTheSame(_finalFlyer, originalFlyer) == false){
       NanoFlyer _finalNanoFlyer = NanoFlyer.getNanoFlyerFromFlyerModel(_finalFlyer);
 
-      BzModel _bzModel = await BzCRUD.readBzOps(context: context, bzID : _finalFlyer.tinyBz.bzID);
       List<NanoFlyer> _finalBzFlyers = NanoFlyer.replaceNanoFlyerInAList(
-          originalNanoFlyers :_bzModel.bzFlyers,
-          finalNanoFlyer:  _finalNanoFlyer
+          originalNanoFlyers : bzModel.bzFlyers,
+          finalNanoFlyer: _finalNanoFlyer
       );
 
       await updateFieldOnFirestore(
         context: context,
         collectionName: FireStoreCollection.bzz,
-        documentName: _bzModel.bzID,
+        documentName: bzModel.bzID,
         field: 'bzFlyers',
         input: NanoFlyer.cipherNanoFlyers(_finalBzFlyers),
       );
 
+      print('4a - nano flyer updated');
+
     }
+
+    print('5 - nano flyer checked and checking tiny flyer');
 
     /// if tinyFlyer is changed, update tinyFlyer doc
     if(TinyFlyer.tinyFlyersAreTheSame(_finalFlyer, originalFlyer) == false){
@@ -218,8 +272,14 @@ class FlyerCRUD{
         docName: _finalFlyer.flyerID,
         input: _finalTinyFlyer.toMap(),
       );
+
+      print('5a - tiny flyer updated on FireStore');
+
     }
 
+    print('6 - finishied uploading flyer');
+
+    return _finalFlyer;
 }
 // ----------------------------------------------------------------------
   Future<void> deleteFlyerOps(String flyerID) async {
