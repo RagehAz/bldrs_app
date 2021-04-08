@@ -103,9 +103,10 @@ class BzFlyerScreen extends StatelessWidget {
       appBarType: AppBarType.Basic,
       appBarBackButton: true,
       sky: Sky.Black,
-      layoutWidget: flyerModelBuilder(
+      layoutWidget: flyerStreamBuilder(
         context: context,
         flyerID: flyerID,
+        listen: true,
         flyerSizeFactor: _flyerSizeFactor,
         builder: (ctx, flyerModel){
 
