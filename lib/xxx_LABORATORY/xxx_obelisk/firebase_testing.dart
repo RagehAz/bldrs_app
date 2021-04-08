@@ -40,9 +40,10 @@ class _FirebasetestingState extends State<Firebasetesting> {
 
     functions = [
       // -----------------------------------------------------------------------
-      {'Name' : 'fix tiny bz in flyers document', 'function' : () async {
+      {'Name' : 'update field on fire store', 'function' : () async {
         _triggerLoading();
 
+        printResult('done');
 
         _triggerLoading();
       },},

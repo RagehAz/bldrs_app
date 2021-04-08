@@ -64,6 +64,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
   FlyersProvider _prof;
   BzModel _bz;
   FlyerModel _flyer;
+  FlyerModel _originalFlyer;
   // -------------------------
   int currentSlide;
   // --------------------
@@ -108,13 +109,13 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
   void initState(){
     // -------------------------
     _prof = Provider.of<FlyersProvider>(context, listen: false);
+    _originalFlyer = widget.flyerModel.clone();
     _bz = widget.bzModel;
-    _flyer = widget.firstTimer ? _createTempEmptyFlyer() : widget.flyerModel;
+    _flyer = widget.firstTimer ? _createTempEmptyFlyer() : widget.flyerModel.clone();
     // -------------------------
     _currentFlyerID = _flyer.flyerID;
     // -------------------------
     _currentFlyerType = _flyer.flyerType;
-
     _currentFlyerState = _flyer.flyerState;
     _currentKeywords = _flyer.keyWords;
     _currentFlyerShowsAuthor = _flyer.flyerShowsAuthor;
@@ -131,6 +132,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
     _slidesVisibility = widget.firstTimer == true ? new List() : _createSlidesVisibilityList();
     slidesModes = widget.firstTimer == true ? new List() : _createSlidesModesList();
     _titleControllers = widget.firstTimer == true ? new List() : _createTitlesControllersList();
+    // -------------------------
     numberOfSlides = _currentSlides.length;
     currentSlide = 0;
     slidingController = PageController(initialPage: 0,);
@@ -147,7 +149,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
   List<TextEditingController> _createTitlesControllersList(){
     List<TextEditingController> _controllers = new List();
 
-    widget.flyerModel.slides.forEach((slide) {
+    _originalFlyer.slides.forEach((slide) {
       TextEditingController _controller = new TextEditingController();
       _controller.text = slide.headline;
       _controllers.add(_controller);
@@ -157,14 +159,24 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
   }
   // ----------------------------------------------------------------------
   List<SlideMode> _createSlidesModesList(){
-    int _listLength = widget.flyerModel.slides.length;
-    List<SlideMode> _slidesModesList = List.filled(_listLength, SlideMode.Editor);
+    int _listLength = _originalFlyer.slides.length;
+    List<SlideMode> _slidesModesList = new List();;
+
+    for (int i = 0; i<_listLength; i++){
+      _slidesModesList.add(SlideMode.Editor);
+    }
+
     return _slidesModesList;
   }
   // ----------------------------------------------------------------------
   List<bool> _createSlidesVisibilityList(){
-    int _listLength = widget.flyerModel.slides.length;
-    List<bool> _visibilityList = List.filled(_listLength, true);
+    int _listLength = _originalFlyer.slides.length;
+    List<bool> _visibilityList = new List();
+
+    for (int i = 0; i<_listLength; i++){
+      _visibilityList.add(true);
+    }
+
     return _visibilityList;
   }
   // ----------------------------------------------------------------------
@@ -296,10 +308,14 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
     setState(() {
       _storedImage = File(_imageFile?.path);
       _currentSlides.add(
-          SlideModel(
+          new SlideModel(
             slideIndex: _currentSlides.length,
             picture: _storedImage,
             headline: '',
+            description: '',
+            savesCount: 0,
+            viewsCount: 0,
+            sharesCount: 0,
           ));
       currentSlide = _currentSlides.length - 1;
       numberOfSlides = _currentSlides.length;
@@ -684,10 +700,10 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
         slideIndex: currentSlides[i].slideIndex,
         picture: currentSlides[i].picture,
         headline: titleControllers[i].text,
-        description: null,
-        savesCount: 0,
-        sharesCount: 0,
-        viewsCount: 0,
+        description: currentSlides[i].description,
+        savesCount: currentSlides[i].savesCount,
+        sharesCount: currentSlides[i].sharesCount,
+        viewsCount: currentSlides[i].viewsCount,
       );
 
       _slides.add(_newSlide);
@@ -746,17 +762,80 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
       FlyerModel _uploadedFlyerModel = await FlyerCRUD().createFlyerOps(context, _newFlyerModel, widget.bzModel);
 
       /// add the result final Tinyflyer to local list and notifyListeners
-      /// TASK : should be TinyFlyer not Flyer
       _prof.addTinyFlyerToLocalList(TinyFlyer.getTinyFlyerFromFlyerModel(_uploadedFlyerModel));
 
       _triggerLoading();
+
+      await superDialog(context, 'Flyer has been created', 'Great !');
 
       Nav.goBack(context);
 
     }
   }
   // ----------------------------------------------------------------------
-  Future<void> _updateExistingFlyer() async {}
+  Future<void> _updateExistingFlyer() async {
+    /// assert that all required fields are valid
+    if (_inputsAreValid() == false){
+      // show something for user to know
+      await superDialog(context, 'Please add all required fields', 'incomplete');
+    } else {
+
+      _triggerLoading();
+
+      print('A- Managing slides');
+
+      /// create slides models
+      List<SlideModel> _slides = await _processNewSlides(_currentSlides, _titleControllers);
+
+      print('B- Modifying flyer');
+
+      ///create updated FlyerModel
+      FlyerModel _updatedFlyerModel = FlyerModel(
+        flyerID: _currentFlyerID,
+        // -------------------------
+        flyerType: _currentFlyerType,
+        flyerState: _currentFlyerState,
+        keyWords: _currentKeywords,
+        flyerShowsAuthor: _currentFlyerShowsAuthor,
+        flyerURL: _currentFlyerURL,
+        // -------------------------
+        tinyAuthor: _flyer.tinyAuthor,
+        tinyBz: _flyer.tinyBz,
+        // -------------------------
+        publishTime: _currentPublishTime,
+        flyerPosition: _currentFlyerPosition,
+        // -------------------------
+        ankhIsOn: false, // shouldn't be saved here but will leave this now
+        // -------------------------
+        slides: _slides,
+      );
+
+      print('C- Uploading to cloud');
+
+      /// start create flyer ops
+      FlyerModel _uploadedFlyerModel = await FlyerCRUD().updateFlyerOps(
+          context: context,
+          updatedFlyer: _updatedFlyerModel,
+          originalFlyer: _originalFlyer,
+          bzModel : _bz,
+      );
+
+      print('D- Uploading to cloud');
+
+      /// add the result final Tinyflyer to local list and notifyListeners
+      _prof.replaceTinyFlyerInLocalList(TinyFlyer.getTinyFlyerFromFlyerModel(_uploadedFlyerModel));
+
+      print('E- added to local list');
+
+      _triggerLoading();
+
+      await superDialog(context, 'Flyer has been updated', 'Great !');
+
+      Nav.goBack(context);
+    }
+
+    }
+  // ----------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     final AuthorModel _author = widget.firstTimer ?
@@ -803,9 +882,50 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
       sky: Sky.Black,
       pageTitle: !_loading ? 'Create a New Flyer' : 'Waiting ...',
       loading: _loading,
-      // tappingRageh: (){
-      //   _triggerLoading();
-      // },
+      tappingRageh: () async {
+        _triggerLoading();
+
+        /// create slides models
+        List<SlideModel> _slides = await _processNewSlides(_currentSlides, _titleControllers);
+
+        ///create updated FlyerModel
+        FlyerModel _updatedFlyerModel = FlyerModel(
+          flyerID: _currentFlyerID,
+          // -------------------------
+          flyerType: _currentFlyerType,
+          flyerState: _currentFlyerState,
+          keyWords: _currentKeywords,
+          flyerShowsAuthor: _currentFlyerShowsAuthor,
+          flyerURL: _currentFlyerURL,
+          // -------------------------
+          tinyAuthor: _flyer.tinyAuthor,
+          tinyBz: _flyer.tinyBz,
+          // -------------------------
+          publishTime: _currentPublishTime,
+          flyerPosition: _currentFlyerPosition,
+          // -------------------------
+          ankhIsOn: false, // shouldn't be saved here but will leave this now
+          // -------------------------
+          slides: _slides,
+        );
+
+        bool _check = SlideModel.allSlidesPicsAreTheSame(
+            finalFlyer: _updatedFlyerModel,
+            originalFlyer: _originalFlyer,
+        );
+
+        print('slides are the same ? $_check');
+
+        _updatedFlyerModel.slides.forEach((slide) {
+          print(slide.picture);
+        });
+
+        _originalFlyer.slides.forEach((slide) {
+          print(slide.picture);
+        });
+
+      },
+
       appBarRowWidgets: <Widget>[
 
         Expanded(child: Container(),),

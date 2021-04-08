@@ -35,6 +35,7 @@ class BzFlyerScreen extends StatelessWidget {
       child: Column(
         children: <Widget>[
 
+          // --- DELETE FLYER
           DreamBox(
             height: 50,
             width: BottomSlider.bottomSheetClearWidth(context),
@@ -50,6 +51,7 @@ class BzFlyerScreen extends StatelessWidget {
 
           SizedBox(height: 10,),
 
+          // --- UN PUBLISH FLYER
           DreamBox(
             height: 50,
             width: BottomSlider.bottomSheetClearWidth(context),
@@ -57,11 +59,12 @@ class BzFlyerScreen extends StatelessWidget {
             iconSizeFactor: 0.5,
             verse: 'Un-publish flyer',
             verseScaleFactor: 1.2,
-            verseColor: Colorz.BlackBlack,
+            verseColor: Colorz.White,
           ),
 
           SizedBox(height: 10,),
 
+          // --- EDIT FLYER
           DreamBox(
             height: 50,
             width: BottomSlider.bottomSheetClearWidth(context),
@@ -69,7 +72,7 @@ class BzFlyerScreen extends StatelessWidget {
             iconSizeFactor: 0.5,
             verse: 'Edit Flyer',
             verseScaleFactor: 1.2,
-            verseColor: Colorz.BlackBlack,
+            verseColor: Colorz.White,
             boxFunction: (){
 
               Nav.goToNewScreen(context,
