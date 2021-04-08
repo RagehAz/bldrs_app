@@ -32,19 +32,28 @@ Future<String> savePicOnFirebaseStorageAndGetURL({BuildContext context, File inp
 
       final _ref = _getReferenceFromFirebaseStorage(documentName: firebaseStorageDocument(picType), fileName: fileName);
 
+      print('X1 - getting storage ref : $_ref');
+
       ImageSize imageSize = await superImageSize(inputFile);
+
+      print('X2 - image size is ${imageSize.height} * ${imageSize.width}');
 
       SettableMetadata metaData = SettableMetadata(
         customMetadata: {'width': '${imageSize.width}', 'height': '${imageSize.height}'}
       );
+
+      print('X3 - meta data assigned');
 
       await _ref.putFile(
           inputFile,
           metaData,
       );
 
+      print('X4 - File has been uploaded $inputFile');
+
       _imageURL = await _ref.getDownloadURL();
 
+      print('X5 - _imageURL is downloaded  $_imageURL');
     }
   );
       return _imageURL;
@@ -52,12 +61,13 @@ Future<String> savePicOnFirebaseStorageAndGetURL({BuildContext context, File inp
 // === === === === === === === === === === === === === === === === === === ===
 String firebaseStorageDocument(PicType picType){
   switch (picType){
-    case PicType.userPic        :   return   'usersPics';       break; // uses userID as file name
-    case PicType.authorPic      :   return   'authorsPics';     break; // uses userID as file name
-    case PicType.bzLogo         :   return   'bzLogos';         break; // uses bzID as file name
-    case PicType.slideHighRes   :   return   'slidesPics';      break; // uses flyerID_slideIndex as file name
-    case PicType.slideLowRes    :   return   'slidesPics';   break; // uses flyerID_slideIndex as file name
-    case PicType.dum            :   return    'dumz';           break;
+    case PicType.userPic        :   return   'usersPics';     break; // uses userID as file name
+    case PicType.authorPic      :   return   'authorsPics';   break; // uses userID as file name
+    case PicType.bzLogo         :   return   'bzLogos';       break; // uses bzID as file name
+    case PicType.slideHighRes   :   return   'slidesPics';    break; // uses flyerID_slideIndex as file name
+    case PicType.slideLowRes    :   return   'slidesPics';    break; // uses flyerID_slideIndex as file name
+    case PicType.dum            :   return   'dumz';          break;
+    case PicType.askPic         :   return   'askPics';       break;
     default : return   null;
   }
 }
@@ -86,6 +96,8 @@ Future<String> saveAssetToFireStorageAndGetURL ({BuildContext context, String as
 
   File _result = await getImageFileFromAssets(context, asset);
 
+  print('uploading $fileName pic to fireStorage in folder of $picType');
+
   _url = await savePicOnFirebaseStorageAndGetURL(
     context: context,
     fileName: fileName,
@@ -93,6 +105,19 @@ Future<String> saveAssetToFireStorageAndGetURL ({BuildContext context, String as
     inputFile: _result,
   );
 
+  print('uploaded pic : $_url');
+
   return _url;
 }
 // === === === === === === === === === === === === === === === === === === ===
+Future<void> deleteFireBaseStoragePic({BuildContext context, String fileName, PicType picType}) async {
+
+  await tryAndCatch(
+  context: context,
+    functions: () async {
+          Reference _picRef  = _getReferenceFromFirebaseStorage(documentName: firebaseStorageDocument(picType), fileName: fileName);
+          await _picRef.delete();
+    }
+  );
+
+}

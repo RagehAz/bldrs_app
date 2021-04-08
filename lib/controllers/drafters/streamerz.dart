@@ -245,6 +245,7 @@ Widget flyerStreamBuilder({
   String flyerID,
   BuildContext context,
   FlyerModelWidgetBuilder builder,
+  double flyerSizeFactor,
   bool listen,
 }){
 
@@ -258,7 +259,14 @@ Widget flyerStreamBuilder({
       stream: _prof.getFlyerStream(flyerID),
       builder: (context, snapshot){
         if(connectionHasNoData(snapshot) || connectionIsWaiting(snapshot)){
-          return Loading(loading: true,);
+          return
+            //Loading(loading: true,);
+
+            AFlyer(
+              flyer: null,
+              flyerSizeFactor: flyerSizeFactor,
+            );
+
         } else {
           FlyerModel flyerModel = snapshot.data;
           return

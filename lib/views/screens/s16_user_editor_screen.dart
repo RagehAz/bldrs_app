@@ -113,7 +113,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   // ---------------------------------------------------------------------------
   Future<void> _takeGalleryPicture() async {
     final _imageFile = await takeGalleryPicture(PicType.userPic);
-    setState(() {_currentPicFile = File(_imageFile.path);});
+    setState(() {_currentPicFile = _imageFile;});
   }
   // ---------------------------------------------------------------------------
   void _deleteLogo(){
