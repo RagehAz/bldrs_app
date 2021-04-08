@@ -142,17 +142,17 @@ class FlyerCRUD{
     return _finalFlyerModel;
 }
 // ----------------------------------------------------------------------
-//   static Future<FlyerModel> readFlyerOps({BuildContext context, String flyerID}) async {
-//
-//     dynamic _flyerMap = await getFireStoreDocumentMap(
-//         context: context,
-//         collectionName: FireStoreCollection.flyers,
-//         documentName: flyerID
-//     );
-//     FlyerModel _flyer = FlyerModel.decipherFlyerMap(_flyerMap);
-//
-//     return _flyer;
-//   }
+  Future<FlyerModel> readFlyerOps({BuildContext context, String flyerID}) async {
+
+    dynamic _flyerMap = await getFireStoreDocumentMap(
+        context: context,
+        collectionName: FireStoreCollection.flyers,
+        documentName: flyerID
+    );
+    FlyerModel _flyer = FlyerModel.decipherFlyerMap(_flyerMap);
+
+    return _flyer;
+  }
 // ----------------------------------------------------------------------
   Future<FlyerModel> updateFlyerOps({BuildContext context, FlyerModel updatedFlyer, FlyerModel originalFlyer, BzModel bzModel}) async {
     FlyerModel _finalFlyer = updatedFlyer;
@@ -212,10 +212,30 @@ class FlyerCRUD{
 
       FlyerModel _updatedFlyer = FlyerModel.replaceSlides(updatedFlyer, _updatedSlides);
 
-      _finalFlyer = _updatedFlyer;
+      _finalFlyer = _updatedFlyer.clone();
     }
 
-    print('2 - all slides Got URLs');
+    /// as updated pics override existing files in fireStorage
+    /// only deleted pics that hasn't been overridden should be deleted from fireStorage
+    /// Which are the slides in original flyer that have indexes => updatedFlyerSlides.length and < originalFlyerSlides.length
+    if(originalFlyer.slides.length > _finalFlyer.slides.length){
+      List<String> _slidesIDsToBeDeleted = new List();
+
+      for (int i = _finalFlyer.slides.length; i < originalFlyer.slides.length; i++){
+        _slidesIDsToBeDeleted.add(SlideModel.generateSlideID(_finalFlyer.flyerID, i));
+      }
+
+      for (var slideID in _slidesIDsToBeDeleted){
+        await deleteFireBaseStoragePic(
+            context: context,
+            picType: PicType.slideHighRes,
+            fileName: slideID,
+        );
+
+      }
+    }
+
+    print('2 - all slides Got URLs and deleted slides have been overridden or deleted');
 
     /// update flyer doc
     await replaceFirestoreDocument(

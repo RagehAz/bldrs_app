@@ -247,7 +247,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   // ----------------------------------------------------------------------
   Future<void> _takeBzLogo() async {
     final _imageFile = await takeGalleryPicture(PicType.bzLogo);
-    setState(() {_currentBzLogoFile = File(_imageFile.path);});
+    setState(() {_currentBzLogoFile = _imageFile;});
   }
   // ----------------------------------------------------------------------
   Future<void> _takeAuthorPicture() async {
