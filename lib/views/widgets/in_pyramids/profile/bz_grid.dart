@@ -34,7 +34,7 @@ class BzGrid extends StatelessWidget {
     double _gridBzWidth = gridZoneWidth / (numberOfColumns + (numberOfColumns * _spacingRatioToGridWidth) + _spacingRatioToGridWidth);
     double _gridBzHeight = _gridBzWidth;
     double _gridSpacing = _gridBzWidth * _spacingRatioToGridWidth;
-    int _bzCount = tinyBzz.length == 0 ? _boxesColors.length : tinyBzz.length;
+    int _bzCount = tinyBzz == null ? 0 : tinyBzz.length == 0 ? _boxesColors.length : tinyBzz.length;
     int _numOfGridRows(int _bzCount){return (_bzCount/_gridColumnsCount).ceil();}
     int _numOfRows = numberOfRows == null ? _numOfGridRows(_bzCount) : numberOfRows;
     double _gridHeight = _gridBzHeight * (_numOfRows + (_numOfRows * _spacingRatioToGridWidth) + _spacingRatioToGridWidth);
@@ -59,7 +59,7 @@ class BzGrid extends StatelessWidget {
             children: <Widget>[
 
                 // --- GRID FOOTPRINTS
-              if (tinyBzz.length == 0)
+              if (tinyBzz != null && tinyBzz.length == 0)
                 GridView(
                   physics: scrollDirection == null ? NeverScrollableScrollPhysics() : null,
                   scrollDirection: scrollDirection == null ? Axis.vertical : scrollDirection,

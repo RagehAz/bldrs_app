@@ -1,8 +1,10 @@
 import 'package:bldrs/firestore/auth/auth.dart';
+import 'package:bldrs/firestore/crud/flyer_ops.dart';
 import 'package:bldrs/firestore/crud/user_ops.dart';
 import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
+import 'package:bldrs/models/records/save_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/models/user_model.dart';
@@ -32,8 +34,43 @@ class FlyersProvider with ChangeNotifier {
     return [..._loadedTinyBzz];
   }
 // ---------------------------------------------------------------------------
-  List<FlyerModel> get getSavedFlyers {
-    return _loadedFlyers.where((fl) => fl.ankhIsOn).toList();
+  Future<dynamic> getSavedFlyersTopMap(BuildContext context) async {
+    // return _loadedFlyers.where((fl) => fl.ankhIsOn).toList();
+
+    Map<String, dynamic> _userSavesTopMap = await getFireStoreSubDocument(
+      context: context,
+      collectionName: FireStoreCollection.users,
+      docName: superUserID(),
+      subCollectionName: FireStoreCollection.subUserSaves,
+      subDocName: FireStoreCollection.flyers,
+    );
+
+    return _userSavesTopMap;
+  }
+  // ---------------------------------------------------------------------------
+  Future<List<FlyerModel>> getSavedFlyers(BuildContext context) async {
+    // return _loadedFlyers.where((fl) => fl.ankhIsOn).toList();
+
+    Map<String, dynamic> _userSavesTopMap = await getSavedFlyersTopMap(context);
+
+    List<SaveModel> _userSavesModels = SaveModel.decipherSavesTopMap(_userSavesTopMap);
+
+    List<String> _savedFlyersIDs = new List();
+
+    for (var sm in _userSavesModels){
+      if(sm.saveState == SaveState.Saved){
+        _savedFlyersIDs.add(sm.flyerID);
+      }
+    }
+
+    List<FlyerModel> _savedFlyers = new List();
+
+    for (var id in _savedFlyersIDs){
+      FlyerModel _flyer = await FlyerCRUD().readFlyerOps(context: context, flyerID: id);
+      _savedFlyers.add(_flyer);
+    }
+
+    return _savedFlyers;
   }
   // ---------------------------------------------------------------------------
   /// this reads db/users/userID/saves/followedBzz document

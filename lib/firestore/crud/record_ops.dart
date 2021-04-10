@@ -7,29 +7,24 @@ import 'package:flutter/material.dart';
 
 class RecordCRUD{
 // ---------------------------------------------------------------------------
-  static Future<void> saveFlyerOPs({BuildContext context, SaveModel saveModel, String userID}) async {
+/// this method works if flyer is saved previously or not, if it's first time to save or not
+  static Future<void> saveFlyerOPs({BuildContext context, String flyerID, int slideIndex, String userID}) async {
 
-    /// get user's saved Flyers Map
-    Map<String, dynamic> _savedFlyersMap = await UserProvider(userID: userID).getSavedFlyers(context);
+    /// get user's SavesMap doc and decipher it into List<SaveModel>
+    dynamic _userSavesTopMap = await UserProvider(userID: userID).getSavedFlyers(context);
+    List<SaveModel> _userSavesModels = SaveModel.decipherSavesTopMap(_userSavesTopMap);
 
+    /// update the list with the new save entry and get back the updated list
+    List<SaveModel> _updatedSavesModel = SaveModel.editSavesModels(_userSavesModels, flyerID, slideIndex);
 
-    _savedFlyersMap.addAll({
-      saveModel.flyerID : {
-        'slideIndex' : saveModel.slideIndexes,
-        'saveState' : SaveModel.cipherSaveState(saveModel.saveState),
-        'timeStamps' : cipherListOfDateTimes(saveModel.timeStamps),
-      }
-    });
-
-
-    /// save flyer ID in db/userID/flyers document
+    /// update sub doc with new SavesTopMap
     await insertFireStoreSubDocument(
       context: context,
       collectionName: FireStoreCollection.users,
       docName: userID,
       subCollectionName: FireStoreCollection.subUserSaves,
       subDocName: FireStoreCollection.flyers,
-      input: _savedFlyersMap,
+      input: await SaveModel.cipherSavesModels(_updatedSavesModel),
     );
 
     /// save user ID in dc/flyerID/saves document
