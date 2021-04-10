@@ -164,4 +164,31 @@ class TextGenerator{
       '${Wordz.inn(context)} ${Wordz.bldrsShortName(context)} since : ${(time).day} ${getMonthNameByInt(context, (time).month)} ${(time).year}';
   }
 // === === === === === === === === === === === === === === === === === === ===
+static String hourMinuteSecondStringer(DateTime time){
+    return
+        '${time.hour}:${time.minute}:${time.second}';
+}
+// === === === === === === === === === === === === === === === === === === ===
+static String hourMinuteSecondListOfStrings(List<DateTime> times){
+    String _output = '';
+
+    for (int i = 0; i<times.length; i++){
+      _output = '${_output+hourMinuteSecondStringer(times[i])}\n';
+    }
+    return _output;
+}
+// === === === === === === === === === === === === === === === === === === ===
+  static String hourMinuteSecondListOfStringsWithIndexes(List<DateTime> times, List<int> indexes){
+    String _output = '';
+
+    for (int i = 0; i<times.length; i++){
+
+      String _indexString = '${indexes[i]} : ';
+      String _timeStampString =  '${hourMinuteSecondStringer(times[i])}';
+
+      _output = '${_output+_indexString+_timeStampString}\n';
+    }
+    return _output;
+  }
+// === === === === === === === === === === === === === === === === === === ===
 }

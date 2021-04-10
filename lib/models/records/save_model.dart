@@ -1,81 +1,99 @@
 import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:flutter/foundation.dart';
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+// -----------------------------------------------------------------------------
 class SaveModel with ChangeNotifier{
-  final String saveID;
-  final String userID;
-  final String slideID;
+  final String flyerID;
+  final List<int> slideIndexes;
   final SaveState saveState;
-  final DateTime saveTime;
-  final DateTime updateTime;
-// ###############################
+  final List<DateTime> timeStamps;
+
   SaveModel({
-    this.saveID,
-    this.userID,
-    this.slideID,
+    this.flyerID,
+    this.slideIndexes,
     this.saveState,
-    this.saveTime,
-    this.updateTime,
+    this.timeStamps,
 });
-// ###############################
-Map<String, Object> toMap(){
+// -----------------------------------------------------------------------------
+Map<String, dynamic> toMap(){
   return {
-    'saveID' : saveID,
-    'userID' : userID,
-    'slideID' : slideID,
+    'flyerID' : flyerID,
+    'slideIndexes' : slideIndexes,
     'saveState' : cipherSaveState(saveState),
-    'saveTime' : cipherDateTimeToString(saveTime),
-    'updateTime' : cipherDateTimeToString(updateTime),
+    'timeStamps' : cipherListOfDateTimes(timeStamps),
   };
 }
+// -----------------------------------------------------------------------------
+  static SaveState decipherSaveState (int saveState){
+    switch (saveState){
+      case 1:   return  SaveState.Saved;       break;
+      case 2:   return  SaveState.UnSaved;     break;
+      default : return   null;
+    }
+  }
+// -----------------------------------------------------------------------------
+  static int cipherSaveState (SaveState saveState){
+    switch (saveState){
+      case SaveState.Saved      :    return  1;  break;
+      case SaveState.UnSaved    :    return  2;  break;
+      default : return null;
+    }
+  }
+// -----------------------------------------------------------------------------
+  static Future<Map<String, dynamic>> cipherSavesModels(List<SaveModel> saveModels) async {
+    /// we shall save saveModels as this
+    /// {
+    ///   'flyerID' : {'slideIndex' : 2, 'saveState' : 0, 'timeStamps' : [{'0' : 'save1'}, {'1': 'unsave1'},{'2': 'save2'}] },
+    ///   'flyerID' : {'slideIndex' : 2, 'saveState' : 0, 'timeStamps' : [{'0' : 'save1'}, {'1': 'unsave1'},{'2': 'save2'}] }
+    /// }
+    /// always keeping last index interaction as the slideIndex
+    Map<String, dynamic> _mapOfSaves = {};
+    int _index = 0;
+    await Future.forEach(saveModels, (saveModel){
+
+      String _flyerID = saveModels[_index].flyerID;
+      List<int> slideIndexes = saveModels[_index].slideIndexes;
+      int _saveState = cipherSaveState(saveModels[_index].saveState);
+      List<String> _timeStamps = cipherListOfDateTimes(saveModels[_index].timeStamps);
+
+      _mapOfSaves.addAll({
+
+        _flyerID : {
+          'slideIndexes' : slideIndexes,
+          'saveState' : _saveState,
+          'timeStamps' : _timeStamps,
+        },
+
+      });
+
+      _index++;
+
+    });
+
+    return _mapOfSaves;
+  }
+// -----------------------------------------------------------------------------
+  static SaveModel decipherSaveMap(Map<String, dynamic> map){
+  return SaveModel(
+    slideIndexes: map['slideIndexes'],
+    saveState: decipherSaveState(map['saveState']),
+    timeStamps: decipherListOfDateTimesStrings(map['timeStamps']),
+  );
+  }
+// -----------------------------------------------------------------------------
+  static List<SaveModel> decipherSavesMaps(List<dynamic> maps){
+  List<SaveModel> _savesModel = new List();
+
+  for (var map in maps){
+    _savesModel.add(decipherSaveMap(map));
+  }
+
+  return _savesModel;
+  }
+// -----------------------------------------------------------------------------
 }
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+// -----------------------------------------------------------------------------
 enum SaveState{
   Saved,
   UnSaved,
 }
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
-SaveState decipherSaveState (int saveState){
-  switch (saveState){
-    case 1:   return  SaveState.Saved;       break;
-    case 2:   return  SaveState.UnSaved;     break;
-    default : return   null;
-  }
-}
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
-int cipherSaveState (SaveState saveState){
-  switch (saveState){
-    case SaveState.Saved      :    return  1;  break;
-    case SaveState.UnSaved    :    return  2;  break;
-    default : return null;
-  }
-}
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
-class SavedFlyers {
-  final String userID;
-  final List<dynamic> savedFlyersIDs;
-
-  SavedFlyers({
-    @required this.userID,
-    @required this.savedFlyersIDs,
-  });
-
-  Map<String, dynamic> toMap(){
-    return {
-      'userID' : userID,
-      'savedFlyersIDs' : savedFlyersIDs,
-    };
-  }
-
-  // -----------------------------------------------------------------------------
-  static SavedFlyers decipherSavedFlyersMaps(Map<String, dynamic> map){
-    return SavedFlyers(
-        userID: map['userID'],
-        savedFlyersIDs: map['savedFlyersIDs']
-    );
-  }
-
-
-}
 // -----------------------------------------------------------------------------
-
