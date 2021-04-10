@@ -29,6 +29,10 @@ class FireStoreCollection{
   static const String subFlyerShares = 'shares';
   static const String subFlyerViews = 'views';
 }
+
+// /// cloud firestore database functions
+// class FireCloud{}
+
 // ---------------------------------------------------------------------------
 CollectionReference getFirestoreCollectionReference (String collectionName){
   final FirebaseFirestore _fireInstance = FirebaseFirestore.instance;
@@ -99,18 +103,6 @@ Future<dynamic> getFireStoreDocumentMap({BuildContext context, String collection
 // ---------------------------------------------------------------------------
 Future<List<QueryDocumentSnapshot>> getFireStoreCollectionMaps(String collectionName) async {
   QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection(collectionName).get();
-  List<QueryDocumentSnapshot> _maps = querySnapshot.docs;
-  return _maps;
-}
-// ---------------------------------------------------------------------------
-/// TASK : GETTING ALL SUBCOLLECTION MAPS not tested
-Future<List<QueryDocumentSnapshot>> getFireStoreSubCollectionMaps(
-    {String collectionName, String docName, String subCollectionName}) async {
-
-  final CollectionReference _subCollection = FirebaseFirestore.instance
-      .collection('$collectionName/$docName/$subCollectionName');
-
-  QuerySnapshot querySnapshot = await _subCollection.get();
   List<QueryDocumentSnapshot> _maps = querySnapshot.docs;
   return _maps;
 }
@@ -187,38 +179,6 @@ Future<void> replaceFirestoreDocument({
   );
 }
 // ---------------------------------------------------------------------------
-/// creates a new sub doc and new sub collection if didn't exists
-/// and uses the same directory i existed to add a new doc
-/// updates the sub doc if existed
-/// and creates random for sub doc if sub doc name is null
-Future<DocumentReference> insertFireStoreSubDocument({
-  BuildContext context,
-  String collectionName,
-  String docName,
-  String subCollectionName,
-  String subDocName,
-  dynamic input,
-}) async {
-
-  DocumentReference _subDocRef;
-
-  await tryAndCatch(
-      context: context,
-      functions: () async {
-
-        final CollectionReference _collectionRef =
-        getFirestoreCollectionReference(collectionName);
-
-        _subDocRef = _collectionRef.doc(docName).collection(subCollectionName).doc(subDocName);
-
-        await _subDocRef.set(input);
-
-      }
-  );
-
-  return _subDocRef;
-}
-// ---------------------------------------------------------------------------
 Future<dynamic> getFireStoreDocumentField({BuildContext context, String collectionName, String documentName, String fieldName}) async {
 
   dynamic _map;
@@ -249,5 +209,103 @@ Future<void> deleteDocumentOnFirestore({BuildContext context, String collectionN
   );
 }
 // ---------------------------------------------------------------------------
+/// TASK : GETTING ALL SUBCOLLECTION MAPS not tested
+Future<List<QueryDocumentSnapshot>> getFireStoreSubCollectionMaps(
+    {String collectionName, String docName, String subCollectionName}) async {
 
+  final CollectionReference _subCollection = FirebaseFirestore.instance
+      .collection('$collectionName/$docName/$subCollectionName');
+
+  QuerySnapshot querySnapshot = await _subCollection.get();
+  List<QueryDocumentSnapshot> _maps = querySnapshot.docs;
+  return _maps;
+}
+// ---------------------------------------------------------------------------
+/// TASK : GETTING  A sub document MAPS not tested
+Future<dynamic> getFireStoreSubDocument({
+  BuildContext context,
+  String collectionName,
+  String docName,
+  String subCollectionName,
+  String subDocName
+}) async {
+
+  dynamic _map;
+
+  await tryAndCatch(
+    context: context,
+    functions: () async {
+
+      final CollectionReference _subCollection = FirebaseFirestore.instance
+          .collection('$collectionName/$docName/$subCollectionName');
+
+      DocumentReference _subDocRef = _subCollection.doc(subDocName);
+
+      await _subDocRef.get().then<dynamic>((DocumentSnapshot snapshot) async{
+        _map = snapshot.data();
+      });
+
+    }
+  );
+
+  return _map;
+}
+// ---------------------------------------------------------------------------
+// Future<void> updateFieldOnFirestoreSubDoc({
+//   BuildContext context,
+//   String collectionName,
+//   String docName,
+//   String subCollectionName,
+//   String subDocName,
+//   dynamic input,
+// }) async {
+//
+//   await tryAndCatch(
+//       context: context,
+//       functions: () async {
+//
+//     final CollectionReference _collectionRef =
+//     getFirestoreCollectionReference(collectionName);
+//
+//     _subDocRef = _collectionRef.doc(docName).collection(subCollectionName).doc(subDocName);
+//
+//     await _subDocRef.set(input);
+//
+//   }
+//   );
+//
+//
+// }
+// ---------------------------------------------------------------------------
+/// creates a new sub doc and new sub collection if didn't exists
+/// and uses the same directory if existed to add a new doc
+/// updates the sub doc if existed
+/// and creates random name for sub doc if sub doc name is null
+Future<DocumentReference> insertFireStoreSubDocument({
+  BuildContext context,
+  String collectionName,
+  String docName,
+  String subCollectionName,
+  String subDocName,
+  dynamic input,
+}) async {
+
+  DocumentReference _subDocRef;
+
+  await tryAndCatch(
+      context: context,
+      functions: () async {
+
+        final CollectionReference _collectionRef =
+        getFirestoreCollectionReference(collectionName);
+
+        _subDocRef = _collectionRef.doc(docName).collection(subCollectionName).doc(subDocName);
+
+        await _subDocRef.set(input);
+
+      }
+  );
+
+  return _subDocRef;
+}
 

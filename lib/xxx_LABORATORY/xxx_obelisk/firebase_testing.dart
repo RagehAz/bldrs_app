@@ -1,11 +1,13 @@
 import 'dart:io';
 import 'package:bldrs/controllers/drafters/imagers.dart';
+import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/firestore/crud/flyer_ops.dart';
 import 'package:bldrs/firestore/firebase_storage.dart';
 import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/models/flyer_model.dart';
+import 'package:bldrs/models/records/save_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
@@ -27,6 +29,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
   String printVerse;
   File _dumFile;
   String _dumURL;
+  List<SaveModel> _userSaveModels;
 // ---------------------------------------------------------------------------
   /// --- LOADING BLOCK
   bool _loading = false;
@@ -44,33 +47,9 @@ class _FirebasetestingState extends State<Firebasetesting> {
 
     functions = [
       // -----------------------------------------------------------------------
-      {'Name' : 'add pic to fireStorage', 'function' : () async {
+      {'Name' : '', 'function' : () async {
         _triggerLoading();
 
-        File _file = await takeGalleryPicture(PicType.askPic);
-
-        await savePicOnFirebaseStorageAndGetURL(
-          context: context,
-          picType: PicType.askPic,
-          inputFile: _file,
-          fileName: 'highSky',
-        );
-
-        printResult('Added');
-
-        _triggerLoading();
-      },},
-      // -----------------------------------------------------------------------
-      {'Name' : 'delete pic from fireStorage', 'function' : () async {
-        _triggerLoading();
-
-        await deleteFireBaseStoragePic(
-          context: context,
-          picType: PicType.askPic,
-          fileName: 'highSky',
-        );
-
-        printResult('Deleted');
 
         _triggerLoading();
       },},
@@ -85,9 +64,149 @@ class _FirebasetestingState extends State<Firebasetesting> {
     print(verse);
   }
   // -----------------------------------------------------------------------
+  void _save (String flyerID, int slideIndex){
+
+    /// --- IF FLYER WAS NEVER SAVED
+    if (_flyerIsSaved(flyerID) == null){
+
+      /// create a new SaveModel
+      SaveModel _newSaveModel = SaveModel(
+        flyerID: flyerID,
+        slideIndexes: [slideIndex],
+        saveState: SaveState.Saved,
+        timeStamps: <DateTime>[DateTime.now()],
+      );
+
+      /// if userSaveModels is not initialized
+      if(_userSaveModels == null || _userSaveModels.length == 0){
+        setState(() {
+        _userSaveModels = new List();
+        _userSaveModels.add(_newSaveModel);
+        });
+      }
+      /// if userSaveModels is initialized and have other entries
+      else {
+        setState(() {
+        _userSaveModels.add(_newSaveModel);
+        });
+      }
+
+    }
+    // -----------------------------------------------
+    /// --- IF FLYER WAS SAVED THEN UNSAVED OR STILL SAVED
+    else {
+
+      /// get the SlideModel from the List
+      SaveModel _existingSaveModel = _userSaveModels.singleWhere((sm) => sm.flyerID == flyerID);
+
+      /// overwrite slideIndex with the new one, add new timeStamp, and change state to saved
+      SaveModel _updatedSaveModel = new SaveModel(
+        flyerID: flyerID,
+        slideIndexes: [...(_existingSaveModel.slideIndexes), slideIndex],
+        saveState: _existingSaveModel.saveState == SaveState.Saved ? SaveState.UnSaved : SaveState.Saved,
+        timeStamps: <DateTime>[...(_existingSaveModel.timeStamps), DateTime.now()],
+      );
+
+      /// update the List with the new Model
+      int _existingSaveModelIndex = _userSaveModels.indexWhere((sm) => sm.flyerID == flyerID);
+      setState(() {
+      _userSaveModels.removeAt(_existingSaveModelIndex);
+      _userSaveModels.insert(_existingSaveModelIndex, _updatedSaveModel);
+      });
+    }
+    // -----------------------------------------------
+
+  }
+
+  bool _flyerWasSavedOnce(String flyerID){
+    bool _flyerWasSavedOnce;
+
+    /// if user's saves list is null or empty
+    if (_userSaveModels == null || _userSaveModels.length == 0){
+      _flyerWasSavedOnce = false;
+    } else {
+      /// so user's saves list have some save models
+      for (int i = _userSaveModels.length - 1; i >= 0; i--){
+
+        if (_userSaveModels[i].flyerID == flyerID){
+          /// we found a saveModel for this flyerID
+          _flyerWasSavedOnce = true;
+          break;
+        } else {
+          /// we didn't find this flyer in the list
+          _flyerWasSavedOnce = false;
+        }
+      }
+
+    }
+
+    return _flyerWasSavedOnce;
+  }
+  // ---------------------------------------------------------------------------
+  bool _flyerIsSaved(String flyerID){
+    bool _flyerIsSaved;
+
+    if (_flyerWasSavedOnce(flyerID) == true){
+
+      SaveModel _thisFlyersSaveModel = _userSaveModels.singleWhere((saveModel) => saveModel.flyerID == flyerID);
+
+      if (_thisFlyersSaveModel.saveState == SaveState.Saved){
+        _flyerIsSaved = true; // is saved
+      } else {
+        _flyerIsSaved = false; // was saved once but now its not
+      }
+
+    } else {
+      _flyerIsSaved = null; // was never saved
+    }
+
+    return _flyerIsSaved;
+  }
+  // ---------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
+    Widget _theSlides(String flyerID){
+
+      String _flyerID = flyerID;
+
+      bool _buttonIsOn =
+      _flyerIsSaved(flyerID) == true ? true :
+      _flyerIsSaved(flyerID) == false ? false :
+          false;
+
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+
+          DreamBox(
+            height: 50,
+            iconSizeFactor: 0.6,
+            color: _buttonIsOn ? Colorz.Yellow : Colorz.Grey,
+            verse: '$_flyerID - 0',
+            boxFunction: () => _save(_flyerID, 0),
+          ),
+
+          DreamBox(
+            height: 50,
+            iconSizeFactor: 0.6,
+            color: _buttonIsOn ? Colorz.Yellow : Colorz.Grey,
+            verse: '$_flyerID - 1',
+            boxFunction: () => _save(_flyerID, 1),
+          ),
+
+          DreamBox(
+            height: 50,
+            iconSizeFactor: 0.6,
+            color: _buttonIsOn ? Colorz.Yellow : Colorz.Grey,
+            verse: '$_flyerID - 2',
+            boxFunction: () => _save(_flyerID, 2),
+          ),
+
+        ],
+      );
+    }
 
     return MainLayout(
       pyramids: Iconz.PyramidzYellow,
@@ -118,32 +237,41 @@ class _FirebasetestingState extends State<Firebasetesting> {
                   );
               }),
 
-              DreamBox(
-                height: 50,
-                width: 50,
-                iconFile: _dumFile,
-                color: Colorz.Grey,
-                // verse: 'wtf',
-                boxFunction: (){
-                },
-              ),
+              _theSlides('flyerA'),
+
+              _theSlides('flyerB'),
+
+              _theSlides('flyerC'),
+
+              if (_userSaveModels != null)
+              ...List.generate(_userSaveModels.length, (index){
+
+                SaveModel _save = _userSaveModels[index];
+
+                return
+                  SuperVerse(
+                    verse: '${_save.flyerID}-${_save.slideIndexes[_save.slideIndexes.length-1]} '
+                        ': ${_save.saveState}\n'
+                        '${TextGenerator.hourMinuteSecondListOfStringsWithIndexes(_save.timeStamps, _save.slideIndexes)}',
+                    margin: 10,
+                    labelColor: Colorz.WhiteGlass,
+                    weight: VerseWeight.thin,
+                    size: 2,
+                    maxLines: 10,
+                  );
+              }),
+
+              if (_userSaveModels == null)
+                SuperVerse(
+                  verse: 'No saved Model yet !',
+                  margin: 10,
+                  labelColor: Colorz.WhiteGlass,
+                  weight: VerseWeight.thin,
+                  size: 2,
+                ),
 
 
-
-              DreamBox(
-                height: 100,
-                width: 100,
-                icon: _dumURL,
-                color: Colorz.Grey,
-                // verse: 'wtf',
-                boxFunction: (){
-
-                },
-              ),
-
-
-
-              PyramidsHorizon(),
+                PyramidsHorizon(heightFactor: 5,),
 
             ],
           ),
