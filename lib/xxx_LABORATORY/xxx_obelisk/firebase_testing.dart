@@ -1,22 +1,15 @@
 import 'dart:io';
-import 'package:bldrs/controllers/drafters/imagers.dart';
+import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
-import 'package:bldrs/firestore/crud/flyer_ops.dart';
-import 'package:bldrs/firestore/firebase_storage.dart';
-import 'package:bldrs/firestore/firestore.dart';
-import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/records/save_model.dart';
-import 'package:bldrs/models/tiny_models/tiny_bz.dart';
-import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 
 class Firebasetesting extends StatefulWidget {
 
@@ -29,7 +22,9 @@ class _FirebasetestingState extends State<Firebasetesting> {
   String printVerse;
   File _dumFile;
   String _dumURL;
-  List<SaveModel> _userSaveModels;
+  List<SaveModel> _userSavesModels;
+  Map<String, dynamic> _userSavesMap;
+  List<SaveModel> _decipheredSavesModels;
 // ---------------------------------------------------------------------------
   /// --- LOADING BLOCK
   bool _loading = false;
@@ -47,13 +42,33 @@ class _FirebasetestingState extends State<Firebasetesting> {
 
     functions = [
       // -----------------------------------------------------------------------
-      {'Name' : '', 'function' : () async {
+      {'Name' : 'cipher and print _userSavesModels', 'function' : () async {
         _triggerLoading();
 
+        if (_userSavesModels == null){
+          printResult('Can not cipher _userSavesModels');
+        } else {
+        _userSavesMap = await SaveModel.cipherSavesModels(_userSavesModels);
+        printResult(_userSavesMap.toString());
+        }
 
         _triggerLoading();
       },},
       // -----------------------------------------------------------------------
+      {'Name' : 'decipher and print _userSavesMap', 'function' : () async {
+        _triggerLoading();
+
+        if(_userSavesMap == null){
+          printResult('Can not decipher _userSavesMap');
+        } else {
+
+          _decipheredSavesModels = SaveModel.decipherSavesTopMap(_userSavesMap);
+          setState(() {});
+        }
+
+        _triggerLoading();
+      },},
+
     ];
 
     super.initState();
@@ -78,16 +93,16 @@ class _FirebasetestingState extends State<Firebasetesting> {
       );
 
       /// if userSaveModels is not initialized
-      if(_userSaveModels == null || _userSaveModels.length == 0){
+      if(_userSavesModels == null || _userSavesModels.length == 0){
         setState(() {
-        _userSaveModels = new List();
-        _userSaveModels.add(_newSaveModel);
+        _userSavesModels = new List();
+        _userSavesModels.add(_newSaveModel);
         });
       }
       /// if userSaveModels is initialized and have other entries
       else {
         setState(() {
-        _userSaveModels.add(_newSaveModel);
+        _userSavesModels.add(_newSaveModel);
         });
       }
 
@@ -97,7 +112,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
     else {
 
       /// get the SlideModel from the List
-      SaveModel _existingSaveModel = _userSaveModels.singleWhere((sm) => sm.flyerID == flyerID);
+      SaveModel _existingSaveModel = _userSavesModels.singleWhere((sm) => sm.flyerID == flyerID);
 
       /// overwrite slideIndex with the new one, add new timeStamp, and change state to saved
       SaveModel _updatedSaveModel = new SaveModel(
@@ -108,10 +123,10 @@ class _FirebasetestingState extends State<Firebasetesting> {
       );
 
       /// update the List with the new Model
-      int _existingSaveModelIndex = _userSaveModels.indexWhere((sm) => sm.flyerID == flyerID);
+      int _existingSaveModelIndex = _userSavesModels.indexWhere((sm) => sm.flyerID == flyerID);
       setState(() {
-      _userSaveModels.removeAt(_existingSaveModelIndex);
-      _userSaveModels.insert(_existingSaveModelIndex, _updatedSaveModel);
+      _userSavesModels.removeAt(_existingSaveModelIndex);
+      _userSavesModels.insert(_existingSaveModelIndex, _updatedSaveModel);
       });
     }
     // -----------------------------------------------
@@ -122,13 +137,13 @@ class _FirebasetestingState extends State<Firebasetesting> {
     bool _flyerWasSavedOnce;
 
     /// if user's saves list is null or empty
-    if (_userSaveModels == null || _userSaveModels.length == 0){
+    if (_userSavesModels == null || _userSavesModels.length == 0){
       _flyerWasSavedOnce = false;
     } else {
       /// so user's saves list have some save models
-      for (int i = _userSaveModels.length - 1; i >= 0; i--){
+      for (int i = _userSavesModels.length - 1; i >= 0; i--){
 
-        if (_userSaveModels[i].flyerID == flyerID){
+        if (_userSavesModels[i].flyerID == flyerID){
           /// we found a saveModel for this flyerID
           _flyerWasSavedOnce = true;
           break;
@@ -148,7 +163,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
 
     if (_flyerWasSavedOnce(flyerID) == true){
 
-      SaveModel _thisFlyersSaveModel = _userSaveModels.singleWhere((saveModel) => saveModel.flyerID == flyerID);
+      SaveModel _thisFlyersSaveModel = _userSavesModels.singleWhere((saveModel) => saveModel.flyerID == flyerID);
 
       if (_thisFlyersSaveModel.saveState == SaveState.Saved){
         _flyerIsSaved = true; // is saved
@@ -208,6 +223,40 @@ class _FirebasetestingState extends State<Firebasetesting> {
       );
     }
 
+    List<Widget> _savesWidgets(List<SaveModel> savesModels){
+      return <Widget>[
+
+        if (savesModels != null)
+          ...List.generate(savesModels.length, (index){
+
+            SaveModel _save = savesModels[index];
+
+            return
+              SuperVerse(
+                verse: '${_save.flyerID}-${_save.slideIndexes[_save.slideIndexes.length-1]} '
+                    ': ${_save.saveState}\n'
+                    '${TextGenerator.hourMinuteSecondListOfStringsWithIndexes(_save.timeStamps, _save.slideIndexes)}',
+                margin: 10,
+                labelColor: Colorz.WhiteGlass,
+                weight: VerseWeight.thin,
+                size: 2,
+                maxLines: 10,
+              );
+          }),
+
+        if (savesModels == null)
+          SuperVerse(
+            verse: 'No saved Model yet !',
+            margin: 10,
+            labelColor: Colorz.WhiteGlass,
+            weight: VerseWeight.thin,
+            size: 2,
+          ),
+
+      ];
+
+    }
+
     return MainLayout(
       pyramids: Iconz.PyramidzYellow,
       appBarType: AppBarType.Basic,
@@ -243,35 +292,18 @@ class _FirebasetestingState extends State<Firebasetesting> {
 
               _theSlides('flyerC'),
 
-              if (_userSaveModels != null)
-              ...List.generate(_userSaveModels.length, (index){
+              ..._savesWidgets(_userSavesModels),
 
-                SaveModel _save = _userSaveModels[index];
+              DreamBox(
+                width: superScreenWidth(context),
+                height: 10,
+                color: Colorz.BloodRed,
+              ),
 
-                return
-                  SuperVerse(
-                    verse: '${_save.flyerID}-${_save.slideIndexes[_save.slideIndexes.length-1]} '
-                        ': ${_save.saveState}\n'
-                        '${TextGenerator.hourMinuteSecondListOfStringsWithIndexes(_save.timeStamps, _save.slideIndexes)}',
-                    margin: 10,
-                    labelColor: Colorz.WhiteGlass,
-                    weight: VerseWeight.thin,
-                    size: 2,
-                    maxLines: 10,
-                  );
-              }),
-
-              if (_userSaveModels == null)
-                SuperVerse(
-                  verse: 'No saved Model yet !',
-                  margin: 10,
-                  labelColor: Colorz.WhiteGlass,
-                  weight: VerseWeight.thin,
-                  size: 2,
-                ),
+              ..._savesWidgets(_decipheredSavesModels),
 
 
-                PyramidsHorizon(heightFactor: 5,),
+                PyramidsHorizon(heightFactor: 10,),
 
             ],
           ),
