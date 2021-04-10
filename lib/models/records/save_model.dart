@@ -72,22 +72,22 @@ Map<String, dynamic> toMap(){
     return _mapOfSaves;
   }
 // -----------------------------------------------------------------------------
-  static SaveModel decipherSaveMap(Map<String, dynamic> map){
-  return SaveModel(
-    slideIndexes: map['slideIndexes'],
-    saveState: decipherSaveState(map['saveState']),
-    timeStamps: decipherListOfDateTimesStrings(map['timeStamps']),
-  );
-  }
-// -----------------------------------------------------------------------------
-  static List<SaveModel> decipherSavesMaps(List<dynamic> maps){
-  List<SaveModel> _savesModel = new List();
+  static List<SaveModel> decipherSavesTopMap(Map<String, dynamic> topMap){
+  List<SaveModel> _savesModels = new List();
 
-  for (var map in maps){
-    _savesModel.add(decipherSaveMap(map));
+  List<dynamic> _flyersIDs = topMap.keys.toList();
+  List<dynamic> _savesMaps = topMap.values.toList();
+
+  for (int i = 0; i<_flyersIDs.length; i++){
+    _savesModels.add(SaveModel(
+      flyerID: _flyersIDs[i],
+      slideIndexes: _savesMaps[i]['slideIndexes'],
+      saveState: SaveModel.decipherSaveState(_savesMaps[i]['saveState']),
+      timeStamps: decipherListOfDateTimesStrings(_savesMaps[i]['timeStamps']),
+    ));
   }
 
-  return _savesModel;
+  return _savesModels;
   }
 // -----------------------------------------------------------------------------
 }
