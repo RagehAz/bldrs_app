@@ -46,8 +46,8 @@ class _AnkhButtonState extends State<AnkhButton> with SingleTickerProviderStateM
         .animate(_ankhAniController);
 
     _ankhAniController.addListener(() {
-      print(_ankhAniController.value);
-      print(_ankhColorAni.value);
+      // print(_ankhAniController.value);
+      // print(_ankhColorAni.value);
     });
 
     _ankhAniController.addStatusListener((status) {
@@ -133,8 +133,8 @@ class _AnkhButtonState extends State<AnkhButton> with SingleTickerProviderStateM
                       color: Colorz.Nothing,
                       boxFunction: (){
                         widget.tappingAnkh();
-                        _ankhIsOn == false ? _ankhAniController.forward() :
-                        _ankhAniController.reverse();
+                        // _ankhIsOn == false ? _ankhAniController.forward() :
+                        // _ankhAniController.reverse();
                       }
                   ),
 
