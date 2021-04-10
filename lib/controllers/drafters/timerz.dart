@@ -9,8 +9,28 @@ String cipherDateTimeToString(DateTime dateTime){
   return dateFormat?.format(dateTime);
 }
 // -----------------------------------------------------------------
+List<String> cipherListOfDateTimes(List<DateTime> dateTimes){
+  List<String> _dateTimesStringsList = new List();
+
+  for (var dateTime in dateTimes){
+    _dateTimesStringsList.add(cipherDateTimeToString(dateTime));
+  }
+
+  return _dateTimesStringsList;
+}
+// -----------------------------------------------------------------
 DateTime decipherDateTimeString(String dateTimeString){
   return dateFormat?.parse(dateTimeString);
+}
+// -----------------------------------------------------------------
+List<DateTime> decipherListOfDateTimesStrings(List<String> dateTimesStrings){
+  List<DateTime> _dateTimes = new List();
+
+  for (var string in dateTimesStrings){
+    _dateTimes.add(decipherDateTimeString(string));
+  }
+
+  return _dateTimes;
 }
 // -----------------------------------------------------------------
 String getMonthNameByInt(BuildContext context, int month){

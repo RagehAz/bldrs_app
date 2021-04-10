@@ -1,11 +1,17 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/firestore/auth/auth.dart';
+import 'package:bldrs/firestore/crud/record_ops.dart';
 import 'package:bldrs/models/flyer_model.dart';
+import 'package:bldrs/models/records/save_model.dart';
+import 'package:bldrs/models/user_model.dart';
+import 'package:bldrs/providers/users_provider.dart';
 import 'package:bldrs/views/widgets/flyer/parts/ankh_button.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_zone.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header.dart';
 import 'package:bldrs/views/widgets/flyer/parts/progress_bar.dart';
 import 'package:bldrs/views/widgets/flyer/parts/slides.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class AFlyer extends StatefulWidget {
   final FlyerModel flyer;
@@ -25,9 +31,11 @@ class _AFlyerState extends State<AFlyer> with AutomaticKeepAliveClientMixin{
   bool _bzPageIsOn;
   int _currentSlideIndex;
   bool _ankhIsOn =false;
+  String _user;
 // ---------------------------------------------------------------------------
   @override
   void initState() {
+    UserModel _user = Provider.of<UserModel>(context);
     _currentSlideIndex = 0;//= widget.initialSlide ?? 0;
     _bzPageIsOn = false;
     super.initState();
@@ -42,12 +50,34 @@ class _AFlyerState extends State<AFlyer> with AutomaticKeepAliveClientMixin{
     setState(() {_currentSlideIndex = slideIndex;});
   }
 // ---------------------------------------------------------------------------
-  void _tapAnkh(){
+  Future<void> _tapAnkh(String flyerID) async {
+
+    if(_ankhIsOn == false){
+      /// start save flyer Ops
+
+      // await RecordCRUD.saveFlyerOPs(
+      //   context: context,
+      //   userID: superUserID(),
+      //   saveModel: SaveModel(
+      //     flyerID: flyerID,
+      //     timeStamps:
+      //   ),
+      // );
+
+    } else {
+      /// start UnSave flyer Ops
+    }
+
+
+
+    // print(_userSavedFlyers.toString());
+
     setState(() {
       _ankhIsOn = !_ankhIsOn;
     });
-    print(_ankhIsOn);
+    print('ankh is $_ankhIsOn');
   }
+// ---------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

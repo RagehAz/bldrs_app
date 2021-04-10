@@ -98,4 +98,19 @@ Future<UserModel> getUserModel(BuildContext context, String userID) async {
   return _userModel;
 }
 // ---------------------------------------------------------------------------
+
+Future<dynamic> getSavedFlyers(BuildContext context) async {
+
+    Map<String, dynamic> _savedFlyersMap = await getFireStoreSubDocument(
+      context: context,
+      collectionName: FireStoreCollection.users,
+      docName: userID,
+      subCollectionName: FireStoreCollection.subUserSaves,
+      subDocName: FireStoreCollection.flyers,
+    );
+
+    print('saved flyers on db are : ${_savedFlyersMap.toString()}');
+    return _savedFlyersMap == null ? {} : _savedFlyersMap;
+}
+
 }
