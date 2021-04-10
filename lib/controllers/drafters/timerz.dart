@@ -23,7 +23,7 @@ DateTime decipherDateTimeString(String dateTimeString){
   return dateFormat?.parse(dateTimeString);
 }
 // -----------------------------------------------------------------
-List<DateTime> decipherListOfDateTimesStrings(List<String> dateTimesStrings){
+List<DateTime> decipherListOfDateTimesStrings(List<dynamic> dateTimesStrings){
   List<DateTime> _dateTimes = new List();
 
   for (var string in dateTimesStrings){
