@@ -58,12 +58,15 @@ class _HomeScreenState extends State<HomeScreen> {
     _isInit = false;
     super.didChangeDependencies();
   }
-
-  void _triggerLoading() {
-    setState(() {
-      _isLoading = !_isLoading;
-    });
+// ---------------------------------------------------------------------------
+  /// --- LOADING BLOCK
+  bool _loading = false;
+  void _triggerLoading(){
+    setState(() {_loading = !_loading;});
+    _loading == true?
+    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
   }
+// ---------------------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {

@@ -37,7 +37,7 @@ class _FlyersGridViewState extends State<FlyersGridView> {
   Widget build(BuildContext context) {
     final FlyersProvider pro = Provider.of<FlyersProvider>(context, listen: false);
     final List<FlyerModel> allFlyersOfType = pro.getFlyersByFlyerType(currentFlyerType);
-    final List<FlyerModel> savedFlyersFilter = pro.getSavedFlyers;
+    final List<FlyerModel> savedFlyersFilter = [];//pro.getSavedFlyers;
     final List<FlyerModel> flyers = _showAnkhsOnly ? savedFlyersFilter : allFlyersOfType;
     final List<BzModel> bzz = pro.getBzzOfFlyersList(flyers);
     // final flyers = _showAnkhsOnly ? flyersData.savedFlyers : flyersData.allFlyers;
