@@ -35,7 +35,7 @@ class _AFlyerState extends State<AFlyer> with AutomaticKeepAliveClientMixin{
 // ---------------------------------------------------------------------------
   @override
   void initState() {
-    UserModel _user = Provider.of<UserModel>(context);
+    // UserModel _user = Provider.of<UserModel>(context, listen: false);
     _currentSlideIndex = 0;//= widget.initialSlide ?? 0;
     _bzPageIsOn = false;
     super.initState();
@@ -50,27 +50,14 @@ class _AFlyerState extends State<AFlyer> with AutomaticKeepAliveClientMixin{
     setState(() {_currentSlideIndex = slideIndex;});
   }
 // ---------------------------------------------------------------------------
-  Future<void> _tapAnkh(String flyerID) async {
+  Future<void> _tapAnkh(String flyerID, int slideIndex) async {
 
-    if(_ankhIsOn == false){
-      /// start save flyer Ops
-
-      // await RecordCRUD.saveFlyerOPs(
-      //   context: context,
-      //   userID: superUserID(),
-      //   saveModel: SaveModel(
-      //     flyerID: flyerID,
-      //     timeStamps:
-      //   ),
-      // );
-
-    } else {
-      /// start UnSave flyer Ops
-    }
-
-
-
-    // print(_userSavedFlyers.toString());
+      await RecordCRUD.saveFlyerOPs(
+        context: context,
+        userID: superUserID(),
+        flyerID: flyerID,
+        slideIndex: slideIndex
+      );
 
     setState(() {
       _ankhIsOn = !_ankhIsOn;
@@ -128,7 +115,7 @@ class _AFlyerState extends State<AFlyer> with AutomaticKeepAliveClientMixin{
             flyerZoneWidth: _flyerZoneWidth,
             slidingIsOn: true,
             ankhIsOn: _ankhIsOn,
-            tappingAnkh: _tapAnkh,
+            tappingAnkh: () => _tapAnkh(widget.flyer.flyerID, _currentSlideIndex),
         ),
 
       ],

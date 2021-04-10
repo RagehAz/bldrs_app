@@ -132,7 +132,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
     // -----------------------------------------------
 
   }
-
+  // ---------------------------------------------------------------------------
   bool _flyerWasSavedOnce(String flyerID){
     bool _flyerWasSavedOnce;
 
