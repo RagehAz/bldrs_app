@@ -2,11 +2,13 @@ import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
+import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/providers/users_provider.dart';
 import 'package:bldrs/views/widgets/flyer/aflyer.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_zone.dart';
+import 'package:bldrs/views/widgets/flyer/tiny_flyer_widget.dart';
 import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -279,7 +281,7 @@ Widget flyerStreamBuilder({
 }
 // ----------------------------------------------------------------------------
 Widget flyerModelBuilder({
-  String flyerID,
+  TinyFlyer tinyFlyer,
   BuildContext context,
   FlyerModelWidgetBuilder builder,
   double flyerSizeFactor,
@@ -289,15 +291,16 @@ Widget flyerModelBuilder({
       future: getFireStoreDocumentMap(
         context: context,
         collectionName: FireCollection.flyers,
-        documentName: flyerID,
+        documentName: tinyFlyer.flyerID,
       ),
       builder: (ctx, snapshot){
 
         if (snapshot.connectionState == ConnectionState.waiting){
           return
-            FlyerZone(
+            TinyFlyerWidget(
+              tinyFlyer: tinyFlyer,
               flyerSizeFactor: flyerSizeFactor,
-              tappingFlyerZone: (){},
+              onTap: (){},
             );
 
         } else {
