@@ -55,15 +55,15 @@ class _FlyersGridState extends State<FlyersGrid> {
       _triggerLoading();
       FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: true);
 
-      // _prof.fetchAndSetSavedFlyers(context)
-      //     .then((_) async {
+      _prof.fetchAndSetSavedFlyers(context)
+          .then((_) async {
 
         _savedFlyers = _prof.getSavedTinyFlyers;
 
         rebuildGrid();
 
         _triggerLoading();
-      // });
+      });
     }
     _isInit = false;
     super.didChangeDependencies();

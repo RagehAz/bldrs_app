@@ -202,6 +202,22 @@ return bzz;
     notifyListeners();
   }
 // ############################################################################
+  void addOrDeleteTinyFlyerInLocalSavedTinyFlyers(TinyFlyer _inputTinyFlyer){
+
+    int _savedTinyFlyerIndex =
+    _loadedSavedFlyers.indexWhere((tf) => tf.flyerID == _inputTinyFlyer.flyerID);
+
+    if (_savedTinyFlyerIndex == null){
+      /// so flyer is not already saved, so we save it
+      _loadedSavedFlyers.add(_inputTinyFlyer);
+    } else {
+      /// so flyer is already saved, so we remove it
+      _loadedSavedFlyers.removeAt(_savedTinyFlyerIndex);
+    }
+
+    notifyListeners();
+  }
+// ############################################################################
   void replaceTinyFlyerInLocalList(TinyFlyer tinyFlyer){
     int _tinyFlyerIndex = _loadedTinyFlyers.indexWhere((t) => t.flyerID == tinyFlyer.flyerID);
     _loadedTinyFlyers.removeAt(_tinyFlyerIndex);

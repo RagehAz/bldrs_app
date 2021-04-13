@@ -109,7 +109,7 @@ class _FlyersSizesScreenState extends State<FlyersSizesScreen> {
 
           flyerModelBuilder(
               context: context,
-              flyerID: 'Z6mmaU5ETompAIsW5hau',//_tinyFlyer.flyerID,
+              tinyFlyer: _tinyFlyer,
               flyerSizeFactor: 0.78,
               builder: (ctx, flyerModel){
                 return
