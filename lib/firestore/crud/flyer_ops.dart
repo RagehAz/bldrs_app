@@ -5,6 +5,7 @@ import 'package:bldrs/controllers/drafters/text_manipulators.dart';
 import 'package:bldrs/firestore/crud/bz_ops.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
+import 'package:bldrs/models/records/save_model.dart';
 import 'package:bldrs/models/sub_models/slide_model.dart';
 import 'package:bldrs/models/tiny_models/nano_flyer.dart';
 import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
@@ -19,16 +20,16 @@ class FlyerCRUD{
   /// flyers collection reference
   CollectionReference flyersCollectionRef(){
     return
-      getFirestoreCollectionReference(FireStoreCollection.flyers);
+      getFireCollectionReference(FireCollection.flyers);
   }
 // ---------------------------------------------------------------------------
   /// flyer document reference
   DocumentReference flyerDocRef(String flyerID){
     return
-      getFirestoreDocumentReference(FireStoreCollection.flyers, flyerID);
+      getFirestoreDocumentReference(FireCollection.flyers, flyerID);
   }
 // ---------------------------------------------------------------------------
-  final CollectionReference _flyersCollectionRef = getFirestoreCollectionReference(FireStoreCollection.flyers);
+  final CollectionReference _flyersCollectionRef = getFireCollectionReference(FireCollection.flyers);
 // ---------------------------------------------------------------------------
   /// create empty firestore flyer doc and return flyerID 'docID'
   Future<FlyerModel> createFlyerOps(BuildContext context, FlyerModel inputFlyerModel, BzModel bzModel) async {
@@ -38,7 +39,7 @@ class FlyerCRUD{
   /// create empty firestore flyer document to get back _flyerID
   DocumentReference _docRef = await createFireStoreDocument(
     context: context,
-    collectionName: FireStoreCollection.flyers,
+    collectionName: FireCollection.flyers,
     input: {},
   );
   String _flyerID = _docRef.id;
@@ -84,7 +85,7 @@ class FlyerCRUD{
     /// replace empty flyer document with the new refactored one _finalFlyerModel
   await replaceFirestoreDocument(
     context: context,
-    collectionName: FireStoreCollection.flyers,
+    collectionName: FireCollection.flyers,
     docName: _flyerID,
     input: _finalFlyerModel.toMap(),
   );
@@ -95,7 +96,7 @@ class FlyerCRUD{
   TinyFlyer _finalTinyFlyer = TinyFlyer.getTinyFlyerFromFlyerModel(_finalFlyerModel);
   await createFireStoreNamedDocument(
     context: context,
-    collectionName: FireStoreCollection.tinyFlyers,
+    collectionName: FireCollection.tinyFlyers,
     docName: _flyerID,
     input: _finalTinyFlyer.toMap(),
   );
@@ -106,7 +107,7 @@ class FlyerCRUD{
     /// TASK : perform string.toLowerCase() on each string before upload
   await createFireStoreNamedDocument(
     context: context,
-    collectionName: FireStoreCollection.flyersKeys,
+    collectionName: FireCollection.flyersKeys,
     docName: _flyerID,
     input: await getKeyWordsMap(_finalFlyerModel.keyWords),
   );
@@ -116,10 +117,10 @@ class FlyerCRUD{
     /// add flyer counters sub collection and document in flyer store
   await insertFireStoreSubDocument(
     context: context,
-    collectionName: FireStoreCollection.flyers,
+    collectionName: FireCollection.flyers,
     docName: _flyerID,
-    subCollectionName: FireStoreCollection.subFlyerCounters,
-    subDocName: FireStoreCollection.subFlyerCounters,
+    subCollectionName: FireCollection.subFlyerCounters,
+    subDocName: FireCollection.subFlyerCounters,
     input: await SlideModel.cipherSlidesCounters(_updatedSlides),
   );
 
@@ -131,7 +132,7 @@ class FlyerCRUD{
     _bzNanoFlyers.add(_finalNanoFlyer);
   await updateFieldOnFirestore(
       context: context,
-      collectionName: FireStoreCollection.bzz,
+      collectionName: FireCollection.bzz,
       documentName: _finalFlyerModel.tinyBz.bzID,
       field: 'bzFlyers',
       input: NanoFlyer.cipherNanoFlyers(_bzNanoFlyers),
@@ -146,7 +147,7 @@ class FlyerCRUD{
 
     dynamic _flyerMap = await getFireStoreDocumentMap(
         context: context,
-        collectionName: FireStoreCollection.flyers,
+        collectionName: FireCollection.flyers,
         documentName: flyerID
     );
     FlyerModel _flyer = FlyerModel.decipherFlyerMap(_flyerMap);
@@ -240,7 +241,7 @@ class FlyerCRUD{
     /// update flyer doc
     await replaceFirestoreDocument(
       context: context,
-      collectionName: FireStoreCollection.flyers,
+      collectionName: FireCollection.flyers,
       docName: _finalFlyer.flyerID,
       input: _finalFlyer.toMap(),
     );
@@ -251,7 +252,7 @@ class FlyerCRUD{
     if (listsAreTheSame(_finalFlyer.keyWords, originalFlyer.keyWords) == false){
       await replaceFirestoreDocument(
         context: context,
-        collectionName: FireStoreCollection.flyersKeys,
+        collectionName: FireCollection.flyersKeys,
         docName: _finalFlyer.flyerID,
         input: await getKeyWordsMap(_finalFlyer.keyWords)
       );
@@ -270,7 +271,7 @@ class FlyerCRUD{
 
       await updateFieldOnFirestore(
         context: context,
-        collectionName: FireStoreCollection.bzz,
+        collectionName: FireCollection.bzz,
         documentName: bzModel.bzID,
         field: 'bzFlyers',
         input: NanoFlyer.cipherNanoFlyers(_finalBzFlyers),
@@ -288,7 +289,7 @@ class FlyerCRUD{
 
       await replaceFirestoreDocument(
         context: context,
-        collectionName: FireStoreCollection.tinyFlyers,
+        collectionName: FireCollection.tinyFlyers,
         docName: _finalFlyer.flyerID,
         input: _finalTinyFlyer.toMap(),
       );
@@ -307,8 +308,19 @@ class FlyerCRUD{
   await _flyerDocRef.delete();
 }
 // ----------------------------------------------------------------------
-  Future<void> updateFlyerDoc(FlyerModel flyerModel) async {
-    await _flyersCollectionRef.doc(flyerModel.flyerID).update(flyerModel.toMap());
-  }
+  Future<TinyFlyer> readTinyFlyerOps({BuildContext context, String flyerID}) async {
 
+    Map<String, dynamic> _tinyFlyerMap = await getFireStoreDocumentMap(
+        context: context,
+        collectionName: FireCollection.tinyFlyers,
+        documentName: flyerID
+    );
+
+    print(_tinyFlyerMap);
+
+    TinyFlyer _tinyFlyer = TinyFlyer.decipherTinyFlyerMap(_tinyFlyerMap);
+
+    return _tinyFlyer;
+
+  }
 }

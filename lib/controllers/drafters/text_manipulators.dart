@@ -172,3 +172,8 @@ Future<Map<String, dynamic>> getKeyWordsMap(List<dynamic> list) async {
   return _stringIndexMap;
 }
 // === === === === === === === === === === === === === === === === === === ===
+Map<String, dynamic> getValueAndTrueMap(List<String> list){
+  Map<String, dynamic> _result = { for (var string in list) string : true };
+  return _result;
+}
+// === === === === === === === === === === === === === === === === === === ===

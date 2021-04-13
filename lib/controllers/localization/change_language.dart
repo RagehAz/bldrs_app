@@ -12,7 +12,7 @@ Future<void> changeAppLanguage(BuildContext context, String code) async {
   if (superUserID() != null){
     await updateFieldOnFirestore(
       context: context,
-      collectionName: FireStoreCollection.users,
+      collectionName: FireCollection.users,
       documentName: superUserID(),
       field: 'language',
       input: code,
