@@ -15,7 +15,7 @@ import '../firestore.dart';
 class BzCRUD{
 // ---------------------------------------------------------------------------
   /// bz firestore collection reference
-  final CollectionReference _bzCollectionRef = getFirestoreCollectionReference(FireStoreCollection.bzz);
+  final CollectionReference _bzCollectionRef = getFireCollectionReference(FireCollection.bzz);
 // ---------------------------------------------------------------------------
   /// bzz firestore collection reference getter
   CollectionReference bzCollectionRef(){
@@ -26,7 +26,7 @@ class BzCRUD{
   /// bz firestore document reference
   DocumentReference bzDocRef(String bzID){
     return
-      getFirestoreDocumentReference(FireStoreCollection.bzz, bzID);
+      getFirestoreDocumentReference(FireCollection.bzz, bzID);
   }
 // ----------------------------------------------------------------------
   /// create bz operations on firestore
@@ -41,7 +41,7 @@ class BzCRUD{
     /// create empty firestore bz doc to get back _bzID
     DocumentReference _docRef = await createFireStoreDocument(
       context: context,
-      collectionName: FireStoreCollection.bzz,
+      collectionName: FireCollection.bzz,
       input: {},
     );
     String _bzID = _docRef.id;
@@ -123,7 +123,7 @@ class BzCRUD{
     /// replace empty bz document with the new refactored one _bz
     await replaceFirestoreDocument(
       context: context,
-      collectionName: FireStoreCollection.bzz,
+      collectionName: FireCollection.bzz,
       docName: _bzID,
       input: _outputBz.toMap(),
     );
@@ -131,7 +131,7 @@ class BzCRUD{
     /// add new TinyBz in firestore
     await createFireStoreNamedDocument(
       context: context,
-      collectionName: FireStoreCollection.tinyBzz,
+      collectionName: FireCollection.tinyBzz,
       docName: _bzID,
       input: (TinyBz.getTinyBzFromBzModel(_outputBz)).toMap(),
     );
@@ -141,7 +141,7 @@ class BzCRUD{
     _userBzzIDs.insert(0, _bzID);
     await updateFieldOnFirestore(
       context: context,
-      collectionName: FireStoreCollection.users,
+      collectionName: FireCollection.users,
       documentName: userModel.userID,
       field: 'myBzzIDs',
       input: _userBzzIDs,
@@ -154,7 +154,7 @@ class BzCRUD{
 
     dynamic _bzMap = await getFireStoreDocumentMap(
         context: context,
-        collectionName: FireStoreCollection.bzz,
+        collectionName: FireCollection.bzz,
         documentName: bzID
     );
     BzModel _bz = BzModel.decipherBzMap(bzID, _bzMap);
@@ -252,7 +252,7 @@ class BzCRUD{
     /// update firestore bz document
     await replaceFirestoreDocument(
       context: context,
-      collectionName: FireStoreCollection.bzz,
+      collectionName: FireCollection.bzz,
       docName: modifiedBz.bzID,
       input: _finalBz.toMap(),
     );
@@ -270,7 +270,7 @@ class BzCRUD{
     /// update tinyBz document
     await replaceFirestoreDocument(
       context: context,
-      collectionName: FireStoreCollection.tinyBzz,
+      collectionName: FireCollection.tinyBzz,
       docName: _finalBz.bzID,
       input: _modifiedTinyBzMap,
     );
@@ -282,7 +282,7 @@ class BzCRUD{
         for (var id in _bzFlyersIDs){
           await updateFieldOnFirestore(
             context: context,
-            collectionName: FireStoreCollection.flyers,
+            collectionName: FireCollection.flyers,
             documentName: id,
             field: 'tinyBz',
             input: _modifiedTinyBzMap,
@@ -296,7 +296,7 @@ class BzCRUD{
       for (var id in _bzFlyersIDs){
         await updateFieldOnFirestore(
           context: context,
-          collectionName: FireStoreCollection.tinyFlyers,
+          collectionName: FireCollection.tinyFlyers,
           documentName: id,
           field: 'tinyBz',
           input: _modifiedTinyBzMap,

@@ -91,7 +91,7 @@ class UserProvider{
 Future<UserModel> getUserModel(BuildContext context, String userID) async {
   Map<String, dynamic> _userMap = await getFireStoreDocumentMap(
     context: context,
-    collectionName: FireStoreCollection.users,
+    collectionName: FireCollection.users,
     documentName: userID,
   );
   UserModel _userModel = UserModel.decipherUserMap(_userMap);
@@ -99,14 +99,14 @@ Future<UserModel> getUserModel(BuildContext context, String userID) async {
 }
 // ---------------------------------------------------------------------------
 
-Future<dynamic> getSavedFlyers(BuildContext context) async {
+Future<dynamic> getSavedFlyersIDs(BuildContext context) async {
 
     Map<String, dynamic> _savedFlyersMap = await getFireStoreSubDocument(
       context: context,
-      collectionName: FireStoreCollection.users,
+      collectionName: FireCollection.users,
       docName: userID,
-      subCollectionName: FireStoreCollection.subUserSaves,
-      subDocName: FireStoreCollection.flyers,
+      subCollectionName: FireCollection.subUserSaves,
+      subDocName: FireCollection.flyers,
     );
 
     print('saved flyers on db are : ${_savedFlyersMap.toString()}');

@@ -6,6 +6,7 @@ import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/providers/users_provider.dart';
 import 'package:bldrs/views/widgets/flyer/aflyer.dart';
+import 'package:bldrs/views/widgets/flyer/parts/flyer_zone.dart';
 import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -82,7 +83,7 @@ Widget userModelBuilder({
   return FutureBuilder(
       future: getFireStoreDocumentMap(
         context: context,
-        collectionName: FireStoreCollection.users,
+        collectionName: FireCollection.users,
         documentName: userID,
       ),
       builder: (ctx, snapshot){
@@ -142,7 +143,7 @@ Widget bzModelBuilder({
   return FutureBuilder(
       future: getFireStoreDocumentMap(
         context: context,
-        collectionName: FireStoreCollection.bzz,
+        collectionName: FireCollection.bzz,
         documentName: bzID,
       ),
       builder: (ctx, snapshot){
@@ -214,7 +215,7 @@ Widget tinyBzModelBuilder({
   return FutureBuilder(
       future: getFireStoreDocumentMap(
         context: context,
-        collectionName: FireStoreCollection.tinyBzz,
+        collectionName: FireCollection.tinyBzz,
         documentName: bzID,
       ),
       builder: (ctx, snapshot){
@@ -287,16 +288,16 @@ Widget flyerModelBuilder({
   return FutureBuilder(
       future: getFireStoreDocumentMap(
         context: context,
-        collectionName: FireStoreCollection.flyers,
+        collectionName: FireCollection.flyers,
         documentName: flyerID,
       ),
       builder: (ctx, snapshot){
 
         if (snapshot.connectionState == ConnectionState.waiting){
           return
-            AFlyer(
-                flyer: null,
-                flyerSizeFactor: flyerSizeFactor,
+            FlyerZone(
+              flyerSizeFactor: flyerSizeFactor,
+              tappingFlyerZone: (){},
             );
 
         } else {

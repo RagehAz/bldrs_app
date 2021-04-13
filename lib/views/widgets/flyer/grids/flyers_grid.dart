@@ -29,7 +29,7 @@ class FlyersGrid extends StatefulWidget {
 }
 
 class _FlyersGridState extends State<FlyersGrid> {
-  List<FlyerModel> _savedFlyers;
+  List<TinyFlyer> _savedFlyers;
   bool _isInit = true;
   bool _isLoading = false;
 // ---------------------------------------------------------------------------
@@ -48,34 +48,29 @@ class _FlyersGridState extends State<FlyersGrid> {
     super.initState();
   }
 // ---------------------------------------------------------------------------
+
   @override
   void didChangeDependencies() {
     if (_isInit) {
       _triggerLoading();
-
       FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: true);
 
-      _prof.fetchAndSetTinyBzzAndTinyFlyers(context)
-          .then((_) async {
+      // _prof.fetchAndSetSavedFlyers(context)
+      //     .then((_) async {
 
-        _savedFlyers = await _prof.getSavedFlyers(context);
+        _savedFlyers = _prof.getSavedTinyFlyers;
 
-        setState(() {
-        });
+        rebuildGrid();
 
         _triggerLoading();
-      });
+      // });
     }
     _isInit = false;
     super.didChangeDependencies();
   }
 // ---------------------------------------------------------------------------
-
-  void rebuildGrid(){
-    setState(() {
-    });
-  }
-
+  void rebuildGrid(){setState(() {});}
+// ---------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -152,17 +147,14 @@ class _FlyersGridState extends State<FlyersGrid> {
               //   );
 
                         TinyFlyerWidget(
-                tinyFlyer: TinyFlyer.getTinyFlyerFromFlyerModel(_savedFlyers[index]),
-                flyerSizeFactor: _flyerSizeFactor,
-                onTap: (flyerID) => Nav.openFlyer(context, flyerID),
-              );
+                          tinyFlyer: _savedFlyers[index],
+                          flyerSizeFactor: _flyerSizeFactor,
+                          onTap: (flyerID) => Nav.openFlyer(context, flyerID),
+                        );
 
-                    }
-                    ),
+                    }),
 
               ]
-
-
 
             // savedFlyers.map(
             //       (coFlyer, i) => ChangeNotifierProvider.value(
@@ -174,7 +166,6 @@ class _FlyersGridState extends State<FlyersGrid> {
             //         ),
             //       ),
             //   ).toList(),
-
 
           ),
 

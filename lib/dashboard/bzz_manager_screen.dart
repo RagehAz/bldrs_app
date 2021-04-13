@@ -24,7 +24,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
 // ---------------------------------------------------------------------------
   Future<dynamic> getFirestoreBzz() async {
     _triggerLoading();
-    List<QueryDocumentSnapshot> _bzzMaps = await getFireStoreCollectionMaps(FireStoreCollection.tinyBzz);
+    List<QueryDocumentSnapshot> _bzzMaps = await getFireCollectionMaps(FireCollection.tinyBzz);
 
     setState(() {
     _tinyBzz = TinyBz.decipherTinyBzzMaps(_bzzMaps);
@@ -74,7 +74,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
           // TASK : can use bzModelBuilder here
             future: getFireStoreDocumentMap(
               context: context,
-                collectionName: FireStoreCollection.bzz,
+                collectionName: FireCollection.bzz,
                 documentName: _bzID,
             ),
             builder: (ctx, snapshot){

@@ -157,7 +157,7 @@ void _doBz(int length, int index, String name, String id){
 //       /// upload the new bz to FireStore
 //       await createFireStoreNamedDocument(
 //         context: context,
-//         collectionName: FireStoreCollection.bzz,
+//         collectionName: FireCollection.bzz,
 //         docName: bz.bzID,
 //         input: _bzModel.toMap(),
 //       );
@@ -168,7 +168,7 @@ void _doBz(int length, int index, String name, String id){
 //       /// upload the new tiny bz to FireStore
 //       await createFireStoreNamedDocument(
 //         context: context,
-//         collectionName: FireStoreCollection.tinyBzz,
+//         collectionName: FireCollection.tinyBzz,
 //         docName: bz.bzID,
 //         input: _tinyBz.toMap(),
 //       );
@@ -176,7 +176,7 @@ void _doBz(int length, int index, String name, String id){
 //
 //       /// add _bzID to users existing list
 //       List<dynamic> _userBzzIDs = await getFireStoreDocumentField(
-//         collectionName: FireStoreCollection.users,
+//         collectionName: FireCollection.users,
 //         documentName: superUserID(),
 //         fieldName: 'myBzzIDs',
 //       );
@@ -184,7 +184,7 @@ void _doBz(int length, int index, String name, String id){
 //
 //       await updateFieldOnFirestore(
 //         context: context,
-//         collectionName: FireStoreCollection.users,
+//         collectionName: FireCollection.users,
 //         documentName: _userID,
 //         field: 'myBzzIDs',
 //         input: _userBzzIDs,
@@ -260,7 +260,7 @@ void _doBz(int length, int index, String name, String id){
 
   /// add _bzID to users existing list
   List<dynamic> _userBzzIDs = await getFireStoreDocumentField(
-    collectionName: FireStoreCollection.users,
+    collectionName: FireCollection.users,
     documentName: superUserID(),
     fieldName: 'myBzzIDs',
   );
@@ -277,7 +277,7 @@ void _doBz(int length, int index, String name, String id){
 
   await updateFieldOnFirestore(
       context: context,
-      collectionName: FireStoreCollection.users,
+      collectionName: FireCollection.users,
       documentName: _userID,
       field: 'myBzzIDs',
       input: _finalBzzIDsList,
@@ -364,7 +364,7 @@ Future<FlyerModel> createNamedFlyersOps(BuildContext context, FlyerModel inputFl
   /// create empty firestore flyer document to get back _flyerID
   DocumentReference _docRef = await createFireStoreNamedDocument(
     context: context,
-    collectionName: FireStoreCollection.flyers,
+    collectionName: FireCollection.flyers,
     docName: inputFlyerModel.flyerID,
     input: {},
   );
@@ -411,7 +411,7 @@ Future<FlyerModel> createNamedFlyersOps(BuildContext context, FlyerModel inputFl
   /// replace empty flyer document with the new refactored one _finalFlyerModel
   await replaceFirestoreDocument(
     context: context,
-    collectionName: FireStoreCollection.flyers,
+    collectionName: FireCollection.flyers,
     docName: _flyerID,
     input: _finalFlyerModel.toMap(),
   );
@@ -422,7 +422,7 @@ Future<FlyerModel> createNamedFlyersOps(BuildContext context, FlyerModel inputFl
   TinyFlyer _finalTinyFlyer = TinyFlyer.getTinyFlyerFromFlyerModel(_finalFlyerModel);
   await createFireStoreNamedDocument(
     context: context,
-    collectionName: FireStoreCollection.tinyFlyers,
+    collectionName: FireCollection.tinyFlyers,
     docName: _flyerID,
     input: _finalTinyFlyer.toMap(),
   );
@@ -433,7 +433,7 @@ Future<FlyerModel> createNamedFlyersOps(BuildContext context, FlyerModel inputFl
   /// TASK : perform string.toLowerCase() on each string before upload
   await createFireStoreNamedDocument(
     context: context,
-    collectionName: FireStoreCollection.flyersKeys,
+    collectionName: FireCollection.flyersKeys,
     docName: _flyerID,
     input: await getKeyWordsMap(_finalFlyerModel.keyWords),
   );
@@ -443,10 +443,10 @@ Future<FlyerModel> createNamedFlyersOps(BuildContext context, FlyerModel inputFl
   /// add flyer counters sub collection and document in flyer store
   await insertFireStoreSubDocument(
     context: context,
-    collectionName: FireStoreCollection.flyers,
+    collectionName: FireCollection.flyers,
     docName: _flyerID,
-    subCollectionName: FireStoreCollection.subFlyerCounters,
-    subDocName: FireStoreCollection.subFlyerCounters,
+    subCollectionName: FireCollection.subFlyerCounters,
+    subDocName: FireCollection.subFlyerCounters,
     input: await SlideModel.cipherSlidesCounters(_updatedSlides),
   );
 
@@ -458,7 +458,7 @@ Future<FlyerModel> createNamedFlyersOps(BuildContext context, FlyerModel inputFl
   _bzNanoFlyers.add(_nanoFlyer);
   await updateFieldOnFirestore(
     context: context,
-    collectionName: FireStoreCollection.bzz,
+    collectionName: FireCollection.bzz,
     documentName: _finalFlyerModel.tinyBz.bzID,
     field: 'bzFlyers',
     input: NanoFlyer.cipherNanoFlyers(_bzNanoFlyers),
