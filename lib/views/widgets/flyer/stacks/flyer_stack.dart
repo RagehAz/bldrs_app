@@ -135,7 +135,7 @@ class FlyerStack extends StatelessWidget {
                   TinyFlyerWidget(
                     flyerSizeFactor: flyerSizeFactor,
                     tinyFlyer: _tinyFlyersOfType[_x],
-                    onTap: (flyerID) => Nav.openFlyer(context, flyerID),
+                    onTap: (tinyFlyer) => Nav.openFlyer(context, tinyFlyer.flyerID),
                   );
 
                 },
