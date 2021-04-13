@@ -245,7 +245,7 @@ typedef FlyerModelWidgetBuilder = Widget Function(
     );
 // ----------------------------------------------------------------------------
 Widget flyerStreamBuilder({
-  String flyerID,
+  TinyFlyer tinyFlyer,
   BuildContext context,
   FlyerModelWidgetBuilder builder,
   double flyerSizeFactor,
@@ -259,15 +259,16 @@ Widget flyerStreamBuilder({
   return
 
     StreamBuilder<FlyerModel>(
-      stream: _prof.getFlyerStream(flyerID),
+      stream: _prof.getFlyerStream(tinyFlyer.flyerID),
       builder: (context, snapshot){
         if(connectionHasNoData(snapshot) || connectionIsWaiting(snapshot)){
           return
             //Loading(loading: true,);
 
-            AFlyer(
-              flyer: null,
+            TinyFlyerWidget(
+              tinyFlyer: tinyFlyer,
               flyerSizeFactor: flyerSizeFactor,
+              onTap: (){},
             );
 
         } else {
