@@ -1,10 +1,14 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/models/tiny_models/tiny_user.dart';
+import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_zone.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/mini_header.dart';
 import 'package:bldrs/views/widgets/flyer/parts/slides_parts/single_slide.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'parts/ankh_button.dart';
 
 
 // void _tappingTinyFlyer(BuildContext context, String flyerID){
@@ -28,17 +32,19 @@ class TinyFlyerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
+    final FlyersProvider _pro = Provider.of<FlyersProvider>(context, listen: true);
+    bool _ankhIsOn=_pro.checkAnkh(tinyFlyer.flyerID);
     double _flyerSizeFactor = flyerSizeFactor ?? 0.5;
+    double _flyerZoneWidth = superFlyerZoneWidth(context, _flyerSizeFactor);
 
     return FlyerZone(
       flyerSizeFactor: _flyerSizeFactor,
-      tappingFlyerZone: () => onTap(tinyFlyer.flyerID),
+      tappingFlyerZone: () => onTap(tinyFlyer),
       onLongPress: () => _onLongPress(tinyFlyer.flyerID),
       stackWidgets: <Widget>[
 
         SingleSlide(
-          flyerZoneWidth: superFlyerZoneWidth(context, _flyerSizeFactor),
+          flyerZoneWidth: _flyerZoneWidth,
           slideMode: SlideMode.View,
           picture: tinyFlyer?.slidePic,
           slideIndex: tinyFlyer?.slideIndex,
@@ -55,6 +61,16 @@ class TinyFlyerWidget extends StatelessWidget {
           tappingHeader: () => onTap(context, tinyFlyer.flyerID),
           tappingFollow: (){},
         ),
+
+        AnkhButton(
+          microMode: superFlyerMicroMode(context, _flyerZoneWidth),
+          bzPageIsOn: false,
+          flyerZoneWidth: _flyerZoneWidth,
+          slidingIsOn: false,
+          ankhIsOn: _ankhIsOn,
+          tappingAnkh: (){},
+        ),
+
 
       ],
     );
