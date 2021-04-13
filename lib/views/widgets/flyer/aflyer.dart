@@ -4,6 +4,7 @@ import 'package:bldrs/firestore/crud/record_ops.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/records/save_model.dart';
 import 'package:bldrs/models/user_model.dart';
+import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/providers/users_provider.dart';
 import 'package:bldrs/views/widgets/flyer/parts/ankh_button.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_zone.dart';
@@ -30,12 +31,14 @@ class _AFlyerState extends State<AFlyer> with AutomaticKeepAliveClientMixin{
   bool get wantKeepAlive => true;
   bool _bzPageIsOn;
   int _currentSlideIndex;
-  bool _ankhIsOn =false;
+  bool _ankhIsOn;
   String _user;
 // ---------------------------------------------------------------------------
   @override
   void initState() {
     // UserModel _user = Provider.of<UserModel>(context, listen: false);
+    final FlyersProvider _pro = Provider.of<FlyersProvider>(context, listen: false);
+    _ankhIsOn = _pro.checkAnkh(widget.flyer.flyerID);
     _currentSlideIndex = 0;//= widget.initialSlide ?? 0;
     _bzPageIsOn = false;
     super.initState();
@@ -67,6 +70,7 @@ class _AFlyerState extends State<AFlyer> with AutomaticKeepAliveClientMixin{
 // ---------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+    print('Building flyer : ${widget.flyer?.flyerID}');
 
     final double _flyerZoneWidth = superFlyerZoneWidth(context, widget.flyerSizeFactor);
 // ---------------------------------------------------------------------------

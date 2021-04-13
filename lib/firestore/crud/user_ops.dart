@@ -11,7 +11,7 @@ import '../firestore.dart';
 class UserCRUD{
 // ---------------------------------------------------------------------------
   /// user firestore collection reference
-  final CollectionReference _usersCollectionRef = getFirestoreCollectionReference(FireStoreCollection.users);
+  final CollectionReference _usersCollectionRef = getFireCollectionReference(FireCollection.users);
 // ---------------------------------------------------------------------------
   /// users firestore collection reference getter
   CollectionReference userCollectionRef(){
@@ -22,7 +22,7 @@ class UserCRUD{
   /// user firestore document reference
   DocumentReference userDocRef(String userID){
     return
-      getFirestoreDocumentReference(FireStoreCollection.users, userID);
+      getFirestoreDocumentReference(FireCollection.users, userID);
   }
 // ---------------------------------------------------------------------------
   /// create or update user document
@@ -30,7 +30,7 @@ class UserCRUD{
 
     await replaceFirestoreDocument(
       context: context,
-      collectionName: FireStoreCollection.users,
+      collectionName: FireCollection.users,
       docName: userModel.userID,
       input: userModel.toMap(),
     );
@@ -80,7 +80,7 @@ class UserCRUD{
     /// create TinyUser in firestore
     await createFireStoreNamedDocument(
       context: context,
-      collectionName: FireStoreCollection.tinyUsers,
+      collectionName: FireCollection.tinyUsers,
       docName: userModel.userID,
       input: TinyUser.getTinyUserFromUserModel(_finalUserModel).toMap(),
     );
@@ -137,7 +137,7 @@ class UserCRUD{
     ){
       await replaceFirestoreDocument(
         context: context,
-        collectionName: FireStoreCollection.tinyUsers,
+        collectionName: FireCollection.tinyUsers,
         docName: updatedUserModel.userID,
         input: TinyUser.getTinyUserFromUserModel(_finalUserModel).toMap(),
       );

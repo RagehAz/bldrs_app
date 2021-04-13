@@ -435,84 +435,6 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
     return _slides;
   }
   // ----------------------------------------------------------------------
-  Future<void> _publishFlyer() async {
-
-    /// TASK : assert that flyer.slide.lenght >= 5 slides only for default accounts, >= 15 for premium
-
-    print('Starting to publish');
-
-    if(numberOfSlides == 0) {
-      superDialog(context, 'You have to add some slides first', '');
-    } else if (_currentKeywords.length == 0) {
-      _addKeywords();
-    } else if (_currentFlyerType == null){
-      superDialog(context, 'You have to choose flyer type', '');
-    } else {
-
-      _triggerLoading();
-
-      await tryAndCatch(
-        context: context,
-        functions: () async {
-          /// 1 - save a flyer document on firestore to get its auto generated
-          /// flyerID if creating a new flyer
-          if(widget.firstTimer){
-            // _currentFlyerID = await FlyerCRUD().createFlyerOps();
-          }
-          /// 2 - create slides to store on firebase, and save each pic file to
-          /// firebase storage and get its url to save to firestore
-          List<String> _picturesURLs = await savePicturesToFireStorageAndGetListOfURL(context, _currentSlides, _currentFlyerID);
-          List<SlideModel> _slides = await processSlides(_picturesURLs, _currentSlides, _titleControllers);
-
-          /// create tiny author model from bz.authors
-          AuthorModel _author = AuthorModel.getAuthorFromBzByAuthorID(_bz, superUserID());
-          TinyUser _tinyAuthor = AuthorModel.getTinyAuthorFromAuthorModel(_author);
-
-          /// 3 - create FlyerModel
-          FlyerModel _newFlyerModel = FlyerModel(
-              flyerID: _currentFlyerID,
-              // -------------------------
-              flyerType: _currentFlyerType,
-              flyerState: _currentFlyerState,
-              keyWords: _currentKeywords,
-              flyerShowsAuthor: _currentFlyerShowsAuthor,
-              flyerURL: _currentFlyerURL,
-              // -------------------------
-              tinyAuthor: _tinyAuthor,
-              tinyBz: TinyBz(
-                bzID: _currentBzID,
-                bzLogo: widget.bzModel.bzLogo,
-                bzName: widget.bzModel.bzName,
-                bzType: widget.bzModel.bzType,
-                bzZone: Zone.getZoneFromBzModel(widget.bzModel),
-                bzTotalFollowers: widget.bzModel.bzTotalFollowers,
-                bzTotalFlyers: widget.bzModel.bzFlyers.length,
-              ),
-              // -------------------------
-              publishTime: _currentPublishTime,
-              flyerPosition: _currentFlyerPosition,
-              // -------------------------
-              ankhIsOn: false, // shouldn't be saved here but will leave this now
-              // -------------------------
-              slides: _slides,
-          );
-          /// 4- update flyer doc on firestore
-          await FlyerCRUD().updateFlyerDoc(_newFlyerModel);
-
-          /// 6- save flyer to local flyers List
-          _prof.addFlyerModelToLocalList(_newFlyerModel);
-
-          superDialog(context, 'Flyer Published', '');
-          _triggerLoading();
-          print('flyer publishing ended');
-
-        },
-      );
-
-    }
-
-  }
-  // ----------------------------------------------------------------------
   void _addKeywords(){
 
       double _bottomSheetHeightFactor = 0.7;
@@ -685,7 +607,8 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
   }
   // ----------------------------------------------------------------------
   bool _inputsAreValid(){
-    // TASK : figure out flyer required fields needed for validity assertion
+    /// TASK : assert that flyer.slide.lenght >= 5 slides only for default accounts, >= 15 for premium
+    /// TASK : figure out flyer required fields needed for validity assertion
     return true;
   }
   // ----------------------------------------------------------------------

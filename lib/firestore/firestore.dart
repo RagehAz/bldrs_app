@@ -2,7 +2,7 @@ import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 // === === === === === === === === === === === === === === === === === === ===
-class FireStoreCollection{
+class FireCollection{
   static const String users = 'users';
   static const String tinyUsers = 'tinyUsers';
   static const String subUserAsks = 'asks' ;
@@ -34,14 +34,14 @@ class FireStoreCollection{
 // class FireCloud{}
 
 // ---------------------------------------------------------------------------
-CollectionReference getFirestoreCollectionReference (String collectionName){
+CollectionReference getFireCollectionReference (String collectionName){
   final FirebaseFirestore _fireInstance = FirebaseFirestore.instance;
   CollectionReference _collection = _fireInstance.collection(collectionName);
   return _collection;
 }
 // ---------------------------------------------------------------------------
 DocumentReference getFirestoreDocumentReference (String collectionName, String documentName){
-  CollectionReference _collection = getFirestoreCollectionReference(collectionName);
+  CollectionReference _collection = getFireCollectionReference(collectionName);
   DocumentReference _doc =  _collection.doc(documentName);
   return _doc;
 }
@@ -68,8 +68,8 @@ Future<void> updateFieldOnFirestore({
 
 }
 // ---------------------------------------------------------------------------
-Stream<QuerySnapshot> getFirestoreCollectionSnapshots(String collectionName){
-  CollectionReference _collection = getFirestoreCollectionReference(collectionName);
+Stream<QuerySnapshot> getFireCollectionSnapshots(String collectionName){
+  CollectionReference _collection = getFireCollectionReference(collectionName);
   Stream<QuerySnapshot> _snapshots = _collection.snapshots();
   return _snapshots;
 }
@@ -101,7 +101,7 @@ Future<dynamic> getFireStoreDocumentMap({BuildContext context, String collection
   return _map;
 }
 // ---------------------------------------------------------------------------
-Future<List<QueryDocumentSnapshot>> getFireStoreCollectionMaps(String collectionName) async {
+Future<List<QueryDocumentSnapshot>> getFireCollectionMaps(String collectionName) async {
   QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection(collectionName).get();
   List<QueryDocumentSnapshot> _maps = querySnapshot.docs;
   return _maps;
@@ -121,7 +121,7 @@ Future<DocumentReference> createFireStoreDocument({
     functions: () async {
 
       final CollectionReference _bzCollectionRef =
-      getFirestoreCollectionReference(collectionName);
+      getFireCollectionReference(collectionName);
 
       _docRef = _bzCollectionRef.doc();
 
@@ -147,7 +147,7 @@ Future<DocumentReference> createFireStoreNamedDocument({
       functions: () async {
 
         final CollectionReference _collectionReference =
-        getFirestoreCollectionReference(collectionName);
+        getFireCollectionReference(collectionName);
 
         _docRef = _collectionReference.doc(docName);
 
@@ -171,7 +171,7 @@ Future<void> replaceFirestoreDocument({
     context: context,
     functions: () async {
 
-      CollectionReference _collectionReference = getFirestoreCollectionReference(collectionName);
+      CollectionReference _collectionReference = getFireCollectionReference(collectionName);
 
       await _collectionReference.doc(docName).set(input);
 
@@ -265,7 +265,7 @@ Future<dynamic> getFireStoreSubDocument({
 //       functions: () async {
 //
 //     final CollectionReference _collectionRef =
-//     getFirestoreCollectionReference(collectionName);
+//     getFireCollectionReference(collectionName);
 //
 //     _subDocRef = _collectionRef.doc(docName).collection(subCollectionName).doc(subDocName);
 //
@@ -297,7 +297,7 @@ Future<DocumentReference> insertFireStoreSubDocument({
       functions: () async {
 
         final CollectionReference _collectionRef =
-        getFirestoreCollectionReference(collectionName);
+        getFireCollectionReference(collectionName);
 
         _subDocRef = _collectionRef.doc(docName).collection(subCollectionName).doc(subDocName);
 

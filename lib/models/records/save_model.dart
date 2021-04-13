@@ -1,27 +1,30 @@
+import 'package:bldrs/controllers/drafters/text_manipulators.dart';
 import 'package:bldrs/controllers/drafters/timerz.dart';
+import 'package:bldrs/firestore/auth/auth.dart';
 import 'package:flutter/foundation.dart';
 // -----------------------------------------------------------------------------
 class SaveModel with ChangeNotifier{
+  final String userID;
   final String flyerID;
   final List<dynamic> slideIndexes;
   final SaveState saveState;
   final List<DateTime> timeStamps;
 
   SaveModel({
+    this.userID,
     this.flyerID,
     this.slideIndexes,
     this.saveState,
     this.timeStamps,
 });
 // -----------------------------------------------------------------------------
-// Map<String, dynamic> toMap(){
-//   return {
-//     'flyerID' : flyerID,
-//     'slideIndexes' : slideIndexes,
-//     'saveState' : cipherSaveState(saveState),
-//     'timeStamps' : cipherListOfDateTimes(timeStamps),
-//   };
-// }
+Map<String, dynamic> toFlyerSaveMap(){
+  return {
+    'slideIndexes' : slideIndexes,
+    'saveState' : cipherSaveState(saveState),
+    'timeStamps' : cipherListOfDateTimes(timeStamps),
+  };
+}
 // -----------------------------------------------------------------------------
   static SaveState decipherSaveState (int saveState){
     switch (saveState){
@@ -39,11 +42,11 @@ class SaveModel with ChangeNotifier{
     }
   }
 // -----------------------------------------------------------------------------
-  static Future<Map<String, dynamic>> cipherSavesModels(List<SaveModel> saveModels) async {
-    /// we shall save saveModels as this
+  static Future<Map<String, dynamic>> cipherSavesModelsToUser(List<SaveModel> saveModels) async {
+    /// TASK : we shall save saveModels as this
     /// {
-    ///   'flyerID' : {'slideIndex' : 2, 'saveState' : 0, 'timeStamps' : [{'0' : 'save1'}, {'1': 'unsave1'},{'2': 'save2'}] },
-    ///   'flyerID' : {'slideIndex' : 2, 'saveState' : 0, 'timeStamps' : [{'0' : 'save1'}, {'1': 'unsave1'},{'2': 'save2'}] }
+    ///   'userID' : {'slidesIndexes' : [2, 0, 1], 'saveState' : 1, 'timeStamps' : [{'0' : 'save1'}, {'1': 'unsave1'},{'2': 'save2'}] },
+    ///   'userID' : {'slidesIndexes' : [2, 1, 0], 'saveState' : 1, 'timeStamps' : [{'0' : 'save1'}, {'1': 'unsave1'},{'2': 'save2'}] }
     /// }
     /// always keeping last index interaction as the slideIndex
     Map<String, dynamic> _mapOfSaves = {};
@@ -72,14 +75,15 @@ class SaveModel with ChangeNotifier{
     return _mapOfSaves;
   }
 // -----------------------------------------------------------------------------
-  static List<SaveModel> decipherSavesTopMap(dynamic topMap){
+  static List<SaveModel> decipherUserSavesMap(dynamic userSavesMap){
   List<SaveModel> _savesModels = new List();
 
-  List<dynamic> _flyersIDs = topMap.keys.toList();
-  List<dynamic> _savesMaps = topMap.values.toList();
+  List<dynamic> _flyersIDs = userSavesMap.keys.toList();
+  List<dynamic> _savesMaps = userSavesMap.values.toList();
 
   for (int i = 0; i<_flyersIDs.length; i++){
     _savesModels.add(SaveModel(
+      // userID: superUserID(), // no need for this
       flyerID: _flyersIDs[i],
       slideIndexes: _savesMaps[i]['slideIndexes'],
       saveState: SaveModel.decipherSaveState(_savesMaps[i]['saveState']),
@@ -142,7 +146,22 @@ class SaveModel with ChangeNotifier{
 
     return _updatedSavesModels;
   }
-  // -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+  static Map<String, dynamic> cipherSavedIDsList(List<String> savedIDs) {
+    /// TASK : we shall saved Flyers IDs stored like this
+    /// {
+    ///   'flyerID' : true,
+    ///   'flyerID' : true,
+    /// }
+    Map<String, dynamic> _savedIDsMap = getValueAndTrueMap(savedIDs);
+    return _savedIDsMap;
+  }
+// -----------------------------------------------------------------------------
+  static List<String> decipherSavedIDsMap(Map<String, dynamic> savedFlyersMap){
+    List<dynamic> _flyersIDs = savedFlyersMap.keys.toList();
+    return _flyersIDs;
+  }
+// -----------------------------------------------------------------------------
   static bool _flyerWasSavedOnce(List<SaveModel> originalSavesModels, String flyerID){
     bool _flyerWasSavedOnce;
 
