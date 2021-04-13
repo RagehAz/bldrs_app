@@ -8,6 +8,7 @@ import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
+import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/views/widgets/bubbles/words_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_sheet.dart';
@@ -18,11 +19,11 @@ import 'package:flutter/material.dart';
 import 's50_flyer_editor_screen.dart';
 
 class BzFlyerScreen extends StatelessWidget {
-  final String flyerID;
+  final TinyFlyer tinyFlyer;
   final BzModel bzModel;
 
   BzFlyerScreen({
-    @required this.flyerID,
+    @required this.tinyFlyer,
     @required this.bzModel,
 });
   // ----------------------------------------------------------------------
@@ -105,7 +106,7 @@ class BzFlyerScreen extends StatelessWidget {
       sky: Sky.Black,
       layoutWidget: flyerStreamBuilder(
         context: context,
-        flyerID: flyerID,
+        tinyFlyer: tinyFlyer,
         listen: true,
         flyerSizeFactor: _flyerSizeFactor,
         builder: (ctx, flyerModel){

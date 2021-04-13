@@ -92,7 +92,7 @@ class FlyersProvider with ChangeNotifier {
   bool checkAnkh(String flyerID){
     bool ankhIsOn = false;
 
-      TinyFlyer _tinyFlyer = _loadedSavedFlyers.firstWhere((flyer) => flyer.flyerID == flyerID, orElse: () => null);
+      TinyFlyer _tinyFlyer = _loadedSavedFlyers?.firstWhere((flyer) => flyer.flyerID == flyerID, orElse: () => null);
 
       if(_tinyFlyer == null){
         ankhIsOn = false;
@@ -204,14 +204,17 @@ return bzz;
 // ############################################################################
   void addOrDeleteTinyFlyerInLocalSavedTinyFlyers(TinyFlyer _inputTinyFlyer){
 
-    int _savedTinyFlyerIndex =
-    _loadedSavedFlyers.indexWhere((tf) => tf.flyerID == _inputTinyFlyer.flyerID);
+    TinyFlyer _savedTinyFlyer =
+    _loadedSavedFlyers.singleWhere((tf) => tf.flyerID == _inputTinyFlyer.flyerID, orElse: ()=> null);
 
-    if (_savedTinyFlyerIndex == null){
+    if (_savedTinyFlyer == null){
       /// so flyer is not already saved, so we save it
       _loadedSavedFlyers.add(_inputTinyFlyer);
     } else {
       /// so flyer is already saved, so we remove it
+      int _savedTinyFlyerIndex =
+      _loadedSavedFlyers.indexWhere((tf) => tf.flyerID == _inputTinyFlyer.flyerID, );
+
       _loadedSavedFlyers.removeAt(_savedTinyFlyerIndex);
     }
 

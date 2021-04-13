@@ -3,11 +3,19 @@ import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/controllers/theme/wordz.dart';
+import 'package:bldrs/firestore/crud/bz_ops.dart';
 import 'package:bldrs/firestore/crud/flyer_ops.dart';
+import 'package:bldrs/firestore/crud/user_ops.dart';
 import 'package:bldrs/firestore/firestore.dart';
+import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/records/save_model.dart';
+import 'package:bldrs/models/sub_models/author_model.dart';
+import 'package:bldrs/models/tiny_models/nano_flyer.dart';
 import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
+import 'package:bldrs/models/tiny_models/tiny_user.dart';
+import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
@@ -45,6 +53,81 @@ class _FirebasetestingState extends State<Firebasetesting> {
     final FirebaseFirestore _fireInstance = FirebaseFirestore.instance;
 
     functions = [
+      {'Name' : 'Add Hany Saad Author in db', 'function' : () async {
+        _triggerLoading();
+
+        /// get HSI bzModel
+        BzModel _bzHSI = await BzCRUD.readBzOps(context: context, bzID: 'dr2');
+        AuthorModel _authorRageh = _bzHSI.bzAuthors[0];
+        List<NanoFlyer> _nanoFlyersHSI = _bzHSI.bzFlyers;
+
+        /// get HSI a flyer
+        FlyerModel _flyer = await FlyerCRUD().readFlyerOps(
+            context: context,
+            flyerID: _nanoFlyersHSI[0].flyerID,
+        );
+
+        TinyUser _tinyAuthorHSI = _flyer.tinyAuthor;
+
+        AuthorModel _newHSIAuthor = AuthorModel(
+          userID: _tinyAuthorHSI.userID,
+          authorPic: _tinyAuthorHSI.pic,
+          authorIsMaster: false,
+          authorName: _tinyAuthorHSI.name,
+          authorTitle: _tinyAuthorHSI.title,
+          authorContacts: [],
+        );
+
+        List<AuthorModel> _newAuthorsList = [_authorRageh, _newHSIAuthor];
+
+        await updateFieldOnFirestore(
+          context: context,
+          collectionName: FireCollection.bzz,
+          documentName: _bzHSI.bzID,
+          field: 'bzAuthors',
+          input: AuthorModel.cipherAuthorsModels(_newAuthorsList),
+        );
+
+        UserModel _newUserHSI = UserModel(
+          userID: _tinyAuthorHSI.userID,
+          name: _tinyAuthorHSI.name,
+          userStatus: UserStatus.BzAuthor,
+          pic: _tinyAuthorHSI.pic,
+          title: _tinyAuthorHSI.title,
+          myBzzIDs: [_bzHSI.bzID],
+          company: _bzHSI.bzName,
+          area: _bzHSI.bzArea,
+          contacts: [],
+          country: _bzHSI.bzCountry,
+          gender: Gender.male,
+          joinedAt: DateTime.now(),
+          language: Wordz.languageCode(context),
+          province: _bzHSI.bzProvince,
+          position: null,
+        );
+
+
+        /// add Hany as a user
+        await createFireStoreNamedDocument(
+          context: context,
+          collectionName: FireCollection.users,
+          docName: _tinyAuthorHSI.userID,
+          input: _newUserHSI.toMap(),
+        );
+
+        TinyUser _tinyUserHSI = TinyUser.getTinyUserFromUserModel(_newUserHSI);
+
+        /// add Hany as a TinyUser
+        await createFireStoreNamedDocument(
+          context: context,
+          collectionName: FireCollection.tinyUsers,
+          docName: _tinyAuthorHSI.userID,
+          input: _tinyUserHSI.toMap(),
+        );
+
+        _triggerLoading();
+      },},
+
       // -----------------------------------------------------------------------
       {'Name' : 'cipher and print _userSavesModels', 'function' : () async {
         _triggerLoading();
