@@ -63,14 +63,14 @@ class _FlyersSizesScreenState extends State<FlyersSizesScreen> {
         // -----------------------------------------------------------------------------
         dynamic _userMap = await getFireStoreDocumentMap(
           context: context,
-            collectionName: FireStoreCollection.users,
+            collectionName: FireCollection.users,
             documentName: superUserID(),
         );
         UserModel _userModel = UserModel.decipherUserMap(_userMap);
 
         /// uploading flyers 27, 28, 29
 
-        List<dynamic> _allFlyersMaps = await getFireStoreCollectionMaps(FireStoreCollection.flyers);
+        List<dynamic> _allFlyersMaps = await getFireCollectionMaps(FireCollection.flyers);
         List<FlyerModel> _allFlyers = FlyerModel.decipherFlyersMapsFromFireStore(_allFlyersMaps);
 
         List<FlyerModel> _flyersOfHanySaad = new List();
@@ -90,7 +90,7 @@ class _FlyersSizesScreenState extends State<FlyersSizesScreen> {
 
         await updateFieldOnFirestore(
           context: context,
-          collectionName: FireStoreCollection.bzz,
+          collectionName: FireCollection.bzz,
           documentName: _hanyBzID,
           input: TinyFlyer.cipherTinyFlyers(_hanyTinyFlyers),
           field: 'bzFlyers',

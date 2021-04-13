@@ -3,7 +3,11 @@ import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/firestore/crud/flyer_ops.dart';
+import 'package:bldrs/firestore/firestore.dart';
+import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/records/save_model.dart';
+import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
@@ -48,7 +52,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
         if (_userSavesModels == null){
           printResult('Can not cipher _userSavesModels');
         } else {
-        _userSavesMap = await SaveModel.cipherSavesModels(_userSavesModels);
+        _userSavesMap = await SaveModel.cipherSavesModelsToUser(_userSavesModels);
         printResult(_userSavesMap.toString());
         }
 
@@ -62,7 +66,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
           printResult('Can not decipher _userSavesMap');
         } else {
 
-          _decipheredSavesModels = SaveModel.decipherSavesTopMap(_userSavesMap);
+          _decipheredSavesModels = SaveModel.decipherUserSavesMap(_userSavesMap);
           setState(() {});
         }
 

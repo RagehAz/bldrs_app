@@ -4,7 +4,7 @@ import 'package:bldrs/models/sub_models/slide_model.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-// === === === === === === === === === === === === === === === === === === ===
+// ---------------------------------------------------------------------------
 Reference _getReferenceFromFirebaseStorage({String documentName, String fileName,}) {
   final ref = FirebaseStorage.instance
       .ref()
@@ -13,7 +13,7 @@ Reference _getReferenceFromFirebaseStorage({String documentName, String fileName
 
   return ref;
 }
-// === === === === === === === === === === === === === === === === === === ===
+// ---------------------------------------------------------------------------
 Future<String> getFirebaseStoragePicURL({PicType picType, String fileName}) async {
 
   final _ref = _getReferenceFromFirebaseStorage(documentName: firebaseStorageDocument(picType), fileName: fileName);
@@ -22,7 +22,7 @@ Future<String> getFirebaseStoragePicURL({PicType picType, String fileName}) asyn
 
   return _url;
 }
-// === === === === === === === === === === === === === === === === === === ===
+// ---------------------------------------------------------------------------
 Future<String> savePicOnFirebaseStorageAndGetURL({BuildContext context, File inputFile, String fileName, PicType picType}) async {
   String _imageURL;
 
@@ -58,7 +58,7 @@ Future<String> savePicOnFirebaseStorageAndGetURL({BuildContext context, File inp
   );
       return _imageURL;
 }
-// === === === === === === === === === === === === === === === === === === ===
+// ---------------------------------------------------------------------------
 String firebaseStorageDocument(PicType picType){
   switch (picType){
     case PicType.userPic        :   return   'usersPics';     break; // uses userID as file name
@@ -71,7 +71,7 @@ String firebaseStorageDocument(PicType picType){
     default : return   null;
   }
 }
-// === === === === === === === === === === === === === === === === === === ===
+// ---------------------------------------------------------------------------
 Future<List<String>> savePicturesToFireStorageAndGetListOfURL(BuildContext context, List<SlideModel> currentSlides, String flyerID) async {
   List<String> _picturesURLs = new List();
 
@@ -90,7 +90,7 @@ Future<List<String>> savePicturesToFireStorageAndGetListOfURL(BuildContext conte
 
   return _picturesURLs;
 }
-// === === === === === === === === === === === === === === === === === === ===
+// ---------------------------------------------------------------------------
 Future<String> saveAssetToFireStorageAndGetURL ({BuildContext context, String asset, String fileName, PicType picType}) async {
   String _url;
 
@@ -109,7 +109,7 @@ Future<String> saveAssetToFireStorageAndGetURL ({BuildContext context, String as
 
   return _url;
 }
-// === === === === === === === === === === === === === === === === === === ===
+// ---------------------------------------------------------------------------
 Future<void> deleteFireBaseStoragePic({BuildContext context, String fileName, PicType picType}) async {
 
   await tryAndCatch(
@@ -121,3 +121,4 @@ Future<void> deleteFireBaseStoragePic({BuildContext context, String fileName, Pi
   );
 
 }
+// ---------------------------------------------------------------------------

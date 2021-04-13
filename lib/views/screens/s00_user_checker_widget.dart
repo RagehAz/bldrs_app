@@ -4,6 +4,8 @@ import 'package:bldrs/views/screens/s10_home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+/// TASK : if appNeedsUpdate = true ? goTO(AppStore) : check the user as you wish
+/// and we get this value from database and to be controlled from dashboard
 class UserChecker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
