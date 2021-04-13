@@ -3,6 +3,7 @@ import 'package:bldrs/controllers/router/route_names.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
+import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/widgets/flyer/aflyer.dart';
 import 'package:bldrs/views/widgets/flyer/flyer.dart';
@@ -28,8 +29,8 @@ class FlyerScreen extends StatelessWidget {
 
     final String _flyerID = ModalRoute.of(context).settings.arguments as String;
     final FlyersProvider _pro = Provider.of<FlyersProvider>(context, listen: false);
-    final FlyerModel _flyer = _pro.getFlyerByFlyerID(_flyerID);
-    final BzModel _bz = _pro.getBzByBzID(_flyer?.tinyBz?.bzID);
+    final TinyFlyer _tinyFlyer = _pro.getTinyFlyerByFlyerID(_flyerID);
+    // final BzModel _bz = _pro.getBzByBzID(_flyer?.tinyBz?.bzID);
 
     return MainLayout(
       // appBarIsOn: false,
@@ -56,7 +57,7 @@ class FlyerScreen extends StatelessWidget {
 
         flyerModelBuilder(
           context: context,
-          flyerID : _flyerID,
+          tinyFlyer : _tinyFlyer,
           flyerSizeFactor: 1,
           builder: (ctx, flyerModel){
             return

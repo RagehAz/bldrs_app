@@ -34,7 +34,7 @@ class RecordCRUD{
   }
 // ---------------------------------------------------------------------------
 /// this method works if flyer is saved previously or not, if it's first time to save or not
-  static Future<void> saveFlyerOPs({BuildContext context, String flyerID, int slideIndex, String userID}) async {
+  static Future<void> saveFlyerOps({BuildContext context, String flyerID, int slideIndex, String userID}) async {
 
     /// A - SavesOps in User/saves/flyers subDoc
     //-------------------------------------------

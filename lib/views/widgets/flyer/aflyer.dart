@@ -3,6 +3,7 @@ import 'package:bldrs/firestore/auth/auth.dart';
 import 'package:bldrs/firestore/crud/record_ops.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/records/save_model.dart';
+import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/providers/users_provider.dart';
@@ -33,11 +34,12 @@ class _AFlyerState extends State<AFlyer> with AutomaticKeepAliveClientMixin{
   int _currentSlideIndex;
   bool _ankhIsOn;
   String _user;
+  FlyersProvider _pro;
 // ---------------------------------------------------------------------------
   @override
   void initState() {
     // UserModel _user = Provider.of<UserModel>(context, listen: false);
-    final FlyersProvider _pro = Provider.of<FlyersProvider>(context, listen: false);
+    _pro = Provider.of<FlyersProvider>(context, listen: false);
     _ankhIsOn = _pro.checkAnkh(widget.flyer.flyerID);
     _currentSlideIndex = 0;//= widget.initialSlide ?? 0;
     _bzPageIsOn = false;
@@ -55,12 +57,18 @@ class _AFlyerState extends State<AFlyer> with AutomaticKeepAliveClientMixin{
 // ---------------------------------------------------------------------------
   Future<void> _tapAnkh(String flyerID, int slideIndex) async {
 
-      await RecordCRUD.saveFlyerOPs(
+    /// start save flyer ops
+      await RecordCRUD.saveFlyerOps(
         context: context,
         userID: superUserID(),
         flyerID: flyerID,
         slideIndex: slideIndex
       );
+
+      TinyFlyer _tinyFlyer = TinyFlyer.getTinyFlyerFromFlyerModel(widget.flyer);
+
+      /// add or remove tiny flyer in local saved flyersList
+      _pro.addOrDeleteTinyFlyerInLocalSavedTinyFlyers(_tinyFlyer);
 
     setState(() {
       _ankhIsOn = !_ankhIsOn;
