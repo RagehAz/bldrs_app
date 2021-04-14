@@ -6,6 +6,9 @@ import 'package:bldrs/controllers/drafters/flyer_controllers.dart';
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/firestore/auth/auth.dart';
+import 'package:bldrs/firestore/crud/record_ops.dart';
+import 'package:bldrs/models/records/share_model.dart';
 import 'package:bldrs/models/sub_models/link_model.dart';
 import 'package:bldrs/views/widgets/textings/super_text_field.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
@@ -35,6 +38,7 @@ class SingleSlide extends StatelessWidget {
   final TextEditingController titleController;
   final Function textFieldOnChanged;
   final Color slideColor;
+  final String flyerID;
 
   SingleSlide({
     @required this.flyerZoneWidth,
@@ -49,6 +53,7 @@ class SingleSlide extends StatelessWidget {
     this.titleController,
     this.textFieldOnChanged,
     this.slideColor,
+    @required this.flyerID,
   });
 
 
@@ -80,6 +85,18 @@ class SingleSlide extends StatelessWidget {
     // ----------------------------------------------------------------------
 
     // int _imageWidth = getImageWidth();
+
+    Future<void> _shareFlyer() async {
+      await RecordCRUD.shareFlyerOPs(
+        context: context,
+        flyerID: flyerID,
+        userID: superUserID(),
+        slideIndex: slideIndex,
+      );
+      await ShareModel.shareFlyer(context, _theFlyerLink);
+
+
+    }
 
     return Container(
       width: flyerZoneWidth,
@@ -201,7 +218,7 @@ class SingleSlide extends StatelessWidget {
               views: views,
               shares: shares,
               saves: saves,
-              tappingShare: () {shareFlyer(context, _theFlyerLink);}, // this will user slide index
+              tappingShare: _shareFlyer, // this will user slide index
             ),
 
           ],

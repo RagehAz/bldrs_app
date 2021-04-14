@@ -3,6 +3,7 @@ import 'package:bldrs/firestore/auth/auth.dart';
 import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/records/save_model.dart';
+import 'package:bldrs/models/records/share_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/providers/users_provider.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,7 @@ class RecordCRUD{
     /// 2- decipher the User's saves map into List<SaveModel>
     List<SaveModel> _userSavesModels = SaveModel.decipherUserSavesMap(_userSavesMap);
 
-    return _userSavesModels;
+    return _userSavesMap == null ? null : _userSavesModels;
   }
 // ---------------------------------------------------------------------------
   static Future<List<SaveModel>> readFlyerSavesOps() async {
@@ -71,7 +72,44 @@ class RecordCRUD{
 
   }
 // ---------------------------------------------------------------------------
-  static Future<void> shareFlyerOPs(String flyerID, String userID) async {}
+  static Future<ShareModel> readFlyerShareOps({BuildContext context, String flyerID, String userID}) async {
+
+    Map<String, dynamic> _userShareMap = await getFireStoreSubDocument(
+      context: context,
+      collectionName: FireCollection.flyers,
+      docName: flyerID,
+      subCollectionName: FireCollection.subFlyerShares,
+      subDocName: userID,
+    );
+
+    ShareModel _shareModel = _userShareMap == null ? null : ShareModel.decipherShareMap(_userShareMap);
+
+    return _userShareMap == null ? null : _shareModel;
+  }
+// ---------------------------------------------------------------------------
+  static Future<void> shareFlyerOPs({BuildContext context, String flyerID, int slideIndex, String userID}) async {
+
+    /// get existing share model if existed
+    ShareModel _existingShareModel = await readFlyerShareOps(
+      context: context,
+      flyerID: flyerID,
+      userID: userID,
+    );
+
+    /// update shareModel if existed, otherWise create a new one
+    ShareModel _updatedShareModel = ShareModel.addToShareModel(_existingShareModel, slideIndex);
+
+    /// add new share model into dc/flyers/flyerID/shares/userID
+    await insertFireStoreSubDocument(
+      context: context,
+      collectionName: FireCollection.flyers,
+      docName: flyerID,
+      subCollectionName: FireCollection.subFlyerShares,
+      subDocName: userID,
+      input: _updatedShareModel.toMap(),
+    );
+
+  }
 // ---------------------------------------------------------------------------
   static Future<void> viewFlyerOPs(String flyerID, String userID) async {}
 // ---------------------------------------------------------------------------
