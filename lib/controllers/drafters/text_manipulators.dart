@@ -177,3 +177,8 @@ Map<String, dynamic> getValueAndTrueMap(List<String> list){
   return _result;
 }
 // === === === === === === === === === === === === === === === === === === ===
+List<dynamic> getValuesFromValueAndTrueMap(Map<String, dynamic> map){
+    List<dynamic> _flyersIDs = map.keys.toList();
+    return _flyersIDs;
+}
+// === === === === === === === === === === === === === === === === === === ===

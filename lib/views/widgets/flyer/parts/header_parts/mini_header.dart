@@ -16,7 +16,8 @@ class MiniHeader extends StatelessWidget {
   final int bzGalleryCount;
   final bool bzPageIsOn;
   final Function tappingHeader;
-  final Function tappingFollow;
+  final Function onFollowTap;
+  final Function onCallTap;
 
   MiniHeader({
     @required this.tinyBz,
@@ -27,7 +28,8 @@ class MiniHeader extends StatelessWidget {
     @required this.flyerZoneWidth,
     @required this.bzPageIsOn,
     @required this.tappingHeader,
-    @required this.tappingFollow,
+    @required this.onFollowTap,
+    @required this.onCallTap,
 });
 
   @override
@@ -61,7 +63,8 @@ class MiniHeader extends StatelessWidget {
                 flyerShowsAuthor: flyerShowsAuthor,
                 followIsOn: followIsOn,
                 tappingHeader: tappingHeader,
-                tappingFollow: tappingFollow,
+                onFollowTap: onFollowTap,
+                onCallTap: onCallTap,
               ),
 
               // --- HEADER'S MAX STATE'S HEADLINE : BZ.NAME AND BZ.LOCALE

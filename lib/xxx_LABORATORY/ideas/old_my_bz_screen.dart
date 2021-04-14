@@ -262,7 +262,8 @@ class _OldMyBzScreenState extends State<OldMyBzScreen> {
                                 flyerZoneWidth: _flyerZoneWidth,
                                 bzPageIsOn: _bzPageIsOn,
                                 tappingHeader: _triggerMaxHeader,
-                                tappingFollow: (){},
+                                onFollowTap: (){},
+                                onCallTap: (){},
                                 stripBlurIsOn: true,
                               ),
 
