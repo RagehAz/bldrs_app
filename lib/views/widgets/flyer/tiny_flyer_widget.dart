@@ -44,6 +44,7 @@ class TinyFlyerWidget extends StatelessWidget {
       stackWidgets: <Widget>[
 
         SingleSlide(
+          flyerID: tinyFlyer?.flyerID,
           flyerZoneWidth: _flyerZoneWidth,
           slideMode: SlideMode.View,
           picture: tinyFlyer?.slidePic,

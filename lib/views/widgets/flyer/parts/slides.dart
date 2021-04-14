@@ -5,6 +5,7 @@ import 'slides_parts/single_slide.dart';
 
 class Slides extends StatefulWidget {
   final List<SlideModel> slides;
+  final String flyerID;
   final double flyerZoneWidth;
   final bool slidingIsOn;
   final Function sliding;
@@ -12,6 +13,7 @@ class Slides extends StatefulWidget {
 
   Slides({
     @required this.slides,
+    @required this.flyerID,
     @required this.flyerZoneWidth,
     @required this.slidingIsOn,
     @required this.sliding,
@@ -45,6 +47,7 @@ class _SlidesState extends State<Slides> {
     return
       _microMode == true || widget.slidingIsOn == false ?
       SingleSlide(
+        flyerID: widget.flyerID,
         flyerZoneWidth: widget.flyerZoneWidth,
         title: widget.slides[0]?.headline,
         picture: widget.slides[0]?.picture,
@@ -74,6 +77,7 @@ class _SlidesState extends State<Slides> {
             views: widget.slides[i].viewsCount,
             slideIndex : i,
             slideMode: SlideMode.View,
+            flyerID: widget.flyerID,
           );
 
           },
