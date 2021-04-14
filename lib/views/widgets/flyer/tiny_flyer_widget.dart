@@ -60,7 +60,8 @@ class TinyFlyerWidget extends StatelessWidget {
           bzGalleryCount: 0,
           bzPageIsOn: false,
           tappingHeader: () => onTap(context, tinyFlyer.flyerID),
-          tappingFollow: (){},
+          onFollowTap: (){},
+          onCallTap: (){},
         ),
 
         AnkhButton(

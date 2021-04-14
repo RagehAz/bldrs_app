@@ -313,10 +313,10 @@ class FlyerCRUD{
     Map<String, dynamic> _tinyFlyerMap = await getFireStoreDocumentMap(
         context: context,
         collectionName: FireCollection.tinyFlyers,
-        documentName: flyerID
+        documentName: flyerID,
     );
 
-    print(_tinyFlyerMap);
+    // print(_tinyFlyerMap);
 
     TinyFlyer _tinyFlyer = TinyFlyer.decipherTinyFlyerMap(_tinyFlyerMap);
 

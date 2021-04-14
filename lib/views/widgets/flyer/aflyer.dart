@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/launchers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/firestore/auth/auth.dart';
 import 'package:bldrs/firestore/crud/record_ops.dart';
@@ -35,12 +36,14 @@ class _AFlyerState extends State<AFlyer> with AutomaticKeepAliveClientMixin{
   bool _ankhIsOn;
   String _user;
   FlyersProvider _pro;
+  bool _followIsOn;
 // ---------------------------------------------------------------------------
   @override
   void initState() {
     // UserModel _user = Provider.of<UserModel>(context, listen: false);
     _pro = Provider.of<FlyersProvider>(context, listen: false);
     _ankhIsOn = _pro.checkAnkh(widget.flyer.flyerID);
+    _followIsOn = _pro.checkFollow(widget.flyer.tinyBz.bzID);
     _currentSlideIndex = 0;//= widget.initialSlide ?? 0;
     _bzPageIsOn = false;
     super.initState();
@@ -76,6 +79,51 @@ class _AFlyerState extends State<AFlyer> with AutomaticKeepAliveClientMixin{
     print('ankh is $_ankhIsOn');
   }
 // ---------------------------------------------------------------------------
+  Future<void> _onFollowTap(String bzID) async {
+
+    /// start follow bz ops
+    List<String> _updatedBzFollows = await RecordCRUD.followBzOPs(
+      context: context,
+      bzID: bzID,
+      userID: superUserID(),
+    );
+
+    /// add or remove tinyBz from local followed bzz
+    _pro.updatedFollowsInLocalList(_updatedBzFollows);
+
+    /// trigger current follow value
+    setState(() {
+      _followIsOn = !_followIsOn;
+    });
+  }
+// ---------------------------------------------------------------------------
+  Future<void> _onCallTap() async {
+
+    String _userID = superUserID();
+    String _bzID = widget.flyer.tinyBz.bzID;
+    String _contact = widget.flyer.tinyAuthor.contact;
+
+    /// alert user there is no contact to call
+    if (_contact == null){print('no contact here');}
+
+    /// or launch call and start call bz ops
+    else {
+
+        /// launch call
+        launchCall('tel: $_contact');
+
+        /// start call bz ops
+        await RecordCRUD.callBzOPs(
+          context: context,
+          bzID: _bzID,
+          userID: _userID,
+          slideIndex: _currentSlideIndex,
+        );
+
+      }
+
+  }
+// ---------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     print('Building flyer : ${widget.flyer?.flyerID}');
@@ -108,9 +156,10 @@ class _AFlyerState extends State<AFlyer> with AutomaticKeepAliveClientMixin{
           flyerZoneWidth: _flyerZoneWidth,
           bzPageIsOn: _bzPageIsOn,
           tappingHeader: () {switchBzPage();},
-          tappingFollow: (){},
+          onFollowTap: () => _onFollowTap(widget.flyer.tinyBz.bzID),
+          onCallTap: _onCallTap,
           flyerShowsAuthor: widget.flyer?.flyerShowsAuthor,
-          followIsOn: false,
+          followIsOn: _followIsOn,
           stripBlurIsOn: true,
         ),
 

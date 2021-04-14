@@ -17,15 +17,17 @@ class FollowAndCallBTs extends StatelessWidget {
   final double flyerZoneWidth;
   final bool bzPageIsOn;
   final bool followIsOn;
-  final Function tappingFollow;
+  final Function onFollowTap;
   final String phoneNumber;
+  final Function onCallTap;
 
   FollowAndCallBTs({
     @required this.flyerZoneWidth,
     @required this.bzPageIsOn,
     @required this.followIsOn,
-    @required this.tappingFollow,
+    @required this.onFollowTap,
     @required this.phoneNumber,
+    @required this.onCallTap,
 });
 
 
@@ -51,7 +53,7 @@ class FollowAndCallBTs extends StatelessWidget {
             // --- FOLLOW BUTTON
             FollowBT(
               flyerZoneWidth: flyerZoneWidth,
-              tappingFollow: tappingFollow,
+              onFollowTap: onFollowTap,
               tappingUnfollow: (){},
               followOn: followIsOn,
             ),
@@ -64,11 +66,7 @@ class FollowAndCallBTs extends StatelessWidget {
             // --- Call BUTTON
             CallBT(
               flyerZoneWidth: flyerZoneWidth,
-              tappingCall: (){
-                if (phoneNumber == null){print('no phone here');}
-                else
-                  {launchCall('tel: $phoneNumber');}
-              },
+              onCallTap: onCallTap,
             ),
 
           ],
@@ -80,13 +78,13 @@ class FollowAndCallBTs extends StatelessWidget {
 
 class FollowBT extends StatelessWidget {
   final double flyerZoneWidth;
-  final Function tappingFollow;
+  final Function onFollowTap;
   final Function tappingUnfollow;
   final bool followOn;
 
   FollowBT({
     @required this.flyerZoneWidth,
-    @required this.tappingFollow,
+    @required this.onFollowTap,
     @required this.tappingUnfollow,
     @required this.followOn,
   });
@@ -111,7 +109,7 @@ class FollowBT extends StatelessWidget {
     Color followTextColor = followOn == true ? Colorz.BlackBlack : Colorz.White;
     // === === === === === === === === === === === === === === === === === ===
     // void followTap() {
-    //   tappingFollow();
+    //   onFollowTap();
     // }
     // === === === === === === === === === === === === === === === === === ===
     // void unFollowTap() {
@@ -121,7 +119,7 @@ class FollowBT extends StatelessWidget {
     return
       miniMode == true ? Container() :
       GestureDetector(
-        onTap: tappingFollow,
+        onTap: onFollowTap,
         child: Container(
           height: followBTHeight,
           width: followBTWidth,
@@ -182,10 +180,10 @@ class FollowBT extends StatelessWidget {
 
 class CallBT extends StatelessWidget {
   final double flyerZoneWidth;
-  final Function tappingCall;
+  final Function onCallTap;
 
   CallBT({
-    @required this.tappingCall,
+    @required this.onCallTap,
     @required this.flyerZoneWidth,
   });
 
@@ -208,7 +206,7 @@ class CallBT extends StatelessWidget {
     return
       miniMode == true ? Container() :
       GestureDetector(
-        onTap: tappingCall,
+        onTap: onCallTap,
         child: Container(
           height: callBTHeight,
           width: callBTWidth,

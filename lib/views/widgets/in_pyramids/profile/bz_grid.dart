@@ -26,6 +26,8 @@ class BzGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    List<TinyBz> _tinyBzz = tinyBzz == null ? [] : tinyBzz;
+
     List<Color> _boxesColors = [Colorz.White30, Colorz.WhiteGlass, Colorz.WhiteAir];
 
     int _gridColumnsCount = numberOfColumns;
@@ -34,7 +36,7 @@ class BzGrid extends StatelessWidget {
     double _gridBzWidth = gridZoneWidth / (numberOfColumns + (numberOfColumns * _spacingRatioToGridWidth) + _spacingRatioToGridWidth);
     double _gridBzHeight = _gridBzWidth;
     double _gridSpacing = _gridBzWidth * _spacingRatioToGridWidth;
-    int _bzCount = tinyBzz == null ? 0 : tinyBzz.length == 0 ? _boxesColors.length : tinyBzz.length;
+    int _bzCount = _tinyBzz == null ? 0 : _tinyBzz.length == 0 ? _boxesColors.length : tinyBzz.length;
     int _numOfGridRows(int _bzCount){return (_bzCount/_gridColumnsCount).ceil();}
     int _numOfRows = numberOfRows == null ? _numOfGridRows(_bzCount) : numberOfRows;
     double _gridHeight = _gridBzHeight * (_numOfRows + (_numOfRows * _spacingRatioToGridWidth) + _spacingRatioToGridWidth);
@@ -48,6 +50,7 @@ class BzGrid extends StatelessWidget {
 
     double zoneCorners = (_gridBzWidth * Ratioz.bzLogoCorner) + _gridSpacing;
 
+
     return
       ClipRRect(
         borderRadius: Borderers.superBorderAll(context, zoneCorners),
@@ -59,7 +62,7 @@ class BzGrid extends StatelessWidget {
             children: <Widget>[
 
                 // --- GRID FOOTPRINTS
-              if (tinyBzz != null && tinyBzz.length == 0)
+              if (_tinyBzz == [] || _tinyBzz.length == 0)
                 GridView(
                   physics: scrollDirection == null ? NeverScrollableScrollPhysics() : null,
                   scrollDirection: scrollDirection == null ? Axis.vertical : scrollDirection,
@@ -88,7 +91,7 @@ class BzGrid extends StatelessWidget {
                   padding: EdgeInsets.all(_gridSpacing),
                   // key: new Key(loadedFlyers[flyerIndex].f01flyerID),
                   gridDelegate: _gridDelegate,
-                  children: tinyBzz.map(
+                  children: _tinyBzz.map(
                         (bz) => BzLogo(
                             width: _gridBzWidth,
                             image: bz.bzLogo,

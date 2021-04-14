@@ -868,7 +868,8 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
                         flyerZoneWidth: superFlyerZoneWidth(context, _flyerSizeFactor),
                         bzPageIsOn: false,
                         tappingHeader: (){},
-                        tappingFollow: (){},
+                        onFollowTap: (){},
+                        onCallTap: (){},
                       ),
 
                       // --- PROGRESS BAR
