@@ -19,6 +19,7 @@ class FlyersProvider with ChangeNotifier {
   List<BzModel> _loadedBzz; // = geebAllBzz();
   List<TinyBz> _loadedTinyBzz; // = geebAllTinyBzz();
   List<TinyFlyer> _loadedSavedFlyers;
+  List<String> _loadedFollows;
 // ############################################################################
   List<FlyerModel> get getAllFlyers {
     return <FlyerModel>[..._loadedFlyers];
@@ -38,6 +39,10 @@ class FlyersProvider with ChangeNotifier {
 // ---------------------------------------------------------------------------
   List<TinyFlyer> get getSavedTinyFlyers {
     return <TinyFlyer>[..._loadedSavedFlyers];
+  }
+
+  List<String> get getFollows{
+    return <String>[..._loadedFollows];
   }
 // ############################################################################
   /// this reads db/users/userID/saves/followedBzz document
@@ -90,17 +95,32 @@ class FlyersProvider with ChangeNotifier {
   }
 // ---------------------------------------------------------------------------
   bool checkAnkh(String flyerID){
-    bool ankhIsOn = false;
+    bool _ankhIsOn = false;
 
       TinyFlyer _tinyFlyer = _loadedSavedFlyers?.firstWhere((flyer) => flyer.flyerID == flyerID, orElse: () => null);
 
       if(_tinyFlyer == null){
-        ankhIsOn = false;
+        _ankhIsOn = false;
       } else {
-        ankhIsOn = true;
+        _ankhIsOn = true;
       }
 
-    return ankhIsOn;
+    return _ankhIsOn;
+  }
+// ---------------------------------------------------------------------------
+  bool checkFollow(String bzID){
+    bool _followIsOn = false;
+
+    String _id = _loadedFollows?.firstWhere((id) => id == bzID, orElse: () => null);
+
+    if(_id == null){
+      _followIsOn = false;
+    } else {
+      _followIsOn = true;
+    }
+    print('_followIsOn = $_followIsOn');
+
+    return _followIsOn;
   }
 // ---------------------------------------------------------------------------
 //   List<FlyerModel> getSavedFlyersFromFlyersList (List<FlyerModel> inputList, String userID){
@@ -218,6 +238,11 @@ return bzz;
       _loadedSavedFlyers.removeAt(_savedTinyFlyerIndex);
     }
 
+    notifyListeners();
+  }
+// ############################################################################
+  void updatedFollowsInLocalList(List<String> updatedFollows){
+    _loadedFollows = updatedFollows;
     notifyListeners();
   }
 // ############################################################################
@@ -438,9 +463,9 @@ Future<void> deleteBzDocument(BzModel bzModel) async {
     );
 
     await fetchAndSetSavedFlyers(context);
-
+    await fetchAndSetFollows(context);
   }
-
+  // ############################################################################
   /// READ db/users/userID/saves/flyers document
   Future<void> fetchAndSetSavedFlyers(BuildContext context) async {
 
@@ -463,8 +488,18 @@ Future<void> deleteBzDocument(BzModel bzModel) async {
     print('_loadedSavedFlyers :::: --------------- ${_loadedSavedFlyers.toString()}');
 
   }
-// ############################################################################
+  // ############################################################################
+  /// READ db/users/userID/saves/bzz document
+  Future<void> fetchAndSetFollows(BuildContext context) async {
 
+  /// read user's follows list
+    List<String> _follows = await RecordCRUD.readUserFollowsOps(context);
+
+    _loadedFollows = _follows ?? [];
+    print('_loadedFollows = $_loadedFollows');
+    notifyListeners();
+  }
+  // ############################################################################
   Future<List<TinyBz>> getUserTinyBzz(BuildContext context) async {
   String _userID = superUserID();
 
@@ -494,8 +529,7 @@ Future<void> deleteBzDocument(BzModel bzModel) async {
 
   return _userTinyBzz;
   }
-
-
+// ############################################################################
 }
 // -----------------------------------------------------------------------------
 BzModel getBzFromBzzByBzID(List<BzModel> bzz, String bzID){

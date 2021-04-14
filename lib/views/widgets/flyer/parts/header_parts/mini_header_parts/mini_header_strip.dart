@@ -17,7 +17,8 @@ class MiniHeaderStrip extends StatelessWidget {
   final bool bzPageIsOn;
   final bool followIsOn;
   final Function tappingHeader;
-  final Function tappingFollow;
+  final Function onFollowTap;
+  final Function onCallTap;
   final bool flyerShowsAuthor;
   final bool stripBlurIsOn;
 
@@ -27,8 +28,9 @@ class MiniHeaderStrip extends StatelessWidget {
     @required this.flyerZoneWidth,
     @required this.bzPageIsOn,
     @required this.followIsOn,
+    @required this.onCallTap,
     @required this.tappingHeader,
-    @required this.tappingFollow,
+    @required this.onFollowTap,
     @required this.flyerShowsAuthor,
     this.stripBlurIsOn = false,
   });
@@ -90,7 +92,8 @@ class MiniHeaderStrip extends StatelessWidget {
                   flyerZoneWidth: flyerZoneWidth,
                   bzPageIsOn: bzPageIsOn,
                   followIsOn: followIsOn,
-                  tappingFollow: tappingFollow,
+                  onFollowTap: onFollowTap,
+                  onCallTap: onCallTap,
                   phoneNumber: tinyAuthor.contact,
                 ),
               ),

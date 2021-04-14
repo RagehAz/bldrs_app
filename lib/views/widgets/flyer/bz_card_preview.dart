@@ -83,7 +83,8 @@ class _BzCardPreviewState extends State<BzCardPreview> {
           flyerZoneWidth: superFlyerZoneWidth(context, widget.flyerSizeFactor),
           bzPageIsOn: _bzPageIsOn,
           tappingHeader: _triggerMaxHeader,
-          tappingFollow: (){},
+          onFollowTap: (){},
+          onCallTap: (){},
         ),
 
         // --- ADD FLYER BUTTON

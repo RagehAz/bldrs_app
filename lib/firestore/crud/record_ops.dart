@@ -2,8 +2,11 @@ import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/firestore/auth/auth.dart';
 import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/models/flyer_model.dart';
+import 'package:bldrs/models/records/call_model.dart';
+import 'package:bldrs/models/records/follow_model.dart';
 import 'package:bldrs/models/records/save_model.dart';
 import 'package:bldrs/models/records/share_model.dart';
+import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/providers/users_provider.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +26,7 @@ class RecordCRUD{
     );
 
     /// 2- decipher the User's saves map into List<SaveModel>
-    List<SaveModel> _userSavesModels = SaveModel.decipherUserSavesMap(_userSavesMap);
+    List<SaveModel> _userSavesModels = _userSavesMap == null ? null : SaveModel.decipherUserSavesMap(_userSavesMap);
 
     return _userSavesMap == null ? null : _userSavesModels;
   }
@@ -39,7 +42,7 @@ class RecordCRUD{
 
     /// A - SavesOps in User/saves/flyers subDoc
     //-------------------------------------------
-    /// 1 - get Flyer's SavesMap doc and decipher it into List<SaveModel>
+    /// 1 - get User's SavesMap doc and decipher it into List<SaveModel>
     List<SaveModel> _userSavesModels = await readUserSavesOps(context);
 
     /// 2 - update the list with the new save entry and get back the updated list
@@ -113,8 +116,129 @@ class RecordCRUD{
 // ---------------------------------------------------------------------------
   static Future<void> viewFlyerOPs(String flyerID, String userID) async {}
 // ---------------------------------------------------------------------------
-  static Future<void> followBzOPs(String flyerID, String userID) async {}
+  static Future<List<String>> readUserFollowsOps(BuildContext context) async {
+
+    /// 1 - read db/users/userID/saves/bzz and return its map
+    Map<String, dynamic> _userFollowsMap = await getFireStoreSubDocument(
+      context: context,
+      collectionName: FireCollection.users,
+      docName: superUserID(),
+      subCollectionName: FireCollection.subUserSaves,
+      subDocName: FireCollection.bzz,
+    );
+
+    print('_userFollowsMap = $_userFollowsMap');
+
+    /// 2- decipher the User's saves map into List<SaveModel>
+    List<String> _userFollowedBzIDs = _userFollowsMap == null ? null : FollowModel.decipherUserFollowsMap(_userFollowsMap);
+
+    return _userFollowsMap == null ? null : _userFollowedBzIDs;
+  }
+
+  static Future<FollowModel> readBzFollowOps(BuildContext context,String bzID, String userID) async {
+
+    /// 1 - read db/bzz/bzID/follows/userID and return its map
+    Map<String, dynamic> _userFollowMap = await getFireStoreSubDocument(
+      context: context,
+      collectionName: FireCollection.bzz,
+      docName: bzID,
+      subCollectionName: FireCollection.subBzFollows,
+      subDocName: userID,
+    );
+
+    print('_userFollowMap = $_userFollowMap');
+
+    /// 2- decipher the follo map into FollowModel
+    FollowModel _follow = _userFollowMap == null ? null : FollowModel.decipherBzFollowMap(_userFollowMap);
+
+    return _userFollowMap == null ? null : _follow;
+  }
 // ---------------------------------------------------------------------------
-  static Future<void> callBzOPs(String flyerID, String userID) async {}
+  static Future<List<String>> followBzOPs({BuildContext context,String bzID, String userID}) async {
+
+    /// A - FollowOps in User/saves/bzz subDoc
+    //-------------------------------------------
+    /// 1 - get User's FollowsMap doc and decipher it into List<String> bzIDs
+    List<String> _userFollowedBzzIDs = await readUserFollowsOps(context);
+
+    /// 2 - update the list with the new save entry and get back the updated list
+    List<String> _updatedFollowedBzzIDs = FollowModel.editFollows(_userFollowedBzzIDs, bzID);
+
+    /// 3 - update sub doc with new SavesTopMap in db/flyers/flyerID/saves
+    await insertFireStoreSubDocument(
+      context: context,
+      collectionName: FireCollection.users,
+      docName: userID,
+      subCollectionName: FireCollection.subUserSaves,
+      subDocName: FireCollection.bzz,
+      input: FollowModel.cipherUserFollows(_updatedFollowedBzzIDs),
+    );
+
+    /// B - FollowOps in bzz/follows/userID subDoc
+    //-------------------------------------------
+    /// 1 - get existing FollowModel
+    FollowModel _existingFollowModel = await RecordCRUD.readBzFollowOps(context, bzID, userID);
+
+    /// 2 - update the follow model
+    FollowModel _updatedFollowModel = FollowModel.editFollowModel(_existingFollowModel);
+
+    /// 3 - override bz follow sub document
+    await insertFireStoreSubDocument(
+      context: context,
+      collectionName: FireCollection.bzz,
+      docName: bzID,
+      subCollectionName: FireCollection.subBzFollows,
+      subDocName: userID,
+      input: _updatedFollowModel.toMap(),
+    );
+
+    return _updatedFollowedBzzIDs;
+  }
 // ---------------------------------------------------------------------------
+  static Future<CallModel> readCallModelOps({BuildContext context, String bzID, String userID}) async {
+
+    /// 1 - read db/bzz/bzID/calls/userID and return its map
+    Map<String, dynamic> _userCallMap = await getFireStoreSubDocument(
+      context: context,
+      collectionName: FireCollection.bzz,
+      docName: bzID,
+      subCollectionName: FireCollection.subBzCalls,
+      subDocName: userID,
+    );
+
+    print('_userCallMap = $_userCallMap');
+
+    /// 2- decipher the call map into FollowModel
+    CallModel _callModel = _userCallMap == null ? null : CallModel.decipherCallMap(_userCallMap);
+
+    return _userCallMap == null ? null : _callModel;
+  }
+// ---------------------------------------------------------------------------
+  static Future<void> callBzOPs({BuildContext context,String bzID, String userID, int slideIndex}) async {
+
+    /// A - CallOps in bzz/calls/userID subDoc
+    //-------------------------------------------
+    /// 1 - get the existing call model
+    CallModel _existingCallModel = await RecordCRUD.readCallModelOps(
+      context: context,
+      bzID: bzID,
+      userID: userID,
+    );
+
+    /// 2 - update the call model
+    CallModel _updatedCallModel = CallModel.editCallModel(_existingCallModel, slideIndex);
+
+    /// 3 - override bz Call sub document
+    await insertFireStoreSubDocument(
+      context: context,
+      collectionName: FireCollection.bzz,
+      docName: bzID,
+      subCollectionName: FireCollection.subBzCalls,
+      subDocName: userID,
+      input: _updatedCallModel.toMap(),
+    );
+
+  }
+// ---------------------------------------------------------------------------
+
 }

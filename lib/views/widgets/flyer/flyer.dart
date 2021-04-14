@@ -145,12 +145,13 @@ class _FlyerState extends State<Flyer> with AutomaticKeepAliveClientMixin{
               flyerShowsAuthor: _flyerShowsAuthor,
               bzPageIsOn: bzPageIsOn,
               tappingHeader: () {switchBzPage();},
-              tappingFollow: (){
+              onFollowTap: (){
                 // TASK : fix following issue
                 // print('followIsOn : ${bz.followIsOn}');
                 // bz.toggleFollow();
                 },
               followIsOn: false, // TASK : fix following issue
+               onCallTap: (){},
             ),
           ),
 
