@@ -158,7 +158,7 @@ Map<String, dynamic> toFlyerSaveMap(){
   }
 // -----------------------------------------------------------------------------
   static List<String> decipherSavedIDsMap(Map<String, dynamic> savedFlyersMap){
-    List<dynamic> _flyersIDs = savedFlyersMap.keys.toList();
+    List<dynamic> _flyersIDs = getValuesFromValueAndTrueMap(savedFlyersMap);
     return _flyersIDs;
   }
 // -----------------------------------------------------------------------------

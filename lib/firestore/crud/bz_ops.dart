@@ -311,4 +311,17 @@ class BzCRUD{
 // ----------------------------------------------------------------------
   Future<void> deleteBzDoc() async {}
 // ----------------------------------------------------------------------
+  Future<TinyBz> readTinyBzOps({BuildContext context, String bzID}) async {
+
+    Map<String, dynamic> _tinyBzMap = await getFireStoreDocumentMap(
+      context: context,
+      collectionName: FireCollection.tinyBzz,
+      documentName: bzID,
+    );
+
+    TinyBz _tinyBz = TinyBz.decipherTinyBzMap(_tinyBzMap);
+
+    return _tinyBz;
+  }
+// ----------------------------------------------------------------------
 }

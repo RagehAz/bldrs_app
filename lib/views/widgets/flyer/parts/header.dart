@@ -18,7 +18,8 @@ class Header extends StatelessWidget {
   final double flyerZoneWidth;
   final bool bzPageIsOn;
   final Function tappingHeader;
-  final Function tappingFollow;
+  final Function onFollowTap;
+  final Function onCallTap;
   final bool stripBlurIsOn;
 
   Header({
@@ -29,7 +30,8 @@ class Header extends StatelessWidget {
     @required this.flyerZoneWidth,
     @required this.bzPageIsOn,
     @required this.tappingHeader,
-    @required this.tappingFollow,
+    @required this.onFollowTap,
+    @required this.onCallTap,
     this.stripBlurIsOn = false,
   });
 
@@ -80,9 +82,10 @@ class Header extends StatelessWidget {
                     tinyBz: tinyBz,
                     tinyAuthor: tinyAuthor,
                     flyerShowsAuthor: flyerShowsAuthor,
-                    followIsOn: false, // TASK : fix following issue
+                    followIsOn: followIsOn,
                     tappingHeader: tappingHeader,
-                    tappingFollow: tappingFollow,
+                    onFollowTap: onFollowTap,
+                    onCallTap: onCallTap,
                     stripBlurIsOn: stripBlurIsOn,
                   ),
 

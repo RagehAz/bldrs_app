@@ -91,7 +91,8 @@ class _BzCardScreenState extends State<BzCardScreen> {
                       flyerZoneWidth: superFlyerZoneWidth(context, flyerSizeFactor),
                       bzPageIsOn: _bzPageIsOn,
                       tappingHeader: _triggerMaxHeader,
-                      tappingFollow: () async {
+                      onCallTap: (){},
+                      onFollowTap: () async {
                         // await bz.toggleFollow();
                         // setState(() {});
                         // print('rebuilding widget with new followIsOn value : ${bz.followIsOn}');
