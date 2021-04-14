@@ -847,6 +847,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
                               duration: Duration(milliseconds: 100),
                               child: SingleSlide(
                                 flyerZoneWidth: _flyerZoneWidth,
+                                flyerID: _flyer.flyerID,
                                 picture: _currentSlides[index].picture,
                                 slideMode: slidesModes[index],
                                 boxFit: BoxFit.fitWidth, // [fitWidth - contain - scaleDown] have the blur background

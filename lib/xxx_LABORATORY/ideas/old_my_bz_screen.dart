@@ -131,6 +131,7 @@ class _OldMyBzScreenState extends State<OldMyBzScreen> {
                             stackWidgets: <Widget>[
 
                               SingleSlide(
+                                flyerID: '',
                                 flyerZoneWidth: _flyerZoneWidth,
                                 slideColor: Colorz.WhiteSmoke,
                               ),

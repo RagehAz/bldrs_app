@@ -93,6 +93,7 @@ class _AFlyerState extends State<AFlyer> with AutomaticKeepAliveClientMixin{
 
         if (widget.flyer != null)
         Slides(
+          flyerID: widget.flyer?.flyerID,
           slides: widget.flyer?.slides,
           flyerZoneWidth: _flyerZoneWidth,
           slidingIsOn: true,
