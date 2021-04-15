@@ -44,9 +44,8 @@ class _FlyersSizesScreenState extends State<FlyersSizesScreen> {
     // final List<FlyerModel> _allFlyers = _pro.getAllFlyers;
     // final List<TinyFlyer> _allTinyFlyers = _pro.getAllTinyFlyers;
     // List<String> _flyerIDs = getListOfFlyerIDsFromFlyers(_allFlyers);
-    final FlyerModel _flyer = _pro.getFlyerByFlyerID(_flyerID);
-    final TinyFlyer _tinyFlyer = TinyFlyer.getTinyFlyerFromFlyerModel(_flyer);
-    final BzModel _bz = _pro.getBzByBzID(_flyer.tinyBz.bzID);
+    final TinyFlyer _tinyFlyer = _pro.getTinyFlyerByFlyerID(_flyerID);
+    final BzModel _bz = _pro.getBzByBzID(_tinyFlyer.tinyBz.bzID);
 
     double _flyerSizeFactor = widget.flyerSizeFactor ?? 0.5;
 
