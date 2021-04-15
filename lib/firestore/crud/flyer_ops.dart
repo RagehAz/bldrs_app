@@ -2,6 +2,7 @@ import 'package:bldrs/controllers/drafters/file_formatters.dart';
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/text_checkers.dart';
 import 'package:bldrs/controllers/drafters/text_manipulators.dart';
+import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/firestore/crud/bz_ops.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
@@ -78,6 +79,9 @@ class FlyerCRUD{
     ankhIsOn: false,
     // -------------------------
     slides: _updatedSlides,
+    // -------------------------
+    flyerIsBanned: inputFlyerModel.flyerIsBanned,
+    deletionTime: inputFlyerModel.deletionTime,
   );
 
     print('5- flyer model updated with flyerID, flyerURL & updates slides pic URLs');
@@ -303,9 +307,37 @@ class FlyerCRUD{
     return _finalFlyer;
 }
 // ----------------------------------------------------------------------
-  Future<void> deleteFlyerOps(String flyerID) async {
-  final DocumentReference _flyerDocRef = flyerDocRef(flyerID);
-  await _flyerDocRef.delete();
+  Future<void> deleteFlyerOps({BuildContext context,String flyerID, BzModel bzModel}) async {
+
+    /// delete nano flyer from bzFlyers and update the list in bz doc
+    List<NanoFlyer> _bzNanoFlyers = bzModel.bzFlyers;
+    int _nanoFlyerIndex = _bzNanoFlyers.indexWhere((nanoFlyer) => nanoFlyer.flyerID == flyerID);
+    _bzNanoFlyers.removeAt(_nanoFlyerIndex);
+    await updateFieldOnFirestore(
+      context: context,
+      collectionName: FireCollection.bzz,
+      documentName: bzModel.bzID,
+      field: 'bzFlyers',
+      input: NanoFlyer.cipherNanoFlyers(_bzNanoFlyers),
+    );
+
+    /// delete tinyFlyer
+    await deleteDocumentOnFirestore(
+      context: context,
+      collectionName: FireCollection.tinyFlyers,
+      documentName: flyerID,
+    );
+
+    /// trigger flyer Deletion field by adding a timeStamp
+    DateTime _deletionTime = DateTime.now();
+    await updateFieldOnFirestore(
+      context: context,
+      collectionName: FireCollection.flyers,
+      documentName: flyerID,
+      field: 'deletionTime',
+      input: cipherDateTimeToString(_deletionTime),
+    );
+
 }
 // ----------------------------------------------------------------------
   Future<TinyFlyer> readTinyFlyerOps({BuildContext context, String flyerID}) async {
@@ -318,7 +350,7 @@ class FlyerCRUD{
 
     // print(_tinyFlyerMap);
 
-    TinyFlyer _tinyFlyer = TinyFlyer.decipherTinyFlyerMap(_tinyFlyerMap);
+    TinyFlyer _tinyFlyer = _tinyFlyerMap == null ? null : TinyFlyer.decipherTinyFlyerMap(_tinyFlyerMap);
 
     return _tinyFlyer;
 
