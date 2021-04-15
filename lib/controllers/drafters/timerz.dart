@@ -6,7 +6,11 @@ import 'package:intl/intl.dart';
 DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:mm:ss");
 // -----------------------------------------------------------------
 String cipherDateTimeToString(DateTime dateTime){
-  return dateFormat?.format(dateTime);
+  if(dateTime == null){
+    return null;
+  } else {
+    return dateFormat?.format(dateTime);
+  }
 }
 // -----------------------------------------------------------------
 List<String> cipherListOfDateTimes(List<DateTime> dateTimes){
@@ -20,7 +24,11 @@ List<String> cipherListOfDateTimes(List<DateTime> dateTimes){
 }
 // -----------------------------------------------------------------
 DateTime decipherDateTimeString(String dateTimeString){
-  return dateFormat?.parse(dateTimeString);
+  if (dateTimeString == null){
+    return null;
+  } else {
+    return dateFormat?.parse(dateTimeString);
+  }
 }
 // -----------------------------------------------------------------
 List<DateTime> decipherListOfDateTimesStrings(List<dynamic> dateTimesStrings){

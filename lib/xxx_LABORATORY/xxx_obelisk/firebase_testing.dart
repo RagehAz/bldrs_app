@@ -18,12 +18,14 @@ import 'package:bldrs/models/tiny_models/nano_flyer.dart';
 import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/models/tiny_models/tiny_user.dart';
 import 'package:bldrs/models/user_model.dart';
+import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Firebasetesting extends StatefulWidget {
 
@@ -56,22 +58,33 @@ class _FirebasetestingState extends State<Firebasetesting> {
 
     functions = [
       // -----------------------------------------------------------------------
-      {'Name' : 'readUserFollowsOps', 'function' : () async {
+      {'Name' : 'create test collection and test doc', 'function' : () async {
         _triggerLoading();
 
-        List<String> _userFollowedBzzIDs = await RecordCRUD.readUserFollowsOps(context);
-        printResult('$_userFollowedBzzIDs');
+        FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
+        List<TinyFlyer> tinyFlyers = _prof.getAllTinyFlyers;
 
+        for (var tinyFlyer in tinyFlyers){
 
-        _triggerLoading();
-      },},
-      // -----------------------------------------------------------------------
-      {'Name' : 'editFollows', 'function' : () async {
-        _triggerLoading();
+          printResult(tinyFlyer.flyerID);
 
-        List<String> _updatedFollowedBzzIDs = FollowModel.editFollows(null, 'dr2');
-        printResult('$_updatedFollowedBzzIDs');
+          await updateFieldOnFirestore(
+            context: context,
+            collectionName: FireCollection.flyers,
+            documentName: tinyFlyer.flyerID,
+            field: 'flyerIsBanned',
+            input: false,
+          );
 
+          await updateFieldOnFirestore(
+            context: context,
+            collectionName: FireCollection.flyers,
+            documentName: tinyFlyer.flyerID,
+            field: 'deletionTime',
+            input: null,
+          );
+
+        }
 
         _triggerLoading();
       },},
