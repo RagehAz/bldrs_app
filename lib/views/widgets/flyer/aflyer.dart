@@ -126,6 +126,7 @@ class _AFlyerState extends State<AFlyer> with AutomaticKeepAliveClientMixin{
 // ---------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     print('Building flyer : ${widget.flyer?.flyerID}');
 
     final double _flyerZoneWidth = superFlyerZoneWidth(context, widget.flyerSizeFactor);

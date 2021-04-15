@@ -81,6 +81,7 @@ class _MyBzScreenState extends State<MyBzScreen> {
     return bzModelStreamBuilder(
         context: context,
         bzID: widget.tinyBz.bzID,
+
         builder: (ctx, bzModel){
 
           return

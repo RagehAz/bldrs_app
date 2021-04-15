@@ -109,7 +109,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
   void initState(){
     // -------------------------
     _prof = Provider.of<FlyersProvider>(context, listen: false);
-    _originalFlyer = widget.flyerModel.clone();
+    _originalFlyer = widget.firstTimer ? null : widget.flyerModel.clone();
     _bz = widget.bzModel;
     _flyer = widget.firstTimer ? _createTempEmptyFlyer() : widget.flyerModel.clone();
     // -------------------------
@@ -186,23 +186,26 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
     TinyUser _tinyAuthor = AuthorModel.getTinyAuthorFromAuthorModel(_author);
 
     return new FlyerModel(
-    flyerID : '...',
-    // -------------------------
-    flyerType : FlyerModel.concludeFlyerType(_bz.bzType),
-    flyerState : FlyerState.Draft,
-    keyWords : new List(),
-    flyerShowsAuthor : true,
-    flyerURL : '...',
-    // -------------------------
-    tinyAuthor : _tinyAuthor,
-    tinyBz : TinyBz(bzID: _bz.bzID, bzLogo: _bz.bzLogo, bzName: _bz.bzName, bzType: _bz.bzType, bzZone: Zone.getZoneFromBzModel(_bz), bzTotalFollowers: _bz.bzTotalFollowers, bzTotalFlyers: _bz.bzFlyers.length),
-    // -------------------------
-    publishTime : DateTime.now(),
-    flyerPosition : null,
-    // -------------------------
-    ankhIsOn : false,
-    // -------------------------
-    slides : new List(),
+      flyerID : '...',
+      // -------------------------
+      flyerType : FlyerModel.concludeFlyerType(_bz.bzType),
+      flyerState : FlyerState.Draft,
+      keyWords : new List(),
+      flyerShowsAuthor : true,
+      flyerURL : '...',
+      // -------------------------
+      tinyAuthor : _tinyAuthor,
+      tinyBz : TinyBz(bzID: _bz.bzID, bzLogo: _bz.bzLogo, bzName: _bz.bzName, bzType: _bz.bzType, bzZone: Zone.getZoneFromBzModel(_bz), bzTotalFollowers: _bz.bzTotalFollowers, bzTotalFlyers: _bz.bzFlyers.length),
+      // -------------------------
+      publishTime : DateTime.now(),
+      flyerPosition : null,
+      // -------------------------
+      ankhIsOn : false,
+      // -------------------------
+      slides : new List(),
+      // -------------------------
+      flyerIsBanned: false,
+      deletionTime: null,
     );
   }
   // ----------------------------------------------------------------------
@@ -677,6 +680,9 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
         ankhIsOn: false, // shouldn't be saved here but will leave this now
         // -------------------------
         slides: _slides,
+        // -------------------------
+        flyerIsBanned: false,
+        deletionTime: null,
       );
 
       /// start create flyer ops
@@ -729,6 +735,9 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
         ankhIsOn: false, // shouldn't be saved here but will leave this now
         // -------------------------
         slides: _slides,
+        // -------------------------
+        flyerIsBanned: _flyer.flyerIsBanned,
+        deletionTime: _flyer.deletionTime,
       );
 
       print('C- Uploading to cloud');

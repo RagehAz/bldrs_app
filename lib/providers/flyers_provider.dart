@@ -477,7 +477,11 @@ Future<void> deleteBzDocument(BzModel bzModel) async {
     for (var saveModel in _userSaveModels){
       if (saveModel.saveState == SaveState.Saved) {
         TinyFlyer _tinyFlyer = await FlyerCRUD().readTinyFlyerOps(context: context, flyerID: saveModel.flyerID);
-        _savedTinyFlyers.add(_tinyFlyer);
+
+        if (_tinyFlyer != null){
+          _savedTinyFlyers.add(_tinyFlyer);
+        }
+
       }
     }
 
