@@ -27,6 +27,8 @@ class FlyerModel with ChangeNotifier{
   // -------------------------
   final List<SlideModel> slides;
   // -------------------------
+  final bool flyerIsBanned;
+  final DateTime deletionTime;
 
   FlyerModel({
     this.flyerID,
@@ -46,6 +48,9 @@ class FlyerModel with ChangeNotifier{
     this.ankhIsOn,
     // -------------------------
     this.slides,
+    // -------------------------
+    @required this.flyerIsBanned,
+    @required this.deletionTime,
   });
 // -----------------------------------------------------------------------------
   void toggleAnkh(){
@@ -72,6 +77,9 @@ class FlyerModel with ChangeNotifier{
       'ankhIsOn' : ankhIsOn,
       // -------------------------
       'slides' : SlideModel.cipherSlidesModels(slides),
+      // -------------------------
+      'flyerIsBanned' : flyerIsBanned,
+      'deletionTime' : cipherDateTimeToString(deletionTime),
     };
   }
 // -----------------------------------------------------------------------------
@@ -88,6 +96,9 @@ class FlyerModel with ChangeNotifier{
       publishTime: publishTime,
       flyerPosition: flyerPosition,
       slides: SlideModel.cloneSlides(slides),
+      flyerIsBanned: flyerIsBanned,
+      deletionTime: deletionTime,
+      ankhIsOn: ankhIsOn,
     );
   }
 // -----------------------------------------------------------------------------
@@ -105,6 +116,9 @@ class FlyerModel with ChangeNotifier{
           publishTime: flyer.publishTime,
           flyerPosition: flyer.flyerPosition,
           slides: updatedSlides,
+          flyerIsBanned: flyer.flyerIsBanned,
+          deletionTime: flyer.deletionTime,
+          ankhIsOn: flyer.ankhIsOn,
     );
   }
 // -----------------------------------------------------------------------------
@@ -192,6 +206,9 @@ class FlyerModel with ChangeNotifier{
       flyerPosition: map['flyerPosition'],
       // -------------------------
       slides: SlideModel.decipherSlidesMaps(map['slides']),
+      // -------------------------
+      flyerIsBanned: map['flyerIsBanned'],
+      deletionTime: decipherDateTimeString(map['deletionTime']),
     );
   }
 // -----------------------------------------------------------------------------
@@ -224,6 +241,13 @@ class FlyerModel with ChangeNotifier{
       tinyBz: inputFlyerModel.tinyBz,
       publishTime: inputFlyerModel.publishTime,
       slides: updatedSlides,
+      flyerShowsAuthor: inputFlyerModel.flyerShowsAuthor,
+      flyerState: inputFlyerModel.flyerState,
+      keyWords: inputFlyerModel.keyWords,
+      flyerPosition: inputFlyerModel.flyerPosition,
+      ankhIsOn: inputFlyerModel.ankhIsOn,
+      flyerIsBanned: inputFlyerModel.flyerIsBanned,
+      deletionTime: inputFlyerModel.deletionTime,
     );
   }
 // -----------------------------------------------------------------------------

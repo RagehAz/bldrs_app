@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/iconizers.dart';
+import 'package:bldrs/controllers/drafters/keyboarders.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/streamerz.dart';
 import 'package:bldrs/controllers/drafters/text_generators.dart';
@@ -6,11 +7,13 @@ import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
+import 'package:bldrs/firestore/crud/flyer_ops.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/views/widgets/bubbles/words_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
+import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_sheet.dart';
 import 'package:bldrs/views/widgets/flyer/aflyer.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
@@ -47,6 +50,26 @@ class BzFlyerScreen extends StatelessWidget {
             verseScaleFactor: 1.2,
             verseColor: Colorz.BloodRed,
             // verseWeight: VerseWeight.thin,
+            boxFunction: () async {
+
+              Nav.goBack(context);
+
+              /// Task : this should be bool dialog instead
+              await superDialog(context, 'You will never get this back ever', 'watch out');
+
+              /// start delete flyer ops
+              await FlyerCRUD().deleteFlyerOps(
+                context: context,
+                bzModel: bzModel,
+                flyerID : tinyFlyer.flyerID,
+              );
+
+              /// remove tinyFlyer from Local list
+
+
+              /// re-route back
+              Nav.goBack(context, argument: true);
+            },
 
           ),
 

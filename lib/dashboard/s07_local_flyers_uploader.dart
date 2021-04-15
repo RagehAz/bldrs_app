@@ -404,6 +404,8 @@ Future<FlyerModel> createNamedFlyersOps(BuildContext context, FlyerModel inputFl
     ankhIsOn: false,
     // -------------------------
     slides: _updatedSlides,
+    flyerIsBanned: inputFlyerModel.flyerIsBanned,
+    deletionTime: inputFlyerModel.deletionTime,
   );
 
   print('5- flyer model updated with flyerID, flyerURL & updates slides pic URLs');

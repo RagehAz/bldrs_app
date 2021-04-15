@@ -48,25 +48,4 @@ class CallModel {
     // -----------------------------------------------
   }
 // -----------------------------------------------------------------------------
-  RecieverType decipherRecieverType(int recieverType) {
-    switch (recieverType) {
-      case 1: return RecieverType.bz;     break;
-      case 2: return RecieverType.author; break;
-      default : return null;
-    }
-  }
-// -----------------------------------------------------------------------------
-  int cipherRecieverType(RecieverType recieverType){
-    switch (recieverType) {
-      case RecieverType.bz:     return 1;   break;
-      case RecieverType.author: return 2;   break;
-      default : return null;
-    }
-  }
-// -----------------------------------------------------------------------------
-}
-
-enum RecieverType{
-  bz,
-  author,
 }
