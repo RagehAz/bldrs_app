@@ -1,11 +1,14 @@
+import 'package:bldrs/controllers/drafters/streamerz.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
+import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
+import 'package:bldrs/views/widgets/flyer/aflyer.dart';
 import 'package:bldrs/views/widgets/flyer/flyer.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
@@ -36,10 +39,12 @@ class _FlyersGridViewState extends State<FlyersGridView> {
   @override
   Widget build(BuildContext context) {
     final FlyersProvider pro = Provider.of<FlyersProvider>(context, listen: false);
-    final List<FlyerModel> allFlyersOfType = pro.getFlyersByFlyerType(currentFlyerType);
-    final List<FlyerModel> savedFlyersFilter = [];//pro.getSavedFlyers;
-    final List<FlyerModel> flyers = _showAnkhsOnly ? savedFlyersFilter : allFlyersOfType;
-    final List<BzModel> bzz = pro.getBzzOfFlyersList(flyers);
+    // final List<FlyerModel> allFlyersOfType = pro.getFlyersByFlyerType(currentFlyerType);
+    // final List<FlyerModel> savedFlyersFilter = [];//pro.getSavedFlyers;
+    // final List<FlyerModel> _flyers = _showAnkhsOnly ? savedFlyersFilter : allFlyersOfType;
+    // final List<BzModel> bzz = pro.getBzzOfFlyersList(flyers);
+
+    final List<TinyFlyer> _tinyFlyers = pro.getAllTinyFlyers;
     // final flyers = _showAnkhsOnly ? flyersData.savedFlyers : flyersData.allFlyers;
 
     // List<FlyerModel> propertyFlyers       = flyersData.getFlyersByFlyerType(FlyerType.Property);
@@ -112,7 +117,7 @@ class _FlyersGridViewState extends State<FlyersGridView> {
 
     // double flyerMainMargins = screenWidth - gridZoneWidth;
 
-    double flyerSizeFactor = (((gridZoneWidth - (gridSpacing*(gridColumnsCount+1)))/gridColumnsCount))/screenWidth;
+    double _flyerSizeFactor = (((gridZoneWidth - (gridSpacing*(gridColumnsCount+1)))/gridColumnsCount))/screenWidth;
 
     return MainLayout(
       pyramids: Iconz.PyramidsYellow,
@@ -156,29 +161,42 @@ class _FlyersGridViewState extends State<FlyersGridView> {
           childAspectRatio: 1 / Ratioz.xxflyerZoneHeight,
           maxCrossAxisExtent: gridFlyerWidth,//gridFlyerWidth,
         ),
-        itemCount: flyers.length,
+        itemCount: _tinyFlyers.length,
         itemBuilder: (ctx, i) =>
-            ChangeNotifierProvider.value(
-                value: flyers[i],
-                // or we can use other syntax like :-
-                // ChangeNotifierProvider(//     create: (c) => flyers[i],
-                child: ChangeNotifierProvider.value(
-                  value: bzz[i],
-                  child: Padding(
-                    key: Key(flyers[i].flyerID),
-                    padding: const EdgeInsets.only(bottom: 0),
-                    child: Flyer(
-                      // flyerID: flyers[i].flyer.flyerID,
-                      flyerSizeFactor: flyerSizeFactor,
-                      initialSlide: 0,
-                      slidingIsOn: true,
-                      tappingFlyerZone: (){
-                        Nav.openFlyer(context, flyers[i].flyerID);
-                      },
-                    ),
-                  ),
-                )
-            ),
+            // ChangeNotifierProvider.value(
+            //     value: flyers[i],
+            //     // or we can use other syntax like :-
+            //     // ChangeNotifierProvider(//     create: (c) => flyers[i],
+            //     child: ChangeNotifierProvider.value(
+            //       value: bzz[i],
+            //       child: Padding(
+            //         key: Key(flyers[i].flyerID),
+            //         padding: const EdgeInsets.only(bottom: 0),
+            //         child: Flyer(
+            //           // flyerID: flyers[i].flyer.flyerID,
+            //           flyerSizeFactor: flyerSizeFactor,
+            //           initialSlide: 0,
+            //           slidingIsOn: true,
+            //           tappingFlyerZone: (){
+            //             Nav.openFlyer(context, flyers[i].flyerID);
+            //           },
+            //         ),
+            //       ),
+            //     )
+            // ),
+
+        flyerModelBuilder(
+            context: context,
+            tinyFlyer: _tinyFlyers[i],
+            flyerSizeFactor: _flyerSizeFactor,
+            builder: (ctx, flyerModel){
+              return AFlyer(
+                flyer: flyerModel,
+                flyerSizeFactor: _flyerSizeFactor,
+              );
+            }
+        ),
+
       ),
     );
   }
