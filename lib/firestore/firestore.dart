@@ -28,6 +28,8 @@ class FireCollection{
   static const String subFlyerSaves = 'saves';
   static const String subFlyerShares = 'shares';
   static const String subFlyerViews = 'views';
+
+  static const String feedbacks = 'feedbacks';
 }
 
 // /// cloud firestore database functions

@@ -13,6 +13,7 @@ import 'package:bldrs/models/sub_models/link_model.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/views/screens/s40_bz_editor_screen.dart';
 import 'package:bldrs/views/screens/s60_about_bldrs.dart';
+import 'package:bldrs/views/screens/s61_feedback.dart';
 import 'package:bldrs/views/widgets/appbar/buttons/flagbox.dart';
 import 'package:bldrs/views/widgets/bubbles/bubbles_separator.dart';
 import 'package:bldrs/views/widgets/bubbles/tile_bubble.dart';
@@ -89,14 +90,8 @@ class MoreScreen extends StatelessWidget {
           TileBubble(
             verse: Wordz.feedback(context),
             icon: Iconz.UTPlanning,
-            // UserBubble(
-            //   onTap: (){},
-            //   userType: UserType.PlanningUser,
-            //   bubbleWidth: 40,
-            //   userPic: Iconz.DumAuthorPic,
-            //   blackAndWhite: false,
-            // ),
             iconSizeFactor: 0.6,
+            btOnTap: () => Nav.goToNewScreen(context, FeedBack()),
           ),
           TileBubble(
             verse: Wordz.termsRegulations(context),
