@@ -58,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
     _isInit = false;
     super.didChangeDependencies();
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   /// --- LOADING BLOCK
   bool _loading = false;
   void _triggerLoading(){
