@@ -120,9 +120,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     setState(() {_currentPicFile = null;});
   }
   // ---------------------------------------------------------------------------
-  void _changeGender(Gender gender){
-    setState(()=> _currentGender = gender);
-  }
+  // void _changeGender(Gender gender){
+  //   setState(()=> _currentGender = gender);
+  // }
   // ---------------------------------------------------------------------------
   void _changeCountry(String countryID){
     setState(() {
@@ -143,9 +143,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     setState(() {_currentAreaID = areaID;});
   }
   // ---------------------------------------------------------------------------
-  void _changePosition(GeoPoint geoPoint){
-    setState(() => _currentPosition = geoPoint );
-  }
+  // void _changePosition(GeoPoint geoPoint){
+  //   setState(() => _currentPosition = geoPoint );
+  // }
   // ---------------------------------------------------------------------------
   List<ContactModel> _createContactList({List<ContactModel> existingContacts}){
   /// takes current contacts, overrides them on existing contact list, then

@@ -3,12 +3,10 @@ import 'package:bldrs/controllers/drafters/streamerz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
-import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_zone.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class BzCardScreen extends StatefulWidget {
   final String bzID;

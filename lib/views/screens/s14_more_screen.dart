@@ -9,7 +9,6 @@ import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/firestore/auth/auth.dart';
 import 'package:bldrs/firestore/auth/google.dart';
 import 'package:bldrs/models/records/share_model.dart';
-import 'package:bldrs/models/sub_models/link_model.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/views/screens/s40_bz_editor_screen.dart';
 import 'package:bldrs/views/screens/s60_about_bldrs.dart';

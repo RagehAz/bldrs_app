@@ -14,7 +14,7 @@ import 'package:bldrs/views/widgets/flyer/parts/header_parts/max_header_parts/ga
 import 'package:bldrs/views/widgets/flyer/parts/slides_parts/single_slide.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/views/widgets/layouts/main_layout.dart' show MainLayout, PyramidsHorizon, Stratosphere;
+import 'package:bldrs/views/widgets/layouts/main_layout.dart' show MainLayout, Stratosphere;
 
 class OldMyBzScreen extends StatefulWidget {
   final UserModel userModel;
@@ -88,9 +88,9 @@ class _OldMyBzScreenState extends State<OldMyBzScreen> {
   //
   // }
   // ----------------------------------------------------------------------
-  void _tapAchievements(){
-    print('_tapAchievements');
-  }
+  // void _tapAchievements(){
+  //   print('_tapAchievements');
+  // }
 // ---------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

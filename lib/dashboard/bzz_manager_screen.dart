@@ -87,7 +87,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
                 } else {
 
                   Map<String, dynamic> _map = snapshot.data;
-                  BzModel _someBz = BzModel.decipherBzMap(_map['bzID'], _map);
+                  // BzModel _someBz = BzModel.decipherBzMap(_map['bzID'], _map);
 
                   return ListView(
                     children: <Widget>[

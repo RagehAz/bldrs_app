@@ -2,20 +2,18 @@ import 'dart:ui';
 import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/drafters/colorizers.dart';
 import 'package:bldrs/controllers/drafters/file_formatters.dart';
-import 'package:bldrs/controllers/drafters/flyer_controllers.dart';
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/firestore/auth/auth.dart';
 import 'package:bldrs/firestore/crud/record_ops.dart';
 import 'package:bldrs/models/records/share_model.dart';
-import 'package:bldrs/models/sub_models/link_model.dart';
+import 'package:bldrs/views/widgets/flyer/parts/slides_parts/footer.dart';
+import 'package:bldrs/views/widgets/flyer/parts/slides_parts/slide_headline.dart';
 import 'package:bldrs/views/widgets/textings/super_text_field.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'footer.dart';
-import 'slide_headline.dart';
 
 enum SlideMode {
   View, // when viewing a slide as default
