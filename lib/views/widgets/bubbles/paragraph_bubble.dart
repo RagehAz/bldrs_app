@@ -12,8 +12,8 @@ class ParagraphBubble extends StatelessWidget {
   final String actionBtIcon;
 
   ParagraphBubble({
-    @required this.title,
-    @required this.paragraph,
+    this.title,
+    this.paragraph,
     this.maxLines = 5,
     this.centered = false,
     this.actionBtIcon,
@@ -27,6 +27,7 @@ class ParagraphBubble extends StatelessWidget {
         actionBtIcon: actionBtIcon,
         columnChildren: <Widget>[
 
+          if (paragraph != null)
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: Ratioz.ddAppBarMargin),
             child: SuperVerse(
