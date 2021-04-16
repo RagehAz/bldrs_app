@@ -1,6 +1,5 @@
 import 'package:bldrs/controllers/drafters/text_manipulators.dart';
-import 'package:flutter/foundation.dart';
-import '../flyer_model.dart';
+import 'package:bldrs/models/flyer_model.dart';
 // -----------------------------------------------------------------------------
 class SlideModel {
   final int slideIndex;

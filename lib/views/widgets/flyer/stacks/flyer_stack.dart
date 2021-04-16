@@ -26,7 +26,7 @@ class FlyerStack extends StatelessWidget {
   Widget build(BuildContext context) {
     final FlyersProvider _pro = Provider.of<FlyersProvider>(context, listen: true);
     final List<TinyFlyer> _tinyFlyersOfType = _pro.getTinyFlyersByFlyerType(flyersType);
-    final List<TinyBz> _tinyBzz = _pro.getTinyBzzOfTinyFlyersList(_tinyFlyersOfType);
+    // final List<TinyBz> _tinyBzz = _pro.getTinyBzzOfTinyFlyersList(_tinyFlyersOfType);
 
 // ----------------------------------------------------------------------------
     double _screenWidth = superScreenWidth(context);
@@ -37,7 +37,7 @@ class FlyerStack extends StatelessWidget {
 // ----------------------------------------------------------------------------
     // int _x = 0;
 // ----------------------------------------------------------------------------
-    bool _slidingIsOn = false;
+//     bool _slidingIsOn = false;
 // ----------------------------------------------------------------------------
     return Container(
       width: _screenWidth,

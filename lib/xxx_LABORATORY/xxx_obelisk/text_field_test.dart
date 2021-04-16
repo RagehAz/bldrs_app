@@ -51,16 +51,16 @@ class _TextFieldTestState extends State<TextFieldTest> {
   }
 
 // ---------------------------------------------------------------------------
-  /// --- TEXT DIRECTION BLOCK
-  /// USER LIKE THIS :-
-  /// onChanged: (val){_changeTextDirection();},
-  TextDirection _textDirection;
-  void _changeTextDirection(){
-    setState(() {
-      _textDirection = superTextDirectionSwitcher(_controller.text);
-      x = _controller.text;
-    });
-  }
+//   /// --- TEXT DIRECTION BLOCK
+//   /// USER LIKE THIS :-
+//   /// onChanged: (val){_changeTextDirection();},
+//   TextDirection _textDirection;
+//   void _changeTextDirection(){
+//     setState(() {
+//       _textDirection = superTextDirectionSwitcher(_controller.text);
+//       x = _controller.text;
+//     });
+//   }
 // ---------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

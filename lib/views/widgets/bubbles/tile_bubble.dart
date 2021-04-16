@@ -13,7 +13,7 @@ class TileBubble extends StatelessWidget {
   final Color verseColor;
   final Function btOnTap;
   final String secondLine;
-  bool switchIsOn;
+  final bool switchIsOn;
   final Function switching;
   final bool iconIsBubble;
 

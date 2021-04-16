@@ -1,9 +1,6 @@
 import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/foundation.dart';
-import 'tiny_models/tiny_bz.dart';
-import 'tiny_models/tiny_flyer.dart';
 // -----------------------------------------------------------------------------
 class UserModel {
   final String userID;

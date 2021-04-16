@@ -74,9 +74,9 @@ class TextFieldBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    int titleVerseSize = 2;
-    double actionBtSize = superVerseRealHeight(context, titleVerseSize, 1, null);
-    double actionBtCorner = actionBtSize * 0.4;
+    // int titleVerseSize = 2;
+    // double actionBtSize = superVerseRealHeight(context, titleVerseSize, 1, null);
+    // double actionBtCorner = actionBtSize * 0.4;
     double leadingIconSize = 35;
     double leadingAndFieldSpacing = 5;
     double bubbleClearWidth = superBubbleClearWidth(context);

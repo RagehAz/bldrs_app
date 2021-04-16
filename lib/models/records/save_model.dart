@@ -1,6 +1,5 @@
 import 'package:bldrs/controllers/drafters/text_manipulators.dart';
 import 'package:bldrs/controllers/drafters/timerz.dart';
-import 'package:bldrs/firestore/auth/auth.dart';
 import 'package:flutter/foundation.dart';
 // -----------------------------------------------------------------------------
 class SaveModel with ChangeNotifier{

@@ -10,7 +10,6 @@ import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/firestore/auth/auth.dart';
 import 'package:bldrs/firestore/crud/flyer_ops.dart';
-import 'package:bldrs/firestore/firebase_storage.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
@@ -160,7 +159,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
   // ----------------------------------------------------------------------
   List<SlideMode> _createSlidesModesList(){
     int _listLength = _originalFlyer.slides.length;
-    List<SlideMode> _slidesModesList = new List();;
+    List<SlideMode> _slidesModesList = new List();
 
     for (int i = 0; i<_listLength; i++){
       _slidesModesList.add(SlideMode.Editor);

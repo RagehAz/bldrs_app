@@ -1,7 +1,4 @@
-import 'package:bldrs/models/flyer_model.dart';
-import 'package:bldrs/models/sub_models/slide_model.dart';
 import 'package:flutter/material.dart';
-
 
 class Bolbol{
   final int length;
