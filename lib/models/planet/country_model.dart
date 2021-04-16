@@ -1,5 +1,3 @@
-import 'package:bldrs/controllers/drafters/text_manipulators.dart';
-
 import 'province_model.dart';
 // ---------------------------------------------------------------------------
 class Country{

@@ -1,5 +1,4 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
-import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/models/tiny_models/tiny_user.dart';
 import 'package:flutter/material.dart';
@@ -35,9 +34,9 @@ class MiniHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // === === === === === === === === === === === === === === === === === === ===
-    String _phoneNumber = tinyAuthor.contact;//getAContactValueFromContacts(bz?.bzContacts, ContactType.Phone);
+    // String _phoneNumber = tinyAuthor.contact;//getAContactValueFromContacts(bz?.bzContacts, ContactType.Phone);
     // --- B.LOCALE --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-    String businessLocale = TextGenerator.zoneStringer(context: context, zone: tinyBz?.bzZone,);
+    // String businessLocale = TextGenerator.zoneStringer(context: context, zone: tinyBz?.bzZone,);
     // === === === === === === === === === === === === === === === === === === ===
     return
       GestureDetector(

@@ -16,7 +16,6 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/models/user_model.dart';
-import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/screens/s14_more_screen.dart';
 import 'package:bldrs/views/screens/s15_profile_screen.dart';
 import 'package:bldrs/views/screens/s41_my_bz_screen.dart';
@@ -24,12 +23,10 @@ import 'package:bldrs/views/widgets/buttons/balloons/user_balloon.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_sheet.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart' show Sky;
+import 'package:bldrs/views/widgets/nav_bar/bar_button.dart';
+import 'package:bldrs/views/widgets/nav_bar/bzz_button.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'bar_button.dart';
-import 'bzz_button.dart';
 
 enum BarType{
   min,
@@ -50,10 +47,10 @@ class NavBar extends StatelessWidget {
 });
 // ----------------------------------------------------------------------------
   /// --- MAIN CONTROLS
-  double _circleWidth = 40;
-  double _paddings = Ratioz.ddAppBarPadding * 1.5;
-  double _textScaleFactor = 0.95;
-  int _textSize = 0;
+  final double _circleWidth = 40;
+  final double _paddings = Ratioz.ddAppBarPadding * 1.5;
+  final double _textScaleFactor = 0.95;
+  final int _textSize = 0;
 // ----------------------------------------------------------------------------
   double _calculateButtonWidth(){
     double _buttonWidth =_circleWidth + (_paddings * 0.5 * 2) + (_paddings * 0.5 * 2);
@@ -150,9 +147,9 @@ class NavBar extends StatelessWidget {
     barType == BarType.min || barType == BarType.minWithText ? _paddings :
     barType == BarType.max || barType == BarType.maxWithText ? 0 : 0;
     // -------------------------
-    final _userID = (FirebaseAuth.instance.currentUser)?.uid;
+    // final _userID = (FirebaseAuth.instance.currentUser)?.uid;
     // -------------------------------------------------------------------------
-    FlyersProvider prof = Provider.of<FlyersProvider>(context, listen: true);
+    // FlyersProvider prof = Provider.of<FlyersProvider>(context, listen: true);
 
     bool _deviceIsIOS = DeviceChecker.deviceIsIOS() ? true : false;
 

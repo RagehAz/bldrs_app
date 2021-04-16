@@ -1,8 +1,7 @@
-import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
-import 'in_pyramids_bubble.dart';
 
 class ParagraphBubble extends StatelessWidget {
   final String title;
