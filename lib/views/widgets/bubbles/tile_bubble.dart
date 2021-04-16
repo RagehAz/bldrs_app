@@ -96,12 +96,14 @@ class TileBubble extends StatelessWidget {
                       SuperVerse(
                         verse: secondLine,
                         color: Colorz.WhiteLingerie,
-                        size: 1,
+                        size: 2,
+                        scaleFactor: 0.75,
                         italic: true,
                         shadow: false,
                         maxLines: 10,
                         centered: false,
                         weight: VerseWeight.thin,
+                        margin: 5,
                       ),
 
                     ],
