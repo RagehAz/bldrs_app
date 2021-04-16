@@ -5,7 +5,7 @@ import 'route_names.dart';
 class Nav{
 // === === === === === === === === === === === === === === === === === === ===
   static goToNewScreen (BuildContext context, Widget screen){
-    Navigator.of(context).push(MaterialPageRoute(builder: (_){return screen;},),);
+    Navigator.of(context).push(MaterialPageRoute(builder: (context){return screen;},),);
   }
 // === === === === === === === === === === === === === === === === === === ===
   static goToRoute(BuildContext context, String routezName){
