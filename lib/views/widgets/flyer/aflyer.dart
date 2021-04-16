@@ -19,10 +19,12 @@ import 'package:provider/provider.dart';
 class AFlyer extends StatefulWidget {
   final FlyerModel flyer;
   final double flyerSizeFactor;
+  final Function swipe;
 
   AFlyer({
     @required this.flyer,
     @required this.flyerSizeFactor,
+    this.swipe,
   });
 
   @override
@@ -55,7 +57,10 @@ class _AFlyerState extends State<AFlyer> with AutomaticKeepAliveClientMixin{
   }
 // ---------------------------------------------------------------------------
   void _slidingPages (int slideIndex){
+    print('sliding pages recieved slideIndex :  $slideIndex');
     setState(() {_currentSlideIndex = slideIndex;});
+    print('rebuild parent flyer with _currentSlideIndex : $_currentSlideIndex');
+
   }
 // ---------------------------------------------------------------------------
   Future<void> _tapAnkh(String flyerID, int slideIndex) async {
@@ -146,8 +151,9 @@ class _AFlyerState extends State<AFlyer> with AutomaticKeepAliveClientMixin{
           slides: widget.flyer?.slides,
           flyerZoneWidth: _flyerZoneWidth,
           slidingIsOn: true,
-          sliding: _slidingPages,
+          sliding: (index) => _slidingPages(index),
           currentSlideIndex: _currentSlideIndex,
+          swipeFlyer: widget.swipe,
         ),
 
         if (widget.flyer != null)
