@@ -258,7 +258,7 @@ class FlyerModel with ChangeNotifier{
     FlyerType.Project,
     FlyerType.Craft,
     FlyerType.Equipment,
-    FlyerType.General,
+    // FlyerType.General,
   ];
 // -----------------------------------------------------------------------------
   static List<FlyerState> flyerStatesList = <FlyerState>[

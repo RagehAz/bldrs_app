@@ -85,7 +85,7 @@ static const double horizon = ddPyramidsHeight * 0.4;
 static const double grandHorizon = ddPyramidsHeight;
 // -------------------------------------------------------------------------
 // Durations
-static const Duration slidingDuration = Duration(milliseconds: 600);
+static const Duration slidingDuration = Duration(milliseconds: 400);
 static const Duration fadingDuration = Duration(milliseconds: 150);
 static const Duration slidingAndFadingDuration = Duration(milliseconds: 750);
 // -------------------------------------------------------------------------

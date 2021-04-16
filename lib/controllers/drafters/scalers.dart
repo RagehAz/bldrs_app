@@ -103,3 +103,11 @@ EdgeInsets superInsets(BuildContext context,{double enBottom, double enLeft, dou
   EdgeInsets.only(bottom: _enBottom, left: _enRight, right: _enLeft, top: _enTop);
 }
 // === === === === === === === === === === === === === === === === === === ===
+double superFlyerFooterHeight(double flyerZoneWidth){
+  double _flyerBottomCorners = flyerZoneWidth * Ratioz.xxflyerBottomCorners;
+  double _footerBTMargins = flyerZoneWidth * 0.025; //
+  double _footerBTRadius = _flyerBottomCorners - _footerBTMargins;
+  double _flyerFooterHeight = (2 * _footerBTMargins) + (2 * _footerBTRadius);
+
+  return _flyerFooterHeight;
+}
