@@ -1,6 +1,34 @@
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 // ----------------------------------------------------------------------
+int slideToNextAndGetNewIndex(PageController slidingController, int numberOfSlides, int currentSlide){
+  if (currentSlide+1 == numberOfSlides){
+    print('Can not slide forward');
+    return currentSlide;
+  } else {
+    slidingController.animateToPage(currentSlide + 1,
+        duration: Ratioz.slidingDuration, curve: Curves.easeInOutCirc);
+
+    return currentSlide + 1;
+  }
+}
+// ----------------------------------------------------------------------
+/// this checks if its the first slide, it won't change index and won't slide, otherwise
+/// will slide back and return decreased index
+int slideToBackAndGetNewIndex(PageController slidingController, int currentSlide){
+  if (currentSlide == 0){
+    print('can not slide back');
+    return currentSlide;
+  } else {
+    slidingController.animateToPage(currentSlide - 1,
+        duration: Ratioz.slidingDuration,
+        curve: Curves.easeInOutCirc);
+
+    return currentSlide - 1;
+  }
+
+}
+// ----------------------------------------------------------------------
 void slideToNext(PageController slidingController, int numberOfSlides, int currentSlide){
   slidingController.animateToPage(currentSlide + 1,
       duration: Ratioz.slidingDuration, curve: Curves.easeInOutCirc);

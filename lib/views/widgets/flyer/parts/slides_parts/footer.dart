@@ -55,7 +55,7 @@ class FlyerFooter extends StatelessWidget {
         //     : // * only 1 because it starts from bottom left of the flyer neglecting flyer's left margin from screen boarder kalb
     flyerZoneWidth
     ;
-    double _flyerFooterHeight = (2 * _footerBTMargins) + (2 * _footerBTRadius);
+    double _flyerFooterHeight = superFlyerFooterHeight(_flyerZoneWidth);
     dynamic _flyerFooterColor = Colorz.Nothing;
 
     // --- FLYER FOOTER

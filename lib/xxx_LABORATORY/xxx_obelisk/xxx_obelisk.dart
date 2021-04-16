@@ -19,6 +19,7 @@ import 'package:bldrs/xxx_LABORATORY/forms_and_inputs/popup.dart';
 import 'package:bldrs/xxx_LABORATORY/forms_and_inputs/form.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/text_field_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x03_font_test_screen.dart';
+import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x06_swiper_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x08_earth_screen.dart';
 import 'package:flutter/material.dart';
 import 'aaa_state_test.dart';
@@ -167,7 +168,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
 
           oButton('10 - Font lab', Iconz.Language, FontTestScreen()),
 
-          oButton('12 - Swiper Layout', Iconz.Gallery, SwiperLayout()),
+          oButton('12 - Swiper Layout', Iconz.Gallery, SwiperScreen()),
 
           oButton('13 - FlyersPageView', Iconz.Statistics, FlyersPageView()),
 

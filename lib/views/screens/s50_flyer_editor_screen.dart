@@ -72,7 +72,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
   File _storedImage;
   File _pickedImage;
   // GeoPoint _pickedLocation;
-  PageController slidingController;
+  PageController _slidingController;
   int numberOfSlides;
   List<bool> _slidesVisibility;
   bool onPageChangedIsOn;
@@ -135,7 +135,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
     // -------------------------
     numberOfSlides = _currentSlides.length;
     currentSlide = 0;
-    slidingController = PageController(initialPage: 0,);
+    _slidingController = PageController(initialPage: 0,);
     onPageChangedIsOn = true;
     super.initState();
   }
@@ -252,7 +252,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
       onPageChangedIsOn = false;
       _triggerVisibility(currentSlide);
       Future.delayed(Ratioz.fadingDuration, (){
-        slidingAction(slidingController, numberOfSlides, currentSlide);
+        slidingAction(_slidingController, numberOfSlides, currentSlide);
       });
       _currentSlideMinus();
       numberOfSlides <= 1 ?
@@ -260,7 +260,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
       Future.delayed(
           Ratioz.slidingAndFadingDuration,
               (){
-            if(currentSlide == 0){_simpleDelete(currentSlide);snapTo(slidingController, 0);}
+            if(currentSlide == 0){_simpleDelete(currentSlide);snapTo(_slidingController, 0);}
             else{_simpleDelete(currentSlide);}
             setState(() {
               onPageChangedIsOn = true;
@@ -300,7 +300,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
   //   final fileName = path.basename(_imageFile.path);
   //   final savedImage = await _storedImage.copy('${appDir.path}/$fileName');
   //   _selectImage(savedImage);
-  //   slideTo(slidingController, currentSlide);
+  //   slideTo(_slidingController, currentSlide);
   //   // print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> after _takeCameraPicture');
   // }
   // ----------------------------------------------------------------------
@@ -332,7 +332,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
     final fileName = path.basename(_imageFile.path);
     final savedImage = await _storedImage.copy('${appDir.path}/$fileName');
     _selectImage(savedImage);
-    slideTo(slidingController, currentSlide);
+    slideTo(_slidingController, currentSlide);
     // print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> after _takeGalleryPicture');
   }
   // ----------------------------------------------------------------------
@@ -347,7 +347,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
   //     ));
   //     currentSlide = _currentSlides.length - 1;
   //     numberOfSlides = _currentSlides.length;
-  //     slidingController.animateToPage(currentSlide, duration: Duration(milliseconds: 750), curve: Curves.easeInOutCirc);
+  //     _slidingController.animateToPage(currentSlide, duration: Duration(milliseconds: 750), curve: Curves.easeInOutCirc);
   //     _slidesVisibility.add(true);
   //     slidesModes.add(SlideMode.Editor);
   //   });
@@ -404,7 +404,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
         _titleControllers.add(TextEditingController());
         onPageChangedIsOn = true;
       });
-      slideTo(slidingController, currentSlide);
+      slideTo(_slidingController, currentSlide);
 
     } else {
 
@@ -845,7 +845,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
 
                       // --- SLIDES
                       PageView.builder(
-                        controller: slidingController,
+                        controller: _slidingController,
                         itemCount: _currentSlides.length,
                         onPageChanged: onPageChangedIsOn ? slidingPages : zombie,
                         physics: ClampingScrollPhysics(),
