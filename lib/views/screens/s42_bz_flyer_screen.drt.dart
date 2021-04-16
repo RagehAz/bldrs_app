@@ -10,6 +10,8 @@ import 'package:bldrs/firestore/crud/flyer_ops.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
+import 'package:bldrs/providers/flyers_provider.dart';
+import 'package:bldrs/views/screens/s50_flyer_editor_screen.dart';
 import 'package:bldrs/views/widgets/bubbles/words_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
@@ -18,7 +20,7 @@ import 'package:bldrs/views/widgets/flyer/aflyer.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
-import 's50_flyer_editor_screen.dart';
+import 'package:provider/provider.dart';
 
 class BzFlyerScreen extends StatelessWidget {
   final TinyFlyer tinyFlyer;
@@ -64,7 +66,8 @@ class BzFlyerScreen extends StatelessWidget {
               );
 
               /// remove tinyFlyer from Local list
-
+              FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
+              _prof.removeTinyFlyer(tinyFlyer.flyerID);
 
               /// re-route back
               Nav.goBack(context, argument: true);

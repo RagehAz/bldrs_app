@@ -52,6 +52,12 @@ class FlyersProvider with ChangeNotifier {
     return _followedBzz;
   }
 // ############################################################################
+  void removeTinyFlyer(String flyerID){
+    int _index = _loadedTinyFlyers.indexWhere((tinyFlyer) => tinyFlyer.flyerID == flyerID);
+    _loadedTinyFlyers.removeAt(_index);
+    notifyListeners();
+  }
+
   FlyerModel getFlyerByFlyerID (String flyerID){
     FlyerModel _flyer = _loadedFlyers?.firstWhere((x) => x.flyerID == flyerID, orElse: ()=>null);
     return _flyer;

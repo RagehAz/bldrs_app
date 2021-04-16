@@ -128,13 +128,25 @@ class _MyBzScreenState extends State<MyBzScreen> {
                           flyerZoneWidth: superBubbleClearWidth(context),
                           showFlyers: true,
                           bz: bzModel,
-                          flyerOnTap: (tinyFlyer){
-                            Nav.goToNewScreen(context,
-                              BzFlyerScreen(
-                                tinyFlyer : tinyFlyer,
-                                bzModel: bzModel,
-                              ),
-                            );
+                          flyerOnTap: (tinyFlyer) async {
+
+                            dynamic _rebuild = await Navigator.push(context,
+                            new MaterialPageRoute(
+                                builder: (context) => new BzFlyerScreen(
+                                    tinyFlyer: tinyFlyer,
+                                    bzModel: bzModel,
+                                )
+                            ));
+
+                            if (_rebuild == true){
+                              print('we should rebuild');
+                              setState(() { });
+                            } else if (_rebuild == false){
+                              print('do not rebuild');
+                            } else {
+                              print ('rebuild is null');
+                            }
+
                           },
                         ),
 
