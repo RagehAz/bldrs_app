@@ -699,7 +699,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                 title: '${Wordz.scopeOfServices(context)} :',
                 hintText: '...',
                 counterIsOn: true,
-                maxLength: 193,
+                maxLength: 500,
                 maxLines: 4,
                 keyboardTextInputType: TextInputType.multiline,
                 fieldIsRequired: true,
