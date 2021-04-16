@@ -12,6 +12,7 @@ import 'package:bldrs/models/records/share_model.dart';
 import 'package:bldrs/models/sub_models/link_model.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/views/screens/s40_bz_editor_screen.dart';
+import 'package:bldrs/views/screens/s60_about_bldrs.dart';
 import 'package:bldrs/views/widgets/appbar/buttons/flagbox.dart';
 import 'package:bldrs/views/widgets/bubbles/bubbles_separator.dart';
 import 'package:bldrs/views/widgets/bubbles/tile_bubble.dart';
@@ -82,6 +83,8 @@ class MoreScreen extends StatelessWidget {
             verse: '${Wordz.about(context)} ${Wordz.bldrsShortName(context)}',
             icon: Iconz.PyramidSingleYellow,
             iconSizeFactor: 0.8,
+            btOnTap: () => Nav.goToNewScreen(context, AboutBldrs()),
+
           ),
           TileBubble(
             verse: Wordz.feedback(context),
