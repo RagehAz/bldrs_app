@@ -54,23 +54,23 @@ class _LocalFlyersUploaderState extends State<LocalFlyersUploader> {
     super.initState();
   }
   // ---------------------------------------------------------------------------
-void _doBz(int length, int index, String name, String id){
-    setState(() {
-      _bzzLength = length;
-      _currentBzIndex = index;
-      _currentBzName = name;
-      _currentBzIndex = index;
-    });
-}
+// void _doBz(int length, int index, String name, String id){
+//     setState(() {
+//       _bzzLength = length;
+//       _currentBzIndex = index;
+//       _currentBzName = name;
+//       _currentBzIndex = index;
+//     });
+// }
 // ---------------------------------------------------------------------------
-  void _doFlyer(int length, int index, String title, String id){
-    setState(() {
-      _flyersLength = length;
-      _currentFlyerIndex = index;
-      _currentFlyerTitle = title;
-      _currentFlyerIndex = index;
-    });
-  }
+//   void _doFlyer(int length, int index, String title, String id){
+//     setState(() {
+//       _flyersLength = length;
+//       _currentFlyerIndex = index;
+//       _currentFlyerTitle = title;
+//       _currentFlyerIndex = index;
+//     });
+//   }
   // ---------------------------------------------------------------------------
 
 //   Future<void> _upload(UserModel userModel) async {
@@ -256,37 +256,37 @@ void _doBz(int length, int index, String name, String id){
 //
 // }
   // ---------------------------------------------------------------------------
-  Future<void> _fixUserBzzIDsList() async {
-
-  /// add _bzID to users existing list
-  List<dynamic> _userBzzIDs = await getFireStoreDocumentField(
-    collectionName: FireCollection.users,
-    documentName: superUserID(),
-    fieldName: 'myBzzIDs',
-  );
-  List<String> _finalBzzIDsList = new List();
-
-  _userBzzIDs.forEach((id) {
-    if (_finalBzzIDsList.contains(id)){
-      print('skip $id');
-    } else {
-      _finalBzzIDsList.add(id);
-    }
-  });
-
-
-  await updateFieldOnFirestore(
-      context: context,
-      collectionName: FireCollection.users,
-      documentName: _userID,
-      field: 'myBzzIDs',
-      input: _finalBzzIDsList,
-  );
-
-  setState(() {});
-
-  await superDialog(context, 'Congratulations', 'Great');
-}
+//   Future<void> _fixUserBzzIDsList() async {
+//
+//   /// add _bzID to users existing list
+//   List<dynamic> _userBzzIDs = await getFireStoreDocumentField(
+//     collectionName: FireCollection.users,
+//     documentName: superUserID(),
+//     fieldName: 'myBzzIDs',
+//   );
+//   List<String> _finalBzzIDsList = new List();
+//
+//   _userBzzIDs.forEach((id) {
+//     if (_finalBzzIDsList.contains(id)){
+//       print('skip $id');
+//     } else {
+//       _finalBzzIDsList.add(id);
+//     }
+//   });
+//
+//
+//   await updateFieldOnFirestore(
+//       context: context,
+//       collectionName: FireCollection.users,
+//       documentName: _userID,
+//       field: 'myBzzIDs',
+//       input: _finalBzzIDsList,
+//   );
+//
+//   setState(() {});
+//
+//   await superDialog(context, 'Congratulations', 'Great');
+// }
 
 
   @override

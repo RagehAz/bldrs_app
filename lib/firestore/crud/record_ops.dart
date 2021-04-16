@@ -1,16 +1,10 @@
-import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/firestore/auth/auth.dart';
 import 'package:bldrs/firestore/firestore.dart';
-import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/records/call_model.dart';
 import 'package:bldrs/models/records/follow_model.dart';
 import 'package:bldrs/models/records/save_model.dart';
 import 'package:bldrs/models/records/share_model.dart';
-import 'package:bldrs/models/tiny_models/tiny_bz.dart';
-import 'package:bldrs/providers/flyers_provider.dart';
-import 'package:bldrs/providers/users_provider.dart';
 import 'package:flutter/material.dart';
-import 'flyer_ops.dart';
 
 class RecordCRUD{
 // ---------------------------------------------------------------------------

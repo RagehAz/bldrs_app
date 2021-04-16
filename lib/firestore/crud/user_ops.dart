@@ -146,10 +146,10 @@ class UserCRUD{
   }
 // ---------------------------------------------------------------------------
   /// delete user document and its consequences
-  Future<void> _deleteUserDoc(String userID) async {
-    final DocumentReference _userDocument = userDocRef(userID);
-    await _userDocument.delete();
-  }
+  // Future<void> _deleteUserDoc(String userID) async {
+  //   final DocumentReference _userDocument = userDocRef(userID);
+  //   await _userDocument.delete();
+  // }
 // ---------------------------------------------------------------------------
   /// delete all user related data
   Future<void> deleteUserOps(String userID) async {

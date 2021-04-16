@@ -51,7 +51,7 @@ int _fadeCycleDuration = 750;
       _controller.forward();
     }
 
-    final _user = Provider.of<UserModel>(context);
+    // final _user = Provider.of<UserModel>(context);
 
     return Positioned(
       bottom: 0,

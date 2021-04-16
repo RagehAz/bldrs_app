@@ -1,6 +1,4 @@
-import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
@@ -8,7 +6,6 @@ import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/models/tiny_models/tiny_user.dart';
 import 'package:bldrs/views/widgets/flyer/grids/gallery_grid.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/common_parts/author_label.dart';
-import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class Gallery extends StatefulWidget {

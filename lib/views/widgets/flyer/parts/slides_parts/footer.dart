@@ -29,7 +29,7 @@ class FlyerFooter extends StatelessWidget {
     // === === === === === === === === === === === === === === === === === === === === === === === === === === === ===
 
     // ----------------------------------------------------------------------
-    double _screenWidth = superScreenWidth(context);
+    // double _screenWidth = superScreenWidth(context);
 
     double _flyerZoneWidth = flyerZoneWidth;
     double _flyerBottomCorners = flyerZoneWidth * Ratioz.xxflyerBottomCorners;

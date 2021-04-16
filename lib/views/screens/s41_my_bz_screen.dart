@@ -1,17 +1,12 @@
-import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/streamerz.dart';
 import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
-import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
-import 'package:bldrs/firestore/auth/auth.dart';
 import 'package:bldrs/models/bz_model.dart';
-import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
-import 'package:bldrs/models/tiny_models/tiny_user.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/views/screens/s40_bz_editor_screen.dart';
 import 'package:bldrs/views/screens/s42_bz_flyer_screen.drt.dart';
@@ -42,11 +37,11 @@ class _MyBzScreenState extends State<MyBzScreen> {
 // ---------------------------------------------------------------------------
   /// --- LOADING BLOCK
   bool _loading = false;
-  void _triggerLoading(){
-    setState(() {_loading = !_loading;});
-    _loading == true?
-    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
-  }
+  // void _triggerLoading(){
+  //   setState(() {_loading = !_loading;});
+  //   _loading == true?
+  //   print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+  // }
 // ---------------------------------------------------------------------------
   @override
   void initState() {

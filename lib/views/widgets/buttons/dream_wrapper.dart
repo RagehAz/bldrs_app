@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'dream_box.dart';
 
 class DreamWrapper extends StatelessWidget {
-  List<String> verses;
-  List<String> icons;
+  final List<String> verses;
+  final List<String> icons;
   final double spacing;
   final double buttonHeight;
   final Function onTap;

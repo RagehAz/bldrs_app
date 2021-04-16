@@ -1,12 +1,9 @@
 import 'package:bldrs/controllers/drafters/streamerz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
-import 'package:bldrs/models/bz_model.dart';
-import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/widgets/flyer/aflyer.dart';
-import 'package:bldrs/views/widgets/flyer/flyer.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +20,7 @@ class FlyersPageView extends StatelessWidget {
   Widget build(BuildContext context) {
     final FlyersProvider pro = Provider.of<FlyersProvider>(context, listen: false);
     final List<TinyFlyer> _tinyFlyers = pro.getAllTinyFlyers;
-    final List<TinyBz> bzz = pro.getTinyBzzOfTinyFlyersList(_tinyFlyers);
+    // final List<TinyBz> bzz = pro.getTinyBzzOfTinyFlyersList(_tinyFlyers);
 
     return MainLayout(
       pyramids: Iconz.DvBlankSVG,
