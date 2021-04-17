@@ -1,11 +1,9 @@
 import 'package:bldrs/controllers/drafters/streamerz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
-import 'package:bldrs/firestore/auth/auth.dart';
 import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
-import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/widgets/flyer/aflyer.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
@@ -69,7 +67,7 @@ class _FlyersSizesScreenState extends State<FlyersSizesScreen> {
 
         /// uploading flyers 27, 28, 29
 
-        List<dynamic> _allFlyersMaps = await getFireCollectionMaps(FireCollection.flyers);
+        List<dynamic> _allFlyersMaps = await Fire.readCollectionDocs(FireCollection.flyers);
         List<FlyerModel> _allFlyers = FlyerModel.decipherFlyersMapsFromFireStore(_allFlyersMaps);
 
         List<FlyerModel> _flyersOfHanySaad = new List();
@@ -87,12 +85,12 @@ class _FlyersSizesScreenState extends State<FlyersSizesScreen> {
           _hanyTinyFlyers.add(_tinyFlyer);
         });
 
-        await updateFieldOnFirestore(
+        await Fire.updateDocField(
           context: context,
-          collectionName: FireCollection.bzz,
-          documentName: _hanyBzID,
-          input: TinyFlyer.cipherTinyFlyers(_hanyTinyFlyers),
+          collName: FireCollection.bzz,
+          docName: _hanyBzID,
           field: 'bzFlyers',
+          input: TinyFlyer.cipherTinyFlyers(_hanyTinyFlyers),
         );
 
         print('done');

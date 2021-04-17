@@ -63,10 +63,10 @@ class FlyersProvider with ChangeNotifier {
   Future<void> fetchAndSetSponsors(BuildContext context) async {
 
     /// 1 - get sponsors map from db/admin/sponsors
-    Map<String, dynamic> _sponsorsIDsMap = await getFireStoreDocumentMap(
+    Map<String, dynamic> _sponsorsIDsMap = await Fire.readDoc(
       context: context,
-      collectionName: FireCollection.admin,
-      documentName: AdminDoc.sponsors,
+      collName: FireCollection.admin,
+      docName: AdminDoc.sponsors,
     );
 
     /// 2 - transform sponsors map into list<String>
@@ -88,10 +88,10 @@ class FlyersProvider with ChangeNotifier {
   Future<void> fetchAndSetUserTinyBzz(BuildContext context) async {
     String _userID = superUserID();
 
-    Map<String, dynamic> _userMap = await getFireStoreDocumentMap(
+    Map<String, dynamic> _userMap = await Fire.readDoc(
       context: context,
-      collectionName: FireCollection.users,
-      documentName: _userID,
+      collName: FireCollection.users,
+      docName: _userID,
     );
 
     UserModel _userModel = UserModel.decipherUserMap(_userMap);
@@ -101,10 +101,10 @@ class FlyersProvider with ChangeNotifier {
     List<TinyBz> _userTinyBzzList = new List();
 
     for (var id in _userBzzIDs){
-      dynamic _tinyBzMap = await getFireStoreDocumentMap(
+      dynamic _tinyBzMap = await Fire.readDoc(
         context: context,
-        collectionName: FireCollection.tinyBzz,
-        documentName: id,
+        collName: FireCollection.tinyBzz,
+        docName: id,
       );
 
       if (_tinyBzMap != null){
@@ -164,7 +164,7 @@ class FlyersProvider with ChangeNotifier {
         functions: () async {
 
           /// READ data from cloud Firestore bzz collection
-          List<dynamic> _fireStoreTinyBzzMaps = await getFireCollectionMaps(FireCollection.tinyBzz);
+          List<dynamic> _fireStoreTinyBzzMaps = await Fire.readCollectionDocs(FireCollection.tinyBzz);
           final List<TinyBz> _fireStoreTinyBzzModels = TinyBz.decipherTinyBzzMaps(_fireStoreTinyBzzMaps);
 
           /// TASK : BOOMMM : should be _loadedTinyBzz = _fireStoreTinyBzzModels,, but this bom bom crash crash
@@ -172,7 +172,7 @@ class FlyersProvider with ChangeNotifier {
           _loadedTinyBzz = _fireStoreTinyBzzModels;
 
           /// READ data from cloud Firestore flyers collection
-          List<dynamic> _fireStoreTinyFlyersMaps = await getFireCollectionMaps(FireCollection.tinyFlyers);
+          List<dynamic> _fireStoreTinyFlyersMaps = await Fire.readCollectionDocs(FireCollection.tinyFlyers);
           final List<TinyFlyer> _fireStoreTinyFlyersModels = TinyFlyer.decipherTinyFlyersMaps(_fireStoreTinyFlyersMaps);
 
           /// TASK : after migrating local flyers to firestore, _loadedTinyFlyers = _fireStoreTinyFlyersModels;;
@@ -196,6 +196,12 @@ class FlyersProvider with ChangeNotifier {
   void removeTinyBzFromLocalList(String bzID){
     int _index = _loadedTinyBzz.indexWhere((tinyBz) => tinyBz.bzID == bzID);
     _loadedTinyBzz.removeAt(_index);
+    notifyListeners();
+  }
+// ---------------------------------------------------------------------------
+  void removeTinyBzFromUserTinyBzz(String bzID){
+    int _index = _userTinyBzz.indexWhere((tinyBz) => tinyBz.bzID == bzID);
+    _userTinyBzz.removeAt(_index);
     notifyListeners();
   }
 // ---------------------------------------------------------------------------
@@ -357,10 +363,22 @@ return bzz;
     notifyListeners();
   }
 // ############################################################################
-  void updateTinyBzInLocalList(TinyBz modifiedTinyBzModel){
-    int _indexOfOldTinyBzModel = _loadedTinyBzz.indexWhere((bz) => modifiedTinyBzModel.bzID == bz.bzID);
-    _loadedTinyBzz.removeAt(_indexOfOldTinyBzModel);
-    _loadedTinyBzz.insert(_indexOfOldTinyBzModel, modifiedTinyBzModel);
+  void addTinyBzToUserTinyBzz(TinyBz tinyBz){
+    _userTinyBzz.add(tinyBz);
+    notifyListeners();
+  }
+// ############################################################################
+  void updateTinyBzInLocalList(TinyBz modifiedTinyBz){
+    int _indexOfOldTinyBz = _loadedTinyBzz.indexWhere((bz) => modifiedTinyBz.bzID == bz.bzID);
+    _loadedTinyBzz.removeAt(_indexOfOldTinyBz);
+    _loadedTinyBzz.insert(_indexOfOldTinyBz, modifiedTinyBz);
+    notifyListeners();
+  }
+// ############################################################################
+  void updateTinyBzInUserTinyBzz(TinyBz modifiedTinyBz){
+    int _indexOfOldTinyBz = _userTinyBzz.indexWhere((bz) => modifiedTinyBz.bzID == bz.bzID);
+    _userTinyBzz.removeAt(_indexOfOldTinyBz);
+    _userTinyBzz.insert(_indexOfOldTinyBz, modifiedTinyBz);
     notifyListeners();
   }
 // ############################################################################
@@ -498,7 +516,7 @@ return bzz;
 }
 // === === === === === === === === === === === === === === === === === === ===
   Future<void> deleteBzDocument(BzModel bzModel) async {
-  DocumentReference _bzDocument = getFirestoreDocumentReference(FireCollection.bzz, bzModel.bzID);
+  DocumentReference _bzDocument = Fire.getDocRef(FireCollection.bzz, bzModel.bzID);
   await _bzDocument.delete();
 }
 // === === === === === === === === === === === === === === === === === === ===
@@ -517,21 +535,21 @@ return bzz;
 // === === === === === === === === === === === === === === === === === === ===
   /// get flyer doc stream
   Stream<FlyerModel> getFlyerStream(String flyerID) {
-    Stream<DocumentSnapshot> _flyerSnapshot = getFirestoreDocumentSnapshots(FireCollection.flyers, flyerID);
+    Stream<DocumentSnapshot> _flyerSnapshot = Fire.streamDoc(FireCollection.flyers, flyerID);
     Stream<FlyerModel> _flyerStream = _flyerSnapshot.map(_flyerModelFromSnapshot);
     return _flyerStream;
   }
 // ---------------------------------------------------------------------------
   /// get bz doc stream
   Stream<BzModel> getBzStream(String bzID) {
-    Stream<DocumentSnapshot> _bzSnapshot = getFirestoreDocumentSnapshots(FireCollection.bzz, bzID);
+    Stream<DocumentSnapshot> _bzSnapshot = Fire.streamDoc(FireCollection.bzz, bzID);
     Stream<BzModel> _bzStream = _bzSnapshot.map(_bzModelFromSnapshot);
     return _bzStream;
   }
 // ---------------------------------------------------------------------------
   /// get bz doc stream
   Stream<TinyBz> getTinyBzStream(String bzID) {
-    Stream<DocumentSnapshot> _bzSnapshot = getFirestoreDocumentSnapshots(FireCollection.tinyBzz, bzID);
+    Stream<DocumentSnapshot> _bzSnapshot = Fire.streamDoc(FireCollection.tinyBzz, bzID);
     Stream<TinyBz> _tinyBzStream = _bzSnapshot.map(_tinyBzModelFromSnapshot);
     return _tinyBzStream;
   }
@@ -562,7 +580,7 @@ return bzz;
         functions: () async {
 
           /// READ data from cloud Firestore bzz collection
-          List<QueryDocumentSnapshot> _fireStoreBzzMaps = await getFireCollectionMaps(FireCollection.bzz);
+          List<QueryDocumentSnapshot> _fireStoreBzzMaps = await Fire.readCollectionDocs(FireCollection.bzz);
           final List<BzModel> _fireStoreBzzModels = BzModel.decipherBzzMapsFromFireStore(_fireStoreBzzMaps);
 
           /// TASK : BOOMMM : should be _loadedBzz = _loadedBzzFromDB,, but this bom bom crash crash
@@ -570,7 +588,7 @@ return bzz;
           _loadedBzz = _fireStoreBzzModels;
 
           /// READ data from cloud Firestore flyers collection
-          List<QueryDocumentSnapshot> _fireStoreFlyersMaps = await getFireCollectionMaps(FireCollection.flyers);
+          List<QueryDocumentSnapshot> _fireStoreFlyersMaps = await Fire.readCollectionDocs(FireCollection.flyers);
           final List<FlyerModel> _fireStoreFlyersModels = FlyerModel.decipherFlyersMapsFromFireStore(_fireStoreFlyersMaps);
 
          /// TASK : after migrating local flyers to firestore, _loadedFlyers should = _fireStoreFlyersModels;

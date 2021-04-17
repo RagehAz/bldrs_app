@@ -81,7 +81,45 @@ class _MyBzScreenState extends State<MyBzScreen> {
       child: Column(
         children: <Widget>[
 
-          // --- DEACTIVATE FLYER
+          // --- DELETE BZ ACCOUNT AND ITS DECENDENTS
+          DreamBox(
+            height: 50,
+            width: BottomSlider.bottomSheetClearWidth(context),
+            icon: Iconz.XSmall,
+            iconSizeFactor: 0.5,
+            iconColor: Colorz.BloodRed,
+            verse: 'DELETE Business Account',
+            verseScaleFactor: 1.2,
+            verseColor: Colorz.BloodRed,
+            // verseWeight: VerseWeight.thin,
+            boxFunction: () async {
+
+              Nav.goBack(context);
+
+              /// Task : this should be bool dialog instead
+              await superDialog(context, 'You will never get this back ever', 'DELETING ACCOUNT');
+
+              /// start delete bz ops
+              await BzCRUD().deleteBzOps(
+                context: context,
+                bzModel: bzModel,
+              );
+
+              /// remove tinyBz from Local list
+              FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
+              _prof.removeTinyBzFromLocalList(bzModel.bzID);
+
+              /// remove tinyBz from userTinyBzz
+              _prof.removeTinyBzFromUserTinyBzz(bzModel.bzID);
+
+
+              /// re-route back
+              Nav.goBack(context, argument: true);
+            },
+
+          ),
+
+          // --- DEACTIVATE BZ  ACCOUNT
           DreamBox(
             height: 50,
             width: BottomSlider.bottomSheetClearWidth(context),
@@ -108,6 +146,9 @@ class _MyBzScreenState extends State<MyBzScreen> {
               /// remove tinyBz from Local list
               FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
               _prof.removeTinyBzFromLocalList(bzModel.bzID);
+
+              /// remove tinyBz from userTinyBzz
+              _prof.removeTinyBzFromUserTinyBzz(bzModel.bzID);
 
               /// re-route back
               Nav.goBack(context, argument: true);

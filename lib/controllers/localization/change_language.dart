@@ -10,10 +10,10 @@ Future<void> changeAppLanguage(BuildContext context, String code) async {
   BldrsApp.setLocale(context, _temp);
 
   if (superUserID() != null){
-    await updateFieldOnFirestore(
+    await Fire.updateDocField(
       context: context,
-      collectionName: FireCollection.users,
-      documentName: superUserID(),
+      collName: FireCollection.users,
+      docName: superUserID(),
       field: 'language',
       input: code,
     );
