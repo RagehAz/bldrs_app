@@ -89,10 +89,10 @@ class UserProvider{
   }
 // ---------------------------------------------------------------------------
 Future<UserModel> getUserModel(BuildContext context, String userID) async {
-  Map<String, dynamic> _userMap = await getFireStoreDocumentMap(
+  Map<String, dynamic> _userMap = await Fire.readDoc(
     context: context,
-    collectionName: FireCollection.users,
-    documentName: userID,
+    collName: FireCollection.users,
+    docName: userID,
   );
   UserModel _userModel = UserModel.decipherUserMap(_userMap);
   return _userModel;
@@ -101,11 +101,11 @@ Future<UserModel> getUserModel(BuildContext context, String userID) async {
 
 Future<dynamic> getSavedFlyersIDs(BuildContext context) async {
 
-    Map<String, dynamic> _savedFlyersMap = await getFireStoreSubDocument(
+    Map<String, dynamic> _savedFlyersMap = await Fire.readSubDoc(
       context: context,
-      collectionName: FireCollection.users,
+      collName: FireCollection.users,
       docName: userID,
-      subCollectionName: FireCollection.subUserSaves,
+      subCollName: FireCollection.subUserSaves,
       subDocName: FireCollection.flyers,
     );
 

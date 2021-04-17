@@ -119,7 +119,7 @@ class _FlyersGridState extends State<FlyersGrid> {
               crossAxisSpacing: gridSpacing,
               mainAxisSpacing: gridSpacing,
               childAspectRatio: 1 / Ratioz.xxflyerZoneHeight,
-              maxCrossAxisExtent: gridFlyerWidth,//gridFlyerWidth,
+              maxCrossAxisExtent: gridFlyerWidth,
             ),
               children: <Widget>[
 

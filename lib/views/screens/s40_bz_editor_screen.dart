@@ -82,7 +82,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   String _currentAuthorPicURL;
   TextEditingController _authorTitleTextController = TextEditingController();
   List<ContactModel> _currentAuthorContacts;
-// ---------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------
   /// --- LOADING BLOCK
   bool _loading = false;
   void _triggerLoading(){
@@ -90,8 +90,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
     _loading == true?
     print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
   }
-// ---------------------------------------------------------------------------
-
+  // ---------------------------------------------------------------------------
   void initState(){
     // -------------------------
     _prof = Provider.of<FlyersProvider>(context, listen: false);
@@ -127,7 +126,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
     // -------------------------
     super.initState();
   }
-  // ----------------------------------------------------------------------
+  // ---------------------------------------------------------------------------
   @override
   void dispose() {
     if (textControllerHasNoValue(_bzNameTextController))_bzNameTextController.dispose();
@@ -137,7 +136,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
     if (textControllerHasNoValue(_authorTitleTextController))_authorTitleTextController.dispose();
     super.dispose();
   }
-  // ----------------------------------------------------------------------
+  // ---------------------------------------------------------------------------
   void _showBzCard (){
     setState(() {});
 
@@ -185,7 +184,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
     );
 
   }
-  // ----------------------------------------------------------------------
+  // ---------------------------------------------------------------------------
   void _selectASection(int index){
     setState(() {
       _currentSection = bldrsSectionsList[index];
@@ -196,7 +195,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
           _bzTypeInActivityList;
     });
   }
-  // ----------------------------------------------------------------------
+  // ---------------------------------------------------------------------------
   void _selectBzType(int index){
       setState(() {
         _currentBzType = BzModel.bzTypesList[index];
@@ -212,7 +211,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         // _currentBz.bzType = _currentBzType;
       });
   }
-  // ----------------------------------------------------------------------
+  // ---------------------------------------------------------------------------
   void _createBzTypeInActivityList(){
     if(widget.firstTimer){
       setState(() {
@@ -226,7 +225,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
       _bzTypeInActivityList;
     }
   }
-  // ----------------------------------------------------------------------
+  // ---------------------------------------------------------------------------
   void _createBzFormInActivityLst(){
     if (widget.firstTimer){
       setState(() {
@@ -244,17 +243,17 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
       _bzFormInActivityList;
     }
   }
-  // ----------------------------------------------------------------------
+  // ---------------------------------------------------------------------------
   Future<void> _takeBzLogo() async {
     final _imageFile = await takeGalleryPicture(PicType.bzLogo);
     setState(() {_currentBzLogoFile = _imageFile;});
   }
-  // ----------------------------------------------------------------------
+  // ---------------------------------------------------------------------------
   Future<void> _takeAuthorPicture() async {
     final _imageFile = await takeGalleryPicture(PicType.authorPic);
     setState(() {_currentAuthorPicFile = File(_imageFile.path);});
   }
-  // ----------------------------------------------------------------------
+  // ---------------------------------------------------------------------------
   // Future<BzModel> _createBzModel(UserModel user) async {
   //   // -------------------------------------
   //   /// TASK : SHOULD USE bzID as logoFile name in fire storage
@@ -335,7 +334,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   //     bzFlyers: widget.firstTimer ? [] : widget.bzModel.bzFlyers,
   //   );
   // }
-  // ----------------------------------------------------------------------
+  // ---------------------------------------------------------------------------
   // Future <void> _confirmBz(BuildContext context, FlyersProvider pro, UserModel userModel) async {
   //   /// any change hs happened to allow this function in first place, otherwise, confirm button must be inactive
   //   /// then we need to validate
@@ -378,7 +377,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   //   _triggerLoading();
   //
   // }
-  // ----------------------------------------------------------------------
+  // ---------------------------------------------------------------------------
   // Future<void> _deleteBzProfile(BuildContext context, FlyersProvider pro, UserModel userModel) async {
   //   _triggerLoading();
   //   try { await pro.deleteBz(_bzID, userModel); }
@@ -409,8 +408,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   //   }
   //
   // }
-  // ----------------------------------------------------------------------
-  // ----------------------------------------------------------------------
+  // ---------------------------------------------------------------------------
   /// TASK : create bzEditors validators for bubbles instead of this basic null checker
   /// TASK : need to validate inputs creating new bz
   bool _inputsAreValid(){
@@ -445,7 +443,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
     /// TASK : temp bzEditor validator = true
     return true;
     }
-  // ----------------------------------------------------------------------
+  // ---------------------------------------------------------------------------
   /// create new bzModel with current data and start createBzOps
   Future<void> _createNewBz() async {
     /// assert that all required fields are added and valid
@@ -511,9 +509,12 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
           userModel: widget.userModel
       );
 
-      /// add the final _bzModel to local list and notifyListeners
+      /// add the final tinyBz to local list and notifyListeners
       TinyBz _tinyBz = TinyBz.getTinyBzFromBzModel(_bzModel);
       _prof.addTinyBzToLocalList(_tinyBz);
+
+      /// add the final tinyBz to _userTinyBzz
+      _prof.addTinyBzToUserTinyBzz(_tinyBz);
 
       _triggerLoading();
 
@@ -524,7 +525,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
     }
 
   }
-  // ----------------------------------------------------------------------
+  // ---------------------------------------------------------------------------
   /// create updated bzModel with changed data and start updateBzOps
   Future<void> _updateExistingBz() async {
 
@@ -594,6 +595,9 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
       TinyBz _tinyBz = TinyBz.getTinyBzFromBzModel(_finalBzModel);
       _prof.updateTinyBzInLocalList(_tinyBz);
 
+      /// update tinyBz in local list of _userTinyBz
+      _prof.updateTinyBzInUserTinyBzz(_tinyBz);
+
       _triggerLoading();
 
       await superDialog(context, 'Successfully updated your Business Account ', 'Great !');
@@ -603,7 +607,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
     }
 
     }
-  // ----------------------------------------------------------------------
+  // ---------------------------------------------------------------------------
   Future<void> _confirmButton() async {
     // TASK : create bool dialog and use it here before confirming bz edits in bzEditor
     // temp solution here below to just notify
@@ -614,14 +618,14 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
       }
 
   }
-  // ----------------------------------------------------------------------
+  // ---------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     Widget _separator = BubblesSeparator();
 
-    String _bzAboutBubbleTitle =
-    Wordz.about(context);
+    String _bzAboutBubbleTitle = Wordz.about(context);
+
     // _bzNameTextController.text == null || _bzNameTextController.text == '' ?
     // '${Wordz.about(context)} ${Wordz.yourBusiness(context)}' :
     // '${Wordz.about(context)} ${_bzNameTextController.text}';
@@ -811,6 +815,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
               ],
             ),
           ),
+
         ],
       ),
     );

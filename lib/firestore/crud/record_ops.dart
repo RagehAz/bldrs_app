@@ -11,11 +11,11 @@ class RecordCRUD{
   static Future<List<SaveModel>> readUserSavesOps(BuildContext context) async {
 
     /// 1 - read db/users/userID/saves/flyers and return its map
-    Map<String, dynamic> _userSavesMap = await getFireStoreSubDocument(
+    Map<String, dynamic> _userSavesMap = await Fire.readSubDoc(
       context: context,
-      collectionName: FireCollection.users,
+      collName: FireCollection.users,
       docName: superUserID(),
-      subCollectionName: FireCollection.subUserSaves,
+      subCollName: FireCollection.subUserSaves,
       subDocName: FireCollection.flyers,
     );
 
@@ -43,11 +43,11 @@ class RecordCRUD{
     List<SaveModel> _updatedUserSavesModel = SaveModel.editSavesModels(_userSavesModels, flyerID, slideIndex);
 
     /// 3 - update sub doc with new SavesTopMap in db/flyers/flyerID/saves
-    await insertFireStoreSubDocument(
+    await Fire.createNamedSubDoc(
       context: context,
-      collectionName: FireCollection.users,
+      collName: FireCollection.users,
       docName: userID,
-      subCollectionName: FireCollection.subUserSaves,
+      subCollName: FireCollection.subUserSaves,
       subDocName: FireCollection.flyers,
       input: await SaveModel.cipherSavesModelsToUser(_updatedUserSavesModel),
     );
@@ -58,11 +58,11 @@ class RecordCRUD{
     SaveModel _flyerSaveModel = _updatedUserSavesModel.singleWhere((save) => save.flyerID == flyerID);
 
     /// 2 - override flyer save sub document
-    await insertFireStoreSubDocument(
+    await Fire.createNamedSubDoc(
       context: context,
-      collectionName: FireCollection.flyers,
+      collName: FireCollection.flyers,
       docName: flyerID,
-      subCollectionName: FireCollection.subFlyerSaves,
+      subCollName: FireCollection.subFlyerSaves,
       subDocName: userID,
       input: _flyerSaveModel.toFlyerSaveMap(),
     );
@@ -71,11 +71,11 @@ class RecordCRUD{
 // ---------------------------------------------------------------------------
   static Future<ShareModel> readFlyerShareOps({BuildContext context, String flyerID, String userID}) async {
 
-    Map<String, dynamic> _userShareMap = await getFireStoreSubDocument(
+    Map<String, dynamic> _userShareMap = await Fire.readSubDoc(
       context: context,
-      collectionName: FireCollection.flyers,
+      collName: FireCollection.flyers,
       docName: flyerID,
-      subCollectionName: FireCollection.subFlyerShares,
+      subCollName: FireCollection.subFlyerShares,
       subDocName: userID,
     );
 
@@ -97,11 +97,11 @@ class RecordCRUD{
     ShareModel _updatedShareModel = ShareModel.addToShareModel(_existingShareModel, slideIndex);
 
     /// add new share model into dc/flyers/flyerID/shares/userID
-    await insertFireStoreSubDocument(
+    await Fire.createNamedSubDoc(
       context: context,
-      collectionName: FireCollection.flyers,
+      collName: FireCollection.flyers,
       docName: flyerID,
-      subCollectionName: FireCollection.subFlyerShares,
+      subCollName: FireCollection.subFlyerShares,
       subDocName: userID,
       input: _updatedShareModel.toMap(),
     );
@@ -113,11 +113,11 @@ class RecordCRUD{
   static Future<List<String>> readUserFollowsOps(BuildContext context) async {
 
     /// 1 - read db/users/userID/saves/bzz and return its map
-    Map<String, dynamic> _userFollowsMap = await getFireStoreSubDocument(
+    Map<String, dynamic> _userFollowsMap = await Fire.readSubDoc(
       context: context,
-      collectionName: FireCollection.users,
+      collName: FireCollection.users,
       docName: superUserID(),
-      subCollectionName: FireCollection.subUserSaves,
+      subCollName: FireCollection.subUserSaves,
       subDocName: FireCollection.bzz,
     );
 
@@ -132,11 +132,11 @@ class RecordCRUD{
   static Future<FollowModel> readBzFollowOps(BuildContext context,String bzID, String userID) async {
 
     /// 1 - read db/bzz/bzID/follows/userID and return its map
-    Map<String, dynamic> _userFollowMap = await getFireStoreSubDocument(
+    Map<String, dynamic> _userFollowMap = await Fire.readSubDoc(
       context: context,
-      collectionName: FireCollection.bzz,
+      collName: FireCollection.bzz,
       docName: bzID,
-      subCollectionName: FireCollection.subBzFollows,
+      subCollName: FireCollection.subBzFollows,
       subDocName: userID,
     );
 
@@ -159,11 +159,11 @@ class RecordCRUD{
     List<String> _updatedFollowedBzzIDs = FollowModel.editFollows(_userFollowedBzzIDs, bzID);
 
     /// 3 - update sub doc with new SavesTopMap in db/flyers/flyerID/saves
-    await insertFireStoreSubDocument(
+    await Fire.createNamedSubDoc(
       context: context,
-      collectionName: FireCollection.users,
+      collName: FireCollection.users,
       docName: userID,
-      subCollectionName: FireCollection.subUserSaves,
+      subCollName: FireCollection.subUserSaves,
       subDocName: FireCollection.bzz,
       input: FollowModel.cipherUserFollows(_updatedFollowedBzzIDs),
     );
@@ -177,11 +177,11 @@ class RecordCRUD{
     FollowModel _updatedFollowModel = FollowModel.editFollowModel(_existingFollowModel);
 
     /// 3 - override bz follow sub document
-    await insertFireStoreSubDocument(
+    await Fire.createNamedSubDoc(
       context: context,
-      collectionName: FireCollection.bzz,
+      collName: FireCollection.bzz,
       docName: bzID,
-      subCollectionName: FireCollection.subBzFollows,
+      subCollName: FireCollection.subBzFollows,
       subDocName: userID,
       input: _updatedFollowModel.toMap(),
     );
@@ -192,11 +192,11 @@ class RecordCRUD{
   static Future<CallModel> readCallModelOps({BuildContext context, String bzID, String userID}) async {
 
     /// 1 - read db/bzz/bzID/calls/userID and return its map
-    Map<String, dynamic> _userCallMap = await getFireStoreSubDocument(
+    Map<String, dynamic> _userCallMap = await Fire.readSubDoc(
       context: context,
-      collectionName: FireCollection.bzz,
+      collName: FireCollection.bzz,
       docName: bzID,
-      subCollectionName: FireCollection.subBzCalls,
+      subCollName: FireCollection.subBzCalls,
       subDocName: userID,
     );
 
@@ -223,11 +223,11 @@ class RecordCRUD{
     CallModel _updatedCallModel = CallModel.editCallModel(_existingCallModel, slideIndex);
 
     /// 3 - override bz Call sub document
-    await insertFireStoreSubDocument(
+    await Fire.createNamedSubDoc(
       context: context,
-      collectionName: FireCollection.bzz,
+      collName: FireCollection.bzz,
       docName: bzID,
-      subCollectionName: FireCollection.subBzCalls,
+      subCollName: FireCollection.subBzCalls,
       subDocName: userID,
       input: _updatedCallModel.toMap(),
     );

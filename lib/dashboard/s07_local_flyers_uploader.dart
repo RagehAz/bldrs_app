@@ -16,7 +16,6 @@ import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/views/widgets/bubbles/words_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/bt_main.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
-import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/flyer/parts/progress_bar.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
@@ -362,9 +361,9 @@ Future<FlyerModel> createNamedFlyersOps(BuildContext context, FlyerModel inputFl
   print('1- staring create flyer ops');
 
   /// create empty firestore flyer document to get back _flyerID
-  DocumentReference _docRef = await createFireStoreNamedDocument(
+  DocumentReference _docRef = await Fire.createNamedDoc(
     context: context,
-    collectionName: FireCollection.flyers,
+    collName: FireCollection.flyers,
     docName: inputFlyerModel.flyerID,
     input: {},
   );
@@ -411,9 +410,9 @@ Future<FlyerModel> createNamedFlyersOps(BuildContext context, FlyerModel inputFl
   print('5- flyer model updated with flyerID, flyerURL & updates slides pic URLs');
 
   /// replace empty flyer document with the new refactored one _finalFlyerModel
-  await replaceFirestoreDocument(
+  await Fire.updateDoc(
     context: context,
-    collectionName: FireCollection.flyers,
+    collName: FireCollection.flyers,
     docName: _flyerID,
     input: _finalFlyerModel.toMap(),
   );
@@ -422,9 +421,9 @@ Future<FlyerModel> createNamedFlyersOps(BuildContext context, FlyerModel inputFl
 
   /// add new TinyFlyer in firestore
   TinyFlyer _finalTinyFlyer = TinyFlyer.getTinyFlyerFromFlyerModel(_finalFlyerModel);
-  await createFireStoreNamedDocument(
+  await Fire.createNamedDoc(
     context: context,
-    collectionName: FireCollection.tinyFlyers,
+    collName: FireCollection.tinyFlyers,
     docName: _flyerID,
     input: _finalTinyFlyer.toMap(),
   );
@@ -433,9 +432,9 @@ Future<FlyerModel> createNamedFlyersOps(BuildContext context, FlyerModel inputFl
 
   /// add new flyerKeys in fireStore
   /// TASK : perform string.toLowerCase() on each string before upload
-  await createFireStoreNamedDocument(
+  await Fire.createNamedDoc(
     context: context,
-    collectionName: FireCollection.flyersKeys,
+    collName: FireCollection.flyersKeys,
     docName: _flyerID,
     input: await getKeyWordsMap(_finalFlyerModel.keyWords),
   );
@@ -443,11 +442,11 @@ Future<FlyerModel> createNamedFlyersOps(BuildContext context, FlyerModel inputFl
   print('8- flyer keys add');
 
   /// add flyer counters sub collection and document in flyer store
-  await insertFireStoreSubDocument(
+  await Fire.createNamedSubDoc(
     context: context,
-    collectionName: FireCollection.flyers,
+    collName: FireCollection.flyers,
     docName: _flyerID,
-    subCollectionName: FireCollection.subFlyerCounters,
+    subCollName: FireCollection.subFlyerCounters,
     subDocName: FireCollection.subFlyerCounters,
     input: await SlideModel.cipherSlidesCounters(_updatedSlides),
   );
@@ -458,10 +457,10 @@ Future<FlyerModel> createNamedFlyersOps(BuildContext context, FlyerModel inputFl
   List<NanoFlyer> _bzNanoFlyers = bzModel.bzFlyers;
   NanoFlyer _nanoFlyer = NanoFlyer.getNanoFlyerFromFlyerModel(_finalFlyerModel);
   _bzNanoFlyers.add(_nanoFlyer);
-  await updateFieldOnFirestore(
+  await Fire.updateDocField(
     context: context,
-    collectionName: FireCollection.bzz,
-    documentName: _finalFlyerModel.tinyBz.bzID,
+    collName: FireCollection.bzz,
+    docName: _finalFlyerModel.tinyBz.bzID,
     field: 'bzFlyers',
     input: NanoFlyer.cipherNanoFlyers(_bzNanoFlyers),
   );

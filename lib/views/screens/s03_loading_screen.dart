@@ -77,7 +77,6 @@ class _LoadingScreenState extends State<LoadingScreen> {
               _canContinue = true;
             });
 
-
         _triggerLoading();
       });
     }
