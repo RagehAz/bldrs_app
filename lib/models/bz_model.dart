@@ -346,6 +346,16 @@ Map<String, dynamic> toMap(){
     return _bz;
   }
 // -----------------------------------------------------------------------------
+  static List<String> getBzFlyersIDs(BzModel bzModel){
+    List<String> _flyersIDs = new List();
+    List<NanoFlyer> _nanoFlyers = bzModel.bzFlyers;
+
+    for (var nano in _nanoFlyers){
+      _flyersIDs.add(nano.flyerID);
+    }
+
+    return   _flyersIDs;
+  }
 }
 // -----------------------------------------------------------------------------
 enum BzType {

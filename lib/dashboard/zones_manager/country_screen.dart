@@ -64,10 +64,10 @@ class _CountryScreenState extends State<CountryScreen> {
 
     minimizeKeyboardOnTapOutSide(context);
 
-    await updateFieldOnFirestore(
+    await Fire.updateDocField(
       context: context,
-      collectionName: _countriesCollectionName,
-      documentName: widget.country.iso3,
+      collName: _countriesCollectionName,
+      docName: widget.country.iso3,
       field: _field,
       input: _input,
     );

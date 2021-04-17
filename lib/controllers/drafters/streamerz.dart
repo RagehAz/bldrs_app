@@ -81,10 +81,10 @@ Widget userModelBuilder({
 }){
 
   return FutureBuilder(
-      future: getFireStoreDocumentMap(
+      future: Fire.readDoc(
         context: context,
-        collectionName: FireCollection.users,
-        documentName: userID,
+        collName: FireCollection.users,
+        docName: userID,
       ),
       builder: (ctx, snapshot){
 
@@ -141,10 +141,10 @@ Widget bzModelBuilder({
 }){
 
   return FutureBuilder(
-      future: getFireStoreDocumentMap(
+      future: Fire.readDoc(
         context: context,
-        collectionName: FireCollection.bzz,
-        documentName: bzID,
+        collName: FireCollection.bzz,
+        docName: bzID,
       ),
       builder: (ctx, snapshot){
 
@@ -213,10 +213,10 @@ Widget tinyBzModelBuilder({
 }){
 
   return FutureBuilder(
-      future: getFireStoreDocumentMap(
+      future: Fire.readDoc(
         context: context,
-        collectionName: FireCollection.tinyBzz,
-        documentName: bzID,
+        collName: FireCollection.tinyBzz,
+        docName: bzID,
       ),
       builder: (ctx, snapshot){
 
@@ -287,10 +287,10 @@ Widget flyerModelBuilder({
 }){
 
   return FutureBuilder(
-      future: getFireStoreDocumentMap(
+      future: Fire.readDoc(
         context: context,
-        collectionName: FireCollection.flyers,
-        documentName: tinyFlyer.flyerID,
+        collName: FireCollection.flyers,
+        docName: tinyFlyer.flyerID,
       ),
       builder: (ctx, snapshot){
 

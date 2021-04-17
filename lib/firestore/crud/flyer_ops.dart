@@ -19,26 +19,24 @@ class FlyerCRUD{
   /// flyers collection reference
   CollectionReference flyersCollectionRef(){
     return
-      getFireCollectionReference(FireCollection.flyers);
+      Fire.getCollectionRef(FireCollection.flyers);
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   /// flyer document reference
   DocumentReference flyerDocRef(String flyerID){
     return
-      getFirestoreDocumentReference(FireCollection.flyers, flyerID);
+      Fire.getDocRef(FireCollection.flyers, flyerID);
   }
-// ---------------------------------------------------------------------------
-  final CollectionReference _flyersCollectionRef = getFireCollectionReference(FireCollection.flyers);
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   /// create empty firestore flyer doc and return flyerID 'docID'
   Future<FlyerModel> createFlyerOps(BuildContext context, FlyerModel inputFlyerModel, BzModel bzModel) async {
 
     print('1- staring create flyer ops');
 
   /// create empty firestore flyer document to get back _flyerID
-  DocumentReference _docRef = await createFireStoreDocument(
+  DocumentReference _docRef = await Fire.createDoc(
     context: context,
-    collectionName: FireCollection.flyers,
+    collName: FireCollection.flyers,
     input: {},
   );
   String _flyerID = _docRef.id;
@@ -85,9 +83,9 @@ class FlyerCRUD{
     print('5- flyer model updated with flyerID, flyerURL & updates slides pic URLs');
 
     /// replace empty flyer document with the new refactored one _finalFlyerModel
-  await replaceFirestoreDocument(
+  await Fire.updateDoc(
     context: context,
-    collectionName: FireCollection.flyers,
+    collName: FireCollection.flyers,
     docName: _flyerID,
     input: _finalFlyerModel.toMap(),
   );
@@ -96,9 +94,9 @@ class FlyerCRUD{
 
     /// add new TinyFlyer in firestore
   TinyFlyer _finalTinyFlyer = TinyFlyer.getTinyFlyerFromFlyerModel(_finalFlyerModel);
-  await createFireStoreNamedDocument(
+  await Fire.createNamedDoc(
     context: context,
-    collectionName: FireCollection.tinyFlyers,
+    collName: FireCollection.tinyFlyers,
     docName: _flyerID,
     input: _finalTinyFlyer.toMap(),
   );
@@ -107,9 +105,9 @@ class FlyerCRUD{
 
     /// add new flyerKeys in fireStore
     /// TASK : perform string.toLowerCase() on each string before upload
-  await createFireStoreNamedDocument(
+  await Fire.createNamedDoc(
     context: context,
-    collectionName: FireCollection.flyersKeys,
+    collName: FireCollection.flyersKeys,
     docName: _flyerID,
     input: await getKeyWordsMap(_finalFlyerModel.keyWords),
   );
@@ -117,11 +115,11 @@ class FlyerCRUD{
     print('8- flyer keys add');
 
     /// add flyer counters sub collection and document in flyer store
-  await insertFireStoreSubDocument(
+  await Fire.createNamedSubDoc(
     context: context,
-    collectionName: FireCollection.flyers,
+    collName: FireCollection.flyers,
     docName: _flyerID,
-    subCollectionName: FireCollection.subFlyerCounters,
+    subCollName: FireCollection.subFlyerCounters,
     subDocName: FireCollection.subFlyerCounters,
     input: await SlideModel.cipherSlidesCounters(_updatedSlides),
   );
@@ -132,31 +130,47 @@ class FlyerCRUD{
   List<NanoFlyer> _bzNanoFlyers = bzModel.bzFlyers;
   NanoFlyer _finalNanoFlyer = NanoFlyer.getNanoFlyerFromFlyerModel(_finalFlyerModel);
     _bzNanoFlyers.add(_finalNanoFlyer);
-  await updateFieldOnFirestore(
-      context: context,
-      collectionName: FireCollection.bzz,
-      documentName: _finalFlyerModel.tinyBz.bzID,
-      field: 'bzFlyers',
-      input: NanoFlyer.cipherNanoFlyers(_bzNanoFlyers),
+  await Fire.updateDocField(
+    context: context,
+    collName: FireCollection.bzz,
+    docName: _finalFlyerModel.tinyBz.bzID,
+    field: 'bzFlyers',
+    input: NanoFlyer.cipherNanoFlyers(_bzNanoFlyers),
   );
 
     print('10- tiny flyer added to bzID in bzz/${_finalFlyerModel.tinyBz.bzID}');
 
     return _finalFlyerModel;
 }
-// ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   Future<FlyerModel> readFlyerOps({BuildContext context, String flyerID}) async {
 
-    dynamic _flyerMap = await getFireStoreDocumentMap(
+    dynamic _flyerMap = await Fire.readDoc(
         context: context,
-        collectionName: FireCollection.flyers,
-        documentName: flyerID
+        collName: FireCollection.flyers,
+        docName: flyerID
     );
     FlyerModel _flyer = FlyerModel.decipherFlyerMap(_flyerMap);
 
     return _flyer;
   }
-// ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+  Future<TinyFlyer> readTinyFlyerOps({BuildContext context, String flyerID}) async {
+
+    Map<String, dynamic> _tinyFlyerMap = await Fire.readDoc(
+      context: context,
+      collName: FireCollection.tinyFlyers,
+      docName: flyerID,
+    );
+
+    // print(_tinyFlyerMap);
+
+    TinyFlyer _tinyFlyer = _tinyFlyerMap == null ? null : TinyFlyer.decipherTinyFlyerMap(_tinyFlyerMap);
+
+    return _tinyFlyer;
+
+  }
+// -----------------------------------------------------------------------------
   Future<FlyerModel> updateFlyerOps({BuildContext context, FlyerModel updatedFlyer, FlyerModel originalFlyer, BzModel bzModel}) async {
     FlyerModel _finalFlyer = updatedFlyer;
 
@@ -241,9 +255,9 @@ class FlyerCRUD{
     print('2 - all slides Got URLs and deleted slides have been overridden or deleted');
 
     /// update flyer doc
-    await replaceFirestoreDocument(
+    await Fire.updateDoc(
       context: context,
-      collectionName: FireCollection.flyers,
+      collName: FireCollection.flyers,
       docName: _finalFlyer.flyerID,
       input: _finalFlyer.toMap(),
     );
@@ -252,9 +266,9 @@ class FlyerCRUD{
 
     /// if keywords changed, update flyerKeys doc
     if (listsAreTheSame(_finalFlyer.keyWords, originalFlyer.keyWords) == false){
-      await replaceFirestoreDocument(
+      await Fire.updateDoc(
         context: context,
-        collectionName: FireCollection.flyersKeys,
+        collName: FireCollection.flyersKeys,
         docName: _finalFlyer.flyerID,
         input: await getKeyWordsMap(_finalFlyer.keyWords)
       );
@@ -271,10 +285,10 @@ class FlyerCRUD{
           finalNanoFlyer: _finalNanoFlyer
       );
 
-      await updateFieldOnFirestore(
+      await Fire.updateDocField(
         context: context,
-        collectionName: FireCollection.bzz,
-        documentName: bzModel.bzID,
+        collName: FireCollection.bzz,
+        docName: bzModel.bzID,
         field: 'bzFlyers',
         input: NanoFlyer.cipherNanoFlyers(_finalBzFlyers),
       );
@@ -289,9 +303,9 @@ class FlyerCRUD{
     if(TinyFlyer.tinyFlyersAreTheSame(_finalFlyer, originalFlyer) == false){
       TinyFlyer _finalTinyFlyer = TinyFlyer.getTinyFlyerFromFlyerModel(_finalFlyer);
 
-      await replaceFirestoreDocument(
+      await Fire.updateDoc(
         context: context,
-        collectionName: FireCollection.tinyFlyers,
+        collName: FireCollection.tinyFlyers,
         docName: _finalFlyer.flyerID,
         input: _finalTinyFlyer.toMap(),
       );
@@ -304,53 +318,76 @@ class FlyerCRUD{
 
     return _finalFlyer;
 }
-// ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   Future<void> deactivateFlyerOps({BuildContext context,String flyerID, BzModel bzModel}) async {
 
     /// delete nano flyer from bzFlyers and update the list in bz doc
     List<NanoFlyer> _bzNanoFlyers = bzModel.bzFlyers;
     int _nanoFlyerIndex = _bzNanoFlyers.indexWhere((nanoFlyer) => nanoFlyer.flyerID == flyerID);
     _bzNanoFlyers.removeAt(_nanoFlyerIndex);
-    await updateFieldOnFirestore(
+    await Fire.updateDocField(
       context: context,
-      collectionName: FireCollection.bzz,
-      documentName: bzModel.bzID,
+      collName: FireCollection.bzz,
+      docName: bzModel.bzID,
       field: 'bzFlyers',
       input: NanoFlyer.cipherNanoFlyers(_bzNanoFlyers),
     );
 
     /// delete tinyFlyer
-    await deleteDocumentOnFirestore(
+    await Fire.deleteDoc(
       context: context,
-      collectionName: FireCollection.tinyFlyers,
-      documentName: flyerID,
+      collName: FireCollection.tinyFlyers,
+      docName: flyerID,
     );
 
     /// trigger flyer Deletion field by adding a timeStamp
     DateTime _deletionTime = DateTime.now();
-    await updateFieldOnFirestore(
+    await Fire.updateDocField(
       context: context,
-      collectionName: FireCollection.flyers,
-      documentName: flyerID,
+      collName: FireCollection.flyers,
+      docName: flyerID,
       field: 'deletionTime',
       input: cipherDateTimeToString(_deletionTime),
     );
 
 }
-// ----------------------------------------------------------------------
-  Future<TinyFlyer> readTinyFlyerOps({BuildContext context, String flyerID}) async {
+// -----------------------------------------------------------------------------
+  Future<void> deleteFlyerOps({BuildContext context,String flyerID, BzModel bzModel}) async {
 
-    Map<String, dynamic> _tinyFlyerMap = await getFireStoreDocumentMap(
-        context: context,
-        collectionName: FireCollection.tinyFlyers,
-        documentName: flyerID,
-    );
-
-    // print(_tinyFlyerMap);
-
-    TinyFlyer _tinyFlyer = _tinyFlyerMap == null ? null : TinyFlyer.decipherTinyFlyerMap(_tinyFlyerMap);
-
-    return _tinyFlyer;
+    /// 1 - delete nano flyer in bzFlyers
+    ///
+    ///
+    /// 2 - delete tiny flyer doc
+    ///
+    ///
+    /// 3 - delete flyer keys doc
+    ///
+    ///
+    /// 4 - delete flyer views docs
+    ///
+    ///
+    /// 5 - delete flyer view sub collection
+    ///
+    ///
+    /// 6 - delete shares sub docs
+    ///
+    ///
+    /// 7 - delete shares sub collection
+    ///
+    ///
+    /// 8 - delete saves sub docs
+    ///
+    ///
+    /// 9 - delete saves sub collection
+    ///
+    ///
+    /// 10 - delete counters sub doc
+    ///
+    ///
+    /// 11 - delete counters sub collection
+    ///
+    ///
+    /// 12 - delete flyer
 
   }
 }
