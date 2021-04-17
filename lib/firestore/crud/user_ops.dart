@@ -25,6 +25,19 @@ class UserCRUD{
       getFirestoreDocumentReference(FireCollection.users, userID);
   }
 // ---------------------------------------------------------------------------
+  Future<UserModel> readUserOps({BuildContext context, String userID}) async {
+
+    Map<String, dynamic> _userMap = await getFireStoreDocumentMap(
+      context: context,
+      collectionName: FireCollection.users,
+      documentName: userID,
+    );
+
+    UserModel _user = UserModel.decipherUserMap(_userMap);
+
+    return _user;
+  }
+// ---------------------------------------------------------------------------
   /// create or update user document
   Future<void> _createOrUpdateUserDoc({BuildContext context, UserModel userModel}) async {
 

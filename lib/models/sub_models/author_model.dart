@@ -180,5 +180,15 @@ class AuthorModel{
     return _tinyAuthor;
   }
 // -----------------------------------------------------------------------------
+  static List<String> getAuthorsIDsFromAuthors(List<AuthorModel> authors){
+    List<String> _authorsIDs = new List();
+
+    for (var author in authors){
+      _authorsIDs.add(author.userID);
+    }
+
+    return _authorsIDs;
+  }
+// -----------------------------------------------------------------------------
 
 }

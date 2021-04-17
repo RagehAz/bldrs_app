@@ -2,12 +2,15 @@ import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/streamerz.dart';
 import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
+import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
+import 'package:bldrs/firestore/crud/bz_ops.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/models/user_model.dart';
+import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/screens/s40_bz_editor_screen.dart';
 import 'package:bldrs/views/screens/s42_bz_flyer_screen.drt.dart';
 import 'package:bldrs/views/widgets/bubbles/bubbles_separator.dart';
@@ -15,9 +18,12 @@ import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/paragraph_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/tile_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
+import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
+import 'package:bldrs/views/widgets/dialogs/bottom_sheet.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/max_header_parts/gallery.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class MyBzScreen extends StatefulWidget {
   final TinyBz tinyBz;
@@ -65,9 +71,70 @@ class _MyBzScreenState extends State<MyBzScreen> {
 
     print(_result);
   }
-// ---------------------------------------------------------------------------
+  // ----------------------------------------------------------------------
+  void _slideBzOptions(BuildContext context, BzModel bzModel){
 
+    BottomSlider.slideBottomSheet(
+      context: context,
+      height: (50+10+50+30).toDouble(),
+      draggable: true,
+      child: Column(
+        children: <Widget>[
 
+          // --- DEACTIVATE FLYER
+          DreamBox(
+            height: 50,
+            width: BottomSlider.bottomSheetClearWidth(context),
+            icon: Iconz.XSmall,
+            iconSizeFactor: 0.5,
+            iconColor: Colorz.BloodRed,
+            verse: 'Deactivate Business Account',
+            verseScaleFactor: 1.2,
+            verseColor: Colorz.BloodRed,
+            // verseWeight: VerseWeight.thin,
+            boxFunction: () async {
+
+              Nav.goBack(context);
+
+              /// Task : this should be bool dialog instead
+              await superDialog(context, 'You will never get this back ever', 'watch out');
+
+              /// start deactivate bz ops
+              await BzCRUD().deactivateBzOps(
+                context: context,
+                bzModel: bzModel,
+              );
+
+              /// remove tinyBz from Local list
+              FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
+              _prof.removeTinyBzFromLocalList(bzModel.bzID);
+
+              /// re-route back
+              Nav.goBack(context, argument: true);
+            },
+
+          ),
+
+          SizedBox(height: 10,),
+
+          // --- EDIT BZ
+          DreamBox(
+            height: 50,
+            width: BottomSlider.bottomSheetClearWidth(context),
+            icon: Iconz.Gears,
+            iconSizeFactor: 0.5,
+            verse: 'Edit Business Account info',
+            verseScaleFactor: 1.2,
+            verseColor: Colorz.White,
+            boxFunction: () => _goToEditBzProfile(bzModel),
+          ),
+
+        ],
+      ),
+    );
+
+  }
+  // ----------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -104,11 +171,11 @@ class _MyBzScreenState extends State<MyBzScreen> {
                   DreamBox(
                     height: 35,
                     width: 35,
-                    icon: Iconz.Gears,
+                    icon: Iconz.More,
                     iconSizeFactor: 0.6,
                     boxMargins: EdgeInsets.symmetric(horizontal: Ratioz.ddAppBarMargin),
                     bubble: false,
-                    boxFunction: () => _goToEditBzProfile(bzModel),
+                    boxFunction:  () => _slideBzOptions(context, bzModel),
                   ),
 
                 ],

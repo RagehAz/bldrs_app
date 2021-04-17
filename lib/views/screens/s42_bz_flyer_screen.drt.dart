@@ -59,7 +59,7 @@ class BzFlyerScreen extends StatelessWidget {
               await superDialog(context, 'You will never get this back ever', 'watch out');
 
               /// start delete flyer ops
-              await FlyerCRUD().deleteFlyerOps(
+              await FlyerCRUD().deactivateFlyerOps(
                 context: context,
                 bzModel: bzModel,
                 flyerID : tinyFlyer.flyerID,
@@ -67,7 +67,7 @@ class BzFlyerScreen extends StatelessWidget {
 
               /// remove tinyFlyer from Local list
               FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
-              _prof.removeTinyFlyer(tinyFlyer.flyerID);
+              _prof.removeTinyFlyerFromLocalList(tinyFlyer.flyerID);
 
               /// re-route back
               Nav.goBack(context, argument: true);
