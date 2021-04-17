@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/text_generators.dart';
+import 'package:bldrs/controllers/drafters/text_manipulators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/firestore/crud/bz_ops.dart';
@@ -10,6 +11,7 @@ import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/records/save_model.dart';
 import 'package:bldrs/models/tiny_models/nano_flyer.dart';
+import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
@@ -50,36 +52,31 @@ class _FirebasetestingState extends State<Firebasetesting> {
     final FirebaseFirestore _fireInstance = FirebaseFirestore.instance;
 
     functions = [
-      // -----------------------------------------------------------------------
-      {'Name' : 'add george to ikea', 'function' : () async {
+      {'Name' : 'create admin sponsors doc', 'function' : () async {
         _triggerLoading();
 
-        String _flyerID = 'sthKFS5vXz7pnhLEFUdA';
-        FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
+        List<String> _sponsorsIDsList = <String>['ar1', 'dr2', 'mn2', 'br1', 'sp2', 'pp2'];
 
-        FlyerModel flyer = await FlyerCRUD().readFlyerOps(context: context, flyerID: _flyerID);
-
-
-        String _bzID = flyer.tinyBz.bzID;
-
-        BzModel _bz = await BzCRUD.readBzOps(context: context, bzID: _bzID);
-
-        List<NanoFlyer> _nanoz = _bz.bzFlyers;
-
-        NanoFlyer _georgeNano = NanoFlyer.getNanoFlyerFromFlyerModel(flyer);
-
-        _nanoz.add(_georgeNano);
-
-
-        await updateFieldOnFirestore(
+        await createFireStoreNamedDocument(
           context: context,
-          collectionName: FireCollection.bzz,
-          documentName: _bzID,
-          field: 'bzFlyers',
-          input: NanoFlyer.cipherNanoFlyers(_nanoz),
+          collectionName: FireCollection.admin,
+          docName: AdminDoc.sponsors,
+          input: getValueAndTrueMap(_sponsorsIDsList),
         );
 
-        printResult('${_nanoz.length}');
+        _triggerLoading();
+      },},
+
+      // -----------------------------------------------------------------------
+      {'Name' : 'fetchAndSetSponsors', 'function' : () async {
+        _triggerLoading();
+
+        FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
+        await _prof.fetchAndSetSponsors(context);
+
+        List<TinyBz> _sponsors = _prof.getSponsors;
+
+        printResult('${_sponsors.length}');
 
         _triggerLoading();
       },},
