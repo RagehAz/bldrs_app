@@ -31,7 +31,10 @@ class Nav{
     );
   }
 // === === === === === === === === === === === === === === === === === === ===
-  static void openFlyer(BuildContext context, String flyerID){
+  void openFlyer(BuildContext context, String flyerID){
+
+    print('open flyer navigator recieved $flyerID');
+
     Navigator.of(context).pushNamed(
       Routez.FlyerScreen,
       arguments: flyerID,

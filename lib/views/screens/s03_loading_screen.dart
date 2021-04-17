@@ -64,19 +64,19 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
             await _prof.fetchAndSetUserTinyBzz(context);
 
+            // TASK : should get only first 10 saved tiny flyers,, and continue paginating when entering the savedFlyers screen
+            await _prof.fetchAndSetSavedFlyers(context);
+
+            /// TASK : should get only first 10 followed tiny bzz, then paginate in all when entering followed bzz screen
+            await _prof.fetchAndSetFollows(context);
+
+            /// TASK : wallahi mana 3aref hane3mel eh hena
             await _prof.fetchAndSetTinyBzzAndTinyFlyers(context);
 
             setState(() {
               _canContinue = true;
             });
 
-
-            // List<TinyBz> _myTinyBzzList = await _prof.getUserTinyBzz(context);
-
-        // setState(() {
-        //   _tinyBzz = _prof.getAllTinyBzz;
-        //   _myTinyBzz = _myTinyBzzList;
-        // });
 
         _triggerLoading();
       });

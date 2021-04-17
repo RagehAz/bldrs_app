@@ -96,6 +96,8 @@ class FlyerStack extends StatelessWidget {
               // cacheExtent: screenHeight*5,
               itemBuilder: (context,_x) {
 
+                print('_tinyFlyersOfType[_x].flyerID = ${_tinyFlyersOfType[_x].flyerID}');
+
                 return
 
                 // --- works
@@ -135,7 +137,7 @@ class FlyerStack extends StatelessWidget {
                   TinyFlyerWidget(
                     flyerSizeFactor: flyerSizeFactor,
                     tinyFlyer: _tinyFlyersOfType[_x],
-                    onTap: (tinyFlyer) => Nav.openFlyer(context, tinyFlyer.flyerID),
+                    onTap: (tinyFlyer) => Nav().openFlyer(context, tinyFlyer.flyerID),
                   );
 
                 },
