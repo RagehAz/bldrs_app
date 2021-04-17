@@ -30,6 +30,11 @@ class FireCollection{
   static const String subFlyerViews = 'views';
 
   static const String feedbacks = 'feedbacks';
+  static const String admin = 'admin';
+}
+
+class AdminDoc{
+  static const String sponsors = 'sponsors';
 }
 
 // /// cloud firestore database functions

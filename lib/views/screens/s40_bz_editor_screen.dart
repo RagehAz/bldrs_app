@@ -512,7 +512,8 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
       );
 
       /// add the final _bzModel to local list and notifyListeners
-      _prof.addBzModelToLocalList(_bzModel);
+      TinyBz _tinyBz = TinyBz.getTinyBzFromBzModel(_bzModel);
+      _prof.addTinyBzToLocalList(_tinyBz);
 
       _triggerLoading();
 
@@ -591,14 +592,14 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
 
       /// update _TinyBzModel in local list with the modified one and notifyListeners
       TinyBz _tinyBz = TinyBz.getTinyBzFromBzModel(_finalBzModel);
-      _prof.updateTinyBzModelInLocalList(_tinyBz);
+      _prof.updateTinyBzInLocalList(_tinyBz);
 
       _triggerLoading();
 
       await superDialog(context, 'Successfully updated your Business Account ', 'Great !');
 
       Nav.goBack(context);
-
+      Nav.goBack(context);
     }
 
     }

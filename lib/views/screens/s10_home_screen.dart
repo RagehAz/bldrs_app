@@ -18,7 +18,15 @@ class _HomeScreenState extends State<HomeScreen> {
   bool _isLoading = false;
   List<TinyBz> _tinyBzz;
   List<TinyBz> _myTinyBzz;
-
+// -----------------------------------------------------------------------------
+  /// --- LOADING BLOCK
+  bool _loading = false;
+  void _triggerLoading(){
+    setState(() {_loading = !_loading;});
+    _loading == true?
+    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+  }
+// ---------------------------------------------------------------------------
   @override
   void initState() {
     // works
@@ -32,52 +40,45 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
   }
 
-  /// this method of fetching provided data allows listening true or false,
-  /// both working one  & the one with delay above in initState does not allow listening,
-  /// i will go with didChangeDependencies as init supposedly works only at start
-  @override
-  void didChangeDependencies() {
-    if (_isInit) {
-      _triggerLoading();
-
-      FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: true);
-
-      _prof.fetchAndSetTinyBzzAndTinyFlyers(context)
-          .then((_) async {
-
-            List<TinyBz> _myTinyBzzList = await _prof.getUserTinyBzz(context);
-
-            setState(() {
-              _tinyBzz = _prof.getAllTinyBzz;
-              _myTinyBzz = _myTinyBzzList;
-            });
-
-        _triggerLoading();
-      });
-    }
-    _isInit = false;
-    super.didChangeDependencies();
-  }
+  // /// this method of fetching provided data allows listening true or false,
+  // /// both working one  & the one with delay above in initState does not allow listening,
+  // /// i will go with didChangeDependencies as init supposedly works only at start
+  // @override
+  // void didChangeDependencies() {
+  //   if (_isInit) {
+  //     _triggerLoading();
+  //
+  //     FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: true);
+  //
+  //     _prof.fetchAndSetTinyBzzAndTinyFlyers(context)
+  //         .then((_) async {
+  //
+  //           List<TinyBz> _myTinyBzzList = await _prof.getUserTinyBzz(context);
+  //
+  //           setState(() {
+  //             _tinyBzz = _prof.getAllTinyBzz;
+  //             _myTinyBzz = _myTinyBzzList;
+  //           });
+  //
+  //       _triggerLoading();
+  //     });
+  //   }
+  //   _isInit = false;
+  //   super.didChangeDependencies();
+  // }
 // -----------------------------------------------------------------------------
-  /// --- LOADING BLOCK
-  bool _loading = false;
-  void _triggerLoading(){
-    setState(() {_loading = !_loading;});
-    _loading == true?
-    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
-  }
-// ---------------------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
     FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: true);
-    // List<TinyBz> _tinyBzz = _prof.getAllTinyBzz;
+    List<TinyBz> _tinyBzz = _prof.getAllTinyBzz;
+    List<TinyBz> _userTinyBzz = _prof.getUserTinyBzz;
 
     return MainLayout(
       appBarType: AppBarType.Main,
       sky: Sky.Night,
       canRefreshFlyers: true,
-      myTinyBzz: _myTinyBzz,
+      myTinyBzz: _userTinyBzz,
       layoutWidget: Stack(
         children: <Widget>[
           _isLoading == true ?

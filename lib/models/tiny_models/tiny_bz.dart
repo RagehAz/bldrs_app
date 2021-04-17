@@ -100,4 +100,14 @@ class TinyBz with ChangeNotifier{
     return _tinyBzz;
   }
 // -----------------------------------------------------------------------------
+  static List<String> getBzzIDsFromTinyBzz(List<TinyBz> _tinyBzz){
+    List<String> _ids = new List();
+
+    _tinyBzz.forEach((tinyBz) {
+      _ids.add(tinyBz.bzID);
+    });
+
+    return _ids;
+  }
+// -----------------------------------------------------------------------------
 }

@@ -305,7 +305,7 @@ class FlyerCRUD{
     return _finalFlyer;
 }
 // ----------------------------------------------------------------------
-  Future<void> deleteFlyerOps({BuildContext context,String flyerID, BzModel bzModel}) async {
+  Future<void> deactivateFlyerOps({BuildContext context,String flyerID, BzModel bzModel}) async {
 
     /// delete nano flyer from bzFlyers and update the list in bz doc
     List<NanoFlyer> _bzNanoFlyers = bzModel.bzFlyers;

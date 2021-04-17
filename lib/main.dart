@@ -166,10 +166,10 @@ class _BldrsAppState extends State<BldrsApp> {
           },
           onGenerateRoute: Routerer.allRoutes,
           initialRoute: Routez.UserChecker,
-          routes: {
-            Routez.FlyerScreen: (ctx) => FlyerScreen(),
-            // Routez.InPyramids: (ctx) => InPyramidsScreen(),
-          },
+          // routes: {
+          //   Routez.FlyerScreen: (ctx) => FlyerScreen(),
+          //   // Routez.InPyramids: (ctx) => InPyramidsScreen(),
+          // },
         ),
       );
     }
