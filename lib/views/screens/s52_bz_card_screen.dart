@@ -34,6 +34,8 @@ class _BzCardScreenState extends State<BzCardScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print('building bz : ${widget.bzID}');
+
     // FlyersProvider pro = Provider.of<FlyersProvider>(context, listen: false);
     // final bz = pro.getBzByBzID(widget.bzID);
 

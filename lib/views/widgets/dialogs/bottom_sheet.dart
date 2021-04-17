@@ -27,7 +27,7 @@ class BldrsBottomSheet extends StatelessWidget {
   }
 // ---------------------------------------------------------------------------
   double draggerZoneHeight(){
-    double _draggerZoneHeight = Ratioz.ddAppBarMargin * 2;
+    double _draggerZoneHeight = Ratioz.ddAppBarMargin * 3;
     return _draggerZoneHeight;
   }
 // ---------------------------------------------------------------------------

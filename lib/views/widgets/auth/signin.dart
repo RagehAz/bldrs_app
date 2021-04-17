@@ -7,6 +7,7 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/firestore/auth/auth.dart';
 import 'package:bldrs/models/user_model.dart';
+import 'package:bldrs/views/screens/s00_user_checker_widget.dart';
 import 'package:bldrs/views/screens/s16_user_editor_screen.dart';
 import 'package:bldrs/views/widgets/bubbles/text_field_bubble.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
@@ -264,7 +265,8 @@ class _SignInState extends State<SignIn> {
                             Nav.goToNewScreen(context, EditProfileScreen(user: result, firstTimer: false,),);
                           } else {
                           _triggerLoading();
-                          Nav.goToRoute(context, Routez.Home);
+
+                          Nav.goToNewScreen(context, UserChecker());
 
                           }
 

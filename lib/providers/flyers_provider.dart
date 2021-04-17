@@ -1,4 +1,6 @@
+import 'package:bldrs/controllers/drafters/text_manipulators.dart';
 import 'package:bldrs/firestore/auth/auth.dart';
+import 'package:bldrs/firestore/crud/bz_ops.dart';
 import 'package:bldrs/firestore/crud/flyer_ops.dart';
 import 'package:bldrs/firestore/crud/record_ops.dart';
 import 'package:bldrs/firestore/crud/user_ops.dart';
@@ -14,13 +16,23 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 // -----------------------------------------------------------------------------
 class FlyersProvider with ChangeNotifier {
+  List<TinyBz> _sponsors;
+  List<TinyBz> _userTinyBzz;
   List<FlyerModel> _loadedFlyers; //= geebAllFlyers();
   List<TinyFlyer> _loadedTinyFlyers; // = geebAllTinyFlyers();
   List<BzModel> _loadedBzz; // = geebAllBzz();
   List<TinyBz> _loadedTinyBzz; // = geebAllTinyBzz();
   List<TinyFlyer> _loadedSavedFlyers;
   List<String> _loadedFollows;
-// ############################################################################
+// ---------------------------------------------------------------------------
+  List<TinyBz> get getSponsors {
+    return <TinyBz> [..._sponsors];
+  }
+// ---------------------------------------------------------------------------
+  List<TinyBz> get getUserTinyBzz {
+    return <TinyBz> [..._userTinyBzz];
+  }
+// ---------------------------------------------------------------------------
   List<FlyerModel> get getAllFlyers {
     return <FlyerModel>[..._loadedFlyers];
   }
@@ -40,24 +52,50 @@ class FlyersProvider with ChangeNotifier {
   List<TinyFlyer> get getSavedTinyFlyers {
     return <TinyFlyer>[..._loadedSavedFlyers];
   }
-
+// ---------------------------------------------------------------------------
   List<String> get getFollows{
     return <String>[..._loadedFollows];
   }
-// ############################################################################
+// ---------------------------------------------------------------------------
+  Future<void> fetchAndSetSponsors(BuildContext context) async {
+
+    /// 1 - get sponsors map from db/admin/sponsors
+    Map<String, dynamic> _sponsorsIDsMap = await getFireStoreDocumentMap(
+      context: context,
+      collectionName: FireCollection.admin,
+      documentName: AdminDoc.sponsors,
+    );
+
+    /// 2 - transform sponsors map into list<String>
+    List<String> _sponsorsIDs = getValuesFromValueAndTrueMap(_sponsorsIDsMap);
+
+    /// 3- get tinyBz for each id
+    List<TinyBz> _sponsorsTinyBzz = new List();
+    for (var id in _sponsorsIDs){
+      TinyBz _tinyBz = await BzCRUD().readTinyBzOps(context: context, bzID: id);
+      _sponsorsTinyBzz.add(_tinyBz);
+    }
+
+    _sponsors = _sponsorsTinyBzz;
+    print(_sponsors.length);
+    notifyListeners();
+  }
+// ---------------------------------------------------------------------------
   /// this reads db/users/userID/saves/followedBzz document
   /// TASK: get user followed bzz from firestore as document
-  List<TinyBz> get getFollowedBzz{
-    List<TinyBz> _followedBzz = new List();
-    return _followedBzz;
-  }
-// ############################################################################
-  void removeTinyFlyer(String flyerID){
+// ---------------------------------------------------------------------------
+  void removeTinyFlyerFromLocalList(String flyerID){
     int _index = _loadedTinyFlyers.indexWhere((tinyFlyer) => tinyFlyer.flyerID == flyerID);
     _loadedTinyFlyers.removeAt(_index);
     notifyListeners();
   }
-
+// ---------------------------------------------------------------------------
+  void removeTinyBzFromLocalList(String bzID){
+    int _index = _loadedTinyBzz.indexWhere((tinyBz) => tinyBz.bzID == bzID);
+    _loadedTinyBzz.removeAt(_index);
+    notifyListeners();
+  }
+// ---------------------------------------------------------------------------
   FlyerModel getFlyerByFlyerID (String flyerID){
     FlyerModel _flyer = _loadedFlyers?.firstWhere((x) => x.flyerID == flyerID, orElse: ()=>null);
     return _flyer;
@@ -204,13 +242,19 @@ bzzIDs.forEach((bzID) {bzz.add(getBzByBzID(bzID));});
 return bzz;
 }
 // ############################################################################
-  /// add bz to local list
-  void addBzModelToLocalList(BzModel bzModel){
-    _loadedBzz.add(bzModel);
+//   /// add bz to local list
+//   void addBzModelToLocalList(BzModel bzModel){
+//     _loadedBzz.add(bzModel);
+//     notifyListeners();
+//   }
+// ############################################################################
+  /// add TinyBz to local list
+  void addTinyBzToLocalList(TinyBz tinyBz){
+    _loadedTinyBzz.add(tinyBz);
     notifyListeners();
   }
 // ############################################################################
-  void updateTinyBzModelInLocalList(TinyBz modifiedTinyBzModel){
+  void updateTinyBzInLocalList(TinyBz modifiedTinyBzModel){
     int _indexOfOldTinyBzModel = _loadedTinyBzz.indexWhere((bz) => modifiedTinyBzModel.bzID == bz.bzID);
     _loadedTinyBzz.removeAt(_indexOfOldTinyBzModel);
     _loadedTinyBzz.insert(_indexOfOldTinyBzModel, modifiedTinyBzModel);
@@ -510,7 +554,7 @@ Future<void> deleteBzDocument(BzModel bzModel) async {
     notifyListeners();
   }
   // ############################################################################
-  Future<List<TinyBz>> getUserTinyBzz(BuildContext context) async {
+  Future<void> fetchAndSetUserTinyBzz(BuildContext context) async {
   String _userID = superUserID();
 
   Map<String, dynamic> _userMap = await getFireStoreDocumentMap(
@@ -523,7 +567,7 @@ Future<void> deleteBzDocument(BzModel bzModel) async {
 
   List<dynamic> _userBzzIDs = _userModel.myBzzIDs;
 
-  List<TinyBz> _userTinyBzz = new List();
+  List<TinyBz> _userTinyBzzList = new List();
 
   for (var id in _userBzzIDs){
     dynamic _tinyBzMap = await getFireStoreDocumentMap(
@@ -532,12 +576,15 @@ Future<void> deleteBzDocument(BzModel bzModel) async {
       documentName: id,
     );
 
+    if (_tinyBzMap != null){
     TinyBz _tinyBz = TinyBz.decipherTinyBzMap(_tinyBzMap);
+    _userTinyBzzList.add(_tinyBz);
+    }
 
-    _userTinyBzz.add(_tinyBz);
   }
 
-  return _userTinyBzz;
+  _userTinyBzz = _userTinyBzzList;
+  notifyListeners();
   }
 // ############################################################################
 }

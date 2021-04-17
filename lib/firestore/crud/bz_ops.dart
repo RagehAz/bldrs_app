@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/firestore/auth/auth.dart';
+import 'package:bldrs/firestore/crud/flyer_ops.dart';
+import 'package:bldrs/firestore/crud/user_ops.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/tiny_models/nano_flyer.dart';
@@ -309,7 +311,65 @@ class BzCRUD{
     return _finalBz;
   }
 // ----------------------------------------------------------------------
-  Future<void> deleteBzDoc() async {}
+  Future<void> deactivateBzOps({BuildContext context, BzModel bzModel}) async {
+
+    /// 1 - perform deactivate flyer ops for all flyers
+    List<String> _flyersIDs = new List();
+    List<NanoFlyer> _bzNanoFlyers = bzModel.bzFlyers;
+    _bzNanoFlyers.forEach((flyer) {
+      _flyersIDs.add(flyer.flyerID);
+    });
+
+    if (_flyersIDs.length > 0){
+      for (var id in _flyersIDs){
+        await FlyerCRUD().deactivateFlyerOps(
+          context: context,
+          bzModel: bzModel,
+          flyerID: id,
+        );
+      }
+    }
+
+
+    /// 2 - delete tiny bz doc
+    await deleteDocumentOnFirestore(
+      context: context,
+      collectionName: FireCollection.tinyBzz,
+      documentName: bzModel.bzID,
+    );
+
+    /// 3 - delete bzID from myBzzIDs for each author
+    List<AuthorModel> _authors = bzModel.bzAuthors;
+    List<String> _authorsIDs = AuthorModel.getAuthorsIDsFromAuthors(_authors);
+    for (var id in _authorsIDs){
+
+      UserModel _user = await UserCRUD().readUserOps(context: context, userID: id);
+
+      List<dynamic> _myBzzIDs = _user.myBzzIDs;
+      int _bzIndex = _myBzzIDs.indexWhere((id) => id == bzModel.bzID);
+      _myBzzIDs.removeAt(_bzIndex);
+
+      await updateFieldOnFirestore(
+        context: context,
+        collectionName: FireCollection.users,
+        documentName: id,
+        field: 'myBzzIDs',
+        input: _myBzzIDs,
+      );
+
+    }
+
+
+    /// 4 - trigger bz deactivation
+    await updateFieldOnFirestore(
+      context: context,
+      collectionName: FireCollection.bzz,
+      documentName: bzModel.bzID,
+      field: 'bzAccountIsDeactivated',
+      input: true,
+    );
+
+  }
 // ----------------------------------------------------------------------
   Future<TinyBz> readTinyBzOps({BuildContext context, String bzID}) async {
 

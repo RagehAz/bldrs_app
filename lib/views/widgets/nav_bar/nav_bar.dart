@@ -100,9 +100,9 @@ class NavBar extends StatelessWidget {
     return _halfSpacer;
   }
 // ----------------------------------------------------------------------------
-  double _myBzzListSlideHeight(BuildContext context, UserModel userModel){
-    double _wantedHeight = (superScreenWidth(context) * 0.3 * userModel.myBzzIDs.length);
-    double _maxHeight = superScreenHeight(context) * 0.75;
+  double _myBzzListSlideHeight(BuildContext context){
+    double _wantedHeight = (superScreenWidth(context) * 0.3 * myTinyBzz.length);
+    double _maxHeight = superScreenHeight(context) * 0.5;
     double _finalHeight;
     if(_wantedHeight >= _maxHeight){
       _finalHeight = _maxHeight;
@@ -112,7 +112,81 @@ class NavBar extends StatelessWidget {
     return _finalHeight;
   }
 // ----------------------------------------------------------------------------
+  void _multiBzzSlider(BuildContext context, UserModel userModel){
 
+    double _sliderHeight = _myBzzListSlideHeight(context);
+    double _sliderHeightRatio = _sliderHeight / superScreenHeight(context);
+    double _bzButtonWidth = superScreenWidth(context) - BldrsBottomSheet().draggerZoneHeight() * 2;
+
+    int _titleSize = 2;
+    double _titleMargin = 5;
+    double _titleZoneHeight = superVerseRealHeight(context, _titleSize, 1, null) + (_titleMargin * 2);
+
+    double _bzzButtonsZoneHeight = BottomSlider.bottomSheetClearHeight(context, _sliderHeightRatio) - _titleZoneHeight;
+
+    BottomSlider.slideBottomSheet(
+            context: context,
+            draggable: true,
+            height: _sliderHeight,
+            child: Container(
+              // height: 100,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+
+                  Align(
+                    alignment: Aligners.superCenterAlignment(context),
+                    child: SuperVerse(
+                      verse: 'My Business accounts',
+                      size: _titleSize,
+                      margin: _titleMargin,
+                    ),
+                  ),
+
+                  Container(
+                    height: _bzzButtonsZoneHeight,
+                    child: ListView.builder(
+                      padding: EdgeInsets.all(_paddings),
+                      itemCount: myTinyBzz.length,
+                      itemBuilder: (context, index){
+                        TinyBz _tinyBz = myTinyBzz[index];
+                        return Align(
+                          alignment: Aligners.superCenterAlignment(context),
+                          child: DreamBox(
+                            height: 60,
+                            width: _bzButtonWidth,
+                            boxMargins: EdgeInsets.all(Ratioz.ddAppBarPadding),
+                            icon: _tinyBz.bzLogo,
+                            verse: _tinyBz.bzName,
+                            secondLine: TextGenerator.bzTypeSingleStringer(context, _tinyBz.bzType),
+                            iconSizeFactor: 1,
+                            verseScaleFactor: 0.7,
+                            bubble: true,
+                            color: Colorz.Nothing,
+                            boxFunction: (){
+                              print('${_tinyBz.bzID}');
+
+                              Nav.goBack(context);
+
+                              Nav.goToNewScreen(context,
+                                  MyBzScreen(
+                                    userModel: userModel,
+                                    tinyBz: _tinyBz,
+                                  ));
+                            },
+                          ),
+                        );
+                      },
+                    ),
+                  )
+
+                ],
+              ),
+            ),
+          );
+        }
+// ----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // -------------------------------------------------------------------------
@@ -169,12 +243,11 @@ class NavBar extends StatelessWidget {
              double _buttonWidth = _calculateButtonWidth();
              double _boxWidth = _calculateBoxWidth(context, userModel);
 
-
+             List<String> _userBzzIDs = TinyBz.getBzzIDsFromTinyBzz(myTinyBzz);
 
              // List<dynamic> _followedBzzIDs = userModel != null ? userModel?.followedBzzIDs : [];
              // String _bzID = _followedBzzIDs.length > 0 ?  _followedBzzIDs[0] : '';
              // String _bzLogo = prof.getBzByBzID(_bzID)?.bzLogo;
-
 
                  return
 
@@ -264,67 +337,17 @@ class NavBar extends StatelessWidget {
                                    width: _buttonWidth,
                                    circleWidth: _circleWidth,
                                    barType: barType,
-                                   bzzIDs: userModel.myBzzIDs,
+                                   bzzIDs: _userBzzIDs,
                                    onTap: (){
                                      print('fish');
 
-                                     if (userModel.myBzzIDs.length == 1){
+                                     if (_userBzzIDs.length == 1){
                                        Nav.goToNewScreen(context, MyBzScreen(
                                          userModel: userModel,
                                          tinyBz: myTinyBzz[0],
                                        ));
                                      } else {
-                                       BottomSlider.slideBottomSheet(
-                                         context: context,
-                                         draggable: true,
-                                         height: _myBzzListSlideHeight(context, userModel),
-                                         child: ListView(
-                                           padding: EdgeInsets.all(_paddings),
-                                           children: <Widget>[
-
-                                             Align(
-                                               alignment: Aligners.superCenterAlignment(context),
-                                               child: SuperVerse(
-                                                 verse: 'My Business accounts',
-                                                 size: 2,
-                                                 margin: 5,
-                                               ),
-                                             ),
-
-                                             ...List.generate(userModel.myBzzIDs.length, (index){
-
-                                               TinyBz _tinyBz = myTinyBzz[index];
-
-                                               return
-                                                 Align(
-                                                   alignment: Aligners.superCenterAlignment(context),
-                                                   child: DreamBox(
-                                                     height: 60,
-                                                     width: superScreenWidth(context) - 50,
-                                                     boxMargins: EdgeInsets.all(Ratioz.ddAppBarPadding),
-                                                     icon: _tinyBz.bzLogo,
-                                                     verse: _tinyBz.bzName,
-                                                     secondLine: TextGenerator.bzTypeSingleStringer(context, _tinyBz.bzType),
-                                                     iconSizeFactor: 1,
-                                                     verseScaleFactor: 0.7,
-                                                     bubble: true,
-                                                     color: Colorz.Nothing,
-                                                     boxFunction: (){
-                                                       print('${_tinyBz.bzID}');
-                                                       Nav.goToNewScreen(context,
-                                                           MyBzScreen(
-                                                             userModel: userModel,
-                                                             tinyBz: _tinyBz,
-                                                           ));
-                                                     },
-                                                   ),
-                                                 );
-
-                                             }),
-
-                                           ],
-                                         ),
-                                       );
+                                       _multiBzzSlider(context, userModel);
                                      }
 
 
