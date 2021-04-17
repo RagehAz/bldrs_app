@@ -25,6 +25,7 @@ class FlyerScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final String _flyerID = ModalRoute.of(context).settings.arguments as String;
+    print('_flyerID is $_flyerID');
     final FlyersProvider _pro = Provider.of<FlyersProvider>(context, listen: false);
     final TinyFlyer _tinyFlyer = _pro.getTinyFlyerByFlyerID(_flyerID);
     // final BzModel _bz = _pro.getBzByBzID(_flyer?.tinyBz?.bzID);
