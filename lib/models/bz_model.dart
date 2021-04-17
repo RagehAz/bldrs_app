@@ -330,7 +330,7 @@ Map<String, dynamic> toMap(){
     BzType.Supplier,
   ];
 // -----------------------------------------------------------------------------
-static List<String> getBzTeamIDs(BzModel bzModel){
+  static List<String> getBzTeamIDs(BzModel bzModel){
   List<AuthorModel> _authors = bzModel.bzAuthors;
   List<String> _bzTeamIDs = new List();
 
@@ -340,6 +340,11 @@ static List<String> getBzTeamIDs(BzModel bzModel){
 
   return _bzTeamIDs;
 }
+// -----------------------------------------------------------------------------
+  static BzModel getBzFromBzzByBzID(List<BzModel> bzz, String bzID){
+    BzModel _bz = bzz.singleWhere((_b) => _b.bzID == bzID, orElse: ()=> null);
+    return _bz;
+  }
 // -----------------------------------------------------------------------------
 }
 // -----------------------------------------------------------------------------
