@@ -1,26 +1,17 @@
 import 'dart:io';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/text_generators.dart';
-import 'package:bldrs/controllers/drafters/text_manipulators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
-import 'package:bldrs/firestore/crud/bz_ops.dart';
-import 'package:bldrs/firestore/crud/flyer_ops.dart';
+import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/firestore/auth/auth.dart';
 import 'package:bldrs/firestore/firestore.dart';
-import 'package:bldrs/models/bz_model.dart';
-import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/records/save_model.dart';
-import 'package:bldrs/models/tiny_models/nano_flyer.dart';
-import 'package:bldrs/models/tiny_models/tiny_bz.dart';
-import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
-import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class Firebasetesting extends StatefulWidget {
 
@@ -29,7 +20,7 @@ class Firebasetesting extends StatefulWidget {
 }
 
 class _FirebasetestingState extends State<Firebasetesting> {
-  List<Map<String, Object>> functions;
+  // List<Map<String, Object>> functions;
   String printVerse;
   File _dumFile;
   String _dumURL;
@@ -45,70 +36,8 @@ class _FirebasetestingState extends State<Firebasetesting> {
     print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
   }
 // ---------------------------------------------------------------------------
-
   @override
   void initState() {
-
-    final FirebaseFirestore _fireInstance = FirebaseFirestore.instance;
-
-    functions = [
-      {'Name' : 'create admin sponsors doc', 'function' : () async {
-        _triggerLoading();
-
-        List<String> _sponsorsIDsList = <String>['ar1', 'dr2', 'mn2', 'br1', 'sp2', 'pp2'];
-
-        await createFireStoreNamedDocument(
-          context: context,
-          collectionName: FireCollection.admin,
-          docName: AdminDoc.sponsors,
-          input: getValueAndTrueMap(_sponsorsIDsList),
-        );
-
-        _triggerLoading();
-      },},
-
-      // -----------------------------------------------------------------------
-      {'Name' : 'fetchAndSetSponsors', 'function' : () async {
-        _triggerLoading();
-
-        FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
-        await _prof.fetchAndSetSponsors(context);
-
-        List<TinyBz> _sponsors = _prof.getSponsors;
-
-        printResult('${_sponsors.length}');
-
-        _triggerLoading();
-      },},
-      // -----------------------------------------------------------------------
-      {'Name' : 'cipher and print _userSavesModels', 'function' : () async {
-        _triggerLoading();
-
-        if (_userSavesModels == null){
-          printResult('Can not cipher _userSavesModels');
-        } else {
-        _userSavesMap = await SaveModel.cipherSavesModelsToUser(_userSavesModels);
-        printResult(_userSavesMap.toString());
-        }
-
-        _triggerLoading();
-      },},
-      // -----------------------------------------------------------------------
-      {'Name' : 'decipher and print _userSavesMap', 'function' : () async {
-        _triggerLoading();
-
-        if(_userSavesMap == null){
-          printResult('Can not decipher _userSavesMap');
-        } else {
-
-          _decipheredSavesModels = SaveModel.decipherUserSavesMap(_userSavesMap);
-          setState(() {});
-        }
-
-        _triggerLoading();
-      },},
-
-    ];
 
     super.initState();
   }
@@ -296,12 +225,176 @@ class _FirebasetestingState extends State<Firebasetesting> {
 
     }
 
+    List<Map<String, dynamic>> functions = <Map<String, dynamic>>[
+      {'Name' : 'Fire.readSubDoc', 'function' : () async {
+        _triggerLoading();
+
+        dynamic _subDoc = await Fire.readSubDoc(
+          collName: 'aCOLL',
+          docName: 'doc2',
+          subCollName: 'subColl',
+          subDocName: 'subDoc',
+        );
+
+        printResult(_subDoc.toString());
+
+        _triggerLoading();
+      },},
+      // -----------------------------------------------------------------------
+      {'Name' : 'Fire.createNamedDoc', 'function' : () async {
+        _triggerLoading();
+
+        dynamic _subDoc = await Fire.createNamedDoc(
+          context: context,
+          collName: 'aCOLL',
+          docName: 'doc2',
+          input: {'testy' : false},
+        );
+
+        printResult(_subDoc.toString());
+
+        _triggerLoading();
+      },},
+      // -----------------------------------------------------------------------
+      {'Name' : 'Fire.createNamedSubDoc', 'function' : () async {
+        _triggerLoading();
+
+        dynamic _subDoc = await Fire.createNamedSubDoc(
+          context: context,
+          collName: 'aCOLL',
+          docName: 'doc2',
+          subCollName: 'subColl',
+          subDocName: 'subDoc',
+          input: {'oh baby' : 'aywa ba2aaaa'},
+        );
+
+        printResult(_subDoc.toString());
+
+        _triggerLoading();
+      },},
+      // -----------------------------------------------------------------------
+      {'Name' : 'Fire.replaceDoc', 'function' : () async {
+        _triggerLoading();
+
+        await Fire.updateDoc(
+          context: context,
+          collName: 'aCOLL',
+          docName: 'doc2',
+          input: {'pop' : 'the fuckسسسس'},
+        );
+
+        printResult('done');
+
+        _triggerLoading();
+      },},
+      // -----------------------------------------------------------------------
+      {'Name' : 'Fire.readSubCollectionDocs', 'function' : () async {
+        _triggerLoading();
+
+        List<dynamic> _maps = await Fire.readSubCollectionDocs(
+          collName: 'aCOLL',
+          docName: 'doc2',
+          subCollName: 'subColl',
+        );
+
+        printResult(_maps.toString());
+
+        _triggerLoading();
+      },},
+      // -----------------------------------------------------------------------
+      {'Name' : 'Fire.deleteSubDoc', 'function' : () async {
+        _triggerLoading();
+
+        await Fire.deleteSubDoc(
+          context: context,
+          collName: 'aCOLL',
+          docName: 'doc2',
+          subCollName: 'subColl',
+          subDocName: 'subDoc',
+        );
+
+        printResult('deleted isa');
+
+        _triggerLoading();
+      },},
+      // -----------------------------------------------------------------------
+      {'Name' : 'Fire.updateSubDoc', 'function' : () async {
+        _triggerLoading();
+
+        await Fire.updateSubDoc(
+          context: context,
+          collName: 'aCOLL',
+          docName: 'doc2',
+          subCollName: 'subColl',
+          subDocName: 'subDoc',
+          input: {
+            'field 1' : 'bitch',
+            'field 2' : 'slap',
+          }
+        );
+
+        printResult('deleted isa');
+
+        _triggerLoading();
+      },},
+      // -----------------------------------------------------------------------
+      {'Name' : 'Fire.updateSubDocField', 'function' : () async {
+        _triggerLoading();
+
+        await Fire.updateSubDocField(
+          context: context,
+          collName: 'aCOLL',
+          docName: 'doc2',
+          subCollName: 'subColl',
+          subDocName: 'subDoc',
+          field: 'field 3',
+          input: 'awy'
+        );
+
+        printResult('deleted isa');
+
+        _triggerLoading();
+      },},
+      // -----------------------------------------------------------------------
+
+    ];
+
+
     return MainLayout(
       pyramids: Iconz.PyramidzYellow,
       appBarType: AppBarType.Basic,
       appBarBackButton: true,
       pageTitle: 'Firebase Testers',
       loading: _loading,
+      appBarRowWidgets: <Widget>[
+
+        Expanded(child: Container(),),
+
+        DreamBox(
+          height: 35,
+          width: 50,
+          verse: 'trigger loading',
+          verseMaxLines: 2,
+          boxMargins: EdgeInsets.symmetric(horizontal: Ratioz.ddAppBarPadding),
+          verseScaleFactor: 0.5,
+          boxFunction: (){
+            _triggerLoading();
+          },
+        ),
+
+        DreamBox(
+          height: 35,
+          width: 50,
+          verse: 'Clear Print',
+          verseMaxLines: 2,
+          boxMargins: EdgeInsets.symmetric(horizontal: Ratioz.ddAppBarPadding),
+          verseScaleFactor: 0.5,
+          boxFunction: (){
+            printResult('');
+          },
+        ),
+
+      ],
       layoutWidget: Stack(
         children: <Widget>[
 
@@ -325,21 +418,23 @@ class _FirebasetestingState extends State<Firebasetesting> {
                   );
               }),
 
-              _theSlides('flyerA'),
-
-              _theSlides('flyerB'),
-
-              _theSlides('flyerC'),
-
-              ..._savesWidgets(_userSavesModels),
+              // _theSlides('flyerA'),
+              //
+              // _theSlides('flyerB'),
+              //
+              // _theSlides('flyerC'),
+              //
+              // ..._savesWidgets(_userSavesModels),
 
               DreamBox(
-                width: superScreenWidth(context),
-                height: 10,
-                color: Colorz.BloodRed,
+                width: superScreenWidth(context) * 0.95,
+                height: 2.5,
+                color: Colorz.WhiteGlass,
+                corners: 0,
+                boxMargins: EdgeInsets.symmetric(vertical: 10),
               ),
 
-              ..._savesWidgets(_decipheredSavesModels),
+              // ..._savesWidgets(_decipheredSavesModels),
 
 
                 PyramidsHorizon(heightFactor: 10,),

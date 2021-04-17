@@ -11,7 +11,7 @@ import '../firestore.dart';
 class UserCRUD{
 // ---------------------------------------------------------------------------
   /// user firestore collection reference
-  final CollectionReference _usersCollectionRef = getFireCollectionReference(FireCollection.users);
+  final CollectionReference _usersCollectionRef = Fire.getCollectionRef(FireCollection.users);
 // ---------------------------------------------------------------------------
   /// users firestore collection reference getter
   CollectionReference userCollectionRef(){
@@ -22,15 +22,15 @@ class UserCRUD{
   /// user firestore document reference
   DocumentReference userDocRef(String userID){
     return
-      getFirestoreDocumentReference(FireCollection.users, userID);
+      Fire.getDocRef(FireCollection.users, userID);
   }
 // ---------------------------------------------------------------------------
   Future<UserModel> readUserOps({BuildContext context, String userID}) async {
 
-    Map<String, dynamic> _userMap = await getFireStoreDocumentMap(
+    Map<String, dynamic> _userMap = await Fire.readDoc(
       context: context,
-      collectionName: FireCollection.users,
-      documentName: userID,
+      collName: FireCollection.users,
+      docName: userID,
     );
 
     UserModel _user = UserModel.decipherUserMap(_userMap);
@@ -41,9 +41,9 @@ class UserCRUD{
   /// create or update user document
   Future<void> _createOrUpdateUserDoc({BuildContext context, UserModel userModel}) async {
 
-    await replaceFirestoreDocument(
+    await Fire.updateDoc(
       context: context,
-      collectionName: FireCollection.users,
+      collName: FireCollection.users,
       docName: userModel.userID,
       input: userModel.toMap(),
     );
@@ -91,9 +91,9 @@ class UserCRUD{
     );
 
     /// create TinyUser in firestore
-    await createFireStoreNamedDocument(
+    await Fire.createNamedDoc(
       context: context,
-      collectionName: FireCollection.tinyUsers,
+      collName: FireCollection.tinyUsers,
       docName: userModel.userID,
       input: TinyUser.getTinyUserFromUserModel(_finalUserModel).toMap(),
     );
@@ -148,9 +148,9 @@ class UserCRUD{
     oldUserModel.pic != updatedUserModel.pic ||
     oldUserModel.userStatus != updatedUserModel.userStatus
     ){
-      await replaceFirestoreDocument(
+      await Fire.updateDoc(
         context: context,
-        collectionName: FireCollection.tinyUsers,
+        collName: FireCollection.tinyUsers,
         docName: updatedUserModel.userID,
         input: TinyUser.getTinyUserFromUserModel(_finalUserModel).toMap(),
       );

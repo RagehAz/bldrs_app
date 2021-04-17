@@ -1,6 +1,5 @@
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/firestore/firestore.dart';
-import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/views/widgets/bubbles/bzz_bubble.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
@@ -24,7 +23,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
 // ---------------------------------------------------------------------------
   Future<dynamic> getFirestoreBzz() async {
     _triggerLoading();
-    List<QueryDocumentSnapshot> _bzzMaps = await getFireCollectionMaps(FireCollection.tinyBzz);
+    List<QueryDocumentSnapshot> _bzzMaps = await Fire.readCollectionDocs(FireCollection.tinyBzz);
 
     setState(() {
     _tinyBzz = TinyBz.decipherTinyBzzMaps(_bzzMaps);
@@ -72,10 +71,10 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
         // loading: _loading,
         layoutWidget: FutureBuilder(
           // TASK : can use bzModelBuilder here
-            future: getFireStoreDocumentMap(
+            future: Fire.readDoc(
               context: context,
-                collectionName: FireCollection.bzz,
-                documentName: _bzID,
+                collName: FireCollection.bzz,
+                docName: _bzID,
             ),
             builder: (ctx, snapshot){
 

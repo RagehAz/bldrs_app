@@ -45,9 +45,9 @@ class _FeedBackState extends State<FeedBack> {
     _triggerLoading();
 
     /// upload text to firebase
-    await createFireStoreDocument(
+    await Fire.createDoc(
       context: context,
-      collectionName: FireCollection.feedbacks,
+      collName: FireCollection.feedbacks,
       input: FeedbackModel(
         userID: superUserID(),
         timeStamp: DateTime.now(),
