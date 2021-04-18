@@ -87,8 +87,8 @@ class _TextFieldTestState extends State<TextFieldTest> {
               onChanged: (val){
                 setState(() {
                   x = val;
-                  _textIsArabic = textStartsInArabic(val);
-                  _textIsEnglish = textStartsInEnglish(val);
+                  _textIsArabic = TextChecker.textStartsInArabic(val);
+                  _textIsEnglish = TextChecker.textStartsInEnglish(val);
                 });
               },
             ),
