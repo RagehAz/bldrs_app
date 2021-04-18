@@ -71,6 +71,7 @@ class BzFlyerScreen extends StatelessWidget {
 
               /// re-route back
               Nav.goBack(context, argument: true);
+
             },
 
           ),
@@ -83,9 +84,29 @@ class BzFlyerScreen extends StatelessWidget {
             width: BottomSlider.bottomSheetClearWidth(context),
             icon: Iconz.FlyerScale,
             iconSizeFactor: 0.5,
-            verse: 'Un-publish flyer',
+            verse: 'super delete flyer not un-publish',
             verseScaleFactor: 1.2,
             verseColor: Colorz.White,
+            boxFunction: () async {
+              Nav.goBack(context);
+
+              /// Task : this should be bool dialog instead
+              await superDialog(context, 'You will never get this back ever', 'watch out');
+
+              /// start delete flyer ops
+              await FlyerCRUD().deleteFlyerOps(
+                context: context,
+                bzModel: bzModel,
+                flyerModel : flyerModel,
+              );
+
+              /// remove tinyFlyer from Local list
+              FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
+              _prof.removeTinyFlyerFromLocalList(tinyFlyer.flyerID);
+
+              /// re-route back
+              Nav.goBack(context, argument: true);
+            },
           ),
 
           SizedBox(height: 10,),
