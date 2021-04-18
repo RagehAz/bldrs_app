@@ -268,7 +268,7 @@ class FlyerCRUD{
     print('3 - flyer updated on fireStore');
 
     /// if keywords changed, update flyerKeys doc
-    if (listsAreTheSame(_finalFlyer.keyWords, originalFlyer.keyWords) == false){
+    if (TextChecker.listsAreTheSame(_finalFlyer.keyWords, originalFlyer.keyWords) == false){
       await Fire.updateDoc(
         context: context,
         collName: FireCollection.flyersKeys,

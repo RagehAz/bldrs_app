@@ -15,22 +15,22 @@ import 'package:flutter/material.dart';
 
 /// create, read, update, delete bz doc in cloud firestore
 class BzCRUD{
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   /// bz firestore collection reference
   final CollectionReference _bzCollectionRef = Fire.getCollectionRef(FireCollection.bzz);
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   /// bzz firestore collection reference getter
   CollectionReference bzCollectionRef(){
     return
       _bzCollectionRef;
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   /// bz firestore document reference
   DocumentReference bzDocRef(String bzID){
     return
       Fire.getDocRef(FireCollection.bzz, bzID);
   }
-// ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   /// create bz operations on firestore
   Future<BzModel> createBzOps({
     BuildContext context,
@@ -151,7 +151,7 @@ class BzCRUD{
 
     return _outputBz;
   }
-// ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   static Future<BzModel> readBzOps({BuildContext context, String bzID}) async {
 
     dynamic _bzMap = await Fire.readDoc(
@@ -163,7 +163,7 @@ class BzCRUD{
 
     return _bz;
   }
-// ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   Future<TinyBz> readTinyBzOps({BuildContext context, String bzID}) async {
 
     Map<String, dynamic> _tinyBzMap = await Fire.readDoc(
@@ -176,7 +176,7 @@ class BzCRUD{
 
     return _tinyBz;
   }
-// ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   /// update bz operations on firestore
   Future<BzModel> updateBzOps({
     BuildContext context,
@@ -323,7 +323,7 @@ class BzCRUD{
 
     return _finalBz;
   }
-// ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   Future<void> deactivateBzOps({BuildContext context, BzModel bzModel}) async {
 
     /// 1 - perform deactivate flyer ops for all flyers
@@ -495,5 +495,5 @@ class BzCRUD{
     print('DELETE BZ OPS ENDED ---------------------------');
 
   }
-// ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 }
