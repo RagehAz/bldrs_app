@@ -186,12 +186,11 @@ class _MyBzScreenState extends State<MyBzScreen> {
   @override
   Widget build(BuildContext context) {
 
-    double _bubbleWidth = superScreenWidth(context) - (2 * Ratioz.ddAppBarMargin);
+    // double _bubbleWidth = superScreenWidth(context) - (2 * Ratioz.ddAppBarMargin);
 
     return bzModelStreamBuilder(
         context: context,
         bzID: widget.tinyBz.bzID,
-
         builder: (ctx, bzModel){
 
           return
