@@ -131,7 +131,14 @@ class SlideModel {
   }
 
   static List<String> generateSlidesIDs(FlyerModel flyerModel){
+    List<String> _slidesIDs = new List();
 
+    flyerModel.slides.forEach((slide) {
+      String _slideID = generateSlideID(flyerModel.flyerID, slide.slideIndex);
+      _slidesIDs.add(_slideID);
+    });
+
+    return _slidesIDs;
   }
 // -----------------------------------------------------------------------------
   static int getSlideIndexFromSlideID(String slideID){
