@@ -1,8 +1,6 @@
 import 'package:bldrs/controllers/router/route_names.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/models/user_model.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 
 class Pyramids extends StatefulWidget {
