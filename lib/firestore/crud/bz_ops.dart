@@ -3,6 +3,7 @@ import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/firestore/auth/auth.dart';
 import 'package:bldrs/firestore/crud/flyer_ops.dart';
 import 'package:bldrs/firestore/crud/user_ops.dart';
+import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/tiny_models/nano_flyer.dart';
@@ -10,8 +11,6 @@ import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import '../firebase_storage.dart';
-import '../firestore.dart';
 
 /// create, read, update, delete bz doc in cloud firestore
 class BzCRUD{
@@ -51,7 +50,7 @@ class BzCRUD{
     /// save bzLogo to fire storage and get URL
     String _bzLogoURL;
     if (inputBz.bzLogo != null){
-      _bzLogoURL = await savePicOnFirebaseStorageAndGetURL(
+      _bzLogoURL = await Fire.createStoragePicAndGetURL(
           context: context,
           inputFile: inputBz.bzLogo,
           fileName: _bzID,
@@ -64,7 +63,7 @@ class BzCRUD{
     if(inputBz.bzAuthors[0].authorPic == null){
       _authorPicURL = userModel.pic;
     } else {
-      _authorPicURL = await savePicOnFirebaseStorageAndGetURL(
+      _authorPicURL = await Fire.createStoragePicAndGetURL(
           context: context,
           inputFile: inputBz.bzAuthors[0].authorPic,
           fileName: userModel.userID,
@@ -191,7 +190,7 @@ class BzCRUD{
     if(bzLogoFile == null) {
       // do Nothing, bzLogo was not changed, will keep as
     } else {
-      _bzLogoURL = await savePicOnFirebaseStorageAndGetURL(
+      _bzLogoURL = await Fire.createStoragePicAndGetURL(
           context: context,
           inputFile: bzLogoFile,
           fileName: originalBz.bzID,
@@ -209,7 +208,7 @@ class BzCRUD{
 
       String _authorID = superUserID();
 
-      _authorPicURL = await savePicOnFirebaseStorageAndGetURL(
+      _authorPicURL = await Fire.createStoragePicAndGetURL(
           context: context,
           inputFile: authorPicFile,
           fileName: _authorID,
