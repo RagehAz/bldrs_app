@@ -179,7 +179,7 @@ class FlyerModel with ChangeNotifier{
     }
   }
 // -----------------------------------------------------------------------------
-  static List<FlyerModel> decipherFlyersMapsFromFireStore(List<dynamic> maps){
+  static List<FlyerModel> decipherFlyersMaps(List<dynamic> maps){
     List<FlyerModel> _flyersList = new List();
 
     maps?.forEach((map) {

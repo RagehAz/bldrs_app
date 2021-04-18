@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/text_generators.dart';
+import 'package:bldrs/controllers/drafters/text_manipulators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
@@ -291,12 +292,15 @@ class _FirebasetestingState extends State<Firebasetesting> {
         _triggerLoading();
 
         List<dynamic> _maps = await Fire.readSubCollectionDocs(
+          context: context,
+          addDocsIDs: true,
           collName: 'aCOLL',
           docName: 'doc2',
           subCollName: 'subColl',
         );
 
-        printResult(_maps.toString());
+
+        printResult(_maps[1]['id']);
 
         _triggerLoading();
       },},
@@ -340,14 +344,16 @@ class _FirebasetestingState extends State<Firebasetesting> {
       {'Name' : 'Fire.updateSubDocField', 'function' : () async {
         _triggerLoading();
 
+        List<String> _newList = <String>['wa7ed', 'etneen', 'talata'];
+
         await Fire.updateSubDocField(
           context: context,
           collName: 'aCOLL',
           docName: 'doc2',
           subCollName: 'subColl',
           subDocName: 'subDoc',
-          field: 'field 3',
-          input: 'awy'
+          field: 'field 4',
+          input: _newList
         );
 
         printResult('deleted isa');

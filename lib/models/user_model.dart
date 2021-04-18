@@ -149,6 +149,17 @@ class UserModel {
     UserStatus.BzAuthor,
   ];
 // -----------------------------------------------------------------------------
+  static List<dynamic> removeBzIDFromMyBzzIDs(List<dynamic> myBzzIDs, String bzID){
+    int _bzIndex = myBzzIDs.indexWhere((id) => id == bzID,);
+
+    if (_bzIndex != null){
+      myBzzIDs.removeAt(_bzIndex);
+      return myBzzIDs;
+    } else {
+      return null;
+    }
+
+  }
 }
 // -----------------------------------------------------------------------------
 enum UserStatus {

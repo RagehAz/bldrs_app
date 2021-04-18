@@ -5,6 +5,7 @@ import 'package:bldrs/firestore/crud/flyer_ops.dart';
 import 'package:bldrs/firestore/crud/user_ops.dart';
 import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/models/bz_model.dart';
+import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/tiny_models/nano_flyer.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
@@ -384,49 +385,114 @@ class BzCRUD{
 // -----------------------------------------------------------------------------
   Future<void> deleteBzOps({BuildContext context, BzModel bzModel}) async {
 
-    /// 1 - start delete flyer ops for all flyers
+    print('1 - start delete flyer ops for all flyers');
     List<String> _flyersIDs = BzModel.getBzFlyersIDs(bzModel);
     for (var id in _flyersIDs){
 
-      await FlyerCRUD().deactivateFlyerOps(
+      print('a - getting flyer : $id');
+      FlyerModel _flyerModel = await FlyerCRUD().readFlyerOps(
+        context: context,
+        flyerID: id,
+      );
+
+      print('b - starting delete flyer ops aho rabbena yostor ------------ - - - ');
+      await FlyerCRUD().deleteFlyerOps(
         context: context,
         bzModel: bzModel,
-        flyerID: id,
+        flyerModel: _flyerModel,
       );
 
     }
 
-    /// 2 - delete tiny bz doc
-    // await delete
+    print('2 - delete tiny bz doc');
+    await Fire.deleteDoc(
+      context: context,
+      collName: FireCollection.tinyBzz,
+      docName: bzModel.bzID,
+    );
 
-    /// 3 - delete bzID in all author's myBzIDs lists
-    ///
-    ///
-    /// 4 - delete all calls sub docs
-    ///
-    ///
-    /// 5 - delete calls sub collection
-    ///
-    ///
-    /// 6 - delete follows sub docs
-    ///
-    ///
-    /// 7 - delete follows sub collection
-    ///
-    ///
-    /// 8 - delete counters sub doc
-    ///
-    ///
-    /// 9 - delete counters sub collection
-    ///
-    ///
-    /// 10 - delete bz logo
-    ///
-    ///
-    /// 11 - delete all authors pictures
-    ///
-    ///
-    /// 12 - delete bz doc
+    print('3 - delete bzID : ${bzModel.bzID} in all author\'s myBzIDs lists');
+    List<String> _authorsIDs = AuthorModel.getAuthorsIDsFromAuthors(bzModel.bzAuthors);
+    for (var authorID in _authorsIDs){
+
+      print('a - get user model');
+      UserModel _user = await UserCRUD().readUserOps(
+        context: context,
+        userID: authorID,
+      );
+
+      print('b - update user\'s myBzzIDs');
+      List<dynamic> _modifiedMyBzzIDs = UserModel.removeBzIDFromMyBzzIDs(_user.myBzzIDs, bzModel.bzID);
+
+      print('c - update myBzzIDs field in user doc');
+      await Fire.updateDocField(
+        context: context,
+        collName: FireCollection.users,
+        docName: authorID,
+        field: 'myBzzIDs',
+        input: _modifiedMyBzzIDs,
+      );
+    }
+
+    print('4 - delete all calls sub docs');
+    await Fire.deleteAllSubDocs(
+      context: context,
+      collName: FireCollection.bzz,
+      docName: bzModel.bzID,
+      subCollName: FireCollection.subBzCalls
+    );
+
+    print('5 - wont delete calls sub collection');
+    // dunno if could be done here
+
+    print('6 - delete follows sub docs');
+    await Fire.deleteAllSubDocs(
+        context: context,
+        collName: FireCollection.bzz,
+        docName: bzModel.bzID,
+        subCollName: FireCollection.subBzFollows
+
+    );
+
+    print('7 - delete follows sub collection');
+    // dunno if could be done here
+
+    print('8 - delete counters sub doc');
+    await Fire.deleteSubDoc(
+      context: context,
+      collName: FireCollection.bzz,
+      docName: bzModel.bzID,
+      subCollName: FireCollection.subBzCounters,
+      subDocName: FireCollection.subBzCounters,
+    );
+
+    print('9 - wont delete counters sub collection');
+    // dunno if could be done here
+
+    print('10 - delete bz logo');
+    await Fire.deleteStoragePic(
+      context: context,
+      fileName: bzModel.bzID,
+      picType: PicType.bzLogo,
+    );
+
+    print('11 - delete all authors pictures');
+    for (var id in _authorsIDs){
+      await Fire.deleteStoragePic(
+        context: context,
+        fileName: id,
+        picType: PicType.authorPic,
+      );
+    }
+
+    print('12 - delete bz doc');
+    await Fire.deleteDoc(
+      context: context,
+      collName: FireCollection.bzz,
+      docName: bzModel.bzID,
+    );
+
+    print('DELETE BZ OPS ENDED ---------------------------');
 
   }
 // ----------------------------------------------------------------------
