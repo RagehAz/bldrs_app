@@ -70,8 +70,8 @@ class _SignInState extends State<SignIn> {
 // ---------------------------------------------------------------------------
   @override
   void dispose() {
-    if (textControllerHasNoValue(_emailController))_emailController.dispose();
-    if (textControllerHasNoValue(_passWordController))_passWordController.dispose();
+    if (TextChecker.textControllerHasNoValue(_emailController))_emailController.dispose();
+    if (TextChecker.textControllerHasNoValue(_passWordController))_passWordController.dispose();
     super.dispose();
   }
 

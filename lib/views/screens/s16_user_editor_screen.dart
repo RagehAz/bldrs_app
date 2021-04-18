@@ -95,19 +95,19 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   // ---------------------------------------------------------------------------
   @override
   void dispose() {
-    if (textControllerHasNoValue(_nameController))_nameController.dispose();
-    if (textControllerHasNoValue(_titleController))_titleController.dispose();
-    if (textControllerHasNoValue(_companyController))_companyController.dispose();
-    if (textControllerHasNoValue(_phoneController))_phoneController.dispose();
-    if (textControllerHasNoValue(_emailController))_emailController.dispose();
-    if (textControllerHasNoValue(_websiteController))_websiteController.dispose();
-    if (textControllerHasNoValue(_facebookController))_facebookController.dispose();
-    if (textControllerHasNoValue(_linkedInController))_linkedInController.dispose();
-    if (textControllerHasNoValue(_youTubeController))_youTubeController.dispose();
-    if (textControllerHasNoValue(_instagramController))_instagramController.dispose();
-    if (textControllerHasNoValue(_pinterestController))_pinterestController.dispose();
-    if (textControllerHasNoValue(_tiktokController))_tiktokController.dispose();
-    if (textControllerHasNoValue(_twitterController))_twitterController.dispose();
+    if (TextChecker.textControllerHasNoValue(_nameController))_nameController.dispose();
+    if (TextChecker.textControllerHasNoValue(_titleController))_titleController.dispose();
+    if (TextChecker.textControllerHasNoValue(_companyController))_companyController.dispose();
+    if (TextChecker.textControllerHasNoValue(_phoneController))_phoneController.dispose();
+    if (TextChecker.textControllerHasNoValue(_emailController))_emailController.dispose();
+    if (TextChecker.textControllerHasNoValue(_websiteController))_websiteController.dispose();
+    if (TextChecker.textControllerHasNoValue(_facebookController))_facebookController.dispose();
+    if (TextChecker.textControllerHasNoValue(_linkedInController))_linkedInController.dispose();
+    if (TextChecker.textControllerHasNoValue(_youTubeController))_youTubeController.dispose();
+    if (TextChecker.textControllerHasNoValue(_instagramController))_instagramController.dispose();
+    if (TextChecker.textControllerHasNoValue(_pinterestController))_pinterestController.dispose();
+    if (TextChecker.textControllerHasNoValue(_tiktokController))_tiktokController.dispose();
+    if (TextChecker.textControllerHasNoValue(_twitterController))_twitterController.dispose();
     super.dispose();
   }
   // ---------------------------------------------------------------------------
