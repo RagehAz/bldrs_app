@@ -40,7 +40,7 @@ TextDirection superInverseTextDirection(BuildContext context){
 TextDirection superTextDirectionSwitcherByController(TextEditingController controller){
   TextDirection _textDirection;
 
-  bool controllerIsEmpty = textControllerHasNoValue(controller);
+  bool controllerIsEmpty = TextChecker.textControllerHasNoValue(controller);
 
   if (!controllerIsEmpty){
 
@@ -54,9 +54,9 @@ TextDirection superTextDirectionSwitcherByController(TextEditingController contr
 
     // print('_firstCharacter is ($_firstCharacter)');
 
-    if(textStartsInEnglish(_firstCharacter)){
+    if(TextChecker.textStartsInEnglish(_firstCharacter)){
       _textDirection = TextDirection.ltr;
-    } else if (textStartsInArabic(_firstCharacter)){
+    } else if (TextChecker.textStartsInArabic(_firstCharacter)){
       _textDirection = TextDirection.rtl;
     } else {
       _textDirection = null;
@@ -70,7 +70,7 @@ TextDirection superTextDirectionSwitcherByController(TextEditingController contr
 TextDirection superTextDirectionSwitcher(String val){
   TextDirection _textDirection;
 
-  bool controllerIsEmpty = stringHasNoValue(val);
+  bool controllerIsEmpty = TextChecker.stringHasNoValue(val);
 
   if (!controllerIsEmpty){
 
@@ -84,9 +84,9 @@ TextDirection superTextDirectionSwitcher(String val){
 
     // print('_firstCharacter is ($_firstCharacter)');
 
-    if(textStartsInEnglish(_firstCharacter)){
+    if(TextChecker.textStartsInEnglish(_firstCharacter)){
       _textDirection = TextDirection.ltr;
-    } else if (textStartsInArabic(_firstCharacter)){
+    } else if (TextChecker.textStartsInArabic(_firstCharacter)){
       _textDirection = TextDirection.rtl;
     } else {
       _textDirection = null;
