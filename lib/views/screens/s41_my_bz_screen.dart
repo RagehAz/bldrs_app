@@ -69,14 +69,19 @@ class _MyBzScreenState extends State<MyBzScreen> {
         }
     ));
 
+    if (_result == true){
+      setState(() {});
+    }
+
     print(_result);
   }
   // ----------------------------------------------------------------------
   void _slideBzOptions(BuildContext context, BzModel bzModel){
 
+
     BottomSlider.slideBottomSheet(
       context: context,
-      height: (50+10+50+30).toDouble(),
+      height: (50+10+50+10+50+30).toDouble(),
       draggable: true,
       child: Column(
         children: <Widget>[
@@ -110,7 +115,7 @@ class _MyBzScreenState extends State<MyBzScreen> {
               _prof.removeTinyBzFromLocalList(bzModel.bzID);
 
               /// remove tinyBz from userTinyBzz
-              _prof.removeTinyBzFromUserTinyBzz(bzModel.bzID);
+              _prof.removeTinyBzFromLocalUserTinyBzz(bzModel.bzID);
 
 
               /// re-route back
@@ -118,6 +123,8 @@ class _MyBzScreenState extends State<MyBzScreen> {
             },
 
           ),
+
+          SizedBox(height: 10,),
 
           // --- DEACTIVATE BZ  ACCOUNT
           DreamBox(
@@ -148,7 +155,7 @@ class _MyBzScreenState extends State<MyBzScreen> {
               _prof.removeTinyBzFromLocalList(bzModel.bzID);
 
               /// remove tinyBz from userTinyBzz
-              _prof.removeTinyBzFromUserTinyBzz(bzModel.bzID);
+              _prof.removeTinyBzFromLocalUserTinyBzz(bzModel.bzID);
 
               /// re-route back
               Nav.goBack(context, argument: true);
@@ -199,11 +206,11 @@ class _MyBzScreenState extends State<MyBzScreen> {
 
                   DreamBox(
                     height: 40,
-                    icon: widget.tinyBz.bzLogo,
-                    verse: widget.tinyBz.bzName,
+                    icon: bzModel.bzLogo,
+                    verse: bzModel.bzName,
                     bubble: false,
                     verseScaleFactor: 0.6,
-                    secondLine: TextGenerator.bzTypeSingleStringer(context, widget.tinyBz.bzType),
+                    secondLine: TextGenerator.bzTypeSingleStringer(context, bzModel.bzType),
                   ),
 
                   Expanded(child: Container()),
