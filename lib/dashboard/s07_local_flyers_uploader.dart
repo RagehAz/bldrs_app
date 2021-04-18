@@ -5,7 +5,6 @@ import 'package:bldrs/controllers/drafters/text_manipulators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/firestore/auth/auth.dart';
-import 'package:bldrs/firestore/firebase_storage.dart';
 import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
@@ -372,7 +371,11 @@ Future<FlyerModel> createNamedFlyersOps(BuildContext context, FlyerModel inputFl
   print('2- flyer doc ID created : $_flyerID');
 
   /// save slide pictures on fireStorage and get back their URLs
-  List<String> _picturesURLs = await savePicturesToFireStorageAndGetListOfURL(context, inputFlyerModel.slides, _flyerID);
+  List<String> _picturesURLs = await Fire.createStorageSlidePicsAndGetURLs(
+      context: context,
+      slides: inputFlyerModel.slides,
+      flyerID: _flyerID
+  );
 
   print('3- _picturesURLs created index 0 is : ${_picturesURLs[0]}');
 
