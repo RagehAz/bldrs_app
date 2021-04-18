@@ -234,9 +234,19 @@ class Fire{
   }
 // =============================================================================
   static Future<List<QueryDocumentSnapshot>> readCollectionDocs(String collectionName) async {
-    QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection(collectionName).get();
-    List<QueryDocumentSnapshot> _maps = querySnapshot.docs;
-    return _maps;
+    QuerySnapshot _collectionSnapshot = await FirebaseFirestore.instance.collection(collectionName).get();
+    List<QueryDocumentSnapshot> _docsSnapshots = _collectionSnapshot.docs;
+
+    // if we want to alter this method to return List<Map<Sting, dynamic>>
+    // we can do this :-
+    // List<dynamic> _maps = new List();
+    // for (var docSnapShot in _docsSnapshots){
+    //   _maps.add(docSnapShot.data());
+    // }
+    // and then return _maps; but will leave it for now to
+    // return <List<QueryDocumentSnapshot>>
+
+    return _docsSnapshots;
   }
 // -----------------------------------------------------------------------------
   static Future<dynamic> readDoc({
@@ -288,21 +298,44 @@ class Fire{
     return _map[fieldName];
   }
 // -----------------------------------------------------------------------------
-  /// TASK : GETTING ALL SUB COLLECTION MAPS not tested
-  static Future<List<QueryDocumentSnapshot>> readSubCollectionDocs({
+  static Future<dynamic> readSubCollectionDocs({
+    BuildContext context,
+    bool addDocsIDs,
     String collName,
     String docName,
-    String subCollName
+    String subCollName,
   }) async {
 
-    final CollectionReference _subCollection = getSubCollectionRef(
-      collName: collName,
-      docName: docName,
-      subCollName: subCollName,
+    List<Map<String, dynamic>> _maps = new List();
+
+    await tryAndCatch(
+      context: context,
+      functions: () async {
+
+        final CollectionReference _subCollection = getSubCollectionRef(
+          collName: collName,
+          docName: docName,
+          subCollName: subCollName,
+        );
+
+        final QuerySnapshot _collectionSnapshot = await _subCollection.get();
+        final List<QueryDocumentSnapshot> _docsSnapshots = _collectionSnapshot.docs;
+
+        for (var docSnapshot in _docsSnapshots){
+
+          String _docID = docSnapshot.id;
+          Map<String, dynamic> _map = docSnapshot.data();
+
+          if (addDocsIDs == true){
+            _map['id'] = _docID;
+          }
+
+          _maps.add(_map);
+        }
+
+      }
     );
 
-    QuerySnapshot querySnapshot = await _subCollection.get();
-    List<QueryDocumentSnapshot> _maps = querySnapshot.docs;
     return _maps;
   }
 // -----------------------------------------------------------------------------
@@ -327,7 +360,7 @@ class Fire{
             subDocName: subDocName,
           );
 
-          await _subDocRef.get().then<dynamic>((DocumentSnapshot snapshot) async{
+          await _subDocRef.get().then<dynamic>((DocumentSnapshot snapshot) async {
             _map = snapshot.data();
           });
 
@@ -429,18 +462,17 @@ class Fire{
     String field,
     dynamic input
   }) async {
+
     DocumentReference _doc =  Fire.getDocRef(collName, docName);
 
-    // if (){}else if(){}else{}
-    try {
+    await tryAndCatch(
+      context: context,
+      functions: () async {
 
-      await _doc.update({field : input});
+        await _doc.update({field : input});
 
-      // await superDialog(context, 'Successfully updated\n$collectionName\\$documentName\\$field to :\n"$input"','Success');
-
-    } catch(error) {
-      superDialog(context, error, 'Ops !');
-    }
+      }
+    );
 
   }
 // -----------------------------------------------------------------------------
@@ -482,13 +514,12 @@ class Fire{
       subDocName: subDocName,
     );
 
-    try {
-
-      await _subDoc.update({field : input});
-
-    } catch(error) {
-      superDialog(context, error, 'Ops !');
-    }
+    await tryAndCatch(
+      context: context,
+      functions: () async {
+        await _subDoc.update({field : input});
+      }
+    );
 
   }
 // =============================================================================
@@ -552,6 +583,39 @@ class Fire{
     /// TASK : deleting sub collection and all its sub docs require a cloud function
 
   }
+// -----------------------------------------------------------------------------
+  /// ALERT : deleting all sub docs from client device is super dangerous
+  static Future<void> deleteAllSubDocs({
+    BuildContext context,
+    String collName,
+    String docName,
+    String subCollName,
+  }) async {
+
+    /// a - read all sub docs
+    List<dynamic> _subDocs = await Fire.readSubCollectionDocs(
+      context: context,
+      addDocsIDs: true,
+      collName: collName,
+      docName: docName,
+      subCollName: subCollName,
+    );
+
+    for(var map in _subDocs){
+
+      String _docID = map['id'];
+
+      await Fire.deleteSubDoc(
+        context: context,
+        collName: collName,
+        docName: docName,
+        subCollName: subCollName,
+        subDocName: _docID,
+      );
+
+    }
+
+}
 // =============================================================================
 
 

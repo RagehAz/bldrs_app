@@ -129,6 +129,10 @@ class SlideModel {
     String _slideID = '${flyerID}_$_slideIndexString';
     return _slideID;
   }
+
+  static List<String> generateSlidesIDs(FlyerModel flyerModel){
+
+  }
 // -----------------------------------------------------------------------------
   static int getSlideIndexFromSlideID(String slideID){
     // slide index shall never have more than two digits

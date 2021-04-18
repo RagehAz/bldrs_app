@@ -199,7 +199,7 @@ class FlyersProvider with ChangeNotifier {
     notifyListeners();
   }
 // ---------------------------------------------------------------------------
-  void removeTinyBzFromUserTinyBzz(String bzID){
+  void removeTinyBzFromLocalUserTinyBzz(String bzID){
     int _index = _userTinyBzz.indexWhere((tinyBz) => tinyBz.bzID == bzID);
     _userTinyBzz.removeAt(_index);
     notifyListeners();
@@ -589,7 +589,7 @@ return bzz;
 
           /// READ data from cloud Firestore flyers collection
           List<QueryDocumentSnapshot> _fireStoreFlyersMaps = await Fire.readCollectionDocs(FireCollection.flyers);
-          final List<FlyerModel> _fireStoreFlyersModels = FlyerModel.decipherFlyersMapsFromFireStore(_fireStoreFlyersMaps);
+          final List<FlyerModel> _fireStoreFlyersModels = FlyerModel.decipherFlyersMaps(_fireStoreFlyersMaps);
 
          /// TASK : after migrating local flyers to firestore, _loadedFlyers should = _fireStoreFlyersModels;
          //  _loadedFlyers.addAll(_fireStoreFlyersModels);

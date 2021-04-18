@@ -89,5 +89,17 @@ class NanoFlyer with ChangeNotifier{
     return _flyerIDs;
   }
 // -----------------------------------------------------------------------------
+  static List<NanoFlyer> removeNanoFlyerFromNanoFlyers(List<NanoFlyer> nanoFlyers, String flyerID){
+    int _flyerIndex = nanoFlyers.indexWhere((nano) => nano.flyerID == flyerID,);
+
+    if (_flyerIndex != null){
+      nanoFlyers.removeAt(_flyerIndex);
+      return nanoFlyers;
+    } else {
+      return null;
+    }
+
+  }
+// -----------------------------------------------------------------------------
 }
 

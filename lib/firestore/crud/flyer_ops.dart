@@ -355,42 +355,106 @@ class FlyerCRUD{
 
 }
 // -----------------------------------------------------------------------------
-  Future<void> deleteFlyerOps({BuildContext context,String flyerID, BzModel bzModel}) async {
+  Future<void> deleteFlyerOps({BuildContext context,FlyerModel flyerModel, BzModel bzModel}) async {
 
-    /// 1 - delete nano flyer in bzFlyers
-    ///
-    ///
-    /// 2 - delete tiny flyer doc
-    ///
-    ///
-    /// 3 - delete flyer keys doc
-    ///
-    ///
-    /// 4 - delete flyer views docs
-    ///
-    ///
-    /// 5 - delete flyer view sub collection
-    ///
-    ///
-    /// 6 - delete shares sub docs
-    ///
-    ///
-    /// 7 - delete shares sub collection
-    ///
-    ///
-    /// 8 - delete saves sub docs
-    ///
-    ///
-    /// 9 - delete saves sub collection
-    ///
-    ///
-    /// 10 - delete counters sub doc
-    ///
-    ///
-    /// 11 - delete counters sub collection
-    ///
-    ///
-    /// 12 - delete flyer
+    print('1 - delete nano flyer in bzFlyers');
+    List<NanoFlyer> _bzFlyers = bzModel.bzFlyers;
+    List<NanoFlyer> _modifiedNanoFlyers= NanoFlyer.removeNanoFlyerFromNanoFlyers(_bzFlyers, flyerModel.flyerID);
+    await Fire.updateDocField(
+      context: context,
+      collName: FireCollection.bzz,
+      docName: bzModel.bzID,
+      field: 'bzFlyers',
+      input: NanoFlyer.cipherNanoFlyers(_modifiedNanoFlyers),
+    );
+
+    print('2 - delete tiny flyer doc');
+    await Fire.deleteDoc(
+      context: context,
+      collName: FireCollection.tinyFlyers,
+      docName: flyerModel.flyerID,
+    );
+
+    print('3 - delete flyer keys doc');
+    await Fire.deleteDoc(
+      context: context,
+      collName: FireCollection.flyersKeys,
+      docName: flyerModel.flyerID,
+    );
+
+    print('4 - delete flyer views sub docs');
+    await Fire.deleteAllSubDocs(
+      context: context,
+      collName: FireCollection.flyers,
+      docName: flyerModel.flyerID,
+      subCollName: FireCollection.subFlyerViews,
+    );
+
+    print('5 - wont delete flyer view sub collection');
+    // dunno if could be done here
+
+    print('6 - delete shares sub docs');
+    await Fire.deleteAllSubDocs(
+      context: context,
+      collName: FireCollection.flyers,
+      docName: flyerModel.flyerID,
+      subCollName: FireCollection.subFlyerShares,
+    );
+
+    print('7 - wont delete shares sub collection');
+    // dunno if could be done here
+
+    print('8 - delete saves sub docs');
+    await Fire.deleteAllSubDocs(
+      context: context,
+      collName: FireCollection.flyers,
+      docName: flyerModel.flyerID,
+      subCollName: FireCollection.subFlyerSaves,
+    );
+
+    print('9 - wont delete saves sub collection');
+    // dunno if could be done here
+
+    print('10 - delete counters sub doc');
+    await Fire.deleteSubDoc(
+        context: context,
+        collName: FireCollection.flyers,
+        docName: flyerModel.flyerID,
+        subCollName: FireCollection.subFlyerCounters,
+        subDocName: FireCollection.subFlyerCounters
+    );
+
+    print('11 - wont delete counters sub collection');
+    // dunno if could be done here
+
+    print('12 - delete flyer slide pics');
+    List<String> _slidesIDs = SlideModel.generateSlidesIDs(flyerModel);
+    for (var id in _slidesIDs){
+
+      print('a - delete slideHighRes : $id from ${_slidesIDs.length} slides');
+      await Fire.deleteStoragePic(
+        context: context,
+        fileName: id,
+        picType: PicType.slideHighRes,
+      );
+
+      // print('b - delete slideLowRes : $id from ${_slidesIDs.length} slides');
+      // await Fire.deleteStoragePic(
+      //   context: context,
+      //   fileName: id,
+      //   picType: PicType.slideLowRes,
+      // );
+
+    }
+
+    print('13 - delete flyer doc');
+    await Fire.deleteDoc(
+      context: context,
+      collName: FireCollection.flyers,
+      docName: flyerModel.flyerID,
+    );
+
+    print('DELETE FLYER OPS ENDED ---------------------------');
 
   }
 }

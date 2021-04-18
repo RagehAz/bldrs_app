@@ -68,7 +68,7 @@ class _FlyersSizesScreenState extends State<FlyersSizesScreen> {
         /// uploading flyers 27, 28, 29
 
         List<dynamic> _allFlyersMaps = await Fire.readCollectionDocs(FireCollection.flyers);
-        List<FlyerModel> _allFlyers = FlyerModel.decipherFlyersMapsFromFireStore(_allFlyersMaps);
+        List<FlyerModel> _allFlyers = FlyerModel.decipherFlyersMaps(_allFlyersMaps);
 
         List<FlyerModel> _flyersOfHanySaad = new List();
         String _hanyBzID = _allFlyers.firstWhere((flyer) => flyer.tinyBz.bzName.contains('HSI')).tinyBz.bzID;

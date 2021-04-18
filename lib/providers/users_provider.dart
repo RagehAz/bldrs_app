@@ -44,26 +44,26 @@ class UserProvider{
   UserModel _userModelFromSnapshot(DocumentSnapshot doc){
 
     try{
-      var _doc = doc.data();
+      var _map = doc.data();
 
-      List<dynamic> _myBzzIDs = _doc['myBzzIDs'] == null ? [] : _doc['myBzzIDs'] as List<dynamic>;
+      List<dynamic> _myBzzIDs = _map['myBzzIDs'] == null ? [] : _map['myBzzIDs'] as List<dynamic>;
 
       return UserModel(
-        userID : _doc['userID'] ?? '',
-        joinedAt : decipherDateTimeString(_doc['joinedAt'] ?? ''),
-        userStatus : UserModel.decipherUserStatus(_doc['userStatus']?? 1),
+        userID : _map['userID'] ?? '',
+        joinedAt : decipherDateTimeString(_map['joinedAt'] ?? ''),
+        userStatus : UserModel.decipherUserStatus(_map['userStatus']?? 1),
         // -------------------------
-        name : _doc['name'] ?? '',
-        pic : _doc['pic'] ?? '',
-        title : _doc['title'] ?? '',
-        company : _doc['company'] ?? '',
-        gender : UserModel.decipherGender(_doc['gender'] ?? 2),
-        country : _doc['country'] ?? '',
-        province : _doc['province'] ?? '',
-        area : _doc['area'] ?? '',
-        language : _doc['language'] ?? 'en',
-        position : _doc['position'] ?? GeoPoint(0, 0),
-        contacts : ContactModel.decipherContactsMaps(_doc['contacts'] ?? []),
+        name : _map['name'] ?? '',
+        pic : _map['pic'] ?? '',
+        title : _map['title'] ?? '',
+        company : _map['company'] ?? '',
+        gender : UserModel.decipherGender(_map['gender'] ?? 2),
+        country : _map['country'] ?? '',
+        province : _map['province'] ?? '',
+        area : _map['area'] ?? '',
+        language : _map['language'] ?? 'en',
+        position : _map['position'] ?? GeoPoint(0, 0),
+        contacts : ContactModel.decipherContactsMaps(_map['contacts'] ?? []),
         // -------------------------
         myBzzIDs: _myBzzIDs ?? [],
       );
