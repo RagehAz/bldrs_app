@@ -1,11 +1,11 @@
 import 'package:bldrs/controllers/drafters/file_formatters.dart';
 import 'package:bldrs/controllers/drafters/imagers.dart';
+import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/models/tiny_models/tiny_user.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
-import '../firebase_storage.dart';
-import '../firestore.dart';
+
 /// Should include all user firestore operations
 /// except reading data for widgets injection
 class UserCRUD{
@@ -55,7 +55,7 @@ class UserCRUD{
     /// check if user pic is file to upload or URL from facebook to keep
     String _userPicURL;
     if (ObjectChecker.objectIsFile(userModel.pic) == true){
-      _userPicURL = await savePicOnFirebaseStorageAndGetURL(
+      _userPicURL = await Fire.createStoragePicAndGetURL(
             context: context,
             inputFile: userModel.pic,
             fileName: userModel.userID,
@@ -105,7 +105,7 @@ class UserCRUD{
     /// update picture if changed or continue without changing pic
     String _userPicURL;
     if (ObjectChecker.objectIsFile(updatedUserModel.pic) == true){
-      _userPicURL = await savePicOnFirebaseStorageAndGetURL(
+      _userPicURL = await Fire.createStoragePicAndGetURL(
           context: context,
           inputFile: updatedUserModel.pic,
           fileName: updatedUserModel.userID,
