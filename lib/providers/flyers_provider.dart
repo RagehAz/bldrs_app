@@ -4,6 +4,7 @@ import 'package:bldrs/firestore/crud/bz_ops.dart';
 import 'package:bldrs/firestore/crud/flyer_ops.dart';
 import 'package:bldrs/firestore/crud/record_ops.dart';
 import 'package:bldrs/firestore/crud/user_ops.dart';
+import 'package:bldrs/firestore/fire_search.dart';
 import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
@@ -25,39 +26,44 @@ class FlyersProvider with ChangeNotifier {
   List<TinyBz> _loadedTinyBzz;
   List<TinyFlyer> _loadedSavedFlyers;
   List<String> _loadedFollows;
-// ---------------------------------------------------------------------------
+  List<FlyerModel> _bzOldFlyers;
+// -----------------------------------------------------------------------------
   List<TinyBz> get getSponsors {
     return <TinyBz> [..._sponsors];
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   List<TinyBz> get getUserTinyBzz {
     return <TinyBz> [..._userTinyBzz];
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   List<FlyerModel> get getAllFlyers {
     return <FlyerModel>[..._loadedFlyers];
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   List<TinyFlyer> get getAllTinyFlyers {
     return <TinyFlyer>[..._loadedTinyFlyers];
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   List<BzModel> get getAllBzz {
     return <BzModel>[..._loadedBzz];
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   List<TinyBz> get getAllTinyBzz {
     return <TinyBz>[..._loadedTinyBzz];
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   List<TinyFlyer> get getSavedTinyFlyers {
     return <TinyFlyer>[..._loadedSavedFlyers];
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   List<String> get getFollows{
     return <String>[..._loadedFollows];
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+  List<FlyerModel> get getBzOldFlyers{
+    return <FlyerModel>[..._bzOldFlyers];
+  }
+// -----------------------------------------------------------------------------
   /// this sets app sponsors if any
   /// TASK : sponsors tiny bzz should depend on which city
   Future<void> fetchAndSetSponsors(BuildContext context) async {
@@ -83,7 +89,7 @@ class FlyersProvider with ChangeNotifier {
     print(_sponsors.length);
     notifyListeners();
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   /// if a user is an Author, this READs & sets user tiny bzz form db/users/userID['myBzzIDs']
   Future<void> fetchAndSetUserTinyBzz(BuildContext context) async {
     String _userID = superUserID();
@@ -117,7 +123,7 @@ class FlyersProvider with ChangeNotifier {
     _userTinyBzz = _userTinyBzzList;
     notifyListeners();
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   /// READs and sets  db/users/userID/saves/flyers document
   Future<void> fetchAndSetSavedFlyers(BuildContext context) async {
 
@@ -144,7 +150,7 @@ class FlyersProvider with ChangeNotifier {
     print('_loadedSavedFlyers :::: --------------- ${_loadedSavedFlyers.toString()}');
 
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   /// READs and sets db/users/userID/saves/bzz document
   Future<void> fetchAndSetFollows(BuildContext context) async {
 
@@ -155,7 +161,7 @@ class FlyersProvider with ChangeNotifier {
     print('_loadedFollows = $_loadedFollows');
     notifyListeners();
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   /// READs all TinyBzz in firebase realtime database
   Future<void> fetchAndSetTinyBzzAndTinyFlyers(BuildContext context) async {
 
@@ -186,41 +192,78 @@ class FlyersProvider with ChangeNotifier {
     );
 
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+  /// READs all TinyBzz in firebase realtime database
+  Future<void> fetchAndSetOldBzFlyers(BuildContext context, BzModel bzModel) async {
+
+    final TinyBz _tinyBz = TinyBz.getTinyBzFromBzModel(bzModel);
+    /// get all flyers from db/flyer/{where flyer.tinyBz.bzID == bzID}
+
+    final CollectionReference _flyersColl = Fire.getCollectionRef(FireCollection.flyers);
+
+    final List<dynamic> maps = await FireSearch.mapsByFieldValue(
+      context: context,
+      addDocsIDs: false,
+      collRef: _flyersColl,
+      field: 'tinyBz',
+      compareValue: _tinyBz.toMap(),
+      valueIs: ValueIs.EqualTo,
+    );
+
+    final List<FlyerModel> _oldFlyers = FlyerModel.decipherFlyersMaps(maps);
+
+    _bzOldFlyers = _oldFlyers;
+    notifyListeners();
+
+    // _flyersColl.get([GetOptions()])
+    //
+    // Future<List<DocumentSnapshot>> getSuggestion(String suggestion) =>
+    //     Firestore.instance
+    //         .collection('your-collection')
+    //         .orderBy('your-document')
+    //         .startAt([searchkey])
+    //         .endAt([searchkey + '\uf8ff'])
+    //         .getDocuments()
+    //         .then((snapshot) {
+    //       return snapshot.documents;
+    //     });
+
+  }
+// -----------------------------------------------------------------------------
   void removeTinyFlyerFromLocalList(String flyerID){
     int _index = _loadedTinyFlyers.indexWhere((tinyFlyer) => tinyFlyer.flyerID == flyerID);
     _loadedTinyFlyers.removeAt(_index);
     notifyListeners();
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   void removeTinyBzFromLocalList(String bzID){
     int _index = _loadedTinyBzz.indexWhere((tinyBz) => tinyBz.bzID == bzID);
     _loadedTinyBzz.removeAt(_index);
     notifyListeners();
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   void removeTinyBzFromLocalUserTinyBzz(String bzID){
     int _index = _userTinyBzz.indexWhere((tinyBz) => tinyBz.bzID == bzID);
     _userTinyBzz.removeAt(_index);
     notifyListeners();
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   FlyerModel getFlyerByFlyerID (String flyerID){
     FlyerModel _flyer = _loadedFlyers?.firstWhere((x) => x.flyerID == flyerID, orElse: ()=>null);
     return _flyer;
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   TinyFlyer getTinyFlyerByFlyerID (String flyerID){
     TinyFlyer _tinyFlyer = _loadedTinyFlyers?.firstWhere((x) => x.flyerID == flyerID, orElse: ()=>null);
     return _tinyFlyer;
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   List<FlyerModel> getFlyersByFlyersIDs(List<dynamic> flyersIDs){
     List<FlyerModel> flyers = new List();
     flyersIDs?.forEach((id) {flyers.add(getFlyerByFlyerID(id));});
     return flyers;
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   List<String> getTinyFlyersIDsByFlyerType(FlyerType flyerType){
     List<String> flyersIDs = new List();
     _loadedTinyFlyers?.forEach((fl) {
@@ -228,7 +271,7 @@ class FlyersProvider with ChangeNotifier {
     });
     return flyersIDs;
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   List<FlyerModel> getFlyersByFlyerType(FlyerType flyerType){
     List<FlyerModel> _flyers = new List();
     List<String> _flyersIDs = getTinyFlyersIDsByFlyerType(flyerType);
@@ -237,7 +280,7 @@ class FlyersProvider with ChangeNotifier {
     });
     return _flyers;
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   List<TinyFlyer> getTinyFlyersByFlyerType(FlyerType flyerType){
     List<TinyFlyer> _tinyFlyers = new List();
     List<String> _flyersIDs = getTinyFlyersIDsByFlyerType(flyerType);
@@ -246,7 +289,7 @@ class FlyersProvider with ChangeNotifier {
     });
     return _tinyFlyers;
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   bool checkAnkh(String flyerID){
     bool _ankhIsOn = false;
 
@@ -260,7 +303,7 @@ class FlyersProvider with ChangeNotifier {
 
     return _ankhIsOn;
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   bool checkFollow(String bzID){
     bool _followIsOn = false;
 
@@ -275,7 +318,7 @@ class FlyersProvider with ChangeNotifier {
 
     return _followIsOn;
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 //   List<FlyerModel> getSavedFlyersFromFlyersList (List<FlyerModel> inputList, String userID){
 //     List<FlyerModel> savedFlyers = new List();
 //     List<FlyerModel> _inputList = inputList.isEmpty || inputList == null ? [] : inputList;
@@ -284,7 +327,7 @@ class FlyersProvider with ChangeNotifier {
 //     });
 //     return savedFlyers;
 //   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   List<FlyerModel> getFlyersByAuthorID(String authorID){
     List<FlyerModel> authorFlyers = new List();
     for (FlyerModel fl in _loadedFlyers){
@@ -309,7 +352,7 @@ class FlyersProvider with ChangeNotifier {
 //     bzFlyersIDs?.forEach((id) {flyers.add(getFlyerByFlyerID(id));});
 //     return flyers;
 //   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   BzModel getBzByBzID(String bzID){
     BzModel bz = _loadedBzz?.firstWhere((bz) => bz.bzID == bzID, orElse: ()=>null);
     return bz;
@@ -322,12 +365,12 @@ class FlyersProvider with ChangeNotifier {
   // }
 
 
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   TinyBz getTinyBzByBzID(String bzID){
     TinyBz _tinyBz = _loadedTinyBzz?.firstWhere((bz) => bz.bzID == bzID, orElse: ()=>null);
     return _tinyBz;
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 
   List<BzModel> getBzzOfFlyersList(List<FlyerModel> flyersList){
     List<BzModel> _bzz = new List();
@@ -336,7 +379,7 @@ class FlyersProvider with ChangeNotifier {
     });
     return _bzz;
 }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   List<TinyBz> getTinyBzzOfTinyFlyersList(List<TinyFlyer> tinyFlyersList){
     List<TinyBz> _tinyBzz = new List();
     tinyFlyersList.forEach((fl) {
@@ -344,7 +387,7 @@ class FlyersProvider with ChangeNotifier {
     });
     return _tinyBzz;
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   List<BzModel> getBzzByBzzIDs(List<String> bzzIDs){
 List<BzModel> bzz = new List();
 bzzIDs.forEach((bzID) {bzz.add(getBzByBzID(bzID));});
@@ -425,11 +468,11 @@ return bzz;
   }
 // ############################################################################
 /// BZZ ON FIRE STORE
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   /// bzz collection reference
   final CollectionReference bzzCollection =
   FirebaseFirestore.instance.collection(FireCollection.bzz);
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   /// create Bz document
   Future<void> createBzDocument(BzModel bz, UserModel userModel) async {
 
@@ -539,39 +582,39 @@ return bzz;
     Stream<FlyerModel> _flyerStream = _flyerSnapshot.map(_flyerModelFromSnapshot);
     return _flyerStream;
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   /// get bz doc stream
   Stream<BzModel> getBzStream(String bzID) {
     Stream<DocumentSnapshot> _bzSnapshot = Fire.streamDoc(FireCollection.bzz, bzID);
     Stream<BzModel> _bzStream = _bzSnapshot.map(_bzModelFromSnapshot);
     return _bzStream;
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   /// get bz doc stream
   Stream<TinyBz> getTinyBzStream(String bzID) {
     Stream<DocumentSnapshot> _bzSnapshot = Fire.streamDoc(FireCollection.tinyBzz, bzID);
     Stream<TinyBz> _tinyBzStream = _bzSnapshot.map(_tinyBzModelFromSnapshot);
     return _tinyBzStream;
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   FlyerModel _flyerModelFromSnapshot(DocumentSnapshot doc){
     var _map = doc.data();
     FlyerModel _flyerModel = FlyerModel.decipherFlyerMap(_map);
     return _flyerModel;
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   BzModel _bzModelFromSnapshot(DocumentSnapshot doc){
   var _map = doc.data();
   BzModel _bzModel = BzModel.decipherBzMap(_map['bzID'], _map);
   return _bzModel;
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   TinyBz _tinyBzModelFromSnapshot(DocumentSnapshot doc){
     var _map = doc.data();
     TinyBz _tinyBz = TinyBz.decipherTinyBzMap(_map);
     return _tinyBz;
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   /// READs all Bzz in firebase realtime database
   Future<void> fetchAndSetBzz(BuildContext context) async {
 

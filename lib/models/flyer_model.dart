@@ -88,7 +88,7 @@ class FlyerModel with ChangeNotifier{
       flyerID: flyerID,
       flyerType: flyerType,
       flyerState: flyerState,
-      keyWords: cloneListOfStrings(keyWords),
+      keyWords: Mapper.cloneListOfStrings(keyWords),
       flyerShowsAuthor: flyerShowsAuthor,
       flyerURL: flyerURL,
       tinyAuthor: tinyAuthor.clone(),

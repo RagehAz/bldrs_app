@@ -13,6 +13,7 @@ import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/screens/s40_bz_editor_screen.dart';
 import 'package:bldrs/views/screens/s42_bz_flyer_screen.drt.dart';
+import 'package:bldrs/views/screens/s43_old_flyer_screen.dart';
 import 'package:bldrs/views/widgets/bubbles/bubbles_separator.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/paragraph_bubble.dart';
@@ -22,6 +23,7 @@ import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_sheet.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/max_header_parts/gallery.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
+import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x11_pro_flyer_grid_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -39,7 +41,7 @@ class MyBzScreen extends StatefulWidget {
 }
 
 class _MyBzScreenState extends State<MyBzScreen> {
-
+  bool _showOldFlyers;
 // ---------------------------------------------------------------------------
   /// --- LOADING BLOCK
   bool _loading = false;
@@ -51,10 +53,11 @@ class _MyBzScreenState extends State<MyBzScreen> {
 // ---------------------------------------------------------------------------
   @override
   void initState() {
+    _showOldFlyers = false;
     // TODO: implement initState
     super.initState();
   }
-  // ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   Future <void> _goToEditBzProfile(BzModel bzModel) async {
     var _result = await Navigator.push(context, new MaterialPageRoute(
       // maintainState: ,
@@ -75,7 +78,7 @@ class _MyBzScreenState extends State<MyBzScreen> {
 
     print(_result);
   }
-  // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   void _slideBzOptions(BuildContext context, BzModel bzModel){
 
 
@@ -182,7 +185,13 @@ class _MyBzScreenState extends State<MyBzScreen> {
     );
 
   }
-  // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+  void _showOldFlyersOnTap(BzModel bzModel){
+
+    Nav.goToNewScreen(context, OldFlyerScreen(bz: bzModel));
+
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -236,12 +245,15 @@ class _MyBzScreenState extends State<MyBzScreen> {
                     InPyramidsBubble(
                       title: 'Published Flyers',
                       centered: false,
+                      actionBtIcon: Iconz.Clock,
+                      actionBtFunction: () => _showOldFlyersOnTap(bzModel),
                       columnChildren: <Widget>[
 
                         Gallery(
                           flyerZoneWidth: superBubbleClearWidth(context),
                           showFlyers: true,
                           bz: bzModel,
+                          // showOldFlyers: _showOldFlyers,
                           flyerOnTap: (tinyFlyer) async {
 
                             dynamic _rebuild = await Navigator.push(context,

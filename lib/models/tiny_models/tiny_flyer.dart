@@ -104,6 +104,17 @@ class TinyFlyer with ChangeNotifier{
     return _tinyFlyers;
   }
 // -----------------------------------------------------------------------------
+  static List<TinyFlyer> getTinyFlyersFromFlyersModels(List<FlyerModel> flyers){
+    List<TinyFlyer> _tinyFlyers = new List();
+
+    for (var flyer in flyers){
+      TinyFlyer _tinyFlyer = getTinyFlyerFromFlyerModel(flyer);
+      _tinyFlyers.add(_tinyFlyer);
+    }
+
+    return _tinyFlyers;
+  }
+// -----------------------------------------------------------------------------
 }
 
 

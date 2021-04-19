@@ -129,7 +129,7 @@ class SlideModel {
     String _slideID = '${flyerID}_$_slideIndexString';
     return _slideID;
   }
-
+// -----------------------------------------------------------------------------
   static List<String> generateSlidesIDs(FlyerModel flyerModel){
     List<String> _slidesIDs = new List();
 
