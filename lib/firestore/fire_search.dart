@@ -154,4 +154,41 @@ class FireSearch {
     return _maps;
     }
 // -----------------------------------------------------------------------------
+  static Future<dynamic> mapsByTwoValuesEqualTo({
+    BuildContext context,
+    CollectionReference collRef,
+    String fieldA,
+    dynamic valueA,
+    String fieldB,
+    dynamic valueB,
+    bool addDocsIDs,
+}) async {
+
+    List<Map<String, dynamic>> _maps = new List();
+
+    await tryAndCatch(
+        context: context,
+        functions: () async {
+
+          QuerySnapshot _collectionSnapshot;
+
+            _collectionSnapshot = await collRef
+                .where(fieldA, isEqualTo: valueA)
+                .where(fieldB, isEqualTo: valueB)
+                .get();
+
+            print('is not equal to null aho');
+
+          _maps = Mapper.getMapsFromQuerySnapshot(
+            querySnapshot: _collectionSnapshot,
+            addDocsIDs: true,
+          );
+        });
+
+    return _maps;
+
+  }
+// -----------------------------------------------------------------------------
 }
+
+

@@ -343,6 +343,7 @@ class FlyerCRUD{
       docName: flyerID,
     );
 
+    /// TASK : can merge the below two doc writes into one method later in optimization
     /// trigger flyer Deletion field by adding a timeStamp
     DateTime _deletionTime = DateTime.now();
     await Fire.updateDocField(
@@ -351,6 +352,15 @@ class FlyerCRUD{
       docName: flyerID,
       field: 'deletionTime',
       input: cipherDateTimeToString(_deletionTime),
+    );
+
+    /// change flyerState to Deactivated
+    await Fire.updateDocField(
+      context: context,
+      collName: FireCollection.flyers,
+      docName: flyerID,
+      field: 'flyerState',
+      input: FlyerModel.cipherFlyerState(FlyerState.DeActivated),
     );
 
 }
