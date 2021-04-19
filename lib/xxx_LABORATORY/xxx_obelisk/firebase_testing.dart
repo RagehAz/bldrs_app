@@ -7,12 +7,17 @@ import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/firestore/fire_search.dart';
 import 'package:bldrs/firestore/firestore.dart';
+import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/records/save_model.dart';
+import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
+import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
+import 'package:bldrs/views/widgets/flyer/grids/flyers_grid.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Firebasetesting extends StatefulWidget {
 
@@ -28,6 +33,8 @@ class _FirebasetestingState extends State<Firebasetesting> {
   List<SaveModel> _userSavesModels;
   Map<String, dynamic> _userSavesMap;
   List<SaveModel> _decipheredSavesModels;
+  List<TinyFlyer> _tinyFlyers;
+  List<FlyerModel> _allFLyers;
 // ---------------------------------------------------------------------------
   /// --- LOADING BLOCK
   bool _loading = false;
@@ -241,7 +248,6 @@ class _FirebasetestingState extends State<Firebasetesting> {
         _triggerLoading();
       },},
       // -----------------------------------------------------------------------
-
       {'Name' : 'Fire.readSubDoc', 'function' : () async {
         _triggerLoading();
 
@@ -398,6 +404,53 @@ class _FirebasetestingState extends State<Firebasetesting> {
         _triggerLoading();
       },},
       // -----------------------------------------------------------------------
+      {'Name' : 'read All flyers', 'function' : () async {
+        _triggerLoading();
+
+        // final FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
+        // List<TinyFlyer> _allTinyFlyers = _prof.getAllTinyFlyers;
+
+        List<dynamic> _allMaps = await Fire.readCollectionDocs(FireCollection.flyers);
+        //
+        List<FlyerModel> _flyers = FlyerModel.decipherFlyersMaps(_allMaps);
+
+        List<TinyFlyer> _dbTinyFlyers = TinyFlyer.getTinyFlyersFromFlyersModels(_flyers);
+
+        setState(() {
+          _tinyFlyers = _dbTinyFlyers;
+          _allFLyers = _flyers;
+        });
+
+        printResult('_tinyFlyers are ${_tinyFlyers.length}');
+
+        _triggerLoading();
+      },},
+      // -----------------------------------------------------------------------
+      {'Name' : 'fix flyer states', 'function' : () async {
+        _triggerLoading();
+
+        for (var flyer in _allFLyers){
+
+          if (flyer.deletionTime != null){
+
+            await Fire.updateDocField(
+              context: context,
+              collName: FireCollection.flyers,
+              docName: flyer.flyerID,
+              field: 'flyerState',
+              input: FlyerModel.cipherFlyerState(FlyerState.DeActivated),
+            );
+
+          }
+
+        }
+
+
+        printResult('_tinyFlyers are ${_tinyFlyers.length}');
+
+        _triggerLoading();
+      },},
+      // -----------------------------------------------------------------------
 
     ];
 
@@ -477,6 +530,19 @@ class _FirebasetestingState extends State<Firebasetesting> {
               ),
 
               // ..._savesWidgets(_decipheredSavesModels),
+
+              SuperVerse(
+                verse: _tinyFlyers == null ? 'saved flyers' : 'dbFlyers',
+              ),
+
+              if (_tinyFlyers != null)
+              FlyersGrid(
+                gridZoneWidth: superScreenWidth(context),
+                scrollable: false,
+                stratosphere: false,
+                numberOfColumns: 6,
+                tinyFlyers: _tinyFlyers,
+              ),
 
 
                 PyramidsHorizon(heightFactor: 10,),

@@ -42,36 +42,36 @@ class _FlyersGridState extends State<FlyersGrid> {
 // ---------------------------------------------------------------------------
   @override
   void initState() {
-    // final FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
+    final FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
     // savedFlyers = await pro.getSavedFlyers;
-    _tinyFlyers = widget.tinyFlyers ?? null;
+    _tinyFlyers = widget.tinyFlyers == null ? _prof.getSavedTinyFlyers : widget.tinyFlyers;
     super.initState();
   }
 // ---------------------------------------------------------------------------
-  @override
-  void didChangeDependencies() {
-    if (_isInit && widget.tinyFlyers == null) {
-      _triggerLoading();
-      FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: true);
-
-      setState(() {
-        _tinyFlyers = _prof.getSavedTinyFlyers;
-      });
-
-      // _prof.fetchAndSetSavedFlyers(context)
-      //     .then((_) async {
-      //
-      //   _savedFlyers = _prof.getSavedTinyFlyers;
-      //
-      //   rebuildGrid();
-      //
-      // });
-
-        _triggerLoading();
-    }
-    _isInit = false;
-    super.didChangeDependencies();
-  }
+//   @override
+//   void didChangeDependencies() {
+//     if (_isInit && widget.tinyFlyers == null) {
+//       _triggerLoading();
+//       FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: true);
+//
+//       setState(() {
+//         _tinyFlyers = _prof.getSavedTinyFlyers;
+//       });
+//
+//       // _prof.fetchAndSetSavedFlyers(context)
+//       //     .then((_) async {
+//       //
+//       //   _savedFlyers = _prof.getSavedTinyFlyers;
+//       //
+//       //   rebuildGrid();
+//       //
+//       // });
+//
+//         _triggerLoading();
+//     }
+//     _isInit = false;
+//     super.didChangeDependencies();
+//   }
 // ---------------------------------------------------------------------------
   void rebuildGrid(){setState(() {});}
 // ---------------------------------------------------------------------------

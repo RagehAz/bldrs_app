@@ -201,13 +201,14 @@ class FlyersProvider with ChangeNotifier {
 
     final CollectionReference _flyersColl = Fire.getCollectionRef(FireCollection.flyers);
 
-    final List<dynamic> maps = await FireSearch.mapsByFieldValue(
+    final List<dynamic> maps = await FireSearch.mapsByTwoValuesEqualTo(
       context: context,
       addDocsIDs: false,
       collRef: _flyersColl,
-      field: 'tinyBz',
-      compareValue: _tinyBz.toMap(),
-      valueIs: ValueIs.EqualTo,
+      fieldA: 'tinyBz',
+      valueA: _tinyBz.toMap(),
+      fieldB: 'flyerState',
+      valueB: FlyerModel.cipherFlyerState(FlyerState.DeActivated),
     );
 
     final List<FlyerModel> _oldFlyers = FlyerModel.decipherFlyersMaps(maps);
