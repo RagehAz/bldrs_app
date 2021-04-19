@@ -115,6 +115,16 @@ class TinyFlyer with ChangeNotifier{
     return _tinyFlyers;
   }
 // -----------------------------------------------------------------------------
+  static List<String> getListOfFlyerIDsFromTinyFlyers(List<TinyFlyer> tinyFlyers){
+    List<String> _flyerIDs = new List();
+
+    tinyFlyers?.forEach((flyer) {
+      _flyerIDs.add(flyer.flyerID);
+    });
+
+    return _flyerIDs;
+  }
+// -----------------------------------------------------------------------------
 }
 
 
