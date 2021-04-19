@@ -112,7 +112,7 @@ Future<void> _tapLanguage(String languageCode) async {
     List<Map<String,String>> _areas = _countryPro.getAreasNamesByProvinceID(context, _chosenProvinceID);//_chosenProvince);
 
     List<LanguageClass> _languagesModels = LanguageClass.languageList();
-    List<Map<String,String>> _languages = geebMapsOfLanguagesFromLanguageClassList(_languagesModels);
+    List<Map<String,String>> _languages = LanguageClass.getLanguagesMapsFromLanguages(_languagesModels);
 
     double _abPadding =  Ratioz.ddAppBarPadding;
     double _inBarClearWidth = superScreenWidth(context)
