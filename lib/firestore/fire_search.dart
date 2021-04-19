@@ -1,0 +1,157 @@
+import 'package:bldrs/controllers/drafters/file_formatters.dart';
+import 'package:bldrs/controllers/drafters/mappers.dart';
+import 'package:bldrs/firestore/firestore.dart';
+import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
+
+enum ValueIs{
+  GreaterThan,
+  GreaterOrEqualThan,
+  LessThan,
+  LessOrEqualThan,
+  EqualTo,
+  NotEqualTo,
+  Null,
+  WhereIn,
+  WhereNotIn,
+  ArrayContains,
+  ArrayContainsAny,
+}
+
+class FireSearch {
+// -----------------------------------------------------------------------------
+    static Future<dynamic> mapsByFieldValue({
+      BuildContext context,
+      CollectionReference collRef,
+      String field,
+      dynamic compareValue,
+      ValueIs valueIs,
+      bool addDocsIDs,
+  }) async {
+
+    List<Map<String, dynamic>> _maps = new List();
+
+    await tryAndCatch(
+        context: context,
+        functions: () async {
+
+      QuerySnapshot _collectionSnapshot;
+
+      /// IF EQUAL TO
+      if (valueIs == ValueIs.EqualTo){
+        _collectionSnapshot = await collRef
+            .where(field, isEqualTo: compareValue)
+            .get();
+      }
+      /// IF GREATER THAN
+      else if (valueIs == ValueIs.GreaterThan){
+        _collectionSnapshot = await collRef
+            .where(field, isGreaterThan: compareValue)
+            .get();
+      }
+      /// IF GREATER THAN OR EQUAL
+      else if (valueIs == ValueIs.GreaterOrEqualThan){
+        _collectionSnapshot = await collRef
+            .where(field, isGreaterThanOrEqualTo: compareValue)
+            .get();
+      }
+      /// IF LESS THAN
+      else if (valueIs == ValueIs.LessThan){
+        _collectionSnapshot = await collRef
+            .where(field, isLessThan: compareValue)
+            .get();
+      }
+      /// IF LESS THAN OR EQUAL
+      else if (valueIs == ValueIs.LessOrEqualThan){
+        _collectionSnapshot = await collRef
+            .where(field, isLessThanOrEqualTo: compareValue)
+            .get();
+      }
+      /// IF IS NOT EQUAL TO
+      else if (valueIs == ValueIs.NotEqualTo){
+        _collectionSnapshot = await collRef
+            .where(field, isNotEqualTo: compareValue)
+            .get();
+      }
+      /// IF IS NULL
+      else if (valueIs == ValueIs.Null){
+        _collectionSnapshot = await collRef
+            .where(field, isNull: compareValue)
+            .get();
+      }
+      /// IF whereIn
+      else if (valueIs == ValueIs.WhereIn){
+        _collectionSnapshot = await collRef
+            .where(field, whereIn: compareValue)
+            .get();
+      }
+      /// IF whereNotIn
+      else if (valueIs == ValueIs.WhereNotIn){
+        _collectionSnapshot = await collRef
+            .where(field, whereNotIn: compareValue)
+            .get();
+      }
+      /// IF array contains
+      else if (valueIs == ValueIs.ArrayContains){
+        _collectionSnapshot = await collRef
+            .where(field, arrayContains: compareValue)
+            .get();
+      }
+      /// IF array contains any
+      else if (valueIs == ValueIs.ArrayContainsAny){
+        _collectionSnapshot = await collRef
+            .where(field, arrayContainsAny: compareValue)
+            .get();
+      }
+
+      _maps = Mapper.getMapsFromQuerySnapshot(
+        querySnapshot: _collectionSnapshot,
+        addDocsIDs: true,
+      );
+
+    });
+
+    return _maps;
+
+  }
+// -----------------------------------------------------------------------------
+  static Future<dynamic> mapsByValueInArray({
+    BuildContext context,
+    CollectionReference collRef,
+    String field,
+    dynamic value,
+    bool addDocsIDs,
+}) async {
+
+    List<Map<String, dynamic>> _maps = new List();
+
+    await tryAndCatch(
+        context: context,
+        functions: () async {
+
+          QuerySnapshot _collectionSnapshot;
+
+          /// if search value is just 1 string
+          if (ObjectChecker.objectIsString(value) == true){
+            _collectionSnapshot = await collRef
+                .where(field, arrayContains: value)
+                .get();
+          }
+          /// i search value is list of strings
+          else if(ObjectChecker.objectIsList(value) == true){
+            _collectionSnapshot = await collRef
+                .where(field, whereIn: value)
+                .get();
+          }
+
+          _maps = Mapper.getMapsFromQuerySnapshot(
+            querySnapshot: _collectionSnapshot,
+            addDocsIDs: true,
+          );
+    });
+
+    return _maps;
+    }
+// -----------------------------------------------------------------------------
+}

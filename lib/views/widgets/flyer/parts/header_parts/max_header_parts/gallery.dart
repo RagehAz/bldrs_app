@@ -1,12 +1,15 @@
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/bz_model.dart';
+import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/models/tiny_models/tiny_user.dart';
+import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/widgets/flyer/grids/gallery_grid.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/common_parts/author_label.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Gallery extends StatefulWidget {
   final double flyerZoneWidth;
@@ -31,14 +34,15 @@ class _GalleryState extends State<Gallery> {
   String currentSelectedAuthor;
   List<TinyFlyer> _tinyFlyers;
   List<String> _bzTeamIDs;
-// ----------------------------------------------------------------------------
-  void setFlyersVisibility () {
-    setState(() {
-      flyersVisibilities = List.filled(_tinyFlyers.length, true);
-      currentSelectedAuthor = _bzTeamIDs.length == 1 ? _bzTeamIDs[0] : '';
-    });
-}
-// ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+  /// --- LOADING BLOCK
+  bool _loading = false;
+  void _triggerLoading(){
+    setState(() {_loading = !_loading;});
+    _loading == true?
+    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+  }
+// -----------------------------------------------------------------------------
   @override
   void initState(){
     _tinyFlyers = TinyFlyer.getTinyFlyersFromBzModel(widget.bz);
@@ -46,18 +50,25 @@ class _GalleryState extends State<Gallery> {
     setFlyersVisibility();
     super.initState();
   }
-// ----------------------------------------------------------------------------
-    tappingAuthorLabel(String authorID){
-      setState(() {
-        flyersVisibilities = List.filled(_tinyFlyers.length, false);
-        currentSelectedAuthor == authorID ? currentSelectedAuthor = '' : currentSelectedAuthor = authorID;
-        currentSelectedAuthor == '' ? flyersVisibilities = List.filled(_tinyFlyers.length, true) : currentSelectedAuthor = authorID;
-        _tinyFlyers.asMap().forEach((index, flyer) {
-          if(_tinyFlyers[index].authorID == currentSelectedAuthor){flyersVisibilities[index] = true;}
-        });
+// -----------------------------------------------------------------------------
+  void setFlyersVisibility () {
+    setState(() {
+      flyersVisibilities = List.filled(_tinyFlyers.length, true);
+      currentSelectedAuthor = _bzTeamIDs.length == 1 ? _bzTeamIDs[0] : '';
+    });
+  }
+// -----------------------------------------------------------------------------
+  tappingAuthorLabel(String authorID){
+    setState(() {
+      flyersVisibilities = List.filled(_tinyFlyers.length, false);
+      currentSelectedAuthor == authorID ? currentSelectedAuthor = '' : currentSelectedAuthor = authorID;
+      currentSelectedAuthor == '' ? flyersVisibilities = List.filled(_tinyFlyers.length, true) : currentSelectedAuthor = authorID;
+      _tinyFlyers.asMap().forEach((index, flyer) {
+        if(_tinyFlyers[index].authorID == currentSelectedAuthor){flyersVisibilities[index] = true;}
       });
-    }
-// ----------------------------------------------------------------------------
+    });
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

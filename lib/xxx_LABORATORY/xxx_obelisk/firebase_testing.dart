@@ -5,6 +5,7 @@ import 'package:bldrs/controllers/drafters/text_manipulators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/firestore/fire_search.dart';
 import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/models/records/save_model.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
@@ -226,6 +227,21 @@ class _FirebasetestingState extends State<Firebasetesting> {
     }
 
     List<Map<String, dynamic>> functions = <Map<String, dynamic>>[
+
+      {'Name' : 'Fire.readDoc', 'function' : () async {
+        _triggerLoading();
+
+        dynamic _subDoc = await Fire.readDoc(
+          collName: FireCollection.flyers,
+          docName: 'f005',
+        );
+
+        printResult(_subDoc.toString());
+
+        _triggerLoading();
+      },},
+      // -----------------------------------------------------------------------
+
       {'Name' : 'Fire.readSubDoc', 'function' : () async {
         _triggerLoading();
 
@@ -357,6 +373,27 @@ class _FirebasetestingState extends State<Firebasetesting> {
         );
 
         printResult('deleted isa');
+
+        _triggerLoading();
+      },},
+      // -----------------------------------------------------------------------
+      {'Name' : '-----------', 'function' : () async {
+
+      },},
+      // -----------------------------------------------------------------------
+      {'Name' : 'FireSearch.getDocByFieldValue', 'function' : () async {
+        _triggerLoading();
+
+        List<Map<String, dynamic>> _result = await FireSearch.mapsByFieldValue(
+          context: context,
+          collRef: Fire.getCollectionRef(FireCollection.flyers),
+          field: 'flyerID',
+          compareValue: 'f007',
+          valueIs: ValueIs.EqualTo,
+          addDocsIDs: true,
+        );
+
+        printResult(_result.toString());
 
         _triggerLoading();
       },},

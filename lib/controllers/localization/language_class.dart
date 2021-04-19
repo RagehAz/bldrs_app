@@ -24,7 +24,7 @@ class LanguageClass {
       this.langFlag,
       this.langCode
       );
-
+// -----------------------------------------------------------------------------
   static List<LanguageClass> languageList(){
     return <LanguageClass>[
       LanguageClass(1,'English'     ,'assets/dv/dv_blank.svg',  'en'),
@@ -36,6 +36,17 @@ class LanguageClass {
       LanguageClass(7,'Italiano'    ,'assets/dv/dv_blank.svg',  'it'),
     ];
   }
+// -----------------------------------------------------------------------------
+  static List<Map<String,String>> getLanguagesMapsFromLanguages(List<LanguageClass> languages){
+    List<Map<String,String>> languagesMaps = new List();
+    languages.forEach((lang) {
+      languagesMaps.add(
+        {'id' : lang.langCode, 'value' : lang.langName},
+      );
+    });
+    return languagesMaps;
+  }
+// -----------------------------------------------------------------------------
 }
 
 // -----------------------------------------------

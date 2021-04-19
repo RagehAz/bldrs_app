@@ -12,12 +12,16 @@ class FlyersGrid extends StatefulWidget {
 
   final double gridZoneWidth;
   final int numberOfColumns;
-  // final List<CoFlyer> flyersData;
+  final List<TinyFlyer> tinyFlyers;
+  final bool scrollable;
+  final bool stratosphere;
 
   FlyersGrid({
     @required this.gridZoneWidth,
     this.numberOfColumns = 3,
-    // @required this.flyersData,
+    this.tinyFlyers,
+    this.scrollable = false,
+    this.stratosphere = false,
 });
 
   @override
@@ -25,7 +29,7 @@ class FlyersGrid extends StatefulWidget {
 }
 
 class _FlyersGridState extends State<FlyersGrid> {
-  List<TinyFlyer> _savedFlyers;
+  List<TinyFlyer> _tinyFlyers;
   bool _isInit = true;
 // ---------------------------------------------------------------------------
   /// --- LOADING BLOCK
@@ -40,17 +44,18 @@ class _FlyersGridState extends State<FlyersGrid> {
   void initState() {
     // final FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
     // savedFlyers = await pro.getSavedFlyers;
+    _tinyFlyers = widget.tinyFlyers ?? null;
     super.initState();
   }
 // ---------------------------------------------------------------------------
   @override
   void didChangeDependencies() {
-    if (_isInit) {
+    if (_isInit && widget.tinyFlyers == null) {
       _triggerLoading();
       FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: true);
 
       setState(() {
-        _savedFlyers = _prof.getSavedTinyFlyers;
+        _tinyFlyers = _prof.getSavedTinyFlyers;
       });
 
       // _prof.fetchAndSetSavedFlyers(context)
@@ -76,17 +81,17 @@ class _FlyersGridState extends State<FlyersGrid> {
     // final user = Provider.of<UserModel>(context);
     // List<dynamic> savedFlyersIDs = [ 'f037'];
     // final List<BzModel> bzz = pro.getBzzOfFlyersList(savedFlyers);
-// ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
       // int flyerIndex = 0;
-// ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     double screenWidth = superScreenWidth(context);
-// ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     int gridColumnsCount = widget.numberOfColumns;
     double spacingRatioToGridWidth = 0.15;
     double gridFlyerWidth = widget.gridZoneWidth / (widget.numberOfColumns + (widget.numberOfColumns * spacingRatioToGridWidth) + spacingRatioToGridWidth);
     double gridFlyerHeight = gridFlyerWidth * Ratioz.xxflyerZoneHeight;
     double gridSpacing = gridFlyerWidth * spacingRatioToGridWidth;
-    int flyersCount = _savedFlyers == null ? 0 : _savedFlyers.length;
+    int flyersCount = _tinyFlyers == null ? 0 : _tinyFlyers.length;
     int numOfGridRows(int flyersCount){
       return
         (flyersCount/gridColumnsCount).ceil();
@@ -96,24 +101,28 @@ class _FlyersGridState extends State<FlyersGrid> {
     double gridHeight = gridFlyerHeight * (_numOfRows + (_numOfRows * spacingRatioToGridWidth) + spacingRatioToGridWidth);
         // (numOfGridRows(flyersCount) * (gridFlyerHeight + gridSpacing)) + gridSpacing + gridBottomSpacing;
     // double flyerMainMargins = screenWidth - gridZoneWidth;
-// ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     double _flyerSizeFactor = (((widget.gridZoneWidth - (gridSpacing*(gridColumnsCount+1)))/gridColumnsCount))/screenWidth;
-
-
+// -----------------------------------------------------------------------------
+    EdgeInsets _gridPadding = widget.stratosphere == true ?
+    EdgeInsets.only(right: gridSpacing, left: gridSpacing, bottom: gridSpacing + Ratioz.horizon * 5, top: gridSpacing + Ratioz.stratosphere)
+        :
+    EdgeInsets.all(gridSpacing);
+// -----------------------------------------------------------------------------
     return
       Container(
           width: widget.gridZoneWidth,
           height: gridHeight,
           child:
 
-          _savedFlyers == null ?
+          _tinyFlyers == null?
 
           Center(child: Loading(loading: true,)) :
 
           GridView(
-            physics: NeverScrollableScrollPhysics(),
+            physics: widget.scrollable ? AlwaysScrollableScrollPhysics() : NeverScrollableScrollPhysics(),
             addAutomaticKeepAlives: true,
-            padding: EdgeInsets.all(gridSpacing),
+            padding: _gridPadding,
             // key: new Key(loadedFlyers[flyerIndex].f01flyerID),
             gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
               crossAxisSpacing: gridSpacing,
@@ -123,9 +132,9 @@ class _FlyersGridState extends State<FlyersGrid> {
             ),
               children: <Widget>[
 
-                if(_savedFlyers !=null)
+                if(_tinyFlyers !=null)
                 ...List<Widget>.generate(
-                    _savedFlyers.length,
+                    _tinyFlyers.length,
                         (index){
                       return
 
@@ -146,9 +155,9 @@ class _FlyersGridState extends State<FlyersGrid> {
               //   );
 
                         TinyFlyerWidget(
-                          tinyFlyer: _savedFlyers[index],
+                          tinyFlyer: _tinyFlyers[index],
                           flyerSizeFactor: _flyerSizeFactor,
-                          onTap: (tinyFlyer) => Nav().openFlyer(context, _savedFlyers[index].flyerID),
+                          onTap: (tinyFlyer) => Nav().openFlyer(context, _tinyFlyers[index].flyerID),
                         );
 
                     }),
