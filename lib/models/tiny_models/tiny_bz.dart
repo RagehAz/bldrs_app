@@ -103,9 +103,11 @@ class TinyBz with ChangeNotifier{
   static List<String> getBzzIDsFromTinyBzz(List<TinyBz> _tinyBzz){
     List<String> _ids = new List();
 
-    _tinyBzz.forEach((tinyBz) {
-      _ids.add(tinyBz.bzID);
-    });
+    if (_tinyBzz != null){
+      _tinyBzz.forEach((tinyBz) {
+        _ids.add(tinyBz.bzID);
+      });
+    }
 
     return _ids;
   }

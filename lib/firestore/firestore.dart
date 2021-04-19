@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:bldrs/controllers/drafters/imagers.dart';
+import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/models/sub_models/slide_model.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -122,6 +123,15 @@ class Fire{
     //     .doc(subDocName);
 
     return _subDocRef;
+  }
+// -----------------------------------------------------------------------------
+  static Future<dynamic> _getMapByDocRef(DocumentReference docRef) async {
+    dynamic _map;
+    await docRef.get()
+        .then<dynamic>((DocumentSnapshot snapshot) async {
+      _map = Mapper.getMapFromDocumentSnapshot(snapshot);
+    });
+    return _map;
   }
 // =============================================================================
   /// creates firestore doc with auto generated ID then returns doc reference
@@ -261,11 +271,9 @@ class Fire{
       context: context,
       functions: () async {
 
-        final DocumentReference _document = Fire.getDocRef(collName, docName);
+        final DocumentReference _docRef = Fire.getDocRef(collName, docName);
 
-        await _document.get().then<dynamic>((DocumentSnapshot snapshot) async{
-          _map = snapshot.data();
-        });
+        _map = await _getMapByDocRef(_docRef);
 
       },
     );
@@ -319,19 +327,11 @@ class Fire{
         );
 
         final QuerySnapshot _collectionSnapshot = await _subCollection.get();
-        final List<QueryDocumentSnapshot> _docsSnapshots = _collectionSnapshot.docs;
 
-        for (var docSnapshot in _docsSnapshots){
-
-          String _docID = docSnapshot.id;
-          Map<String, dynamic> _map = docSnapshot.data();
-
-          if (addDocsIDs == true){
-            _map['id'] = _docID;
-          }
-
-          _maps.add(_map);
-        }
+        _maps = Mapper.getMapsFromQuerySnapshot(
+          querySnapshot: _collectionSnapshot,
+          addDocsIDs: addDocsIDs,
+        );
 
       }
     );
@@ -360,9 +360,7 @@ class Fire{
             subDocName: subDocName,
           );
 
-          await _subDocRef.get().then<dynamic>((DocumentSnapshot snapshot) async {
-            _map = snapshot.data();
-          });
+          _map = await _getMapByDocRef(_subDocRef);
 
         }
     );
@@ -370,6 +368,7 @@ class Fire{
     return _map;
   }
 // -----------------------------------------------------------------------------
+
   /// TODO : delete Fire.readSubDocField if not used in release mode
   static Future<dynamic> readSubDocField({
     BuildContext context,

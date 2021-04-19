@@ -30,6 +30,11 @@ class ObjectChecker {
     return valueIsString;
   }
 // -----------------------------------------------------------------------------
+  static objectIsList(dynamic value) {
+    bool valueIsString = value.runtimeType == List ? true : false;
+    return valueIsString;
+  }
+// -----------------------------------------------------------------------------
   static objectIsURL(dynamic file) {
     bool _validURL =
         objectIsString(file) == true ? Uri.parse(file).isAbsolute : false;
