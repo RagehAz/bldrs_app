@@ -67,6 +67,8 @@ class _OldFlyerScreenState extends State<OldFlyerScreen> {
 
     // FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: true);
     // List<TinyFlyer> _tinyFlyers = _prof.getSavedTinyFlyers;
+    List<String> _ids = TinyFlyer.getListOfFlyerIDsFromTinyFlyers(_tinyFlyers);
+    print(_ids);
 
     return MainLayout(
       sky: Sky.Black,

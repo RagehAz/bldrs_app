@@ -127,6 +127,7 @@ class FlyerModel with ChangeNotifier{
       case 1:   return  FlyerState.Published;     break;
       case 2:   return  FlyerState.Draft;         break;
       case 3:   return  FlyerState.Deleted;       break;
+      case 4:   return  FlyerState.DeActivated;   break;
       default : return   null;
     }
   }
@@ -136,6 +137,7 @@ class FlyerModel with ChangeNotifier{
       case FlyerState.Published     :    return  1;  break;
       case FlyerState.Draft         :    return  2;  break;
       case FlyerState.Deleted       :    return  3;  break;
+      case FlyerState.DeActivated   :    return  4;  break;
       default : return null;
     }
   }
@@ -222,16 +224,6 @@ class FlyerModel with ChangeNotifier{
     return _flyerIDs;
   }
 // -----------------------------------------------------------------------------
-  static List<String> getListOfFlyerIDsFromTinyFlyers(List<TinyFlyer> tinyFlyers){
-    List<String> _flyerIDs = new List();
-
-    tinyFlyers.forEach((flyer) {
-      _flyerIDs.add(flyer.flyerID);
-    });
-
-    return _flyerIDs;
-  }
-// -----------------------------------------------------------------------------
   static FlyerModel replaceFlyerSlidesWithNewSlides(FlyerModel inputFlyerModel, List<SlideModel> updatedSlides){
     return FlyerModel(
       flyerID: inputFlyerModel.flyerID,
@@ -274,6 +266,7 @@ enum FlyerState{
   Published,
   Draft,
   Deleted,
+  DeActivated,
 }
 // -----------------------------------------------------------------------------
 enum FlyerType {
