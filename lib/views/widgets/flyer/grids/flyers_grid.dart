@@ -6,6 +6,7 @@ import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/widgets/flyer/tiny_flyer_widget.dart';
 import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 
 class FlyersGrid extends StatefulWidget {
@@ -15,6 +16,7 @@ class FlyersGrid extends StatefulWidget {
   final List<TinyFlyer> tinyFlyers;
   final bool scrollable;
   final bool stratosphere;
+  final Axis scrollDirection;
 
   FlyersGrid({
     @required this.gridZoneWidth,
@@ -22,6 +24,7 @@ class FlyersGrid extends StatefulWidget {
     this.tinyFlyers,
     this.scrollable = false,
     this.stratosphere = false,
+    this.scrollDirection = Axis.vertical,
 });
 
   @override
@@ -122,6 +125,7 @@ class _FlyersGridState extends State<FlyersGrid> {
           GridView(
             physics: widget.scrollable ? AlwaysScrollableScrollPhysics() : NeverScrollableScrollPhysics(),
             addAutomaticKeepAlives: true,
+            scrollDirection: widget.scrollDirection,
             padding: _gridPadding,
             // key: new Key(loadedFlyers[flyerIndex].f01flyerID),
             gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(

@@ -13,6 +13,7 @@ final bool centered;
 final Color bubbleColor;
 final bool stretchy;
 final String title;
+final Color titleColor;
 final bool redDot;
 final String actionBtIcon;
 final Function actionBtFunction;
@@ -23,6 +24,7 @@ final Function actionBtFunction;
     this.bubbleColor = Colorz.WhiteGlass,
     this.stretchy = false,
     this.title,
+    this.titleColor = Colorz.White,
     this.redDot = false,
     this.actionBtIcon,
     this.actionBtFunction,
@@ -51,8 +53,10 @@ final Function actionBtFunction;
     double actionBtSize = superVerseRealHeight(context, titleVerseSize, 1, null);
     double actionBtCorner = actionBtSize * 0.4;
 
+    double _bubbleWidth = stretchy == true ? null : superBubbleClearWidth(context) + 2*_pageMargin;
+
     return Container(
-          width: stretchy == true ? null : superBubbleClearWidth(context) + 2*_pageMargin,
+          width: _bubbleWidth,
           margin: _bubbleMargins,
           padding: EdgeInsets.all(_pageMargin),
           decoration: BoxDecoration(
@@ -85,14 +89,15 @@ final Function actionBtFunction;
 
                   // --- BUBBLE TITLE
                   if (title != null)
-                    Padding(
+                    Container(
+                      // width: _bubbleWidth,
                       padding: const EdgeInsets.only(bottom: 10, left: 5, right: 5),
                       child: SuperVerse(
                         verse: title,
                         size: titleVerseSize,
                         redDot: redDot,
                         centered: centered,
-                        color: Colorz.YellowLingerie,
+                        color: titleColor,
                       ),
                     ),
 
