@@ -97,7 +97,13 @@ class _CountryScreenState extends State<CountryScreen> {
           iconSizeFactor: 0.8,
           bubble: false,
           boxMargins: EdgeInsets.all(7.5),
-          boxFunction: () => superDialog(context, widget.country.iso3, 'Country ISO3'),
+          boxFunction: () async {
+              await superDialog(
+                context: context,
+                title: 'Country ISO3',
+                body: widget.country.iso3,
+                boolDialog: false,
+              );},
         ),
 
       ],

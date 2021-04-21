@@ -1,30 +1,41 @@
 import 'package:bldrs/controllers/drafters/file_formatters.dart';
 import 'package:bldrs/controllers/drafters/imagers.dart';
+import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/router/navigators.dart';
+import 'package:bldrs/firestore/crud/bz_ops.dart';
 import 'package:bldrs/firestore/firestore.dart';
+import 'package:bldrs/models/bz_model.dart';
+import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/models/tiny_models/tiny_user.dart';
 import 'package:bldrs/models/user_model.dart';
+import 'package:bldrs/providers/flyers_provider.dart';
+import 'package:bldrs/views/widgets/bubbles/bzz_bubble.dart';
+import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
+import 'package:bldrs/views/widgets/loading/loading.dart';
+import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 
 /// Should include all user firestore operations
 /// except reading data for widgets injection
 class UserCRUD{
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   /// user firestore collection reference
   final CollectionReference _usersCollectionRef = Fire.getCollectionRef(FireCollection.users);
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   /// users firestore collection reference getter
   CollectionReference userCollectionRef(){
     return
       _usersCollectionRef;
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   /// user firestore document reference
   DocumentReference userDocRef(String userID){
     return
       Fire.getDocRef(FireCollection.users, userID);
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   Future<UserModel> readUserOps({BuildContext context, String userID}) async {
 
     Map<String, dynamic> _userMap = await Fire.readDoc(
@@ -37,7 +48,7 @@ class UserCRUD{
 
     return _user;
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   /// create or update user document
   Future<void> _createOrUpdateUserDoc({BuildContext context, UserModel userModel}) async {
 
@@ -49,7 +60,7 @@ class UserCRUD{
     );
 
 }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   Future<void> createUserOps({BuildContext context, UserModel userModel}) async {
 
     /// check if user pic is file to upload or URL from facebook to keep
@@ -99,7 +110,7 @@ class UserCRUD{
     );
 
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   Future<void> updateUserOps({BuildContext context, UserModel oldUserModel, UserModel updatedUserModel}) async {
 
     /// update picture if changed or continue without changing pic
@@ -157,36 +168,124 @@ class UserCRUD{
     }
 
   }
-// ---------------------------------------------------------------------------
-  /// delete user document and its consequences
-  // Future<void> _deleteUserDoc(String userID) async {
-  //   final DocumentReference _userDocument = userDocRef(userID);
-  //   await _userDocument.delete();
-  // }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   /// delete all user related data
-  Future<void> deleteUserOps(String userID) async {
+  Future<void> deactivateUserOps({BuildContext context, UserModel userModel}) async {
     /// x. Alert user that he will forever lose his (name, pic, title, contacts,
     /// status, company, gender, zone, position, saved flyers, followed bzz) in
     /// [bool dialog]
 
-    /// A. if user is Author :-
-    ///
-    /// 1. if Author is alone : Alert author he will forever lose his (bz,
-    /// flyers, all records, pictures) in [bool dialog]
-    ///
-    /// 2. if Author is not alone : Alert author to either 'delete' (will lose
-    /// all flyer records including saves, shares, views, calls records) or
-    /// 'migrate to other author' his published flyers (if publishedFlyersIDs.length > 0)
-    /// & Joints (if joints.length > 0) in [choice dialog]
-    ///
-    /// 3. according to 1 & 2 :-
-    ///     - migrate published flyers to another author
-    ///       + change authorID in all these flyers
-    ///
-    ///     - delete published flyers
-    /// 4. delete author doc from authors collection in bz doc
+    bool _result = await superDialog(
+      context: context,
+      title: 'Watch Out !',
+      body: 'Your data can not be retrieved after deactivating your account\nAre you sure you want to proceed ?',
+      boolDialog: true,
+    );
+
+    if (_result == false){
+
+      // do nothing
+      print('no Do not deactivate ');
+
+    }
+    else {
+
+      print('CRUD OPS');
+
+      /// A. if user is Author :-
+      if (userModel.myBzzIDs.length != 0){
+
+        superDialog(
+          context: context,
+          title: '',
+          boolDialog: null,
+          height: null,
+          body: 'Waiting',
+          child: Loading(loading: true,),
+        );
+
+        FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
+
+        /// a - get user tiny bzz
+        List<BzModel> _bzzToDeactivate = new List();
+        List<BzModel> _bzzToKeep = new List();
+        for (var id in userModel.myBzzIDs){
+
+          BzModel _bz = await BzCRUD.readBzOps(
+            context: context,
+            bzID: id,
+          );
+
+          if (_bz.bzAuthors.length == 1){
+            _bzzToDeactivate.add(_bz);
+          } else{
+            _bzzToKeep.add(_bz);
+          }
+
+        }
+
+        Nav.goBack(context);
+
+        /// b - show dialog
+        bool _result = await superDialog(
+          context: context,
+          title: 'You Have ${_bzzToDeactivate.length + _bzzToKeep.length} business accounts',
+          body: 'All Business accounts will be deactivated except those shared with other authors',
+          boolDialog: true,
+          height: superScreenHeight(context) * 0.8,
+          child: Column(
+            children: <Widget>[
+
+              BzzBubble(
+                tinyBzz: TinyBz.getTinyBzzFromBzzModels(_bzzToDeactivate),
+                onTap: (value){print(value);},
+                numberOfColumns: 6,
+                numberOfRows: 1,
+                scrollDirection: Axis.horizontal,
+                title: 'These Accounts will be deactivated',
+              ),
+
+              BzzBubble(
+                tinyBzz: TinyBz.getTinyBzzFromBzzModels(_bzzToKeep),
+                onTap: (value){print(value);},
+                numberOfColumns: 6,
+                numberOfRows: 1,
+                scrollDirection: Axis.horizontal,
+                title: 'Can not deactivate these businesses',
+              ),
+
+              SuperVerse(
+               verse: 'Would you like to continue ?',
+               margin: 10,
+              ),
+
+            ],
+          ),
+        );
+
+      }
+
+      /// change user status in user doc to deactivated
+      await Fire.updateDocField(
+        context: context,
+        collName: FireCollection.users,
+        docName: userModel.userID,
+        field: 'userStatus',
+        input: UserModel.cipherUserStatus(UserStatus.Deactivated),
+      );
+
+      /// change user status in TinyUser doc to deactivated
+      await Fire.updateDocField(
+        context: context,
+        collName: FireCollection.tinyUsers,
+        docName: userModel.userID,
+        field: 'userStatus',
+        input: UserModel.cipherUserStatus(UserStatus.Deactivated),
+      );
+
+    }
+
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 
 }

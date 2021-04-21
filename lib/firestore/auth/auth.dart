@@ -68,7 +68,14 @@ class AuthService {
       User user = result.user;
       return _convertFirebaseUserToUserModel(user);
     } catch (error) {
-      superDialog(context, error, 'Sorry Can\'t continue');
+
+      await superDialog(
+        context: context,
+        title: 'Sorry Can\'t continue',
+        body: error,
+        boolDialog: false,
+      );
+
       print('auth error is : ${error.toString()}');
       return null;
     }
@@ -155,7 +162,15 @@ class AuthService {
       return _initialUserModel;
 
     } catch (error) {
-      // superDialog(context, error, 'Couldn\'t sign up');
+
+      await superDialog(
+        context: context,
+        title: 'Couldn\'t sign up',
+        body: error,
+        boolDialog: false,
+      );
+
+
       print('auth error is : ${error.toString()}');
       return error;
     }
@@ -166,7 +181,14 @@ class AuthService {
     try {
       return await _auth.signOut();
     } catch (error) {
-      superDialog(context, error, 'Trouble Signing out');
+
+      await superDialog(
+        context: context,
+        title: 'Trouble Signing out',
+        body: error,
+        boolDialog: false,
+      );
+
       return null;
     }
   }
@@ -184,7 +206,14 @@ class AuthService {
       return true;
     } catch (error) {
       print(error.toString());
-      superDialog(context, error, 'Could not delete account');
+
+      await superDialog(
+        context: context,
+        title: 'Could not delete account',
+        body: error,
+        boolDialog: false,
+      );
+
       return null;
     }
   }

@@ -98,6 +98,7 @@ class UserModel {
       case 5:   return   UserStatus.Building;               break;
       case 6:   return   UserStatus.Selling;                break;
       case 7:   return   UserStatus.BzAuthor;               break;
+      case 8:   return   UserStatus.Deactivated;            break;
       default : return   null;
     }
   }
@@ -111,6 +112,7 @@ class UserModel {
       case UserStatus.Building            :  return 5; break ;
       case UserStatus.Selling             :  return 6; break ;
       case UserStatus.BzAuthor            :  return 7; break ;
+      case UserStatus.Deactivated         :  return 8; break ;
       default : return null;
     }
   }
@@ -147,6 +149,7 @@ class UserModel {
     UserStatus.Building,
     UserStatus.Selling,
     UserStatus.BzAuthor,
+    UserStatus.Deactivated,
   ];
 // -----------------------------------------------------------------------------
   static List<dynamic> removeBzIDFromMyBzzIDs(List<dynamic> myBzzIDs, String bzID){
@@ -170,6 +173,7 @@ enum UserStatus {
   Building,
   Selling,
   BzAuthor,
+  Deactivated,
 }
 // -----------------------------------------------------------------------------
 enum Gender {

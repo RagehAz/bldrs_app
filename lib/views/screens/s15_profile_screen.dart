@@ -1,24 +1,28 @@
 import 'package:bldrs/controllers/drafters/streamerz.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
+import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/firestore/crud/bz_ops.dart';
+import 'package:bldrs/firestore/crud/user_ops.dart';
+import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
+import 'package:bldrs/views/screens/s13_news_screen.dart';
+import 'package:bldrs/views/screens/s16_user_editor_screen.dart';
 import 'package:bldrs/views/widgets/bubbles/contacts_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/following_bzz_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/status_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/user_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
+import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
+import 'package:bldrs/views/widgets/dialogs/bottom_sheet.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import 's13_news_screen.dart';
-import 's16_user_editor_screen.dart';
 
 class UserProfileScreen extends StatefulWidget {
 
@@ -62,7 +66,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
 
         for (var id in _followedBzzIDs){
 
-          TinyBz _tinyBz = await BzCRUD().readTinyBzOps(
+          TinyBz _tinyBz = await BzCRUD.readTinyBzOps(
             context: context,
             bzID: id,
           );
@@ -105,6 +109,94 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     });
   }
 // ----------------------------------------------------------------------------
+  void _slideUserAccountOptions(UserModel userModel, ){
+
+    double _buttonHeight = 50;
+
+    Widget _button({
+      String icon,
+      Color iconColor,
+      String verse,
+      Color verseColor,
+      Function function}){
+      return
+        DreamBox(
+          height: _buttonHeight,
+          width: BottomSlider.bottomSheetClearWidth(context),
+          icon: icon,
+          iconSizeFactor: 0.5,
+          iconColor: iconColor,
+          verse: verse,
+          verseScaleFactor: 1.2,
+          verseColor: verseColor,
+          // verseWeight: VerseWeight.thin,
+          boxFunction: function,
+        );
+    }
+
+    BottomSlider.slideButtonsBottomSheet(
+      context: context,
+      buttonHeight: _buttonHeight,
+      draggable: true,
+      buttons: <Widget>[
+
+        _button(
+          icon: Iconz.XLarge,
+          verse: 'Deactivate Profile',
+          iconColor: Colorz.BloodRed,
+          verseColor: Colorz.BloodRed,
+          function: () async {
+
+            /// close bottom sheet
+            Nav.goBack(context);
+
+            /// Task : this should be bool dialog instead
+            bool _result = await superDialog(
+              context: context,
+              title: 'Please confirm',
+              body: 'Are you Sure you want to Deactivate your account ?',
+              boolDialog: true,
+            );
+
+            print('bool dialog is $_result');
+
+            if (_result == false) {
+              // /// re-route back
+              // Nav.goBack(context);
+            }
+            else {
+
+              /// start deactivate user ops
+              await UserCRUD().deactivateUserOps(
+                context: context,
+                userModel: userModel,
+              );
+
+              /// reRoute user to Oblivion out of app
+
+
+              /// re-route back
+              // Nav.goBack(context);
+
+            }
+
+          },
+        ),
+
+        _button(
+          icon: Iconz.Gears,
+          verse: 'Edit Profile info',
+          iconColor: Colorz.White,
+          verseColor: Colorz.White,
+          function: () => Nav.goToNewScreen(context, EditProfileScreen(user: userModel,)),
+        ),
+
+        ],
+
+    );
+
+  }
+// ----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -129,7 +221,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                 UserBubble(
                   user: userModel,
                   switchUserType: (type) =>_switchUserStatus(type),
-                  editProfileBtOnTap: () => Nav.goToNewScreen(context, EditProfileScreen(user: userModel,)),
+                  editProfileBtOnTap: () => _slideUserAccountOptions(userModel),
                   loading: userModelIsLoading(userModel),
                 ),
 

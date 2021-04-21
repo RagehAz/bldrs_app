@@ -179,7 +179,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   void _confirmEdits() async {
     // TASK : create bool dialog and use it here before confirming bz edits in bzEditor
     // temp solution here below to just notify
-    bool _continueOps = await superDialog(context, 'Are you sure you want to continue ?', '');
+
+    bool _continueOps = await superDialog(
+      context: context,
+      title: '',
+      body: 'Are you sure you want to continue ?',
+      boolDialog: true,
+    );
+
     _continueOps = true;
     if (_continueOps == true){
       widget.firstTimer ? _createNewUser() : _updateExistingUser();
@@ -190,8 +197,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   void _createNewUser() async {
     /// validate all required fields are valid
     if(_inputsAreValid() == false){
+
       /// TASK : add error missing data indicator in UI bubbles
-      await superDialog(context, 'Please add all required fields', 'incomplete');
+      await superDialog(
+        context: context,
+        title: '',
+        body: 'Please add all required fields',
+        boolDialog: false,
+      );
+
     } else {
 
       _triggerLoading();
@@ -226,7 +240,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
       _triggerLoading();
 
-      await superDialog(context, 'Successfully created your user account', 'Great !');
+      await superDialog(
+        context: context,
+        title: 'Great !',
+        body: 'Successfully created your user account',
+        boolDialog: false,
+      );
 
       Nav.goToRoute(context, Routez.Home);
 
@@ -238,8 +257,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   void _updateExistingUser() async {
     /// validate all required fields are valid
     if(_inputsAreValid() == false){
+
       /// TASK : add error missing data indicator in UI bubbles
-      await superDialog(context, 'Please add all required fields', 'incomplete');
+      await superDialog(
+        context: context,
+        title: '',
+        body: 'Please add all required fields',
+        boolDialog: false,
+      );
+
     } else {
 
       _triggerLoading();
@@ -276,7 +302,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
       _triggerLoading();
 
-      await superDialog(context, 'Successfully updated your user account', 'Great !');
+      await superDialog(
+        context: context,
+        title: 'Great !',
+        body: 'Successfully updated your user account',
+        boolDialog: false,
+      );
 
       Nav.goBack(context);
 

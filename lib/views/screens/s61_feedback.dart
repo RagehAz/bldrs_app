@@ -57,7 +57,12 @@ class _FeedBackState extends State<FeedBack> {
 
     _triggerLoading();
 
-    await superDialog(context, 'FeedBack sent', 'Thanks');
+    await superDialog(
+      context: context,
+      title: 'Thanks',
+      body: 'FeedBack sent',
+      boolDialog: false,
+    );
 
     Nav.goBack(context);
 
