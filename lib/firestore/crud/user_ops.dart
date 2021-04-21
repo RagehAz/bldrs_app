@@ -5,11 +5,15 @@ import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/firestore/crud/bz_ops.dart';
 import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/models/bz_model.dart';
+import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
+import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/models/tiny_models/tiny_user.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/widgets/bubbles/bzz_bubble.dart';
+import 'package:bldrs/views/widgets/bubbles/flyers_bubble.dart';
+import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
@@ -195,6 +199,7 @@ class UserCRUD{
       /// A. if user is Author :-
       if (userModel.myBzzIDs.length != 0){
 
+        /// WAITING DIALOG
         superDialog(
           context: context,
           title: '',
@@ -224,10 +229,11 @@ class UserCRUD{
 
         }
 
+        /// CLOSE WAITING DIALOG
         Nav.goBack(context);
 
         /// b - show dialog
-        bool _result = await superDialog(
+        bool _bzzReviewResult = await superDialog(
           context: context,
           title: 'You Have ${_bzzToDeactivate.length + _bzzToKeep.length} business accounts',
           body: 'All Business accounts will be deactivated except those shared with other authors',
@@ -262,6 +268,74 @@ class UserCRUD{
             ],
           ),
         );
+
+        if (_bzzReviewResult == false) {
+          // do nothing
+          print('no Do not deactivate ');
+        } else {
+
+          /// WAITING DIALOG
+          superDialog(
+            context: context,
+            title: '',
+            boolDialog: null,
+            height: null,
+            body: 'Waiting',
+            child: Loading(loading: true,),
+          );
+
+          int _totalNumOfFlyers = FlyerModel.getNumberOfFlyersFromBzzModels(_bzzToDeactivate);
+          int _numberOfBzz = _bzzToDeactivate.length;
+
+          /// b - show dialog
+          bool _flyersReviewResult = await superDialog(
+            context: context,
+            title: '',
+            body: 'You Have $_totalNumOfFlyers flyers that will be deactivated and can not be retrieved',
+            boolDialog: true,
+            height: superScreenHeight(context) * 0.9,
+            child: Column(
+              children: <Widget>[
+
+                Container(
+                  // width: superBubbleClearWidth(context),
+                  height: superScreenHeight(context) * 0.6,
+                  child: ListView.builder(
+                    itemCount: _numberOfBzz,
+                    scrollDirection: Axis.vertical,
+                    itemBuilder: (context, index){
+                      return
+                        FlyersBubble(
+                          tinyFlyers: TinyFlyer.getTinyFlyersFromBzModel(_bzzToDeactivate[index]),
+                          flyerSizeFactor: 0.2,
+                          numberOfColumns: 2,
+                          title: 'flyers of ${_bzzToDeactivate[index].bzName}',
+                          numberOfRows: 1,
+                          onTap: (value){
+                            print(value);
+                          },
+                        );
+                    },
+
+
+
+                  ),
+                ),
+
+                SuperVerse(
+                  verse: 'Would you like to continue ?',
+                  margin: 10,
+                ),
+
+              ],
+            ),
+          );
+
+        }
+
+
+
+
 
       }
 
