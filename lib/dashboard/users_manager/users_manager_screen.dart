@@ -162,7 +162,14 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
                                                     try{
                                                       // await UserCRUD().deleteUserDoc(_userModel.userID);
                                                     } catch (error){
-                                                      superDialog(context, error, 'Ops');
+
+                                                      await superDialog(
+                                                        context: context,
+                                                        title: 'Ops',
+                                                        body: error,
+                                                        boolDialog: true,
+                                                      );
+
                                                     }
 
                                                     _triggerLoading();
@@ -220,7 +227,15 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
                                               buttonHeight: 20,
                                               spacing: 2.5,
                                               margins: EdgeInsets.all(2.5),
-                                              onTap: () => superDialog(context, '$_stringyContactsValues', 'Contact'),
+                                              onTap: () async {
+                                                await superDialog(
+                                                  context: context,
+                                                  title: 'Contact',
+                                                  body: '$_stringyContactsValues',
+                                                  boolDialog: false,
+                                                );
+                                              }
+
                                             ),
 
                                             _titleVerse('Social Media Contacts'),
@@ -232,7 +247,14 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
                                               buttonHeight: 20,
                                               spacing: 2.5,
                                               margins: EdgeInsets.all(2.5),
-                                              onTap: () => superDialog(context, '$_socialContactsValues', 'Contact'),
+                                              onTap: () async {
+                                                  await superDialog(
+                                                    context: context,
+                                                    title: 'Contact',
+                                                    body: '$_socialContactsValues',
+                                                    boolDialog: false,
+                                                  );
+                                              }
                                             ),
 
                                           ],

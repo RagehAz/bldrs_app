@@ -81,7 +81,7 @@ class FlyersProvider with ChangeNotifier {
     /// 3- get tinyBz for each id
     List<TinyBz> _sponsorsTinyBzz = new List();
     for (var id in _sponsorsIDs){
-      TinyBz _tinyBz = await BzCRUD().readTinyBzOps(context: context, bzID: id);
+      TinyBz _tinyBz = await BzCRUD.readTinyBzOps(context: context, bzID: id);
       _sponsorsTinyBzz.add(_tinyBz);
     }
 

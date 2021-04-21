@@ -67,12 +67,26 @@ Future<UserCredential> signUpWithFacebook(BuildContext context, Zone zone) async
     // handle the FacebookAuthException
     print("Facebook Authentication Error");
     print(error.message);
-    superDialog(context, error, 'Couldn\'t continue with Facebook');
+
+    await superDialog(
+      context: context,
+      title: 'Couldn\'t continue with Facebook',
+      body: error,
+      boolDialog: false,
+    );
+
   } on FirebaseAuthException catch (error) {
     // handle the FirebaseAuthException
     print("Firebase Authentication Error");
     print(error.message);
-    superDialog(context, error, 'Couldn\'t continue with Facebook');
+
+    await superDialog(
+      context: context,
+      title: 'Couldn\'t continue with Facebook',
+      body: error,
+      boolDialog: false,
+    );
+
   } finally {}
   return null;
 }

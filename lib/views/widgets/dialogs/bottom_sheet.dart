@@ -159,6 +159,41 @@ class BottomSlider{
           );}
     );
   }
+
+  static void slideButtonsBottomSheet({
+    BuildContext context,
+    bool draggable,
+    List<Widget> buttons,
+    double buttonHeight,
+  }){
+
+    double _spacing = buttonHeight * 0.1;
+    double _height = (buttonHeight * buttons.length) + (_spacing * buttons.length) + 30 ;
+
+    slideBottomSheet(
+      context: context,
+      draggable: draggable,
+      height: _height,
+      child: Column(
+        children: <Widget>[
+
+          ...List.generate(buttons.length, (index){
+            return
+                Column(
+                  children: <Widget>[
+
+                    buttons[index],
+
+                    SizedBox(height: _spacing),
+
+                  ],
+                );
+          }),
+
+        ],
+      ),
+    );
+}
 // ---------------------------------------------------------------------------
   static slideStatefulBottomSheet({BuildContext context, double height, bool draggable, Widget Function(BuildContext) builder}){
     showModalBottomSheet(

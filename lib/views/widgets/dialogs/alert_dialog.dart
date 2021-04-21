@@ -1,6 +1,7 @@
 import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/drafters/colorizers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/drafters/text_shapers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
@@ -8,61 +9,128 @@ import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 // ----------------------------------------------------------------------
-AlertDialog superAlert (BuildContext context, BuildContext ctx, dynamic error, String title) {
+AlertDialog _superAlert ({
+  BuildContext context,
+  BuildContext ctx,
+  dynamic body,
+  String title,
+  bool boolDialog,
+  double height,
+  Widget child,
+}) {
 
   BorderRadius _borders = Borderers.superBorderAll(context, 20);
+  double _screenWidth = superScreenWidth(context);
+  double _screenHeight = superScreenHeight(context);
+
+  double _dialogHeight = height == null ? _screenHeight * 0.4 : height;
+  double _dialogWidth = _screenWidth * 0.8;
+
+  double _dialogVerticalMargin = (_screenHeight - _dialogHeight) / 2;
+  double _dialogHorizontalMargin = (_screenWidth - _dialogWidth) / 2;
 
   return
     AlertDialog(
-
-      // title: SuperVerse(verse: title, color: Colorz.BlackBlack,),
+      backgroundColor: Colorz.Nothing,
+      // elevation: 10,
+      shape: RoundedRectangleBorder(borderRadius: Borderers.superBorderAll(context, 20)),
+      contentPadding: const EdgeInsets.all(0),
+      insetPadding: EdgeInsets.symmetric(
+          vertical: _dialogVerticalMargin,
+          horizontal: _dialogHorizontalMargin,
+      ),
 
       content: Builder(
         builder: (context){
           return
+
               Stack(
                 children: <Widget>[
 
-                  BlurLayer(
-                    borders: _borders,
-                  ),
+                  BlurLayer(borders: _borders,),
 
                   Container(
-                    width: double.infinity,
-                    height: double.infinity,
+                    width: _dialogWidth,
+                    height: _dialogHeight,
                     decoration: BoxDecoration(
                       color: Colorz.WhiteGlass,
                       borderRadius: _borders
                     ),
+
                     child: Column(
-                      mainAxisSize: MainAxisSize.max,
+                      // mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
 
-                        SuperVerse(
-                          verse: title,
-                          color: Colorz.White,
-                          margin: Ratioz.ddAppBarMargin,
+                        Expanded(
+                          child: Container(
+                            
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+
+                                /// TITLE
+                                if (title != '')
+                                  SuperVerse(
+                                    verse: title,
+                                    color: Colorz.White,
+                                    // designMode: true,
+                                    margin: 15,
+                                  ),
+
+                                /// BODY
+                                SuperVerse(
+                                  verse: body.toString(),
+                                  color: Colorz.White,
+                                  maxLines: 6,
+                                  // designMode: true,
+                                  margin: 10,
+                                ),
+
+                                if (child != null)
+                                  Center(child: child),
+
+                              ],
+                            ),
+                          ),
                         ),
 
-                        Expanded(child: Container(),),
+                        /// BUTTONS
+                        if (boolDialog != null)
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
 
-                        SuperVerse(
-                          verse: error.toString(),
-                          color: Colorz.White,
-                          maxLines: 10,
+                            if (boolDialog == true)
+                              DreamBox(
+                                  height: 50,
+                                  width: 100,
+                                  boxMargins: EdgeInsets.all(Ratioz.ddAppBarMargin),
+                                  verse: 'No',
+                                  verseColor: Colorz.BlackBlack,
+                                  color: Colorz.WhiteSmoke,
+                                  verseScaleFactor: 0.6,
+                                  boxFunction: () => Nav.goBack(context, argument: false)
+                              ),
+
+                            DreamBox(
+                                height: 50,
+                                width: 100,
+                                boxMargins: EdgeInsets.all(Ratioz.ddAppBarMargin),
+                                verse: boolDialog == true ? 'Yes' : 'Ok',
+                                verseColor: Colorz.BlackBlack,
+                                color: Colorz.Yellow,
+                                verseScaleFactor: 0.6,
+                                boxFunction:
+                                boolDialog == true ?
+                                    () => Nav.goBack(context, argument: true)
+                                    :
+                                    () => Nav.goBack(context)
+                            ),
+                          ],
                         ),
-
-                        Expanded(child: Container(),),
-
-                        DreamBox(
-                            height: 50,
-                            boxMargins: EdgeInsets.all(Ratioz.ddAppBarMargin),
-                            verse: 'I Understand',
-                            verseColor: Colorz.BlackBlack,
-                            color: Colorz.Yellow,
-                            verseScaleFactor: 0.6,
-                            boxFunction: () => Nav.goBack(context)
-                        )
 
                       ],
                     ),
@@ -73,78 +141,47 @@ AlertDialog superAlert (BuildContext context, BuildContext ctx, dynamic error, S
         },
       ),
 
-      backgroundColor: Colorz.Nothing,
-      elevation: 10,
-      shape: RoundedRectangleBorder(borderRadius: Borderers.superBorderAll(context, 20)),
-      contentPadding: EdgeInsets.all(10),
-      actionsOverflowButtonSpacing: 10,
-      actionsPadding: EdgeInsets.all(5),
-
-      insetPadding: EdgeInsets.symmetric(
-          vertical: (superScreenHeight(context) * 0.32), horizontal: 35
-      ),
-
-      buttonPadding: EdgeInsets.all(5),
-      titlePadding: EdgeInsets.all(20),
-
-
-
-      // actions: <Widget>[
-      //
-      //   DreamBox(
-      //     width: 321,
-      //     height: 50,
-      //     color: Colorz.Yellow,
-      //     verse: 'I Understand',
-      //     verseColor: Colorz.BlackBlack,
-      //     verseScaleFactor: 0.8,
-      //     verseWeight: VerseWeight.bold,
-      //     boxFunction: () => goBack(context),
-      //   ),
-      // ],
-
     );
 }
 // ----------------------------------------------------------------------
-Future<dynamic> superDialog(BuildContext context, dynamic error, String title) async {
-  Future<dynamic> _dialog = showDialog(
+Future<bool> superDialog({
+  BuildContext context,
+  dynamic body,
+  String title,
+  bool boolDialog,
+  double height,
+  Widget child,
+}) async {
+
+  bool _result = await showDialog(
     context: context,
-    builder: (ctx)=> superAlert(context, ctx, error, title),
+    builder: (ctx)=> _superAlert(
+        context: context,
+        ctx: ctx,
+        body: body,
+        title: title,
+        height: height,
+        boolDialog: boolDialog,
+        child: child,
+    ),
   );
-  return _dialog;
+
+  return _result;
+
 }
-// ----------------------------------------------------------------------
-/// TASK : create bool dialog
-// Future<bool> boolDialog(BuildContext context, String message, ) async {
-//   bool _result;
-//
-//   Future<dynamic> _dialog = showDialog(
-//     context: context,
-//     builder: (ctx){
-//       _result = await boolAlert(context, ctx, error, title);
-//     },
-//   );
-//
-//   return _result;
-// }
-// ----------------------------------------------------------------------
-// Future<dynamic> superDialog2(BuildContext context, dynamic error, String title) async {
-//   Future<dynamic> _dialog = showDialog(
-//       context: context,
-//       builder: (_)
-//       Dialog(
-//     backgroundColor: Colorz.White,
-//     insetPadding: EdgeInsets.all(Ratioz.ddAppBarMargin * 2),
-//
-//   ));
-//   return _dialog;
-// }
 // ----------------------------------------------------------------------
 Future<void> tryAndCatch({Function finals, BuildContext context, Function functions,}) async {
   try{
     await functions();
   } catch (error){
-    superDialog(context, error, 'ops');
+
+    await superDialog(
+      context: context,
+      title: 'ops',
+      body: error,
+      boolDialog: false,
+    );
+
     print('TRY CATCH ERROR IS : ($error)');
     throw(error);
   }

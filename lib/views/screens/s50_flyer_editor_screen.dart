@@ -355,7 +355,14 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
   Future<void>_selectOnMap() async {
 
     if (_currentSlides.length == 0){
-      superDialog(context, 'Map Slide Can not be The First Slide', '');
+
+      await superDialog(
+        context: context,
+        title: '',
+        body: 'Map Slide Can not be The First Slide',
+        boolDialog: false,
+      );
+
     } else {
       final LatLng selectedLocation = await Navigator.of(context).push<LatLng>(
           MaterialPageRoute(
@@ -383,10 +390,18 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
     });
   }
   // ----------------------------------------------------------------------
-  void _newLocationSlide(){
+  Future<void> _newLocationSlide() async {
 
     if (_currentSlides.length == 0){
-      superDialog(context, 'Add at least one Picture Slide First', '');
+
+      await superDialog(
+          context: context,
+          title: '',
+        body: 'Add at least one Picture Slide First',
+          boolDialog: false,
+      );
+
+
     } else if (_currentFlyerPosition == null){
 
       setState(() {
@@ -640,7 +655,14 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
     /// assert that all required fields are valid
     if (_inputsAreValid() == false){
       // show something for user to know
-      await superDialog(context, 'Please add all required fields', 'incomplete');
+
+      await superDialog(
+        context: context,
+        title: '',
+        body: 'Please add all required fields',
+        boolDialog: false,
+      );
+
     } else {
 
       _triggerLoading();
@@ -692,7 +714,13 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
 
       _triggerLoading();
 
-      await superDialog(context, 'Flyer has been created', 'Great !');
+      await superDialog(
+        context: context,
+        title: 'Great !',
+        body: 'Flyer has been created',
+        boolDialog: false,
+      );
+
 
       Nav.goBack(context);
 
@@ -703,7 +731,15 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
     /// assert that all required fields are valid
     if (_inputsAreValid() == false){
       // show something for user to know
-      await superDialog(context, 'Please add all required fields', 'incomplete');
+
+      await superDialog(
+        context: context,
+        title: '',
+        body: 'Please add all required fields',
+        boolDialog: false,
+      );
+
+
     } else {
 
       _triggerLoading();
@@ -758,7 +794,12 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
 
       _triggerLoading();
 
-      await superDialog(context, 'Flyer has been updated', 'Great !');
+      await superDialog(
+        context: context,
+        title: 'Great !',
+        body: 'Flyer has been updated',
+        boolDialog: false,
+      );
 
       Nav.goBack(context);
     }

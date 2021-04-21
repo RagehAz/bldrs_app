@@ -448,8 +448,14 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   Future<void> _createNewBz() async {
     /// assert that all required fields are added and valid
     if (_inputsAreValid() == false) {
+
       /// TASK : add error missing data indicator in UI bubbles
-      await superDialog(context, 'Please add all required fields', 'incomplete');
+      await superDialog(
+        context: context,
+        title: '',
+        body: 'Please add all required fields',
+        boolDialog: false,
+      );
 
     } else {
 
@@ -518,7 +524,12 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
 
       _triggerLoading();
 
-      await superDialog(context, 'Successfully added your Business Account ', 'Great !');
+      await superDialog(
+        context: context,
+        title: 'Great !',
+        body: 'Successfully added your Business Account',
+        boolDialog: false,
+      );
 
       Nav.goBack(context);
 
@@ -530,7 +541,14 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   Future<void> _updateExistingBz() async {
 
     if (_inputsAreValid() == false) {
-      await superDialog(context, 'Please add all required fields', 'incomplete');
+
+      await superDialog(
+        context: context,
+        title: '',
+        body: 'Please add all required fields',
+        boolDialog: false,
+      );
+
     } else {
 
       _triggerLoading();
@@ -600,7 +618,12 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
 
       _triggerLoading();
 
-      await superDialog(context, 'Successfully updated your Business Account ', 'Great !');
+      await superDialog(
+        context: context,
+        title: 'Great !',
+        body: 'Successfully updated your Business Account',
+        boolDialog: false,
+      );
 
       Nav.goBack(context, argument: true);
     }
@@ -610,7 +633,13 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   Future<void> _confirmButton() async {
     // TASK : create bool dialog and use it here before confirming bz edits in bzEditor
     // temp solution here below to just notify
-      bool _continueOps = await superDialog(context, 'Are you sure you want to continue ?', '');
+      bool _continueOps = await superDialog(
+        context: context,
+        title: '',
+        body: 'Are you sure you want to continue ?',
+        boolDialog: true,
+      );
+
       _continueOps = true;
       if (_continueOps == true){
         widget.firstTimer ? _createNewBz() : _updateExistingBz();
