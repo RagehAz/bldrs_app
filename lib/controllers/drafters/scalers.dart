@@ -111,3 +111,9 @@ double superFlyerFooterHeight(double flyerZoneWidth){
 
   return _flyerFooterHeight;
 }
+// === === === === === === === === === === === === === === === === === === ===
+double superDialogWidth(BuildContext context){
+  double _dialogWidth = superScreenWidth(context) * 0.8;
+  return _dialogWidth;
+}
+// === === === === === === === === === === === === === === === === === === ===
