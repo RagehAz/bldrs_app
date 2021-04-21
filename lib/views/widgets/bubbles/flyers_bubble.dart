@@ -21,6 +21,7 @@ class FlyersBubble extends StatelessWidget {
   final int numberOfRows;
   final Axis scrollDirection;
   final Function onTap;
+  final double bubbleWidth;
 
   FlyersBubble({
     @required this.tinyFlyers,
@@ -30,6 +31,7 @@ class FlyersBubble extends StatelessWidget {
     this.scrollDirection = Axis.horizontal,
     this.onTap,
     this.flyerSizeFactor = 0.3,
+    this.bubbleWidth,
   });
 
   @override
@@ -38,7 +40,7 @@ class FlyersBubble extends StatelessWidget {
       bubbleColor: Colorz.WhiteAir,
       title: title,
       titleColor: Colorz.White,
-
+      bubbleWidth: bubbleWidth,
       columnChildren: <Widget>[
 
         FlyerStack(
