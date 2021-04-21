@@ -66,7 +66,7 @@ AlertDialog _superAlert ({
                           child: Container(
                             
                             child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
 

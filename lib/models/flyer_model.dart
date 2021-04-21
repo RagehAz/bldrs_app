@@ -259,7 +259,14 @@ class FlyerModel with ChangeNotifier{
     FlyerState.Deleted,
   ];
 // -----------------------------------------------------------------------------
-
+  static int getNumberOfFlyersFromBzzModels(List<BzModel> bzzModels){
+    int _totalFlyers = 0;
+    bzzModels.forEach((bzModel) {
+      _totalFlyers = _totalFlyers + (bzModel.bzFlyers.length);
+    });
+    return _totalFlyers;
+  }
+// -----------------------------------------------------------------------------
 }
 // -----------------------------------------------------------------------------
 enum FlyerState{

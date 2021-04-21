@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
@@ -100,8 +101,15 @@ class _HomeScreenState extends State<HomeScreen> {
 
                   ...List<Widget>.generate(FlyerModel.flyerTypesList.length,
                           (index) {
+
+                    FlyerType _flyerType = FlyerModel.flyerTypesList[index];
+
                     return
-                      FlyerStack(flyersType: FlyerModel.flyerTypesList[index]);
+
+                      FlyerStack(
+                        flyersType: _flyerType,
+                        title: TextGenerator.flyerTypePluralStringer(context, _flyerType),
+                      );
 
                   }),
 
