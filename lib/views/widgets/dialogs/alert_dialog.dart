@@ -24,7 +24,7 @@ AlertDialog _superAlert ({
   double _screenHeight = superScreenHeight(context);
 
   double _dialogHeight = height == null ? _screenHeight * 0.4 : height;
-  double _dialogWidth = _screenWidth * 0.8;
+  double _dialogWidth = superDialogWidth(context);
 
   double _dialogVerticalMargin = (_screenHeight - _dialogHeight) / 2;
   double _dialogHorizontalMargin = (_screenWidth - _dialogWidth) / 2;
