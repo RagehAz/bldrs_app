@@ -17,6 +17,7 @@ final Color titleColor;
 final bool redDot;
 final String actionBtIcon;
 final Function actionBtFunction;
+final double bubbleWidth;
 
   InPyramidsBubble({
     @required this.columnChildren,
@@ -28,6 +29,7 @@ final Function actionBtFunction;
     this.redDot = false,
     this.actionBtIcon,
     this.actionBtFunction,
+    this.bubbleWidth,
 });
 
   @override
@@ -53,7 +55,13 @@ final Function actionBtFunction;
     double actionBtSize = superVerseRealHeight(context, titleVerseSize, 1, null);
     double actionBtCorner = actionBtSize * 0.4;
 
-    double _bubbleWidth = stretchy == true ? null : superBubbleClearWidth(context) + 2*_pageMargin;
+    double _bubbleWidth = stretchy == true ? null
+        :
+    bubbleWidth != null ? bubbleWidth
+        :
+    bubbleWidth == null ? superBubbleClearWidth(context) + (2 * _pageMargin * 0)
+        :
+        null;
 
     return Container(
           width: _bubbleWidth,
@@ -90,7 +98,7 @@ final Function actionBtFunction;
                   // --- BUBBLE TITLE
                   if (title != null)
                     Container(
-                      // width: _bubbleWidth,
+                      width: _bubbleWidth,
                       padding: const EdgeInsets.only(bottom: 10, left: 5, right: 5),
                       child: SuperVerse(
                         verse: title,

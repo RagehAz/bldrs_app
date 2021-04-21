@@ -2,7 +2,9 @@ import 'package:bldrs/controllers/drafters/file_formatters.dart';
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
+import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/firestore/crud/bz_ops.dart';
+import 'package:bldrs/firestore/crud/flyer_ops.dart';
 import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
@@ -187,10 +189,8 @@ class UserCRUD{
     );
 
     if (_result == false){
-
       // do nothing
       print('no Do not deactivate ');
-
     }
     else {
 
@@ -274,16 +274,6 @@ class UserCRUD{
           print('no Do not deactivate ');
         } else {
 
-          /// WAITING DIALOG
-          superDialog(
-            context: context,
-            title: '',
-            boolDialog: null,
-            height: null,
-            body: 'Waiting',
-            child: Loading(loading: true,),
-          );
-
           int _totalNumOfFlyers = FlyerModel.getNumberOfFlyersFromBzzModels(_bzzToDeactivate);
           int _numberOfBzz = _bzzToDeactivate.length;
 
@@ -304,6 +294,7 @@ class UserCRUD{
                     itemCount: _numberOfBzz,
                     scrollDirection: Axis.vertical,
                     itemBuilder: (context, index){
+
                       return
                         FlyersBubble(
                           tinyFlyers: TinyFlyer.getTinyFlyersFromBzModel(_bzzToDeactivate[index]),
@@ -311,6 +302,7 @@ class UserCRUD{
                           numberOfColumns: 2,
                           title: 'flyers of ${_bzzToDeactivate[index].bzName}',
                           numberOfRows: 1,
+                          bubbleWidth: superDialogWidth(context) - (Ratioz.ddAppBarMargin * 4),
                           onTap: (value){
                             print(value);
                           },
@@ -330,6 +322,46 @@ class UserCRUD{
               ],
             ),
           );
+
+          if (_flyersReviewResult == false){
+            // do nothing
+            print('no Do not deactivate ');
+          } else {
+
+            /// SHOW WAITING DIALOG
+            superDialog(
+              context: context,
+              title: '',
+              boolDialog: null,
+              height: null,
+              body: 'Waiting',
+              child: Loading(loading: true,),
+            );
+
+            for (var bz in _bzzToDeactivate){
+
+              /// de-activate flyers
+              for (var flyer in bz.bzFlyers){
+                await FlyerCRUD().deactivateFlyerOps(
+                  context: context,
+                  bzModel: bz,
+                  flyerID: flyer.flyerID,
+                );
+              }
+
+              /// de-activate bz
+             await BzCRUD().deactivateBzOps(
+               context: context,
+               bzModel: bz,
+             );
+
+            }
+
+            /// CLOSE WAITING DIALOG
+            Nav.goBack(context);
+
+
+          }
 
         }
 
@@ -356,6 +388,18 @@ class UserCRUD{
         field: 'userStatus',
         input: UserModel.cipherUserStatus(UserStatus.Deactivated),
       );
+
+      superDialog(
+        context: context,
+        title: '',
+        boolDialog: false,
+        height: null,
+        body: 'Done',
+      );
+
+      /// CLOSE WAITING DIALOG
+      Nav.goBack(context);
+
 
     }
 
