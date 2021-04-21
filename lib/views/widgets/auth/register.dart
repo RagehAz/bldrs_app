@@ -241,17 +241,32 @@ class _RegisterState extends State<Register> {
                       print('register result is : $result');
                       // ---------------------
                       if ('$result' == '[firebase_auth/email-already-in-use] The email address is already in use by another account.'){
-                        await superDialog(context, Wordz.emailAlreadyRegistered(context), 'E-mail Taken');
+                        await superDialog(
+                          context: context,
+                          title: 'E-mail Taken',
+                          body: Wordz.emailAlreadyRegistered(context),
+                          boolDialog: false,
+                        );
                         _triggerLoading();
                       }
                       // ---------------------
                       else if('$result' == '[firebase_auth/invalid-email] The email address is badly formatted.'){
-                        await superDialog(context, Wordz.emailWrong(context), 'E-mail Taken');
+                        await superDialog(
+                          context: context,
+                          title: 'E-mail Taken',
+                          body: Wordz.emailWrong(context),
+                          boolDialog: false,
+                        );
                         _triggerLoading();
                       }
                       // ---------------------
                       else if(result == null){
-                        await superDialog(context, 'something is wrong', '');
+                        await superDialog(
+                          context: context,
+                          title: '',
+                          body: 'something is wrong',
+                          boolDialog: false,
+                        );
                         _triggerLoading();
                       }
                       // ---------------------

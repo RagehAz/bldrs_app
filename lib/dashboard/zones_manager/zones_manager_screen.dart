@@ -53,7 +53,14 @@ class _ZonesManagerScreenState extends State<ZonesManagerScreen> {
       await _countriesCollection.doc(_postData['iso3']).set(_postData);
 
     } catch(error) {
-      superDialog(context, error, 'Uploading error');
+
+          await superDialog(
+            context: context,
+            title: 'Uploading error',
+            body: error,
+            boolDialog: false,
+          );
+
     }
     _triggerLoading();
   }

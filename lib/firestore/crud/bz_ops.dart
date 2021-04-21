@@ -164,7 +164,7 @@ class BzCRUD{
     return _bz;
   }
 // -----------------------------------------------------------------------------
-  Future<TinyBz> readTinyBzOps({BuildContext context, String bzID}) async {
+  static Future<TinyBz> readTinyBzOps({BuildContext context, String bzID}) async {
 
     Map<String, dynamic> _tinyBzMap = await Fire.readDoc(
       context: context,
