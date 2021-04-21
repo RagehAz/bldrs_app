@@ -82,12 +82,10 @@ class _MyBzScreenState extends State<MyBzScreen> {
   void _slideBzOptions(BuildContext context, BzModel bzModel){
 
 
-    BottomSlider.slideBottomSheet(
+    BottomSlider.slideButtonsBottomSheet(
       context: context,
-      height: (50+10+50+10+50+30).toDouble(),
       draggable: true,
-      child: Column(
-        children: <Widget>[
+      buttons: <Widget>[
 
           // --- DELETE BZ ACCOUNT AND ITS DECENDENTS
           DreamBox(
@@ -105,7 +103,15 @@ class _MyBzScreenState extends State<MyBzScreen> {
               Nav.goBack(context);
 
               /// Task : this should be bool dialog instead
-              await superDialog(context, 'You will never get this back ever', 'DELETING ACCOUNT');
+              ///
+              bool _dialogResult = await superDialog(
+                context: context,
+                title: '',
+                body: 'Are you sure you want to Delete ${bzModel.bzName} Business account ?',
+                boolDialog: true,
+              );
+
+              print(_dialogResult);
 
               /// start delete bz ops
               await BzCRUD().deleteBzOps(
@@ -117,7 +123,7 @@ class _MyBzScreenState extends State<MyBzScreen> {
               FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
               _prof.removeTinyBzFromLocalList(bzModel.bzID);
 
-              /// remove tinyBz from userTinyBzz
+              /// remove tinyBz from local userTinyBzz
               _prof.removeTinyBzFromLocalUserTinyBzz(bzModel.bzID);
 
 
@@ -126,8 +132,6 @@ class _MyBzScreenState extends State<MyBzScreen> {
             },
 
           ),
-
-          SizedBox(height: 10,),
 
           // --- DEACTIVATE BZ  ACCOUNT
           DreamBox(
@@ -142,10 +146,18 @@ class _MyBzScreenState extends State<MyBzScreen> {
             // verseWeight: VerseWeight.thin,
             boxFunction: () async {
 
+              /// close bottom sheet
               Nav.goBack(context);
 
               /// Task : this should be bool dialog instead
-              await superDialog(context, 'You will never get this back ever', 'watch out');
+              bool _dialogResult = await superDialog(
+                context: context,
+                title: '',
+                body: 'Are you sure you want to Deactivate ${bzModel.bzName} Business account ?',
+                boolDialog: true,
+              );
+
+              print(_dialogResult);
 
               /// start deactivate bz ops
               await BzCRUD().deactivateBzOps(
@@ -157,16 +169,15 @@ class _MyBzScreenState extends State<MyBzScreen> {
               FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
               _prof.removeTinyBzFromLocalList(bzModel.bzID);
 
-              /// remove tinyBz from userTinyBzz
+              /// remove tinyBz from local userTinyBzz
               _prof.removeTinyBzFromLocalUserTinyBzz(bzModel.bzID);
 
               /// re-route back
               Nav.goBack(context, argument: true);
+
             },
 
           ),
-
-          SizedBox(height: 10,),
 
           // --- EDIT BZ
           DreamBox(
@@ -181,7 +192,7 @@ class _MyBzScreenState extends State<MyBzScreen> {
           ),
 
         ],
-      ),
+
     );
 
   }

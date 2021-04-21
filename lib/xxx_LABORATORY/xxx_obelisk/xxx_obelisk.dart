@@ -15,6 +15,7 @@ import 'package:bldrs/xxx_LABORATORY/animations/animations_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/forms_and_inputs/popup.dart';
 import 'package:bldrs/xxx_LABORATORY/forms_and_inputs/form.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/aaa_state_test.dart';
+import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/dialog_test_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/firebase_testing.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/share_and_gallery_image_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/text_field_test.dart';
@@ -140,6 +141,8 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
             }
           ),
 
+
+          oButton('Dialog Test', Iconz.More, DialogTestScreen()),
 
           oButton('StateTest', Iconz.XSmall, StateTest(
             bolbol: Bolbol(

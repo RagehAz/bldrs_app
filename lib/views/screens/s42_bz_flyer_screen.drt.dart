@@ -56,7 +56,14 @@ class BzFlyerScreen extends StatelessWidget {
               Nav.goBack(context);
 
               /// Task : this should be bool dialog instead
-              await superDialog(context, 'You will never get this back ever', 'watch out');
+              bool _dialogResult = await superDialog(
+                context: context,
+                title: '',
+                body: 'Are you sure you want to Delete this flyer ?',
+                boolDialog: true,
+              );
+
+              print(_dialogResult);
 
               /// start delete flyer ops
               await FlyerCRUD().deactivateFlyerOps(
@@ -91,7 +98,15 @@ class BzFlyerScreen extends StatelessWidget {
               Nav.goBack(context);
 
               /// Task : this should be bool dialog instead
-              await superDialog(context, 'You will never get this back ever', 'watch out');
+              bool _dialogResult = await superDialog(
+                context: context,
+                title: '',
+                body: 'Are you sure you want to Delete this flyer and never get it back?',
+                boolDialog: true,
+              );
+
+              print(_dialogResult);
+
 
               /// start delete flyer ops
               await FlyerCRUD().deleteFlyerOps(

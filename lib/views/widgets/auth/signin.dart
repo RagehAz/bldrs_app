@@ -222,27 +222,52 @@ class _SignInState extends State<SignIn> {
                         dynamic result = await _auth.signInWithEmailAndPassword(context, _emailController.text, _passWordController.text);
                         // ---------------------
                         if ('$result' == '[firebase_auth/wrong-password] The password is invalid or the user does not have a password.') {
-                          await superDialog(context, Wordz.wrongPassword(context), 'Ops!');
+                          await superDialog(
+                            context: context,
+                            title: 'Ops!',
+                            body: Wordz.wrongPassword(context),
+                            boolDialog: false,
+                          );
                           _triggerLoading();
                         }
                         // ---------------------
                         else if ('$result' == '[firebase_auth/user-not-found] There is no user record corresponding to this identifier. The user may have been deleted.') {
-                          await superDialog(context, Wordz.emailNotFound(context), 'Ops!');
+                          await superDialog(
+                            context: context,
+                            title: 'Ops!',
+                            body: Wordz.emailNotFound(context),
+                            boolDialog: false,
+                          );
                           _triggerLoading();
                         }
                         // ---------------------
                         else if('$result' == '[firebase_auth/network-request-failed] A network error (such as timeout, interrupted connection or unreachable host) has occurred.') {
-                          await superDialog(context, 'No Internet connection available', 'Ops!');
+                          await superDialog(
+                            context: context,
+                            title: 'Ops!',
+                            body: 'No Internet connection available',
+                            boolDialog: false,
+                          );
                           _triggerLoading();
                         }
                         // ---------------------
                         else if('$result' == '[firebase_auth/invalid-email] The email address is badly formatted.') {
-                          await superDialog(context, Wordz.emailWrong(context), 'Ops!');
+                          await superDialog(
+                            context: context,
+                            title: 'Ops!',
+                            body: Wordz.emailWrong(context),
+                            boolDialog: false,
+                          );
                           _triggerLoading();
                         }
                         // ---------------------
                         else if(result == null){
-                          await superDialog(context, Wordz.signInFailure(context), 'Ops!');
+                          await superDialog(
+                            context: context,
+                            title: 'Ops!',
+                            body: Wordz.signInFailure(context),
+                            boolDialog: false,
+                          );
                           _triggerLoading();
                         }
                         // ---------------------
@@ -259,7 +284,14 @@ class _SignInState extends State<SignIn> {
                               userModel.company == null
                           // TASK : need to rethink which fields are required by user
                           ){
-                            await superDialog(context, 'You have to complete your profile info', '');
+
+                            await superDialog(
+                              context: context,
+                              title: 'Ops!',
+                              body: 'You have to complete your profile info',
+                              boolDialog: false,
+                            );
+
                             _triggerLoading();
                             Nav.goToNewScreen(context, EditProfileScreen(user: result, firstTimer: false,),);
                           } else {
