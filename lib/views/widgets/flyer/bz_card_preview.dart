@@ -41,7 +41,7 @@ class _BzCardPreviewState extends State<BzCardPreview> {
   }
   // ----------------------------------------------------------------------
   void _triggerMaxHeader(){
-    bool _mini = superFlyerMiniMode(context, superFlyerZoneWidth(context, widget.flyerSizeFactor));
+    bool _mini = Scale.superFlyerMiniMode(context, Scale.superFlyerZoneWidth(context, widget.flyerSizeFactor));
 
     if (_mini == true && widget.addFlyerButton == false){
       // Nothing to be done
@@ -60,7 +60,7 @@ class _BzCardPreviewState extends State<BzCardPreview> {
   @override
   Widget build(BuildContext context) {
 
-    double _flyerZoneWidth = superFlyerZoneWidth(context, widget.flyerSizeFactor);
+    double _flyerZoneWidth = Scale.superFlyerZoneWidth(context, widget.flyerSizeFactor);
 
     return FlyerZone(
       flyerSizeFactor: widget.flyerSizeFactor,
@@ -80,7 +80,7 @@ class _BzCardPreviewState extends State<BzCardPreview> {
           tinyAuthor: AuthorModel.getTinyAuthorFromAuthorModel(widget.author),
           flyerShowsAuthor: true,
           followIsOn: false,
-          flyerZoneWidth: superFlyerZoneWidth(context, widget.flyerSizeFactor),
+          flyerZoneWidth: Scale.superFlyerZoneWidth(context, widget.flyerSizeFactor),
           bzPageIsOn: _bzPageIsOn,
           tappingHeader: _triggerMaxHeader,
           onFollowTap: (){},
@@ -96,7 +96,7 @@ class _BzCardPreviewState extends State<BzCardPreview> {
 
             // --- FAKE HEADER FOOTPRINT
             SizedBox(
-                height: superHeaderHeight(false, _flyerZoneWidth),
+                height: Scale.superHeaderHeight(false, _flyerZoneWidth),
             ),
 
             DreamBox(

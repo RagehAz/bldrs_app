@@ -33,7 +33,7 @@ class FollowAndCallBTs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // === === === === === === === === === === === === === === === === === === ===
-    double headerMainHeight = superHeaderStripHeight(bzPageIsOn, flyerZoneWidth);
+    double headerMainHeight = Scale.superHeaderStripHeight(bzPageIsOn, flyerZoneWidth);
     double headerMainPadding = flyerZoneWidth * Ratioz.xxflyerHeaderMainPadding;
     double headerOffsetHeight = headerMainHeight - (2 * headerMainPadding);
     // --- FOLLOWERS & GALLERY --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -91,8 +91,8 @@ class FollowBT extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // === === === === === === === === === === === === === === === === === ===
-    double screenWidth = superScreenWidth(context);
-    bool miniMode = superFlyerMiniMode(context, flyerZoneWidth) ;
+    double screenWidth = Scale.superScreenWidth(context);
+    bool miniMode = Scale.superFlyerMiniMode(context, flyerZoneWidth) ;
     bool versesDesignMode = false;
     bool versesShadow = false;
     // --- FOLLOW BUTTON --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- FOLLOW BUTTON
@@ -191,7 +191,7 @@ class CallBT extends StatelessWidget {
 // === === === === === === === === === === === === === === === === === === ===
     bool versesDesignMode = false;
     bool versesShadow = false;
-    bool miniMode = superFlyerMiniMode(context, flyerZoneWidth);
+    bool miniMode = Scale.superFlyerMiniMode(context, flyerZoneWidth);
     // --- call BUTTON --- --- --- --- --- --- --- --- --- --- --- --- --- ---
     Color callBTColor = Colorz.WhiteAir;
     double callBTHeight = flyerZoneWidth * Ratioz.xxCallBTHeight;
@@ -258,7 +258,7 @@ class CallBT extends StatelessWidget {
                     weight: VerseWeight.bold,
                     shadow: versesShadow,
                     designMode: versesDesignMode,
-                    scaleFactor: flyerZoneWidth/superScreenWidth(context),
+                    scaleFactor: flyerZoneWidth/Scale.superScreenWidth(context),
                   )
 
                 ],

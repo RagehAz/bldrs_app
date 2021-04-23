@@ -56,14 +56,14 @@ class Header extends StatelessWidget {
           children: <Widget>[
 
             Container(
-              height: superHeaderHeight(bzPageIsOn, flyerZoneWidth),
+              height: Scale.superHeaderHeight(bzPageIsOn, flyerZoneWidth),
               width: flyerZoneWidth,
               child: Stack(
                 children: <Widget>[
 
                   if (stripBlurIsOn)
                   BlurLayer(
-                    height: superHeaderHeight(bzPageIsOn, flyerZoneWidth),
+                    height: Scale.superHeaderHeight(bzPageIsOn, flyerZoneWidth),
                     width: flyerZoneWidth,
                     borders: Borderers.superHeaderStripCorners(context, bzPageIsOn, flyerZoneWidth),
                   ),

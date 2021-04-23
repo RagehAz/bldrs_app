@@ -81,15 +81,17 @@ class _MyBzScreenState extends State<MyBzScreen> {
 // -----------------------------------------------------------------------------
   void _slideBzOptions(BuildContext context, BzModel bzModel){
 
+    double _buttonHeight = 50;
 
     BottomSlider.slideButtonsBottomSheet(
       context: context,
       draggable: true,
+      buttonHeight: _buttonHeight,
       buttons: <Widget>[
 
           // --- DELETE BZ ACCOUNT AND ITS DECENDENTS
           DreamBox(
-            height: 50,
+            height: _buttonHeight,
             width: BottomSlider.bottomSheetClearWidth(context),
             icon: Iconz.XSmall,
             iconSizeFactor: 0.5,
@@ -135,7 +137,7 @@ class _MyBzScreenState extends State<MyBzScreen> {
 
           // --- DEACTIVATE BZ  ACCOUNT
           DreamBox(
-            height: 50,
+            height: _buttonHeight,
             width: BottomSlider.bottomSheetClearWidth(context),
             icon: Iconz.XSmall,
             iconSizeFactor: 0.5,
@@ -181,7 +183,7 @@ class _MyBzScreenState extends State<MyBzScreen> {
 
           // --- EDIT BZ
           DreamBox(
-            height: 50,
+            height: _buttonHeight,
             width: BottomSlider.bottomSheetClearWidth(context),
             icon: Iconz.Gears,
             iconSizeFactor: 0.5,
@@ -223,6 +225,7 @@ class _MyBzScreenState extends State<MyBzScreen> {
                 loading: _loading,
                 appBarRowWidgets: <Widget>[
 
+                  /// --- BZ LOGO
                   DreamBox(
                     height: 40,
                     icon: bzModel.bzLogo,
@@ -232,9 +235,10 @@ class _MyBzScreenState extends State<MyBzScreen> {
                     secondLine: TextGenerator.bzTypeSingleStringer(context, bzModel.bzType),
                   ),
 
+                  /// --- EXPANDER
                   Expanded(child: Container()),
 
-                  // -- edit bz button
+                  /// -- EDIT BZ BUTTON
                   DreamBox(
                     height: 35,
                     width: 35,
@@ -252,7 +256,7 @@ class _MyBzScreenState extends State<MyBzScreen> {
 
                     Stratosphere(),
 
-                    // --- GALLERY
+                    /// --- GALLERY
                     InPyramidsBubble(
                       title: 'Published Flyers',
                       centered: false,
@@ -261,7 +265,7 @@ class _MyBzScreenState extends State<MyBzScreen> {
                       columnChildren: <Widget>[
 
                         Gallery(
-                          flyerZoneWidth: superBubbleClearWidth(context),
+                          flyerZoneWidth: Scale.superBubbleClearWidth(context),
                           showFlyers: true,
                           bz: bzModel,
                           // showOldFlyers: _showOldFlyers,

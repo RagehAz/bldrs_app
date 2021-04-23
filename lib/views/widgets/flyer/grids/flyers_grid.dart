@@ -34,7 +34,7 @@ class FlyersGrid extends StatefulWidget {
 class _FlyersGridState extends State<FlyersGrid> {
   List<TinyFlyer> _tinyFlyers;
   bool _isInit = true;
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   /// --- LOADING BLOCK
   bool _loading = false;
   void _triggerLoading(){
@@ -42,7 +42,7 @@ class _FlyersGridState extends State<FlyersGrid> {
     _loading == true?
     print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   @override
   void initState() {
     final FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
@@ -50,7 +50,7 @@ class _FlyersGridState extends State<FlyersGrid> {
     _tinyFlyers = widget.tinyFlyers == null ? _prof.getSavedTinyFlyers : widget.tinyFlyers;
     super.initState();
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 //   @override
 //   void didChangeDependencies() {
 //     if (_isInit && widget.tinyFlyers == null) {
@@ -75,9 +75,9 @@ class _FlyersGridState extends State<FlyersGrid> {
 //     _isInit = false;
 //     super.didChangeDependencies();
 //   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   void rebuildGrid(){setState(() {});}
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -87,7 +87,7 @@ class _FlyersGridState extends State<FlyersGrid> {
 // -----------------------------------------------------------------------------
       // int flyerIndex = 0;
 // -----------------------------------------------------------------------------
-    double screenWidth = superScreenWidth(context);
+    double screenWidth = Scale.superScreenWidth(context);
 // -----------------------------------------------------------------------------
     int gridColumnsCount = widget.numberOfColumns;
     double spacingRatioToGridWidth = 0.15;

@@ -31,8 +31,8 @@ class FlyerStack extends StatelessWidget {
     // final List<TinyBz> _tinyBzz = _pro.getTinyBzzOfTinyFlyersList(_tinyFlyers);
 
 // -----------------------------------------------------------------------------
-    double _screenWidth = superScreenWidth(context);
-    double _screenHeight = superScreenHeight(context);
+    double _screenWidth = Scale.superScreenWidth(context);
+    double _screenHeight = Scale.superScreenHeight(context);
 // -----------------------------------------------------------------------------
     double _titleSpacing = 5;
     double _collectionHeight = (_screenWidth * Ratioz.xxflyerZoneHeight * flyerSizeFactor) + 20 ;

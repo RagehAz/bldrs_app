@@ -75,52 +75,55 @@ class _HomeScreenState extends State<HomeScreen> {
     List<TinyBz> _tinyBzz = _prof.getAllTinyBzz;
     List<TinyBz> _userTinyBzz = _prof.getUserTinyBzz;
 
-    return MainLayout(
-      appBarType: AppBarType.Main,
-      sky: Sky.Night,
-      canRefreshFlyers: true,
-      myTinyBzz: _userTinyBzz,
-      layoutWidget: Stack(
-        children: <Widget>[
-          _isLoading == true ?
-          Center(child: Loading(loading: _isLoading,))
-              :
-          CustomScrollView(
-            slivers: <Widget>[
-              SliverList(
-                // key: ,
-                delegate: SliverChildListDelegate(<Widget>[
+    return WillPopScope(
+      onWillPop: () => Future.value(false),
+      child: MainLayout(
+        appBarType: AppBarType.Main,
+        sky: Sky.Night,
+        canRefreshFlyers: true,
+        myTinyBzz: _userTinyBzz,
+        layoutWidget: Stack(
+          children: <Widget>[
+            _isLoading == true ?
+            Center(child: Loading(loading: _isLoading,))
+                :
+            CustomScrollView(
+              slivers: <Widget>[
+                SliverList(
+                  // key: ,
+                  delegate: SliverChildListDelegate(<Widget>[
 
-                  Stratosphere(),
+                    Stratosphere(),
 
-                  // Ask(
-                  //   tappingAskInfo: () {print('Ask info is tapped aho');},
-                  // ),
+                    // Ask(
+                    //   tappingAskInfo: () {print('Ask info is tapped aho');},
+                    // ),
 
-                  BzzBubble(tinyBzz: _tinyBzz),
+                    BzzBubble(tinyBzz: _tinyBzz),
 
-                  ...List<Widget>.generate(FlyerModel.flyerTypesList.length,
-                          (index) {
+                    ...List<Widget>.generate(FlyerModel.flyerTypesList.length,
+                            (index) {
 
-                    FlyerType _flyerType = FlyerModel.flyerTypesList[index];
+                      FlyerType _flyerType = FlyerModel.flyerTypesList[index];
 
-                    return
+                      return
 
-                      FlyerStack(
-                        flyersType: _flyerType,
-                        title: TextGenerator.flyerTypePluralStringer(context, _flyerType),
-                      );
+                        FlyerStack(
+                          flyersType: _flyerType,
+                          title: TextGenerator.flyerTypePluralStringer(context, _flyerType),
+                        );
 
-                  }),
+                    }),
 
-                  PyramidsHorizon(heightFactor: 10),
+                    PyramidsHorizon(heightFactor: 10),
 
-                ]),
-              ),
-            ],
-          ),
+                  ]),
+                ),
+              ],
+            ),
 
-        ],
+          ],
+        ),
       ),
     );
   }

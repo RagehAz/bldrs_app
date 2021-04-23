@@ -34,7 +34,7 @@ class DreamList extends StatelessWidget {
 
 dreamListBuilder  (BuildContext c, int x, String info,String icon ,String verse, String secondLine,) {
      Widget dreamListItems =  Container(
-        width: superScreenWidth(c),
+        width: Scale.superScreenWidth(c),
         alignment: Alignment.center,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -50,7 +50,7 @@ dreamListBuilder  (BuildContext c, int x, String info,String icon ,String verse,
             ),
             DreamBox(
               height: 70,
-              width: superScreenWidth(c)*0.95,
+              width: Scale.superScreenWidth(c)*0.95,
               boxMargins: EdgeInsets.only(bottom: 10),
               verse: verse,
               verseScaleFactor: 0.6,
@@ -82,7 +82,7 @@ class DreamTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: superScreenWidth(context),
+      width: Scale.superScreenWidth(context),
       alignment: Alignment.center,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -98,7 +98,7 @@ class DreamTile extends StatelessWidget {
           ),
           DreamBox(
             height: 70,
-            width: superScreenWidth(context)*0.95,
+            width: Scale.superScreenWidth(context)*0.95,
             boxMargins: EdgeInsets.only(bottom: 10),
             verse: verse,
             verseScaleFactor: 0.6,

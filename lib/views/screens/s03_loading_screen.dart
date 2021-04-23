@@ -1,5 +1,6 @@
 import 'package:bldrs/controllers/drafters/text_shapers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
+import 'package:bldrs/controllers/router/route_names.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
@@ -7,6 +8,7 @@ import 'package:bldrs/views/screens/s10_home_screen.dart';
 import 'package:bldrs/views/widgets/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/views/widgets/bubbles/bzz_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
+import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
@@ -140,7 +142,22 @@ class _LoadingScreenState extends State<LoadingScreen> {
               height: 40,
               verse: 'Continue',
               verseScaleFactor: 0.8,
-              boxFunction: () => Nav.goToNewScreen(context, HomeScreen()),
+              boxFunction: () async {
+                var _navResult = await Nav.goToRoute(context, Routez.Home);
+
+                if (_navResult == true){
+                  await superDialog(
+                    context: context,
+                    title: 'Estanna bas',
+                    body: 'Raye7 fein keda enta ?,, Yalla erga3 3ala faslak yalla wala ',
+                    boolDialog: false,
+                  );
+
+                  Nav.goToNewScreen(context, HomeScreen());
+                }
+
+                }
+              ,
             ),
 
           PyramidsHorizon(),

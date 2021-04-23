@@ -21,7 +21,7 @@ class ChatBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double _bubbleWidth = superScreenWidth(context);
+    double _bubbleWidth = Scale.superScreenWidth(context);
     double _corner = Ratioz.ddAppBarCorner;
     BorderRadius _bubbleBorderss = Borderers.superBorderAll(context, _corner);
 

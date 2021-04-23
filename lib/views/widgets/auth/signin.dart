@@ -222,53 +222,53 @@ class _SignInState extends State<SignIn> {
                         dynamic result = await _auth.signInWithEmailAndPassword(context, _emailController.text, _passWordController.text);
                         // ---------------------
                         if ('$result' == '[firebase_auth/wrong-password] The password is invalid or the user does not have a password.') {
+                          _triggerLoading();
                           await superDialog(
                             context: context,
                             title: 'Ops!',
                             body: Wordz.wrongPassword(context),
                             boolDialog: false,
                           );
-                          _triggerLoading();
                         }
                         // ---------------------
                         else if ('$result' == '[firebase_auth/user-not-found] There is no user record corresponding to this identifier. The user may have been deleted.') {
+                          _triggerLoading();
                           await superDialog(
                             context: context,
                             title: 'Ops!',
                             body: Wordz.emailNotFound(context),
                             boolDialog: false,
                           );
-                          _triggerLoading();
                         }
                         // ---------------------
                         else if('$result' == '[firebase_auth/network-request-failed] A network error (such as timeout, interrupted connection or unreachable host) has occurred.') {
+                          _triggerLoading();
                           await superDialog(
                             context: context,
                             title: 'Ops!',
                             body: 'No Internet connection available',
                             boolDialog: false,
                           );
-                          _triggerLoading();
                         }
                         // ---------------------
                         else if('$result' == '[firebase_auth/invalid-email] The email address is badly formatted.') {
+                          _triggerLoading();
                           await superDialog(
                             context: context,
                             title: 'Ops!',
                             body: Wordz.emailWrong(context),
                             boolDialog: false,
                           );
-                          _triggerLoading();
                         }
                         // ---------------------
                         else if(result == null){
+                          _triggerLoading();
                           await superDialog(
                             context: context,
                             title: 'Ops!',
                             body: Wordz.signInFailure(context),
                             boolDialog: false,
                           );
-                          _triggerLoading();
                         }
                         // ---------------------
                         /// if user signed up but did not properly complete userdata
@@ -285,6 +285,8 @@ class _SignInState extends State<SignIn> {
                           // TASK : need to rethink which fields are required by user
                           ){
 
+                            _triggerLoading();
+
                             await superDialog(
                               context: context,
                               title: 'Ops!',
@@ -292,7 +294,6 @@ class _SignInState extends State<SignIn> {
                               boolDialog: false,
                             );
 
-                            _triggerLoading();
                             Nav.goToNewScreen(context, EditProfileScreen(user: result, firstTimer: false,),);
                           } else {
                           _triggerLoading();

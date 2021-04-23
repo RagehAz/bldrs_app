@@ -54,8 +54,8 @@ class LoadingFullScreenLayer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: superScreenWidth(context),
-        height: superScreenWidth(context),
+        width: Scale.superScreenWidth(context),
+        height: Scale.superScreenWidth(context),
         child: Center(child: Loading(loading: true,)));
   }
 }

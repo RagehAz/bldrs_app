@@ -53,12 +53,12 @@ class _SlidesState extends State<Slides> {
 
     // ----------------------------------------------------------------------
     double _progressBarHeight = widget.flyerZoneWidth * 0.0125;
-    double _headerHeight = superHeaderHeight(false, widget.flyerZoneWidth);
-    double _footerHeight = superFlyerFooterHeight(widget.flyerZoneWidth);
-    double _flyerHeight = superFlyerZoneHeight(context, widget.flyerZoneWidth);
+    double _headerHeight = Scale.superHeaderHeight(false, widget.flyerZoneWidth);
+    double _footerHeight = Scale.superFlyerFooterHeight(widget.flyerZoneWidth);
+    double _flyerHeight = Scale.superFlyerZoneHeight(context, widget.flyerZoneWidth);
     double _tapAreaHeight = _flyerHeight - (_headerHeight+_progressBarHeight+_footerHeight);
     // ----------------------------------------------------------------------
-    bool _microMode = superFlyerMicroMode(context, widget.flyerZoneWidth);
+    bool _microMode = Scale.superFlyerMicroMode(context, widget.flyerZoneWidth);
     // ----------------------------------------------------------------------
     // int _slideIndex = _currentSlideIndex >= _slidesLength ? 0 : _currentSlideIndex ;
     // ----------------------------------------------------------------------

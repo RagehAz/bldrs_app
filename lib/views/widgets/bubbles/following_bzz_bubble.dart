@@ -30,7 +30,7 @@ class FollowingBzzBubble extends StatelessWidget {
 
         // --- FOLLOWING BZZ GRID
         BzGrid(
-          gridZoneWidth: superScreenWidth(context) - Ratioz.ddAppBarMargin * 4,
+          gridZoneWidth: Scale.superScreenWidth(context) - Ratioz.ddAppBarMargin * 4,
           tinyBzz: tinyBzz,
           numberOfColumns: 7,
           itemOnTap: (bzID){

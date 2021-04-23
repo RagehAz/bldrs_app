@@ -4,7 +4,7 @@ import '../bz_model.dart';
 // -----------------------------------------------------------------------------
 class TinyBz with ChangeNotifier{
   final String bzID;
-  final String bzLogo;
+  final dynamic bzLogo;
   final String bzName;
   final BzType bzType;
   final Zone bzZone;

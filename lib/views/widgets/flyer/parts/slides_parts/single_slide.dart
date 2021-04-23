@@ -58,9 +58,9 @@ class SingleSlide extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // ----------------------------------------------------------------------
-    double _screenWidth = superScreenWidth(context);
+    double _screenWidth = Scale.superScreenWidth(context);
     // ----------------------------------------------------------------------
-    bool _microMode = superFlyerMicroMode(context, flyerZoneWidth);
+    bool _microMode = Scale.superFlyerMicroMode(context, flyerZoneWidth);
     // ----------------------------------------------------------------------
     int _slideTitleSize =
     flyerZoneWidth <= _screenWidth && flyerZoneWidth > (_screenWidth*0.75) ? 4 :
@@ -98,7 +98,7 @@ class SingleSlide extends StatelessWidget {
 
     return Container(
       width: flyerZoneWidth,
-      height: superFlyerZoneHeight(context, flyerZoneWidth),
+      height: Scale.superFlyerZoneHeight(context, flyerZoneWidth),
       alignment: Alignment.topCenter,
       decoration: BoxDecoration(
         borderRadius: Borderers.superFlyerCorners(context, flyerZoneWidth),
@@ -121,7 +121,7 @@ class SingleSlide extends StatelessWidget {
               picture,
               fit: BoxFit.fitHeight,
               width: flyerZoneWidth*1.2,
-              height: superFlyerZoneHeight(context, flyerZoneWidth*1.2),
+              height: Scale.superFlyerZoneHeight(context, flyerZoneWidth*1.2),
               // colorBlendMode: BlendMode.overlay,
               // color: Colorz.WhiteAir,
             ),
@@ -132,7 +132,7 @@ class SingleSlide extends StatelessWidget {
                 picture,
                 fit: BoxFit.fitHeight,
                 width: flyerZoneWidth*1.2,
-                height: superFlyerZoneHeight(context, flyerZoneWidth*1.2),
+                height: Scale.superFlyerZoneHeight(context, flyerZoneWidth*1.2),
               ),
 
             /// --- IMAGE FILE BLUR LAYER
@@ -142,7 +142,7 @@ class SingleSlide extends StatelessWidget {
                 filter: ImageFilter.blur(sigmaX: 6, sigmaY: 6),
                 child: Container(
                   width: flyerZoneWidth,
-                  height: superFlyerZoneHeight(context, flyerZoneWidth),
+                  height: Scale.superFlyerZoneHeight(context, flyerZoneWidth),
                   color: Colorz.Nothing,
                 ),
               ),
@@ -157,7 +157,7 @@ class SingleSlide extends StatelessWidget {
                     picture,
                     fit: boxFit,
                     width: flyerZoneWidth,
-                    height: superFlyerZoneHeight(context, flyerZoneWidth)
+                    height: Scale.superFlyerZoneHeight(context, flyerZoneWidth)
                 ),
 
             /// --- IMAGE NETWORK
@@ -166,7 +166,7 @@ class SingleSlide extends StatelessWidget {
                 picture,
                 fit: BoxFit.fitWidth,
                 width: flyerZoneWidth,
-                height: superFlyerZoneHeight(context, flyerZoneWidth)
+                height: Scale.superFlyerZoneHeight(context, flyerZoneWidth)
             ),
 
             /// --- SHADOW UNDER PAGE HEADER & OVER PAGE PICTURE

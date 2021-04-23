@@ -492,7 +492,7 @@ class Progressor extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Container(
-      width: superScreenWidth(context),
+      width: Scale.superScreenWidth(context),
       margin: EdgeInsets.symmetric(vertical: 5),
       decoration: BoxDecoration(
         color: Colorz.WhiteGlass,
@@ -521,7 +521,7 @@ class Progressor extends StatelessWidget {
           ),
 
           ProgressBar(
-            flyerZoneWidth: superScreenWidth(context),
+            flyerZoneWidth: Scale.superScreenWidth(context),
             numberOfSlides: length,
             barIsOn: true,
             currentSlide: index,

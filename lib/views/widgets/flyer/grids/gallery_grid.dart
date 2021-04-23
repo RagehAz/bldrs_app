@@ -44,7 +44,7 @@ class GalleryGrid extends StatelessWidget {
     final List<TinyFlyer> _gridFlyers = galleryFlyers == null ? <TinyFlyer>[] : galleryFlyers;//pro.getAllFlyers;
     bool _viewerIsAuthor = _concludeUserIsAuthor();
     // -------------------------------------------------------------------------
-    double _screenWidth = superScreenWidth(context);
+    double _screenWidth = Scale.superScreenWidth(context);
     // -------------------------------------------------------------------------
     int _gridColumnsCount = _gridFlyers.length > 12 ? 5 : _gridFlyers.length > 6 ? 4 : 3;
     // -------------------------------------------------------------------------

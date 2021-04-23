@@ -34,7 +34,7 @@ class FlyerFooter extends StatelessWidget {
     double _flyerZoneWidth = flyerZoneWidth;
     double _flyerBottomCorners = flyerZoneWidth * Ratioz.xxflyerBottomCorners;
     // ----------------------------------------------------------------------
-    bool _miniMode = superFlyerMiniMode(context, flyerZoneWidth) ;
+    bool _miniMode = Scale.superFlyerMiniMode(context, flyerZoneWidth) ;
 
     // --- SHARE & SAVE BUTTONS --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- SHARE & SAVE BUTTONS
     double _footerBTMargins = flyerZoneWidth * 0.025; //
@@ -55,7 +55,7 @@ class FlyerFooter extends StatelessWidget {
         //     : // * only 1 because it starts from bottom left of the flyer neglecting flyer's left margin from screen boarder kalb
     flyerZoneWidth
     ;
-    double _flyerFooterHeight = superFlyerFooterHeight(_flyerZoneWidth);
+    double _flyerFooterHeight = Scale.superFlyerFooterHeight(_flyerZoneWidth);
     dynamic _flyerFooterColor = Colorz.Nothing;
 
     // --- FLYER FOOTER

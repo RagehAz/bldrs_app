@@ -5,7 +5,7 @@ import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 void showSnackBar(BuildContext context, AnimationController _snackController) {
-  double screenHeight = superScreenHeight(context);
+  double screenHeight = Scale.superScreenHeight(context);
   Scaffold.of(context).hideCurrentSnackBar();
   Scaffold.of(context).showSnackBar(SnackBar(
     backgroundColor: Colorz.BloodTest,

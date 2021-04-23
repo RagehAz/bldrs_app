@@ -15,7 +15,9 @@ import 'file_formatters.dart';
 import 'dart:io';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:path_provider/path_provider.dart';
-// === === === === === === === === === === === === === === === === === === ===
+import 'package:http/http.dart' as http;
+import 'dart:math';
+// -----------------------------------------------------------------------------
 DecorationImage superImage(String picture, BoxFit boxFit){
   DecorationImage image = DecorationImage(
     image: AssetImage(picture),
@@ -24,7 +26,7 @@ DecorationImage superImage(String picture, BoxFit boxFit){
 
   return picture == '' ? null : image;
 }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 Widget superImageWidget(dynamic pic){
   return
     ObjectChecker.objectIsJPGorPNG(pic)?
@@ -45,7 +47,7 @@ Widget superImageWidget(dynamic pic){
     :
   Container();
 }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 enum PicType{
   userPic,
   authorPic,
@@ -55,7 +57,7 @@ enum PicType{
   dum,
   askPic,
 }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 int concludeImageQuality(PicType picType){
   switch (picType){
     case PicType.userPic      :  return  100   ;  break;
@@ -68,7 +70,7 @@ int concludeImageQuality(PicType picType){
     default : return   null;
 }
 }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 double concludeImageMaxWidth(PicType picType){
   switch (picType){
     case PicType.userPic      :  return  150   ;  break;
@@ -81,7 +83,7 @@ double concludeImageMaxWidth(PicType picType){
     default : return   null;
   }
 }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 // double concludeImageMaxHeight(PicType picType){
 //   switch (picType){
 //     case PicType.userPic      :   return  150   ;     break;
@@ -92,7 +94,7 @@ double concludeImageMaxWidth(PicType picType){
 //     default : return   null;
 //   }
 // }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 Future<File> takeGalleryPicture(PicType picType) async {
   final _picker = ImagePicker();
 
@@ -106,7 +108,7 @@ Future<File> takeGalleryPicture(PicType picType) async {
   return File(_imageFile.path);
 
 }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 Future<PickedFile> takeCameraPicture(PicType picType) async {
   final _picker = ImagePicker();
 
@@ -120,13 +122,13 @@ Future<PickedFile> takeCameraPicture(PicType picType) async {
   return _imageFile;
 
 }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 /// secret sacred code that will fix the world someday
 // final _appDir = await sysPaths.getApplicationDocumentsDirectory();
 // final _fileName = path.basename(_imageFile.path);
 // final _savedImage = await _currentPic.copy('${_appDir.path}/$_fileName');
 // _selectImage(savedImage);
-// // === === === === === === === === === === === === === === === === === === ===
+// // -----------------------------------------------------------------------------
 class ImageSize{
   final int width;
   final int height;
@@ -136,20 +138,20 @@ class ImageSize{
     @required this.height,
 });
 }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 Future<ImageSize> superImageSize(dynamic image) async {
   var decodedImage = await decodeImageFromList(image.readAsBytesSync());
   ImageSize imageSize =  ImageSize(width: decodedImage.width, height: decodedImage.height);
   return imageSize;
 }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 Future<Uint8List> getBytesFromAsset(String iconPath, int width) async {
   ByteData data = await rootBundle.load(iconPath);
   ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(), targetWidth: width);
   ui.FrameInfo fi = await codec.getNextFrame();
   return (await fi.image.toByteData(format: ui.ImageByteFormat.png)).buffer.asUint8List();
 }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 Future < Uint8List > getBytesFromCanvas(int width, int height, urlAsset) async {
   final ui.PictureRecorder pictureRecorder = ui.PictureRecorder();
   final Canvas canvas = Canvas(pictureRecorder);
@@ -175,7 +177,7 @@ Future < Uint8List > getBytesFromCanvas(int width, int height, urlAsset) async {
   final data = await img.toByteData(format: ui.ImageByteFormat.png);
   return data.buffer.asUint8List();
 }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 Future < ui.Image > loadImage(List < int > img) async {
   final Completer < ui.Image > completer = new Completer();
   ui.decodeImageFromList(img, (ui.Image img) {
@@ -184,7 +186,7 @@ Future < ui.Image > loadImage(List < int > img) async {
   });
   return completer.future;
 }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 Future<File> getImageFileFromAssets(BuildContext context, String inputAsset) async {
   File _file;
   String asset = ObjectChecker.objectIsSVG(inputAsset) ? Iconz.DumBusinessLogo : inputAsset;
@@ -206,4 +208,22 @@ Future<File> getImageFileFromAssets(BuildContext context, String inputAsset) asy
   );
   return _file;
 }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
+Future<File> urlToFile(String imageUrl) async {
+// generate random number.
+  var rng = new Random();
+// get temporary directory of device.
+  Directory tempDir = await getTemporaryDirectory();
+// get temporary path from temporary directory.
+  String tempPath = tempDir.path;
+// create a new file in temporary path with random file name.
+  File file = new File('$tempPath'+ (rng.nextInt(100)).toString() +'.png');
+// call http.get method and pass imageUrl into it to get response.
+  http.Response response = await http.get(imageUrl);
+// write bodyBytes received in response to file.
+  await file.writeAsBytes(response.bodyBytes);
+// now return the file which is created with random name in
+// temporary directory and image bytes from response is written to // that file.
+  return file;
+}
+// -----------------------------------------------------------------------------

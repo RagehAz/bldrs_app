@@ -18,7 +18,7 @@ import 'package:websafe_svg/websafe_svg.dart';
       @override
       Widget build(BuildContext context) {
 
-        double _screenHeight = superScreenHeight(context);
+        double _screenHeight = Scale.superScreenHeight(context);
 
         SuperVerse _slogan = SuperVerse(
           verse: Wordz.bldrsTagLine(context),
