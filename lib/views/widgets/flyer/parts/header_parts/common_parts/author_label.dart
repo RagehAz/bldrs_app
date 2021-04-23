@@ -3,11 +3,16 @@ import 'package:bldrs/controllers/drafters/file_formatters.dart';
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/numberers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
+import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/models/tiny_models/tiny_user.dart';
+import 'package:bldrs/views/screens/s44_add_author_screen.dart';
+import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -41,7 +46,7 @@ class AuthorLabel extends StatelessWidget {
   Widget build(BuildContext context) {
 
     // === === === === === === === === === === === === === === === === === === ===
-    double _screenWidth = superScreenWidth(context);
+    double _screenWidth = Scale.superScreenWidth(context);
     bool _versesDesignMode = false;
     bool _versesShadow = false;
     // === === === === === === === === === === === === === === === === === === ===
@@ -98,6 +103,7 @@ class AuthorLabel extends StatelessWidget {
                   child: AuthorPic(
                     flyerZoneWidth: flyerZoneWidth,
                     authorPic: tinyAuthor.pic,
+                    tinyBz: tinyBz,
                   ),
                 ),
 
@@ -166,11 +172,20 @@ class AuthorLabel extends StatelessWidget {
 class AuthorPic extends StatelessWidget {
   final double flyerZoneWidth;
   final dynamic authorPic;
+  final bool isAddAuthorButton;
+  final TinyBz tinyBz;
 
   AuthorPic({
     @required this.flyerZoneWidth,
     @required this.authorPic,
+    this.isAddAuthorButton = false,
+    this.tinyBz,
   });
+
+  void _tapAddAuthor(BuildContext context){
+
+    Nav.goToNewScreen(context, AddAuthorScreen(tinyBz: tinyBz));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -207,7 +222,39 @@ class AuthorPic extends StatelessWidget {
         child:
         ClipRRect(
             borderRadius: _authorPicBorders,
-            child: superImageWidget(authorPic)
+            child:
+            isAddAuthorButton == true ?
+                GestureDetector(
+                  onTap: () => _tapAddAuthor(context),
+                  child: Container(
+                    width: _authorImageWidth,
+                    height: _authorImageHeight,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+
+                        DreamBox(
+                          width: _authorImageWidth * 0.35,
+                          height: _authorImageHeight * 0.35,
+                          icon: Iconz.Plus,
+                          iconSizeFactor: 1,
+                          bubble: false,
+                          boxFunction: () => _tapAddAuthor(context),
+                        ),
+
+                        SuperVerse(
+                          verse: 'Add new Author',
+                          size: 0,
+                          maxLines: 2,
+                        ),
+
+                      ],
+                    ),
+                  ),
+                )
+                :
+            superImageWidget(authorPic)
         ),
 
         // objectIsFile(authorPic) ?
@@ -227,3 +274,4 @@ class AuthorPic extends StatelessWidget {
       );
   }
 }
+

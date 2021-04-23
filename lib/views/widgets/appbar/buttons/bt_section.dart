@@ -127,7 +127,7 @@ class SectionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double _screenWidth = superScreenWidth(context);
+    double _screenWidth = Scale.superScreenWidth(context);
 
     double _abPadding = Ratioz.ddAppBarPadding;
 

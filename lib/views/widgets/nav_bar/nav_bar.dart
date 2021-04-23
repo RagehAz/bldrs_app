@@ -65,7 +65,7 @@ class NavBar extends StatelessWidget {
   double _calculateSpacings(BuildContext context, double buttonWidth, int numberOfButtons, int numberOfSpacings, double spacingFactor){
     double _spacings =
     barType == BarType.max || barType == BarType.maxWithText ?
-    ((superScreenWidth(context) - (buttonWidth * numberOfButtons) ) / numberOfSpacings) * spacingFactor
+    ((Scale.superScreenWidth(context) - (buttonWidth * numberOfButtons) ) / numberOfSpacings) * spacingFactor
         :
     _paddings * 0
     ;
@@ -81,7 +81,7 @@ class NavBar extends StatelessWidget {
 
     double _boxWidth =
     barType == BarType.maxWithText || barType == BarType.max ?
-    superScreenWidth(context)
+    Scale.superScreenWidth(context)
         :
     ( _buttonWidth * _numberOfButtons ) + (_spacings * _numberOfSpacings) ;
 
@@ -101,8 +101,8 @@ class NavBar extends StatelessWidget {
   }
 // ----------------------------------------------------------------------------
   double _myBzzListSlideHeight(BuildContext context){
-    double _wantedHeight = (superScreenWidth(context) * 0.3 * myTinyBzz.length);
-    double _maxHeight = superScreenHeight(context) * 0.5;
+    double _wantedHeight = (Scale.superScreenWidth(context) * 0.3 * myTinyBzz.length);
+    double _maxHeight = Scale.superScreenHeight(context) * 0.5;
     double _finalHeight;
     if(_wantedHeight >= _maxHeight){
       _finalHeight = _maxHeight;
@@ -115,8 +115,8 @@ class NavBar extends StatelessWidget {
   void _multiBzzSlider(BuildContext context, UserModel userModel){
 
     double _sliderHeight = _myBzzListSlideHeight(context);
-    double _sliderHeightRatio = _sliderHeight / superScreenHeight(context);
-    double _bzButtonWidth = superScreenWidth(context) - BldrsBottomSheet().draggerZoneHeight() * 2;
+    double _sliderHeightRatio = _sliderHeight / Scale.superScreenHeight(context);
+    double _bzButtonWidth = Scale.superScreenWidth(context) - BldrsBottomSheet().draggerZoneHeight() * 2;
 
     int _titleSize = 2;
     double _titleMargin = 5;
@@ -190,7 +190,7 @@ class NavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // -------------------------------------------------------------------------
-    double _screenWidth = superScreenWidth(context);
+    double _screenWidth = Scale.superScreenWidth(context);
     double _buttonCircleCorner = _circleWidth * 0.5;
     // -------------------------
     double _textBoxHeight =

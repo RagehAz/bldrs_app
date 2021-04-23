@@ -1,4 +1,6 @@
+import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/firestore/auth/auth.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
@@ -6,6 +8,7 @@ import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/models/tiny_models/tiny_user.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
+import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/flyer/grids/gallery_grid.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/common_parts/author_label.dart';
 import 'package:flutter/material.dart';
@@ -72,6 +75,8 @@ class _GalleryState extends State<Gallery> {
   @override
   Widget build(BuildContext context) {
 
+    bool _thisIsMyBz = _bzTeamIDs.contains(superUserID());
+
     return Container(
       width: widget.flyerZoneWidth,
       margin: EdgeInsets.only(top: widget.flyerZoneWidth * 0.005),
@@ -119,35 +124,52 @@ class _GalleryState extends State<Gallery> {
                 scrollDirection: Axis.horizontal,
                 padding: EdgeInsets.symmetric(horizontal: widget.flyerZoneWidth * 0.01),
                 children:
-                widget.bz.bzAuthors == null ? [Container()] :
-                List<Widget>.generate(
-                  widget.bz.bzAuthors.length,
-                      (authorIndex) {
+                widget.bz.bzAuthors == null ?
+                <Widget>[Container()]
+                    :
 
-                    AuthorModel _author = widget.bz.bzAuthors[authorIndex];
-                    TinyUser _tinyAuthor = AuthorModel.getTinyAuthorFromAuthorModel(_author);
+                <Widget>[
 
-                    return
-                        Row(
-                          children: <Widget>[
-                            AuthorLabel(
-                              showLabel: widget.showFlyers == true ? true : false,
-                              flyerZoneWidth: widget.flyerZoneWidth,
-                              tinyAuthor: _tinyAuthor,
-                              tinyBz: TinyBz.getTinyBzFromBzModel(widget.bz),
-                              authorGalleryCount: AuthorModel.getAuthorGalleryCountFromBzModel(widget.bz, _author),
-                              tappingLabel:
-                              // widget.bzTeamIDs.length == 1 ?
-                                  (id) {
-                                tappingAuthorLabel(id);
-                              },
-                              // :(id){print('a77a');// tappingAuthorLabel();},
-                              labelIsOn: currentSelectedAuthor == widget.bz.bzAuthors[authorIndex].userID ? true : false,
-                            )
-                          ],
-                        );
+                  ...List<Widget>.generate(
+                      widget.bz.bzAuthors.length,
+                          (authorIndex) {
+
+                        AuthorModel _author = widget.bz.bzAuthors[authorIndex];
+                        TinyUser _tinyAuthor = AuthorModel.getTinyAuthorFromAuthorModel(_author);
+
+                        return
+                          Row(
+                            children: <Widget>[
+                              AuthorLabel(
+                                showLabel: widget.showFlyers == true ? true : false,
+                                flyerZoneWidth: widget.flyerZoneWidth,
+                                tinyAuthor: _tinyAuthor,
+                                tinyBz: TinyBz.getTinyBzFromBzModel(widget.bz),
+                                authorGalleryCount: AuthorModel.getAuthorGalleryCountFromBzModel(widget.bz, _author),
+                                tappingLabel:
+                                // widget.bzTeamIDs.length == 1 ?
+                                    (id) {
+                                  tappingAuthorLabel(id);
+                                  },
+                                // :(id){print('a77a');// tappingAuthorLabel();},
+                                labelIsOn: currentSelectedAuthor == widget.bz.bzAuthors[authorIndex].userID ? true : false,
+                              )
+                            ],
+                          );
                       }
                 ),
+
+                  if (_thisIsMyBz == true)
+                  AuthorPic(
+                    flyerZoneWidth: widget.flyerZoneWidth,
+                    authorPic: null,
+                    isAddAuthorButton: true,
+                    tinyBz: TinyBz.getTinyBzFromBzModel(widget.bz),
+                  ),
+
+                ]
+
+
               ),
             ),
 

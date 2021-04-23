@@ -70,8 +70,8 @@ class _ZonesManagerScreenState extends State<ZonesManagerScreen> {
     final Stream<QuerySnapshot> _countriesList = _countriesCollection.snapshots();
     // List<Country> _countriesList = dbCountries;
 
-    double _screenWidth = superScreenWidth(context);
-    double _screenHeight = superScreenHeight(context);
+    double _screenWidth = Scale.superScreenWidth(context);
+    double _screenHeight = Scale.superScreenHeight(context);
 
     double _countryButtonWidth = _screenWidth - superVerseRealHeight(context, 2, 1, null);
 

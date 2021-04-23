@@ -77,7 +77,7 @@ class TileBubble extends StatelessWidget {
 
                 // --- MAIN TEXT
                 Container(
-                  width: superBubbleClearWidth(context) - 30 - 50,
+                  width: Scale.superBubbleClearWidth(context) - 30 - 50,
                   padding: EdgeInsets.symmetric(horizontal: 5),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,

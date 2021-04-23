@@ -158,7 +158,7 @@ class BzFlyerScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
     double _flyerSizeFactor = 0.75;
-    double _flyerZoneWidth = superFlyerZoneWidth(context, _flyerSizeFactor);
+    double _flyerZoneWidth = Scale.superFlyerZoneWidth(context, _flyerSizeFactor);
 
     return MainLayout(
       pyramids: Iconz.DvBlankSVG,

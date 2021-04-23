@@ -8,7 +8,7 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
-// ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 AlertDialog _superAlert ({
   BuildContext context,
   BuildContext ctx,
@@ -20,11 +20,11 @@ AlertDialog _superAlert ({
 }) {
 
   BorderRadius _borders = Borderers.superBorderAll(context, 20);
-  double _screenWidth = superScreenWidth(context);
-  double _screenHeight = superScreenHeight(context);
+  double _screenWidth = Scale.superScreenWidth(context);
+  double _screenHeight = Scale.superScreenHeight(context);
 
   double _dialogHeight = height == null ? _screenHeight * 0.4 : height;
-  double _dialogWidth = superDialogWidth(context);
+  double _dialogWidth = Scale.superDialogWidth(context);
 
   double _dialogVerticalMargin = (_screenHeight - _dialogHeight) / 2;
   double _dialogHorizontalMargin = (_screenWidth - _dialogWidth) / 2;
@@ -143,7 +143,7 @@ AlertDialog _superAlert ({
 
     );
 }
-// ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 Future<bool> superDialog({
   BuildContext context,
   dynamic body,
@@ -169,7 +169,7 @@ Future<bool> superDialog({
   return _result;
 
 }
-// ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 Future<void> tryAndCatch({Function finals, BuildContext context, Function functions,}) async {
   try{
     await functions();
@@ -186,4 +186,4 @@ Future<void> tryAndCatch({Function finals, BuildContext context, Function functi
     throw(error);
   }
 }
-// ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------

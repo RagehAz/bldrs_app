@@ -20,9 +20,9 @@ class RecordCRUD{
     );
 
     /// 2- decipher the User's saves map into List<SaveModel>
-    List<SaveModel> _userSavesModels = _userSavesMap == null ? null : SaveModel.decipherUserSavesMap(_userSavesMap);
+    List<SaveModel> _userSavesModels = _userSavesMap == null ? [] : SaveModel.decipherUserSavesMap(_userSavesMap);
 
-    return _userSavesMap == null ? null : _userSavesModels;
+    return _userSavesMap == null ? [] : _userSavesModels;
   }
 // ---------------------------------------------------------------------------
   static Future<List<SaveModel>> readFlyerSavesOps() async {

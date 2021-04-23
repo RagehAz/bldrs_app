@@ -151,7 +151,7 @@ class ShareBT extends StatelessWidget {
                   ),
 
                   if (
-                  superFlyerMiniMode(context, flyerZoneWidth) ||
+                  Scale.superFlyerMiniMode(context, flyerZoneWidth) ||
                       buttonVerse == Wordz.saved(context)
                   )
                   // --- BUTTON VERSE

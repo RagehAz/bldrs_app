@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/views/screens/s00_user_checker_widget.dart';
 import 'package:bldrs/views/screens/s12_saved_flyers_screen.dart';
 import 'package:bldrs/views/screens/s13_news_screen.dart';
@@ -16,78 +17,77 @@ class Routerer {
   static Route<dynamic> allRoutes(RouteSettings settings) {
     switch (settings.name) {
 
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     /// s00
       case Routez.UserChecker:
-        return MaterialPageRoute(builder: (_) => UserChecker());
-// ---------------------------------------------------------------------------
+        return Nav.fadeToScreen(UserChecker(), settings); break;
+// -----------------------------------------------------------------------------
     /// s00
       case Routez.Splash:
-        return MaterialPageRoute(builder: (_) => SplashScreen());
-// ---------------------------------------------------------------------------
+        return Nav.fadeToScreen(SplashScreen(), settings); break;
+// -----------------------------------------------------------------------------
     /// s01
     /// (s02 signin page, s03 register page) are pages insides StartingScreen();
       case Routez.Starting:
-        return MaterialPageRoute(builder: (_) => StartingScreen());
-// ---------------------------------------------------------------------------
+        return Nav.fadeToScreen(StartingScreen(), settings); break;
+// -----------------------------------------------------------------------------
     /// s10
       case Routez.Home:
-        return MaterialPageRoute(builder: (_) => HomeScreen());
-// ---------------------------------------------------------------------------
+        return Nav.fadeToScreen(HomeScreen(), settings); break;
+// -----------------------------------------------------------------------------
     /// s12
       case Routez.SavedFlyers:
-        return MaterialPageRoute(builder: (_) => SavedFlyersScreen());
-// ---------------------------------------------------------------------------
+        return Nav.slideToScreen(SavedFlyersScreen(), settings); break;
+// -----------------------------------------------------------------------------
     /// s13
       case Routez.News:
-        return MaterialPageRoute(builder: (_) => NewsScreen());
-// ---------------------------------------------------------------------------
+        return Nav.slideToScreen(NewsScreen(), settings); break;
+// -----------------------------------------------------------------------------
 //     /// s14
 //       case Routez.More:
 //         return MaterialPageRoute(builder: (_) => MoreScreen());
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     /// s15
       case Routez.Profile:
-        return MaterialPageRoute(builder: (_) => UserProfileScreen());
-// ---------------------------------------------------------------------------
+        return Nav.slideToScreen(UserProfileScreen(), settings); break;
+// -----------------------------------------------------------------------------
 //     /// s16
 //       case Routez.EditProfile:
 //         return MaterialPageRoute(builder: (_) => EditProfileScreen(user: superUserID()));
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     /// s20
       case Routez.Search:
-        return MaterialPageRoute(builder: (_) => SearchScreen());
-// ---------------------------------------------------------------------------
+        return Nav.fadeToScreen(SearchScreen(), settings); break;
+// -----------------------------------------------------------------------------
 //     /// s40
 //       case Routez.BzEditor:
 //         return MaterialPageRoute(builder: (_) => BzEditorScreen());
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 //     /// s41
 //       case Routez.MyBz:
 //         return MaterialPageRoute(builder: (_) => MyBzScreen());
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 //     /// s42
 //       case Routez.EditBz:
 //         return MaterialPageRoute(builder: (_) => EditBzScreen());
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 //     /// s50
 //       case Routez.FlyerEditor:
 //         return MaterialPageRoute(builder: (_) => FlyerEditorScreen());
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     ///  s51
       case Routez.FlyerScreen:
-        return MaterialPageRoute(builder: (_) => FlyerScreen());
-// ---------------------------------------------------------------------------
+        return Nav.fadeToScreen(FlyerScreen(), settings); break;
+// -----------------------------------------------------------------------------
 
     // --- XXX GENERAL SCREENS
     ///  xxx
       case Routez.Obelisk:
-        return MaterialPageRoute(builder: (_) => ObeliskScreen());
+        return Nav.slideToScreen(ObeliskScreen(), settings); break;
 
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 
     }
-
-    return MaterialPageRoute(builder: (_) => AccessDeniedScreen());
+    return Nav.fadeToScreen(AccessDeniedScreen(), settings);
   }
 }

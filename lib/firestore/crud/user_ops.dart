@@ -238,7 +238,7 @@ class UserCRUD{
           title: 'You Have ${_bzzToDeactivate.length + _bzzToKeep.length} business accounts',
           body: 'All Business accounts will be deactivated except those shared with other authors',
           boolDialog: true,
-          height: superScreenHeight(context) * 0.8,
+          height: Scale.superScreenHeight(context) * 0.8,
           child: Column(
             children: <Widget>[
 
@@ -283,13 +283,13 @@ class UserCRUD{
             title: '',
             body: 'You Have $_totalNumOfFlyers flyers that will be deactivated and can not be retrieved',
             boolDialog: true,
-            height: superScreenHeight(context) * 0.9,
+            height: Scale.superScreenHeight(context) * 0.9,
             child: Column(
               children: <Widget>[
 
                 Container(
                   // width: superBubbleClearWidth(context),
-                  height: superScreenHeight(context) * 0.6,
+                  height: Scale.superScreenHeight(context) * 0.6,
                   child: ListView.builder(
                     itemCount: _numberOfBzz,
                     scrollDirection: Axis.vertical,
@@ -302,7 +302,7 @@ class UserCRUD{
                           numberOfColumns: 2,
                           title: 'flyers of ${_bzzToDeactivate[index].bzName}',
                           numberOfRows: 1,
-                          bubbleWidth: superDialogWidth(context) - (Ratioz.ddAppBarMargin * 4),
+                          bubbleWidth: Scale.superDialogWidth(context) - (Ratioz.ddAppBarMargin * 4),
                           onTap: (value){
                             print(value);
                           },
@@ -340,14 +340,14 @@ class UserCRUD{
 
             for (var bz in _bzzToDeactivate){
 
-              /// de-activate flyers
-              for (var flyer in bz.bzFlyers){
-                await FlyerCRUD().deactivateFlyerOps(
-                  context: context,
-                  bzModel: bz,
-                  flyerID: flyer.flyerID,
-                );
-              }
+              // /// de-activate flyers
+              // for (var flyer in bz.bzFlyers){
+              //   await FlyerCRUD().deactivateFlyerOps(
+              //     context: context,
+              //     bzModel: bz,
+              //     flyerID: flyer.flyerID,
+              //   );
+              // }
 
               /// de-activate bz
              await BzCRUD().deactivateBzOps(

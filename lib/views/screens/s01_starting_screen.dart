@@ -12,22 +12,22 @@ import 'package:flutter/material.dart';
 import 's02_auth_screen.dart';
 
 class StartingScreen extends StatelessWidget {
-// ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 /// should fetch user current location automatically and suggest them here
   final Zone currentZone = Zone(countryID: '', provinceID: '', areaID: '');
-// ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   void _tapGoogleContinue(BuildContext context) {
       // signInWithGoogle(context, currentZone).then((result) {
       //   if (result != null) {return goToNewScreen(context, EditProfileScreen(firstTimer: true, user: xxxxxxxxxxxxxxxxxxxxxx,));}
       // });
   }
-// ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   void _tapFacebookContinue(BuildContext context){
       // signUpWithFacebook(context, currentZone).then((result) {
       //   if (result != null) {return goToNewScreen(context, EditProfileScreen(firstTimer: true, user: xxxxxxxxxxxxxxxxxxxxxx,));}
       // });
     }
-// ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

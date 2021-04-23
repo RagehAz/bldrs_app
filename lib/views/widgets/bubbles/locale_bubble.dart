@@ -146,7 +146,7 @@ class _LocaleBubbleState extends State<LocaleBubble> {
     String _chosenAreaName = _chosenAreaID == null ? '...' : _countryPro.getAreaNameWithCurrentLanguageIfPossible(context, _chosenAreaID);
 
 
-    double _bubbleClearWidth = superBubbleClearWidth(context);
+    double _bubbleClearWidth = Scale.superBubbleClearWidth(context);
     double _buttonsSpacing = Ratioz.ddAppBarMargin;
     // double _buttonWidth = (_bubbleClearWidth / 3)-((2*_buttonsSpacing)/3);
 
@@ -205,7 +205,7 @@ class LocaleButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double _bubbleClearWidth = superBubbleClearWidth(context);
+    double _bubbleClearWidth = Scale.superBubbleClearWidth(context);
     const double _buttonsSpacing = Ratioz.ddAppBarPadding;
     double _buttonWidth = (_bubbleClearWidth / 3)-((2*_buttonsSpacing)/3);
 

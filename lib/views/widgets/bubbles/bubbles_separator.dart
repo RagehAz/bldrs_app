@@ -7,7 +7,7 @@ class BubblesSeparator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double screenWidth = superScreenWidth(context);
+    double screenWidth = Scale.superScreenWidth(context);
 
     return Container(
       width: screenWidth,

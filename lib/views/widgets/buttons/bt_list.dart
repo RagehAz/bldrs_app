@@ -38,11 +38,11 @@ class ButtonsList extends StatelessWidget {
     CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: true);
 
     double _abPadding =  Ratioz.ddAppBarPadding;
-    double _inBarClearWidth = superScreenWidth(context)
+    double _inBarClearWidth = Scale.superScreenWidth(context)
         - (Ratioz.ddAppBarMargin * 2)
         - (_abPadding * 2);
     /// standard is Ratioz.ddAppBarHeight;
-    double _abHeight = superScreenHeight(context) - Ratioz.ddPyramidsHeight;
+    double _abHeight = Scale.superScreenHeight(context) - Ratioz.ddPyramidsHeight;
     double _listHeight = _abHeight - Ratioz.ddAppBarHeight - (_abPadding) - 55 - 55; // each 55 is for confirm button & title, 50 +5 margin
     double _listCorner = Ratioz.ddAppBarCorner - _abPadding;
 

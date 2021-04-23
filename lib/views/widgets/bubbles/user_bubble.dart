@@ -35,8 +35,8 @@ class UserBubble extends StatelessWidget {
     String _provinceName = _countryPro.getProvinceNameWithCurrentLanguageIfPossible(context, user?.province);
     String _areaName = _countryPro.getAreaNameWithCurrentLanguageIfPossible(context, user?.area);
 
-    double screenWidth = superScreenWidth(context);
-    double screenHeight = superScreenHeight(context);
+    double screenWidth = Scale.superScreenWidth(context);
+    double screenHeight = Scale.superScreenHeight(context);
 
     double topPadding = screenHeight * 0.05;
     double editProfileBtSize = topPadding ;

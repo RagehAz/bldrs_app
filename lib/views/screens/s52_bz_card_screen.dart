@@ -88,7 +88,7 @@ class _BzCardScreenState extends State<BzCardScreen> {
                       tinyAuthor: AuthorModel.getTinyAuthorFromAuthorModel(bz.bzAuthors[0]),
                       flyerShowsAuthor: true,
                       followIsOn: false, // TASK : fix following on/off issue
-                      flyerZoneWidth: superFlyerZoneWidth(context, flyerSizeFactor),
+                      flyerZoneWidth: Scale.superFlyerZoneWidth(context, flyerSizeFactor),
                       bzPageIsOn: _bzPageIsOn,
                       tappingHeader: _triggerMaxHeader,
                       onCallTap: (){},

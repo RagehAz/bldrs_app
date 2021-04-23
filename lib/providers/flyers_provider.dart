@@ -132,14 +132,17 @@ class FlyersProvider with ChangeNotifier {
 
     /// from saveModels, get a list of saved tinyFlyers
     List<TinyFlyer> _savedTinyFlyers = new List();
-    for (var saveModel in _userSaveModels){
-      if (saveModel.saveState == SaveState.Saved) {
-        TinyFlyer _tinyFlyer = await FlyerCRUD().readTinyFlyerOps(context: context, flyerID: saveModel.flyerID);
 
-        if (_tinyFlyer != null){
-          _savedTinyFlyers.add(_tinyFlyer);
+    if (_userSaveModels != null || _userSaveModels?.length != 0){
+      for (var saveModel in _userSaveModels){
+        if (saveModel.saveState == SaveState.Saved) {
+          TinyFlyer _tinyFlyer = await FlyerCRUD().readTinyFlyerOps(context: context, flyerID: saveModel.flyerID);
+
+          if (_tinyFlyer != null){
+            _savedTinyFlyers.add(_tinyFlyer);
+          }
+
         }
-
       }
     }
 
