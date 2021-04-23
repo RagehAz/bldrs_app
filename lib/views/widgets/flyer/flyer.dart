@@ -110,11 +110,11 @@ class _FlyerState extends State<Flyer> with AutomaticKeepAliveClientMixin{
 //           bool            followIsOn        = pro.hatFollowIsOnByFlyerID(flyerID);
 //           bool            ankhIsOn          = pro.hatAnkhByFlyerID(flyerID);
 // ---------------------------------------------------------------------------
-    double _flyerZoneWidth = superFlyerZoneWidth(context, widget.flyerSizeFactor);
+    double _flyerZoneWidth = Scale.superFlyerZoneWidth(context, widget.flyerSizeFactor);
 // ---------------------------------------------------------------------------
     bool _barIsOn = widget.slidingIsOn == true && bzPageIsOn == false ? true : false;
 // ---------------------------------------------------------------------------
-    bool _microMode = superFlyerMicroMode(context, _flyerZoneWidth);
+    bool _microMode = Scale.superFlyerMicroMode(context, _flyerZoneWidth);
 // ---------------------------------------------------------------------------
     // bool ankhIsOn = true;//flyerData.flyerAnkhIsOn;
 // ---------------------------------------------------------------------------
@@ -123,7 +123,7 @@ class _FlyerState extends State<Flyer> with AutomaticKeepAliveClientMixin{
     return
 
        FlyerZone(
-         flyerSizeFactor: superFlyerSizeFactor(context, _flyerZoneWidth),
+         flyerSizeFactor: Scale.superFlyerSizeFactor(context, _flyerZoneWidth),
          tappingFlyerZone: widget.tappingFlyerZone,
          stackWidgets: <Widget>[
 

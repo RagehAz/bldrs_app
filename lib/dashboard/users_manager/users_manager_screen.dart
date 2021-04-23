@@ -45,8 +45,8 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
 
     CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: true);
 
-    double _screenWidth = superScreenWidth(context);
-    double _screenHeight = superScreenHeight(context);
+    double _screenWidth = Scale.superScreenWidth(context);
+    double _screenHeight = Scale.superScreenHeight(context);
 
     SuperVerse _titleVerse(String title){
       return SuperVerse(

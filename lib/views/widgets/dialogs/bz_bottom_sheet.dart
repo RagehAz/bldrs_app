@@ -8,7 +8,7 @@ import 'bottom_sheet.dart';
 void slideBzBottomSheet({BuildContext context, BzModel bz, AuthorModel author}) {
   BottomSlider.slideBottomSheet(
       context: context,
-      height: superScreenHeight(context) - 100,
+      height: Scale.superScreenHeight(context) - 100,
       draggable: true,
       child: Center(
         child: BzCardPreview(

@@ -35,7 +35,7 @@ class ProgressBar extends StatelessWidget {
     double _stripCorner = _aStripThickness * 0.5;
     Color _currentStripColor = numberOfSlides == 0 ? Colorz. WhiteAir : Colorz.WhiteLingerie;
     // ----------------------------------------------------------------------------
-    bool _microMode = superFlyerMicroMode(context, flyerZoneWidth);
+    bool _microMode = Scale.superFlyerMicroMode(context, flyerZoneWidth);
     // ----------------------------------------------------------------------------
     return
       _microMode == true || barIsOn == false  ? Container() :

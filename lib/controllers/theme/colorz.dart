@@ -40,7 +40,7 @@ class Colorz {
   static const LightBlueAir = Color.fromARGB(airOpacity, 201, 232, 239);
   static const LightBlueZircon = Color.fromARGB(zirconOpacity, 201, 232, 239);
 
-  static const SkyDarkBlue = Color.fromARGB(solid,19, 36, 75);
+  static const SkyDarkBlue = Color.fromARGB(solid,19, 36, 75); // #13244b
   static const SkyLightBlue = Color.fromARGB(solid, 0, 71, 123);
 
   static const Yellow = Color.fromARGB(solid, 255, 192, 0); // #ffc000

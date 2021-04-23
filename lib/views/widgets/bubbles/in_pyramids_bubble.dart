@@ -34,9 +34,9 @@ final double bubbleWidth;
 
   @override
   Widget build(BuildContext context) {
-
+// -----------------------------------------------------------------------------
     double _pageMargin = Ratioz.ddAppBarMargin ;
-
+// -----------------------------------------------------------------------------
     EdgeInsets _bubbleMargins =
     stretchy == true ? EdgeInsets.all(0) :
     EdgeInsets.only(right: _pageMargin, left: _pageMargin, bottom: _pageMargin);
@@ -59,10 +59,10 @@ final double bubbleWidth;
         :
     bubbleWidth != null ? bubbleWidth
         :
-    bubbleWidth == null ? superBubbleClearWidth(context) + (2 * _pageMargin * 0)
+    bubbleWidth == null ? Scale.superBubbleClearWidth(context) + (2 * _pageMargin * 0)
         :
         null;
-
+// -----------------------------------------------------------------------------
     return Container(
           width: _bubbleWidth,
           margin: _bubbleMargins,
@@ -86,19 +86,21 @@ final double bubbleWidth;
                 mainAxisSize: centered == true ? MainAxisSize.min : MainAxisSize.max,
                 children: <Widget>[
 
+                  /// --- ACTION BUTTON
                   if(centered == true && actionBtIcon !=null)
                     Container(
                       height: actionBtSize,
                       width: actionBtSize,
                     ),
 
+                  /// --- EXPANDER
                   if(centered == true)
                   Expanded(child: Container(),),
 
-                  // --- BUBBLE TITLE
+                  /// --- BUBBLE TITLE
                   if (title != null)
                     Container(
-                      width: _bubbleWidth,
+                      width: _bubbleWidth - actionBtSize,
                       padding: const EdgeInsets.only(bottom: 10, left: 5, right: 5),
                       child: SuperVerse(
                         verse: title,
@@ -109,10 +111,11 @@ final double bubbleWidth;
                       ),
                     ),
 
+                  /// --- EXPANDER
                   if(centered == true)
                     Expanded(child: Container(),),
 
-                  // --- ACTION BUTTON
+                  /// --- ACTION BUTTON
                   if (actionBtIcon != null)
                   DreamBox(
                     height: actionBtSize,

@@ -237,7 +237,7 @@ class Stratosphere extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Container(
-      width: superScreenWidth(context),
+      width: Scale.superScreenWidth(context),
       height: 70 * heightFactor,
     );
   }

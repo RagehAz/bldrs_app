@@ -79,7 +79,7 @@ class _DropDownBubbleState extends State<DropDownBubble> {
 
 
         Container(
-          width: superBubbleClearWidth(context),
+          width: Scale.superBubbleClearWidth(context),
           height: 35,
           decoration: BoxDecoration(
             color: Colorz.BloodTest,

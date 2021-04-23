@@ -190,5 +190,21 @@ class AuthorModel{
     return _authorsIDs;
   }
 // -----------------------------------------------------------------------------
-
+  static String generateAuthorPicID(String authorID, String bzID){
+    String _authorPicID = '$authorID---$bzID';
+    return _authorPicID;
+  }
+// -----------------------------------------------------------------------------
+  static AuthorModel getAuthorModelFromUserModel({UserModel userModel}){
+    AuthorModel _author = AuthorModel(
+      userID : userModel.userID,
+      authorName : userModel.name,
+      authorPic : userModel.pic,
+      authorTitle : userModel.title,
+      authorIsMaster : false,
+      authorContacts : userModel.contacts,
+    );
+    return _author;
+  }
+// -----------------------------------------------------------------------------
 }

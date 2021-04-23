@@ -24,11 +24,11 @@ class BzLabel extends StatelessWidget {
   Widget build(BuildContext context) {
 
     // === === === === === === === === === === === === === === === === === === ===
-    double screenWidth = superScreenWidth(context);
+    double screenWidth = Scale.superScreenWidth(context);
     bool versesDesignMode = false;
     bool versesShadow = false;
     // === === === === === === === === === === === === === === === === === === ===
-    double headerMainHeight = superHeaderStripHeight(bzPageIsOn, flyerZoneWidth);
+    double headerMainHeight = Scale.superHeaderStripHeight(bzPageIsOn, flyerZoneWidth);
     // --- B.DATA --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- B.DATA
     double businessDataHeight = flyerShowsAuthor == true ? headerMainHeight * 0.4 : headerMainHeight * 0.7; //0.0475;
     double businessDataWidth = flyerZoneWidth * (Ratioz.xxflyerAuthorPicWidth + Ratioz.xxflyerAuthorNameWidth);

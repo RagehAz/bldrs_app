@@ -77,8 +77,8 @@ class _CountryScreenState extends State<CountryScreen> {
   @override
   Widget build(BuildContext context) {
 
-    double _screenWidth = superScreenWidth(context);
-    double _screenHeight = superScreenHeight(context);
+    double _screenWidth = Scale.superScreenWidth(context);
+    double _screenHeight = Scale.superScreenHeight(context);
 
     List<String> _provincesNames = Province.getProvincesNamesFromCountryModel(widget.country);
 

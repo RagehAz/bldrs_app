@@ -67,7 +67,7 @@ class BzCRUD{
       _authorPicURL = await Fire.createStoragePicAndGetURL(
           context: context,
           inputFile: inputBz.bzAuthors[0].authorPic,
-          fileName: userModel.userID,
+          fileName: AuthorModel.generateAuthorPicID(userModel.userID, _bzID),
           picType: PicType.authorPic
       );
 
@@ -212,7 +212,7 @@ class BzCRUD{
       _authorPicURL = await Fire.createStoragePicAndGetURL(
           context: context,
           inputFile: authorPicFile,
-          fileName: _authorID,
+          fileName: AuthorModel.generateAuthorPicID(_authorID, originalBz.bzID),
           picType: PicType.authorPic,
       );
     }

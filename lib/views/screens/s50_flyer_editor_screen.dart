@@ -369,7 +369,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
               builder: (ctx) =>
                   GoogleMapScreen(
                     isSelecting: true,
-                    flyerZoneWidth: superFlyerZoneWidth(context, 0.8),
+                    flyerZoneWidth: Scale.superFlyerZoneWidth(context, 0.8),
                   )
           )
       );
@@ -458,13 +458,13 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
 
       BottomSlider.slideStatefulBottomSheet(
         context: context,
-        height: superScreenHeight(context) * _bottomSheetHeightFactor,
+        height: Scale.superScreenHeight(context) * _bottomSheetHeightFactor,
         draggable: true,
         builder: (context){
           return StatefulBuilder(
               builder: (BuildContext context, StateSetter setSheetState){
                 return BldrsBottomSheet(
-                  height: superScreenHeight(context) * _bottomSheetHeightFactor,
+                  height: Scale.superScreenHeight(context) * _bottomSheetHeightFactor,
                   draggable: true,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -549,7 +549,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
 
     BottomSlider.slideStatefulBottomSheet(
       context: context,
-      height: superScreenHeight(context) * _bottomSheetHeightFactor,
+      height: Scale.superScreenHeight(context) * _bottomSheetHeightFactor,
       draggable: true,
       builder: (context){
         return StatefulBuilder(
@@ -557,7 +557,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
 
 
               return BldrsBottomSheet(
-                height: superScreenHeight(context) * _bottomSheetHeightFactor,
+                height: Scale.superScreenHeight(context) * _bottomSheetHeightFactor,
                 draggable: true,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -813,7 +813,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
     AuthorModel.getAuthorFromBzByAuthorID(_bz, _flyer.tinyAuthor.userID);
     // ----------------------------------------------------------------------
     final double _flyerSizeFactor = 0.8;
-    final double _flyerZoneWidth = superFlyerZoneWidth(context, _flyerSizeFactor);
+    final double _flyerZoneWidth = Scale.superFlyerZoneWidth(context, _flyerSizeFactor);
     // ----------------------------------------------------------------------
     print('_pickedImage : $_pickedImage');
     // print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> building widget tree');
@@ -914,7 +914,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
                         tinyAuthor: AuthorModel.getTinyAuthorFromAuthorModel(_author),
                         flyerShowsAuthor: true,
                         followIsOn: false,
-                        flyerZoneWidth: superFlyerZoneWidth(context, _flyerSizeFactor),
+                        flyerZoneWidth: Scale.superFlyerZoneWidth(context, _flyerSizeFactor),
                         bzPageIsOn: false,
                         tappingHeader: (){},
                         onFollowTap: (){},
@@ -933,8 +933,8 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
 
                   // --- FLYER EDITING BUTTONS
                   Positioned(
-                    right: ((1-_flyerSizeFactor)/2)*superScreenWidth(context) - ((_flyerZoneWidth * 0.15/2)),
-                    bottom: superScreenHeightWithoutSafeArea(context) * 0.07,
+                    right: ((1-_flyerSizeFactor)/2)*Scale.superScreenWidth(context) - ((_flyerZoneWidth * 0.15/2)),
+                    bottom: Scale.superScreenHeightWithoutSafeArea(context) * 0.07,
                     child: Column(
                       children: <Widget>[
 

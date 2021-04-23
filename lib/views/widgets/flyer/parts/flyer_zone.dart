@@ -23,9 +23,9 @@ class FlyerZone extends StatelessWidget {
   Widget build(BuildContext context) {
 
     // ----------------------------------------------------------------------
-    double _screenWithoutSafeAreaHeight = superScreenHeightWithoutSafeArea(context);
+    double _screenWithoutSafeAreaHeight = Scale.superScreenHeightWithoutSafeArea(context);
     // ----------------------------------------------------------------------
-    double _flyerZoneWidth = superFlyerZoneWidth(context, flyerSizeFactor);
+    double _flyerZoneWidth = Scale.superFlyerZoneWidth(context, flyerSizeFactor);
     double _flyerZoneHeight = flyerSizeFactor == 1 ?
     _screenWithoutSafeAreaHeight : _flyerZoneWidth * Ratioz.xxflyerZoneHeight;
     double _flyerTopCorners = _flyerZoneWidth * Ratioz.xxflyerTopCorners;

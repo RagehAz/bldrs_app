@@ -17,8 +17,8 @@ class DashBoardLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double _screenWidth = superScreenWidth(context);
-    double _screenHeight = superScreenHeight(context);
+    double _screenWidth = Scale.superScreenWidth(context);
+    double _screenHeight = Scale.superScreenHeight(context);
 
     return MainLayout(
       pyramids: Iconz.PyramidzYellow,

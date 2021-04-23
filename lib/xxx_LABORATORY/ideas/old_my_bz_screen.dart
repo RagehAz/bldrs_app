@@ -96,7 +96,7 @@ class _OldMyBzScreenState extends State<OldMyBzScreen> {
   Widget build(BuildContext context) {
 
     double _flyerSizeFactor = 0.8;
-    double _flyerZoneWidth = superFlyerZoneWidth(context, _flyerSizeFactor);
+    double _flyerZoneWidth = Scale.superFlyerZoneWidth(context, _flyerSizeFactor);
     double _achievementsIconWidth = 60;
 
     double _spacing = _flyerZoneWidth * 0.05;
@@ -142,7 +142,7 @@ class _OldMyBzScreenState extends State<OldMyBzScreen> {
 
                                   // --- HEADER FOOTPRINT
                                   SizedBox(
-                                    height: superHeaderHeight(false, _flyerZoneWidth),
+                                    height: Scale.superHeaderHeight(false, _flyerZoneWidth),
                                   ),
 
                                   // // --- ACHIEVEMENTS

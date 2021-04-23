@@ -42,8 +42,8 @@ class BldrsBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
 
 
-    double _screenWidth = superScreenWidth(context);
-    double _screenHeight = superScreenHeight(context);
+    double _screenWidth = Scale.superScreenWidth(context);
+    double _screenHeight = Scale.superScreenHeight(context);
     double _sheetHeight = height == null ? _screenHeight*0.5 : height;
     BorderRadius _sheetBorders = Borderers.superBorderRadius(
         context: context,
@@ -215,7 +215,7 @@ class BottomSlider{
   }
 // ---------------------------------------------------------------------------
   static double bottomSheetClearWidth (BuildContext context){
-    double _clearWidth = superScreenWidth(context) - (Ratioz.ddAppBarMargin);
+    double _clearWidth = Scale.superScreenWidth(context) - (Ratioz.ddAppBarMargin);
     return
       _clearWidth * 0.95; // 0.95 to avoid having the parent container trim buttons shadows
   }
@@ -225,7 +225,7 @@ class BottomSlider{
   static double bottomSheetClearHeight (BuildContext context, double heightRatio){
     double _clearHeight =
     // bottom sheet height
-    (superScreenHeight(context) * heightRatio) -
+    (Scale.superScreenHeight(context) * heightRatio) -
         // dragger height
         BldrsBottomSheet().draggerHeight() -
         // dragger margins

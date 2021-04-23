@@ -9,7 +9,7 @@ class SingleCollectionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double _screenWidth = superScreenWidth(context);
+    double _screenWidth = Scale.superScreenWidth(context);
 
     return MainLayout(
       appBarType: AppBarType.Main,

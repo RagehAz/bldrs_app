@@ -42,7 +42,7 @@ class MiniHeader extends StatelessWidget {
       GestureDetector(
         onTap: tappingHeader,
         child: Container(
-          height: superHeaderHeight(bzPageIsOn, flyerZoneWidth),
+          height: Scale.superHeaderHeight(bzPageIsOn, flyerZoneWidth),
           width: flyerZoneWidth,
           child: Stack(
             children: <Widget>[

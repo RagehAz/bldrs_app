@@ -56,8 +56,8 @@ class _AuthScreenState extends State<AuthScreen> {
       sky: Sky.Black,
       // tappingRageh: (){print('$_keyboardHeight');},
       layoutWidget: Container(
-        width: superScreenWidth(context),
-        height: superScreenHeight(context),
+        width: Scale.superScreenWidth(context),
+        height: Scale.superScreenHeight(context),
         alignment: Alignment.topCenter,
         child: Stack(
           children: <Widget>[

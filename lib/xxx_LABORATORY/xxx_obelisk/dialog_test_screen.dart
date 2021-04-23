@@ -36,12 +36,12 @@ class DialogTestScreen extends StatelessWidget {
             title: '',
             body: 'You Have $_totalNumOfFlyers flyers that will be deactivated that can not be retrieved',
             boolDialog: true,
-            height: superScreenHeight(context) * 0.9,
+            height: Scale.superScreenHeight(context) * 0.9,
             child: Column(
               children: <Widget>[
 
                 Container(
-                  height: superScreenHeight(context) * 0.6,
+                  height: Scale.superScreenHeight(context) * 0.6,
                   child: ListView.builder(
                     itemCount: _numberOfBzz,
                     scrollDirection: Axis.vertical,
@@ -77,8 +77,8 @@ class DialogTestScreen extends StatelessWidget {
 
         },
         child: Container(
-          width: superScreenWidth(context),
-          height: superScreenHeight(context),
+          width: Scale.superScreenWidth(context),
+          height: Scale.superScreenHeight(context),
           color: Colorz.BloodTest,
 
         ),

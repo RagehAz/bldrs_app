@@ -13,8 +13,8 @@ class EarthScreen extends StatefulWidget {
 class EarthScreenState extends State<EarthScreen> {
   @override
   Widget build(BuildContext context) {
-    double screenWidth = superScreenWidth(context);
-    double screenHeight = superScreenHeight(context);
+    double screenWidth = Scale.superScreenWidth(context);
+    double screenHeight = Scale.superScreenHeight(context);
     double countrySizeFactor = 1;
     double countryWidth = screenWidth * countrySizeFactor;
     return MainLayout(
