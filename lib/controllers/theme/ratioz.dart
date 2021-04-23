@@ -88,6 +88,7 @@ static const double grandHorizon = ddPyramidsHeight;
 static const Duration slidingDuration = Duration(milliseconds: 400);
 static const Duration fadingDuration = Duration(milliseconds: 150);
 static const Duration slidingAndFadingDuration = Duration(milliseconds: 750);
+static const Duration slidingTransitionDuration = Duration(milliseconds: 200);
 // -------------------------------------------------------------------------
 // Blur
 static const double blur1 = 10;
