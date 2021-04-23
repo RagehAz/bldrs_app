@@ -11,8 +11,8 @@ class Nav{
       PageTransition(
         child: screen,
         type: PageTransitionType.bottomToTop,
-        duration: Ratioz.slidingAndFadingDuration,
-        reverseDuration: Ratioz.slidingAndFadingDuration,
+        duration: Ratioz.slidingTransitionDuration,
+        reverseDuration: Ratioz.slidingTransitionDuration,
         curve: Curves.fastOutSlowIn,
         settings: settings,
       );
@@ -33,10 +33,10 @@ class Nav{
   static Future<dynamic> goToNewScreen (BuildContext context, Widget screen) async {
     dynamic _result = await Navigator.push(context,
       PageTransition(
-          type: PageTransitionType.scale,
+          type: PageTransitionType.bottomToTop,
           child: screen,
-          duration: Ratioz.slidingAndFadingDuration,
-          reverseDuration: Ratioz.slidingAndFadingDuration,
+          duration: Ratioz.slidingTransitionDuration,
+          reverseDuration: Ratioz.slidingTransitionDuration,
           curve: Curves.fastOutSlowIn,
           alignment: Alignment.bottomCenter,
       ),
