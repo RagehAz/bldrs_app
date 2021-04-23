@@ -14,6 +14,7 @@ import 'package:bldrs/views/widgets/textings/the_golden_scroll.dart';
 import 'package:bldrs/xxx_LABORATORY/animations/animations_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/forms_and_inputs/popup.dart';
 import 'package:bldrs/xxx_LABORATORY/forms_and_inputs/form.dart';
+import 'package:bldrs/xxx_LABORATORY/navigation_test/nav_test_home.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/aaa_state_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/dialog_test_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/firebase_testing.dart';
@@ -141,6 +142,8 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
             }
           ),
 
+
+          oButton('Navigation test', Iconz.ArrowUp, NavTestHome()),
 
           oButton('Dialog Test', Iconz.More, DialogTestScreen()),
 

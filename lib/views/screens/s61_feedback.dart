@@ -89,7 +89,7 @@ class _FeedBackState extends State<FeedBack> {
 
           Center(
             child: Container(
-              width: superScreenWidth(context) * 0.7,
+              width: Scale.superScreenWidth(context) * 0.7,
               margin: EdgeInsets.only(bottom: 10),
               child: SuperVerse(
                 verse: 'Tell us what you think about Bldrs.net, or what upgrades you might think of',

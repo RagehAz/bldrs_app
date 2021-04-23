@@ -29,7 +29,7 @@ double verseLabelHeight (int verseSize, double screenHeight){
 }
 // === === === === === === === === === === === === === === === === === === ===
 double superVerseSizeValue (BuildContext context, int verseSize, double scalingFactor){
-  double screenHeight = superScreenHeight(context);
+  double screenHeight = Scale.superScreenHeight(context);
   double verseSizeValue =
   (verseSize == 0) ? screenHeight * Ratioz.fontSize0 * scalingFactor // -- 8 -- A77A
       :
@@ -108,7 +108,7 @@ double superVerseXOffset(VerseWeight weight, double verseSize){
 }
 // === === === === === === === === === === === === === === === === === === ===
 double superVerseLabelCornerValue(BuildContext context, int size,){
-  double screenHeight = superScreenHeight(context);
+  double screenHeight = Scale.superScreenHeight(context);
   double labelCornerRatio = 0.4;
   double labelCornerValues =
   (size == 0) ? screenHeight * Ratioz.fontSize0 * labelCornerRatio// -- 8 -- A77A
@@ -135,7 +135,7 @@ double superVerseLabelCornerValue(BuildContext context, int size,){
 }
 // === === === === === === === === === === === === === === === === === === ===
 double superVerseSidePaddingValues(BuildContext context, int size){
-  double screenHeight = superScreenHeight(context);
+  double screenHeight = Scale.superScreenHeight(context);
   double sidePaddingRatio = 0.45;
   double sidePaddingValues =
   (size == 0) ? screenHeight * Ratioz.fontSize0 * sidePaddingRatio// -- 8 -- A77A

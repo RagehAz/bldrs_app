@@ -247,7 +247,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         boolDialog: false,
       );
 
-      Nav.goToRoute(context, Routez.Home);
+      Nav.goToRoute(context, Routez.UserChecker);
 
     }
 
@@ -524,7 +524,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             // --- CONFIRM BUTTON
             DreamBox(
               height: 50,
-              width: superBubbleClearWidth(context),
+              width: Scale.superBubbleClearWidth(context),
               color: Colorz.Yellow,
               // icon: Iconz.Check,
               // iconColor: Colorz.BlackBlack,

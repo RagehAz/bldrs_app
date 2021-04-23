@@ -24,7 +24,7 @@ class HeaderLabels extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // === === === === === === === === === === === === === === === === === === ===
-    bool miniMode = superFlyerMiniMode(context, flyerZoneWidth);
+    bool miniMode = Scale.superFlyerMiniMode(context, flyerZoneWidth);
     // === === === === === === === === === === === === === === === === === === ===
     double labelsWidth = flyerZoneWidth * (Ratioz.xxflyerAuthorPicWidth + Ratioz.xxflyerAuthorNameWidth);
     double labelsHeight = flyerZoneWidth * (Ratioz.xxflyerHeaderMiniHeight - (2*Ratioz.xxflyerHeaderMainPadding));

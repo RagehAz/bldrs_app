@@ -49,8 +49,8 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
   void resizeBox(){
     print('tapped aho');
     setState(() {
-      width = width == 100 ? superScreenWidth(context) : 100;
-      height = height == 100 ? superScreenHeight(context) : 100;
+      width = width == 100 ? Scale.superScreenWidth(context) : 100;
+      height = height == 100 ? Scale.superScreenHeight(context) : 100;
     });
   }
 
@@ -73,7 +73,7 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
   @override
   Widget build(BuildContext context) {
 
-    double screenWidth = superScreenWidth(context);
+    double screenWidth = Scale.superScreenWidth(context);
     double btCorner = btWidth * 0.2;
 
     return MainLayout(
@@ -150,7 +150,7 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
                       children: <Widget>[
 
                         AnimatedPositioned(
-                          left: condition() == true ? (superScreenWidth(context) * 0.5) : 0,
+                          left: condition() == true ? (Scale.superScreenWidth(context) * 0.5) : 0,
                           duration: Duration(seconds: 1),
                           child: DreamBox(
                             height: 50,
@@ -353,7 +353,7 @@ class TweenTest extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double screenWidth = superScreenWidth(context);
+    double screenWidth = Scale.superScreenWidth(context);
 
     return Container(
       width: screenWidth,

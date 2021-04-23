@@ -12,7 +12,7 @@ class SavedFlyersScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double screenWidth = superScreenWidth(context);
+    double screenWidth = Scale.superScreenWidth(context);
 
     return MainLayout(
       appBarType: AppBarType.Basic,

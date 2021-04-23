@@ -131,11 +131,11 @@ class _AFlyerState extends State<AFlyer> with AutomaticKeepAliveClientMixin{
     super.build(context);
     print('Building flyer : ${widget.flyer?.flyerID}');
 
-    final double _flyerZoneWidth = superFlyerZoneWidth(context, widget.flyerSizeFactor);
+    final double _flyerZoneWidth = Scale.superFlyerZoneWidth(context, widget.flyerSizeFactor);
 // ---------------------------------------------------------------------------
     bool _barIsOn = _bzPageIsOn == false ? true : false;
 // ---------------------------------------------------------------------------
-    bool _microMode = superFlyerMicroMode(context, _flyerZoneWidth);
+    bool _microMode = Scale.superFlyerMicroMode(context, _flyerZoneWidth);
 // ---------------------------------------------------------------------------
     return FlyerZone(
       flyerSizeFactor: widget.flyerSizeFactor,

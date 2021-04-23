@@ -83,8 +83,8 @@ class _SwiperScreenState extends State<SwiperScreen> {
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
-    double _screenWidth = superScreenWidth(context);
-    double _screenHeight = superScreenHeight(context);
+    double _screenWidth = Scale.superScreenWidth(context);
+    double _screenHeight = Scale.superScreenHeight(context);
     double _flyerSizeFactor = 0.8;
 // -----------------------------------------------------------------------------
     final FlyersProvider pro = Provider.of<FlyersProvider>(context, listen: false);
@@ -133,8 +133,8 @@ class _SwiperScreenState extends State<SwiperScreen> {
                   margin: EdgeInsets.only(top: 54, right: Ratioz.ddAppBarMargin * 2, left: Ratioz.ddAppBarMargin * 2),
                 ),
                 layout: SwiperLayout.DEFAULT,
-                itemWidth: superFlyerZoneWidth(context, _flyerSizeFactor),
-                itemHeight: superFlyerZoneHeight(context, superFlyerZoneWidth(context, _flyerSizeFactor)),
+                itemWidth: Scale.superFlyerZoneWidth(context, _flyerSizeFactor),
+                itemHeight: Scale.superFlyerZoneHeight(context, Scale.superFlyerZoneWidth(context, _flyerSizeFactor)),
                 // control: new SwiperControl(),
                 // transformer: ,
                 fade: 0.1,

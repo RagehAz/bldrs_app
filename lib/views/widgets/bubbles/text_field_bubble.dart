@@ -3,6 +3,7 @@ import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/text_shapers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:bldrs/views/widgets/textings/super_text_field.dart';
@@ -79,7 +80,7 @@ class TextFieldBubble extends StatelessWidget {
     // double actionBtCorner = actionBtSize * 0.4;
     double leadingIconSize = 35;
     double leadingAndFieldSpacing = 5;
-    double bubbleClearWidth = superBubbleClearWidth(context);
+    double bubbleClearWidth = Scale.superBubbleClearWidth(context);
     double fieldWidth = leadingIcon == null ? bubbleClearWidth : bubbleClearWidth - leadingIconSize - leadingAndFieldSpacing;
 
     return
@@ -89,6 +90,8 @@ class TextFieldBubble extends StatelessWidget {
           redDot: fieldIsRequired,
           actionBtIcon: actionBtIcon,
           actionBtFunction: actionBtFunction,
+          stretchy: false,
+          bubbleWidth: Scale.superBubbleWidth(context),
           columnChildren: <Widget>[
 
             Container(

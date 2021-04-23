@@ -83,7 +83,7 @@ class _OldFlyerScreenState extends State<OldFlyerScreen> {
       Loading(loading: _loading,)
           :
       FlyersGrid(
-        gridZoneWidth: superScreenWidth(context),
+        gridZoneWidth: Scale.superScreenWidth(context),
         numberOfColumns: 3,
         tinyFlyers: _tinyFlyers,
         scrollable: true,

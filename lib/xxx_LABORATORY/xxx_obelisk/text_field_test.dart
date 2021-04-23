@@ -73,8 +73,8 @@ class _TextFieldTestState extends State<TextFieldTest> {
         _changeLanguage();
       },
       layoutWidget: Container(
-        width: superScreenWidth(context) * 0.8,
-        height: superScreenHeight(context),
+        width: Scale.superScreenWidth(context) * 0.8,
+        height: Scale.superScreenHeight(context),
         child: Column(
           children: [
             Stratosphere(),

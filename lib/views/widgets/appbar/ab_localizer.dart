@@ -115,11 +115,11 @@ Future<void> _tapLanguage(String languageCode) async {
     List<Map<String,String>> _languages = LanguageClass.getLanguagesMapsFromLanguages(_languagesModels);
 
     double _abPadding =  Ratioz.ddAppBarPadding;
-    double _inBarClearWidth = superScreenWidth(context)
+    double _inBarClearWidth = Scale.superScreenWidth(context)
         - (Ratioz.ddAppBarMargin * 2)
         - (_abPadding * 2);
     /// standard is Ratioz.ddAppBarHeight;
-    double _abHeight = superScreenHeight(context) - Ratioz.ddPyramidsHeight;
+    double _abHeight = Scale.superScreenHeight(context) - Ratioz.ddPyramidsHeight;
     // double _listHeight = _abHeight - Ratioz.ddAppBarHeight - (_abPadding) ;
     // double _listCorner = Ratioz.ddAppBarCorner - _abPadding;
     double _languageButtonHeight = Ratioz.ddAppBarHeight - (_abPadding *2);

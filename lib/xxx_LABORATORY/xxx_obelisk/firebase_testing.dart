@@ -1,15 +1,26 @@
 import 'dart:io';
+import 'package:bldrs/controllers/drafters/file_formatters.dart';
+import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/text_generators.dart';
-import 'package:bldrs/controllers/drafters/text_manipulators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/controllers/theme/dumz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/firestore/auth/auth.dart';
+import 'package:bldrs/firestore/crud/bz_ops.dart';
+import 'package:bldrs/firestore/crud/user_ops.dart';
 import 'package:bldrs/firestore/fire_search.dart';
 import 'package:bldrs/firestore/firestore.dart';
+import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/records/save_model.dart';
+import 'package:bldrs/models/sub_models/author_model.dart';
+import 'package:bldrs/models/tiny_models/nano_flyer.dart';
+import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
+import 'package:bldrs/models/tiny_models/tiny_user.dart';
+import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
@@ -35,6 +46,8 @@ class _FirebasetestingState extends State<Firebasetesting> {
   List<SaveModel> _decipheredSavesModels;
   List<TinyFlyer> _tinyFlyers;
   List<FlyerModel> _allFLyers;
+  String _picURL;
+  File _filePic;
 // ---------------------------------------------------------------------------
   /// --- LOADING BLOCK
   bool _loading = false;
@@ -426,32 +439,138 @@ class _FirebasetestingState extends State<Firebasetesting> {
         _triggerLoading();
       },},
       // -----------------------------------------------------------------------
-      {'Name' : 'fix flyer states', 'function' : () async {
+      {'Name' : 'Fix author Pic ID', 'function' : () async {
         _triggerLoading();
 
-        for (var flyer in _allFLyers){
-
-          if (flyer.deletionTime != null){
-
-            await Fire.updateDocField(
+        /// 1 - get all bzz
+        final FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
+        List<TinyBz> _allTinyBzz = _prof.getAllTinyBzz;
+        List<BzModel> _bzz = new List();
+        for (var tinyBz in _allTinyBzz){
+          BzModel _bz = await BzCRUD.readBzOps(
               context: context,
-              collName: FireCollection.flyers,
-              docName: flyer.flyerID,
-              field: 'flyerState',
-              input: FlyerModel.cipherFlyerState(FlyerState.DeActivated),
+              bzID: tinyBz.bzID
+          );
+          _bzz.add(_bz);
+        }
+
+        /// 2 - loop in each bz
+        for (var bz in _bzz){
+
+          /// a - loop in each author
+          List<AuthorModel> _originalAuthors = bz.bzAuthors;
+          List<AuthorModel> _updatedAuthorsModels = new List();
+          List<NanoFlyer> _bzFlyers = bz.bzFlyers;
+
+          for (var author in _originalAuthors){
+
+            String _pic = author.authorPic;
+            String _newURL;
+
+            /// x1 - create new url
+            if (ObjectChecker.objectIsURL(_pic) == true) {
+              File _file = await urlToFile(_pic);
+              _newURL = await Fire.createStoragePicAndGetURL(
+                context: context,
+                picType: PicType.authorPic,
+                fileName: AuthorModel.generateAuthorPicID(author.userID, bz.bzID),
+                inputFile: _file,
+              );
+            }
+            else {
+              _newURL = await Fire.createStoragePicFromAssetAndGetURL(
+                context: context,
+                picType: PicType.authorPic,
+                fileName: AuthorModel.generateAuthorPicID(author.userID, bz.bzID),
+                asset: _pic,
+              );
+            }
+
+            /// x2 - create new AuthorModel and add it to new _authorsModels
+            AuthorModel _newAuthor = AuthorModel(
+              userID : author.userID,
+              authorName : author.authorName,
+              authorPic : _newURL,
+              authorTitle : author.authorTitle,
+              authorIsMaster : author.authorIsMaster,
+              authorContacts : author.authorContacts,
             );
+
+            _updatedAuthorsModels.add(_newAuthor);
+
+            /// x3 - update tinyAuthor in all bz Flyers
+            TinyUser _tinyAuthor = AuthorModel.getTinyAuthorFromAuthorModel(_newAuthor);
+            for (var flyer in _bzFlyers){
+              if (_tinyAuthor.userID == flyer.authorID){
+
+                /// -- update tiny author in flyers
+                await Fire.updateDocField(
+                  context: context,
+                  collName: FireCollection.flyers,
+                  docName: flyer.flyerID,
+                  field: 'tinyAuthor',
+                  input: _tinyAuthor.toMap(),
+                );
+
+              }
+            }
 
           }
 
+          /// b - update the new authors in bz doc
+          await Fire.updateDocField(
+            context: context,
+            collName: FireCollection.bzz,
+            docName: bz.bzID,
+            field: 'bzAuthors',
+            input: AuthorModel.cipherAuthorsModels(_updatedAuthorsModels),
+          );
+
+
         }
 
-
-        printResult('_tinyFlyers are ${_tinyFlyers.length}');
+        printResult('_tinyFlyers are ${_bzz.length}');
 
         _triggerLoading();
       },},
       // -----------------------------------------------------------------------
+      {'Name' : 'upload local asset and get URL', 'function' : () async {
+        _triggerLoading();
 
+        String _url = await Fire.createStoragePicFromAssetAndGetURL(
+          context: context,
+          picType: PicType.authorPic,
+          fileName: 'ASSET',
+          asset: Dumz.XXhsi_1,
+        );
+
+        setState(() {
+          _picURL = _url;
+        });
+
+        printResult('$_url');
+
+        _triggerLoading();
+      },},
+      // -----------------------------------------------------------------------
+      {'Name' : 'get FILE from url', 'function' : () async {
+        _triggerLoading();
+
+        UserModel _user = await UserCRUD().readUserOps(
+          context: context,
+          userID: superUserID(),
+        );
+
+        File _file = await urlToFile(_user.pic);
+
+        setState(() {
+          _filePic = _file;
+        });
+
+        printResult('$_filePic');
+
+        _triggerLoading();
+      },},
     ];
 
 
@@ -522,7 +641,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
               // ..._savesWidgets(_userSavesModels),
 
               DreamBox(
-                width: superScreenWidth(context) * 0.95,
+                width: Scale.superScreenWidth(context) * 0.95,
                 height: 2.5,
                 color: Colorz.WhiteGlass,
                 corners: 0,
@@ -537,11 +656,22 @@ class _FirebasetestingState extends State<Firebasetesting> {
 
               if (_tinyFlyers != null)
               FlyersGrid(
-                gridZoneWidth: superScreenWidth(context),
+                gridZoneWidth: Scale.superScreenWidth(context),
                 scrollable: false,
                 stratosphere: false,
                 numberOfColumns: 6,
                 tinyFlyers: _tinyFlyers,
+              ),
+
+                /// test url from asset
+              if(_filePic !=null)
+              DreamBox(
+                height: 100,
+                width: 100,
+                // icon: _filePic,
+                iconFile: _filePic,
+                iconSizeFactor: 1,
+                color: Colorz.BabyBlue,
               ),
 
 

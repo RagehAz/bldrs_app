@@ -26,7 +26,7 @@ class LocationHelper{
 String getStaticMapImage(BuildContext context, double latitude, double longitude){
 
   int     zoomValue       = 15;
-  int     widthValue      = (superScreenWidth(context) * 0.73).toInt();
+  int     widthValue      = (Scale.superScreenWidth(context) * 0.73).toInt();
   int     heightValue     = (widthValue * 1.74).toInt();
   double  scaleValue      = 1;
   String  mapTypeValue    = 'hybrid';

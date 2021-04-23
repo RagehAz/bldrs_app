@@ -35,7 +35,7 @@ class TinyFlyerWidget extends StatelessWidget {
     final FlyersProvider _pro = Provider.of<FlyersProvider>(context, listen: true);
     bool _ankhIsOn=_pro.checkAnkh(tinyFlyer.flyerID);
     double _flyerSizeFactor = flyerSizeFactor ?? 0.5;
-    double _flyerZoneWidth = superFlyerZoneWidth(context, _flyerSizeFactor);
+    double _flyerZoneWidth = Scale.superFlyerZoneWidth(context, _flyerSizeFactor);
 
     return FlyerZone(
       flyerSizeFactor: _flyerSizeFactor,
@@ -52,7 +52,7 @@ class TinyFlyerWidget extends StatelessWidget {
         ),
 
         MiniHeader(
-          flyerZoneWidth: superFlyerZoneWidth(context, _flyerSizeFactor),
+          flyerZoneWidth: Scale.superFlyerZoneWidth(context, _flyerSizeFactor),
           tinyBz: tinyFlyer.tinyBz,
           tinyAuthor: TinyUser(userID: tinyFlyer.authorID, name: null, title: null, pic: null, contact: null, userStatus: null),
           followIsOn: false,
@@ -65,7 +65,7 @@ class TinyFlyerWidget extends StatelessWidget {
         ),
 
         AnkhButton(
-          microMode: superFlyerMicroMode(context, _flyerZoneWidth),
+          microMode: Scale.superFlyerMicroMode(context, _flyerZoneWidth),
           bzPageIsOn: false,
           flyerZoneWidth: _flyerZoneWidth,
           slidingIsOn: false,

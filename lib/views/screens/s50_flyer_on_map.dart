@@ -152,8 +152,8 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
 
     // LatLng userCurrentLocation = LatLng(_initialPosition?.latitude ?? 0, _initialPosition?.longitude ?? 0);
 
-    double _screenWidth = superScreenWidth(context);
-    double _screenHeight = superScreenHeight(context);
+    double _screenWidth = Scale.superScreenWidth(context);
+    double _screenHeight = Scale.superScreenHeight(context);
 
     return MainLayout(
       sky: Sky.Black,
