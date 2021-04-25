@@ -1,19 +1,19 @@
+import 'package:bldrs/controllers/localization/demo_localization.dart';
+import 'package:bldrs/controllers/localization/localization_constants.dart';
+import 'package:bldrs/controllers/router/route_names.dart';
+import 'package:bldrs/controllers/router/router.dart';
+import 'package:bldrs/firestore/user_ops.dart';
+import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/country_provider.dart';
+import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/screens/s10_home_screen.dart';
+import 'package:bldrs/views/screens/s51_flyer_screen.dart';
+import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:bldrs/xxx_LABORATORY/camera_and_location/test_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'controllers/localization/demo_localization.dart';
-import 'controllers/localization/localization_constants.dart';
-import 'controllers/router/route_names.dart';
-import 'controllers/router/router.dart';
-import 'firestore/auth/auth.dart';
-import 'models/user_model.dart';
-import 'providers/flyers_provider.dart';
 import 'package:provider/provider.dart';
-import 'views/screens/s51_flyer_screen.dart';
-import 'views/widgets/loading/loading.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -130,13 +130,13 @@ class _BldrsAppState extends State<BldrsApp> {
       return MultiProvider(
         providers: [
           StreamProvider<UserModel>.value(
-              value: AuthService().userStream,
-          ),
-          ChangeNotifierProvider(
-            create: (ctx) => FlyersProvider(),
+              value: UserOps().streamInitialUser(),
           ),
           ChangeNotifierProvider(
             create: (ctx) => CountryProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (ctx) => FlyersProvider(),
           ),
           ChangeNotifierProvider(
             create: (ctx) => GreatPlaces(),

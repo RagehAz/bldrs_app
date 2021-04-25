@@ -3,9 +3,8 @@ import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
-import 'package:bldrs/firestore/crud/bz_ops.dart';
-import 'package:bldrs/firestore/crud/user_ops.dart';
-import 'package:bldrs/models/bz_model.dart';
+import 'package:bldrs/firestore/bz_ops.dart';
+import 'package:bldrs/firestore/user_ops.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
@@ -66,7 +65,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
 
         for (var id in _followedBzzIDs){
 
-          TinyBz _tinyBz = await BzCRUD.readTinyBzOps(
+          TinyBz _tinyBz = await BzOps.readTinyBzOps(
             context: context,
             bzID: id,
           );
@@ -167,7 +166,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
             else {
 
               /// start deactivate user ops
-              await UserCRUD().deactivateUserOps(
+              await UserOps().deactivateUserOps(
                 context: context,
                 userModel: userModel,
               );

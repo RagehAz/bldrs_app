@@ -1,4 +1,4 @@
-import 'package:bldrs/firestore/auth/auth.dart';
+import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/models/records/call_model.dart';
 import 'package:bldrs/models/records/follow_model.dart';
@@ -6,7 +6,7 @@ import 'package:bldrs/models/records/save_model.dart';
 import 'package:bldrs/models/records/share_model.dart';
 import 'package:flutter/material.dart';
 
-class RecordCRUD{
+class RecordOps{
 // ---------------------------------------------------------------------------
   static Future<List<SaveModel>> readUserSavesOps(BuildContext context) async {
 
@@ -171,7 +171,7 @@ class RecordCRUD{
     /// B - FollowOps in bzz/follows/userID subDoc
     //-------------------------------------------
     /// 1 - get existing FollowModel
-    FollowModel _existingFollowModel = await RecordCRUD.readBzFollowOps(context, bzID, userID);
+    FollowModel _existingFollowModel = await RecordOps.readBzFollowOps(context, bzID, userID);
 
     /// 2 - update the follow model
     FollowModel _updatedFollowModel = FollowModel.editFollowModel(_existingFollowModel);
@@ -213,7 +213,7 @@ class RecordCRUD{
     /// A - CallOps in bzz/calls/userID subDoc
     //-------------------------------------------
     /// 1 - get the existing call model
-    CallModel _existingCallModel = await RecordCRUD.readCallModelOps(
+    CallModel _existingCallModel = await RecordOps.readCallModelOps(
       context: context,
       bzID: bzID,
       userID: userID,

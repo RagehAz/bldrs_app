@@ -9,7 +9,7 @@ import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
-import 'package:bldrs/firestore/crud/bz_ops.dart';
+import 'package:bldrs/firestore/bz_ops.dart';
 import 'package:bldrs/models/bldrs_sections.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
@@ -349,7 +349,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   //   BzModel _bzModelWithoutID = await _createBzModel(userModel);
   //
   //   if(widget.firstTimer){
-  //     BzModel _bzModel = await BzCRUD().createBzOps(context, _bzModelWithoutID, userModel);
+  //     BzModel _bzModel = await BzOps().createBzOps(context, _bzModelWithoutID, userModel);
   //     superDialog(context, 'Successfully added new Business Account', 'Great !');
   //   } else {
   //
@@ -509,7 +509,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
       );
 
       /// start createBzOps
-      BzModel _bzModel = await BzCRUD().createBzOps(
+      BzModel _bzModel = await BzOps().createBzOps(
           context: context,
           inputBz : _newBzModel,
           userModel: widget.userModel
@@ -601,7 +601,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
       );
 
       /// start updateBzOps
-      BzModel _finalBzModel = await BzCRUD().updateBzOps(
+      BzModel _finalBzModel = await BzOps().updateBzOps(
         context: context,
         modifiedBz: _modifiedBzModel,
         originalBz: _bz,

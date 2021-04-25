@@ -2,9 +2,9 @@ import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
-import 'package:bldrs/firestore/crud/bz_ops.dart';
-import 'package:bldrs/firestore/crud/user_ops.dart';
+import 'package:bldrs/firestore/bz_ops.dart';
 import 'package:bldrs/firestore/firestore.dart';
+import 'package:bldrs/firestore/user_ops.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
@@ -106,12 +106,12 @@ class AddAuthorScreen extends StatelessWidget {
 
                 String _ragehUserID = 'rBjNU5WybKgJXaiBnlcBnfFaQSq1';
 
-                BzModel _bzModel = await BzCRUD.readBzOps(
+                BzModel _bzModel = await BzOps.readBzOps(
                   context: context,
                   bzID: tinyBz.bzID,
                 );
 
-                UserModel _ragehUserModel = await UserCRUD().readUserOps(
+                UserModel _ragehUserModel = await UserOps().readUserOps(
                   context: context,
                   userID: _ragehUserID,
                 );

@@ -3,8 +3,7 @@ import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/firestore/crud/bz_ops.dart';
-import 'package:bldrs/firestore/crud/flyer_ops.dart';
+import 'package:bldrs/firestore/bz_ops.dart';
 import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
@@ -15,18 +14,18 @@ import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/widgets/bubbles/bzz_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/flyers_bubble.dart';
-import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
 /// Should include all user firestore operations
 /// except reading data for widgets injection
-class UserCRUD{
-// -----------------------------------------------------------------------------
+class UserOps{
+// =============================================================================
   /// user firestore collection reference
   final CollectionReference _usersCollectionRef = Fire.getCollectionRef(FireCollection.users);
 // -----------------------------------------------------------------------------
@@ -42,19 +41,6 @@ class UserCRUD{
       Fire.getDocRef(FireCollection.users, userID);
   }
 // -----------------------------------------------------------------------------
-  Future<UserModel> readUserOps({BuildContext context, String userID}) async {
-
-    Map<String, dynamic> _userMap = await Fire.readDoc(
-      context: context,
-      collName: FireCollection.users,
-      docName: userID,
-    );
-
-    UserModel _user = UserModel.decipherUserMap(_userMap);
-
-    return _user;
-  }
-// -----------------------------------------------------------------------------
   /// create or update user document
   Future<void> _createOrUpdateUserDoc({BuildContext context, UserModel userModel}) async {
 
@@ -65,7 +51,7 @@ class UserCRUD{
       input: userModel.toMap(),
     );
 
-}
+  }
 // -----------------------------------------------------------------------------
   Future<void> createUserOps({BuildContext context, UserModel userModel}) async {
 
@@ -73,11 +59,11 @@ class UserCRUD{
     String _userPicURL;
     if (ObjectChecker.objectIsFile(userModel.pic) == true){
       _userPicURL = await Fire.createStoragePicAndGetURL(
-            context: context,
-            inputFile: userModel.pic,
-            fileName: userModel.userID,
-            picType: PicType.userPic
-        );
+          context: context,
+          inputFile: userModel.pic,
+          fileName: userModel.userID,
+          picType: PicType.userPic
+      );
     }
 
     /// create final UserModel
@@ -115,6 +101,30 @@ class UserCRUD{
       input: TinyUser.getTinyUserFromUserModel(_finalUserModel).toMap(),
     );
 
+  }
+// -----------------------------------------------------------------------------
+  Future<UserModel> readUserOps({BuildContext context, String userID}) async {
+
+    Map<String, dynamic> _userMap = await Fire.readDoc(
+      context: context,
+      collName: FireCollection.users,
+      docName: userID,
+    );
+
+    UserModel _user = UserModel.decipherUserMap(_userMap);
+
+    return _user;
+  }
+// -----------------------------------------------------------------------------
+  /// auth change user stream
+  Stream<UserModel> streamInitialUser(){
+    final FirebaseAuth _auth = FirebaseAuth?.instance;
+
+    return _auth.authStateChanges()
+        .map((User user) => UserModel.initializeUserModelStreamFromUser(user,));
+
+    //     .map(
+    //     UserModel.initializeUserModelStreamFromUser); // different syntax than previous snippet
   }
 // -----------------------------------------------------------------------------
   Future<void> updateUserOps({BuildContext context, UserModel oldUserModel, UserModel updatedUserModel}) async {
@@ -216,7 +226,7 @@ class UserCRUD{
         List<BzModel> _bzzToKeep = new List();
         for (var id in userModel.myBzzIDs){
 
-          BzModel _bz = await BzCRUD.readBzOps(
+          BzModel _bz = await BzOps.readBzOps(
             context: context,
             bzID: id,
           );
@@ -350,7 +360,7 @@ class UserCRUD{
               // }
 
               /// de-activate bz
-             await BzCRUD().deactivateBzOps(
+             await BzOps().deactivateBzOps(
                context: context,
                bzModel: bz,
              );

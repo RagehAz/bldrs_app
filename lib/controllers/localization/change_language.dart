@@ -1,9 +1,9 @@
+import 'package:bldrs/controllers/localization/localization_constants.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
-import 'package:bldrs/firestore/auth/auth.dart';
+import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/firestore/firestore.dart';
+import 'package:bldrs/main.dart';
 import 'package:flutter/material.dart';
-import '../../main.dart';
-import 'localization_constants.dart';
 // === === === === === === === === === === === === === === === === === === ===
 Future<void> changeAppLanguage(BuildContext context, String code) async {
   Locale _temp = await setLocale(code);

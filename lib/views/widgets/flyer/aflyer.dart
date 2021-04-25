@@ -1,7 +1,7 @@
 import 'package:bldrs/controllers/drafters/launchers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
-import 'package:bldrs/firestore/auth/auth.dart';
-import 'package:bldrs/firestore/crud/record_ops.dart';
+import 'package:bldrs/firestore/auth_ops.dart';
+import 'package:bldrs/firestore/record_ops.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
@@ -63,7 +63,7 @@ class _AFlyerState extends State<AFlyer> with AutomaticKeepAliveClientMixin{
   Future<void> _tapAnkh(String flyerID, int slideIndex) async {
 
     /// start save flyer ops
-      await RecordCRUD.saveFlyerOps(
+      await RecordOps.saveFlyerOps(
         context: context,
         userID: superUserID(),
         flyerID: flyerID,
@@ -84,7 +84,7 @@ class _AFlyerState extends State<AFlyer> with AutomaticKeepAliveClientMixin{
   Future<void> _onFollowTap(String bzID) async {
 
     /// start follow bz ops
-    List<String> _updatedBzFollows = await RecordCRUD.followBzOPs(
+    List<String> _updatedBzFollows = await RecordOps.followBzOPs(
       context: context,
       bzID: bzID,
       userID: superUserID(),
@@ -115,7 +115,7 @@ class _AFlyerState extends State<AFlyer> with AutomaticKeepAliveClientMixin{
         launchCall('tel: $_contact');
 
         /// start call bz ops
-        await RecordCRUD.callBzOPs(
+        await RecordOps.callBzOPs(
           context: context,
           bzID: _bzID,
           userID: _userID,

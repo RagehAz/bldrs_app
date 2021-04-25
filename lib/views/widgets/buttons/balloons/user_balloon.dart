@@ -5,13 +5,13 @@ import 'package:bldrs/controllers/drafters/shadowers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/router/route_names.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/firestore/auth/auth.dart';
+import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/users_provider.dart';
+import 'package:bldrs/views/widgets/buttons/balloons/clip_shadow_path.dart';
 import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'clip_shadow_path.dart';
 
 class UserBalloon extends StatelessWidget {
   final UserStatus balloonType;

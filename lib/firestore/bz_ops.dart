@@ -1,9 +1,9 @@
 import 'dart:io';
 import 'package:bldrs/controllers/drafters/imagers.dart';
-import 'package:bldrs/firestore/auth/auth.dart';
-import 'package:bldrs/firestore/crud/flyer_ops.dart';
-import 'package:bldrs/firestore/crud/user_ops.dart';
+import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/firestore/firestore.dart';
+import 'package:bldrs/firestore/flyer_ops.dart';
+import 'package:bldrs/firestore/user_ops.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
@@ -14,7 +14,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 /// create, read, update, delete bz doc in cloud firestore
-class BzCRUD{
+class BzOps{
 // -----------------------------------------------------------------------------
   /// bz firestore collection reference
   final CollectionReference _bzCollectionRef = Fire.getCollectionRef(FireCollection.bzz);
@@ -335,7 +335,7 @@ class BzCRUD{
 
     if (_flyersIDs.length > 0){
       for (var id in _flyersIDs){
-        await FlyerCRUD().deactivateFlyerOps(
+        await FlyerOps().deactivateFlyerOps(
           context: context,
           bzModel: bzModel,
           flyerID: id,
@@ -356,7 +356,7 @@ class BzCRUD{
     List<String> _authorsIDs = AuthorModel.getAuthorsIDsFromAuthors(_authors);
     for (var id in _authorsIDs){
 
-      UserModel _user = await UserCRUD().readUserOps(context: context, userID: id);
+      UserModel _user = await UserOps().readUserOps(context: context, userID: id);
 
       List<dynamic> _myBzzIDs = _user.myBzzIDs;
       int _bzIndex = _myBzzIDs.indexWhere((id) => id == bzModel.bzID);
@@ -390,13 +390,13 @@ class BzCRUD{
     for (var id in _flyersIDs){
 
       print('a - getting flyer : $id');
-      FlyerModel _flyerModel = await FlyerCRUD().readFlyerOps(
+      FlyerModel _flyerModel = await FlyerOps().readFlyerOps(
         context: context,
         flyerID: id,
       );
 
       print('b - starting delete flyer ops aho rabbena yostor ------------ - - - ');
-      await FlyerCRUD().deleteFlyerOps(
+      await FlyerOps().deleteFlyerOps(
         context: context,
         bzModel: bzModel,
         flyerModel: _flyerModel,
@@ -416,7 +416,7 @@ class BzCRUD{
     for (var authorID in _authorsIDs){
 
       print('a - get user model');
-      UserModel _user = await UserCRUD().readUserOps(
+      UserModel _user = await UserOps().readUserOps(
         context: context,
         userID: authorID,
       );

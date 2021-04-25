@@ -2,8 +2,8 @@ import 'package:bldrs/controllers/drafters/keyboarders.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
-import 'package:bldrs/firestore/auth/auth.dart';
-import 'package:bldrs/firestore/crud/user_ops.dart';
+import 'package:bldrs/firestore/auth_ops.dart';
+import 'package:bldrs/firestore/user_ops.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/views/screens/s16_user_editor_screen.dart';
@@ -16,7 +16,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:provider/provider.dart';
 
-class Register extends StatefulWidget {
+class RegisterForm extends StatefulWidget {
   final Function switchToSignIn;
   final String email;
   final String password;
@@ -24,7 +24,7 @@ class Register extends StatefulWidget {
   final Function passwordTextOnChanged;
 
 
-  Register({
+  RegisterForm({
     @required this.switchToSignIn,
     @required this.email,
     @required this.password,
@@ -33,11 +33,11 @@ class Register extends StatefulWidget {
   });
 
   @override
-  _RegisterState createState() => _RegisterState();
+  _RegisterFormState createState() => _RegisterFormState();
 }
 
-class _RegisterState extends State<Register> {
-  final AuthService _auth = AuthService();
+class _RegisterFormState extends State<RegisterForm> {
+  final AuthOps _auth = AuthOps();
   String _email;
   String _password;
   String _confirmPassword;
@@ -237,7 +237,7 @@ class _RegisterState extends State<Register> {
                     if(_formKey.currentState.validate()){
                       _triggerLoading();
                       // ---------------------
-                      dynamic result = await _auth.registerWithEmailAndPassword(context, _currentZone, _email, _password);
+                      dynamic result = await _auth.emailRegisterOps(context, _currentZone, _email, _password);
                       print('register result is : $result');
                       // ---------------------
                       if ('$result' == '[firebase_auth/email-already-in-use] The email address is already in use by another account.'){
@@ -274,7 +274,7 @@ class _RegisterState extends State<Register> {
 
                         /// create a new firestore document for the user with the userID
                         UserModel _initialUserModel = result;
-                        await UserCRUD().createUserOps(userModel: _initialUserModel);
+                        await UserOps().createUserOps(userModel: _initialUserModel);
 
 
                         _triggerLoading();
