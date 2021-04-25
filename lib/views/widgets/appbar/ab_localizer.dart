@@ -1,6 +1,5 @@
 import 'package:bldrs/controllers/drafters/aligners.dart';
 import 'package:bldrs/controllers/drafters/iconizers.dart';
-import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/text_directionerz.dart';
 import 'package:bldrs/controllers/localization/change_language.dart';
@@ -10,14 +9,14 @@ import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/providers/country_provider.dart';
+import 'package:bldrs/views/widgets/appbar/ab_strip.dart';
+import 'package:bldrs/views/widgets/appbar/buttons/bt_localizer.dart';
 import 'package:bldrs/views/widgets/buttons/bt_list.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'ab_strip.dart';
-import 'buttons/bt_localizer.dart';
 enum LocalizerPage {
   Country,
   Province,

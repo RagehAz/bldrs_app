@@ -6,7 +6,7 @@ import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
-import 'package:bldrs/firestore/crud/flyer_ops.dart';
+import 'package:bldrs/firestore/flyer_ops.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
@@ -66,7 +66,7 @@ class BzFlyerScreen extends StatelessWidget {
               print(_dialogResult);
 
               /// start delete flyer ops
-              await FlyerCRUD().deactivateFlyerOps(
+              await FlyerOps().deactivateFlyerOps(
                 context: context,
                 bzModel: bzModel,
                 flyerID : tinyFlyer.flyerID,
@@ -109,7 +109,7 @@ class BzFlyerScreen extends StatelessWidget {
 
 
               /// start delete flyer ops
-              await FlyerCRUD().deleteFlyerOps(
+              await FlyerOps().deleteFlyerOps(
                 context: context,
                 bzModel: bzModel,
                 flyerModel : flyerModel,

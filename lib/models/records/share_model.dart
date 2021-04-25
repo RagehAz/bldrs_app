@@ -1,5 +1,4 @@
 import 'package:bldrs/controllers/drafters/timerz.dart';
-import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';

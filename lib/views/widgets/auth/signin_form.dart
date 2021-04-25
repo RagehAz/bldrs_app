@@ -4,7 +4,7 @@ import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
-import 'package:bldrs/firestore/auth/auth.dart';
+import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/views/screens/s00_user_checker_widget.dart';
 import 'package:bldrs/views/screens/s16_user_editor_screen.dart';
@@ -16,7 +16,7 @@ import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui';
 
-class SignIn extends StatefulWidget {
+class SignInForm extends StatefulWidget {
   final Function switchToSignIn;
   final String email;
   final String password;
@@ -25,7 +25,7 @@ class SignIn extends StatefulWidget {
   final Function fieldOnTap;
 
 
-  SignIn({
+  SignInForm({
     @required this.switchToSignIn,
     @required this.email,
     @required this.password,
@@ -35,13 +35,13 @@ class SignIn extends StatefulWidget {
   });
 
   @override
-  _SignInState createState() => _SignInState();
+  _SignInFormState createState() => _SignInFormState();
 }
 
-class _SignInState extends State<SignIn> {
+class _SignInFormState extends State<SignInForm> {
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passWordController = TextEditingController();
-  final AuthService _auth = AuthService();
+  final AuthOps _authOps = AuthOps();
   // String _email;
   // String _password;
   bool signingIn = true;
@@ -50,7 +50,7 @@ class _SignInState extends State<SignIn> {
   bool loading = false;
   bool showPassword = false;
   bool _passwordObscured = true;
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   /// --- LOADING BLOCK
   bool _loading = false;
   void _triggerLoading(){
@@ -58,7 +58,7 @@ class _SignInState extends State<SignIn> {
     _loading == true?
     print('LOADING') : print('LOADING COMPLETE');
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   @override
   void initState() {
     // _email = widget.email;
@@ -67,7 +67,7 @@ class _SignInState extends State<SignIn> {
     _passWordController.text = widget.password;
     super.initState();
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   @override
   void dispose() {
     if (TextChecker.textControllerHasNoValue(_emailController))_emailController.dispose();
@@ -79,31 +79,128 @@ class _SignInState extends State<SignIn> {
   //   setState(() {_email = val;});
   //   print('email : $_email, pass : $_password');
   // }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 //   void _passwordTextOnChanged(String val){
 //     setState(() {_password = val;});
 //     print('email : $_email, pass : $_password');
 //   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   void _horusOnTapDown(){
     setState(() {
       _passwordObscured = !_passwordObscured;
     });
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   void _horusOnTapUp(){
     setState(() {
       _passwordObscured = !_passwordObscured;
     });
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   void _horusOnTapCancel(){
     setState(() {
       _passwordObscured = true;
     });
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+  Future<void> authErrorDialog({BuildContext context, dynamic result}) async {
 
+    List<Map<String, dynamic>> _errors = <Map<String, dynamic>>[
+      {
+        'error' : '[firebase_auth/wrong-password] The password is invalid or the user does not have a password.',
+        'reply' : Wordz.wrongPassword(context),
+      },
+      {
+        'error' : '[firebase_auth/user-not-found] There is no user record corresponding to this identifier. The user may have been deleted.',
+        'reply' : Wordz.emailNotFound(context),
+      },
+      {
+        'error' : '[firebase_auth/network-request-failed] A network error (such as timeout, interrupted connection or unreachable host) has occurred.',
+        'reply' : 'No Internet connection available',
+      },
+      {
+        'error' : '[firebase_auth/invalid-email] The email address is badly formatted.',
+        'reply' : Wordz.emailWrong(context),
+      },
+      {
+        'error' : null,
+        'reply' : Wordz.signInFailure(context),
+      },
+    ];
+
+    if (result.runtimeType != UserModel){
+
+      Map<String, dynamic> _errorMap = _errors.singleWhere((map) => map['error'] == result);
+      String _errorReply = _errorMap == null ? null : _errorMap['reply'];
+
+      print('wtffffffffffff $_errorReply');
+
+      await superDialog(
+        context: context,
+        title: 'Ops!',
+        body: _errorMap == null ? result : _errorReply,
+        boolDialog: false,
+      );
+
+    }
+
+  }
+// -----------------------------------------------------------------------------
+  bool _allFieldsAreValid(){
+    bool _areValid = _formKey.currentState.validate();
+    return _areValid;
+  }
+// -----------------------------------------------------------------------------
+  Future<void> _signInOnTap() async {
+  minimizeKeyboardOnTapOutSide(context);
+
+
+  await tryAndCatch(
+      context: context,
+      functions: () async {
+
+        if(_allFieldsAreValid() == true){
+          _triggerLoading();
+
+          // ---------------------
+          dynamic _result = await _authOps.emailSignInOps(context, _emailController.text, _passWordController.text);
+
+          if(_result.runtimeType != UserModel){
+            _triggerLoading();
+            await authErrorDialog(context: context, result: _result);
+          } else {
+
+            UserModel _userModel = _result;
+
+            if (UserModel.allRequiredFieldsAreEntered(_userModel) == true){
+
+              _triggerLoading();
+
+              await superDialog(
+                context: context,
+                title: 'Ops!',
+                body: 'You have to complete your profile info',
+                boolDialog: false,
+              );
+
+              Nav.goToNewScreen(context, EditProfileScreen(user: _userModel, firstTimer: false,),);
+
+            } else {
+              _triggerLoading();
+
+              Nav.goToNewScreen(context, UserChecker());
+
+            }
+
+          }
+          // ---------------------
+        }
+
+      }
+  );
+
+}
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -209,106 +306,7 @@ class _SignInState extends State<SignIn> {
                 verseWeight: VerseWeight.black,
                 verseColor: Colorz.BlackBlack,
                 boxMargins: EdgeInsets.symmetric(horizontal: Ratioz.ddAppBarMargin),
-                boxFunction: () async {
-                  minimizeKeyboardOnTapOutSide(context);
-
-                  _triggerLoading();
-
-                  await tryAndCatch(
-                    context: context,
-                    functions: () async {
-                      if(_formKey.currentState.validate()){
-                        // ---------------------
-                        dynamic result = await _auth.signInWithEmailAndPassword(context, _emailController.text, _passWordController.text);
-                        // ---------------------
-                        if ('$result' == '[firebase_auth/wrong-password] The password is invalid or the user does not have a password.') {
-                          _triggerLoading();
-                          await superDialog(
-                            context: context,
-                            title: 'Ops!',
-                            body: Wordz.wrongPassword(context),
-                            boolDialog: false,
-                          );
-                        }
-                        // ---------------------
-                        else if ('$result' == '[firebase_auth/user-not-found] There is no user record corresponding to this identifier. The user may have been deleted.') {
-                          _triggerLoading();
-                          await superDialog(
-                            context: context,
-                            title: 'Ops!',
-                            body: Wordz.emailNotFound(context),
-                            boolDialog: false,
-                          );
-                        }
-                        // ---------------------
-                        else if('$result' == '[firebase_auth/network-request-failed] A network error (such as timeout, interrupted connection or unreachable host) has occurred.') {
-                          _triggerLoading();
-                          await superDialog(
-                            context: context,
-                            title: 'Ops!',
-                            body: 'No Internet connection available',
-                            boolDialog: false,
-                          );
-                        }
-                        // ---------------------
-                        else if('$result' == '[firebase_auth/invalid-email] The email address is badly formatted.') {
-                          _triggerLoading();
-                          await superDialog(
-                            context: context,
-                            title: 'Ops!',
-                            body: Wordz.emailWrong(context),
-                            boolDialog: false,
-                          );
-                        }
-                        // ---------------------
-                        else if(result == null){
-                          _triggerLoading();
-                          await superDialog(
-                            context: context,
-                            title: 'Ops!',
-                            body: Wordz.signInFailure(context),
-                            boolDialog: false,
-                          );
-                        }
-                        // ---------------------
-                        /// if user signed up but did not properly complete userdata
-                        /// then need to fill these fields ( name, pic, title, company, Zone)
-                        /// to be able to go to home screen
-                        else if(result.runtimeType == UserModel) {
-                          UserModel userModel = result;
-
-                          if (
-                              userModel.name == null ||
-                              userModel.pic == null ||
-                              userModel.title == null ||
-                              userModel.company == null
-                          // TASK : need to rethink which fields are required by user
-                          ){
-
-                            _triggerLoading();
-
-                            await superDialog(
-                              context: context,
-                              title: 'Ops!',
-                              body: 'You have to complete your profile info',
-                              boolDialog: false,
-                            );
-
-                            Nav.goToNewScreen(context, EditProfileScreen(user: result, firstTimer: false,),);
-                          } else {
-                          _triggerLoading();
-
-                          Nav.goToNewScreen(context, UserChecker());
-
-                          }
-
-                        }
-                        // ---------------------
-                      }
-                    }
-                  );
-
-                },
+                boxFunction: _signInOnTap,
               ),
 
             ],

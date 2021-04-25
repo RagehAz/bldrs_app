@@ -1,7 +1,7 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
-import 'package:bldrs/views/widgets/auth/register.dart';
-import 'package:bldrs/views/widgets/auth/signin.dart';
+import 'package:bldrs/views/widgets/auth/register_form.dart';
+import 'package:bldrs/views/widgets/auth/signin_form.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 
@@ -71,7 +71,7 @@ class _AuthScreenState extends State<AuthScreen> {
                 // Stratosphere(heightFactor: 0.5,),
 
                 signingIn == true ?
-                SignIn(
+                SignInForm(
                   switchToSignIn: switchSignIn,
                   email: email,
                   password: password,
@@ -81,7 +81,7 @@ class _AuthScreenState extends State<AuthScreen> {
                 )
                     :
                 // REGISTER NEW ACCOUNT
-                Register(
+                RegisterForm(
                   switchToSignIn: switchSignIn,
                   email: email,
                   password: password,
@@ -89,7 +89,7 @@ class _AuthScreenState extends State<AuthScreen> {
                   passwordTextOnChanged: passwordTextOnChanged,
                 ),
 
-                PyramidsHorizon(heightFactor: 13,),
+                PyramidsHorizon(heightFactor: 0,),
 
               ],
             ),

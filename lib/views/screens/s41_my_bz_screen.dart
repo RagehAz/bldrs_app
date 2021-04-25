@@ -6,7 +6,7 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
-import 'package:bldrs/firestore/crud/bz_ops.dart';
+import 'package:bldrs/firestore/bz_ops.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/models/user_model.dart';
@@ -23,7 +23,6 @@ import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_sheet.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/max_header_parts/gallery.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
-import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x11_pro_flyer_grid_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -116,7 +115,7 @@ class _MyBzScreenState extends State<MyBzScreen> {
               print(_dialogResult);
 
               /// start delete bz ops
-              await BzCRUD().deleteBzOps(
+              await BzOps().deleteBzOps(
                 context: context,
                 bzModel: bzModel,
               );
@@ -162,7 +161,7 @@ class _MyBzScreenState extends State<MyBzScreen> {
               print(_dialogResult);
 
               /// start deactivate bz ops
-              await BzCRUD().deactivateBzOps(
+              await BzOps().deactivateBzOps(
                 context: context,
                 bzModel: bzModel,
               );

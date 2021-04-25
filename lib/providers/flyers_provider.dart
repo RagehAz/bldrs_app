@@ -1,11 +1,11 @@
 import 'package:bldrs/controllers/drafters/text_manipulators.dart';
-import 'package:bldrs/firestore/auth/auth.dart';
-import 'package:bldrs/firestore/crud/bz_ops.dart';
-import 'package:bldrs/firestore/crud/flyer_ops.dart';
-import 'package:bldrs/firestore/crud/record_ops.dart';
-import 'package:bldrs/firestore/crud/user_ops.dart';
-import 'package:bldrs/firestore/fire_search.dart';
+import 'package:bldrs/firestore/auth_ops.dart';
+import 'package:bldrs/firestore/bz_ops.dart';
+import 'package:bldrs/firestore/flyer_ops.dart';
+import 'package:bldrs/firestore/record_ops.dart';
+import 'package:bldrs/firestore/search_ops.dart';
 import 'package:bldrs/firestore/firestore.dart';
+import 'package:bldrs/firestore/user_ops.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/records/save_model.dart';
@@ -81,7 +81,7 @@ class FlyersProvider with ChangeNotifier {
     /// 3- get tinyBz for each id
     List<TinyBz> _sponsorsTinyBzz = new List();
     for (var id in _sponsorsIDs){
-      TinyBz _tinyBz = await BzCRUD.readTinyBzOps(context: context, bzID: id);
+      TinyBz _tinyBz = await BzOps.readTinyBzOps(context: context, bzID: id);
       _sponsorsTinyBzz.add(_tinyBz);
     }
 
@@ -128,7 +128,7 @@ class FlyersProvider with ChangeNotifier {
   Future<void> fetchAndSetSavedFlyers(BuildContext context) async {
 
     /// read user's saves doc
-    List<SaveModel> _userSaveModels = await RecordCRUD.readUserSavesOps(context);
+    List<SaveModel> _userSaveModels = await RecordOps.readUserSavesOps(context);
 
     /// from saveModels, get a list of saved tinyFlyers
     List<TinyFlyer> _savedTinyFlyers = new List();
@@ -136,7 +136,7 @@ class FlyersProvider with ChangeNotifier {
     if (_userSaveModels != null || _userSaveModels?.length != 0){
       for (var saveModel in _userSaveModels){
         if (saveModel.saveState == SaveState.Saved) {
-          TinyFlyer _tinyFlyer = await FlyerCRUD().readTinyFlyerOps(context: context, flyerID: saveModel.flyerID);
+          TinyFlyer _tinyFlyer = await FlyerOps().readTinyFlyerOps(context: context, flyerID: saveModel.flyerID);
 
           if (_tinyFlyer != null){
             _savedTinyFlyers.add(_tinyFlyer);
@@ -158,7 +158,7 @@ class FlyersProvider with ChangeNotifier {
   Future<void> fetchAndSetFollows(BuildContext context) async {
 
     /// read user's follows list
-    List<String> _follows = await RecordCRUD.readUserFollowsOps(context);
+    List<String> _follows = await RecordOps.readUserFollowsOps(context);
 
     _loadedFollows = _follows ?? [];
     print('_loadedFollows = $_loadedFollows');
@@ -364,7 +364,7 @@ class FlyersProvider with ChangeNotifier {
 
   // Future<BzModel> getBzByBzID(String bzID) async {
   //   // BzModel bz = _loadedBzz?.firstWhere((bz) => bz.bzID == bzID, orElse: ()=>null);
-  //   BzModel bz = await BzCRUD.readBzOps(bzID: bzID);
+  //   BzModel bz = await BzOps.readBzOps(bzID: bzID);
   //   return bz;
   // }
 
@@ -552,7 +552,7 @@ return bzz;
 
   /// update firestore with the _newUserModel
   /// when firebase finds the same userID
-  await UserCRUD().updateUserOps(updatedUserModel: _newUserModel, oldUserModel: userModel);
+  await UserOps().updateUserOps(updatedUserModel: _newUserModel, oldUserModel: userModel);
 
   /// add the local bzModel to the local list of bzModels _loadedBzz
   _loadedBzz.add(_newBz);

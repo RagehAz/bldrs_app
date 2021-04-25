@@ -14,7 +14,7 @@ import 'package:flutter/material.dart';
 
 /// Should include all flyer firestore functions/operations
 /// except reading data/getting data for widgets injection
-class FlyerCRUD{
+class FlyerOps{
   /// flyers collection reference
   CollectionReference flyersCollectionRef(){
     return

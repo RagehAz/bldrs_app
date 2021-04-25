@@ -5,8 +5,8 @@ import 'package:bldrs/controllers/drafters/file_formatters.dart';
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/firestore/auth/auth.dart';
-import 'package:bldrs/firestore/crud/record_ops.dart';
+import 'package:bldrs/firestore/auth_ops.dart';
+import 'package:bldrs/firestore/record_ops.dart';
 import 'package:bldrs/models/records/share_model.dart';
 import 'package:bldrs/views/widgets/flyer/parts/slides_parts/footer.dart';
 import 'package:bldrs/views/widgets/flyer/parts/slides_parts/slide_headline.dart';
@@ -85,7 +85,7 @@ class SingleSlide extends StatelessWidget {
     // int _imageWidth = getImageWidth();
 
     Future<void> _shareFlyer() async {
-      await RecordCRUD.shareFlyerOPs(
+      await RecordOps.shareFlyerOPs(
         context: context,
         flyerID: flyerID,
         userID: superUserID(),

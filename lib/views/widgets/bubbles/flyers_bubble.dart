@@ -1,17 +1,8 @@
-import 'package:bldrs/controllers/drafters/scalers.dart';
-import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
-import 'package:bldrs/views/screens/s52_bz_card_screen.dart';
-import 'package:bldrs/views/widgets/flyer/grids/flyers_grid.dart';
+import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/flyer/stacks/flyer_stack.dart';
-import 'package:bldrs/views/widgets/in_pyramids/profile/bz_grid.dart';
-import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
-
-import 'in_pyramids_bubble.dart';
 
 class FlyersBubble extends StatelessWidget {
   final List<TinyFlyer> tinyFlyers;
