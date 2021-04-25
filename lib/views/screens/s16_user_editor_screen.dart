@@ -8,7 +8,7 @@ import 'package:bldrs/controllers/router/route_names.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
-import 'package:bldrs/firestore/crud/user_ops.dart';
+import 'package:bldrs/firestore/user_ops.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:bldrs/models/user_model.dart';
@@ -233,7 +233,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       );
 
       /// start create user ops
-      await UserCRUD().createUserOps(
+      await UserOps().createUserOps(
           context: context,
           userModel: _newUserModel
       );
@@ -294,7 +294,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       );
 
       /// start create user ops
-      await UserCRUD().updateUserOps(
+      await UserOps().updateUserOps(
         context: context,
         oldUserModel: widget.user,
         updatedUserModel: _updatedModel,
@@ -324,7 +324,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     //   functions: () async {
     //
     //     String _email = getAContactValueFromContacts(widget.user.contacts, ContactType.Email);
-    // await UserCRUD().deleteUserDoc(widget.user.userID);
+    // await UserOps().deleteUserDoc(widget.user.userID);
     //     await AuthService().deleteFirebaseUser(context, _email, '123456');
     //
     //   }

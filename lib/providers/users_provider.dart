@@ -1,9 +1,9 @@
 import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/firestore/firestore.dart';
+import 'package:bldrs/firestore/user_ops.dart';
 import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:bldrs/firestore/crud/user_ops.dart';
 import 'package:flutter/material.dart';
 // === === === === === === === === === === === === === === === === === === ===
 class UserProvider{
@@ -76,27 +76,27 @@ class UserProvider{
 // ---------------------------------------------------------------------------
   /// get users streams
   Stream<List<UserModel>> get allUsersStream {
-    CollectionReference _userCollection = UserCRUD().userCollectionRef();
+    CollectionReference _userCollection = UserOps().userCollectionRef();
     return _userCollection.snapshots()
         .map(_usersListFromSnapshot);
   }
 // ---------------------------------------------------------------------------
   /// get user doc stream
   Stream<UserModel> get userData {
-    CollectionReference _userCollection = UserCRUD().userCollectionRef();
+    CollectionReference _userCollection = UserOps().userCollectionRef();
     return _userCollection.doc(userID).snapshots()
         .map(_userModelFromSnapshot);
   }
 // ---------------------------------------------------------------------------
-Future<UserModel> getUserModel(BuildContext context, String userID) async {
-  Map<String, dynamic> _userMap = await Fire.readDoc(
-    context: context,
-    collName: FireCollection.users,
-    docName: userID,
-  );
-  UserModel _userModel = UserModel.decipherUserMap(_userMap);
-  return _userModel;
-}
+// Future<UserModel> getUserModel(BuildContext context, String userID) async {
+//   Map<String, dynamic> _userMap = await Fire.readDoc(
+//     context: context,
+//     collName: FireCollection.users,
+//     docName: userID,
+//   );
+//   UserModel _userModel = UserModel.decipherUserMap(_userMap);
+//   return _userModel;
+// }
 // ---------------------------------------------------------------------------
 
 Future<dynamic> getSavedFlyersIDs(BuildContext context) async {

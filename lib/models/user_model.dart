@@ -1,6 +1,11 @@
 import 'package:bldrs/controllers/drafters/timerz.dart';
+import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/sub_models/contact_model.dart';
+import 'package:bldrs/providers/country_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 // -----------------------------------------------------------------------------
 class UserModel {
   final String userID;
@@ -163,6 +168,84 @@ class UserModel {
     }
 
   }
+// -----------------------------------------------------------------------------
+  /// create user object based on firebase user
+  static UserModel initializeUserModelStreamFromUser(User user) {
+
+    return
+      user == null ? null :
+      UserModel(
+        userID: user.uid,
+        joinedAt: DateTime.now(),
+        userStatus: UserStatus.Normal,
+        // -------------------------
+        name: user.displayName,
+        pic: user.photoURL,
+        title: '',
+        gender: Gender.any,
+        country: null,
+        province: null,
+        area: null,
+        language: 'en',
+        position: GeoPoint(0, 0),
+        contacts: [],
+        // -------------------------
+        myBzzIDs: [],
+      );
+
+  }
+// -----------------------------------------------------------------------------
+  static UserModel createInitialUserModelFromUser({
+    BuildContext context,
+    User user,
+  }){
+
+    /// get user current location
+    // TASK : need to trace user current location and pass it here while creating the userModel from firebase User
+    CountryProvider _countryPro = Provider.of<CountryProvider>(context, listen: false);
+
+    UserModel _userModel = UserModel(
+      userID: user.uid,
+      joinedAt: DateTime.now(),
+      userStatus: UserStatus.Normal,
+      // -------------------------
+      name: user.displayName,
+      pic: user.photoURL,
+      title: '',
+      gender: Gender.any,
+      country: _countryPro.currentCountryID,
+      province: _countryPro.currentProvinceID,
+      area: _countryPro.currentAreaID,
+      language: Wordz.languageCode(context),
+      position: null,
+      contacts: ContactModel.getContactsFromFirebaseUser(user),
+      // -------------------------
+      myBzzIDs: [],
+    );
+
+    return _userModel;
+}
+// -----------------------------------------------------------------------------
+  static bool allRequiredFieldsAreEntered(UserModel userModel){
+    bool _requiredFieldsAreValid;
+
+    if (
+        userModel.name == null ||
+        userModel.pic == null ||
+        userModel.title == null ||
+        userModel.company == null ||
+        userModel.country == null ||
+        userModel.province == null
+        // userModel.area should not be required
+    ){
+      _requiredFieldsAreValid = false;
+    } else {
+      _requiredFieldsAreValid = true;
+    }
+
+    return _requiredFieldsAreValid;
+  }
+// -----------------------------------------------------------------------------
 }
 // -----------------------------------------------------------------------------
 enum UserStatus {

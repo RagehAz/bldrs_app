@@ -6,8 +6,7 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/flagz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
-import 'package:bldrs/firestore/auth/auth.dart';
-import 'package:bldrs/firestore/auth/google.dart';
+import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/models/records/share_model.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/views/screens/s40_bz_editor_screen.dart';
@@ -20,13 +19,22 @@ import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 
 class MoreScreen extends StatelessWidget {
-  final AuthService _auth = AuthService();
+  final AuthOps _authOps = AuthOps();
   final UserModel userModel;
 
   MoreScreen({
     @required this.userModel,
 });
+// -----------------------------------------------------------------------------
+  Future<void> _signOut(BuildContext context) async {
 
+      print('Signing out');
+      await AuthOps().googleSignOutOps();
+      await _authOps.emailSignOutOps(context);
+      Nav.goToRoute(context, Routez.Starting);
+
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -140,12 +148,7 @@ class MoreScreen extends StatelessWidget {
             verse: Wordz.signOut(context),
             icon: Iconz.Exit,
             iconSizeFactor: 0.6,
-            btOnTap: () async {
-              print('Signing out');
-              await signOutGoogle();
-              await _auth.signOut(context);
-              Nav.goToRoute(context, Routez.Starting);
-            },
+            btOnTap: () => _signOut(context),
           ),
 
           _separator,
@@ -156,7 +159,6 @@ class MoreScreen extends StatelessWidget {
             iconSizeFactor: 1,
             btOnTap: () => Nav.goToRoute(context, Routez.Obelisk),
           ),
-
 
           PyramidsHorizon(
             heightFactor: 5,

@@ -7,6 +7,7 @@ import 'package:bldrs/dashboard/zones_manager/db_provinces.dart';
 import 'package:bldrs/models/planet/area_model.dart';
 import 'package:bldrs/models/planet/province_model.dart';
 import 'package:bldrs/models/planet/country_model.dart';
+import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:flutter/material.dart';
 // === === === === === === === === === === === === === === === === === === ===
 class CountryProvider with ChangeNotifier{
@@ -28,6 +29,14 @@ class CountryProvider with ChangeNotifier{
 // ---------------------------------------------------------------------------
   String get currentAreaID {
     return _currentAreaID;
+  }
+// ---------------------------------------------------------------------------
+  Zone get currentZone {
+    return Zone(
+      countryID: currentCountryID,
+      provinceID: currentProvinceID,
+      areaID: currentAreaID,
+    );
   }
 // ---------------------------------------------------------------------------
   void changeCountry(String country){

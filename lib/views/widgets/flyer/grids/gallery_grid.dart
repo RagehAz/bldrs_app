@@ -1,12 +1,12 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/firestore/auth/auth.dart';
+import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
+import 'package:bldrs/views/widgets/flyer/bz_card_preview.dart';
+import 'package:bldrs/views/widgets/flyer/tiny_flyer_widget.dart';
 import 'package:flutter/material.dart';
-import '../bz_card_preview.dart';
-import '../tiny_flyer_widget.dart';
 
 class GalleryGrid extends StatelessWidget {
 
