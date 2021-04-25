@@ -1,12 +1,11 @@
 import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/models/bz_model.dart';
+import 'package:bldrs/models/sub_models/slide_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
+import 'package:bldrs/models/tiny_models/tiny_user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'sub_models/slide_model.dart';
-import 'tiny_models/tiny_flyer.dart';
-import 'tiny_models/tiny_user.dart';
 // -----------------------------------------------------------------------------
 class FlyerModel with ChangeNotifier{
   final String flyerID;

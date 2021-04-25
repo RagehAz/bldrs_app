@@ -2,7 +2,7 @@ import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
-import 'package:bldrs/firestore/auth/auth.dart';
+import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/models/secondary_models/feedback_model.dart';
 import 'package:bldrs/views/widgets/bubbles/text_field_bubble.dart';

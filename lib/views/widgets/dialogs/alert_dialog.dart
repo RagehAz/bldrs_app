@@ -1,7 +1,6 @@
 import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/drafters/colorizers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
-import 'package:bldrs/controllers/drafters/text_shapers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
@@ -81,7 +80,7 @@ AlertDialog _superAlert ({
 
                                 /// BODY
                                 SuperVerse(
-                                  verse: body.toString(),
+                                  verse: body.runtimeType == String ? body : body.toString(),
                                   color: Colorz.White,
                                   maxLines: 6,
                                   // designMode: true,

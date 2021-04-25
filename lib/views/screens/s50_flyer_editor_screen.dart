@@ -8,8 +8,8 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/flyer_keyz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/firestore/auth/auth.dart';
-import 'package:bldrs/firestore/crud/flyer_ops.dart';
+import 'package:bldrs/firestore/auth_ops.dart';
+import 'package:bldrs/firestore/flyer_ops.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
@@ -707,7 +707,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
       );
 
       /// start create flyer ops
-      FlyerModel _uploadedFlyerModel = await FlyerCRUD().createFlyerOps(context, _newFlyerModel, widget.bzModel);
+      FlyerModel _uploadedFlyerModel = await FlyerOps().createFlyerOps(context, _newFlyerModel, widget.bzModel);
 
       /// add the result final Tinyflyer to local list and notifyListeners
       _prof.addTinyFlyerToLocalList(TinyFlyer.getTinyFlyerFromFlyerModel(_uploadedFlyerModel));
@@ -778,7 +778,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
       print('C- Uploading to cloud');
 
       /// start create flyer ops
-      FlyerModel _uploadedFlyerModel = await FlyerCRUD().updateFlyerOps(
+      FlyerModel _uploadedFlyerModel = await FlyerOps().updateFlyerOps(
           context: context,
           updatedFlyer: _updatedFlyerModel,
           originalFlyer: _originalFlyer,

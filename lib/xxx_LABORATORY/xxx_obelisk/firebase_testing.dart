@@ -7,11 +7,11 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/dumz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/firestore/auth/auth.dart';
-import 'package:bldrs/firestore/crud/bz_ops.dart';
-import 'package:bldrs/firestore/crud/user_ops.dart';
-import 'package:bldrs/firestore/fire_search.dart';
+import 'package:bldrs/firestore/auth_ops.dart';
+import 'package:bldrs/firestore/bz_ops.dart';
+import 'package:bldrs/firestore/search_ops.dart';
 import 'package:bldrs/firestore/firestore.dart';
+import 'package:bldrs/firestore/user_ops.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/records/save_model.dart';
@@ -27,6 +27,7 @@ import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/flyer/grids/flyers_grid.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -447,7 +448,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
         List<TinyBz> _allTinyBzz = _prof.getAllTinyBzz;
         List<BzModel> _bzz = new List();
         for (var tinyBz in _allTinyBzz){
-          BzModel _bz = await BzCRUD.readBzOps(
+          BzModel _bz = await BzOps.readBzOps(
               context: context,
               bzID: tinyBz.bzID
           );
@@ -556,7 +557,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
       {'Name' : 'get FILE from url', 'function' : () async {
         _triggerLoading();
 
-        UserModel _user = await UserCRUD().readUserOps(
+        UserModel _user = await UserOps().readUserOps(
           context: context,
           userID: superUserID(),
         );
@@ -571,6 +572,35 @@ class _FirebasetestingState extends State<Firebasetesting> {
 
         _triggerLoading();
       },},
+      // -----------------------------------------------------------------------
+      {'Name' : 'create firebase user with email', 'function' : () async {
+        _triggerLoading();
+
+        String _email = 'tester@bldrs.net';
+        String _password = '123456';
+
+        final FirebaseAuth _auth = FirebaseAuth?.instance;
+        UserCredential _result = await _auth.createUserWithEmailAndPassword(
+            email: _email.trim(), password: _password);
+
+        printResult('${_result.toString()}');
+
+        _triggerLoading();
+      },},
+      // -----------------------------------------------------------------------
+      {'Name' : 'delete firebase user with email', 'function' : () async {
+        _triggerLoading();
+
+        String _email = 'tester@bldrs.net';
+        String _password = '123456';
+
+        // await AuthOps().deleteFirebaseUser(context, _email, _password);
+
+        printResult('Done');
+
+        _triggerLoading();
+      },},
+      // -----------------------------------------------------------------------
     ];
 
 

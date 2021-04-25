@@ -5,11 +5,11 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
+import 'package:bldrs/views/screens/s02_auth_screen.dart';
 import 'package:bldrs/views/widgets/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/views/widgets/buttons/bt_main.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
-import 's02_auth_screen.dart';
 
 class StartingScreen extends StatelessWidget {
 // -----------------------------------------------------------------------------

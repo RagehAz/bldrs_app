@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/iconizers.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 // -----------------------------------------------------------------------------
 class ContactModel{
@@ -218,6 +219,26 @@ class ContactModel{
     addContactIfPossibleToANewContactsList(existingContacts, twitter, ContactType.Twitter, _newContacts);
     // ---------------
     return _newContacts;
+  }
+// ----------------------------------------------------------------------------
+  static List<ContactModel> getContactsFromFirebaseUser(User user){
+    List<ContactModel> _userContacts = new List();
+    String _userEmail = user.email;
+    String _userPhone = user.phoneNumber;
+
+    if (_userEmail != null){
+      _userContacts.add(
+          ContactModel(contact: _userEmail, contactType: ContactType.Email)
+      );
+    }
+
+    if (_userPhone != null){
+      _userContacts.add(
+          ContactModel(contact: _userPhone, contactType: ContactType.Phone)
+      );
+    }
+
+    return _userContacts;
   }
 // ----------------------------------------------------------------------------
 
