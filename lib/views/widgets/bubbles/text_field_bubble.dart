@@ -77,10 +77,13 @@ class TextFieldBubble extends StatelessWidget {
     // int titleVerseSize = 2;
     // double actionBtSize = superVerseRealHeight(context, titleVerseSize, 1, null);
     // double actionBtCorner = actionBtSize * 0.4;
-    double leadingIconSize = 35;
-    double leadingAndFieldSpacing = 5;
+    double leadingIconSize = leadingIcon == null ? 0 : 35;
+    double leadingAndFieldSpacing = leadingIcon == null ? 0 : 5;
+    double obscureBtSize = obscured == null ? 0 : 35;
+    double obscureBtSpacing = obscured == null ? 0 : 5;
     double bubbleClearWidth = Scale.superBubbleClearWidth(context);
-    double fieldWidth = leadingIcon == null ? bubbleClearWidth : bubbleClearWidth - leadingIconSize - leadingAndFieldSpacing;
+    double fieldWidth =
+        bubbleClearWidth - leadingIconSize - leadingAndFieldSpacing - obscureBtSize - obscureBtSpacing;
 
     return
       InPyramidsBubble(
@@ -105,7 +108,8 @@ class TextFieldBubble extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
 
-                      leadingIcon == null ? Container() :
+                      /// LEADING ICON
+                      if (leadingIcon != null)
                       DreamBox(
                         height: 35,
                         width: 35,
@@ -116,11 +120,11 @@ class TextFieldBubble extends StatelessWidget {
                         0.6 : 1,
                       ),
 
-                      leadingIcon == null ? Container() :
-                      Container(
-                        width: 5,
-                      ),
+                      /// SPACER
+                      if (leadingIcon != null)
+                      Container(width: 5,),
 
+                      /// TEXT FIELD
                       Container(
                         width: fieldWidth,
                         child: SuperTextField(
@@ -144,6 +148,28 @@ class TextFieldBubble extends StatelessWidget {
                         ),
                       ),
 
+                      /// SPACER
+                      if (obscured != null)
+                      Container(width: 5,),
+
+                      /// OBSCURE BUTTON
+                      if (obscured != null)
+                      DreamBox(
+                        height: 35,
+                        width: 35,
+                        color: obscured? Colorz.Nothing : Colorz.YellowLingerie,
+                        icon: Iconz.Views,
+                        iconColor: obscured? Colorz.WhiteGlass : Colorz.BlackBlack,
+                        iconSizeFactor: 0.7,
+                        bubble: false,
+                        onTapDown: horusOnTapDown == null ? (){} : horusOnTapDown,
+                        onTapUp: horusOnTapUp== null ? (){} : horusOnTapUp,
+                        onTapCancel: horusOnTapCancel== null ? (){} : horusOnTapCancel,
+                        // boxFunction: horusOnTapCancel== null ? (){} : horusOnTapCancel, // this prevents keyboard action from going to next field in the form
+                        corners: superVerseLabelCornerValue(context, 3),
+                      ),
+
+
                     ],
                   ),
 
@@ -151,18 +177,6 @@ class TextFieldBubble extends StatelessWidget {
                   if (loading)
                   Loading(size: 35, loading: loading,),
 
-                  // --- PASSWORD REVEALER ON TAP
-                  obscured == null ? Container() :
-                  Align(
-                    alignment: textDirection == TextDirection.ltr ? Alignment.centerRight : Aligners.superCenterAlignment(context),
-                    child: ShowPassword(
-                      obscured: obscured,
-                      onTapDown: horusOnTapDown,
-                      onTapUp: horusOnTapUp,
-                      onTapCancel: horusOnTapCancel,
-                      verseSize: 2,
-                    ),
-                  ),
 
                   keyboardTextInputType != TextInputType.url ? Container() :
                       DreamBox(
@@ -196,38 +210,38 @@ class TextFieldBubble extends StatelessWidget {
   }
 }
 
-class ShowPassword extends StatelessWidget {
-  final bool obscured;
-  final Function onTapDown;
-  final Function onTapUp;
-  final Function onTapCancel;
-  final int verseSize;
-
-  ShowPassword({
-    this.obscured = false,
-    this.onTapDown,
-    this.onTapUp,
-    this.onTapCancel,
-    this.verseSize = 3,
-});
-
-  @override
-  Widget build(BuildContext context) {
-    return DreamBox(
-      height: 35,
-      width: 35,
-      color: obscured? Colorz.Nothing : Colorz.YellowLingerie,
-      icon: Iconz.Views,
-      iconColor: obscured? Colorz.WhiteGlass : Colorz.BlackBlack,
-      iconSizeFactor: 0.7,
-      bubble: false,
-      onTapDown: onTapDown == null ? (){} : onTapDown,
-      onTapUp: onTapUp == null ? (){} : onTapUp,
-      onTapCancel: onTapCancel == null ? (){} : onTapCancel,
-      boxFunction: onTapCancel == null ? (){} : onTapCancel,
-      corners: superVerseLabelCornerValue(context, verseSize),
-    );
-  }
-}
+// class ShowPassword extends StatelessWidget {
+//   final bool obscured;
+//   final Function onTapDown;
+//   final Function onTapUp;
+//   final Function onTapCancel;
+//   final int verseSize;
+//
+//   ShowPassword({
+//     this.obscured = false,
+//     this.onTapDown,
+//     this.onTapUp,
+//     this.onTapCancel,
+//     this.verseSize = 3,
+// });
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return DreamBox(
+//       height: 35,
+//       width: 35,
+//       color: obscured? Colorz.Nothing : Colorz.YellowLingerie,
+//       icon: Iconz.Views,
+//       iconColor: obscured? Colorz.WhiteGlass : Colorz.BlackBlack,
+//       iconSizeFactor: 0.7,
+//       bubble: false,
+//       onTapDown: onTapDown == null ? (){} : onTapDown,
+//       onTapUp: onTapUp == null ? (){} : onTapUp,
+//       onTapCancel: onTapCancel == null ? (){} : onTapCancel,
+//       boxFunction: onTapCancel == null ? (){} : onTapCancel,
+//       corners: superVerseLabelCornerValue(context, verseSize),
+//     );
+//   }
+// }
 
 

@@ -1,5 +1,6 @@
 import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
+import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:bldrs/providers/country_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -198,6 +199,7 @@ class UserModel {
   static UserModel createInitialUserModelFromUser({
     BuildContext context,
     User user,
+    Zone zone,
   }){
 
     /// get user current location
@@ -213,9 +215,9 @@ class UserModel {
       pic: user.photoURL,
       title: '',
       gender: Gender.any,
-      country: _countryPro.currentCountryID,
-      province: _countryPro.currentProvinceID,
-      area: _countryPro.currentAreaID,
+      country: zone.countryID,
+      province: zone.provinceID,
+      area: zone.areaID,
       language: Wordz.languageCode(context),
       position: null,
       contacts: ContactModel.getContactsFromFirebaseUser(user),
@@ -226,24 +228,17 @@ class UserModel {
     return _userModel;
 }
 // -----------------------------------------------------------------------------
-  static bool allRequiredFieldsAreEntered(UserModel userModel){
-    bool _requiredFieldsAreValid;
+  static List<String> missingFields(UserModel userModel){
+    List<String> _missingFields = new List();
 
-    if (
-        userModel.name == null ||
-        userModel.pic == null ||
-        userModel.title == null ||
-        userModel.company == null ||
-        userModel.country == null ||
-        userModel.province == null
-        // userModel.area should not be required
-    ){
-      _requiredFieldsAreValid = false;
-    } else {
-      _requiredFieldsAreValid = true;
-    }
+    if (userModel?.name == null || userModel?.name == ''){_missingFields.add('name');}
+    if (userModel?.pic == null || userModel?.pic == ''){_missingFields.add('pic');}
+    if (userModel?.title == null || userModel?.title == ''){_missingFields.add('title');}
+    if (userModel?.company == null || userModel?.company == ''){_missingFields.add('company');}
+    if (userModel?.country == null || userModel?.country == ''){_missingFields.add('country');}
+    if (userModel?.province == null || userModel?.province == ''){_missingFields.add('province');}
 
-    return _requiredFieldsAreValid;
+    return _missingFields;
   }
 // -----------------------------------------------------------------------------
 }

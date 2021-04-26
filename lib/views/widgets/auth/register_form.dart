@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/keyboarders.dart';
+import 'package:bldrs/controllers/drafters/text_checkers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
@@ -17,19 +18,19 @@ import 'package:bldrs/models/user_model.dart';
 import 'package:provider/provider.dart';
 
 class RegisterForm extends StatefulWidget {
-  final Function switchToSignIn;
+  final Function switchSignIn;
   final String email;
   final String password;
-  final Function emailTextOnChanged;
-  final Function passwordTextOnChanged;
+  // final Function emailTextOnChanged;
+  // final Function passwordTextOnChanged;
 
 
   RegisterForm({
-    @required this.switchToSignIn,
+    @required this.switchSignIn,
     @required this.email,
     @required this.password,
-    @required this.emailTextOnChanged,
-    @required this.passwordTextOnChanged,
+    // @required this.emailTextOnChanged,
+    // @required this.passwordTextOnChanged,
   });
 
   @override
@@ -38,74 +39,133 @@ class RegisterForm extends StatefulWidget {
 
 class _RegisterFormState extends State<RegisterForm> {
   final AuthOps _auth = AuthOps();
-  String _email;
-  String _password;
-  String _confirmPassword;
   final _formKey = GlobalKey<FormState>();
-  bool _loading = false;
-  bool _passwordObscured = true;
 
-// ---------------------------------------------------------------------------
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+  TextEditingController _confirmPasswordController = TextEditingController();
+
+  bool _passwordObscured = true;
+// -----------------------------------------------------------------------------
+  /// --- LOADING BLOCK
+  bool _loading = false;
+  void _triggerLoading(){
+    setState(() {_loading = !_loading;});
+    _loading == true?
+    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+  }
+// -----------------------------------------------------------------------------
   @override
   void initState() {
-    _email = widget.email;
-    _password = widget.password;
+    _emailController.text = widget.email;
+    _passwordController.text = widget.password;
+
     super.initState();
   }
-// ---------------------------------------------------------------------------
-  void _emailTextOnChanged(String val){
-    setState(() {
-      _email = val;
-    });
-    print('email : $_email, pass : $_password, conf : $_confirmPassword');
+// -----------------------------------------------------------------------------
+  @override
+  void dispose() {
+    if (TextChecker.textControllerHasNoValue(_emailController))_emailController.dispose();
+    if (TextChecker.textControllerHasNoValue(_passwordController))_passwordController.dispose();
+    if (TextChecker.textControllerHasNoValue(_confirmPasswordController))_confirmPasswordController.dispose();
+    super.dispose();
   }
-// ---------------------------------------------------------------------------
-  void _passwordTextOnChanged(String val){
-    setState(() {
-      _password = val;
-    });
-    print('email : $_email, pass : $_password, conf : $_confirmPassword');
+// -----------------------------------------------------------------------------
+  String _emailValidator(String val){
+
+    if (val.isEmpty){
+
+      return Wordz.enterEmail(context);
+
+    } else {
+
+      return EmailValidator.validate(val) == true ? null : Wordz.emailInvalid(context);
+
+    }
   }
-// ---------------------------------------------------------------------------
-  void _confirmPasswordOnChanged(String val){
-    setState(() {
-      _confirmPassword = val;
-    });
-    print('email : $_email, pass : $_password, conf : $_confirmPassword');
+// -----------------------------------------------------------------------------
+  String _passwordValidator(String val){
+    return
+      val.isEmpty ? Wordz.enterPassword(context) :
+      val.length < 6 ? Wordz.min6CharError(context) :
+      _confirmPasswordController.text != _passwordController.text ? Wordz.passwordMismatch(context) :
+      null;
   }
-// ---------------------------------------------------------------------------
-  void _triggerLoading(){
-    setState(() {
-      _loading = !_loading;
-    });
+// -----------------------------------------------------------------------------
+  String _confirmPasswordValidator(String val){
+    return
+      val.isEmpty ? Wordz.confirmPassword(context) :
+      _confirmPasswordController.text != _passwordController.text ? Wordz.passwordMismatch(context) :
+      val.length < 6 ? Wordz.min6CharError(context) :
+      null;
   }
-// ---------------------------------------------------------------------------
-  void _horusOnTapDown(){
-    setState(() {
-      _passwordObscured = !_passwordObscured;
-    });
-  }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   void _horusOnTapUp(){
+    // _horusOnTapDown or _horusOnTapUp
     setState(() {
       _passwordObscured = !_passwordObscured;
     });
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+  void _horusOnTapDown(){
+    // _horusOnTapDown or _horusOnTapUp
+    setState(() {
+      _passwordObscured = !_passwordObscured;
+    });
+  }
+// -----------------------------------------------------------------------------
   void _horusOnTapCancel(){
     setState(() {
       _passwordObscured = true;
     });
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+  bool _allFieldsAreValid(){
+    bool _areValid = _formKey.currentState.validate();
+    print('_allFieldsAreValid() = $_areValid');
+    return _areValid;
+  }
+// -----------------------------------------------------------------------------
+  Future<void> _registerOnTap({Zone currentZone}) async {
+
+    /// minimize keyboard
+    minimizeKeyboardOnTapOutSide(context);
+
+    /// proceed with register if fields are valid
+    if(_allFieldsAreValid() == true){
+
+      _triggerLoading();
+
+      /// start register ops
+      dynamic _result = await _auth.emailRegisterOps(context, currentZone, _emailController.text, _passwordController.text);
+
+      /// pop dialog if sign in fails otherwise check user required field then route
+      print('_registerOnTap() _result.runtimeType : ${_result.runtimeType} : $_result');
+      if(_result.runtimeType == String){
+
+        _triggerLoading();
+
+        /// pop error dialog
+        await authErrorDialog(context: context, result: _result);
+
+      } else {
+
+        _triggerLoading();
+
+        /// route to edit profile screen to complete profile data
+        Nav.goToNewScreen(context, EditProfileScreen(user: _result, firstTimer: true,),);
+
+      }
+
+    }
+
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: true);
-    Zone _currentZone = new Zone(
-      countryID: _countryPro.currentCountryID,
-      provinceID: _countryPro.currentProvinceID,
-      areaID: _countryPro.currentAreaID,
-    );
+    Zone _currentZone = _countryPro.currentZone;
 
     return Form(
       key: _formKey,
@@ -120,6 +180,8 @@ class _RegisterFormState extends State<RegisterForm> {
 
           // --- ENTER E-MAIL
           TextFieldBubble(
+            key: ValueKey('email'),
+            textController: _emailController,
             loading: _loading,
             bubbleColor: Colorz.WhiteGlass,
             textDirection: TextDirection.ltr,
@@ -129,81 +191,57 @@ class _RegisterFormState extends State<RegisterForm> {
             keyboardTextInputAction: TextInputAction.next,
             title: Wordz.emailAddress(context),
             hintText: '...',
-            // onSaved: (){print('onSaved');},
             maxLength: 100,
-            initialTextValue: _email,
-            textOnChanged: (val){
-              widget.emailTextOnChanged(val);
-              _emailTextOnChanged(val);
-            },
-            validator: (val){
-              if (val.isEmpty){return Wordz.enterEmail(context);}
-              else {
-               return EmailValidator.validate(val) == true ? null : Wordz.emailInvalid(context);
-              }
-            },
+            validator: (val) => _emailValidator(val),
           ),
 
+          // --- ENTER PASSWORD
           TextFieldBubble(
+            key: ValueKey('password'),
+            textController: _passwordController,
             loading: _loading,
             bubbleColor: Colorz.WhiteGlass,
             textDirection: TextDirection.ltr,
             fieldIsFormField: true,
             fieldIsRequired: true,
-            keyboardTextInputType: TextInputType.visiblePassword,
+            keyboardTextInputType: TextInputType.visiblePassword, // ----------------------------------------------------------
             keyboardTextInputAction: TextInputAction.next,
             title: Wordz.password(context),
-            comments: Wordz.min6Char(context),
             hintText: '...',
-            // onSaved: (){print('onSaved');},
-            // maxLines: 1,
             maxLength: 100,
-            obscured: _passwordObscured,
-            horusOnTapDown: _horusOnTapDown,
-            horusOnTapUp: _horusOnTapUp,
-            horusOnTapCancel: _horusOnTapCancel,
-            initialTextValue: _password,
-            textOnChanged: (val){
-              widget.passwordTextOnChanged(val);
-              _passwordTextOnChanged(val);
-            },
-            validator: (val){
-              return
-              val.isEmpty ? Wordz.enterPassword(context) :
-              val.length < 6 ? Wordz.min6CharError(context) :
-              _confirmPassword != _password ? Wordz.passwordMismatch(context) :
-              null;
-            },
+            validator: (val) => _passwordValidator(val),
+              comments: Wordz.min6Char(context),
+              maxLines: 1,
+              obscured: _passwordObscured,
+              horusOnTapDown: _horusOnTapDown,
+              horusOnTapUp: _horusOnTapUp,
+              horusOnTapCancel: _horusOnTapCancel,
           ),
 
+          // --- ENTER CONFIRM PASSWORD
           TextFieldBubble(
+            key: ValueKey('confirm'),
+            textController: _confirmPasswordController,
             loading: _loading,
             bubbleColor: Colorz.WhiteGlass,
             textDirection: TextDirection.ltr,
             fieldIsFormField: true,
             fieldIsRequired: true,
-            keyboardTextInputType: TextInputType.visiblePassword,
-            keyboardTextInputAction: TextInputAction.done,
+            keyboardTextInputType: TextInputType.visiblePassword, // ----------------------------------------------------------
+            keyboardTextInputAction: TextInputAction.done, // ----------------------------------------------------------
             title: Wordz.confirmPassword(context),
             hintText: '...',
-            // onSaved: (){print('onSaved');},
-            maxLines: 1,
             maxLength: 100,
-            obscured: _passwordObscured,
-            horusOnTapDown: _horusOnTapDown,
-            horusOnTapUp: _horusOnTapUp,
-            horusOnTapCancel: _horusOnTapCancel,
+            validator: (val) => _confirmPasswordValidator(val),
+              comments: Wordz.min6Char(context),
+              maxLines: 1,
+              obscured: _passwordObscured,
+              horusOnTapDown: _horusOnTapDown,
+              horusOnTapUp: _horusOnTapUp,
+              horusOnTapCancel: _horusOnTapCancel,
             initialTextValue: null,
-            textOnChanged: (val) => _confirmPasswordOnChanged(val),
-            validator: (val){
-              return
-                val.isEmpty ? Wordz.confirmPassword(context) :
-                _confirmPassword != _password ? Wordz.passwordMismatch(context) :
-                val.length < 6 ? Wordz.min6CharError(context) :
-              null;
-
-            },
           ),
+
 
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -218,7 +256,7 @@ class _RegisterFormState extends State<RegisterForm> {
                 verseMaxLines: 2,
                 verseScaleFactor: 0.55,
                 color: Colorz.WhiteGlass,
-                boxFunction: widget.switchToSignIn,
+                boxFunction: () => widget.switchSignIn(_emailController.text, _passwordController.text),
               ),
 
               ChangeNotifierProvider.value(
@@ -231,59 +269,7 @@ class _RegisterFormState extends State<RegisterForm> {
                   verseColor: Colorz.BlackBlack,
                   verseWeight: VerseWeight.black,
                   boxMargins: EdgeInsets.all(10),
-                  boxFunction: () async {
-                    minimizeKeyboardOnTapOutSide(context);
-
-                    if(_formKey.currentState.validate()){
-                      _triggerLoading();
-                      // ---------------------
-                      dynamic result = await _auth.emailRegisterOps(context, _currentZone, _email, _password);
-                      print('register result is : $result');
-                      // ---------------------
-                      if ('$result' == '[firebase_auth/email-already-in-use] The email address is already in use by another account.'){
-                        await superDialog(
-                          context: context,
-                          title: 'E-mail Taken',
-                          body: Wordz.emailAlreadyRegistered(context),
-                          boolDialog: false,
-                        );
-                        _triggerLoading();
-                      }
-                      // ---------------------
-                      else if('$result' == '[firebase_auth/invalid-email] The email address is badly formatted.'){
-                        await superDialog(
-                          context: context,
-                          title: 'E-mail Taken',
-                          body: Wordz.emailWrong(context),
-                          boolDialog: false,
-                        );
-                        _triggerLoading();
-                      }
-                      // ---------------------
-                      else if(result == null){
-                        await superDialog(
-                          context: context,
-                          title: '',
-                          body: 'something is wrong',
-                          boolDialog: false,
-                        );
-                        _triggerLoading();
-                      }
-                      // ---------------------
-                      else if(result.runtimeType == UserModel){
-
-                        /// create a new firestore document for the user with the userID
-                        UserModel _initialUserModel = result;
-                        await UserOps().createUserOps(userModel: _initialUserModel);
-
-
-                        _triggerLoading();
-                        Nav.goToNewScreen(context, EditProfileScreen(user: result, firstTimer: true,),);
-                      }
-                      // ---------------------
-                    }
-
-                  },
+                  boxFunction: () => _registerOnTap(currentZone: _currentZone),
                 ),
               ),
 
@@ -296,4 +282,4 @@ class _RegisterFormState extends State<RegisterForm> {
   }
 }
 
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------

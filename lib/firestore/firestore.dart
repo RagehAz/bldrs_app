@@ -145,6 +145,7 @@ class Fire{
 
     await tryAndCatch(
         context: context,
+        methodName: 'createDoc',
         functions: () async {
 
           final CollectionReference _bzCollectionRef = Fire.getCollectionRef(collName);
@@ -170,6 +171,7 @@ class Fire{
 
     await tryAndCatch(
         context: context,
+        methodName: 'createNamedDoc',
         functions: () async {
 
           final _docRef = getDocRef(collName, docName);
@@ -226,6 +228,7 @@ class Fire{
 
     await tryAndCatch(
         context: context,
+        methodName: 'createNamedSubDoc',
         functions: () async {
 
           _subDocRef = getSubDocRef(
@@ -269,6 +272,7 @@ class Fire{
 
     await tryAndCatch(
       context: context,
+      methodName: 'readDoc',
       functions: () async {
 
         final DocumentReference _docRef = Fire.getDocRef(collName, docName);
@@ -293,6 +297,7 @@ class Fire{
 
     tryAndCatch(
         context: context,
+        methodName: 'readDocField',
         functions: () async {
           _map = await Fire.readDoc(
             context: context,
@@ -318,6 +323,7 @@ class Fire{
 
     await tryAndCatch(
       context: context,
+        methodName: 'readSubCollectionDocs',
       functions: () async {
 
         final CollectionReference _subCollection = getSubCollectionRef(
@@ -351,6 +357,7 @@ class Fire{
 
     await tryAndCatch(
         context: context,
+        methodName: 'readSubDoc',
         functions: () async {
 
           final DocumentReference _subDocRef = getSubDocRef(
@@ -383,6 +390,7 @@ class Fire{
 
     tryAndCatch(
         context: context,
+        methodName: 'readSubDocField',
         functions: () async {
           _map = await Fire.readSubDoc(
             context: context,
@@ -466,6 +474,7 @@ class Fire{
 
     await tryAndCatch(
       context: context,
+        methodName: 'updateDocField',
       functions: () async {
 
         await _doc.update({field : input});
@@ -515,6 +524,7 @@ class Fire{
 
     await tryAndCatch(
       context: context,
+        methodName: 'updateSubDocField',
       functions: () async {
         await _subDoc.update({field : input});
       }
@@ -530,6 +540,7 @@ class Fire{
 
     await tryAndCatch(
         context: context,
+        methodName: 'deleteDoc',
         functions: () async {
           DocumentReference _doc = Fire.getDocRef(collName, docName);
           await _doc.delete();
@@ -548,6 +559,7 @@ class Fire{
 
     await tryAndCatch(
         context: context,
+        methodName: 'deleteSubDoc',
         functions: () async {
 
           DocumentReference _subDoc = Fire.getSubDocRef(
@@ -648,6 +660,7 @@ class Fire{
 
     await tryAndCatch(
         context: context,
+        methodName: 'createStoragePicAndGetURL',
         functions: () async {
 
           final _ref = getStorageRef(
@@ -750,6 +763,7 @@ class Fire{
 
     await tryAndCatch(
         context: context,
+        methodName: 'deleteStoragePic',
         functions: () async {
 
           Reference _picRef  = getStorageRef(

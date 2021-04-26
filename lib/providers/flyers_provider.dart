@@ -170,6 +170,7 @@ class FlyersProvider with ChangeNotifier {
 
     await tryAndCatch(
         context: context,
+        methodName: 'fetchAndSetTinyBzzAndTinyFlyers',
         functions: () async {
 
           /// READ data from cloud Firestore bzz collection
@@ -624,6 +625,7 @@ return bzz;
 
     await tryAndCatch(
         context: context,
+        methodName: 'fetchAndSetBzz',
         functions: () async {
 
           /// READ data from cloud Firestore bzz collection

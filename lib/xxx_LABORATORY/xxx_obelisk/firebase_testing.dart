@@ -601,6 +601,16 @@ class _FirebasetestingState extends State<Firebasetesting> {
         _triggerLoading();
       },},
       // -----------------------------------------------------------------------
+      {'Name' : 'getFirebaseUserProviderData', 'function' : ()  {
+        _triggerLoading();
+
+        dynamic _thing = AuthOps().getFirebaseUserProviderData();
+
+        printResult('$_thing');
+
+        _triggerLoading();
+      },},
+      // -----------------------------------------------------------------------
     ];
 
 
