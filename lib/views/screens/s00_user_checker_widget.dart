@@ -2,6 +2,7 @@ import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/views/screens/s01_starting_screen.dart';
 import 'package:bldrs/views/screens/s03_loading_screen.dart';
+import 'package:bldrs/views/screens/s16_user_editor_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -16,9 +17,12 @@ class UserChecker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final _userProvided = Provider.of<UserModel>(context);
+    final UserModel _userProvided = Provider.of<UserModel>(context);
+    List<String> _missingFields = UserModel.missingFields(_userProvided);
 
     return
+
+    /// when the user is null after sign out, or did not auth yet
       _userProvided?.userID == null ?
       WillPopScope(
         onWillPop: () => Future.value(true),
@@ -26,7 +30,17 @@ class UserChecker extends StatelessWidget {
           // exitApp: () =>_exitApp(context),
         ),
       )
+
+      //     :
+      //
+      // /// when user has his account not finished
+      // _missingFields.length != 0 ?
+      // EditProfileScreen(user: _userProvided, firstTimer: false,)
+
           :
+
+      /// when user is valid to enter home screen, start loading screen then home
       LoadingScreen();
+
   }
 }

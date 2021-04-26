@@ -33,6 +33,7 @@ class FireSearch {
 
     await tryAndCatch(
         context: context,
+        methodName: 'mapsByFieldValue',
         functions: () async {
 
       QuerySnapshot _collectionSnapshot;
@@ -127,6 +128,7 @@ class FireSearch {
 
     await tryAndCatch(
         context: context,
+        methodName: 'mapsByValueInArray',
         functions: () async {
 
           QuerySnapshot _collectionSnapshot;
@@ -167,6 +169,7 @@ class FireSearch {
 
     await tryAndCatch(
         context: context,
+        methodName: 'mapsByTwoValuesEqualTo',
         functions: () async {
 
           QuerySnapshot _collectionSnapshot;
