@@ -182,6 +182,8 @@ Future<void> tryAndCatch({Function finals, BuildContext context, Function functi
     await functions();
   } catch (error){
 
+    print('$methodName : tryAndCatch ERROR : $error');
+
     await superDialog(
       context: context,
       title: 'ops',
@@ -189,8 +191,7 @@ Future<void> tryAndCatch({Function finals, BuildContext context, Function functi
       boolDialog: false,
     );
 
-    print('$methodName : tryAndCatch ERROR : $error');
-    throw(error);
+    // throw(error);
   }
 }
 // -----------------------------------------------------------------------------

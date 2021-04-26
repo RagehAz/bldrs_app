@@ -132,11 +132,15 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     /// and if user wants to continue ops
     else {
 
+      _triggerLoading();
+
       /// start delete bz ops
       await UserOps().superDeleteUserOps(
         context: context,
         userModel: userModel,
       );
+
+      _triggerLoading();
 
       /// sign out user
       await AuthOps().signOut(context);
@@ -191,94 +195,6 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     Nav.goToNewScreen(context, EditProfileScreen(user: userModel,));
   }
 // -----------------------------------------------------------------------------
-//   void _slideUserAccountOptions(UserModel userModel, ){
-//
-//     double _buttonHeight = 50;
-//
-//     Widget _button({
-//       String icon,
-//       Color iconColor,
-//       String verse,
-//       Color verseColor,
-//       Function function}){
-//       return
-//         DreamBox(
-//           height: _buttonHeight,
-//           width: BottomSlider.bottomSheetClearWidth(context),
-//           icon: icon,
-//           iconSizeFactor: 0.5,
-//           iconColor: iconColor,
-//           verse: verse,
-//           verseScaleFactor: 1.2,
-//           verseColor: verseColor,
-//           // verseWeight: VerseWeight.thin,
-//           boxFunction: function,
-//         );
-//     }
-//
-//     BottomSlider.slideButtonsBottomSheet(
-//       context: context,
-//       buttonHeight: _buttonHeight,
-//       draggable: true,
-//       buttons: <Widget>[
-//
-//         _button(
-//           icon: Iconz.XLarge,
-//           verse: 'Deactivate Profile',
-//           iconColor: Colorz.BloodRed,
-//           verseColor: Colorz.BloodRed,
-//           function: () async {
-//
-//             /// close bottom sheet
-//             Nav.goBack(context);
-//
-//             /// Task : this should be bool dialog instead
-//             bool _result = await superDialog(
-//               context: context,
-//               title: 'Please confirm',
-//               body: 'Are you Sure you want to Deactivate your account ?',
-//               boolDialog: true,
-//             );
-//
-//             print('bool dialog is $_result');
-//
-//             if (_result == false) {
-//               // /// re-route back
-//               // Nav.goBack(context);
-//             }
-//             else {
-//
-//               /// start deactivate user ops
-//               await UserOps().deactivateUserOps(
-//                 context: context,
-//                 userModel: userModel,
-//               );
-//
-//               /// reRoute user to Oblivion out of app
-//
-//
-//               /// re-route back
-//               // Nav.goBack(context);
-//
-//             }
-//
-//           },
-//         ),
-//
-//         _button(
-//           icon: Iconz.Gears,
-//           verse: 'Edit Profile info',
-//           iconColor: Colorz.White,
-//           verseColor: Colorz.White,
-//           function: () => Nav.goToNewScreen(context, EditProfileScreen(user: userModel,)),
-//         ),
-//
-//         ],
-//
-//     );
-//
-//   }
-// -----------------------------------------------------------------------------
   void _slideUserOptions(BuildContext context, UserModel userModel){
 
     double _buttonHeight = 50;
@@ -295,10 +211,11 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
           width: BottomSlider.bottomSheetClearWidth(context),
           icon: Iconz.XSmall,
           iconSizeFactor: 0.5,
-          iconColor: Colorz.BloodRed,
+          iconColor: Colorz.BlackBlack,
           verse: 'delete user Account',
           verseScaleFactor: 1.2,
-          verseColor: Colorz.BloodRed,
+          verseWeight: VerseWeight.black,
+          verseColor: Colorz.BlackBlack,
           // verseWeight: VerseWeight.thin,
           boxFunction: () => _deleteUserOnTap(userModel),
 
