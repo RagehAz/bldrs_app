@@ -4,7 +4,6 @@ import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/firestore/auth_ops.dart';
-import 'package:bldrs/firestore/user_ops.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/views/screens/s16_user_editor_screen.dart';
@@ -14,7 +13,6 @@ import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
-import 'package:bldrs/models/user_model.dart';
 import 'package:provider/provider.dart';
 
 class RegisterForm extends StatefulWidget {

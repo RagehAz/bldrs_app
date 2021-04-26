@@ -53,6 +53,10 @@ class UserOps{
 
   }
 // -----------------------------------------------------------------------------
+  /// this creates :-
+  /// 1 - JPG in : storage/userPics/userID.jpg if userModel.pic is File no URL
+  /// 2 - userModel in : firestore/users/userID
+  /// 3 - tinyUser in : firestore/tinyUsers/userID
   Future<UserModel> createUserOps({BuildContext context, UserModel userModel}) async {
 
     /// check if user pic is file to upload or URL from facebook to keep
@@ -69,6 +73,7 @@ class UserOps{
     /// create final UserModel
     UserModel _finalUserModel = UserModel(
       userID : userModel.userID,
+      authBy: userModel.authBy,
       joinedAt : DateTime.now(),
       userStatus : userModel.userStatus,
       // -------------------------
@@ -113,7 +118,7 @@ class UserOps{
       docName: userID,
     );
 
-    UserModel _user = UserModel.decipherUserMap(_userMap);
+    UserModel _user = _userMap == null ? null : UserModel.decipherUserMap(_userMap);
 
     return _user;
   }
@@ -145,6 +150,7 @@ class UserOps{
     /// create final UserModel
     UserModel _finalUserModel = UserModel(
       userID : updatedUserModel.userID,
+      authBy: oldUserModel.authBy,
       joinedAt : oldUserModel.joinedAt,
       userStatus : updatedUserModel.userStatus,
       // -------------------------
@@ -187,7 +193,7 @@ class UserOps{
 
   }
 // -----------------------------------------------------------------------------
-  /// delete all user related data
+  /// deacvtivate user account
   Future<void> deactivateUserOps({BuildContext context, UserModel userModel}) async {
     /// x. Alert user that he will forever lose his (name, pic, title, contacts,
     /// status, company, gender, zone, position, saved flyers, followed bzz) in
@@ -245,40 +251,10 @@ class UserOps{
         Nav.goBack(context);
 
         /// b - show dialog
-        bool _bzzReviewResult = await superDialog(
+        bool _bzzReviewResult = await bzzDeactivationDialog(
           context: context,
-          title: 'You Have ${_bzzToDeactivate.length + _bzzToKeep.length} business accounts',
-          body: 'All Business accounts will be deactivated except those shared with other authors',
-          boolDialog: true,
-          height: Scale.superScreenHeight(context) * 0.8,
-          child: Column(
-            children: <Widget>[
-
-              BzzBubble(
-                tinyBzz: TinyBz.getTinyBzzFromBzzModels(_bzzToDeactivate),
-                onTap: (value){print(value);},
-                numberOfColumns: 6,
-                numberOfRows: 1,
-                scrollDirection: Axis.horizontal,
-                title: 'These Accounts will be deactivated',
-              ),
-
-              BzzBubble(
-                tinyBzz: TinyBz.getTinyBzzFromBzzModels(_bzzToKeep),
-                onTap: (value){print(value);},
-                numberOfColumns: 6,
-                numberOfRows: 1,
-                scrollDirection: Axis.horizontal,
-                title: 'Can not deactivate these businesses',
-              ),
-
-              SuperVerse(
-               verse: 'Would you like to continue ?',
-               margin: 10,
-              ),
-
-            ],
-          ),
+          bzzToDeactivate: _bzzToDeactivate,
+          bzzToKeep: _bzzToKeep,
         );
 
         if (_bzzReviewResult == false) {
@@ -286,53 +262,10 @@ class UserOps{
           print('no Do not deactivate ');
         } else {
 
-          int _totalNumOfFlyers = FlyerModel.getNumberOfFlyersFromBzzModels(_bzzToDeactivate);
-          int _numberOfBzz = _bzzToDeactivate.length;
-
           /// b - show dialog
-          bool _flyersReviewResult = await superDialog(
+          bool _flyersReviewResult = await flyersDeactivationDialog(
             context: context,
-            title: '',
-            body: 'You Have $_totalNumOfFlyers flyers that will be deactivated and can not be retrieved',
-            boolDialog: true,
-            height: Scale.superScreenHeight(context) * 0.9,
-            child: Column(
-              children: <Widget>[
-
-                Container(
-                  // width: superBubbleClearWidth(context),
-                  height: Scale.superScreenHeight(context) * 0.6,
-                  child: ListView.builder(
-                    itemCount: _numberOfBzz,
-                    scrollDirection: Axis.vertical,
-                    itemBuilder: (context, index){
-
-                      return
-                        FlyersBubble(
-                          tinyFlyers: TinyFlyer.getTinyFlyersFromBzModel(_bzzToDeactivate[index]),
-                          flyerSizeFactor: 0.2,
-                          numberOfColumns: 2,
-                          title: 'flyers of ${_bzzToDeactivate[index].bzName}',
-                          numberOfRows: 1,
-                          bubbleWidth: Scale.superDialogWidth(context) - (Ratioz.ddAppBarMargin * 4),
-                          onTap: (value){
-                            print(value);
-                          },
-                        );
-                    },
-
-
-
-                  ),
-                ),
-
-                SuperVerse(
-                  verse: 'Would you like to continue ?',
-                  margin: 10,
-                ),
-
-              ],
-            ),
+            bzzToDeactivate: _bzzToDeactivate,
           );
 
           if (_flyersReviewResult == false){
@@ -351,15 +284,6 @@ class UserOps{
             );
 
             for (var bz in _bzzToDeactivate){
-
-              // /// de-activate flyers
-              // for (var flyer in bz.bzFlyers){
-              //   await FlyerCRUD().deactivateFlyerOps(
-              //     context: context,
-              //     bzModel: bz,
-              //     flyerID: flyer.flyerID,
-              //   );
-              // }
 
               /// de-activate bz
              await BzOps().deactivateBzOps(
@@ -417,5 +341,155 @@ class UserOps{
 
   }
 // -----------------------------------------------------------------------------
+  /// super delete user account
+  /// TASK : CLOUD FUNCTION : delete user ops should trigger a cloud function instead of firing these entire functions from client
+  Future<void> superDeleteUserOps({BuildContext context, UserModel userModel}) async {
+    /// but for now : we will break the logic down
 
+    /// 1 - if user is Author
+    /// show user which bzz he will deleter
+    /// and which flyers he will delete
+    /// then proceed with super delete bz ops
+    bool _result = await superDialog(
+      context: context,
+      title: 'This will Delete all your data',
+      body: 'all pictures, flyers, businesses, your user records will be deleted for good\nDo you want to proceed ?',
+      boolDialog: true,
+    );
+
+    /// so if user chooses not to continue, we cancel ops
+    if (_result == false){
+      // do nothing
+      print('no Do not deactivate ');
+    }
+
+    /// if user chooses to continue delete
+    else {
+
+      print('CRUD OPS');
+
+      /// 1. if user is Author go through dialogs to delete all bzz and their flyers if possible :-
+      if (userModel.myBzzIDs.length != 0){
+
+        /// WAITING DIALOG
+        superDialog(
+          context: context,
+          title: '',
+          boolDialog: null,
+          height: null,
+          body: 'Waiting',
+          child: Loading(loading: true,),
+        );
+
+        FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
+
+        /// a - get all user tiny bzz
+        List<BzModel> _bzzToDeactivate = new List();
+        List<BzModel> _bzzToKeep = new List();
+
+        /// read bz ops for each bz id in userModel and filter them according to number of authors
+        for (var id in userModel.myBzzIDs){
+          BzModel _bz = await BzOps.readBzOps(
+            context: context,
+            bzID: id,
+          );
+          if (_bz.bzAuthors.length == 1){
+            _bzzToDeactivate.add(_bz);
+          } else {
+            _bzzToKeep.add(_bz);
+          }
+        }
+
+        /// CLOSE WAITING DIALOG
+        Nav.goBack(context);
+
+        /// b - show dialog of which bzz can and will be deleted
+        bool _bzzReviewResult = await bzzDeactivationDialog(
+          context: context,
+          bzzToDeactivate: _bzzToDeactivate,
+          bzzToKeep: _bzzToKeep,
+        );
+
+        /// so if user chooses to cancel ops
+        if (_bzzReviewResult == false) {
+          // do nothing
+          print('no Do not deactivate ');
+        }
+
+        /// and if user chooses to continue ops
+        else {
+
+          /// b - show dialog of which flyers can and will be deleted
+          bool _flyersReviewResult = await flyersDeactivationDialog(
+            context: context,
+            bzzToDeactivate: _bzzToDeactivate,
+          );
+
+          /// if user chooses to cancel ops
+          if (_flyersReviewResult == false){
+            // do nothing
+            print('no Do not delete ');
+          }
+
+          /// if user chooses to continue ops
+          else {
+
+            /// SHOW WAITING DIALOG
+            superDialog(
+              context: context,
+              title: '',
+              boolDialog: null,
+              height: null,
+              body: 'Waiting',
+              child: Loading(loading: true,),
+            );
+
+            /// start delete bz ops for all possible bzz
+            for (var bz in _bzzToDeactivate){
+              await BzOps().superDeleteBzOps(
+                context: context,
+                bzModel: bz,
+              );
+            }
+
+            /// CLOSE WAITING DIALOG
+            Nav.goBack(context);
+
+          }
+
+        }
+
+        print('all ${_bzzToDeactivate.length} bzz are deleted');
+      }
+
+      /// 2 - delete tiny user
+      print('deleting tinyUser');
+      await Fire.deleteDoc(
+        context: context,
+        collName: FireCollection.tinyUsers,
+        docName: userModel.userID,
+      );
+
+      /// 3 - delete user image
+      print('deleting user pic');
+      await Fire.deleteStoragePic(
+        context: context,
+        picType: PicType.userPic,
+        fileName: userModel.userID,
+      );
+
+      /// 4 - delete user doc
+      print('deleting user doc');
+      await Fire.deleteDoc(
+        context: context,
+        collName: FireCollection.users,
+        docName: userModel.userID,
+      );
+
+
+    }
+
+
+  }
+// -----------------------------------------------------------------------------
 }

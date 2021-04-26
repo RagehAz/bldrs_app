@@ -30,7 +30,7 @@ class Page2 extends StatelessWidget {
               verse: 'POP : page 2',
               secondLine: 'And return true',
               height: 50,
-              verseScaleFactor: 1,
+              verseScaleFactor: 0.7,
               color: Colorz.BlackBlack,
               boxMargins: EdgeInsets.all(5),
               boxFunction: () async {
@@ -44,7 +44,7 @@ class Page2 extends StatelessWidget {
               verse: 'POP : all till home screen',
               // secondLine: '',
               height: 50,
-              verseScaleFactor: 1,
+              verseScaleFactor: 0.7,
               color: Colorz.BlackBlack,
               boxMargins: EdgeInsets.all(5),
               boxFunction: () async {
@@ -60,7 +60,7 @@ class Page2 extends StatelessWidget {
               verse: 'POP : page 2',
               secondLine: 'And return string',
               height: 50,
-              verseScaleFactor: 1,
+              verseScaleFactor: 0.7,
               color: Colorz.BlackBlack,
               boxMargins: EdgeInsets.all(5),
               boxFunction: () async {

@@ -26,7 +26,7 @@ class DreamBox extends StatelessWidget {
   final bool verseItalic;
   final int verseMaxLines;
   final Function boxFunction;
-  final EdgeInsets boxMargins;
+  final dynamic boxMargins;
   final bool blackAndWhite;
   final bool iconRounded;
   final bool bubble;
@@ -122,6 +122,17 @@ class DreamBox extends StatelessWidget {
 
     TextDirection _textDirection = textDirection == null ? superTextDirection(context) : textDirection;
 
+    EdgeInsets _boxMargins =
+        boxMargins == null ? EdgeInsets.all(0)
+            :
+        boxMargins.runtimeType == double ? EdgeInsets.all(boxMargins)
+            :
+        boxMargins.runtimeType == int ? EdgeInsets.all(boxMargins.toDouble())
+            :
+        boxMargins.runtimeType == EdgeInsets ? boxMargins
+            :
+        boxMargins;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -133,7 +144,7 @@ class DreamBox extends StatelessWidget {
           child: Opacity(
             opacity: inActiveMode == true ? 0.5 : opacity,
             child: Padding(
-              padding: boxMargins == null ? EdgeInsets.all(0) : boxMargins,
+              padding: _boxMargins,
               child: Container(
                 color: designMode == true ? Colorz.BloodTest : null,
                 child: Column(

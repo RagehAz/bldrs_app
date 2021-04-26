@@ -57,7 +57,89 @@ class _MyBzScreenState extends State<MyBzScreen> {
     super.initState();
   }
 // -----------------------------------------------------------------------------
-  Future <void> _goToEditBzProfile(BzModel bzModel) async {
+  Future<void> _deleteBzOnTap(BzModel bzModel) async {
+
+    Nav.goBack(context);
+
+    bool _dialogResult = await superDialog(
+      context: context,
+      title: '',
+      body: 'Are you sure you want to Delete ${bzModel.bzName} Business account ?',
+      boolDialog: true,
+    );
+
+    print(_dialogResult);
+
+    /// if user chooses to stop ops
+    if (_dialogResult == false){
+      print('user cancelled ops');
+    }
+
+    /// if user chose to continue ops
+    else {
+
+      /// start delete bz ops
+      await BzOps().superDeleteBzOps(
+        context: context,
+        bzModel: bzModel,
+      );
+
+      /// remove tinyBz from Local list
+      FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
+      _prof.removeTinyBzFromLocalList(bzModel.bzID);
+
+      /// remove tinyBz from local userTinyBzz
+      _prof.removeTinyBzFromLocalUserTinyBzz(bzModel.bzID);
+
+      /// re-route back
+      Nav.goBack(context, argument: true);
+
+    }
+}
+// -----------------------------------------------------------------------------
+  Future<void> _deactivateBzOnTap(BzModel bzModel) async {
+
+      /// close bottom sheet
+      Nav.goBack(context);
+
+      bool _dialogResult = await superDialog(
+        context: context,
+        title: '',
+        body: 'Are you sure you want to Deactivate ${bzModel.bzName} Business account ?',
+        boolDialog: true,
+      );
+
+      print(_dialogResult);
+
+      /// if user chooses to cancel ops
+      if (_dialogResult == false) {
+        print('user cancelled ops');
+      }
+
+      /// if user chooses to continue ops
+      else {
+
+        /// start deactivate bz ops
+        await BzOps().deactivateBzOps(
+          context: context,
+          bzModel: bzModel,
+        );
+
+        /// remove tinyBz from Local list
+        FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
+        _prof.removeTinyBzFromLocalList(bzModel.bzID);
+
+        /// remove tinyBz from local userTinyBzz
+        _prof.removeTinyBzFromLocalUserTinyBzz(bzModel.bzID);
+
+        /// re-route back
+        Nav.goBack(context, argument: true);
+
+    }
+
+  }
+// -----------------------------------------------------------------------------
+  Future<void> _editBzOnTap(BzModel bzModel) async {
     var _result = await Navigator.push(context, new MaterialPageRoute(
       // maintainState: ,
       // settings: ,
@@ -88,53 +170,22 @@ class _MyBzScreenState extends State<MyBzScreen> {
       buttonHeight: _buttonHeight,
       buttons: <Widget>[
 
-          // --- DELETE BZ ACCOUNT AND ITS DECENDENTS
+          // --- DELETE BZ
           DreamBox(
             height: _buttonHeight,
             width: BottomSlider.bottomSheetClearWidth(context),
             icon: Iconz.XSmall,
             iconSizeFactor: 0.5,
             iconColor: Colorz.BloodRed,
-            verse: 'DELETE Business Account',
+            verse: 'delete Business Account',
             verseScaleFactor: 1.2,
             verseColor: Colorz.BloodRed,
             // verseWeight: VerseWeight.thin,
-            boxFunction: () async {
-
-              Nav.goBack(context);
-
-              /// Task : this should be bool dialog instead
-              ///
-              bool _dialogResult = await superDialog(
-                context: context,
-                title: '',
-                body: 'Are you sure you want to Delete ${bzModel.bzName} Business account ?',
-                boolDialog: true,
-              );
-
-              print(_dialogResult);
-
-              /// start delete bz ops
-              await BzOps().deleteBzOps(
-                context: context,
-                bzModel: bzModel,
-              );
-
-              /// remove tinyBz from Local list
-              FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
-              _prof.removeTinyBzFromLocalList(bzModel.bzID);
-
-              /// remove tinyBz from local userTinyBzz
-              _prof.removeTinyBzFromLocalUserTinyBzz(bzModel.bzID);
-
-
-              /// re-route back
-              Nav.goBack(context, argument: true);
-            },
+            boxFunction: () => _deleteBzOnTap(bzModel),
 
           ),
 
-          // --- DEACTIVATE BZ  ACCOUNT
+          // --- DEACTIVATE BZ
           DreamBox(
             height: _buttonHeight,
             width: BottomSlider.bottomSheetClearWidth(context),
@@ -145,38 +196,7 @@ class _MyBzScreenState extends State<MyBzScreen> {
             verseScaleFactor: 1.2,
             verseColor: Colorz.BloodRed,
             // verseWeight: VerseWeight.thin,
-            boxFunction: () async {
-
-              /// close bottom sheet
-              Nav.goBack(context);
-
-              /// Task : this should be bool dialog instead
-              bool _dialogResult = await superDialog(
-                context: context,
-                title: '',
-                body: 'Are you sure you want to Deactivate ${bzModel.bzName} Business account ?',
-                boolDialog: true,
-              );
-
-              print(_dialogResult);
-
-              /// start deactivate bz ops
-              await BzOps().deactivateBzOps(
-                context: context,
-                bzModel: bzModel,
-              );
-
-              /// remove tinyBz from Local list
-              FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
-              _prof.removeTinyBzFromLocalList(bzModel.bzID);
-
-              /// remove tinyBz from local userTinyBzz
-              _prof.removeTinyBzFromLocalUserTinyBzz(bzModel.bzID);
-
-              /// re-route back
-              Nav.goBack(context, argument: true);
-
-            },
+            boxFunction: () => _deactivateBzOnTap(bzModel)
 
           ),
 
@@ -189,7 +209,7 @@ class _MyBzScreenState extends State<MyBzScreen> {
             verse: 'Edit Business Account info',
             verseScaleFactor: 1.2,
             verseColor: Colorz.White,
-            boxFunction: () => _goToEditBzProfile(bzModel),
+            boxFunction: () => _editBzOnTap(bzModel),
           ),
 
         ],
