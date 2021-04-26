@@ -771,7 +771,11 @@ class Fire{
               fileName: fileName
           );
 
-          await _picRef.delete();
+          FullMetadata _metaData = await _picRef.getMetadata();
+
+          print('_metaData ------------------------- : $_metaData');
+
+          await _picRef?.delete();
         }
     );
 

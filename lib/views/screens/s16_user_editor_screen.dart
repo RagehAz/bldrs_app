@@ -92,7 +92,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     _twitterController.text = ContactModel.getAContactValueFromContacts(widget.user.contacts, ContactType.Twitter);
     super.initState();
   }
-  // ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   @override
   void dispose() {
     if (TextChecker.textControllerHasNoValue(_nameController))_nameController.dispose();
@@ -110,20 +110,20 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     if (TextChecker.textControllerHasNoValue(_twitterController))_twitterController.dispose();
     super.dispose();
   }
-  // ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   Future<void> _takeGalleryPicture() async {
     final _imageFile = await takeGalleryPicture(PicType.userPic);
     setState(() {_currentPicFile = _imageFile;});
   }
-  // ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   void _deleteLogo(){
     setState(() {_currentPicFile = null;});
   }
-  // ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   // void _changeGender(Gender gender){
   //   setState(()=> _currentGender = gender);
   // }
-  // ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   void _changeCountry(String countryID){
     setState(() {
       _currentCountryID = countryID;
@@ -131,22 +131,22 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       _currentAreaID = null;
     });
   }
-  // ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   void _changeProvince(String provinceID){
     setState(() {
       _currentProvinceID = provinceID;
       _currentAreaID = null;
     });
   }
-  // ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   void _changeArea(String areaID){
     setState(() {_currentAreaID = areaID;});
   }
-  // ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   // void _changePosition(GeoPoint geoPoint){
   //   setState(() => _currentPosition = geoPoint );
   // }
-  // ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   List<ContactModel> _createContactList({List<ContactModel> existingContacts}){
   /// takes current contacts, overrides them on existing contact list, then
   /// return a new contacts list with all old values and new overridden values
@@ -165,7 +165,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     );
     return newContacts;
   }
-  // ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   bool _inputsAreValid(){
     bool _inputsAreValid;
     if (_formKey.currentState.validate()){
@@ -175,10 +175,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     }
     return _inputsAreValid;
   }
-  // ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   void _confirmEdits() async {
-    // TASK : create bool dialog and use it here before confirming bz edits in bzEditor
-    // temp solution here below to just notify
 
     bool _continueOps = await superDialog(
       context: context,
@@ -192,7 +190,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       widget.firstTimer ? _createNewUser() : _updateExistingUser();
     }
   }
-  // ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   /// create new user
   void _createNewUser() async {
     /// validate all required fields are valid
@@ -252,7 +250,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     }
 
   }
-  // ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   /// update user
   void _updateExistingUser() async {
     /// validate all required fields are valid
@@ -313,35 +311,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
     }
   }
-  // ---------------------------------------------------------------------------
-  void _deleteUserAccount() async {
-    /// bool dialog ( i yes continue delete and ask for password , if no cancel operation and don't delete
-    // await superDialog(context, 'You will delete your account, and there is no going back !', 'Take Care !'); // should be bool dialog
-    //
-    // _triggerLoading();
-    // await tryAndCatch(
-    //   context: context,
-    //   functions: () async {
-    //
-    //     String _email = getAContactValueFromContacts(widget.user.contacts, ContactType.Email);
-    // await UserOps().deleteUserDoc(widget.user.userID);
-    //     await AuthService().deleteFirebaseUser(context, _email, '123456');
-    //
-    //   }
-    // );
-    //
-    // _triggerLoading();
-    //
-    // goToRoute(context, Routez.Starting);
-
-  }
-
-  Future<void> _superDeleteUserAccount() async {
-
-    await UserOps().superDeleteUserOps();
-
-  }
-  // ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -542,36 +512,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               boxMargins: EdgeInsets.all(20),
               boxFunction: _confirmEdits,
             ),
-
-            // --- DELETE ACCOUNT
-            if(!widget.firstTimer)
-            DreamBox(
-              height: 50,
-              width: Scale.superBubbleClearWidth(context),
-              color: Colorz.WhiteGlass,
-              icon: Iconz.XLarge,
-              iconColor: Colorz.BloodRed,
-              iconSizeFactor: 0.5,
-              verse: 'Delete Account',
-              verseScaleFactor: 1.5,
-              boxMargins: EdgeInsets.all(20),
-              boxFunction: _deleteUserAccount,
-            ),
-
-            // --- DELETE ACCOUNT
-            if(!widget.firstTimer)
-              DreamBox(
-                height: 50,
-                width: Scale.superBubbleClearWidth(context),
-                color: Colorz.WhiteGlass,
-                icon: Iconz.XLarge,
-                iconColor: Colorz.BloodRed,
-                iconSizeFactor: 0.5,
-                verse: 'Delete Account',
-                verseScaleFactor: 1.5,
-                boxMargins: EdgeInsets.all(20),
-                boxFunction: () => _superDeleteUserAccount(),
-              ),
 
             PyramidsHorizon(heightFactor: 5,)
 

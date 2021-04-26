@@ -341,8 +341,13 @@ class UserOps{
 
   }
 // -----------------------------------------------------------------------------
-  /// super delete user account
   /// TASK : CLOUD FUNCTION : delete user ops should trigger a cloud function instead of firing these entire functions from client
+  /// for now this :-
+  /// 1 - checks if user is Author, starts delete bz ops for all bzz that has no other authors sharing it
+  /// 2 - deletes : firestore/tinyUsers/userID
+  /// 3 - deletes : storage/usersPics/userID
+  /// 4 - deletes : firestore/users/userID
+  /// 5 - deletes : auth/userID TASK : deleting user authentication is not done
   Future<void> superDeleteUserOps({BuildContext context, UserModel userModel}) async {
     /// but for now : we will break the logic down
 

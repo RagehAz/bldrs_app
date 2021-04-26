@@ -355,7 +355,7 @@ class DreamBox extends StatelessWidget {
                                         verse: verse,
                                         size: _verseSize,
                                         weight: verseWeight,
-                                        color: blackAndWhite == true || inActiveMode == true ? Colorz.WhiteSmoke : verseColor,
+                                        color: blackAndWhite == true || inActiveMode == true ? Colorz.White30 : verseColor,
                                         shadow: blackAndWhite == true ? false : true,
                                         maxLines: verseMaxLines,
                                         designMode: false,
