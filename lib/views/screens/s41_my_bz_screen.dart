@@ -23,6 +23,7 @@ import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_sheet.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/max_header_parts/gallery.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -44,11 +45,11 @@ class _MyBzScreenState extends State<MyBzScreen> {
 // ---------------------------------------------------------------------------
   /// --- LOADING BLOCK
   bool _loading = false;
-  // void _triggerLoading(){
-  //   setState(() {_loading = !_loading;});
-  //   _loading == true?
-  //   print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
-  // }
+  void _triggerLoading(){
+    setState(() {_loading = !_loading;});
+    _loading == true?
+    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+  }
 // ---------------------------------------------------------------------------
   @override
   void initState() {
@@ -58,6 +59,7 @@ class _MyBzScreenState extends State<MyBzScreen> {
   }
 // -----------------------------------------------------------------------------
   Future<void> _deleteBzOnTap(BzModel bzModel) async {
+
 
     Nav.goBack(context);
 
@@ -78,6 +80,8 @@ class _MyBzScreenState extends State<MyBzScreen> {
     /// if user chose to continue ops
     else {
 
+      _triggerLoading();
+
       /// start delete bz ops
       await BzOps().superDeleteBzOps(
         context: context,
@@ -90,6 +94,8 @@ class _MyBzScreenState extends State<MyBzScreen> {
 
       /// remove tinyBz from local userTinyBzz
       _prof.removeTinyBzFromLocalUserTinyBzz(bzModel.bzID);
+
+      _triggerLoading();
 
       /// re-route back
       Nav.goBack(context, argument: true);
@@ -119,6 +125,8 @@ class _MyBzScreenState extends State<MyBzScreen> {
       /// if user chooses to continue ops
       else {
 
+        _triggerLoading();
+
         /// start deactivate bz ops
         await BzOps().deactivateBzOps(
           context: context,
@@ -131,6 +139,8 @@ class _MyBzScreenState extends State<MyBzScreen> {
 
         /// remove tinyBz from local userTinyBzz
         _prof.removeTinyBzFromLocalUserTinyBzz(bzModel.bzID);
+
+        _triggerLoading();
 
         /// re-route back
         Nav.goBack(context, argument: true);
@@ -176,10 +186,11 @@ class _MyBzScreenState extends State<MyBzScreen> {
             width: BottomSlider.bottomSheetClearWidth(context),
             icon: Iconz.XSmall,
             iconSizeFactor: 0.5,
-            iconColor: Colorz.BloodRed,
+            iconColor: Colorz.BlackBlack,
             verse: 'delete Business Account',
             verseScaleFactor: 1.2,
-            verseColor: Colorz.BloodRed,
+            verseWeight: VerseWeight.black,
+            verseColor: Colorz.BlackBlack,
             // verseWeight: VerseWeight.thin,
             boxFunction: () => _deleteBzOnTap(bzModel),
 
@@ -223,7 +234,7 @@ class _MyBzScreenState extends State<MyBzScreen> {
     Nav.goToNewScreen(context, OldFlyerScreen(bz: bzModel));
 
   }
-
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

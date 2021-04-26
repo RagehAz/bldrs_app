@@ -89,7 +89,7 @@ class _StartingScreenState extends State<StartingScreen> {
 
           }
 
-          /// if userModel is no completed
+          /// if userModel is not completed
           else {
 
             _triggerLoading();
@@ -106,7 +106,12 @@ class _StartingScreenState extends State<StartingScreen> {
             bool _firstTimer = _result['firstTimer'];
 
             /// and route to complete profile missing data
-            Nav.goToNewScreen(context, EditProfileScreen(user: _userModel, firstTimer: _firstTimer,),);
+            await Nav.goToNewScreen(context, EditProfileScreen(user: _userModel, firstTimer: _firstTimer,),);
+
+            /// after returning from edit profile, we go to user checker
+            Nav.goToNewScreen(context, UserChecker());
+
+
           }
 
     }
