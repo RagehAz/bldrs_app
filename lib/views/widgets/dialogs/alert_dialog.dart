@@ -4,6 +4,12 @@ import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/models/bz_model.dart';
+import 'package:bldrs/models/flyer_model.dart';
+import 'package:bldrs/models/tiny_models/tiny_bz.dart';
+import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
+import 'package:bldrs/views/widgets/bubbles/bzz_bubble.dart';
+import 'package:bldrs/views/widgets/bubbles/flyers_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
@@ -265,4 +271,107 @@ Future<void> authErrorDialog({BuildContext context, dynamic result}) async {
     boolDialog: false,
   );
 
+}
+// -----------------------------------------------------------------------------
+Future<bool> bzzDeactivationDialog({
+  BuildContext context,
+  List<BzModel> bzzToDeactivate,
+  List<BzModel> bzzToKeep,
+}) async {
+
+  bool _bzzReviewResult = await superDialog(
+    context: context,
+    title: 'You Have ${bzzToDeactivate.length + bzzToKeep.length} business accounts',
+    body: 'All Business accounts will be deactivated except those shared with other authors',
+    boolDialog: true,
+    height: Scale.superScreenHeight(context) * 0.8,
+    child: Column(
+      children: <Widget>[
+
+        BzzBubble(
+          tinyBzz: TinyBz.getTinyBzzFromBzzModels(bzzToDeactivate),
+          onTap: (value){print(value);},
+          numberOfColumns: 6,
+          numberOfRows: 1,
+          scrollDirection: Axis.horizontal,
+          title: 'These Accounts will be deactivated',
+        ),
+
+        BzzBubble(
+          tinyBzz: TinyBz.getTinyBzzFromBzzModels(bzzToKeep),
+          onTap: (value){print(value);},
+          numberOfColumns: 6,
+          numberOfRows: 1,
+          scrollDirection: Axis.horizontal,
+          title: 'Can not deactivate these businesses',
+        ),
+
+        SuperVerse(
+          verse: 'Would you like to continue ?',
+          margin: 10,
+        ),
+
+      ],
+    ),
+  );
+
+  return _bzzReviewResult;
+
+}
+// -----------------------------------------------------------------------------
+Future<bool> flyersDeactivationDialog({
+  BuildContext context,
+  List<BzModel> bzzToDeactivate,
+}) async {
+
+  int _totalNumOfFlyers = FlyerModel.getNumberOfFlyersFromBzzModels(bzzToDeactivate);
+  int _numberOfBzz = bzzToDeactivate.length;
+
+  bool _flyersReviewResult = await superDialog(
+    context: context,
+    title: '',
+    body: 'You Have $_totalNumOfFlyers flyers that will be deactivated and can not be retrieved',
+    boolDialog: true,
+    height: Scale.superScreenHeight(context) * 0.9,
+    child: Column(
+      children: <Widget>[
+
+        Container(
+          // width: superBubbleClearWidth(context),
+          height: Scale.superScreenHeight(context) * 0.6,
+          child: ListView.builder(
+            itemCount: _numberOfBzz,
+            scrollDirection: Axis.vertical,
+            itemBuilder: (context, index){
+
+              return
+                FlyersBubble(
+                  tinyFlyers: TinyFlyer.getTinyFlyersFromBzModel(bzzToDeactivate[index]),
+                  flyerSizeFactor: 0.2,
+                  numberOfColumns: 2,
+                  title: 'flyers of ${bzzToDeactivate[index].bzName}',
+                  numberOfRows: 1,
+                  bubbleWidth: Scale.superDialogWidth(context) - (Ratioz.ddAppBarMargin * 4),
+                  onTap: (value){
+                    print(value);
+                  },
+                );
+            },
+
+
+
+          ),
+        ),
+
+        SuperVerse(
+          verse: 'Would you like to continue ?',
+          margin: 10,
+        ),
+
+      ],
+    ),
+  );
+
+
+  return _flyersReviewResult;
 }

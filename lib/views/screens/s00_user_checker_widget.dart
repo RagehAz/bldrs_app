@@ -2,7 +2,6 @@ import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/views/screens/s01_starting_screen.dart';
 import 'package:bldrs/views/screens/s03_loading_screen.dart';
-import 'package:bldrs/views/screens/s16_user_editor_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

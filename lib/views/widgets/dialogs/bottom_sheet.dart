@@ -215,9 +215,9 @@ class BottomSlider{
   }
 // ---------------------------------------------------------------------------
   static double bottomSheetClearWidth (BuildContext context){
-    double _clearWidth = Scale.superScreenWidth(context) - (Ratioz.ddAppBarMargin);
+    double _clearWidth = Scale.superScreenWidth(context) - (Ratioz.ddAppBarMargin * 2) - (Ratioz.ddAppBarPadding * 2);
     return
-      _clearWidth * 0.95; // 0.95 to avoid having the parent container trim buttons shadows
+      _clearWidth ; // 0.95 to avoid having the parent container trim buttons shadows
   }
 // ---------------------------------------------------------------------------
   /// height ratio is by which factor from 0 to 1 the bottom sheet occupy the space
