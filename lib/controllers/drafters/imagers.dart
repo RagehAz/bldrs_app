@@ -192,6 +192,7 @@ Future<File> getImageFileFromAssets(BuildContext context, String inputAsset) asy
   String asset = ObjectChecker.objectIsSVG(inputAsset) ? Iconz.DumBusinessLogo : inputAsset;
   await tryAndCatch(
       context: context,
+      methodName : 'getImageFileFromAssets',
       functions: () async {
         print('0. removing assets/ from input image path');
         String _pathTrimmed = removeNumberOfCharactersFromAString(asset, 7);

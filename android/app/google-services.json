@@ -15,93 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "439018969330-atot5flcejnfotittphdc6lambbun4h0.apps.googleusercontent.com",
+          "client_id": "439018969330-ci637ds3apj67tck3dbj4f59ds78uh5m.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.bldrs.net",
-            "certificate_hash": "3f9e32bf17544142e070ac79e477015f39c9b65a"
-          }
-        },
-        {
-          "client_id": "439018969330-askc9gq2d8mrv6k4n3u2heodkq1rfb3e.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyD5IaZsHjj_rlagXm-9Hq0Epl7bEtdsmho"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "439018969330-askc9gq2d8mrv6k4n3u2heodkq1rfb3e.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "439018969330-o93if8djhfn3naftc361uker0s97n5oj.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.bldrs.net",
-                "app_store_id": "161803398875"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:439018969330:android:eb5211399ceb6de403186b",
-        "android_client_info": {
-          "package_name": "com.bldrs.net"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "439018969330-askc9gq2d8mrv6k4n3u2heodkq1rfb3e.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyD5IaZsHjj_rlagXm-9Hq0Epl7bEtdsmho"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "439018969330-askc9gq2d8mrv6k4n3u2heodkq1rfb3e.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "439018969330-o93if8djhfn3naftc361uker0s97n5oj.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.bldrs.net",
-                "app_store_id": "161803398875"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:439018969330:android:eb5211399ceb6de403186b",
-        "android_client_info": {
-          "package_name": "com.bldrs.net"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "439018969330-qbhtleqgvjp7kajqkoarbhdti8okc1ue.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.bldrs.net",
-            "certificate_hash": "3f9e32bf17544142e070ac79e477015f39c9b65a"
+            "certificate_hash": "9ff3c667c55fdbfb222dec58c299b39780c07b54"
           }
         },
         {

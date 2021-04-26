@@ -4,30 +4,105 @@ import 'package:bldrs/controllers/router/route_names.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
+import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
+import 'package:bldrs/models/user_model.dart';
+import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/views/screens/s02_auth_screen.dart';
+import 'package:bldrs/views/screens/s16_user_editor_screen.dart';
 import 'package:bldrs/views/widgets/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/views/widgets/buttons/bt_main.dart';
+import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class StartingScreen extends StatelessWidget {
+import 's00_user_checker_widget.dart';
+
+class StartingScreen extends StatefulWidget {
 // -----------------------------------------------------------------------------
-/// should fetch user current location automatically and suggest them here
+  @override
+  _StartingScreenState createState() => _StartingScreenState();
+}
+
+class _StartingScreenState extends State<StartingScreen> {
+/// TASK : should fetch user current location automatically and suggest them here
   final Zone currentZone = Zone(countryID: '', provinceID: '', areaID: '');
-// -----------------------------------------------------------------------------
-  void _tapGoogleContinue(BuildContext context) {
-      // signInWithGoogle(context, currentZone).then((result) {
-      //   if (result != null) {return goToNewScreen(context, EditProfileScreen(firstTimer: true, user: xxxxxxxxxxxxxxxxxxxxxx,));}
-      // });
+  CountryProvider _countryPro;
+  // -----------------------------------------------------------------------------
+  /// --- LOADING BLOCK
+  bool _loading = false;
+  void _triggerLoading(){
+    setState(() {_loading = !_loading;});
+    _loading == true?
+    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
   }
 // -----------------------------------------------------------------------------
+  @override
+  void initState() {
+    /// get user current location
+    // TASK : need to trace user current location and pass it here while creating the userModel from firebase User
+    _countryPro = Provider.of<CountryProvider>(context, listen: false);
+    super.initState();
+  }
+
+  Future<void> _tapGoogleContinue(BuildContext context) async {
+
+    _triggerLoading();
+
+    dynamic _result = await AuthOps().googleSignInOps(context, _countryPro.currentZone);
+
+    if(_result.runtimeType == String){
+
+      _triggerLoading();
+
+      /// pop error dialog
+      await authErrorDialog(context: context, result: _result);
+
+    } else {
+
+          /// so sign in succeeded returning a userModel
+          UserModel _userModel = _result;
+          print('_tapGoogleContinue : _userModel : $_userModel');
+
+          /// check if user model is properly completed
+          List<String> _missingFields = UserModel.missingFields(_userModel);
+          print('_tapGoogleContinue : _missingFields : $_missingFields');
+          if (_missingFields.length == 0){
+
+            print('_missingFields.length == 0 : ${_missingFields.length == 0}');
+            _triggerLoading();
+
+            /// so userModel required fields are entered route to userChecker screen
+            Nav.goToNewScreen(context, UserChecker());
+
+          } else {
+
+            _triggerLoading();
+
+            /// if userModel is not completed pop Alert
+            await superDialog(
+              context: context,
+              title: 'Ops!',
+              body: 'You have to complete your profile info\n ${_missingFields.toString()}',
+              boolDialog: false,
+            );
+
+            /// and route to complete profile missing data
+            Nav.goToNewScreen(context, EditProfileScreen(user: _userModel, firstTimer: false,),);
+          }
+
+
+    }
+
+  }
+
   void _tapFacebookContinue(BuildContext context){
       // signUpWithFacebook(context, currentZone).then((result) {
       //   if (result != null) {return goToNewScreen(context, EditProfileScreen(firstTimer: true, user: xxxxxxxxxxxxxxxxxxxxxx,));}
       // });
     }
-// -----------------------------------------------------------------------------
+
   @override
   Widget build(BuildContext context) {
 
@@ -35,6 +110,7 @@ class StartingScreen extends StatelessWidget {
       pyramids: Iconz.PyramidzYellow,
       sky: Sky.Black,
       appBarType: AppBarType.Intro,
+      loading: _loading,
       layoutWidget: Stack(
         children: <Widget>[
           // --- stuff
