@@ -29,7 +29,7 @@ class _StartingScreenState extends State<StartingScreen> {
 /// TASK : should fetch user current location automatically and suggest them here
   final Zone currentZone = Zone(countryID: '', provinceID: '', areaID: '');
   CountryProvider _countryPro;
-  // -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   /// --- LOADING BLOCK
   bool _loading = false;
   void _triggerLoading(){
@@ -46,12 +46,14 @@ class _StartingScreenState extends State<StartingScreen> {
     super.initState();
   }
 
-  Future<void> _tapGoogleContinue(BuildContext context) async {
+  Future<void> _tapGoogleContinue() async {
 
     _triggerLoading();
 
+    /// start google auth ops
     dynamic _result = await AuthOps().googleSignInOps(context, _countryPro.currentZone);
 
+    /// if auth returns error string we show dialog
     if(_result.runtimeType == String){
 
       _triggerLoading();
@@ -59,15 +61,24 @@ class _StartingScreenState extends State<StartingScreen> {
       /// pop error dialog
       await authErrorDialog(context: context, result: _result);
 
-    } else {
+    }
+
+    /// if auth returns a Map<String, dynamic>, we check its completion
+    /// Map<String, dynamic> _map = {
+    /// 'userModel' : userModel,
+    /// 'firstTimer' : true or false,
+    /// };
+    else {
 
           /// so sign in succeeded returning a userModel
-          UserModel _userModel = _result;
+          UserModel _userModel = _result['userModel'];
           print('_tapGoogleContinue : _userModel : $_userModel');
 
           /// check if user model is properly completed
           List<String> _missingFields = UserModel.missingFields(_userModel);
           print('_tapGoogleContinue : _missingFields : $_missingFields');
+
+          /// so if user model is completed
           if (_missingFields.length == 0){
 
             print('_missingFields.length == 0 : ${_missingFields.length == 0}');
@@ -76,11 +87,14 @@ class _StartingScreenState extends State<StartingScreen> {
             /// so userModel required fields are entered route to userChecker screen
             Nav.goToNewScreen(context, UserChecker());
 
-          } else {
+          }
+
+          /// if userModel is no completed
+          else {
 
             _triggerLoading();
 
-            /// if userModel is not completed pop Alert
+            /// pop a dialog
             await superDialog(
               context: context,
               title: 'Ops!',
@@ -88,10 +102,12 @@ class _StartingScreenState extends State<StartingScreen> {
               boolDialog: false,
             );
 
-            /// and route to complete profile missing data
-            Nav.goToNewScreen(context, EditProfileScreen(user: _userModel, firstTimer: false,),);
-          }
+            /// check if its his first time or not
+            bool _firstTimer = _result['firstTimer'];
 
+            /// and route to complete profile missing data
+            Nav.goToNewScreen(context, EditProfileScreen(user: _userModel, firstTimer: _firstTimer,),);
+          }
 
     }
 
@@ -142,7 +158,7 @@ class _StartingScreenState extends State<StartingScreen> {
                 buttonColor: Colorz.GoogleRed,
                 splashColor: Colorz.Yellow,
                 buttonVerseShadow: false,
-                function: ()=> _tapGoogleContinue(context),
+                function: _tapGoogleContinue,
                 stretched: false,
               )
                   :

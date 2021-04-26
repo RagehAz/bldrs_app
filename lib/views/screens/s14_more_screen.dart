@@ -26,15 +26,6 @@ class MoreScreen extends StatelessWidget {
     @required this.userModel,
 });
 // -----------------------------------------------------------------------------
-  Future<void> _signOut(BuildContext context) async {
-
-      print('Signing out');
-      await AuthOps().googleSignOutOps();
-      await _authOps.emailSignOutOps(context);
-      Nav.goToRoute(context, Routez.Starting);
-
-  }
-// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -148,7 +139,7 @@ class MoreScreen extends StatelessWidget {
             verse: Wordz.signOut(context),
             icon: Iconz.Exit,
             iconSizeFactor: 0.6,
-            btOnTap: () => _signOut(context),
+            btOnTap: () => AuthOps().signOut(context),
           ),
 
           _separator,

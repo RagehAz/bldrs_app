@@ -335,6 +335,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     // goToRoute(context, Routez.Starting);
 
   }
+
+  Future<void> _superDeleteUserAccount() async {
+
+    await UserOps().superDeleteUserOps();
+
+  }
   // ---------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -541,6 +547,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             if(!widget.firstTimer)
             DreamBox(
               height: 50,
+              width: Scale.superBubbleClearWidth(context),
               color: Colorz.WhiteGlass,
               icon: Iconz.XLarge,
               iconColor: Colorz.BloodRed,
@@ -550,6 +557,21 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               boxMargins: EdgeInsets.all(20),
               boxFunction: _deleteUserAccount,
             ),
+
+            // --- DELETE ACCOUNT
+            if(!widget.firstTimer)
+              DreamBox(
+                height: 50,
+                width: Scale.superBubbleClearWidth(context),
+                color: Colorz.WhiteGlass,
+                icon: Iconz.XLarge,
+                iconColor: Colorz.BloodRed,
+                iconSizeFactor: 0.5,
+                verse: 'Delete Account',
+                verseScaleFactor: 1.5,
+                boxMargins: EdgeInsets.all(20),
+                boxFunction: () => _superDeleteUserAccount(),
+              ),
 
             PyramidsHorizon(heightFactor: 5,)
 

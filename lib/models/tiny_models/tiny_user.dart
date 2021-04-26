@@ -56,6 +56,7 @@ class TinyUser {
   static TinyUser getTinyUserFromUserModel(UserModel userModel){
     return TinyUser(
         userID: userModel.userID,
+
         name: userModel.name,
         title: userModel.title,
         pic: userModel.pic,

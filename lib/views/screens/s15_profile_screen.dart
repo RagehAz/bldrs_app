@@ -3,6 +3,7 @@ import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
+import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/firestore/bz_ops.dart';
 import 'package:bldrs/firestore/user_ops.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
@@ -36,7 +37,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   List<String> _followedBzzIDs;
   FlyersProvider _pro;
   bool _isInit = true;
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   /// --- LOADING BLOCK
   bool _loading = false;
   void _triggerLoading(){
@@ -44,14 +45,14 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     _loading == true?
     print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   @override
   void initState() {
     _followedTinyBzz = new List();
     _followedBzzIDs = new List();
   super.initState();
   }
-  // ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   @override
   void didChangeDependencies() {
     if (_isInit) {
@@ -81,9 +82,9 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     _isInit = false;
     super.didChangeDependencies();
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   void rebuildGrid(){setState(() {});}
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   final _status = <Map<String, dynamic>>[
     {
       'title': 'Property Status',
@@ -101,101 +102,241 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
       ],
     },
   ];
-// ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   void _switchUserStatus (UserStatus type){
     setState(() {
       _currentUserStatus = type;
     });
   }
-// ----------------------------------------------------------------------------
-  void _slideUserAccountOptions(UserModel userModel, ){
+// -----------------------------------------------------------------------------
+  Future<void> _deleteUserOnTap(UserModel userModel) async {
+
+    /// close bottom sheet
+    Nav.goBack(context);
+
+    /// pop confirmation dialog
+    bool _dialogResult = await superDialog(
+      context: context,
+      title: '',
+      body: 'Are you sure you want to Delete your account ?',
+      boolDialog: true,
+    );
+
+    print(_dialogResult);
+
+    /// if user wants to continue
+    if (_dialogResult == false) {
+      print('user cancelled ops');
+    }
+
+    /// and if user wants to continue ops
+    else {
+
+      /// start delete bz ops
+      await UserOps().superDeleteUserOps(
+        context: context,
+        userModel: userModel,
+      );
+
+      /// sign out user
+      await AuthOps().signOut(context);
+
+      // /// re-route back
+      // Nav.goBack(context, argument: true);
+
+    }
+
+  }
+// -----------------------------------------------------------------------------
+  Future<void> _deactivateUserOnTap(UserModel userModel) async {
+
+      /// close bottom sheet
+      Nav.goBack(context);
+
+      /// pop confirmation dialog
+      bool _dialogResult = await superDialog(
+        context: context,
+        title: '',
+        body: 'Are you sure you want to Deactivate your account ?',
+        boolDialog: true,
+      );
+
+      print(_dialogResult);
+
+      /// if user wants to cancel ops
+      if (_dialogResult == false){
+        print('user cancelled the operation');
+      }
+
+      /// if user wants to continue ops
+      else {
+
+        /// start deactivate user ops
+        await UserOps().deactivateUserOps(
+          context: context,
+          userModel: userModel,
+        );
+
+        /// sign out user
+        await AuthOps().signOut(context);
+
+        // /// re-route back
+        // Nav.goBack(context, argument: true);
+
+      }
+
+  }
+// -----------------------------------------------------------------------------
+  Future<void> _editUserOnTap(UserModel userModel) async {
+    Nav.goToNewScreen(context, EditProfileScreen(user: userModel,));
+  }
+// -----------------------------------------------------------------------------
+//   void _slideUserAccountOptions(UserModel userModel, ){
+//
+//     double _buttonHeight = 50;
+//
+//     Widget _button({
+//       String icon,
+//       Color iconColor,
+//       String verse,
+//       Color verseColor,
+//       Function function}){
+//       return
+//         DreamBox(
+//           height: _buttonHeight,
+//           width: BottomSlider.bottomSheetClearWidth(context),
+//           icon: icon,
+//           iconSizeFactor: 0.5,
+//           iconColor: iconColor,
+//           verse: verse,
+//           verseScaleFactor: 1.2,
+//           verseColor: verseColor,
+//           // verseWeight: VerseWeight.thin,
+//           boxFunction: function,
+//         );
+//     }
+//
+//     BottomSlider.slideButtonsBottomSheet(
+//       context: context,
+//       buttonHeight: _buttonHeight,
+//       draggable: true,
+//       buttons: <Widget>[
+//
+//         _button(
+//           icon: Iconz.XLarge,
+//           verse: 'Deactivate Profile',
+//           iconColor: Colorz.BloodRed,
+//           verseColor: Colorz.BloodRed,
+//           function: () async {
+//
+//             /// close bottom sheet
+//             Nav.goBack(context);
+//
+//             /// Task : this should be bool dialog instead
+//             bool _result = await superDialog(
+//               context: context,
+//               title: 'Please confirm',
+//               body: 'Are you Sure you want to Deactivate your account ?',
+//               boolDialog: true,
+//             );
+//
+//             print('bool dialog is $_result');
+//
+//             if (_result == false) {
+//               // /// re-route back
+//               // Nav.goBack(context);
+//             }
+//             else {
+//
+//               /// start deactivate user ops
+//               await UserOps().deactivateUserOps(
+//                 context: context,
+//                 userModel: userModel,
+//               );
+//
+//               /// reRoute user to Oblivion out of app
+//
+//
+//               /// re-route back
+//               // Nav.goBack(context);
+//
+//             }
+//
+//           },
+//         ),
+//
+//         _button(
+//           icon: Iconz.Gears,
+//           verse: 'Edit Profile info',
+//           iconColor: Colorz.White,
+//           verseColor: Colorz.White,
+//           function: () => Nav.goToNewScreen(context, EditProfileScreen(user: userModel,)),
+//         ),
+//
+//         ],
+//
+//     );
+//
+//   }
+// -----------------------------------------------------------------------------
+  void _slideUserOptions(BuildContext context, UserModel userModel){
 
     double _buttonHeight = 50;
 
-    Widget _button({
-      String icon,
-      Color iconColor,
-      String verse,
-      Color verseColor,
-      Function function}){
-      return
+    BottomSlider.slideButtonsBottomSheet(
+      context: context,
+      draggable: true,
+      buttonHeight: _buttonHeight,
+      buttons: <Widget>[
+
+        // --- Delete user ops
         DreamBox(
           height: _buttonHeight,
           width: BottomSlider.bottomSheetClearWidth(context),
-          icon: icon,
+          icon: Iconz.XSmall,
           iconSizeFactor: 0.5,
-          iconColor: iconColor,
-          verse: verse,
-          verseScaleFactor: 1.2,
-          verseColor: verseColor,
-          // verseWeight: VerseWeight.thin,
-          boxFunction: function,
-        );
-    }
-
-    BottomSlider.slideButtonsBottomSheet(
-      context: context,
-      buttonHeight: _buttonHeight,
-      draggable: true,
-      buttons: <Widget>[
-
-        _button(
-          icon: Iconz.XLarge,
-          verse: 'Deactivate Profile',
           iconColor: Colorz.BloodRed,
+          verse: 'delete user Account',
+          verseScaleFactor: 1.2,
           verseColor: Colorz.BloodRed,
-          function: () async {
+          // verseWeight: VerseWeight.thin,
+          boxFunction: () => _deleteUserOnTap(userModel),
 
-            /// close bottom sheet
-            Nav.goBack(context);
-
-            /// Task : this should be bool dialog instead
-            bool _result = await superDialog(
-              context: context,
-              title: 'Please confirm',
-              body: 'Are you Sure you want to Deactivate your account ?',
-              boolDialog: true,
-            );
-
-            print('bool dialog is $_result');
-
-            if (_result == false) {
-              // /// re-route back
-              // Nav.goBack(context);
-            }
-            else {
-
-              /// start deactivate user ops
-              await UserOps().deactivateUserOps(
-                context: context,
-                userModel: userModel,
-              );
-
-              /// reRoute user to Oblivion out of app
-
-
-              /// re-route back
-              // Nav.goBack(context);
-
-            }
-
-          },
         ),
 
-        _button(
+        // --- Deactivate user ops
+        DreamBox(
+          height: _buttonHeight,
+          width: BottomSlider.bottomSheetClearWidth(context),
+          icon: Iconz.XSmall,
+          iconSizeFactor: 0.5,
+          iconColor: Colorz.BloodRed,
+          verse: 'Deactivate your Account',
+          verseScaleFactor: 1.2,
+          verseColor: Colorz.BloodRed,
+          // verseWeight: VerseWeight.thin,
+          boxFunction: () => _deactivateUserOnTap(userModel)
+
+        ),
+
+        // --- EDIT BZ
+        DreamBox(
+          height: _buttonHeight,
+          width: BottomSlider.bottomSheetClearWidth(context),
           icon: Iconz.Gears,
-          verse: 'Edit Profile info',
-          iconColor: Colorz.White,
+          iconSizeFactor: 0.5,
+          verse: 'Edit Business Account info',
+          verseScaleFactor: 1.2,
           verseColor: Colorz.White,
-          function: () => Nav.goToNewScreen(context, EditProfileScreen(user: userModel,)),
+          boxFunction: () => _editUserOnTap(userModel),
         ),
 
-        ],
+      ],
 
     );
 
   }
-// ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -220,7 +361,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                 UserBubble(
                   user: userModel,
                   switchUserType: (type) =>_switchUserStatus(type),
-                  editProfileBtOnTap: () => _slideUserAccountOptions(userModel),
+                  editProfileBtOnTap: () => _slideUserOptions(context, userModel),
                   loading: userModelIsLoading(userModel),
                 ),
 

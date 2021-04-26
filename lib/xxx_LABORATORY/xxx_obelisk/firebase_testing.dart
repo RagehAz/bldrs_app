@@ -3,6 +3,7 @@ import 'package:bldrs/controllers/drafters/file_formatters.dart';
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/text_generators.dart';
+import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/dumz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
@@ -27,6 +28,7 @@ import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/flyer/grids/flyers_grid.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
+import 'package:bldrs/xxx_LABORATORY/navigation_test/page_2.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -607,6 +609,29 @@ class _FirebasetestingState extends State<Firebasetesting> {
         dynamic _thing = AuthOps().getFirebaseUserProviderData();
 
         printResult('$_thing');
+
+        _triggerLoading();
+      },},
+      // -----------------------------------------------------------------------
+      {'Name' : 'read a user that does not exist', 'function' : () async {
+        _triggerLoading();
+
+        UserModel _user = await UserOps().readUserOps(
+          context: context,
+          userID: 'fdfd',
+        );
+
+        printResult('$_user');
+
+        _triggerLoading();
+      },},
+      // -----------------------------------------------------------------------
+      {'Name' : 'go to pushed screen', 'function' : () async {
+        _triggerLoading();
+
+        dynamic result = await Nav.goToNewScreen(context, Page2());
+
+        printResult('$result');
 
         _triggerLoading();
       },},
