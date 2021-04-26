@@ -18,6 +18,7 @@ import 'package:bldrs/xxx_LABORATORY/navigation_test/nav_test_home.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/aaa_state_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/dialog_test_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/firebase_testing.dart';
+import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/google_sign_in_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/share_and_gallery_image_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/text_field_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x03_font_test_screen.dart';
@@ -142,6 +143,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
             }
           ),
 
+          oButton('Google auth test', Iconz.ComGooglePlus, GoogleSignInTest()),
 
           oButton('Navigation test', Iconz.ArrowUp, NavTestHome()),
 

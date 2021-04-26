@@ -1,3 +1,5 @@
+import 'package:bldrs/controllers/router/navigators.dart';
+import 'package:bldrs/controllers/router/route_names.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/firestore/user_ops.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
@@ -10,6 +12,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 
 // an alert error should be thrown when firebase replies with the following line
@@ -167,12 +170,16 @@ class AuthOps {
 
     } else {
 
+
+
       /// when register succeeded returning firebase user, convert it to userModel
-      UserModel _initialUserModel = UserModel.createInitialUserModelFromUser(
+      UserModel _initialUserModel = await UserModel.createInitialUserModelFromUser(
         context: context,
         user: _user,
         zone: currentZone,
+        authBy: AuthBy.email,
       );
+
 
       /// create a new firestore document for the user with the userID
       UserModel _finalUserModel = await UserOps().createUserOps(userModel: _initialUserModel);
@@ -287,88 +294,167 @@ class AuthOps {
   /// google sign in instance
   final GoogleSignIn googleSignIn = GoogleSignIn();
 // -----------------------------------------------------------------------------
-  /// google sign in
+  /// google sign in to get firebase user to check if it has a userModel or to
+  /// create a new one
   Future<dynamic> googleSignInOps(BuildContext context, Zone currentZone) async {
     User _user;
 
+    /// 1 - start google sign in processes to get firebase user
+    // -------------------------------------------------------
     /// try google sign in
     dynamic _registerError = await tryCatchAndReturn(
         context: context,
         methodName: 'googleSignInOps',
         functions: () async {
 
-          /// get google sign in account
-          final GoogleSignInAccount _googleUser = await googleSignIn.signIn();
-          print('googleSignInOps : _googleUser : $_googleUser');
+          if
+          /// if it's on web
+          (kIsWeb){
 
-          /// get google authentication
-          final GoogleSignInAuthentication _googleAuth = await _googleUser.authentication;
-          print('googleSignInOps : _googleAuth : $_googleAuth');
+            /// get auth provider
+            GoogleAuthProvider authProvider = GoogleAuthProvider();
 
-          /// get auth credentials from google authentication
-          // TASK : signInMethod: google.com, can be found here
-          /// AuthCredential(providerId: google.com, signInMethod: google.com, token: null)
-          final AuthCredential _credential = GoogleAuthProvider.credential(
-            accessToken: _googleAuth.accessToken,
-            idToken: _googleAuth.idToken,
-          );
-          print('googleSignInOps : _credential : $_credential');
+            /// get user credential from auth provider
+            final UserCredential _userCredential = await _auth.signInWithPopup(authProvider);
 
-          /// sign in with google credential
-          final UserCredential _authResult = await _auth.signInWithCredential(
-              _credential);
-          print('googleSignInOps : _authResult : $_authResult');
+            /// get firebase user
+            _user = _userCredential.user;
+            print('googleSignInOps : _user : $_user');
 
-          /// get firebase user
-          _user = _authResult.user;
-          print('googleSignInOps : _user : $_user');
+          }
+
+          /// if kIsWeb != trye : so its android or ios
+          else {
+
+            /// get google sign in account
+            final GoogleSignInAccount _googleAccount = await googleSignIn.signIn();
+            print('googleSignInOps : _googleAccount : $_googleAccount');
+
+            if(_googleAccount != null){
+
+              /// get google sign in auth from google account
+              final GoogleSignInAuthentication _googleAuth = await _googleAccount.authentication;
+              print('googleSignInOps : _googleAuth : $_googleAuth');
+
+              /// get auth credential from google sign in auth
+              // TASK : signInMethod: google.com, can be found here
+              /// AuthCredential(providerId: google.com, signInMethod: google.com, token: null)
+              final AuthCredential _authCredential = GoogleAuthProvider.credential(
+                accessToken: _googleAuth.accessToken,
+                idToken: _googleAuth.idToken,
+              );
+              print('googleSignInOps : _authCredential : $_authCredential');
+
+              /// get user credential from auth credential
+              final UserCredential _userCredential = await _auth.signInWithCredential(_authCredential);
+              print('googleSignInOps : _authResult : $_userCredential');
+
+              /// get firebase user
+              _user = _userCredential.user;
+              print('googleSignInOps : _user : $_user');
+
+            }
+
+          }
+
         }
     );
+    // ==============================================================
 
-    /// if sign in results User and not an error string, create initial user
+    /// 2 - process firebase user to return UserModel
+    // -------------------------------------------------------
+    /// if google sign in results a String, its an error to be returned
     if (_user == null) {
 
       /// when _user is null the register fails and returns this error string
       return _registerError.toString();
-    } else {
+    }
 
-      assert(!_user.isAnonymous);
-      print('googleSignInOps : !_user.isAnonymous : ${!_user.isAnonymous}');
+    /// if _user is not null
+    else {
 
-      assert(await _user.getIdToken() != null);
-      print('googleSignInOps : _user.getIdToken() != null : ${_user.getIdToken() != null}');
-
-
-      /// when register succeeded returning firebase user, convert it to userModel
-      UserModel _initialUserModel = UserModel.createInitialUserModelFromUser(
+      /// we check existing userModel
+      UserModel _existingUserModel = await UserOps().readUserOps(
         context: context,
-        user: _user,
-        zone: currentZone,
+        userID: _user.uid,
       );
-      print('googleSignInOps : _initialUserModel : $_initialUserModel');
 
-      /// create a new firestore document for the user with the userID
-      UserModel _finalUserModel = await UserOps().createUserOps(
-          userModel: _initialUserModel);
+      /// if it's a new user, we start creating new account
+      if (_existingUserModel == null) {
 
-      /// do this assertion I don't know why
-      final User currentUser = _auth.currentUser;
-      assert(_finalUserModel.userID == currentUser.uid);
-      print('signInWithGoogle succeeded: $_finalUserModel');
+        /// create initial user model from firebase user
+        UserModel _initialUserModel = await UserModel.createInitialUserModelFromUser(
+          context: context,
+          user: _user,
+          zone: currentZone,
+          authBy: AuthBy.google,
+        );
+        print('googleSignInOps : _initialUserModel : $_initialUserModel');
 
-      /// return the final userModel
-      return _finalUserModel;
+        /// start create user ops
+        UserModel _finalUserModel = await UserOps().createUserOps(
+          context: context,
+          userModel: _initialUserModel,
+        );
+        print('googleSignInOps : createUserOps : _finalUserModel : $_finalUserModel');
+
+        /// return the final userModel map
+        return
+
+          {
+            'userModel' : _finalUserModel,
+            'firstTimer' : true,
+          };
+
+      }
+
+      /// if user has existing userModel
+      else {
+
+        /// return this existing userModel
+        return
+          {
+            'userModel' : _existingUserModel,
+            'firstTimer' : false,
+          };
+      }
+
     }
   }
 // -----------------------------------------------------------------------------
   /// google sign out
-  Future<void> googleSignOutOps() async {
-    GoogleSignInAccount _account = await googleSignIn.signOut();
+  Future<void> googleSignOutOps(BuildContext context) async {
 
-    print("GoogleSignInAccount is : $_account");
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+    print('googleSignIn.currentUser was : ${googleSignIn.currentUser}');
+
+    await tryAndCatch(
+      context: context,
+      methodName: 'googleSignOutOps',
+      functions: () async {
+
+        if (!kIsWeb) {
+          await googleSignIn.signOut();
+        }
+
+        await FirebaseAuth.instance.signOut();
+
+      }
+    );
+
+    print('googleSignIn.currentUser is : ${googleSignIn.currentUser}');
+
   }
 // -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+  Future<void> signOut(BuildContext context) async {
 
+    print('Signing out');
+    await googleSignOutOps(context);
+    await emailSignOutOps(context);
+    Nav.goToRoute(context, Routez.Starting);
+
+  }
 }
 // =============================================================================
   String superUserID(){

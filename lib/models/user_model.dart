@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 // -----------------------------------------------------------------------------
 class UserModel {
   final String userID;
+  final AuthBy authBy;
   final DateTime joinedAt;
   final UserStatus userStatus;
   // -------------------------
@@ -29,6 +30,7 @@ class UserModel {
 // ###############################
   UserModel({
     this.userID,
+    this.authBy,
     this.joinedAt,
     this.userStatus,
     // -------------------------
@@ -50,6 +52,7 @@ class UserModel {
   Map<String, dynamic> toMap(){
     return {
       'userID' : userID,
+      'authBy' : cipherAuthBy(authBy),
       'joinedAt' : cipherDateTimeToString(joinedAt),
       'userStatus' : cipherUserStatus(userStatus),
 // -------------------------
@@ -75,8 +78,9 @@ class UserModel {
 
     return UserModel(
       userID : map['userID'] ?? '',
+      authBy: decipherAuthBy(map['authBy'] ?? 0),
       joinedAt : decipherDateTimeString(map['joinedAt'] ?? ''),
-      userStatus : decipherUserStatus(map['userStatus']?? 1),
+      userStatus : decipherUserStatus(map['userStatus'] ?? 1),
       // -------------------------
       name : map['name'] ?? '',
       pic : map['pic'] ?? '',
@@ -141,6 +145,26 @@ class UserModel {
     }
   }
 // -----------------------------------------------------------------------------
+  static AuthBy decipherAuthBy (int authBy){
+    switch (authBy){
+      case 0:   return   AuthBy.email; break;
+      case 1:   return   AuthBy.facebook; break;
+      case 2:   return   AuthBy.apple; break;
+      case 3:   return   AuthBy.google; break;
+      default : return   null;
+    }
+  }
+// -----------------------------------------------------------------------------
+  static int cipherAuthBy(AuthBy authBy){
+    switch (authBy){
+      case AuthBy.email       : return 0; break ;
+      case AuthBy.facebook    : return 1; break ;
+      case AuthBy.apple       : return 2; break ;
+      case AuthBy.google      : return 3; break ;
+      default : return null;
+    }
+  }
+// -----------------------------------------------------------------------------
   static bool userIsAuthor(UserModel userModel){
     bool _userIsAuthor = userModel.myBzzIDs.length > 0 ? true : false;
     return
@@ -177,6 +201,7 @@ class UserModel {
       user == null ? null :
       UserModel(
         userID: user.uid,
+        authBy: null,
         joinedAt: DateTime.now(),
         userStatus: UserStatus.Normal,
         // -------------------------
@@ -196,11 +221,20 @@ class UserModel {
 
   }
 // -----------------------------------------------------------------------------
-  static UserModel createInitialUserModelFromUser({
+  static Future<UserModel> createInitialUserModelFromUser({
     BuildContext context,
     User user,
     Zone zone,
-  }){
+    AuthBy authBy,
+  }) async {
+
+
+    assert(!user.isAnonymous);
+    print('googleSignInOps : !_user.isAnonymous : ${!user.isAnonymous}');
+
+    assert(await user.getIdToken() != null);
+    print('googleSignInOps : _user.getIdToken() != null : ${user.getIdToken() != null}');
+
 
     /// get user current location
     // TASK : need to trace user current location and pass it here while creating the userModel from firebase User
@@ -208,6 +242,7 @@ class UserModel {
 
     UserModel _userModel = UserModel(
       userID: user.uid,
+      authBy: authBy,
       joinedAt: DateTime.now(),
       userStatus: UserStatus.Normal,
       // -------------------------
@@ -260,3 +295,9 @@ enum Gender {
   any,
 }
 // -----------------------------------------------------------------------------
+enum AuthBy {
+  email,
+  facebook,
+  google,
+  apple,
+}

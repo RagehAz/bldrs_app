@@ -324,6 +324,11 @@ class BzOps{
     return _finalBz;
   }
 // -----------------------------------------------------------------------------
+  /// this
+  /// 1 - starts deactivate flyer ops for all bz flyers
+  /// 2 - deletes : firestore/tinyBzz/bzID
+  /// 3 - deletes bzID from each author's userModel in : firestore/users/userID['myBzzIDs']
+  /// 4 - triggers : firestore/bzz/bzID['bzAccountIsDeactivated'] to true
   Future<void> deactivateBzOps({BuildContext context, BzModel bzModel}) async {
 
     /// 1 - perform deactivate flyer ops for all flyers
@@ -383,7 +388,16 @@ class BzOps{
 
   }
 // -----------------------------------------------------------------------------
-  Future<void> deleteBzOps({BuildContext context, BzModel bzModel}) async {
+  /// 1 - reads then starts delete flyer ops to all bz flyers
+  /// 2 - deletes : firestore/tinyBzz/bzID
+  /// 3 - deletes bzID from each author's userModel in : firestore/users/userID['myBzzIDs']
+  /// 4 - deletes all docs under : firestore/bzz/bzID/calls
+  /// 5 - deletes all docs under : firestore/bzz/bzID/follows
+  /// 6 - deletes : firestore/bzz/bzID/counters/counters
+  /// 7 - deletes JPG : storage/bzLogos/bzID
+  /// 8 - deletes all JPGs of all bz Authors in : storage/authorsPics/authorID
+  /// 9 - deletes : firestore/bzz/bzID
+  Future<void> superDeleteBzOps({BuildContext context, BzModel bzModel}) async {
 
     print('1 - start delete flyer ops for all flyers');
     List<String> _flyersIDs = BzModel.getBzFlyersIDs(bzModel);
