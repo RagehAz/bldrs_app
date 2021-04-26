@@ -17,20 +17,16 @@ import 'package:flutter/material.dart';
 import 'dart:ui';
 
 class SignInForm extends StatefulWidget {
-  final Function switchToSignIn;
+  final Function switchSignIn;
   final String email;
   final String password;
-  final Function emailTextOnChanged;
-  final Function passwordTextOnChanged;
   final Function fieldOnTap;
 
 
   SignInForm({
-    @required this.switchToSignIn,
+    @required this.switchSignIn,
     @required this.email,
     @required this.password,
-    @required this.emailTextOnChanged,
-    @required this.passwordTextOnChanged,
     @required this.fieldOnTap,
   });
 
@@ -40,7 +36,7 @@ class SignInForm extends StatefulWidget {
 
 class _SignInFormState extends State<SignInForm> {
   TextEditingController _emailController = TextEditingController();
-  TextEditingController _passWordController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
   final AuthOps _authOps = AuthOps();
   // String _email;
   // String _password;
@@ -64,14 +60,14 @@ class _SignInFormState extends State<SignInForm> {
     // _email = widget.email;
     // _password = widget.password;
     _emailController.text = widget.email;
-    _passWordController.text = widget.password;
+    _passwordController.text = widget.password;
     super.initState();
   }
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
     if (TextChecker.textControllerHasNoValue(_emailController))_emailController.dispose();
-    if (TextChecker.textControllerHasNoValue(_passWordController))_passWordController.dispose();
+    if (TextChecker.textControllerHasNoValue(_passwordController))_passwordController.dispose();
     super.dispose();
   }
 
@@ -103,101 +99,67 @@ class _SignInFormState extends State<SignInForm> {
     });
   }
 // -----------------------------------------------------------------------------
-  Future<void> authErrorDialog({BuildContext context, dynamic result}) async {
-
-    List<Map<String, dynamic>> _errors = <Map<String, dynamic>>[
-      {
-        'error' : '[firebase_auth/wrong-password] The password is invalid or the user does not have a password.',
-        'reply' : Wordz.wrongPassword(context),
-      },
-      {
-        'error' : '[firebase_auth/user-not-found] There is no user record corresponding to this identifier. The user may have been deleted.',
-        'reply' : Wordz.emailNotFound(context),
-      },
-      {
-        'error' : '[firebase_auth/network-request-failed] A network error (such as timeout, interrupted connection or unreachable host) has occurred.',
-        'reply' : 'No Internet connection available',
-      },
-      {
-        'error' : '[firebase_auth/invalid-email] The email address is badly formatted.',
-        'reply' : Wordz.emailWrong(context),
-      },
-      {
-        'error' : null,
-        'reply' : Wordz.signInFailure(context),
-      },
-    ];
-
-    if (result.runtimeType != UserModel){
-
-      Map<String, dynamic> _errorMap = _errors.singleWhere((map) => map['error'] == result);
-      String _errorReply = _errorMap == null ? null : _errorMap['reply'];
-
-      print('wtffffffffffff $_errorReply');
-
-      await superDialog(
-        context: context,
-        title: 'Ops!',
-        body: _errorMap == null ? result : _errorReply,
-        boolDialog: false,
-      );
-
-    }
-
-  }
-// -----------------------------------------------------------------------------
   bool _allFieldsAreValid(){
     bool _areValid = _formKey.currentState.validate();
+    print('_allFieldsAreValid() = $_areValid');
     return _areValid;
   }
 // -----------------------------------------------------------------------------
   Future<void> _signInOnTap() async {
-  minimizeKeyboardOnTapOutSide(context);
 
+    /// minimize keyboard
+    minimizeKeyboardOnTapOutSide(context);
 
-  await tryAndCatch(
-      context: context,
-      functions: () async {
+    /// proceed with sign in if fields are valid
+    if(_allFieldsAreValid() == true){
 
-        if(_allFieldsAreValid() == true){
+      _triggerLoading();
+
+      /// start sign in ops
+      dynamic _result = await _authOps.emailSignInOps(context, _emailController.text, _passwordController.text);
+
+      /// pop dialog if sign in fails otherwise check user required field then route
+      print('_signInOnTap() _result.runtimeType : ${_result.runtimeType} : $_result');
+      if(_result.runtimeType == String){
+
+      _triggerLoading();
+
+      /// pop error dialog
+      await authErrorDialog(context: context, result: _result);
+
+    } else {
+
+        /// so sign in succeeded returning a userModel
+        UserModel _userModel = _result;
+
+        /// check if user model is properly completed
+        List<String> _missingFields = UserModel.missingFields(_userModel);
+        if (_missingFields.length == 0){
+
           _triggerLoading();
 
-          // ---------------------
-          dynamic _result = await _authOps.emailSignInOps(context, _emailController.text, _passWordController.text);
+          /// so userModel required fields are entered route to userChecker screen
+          Nav.goToNewScreen(context, UserChecker());
 
-          if(_result.runtimeType != UserModel){
-            _triggerLoading();
-            await authErrorDialog(context: context, result: _result);
-          } else {
+        } else {
 
-            UserModel _userModel = _result;
+          _triggerLoading();
 
-            if (UserModel.allRequiredFieldsAreEntered(_userModel) == true){
+          /// if userModel is not completed pop Alert
+          await superDialog(
+            context: context,
+            title: 'Ops!',
+            body: 'You have to complete your profile info\n ${_missingFields.toString()}',
+            boolDialog: false,
+          );
 
-              _triggerLoading();
-
-              await superDialog(
-                context: context,
-                title: 'Ops!',
-                body: 'You have to complete your profile info',
-                boolDialog: false,
-              );
-
-              Nav.goToNewScreen(context, EditProfileScreen(user: _userModel, firstTimer: false,),);
-
-            } else {
-              _triggerLoading();
-
-              Nav.goToNewScreen(context, UserChecker());
-
-            }
-
-          }
-          // ---------------------
+          /// and route to complete profile missing data
+          Nav.goToNewScreen(context, EditProfileScreen(user: _userModel, firstTimer: false,),);
         }
 
       }
-  );
+
+    }
 
 }
 // -----------------------------------------------------------------------------
@@ -216,8 +178,8 @@ class _SignInFormState extends State<SignInForm> {
 
           // --- ENTER E-MAIL
           TextFieldBubble(
-            fieldOnTap: widget.fieldOnTap,
             textController: _emailController,
+            fieldOnTap: widget.fieldOnTap,
             loading: _loading,
             bubbleColor: Colorz.WhiteGlass,
             textDirection: TextDirection.ltr,
@@ -227,14 +189,8 @@ class _SignInFormState extends State<SignInForm> {
             keyboardTextInputAction: TextInputAction.next,
             title: Wordz.emailAddress(context),
             hintText: '...',
-            // onSaved: (){print('onSaved');},
             maxLines: 1,
             maxLength: 100,
-            // initialTextValue: _email,
-            textOnChanged: (val){
-              widget.emailTextOnChanged(val);
-              // _emailTextOnChanged(val);
-            },
             validator: (val){
               if (val.isEmpty){return Wordz.enterEmail(context);}
               else {
@@ -245,8 +201,8 @@ class _SignInFormState extends State<SignInForm> {
 
           // --- ENTER PASSWORD
           TextFieldBubble(
+            textController: _passwordController,
             fieldOnTap: widget.fieldOnTap,
-            textController: _passWordController,
             loading: _loading,
             bubbleColor: Colorz.WhiteGlass,
             textDirection: TextDirection.ltr,
@@ -260,14 +216,9 @@ class _SignInFormState extends State<SignInForm> {
             maxLines: 1,
             maxLength: 100,
             obscured: _passwordObscured,
-            // initialTextValue: _password,
             horusOnTapDown: _horusOnTapDown,
             horusOnTapUp: _horusOnTapUp,
             horusOnTapCancel: _horusOnTapCancel,
-            textOnChanged: (val){
-              widget.passwordTextOnChanged(val);
-              // _passwordTextOnChanged(val);
-            },
             validator: (val){
               return
                 val.isEmpty ? Wordz.enterPassword(context) :
@@ -295,7 +246,7 @@ class _SignInFormState extends State<SignInForm> {
                 secondLine: 'New Account',
                 color: Colorz.WhiteGlass,
                 boxMargins: EdgeInsets.all(0),
-                boxFunction: widget.switchToSignIn,
+                boxFunction: () => widget.switchSignIn(_emailController.text, _passwordController.text),
               ),
 
               DreamBox(

@@ -53,7 +53,7 @@ class UserOps{
 
   }
 // -----------------------------------------------------------------------------
-  Future<void> createUserOps({BuildContext context, UserModel userModel}) async {
+  Future<UserModel> createUserOps({BuildContext context, UserModel userModel}) async {
 
     /// check if user pic is file to upload or URL from facebook to keep
     String _userPicURL;
@@ -100,6 +100,8 @@ class UserOps{
       docName: userModel.userID,
       input: TinyUser.getTinyUserFromUserModel(_finalUserModel).toMap(),
     );
+
+    return _finalUserModel;
 
   }
 // -----------------------------------------------------------------------------

@@ -7,6 +7,8 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
+import 'package:bldrs/controllers/theme/wordz.dart';
+
 // -----------------------------------------------------------------------------
 AlertDialog _superAlert ({
   BuildContext context,
@@ -169,7 +171,7 @@ Future<bool> superDialog({
 
 }
 // -----------------------------------------------------------------------------
-Future<void> tryAndCatch({Function finals, BuildContext context, Function functions,}) async {
+Future<void> tryAndCatch({Function finals, BuildContext context, Function functions, String methodName,}) async {
   try{
     await functions();
   } catch (error){
@@ -181,8 +183,86 @@ Future<void> tryAndCatch({Function finals, BuildContext context, Function functi
       boolDialog: false,
     );
 
-    print('TRY CATCH ERROR IS : ($error)');
+    print('$methodName : tryAndCatch ERROR : $error');
     throw(error);
   }
 }
 // -----------------------------------------------------------------------------
+Future<dynamic> tryCatchAndReturn({Function finals, BuildContext context, Function functions, String methodName,}) async {
+  try{
+    await functions();
+  } catch (error){
+
+    // await superDialog(
+    //   context: context,
+    //   title: 'ops',
+    //   body: error,
+    //   boolDialog: false,
+    // );
+
+    print('$methodName : tryAndCatch ERROR : $error');
+
+    return error;
+  }
+}
+// -----------------------------------------------------------------------------
+Future<void> authErrorDialog({BuildContext context, dynamic result}) async {
+
+  List<Map<String, dynamic>> _errors = <Map<String, dynamic>>[
+
+    // SIGN IN ERROR
+    {
+      'error' : '[firebase_auth/user-not-found] There is no user record corresponding to this identifier. The user may have been deleted.',
+      'reply' : Wordz.emailNotFound(context),
+    },
+    {
+      'error' : '[firebase_auth/network-request-failed] A network error (such as timeout, interrupted connection or unreachable host) has occurred.',
+      'reply' : 'No Internet connection available',
+    },
+    {
+      'error' : '[firebase_auth/invalid-email] The email address is badly formatted.',
+      'reply' : Wordz.emailWrong(context),
+    },
+    {
+      'error' : '[firebase_auth/wrong-password] The password is invalid or the user does not have a password.',
+      'reply' : Wordz.wrongPassword(context), /// TASK : should link accounts authentication
+    },
+    {
+      'error' : '[firebase_auth/too-many-requests] We have blocked all requests from this device due to unusual activity. Try again later.',
+      'reply' : 'Too many failed sign in attempts.\nThis device is put on hold for some time to secure the account', /// TASK : should link accounts authentication and delete this dialog
+    },
+
+    // REGISTER ERRORS
+    {
+      'error' : '[firebase_auth/email-already-in-use] The email address is already in use by another account.',
+      'reply' : Wordz.emailAlreadyRegistered(context),
+    },
+    {
+      'error' : '[firebase_auth/invalid-email] The email address is badly formatted.',
+      'reply' : Wordz.emailWrong(context),
+    },
+
+    // SHARED ERRORS
+    {
+      'error' : null,
+      'reply' : Wordz.somethingIsWrong(context),
+    },
+
+  ];
+
+  print('authErrorDialog result : $result');
+
+  Map<String, dynamic> _errorMap = _errors.firstWhere((map) => map['error'] == result.toString(), orElse: () => null) ;
+  print('_errorMap : $_errorMap');
+
+  String _errorReply = _errorMap == null ? null : _errorMap['reply'];
+  print('_errorReply : $_errorReply');
+
+  await superDialog(
+    context: context,
+    title: 'Ops!',
+    body: _errorMap == null ? result : _errorReply,
+    boolDialog: false,
+  );
+
+}

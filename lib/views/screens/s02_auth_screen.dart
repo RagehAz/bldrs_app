@@ -12,8 +12,8 @@ class AuthScreen extends StatefulWidget {
 
 class _AuthScreenState extends State<AuthScreen> {
   bool signingIn = true;
-  String email = '';
-  String password = '';
+  String _email = '';
+  String _password = '';
   ScrollController _scrollController;
   final _keyboardHeight = EdgeInsets.fromWindowPadding(WidgetsBinding.instance.window.viewInsets,WidgetsBinding.instance.window.devicePixelRatio).bottom;
   // final _keyboardHeight = viewInsets.bottom;
@@ -25,8 +25,10 @@ class _AuthScreenState extends State<AuthScreen> {
     super.initState();
   }
 // ---------------------------------------------------------------------------
-  void switchSignIn (){
+  void _switchSignIn (String email, String password){
     setState(() {
+      _email = email;
+      _password = password;
       signingIn = ! signingIn;
     });
   }
@@ -37,17 +39,17 @@ class _AuthScreenState extends State<AuthScreen> {
     _scrollController.animateTo(keyboardHeight, duration: Duration(milliseconds: 200), curve: Curves.bounceInOut);
   }
 // ---------------------------------------------------------------------------
-  void emailTextOnChanged(String val){
-    setState(() {
-      email = val;
-    });
-  }
+//   void emailTextOnChanged(String val){
+//     setState(() {
+//       email = val;
+//     });
+//   }
 // ---------------------------------------------------------------------------
-  void passwordTextOnChanged(String val){
-    setState(() {
-      password = val;
-    });
-  }
+//   void passwordTextOnChanged(String val){
+//     setState(() {
+//       password = val;
+//     });
+//   }
 // ---------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -72,21 +74,17 @@ class _AuthScreenState extends State<AuthScreen> {
 
                 signingIn == true ?
                 SignInForm(
-                  switchToSignIn: switchSignIn,
-                  email: email,
-                  password: password,
-                  emailTextOnChanged: (val) => emailTextOnChanged(val),
-                  passwordTextOnChanged: (val) => passwordTextOnChanged(val),
+                  switchSignIn: _switchSignIn,
+                  email: _email,
+                  password: _password,
                   fieldOnTap: (keyboard) => moveScreen(keyboard),
                 )
                     :
                 // REGISTER NEW ACCOUNT
                 RegisterForm(
-                  switchToSignIn: switchSignIn,
-                  email: email,
-                  password: password,
-                  emailTextOnChanged: emailTextOnChanged,
-                  passwordTextOnChanged: passwordTextOnChanged,
+                  switchSignIn: _switchSignIn,
+                  email: _email,
+                  password: _password,
                 ),
 
                 PyramidsHorizon(heightFactor: 0,),

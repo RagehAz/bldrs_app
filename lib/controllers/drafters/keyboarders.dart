@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 ///  onTap: () => minimizeKeyboardOnTapOutSite(context),
 void minimizeKeyboardOnTapOutSide (BuildContext context){
 FocusScope.of(context).requestFocus(FocusNode());
+print('minimizeKeyboardOnTapOutSide() unfocused keyboard');
   // // ANOTHER SOLUTION
   // FocusScopeNode currentFocus = FocusScope.of(context);
   // if(!currentFocus.hasPrimaryFocus){
