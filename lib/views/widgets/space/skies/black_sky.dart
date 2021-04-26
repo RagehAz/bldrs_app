@@ -163,11 +163,10 @@ with TickerProviderStateMixin {
     double widthMQ = MediaQuery.of(context).size.width;
 
 
-    return Scaffold(
-      body: Center(
-          child: Container(
-            height: heightMQ,
-            width: widthMQ,
+    return Center(
+        child: Container(
+          height: heightMQ,
+          width: widthMQ,
 // the linear Gradient test
 //            decoration: BoxDecoration(
 //              gradient: LinearGradient(
@@ -183,21 +182,20 @@ with TickerProviderStateMixin {
 //            ), // Line
 
           // the Radial Gradient test
-            decoration: BoxDecoration(
+          decoration: BoxDecoration(
               gradient: RadialGradient(
-                center: const Alignment(0.75, 1.25),
-                radius: 1,
-                colors: <Color>[
-                  Colorz.BlackBlack,
-                   Colorz.BlackBlack
-                ],
-                stops: <double>[0.0, 0.65]
+                  center: const Alignment(0.75, 1.25),
+                  radius: 1,
+                  colors: <Color>[
+                    Colorz.BlackBlack,
+                    Colorz.BlackBlack
+                  ],
+                  stops: <double>[0.0, 0.65]
               )
-            ),
+          ),
 
-            child: Stack(children: _createStars(1000)),
+          child: Stack(children: _createStars(1000)),
 
-          )),
-    );
+        ));
   }
 }

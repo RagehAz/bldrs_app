@@ -149,6 +149,7 @@ class MainLayout extends StatelessWidget {
     // ------------------------------------------------------------------
     // print('superScreenHeightWithoutSafeArea(context) = ${superScreenHeightWithoutSafeArea(context)},, superScreenHeight(context) = ${superScreenHeight(context)}');
 
+    Color _backgroundColor = sky == Sky.Non || sky == Sky.Black? Colorz.BlackBlack : Colorz.SkyDarkBlue;
 
     return StreamProvider<List<UserModel>>.value(
       value: UserProvider().allUsersStream,
@@ -159,32 +160,45 @@ class MainLayout extends StatelessWidget {
           child: SafeArea(
             top: true,
             bottom: true,
-            child: Scaffold(
-              key: key,
-              resizeToAvoidBottomInset: false, // this false prevents keyboard from pushing pyramids up
-              backgroundColor: sky == Sky.Non ? Colorz.BlackBlack : null,
-              body:
-              canRefreshFlyers ?
+            child: Stack(
+              children: <Widget>[
 
-              RefreshIndicator(
-                onRefresh: ()=> _refresh(context),
-                color: Colorz.BlackBlack,
-                backgroundColor: Colorz.Yellow,
-                displacement: Ratioz.ddAppBarMargin,
-                strokeWidth: 4,
-                child: Stack(
-                  alignment: Alignment.topCenter,
-                  children: _mainLayoutStackWidgets,
+                Container(
+                  width: Scale.superScreenWidth(context),
+                  height: Scale.superScreenHeight(context),
+                  color: _backgroundColor,
                 ),
-              )
 
-                  :
+                Scaffold(
+                  key: key,
+                  resizeToAvoidBottomInset: false, // this false prevents keyboard from pushing pyramids up
+                  resizeToAvoidBottomPadding: false,
+                  backgroundColor: _backgroundColor,
+                  body:
+                  canRefreshFlyers ?
 
-              Stack(
-                alignment: Alignment.topCenter,
-                children: _mainLayoutStackWidgets,
-              ),
+                  RefreshIndicator(
+                    onRefresh: ()=> _refresh(context),
+                    color: Colorz.BlackBlack,
+                    backgroundColor: Colorz.Yellow,
+                    displacement: Ratioz.ddAppBarMargin,
+                    strokeWidth: 4,
+                    child: Stack(
+                      alignment: Alignment.topCenter,
+                      children: _mainLayoutStackWidgets,
+                    ),
+                  )
 
+                      :
+
+                  Stack(
+                    alignment: Alignment.topCenter,
+                    children: _mainLayoutStackWidgets,
+                  ),
+
+                ),
+
+              ],
             ),
           ),
         ),
