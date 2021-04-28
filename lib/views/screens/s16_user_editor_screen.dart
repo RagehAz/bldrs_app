@@ -245,8 +245,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         boolDialog: false,
       );
 
-      Nav.goToRoute(context, Routez.UserChecker);
-
+      // Nav.goToRoute(context, Routez.UserChecker);
+      Nav.goBack(context);
+      // Nav.goBackToUserChecker(context);
     }
 
   }

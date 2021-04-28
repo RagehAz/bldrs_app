@@ -7,11 +7,13 @@ class DashBoardLayout extends StatelessWidget {
   final List<Widget> listWidgets;
   final String pageTitle;
   final bool loading;
+  final List<Widget> appBarRowWidgets;
 
   DashBoardLayout({
     @required this.listWidgets,
     this.pageTitle,
     this.loading = false,
+    this.appBarRowWidgets,
 });
 
   @override
@@ -27,6 +29,7 @@ class DashBoardLayout extends StatelessWidget {
       appBarBackButton: true,
       sky: Sky.Black,
       loading: loading,
+      appBarRowWidgets: appBarRowWidgets,
       layoutWidget: Container(
         width: _screenWidth,
         height: _screenHeight,

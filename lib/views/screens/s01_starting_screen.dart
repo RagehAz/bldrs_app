@@ -3,6 +3,7 @@ import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/router/route_names.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
@@ -27,8 +28,9 @@ class StartingScreen extends StatefulWidget {
 
 class _StartingScreenState extends State<StartingScreen> {
 /// TASK : should fetch user current location automatically and suggest them here
-  final Zone currentZone = Zone(countryID: '', provinceID: '', areaID: '');
+//   final Zone currentZone = Zone(countryID: '', provinceID: '', areaID: '');
   CountryProvider _countryPro;
+  Zone _currentZone;
 // -----------------------------------------------------------------------------
   /// --- LOADING BLOCK
   bool _loading = false;
@@ -43,18 +45,22 @@ class _StartingScreenState extends State<StartingScreen> {
     /// get user current location
     // TASK : need to trace user current location and pass it here while creating the userModel from firebase User
     _countryPro = Provider.of<CountryProvider>(context, listen: false);
+    _currentZone = _countryPro.currentZone;
     super.initState();
   }
+// -----------------------------------------------------------------------------
+  Future<void> _tapGoogleContinue(BuildContext context) async {
 
-  Future<void> _tapGoogleContinue() async {
+    print('starting _tapGoogleContinue method');
 
     _triggerLoading();
 
     /// start google auth ops
-    dynamic _result = await AuthOps().googleSignInOps(context, _countryPro.currentZone);
+    dynamic _result = await AuthOps().googleSignInOps(context, _currentZone);
 
     /// if auth returns error string we show dialog
-    if(_result.runtimeType == String){
+    print('_tapGoogleContinue : googleSignInOps_result : $_result');
+    if(_result.runtimeType == String || _result == null){
 
       _triggerLoading();
 
@@ -70,49 +76,54 @@ class _StartingScreenState extends State<StartingScreen> {
     /// };
     else {
 
-          /// so sign in succeeded returning a userModel
-          UserModel _userModel = _result['userModel'];
-          print('_tapGoogleContinue : _userModel : $_userModel');
+      /// so sign in succeeded returning a userModel
+      UserModel _userModel = _result['userModel'];
+      print('_tapGoogleContinue : _userModel : $_userModel');
 
-          /// check if user model is properly completed
-          List<String> _missingFields = UserModel.missingFields(_userModel);
-          print('_tapGoogleContinue : _missingFields : $_missingFields');
+      Nav.replaceScreen(context, UserChecker());
 
-          /// so if user model is completed
-          if (_missingFields.length == 0){
+      // /// check if user model is properly completed
+      // List<String> _missingFields = UserModel.missingFields(_userModel);
+      // print('_tapGoogleContinue : _missingFields : $_missingFields');
 
-            print('_missingFields.length == 0 : ${_missingFields.length == 0}');
-            _triggerLoading();
-
-            /// so userModel required fields are entered route to userChecker screen
-            Nav.goToNewScreen(context, UserChecker());
-
-          }
-
-          /// if userModel is not completed
-          else {
-
-            _triggerLoading();
-
-            /// pop a dialog
-            await superDialog(
-              context: context,
-              title: 'Ops!',
-              body: 'You have to complete your profile info\n ${_missingFields.toString()}',
-              boolDialog: false,
-            );
-
-            /// check if its his first time or not
-            bool _firstTimer = _result['firstTimer'];
-
-            /// and route to complete profile missing data
-            await Nav.goToNewScreen(context, EditProfileScreen(user: _userModel, firstTimer: _firstTimer,),);
-
-            /// after returning from edit profile, we go to user checker
-            Nav.goToNewScreen(context, UserChecker());
-
-
-          }
+      // /// so if user model is completed
+      // if (_missingFields.length == 0){
+      //
+      //   print('_missingFields.length == 0 : ${_missingFields.length == 0}');
+      //   _triggerLoading();
+      //
+      //   /// so userModel required fields are entered route to userChecker screen
+      //
+      //   print('user has missing fields and so we go to UserChecker now');
+      //   Nav.goBackToUserChecker(context);
+      //
+      // }
+      //
+      // /// if userModel is not completed
+      // else {
+      //
+      //       _triggerLoading();
+      //
+      //       /// pop a dialog
+      //       await superDialog(
+      //         context: context,
+      //         title: 'Ops!',
+      //         body: 'You have to complete your profile info\n ${_missingFields.toString()}',
+      //         boolDialog: false,
+      //       );
+      //
+      //       /// check if its his first time or not
+      //       bool _firstTimer = _result['firstTimer'];
+      //
+      //       /// and route to complete profile missing data
+      //       await Nav.goToNewScreen(context, EditProfileScreen(user: _userModel, firstTimer: _firstTimer,),);
+      //
+      //       /// after returning from edit profile, we go to user checker
+      //       print('user has completed profile and good to go to UserChecker now');
+      //       Nav.goBackToUserChecker(context);
+      //
+      //
+      //     }
 
     }
 
@@ -129,18 +140,30 @@ class _StartingScreenState extends State<StartingScreen> {
 
     return MainLayout(
       pyramids: Iconz.PyramidzYellow,
-      sky: Sky.Black,
+      sky: Sky.Night,
       appBarType: AppBarType.Intro,
       loading: _loading,
+      tappingRageh: (){
+        print('current zone : ${_currentZone.provinceID}');
+        print('Wordz.languageCode(context) : ${Wordz.languageCode(context)}');
+        // print('isa');
+      },
       layoutWidget: Stack(
         children: <Widget>[
           // --- stuff
           Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
 
               Stratosphere(),
 
-              LogoSlogan(sizeFactor: 0.87,),
+              LogoSlogan(
+                showTagLine: true,
+                showSlogan: true,
+                sizeFactor: 0.7,
+              ),
+
+              SizedBox(height: Ratioz.ddAppBarMargin,),
 
               // --- CONTINUE WITH APPLE
               DeviceChecker.deviceIsIOS() ?
@@ -163,7 +186,7 @@ class _StartingScreenState extends State<StartingScreen> {
                 buttonColor: Colorz.GoogleRed,
                 splashColor: Colorz.Yellow,
                 buttonVerseShadow: false,
-                function: _tapGoogleContinue,
+                function: () => _tapGoogleContinue(context),
                 stretched: false,
               )
                   :

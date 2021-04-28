@@ -83,5 +83,31 @@ class Nav{
     Navigator.pop(context, argument);
   }
 // -----------------------------------------------------------------------------
+  static goBackToUserChecker(BuildContext context){
 
+    // var _navResult = Navigator.popUntil(context,
+    //     ModalRoute.withName(Routez.UserChecker)
+    // );
+
+    Navigator.popUntil(context,
+        ModalRoute.withName(Routez.UserChecker)
+    );
+
+  }
+// -----------------------------------------------------------------------------
+  static Future<dynamic> replaceScreen(BuildContext context, Widget screen) async {
+    var _result = await Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => screen));
+    return _result;
+  }
+// -----------------------------------------------------------------------------
+  static Future<dynamic> removeRouteBelow(BuildContext context, Widget screen) async {
+    var _result = Navigator.removeRouteBelow(context, MaterialPageRoute(builder: (BuildContext context) => screen));
+    return _result;
+  }
+// -----------------------------------------------------------------------------
+  static void pushNamedAndRemoveAllBelow(BuildContext context, String goToRoute){
+    Navigator.of(context)
+        .pushNamedAndRemoveUntil(goToRoute, (Route<dynamic> route) => false);
+  }
+// -----------------------------------------------------------------------------
 }

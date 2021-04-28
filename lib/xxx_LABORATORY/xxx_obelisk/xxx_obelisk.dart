@@ -4,14 +4,17 @@ import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/dashboard/s01_dashboard.dart';
+import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/views/screens/s41_my_bz_screen.dart';
 import 'package:bldrs/views/widgets/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/views/widgets/buttons/bt_main.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
+import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:bldrs/views/widgets/textings/the_golden_scroll.dart';
 import 'package:bldrs/xxx_LABORATORY/animations/animations_screen.dart';
+import 'package:bldrs/xxx_LABORATORY/firestore_test/storage_test.dart';
 import 'package:bldrs/xxx_LABORATORY/forms_and_inputs/popup.dart';
 import 'package:bldrs/xxx_LABORATORY/forms_and_inputs/form.dart';
 import 'package:bldrs/xxx_LABORATORY/navigation_test/nav_test_home.dart';
@@ -30,7 +33,11 @@ import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x08_earth_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x10_pro_flyer_page_view.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x11_pro_flyer_grid_view.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x12_checkbox_lesson.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
+
 // === === === === === === === === === === === === === === === === === === ===
 // ---------------------------------------------------------------------------
 // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
@@ -50,13 +57,26 @@ class ObeliskScreen extends StatefulWidget {
 class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateMixin{
   AnimationController _blackHoleController;
   int _spinsDuration = 1;
-// ---------------------------------------------------------------------------
+  bool _isSignedIn;
+// -----------------------------------------------------------------------------
+  /// --- LOADING BLOCK
+  bool _loading = false;
+  void _triggerLoading(){
+    setState(() {_loading = !_loading;});
+    _loading == true?
+    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+  }
+// -----------------------------------------------------------------------------
   @override
   void initState() {
     _blackHoleController = AnimationController(
       duration: Duration(seconds: _spinsDuration),
       vsync: this
     );
+
+    User _firebaseUser = superFirebaseUser();
+    _isSignedIn = _firebaseUser == null ? false : true;
+
     super.initState();
   }
 // ---------------------------------------------------------------------------
@@ -99,6 +119,40 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
       );
   }
 // ---------------------------------------------------------------------------
+  Future<void> _tapGoogleSignOut() async {
+
+    _triggerLoading();
+
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+    print('googleSignIn.currentUser was : ${googleSignIn.currentUser}');
+
+    try {
+
+      if (!kIsWeb) {await googleSignIn.signOut();}
+
+      await FirebaseAuth.instance.signOut();
+
+      setState(() {
+        _isSignedIn = false;
+      });
+
+
+    } catch (error) {
+
+      await superDialog(
+        context: context,
+        title: 'Can\'t sign out',
+        body: 'Something is wrong : $error',
+      );
+
+    }
+
+    _triggerLoading();
+    print('googleSignIn.currentUser is : ${googleSignIn.currentUser}');
+
+  }
+// ---------------------------------------------------------------------------
+
   @override
   Widget build(BuildContext context) {
 
@@ -110,6 +164,35 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
         children: <Widget>[
 
           Stratosphere(),
+
+          DreamBox(
+            height: 40,
+            // width: 40,
+            corners: 20,
+            boxMargins: 10,
+            verse: _isSignedIn ? 'Signed in' : 'Signed out',
+            color: _isSignedIn ? Colorz.Green : Colorz.GreySmoke,
+            verseScaleFactor: 0.6,
+            verseColor: _isSignedIn ? Colorz.White : Colorz.ModalGrey,
+            boxFunction: () => AuthOps().signOut(context),
+          ),
+
+          DreamBox(
+            height: 40,
+            width: 200,
+            corners: 20,
+            boxMargins: 10,
+            verse: 'Delete firebase user and ge back to user checker',
+            color: _isSignedIn ? Colorz.Green : Colorz.GreySmoke,
+            verseScaleFactor: 0.5,
+            verseMaxLines: 2,
+            verseColor: _isSignedIn ? Colorz.White : Colorz.ModalGrey,
+            boxFunction: () async {
+              await AuthOps().deleteFirebaseUser(context, superUserID());
+              await AuthOps().signOut(context);
+
+            },
+          ),
 
           SuperVerse(
             verse: 'Dear Lord\nPlease give us the power to finish this and reach the ends of planet earth',
@@ -158,6 +241,8 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
           )),
 
           oButton('Firebase testing', Iconz.Filter, Firebasetesting()),
+
+          oButton('Storage testing', Iconz.ArrowDown, FireStorageTest()),
 
           oButton('Dash Board', Iconz.DashBoard, DashBoard()),
 

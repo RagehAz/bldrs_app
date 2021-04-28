@@ -51,7 +51,7 @@ class _DashBoardState extends State<DashBoard> {
         loading: false,
         listWidgets: <Widget>[
 
-          LogoSlogan(onlyLogo: true,),
+          LogoSlogan(),
 
           _button(
               title: 'General Statistics',

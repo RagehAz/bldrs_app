@@ -8,47 +8,55 @@ import 'package:websafe_svg/websafe_svg.dart';
 
     class LogoSlogan extends StatelessWidget {
       final double sizeFactor;
-      final bool onlyLogo;
+      final bool showTagLine;
+      final bool showSlogan;
 
       LogoSlogan({
         this.sizeFactor = 1,
-        this.onlyLogo = false,
+        this.showTagLine = false,
+        this.showSlogan = false,
     });
 
       @override
       Widget build(BuildContext context) {
 
+        bool _designMode = false;
         double _screenHeight = Scale.superScreenHeight(context);
+
+        double _logoWidth = _screenHeight * 22 * 0.016 * sizeFactor;
+        double _logoHeight = _screenHeight * 18 * 0.016 * sizeFactor;
+
 
         SuperVerse _slogan = SuperVerse(
           verse: Wordz.bldrsTagLine(context),
           size: 4,
-          designMode: false,
+          designMode: _designMode,
           shadow: true,
           weight: VerseWeight.bold,
           color: Colorz.White,
           centered: true,
           italic: true,
+          scaleFactor: sizeFactor,
         );
 
         SizedBox _spacer = SizedBox(height: _screenHeight * 0.005);
 
         return Column(
-
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
 
             _spacer,
 
             // --- SLOGAN
-            if (!onlyLogo)
+            if (showTagLine == true && showSlogan == true)
             _slogan,
 
             // --- NAME & LOGO
             Container(
               alignment: Alignment.center,
-              width: _screenHeight * 22 * 0.016 * sizeFactor,
-              height: _screenHeight * 18 * 0.016 * sizeFactor,
-//              color: varza.BloodTest,
+              width: _logoWidth,
+              height: _logoHeight,
+             color: _designMode ? Colorz.BloodTest : null,
               child: Container(
                 width: double.infinity,
                 height: double.infinity,
@@ -57,20 +65,21 @@ import 'package:websafe_svg/websafe_svg.dart';
               ),
             ),
 
-            if (onlyLogo)
+            if (showTagLine == false && showSlogan == true)
               _slogan,
 
             // --- TAG LINE
-            if (!onlyLogo)
+            if (showTagLine == true)
             Container(
-              width: _screenHeight * 22 * 0.016 * 1.2 * sizeFactor * 1.2,
-              height: _screenHeight * 0.12 * sizeFactor,
+              width: _logoWidth,
+              height: _logoHeight * 0.7,
+              color: _designMode ? Colorz.BloodTest : null,
               child:
               SuperVerse(
                 verse: Wordz.bldrsDescription(context),
-                size: 2,
+                size: 3,
                 weight: VerseWeight.thin,
-                designMode: false,
+                designMode: _designMode,
                 shadow: true,
                 centered: true,
                 italic: true,
