@@ -203,12 +203,25 @@ class UserOps{
 
   }
 // -----------------------------------------------------------------------------
-  /// deacvtivate user account
-  Future<void> deactivateUserOps({BuildContext context, UserModel userModel}) async {
-    /// x. Alert user that he will forever lose his (name, pic, title, contacts,
-    /// status, company, gender, zone, position, saved flyers, followed bzz) in
-    /// [bool dialog]
+  /// de activate user account
+  /// A - if dialog result is false return 'stop' - is true start ops as follow :-
+  /// B - if user is author :-
+  ///   C - read And Filter Teamless Bzz By then show its dialog
+  ///   D - check if user wants to continue or not
+  ///   E - show flyers deactivation dialog
+  ///   F - check if user wants to continue or not
+  ///   G - deactivate all deactivable bzz
+  ///   H - change user status in user doc to deactivated
+  ///   I - change user status in TinyUser doc to deactivated
+  ///   J - SIGN OUT
+  ///
+  /// B - if user is not author :-
+  ///   H - change user status in user doc to deactivated
+  ///   I - change user status in TinyUser doc to deactivated
+  ///   J - SIGN OUT
+  Future<dynamic> deactivateUserOps({BuildContext context, UserModel userModel}) async {
 
+    /// A - initial bool dialog alert
     bool _result = await superDialog(
       context: context,
       title: 'Watch Out !',
@@ -216,16 +229,22 @@ class UserOps{
       boolDialog: true,
     );
 
+    /// A - if user stops
     if (_result == false){
+
       // do nothing
       print('no Do not deactivate ');
+
+      return 'stop';
     }
+
+    /// A - if user continues
     else {
 
-      print('CRUD OPS');
+      print('starting deactivateUserOps()');
 
-      /// A. if user is Author :-
-      if (userModel.myBzzIDs.length != 0){
+      /// B - only if user is author
+      if (UserModel.userIsAuthor(userModel) == true){
 
         /// WAITING DIALOG
         superDialog(
@@ -237,216 +256,50 @@ class UserOps{
           child: Loading(loading: true,),
         );
 
-        FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
-
-        /// a - get user tiny bzz
-        List<BzModel> _bzzToDeactivate = new List();
-        List<BzModel> _bzzToKeep = new List();
-        for (var id in userModel.myBzzIDs){
-
-          BzModel _bz = await BzOps.readBzOps(
-            context: context,
-            bzID: id,
-          );
-
-          if (_bz.bzAuthors.length == 1){
-            _bzzToDeactivate.add(_bz);
-          } else{
-            _bzzToKeep.add(_bz);
-          }
-
-        }
+        /// C - read and filter user bzz for which bzz he's the only author of to be deactivated
+        Map<String, dynamic> _userBzzMap = await BzOps.readAndFilterTeamlessBzzByUserModel(
+          context: context,
+          userModel: userModel,
+        );
+        List<BzModel> _bzzToDeactivate = _userBzzMap['bzzToDeactivate'];
+        List<BzModel> _bzzToKeep = _userBzzMap['bzzToKeep'];
 
         /// CLOSE WAITING DIALOG
         Nav.goBack(context);
 
-        /// b - show dialog
+        /// C - show deactivable bzz dialog
         bool _bzzReviewResult = await bzzDeactivationDialog(
           context: context,
           bzzToDeactivate: _bzzToDeactivate,
           bzzToKeep: _bzzToKeep,
         );
 
+        /// D - if user wants to stop
         if (_bzzReviewResult == false) {
           // do nothing
           print('no Do not deactivate ');
-        } else {
+          return 'stop';
 
-          /// b - show dialog
+        }
+
+        /// D - if user wants to continue
+        else  {
+
+          /// E - show flyers that will be DEACTIVATED
           bool _flyersReviewResult = await flyersDeactivationDialog(
             context: context,
             bzzToDeactivate: _bzzToDeactivate,
           );
 
+          /// F - if user wants to stop
           if (_flyersReviewResult == false){
-            // do nothing
+
             print('no Do not deactivate ');
-          } else {
-
-            /// SHOW WAITING DIALOG
-            superDialog(
-              context: context,
-              title: '',
-              boolDialog: null,
-              height: null,
-              body: 'Waiting',
-              child: Loading(loading: true,),
-            );
-
-            for (var bz in _bzzToDeactivate){
-
-              /// de-activate bz
-             await BzOps().deactivateBzOps(
-               context: context,
-               bzModel: bz,
-             );
-
-            }
-
-            /// CLOSE WAITING DIALOG
-            Nav.goBack(context);
-
+            return 'stop';
 
           }
 
-        }
-
-
-
-
-
-      }
-
-      /// change user status in user doc to deactivated
-      await Fire.updateDocField(
-        context: context,
-        collName: FireCollection.users,
-        docName: userModel.userID,
-        field: 'userStatus',
-        input: UserModel.cipherUserStatus(UserStatus.Deactivated),
-      );
-
-      /// change user status in TinyUser doc to deactivated
-      await Fire.updateDocField(
-        context: context,
-        collName: FireCollection.tinyUsers,
-        docName: userModel.userID,
-        field: 'userStatus',
-        input: UserModel.cipherUserStatus(UserStatus.Deactivated),
-      );
-
-      superDialog(
-        context: context,
-        title: '',
-        boolDialog: false,
-        height: null,
-        body: 'Done',
-      );
-
-      /// CLOSE WAITING DIALOG
-      Nav.goBack(context);
-
-
-    }
-
-  }
-// -----------------------------------------------------------------------------
-  /// TASK : CLOUD FUNCTION : delete user ops should trigger a cloud function instead of firing these entire functions from client
-  /// for now this :-
-  /// 1 - checks if user is Author, starts delete bz ops for all bzz that has no other authors sharing it
-  /// 2 - deletes : firestore/tinyUsers/userID
-  /// 3 - deletes : storage/usersPics/userID
-  /// 4 - deletes : firestore/users/userID
-  /// 5 - deletes : auth/userID TASK : deleting user authentication is not done
-  Future<void> superDeleteUserOps({BuildContext context, UserModel userModel}) async {
-    /// but for now : we will break the logic down
-
-    /// 1 - if user is Author
-    /// show user which bzz he will deleter
-    /// and which flyers he will delete
-    /// then proceed with super delete bz ops
-    bool _result = await superDialog(
-      context: context,
-      title: 'This will Delete all your data',
-      body: 'all pictures, flyers, businesses, your user records will be deleted for good\nDo you want to proceed ?',
-      boolDialog: true,
-    );
-
-    /// so if user chooses not to continue, we cancel ops
-    if (_result == false){
-      // do nothing
-      print('no Do not deactivate ');
-    }
-
-    /// if user chooses to continue delete
-    else {
-
-      print('CRUD OPS');
-
-      /// 1. if user is Author go through dialogs to delete all bzz and their flyers if possible :-
-      if (userModel.myBzzIDs.length != 0){
-
-        /// WAITING DIALOG
-        superDialog(
-          context: context,
-          title: '',
-          boolDialog: null,
-          height: null,
-          body: 'Waiting',
-          child: Loading(loading: true,),
-        );
-
-        FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
-
-        /// a - get all user tiny bzz
-        List<BzModel> _bzzToDeactivate = new List();
-        List<BzModel> _bzzToKeep = new List();
-
-        /// read bz ops for each bz id in userModel and filter them according to number of authors
-        for (var id in userModel.myBzzIDs){
-          BzModel _bz = await BzOps.readBzOps(
-            context: context,
-            bzID: id,
-          );
-          if (_bz.bzAuthors.length == 1){
-            _bzzToDeactivate.add(_bz);
-          } else {
-            _bzzToKeep.add(_bz);
-          }
-        }
-
-        /// CLOSE WAITING DIALOG
-        Nav.goBack(context);
-
-        /// b - show dialog of which bzz can and will be deleted
-        bool _bzzReviewResult = await bzzDeactivationDialog(
-          context: context,
-          bzzToDeactivate: _bzzToDeactivate,
-          bzzToKeep: _bzzToKeep,
-        );
-
-        /// so if user chooses to cancel ops
-        if (_bzzReviewResult == false) {
-          // do nothing
-          print('no Do not deactivate ');
-        }
-
-        /// and if user chooses to continue ops
-        else {
-
-          /// b - show dialog of which flyers can and will be deleted
-          bool _flyersReviewResult = await flyersDeactivationDialog(
-            context: context,
-            bzzToDeactivate: _bzzToDeactivate,
-          );
-
-          /// if user chooses to cancel ops
-          if (_flyersReviewResult == false){
-            // do nothing
-            print('no Do not delete ');
-          }
-
-          /// if user chooses to continue ops
+          /// F - if user wants to continue
           else {
 
             /// SHOW WAITING DIALOG
@@ -459,54 +312,307 @@ class UserOps{
               child: Loading(loading: true,),
             );
 
-            /// start delete bz ops for all possible bzz
+            /// G - DEACTIVATE all deactivable bzz
             for (var bz in _bzzToDeactivate){
-              await BzOps().superDeleteBzOps(
-                context: context,
-                bzModel: bz,
-              );
+              await BzOps().deactivateBzOps(
+               context: context,
+               bzModel: bz,
+             );
             }
+
+            /// H - change user status in user doc to deactivated
+            await Fire.updateDocField(
+              context: context,
+              collName: FireCollection.users,
+              docName: userModel.userID,
+              field: 'userStatus',
+              input: UserModel.cipherUserStatus(UserStatus.Deactivated),
+            );
+
+            /// I - change user status in TinyUser doc to deactivated
+            await Fire.updateDocField(
+              context: context,
+              collName: FireCollection.tinyUsers,
+              docName: userModel.userID,
+              field: 'userStatus',
+              input: UserModel.cipherUserStatus(UserStatus.Deactivated),
+            );
+
+            ///   J - SIGN OUT
+            await AuthOps().signOut(context: context, routeToUserChecker: false);
 
             /// CLOSE WAITING DIALOG
             Nav.goBack(context);
+
+            await superDialog(context: context, title: '', boolDialog: false, height: null, body: 'Done',);
+
+            return 'deactivated';
 
           }
 
         }
 
-        print('all ${_bzzToDeactivate.length} bzz are deleted');
+
       }
 
-      /// 2 - delete tiny user
-      print('deleting tinyUser');
-      await Fire.deleteDoc(
-        context: context,
-        collName: FireCollection.tinyUsers,
-        docName: userModel.userID,
-      );
+      /// B - if user in not Author
+      else {
 
-      /// 3 - delete user image
-      print('deleting user pic');
-      await Fire.deleteStoragePic(
-        context: context,
-        picType: PicType.userPic,
-        fileName: userModel.userID,
-      );
+        /// H - change user status in user doc to deactivated
+        await Fire.updateDocField(
+          context: context,
+          collName: FireCollection.users,
+          docName: userModel.userID,
+          field: 'userStatus',
+          input: UserModel.cipherUserStatus(UserStatus.Deactivated),
+        );
 
-      /// 4 - delete user doc
-      print('deleting user doc');
-      await Fire.deleteDoc(
-        context: context,
-        collName: FireCollection.users,
-        docName: userModel.userID,
-      );
+        /// I - change user status in TinyUser doc to deactivated
+        await Fire.updateDocField(
+          context: context,
+          collName: FireCollection.tinyUsers,
+          docName: userModel.userID,
+          field: 'userStatus',
+          input: UserModel.cipherUserStatus(UserStatus.Deactivated),
+        );
 
-      /// 5 - delete irebase user
-      await AuthOps().deleteFirebaseUser(context, userModel.userID);
+        superDialog(context: context, title: '', boolDialog: false, height: null, body: 'Done',);
 
+        ///   J - SIGN OUT
+        await AuthOps().signOut(context: context, routeToUserChecker: false);
+
+        /// CLOSE WAITING DIALOG
+        Nav.goBack(context);
+
+        await superDialog(context: context, title: '', boolDialog: false, height: null, body: 'Done',);
+
+        return 'deactivated';
+
+      }
 
     }
 
+  }
+// -----------------------------------------------------------------------------
+  /// TASK : CLOUD FUNCTION : delete user ops should trigger a cloud function instead of firing these entire functions from client
+  /// for now this :-
+  /// A - return 'stop' or continue ops
+  /// B - if user is Author :-
+  ///   C - read And Filter Teamless Bzz By then show its dialog
+  ///   D - return 'stop' or continue ops
+  ///   E - show flyers that will be DELETED
+  ///   F - return 'stop' or continue ops
+  ///   G - DELETE all deactivable bzz : firestore/bzz/bzID
+  ///   H - DELETE tiny user : firestore/tinyUsers/userID
+  ///   I - DELETE user image : storage/usersPics/userID
+  ///   J - DELETE user doc : firestore/users/userID
+  ///   K - SIGN OUT
+  ///   L - DELETE firebase user : auth/userID
+  ///   M - return 'deleted'
+  ///
+  /// B - if user is not Author
+  ///   H - DELETE tiny user : firestore/tinyUsers/userID
+  ///   I - DELETE user image : storage/usersPics/userID
+  ///   J - DELETE user doc : firestore/users/userID
+  ///   K - SIGN OUT
+  ///   L - DELETE firebase user : auth/userID
+  ///   M - return 'deleted'
+  Future<dynamic> superDeleteUserOps({BuildContext context, UserModel userModel}) async {
+
+    /// A - initial bool dialog alert
+    bool _result = await superDialog(
+      context: context,
+      title: 'This will Delete all your data',
+      body: 'all pictures, flyers, businesses, your user records will be deleted for good\nDo you want to proceed ?',
+      boolDialog: true,
+    );
+
+    /// A - if user stops
+    if (_result == false){
+
+      print('no Do not deactivate ');
+      return 'stop';
+
+    }
+
+    /// A - if user continues
+    else {
+
+      print('starting superDeleteUserOps()');
+
+      /// B - if user is author
+      if (UserModel.userIsAuthor(userModel) == true){
+
+        /// WAITING DIALOG
+        superDialog(
+          context: context,
+          title: '',
+          boolDialog: null,
+          height: null,
+          body: 'Waiting',
+          child: Loading(loading: true,),
+        );
+
+        /// C - read and filter user bzz for which bzz he's the only author of to be deactivated
+        Map<String, dynamic> _userBzzMap = await BzOps.readAndFilterTeamlessBzzByUserModel(
+          context: context,
+          userModel: userModel,
+        );
+        List<BzModel> _bzzToDeactivate = _userBzzMap['bzzToDeactivate'];
+        List<BzModel> _bzzToKeep = _userBzzMap['bzzToKeep'];
+
+        /// CLOSE WAITING DIALOG
+        Nav.goBack(context);
+
+        /// C - show deactivable bzz dialog
+        bool _bzzReviewResult = await bzzDeactivationDialog(
+          context: context,
+          bzzToDeactivate: _bzzToDeactivate,
+          bzzToKeep: _bzzToKeep,
+        );
+
+        /// D - if user wants to stop
+        if (_bzzReviewResult == false) {
+          // do nothing
+          print('no Do not deactivate ');
+          return 'stop';
+        }
+
+        /// D - if user wants to continue
+        else {
+
+          /// E - show flyers that will be DELETED
+          bool _flyersReviewResult = await flyersDeactivationDialog(
+            context: context,
+            bzzToDeactivate: _bzzToDeactivate,
+          );
+
+          /// F - if user wants to stop
+          if (_flyersReviewResult == false){
+
+            print('no Do not deactivate ');
+            return 'stop';
+
+          }
+
+          /// F - if user wants to continue
+          else {
+
+            /// SHOW WAITING DIALOG
+            superDialog(
+              context: context,
+              title: '',
+              boolDialog: null,
+              height: null,
+              body: 'Waiting',
+              child: Loading(loading: true,),
+            );
+
+            /// G - DELETE all deactivable bzz : firestore/bzz/bzID
+            for (var bz in _bzzToDeactivate){
+              await BzOps().superDeleteBzOps(
+                context: context,
+                bzModel: bz,
+              );
+
+              print('DELETED : from ${userModel.userID} : bz :  ${bz.bzID} successfully');
+            }
+
+            /// H - DELETE tiny user : firestore/tinyUsers/userID
+            print('deleting tinyUser');
+            await Fire.deleteDoc(
+              context: context,
+              collName: FireCollection.tinyUsers,
+              docName: userModel.userID,
+            );
+
+            /// I - DELETE user image : storage/usersPics/userID
+            print('deleting user pic');
+            await Fire.deleteStoragePic(
+              context: context,
+              picType: PicType.userPic,
+              fileName: userModel.userID,
+            );
+
+            /// J - DELETE user doc : firestore/users/userID
+            print('deleting user doc');
+            await Fire.deleteDoc(
+              context: context,
+              collName: FireCollection.users,
+              docName: userModel.userID,
+            );
+
+            /// K - SIGN OUT
+            await AuthOps().signOut(context: context, routeToUserChecker: false);
+
+            /// L - DELETE firebase user : auth/userID
+            await AuthOps().deleteFirebaseUser(context, userModel.userID);
+
+            /// CLOSE WAITING DIALOG
+            Nav.goBack(context);
+
+            /// M - return 'deleted'
+            return 'deleted';
+
+          }
+
+        }
+
+
+      }
+
+      /// B - if user is not author
+      else {
+
+        /// SHOW WAITING DIALOG
+        superDialog(
+          context: context,
+          title: '',
+          boolDialog: null,
+          height: null,
+          body: 'Waiting',
+          child: Loading(loading: true,),
+        );
+
+        /// H - delete tiny user
+        print('deleting tinyUser');
+        await Fire.deleteDoc(
+          context: context,
+          collName: FireCollection.tinyUsers,
+          docName: userModel.userID,
+        );
+
+        /// I - delete user image
+        print('deleting user pic');
+        await Fire.deleteStoragePic(
+          context: context,
+          picType: PicType.userPic,
+          fileName: userModel.userID,
+        );
+
+        /// J - delete user doc
+        print('deleting user doc');
+        await Fire.deleteDoc(
+          context: context,
+          collName: FireCollection.users,
+          docName: userModel.userID,
+        );
+
+        /// K - SIGN OUT
+        await AuthOps().signOut(context: context, routeToUserChecker: false);
+
+        /// L - DELETE firebase user : auth/userID
+        await AuthOps().deleteFirebaseUser(context, userModel.userID);
+
+        /// CLOSE WAITING DIALOG
+        Nav.goBack(context);
+
+        /// M - return 'deleted'
+        return 'deleted';
+
+      }
+
+    }
 
   }
 // -----------------------------------------------------------------------------
