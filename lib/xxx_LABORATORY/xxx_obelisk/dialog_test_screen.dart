@@ -1,9 +1,14 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/drafters/streamerz.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/firestore/auth_ops.dart';
+import 'package:bldrs/firestore/bz_ops.dart';
+import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/widgets/bubbles/flyers_bubble.dart';
+import 'package:bldrs/views/widgets/buttons/bt_main.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
@@ -77,6 +82,75 @@ class DialogTestScreen extends StatelessWidget {
           width: Scale.superScreenWidth(context),
           height: Scale.superScreenHeight(context),
           color: Colorz.BloodTest,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+
+                userModelBuilder(
+                    context: context,
+                    userID: superUserID(),
+                    builder: (ctx, userModel){
+
+                      return
+                        BTMain(
+                          buttonVerse: 'Bzz dialog',
+                          buttonIcon: Iconz.Bz,
+                          function: () async {
+
+                            /// C - read and filter user bzz for which bzz he's the only author of to be deactivated
+                            Map<String, dynamic> _userBzzMap = await BzOps.readAndFilterTeamlessBzzByUserModel(
+                              context: context,
+                              userModel: userModel,
+                            );
+
+                            List<BzModel> _bzzToDeactivate = _userBzzMap['bzzToDeactivate'];
+                            List<BzModel> _bzzToKeep = _userBzzMap['bzzToKeep'];
+
+                            await bzzDeactivationDialog(
+                              context: context,
+                              bzzToKeep: _bzzToKeep,
+                              bzzToDeactivate: _bzzToDeactivate,
+                            );
+
+                            },
+                        );
+
+              }),
+
+                userModelBuilder(
+                    context: context,
+                    userID: superUserID(),
+                    builder: (ctx, userModel){
+
+                      return
+                        BTMain(
+                          buttonVerse: 'flyers dialog',
+                          buttonIcon: Iconz.Flyer,
+                          function: () async {
+
+                            /// C - read and filter user bzz for which bzz he's the only author of to be deactivated
+                            Map<String, dynamic> _userBzzMap = await BzOps.readAndFilterTeamlessBzzByUserModel(
+                              context: context,
+                              userModel: userModel,
+                            );
+
+                            List<BzModel> _bzzToDeactivate = _userBzzMap['bzzToDeactivate'];
+                            List<BzModel> _bzzToKeep = _userBzzMap['bzzToKeep'];
+
+                            await flyersDeactivationDialog(
+                              context: context,
+                              bzzToDeactivate: _bzzToDeactivate,
+                            );
+
+                          },
+                        );
+
+                    }),
+
+
+
+              ]
+          ),
 
         ),
       ),

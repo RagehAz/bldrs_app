@@ -286,33 +286,37 @@ Future<bool> bzzDeactivationDialog({
     body: 'All Business accounts will be deactivated except those shared with other authors',
     boolDialog: true,
     height: Scale.superScreenHeight(context) * 0.8,
-    child: Column(
-      children: <Widget>[
+    child: Container(
+      height: Scale.superScreenHeight(context) * 0.45,
+      child: ListView(
+        children: <Widget>[
 
-        BzzBubble(
-          tinyBzz: TinyBz.getTinyBzzFromBzzModels(bzzToDeactivate),
-          onTap: (value){print(value);},
-          numberOfColumns: 6,
-          numberOfRows: 1,
-          scrollDirection: Axis.horizontal,
-          title: 'These Accounts will be deactivated',
-        ),
+          BzzBubble(
+            tinyBzz: TinyBz.getTinyBzzFromBzzModels(bzzToDeactivate),
+            onTap: (value){print(value);},
+            numberOfColumns: 6,
+            numberOfRows: 1,
+            scrollDirection: Axis.horizontal,
+            title: 'These Accounts will be deactivated',
+          ),
 
-        BzzBubble(
-          tinyBzz: TinyBz.getTinyBzzFromBzzModels(bzzToKeep),
-          onTap: (value){print(value);},
-          numberOfColumns: 6,
-          numberOfRows: 1,
-          scrollDirection: Axis.horizontal,
-          title: 'Can not deactivate these businesses',
-        ),
+          BzzBubble(
+            tinyBzz: TinyBz.getTinyBzzFromBzzModels(bzzToKeep),
+            onTap: (value){print(value);},
+            numberOfColumns: 6,
+            numberOfRows: 1,
+            scrollDirection: Axis.horizontal,
+            title: 'Can not deactivate these businesses',
+          ),
 
-        SuperVerse(
-          verse: 'Would you like to continue ?',
-          margin: 10,
-        ),
 
-      ],
+          SuperVerse(
+            verse: 'Would you like to continue ?',
+            margin: 10,
+          ),
+
+        ],
+      ),
     ),
   );
 
