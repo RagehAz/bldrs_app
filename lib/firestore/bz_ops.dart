@@ -510,4 +510,36 @@ class BzOps{
 
   }
 // -----------------------------------------------------------------------------
+  /// This returns Map<String, dynamic> for which user bzz can he delete
+  /// user can delete his bz only if he is the only author
+  /// 1 - read all user['myBzzIDs'] bzz
+  /// 2 - filters which bz can be deleted and which can not be deleted
+  /// 3 - return {'bzzToKeep' : _bzzToKeep, 'bzzToDeactivate' : _bzzToDeactivate, }
+  static Future<dynamic> readAndFilterTeamlessBzzByUserModel({BuildContext context, UserModel userModel}) async {
+    List<BzModel> _bzzToDeactivate = new List();
+    List<BzModel> _bzzToKeep = new List();
+    for (var id in userModel.myBzzIDs){
+
+      BzModel _bz = await BzOps.readBzOps(
+        context: context,
+        bzID: id,
+      );
+
+      if (_bz.bzAuthors.length == 1){
+        _bzzToDeactivate.add(_bz);
+      } else{
+        _bzzToKeep.add(_bz);
+      }
+
+    }
+
+    Map<String, dynamic> _bzzMap = {
+      'bzzToKeep' : _bzzToKeep,
+      'bzzToDeactivate' : _bzzToDeactivate,
+    };
+
+    return _bzzMap;
+
+}
+// -----------------------------------------------------------------------------
 }

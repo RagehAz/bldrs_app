@@ -23,11 +23,11 @@ class BTMain extends StatelessWidget {
   BTMain({
     @required this.buttonVerse,
     @required this.buttonIcon,
-    @required this.buttonColor,
-    @required this.splashColor,
+    this.buttonColor = Colorz.WhiteZircon,
+    this.splashColor = Colorz.Yellow,
     this.buttonVerseShadow = true,
     @required this.function,
-    @required this.stretched,
+    this.stretched = false,
 
     this.iconSizeFactor = 0.75,
     this.verseColor = Colorz.White,

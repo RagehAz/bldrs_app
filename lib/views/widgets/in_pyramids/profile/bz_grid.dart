@@ -36,7 +36,7 @@ class BzGrid extends StatelessWidget {
     double _gridBzWidth = gridZoneWidth / (numberOfColumns + (numberOfColumns * _spacingRatioToGridWidth) + _spacingRatioToGridWidth);
     double _gridBzHeight = _gridBzWidth;
     double _gridSpacing = _gridBzWidth * _spacingRatioToGridWidth;
-    int _bzCount = _tinyBzz == null ? 0 : _tinyBzz.length == 0 ? _boxesColors.length : tinyBzz.length;
+    int _bzCount = _tinyBzz == [] || _tinyBzz.length == 0 ? _boxesColors.length : tinyBzz.length;
     int _numOfGridRows(int _bzCount){return (_bzCount/_gridColumnsCount).ceil();}
     int _numOfRows = numberOfRows == null ? _numOfGridRows(_bzCount) : numberOfRows;
     double _gridHeight = _gridBzHeight * (_numOfRows + (_numOfRows * _spacingRatioToGridWidth) + _spacingRatioToGridWidth);
@@ -49,7 +49,6 @@ class BzGrid extends StatelessWidget {
     );
 
     double zoneCorners = (_gridBzWidth * Ratioz.bzLogoCorner) + _gridSpacing;
-
 
     return
       ClipRRect(
@@ -83,6 +82,7 @@ class BzGrid extends StatelessWidget {
                 ),
 
                 // --- REAL GRID
+              if (_tinyBzz.length != 0)
                 GridView(
                   physics: scrollDirection == null ? NeverScrollableScrollPhysics() : null,
                   scrollDirection: scrollDirection == null ? Axis.vertical : scrollDirection,

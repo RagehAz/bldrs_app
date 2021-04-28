@@ -48,6 +48,8 @@ class AuthOps {
 // -----------------------------------------------------------------------------
   Future<dynamic> deleteFirebaseUser(BuildContext context, String userID) async {
 
+    print('deleting firebase user');
+
     var _result = await tryCatchAndReturn(
       context: context,
       methodName: 'deleteFirebaseUser',
@@ -483,14 +485,19 @@ class AuthOps {
 
   }
 // -----------------------------------------------------------------------------
-  Future<void> signOut(BuildContext context) async {
+  Future<void> signOut({
+    BuildContext context,
+    bool routeToUserChecker,
+  }) async {
 
     print('Signing out');
     await googleSignOutOps(context);
     await emailSignOutOps(context);
     // Nav.goToRoute(context, Routez.Starting);
 
+    if (routeToUserChecker == true){
     Nav.pushNamedAndRemoveAllBelow(context, Routez.UserChecker);
+    }
 
   }
 }
