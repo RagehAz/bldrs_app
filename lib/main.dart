@@ -6,6 +6,7 @@ import 'package:bldrs/firestore/user_ops.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
+import 'package:bldrs/views/screens/s00_user_checker_widget.dart';
 import 'package:bldrs/views/screens/s10_home_screen.dart';
 import 'package:bldrs/views/screens/s51_flyer_screen.dart';
 import 'package:bldrs/views/widgets/loading/loading.dart';
@@ -14,6 +15,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:bldrs/views/screens/s01_starting_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -36,7 +38,7 @@ class BldrsApp extends StatefulWidget {
 
 class _BldrsAppState extends State<BldrsApp> {
   Locale _locale;
-  List<Locale> _supportedLocales = [
+  List<Locale> _supportedLocales = <Locale>[
     Locale('en', 'US'),
     Locale('ar', 'EG'),
     Locale('es', 'ES'),
@@ -45,17 +47,26 @@ class _BldrsAppState extends State<BldrsApp> {
     Locale('de', 'DE'),
     Locale('it', 'IT'),
   ];
-  List<LocalizationsDelegate> _localizationDelegates = [
+  List<LocalizationsDelegate> _localizationDelegates = <LocalizationsDelegate>[
     DemoLocalization.delegate,
     GlobalMaterialLocalizations.delegate,
     GlobalWidgetsLocalizations.delegate,
     GlobalCupertinoLocalizations.delegate,
   ];
 // ---------------------------------------------------------------------------
-  void _setLocale(Locale locale) {
-    setState(() {
-      _locale = locale;
-    });
+  /// --- LOADING BLOCK
+  bool _loading = false;
+  void _triggerLoading(){
+    setState(() {_loading = !_loading;});
+    _loading == true?
+    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+  }
+// ---------------------------------------------------------------------------
+  @override
+  void initState() {
+    _initializeFlutterFire();
+    print("successfully initialized FlutterFire");
+    super.initState();
   }
 // ---------------------------------------------------------------------------
   @override
@@ -66,6 +77,12 @@ class _BldrsAppState extends State<BldrsApp> {
       });
     });
     super.didChangeDependencies();
+  }
+// ---------------------------------------------------------------------------
+  void _setLocale(Locale locale) {
+    setState(() {
+      _locale = locale;
+    });
   }
 // ---------------------------------------------------------------------------
   bool _initialized = false;
@@ -91,21 +108,6 @@ class _BldrsAppState extends State<BldrsApp> {
   }
 // ---------------------------------------------------------------------------
   @override
-  void initState() {
-    _initializeFlutterFire();
-    print("successfully initialized FlutterFire");
-    super.initState();
-  }
-// ---------------------------------------------------------------------------
-  /// --- LOADING BLOCK
-  bool _loading = false;
-  void _triggerLoading(){
-    setState(() {_loading = !_loading;});
-    _loading == true?
-    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
-  }
-// ---------------------------------------------------------------------------
-  @override
   Widget build(BuildContext context) {
 
     print({'building Bldrs with _locale : $_locale'});
@@ -116,7 +118,9 @@ class _BldrsAppState extends State<BldrsApp> {
           child: Loading(loading: _loading,),
         ),
       );
-    } else {
+    }
+
+    else {
       // Show error message if initialization failed
       if (_error) {
         print("Error has occured");
@@ -169,6 +173,8 @@ class _BldrsAppState extends State<BldrsApp> {
           initialRoute: Routez.UserChecker,
           routes: {
             Routez.FlyerScreen: (ctx) => FlyerScreen(),
+            // Routez.Starting: (ctx) => StartingScreen(),
+            Routez.UserChecker: (ctx) => UserChecker(),
             Routez.Home: (ctx) => HomeScreen(),
             // Routez.InPyramids: (ctx) => InPyramidsScreen(),
           },

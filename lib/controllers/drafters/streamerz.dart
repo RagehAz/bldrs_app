@@ -81,7 +81,7 @@ Widget userModelBuilder({
 }){
 
   return FutureBuilder(
-      future: Fire.readDoc(
+      future: Fire().readDoc(
         context: context,
         collName: FireCollection.users,
         docName: userID,
@@ -141,7 +141,7 @@ Widget bzModelBuilder({
 }){
 
   return FutureBuilder(
-      future: Fire.readDoc(
+      future: Fire().readDoc(
         context: context,
         collName: FireCollection.bzz,
         docName: bzID,
@@ -213,7 +213,7 @@ Widget tinyBzModelBuilder({
 }){
 
   return FutureBuilder(
-      future: Fire.readDoc(
+      future: Fire().readDoc(
         context: context,
         collName: FireCollection.tinyBzz,
         docName: bzID,
@@ -287,7 +287,7 @@ Widget flyerModelBuilder({
 }){
 
   return FutureBuilder(
-      future: Fire.readDoc(
+      future: Fire().readDoc(
         context: context,
         collName: FireCollection.flyers,
         docName: tinyFlyer.flyerID,

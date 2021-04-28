@@ -132,30 +132,32 @@ class _SignInFormState extends State<SignInForm> {
         /// so sign in succeeded returning a userModel
         UserModel _userModel = _result;
 
-        /// check if user model is properly completed
-        List<String> _missingFields = UserModel.missingFields(_userModel);
-        if (_missingFields.length == 0){
+        Nav.goBackToUserChecker(context);
 
-          _triggerLoading();
-
-          /// so userModel required fields are entered route to userChecker screen
-          Nav.goToNewScreen(context, UserChecker());
-
-        } else {
-
-          _triggerLoading();
-
-          /// if userModel is not completed pop Alert
-          await superDialog(
-            context: context,
-            title: 'Ops!',
-            body: 'You have to complete your profile info\n ${_missingFields.toString()}',
-            boolDialog: false,
-          );
-
-          /// and route to complete profile missing data
-          Nav.goToNewScreen(context, EditProfileScreen(user: _userModel, firstTimer: false,),);
-        }
+        // /// check if user model is properly completed
+        // List<String> _missingFields = UserModel.missingFields(_userModel);
+        // if (_missingFields.length == 0){
+        //
+        //   _triggerLoading();
+        //
+        //   /// so userModel required fields are entered route to userChecker screen
+        //   Nav.goToNewScreen(context, UserChecker());
+        //
+        // } else {
+        //
+        //   _triggerLoading();
+        //
+        //   /// if userModel is not completed pop Alert
+        //   await superDialog(
+        //     context: context,
+        //     title: 'Ops!',
+        //     body: 'You have to complete your profile info\n ${_missingFields.toString()}',
+        //     boolDialog: false,
+        //   );
+        //
+        //   /// and route to complete profile missing data
+        //   Nav.goToNewScreen(context, EditProfileScreen(user: _userModel, firstTimer: false,),);
+        // }
 
       }
 

@@ -3,6 +3,8 @@ import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/controllers/theme/wordz.dart';
+import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/firestore/bz_ops.dart';
 import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/models/bz_model.dart';
@@ -112,13 +114,21 @@ class UserOps{
 // -----------------------------------------------------------------------------
   Future<UserModel> readUserOps({BuildContext context, String userID}) async {
 
-    Map<String, dynamic> _userMap = await Fire.readDoc(
+    print('Start reading user $userID while lang is : ${Wordz.languageCode(context)},');
+
+    Map<String, dynamic> _userMap = await Fire().readDoc(
       context: context,
       collName: FireCollection.users,
       docName: userID,
     );
 
+    print('_userMap is : $_userMap');
+    // print('lng : ${Wordz.languageCode(context)}');
+
     UserModel _user = _userMap == null ? null : UserModel.decipherUserMap(_userMap);
+
+    print('_userModel is : $_user');
+    // print('lng : ${Wordz.languageCode(context)}');
 
     return _user;
   }
@@ -490,6 +500,9 @@ class UserOps{
         collName: FireCollection.users,
         docName: userModel.userID,
       );
+
+      /// 5 - delete irebase user
+      await AuthOps().deleteFirebaseUser(context, userModel.userID);
 
 
     }

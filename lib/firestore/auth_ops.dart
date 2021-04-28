@@ -27,6 +27,40 @@ class AuthOps {
   /// firebaseAuth instance
   final FirebaseAuth _auth = FirebaseAuth?.instance;
 // -----------------------------------------------------------------------------
+  static bool userIsSignedIn(){
+    bool _userIsSignedIn = false;
+
+    if (superFirebaseUser() == null){
+
+      _userIsSignedIn = false;
+
+
+    } else {
+
+      _userIsSignedIn = true;
+
+    }
+
+    print('_userIsSignedIn() = $_userIsSignedIn');
+
+    return _userIsSignedIn;
+  }
+// -----------------------------------------------------------------------------
+  Future<dynamic> deleteFirebaseUser(BuildContext context, String userID) async {
+
+    var _result = await tryCatchAndReturn(
+      context: context,
+      methodName: 'deleteFirebaseUser',
+      functions: () async {
+
+        _auth.currentUser.delete();
+
+      }
+    );
+
+    return _result;
+  }
+// -----------------------------------------------------------------------------
   /// firebase user provider data
   dynamic getFirebaseUserProviderData ()  {
     // dynamic _thing = _auth.currentUser.
@@ -306,10 +340,11 @@ class AuthOps {
         context: context,
         methodName: 'googleSignInOps',
         functions: () async {
-
+          print('1 language: ${Wordz.languageCode(context)},');
           if
           /// if it's on web
           (kIsWeb){
+            print('googleSignInOps : kIsWeb : $kIsWeb');
 
             /// get auth provider
             GoogleAuthProvider authProvider = GoogleAuthProvider();
@@ -372,15 +407,17 @@ class AuthOps {
 
     /// if _user is not null
     else {
-
+      print('2 language: ${Wordz.languageCode(context)},');
       /// we check existing userModel
       UserModel _existingUserModel = await UserOps().readUserOps(
         context: context,
         userID: _user.uid,
       );
+      // print('lng : ${Wordz.languageCode(context)}');
 
       /// if it's a new user, we start creating new account
       if (_existingUserModel == null) {
+        // print('lng : ${Wordz.languageCode(context)}');
 
         /// create initial user model from firebase user
         UserModel _initialUserModel = await UserModel.createInitialUserModelFromUser(
@@ -426,7 +463,7 @@ class AuthOps {
   Future<void> googleSignOutOps(BuildContext context) async {
 
     final GoogleSignIn googleSignIn = GoogleSignIn();
-    print('googleSignIn.currentUser was : ${googleSignIn.currentUser}');
+    print('googleSignOutOps : currentUser was : ${googleSignIn.currentUser}');
 
     await tryAndCatch(
       context: context,
@@ -442,17 +479,18 @@ class AuthOps {
       }
     );
 
-    print('googleSignIn.currentUser is : ${googleSignIn.currentUser}');
+    print('googleSignOutOps : currentUser is : ${googleSignIn.currentUser}');
 
   }
-// -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
   Future<void> signOut(BuildContext context) async {
 
     print('Signing out');
     await googleSignOutOps(context);
     await emailSignOutOps(context);
-    Nav.goToRoute(context, Routez.Starting);
+    // Nav.goToRoute(context, Routez.Starting);
+
+    Nav.pushNamedAndRemoveAllBelow(context, Routez.UserChecker);
 
   }
 }

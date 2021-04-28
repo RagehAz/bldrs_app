@@ -254,7 +254,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
       {'Name' : 'Fire.readDoc', 'function' : () async {
         _triggerLoading();
 
-        dynamic _subDoc = await Fire.readDoc(
+        dynamic _subDoc = await Fire().readDoc(
           collName: FireCollection.flyers,
           docName: 'f005',
         );
@@ -537,44 +537,6 @@ class _FirebasetestingState extends State<Firebasetesting> {
         _triggerLoading();
       },},
       // -----------------------------------------------------------------------
-      {'Name' : 'upload local asset and get URL', 'function' : () async {
-        _triggerLoading();
-
-        String _url = await Fire.createStoragePicFromAssetAndGetURL(
-          context: context,
-          picType: PicType.authorPic,
-          fileName: 'ASSET',
-          asset: Dumz.XXhsi_1,
-        );
-
-        setState(() {
-          _picURL = _url;
-        });
-
-        printResult('$_url');
-
-        _triggerLoading();
-      },},
-      // -----------------------------------------------------------------------
-      {'Name' : 'get FILE from url', 'function' : () async {
-        _triggerLoading();
-
-        UserModel _user = await UserOps().readUserOps(
-          context: context,
-          userID: superUserID(),
-        );
-
-        File _file = await urlToFile(_user.pic);
-
-        setState(() {
-          _filePic = _file;
-        });
-
-        printResult('$_filePic');
-
-        _triggerLoading();
-      },},
-      // -----------------------------------------------------------------------
       {'Name' : 'create firebase user with email', 'function' : () async {
         _triggerLoading();
 
@@ -632,6 +594,16 @@ class _FirebasetestingState extends State<Firebasetesting> {
         dynamic result = await Nav.goToNewScreen(context, Page2());
 
         printResult('$result');
+
+        _triggerLoading();
+      },},
+      // -----------------------------------------------------------------------
+      {'Name' : 'Delete firebase user', 'function' : () async {
+        _triggerLoading();
+
+        dynamic _result = await AuthOps().deleteFirebaseUser(context, 'aI870q75S9Pt2zs77SDOZzVdlgQ2');
+
+        printResult('$_result');
 
         _triggerLoading();
       },},
