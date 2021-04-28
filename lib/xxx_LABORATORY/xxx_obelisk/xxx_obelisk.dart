@@ -174,7 +174,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
             color: _isSignedIn ? Colorz.Green : Colorz.GreySmoke,
             verseScaleFactor: 0.6,
             verseColor: _isSignedIn ? Colorz.White : Colorz.ModalGrey,
-            boxFunction: () => AuthOps().signOut(context),
+            boxFunction: () => AuthOps().signOut(context: context, routeToUserChecker: true),
           ),
 
           DreamBox(
@@ -189,7 +189,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
             verseColor: _isSignedIn ? Colorz.White : Colorz.ModalGrey,
             boxFunction: () async {
               await AuthOps().deleteFirebaseUser(context, superUserID());
-              await AuthOps().signOut(context);
+              await AuthOps().signOut(context: context, routeToUserChecker: true);
 
             },
           ),

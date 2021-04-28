@@ -1,12 +1,10 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/router/route_names.dart';
-import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/firestore/user_ops.dart';
 import 'package:bldrs/models/user_model.dart';
-import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/screens/s01_starting_screen.dart';
 import 'package:bldrs/views/screens/s03_loading_screen.dart';
 import 'package:bldrs/views/screens/s16_user_editor_screen.dart';
@@ -131,7 +129,7 @@ class _UserCheckerState extends State<UserChecker> {
             var _result = await Nav.goToNewScreen(context, StartingScreen(),);
 
             print('just came back from starting screen');
-            /// and we loop agian in userChecker
+            /// and we loop again in userChecker
             Nav.pushNamedAndRemoveAllBelow(context, Routez.UserChecker);
           }
 

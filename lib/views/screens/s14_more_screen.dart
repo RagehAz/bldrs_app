@@ -139,7 +139,7 @@ class MoreScreen extends StatelessWidget {
             verse: Wordz.signOut(context),
             icon: Iconz.Exit,
             iconSizeFactor: 0.6,
-            btOnTap: () => AuthOps().signOut(context),
+            btOnTap: () => AuthOps().signOut(context: context, routeToUserChecker: true),
           ),
 
           _separator,
