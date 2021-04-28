@@ -76,7 +76,9 @@ class UserModel {
 
     // List<dynamic> _myBzzIDs = map['myBzzIDs'] ?? [];
 
-    return UserModel(
+    return
+      map == null ? null :
+      UserModel(
       userID : map['userID'] ?? '',
       authBy: decipherAuthBy(map['authBy'] ?? 0),
       joinedAt : decipherDateTimeString(map['joinedAt'] ?? ''),
@@ -227,18 +229,30 @@ class UserModel {
     Zone zone,
     AuthBy authBy,
   }) async {
+    // print('lng : ${Wordz.languageCode(context)}');
 
 
     assert(!user.isAnonymous);
-    print('googleSignInOps : !_user.isAnonymous : ${!user.isAnonymous}');
+    print('createInitialUserModelFromUser : !_user.isAnonymous : ${!user.isAnonymous}');
 
     assert(await user.getIdToken() != null);
-    print('googleSignInOps : _user.getIdToken() != null : ${user.getIdToken() != null}');
+    print('createInitialUserModelFromUser : _user.getIdToken() != null : ${user.getIdToken() != null}');
 
-
-    /// get user current location
-    // TASK : need to trace user current location and pass it here while creating the userModel from firebase User
-    CountryProvider _countryPro = Provider.of<CountryProvider>(context, listen: false);
+    print('userID: ${user.uid},');
+    print('authBy: $authBy,');
+    print('joinedAt: ${DateTime.now()},');
+    print('userStatus: ${UserStatus.Normal},');
+    print('name: ${user.displayName},');
+    print('pic: ${user.photoURL},');
+    print('title: '',');
+    print('gender: ${Gender.any }');
+    print('country: ${zone.countryID},');
+    print('province: ${zone.provinceID},');
+    print('area: ${zone.areaID},');
+    // print('4 language: ${Wordz.languageCode(context)},');
+    print('position: ,');
+    print('contacts: ${ContactModel.getContactsFromFirebaseUser(user)},');
+    print('myBzzIDs: [],');
 
     UserModel _userModel = UserModel(
       userID: user.uid,
@@ -253,12 +267,14 @@ class UserModel {
       country: zone.countryID,
       province: zone.provinceID,
       area: zone.areaID,
-      language: Wordz.languageCode(context),
+      language: '',//Wordz.languageCode(context),
       position: null,
       contacts: ContactModel.getContactsFromFirebaseUser(user),
       // -------------------------
       myBzzIDs: [],
     );
+
+    print('userModel created : $_userModel');
 
     return _userModel;
 }

@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/mappers.dart';
+import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/sub_models/slide_model.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -127,10 +128,18 @@ class Fire{
 // -----------------------------------------------------------------------------
   static Future<dynamic> _getMapByDocRef(DocumentReference docRef) async {
     dynamic _map;
-    await docRef.get()
-        .then<dynamic>((DocumentSnapshot snapshot) async {
+
+    DocumentSnapshot snapshot = await docRef.get();
+
+    if (snapshot.exists == true){
       _map = Mapper.getMapFromDocumentSnapshot(snapshot);
-    });
+    } else {
+      _map = null;
+    }
+
+    //     .then<dynamic>((DocumentSnapshot snapshot) async {
+    //   _map = Mapper.getMapFromDocumentSnapshot(snapshot);
+    // });
     return _map;
   }
 // =============================================================================
@@ -262,27 +271,39 @@ class Fire{
     return _docsSnapshots;
   }
 // -----------------------------------------------------------------------------
-  static Future<dynamic> readDoc({
+  Future<dynamic> readDoc({
     BuildContext context,
     String collName,
     String docName
   }) async {
 
+    print('readDoc() : starting to read doc : firestore/$collName/$docName');
+    print('lng : ${Wordz.languageCode(context)}');
+
     Map<String, dynamic> _map; //QueryDocumentSnapshot
 
-    await tryAndCatch(
+    print('readDoc() : _map starts as : $_map');
+
+    dynamic _result = await tryCatchAndReturn(
       context: context,
       methodName: 'readDoc',
       functions: () async {
 
         final DocumentReference _docRef = Fire.getDocRef(collName, docName);
+        print('readDoc() : _docRef : $_docRef');
 
         _map = await _getMapByDocRef(_docRef);
+        print('readDoc() : _map : $_map');
 
       },
     );
 
-    return _map;
+    print('readDoc() : _result : $_result');
+    print('readDoc() : _map : $_map');
+    // print('lng : ${Wordz.languageCode(context)}');
+
+    return
+      _result.runtimeType == String ? null : _map;
   }
 // -----------------------------------------------------------------------------
   /// TODO : delete Fire.readDocField if not used in release mode
@@ -299,7 +320,7 @@ class Fire{
         context: context,
         methodName: 'readDocField',
         functions: () async {
-          _map = await Fire.readDoc(
+          _map = await Fire().readDoc(
             context: context,
             collName: collName,
             docName: docName,
@@ -637,15 +658,19 @@ class Fire{
 
 // =============================================================================
   static Reference getStorageRef({
+    BuildContext context,
     String docName,
     String fileName,
   }) {
-    final ref = FirebaseStorage.instance
-        .ref()
-        .child(docName)
-        .child(fileName + '.jpg'); // should be bzID
 
-    return ref;
+    print('getting fire storage reference');
+
+      final Reference _ref = FirebaseStorage.instance
+            .ref()
+            .child(docName)
+            .child(fileName + '.jpg') ?? null;
+
+    return _ref;
   }
 // -----------------------------------------------------------------------------
   /// creates new pic in document name according to pic type,
@@ -663,7 +688,7 @@ class Fire{
         methodName: 'createStoragePicAndGetURL',
         functions: () async {
 
-          final _ref = getStorageRef(
+          final Reference _ref = getStorageRef(
               docName: StorageDoc.docName(picType),
               fileName: fileName,
           );
@@ -745,7 +770,7 @@ class Fire{
     String fileName
   }) async {
 
-    final _ref = getStorageRef(
+    final Reference _ref = getStorageRef(
         docName: StorageDoc.docName(picType),
         fileName: fileName
     );
@@ -761,7 +786,7 @@ class Fire{
     PicType picType
   }) async {
 
-    await tryAndCatch(
+    dynamic _result = await tryCatchAndReturn(
         context: context,
         methodName: 'deleteStoragePic',
         functions: () async {
@@ -771,13 +796,60 @@ class Fire{
               fileName: fileName
           );
 
-          FullMetadata _metaData = await _picRef.getMetadata();
+          FullMetadata _metaData = await _picRef?.getMetadata();
 
           print('_metaData ------------------------- : $_metaData');
 
           await _picRef?.delete();
         }
     );
+
+    print('checking delete result : $_result');
+
+    /// if result is an error, pop a dialog
+    if (_result.runtimeType == String){
+
+      /// only if the error is not
+      /// [firebase_storage/object-not-found] No object exists at the desired reference.
+      String _fileDoesNotExistError = '[firebase_storage/object-not-found] No object exists at the desired reference.';
+
+      if (_result == _fileDoesNotExistError){
+
+        // await superDialog(
+        //   context: context,
+        //   title: '',
+        //   body: 'there is no image to delete',
+        //   boolDialog: false,
+        // );
+
+        print('there is no image to delete');
+
+      } else {
+
+        await superDialog(
+          context: context,
+          title: 'Can not delete image',
+          body: '${_result.toString()}',
+          boolDialog: false,
+        );
+
+      }
+
+    }
+
+    /// if result is null, so no error was thrown and procedure succeeded
+    else {
+
+      // await superDialog(
+      //   context: context,
+      //   title: '',
+      //   body: 'Picture has been deleted',
+      //   boolDialog: false,
+      // );
+
+      print('picture has been deleted');
+
+    }
 
   }
 // ---------------------------------------------------------------------------

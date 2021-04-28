@@ -68,8 +68,10 @@ class FlyersProvider with ChangeNotifier {
   /// TASK : sponsors tiny bzz should depend on which city
   Future<void> fetchAndSetSponsors(BuildContext context) async {
 
+    print('fetching sponsors');
+
     /// 1 - get sponsors map from db/admin/sponsors
-    Map<String, dynamic> _sponsorsIDsMap = await Fire.readDoc(
+    Map<String, dynamic> _sponsorsIDsMap = await Fire().readDoc(
       context: context,
       collName: FireCollection.admin,
       docName: AdminDoc.sponsors,
@@ -86,7 +88,7 @@ class FlyersProvider with ChangeNotifier {
     }
 
     _sponsors = _sponsorsTinyBzz;
-    print(_sponsors.length);
+    print('Bldrs ${_sponsors.length} Sponsors are ${_sponsors.toString()}');
     notifyListeners();
   }
 // -----------------------------------------------------------------------------
@@ -94,7 +96,7 @@ class FlyersProvider with ChangeNotifier {
   Future<void> fetchAndSetUserTinyBzz(BuildContext context) async {
     String _userID = superUserID();
 
-    Map<String, dynamic> _userMap = await Fire.readDoc(
+    Map<String, dynamic> _userMap = await Fire().readDoc(
       context: context,
       collName: FireCollection.users,
       docName: _userID,
@@ -107,7 +109,7 @@ class FlyersProvider with ChangeNotifier {
     List<TinyBz> _userTinyBzzList = new List();
 
     for (var id in _userBzzIDs){
-      dynamic _tinyBzMap = await Fire.readDoc(
+      dynamic _tinyBzMap = await Fire().readDoc(
         context: context,
         collName: FireCollection.tinyBzz,
         docName: id,
