@@ -45,8 +45,8 @@ class Nav{
   return _result;
   }
 // -----------------------------------------------------------------------------
-  static goToRoute(BuildContext context, String routezName){
-    Navigator.pushNamed(context, routezName);
+  static goToRoute(BuildContext context, String routezName, {dynamic arguments}){
+    Navigator.of(context).pushNamed(routezName, arguments: arguments);
   }
 // -----------------------------------------------------------------------------
   static void openFlyerOldWay(BuildContext context, String flyerID){
@@ -70,12 +70,14 @@ class Nav{
 // -----------------------------------------------------------------------------
   void openFlyer(BuildContext context, String flyerID){
 
-    print('open flyer navigator recieved $flyerID');
+    goToRoute(context, Routez.FlyerScreen, arguments: flyerID);
 
-    Navigator.of(context).pushNamed(
-      Routez.FlyerScreen,
-      arguments: flyerID,
-    );
+    // print('open flyer navigator recieved $flyerID');
+    //
+    // Navigator.of(context).pushNamed(
+    //   Routez.FlyerScreen,
+    //   arguments: flyerID,
+    // );
   }
 // -----------------------------------------------------------------------------
   static goBack(BuildContext context, {argument}){

@@ -77,7 +77,7 @@ class Routerer {
 // -----------------------------------------------------------------------------
     ///  s51
       case Routez.FlyerScreen:
-        return Nav.fadeToScreen(FlyerScreen(), settings); break;
+        return Nav.slideToScreen(FlyerScreen(), settings); break;
 // -----------------------------------------------------------------------------
 
     // --- XXX GENERAL SCREENS
