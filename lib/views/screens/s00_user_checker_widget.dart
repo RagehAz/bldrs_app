@@ -1,5 +1,6 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
+import 'package:bldrs/controllers/router/route_names.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/firestore/auth_ops.dart';
@@ -51,8 +52,6 @@ class _UserCheckerState extends State<UserChecker> {
     if (_isInit) {
 
       _triggerLoading();
-
-        FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: true);
 
       /// A - if user is signed in
 
@@ -133,7 +132,7 @@ class _UserCheckerState extends State<UserChecker> {
 
             print('just came back from starting screen');
             /// and we loop agian in userChecker
-            await Nav.replaceScreen(context, UserChecker());
+            Nav.pushNamedAndRemoveAllBelow(context, Routez.UserChecker);
           }
 
         });
