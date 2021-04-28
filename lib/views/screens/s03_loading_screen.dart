@@ -2,6 +2,7 @@ import 'package:bldrs/controllers/drafters/text_shapers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/router/route_names.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/screens/s10_home_screen.dart';
@@ -54,33 +55,43 @@ class _LoadingScreenState extends State<LoadingScreen> {
     if (_isInit) {
       _triggerLoading();
 
-      FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: true);
+      if (AuthOps.userIsSignedIn() == true){
 
-      // _prof.fetchAndSetTinyBzzAndTinyFlyers(context)
-      _prof.fetchAndSetSponsors(context)
-          .then((_) async {
+        FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: true);
 
-            setState(() {
-              _sponsors = _prof.getSponsors;
-            });
+        // _prof.fetchAndSetTinyBzzAndTinyFlyers(context)
+        _prof.fetchAndSetSponsors(context)
+            .then((_) async {
 
-            await _prof.fetchAndSetUserTinyBzz(context);
+          setState(() {
+            _sponsors = _prof.getSponsors;
+          });
 
-            // TASK : should get only first 10 saved tiny flyers,, and continue paginating when entering the savedFlyers screen
-            await _prof.fetchAndSetSavedFlyers(context);
+          await _prof.fetchAndSetUserTinyBzz(context);
 
-            /// TASK : should get only first 10 followed tiny bzz, then paginate in all when entering followed bzz screen
-            await _prof.fetchAndSetFollows(context);
+          // TASK : should get only first 10 saved tiny flyers,, and continue paginating when entering the savedFlyers screen
+          await _prof.fetchAndSetSavedFlyers(context);
 
-            /// TASK : wallahi mana 3aref hane3mel eh hena
-            await _prof.fetchAndSetTinyBzzAndTinyFlyers(context);
+          /// TASK : should get only first 10 followed tiny bzz, then paginate in all when entering followed bzz screen
+          await _prof.fetchAndSetFollows(context);
 
-            setState(() {
-              _canContinue = true;
-            });
+          /// TASK : wallahi mana 3aref hane3mel eh hena
+          await _prof.fetchAndSetTinyBzzAndTinyFlyers(context);
 
-        _triggerLoading();
-      });
+          setState(() {
+            _canContinue = true;
+          });
+
+          _triggerLoading();
+        });
+
+
+      } else {
+
+        print('estanna m3ana shwaya');
+
+      }
+
     }
     _isInit = false;
     super.didChangeDependencies();
@@ -102,7 +113,11 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
           Stratosphere(heightFactor: 0.5),
 
-          LogoSlogan(onlyLogo: true,),
+          LogoSlogan(
+            showSlogan: true,
+            showTagLine: false,
+            sizeFactor: 0.7,
+          ),
 
           Expanded(child: Container()),
 

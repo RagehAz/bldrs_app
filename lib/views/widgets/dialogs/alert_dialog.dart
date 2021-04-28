@@ -209,7 +209,7 @@ Future<dynamic> tryCatchAndReturn({Function finals, BuildContext context, Functi
 
     print('$methodName : tryAndCatch ERROR : $error');
 
-    return error;
+    return error.toString();
   }
 }
 // -----------------------------------------------------------------------------
