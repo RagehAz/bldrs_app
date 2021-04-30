@@ -86,7 +86,7 @@ class MoreScreen extends StatelessWidget {
           TileBubble(
             verse: Wordz.changeLanguage(context),
             icon: Iconz.Language,
-            btOnTap: () => Nav.goToNewScreen(context, ChangeLanguageScreen()),
+            btOnTap: () => Nav.goToNewScreen(context, SelectLanguageScreen()),
           ),
 
           _separator,
