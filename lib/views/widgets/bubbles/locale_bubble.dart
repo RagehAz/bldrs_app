@@ -7,14 +7,13 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/providers/country_provider.dart';
-import 'package:bldrs/views/widgets/appbar/ab_localizer.dart';
-import 'package:bldrs/views/widgets/buttons/bt_list.dart';
+import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
+import 'package:bldrs/views/widgets/buttons/sheet_buttons.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_sheet.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'in_pyramids_bubble.dart';
 
 
 class LocaleBubble extends StatefulWidget {
@@ -64,12 +63,12 @@ class _LocaleBubbleState extends State<LocaleBubble> {
       context: context,
       draggable: true,
       height: null,
-      child: ButtonsList(
+      child: SheetButtons(
         listOfMaps: flags,
         mapValueIs: MapValueIs.flag,
         alignment: Alignment.center,
         provider: countryPro,
-        localizerPage: LocalizerPage.BottomSheet,
+        sheetType: BottomSheetType.BottomSheet,
         buttonTap: (countryID){
           setState(() {
             _chosenCountryID = countryID;
@@ -90,12 +89,12 @@ class _LocaleBubbleState extends State<LocaleBubble> {
       context: context,
       draggable: true,
       height: null,
-      child: ButtonsList(
+      child: SheetButtons(
         listOfMaps: provinces,
         mapValueIs: MapValueIs.String,
         alignment: Alignment.center,
         provider: countryPro,
-        localizerPage: LocalizerPage.Province,
+        sheetType: BottomSheetType.Province,
         buttonTap: (provinceID){
           setState(() {
             _chosenProvinceID = provinceID;
@@ -115,12 +114,12 @@ class _LocaleBubbleState extends State<LocaleBubble> {
       context: context,
       draggable: true,
       height: null,
-      child: ButtonsList(
+      child: SheetButtons(
         listOfMaps: areas,
         mapValueIs: MapValueIs.String,
         alignment: Alignment.center,
         provider: countryPro,
-        localizerPage: LocalizerPage.Province,
+        sheetType: BottomSheetType.Province,
         buttonTap: (areaID){
           setState(() {
             _chosenAreaID = areaID;
@@ -147,8 +146,8 @@ class _LocaleBubbleState extends State<LocaleBubble> {
     String _chosenAreaName = _chosenAreaID == null ? '...' : _countryPro.getAreaNameWithCurrentLanguageIfPossible(context, _chosenAreaID);
 
 
-    double _bubbleClearWidth = Scale.superBubbleClearWidth(context);
-    double _buttonsSpacing = Ratioz.ddAppBarMargin;
+    // double _bubbleClearWidth = Scale.superBubbleClearWidth(context);
+    // double _buttonsSpacing = Ratioz.ddAppBarMargin;
     // double _buttonWidth = (_bubbleClearWidth / 3)-((2*_buttonsSpacing)/3);
 
     return InPyramidsBubble(

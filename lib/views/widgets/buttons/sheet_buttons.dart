@@ -5,7 +5,7 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/flagz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/providers/country_provider.dart';
-import 'package:bldrs/views/widgets/appbar/ab_localizer.dart';
+import 'package:bldrs/views/widgets/dialogs/bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'dream_box.dart';
@@ -16,21 +16,21 @@ enum MapValueIs{
   String,
 }
 
-class ButtonsList extends StatelessWidget {
+class SheetButtons extends StatelessWidget {
   final List<Map<String, String>> listOfMaps;
   final MapValueIs mapValueIs;
   final Alignment alignment;
   final Function buttonTap;
   final CountryProvider provider;
-  final LocalizerPage localizerPage;
+  final BottomSheetType sheetType;
 
-  ButtonsList({
+  SheetButtons({
     @required this.listOfMaps,
     this.mapValueIs = MapValueIs.String,
     @required this.alignment,
     @required this.buttonTap,
     @required this.provider,
-    this.localizerPage = LocalizerPage.Country,
+    this.sheetType = BottomSheetType.Country,
   });
 
   @override
@@ -81,7 +81,7 @@ class ButtonsList extends StatelessWidget {
                     boxMargins: EdgeInsets.all(5),
                     verseScaleFactor: 0.8,
                     color: Colorz.WhiteAir,
-                    textDirection: localizerPage == LocalizerPage.BottomSheet? superTextDirection(context) : superInverseTextDirection(context),
+                    textDirection: sheetType == BottomSheetType.BottomSheet? superTextDirection(context) : superInverseTextDirection(context),
                     boxFunction: () => buttonTap(id),
                 ),
               ),

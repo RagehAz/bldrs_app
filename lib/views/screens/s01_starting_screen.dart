@@ -11,7 +11,7 @@ import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/views/screens/s02_auth_screen.dart';
 import 'package:bldrs/views/widgets/artworks/bldrs_name_logo_slogan.dart';
-import 'package:bldrs/views/widgets/buttons/bt_main.dart';
+import 'package:bldrs/views/widgets/buttons/main_button.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
@@ -132,7 +132,7 @@ class _StartingScreenState extends State<StartingScreen> {
 
               // --- CONTINUE WITH APPLE
               DeviceChecker.deviceIsIOS() ?
-              BTMain(
+              MainButton(
                 buttonVerse: Wordz.continueApple(context),
                 buttonIcon: Iconz.ComApple,
                 buttonColor: Colorz.BlackBlack,
@@ -145,7 +145,7 @@ class _StartingScreenState extends State<StartingScreen> {
                   :
               // CONTINUE WITH GOOGLE
               DeviceChecker.deviceIsAndroid() ?
-              BTMain(
+              MainButton(
                 buttonVerse: "Continue with Google",
                 buttonIcon: Iconz.ComGooglePlus,
                 buttonColor: Colorz.GoogleRed,
@@ -159,7 +159,7 @@ class _StartingScreenState extends State<StartingScreen> {
 
 
               // --- CONTINUE WITH FACEBOOK
-              BTMain(
+              MainButton(
                 buttonVerse: Wordz.continueFacebook(context),
                 buttonIcon: Iconz.ComFacebookWhite,
                 buttonColor: Colorz.Facebook,
@@ -170,7 +170,7 @@ class _StartingScreenState extends State<StartingScreen> {
               ),
 
               // --- CONTINUE WITH EMAIL
-              BTMain(
+              MainButton(
                 buttonVerse: Wordz.continueEmail(context),
                 buttonIcon: Iconz.ComEmail,
                 buttonColor: Colorz.WhiteAir,

@@ -16,6 +16,7 @@ class TileBubble extends StatelessWidget {
   final bool switchIsOn;
   final Function switching;
   final bool iconIsBubble;
+  final bool insideDialog;
 
   TileBubble({
     @required this.verse,
@@ -28,6 +29,7 @@ class TileBubble extends StatelessWidget {
     this.switchIsOn,
     this.switching,
     this.iconIsBubble = true,
+    this.insideDialog = false,
   });
 
   @override
@@ -37,100 +39,100 @@ class TileBubble extends StatelessWidget {
     double iconWidth = (iconSizeFactor * iconBoxWidth);
     double iconBoxPadding = iconBoxWidth - iconWidth;
 
-    return Material(
-      color: Colorz.Nothing,
-      child: InkWell(
-        onTap: btOnTap,
-        splashColor: Colorz.WhiteSmoke,
-        child: InPyramidsBubble(
+    double _verseWidth =
+        insideDialog == true ?
+        Scale.superDialogWidth(context) - 30 - 50
+            :
+        Scale.superBubbleClearWidth(context) - iconBoxWidth - 50
+    ;
 
-          bubbleColor: Colorz.WhiteGlass,
-          columnChildren: <Widget>[
+    return InPyramidsBubble(
+      bubbleOnTap: btOnTap,
+      bubbleColor: Colorz.WhiteGlass,
+      columnChildren: <Widget>[
 
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
 
-                // --- LEADING ICON
-                icon.runtimeType == String ?
-                DreamBox(
-                  width: iconBoxWidth,
-                  height: iconBoxWidth,
-                  icon: icon,
-                  iconSizeFactor: iconSizeFactor,
-                  color: iconBoxColor,
-                  iconRounded: false,
-                  boxMargins: EdgeInsets.symmetric(horizontal: 0),
-                  bubble: iconIsBubble,
-                )
-                    :
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 0),
-                  child: Container(
-                    width: iconBoxWidth,
-                    height: iconBoxWidth,
-                    padding: EdgeInsets.all(iconBoxPadding),
-                    child: icon,
+            // --- LEADING ICON
+            icon.runtimeType == String ?
+            DreamBox(
+              width: iconBoxWidth,
+              height: iconBoxWidth,
+              icon: icon,
+              iconSizeFactor: iconSizeFactor,
+              color: iconBoxColor,
+              iconRounded: false,
+              boxMargins: EdgeInsets.symmetric(horizontal: 0),
+              bubble: iconIsBubble,
+            )
+                :
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 0),
+              child: Container(
+                width: iconBoxWidth,
+                height: iconBoxWidth,
+                padding: EdgeInsets.all(iconBoxPadding),
+                child: icon,
+              ),
+            ),
+
+            // --- MAIN TEXT
+            Container(
+              width: _verseWidth,
+              padding: EdgeInsets.symmetric(horizontal: 5),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+
+                  SuperVerse(
+                    verse: verse,
+                    margin: 5,
+                    color: verseColor,
+                    maxLines: 2,
+                    centered: false,
                   ),
-                ),
 
-                // --- MAIN TEXT
-                Container(
-                  width: Scale.superBubbleClearWidth(context) - 30 - 50,
-                  padding: EdgeInsets.symmetric(horizontal: 5),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-
-                      SuperVerse(
-                        verse: verse,
-                        margin: 5,
-                        color: verseColor,
-                        maxLines: 2,
-                        centered: false,
-                      ),
-
-                      if (secondLine != null)
-                      SuperVerse(
-                        verse: secondLine,
-                        color: Colorz.WhiteLingerie,
-                        size: 2,
-                        scaleFactor: 0.75,
-                        italic: true,
-                        shadow: false,
-                        maxLines: 10,
-                        centered: false,
-                        weight: VerseWeight.thin,
-                        margin: 5,
-                      ),
-
-                    ],
+                  if (secondLine != null)
+                  SuperVerse(
+                    verse: secondLine,
+                    color: Colorz.WhiteLingerie,
+                    size: 2,
+                    scaleFactor: 0.75,
+                    italic: true,
+                    shadow: false,
+                    maxLines: 10,
+                    centered: false,
+                    weight: VerseWeight.thin,
+                    margin: 5,
                   ),
-                ),
 
-                if (switchIsOn != null)
-                Container(
-                  width: 50,
-                  height: 35,
-                  child: Switch(
-                    activeColor: Colorz.Yellow,
-                    activeTrackColor: Colorz.YellowSmoke,
-                    focusColor: Colorz.DarkBlue,
-                    inactiveThumbColor: Colorz.Grey,
-                    inactiveTrackColor: Colorz.GreySmoke,
-                    value: switchIsOn,
-                    onChanged: (val) => switching(val),
-                  ),
-                ),
+                ],
+              ),
+            ),
 
-              ],
+            if (switchIsOn != null)
+            Container(
+              width: 50,
+              height: 35,
+              child: Switch(
+                activeColor: Colorz.Yellow,
+                activeTrackColor: Colorz.YellowSmoke,
+                focusColor: Colorz.DarkBlue,
+                inactiveThumbColor: Colorz.Grey,
+                inactiveTrackColor: Colorz.GreySmoke,
+                value: switchIsOn,
+                onChanged: (val) => switching(val),
+              ),
             ),
 
           ],
         ),
-      ),
+
+      ],
     );
   }
 }

@@ -4,7 +4,7 @@ import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/main.dart';
-import 'package:bldrs/views/widgets/buttons/bt_rageh.dart';
+import 'package:bldrs/views/widgets/buttons/rageh_button.dart';
 import 'package:bldrs/views/widgets/pyramids/pyramids.dart';
 import 'package:bldrs/views/widgets/space/skies/night_sky.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';

@@ -7,7 +7,7 @@ import 'package:bldrs/dashboard/s02_statistics.dart';
 import 'package:bldrs/dashboard/s05_keywords_manager.dart';
 import 'package:bldrs/dashboard/users_manager/users_manager_screen.dart';
 import 'package:bldrs/views/widgets/artworks/bldrs_name_logo_slogan.dart';
-import 'package:bldrs/views/widgets/buttons/bt_main.dart';
+import 'package:bldrs/views/widgets/buttons/main_button.dart';
 import 'package:bldrs/views/widgets/layouts/dashboard_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +33,7 @@ class _DashBoardState extends State<DashBoard> {
     // double _screenHeight = superScreenHeight(context);
 
     Widget _button ({String title, String icon, Function onTap,}){
-      return BTMain(
+      return MainButton(
         buttonVerse: title,
         function: onTap,
         splashColor: Colorz.Yellow,
