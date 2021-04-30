@@ -152,4 +152,46 @@ class Iconizer{
     }
   }
 // -----------------------------------------------------------------------------
+  static bool iconIsContinent(String icon){
+    bool _iconIsContinent =
+            icon == Iconz.ContAfrica ||
+            icon == Iconz.ContAsia ||
+            icon == Iconz.ContSouthAmerica ||
+            icon == Iconz.ContNorthAmerica ||
+            icon == Iconz.ContEurope ||
+            icon == Iconz.ContAustralia ?
+
+            true : false;
+
+    return _iconIsContinent;
+  }
+// -----------------------------------------------------------------------------
+  static List<Map<String, dynamic>> continentsMaps = [
+    {
+      'name' : 'Africa',
+      'icon' : Iconz.ContAfrica,
+    },
+    {
+      'name' : 'Asia',
+      'icon' : Iconz.ContAsia,
+    },
+    {
+      'name' : 'Oceania',
+      'icon' : Iconz.ContAustralia,
+    },
+    {
+      'name' : 'Europe',
+      'icon' : Iconz.ContEurope,
+    },
+    {
+      'name' : 'North America',
+      'icon' : Iconz.ContNorthAmerica,
+    },
+    {
+      'name' : 'South America',
+      'icon' : Iconz.ContSouthAmerica,
+    },
+  ];
+// -----------------------------------------------------------------------------
+
 }

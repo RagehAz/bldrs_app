@@ -2,6 +2,7 @@ import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/text_directionerz.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/controllers/theme/flagz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/views/widgets/appbar/ab_localizer.dart';
@@ -73,7 +74,7 @@ class ButtonsList extends StatelessWidget {
                 alignment: alignment,
                 child: DreamBox(
                     height: 35,
-                    icon: mapValueIs == MapValueIs.flag ? getFlagByIso3(id) : null,
+                    icon: mapValueIs == MapValueIs.flag ? Flagz.getFlagByIso3(id) : null,
                     iconSizeFactor: 0.8,
                     verse: value,
                     bubble: false,

@@ -7,10 +7,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
 class SwiperLayoutScreen extends StatefulWidget {
+  /// this recieves a map like this
+  /// {
+  /// 'title' : 'page title here',
+  /// 'widget' : pageWidgetInsideFullScreenContainer
+  /// }
   final List<Map<String, dynamic>> swiperPages;
+  final Sky sky;
 
   SwiperLayoutScreen({
     @required this. swiperPages,
+    this.sky = Sky.Night,
   });
 
   @override
@@ -48,7 +55,7 @@ class _SwiperLayoutScreenState extends State<SwiperLayoutScreen> {
 // -----------------------------------------------------------------------------
 
     return MainLayout(
-      sky: Sky.Night,
+      sky: widget.sky,
       appBarType: AppBarType.Basic,
       pageTitle: _title,
       pyramids: Iconz.DvBlankSVG,
@@ -100,7 +107,6 @@ class _SwiperLayoutScreenState extends State<SwiperLayoutScreen> {
                     height: _screenHeight - Ratioz.stratosphere - 24,
                     child: widget.swiperPages[index]['widget'],
                   ),
-
 
                 ],
               );
