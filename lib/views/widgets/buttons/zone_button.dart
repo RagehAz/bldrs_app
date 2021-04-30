@@ -1,22 +1,31 @@
 import 'package:bldrs/controllers/drafters/text_directionerz.dart';
 import 'package:bldrs/controllers/localization/localization_constants.dart';
+import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/flagz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/providers/country_provider.dart';
+import 'package:bldrs/views/screens/s61_select_province_screen.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class LocalizerButton extends StatelessWidget {
+class ZoneButton extends StatelessWidget {
   final Function onTap;
   final bool isOn;
 
-  LocalizerButton({
+  ZoneButton({
     this.onTap,
     this.isOn = false,
   });
+// -----------------------------------------------------------------------------
+  void _zoneButtonOnTap(BuildContext context){
+    // print('zone tapped');
+    Nav.goToNewScreen(context, SelectProvinceScreen());
+  }
+// -----------------------------------------------------------------------------
+
 
 
   @override
@@ -41,7 +50,7 @@ class LocalizerButton extends StatelessWidget {
     double _flagHorizontalMargins = 2;
 
     return GestureDetector(
-      onTap: onTap,
+      onTap: () => _zoneButtonOnTap(context),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
@@ -52,6 +61,7 @@ class LocalizerButton extends StatelessWidget {
               height: 40,
               alignment: Alignment.centerRight,
               padding: EdgeInsets.all(5),
+              margin: EdgeInsets.all(Ratioz.ddAppBarMargin * 0.5),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(
                       Radius.circular(Ratioz.ddAppBarButtonCorner)),

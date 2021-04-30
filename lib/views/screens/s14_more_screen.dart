@@ -14,9 +14,9 @@ import 'package:bldrs/views/screens/s61_select_province_screen.dart';
 import 'package:bldrs/views/screens/s63_change_language_screen.dart';
 import 'package:bldrs/views/screens/s64_about_bldrs_screen.dart';
 import 'package:bldrs/views/screens/s65_feedback_screen.dart';
-import 'package:bldrs/views/widgets/appbar/buttons/flagbox.dart';
 import 'package:bldrs/views/widgets/bubbles/bubbles_separator.dart';
 import 'package:bldrs/views/widgets/bubbles/tile_bubble.dart';
+import 'package:bldrs/views/widgets/buttons/flagbox_button.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 

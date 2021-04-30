@@ -7,7 +7,7 @@ import 'package:bldrs/dashboard/s01_dashboard.dart';
 import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/views/screens/s41_my_bz_screen.dart';
 import 'package:bldrs/views/widgets/artworks/bldrs_name_logo_slogan.dart';
-import 'package:bldrs/views/widgets/buttons/bt_main.dart';
+import 'package:bldrs/views/widgets/buttons/main_button.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
@@ -110,7 +110,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
 // ---------------------------------------------------------------------------
   Widget oButton (String title, String icon, Widget screen){
     return
-      BTMain(
+      MainButton(
         buttonVerse: title,
         buttonColor: Colorz.BlackPlastic,
         buttonIcon: icon,

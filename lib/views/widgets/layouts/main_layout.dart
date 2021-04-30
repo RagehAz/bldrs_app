@@ -10,15 +10,15 @@ import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/providers/users_provider.dart';
-import 'package:bldrs/views/widgets/appbar/bldrs_appbar.dart';
-import 'package:bldrs/views/widgets/buttons/bt_back.dart';
+import 'package:bldrs/views/widgets/appbar/bldrs_app_bar.dart';
+import 'package:bldrs/views/widgets/buttons/back_button.dart';
 import 'package:bldrs/views/widgets/nav_bar/nav_bar.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/pyramids/pyramids.dart';
 import 'package:bldrs/views/widgets/space/skies/black_sky.dart';
 import 'package:bldrs/views/widgets/space/skies/night_sky.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/views/widgets/buttons/bt_rageh.dart';
+import 'package:bldrs/views/widgets/buttons/rageh_button.dart';
 import 'package:provider/provider.dart';
 import '../../../main.dart';
 import 'package:flutter_keyboard_size/flutter_keyboard_size.dart';
@@ -27,10 +27,10 @@ enum AppBarType{
   Basic,
   Scrollable,
   Main,
-  Localizer,
+  // Localizer,
   Intro,
-  InPyramids,
-  Sections,
+  // InPyramids,
+  // Sections,
 }
 // === === === === === === === === === === === === === === === === === === ===
 enum Sky {
@@ -104,7 +104,7 @@ class MainLayout extends StatelessWidget {
           appBarType: appBarType,
           appBarRowWidgets: appBarRowWidgets,
           pageTitle: pageTitle,
-          backButton: appBarBackButton,
+          backButtonIsOn: appBarBackButton,
           loading: loading,
         ),
 

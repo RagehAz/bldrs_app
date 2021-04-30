@@ -7,7 +7,7 @@ import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/views/screens/s00_user_checker_widget.dart';
 import 'package:bldrs/views/screens/s16_user_editor_screen.dart';
-import 'package:bldrs/views/widgets/buttons/bt_main.dart';
+import 'package:bldrs/views/widgets/buttons/main_button.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
@@ -264,7 +264,7 @@ class _GoogleSignInTestState extends State<GoogleSignInTest> {
 
 
 
-          BTMain(
+          MainButton(
             buttonVerse: "Continue with Google",
             buttonIcon: Iconz.ComGooglePlus,
             buttonColor: Colorz.GoogleRed,
@@ -274,7 +274,7 @@ class _GoogleSignInTestState extends State<GoogleSignInTest> {
             stretched: false,
           ),
 
-          BTMain(
+          MainButton(
             buttonVerse: "SIGN OUT Google",
             buttonIcon: Iconz.ComGooglePlus,
             buttonColor: Colorz.GoogleRed,
