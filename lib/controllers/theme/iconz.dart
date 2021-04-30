@@ -1,12 +1,12 @@
 class Iconz {
-// -------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // artworks
 static const String BldrsNameEn = 'assets/aw/aw_bldrs_name_en.svg' ;
 static const String BldrsAppIcon = 'assets/aw/aw_bldrs_app_icon.png' ;
-// -------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // buttons
 static const String BtContactMe = 'assets/bt/bt_contact_me.svg' ;
-// -------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // COMMUNICATION
 static const String ComApple = 'assets/com/com_apple.svg' ;
 static const String ComEmail = 'assets/com/com_email.svg' ;
@@ -24,7 +24,7 @@ static const String ComYoutube = 'assets/com/com_youtube.svg' ;
 static const String ComTikTok = 'assets/com/com_tiktok.svg' ;
 static const String ComPinterest = 'assets/com/com_pinterest.svg' ;
 static const String ComGooglePlus = 'assets/com/com_google_plus.svg' ;
-// -------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // dummies
 static const String DumAuthorPic = 'assets/dum/dum_author_pic.jpg' ;
 static const String DumBusinessLogo = 'assets/dum/dum_business_logo.jpg' ;
@@ -41,7 +41,7 @@ static const String DumEarthMap = 'assets/dum/dum_earth_map.jpg' ;
 static const String DumBzPNG = 'assets/dum/dum_bz.png' ;
 static const String DumPinPNG = 'assets/dum/dum_pin.png' ;
 static const String DumPyramidPin = 'assets/dum/dum_pyramid_pin.png' ;
-// -------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // dev
 static const String DvBlankSVG = 'assets/dv/dv_blank.svg' ;
 static const String DvGouran = 'assets/dv/dv_gouran.svg' ;
@@ -49,7 +49,7 @@ static const String DvRageh = 'assets/dv/dv_rageh.svg' ;
 static const String DvBlankPNG = 'assets/dv/dv_blank.png' ;
 static const String DvBlackHole = 'assets/dv/dv_black_hole.png' ;
 static const String DvDonaldDuck = 'assets/dv/dv_donald_duck.png' ;
-// -------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // FLYER TYPE
 static const String BxPropertiesOn = 'assets/ft/ft_properties_on.svg' ;
 static const String BxPropertiesOff = 'assets/ft/ft_properties_off.svg' ;
@@ -65,7 +65,7 @@ static const String BxEquipmentOn = 'assets/ft/ft_equipment_on.svg' ;
 static const String BxEquipmentOff = 'assets/ft/ft_equipment_off.svg' ;
 static const String BxOwnerOn = 'assets/ft/ft_owner_on.svg' ;
 static const String BxOwnerOff = 'assets/ft/ft_owner_off.svg' ;
-// -------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // GENERAL ICONS
 static const String Back = 'assets/gi/gi_back.svg' ;
 static const String BackArabic = 'assets/gi/gi_back_arabic.svg' ;
@@ -127,7 +127,7 @@ static const String FlyerPinPNG = 'assets/gi/gi_flyer_pin_png.png' ;
 static const String Stop = 'assets/gi/gi_stop.svg' ;
 static const String Play = 'assets/gi/gi_play.svg' ;
 static const String Pause = 'assets/gi/gi_pause.svg' ;
-// -------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // PYRAMIDS
 static const String PyramidsYellow = 'assets/py/pyramids_yellow.svg' ;
 static const String PyramidsWhite = 'assets/py/pyramids_white.svg' ;
@@ -137,7 +137,7 @@ static const String PyramidzYellow = 'assets/py/pyramidz_yellow.svg' ;
 static const String PyramidzWhite = 'assets/py/pyramidz_white.svg' ;
 static const String PyramidSingleYellow = 'assets/py/pyramid_single_yellow.svg' ;
 static const String PyramidSingleWhite = 'assets/py/pyramid_single_white.svg' ;
-// -------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // USER TYPE
 static const String UTNormal = 'assets/ut/ut_normal_user.svg' ;
 static const String UTSearching = 'assets/ut/ut_searching_user.svg' ;
@@ -145,6 +145,12 @@ static const String UTBuilding = 'assets/ut/ut_building_user.svg' ;
 static const String UTSelling = 'assets/ut/ut_selling_user.svg' ;
 static const String UTPlanning = 'assets/ut/ut_planning_user.svg' ;
 static const String UTExecuting = 'assets/ut/ut_executing_user.svg' ;
-// -------------------------------------------------------------------------
-
+// -----------------------------------------------------------------------------
+  static const String ContAfrica = 'assets/cont/cont_africa.svg' ;
+  static const String ContAsia = 'assets/cont/cont_asia.svg' ;
+  static const String ContAustralia = 'assets/cont/cont_australia.svg' ;
+  static const String ContEurope = 'assets/cont/cont_europe.svg' ;
+  static const String ContNorthAmerica = 'assets/cont/cont_north_america.svg' ;
+  static const String ContSouthAmerica = 'assets/cont/cont_south_america.svg' ;
+// -----------------------------------------------------------------------------
 }

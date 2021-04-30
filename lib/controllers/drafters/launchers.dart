@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
 // ---------------------------------------------------------------------------
-void launchURL(link) async {
+void launchURL(String link) async {
   // should make a condition
   // if it starts with http:// or not
   // then do whats necessary, as the link should include http://

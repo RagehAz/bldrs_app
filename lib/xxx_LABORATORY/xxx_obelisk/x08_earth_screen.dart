@@ -6,17 +6,22 @@ import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 
 class EarthScreen extends StatefulWidget {
+
   @override
   EarthScreenState createState() => EarthScreenState();
 }
 
 class EarthScreenState extends State<EarthScreen> {
+
+
+
   @override
   Widget build(BuildContext context) {
-    double screenWidth = Scale.superScreenWidth(context);
-    double screenHeight = Scale.superScreenHeight(context);
-    double countrySizeFactor = 1;
-    double countryWidth = screenWidth * countrySizeFactor;
+
+    double _screenWidth = Scale.superScreenWidth(context);
+    double _screenHeight = Scale.superScreenHeight(context);
+    double _countrySizeFactor = 1;
+
     return MainLayout(
       pageTitle: 'The Entire Fucking Planet',
       appBarType: AppBarType.Basic,
@@ -24,8 +29,8 @@ class EarthScreenState extends State<EarthScreen> {
       layoutWidget: ZoomableWidget(
 
         child: Container(
-          width: screenWidth * countrySizeFactor,
-          height: screenHeight * countrySizeFactor,
+          width: _screenWidth * _countrySizeFactor,
+          height: _screenHeight * _countrySizeFactor,
           color: Colorz.BloodTest,
           alignment: Alignment.center,
           child: Stack(

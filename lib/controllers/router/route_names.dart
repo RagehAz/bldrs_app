@@ -1,4 +1,8 @@
 class Routez {
+
+  /// xxx
+  static const String DynamicLinkTest = 'DynamicLinkTest';
+
 // ---------------------------------------------------------------------------
   /// s00
   static const String UserChecker = 'UserChecker';

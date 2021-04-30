@@ -6,8 +6,6 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/models/user_model.dart';
-import 'package:bldrs/views/screens/s00_user_checker_widget.dart';
-import 'package:bldrs/views/screens/s16_user_editor_screen.dart';
 import 'package:bldrs/views/widgets/bubbles/text_field_bubble.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:email_validator/email_validator.dart';
@@ -35,14 +33,11 @@ class SignInForm extends StatefulWidget {
 }
 
 class _SignInFormState extends State<SignInForm> {
+  final AuthOps _authOps = AuthOps();
+  final _formKey = GlobalKey<FormState>();
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
-  final AuthOps _authOps = AuthOps();
-  // String _email;
-  // String _password;
   bool signingIn = true;
-  final _formKey = GlobalKey<FormState>();
-  // String error = '';
   bool loading = false;
   bool showPassword = false;
   bool _passwordObscured = true;
@@ -70,16 +65,6 @@ class _SignInFormState extends State<SignInForm> {
     if (TextChecker.textControllerHasNoValue(_passwordController))_passwordController.dispose();
     super.dispose();
   }
-
-  // void _emailTextOnChanged(String val){
-  //   setState(() {_email = val;});
-  //   print('email : $_email, pass : $_password');
-  // }
-// -----------------------------------------------------------------------------
-//   void _passwordTextOnChanged(String val){
-//     setState(() {_password = val;});
-//     print('email : $_email, pass : $_password');
-//   }
 // -----------------------------------------------------------------------------
   void _horusOnTapDown(){
     setState(() {

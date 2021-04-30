@@ -3,10 +3,8 @@ import 'package:bldrs/controllers/router/route_names.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/firestore/user_ops.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
-import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
@@ -246,134 +244,163 @@ class AuthOps {
     }
   }
 // -----------------------------------------------------------------------------
-  /// facebook register
-  Future<UserCredential> facebookRegisterOps(BuildContext context, Zone zone) async {
+  /// facebook sign in to get firebase user to check if it has a userModel or to
+  /// create a new one
+  ///
+  /// X1 - try get firebase user or return error
+  ///   xx - try catch return google auth on WEB & ANDROID-IOS
+  ///       B - get [accessToken]
+  ///       C - Create [credential] from the [access token]
+  ///       D - get [user credential] by [credential]
+  ///       E - get firebase [user] from [user credential]
+  ///
+  /// X2 - process firebase user to return UserModel or error
+  ///   xx - return error : if auth fails
+  ///   xx - return firebase user : if auth succeeds
+  ///      E - get Or Create UserModel From User
+  dynamic facebookSignInOps(BuildContext context, Zone currentZone) async {
+    User _user;
     final FirebaseAuth _auth = FirebaseAuth.instance;
-    // ---------------------------------------------------------------------------
-    try {
-      final AccessToken accessToken = await FacebookAuth.instance.login();
-      // -------------------------
-      /// Create a credential from the access token
-      final FacebookAuthCredential credential = FacebookAuthProvider.credential(accessToken.token,);
-      // -------------------------
-      final UserCredential authResult = await _auth.signInWithCredential(credential);
-      // -------------------------
-      final User user = authResult.user;
-      // -------------------------
-      /// create new UserModel
-      UserModel _newUserModel = UserModel(
-        userID: user.uid,
-        joinedAt: DateTime.now(),
-        userStatus: UserStatus.Normal,
-        // -------------------------
-        name: user.displayName,
-        pic: user.photoURL,
-        title: '',
-        company: '',
-        gender: Gender.any,
-        country: zone.countryID,
-        province: zone.provinceID,
-        area: zone.areaID,
-        language: Wordz.languageCode(context),
-        position: GeoPoint(0, 0),
-        contacts: <ContactModel>[ContactModel(
-            contact: user.email,
-            contactType: ContactType.Email
-        ), ContactModel(
-          contact: user.phoneNumber,
-          contactType: ContactType.Phone,
-        ),],
-        // -------------------------
-        // savedFlyersIDs: [''],
-        // followedBzzIDs: [''],
-      );
-      // -------------------------
-      /// create a new firestore document for the user with the userID
-      await UserOps().createUserOps(userModel: _newUserModel);
-      // -------------------------
-      /// Once signed in, return the UserCredential
-      return await FirebaseAuth.instance.signInWithCredential(credential);
-      // -------------------------
-    } on FacebookAuthException catch (error) {
-      // handle the FacebookAuthException
-      print("Facebook Authentication Error");
-      print(error.message);
 
-      await superDialog(
+    /// X1 - try get firebase user or return error
+    // -------------------------------------------------------
+    /// xx - try catch return facebook auth
+    dynamic _registerError = await tryCatchAndReturn(
         context: context,
-        title: 'Couldn\'t continue with Facebook',
-        body: error,
-        boolDialog: false,
-      );
+        methodName: 'facebookSignInOps',
+        functions: () async {
 
-    } on FirebaseAuthException catch (error) {
-      // handle the FirebaseAuthException
-      print("Firebase Authentication Error");
-      print(error.message);
+          print('1 language: ${Wordz.languageCode(context)},');
 
-      await superDialog(
+
+          /// B - get [accessToken]
+          final AccessToken _accessToken = await FacebookAuth.instance.login();
+          print('facebookSignInOps : _accessToken : $_accessToken');
+
+            if(_accessToken != null){
+
+              /// C - Create [credential] from the [access token]
+              final FacebookAuthCredential _credential = FacebookAuthProvider.credential(_accessToken.token,);
+              print('facebookSignInOps : _credential : $_credential');
+
+              /// D - get [user credential] by [credential]
+              final UserCredential _userCredential = await _auth.signInWithCredential(_credential);
+              print('facebookSignInOps : _userCredential : $_userCredential');
+
+              /// E - get firebase [user] from [user credential]
+              _user = _userCredential.user;
+              print('facebookSignInOps : _user : $_user');
+
+            }
+
+            /// B - [accessToken] is null
+            else {
+              print('Facebook Access token is null');
+            }
+
+        }
+    );
+    // ==============================================================
+
+    /// X2 - process firebase user to return UserModel
+    // -------------------------------------------------------
+    /// xx - return error : if auth fails
+    if (_user == null) {
+
+      /// when _user is null the register fails and returns this error string
+      return _registerError.toString();
+    }
+
+    /// xx - return firebase user : if auth succeeds
+    else {
+      print('2 language: ${Wordz.languageCode(context)},');
+
+      /// E - get Or Create UserModel From User
+      Map<String, dynamic> _userModelMap = await UserOps().getOrCreateUserModelFromUser(
         context: context,
-        title: 'Couldn\'t continue with Facebook',
-        body: error,
-        boolDialog: false,
+        zone: currentZone,
+        user: _user,
       );
 
-    } finally {}
-    return null;
-  }
-// -----------------------------------------------------------------------------
-  /// facebook sign in
-  dynamic facebookSignInOps(BuildContext context) async {
+      return _userModelMap;
+
+    }
 
   }
-// -----------------------------------------------------------------------------
-  /// google sign in instance
-  final GoogleSignIn googleSignIn = GoogleSignIn();
 // -----------------------------------------------------------------------------
   /// google sign in to get firebase user to check if it has a userModel or to
   /// create a new one
+  ///
+  /// X1 - try get firebase user or return error
+  ///   xx - try catch return google auth on WEB & ANDROID-IOS
+  ///     A - if on web
+  ///       B - get [auth provider]
+  ///       C - get [user credential] from [auth provider]
+  ///       D - get [firebase user] from [user credential]
+  ///     A - if not on web
+  ///       B - get [google sign in account]
+  ///       B - get [google sign in auth] from [google sign in account]
+  ///       B - get [auth credential] from [google sign in auth]
+  ///       C - get [user credential] from [auth credential]
+  ///       D - get firebase user from user credential
+  ///
+  /// X2 - process firebase user to return UserModel or error
+  ///   xx - return error : if auth fails
+  ///   xx - return firebase user : if auth succeeds
+  ///      E - get Or Create UserModel From User
+  // /      E - read user ops if existed
+  // /         Ex - if new user (userModel == null)
+  // /            E1 - create initial user model
+  // /            E2 - create user ops
+  // /            E3 - return new userModel inside userModel-firstTimer map
+  // /         Ex - if user has existing user model
+  // /            E3 - return existing userMode inside userModel-firstTimer map
   Future<dynamic> googleSignInOps(BuildContext context, Zone currentZone) async {
     User _user;
 
-    /// 1 - start google sign in processes to get firebase user
+    /// X1 - try get firebase user or return error
     // -------------------------------------------------------
-    /// try google sign in
+    /// xx - try catch return google auth
     dynamic _registerError = await tryCatchAndReturn(
         context: context,
         methodName: 'googleSignInOps',
         functions: () async {
+
           print('1 language: ${Wordz.languageCode(context)},');
-          if
-          /// if it's on web
-          (kIsWeb){
+
+          /// A - if on web
+          if (kIsWeb){
             print('googleSignInOps : kIsWeb : $kIsWeb');
 
-            /// get auth provider
+            /// B - get [auth provider]
             GoogleAuthProvider authProvider = GoogleAuthProvider();
 
-            /// get user credential from auth provider
+            /// C - get [user credential] from [auth provider]
             final UserCredential _userCredential = await _auth.signInWithPopup(authProvider);
 
-            /// get firebase user
+            /// D - get [firebase user] from [user credential]
             _user = _userCredential.user;
             print('googleSignInOps : _user : $_user');
 
           }
 
-          /// if kIsWeb != trye : so its android or ios
+          /// A - if kIsWeb != true : so its android or ios
           else {
 
-            /// get google sign in account
-            final GoogleSignInAccount _googleAccount = await googleSignIn.signIn();
+            /// google sign in instance
+            final GoogleSignIn _googleSignIn = GoogleSignIn();
+
+            /// B - get [google sign in account]
+            final GoogleSignInAccount _googleAccount = await _googleSignIn.signIn();
             print('googleSignInOps : _googleAccount : $_googleAccount');
 
             if(_googleAccount != null){
 
-              /// get google sign in auth from google account
+              /// B - get [google sign in auth] from [google sign in account]
               final GoogleSignInAuthentication _googleAuth = await _googleAccount.authentication;
               print('googleSignInOps : _googleAuth : $_googleAuth');
 
-              /// get auth credential from google sign in auth
+              /// B - get [auth credential] from [google sign in auth]
               // TASK : signInMethod: google.com, can be found here
               /// AuthCredential(providerId: google.com, signInMethod: google.com, token: null)
               final AuthCredential _authCredential = GoogleAuthProvider.credential(
@@ -382,11 +409,11 @@ class AuthOps {
               );
               print('googleSignInOps : _authCredential : $_authCredential');
 
-              /// get user credential from auth credential
+              /// C - get [user credential] from [auth credential]
               final UserCredential _userCredential = await _auth.signInWithCredential(_authCredential);
               print('googleSignInOps : _authResult : $_userCredential');
 
-              /// get firebase user
+              /// D - get firebase user from user credential
               _user = _userCredential.user;
               print('googleSignInOps : _user : $_user');
 
@@ -398,65 +425,76 @@ class AuthOps {
     );
     // ==============================================================
 
-    /// 2 - process firebase user to return UserModel
+    /// X2 - process firebase user to return UserModel
     // -------------------------------------------------------
-    /// if google sign in results a String, its an error to be returned
+    /// xx - return error : if auth fails
     if (_user == null) {
 
       /// when _user is null the register fails and returns this error string
       return _registerError.toString();
     }
 
-    /// if _user is not null
+    /// xx - return firebase user : if auth succeeds
     else {
       print('2 language: ${Wordz.languageCode(context)},');
-      /// we check existing userModel
-      UserModel _existingUserModel = await UserOps().readUserOps(
+
+      /// E - get Or Create UserModel From User
+      Map<String, dynamic> _userModelMap = await UserOps().getOrCreateUserModelFromUser(
         context: context,
-        userID: _user.uid,
+        zone: currentZone,
+        user: _user,
       );
-      // print('lng : ${Wordz.languageCode(context)}');
 
-      /// if it's a new user, we start creating new account
-      if (_existingUserModel == null) {
-        // print('lng : ${Wordz.languageCode(context)}');
+      return _userModelMap;
 
-        /// create initial user model from firebase user
-        UserModel _initialUserModel = await UserModel.createInitialUserModelFromUser(
-          context: context,
-          user: _user,
-          zone: currentZone,
-          authBy: AuthBy.google,
-        );
-        print('googleSignInOps : _initialUserModel : $_initialUserModel');
-
-        /// start create user ops
-        UserModel _finalUserModel = await UserOps().createUserOps(
-          context: context,
-          userModel: _initialUserModel,
-        );
-        print('googleSignInOps : createUserOps : _finalUserModel : $_finalUserModel');
-
-        /// return the final userModel map
-        return
-
-          {
-            'userModel' : _finalUserModel,
-            'firstTimer' : true,
-          };
-
-      }
-
-      /// if user has existing userModel
-      else {
-
-        /// return this existing userModel
-        return
-          {
-            'userModel' : _existingUserModel,
-            'firstTimer' : false,
-          };
-      }
+      // /// E - read user ops if existed
+      // UserModel _existingUserModel = await UserOps().readUserOps(
+      //   context: context,
+      //   userID: _user.uid,
+      // );
+      // // print('lng : ${Wordz.languageCode(context)}');
+      //
+      // /// Ex - if new user (userModel == null)
+      // if (_existingUserModel == null) {
+      //
+      //   // print('lng : ${Wordz.languageCode(context)}');
+      //
+      //   /// E1 - create initial user model
+      //   UserModel _initialUserModel = await UserModel.createInitialUserModelFromUser(
+      //     context: context,
+      //     user: _user,
+      //     zone: currentZone,
+      //     authBy: AuthBy.google,
+      //   );
+      //   print('googleSignInOps : _initialUserModel : $_initialUserModel');
+      //
+      //   /// E2 - create user ops
+      //   UserModel _finalUserModel = await UserOps().createUserOps(
+      //     context: context,
+      //     userModel: _initialUserModel,
+      //   );
+      //   print('googleSignInOps : createUserOps : _finalUserModel : $_finalUserModel');
+      //
+      //   /// E3 - return new userModel inside userModel-firstTimer map
+      //   return
+      //
+      //     {
+      //       'userModel' : _finalUserModel,
+      //       'firstTimer' : true,
+      //     };
+      //
+      // }
+      //
+      // /// Ex - if user has existing user model
+      // else {
+      //
+      //   /// E3 - return existing userMode inside userModel-firstTimer map
+      //   return
+      //     {
+      //       'userModel' : _existingUserModel,
+      //       'firstTimer' : false,
+      //     };
+      // }
 
     }
   }
@@ -512,6 +550,81 @@ class AuthOps {
   return _user;
 }
 // =============================================================================
+// /// facebook register
+// Future<UserCredential> facebookRegisterOps(BuildContext context, Zone zone) async {
+//   final FirebaseAuth _auth = FirebaseAuth.instance;
+//   // ---------------------------------------------------------------------------
+//   try {
+//     final AccessToken accessToken = await FacebookAuth.instance.login();
+//     // -------------------------
+//     /// Create a credential from the access token
+//     final FacebookAuthCredential credential = FacebookAuthProvider.credential(accessToken.token,);
+//     // -------------------------
+//     final UserCredential authResult = await _auth.signInWithCredential(credential);
+//     // -------------------------
+//     final User user = authResult.user;
+//     // -------------------------
+//     /// create new UserModel
+//     UserModel _newUserModel = UserModel(
+//       userID: user.uid,
+//       joinedAt: DateTime.now(),
+//       userStatus: UserStatus.Normal,
+//       // -------------------------
+//       name: user.displayName,
+//       pic: user.photoURL,
+//       title: '',
+//       company: '',
+//       gender: Gender.any,
+//       country: zone.countryID,
+//       province: zone.provinceID,
+//       area: zone.areaID,
+//       language: Wordz.languageCode(context),
+//       position: GeoPoint(0, 0),
+//       contacts: <ContactModel>[ContactModel(
+//           contact: user.email,
+//           contactType: ContactType.Email
+//       ), ContactModel(
+//         contact: user.phoneNumber,
+//         contactType: ContactType.Phone,
+//       ),],
+//       // -------------------------
+//       // savedFlyersIDs: [''],
+//       // followedBzzIDs: [''],
+//     );
+//     // -------------------------
+//     /// create a new firestore document for the user with the userID
+//     await UserOps().createUserOps(userModel: _newUserModel);
+//     // -------------------------
+//     /// Once signed in, return the UserCredential
+//     return await FirebaseAuth.instance.signInWithCredential(credential);
+//     // -------------------------
+//   } on FacebookAuthException catch (error) {
+//     // handle the FacebookAuthException
+//     print("Facebook Authentication Error");
+//     print(error.message);
+//
+//     await superDialog(
+//       context: context,
+//       title: 'Couldn\'t continue with Facebook',
+//       body: error,
+//       boolDialog: false,
+//     );
+//
+//   } on FirebaseAuthException catch (error) {
+//     // handle the FirebaseAuthException
+//     print("Firebase Authentication Error");
+//     print(error.message);
+//
+//     await superDialog(
+//       context: context,
+//       title: 'Couldn\'t continue with Facebook',
+//       body: error,
+//       boolDialog: false,
+//     );
+//
+//   } finally {}
+//   return null;
+// }
 
 
 

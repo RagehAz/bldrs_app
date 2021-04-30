@@ -8,6 +8,7 @@ import 'package:bldrs/views/screens/s00_splash_screen.dart';
 import 'package:bldrs/views/screens/s01_starting_screen.dart';
 import 'package:bldrs/views/screens/s10_home_screen.dart';
 import 'package:bldrs/views/screens/s20_search_screen.dart';
+import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/dynamic_links_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x01_access_denied_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/xxx_obelisk.dart';
 import 'package:flutter/material.dart';
@@ -15,8 +16,16 @@ import 'route_names.dart';
 
 class Routerer {
   static Route<dynamic> allRoutes(RouteSettings settings) {
+
+    /// TASK : check passing arguments inside Routerer
+    // final _arg = settings.arguments;
+
     switch (settings.name) {
 
+// -----------------------------------------------------------------------------
+    /// ccc
+      case Routez.DynamicLinkTest:
+        return Nav.fadeToScreen(DynamicLinkTest(), settings); break;
 // -----------------------------------------------------------------------------
     /// s00
       case Routez.UserChecker:

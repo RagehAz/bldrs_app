@@ -11,11 +11,11 @@ import 'package:bldrs/views/screens/s10_home_screen.dart';
 import 'package:bldrs/views/screens/s51_flyer_screen.dart';
 import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:bldrs/xxx_LABORATORY/camera_and_location/test_provider.dart';
+import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/dynamic_links_test.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
-import 'package:bldrs/views/screens/s01_starting_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -173,6 +173,7 @@ class _BldrsAppState extends State<BldrsApp> {
           initialRoute: Routez.UserChecker,
           routes: {
             Routez.FlyerScreen: (ctx) => FlyerScreen(),
+            Routez.DynamicLinkTest: (ctx) => DynamicLinkTest(),
             // Routez.Starting: (ctx) => StartingScreen(),
             Routez.UserChecker: (ctx) => UserChecker(),
             Routez.Home: (ctx) => HomeScreen(),

@@ -3,7 +3,6 @@ import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
-import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/firestore/bz_ops.dart';
 import 'package:bldrs/firestore/user_ops.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';

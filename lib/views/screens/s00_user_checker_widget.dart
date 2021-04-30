@@ -1,6 +1,5 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
-import 'package:bldrs/controllers/router/route_names.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/firestore/user_ops.dart';
@@ -81,7 +80,7 @@ class _UserCheckerState extends State<UserChecker> {
 
                 print('user has a completed userModel and was in home screen and came back to user checker');
                 /// so we loop once more to user check
-                Nav.goToNewScreen(context, UserChecker());
+                Nav.replaceScreen(context, UserChecker());
               }
 
               /// C - if userModel is not completed
@@ -130,7 +129,7 @@ class _UserCheckerState extends State<UserChecker> {
 
             print('just came back from starting screen');
             /// and we loop again in userChecker
-            Nav.pushNamedAndRemoveAllBelow(context, Routez.UserChecker);
+            Nav.replaceScreen(context, UserChecker());
           }
 
         });
