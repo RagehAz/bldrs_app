@@ -10,18 +10,18 @@ import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class OldFlyerScreen extends StatefulWidget {
+class DeactivatedFlyerScreen extends StatefulWidget {
   final BzModel bz;
 
-  OldFlyerScreen({
+  DeactivatedFlyerScreen({
     @required this.bz,
 });
 
   @override
-  _OldFlyerScreenState createState() => _OldFlyerScreenState();
+  _DeactivatedFlyerScreenState createState() => _DeactivatedFlyerScreenState();
 }
 
-class _OldFlyerScreenState extends State<OldFlyerScreen> {
+class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
   bool _isInit = true;
   List<TinyFlyer> _tinyFlyers;
 // ---------------------------------------------------------------------------

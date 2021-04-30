@@ -10,7 +10,6 @@ import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/views/screens/s02_auth_screen.dart';
-import 'package:bldrs/views/screens/s16_user_editor_screen.dart';
 import 'package:bldrs/views/widgets/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/views/widgets/buttons/bt_main.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
@@ -49,23 +48,38 @@ class _StartingScreenState extends State<StartingScreen> {
     super.initState();
   }
 // -----------------------------------------------------------------------------
-  Future<void> _tapGoogleContinue(BuildContext context) async {
+  Future<void> _tapContinueWith(BuildContext context, AuthBy authBy) async {
 
     print('starting _tapGoogleContinue method');
 
     _triggerLoading();
 
-    /// start google auth ops
-    dynamic _result = await AuthOps().googleSignInOps(context, _currentZone);
+    /// start auth to return String error or return Map<String,dynamic>
+    ///  {
+    ///    'userModel' : _existingUserModel or new _finalUserModel
+    ///    'firstTimer' : false or true
+    ///  };
+    dynamic _authResult;
+    if(authBy == AuthBy.google) {
+    /// start google auth ops,
+      _authResult = await AuthOps().googleSignInOps(context, _currentZone);
+    }
+    else if(authBy == AuthBy.facebook){
+      /// start google auth ops
+      _authResult = await AuthOps().facebookSignInOps(context, _currentZone);
+    }
+    else if(authBy == AuthBy.apple){
+      // _authResult = await AuthOps().appleSignInOps(context, _currentZone);
+    }
 
     /// if auth returns error string we show dialog
-    print('_tapGoogleContinue : googleSignInOps_result : $_result');
-    if(_result.runtimeType == String || _result == null){
+    print('_tapGoogleContinue : googleSignInOps_result : $_authResult');
+    if(_authResult.runtimeType == String || _authResult == null){
 
       _triggerLoading();
 
       /// pop error dialog
-      await authErrorDialog(context: context, result: _result);
+      await authErrorDialog(context: context, result: _authResult);
 
     }
 
@@ -77,64 +91,15 @@ class _StartingScreenState extends State<StartingScreen> {
     else {
 
       /// so sign in succeeded returning a userModel
-      UserModel _userModel = _result['userModel'];
+      UserModel _userModel = _authResult['userModel'];
       print('_tapGoogleContinue : _userModel : $_userModel');
 
       Nav.replaceScreen(context, UserChecker());
 
-      // /// check if user model is properly completed
-      // List<String> _missingFields = UserModel.missingFields(_userModel);
-      // print('_tapGoogleContinue : _missingFields : $_missingFields');
-
-      // /// so if user model is completed
-      // if (_missingFields.length == 0){
-      //
-      //   print('_missingFields.length == 0 : ${_missingFields.length == 0}');
-      //   _triggerLoading();
-      //
-      //   /// so userModel required fields are entered route to userChecker screen
-      //
-      //   print('user has missing fields and so we go to UserChecker now');
-      //   Nav.goBackToUserChecker(context);
-      //
-      // }
-      //
-      // /// if userModel is not completed
-      // else {
-      //
-      //       _triggerLoading();
-      //
-      //       /// pop a dialog
-      //       await superDialog(
-      //         context: context,
-      //         title: 'Ops!',
-      //         body: 'You have to complete your profile info\n ${_missingFields.toString()}',
-      //         boolDialog: false,
-      //       );
-      //
-      //       /// check if its his first time or not
-      //       bool _firstTimer = _result['firstTimer'];
-      //
-      //       /// and route to complete profile missing data
-      //       await Nav.goToNewScreen(context, EditProfileScreen(user: _userModel, firstTimer: _firstTimer,),);
-      //
-      //       /// after returning from edit profile, we go to user checker
-      //       print('user has completed profile and good to go to UserChecker now');
-      //       Nav.goBackToUserChecker(context);
-      //
-      //
-      //     }
-
     }
 
   }
-
-  void _tapFacebookContinue(BuildContext context){
-      // signUpWithFacebook(context, currentZone).then((result) {
-      //   if (result != null) {return goToNewScreen(context, EditProfileScreen(firstTimer: true, user: xxxxxxxxxxxxxxxxxxxxxx,));}
-      // });
-    }
-
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -186,7 +151,7 @@ class _StartingScreenState extends State<StartingScreen> {
                 buttonColor: Colorz.GoogleRed,
                 splashColor: Colorz.Yellow,
                 buttonVerseShadow: false,
-                function: () => _tapGoogleContinue(context),
+                function: () => _tapContinueWith(context, AuthBy.google),
                 stretched: false,
               )
                   :
@@ -200,7 +165,7 @@ class _StartingScreenState extends State<StartingScreen> {
                 buttonColor: Colorz.Facebook,
                 splashColor: Colorz.Yellow,
                 buttonVerseShadow: false,
-                function: () => _tapFacebookContinue(context),
+                function: () => _tapContinueWith(context, AuthBy.facebook),
                 stretched: false,
               ),
 

@@ -1,28 +1,19 @@
 import 'package:bldrs/controllers/drafters/file_formatters.dart';
 import 'package:bldrs/controllers/drafters/imagers.dart';
-import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
-import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/firestore/bz_ops.dart';
 import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/models/bz_model.dart';
-import 'package:bldrs/models/flyer_model.dart';
-import 'package:bldrs/models/tiny_models/tiny_bz.dart';
-import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
+import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_user.dart';
 import 'package:bldrs/models/user_model.dart';
-import 'package:bldrs/providers/flyers_provider.dart';
-import 'package:bldrs/views/widgets/bubbles/bzz_bubble.dart';
-import 'package:bldrs/views/widgets/bubbles/flyers_bubble.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/loading/loading.dart';
-import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:provider/provider.dart';
 
 /// Should include all user firestore operations
 /// except reading data for widgets injection
@@ -378,7 +369,7 @@ class UserOps{
 
         superDialog(context: context, title: '', boolDialog: false, height: null, body: 'Done',);
 
-        ///   J - SIGN OUT
+        /// J - SIGN OUT
         await AuthOps().signOut(context: context, routeToUserChecker: false);
 
         /// CLOSE WAITING DIALOG
@@ -612,6 +603,66 @@ class UserOps{
 
       }
 
+    }
+
+  }
+// -----------------------------------------------------------------------------
+  /// E - read user ops if existed
+  ///    Ex - if new user (userModel == null)
+  ///       E1 - create initial user model
+  ///       E2 - create user ops
+  ///       E3 - return new userModel inside userModel-firstTimer map
+  ///    Ex - if user has existing user model
+  ///       E3 - return existing userMode inside userModel-firstTimer map
+  Future<Map<String, dynamic>> getOrCreateUserModelFromUser({BuildContext context, User user,Zone zone}) async {
+
+    /// E - read user ops if existed
+    UserModel _existingUserModel = await UserOps().readUserOps(
+      context: context,
+      userID: user.uid,
+    );
+    // print('lng : ${Wordz.languageCode(context)}');
+
+    /// Ex - if new user (userModel == null)
+    if (_existingUserModel == null) {
+
+      // print('lng : ${Wordz.languageCode(context)}');
+
+      /// E1 - create initial user model
+      UserModel _initialUserModel = await UserModel.createInitialUserModelFromUser(
+        context: context,
+        user: user,
+        zone: zone,
+        authBy: AuthBy.google,
+      );
+      print('googleSignInOps : _initialUserModel : $_initialUserModel');
+
+      /// E2 - create user ops
+      UserModel _finalUserModel = await UserOps().createUserOps(
+        context: context,
+        userModel: _initialUserModel,
+      );
+      print('googleSignInOps : createUserOps : _finalUserModel : $_finalUserModel');
+
+      /// E3 - return new userModel inside userModel-firstTimer map
+      return
+
+        {
+          'userModel' : _finalUserModel,
+          'firstTimer' : true,
+        };
+
+    }
+
+    /// Ex - if user has existing user model
+    else {
+
+      /// E3 - return existing userMode inside userModel-firstTimer map
+      return
+        {
+          'userModel' : _existingUserModel,
+          'firstTimer' : false,
+        };
     }
 
   }

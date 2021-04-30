@@ -13,7 +13,7 @@ import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/screens/s40_bz_editor_screen.dart';
 import 'package:bldrs/views/screens/s42_bz_flyer_screen.drt.dart';
-import 'package:bldrs/views/screens/s43_old_flyer_screen.dart';
+import 'package:bldrs/views/screens/s43_deactivated_flyers_screen.dart';
 import 'package:bldrs/views/widgets/bubbles/bubbles_separator.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/paragraph_bubble.dart';
@@ -231,7 +231,7 @@ class _MyBzScreenState extends State<MyBzScreen> {
 // -----------------------------------------------------------------------------
   void _showOldFlyersOnTap(BzModel bzModel){
 
-    Nav.goToNewScreen(context, OldFlyerScreen(bz: bzModel));
+    Nav.goToNewScreen(context, DeactivatedFlyerScreen(bz: bzModel));
 
   }
 // -----------------------------------------------------------------------------
