@@ -13,7 +13,7 @@ import 'package:bldrs/models/tiny_models/nano_flyer.dart';
 import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/views/widgets/bubbles/words_bubble.dart';
-import 'package:bldrs/views/widgets/buttons/bt_main.dart';
+import 'package:bldrs/views/widgets/buttons/main_button.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/flyer/parts/progress_bar.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
@@ -564,7 +564,7 @@ class MyDreamBox extends StatelessWidget {
             children: <Widget>[
 
 
-              BTMain(
+              MainButton(
                 buttonVerse: 'Upload ya basha to user : ${superUserID()}',
                 buttonIcon: null,
                 buttonColor: Colorz.Yellow,

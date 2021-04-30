@@ -11,7 +11,7 @@ import 'package:provider/provider.dart';
 import 'timerz.dart';
 
 class TextGenerator{
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
   static String sectionStringer (BuildContext context, BldrsSection section){
     return
       section == BldrsSection.RealEstate ? Wordz.realEstate(context) :
@@ -19,7 +19,17 @@ class TextGenerator{
       section == BldrsSection.Supplies ? Wordz.supplies(context) :
       Wordz.bldrsShortName(context);
   }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
+  static String sectionDescriptionStringer(BuildContext context, BldrsSection section){
+    String _description =
+    section == BldrsSection.RealEstate ? Wordz.realEstateTagLine(context) :
+    section == BldrsSection.Construction ? Wordz.constructionTagLine(context) :
+    section == BldrsSection.Supplies ? Wordz.suppliesTagLine(context) :
+    Wordz.bldrsShortName(context);
+
+    return _description;
+  }
+// -----------------------------------------------------------------------------
   static List<String> sectionsListStrings (BuildContext context){
     List<BldrsSection> sections = bldrsSectionsList;
     List<String> sectionsStrings = new List();
@@ -28,7 +38,7 @@ class TextGenerator{
     }
     return sectionsStrings;
   }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
   static List<String> bzTypesStrings (BuildContext context){
     List<String> bzTypesStrings = new List();
 
@@ -37,7 +47,7 @@ class TextGenerator{
     }
     return bzTypesStrings;
   }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
   static String bzTypeSingleStringer (BuildContext context, BzType bzType){
     return
       bzType == BzType.Developer ? Wordz.realEstateDeveloper(context) :
@@ -49,7 +59,7 @@ class TextGenerator{
       bzType == BzType.Supplier ? Wordz.supplier(context) :
       'Builder';
   }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
   static String bzTypePluralStringer (BuildContext context, BzType bzType){
     return
       bzType == BzType.Developer ? Wordz.realEstateDevelopers(context) :
@@ -61,7 +71,7 @@ class TextGenerator{
       bzType == BzType.Supplier ? Wordz.suppliers(context) :
       'Builders';
   }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
   static String flyerTypeSingleStringer (BuildContext context, FlyerType flyerType){
 
     return
@@ -74,7 +84,7 @@ class TextGenerator{
       flyerType == FlyerType.General    ? Wordz.general(context)  :
       Wordz.general(context);
   }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
   static String flyerTypePluralStringer (BuildContext context, FlyerType flyerType){
     return
       flyerType == FlyerType.Property   ? Wordz.properties(context)  :
@@ -86,7 +96,7 @@ class TextGenerator{
       flyerType == FlyerType.General    ? Wordz.general(context)  :
       Wordz.general(context);
   }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
   static String bzFormStringer (BuildContext context, BzForm bzForm){
     return
       bzForm == BzForm.Company ? Wordz.company(context) :
@@ -94,7 +104,7 @@ class TextGenerator{
       Wordz.company(context);
 
   }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
   static List<String> bzFormStrings (BuildContext context){
     List<String> bzFormStrings = new List();
 
@@ -103,7 +113,7 @@ class TextGenerator{
     }
     return bzFormStrings;
   }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
   static String zoneStringer ({BuildContext context, Zone zone,}){
     CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
 
@@ -120,7 +130,7 @@ class TextGenerator{
     '${Wordz.inn(context)} $_areaName , $_provinceName , $_countryName . ';
     return verse;
   }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
   static String functionStringer(Function function) {
     String functionNameAsAString = function.toString();
     int s = functionNameAsAString.indexOf('\'');
@@ -128,7 +138,7 @@ class TextGenerator{
     // print('functionNameAsAString : ${functionNameAsAString.substring(s + 1, e)}');
     return functionNameAsAString.substring(s+1, e);  // return functionNameAsAString;
   }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
   static String askHinter (BuildContext context, BzType bzType){
     String askHint =
     bzType == BzType.Developer ? 'I\'m Looking for a property directly from the developer ...' :
@@ -141,7 +151,7 @@ class TextGenerator{
     Wordz.askHint(context);
     return askHint;
   }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
   static String bldrsTypePageTitle(BuildContext context, BzType bzType) {
     return
       bzType == BzType.Developer ? Wordz.realEstateDeveloper(context) :
@@ -153,22 +163,22 @@ class TextGenerator{
       bzType == BzType.Artisan ? Wordz.craftsmen(context) :
       Wordz.bldrsShortName(context);
   }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
   static String monthYearStringer(BuildContext context, DateTime time){
     return
       '${Wordz.inn(context)} ${Wordz.bldrsShortName(context)} since : ${getMonthNameByInt(context, (time).month)} ${(time).year}';
   }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
   static String dayMonthYearStringer(BuildContext context, DateTime time){
     return
       '${Wordz.inn(context)} ${Wordz.bldrsShortName(context)} since : ${(time).day} ${getMonthNameByInt(context, (time).month)} ${(time).year}';
   }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 static String hourMinuteSecondStringer(DateTime time){
     return
         '${time.hour}:${time.minute}:${time.second}';
 }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 static String hourMinuteSecondListOfStrings(List<DateTime> times){
     String _output = '';
 
@@ -177,7 +187,7 @@ static String hourMinuteSecondListOfStrings(List<DateTime> times){
     }
     return _output;
 }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
   static String hourMinuteSecondListOfStringsWithIndexes(List<DateTime> times, List<int> indexes){
     String _output = '';
 
@@ -190,5 +200,5 @@ static String hourMinuteSecondListOfStrings(List<DateTime> times){
     }
     return _output;
   }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 }

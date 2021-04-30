@@ -28,6 +28,7 @@ static const double ddBoxCorner8 = 8;
 static const double ddBoxCorner12 = 12;
 static const double ddAppBarMargin = 10;
 static const double ddAppBarPadding = 5;
+static const double ddAppBarButtonSize = 40;
 static const double ddAppBarHeight = 50;
 static const double ddBottomSheetCorner = ddAppBarCorner + ddAppBarMargin;
 

@@ -78,7 +78,7 @@ AlertDialog _superAlert ({
                               children: <Widget>[
 
                                 /// TITLE
-                                if (title != '')
+                                if (title != '' || title != null)
                                   SuperVerse(
                                     verse: title,
                                     color: Colorz.White,

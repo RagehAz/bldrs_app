@@ -6,6 +6,7 @@ import 'package:bldrs/firestore/record_ops.dart';
 import 'package:bldrs/firestore/search_ops.dart';
 import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/firestore/user_ops.dart';
+import 'package:bldrs/models/bldrs_sections.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/records/save_model.dart';
@@ -27,9 +28,14 @@ class FlyersProvider with ChangeNotifier {
   List<TinyFlyer> _loadedSavedFlyers;
   List<String> _loadedFollows;
   List<FlyerModel> _bzOldFlyers;
+  BldrsSection _currentSection;
 // -----------------------------------------------------------------------------
   List<TinyBz> get getSponsors {
     return <TinyBz> [..._sponsors];
+  }
+// -----------------------------------------------------------------------------
+  BldrsSection get getCurrentSection {
+    return _currentSection;
   }
 // -----------------------------------------------------------------------------
   List<TinyBz> get getUserTinyBzz {
@@ -89,6 +95,11 @@ class FlyersProvider with ChangeNotifier {
 
     _sponsors = _sponsorsTinyBzz;
     print('Bldrs ${_sponsors.length} Sponsors are ${_sponsors.toString()}');
+    notifyListeners();
+  }
+// -----------------------------------------------------------------------------
+  void changeSection(BldrsSection section){
+    _currentSection = section;
     notifyListeners();
   }
 // -----------------------------------------------------------------------------

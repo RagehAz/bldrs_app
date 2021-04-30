@@ -7,7 +7,7 @@ import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 
-class BTMain extends StatelessWidget {
+class MainButton extends StatelessWidget {
   final String buttonVerse;
   final dynamic buttonIcon;
   final Color buttonColor;
@@ -20,7 +20,7 @@ class BTMain extends StatelessWidget {
   final VerseWeight verseWeight;
   final Color iconColor;
 
-  BTMain({
+  MainButton({
     @required this.buttonVerse,
     @required this.buttonIcon,
     this.buttonColor = Colorz.WhiteZircon,
