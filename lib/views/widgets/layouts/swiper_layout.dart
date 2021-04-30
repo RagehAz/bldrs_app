@@ -1,49 +1,113 @@
-// import 'package:bldrs/controllers/theme/colorz.dart';
-// import 'package:flutter/material.dart';
-// import 'package:flutter_swiper/flutter_swiper.dart';
-//
-// class SwiperLayout extends StatelessWidget {
-//   final int pagesLength;
-//   final Function itemBuilder;
-//   final Function onIndexChanged;
-//   SwiperLayout({
-//     this.pagesLength,
-//     this.itemBuilder,
-//     this.onIndexChanged,
-// });
-//
-//   @override
-//   Widget build(BuildContext context) {
-//
-//     // List<Widget> listWidgetsBuilder(List<Widget> listWidgets, int index){
-//     //   List<Widget> widgets = new List();
-//     //
-//     //   return widgets;
-//     // }
-//
-//     // int index;
-//
-//     return Swiper(
-//       autoplay: false,
-//       onIndexChanged: onIndexChanged,
-//       pagination: new SwiperPagination(
-//         builder: DotSwiperPaginationBuilder(
-//           color: Colorz.White,
-//           activeColor: Colorz.Yellow,
-//           activeSize: 8,
-//           size: 5,
-//           space: 2,
-//         ),
-//         alignment: Alignment.topRight,
-//         margin: EdgeInsets.only(top: 54, right: 25),
-//       ),
-//
-//       control: new SwiperControl(),
-//
-//       viewportFraction: 1,
-//       scale: 0.6,
-//       itemCount: pagesLength,
-//       itemBuilder: itemBuilder,
-//     );
-//   }
-// }
+import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/views/widgets/layouts/main_layout.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_swiper/flutter_swiper.dart';
+
+class SwiperLayoutScreen extends StatefulWidget {
+  final List<Map<String, dynamic>> swiperPages;
+
+  SwiperLayoutScreen({
+    @required this. swiperPages,
+  });
+
+  @override
+  _SwiperLayoutScreenState createState() => _SwiperLayoutScreenState();
+}
+
+class _SwiperLayoutScreenState extends State<SwiperLayoutScreen> {
+  SwiperController _swiperController;
+  String _title;
+// -----------------------------------------------------------------------------
+  @override
+  void initState() {
+    _title = widget.swiperPages[0]['title'];
+
+    _swiperController = new SwiperController();
+    super.initState();
+  }
+// -----------------------------------------------------------------------------
+  @override
+  void dispose() {
+    _swiperController.dispose();
+    super.dispose();
+  }
+// -----------------------------------------------------------------------------
+
+
+  @override
+  Widget build(BuildContext context) {
+// -----------------------------------------------------------------------------
+    double _screenWidth = Scale.superScreenWidth(context);
+    double _screenHeight = Scale.superScreenHeight(context);
+// -----------------------------------------------------------------------------
+    double _itemWidth = _screenWidth;
+    double _itemHeight = _screenHeight;
+// -----------------------------------------------------------------------------
+
+    return MainLayout(
+      sky: Sky.Night,
+      appBarType: AppBarType.Basic,
+      pageTitle: _title,
+      pyramids: Iconz.DvBlankSVG,
+      appBarBackButton: true,
+      layoutWidget: Container(
+        width: _screenWidth,
+        height: _screenHeight,
+        child: Swiper(
+          autoplay: false,
+          pagination: new SwiperPagination(
+            builder: DotSwiperPaginationBuilder(
+              color: Colorz.White,
+              activeColor: Colorz.Yellow,
+              activeSize: 8,
+              size: 4,
+              space: 2,
+            ),
+            alignment: Alignment.topCenter,
+            margin: EdgeInsets.only(top: 54, right: Ratioz.ddAppBarMargin * 2, left: Ratioz.ddAppBarMargin * 2),
+          ),
+          layout: SwiperLayout.DEFAULT,
+          itemWidth: _itemWidth,
+          itemHeight: _itemHeight,
+          // control: new SwiperControl(),
+          // transformer: ,
+          onIndexChanged: (index){
+            setState(() {
+              _title = widget.swiperPages[index]['title'];
+            });
+          },
+          fade: 0.1,
+          controller: _swiperController,
+          duration: 600,
+          viewportFraction: 1,
+          curve: Curves.easeInOutCirc,
+          scale: 0.6,
+          itemCount: widget.swiperPages.length,
+          itemBuilder: (BuildContext context, int index) {
+
+            return
+
+              Column(
+                children: <Widget>[
+
+                  Stratosphere(),
+
+                  Container(
+                    width: _screenWidth,
+                    height: _screenHeight - Ratioz.stratosphere - 24,
+                    child: widget.swiperPages[index]['widget'],
+                  ),
+
+
+                ],
+              );
+
+          },
+        ),
+      ),
+    );
+  }
+}

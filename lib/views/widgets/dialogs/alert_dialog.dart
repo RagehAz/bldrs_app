@@ -309,7 +309,6 @@ Future<bool> bzzDeactivationDialog({
             title: 'Can not deactivate these businesses',
           ),
 
-
           SuperVerse(
             verse: 'Would you like to continue ?',
             margin: 10,

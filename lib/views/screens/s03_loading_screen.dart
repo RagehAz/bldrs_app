@@ -1,6 +1,5 @@
 import 'package:bldrs/controllers/drafters/text_shapers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
-import 'package:bldrs/controllers/router/route_names.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
@@ -8,8 +7,6 @@ import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/screens/s10_home_screen.dart';
 import 'package:bldrs/views/widgets/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/views/widgets/bubbles/bzz_bubble.dart';
-import 'package:bldrs/views/widgets/buttons/dream_box.dart';
-import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
@@ -25,7 +22,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
   bool _isInit = true;
   List<TinyBz> _sponsors;
   bool _canContinue = false;
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   /// --- LOADING BLOCK
   bool _loading = false;
   void _triggerLoading(){
@@ -33,7 +30,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     _loading == true?
     print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   @override
   void initState() {
     // works
@@ -78,9 +75,11 @@ class _LoadingScreenState extends State<LoadingScreen> {
           /// TASK : wallahi mana 3aref hane3mel eh hena
           await _prof.fetchAndSetTinyBzzAndTinyFlyers(context);
 
-          setState(() {
-            _canContinue = true;
-          });
+          Nav.goToNewScreen(context, HomeScreen());
+
+          // setState(() {
+          //   _canContinue = true;
+          // });
 
           _triggerLoading();
         });
@@ -152,28 +151,28 @@ class _LoadingScreenState extends State<LoadingScreen> {
             ],
           ),
 
-          if(_canContinue == true)
-            DreamBox(
-              height: 40,
-              verse: 'Continue',
-              verseScaleFactor: 0.8,
-              boxFunction: () async {
-                var _navResult = await Nav.goToRoute(context, Routez.Home);
-
-                if (_navResult == true){
-                  await superDialog(
-                    context: context,
-                    title: 'Estanna bas',
-                    body: 'Raye7 fein keda enta ?,, Yalla erga3 3ala faslak yalla wala ',
-                    boolDialog: false,
-                  );
-
-                  Nav.goToNewScreen(context, HomeScreen());
-                }
-
-                }
-              ,
-            ),
+          // if(_canContinue == true)
+          //   DreamBox(
+          //     height: 40,
+          //     verse: 'Continue',
+          //     verseScaleFactor: 0.8,
+          //     boxFunction: () async {
+          //       var _navResult = await Nav.goToRoute(context, Routez.Home);
+          //
+          //       if (_navResult == true){
+          //         await superDialog(
+          //           context: context,
+          //           title: 'Estanna bas',
+          //           body: 'Raye7 fein keda enta ?,, Yalla erga3 3ala faslak yalla wala ',
+          //           boolDialog: false,
+          //         );
+          //
+          //         Nav.goToNewScreen(context, HomeScreen());
+          //       }
+          //
+          //       }
+          //     ,
+          //   ),
 
           PyramidsHorizon(),
         ],

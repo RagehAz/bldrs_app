@@ -2,7 +2,6 @@ import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
-import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 // ---------------------------------------------------------------------------
 class ShareModel{
   final List<dynamic> slideIndexes;
@@ -97,63 +96,5 @@ class LinkModel{
   );
 // ---------------------------------------------------------------------------
 
-
-}
-// ---------------------------------------------------------------------------
-final String _ragehURL = 'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/usersPics%2FrBjNU5WybKgJXaiBnlcBnfFaQSq1.jpg?alt=media&token=9a9db754-7d0c-40f8-b285-1df5e660c282';
-// ---------------------------------------------------------------------------
-Future<void> createDynamicLink(BuildContext context, bool short) async {
-
-  // setState((){
-  //   _isCreatingLink = true;
-  // });
-
-  final DynamicLinkParameters parameters = DynamicLinkParameters(
-    uriPrefix: 'https://bldrs.page.link',
-    link: Uri.parse('https://bldrs.page.link/flyer'),
-    androidParameters: AndroidParameters(
-      packageName: 'com.bldrs.net',
-      minimumVersion: 0,
-      // fallbackUrl: null,
-    ),
-    iosParameters: IosParameters(
-      bundleId: 'com.bldrs.net',
-      minimumVersion: '0',
-    ),
-    socialMetaTagParameters: SocialMetaTagParameters(
-      title: 'Dynamic link title',
-      description: 'Dynamic link description',
-      imageUrl: Uri.parse(_ragehURL),
-    ),
-  );
-
-  Uri url;
-  if(short){
-    final ShortDynamicLink shortLink = await parameters.buildShortLink();
-    print(shortLink.toString());
-    url = shortLink.shortUrl;
-  } else {
-    url = await parameters.buildUrl();
-  }
-
-  // setState((){
-  //   _linkMessage = url.toString();
-  //   _isCreatingLink = false;
-  // });
-
-}
-
-void receiveAndInitializeDynamicLinks () async {
-
-  final PendingDynamicLinkData data = await FirebaseDynamicLinks.instance.getInitialLink();
-  final Uri deepLink = data?.link;
-
-  if (deepLink != null){
-
-    /// according to deepLink value, we will see where to navigate to
-
-    // Navigator.pushNamed(context, deepLink.path);
-
-  }
 
 }

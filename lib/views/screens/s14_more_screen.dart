@@ -10,8 +10,10 @@ import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/models/records/share_model.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/views/screens/s40_bz_editor_screen.dart';
-import 'package:bldrs/views/screens/s60_about_bldrs.dart';
-import 'package:bldrs/views/screens/s61_feedback.dart';
+import 'package:bldrs/views/screens/s60_change_zone_screen.dart';
+import 'package:bldrs/views/screens/s61_change_language_screen.dart';
+import 'package:bldrs/views/screens/s63_about_bldrs_screen.dart';
+import 'package:bldrs/views/screens/s64_feedback_screen.dart';
 import 'package:bldrs/views/widgets/appbar/buttons/flagbox.dart';
 import 'package:bldrs/views/widgets/bubbles/bubbles_separator.dart';
 import 'package:bldrs/views/widgets/bubbles/tile_bubble.dart';
@@ -70,10 +72,12 @@ class MoreScreen extends StatelessWidget {
             verse: Wordz.changeCountry(context),
             icon: FlagBox(flag: Flagz.egy),
             iconSizeFactor: 0.9,
+            btOnTap: () => Nav.goToNewScreen(context, ChangeZoneScreen()),
           ),
           TileBubble(
             verse: Wordz.changeLanguage(context),
             icon: Iconz.Language,
+            btOnTap: () => Nav.goToNewScreen(context, ChangeLanguageScreen()),
           ),
 
           _separator,
@@ -82,7 +86,7 @@ class MoreScreen extends StatelessWidget {
             verse: '${Wordz.about(context)} ${Wordz.bldrsShortName(context)}',
             icon: Iconz.PyramidSingleYellow,
             iconSizeFactor: 0.8,
-            btOnTap: () => Nav.goToNewScreen(context, AboutBldrs()),
+            btOnTap: () => Nav.goToNewScreen(context, AboutBldrsScreen()),
 
           ),
           TileBubble(

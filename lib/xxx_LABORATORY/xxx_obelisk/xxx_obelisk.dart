@@ -20,6 +20,7 @@ import 'package:bldrs/xxx_LABORATORY/forms_and_inputs/form.dart';
 import 'package:bldrs/xxx_LABORATORY/navigation_test/nav_test_home.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/aaa_state_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/dialog_test_screen.dart';
+import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/dynamic_links_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/firebase_testing.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/google_sign_in_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/share_and_gallery_image_test.dart';
@@ -225,6 +226,8 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
                 );
             }
           ),
+
+          oButton('Dynamic Links test', Iconz.Share, DynamicLinkTest()),
 
           oButton('Google auth test', Iconz.ComGooglePlus, GoogleSignInTest()),
 
