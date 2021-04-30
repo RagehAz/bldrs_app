@@ -39,7 +39,7 @@ class ListLayout extends StatelessWidget {
 // -----------------------------------------------------------------------------
     double _verseHeight = superVerseRealHeight(context, 2, 1, Colorz.WhiteAir);
     double _bubbleHeight = _screenHeight - Ratioz.stratosphere - 24 - 50 - _verseHeight - 10 - 2.2;
-
+// -----------------------------------------------------------------------------
     return MainLayout(
       sky: sky,
       appBarType: AppBarType.Basic,
