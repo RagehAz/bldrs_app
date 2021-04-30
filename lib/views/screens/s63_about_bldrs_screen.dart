@@ -6,7 +6,7 @@ import 'package:bldrs/views/widgets/bubbles/tile_bubble.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 
-class AboutBldrs extends StatelessWidget {
+class AboutBldrsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MainLayout(

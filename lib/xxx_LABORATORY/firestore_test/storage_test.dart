@@ -1,14 +1,10 @@
 import 'dart:io';
-
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/firestore/firestore.dart';
-import 'package:bldrs/firestore/user_ops.dart';
-import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
@@ -16,9 +12,12 @@ import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class FireStorageTest extends StatefulWidget {
+
+
   @override
   _FireStorageTestState createState() => _FireStorageTestState();
 }
+
 
 class _FireStorageTestState extends State<FireStorageTest> {
   String printVerse;
@@ -42,7 +41,6 @@ class _FireStorageTestState extends State<FireStorageTest> {
 
   @override
   Widget build(BuildContext context) {
-
 
     List<Map<String, dynamic>> functions = <Map<String, dynamic>>[
 

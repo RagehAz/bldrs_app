@@ -69,6 +69,21 @@ class CountryProvider with ChangeNotifier{
     return _countriesMaps;
   }
 // ---------------------------------------------------------------------------
+  /// get available countries
+  List<String> getCountriesIDsByContinent({BuildContext context,String continent}){
+    List<String> _countriesIDs = new List();
+
+    _countries.forEach((co) {
+      if (
+      // co.isActivated == true &&
+          co.continent == continent) {
+        _countriesIDs.add(co.iso3);
+      }
+    });
+
+    return _countriesIDs;
+  }
+// ---------------------------------------------------------------------------
   /// get Provinces list by country iso3
   List<Map<String,String>> getProvincesNamesByIso3(BuildContext context, String iso3){
     List<Map<String,String>> _provincesNames = new List();
