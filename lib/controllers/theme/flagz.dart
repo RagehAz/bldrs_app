@@ -1,5 +1,7 @@
 
+
 class Flagz {
+// -----------------------------------------------------------------------------
   static const String afg = "assets/icons/flags/flag_as_s_afghanistan.svg" ;
   static const String ala = "assets/icons/flags/flag_eu_n_aland_islands.svg" ;
   static const String alb = "assets/icons/flags/flag_eu_s_albania.svg" ;
@@ -249,9 +251,18 @@ class Flagz {
   static const String yem = "assets/icons/flags/flag_as_w_yemen.svg" ;
   static const String zmb = "assets/icons/flags/flag_af_e_zambia.svg" ;
   static const String zwe = "assets/icons/flags/flag_af_e_zimbabwe.svg" ;
-}
-
-var flagsMaps = <Map<String, String>>[
+// -----------------------------------------------------------------------------
+  static String getFlagByIso3(String iso3) {
+    String flag;
+    Flagz.flagsMaps.forEach((map) {
+      if (map['id'] == iso3) {
+        flag = map['value'];
+      }
+    });
+    return flag;
+  }
+// -----------------------------------------------------------------------------
+  static const List<Map<String, dynamic>> flagsMaps = <Map<String, String>>[
   {"id" : "afg", "value" : Flagz.afg},
   {"id" : "ala", "value" : Flagz.ala},
   {"id" : "alb", "value" : Flagz.alb},
@@ -501,4 +512,7 @@ var flagsMaps = <Map<String, String>>[
   {"id" : "yem", "value" : Flagz.yem},
   {"id" : "zmb", "value" : Flagz.zmb},
   {"id" : "zwe", "value" : Flagz.zwe},
-];
+  ];
+// -----------------------------------------------------------------------------
+}
+

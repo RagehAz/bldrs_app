@@ -32,7 +32,7 @@ class DreamList extends StatelessWidget {
 }
 
 
-dreamListBuilder  (BuildContext c, int x, String info,String icon ,String verse, String secondLine,) {
+Widget dreamListBuilder  (BuildContext c, int x, String info,String icon ,String verse, String secondLine,) {
      Widget dreamListItems =  Container(
         width: Scale.superScreenWidth(c),
         alignment: Alignment.center,

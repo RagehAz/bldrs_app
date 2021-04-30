@@ -1,5 +1,4 @@
 import 'package:bldrs/controllers/localization/localization_constants.dart';
-import 'package:bldrs/controllers/theme/flagz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/dashboard/zones_manager/db_areas.dart';
 import 'package:bldrs/dashboard/zones_manager/db_countries.dart';
@@ -85,7 +84,7 @@ class CountryProvider with ChangeNotifier{
   }
 // ---------------------------------------------------------------------------
   /// get Provinces list by country iso3
-  List<Map<String,String>> getProvincesNamesByIso3(BuildContext context, String iso3){
+  List<Map<String,String>> getProvincesNameMapsByIso3(BuildContext context, String iso3){
     List<Map<String,String>> _provincesNames = new List();
     String _currentLanguageCode = Wordz.languageCode(context);
 
@@ -106,7 +105,7 @@ class CountryProvider with ChangeNotifier{
 // ---------------------------------------------------------------------------
   /// get Areas list by Province name
   /// uses provinceName in English as ID
-  List<Map<String, String>> getAreasNamesByProvinceID(BuildContext context, String provinceID){
+  List<Map<String, String>> getAreasNameMapsByProvinceID(BuildContext context, String provinceID){
     List<Map<String, String>> _areasNames = new List();
     String _currentLanguageCode = Wordz.languageCode(context);
     _areas.forEach((ar) {
@@ -137,14 +136,6 @@ class CountryProvider with ChangeNotifier{
   return nameInCurrentLanguage == null ? provinceName : nameInCurrentLanguage;
 }
 // ---------------------------------------------------------------------------
+
 }
-// === === === === === === === === === === === === === === === === === === ===
-String getFlagByIso3(String iso3){
-  String flag;
-  flagsMaps.forEach((map) {
-    if(map['id'] == iso3){flag = map['value'];}
-  });
-  return flag;
-}
-// === === === === === === === === === === === === === === === === === === ===
 
