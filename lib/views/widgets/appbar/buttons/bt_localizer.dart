@@ -1,6 +1,7 @@
 import 'package:bldrs/controllers/drafters/text_directionerz.dart';
 import 'package:bldrs/controllers/localization/localization_constants.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/controllers/theme/flagz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
@@ -25,7 +26,7 @@ class LocalizerButton extends StatelessWidget {
     String _lastProvinceID = _countryPro.currentProvinceID;
     String _lastAreaID = _countryPro.currentAreaID;
     String _lastCountryName = translate(context, _lastCountryID);
-    String _lastCountryFlag = getFlagByIso3(_lastCountryID);
+    String _lastCountryFlag = Flagz.getFlagByIso3(_lastCountryID);
     String _lastProvinceName = _countryPro.getProvinceNameWithCurrentLanguageIfPossible(context, _lastProvinceID);
     String _lastAreaName = _countryPro.getAreaNameWithCurrentLanguageIfPossible(context, _lastAreaID);
 

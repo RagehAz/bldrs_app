@@ -107,8 +107,8 @@ Future<void> _tapLanguage(String languageCode) async {
     CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: true);
 
     List<Map<String,String>> _flags = _countryPro.getAvailableCountries(context);
-    List<Map<String,String>> _provinces = _countryPro.getProvincesNamesByIso3(context, _chosenCountryID);//_chosenCountry);
-    List<Map<String,String>> _areas = _countryPro.getAreasNamesByProvinceID(context, _chosenProvinceID);//_chosenProvince);
+    List<Map<String,String>> _provinces = _countryPro.getProvincesNameMapsByIso3(context, _chosenCountryID);//_chosenCountry);
+    List<Map<String,String>> _areas = _countryPro.getProvincesNameMapsByIso3(context, _chosenProvinceID);//_chosenProvince);
 
     List<LanguageClass> _languagesModels = LanguageClass.languageList();
     List<Map<String,String>> _languages = LanguageClass.getLanguagesMapsFromLanguages(_languagesModels);
