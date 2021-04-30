@@ -18,6 +18,7 @@ final bool redDot;
 final String actionBtIcon;
 final Function actionBtFunction;
 final double bubbleWidth;
+final Function bubbleOnTap;
 
   InPyramidsBubble({
     @required this.columnChildren,
@@ -30,6 +31,7 @@ final double bubbleWidth;
     this.actionBtIcon,
     this.actionBtFunction,
     this.bubbleWidth,
+    this.bubbleOnTap,
 });
 
   @override
@@ -66,73 +68,84 @@ final double bubbleWidth;
     return Container(
           width: _bubbleWidth,
           margin: _bubbleMargins,
-          padding: EdgeInsets.all(_pageMargin),
+          // padding: EdgeInsets.all(_pageMargin),
           decoration: BoxDecoration(
             color: bubbleColor,
             borderRadius: BorderRadius.circular(Ratioz.ddAppBarCorner),
           ),
           alignment: centered == true ? Alignment.center : Aligners.superCenterAlignment(context),
 
-          child: Column(
-            mainAxisSize: stretchy ? MainAxisSize.min : MainAxisSize.max,
-            mainAxisAlignment: centered == true ? MainAxisAlignment.center : MainAxisAlignment.start,
-            crossAxisAlignment: centered == true ? CrossAxisAlignment.center : CrossAxisAlignment.start,
-            children: <Widget>[
+          child: Material(
+            color: Colorz.Nothing,
+            child: InkWell(
+              onTap: bubbleOnTap,
+              splashColor: Colorz.Yellow,
+              borderRadius: BorderRadius.circular(Ratioz.ddAppBarCorner),
+              child: Padding(
+                padding: EdgeInsets.all(_pageMargin),
+                child: Column(
+                  mainAxisSize: stretchy ? MainAxisSize.min : MainAxisSize.max,
+                  mainAxisAlignment: centered == true ? MainAxisAlignment.center : MainAxisAlignment.start,
+                  crossAxisAlignment: centered == true ? CrossAxisAlignment.center : CrossAxisAlignment.start,
+                  children: <Widget>[
 
-              if (title !=null || actionBtIcon != null)
-              Row(
-                mainAxisAlignment: centered == true ? MainAxisAlignment.start : MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: centered == true ? MainAxisSize.min : MainAxisSize.max,
-                children: <Widget>[
+                    if (title !=null || actionBtIcon != null)
+                    Row(
+                      mainAxisAlignment: centered == true ? MainAxisAlignment.start : MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: centered == true ? MainAxisSize.min : MainAxisSize.max,
+                      children: <Widget>[
 
-                  /// --- ACTION BUTTON
-                  if(centered == true && actionBtIcon !=null)
-                    Container(
-                      height: actionBtSize,
-                      width: actionBtSize,
+                        /// --- ACTION BUTTON
+                        if(centered == true && actionBtIcon !=null)
+                          Container(
+                            height: actionBtSize,
+                            width: actionBtSize,
+                          ),
+
+                        /// --- EXPANDER
+                        if(centered == true)
+                        Expanded(child: Container(),),
+
+                        /// --- BUBBLE TITLE
+                        if (title != null)
+                          Container(
+                            width: _bubbleWidth - actionBtSize,
+                            padding: const EdgeInsets.only(bottom: 10, left: 5, right: 5),
+                            child: SuperVerse(
+                              verse: title,
+                              size: titleVerseSize,
+                              redDot: redDot,
+                              centered: centered,
+                              color: titleColor,
+                            ),
+                          ),
+
+                        /// --- EXPANDER
+                        if(centered == true)
+                          Expanded(child: Container(),),
+
+                        /// --- ACTION BUTTON
+                        if (actionBtIcon != null)
+                        DreamBox(
+                          height: actionBtSize,
+                          width: actionBtSize,
+                          corners: actionBtCorner,
+                          // color: actionBtColor,
+                          icon: actionBtIcon,
+                          iconSizeFactor: 0.6,
+                          boxFunction: actionBtFunction,
+                        ),
+
+                      ],
                     ),
 
-                  /// --- EXPANDER
-                  if(centered == true)
-                  Expanded(child: Container(),),
+                    ...columnChildren,
 
-                  /// --- BUBBLE TITLE
-                  if (title != null)
-                    Container(
-                      width: _bubbleWidth - actionBtSize,
-                      padding: const EdgeInsets.only(bottom: 10, left: 5, right: 5),
-                      child: SuperVerse(
-                        verse: title,
-                        size: titleVerseSize,
-                        redDot: redDot,
-                        centered: centered,
-                        color: titleColor,
-                      ),
-                    ),
-
-                  /// --- EXPANDER
-                  if(centered == true)
-                    Expanded(child: Container(),),
-
-                  /// --- ACTION BUTTON
-                  if (actionBtIcon != null)
-                  DreamBox(
-                    height: actionBtSize,
-                    width: actionBtSize,
-                    corners: actionBtCorner,
-                    // color: actionBtColor,
-                    icon: actionBtIcon,
-                    iconSizeFactor: 0.6,
-                    boxFunction: actionBtFunction,
-                  ),
-
-                ],
+                  ],
+                ),
               ),
-
-              ...columnChildren,
-
-            ],
+            ),
           ),
     );
   }

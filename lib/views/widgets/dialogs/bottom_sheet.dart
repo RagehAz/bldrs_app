@@ -6,6 +6,14 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 // ---------------------------------------------------------------------------
+enum BottomSheetType {
+  Country,
+  Province,
+  Area,
+  Language,
+  BottomSheet,
+}
+// ---------------------------------------------------------------------------
 class BldrsBottomSheet extends StatelessWidget {
   final double height;
   final bool draggable;

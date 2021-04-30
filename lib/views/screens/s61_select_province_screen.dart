@@ -12,7 +12,7 @@ class SelectProvinceScreen extends StatelessWidget {
   final String countryID;
 
   SelectProvinceScreen({
-    this.countryID,
+    this.countryID = 'egy',
   });
 
   @override
