@@ -2,6 +2,7 @@ import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/streamerz.dart';
 import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/controllers/theme/flagz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:bldrs/models/user_model.dart';
@@ -266,7 +267,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
                                         DreamBox(
                                           height: 25,
                                           width: 25,
-                                          icon: getFlagByIso3(_userModel.country),
+                                          icon: Flagz.getFlagByIso3(_userModel.country),
                                           corners: 5,
                                         ),
 

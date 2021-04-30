@@ -3,6 +3,7 @@ import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/controllers/localization/localization_constants.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/controllers/theme/flagz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/user_model.dart';
@@ -31,7 +32,7 @@ class UserBubble extends StatelessWidget {
   Widget build(BuildContext context) {
     CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
     String _countryName = translate(context, user?.country);
-    String _countryFlag = getFlagByIso3(user?.country);
+    String _countryFlag = Flagz.getFlagByIso3(user?.country);
     String _provinceName = _countryPro.getProvinceNameWithCurrentLanguageIfPossible(context, user?.province);
     String _areaName = _countryPro.getAreaNameWithCurrentLanguageIfPossible(context, user?.area);
 
