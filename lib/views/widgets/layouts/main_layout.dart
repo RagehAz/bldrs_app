@@ -79,7 +79,8 @@ class MainLayout extends StatelessWidget {
 });
 
   Future<void> _refresh(BuildContext context) async {
-    await Provider.of<FlyersProvider>(context,listen: false).fetchAndSetTinyBzzAndTinyFlyers(context);
+    /// TASK : temp fetching all bzz and all flyers here to refresh main layout
+    await Provider.of<FlyersProvider>(context,listen: false).fetchAndSetAllTinyBzzAndAllTinyFlyers(context);
   }
 
   // final static GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();

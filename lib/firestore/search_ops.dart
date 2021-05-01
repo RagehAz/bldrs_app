@@ -1,5 +1,9 @@
 import 'package:bldrs/controllers/drafters/file_formatters.dart';
 import 'package:bldrs/controllers/drafters/mappers.dart';
+import 'package:bldrs/firestore/firestore.dart';
+import 'package:bldrs/models/flyer_model.dart';
+import 'package:bldrs/models/planet/zone_model.dart';
+import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
@@ -191,6 +195,57 @@ class FireSearch {
 
   }
 // -----------------------------------------------------------------------------
+/// SEARCHING FLYERS
+/// -------------------
+
+/// SEARCH FLYERS BY AREA AND FLYER TYPE
+  static Future<List<TinyFlyer>> flyersByZoneAndFlyerType({
+    BuildContext context,
+    Zone zone,
+    FlyerType flyerType,
+  }) async {
+
+      List<TinyFlyer> _tinyFlyers = new List();
+
+      await tryAndCatch(
+          context: context,
+          methodName: 'mapsByTwoValuesEqualTo',
+          functions: () async {
+
+            CollectionReference _flyersCollection = Fire.getCollectionRef(FireCollection.tinyFlyers);
+
+            QuerySnapshot _collectionSnapshot;
+
+            int _flyerType = FlyerModel.cipherFlyerType(flyerType);
+            String _zone = zone.cipherToString();
+
+            print('searching tiny flyers of type : $_flyerType : in $_zone');
+
+            _collectionSnapshot = await _flyersCollection
+                .where('flyerType', isEqualTo: _flyerType)
+                .where('tinyBz.bzZone', isEqualTo: _zone)
+                .get();
+
+
+            List<dynamic> _maps = Mapper.getMapsFromQuerySnapshot(
+              querySnapshot: _collectionSnapshot,
+              addDocsIDs: false,
+            );
+
+             _tinyFlyers = TinyFlyer.decipherTinyFlyersMaps(_maps);
+
+          });
+
+      return _tinyFlyers;
+
+    }
+
+
+/// SEARCHING BZZ
+///
+///
+/// SEARCHING USERS
+
 }
 
 

@@ -141,12 +141,16 @@ class BldrsAppBar extends StatelessWidget {
                       ),
                     ),),
 
+                if(appBarRowWidgets != null &&_scrollable == false)
+                  ...appBarRowWidgets,
+
                 /// Expander
+                if (_zoneButtonIsOn == true)
                 Expanded(child: Container(),),
 
                 /// --- LOADING INDICATOR
-                if (loading != null)
-                  Loading(loading: loading),
+                // if (loading != null)
+                //   Loading(loading: true),
 
                 /// Zone button
                 if (_zoneButtonIsOn == true)

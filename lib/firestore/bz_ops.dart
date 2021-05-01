@@ -177,7 +177,8 @@ class BzOps{
     return _tinyBz;
   }
 // -----------------------------------------------------------------------------
-  /// update bz operations on firestore
+  /// 1 - update bzLogo if changed
+  /// 2 - update authorPic if changed
   Future<BzModel> updateBzOps({
     BuildContext context,
     BzModel modifiedBz,
@@ -186,7 +187,7 @@ class BzOps{
     File authorPicFile,
   }) async {
 
-    /// update bzLogo if changed
+    /// 1 - update bzLogo if changed
     String _bzLogoURL;
     if(bzLogoFile == null) {
       // do Nothing, bzLogo was not changed, will keep as
@@ -200,7 +201,7 @@ class BzOps{
 
     }
 
-    /// update authorPic if changed
+    /// 2 - update authorPic if changed
     AuthorModel _modifiedAuthor = AuthorModel.getAuthorFromBzByAuthorID(modifiedBz, superUserID());
     String _authorPicURL;
     if(authorPicFile == null) {
@@ -277,7 +278,10 @@ class BzOps{
     // bzID and BzLogo URL will always stay the same after creation
     _finalBz.bzName != originalBz.bzName ||
         _finalBz.bzLogo != originalBz.bzLogo ||
-        _finalBz.bzType != originalBz.bzType
+        _finalBz.bzType != originalBz.bzType ||
+        _finalBz.bzCountry != originalBz.bzCountry ||
+        _finalBz.bzProvince != originalBz.bzProvince ||
+        _finalBz.bzArea != originalBz.bzArea
     ){
     TinyBz _modifiedTinyBz = TinyBz.getTinyBzFromBzModel(_finalBz)  ;
     Map<String, dynamic> _modifiedTinyBzMap = _modifiedTinyBz.toMap();

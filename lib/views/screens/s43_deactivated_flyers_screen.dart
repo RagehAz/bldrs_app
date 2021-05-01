@@ -42,7 +42,7 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
       FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: true);
 
       // _prof.fetchAndSetTinyBzzAndTinyFlyers(context)
-      _prof.fetchAndSetOldBzFlyers(context, widget.bz)
+      _prof.fetchAndSetBzDeactivatedFlyers(context, widget.bz)
           .then((_) async {
 
         List<FlyerModel> _oldFlyers = _prof.getBzOldFlyers;

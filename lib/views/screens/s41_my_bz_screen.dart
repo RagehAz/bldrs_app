@@ -248,7 +248,7 @@ class _MyBzScreenState extends State<MyBzScreen> {
           return
 
             MainLayout(
-                pyramids: Iconz.DvBlankSVG,
+                pyramids: Iconz.PyramidzYellow,
                 sky: Sky.Black,
                 appBarBackButton: true,
                 appBarType: AppBarType.Basic,
@@ -268,7 +268,7 @@ class _MyBzScreenState extends State<MyBzScreen> {
                   /// --- EXPANDER
                   Expanded(child: Container()),
 
-                  /// -- EDIT BZ BUTTON
+                  /// -- SLIDE BZ ACCOUNT OPTIONS
                   DreamBox(
                     height: 35,
                     width: 35,
