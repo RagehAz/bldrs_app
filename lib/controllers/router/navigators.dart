@@ -97,6 +97,14 @@ class Nav{
 
   }
 // -----------------------------------------------------------------------------
+  static goBackToHomeScreen(BuildContext context){
+
+    Navigator.popUntil(context,
+        ModalRoute.withName(Routez.Home)
+    );
+
+  }
+// -----------------------------------------------------------------------------
   static Future<dynamic> replaceScreen(BuildContext context, Widget screen) async {
     var _result = await Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => screen));
     return _result;
