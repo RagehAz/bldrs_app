@@ -119,7 +119,7 @@ class _LocaleBubbleState extends State<LocaleBubble> {
         mapValueIs: MapValueIs.String,
         alignment: Alignment.center,
         provider: countryPro,
-        sheetType: BottomSheetType.Province,
+        sheetType: BottomSheetType.Area,
         buttonTap: (areaID){
           setState(() {
             _chosenAreaID = areaID;
@@ -138,7 +138,7 @@ class _LocaleBubbleState extends State<LocaleBubble> {
 
     List<Map<String,String>> _flags = _countryPro.getAvailableCountries(context);
     List<Map<String,String>> _provinces = _countryPro.getProvincesNameMapsByIso3(context, _chosenCountryID);//_chosenCountry);
-    List<Map<String,String>> _areas = _countryPro.getProvincesNameMapsByIso3(context, _chosenProvinceID);//_chosenProvince);
+    List<Map<String,String>> _areas = _countryPro.getAreasNameMapsByProvinceID(context, _chosenProvinceID);//_chosenProvince);
 
     String _chosenCountryName = _chosenCountryID == null ? '...' : translate(context, _chosenCountryID);
     String _chosenCountryFlag = _chosenCountryID == null ? '' : Flagz.getFlagByIso3(_chosenCountryID);

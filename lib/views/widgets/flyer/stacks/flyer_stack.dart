@@ -39,7 +39,10 @@ class FlyerStack extends StatelessWidget {
 // -----------------------------------------------------------------------------
 //     bool _slidingIsOn = false;
 // -----------------------------------------------------------------------------
-    return Container(
+    return
+
+      _tinyFlyers.length == 0 ? Container() :
+      Container(
       width: _screenWidth,
       // height: _collectionHeight + 2*_titleSpacing + (_screenHeight * Ratioz.fontSize3) + 12,
       decoration: BoxDecoration(

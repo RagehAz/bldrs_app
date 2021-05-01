@@ -1,5 +1,6 @@
 import 'package:bldrs/controllers/drafters/text_shapers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
+import 'package:bldrs/controllers/router/route_names.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
@@ -73,9 +74,9 @@ class _LoadingScreenState extends State<LoadingScreen> {
           await _prof.fetchAndSetFollows(context);
 
           /// TASK : wallahi mana 3aref hane3mel eh hena
-          await _prof.fetchAndSetTinyBzzAndTinyFlyers(context);
+          await _prof.fetchAndSetTinyFlyersBySectionType(context, _prof.getCurrentSection);
 
-          Nav.goToNewScreen(context, HomeScreen());
+          Nav.goToRoute(context, Routez.Home);
 
           // setState(() {
           //   _canContinue = true;

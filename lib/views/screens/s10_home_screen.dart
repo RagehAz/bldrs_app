@@ -72,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: true);
-    List<TinyBz> _tinyBzz = _prof.getAllTinyBzz;
+    // List<TinyBz> _tinyBzz = _prof.getAllTinyBzz;
     List<TinyBz> _userTinyBzz = _prof.getUserTinyBzz;
 
     return WillPopScope(
@@ -99,7 +99,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     //   tappingAskInfo: () {print('Ask info is tapped aho');},
                     // ),
 
-                    BzzBubble(tinyBzz: _tinyBzz),
+                    // BzzBubble(tinyBzz: _tinyBzz),
 
                     ...List<Widget>.generate(FlyerModel.flyerTypesList.length,
                             (index) {

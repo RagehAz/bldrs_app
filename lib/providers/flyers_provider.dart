@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/controllers/drafters/text_manipulators.dart';
 import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/firestore/bz_ops.dart';
@@ -9,13 +10,16 @@ import 'package:bldrs/firestore/user_ops.dart';
 import 'package:bldrs/models/bldrs_sections.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
+import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/records/save_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/models/user_model.dart';
+import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 // -----------------------------------------------------------------------------
 /// this provides tiny flyers and tiny bzz
 class FlyersProvider with ChangeNotifier {
@@ -29,13 +33,14 @@ class FlyersProvider with ChangeNotifier {
   List<String> _loadedFollows;
   List<FlyerModel> _bzOldFlyers;
   BldrsSection _currentSection;
+  Zone _currentZone;
 // -----------------------------------------------------------------------------
   List<TinyBz> get getSponsors {
     return <TinyBz> [..._sponsors];
   }
 // -----------------------------------------------------------------------------
   BldrsSection get getCurrentSection {
-    return _currentSection;
+    return _currentSection ?? BldrsSection.Construction;
   }
 // -----------------------------------------------------------------------------
   List<TinyBz> get getUserTinyBzz {
@@ -98,9 +103,11 @@ class FlyersProvider with ChangeNotifier {
     notifyListeners();
   }
 // -----------------------------------------------------------------------------
-  void changeSection(BldrsSection section){
+  Future<void> changeSection(BuildContext context, BldrsSection section) async {
     _currentSection = section;
-    notifyListeners();
+
+    await fetchAndSetTinyFlyersBySectionType(context, section);
+    // notifyListeners();
   }
 // -----------------------------------------------------------------------------
   /// if a user is an Author, this READs & sets user tiny bzz form db/users/userID['myBzzIDs']
@@ -179,7 +186,7 @@ class FlyersProvider with ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
   /// READs all TinyBzz in firebase realtime database
-  Future<void> fetchAndSetTinyBzzAndTinyFlyers(BuildContext context) async {
+  Future<void> fetchAndSetAllTinyBzzAndAllTinyFlyers(BuildContext context) async {
 
     await tryAndCatch(
         context: context,
@@ -211,7 +218,7 @@ class FlyersProvider with ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
   /// READs all TinyBzz in firebase realtime database
-  Future<void> fetchAndSetOldBzFlyers(BuildContext context, BzModel bzModel) async {
+  Future<void> fetchAndSetBzDeactivatedFlyers(BuildContext context, BzModel bzModel) async {
 
     final TinyBz _tinyBz = TinyBz.getTinyBzFromBzModel(bzModel);
     /// get all flyers from db/flyer/{where flyer.tinyBz.bzID == bzID}
@@ -245,6 +252,47 @@ class FlyersProvider with ChangeNotifier {
     //         .then((snapshot) {
     //       return snapshot.documents;
     //     });
+
+  }
+// -----------------------------------------------------------------------------
+  Future<void> fetchAndSetTinyFlyersBySectionType(BuildContext context, BldrsSection section) async {
+    CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
+    Zone _currentZone = _countryPro.currentZone;
+
+    String _zoneString = TextGenerator.zoneStringer(
+      context: context,
+      zone: _currentZone,
+    );
+
+    print('current zone is : $_zoneString');
+
+    await tryAndCatch(
+        context: context,
+        methodName: 'fetchAndSetTinyBzzAndFlyersBySectionType',
+        functions: () async {
+
+          FlyerType _flyerType =
+          section == BldrsSection.RealEstate ? FlyerType.Property
+              :
+          section == BldrsSection.Construction ? FlyerType.Design
+              :
+          FlyerType.Product;
+
+          /// READ data from cloud Firestore flyers collection
+          List<dynamic> _foundTinyFlyers = await FireSearch.flyersByZoneAndFlyerType(
+            context: context,
+            zone: _currentZone,
+            flyerType: _flyerType,
+          );
+
+          _loadedTinyFlyers = _foundTinyFlyers;
+
+          notifyListeners();
+          print('_loadedTinyBzz :::: --------------- $_loadedTinyBzz');
+
+        }
+    );
+
 
   }
 // -----------------------------------------------------------------------------
@@ -430,10 +478,14 @@ return bzz;
   }
 // ############################################################################
   void updateTinyBzInLocalList(TinyBz modifiedTinyBz){
+
+    if (_loadedTinyBzz != null){
     int _indexOfOldTinyBz = _loadedTinyBzz.indexWhere((bz) => modifiedTinyBz.bzID == bz.bzID);
     _loadedTinyBzz.removeAt(_indexOfOldTinyBz);
     _loadedTinyBzz.insert(_indexOfOldTinyBz, modifiedTinyBz);
     notifyListeners();
+    }
+
   }
 // ############################################################################
   void updateTinyBzInUserTinyBzz(TinyBz modifiedTinyBz){

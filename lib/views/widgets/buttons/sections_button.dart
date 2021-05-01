@@ -2,6 +2,7 @@ import 'package:bldrs/controllers/drafters/aligners.dart';
 import 'package:bldrs/controllers/drafters/iconizers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/text_generators.dart';
+import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
@@ -15,17 +16,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class SectionsButton extends StatelessWidget {
-//   final Function onTap;
-//   final BldrsSection currentSection;
-//   final bool sectionsAreExpanded;
-//
-//   SectionsButton({
-//     @required this.onTap,
-//     @required this.currentSection,
-//     @required this.sectionsAreExpanded,
-// });
 
-
+// -----------------------------------------------------------------------------
 void _changeSection(BuildContext context, FlyersProvider pro) async {
 
   List<BldrsSection> _sections = bldrsSectionsList;
@@ -50,27 +42,16 @@ void _changeSection(BuildContext context, FlyersProvider pro) async {
                         iconSizeFactor: 1,
                         secondLine: TextGenerator.sectionDescriptionStringer(context, _sections[index]),
                         insideDialog: true,
-                        btOnTap: (){
-                          print('thing');
+                        btOnTap: () async {
+                          print(_sections[index]);
+
+                          await pro.changeSection(context, _sections[index]);
+
+                          /// close dialog
+                          Nav.goBack(context);
                         },
                       ),
 
-                      // DreamBox(
-                      //   height: 50,
-                      //   boxMargins: 5,
-                      //   width: Scale.superDialogWidth(context) * 0.8,
-                      //   color: Colorz.WhiteAir,
-                      //   verse: TextGenerator.sectionStringer(context, _sections[index]),
-                      //   verseScaleFactor: 0.7,
-                      //   icon: Iconizer.bzTypeIconOn(BzType.Broker),
-                      //   verseMaxLines: 2,
-                      //   verseColor: Colorz.BlackBlack,
-                      //   verseWeight: VerseWeight.bold,
-                      //   secondLine: TextGenerator.sectionDescriptionStringer(context, _sections[index]),
-                      //
-                      //   bubble: true,
-                      //
-                      // )
           )
 
         ],
@@ -79,7 +60,7 @@ void _changeSection(BuildContext context, FlyersProvider pro) async {
   );
 
 }
-
+// -----------------------------------------------------------------------------
 @override
 Widget build(BuildContext context) {
   FlyersProvider _pro =  Provider.of<FlyersProvider>(context, listen: true);
