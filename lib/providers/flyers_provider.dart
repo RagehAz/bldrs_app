@@ -455,9 +455,9 @@ class FlyersProvider with ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
   List<BzModel> getBzzByBzzIDs(List<String> bzzIDs){
-List<BzModel> bzz = new List();
-bzzIDs.forEach((bzID) {bzz.add(getBzByBzID(bzID));});
-return bzz;
+    List<BzModel> bzz = new List();
+    bzzIDs.forEach((bzID) {bzz.add(getBzByBzID(bzID));});
+    return bzz;
 }
 // ############################################################################
 //   /// add bz to local list
