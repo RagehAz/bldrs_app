@@ -18,6 +18,7 @@ import 'package:bldrs/models/sub_models/slide_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/models/tiny_models/tiny_user.dart';
+import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/widgets/bubbles/words_bubble.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
@@ -61,6 +62,7 @@ class FlyerEditorScreen extends StatefulWidget {
 
 class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
   FlyersProvider _prof;
+  CountryProvider _countryPro;
   BzModel _bz;
   FlyerModel _flyer;
   FlyerModel _originalFlyer;
@@ -84,6 +86,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
   List<dynamic> _currentKeywords;
   bool _currentFlyerShowsAuthor;
   String _currentFlyerURL; // no need for this
+  Zone _currentFlyerZone;
   // -------------------------
   String _currentAuthorID;
   String _currentBzID;
@@ -108,6 +111,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
   void initState(){
     // -------------------------
     _prof = Provider.of<FlyersProvider>(context, listen: false);
+    _countryPro = Provider.of<CountryProvider>(context, listen: false);
     _originalFlyer = widget.firstTimer ? null : widget.flyerModel.clone();
     _bz = widget.bzModel;
     _flyer = widget.firstTimer ? _createTempEmptyFlyer() : widget.flyerModel.clone();
@@ -119,6 +123,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
     _currentKeywords = _flyer.keyWords;
     _currentFlyerShowsAuthor = _flyer.flyerShowsAuthor;
     _currentFlyerURL = _flyer.flyerURL; // no need for this
+    _currentFlyerZone = _flyer.flyerZone;
     // -------------------------
     _currentAuthorID = _flyer.tinyAuthor.userID;
     _currentBzID = _flyer.tinyBz.bzID;
@@ -192,9 +197,10 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
       keyWords : new List(),
       flyerShowsAuthor : true,
       flyerURL : '...',
+      flyerZone: _countryPro.currentZone,
       // -------------------------
       tinyAuthor : _tinyAuthor,
-      tinyBz : TinyBz(bzID: _bz.bzID, bzLogo: _bz.bzLogo, bzName: _bz.bzName, bzType: _bz.bzType, bzZone: Zone.getZoneFromBzModel(_bz), bzTotalFollowers: _bz.bzTotalFollowers, bzTotalFlyers: _bz.bzFlyers.length),
+      tinyBz : TinyBz.getTinyBzFromBzModel(_bz),
       // -------------------------
       publishTime : DateTime.now(),
       flyerPosition : null,
@@ -683,6 +689,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
         keyWords: _currentKeywords,
         flyerShowsAuthor: _currentFlyerShowsAuthor,
         flyerURL: _currentFlyerURL,
+        flyerZone: _currentFlyerZone,
         // -------------------------
         tinyAuthor: _tinyAuthor,
         tinyBz: TinyBz(
@@ -690,9 +697,9 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
           bzLogo: widget.bzModel.bzLogo,
           bzName: widget.bzModel.bzName,
           bzType: widget.bzModel.bzType,
-          bzZone: Zone.getZoneFromBzModel(widget.bzModel),
+          bzZone: widget.bzModel.bzZone,
           bzTotalFollowers: widget.bzModel.bzTotalFollowers,
-          bzTotalFlyers: widget.bzModel.bzFlyers.length,
+          bzTotalFlyers: widget.bzModel.nanoFlyers.length,
         ),
         // -------------------------
         publishTime: _currentPublishTime,
@@ -760,6 +767,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
         keyWords: _currentKeywords,
         flyerShowsAuthor: _currentFlyerShowsAuthor,
         flyerURL: _currentFlyerURL,
+        flyerZone: _currentFlyerZone,
         // -------------------------
         tinyAuthor: _flyer.tinyAuthor,
         tinyBz: _flyer.tinyBz,
@@ -860,6 +868,12 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
       },
 
       appBarRowWidgets: <Widget>[
+
+        SuperVerse(
+          verse: _currentFlyerZone.cipherToString(),
+          size: 0,
+          scaleFactor: 0.7,
+        ),
 
         Expanded(child: Container(),),
 

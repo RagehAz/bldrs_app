@@ -99,9 +99,7 @@ class BzOps{
       bzName : inputBz.bzName,
       bzLogo : _bzLogoURL,
       bzScope : inputBz.bzScope,
-      bzCountry : inputBz.bzCountry,
-      bzProvince : inputBz.bzProvince,
-      bzArea : inputBz.bzArea,
+      bzZone : inputBz.bzZone,
       bzAbout : inputBz.bzAbout,
       bzPosition : inputBz.bzPosition,
       bzContacts : inputBz.bzContacts,
@@ -119,7 +117,7 @@ class BzOps{
       bzTotalViews : inputBz.bzTotalViews,
       bzTotalCalls : inputBz.bzTotalCalls,
       // -------------------------
-      bzFlyers : inputBz.bzFlyers,
+      nanoFlyers : inputBz.nanoFlyers,
     );
 
     /// replace empty bz document with the new refactored one _bz
@@ -242,9 +240,7 @@ class BzOps{
       bzName: modifiedBz.bzName,
       bzLogo: _bzLogoURL ?? modifiedBz.bzLogo,
       bzScope: modifiedBz.bzScope,
-      bzCountry: modifiedBz.bzCountry,
-      bzProvince: modifiedBz.bzProvince,
-      bzArea: modifiedBz.bzArea,
+      bzZone  : modifiedBz.bzZone,
       bzAbout: modifiedBz.bzAbout,
       bzPosition: modifiedBz.bzPosition,
       bzContacts: modifiedBz.bzContacts,
@@ -262,7 +258,7 @@ class BzOps{
       bzTotalViews: modifiedBz.bzTotalViews,
       bzTotalCalls: modifiedBz.bzTotalCalls,
       // -------------------------
-      bzFlyers: modifiedBz.bzFlyers,
+      nanoFlyers: modifiedBz.nanoFlyers,
     );
 
     /// update firestore bz document
@@ -279,9 +275,9 @@ class BzOps{
     _finalBz.bzName != originalBz.bzName ||
         _finalBz.bzLogo != originalBz.bzLogo ||
         _finalBz.bzType != originalBz.bzType ||
-        _finalBz.bzCountry != originalBz.bzCountry ||
-        _finalBz.bzProvince != originalBz.bzProvince ||
-        _finalBz.bzArea != originalBz.bzArea
+        _finalBz.bzZone.countryID != originalBz.bzZone.countryID ||
+        _finalBz.bzZone.provinceID != originalBz.bzZone.provinceID ||
+        _finalBz.bzZone.areaID != originalBz.bzZone.areaID
     ){
     TinyBz _modifiedTinyBz = TinyBz.getTinyBzFromBzModel(_finalBz)  ;
     Map<String, dynamic> _modifiedTinyBzMap = _modifiedTinyBz.toMap();
@@ -296,7 +292,7 @@ class BzOps{
 
     /// update tinyBz in all flyers
     /// TASK : this may require firestore batch write
-      List<String> _bzFlyersIDs = NanoFlyer.getListOfFlyerIDsFromNanoFlyers(_finalBz.bzFlyers);
+      List<String> _bzFlyersIDs = NanoFlyer.getListOfFlyerIDsFromNanoFlyers(_finalBz.nanoFlyers);
       if(_bzFlyersIDs.length > 0){
         for (var id in _bzFlyersIDs){
           await Fire.updateDocField(
@@ -337,7 +333,7 @@ class BzOps{
 
     /// 1 - perform deactivate flyer ops for all flyers
     List<String> _flyersIDs = new List();
-    List<NanoFlyer> _bzNanoFlyers = bzModel.bzFlyers;
+    List<NanoFlyer> _bzNanoFlyers = bzModel.nanoFlyers;
     _bzNanoFlyers.forEach((flyer) {
       _flyersIDs.add(flyer.flyerID);
     });

@@ -9,11 +9,13 @@ import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/firestore/bz_ops.dart';
+import 'package:bldrs/firestore/flyer_ops.dart';
 import 'package:bldrs/firestore/search_ops.dart';
 import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/firestore/user_ops.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
+import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/records/save_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/tiny_models/nano_flyer.dart';
@@ -24,10 +26,12 @@ import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
+import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/flyer/grids/flyers_grid.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:bldrs/xxx_LABORATORY/navigation_test/page_2.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -462,7 +466,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
           /// a - loop in each author
           List<AuthorModel> _originalAuthors = bz.bzAuthors;
           List<AuthorModel> _updatedAuthorsModels = new List();
-          List<NanoFlyer> _bzFlyers = bz.bzFlyers;
+          List<NanoFlyer> _bzFlyers = bz.nanoFlyers;
 
           for (var author in _originalAuthors){
 
@@ -607,6 +611,111 @@ class _FirebasetestingState extends State<Firebasetesting> {
         _triggerLoading();
       },},
       // -----------------------------------------------------------------------
+      {'Name' : 'fix nano flyers bz zones', 'function' : () async {
+        _triggerLoading();
+
+        List<dynamic> _allBzzMaps = await Fire.readCollectionDocs(FireCollection.bzz);
+
+
+        for (var map in _allBzzMaps){
+
+          String _bzID = map['bzID'];
+
+          List<NanoFlyer> _bzNanoFlyers = new List();
+
+          dynamic _flyersMaps = map['bzFlyers'];
+
+          for (var flyerMap in _flyersMaps){
+
+            String _flyerID = flyerMap['flyerID'];
+
+            FlyerModel _flyerModel = await FlyerOps().readFlyerOps(context: context, flyerID: _flyerID);
+
+            NanoFlyer _nanoFlyer = NanoFlyer.getNanoFlyerFromFlyerModel(_flyerModel);
+
+            _bzNanoFlyers.add(_nanoFlyer);
+          }
+
+          await Fire.deleteDocField(
+            context: context,
+            collName: FireCollection.bzz,
+            docName: _bzID,
+            field: 'bzFlyers',
+          );
+
+
+
+
+          // printResult('done  : ${_bzNanoFlyers.length} : ${_flyersMaps.length} flyers');
+
+
+        }
+
+
+        _triggerLoading();
+      },},
+// -----------------------------------------------------------------------
+      {'Name' : 'fix user zone', 'function' : () async {
+        _triggerLoading();
+
+        List<dynamic> _allUsersMaps = await Fire.readCollectionDocs(FireCollection.users);
+
+        for (var map in _allUsersMaps){
+
+          String _userID = map['userID'];
+
+          Zone _userZone = Zone(
+            countryID: map['country'],
+            provinceID: map['province'],
+            areaID: map['area'],
+          );
+
+          await Fire.updateDocField(
+            context: context,
+            collName: FireCollection.users,
+            docName: _userID,
+            field: 'zone',
+            input: _userZone.toMap(),
+          );
+
+          await Fire.deleteDocField(
+            context: context,
+            collName: FireCollection.users,
+            docName: _userID,
+            field: 'country',
+          );
+
+          await Fire.deleteDocField(
+            context: context,
+            collName: FireCollection.users,
+            docName: _userID,
+            field: 'province',
+          );
+
+          await Fire.deleteDocField(
+            context: context,
+            collName: FireCollection.users,
+            docName: _userID,
+            field: 'area',
+          );
+
+        }
+
+        // await Fire.updateDocFieldKeyValue(
+        //     collName: 'aCOLL',
+        //     docName: 'doc',
+        //     context: context,
+        //     field: 'thing',
+        //     key: 'koko',
+        //     input: 'it works man'
+        // );
+
+
+        printResult('DOne');
+
+        _triggerLoading();
+      },},
+// -----------------------------------------------------------------------
     ];
 
 

@@ -1,3 +1,4 @@
+import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:flutter/foundation.dart';
 import '../flyer_model.dart';
 // -----------------------------------------------------------------------------
@@ -6,12 +7,14 @@ class NanoFlyer with ChangeNotifier{
   final FlyerType flyerType;
   final String authorID;
   final String slidePic;
+  final Zone flyerZone;
 
   NanoFlyer({
     @required this.flyerID,
     @required this.flyerType,
     @required this.authorID,
     @required this.slidePic,
+    @required this.flyerZone,
   });
 // -----------------------------------------------------------------------------
   Map<String,dynamic> toMap (){
@@ -20,6 +23,7 @@ class NanoFlyer with ChangeNotifier{
       'flyerType' : FlyerModel.cipherFlyerType(flyerType),
       'authorID' : authorID,
       'slidePic' : slidePic,
+      'flyerZone' : flyerZone.toMap(),
     };
   }
 // -----------------------------------------------------------------------------
@@ -28,6 +32,11 @@ class NanoFlyer with ChangeNotifier{
 
     if (finalFlyer.flyerType != originalFlyer.flyerType) {nanoFlyerAreTheSame = false;}
     else if (finalFlyer.slides[0].picture != originalFlyer.slides[0].picture) {nanoFlyerAreTheSame = false;}
+
+    else if (finalFlyer.flyerZone.countryID != originalFlyer.flyerZone.countryID) {nanoFlyerAreTheSame = false;}
+    else if (finalFlyer.flyerZone.provinceID != originalFlyer.flyerZone.provinceID) {nanoFlyerAreTheSame = false;}
+    else if (finalFlyer.flyerZone.areaID != originalFlyer.flyerZone.areaID) {nanoFlyerAreTheSame = false;}
+
     else {nanoFlyerAreTheSame = true;}
 
     return nanoFlyerAreTheSame;
@@ -39,6 +48,7 @@ class NanoFlyer with ChangeNotifier{
       flyerType: flyerModel?.flyerType,
       authorID: flyerModel?.tinyAuthor?.userID,
       slidePic: flyerModel == null ? null : flyerModel?.slides[0]?.picture,
+      flyerZone: flyerModel?.flyerZone,
     );
   }
 // -----------------------------------------------------------------------------
@@ -66,6 +76,7 @@ class NanoFlyer with ChangeNotifier{
       flyerType: FlyerModel.decipherFlyerType(map['flyerType']),
       authorID: map['authorID'],
       slidePic: map['slidePic'],
+      flyerZone: Zone.decipherZoneMap(map['flyerZone']),
     );
   }
 // -----------------------------------------------------------------------------

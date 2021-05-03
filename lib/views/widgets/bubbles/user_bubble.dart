@@ -31,10 +31,10 @@ class UserBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
-    String _countryName = translate(context, user?.country);
-    String _countryFlag = Flagz.getFlagByIso3(user?.country);
-    String _provinceName = _countryPro.getProvinceNameWithCurrentLanguageIfPossible(context, user?.province);
-    String _areaName = _countryPro.getAreaNameWithCurrentLanguageIfPossible(context, user?.area);
+    String _countryName = translate(context, user?.zone?.countryID);
+    String _countryFlag = Flagz.getFlagByIso3(user?.zone?.countryID);
+    String _provinceName = _countryPro.getProvinceNameWithCurrentLanguageIfPossible(context, user?.zone?.provinceID);
+    String _areaName = _countryPro.getAreaNameWithCurrentLanguageIfPossible(context, user?.zone?.areaID);
 
     double screenWidth = Scale.superScreenWidth(context);
     double screenHeight = Scale.superScreenHeight(context);
