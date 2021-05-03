@@ -66,9 +66,9 @@ class TinyBz with ChangeNotifier{
         bzLogo: bzModel.bzLogo,
         bzName: bzModel.bzName,
         bzType: bzModel.bzType,
-        bzZone: Zone.getZoneFromBzModel(bzModel),
+        bzZone: bzModel.bzZone,
         bzTotalFollowers: bzModel.bzTotalFollowers,
-        bzTotalFlyers: bzModel.bzFlyers.length,
+        bzTotalFlyers: bzModel.nanoFlyers.length,
       );
   }
 // -----------------------------------------------------------------------------
@@ -86,7 +86,7 @@ class TinyBz with ChangeNotifier{
       bzLogo: map['bzLogo'],
       bzName: map['bzName'],
       bzType: BzModel.decipherBzType(map['bzType']),
-      bzZone: Zone.decipherZoneString(map['bzZone']),
+      bzZone: Zone.decipherZoneMap(map['bzZone']),
       bzTotalFollowers: map['bzTotalFollowers'],
       bzTotalFlyers: map['bzTotalFlyers'],
     );

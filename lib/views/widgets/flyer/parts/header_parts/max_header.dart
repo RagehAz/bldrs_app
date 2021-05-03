@@ -35,7 +35,7 @@ class MaxHeader extends StatelessWidget {
         // === === === === === === === === === === === === === === === === === === ===
         String _bzScope = bz != null ? bz.bzScope : '';
         // === === === === === === === === === === === === === === === === === === ===
-        final List<NanoFlyer> _galleryFlyers = bz.bzFlyers;
+        final List<NanoFlyer> _galleryFlyers = bz.nanoFlyers;
         // === === === === === === === === === === === === === === === === === === ===
         List<AuthorModel> _bzAuthors = bz != null ? bz?.bzAuthors : [];
         // === === === === === === === === === === === === === === === === === === ===

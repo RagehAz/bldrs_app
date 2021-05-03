@@ -16,9 +16,7 @@ class UserModel {
   final String title;
   final String company;
   final Gender gender; // should be both gender and name tittle Mr, Mrs, Ms, Dr, Eng, Arch, ...
-  final String country;
-  final String province;
-  final String area;
+  final Zone zone;
   final String language;
   final GeoPoint position;
   final List<ContactModel> contacts;
@@ -36,9 +34,7 @@ class UserModel {
     this.title,
     this.company,
     this.gender,
-    this.country,
-    this.province,
-    this.area,
+    this.zone,
     this.language,
     this.position,
     this.contacts,
@@ -58,9 +54,7 @@ class UserModel {
       'title' : title,
       'company' : company,
       'gender' : cipherGender(gender),
-      'country' : country,
-      'province' : province,
-      'area' : area,
+      'zone' : zone.toMap(),
       'language' : language,
       'position' : position,
       'contacts' : ContactModel.cipherContactsModels(contacts),
@@ -86,9 +80,7 @@ class UserModel {
       title : map['title'] ?? '',
       company : map['company'] ?? '',
       gender : decipherGender(map['gender'] ?? 2),
-      country : map['country'] ?? '',
-      province : map['province'] ?? '',
-      area : map['area'] ?? '',
+      zone : Zone.decipherZoneMap(map['zone']) ?? '',
       language : map['language'] ?? 'en',
       position : map['position'] ?? GeoPoint(0, 0),
       contacts : ContactModel.decipherContactsMaps(map['contacts'] ?? []),
@@ -208,9 +200,7 @@ class UserModel {
         pic: user.photoURL,
         title: '',
         gender: Gender.any,
-        country: null,
-        province: null,
-        area: null,
+        zone: null,
         language: 'en',
         position: GeoPoint(0, 0),
         contacts: [],
@@ -261,9 +251,7 @@ class UserModel {
       pic: user.photoURL,
       title: '',
       gender: Gender.any,
-      country: zone.countryID,
-      province: zone.provinceID,
-      area: zone.areaID,
+      zone: zone,
       language: '',//Wordz.languageCode(context),
       position: null,
       contacts: ContactModel.getContactsFromFirebaseUser(user),
@@ -283,8 +271,8 @@ class UserModel {
     if (userModel?.pic == null || userModel?.pic == ''){_missingFields.add('pic');}
     if (userModel?.title == null || userModel?.title == ''){_missingFields.add('title');}
     if (userModel?.company == null || userModel?.company == ''){_missingFields.add('company');}
-    if (userModel?.country == null || userModel?.country == ''){_missingFields.add('country');}
-    if (userModel?.province == null || userModel?.province == ''){_missingFields.add('province');}
+    if (userModel?.zone?.countryID == null || userModel?.zone?.countryID == ''){_missingFields.add('country');}
+    if (userModel?.zone?.provinceID == null || userModel?.zone?.provinceID == ''){_missingFields.add('province');}
 
     return _missingFields;
   }

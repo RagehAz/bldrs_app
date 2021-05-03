@@ -109,9 +109,9 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
     _bzNameTextController.text = _bz.bzName;
     _currentBzLogoURL = _bz.bzLogo;
     _bzScopeTextController.text = _bz.bzScope;
-    _currentBzCountry = _bz.bzCountry;
-    _currentBzProvince = _bz.bzProvince;
-    _currentBzArea = _bz.bzArea;
+    _currentBzCountry = _bz.bzZone.countryID;
+    _currentBzProvince = _bz.bzZone.provinceID;
+    _currentBzArea = _bz.bzZone.areaID;
     _bzAboutTextController.text =  _bz.bzAbout;
     _currentBzPosition = _bz.bzPosition;
     _currentBzContacts = _bz.bzContacts;
@@ -152,9 +152,11 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         bzName: _bzNameTextController.text,
         bzLogo: _currentBzLogoFile ?? _currentBzLogoURL,
         bzScope: _bzScopeTextController.text,
-        bzCountry: _currentBzCountry,
-        bzProvince: _currentBzProvince,
-        bzArea: _currentBzArea,
+        bzZone: Zone(
+          countryID: _currentBzCountry,
+          provinceID: _currentBzProvince,
+          areaID: _currentBzArea,
+        ),
         bzAbout: _bzAboutTextController.text,
         bzPosition: _currentBzPosition,
         bzContacts: _currentBzContacts,
@@ -169,7 +171,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         bzTotalSlides: _bz.bzTotalSlides,
         bzTotalViews: _bz.bzTotalViews,
         bzTotalCalls: _bz.bzTotalCalls,
-        bzFlyers: _bz.bzFlyers,
+        nanoFlyers: _bz.nanoFlyers,
 
       ),
       author: AuthorModel(
@@ -330,9 +332,11 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         bzName: _bzNameTextController.text,
         bzLogo: _currentBzLogoFile,
         bzScope: _bzScopeTextController.text,
-        bzCountry: _currentBzCountry,
-        bzProvince: _currentBzProvince,
-        bzArea: _currentBzArea,
+        bzZone: Zone(
+          countryID: _currentBzCountry,
+          provinceID: _currentBzProvince,
+          areaID: _currentBzArea,
+        ),
         bzAbout: _bzAboutTextController.text,
         bzPosition: _currentBzPosition,
         bzContacts: _currentBzContacts,
@@ -350,7 +354,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         bzTotalViews: 0,
         bzTotalCalls: 0,
         // -------------------------
-        bzFlyers: [],
+        nanoFlyers: [],
       );
 
       /// start createBzOps
@@ -422,9 +426,11 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         bzName: _bzNameTextController.text,
         bzLogo: _currentBzLogoFile ?? _currentBzLogoURL,
         bzScope: _bzScopeTextController.text,
-        bzCountry: _currentBzCountry,
-        bzProvince: _currentBzProvince,
-        bzArea: _currentBzArea,
+        bzZone: Zone(
+          countryID: _currentBzCountry,
+          provinceID: _currentBzProvince,
+          areaID: _currentBzProvince,
+        ),
         bzAbout: _bzAboutTextController.text,
         bzPosition: _currentBzPosition,
         bzContacts: _currentBzContacts,
@@ -442,7 +448,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         bzTotalViews: widget.bzModel.bzTotalViews,
         bzTotalCalls: widget.bzModel.bzTotalCalls,
         // -------------------------
-        bzFlyers: widget.bzModel.bzFlyers,
+        nanoFlyers: widget.bzModel.nanoFlyers,
       );
 
       /// start updateBzOps

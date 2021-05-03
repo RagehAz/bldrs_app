@@ -1,12 +1,16 @@
 import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/models/bz_model.dart';
+import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/sub_models/slide_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/models/tiny_models/tiny_user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
+
+/// TASK : WE NEED TO ADD FLYER ZONE IN MODEL, AND DATABASE AND FLYER EDITOR
+
 class FlyerModel with ChangeNotifier{
   final String flyerID;
   // -------------------------
@@ -15,6 +19,7 @@ class FlyerModel with ChangeNotifier{
   final List<dynamic> keyWords;
   final bool flyerShowsAuthor;
   final String flyerURL;
+  final Zone flyerZone;
   // -------------------------
   final TinyUser tinyAuthor;
   final TinyBz tinyBz;
@@ -37,6 +42,7 @@ class FlyerModel with ChangeNotifier{
     this.keyWords,
     this.flyerShowsAuthor = false,
     this.flyerURL,
+    @required this.flyerZone,
     // -------------------------
     this.tinyAuthor,
     this.tinyBz,
@@ -66,6 +72,7 @@ class FlyerModel with ChangeNotifier{
       'keyWords' : keyWords,
       'flyerShowsAuthor' : flyerShowsAuthor,
       'flyerURL' : flyerURL,
+      'flyerZone' : flyerZone.toMap(),
       // -------------------------
       'tinyAuthor' : tinyAuthor.toMap(),
       'tinyBz' : tinyBz.toMap(),
@@ -83,13 +90,14 @@ class FlyerModel with ChangeNotifier{
   }
 // -----------------------------------------------------------------------------
   FlyerModel clone(){
-    return FlyerModel(
+    return new FlyerModel(
       flyerID: flyerID,
       flyerType: flyerType,
       flyerState: flyerState,
       keyWords: Mapper.cloneListOfStrings(keyWords),
       flyerShowsAuthor: flyerShowsAuthor,
       flyerURL: flyerURL,
+      flyerZone: flyerZone,
       tinyAuthor: tinyAuthor.clone(),
       tinyBz: tinyBz.clone(),
       publishTime: publishTime,
@@ -110,6 +118,7 @@ class FlyerModel with ChangeNotifier{
           keyWords: flyer.keyWords,
           flyerShowsAuthor: flyer.flyerShowsAuthor,
           flyerURL: flyer.flyerURL,
+          flyerZone: flyer.flyerZone,
           tinyAuthor: flyer.tinyAuthor,
           tinyBz: flyer.tinyBz,
           publishTime: flyer.publishTime,
@@ -199,6 +208,7 @@ class FlyerModel with ChangeNotifier{
       keyWords: map['keyWords'],
       flyerShowsAuthor: map['flyerShowsAuthor'],
       flyerURL: map['flyerURL'],
+      flyerZone: Zone.decipherZoneMap(map['flyerZone']),
       // -------------------------
       tinyAuthor: TinyUser.decipherTinyUserMap(map['tinyAuthor']),
       tinyBz: TinyBz.decipherTinyBzMap(map['tinyBz']),
@@ -228,6 +238,7 @@ class FlyerModel with ChangeNotifier{
       flyerID: inputFlyerModel.flyerID,
       flyerType: inputFlyerModel.flyerType,
       flyerURL: inputFlyerModel.flyerURL,
+      flyerZone: inputFlyerModel.flyerZone,
       tinyAuthor: inputFlyerModel.tinyAuthor,
       tinyBz: inputFlyerModel.tinyBz,
       publishTime: inputFlyerModel.publishTime,
@@ -261,7 +272,7 @@ class FlyerModel with ChangeNotifier{
   static int getNumberOfFlyersFromBzzModels(List<BzModel> bzzModels){
     int _totalFlyers = 0;
     bzzModels.forEach((bzModel) {
-      _totalFlyers = _totalFlyers + (bzModel.bzFlyers.length);
+      _totalFlyers = _totalFlyers + (bzModel.nanoFlyers.length);
     });
     return _totalFlyers;
   }
