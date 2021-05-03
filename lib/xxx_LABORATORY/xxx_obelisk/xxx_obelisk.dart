@@ -29,7 +29,6 @@ import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/share_and_gallery_image_test.da
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/text_field_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x03_font_test_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x04_flyers_sizes_screen.dart';
-import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x05_city_picker.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x06_single_collection_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x06_swiper_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x08_earth_screen.dart';
@@ -295,8 +294,6 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
           oButton('34 - Old CheckBox thing', Iconz.Check, CheckBoxLessonScreen()),
 
           oButton('36 - Animations Screen', Iconz.DvDonaldDuck, AnimationsScreen()),
-
-          oButton('36 - SyncFusionMap', Iconz.Earth, CityPicker()),
 
           // --- DATE PICKER -------------------------------
           TextFormField(
