@@ -182,7 +182,7 @@ Map<String, dynamic> toMap(){
       bzName : map['bzName'],
       bzLogo : map['bzLogo'],
       bzScope : map['bzScope'],
-      bzZone : map['bzZone'],
+      bzZone : Zone.decipherZoneMap(map['bzZone']),
       bzAbout : map['bzAbout'],
       bzPosition : map['bzPosition'],
       bzContacts : ContactModel.decipherContactsMaps(map['bzContacts']),
