@@ -99,9 +99,9 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
                         itemBuilder: (context, index){
 
                           UserModel _userModel = _usersModels[index];
-                          String _countryName = _countryPro .getCountryNameInCurrentLanguageByIso3(context, _userModel.country);
-                          String _provinceName = _countryPro.getProvinceNameWithCurrentLanguageIfPossible(context, _userModel.province);
-                          String _areaName = _countryPro.getAreaNameWithCurrentLanguageIfPossible(context, _userModel.area);
+                          String _countryName = _countryPro .getCountryNameInCurrentLanguageByIso3(context, _userModel.zone.countryID);
+                          String _provinceName = _countryPro.getProvinceNameWithCurrentLanguageIfPossible(context, _userModel.zone.provinceID);
+                          String _areaName = _countryPro.getAreaNameWithCurrentLanguageIfPossible(context, _userModel.zone.areaID);
 
                           List<ContactModel> _stringyContacts = ContactModel.getContactsWithStringsFromContacts(_userModel.contacts);
                           List<String> _stringyContactsValues = ContactModel.getListOfValuesFromContactsModelsList(_stringyContacts);
@@ -267,7 +267,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
                                         DreamBox(
                                           height: 25,
                                           width: 25,
-                                          icon: Flagz.getFlagByIso3(_userModel.country),
+                                          icon: Flagz.getFlagByIso3(_userModel.zone.countryID),
                                           corners: 5,
                                         ),
 

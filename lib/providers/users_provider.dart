@@ -1,6 +1,7 @@
 import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/firestore/user_ops.dart';
+import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -28,9 +29,7 @@ class UserProvider{
         title : doc.data()['title'] ?? '',
         company : doc.data()['company'] ?? '',
         gender : UserModel.decipherGender(doc.data()['gender'] ?? 2),
-        country : doc.data()['country'] ?? '',
-        province :  doc.data()['province'] ?? '',
-        area :  doc.data()['area'] ?? '',
+        zone : doc.data()['zone'] ?? '',
         language : doc.data()['language'] ?? 'en',
         position : doc.data()['position'] ?? GeoPoint(0, 0),
         contacts : ContactModel.decipherContactsMaps(doc.data()['contacts'] ?? []),
@@ -58,9 +57,7 @@ class UserProvider{
         title : _map['title'] ?? '',
         company : _map['company'] ?? '',
         gender : UserModel.decipherGender(_map['gender'] ?? 2),
-        country : _map['country'] ?? '',
-        province : _map['province'] ?? '',
-        area : _map['area'] ?? '',
+        zone : Zone.decipherZoneMap(_map['zone']) ?? null,
         language : _map['language'] ?? 'en',
         position : _map['position'] ?? GeoPoint(0, 0),
         contacts : ContactModel.decipherContactsMaps(_map['contacts'] ?? []),

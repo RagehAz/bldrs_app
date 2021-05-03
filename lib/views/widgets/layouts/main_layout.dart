@@ -6,6 +6,7 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
+import 'package:bldrs/models/bldrs_sections.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
@@ -79,8 +80,12 @@ class MainLayout extends StatelessWidget {
 });
 
   Future<void> _refresh(BuildContext context) async {
-    /// TASK : temp fetching all bzz and all flyers here to refresh main layout
-    await Provider.of<FlyersProvider>(context,listen: false).fetchAndSetAllTinyBzzAndAllTinyFlyers(context);
+
+    FlyersProvider _pro = Provider.of<FlyersProvider>(context,listen: false);
+
+    BldrsSection _currentSection = _pro.getCurrentSection;
+
+    await _pro.fetchAndSetTinyFlyersBySectionType(context, _currentSection);
   }
 
   // final static GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();

@@ -20,10 +20,29 @@ class Zone {
       areaID: areaID,
     );
   }
-
+// -----------------------------------------------------------------------------
+  Map<String, dynamic> toMap(){
+    return {
+      'countryID' : countryID,
+      'provinceID' : provinceID,
+      'areaID' : areaID,
+    };
+  }
 // -----------------------------------------------------------------------------
   String cipherToString(){
     return '$countryID/$provinceID/$areaID';
+  }
+// -----------------------------------------------------------------------------
+  static Zone decipherZoneMap(Map<String, dynamic> map){
+
+    Zone _zone = map == null ? null :
+    Zone(
+      countryID: map['countryID'],
+      provinceID: map['provinceID'],
+      areaID: map['areaID'],
+    );
+
+    return _zone;
   }
 // -----------------------------------------------------------------------------
   static bool zonesAreTheSame(Zone finalZone, Zone originalZone){
@@ -38,9 +57,9 @@ class Zone {
   }
 // -----------------------------------------------------------------------------
   static Zone decipherZoneString(String zoneString){
-    String _countryID = decipherZoneToCountryID(zoneString);
-    String _provinceID = decipherZoneToProvinceID(zoneString);
-    String _areaID = decipherZoneToAreaID(zoneString);
+    String _countryID = decipherZoneStringToCountryID(zoneString);
+    String _provinceID = decipherZoneStringToProvinceID(zoneString);
+    String _areaID = decipherZoneStringToAreaID(zoneString);
 
     return Zone(
       countryID: _countryID,
@@ -50,20 +69,20 @@ class Zone {
   }
 // -----------------------------------------------------------------------------
   /// implementation : _zone.decipherZoneToCountryID(_zoneString)
-  static String decipherZoneToCountryID(String zoneString){
+  static String decipherZoneStringToCountryID(String zoneString){
     String _countryID = trimTextAfterFirstSpecialCharacter(zoneString, '/');
     return _countryID;
   }
 // -----------------------------------------------------------------------------
   /// implementation : _zone.decipherZoneToProvinceID(_zoneString)
-  static String decipherZoneToProvinceID(String zoneString){
+  static String decipherZoneStringToProvinceID(String zoneString){
     String _provinceAndArea = trimTextBeforeFirstSpecialCharacter(zoneString, '/');
     String _provinceID = trimTextAfterLastSpecialCharacter(_provinceAndArea, '/');
     return _provinceID;
   }
 // -----------------------------------------------------------------------------
   /// implementation : _zone.decipherZoneToAreaID(_zoneString)
-  static String decipherZoneToAreaID(String zoneString){
+  static String decipherZoneStringToAreaID(String zoneString){
     String _areaID = trimTextBeforeLastSpecialCharacter(zoneString, '/');
     return _areaID;
   }
@@ -75,11 +94,8 @@ class Zone {
       areaID: areaID,
     );}
 // -----------------------------------------------------------------------------
-  static Zone getZoneFromBzModel(BzModel bzModel){
-      return Zone(
-        countryID: bzModel.bzCountry,
-        provinceID: bzModel.bzProvince,
-        areaID: bzModel.bzArea,
-      );}
+//   static Zone getZoneFromBzModel(BzModel bzModel){
+//       return bzModel.bzZone;
+//   }
 // -----------------------------------------------------------------------------
 }

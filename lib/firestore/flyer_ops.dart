@@ -68,6 +68,7 @@ class FlyerOps{
     keyWords: inputFlyerModel.keyWords,
     flyerShowsAuthor: inputFlyerModel.flyerShowsAuthor,
     flyerURL: _flyerURL,
+    flyerZone: inputFlyerModel.flyerZone,
     // -------------------------
     tinyAuthor: inputFlyerModel.tinyAuthor,
     tinyBz: inputFlyerModel.tinyBz,
@@ -130,7 +131,7 @@ class FlyerOps{
     print('9- flyer counters added');
 
     /// add nano flyer to bz document in 'bzFlyers' field
-  List<NanoFlyer> _bzNanoFlyers = bzModel.bzFlyers;
+  List<NanoFlyer> _bzNanoFlyers = bzModel.nanoFlyers;
   NanoFlyer _finalNanoFlyer = NanoFlyer.getNanoFlyerFromFlyerModel(_finalFlyerModel);
     _bzNanoFlyers.add(_finalNanoFlyer);
   await Fire.updateDocField(
@@ -284,7 +285,7 @@ class FlyerOps{
       NanoFlyer _finalNanoFlyer = NanoFlyer.getNanoFlyerFromFlyerModel(_finalFlyer);
 
       List<NanoFlyer> _finalBzFlyers = NanoFlyer.replaceNanoFlyerInAList(
-          originalNanoFlyers : bzModel.bzFlyers,
+          originalNanoFlyers : bzModel.nanoFlyers,
           finalNanoFlyer: _finalNanoFlyer
       );
 
@@ -325,7 +326,7 @@ class FlyerOps{
   Future<void> deactivateFlyerOps({BuildContext context,String flyerID, BzModel bzModel}) async {
 
     /// delete nano flyer from bzFlyers and update the list in bz doc
-    List<NanoFlyer> _bzNanoFlyers = bzModel.bzFlyers;
+    List<NanoFlyer> _bzNanoFlyers = bzModel.nanoFlyers;
     int _nanoFlyerIndex = _bzNanoFlyers.indexWhere((nanoFlyer) => nanoFlyer.flyerID == flyerID);
     _bzNanoFlyers.removeAt(_nanoFlyerIndex);
     await Fire.updateDocField(
@@ -368,7 +369,7 @@ class FlyerOps{
   Future<void> deleteFlyerOps({BuildContext context,FlyerModel flyerModel, BzModel bzModel}) async {
 
     print('1 - delete nano flyer in bzFlyers');
-    List<NanoFlyer> _bzFlyers = bzModel.bzFlyers;
+    List<NanoFlyer> _bzFlyers = bzModel.nanoFlyers;
     List<NanoFlyer> _modifiedNanoFlyers= NanoFlyer.removeNanoFlyerFromNanoFlyers(_bzFlyers, flyerModel.flyerID);
     await Fire.updateDocField(
       context: context,
