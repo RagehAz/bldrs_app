@@ -217,13 +217,13 @@ class FireSearch {
             QuerySnapshot _collectionSnapshot;
 
             int _flyerType = FlyerModel.cipherFlyerType(flyerType);
-            String _zone = zone.cipherToString();
+            Zone _zone = zone;
 
             print('searching tiny flyers of type : $_flyerType : in $_zone');
 
             _collectionSnapshot = await _flyersCollection
                 .where('flyerType', isEqualTo: _flyerType)
-                .where('tinyBz.bzZone', isEqualTo: _zone)
+                .where('flyerZone.provinceID', isEqualTo: _zone.provinceID)
                 .get();
 
 

@@ -76,9 +76,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     _companyController.text = widget.user.company;
     _currentGender = widget.user.gender;
     _titleController.text = widget.user.title;
-    _currentCountryID = widget.user.country;
-    _currentProvinceID = widget.user.province;
-    _currentAreaID = widget.user.area;
+    _currentCountryID = widget.user.zone.countryID;
+    _currentProvinceID = widget.user.zone.provinceID;
+    _currentAreaID = widget.user.zone.areaID;
     _phoneController.text = ContactModel.getAContactValueFromContacts(widget.user.contacts, ContactType.Phone);
     _emailController.text = ContactModel.getAContactValueFromContacts(widget.user.contacts, ContactType.Email);
     _websiteController.text = ContactModel.getAContactValueFromContacts(widget.user.contacts, ContactType.WebSite);
@@ -218,9 +218,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           title :  _titleController.text,
           company: _companyController.text,
           gender : _currentGender,
-          country : _currentCountryID,
-          province : _currentProvinceID,
-          area : _currentAreaID,
+          zone : Zone(
+            countryID: _currentCountryID,
+            provinceID: _currentProvinceID,
+            areaID: _currentAreaID,
+          ),
           language : Wordz.languageCode(context),
           position : _currentPosition,
           contacts : _createContactList(existingContacts : widget.user.contacts),
@@ -280,9 +282,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           title :  _titleController.text,
           company: _companyController.text,
           gender : _currentGender,
-          country : _currentCountryID,
-          province : _currentProvinceID,
-          area : _currentAreaID,
+          zone : Zone(
+            countryID: _currentCountryID,
+            provinceID: _currentProvinceID,
+            areaID: _currentAreaID,
+          ),
           language : Wordz.languageCode(context),
           position : _currentPosition,
           contacts : _createContactList(existingContacts : widget.user.contacts),

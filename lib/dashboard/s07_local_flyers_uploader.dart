@@ -396,6 +396,7 @@ Future<FlyerModel> createNamedFlyersOps(BuildContext context, FlyerModel inputFl
     keyWords: inputFlyerModel.keyWords,
     flyerShowsAuthor: inputFlyerModel.flyerShowsAuthor,
     flyerURL: _flyerURL,
+    flyerZone: inputFlyerModel.flyerZone,
     // -------------------------
     tinyAuthor: inputFlyerModel.tinyAuthor,
     tinyBz: inputFlyerModel.tinyBz,
@@ -457,7 +458,7 @@ Future<FlyerModel> createNamedFlyersOps(BuildContext context, FlyerModel inputFl
   print('9- flyer counters added');
 
   /// add nano flyer to bz document in 'tinyFlyers' field
-  List<NanoFlyer> _bzNanoFlyers = bzModel.bzFlyers;
+  List<NanoFlyer> _bzNanoFlyers = bzModel.nanoFlyers;
   NanoFlyer _nanoFlyer = NanoFlyer.getNanoFlyerFromFlyerModel(_finalFlyerModel);
   _bzNanoFlyers.add(_nanoFlyer);
   await Fire.updateDocField(

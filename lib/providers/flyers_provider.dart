@@ -567,9 +567,7 @@ class FlyersProvider with ChangeNotifier {
     bzName: bz.bzName,
     bzLogo: bz.bzLogo,
     bzScope: bz.bzScope,
-    bzCountry: bz.bzCountry,
-    bzProvince: bz.bzProvince,
-    bzArea: bz.bzArea,
+    bzZone: bz.bzZone,
     bzAbout: bz.bzAbout,
     bzPosition: bz.bzPosition,
     bzContacts: bz.bzContacts,
@@ -587,7 +585,7 @@ class FlyersProvider with ChangeNotifier {
     bzTotalViews: bz.bzTotalViews,
     bzTotalCalls: bz.bzTotalCalls,
     // -------------------------
-    bzFlyers: bz.bzFlyers,
+    nanoFlyers: bz.nanoFlyers,
   );
 
   /// add this bz in author's userModel['myBzz']
@@ -606,9 +604,7 @@ class FlyersProvider with ChangeNotifier {
     title : userModel.title,
     company : userModel.company,
     gender : userModel.gender,
-    country : userModel.country,
-    province : userModel.province,
-    area : userModel.area,
+    zone : userModel.zone,
     language : userModel.language,
     position : userModel.position,
     contacts : userModel.contacts,

@@ -1,3 +1,4 @@
+import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:flutter/foundation.dart';
 import '../bz_model.dart';
 import '../flyer_model.dart';
@@ -11,6 +12,7 @@ class TinyFlyer with ChangeNotifier{
   final String authorID;
   final int slideIndex;
   final String slidePic;
+  final Zone flyerZone;
 
   TinyFlyer({
     @required this.flyerID,
@@ -19,6 +21,7 @@ class TinyFlyer with ChangeNotifier{
     @required this.authorID,
     @required this.slideIndex,
     @required this.slidePic,
+    @required this.flyerZone,
   });
 // -----------------------------------------------------------------------------
   Map<String,dynamic> toMap (){
@@ -29,6 +32,7 @@ class TinyFlyer with ChangeNotifier{
       'authorID' : authorID,
       'slideIndex' : slideIndex,
       'slidePic' : slidePic,
+      'flyerZone' : flyerZone.toMap(),
     };
   }
 // -----------------------------------------------------------------------------
@@ -38,6 +42,11 @@ class TinyFlyer with ChangeNotifier{
     if (finalFlyer.flyerType != originalFlyer.flyerType) {tinyFlyersAreTheSame = false;}
     else if (TinyBz.tinyBzzAreTheSame(finalFlyer.tinyBz, originalFlyer.tinyBz) == false) {tinyFlyersAreTheSame = false;}
     else if (finalFlyer.slides[0].picture != originalFlyer.slides[0].picture) {tinyFlyersAreTheSame = false;}
+
+    else if (finalFlyer.flyerZone.countryID != originalFlyer.flyerZone.countryID) {tinyFlyersAreTheSame = false;}
+    else if (finalFlyer.flyerZone.provinceID != originalFlyer.flyerZone.provinceID) {tinyFlyersAreTheSame = false;}
+    else if (finalFlyer.flyerZone.areaID != originalFlyer.flyerZone.areaID) {tinyFlyersAreTheSame = false;}
+
     else {tinyFlyersAreTheSame = true;}
 
     return tinyFlyersAreTheSame;
@@ -59,6 +68,7 @@ class TinyFlyer with ChangeNotifier{
       authorID: map['authorID'],
       slideIndex: map['slideIndex'],
       slidePic: map['slidePic'],
+      flyerZone: Zone.decipherZoneMap(map['flyerZone']),
     );
   }
 // -----------------------------------------------------------------------------
@@ -70,6 +80,7 @@ class TinyFlyer with ChangeNotifier{
       slideIndex: 0,
       slidePic: flyerModel == null ? null : flyerModel?.slides[0]?.picture,
       tinyBz: flyerModel?.tinyBz,
+      flyerZone: flyerModel?.flyerZone,
     );
   }
 // -----------------------------------------------------------------------------
@@ -86,17 +97,18 @@ class TinyFlyer with ChangeNotifier{
   static List<TinyFlyer> getTinyFlyersFromBzModel(BzModel bzModel){
     List<TinyFlyer> _tinyFlyers = new List();
 
-    List<NanoFlyer> _nanoFlyers = bzModel.bzFlyers;
+    List<NanoFlyer> _nanoFlyers = bzModel.nanoFlyers;
 
     for (var nano in _nanoFlyers){
       _tinyFlyers.add(
           TinyFlyer(
-              flyerID: nano.flyerID,
-              flyerType: nano.flyerType,
-              authorID: nano.authorID,
-              slideIndex: 0,
-              slidePic: nano.slidePic,
-              tinyBz: TinyBz.getTinyBzFromBzModel(bzModel)
+            flyerID: nano.flyerID,
+            flyerType: nano.flyerType,
+            authorID: nano.authorID,
+            slideIndex: 0,
+            slidePic: nano.slidePic,
+            tinyBz: TinyBz.getTinyBzFromBzModel(bzModel),
+            flyerZone: nano.flyerZone,
           )
       );
     }

@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/timerz.dart';
+import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/tiny_models/nano_flyer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -29,9 +30,8 @@ class BzModel with ChangeNotifier{
   final String bzName;
   final dynamic bzLogo;
   final String bzScope;
-  final String bzCountry;
-  final String bzProvince;
-  final String bzArea;
+
+  final Zone bzZone;
   final String bzAbout;
   final GeoPoint bzPosition;
   final List<ContactModel> bzContacts;
@@ -49,7 +49,7 @@ class BzModel with ChangeNotifier{
   int bzTotalViews;
   int bzTotalCalls;
   // -------------------------
-  final List<NanoFlyer> bzFlyers;
+  final List<NanoFlyer> nanoFlyers;
 // ###############################
   BzModel({
     this.bzID,
@@ -63,9 +63,7 @@ class BzModel with ChangeNotifier{
     this.bzName,
     this.bzLogo,
     this.bzScope,
-    this.bzCountry,
-    this.bzProvince,
-    this.bzArea,
+    this.bzZone,
     this.bzAbout,
     this.bzPosition,
     this.bzContacts,
@@ -83,7 +81,7 @@ class BzModel with ChangeNotifier{
     this.bzTotalViews,
     this.bzTotalCalls,
     // -------------------------
-    this.bzFlyers,
+    this.nanoFlyers,
   });
 // ###############################
   // TASK : this technique to revert back the status if firestore operation fails needs to be adapted elsewhere
@@ -131,9 +129,7 @@ Map<String, dynamic> toMap(){
     'bzName' : bzName,
     'bzLogo' : bzLogo,
     'bzScope' : bzScope,
-    'bzCountry' : bzCountry,
-    'bzProvince' : bzProvince,
-    'bzArea' : bzArea,
+    'bzZone' : bzZone.toMap(),
     'bzAbout' : bzAbout,
     'bzPosition' : bzPosition,
     'bzContacts' : ContactModel.cipherContactsModels(bzContacts),
@@ -151,7 +147,7 @@ Map<String, dynamic> toMap(){
     'bzTotalViews' : bzTotalViews,
     'bzTotalCalls' : bzTotalCalls,
     // -------------------------
-    'bzFlyers' : NanoFlyer.cipherNanoFlyers(bzFlyers),
+    'nanoFlyers' : NanoFlyer.cipherNanoFlyers(nanoFlyers),
     };
 }
 // -----------------------------------------------------------------------------
@@ -186,9 +182,7 @@ Map<String, dynamic> toMap(){
       bzName : map['bzName'],
       bzLogo : map['bzLogo'],
       bzScope : map['bzScope'],
-      bzCountry : map['bzCountry'],
-      bzProvince : map['bzProvince'],
-      bzArea : map['bzArea'],
+      bzZone : map['bzZone'],
       bzAbout : map['bzAbout'],
       bzPosition : map['bzPosition'],
       bzContacts : ContactModel.decipherContactsMaps(map['bzContacts']),
@@ -206,7 +200,7 @@ Map<String, dynamic> toMap(){
       bzTotalViews : map['bzTotalViews'],
       bzTotalCalls : map['bzTotalCalls'],
       // -------------------------
-      bzFlyers: NanoFlyer.decipherNanoFlyersMaps(map['bzFlyers']),
+      nanoFlyers: NanoFlyer.decipherNanoFlyersMaps(map['nanoFlyers']),
     );
   }
 // -----------------------------------------------------------------------------
@@ -234,9 +228,7 @@ Map<String, dynamic> toMap(){
     return BzModel(
       bzID: null,
       bzName: userModel.company,
-      bzCountry: userModel.country,
-      bzProvince: userModel.province,
-      bzArea: userModel.area,
+      bzZone: userModel.zone,
       bzContacts: <ContactModel>[
         ContactModel(
             contact: ContactModel.getAContactValueFromContacts(userModel.contacts, ContactType.Email),
@@ -261,7 +253,7 @@ Map<String, dynamic> toMap(){
       bzTotalViews: 0,
       bzTotalCalls: 0,
       // -------------------------
-      bzFlyers: [],
+      nanoFlyers: [],
     );
   }
 // -----------------------------------------------------------------------------
@@ -348,7 +340,7 @@ Map<String, dynamic> toMap(){
 // -----------------------------------------------------------------------------
   static List<String> getBzFlyersIDs(BzModel bzModel){
     List<String> _flyersIDs = new List();
-    List<NanoFlyer> _nanoFlyers = bzModel.bzFlyers;
+    List<NanoFlyer> _nanoFlyers = bzModel.nanoFlyers;
 
     for (var nano in _nanoFlyers){
       _flyersIDs.add(nano.flyerID);

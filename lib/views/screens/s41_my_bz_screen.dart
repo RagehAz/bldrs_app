@@ -371,7 +371,7 @@ class _MyBzScreenState extends State<MyBzScreen> {
 
                     // --- TOTAL FLYERS
                     TileBubble(
-                      verse: '${bzModel.bzFlyers.length} ${Wordz.flyers(context)}',
+                      verse: '${bzModel.nanoFlyers.length} ${Wordz.flyers(context)}',
                       icon: Iconz.Flyer,
                       iconSizeFactor: 0.6,
                       iconIsBubble: false,

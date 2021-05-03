@@ -500,10 +500,31 @@ class Fire{
 
         await _doc.update({field : input});
 
+        print('Updated doc : $docName : field : [$field] : to : ${input.toString()}');
+
       }
     );
 
   }
+// -----------------------------------------------------------------------------
+  static Future<void> updateDocFieldKeyValue({
+    BuildContext context ,
+    String collName,
+    String docName,
+    String field,
+    String key,
+    dynamic input,
+}) async {
+
+    await updateDocField(
+      context: context,
+      collName: collName,
+      docName: docName,
+      field: '$field.$key',
+      input: input,
+    );
+
+}
 // -----------------------------------------------------------------------------
   static Future<void> updateSubDoc({
     BuildContext context,
@@ -648,9 +669,70 @@ class Fire{
     }
 
 }
+// -----------------------------------------------------------------------------
+  static Future<void> deleteDocField({
+    BuildContext context,
+    String collName,
+    String docName,
+    String field,
+}) async {
+
+    DocumentReference _docRef = Fire.getDocRef(collName, docName);
+
+    // await tryAndCatch(
+    //     context: context,
+    //     methodName: 'deleteSubDocField',
+    //     functions: () async {
+
+          // Remove field from the document
+          Map<String, Object> updates = new Map();
+
+          updates.addAll({
+            field : FieldValue.delete(),
+          });
+
+          await _docRef.update(updates);
+
+    //     }
+    // );
+
+  }
+// -----------------------------------------------------------------------------
+  static Future<void> deleteSubDocField({
+    BuildContext context,
+    String collName,
+    String docName,
+    String field,
+    String subCollName,
+    String subDocName,
+  }) async {
+
+    DocumentReference _docRef = Fire.getSubDocRef(
+      collName: collName,
+      docName: docName,
+      subCollName: subCollName,
+      subDocName: subDocName,
+    );
+
+    await tryAndCatch(
+      context: context,
+      methodName: 'deleteSubDocField',
+      functions: () async {
+
+        // Remove field from the document
+        Map<String, Object> updates = new Map();
+
+        updates.addAll({
+          field : FieldValue.delete(),
+        });
+
+        await _docRef.update(updates);
+
+      }
+    );
+
+  }
 // =============================================================================
-
-
 
 /// FIREBASE STORAGE METHODS
 

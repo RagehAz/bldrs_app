@@ -34,7 +34,7 @@ class AuthorModel{
 // -----------------------------------------------------------------------------
   static int getAuthorGalleryCountFromBzModel(BzModel bzModel, AuthorModel author){
     String _authorID = author.userID;
-    List<NanoFlyer> _bzFlyers = bzModel.bzFlyers;
+    List<NanoFlyer> _bzFlyers = bzModel.nanoFlyers;
 
     List<String> _authorFlyersIDs = new List();
 
@@ -131,9 +131,7 @@ class AuthorModel{
       bzName : bzModel.bzName,
       bzLogo : bzModel.bzLogo,
       bzScope : bzModel.bzScope,
-      bzCountry : bzModel.bzCountry,
-      bzProvince : bzModel.bzProvince,
-      bzArea : bzModel.bzArea,
+      bzZone : bzModel.bzZone,
       bzAbout : bzModel.bzAbout,
       bzPosition : bzModel.bzPosition,
       bzContacts : bzModel.bzContacts,
@@ -148,7 +146,7 @@ class AuthorModel{
       bzTotalSlides : bzModel.bzTotalSlides,
       bzTotalViews : bzModel.bzTotalViews,
       bzTotalCalls : bzModel.bzTotalCalls,
-      bzFlyers : bzModel.bzFlyers,
+      nanoFlyers : bzModel.nanoFlyers,
     );
   }
 // -----------------------------------------------------------------------------
