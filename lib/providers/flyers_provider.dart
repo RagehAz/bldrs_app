@@ -268,22 +268,44 @@ class FlyersProvider with ChangeNotifier {
 
     await tryAndCatch(
         context: context,
-        methodName: 'fetchAndSetTinyBzzAndFlyersBySectionType',
+        methodName: 'fetchAndSetTinyFlyersBySectionType',
         functions: () async {
 
-          FlyerType _flyerType =
-          section == BldrsSection.RealEstate ? FlyerType.Property
-              :
-          section == BldrsSection.Construction ? FlyerType.Design
-              :
-          FlyerType.Product;
+          List<FlyerType> _flyerTypes = new List();
+
+          if(section == BldrsSection.RealEstate){
+            _flyerTypes.add(FlyerType.Property);
+          }
+
+          else if (section == BldrsSection.Construction){
+            _flyerTypes.addAll([FlyerType.Design, FlyerType.Project, FlyerType.Craft]);
+          }
+
+          else if (section == BldrsSection.Supplies){
+            _flyerTypes.addAll([FlyerType.Equipment, FlyerType.Product]);
+          }
+
+          else {
+            _flyerTypes.add(FlyerType.General);
+          }
+
+          // print('_flyerTypes is : ${_flyerTypes.toString()}');
 
           /// READ data from cloud Firestore flyers collection
-          List<dynamic> _foundTinyFlyers = await FireSearch.flyersByZoneAndFlyerType(
-            context: context,
-            zone: _currentZone,
-            flyerType: _flyerType,
-          );
+
+          List<TinyFlyer> _foundTinyFlyers = new List();
+
+          for (var flyerType in _flyerTypes){
+            List<TinyFlyer> _foundTinyFlyersOfThisType = await FireSearch.flyersByZoneAndFlyerType(
+              context: context,
+              zone: _currentZone,
+              flyerType: flyerType,
+            );
+
+            _foundTinyFlyers.addAll(_foundTinyFlyersOfThisType);
+          }
+
+          // print('${(TinyFlyer.cipherTinyFlyers(_foundTinyFlyers)).toString()}');
 
           _loadedTinyFlyers = _foundTinyFlyers;
 
