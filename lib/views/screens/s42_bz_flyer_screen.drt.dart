@@ -6,12 +6,14 @@ import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
+import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/firestore/flyer_ops.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/screens/s50_flyer_editor_screen.dart';
+import 'package:bldrs/views/widgets/bubbles/tile_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/words_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
@@ -161,7 +163,7 @@ class BzFlyerScreen extends StatelessWidget {
     double _flyerZoneWidth = Scale.superFlyerZoneWidth(context, _flyerSizeFactor);
 
     return MainLayout(
-      pyramids: Iconz.DvBlankSVG,
+      pyramids: Iconz.PyramidzYellow,
       appBarType: AppBarType.Basic,
       appBarBackButton: true,
       sky: Sky.Black,
@@ -171,6 +173,12 @@ class BzFlyerScreen extends StatelessWidget {
         listen: true,
         flyerSizeFactor: _flyerSizeFactor,
         builder: (ctx, flyerModel){
+
+          String _flyerMetaData = '${TextGenerator.zoneStringer(context: context, zone: tinyFlyer.flyerZone)}\n'
+              '${TextGenerator.dayMonthYearStringer(context, flyerModel.publishTime)}\n'
+              '\n'
+              'flyer Keywords :'
+              '${flyerModel.keyWords.toString()}';
 
           return
               SingleChildScrollView(
@@ -182,66 +190,50 @@ class BzFlyerScreen extends StatelessWidget {
 
                     Stratosphere(),
 
-                    // --- PUBLISH TIME AND FLYER TYPE
-                    Container(
-                      width: _flyerZoneWidth,
-                      height: 50,
-                      // color: Colorz.BloodTest,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-
-                          // --- PUBLISH TIME
-                          DreamBox(
-                            height: 50,
-                            icon: Iconizer.flyerTypeIconOff(flyerModel.flyerType),
-                            verse: '${TextGenerator.flyerTypeSingleStringer(context, flyerModel.flyerType)} ${Wordz.flyer(context)}',
-                            secondLine: '${TextGenerator.dayMonthYearStringer(context, flyerModel.publishTime)}',
-                            iconSizeFactor: 0.6,
-                            bubble: false,
-                            verseWeight: VerseWeight.thin,
-                            verseItalic: true,
-                          ),
-
-                          // --- EXPANDER
-                          Expanded(child: Container()),
-
-                          // --- MORE BUTTON
-                          DreamBox(
-                            height: 35,
-                            width: 35,
-                            icon: Iconz.More,
-                            iconSizeFactor: 0.5,
-                            bubble: false,
-                            boxFunction: () => _slideFlyerOptions(context, flyerModel),
-                          ),
-
-                        ],
-                      ),
+                    TileBubble(
+                      icon: Iconizer.flyerTypeIconOff(flyerModel.flyerType),
+                      verse: '${TextGenerator.flyerTypeSingleStringer(context, flyerModel.flyerType)} ${Wordz.flyer(context)}',
+                      secondLine: _flyerMetaData,
+                      iconSizeFactor: 1,
                     ),
 
-                    // --- FLYER PREVIEW
+                    TileBubble(
+                      verse: 'Show Flyer author',
+                      icon: flyerModel.tinyAuthor.pic,
+                      iconSizeFactor: 1,
+                      switchIsOn: flyerModel.flyerShowsAuthor,
+                      switching: (val) async {
+
+                        await FlyerOps().switchFlyerShowsAuthor(
+                          context: context,
+                          flyerID: flyerModel.flyerID,
+                          val: val,
+                        );
+
+                      },
+                    ),
+
                     AFlyer(
                       flyer: flyerModel,
                       flyerSizeFactor: _flyerSizeFactor,
                     ),
 
+                    SizedBox(height: 10,),
+
                     // --- KEYWORDS
-                    Container(
-                      width: _flyerZoneWidth,
-                      // height: 300,
-                      // color: Colorz.BloodRed,
-                      child: WordsBubble(
-                        title: 'Flyer Keywords',
-                        selectedWords: [],
-                        words: flyerModel.keyWords,
-                        bubbles: false,
-                        verseSize: 2,
-                        bubbleColor: null,
-                        onTap: (){},
-                      ),
+                    WordsBubble(
+                      bubbleWidth: _flyerZoneWidth,
+                      title: 'Flyer Keywords',
+                      selectedWords: [],
+                      words: flyerModel.keyWords,
+                      bubbles: false,
+                      verseSize: 2,
+                      bubbleColor: Colorz.WhiteGlass,
+                      onTap: (){},
                     ),
+
+                    PyramidsHorizon(heightFactor: 5,),
+
                   ],
 
                 ),

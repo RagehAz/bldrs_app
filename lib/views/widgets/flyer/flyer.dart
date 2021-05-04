@@ -4,6 +4,7 @@ import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/sub_models/slide_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
+import 'package:bldrs/models/tiny_models/tiny_user.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -141,7 +142,7 @@ class _FlyerState extends State<Flyer> with AutomaticKeepAliveClientMixin{
              Header(
               flyerZoneWidth: _flyerZoneWidth,
               tinyBz: TinyBz.getTinyBzFromBzModel(bz),
-              tinyAuthor: AuthorModel.getTinyAuthorFromAuthorModel(_author),
+              tinyAuthor: TinyUser.getTinyAuthorFromAuthorModel(_author),
               flyerShowsAuthor: _flyerShowsAuthor,
               bzPageIsOn: bzPageIsOn,
               tappingHeader: () {switchBzPage();},

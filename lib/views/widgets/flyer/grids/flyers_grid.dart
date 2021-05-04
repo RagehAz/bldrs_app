@@ -161,7 +161,7 @@ class _FlyersGridState extends State<FlyersGrid> {
                         TinyFlyerWidget(
                           tinyFlyer: _tinyFlyers[index],
                           flyerSizeFactor: _flyerSizeFactor,
-                          onTap: (tinyFlyer) => Nav().openFlyer(context, _tinyFlyers[index].flyerID),
+                          onTap: (tinyFlyer) => Nav().openFlyer(context, _tinyFlyers[index]),
                         );
 
                     }),

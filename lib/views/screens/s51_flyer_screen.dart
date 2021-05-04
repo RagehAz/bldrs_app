@@ -19,6 +19,13 @@ import 'package:provider/provider.dart';
 // === === === === === === === === === === === === === === === === === === === === === === === === === === === ===
 
 class FlyerScreen extends StatelessWidget {
+  final TinyFlyer tinyFlyer;
+
+  FlyerScreen({
+    this.tinyFlyer,
+});
+
+
   static const routeName = Routez.FlyerScreen;
 
   @override
@@ -27,7 +34,7 @@ class FlyerScreen extends StatelessWidget {
     final String _flyerID = ModalRoute.of(context).settings.arguments as String;
     print('_flyerID is $_flyerID');
     final FlyersProvider _pro = Provider.of<FlyersProvider>(context, listen: false);
-    final TinyFlyer _tinyFlyer = _pro.getTinyFlyerByFlyerID(_flyerID);
+    final TinyFlyer _tinyFlyer = tinyFlyer == null ? _pro.getTinyFlyerByFlyerID(_flyerID) : tinyFlyer;
     // final BzModel _bz = _pro.getBzByBzID(_flyer?.tinyBz?.bzID);
 
     return MainLayout(

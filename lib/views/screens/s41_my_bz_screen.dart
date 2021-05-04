@@ -240,10 +240,17 @@ class _MyBzScreenState extends State<MyBzScreen> {
 
     // double _bubbleWidth = superScreenWidth(context) - (2 * Ratioz.ddAppBarMargin);
 
+
     return bzModelStreamBuilder(
         context: context,
         bzID: widget.tinyBz.bzID,
         builder: (ctx, bzModel){
+
+          String _zoneString = TextGenerator.zoneStringer(context: context, zone: bzModel.bzZone);
+
+          print('bzZone is ${bzModel.bzZone.countryID} : ${bzModel.bzZone.provinceID} : ${bzModel.bzZone.areaID}');
+
+          print ('_zoneString is : $_zoneString');
 
           return
 
@@ -258,11 +265,13 @@ class _MyBzScreenState extends State<MyBzScreen> {
                   /// --- BZ LOGO
                   DreamBox(
                     height: 40,
+                    width: Scale.superScreenWidth(context) * 0.69,
                     icon: bzModel.bzLogo,
-                    verse: bzModel.bzName,
+                    verse: '${bzModel.bzName}',
                     bubble: false,
                     verseScaleFactor: 0.6,
-                    secondLine: TextGenerator.bzTypeSingleStringer(context, bzModel.bzType),
+                    color: Colorz.WhiteAir,
+                    secondLine: '${TextGenerator.bzTypeSingleStringer(context, bzModel.bzType)} $_zoneString',
                   ),
 
                   /// --- EXPANDER

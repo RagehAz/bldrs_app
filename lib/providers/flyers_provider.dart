@@ -321,6 +321,7 @@ class FlyersProvider with ChangeNotifier {
 // -----------------------------------------------------------------------------
   TinyFlyer getTinyFlyerByFlyerID (String flyerID){
     TinyFlyer _tinyFlyer = _loadedTinyFlyers?.firstWhere((x) => x.flyerID == flyerID, orElse: ()=>null);
+
     return _tinyFlyer;
   }
 // -----------------------------------------------------------------------------
@@ -531,9 +532,9 @@ class FlyersProvider with ChangeNotifier {
   }
 // ############################################################################
   void replaceTinyFlyerInLocalList(TinyFlyer tinyFlyer){
-    int _tinyFlyerIndex = _loadedTinyFlyers.indexWhere((t) => t.flyerID == tinyFlyer.flyerID);
-    _loadedTinyFlyers.removeAt(_tinyFlyerIndex);
-    _loadedTinyFlyers.insert(_tinyFlyerIndex, tinyFlyer);
+    // int _tinyFlyerIndex = _loadedTinyFlyers.indexWhere((t) => t.flyerID == tinyFlyer.flyerID);
+    // _loadedTinyFlyers.removeAt(_tinyFlyerIndex);
+    // _loadedTinyFlyers.insert(_tinyFlyerIndex, tinyFlyer);
     notifyListeners();
   }
 // ############################################################################

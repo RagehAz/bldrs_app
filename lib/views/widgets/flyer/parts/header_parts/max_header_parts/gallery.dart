@@ -130,7 +130,7 @@ class _GalleryState extends State<Gallery> {
                           (authorIndex) {
 
                         AuthorModel _author = widget.bz.bzAuthors[authorIndex];
-                        TinyUser _tinyAuthor = AuthorModel.getTinyAuthorFromAuthorModel(_author);
+                        TinyUser _tinyAuthor = TinyUser.getTinyAuthorFromAuthorModel(_author);
 
                         return
                           Row(
