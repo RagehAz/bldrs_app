@@ -161,23 +161,6 @@ class AuthorModel{
     return _modifiedAuthorsList;
   }
 // -----------------------------------------------------------------------------
-  static TinyUser getTinyAuthorFromAuthorModel(AuthorModel author){
-    return TinyUser(
-      userID: author.userID,
-      name: author.authorName,
-      title: author.authorTitle,
-      pic: author.authorPic,
-      userStatus: UserStatus.BzAuthor,
-      contact: ContactModel.getAContactValueFromContacts(author.authorContacts, ContactType.Phone),
-    );
-  }
-// -----------------------------------------------------------------------------
-  static TinyUser getTinyAuthorFromBzModel({BzModel bzModel, String authorID}){
-    AuthorModel _author = bzModel.bzAuthors.singleWhere((au) => au.userID == authorID, orElse: ()=> null);
-    TinyUser _tinyAuthor = getTinyAuthorFromAuthorModel(_author);
-    return _tinyAuthor;
-  }
-// -----------------------------------------------------------------------------
   static List<String> getAuthorsIDsFromAuthors(List<AuthorModel> authors){
     List<String> _authorsIDs = new List();
 

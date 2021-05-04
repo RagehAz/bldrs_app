@@ -39,11 +39,13 @@ class TileBubble extends StatelessWidget {
     double iconWidth = (iconSizeFactor * iconBoxWidth);
     double iconBoxPadding = iconBoxWidth - iconWidth;
 
+    double _switchButtonWidth = switchIsOn == null ? 0 : 50;
+
     double _verseWidth =
         insideDialog == true ?
-        Scale.superDialogWidth(context) - 30 - 50
+        Scale.superDialogWidth(context) - 30 - 50 - _switchButtonWidth
             :
-        Scale.superBubbleClearWidth(context) - iconBoxWidth - 50
+        Scale.superBubbleClearWidth(context) - iconBoxWidth - 50 - _switchButtonWidth
     ;
 
     return InPyramidsBubble(
@@ -114,9 +116,11 @@ class TileBubble extends StatelessWidget {
               ),
             ),
 
+            Expanded(child: Container(),),
+
             if (switchIsOn != null)
             Container(
-              width: 50,
+              width: _switchButtonWidth,
               height: 35,
               child: Switch(
                 activeColor: Colorz.Yellow,

@@ -3,6 +3,7 @@ import 'package:bldrs/controllers/drafters/streamerz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
+import 'package:bldrs/models/tiny_models/tiny_user.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_zone.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
@@ -85,7 +86,7 @@ class _BzCardScreenState extends State<BzCardScreen> {
 
                     Header(
                       tinyBz: TinyBz.getTinyBzFromBzModel(bz),
-                      tinyAuthor: AuthorModel.getTinyAuthorFromAuthorModel(bz.bzAuthors[0]),
+                      tinyAuthor: TinyUser.getTinyAuthorFromAuthorModel(bz.bzAuthors[0]),
                       flyerShowsAuthor: true,
                       followIsOn: false, // TASK : fix following on/off issue
                       flyerZoneWidth: Scale.superFlyerZoneWidth(context, flyerSizeFactor),

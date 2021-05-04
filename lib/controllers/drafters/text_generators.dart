@@ -121,7 +121,7 @@ class TextGenerator{
     String _provinceID = zone.provinceID;
     String _areaID = zone.areaID;
 
-    String _countryName = translate(context, _countryID);
+    String _countryName = _countryPro.getCountryNameInCurrentLanguageByIso3(context, _countryID);
     String _provinceName = _countryPro.getProvinceNameWithCurrentLanguageIfPossible(context, _provinceID);
     String _areaName = _countryPro.getAreaNameWithCurrentLanguageIfPossible(context, _areaID);
 

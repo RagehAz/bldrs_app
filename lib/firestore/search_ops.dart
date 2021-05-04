@@ -1,4 +1,4 @@
-import 'package:bldrs/controllers/drafters/file_formatters.dart';
+import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/models/flyer_model.dart';

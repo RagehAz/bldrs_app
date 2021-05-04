@@ -110,7 +110,7 @@ final Function bubbleOnTap;
                         /// --- BUBBLE TITLE
                         if (title != null)
                           Container(
-                            width: _bubbleWidth - actionBtSize,
+                            width: _bubbleWidth - actionBtSize * 2,
                             padding: const EdgeInsets.only(bottom: 10, left: 5, right: 5),
                             child: SuperVerse(
                               verse: title,
