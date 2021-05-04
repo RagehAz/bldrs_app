@@ -429,7 +429,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         bzZone: Zone(
           countryID: _currentBzCountry,
           provinceID: _currentBzProvince,
-          areaID: _currentBzProvince,
+          areaID: _currentBzArea,
         ),
         bzAbout: _bzAboutTextController.text,
         bzPosition: _currentBzPosition,
@@ -508,6 +508,8 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
     // _bzNameTextController.text == null || _bzNameTextController.text == '' ?
     // '${Wordz.about(context)} ${Wordz.yourBusiness(context)}' :
     // '${Wordz.about(context)} ${_bzNameTextController.text}';
+
+    print('bzZone is : countryID : $_currentBzCountry : provinceID : $_currentBzProvince : areaID : $_currentBzArea');
 
     return MainLayout(
       loading: _loading,

@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/views/screens/s51_flyer_screen.dart';
 import 'package:flutter/material.dart';
@@ -68,9 +69,16 @@ class Nav{
     );
   }
 // -----------------------------------------------------------------------------
-  void openFlyer(BuildContext context, String flyerID){
+  void openFlyer(BuildContext context, dynamic tinyFlyerOrID){
 
-    goToRoute(context, Routez.FlyerScreen, arguments: flyerID);
+    if (ObjectChecker.objectIsString(tinyFlyerOrID) == true){
+
+      goToRoute(context, Routez.FlyerScreen, arguments: tinyFlyerOrID);
+    } else {
+
+      goToNewScreen(context, FlyerScreen(tinyFlyer: tinyFlyerOrID,));
+
+    }
 
     // print('open flyer navigator recieved $flyerID');
     //

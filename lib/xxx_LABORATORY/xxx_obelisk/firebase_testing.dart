@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:bldrs/controllers/drafters/file_formatters.dart';
+import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/text_generators.dart';
@@ -266,7 +266,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
 
         _triggerLoading();
       },},
-      // -----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
       {'Name' : 'Fire.readSubDoc', 'function' : () async {
         _triggerLoading();
 
@@ -281,7 +281,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
 
         _triggerLoading();
       },},
-      // -----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
       {'Name' : 'Fire.createNamedDoc', 'function' : () async {
         _triggerLoading();
 
@@ -296,7 +296,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
 
         _triggerLoading();
       },},
-      // -----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
       {'Name' : 'Fire.createNamedSubDoc', 'function' : () async {
         _triggerLoading();
 
@@ -313,7 +313,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
 
         _triggerLoading();
       },},
-      // -----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
       {'Name' : 'Fire.replaceDoc', 'function' : () async {
         _triggerLoading();
 
@@ -328,7 +328,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
 
         _triggerLoading();
       },},
-      // -----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
       {'Name' : 'Fire.readSubCollectionDocs', 'function' : () async {
         _triggerLoading();
 
@@ -345,7 +345,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
 
         _triggerLoading();
       },},
-      // -----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
       {'Name' : 'Fire.deleteSubDoc', 'function' : () async {
         _triggerLoading();
 
@@ -361,7 +361,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
 
         _triggerLoading();
       },},
-      // -----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
       {'Name' : 'Fire.updateSubDoc', 'function' : () async {
         _triggerLoading();
 
@@ -381,7 +381,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
 
         _triggerLoading();
       },},
-      // -----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
       {'Name' : 'Fire.updateSubDocField', 'function' : () async {
         _triggerLoading();
 
@@ -401,11 +401,11 @@ class _FirebasetestingState extends State<Firebasetesting> {
 
         _triggerLoading();
       },},
-      // -----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
       {'Name' : '-----------', 'function' : () async {
 
       },},
-      // -----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
       {'Name' : 'FireSearch.getDocByFieldValue', 'function' : () async {
         _triggerLoading();
 
@@ -422,7 +422,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
 
         _triggerLoading();
       },},
-      // -----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
       {'Name' : 'read All flyers', 'function' : () async {
         _triggerLoading();
 
@@ -444,7 +444,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
 
         _triggerLoading();
       },},
-      // -----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
       {'Name' : 'Fix author Pic ID', 'function' : () async {
         _triggerLoading();
 
@@ -505,7 +505,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
             _updatedAuthorsModels.add(_newAuthor);
 
             /// x3 - update tinyAuthor in all bz Flyers
-            TinyUser _tinyAuthor = AuthorModel.getTinyAuthorFromAuthorModel(_newAuthor);
+            TinyUser _tinyAuthor = TinyUser.getTinyAuthorFromAuthorModel(_newAuthor);
             for (var flyer in _bzFlyers){
               if (_tinyAuthor.userID == flyer.authorID){
 
@@ -539,7 +539,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
 
         _triggerLoading();
       },},
-      // -----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
       {'Name' : 'create firebase user with email', 'function' : () async {
         _triggerLoading();
 
@@ -554,7 +554,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
 
         _triggerLoading();
       },},
-      // -----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
       {'Name' : 'delete firebase user with email', 'function' : () async {
         _triggerLoading();
 
@@ -567,7 +567,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
 
         _triggerLoading();
       },},
-      // -----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
       {'Name' : 'getFirebaseUserProviderData', 'function' : ()  {
         _triggerLoading();
 
@@ -577,7 +577,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
 
         _triggerLoading();
       },},
-      // -----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
       {'Name' : 'read a user that does not exist', 'function' : () async {
         _triggerLoading();
 
@@ -590,7 +590,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
 
         _triggerLoading();
       },},
-      // -----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
       {'Name' : 'go to pushed screen', 'function' : () async {
         _triggerLoading();
 
@@ -600,7 +600,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
 
         _triggerLoading();
       },},
-      // -----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
       {'Name' : 'Delete firebase user', 'function' : () async {
         _triggerLoading();
 
@@ -610,51 +610,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
 
         _triggerLoading();
       },},
-      // -----------------------------------------------------------------------
-      {'Name' : 'fix nano flyers bz zones', 'function' : () async {
-        _triggerLoading();
-
-        List<dynamic> _allBzzMaps = await Fire.readCollectionDocs(FireCollection.bzz);
-
-
-        for (var map in _allBzzMaps){
-
-          String _bzID = map['bzID'];
-
-          List<NanoFlyer> _bzNanoFlyers = new List();
-
-          dynamic _flyersMaps = map['bzFlyers'];
-
-          for (var flyerMap in _flyersMaps){
-
-            String _flyerID = flyerMap['flyerID'];
-
-            FlyerModel _flyerModel = await FlyerOps().readFlyerOps(context: context, flyerID: _flyerID);
-
-            NanoFlyer _nanoFlyer = NanoFlyer.getNanoFlyerFromFlyerModel(_flyerModel);
-
-            _bzNanoFlyers.add(_nanoFlyer);
-          }
-
-          await Fire.deleteDocField(
-            context: context,
-            collName: FireCollection.bzz,
-            docName: _bzID,
-            field: 'bzFlyers',
-          );
-
-
-
-
-          // printResult('done  : ${_bzNanoFlyers.length} : ${_flyersMaps.length} flyers');
-
-
-        }
-
-
-        _triggerLoading();
-      },},
-// -----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
       {'Name' : 'fix user zone', 'function' : () async {
         _triggerLoading();
 
@@ -715,7 +671,96 @@ class _FirebasetestingState extends State<Firebasetesting> {
 
         _triggerLoading();
       },},
-// -----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+      {'Name' : 'fix flyer zone strings', 'function' : () async {
+        _triggerLoading();
+
+        List<dynamic> _allMaps = await Fire.readCollectionDocs(FireCollection.bzz);
+
+
+        for (var map in _allMaps){
+
+          String _id = map['bzID'];
+
+          dynamic _bzZone =  map['bzZone'];
+
+          dynamic _areaID = _bzZone['areaID'];
+
+          if (await ObjectChecker.objectIsIntInString(context, _areaID) == true){
+            /// so areaID is int,, leave it
+            print('no action needed for $_id');
+          } else {
+
+            Zone _zone1 = Zone(
+              countryID: 'egy',
+              provinceID: 'Cairo',
+              areaID: '1',
+            );
+
+            await Fire.updateDocField(
+              context: context,
+              collName: FireCollection.bzz,
+              docName: _id,
+              field: 'bzZone',
+              input: _zone1.toMap(),
+            );
+
+          }
+
+
+
+
+          // printResult('done  : ${_bzNanoFlyers.length} : ${_flyersMaps.length} flyers');
+
+        }
+
+
+        _triggerLoading();
+      },},
+// -----------------------------------------------------------------------------
+      {'Name' : 'fix flyers tinyAuthor', 'function' : () async {
+        _triggerLoading();
+
+        List<dynamic> _allMaps = await Fire.readCollectionDocs(FireCollection.flyers);
+
+
+        for (var map in _allMaps){
+
+          FlyerModel _flyer = FlyerModel.decipherFlyerMap(map);
+
+          BzModel _bzModel = await BzOps.readBzOps(context: context, bzID: _flyer.tinyBz.bzID);
+
+          FlyerModel _newFlyerModel = FlyerModel(
+            flyerID: _flyer.flyerID,
+            flyerType: _flyer.flyerType,
+            flyerState: _flyer.flyerState,
+            keyWords: _flyer.keyWords,
+            flyerShowsAuthor: _flyer.flyerShowsAuthor,
+            flyerURL: _flyer.flyerURL,
+            flyerZone: _flyer.flyerZone,
+            tinyAuthor: TinyUser.getTinyAuthorFromAuthorModel(_bzModel.bzAuthors[0]),
+            tinyBz: TinyBz.getTinyBzFromBzModel(_bzModel),
+            publishTime: _flyer.publishTime,
+            flyerPosition: _flyer.flyerPosition,
+            slides: _flyer.slides,
+            flyerIsBanned: _flyer.flyerIsBanned,
+            deletionTime: _flyer.deletionTime,
+            ankhIsOn: _flyer.ankhIsOn,
+          );
+
+          await FlyerOps().updateFlyerOps(
+            context: context,
+            bzModel: _bzModel,
+            originalFlyer: _flyer,
+            updatedFlyer: _newFlyerModel,
+          );
+
+        }
+
+
+        _triggerLoading();
+      },},
+// -----------------------------------------------------------------------------
     ];
 
 

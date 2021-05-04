@@ -1,3 +1,5 @@
+import 'package:bldrs/models/bz_model.dart';
+import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:flutter/foundation.dart';
 import '../user_model.dart';
@@ -63,6 +65,23 @@ class TinyUser {
         userStatus: userModel.userStatus,
         contact: ContactModel.getAContactValueFromContacts(userModel.contacts, ContactType.Phone) ?? ContactModel.getAContactValueFromContacts(userModel.contacts, ContactType.Email)
     );
+  }
+// -----------------------------------------------------------------------------
+  static TinyUser getTinyAuthorFromAuthorModel(AuthorModel author){
+    return TinyUser(
+      userID: author.userID,
+      name: author.authorName,
+      title: author.authorTitle,
+      pic: author.authorPic,
+      userStatus: UserStatus.BzAuthor,
+      contact: ContactModel.getAContactValueFromContacts(author.authorContacts, ContactType.Phone),
+    );
+  }
+// -----------------------------------------------------------------------------
+  static TinyUser getTinyAuthorFromBzModel({BzModel bzModel, String authorID}){
+    AuthorModel _author = bzModel.bzAuthors.singleWhere((au) => au.userID == authorID, orElse: ()=> null);
+    TinyUser _tinyAuthor = getTinyAuthorFromAuthorModel(_author);
+    return _tinyAuthor;
   }
 // -----------------------------------------------------------------------------
 }

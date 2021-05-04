@@ -187,7 +187,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
   FlyerModel _createTempEmptyFlyer(){
 
     AuthorModel _author = AuthorModel.getAuthorFromBzByAuthorID(_bz, superUserID());
-    TinyUser _tinyAuthor = AuthorModel.getTinyAuthorFromAuthorModel(_author);
+    TinyUser _tinyAuthor = TinyUser.getTinyAuthorFromAuthorModel(_author);
 
     return new FlyerModel(
       flyerID : '...',
@@ -678,7 +678,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
 
       /// create tiny author model from bz.authors
       AuthorModel _author = AuthorModel.getAuthorFromBzByAuthorID(_bz, superUserID());
-      TinyUser _tinyAuthor = AuthorModel.getTinyAuthorFromAuthorModel(_author);
+      TinyUser _tinyAuthor = TinyUser.getTinyAuthorFromAuthorModel(_author);
 
       ///create FlyerModel
       FlyerModel _newFlyerModel = FlyerModel(
@@ -925,7 +925,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
                       // --- FLYER HEADER
                       Header(
                         tinyBz: TinyBz.getTinyBzFromBzModel(_bz),
-                        tinyAuthor: AuthorModel.getTinyAuthorFromAuthorModel(_author),
+                        tinyAuthor: TinyUser.getTinyAuthorFromAuthorModel(_author),
                         flyerShowsAuthor: true,
                         followIsOn: false,
                         flyerZoneWidth: Scale.superFlyerZoneWidth(context, _flyerSizeFactor),
