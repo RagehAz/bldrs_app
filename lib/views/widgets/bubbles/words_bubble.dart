@@ -13,6 +13,7 @@ class WordsBubble extends StatelessWidget {
   final bool bubbles;
   final Color bubbleColor;
   final List<dynamic> selectedWords;
+  final double bubbleWidth;
 
   WordsBubble({
     @required this.title,
@@ -22,6 +23,7 @@ class WordsBubble extends StatelessWidget {
     this.bubbles,
     this.bubbleColor,
     @required this.selectedWords,
+    this.bubbleWidth,
   });
 
   @override
@@ -35,11 +37,8 @@ class WordsBubble extends StatelessWidget {
       centered: false,
       bubbleColor: bubbleColor,
       title: title,
+      bubbleWidth: bubbleWidth,
       columnChildren: <Widget>[
-
-        // InBubbleTitle(
-        //   title: title,
-        // ),
 
         // --- STRINGS
         Wrap(

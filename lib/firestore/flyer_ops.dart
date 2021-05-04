@@ -1,4 +1,4 @@
-import 'package:bldrs/controllers/drafters/file_formatters.dart';
+import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/text_checkers.dart';
 import 'package:bldrs/controllers/drafters/text_manipulators.dart';
@@ -175,6 +175,8 @@ class FlyerOps{
 
   }
 // -----------------------------------------------------------------------------
+  /// A - if slides changes
+  ///   1 -
   Future<FlyerModel> updateFlyerOps({BuildContext context, FlyerModel updatedFlyer, FlyerModel originalFlyer, BzModel bzModel}) async {
     FlyerModel _finalFlyer = updatedFlyer;
 
@@ -468,4 +470,15 @@ class FlyerOps{
     print('DELETE FLYER OPS ENDED ---------------------------');
 
   }
+// =============================================================================
+  Future<void> switchFlyerShowsAuthor({BuildContext context, String flyerID, bool val}) async {
+    await Fire.updateDocField(
+      context: context,
+      collName: FireCollection.flyers,
+      docName: flyerID,
+      field: 'flyerShowsAuthor',
+      input: val,
+    );
+  }
+// -----------------------------------------------------------------------------
 }

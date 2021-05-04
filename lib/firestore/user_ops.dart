@@ -1,4 +1,4 @@
-import 'package:bldrs/controllers/drafters/file_formatters.dart';
+import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
