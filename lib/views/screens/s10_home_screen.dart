@@ -2,7 +2,6 @@ import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
-import 'package:bldrs/views/widgets/bubbles/bzz_bubble.dart';
 import 'package:bldrs/views/widgets/flyer/stacks/flyer_stack.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/loading/loading.dart';
@@ -27,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
     _loading == true?
     print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   @override
   void initState() {
     // works
