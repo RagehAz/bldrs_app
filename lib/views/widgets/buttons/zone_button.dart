@@ -25,9 +25,6 @@ class ZoneButton extends StatelessWidget {
     Nav.goToNewScreen(context, SelectProvinceScreen());
   }
 // -----------------------------------------------------------------------------
-
-
-
   @override
   Widget build(BuildContext context) {
     CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: true);

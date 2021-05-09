@@ -9,7 +9,6 @@ import 'package:bldrs/views/widgets/buttons/search_button.dart';
 import 'package:bldrs/views/widgets/buttons/sections_button.dart';
 import 'package:bldrs/views/widgets/buttons/zone_button.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
-import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 

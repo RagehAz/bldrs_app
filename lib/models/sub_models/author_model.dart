@@ -1,5 +1,4 @@
 import 'package:bldrs/models/tiny_models/nano_flyer.dart';
-import 'package:bldrs/models/tiny_models/tiny_user.dart';
 import '../bz_model.dart';
 import '../user_model.dart';
 import 'contact_model.dart';

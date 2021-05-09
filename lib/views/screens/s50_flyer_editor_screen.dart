@@ -98,7 +98,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
   bool _ankhIsOn = false; // shouldn't be saved here but will leave this now
   // -------------------------
   List<SlideModel> _currentSlides;
-  // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   /// --- LOADING BLOCK
   bool _loading = false;
   void _triggerLoading(){
@@ -106,7 +106,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
     _loading == true?
     print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
   }
-  // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   @override
   void initState(){
     // -------------------------
@@ -143,13 +143,13 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
     onPageChangedIsOn = true;
     super.initState();
   }
-  // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   // @override
   // void dispose() {
   //   if (textControllerHasNoValue(_nameController))_nameController.dispose();
   //   super.dispose();
   // }
-  // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   List<TextEditingController> _createTitlesControllersList(){
     List<TextEditingController> _controllers = new List();
 
@@ -161,7 +161,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
 
     return _controllers;
   }
-  // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   List<SlideMode> _createSlidesModesList(){
     int _listLength = _originalFlyer.slides.length;
     List<SlideMode> _slidesModesList = new List();
@@ -172,7 +172,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
 
     return _slidesModesList;
   }
-  // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   List<bool> _createSlidesVisibilityList(){
     int _listLength = _originalFlyer.slides.length;
     List<bool> _visibilityList = new List();
@@ -183,7 +183,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
 
     return _visibilityList;
   }
-  // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   FlyerModel _createTempEmptyFlyer(){
 
     AuthorModel _author = AuthorModel.getAuthorFromBzByAuthorID(_bz, superUserID());
@@ -213,13 +213,13 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
       deletionTime: null,
     );
   }
-  // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   void _triggerVisibility(int currentSlide)  {
     setState(() {
       _slidesVisibility[currentSlide] = !_slidesVisibility[currentSlide];
     });
   }
-  // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   void _decreaseProgressBar(){
     // print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> before _decreaseProgressBar');
     setState(() {
@@ -228,19 +228,22 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
     });
     // print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> after _decreaseProgressBar');
   }
-  // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   void _simpleDelete(int currentSlide){
     // print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> before _simpleDelete');
     if (_currentSlides.isNotEmpty)
     {
-      if(currentSlide == 0){_currentSlides.removeAt(currentSlide);currentSlide=0;}else{_currentSlides.removeAt(currentSlide);}
+      if(currentSlide == 0){
+        _currentSlides.removeAt(currentSlide);
+        // currentSlide=0;
+      }else{_currentSlides.removeAt(currentSlide);}
       _slidesVisibility.removeAt(currentSlide);
       slidesModes.removeAt(currentSlide);
       _titleControllers.removeAt(currentSlide);
     } else { print('no Slide to delete'); }
     // print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> after _simpleDelete');
   }
-  // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   void _currentSlideMinus(){
     if (currentSlide == 0){currentSlide = 0;}
     else {
@@ -249,7 +252,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
       });
     }
   }
-  // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   void _deleteSlide (int numberOfSlides, int currentSlide) {
     if (_currentSlides.isNotEmpty)
     {
@@ -269,7 +272,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
             else{_simpleDelete(currentSlide);}
             setState(() {
               onPageChangedIsOn = true;
-              numberOfSlides = _currentSlides.length;
+              // numberOfSlides = _currentSlides.length;
             });
           }
       );
@@ -278,9 +281,9 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
     else
     {print('no slide to delete');}
   }
-  // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   void _selectImage(File pickedImage){_pickedImage = pickedImage;}
-  // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   // Future<void> _takeCameraPicture() async {
   //
   //   final _imageFile = await takeCameraPicture(PicType.slideHighRes);
@@ -308,7 +311,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
   //   slideTo(_slidingController, currentSlide);
   //   // print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> after _takeCameraPicture');
   // }
-  // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   Future<void> _takeGalleryPicture() async {
 
     final _imageFile = await takeGalleryPicture(PicType.slideHighRes);
@@ -340,9 +343,9 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
     slideTo(_slidingController, currentSlide);
     // print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> after _takeGalleryPicture');
   }
-  // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   void slidingPages (int slideIndex){setState(() {currentSlide = slideIndex;});}
-  // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   // void tappingNewSlide(){
   //   setState(() {
   //     _currentSlides.add(SlideModel(
@@ -357,7 +360,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
   //     slidesModes.add(SlideMode.Editor);
   //   });
   //   }
-  // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   Future<void>_selectOnMap() async {
 
     if (_currentSlides.length == 0){
@@ -387,7 +390,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
       print("${selectedLocation.latitude},${selectedLocation.longitude}");
     }
   }
-  // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   void _showMapPreview(double lat, double lng) {
     final staticMapImageUrl = getStaticMapImage(context, lat, lng);
     setState(() {
@@ -395,7 +398,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
       _currentFlyerPosition = GeoPoint(lat, lng);
     });
   }
-  // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   Future<void> _newLocationSlide() async {
 
     if (_currentSlides.length == 0){
@@ -431,7 +434,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
     }
 
   }
-  // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   Future<List<SlideModel>> processSlides(List<String> picturesURLs, List<SlideModel> currentSlides, List<TextEditingController> titleControllers) async {
     List<SlideModel> _slides = new List();
 
@@ -457,7 +460,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
 
     return _slides;
   }
-  // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   void _addKeywords(){
 
       double _bottomSheetHeightFactor = 0.7;
@@ -548,7 +551,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
         },
       );
   }
-  // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   void _selectFlyerType(){
 
     double _bottomSheetHeightFactor = 0.25;
@@ -628,13 +631,13 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
 
 
   }
-  // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   bool _inputsAreValid(){
     /// TASK : assert that flyer.slide.lenght >= 5 slides only for default accounts, >= 15 for premium
     /// TASK : figure out flyer required fields needed for validity assertion
     return true;
   }
-  // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   Future<List<SlideModel>> _processNewSlides(List<SlideModel> currentSlides, List<TextEditingController> titleControllers) async {
     List<SlideModel> _slides = new List();
 
@@ -656,7 +659,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
 
     return _slides;
   }
-  // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   Future<void> _createNewFlyer() async {
     /// assert that all required fields are valid
     if (_inputsAreValid() == false){
@@ -733,7 +736,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
 
     }
   }
-  // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   Future<void> _updateExistingFlyer() async {
     /// assert that all required fields are valid
     if (_inputsAreValid() == false){
@@ -813,19 +816,19 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
     }
 
     }
-  // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     final AuthorModel _author = widget.firstTimer ?
     AuthorModel.getAuthorFromBzByAuthorID(_bz, superUserID()) :
     AuthorModel.getAuthorFromBzByAuthorID(_bz, _flyer.tinyAuthor.userID);
-    // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     final double _flyerSizeFactor = 0.8;
     final double _flyerZoneWidth = Scale.superFlyerZoneWidth(context, _flyerSizeFactor);
-    // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     print('_pickedImage : $_pickedImage');
     // print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> building widget tree');
-    // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     Widget _fButton({String icon, Function function}){
       return
           DreamBox(
@@ -837,7 +840,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
             boxFunction: function,
           );
     }
-    // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     Widget _publishButton(){
       return
         DreamBox(
@@ -852,7 +855,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
           boxFunction: widget.firstTimer ? _createNewFlyer : _updateExistingFlyer,
         );
     }
-    // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     return MainLayout(
       appBarType: AppBarType.Basic,
       pyramids: Iconz.DvBlankSVG,
