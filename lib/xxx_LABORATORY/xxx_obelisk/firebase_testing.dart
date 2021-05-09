@@ -26,12 +26,10 @@ import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
-import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/flyer/grids/flyers_grid.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:bldrs/xxx_LABORATORY/navigation_test/page_2.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -54,7 +52,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
   List<FlyerModel> _allFLyers;
   String _picURL;
   File _filePic;
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   /// --- LOADING BLOCK
   bool _loading = false;
   void _triggerLoading(){
@@ -62,18 +60,18 @@ class _FirebasetestingState extends State<Firebasetesting> {
     _loading == true?
     print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   @override
   void initState() {
 
     super.initState();
   }
-  // -----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   void printResult(String verse){
     setState(() {printVerse = verse;});
     print(verse);
   }
-  // -----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   void _save (String flyerID, int slideIndex){
 
     /// --- IF FLYER WAS NEVER SAVED
@@ -127,7 +125,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
     // -----------------------------------------------
 
   }
-  // ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   bool _flyerWasSavedOnce(String flyerID){
     bool _flyerWasSavedOnce;
 
@@ -152,7 +150,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
 
     return _flyerWasSavedOnce;
   }
-  // ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   bool _flyerIsSaved(String flyerID){
     bool _flyerIsSaved;
 
@@ -172,7 +170,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
 
     return _flyerIsSaved;
   }
-  // ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
