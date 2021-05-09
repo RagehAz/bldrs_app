@@ -6,7 +6,6 @@ import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
-import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/firestore/flyer_ops.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
@@ -20,7 +19,6 @@ import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_sheet.dart';
 import 'package:bldrs/views/widgets/flyer/aflyer.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
-import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -32,7 +30,7 @@ class BzFlyerScreen extends StatelessWidget {
     @required this.tinyFlyer,
     @required this.bzModel,
 });
-  // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   void _slideFlyerOptions(BuildContext context, FlyerModel flyerModel){
 
     BottomSlider.slideBottomSheet(
@@ -155,7 +153,7 @@ class BzFlyerScreen extends StatelessWidget {
     );
 
   }
-  // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

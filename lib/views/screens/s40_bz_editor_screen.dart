@@ -364,9 +364,9 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
           userModel: widget.userModel
       );
 
-      /// add the final tinyBz to local list and notifyListeners
+      // /// add the final tinyBz to local list and notifyListeners
       TinyBz _tinyBz = TinyBz.getTinyBzFromBzModel(_bzModel);
-      _prof.addTinyBzToLocalList(_tinyBz);
+      // _prof.addTinyBzToUserTinyBzz(_tinyBz);
 
       /// add the final tinyBz to _userTinyBzz
       _prof.addTinyBzToUserTinyBzz(_tinyBz);
