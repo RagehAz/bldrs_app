@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'text_directionerz.dart';
 
 class Scale{
-  // -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   static double superScreenWidth (BuildContext context){
     double screenWidth = MediaQuery.of(context).size.width;
     return screenWidth;

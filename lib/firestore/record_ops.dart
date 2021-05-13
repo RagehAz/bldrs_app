@@ -7,7 +7,7 @@ import 'package:bldrs/models/records/share_model.dart';
 import 'package:flutter/material.dart';
 
 class RecordOps{
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   static Future<List<SaveModel>> readUserSavesOps(BuildContext context) async {
 
     /// 1 - read db/users/userID/saves/flyers and return its map
@@ -24,13 +24,13 @@ class RecordOps{
 
     return _userSavesMap == null ? [] : _userSavesModels;
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   static Future<List<SaveModel>> readFlyerSavesOps() async {
     /// TASK : paginate in Flyer saves to get batches of tiny users after getting those savesModels
     List<SaveModel> _flyerSaves = new List();
     return _flyerSaves;
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 /// this method works if flyer is saved previously or not, if it's first time to save or not
   static Future<void> saveFlyerOps({BuildContext context, String flyerID, int slideIndex, String userID}) async {
 
@@ -68,7 +68,7 @@ class RecordOps{
     );
 
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   static Future<ShareModel> readFlyerShareOps({BuildContext context, String flyerID, String userID}) async {
 
     Map<String, dynamic> _userShareMap = await Fire.readSubDoc(
@@ -83,7 +83,7 @@ class RecordOps{
 
     return _userShareMap == null ? null : _shareModel;
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   static Future<void> shareFlyerOPs({BuildContext context, String flyerID, int slideIndex, String userID}) async {
 
     /// get existing share model if existed
@@ -107,9 +107,9 @@ class RecordOps{
     );
 
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   static Future<void> viewFlyerOPs(String flyerID, String userID) async {}
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   static Future<List<String>> readUserFollowsOps(BuildContext context) async {
 
     /// 1 - read db/users/userID/saves/bzz and return its map
@@ -147,7 +147,7 @@ class RecordOps{
 
     return _userFollowMap == null ? null : _follow;
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   static Future<List<String>> followBzOPs({BuildContext context,String bzID, String userID}) async {
 
     /// A - FollowOps in User/saves/bzz subDoc
@@ -188,7 +188,7 @@ class RecordOps{
 
     return _updatedFollowedBzzIDs;
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   static Future<CallModel> readCallModelOps({BuildContext context, String bzID, String userID}) async {
 
     /// 1 - read db/bzz/bzID/calls/userID and return its map
@@ -207,7 +207,7 @@ class RecordOps{
 
     return _userCallMap == null ? null : _callModel;
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   static Future<void> callBzOPs({BuildContext context,String bzID, String userID, int slideIndex}) async {
 
     /// A - CallOps in bzz/calls/userID subDoc
@@ -233,6 +233,6 @@ class RecordOps{
     );
 
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 
 }

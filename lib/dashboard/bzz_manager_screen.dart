@@ -20,7 +20,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
   // dynamic _name;
   List<QueryDocumentSnapshot> _bzzSnapshots;
   dynamic _toPrint;
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   Future<dynamic> getFirestoreBzz() async {
     _triggerLoading();
     List<QueryDocumentSnapshot> _bzzMaps = await Fire.readCollectionDocs(FireCollection.tinyBzz);
@@ -33,11 +33,11 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
     print(_toPrint);
     _triggerLoading();
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   void _printer(){
     print(_toPrint);
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   @override
   void initState() {
     getFirestoreBzz();

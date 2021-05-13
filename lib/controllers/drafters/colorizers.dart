@@ -2,7 +2,7 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui';
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 class Colorizer{
   static Gradient superSlideGradient(){
     Gradient slideGradient = LinearGradient(
@@ -13,7 +13,7 @@ class Colorizer{
     );
     return slideGradient;
   }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
   static Gradient superHeaderStripGradient(Color color){
     Gradient headerStripGradient = LinearGradient(
         begin: Alignment.topCenter,
@@ -22,7 +22,7 @@ class Colorizer{
         stops: <double>[0.3, 1]);
     return headerStripGradient;
   }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
   static Gradient superFollowBTGradient(){
     Gradient followBTGradient = LinearGradient(
         begin: Alignment.topCenter,
@@ -32,13 +32,13 @@ class Colorizer{
     );
     return followBTGradient;
   }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
   static ImageFilter superBlur(bool trigger){
     double blueValue = trigger == true ? 8 : 0;
     ImageFilter blur = ImageFilter.blur(sigmaX: blueValue, sigmaY: blueValue);
     return blur;
   }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
   /// if i want to black and white a widget, put it as child in here
   /// child: ColorFiltered(
   ///     colorFilter: superDesaturation(blackAndWhite),
@@ -52,7 +52,7 @@ class Colorizer{
   }
 
 }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 class BlurLayer extends StatelessWidget {
   final BorderRadius borders;
   final double blur;
@@ -87,4 +87,4 @@ class BlurLayer extends StatelessWidget {
     );
   }
 }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------

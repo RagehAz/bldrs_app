@@ -1,6 +1,6 @@
 import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:flutter/foundation.dart';
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 class FeedbackModel{
   final String userID;
   final DateTime timeStamp;
@@ -11,7 +11,7 @@ class FeedbackModel{
     @required this.timeStamp,
     @required this.feedback,
 });
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   Map<String, dynamic> toMap(){
     return {
       'userID' : userID,
@@ -19,7 +19,7 @@ class FeedbackModel{
       'feedback' : feedback,
     };
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 static FeedbackModel decipherFeedbackMap(Map<String, dynamic> map){
     return
         FeedbackModel(
@@ -28,5 +28,5 @@ static FeedbackModel decipherFeedbackMap(Map<String, dynamic> map){
           feedback: map['feedback'],
         );
 }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 }

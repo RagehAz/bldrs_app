@@ -4,7 +4,7 @@ import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/main.dart';
 import 'package:flutter/material.dart';
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 Future<void> changeAppLanguage(BuildContext context, String code) async {
   Locale _temp = await setLocale(code);
   BldrsApp.setLocale(context, _temp);
@@ -22,13 +22,13 @@ Future<void> changeAppLanguage(BuildContext context, String code) async {
   }
 
 }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 Future<void> switchBetweenArabicAndEnglish(BuildContext context) async {
   Wordz.languageCode(context) == 'en' ?
   await changeAppLanguage(context, Lingo.Arabic) :
   await changeAppLanguage(context, Lingo.English);
 }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 class Lingo{
   static const String English = 'en';
   static const String Arabic = 'ar';
@@ -39,4 +39,4 @@ class Lingo{
   static const String German = 'de';
   static const String Italian = 'it';
 }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------

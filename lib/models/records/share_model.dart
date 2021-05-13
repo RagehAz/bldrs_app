@@ -2,7 +2,7 @@ import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 class ShareModel{
   final List<dynamic> slideIndexes;
   final List<DateTime> timeStamps;
@@ -13,21 +13,21 @@ class ShareModel{
   this.timeStamps,
   // this.sharedTo,
   });
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   Map<String, Object> toMap(){
     return {
       'slideIndexes' : slideIndexes,
       'timeStamps' : cipherListOfDateTimes(timeStamps),
     };
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   static ShareModel decipherShareMap(Map<String, dynamic> map){
     return ShareModel(
       slideIndexes: map['slideIndexes'],
       timeStamps: decipherListOfDateTimesStrings(map['timeStamps']),
     );
 }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   static ShareModel addToShareModel(ShareModel existingShareModel, int slideIndex){
     /// --- IF FLYER WAS NEVER SHARED
   if (existingShareModel == null){
@@ -46,7 +46,7 @@ class ShareModel{
         );
   }
 }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   static Future<void> shareFlyer (BuildContext context, LinkModel flyerLink) async {
     final RenderBox box = context.findRenderObject();
     final String text = '${flyerLink.url} & ${flyerLink.description}';
@@ -62,7 +62,7 @@ class ShareModel{
 // ----------------------------------------------------------------------------
 
 }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 class LinkModel{
   final String url;
   final String description;
@@ -79,22 +79,22 @@ class LinkModel{
     };
   }
 
-  // ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   static LinkModel bldrsWebSiteLink = LinkModel(
     url: 'www.bldrs.net',
     description: 'Download Bldrs.net App',
   );
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   static LinkModel bldrsAppStoreLink = LinkModel(
     url: 'www.google.com', // temp
     description: 'Download Bldrs.net App',
   );
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   static LinkModel bldrsPlayStoreLink = LinkModel(
     url: 'www.google.com', // temp
     description: 'Download Bldrs.net App',
   );
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 
 
 }

@@ -1,10 +1,10 @@
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
-// -----------------------------------------------------------------
+// -----------------------------------------------------------------------------
 /// "2019-07-19 8:40:23"
 DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:mm:ss");
-// -----------------------------------------------------------------
+// -----------------------------------------------------------------------------
 String cipherDateTimeToString(DateTime dateTime){
   if(dateTime == null){
     return null;
@@ -12,7 +12,7 @@ String cipherDateTimeToString(DateTime dateTime){
     return dateFormat?.format(dateTime);
   }
 }
-// -----------------------------------------------------------------
+// -----------------------------------------------------------------------------
 List<String> cipherListOfDateTimes(List<DateTime> dateTimes){
   List<String> _dateTimesStringsList = new List();
 
@@ -22,7 +22,7 @@ List<String> cipherListOfDateTimes(List<DateTime> dateTimes){
 
   return _dateTimesStringsList;
 }
-// -----------------------------------------------------------------
+// -----------------------------------------------------------------------------
 DateTime decipherDateTimeString(String dateTimeString){
   if (dateTimeString == null){
     return null;
@@ -30,7 +30,7 @@ DateTime decipherDateTimeString(String dateTimeString){
     return dateFormat?.parse(dateTimeString);
   }
 }
-// -----------------------------------------------------------------
+// -----------------------------------------------------------------------------
 List<DateTime> decipherListOfDateTimesStrings(List<dynamic> dateTimesStrings){
   List<DateTime> _dateTimes = new List();
 
@@ -40,7 +40,7 @@ List<DateTime> decipherListOfDateTimesStrings(List<dynamic> dateTimesStrings){
 
   return _dateTimes;
 }
-// -----------------------------------------------------------------
+// -----------------------------------------------------------------------------
 String getMonthNameByInt(BuildContext context, int month){
   switch (month){
     case 1    :    return  Wordz.january(context);  break;
@@ -57,12 +57,12 @@ String getMonthNameByInt(BuildContext context, int month){
     default : return null;
   }
 }
-// -----------------------------------------------------------------
+// -----------------------------------------------------------------------------
 String cipherDateTimeIso8601(DateTime dateTime){
   return dateTime.toIso8601String();
 }
-// -----------------------------------------------------------------
+// -----------------------------------------------------------------------------
 DateTime decipherDateTimeIso8601(String cipheredDateTimeIso8601){
   return DateTime.parse(cipheredDateTimeIso8601);
 }
-// -----------------------------------------------------------------
+// -----------------------------------------------------------------------------
