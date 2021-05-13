@@ -7,10 +7,10 @@ import 'package:bldrs/models/planet/country_model.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter/material.dart';
-// ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 //   List<City> cityDataBase = dbCities;
   List<Country> countryDataBase = dbCountries;
-// ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 Widget aDot (){
   return
 Container(
@@ -22,7 +22,7 @@ Container(
   ),
 );
 }
-// ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // List<Widget> worldDots(double width){
 //   final dots = <Widget>[];
 //   for(var i = 0; i < cityDataBase.length; i++ ){
@@ -36,7 +36,7 @@ Container(
 //   }
 //   return dots;
 // }
-// ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // List<Province> countryCities(String countryFlag){
 //   final String countryISO3 = (countryDataBase.singleWhere((c) => c.flag == countryFlag)).iso3;
 //
@@ -48,7 +48,7 @@ Container(
 //
 //   return foundCities;
 // }
-// ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // List<Widget> countryDots(double boxWidth, String countryFlag){
 //
 //   final List<City> foundCities = countryCities(countryFlag);
@@ -108,7 +108,7 @@ Container(
 //
 //   return dots;
 // }
-// ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 class CityLabel extends StatelessWidget {
   final String cityName;
 
@@ -130,13 +130,13 @@ class CityLabel extends StatelessWidget {
     );
   }
 }
-// ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // LatLng cityLocationByCityID(String cityID){
 //   final double latitude = (cityDataBase.singleWhere((city) => city.id == cityID)).latitude;
 //   final double longitude = (cityDataBase.singleWhere((city) => city.id == cityID)).longitude;
 //   return LatLng(latitude, longitude);
 // }
-// ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 Future<BitmapDescriptor> getTheFuckingMarker()async{
   BitmapDescriptor customMarker;
    customMarker = await BitmapDescriptor.fromAssetImage(
@@ -147,7 +147,7 @@ Future<BitmapDescriptor> getTheFuckingMarker()async{
     );
    return customMarker;
   }
-// ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // HashSet<Marker> countryCitiesMarkers (String countryFlag, BitmapDescriptor customMarker){
 //   final List<City> foundCities = countryCities(countryFlag);
 //   var citiesMarkers = HashSet<Marker>();
@@ -170,7 +170,7 @@ Future<BitmapDescriptor> getTheFuckingMarker()async{
 //
 //   return citiesMarkers;
 // }
-// ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 HashSet<Marker> someMarker (BitmapDescriptor customMarker, double latitude, double longitude){
   var someMarker = HashSet<Marker>();
    someMarker.add(
@@ -188,7 +188,7 @@ HashSet<Marker> someMarker (BitmapDescriptor customMarker, double latitude, doub
    );
    return someMarker;
    }
-// ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // Future<Position> getUserLocation() async {
 //   dynamic currentLocation = LocationData;
 //   var error;
@@ -199,4 +199,4 @@ HashSet<Marker> someMarker (BitmapDescriptor customMarker, double latitude, doub
 //   Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
 //   return position;
 // }
-// ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------

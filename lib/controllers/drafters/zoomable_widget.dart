@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:matrix_gesture_detector/matrix_gesture_detector.dart';
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 /// ADD THIS IN PUBSPEC YAML
 ///
 /// dependencies:
@@ -40,4 +40,4 @@ class _ZoomableWidgetState extends State<ZoomableWidget> {
     );
   }
 }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------

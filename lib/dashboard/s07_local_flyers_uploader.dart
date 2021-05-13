@@ -37,7 +37,7 @@ class _LocalFlyersUploaderState extends State<LocalFlyersUploader> {
   int _currentFlyerIndex = 0;
   String _currentFlyerTitle = '  ';
   String _currentFlyerID = '  ';
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   /// --- LOADING BLOCK
   bool _loading = false;
   void _triggerLoading(){
@@ -45,13 +45,13 @@ class _LocalFlyersUploaderState extends State<LocalFlyersUploader> {
     _loading == true?
     print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   @override
   void initState() {
     _userID = superUserID();
     super.initState();
   }
-  // ---------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 // void _doBz(int length, int index, String name, String id){
 //     setState(() {
 //       _bzzLength = length;
@@ -60,7 +60,7 @@ class _LocalFlyersUploaderState extends State<LocalFlyersUploader> {
 //       _currentBzIndex = index;
 //     });
 // }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 //   void _doFlyer(int length, int index, String title, String id){
 //     setState(() {
 //       _flyersLength = length;
@@ -69,7 +69,7 @@ class _LocalFlyersUploaderState extends State<LocalFlyersUploader> {
 //       _currentFlyerIndex = index;
 //     });
 //   }
-  // ---------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
 //   Future<void> _upload(UserModel userModel) async {
 //   print('starting upload ---------------------------------');
@@ -253,7 +253,7 @@ class _LocalFlyersUploaderState extends State<LocalFlyersUploader> {
 //   print('upload finished ---------------------------------');
 //
 // }
-  // ---------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 //   Future<void> _fixUserBzzIDsList() async {
 //
 //   /// add _bzID to users existing list
@@ -353,7 +353,7 @@ class _LocalFlyersUploaderState extends State<LocalFlyersUploader> {
   }
 }
 
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 /// create empty firestore flyer doc and return flyerID 'docID'
 Future<FlyerModel> createNamedFlyersOps(BuildContext context, FlyerModel inputFlyerModel, BzModel bzModel) async {
 

@@ -3,7 +3,7 @@ import 'package:bldrs/controllers/drafters/text_manipulators.dart';
 import 'area_model.dart';
 import 'country_model.dart';
 import 'namez_model.dart';
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 class Province{
   final String iso3;
   final String name;
@@ -22,7 +22,7 @@ class Province{
     this.isPublic,
     this.namez,
   });
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   Map<String, Object> toMap(){
     return {
       'iso3' : iso3,
@@ -34,7 +34,7 @@ class Province{
       'namez' : Namez.cipherNamezz(namez),
     };
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   static List<Map<String, dynamic>> cipherProvinces(List<Province> provinces){
     List<Map<String, dynamic>> _provincesMaps = new List();
     provinces.forEach((pr) {
@@ -42,7 +42,7 @@ class Province{
     });
     return _provincesMaps;
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   static Province decipherProvinceMap(Map<String, dynamic> map){
     return Province(
       iso3 : map['iso3'],
@@ -54,7 +54,7 @@ class Province{
       namez : Namez.decipherNamezzMaps(map['names']),
     );
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   static List<Province> decipherProvincesMaps(List<dynamic> maps){
     List<Province> _provinces = new List();
     maps?.forEach((map) {
@@ -62,7 +62,7 @@ class Province{
     });
     return _provinces;
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   static List<String> getProvincesNamesFromCountryModel(Country country){
     List<String> _provincesNames = new List();
 
@@ -76,6 +76,6 @@ class Province{
 
     return _provincesNames;
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 
 }

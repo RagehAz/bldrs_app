@@ -6,12 +6,12 @@ import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 class UserProvider{
   final String userID;
 
   UserProvider({this.userID});
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   /// users list from snapshot
   List<UserModel> _usersListFromSnapshot(QuerySnapshot snapshot){
     return snapshot.docs.map((doc) {
@@ -38,7 +38,7 @@ class UserProvider{
       );
     }).toList();
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   /// UserModel from Snapshot
   UserModel _userModelFromSnapshot(DocumentSnapshot doc){
 
@@ -70,21 +70,21 @@ class UserProvider{
       throw(error);
     }
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   /// get users streams
   Stream<List<UserModel>> get allUsersStream {
     CollectionReference _userCollection = UserOps().userCollectionRef();
     return _userCollection.snapshots()
         .map(_usersListFromSnapshot);
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   /// get user doc stream
   Stream<UserModel> get userData {
     CollectionReference _userCollection = UserOps().userCollectionRef();
     return _userCollection.doc(userID).snapshots()
         .map(_userModelFromSnapshot);
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // Future<UserModel> getUserModel(BuildContext context, String userID) async {
 //   Map<String, dynamic> _userMap = await Fire.readDoc(
 //     context: context,
@@ -94,7 +94,7 @@ class UserProvider{
 //   UserModel _userModel = UserModel.decipherUserMap(_userMap);
 //   return _userModel;
 // }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 
 Future<dynamic> getSavedFlyersIDs(BuildContext context) async {
 

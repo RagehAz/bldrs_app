@@ -26,7 +26,7 @@ class UsersManagerScreen extends StatefulWidget {
 }
 
 class _UsersManagerScreenState extends State<UsersManagerScreen> {
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   /// --- LOADING BLOCK
   bool _loading = false;
   void _triggerLoading(){
@@ -34,13 +34,12 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
     _loading == true?
     print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
   }
-// ---------------------------------------------------------------------------
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

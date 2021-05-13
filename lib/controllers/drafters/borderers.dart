@@ -3,7 +3,7 @@ import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:flutter/material.dart';
 
 class Borderers{
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
   /// takes context then goes english 'ltr' counter clockwise starting
   ///
   /// context -> topLeft -> bottomLeft -> bottomRight -> topRight
@@ -24,7 +24,7 @@ class Borderers{
         bottomRight: Radius.circular(enBottomRight),
       );
   }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
   static BorderRadius superFlyerCorners (BuildContext context, double flyerZoneWidth){
     double bottomFlyerCorner = flyerZoneWidth * Ratioz.xxflyerBottomCorners;
     double upperFlyerCorner = flyerZoneWidth * Ratioz.xxflyerTopCorners;
@@ -36,7 +36,7 @@ class Borderers{
         enTopRight: upperFlyerCorner);
     return flyerCorners;
   }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
   static BorderRadius superHeaderShadowCorners (BuildContext context, double flyerZoneWidth){
     double upperFlyerCorner = flyerZoneWidth * Ratioz.xxflyerTopCorners;
     BorderRadius flyerCorners = superBorderRadius(
@@ -48,7 +48,7 @@ class Borderers{
     );
     return flyerCorners;
   }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
   static BorderRadius superHeaderCorners (BuildContext context, bool bzPageIsOn, double flyerZoneWidth){
     double headerMainCorners = flyerZoneWidth * Ratioz.xxflyerTopCorners;
     double headerZeroCorner = bzPageIsOn == true ? 0 : headerMainCorners;
@@ -61,7 +61,7 @@ class Borderers{
     );
     return headerCorners;
   }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
   static BorderRadius superHeaderStripCorners(BuildContext context, bool bzPageIsOn, double flyerZoneWidth){
     double headerMainCorners = flyerZoneWidth * Ratioz.xxflyerTopCorners;//bzPageIsOn == false ? flyerZoneWidth * Ratioz.xxflyerTopCorners : flyerZoneWidth * Ratioz.bzLogCorner;
     double headerZeroCorner = bzPageIsOn == false ? headerMainCorners : 0;
@@ -74,7 +74,7 @@ class Borderers{
     );
     return headerStripCorners;
   }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
   static BorderRadius superFollowOrCallCorners(BuildContext context, double flyerZoneWidth, bool gettingFollowCorner){
     double headerMainCorners = flyerZoneWidth * Ratioz.xxflyerTopCorners;
     double headerOffsetCorner = headerMainCorners - flyerZoneWidth * Ratioz.xxfollowCallSpacing;
@@ -102,7 +102,7 @@ class Borderers{
     );
     return gettingFollowCorner == true ? followCorners : callCorners;
   }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
   static OutlineInputBorder superOutlineInputBorder(Color borderColor, double corner) {
     return OutlineInputBorder(
       borderRadius: BorderRadius.circular(corner),
@@ -113,11 +113,11 @@ class Borderers{
       gapPadding: 0,
     );
   }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
   static BorderRadius superBorderAll(BuildContext context, double corners){
     return BorderRadius.all(Radius.circular(corners));
   }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
   /// used in [MiniHeaderStrip] widget
   static BorderRadius superLogoCorner(BuildContext context, double flyerZoneWidth){
     double headerMainPadding = flyerZoneWidth * Ratioz.xxflyerHeaderMainPadding;
@@ -134,6 +134,6 @@ class Borderers{
     );
     return logoCorners;
   }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 }
 

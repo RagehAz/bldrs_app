@@ -149,7 +149,7 @@ class FlyerModel with ChangeNotifier{
       default : return null;
     }
   }
-  // -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   static FlyerType decipherFlyerType (int x){
     switch (x){
       case 1:   return  FlyerType.Property;     break;
