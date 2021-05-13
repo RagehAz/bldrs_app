@@ -78,7 +78,7 @@ class SuperTextField extends StatefulWidget {
 
 class _SuperTextFieldState extends State<SuperTextField> {
   // TextEditingController widget.textController;
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 @override
   void initState() {
   // widget.textController = widget.textController ;
@@ -92,7 +92,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
   // super.dispose();
   // }
 
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   /// --- TEXT DIRECTION BLOCK
   /// USER LIKE THIS :-
   /// onChanged: (val){_changeTextDirection();},
@@ -103,7 +103,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
     });
     print('$val, $_textDirection');
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
@@ -147,10 +147,10 @@ class _SuperTextFieldState extends State<SuperTextField> {
     double _labelCorner = widget.labelColor == Colorz.Nothing ? 0 : _labelCornerValues;
     // --- LABEL PADDINGS -----------------------------------------------
     double _sidePaddingValues = superVerseSidePaddingValues(context, _size);
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     double _sidePaddings =
     widget.labelColor == Colorz.Nothing ? 0 : _sidePaddingValues;
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     TextStyle superTextStyle(Color textColor, double sizeFactor) {
       return TextStyle(
           backgroundColor: _boxColor,
@@ -178,7 +178,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
           ]
       );
     }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     TextStyle superHintStyle(Color _textColor, double _sizeFactor) {
       return TextStyle(
         backgroundColor: _boxColor,
@@ -194,7 +194,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
         shadows: [],
       );
     }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     TextDirection _concludedTextDirection =
     /// when widget.textDirection is already defined, it overrides all
     widget.textDirection != null ? widget.textDirection :
@@ -206,7 +206,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
     // textIsEnglish(widget.textController.text) == true ? TextDirection.ltr :
     // textIsEnglish(widget.textController.text) == false ? TextDirection.rtl :
     _textDirection;
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     InputDecoration _inputDecoration = InputDecoration(
       hintText: widget.hintText,
       hintMaxLines: 1,
@@ -239,24 +239,24 @@ class _SuperTextFieldState extends State<SuperTextField> {
       // errorText: 'there is some error here',
       // icon: WebsafeSvg.asset(Iconz.DvRageh, height: 20),
     );
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     EdgeInsets _boxPadding = EdgeInsets.only(
         bottom: widget.counterIsOn == true ? _sidePaddings : 0);
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     BoxDecoration _boxDecoration = BoxDecoration(
       borderRadius: BorderRadius.all(Radius.circular(_labelCorner)),
       color: widget.fieldColor,
     );
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     TextAlign _textAlign = widget.centered == true ? TextAlign.center : TextAlign.start;
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     int _maxLines = widget.obscured == true ? 1 : widget.maxLines;
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     void _onChanged(val){
       _changeTextDirection(val);
       widget.onChanged(val);
     }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     return
 
       widget.fieldIsFormField == true ?
@@ -318,7 +318,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
 
           :
 
-          /// TEXT FIELD -------------------------------
+      /// TEXT FIELD -------------------------------
       Container(
         width: widget.width,
         padding: _boxPadding,

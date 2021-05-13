@@ -17,6 +17,7 @@ class FlyersGrid extends StatefulWidget {
   final bool scrollable;
   final bool stratosphere;
   final Axis scrollDirection;
+  final Function tinyFlyerOnTap;
 
   FlyersGrid({
     @required this.gridZoneWidth,
@@ -25,6 +26,7 @@ class FlyersGrid extends StatefulWidget {
     this.scrollable = false,
     this.stratosphere = false,
     this.scrollDirection = Axis.vertical,
+    this.tinyFlyerOnTap,
 });
 
   @override
@@ -161,7 +163,11 @@ class _FlyersGridState extends State<FlyersGrid> {
                         TinyFlyerWidget(
                           tinyFlyer: _tinyFlyers[index],
                           flyerSizeFactor: _flyerSizeFactor,
-                          onTap: (tinyFlyer) => Nav().openFlyer(context, _tinyFlyers[index]),
+                          onTap:
+                              widget.tinyFlyerOnTap == null ?
+                              (tinyFlyer) => Nav().openFlyer(context, _tinyFlyers[index])
+                                  :
+                              (tinyFlyer) => widget.tinyFlyerOnTap(_tinyFlyers[index])
                         );
 
                     }),

@@ -37,10 +37,10 @@ class MiniHeaderStrip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     double _stripHeight = Scale.superHeaderStripHeight(bzPageIsOn, flyerZoneWidth);
     BorderRadius _stripBorders = Borderers.superHeaderStripCorners(context, bzPageIsOn, flyerZoneWidth);
-
+// -----------------------------------------------------------------------------
     return
       Align(
         alignment: Alignment.topCenter,

@@ -19,7 +19,7 @@ class FeedBack extends StatefulWidget {
 
 class _FeedBackState extends State<FeedBack> {
   TextEditingController _feedbackController;
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   /// --- LOADING BLOCK
   bool _loading = false;
   void _triggerLoading(){
@@ -27,19 +27,19 @@ class _FeedBackState extends State<FeedBack> {
     _loading == true?
     print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   @override
   void initState() {
     _feedbackController = new TextEditingController();
     super.initState();
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   @override
   void dispose() {
     _feedbackController.dispose();
     super.dispose();
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   Future<void> _uploadFeedBack() async {
 
     _triggerLoading();
@@ -67,7 +67,7 @@ class _FeedBackState extends State<FeedBack> {
     Nav.goBack(context);
 
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return MainLayout(

@@ -11,7 +11,7 @@ class SliverFlyersGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
       int flyerIndex = 0;
-// -------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     double screenWidth = MediaQuery.of(context).size.width * 0.5;
     double gridSpacing = 10;
 

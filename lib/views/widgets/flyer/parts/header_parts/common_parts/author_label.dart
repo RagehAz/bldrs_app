@@ -44,22 +44,22 @@ class AuthorLabel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    // === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
     double _screenWidth = Scale.superScreenWidth(context);
     bool _versesDesignMode = false;
     bool _versesShadow = false;
-    // === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
     double _headerTextSidePadding = flyerZoneWidth * Ratioz.xxflyersGridSpacing;
-    // === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
     double _authorDataHeight =
     // flyerShowsAuthor == true ?
     (flyerZoneWidth * Ratioz.xxflyerAuthorPicWidth)
     //     :
     // (flyerZoneWidth * ((Ratioz.xxflyerHeaderHeight* 0.3)-(2*Ratioz.xxflyerHeaderMainPadding)) )
     ;
-    // === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
     double _authorDataWidth = flyerZoneWidth * (Ratioz.xxflyerAuthorPicWidth+Ratioz.xxflyerAuthorNameWidth);
-    // === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
     // --- FOLLOWERS COUNTER --- --- --- --- --- --- --- --- --- --- --- FOLLOWERS COUNTER
     int _followersCount = tinyBz.bzTotalFollowers;
     int _bzGalleryCount = tinyBz.bzTotalFlyers;
@@ -68,9 +68,9 @@ class AuthorLabel extends StatelessWidget {
     showLabel == true ?
         '${separateKilos(authorGalleryCount)} ${Wordz.flyers(context)}' :
         '${counterCaliber(context, _followersCount)} ${Wordz.followers(context)} . ${counterCaliber(context, _bzGalleryCount)} ${Wordz.flyers(context)}';
-    // === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
     double _authorImageCorners = flyerZoneWidth * Ratioz.xxflyerAuthorPicCorner;
-    // === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 
     return
       GestureDetector(
