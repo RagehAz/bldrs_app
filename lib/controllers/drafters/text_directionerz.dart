@@ -3,31 +3,31 @@ import 'package:flutter/material.dart';
 
 import 'text_checkers.dart';
 import 'text_manipulators.dart';
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 /// TASK : need to test this method to detect text direction
 // import 'package:intl/intl.dart' as international;
 // bool isRTL(String text) {
 //   return international.Bidi.detectRtlDirectionality(text);
 // }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 bool appIsLeftToRight(BuildContext context){
   return Wordz.textDirection(context) == 'ltr' ? true : false;
 }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 TextDirection superTextDirection(BuildContext context){
   if (appIsLeftToRight(context))
   {return TextDirection.ltr;}
   else
   {return TextDirection.rtl;}
 }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 TextDirection superInverseTextDirection(BuildContext context){
   if (appIsLeftToRight(context))
   {return TextDirection.rtl;}
   else
   {return TextDirection.ltr;}
 }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 /// if keyboard lang is ltr ? ltr : rtl
 /// On native iOS the current keyboard language can be gotten from
 /// UITextInputMode
@@ -66,7 +66,7 @@ TextDirection superTextDirectionSwitcherByController(TextEditingController contr
 
   return _textDirection;
 }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 TextDirection superTextDirectionSwitcher(String val){
   TextDirection _textDirection;
 
@@ -98,4 +98,4 @@ TextDirection superTextDirectionSwitcher(String val){
 
   return _textDirection;
 }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------

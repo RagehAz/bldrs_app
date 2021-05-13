@@ -1,5 +1,5 @@
 class Ratioz {
-// -------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // FONT SIZES
 
 static const double fontSize0 = 0.013; // -- 8 -- A77A
@@ -20,7 +20,7 @@ static const double fontSize7 = 0.052; // -- 28 -- Massive
 
 static const double fontSize8 = 0.058; // -- 30 -- Gigantic
 
-// -------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // BLDRS APPBARS
 static const double ddAppBarCorner = 18; // ORIGINALLY MediaQuery.of(context).size.height * 0.0215;
 static const double ddAppBarButtonCorner = 13;
@@ -51,7 +51,7 @@ static const double rrFlyerHeaderHeight = 0.142;
 static const double rrFlyerProgressBarHeight = 0.0075;
 static const double rrFlyerTitleTopMargin = rrFlyerHeaderHeight + rrFlyerProgressBarHeight;
 
-// -------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // flyer ratios multiplied by FlyerZoneWidth
 static const double xxflyerZoneHeight = 1.74;
 static const double xxflyerTopCorners = 0.05;
@@ -79,22 +79,22 @@ static const double xxflyersGridSpacing = 0.02;
 // Business logo corners Ratio in respect to Container Width or Height
 static const double bzLogoCorner = 0.17152;
 
-// -------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // paddings
 static const double stratosphere = 70;
 static const double horizon = ddPyramidsHeight * 0.4;
 static const double grandHorizon = ddPyramidsHeight;
-// -------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // Durations
 static const Duration slidingDuration = Duration(milliseconds: 400);
 static const Duration fadingDuration = Duration(milliseconds: 150);
 static const Duration slidingAndFadingDuration = Duration(milliseconds: 750);
 static const Duration slidingTransitionDuration = Duration(milliseconds: 200);
-// -------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // Blur
 static const double blur1 = 10;
 static const double blur2 = 15;
 static const double blur3 = 20;
-// -------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 
 }

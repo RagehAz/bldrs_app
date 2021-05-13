@@ -128,7 +128,7 @@ Future<PickedFile> takeCameraPicture(PicType picType) async {
 // final _fileName = path.basename(_imageFile.path);
 // final _savedImage = await _currentPic.copy('${_appDir.path}/$_fileName');
 // _selectImage(savedImage);
-// // -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 class ImageSize{
   final int width;
   final int height;

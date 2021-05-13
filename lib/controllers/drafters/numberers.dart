@@ -1,6 +1,6 @@
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:flutter/material.dart';
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 /// THE SEPARATOR AFTER EACH 3 DIGITS IN AN INTEGER X'XXX'XXX ...
 String separateKilos(int number) {
   if (number == null) return '0';
@@ -15,7 +15,7 @@ String separateKilos(int number) {
   }
   return result.toString();
 }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 String counterCaliber(BuildContext context, int x){
        return
          x == null ? 0 :
@@ -39,4 +39,4 @@ String counterCaliber(BuildContext context, int x){
              :
          '${x.toStringAsFixed(0)}';
 }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------

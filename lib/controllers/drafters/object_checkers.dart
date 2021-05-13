@@ -4,18 +4,18 @@ import 'package:flutter/material.dart';
 
 import 'text_manipulators.dart';
 
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 extension FileExtention on FileSystemEntity {
   String get fileNameWithExtension {
     return this?.path?.split("/")?.last;
   }
 
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
   String get fileExtension {
     return this?.path?.split(".")?.last;
   }
 }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 class ObjectChecker {
 // -----------------------------------------------------------------------------
   static fileExtensionOf(dynamic file) {
