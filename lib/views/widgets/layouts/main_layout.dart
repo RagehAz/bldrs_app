@@ -23,7 +23,7 @@ import 'package:bldrs/views/widgets/buttons/rageh_button.dart';
 import 'package:provider/provider.dart';
 import '../../../main.dart';
 import 'package:flutter_keyboard_size/flutter_keyboard_size.dart';
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 enum AppBarType{
   Basic,
   Scrollable,
@@ -33,13 +33,13 @@ enum AppBarType{
   // InPyramids,
   // Sections,
 }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 enum Sky {
   Night,
   Black,
   Non,
 }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 // // ---------------------------------------------------------------------------
 // /// --- LOADING BLOCK
 // bool _loading = false;
@@ -49,7 +49,7 @@ enum Sky {
 //   print('LOADING') : print('LOADING COMPLETE');
 // }
 // // ---------------------------------------------------------------------------
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 class MainLayout extends StatelessWidget {
   final List<Widget> appBarRowWidgets;
   final Widget layoutWidget;
@@ -178,7 +178,7 @@ class MainLayout extends StatelessWidget {
                 Scaffold(
                   key: key,
                   resizeToAvoidBottomInset: false, // this false prevents keyboard from pushing pyramids up
-                  resizeToAvoidBottomPadding: false,
+                  // resizeToAvoidBottomPadding: false,
                   backgroundColor: _backgroundColor,
                   body:
                   canRefreshFlyers ?
@@ -212,7 +212,7 @@ class MainLayout extends StatelessWidget {
     );
   }
 }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 /// --- for testing purposes, only used in appBar
 Widget zorar(Function function, String functionName){
   return DreamBox(
@@ -224,7 +224,7 @@ Widget zorar(Function function, String functionName){
     boxFunction: function,
   );
 }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 /// --- THE HORIZON IS BOTTOM PADDING THAT RESPECTS PYRAMIDS HEIGHT
 class PyramidsHorizon extends StatelessWidget {
   final double heightFactor;
@@ -241,7 +241,7 @@ class PyramidsHorizon extends StatelessWidget {
     );
   }
 }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 /// --- STRATOSPHERE IS UPPER SCREEN PADDING THAT RESPECTS APPBAR HEIGHT
 class Stratosphere extends StatelessWidget {
   final double heightFactor;
@@ -262,5 +262,5 @@ class Stratosphere extends StatelessWidget {
     );
   }
 }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 

@@ -32,7 +32,7 @@ class FollowAndCallBTs extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
     double headerMainHeight = Scale.superHeaderStripHeight(bzPageIsOn, flyerZoneWidth);
     double headerMainPadding = flyerZoneWidth * Ratioz.xxflyerHeaderMainPadding;
     double headerOffsetHeight = headerMainHeight - (2 * headerMainPadding);
@@ -40,7 +40,7 @@ class FollowAndCallBTs extends StatelessWidget {
     double followGalleryHeight = headerOffsetHeight;
     double followGalleryWidth = flyerZoneWidth * Ratioz.xxflyerFollowBtWidth;
     double fakeSpaceBetweenFollowGallery = headerMainPadding;
-    // === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
     return
       bzPageIsOn == true ? Container () :
       Container(
@@ -188,20 +188,20 @@ class CallBT extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
     bool versesDesignMode = false;
     bool versesShadow = false;
     bool miniMode = Scale.superFlyerMiniMode(context, flyerZoneWidth);
-    // --- call BUTTON --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+    // --- call BUTTON
     Color callBTColor = Colorz.WhiteAir;
     double callBTHeight = flyerZoneWidth * Ratioz.xxCallBTHeight;
     double callBTWidth = flyerZoneWidth * Ratioz.xxfollowCallWidth;
-    // --- call ICON --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+    // --- call ICON
     String callIcon = Iconz.ComPhone;
     double callIconWidth = flyerZoneWidth * 0.05;
-    // === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
     BorderRadius roundCorners = Borderers.superFollowOrCallCorners(context, flyerZoneWidth, false);
-    // === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
     return
       miniMode == true ? Container() :
       GestureDetector(

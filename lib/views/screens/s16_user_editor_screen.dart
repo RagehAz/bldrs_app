@@ -60,7 +60,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
  TextEditingController _pinterestController = TextEditingController();
  TextEditingController _tiktokController = TextEditingController();
  TextEditingController _twitterController = TextEditingController();
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   /// --- LOADING BLOCK
   bool _loading = false;
   void _triggerLoading(){
@@ -68,7 +68,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     _loading == true?
     print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   @override
   void initState() {
     _nameController.text = widget.user.name;

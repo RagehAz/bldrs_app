@@ -57,20 +57,20 @@ class SingleSlide extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     double _screenWidth = Scale.superScreenWidth(context);
-    // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     bool _microMode = Scale.superFlyerMicroMode(context, flyerZoneWidth);
-    // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     int _slideTitleSize =
     flyerZoneWidth <= _screenWidth && flyerZoneWidth > (_screenWidth*0.75) ? 4 :
     flyerZoneWidth <= (_screenWidth*0.75) && flyerZoneWidth > (_screenWidth*0.5) ? 3 :
         flyerZoneWidth <= (_screenWidth*0.5) && flyerZoneWidth > (_screenWidth*0.25) ? 2 :
         flyerZoneWidth <= (_screenWidth*0.25) && flyerZoneWidth > (_screenWidth*0.1) ? 1 : 0
     ;
-    // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     LinkModel _theFlyerLink = LinkModel(url: 'flyer @ index: $slideIndex', description: 'flyer to be shared aho');
-    // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     /// blur layer shall only be active if the height of image supplied is smaller
     /// than flyer height when image width = flyerWidth
     /// hangebha ezzay dih
@@ -80,7 +80,7 @@ class SingleSlide extends StatelessWidget {
     boxFit == BoxFit.cover ? true :
     boxFit == BoxFit.fitWidth || boxFit == BoxFit.contain || boxFit == BoxFit.scaleDown ? true :
         false;
-    // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 
     // int _imageWidth = getImageWidth();
 
@@ -95,7 +95,7 @@ class SingleSlide extends StatelessWidget {
 
 
     }
-
+// -----------------------------------------------------------------------------
     return Container(
       width: flyerZoneWidth,
       height: Scale.superFlyerZoneHeight(context, flyerZoneWidth),

@@ -105,12 +105,11 @@ class UserBubble extends StatelessWidget {
           size: 1,
         ),
 
-
-
         SizedBox(
           width: screenWidth,
           height: screenHeight * 0.05,
         ),
+
       ],
     );
   }

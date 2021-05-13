@@ -89,10 +89,12 @@ TextDirection superTextDirectionSwitcher(String val){
     } else if (TextChecker.textStartsInArabic(_firstCharacter)){
       _textDirection = TextDirection.rtl;
     } else {
-      _textDirection = null;
+      _textDirection = TextDirection.ltr; // instead of null
     }
 
-  } else {_textDirection = null;}
+  } else {
+    _textDirection = TextDirection.ltr; // instead of null
+  }
 
   return _textDirection;
 }

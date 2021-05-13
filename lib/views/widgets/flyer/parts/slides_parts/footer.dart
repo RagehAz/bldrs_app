@@ -26,17 +26,17 @@ class FlyerFooter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // === === === === === === === === === === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 
-    // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     // double _screenWidth = superScreenWidth(context);
 
     double _flyerZoneWidth = flyerZoneWidth;
     double _flyerBottomCorners = flyerZoneWidth * Ratioz.xxflyerBottomCorners;
-    // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     bool _miniMode = Scale.superFlyerMiniMode(context, flyerZoneWidth) ;
 
-    // --- SHARE & SAVE BUTTONS --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- SHARE & SAVE BUTTONS
+    // --- SHARE & SAVE BUTTONS
     double _footerBTMargins = flyerZoneWidth * 0.025; //
     double _footerBTRadius = _flyerBottomCorners - _footerBTMargins;
     dynamic _footerBTColor = Colorz.GreySmoke;
@@ -48,7 +48,7 @@ class FlyerFooter extends StatelessWidget {
     // dynamic saveBTColor = ankhOn == true ? Colorz.SkyDarkBlue : footerBTColor;
 
 
-    // --- FLYER FOOTER CONTAINER--- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- FLYER FOOTER
+    // --- FLYER FOOTER CONTAINER
     double _flyerFooterWidth =
         // flyerZoneWidth == MediaQuery.of(context).size.width ?
         // (flyerZoneWidth-(flyerZoneWidth * Ratioz.xxflyerMainMargins * 2 ))

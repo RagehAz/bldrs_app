@@ -45,23 +45,23 @@ class NavBar extends StatelessWidget {
     this.sky = Sky.Night,
     this.myTinyBzz,
 });
-// ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   /// --- MAIN CONTROLS
   final double _circleWidth = 40;
   final double _paddings = Ratioz.ddAppBarPadding * 1.5;
   final double _textScaleFactor = 0.95;
   final int _textSize = 0;
-// ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   double _calculateButtonWidth(){
     double _buttonWidth =_circleWidth + (_paddings * 0.5 * 2) + (_paddings * 0.5 * 2);
     return _buttonWidth;
 }
-// ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   int _calculateNumberOfButtons(UserModel userModel){
     int _numberOfButtons = UserModel.userIsAuthor(userModel) ? 4 : 3;
     return _numberOfButtons;
   }
-// ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   double _calculateSpacings(BuildContext context, double buttonWidth, int numberOfButtons, int numberOfSpacings, double spacingFactor){
     double _spacings =
     barType == BarType.max || barType == BarType.maxWithText ?
@@ -71,7 +71,7 @@ class NavBar extends StatelessWidget {
     ;
     return _spacings;
   }
-// ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   double _calculateBoxWidth(BuildContext context, UserModel userModel){
     double _buttonWidth = _calculateButtonWidth();
     int _numberOfButtons = _calculateNumberOfButtons(userModel);
@@ -87,7 +87,7 @@ class NavBar extends StatelessWidget {
 
     return _boxWidth;
   }
-// ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   double _calculateSpacerWidth(BuildContext context, UserModel userModel){
     double _buttonWidth = _calculateButtonWidth();
     int _numberOfButtons = _calculateNumberOfButtons(userModel);
@@ -99,7 +99,7 @@ class NavBar extends StatelessWidget {
 
     return _halfSpacer;
   }
-// ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   double _myBzzListSlideHeight(BuildContext context){
     double _wantedHeight = (Scale.superScreenWidth(context) * 0.3 * myTinyBzz.length);
     double _maxHeight = Scale.superScreenHeight(context) * 0.5;
@@ -111,7 +111,7 @@ class NavBar extends StatelessWidget {
     }
     return _finalHeight;
   }
-// ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   void _multiBzzSlider(BuildContext context, UserModel userModel){
 
     double _sliderHeight = _myBzzListSlideHeight(context);
@@ -186,19 +186,19 @@ class NavBar extends StatelessWidget {
             ),
           );
         }
-// ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    // -------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     double _screenWidth = Scale.superScreenWidth(context);
     double _buttonCircleCorner = _circleWidth * 0.5;
-    // -------------------------
+// -----------------------------------------------------------------------------
     double _textBoxHeight =
     barType == BarType.maxWithText || barType == BarType.minWithText ?
     superVerseRealHeight(context, _textSize, _textScaleFactor, null) : 0;
-    // -------------------------
+// -----------------------------------------------------------------------------
     double _boxCorner = _buttonCircleCorner + _paddings;
-    // -------------------------
+// -----------------------------------------------------------------------------
     BorderRadius _boxBorders =
     barType == BarType.min ?
     Borderers.superBorderRadius(context: context, enTopLeft: _boxCorner, enBottomLeft: _boxCorner, enBottomRight: _boxCorner, enTopRight: _boxCorner)
@@ -208,28 +208,27 @@ class NavBar extends StatelessWidget {
         :
     Borderers.superBorderRadius(context: context, enTopLeft: _boxCorner, enBottomLeft: _boxCorner * 0.5, enBottomRight: _boxCorner * 0.5, enTopRight: _boxCorner)
     ;
-    // -------------------------
+// -----------------------------------------------------------------------------
     double _buttonHeight = _circleWidth + ( 2 * _paddings ) + _textBoxHeight;
-    // -------------------------
+// -----------------------------------------------------------------------------
     double _boxHeight =
         barType == BarType.maxWithText || barType == BarType.minWithText ?
         _circleWidth + ( _paddings * 2) + (_textBoxHeight)
             :
         _circleWidth + ( _paddings * 2);
-    // -------------------------
+// -----------------------------------------------------------------------------
     double _bottomOffset =
     barType == BarType.min || barType == BarType.minWithText ? _paddings :
     barType == BarType.max || barType == BarType.maxWithText ? 0 : 0;
-    // -------------------------
+// -----------------------------------------------------------------------------
     // final _userID = (FirebaseAuth.instance.currentUser)?.uid;
-    // -------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     // FlyersProvider prof = Provider.of<FlyersProvider>(context, listen: true);
-
+// -----------------------------------------------------------------------------
     bool _deviceIsIOS = DeviceChecker.deviceIsIOS() ? true : false;
-
+// -----------------------------------------------------------------------------
     Widget _expander = _deviceIsIOS ? Expanded(child: Container(),) : Container();
-
-
+// -----------------------------------------------------------------------------
     return
 
        userStreamBuilder(

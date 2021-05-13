@@ -30,7 +30,7 @@ class _AnkhButtonState extends State<AnkhButton> with SingleTickerProviderStateM
   AnimationController _ankhAniController;
   Animation _ankhColorAni;
   bool _ankhIsOn;
-
+// -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
@@ -65,20 +65,20 @@ class _AnkhButtonState extends State<AnkhButton> with SingleTickerProviderStateM
     });
 
   }
-
+// -----------------------------------------------------------------------------
   @override
   void dispose() {
     _ankhAniController.dispose();
     super.dispose();
   }
-
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    // ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     // final pro = Provider.of<CoFlyer>(context, listen: false);
     // bool ankhIsOn = pro.ankhIsOn;
     // String flyerID = pro.flyer.flyerID;
-    // ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     double _footerBTMargins =
     (
         (_ankhIsOn == true && widget.microMode == true && widget.slidingIsOn == false) ?
@@ -89,16 +89,16 @@ class _AnkhButtonState extends State<AnkhButton> with SingleTickerProviderStateM
             :
         widget.flyerZoneWidth * 0.025 // for Normal flyer when !AnkhIsOn
     );
-    // ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     double _flyerBottomCorners = widget.flyerZoneWidth * Ratioz.xxflyerBottomCorners;
     double _saveBTRadius = _flyerBottomCorners - _footerBTMargins;
     // String saveBTIcon = ankhIsOn == true ? Iconz.SaveOn : Iconz.SaveOff;
     // String saveBTVerse = ankhIsOn == true ? translate(context, 'Saved') :
     // translate(context, 'Save');
     // Color _saveBTColor = _ankhIsOn == true ? Colorz.YellowSmoke : Colorz.Nothing;
-    // ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     // Color flyerShadowColor = ankhIsOn == true ? Colorz.BlackBlack : Colorz.BlackBlack;
-    // ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     return
       AnimatedBuilder(
         animation: _ankhAniController,

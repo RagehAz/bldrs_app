@@ -32,27 +32,27 @@ class MaxHeader extends StatelessWidget {
       context: context,
       bzID: tinyBz.bzID,
       builder: (ctx, bz){
-        // === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
         String _bzScope = bz != null ? bz.bzScope : '';
-        // === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
         final List<NanoFlyer> _galleryFlyers = bz.nanoFlyers;
-        // === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
         List<AuthorModel> _bzAuthors = bz != null ? bz?.bzAuthors : [];
-        // === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
         List<String> _bzTeamIDs = [];
         if(_bzAuthors != null) {
           _bzAuthors.forEach((au) {
             _bzTeamIDs.add(au.userID);
           });
         }
-        // === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
         int _followersCount  = bz != null ? bz.bzTotalFollowers  : 0;
         int _bzTotalSaves    = bz != null ? bz.bzTotalSaves      : 0;
         int _bzTotalShares   = bz != null ? bz.bzTotalShares     : 0;
         int _bzTotalSlides   = bz != null ? bz.bzTotalSlides     : 0;
         int _bzTotalViews    = bz != null ? bz.bzTotalViews      : 0;
         int _callsCount      = bz != null ? bz.bzTotalCalls      : 0;
-        // === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
         return
           Column(
             children: <Widget>[

@@ -22,19 +22,19 @@ class SlideCounters extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // === === === === === === === === === === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 
     // --- SCREEN
     // double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
     double verseScaleFactor = flyerZoneWidth/screenWidth;
-    // --- SHARE & SAVE BUTTONS --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- SHARE & SAVE BUTTONS
+    // --- SHARE & SAVE BUTTONS
     double footerBTMargins = flyerZoneWidth * Ratioz.xxfooterBTMargins;
     void tappingCounters() {
       print('Counters are counting');
     }
 
-    // --- FLYER STATES --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- FLYER STATES
+    // --- FLYER STATES
     double flyerStateBoxCorner = flyerZoneWidth * 0.021;
 
     double singleCounterPaddingRatio = 0.5;

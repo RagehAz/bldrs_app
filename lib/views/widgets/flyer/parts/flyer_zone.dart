@@ -22,21 +22,21 @@ class FlyerZone extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     double _screenWithoutSafeAreaHeight = Scale.superScreenHeightWithoutSafeArea(context);
-    // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     double _flyerZoneWidth = Scale.superFlyerZoneWidth(context, flyerSizeFactor);
     double _flyerZoneHeight = flyerSizeFactor == 1 ?
     _screenWithoutSafeAreaHeight : _flyerZoneWidth * Ratioz.xxflyerZoneHeight;
     double _flyerTopCorners = _flyerZoneWidth * Ratioz.xxflyerTopCorners;
     double _flyerBottomCorners = _flyerZoneWidth * Ratioz.xxflyerBottomCorners;
-    // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     // void printingShit(){
     //   print('follow');
     // }
-    // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     // bool _barHidden = (bzPageIsOn == true) || (slidingIsOn = false) ?  true : false;
-    // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     // int slideIndex = widget.currentSlideIndex;
     // bool ankhIsOn = true;//flyerData.flyerAnkhIsOn;
 
@@ -54,7 +54,7 @@ class FlyerZone extends StatelessWidget {
     // Color saveBTColor = ankhIsOn == true ? Colorz.YellowSmoke : Colorz.Nothing;
 
     Color _flyerShadowColor = Colorz.BlackBlack;
-    // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 
     // print ('slidingIsOn value =$slidingIsOn');
 

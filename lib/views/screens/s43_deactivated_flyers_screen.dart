@@ -1,12 +1,16 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
+import 'package:bldrs/views/widgets/buttons/dream_box.dart';
+import 'package:bldrs/views/widgets/dialogs/bottom_sheet.dart';
 import 'package:bldrs/views/widgets/flyer/grids/flyers_grid.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/loading/loading.dart';
+import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -24,7 +28,8 @@ class DeactivatedFlyerScreen extends StatefulWidget {
 class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
   bool _isInit = true;
   List<TinyFlyer> _tinyFlyers;
-// ---------------------------------------------------------------------------
+  List<FlyerModel> _oldFlyers;
+// -----------------------------------------------------------------------------
   /// --- LOADING BLOCK
   bool _loading = false;
   void _triggerLoading(){
@@ -32,7 +37,7 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
     _loading == true?
     print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   @override
   void didChangeDependencies() {
     if (_isInit) {
@@ -45,7 +50,7 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
       _prof.fetchAndSetBzDeactivatedFlyers(context, widget.bz)
           .then((_) async {
 
-        List<FlyerModel> _oldFlyers = _prof.getBzOldFlyers;
+        _oldFlyers = _prof.getBzOldFlyers;
 
         List<TinyFlyer> _bzTinyFlyers = TinyFlyer.getTinyFlyersFromFlyersModels(_oldFlyers);
 
@@ -60,7 +65,76 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
     super.didChangeDependencies();
   }
 // -----------------------------------------------------------------------------
+  void _slideFlyerOptions(BuildContext context, TinyFlyer tinyFlyer){
 
+    double _buttonHeight = 50;
+
+    BottomSlider.slideButtonsBottomSheet(
+      context: context,
+      draggable: true,
+      buttonHeight: _buttonHeight,
+      buttons: <Widget>[
+
+        // --- DELETE Flyer
+        DreamBox(
+          height: _buttonHeight,
+          width: BottomSlider.bottomSheetClearWidth(context),
+          icon: Iconz.XSmall,
+          iconSizeFactor: 0.5,
+          iconColor: Colorz.BlackBlack,
+          verse: 'delete flyer',
+          verseScaleFactor: 1.2,
+          verseWeight: VerseWeight.black,
+          verseColor: Colorz.BlackBlack,
+          // verseWeight: VerseWeight.thin,
+          boxFunction: () => _deleteFlyerOnTap(tinyFlyer),
+        ),
+
+        // --- RE-PUBLISH FLYER
+        DreamBox(
+            height: _buttonHeight,
+            width: BottomSlider.bottomSheetClearWidth(context),
+            icon: Iconz.XSmall,
+            iconSizeFactor: 0.5,
+            iconColor: Colorz.BloodRed,
+            verse: 'Re-publish flyer',
+            verseScaleFactor: 1.2,
+            verseColor: Colorz.BloodRed,
+            // verseWeight: VerseWeight.thin,
+            boxFunction: () => _republishFlyerOnTap(tinyFlyer)
+
+        ),
+
+        // --- EDIT FLYER
+        DreamBox(
+          height: _buttonHeight,
+          width: BottomSlider.bottomSheetClearWidth(context),
+          icon: Iconz.Gears,
+          iconSizeFactor: 0.5,
+          verse: 'Edit flyer',
+          verseScaleFactor: 1.2,
+          verseColor: Colorz.White,
+          boxFunction: () => _editFlyerOnTap(tinyFlyer),
+        ),
+
+      ],
+
+    );
+
+  }
+// -----------------------------------------------------------------------------
+  void _deleteFlyerOnTap(TinyFlyer tinyFlyer){
+    print ('deleting flyer : ${tinyFlyer.flyerID}');
+  }
+// -----------------------------------------------------------------------------
+  void _republishFlyerOnTap(TinyFlyer tinyFlyer){
+    print('re-publishing flyer : ${tinyFlyer.flyerID}');
+  }
+// -----------------------------------------------------------------------------
+  void _editFlyerOnTap(TinyFlyer tinyFlyer){
+    print('Editing flyer : ${tinyFlyer.flyerID}');
+  }
+// -----------------------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
@@ -88,6 +162,12 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
         tinyFlyers: _tinyFlyers,
         scrollable: true,
         stratosphere: true,
+        tinyFlyerOnTap: (tinyFlyer){
+          print('tiny flyer is : ${tinyFlyer.flyerID}');
+
+          _slideFlyerOptions(context, tinyFlyer);
+
+        },
       ),
 
     );

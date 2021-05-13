@@ -18,10 +18,10 @@ class BzPgFields extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    // === === === === === === === === === === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
     dynamic bzPageBGColor = Colorz.BlackSmoke;
     double bzPageDividers = flyerZoneWidth * 0.005;
-    // === === === === === === === === === === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 
     return
       bzPageIsOn == false ? Container():

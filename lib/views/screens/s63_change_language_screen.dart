@@ -7,13 +7,13 @@ import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 
 class SelectLanguageScreen extends StatelessWidget {
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   Future<void> _tapLanguage(BuildContext context,String languageCode) async {
     await changeAppLanguage(context, languageCode);
 
     // Nav.pushNamedAndRemoveAllBelow(context, Routez.UserChecker);
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

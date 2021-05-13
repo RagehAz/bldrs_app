@@ -33,6 +33,7 @@ class DreamList extends StatelessWidget {
 
 
 Widget dreamListBuilder  (BuildContext c, int x, String info,String icon ,String verse, String secondLine,) {
+
      Widget dreamListItems =  Container(
         width: Scale.superScreenWidth(c),
         alignment: Alignment.center,
@@ -40,6 +41,7 @@ Widget dreamListBuilder  (BuildContext c, int x, String info,String icon ,String
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+
             SuperVerse(
               verse: '${x+1} : $info}',
               size: 1,
@@ -48,6 +50,7 @@ Widget dreamListBuilder  (BuildContext c, int x, String info,String icon ,String
               centered: false,
               margin: 5,
             ),
+
             DreamBox(
               height: 70,
               width: Scale.superScreenWidth(c)*0.95,
@@ -57,8 +60,8 @@ Widget dreamListBuilder  (BuildContext c, int x, String info,String icon ,String
               icon: icon,
               secondLine: secondLine,
               verseMaxLines: 3,
+            ),
 
-            )
           ],
         ),
       );
@@ -81,13 +84,16 @@ class DreamTile extends StatelessWidget {
 });
   @override
   Widget build(BuildContext context) {
+
     return Container(
       width: Scale.superScreenWidth(context),
       alignment: Alignment.center,
+
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
+
           SuperVerse(
             verse: '${index+1} : $info',
             size: 1,
@@ -96,6 +102,7 @@ class DreamTile extends StatelessWidget {
             centered: false,
             margin: 5,
           ),
+
           DreamBox(
             height: 70,
             width: Scale.superScreenWidth(context)*0.95,
@@ -105,8 +112,8 @@ class DreamTile extends StatelessWidget {
             icon: icon,
             secondLine: secondLine,
             verseMaxLines: 3,
+          ),
 
-          )
         ],
       ),
     );

@@ -14,13 +14,13 @@ import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'dart:ui' as ui;
 import 'package:location/location.dart';
-// ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // Google Cloud Platform
 // Bldrs
 // Google Map for Android - IOS
 // AuthorPic key 1
 // AIzaSyDQGuhqhKu1mSdNxAbS_BCP8NfCB1ENmaI
-// ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 class GoogleMapScreen extends StatefulWidget {
   final PlaceLocation initialLocation;
   final bool isSelecting;
@@ -49,7 +49,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   CameraPosition _initialCameraPosition;
   bool isLoading = false;
   GoogleMapController mapController;
-  // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   @override
   void initState(){
     super.initState();
@@ -57,7 +57,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     getUserLocation();
     confirmButtonIsActive = true;
   }
-  // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   Future<void> getUserLocation () async {
     setState(() {
       isLoading = true;
@@ -84,7 +84,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     print("CurrentLocation: $currentLocation");
     await missingFunction();
   }
-  // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   Future<void> initialize() async {
     _serviceEnabled = await location.serviceEnabled();
     if (!_serviceEnabled) {
@@ -103,11 +103,11 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     }
     print('location permission is $_permissionGranted');
   }
-  // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
   }
-  // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 
   void _selectLocation(LatLng position){
     setState(() {
@@ -116,21 +116,21 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     });
     print('The fucking position is $position');
   }
-  // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   Future<Uint8List> getBytesFromAsset(String path, int width) async {
     ByteData data = await rootBundle.load(path);
     ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(), targetWidth: width);
     ui.FrameInfo fi = await codec.getNextFrame();
     return (await fi.image.toByteData(format: ui.ImageByteFormat.png)).buffer.asUint8List();
   }
-  // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   Future<void> missingFunction()async{
     print('missing function starts');
     final Uint8List markerIcon = await getBytesFromAsset(Iconz.FlyerPinPNG, markerWidth);
     customMarker = BitmapDescriptor.fromBytes(markerIcon);
     print('missing function ends ${customMarker.toString()}');
   }
-  // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

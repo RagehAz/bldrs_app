@@ -32,7 +32,7 @@ class _SlidesState extends State<Slides> {
   // int _currentSlideIndex;
   int _slidesLength;
   PageController _slidingController;
-
+// -----------------------------------------------------------------------------
   @override
   void initState() {
     // _currentSlideIndex = widget.currentSlideIndex;
@@ -40,28 +40,28 @@ class _SlidesState extends State<Slides> {
     _slidingController = PageController(viewportFraction: 1, initialPage: widget.currentSlideIndex, keepPage: true);
     super.initState();
   }
-
+// -----------------------------------------------------------------------------
   @override
   void dispose() {
     _slidingController.dispose();
     super.dispose();
   }
-
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+// -----------------------------------------------------------------------------
     print('------------------------- building slides with index ${widget.currentSlideIndex}');
-
-    // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     double _progressBarHeight = widget.flyerZoneWidth * 0.0125;
     double _headerHeight = Scale.superHeaderHeight(false, widget.flyerZoneWidth);
     double _footerHeight = Scale.superFlyerFooterHeight(widget.flyerZoneWidth);
     double _flyerHeight = Scale.superFlyerZoneHeight(context, widget.flyerZoneWidth);
     double _tapAreaHeight = _flyerHeight - (_headerHeight+_progressBarHeight+_footerHeight);
-    // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     bool _microMode = Scale.superFlyerMicroMode(context, widget.flyerZoneWidth);
-    // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     // int _slideIndex = _currentSlideIndex >= _slidesLength ? 0 : _currentSlideIndex ;
-    // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 
     return
       _microMode == true || widget.slidingIsOn == false ?
