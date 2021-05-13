@@ -43,28 +43,28 @@ class GalleryGrid extends StatelessWidget {
     // final _bz = _prof.getBzByBzID(bzID);
     final List<TinyFlyer> _gridFlyers = galleryFlyers == null ? <TinyFlyer>[] : galleryFlyers;//pro.getAllFlyers;
     bool _viewerIsAuthor = _concludeUserIsAuthor();
-    // -------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     double _screenWidth = Scale.superScreenWidth(context);
-    // -------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     int _gridColumnsCount = _gridFlyers.length > 12 ? 5 : _gridFlyers.length > 6 ? 4 : 3;
-    // -------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     double _spacingRatioToGridWidth = 0.15;
     double _gridFlyerWidth = gridZoneWidth / (_gridColumnsCount + (_gridColumnsCount * _spacingRatioToGridWidth) + _spacingRatioToGridWidth);
     double _gridFlyerHeight = _gridFlyerWidth * Ratioz.xxflyerZoneHeight;
     double _gridSpacing = _gridFlyerWidth * _spacingRatioToGridWidth;
     int _flyersCount = _viewerIsAuthor ? _gridFlyers.length + 1 : _gridFlyers.length;
-    // -------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     int _numOfGridRows(int _flyersCount){
       return
         (_flyersCount/_gridColumnsCount).ceil();
     }
-    // -------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     int _numOfRows = _numOfGridRows(_flyersCount);
-    // -------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     double _gridHeight = _gridFlyerHeight * (_numOfRows + (_numOfRows * _spacingRatioToGridWidth) + _spacingRatioToGridWidth);
-    // -------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     double _flyerSizeFactor = (((gridZoneWidth - (_gridSpacing*(_gridColumnsCount+1)))/_gridColumnsCount))/_screenWidth;
-    // -------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     return
       Container(
           width: gridZoneWidth,

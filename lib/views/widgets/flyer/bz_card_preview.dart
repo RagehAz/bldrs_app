@@ -31,16 +31,15 @@ class BzCardPreview extends StatefulWidget {
 }
 
 class _BzCardPreviewState extends State<BzCardPreview> {
-  // -------------------------
   bool _bzPageIsOn = false;
-  // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   @override
   void initState() {
     _bzPageIsOn = false;
 
     super.initState();
   }
-  // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   void _triggerMaxHeader(){
     bool _mini = Scale.superFlyerMiniMode(context, Scale.superFlyerZoneWidth(context, widget.flyerSizeFactor));
 
@@ -53,11 +52,11 @@ class _BzCardPreviewState extends State<BzCardPreview> {
     }
 
   }
-  // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   void _goToFlyerEditor(){
     Nav.goToNewScreen(context, FlyerEditorScreen(bzModel: widget.bz,firstTimer: true,));
   }
-  // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

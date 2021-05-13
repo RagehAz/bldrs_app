@@ -31,7 +31,7 @@ class ShareBT extends StatelessWidget {
   Widget build(BuildContext context) {
 
     double screenWidth = MediaQuery.of(context).size.width;
-    // --- ICON & VERSE --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ICON & VERSE
+    // --- ICON & VERSE
     double iconWidth = buttonRadius * 1.3;
     double iconHeight = iconWidth;
     dynamic iconTestBoxColor = Colorz.Nothing;

@@ -32,7 +32,6 @@ class WordsBubble extends StatelessWidget {
     double abPadding = Ratioz.ddAppBarPadding;
     double contactBoxHeight = 35;
 
-
     return InPyramidsBubble(
       centered: false,
       bubbleColor: bubbleColor,

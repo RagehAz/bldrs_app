@@ -5,7 +5,7 @@ import 'package:bldrs/controllers/drafters/shadowers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 enum BottomSheetType {
   Country,
   Province,
@@ -13,7 +13,7 @@ enum BottomSheetType {
   Language,
   BottomSheet,
 }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 class BldrsBottomSheet extends StatelessWidget {
   final double height;
   final bool draggable;
@@ -25,7 +25,7 @@ class BldrsBottomSheet extends StatelessWidget {
     this.child,
 });
 
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   /// one side value only
   double draggerMarginValue(){
     double _draggerHeight = draggerHeight();
@@ -33,12 +33,12 @@ class BldrsBottomSheet extends StatelessWidget {
     double _draggerMarginValue = (_draggerZoneHeight - _draggerHeight)/2;
     return _draggerMarginValue;
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   double draggerZoneHeight(){
     double _draggerZoneHeight = Ratioz.ddAppBarMargin * 3;
     return _draggerZoneHeight;
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   double draggerHeight(){
     double _draggerZoneHeight = draggerZoneHeight();
     double _draggerHeight = _draggerZoneHeight * 0.35 * 0.5;
@@ -140,9 +140,9 @@ class BldrsBottomSheet extends StatelessWidget {
     );
   }
 }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 class BottomSlider{
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   static void slideBottomSheet({BuildContext context, double height, bool draggable, Widget child}){
     showModalBottomSheet(
         shape: RoundedRectangleBorder(borderRadius:
@@ -202,7 +202,7 @@ class BottomSlider{
       ),
     );
 }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   static slideStatefulBottomSheet({BuildContext context, double height, bool draggable, Widget Function(BuildContext) builder}){
     showModalBottomSheet(
       shape: RoundedRectangleBorder(borderRadius: Borderers.superBorderRadius(
@@ -221,13 +221,13 @@ class BottomSlider{
       builder: builder,
     );
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   static double bottomSheetClearWidth (BuildContext context){
     double _clearWidth = Scale.superScreenWidth(context) - (Ratioz.ddAppBarMargin * 2) - (Ratioz.ddAppBarPadding * 2);
     return
       _clearWidth ; // 0.95 to avoid having the parent container trim buttons shadows
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   /// height ratio is by which factor from 0 to 1 the bottom sheet occupy the space
   /// from screen height
   static double bottomSheetClearHeight (BuildContext context, double heightRatio){
@@ -241,6 +241,6 @@ class BottomSlider{
     ;
     return _clearHeight;
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 
 }

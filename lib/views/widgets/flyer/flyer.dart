@@ -40,23 +40,23 @@ class _FlyerState extends State<Flyer> with AutomaticKeepAliveClientMixin{
   bool get wantKeepAlive => true;
   bool bzPageIsOn;
   int _currentSlideIndex;
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   @override
   void initState() {
     _currentSlideIndex = widget.initialSlide ?? 0;
     bzPageIsOn = false;
     super.initState();
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   void switchBzPage (){
     setState(() {bzPageIsOn = !bzPageIsOn;});
     print('bzPageIsOn : $bzPageIsOn');
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   void slidingPages (int slideIndex){
     setState(() {_currentSlideIndex = slideIndex;});
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 
   // void tappingFollow (){
   //   setState(() {
@@ -84,13 +84,13 @@ class _FlyerState extends State<Flyer> with AutomaticKeepAliveClientMixin{
   //     widget.slidingIsOn = !widget.slidingIsOn;
   //   });
   // }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     super.build(context);
     final _flyer = Provider.of<FlyerModel>(context, listen: false);
     final _bz = Provider.of<BzModel>(context, listen: true);
-// ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     final String _flyerID = _flyer?.flyerID;
     final String _authorID = _flyer?.tinyAuthor?.userID;
     final AuthorModel _author = AuthorModel.getAuthorFromBzByAuthorID(_bz, _flyer.tinyAuthor.userID);//createAuthorModelFromUserModelAndBzModel(geebUserByUserID(_authorID), _bz);
@@ -103,22 +103,22 @@ class _FlyerState extends State<Flyer> with AutomaticKeepAliveClientMixin{
     final List<SlideModel>   _slides          = _flyer?.slides;
           // bool            followIsOn        = pro.followIsOn;
           // bool            ankhIsOn          = pro.ankhIsOn;
-// ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 //     final List<CoFlyer>   bzGalleryCoFlyers   = pro.hatCoFlyersByBzID(coBz?.bz?.bzId);
 //     final List<CoAuthor>  bzAuthors         = coFlyer?.coBz?.coAuthors;
 //     final CoAuthor        coAuthor          = pro.hatCoAuthorFromCoAuthorsByAuthorID(bzAuthors, authorID);
 //     final List<CoSlide>   coSlides          = coFlyer?.coSlides;
 //           bool            followIsOn        = pro.hatFollowIsOnByFlyerID(flyerID);
 //           bool            ankhIsOn          = pro.hatAnkhByFlyerID(flyerID);
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     double _flyerZoneWidth = Scale.superFlyerZoneWidth(context, widget.flyerSizeFactor);
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     bool _barIsOn = widget.slidingIsOn == true && bzPageIsOn == false ? true : false;
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     bool _microMode = Scale.superFlyerMicroMode(context, _flyerZoneWidth);
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     // bool ankhIsOn = true;//flyerData.flyerAnkhIsOn;
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 //     print('flyer widget builds fID : $_flyerID');
 
     return
