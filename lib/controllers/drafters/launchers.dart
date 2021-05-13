@@ -2,7 +2,7 @@ import 'package:bldrs/models/records/share_model.dart';
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 void launchURL(String link) async {
   // should make a condition
   // if it starts with http:// or not
@@ -13,7 +13,7 @@ void launchURL(String link) async {
     print('Can Not launch link');
   }
 }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 void launchCall(String link) async {
   if (await canLaunch(link)) {
     await launch(link);
@@ -21,7 +21,7 @@ void launchCall(String link) async {
     print('cant call');
   }
 }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 void shareLink (BuildContext context, LinkModel link) {
   final RenderBox box = context.findRenderObject();
   // final String url = '${flyerLink.url} & ${flyerLink.description}';
@@ -32,5 +32,5 @@ void shareLink (BuildContext context, LinkModel link) {
     sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size,
   );
 }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 

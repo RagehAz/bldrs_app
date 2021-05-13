@@ -125,7 +125,7 @@ class ContactModel{
 
     return _contactsList;
   }
-// ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   /// will let user to only have one phone contact
   static String getFirstPhoneFromContacts(List<ContactModel> contacts){
     // String phone = contacts?.singleWhere((co) => co.contactType == ContactType.Phone, orElse: ()=> null)?.contact;
@@ -135,7 +135,7 @@ class ContactModel{
     });
     return phones.length == 0 ? null : phones[0];
   }
-// ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   static void addContactIfPossibleToANewContactsList(
       List<ContactModel> existingContacts,
       String value,
@@ -165,19 +165,19 @@ class ContactModel{
       }
     }
   }
-// ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   static List<String> getListOfValuesFromContactsModelsList(List<ContactModel> contacts){
     List<String> values = new List();
     contacts.forEach((co) {values.add(co.contact); });
     return values;
   }
-// ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   static List<String> getListOfIconzFromContactsModelsList(List<ContactModel> contacts){
     List<String> icons = new List();
     contacts.forEach((co) {icons.add(Iconizer.superContactIcon(co.contactType));});
     return icons;
   }
-// ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
   static List<ContactType> contactTypesList = <ContactType>[
     ContactType.Phone,
@@ -191,7 +191,7 @@ class ContactModel{
     ContactType.TikTok,
     ContactType.Twitter,
   ];
-// ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   static List<ContactModel> createContactsList ({
     List<ContactModel> existingContacts,
     String phone,
@@ -220,7 +220,7 @@ class ContactModel{
     // ---------------
     return _newContacts;
   }
-// ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   static List<ContactModel> getContactsFromFirebaseUser(User user){
     List<ContactModel> _userContacts = new List();
     String _userEmail = user.email;
@@ -240,7 +240,7 @@ class ContactModel{
 
     return _userContacts;
   }
-// ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 
 }
 // -----------------------------------------------------------------------------

@@ -1,11 +1,11 @@
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 List<String> sortAlphabetically(List<String> inputList){
   List<String> _outputList = new List();
   inputList.sort();
   _outputList = inputList;
   return _outputList;
 }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 String firstCharacterAfterRemovingSpacesFromAString(String string){
   String _output;
 
@@ -23,12 +23,12 @@ String firstCharacterAfterRemovingSpacesFromAString(String string){
   return
     _output;
 }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 String removeFirstCharacterFromAString(String string){
   String stringWithoutFirstCharacter = string.length >0 ? string?.substring(1) : null;
   return stringWithoutFirstCharacter;
 }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 String removeNumberOfCharactersFromAString(String string, int numberOfCharacters){
   String _stringTrimmed;
   if (numberOfCharacters > string.length){
@@ -39,7 +39,7 @@ String removeNumberOfCharactersFromAString(String string, int numberOfCharacters
   }
   return _stringTrimmed;
 }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 String removeSpacesFromAString(String string){
   /// solution 1,, won't work, not tested
   // string.replaceAll(new RegExp(r"\s+\b|\b\s"), "");
@@ -72,7 +72,7 @@ String removeSpacesFromAString(String string){
   return
     _output5;
 }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 String firstCharacterOfAString(String string){
   String _output = string == null || string.length == 0 || string == '' || string == ' '? null :
   string?.substring(0,1);
@@ -82,7 +82,7 @@ String firstCharacterOfAString(String string){
     _output == null || _output == '' || _output == "" ? null : _output;
 
 }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 String lastTwoSubStringsFromAString(String string){
   List<String> _stringSplit = string.split('');
   int _listLength = _stringSplit.length;
@@ -93,46 +93,46 @@ String lastTwoSubStringsFromAString(String string){
     _listLength == 0 ? null :
     '${_stringSplit[_beforeLastIndex]}${_stringSplit[_lastIndex]}';
 }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 int stringToInt(String string){
   return int.parse(string);
 }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 int lastTwoIntegersFromAString(String string){
   String _lastTwoSubStrings = lastTwoSubStringsFromAString(string);
   int _asIntegers = stringToInt(_lastTwoSubStrings);
   return _asIntegers;
 }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 String trimTextAfterFirstSpecialCharacter(String verse, String specialCharacter){
   String _result = verse == null ? null : verse.substring(0, verse.indexOf(specialCharacter));
   return _result;
 }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 String trimTextBeforeFirstSpecialCharacter(String verse, String specialCharacter){
   int _position = verse == null ? null : verse.indexOf(specialCharacter);
   String _result = verse == null ? null : (_position != -1)? verse.substring(_position+1, verse.length): verse;
   return _result;
 }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 String trimTextAfterLastSpecialCharacter(String verse, String specialCharacter){
   String _result = verse == null ? null : verse.substring(0, verse.lastIndexOf(specialCharacter));
   return _result;
 }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 String trimTextBeforeLastSpecialCharacter(String verse, String specialCharacter){
   int _position = verse == null ? null : verse.lastIndexOf(specialCharacter);
   String _result = verse == null ? null : (_position != -1)? verse.substring(_position+1, verse.length): verse;
   return _result;
 }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 /// this trims paths like
 /// 'assets/xx/pp_sodic/builds_1.jpg' to 'builds_1.jpg'
 String getFileNameFromAsset(String asset){
   String _fileName = trimTextBeforeLastSpecialCharacter(asset, '/');
   return _fileName;
 }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
   /// converts list of strings to map of keywords with true map value
   /// List<String> listExample = <String>['construction', 'architecture', 'decor'];
   /// will result a map like this :-
@@ -171,14 +171,14 @@ Future<Map<String, dynamic>> getKeyWordsMap(List<dynamic> list) async {
 
   return _stringIndexMap;
 }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 Map<String, dynamic> getValueAndTrueMap(List<String> list){
   Map<String, dynamic> _result = { for (var string in list) string : true };
   return _result;
 }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 List<dynamic> getValuesFromValueAndTrueMap(Map<String, dynamic> map){
     List<dynamic> _flyersIDs = map.keys.toList();
     return _flyersIDs;
 }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------

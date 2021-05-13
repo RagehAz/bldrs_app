@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Colorz {
-// -------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // BLDRS COLORS
   static const int NoOpacity = 0;
   static const int airOpacity = 10;
@@ -88,5 +88,5 @@ class Colorz {
   static const AppBarColor = WhiteGlass;
   static const bzPageBGColor = Colorz.BlackSmoke;
 
-// -------------------------------------------------------------------------}
+// -------------------------------------------------------------------------
 }

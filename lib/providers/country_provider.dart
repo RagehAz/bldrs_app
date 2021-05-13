@@ -8,7 +8,7 @@ import 'package:bldrs/models/planet/province_model.dart';
 import 'package:bldrs/models/planet/country_model.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:flutter/material.dart';
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 class CountryProvider with ChangeNotifier{
   /// get user country
   String _currentCountryID = 'egy';
@@ -17,19 +17,19 @@ class CountryProvider with ChangeNotifier{
   List<Country> _countries = dbCountries;
   List<Province> _provinces = dbProvinces;
   List<Area> _areas = dbAreas;
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   String get currentCountryID {
     return _currentCountryID;
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   String get currentProvinceID{
     return _currentProvinceID;
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   String get currentAreaID {
     return _currentAreaID;
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   Zone get currentZone {
     return Zone(
       countryID: currentCountryID,
@@ -37,26 +37,26 @@ class CountryProvider with ChangeNotifier{
       areaID: currentAreaID,
     );
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   void changeCountry(String country){
     _currentCountryID = country;
     notifyListeners();
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   void changeProvince(String provinceID){
     _currentProvinceID = provinceID;
     notifyListeners();
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   void changeArea(String areaID){
     _currentAreaID = areaID;
     notifyListeners();
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   String getCountryNameInCurrentLanguageByIso3(BuildContext context, String iso3){
     return translate(context, iso3);
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   /// get available countries
   List<Map<String,String>> getAvailableCountries(BuildContext context){
     List<Map<String,String>> _countriesMaps = new List();
@@ -67,7 +67,7 @@ class CountryProvider with ChangeNotifier{
     });
     return _countriesMaps;
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   /// get available countries
   List<String> getCountriesIDsByContinent({BuildContext context,String continent}){
     List<String> _countriesIDs = new List();
@@ -82,7 +82,7 @@ class CountryProvider with ChangeNotifier{
 
     return _countriesIDs;
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   /// get Provinces list by country iso3
   List<Map<String,String>> getProvincesNameMapsByIso3(BuildContext context, String iso3){
     List<Map<String,String>> _provincesNames = new List();
@@ -102,7 +102,7 @@ class CountryProvider with ChangeNotifier{
 
     return _provincesNames;
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   /// get Areas list by Province name
   /// uses provinceName in English as ID
   List<Map<String, String>> getAreasNameMapsByProvinceID(BuildContext context, String provinceID){
@@ -117,7 +117,7 @@ class CountryProvider with ChangeNotifier{
     });
     return _areasNames;
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   String getAreaNameWithCurrentLanguageIfPossible(BuildContext context, String areaID){
     String _currentLanguageCode = Wordz.languageCode(context);
     Area area = _areas.singleWhere((ar) => ar.id == areaID, orElse: ()=> null);
@@ -127,7 +127,7 @@ class CountryProvider with ChangeNotifier{
 
     return nameInCurrentLanguage == null ? area?.name : nameInCurrentLanguage;
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   String getProvinceNameWithCurrentLanguageIfPossible(BuildContext context, String provinceName){
   String _currentLanguageCode = Wordz.languageCode(context);
   Province province = _provinces.firstWhere((ar) => ar.name == provinceName, orElse: ()=> null);
@@ -135,7 +135,7 @@ class CountryProvider with ChangeNotifier{
 
   return nameInCurrentLanguage == null ? provinceName : nameInCurrentLanguage;
 }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 
 }
 

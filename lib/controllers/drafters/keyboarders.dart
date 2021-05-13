@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 /// TO MINIMIZE KEYBOARD WHEN TAPPING OUTSIDE
 /// USE THIS TO CALL THE FUNCTION TO PASS THE context
 ///  onTap: () => minimizeKeyboardOnTapOutSite(context),
@@ -14,11 +14,11 @@ print('minimizeKeyboardOnTapOutSide() unfocused keyboard');
   //   currentFocus.unfocus();
   // }
 }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 void closeKeyboard(BuildContext context){
   FocusScope.of(context).unfocus();
 }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 // HOW TO DETECT CURRENT KEYBOARD LANGUAGE OF THE DEVICE (NOT SOLVED)
 // BEST COMMENT HERE https://github.com/flutter/flutter/issues/25841
 // justinmc commented on Jul 9, 2020 •
@@ -29,7 +29,7 @@ void closeKeyboard(BuildContext context){
 // language, but I'm not seeing a way to listen to keyboard language changes.
 // Does anyone know if it's possible to listen for a keyboard language change
 // on native Android?
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 Future<void> handlePaste(TextSelectionDelegate delegate) async {
   final TextEditingValue value = delegate.textEditingValue; // Snapshot the input before using `await`.
   final ClipboardData data = await Clipboard.getData(Clipboard.kTextPlain);
@@ -46,5 +46,5 @@ Future<void> handlePaste(TextSelectionDelegate delegate) async {
   delegate.bringIntoView(delegate.textEditingValue.selection.extent);
   delegate.hideToolbar();
 }
-// === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
 

@@ -8,7 +8,7 @@ class DynamicLinksApi {
 //   final String _ragehURL = 'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/usersPics%2FrBjNU5WybKgJXaiBnlcBnfFaQSq1.jpg?alt=media&token=9a9db754-7d0c-40f8-b285-1df5e660c282';
 
   final String _uranus = 'https://en.m.wikipedia.org/wiki/Uranus';
-  // -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   final dynamicLink = FirebaseDynamicLinks.instance;
 // -----------------------------------------------------------------------------
   static final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();

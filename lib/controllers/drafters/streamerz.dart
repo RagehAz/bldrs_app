@@ -10,24 +10,24 @@ import 'package:bldrs/views/widgets/flyer/tiny_flyer_widget.dart';
 import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-// ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 /// this page has all functions that are related to streams & device connectivity
-// ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 bool connectionIsWaiting(AsyncSnapshot<dynamic> snapshot){
   return
     snapshot.connectionState == ConnectionState.waiting? true : false;
 }
-// ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 bool connectionHasNoData(AsyncSnapshot<dynamic> snapshot){
   return
       snapshot.hasData == false ? true : false;
 }
-// ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 bool userModelIsLoading(UserModel userModel){
   return
       userModel == null ? true : false;
 }
-// ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 typedef userModelWidgetBuilder = Widget Function(
     BuildContext context,
     UserModel userModel,
@@ -103,12 +103,12 @@ Widget userModelBuilder({
 
   );
 }
-// ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 typedef bzModelWidgetBuilder = Widget Function(
     BuildContext context,
     BzModel bzModel,
     );
-// ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 Widget bzModelStreamBuilder({
   String bzID,
   BuildContext context,
@@ -133,7 +133,7 @@ Widget bzModelStreamBuilder({
     );
 
 }
-// ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 Widget bzModelBuilder({
   String bzID,
   BuildContext context,
@@ -164,7 +164,7 @@ Widget bzModelBuilder({
       }
   );
 }
-// ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 typedef tinyBzModelWidgetBuilder = Widget Function(
     BuildContext context,
     TinyBz tinyBz,
@@ -205,7 +205,7 @@ Widget tinyBzModelStreamBuilder({
     );
 
 }
-// ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 Widget tinyBzModelBuilder({
   String bzID,
   BuildContext context,
@@ -236,12 +236,12 @@ Widget tinyBzModelBuilder({
       }
   );
 }
-// ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 typedef FlyerModelWidgetBuilder = Widget Function(
     BuildContext context,
     FlyerModel flyerModel,
     );
-// ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 Widget flyerStreamBuilder({
   TinyFlyer tinyFlyer,
   BuildContext context,
@@ -278,7 +278,7 @@ Widget flyerStreamBuilder({
     );
 
 }
-// ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 Widget flyerModelBuilder({
   TinyFlyer tinyFlyer,
   BuildContext context,
@@ -316,5 +316,5 @@ Widget flyerModelBuilder({
       }
   );
 }
-// ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 
