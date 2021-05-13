@@ -22,7 +22,7 @@ class ProgressBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     int _numberOfSlides = numberOfSlides == 0 ? 1 : numberOfSlides;
-    // ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     double _boxWidth = flyerZoneWidth;
     double _boxHeight = flyerZoneWidth * 0.0125;
     EdgeInsets _margins = margins == null ? EdgeInsets.only(top: flyerZoneWidth * 0.27) : margins;
@@ -34,9 +34,9 @@ class ProgressBar extends StatelessWidget {
     Color _stripColor = Colorz.WhiteSmoke;
     double _stripCorner = _aStripThickness * 0.5;
     Color _currentStripColor = numberOfSlides == 0 ? Colorz. WhiteAir : Colorz.WhiteLingerie;
-    // ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     bool _microMode = Scale.superFlyerMicroMode(context, flyerZoneWidth);
-    // ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     return
       _microMode == true || barIsOn == false  ? Container() :
       Align(

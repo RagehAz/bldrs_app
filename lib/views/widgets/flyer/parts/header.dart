@@ -37,16 +37,14 @@ class Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    // === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
     // String _phoneNumber = getFirstPhoneFromContacts(bz?.bzContacts);
     // --- B.LOCALE --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
     // String _bzCounty = bz != null ? bz?.bzCountry : '';
     // String _bzProvince = bz != null ? bz?.bzProvince : '';
     // String _bzArea = bz != null ? bz?.bzArea : '' ;
     // String _businessLocale = localeStringer(context: context, countryISO3: _bzCounty, provinceID: _bzProvince, areaID: _bzArea);
-    // === === === === === === === === === === === === === === === === === === ===
-
+// -----------------------------------------------------------------------------
     return GestureDetector(
         onTap: tappingHeader,
         child: ListView(

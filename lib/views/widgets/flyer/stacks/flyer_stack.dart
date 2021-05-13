@@ -43,116 +43,112 @@ class FlyerStack extends StatelessWidget {
 
       _tinyFlyers.length == 0 ? Container() :
       Container(
-      width: _screenWidth,
-      // height: _collectionHeight + 2*_titleSpacing + (_screenHeight * Ratioz.fontSize3) + 12,
-      decoration: BoxDecoration(
-      // color: Colorz.BlackLingerie,
-      //   border: Border.symmetric(
-      //       vertical: BorderSide(width: 0.5, color: Colorz.BabyBlueAir, ),
-      //   )
-      ),
+        width: _screenWidth,
+        // height: _collectionHeight + 2*_titleSpacing + (_screenHeight * Ratioz.fontSize3) + 12,
+        decoration: BoxDecoration(
+          // color: Colorz.BlackLingerie,
+          //   border: Border.symmetric(
+          //       vertical: BorderSide(width: 0.5, color: Colorz.BabyBlueAir, ),
+          //   )
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          // mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
 
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        // mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
+            // ---  ABOVE TITLE SPACING
+            if (title != null)
+              SizedBox(
+                width: _screenWidth,
+                height: _titleSpacing,
+              ),
+            // --- COLLECTION TITLE
+            if (title != null)
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 15),
+                child: SuperVerse(
+                  verse: title,
+                  size: 2,
+                  weight: VerseWeight.bold,
+                  centered: false,
+                  shadow: true,
+                  italic: true,
+                ),
+              ),
+            // --- BENEATH TITLE SPACING
+            if (title != null)
+              SizedBox(
+                width: _screenWidth,
+                height: _titleSpacing,
+              ),
+            // --- COLLECTION FLYER'S ZONE
+            Container(
+              width: _screenWidth,
+              height: _collectionHeight,
+              // color: Colorz.BloodTest,
+              child: ListView.separated(
+                itemCount: _tinyFlyers.length,
+                scrollDirection: Axis.horizontal,
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                addAutomaticKeepAlives: true,
+                // cacheExtent: screenHeight*5,
+                // dragStartBehavior: DragStartBehavior.start,
+                separatorBuilder: (context, _y) => SizedBox(height: 300,width: 10,),
+                // key: const PageStorageKey<String>('flyers'),
+                // cacheExtent: screenHeight*5,
+                itemBuilder: (context,_x) {
 
-          // ---  ABOVE TITLE SPACING
-          if (title != null)
-          SizedBox(
-            width: _screenWidth,
-            height: _titleSpacing,
-          ),
+                  print('_tinyFlyers[_x].flyerID = ${_tinyFlyers[_x].flyerID}');
 
-          // --- COLLECTION TITLE
-          if (title != null)
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 15),
-            child: SuperVerse(
-              verse: title,
-              size: 2,
-              weight: VerseWeight.bold,
-              centered: false,
-              shadow: true,
-              italic: true,
+                  return
+
+                    // --- works
+                    // ChangeNotifierProvider.value(
+                    //   value: _tinyFlyers[_x],
+                    //   child: ChangeNotifierProvider.value(
+                    //     value: _tinyBzz[_x],
+                    //     // child:
+                    //     // Flyer(
+                    //     //   flyerSizeFactor: flyerSizeFactor,
+                    //     //   slidingIsOn: _slidingIsOn,
+                    //     //   tappingFlyerZone: (){
+                    //     //     openFlyer(context, _tinyFlyers[_x].flyerID);
+                    //     //     // _slidingIsOff = false;
+                    //     //     },
+                    //     // ),
+                    //
+                    //     // FlyerZone(
+                    //     //   flyerSizeFactor: flyerSizeFactor,
+                    //     //   stackWidgets: <Widget>[
+                    //     //
+                    //     //     MiniHeader(
+                    //     //
+                    //     //     )
+                    //     //
+                    //     //     SingleSlide(
+                    //     //         flyerZoneWidth: superFlyerZoneWidth(context, flyerSizeFactor),
+                    //     //
+                    //     //     ),
+                    //     //
+                    //     //   ],
+                    //     // ),
+                    //
+                    //   ),
+                    // )
+
+                    TinyFlyerWidget(
+                      flyerSizeFactor: flyerSizeFactor,
+                      tinyFlyer: _tinyFlyers[_x],
+                      onTap: (tinyFlyer) => Nav().openFlyer(context, tinyFlyer.flyerID),
+                    );
+
+                  },
+
+              ),
             ),
-          ),
-
-          // --- BENEATH TITLE SPACING
-          if (title != null)
-          SizedBox(
-            width: _screenWidth,
-            height: _titleSpacing,
-          ),
-
-          // --- COLLECTION FLYER'S ZONE
-          Container(
-            width: _screenWidth,
-            height: _collectionHeight,
-            // color: Colorz.BloodTest,
-            child: ListView.separated(
-              itemCount: _tinyFlyers.length,
-              scrollDirection: Axis.horizontal,
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              addAutomaticKeepAlives: true,
-              // cacheExtent: screenHeight*5,
-              // dragStartBehavior: DragStartBehavior.start,
-              separatorBuilder: (context, _y) => SizedBox(height: 300,width: 10,),
-              // key: const PageStorageKey<String>('flyers'),
-              // cacheExtent: screenHeight*5,
-              itemBuilder: (context,_x) {
-
-                print('_tinyFlyers[_x].flyerID = ${_tinyFlyers[_x].flyerID}');
-
-                return
-
-                // --- works
-                // ChangeNotifierProvider.value(
-                //   value: _tinyFlyers[_x],
-                //   child: ChangeNotifierProvider.value(
-                //     value: _tinyBzz[_x],
-                //     // child:
-                //     // Flyer(
-                //     //   flyerSizeFactor: flyerSizeFactor,
-                //     //   slidingIsOn: _slidingIsOn,
-                //     //   tappingFlyerZone: (){
-                //     //     openFlyer(context, _tinyFlyers[_x].flyerID);
-                //     //     // _slidingIsOff = false;
-                //     //     },
-                //     // ),
-                //
-                //     // FlyerZone(
-                //     //   flyerSizeFactor: flyerSizeFactor,
-                //     //   stackWidgets: <Widget>[
-                //     //
-                //     //     MiniHeader(
-                //     //
-                //     //     )
-                //     //
-                //     //     SingleSlide(
-                //     //         flyerZoneWidth: superFlyerZoneWidth(context, flyerSizeFactor),
-                //     //
-                //     //     ),
-                //     //
-                //     //   ],
-                //     // ),
-                //
-                //   ),
-                // )
-
-                  TinyFlyerWidget(
-                    flyerSizeFactor: flyerSizeFactor,
-                    tinyFlyer: _tinyFlyers[_x],
-                    onTap: (tinyFlyer) => Nav().openFlyer(context, tinyFlyer.flyerID),
-                  );
-
-                },
-
-            ),
-          ),
-        ],
-      ),
-    );
+          ],
+        ),
+      );
   }
 }

@@ -17,14 +17,14 @@ class _AuthScreenState extends State<AuthScreen> {
   ScrollController _scrollController;
   final _keyboardHeight = EdgeInsets.fromWindowPadding(WidgetsBinding.instance.window.viewInsets,WidgetsBinding.instance.window.devicePixelRatio).bottom;
   // final _keyboardHeight = viewInsets.bottom;
-  // ---------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   @override
   void initState() {
     _scrollController = ScrollController();
     super.initState();
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   void _switchSignIn (String email, String password){
     setState(() {
       _email = email;
@@ -32,25 +32,25 @@ class _AuthScreenState extends State<AuthScreen> {
       signingIn = ! signingIn;
     });
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   void moveScreen(double keyboardHeight){
     // double _keyBoardHeight = keyboard.keyboardHeight;
     // print('_keyBoardHeight : ${keyboardHeight}');
     _scrollController.animateTo(keyboardHeight, duration: Duration(milliseconds: 200), curve: Curves.bounceInOut);
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 //   void emailTextOnChanged(String val){
 //     setState(() {
 //       email = val;
 //     });
 //   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 //   void passwordTextOnChanged(String val){
 //     setState(() {
 //       password = val;
 //     });
 //   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return MainLayout(

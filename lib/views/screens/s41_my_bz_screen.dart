@@ -42,7 +42,7 @@ class MyBzScreen extends StatefulWidget {
 
 class _MyBzScreenState extends State<MyBzScreen> {
   bool _showOldFlyers;
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   /// --- LOADING BLOCK
   bool _loading = false;
   void _triggerLoading(){
@@ -50,7 +50,7 @@ class _MyBzScreenState extends State<MyBzScreen> {
     _loading == true?
     print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   @override
   void initState() {
     _showOldFlyers = false;
@@ -239,7 +239,6 @@ class _MyBzScreenState extends State<MyBzScreen> {
   Widget build(BuildContext context) {
 
     // double _bubbleWidth = superScreenWidth(context) - (2 * Ratioz.ddAppBarMargin);
-
 
     return bzModelStreamBuilder(
         context: context,

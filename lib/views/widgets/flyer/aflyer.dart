@@ -36,7 +36,7 @@ class _AFlyerState extends State<AFlyer> with AutomaticKeepAliveClientMixin{
   String _user;
   FlyersProvider _pro;
   bool _followIsOn;
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   @override
   void initState() {
     // UserModel _user = Provider.of<UserModel>(context, listen: false);
@@ -47,19 +47,19 @@ class _AFlyerState extends State<AFlyer> with AutomaticKeepAliveClientMixin{
     _bzPageIsOn = false;
     super.initState();
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   void switchBzPage (){
     setState(() {_bzPageIsOn = !_bzPageIsOn;});
     print('bzPageIsOn : $_bzPageIsOn');
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   void _slidingPages (int slideIndex){
     print('sliding pages recieved slideIndex :  $slideIndex');
     setState(() {_currentSlideIndex = slideIndex;});
     print('rebuild parent flyer with _currentSlideIndex : $_currentSlideIndex');
 
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   Future<void> _tapAnkh(String flyerID, int slideIndex) async {
 
     /// start save flyer ops
@@ -80,7 +80,7 @@ class _AFlyerState extends State<AFlyer> with AutomaticKeepAliveClientMixin{
     });
     print('ankh is $_ankhIsOn');
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   Future<void> _onFollowTap(String bzID) async {
 
     /// start follow bz ops
@@ -98,7 +98,7 @@ class _AFlyerState extends State<AFlyer> with AutomaticKeepAliveClientMixin{
       _followIsOn = !_followIsOn;
     });
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   Future<void> _onCallTap() async {
 
     String _userID = superUserID();
@@ -125,18 +125,18 @@ class _AFlyerState extends State<AFlyer> with AutomaticKeepAliveClientMixin{
       }
 
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     super.build(context);
     print('Building flyer : ${widget.flyer?.flyerID}');
 
     final double _flyerZoneWidth = Scale.superFlyerZoneWidth(context, widget.flyerSizeFactor);
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     bool _barIsOn = _bzPageIsOn == false ? true : false;
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     bool _microMode = Scale.superFlyerMicroMode(context, _flyerZoneWidth);
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     return FlyerZone(
       flyerSizeFactor: widget.flyerSizeFactor,
       tappingFlyerZone: (){},
