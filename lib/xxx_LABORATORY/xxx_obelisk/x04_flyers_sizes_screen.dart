@@ -56,47 +56,47 @@ class _FlyersSizesScreenState extends State<FlyersSizesScreen> {
       tappingRageh: () async {
         // print(_flyerIDs);
 
-        _triggerLoading();
-        // -----------------------------------------------------------------------------
-        // dynamic _userMap = await getFireStoreDocumentMap(
+        // _triggerLoading();
+        // // -----------------------------------------------------------------------------
+        // // dynamic _userMap = await getFireStoreDocumentMap(
+        // //   context: context,
+        // //     collectionName: FireCollection.users,
+        // //     documentName: superUserID(),
+        // // );
+        // // UserModel _userModel = UserModel.decipherUserMap(_userMap);
+        //
+        // /// uploading flyers 27, 28, 29
+        //
+        // List<dynamic> _allFlyersMaps = await Fire.readCollectionDocs(FireCollection.flyers);
+        // List<FlyerModel> _allFlyers = FlyerModel.decipherFlyersMaps(_allFlyersMaps);
+        //
+        // List<FlyerModel> _flyersOfHanySaad = new List();
+        // String _hanyBzID = _allFlyers.firstWhere((flyer) => flyer.tinyBz.bzName.contains('HSI')).tinyBz.bzID;
+        //
+        // _allFlyers.forEach((flyer) {
+        //   if (flyer.tinyBz.bzID == _hanyBzID){
+        //     _flyersOfHanySaad.add(flyer);
+        //   }
+        // });
+        //
+        // List<TinyFlyer> _hanyTinyFlyers = new List();
+        // _flyersOfHanySaad.forEach((flyer) {
+        //   TinyFlyer _tinyFlyer = TinyFlyer.getTinyFlyerFromFlyerModel(flyer);
+        //   _hanyTinyFlyers.add(_tinyFlyer);
+        // });
+        //
+        // await Fire.updateDocField(
         //   context: context,
-        //     collectionName: FireCollection.users,
-        //     documentName: superUserID(),
+        //   collName: FireCollection.bzz,
+        //   docName: _hanyBzID,
+        //   field: 'nanoFlyers',
+        //   input: NanoFlyer.cipherTinyFlyers(_hanyTinyFlyers),
         // );
-        // UserModel _userModel = UserModel.decipherUserMap(_userMap);
-
-        /// uploading flyers 27, 28, 29
-
-        List<dynamic> _allFlyersMaps = await Fire.readCollectionDocs(FireCollection.flyers);
-        List<FlyerModel> _allFlyers = FlyerModel.decipherFlyersMaps(_allFlyersMaps);
-
-        List<FlyerModel> _flyersOfHanySaad = new List();
-        String _hanyBzID = _allFlyers.firstWhere((flyer) => flyer.tinyBz.bzName.contains('HSI')).tinyBz.bzID;
-
-        _allFlyers.forEach((flyer) {
-          if (flyer.tinyBz.bzID == _hanyBzID){
-            _flyersOfHanySaad.add(flyer);
-          }
-        });
-
-        List<TinyFlyer> _hanyTinyFlyers = new List();
-        _flyersOfHanySaad.forEach((flyer) {
-          TinyFlyer _tinyFlyer = TinyFlyer.getTinyFlyerFromFlyerModel(flyer);
-          _hanyTinyFlyers.add(_tinyFlyer);
-        });
-
-        await Fire.updateDocField(
-          context: context,
-          collName: FireCollection.bzz,
-          docName: _hanyBzID,
-          field: 'bzFlyers',
-          input: TinyFlyer.cipherTinyFlyers(_hanyTinyFlyers),
-        );
-
-        print('done');
-
-
-        _triggerLoading();
+        //
+        // print('done');
+        //
+        //
+        // _triggerLoading();
 
       },
       layoutWidget: ListView(

@@ -130,7 +130,7 @@ class FlyerOps{
 
     print('9- flyer counters added');
 
-    /// add nano flyer to bz document in 'bzFlyers' field
+    /// add nano flyer to bz document in 'nanoFlyers' field
   List<NanoFlyer> _bzNanoFlyers = bzModel.nanoFlyers;
   NanoFlyer _finalNanoFlyer = NanoFlyer.getNanoFlyerFromFlyerModel(_finalFlyerModel);
     _bzNanoFlyers.add(_finalNanoFlyer);
@@ -138,7 +138,7 @@ class FlyerOps{
     context: context,
     collName: FireCollection.bzz,
     docName: _finalFlyerModel.tinyBz.bzID,
-    field: 'bzFlyers',
+    field: 'nanoFlyers',
     input: NanoFlyer.cipherNanoFlyers(_bzNanoFlyers),
   );
 
@@ -193,7 +193,7 @@ class FlyerOps{
   /// E - if nanoFlyer is changed, update it in Bz doc
   ///   E1 - get finalNanoFlyer from finalFlyer
   ///   E2 - replace originalNanoFlyer in bzModel with the finalNanoFlyer
-  ///   E3 - update fireStore/bzz/bzID['bzFlyers'] with the updated nanoFlyers list
+  ///   E3 - update fireStore/bzz/bzID['nanoFlyers'] with the updated nanoFlyers list
   /// F - if tinyFlyer is changed, update tinyFlyer doc
   ///   F1 - get FinalTinyFlyer from final Flyer
   ///   F2 - update fireStore/tinyFlyers/flyerID
@@ -321,18 +321,18 @@ class FlyerOps{
       NanoFlyer _finalNanoFlyer = NanoFlyer.getNanoFlyerFromFlyerModel(_finalFlyer);
 
       /// E2 - replace originalNanoFlyer in bzModel with the finalNanoFlyer
-      List<NanoFlyer> _finalBzFlyers = NanoFlyer.replaceNanoFlyerInAList(
+      List<NanoFlyer> _finalnanoFlyers = NanoFlyer.replaceNanoFlyerInAList(
           originalNanoFlyers : bzModel.nanoFlyers,
           finalNanoFlyer: _finalNanoFlyer
       );
 
-      /// E3 - update fireStore/bzz/bzID['bzFlyers'] with the updated nanoFlyers list
+      /// E3 - update fireStore/bzz/bzID['nanoFlyers'] with the updated nanoFlyers list
       await Fire.updateDocField(
         context: context,
         collName: FireCollection.bzz,
         docName: bzModel.bzID,
-        field: 'bzFlyers',
-        input: NanoFlyer.cipherNanoFlyers(_finalBzFlyers),
+        field: 'nanoFlyers',
+        input: NanoFlyer.cipherNanoFlyers(_finalnanoFlyers),
       );
 
       print('E - nano flyer updated');
@@ -364,21 +364,26 @@ class FlyerOps{
     return _finalFlyer;
   }
 // -----------------------------------------------------------------------------
+  /// A1 - remove nano flyer from bz nanoFlyers
+  /// A2 - update fireStore/bzz/bzID['nanoFlyers']
+  /// B - Delete fireStore/tinyFlyers/flyerID
+  /// C - update fireStore/flyers/flyerID['deletionTime']
+  /// D - Update fireStore/flyers/flyerID['flyerState'] to Deactivated
   Future<void> deactivateFlyerOps({BuildContext context,String flyerID, BzModel bzModel}) async {
 
-    /// delete nano flyer from bzFlyers and update the list in bz doc
-    List<NanoFlyer> _bzNanoFlyers = bzModel.nanoFlyers;
-    int _nanoFlyerIndex = _bzNanoFlyers.indexWhere((nanoFlyer) => nanoFlyer.flyerID == flyerID);
-    _bzNanoFlyers.removeAt(_nanoFlyerIndex);
+    /// A1 - remove nano flyer from bz nanoFlyers
+    List<NanoFlyer> _updatedBzNanoFlyers = NanoFlyer.removeNanoFlyerFromNanoFlyers(bzModel.nanoFlyers, flyerID);
+
+    /// A2 - update fireStore/bzz/bzID['nanoFlyers']
     await Fire.updateDocField(
       context: context,
       collName: FireCollection.bzz,
       docName: bzModel.bzID,
-      field: 'bzFlyers',
-      input: NanoFlyer.cipherNanoFlyers(_bzNanoFlyers),
+      field: 'nanoFlyers',
+      input: NanoFlyer.cipherNanoFlyers(_updatedBzNanoFlyers),
     );
 
-    /// delete tinyFlyer
+    /// B - Delete fireStore/tinyFlyers/flyerID
     await Fire.deleteDoc(
       context: context,
       collName: FireCollection.tinyFlyers,
@@ -386,7 +391,7 @@ class FlyerOps{
     );
 
     /// TASK : can merge the below two doc writes into one method later in optimization
-    /// trigger flyer Deletion field by adding a timeStamp
+    /// C - update fireStore/flyers/flyerID['deletionTime']
     DateTime _deletionTime = DateTime.now();
     await Fire.updateDocField(
       context: context,
@@ -396,7 +401,7 @@ class FlyerOps{
       input: cipherDateTimeToString(_deletionTime),
     );
 
-    /// change flyerState to Deactivated
+    /// D - Update fireStore/flyers/flyerID['flyerState'] to Deactivated
     await Fire.updateDocField(
       context: context,
       collName: FireCollection.flyers,
@@ -407,34 +412,49 @@ class FlyerOps{
 
 }
 // -----------------------------------------------------------------------------
+  /// A1 - remove nano flyer from bz nanoFlyers
+  /// A2 - update fireStore/bzz/bzID['nanoFlyers']
+  /// B - delete fireStore/tinyFlyers/flyerID
+  /// C - delete fireStore/flyersKeys/flyerID
+  /// D - delete fireStore/flyers/flyerID/views/(all sub docs)
+  /// E - delete fireStore/flyers/flyerID/shares/(all sub docs)
+  /// F - delete fireStore/flyers/flyerID/saves/(all sub docs)
+  /// G - delete fireStore/flyers/flyerID/counters/counters
+  /// H - delete fireStorage/slidesPics/slideID for all flyer slides
+  /// I - delete firestore/flyers/flyerID
   Future<void> deleteFlyerOps({BuildContext context,FlyerModel flyerModel, BzModel bzModel}) async {
 
-    print('1 - delete nano flyer in bzFlyers');
-    List<NanoFlyer> _bzFlyers = bzModel.nanoFlyers;
-    List<NanoFlyer> _modifiedNanoFlyers= NanoFlyer.removeNanoFlyerFromNanoFlyers(_bzFlyers, flyerModel.flyerID);
+    /// A1 - remove nano flyer from bz nanoFlyers
+    print('A1 - remove nano flyer from bz nanoFlyers');
+    List<NanoFlyer> _modifiedNanoFlyers= NanoFlyer.removeNanoFlyerFromNanoFlyers(bzModel.nanoFlyers, flyerModel.flyerID);
+
+    /// A2 - update fireStore/bzz/bzID['nanoFlyers']
     await Fire.updateDocField(
       context: context,
       collName: FireCollection.bzz,
       docName: bzModel.bzID,
-      field: 'bzFlyers',
+      field: 'nanoFlyers',
       input: NanoFlyer.cipherNanoFlyers(_modifiedNanoFlyers),
     );
 
-    print('2 - delete tiny flyer doc');
+    /// B - delete fireStore/tinyFlyers/flyerID
+    print('B - delete tiny flyer doc');
     await Fire.deleteDoc(
       context: context,
       collName: FireCollection.tinyFlyers,
       docName: flyerModel.flyerID,
     );
 
-    print('3 - delete flyer keys doc');
+    /// C - delete fireStore/flyersKeys/flyerID
+    print('C - delete flyer keys doc');
     await Fire.deleteDoc(
       context: context,
       collName: FireCollection.flyersKeys,
       docName: flyerModel.flyerID,
     );
 
-    print('4 - delete flyer views sub docs');
+    /// D - delete fireStore/flyers/flyerID/views/(all sub docs)
+    print('D - delete flyer views sub docs');
     await Fire.deleteAllSubDocs(
       context: context,
       collName: FireCollection.flyers,
@@ -442,10 +462,8 @@ class FlyerOps{
       subCollName: FireCollection.subFlyerViews,
     );
 
-    print('5 - wont delete flyer view sub collection');
-    // dunno if could be done here
-
-    print('6 - delete shares sub docs');
+    /// E - delete fireStore/flyers/flyerID/shares/(all sub docs)
+    print('E - delete shares sub docs');
     await Fire.deleteAllSubDocs(
       context: context,
       collName: FireCollection.flyers,
@@ -453,10 +471,8 @@ class FlyerOps{
       subCollName: FireCollection.subFlyerShares,
     );
 
-    print('7 - wont delete shares sub collection');
-    // dunno if could be done here
-
-    print('8 - delete saves sub docs');
+    /// F - delete fireStore/flyers/flyerID/saves/(all sub docs)
+    print('F - delete saves sub docs');
     await Fire.deleteAllSubDocs(
       context: context,
       collName: FireCollection.flyers,
@@ -464,10 +480,8 @@ class FlyerOps{
       subCollName: FireCollection.subFlyerSaves,
     );
 
-    print('9 - wont delete saves sub collection');
-    // dunno if could be done here
-
-    print('10 - delete counters sub doc');
+    /// G - delete fireStore/flyers/flyerID/counters/counters
+    print('G - delete counters sub doc');
     await Fire.deleteSubDoc(
         context: context,
         collName: FireCollection.flyers,
@@ -476,10 +490,8 @@ class FlyerOps{
         subDocName: FireCollection.subFlyerCounters
     );
 
-    print('11 - wont delete counters sub collection');
-    // dunno if could be done here
-
-    print('12 - delete flyer slide pics');
+    /// H - delete fireStorage/slidesPics/slideID for all flyer slides
+    print('H - delete flyer slide pics');
     List<String> _slidesIDs = SlideModel.generateSlidesIDs(flyerModel);
     for (var id in _slidesIDs){
 
@@ -490,16 +502,10 @@ class FlyerOps{
         picType: PicType.slideHighRes,
       );
 
-      // print('b - delete slideLowRes : $id from ${_slidesIDs.length} slides');
-      // await Fire.deleteStoragePic(
-      //   context: context,
-      //   fileName: id,
-      //   picType: PicType.slideLowRes,
-      // );
-
     }
 
-    print('13 - delete flyer doc');
+    /// I - delete firestore/flyers/flyerID
+    print('I - delete flyer doc');
     await Fire.deleteDoc(
       context: context,
       collName: FireCollection.flyers,
