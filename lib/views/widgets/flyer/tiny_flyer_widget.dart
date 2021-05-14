@@ -54,7 +54,7 @@ class TinyFlyerWidget extends StatelessWidget {
         MiniHeader(
           flyerZoneWidth: Scale.superFlyerZoneWidth(context, _flyerSizeFactor),
           tinyBz: tinyFlyer.tinyBz,
-          tinyAuthor: TinyUser(userID: tinyFlyer.authorID, name: null, title: null, pic: null, contact: null, userStatus: null),
+          tinyAuthor: TinyUser(userID: tinyFlyer.authorID, name: null, title: null, pic: null, email: null, phone: null, userStatus: null),
           followIsOn: false,
           flyerShowsAuthor: false,
           bzGalleryCount: 0,
@@ -72,7 +72,6 @@ class TinyFlyerWidget extends StatelessWidget {
           ankhIsOn: _ankhIsOn,
           tappingAnkh: (){},
         ),
-
 
       ],
     );
