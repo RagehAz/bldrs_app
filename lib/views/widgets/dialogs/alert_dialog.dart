@@ -238,6 +238,10 @@ Future<void> authErrorDialog({BuildContext context, dynamic result}) async {
       'error' : '[firebase_auth/too-many-requests] We have blocked all requests from this device due to unusual activity. Try again later.',
       'reply' : 'Too many failed sign in attempts.\nThis device is put on hold for some time to secure the account', /// TASK : should link accounts authentication and delete this dialog
     },
+    {
+      'error' : 'PlatformException(sign_in_failed, com.google.android.gms.common.api.ApiException: 10: , null, null)',
+      'reply' : 'Sorry, Could not sign in by google.',
+    },
 
     // REGISTER ERRORS
     {

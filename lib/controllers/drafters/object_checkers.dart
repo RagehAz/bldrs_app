@@ -73,28 +73,22 @@ class ObjectChecker {
   static Future<bool> objectIsIntInString(BuildContext context, dynamic string) async {
 
     bool _objectIsIntInString;
-    int _num;
+    int _int;
 
-    dynamic _result = await tryCatchAndReturn(
-        context: context,
-        methodName: 'objectIsIntInString',
-        functions: () async {
+    if (string != null){
+      _int = int.tryParse(string.trim());
+    }
 
-          _num = int.parse(string);
-
-        }
-    );
-
-    print('_result.runtimeType is ${_result.runtimeType}');
-
-    if (_result.runtimeType == String){
+    if (_int == null){
       _objectIsIntInString = false;
-
     } else {
       _objectIsIntInString = true;
     }
 
-    print('objectIsIntInString : _num is : $_num');
+    // print('objectIsIntInString : string is : $string');
+    // print('objectIsIntInString : _int is : $_int');
+    // print('objectIsIntInString : _objectIsIntInString is : $_objectIsIntInString');
+    // print('objectIsIntInString returns $_objectIsIntInString');
 
     return _objectIsIntInString;
 
@@ -105,24 +99,16 @@ class ObjectChecker {
     bool objectIsDoubleInString;
     double _double;
 
-    dynamic _result = await tryCatchAndReturn(
-        context: context,
-        methodName: 'objectIsIntInString',
-        functions: () async {
+    if (string != null){
+      _double = double.tryParse(string.trim());
+    }
 
-          _double = double.parse(string);
-
-        }
-    );
-
-    print('_result.runtimeType is ${_result.runtimeType}');
-
-    if (_result.runtimeType == String){
+    if (_double == null){
       objectIsDoubleInString = false;
-
     } else {
       objectIsDoubleInString = true;
     }
+
 
     print('objectIsDoubleInString : _double is : $_double');
 
