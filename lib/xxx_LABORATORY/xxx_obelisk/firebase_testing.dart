@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
@@ -716,49 +717,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
         _triggerLoading();
       },},
 // -----------------------------------------------------------------------------
-      {'Name' : 'fix flyers tinyAuthor', 'function' : () async {
-        _triggerLoading();
-
-        List<dynamic> _allMaps = await Fire.readCollectionDocs(FireCollection.flyers);
-
-
-        for (var map in _allMaps){
-
-          FlyerModel _flyer = FlyerModel.decipherFlyerMap(map);
-
-          BzModel _bzModel = await BzOps.readBzOps(context: context, bzID: _flyer.tinyBz.bzID);
-
-          FlyerModel _newFlyerModel = FlyerModel(
-            flyerID: _flyer.flyerID,
-            flyerType: _flyer.flyerType,
-            flyerState: _flyer.flyerState,
-            keyWords: _flyer.keyWords,
-            flyerShowsAuthor: _flyer.flyerShowsAuthor,
-            flyerURL: _flyer.flyerURL,
-            flyerZone: _flyer.flyerZone,
-            tinyAuthor: TinyUser.getTinyAuthorFromAuthorModel(_bzModel.bzAuthors[0]),
-            tinyBz: TinyBz.getTinyBzFromBzModel(_bzModel),
-            publishTime: _flyer.publishTime,
-            flyerPosition: _flyer.flyerPosition,
-            slides: _flyer.slides,
-            flyerIsBanned: _flyer.flyerIsBanned,
-            deletionTime: _flyer.deletionTime,
-            ankhIsOn: _flyer.ankhIsOn,
-          );
-
-          await FlyerOps().updateFlyerOps(
-            context: context,
-            bzModel: _bzModel,
-            originalFlyer: _flyer,
-            updatedFlyer: _newFlyerModel,
-          );
-
-        }
-
-
-        _triggerLoading();
-      },},
-// -----------------------------------------------------------------------------
+    // ListOfMapsContains
     ];
 
 

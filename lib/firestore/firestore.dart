@@ -255,20 +255,18 @@ class Fire{
     return _subDocRef;
   }
 // =============================================================================
-  static Future<List<QueryDocumentSnapshot>> readCollectionDocs(String collectionName) async {
+  static Future<List<dynamic>> readCollectionDocs(String collectionName) async {
     QuerySnapshot _collectionSnapshot = await FirebaseFirestore.instance.collection(collectionName).get();
     List<QueryDocumentSnapshot> _docsSnapshots = _collectionSnapshot.docs;
 
-    // if we want to alter this method to return List<Map<Sting, dynamic>>
-    // we can do this :-
-    // List<dynamic> _maps = new List();
-    // for (var docSnapShot in _docsSnapshots){
-    //   _maps.add(docSnapShot.data());
-    // }
-    // and then return _maps; but will leave it for now to
+    /// to return maps
+    List<dynamic> _maps = new List();
+    for (var docSnapShot in _docsSnapshots){
+      _maps.add(docSnapShot.data());
+    }
     // return <List<QueryDocumentSnapshot>>
 
-    return _docsSnapshots;
+    return _maps;
   }
 // -----------------------------------------------------------------------------
   Future<dynamic> readDoc({
