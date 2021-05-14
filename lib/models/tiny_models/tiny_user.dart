@@ -10,7 +10,8 @@ class TinyUser {
   final String title;
   final dynamic pic;
   final UserStatus userStatus;
-  final String contact;
+  final String email;
+  final String phone;
 
   TinyUser({
     @required this.userID,
@@ -18,7 +19,8 @@ class TinyUser {
     @required this.title,
     @required this.pic,
     @required this.userStatus,
-    @required this.contact,
+    @required this.email,
+    @required this.phone,
   });
 // -----------------------------------------------------------------------------
   Map<String, dynamic> toMap(){
@@ -28,18 +30,20 @@ class TinyUser {
       'title' : title,
       'pic' : pic,
       'userStatus' : UserModel.cipherUserStatus(userStatus),
-      'contact' : contact,
+      'contact' : email, // TASK : need to change field name from contact to email on firestore
+      'phone' : phone,
     };
   }
 // -----------------------------------------------------------------------------
   TinyUser clone(){
     return TinyUser(
-        userID: userID,
-        name: name,
-        title: title,
-        pic: pic,
-        userStatus: userStatus,
-        contact: contact,
+      userID: userID,
+      name: name,
+      title: title,
+      pic: pic,
+      userStatus: userStatus,
+      email: email,
+      phone: phone,
     );
   }
 // -----------------------------------------------------------------------------
@@ -51,19 +55,20 @@ class TinyUser {
         title: map['title'],
         pic: map['pic'],
         userStatus: UserModel.decipherUserStatus(map['userStatus']),
-        contact: map['contact'],
+        email: map['contact'], // TASK : need to change field name from contact to email on firestore
+        phone: map['phone'],
       );
   }
 // -----------------------------------------------------------------------------
   static TinyUser getTinyUserFromUserModel(UserModel userModel){
     return TinyUser(
         userID: userModel.userID,
-
         name: userModel.name,
         title: userModel.title,
         pic: userModel.pic,
         userStatus: userModel.userStatus,
-        contact: ContactModel.getAContactValueFromContacts(userModel.contacts, ContactType.Phone) ?? ContactModel.getAContactValueFromContacts(userModel.contacts, ContactType.Email)
+        email: ContactModel.getAContactValueFromContacts(userModel.contacts, ContactType.Email),
+        phone: ContactModel.getAContactValueFromContacts(userModel.contacts, ContactType.Phone),
     );
   }
 // -----------------------------------------------------------------------------
@@ -74,7 +79,8 @@ class TinyUser {
       title: author.authorTitle,
       pic: author.authorPic,
       userStatus: UserStatus.BzAuthor,
-      contact: ContactModel.getAContactValueFromContacts(author.authorContacts, ContactType.Phone),
+      email: ContactModel.getAContactValueFromContacts(author.authorContacts, ContactType.Email),
+      phone: ContactModel.getAContactValueFromContacts(author.authorContacts, ContactType.Phone),
     );
   }
 // -----------------------------------------------------------------------------
@@ -82,6 +88,29 @@ class TinyUser {
     AuthorModel _author = bzModel.bzAuthors.singleWhere((au) => au.userID == authorID, orElse: ()=> null);
     TinyUser _tinyAuthor = getTinyAuthorFromAuthorModel(_author);
     return _tinyAuthor;
+  }
+// -----------------------------------------------------------------------------
+  static bool tinyUsersAreTheSame({UserModel finalUserModel, UserModel originalUserModel}){
+    bool _tinyUsersAreTheSame;
+
+    if (originalUserModel.name == finalUserModel.name
+        &&
+        originalUserModel.title == finalUserModel.title
+        &&
+        originalUserModel.pic == finalUserModel.pic
+        &&
+        originalUserModel.userStatus == finalUserModel.userStatus
+    ){
+
+      _tinyUsersAreTheSame = true;
+
+    } else {
+
+      _tinyUsersAreTheSame = false;
+
+    }
+
+    return _tinyUsersAreTheSame;
   }
 // -----------------------------------------------------------------------------
 }

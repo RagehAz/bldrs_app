@@ -103,7 +103,7 @@ class _AFlyerState extends State<AFlyer> with AutomaticKeepAliveClientMixin{
 
     String _userID = superUserID();
     String _bzID = widget.flyer.tinyBz.bzID;
-    String _contact = widget.flyer.tinyAuthor.contact;
+    String _contact = widget.flyer.tinyAuthor.email;
 
     /// alert user there is no contact to call
     if (_contact == null){print('no contact here');}
