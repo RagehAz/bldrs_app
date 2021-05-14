@@ -149,7 +149,7 @@ class _LocalFlyersUploaderState extends State<LocalFlyersUploader> {
 //         bzTotalViews: bz.bzTotalViews,
 //         bzTotalCalls: bz.bzTotalCalls,
 //         // -------------------------
-//         bzFlyers: [], // will update this after uploading flyers
+//         nanoFlyers: [], // will update this after uploading flyers
 //       );
 //
 //       /// upload the new bz to FireStore
@@ -189,9 +189,9 @@ class _LocalFlyersUploaderState extends State<LocalFlyersUploader> {
 //       );
 //
 //       /// for every tiny flyer in bz.tinyFlyers,, will start create flyer ops
-//       for (var tinyFlyer in bz.bzFlyers){
+//       for (var tinyFlyer in bz.nanoFlyers){
 //
-//         _doFlyer(bz.bzFlyers.length, _fi, flyerTypeSingleStringer(context, tinyFlyer.flyerType), tinyFlyer.flyerID);
+//         _doFlyer(bz.nanoFlyers.length, _fi, flyerTypeSingleStringer(context, tinyFlyer.flyerType), tinyFlyer.flyerID);
 //
 //         /// get flyer
 //         FlyerModel _flyer = geebFlyerByFlyerID(tinyFlyer.flyerID);
@@ -465,7 +465,7 @@ Future<FlyerModel> createNamedFlyersOps(BuildContext context, FlyerModel inputFl
     context: context,
     collName: FireCollection.bzz,
     docName: _finalFlyerModel.tinyBz.bzID,
-    field: 'bzFlyers',
+    field: 'nanoFlyers',
     input: NanoFlyer.cipherNanoFlyers(_bzNanoFlyers),
   );
 

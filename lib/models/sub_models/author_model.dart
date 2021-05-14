@@ -33,11 +33,11 @@ class AuthorModel{
 // -----------------------------------------------------------------------------
   static int getAuthorGalleryCountFromBzModel(BzModel bzModel, AuthorModel author){
     String _authorID = author.userID;
-    List<NanoFlyer> _bzFlyers = bzModel.nanoFlyers;
+    List<NanoFlyer> _nanoFlyers = bzModel.nanoFlyers;
 
     List<String> _authorFlyersIDs = new List();
 
-    for (var flyer in _bzFlyers){
+    for (var flyer in _nanoFlyers){
       if(flyer.authorID == _authorID){
         _authorFlyersIDs.add(flyer.flyerID);
       }
