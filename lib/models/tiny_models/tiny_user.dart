@@ -30,7 +30,7 @@ class TinyUser {
       'title' : title,
       'pic' : pic,
       'userStatus' : UserModel.cipherUserStatus(userStatus),
-      'contact' : email, // TASK : need to change field name from contact to email on firestore
+      'email' : email,
       'phone' : phone,
     };
   }
@@ -55,7 +55,7 @@ class TinyUser {
         title: map['title'],
         pic: map['pic'],
         userStatus: UserModel.decipherUserStatus(map['userStatus']),
-        email: map['contact'], // TASK : need to change field name from contact to email on firestore
+        email: map['email'],
         phone: map['phone'],
       );
   }

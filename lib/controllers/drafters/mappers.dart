@@ -85,4 +85,21 @@ class Mapper{
 
   }
 // -----------------------------------------------------------------------------
+  static bool listOfMapsContains({List<dynamic> listOfMaps, String field, String value}){
+
+    bool _listOfMapContainsTheValue;
+
+    for (var map in listOfMaps){
+
+      if (map[field] == value){
+        _listOfMapContainsTheValue = true;
+        break;
+      } else {
+        _listOfMapContainsTheValue = false;
+      }
+
+    }
+
+    return _listOfMapContainsTheValue;
+  }
 }
