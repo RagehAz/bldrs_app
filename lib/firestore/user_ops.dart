@@ -133,11 +133,20 @@ class UserOps{
     //     UserModel.initializeUserModelStreamFromUser); // different syntax than previous snippet
   }
 // -----------------------------------------------------------------------------
+  /// UPDATE USER OPS
+  /// A - if user pic changed
+  ///   A1 - save pic to fireStorage/usersPics/userID and get URL
+  /// B - create final UserModel
+  /// C - update firestore/users/userID
+  /// D - if tinyUser is changed
+  ///   D1 - update fireStore/tinyUsers/userID
   Future<void> updateUserOps({BuildContext context, UserModel oldUserModel, UserModel updatedUserModel}) async {
 
-    /// update picture if changed or continue without changing pic
+    /// A - if user pic changed
     String _userPicURL;
     if (ObjectChecker.objectIsFile(updatedUserModel.pic) == true){
+
+      /// A1 - save pic to fireStorage/usersPics/userID and get URL
       _userPicURL = await Fire.createStoragePicAndGetURL(
           context: context,
           inputFile: updatedUserModel.pic,
@@ -146,7 +155,7 @@ class UserOps{
       );
     }
 
-    /// create final UserModel
+    /// B - create final UserModel
     UserModel _finalUserModel = UserModel(
       userID : updatedUserModel.userID,
       authBy: oldUserModel.authBy,
@@ -166,20 +175,24 @@ class UserOps{
       myBzzIDs : updatedUserModel.myBzzIDs,
     );
 
-    /// update firestore user doc
+    /// C - update firestore/users/userID
     await _createOrUpdateUserDoc(
       context: context,
       userModel: _finalUserModel,
     );
 
 
-    /// update tiny user if changed:-
+    /// D - if tinyUser is changed
     if (
-    oldUserModel.name != updatedUserModel.name ||
-    oldUserModel.title != updatedUserModel.title ||
-    oldUserModel.pic != updatedUserModel.pic ||
-    oldUserModel.userStatus != updatedUserModel.userStatus
+
+    TinyUser.tinyUsersAreTheSame(
+        finalUserModel: _finalUserModel,
+        originalUserModel: oldUserModel
+    ) == false
+
     ){
+
+      /// D1 - update fireStore/tinyUsers/userID
       await Fire.updateDoc(
         context: context,
         collName: FireCollection.tinyUsers,
