@@ -94,7 +94,7 @@ class MiniHeaderStrip extends StatelessWidget {
                   followIsOn: followIsOn,
                   onFollowTap: onFollowTap,
                   onCallTap: onCallTap,
-                  phoneNumber: tinyAuthor.contact,
+                  phoneNumber: tinyAuthor.phone,
                 ),
               ),
 
