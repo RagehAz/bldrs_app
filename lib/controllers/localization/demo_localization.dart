@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 //
 // --- BEHOLD ---
 //
@@ -11,22 +14,19 @@
 //
 // --- TAWAKAL 3ALA ALLAH ---
 //
-
-import 'dart:convert';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-
+// -----------------------------------------------------------------------------
 class DemoLocalization{
   final Locale locale;
+  Map<String, String> _localizedValues;
 
   DemoLocalization(this.locale);
-
+// -----------------------------------------------------------------------------
   static DemoLocalization of(BuildContext context) {
     return Localizations.of<DemoLocalization>(context, DemoLocalization);
   }
-
-  Map<String, String> _localizedValues;
-
+// -----------------------------------------------------------------------------
+  static const LocalizationsDelegate<DemoLocalization> delegate = _DemoLocalizationDelegate();
+// -----------------------------------------------------------------------------
   Future load() async {
     String jsonStringValues =
         await rootBundle.loadString('assets/languages/${locale.languageCode}.json');
@@ -35,15 +35,13 @@ class DemoLocalization{
 
     _localizedValues = mappedJson.map((key, value) => MapEntry(key, value.toString()));
   }
-
+// -----------------------------------------------------------------------------
   String getTranslatedValue(String key) {
     return _localizedValues[key];
   }
-
-  //static
-static const LocalizationsDelegate<DemoLocalization> delegate = _DemoLocalizationDelegate();
+// -----------------------------------------------------------------------------
 }
-
+// -----------------------------------------------------------------------------
 class _DemoLocalizationDelegate extends LocalizationsDelegate<DemoLocalization> {
 
   const _DemoLocalizationDelegate();
@@ -64,3 +62,4 @@ class _DemoLocalizationDelegate extends LocalizationsDelegate<DemoLocalization> 
   bool shouldReload(LocalizationsDelegate old)=> false;
 
 }
+// -----------------------------------------------------------------------------

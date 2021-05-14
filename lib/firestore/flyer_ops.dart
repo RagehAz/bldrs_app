@@ -175,29 +175,50 @@ class FlyerOps{
 
   }
 // -----------------------------------------------------------------------------
-  /// A - if slides changes
-  ///   1 -
+  /// A - if slides changed
+  ///   A1 - loop each slide in updated slides to check which changed
+  ///     x1 - if slide pic changed
+  ///       a - upload File to fireStorage/slidesPics/slideID and get URL
+  ///       b - recreate SlideModel with new pic URL
+  ///       c - add the updated slide into the finalSlides
+  ///     x2 - if slide pic did not change
+  ///       c - add the slide into the finalSlides
+  ///   A2 - replace slides in updatedFlyer with the finalSlides
+  ///   A3 - clone updatedFlyer into finalFlyer
+  /// B - Delete fire storage pictures if updatedFlyer.slides.length > originalFlyer.slides.length
+  ///   B1 - get slides IDs which should be deleted starting first index after updatedFlyer.slides.length
+  ///   B2 - delete pictures from fireStorage/slidesPics/slideID : slide ID is "flyerID_index"
+  /// C - update flyer doc in fireStore/flyers/flyerID
+  /// D - if keywords changed, update flyerKeys doc in : fireStore/flyersKeys/flyerID
+  /// E - if nanoFlyer is changed, update it in Bz doc
+  ///   E1 - get finalNanoFlyer from finalFlyer
+  ///   E2 - replace originalNanoFlyer in bzModel with the finalNanoFlyer
+  ///   E3 - update fireStore/bzz/bzID['bzFlyers'] with the updated nanoFlyers list
+  /// F - if tinyFlyer is changed, update tinyFlyer doc
+  ///   F1 - get FinalTinyFlyer from final Flyer
+  ///   F2 - update fireStore/tinyFlyers/flyerID
   Future<FlyerModel> updateFlyerOps({BuildContext context, FlyerModel updatedFlyer, FlyerModel originalFlyer, BzModel bzModel}) async {
     FlyerModel _finalFlyer = updatedFlyer;
 
     print('besm allah');
 
-    /// if slide pics changed, update pics on storage and get their URL
+    /// A - if slides changed
     if(SlideModel.allSlidesPicsAreTheSame(finalFlyer: updatedFlyer, originalFlyer: originalFlyer) == false){
 
-      print('1 - slides are not the same');
+      print('A -  slides are not the same');
 
-      /// only for the slides which have pics as Files, should upload them and recreate their slideModels
-      List<SlideModel> _updatedSlides = new List();
+      /// A1 - loop each slide in updated slides to check which changed
+      List<SlideModel> _finalSlides = new List();
       for (var slide in updatedFlyer.slides){
 
-        print('2a - checking slide ${slide.slideIndex}');
+        print('A1 - checking slide ${slide.slideIndex}');
 
+        /// x1 - if slide pic changed
         if (ObjectChecker.objectIsFile(slide.picture) == true){
 
-          print('2aa - slide ${slide.slideIndex} is FILE');
+          print('x1 - slide ${slide.slideIndex} is FILE');
 
-          /// upload file and get url into new SlideModel to add in _updatedSlides
+          /// a - upload File to fireStorage/slidesPics/slideID and get URL
           String _newPicURL = await Fire.createStoragePicAndGetURL(
             context: context,
             picType: PicType.slideHighRes,
@@ -205,8 +226,9 @@ class FlyerOps{
             inputFile: slide.picture,
           );
 
-          print('2ab - slide ${slide.slideIndex} got this URL : $_newPicURL');
+          print('a - slide ${slide.slideIndex} got this URL : $_newPicURL');
 
+          /// b - recreate SlideModel with new pic URL
           SlideModel _updatedSlide = SlideModel(
             slideIndex : slide.slideIndex,
             picture : _newPicURL,
@@ -218,49 +240,57 @@ class FlyerOps{
             savesCount : slide.savesCount,
           );
 
-          _updatedSlides.add(_updatedSlide);
+          /// c - add the updated slide into finalSlides
+          _finalSlides.add(_updatedSlide);
 
-          print('2ac - slide ${slide.slideIndex} added to the _updatedSlides');
-
-        } else {
-          _updatedSlides.add(slide);
-
-          print('2aa - slide ${slide.slideIndex} is URL');
+          print('c - slide ${slide.slideIndex} added to the _finalSlides');
 
         }
 
-        print('2b - all slides checked');
+        /// x2 - if slide pic did not change
+        else {
+
+          /// c - add the slide into finalSlides
+          _finalSlides.add(slide);
+
+          print('c - slide ${slide.slideIndex} is URL');
+
+        }
+
+        print('A1 - all slides checked');
 
       }
 
-      FlyerModel _updatedFlyer = FlyerModel.replaceSlides(updatedFlyer, _updatedSlides);
+      /// A2 - replace slides in updatedFlyer with the finalSlides
+      FlyerModel _updatedFlyer = FlyerModel.replaceSlides(updatedFlyer, _finalSlides);
 
+      /// A3 - clone updatedFlyer into finalFlyer
       _finalFlyer = _updatedFlyer.clone();
     }
 
-    /// as updated pics override existing files in fireStorage
-    /// only deleted pics that hasn't been overridden should be deleted from fireStorage
-    /// Which are the slides in original flyer that have indexes => updatedFlyerSlides.length and < originalFlyerSlides.length
+    /// B - Delete fire storage pictures if updatedFlyer.slides.length > originalFlyer.slides.length
     if(originalFlyer.slides.length > _finalFlyer.slides.length){
       List<String> _slidesIDsToBeDeleted = new List();
 
+      /// B1 - get slides IDs which should be deleted starting first index after updatedFlyer.slides.length
       for (int i = _finalFlyer.slides.length; i < originalFlyer.slides.length; i++){
         _slidesIDsToBeDeleted.add(SlideModel.generateSlideID(_finalFlyer.flyerID, i));
       }
 
+      /// B2 - delete pictures from fireStorage/slidesPics/slideID : slide ID is "flyerID_index"
       for (var slideID in _slidesIDsToBeDeleted){
         await Fire.deleteStoragePic(
-            context: context,
-            picType: PicType.slideHighRes,
-            fileName: slideID,
+          context: context,
+          picType: PicType.slideHighRes,
+          fileName: slideID,
         );
-
       }
+
     }
 
-    print('2 - all slides Got URLs and deleted slides have been overridden or deleted');
+    print('B - all slides Got URLs and deleted slides have been overridden or deleted');
 
-    /// update flyer doc
+    /// C - update flyer doc in fireStore/flyers/flyerID
     await Fire.updateDoc(
       context: context,
       collName: FireCollection.flyers,
@@ -268,29 +298,35 @@ class FlyerOps{
       input: _finalFlyer.toMap(),
     );
 
-    print('3 - flyer updated on fireStore');
+    print('C - flyer updated on fireStore in fireStore/flyers/${_finalFlyer.flyerID}');
 
-    /// if keywords changed, update flyerKeys doc
+    /// D - if keywords changed, update flyerKeys doc in : fireStore/flyersKeys/flyerID
     if (TextChecker.listsAreTheSame(_finalFlyer.keyWords, originalFlyer.keyWords) == false){
       await Fire.updateDoc(
-        context: context,
-        collName: FireCollection.flyersKeys,
-        docName: _finalFlyer.flyerID,
-        input: await getKeyWordsMap(_finalFlyer.keyWords)
+          context: context,
+          collName: FireCollection.flyersKeys,
+          docName: _finalFlyer.flyerID,
+          input: await getKeyWordsMap(_finalFlyer.keyWords)
       );
+
+      print('D - flyer keywords updated on FireStore');
+
     }
 
-    print('4 - flyer keywords updated on FireStore');
 
-    /// if nanoFlyer is changed, update it in Bz doc
+    /// E - if nanoFlyer is changed, update it in Bz doc
     if(NanoFlyer.nanoFlyersAreTheSame(_finalFlyer, originalFlyer) == false){
+
+      /// E1 - get finalNanoFlyer from finalFlyer
       NanoFlyer _finalNanoFlyer = NanoFlyer.getNanoFlyerFromFlyerModel(_finalFlyer);
 
+      /// E2 - replace originalNanoFlyer in bzModel with the finalNanoFlyer
       List<NanoFlyer> _finalBzFlyers = NanoFlyer.replaceNanoFlyerInAList(
           originalNanoFlyers : bzModel.nanoFlyers,
           finalNanoFlyer: _finalNanoFlyer
       );
 
+      /// E3 - update fireStore/bzz/bzID['bzFlyers'] with the updated nanoFlyers list
       await Fire.updateDocField(
         context: context,
         collName: FireCollection.bzz,
@@ -299,16 +335,19 @@ class FlyerOps{
         input: NanoFlyer.cipherNanoFlyers(_finalBzFlyers),
       );
 
-      print('4a - nano flyer updated');
+      print('E - nano flyer updated');
 
     }
 
-    print('5 - nano flyer checked and checking tiny flyer');
+    print('E - nano flyer checked and checking tiny flyer');
 
-    /// if tinyFlyer is changed, update tinyFlyer doc
+    /// F - if tinyFlyer is changed, update tinyFlyer doc
     if(TinyFlyer.tinyFlyersAreTheSame(_finalFlyer, originalFlyer) == false){
+
+      /// F1 - get FinalTinyFlyer from final Flyer
       TinyFlyer _finalTinyFlyer = TinyFlyer.getTinyFlyerFromFlyerModel(_finalFlyer);
 
+      /// F2 - update fireStore/tinyFlyers/flyerID
       await Fire.updateDoc(
         context: context,
         collName: FireCollection.tinyFlyers,
@@ -316,14 +355,14 @@ class FlyerOps{
         input: _finalTinyFlyer.toMap(),
       );
 
-      print('5a - tiny flyer updated on FireStore');
+      print('F - tiny flyer updated on FireStore');
 
     }
 
-    print('6 - finishied uploading flyer');
+    print('F - finished uploading flyer');
 
     return _finalFlyer;
-}
+  }
 // -----------------------------------------------------------------------------
   Future<void> deactivateFlyerOps({BuildContext context,String flyerID, BzModel bzModel}) async {
 
