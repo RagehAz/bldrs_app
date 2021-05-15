@@ -31,7 +31,7 @@ class FlyersProvider with ChangeNotifier {
   List<TinyBz> _loadedTinyBzz;
   List<TinyFlyer> _loadedSavedFlyers;
   List<String> _loadedFollows;
-  List<FlyerModel> _bzOldFlyers;
+  List<FlyerModel> _bzDeactivatedFlyers;
   BldrsSection _currentSection;
   Zone _currentZone;
 // -----------------------------------------------------------------------------
@@ -71,8 +71,8 @@ class FlyersProvider with ChangeNotifier {
     return <String>[..._loadedFollows];
   }
 // -----------------------------------------------------------------------------
-  List<FlyerModel> get getBzOldFlyers{
-    return <FlyerModel>[..._bzOldFlyers];
+  List<FlyerModel> get getBzDeactivatedFlyers{
+    return <FlyerModel>[..._bzDeactivatedFlyers];
   }
 // -----------------------------------------------------------------------------
   /// this sets app sponsors if any
@@ -235,9 +235,9 @@ class FlyersProvider with ChangeNotifier {
       valueB: FlyerModel.cipherFlyerState(FlyerState.DeActivated),
     );
 
-    final List<FlyerModel> _oldFlyers = FlyerModel.decipherFlyersMaps(maps);
+    final List<FlyerModel> _deactivatedFlyers = FlyerModel.decipherFlyersMaps(maps);
 
-    _bzOldFlyers = _oldFlyers;
+    _bzDeactivatedFlyers = _deactivatedFlyers;
     notifyListeners();
 
     // _flyersColl.get([GetOptions()])

@@ -31,67 +31,78 @@ class BzFlyerScreen extends StatelessWidget {
     @required this.bzModel,
 });
 // -----------------------------------------------------------------------------
+  void _unpublishFlyerOnTap(BuildContext context) async {
+
+    Nav.goBack(context);
+
+    /// Task : this should be bool dialog instead
+    bool _dialogResult = await superDialog(
+      context: context,
+      title: '',
+      body: 'Are you sure you want to unpublish this flyer ?',
+      boolDialog: true,
+    );
+
+    /// if user stop
+    if (_dialogResult == false) {
+
+      print('cancelled unpublishing flyer');
+
+    }
+
+    /// if user continue
+    else {
+
+      /// start delete flyer ops
+      await FlyerOps().deactivateFlyerOps(
+        context: context,
+        bzModel: bzModel,
+        flyerID : tinyFlyer.flyerID,
+      );
+
+      /// remove tinyFlyer from Local list
+      FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
+      _prof.removeTinyFlyerFromLocalList(tinyFlyer.flyerID);
+
+
+    }
+
+    // /// re-route back
+    // Nav.goBack(context, argument: true);
+
+  }
+
   void _slideFlyerOptions(BuildContext context, FlyerModel flyerModel){
 
-    BottomSlider.slideBottomSheet(
+    BottomSlider.slideButtonsBottomSheet(
       context: context,
-      height: (50+10+50+10+50+30).toDouble(),
+      // height: (50+10+50+10+50+30).toDouble(),
       draggable: true,
-      child: Column(
-        children: <Widget>[
+      buttonHeight: 50,
+      buttons: <Widget>[
 
-          // --- DELETE FLYER
+          // --- UNPUBLISH FLYER
           DreamBox(
             height: 50,
             width: BottomSlider.bottomSheetClearWidth(context),
             icon: Iconz.XSmall,
             iconSizeFactor: 0.5,
             iconColor: Colorz.BloodRed,
-            verse: 'Delete Flyer',
+            verse: 'Unpublish Flyer',
             verseScaleFactor: 1.2,
             verseColor: Colorz.BloodRed,
             // verseWeight: VerseWeight.thin,
-            boxFunction: () async {
-
-              Nav.goBack(context);
-
-              /// Task : this should be bool dialog instead
-              bool _dialogResult = await superDialog(
-                context: context,
-                title: '',
-                body: 'Are you sure you want to Delete this flyer ?',
-                boolDialog: true,
-              );
-
-              print(_dialogResult);
-
-              /// start delete flyer ops
-              await FlyerOps().deactivateFlyerOps(
-                context: context,
-                bzModel: bzModel,
-                flyerID : tinyFlyer.flyerID,
-              );
-
-              /// remove tinyFlyer from Local list
-              FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
-              _prof.removeTinyFlyerFromLocalList(tinyFlyer.flyerID);
-
-              /// re-route back
-              Nav.goBack(context, argument: true);
-
-            },
+            boxFunction: () => _unpublishFlyerOnTap(context),
 
           ),
 
-          SizedBox(height: 10,),
-
-          // --- UN PUBLISH FLYER
+          // --- DELETE FLYER
           DreamBox(
             height: 50,
             width: BottomSlider.bottomSheetClearWidth(context),
             icon: Iconz.FlyerScale,
             iconSizeFactor: 0.5,
-            verse: 'super delete flyer not un-publish',
+            verse: 'Delete Flyer',
             verseScaleFactor: 1.2,
             verseColor: Colorz.White,
             boxFunction: () async {
@@ -124,8 +135,6 @@ class BzFlyerScreen extends StatelessWidget {
             },
           ),
 
-          SizedBox(height: 10,),
-
           // --- EDIT FLYER
           DreamBox(
             height: 50,
@@ -147,9 +156,8 @@ class BzFlyerScreen extends StatelessWidget {
             },
           ),
 
-
         ],
-      ),
+
     );
 
   }
@@ -193,6 +201,7 @@ class BzFlyerScreen extends StatelessWidget {
                       verse: '${TextGenerator.flyerTypeSingleStringer(context, flyerModel.flyerType)} ${Wordz.flyer(context)}',
                       secondLine: _flyerMetaData,
                       iconSizeFactor: 1,
+                      moreBtOnTap: () => _slideFlyerOptions(context, flyerModel),
                     ),
 
                     TileBubble(

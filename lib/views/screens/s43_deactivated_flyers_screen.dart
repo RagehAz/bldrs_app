@@ -1,11 +1,14 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/firestore/flyer_ops.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
+import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_sheet.dart';
 import 'package:bldrs/views/widgets/flyer/grids/flyers_grid.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
@@ -28,7 +31,7 @@ class DeactivatedFlyerScreen extends StatefulWidget {
 class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
   bool _isInit = true;
   List<TinyFlyer> _tinyFlyers;
-  List<FlyerModel> _oldFlyers;
+  List<FlyerModel> _deactivatedFlyers;
 // -----------------------------------------------------------------------------
   /// --- LOADING BLOCK
   bool _loading = false;
@@ -50,9 +53,9 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
       _prof.fetchAndSetBzDeactivatedFlyers(context, widget.bz)
           .then((_) async {
 
-        _oldFlyers = _prof.getBzOldFlyers;
+        _deactivatedFlyers = _prof.getBzDeactivatedFlyers;
 
-        List<TinyFlyer> _bzTinyFlyers = TinyFlyer.getTinyFlyersFromFlyersModels(_oldFlyers);
+        List<TinyFlyer> _bzTinyFlyers = TinyFlyer.getTinyFlyersFromFlyersModels(_deactivatedFlyers);
 
         setState(() {
           _tinyFlyers = _bzTinyFlyers;
@@ -65,6 +68,14 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
     super.didChangeDependencies();
   }
 // -----------------------------------------------------------------------------
+  FlyerModel _searchFlyerByTinyFlyer({TinyFlyer tinyFlyer}){
+
+    int _index = _deactivatedFlyers.indexWhere((flyer) => flyer.flyerID == tinyFlyer.flyerID, );
+
+    FlyerModel _flyer = _deactivatedFlyers[_index];
+    return _flyer;
+  }
+
   void _slideFlyerOptions(BuildContext context, TinyFlyer tinyFlyer){
 
     double _buttonHeight = 50;
@@ -123,8 +134,33 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
 
   }
 // -----------------------------------------------------------------------------
-  void _deleteFlyerOnTap(TinyFlyer tinyFlyer){
+  Future<void> _deleteFlyerOnTap(TinyFlyer tinyFlyer) async {
     print ('deleting flyer : ${tinyFlyer.flyerID}');
+
+    /// close bottom sheet
+    Nav.goBack(context);
+
+    /// delete flyer ops
+    await FlyerOps().deleteFlyerOps(
+      context: context,
+      flyerModel: _searchFlyerByTinyFlyer(tinyFlyer: tinyFlyer),
+      bzModel: widget.bz,
+    );
+
+    int _flyerIndex = _tinyFlyers.indexWhere((tFlyer) => tFlyer.flyerID == tinyFlyer.flyerID);
+
+    setState(() {
+      _tinyFlyers.removeAt(_flyerIndex);
+      _deactivatedFlyers.removeAt(_flyerIndex);
+    });
+
+    /// show success dialog
+    await superDialog(
+      context: context,
+      body: 'Flyer has been deleted',
+      boolDialog: false,
+      title: 'Great !',
+    );
   }
 // -----------------------------------------------------------------------------
   void _republishFlyerOnTap(TinyFlyer tinyFlyer){
