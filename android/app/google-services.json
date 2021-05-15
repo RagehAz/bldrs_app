@@ -15,11 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "439018969330-ci637ds3apj67tck3dbj4f59ds78uh5m.apps.googleusercontent.com",
+          "client_id": "439018969330-gd0s8talc5michs970i9neofqc3c6lf6.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.bldrs.net",
-            "certificate_hash": "9ff3c667c55fdbfb222dec58c299b39780c07b54"
+            "certificate_hash": "07e1f27c44635e1816db88ef036a932ee3555e33"
           }
         },
         {
