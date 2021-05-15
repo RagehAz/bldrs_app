@@ -101,13 +101,22 @@ class NanoFlyer with ChangeNotifier{
   }
 // -----------------------------------------------------------------------------
   static List<NanoFlyer> removeNanoFlyerFromNanoFlyers(List<NanoFlyer> nanoFlyers, String flyerID){
-    int _flyerIndex = nanoFlyers.indexWhere((nano) => nano.flyerID == flyerID,);
+    int _flyerIndex = nanoFlyers.indexWhere((nano) => nano.flyerID == flyerID, );
 
-    if (_flyerIndex != null){
+    print('removeNanoFlyerFromNanoFlyers : _flyerIndex : $_flyerIndex');
+
+    if (_flyerIndex == -1){
+      print('flyer does not exist in nano flyers list');
+
+      return null;
+    } else if (_flyerIndex == null) {
+
+      print('flyer does not exist in nano flyers list');
+      return null;
+
+    } else {
       nanoFlyers.removeAt(_flyerIndex);
       return nanoFlyers;
-    } else {
-      return null;
     }
 
   }

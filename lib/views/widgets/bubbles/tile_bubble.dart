@@ -1,5 +1,6 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
@@ -17,6 +18,7 @@ class TileBubble extends StatelessWidget {
   final Function switching;
   final bool iconIsBubble;
   final bool insideDialog;
+  final Function moreBtOnTap;
 
   TileBubble({
     @required this.verse,
@@ -30,6 +32,7 @@ class TileBubble extends StatelessWidget {
     this.switching,
     this.iconIsBubble = true,
     this.insideDialog = false,
+    this.moreBtOnTap,
   });
 
   @override
@@ -39,7 +42,7 @@ class TileBubble extends StatelessWidget {
     double iconWidth = (iconSizeFactor * iconBoxWidth);
     double iconBoxPadding = iconBoxWidth - iconWidth;
 
-    double _switchButtonWidth = switchIsOn == null ? 0 : 50;
+    double _switchButtonWidth = switchIsOn == null && moreBtOnTap == null ? 0 : 50;
 
     double _verseWidth =
         insideDialog == true ?
@@ -132,6 +135,15 @@ class TileBubble extends StatelessWidget {
                 onChanged: (val) => switching(val),
               ),
             ),
+
+            if(moreBtOnTap != null)
+              DreamBox(
+                height: 35,
+                width: 35,
+                icon: Iconz.More,
+                iconSizeFactor: 0.6,
+                boxFunction: moreBtOnTap,
+              )
 
           ],
         ),
