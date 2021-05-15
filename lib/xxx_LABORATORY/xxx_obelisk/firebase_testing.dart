@@ -717,6 +717,30 @@ class _FirebasetestingState extends State<Firebasetesting> {
         _triggerLoading();
       },},
 // -----------------------------------------------------------------------------
+      {'Name' : 'fix hany saad user and tinyUser', 'function' : () async {
+        _triggerLoading();
+
+
+        BzModel _bz = await BzOps.readBzOps(
+          context: context,
+          bzID: 'dr2',
+        );
+
+        AuthorModel _author = _bz.bzAuthors[1];
+
+        await Fire.updateDocField(
+          context: context,
+          collName: FireCollection.tinyUsers,
+          docName: _author.userID,
+          field: 'pic',
+          input: _author.authorPic,
+        );
+
+        printResult(_author.authorName);
+
+        _triggerLoading();
+      },},
+// -----------------------------------------------------------------------------
     // ListOfMapsContains
     ];
 

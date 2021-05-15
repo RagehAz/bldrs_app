@@ -429,13 +429,15 @@ class FlyerOps{
     List<NanoFlyer> _modifiedNanoFlyers= NanoFlyer.removeNanoFlyerFromNanoFlyers(bzModel.nanoFlyers, flyerModel.flyerID);
 
     /// A2 - update fireStore/bzz/bzID['nanoFlyers']
-    await Fire.updateDocField(
-      context: context,
-      collName: FireCollection.bzz,
-      docName: bzModel.bzID,
-      field: 'nanoFlyers',
-      input: NanoFlyer.cipherNanoFlyers(_modifiedNanoFlyers),
-    );
+    if (_modifiedNanoFlyers != null){
+      await Fire.updateDocField(
+        context: context,
+        collName: FireCollection.bzz,
+        docName: bzModel.bzID,
+        field: 'nanoFlyers',
+        input: NanoFlyer.cipherNanoFlyers(_modifiedNanoFlyers),
+      );
+    }
 
     /// B - delete fireStore/tinyFlyers/flyerID
     print('B - delete tiny flyer doc');
