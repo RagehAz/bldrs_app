@@ -88,9 +88,9 @@ class _MyBzScreenState extends State<MyBzScreen> {
         bzModel: bzModel,
       );
 
-      /// remove tinyBz from Local list
+      // /// remove tinyBz from Local list
       FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
-      _prof.removeTinyBzFromLocalList(bzModel.bzID);
+      // _prof.removeTinyBzFromLocalList(bzModel.bzID);
 
       /// remove tinyBz from local userTinyBzz
       _prof.removeTinyBzFromLocalUserTinyBzz(bzModel.bzID);

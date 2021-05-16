@@ -1,9 +1,9 @@
 class Keywordz{
 
 
-  static const List<String> propertyType = const <String>['Penthouse', 'Chalet', 'TwinHouse', 'FullFloor', 'HalfFloor', 'Building',
-    'Land', 'Bungalow', 'HotelRoom', 'Villa', 'Office', 'Store', 'WareHouse', 'ExhibitionHall',
-    'MeetingRoom', 'Clinic', ];
+  static const List<String> propertyType = const <String>['Penthouse', 'Chalet', 'Twin House', 'Full Floor', 'Half Floor', 'Building',
+    'Land', 'Bungalow', 'Hotel Room', 'Villa', 'Office', 'Store', 'WareHouse', 'Exhibition Hall',
+    'Meeting Room', 'Clinic', ];
 
   static const List<String> contractType = const <String>['ForSale', 'ForRent'];
 
@@ -15,24 +15,24 @@ class Keywordz{
 // Coordinates propertyLocation;
 // int propertyPrice;
 
-  static const List<String> designType = const <String>['ArchitectureDesign', 'InteriorDesign', 'UrbanDesign', 'UrbanPlanning',
-    'FurnitureDesign', 'LightingDesign', 'LandscapeDesign', 'StructureDesign', 'InfrastructureDesign'];
+  static const List<String> designType = const <String>['Architecture Design', 'Interior Design', 'Urban Design', 'Urban Planning',
+    'Furniture Design', 'Lighting Design', 'Landscape Design', 'Structure Design', 'Infrastructure Design'];
 
-  static const List<String> spaceType = const <String>['Bedroom', 'LivingRoom', 'Kitchen', 'Bathroom', 'Reception', 'Salon', 'Toilet',
-    'Terrace', 'BackYard', 'StorageRoom', 'Spa', 'Gymnasium', 'LaundryRoom', 'Theatre', 'Court',
-    'DiningRoom', 'Stairs', 'Attic', 'MechanicalRoom', 'ElectricityRoom', 'store', 'corridor',
-    'Lobby', 'Office', 'Kitchenette', 'ElevatorRoom', 'LectureRoom', 'MeetingRoom', 'SeminalHall',
-    'ConventionHall', 'MusicalHall', 'HomeTheatre', 'Library', 'Garage',];
+  static const List<String> spaceType = const <String>['Bedroom', 'Living Room', 'Kitchen', 'Bathroom', 'Reception', 'Salon', 'Toilet',
+    'Terrace', 'Back yard', 'Storage Room', 'Spa', 'Gymnasium', 'Laundry Room', 'Theatre', 'Court',
+    'Dining Room', 'Stairs', 'Attic', 'Mechanical Room', 'Electricity Room', 'store', 'corridor',
+    'Lobby', 'Office', 'Kitchenette', 'Elevator Room', 'Lecture Room', 'Meeting Room', 'Seminal Hall',
+    'Convention Hall', 'Musical Hall', 'Home Theatre', 'Library', 'Garage',];
 
-  static const List<String> architecturalStyle = const <String>['AmericanColonial', 'Arabian','ArtDeco','ArtNouveau','Asian','BeachStyle',
-    'Chinese', 'Contemporary','Craftsman','Eclectic','EnglishCountry','Farmhouse','French','FrenchCountry',
+  static const List<String> architecturalStyle = const <String>['American Colonial', 'Arabian','ArtDeco','Art Nouveau','Asian','Beach Style',
+    'Chinese', 'Contemporary','Craftsman','Eclectic','English Country','Farm house','French','French Country',
     'Gothic','Indian','Industrial','Japanese','Mediterranean','MidCentury','Medieval','Minimalist',
-    'Modern','Moroccan','Rustic','ScandinavianCountry','ScandinavianModern','ShabbyChic',
-    'Shaker','Southwestern','Spanish','Traditional','Transitional','Tuscan','Tropical',
+    'Modern','Moroccan','Rustic','Scandinavian Country','Scandinavian Modern','ShabbyChic',
+    'Shaker','South western','Spanish','Traditional','Transitional','Tuscan','Tropical',
     'Victorian','Vintage','Zen',];
 
   static const List<String> productUse = const <String>['Wall', 'Floor', 'Ceiling', 'Roof', 'Window', 'Door', 'Structure', 'Signage',
-    'ProofingIsolation', 'FireFighting', 'Stairs', 'Landscape',
+    'Proofing Isolation', 'FireFighting', 'Stairs', 'Landscape',
     'HVAC', 'Plumbing', 'Furnishing', 'Appliance', 'Safety', 'Conveying', 'Lighting', 'Electricity',
     'SmartHome', 'Security', ];
 
@@ -46,7 +46,7 @@ class Keywordz{
     'Plumbing',];
 
 
-  static const List<String> equipmentType = const <String>['EarthWork', 'Vehicles', 'MaterialHandling', 'HandTools', 'PowerTools'];
+  static const List<String> equipmentType = const <String>['EarthWork', 'Vehicles', 'Material Handling', 'HandTools', 'PowerTools'];
 
 // List<String equipmentUse = <String>['EarthWork', 'SiteWork',];
 
