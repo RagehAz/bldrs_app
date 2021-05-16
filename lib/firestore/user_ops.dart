@@ -396,7 +396,8 @@ class UserOps{
 // -----------------------------------------------------------------------------
   /// TASK : CLOUD FUNCTION : delete user ops should trigger a cloud function instead of firing these entire functions from client
   /// for now this :-
-  /// A - return 'stop' or continue ops
+  /// A - if user stops return 'stop
+  /// A - if user continue :-
   /// B - if user is Author :-
   ///   C - read And Filter Teamless Bzz By then show its dialog
   ///   D - return 'stop' or continue ops
@@ -406,16 +407,16 @@ class UserOps{
   ///   H - DELETE tiny user : firestore/tinyUsers/userID
   ///   I - DELETE user image : storage/usersPics/userID
   ///   J - DELETE user doc : firestore/users/userID
-  ///   K - SIGN OUT
   ///   L - DELETE firebase user : auth/userID
+  ///   K - SIGN OUT
   ///   M - return 'deleted'
   ///
   /// B - if user is not Author
   ///   H - DELETE tiny user : firestore/tinyUsers/userID
   ///   I - DELETE user image : storage/usersPics/userID
   ///   J - DELETE user doc : firestore/users/userID
-  ///   K - SIGN OUT
   ///   L - DELETE firebase user : auth/userID
+  ///   K - SIGN OUT
   ///   M - return 'deleted'
   Future<dynamic> superDeleteUserOps({BuildContext context, UserModel userModel}) async {
 
@@ -430,7 +431,7 @@ class UserOps{
     /// A - if user stops
     if (_result == false){
 
-      print('no Do not deactivate ');
+      print('A - user stops delete user ops ');
       return 'stop';
 
     }
@@ -438,7 +439,7 @@ class UserOps{
     /// A - if user continues
     else {
 
-      print('starting superDeleteUserOps()');
+      print('A - starting superDeleteUserOps()');
 
       /// B - if user is author
       if (UserModel.userIsAuthor(userModel) == true){
@@ -474,7 +475,7 @@ class UserOps{
         /// D - if user wants to stop
         if (_bzzReviewResult == false) {
           // do nothing
-          print('no Do not deactivate ');
+          print('D - user stops delete user ops ');
           return 'stop';
         }
 
@@ -490,7 +491,7 @@ class UserOps{
           /// F - if user wants to stop
           if (_flyersReviewResult == false){
 
-            print('no Do not deactivate ');
+            print('F - user stops delete user ops ');
             return 'stop';
 
           }
@@ -515,11 +516,11 @@ class UserOps{
                 bzModel: bz,
               );
 
-              print('DELETED : from ${userModel.userID} : bz :  ${bz.bzID} successfully');
+              print('G - DELETED : from ${userModel.userID} : bz :  ${bz.bzID} successfully');
             }
 
             /// H - DELETE tiny user : firestore/tinyUsers/userID
-            print('deleting tinyUser');
+            print('H - deleting tinyUser');
             await Fire.deleteDoc(
               context: context,
               collName: FireCollection.tinyUsers,
@@ -527,7 +528,7 @@ class UserOps{
             );
 
             /// I - DELETE user image : storage/usersPics/userID
-            print('deleting user pic');
+            print('I - deleting user pic');
             await Fire.deleteStoragePic(
               context: context,
               picType: PicType.userPic,
@@ -535,18 +536,20 @@ class UserOps{
             );
 
             /// J - DELETE user doc : firestore/users/userID
-            print('deleting user doc');
+            print('J - deleting user doc');
             await Fire.deleteDoc(
               context: context,
               collName: FireCollection.users,
               docName: userModel.userID,
             );
 
-            /// K - SIGN OUT
-            await AuthOps().signOut(context: context, routeToUserChecker: false);
-
             /// L - DELETE firebase user : auth/userID
+            print('L - deleting firebase user');
             await AuthOps().deleteFirebaseUser(context, userModel.userID);
+
+            /// K - SIGN OUT
+            print('K - user is signing out');
+            await AuthOps().signOut(context: context, routeToUserChecker: false);
 
             /// CLOSE WAITING DIALOG
             Nav.goBack(context);
@@ -574,35 +577,38 @@ class UserOps{
           child: Loading(loading: true,),
         );
 
-        /// H - delete tiny user
-        print('deleting tinyUser');
+        /// H - DELETE tiny user : firestore/tinyUsers/userID
+        print('H - deleting tinyUser');
         await Fire.deleteDoc(
           context: context,
           collName: FireCollection.tinyUsers,
           docName: userModel.userID,
         );
 
-        /// I - delete user image
-        print('deleting user pic');
+        /// I - DELETE user image : storage/usersPics/userID
+        print('I - deleting user pic');
         await Fire.deleteStoragePic(
           context: context,
           picType: PicType.userPic,
           fileName: userModel.userID,
         );
 
-        /// J - delete user doc
-        print('deleting user doc');
+        /// J - DELETE user doc : firestore/users/userID
+        print('J - deleting user doc');
         await Fire.deleteDoc(
           context: context,
           collName: FireCollection.users,
           docName: userModel.userID,
         );
 
+        /// L - DELETE firebase user : auth/userID
+        print('L - deleting firebase user');
+        await AuthOps().deleteFirebaseUser(context, userModel.userID);
+
         /// K - SIGN OUT
+        print('K - user is signing out');
         await AuthOps().signOut(context: context, routeToUserChecker: false);
 
-        /// L - DELETE firebase user : auth/userID
-        await AuthOps().deleteFirebaseUser(context, userModel.userID);
 
         /// CLOSE WAITING DIALOG
         Nav.goBack(context);
