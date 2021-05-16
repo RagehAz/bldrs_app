@@ -4,6 +4,7 @@ import 'package:bldrs/firestore/user_ops.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:bldrs/models/user_model.dart';
+import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
@@ -40,35 +41,48 @@ class UserProvider{
   }
 // -----------------------------------------------------------------------------
   /// UserModel from Snapshot
-  UserModel _userModelFromSnapshot(DocumentSnapshot doc){
+  UserModel _userModelFromSnapshot(DocumentSnapshot doc) {
 
-    try{
-      var _map = doc.data();
-
-      List<dynamic> _myBzzIDs = _map['myBzzIDs'] == null ? [] : _map['myBzzIDs'] as List<dynamic>;
-
-      return UserModel(
-        userID : _map['userID'] ?? '',
-        joinedAt : decipherDateTimeString(_map['joinedAt'] ?? ''),
-        userStatus : UserModel.decipherUserStatus(_map['userStatus']?? 1),
-        // -------------------------
-        name : _map['name'] ?? '',
-        pic : _map['pic'] ?? '',
-        title : _map['title'] ?? '',
-        company : _map['company'] ?? '',
-        gender : UserModel.decipherGender(_map['gender'] ?? 2),
-        zone : Zone.decipherZoneMap(_map['zone']) ?? null,
-        language : _map['language'] ?? 'en',
-        position : _map['position'] ?? GeoPoint(0, 0),
-        contacts : ContactModel.decipherContactsMaps(_map['contacts'] ?? []),
-        // -------------------------
-        myBzzIDs: _myBzzIDs ?? [],
-      );
-
-    } catch(error){
-      print('_userModelFromSnapshot error is : $error');
-      throw(error);
+    if (doc == null){
+      return null;
     }
+
+    else {
+
+      try{
+
+        var _map = doc.data();
+
+        List<dynamic> _myBzzIDs =
+            _map == null ? [] :
+            _map['myBzzIDs'] == null ? [] :
+            _map['myBzzIDs'] as List<dynamic>;
+
+        return UserModel(
+          userID : _map['userID'] ?? '',
+          joinedAt : decipherDateTimeString(_map['joinedAt'] ?? ''),
+          userStatus : UserModel.decipherUserStatus(_map['userStatus']?? 1),
+          // -------------------------
+          name : _map['name'] ?? '',
+          pic : _map['pic'] ?? '',
+          title : _map['title'] ?? '',
+          company : _map['company'] ?? '',
+          gender : UserModel.decipherGender(_map['gender'] ?? 2),
+          zone : Zone.decipherZoneMap(_map['zone']) ?? null,
+          language : _map['language'] ?? 'en',
+          position : _map['position'] ?? GeoPoint(0, 0),
+          contacts : ContactModel.decipherContactsMaps(_map['contacts'] ?? []),
+          // -------------------------
+          myBzzIDs: _myBzzIDs ?? [],
+        );
+
+      } catch(error){
+        print('_userModelFromSnapshot error is : $error');
+        throw(error);
+      }
+
+    }
+
   }
 // -----------------------------------------------------------------------------
   /// get users streams

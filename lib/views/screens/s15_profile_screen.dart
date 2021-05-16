@@ -150,7 +150,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
 
     /// if user wants cancel ops
     if (_dialogResult == false) {
-      print('user cancelled ops');
+      print('user : ${userModel.userID} cancelled ops');
     }
 
     /// and if user wants to continue ops

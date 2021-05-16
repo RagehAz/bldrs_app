@@ -15,6 +15,7 @@ class BarButton extends StatelessWidget {
   final BarType barType;
   final Function onTap;
   final double width;
+  final double corners;
 
   BarButton({
     @required this.text,
@@ -24,6 +25,7 @@ class BarButton extends StatelessWidget {
     this.barType = BarType.maxWithText,
     this.onTap,
     @required this.width,
+    this.corners,
   });
 
 
@@ -31,7 +33,7 @@ class BarButton extends StatelessWidget {
   Widget build(BuildContext context) {
 
     double _circleWidth = 40;
-    double _buttonCircleCorner = _circleWidth * 0.5;
+    double _buttonCircleCorner = corners == null ? _circleWidth * 0.5 : corners;
     double _paddings = Ratioz.ddAppBarPadding * 1.5;
 
     double _textScaleFactor = 0.95;
