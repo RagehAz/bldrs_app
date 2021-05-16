@@ -214,7 +214,7 @@ class MainLayout extends StatelessWidget {
 }
 // -----------------------------------------------------------------------------
 /// --- for testing purposes, only used in appBar
-Widget zorar(Function function, String functionName){
+Widget zorar({Function function, String functionName}){
   return DreamBox(
     height: 40,
     boxMargins: EdgeInsets.all(5),

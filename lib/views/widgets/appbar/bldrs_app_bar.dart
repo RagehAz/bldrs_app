@@ -66,6 +66,8 @@ class BldrsAppBar extends StatelessWidget {
     appBarType == AppBarType.Intro ? true :
     false;
 // -----------------------------------------------------------------------------
+    double _backButtonWidth = _backButtonIsOn == true ? 50 : 0;
+
     return Container(
       width: _abWidth,
       height: _abHeight,
@@ -110,7 +112,7 @@ class BldrsAppBar extends StatelessWidget {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(Ratioz.ddAppBarCorner),
                   child: Container(
-                    width: _screenWidth - (2 * Ratioz.ddAppBarMargin),
+                    width: _screenWidth - (2 * Ratioz.ddAppBarMargin) - _backButtonWidth,
                     height: _abHeight,
                     alignment: Alignment.center,
                     child: ListView(

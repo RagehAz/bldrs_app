@@ -295,7 +295,8 @@ Future<bool> bzzDeactivationDialog({
       child: ListView(
         children: <Widget>[
 
-          BzzBubble(
+          if (bzzToDeactivate.length != 0)
+            BzzBubble(
             tinyBzz: TinyBz.getTinyBzzFromBzzModels(bzzToDeactivate),
             onTap: (value){print(value);},
             numberOfColumns: 6,
@@ -304,6 +305,7 @@ Future<bool> bzzDeactivationDialog({
             title: 'These Accounts will be deactivated',
           ),
 
+          if (bzzToKeep.length != 0)
           BzzBubble(
             tinyBzz: TinyBz.getTinyBzzFromBzzModels(bzzToKeep),
             onTap: (value){print(value);},
@@ -350,6 +352,7 @@ Future<bool> flyersDeactivationDialog({
           child: ListView.builder(
             itemCount: _numberOfBzz,
             scrollDirection: Axis.vertical,
+            itemExtent: 200,
             itemBuilder: (context, index){
 
               return
