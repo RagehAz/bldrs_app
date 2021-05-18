@@ -114,6 +114,14 @@ class Mapper{
 
     bool _listOfMapContainsTheMap;
 
+    bool _inputsAreInvalid = listOfMaps == null || listOfMaps.length == 0 || map == null ? true : false;
+
+    if(_inputsAreInvalid == true){
+      _listOfMapContainsTheMap = false;
+    }
+
+    else {
+
     for (var _map in listOfMaps){
 
       if (mapsAreTheSame(_map, map)){
@@ -122,6 +130,8 @@ class Mapper{
       } else {
         _listOfMapContainsTheMap = false;
       }
+
+    }
 
     }
 

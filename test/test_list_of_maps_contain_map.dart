@@ -70,10 +70,18 @@ void main(){
   });
 // -----------------------------------------------------------------------------
   test('map == map', (){
-    
+
     bool _result = Mapper.mapsAreTheSame(_aMapInTheList, _aMapInTheListCopy);
 
     expect(_result, true);
+
+  });
+// -----------------------------------------------------------------------------
+  test('maps are not equal', (){
+
+    bool _result = Mapper.mapsAreTheSame(_aMapInTheList, _aMapNotInTheListByOneField);
+
+    expect(_result, false);
 
   });
 // -----------------------------------------------------------------------------
@@ -86,6 +94,18 @@ void main(){
     bool _result = Mapper.listsAreTheSame(list1: _list1, list2: _list2);
 
     expect(_result, true);
+
+  });
+// -----------------------------------------------------------------------------
+  test('lists are not the same', (){
+
+    List<String> _list1 = ['1', '2', '3'];
+    List<String> _list2 = ['1', '2', '4'];
+
+
+    bool _result = Mapper.listsAreTheSame(list1: _list1, list2: _list2);
+
+    expect(_result, false);
 
   });
 // -----------------------------------------------------------------------------

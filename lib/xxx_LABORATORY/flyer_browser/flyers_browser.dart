@@ -288,17 +288,12 @@ class _FlyerBrowserScreenState extends State<FlyerBrowserScreen> {
                           width: _filtersZoneWidth,
                           height: _browserScrollZoneHeight,
                           color: Colorz.BabyBlueSmoke,
-                          child: DreamList(
+                          child:
+                          DreamList(
                             itemZoneHeight: 50,
                             itemHeight: 45,
                             itemCount: _currentFilterKeywordsList.length,
                             itemBuilder: (context, index){
-
-                              // bool _isSelected = Mapper.listOfMapsContains(
-                              //   listOfMaps: _keywords,
-                              //   field: 'keyword',
-                              //   value: _currentFilterKeywordsList[index],
-                              // );
 
                               String _keyword = _currentFilterKeywordsList[index];
 
