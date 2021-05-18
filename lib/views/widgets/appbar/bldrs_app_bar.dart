@@ -18,6 +18,7 @@ class BldrsAppBar extends StatelessWidget {
   final String pageTitle;
   final List<Widget> appBarRowWidgets;
   final bool loading;
+  final ScrollController appBarScrollController;
 
   BldrsAppBar({
     this.appBarType,
@@ -25,6 +26,7 @@ class BldrsAppBar extends StatelessWidget {
     this.pageTitle,
     this.appBarRowWidgets,
     this.loading = false,
+    this.appBarScrollController,
   });
 // -----------------------------------------------------------------------------
   @override
@@ -117,6 +119,7 @@ class BldrsAppBar extends StatelessWidget {
                     alignment: Alignment.center,
                     child: ListView(
                       scrollDirection: Axis.horizontal,
+                      controller: appBarScrollController,
                       children: appBarRowWidgets,
                     ),
                   ),

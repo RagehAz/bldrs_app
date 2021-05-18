@@ -85,7 +85,7 @@ class Mapper{
 
   }
 // -----------------------------------------------------------------------------
-  static bool listOfMapsContains({List<dynamic> listOfMaps, String field, String value}){
+  static bool listOfMapsContainValue({List<dynamic> listOfMaps, String field, String value}){
 
     bool _listOfMapContainsTheValue;
 
@@ -102,4 +102,90 @@ class Mapper{
 
     return _listOfMapContainsTheValue;
   }
+// -----------------------------------------------------------------------------
+  /// listOfMaps = [
+  /// {'key1' : 'value', 'key2' : 'value2'}
+  /// {'key1' : 'value', 'key2' : 'value2'}
+  /// {'key1' : 'value', 'key2' : 'value2'}
+  /// ];
+  ///
+  /// map = {'key1' : 'value', 'key2' : 'value2'};
+  static bool listOfMapsContainMap({List<Map<String, dynamic>> listOfMaps, Map<String, dynamic> map}){
+
+    bool _listOfMapContainsTheMap;
+
+    for (var _map in listOfMaps){
+
+      if (mapsAreTheSame(_map, map)){
+        _listOfMapContainsTheMap = true;
+        break;
+      } else {
+        _listOfMapContainsTheMap = false;
+      }
+
+    }
+
+    return _listOfMapContainsTheMap;
+  }
+// -----------------------------------------------------------------------------
+  static bool listsAreTheSame({List<dynamic> list1, List<dynamic> list2}){
+    bool listsAreTheSame;
+
+    if (list1.length != list2.length){
+      listsAreTheSame = false;
+    }
+
+    else {
+
+      for (int i = 0; i<list1.length; i++){
+
+        if (list1[i] != list2[i]){
+          listsAreTheSame = false;
+          break;
+        }
+
+        else{
+          listsAreTheSame = true;
+        }
+
+      }
+
+    }
+
+
+    return listsAreTheSame;
+  }
+// -----------------------------------------------------------------------------
+  static bool mapsAreTheSame(Map<String, dynamic> map1, Map<String, dynamic> map2){
+    bool _mapsAreTheSame;
+
+    List<String> _map1Keys = map1.keys.toList();
+    List<dynamic> _map1Values = map1.values.toList();
+
+    List<String> _map2Keys = map2.keys.toList();
+    List<dynamic> _map2Values = map2.values.toList();
+
+    if(_map1Keys.length != _map2Keys.length){
+      _mapsAreTheSame = false;
+    }
+
+    else{
+
+      if (
+          listsAreTheSame(list1: _map1Keys, list2: _map2Keys) == true
+          &&
+          listsAreTheSame(list1: _map1Values, list2: _map2Values) == true
+      ){
+        _mapsAreTheSame = true;
+      }
+
+      else {
+        _mapsAreTheSame = false;
+      }
+
+    }
+
+    return _mapsAreTheSame;
+  }
+// -----------------------------------------------------------------------------
 }

@@ -36,6 +36,7 @@ class AnimatedDreamBox extends StatefulWidget {
   final Color splashColor;
   final Color underLineColor;
   final Color underLineLabelColor;
+  final Duration duration;
 
   AnimatedDreamBox({
     @required this.height,
@@ -65,6 +66,7 @@ class AnimatedDreamBox extends StatefulWidget {
     this.splashColor = Colorz.WhiteSmoke,
     this.underLineColor = Colorz.White,
     this.underLineLabelColor = Colorz.WhiteAir,
+    this.duration = Ratioz.fadingDuration,
   });
 
   @override
@@ -136,7 +138,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
 
                 // --- THE BOX
                 AnimatedContainer(
-                  duration: Duration(milliseconds: bounceDuration),
+                  duration: widget.duration,
                   curve: Curves.easeInOutQuint,
                   width: boxWidth,
                   height: boxHeight,
@@ -161,7 +163,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
 
                         widget.dreamChild == null ? Container() :
                         AnimatedContainer(
-                          duration: Duration(milliseconds: bounceDuration),
+                          duration: widget.duration,
                           curve: Curves.easeInOutQuint,
                           height: boxHeight,
                           width: boxWidth,
@@ -183,7 +185,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                               children: [
                                 widget.iconFile != null ?
                                 AnimatedContainer(
-                                  duration: Duration(milliseconds: bounceDuration),
+                                  duration: widget.duration,
                                   curve: Curves.easeInOutQuint,
                                   width: jpgGraphicWidth,
                                   height: jpgGraphicWidth,
@@ -205,7 +207,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                                           imageSaturationColor,
                                           BlendMode.saturation),
                                       child: AnimatedContainer(
-                                        duration: Duration(milliseconds: bounceDuration),
+                                        duration: widget.duration,
                                         curve: Curves.easeInOutQuint,
                                         width: jpgGraphicWidth,
                                         height: jpgGraphicWidth,
@@ -228,7 +230,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                                     :
                                 ObjectChecker.fileExtensionOf(widget.icon) == 'jpg' || ObjectChecker.fileExtensionOf(widget.icon) == 'jpeg' || ObjectChecker.fileExtensionOf(widget.icon) == 'png' ?
                                 AnimatedContainer(
-                                  duration: Duration(milliseconds: bounceDuration),
+                                  duration: widget.duration,
                                   curve: Curves.easeInOutQuint,
                                   width: jpgGraphicWidth,
                                   height: jpgGraphicWidth,
@@ -250,7 +252,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                                           imageSaturationColor,
                                           BlendMode.saturation),
                                       child: AnimatedContainer(
-                                        duration: Duration(milliseconds: bounceDuration),
+                                        duration: widget.duration,
                                         curve: Curves.easeInOutQuint,
                                         width: jpgGraphicWidth,
                                         height: jpgGraphicWidth,
@@ -265,7 +267,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                                 // --- BUTTON BLACK LAYER IF GREYED OUT
                                 widget.blackAndWhite == true && widget.icon != null && ObjectChecker.fileExtensionOf(widget.icon) != 'svg'?
                                 AnimatedContainer(
-                                  duration: Duration(milliseconds: bounceDuration),
+                                  duration: widget.duration,
                                   curve: Curves.easeInOutQuint,
                                   height: jpgGraphicWidth,
                                   width: jpgGraphicWidth,
@@ -292,7 +294,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                             // --- VERSE
                             widget.verse == null ? Container() :
                             AnimatedContainer(
-                              duration: Duration(milliseconds: bounceDuration),
+                              duration: widget.duration,
                               curve: Curves.easeInOutQuint,
                               height: boxHeight,
                               width: verseWidth,
@@ -340,7 +342,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                         // --- BOX HIGHLIGHT
                         widget.bubble == false ? Container() :
                         AnimatedContainer(
-                          duration: Duration(milliseconds: bounceDuration),
+                          duration: widget.duration,
                           curve: Curves.easeInOutQuint,
                           width: boxWidth,
                           height: boxHeight * 0.27,
@@ -360,7 +362,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                         // --- BOX GRADIENT
                         widget.bubble == false ? Container() :
                         AnimatedContainer(
-                          duration: Duration(milliseconds: bounceDuration),
+                          duration: widget.duration,
                           curve: Curves.easeInOutQuint,
                           height: boxHeight,
                           width: boxWidth,
@@ -377,7 +379,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
 
                         // --- RIPPLE & TAP LAYER
                         AnimatedContainer(
-                          duration: Duration(milliseconds: bounceDuration),
+                          duration: widget.duration,
                           curve: Curves.easeInOutQuint,
                           width: boxWidth,
                           height: boxHeight,
@@ -392,7 +394,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                                 setState(() {
                                   boxWidth = widget.width * 0.8;
                                   boxHeight = widget.height * 0.8;
-                                  Future.delayed(Duration(milliseconds: bounceDuration), (){setState(() {
+                                  Future.delayed(widget.duration, (){setState(() {
                                     boxWidth = widget.width;
                                     boxHeight = widget.width;
                                   });});
@@ -403,7 +405,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                                 print('boxWidth: $boxWidth, widget.width: ${widget.width}');
                                 setState(() {
                                   boxWidth = widget.width * 0.85;
-                                  Future.delayed(Duration(milliseconds: bounceDuration), (){setState(() {
+                                  Future.delayed(widget.duration, (){setState(() {
                                     boxWidth = widget.width * 0.9;
                                     boxHeight = widget.width * 0.9;
                                   });});
@@ -414,7 +416,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                                 print('boxWidth: $boxWidth, widget.width: ${widget.width}');
                                 setState(() {
                                   boxWidth = widget.width * 1.05;
-                                  Future.delayed(Duration(milliseconds: bounceDuration), (){setState(() {
+                                  Future.delayed(widget.duration, (){setState(() {
                                     boxWidth = widget.width;
                                     boxHeight = widget.width;
                                   });});
