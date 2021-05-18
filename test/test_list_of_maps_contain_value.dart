@@ -27,7 +27,7 @@ void main(){
 // -----------------------------------------------------------------------------
   test('correct input id = a', (){
 
-    bool _result = Mapper.listOfMapsContains(
+    bool _result = Mapper.listOfMapsContainValue(
       listOfMaps: _listOfMaps,
       field: 'id',
       value: 'a',
@@ -38,7 +38,7 @@ void main(){
 // -----------------------------------------------------------------------------
   test('in-correct input id = c', (){
 
-    bool _result = Mapper.listOfMapsContains(
+    bool _result = Mapper.listOfMapsContainValue(
       listOfMaps: _listOfMaps,
       field: 'id',
       value: 'c',
@@ -49,7 +49,7 @@ void main(){
 // -----------------------------------------------------------------------------
   test('in-correct input id = null', (){
 
-    bool _result = Mapper.listOfMapsContains(
+    bool _result = Mapper.listOfMapsContainValue(
       listOfMaps: _listOfMaps,
       field: 'id',
       value: null,
@@ -60,7 +60,7 @@ void main(){
 // -----------------------------------------------------------------------------
   test('in-correct field = koko, input = toto', (){
 
-    bool _result = Mapper.listOfMapsContains(
+    bool _result = Mapper.listOfMapsContainValue(
       listOfMaps: _listOfMaps,
       field: 'koko',
       value: 'toto',
