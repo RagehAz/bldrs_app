@@ -63,6 +63,7 @@ class MainLayout extends StatelessWidget {
   final bool appBarBackButton;
   final Key key;
   final List<TinyBz> myTinyBzz;
+  final ScrollController appBarScrollController;
 
   MainLayout({
     this.appBarRowWidgets,
@@ -77,6 +78,7 @@ class MainLayout extends StatelessWidget {
     this.appBarBackButton = false,
     this.key,
     this.myTinyBzz,
+    this.appBarScrollController,
 });
 
   Future<void> _refresh(BuildContext context) async {
@@ -112,6 +114,7 @@ class MainLayout extends StatelessWidget {
           pageTitle: pageTitle,
           backButtonIsOn: appBarBackButton,
           loading: loading,
+          appBarScrollController: appBarScrollController,
         ),
 
       if (pyramids != null && pyramids != Iconz.DvBlankSVG)
@@ -220,8 +223,13 @@ Widget zorar({Function function, String functionName}){
     boxMargins: EdgeInsets.all(5),
     color: Colorz.WhiteAir,
     verse: functionName,
-    verseScaleFactor: 0.7,
+    verseScaleFactor: 2,
     boxFunction: function,
+    bubble: false,
+    icon: Iconz.XLarge,
+    iconSizeFactor: 0.3,
+    secondLine: 'blaaah',
+    secondLineColor: Colorz.WhiteLingerie,
   );
 }
 // -----------------------------------------------------------------------------

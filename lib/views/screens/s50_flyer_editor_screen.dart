@@ -516,7 +516,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
                               verseSize: 1,
                               bubbles: true,
                               title: 'Space Type',
-                              words: Keywordz.spaceType,
+                              words: Filterz.spaceType,
                               selectedWords: _currentKeywords,
                               onTap: (value){
                                 setSheetState(() {
@@ -529,7 +529,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
                               verseSize: 1,
                               bubbles: true,
                               title: 'Product Use',
-                              words: Keywordz.productUse,
+                              words: Filterz.productUse,
                               selectedWords: _currentKeywords,
                               onTap: (value){setSheetState(() {_currentKeywords.add(value);});},
                             ),

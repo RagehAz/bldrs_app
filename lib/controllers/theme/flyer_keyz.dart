@@ -1,14 +1,27 @@
-class Keywordz{
+class Filterz{
+
+  static const List<Map<String, dynamic>> propertyFilters = const <Map<String, dynamic>>[
+    {'title' : 'Property use', 'list' : propertyUse, 'canPickMany' : false },
+    {'title' : 'Contract type', 'list' : contractType, 'canPickMany' : false },
+    {'title' : 'Property type', 'list' : propertyType, 'canPickMany' : false },
+    {'title' : 'Property area', 'list' : propertyArea, 'canPickMany' : true },
+
+  ];
 
 
-  static const List<String> propertyType = const <String>['Penthouse', 'Chalet', 'Twin House', 'Full Floor', 'Half Floor', 'Building',
+  static const List<String> propertyType = const <String>['Any', 'Penthouse', 'Chalet', 'Twin House', 'Full Floor', 'Half Floor', 'Building',
     'Land', 'Bungalow', 'Hotel Room', 'Villa', 'Office', 'Store', 'WareHouse', 'Exhibition Hall',
     'Meeting Room', 'Clinic', ];
 
-  static const List<String> contractType = const <String>['ForSale', 'ForRent'];
+  static const List<String> contractType = const <String>['For Sale', 'For Rent'];
 
   static const List<String> propertyUse = const <String>['Residential', 'Commercial', 'Industrial', 'Governmental', 'Administration',
     'Transportation', 'Educational', 'Agricultural', 'Medical', 'Hotel', 'Sports', 'Entertainment'];
+
+  static const List<String> propertyArea = const <String>['Any', 'less than 50 sq.m',
+    '50-100 sq.m', '100-150 sq.m', '150-200 sq.m', '200-250 sq.m', '250-300 sq.m',
+    '300-400 sq.m', '400-500 sq.m', '500-700 sq.m', '700-1000 sq.m',
+    '1000-2000 sq.m', '2000-5000 sq.m', '5000-10000 sq.m', 'more than 10000 sq.m'];
 
 // int propertyArea;
 // int numberOfRoom;
