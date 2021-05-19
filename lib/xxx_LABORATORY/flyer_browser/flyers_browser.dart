@@ -3,9 +3,11 @@ import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/text_shapers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/controllers/theme/flagz.dart';
 import 'package:bldrs/controllers/theme/flyer_keyz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/layouts/dream_list.dart';
@@ -15,6 +17,7 @@ import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:bldrs/xxx_LABORATORY/flyer_browser/keyword_button.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
+import 'package:flutter_keyboard_size/flutter_keyboard_size.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class FlyerBrowserScreen extends StatefulWidget {
@@ -25,7 +28,7 @@ class FlyerBrowserScreen extends StatefulWidget {
 }
 
 class _FlyerBrowserScreenState extends State<FlyerBrowserScreen> {
-  List<Map<String, dynamic>> _filters = Filterz.propertyFilters;
+  List<Map<String, dynamic>> _filters = new List();
 /// _keywords = {'filterTitle' : _filterTitle, 'keyword', _keyword};
   List<Map<String, String>> _keywords = new List();
   Map<String, dynamic> _highlightedKeywordMap;
@@ -33,6 +36,7 @@ class _FlyerBrowserScreenState extends State<FlyerBrowserScreen> {
   String _filterTitle;
   ItemScrollController _scrollController;
   ItemPositionsListener _itemPositionListener;
+  CountryProvider _countryPro;
 // -----------------------------------------------------------------------------
   /// --- LOADING BLOCK
   bool _loading = false;
@@ -44,15 +48,41 @@ class _FlyerBrowserScreenState extends State<FlyerBrowserScreen> {
 // -----------------------------------------------------------------------------
 @override
 void initState() {
-    _scrollController = ItemScrollController();
-    _itemPositionListener = ItemPositionsListener.create();
-    super.initState();
+  _countryPro =  Provider.of<CountryProvider>(context, listen: false);
+
+  _filters.addAll(Filterz.propertyFilters);
+
+  _scrollController = ItemScrollController();
+  _itemPositionListener = ItemPositionsListener.create();
+
+
+  super.initState();
+  }
+// -----------------------------------------------------------------------------
+  @override
+  void didChangeDependencies() {
+    _addZoneFilters();
+    super.didChangeDependencies();
   }
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
     // TODO: implement dispose
     super.dispose();
+  }
+// -----------------------------------------------------------------------------
+  void _addZoneFilters(){
+
+    String _countryID = _countryPro.currentCountryID;
+    String _countryName = _countryPro.getCountryNameInCurrentLanguageByIso3(context, _countryID);
+    List<Map<String, dynamic>> _provincesMaps = _countryPro.getProvincesNameMapsByIso3(context, _countryID);
+    // String _countryFlag = Flagz.getFlagByIso3(_countryID);
+    List<String> _provincesNames = Mapper.getSecondValuesFromMaps(_provincesMaps);
+
+
+    _filters.add(
+      {'title' : 'Province', 'list' : _provincesNames, 'canPickMany' : false },
+    );
   }
 // -----------------------------------------------------------------------------
   void _triggerBrowser(){
@@ -299,7 +329,7 @@ void initState() {
       _highlightedKeywordMap = _keywords[_keywordMapIndex];
     });
 
-    await Future.delayed(const Duration(milliseconds: 250), (){
+    await Future.delayed(const Duration(milliseconds: 500), (){
       setState(() {
         _highlightedKeywordMap = null;
       });
