@@ -12,7 +12,7 @@ class BldrsBackButton extends StatelessWidget {
   final Color color;
 
   BldrsBackButton({
-    this.size = 40,
+    this.size = Ratioz.backButtonSize,
     this.onTap,
     this.color = Colorz.WhiteAir,
 });
