@@ -125,5 +125,8 @@ class Scale{
     return _dialogWidth;
   }
 // -----------------------------------------------------------------------------
-
+  static double appBarScrollWidth(BuildContext context){
+    double _appBarScrollWidth = superScreenWidth(context) - (Ratioz.ddAppBarMargin * 2) - (Ratioz.ddAppBarPadding * 2) - Ratioz.backButtonSize - Ratioz.ddAppBarPadding;
+    return _appBarScrollWidth;
+  }
 }

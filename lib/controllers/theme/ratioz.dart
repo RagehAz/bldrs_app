@@ -97,4 +97,6 @@ static const double blur2 = 15;
 static const double blur3 = 20;
 // -----------------------------------------------------------------------------
 
+static const double backButtonSize = 40;
+
 }

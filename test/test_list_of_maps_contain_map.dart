@@ -109,4 +109,45 @@ void main(){
 
   });
 // -----------------------------------------------------------------------------
+  test('index of a map in list of maps', (){
+
+    List<Map<String,dynamic>> _theList = _listOfMaps;
+
+    int _indexOfTheMap = Mapper.indexOfMapInListOfMaps(_theList, _aMapInTheList);
+
+    int _result = _indexOfTheMap;
+
+    expect(_result, 1);
+
+  });
+// -----------------------------------------------------------------------------
+  test('index of a map not in the list of maps', (){
+
+    List<Map<String,dynamic>> _theList = _listOfMaps;
+
+    int _indexOfTheMap = Mapper.indexOfMapInListOfMaps(_theList, _aMapNotInTheListByOneField);
+
+    int _result = _indexOfTheMap;
+
+    expect(_result, -1);
+
+  });
+// -----------------------------------------------------------------------------
+  test('get index of a map by key value', (){
+
+    List<Map<String,dynamic>> _theList = _listOfMaps;
+
+    int _indexOfTheMap = Mapper.indexOfMapByValueInListOfMaps(
+        listOfMaps: _theList,
+        key: 'id',
+        value: 'b'
+    );
+
+    int _result = _indexOfTheMap;
+
+    expect(_result, 1);
+
+  });
+// -----------------------------------------------------------------------------
+
 }

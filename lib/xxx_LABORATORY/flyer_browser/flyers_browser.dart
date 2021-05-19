@@ -15,7 +15,7 @@ import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:bldrs/xxx_LABORATORY/flyer_browser/keyword_button.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
-// import ''
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class FlyerBrowserScreen extends StatefulWidget {
   const FlyerBrowserScreen({Key key}) : super(key: key);
@@ -28,9 +28,11 @@ class _FlyerBrowserScreenState extends State<FlyerBrowserScreen> {
   List<Map<String, dynamic>> _filters = Filterz.propertyFilters;
 /// _keywords = {'filterTitle' : _filterTitle, 'keyword', _keyword};
   List<Map<String, String>> _keywords = new List();
+  Map<String, dynamic> _highlightedKeywordMap;
   bool _browserIsOn = false;
   String _filterTitle;
-  ScrollController _scrollController = new ScrollController();
+  ItemScrollController _scrollController;
+  ItemPositionsListener _itemPositionListener;
 // -----------------------------------------------------------------------------
   /// --- LOADING BLOCK
   bool _loading = false;
@@ -41,8 +43,9 @@ class _FlyerBrowserScreenState extends State<FlyerBrowserScreen> {
   }
 // -----------------------------------------------------------------------------
 @override
-  void initState() {
-    // TODO: implement initState
+void initState() {
+    _scrollController = ItemScrollController();
+    _itemPositionListener = ItemPositionsListener.create();
     super.initState();
   }
 // -----------------------------------------------------------------------------
@@ -58,57 +61,112 @@ class _FlyerBrowserScreenState extends State<FlyerBrowserScreen> {
     });
   }
 // -----------------------------------------------------------------------------
-  void _fireKeyword(){
+  List<Widget> _appBarKeywords(){
 
-    print('keyword is ');
-
-  }
-// -----------------------------------------------------------------------------
-  List<Widget> _browserAppBarWidgets(){
     return
+
       <Widget>[
 
-        DreamBox(
+        Container(
+          width: Scale.appBarScrollWidth(context),
           height: 40,
-          verse: 'fire up',
-          verseScaleFactor: 0.6,
-          color: Colorz.BloodTest,
-          boxMargins: EdgeInsets.symmetric(horizontal: 5),
-          boxFunction: _fireKeyword,
-        ),
+          decoration: BoxDecoration(
+            color: Colorz.WhiteAir,
+            borderRadius: Borderers.superBorderAll(context, Ratioz.ddAppBarButtonCorner),
+          ),
+          child:
+          _keywords.length == 0 ? Container() :
+          ScrollablePositionedList.builder(
+            itemScrollController: _scrollController,
+            scrollDirection: Axis.horizontal,
+            itemPositionsListener: _itemPositionListener,
+            itemCount: _keywords.length,
+            itemBuilder: (ctx, index){
 
+              bool _isHighlighted = Mapper.mapsAreTheSame(_highlightedKeywordMap, _keywords[index]) == true ? true : false;
 
-        ...List.generate(_keywords.length, (index) =>
+              print('_keywords : $_keywords');
+              print('_keywords.length : ${_keywords.length}');
+              print('index : $index');
 
-            Row(
-              children: <Widget>[
+              return
 
                 KeywordButton(
                   keyword: _keywords[index]['keyword'],
                   title: _keywords[index]['filterTitle'],
                   xIsOn: true,
                   onTap: () => _removeKeyword(index),
-                ),
+                  color: _isHighlighted == true ? Colorz.BloodRed : Colorz.BabyBlueSmoke,
+                );
 
-                SizedBox(
-                  width: 5,
-                ),
-
-              ],
-            ),
-
-
-
-
-
-        ),
-
-        Container(
-          height: 40,
-          width: 50,
+            },
+          ),
         ),
 
       ];
+
+      // <Widget>[
+
+        // ...List.generate(_keywords.length, (index){
+        //
+        //   bool _isHighlighted = Mapper.mapsAreTheSame(_highlightedKeywordMap, _keywords[index]) == true ? true : false;
+        //
+        //   return
+        //     Row(
+        //       children: <Widget>[
+        //
+        //         KeywordButton(
+        //           keyword: _keywords[index]['keyword'],
+        //           title: _keywords[index]['filterTitle'],
+        //           xIsOn: true,
+        //           onTap: () => _removeKeyword(index),
+        //           color: _isHighlighted == true ? Colorz.BloodRed : Colorz.BabyBlueSmoke,
+        //         ),
+        //
+        //         SizedBox(
+        //           width: 5,
+        //         ),
+        //
+        //       ],
+        //     );
+        // },
+        //
+        // ),
+
+        // SingleChildScrollView(
+        //   scrollDirection: Axis.horizontal,
+        //   child:
+        //       Row(
+        //         children: <Widget>[
+        //
+        //           ...List.generate(_keywords.length, (index){
+        //
+        //               bool _isHighlighted = Mapper.mapsAreTheSame(_highlightedKeywordMap, _keywords[index]) == true ? true : false;
+        //
+        //             return
+        //
+        //               KeywordButton(
+        //                 keyword: _keywords[index]['keyword'],
+        //                 title: _keywords[index]['filterTitle'],
+        //                 xIsOn: true,
+        //                 onTap: () => _removeKeyword(index),
+        //                 color: _isHighlighted == true ? Colorz.BloodRed : Colorz.BabyBlueSmoke,
+        //               );
+        //
+        //
+        //           }),
+        //
+        //
+        //         ],
+        //       ),
+        // ),
+
+        // Container(
+        //   height: 40,
+        //   width: 50,
+        // ),
+
+      // ];
   }
 // -----------------------------------------------------------------------------
   List<String> _generateFilterList(){
@@ -134,17 +192,37 @@ class _FlyerBrowserScreenState extends State<FlyerBrowserScreen> {
     });
   }
 // -----------------------------------------------------------------------------
-  void _selectKeyword(String keyword){
+  Future<void> _selectKeyword(String keyword, bool isSelected) async {
 
     bool _canPickMany = _filters.singleWhere((filterMap) => filterMap['title'] == _filterTitle)['canPickMany'];
 
     Map<String, String> _keywordMap = {'keyword' : keyword, 'filterTitle' : _filterTitle};
+    int _keywordMapIndex = Mapper.indexOfMapInListOfMaps(_keywords, _keywordMap);
 
     /// when this filter accepts many keywords
     if (_canPickMany == true){
-      setState(() {
-        _keywords.add(_keywordMap);
-      });
+
+      /// when this keyword is already selected
+      if(isSelected == true){
+
+        // superDialog(
+        //   context: context,
+        //   title: 'obbaaa',
+        //   body: 'this has already been selected $keyword : $_filterTitle baby',
+        // );
+
+        _highlightKeyword(_keywordMap, _canPickMany);
+
+      }
+
+      /// when the keyword is not selected
+      else {
+        setState(() {
+          _keywords.add(_keywordMap);
+        });
+        _scrollToEndOfAppBar();
+      }
+
     }
 
     /// when this filter only accepts one keyword
@@ -158,11 +236,8 @@ class _FlyerBrowserScreenState extends State<FlyerBrowserScreen> {
 
       /// if keywords list contain a keyword of same title that accepts only one keyword
       if (_keywordsContainThisTitle == true){
-        superDialog(
-          context: context,
-          title: 'obbaaa',
-          body: 'Can not add more of this $_filterTitle baby',
-        );
+
+        _highlightKeyword(_keywordMap, _canPickMany);
 
       }
 
@@ -171,11 +246,64 @@ class _FlyerBrowserScreenState extends State<FlyerBrowserScreen> {
         setState(() {
           _keywords.add(_keywordMap);
         });
+        _scrollToEndOfAppBar();
       }
 
     }
 
-    _scrollController.animateTo(_scrollController.position.maxScrollExtent + 100, duration: Ratioz.fadingDuration, curve: Curves.easeInOut);
+
+
+  }
+// -----------------------------------------------------------------------------
+  void _scrollToEndOfAppBar(){
+    // _scrollController.animateTo(_scrollController.position.maxScrollExtent + 100, duration: Ratioz.fadingDuration, curve: Curves.easeInOut);
+
+    if (_keywords.length <= 1){
+      print('no scroll available');
+    } else {
+      _scrollController.scrollTo(index: _keywords.length - 1, duration: Ratioz.fadingDuration);
+    }
+  }
+// -----------------------------------------------------------------------------
+  void _scrollToIndex(int index){
+
+    if (_keywords.length <= 1){
+      print('no scroll available');
+    } else {
+      _scrollController.scrollTo(index: index, duration: Ratioz.fadingDuration);
+    }
+  }
+// -----------------------------------------------------------------------------
+  Future<void> _highlightKeyword(Map<String, dynamic> map, bool canPickMany) async {
+
+    int _keywordMapIndex;
+
+    /// if filter allows many keywords, we get index by exact map
+    if (canPickMany == true){
+      _keywordMapIndex = Mapper.indexOfMapInListOfMaps(_keywords, map);
+    }
+
+    /// if filter does not allow many keywords. we get index by the filterTitle only
+    else {
+      _keywordMapIndex = Mapper.indexOfMapByValueInListOfMaps(
+        listOfMaps: _keywords,
+        key: 'filterTitle',
+        value: map['filterTitle'],
+      );
+    }
+
+
+    _scrollToIndex(_keywordMapIndex);
+
+    setState(() {
+      _highlightedKeywordMap = _keywords[_keywordMapIndex];
+    });
+
+    await Future.delayed(const Duration(milliseconds: 250), (){
+      setState(() {
+        _highlightedKeywordMap = null;
+      });
+    });
 
   }
 // -----------------------------------------------------------------------------
@@ -217,8 +345,8 @@ class _FlyerBrowserScreenState extends State<FlyerBrowserScreen> {
       appBarType: _browserIsOn == true ? AppBarType.Scrollable : AppBarType.Main,
       loading: _loading,
       appBarBackButton: false,
-      appBarRowWidgets: _browserIsOn == true ? _browserAppBarWidgets() : null,
-      appBarScrollController: _scrollController,
+      appBarRowWidgets: _browserIsOn == true ? _appBarKeywords() : null,
+      // appBarScrollController: _scrollController,
       layoutWidget: Stack(
         children: <Widget>[
 
@@ -312,7 +440,7 @@ class _FlyerBrowserScreenState extends State<FlyerBrowserScreen> {
                                   color: _isSelected ? Colorz.BabyBluePlastic : Colorz.WhiteGlass,
                                   verseColor: _isSelected ? Colorz.White : Colorz.WhiteLingerie,
                                   bubble: false,
-                                  boxFunction: () => _selectKeyword(_keyword),
+                                  boxFunction: () => _selectKeyword(_keyword, _isSelected),
                                 );
 
 

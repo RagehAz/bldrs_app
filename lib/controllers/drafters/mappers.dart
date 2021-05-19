@@ -169,33 +169,52 @@ class Mapper{
   static bool mapsAreTheSame(Map<String, dynamic> map1, Map<String, dynamic> map2){
     bool _mapsAreTheSame;
 
-    List<String> _map1Keys = map1.keys.toList();
-    List<dynamic> _map1Values = map1.values.toList();
+    bool _inputsAreInvalid = map1 == null || map2 == null ? true : false;
 
-    List<String> _map2Keys = map2.keys.toList();
-    List<dynamic> _map2Values = map2.values.toList();
-
-    if(_map1Keys.length != _map2Keys.length){
-      _mapsAreTheSame = false;
+    if (_inputsAreInvalid == true){
+      _mapsAreTheSame = null;
     }
 
-    else{
+    else {
+      List<String> _map1Keys = map1.keys.toList();
+      List<dynamic> _map1Values = map1.values.toList();
 
-      if (
-          listsAreTheSame(list1: _map1Keys, list2: _map2Keys) == true
-          &&
-          listsAreTheSame(list1: _map1Values, list2: _map2Values) == true
-      ){
-        _mapsAreTheSame = true;
-      }
+      List<String> _map2Keys = map2.keys.toList();
+      List<dynamic> _map2Values = map2.values.toList();
 
-      else {
+      if(_map1Keys.length != _map2Keys.length){
         _mapsAreTheSame = false;
       }
 
+      else{
+
+        if (
+        listsAreTheSame(list1: _map1Keys, list2: _map2Keys) == true
+            &&
+            listsAreTheSame(list1: _map1Values, list2: _map2Values) == true
+        ){
+          _mapsAreTheSame = true;
+        }
+
+        else {
+          _mapsAreTheSame = false;
+        }
+
+      }
+
     }
+
 
     return _mapsAreTheSame;
   }
 // -----------------------------------------------------------------------------
+  static int indexOfMapInListOfMaps(List<Map<String, dynamic>> listOfMaps, Map<String,dynamic> map){
+      int _indexOfTheMap = listOfMaps.indexWhere((m) => Mapper.mapsAreTheSame(m, map));
+      return _indexOfTheMap;
+  }
+// -----------------------------------------------------------------------------
+  static int indexOfMapByValueInListOfMaps({List<Map<String, dynamic>> listOfMaps, String key, dynamic value}){
+    int _indexOfTheMap = listOfMaps.indexWhere((map) => map[key] == value);
+    return _indexOfTheMap;
+  }
 }
