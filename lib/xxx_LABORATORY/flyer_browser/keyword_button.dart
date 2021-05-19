@@ -52,7 +52,7 @@ class KeywordButton extends StatelessWidget {
             child: Container(
               height: 40,
               // width: buttonWidth,
-              // margin: EdgeInsets.symmetric(horizontal: Ratioz.ddAppBarMargin*0.5),
+              margin: EdgeInsets.symmetric(horizontal: 2.5),
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 color: color,
