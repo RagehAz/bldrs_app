@@ -2,9 +2,8 @@ import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/text_shapers.dart';
+import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/controllers/theme/flagz.dart';
-import 'package:bldrs/controllers/theme/flyer_keyz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/providers/country_provider.dart';
@@ -13,7 +12,7 @@ import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/layouts/dream_list.dart';
 import 'package:bldrs/views/widgets/nav_bar/bar_button.dart';
 import 'package:bldrs/views/widgets/nav_bar/nav_bar.dart';
-import 'package:bldrs/views/widgets/textings/super_verse.dart';
+import 'package:bldrs/xxx_LABORATORY/flyer_browser/flyer_keyz.dart';
 import 'package:bldrs/xxx_LABORATORY/flyer_browser/keyword_button.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
@@ -80,7 +79,7 @@ void initState() {
     List<String> _provincesNames = Mapper.getSecondValuesFromMaps(_provincesMaps);
 
 
-    _filters.add(
+    _filters.insert(0 ,
       {'title' : 'Province', 'list' : _provincesNames, 'canPickMany' : false },
     );
   }
@@ -113,7 +112,20 @@ void initState() {
             itemCount: _keywords.length,
             itemBuilder: (ctx, index){
 
-              bool _isHighlighted = Mapper.mapsAreTheSame(_highlightedKeywordMap, _keywords[index]) == true ? true : false;
+              bool _highlightedMapIsProvince =
+              _highlightedKeywordMap == null ? false
+                  :
+              _highlightedKeywordMap['filterTitle'] == 'Province' ? true
+                  : false;
+
+              bool _isHighlighted =
+                  _highlightedMapIsProvince == true && _keywords[index]['filterTitle'] == 'Province'? true
+                      :
+                  _highlightedMapIsProvince == true && _keywords[index]['filterTitle'] == 'Area'? true
+                      :
+                  Mapper.mapsAreTheSame(_highlightedKeywordMap, _keywords[index]) == true ? true
+                      :
+                  false;
 
               print('_keywords : $_keywords');
               print('_keywords.length : ${_keywords.length}');
@@ -199,13 +211,13 @@ void initState() {
       // ];
   }
 // -----------------------------------------------------------------------------
-  List<String> _generateFilterList(){
+  List<String> _generateFilterKeywords(){
 
     Map<String, dynamic> _currentFilterMap = _filters.singleWhere((filterMap) => filterMap['title'] == _filterTitle, orElse: () => null);
 
-    List<String> _currentFilterKeywordsList = _currentFilterMap == null ? [] : _currentFilterMap['list'];
+    List<String> _currentFilterKeywords = _currentFilterMap == null ? [] : _currentFilterMap['list'];
 
-    return _currentFilterKeywordsList;
+    return _currentFilterKeywords;
   }
 // -----------------------------------------------------------------------------
   void _selectFilter(Map<String, dynamic> _filter){
@@ -216,79 +228,184 @@ void initState() {
 
   }
 // -----------------------------------------------------------------------------
-  void _removeKeyword(int index){
+  Future<void> _removeKeyword(int index) async {
+
+    String _filterTitle = _keywords[index]['filterTitle'];
+    String _keyword = _keywords[index]['keyword'];
+
+    bool _isProvince = _filterTitle == 'Province' ? true : false;
+    bool _isArea = _filterTitle == 'Area' ? true : false;
+
+    Map<String, dynamic> _keywordMap = {'filterTitle' : _filterTitle, 'keyword': _keyword};
+
+
+    if (_isProvince == true){
+
+
+      await _highlightKeyword(_keywordMap, false);
+
+      setState(() {
+        _keywords.removeAt(index+1); // area index
+        _keywords.removeAt(index); // province index still the same
+      });
+    }
+
+    else if(_isArea == true){
+
+
+      await _highlightKeyword(_keywordMap, false);
+
+      setState(() {
+        _keywords.removeAt(index-1); // province index
+        _keywords.removeAt(index-1); // area index after change
+      });
+    }
+
+    else {
+
+      bool _canPickMany = _filters.singleWhere((filter) => filter['title'] == _filterTitle)['canPickMany'];
+
+      await _highlightKeyword(_keywordMap, _canPickMany);
+
+
+      setState(() {
+        _keywords.removeAt(index);
+      });
+    }
+
+  }
+// -----------------------------------------------------------------------------
+  void _addKeyword(Map<String, dynamic> map){
     setState(() {
-      _keywords.removeAt(index);
+      _keywords.add(map);
     });
   }
 // -----------------------------------------------------------------------------
   Future<void> _selectKeyword(String keyword, bool isSelected) async {
 
     bool _canPickMany = _filters.singleWhere((filterMap) => filterMap['title'] == _filterTitle)['canPickMany'];
-
     Map<String, String> _keywordMap = {'keyword' : keyword, 'filterTitle' : _filterTitle};
-    int _keywordMapIndex = Mapper.indexOfMapInListOfMaps(_keywords, _keywordMap);
 
-    /// when this filter accepts many keywords
+    /// when filter accepts many keywords [Poly]
     if (_canPickMany == true){
 
-      /// when this keyword is already selected
+      /// when POLY keyword is already selected
       if(isSelected == true){
-
-        // superDialog(
-        //   context: context,
-        //   title: 'obbaaa',
-        //   body: 'this has already been selected $keyword : $_filterTitle baby',
-        // );
-
         _highlightKeyword(_keywordMap, _canPickMany);
-
       }
 
-      /// when the keyword is not selected
+      /// when POLY keyword is not selected
       else {
-        setState(() {
-          _keywords.add(_keywordMap);
-        });
+        _addKeyword(_keywordMap);
         _scrollToEndOfAppBar();
       }
 
     }
 
-    /// when this filter only accepts one keyword
+    /// when filter accepts one keyword [SINGULAR]
     else {
 
+      /// check if SINGULAR keyword is selected by filterTitle
       bool _keywordsContainThisTitle = Mapper.listOfMapsContainValue(
         listOfMaps: _keywords,
         field: 'filterTitle',
         value: _filterTitle,
       );
 
-      /// if keywords list contain a keyword of same title that accepts only one keyword
+      /// when SINGULAR keyword already selected
       if (_keywordsContainThisTitle == true){
-
         _highlightKeyword(_keywordMap, _canPickMany);
-
       }
 
-      /// if no keyword of this title was chosen
+      /// when SINGULAR keyword not selected
       else{
-        setState(() {
-          _keywords.add(_keywordMap);
-        });
+
+        /// when selecting province - area
+        if(_filterTitle == 'Province'){
+          // then keyword is province
+
+          _showZoneDialog(provinceName: keyword);
+
+        }
+
+        /// when selecting anything else than zone
+        else {
+        _addKeyword(_keywordMap);
         _scrollToEndOfAppBar();
+        }
+
       }
 
     }
 
+  }
+// -----------------------------------------------------------------------------
+  Future<void> _showZoneDialog({String provinceName}) async {
 
+    String provinceID = _countryPro.getProvinceIDByProvinceName(context, provinceName);
+    List<Map<String, dynamic>> _areasMaps = _countryPro.getAreasNameMapsByProvinceID(context, provinceID);
+
+
+    await superDialog(
+      context: context,
+      title: '$provinceName',
+      body: 'add an Area in $provinceName to search words',
+      height: Scale.superScreenHeight(context) * 0.7,
+      child: Container(
+        height: Scale.superScreenHeight(context) * 0.5,
+        width: Scale.superDialogWidth(context) * 0.9,
+        decoration: BoxDecoration(
+          color: Colorz.WhiteAir,
+          borderRadius: Borderers.superBorderAll(context, Ratioz.ddAppBarButtonCorner),
+        ),
+        child: DreamList(
+          itemHeight: 45,
+          itemZoneHeight: 50,
+          itemCount: _areasMaps.length,
+          itemBuilder: (ctx, index){
+
+            String _areaName = _areasMaps[index]['value'];
+
+            Map<String, String> _areaMap = {'keyword' : _areaName, 'filterTitle' : 'Area'};
+            Map<String, String> _provinceMap = {'keyword' : provinceName, 'filterTitle' : 'Province'};
+
+            bool _isSelected = Mapper.listOfMapsContainMap(listOfMaps: _keywords, map: _areaMap);
+
+            return
+
+              DreamBox(
+                height: 45,
+                // width: 100,
+                verse: _areaName,
+                verseScaleFactor: 0.6,
+                boxMargins: 2.5,
+                color: _isSelected ? Colorz.BabyBluePlastic : Colorz.WhiteGlass,
+                verseColor: _isSelected ? Colorz.White : Colorz.WhiteLingerie,
+                bubble: false,
+                boxFunction: (){
+
+                  _addKeyword(_provinceMap);
+                  _addKeyword(_areaMap);
+
+                  _scrollToEndOfAppBar();
+
+                  Nav.goBack(context);
+
+                },
+              );
+
+
+          },
+        ),
+      ),
+    );
 
   }
 // -----------------------------------------------------------------------------
   void _scrollToEndOfAppBar(){
     // _scrollController.animateTo(_scrollController.position.maxScrollExtent + 100, duration: Ratioz.fadingDuration, curve: Curves.easeInOut);
 
-    if (_keywords.length <= 1){
+    if (_keywords.length <= 2){
       print('no scroll available');
     } else {
       _scrollController.scrollTo(index: _keywords.length - 1, duration: Ratioz.fadingDuration);
@@ -321,7 +438,6 @@ void initState() {
         value: map['filterTitle'],
       );
     }
-
 
     _scrollToIndex(_keywordMapIndex);
 
@@ -356,19 +472,10 @@ void initState() {
     double _browserScrollZoneWidth = _browserZoneWidth * 0.96;
     double _browserScrollZoneHeight = _browserZoneHeight * 0.94;
 
-    print('_browserScrollZoneHeight/_browserZoneHeight : ${_browserScrollZoneHeight/_browserZoneHeight}');
-
-    // print('_buttonPadding is : ${_buttonPadding}');
-    // print('_browserZoneWidth is : $_browserZoneWidth');
-    // print('_buttonPadding/_browserZoneWidth is : ${_buttonPadding/_browserZoneWidth}');
-
     double _filtersZoneWidth = (_browserScrollZoneWidth - _buttonPadding) / 2 ;
 
-    // print('_filtersZoneWidth : $_filtersZoneWidth');
+    List<String> _currentFilterKeywords = _generateFilterKeywords();
 
-    List<String> _currentFilterKeywordsList = _generateFilterList();
-
-    // print('_currentFilterKeywordsList.length = ${_currentFilterKeywordsList.length} : _currentFilterKeywordsList is : $_currentFilterKeywordsList');
 
     return MainLayout(
       pyramids: _browserIsOn == true ? Iconz.DvBlankSVG : null,
@@ -389,12 +496,10 @@ void initState() {
                   height: _browserZoneHeight,
                   width: _browserZoneWidth,
                   duration: Ratioz.fadingDuration,
-
                   curve: Curves.easeInOut,
                   decoration: BoxDecoration(
                     borderRadius: _browserZoneCorners,
                     color: Colorz.BloodRedZircon,
-
                   ),
                   margin: EdgeInsets.all(_browserZoneMargins),
                   alignment: Alignment.center,
@@ -450,10 +555,10 @@ void initState() {
                           DreamList(
                             itemZoneHeight: 50,
                             itemHeight: 45,
-                            itemCount: _currentFilterKeywordsList.length,
+                            itemCount: _currentFilterKeywords.length,
                             itemBuilder: (context, index){
 
-                              String _keyword = _currentFilterKeywordsList[index];
+                              String _keyword = _currentFilterKeywords[index];
 
                               Map<String, String> _keywordMap = {'keyword' : _keyword, 'filterTitle' : _filterTitle};
 
@@ -477,17 +582,17 @@ void initState() {
                               // SuperVerse(
                               //     // height: 45,
                               //     // width: _filtersZoneWidth,
-                              //     verse: _currentFilterKeywordsList[index],
+                              //     verse: _currentFilterKeywords[index],
                               //     size: 4,
                               //     // verseScaleFactor: 0.8,
                               //     margin: 2.5,//EdgeInsets.symmetric(vertical: 2.5),
                               //     color: _isSelected ? Colorz.White : Colorz.WhiteLingerie,
                               //     labelColor: _isSelected ? Colorz.BabyBluePlastic : Colorz.WhiteGlass,
                               //     labelTap: (){
-                              //       print(_currentFilterKeywordsList[index]);
+                              //       print(_currentFilterKeywords[index]);
                               //
                               //       setState(() {
-                              //         _keywords.add(_currentFilterKeywordsList[index]);
+                              //         _keywords.add(_currentFilterKeywords[index]);
                               //       });
                               //
                               //       _scrollController.animateTo(_scrollController.position.maxScrollExtent + 100, duration: Ratioz.fadingDuration, curve: Curves.easeInOut);
