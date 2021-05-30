@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/text_manipulators.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
@@ -38,5 +39,15 @@ String counterCaliber(BuildContext context, int x){
              ' ${Wordz.million(context)}'
              :
          '${x.toStringAsFixed(0)}';
+}
+// -----------------------------------------------------------------------------
+int stringToInt(String string){
+  return int.parse(string);
+}
+// -----------------------------------------------------------------------------
+int lastTwoIntegersFromAString(String string){
+  String _lastTwoSubStrings = lastTwoSubStringsFromAString(string);
+  int _asIntegers = stringToInt(_lastTwoSubStrings);
+  return _asIntegers;
 }
 // -----------------------------------------------------------------------------
