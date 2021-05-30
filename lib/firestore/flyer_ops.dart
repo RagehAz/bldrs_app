@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/text_checkers.dart';
@@ -301,7 +302,7 @@ class FlyerOps{
     print('C - flyer updated on fireStore in fireStore/flyers/${_finalFlyer.flyerID}');
 
     /// D - if keywords changed, update flyerKeys doc in : fireStore/flyersKeys/flyerID
-    if (TextChecker.listsAreTheSame(_finalFlyer.keyWords, originalFlyer.keyWords) == false){
+    if (Mapper.listsAreTheSame(list1: _finalFlyer.keyWords, list2: originalFlyer.keyWords) == false){
       await Fire.updateDoc(
           context: context,
           collName: FireCollection.flyersKeys,

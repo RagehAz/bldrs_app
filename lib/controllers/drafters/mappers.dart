@@ -217,4 +217,5 @@ class Mapper{
     int _indexOfTheMap = listOfMaps.indexWhere((map) => map[key] == value);
     return _indexOfTheMap;
   }
+
 }

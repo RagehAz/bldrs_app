@@ -136,6 +136,34 @@ class CountryProvider with ChangeNotifier{
   return nameInCurrentLanguage == null ? provinceName : nameInCurrentLanguage;
 }
 // -----------------------------------------------------------------------------
+  String getProvinceIDByProvinceName(BuildContext context, String provinceName){
+    String _provinceID;
 
+    String _languageCode = Wordz.languageCode(context);
+
+    if (_languageCode != 'en'){
+      for (var province in _provinces){
+
+        for (var nmz in province.namez){
+
+          bool _searchIsTrue = nmz.code == _languageCode && nmz.value == provinceName ? true : false;
+
+          if (_searchIsTrue == true){
+            _provinceID = province.name;
+            break;
+          }
+
+        }
+
+      }
+    }
+
+    else {
+      _provinceID = provinceName;
+    }
+
+    return _provinceID;
+  }
+// -----------------------------------------------------------------------------
 }
 

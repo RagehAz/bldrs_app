@@ -94,16 +94,6 @@ String lastTwoSubStringsFromAString(String string){
     '${_stringSplit[_beforeLastIndex]}${_stringSplit[_lastIndex]}';
 }
 // -----------------------------------------------------------------------------
-int stringToInt(String string){
-  return int.parse(string);
-}
-// -----------------------------------------------------------------------------
-int lastTwoIntegersFromAString(String string){
-  String _lastTwoSubStrings = lastTwoSubStringsFromAString(string);
-  int _asIntegers = stringToInt(_lastTwoSubStrings);
-  return _asIntegers;
-}
-// -----------------------------------------------------------------------------
 String trimTextAfterFirstSpecialCharacter(String verse, String specialCharacter){
   String _result = verse == null ? null : verse.substring(0, verse.indexOf(specialCharacter));
   return _result;
