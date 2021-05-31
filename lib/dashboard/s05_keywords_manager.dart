@@ -1,13 +1,11 @@
-import 'package:bldrs/controllers/drafters/aligners.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
-import 'package:bldrs/views/widgets/layouts/dream_list.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
-import 'package:bldrs/xxx_LABORATORY/flyer_browser/app_expansion_tile.dart';
+import 'package:bldrs/xxx_LABORATORY/flyer_browser/bldrs_expansion_tile.dart';
 import 'package:bldrs/xxx_LABORATORY/flyer_browser/flyer_keyz.dart';
 import 'package:flutter/material.dart';
 
@@ -18,9 +16,10 @@ class KeywordsManager extends StatefulWidget {
 
 class _KeywordsManagerState extends State<KeywordsManager> {
   bool _isExpanded = false;
-
-  final GlobalKey<AppExpansionTileState> expansionTile = new GlobalKey();
-  String foos = 'One';
+  final GlobalKey<BldrsExpansionTileState> _expansionTileKey = new GlobalKey();
+  final GlobalKey<BldrsExpansionTileState> _expansionTileKey2 = new GlobalKey();
+  String _subtitle;
+  List<String> _keywords = new List();
 
 // -----------------------------------------------------------------------------
   /// --- LOADING BLOCK
@@ -33,7 +32,8 @@ class _KeywordsManagerState extends State<KeywordsManager> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
-
+    _keywords.addAll(Filterz.propertyType);
+    _keywords.sort((a, b) => a.toString().compareTo(b.toString()));
     super.initState();
   }
 // -----------------------------------------------------------------------------
@@ -44,7 +44,9 @@ class _KeywordsManagerState extends State<KeywordsManager> {
     String _subTitle = 'propertyType';
     String _icon = Iconz.Plus;
     double _iconSizeFactor = 0.6;
-    List<String> _keywords = Filterz.propertyType;
+
+
+
 
     return MainLayout(
       pageTitle: 'Keywords And Filters Manager',
@@ -55,9 +57,9 @@ class _KeywordsManagerState extends State<KeywordsManager> {
       sky: Sky.Night,
       tappingRageh: (){
         if(_isExpanded){
-          expansionTile.currentState.collapse();
+          _expansionTileKey.currentState.collapse();
         } else {
-          expansionTile.currentState.expand();
+          _expansionTileKey.currentState.expand();
         }
 
         setState(() {
@@ -66,139 +68,43 @@ class _KeywordsManagerState extends State<KeywordsManager> {
 
       },
       layoutWidget: Container(
-        width: 300,
+        width: 300, // this dictates overall width
         child: ListView(
           children: [
 
             Stratosphere(),
 
-            Container(
-              width: Scale.superScreenWidth(context) *0.6,
-              color: Colorz.WhiteAir,
-              child: ExpansionTile(
-                title: SuperVerse(
-                  verse: _filterName,
-                  color: _isExpanded ? Colorz.BlackBlack : Colorz.White,
-                  centered: false,
-                ),
-                subtitle: SuperVerse(
-                  verse: _subTitle,
-                  color: _isExpanded ? Colorz.BlackLingerie : Colorz.WhiteLingerie,
-                  weight: VerseWeight.thin,
-                  italic: true,
-                  size: 2,
-                  centered: false,
-                ),
-                maintainState: false,
-                backgroundColor: Colorz.Yellow,
-                expandedAlignment: Alignment.center,
-                expandedCrossAxisAlignment: CrossAxisAlignment.center,
-                initiallyExpanded: false,
-                leading: DreamBox(
-                  height: 40,
-                  width: 40,
-                  icon: _icon,
-                  iconSizeFactor: _iconSizeFactor,
-                ),
-                onExpansionChanged: (value){
-                  setState(() {
-                    _isExpanded = !_isExpanded;
-                  });
-                  print('expansion is changing to $value');
+            BldrsExpansionTile(
+              height: 270,
+              key: _expansionTileKey,
+              title: 'Property type',
+              subTitle: _subtitle,
+              icon: Iconz.XLarge,
+              iconSizeFactor: 0.5,
+              keywords: _keywords,
+              onKeywordTap: (String selectedKeyword){
+                setState(() {
+                  _subtitle = selectedKeyword;
+                });
                 },
-                tilePadding: EdgeInsets.symmetric(horizontal: Ratioz.ddAppBarMargin, vertical: 0),
-                childrenPadding: EdgeInsets.all(10),
-                children: <Widget>[
-
-                  ...List.generate(_keywords.length, (index) => DreamBox(
-                    height: 40,
-                    verse: _keywords[index],
-                    verseColor: Colorz.BlackBlack,
-                    verseWeight: VerseWeight.thin,
-                    verseScaleFactor: 0.6,
-                    boxMargins: EdgeInsets.symmetric(horizontal: 50, vertical: 5),
-                  ),
-
-                  ),
-
-                ],
-
-                // trailing: DreamBox(
-                //   height: 40,
-                //   width: 40,
-                //   icon: _isExpanded ? Iconz.ArrowUp : Iconz.ArrowDown,
-                //   iconColor: _isExpanded ? Colorz.BlackBlack : Colorz.White,
-                //   iconSizeFactor: 0.35,
-                //   bubble: false,
-                //   boxFunction: (){
-                //     setState(() {
-                //       _isExpanded = !_isExpanded;
-                //     });
-                //   },
-                // ),
-
-              ),
             ),
 
-            Container(
-              width: 200,
-              color: _isExpanded ? Colorz.Yellow : Colorz.WhiteAir,
-              child: AppExpansionTile(
-                  key: expansionTile,
-                  title: this.foos,
-                  backgroundColor: Theme.of(context).accentColor.withOpacity(0.025),
-                  children: <Widget>[
-
-                    ...List.generate(_keywords.length, (index) => DreamBox(
-                      height: 40,
-                      verse: _keywords[index],
-                      verseColor: Colorz.BlackBlack,
-                      verseWeight: VerseWeight.thin,
-                      verseScaleFactor: 0.6,
-                      boxMargins: EdgeInsets.symmetric(horizontal: 50, vertical: 5),
-                      boxFunction: (){
-                        setState(() {
-                          this.foos = _keywords[index];
-                          expansionTile.currentState.collapse();
-                        });
-                      },
-
-                    ),
-                    ),
-
-                        // new ListTile(
-                    //   title: const Text('One'),
-                    //   onTap: () {
-                    //     setState(() {
-                    //       this.foos = 'One';
-                    //       expansionTile.currentState.collapse();
-                    //     });
-                    //     },
-                    // ),
-                    //
-                    // new ListTile(
-                    //   title: const Text('Two'),
-                    //   onTap: () {
-                    //     setState(() {
-                    //       this.foos = 'Two';
-                    //       expansionTile.currentState.collapse();
-                    //     });
-                    //     },
-                    // ),
-                    //
-                    // new ListTile(
-                    //   title: const Text('Three'),
-                    //   onTap: () {
-                    //     setState(() {
-                    //       this.foos = 'Three';
-                    //       expansionTile.currentState.collapse();
-                    //     });
-                    //     },
-                    // ),
-
-                  ],
-              ),
+            BldrsExpansionTile(
+              height: 270,
+              key: _expansionTileKey2,
+              title: 'Property type',
+              subTitle: _subtitle,
+              icon: Iconz.XLarge,
+              iconSizeFactor: 0.5,
+              keywords: _keywords,
+              onKeywordTap: (String selectedKeyword){
+                setState(() {
+                  _subtitle = selectedKeyword;
+                });
+              },
             ),
+
+            PyramidsHorizon(heightFactor: 5,),
 
           ],
         ),

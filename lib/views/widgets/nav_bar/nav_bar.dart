@@ -122,7 +122,7 @@ class NavBar extends StatelessWidget {
     double _titleMargin = 5;
     double _titleZoneHeight = superVerseRealHeight(context, _titleSize, 1, null) + (_titleMargin * 2);
 
-    double _bzzButtonsZoneHeight = BottomSlider.bottomSheetClearHeight(context, _sliderHeightRatio) - _titleZoneHeight;
+    double _bzzButtonsZoneHeight = BottomSlider.bottomSheetClearHeight(context, _sliderHeightRatio) - _titleZoneHeight - 1;
 
     BottomSlider.slideBottomSheet(
             context: context,
