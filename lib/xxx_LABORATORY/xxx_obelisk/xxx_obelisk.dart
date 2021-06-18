@@ -15,6 +15,7 @@ import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:bldrs/views/widgets/textings/the_golden_scroll.dart';
 import 'package:bldrs/xxx_LABORATORY/animations/animations_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/firestore_test/storage_test.dart';
+import 'package:bldrs/xxx_LABORATORY/flyer_browser/flyer_test_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/flyer_browser/flyers_browser.dart';
 import 'package:bldrs/xxx_LABORATORY/forms_and_inputs/popup.dart';
 import 'package:bldrs/xxx_LABORATORY/forms_and_inputs/form.dart';
@@ -229,6 +230,8 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
                 );
             }
           ),
+
+          oButton('Picture Test Screen', Iconz.Flyer, PictureTestScreen()),
 
           oButton('Slider Test Screen', Iconz.Flyer, SliderTestScreen()),
 
