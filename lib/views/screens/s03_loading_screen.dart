@@ -47,6 +47,8 @@ class _LoadingScreenState extends State<LoadingScreen> {
   /// this method of fetching provided data allows listening true or false,
   /// both working one  & the one with delay above in initState does not allow listening,
   /// i will go with didChangeDependencies as init supposedly works only at start
+  ///
+  /// TASK : if device has no connection,, it should detect and notify me
   @override
   void didChangeDependencies() {
     if (_isInit) {

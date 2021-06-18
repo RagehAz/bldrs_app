@@ -98,6 +98,7 @@ flutter:
     - assets/py/
     - assets/ut/
     - assets/cont/
+    - assets/keywords/
     - assets/icons/flags/
     - assets/languages/
     - assets/xx/cr_ahmad/
