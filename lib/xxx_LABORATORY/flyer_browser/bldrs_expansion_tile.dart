@@ -49,7 +49,7 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
   Animation<double> _iconTurns;
   bool _isExpanded = false;
   static const Duration _kExpand = const Duration(milliseconds: 200);
-  final GlobalKey<BldrsExpansionTileState> _expansionTileKey = new GlobalKey();
+  PageController _pageController;
 
 // -----------------------------------------------------------------------------
   @override
@@ -64,6 +64,7 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
     _subtitleLabelColorTween = new ColorTween();
     _iconTurns = new Tween<double>(begin: 0.0, end: 0.5).animate(_easeInAnimation);
     _borderRadius = BorderRadiusTween();
+    _pageController = PageController();
     _isExpanded = PageStorage.of(context)?.readState(context) ?? widget.initiallyExpanded;
     if (_isExpanded)
       _controller.value = 1.0;
@@ -223,40 +224,59 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
           borderRadius: _borderRadius.evaluate(_easeInAnimation), //Borderers.superBorderAll(context, Ratioz.ddAppBarCorner - 5),
         ),
         margin: EdgeInsets.all(5),
-        child: new ListView(
-          itemExtent: _buttonExtent,
+        child: PageView(
+          controller: _pageController,
+
           children: <Widget>[
 
-            ...List.generate(widget.keywords.length, (index){
+            /// first list page
+            new ListView(
+              itemExtent: _buttonExtent,
+              children: <Widget>[
 
-              bool _isSelected = widget.subTitle == widget.keywords[index];
+                ...List.generate(widget.keywords.length, (index){
 
-              return
-                DreamBox(
-                  height: _buttonHeight,
-                  color: _isSelected ? Colorz.Yellow : Colorz.Nothing,
-                  verse: widget.keywords[index],
-                  verseColor: _isSelected ? Colorz.BlackBlack : Colorz.White,
-                  verseWeight: _isSelected ? VerseWeight.bold : VerseWeight.thin,
-                  verseItalic: false,
-                  verseScaleFactor: 2,
-                  icon: _isSelected ? Iconz.XLarge : null,
-                  iconSizeFactor: 0.3,
-                  iconColor: Colorz.BlackBlack,
-                  boxMargins: EdgeInsets.symmetric(horizontal: 50, vertical: _buttonVerticalPadding),
-                  boxFunction: (){
+                  bool _isSelected = widget.subTitle == widget.keywords[index];
 
-                    if (_isSelected){
-                      widget.onKeywordTap(null);
-                    } else {
-                      widget.onKeywordTap(widget.keywords[index]);
+                  return
+                    DreamBox(
+                      height: _buttonHeight,
+                      color: _isSelected ? Colorz.Yellow : Colorz.Nothing,
+                      verse: widget.keywords[index],
+                      verseColor: _isSelected ? Colorz.BlackBlack : Colorz.White,
+                      verseWeight: _isSelected ? VerseWeight.bold : VerseWeight.thin,
+                      verseItalic: false,
+                      verseScaleFactor: 2,
+                      icon: _isSelected ? Iconz.XLarge : null,
+                      iconSizeFactor: 0.3,
+                      iconColor: Colorz.BlackBlack,
+                      boxMargins: EdgeInsets.symmetric(horizontal: 50, vertical: _buttonVerticalPadding),
+                      boxFunction: (){
 
-                    }
+                        if (_isSelected){
+                          widget.onKeywordTap(null);
+                        } else {
+                          widget.onKeywordTap(widget.keywords[index]);
 
-                    // _expansionTileKey.currentState.collapse();
-                  },
-                );
-            }
+                          // if there is sub list
+                          _pageController.nextPage(duration: _kExpand, curve: Curves.easeIn);
+                        }
+
+                        // _expansionTileKey.currentState.collapse();
+                      },
+                    );
+                }
+                ),
+
+              ],
+            ),
+
+            /// second list page
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: _borderRadius.evaluate(_easeInAnimation),
+                color: Colorz.BloodTest,
+              ),
             ),
 
           ],
