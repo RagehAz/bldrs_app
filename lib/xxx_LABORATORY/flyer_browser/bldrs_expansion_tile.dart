@@ -1,9 +1,12 @@
+import 'package:bldrs/controllers/drafters/aligners.dart';
 import 'package:bldrs/controllers/drafters/borderers.dart';
+import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
+import 'package:bldrs/xxx_LABORATORY/flyer_browser/keyword_model.dart';
 import 'package:flutter/material.dart';
 
 class BldrsExpansionTile extends StatefulWidget {
@@ -133,7 +136,7 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
     final bool closed = !_isExpanded && _controller.isDismissed;
 
     final double _buttonVerticalPadding = 5;
-    final double _buttonHeight = 40;
+    final double _buttonHeight = 80;
     final double _buttonExtent = _buttonHeight + _buttonVerticalPadding * 2;
 
     return new AnimatedBuilder(
@@ -232,6 +235,7 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
             /// first list page
             new ListView(
               itemExtent: _buttonExtent,
+              
               children: <Widget>[
 
                 ...List.generate(widget.keywords.length, (index){
@@ -239,31 +243,35 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
                   bool _isSelected = widget.subTitle == widget.keywords[index];
 
                   return
-                    DreamBox(
-                      height: _buttonHeight,
-                      color: _isSelected ? Colorz.Yellow : Colorz.Nothing,
-                      verse: widget.keywords[index],
-                      verseColor: _isSelected ? Colorz.BlackBlack : Colorz.White,
-                      verseWeight: _isSelected ? VerseWeight.bold : VerseWeight.thin,
-                      verseItalic: false,
-                      verseScaleFactor: 2,
-                      icon: _isSelected ? Iconz.XLarge : null,
-                      iconSizeFactor: 0.3,
-                      iconColor: Colorz.BlackBlack,
-                      boxMargins: EdgeInsets.symmetric(horizontal: 50, vertical: _buttonVerticalPadding),
-                      boxFunction: (){
+                    Align(
+                      alignment: Aligners.superCenterAlignment(context),
+                      child: DreamBox(
+                        height: _buttonHeight,
+                        width: Scale.superScreenWidth(context) - Ratioz.ddAppBarMargin * 2,
+                        color: _isSelected ? Colorz.Yellow : Colorz.Nothing,
+                        verse: widget.keywords[index],
+                        verseColor: _isSelected ? Colorz.BlackBlack : Colorz.White,
+                        verseWeight: _isSelected ? VerseWeight.bold : VerseWeight.thin,
+                        verseItalic: false,
+                        verseScaleFactor: 0.7,
+                        icon: KeywordModel.getImagePath(widget.keywords[index]),
+                        iconSizeFactor: 1,
+                        iconColor: Colorz.BlackBlack,
+                        boxMargins: EdgeInsets.symmetric(horizontal: 0, vertical: _buttonVerticalPadding),
+                        boxFunction: (){
 
-                        if (_isSelected){
-                          widget.onKeywordTap(null);
-                        } else {
-                          widget.onKeywordTap(widget.keywords[index]);
+                          if (_isSelected){
+                            widget.onKeywordTap(null);
+                          } else {
+                            widget.onKeywordTap(widget.keywords[index]);
 
-                          // if there is sub list
-                          _pageController.nextPage(duration: _kExpand, curve: Curves.easeIn);
-                        }
+                            // if there is sub list
+                            _pageController.nextPage(duration: _kExpand, curve: Curves.easeIn);
+                          }
 
-                        // _expansionTileKey.currentState.collapse();
-                      },
+                          // _expansionTileKey.currentState.collapse();
+                        },
+                      ),
                     );
                 }
                 ),
