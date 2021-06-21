@@ -6,6 +6,14 @@ List<String> sortAlphabetically(List<String> inputList){
   return _outputList;
 }
 // -----------------------------------------------------------------------------
+List<String> sortAlphabetically2(List<String> inputList){
+  List<String> _outputList = new List();
+
+  inputList.sort((a, b) => a.toString().compareTo(b.toString()));
+
+  return _outputList;
+}
+// -----------------------------------------------------------------------------
 String firstCharacterAfterRemovingSpacesFromAString(String string){
   String _output;
 
