@@ -37,7 +37,7 @@ class PictureTestScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    List<KeywordModel> _keywords = KeywordModel.products;
+    List<KeywordModel> _keywords = KeywordModel.bldrsKeywords;
 
     return MainLayout(
       pageTitle: 'Pictures Test',

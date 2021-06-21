@@ -7,6 +7,7 @@ import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:bldrs/xxx_LABORATORY/flyer_browser/bldrs_expansion_tile.dart';
 import 'package:bldrs/xxx_LABORATORY/flyer_browser/flyer_keyz.dart';
+import 'package:bldrs/xxx_LABORATORY/flyer_browser/keyword_model.dart';
 import 'package:flutter/material.dart';
 
 class KeywordsManager extends StatefulWidget {
@@ -16,11 +17,10 @@ class KeywordsManager extends StatefulWidget {
 
 class _KeywordsManagerState extends State<KeywordsManager> {
   bool _isExpanded = false;
-  final GlobalKey<BldrsExpansionTileState> _expansionTileKey = new GlobalKey();
-  final GlobalKey<BldrsExpansionTileState> _expansionTileKey2 = new GlobalKey();
+  List<GlobalKey<BldrsExpansionTileState>> _expansionKeys = new List();
   String _subtitle;
-  List<String> _keywords = new List();
-
+  List<KeywordModel> _keywords = KeywordModel.bldrsKeywords;
+  List<String> _filtersIDs = new List();
 // -----------------------------------------------------------------------------
   /// --- LOADING BLOCK
   bool _loading = false;
@@ -32,9 +32,48 @@ class _KeywordsManagerState extends State<KeywordsManager> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
-    _keywords.addAll(Filterz.propertyType);
-    _keywords.sort((a, b) => a.toString().compareTo(b.toString()));
+    arrangeFilters();
+    generateExpansionKeys();
     super.initState();
+  }
+// -----------------------------------------------------------------------------
+  void arrangeFilters(){
+    _keywords.forEach((keyword) {
+      if (!_filtersIDs.contains(keyword.filterID)){
+        _filtersIDs.add(keyword.filterID);
+      }
+    });
+    print('${_filtersIDs.length} Filters arranged : $_filtersIDs');
+  }
+// -----------------------------------------------------------------------------
+  void generateExpansionKeys(){
+    _filtersIDs.forEach((id) {
+      _expansionKeys.add(new GlobalKey());
+    });
+  }
+// -----------------------------------------------------------------------------
+  List<KeywordModel> getKeywordModels(String filterID){
+    List<KeywordModel> _keywordModels = new List();
+
+    _keywords.forEach((key) {
+      if(key.filterID == filterID){
+        _keywordModels.add(key);
+      }
+    });
+
+    print('keywords of $filterID : $_keywordModels');
+
+    return _keywordModels;
+  }
+// -----------------------------------------------------------------------------
+  List<String> getKeywordIDs(List<KeywordModel> _keywordModels){
+    List<String> _keywordIDs = new List();
+
+    _keywordModels.forEach((key) {
+      _keywordIDs.add(key.id);
+    });
+
+    return _keywordIDs;
   }
 // -----------------------------------------------------------------------------
   @override
@@ -56,11 +95,11 @@ class _KeywordsManagerState extends State<KeywordsManager> {
       loading: _loading,
       sky: Sky.Night,
       tappingRageh: (){
-        if(_isExpanded){
-          _expansionTileKey.currentState.collapse();
-        } else {
-          _expansionTileKey.currentState.expand();
-        }
+        // if(_isExpanded){
+        //   _expansionTileKey.currentState.collapse();
+        // } else {
+        //   _expansionTileKey.currentState.expand();
+        // }
 
         setState(() {
           _isExpanded =! _isExpanded;
@@ -68,41 +107,66 @@ class _KeywordsManagerState extends State<KeywordsManager> {
 
       },
       layoutWidget: Container(
-        width: 300, // this dictates overall width
+        width: Scale.superScreenWidth(context), // this dictates overall width
         child: ListView(
           children: [
 
             Stratosphere(),
 
-            BldrsExpansionTile(
-              height: 270,
-              key: _expansionTileKey,
-              title: 'Property type',
-              subTitle: _subtitle,
-              icon: Iconz.XLarge,
-              iconSizeFactor: 0.5,
-              keywords: _keywords,
-              onKeywordTap: (String selectedKeyword){
-                setState(() {
-                  _subtitle = selectedKeyword;
-                });
-                },
-            ),
+            ...List.generate(
+                _filtersIDs.length,
+                    (index){
+                  String _filterID = _filtersIDs[index];
+                  List<KeywordModel> _keywordModels = getKeywordModels(_filterID);
+                  List<String> _keywordsIDs = getKeywordIDs(_keywordModels);
 
-            BldrsExpansionTile(
-              height: 270,
-              key: _expansionTileKey2,
-              title: 'Property type',
-              subTitle: _subtitle,
-              icon: Iconz.XLarge,
-              iconSizeFactor: 0.5,
-              keywords: _keywords,
-              onKeywordTap: (String selectedKeyword){
-                setState(() {
-                  _subtitle = selectedKeyword;
-                });
-              },
-            ),
+                  return
+                    BldrsExpansionTile(
+                      height: 500,
+                      key: _expansionKeys[index],
+                      title: _filterID,
+                      subTitle: 'subtitle',
+                      // icon: KeywordModel.getImagePath(_filterID),
+                      iconSizeFactor: 0.5,
+                      keywords: _keywordsIDs,
+                      onKeywordTap: (String selectedKeyword){
+                        setState(() {
+                          _subtitle = selectedKeyword;
+                        });
+                      },
+                    );
+
+            }),
+
+            // BldrsExpansionTile(
+            //   height: 500,
+            //   key: _expansionTileKey,
+            //   title: 'Property type',
+            //   subTitle: _subtitle,
+            //   icon: Iconz.XLarge,
+            //   iconSizeFactor: 0.5,
+            //   keywords: _keywords,
+            //   onKeywordTap: (String selectedKeyword){
+            //     setState(() {
+            //       _subtitle = selectedKeyword;
+            //     });
+            //     },
+            // ),
+            //
+            // BldrsExpansionTile(
+            //   height: 500,
+            //   key: _expansionTileKey2,
+            //   title: 'Property type',
+            //   subTitle: _subtitle,
+            //   icon: Iconz.XLarge,
+            //   iconSizeFactor: 0.5,
+            //   keywords: _keywords,
+            //   onKeywordTap: (String selectedKeyword){
+            //     setState(() {
+            //       _subtitle = selectedKeyword;
+            //     });
+            //   },
+            // ),
 
             PyramidsHorizon(heightFactor: 5,),
 
