@@ -1,19 +1,31 @@
-import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/views/widgets/textings/super_verse.dart';
+import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 
-class SearchScreen extends StatelessWidget {
+class SearchScreen extends StatefulWidget {
+  @override
+  _SearchScreenState createState() => _SearchScreenState();
+}
+
+class _SearchScreenState extends State<SearchScreen> {
+
+// -----------------------------------------------------------------------------
+  /// --- LOADING BLOCK
+  bool _loading = false;
+  void _triggerLoading(){
+    setState(() {_loading = !_loading;});
+    _loading == true?
+    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+  }
+// -----------------------------------------------------------------------------
+
   @override
   Widget build(BuildContext context) {
-    return SuperVerse(
-      verse: 'SearchScreen',
-      color: Colorz.Yellow,
-      italic: true,
-      shadow: true,
-      weight: VerseWeight.black,
-      size: 8,
-      centered: true,
-      designMode: false,
+    return MainLayout(
+      appBarType: AppBarType.Search,
+      appBarBackButton: true,
+      pyramids: Iconz.DvBlankSVG,
+      loading: _loading,
 
     );
   }

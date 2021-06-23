@@ -34,7 +34,7 @@ class BldrsAppBar extends StatelessWidget {
 // -----------------------------------------------------------------------------
     double _screenWidth = Scale.superScreenWidth(context);
     double _abWidth = _screenWidth - (2 * Ratioz.ddAppBarMargin);
-    double _abHeight = Ratioz.ddAppBarHeight;
+    double _abHeight = appBarType == AppBarType.Search ? Ratioz.ddAppBarHeight * 2 - Ratioz.ddAppBarPadding : Ratioz.ddAppBarHeight;
     double _blurValue = Ratioz.blur1;
 // -----------------------------------------------------------------------------
     bool _scrollable = appBarType == AppBarType.Scrollable ? true : false;
@@ -45,6 +45,7 @@ class BldrsAppBar extends StatelessWidget {
     appBarType == AppBarType.Scrollable ? true :
     appBarType == AppBarType.Main ? false :
     appBarType == AppBarType.Intro ? false :
+    appBarType == AppBarType.Search ? true :
     false;
 // -----------------------------------------------------------------------------
     bool _searchButtonIsOn =
@@ -52,6 +53,7 @@ class BldrsAppBar extends StatelessWidget {
     appBarType == AppBarType.Scrollable ? false :
     appBarType == AppBarType.Main ? true :
     appBarType == AppBarType.Intro ? false :
+    appBarType == AppBarType.Search ? false :
     false;
 // -----------------------------------------------------------------------------
     bool _sectionButtonIsOn =
@@ -59,6 +61,7 @@ class BldrsAppBar extends StatelessWidget {
     appBarType == AppBarType.Scrollable ? false :
     appBarType == AppBarType.Main ? true :
     appBarType == AppBarType.Intro ? false :
+    appBarType == AppBarType.Search ? true :
     false;
 // -----------------------------------------------------------------------------
     bool _zoneButtonIsOn =
@@ -66,6 +69,7 @@ class BldrsAppBar extends StatelessWidget {
     appBarType == AppBarType.Scrollable ? false :
     appBarType == AppBarType.Main ? true :
     appBarType == AppBarType.Intro ? true :
+    appBarType == AppBarType.Search ? true :
     false;
 // -----------------------------------------------------------------------------
     double _backButtonWidth = _backButtonIsOn == true ? 50 : 0;
@@ -96,69 +100,86 @@ class BldrsAppBar extends StatelessWidget {
           Container(
             width: _abWidth,
             height: _abHeight,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
 
-                /// BackButton
-                if (_backButtonIsOn == true)
-                  BldrsBackButton(),
+                /// BACK / SEARCH / SECTION / ZONE
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
 
-                /// Search Button
-                if (_searchButtonIsOn == true)
-                  SearchButton(),
+                    /// BackButton
+                    if (_backButtonIsOn == true)
+                      BldrsBackButton(),
 
-                /// Row Widgets
-                if (_scrollable == true)
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(Ratioz.ddAppBarCorner),
-                  child: Container(
-                    width: _screenWidth - (2 * Ratioz.ddAppBarMargin) - _backButtonWidth,
-                    height: _abHeight,
-                    alignment: Alignment.center,
-                    child: ListView(
-                      scrollDirection: Axis.horizontal,
-                      controller: appBarScrollController,
-                      children: appBarRowWidgets,
-                    ),
-                  ),
+                    /// Search Button
+                    if (_searchButtonIsOn == true)
+                      SearchButton(),
+
+                    /// Row Widgets
+                    if (_scrollable == true)
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(Ratioz.ddAppBarCorner),
+                        child: Container(
+                          width: _screenWidth - (2 * Ratioz.ddAppBarMargin) - _backButtonWidth,
+                          height: _abHeight,
+                          alignment: Alignment.center,
+                          child: ListView(
+                            scrollDirection: Axis.horizontal,
+                            controller: appBarScrollController,
+                            children: appBarRowWidgets,
+                          ),
+                        ),
+                      ),
+
+                    /// Section Button
+                    if (_sectionButtonIsOn == true)
+                      SectionsButton(),
+
+                    /// Page Title
+                    if (pageTitle != null)
+                      Center(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: _titleHorizontalMargins),
+                          child: SuperVerse(
+                            verse: pageTitle,
+                            weight: VerseWeight.thin,
+                            color: Colorz.WhiteLingerie,
+                            size: 3,
+                            margin: 0,
+                            shadow: true,
+                            italic: true,
+                          ),
+                        ),),
+
+                    if(appBarRowWidgets != null &&_scrollable == false)
+                      ...appBarRowWidgets,
+
+                    /// Expander
+                    if (_zoneButtonIsOn == true)
+                      Expanded(child: Container(),),
+
+                    /// --- LOADING INDICATOR
+                    // if (loading != null)
+                    //   Loading(loading: true),
+
+                    /// Zone button
+                    if (_zoneButtonIsOn == true)
+                      ZoneButton(),
+
+                  ],
                 ),
 
-                /// Section Button
-                if (_sectionButtonIsOn == true)
-                  SectionsButton(),
-
-                /// Page Title
-                if (pageTitle != null)
-                  Center(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: _titleHorizontalMargins),
-                      child: SuperVerse(
-                        verse: pageTitle,
-                        weight: VerseWeight.thin,
-                        color: Colorz.WhiteLingerie,
-                        size: 3,
-                        margin: 0,
-                        shadow: true,
-                        italic: true,
-                      ),
-                    ),),
-
-                if(appBarRowWidgets != null &&_scrollable == false)
-                  ...appBarRowWidgets,
-
-                /// Expander
-                if (_zoneButtonIsOn == true)
-                Expanded(child: Container(),),
-
-                /// --- LOADING INDICATOR
-                // if (loading != null)
-                //   Loading(loading: true),
-
-                /// Zone button
-                if (_zoneButtonIsOn == true)
-                  ZoneButton(),
+                /// SEARCH BAR,
+                if (appBarType == AppBarType.Search)
+                Container(
+                  width: _abWidth,
+                  height: Ratioz.backButtonSize,
+                  color: Colorz.BloodTest,
+                ),
 
               ],
             ),

@@ -1,4 +1,3 @@
-import 'package:bldrs/controllers/drafters/aligners.dart';
 import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
@@ -12,23 +11,23 @@ import 'package:flutter/material.dart';
 class BldrsExpansionTile extends StatefulWidget {
   final String icon;
   final double iconSizeFactor;
-  final String title;
-  final String subTitle;
-  final List<String> keywords;
+  final String filterID;
   final double height;
   final Function onKeywordTap;
+  final Function onGroupTap;
   final ValueChanged<bool> onExpansionChanged;
   final bool initiallyExpanded;
+  final List<KeywordModel> selectedKeywords;
 
   const BldrsExpansionTile({
     Key key,
     this.icon,
     this.iconSizeFactor = 1,
-    @required this.title,
-    this.subTitle,
-    this.keywords,
+    @required this.filterID,
+    @required this.selectedKeywords,
     this.height,
-    this.onKeywordTap,
+    @required this.onKeywordTap,
+    @required this.onGroupTap,
     this.onExpansionChanged,
     this.initiallyExpanded: false,
   })
@@ -53,10 +52,15 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
   bool _isExpanded = false;
   static const Duration _kExpand = const Duration(milliseconds: 200);
   PageController _pageController;
-
+  List<String> _keywords = new List();
+  List<String> _groupsIDs = new List();
+  String _currentGroupID;
+  List<KeywordModel> _keywordModels = new List();
 // -----------------------------------------------------------------------------
   @override
   void initState() {
+    _groupsIDs = KeywordModel.getGroupsIDsByFilterID(widget.filterID);
+
     super.initState();
     _controller = new AnimationController(duration: _kExpand, vsync: this);
     _easeOutAnimation = new CurvedAnimation(parent: _controller, curve: Curves.easeOut);
@@ -111,6 +115,13 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
     }
   }
 // -----------------------------------------------------------------------------
+  void _setKeywords(String groupID){
+    setState(() {
+    _keywordModels = KeywordModel.getKeywordModelsByGroupID(groupID);
+
+    });
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -154,7 +165,7 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
         return
 
           Container(
-            margin: EdgeInsets.all(5),
+            margin: EdgeInsets.symmetric(vertical: Ratioz.ddAppBarPadding),
             decoration: BoxDecoration(
               color: _tileColor,
               borderRadius: Borderers.superBorderAll(context, Ratioz.ddAppBarCorner),
@@ -173,15 +184,18 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
                       icon: widget.icon,
                       iconSizeFactor: widget.iconSizeFactor,
                     ),
+
+                    /// FILTER TITLE
                     title: SuperVerse(
-                      verse: widget.title,
+                      verse: widget.filterID,
                       color: _titleColor,
                       centered: false,
                       shadow: false,
                     ),
 
+                    /// FILTER SUBTITLE
                     subtitle: SuperVerse(
-                      verse: widget.subTitle,
+                      verse: widget.filterID,
                       color: _isExpanded ? Colorz.WhiteLingerie : Colorz.WhitePlastic,
                       weight: VerseWeight.thin,
                       italic: true,
@@ -217,55 +231,60 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
 
       },
 
-      /// Expanded tile children
+      /// GROUPS & KEYWORDS : Expanded tile children
       child: closed ? null
           :
       Container(
-        height: widget.height == null ? (_buttonExtent * widget.keywords.length).toDouble() : widget.height,
+        height: widget.height == null ? (_buttonExtent * _groupsIDs.length).toDouble() : widget.height,
         decoration: BoxDecoration(
           color: Colorz.WhiteAir,
           borderRadius: _borderRadius.evaluate(_easeInAnimation), //Borderers.superBorderAll(context, Ratioz.ddAppBarCorner - 5),
         ),
-        margin: EdgeInsets.all(5),
+        margin: EdgeInsets.symmetric(vertical: Ratioz.ddAppBarPadding, horizontal: 0),
         child: PageView(
           controller: _pageController,
 
           children: <Widget>[
 
-            /// first list page
+            /// GROUPS LIST : first list page
             new ListView(
               itemExtent: _buttonExtent,
               
               children: <Widget>[
 
-                ...List.generate(widget.keywords.length, (index){
+                ...List.generate(_groupsIDs.length, (index){
 
-                  bool _isSelected = widget.subTitle == widget.keywords[index];
+                  bool _groupIsSelected = _currentGroupID == _groupsIDs[index];
 
                   return
                     Align(
-                      alignment: Aligners.superCenterAlignment(context),
+                      alignment: Alignment.center,
                       child: DreamBox(
                         height: _buttonHeight,
-                        width: Scale.superScreenWidth(context) - Ratioz.ddAppBarMargin * 2,
-                        color: _isSelected ? Colorz.Yellow : Colorz.Nothing,
-                        verse: widget.keywords[index],
-                        verseColor: _isSelected ? Colorz.BlackBlack : Colorz.White,
-                        verseWeight: _isSelected ? VerseWeight.bold : VerseWeight.thin,
+                        width: Scale.superScreenWidth(context) - Ratioz.ddAppBarMargin * 4,
+                        color: _groupIsSelected ? Colorz.Yellow : Colorz.Nothing,
+                        verse: _groupsIDs[index],
+                        secondLine: _groupsIDs[index],
+                        verseColor: _groupIsSelected ? Colorz.BlackBlack : Colorz.White,
+                        verseWeight: _groupIsSelected ? VerseWeight.bold : VerseWeight.thin,
                         verseItalic: false,
                         verseScaleFactor: 0.7,
-                        icon: KeywordModel.getImagePath(widget.keywords[index]),
+                        // icon: KeywordModel.getImagePath(_groupsIDs[index]),
                         iconSizeFactor: 1,
                         iconColor: Colorz.BlackBlack,
                         boxMargins: EdgeInsets.symmetric(horizontal: 0, vertical: _buttonVerticalPadding),
                         boxFunction: (){
 
-                          if (_isSelected){
-                            widget.onKeywordTap(null);
+                          if (_groupIsSelected){
+                            // do nothing
                           } else {
-                            widget.onKeywordTap(widget.keywords[index]);
 
-                            // if there is sub list
+                            setState(() {
+                              _currentGroupID = _groupsIDs[index];
+                            });
+
+                            _setKeywords(_currentGroupID);
+
                             _pageController.nextPage(duration: _kExpand, curve: Curves.easeIn);
                           }
 
@@ -279,11 +298,75 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
               ],
             ),
 
-            /// second list page
+            /// KEYWORDS LIST : SECOND LIST PAGE
             Container(
               decoration: BoxDecoration(
                 borderRadius: _borderRadius.evaluate(_easeInAnimation),
-                color: Colorz.BloodTest,
+                // color: Colorz.BloodTest,
+              ),
+              child: ListView(
+                itemExtent: _buttonExtent,
+                children: <Widget>[
+
+                  ...List.generate(_keywordModels.length, (index){
+
+                    KeywordModel _keyword = _keywordModels[index];
+                    bool _keywordIsSelected = widget.selectedKeywords.contains(_keyword);
+
+                    List<String> _subGroups = new List();
+
+                    _keywordModels.forEach((keyword) {
+                      if(!_subGroups.contains(keyword.groupID)){
+                        _subGroups.add(keyword.groupID);
+                      }
+                    });
+
+
+                    return
+
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+
+                          /// SUB GROUP TITLE
+                          Container(
+                            width: _buttonHeight,
+                            height: _buttonHeight,
+                            color: Colorz.BloodTest,
+                          ),
+
+                          /// SPACER
+                          SizedBox(
+                            width: Ratioz.ddAppBarMargin,
+                          ),
+
+                          /// KEYWORDS
+                          DreamBox(
+                            height: _buttonHeight,
+                            width: Scale.superScreenWidth(context) - Ratioz.ddAppBarMargin * 4 - _buttonHeight - Ratioz.ddAppBarMargin,
+                            color: _keywordIsSelected ? Colorz.Yellow : Colorz.Nothing,
+                            verse: _keyword.name,
+                            secondLine: _keyword.id,
+                            verseColor: _keywordIsSelected ? Colorz.BlackBlack : Colorz.White,
+                            verseWeight: _keywordIsSelected ? VerseWeight.bold : VerseWeight.thin,
+                            verseItalic: false,
+                            verseScaleFactor: 0.7,
+                            icon: KeywordModel.getImagePath(_keyword.id),
+                            iconSizeFactor: 1,
+                            iconColor: Colorz.BlackBlack,
+                            boxMargins: EdgeInsets.symmetric(horizontal: 0, vertical: _buttonVerticalPadding),
+                            boxFunction: (){
+                              widget.onKeywordTap(_keywordModels[index]);
+                            },
+                          ),
+                        ],
+                      );
+                  }
+                  ),
+
+                ],
               ),
             ),
 
