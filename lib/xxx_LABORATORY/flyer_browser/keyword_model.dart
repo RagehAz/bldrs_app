@@ -16,13 +16,47 @@ class KeywordModel {
     @required this.name,
     @required this.uses,
 });
-
-
+// -----------------------------------------------------------------------------
   static String getImagePath(String id){
     return 'assets/keywords/$id.jpg';
   }
+// -----------------------------------------------------------------------------
+//   static List<KeywordModel> getKeywordModelsByFilterID(String filterID){}
+// -----------------------------------------------------------------------------
+  static List<String> getFiltersIDs(){
+    List<String> _filtersIDs = new List();
 
+    KeywordModel.bldrsKeywords.forEach((keyword) {
+      if (!_filtersIDs.contains(keyword.filterID)){
+        _filtersIDs.add(keyword.filterID);
+      }
+    });
 
+    return _filtersIDs;
+  }
+// -----------------------------------------------------------------------------
+  static List<String> getGroupsIDsByFilterID(String filterID){
+    List<String> _groupsIDs = new List();
+    bldrsKeywords.forEach((keywordModel) {
+      if (keywordModel.filterID == filterID && !_groupsIDs.contains(keywordModel.groupID)){
+        _groupsIDs.add(keywordModel.groupID);
+      }
+    });
+    return _groupsIDs;
+  }
+// -----------------------------------------------------------------------------
+  static List<KeywordModel> getKeywordModelsByGroupID(String groupID){
+    List<KeywordModel> _keywordModels = new List();
+
+    bldrsKeywords.forEach((keywordModel) {
+      if (keywordModel.groupID == groupID){
+        _keywordModels.add(keywordModel);
+      }
+    });
+
+    return _keywordModels;
+  }
+// -----------------------------------------------------------------------------
   static List<KeywordModel> bldrsKeywords = <KeywordModel>[
     KeywordModel(id: 'bzType_manufacturer', filterID: 'bzType', groupID: '', subGroupID: '', name: 'Manufacturer', uses: 0),
     KeywordModel(id: 'bzType_supplier', filterID: 'bzType', groupID: '', subGroupID: '', name: 'Supplier', uses: 0),
@@ -736,7 +770,6 @@ class KeywordModel {
     KeywordModel(id: 'prd_tool_hk_floorcare', filterID: 'product', groupID: 'tools', subGroupID: 'housekeeping', name: 'Floor care Accessories', uses: 0),
     KeywordModel(id: 'prd_tool_hk_mop', filterID: 'product', groupID: 'tools', subGroupID: 'housekeeping', name: 'Mops, Brooms & dustpans', uses: 0),
     KeywordModel(id: 'prd_tool_measure_lasermeter', filterID: 'product', groupID: 'tools', subGroupID: 'measurement', name: 'Laser meters', uses: 0),
-
     KeywordModel(id: 'prd_tool_measure_theodolite', filterID: 'product', groupID: 'tools', subGroupID: 'measurement', name: 'Theodolite & Total stations', uses: 0),
     KeywordModel(id: 'equip_prep_scaffold', filterID: 'equipment', groupID: 'constructionPreparations', subGroupID: '', name: 'Scaffold', uses: 0),
     KeywordModel(id: 'equip_prep_cone', filterID: 'equipment', groupID: 'constructionPreparations', subGroupID: '', name: 'Cones & Barriers', uses: 0),

@@ -43,17 +43,15 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
     getFirestoreBzz();
     super.initState();
   }
-  // LOADING BLOCK -----------------------------------------------------------
+// -----------------------------------------------------------------------------
+  /// --- LOADING BLOCK
   bool _loading = false;
   void _triggerLoading(){
-    print('loading------------------');
-    setState(() {
-      _loading = !_loading;
-    });
-    print('loading complete --------');
-
+    setState(() {_loading = !_loading;});
+    _loading == true?
+    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
   }
-  // -------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
