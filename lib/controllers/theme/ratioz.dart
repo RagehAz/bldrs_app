@@ -30,7 +30,7 @@ static const double appBarMargin = 10;
 static const double appBarPadding = 5;
 static const double appBarButtonSize = 40;
 static const double appBarSmallHeight = appBarPadding * 2 + appBarButtonSize;
-  static const double appBarBigHeight = appBarPadding * 3 + appBarButtonSize * 2;
+static const double appBarBigHeight = appBarPadding * 3 + appBarButtonSize * 2;
 static const double bottomSheetCorner = appBarCorner + appBarMargin;
 
 // flyer old default ratios to be deleted lamma attamen 3al application isa

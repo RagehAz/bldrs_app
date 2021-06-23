@@ -2,13 +2,17 @@ import 'package:bldrs/controllers/drafters/aligners.dart';
 import 'package:bldrs/controllers/drafters/colorizers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/shadowers.dart';
+import 'package:bldrs/controllers/drafters/text_checkers.dart';
+import 'package:bldrs/controllers/drafters/text_shapers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/views/widgets/buttons/back_button.dart';
-import 'package:bldrs/views/widgets/buttons/search_button.dart';
+import 'package:bldrs/views/widgets/buttons/back_anb_search_button.dart';
+import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/buttons/sections_button.dart';
 import 'package:bldrs/views/widgets/buttons/zone_button.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/textings/super_text_field.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
@@ -33,8 +37,8 @@ class BldrsAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
     double _screenWidth = Scale.superScreenWidth(context);
-    double _abWidth = _screenWidth - (2 * Ratioz.appBarMargin);
-    double _abHeight = appBarType == AppBarType.Search ? Ratioz.appBarBigHeight : Ratioz.appBarSmallHeight;
+    double _abWidth = Scale.appBarClearWidth(context);
+    double _abHeight = Scale.appBarClearHeight(context, appBarType);
     double _blurValue = Ratioz.blur1;
 // -----------------------------------------------------------------------------
     bool _scrollable = appBarType == AppBarType.Scrollable ? true : false;
@@ -74,16 +78,226 @@ class BldrsAppBar extends StatelessWidget {
 // -----------------------------------------------------------------------------
     double _backButtonWidth = _backButtonIsOn == true ? 50 : 0;
 
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+
+        /// MAIN APPBAR
+        Container(
+          width: _abWidth,
+          height: _abHeight,
+          alignment: Alignment.center,
+          margin: EdgeInsets.all(Ratioz.appBarMargin),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(Ratioz.appBarCorner)),
+            boxShadow: Shadowz.appBarShadow,
+          ),
+
+          child: Stack(
+            alignment: Aligners.superCenterAlignment(context),
+            children: <Widget>[
+
+              /// --- APPBAR BLUR
+              BlurLayer(
+                width: _abWidth,
+                height: _abHeight,
+                blur: _blurValue,
+                borders: BorderRadius.all(Radius.circular(Ratioz.appBarCorner)),
+              ),
+
+              /// APP BAR CONTENTS
+              Container(
+                width: _abWidth,
+                height: _abHeight,
+                // color: Colorz.BabyBlueSmoke,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+
+                    /// BACK / SEARCH / SECTION / ZONE
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+
+                        /// BackButton
+                        if (_backButtonIsOn == true)
+                          BackAndSearchButton(
+                            backAndSearchAction: BackAndSearchAction.GoBack,
+                          ),
+
+                        /// Go to Search Button
+                        if (_searchButtonIsOn == true)
+                          BackAndSearchButton(
+                            backAndSearchAction: BackAndSearchAction.GoToSearchScreen,
+                          ),
+
+                        /// Row Widgets
+                        if (_scrollable == true)
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(Ratioz.appBarCorner),
+                            child: Container(
+                              width: _screenWidth - (2 * Ratioz.appBarMargin) - _backButtonWidth,
+                              height: _abHeight,
+                              alignment: Alignment.center,
+                              child: ListView(
+                                scrollDirection: Axis.horizontal,
+                                controller: appBarScrollController,
+                                children: appBarRowWidgets,
+                              ),
+                            ),
+                          ),
+
+                        /// Section Button
+                        if (_sectionButtonIsOn == true)
+                          SectionsButton(),
+
+                        /// Page Title
+                        if (pageTitle != null)
+                          Center(
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(horizontal: _titleHorizontalMargins),
+                              child: SuperVerse(
+                                verse: pageTitle,
+                                weight: VerseWeight.thin,
+                                color: Colorz.WhiteLingerie,
+                                size: 3,
+                                margin: 0,
+                                shadow: true,
+                                italic: true,
+                              ),
+                            ),),
+
+                        if(appBarRowWidgets != null &&_scrollable == false)
+                          ...appBarRowWidgets,
+
+                        /// Expander
+                        if (_zoneButtonIsOn == true)
+                          Expanded(child: Container(),),
+
+                        /// --- LOADING INDICATOR
+                        // if (loading != null)
+                        //   Loading(loading: true),
+
+                        /// Zone button
+                        if (_zoneButtonIsOn == true)
+                          ZoneButton(),
+
+                      ],
+                    ),
+
+                    /// SEARCH BAR,
+                    if (appBarType == AppBarType.Search)
+                      SearchBar(),
+
+                  ],
+                ),
+              ),
+
+            ],
+          ),
+        ),
+
+        /// SEARCH HISTORY
+        SearchHistory(),
+      ],
+    );
+  }
+}
+
+class SearchBar extends StatefulWidget {
+  const SearchBar({Key key}) : super(key: key);
+
+  @override
+  _SearchBarState createState() => _SearchBarState();
+}
+
+class _SearchBarState extends State<SearchBar> {
+  TextEditingController _searchTextController = TextEditingController();
+
+  @override
+  void initState() {
+    _searchTextController.text = '';
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    if (TextChecker.textControllerHasNoValue(_searchTextController))_searchTextController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    double _appBarClearWidth = Scale.appBarClearWidth(context);
+
+    return Container(
+      width: _appBarClearWidth,
+      height: Ratioz.appBarButtonSize + Ratioz.appBarPadding,
+      // color: Colorz.BloodTest,
+      alignment: Aligners.superTopAlignment(context),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+
+          Container(
+            width: 50,
+            height: 40,
+            // color: Colorz.LinkedIn,
+            alignment: Alignment.topLeft,
+            child: BackAndSearchButton(
+              backAndSearchAction: BackAndSearchAction.EnterSearch,
+            ),
+          ),
+
+          SuperTextField(
+            // fieldIsFormField: true,
+            width: _appBarClearWidth - (Ratioz.appBarButtonSize + Ratioz.appBarPadding * 3) - 3,
+            height: Ratioz.appBarButtonSize * 0.5,
+            textController: _searchTextController,
+            labelColor: Colorz.Yellow,
+            centered: false,
+            italic: true,
+            keyboardTextInputType: TextInputType.text,
+            keyboardTextInputAction: TextInputAction.done,
+            designMode: false,
+            counterIsOn: false,
+            fieldColor: null,
+            corners: Ratioz.appBarButtonCorner,
+          )
+
+        ],
+      ),
+    );
+  }
+}
+
+class SearchHistory extends StatelessWidget {
+  const SearchHistory({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+
+    List<String> _words = <String>['Changel', 'Chandelier', 'Ebony wood', ];
+
+    double _abWidth = Scale.appBarClearWidth(context);
+    double _abHeight = Scale.appBarClearHeight(context, AppBarType.Search);
+    double _blurValue = Ratioz.blur1;
+
+    double _spacing = superVerseLabelMargin(context, 3, 1, true);
+
     return Container(
       width: _abWidth,
       height: _abHeight,
-      alignment: Alignment.center,
-      margin: EdgeInsets.all(Ratioz.appBarMargin),
       decoration: BoxDecoration(
+        color: Colorz.WhiteAir,
         borderRadius: BorderRadius.all(Radius.circular(Ratioz.appBarCorner)),
         boxShadow: Shadowz.appBarShadow,
       ),
-
       child: Stack(
         alignment: Aligners.superCenterAlignment(context),
         children: <Widget>[
@@ -96,96 +310,58 @@ class BldrsAppBar extends StatelessWidget {
             borders: BorderRadius.all(Radius.circular(Ratioz.appBarCorner)),
           ),
 
-          /// APP BAR CONTENTS
           Container(
             width: _abWidth,
             height: _abHeight,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
+            padding: EdgeInsets.all(Ratioz.appBarMargin),
+            child: Wrap(
+              // spacing: ,
               children: <Widget>[
 
-                /// BACK / SEARCH / SECTION / ZONE
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-
-                    /// BackButton
-                    if (_backButtonIsOn == true)
-                      BldrsBackButton(),
-
-                    /// Search Button
-                    if (_searchButtonIsOn == true)
-                      SearchButton(),
-
-                    /// Row Widgets
-                    if (_scrollable == true)
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(Ratioz.appBarCorner),
-                        child: Container(
-                          width: _screenWidth - (2 * Ratioz.appBarMargin) - _backButtonWidth,
-                          height: _abHeight,
-                          alignment: Alignment.center,
-                          child: ListView(
-                            scrollDirection: Axis.horizontal,
-                            controller: appBarScrollController,
-                            children: appBarRowWidgets,
-                          ),
-                        ),
-                      ),
-
-                    /// Section Button
-                    if (_sectionButtonIsOn == true)
-                      SectionsButton(),
-
-                    /// Page Title
-                    if (pageTitle != null)
-                      Center(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: _titleHorizontalMargins),
-                          child: SuperVerse(
-                            verse: pageTitle,
-                            weight: VerseWeight.thin,
-                            color: Colorz.WhiteLingerie,
-                            size: 3,
-                            margin: 0,
-                            shadow: true,
-                            italic: true,
-                          ),
-                        ),),
-
-                    if(appBarRowWidgets != null &&_scrollable == false)
-                      ...appBarRowWidgets,
-
-                    /// Expander
-                    if (_zoneButtonIsOn == true)
-                      Expanded(child: Container(),),
-
-                    /// --- LOADING INDICATOR
-                    // if (loading != null)
-                    //   Loading(loading: true),
-
-                    /// Zone button
-                    if (_zoneButtonIsOn == true)
-                      ZoneButton(),
-
-                  ],
+                DreamBox(
+                  height: superVerseRealHeight(context, 3, 1, Colorz.BlackSmoke),
+                  width: superVerseRealHeight(context, 3, 1, Colorz.BlackSmoke),
+                  color: Colorz.BlackSmoke,
+                  icon: Iconz.Clock,
+                  iconSizeFactor: 0.6,
+                  bubble: false,
+                  boxMargins: EdgeInsets.all(_spacing),
                 ),
 
-                /// SEARCH BAR,
-                if (appBarType == AppBarType.Search)
-                Container(
-                  width: _abWidth,
-                  height: Ratioz.appBarButtonSize,
-                  color: Colorz.BloodTest,
+                ...List<Widget>.generate(
+                  _words.length,
+                    (index){
+
+                    return
+                        // SuperVerse(
+                        //   shadow: false,
+                        //   size: 3,
+                        //   designMode: false,
+                        // );
+
+                    DreamBox(
+                      height: superVerseRealHeight(context, 3, 1, Colorz.BlackSmoke),
+                      verse: _words[index],
+                      verseItalic: true,
+                      verseWeight: VerseWeight.thin,
+                      verseScaleFactor: 1.7,
+                      bubble: false,
+                      icon: Iconz.XLarge,
+                      iconSizeFactor: 0.4,
+                      color: Colorz.BlackSmoke,
+                      boxMargins: EdgeInsets.all(_spacing),
+                    );
+
+                    }
                 ),
 
               ],
             ),
           ),
 
+
         ],
+
       ),
     );
   }
