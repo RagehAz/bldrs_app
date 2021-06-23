@@ -29,13 +29,11 @@ static const double ddBoxCorner12 = 12;
 static const double ddAppBarMargin = 10;
 static const double ddAppBarPadding = 5;
 static const double ddAppBarButtonSize = 40;
-static const double ddAppBarHeight = 50;
+static const double ddAppBarHeight = ddAppBarPadding * 2;//50;
 static const double ddBottomSheetCorner = ddAppBarCorner + ddAppBarMargin;
 
 // flyer old default ratios to be deleted lamma attamen 3al application isa
-static const double rrButtonCorner = 0.02; // ratio of any button's corner value from screen height
-static const double rrTextFieldCorner = 0.0221675; // same as upperFlyerCornerValue
-static const double rrIconsInButtons = 0.0615764; // height of icon's Container which was 50pt x 50pt in Adobe Xd
+static const double rrButtonCorner = 0.02; // ratio of MainButton's corner value from screen height
 
 // PYRAMIDS
 static const double ddPyramidsHeight = 80 * 0.7;

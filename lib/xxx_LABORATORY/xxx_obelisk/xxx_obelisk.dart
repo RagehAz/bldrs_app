@@ -1,11 +1,9 @@
 import 'dart:async';
-import 'package:bldrs/controllers/drafters/streamerz.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/dashboard/s01_dashboard.dart';
 import 'package:bldrs/firestore/auth_ops.dart';
-import 'package:bldrs/views/screens/s41_my_bz_screen.dart';
 import 'package:bldrs/views/widgets/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/views/widgets/buttons/main_button.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
@@ -15,7 +13,6 @@ import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:bldrs/views/widgets/textings/the_golden_scroll.dart';
 import 'package:bldrs/xxx_LABORATORY/animations/animations_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/firestore_test/storage_test.dart';
-import 'package:bldrs/xxx_LABORATORY/flyer_browser/flyer_test_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/flyer_browser/flyers_browser.dart';
 import 'package:bldrs/xxx_LABORATORY/forms_and_inputs/popup.dart';
 import 'package:bldrs/xxx_LABORATORY/forms_and_inputs/form.dart';
@@ -164,43 +161,25 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
 // ---------------------------------------------------------------------------
     return MainLayout(
       pyramids: Iconz.PyramidsCrystal,
-      appBarType: AppBarType.Main,
+      appBarType: AppBarType.Basic,
+      appBarRowWidgets: <Widget>[
+        DreamBox(
+          height: 40,
+          verse: _isSignedIn ? ' Signed in ' : ' Signed out ',
+          color: _isSignedIn ? Colorz.Green : Colorz.GreySmoke,
+          verseScaleFactor: 0.6,
+          verseColor: _isSignedIn ? Colorz.White : Colorz.ModalGrey,
+          boxFunction: () => AuthOps().signOut(context: context, routeToUserChecker: true),
+        ),
+      ],
+
       layoutWidget: ListView(
         children: <Widget>[
 
           Stratosphere(),
 
-          DreamBox(
-            height: 40,
-            // width: 40,
-            corners: 20,
-            boxMargins: 10,
-            verse: _isSignedIn ? 'Signed in' : 'Signed out',
-            color: _isSignedIn ? Colorz.Green : Colorz.GreySmoke,
-            verseScaleFactor: 0.6,
-            verseColor: _isSignedIn ? Colorz.White : Colorz.ModalGrey,
-            boxFunction: () => AuthOps().signOut(context: context, routeToUserChecker: true),
-          ),
-
-          DreamBox(
-            height: 40,
-            width: 200,
-            corners: 20,
-            boxMargins: 10,
-            verse: 'Delete firebase user and ge back to user checker',
-            color: _isSignedIn ? Colorz.Green : Colorz.GreySmoke,
-            verseScaleFactor: 0.5,
-            verseMaxLines: 2,
-            verseColor: _isSignedIn ? Colorz.White : Colorz.ModalGrey,
-            boxFunction: () async {
-              await AuthOps().deleteFirebaseUser(context, superUserID());
-              await AuthOps().signOut(context: context, routeToUserChecker: true);
-
-            },
-          ),
-
           SuperVerse(
-            verse: 'Dear Lord\nPlease give us the power to finish this and reach the ends of planet earth',
+            verse: 'Dear Lord\nPlease give us the power to finish this project and succeeed',
             size: 0,
             italic: true,
             weight: VerseWeight.thin,
@@ -208,33 +187,9 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
             maxLines: 4,
           ),
 
-          LogoSlogan(),
-
-          userStreamBuilder(
-            context: context,
-            listen: false,
-            builder: (xxx, userModel){
-              return
-                tinyBzModelBuilder(
-                    context: context,
-                    bzID: 'br1',
-                    builder: (ctx, tinyBz){
-                      return
-                        oButton('New My Bz Screen', Iconz.Bz,
-                            MyBzScreen(
-                              tinyBz: tinyBz,
-                              userModel: userModel,
-                            )
-                        );
-                    }
-                );
-            }
-          ),
-
-          oButton('Picture Test Screen', Iconz.Flyer, PictureTestScreen()),
+          LogoSlogan(sizeFactor: 0.8,),
 
           oButton('Slider Test Screen', Iconz.Flyer, SliderTestScreen()),
-
 
           oButton('FlyerBrowserScreen', Iconz.Flyer, FlyerBrowserScreen()),
 
