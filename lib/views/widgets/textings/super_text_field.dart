@@ -38,6 +38,7 @@ class SuperTextField extends StatefulWidget {
   final TextDirection textDirection;
   final Key key;
   final Function onTap;
+  final double corners;
 
   SuperTextField({
     this.keyboardTextInputType = TextInputType.text,
@@ -70,6 +71,7 @@ class SuperTextField extends StatefulWidget {
     this.textDirection,
     this.key,
     this.onTap,
+    this.corners,
   });
 
   @override
@@ -144,7 +146,9 @@ class _SuperTextFieldState extends State<SuperTextField> {
 
     // --- LABEL CORNERS -----------------------------------------------
     double _labelCornerValues = superVerseLabelCornerValue(context, _size);
-    double _labelCorner = widget.labelColor == Colorz.Nothing ? 0 : _labelCornerValues;
+    double _labelCorner = widget.labelColor == Colorz.Nothing ? 0 :
+    widget.corners == null ? _labelCornerValues :
+    widget.corners;
     // --- LABEL PADDINGS -----------------------------------------------
     double _sidePaddingValues = superVerseSidePaddingValues(context, _size);
 // -----------------------------------------------------------------------------
