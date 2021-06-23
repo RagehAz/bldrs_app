@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 
 import 'text_directionerz.dart';
@@ -129,4 +130,15 @@ class Scale{
     double _appBarScrollWidth = superScreenWidth(context) - (Ratioz.appBarMargin * 2) - (Ratioz.appBarPadding * 2) - Ratioz.appBarButtonSize - Ratioz.appBarPadding;
     return _appBarScrollWidth;
   }
+// -----------------------------------------------------------------------------
+  static double appBarClearWidth(BuildContext context){
+    double _abWidth = superScreenWidth(context) - (2 * Ratioz.appBarMargin);
+    return _abWidth;
+  }
+// -----------------------------------------------------------------------------
+  static double appBarClearHeight(BuildContext context, AppBarType appBarType){
+    double _abHeight = appBarType == AppBarType.Search ? Ratioz.appBarBigHeight : Ratioz.appBarSmallHeight;
+    return _abHeight;
+  }
+// -----------------------------------------------------------------------------
 }
