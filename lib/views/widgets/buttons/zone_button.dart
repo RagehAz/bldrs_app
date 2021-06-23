@@ -58,10 +58,10 @@ class ZoneButton extends StatelessWidget {
               height: 40,
               alignment: Alignment.centerRight,
               padding: EdgeInsets.all(5),
-              margin: EdgeInsets.all(Ratioz.ddAppBarMargin * 0.5),
+              margin: EdgeInsets.all(Ratioz.appBarMargin * 0.5),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(
-                      Radius.circular(Ratioz.ddAppBarButtonCorner)),
+                      Radius.circular(Ratioz.appBarButtonCorner)),
                   color: isOn ? Colorz.Yellow : Colorz.WhiteAir
               ),
               child: ChangeNotifierProvider.value(
@@ -110,7 +110,7 @@ class ZoneButton extends StatelessWidget {
                         DreamBox(
                           height: 30,
                           icon: _lastCountryFlag,
-                          corners: Ratioz.ddBoxCorner8,
+                          corners: Ratioz.boxCorner8,
                           boxMargins: EdgeInsets.symmetric(horizontal: _flagHorizontalMargins),
                           boxFunction: onTap,
                         ),

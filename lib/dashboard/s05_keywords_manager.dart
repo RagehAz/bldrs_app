@@ -75,7 +75,7 @@ class _KeywordsManagerState extends State<KeywordsManager> {
       //
       // },
       layoutWidget: Container(
-        width: Scale.superScreenWidth(context) - Ratioz.ddAppBarMargin * 2, // this dictates overall width
+        width: Scale.superScreenWidth(context) - Ratioz.appBarMargin * 2, // this dictates overall width
         child: ListView(
           children: <Widget>[
 

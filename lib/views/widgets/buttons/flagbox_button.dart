@@ -18,7 +18,7 @@ class FlagBox extends StatelessWidget {
   Widget build(BuildContext context) {
 
     double _flagWidth = 35;
-    double _corner = Ratioz.ddBoxCorner12;
+    double _corner = Ratioz.boxCorner12;
 
     return GestureDetector(
       onTap: onTap,

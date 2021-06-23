@@ -28,7 +28,7 @@ class ParagraphBubble extends StatelessWidget {
 
           if (paragraph != null)
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: Ratioz.ddAppBarMargin),
+            padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
             child: SuperVerse(
               verse: paragraph,
               maxLines: maxLines,

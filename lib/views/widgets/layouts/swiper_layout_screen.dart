@@ -74,7 +74,7 @@ class _SwiperLayoutScreenState extends State<SwiperLayoutScreen> {
               space: 2,
             ),
             alignment: Alignment.topCenter,
-            margin: EdgeInsets.only(top: 54, right: Ratioz.ddAppBarMargin * 2, left: Ratioz.ddAppBarMargin * 2),
+            margin: EdgeInsets.only(top: 54, right: Ratioz.appBarMargin * 2, left: Ratioz.appBarMargin * 2),
           ),
           layout: SwiperLayout.DEFAULT,
           itemWidth: _itemWidth,

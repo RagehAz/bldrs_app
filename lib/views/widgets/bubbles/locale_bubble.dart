@@ -206,7 +206,7 @@ class LocaleButton extends StatelessWidget {
   Widget build(BuildContext context) {
 
     double _bubbleClearWidth = Scale.superBubbleClearWidth(context);
-    const double _buttonsSpacing = Ratioz.ddAppBarPadding;
+    const double _buttonsSpacing = Ratioz.appBarPadding;
     double _buttonWidth = (_bubbleClearWidth / 3)-((2*_buttonsSpacing)/3);
 
     return Padding(

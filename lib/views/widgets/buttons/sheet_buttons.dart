@@ -38,14 +38,14 @@ class SheetButtons extends StatelessWidget {
 
     CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: true);
 
-    double _abPadding =  Ratioz.ddAppBarPadding;
+    double _abPadding =  Ratioz.appBarPadding;
     double _inBarClearWidth = Scale.superScreenWidth(context)
-        - (Ratioz.ddAppBarMargin * 2)
+        - (Ratioz.appBarMargin * 2)
         - (_abPadding * 2);
     /// standard is Ratioz.ddAppBarHeight;
-    double _abHeight = Scale.superScreenHeight(context) - Ratioz.ddPyramidsHeight;
-    double _listHeight = _abHeight - Ratioz.ddAppBarHeight - (_abPadding) - 55 - 55; // each 55 is for confirm button & title, 50 +5 margin
-    double _listCorner = Ratioz.ddAppBarCorner - _abPadding;
+    double _abHeight = Scale.superScreenHeight(context) - Ratioz.pyramidsHeight;
+    double _listHeight = _abHeight - Ratioz.appBarSmallHeight - (_abPadding) - 55 - 55; // each 55 is for confirm button & title, 50 +5 margin
+    double _listCorner = Ratioz.appBarCorner - _abPadding;
 
     // double _languageButtonHeight = Ratioz.ddAppBarHeight - (_abPadding *2);
     // double _countryNameButtonWidth = _inBarClearWidth - _abPadding*3 - 35;

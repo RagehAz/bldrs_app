@@ -57,8 +57,8 @@ class ListLayout extends StatelessWidget {
 
             if (pageIcon != null)
             DreamBox(
-              height: Ratioz.ddAppBarHeight,
-              corners: Iconizer.iconIsContinent(pageIcon) ? Ratioz.ddAppBarHeight / 2 : Ratioz.ddBoxCorner12,
+              height: Ratioz.appBarSmallHeight,
+              corners: Iconizer.iconIsContinent(pageIcon) ? Ratioz.appBarSmallHeight / 2 : Ratioz.boxCorner12,
               icon: pageIcon,
             ),
 

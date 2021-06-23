@@ -282,7 +282,7 @@ class _MyBzScreenState extends State<MyBzScreen> {
                     width: 35,
                     icon: Iconz.More,
                     iconSizeFactor: 0.6,
-                    boxMargins: EdgeInsets.symmetric(horizontal: Ratioz.ddAppBarMargin),
+                    boxMargins: EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
                     bubble: false,
                     boxFunction:  () => _slideBzOptions(context, bzModel),
                   ),

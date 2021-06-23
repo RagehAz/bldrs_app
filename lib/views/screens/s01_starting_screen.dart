@@ -128,7 +128,7 @@ class _StartingScreenState extends State<StartingScreen> {
                 sizeFactor: 0.7,
               ),
 
-              SizedBox(height: Ratioz.ddAppBarMargin,),
+              SizedBox(height: Ratioz.appBarMargin,),
 
               // --- CONTINUE WITH APPLE
               DeviceChecker.deviceIsIOS() ?

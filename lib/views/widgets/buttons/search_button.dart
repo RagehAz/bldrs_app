@@ -17,11 +17,11 @@ class SearchButton extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return DreamBox(
-      height: Ratioz.ddAppBarButtonSize,
-      width: Ratioz.ddAppBarButtonSize,
+      height: Ratioz.appBarButtonSize,
+      width: Ratioz.appBarButtonSize,
       icon: Iconz.Search,
-      boxMargins: EdgeInsets.symmetric(horizontal: (Ratioz.ddAppBarHeight - Ratioz.ddAppBarButtonSize)/2),
-      corners: Ratioz.ddAppBarButtonCorner,
+      boxMargins: EdgeInsets.symmetric(horizontal: (Ratioz.appBarSmallHeight - Ratioz.appBarButtonSize)/2),
+      corners: Ratioz.appBarButtonCorner,
       iconSizeFactor:  0.5,
       iconRounded: false,
       boxFunction: () => _searchButtonOnTap(context),

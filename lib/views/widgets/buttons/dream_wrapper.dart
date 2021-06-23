@@ -18,7 +18,7 @@ class DreamWrapper extends StatelessWidget {
   DreamWrapper({
     this.verses,
     this.icons,
-    this.spacing = Ratioz.ddAppBarPadding,
+    this.spacing = Ratioz.appBarPadding,
     this.buttonHeight = 35,
     this.onTap,
     this.margins,
