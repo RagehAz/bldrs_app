@@ -188,7 +188,7 @@ class MainLayout extends StatelessWidget {
                     onRefresh: ()=> _refresh(context),
                     color: Colorz.BlackBlack,
                     backgroundColor: Colorz.Yellow,
-                    displacement: Ratioz.ddAppBarMargin,
+                    displacement: Ratioz.appBarMargin,
                     strokeWidth: 4,
                     child: Stack(
                       alignment: Alignment.topCenter,

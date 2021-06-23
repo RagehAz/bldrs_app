@@ -140,8 +140,8 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
       ..end = Colorz.WhiteAir;
 
     _borderRadius
-       ..begin = BorderRadius.circular(Ratioz.ddAppBarCorner - 5)
-       ..end = BorderRadius.circular(Ratioz.ddAppBarCorner - 5);
+       ..begin = BorderRadius.circular(Ratioz.appBarCorner - 5)
+       ..end = BorderRadius.circular(Ratioz.appBarCorner - 5);
 
 
     final bool closed = !_isExpanded && _controller.isDismissed;
@@ -165,10 +165,10 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
         return
 
           Container(
-            margin: EdgeInsets.symmetric(vertical: Ratioz.ddAppBarPadding),
+            margin: EdgeInsets.symmetric(vertical: Ratioz.appBarPadding),
             decoration: BoxDecoration(
               color: _tileColor,
-              borderRadius: Borderers.superBorderAll(context, Ratioz.ddAppBarCorner),
+              borderRadius: Borderers.superBorderAll(context, Ratioz.appBarCorner),
             ),
             child: new Column(
               mainAxisSize: MainAxisSize.min,
@@ -240,7 +240,7 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
           color: Colorz.WhiteAir,
           borderRadius: _borderRadius.evaluate(_easeInAnimation), //Borderers.superBorderAll(context, Ratioz.ddAppBarCorner - 5),
         ),
-        margin: EdgeInsets.symmetric(vertical: Ratioz.ddAppBarPadding, horizontal: 0),
+        margin: EdgeInsets.symmetric(vertical: Ratioz.appBarPadding, horizontal: 0),
         child: PageView(
           controller: _pageController,
 
@@ -261,7 +261,7 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
                       alignment: Alignment.center,
                       child: DreamBox(
                         height: _buttonHeight,
-                        width: Scale.superScreenWidth(context) - Ratioz.ddAppBarMargin * 4,
+                        width: Scale.superScreenWidth(context) - Ratioz.appBarMargin * 4,
                         color: _groupIsSelected ? Colorz.Yellow : Colorz.Nothing,
                         verse: _groupsIDs[index],
                         secondLine: _groupsIDs[index],
@@ -339,13 +339,13 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
 
                           /// SPACER
                           SizedBox(
-                            width: Ratioz.ddAppBarMargin,
+                            width: Ratioz.appBarMargin,
                           ),
 
                           /// KEYWORDS
                           DreamBox(
                             height: _buttonHeight,
-                            width: Scale.superScreenWidth(context) - Ratioz.ddAppBarMargin * 4 - _buttonHeight - Ratioz.ddAppBarMargin,
+                            width: Scale.superScreenWidth(context) - Ratioz.appBarMargin * 4 - _buttonHeight - Ratioz.appBarMargin,
                             color: _keywordIsSelected ? Colorz.Yellow : Colorz.Nothing,
                             verse: _keyword.name,
                             secondLine: _keyword.id,

@@ -38,7 +38,7 @@ class AddGalleryPicBubble extends StatelessWidget {
     final double btZoneWidth = picWidth * 0.5;
     final double btWidth = btZoneWidth * 0.8;
 
-    final double corner = Ratioz.ddBoxCorner12;
+    final double corner = Ratioz.boxCorner12;
 
     BorderRadius _picBorders =
     bubbleType == BubbleType.bzLogo ?

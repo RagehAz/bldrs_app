@@ -120,7 +120,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
 
                                 // --- INDEX AND ID
                                 Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: Ratioz.ddAppBarMargin),
+                                  padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
                                   child: SuperVerse(
                                     verse: '$index : ${_userModel.userID}',
                                     size: 1,
@@ -182,7 +182,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
                                         ),
 
                                         SizedBox(
-                                          width: Ratioz.ddAppBarMargin,
+                                          width: Ratioz.appBarMargin,
                                         ),
 
                                         // --- USER DATA

@@ -26,7 +26,7 @@ class ContactsBubble extends StatelessWidget {
 
 
 
-    double abPadding = Ratioz.ddAppBarPadding;
+    double abPadding = Ratioz.appBarPadding;
     double contactBoxHeight = 35;
 
     List<ContactModel> contactsWithStrings = ContactModel.getContactsWithStringsFromContacts(contacts);

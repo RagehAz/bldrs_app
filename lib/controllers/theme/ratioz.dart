@@ -22,22 +22,23 @@ static const double fontSize8 = 0.058; // -- 30 -- Gigantic
 
 // -----------------------------------------------------------------------------
 // BLDRS APPBARS
-static const double ddAppBarCorner = 18; // ORIGINALLY MediaQuery.of(context).size.height * 0.0215;
-static const double ddAppBarButtonCorner = 13;
-static const double ddBoxCorner8 = 8;
-static const double ddBoxCorner12 = 12;
-static const double ddAppBarMargin = 10;
-static const double ddAppBarPadding = 5;
-static const double ddAppBarButtonSize = 40;
-static const double ddAppBarHeight = ddAppBarPadding * 2;//50;
-static const double ddBottomSheetCorner = ddAppBarCorner + ddAppBarMargin;
+static const double appBarCorner = 18; // ORIGINALLY MediaQuery.of(context).size.height * 0.0215;
+static const double appBarButtonCorner = 13;
+static const double boxCorner8 = 8;
+static const double boxCorner12 = 12;
+static const double appBarMargin = 10;
+static const double appBarPadding = 5;
+static const double appBarButtonSize = 40;
+static const double appBarSmallHeight = appBarPadding * 2 + appBarButtonSize;
+  static const double appBarBigHeight = appBarPadding * 3 + appBarButtonSize * 2;
+static const double bottomSheetCorner = appBarCorner + appBarMargin;
 
 // flyer old default ratios to be deleted lamma attamen 3al application isa
-static const double rrButtonCorner = 0.02; // ratio of MainButton's corner value from screen height
+static const double mainButtonCornerRatioToScreenHeight = 0.02;
 
 // PYRAMIDS
-static const double ddPyramidsHeight = 80 * 0.7;
-static const double ddPyramidsWidth = 273 * 0.7;
+static const double pyramidsHeight = 80 * 0.7;
+static const double pyramidsWidth = 273 * 0.7;
 
 // FLYER
 static const double rrFlyerHeight = 1;
@@ -80,8 +81,8 @@ static const double bzLogoCorner = 0.17152;
 // -----------------------------------------------------------------------------
 // paddings
 static const double stratosphere = 70;
-static const double horizon = ddPyramidsHeight * 0.4;
-static const double grandHorizon = ddPyramidsHeight;
+static const double horizon = pyramidsHeight * 0.4;
+static const double grandHorizon = pyramidsHeight;
 // -----------------------------------------------------------------------------
 // Durations
 static const Duration slidingDuration = Duration(milliseconds: 400);
@@ -94,7 +95,4 @@ static const double blur1 = 10;
 static const double blur2 = 15;
 static const double blur3 = 20;
 // -----------------------------------------------------------------------------
-
-static const double backButtonSize = 40;
-
 }

@@ -114,7 +114,7 @@ AlertDialog _superAlert ({
                               DreamBox(
                                   height: 50,
                                   width: 100,
-                                  boxMargins: EdgeInsets.all(Ratioz.ddAppBarMargin),
+                                  boxMargins: EdgeInsets.all(Ratioz.appBarMargin),
                                   verse: 'No',
                                   verseColor: Colorz.BlackBlack,
                                   color: Colorz.WhiteSmoke,
@@ -125,7 +125,7 @@ AlertDialog _superAlert ({
                             DreamBox(
                                 height: 50,
                                 width: 100,
-                                boxMargins: EdgeInsets.all(Ratioz.ddAppBarMargin),
+                                boxMargins: EdgeInsets.all(Ratioz.appBarMargin),
                                 verse: boolDialog == true ? 'Yes' : 'Ok',
                                 verseColor: Colorz.BlackBlack,
                                 color: Colorz.Yellow,
@@ -362,7 +362,7 @@ Future<bool> flyersDeactivationDialog({
                   numberOfColumns: 2,
                   title: 'flyers of ${bzzToDeactivate[index].bzName}',
                   numberOfRows: 1,
-                  bubbleWidth: Scale.superDialogWidth(context) - (Ratioz.ddAppBarMargin * 4),
+                  bubbleWidth: Scale.superDialogWidth(context) - (Ratioz.appBarMargin * 4),
                   onTap: (value){
                     print(value);
                   },
