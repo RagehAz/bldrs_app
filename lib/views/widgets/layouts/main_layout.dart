@@ -12,7 +12,7 @@ import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/providers/users_provider.dart';
 import 'package:bldrs/views/widgets/appbar/bldrs_app_bar.dart';
-import 'package:bldrs/views/widgets/buttons/back_button.dart';
+import 'package:bldrs/views/widgets/buttons/back_anb_search_button.dart';
 import 'package:bldrs/views/widgets/nav_bar/nav_bar.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/pyramids/pyramids.dart';
@@ -147,7 +147,8 @@ class MainLayout extends StatelessWidget {
         Positioned(
             bottom: 0,
             left: 0,
-            child: BldrsBackButton(
+            child: BackAndSearchButton(
+              backAndSearchAction: BackAndSearchAction.GoBack,
               color: sky == Sky.Black ? Colorz.YellowZircon : Colorz.WhiteGlass,
             ),
     ),
