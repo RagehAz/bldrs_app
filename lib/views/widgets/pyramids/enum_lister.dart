@@ -29,8 +29,8 @@ class EnumLister extends StatelessWidget {
     double screenHeight = MediaQuery.of(context).size.height;
     // double safeAreaHeight = MediaQuery.of(context).padding.top;
 
-    double listHeight = screenHeight - Ratioz.ddAppBarHeight * 3;
-    double listWidth = screenWidth - Ratioz.ddAppBarHeight * 1;
+    double listHeight = screenHeight - Ratioz.appBarSmallHeight * 3;
+    double listWidth = screenWidth - Ratioz.appBarSmallHeight * 1;
 
     return Stack(
       children: <Widget>[
@@ -48,12 +48,12 @@ class EnumLister extends StatelessWidget {
           child: Container(
             height: listHeight,
             width: listWidth,
-            margin: EdgeInsets.only(left: Ratioz.ddAppBarMargin * 2),
+            margin: EdgeInsets.only(left: Ratioz.appBarMargin * 2),
             decoration: BoxDecoration(
                 // color: Colorz.BlackSmoke,
                 borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(Ratioz.ddAppBarButtonCorner),
-                  topRight: Radius.circular(Ratioz.ddAppBarButtonCorner),
+                  topLeft: Radius.circular(Ratioz.appBarButtonCorner),
+                  topRight: Radius.circular(Ratioz.appBarButtonCorner),
                 ),
                 boxShadow: <BoxShadow>[
                   CustomBoxShadow(
@@ -73,8 +73,8 @@ class EnumLister extends StatelessWidget {
                 // --- BLUR LAYER
                 ClipRRect(
                   borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(Ratioz.ddAppBarButtonCorner),
-                    topRight: Radius.circular(Ratioz.ddAppBarButtonCorner),
+                    topLeft: Radius.circular(Ratioz.appBarButtonCorner),
+                    topRight: Radius.circular(Ratioz.appBarButtonCorner),
                   ),
                   child: BackdropFilter(
                     filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
@@ -107,7 +107,7 @@ class EnumLister extends StatelessWidget {
                               size: 3,
                               shadow: true,
                               italic: true,
-                              margin: Ratioz.ddAppBarMargin * 2,
+                              margin: Ratioz.appBarMargin * 2,
                             ),
 
                             // --- EXIT X ICON
@@ -127,17 +127,17 @@ class EnumLister extends StatelessWidget {
 
                       // --- DIVIDING LINE
                       Container(
-                        width: listWidth - Ratioz.ddAppBarMargin,
+                        width: listWidth - Ratioz.appBarMargin,
                         height: 0.5,
                         color: Colorz.Yellow,
-                        margin: EdgeInsets.symmetric(horizontal: Ratioz.ddAppBarMargin * 2),
+                        margin: EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin * 2),
 
                       ),
 
                       // --- LIST ITEMS
                       Expanded(
                         child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: Ratioz.ddAppBarMargin * 2),
+                          padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin * 2),
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
                               begin: Alignment.bottomCenter,
@@ -150,7 +150,7 @@ class EnumLister extends StatelessWidget {
                             physics: AlwaysScrollableScrollPhysics(),
                             shrinkWrap: true,
                             itemCount: stringsList.length,
-                            padding: EdgeInsets.only(bottom: Ratioz.ddPyramidsHeight, top: Ratioz.ddAppBarMargin ),
+                            padding: EdgeInsets.only(bottom: Ratioz.pyramidsHeight, top: Ratioz.appBarMargin ),
                             itemBuilder: (_, index) =>
 
                                  EnumListerTile(

@@ -760,7 +760,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
           width: 50,
           verse: 'trigger loading',
           verseMaxLines: 2,
-          boxMargins: EdgeInsets.symmetric(horizontal: Ratioz.ddAppBarPadding),
+          boxMargins: EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
           verseScaleFactor: 0.5,
           boxFunction: (){
             _triggerLoading();
@@ -772,7 +772,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
           width: 50,
           verse: 'Clear Print',
           verseMaxLines: 2,
-          boxMargins: EdgeInsets.symmetric(horizontal: Ratioz.ddAppBarPadding),
+          boxMargins: EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
           verseScaleFactor: 0.5,
           boxFunction: (){
             printResult('');

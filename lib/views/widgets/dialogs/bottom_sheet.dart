@@ -35,7 +35,7 @@ class BldrsBottomSheet extends StatelessWidget {
   }
 // -----------------------------------------------------------------------------
   double draggerZoneHeight(){
-    double _draggerZoneHeight = Ratioz.ddAppBarMargin * 3;
+    double _draggerZoneHeight = Ratioz.appBarMargin * 3;
     return _draggerZoneHeight;
   }
 // -----------------------------------------------------------------------------
@@ -55,10 +55,10 @@ class BldrsBottomSheet extends StatelessWidget {
     double _sheetHeight = height == null ? _screenHeight*0.5 : height;
     BorderRadius _sheetBorders = Borderers.superBorderRadius(
         context: context,
-        enTopLeft: Ratioz.ddBottomSheetCorner,
+        enTopLeft: Ratioz.bottomSheetCorner,
         enBottomLeft: 0,
         enBottomRight: 0,
-        enTopRight: Ratioz.ddBottomSheetCorner
+        enTopRight: Ratioz.bottomSheetCorner
     );
 
     double _draggerZoneHeight = draggerZoneHeight();
@@ -70,7 +70,7 @@ class BldrsBottomSheet extends StatelessWidget {
 
     double _contentWidth = _screenWidth - (_draggerZoneHeight*2*0.5);
     double _contentHeight  = _sheetHeight - _draggerZoneHeight;
-    double _contentCorners = Ratioz.ddAppBarCorner;
+    double _contentCorners = Ratioz.appBarCorner;
 
     return Container(
       height: _sheetHeight,
@@ -148,10 +148,10 @@ class BottomSlider{
         shape: RoundedRectangleBorder(borderRadius:
         Borderers.superBorderRadius(
           context:context,
-          enTopLeft:Ratioz.ddBottomSheetCorner,
+          enTopLeft:Ratioz.bottomSheetCorner,
           enBottomLeft:0,
           enBottomRight:0,
-          enTopRight:Ratioz.ddBottomSheetCorner,
+          enTopRight:Ratioz.bottomSheetCorner,
         )),
         backgroundColor: Colorz.Nothing,
         barrierColor: Colorz.BlackAir,
@@ -207,10 +207,10 @@ class BottomSlider{
     showModalBottomSheet(
       shape: RoundedRectangleBorder(borderRadius: Borderers.superBorderRadius(
           context: context,
-          enTopLeft: Ratioz.ddBottomSheetCorner,
+          enTopLeft: Ratioz.bottomSheetCorner,
           enBottomLeft: 0,
           enBottomRight: 0,
-          enTopRight: Ratioz.ddBottomSheetCorner
+          enTopRight: Ratioz.bottomSheetCorner
       )),
       backgroundColor: Colorz.Nothing,
       barrierColor: Colorz.BlackAir,
@@ -223,7 +223,7 @@ class BottomSlider{
   }
 // -----------------------------------------------------------------------------
   static double bottomSheetClearWidth (BuildContext context){
-    double _clearWidth = Scale.superScreenWidth(context) - (Ratioz.ddAppBarMargin * 2) - (Ratioz.ddAppBarPadding * 2);
+    double _clearWidth = Scale.superScreenWidth(context) - (Ratioz.appBarMargin * 2) - (Ratioz.appBarPadding * 2);
     return
       _clearWidth ; // 0.95 to avoid having the parent container trim buttons shadows
   }

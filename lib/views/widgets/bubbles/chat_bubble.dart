@@ -22,7 +22,7 @@ class ChatBubble extends StatelessWidget {
   Widget build(BuildContext context) {
 
     double _bubbleWidth = Scale.superScreenWidth(context);
-    double _corner = Ratioz.ddAppBarCorner;
+    double _corner = Ratioz.appBarCorner;
     BorderRadius _bubbleBorderss = Borderers.superBorderAll(context, _corner);
 
     BorderRadius _bubbleBorders = myVerse ?
@@ -59,8 +59,8 @@ class ChatBubble extends StatelessWidget {
           children: <Widget>[
             Container(
               // width: _bubbleWidth,
-              margin: EdgeInsets.symmetric(vertical: Ratioz.ddAppBarPadding, horizontal: Ratioz.ddAppBarMargin),
-              padding: EdgeInsets.symmetric(vertical: Ratioz.ddAppBarPadding, horizontal: Ratioz.ddAppBarMargin * 2),
+              margin: EdgeInsets.symmetric(vertical: Ratioz.appBarPadding, horizontal: Ratioz.appBarMargin),
+              padding: EdgeInsets.symmetric(vertical: Ratioz.appBarPadding, horizontal: Ratioz.appBarMargin * 2),
               decoration: BoxDecoration(
                 borderRadius: _bubbleBorders,
                 color: myVerse ? Colorz.BloodTest : Colorz.WhiteAir,

@@ -33,8 +33,8 @@ class BldrsAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
     double _screenWidth = Scale.superScreenWidth(context);
-    double _abWidth = _screenWidth - (2 * Ratioz.ddAppBarMargin);
-    double _abHeight = appBarType == AppBarType.Search ? Ratioz.ddAppBarHeight * 2 - Ratioz.ddAppBarPadding : Ratioz.ddAppBarHeight;
+    double _abWidth = _screenWidth - (2 * Ratioz.appBarMargin);
+    double _abHeight = appBarType == AppBarType.Search ? Ratioz.appBarBigHeight : Ratioz.appBarSmallHeight;
     double _blurValue = Ratioz.blur1;
 // -----------------------------------------------------------------------------
     bool _scrollable = appBarType == AppBarType.Scrollable ? true : false;
@@ -78,9 +78,9 @@ class BldrsAppBar extends StatelessWidget {
       width: _abWidth,
       height: _abHeight,
       alignment: Alignment.center,
-      margin: EdgeInsets.all(Ratioz.ddAppBarMargin),
+      margin: EdgeInsets.all(Ratioz.appBarMargin),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(Ratioz.ddAppBarCorner)),
+        borderRadius: BorderRadius.all(Radius.circular(Ratioz.appBarCorner)),
         boxShadow: Shadowz.appBarShadow,
       ),
 
@@ -93,7 +93,7 @@ class BldrsAppBar extends StatelessWidget {
             width: _abWidth,
             height: _abHeight,
             blur: _blurValue,
-            borders: BorderRadius.all(Radius.circular(Ratioz.ddAppBarCorner)),
+            borders: BorderRadius.all(Radius.circular(Ratioz.appBarCorner)),
           ),
 
           /// APP BAR CONTENTS
@@ -122,9 +122,9 @@ class BldrsAppBar extends StatelessWidget {
                     /// Row Widgets
                     if (_scrollable == true)
                       ClipRRect(
-                        borderRadius: BorderRadius.circular(Ratioz.ddAppBarCorner),
+                        borderRadius: BorderRadius.circular(Ratioz.appBarCorner),
                         child: Container(
-                          width: _screenWidth - (2 * Ratioz.ddAppBarMargin) - _backButtonWidth,
+                          width: _screenWidth - (2 * Ratioz.appBarMargin) - _backButtonWidth,
                           height: _abHeight,
                           alignment: Alignment.center,
                           child: ListView(
@@ -177,7 +177,7 @@ class BldrsAppBar extends StatelessWidget {
                 if (appBarType == AppBarType.Search)
                 Container(
                   width: _abWidth,
-                  height: Ratioz.backButtonSize,
+                  height: Ratioz.appBarButtonSize,
                   color: Colorz.BloodTest,
                 ),
 

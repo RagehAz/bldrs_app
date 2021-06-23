@@ -35,7 +35,7 @@ class KeywordButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double _corners = Ratioz.ddBoxCorner12;
+    double _corners = Ratioz.boxCorner12;
 
     bool _designMode = false;
 

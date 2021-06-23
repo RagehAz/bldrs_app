@@ -55,8 +55,8 @@ int _fadeCycleDuration = 750;
       bottom: 0,
       right: 0,
       child: Container(
-        width: Ratioz.ddPyramidsWidth,
-        height: Ratioz.ddPyramidsHeight,
+        width: Ratioz.pyramidsWidth,
+        height: Ratioz.pyramidsHeight,
         padding: EdgeInsets.all(0),
 //          color: Ratioz.ccBloodTest,
 //           alignment: Alignment.bottomRight,

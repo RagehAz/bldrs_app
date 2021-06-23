@@ -21,7 +21,7 @@ class FlyerCoversStack extends StatelessWidget {
   Widget build(BuildContext context) {
 
     double screenWidth = MediaQuery.of(context).size.width;
-    double pageMargin = Ratioz.ddAppBarMargin * 2;
+    double pageMargin = Ratioz.appBarMargin * 2;
 
 
     double coverFlyerWidth = 100;
@@ -121,7 +121,7 @@ class TopFlyersStack extends StatelessWidget {
   Widget build(BuildContext context) {
 
     double screenWidth = MediaQuery.of(context).size.width;
-    double pageMargin = Ratioz.ddAppBarMargin * 2;
+    double pageMargin = Ratioz.appBarMargin * 2;
 
     double gridSpacing = 5;
 

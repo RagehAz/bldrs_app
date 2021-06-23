@@ -50,7 +50,7 @@ Widget _nanoBzLogo(BuildContext context, String bzID){
 
     double _circleWidth = circleWidth;
     double _buttonCircleCorner = _circleWidth * 0.5;
-    double _paddings = Ratioz.ddAppBarPadding * 1.5;
+    double _paddings = Ratioz.appBarPadding * 1.5;
 
     double _textScaleFactor = 0.95;
     int _textSize = 1;

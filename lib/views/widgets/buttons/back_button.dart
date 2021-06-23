@@ -12,7 +12,7 @@ class BldrsBackButton extends StatelessWidget {
   final Color color;
 
   BldrsBackButton({
-    this.size = Ratioz.backButtonSize,
+    this.size = Ratioz.appBarButtonSize,
     this.onTap,
     this.color = Colorz.WhiteAir,
 });
@@ -23,7 +23,7 @@ class BldrsBackButton extends StatelessWidget {
     return DreamBox(
       height: size,
       width: size,
-      boxMargins: EdgeInsets.symmetric(horizontal: ((Ratioz.ddAppBarHeight - size)/2)),
+      boxMargins: EdgeInsets.symmetric(horizontal: ((Ratioz.appBarSmallHeight - size)/2)),
       icon: Iconizer.superBackIcon(context),
       iconSizeFactor: 1,
       bubble: false,

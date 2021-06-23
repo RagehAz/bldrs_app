@@ -68,7 +68,7 @@ Widget build(BuildContext context) {
   FlyersProvider _pro =  Provider.of<FlyersProvider>(context, listen: true);
   BldrsSection _currentSection = _pro.getCurrentSection;
 
-  double _corners = Ratioz.ddBoxCorner12;
+  double _corners = Ratioz.boxCorner12;
 
   bool _designMode = false;
 

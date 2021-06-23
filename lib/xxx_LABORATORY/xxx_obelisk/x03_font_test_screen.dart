@@ -53,7 +53,7 @@ class FontTestScreen extends StatelessWidget {
 
                 // --- BEGINNING OF SCROLLABLE SCREEN
                 Container(
-                  height: Ratioz.ddPyramidsHeight * 2,
+                  height: Ratioz.pyramidsHeight * 2,
                   width: screenWidth,
                 ),
 
@@ -599,7 +599,7 @@ class FontTestScreen extends StatelessWidget {
                 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- NOTHING GOES BEYOND THIS FUCKING LINE
                 // --- END OF SCROLLABLE SCREEN
                 Container(
-                  height: Ratioz.ddPyramidsHeight * 3,
+                  height: Ratioz.pyramidsHeight * 3,
                   width: screenWidth,
                 ),
 
