@@ -48,7 +48,7 @@ class NavBar extends StatelessWidget {
 // -----------------------------------------------------------------------------
   /// --- MAIN CONTROLS
   final double _circleWidth = 40;
-  final double _paddings = Ratioz.ddAppBarPadding * 1.5;
+  final double _paddings = Ratioz.appBarPadding * 1.5;
   final double _textScaleFactor = 0.95;
   final int _textSize = 0;
 // -----------------------------------------------------------------------------
@@ -156,7 +156,7 @@ class NavBar extends StatelessWidget {
                           child: DreamBox(
                             height: 60,
                             width: _bzButtonWidth,
-                            boxMargins: EdgeInsets.all(Ratioz.ddAppBarPadding),
+                            boxMargins: EdgeInsets.all(Ratioz.appBarPadding),
                             icon: _tinyBz.bzLogo,
                             verse: _tinyBz.bzName,
                             secondLine: TextGenerator.bzTypeSingleStringer(context, _tinyBz.bzType),
@@ -266,7 +266,7 @@ class NavBar extends StatelessWidget {
                            width: _circleWidth,
                            color: sky == Sky.Black ? Colorz.YellowZircon : Colorz.WhiteGlass,
                            corners: _buttonCircleCorner,
-                           boxMargins: EdgeInsets.all(Ratioz.ddAppBarPadding),
+                           boxMargins: EdgeInsets.all(Ratioz.appBarPadding),
                            icon: Iconizer.superBackIcon(context),
                            blur : Ratioz.blur1,
                            boxFunction: () => Nav.goBack(context),
@@ -384,7 +384,7 @@ class NavBar extends StatelessWidget {
                          Container(
                            width: _circleWidth,
                            height: _circleWidth,
-                           margin: EdgeInsets.all(Ratioz.ddAppBarPadding),
+                           margin: EdgeInsets.all(Ratioz.appBarPadding),
                          ),
 
                      ],

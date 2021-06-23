@@ -496,7 +496,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
                           children: <Widget>[
 
                             SizedBox(
-                              height: Ratioz.ddAppBarPadding,
+                              height: Ratioz.appBarPadding,
                             ),
 
                             WordsBubble(
@@ -845,7 +845,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
       return
         DreamBox(
           height: 35,
-          boxMargins: EdgeInsets.symmetric(horizontal: Ratioz.ddAppBarPadding),
+          boxMargins: EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
           verse: widget.firstTimer ? 'Publish flyer' : 'update flyer',
           verseColor: Colorz.BlackBlack,
           verseScaleFactor: 0.8,

@@ -21,7 +21,7 @@ class TrendingBzBubble extends StatelessWidget {
   Widget build(BuildContext context) {
 
     double screenWidth = MediaQuery.of(context).size.width;
-    double pageMargin = Ratioz.ddAppBarMargin * 2;
+    double pageMargin = Ratioz.appBarMargin * 2;
     double spacings = 10;
     double logoHeight = (screenWidth - (pageMargin*4) - (spacings*4))/5;
 

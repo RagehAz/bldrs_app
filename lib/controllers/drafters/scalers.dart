@@ -86,14 +86,14 @@ class Scale{
 // -----------------------------------------------------------------------------
   static double superBubbleClearWidth(BuildContext context){
     double _bubbleWidth = superBubbleWidth(context);
-    double _bubblePaddings = Ratioz.ddAppBarMargin * 2;
+    double _bubblePaddings = Ratioz.appBarMargin * 2;
     double _inBubbleClearWidth = _bubbleWidth - _bubblePaddings;
     return _inBubbleClearWidth;
   }
 // -----------------------------------------------------------------------------
   static double superBubbleWidth(BuildContext context){
     double _screenWidth = superScreenWidth(context);
-    double _bubbleMargins = Ratioz.ddAppBarMargin * 2;
+    double _bubbleMargins = Ratioz.appBarMargin * 2;
     double _bubbleWidth = _screenWidth - _bubbleMargins;
     return _bubbleWidth;
   }
@@ -126,7 +126,7 @@ class Scale{
   }
 // -----------------------------------------------------------------------------
   static double appBarScrollWidth(BuildContext context){
-    double _appBarScrollWidth = superScreenWidth(context) - (Ratioz.ddAppBarMargin * 2) - (Ratioz.ddAppBarPadding * 2) - Ratioz.backButtonSize - Ratioz.ddAppBarPadding;
+    double _appBarScrollWidth = superScreenWidth(context) - (Ratioz.appBarMargin * 2) - (Ratioz.appBarPadding * 2) - Ratioz.appBarButtonSize - Ratioz.appBarPadding;
     return _appBarScrollWidth;
   }
 }

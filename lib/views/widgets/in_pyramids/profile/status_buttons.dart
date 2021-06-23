@@ -24,9 +24,9 @@ class StatusButtons extends StatelessWidget {
 
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
-    double pageMargin = Ratioz.ddAppBarMargin * 2;
+    double pageMargin = Ratioz.appBarMargin * 2;
 
-    double abPadding = Ratioz.ddAppBarMargin;
+    double abPadding = Ratioz.appBarMargin;
     // double abHeight = screenWidth * 0.25;
     // double profilePicHeight = abHeight;
     // double abButtonsHeight = abHeight - (2 * abPadding);

@@ -26,9 +26,9 @@ class PropertySearchCriteria extends StatelessWidget {
 
     double screenWidth = MediaQuery.of(context).size.width;
     // double screenHeight = MediaQuery.of(context).size.height;
-    double pageMargin = Ratioz.ddAppBarMargin * 2;
+    double pageMargin = Ratioz.appBarMargin * 2;
 
-    double abPadding = Ratioz.ddAppBarMargin;
+    double abPadding = Ratioz.appBarMargin;
     // double abHeight = screenWidth * 0.25;
 
     // double userStatusZoneWidth = screenWidth - pageMargin * 4;
@@ -45,7 +45,7 @@ class PropertySearchCriteria extends StatelessWidget {
 
     Alignment defaultAlignment =  Wordz.textDirection(context) == 'ltr' ? Alignment.centerLeft : Alignment.centerRight;
 
-    double corners = Ratioz.ddBoxCorner12;
+    double corners = Ratioz.boxCorner12;
 
     bool designMode = false;
 

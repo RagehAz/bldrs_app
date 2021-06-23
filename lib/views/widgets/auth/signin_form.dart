@@ -243,7 +243,7 @@ class _SignInFormState extends State<SignInForm> {
                 verse: Wordz.signIn(context),
                 verseWeight: VerseWeight.black,
                 verseColor: Colorz.BlackBlack,
-                boxMargins: EdgeInsets.symmetric(horizontal: Ratioz.ddAppBarMargin),
+                boxMargins: EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
                 boxFunction: _signInOnTap,
               ),
 

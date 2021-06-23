@@ -14,8 +14,8 @@ class PropertyUse extends StatelessWidget {
     bool designMode = true;
 
     // - ROW OF BUTTONS
-    double buttonSpacing = Ratioz.ddAppBarMargin*2;
-    double buttonsZoneWidth = (screenWidth - (Ratioz.ddAppBarMargin * 12));
+    double buttonSpacing = Ratioz.appBarMargin*2;
+    double buttonsZoneWidth = (screenWidth - (Ratioz.appBarMargin * 12));
 
     int numberOfButtons = 2;
     double rowButtonWidth = (buttonsZoneWidth - (numberOfButtons * buttonSpacing) - buttonSpacing) / numberOfButtons;
@@ -28,7 +28,7 @@ class PropertyUse extends StatelessWidget {
 
         SuperVerse(
           verse: 'Property Use',
-          margin: Ratioz.ddAppBarMargin * 2,
+          margin: Ratioz.appBarMargin * 2,
           centered: false,
           italic: true,
           weight: VerseWeight.thin,

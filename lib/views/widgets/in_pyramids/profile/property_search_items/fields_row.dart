@@ -27,8 +27,8 @@ class FieldsRow extends StatelessWidget {
     bool designMode = false;
 
     // - ROW OF BUTTONS
-    double buttonSpacing = Ratioz.ddAppBarMargin*2;
-    double buttonsZoneWidth = (screenWidth - (Ratioz.ddAppBarMargin * 12));
+    double buttonSpacing = Ratioz.appBarMargin*2;
+    double buttonsZoneWidth = (screenWidth - (Ratioz.appBarMargin * 12));
 
     // int numberOfButtons = 2;
     // double rowButtonWidth = (buttonsZoneWidth - (numberOfButtons * buttonSpacing) - buttonSpacing) / numberOfButtons;
@@ -62,7 +62,7 @@ class FieldsRow extends StatelessWidget {
               width: buttonsZoneWidth,
                 decoration: BoxDecoration(
                     color: Colorz.WhiteAir,
-                    borderRadius: BorderRadius.circular(Ratioz.ddBoxCorner12),
+                    borderRadius: BorderRadius.circular(Ratioz.boxCorner12),
                     boxShadow: <BoxShadow>[
                       CustomBoxShadow(
                           color: Colorz.BlackLingerie,

@@ -101,7 +101,7 @@ void initState() {
           height: 40,
           decoration: BoxDecoration(
             color: Colorz.WhiteAir,
-            borderRadius: Borderers.superBorderAll(context, Ratioz.ddAppBarButtonCorner),
+            borderRadius: Borderers.superBorderAll(context, Ratioz.appBarButtonCorner),
           ),
           child:
           _keywords.length == 0 ? Container() :
@@ -356,7 +356,7 @@ void initState() {
         width: Scale.superDialogWidth(context) * 0.9,
         decoration: BoxDecoration(
           color: Colorz.WhiteAir,
-          borderRadius: Borderers.superBorderAll(context, Ratioz.ddAppBarButtonCorner),
+          borderRadius: Borderers.superBorderAll(context, Ratioz.appBarButtonCorner),
         ),
         child: DreamList(
           itemHeight: 45,
@@ -456,7 +456,7 @@ void initState() {
   @override
   Widget build(BuildContext context) {
 
-    double _buttonPadding = _browserIsOn == true ? Ratioz.ddAppBarPadding * 1.5 : Ratioz.ddAppBarPadding * 1.5;
+    double _buttonPadding = _browserIsOn == true ? Ratioz.appBarPadding * 1.5 : Ratioz.appBarPadding * 1.5;
 
     double _browserMinZoneHeight = 40 + _buttonPadding * 2 + superVerseRealHeight(context, 0, 0.95, null);
     double _browserMaxZoneHeight = Scale.superScreenHeight(context) * 0.38;
@@ -467,7 +467,7 @@ void initState() {
     double _browserZoneHeight = _browserIsOn == true ? _browserMaxZoneHeight : _browserMinZoneHeight;
     double _browserZoneWidth = _browserIsOn == true ? _browserMaxZoneWidth : _browserMinZoneWidth;
     double _browserZoneMargins = _browserIsOn == true ? _buttonPadding : _buttonPadding;
-    BorderRadius _browserZoneCorners = Borderers.superBorderAll(context, Ratioz.ddAppBarCorner);
+    BorderRadius _browserZoneCorners = Borderers.superBorderAll(context, Ratioz.appBarCorner);
 
     double _browserScrollZoneWidth = _browserZoneWidth * 0.96;
     double _browserScrollZoneHeight = _browserZoneHeight * 0.94;
@@ -619,7 +619,7 @@ void initState() {
                     icon: Iconz.FlyerGrid,
                     onTap: _triggerBrowser,
                     barType: BarType.minWithText,
-                    corners: Ratioz.ddAppBarButtonCorner,
+                    corners: Ratioz.appBarButtonCorner,
                   ),
 
                 ),

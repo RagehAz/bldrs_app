@@ -37,7 +37,7 @@ final Function bubbleOnTap;
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
-    double _pageMargin = Ratioz.ddAppBarMargin ;
+    double _pageMargin = Ratioz.appBarMargin ;
 // -----------------------------------------------------------------------------
     EdgeInsets _bubbleMargins =
     stretchy == true ? EdgeInsets.all(0) :
@@ -71,7 +71,7 @@ final Function bubbleOnTap;
           // padding: EdgeInsets.all(_pageMargin),
           decoration: BoxDecoration(
             color: bubbleColor,
-            borderRadius: BorderRadius.circular(Ratioz.ddAppBarCorner),
+            borderRadius: BorderRadius.circular(Ratioz.appBarCorner),
           ),
           alignment: centered == true ? Alignment.center : Aligners.superCenterAlignment(context),
 
@@ -80,7 +80,7 @@ final Function bubbleOnTap;
             child: InkWell(
               onTap: bubbleOnTap,
               splashColor: Colorz.Yellow,
-              borderRadius: BorderRadius.circular(Ratioz.ddAppBarCorner),
+              borderRadius: BorderRadius.circular(Ratioz.appBarCorner),
               child: Padding(
                 padding: EdgeInsets.all(_pageMargin),
                 child: Column(

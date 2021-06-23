@@ -138,7 +138,7 @@ class _FireStorageTestState extends State<FireStorageTest> {
           width: 50,
           verse: 'trigger loading',
           verseMaxLines: 2,
-          boxMargins: EdgeInsets.symmetric(horizontal: Ratioz.ddAppBarPadding),
+          boxMargins: EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
           verseScaleFactor: 0.4,
           boxFunction: (){
             _triggerLoading();
@@ -150,7 +150,7 @@ class _FireStorageTestState extends State<FireStorageTest> {
           width: 50,
           verse: 'Clear Print',
           verseMaxLines: 2,
-          boxMargins: EdgeInsets.symmetric(horizontal: Ratioz.ddAppBarPadding),
+          boxMargins: EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
           verseScaleFactor: 0.4,
           boxFunction: (){
             printResult('');
