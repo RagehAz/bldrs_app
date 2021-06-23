@@ -28,10 +28,8 @@ enum AppBarType{
   Basic,
   Scrollable,
   Main,
-  // Localizer,
+  Search,
   Intro,
-  // InPyramids,
-  // Sections,
 }
 // -----------------------------------------------------------------------------
 enum Sky {
