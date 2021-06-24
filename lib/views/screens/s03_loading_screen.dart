@@ -59,6 +59,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
         FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: true);
 
         // _prof.fetchAndSetTinyBzzAndTinyFlyers(context)
+        print('fetching sponsors');
         _prof.fetchAndSetSponsors(context)
             .then((_) async {
 
@@ -102,6 +103,9 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print('-------------- Starting Loading screen --------------');
+
+
     return MainLayout(
       pyramids: Iconz.PyramidzYellow,
       // appBarType: AppBarType.,

@@ -78,7 +78,7 @@ class MainLayout extends StatelessWidget {
     this.myTinyBzz,
     this.appBarScrollController,
 });
-
+// -----------------------------------------------------------------------------
   Future<void> _refresh(BuildContext context) async {
 
     FlyersProvider _pro = Provider.of<FlyersProvider>(context,listen: false);
@@ -87,7 +87,7 @@ class MainLayout extends StatelessWidget {
 
     await _pro.fetchAndSetTinyFlyersBySectionType(context, _currentSection);
   }
-
+// -----------------------------------------------------------------------------
   // final static GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -95,7 +95,7 @@ class MainLayout extends StatelessWidget {
 
     bool _ragehIsOn = tappingRageh == null ? false : true;
 
-    // ------------------------------------------------------------------
+// -----------------------------------------------------------------------------
     final List<Widget> _mainLayoutStackWidgets = <Widget>[
 
       sky == Sky.Black ? BlackSky() :
@@ -171,6 +171,7 @@ class MainLayout extends StatelessWidget {
             child: Stack(
               children: <Widget>[
 
+                if(sky == Sky.Non)
                 Container(
                   width: Scale.superScreenWidth(context),
                   height: Scale.superScreenHeight(context),
