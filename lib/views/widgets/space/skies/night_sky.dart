@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
@@ -22,17 +23,10 @@ class NightSky extends StatefulWidget {
   }
 
 
-class _NightSkyState extends State<NightSky>
-with TickerProviderStateMixin {
+class _NightSkyState extends State<NightSky> with TickerProviderStateMixin {
   final _controllers = <AnimationController>[];
-
   //Animation _animation;
-
-  Color _getRandomColor() {
-    return Color.fromARGB(
-        150, 255, 255, 255);
-  }
-
+// -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
@@ -42,7 +36,13 @@ with TickerProviderStateMixin {
         duration: d,
       ));
     });
-
+// -----------------------------------------------------------------------------
+  @override
+  void dispose() {
+    _controllers.forEach((AnimationController c) => c.dispose());
+    super.dispose();
+  }
+// -----------------------------------------------------------------------------
     for (final controller in _controllers) {
       controller.addStatusListener((AnimationStatus status) {
         if (status == AnimationStatus.completed) {
@@ -54,41 +54,33 @@ with TickerProviderStateMixin {
       controller.forward();
     }
   }
-
-  @override
-  void dispose() {
-    _controllers.forEach((AnimationController c) => c.dispose());
-    super.dispose();
+// -----------------------------------------------------------------------------
+    Color _getRandomColor() {
+    return Color.fromARGB(150, 255, 255, 255);
   }
-
+// -----------------------------------------------------------------------------
   Widget _createAnimatedStars(context) {
 
-    double heightMQ = MediaQuery.of(context).size.height;
-    double widthMQ = MediaQuery.of(context).size.width;
+    double _screenWidth = Scale.superScreenWidth(context);
+    double _screenHeight = Scale.superScreenWidth(context);
 
-    final customController = _controllers[_random.nextInt(4)];
-
-    final colorTween =
-    ColorTween(begin: _getRandomColor(), end: Colors.transparent);
-    final tweenAnimation = colorTween.animate(customController);
-
-    final positionAnimation =
-    CurveTween(curve: ElasticInCurve()).animate(customController);
-
-    final pieceSize = 0.5;
-
-    final topOffset = _random.nextDouble() * (heightMQ - pieceSize);
-    final leftOffset = _random.nextDouble() * (widthMQ - pieceSize);
+    final _customController = _controllers[_random.nextInt(4)];
+    final _colorTween = ColorTween(begin: _getRandomColor(), end: Colors.transparent);
+    final _tweenAnimation = _colorTween.animate(_customController);
+    final _positionAnimation = CurveTween(curve: ElasticInCurve()).animate(_customController);
+    final _pieceSize = 0.5;
+    final _topOffset = _random.nextDouble() * (_screenHeight - _pieceSize);
+    final _leftOffset = _random.nextDouble() * (_screenWidth - _pieceSize);
 
     return AnimatedBuilder(
-      animation: customController,
+      animation: _customController,
       builder: (BuildContext context, Widget widget) {
         final piece = Container(
-            width: pieceSize, height: pieceSize, color: tweenAnimation.value);
+            width: _pieceSize, height: _pieceSize, color: _tweenAnimation.value);
 
         return Positioned(
-          top: topOffset + (positionAnimation.value * _random.nextInt(5)),
-          left: leftOffset + (positionAnimation.value * _random.nextInt(5)),
+          top: _topOffset + (_positionAnimation.value * _random.nextInt(5)),
+          left: _leftOffset + (_positionAnimation.value * _random.nextInt(5)),
           child: piece,
         );
       },
@@ -143,46 +135,46 @@ with TickerProviderStateMixin {
   //   );
   // }
 
-  List<Widget> _createStars(int numPieces) {
+  List<Widget> _createStars(int numberOfStars) {
     final pieces = <Widget>[];
     //for (var i = 0; i< numPieces; i++) {
-//    pieces.add(_createStateStars());
-//  }
-    for (var i = 0; i < numPieces; i++) {
+    //    pieces.add(_createStateStars());
+    //  }
+    for (var i = 0; i < numberOfStars; i++) {
       pieces.add(_createAnimatedStars(context));
     }
     //for (var i = 0; i < numPieces; i++) {
-//    pieces.add(_createReverseStars());
-//  }
+    //    pieces.add(_createReverseStars());
+    //  }
     return pieces;
   }
 
   @override
   Widget build(BuildContext context) {
 
-    double heightMQ = MediaQuery.of(context).size.height;
-    double widthMQ = MediaQuery.of(context).size.width;
-
+    double _screenWidth = Scale.superScreenWidth(context);
+    double _screenHeight = Scale.superScreenWidth(context);
 
     return Center(
         child: Container(
-          height: heightMQ,
-          width: widthMQ,
-// the linear Gradient test
-//            decoration: BoxDecoration(
-//              gradient: LinearGradient(
-//                  begin: Alignment.topCenter,
-//                  end: Alignment.bottomCenter,
-//                  stops: [0.95,1],
-//                  colors: [
-//                    Color.fromARGB(1000, 0, 19, 56), // Dark
-//                    Color.fromARGB(1000, 0, 82, 137), // Medium
-////                  Color.fromARGB(1000, 0, 71, 123), // Light
-//                  ]
-//              ),
-//            ), // Line
+          width: _screenWidth,
+          height: _screenHeight,
 
-          // the Radial Gradient test
+          // the linear Gradient test
+          //            decoration: BoxDecoration(
+          //              gradient: LinearGradient(
+          //                  begin: Alignment.topCenter,
+          //                  end: Alignment.bottomCenter,
+          //                  stops: [0.95,1],
+          //                  colors: [
+          //                    Color.fromARGB(1000, 0, 19, 56), // Dark
+          //                    Color.fromARGB(1000, 0, 82, 137), // Medium
+          ////                  Color.fromARGB(1000, 0, 71, 123), // Light
+          //                  ]
+          //              ),
+          //            ), // Line
+
+          /// Radial Gradient test
           decoration: BoxDecoration(
               gradient: RadialGradient(
                   center: const Alignment(0.75, 1.25),
@@ -194,8 +186,7 @@ with TickerProviderStateMixin {
                   stops: <double>[0.0, 0.65]
               )
           ),
-
-          child: Stack(children: _createStars(100)),
+          // child: Stack(children: _createStars(100)),
 
         ));
   }

@@ -49,6 +49,7 @@ class _UserCheckerState extends State<UserChecker> {
   void didChangeDependencies() {
     if (_isInit) {
 
+      print('userChecker 1 : trigger loading');
       _triggerLoading();
 
       /// A - if user is signed in
