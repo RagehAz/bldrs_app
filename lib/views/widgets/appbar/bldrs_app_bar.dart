@@ -2,17 +2,14 @@ import 'package:bldrs/controllers/drafters/aligners.dart';
 import 'package:bldrs/controllers/drafters/colorizers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/shadowers.dart';
-import 'package:bldrs/controllers/drafters/text_checkers.dart';
-import 'package:bldrs/controllers/drafters/text_shapers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/views/widgets/appbar/search_bar.dart';
+import 'package:bldrs/views/widgets/appbar/search_history.dart';
 import 'package:bldrs/views/widgets/buttons/back_anb_search_button.dart';
-import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/buttons/sections_button.dart';
 import 'package:bldrs/views/widgets/buttons/zone_button.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
-import 'package:bldrs/views/widgets/textings/super_text_field.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
@@ -201,168 +198,13 @@ class BldrsAppBar extends StatelessWidget {
         ),
 
         /// SEARCH HISTORY
+        if(appBarType == AppBarType.Search)
         SearchHistory(),
+
       ],
     );
   }
 }
 
-class SearchBar extends StatefulWidget {
-  const SearchBar({Key key}) : super(key: key);
-
-  @override
-  _SearchBarState createState() => _SearchBarState();
-}
-
-class _SearchBarState extends State<SearchBar> {
-  TextEditingController _searchTextController = TextEditingController();
-
-  @override
-  void initState() {
-    _searchTextController.text = '';
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    if (TextChecker.textControllerHasNoValue(_searchTextController))_searchTextController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-
-    double _appBarClearWidth = Scale.appBarClearWidth(context);
-
-    return Container(
-      width: _appBarClearWidth,
-      height: Ratioz.appBarButtonSize + Ratioz.appBarPadding,
-      // color: Colorz.BloodTest,
-      alignment: Aligners.superTopAlignment(context),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-
-          Container(
-            width: 50,
-            height: 40,
-            // color: Colorz.LinkedIn,
-            alignment: Alignment.topLeft,
-            child: BackAndSearchButton(
-              backAndSearchAction: BackAndSearchAction.EnterSearch,
-            ),
-          ),
-
-          SuperTextField(
-            // fieldIsFormField: true,
-            width: _appBarClearWidth - (Ratioz.appBarButtonSize + Ratioz.appBarPadding * 3) - 3,
-            height: Ratioz.appBarButtonSize * 0.5,
-            textController: _searchTextController,
-            labelColor: Colorz.Yellow,
-            centered: false,
-            italic: true,
-            keyboardTextInputType: TextInputType.text,
-            keyboardTextInputAction: TextInputAction.done,
-            designMode: false,
-            counterIsOn: false,
-            fieldColor: null,
-            corners: Ratioz.appBarButtonCorner,
-          )
-
-        ],
-      ),
-    );
-  }
-}
-
-class SearchHistory extends StatelessWidget {
-  const SearchHistory({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-
-    List<String> _words = <String>['Changel', 'Chandelier', 'Ebony wood', ];
-
-    double _abWidth = Scale.appBarClearWidth(context);
-    double _abHeight = Scale.appBarClearHeight(context, AppBarType.Search);
-    double _blurValue = Ratioz.blur1;
-
-    double _spacing = superVerseLabelMargin(context, 3, 1, true);
-
-    return Container(
-      width: _abWidth,
-      height: _abHeight,
-      decoration: BoxDecoration(
-        color: Colorz.WhiteAir,
-        borderRadius: BorderRadius.all(Radius.circular(Ratioz.appBarCorner)),
-        boxShadow: Shadowz.appBarShadow,
-      ),
-      child: Stack(
-        alignment: Aligners.superCenterAlignment(context),
-        children: <Widget>[
-
-          /// --- APPBAR BLUR
-          BlurLayer(
-            width: _abWidth,
-            height: _abHeight,
-            blur: _blurValue,
-            borders: BorderRadius.all(Radius.circular(Ratioz.appBarCorner)),
-          ),
-
-          Container(
-            width: _abWidth,
-            height: _abHeight,
-            padding: EdgeInsets.all(Ratioz.appBarMargin),
-            child: Wrap(
-              // spacing: ,
-              children: <Widget>[
-
-                DreamBox(
-                  height: superVerseRealHeight(context, 3, 1, Colorz.BlackSmoke),
-                  width: superVerseRealHeight(context, 3, 1, Colorz.BlackSmoke),
-                  color: Colorz.BlackSmoke,
-                  icon: Iconz.Clock,
-                  iconSizeFactor: 0.6,
-                  bubble: false,
-                  boxMargins: EdgeInsets.all(_spacing),
-                ),
-
-                ...List<Widget>.generate(
-                  _words.length,
-                    (index){
-
-                    return
-                        // SuperVerse(
-                        //   shadow: false,
-                        //   size: 3,
-                        //   designMode: false,
-                        // );
-
-                    DreamBox(
-                      height: superVerseRealHeight(context, 3, 1, Colorz.BlackSmoke),
-                      verse: _words[index],
-                      verseItalic: true,
-                      verseWeight: VerseWeight.thin,
-                      verseScaleFactor: 1.7,
-                      bubble: false,
-                      icon: Iconz.XLarge,
-                      iconSizeFactor: 0.4,
-                      color: Colorz.BlackSmoke,
-                      boxMargins: EdgeInsets.all(_spacing),
-                    );
-
-                    }
-                ),
-
-              ],
-            ),
-          ),
 
 
-        ],
-
-      ),
-    );
-  }
-}
