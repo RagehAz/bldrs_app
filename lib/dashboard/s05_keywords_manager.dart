@@ -1,12 +1,8 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
-import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
-import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:bldrs/xxx_LABORATORY/flyer_browser/bldrs_expansion_tile.dart';
-import 'package:bldrs/xxx_LABORATORY/flyer_browser/flyer_keyz.dart';
 import 'package:bldrs/xxx_LABORATORY/flyer_browser/keyword_model.dart';
 import 'package:flutter/material.dart';
 

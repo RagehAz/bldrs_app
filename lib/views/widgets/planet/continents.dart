@@ -1,6 +1,7 @@
 import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/views/widgets/layouts/main_layout.dart' show Sky;
+import 'package:bldrs/views/widgets/layouts/night_sky.dart';
 import 'package:bldrs/views/widgets/pyramids/pyramids.dart';
-import 'package:bldrs/views/widgets/space/skies/night_sky.dart';
 import 'package:flutter/material.dart';
 
 class Continents extends StatelessWidget {
@@ -20,7 +21,7 @@ class Continents extends StatelessWidget {
           alignment: Alignment.center,
           children: <Widget>[
 
-            NightSky(),
+            NightSky(sky: Sky.Black,),
 
             Container(
               width: screenWidth,

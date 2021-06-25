@@ -13,11 +13,10 @@ import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/providers/users_provider.dart';
 import 'package:bldrs/views/widgets/appbar/bldrs_app_bar.dart';
 import 'package:bldrs/views/widgets/buttons/back_anb_search_button.dart';
+import 'package:bldrs/views/widgets/layouts/night_sky.dart';
 import 'package:bldrs/views/widgets/nav_bar/nav_bar.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/pyramids/pyramids.dart';
-import 'package:bldrs/views/widgets/space/skies/black_sky.dart';
-import 'package:bldrs/views/widgets/space/skies/night_sky.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/views/widgets/buttons/rageh_button.dart';
 import 'package:provider/provider.dart';
@@ -98,9 +97,8 @@ class MainLayout extends StatelessWidget {
 // -----------------------------------------------------------------------------
     final List<Widget> _mainLayoutStackWidgets = <Widget>[
 
-      sky == Sky.Black ? BlackSky() :
-      sky == Sky.Night ? NightSky() :
-      Container(),
+
+      NightSky(sky: sky,),
 
       layoutWidget == null ? Container() :
       layoutWidget,

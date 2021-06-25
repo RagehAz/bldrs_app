@@ -56,22 +56,6 @@
 //                 ),
 //               ),
 //
-//               ClipRRect(
-//                 borderRadius: BorderRadius.all(Radius.circular(Ratioz.ddAppBarCorner)),
-//                 child: BackdropFilter(
-//                   filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-//                   child: Container(
-//                     width: double.infinity,
-//                     height: abHeight,
-//                     decoration: BoxDecoration(
-//                         color: Colorz.WhiteAir,
-//                         borderRadius: BorderRadius.all(Radius.circular(Ratioz.ddAppBarCorner))
-//                     ),
-//                   ),
-//
-//                 ),
-//               ),
-//
 //               Row(children: rowWidgets)
 //
 //             ],

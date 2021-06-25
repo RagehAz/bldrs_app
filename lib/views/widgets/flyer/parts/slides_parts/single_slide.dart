@@ -136,38 +136,35 @@ class SingleSlide extends StatelessWidget {
               ),
 
             /// --- IMAGE FILE BLUR LAYER
-            if (_blurLayerIsActive)
-            ClipRRect( // this ClipRRect fixed a big blur issue,, never ever  delete
-              child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 6, sigmaY: 6),
-                child: Container(
-                  width: flyerZoneWidth,
-                  height: Scale.superFlyerZoneHeight(context, flyerZoneWidth),
-                  color: Colorz.Nothing,
-                ),
-              ),
-            ),
+            // if (_blurLayerIsActive)
+            //   BlurLayer(
+            //     width: flyerZoneWidth,
+            //     height: Scale.superFlyerZoneHeight(context, flyerZoneWidth),
+            //     blur: 6,
+            //     borders: Borderers.superFlyerCorners(context, flyerZoneWidth),
+            //     color: Colorz.Nothing,
+            //   ),
 
             if (picture == null || slideMode == SlideMode.Empty)
               Container(),
 
             /// --- IMAGE FILE
-            if (ObjectChecker.objectIsFile(picture))
-                Image.file(
-                    picture,
-                    fit: boxFit,
-                    width: flyerZoneWidth,
-                    height: Scale.superFlyerZoneHeight(context, flyerZoneWidth)
-                ),
+            // if (ObjectChecker.objectIsFile(picture))
+            //     Image.file(
+            //         picture,
+            //         fit: boxFit,
+            //         width: flyerZoneWidth,
+            //         height: Scale.superFlyerZoneHeight(context, flyerZoneWidth)
+            //     ),
 
             /// --- IMAGE NETWORK
-            if (ObjectChecker.objectIsURL(picture))
-            Image.network(
-                picture,
-                fit: BoxFit.fitWidth,
-                width: flyerZoneWidth,
-                height: Scale.superFlyerZoneHeight(context, flyerZoneWidth)
-            ),
+            // if (ObjectChecker.objectIsURL(picture))
+            // Image.network(
+            //     picture,
+            //     fit: BoxFit.fitWidth,
+            //     width: flyerZoneWidth,
+            //     height: Scale.superFlyerZoneHeight(context, flyerZoneWidth)
+            // ),
 
             /// --- SHADOW UNDER PAGE HEADER & OVER PAGE PICTURE
             Container(
