@@ -158,7 +158,7 @@ class FlyerModel with ChangeNotifier{
       case 4:   return  FlyerType.Project;      break;
       case 5:   return  FlyerType.Craft;        break;
       case 6:   return  FlyerType.Equipment;    break;
-      case 7:   return  FlyerType.General;      break;
+      // case 7:   return  FlyerType.General;      break;
       default : return   null;
     }
   }
@@ -171,7 +171,7 @@ class FlyerModel with ChangeNotifier{
       case FlyerType.Project     :    return  4;  break;
       case FlyerType.Craft       :    return  5;  break;
       case FlyerType.Equipment   :    return  6;  break;
-      case FlyerType.General     :    return  7;  break;
+      // case FlyerType.General     :    return  7;  break;
       default : return null;
     }
   }
