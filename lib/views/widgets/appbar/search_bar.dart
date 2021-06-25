@@ -5,6 +5,7 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/buttons/back_anb_search_button.dart';
 import 'package:bldrs/views/widgets/textings/super_text_field.dart';
+import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 
@@ -45,18 +46,26 @@ class _SearchBarState extends State<SearchBar> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
 
+          /// SEARCH HISTORY BUTTON
           Container(
             width: 50,
             height: 40,
             // color: Colorz.LinkedIn,
             alignment: Alignment.topLeft,
             child: BackAndSearchButton(
-              backAndSearchAction: BackAndSearchAction.EnterSearch,
+              backAndSearchAction: BackAndSearchAction.ShowHistory,
+              passSearchHistory: (String value){
+                print('value aho is $value');
+                setState(() {
+                  _searchTextController.text = value;
+                });
+              },
             ),
           ),
 
+          /// SEARCH TEXT FIELD
           SuperTextField(
-            // fieldIsFormField: true,
+            fieldIsFormField: true,
             width: _appBarClearWidth - (Ratioz.appBarButtonSize + Ratioz.appBarPadding * 3) - 3,
             height: Ratioz.appBarButtonSize * 0.5,
             textController: _searchTextController,
@@ -64,11 +73,27 @@ class _SearchBarState extends State<SearchBar> {
             centered: false,
             italic: true,
             keyboardTextInputType: TextInputType.text,
-            keyboardTextInputAction: TextInputAction.done,
+            keyboardTextInputAction: TextInputAction.search,
             designMode: false,
             counterIsOn: false,
             fieldColor: null,
             corners: Ratioz.appBarButtonCorner,
+            onTap: (){},
+            onChanged: (value){
+              print('search field change : $value');
+            },
+            hintText: ' Search ... ',
+            inputColor: Colorz.Yellow,
+            inputSize: 2,
+            inputShadow: false,
+            inputWeight: VerseWeight.thin,
+            onSaved: (){
+              print('on saved');
+            },
+            onSubmitted: (val){
+              print('onSubmitted : $val');
+            },
+
           )
 
         ],

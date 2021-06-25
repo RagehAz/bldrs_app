@@ -25,19 +25,8 @@ class CustomBoxShadow extends BoxShadow {
   }
 }
 // -----------------------------------------------------------------------------
-List<BoxShadow> superHeaderShadower(double flyerZoneWidth){
-  List<BoxShadow> _shadows = <CustomBoxShadow>[CustomBoxShadow(
-      color: Colorz.BlackLingerie,
-      offset: Offset(0, 0),
-      blurRadius: flyerZoneWidth * 0.1,
-      blurStyle: BlurStyle.outer
-  ),
-  ];
-  return _shadows;
-}
-// -----------------------------------------------------------------------------
 List<BoxShadow> superFollowBtShadow(double btHeight){
-  List<BoxShadow> _btShadow = <CustomBoxShadow>[
+  List<BoxShadow> _btShadow = <BoxShadow>[
     CustomBoxShadow(
         color: Colorz.BlackPlastic,
         offset: new Offset(0, 0),
@@ -53,17 +42,43 @@ List<BoxShadow> superFollowBtShadow(double btHeight){
 }
 // -----------------------------------------------------------------------------
 class Shadowz {
-
-  static const CustomBoxShadow basicOuterShadow = CustomBoxShadow(
+// -----------------------------------------------------------------------------
+  static const BoxShadow basicOuterShadow = CustomBoxShadow(
       color: Colorz.BlackLingerie,
       offset: Offset(0, 0),
       blurRadius: 10,
       blurStyle: BlurStyle.outer
   );
 
-  static const List<BoxShadow> appBarShadow = <CustomBoxShadow>[
+  static const List<BoxShadow> appBarShadow = <BoxShadow>[
      basicOuterShadow,
   ];
+// -----------------------------------------------------------------------------
+  static List<BoxShadow> flyerZoneShadow(double flyerZoneWidth){
+    List<BoxShadow> _flyerZoneShadow = <BoxShadow>[
+      CustomBoxShadow(
+          color: Colorz.BlackBlack,
+          blurRadius: flyerZoneWidth * 0.055,
+          blurStyle: BlurStyle.outer
+      ),
+    ];
+
+    return _flyerZoneShadow;
+  }
+// -----------------------------------------------------------------------------
+  static List<BoxShadow> flyerHeaderShadow(double flyerZoneWidth){
+    List<BoxShadow> _shadows = <BoxShadow>[
+      CustomBoxShadow(
+        color: Colorz.BlackLingerie,
+        offset: Offset(0, 0),
+        blurRadius: flyerZoneWidth * 0.1,
+        blurStyle: BlurStyle.outer
+      ),
+    ];
+    return _shadows;
+  }
+// -----------------------------------------------------------------------------
+
 
 }
 // -----------------------------------------------------------------------------

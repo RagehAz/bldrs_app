@@ -5,7 +5,6 @@ import 'package:bldrs/controllers/drafters/shadowers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/appbar/search_bar.dart';
-import 'package:bldrs/views/widgets/appbar/search_history.dart';
 import 'package:bldrs/views/widgets/buttons/back_anb_search_button.dart';
 import 'package:bldrs/views/widgets/buttons/sections_button.dart';
 import 'package:bldrs/views/widgets/buttons/zone_button.dart';
@@ -87,6 +86,7 @@ class BldrsAppBar extends StatelessWidget {
           alignment: Alignment.center,
           margin: EdgeInsets.all(Ratioz.appBarMargin),
           decoration: BoxDecoration(
+            // color: Colorz.BlackBlack,
             borderRadius: BorderRadius.all(Radius.circular(Ratioz.appBarCorner)),
             boxShadow: Shadowz.appBarShadow,
           ),
@@ -109,7 +109,7 @@ class BldrsAppBar extends StatelessWidget {
                 height: _abHeight,
                 // color: Colorz.BabyBlueSmoke,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
 
@@ -197,9 +197,6 @@ class BldrsAppBar extends StatelessWidget {
           ),
         ),
 
-        /// SEARCH HISTORY
-        if(appBarType == AppBarType.Search)
-        SearchHistory(),
 
       ],
     );

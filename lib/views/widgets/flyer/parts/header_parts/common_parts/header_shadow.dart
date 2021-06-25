@@ -17,18 +17,18 @@ class HeaderShadow extends StatelessWidget {
     return Stack(
       children: <Widget>[
 
-        // --- MINI HEADER'S BG COLOR IN MAX STATE
+        /// --- MINI HEADER'S BG COLOR IN MAX STATE
         bzPageIsOn == false ? Container() :
         Container(color:Colorz.bzPageBGColor),//bzPageBGColor,),
 
-        // --- HEADER SHADOW
+        /// --- HEADER SHADOW
         Container(
           width: flyerZoneWidth,
           height: flyerZoneWidth,
           decoration: BoxDecoration(
               shape: BoxShape.rectangle,
               borderRadius: Borderers.superHeaderCorners(context, bzPageIsOn, flyerZoneWidth),
-              boxShadow: superHeaderShadower(flyerZoneWidth),
+              boxShadow: Shadowz.flyerHeaderShadow(flyerZoneWidth),
           ),
         ),
 

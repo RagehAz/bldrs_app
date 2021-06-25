@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:bldrs/controllers/drafters/colorizers.dart';
 import 'package:bldrs/controllers/drafters/shadowers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
@@ -71,19 +72,14 @@ class EnumLister extends StatelessWidget {
               children: <Widget>[
 
                 // --- BLUR LAYER
-                ClipRRect(
-                  borderRadius: BorderRadius.only(
+                BlurLayer(
+                  width: listWidth,
+                  height: listHeight,
+                  borders: BorderRadius.only(
                     topLeft: Radius.circular(Ratioz.appBarButtonCorner),
                     topRight: Radius.circular(Ratioz.appBarButtonCorner),
                   ),
-                  child: BackdropFilter(
-                    filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
-                    child: Container(
-                      height: listHeight,
-                      width: listWidth,
-                      color: Colorz.WhiteGlass,
-                    ),
-                  ),
+                  blur: 10,
                 ),
 
                 // --- LIST CONTENTS

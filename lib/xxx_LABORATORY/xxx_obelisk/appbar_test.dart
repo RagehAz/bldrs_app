@@ -2,7 +2,8 @@ import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/views/widgets/appbar/bldrs_app_bar.dart';
 import 'package:bldrs/views/widgets/buttons/dream_wrapper.dart';
-import 'package:bldrs/views/widgets/space/skies/night_sky.dart';
+import 'package:bldrs/views/widgets/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/layouts/night_sky.dart';
 import 'package:flutter/material.dart';
 
 class AppBarTest extends StatelessWidget {
@@ -20,7 +21,7 @@ class AppBarTest extends StatelessWidget {
           child: Stack(
             children: <Widget>[
 
-              NightSky(),
+              NightSky(sky: Sky.Night,),
 
               BldrsAppBar(
                 loading: false,
