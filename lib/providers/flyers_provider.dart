@@ -44,6 +44,7 @@ class FlyersProvider with ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
   List<TinyBz> get getUserTinyBzz {
+    print('getting user tiny bzz');
     return <TinyBz> [..._userTinyBzz];
   }
 // -----------------------------------------------------------------------------

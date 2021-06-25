@@ -162,7 +162,7 @@ class SuperVerse extends StatelessWidget {
               ),
             ),
 
-            redDot == false ? Container() :
+            if (redDot == true)
             Container(
               height: _labelHeight,
                 margin:

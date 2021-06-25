@@ -39,6 +39,7 @@ class SuperTextField extends StatefulWidget {
   final Key key;
   final Function onTap;
   final double corners;
+  final Function onSubmitted;
 
   SuperTextField({
     this.keyboardTextInputType = TextInputType.text,
@@ -72,6 +73,7 @@ class SuperTextField extends StatefulWidget {
     this.key,
     this.onTap,
     this.corners,
+    this.onSubmitted,
   });
 
   @override
@@ -282,6 +284,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
               validator: widget.validator,
               onChanged: (val) => _onChanged(val),
               autofocus: false,
+              onFieldSubmitted: (val) => widget.onSubmitted(val),
               onTap: (){
                 // double _keyboardHeight;
                 //
@@ -353,6 +356,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
               cursorWidth: 2,
               cursorHeight: null,
               textAlign: _textAlign,
+              onSubmitted: (val) => widget.onSubmitted(val),
             );
           },
         ),

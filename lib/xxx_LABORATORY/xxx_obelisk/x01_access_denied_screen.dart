@@ -1,7 +1,8 @@
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/views/widgets/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/layouts/night_sky.dart';
 import 'package:bldrs/views/widgets/pyramids/pyramids.dart';
-import 'package:bldrs/views/widgets/space/skies/black_sky.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +16,7 @@ class AccessDeniedScreen extends StatelessWidget {
         body: Stack(
           children: <Widget>[
 
-            BlackSky(),
+            NightSky(sky: Sky.Black),
 
             Container(
               child: Center(

@@ -4,6 +4,7 @@ import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/views/screens/s21_search_history_screen.dart';
 import 'package:flutter/material.dart';
 import 'dream_box.dart';
 import 'package:bldrs/views/screens/s20_search_screen.dart';
@@ -11,18 +12,20 @@ import 'package:bldrs/views/screens/s20_search_screen.dart';
 enum BackAndSearchAction{
   GoToSearchScreen,
   GoBack,
-  EnterSearch,
+  ShowHistory,
 }
 
 class BackAndSearchButton extends StatelessWidget {
   final Function onTap;
   final Color color;
   final BackAndSearchAction backAndSearchAction;
+  final Function passSearchHistory;
 
   BackAndSearchButton({
     this.onTap,
     this.color = Colorz.WhiteAir,
     @required this.backAndSearchAction,
+    this.passSearchHistory,
 });
 // -----------------------------------------------------------------------------
   @override
@@ -32,13 +35,13 @@ class BackAndSearchButton extends StatelessWidget {
     String _icon =
     backAndSearchAction == BackAndSearchAction.GoBack ? Iconizer.superBackIcon(context) :
     backAndSearchAction == BackAndSearchAction.GoToSearchScreen ? Iconz.Search :
-    backAndSearchAction == BackAndSearchAction.EnterSearch ? Iconz.Search :
+    backAndSearchAction == BackAndSearchAction.ShowHistory ? Iconz.Clock :
     null;
 // -----------------------------------------------------------------------------
     double _iconSizeFactor =
     backAndSearchAction == BackAndSearchAction.GoBack ? 1 :
     backAndSearchAction == BackAndSearchAction.GoToSearchScreen ? 0.5 :
-    backAndSearchAction == BackAndSearchAction.EnterSearch ? 0.5 :
+    backAndSearchAction == BackAndSearchAction.ShowHistory ? 0.5 :
     1;
 // -----------------------------------------------------------------------------
     return DreamBox(
@@ -52,7 +55,7 @@ class BackAndSearchButton extends StatelessWidget {
       bubble: false,
       color: color,
       // textDirection: superInverseTextDirection(context),
-      boxFunction: (){
+      boxFunction: () async {
 
         if (backAndSearchAction == BackAndSearchAction.GoBack){
           Nav.goBack(context);
@@ -62,8 +65,10 @@ class BackAndSearchButton extends StatelessWidget {
           Nav.goToNewScreen(context, SearchScreen());
         }
 
-        else if(backAndSearchAction == BackAndSearchAction.EnterSearch){
-          print('Entering search');
+        else if(backAndSearchAction == BackAndSearchAction.ShowHistory){
+          String _result = await Nav.goToNewScreen(context, SearchHistoryScreen());
+          print('received back this result : $_result');
+          passSearchHistory(_result);
         }
 
         else {
