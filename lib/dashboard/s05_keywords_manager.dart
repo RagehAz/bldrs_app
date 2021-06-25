@@ -1,9 +1,9 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/xxx_LABORATORY/flyer_browser/bldrs_expansion_tile.dart';
-import 'package:bldrs/xxx_LABORATORY/flyer_browser/keyword_model.dart';
 import 'package:flutter/material.dart';
 
 class KeywordsManager extends StatefulWidget {
@@ -57,6 +57,17 @@ class _KeywordsManagerState extends State<KeywordsManager> {
       appBarType: AppBarType.Basic,
       pyramids: Iconz.PyramidsYellow,
       loading: _loading,
+      tappingRageh: (){
+
+        List<KeywordModel> _result = KeywordModel.getKeywordModelsByFilterID('product');
+        //
+
+        _result.forEach((key) {
+          print('KeywordModel(id: \'${key.id}\', filterID: \'${key.filterID}\', groupID: \'${key.groupID}\', subGroupID: \'${key.subGroupID}\', name: \'${key.name}\', uses: 0),');
+        });
+
+
+      },
       sky: Sky.Night,
       // tappingRageh: (){
       //   // if(_isExpanded){
@@ -89,7 +100,7 @@ class _KeywordsManagerState extends State<KeywordsManager> {
                       key: _expansionKeys[index],
                       // icon: KeywordModel.getImagePath(_filterID),
                       iconSizeFactor: 0.5,
-                      filterID: _filterID,
+                      filterModel: null,
                       selectedKeywords: _selectedKeywords,
                       onKeywordTap: (KeywordModel selectedKeyword){
 
