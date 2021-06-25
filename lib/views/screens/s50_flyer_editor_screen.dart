@@ -11,6 +11,7 @@ import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/firestore/flyer_ops.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
+import 'package:bldrs/models/keywords/filter_model.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/sub_models/slide_model.dart';
@@ -28,7 +29,6 @@ import 'package:bldrs/views/widgets/flyer/parts/progress_bar.dart';
 import 'package:bldrs/views/widgets/flyer/parts/slides_parts/single_slide.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:bldrs/xxx_LABORATORY/camera_and_location/location_helper.dart';
-import 'package:bldrs/xxx_LABORATORY/flyer_browser/flyer_keyz.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:path/path.dart' as path;
@@ -516,7 +516,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
                               verseSize: 1,
                               bubbles: true,
                               title: 'Space Type',
-                              words: Filterz.spaceType,
+                              words: ['1', '2', '3'],
                               selectedWords: _currentKeywords,
                               onTap: (value){
                                 setSheetState(() {
@@ -529,7 +529,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
                               verseSize: 1,
                               bubbles: true,
                               title: 'Product Use',
-                              words: Filterz.productUse,
+                              words: ['1', '2', '3'],
                               selectedWords: _currentKeywords,
                               onTap: (value){setSheetState(() {_currentKeywords.add(value);});},
                             ),
