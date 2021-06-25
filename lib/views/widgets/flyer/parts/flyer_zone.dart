@@ -53,7 +53,6 @@ class FlyerZone extends StatelessWidget {
     // getTranslated(context, 'Save');
     // Color saveBTColor = ankhIsOn == true ? Colorz.YellowSmoke : Colorz.Nothing;
 
-    Color _flyerShadowColor = Colorz.BlackBlack;
 // -----------------------------------------------------------------------------
 
     // print ('slidingIsOn value =$slidingIsOn');
@@ -78,13 +77,9 @@ class FlyerZone extends StatelessWidget {
           height: _flyerZoneHeight,
           alignment: Alignment.topCenter,
           decoration: BoxDecoration(
+            color: Colorz.WhiteGlass,
               borderRadius: _flyerBorders,
-              boxShadow: <BoxShadow>[
-                CustomBoxShadow(
-                    color: _flyerShadowColor,
-                    blurRadius: _flyerZoneWidth * 0.055,
-                    blurStyle: BlurStyle.outer),
-              ]
+              boxShadow: Shadowz.flyerZoneShadow(_flyerZoneWidth),
           ),
           child: ClipRRect(
             borderRadius: _flyerBorders,
