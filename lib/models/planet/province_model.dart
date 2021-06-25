@@ -1,4 +1,8 @@
 import 'package:bldrs/controllers/drafters/text_manipulators.dart';
+import 'package:bldrs/models/keywords/keyword_model.dart';
+import 'package:bldrs/providers/country_provider.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'area_model.dart';
 import 'country_model.dart';
@@ -77,5 +81,21 @@ class Province{
     return _provincesNames;
   }
 // -----------------------------------------------------------------------------
+  static KeywordModel getKeywordModelFromProvinceModel(BuildContext context, Province province){
 
+    CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
+
+    String _name = _countryPro.getProvinceNameWithCurrentLanguageIfPossible(context, province.name);
+
+    KeywordModel _keyword = KeywordModel(
+        id: province.name,
+        filterID: 'provinces',
+        groupID: province.iso3,
+        subGroupID: null,
+        name: _name,
+        uses: 0
+    );
+
+    return _keyword;
+  }
 }
