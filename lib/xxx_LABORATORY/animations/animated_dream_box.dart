@@ -391,25 +391,25 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                               (){
                                 print('boxWidth: $boxWidth, widget.width: ${widget.width}');
                                 widget.boxFunction();
-                                setState(() {
-                                  boxWidth = widget.width * 0.8;
-                                  boxHeight = widget.height * 0.8;
-                                  Future.delayed(widget.duration, (){setState(() {
-                                    boxWidth = widget.width;
-                                    boxHeight = widget.width;
-                                  });});
-                                });
+                                // setState(() {
+                                //   boxWidth = widget.width * 0.8;
+                                //   boxHeight = widget.height * 0.8;
+                                //   Future.delayed(widget.duration, (){setState(() {
+                                //     boxWidth = widget.width;
+                                //     boxHeight = widget.width;
+                                //   });});
+                                // });
                                 print('boxWidth: $boxWidth, widget.width: ${widget.width}');
                               },
                               onTapDown: (TapDownDetails details){
                                 print('boxWidth: $boxWidth, widget.width: ${widget.width}');
-                                setState(() {
-                                  boxWidth = widget.width * 0.85;
-                                  Future.delayed(widget.duration, (){setState(() {
-                                    boxWidth = widget.width * 0.9;
-                                    boxHeight = widget.width * 0.9;
-                                  });});
-                                });
+                                // setState(() {
+                                //   boxWidth = widget.width * 0.85;
+                                //   Future.delayed(widget.duration, (){setState(() {
+                                //     boxWidth = widget.width * 0.9;
+                                //     boxHeight = widget.width * 0.9;
+                                //   });});
+                                // });
                                 print('boxWidth: $boxWidth, widget.width: ${widget.width}');
                               },
                               onTapCancel: (){

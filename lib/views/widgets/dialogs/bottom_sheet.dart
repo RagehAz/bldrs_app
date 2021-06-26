@@ -167,7 +167,7 @@ class BottomSlider{
           );}
     );
   }
-
+// -----------------------------------------------------------------------------
   static void slideButtonsBottomSheet({
     BuildContext context,
     bool draggable,
@@ -242,5 +242,4 @@ class BottomSlider{
     return _clearHeight;
   }
 // -----------------------------------------------------------------------------
-
 }
