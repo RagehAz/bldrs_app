@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/aligners.dart';
 import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
@@ -13,6 +14,8 @@ import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/planet/province_model.dart';
 import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
+import 'package:bldrs/views/widgets/dialogs/browser_pages.dart';
+import 'package:bldrs/views/widgets/dialogs/bz_bottom_sheet.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:bldrs/xxx_LABORATORY/flyer_browser/keyword_button.dart';
@@ -502,7 +505,7 @@ class _SearchScreenState extends State<SearchScreen> {
     double _buttonPadding = _browserIsOn == true ? Ratioz.appBarPadding * 1.5 : Ratioz.appBarPadding * 1.5;
 
     double _browserMinZoneHeight = 40 + _buttonPadding * 2 + superVerseRealHeight(context, 0, 0.95, null);
-    double _browserMaxZoneHeight = Scale.superScreenHeight(context) * 0.38;
+    double _browserMaxZoneHeight = Scale.superScreenHeight(context) * 0.4;
 
     double _browserMinZoneWidth = 40 + _buttonPadding * 2;
     double _browserMaxZoneWidth = Scale.superScreenWidth(context) - _buttonPadding * 2;
@@ -581,14 +584,21 @@ class _SearchScreenState extends State<SearchScreen> {
                 curve: Curves.easeInOut,
                 decoration: BoxDecoration(
                   borderRadius: _browserZoneCorners,
-                  color: Colorz.BloodRedZircon,
+                  color: Colorz.BlackLingerie,
                 ),
                 margin: EdgeInsets.all(_browserZoneMargins),
-                alignment: Alignment.center,
+                alignment: Aligners.superTopAlignment(context),
                 child:
                 _browserZoneWidth == _browserMaxZoneWidth ?
 
                 /// browser contents
+                BrowserPages(
+                  browserZoneHeight: _browserZoneHeight,
+                  browserIsOn: _browserIsOn,
+                  closeBrowser: _triggerBrowser,
+                )
+
+
                 // AnimatedContainer(
                 //   duration: Ratioz.slidingTransitionDuration,
                 //   width: _browserScrollZoneWidth,
@@ -694,54 +704,54 @@ class _SearchScreenState extends State<SearchScreen> {
                 //   ),
                 // )
 
-                Container(
-                  width: Scale.superScreenWidth(context) - Ratioz.appBarMargin * 4,
-                  height: _browserZoneHeight - Ratioz.appBarMargin * 2,
-                  color: Colorz.YellowGlass,
-                  child: ListView(
-                    children: <Widget>[
-
-                      ...List.generate(
-                          _filters.length,
-                              (index){
-
-                            FilterModel _filterModel = _filters[index];
-
-                            return
-                              BldrsExpansionTile(
-                                height: Scale.superScreenHeight(context) * 0.5,
-                                key: _expansionKeys[index],
-                                // icon: KeywordModel.getImagePath(_filterID),
-                                iconSizeFactor: 0.5,
-                                filterModel: _filterModel,
-                                selectedKeywords: _selectedKeywords,
-                                onKeywordTap: (KeywordModel selectedKeyword){
-
-                                  if (_selectedKeywords.contains(selectedKeyword)){
-                                    setState(() {
-                                      print('a77a');
-                                      _selectedKeywords.remove(selectedKeyword);
-                                    });
-                                  }
-
-                                  else {
-                                    setState(() {
-                                      _selectedKeywords.add(selectedKeyword);
-                                    });
-                                  }
-
-                                },
-
-                                onGroupTap: (String groupID){
-
-                                },
-                              );
-
-                          }),
-
-                    ],
-                  ),
-                )
+                // Container(
+                //   width: Scale.superScreenWidth(context) - Ratioz.appBarMargin * 4,
+                //   height: _browserZoneHeight - Ratioz.appBarMargin * 2,
+                //   color: Colorz.YellowGlass,
+                //   child: ListView(
+                //     children: <Widget>[
+                //
+                //       ...List.generate(
+                //           _filters.length,
+                //               (index){
+                //
+                //             FilterModel _filterModel = _filters[index];
+                //
+                //             return
+                //               BldrsExpansionTile(
+                //                 height: Scale.superScreenHeight(context) * 0.5,
+                //                 key: _expansionKeys[index],
+                //                 // icon: KeywordModel.getImagePath(_filterID),
+                //                 iconSizeFactor: 0.5,
+                //                 filterModel: _filterModel,
+                //                 selectedKeywords: _selectedKeywords,
+                //                 onKeywordTap: (KeywordModel selectedKeyword){
+                //
+                //                   if (_selectedKeywords.contains(selectedKeyword)){
+                //                     setState(() {
+                //                       print('a77a');
+                //                       _selectedKeywords.remove(selectedKeyword);
+                //                     });
+                //                   }
+                //
+                //                   else {
+                //                     setState(() {
+                //                       _selectedKeywords.add(selectedKeyword);
+                //                     });
+                //                   }
+                //
+                //                 },
+                //
+                //                 onGroupTap: (String groupID){
+                //
+                //                 },
+                //               );
+                //
+                //           }),
+                //
+                //     ],
+                //   ),
+                // )
 
                     :
 

@@ -73,6 +73,7 @@ static const double xxflyerAuthorPicWidth = 0.15;
 static const double xxflyerAuthorPicCorner = Ratioz.xxflyerHeaderMiniHeight * 0.1083;
 static const double xxflyerAuthorNameWidth = 0.47;
 static const double xxflyerFollowBtWidth = 0.11;
+static const double xxProgressBarHeightRatio = 0.0125;
 
 static const double xxflyersGridSpacing = 0.02;
 // Business logo corners Ratio in respect to Container Width or Height
