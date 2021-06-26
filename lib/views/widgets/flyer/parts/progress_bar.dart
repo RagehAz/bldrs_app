@@ -2,6 +2,7 @@ import 'package:bldrs/controllers/drafters/aligners.dart';
 import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
 class ProgressBar extends StatelessWidget {
@@ -24,7 +25,7 @@ class ProgressBar extends StatelessWidget {
     int _numberOfSlides = numberOfSlides == 0 ? 1 : numberOfSlides;
 // -----------------------------------------------------------------------------
     double _boxWidth = flyerZoneWidth;
-    double _boxHeight = flyerZoneWidth * 0.0125;
+    double _boxHeight = flyerZoneWidth * Ratioz.xxProgressBarHeightRatio;
     EdgeInsets _margins = margins == null ? EdgeInsets.only(top: flyerZoneWidth * 0.27) : margins;
     double _allStripsLength = flyerZoneWidth * 0.895;
     double _allStripsOneSideMargin = (flyerZoneWidth - _allStripsLength) / 2;
