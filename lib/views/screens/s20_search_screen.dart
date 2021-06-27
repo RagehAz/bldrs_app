@@ -11,21 +11,15 @@ import 'package:bldrs/models/bldrs_sections.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/keywords/filter_model.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
-import 'package:bldrs/models/planet/province_model.dart';
 import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
-import 'package:bldrs/views/widgets/dialogs/browser_pages.dart';
-import 'package:bldrs/views/widgets/dialogs/bz_bottom_sheet.dart';
+import 'package:bldrs/views/widgets/browser/browser_pages.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:bldrs/xxx_LABORATORY/flyer_browser/keyword_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_size/flutter_keyboard_size.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
-import 'package:bldrs/controllers/router/navigators.dart';
-import 'package:bldrs/views/widgets/buttons/dream_box.dart';
-import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
-import 'package:bldrs/views/widgets/layouts/dream_list.dart';
 import 'package:bldrs/views/widgets/nav_bar/bar_button.dart';
 import 'package:bldrs/views/widgets/nav_bar/nav_bar.dart';
 import 'package:bldrs/xxx_LABORATORY/flyer_browser/bldrs_expansion_tile.dart';
@@ -505,7 +499,7 @@ class _SearchScreenState extends State<SearchScreen> {
     double _buttonPadding = _browserIsOn == true ? Ratioz.appBarPadding * 1.5 : Ratioz.appBarPadding * 1.5;
 
     double _browserMinZoneHeight = 40 + _buttonPadding * 2 + superVerseRealHeight(context, 0, 0.95, null);
-    double _browserMaxZoneHeight = Scale.superScreenHeight(context) * 0.4;
+    double _browserMaxZoneHeight = Scale.superScreenHeightWithoutSafeArea(context) - Ratioz.appBarBigHeight - Ratioz.keywordsBarHeight - Ratioz.appBarMargin * 4;
 
     double _browserMinZoneWidth = 40 + _buttonPadding * 2;
     double _browserMaxZoneWidth = Scale.superScreenWidth(context) - _buttonPadding * 2;
@@ -596,6 +590,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   browserZoneHeight: _browserZoneHeight,
                   browserIsOn: _browserIsOn,
                   closeBrowser: _triggerBrowser,
+                  filtersModels: _filters,
                 )
 
 
