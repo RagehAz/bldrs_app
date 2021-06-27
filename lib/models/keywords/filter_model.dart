@@ -4,7 +4,7 @@ import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:flutter/foundation.dart';
 
-class FilterModel {
+class FilterModel{
   final String filterID;
   final bool canPickMany;
   final List<KeywordModel> keywordModels;

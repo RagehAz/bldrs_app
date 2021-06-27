@@ -4,8 +4,12 @@ import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/models/bldrs_sections.dart';
+import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/keywords/filter_model.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
+import 'package:bldrs/providers/country_provider.dart';
+import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/widgets/browser/filters_page.dart';
 import 'package:bldrs/views/widgets/browser/groups_page.dart';
 import 'package:bldrs/views/widgets/browser/keywords_page.dart';
@@ -13,6 +17,7 @@ import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/flyer/parts/progress_bar.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class BrowserPages extends StatefulWidget {
   final double browserZoneHeight;
@@ -33,38 +38,38 @@ class BrowserPages extends StatefulWidget {
 }
 
 class _BrowserPagesState extends State<BrowserPages> {
-  int _numberOfPages = 1;
+  // int _numberOfPages = 1;
   int _currentPage = 0;
 
-  List<FilterModel> _filtersModels;
+  // List<FilterModel> _filtersModels;
   FilterModel _currentFilter;
   List<String> _groups = new List();
   String _currentGroupID;
   List<KeywordModel> _keywords = new List();
   List<KeywordModel> _selectedKeywords = new List();
 
-  List<Widget> _pages = new List();
+  // List<Widget> _pages = new List();
 
   PageController _pageController = new PageController();
 // -----------------------------------------------------------------------------
   @override
   void initState() {
-    _filtersModels = widget.filtersModels;
+    // _filtersModels = widget.filtersModels;
+    //
+    // print('_filtersModels : $_filtersModels');
+    // print('widget.filtersModels : ${widget.filtersModels}');
 
-    _pages = generatePages();
-    _numberOfPages = _pages.length;
 
     super.initState();
   }
 // -----------------------------------------------------------------------------
-  List<Widget> generatePages(){
-
+  List<Widget> generatePages(List<FilterModel> filters){
 
     return
         <Widget>[
 
           FiltersPage(
-            filtersModels: _filtersModels,
+            filtersModels: filters,
             onTap: (filterModel) => _onFilterTap(filterModel),
             selectedFilter: _currentFilter,
           ),
@@ -87,12 +92,12 @@ class _BrowserPagesState extends State<BrowserPages> {
 
   }
 // -----------------------------------------------------------------------------
-  void resetPages(){
-    setState(() {
-      _pages = generatePages();
-      _numberOfPages = _pages.length;
-    });
-  }
+//   void resetPages(List<FilterModel> filters){
+//     setState(() {
+//       _pages = generatePages(filters);
+//       // _numberOfPages = _pages.length;
+//     });
+//   }
 // -----------------------------------------------------------------------------
   void _onFilterTap(FilterModel filterModel){
     print('tapping filter : ${filterModel.filterID}');
@@ -107,7 +112,7 @@ class _BrowserPagesState extends State<BrowserPages> {
         _keywords = filterModel.keywordModels;
       });
     }
-    resetPages();
+    // resetPages();
     _goToNextPage();
   }
 // -----------------------------------------------------------------------------
@@ -116,7 +121,7 @@ class _BrowserPagesState extends State<BrowserPages> {
       _currentGroupID = groupID;
       _keywords = KeywordModel.getKeywordModelsByGroupID(filterModel: _currentFilter, groupID: _currentGroupID);
     });
-    resetPages();
+    // resetPages();
     _goToNextPage();
   }
 // -----------------------------------------------------------------------------
@@ -125,7 +130,7 @@ class _BrowserPagesState extends State<BrowserPages> {
     setState(() {
       _selectedKeywords.add(keywordModel);
     });
-    resetPages();
+    // resetPages();
     print(keywordModel.id);
   }
 // -----------------------------------------------------------------------------
@@ -138,6 +143,13 @@ class _BrowserPagesState extends State<BrowserPages> {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+    FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
+    List<FilterModel> _filtersBySection = _flyersProvider.getSectionFilters;
+
+    List<Widget> _pages = generatePages(_filtersBySection);
+    int _numberOfPages = _pages.length;
+
+    print('rebuilding browser pages with ${widget.filtersModels.length} filters');
 
     double _clearWidth = widget.browserIsOn == true ? Scale.superScreenWidth(context) - Ratioz.appBarMargin * 2 - Ratioz.appBarPadding * 2 : 0;
     double _clearHeight = widget.browserZoneHeight - Ratioz.appBarPadding * 2;
