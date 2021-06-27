@@ -33,7 +33,7 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  List<FilterModel> _filters = new List();
+  // List<FilterModel> _filters = new List();
   List<KeywordModel> _keywords = new List();
   List<KeywordModel> _selectedKeywords = new List();
   KeywordModel _highlightedKeyword;
@@ -42,8 +42,8 @@ class _SearchScreenState extends State<SearchScreen> {
   ItemScrollController _scrollController;
   ItemPositionsListener _itemPositionListener;
   CountryProvider _countryPro;
-  FlyersProvider _flyersProvider;
-  FlyerType _currentFlyerType;
+  // FlyersProvider _flyersProvider;
+  // FlyerType _currentFlyerType;
   List<GlobalKey<BldrsExpansionTileState>> _expansionKeys = new List();
 // -----------------------------------------------------------------------------
   /// --- LOADING BLOCK
@@ -56,24 +56,24 @@ class _SearchScreenState extends State<SearchScreen> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
-    _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
+    // _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
     _countryPro =  Provider.of<CountryProvider>(context, listen: false);
 
-    BldrsSection _bldrsSection = _flyersProvider.getCurrentSection;
-    _currentFlyerType = FilterModel.getDefaultFlyerTypeBySection(bldrsSection: _bldrsSection);
+    // BldrsSection _bldrsSection = _flyersProvider.getCurrentSection;
+    // _currentFlyerType = FilterModel.getDefaultFlyerTypeBySection(bldrsSection: _bldrsSection);
 
-    List<FilterModel> _filtersBySection = FilterModel.getFiltersBySectionAndFlyerType(
-        bldrsSection: _bldrsSection,
-        flyerType: _currentFlyerType
-    );
+    // List<FilterModel> _filtersBySection = FilterModel.getFiltersBySectionAndFlyerType(
+    //     bldrsSection: _bldrsSection,
+    //     flyerType: _currentFlyerType
+    // );
 
-    _filters.addAll(_filtersBySection);
+    // _filters.addAll(_filtersBySection);
     // _filtersIDs = KeywordModel.getFiltersIDs();
 
     _scrollController = ItemScrollController();
     _itemPositionListener = ItemPositionsListener.create();
 
-    generateExpansionKeys();
+    // generateExpansionKeys();
 
     super.initState();
   }
@@ -90,11 +90,11 @@ class _SearchScreenState extends State<SearchScreen> {
     super.dispose();
   }
 // -----------------------------------------------------------------------------
-  void generateExpansionKeys(){
-    _filters.forEach((filter) {
-      _expansionKeys.add(new GlobalKey());
-    });
-  }
+//   void generateExpansionKeys(){
+//     _filters.forEach((filter) {
+//       _expansionKeys.add(new GlobalKey());
+//     });
+//   }
 // -----------------------------------------------------------------------------
   void _addZoneFilters(){
 
@@ -120,7 +120,7 @@ class _SearchScreenState extends State<SearchScreen> {
     });
   }
 // -----------------------------------------------------------------------------
-  List<Widget> _filterKeywords(){
+  List<Widget> _filterKeywords(List<FilterModel> filtersModels){
 
     return
 
@@ -181,7 +181,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     keyword: _keyword.id,
                     title: '${_keyword.filterID}, ${_keyword.groupID}, ${_keyword.subGroupID}',
                     xIsOn: true,
-                    onTap: () => _removeKeyword(index),
+                    onTap: () => _removeKeyword(index, filtersModels),
                     color: _isHighlighted == true ? Colorz.BloodRed : Colorz.BabyBlueSmoke,
                   );
 
@@ -256,9 +256,9 @@ class _SearchScreenState extends State<SearchScreen> {
     // ];
   }
 // -----------------------------------------------------------------------------
-  List<KeywordModel> _generateFilterKeywords(){
+  List<KeywordModel> _generateFilterKeywords(List<FilterModel> filtersModels){
 
-    FilterModel _currentFilterModel = _filters.singleWhere((filterModel) => filterModel.filterID == _currentFilterID, orElse: () => null);
+    FilterModel _currentFilterModel = filtersModels.singleWhere((filterModel) => filterModel.filterID == _currentFilterID, orElse: () => null);
 
     List<KeywordModel> _currentFilterKeywords = _currentFilterModel == null ? [] : _currentFilterModel.keywordModels;
 
@@ -273,7 +273,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
   }
 // -----------------------------------------------------------------------------
-  Future<void> _removeKeyword(int index) async {
+  Future<void> _removeKeyword(int index, List<FilterModel> filtersModels) async {
 
     String _filterID = _keywords[index].filterID;
     String _keywordID = _keywords[index].id;
@@ -307,7 +307,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
     else {
 
-      bool _canPickMany = _filters.singleWhere((filter) => filter.filterID == _filterID).canPickMany;
+      bool _canPickMany = filtersModels.singleWhere((filter) => filter.filterID == _filterID).canPickMany;
 
       await _highlightKeyword(_keywordModel, _canPickMany);
 
@@ -325,9 +325,9 @@ class _SearchScreenState extends State<SearchScreen> {
     });
   }
 // -----------------------------------------------------------------------------
-  Future<void> _selectKeyword(KeywordModel keyword, bool isSelected) async {
+  Future<void> _selectKeyword({KeywordModel keyword, bool isSelected, List<FilterModel> filtersModels}) async {
 
-    bool _canPickMany = _filters.singleWhere((filterModel) => filterModel.filterID == _currentFilterID).canPickMany;
+    bool _canPickMany = filtersModels.singleWhere((filterModel) => filterModel.filterID == _currentFilterID).canPickMany;
 
     /// when filter accepts many keywords [Poly]
     if (_canPickMany == true){
@@ -495,6 +495,10 @@ class _SearchScreenState extends State<SearchScreen> {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+    FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: true);
+    List<FilterModel> _filtersBySection = _flyersProvider.getSectionFilters;
+
+    print('rebuilding search screen with section : ${_filtersBySection.length} filters');
 
     double _buttonPadding = _browserIsOn == true ? Ratioz.appBarPadding * 1.5 : Ratioz.appBarPadding * 1.5;
 
@@ -514,7 +518,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
     double _filtersZoneWidth = (_browserScrollZoneWidth - _buttonPadding) / 2 ;
 
-    List<KeywordModel> _currentFilterKeywords = _generateFilterKeywords();
+    List<KeywordModel> _currentFilterKeywords = _generateFilterKeywords(_filtersBySection);
 
     return MainLayout(
       appBarType: AppBarType.Search,
@@ -556,7 +560,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      ... _filterKeywords()
+                      ... _filterKeywords(_filtersBySection)
                     ],
                   ),
                 ),
@@ -590,7 +594,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   browserZoneHeight: _browserZoneHeight,
                   browserIsOn: _browserIsOn,
                   closeBrowser: _triggerBrowser,
-                  filtersModels: _filters,
+                  filtersModels: _filtersBySection,
                 )
 
 
