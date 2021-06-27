@@ -10,6 +10,7 @@ import 'package:bldrs/firestore/user_ops.dart';
 import 'package:bldrs/models/bldrs_sections.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
+import 'package:bldrs/models/keywords/filter_model.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/records/save_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
@@ -24,6 +25,8 @@ import 'package:provider/provider.dart';
 /// this provides tiny flyers and tiny bzz
 class FlyersProvider with ChangeNotifier {
   List<TinyBz> _sponsors;
+  BldrsSection _currentSection;
+  List<FilterModel> _sectionFilters;
   List<TinyBz> _userTinyBzz;
   List<FlyerModel> _loadedFlyers;
   List<TinyFlyer> _loadedTinyFlyers;
@@ -32,8 +35,6 @@ class FlyersProvider with ChangeNotifier {
   List<TinyFlyer> _loadedSavedFlyers;
   List<String> _loadedFollows;
   List<FlyerModel> _bzDeactivatedFlyers;
-  BldrsSection _currentSection;
-  Zone _currentZone;
 // -----------------------------------------------------------------------------
   List<TinyBz> get getSponsors {
     return <TinyBz> [..._sponsors];
@@ -42,6 +43,11 @@ class FlyersProvider with ChangeNotifier {
   BldrsSection get getCurrentSection {
     return _currentSection ?? BldrsSection.Construction;
   }
+
+  List<FilterModel> get getSectionFilters {
+    return <FilterModel>[..._sectionFilters];
+  }
+
 // -----------------------------------------------------------------------------
   List<TinyBz> get getUserTinyBzz {
     print('getting user tiny bzz');
@@ -105,12 +111,25 @@ class FlyersProvider with ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
   Future<void> changeSection(BuildContext context, BldrsSection section) async {
+    print('Changing section to $section');
     _currentSection = section;
 
+    setSectionFilters();
+
     await fetchAndSetTinyFlyersBySectionType(context, section);
+
     // notifyListeners();
   }
 // -----------------------------------------------------------------------------
+  void setSectionFilters(){
+    FlyerType _currentFlyerType = FilterModel.getDefaultFlyerTypeBySection(bldrsSection: _currentSection);
+    List<FilterModel> _filtersBySection = FilterModel.getFiltersBySectionAndFlyerType(
+        bldrsSection: _currentSection,
+        flyerType: _currentFlyerType
+    );
+    _sectionFilters = _filtersBySection;
+  }
+
   /// if a user is an Author, this READs & sets user tiny bzz form db/users/userID['myBzzIDs']
   Future<void> fetchAndSetUserTinyBzz(BuildContext context) async {
     String _userID = superUserID();

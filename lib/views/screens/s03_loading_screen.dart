@@ -78,6 +78,8 @@ class _LoadingScreenState extends State<LoadingScreen> {
           /// TASK : wallahi mana 3aref hane3mel eh hena
           await _prof.fetchAndSetTinyFlyersBySectionType(context, _prof.getCurrentSection);
 
+          _prof.changeSection(context, _prof.getCurrentSection);
+
           Nav.goToRoute(context, Routez.Home);
 
           // setState(() {
