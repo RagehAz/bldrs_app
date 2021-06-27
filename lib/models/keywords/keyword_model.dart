@@ -47,7 +47,10 @@ class KeywordModel {
     List<KeywordModel> _keywords = filterModel.keywordModels;
 
     _keywords.forEach((keyword) {
-      if(!_groupsIDs.contains(keyword.groupID)){
+
+      String _groupID = keyword.groupID;
+
+      if(!_groupsIDs.contains(_groupID) && _groupID != ''){
         _groupsIDs.add(keyword.groupID);
       }
     });
