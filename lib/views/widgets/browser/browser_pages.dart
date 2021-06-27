@@ -4,6 +4,11 @@ import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/models/keywords/filter_model.dart';
+import 'package:bldrs/models/keywords/keyword_model.dart';
+import 'package:bldrs/views/widgets/browser/filters_page.dart';
+import 'package:bldrs/views/widgets/browser/groups_page.dart';
+import 'package:bldrs/views/widgets/browser/keywords_page.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/flyer/parts/progress_bar.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
@@ -13,11 +18,13 @@ class BrowserPages extends StatefulWidget {
   final double browserZoneHeight;
   final bool browserIsOn;
   final Function closeBrowser;
+  final List<FilterModel> filtersModels;
 
   BrowserPages({
     @required this.browserZoneHeight,
     @required this.browserIsOn,
     @required this.closeBrowser,
+    @required this.filtersModels,
 });
 
 
@@ -26,15 +33,115 @@ class BrowserPages extends StatefulWidget {
 }
 
 class _BrowserPagesState extends State<BrowserPages> {
-  int _numberOfPages = 3;
+  int _numberOfPages = 1;
   int _currentPage = 0;
 
+  List<FilterModel> _filtersModels;
+  FilterModel _currentFilter;
+  List<String> _groups = new List();
+  String _currentGroupID;
+  List<KeywordModel> _keywords = new List();
+  List<KeywordModel> _selectedKeywords = new List();
+
+  List<Widget> _pages = new List();
+
+  PageController _pageController = new PageController();
+// -----------------------------------------------------------------------------
+  @override
+  void initState() {
+    _filtersModels = widget.filtersModels;
+
+    _pages = generatePages();
+    _numberOfPages = _pages.length;
+
+    super.initState();
+  }
+// -----------------------------------------------------------------------------
+  List<Widget> generatePages(){
+
+
+    return
+        <Widget>[
+
+          FiltersPage(
+            filtersModels: _filtersModels,
+            onTap: (filterModel) => _onFilterTap(filterModel),
+            selectedFilter: _currentFilter,
+          ),
+
+          if (_groups.isNotEmpty)
+          GroupsPage(
+            groups: _groups,
+            onTap: (group) => _onGroupTap(group),
+            selectedGroup: _currentGroupID,
+          ),
+
+          if (_keywords.isNotEmpty)
+          KeywordsPage(
+            keywords: _keywords,
+            onTap: (keywordModel) => _onKeywordTap(keywordModel),
+            selectedKeywords: _selectedKeywords,
+          ),
+
+    ];
+
+  }
+// -----------------------------------------------------------------------------
+  void resetPages(){
+    setState(() {
+      _pages = generatePages();
+      _numberOfPages = _pages.length;
+    });
+  }
+// -----------------------------------------------------------------------------
+  void _onFilterTap(FilterModel filterModel){
+    print('tapping filter : ${filterModel.filterID}');
+
+    setState(() {
+      _currentFilter = filterModel;
+      _groups = KeywordModel.getGroupsIDsFromFilterModel(filterModel);
+    });
+
+    if(_groups.isEmpty){
+      setState(() {
+        _keywords = filterModel.keywordModels;
+      });
+    }
+    resetPages();
+    _goToNextPage();
+  }
+// -----------------------------------------------------------------------------
+  void _onGroupTap(String groupID){
+    setState(() {
+      _currentGroupID = groupID;
+      _keywords = KeywordModel.getKeywordModelsByGroupID(filterModel: _currentFilter, groupID: _currentGroupID);
+    });
+    resetPages();
+    _goToNextPage();
+  }
+// -----------------------------------------------------------------------------
+  void _onKeywordTap(KeywordModel keywordModel){
+
+    setState(() {
+      _selectedKeywords.add(keywordModel);
+    });
+    resetPages();
+    print(keywordModel.id);
+  }
+// -----------------------------------------------------------------------------
+  void _goToNextPage(){
+    _pageController.nextPage(
+        duration: Ratioz.slidingDuration,
+        curve: Curves.easeInOut,
+    );
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     double _clearWidth = widget.browserIsOn == true ? Scale.superScreenWidth(context) - Ratioz.appBarMargin * 2 - Ratioz.appBarPadding * 2 : 0;
     double _clearHeight = widget.browserZoneHeight - Ratioz.appBarPadding * 2;
-    double _titleZoneHeight = widget.browserIsOn == true ? _clearHeight * 0.2 : 0;
+    double _titleZoneHeight = widget.browserIsOn == true ? Ratioz.keywordsBarHeight : 0;
     double _progressBarHeight = _clearWidth * Ratioz.xxProgressBarHeightRatio;
     double _pagesZoneHeight = widget.browserIsOn == true ? _clearHeight - _titleZoneHeight - _progressBarHeight : 0;
 
@@ -150,22 +257,18 @@ class _BrowserPagesState extends State<BrowserPages> {
                 ),
             ),
 
-            Container(
-              width: _clearWidth,
-              height: _progressBarHeight,
-              // color: Colorz.Yellow,
-              child: ProgressBar(
-                flyerZoneWidth: _clearWidth,
-                numberOfSlides: _numberOfPages,
-                barIsOn: true,
-                currentSlide: _currentPage,
-                margins: EdgeInsets.zero,
-              ),
+            /// PROGRESS BAR
+            ProgressBar(
+              flyerZoneWidth: _clearWidth,
+              numberOfSlides: _numberOfPages,
+              barIsOn: true,
+              currentSlide: _currentPage,
+              margins: EdgeInsets.zero,
             ),
 
             /// Lists
-            AnimatedContainer(
-              duration: Ratioz.slidingTransitionDuration,
+            Container(
+              // duration: Ratioz.slidingTransitionDuration,
               width: _clearWidth,
               height: _pagesZoneHeight,
               decoration: BoxDecoration(
@@ -177,21 +280,17 @@ class _BrowserPagesState extends State<BrowserPages> {
                 borderRadius: Borderers.superBorderAll(context, Ratioz.appBarCorner - Ratioz.appBarPadding),
                 child: PageView.builder(
                     itemCount: _numberOfPages,
-                    onPageChanged: (index){
+                    controller: _pageController,
+                    onPageChanged: (pageIndex){
                       setState(() {
-                        _currentPage = index;
+                        _currentPage = pageIndex;
                       });
                     },
-                    itemBuilder: (context, index){
+                    itemBuilder: (context, pageIndex){
 
-                      List<Color> _colors = [Colorz.BloodTest, Colorz.YellowGlass, Colorz.WhiteGlass];
 
                       return
-                        Container(
-                          width: 20,
-                          height: 20,
-                          color: _colors[index],
-                        );
+                        _pages[pageIndex];
                     }
                 ),
               ) : null,
@@ -203,3 +302,4 @@ class _BrowserPagesState extends State<BrowserPages> {
     );
   }
 }
+
