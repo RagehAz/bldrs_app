@@ -517,7 +517,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
       pyramids: Iconz.PyramidzYellow,
       sky: Sky.Black,
       pageTitle: widget.firstTimer == true ? Wordz.createBzAccount(context) : 'Edit Business account info', // createBzAccount
-      appBarBackButton: true,
+      // appBarBackButton: true,
       layoutWidget: Stack(
         children: <Widget>[
 
@@ -676,7 +676,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                   verseScaleFactor: 0.8,
                   verseColor: Colorz.BlackBlack,
                   verseMaxLines: 2,
-                  boxMargins: EdgeInsets.all(5),
+                  boxMargins: const EdgeInsets.all(5),
                   boxFunction: _showBzCard,
                 ),
 
@@ -689,7 +689,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                   verse: 'Confirm',
                   secondLine: widget.firstTimer ? 'Create new business profile' : 'Update business profile',
                   verseScaleFactor: 0.7,
-                  boxMargins: EdgeInsets.all(5),
+                  boxMargins: const EdgeInsets.all(5),
                   boxFunction: _confirmButton,
                 ),
 

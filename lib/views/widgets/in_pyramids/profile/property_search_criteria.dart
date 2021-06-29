@@ -24,34 +24,34 @@ class PropertySearchCriteria extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double screenWidth = MediaQuery.of(context).size.width;
+    double _screenWidth = MediaQuery.of(context).size.width;
     // double screenHeight = MediaQuery.of(context).size.height;
-    double pageMargin = Ratioz.appBarMargin * 2;
+    const double _pageMargin = Ratioz.appBarMargin * 2;
 
-    double abPadding = Ratioz.appBarMargin;
-    // double abHeight = screenWidth * 0.25;
+    const double _abPadding = Ratioz.appBarMargin;
+    // double abHeight = _screenWidth * 0.25;
 
-    // double userStatusZoneWidth = screenWidth - pageMargin * 4;
+    // double userStatusZoneWidth = _screenWidth - _pageMargin * 4;
     //
     // double profilePicHeight = abHeight;
-    // double abButtonsHeight = abHeight - (2 * abPadding);
+    // double abButtonsHeight = abHeight - (2 * _abPadding);
     //
-    // double propertyStatusBtWidth = (screenWidth - (2 * pageMargin) - (8 * abPadding)) / 3;
+    // double propertyStatusBtWidth = (_screenWidth - (2 * _pageMargin) - (8 * _abPadding)) / 3;
     // double propertyStatusBtHeight = 40;
 
-    double boxWidth = screenWidth - (abPadding * 6);
-    double boxHeight = 100 ;
-    bool bubble = true;
+    double _boxWidth = _screenWidth - (_abPadding * 6);
+    const double _boxHeight = 100 ;
+    const bool _bubble = true;
 
     Alignment defaultAlignment =  Wordz.textDirection(context) == 'ltr' ? Alignment.centerLeft : Alignment.centerRight;
 
-    double corners = Ratioz.boxCorner12;
+    const double corners = Ratioz.boxCorner12;
 
-    bool designMode = false;
+    const bool designMode = false;
 
     // - ROW OF BUTTONS
-    // double buttonSpacing = abPadding;
-    // double buttonsZoneWidth = (screenWidth-(pageMargin*4));
+    // double buttonSpacing = _abPadding;
+    // double buttonsZoneWidth = (_screenWidth-(_pageMargin*4));
     // double contractTypeBtWidth = (buttonsZoneWidth - (2*buttonSpacing) - buttonSpacing)/2;
 
 
@@ -79,15 +79,15 @@ class PropertySearchCriteria extends StatelessWidget {
   // };
 
     return Container(
-      width: boxWidth,
+      width: _boxWidth,
       decoration: BoxDecoration(
           color: Colorz.WhiteAir,
           borderRadius: BorderRadius.circular(corners),
           boxShadow: <BoxShadow>[
             CustomBoxShadow(
-                color: bubble == true ? Colorz.BlackLingerie : Colorz.Nothing,
+                color: _bubble == true ? Colorz.BlackLingerie : Colorz.Nothing,
                 offset: new Offset(0, 0),
-                blurRadius: boxHeight * 0.15,
+                blurRadius: _boxHeight * 0.15,
                 blurStyle: BlurStyle.outer),
           ]),
 
@@ -101,17 +101,17 @@ class PropertySearchCriteria extends StatelessWidget {
                 Positioned(
                   top: 0,
                   child: Container(
-                    width: boxWidth,
-                    height: boxHeight * 0.27,
+                    width: _boxWidth,
+                    height: _boxHeight * 0.27,
                     decoration: BoxDecoration(
                       // color: Colorz.White,
                         borderRadius: BorderRadius.circular(
-                            corners - (boxHeight * 0.8) ),
+                            corners - (_boxHeight * 0.8) ),
                         boxShadow: <BoxShadow>[
                           CustomBoxShadow(
                               color: Colorz.WhiteZircon,
-                              offset: new Offset(0, boxWidth * -0.01),
-                              blurRadius: boxHeight * 0.2,
+                              offset: new Offset(0, _boxWidth * -0.01),
+                              blurRadius: _boxHeight * 0.2,
                               blurStyle: BlurStyle.normal),
                         ]),
                   ),
@@ -121,16 +121,16 @@ class PropertySearchCriteria extends StatelessWidget {
                 Positioned(
                   bottom: 0,
                   child: Container(
-                    height: boxWidth * 0.5,
-                    width: boxWidth,
+                    height: _boxWidth * 0.5,
+                    width: _boxWidth,
                     decoration: BoxDecoration(
                       // color: Colorz.Grey,
                       borderRadius: BorderRadius.circular(corners),
                       gradient: LinearGradient(
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
-                          colors: [Colorz.BlackNothing, Colorz.BlackSmoke],
-                          stops: [0.9, 1]),
+                          colors: <Color>[Colorz.BlackNothing, Colorz.BlackSmoke],
+                          stops: <double>[0.9, 1]),
                     ),
                   ),
                 ),
@@ -146,7 +146,7 @@ class PropertySearchCriteria extends StatelessWidget {
                       alignment: defaultAlignment,
                       child:
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: pageMargin, vertical: pageMargin * 0.5),
+                        padding: const EdgeInsets.symmetric(horizontal: _pageMargin, vertical: _pageMargin * 0.5),
                         child: SuperVerse(
                           verse: 'Select your default property search criteria !',
                           centered: false,
@@ -189,7 +189,7 @@ class PropertySearchCriteria extends StatelessWidget {
                     // --- ADD MORE DETAILS
                     DreamBox(
                       height: 35,
-                      boxMargins: EdgeInsets.symmetric(horizontal: pageMargin, vertical: pageMargin * 2),
+                      boxMargins: const EdgeInsets.symmetric(horizontal: _pageMargin, vertical: _pageMargin * 2),
                       color: Colorz.WhiteAir,
                       icon: Iconz.Plus,
                       iconColor: Colorz.BabyBlue,

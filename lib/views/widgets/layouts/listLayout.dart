@@ -45,7 +45,7 @@ class ListLayout extends StatelessWidget {
       appBarType: AppBarType.Basic,
       pageTitle: pageTitle,
       pyramids: pyramids,
-      appBarBackButton: true,
+      // appBarBackButton: true,
       layoutWidget: Container(
         width: _screenWidth,
         height: _screenHeight,
@@ -98,7 +98,7 @@ class ListLayout extends StatelessWidget {
                               iconSizeFactor: 0.8,
                               verse: idValueMaps[index]['value'],
                               bubble: false,
-                              boxMargins: EdgeInsets.all(5),
+                              boxMargins: const EdgeInsets.all(5),
                               verseScaleFactor: 0.8,
                               color: Colorz.WhiteAir,
                               // textDirection: superTextDirection(context),

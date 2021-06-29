@@ -44,7 +44,7 @@ class ZoneButton extends StatelessWidget {
         appIsLeftToRight(context) ? '$_lastProvinceName - $_lastCountryName'
     : '$_lastCountryName - $_lastProvinceName';
 
-    double _flagHorizontalMargins = 2;
+    const double _flagHorizontalMargins = 2;
 
     return GestureDetector(
       onTap: () => _zoneButtonOnTap(context),
@@ -57,8 +57,8 @@ class ZoneButton extends StatelessWidget {
               // width: 40,
               height: 40,
               alignment: Alignment.centerRight,
-              padding: EdgeInsets.all(5),
-              margin: EdgeInsets.all(Ratioz.appBarMargin * 0.5),
+              padding: const EdgeInsets.all(5),
+              margin: const EdgeInsets.all(Ratioz.appBarMargin * 0.5),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(
                       Radius.circular(Ratioz.appBarButtonCorner)),
@@ -104,14 +104,14 @@ class ZoneButton extends StatelessWidget {
                         Container(
                           width: 30,
                           height: 30,
-                          margin: EdgeInsets.symmetric(horizontal: _flagHorizontalMargins),
+                          margin: const EdgeInsets.symmetric(horizontal: _flagHorizontalMargins),
                         ),
 
                         DreamBox(
                           height: 30,
                           icon: _lastCountryFlag,
                           corners: Ratioz.boxCorner8,
-                          boxMargins: EdgeInsets.symmetric(horizontal: _flagHorizontalMargins),
+                          boxMargins: const EdgeInsets.symmetric(horizontal: _flagHorizontalMargins),
                           boxFunction: onTap,
                         ),
 

@@ -18,16 +18,16 @@ class CheckBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double checkBoxRadius = 12.5;
+    const double checkBoxRadius = 12.5;
     Color checkBoxColor = checkBoxIsOn == true ? Colorz.Yellow : Colorz.WhiteGlass;
-    double btOvalSizeFactor = 0.8; // as a ratio of button sizes
+    const double btOvalSizeFactor = 0.8; // as a ratio of button sizes
 
-    Color iconColor = Colorz.BlackBlack;
+    const Color iconColor = Colorz.BlackBlack;
 
 
     return Container(
       alignment: Alignment.center,
-      margin: EdgeInsets.all(checkBoxRadius * 0.75),
+      margin: const EdgeInsets.all(checkBoxRadius * 0.75),
       decoration: BoxDecoration(
         color: Colorz.WhiteGlass,
         shape: BoxShape.circle,
@@ -50,7 +50,7 @@ class CheckBox extends StatelessWidget {
         child: ClipRRect(
           borderRadius: BorderRadius.all(Radius.circular(checkBoxRadius)),
           child: Padding(
-            padding: EdgeInsets.all(2),
+            padding: const EdgeInsets.all(2),
             child: CircleAvatar(
               radius: checkBoxRadius,
               backgroundColor: checkBoxColor,

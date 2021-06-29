@@ -15,7 +15,7 @@ class Page2 extends StatelessWidget {
       onWillPop: () => Future.value(false),
       child: MainLayout(
         pyramids: Iconz.PyramidzWhite,
-        appBarBackButton: true,
+        // appBarBackButton: true,
         appBarType: AppBarType.Basic,
         pageTitle: 'Page --- 2',
         sky: Sky.Night,

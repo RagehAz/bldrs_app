@@ -748,7 +748,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
     return MainLayout(
       pyramids: Iconz.PyramidzYellow,
       appBarType: AppBarType.Basic,
-      appBarBackButton: true,
+      // appBarBackButton: true,
       pageTitle: 'Firebase Testers',
       loading: _loading,
       appBarRowWidgets: <Widget>[
@@ -760,7 +760,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
           width: 50,
           verse: 'trigger loading',
           verseMaxLines: 2,
-          boxMargins: EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
+          boxMargins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
           verseScaleFactor: 0.5,
           boxFunction: (){
             _triggerLoading();
@@ -772,7 +772,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
           width: 50,
           verse: 'Clear Print',
           verseMaxLines: 2,
-          boxMargins: EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
+          boxMargins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
           verseScaleFactor: 0.5,
           boxFunction: (){
             printResult('');
@@ -794,7 +794,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
                   DreamBox(
                     height: 60,
                     width: 300,
-                    boxMargins: EdgeInsets.all(5),
+                    boxMargins: const EdgeInsets.all(5),
                     verseMaxLines: 3,
                     verseScaleFactor: 0.7,
                     verse: functions[index]['Name'],
@@ -816,7 +816,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
                 height: 2.5,
                 color: Colorz.WhiteGlass,
                 corners: 0,
-                boxMargins: EdgeInsets.symmetric(vertical: 10),
+                boxMargins: const EdgeInsets.symmetric(vertical: 10),
               ),
 
               // ..._savesWidgets(_decipheredSavesModels),

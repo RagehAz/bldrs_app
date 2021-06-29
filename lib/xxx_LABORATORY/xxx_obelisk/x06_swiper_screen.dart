@@ -97,7 +97,7 @@ class _SwiperScreenState extends State<SwiperScreen> {
       appBarType: AppBarType.Basic,
       pageTitle: TextGenerator.flyerTypePluralStringer(context, _currentFlyerType),
       pyramids: Iconz.DvBlankSVG,
-      appBarBackButton: true,
+      // appBarBackButton: true,
       layoutWidget: PageView.builder(
         itemCount: _flyerTypesList.length,
         dragStartBehavior: DragStartBehavior.down,
@@ -130,7 +130,7 @@ class _SwiperScreenState extends State<SwiperScreen> {
                     space: 2,
                   ),
                   alignment: Alignment.topCenter,
-                  margin: EdgeInsets.only(top: 54, right: Ratioz.appBarMargin * 2, left: Ratioz.appBarMargin * 2),
+                  margin: const EdgeInsets.only(top: 54, right: Ratioz.appBarMargin * 2, left: Ratioz.appBarMargin * 2),
                 ),
                 layout: SwiperLayout.DEFAULT,
                 itemWidth: Scale.superFlyerZoneWidth(context, _flyerSizeFactor),

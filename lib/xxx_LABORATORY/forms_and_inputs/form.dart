@@ -89,10 +89,10 @@ class _TestFormScreenState extends State<TestFormScreen> {
 
 
     return MainLayout(
-      appBarRowWidgets: [
+      appBarRowWidgets: <Widget>[
         DreamBox(
           height: 40,
-          boxMargins: EdgeInsets.symmetric(horizontal: 10),
+          boxMargins: const EdgeInsets.symmetric(horizontal: 10),
           verse: 'save the shit',
           verseScaleFactor: 0.5,
           boxFunction: (){
@@ -184,7 +184,7 @@ class _TestFormScreenState extends State<TestFormScreen> {
                     DreamBox(
                       // width: 100,
                       height: 100,
-                      boxMargins: EdgeInsets.all(10),
+                      boxMargins: const EdgeInsets.all(10),
                       verse: _imageUrlController.text.isEmpty ?
                       'Picture goes here': null,
 

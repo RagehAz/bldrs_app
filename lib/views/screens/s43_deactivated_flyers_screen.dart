@@ -184,7 +184,7 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
       sky: Sky.Black,
       pyramids: Iconz.PyramidzYellow,
       appBarType: AppBarType.Basic,
-      appBarBackButton: true,
+      // appBarBackButton: true,
       pageTitle: 'Old Flyers',
       loading: _loading,
       layoutWidget:

@@ -66,7 +66,7 @@ class FlyerStack extends StatelessWidget {
             // --- COLLECTION TITLE
             if (title != null)
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15),
+                padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: SuperVerse(
                   verse: title,
                   size: 2,
@@ -90,7 +90,7 @@ class FlyerStack extends StatelessWidget {
               child: ListView.separated(
                 itemCount: _tinyFlyers.length,
                 scrollDirection: Axis.horizontal,
-                padding: EdgeInsets.symmetric(horizontal: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 10),
                 addAutomaticKeepAlives: true,
                 // cacheExtent: screenHeight*5,
                 // dragStartBehavior: DragStartBehavior.start,

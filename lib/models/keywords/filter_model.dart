@@ -73,4 +73,17 @@ class FilterModel{
     /// TASK : Add product price filter
   ];
 // -----------------------------------------------------------------------------
+  static bool getCanFilterPickManyByKeyword(KeywordModel keywordModel){
+    List<FilterModel> _allFilters = <FilterModel>[
+      ...propertiesFilters,
+      ...designsFilters,
+      ...projectsFiltersIDs,
+      ...craftsFiltersIDs,
+      ...productsFiltersIDs,
+    ];
+
+    bool _canPickMany = _allFilters.firstWhere((filter) => filter.filterID == keywordModel.filterID).canPickMany;
+
+    return _canPickMany;
+  }
 }

@@ -73,7 +73,7 @@ class _FeedBackState extends State<FeedBack> {
     return MainLayout(
       pyramids: Iconz.PyramidsYellow,
       appBarType: AppBarType.Basic,
-      appBarBackButton: true,
+      // appBarBackButton: true,
       pageTitle: 'About Bldrs.net',
       sky: Sky.Black,
       loading: _loading,
@@ -90,7 +90,7 @@ class _FeedBackState extends State<FeedBack> {
           Center(
             child: Container(
               width: Scale.superScreenWidth(context) * 0.7,
-              margin: EdgeInsets.only(bottom: 10),
+              margin: const EdgeInsets.only(bottom: 10),
               child: SuperVerse(
                 verse: 'Tell us what you think about Bldrs.net, or what upgrades you might think of',
                 margin: 5,

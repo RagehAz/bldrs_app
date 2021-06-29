@@ -37,11 +37,11 @@ final Function bubbleOnTap;
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
-    double _pageMargin = Ratioz.appBarMargin ;
+    const double _pageMargin = Ratioz.appBarMargin ;
 // -----------------------------------------------------------------------------
     EdgeInsets _bubbleMargins =
-    stretchy == true ? EdgeInsets.all(0) :
-    EdgeInsets.only(right: _pageMargin, left: _pageMargin, bottom: _pageMargin);
+    stretchy == true ? const EdgeInsets.all(0) :
+    const EdgeInsets.only(right: _pageMargin, left: _pageMargin, bottom: _pageMargin);
 
     ///////////////////////////////////////////////////////////////////////////
     /// bos keda we need to consider this tree here in this bubble
@@ -82,7 +82,7 @@ final Function bubbleOnTap;
               splashColor: Colorz.Yellow,
               borderRadius: BorderRadius.circular(Ratioz.appBarCorner),
               child: Padding(
-                padding: EdgeInsets.all(_pageMargin),
+                padding: const EdgeInsets.all(_pageMargin),
                 child: Column(
                   mainAxisSize: stretchy ? MainAxisSize.min : MainAxisSize.max,
                   mainAxisAlignment: centered == true ? MainAxisAlignment.center : MainAxisAlignment.start,

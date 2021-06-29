@@ -109,7 +109,7 @@ class _NavTestHomeState extends State<NavTestHome> {
       onWillPop: () => Future.value(false),
       child: MainLayout(
         pyramids: Iconz.PyramidzWhite,
-        appBarBackButton: true,
+        // appBarBackButton: true,
         appBarType: AppBarType.Basic,
         pageTitle: 'Navigation Home : rebuilt $_numberOfBuilds times',
         sky: Sky.Night,

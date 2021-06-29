@@ -13,7 +13,7 @@ class BubblesSeparator extends StatelessWidget {
       width: screenWidth,
       height: 15,
       alignment: Alignment.center,
-      margin: EdgeInsets.only(bottom: 10),
+      margin: const EdgeInsets.only(bottom: 10),
       child: Container(
         width: 5,
         height: 5,

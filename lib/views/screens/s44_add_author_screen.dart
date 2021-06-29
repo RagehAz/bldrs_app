@@ -29,7 +29,7 @@ class AddAuthorScreen extends StatelessWidget {
       sky: Sky.Black,
       pageTitle: 'Add new Author',
       pyramids: Iconz.PyramidzYellow,
-      appBarBackButton: true,
+      // appBarBackButton: true,
       appBarType: AppBarType.Basic,
       layoutWidget: Container(
         width: Scale.superScreenWidth(context),
@@ -95,7 +95,7 @@ class AddAuthorScreen extends StatelessWidget {
               verse: 'Add Rageh as Author',
               height: 50,
               icon: Iconz.DvRageh,
-              boxMargins: EdgeInsets.only(top: 30),
+              boxMargins: const EdgeInsets.only(top: 30),
               verseScaleFactor: 0.7,
               boxFunction: () async {
 

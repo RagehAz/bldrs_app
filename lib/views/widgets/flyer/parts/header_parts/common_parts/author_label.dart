@@ -46,8 +46,8 @@ class AuthorLabel extends StatelessWidget {
 
 // -----------------------------------------------------------------------------
     double _screenWidth = Scale.superScreenWidth(context);
-    bool _versesDesignMode = false;
-    bool _versesShadow = false;
+    const bool _versesDesignMode = false;
+    const bool _versesShadow = false;
 // -----------------------------------------------------------------------------
     double _headerTextSidePadding = flyerZoneWidth * Ratioz.xxflyersGridSpacing;
 // -----------------------------------------------------------------------------
@@ -79,7 +79,7 @@ class AuthorLabel extends StatelessWidget {
         Container(
             height: _authorDataHeight,
             width: labelIsOn == true? _authorDataWidth : _authorDataHeight,
-            margin: showLabel == true ? EdgeInsets.symmetric(horizontal : flyerZoneWidth * 0.01) : EdgeInsets.all(0),
+            margin: showLabel == true ? EdgeInsets.symmetric(horizontal : flyerZoneWidth * 0.01) : const EdgeInsets.all(0),
             decoration: BoxDecoration(
                 color: showLabel == false ? Colorz.Nothing : Colorz.WhiteGlass,
                 borderRadius: Borderers.superBorderRadius(

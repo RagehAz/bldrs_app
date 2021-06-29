@@ -4,6 +4,7 @@ import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/shadowers.dart';
 import 'package:bldrs/controllers/drafters/text_shapers.dart';
+import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
@@ -13,7 +14,9 @@ import 'package:bldrs/models/keywords/filter_model.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
+import 'package:bldrs/views/screens/s22_search_filters_screen.dart';
 import 'package:bldrs/views/widgets/browser/browser_pages.dart';
+import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:bldrs/xxx_LABORATORY/flyer_browser/keyword_button.dart';
@@ -34,7 +37,7 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   // List<FilterModel> _filters = new List();
-  List<KeywordModel> _keywords = new List();
+  // List<KeywordModel> _keywords = new List();
   List<KeywordModel> _selectedKeywords = new List();
   KeywordModel _highlightedKeyword;
   bool _browserIsOn = false;
@@ -115,12 +118,13 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 // -----------------------------------------------------------------------------
   void _triggerBrowser(){
+    print('triggering browser');
     setState(() {
       _browserIsOn = !_browserIsOn;
     });
   }
 // -----------------------------------------------------------------------------
-  List<Widget> _filterKeywords(List<FilterModel> filtersModels){
+  List<Widget> _selectedKeywordsWidgets(List<FilterModel> filtersModels){
 
     return
 
@@ -137,15 +141,15 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
             alignment: Alignment.center,
             child:
-            _keywords.length == 0 ? Container() :
+            _selectedKeywords.length == 0 ? Container() :
             ScrollablePositionedList.builder(
               itemScrollController: _scrollController,
               scrollDirection: Axis.horizontal,
               itemPositionsListener: _itemPositionListener,
-              itemCount: _keywords.length,
+              itemCount: _selectedKeywords.length,
               itemBuilder: (ctx, index){
 
-                KeywordModel _keyword = index >= 0 ? _keywords[index] : null;
+                KeywordModel _keyword = index >= 0 ? _selectedKeywords[index] : null;
 
                 bool _highlightedMapIsProvince =
                 _highlightedKeyword == null ? false
@@ -162,8 +166,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     :
                 false;
 
-                print('_keywords : $_keywords');
-                print('_keywords.length : ${_keywords.length}');
+                print('_keywords.length : ${_selectedKeywords.length}');
                 print('index : $index');
 
                 return
@@ -177,7 +180,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       verse : 'keyword is null',
                     ),
                   ) :
-                  KeywordButton(
+                  KeywordBarButton(
                     keyword: _keyword.id,
                     title: '${_keyword.filterID}, ${_keyword.groupID}, ${_keyword.subGroupID}',
                     xIsOn: true,
@@ -275,13 +278,13 @@ class _SearchScreenState extends State<SearchScreen> {
 // -----------------------------------------------------------------------------
   Future<void> _removeKeyword(int index, List<FilterModel> filtersModels) async {
 
-    String _filterID = _keywords[index].filterID;
-    String _keywordID = _keywords[index].id;
+    String _filterID = _selectedKeywords[index].filterID;
+    String _keywordID = _selectedKeywords[index].id;
 
     bool _isProvince = _filterID == 'province' ? true : false;
     bool _isArea = _filterID == 'area' ? true : false;
 
-    KeywordModel _keywordModel = _keywords[index];
+    KeywordModel _keywordModel = _selectedKeywords[index];
 
 
     if (_isProvince == true){
@@ -290,8 +293,8 @@ class _SearchScreenState extends State<SearchScreen> {
       await _highlightKeyword(_keywordModel, false);
 
       setState(() {
-        _keywords.removeAt(index+1); // area index
-        _keywords.removeAt(index); // province index still the same
+        _selectedKeywords.removeAt(index+1); // area index
+        _selectedKeywords.removeAt(index); // province index still the same
       });
     }
 
@@ -300,8 +303,8 @@ class _SearchScreenState extends State<SearchScreen> {
       await _highlightKeyword(_keywordModel, false);
 
       setState(() {
-        _keywords.removeAt(index-1); // province index
-        _keywords.removeAt(index-1); // area index after change
+        _selectedKeywords.removeAt(index-1); // province index
+        _selectedKeywords.removeAt(index-1); // area index after change
       });
     }
 
@@ -313,7 +316,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
 
       setState(() {
-        _keywords.removeAt(index);
+        _selectedKeywords.removeAt(index);
       });
     }
 
@@ -321,19 +324,23 @@ class _SearchScreenState extends State<SearchScreen> {
 // -----------------------------------------------------------------------------
   void _addKeyword(KeywordModel keyword){
     setState(() {
-      _keywords.add(keyword);
+      _selectedKeywords.add(keyword);
     });
   }
 // -----------------------------------------------------------------------------
-  Future<void> _selectKeyword({KeywordModel keyword, bool isSelected, List<FilterModel> filtersModels}) async {
+  Future<void> _selectKeyword(KeywordModel keyword) async {
 
-    bool _canPickMany = filtersModels.singleWhere((filterModel) => filterModel.filterID == _currentFilterID).canPickMany;
+    // bool _canPickMany = filtersModels.singleWhere((filterModel) => filterModel.filterID == _currentFilterID).canPickMany;
+
+   bool _canPickMany = FilterModel.getCanFilterPickManyByKeyword(keyword);
+
+    bool _isSelected = _selectedKeywords.contains(keyword);
 
     /// when filter accepts many keywords [Poly]
     if (_canPickMany == true){
 
       /// when POLY keyword is already selected
-      if(isSelected == true){
+      if(_isSelected == true){
         _highlightKeyword(keyword, _canPickMany);
       }
 
@@ -349,14 +356,10 @@ class _SearchScreenState extends State<SearchScreen> {
     else {
 
       /// check if SINGULAR keyword is selected by filterTitle
-      bool _keywordsContainThisTitle = Mapper.listOfMapsContainValue(
-        listOfMaps: _keywords,
-        field: 'filterTitle',
-        value: _currentFilterID,
-      );
+      bool _keywordsContainThisFilterID = KeywordModel.keywordsContainThisFilterID(keywords : _selectedKeywords, filterID: keyword.filterID);
 
       /// when SINGULAR keyword already selected
-      if (_keywordsContainThisTitle == true){
+      if (_keywordsContainThisFilterID == true){
         _highlightKeyword(keyword, _canPickMany);
       }
 
@@ -447,16 +450,16 @@ class _SearchScreenState extends State<SearchScreen> {
   void _scrollToEndOfAppBar(){
     // _scrollController.animateTo(_scrollController.position.maxScrollExtent + 100, duration: Ratioz.fadingDuration, curve: Curves.easeInOut);
 
-    if (_keywords.length <= 2){
+    if (_selectedKeywords.length <= 2){
       print('no scroll available');
     } else {
-      _scrollController.scrollTo(index: _keywords.length - 1, duration: Ratioz.fadingDuration);
+      _scrollController.scrollTo(index: _selectedKeywords.length - 1, duration: Ratioz.fadingDuration);
     }
   }
 // -----------------------------------------------------------------------------
   void _scrollToIndex(int index){
 
-    if (_keywords.length <= 1){
+    if (_selectedKeywords.length <= 1){
       print('no scroll available');
     } else {
       _scrollController.scrollTo(index: index, duration: Ratioz.fadingDuration);
@@ -469,17 +472,17 @@ class _SearchScreenState extends State<SearchScreen> {
 
     /// if filter allows many keywords, we get index by exact map
     if (canPickMany == true){
-      _index = _keywords.indexWhere((keyword) => KeywordModel.KeywordsAreTheSame(keyword, keywordModel),);
+      _index = _selectedKeywords.indexWhere((keyword) => KeywordModel.KeywordsAreTheSame(keyword, keywordModel),);
     }
 
     /// if filter does not allow many keywords. we get index by the filterTitle only
     else {
-      _index = _keywords.indexWhere((keyword) => keyword.filterID == keywordModel.filterID);
+      _index = _selectedKeywords.indexWhere((keyword) => keyword.filterID == keywordModel.filterID);
     }
 
     _scrollToIndex(_index);
 
-    KeywordModel _keyword = _index >= 0 ? _keywords[_index] : null;
+    KeywordModel _keyword = _index >= 0 ? _selectedKeywords[_index] : null;
 
     setState(() {
       _highlightedKeyword = _keyword;
@@ -522,7 +525,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
     return MainLayout(
       appBarType: AppBarType.Search,
-      appBarBackButton: true,
+      // appBarBackButton: true,
       pyramids: Iconz.DvBlankSVG,
       loading: _loading,
       layoutWidget: Stack(
@@ -548,6 +551,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 SizedBox(height: Ratioz.appBarBigHeight + Ratioz.appBarMargin * 2),
 
                 /// KEYWORDS BAR
+                if (_selectedKeywords.isNotEmpty)
                 Container(
                   width: Scale.superScreenWidth(context) - Ratioz.appBarMargin * 2,
                   height: 50,
@@ -560,7 +564,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      ... _filterKeywords(_filtersBySection)
+                      ... _selectedKeywordsWidgets(_filtersBySection)
                     ],
                   ),
                 ),
@@ -574,7 +578,7 @@ class _SearchScreenState extends State<SearchScreen> {
             bottom: 0,
             left: 0,
             child: GestureDetector(
-              onTap: _triggerBrowser,
+              onTap: _browserIsOn ? null : _triggerBrowser,
               child: AnimatedContainer(
                 height: _browserZoneHeight,
                 width: _browserZoneWidth,
@@ -587,7 +591,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 margin: EdgeInsets.all(_browserZoneMargins),
                 alignment: Aligners.superTopAlignment(context),
                 child:
-                _browserZoneWidth == _browserMaxZoneWidth ?
+                _browserIsOn ?
 
                 /// browser contents
                 BrowserPages(
@@ -595,6 +599,8 @@ class _SearchScreenState extends State<SearchScreen> {
                   browserIsOn: _browserIsOn,
                   closeBrowser: _triggerBrowser,
                   filtersModels: _filtersBySection,
+                  onKeywordTap: (keywordModel) => _selectKeyword(keywordModel),
+                  selectedKeywords: _selectedKeywords,
                 )
 
 
@@ -755,7 +761,6 @@ class _SearchScreenState extends State<SearchScreen> {
                     :
 
                 /// the icon
-
                 BarButton(
                   width: _browserMinZoneWidth,
                   text: 'Browse',
@@ -767,6 +772,20 @@ class _SearchScreenState extends State<SearchScreen> {
                 ),
 
               ),
+            ),
+          ),
+
+          Positioned(
+            bottom: 0,
+            right: 0,
+            child: DreamBox(
+              height: _browserZoneHeight,
+              width: _browserZoneWidth,
+              boxMargins: EdgeInsets.all(_browserZoneMargins),
+              icon: Iconz.More,
+              iconSizeFactor: 0.6,
+              boxFunction: () => Nav.goToNewScreen(context, SearchFiltersScreen()),
+
             ),
           ),
 

@@ -21,19 +21,19 @@ class FlyerCoversStack extends StatelessWidget {
   Widget build(BuildContext context) {
 
     double screenWidth = MediaQuery.of(context).size.width;
-    double pageMargin = Ratioz.appBarMargin * 2;
+    const double pageMargin = Ratioz.appBarMargin * 2;
 
 
-    double coverFlyerWidth = 100;
-    double coverFlyerHeight = coverFlyerWidth * Ratioz.xxflyerZoneHeight;
+    const double coverFlyerWidth = 100;
+    const double coverFlyerHeight = coverFlyerWidth * Ratioz.xxflyerZoneHeight;
 
 
-    double gridSpacing = 5;
+    const double gridSpacing = 5;
     double gridWidth = screenWidth - (4*pageMargin) - gridSpacing;
-    double gridHeight = coverFlyerHeight;
+    const double gridHeight = coverFlyerHeight;
 
-    double otherFlyersHeight = (coverFlyerHeight - gridSpacing)/2;
-    double otherFlyersWidth = otherFlyersHeight / Ratioz.xxflyerZoneHeight;
+    const double otherFlyersHeight = (coverFlyerHeight - gridSpacing)/2;
+    const double otherFlyersWidth = otherFlyersHeight / Ratioz.xxflyerZoneHeight;
 
     int gridLoopLength = flyersDataList.length > 11 ? 11 : flyersDataList.length;
 
@@ -69,7 +69,7 @@ class FlyerCoversStack extends StatelessWidget {
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
                     addAutomaticKeepAlives: true,
-                    padding: EdgeInsets.all(gridSpacing),
+                    padding: const EdgeInsets.all(gridSpacing),
 
                     gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                       crossAxisSpacing: gridSpacing,

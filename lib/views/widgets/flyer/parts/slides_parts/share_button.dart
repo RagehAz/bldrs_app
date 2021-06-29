@@ -143,7 +143,7 @@ class ShareBT extends StatelessWidget {
                     width: iconWidth,
                     height: iconHeight,
                     padding: buttonIcon == Iconz.Share ?
-                    EdgeInsets.all(iconWidth * 0.075) : EdgeInsets.all(0),
+                    EdgeInsets.all(iconWidth * 0.075) : const EdgeInsets.all(0),
                     color: iconTestBoxColor, // for designing
                     child: WebsafeSvg.asset(
                       buttonIcon,

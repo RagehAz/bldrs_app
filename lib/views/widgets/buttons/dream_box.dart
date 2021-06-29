@@ -123,7 +123,7 @@ class DreamBox extends StatelessWidget {
     TextDirection _textDirection = textDirection == null ? superTextDirection(context) : textDirection;
 
     EdgeInsets _boxMargins =
-        boxMargins == null ? EdgeInsets.all(0)
+        boxMargins == null ? const EdgeInsets.all(0)
             :
         boxMargins.runtimeType == double ? EdgeInsets.all(boxMargins)
             :

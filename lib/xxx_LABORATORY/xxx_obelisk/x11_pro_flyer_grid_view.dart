@@ -93,7 +93,7 @@ class _FlyersGridViewState extends State<FlyersGridView> {
     double gridZoneWidth = screenWidth;
     // double flyerHeight = (gridZoneWidth * Ratioz.xxflyerZoneHeight);
 
-    double spacingRatioToGridWidth = 0.15;
+    const double spacingRatioToGridWidth = 0.15;
     double gridFlyerWidth = gridZoneWidth / (numberOfColumns + (numberOfColumns * spacingRatioToGridWidth) + spacingRatioToGridWidth);
     // double gridFlyerHeight = gridFlyerWidth * Ratioz.xxflyerZoneHeight;
 
@@ -124,7 +124,7 @@ class _FlyersGridViewState extends State<FlyersGridView> {
         DreamBox(
           height: 40,
           width: 40,
-          boxMargins: EdgeInsets.all(5),
+          boxMargins: const EdgeInsets.all(5),
           icon: Iconz.SavedFlyers,
           iconSizeFactor: 0.8,
           color: _showAnkhsOnly == true ? Colorz.Yellow : Colorz.Nothing,

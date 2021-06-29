@@ -26,7 +26,7 @@ class DashBoardLayout extends StatelessWidget {
       pyramids: Iconz.PyramidzYellow,
       appBarType: AppBarType.Basic,
       pageTitle: pageTitle,
-      appBarBackButton: true,
+      // appBarBackButton: true,
       sky: Sky.Black,
       loading: loading,
       appBarRowWidgets: appBarRowWidgets,

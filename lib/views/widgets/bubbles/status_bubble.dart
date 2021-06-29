@@ -29,9 +29,9 @@ class StatusBubble extends StatelessWidget {
 
     double screenWidth = MediaQuery.of(context).size.width;
     // double screenHeight = MediaQuery.of(context).size.height;
-    double pageMargin = Ratioz.appBarMargin * 2;
+    const double pageMargin = Ratioz.appBarMargin * 2;
 
-    double abPadding = Ratioz.appBarMargin;
+    const double abPadding = Ratioz.appBarMargin;
     // double abHeight = screenWidth * 0.25;
     // double profilePicHeight = abHeight;
     // double abButtonsHeight = abHeight - (2 * abPadding);
@@ -90,7 +90,7 @@ class StatusBubble extends StatelessWidget {
           width: screenWidth - (abPadding * 4),
           height: 100,
           color: Colorz.Yellow,
-          margin: EdgeInsets.only(top: abPadding*  2),
+          margin: const EdgeInsets.only(top: abPadding *  2),
           child: SuperVerse(
             verse: 'SELL SELL SELL FUCKERS !!',
           ),
