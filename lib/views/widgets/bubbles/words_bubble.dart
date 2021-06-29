@@ -67,7 +67,7 @@ class WordsBubble extends StatelessWidget {
                     verseScaleFactor: 0.6,
                     verseWeight: _verseWeight,
                     verseColor: _verseColor,
-                    boxMargins: EdgeInsets.all(5),
+                    boxMargins: const EdgeInsets.all(5),
                     bubble: true,
                     color: _buttonColor,
                     boxFunction: () => onTap(words[index]),

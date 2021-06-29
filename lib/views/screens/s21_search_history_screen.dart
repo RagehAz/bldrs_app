@@ -17,14 +17,14 @@ class SearchHistoryScreen extends StatelessWidget {
     return MainLayout(
       appBarType: AppBarType.Basic,
       pageTitle: 'Search History',
-      appBarBackButton: true,
+      // appBarBackButton: true,
       pyramids: Iconz.DvBlankSVG,
       layoutWidget: Container(
         width: Scale.superScreenWidth(context),
         height: Scale.superScreenHeight(context),
         child: ListView.builder(
             itemCount: _searchList.length,
-            padding: EdgeInsets.only(top: Ratioz.stratosphere),
+            padding: const EdgeInsets.only(top: Ratioz.stratosphere),
             itemBuilder: (context, index){
 
               String _searchWord = _searchList[index];

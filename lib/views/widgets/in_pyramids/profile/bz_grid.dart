@@ -32,7 +32,7 @@ class BzGrid extends StatelessWidget {
 
     int _gridColumnsCount = numberOfColumns;
 
-    double _spacingRatioToGridWidth = 0.1;
+    const double _spacingRatioToGridWidth = 0.1;
     double _gridBzWidth = gridZoneWidth / (numberOfColumns + (numberOfColumns * _spacingRatioToGridWidth) + _spacingRatioToGridWidth);
     double _gridBzHeight = _gridBzWidth;
     double _gridSpacing = _gridBzWidth * _spacingRatioToGridWidth;

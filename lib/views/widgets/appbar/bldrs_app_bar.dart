@@ -14,7 +14,7 @@ import 'package:flutter/material.dart';
 
 class BldrsAppBar extends StatelessWidget {
   final AppBarType appBarType;
-  final bool backButtonIsOn;
+  // final bool backButtonIsOn;
   final String pageTitle;
   final List<Widget> appBarRowWidgets;
   final bool loading;
@@ -22,7 +22,7 @@ class BldrsAppBar extends StatelessWidget {
 
   BldrsAppBar({
     this.appBarType,
-    this.backButtonIsOn = false,
+    // this.backButtonIsOn = false,
     this.pageTitle,
     this.appBarRowWidgets,
     this.loading = false,
@@ -36,16 +36,13 @@ class BldrsAppBar extends StatelessWidget {
     double _abWidth = Scale.appBarClearWidth(context);
     double _abHeight = Scale.appBarClearHeight(context, appBarType);
     double _blurValue = Ratioz.blur1;
-// -----------------------------------------------------------------------------
-    bool _scrollable = appBarType == AppBarType.Scrollable ? true : false;
-    double _titleHorizontalMargins = backButtonIsOn == true ? 5 : 15;
-// -----------------------------------------------------------------------------
     bool _backButtonIsOn =
     appBarType == AppBarType.Basic ? true :
     appBarType == AppBarType.Scrollable ? true :
     appBarType == AppBarType.Main ? false :
     appBarType == AppBarType.Intro ? false :
     appBarType == AppBarType.Search ? true :
+    appBarType == AppBarType.Non ? false :
     false;
 // -----------------------------------------------------------------------------
     bool _searchButtonIsOn =
@@ -54,6 +51,7 @@ class BldrsAppBar extends StatelessWidget {
     appBarType == AppBarType.Main ? true :
     appBarType == AppBarType.Intro ? false :
     appBarType == AppBarType.Search ? false :
+    appBarType == AppBarType.Non ? false :
     false;
 // -----------------------------------------------------------------------------
     bool _sectionButtonIsOn =
@@ -62,6 +60,7 @@ class BldrsAppBar extends StatelessWidget {
     appBarType == AppBarType.Main ? true :
     appBarType == AppBarType.Intro ? false :
     appBarType == AppBarType.Search ? true :
+    appBarType == AppBarType.Non ? false :
     false;
 // -----------------------------------------------------------------------------
     bool _zoneButtonIsOn =
@@ -70,10 +69,14 @@ class BldrsAppBar extends StatelessWidget {
     appBarType == AppBarType.Main ? true :
     appBarType == AppBarType.Intro ? true :
     appBarType == AppBarType.Search ? true :
+    appBarType == AppBarType.Non ? false :
     false;
 // -----------------------------------------------------------------------------
     double _backButtonWidth = _backButtonIsOn == true ? 50 : 0;
-
+// -----------------------------------------------------------------------------
+    bool _scrollable = appBarType == AppBarType.Scrollable ? true : false;
+    double _titleHorizontalMargins = _backButtonIsOn == true ? 5 : 15;
+// -----------------------------------------------------------------------------
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -84,7 +87,7 @@ class BldrsAppBar extends StatelessWidget {
           width: _abWidth,
           height: _abHeight,
           alignment: Alignment.center,
-          margin: EdgeInsets.all(Ratioz.appBarMargin),
+          margin: const EdgeInsets.all(Ratioz.appBarMargin),
           decoration: BoxDecoration(
             // color: Colorz.BlackBlack,
             borderRadius: BorderRadius.all(Radius.circular(Ratioz.appBarCorner)),

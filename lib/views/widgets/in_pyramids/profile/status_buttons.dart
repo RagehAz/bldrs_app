@@ -22,40 +22,40 @@ class StatusButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
-    double pageMargin = Ratioz.appBarMargin * 2;
+    double _screenWidth = MediaQuery.of(context).size.width;
+    double _screenHeight = MediaQuery.of(context).size.height;
+    const double _pageMargin = Ratioz.appBarMargin * 2;
 
-    double abPadding = Ratioz.appBarMargin;
-    // double abHeight = screenWidth * 0.25;
+    const double _abPadding = Ratioz.appBarMargin;
+    // double abHeight = _screenWidth * 0.25;
     // double profilePicHeight = abHeight;
     // double abButtonsHeight = abHeight - (2 * abPadding);
 
-    int numberOfButtons = (status[stateIndex]['buttons'] as List<Map<String, Object>>).length;
-    double buttonSpacing = abPadding;
-    double buttonsZoneWidth = (screenWidth-(pageMargin*3));
-    double propertyStatusBtWidth = (buttonsZoneWidth - (numberOfButtons*buttonSpacing) - buttonSpacing)/numberOfButtons;
+    int _numberOfButtons = (status[stateIndex]['buttons'] as List<Map<String, Object>>).length;
+    const double _buttonSpacing = _abPadding;
+    double _buttonsZoneWidth = (_screenWidth-(_pageMargin*3));
+    double _propertyStatusBtWidth = (_buttonsZoneWidth - (_numberOfButtons*_buttonSpacing) - _buttonSpacing)/_numberOfButtons;
 
-    double propertyStatusBtHeight = screenHeight * 0.12;
+    double _propertyStatusBtHeight = _screenHeight * 0.12;
 
     // Alignment defaultAlignment = getTranslated(context, 'Text_Direction') == 'ltr' ? Alignment.centerLeft : Alignment.centerRight;
 
     return Padding(
-      padding: EdgeInsets.only(bottom: abPadding),
+      padding: const EdgeInsets.only(bottom: _abPadding),
       child: Column(
         children: <Widget>[
 
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
+            children: <Widget>[
               ...(status[stateIndex]['buttons'] as List<Map<String, Object>>)
                 .map(
                 (x){
                   return
                       DreamBox(
-                        width: propertyStatusBtWidth,
-                        height: propertyStatusBtHeight,
+                        width: _propertyStatusBtWidth,
+                        height: _propertyStatusBtHeight,
                         verse: x['state'],
                         verseScaleFactor: currentUserStatus == x['userStatus'] ? 0.55 : 0.55,
                         verseMaxLines: 4,

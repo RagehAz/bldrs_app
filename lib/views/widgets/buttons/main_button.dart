@@ -91,7 +91,7 @@ class MainButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(_buttonCorner),
           ),
           disabledColor: Colorz.GreySmoke,
-          padding: EdgeInsets.all(0),
+          padding: const EdgeInsets.all(0),
 
           // --- BUTTON CONTENTS
           child: Stack(

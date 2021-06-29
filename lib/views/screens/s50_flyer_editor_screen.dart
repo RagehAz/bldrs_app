@@ -845,7 +845,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
       return
         DreamBox(
           height: 35,
-          boxMargins: EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
+          boxMargins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
           verse: widget.firstTimer ? 'Publish flyer' : 'update flyer',
           verseColor: Colorz.BlackBlack,
           verseScaleFactor: 0.8,
@@ -859,7 +859,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
     return MainLayout(
       appBarType: AppBarType.Basic,
       pyramids: Iconz.DvBlankSVG,
-      appBarBackButton: true,
+      // appBarBackButton: true,
       sky: Sky.Black,
       pageTitle: !_loading ? 'Create a New Flyer' : 'Waiting ...',
       loading: _loading,

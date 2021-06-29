@@ -51,7 +51,7 @@ class _DynamicLinkTestState extends State<DynamicLinkTest> {
 
     return MainLayout(
       pyramids: Iconz.PyramidzYellow,
-      appBarBackButton: true,
+      // appBarBackButton: true,
       appBarType: AppBarType.Basic,
       tappingRageh: (){print('dynamic link isa');},
       loading: _loading,

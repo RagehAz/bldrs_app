@@ -50,7 +50,7 @@ class _CheckBoxLessonState extends State<CheckBoxLesson> {
 
  Widget build(BuildContext context) {
    return  Container(
-       padding: EdgeInsets.all(10),
+       padding: const EdgeInsets.all(10),
        child: Column(
          children: <Widget>[
 
@@ -68,8 +68,8 @@ class _CheckBoxLessonState extends State<CheckBoxLesson> {
                  borderRadius: BorderRadius.circular(10),
                ),
                filled: true,
-               fillColor: Color.fromARGB(1000, 153, 204, 255),
-               contentPadding: EdgeInsets.all(20),
+               fillColor: const Color.fromARGB(1000, 153, 204, 255),
+               contentPadding: const EdgeInsets.all(20),
                counterText: 'type the fucking shit',
                labelText: 'Yala yabn el metnaka',
 

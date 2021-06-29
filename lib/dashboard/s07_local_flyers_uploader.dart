@@ -291,7 +291,7 @@ class _LocalFlyersUploaderState extends State<LocalFlyersUploader> {
   Widget build(BuildContext context) {
     return MainLayout(
       loading: _loading,
-      appBarBackButton: true,
+      // appBarBackButton: true,
       pageTitle: 'Local Bzz & Flyers Uploader',
       pyramids: Iconz.PyramidsYellow,
       appBarType: AppBarType.Basic,
@@ -494,7 +494,7 @@ class Progressor extends StatelessWidget {
 
     return Container(
       width: Scale.superScreenWidth(context),
-      margin: EdgeInsets.symmetric(vertical: 5),
+      margin: const EdgeInsets.symmetric(vertical: 5),
       decoration: BoxDecoration(
         color: Colorz.WhiteGlass,
         borderRadius: Borderers.superBorderAll(context, 5),
@@ -526,7 +526,7 @@ class Progressor extends StatelessWidget {
             numberOfSlides: length,
             barIsOn: true,
             currentSlide: index,
-            margins: EdgeInsets.all(5),
+            margins: const EdgeInsets.all(5),
           ),
 
           Padding(

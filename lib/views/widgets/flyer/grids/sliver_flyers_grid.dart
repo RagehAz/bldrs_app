@@ -13,10 +13,10 @@ class SliverFlyersGrid extends StatelessWidget {
       int flyerIndex = 0;
 // -----------------------------------------------------------------------------
     double screenWidth = MediaQuery.of(context).size.width * 0.5;
-    double gridSpacing = 10;
+    const double gridSpacing = 10;
 
     return SliverPadding(
-      padding: EdgeInsets.all(gridSpacing),
+      padding: const EdgeInsets.all(gridSpacing),
       sliver: SliverGrid(
         gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
           maxCrossAxisExtent: screenWidth,

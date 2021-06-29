@@ -20,18 +20,18 @@ class FieldsRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double screenWidth = MediaQuery.of(context).size.width;
+    double _screenWidth = MediaQuery.of(context).size.width;
 
-    double boxHeight = 35;
+    const double _boxHeight = 35;
 
-    bool designMode = false;
+    const bool _designMode = false;
 
     // - ROW OF BUTTONS
-    double buttonSpacing = Ratioz.appBarMargin*2;
-    double buttonsZoneWidth = (screenWidth - (Ratioz.appBarMargin * 12));
+    const double _buttonSpacing = Ratioz.appBarMargin * 2;
+    double _buttonsZoneWidth = (_screenWidth - (Ratioz.appBarMargin * 12));
 
     // int numberOfButtons = 2;
-    // double rowButtonWidth = (buttonsZoneWidth - (numberOfButtons * buttonSpacing) - buttonSpacing) / numberOfButtons;
+    // double rowButtonWidth = (_buttonsZoneWidth - (numberOfButtons * _buttonSpacing) - _buttonSpacing) / numberOfButtons;
     // double rowButtonHeight = 40;
 
     return Column(
@@ -41,7 +41,7 @@ class FieldsRow extends StatelessWidget {
 
         // --- FIELDS TITLE
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: buttonSpacing * 2, vertical: buttonSpacing * 0.5),
+          padding: const EdgeInsets.symmetric(horizontal: _buttonSpacing * 2, vertical: _buttonSpacing * 0.5),
           child: SuperVerse(
             verse: title,
             margin: 0,
@@ -50,7 +50,7 @@ class FieldsRow extends StatelessWidget {
             weight: VerseWeight.thin,
             color: Colorz.BabyBlue,
             shadow: true,
-            designMode: designMode,
+            designMode: _designMode,
           ),
         ),
 
@@ -59,7 +59,7 @@ class FieldsRow extends StatelessWidget {
           onTap: openList,
           child: Center(
             child: Container(
-              width: buttonsZoneWidth,
+              width: _buttonsZoneWidth,
                 decoration: BoxDecoration(
                     color: Colorz.WhiteAir,
                     borderRadius: BorderRadius.circular(Ratioz.boxCorner12),
@@ -67,11 +67,11 @@ class FieldsRow extends StatelessWidget {
                       CustomBoxShadow(
                           color: Colorz.BlackLingerie,
                           offset: new Offset(0,0 ),
-                          blurRadius: boxHeight * 0.15,
+                          blurRadius: _boxHeight * 0.15,
                           blurStyle: BlurStyle.outer),
                     ]),
               child: Padding(
-                padding:  EdgeInsets.all(buttonSpacing),
+                padding: const EdgeInsets.all(_buttonSpacing),
                 child: Wrap(
                     spacing: 0,
                     runSpacing: 0,
@@ -92,7 +92,7 @@ class FieldsRow extends StatelessWidget {
                               color: Colorz.White,
                               weight: VerseWeight.bold,
                               size: 2,
-                              margin: boxHeight * 0 ,
+                              margin: _boxHeight * 0 ,
                             );
                         }
                   )

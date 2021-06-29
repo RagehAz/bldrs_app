@@ -95,7 +95,7 @@ Widget build(BuildContext context) {
           child: Container(
             height: 40,
             // width: buttonWidth,
-            // margin: EdgeInsets.symmetric(horizontal: Ratioz.ddAppBarMargin*0.5),
+            // margin: const EdgeInsets.symmetric(horizontal: Ratioz.ddAppBarMargin*0.5),
             alignment: Alignment.center,
             decoration: BoxDecoration(
               color: Colorz.WhiteAir,

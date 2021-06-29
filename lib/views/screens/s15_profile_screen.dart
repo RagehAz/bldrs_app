@@ -315,7 +315,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
       return MainLayout(
         appBarType: AppBarType.Basic,
         sky: Sky.Black,
-        appBarBackButton: true,
+        // appBarBackButton: true,
         pyramids: Iconz.PyramidzYellow,
         layoutWidget: userStreamBuilder(
             context: context,

@@ -49,7 +49,7 @@ class EnumLister extends StatelessWidget {
           child: Container(
             height: listHeight,
             width: listWidth,
-            margin: EdgeInsets.only(left: Ratioz.appBarMargin * 2),
+            margin: const EdgeInsets.only(left: Ratioz.appBarMargin * 2),
             decoration: BoxDecoration(
                 // color: Colorz.BlackSmoke,
                 borderRadius: BorderRadius.only(
@@ -126,14 +126,14 @@ class EnumLister extends StatelessWidget {
                         width: listWidth - Ratioz.appBarMargin,
                         height: 0.5,
                         color: Colorz.Yellow,
-                        margin: EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin * 2),
+                        margin: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin * 2),
 
                       ),
 
                       // --- LIST ITEMS
                       Expanded(
                         child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin * 2),
+                          padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin * 2),
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
                               begin: Alignment.bottomCenter,
@@ -146,7 +146,7 @@ class EnumLister extends StatelessWidget {
                             physics: AlwaysScrollableScrollPhysics(),
                             shrinkWrap: true,
                             itemCount: stringsList.length,
-                            padding: EdgeInsets.only(bottom: Ratioz.pyramidsHeight, top: Ratioz.appBarMargin ),
+                            padding: const EdgeInsets.only(bottom: Ratioz.pyramidsHeight, top: Ratioz.appBarMargin ),
                             itemBuilder: (_, index) =>
 
                                  EnumListerTile(
