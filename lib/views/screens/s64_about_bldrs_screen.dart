@@ -12,7 +12,7 @@ class AboutBldrsScreen extends StatelessWidget {
     return MainLayout(
       pyramids: Iconz.PyramidsYellow,
       appBarType: AppBarType.Basic,
-      appBarBackButton: true,
+      // appBarBackButton: true,
       pageTitle: 'About Bldrs.net',
       sky: Sky.Black,
       layoutWidget: ListView(

@@ -48,7 +48,7 @@ class GalleryGrid extends StatelessWidget {
 // -----------------------------------------------------------------------------
     int _gridColumnsCount = _gridFlyers.length > 12 ? 5 : _gridFlyers.length > 6 ? 4 : 3;
 // -----------------------------------------------------------------------------
-    double _spacingRatioToGridWidth = 0.15;
+    const double _spacingRatioToGridWidth = 0.15;
     double _gridFlyerWidth = gridZoneWidth / (_gridColumnsCount + (_gridColumnsCount * _spacingRatioToGridWidth) + _spacingRatioToGridWidth);
     double _gridFlyerHeight = _gridFlyerWidth * Ratioz.xxflyerZoneHeight;
     double _gridSpacing = _gridFlyerWidth * _spacingRatioToGridWidth;

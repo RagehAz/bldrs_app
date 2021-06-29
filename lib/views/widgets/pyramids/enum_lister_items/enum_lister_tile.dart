@@ -21,9 +21,9 @@ class EnumListerTile extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        margin: EdgeInsets.all(Ratioz.appBarMargin * 0.2),
+        margin: const EdgeInsets.all(Ratioz.appBarMargin * 0.2),
         decoration: BoxDecoration(
-          color: Color.fromARGB(5, 255, 255, 255),
+          color: const Color.fromARGB(5, 255, 255, 255),
           borderRadius: BorderRadius.circular(Ratioz.boxCorner8),
         ),
         child: Row(

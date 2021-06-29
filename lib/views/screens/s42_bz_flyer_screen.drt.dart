@@ -171,7 +171,7 @@ class BzFlyerScreen extends StatelessWidget {
     return MainLayout(
       pyramids: Iconz.PyramidzYellow,
       appBarType: AppBarType.Basic,
-      appBarBackButton: true,
+      // appBarBackButton: true,
       sky: Sky.Black,
       layoutWidget: flyerStreamBuilder(
         context: context,

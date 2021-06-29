@@ -5,14 +5,14 @@ import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
-class KeywordButton extends StatelessWidget {
+class KeywordBarButton extends StatelessWidget {
   final String title;
   final String keyword;
   final bool xIsOn;
   final Function onTap;
   final Color color;
 
-  KeywordButton({
+  KeywordBarButton({
     this.title,
     @required this.keyword,
     @required this.xIsOn,
@@ -40,7 +40,7 @@ class KeywordButton extends StatelessWidget {
             child: Container(
               height: 40,
               // width: buttonWidth,
-              margin: EdgeInsets.symmetric(horizontal: 2.5),
+              margin: const EdgeInsets.symmetric(horizontal: 2.5),
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 color: color,

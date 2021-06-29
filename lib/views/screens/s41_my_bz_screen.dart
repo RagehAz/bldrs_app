@@ -256,7 +256,7 @@ class _MyBzScreenState extends State<MyBzScreen> {
             MainLayout(
                 pyramids: Iconz.PyramidzYellow,
                 sky: Sky.Black,
-                appBarBackButton: true,
+                // appBarBackButton: true,
                 appBarType: AppBarType.Basic,
                 loading: _loading,
                 appBarRowWidgets: <Widget>[
@@ -282,7 +282,7 @@ class _MyBzScreenState extends State<MyBzScreen> {
                     width: 35,
                     icon: Iconz.More,
                     iconSizeFactor: 0.6,
-                    boxMargins: EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
+                    boxMargins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
                     bubble: false,
                     boxFunction:  () => _slideBzOptions(context, bzModel),
                   ),

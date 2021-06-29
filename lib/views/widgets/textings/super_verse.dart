@@ -63,7 +63,7 @@ class SuperVerse extends StatelessWidget {
     String _verse = verse;
     Color _verseColor = color;
     Color _boxColor = designMode ? Colorz.BloodTest : Colorz.Nothing;
-    double _verseHeight = 1.42; //1.48; // The sacred golden reverse engineered factor
+    const double _verseHeight = 1.42; //1.48; // The sacred golden reverse engineered factor
     double _scalingFactor = scaleFactor == null ? 1: scaleFactor;
     int _maxLines =  maxLines;
     // takes values from 0 to 8 in the entire app
@@ -77,8 +77,8 @@ class SuperVerse extends StatelessWidget {
     // --- WORD SPACING -----------------------------------------------
     double _verseWordSpacing = superVerseWordSpacing(_verseSizeValue);
     // --- SHADOWS -----------------------------------------------
-    double _shadowBlur = 0;
-    double _shadowYOffset = 0;
+    const double _shadowBlur = 0;
+    const double _shadowYOffset = 0;
     double _shadowXOffset = superVerseXOffset(weight, _verseSizeValue);
     double _secondShadowXOffset = -0.35 * _shadowXOffset;
     Color _leftShadow = color == Colorz.BlackBlack ? Colorz.WhitePlastic : Colorz.BlackBlack;

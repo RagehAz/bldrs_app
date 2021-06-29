@@ -38,7 +38,7 @@ class TileBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double iconBoxWidth = 30;
+    const double iconBoxWidth = 30;
     double iconWidth = (iconSizeFactor * iconBoxWidth);
     double iconBoxPadding = iconBoxWidth - iconWidth;
 
@@ -70,12 +70,12 @@ class TileBubble extends StatelessWidget {
               iconSizeFactor: iconSizeFactor,
               color: iconBoxColor,
               iconRounded: false,
-              boxMargins: EdgeInsets.symmetric(horizontal: 0),
+              boxMargins: const EdgeInsets.symmetric(horizontal: 0),
               bubble: iconIsBubble,
             )
                 :
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 0),
+              padding: const EdgeInsets.symmetric(horizontal: 0),
               child: Container(
                 width: iconBoxWidth,
                 height: iconBoxWidth,
@@ -87,7 +87,7 @@ class TileBubble extends StatelessWidget {
             // --- MAIN TEXT
             Container(
               width: _verseWidth,
-              padding: EdgeInsets.symmetric(horizontal: 5),
+              padding: const EdgeInsets.symmetric(horizontal: 5),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,

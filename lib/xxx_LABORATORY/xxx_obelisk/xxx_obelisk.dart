@@ -323,7 +323,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
               width: 300,
               icon: Iconz.DvBlackHole,
               iconSizeFactor: 0.95,
-              boxMargins: EdgeInsets.symmetric(vertical: 25),
+              boxMargins: const EdgeInsets.symmetric(vertical: 25),
               corners: 150,
               color: Colorz.WhiteAir,
               verseScaleFactor: 0.8,

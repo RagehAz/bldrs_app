@@ -25,7 +25,7 @@ class BzPgCounter extends StatelessWidget {
   Widget build(BuildContext context) {
 
 
-    dynamic bzPageBGColor = Colorz.BlackSmoke;
+    const Color bzPageBGColor = Colorz.BlackSmoke;
     double bzPageDividers = flyerZoneWidth * 0.005;
 
     double iconBoxHeight = flyerZoneWidth * 0.08;

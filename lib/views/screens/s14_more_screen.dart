@@ -35,7 +35,7 @@ class MoreScreen extends StatelessWidget {
 
     return MainLayout(
       appBarType: AppBarType.Basic,
-      appBarBackButton: true,
+      // appBarBackButton: true,
       sky: Sky.Black,
       pyramids: Iconz.PyramidzYellow,
       layoutWidget: ListView(

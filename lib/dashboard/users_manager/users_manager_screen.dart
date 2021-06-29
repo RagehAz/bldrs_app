@@ -94,7 +94,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
                       height: _screenHeight - Ratioz.stratosphere,
                       child: ListView.builder(
                         itemCount: _usersModels.length,
-                        padding: EdgeInsets.only(bottom: Ratioz.grandHorizon),
+                        padding: const EdgeInsets.only(bottom: Ratioz.grandHorizon),
                         itemBuilder: (context, index){
 
                           UserModel _userModel = _usersModels[index];
@@ -226,7 +226,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
                                               icons: _stringyContactsIcons,
                                               buttonHeight: 20,
                                               spacing: 2.5,
-                                              margins: EdgeInsets.all(2.5),
+                                              margins: const EdgeInsets.all(2.5),
                                               onTap: () async {
                                                 await superDialog(
                                                   context: context,
@@ -246,7 +246,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
                                               icons: _socialContactsIcons,
                                               buttonHeight: 20,
                                               spacing: 2.5,
-                                              margins: EdgeInsets.all(2.5),
+                                              margins: const EdgeInsets.all(2.5),
                                               onTap: () async {
                                                   await superDialog(
                                                     context: context,

@@ -25,16 +25,16 @@ class AppBarTest extends StatelessWidget {
 
               BldrsAppBar(
                 loading: false,
-                backButtonIsOn: false,
+                // backButtonIsOn: false,
                 pageTitle: 'title',
               ),
 
               Center(
                 child: DreamWrapper(
-                  verses: ['wtf', 'eh dah', 'opaa'],
+                  verses: <String>['wtf', 'eh dah', 'opaa'],
                   onTap: (value){print(value);},
                   buttonHeight: 30,
-                  margins: EdgeInsets.all(5),
+                  margins: const EdgeInsets.all(5),
                   spacing: 5,
                   boxHeight: 200,
                   boxWidth: 200,

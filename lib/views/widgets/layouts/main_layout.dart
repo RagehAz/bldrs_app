@@ -29,6 +29,7 @@ enum AppBarType{
   Main,
   Search,
   Intro,
+  Non,
 }
 // -----------------------------------------------------------------------------
 enum Sky {
@@ -57,7 +58,7 @@ class MainLayout extends StatelessWidget {
   final Sky sky;
   final bool canRefreshFlyers;
   final bool loading;
-  final bool appBarBackButton;
+  // final bool appBarBackButton;
   final Key key;
   final List<TinyBz> myTinyBzz;
   final ScrollController appBarScrollController;
@@ -72,7 +73,7 @@ class MainLayout extends StatelessWidget {
     this.sky = Sky.Night,
     this.canRefreshFlyers = false,
     this.loading = false,
-    this.appBarBackButton = false,
+    // this.appBarBackButton = false,
     this.key,
     this.myTinyBzz,
     this.appBarScrollController,
@@ -100,15 +101,15 @@ class MainLayout extends StatelessWidget {
 
       NightSky(sky: sky,),
 
-      layoutWidget == null ? Container() :
+      if (layoutWidget != null)
       layoutWidget,
 
-      if(appBarType!=null)
+      if(appBarType != AppBarType.Non)
         BldrsAppBar(
           appBarType: appBarType,
           appBarRowWidgets: appBarRowWidgets,
           pageTitle: pageTitle,
-          backButtonIsOn: appBarBackButton,
+          // backButtonIsOn: appBarBackButton,
           loading: loading,
           appBarScrollController: appBarScrollController,
         ),
@@ -218,7 +219,7 @@ class MainLayout extends StatelessWidget {
 Widget zorar({Function function, String functionName}){
   return DreamBox(
     height: 40,
-    boxMargins: EdgeInsets.all(5),
+    boxMargins: const EdgeInsets.all(5),
     color: Colorz.WhiteAir,
     verse: functionName,
     verseScaleFactor: 2,

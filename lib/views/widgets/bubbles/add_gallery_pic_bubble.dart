@@ -121,7 +121,7 @@ class AddGalleryPicBubble extends StatelessWidget {
                 BzLogo(
                   width: picWidth,
                   image: pic,
-                  margins: EdgeInsets.all(10),
+                  margins: const EdgeInsets.all(10),
                   corners: _picBorders,
                 )
                 :

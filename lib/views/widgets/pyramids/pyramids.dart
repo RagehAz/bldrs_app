@@ -57,7 +57,7 @@ int _fadeCycleDuration = 750;
       child: Container(
         width: Ratioz.pyramidsWidth,
         height: Ratioz.pyramidsHeight,
-        padding: EdgeInsets.all(0),
+        // padding: const EdgeInsets.all(0),
 //          color: Ratioz.ccBloodTest,
 //           alignment: Alignment.bottomRight,
 

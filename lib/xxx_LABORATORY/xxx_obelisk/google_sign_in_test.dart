@@ -233,7 +233,7 @@ class _GoogleSignInTestState extends State<GoogleSignInTest> {
     return MainLayout(
       sky: Sky.Black,
       appBarType: AppBarType.Basic,
-      appBarBackButton: true,
+      // appBarBackButton: true,
       loading: _loading,
       pyramids: Iconz.PyramidzWhite,
       layoutWidget: Column(

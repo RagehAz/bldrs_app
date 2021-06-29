@@ -92,7 +92,7 @@ class _FlyersGridState extends State<FlyersGrid> {
     double screenWidth = Scale.superScreenWidth(context);
 // -----------------------------------------------------------------------------
     int gridColumnsCount = widget.numberOfColumns;
-    double spacingRatioToGridWidth = 0.15;
+    const double spacingRatioToGridWidth = 0.15;
     double gridFlyerWidth = widget.gridZoneWidth / (widget.numberOfColumns + (widget.numberOfColumns * spacingRatioToGridWidth) + spacingRatioToGridWidth);
     double gridFlyerHeight = gridFlyerWidth * Ratioz.xxflyerZoneHeight;
     double gridSpacing = gridFlyerWidth * spacingRatioToGridWidth;

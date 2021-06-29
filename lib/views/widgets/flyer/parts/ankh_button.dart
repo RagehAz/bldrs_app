@@ -113,7 +113,7 @@ class _AnkhButtonState extends State<AnkhButton> with SingleTickerProviderStateM
                 children: <Widget>[
 
                   AnimatedContainer(
-                    duration: Duration(milliseconds: 200),
+                    duration: const Duration(milliseconds: 200),
                     width: _saveBTRadius * 2,
                     height: _saveBTRadius * 2,
                     decoration: BoxDecoration(
