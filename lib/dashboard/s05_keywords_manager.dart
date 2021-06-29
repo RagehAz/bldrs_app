@@ -53,7 +53,7 @@ class _KeywordsManagerState extends State<KeywordsManager> {
 
     return MainLayout(
       pageTitle: 'Keywords And Filters Manager',
-      appBarBackButton: true,
+      // appBarBackButton: true,
       appBarType: AppBarType.Basic,
       pyramids: Iconz.PyramidsYellow,
       loading: _loading,

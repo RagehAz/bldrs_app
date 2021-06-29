@@ -59,7 +59,7 @@ class _SwiperLayoutScreenState extends State<SwiperLayoutScreen> {
       appBarType: AppBarType.Basic,
       pageTitle: _title,
       pyramids: Iconz.DvBlankSVG,
-      appBarBackButton: true,
+      // appBarBackButton: true,
       layoutWidget: Container(
         width: _screenWidth,
         height: _screenHeight,
@@ -74,7 +74,7 @@ class _SwiperLayoutScreenState extends State<SwiperLayoutScreen> {
               space: 2,
             ),
             alignment: Alignment.topCenter,
-            margin: EdgeInsets.only(top: 54, right: Ratioz.appBarMargin * 2, left: Ratioz.appBarMargin * 2),
+            margin: const EdgeInsets.only(top: 54, right: Ratioz.appBarMargin * 2, left: Ratioz.appBarMargin * 2),
           ),
           layout: SwiperLayout.DEFAULT,
           itemWidth: _itemWidth,

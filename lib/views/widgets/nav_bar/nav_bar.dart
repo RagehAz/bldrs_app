@@ -47,15 +47,12 @@ class NavBar extends StatelessWidget {
 });
 // -----------------------------------------------------------------------------
   /// --- MAIN CONTROLS
-  final double _circleWidth = 40;
-  final double _paddings = Ratioz.appBarPadding * 1.5;
-  final double _textScaleFactor = 0.95;
-  final int _textSize = 0;
+  static const double _circleWidth = 40;
+  static const double _paddings = Ratioz.appBarPadding * 1.5;
+  static const double _textScaleFactor = 0.95;
+  static const int _textSize = 0;
 // -----------------------------------------------------------------------------
-  double _calculateButtonWidth(){
-    double _buttonWidth =_circleWidth + (_paddings * 0.5 * 2) + (_paddings * 0.5 * 2);
-    return _buttonWidth;
-}
+  static const double _buttonWidth =_circleWidth + (_paddings * 0.5 * 2) + (_paddings * 0.5 * 2);
 // -----------------------------------------------------------------------------
   int _calculateNumberOfButtons(UserModel userModel){
     int _numberOfButtons = UserModel.userIsAuthor(userModel) ? 4 : 3;
@@ -73,7 +70,6 @@ class NavBar extends StatelessWidget {
   }
 // -----------------------------------------------------------------------------
   double _calculateBoxWidth(BuildContext context, UserModel userModel){
-    double _buttonWidth = _calculateButtonWidth();
     int _numberOfButtons = _calculateNumberOfButtons(userModel);
     int _numberOfSpacings = _numberOfButtons - 1;
     double _spacingFactor = 0.5;
@@ -89,7 +85,6 @@ class NavBar extends StatelessWidget {
   }
 // -----------------------------------------------------------------------------
   double _calculateSpacerWidth(BuildContext context, UserModel userModel){
-    double _buttonWidth = _calculateButtonWidth();
     int _numberOfButtons = _calculateNumberOfButtons(userModel);
     int _numberOfSpacings = _numberOfButtons - 1;
     double _spacingFactor = 0.5;
@@ -147,7 +142,7 @@ class NavBar extends StatelessWidget {
                   Container(
                     height: _bzzButtonsZoneHeight,
                     child: ListView.builder(
-                      padding: EdgeInsets.all(_paddings),
+                      padding: const EdgeInsets.all(_paddings),
                       itemCount: myTinyBzz.length,
                       itemBuilder: (context, index){
                         TinyBz _tinyBz = myTinyBzz[index];
@@ -156,7 +151,7 @@ class NavBar extends StatelessWidget {
                           child: DreamBox(
                             height: 60,
                             width: _bzButtonWidth,
-                            boxMargins: EdgeInsets.all(Ratioz.appBarPadding),
+                            boxMargins: const EdgeInsets.all(Ratioz.appBarPadding),
                             icon: _tinyBz.bzLogo,
                             verse: _tinyBz.bzName,
                             secondLine: TextGenerator.bzTypeSingleStringer(context, _tinyBz.bzType),
@@ -239,7 +234,6 @@ class NavBar extends StatelessWidget {
              Widget _spacer = SizedBox(width: _calculateSpacerWidth(context, userModel),);
              Widget _halfSpacer = SizedBox(width: _calculateSpacerWidth(context, userModel) * 0.5,);
 
-             double _buttonWidth = _calculateButtonWidth();
              double _boxWidth = _calculateBoxWidth(context, userModel);
 
              List<String> _userBzzIDs = TinyBz.getBzzIDsFromTinyBzz(myTinyBzz);
@@ -266,7 +260,7 @@ class NavBar extends StatelessWidget {
                            width: _circleWidth,
                            color: sky == Sky.Black ? Colorz.YellowZircon : Colorz.WhiteGlass,
                            corners: _buttonCircleCorner,
-                           boxMargins: EdgeInsets.all(Ratioz.appBarPadding),
+                           boxMargins: const EdgeInsets.all(Ratioz.appBarPadding),
                            icon: Iconizer.superBackIcon(context),
                            blur : Ratioz.blur1,
                            boxFunction: () => Nav.goBack(context),
@@ -384,7 +378,7 @@ class NavBar extends StatelessWidget {
                          Container(
                            width: _circleWidth,
                            height: _circleWidth,
-                           margin: EdgeInsets.all(Ratioz.appBarPadding),
+                           margin: const EdgeInsets.all(Ratioz.appBarPadding),
                          ),
 
                      ],

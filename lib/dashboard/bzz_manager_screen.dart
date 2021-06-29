@@ -64,7 +64,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
         pyramids: Iconz.PyramidzYellow,
         appBarType: AppBarType.Basic,
         pageTitle: 'Firebase Reader',
-        appBarBackButton: true,
+        // appBarBackButton: true,
         tappingRageh: _printer,
         // loading: _loading,
         layoutWidget: FutureBuilder(

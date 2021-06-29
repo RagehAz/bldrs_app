@@ -26,13 +26,14 @@ class KeywordsPage extends StatelessWidget {
       // color: _colors[pageIndex],
       child: ListView.builder(
           itemCount: keywords.length,
-          padding: EdgeInsets.all(Ratioz.appBarMargin),
+          padding: const EdgeInsets.all(Ratioz.appBarMargin),
           itemBuilder: (context, keyIndex){
 
             KeywordModel _keyword = keywords[keyIndex];
 
             Color _color = selectedKeywords.contains(_keyword) ? Colorz.Yellow : Colorz.Nothing;
 
+            bool _isIconlessKeyword = KeywordModel.isIconless(_keyword);
 
             return
               Align(
@@ -41,8 +42,8 @@ class KeywordsPage extends StatelessWidget {
                   height: 100,
                   width: Scale.superScreenWidth(context) * 0.82,
                   color: _color,
-                  icon: KeywordModel.getImagePath(_keyword.id),
-                  boxMargins: EdgeInsets.symmetric(vertical: Ratioz.appBarPadding),
+                  icon: _isIconlessKeyword ? null : KeywordModel.getImagePath(_keyword.id),
+                  boxMargins: const EdgeInsets.symmetric(vertical: Ratioz.appBarPadding),
                   verse: _keyword.id,
                   boxFunction: () => onTap(_keyword),
                 ),

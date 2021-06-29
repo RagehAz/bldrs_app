@@ -126,7 +126,7 @@ class _FireStorageTestState extends State<FireStorageTest> {
     return MainLayout(
       pyramids: Iconz.PyramidzYellow,
       appBarType: AppBarType.Basic,
-      appBarBackButton: true,
+      // appBarBackButton: true,
       pageTitle: 'Firebase Testers',
       loading: _loading,
       appBarRowWidgets: <Widget>[

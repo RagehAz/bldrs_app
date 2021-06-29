@@ -107,7 +107,7 @@ class _OldMyBzScreenState extends State<OldMyBzScreen> {
         MainLayout(
           sky: Sky.Black,
           appBarType: AppBarType.Basic,
-          appBarBackButton: true,
+          // appBarBackButton: true,
           pyramids: Iconz.DvBlankSVG,
           layoutWidget: bzModelStreamBuilder(
             bzID: widget.bzID,

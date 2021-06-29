@@ -61,7 +61,7 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
   @override
   Widget build(BuildContext context) {
     return MainLayout(
-      appBarBackButton: true,
+      // appBarBackButton: true,
       appBarType: AppBarType.Basic,
       pyramids: Iconz.PyramidsGlass,
       pageTitle: 'Slider test',
@@ -141,7 +141,7 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
 
             Container(
               width: Scale.superScreenWidth(context),
-              margin: EdgeInsets.all(10),
+              margin: const EdgeInsets.all(10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,

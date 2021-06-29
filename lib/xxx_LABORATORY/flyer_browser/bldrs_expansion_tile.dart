@@ -151,9 +151,9 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
 
     final bool closed = !_isExpanded && _controller.isDismissed;
 
-    final double _buttonVerticalPadding = 5;
-    final double _buttonHeight = 80;
-    final double _buttonExtent = _buttonHeight + _buttonVerticalPadding * 2;
+    const double _buttonVerticalPadding = 5;
+    const double _buttonHeight = 80;
+    const double _buttonExtent = _buttonHeight + _buttonVerticalPadding * 2;
 
     return new AnimatedBuilder(
       animation: _controller.view,
@@ -170,7 +170,7 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
         return
 
           Container(
-            margin: EdgeInsets.symmetric(vertical: Ratioz.appBarPadding),
+            margin: const EdgeInsets.symmetric(vertical: Ratioz.appBarPadding),
             decoration: BoxDecoration(
               color: _tileColor,
               borderRadius: Borderers.superBorderAll(context, Ratioz.appBarCorner),
@@ -245,7 +245,7 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
           color: Colorz.WhiteAir,
           borderRadius: _borderRadius.evaluate(_easeInAnimation), //Borderers.superBorderAll(context, Ratioz.ddAppBarCorner - 5),
         ),
-        margin: EdgeInsets.symmetric(vertical: Ratioz.appBarPadding, horizontal: 0),
+        margin: const EdgeInsets.symmetric(vertical: Ratioz.appBarPadding, horizontal: 0),
         child: PageView(
           controller: _pageController,
 
@@ -278,7 +278,7 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
                         // icon: KeywordModel.getImagePath(_groupsIDs[index]),
                         iconSizeFactor: 1,
                         iconColor: Colorz.BlackBlack,
-                        boxMargins: EdgeInsets.symmetric(horizontal: 0, vertical: _buttonVerticalPadding),
+                        boxMargins: const EdgeInsets.symmetric(horizontal: 0, vertical: _buttonVerticalPadding),
                         boxFunction: (){
 
                           if (_groupIsSelected){
@@ -360,7 +360,7 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
                             icon: KeywordModel.getImagePath(_keyword.id),
                             iconSizeFactor: 1,
                             iconColor: Colorz.BlackBlack,
-                            boxMargins: EdgeInsets.symmetric(horizontal: 0, vertical: _buttonVerticalPadding),
+                            boxMargins: const EdgeInsets.symmetric(horizontal: 0, vertical: _buttonVerticalPadding),
                             boxFunction: (){
                               widget.onKeywordTap(_currentKeywordModels[index]);
                             },

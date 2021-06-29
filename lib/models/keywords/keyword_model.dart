@@ -24,15 +24,45 @@ class KeywordModel {
 // -----------------------------------------------------------------------------
   static bool KeywordsAreTheSame(KeywordModel _firstKeyword, KeywordModel _secondKeyword){
     bool _keywordsAreTheSame =
+        _firstKeyword == null || _secondKeyword == null ? false
+        :
         _firstKeyword.filterID == _secondKeyword.filterID &&
-            _firstKeyword.name == _secondKeyword.name &&
-            _firstKeyword.id == _secondKeyword.id &&
-            _firstKeyword.groupID == _secondKeyword.groupID &&
-            _firstKeyword.subGroupID == _secondKeyword.subGroupID &&
-            _firstKeyword.uses == _secondKeyword.uses ?
+        _firstKeyword.name == _secondKeyword.name &&
+        _firstKeyword.id == _secondKeyword.id &&
+        _firstKeyword.groupID == _secondKeyword.groupID &&
+        _firstKeyword.subGroupID == _secondKeyword.subGroupID &&
+        _firstKeyword.uses == _secondKeyword.uses ?
             true : false;
 
     return _keywordsAreTheSame;
+  }
+
+  static bool isIconless(KeywordModel keywordModel){
+    bool _isIconless =
+    keywordModel.groupID == 'numberOfRooms' ? true :
+    keywordModel.groupID == 'numberOfBathrooms' ? true :
+    keywordModel.groupID == 'parkingLots' ? true :
+    keywordModel.groupID == 'propertyArea' ? true :
+    keywordModel.groupID == 'lotArea' ? true :
+    keywordModel.groupID == 'inCompound' ? true :
+    keywordModel.groupID == 'numberOfFloor' ? true :
+    keywordModel.groupID == 'buildingAge' ? true :
+    false;
+
+    return _isIconless;
+  }
+// -----------------------------------------------------------------------------
+  static bool keywordsContainThisFilterID({List<KeywordModel> keywords, String filterID}){
+
+    bool _keywordsContainThisID = false;
+
+    keywords.forEach((keyword) {
+      if(keyword.filterID == filterID){
+        _keywordsContainThisID = true;
+      }
+    });
+
+    return _keywordsContainThisID;
   }
 // -----------------------------------------------------------------------------
   static List<String> getFiltersIDs(){

@@ -24,7 +24,7 @@ class FiltersPage extends StatelessWidget {
       // color: _colors[pageIndex],
       child: ListView.builder(
           itemCount: filtersModels.length,
-          padding: EdgeInsets.all(Ratioz.appBarMargin),
+          padding: const EdgeInsets.all(Ratioz.appBarMargin),
           itemBuilder: (context, keyIndex){
 
             FilterModel _filterModel = filtersModels[keyIndex];
@@ -36,7 +36,7 @@ class FiltersPage extends StatelessWidget {
                 height: 70,
                 // width: 120,
                 color: _color,
-                boxMargins: EdgeInsets.symmetric(vertical: Ratioz.appBarPadding),
+                boxMargins: const EdgeInsets.symmetric(vertical: Ratioz.appBarPadding),
                 verse: _filterModel.filterID,
                 boxFunction: () => onTap(_filterModel),
               );

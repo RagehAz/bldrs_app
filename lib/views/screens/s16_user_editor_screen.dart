@@ -322,7 +322,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     return MainLayout(
       pyramids: Iconz.PyramidzYellow,
       sky: Sky.Black,
-      appBarBackButton: true,
+      // appBarBackButton: true,
       loading: _loading,
       appBarType: AppBarType.Basic,
       tappingRageh: (){
@@ -513,7 +513,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               verseColor: Colorz.BlackBlack,
               verseScaleFactor: 0.9,
               verseWeight: VerseWeight.black,
-              boxMargins: EdgeInsets.all(20),
+              boxMargins: const EdgeInsets.all(20),
               boxFunction: _confirmEdits,
             ),
 

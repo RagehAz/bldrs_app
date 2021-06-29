@@ -16,7 +16,7 @@ class SavedFlyersScreen extends StatelessWidget {
 
     return MainLayout(
       appBarType: AppBarType.Basic,
-      appBarBackButton: true,
+      // appBarBackButton: true,
       sky: Sky.Black,
       pageTitle: 'Chosen Flyers',
       pyramids: Iconz.PyramidzYellow,

@@ -32,12 +32,12 @@ class BarButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double _circleWidth = 40;
+    const double _circleWidth = 40;
     double _buttonCircleCorner = corners == null ? _circleWidth * 0.5 : corners;
-    double _paddings = Ratioz.appBarPadding * 1.5;
+    const double _paddings = Ratioz.appBarPadding * 1.5;
 
-    double _textScaleFactor = 0.95;
-    int _textSize = 1;
+    const double _textScaleFactor = 0.95;
+    const int _textSize = 1;
 
     double _textBoxHeight =
     barType == BarType.maxWithText || barType == BarType.minWithText ?
@@ -50,7 +50,7 @@ class BarButton extends StatelessWidget {
     double _buttonWidth = width;
 
     // Color _designModeColor = Colorz.BloodTest;
-    bool _designMode = false;
+    const bool _designMode = false;
 
     return
       GestureDetector(
@@ -62,7 +62,7 @@ class BarButton extends StatelessWidget {
           height: _buttonHeight,
           width: _buttonWidth,
           // color: _designModeColor,
-          padding: EdgeInsets.symmetric(horizontal: _paddings * 0.25),
+          padding: const EdgeInsets.symmetric(horizontal: _paddings * 0.25),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,

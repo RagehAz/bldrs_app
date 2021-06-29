@@ -59,8 +59,8 @@ class ChatBubble extends StatelessWidget {
           children: <Widget>[
             Container(
               // width: _bubbleWidth,
-              margin: EdgeInsets.symmetric(vertical: Ratioz.appBarPadding, horizontal: Ratioz.appBarMargin),
-              padding: EdgeInsets.symmetric(vertical: Ratioz.appBarPadding, horizontal: Ratioz.appBarMargin * 2),
+              margin: const EdgeInsets.symmetric(vertical: Ratioz.appBarPadding, horizontal: Ratioz.appBarMargin),
+              padding: const EdgeInsets.symmetric(vertical: Ratioz.appBarPadding, horizontal: Ratioz.appBarMargin * 2),
               decoration: BoxDecoration(
                 borderRadius: _bubbleBorders,
                 color: myVerse ? Colorz.BloodTest : Colorz.WhiteAir,

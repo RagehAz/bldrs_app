@@ -97,7 +97,7 @@ class _StateTestState extends State<StateTest> {
                 width: 200,
                 height: 50,
                 color: Colors.amber,
-                margin: EdgeInsets.only(top: 40),
+                margin: const EdgeInsets.only(top: 40),
                 alignment: Alignment.center,
                 child: Text(
                   'Fuck',

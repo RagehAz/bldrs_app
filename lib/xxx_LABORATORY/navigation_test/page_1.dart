@@ -36,7 +36,7 @@ class _Page1State extends State<Page1> {
       onWillPop: () => Future.value(false),
       child: MainLayout(
         pyramids: Iconz.PyramidzYellow,
-        appBarBackButton: true,
+        // appBarBackButton: true,
         appBarType: AppBarType.Basic,
         pageTitle: 'Page 1 : rebuilt $_numberOfBuilds times',
         sky: Sky.Night,

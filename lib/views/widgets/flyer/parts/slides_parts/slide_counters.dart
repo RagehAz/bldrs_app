@@ -124,8 +124,8 @@ class SlideCounters extends StatelessWidget {
                         // --- NUMBER OF VIEWS
                         Padding(
                           padding: EdgeInsets.only(
-                            right: footerBTMargins * singleCounterPaddingRatio*1.2,
-                            left: footerBTMargins * singleCounterPaddingRatio*1.2,
+                            right: footerBTMargins * singleCounterPaddingRatio * 1.2,
+                            left: footerBTMargins * singleCounterPaddingRatio * 1.2,
                           ),
                           child: Row(
                             children: [
@@ -158,13 +158,13 @@ class SlideCounters extends StatelessWidget {
                             left: footerBTMargins * singleCounterPaddingRatio,
                           ),
                           child: Row(
-                            children: [
+                            children: <Widget>[
                               Container(
                                 color: Colorz.Nothing,
-                                margin: EdgeInsets.only(
-                                  left: footerBTMargins * 0,
-                                  right: footerBTMargins * 0,
-                                ),
+                                // margin: EdgeInsets.only(
+                                //   left: footerBTMargins * 0,
+                                //   right: footerBTMargins * 0,
+                                // ),
                                 child: WebsafeSvg.asset(
                                   Iconz.Save,
                                 ),

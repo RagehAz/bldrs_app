@@ -26,11 +26,11 @@ class ContactsBubble extends StatelessWidget {
 
 
 
-    double abPadding = Ratioz.appBarPadding;
-    double contactBoxHeight = 35;
+    const double _abPadding = Ratioz.appBarPadding;
+    const double _contactBoxHeight = 35;
 
-    List<ContactModel> contactsWithStrings = ContactModel.getContactsWithStringsFromContacts(contacts);
-    List<ContactModel> socialMediaContacts = ContactModel.getSocialMediaContactsFromContacts(contacts);
+    List<ContactModel> _contactsWithStrings = ContactModel.getContactsWithStringsFromContacts(contacts);
+    List<ContactModel> _socialMediaContacts = ContactModel.getSocialMediaContactsFromContacts(contacts);
 
     return InPyramidsBubble(
       centered: false,
@@ -40,20 +40,20 @@ class ContactsBubble extends StatelessWidget {
 
         // --- CONTACTS WITH STRINGS
         Wrap(
-          spacing: abPadding,
+          spacing: _abPadding,
             children: <Widget>[
 
               ...List<Widget>.generate(
-                  contactsWithStrings.length,
+                  _contactsWithStrings.length,
                   (index){
 
-                    String _value = contactsWithStrings[index].contact;
+                    String _value = _contactsWithStrings[index].contact;
 
                     return
                         DreamBox(
-                          height: contactBoxHeight,
-                          icon: Iconizer.superContactIcon(contactsWithStrings[index].contactType),
-                          boxMargins: EdgeInsets.all(abPadding),
+                          height: _contactBoxHeight,
+                          icon: Iconizer.superContactIcon(_contactsWithStrings[index].contactType),
+                          boxMargins: const EdgeInsets.all(_abPadding),
                           verse: _value,
                           verseColor: Colorz.White,
                           verseWeight: VerseWeight.thin,
@@ -61,7 +61,7 @@ class ContactsBubble extends StatelessWidget {
                           iconSizeFactor: 0.6,
                           boxFunction:
                               onTap == null ?
-                              (){launchURL('https://${contactsWithStrings[index].contact}');}
+                              (){launchURL('https://${_contactsWithStrings[index].contact}');}
                               :
                               () => onTap(_value)
                         );
@@ -76,19 +76,19 @@ class ContactsBubble extends StatelessWidget {
             children: <Widget>[
 
               ...List<Widget>.generate(
-                  socialMediaContacts.length,
+                  _socialMediaContacts.length,
                       (index){
 
-                        String _value = socialMediaContacts[index].contact;
+                        String _value = _socialMediaContacts[index].contact;
 
                         return
                       DreamBox(
-                        height: contactBoxHeight,
-                        icon: Iconizer.superContactIcon(socialMediaContacts[index]?.contactType),
-                        boxMargins: EdgeInsets.all(abPadding),
+                        height: _contactBoxHeight,
+                        icon: Iconizer.superContactIcon(_socialMediaContacts[index]?.contactType),
+                        boxMargins: const EdgeInsets.all(_abPadding),
                         boxFunction:
                         onTap == null ?
-                            (){launchURL('https://${socialMediaContacts[index].contact}');}
+                            (){launchURL('https://${_socialMediaContacts[index].contact}');}
                             :
                             () => onTap(_value)
 
@@ -98,9 +98,9 @@ class ContactsBubble extends StatelessWidget {
 
               // --- USER LOCATION
               DreamBox(
-                height: contactBoxHeight,
+                height: _contactBoxHeight,
                 icon: Iconz.ComMap,
-                boxMargins: EdgeInsets.all(abPadding),
+                boxMargins: const EdgeInsets.all(_abPadding),
               ),
 
             ],
