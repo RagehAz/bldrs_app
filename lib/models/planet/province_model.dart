@@ -88,7 +88,7 @@ class Province{
     String _name = _countryPro.getProvinceNameWithCurrentLanguageIfPossible(context, province.name);
 
     KeywordModel _keyword = KeywordModel(
-        id: province.name,
+        keywordID: province.name,
         filterID: 'provinces',
         groupID: province.iso3,
         subGroupID: null,

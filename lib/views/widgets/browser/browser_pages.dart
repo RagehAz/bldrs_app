@@ -147,7 +147,7 @@ class _BrowserPagesState extends State<BrowserPages> {
     //   _selectedKeywords.add(keywordModel);
     // });
     // resetPages();
-    print(keywordModel.id);
+    print(keywordModel.keywordID);
   }
 // -----------------------------------------------------------------------------
   void _goToNextPage(){

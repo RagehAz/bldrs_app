@@ -181,7 +181,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     ),
                   ) :
                   KeywordBarButton(
-                    keyword: _keyword.id,
+                    keyword: _keyword.keywordID,
                     title: '${_keyword.filterID}, ${_keyword.groupID}, ${_keyword.subGroupID}',
                     xIsOn: true,
                     onTap: () => _removeKeyword(index, filtersModels),
@@ -279,7 +279,7 @@ class _SearchScreenState extends State<SearchScreen> {
   Future<void> _removeKeyword(int index, List<FilterModel> filtersModels) async {
 
     String _filterID = _selectedKeywords[index].filterID;
-    String _keywordID = _selectedKeywords[index].id;
+    String _keywordID = _selectedKeywords[index].keywordID;
 
     bool _isProvince = _filterID == 'province' ? true : false;
     bool _isArea = _filterID == 'area' ? true : false;
@@ -370,7 +370,7 @@ class _SearchScreenState extends State<SearchScreen> {
         if(_currentFilterID == 'Province'){
           // then keyword is province
 
-          _showZoneDialog(provinceName: keyword.id);
+          _showZoneDialog(provinceName: keyword.keywordID);
 
         }
 
@@ -775,6 +775,7 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
           ),
 
+          if (!_browserIsOn)
           Positioned(
             bottom: 0,
             right: 0,

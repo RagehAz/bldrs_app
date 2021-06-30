@@ -2,6 +2,8 @@ import 'package:bldrs/controllers/theme/keywordz.dart';
 import 'package:bldrs/models/bldrs_sections.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
+import 'package:bldrs/models/planet/zone_model.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 
 class FilterModel{
@@ -37,40 +39,63 @@ class FilterModel{
     return _defaultFlyerType;
   }
 // -----------------------------------------------------------------------------
+  static FilterModel propertyFormsFilter = FilterModel(filterID: 'propertyForm', canPickMany: false, keywordModels: Keywordz.propertyForms);
+  static FilterModel propertyTypesFilter = FilterModel(filterID: 'propertyType', canPickMany: false, keywordModels: Keywordz.propertyTypes);
+  static FilterModel propertySpacesFilter = FilterModel(filterID: 'spaces', canPickMany: true, keywordModels: Keywordz.spaces);
+  static FilterModel propertyFeaturesFilter = FilterModel(filterID: 'propertyFeatures', canPickMany: true, keywordModels: Keywordz.propertyFeatures);
+  static FilterModel propertyPricesFilter = FilterModel(filterID: 'propertyPrice', canPickMany: true, keywordModels: Keywordz.propertyPrices);
+  static FilterModel propertyAreaFilter = FilterModel(filterID: 'area', canPickMany: false, keywordModels: Keywordz.propertyAreas);
+  static FilterModel propertyLicenseFilter = FilterModel(filterID: 'propertyLicense', canPickMany: false, keywordModels: Keywordz.propertyLicenses);
+// -----------------------------------------------------------------------------
+  static FilterModel designTypesFilter = FilterModel(filterID: 'designType', canPickMany: false, keywordModels: Keywordz.designTypes);
+  static FilterModel architecturalStylesFilter = FilterModel(filterID: 'architecturalStyle', canPickMany: false, keywordModels: Keywordz.architecturalStyles);
+  static FilterModel spaceTypeFilter = FilterModel(filterID: 'spaceType', canPickMany: true, keywordModels: Keywordz.spaceTypes);
+  static FilterModel kioskTypeFilter = FilterModel(filterID: 'kioskType', canPickMany: false, keywordModels: Keywordz.kioskTypes);
+// -----------------------------------------------------------------------------
+  static FilterModel constructionTradesFilter = FilterModel(filterID: 'constructionTrade', canPickMany: true, keywordModels: Keywordz.constructionTrades);
+// -----------------------------------------------------------------------------
+  static FilterModel productsFilter = FilterModel(filterID: 'product', canPickMany: true, keywordModels: Keywordz.products);
+  static FilterModel productPricesFilter = FilterModel(filterID: 'productPrices', canPickMany: true, keywordModels: Keywordz.productPrices);
+// -----------------------------------------------------------------------------
+  static FilterModel zoneAreaFilter (BuildContext context){
+    FilterModel _zoneAreaFilter = Zone.getFilterModelFromCurrentZoneAreas(context);
+    return _zoneAreaFilter;
+  }
+// -----------------------------------------------------------------------------
   static List<FilterModel> propertiesFilters = <FilterModel>[
-    FilterModel(filterID: 'propertyForm', canPickMany: false, keywordModels: Keywordz.propertyForm),
-    FilterModel(filterID: 'propertyType', canPickMany: false, keywordModels: Keywordz.propertyType),
-    FilterModel(filterID: 'area', canPickMany: false, keywordModels: Keywordz.area),
-    FilterModel(filterID: 'spaces', canPickMany: true, keywordModels: Keywordz.spaces),
-    FilterModel(filterID: 'propertyFeatures', canPickMany: true, keywordModels: Keywordz.propertyFeatures),
-    FilterModel(filterID: 'propertyPrice', canPickMany: true, keywordModels: Keywordz.propertyPrice),
+    propertyFormsFilter,
+    propertyTypesFilter,
+    propertyAreaFilter,
+    propertySpacesFilter,
+    propertyFeaturesFilter,
+    propertyPricesFilter,
   ];
 // -----------------------------------------------------------------------------
   static List<FilterModel> designsFilters = <FilterModel>[
-    FilterModel(filterID: 'designType', canPickMany: false, keywordModels: Keywordz.designType),
-    FilterModel(filterID: 'architecturalStyle', canPickMany: false, keywordModels: Keywordz.architecturalStyle),
-    FilterModel(filterID: 'spaceType', canPickMany: true, keywordModels: Keywordz.spaceType),
-    FilterModel(filterID: 'area', canPickMany: true, keywordModels: Keywordz.area),
-    FilterModel(filterID: 'product', canPickMany: true, keywordModels: Keywordz.product),
+    designTypesFilter,
+    architecturalStylesFilter,
+    spaceTypeFilter,
+    propertyAreaFilter,
+    productsFilter,
   ];
 // -----------------------------------------------------------------------------
   static List<FilterModel> projectsFiltersIDs = <FilterModel>[
-    FilterModel(filterID: 'constructionTrade', canPickMany: true, keywordModels: Keywordz.constructionTrade),
-    FilterModel(filterID: 'designType', canPickMany: false, keywordModels: Keywordz.designType),
-    FilterModel(filterID: 'spaceType', canPickMany: true, keywordModels: Keywordz.spaceType),
-    FilterModel(filterID: 'area', canPickMany: true, keywordModels: Keywordz.area),
-    FilterModel(filterID: 'product', canPickMany: true, keywordModels: Keywordz.product),
+    constructionTradesFilter,
+    designTypesFilter,
+    spaceTypeFilter,
+    propertyAreaFilter,
+    productsFilter,
   ];
 // -----------------------------------------------------------------------------
   static List<FilterModel> craftsFiltersIDs = <FilterModel>[
-    FilterModel(filterID: 'constructionTrade', canPickMany: true, keywordModels: Keywordz.constructionTrade),
-    FilterModel(filterID: 'spaceType', canPickMany: true, keywordModels: Keywordz.spaceType),
-    FilterModel(filterID: 'product', canPickMany: true, keywordModels: Keywordz.product),
+    constructionTradesFilter,
+    spaceTypeFilter,
+    productsFilter,
   ];
 // -----------------------------------------------------------------------------
   static List<FilterModel> productsFiltersIDs = <FilterModel>[
-    FilterModel(filterID: 'product', canPickMany: false, keywordModels: Keywordz.product),
-    /// TASK : Add product price filter
+    productsFilter,
+    productPricesFilter,
   ];
 // -----------------------------------------------------------------------------
   static bool getCanFilterPickManyByKeyword(KeywordModel keywordModel){
