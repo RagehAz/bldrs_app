@@ -1,4 +1,10 @@
 import 'package:bldrs/controllers/drafters/text_manipulators.dart';
+import 'package:bldrs/models/keywords/filter_model.dart';
+import 'package:bldrs/models/keywords/keyword_model.dart';
+import 'package:bldrs/models/planet/area_model.dart';
+import 'package:bldrs/providers/country_provider.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 // -----------------------------------------------------------------------------
 class Zone {
@@ -96,5 +102,18 @@ class Zone {
 //   static Zone getZoneFromBzModel(BzModel bzModel){
 //       return bzModel.bzZone;
 //   }
+// -----------------------------------------------------------------------------
+  static FilterModel getFilterModelFromCurrentZoneAreas(BuildContext context){
+
+    CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: true);
+    String _provinceID = _countryPro.currentProvinceID;
+    List<Area> _areas = _countryPro.getAreasModelsByProvinceID(context, _provinceID);
+
+    List<KeywordModel> _areasAsKeywords = Area.getKeywordsModelsFromAreas(_areas);
+
+    FilterModel _filterModel = FilterModel(filterID: _areasAsKeywords[0].filterID, canPickMany: false, keywordModels: _areasAsKeywords);
+
+    return _filterModel;
+  }
 // -----------------------------------------------------------------------------
 }

@@ -118,6 +118,18 @@ class CountryProvider with ChangeNotifier{
     return _areasNames;
   }
 // -----------------------------------------------------------------------------
+  List<Area> getAreasModelsByProvinceID(BuildContext context, String provinceID){
+    List<Area> _provinceAreas = new List();
+
+    _areas.forEach((ar) {
+      if(ar.province == provinceID){
+        _provinceAreas.add(ar);
+      }
+    });
+
+    return _provinceAreas;
+  }
+// -----------------------------------------------------------------------------
   String getAreaNameWithCurrentLanguageIfPossible(BuildContext context, String areaID){
     String _currentLanguageCode = Wordz.languageCode(context);
     Area area = _areas.singleWhere((ar) => ar.id == areaID, orElse: ()=> null);

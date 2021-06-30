@@ -38,7 +38,9 @@ List<BoxShadow> superFollowBtShadow(double btHeight){
         blurRadius: btHeight * 0.1,
         blurStyle: BlurStyle.outer),
   ];
-  return _btShadow;
+  // return _btShadow;
+  /// TASK : optimize shadows
+  return null;
 }
 // -----------------------------------------------------------------------------
 class Shadowz {
