@@ -42,9 +42,9 @@ class KeywordsPage extends StatelessWidget {
                   height: 100,
                   width: Scale.superScreenWidth(context) * 0.82,
                   color: _color,
-                  icon: _isIconlessKeyword ? null : KeywordModel.getImagePath(_keyword.id),
+                  icon: _isIconlessKeyword ? null : KeywordModel.getImagePath(_keyword.keywordID),
                   boxMargins: const EdgeInsets.symmetric(vertical: Ratioz.appBarPadding),
-                  verse: _keyword.id,
+                  verse: _keyword.keywordID,
                   boxFunction: () => onTap(_keyword),
                 ),
               );

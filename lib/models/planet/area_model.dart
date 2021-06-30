@@ -1,3 +1,5 @@
+import 'package:bldrs/models/keywords/keyword_model.dart';
+
 import 'namez_model.dart';
 // -----------------------------------------------------------------------------
 class Area{
@@ -63,6 +65,30 @@ class Area{
       _areas.add(decipherAreaMap(map));
     });
     return _areas;
+  }
+// -----------------------------------------------------------------------------
+  static KeywordModel getKeywordModelFromArea(Area area){
+
+    KeywordModel _keywordModel = KeywordModel(
+        keywordID: area.id,
+        filterID: 'zoneArea',
+        groupID: area.iso3,
+        subGroupID: area.province,
+        name: area.name,
+        uses: 0,
+    );
+
+    return _keywordModel;
+  }
+// -----------------------------------------------------------------------------
+  static List<KeywordModel> getKeywordsModelsFromAreas(List<Area> areas){
+    List<KeywordModel> _keywords = new List();
+
+    for (Area area in areas){
+      _keywords.add(getKeywordModelFromArea(area));
+    }
+
+    return _keywords;
   }
 // -----------------------------------------------------------------------------
 }
