@@ -75,7 +75,7 @@ class _CheckBoxLessonState extends State<CheckBoxLesson> {
 
                focusedBorder: OutlineInputBorder(
                    borderSide: BorderSide(
-                     color: Color.fromARGB(100, 102, 153, 0),
+                     color: const Color.fromARGB(100, 102, 153, 0),
                      width: 10.0,
                      style: BorderStyle.solid,
                    ),

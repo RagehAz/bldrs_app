@@ -42,7 +42,7 @@ class _KeywordsManagerState extends State<KeywordsManager> {
     List<String> _keywordIDs = new List();
 
     _keywordModels.forEach((key) {
-      _keywordIDs.add(key.id);
+      _keywordIDs.add(key.keywordID);
     });
 
     return _keywordIDs;
@@ -63,7 +63,7 @@ class _KeywordsManagerState extends State<KeywordsManager> {
         //
 
         _result.forEach((key) {
-          print('KeywordModel(id: \'${key.id}\', filterID: \'${key.filterID}\', groupID: \'${key.groupID}\', subGroupID: \'${key.subGroupID}\', name: \'${key.name}\', uses: 0),');
+          print('KeywordModel(id: \'${key.keywordID}\', filterID: \'${key.filterID}\', groupID: \'${key.groupID}\', subGroupID: \'${key.subGroupID}\', name: \'${key.name}\', uses: 0),');
         });
 
 

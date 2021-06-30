@@ -2,15 +2,15 @@ import 'package:bldrs/models/keywords/filter_model.dart';
 import 'package:flutter/foundation.dart';
 
 class KeywordModel {
-  final String id;
+  final String keywordID;
   final String filterID;
   final String groupID;
   final String subGroupID;
-  final String name;
+  final String name; //TASK : remove this as it should be translated from JSON files by id
   final int uses;
 
   KeywordModel({
-    @required this.id,
+    @required this.keywordID,
     @required this.filterID,
     @required this.groupID,
     @required this.subGroupID,
@@ -28,7 +28,7 @@ class KeywordModel {
         :
         _firstKeyword.filterID == _secondKeyword.filterID &&
         _firstKeyword.name == _secondKeyword.name &&
-        _firstKeyword.id == _secondKeyword.id &&
+        _firstKeyword.keywordID == _secondKeyword.keywordID &&
         _firstKeyword.groupID == _secondKeyword.groupID &&
         _firstKeyword.subGroupID == _secondKeyword.subGroupID &&
         _firstKeyword.uses == _secondKeyword.uses ?
