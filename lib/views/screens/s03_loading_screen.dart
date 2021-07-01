@@ -110,7 +110,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
     return MainLayout(
       pyramids: Iconz.PyramidzYellow,
-      // appBarType: AppBarType.,
+      appBarType: AppBarType.Non,
       loading: _loading,
       layoutWidget: Column(
         mainAxisAlignment: MainAxisAlignment.center,

@@ -57,9 +57,9 @@ class FilterModel{
   static FilterModel productsFilter = FilterModel(filterID: 'product', canPickMany: true, keywordModels: Keywordz.products);
   static FilterModel productPricesFilter = FilterModel(filterID: 'productPrices', canPickMany: true, keywordModels: Keywordz.productPrices);
 // -----------------------------------------------------------------------------
-  static FilterModel zoneAreaFilter (BuildContext context){
+  static FilterModel zoneAreasAsFilter (BuildContext context){
     FilterModel _zoneAreaFilter = Zone.getFilterModelFromCurrentZoneAreas(context);
-    return _zoneAreaFilter;
+    return null;
   }
 // -----------------------------------------------------------------------------
   static List<FilterModel> propertiesFilters = <FilterModel>[

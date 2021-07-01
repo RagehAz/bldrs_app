@@ -38,6 +38,8 @@ class BzzBubble extends StatelessWidget {
           padding: const EdgeInsets.only(bottom: Ratioz.appBarPadding, left: Ratioz.appBarMargin, right: Ratioz.appBarMargin),
           child: SuperVerse(
             verse: title,
+            centered: false,
+            maxLines: 2,
           ),
         ),
 

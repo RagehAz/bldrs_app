@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:flutter/foundation.dart';
 import '../bz_model.dart';
@@ -135,6 +136,29 @@ class TinyFlyer with ChangeNotifier{
     });
 
     return _flyerIDs;
+  }
+// -----------------------------------------------------------------------------
+  static TinyFlyer dummyTinyFlyer(String id){
+    return TinyFlyer(
+        flyerID: id,
+        flyerType: FlyerType.Property,
+        authorID: 'dummyAuthor',
+        slideIndex: 0,
+        slidePic: Iconz.DumSlide1,
+        flyerZone: Zone(countryID: 'egy', provinceID: 'cairo', areaID: 'heliopolis'), 
+        tinyBz: TinyBz.dummyTinyBz('bzID'),
+    );
+  }
+// -----------------------------------------------------------------------------
+  static List<TinyFlyer> dummyTinyFlyers(){
+    return
+        <TinyFlyer>[
+          TinyFlyer.dummyTinyFlyer('1'),
+          TinyFlyer.dummyTinyFlyer('2'),
+          TinyFlyer.dummyTinyFlyer('3'),
+          TinyFlyer.dummyTinyFlyer('4'),
+          TinyFlyer.dummyTinyFlyer('5'),
+        ];
   }
 // -----------------------------------------------------------------------------
 }
