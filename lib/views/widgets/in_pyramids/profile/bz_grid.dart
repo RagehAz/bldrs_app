@@ -48,11 +48,11 @@ class BzGrid extends StatelessWidget {
       maxCrossAxisExtent: _gridBzWidth,//gridFlyerWidth,
     );
 
-    double zoneCorners = (_gridBzWidth * Ratioz.bzLogoCorner) + _gridSpacing;
+    double _zoneCorners = (_gridBzWidth * Ratioz.bzLogoCorner) + _gridSpacing;
 
     return
       ClipRRect(
-        borderRadius: Borderers.superBorderAll(context, zoneCorners),
+        borderRadius: Borderers.superBorderAll(context, _zoneCorners),
         child: Container(
           width: gridZoneWidth,
           height: _gridHeight,

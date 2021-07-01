@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:flutter/foundation.dart';
 import '../bz_model.dart';
@@ -120,6 +121,28 @@ class TinyBz with ChangeNotifier{
     });
 
     return _tinyBzz;
+  }
+// -----------------------------------------------------------------------------
+  static TinyBz dummyTinyBz(String bzID){
+    return
+        TinyBz(
+            bzID: bzID,
+            bzLogo: Iconz.DumBusinessLogo,
+            bzName: 'Business Name',
+            bzType: BzType.Designer,
+            bzZone: Zone(countryID: 'egy', provinceID: 'cairo', areaID: 'heliopolis'),
+            bzTotalFollowers: 1000,
+            bzTotalFlyers: 10,
+        );
+  }
+// -----------------------------------------------------------------------------
+  static List<TinyBz> dummyTinyBzz(){
+    return
+        <TinyBz>[
+          dummyTinyBz('bz1'),
+          dummyTinyBz('bz2'),
+          dummyTinyBz('bz3'),
+        ];
   }
 // -----------------------------------------------------------------------------
 }

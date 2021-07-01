@@ -166,6 +166,7 @@ class _UserCheckerState extends State<UserChecker> {
       MainLayout(
         loading: _loading,
         pyramids: Iconz.PyramidzYellow,
+        appBarType: AppBarType.Non,
         tappingRageh: (){
           Nav.goBack(context);
         },

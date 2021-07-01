@@ -4,7 +4,6 @@ import 'package:bldrs/views/screens/s12_saved_flyers_screen.dart';
 import 'package:bldrs/views/screens/s13_news_screen.dart';
 import 'package:bldrs/views/screens/s15_profile_screen.dart';
 import 'package:bldrs/views/screens/s51_flyer_screen.dart';
-import 'package:bldrs/views/screens/s00_splash_screen.dart';
 import 'package:bldrs/views/screens/s01_starting_screen.dart';
 import 'package:bldrs/views/screens/s10_home_screen.dart';
 import 'package:bldrs/views/screens/s20_search_screen.dart';
@@ -30,10 +29,6 @@ class Routerer {
     /// s00
       case Routez.UserChecker:
         return Nav.fadeToScreen(UserChecker(), settings); break;
-// -----------------------------------------------------------------------------
-    /// s00
-      case Routez.Splash:
-        return Nav.fadeToScreen(SplashScreen(), settings); break;
 // -----------------------------------------------------------------------------
     /// s01
     /// (s02 signin page, s03 register page) are pages insides StartingScreen();
