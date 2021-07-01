@@ -117,9 +117,6 @@ class NewFlyerNotification extends StatelessWidget {
               height: 5,
             ),
 
-           //  DummyFlyer(
-           // flyerSizeFactor: 0.4,
-           //  ),
 
           ],
         );
