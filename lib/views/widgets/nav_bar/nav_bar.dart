@@ -273,7 +273,7 @@ class NavBar extends StatelessWidget {
                          width: _boxWidth,
                          height: _boxHeight,
                          decoration: BoxDecoration(
-                           color: Colorz.WhiteGlass,
+                           color: Colorz.Black225,
                            borderRadius: _boxBorders,
                            boxShadow: Shadowz.appBarShadow,
                          ),

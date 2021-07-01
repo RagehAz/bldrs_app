@@ -5,6 +5,7 @@ import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/widgets/flyer/stacks/flyer_stack.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/loading/loading.dart';
+import 'package:bldrs/views/widgets/walls/home_wall.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -88,40 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
             _isLoading == true ?
             Center(child: Loading(loading: _isLoading,))
                 :
-            CustomScrollView(
-              slivers: <Widget>[
-                SliverList(
-                  // key: ,
-                  delegate: SliverChildListDelegate(<Widget>[
-
-                    Stratosphere(),
-
-                    // Ask(
-                    //   tappingAskInfo: () {print('Ask info is tapped aho');},
-                    // ),
-
-                    // BzzBubble(tinyBzz: _tinyBzz),
-
-                    ...List<Widget>.generate(FlyerModel.flyerTypesList.length,
-                            (index) {
-
-                      FlyerType _flyerType = FlyerModel.flyerTypesList[index];
-
-                      return
-
-                        FlyerStack(
-                          flyersType: _flyerType,
-                          title: TextGenerator.flyerTypePluralStringer(context, _flyerType),
-                        );
-
-                    }),
-
-                    PyramidsHorizon(heightFactor: 10),
-
-                  ]),
-                ),
-              ],
-            ),
+            HomeWall(),
 
           ],
         ),
