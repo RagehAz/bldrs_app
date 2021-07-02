@@ -56,6 +56,7 @@ class _AuthScreenState extends State<AuthScreen> {
     return MainLayout(
       pyramids: Iconz.PyramidzYellow,
       sky: Sky.Black,
+      appBarType: AppBarType.Non,
       tappingRageh: (){
         print('keyboard height is : $_keyboardHeight');
         setState(() {});

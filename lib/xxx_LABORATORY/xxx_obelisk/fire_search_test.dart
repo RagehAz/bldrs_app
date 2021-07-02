@@ -128,7 +128,7 @@ class _FireSearchTestState extends State<FireSearchTest> {
           width: 50,
           verse: 'trigger loading',
           verseMaxLines: 2,
-          boxMargins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
+          margins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
           verseScaleFactor: 0.5,
           boxFunction: (){
             _triggerLoading();
@@ -140,7 +140,7 @@ class _FireSearchTestState extends State<FireSearchTest> {
           width: 50,
           verse: 'Clear Print',
           verseMaxLines: 2,
-          boxMargins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
+          margins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
           verseScaleFactor: 0.5,
           boxFunction: (){
             printResult('');
@@ -163,7 +163,7 @@ class _FireSearchTestState extends State<FireSearchTest> {
                   DreamBox(
                     height: 60,
                     width: 300,
-                    boxMargins: const EdgeInsets.all(5),
+                    margins: const EdgeInsets.all(5),
                     verseMaxLines: 3,
                     verseScaleFactor: 0.7,
                     verse: functions[index]['Name'],
@@ -185,7 +185,7 @@ class _FireSearchTestState extends State<FireSearchTest> {
                 height: 2.5,
                 color: Colorz.WhiteGlass,
                 corners: 0,
-                boxMargins: const EdgeInsets.symmetric(vertical: 10),
+                margins: const EdgeInsets.symmetric(vertical: 10),
               ),
 
               // ..._savesWidgets(_decipheredSavesModels),

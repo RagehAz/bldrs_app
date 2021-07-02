@@ -782,7 +782,7 @@ class _SearchScreenState extends State<SearchScreen> {
             child: DreamBox(
               height: _browserZoneHeight,
               width: _browserZoneWidth,
-              boxMargins: EdgeInsets.all(_browserZoneMargins),
+              margins: EdgeInsets.all(_browserZoneMargins),
               icon: Iconz.More,
               iconSizeFactor: 0.6,
               boxFunction: () => Nav.goToNewScreen(context, SearchFiltersScreen()),

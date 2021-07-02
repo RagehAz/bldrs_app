@@ -4,10 +4,12 @@ import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/bldrs_sections.dart';
+import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/keywords/sequence_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
+import 'package:bldrs/views/screens/s11_group_screen.dart';
 import 'package:bldrs/views/screens/s52_bz_card_screen.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/in_pyramids/profile/bz_grid.dart';
@@ -32,18 +34,12 @@ class SectionGroupsBubble extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final _prof = Provider.of<FlyersProvider>(context, listen: true);
-    BldrsSection _bldrsSection = _prof.getCurrentSection;
+    Section _currentSection = _prof.getCurrentSection;
+    List<GroupModel> _groups = GroupModel.getGroupsBySection(section: _currentSection);
 
-    List<SectionGroupModel> _groups =
-    _bldrsSection == BldrsSection.RealEstate ? SectionGroupModel.propertiesGroups :
-    _bldrsSection == BldrsSection.Construction ? SectionGroupModel.designsGroups :
-    _bldrsSection == BldrsSection.Supplies ? SectionGroupModel.productsGroups :
-    [] ;
-
-    List<Color> _boxesColors = [Colorz.White30, Colorz.WhiteGlass, Colorz.WhiteAir];
+    const List<Color> _boxesColors = [Colorz.White30, Colorz.WhiteGlass, Colorz.WhiteAir];
 
     int _gridColumnsCount = numberOfColumns;
-
     const double _spacingRatioToGridWidth = 0.1;
     double _buttonWidth = gridZoneWidth / (numberOfColumns + (numberOfColumns * _spacingRatioToGridWidth) + _spacingRatioToGridWidth);
     double _buttonHeight = _buttonWidth * 1.4;
@@ -105,6 +101,7 @@ class SectionGroupsBubble extends StatelessWidget {
                     children: _groups.map(
                           (sectionGroup) =>
 
+
                               Container(
                                 width: _buttonWidth,
                                 height: _buttonHeight,
@@ -116,19 +113,21 @@ class SectionGroupsBubble extends StatelessWidget {
                                       width: _buttonWidth,
                                       height: _buttonWidth,
                                       color: Colorz.BlackPlastic,
-                                      icon: KeywordModel.getImagePath(sectionGroup.keywordID),
+                                      icon: KeywordModel.getImagePath(sectionGroup.groupID),
                                       boxFunction: (){
 
-                                        print('${sectionGroup.keywordID}');
-                                        print('${sectionGroup.sectionIsOn}');
-                                        print('${sectionGroup.secondKeywords}');
+                                        Nav.goToNewScreen(context,
+                                            GroupScreen(
+                                              groupModel: sectionGroup,
+                                              flyersType: FlyerType.General,
+                                            ),
+                                        );
 
-                                        // onTap(sectionGroup.keywordID);
                                       },
                                     ),
 
                                     SuperVerse(
-                                      verse: sectionGroup.keywordID,
+                                      verse: sectionGroup.groupID,
                                       centered: true,
                                       maxLines: 3,
                                     ),

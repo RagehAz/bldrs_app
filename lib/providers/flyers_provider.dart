@@ -25,7 +25,7 @@ import 'package:provider/provider.dart';
 /// this provides tiny flyers and tiny bzz
 class FlyersProvider with ChangeNotifier {
   List<TinyBz> _sponsors;
-  BldrsSection _currentSection;
+  Section _currentSection;
   List<FilterModel> _sectionFilters;
   List<TinyBz> _userTinyBzz;
   List<FlyerModel> _loadedFlyers;
@@ -40,8 +40,8 @@ class FlyersProvider with ChangeNotifier {
     return <TinyBz> [..._sponsors];
   }
 // -----------------------------------------------------------------------------
-  BldrsSection get getCurrentSection {
-    return _currentSection ?? BldrsSection.Construction;
+  Section get getCurrentSection {
+    return _currentSection ?? Section.Construction;
   }
 
   List<FilterModel> get getSectionFilters {
@@ -66,9 +66,9 @@ class FlyersProvider with ChangeNotifier {
     return <BzModel>[..._loadedBzz];
   }
 // -----------------------------------------------------------------------------
-  List<TinyBz> get getAllTinyBzz {
-    return <TinyBz>[..._loadedTinyBzz];
-  }
+//   List<TinyBz> get getAllTinyBzz {
+//     return <TinyBz>[..._loadedTinyBzz];
+//   }
 // -----------------------------------------------------------------------------
   List<TinyFlyer> get getSavedTinyFlyers {
     return <TinyFlyer>[..._loadedSavedFlyers];
@@ -110,7 +110,7 @@ class FlyersProvider with ChangeNotifier {
     notifyListeners();
   }
 // -----------------------------------------------------------------------------
-  Future<void> changeSection(BuildContext context, BldrsSection section) async {
+  Future<void> changeSection(BuildContext context, Section section) async {
     print('Changing section to $section');
     _currentSection = section;
 
@@ -122,9 +122,9 @@ class FlyersProvider with ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
   void setSectionFilters(){
-    FlyerType _currentFlyerType = FilterModel.getDefaultFlyerTypeBySection(bldrsSection: _currentSection);
+    FlyerType _currentFlyerType = FilterModel.getDefaultFlyerTypeBySection(section: _currentSection);
     List<FilterModel> _filtersBySection = FilterModel.getFiltersBySectionAndFlyerType(
-        bldrsSection: _currentSection,
+        section: _currentSection,
         flyerType: _currentFlyerType
     );
     _sectionFilters = _filtersBySection;
@@ -275,7 +275,7 @@ class FlyersProvider with ChangeNotifier {
 
   }
 // -----------------------------------------------------------------------------
-  Future<void> fetchAndSetTinyFlyersBySectionType(BuildContext context, BldrsSection section) async {
+  Future<void> fetchAndSetTinyFlyersBySectionType(BuildContext context, Section section) async {
     CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
     Zone _currentZone = _countryPro.currentZone;
 
@@ -293,15 +293,15 @@ class FlyersProvider with ChangeNotifier {
 
           List<FlyerType> _flyerTypes = new List();
 
-          if(section == BldrsSection.RealEstate){
+          if(section == Section.RealEstate){
             _flyerTypes.add(FlyerType.Property);
           }
 
-          else if (section == BldrsSection.Construction){
+          else if (section == Section.Construction){
             _flyerTypes.addAll([FlyerType.Design, FlyerType.Project, FlyerType.Craft]);
           }
 
-          else if (section == BldrsSection.Supplies){
+          else if (section == Section.Supplies){
             _flyerTypes.addAll([FlyerType.Equipment, FlyerType.Product]);
           }
 

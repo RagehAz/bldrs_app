@@ -2,7 +2,7 @@ import 'dart:core';
 import 'package:bldrs/controllers/drafters/text_directionerz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
-import 'package:bldrs/models/bldrs_sections.dart' show BldrsSection;
+import 'package:bldrs/models/bldrs_sections.dart' show Section;
 import 'package:bldrs/models/bz_model.dart' show BzType;
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/sub_models/contact_model.dart' show ContactType;
@@ -17,11 +17,11 @@ import 'package:flutter/material.dart';
 
 class Iconizer{
 // -----------------------------------------------------------------------------
-  static String sectionIcon (BldrsSection section){
+  static String sectionIcon (Section section){
     return
-      section == BldrsSection.RealEstate ? Iconz.BxPropertiesOff :
-      section == BldrsSection.Construction ? Iconz.BxProjectsOff :
-      section == BldrsSection.Supplies ? Iconz.BxProductsOff :
+      section == Section.RealEstate ? Iconz.BxPropertiesOff :
+      section == Section.Construction ? Iconz.BxProjectsOff :
+      section == Section.Supplies ? Iconz.BxProductsOff :
       Iconz.Bz;
   }
 // -----------------------------------------------------------------------------

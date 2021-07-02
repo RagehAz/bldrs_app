@@ -84,14 +84,14 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
         DreamBox(
           height: 40,
           icon: Iconz.Play,
-          boxMargins: EdgeInsets.all(5),
+          margins: EdgeInsets.all(5),
           boxFunction: resizeBox,
         ),
 
         DreamBox(
           height: 40,
           icon: Iconz.Pause,
-          boxMargins: EdgeInsets.all(5),
+          margins: EdgeInsets.all(5),
           boxFunction: (){
             _controller.stop(canceled: false);
           },
@@ -100,7 +100,7 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
         DreamBox(
           height: 40,
           icon: Iconz.Stop,
-          boxMargins: EdgeInsets.all(5),
+          margins: EdgeInsets.all(5),
           boxFunction: (){
             _controller.reset();
           },
@@ -109,7 +109,7 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
         DreamBox(
           height: 40,
           icon: Iconz.Clock,
-          boxMargins: EdgeInsets.all(5),
+          margins: EdgeInsets.all(5),
           boxFunction: (){
             _controller.forward();
           },

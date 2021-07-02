@@ -70,7 +70,7 @@ class TileBubble extends StatelessWidget {
               iconSizeFactor: iconSizeFactor,
               color: iconBoxColor,
               iconRounded: false,
-              boxMargins: const EdgeInsets.symmetric(horizontal: 0),
+              margins: const EdgeInsets.symmetric(horizontal: 0),
               bubble: iconIsBubble,
             )
                 :

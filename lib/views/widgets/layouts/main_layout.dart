@@ -60,7 +60,7 @@ class MainLayout extends StatelessWidget {
   final bool loading;
   // final bool appBarBackButton;
   final Key key;
-  final List<TinyBz> myTinyBzz;
+  // final List<TinyBz> myTinyBzz;
   final ScrollController appBarScrollController;
 
   MainLayout({
@@ -75,7 +75,7 @@ class MainLayout extends StatelessWidget {
     this.loading = false,
     // this.appBarBackButton = false,
     this.key,
-    this.myTinyBzz,
+    // this.myTinyBzz,
     this.appBarScrollController,
 });
 // -----------------------------------------------------------------------------
@@ -83,7 +83,7 @@ class MainLayout extends StatelessWidget {
 
     FlyersProvider _pro = Provider.of<FlyersProvider>(context,listen: false);
 
-    BldrsSection _currentSection = _pro.getCurrentSection;
+    Section _currentSection = _pro.getCurrentSection;
 
     await _pro.fetchAndSetTinyFlyersBySectionType(context, _currentSection);
   }
@@ -92,6 +92,9 @@ class MainLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: true);
+    List<TinyBz> _userTinyBzz = appBarType == AppBarType.Main ? _prof.getUserTinyBzz : [];
 
     bool _ragehIsOn = tappingRageh == null ? false : true;
 
@@ -124,7 +127,7 @@ class MainLayout extends StatelessWidget {
       if (pyramids == null)
       NavBar(
         barType: BarType.minWithText,
-        myTinyBzz: myTinyBzz,
+        myTinyBzz: _userTinyBzz,
       ),
 
       _ragehIsOn == false ? Container() :
@@ -219,7 +222,7 @@ class MainLayout extends StatelessWidget {
 Widget zorar({Function function, String functionName}){
   return DreamBox(
     height: 40,
-    boxMargins: const EdgeInsets.all(5),
+    margins: const EdgeInsets.all(5),
     color: Colorz.WhiteAir,
     verse: functionName,
     verseScaleFactor: 2,

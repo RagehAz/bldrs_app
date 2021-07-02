@@ -117,7 +117,7 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
 // -----------------------------------------------------------------------------
   void _setKeywords(String groupID){
     setState(() {
-    _currentKeywordModels = KeywordModel.getKeywordModelsByGroupID(filterModel: widget.filterModel, groupID: groupID);
+    _currentKeywordModels = KeywordModel.getKeywordModelsByGroupIDAndFilterModel(filterModel: widget.filterModel, groupID: groupID);
     });
   }
 // -----------------------------------------------------------------------------
@@ -278,7 +278,7 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
                         // icon: KeywordModel.getImagePath(_groupsIDs[index]),
                         iconSizeFactor: 1,
                         iconColor: Colorz.BlackBlack,
-                        boxMargins: const EdgeInsets.symmetric(horizontal: 0, vertical: _buttonVerticalPadding),
+                        margins: const EdgeInsets.symmetric(horizontal: 0, vertical: _buttonVerticalPadding),
                         boxFunction: (){
 
                           if (_groupIsSelected){
@@ -360,7 +360,7 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
                             icon: KeywordModel.getImagePath(_keyword.keywordID),
                             iconSizeFactor: 1,
                             iconColor: Colorz.BlackBlack,
-                            boxMargins: const EdgeInsets.symmetric(horizontal: 0, vertical: _buttonVerticalPadding),
+                            margins: const EdgeInsets.symmetric(horizontal: 0, vertical: _buttonVerticalPadding),
                             boxFunction: (){
                               widget.onKeywordTap(_currentKeywordModels[index]);
                             },

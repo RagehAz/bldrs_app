@@ -95,7 +95,7 @@ class AddAuthorScreen extends StatelessWidget {
               verse: 'Add Rageh as Author',
               height: 50,
               icon: Iconz.DvRageh,
-              boxMargins: const EdgeInsets.only(top: 30),
+              margins: const EdgeInsets.only(top: 30),
               verseScaleFactor: 0.7,
               boxFunction: () async {
 

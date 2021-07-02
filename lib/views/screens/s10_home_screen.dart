@@ -83,16 +83,10 @@ class _HomeScreenState extends State<HomeScreen> {
         appBarType: AppBarType.Main,
         sky: Sky.Night,
         canRefreshFlyers: true,
-        myTinyBzz: _userTinyBzz,
-        layoutWidget: Stack(
-          children: <Widget>[
-            _isLoading == true ?
-            Center(child: Loading(loading: _isLoading,))
-                :
-            HomeWall(),
-
-          ],
-        ),
+        layoutWidget: _isLoading == true ?
+        Center(child: Loading(loading: _isLoading,))
+            :
+        HomeWall(),
       ),
     );
   }
