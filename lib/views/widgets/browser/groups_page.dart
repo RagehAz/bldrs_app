@@ -35,7 +35,7 @@ class GroupsPage extends StatelessWidget {
                 height: 70,
                 // width: 120,
                 color: _color,
-                boxMargins: const EdgeInsets.symmetric(vertical: Ratioz.appBarPadding),
+                margins: const EdgeInsets.symmetric(vertical: Ratioz.appBarPadding),
                 verse: _group,
                 boxFunction: () => onTap(_group),
               );

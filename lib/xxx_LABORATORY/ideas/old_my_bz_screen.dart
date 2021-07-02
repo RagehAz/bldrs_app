@@ -229,7 +229,7 @@ class _OldMyBzScreenState extends State<OldMyBzScreen> {
                                   DreamBox(
                                     width: _bWidth,
                                     height: _flyerZoneWidth * 0.2,
-                                    boxMargins: EdgeInsets.symmetric(vertical: _spacing),
+                                    margins: EdgeInsets.symmetric(vertical: _spacing),
                                     color: Colorz.WhiteGlass,
                                     corners: _flyerZoneWidth * 0.05,
                                     icon: Iconz.Gears,

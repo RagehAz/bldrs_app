@@ -57,7 +57,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   String _currentBzID;
   BzAccountType _currentAccountType;
   // -------------------------
-  BldrsSection _currentSection;
+  Section _currentSection;
   List<bool> _bzTypeInActivityList;
   BzType _currentBzType; // profession
   List<bool> _bzFormInActivityList;
@@ -100,7 +100,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
     _currentAccountType = _bz.accountType;
     // -------------------------
     _currentBzType = _bz.bzType;
-    _currentSection = getBldrsSectionByBzType(_currentBzType);
+    _currentSection = SectionClass.getSectionByBzType(_currentBzType);
     _currentBzForm = _bz.bzForm;
     // -------------------------
     _createBzTypeInActivityList();
@@ -189,11 +189,11 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
 // -----------------------------------------------------------------------------
   void _selectASection(int index){
     setState(() {
-      _currentSection = bldrsSectionsList[index];
+      _currentSection = SectionClass.SectionsList[index];
       _bzTypeInActivityList =
-          _currentSection == BldrsSection.RealEstate ? [false, false, true, true, true, true, true] :
-          _currentSection == BldrsSection.Construction ? [true, true, false, false, false, true, true] :
-          _currentSection == BldrsSection.Supplies ? [true, true, true, true, true, false, false] :
+          _currentSection == Section.RealEstate ? [false, false, true, true, true, true, true] :
+          _currentSection == Section.Construction ? [true, true, false, false, false, true, true] :
+          _currentSection == Section.Supplies ? [true, true, true, true, true, false, false] :
           _bzTypeInActivityList;
     });
   }
@@ -221,9 +221,9 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
       });
     } else {
       _bzTypeInActivityList =
-      _currentSection == BldrsSection.RealEstate ? [false, false, true, true, true, true, true] :
-      _currentSection == BldrsSection.Construction ? [true, true, false, false, false, true, true] :
-      _currentSection == BldrsSection.Supplies ? [true, true, true, true, true, false, false] :
+      _currentSection == Section.RealEstate ? [false, false, true, true, true, true, true] :
+      _currentSection == Section.Construction ? [true, true, false, false, false, true, true] :
+      _currentSection == Section.Supplies ? [true, true, true, true, true, false, false] :
       _bzTypeInActivityList;
     }
   }
@@ -676,7 +676,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                   verseScaleFactor: 0.8,
                   verseColor: Colorz.BlackBlack,
                   verseMaxLines: 2,
-                  boxMargins: const EdgeInsets.all(5),
+                  margins: const EdgeInsets.all(5),
                   boxFunction: _showBzCard,
                 ),
 
@@ -689,7 +689,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                   verse: 'Confirm',
                   secondLine: widget.firstTimer ? 'Create new business profile' : 'Update business profile',
                   verseScaleFactor: 0.7,
-                  boxMargins: const EdgeInsets.all(5),
+                  margins: const EdgeInsets.all(5),
                   boxFunction: _confirmButton,
                 ),
 

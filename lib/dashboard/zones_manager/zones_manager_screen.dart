@@ -99,7 +99,7 @@ class _ZonesManagerScreenState extends State<ZonesManagerScreen> {
               verseColor: Colorz.BlackBlack,
               verseWeight: VerseWeight.black,
               boxFunction: _uploadCountriesToFirebase,
-              boxMargins: const EdgeInsets.all(10),
+              margins: const EdgeInsets.all(10),
             ),
 
             InPyramidsBubble(
@@ -147,7 +147,7 @@ class _ZonesManagerScreenState extends State<ZonesManagerScreen> {
                                     verse: _countries[index].name,
                                     verseMaxLines: 2,
                                     verseScaleFactor: 0.6,
-                                    boxMargins: const EdgeInsets.all(7.5),
+                                    margins: const EdgeInsets.all(7.5),
                                     boxFunction: () => Nav.goToNewScreen(context, CountryScreen(country: _countries[index])),
                                   );
 

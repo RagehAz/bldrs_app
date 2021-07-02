@@ -96,7 +96,7 @@ class _CountryScreenState extends State<CountryScreen> {
           verseMaxLines: 2,
           iconSizeFactor: 0.8,
           bubble: false,
-          boxMargins: const EdgeInsets.all(7.5),
+          margins: const EdgeInsets.all(7.5),
           boxFunction: () async {
               await superDialog(
                 context: context,

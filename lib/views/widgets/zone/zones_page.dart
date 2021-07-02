@@ -81,7 +81,7 @@ class ZonesPage extends StatelessWidget {
                             iconSizeFactor: 0.8,
                             verse: CountryProvider().getCountryNameInCurrentLanguageByIso3(context, _id),
                             bubble: false,
-                            boxMargins: const EdgeInsets.all(5),
+                            margins: const EdgeInsets.all(5),
                             verseScaleFactor: 0.8,
                             color: Colorz.WhiteAir,
                             // textDirection: superTextDirection(context),

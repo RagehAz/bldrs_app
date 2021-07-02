@@ -266,7 +266,7 @@ class _RegisterFormState extends State<RegisterForm> {
                   verse: Wordz.register(context),
                   verseColor: Colorz.BlackBlack,
                   verseWeight: VerseWeight.black,
-                  boxMargins: const EdgeInsets.all(10),
+                  margins: const EdgeInsets.all(10),
                   boxFunction: () => _registerOnTap(currentZone: _currentZone),
                 ),
               ),

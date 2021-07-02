@@ -11,28 +11,28 @@ import 'timerz.dart';
 
 class TextGenerator{
 // -----------------------------------------------------------------------------
-  static String sectionStringer (BuildContext context, BldrsSection section){
+  static String sectionStringer (BuildContext context, Section section){
     return
-      section == BldrsSection.RealEstate ? Wordz.realEstate(context) :
-      section == BldrsSection.Construction ? Wordz.construction(context) :
-      section == BldrsSection.Supplies ? Wordz.supplies(context) :
+      section == Section.RealEstate ? Wordz.realEstate(context) :
+      section == Section.Construction ? Wordz.construction(context) :
+      section == Section.Supplies ? Wordz.supplies(context) :
       Wordz.bldrsShortName(context);
   }
 // -----------------------------------------------------------------------------
-  static String sectionDescriptionStringer(BuildContext context, BldrsSection section){
+  static String sectionDescriptionStringer(BuildContext context, Section section){
     String _description =
-    section == BldrsSection.RealEstate ? Wordz.realEstateTagLine(context) :
-    section == BldrsSection.Construction ? Wordz.constructionTagLine(context) :
-    section == BldrsSection.Supplies ? Wordz.suppliesTagLine(context) :
+    section == Section.RealEstate ? Wordz.realEstateTagLine(context) :
+    section == Section.Construction ? Wordz.constructionTagLine(context) :
+    section == Section.Supplies ? Wordz.suppliesTagLine(context) :
     Wordz.bldrsShortName(context);
 
     return _description;
   }
 // -----------------------------------------------------------------------------
   static List<String> sectionsListStrings (BuildContext context){
-    List<BldrsSection> sections = bldrsSectionsList;
+    List<Section> sections = SectionClass.SectionsList;
     List<String> sectionsStrings = new List();
-    for(BldrsSection bs in sections){
+    for(Section bs in sections){
       sectionsStrings.add(sectionStringer(context, bs));
     }
     return sectionsStrings;

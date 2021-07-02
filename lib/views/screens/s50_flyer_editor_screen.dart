@@ -845,7 +845,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
       return
         DreamBox(
           height: 35,
-          boxMargins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
+          margins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
           verse: widget.firstTimer ? 'Publish flyer' : 'update flyer',
           verseColor: Colorz.BlackBlack,
           verseScaleFactor: 0.8,
