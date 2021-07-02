@@ -138,7 +138,7 @@ class _FireStorageTestState extends State<FireStorageTest> {
           width: 50,
           verse: 'trigger loading',
           verseMaxLines: 2,
-          boxMargins: EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
+          margins: EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
           verseScaleFactor: 0.4,
           boxFunction: (){
             _triggerLoading();
@@ -150,7 +150,7 @@ class _FireStorageTestState extends State<FireStorageTest> {
           width: 50,
           verse: 'Clear Print',
           verseMaxLines: 2,
-          boxMargins: EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
+          margins: EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
           verseScaleFactor: 0.4,
           boxFunction: (){
             printResult('');
@@ -174,7 +174,7 @@ class _FireStorageTestState extends State<FireStorageTest> {
                   DreamBox(
                     height: 60,
                     width: 300,
-                    boxMargins: EdgeInsets.all(5),
+                    margins: EdgeInsets.all(5),
                     verseMaxLines: 3,
                     verseScaleFactor: 0.7,
                     verse: functions[index]['Name'],
@@ -189,7 +189,7 @@ class _FireStorageTestState extends State<FireStorageTest> {
                 height: 2.5,
                 color: Colorz.WhiteGlass,
                 corners: 0,
-                boxMargins: EdgeInsets.symmetric(vertical: 10),
+                margins: EdgeInsets.symmetric(vertical: 10),
               ),
 
 

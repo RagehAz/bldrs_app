@@ -189,7 +189,7 @@ class PropertySearchCriteria extends StatelessWidget {
                     // --- ADD MORE DETAILS
                     DreamBox(
                       height: 35,
-                      boxMargins: const EdgeInsets.symmetric(horizontal: _pageMargin, vertical: _pageMargin * 2),
+                      margins: const EdgeInsets.symmetric(horizontal: _pageMargin, vertical: _pageMargin * 2),
                       color: Colorz.WhiteAir,
                       icon: Iconz.Plus,
                       iconColor: Colorz.BabyBlue,

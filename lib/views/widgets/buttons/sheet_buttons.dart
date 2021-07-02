@@ -78,7 +78,7 @@ class SheetButtons extends StatelessWidget {
                     iconSizeFactor: 0.8,
                     verse: value,
                     bubble: false,
-                    boxMargins: const EdgeInsets.all(5),
+                    margins: const EdgeInsets.all(5),
                     verseScaleFactor: 0.8,
                     color: Colorz.WhiteAir,
                     textDirection: sheetType == BottomSheetType.BottomSheet? superTextDirection(context) : superInverseTextDirection(context),

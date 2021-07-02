@@ -32,7 +32,7 @@ class Page2 extends StatelessWidget {
               height: 50,
               verseScaleFactor: 0.7,
               color: Colorz.BlackBlack,
-              boxMargins: EdgeInsets.all(5),
+              margins: EdgeInsets.all(5),
               boxFunction: () async {
 
                 var _navResult = Navigator.pop(context, true);
@@ -46,7 +46,7 @@ class Page2 extends StatelessWidget {
               height: 50,
               verseScaleFactor: 0.7,
               color: Colorz.BlackBlack,
-              boxMargins: EdgeInsets.all(5),
+              margins: EdgeInsets.all(5),
               boxFunction: () async {
 
                 var _navResult = Navigator.popUntil(context,
@@ -62,7 +62,7 @@ class Page2 extends StatelessWidget {
               height: 50,
               verseScaleFactor: 0.7,
               color: Colorz.BlackBlack,
-              boxMargins: EdgeInsets.all(5),
+              margins: EdgeInsets.all(5),
               boxFunction: () async {
 
                 var _navResult = Navigator.pop(context, 'String of strings');

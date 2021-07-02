@@ -124,7 +124,7 @@ class _FlyersGridViewState extends State<FlyersGridView> {
         DreamBox(
           height: 40,
           width: 40,
-          boxMargins: const EdgeInsets.all(5),
+          margins: const EdgeInsets.all(5),
           icon: Iconz.SavedFlyers,
           iconSizeFactor: 0.8,
           color: _showAnkhsOnly == true ? Colorz.Yellow : Colorz.Nothing,
@@ -246,7 +246,7 @@ class FilterButton extends StatelessWidget {
     return DreamBox(
       height: 40,
       // width: 40,
-      boxMargins: EdgeInsets.all(2.5),
+      margins: EdgeInsets.all(2.5),
       icon: icon,
       verse: buttonVerse,
       verseColor: flyerTypeFilter == currentFlyerType ? Colorz.BlackBlack : Colorz.White,

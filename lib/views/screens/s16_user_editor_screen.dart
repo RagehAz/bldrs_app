@@ -513,7 +513,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               verseColor: Colorz.BlackBlack,
               verseScaleFactor: 0.9,
               verseWeight: VerseWeight.black,
-              boxMargins: const EdgeInsets.all(20),
+              margins: const EdgeInsets.all(20),
               boxFunction: _confirmEdits,
             ),
 

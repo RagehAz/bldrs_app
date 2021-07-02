@@ -125,7 +125,7 @@ class _NavTestHomeState extends State<NavTestHome> {
               verseScaleFactor: 1,
               height: 50,
               color: Colorz.BlackBlack,
-              boxMargins: EdgeInsets.all(5),
+              margins: EdgeInsets.all(5),
               boxFunction: () async {
 
                 var _navResult = await Navigator.push(context,
@@ -148,7 +148,7 @@ class _NavTestHomeState extends State<NavTestHome> {
               height: 100,
               verseScaleFactor: 1,
               color: Colorz.BlackBlack,
-              boxMargins: EdgeInsets.all(5),
+              margins: EdgeInsets.all(5),
               boxFunction: () async {
 
                 var _navResult = Navigator.pushReplacement(

@@ -111,7 +111,7 @@ class ZoneButton extends StatelessWidget {
                           height: 30,
                           icon: _lastCountryFlag,
                           corners: Ratioz.boxCorner8,
-                          boxMargins: const EdgeInsets.symmetric(horizontal: _flagHorizontalMargins),
+                          margins: const EdgeInsets.symmetric(horizontal: _flagHorizontalMargins),
                           boxFunction: onTap,
                         ),
 

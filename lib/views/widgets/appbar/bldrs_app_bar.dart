@@ -137,10 +137,10 @@ class BldrsAppBar extends StatelessWidget {
                         /// Row Widgets
                         if (_scrollable == true)
                           ClipRRect(
-                            borderRadius: BorderRadius.circular(Ratioz.appBarCorner),
+                            borderRadius: BorderRadius.circular(Ratioz.appBarCorner - Ratioz.appBarPadding),
                             child: Container(
-                              width: _screenWidth - (2 * Ratioz.appBarMargin) - _backButtonWidth,
-                              height: _abHeight,
+                              width: _screenWidth - (2 * Ratioz.appBarMargin) - _backButtonWidth - Ratioz.appBarPadding,
+                              height: _abHeight - (2 * Ratioz.appBarPadding),
                               alignment: Alignment.center,
                               child: ListView(
                                 scrollDirection: Axis.horizontal,

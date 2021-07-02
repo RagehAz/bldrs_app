@@ -22,7 +22,7 @@ class SectionsButton extends StatelessWidget {
 // -----------------------------------------------------------------------------
 void _changeSection(BuildContext context, FlyersProvider pro) async {
 
-  List<BldrsSection> _sections = bldrsSectionsList;
+  List<Section> _sections = SectionClass.SectionsList;
 
   dynamic _result = await superDialog(
     context: context,
@@ -66,7 +66,7 @@ void _changeSection(BuildContext context, FlyersProvider pro) async {
 @override
 Widget build(BuildContext context) {
   FlyersProvider _pro =  Provider.of<FlyersProvider>(context, listen: true);
-  BldrsSection _currentSection = _pro.getCurrentSection;
+  Section _currentSection = _pro.getCurrentSection;
 
   double _corners = Ratioz.boxCorner12;
 

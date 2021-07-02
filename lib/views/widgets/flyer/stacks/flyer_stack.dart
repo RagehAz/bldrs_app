@@ -74,6 +74,7 @@ class FlyerStack extends StatelessWidget {
                   centered: false,
                   shadow: true,
                   italic: true,
+                  maxLines: 3,
                 ),
               ),
             // --- BENEATH TITLE SPACING

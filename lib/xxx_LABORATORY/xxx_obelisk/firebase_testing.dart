@@ -444,101 +444,6 @@ class _FirebasetestingState extends State<Firebasetesting> {
         _triggerLoading();
       },},
 // -----------------------------------------------------------------------------
-      {'Name' : 'Fix author Pic ID', 'function' : () async {
-        _triggerLoading();
-
-        /// 1 - get all bzz
-        final FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
-        List<TinyBz> _allTinyBzz = _prof.getAllTinyBzz;
-        List<BzModel> _bzz = new List();
-        for (var tinyBz in _allTinyBzz){
-          BzModel _bz = await BzOps.readBzOps(
-              context: context,
-              bzID: tinyBz.bzID
-          );
-          _bzz.add(_bz);
-        }
-
-        /// 2 - loop in each bz
-        for (var bz in _bzz){
-
-          /// a - loop in each author
-          List<AuthorModel> _originalAuthors = bz.bzAuthors;
-          List<AuthorModel> _updatedAuthorsModels = new List();
-          List<NanoFlyer> _bzFlyers = bz.nanoFlyers;
-
-          for (var author in _originalAuthors){
-
-            String _pic = author.authorPic;
-            String _newURL;
-
-            /// x1 - create new url
-            if (ObjectChecker.objectIsURL(_pic) == true) {
-              File _file = await urlToFile(_pic);
-              _newURL = await Fire.createStoragePicAndGetURL(
-                context: context,
-                picType: PicType.authorPic,
-                fileName: AuthorModel.generateAuthorPicID(author.userID, bz.bzID),
-                inputFile: _file,
-              );
-            }
-            else {
-              _newURL = await Fire.createStoragePicFromAssetAndGetURL(
-                context: context,
-                picType: PicType.authorPic,
-                fileName: AuthorModel.generateAuthorPicID(author.userID, bz.bzID),
-                asset: _pic,
-              );
-            }
-
-            /// x2 - create new AuthorModel and add it to new _authorsModels
-            AuthorModel _newAuthor = AuthorModel(
-              userID : author.userID,
-              authorName : author.authorName,
-              authorPic : _newURL,
-              authorTitle : author.authorTitle,
-              authorIsMaster : author.authorIsMaster,
-              authorContacts : author.authorContacts,
-            );
-
-            _updatedAuthorsModels.add(_newAuthor);
-
-            /// x3 - update tinyAuthor in all bz Flyers
-            TinyUser _tinyAuthor = TinyUser.getTinyAuthorFromAuthorModel(_newAuthor);
-            for (var flyer in _bzFlyers){
-              if (_tinyAuthor.userID == flyer.authorID){
-
-                /// -- update tiny author in flyers
-                await Fire.updateDocField(
-                  context: context,
-                  collName: FireCollection.flyers,
-                  docName: flyer.flyerID,
-                  field: 'tinyAuthor',
-                  input: _tinyAuthor.toMap(),
-                );
-
-              }
-            }
-
-          }
-
-          /// b - update the new authors in bz doc
-          await Fire.updateDocField(
-            context: context,
-            collName: FireCollection.bzz,
-            docName: bz.bzID,
-            field: 'bzAuthors',
-            input: AuthorModel.cipherAuthorsModels(_updatedAuthorsModels),
-          );
-
-
-        }
-
-        printResult('_tinyFlyers are ${_bzz.length}');
-
-        _triggerLoading();
-      },},
-// -----------------------------------------------------------------------------
       {'Name' : 'create firebase user with email', 'function' : () async {
         _triggerLoading();
 
@@ -760,7 +665,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
           width: 50,
           verse: 'trigger loading',
           verseMaxLines: 2,
-          boxMargins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
+          margins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
           verseScaleFactor: 0.5,
           boxFunction: (){
             _triggerLoading();
@@ -772,7 +677,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
           width: 50,
           verse: 'Clear Print',
           verseMaxLines: 2,
-          boxMargins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
+          margins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
           verseScaleFactor: 0.5,
           boxFunction: (){
             printResult('');
@@ -794,7 +699,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
                   DreamBox(
                     height: 60,
                     width: 300,
-                    boxMargins: const EdgeInsets.all(5),
+                    margins: const EdgeInsets.all(5),
                     verseMaxLines: 3,
                     verseScaleFactor: 0.7,
                     verse: functions[index]['Name'],
@@ -816,7 +721,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
                 height: 2.5,
                 color: Colorz.WhiteGlass,
                 corners: 0,
-                boxMargins: const EdgeInsets.symmetric(vertical: 10),
+                margins: const EdgeInsets.symmetric(vertical: 10),
               ),
 
               // ..._savesWidgets(_decipheredSavesModels),

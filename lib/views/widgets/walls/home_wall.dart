@@ -8,7 +8,6 @@ import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/widgets/bubbles/bzz_bubble.dart';
-import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/section_groups_bubble.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_zone.dart';
 import 'package:bldrs/views/widgets/flyer/stacks/flyer_stack.dart';
@@ -25,18 +24,15 @@ class HomeWall extends StatefulWidget {
 
 class _HomeWallState extends State<HomeWall> {
 
-
-
   @override
   Widget build(BuildContext context) {
 
-
+// -----------------------------------------------------------------------------
     FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: true);
-    // List<TinyBz> _tinyBzz = _prof.getAllTinyBzz;
     List<TinyBz> _userTinyBzz = _prof.getUserTinyBzz;
-
+// -----------------------------------------------------------------------------
     Widget _spacer = SizedBox(height: Ratioz.appBarMargin, width: Ratioz.appBarMargin,);
-
+// -----------------------------------------------------------------------------
     List<Widget> _homeWallWidgets = <Widget>[
 
       BzzBubble(
@@ -127,7 +123,7 @@ class _HomeWallState extends State<HomeWall> {
 
 
     ];
-
+// -----------------------------------------------------------------------------
 
     return ListView.builder(
       padding: EdgeInsets.only(top: Ratioz.stratosphere),

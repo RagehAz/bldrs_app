@@ -26,7 +26,7 @@ class DreamBox extends StatelessWidget {
   final bool verseItalic;
   final int verseMaxLines;
   final Function boxFunction;
-  final dynamic boxMargins;
+  final dynamic margins;
   final bool blackAndWhite;
   final bool iconRounded;
   final bool bubble;
@@ -62,7 +62,7 @@ class DreamBox extends StatelessWidget {
     this.verseItalic = false,
     this.verseMaxLines = 1,
     this.boxFunction,
-    this.boxMargins,
+    this.margins,
     this.blackAndWhite = false,
     this.iconRounded = true,
     this.bubble = true,
@@ -123,15 +123,15 @@ class DreamBox extends StatelessWidget {
     TextDirection _textDirection = textDirection == null ? superTextDirection(context) : textDirection;
 
     EdgeInsets _boxMargins =
-        boxMargins == null ? const EdgeInsets.all(0)
+        margins == null ? const EdgeInsets.all(0)
             :
-        boxMargins.runtimeType == double ? EdgeInsets.all(boxMargins)
+        margins.runtimeType == double ? EdgeInsets.all(margins)
             :
-        boxMargins.runtimeType == int ? EdgeInsets.all(boxMargins.toDouble())
+        margins.runtimeType == int ? EdgeInsets.all(margins.toDouble())
             :
-        boxMargins.runtimeType == EdgeInsets ? boxMargins
+        margins.runtimeType == EdgeInsets ? margins
             :
-        boxMargins;
+        margins;
 
     return RepaintBoundary(
       child: Row(

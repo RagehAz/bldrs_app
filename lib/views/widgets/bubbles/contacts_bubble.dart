@@ -53,7 +53,7 @@ class ContactsBubble extends StatelessWidget {
                         DreamBox(
                           height: _contactBoxHeight,
                           icon: Iconizer.superContactIcon(_contactsWithStrings[index].contactType),
-                          boxMargins: const EdgeInsets.all(_abPadding),
+                          margins: const EdgeInsets.all(_abPadding),
                           verse: _value,
                           verseColor: Colorz.White,
                           verseWeight: VerseWeight.thin,
@@ -85,7 +85,7 @@ class ContactsBubble extends StatelessWidget {
                       DreamBox(
                         height: _contactBoxHeight,
                         icon: Iconizer.superContactIcon(_socialMediaContacts[index]?.contactType),
-                        boxMargins: const EdgeInsets.all(_abPadding),
+                        margins: const EdgeInsets.all(_abPadding),
                         boxFunction:
                         onTap == null ?
                             (){launchURL('https://${_socialMediaContacts[index].contact}');}
@@ -100,7 +100,7 @@ class ContactsBubble extends StatelessWidget {
               DreamBox(
                 height: _contactBoxHeight,
                 icon: Iconz.ComMap,
-                boxMargins: const EdgeInsets.all(_abPadding),
+                margins: const EdgeInsets.all(_abPadding),
               ),
 
             ],
