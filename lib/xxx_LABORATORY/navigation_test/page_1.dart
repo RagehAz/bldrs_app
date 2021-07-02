@@ -53,7 +53,7 @@ class _Page1State extends State<Page1> {
               height: 50,
               verseScaleFactor: 1,
               color: Colorz.BlackBlack,
-              boxMargins: EdgeInsets.all(5),
+              margins: EdgeInsets.all(5),
               boxFunction: () async {
 
                 var _navResult = Navigator.pop(context, true);
@@ -67,7 +67,7 @@ class _Page1State extends State<Page1> {
               height: 50,
               verseScaleFactor: 1,
               color: Colorz.BlackBlack,
-              boxMargins: EdgeInsets.all(5),
+              margins: EdgeInsets.all(5),
               boxFunction: () async {
 
                 var _navResult = Navigator.pop(context, false);
@@ -80,7 +80,7 @@ class _Page1State extends State<Page1> {
               verseScaleFactor: 1,
               height: 50,
               color: Colorz.BlackBlack,
-              boxMargins: EdgeInsets.all(5),
+              margins: EdgeInsets.all(5),
               boxFunction: () async {
 
                 var _navResult = await Navigator.push(context,
@@ -105,7 +105,7 @@ class _Page1State extends State<Page1> {
               height: 50,
               verseScaleFactor: 1,
               color: Colorz.BlackBlack,
-              boxMargins: EdgeInsets.all(5),
+              margins: EdgeInsets.all(5),
               boxFunction: () async {
 
                 var _navResult = await Navigator.pushReplacement(

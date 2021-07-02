@@ -232,7 +232,7 @@ class _SignInFormState extends State<SignInForm> {
                 verse: 'Create',
                 secondLine: 'New Account',
                 color: Colorz.WhiteGlass,
-                boxMargins: const EdgeInsets.all(0),
+                margins: const EdgeInsets.all(0),
                 boxFunction: () => widget.switchSignIn(_emailController.text, _passwordController.text),
               ),
 
@@ -243,7 +243,7 @@ class _SignInFormState extends State<SignInForm> {
                 verse: Wordz.signIn(context),
                 verseWeight: VerseWeight.black,
                 verseColor: Colorz.BlackBlack,
-                boxMargins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
+                margins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
                 boxFunction: _signInOnTap,
               ),
 

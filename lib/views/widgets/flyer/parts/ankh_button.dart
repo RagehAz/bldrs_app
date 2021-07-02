@@ -129,7 +129,7 @@ class _AnkhButtonState extends State<AnkhButton> with SingleTickerProviderStateM
                       width: _saveBTRadius*2,
                       height: _saveBTRadius*2,
                       corners: _saveBTRadius,
-                      boxMargins: EdgeInsets.all(_footerBTMargins),
+                      margins: EdgeInsets.all(_footerBTMargins),
                       color: Colorz.Nothing,
                       boxFunction: (){
                         widget.tappingAnkh();

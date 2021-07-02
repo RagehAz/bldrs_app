@@ -54,7 +54,7 @@ Widget dreamListBuilder  (BuildContext c, int x, String info,String icon ,String
             DreamBox(
               height: 70,
               width: Scale.superScreenWidth(c)*0.95,
-              boxMargins: const EdgeInsets.only(bottom: 10),
+              margins: const EdgeInsets.only(bottom: 10),
               verse: verse,
               verseScaleFactor: 0.6,
               icon: icon,
@@ -106,7 +106,7 @@ class DreamTile extends StatelessWidget {
           DreamBox(
             height: 70,
             width: Scale.superScreenWidth(context)*0.95,
-            boxMargins: const EdgeInsets.only(bottom: 10),
+            margins: const EdgeInsets.only(bottom: 10),
             verse: verse,
             verseScaleFactor: 0.6,
             icon: icon,

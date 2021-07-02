@@ -59,7 +59,7 @@ class DreamWrapper extends StatelessWidget {
                   DreamBox(
                       height: buttonHeight,
                       icon: icons[index],
-                      boxMargins: margins,
+                      margins: margins,
                       verse: _verse,
                       verseColor: Colorz.White,
                       verseWeight: VerseWeight.thin,

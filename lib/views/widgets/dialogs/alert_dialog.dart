@@ -114,7 +114,7 @@ AlertDialog _superAlert ({
                               DreamBox(
                                   height: 50,
                                   width: 100,
-                                  boxMargins: const EdgeInsets.all(Ratioz.appBarMargin),
+                                  margins: const EdgeInsets.all(Ratioz.appBarMargin),
                                   verse: 'No',
                                   verseColor: Colorz.BlackBlack,
                                   color: Colorz.WhiteSmoke,
@@ -125,7 +125,7 @@ AlertDialog _superAlert ({
                             DreamBox(
                                 height: 50,
                                 width: 100,
-                                boxMargins: const EdgeInsets.all(Ratioz.appBarMargin),
+                                margins: const EdgeInsets.all(Ratioz.appBarMargin),
                                 verse: boolDialog == true ? 'Yes' : 'Ok',
                                 verseColor: Colorz.BlackBlack,
                                 color: Colorz.Yellow,

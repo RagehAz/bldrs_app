@@ -98,7 +98,7 @@ class ListLayout extends StatelessWidget {
                               iconSizeFactor: 0.8,
                               verse: idValueMaps[index]['value'],
                               bubble: false,
-                              boxMargins: const EdgeInsets.all(5),
+                              margins: const EdgeInsets.all(5),
                               verseScaleFactor: 0.8,
                               color: Colorz.WhiteAir,
                               // textDirection: superTextDirection(context),

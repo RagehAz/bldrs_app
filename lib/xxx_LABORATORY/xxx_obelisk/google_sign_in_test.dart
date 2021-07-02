@@ -245,7 +245,7 @@ class _GoogleSignInTestState extends State<GoogleSignInTest> {
             height: 40,
             // width: 40,
             corners: 20,
-            boxMargins: 20,
+            margins: 20,
             verse: _isSignedIn ? 'Signed in' : 'Signed out',
             color: _isSignedIn ? Colorz.Green : Colorz.GreySmoke,
             verseScaleFactor: 0.6,

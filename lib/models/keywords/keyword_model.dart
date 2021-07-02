@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/theme/keywordz.dart';
 import 'package:bldrs/models/keywords/filter_model.dart';
 import 'package:flutter/foundation.dart';
 
@@ -88,7 +89,7 @@ class KeywordModel {
     return _groupsIDs;
   }
 // -----------------------------------------------------------------------------
-  static List<KeywordModel> getKeywordModelsByGroupID({FilterModel filterModel, String groupID}){
+  static List<KeywordModel> getKeywordModelsByGroupIDAndFilterModel({FilterModel filterModel, String groupID}){
     List<KeywordModel> _keywordModels = new List();
 
     filterModel.keywordModels.forEach((keyword) {
@@ -105,7 +106,18 @@ class KeywordModel {
 
     return _keywordModels;
   }
+// -----------------------------------------------------------------------------
+  static List<KeywordModel> getKeywordsModelsByGroupId(String groupID){
+    List<KeywordModel> _keywords = new List();
 
+    AllKeywords.bldrsKeywords.forEach((keyword) {
+      if(keyword.groupID == groupID){
+        _keywords.add(keyword);
+      }
+    });
 
+    return _keywords;
+  }
+// -----------------------------------------------------------------------------
 }
 

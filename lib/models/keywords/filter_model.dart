@@ -17,24 +17,24 @@ class FilterModel{
     @required this.keywordModels,
   });
 // -----------------------------------------------------------------------------
-  static List<FilterModel> getFiltersBySectionAndFlyerType({BldrsSection bldrsSection, FlyerType flyerType}){
+  static List<FilterModel> getFiltersBySectionAndFlyerType({Section section, FlyerType flyerType}){
 
     List<FilterModel> _filters =
-        bldrsSection == BldrsSection.RealEstate ? propertiesFilters :
-        bldrsSection == BldrsSection.Construction && flyerType == FlyerType.Design ? designsFilters :
-        bldrsSection == BldrsSection.Construction && flyerType == FlyerType.Project ? projectsFiltersIDs :
-        bldrsSection == BldrsSection.Construction && flyerType == FlyerType.Craft ? craftsFiltersIDs :
-        bldrsSection == BldrsSection.Supplies ? productsFiltersIDs : null;
+        section == Section.RealEstate ? propertiesFilters :
+        section == Section.Construction && flyerType == FlyerType.Design ? designsFilters :
+        section == Section.Construction && flyerType == FlyerType.Project ? projectsFiltersIDs :
+        section == Section.Construction && flyerType == FlyerType.Craft ? craftsFiltersIDs :
+        section == Section.Supplies ? productsFiltersIDs : null;
 
         return _filters;
   }
 // -----------------------------------------------------------------------------
-  static FlyerType getDefaultFlyerTypeBySection({BldrsSection bldrsSection}){
+  static FlyerType getDefaultFlyerTypeBySection({Section section}){
 
     FlyerType _defaultFlyerType =
-    bldrsSection == BldrsSection.RealEstate ? FlyerType.Property :
-    bldrsSection == BldrsSection.Construction ? FlyerType.Design :
-    bldrsSection == BldrsSection.Supplies ? FlyerType.Product : null;
+    section == Section.RealEstate ? FlyerType.Property :
+    section == Section.Construction ? FlyerType.Design :
+    section == Section.Supplies ? FlyerType.Product : null;
 
     return _defaultFlyerType;
   }
