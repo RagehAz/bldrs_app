@@ -131,7 +131,7 @@ final Color leadingIconColor;
                         if (title != null)
                           Container(
                             width: _bubbleWidth - actionBtSize * 2,
-                            padding: const EdgeInsets.only(bottom: 10, left: 5, right: 5),
+                            padding: const EdgeInsets.only(bottom: Ratioz.appBarMargin, left: Ratioz.appBarPadding, right:  Ratioz.appBarPadding),
                             child: SuperVerse(
                               verse: title,
                               size: titleVerseSize,
