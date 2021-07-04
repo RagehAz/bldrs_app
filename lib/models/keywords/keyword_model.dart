@@ -4,6 +4,7 @@ import 'package:bldrs/models/flyer_type_class.dart';
 import 'package:bldrs/models/keywords/filter_model.dart';
 import 'package:bldrs/models/secondary_models/namez_model.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
 class KeywordModel {
   final String keywordID;
@@ -108,8 +109,19 @@ class KeywordModel {
     return _groupsIDs;
   }
 // -----------------------------------------------------------------------------
+  /// tamam
+  static KeywordModel getKeywordModelByKeywordID(String keywordID){
+    KeywordModel _keyword = AllKeywords.bldrsKeywords().firstWhere((keyword) => keyword.keywordID == keywordID, orElse: () => null);
+    return
+        _keyword;
+  }
 
-
+// -----------------------------------------------------------------------------
+  static String getKeywordNameByKeywordID(BuildContext context, String keywordID){
+    KeywordModel _keyword = getKeywordModelByKeywordID(keywordID);
+    String _nameWithCurrentLanguage = Namez.getNameWithCurrentLanguageFromListOfNamez(context, _keyword?.names);
+    return _nameWithCurrentLanguage;
+  }
 // -----------------------------------------------------------------------------
   static bool keywordsContainThisFlyerType({List<KeywordModel> keywords, FlyerType flyerType}){
 

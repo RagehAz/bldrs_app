@@ -1,4 +1,7 @@
+import 'package:bldrs/controllers/localization/change_language.dart';
+import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
 class Namez {
   /// language code
@@ -39,6 +42,21 @@ class Namez {
       _namez.add(decipherNamezMap(map));
     });
     return _namez;
+  }
+// -----------------------------------------------------------------------------
+  static String getNameWithCurrentLanguageFromListOfNamez(BuildContext context, List<Namez> namez){
+    String _currentLanguageCode = Wordz.languageCode(context);
+    String _name;
+
+    if (namez != null && namez.length != 0){
+      Namez _englishNamez = namez?.firstWhere((name) => name.code == Lingo.English, orElse: () => null);
+
+      Namez _namezInCurrentLanguage = namez?.firstWhere((name) => name.code == _currentLanguageCode, orElse: () => null);
+
+      _name = _namezInCurrentLanguage == null ? _englishNamez?.value : _namezInCurrentLanguage?.value;
+    }
+
+    return _name;
   }
 // -----------------------------------------------------------------------------
 }
