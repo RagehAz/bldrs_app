@@ -15,7 +15,7 @@ enum FlyerType {
 
 class FlyerTypeClass {
 // -----------------------------------------------------------------------------
-  static FlyerType getFlyersTypesBySection({Section section}){
+  static FlyerType getFlyerTypeBySection({Section section}){
 
     FlyerType _flyersTypes =
     section == Section.NewProperties ? FlyerType.Property :

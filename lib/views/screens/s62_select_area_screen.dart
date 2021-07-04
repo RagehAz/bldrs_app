@@ -44,7 +44,7 @@ class SelectAreaScreen extends StatelessWidget {
         print('selected province id is : $provinceID');
         print('selected city id is : $areaID');
 
-        await _pro.fetchAndSetTinyFlyersBySectionType(context, _pro.getCurrentSection);
+        await _pro.fetchAndSetTinyFlyersBySection(context, _pro.getCurrentSection);
 
         Nav.goBackToHomeScreen(context);
       },

@@ -76,7 +76,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
           await _prof.fetchAndSetFollows(context);
 
           /// TASK : wallahi mana 3aref hane3mel eh hena
-          await _prof.fetchAndSetTinyFlyersBySectionType(context, _prof.getCurrentSection);
+          await _prof.fetchAndSetTinyFlyersBySection(context, _prof.getCurrentSection);
 
           _prof.changeSection(context, _prof.getCurrentSection);
 

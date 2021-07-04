@@ -18,17 +18,15 @@ class FilterModel{
     @required this.keywordModels,
   });
 // -----------------------------------------------------------------------------
-  static List<FilterModel> getFiltersBySectionAndFlyerType({Section section, FlyerType flyerType}){
+  static List<FilterModel> getFiltersBySection({Section section}){
 
     List<FilterModel> _filters =
         section == Section.NewProperties ? propertiesFilters :
         section == Section.ResaleProperties ? propertiesFilters :
         section == Section.RentalProperties ? propertiesFilters :
 
-
-        section == Section.Projects && flyerType == FlyerType.Design ? designsFilters :
-        section == Section.Projects && flyerType == FlyerType.Project ? projectsFiltersIDs :
-
+        section == Section.Designs ? designsFilters :
+        section == Section.Projects ? projectsFiltersIDs :
         section == Section.Crafts ? craftsFiltersIDs :
 
         section == Section.Products ? productsFiltersIDs :

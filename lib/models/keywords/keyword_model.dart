@@ -60,7 +60,7 @@ class KeywordModel {
   static List<KeywordModel> getKeywordsByFlyerType(FlyerType flyerType){
     List<KeywordModel> _keywords = new List();
 
-    AllKeywords.bldrsKeywords.forEach((keyword) {
+    AllKeywords.bldrsKeywords().forEach((keyword) {
       if (keyword.flyerType == flyerType){
         _keywords.add(keyword);
       }
@@ -73,7 +73,7 @@ class KeywordModel {
   static List<KeywordModel> getKeywordsByGroupID(String groupID){
     List<KeywordModel> _keywords = new List();
 
-    AllKeywords.bldrsKeywords.forEach((keyword) {
+    AllKeywords.bldrsKeywords().forEach((keyword) {
       if (keyword.groupID == groupID){
         _keywords.add(keyword);
       }
@@ -86,7 +86,7 @@ class KeywordModel {
   static List<KeywordModel> getKeywordsBySubGroupID(String subGroupID){
     List<KeywordModel> _keywords = new List();
 
-    AllKeywords.bldrsKeywords.forEach((keyword) {
+    AllKeywords.bldrsKeywords().forEach((keyword) {
       if (keyword.subGroupID == subGroupID){
         _keywords.add(keyword);
       }
@@ -99,7 +99,7 @@ class KeywordModel {
   static List<String> getGroupsIDsByFlyerType(FlyerType flyerType){
     List<String> _groupsIDs = new List();
 
-    AllKeywords.bldrsKeywords.forEach((keyword) {
+    AllKeywords.bldrsKeywords().forEach((keyword) {
       if (keyword.flyerType == flyerType && !_groupsIDs.contains(keyword.groupID)){
         _groupsIDs.add(keyword.groupID);
       }

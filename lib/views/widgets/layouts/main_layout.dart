@@ -85,7 +85,7 @@ class MainLayout extends StatelessWidget {
 
     Section _currentSection = _pro.getCurrentSection;
 
-    await _pro.fetchAndSetTinyFlyersBySectionType(context, _currentSection);
+    await _pro.fetchAndSetTinyFlyersBySection(context, _currentSection);
   }
 // -----------------------------------------------------------------------------
   // final static GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
