@@ -1,4 +1,5 @@
 import 'package:bldrs/models/flyer_model.dart';
+import 'package:bldrs/models/flyer_type_class.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/secondary_models/namez_model.dart';
 // -----------------------------------------------------------------------------
@@ -71,7 +72,7 @@ class Area{
 
     KeywordModel _keywordModel = KeywordModel(
         keywordID: area.id,
-        flyerType: FlyerType.General,
+        flyerType: FlyerType.Non,
         groupID: area.iso3,
         subGroupID: area.province,
         // name: area.name,

@@ -1,6 +1,7 @@
 import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/drafters/colorizers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/drafters/shadowers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
@@ -39,111 +40,130 @@ AlertDialog _superAlert ({
   return
     AlertDialog(
       backgroundColor: Colorz.Nothing,
-      // elevation: 10,
-      shape: RoundedRectangleBorder(borderRadius: Borderers.superBorderAll(context, 20)),
+      // shape: RoundedRectangleBorder(borderRadius: Borderers.superBorderAll(context, 20)),
       contentPadding: const EdgeInsets.all(0),
+      elevation: 10,
+
       insetPadding: EdgeInsets.symmetric(
-          vertical: _dialogVerticalMargin,
-          horizontal: _dialogHorizontalMargin,
+          vertical: 0,
+          horizontal: 0,
       ),
 
       content: Builder(
         builder: (context){
           return
 
-              Stack(
-                children: <Widget>[
-
-                  BlurLayer(borders: _borders,),
-
-                  Container(
-                    width: _dialogWidth,
-                    height: _dialogHeight,
-                    decoration: BoxDecoration(
-                      color: Colorz.WhiteGlass,
-                      borderRadius: _borders
-                    ),
-
-                    child: Column(
-                      // mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              GestureDetector(
+                onTap: () => Nav.goBack(context),
+                child: Container(
+                  width: _screenWidth,
+                  height: _screenHeight,
+                  padding: EdgeInsets.symmetric(horizontal: _dialogHorizontalMargin, vertical: _dialogVerticalMargin),
+                  color: Colorz.BlackSmoke,
+                  child: Container(
+                    width: _screenWidth - (_dialogHorizontalMargin * 2),
+                    height: _screenHeight - (_dialogVerticalMargin * 2),
+                    // color: Colorz.Yellow,
+                    child: Stack(
                       children: <Widget>[
 
-                        Expanded(
-                          child: Container(
-                            
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
+                        BlurLayer(borders: _borders,),
 
-                                /// TITLE
-                                if (title != '' || title != null)
-                                  SuperVerse(
-                                    verse: title,
-                                    color: Colorz.White,
-                                    // designMode: true,
-                                    margin: 15,
-                                  ),
-
-                                /// BODY
-                                SuperVerse(
-                                  verse: body.runtimeType == String ? body : body.toString(),
-                                  color: Colorz.White,
-                                  maxLines: 6,
-                                  // designMode: true,
-                                  margin: 10,
-                                ),
-
-                                if (child != null)
-                                  Center(child: child),
-
-                              ],
-                            ),
+                        Container(
+                          width: _dialogWidth,
+                          height: _dialogHeight,
+                          decoration: BoxDecoration(
+                            color: Colorz.SkyDarkBlue,
+                            boxShadow: Shadowz.appBarShadow,
+                            borderRadius: _borders
                           ),
-                        ),
 
-                        /// BUTTONS
-                        if (boolDialog != null)
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
+                          child: Column(
+                            // mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
 
-                            if (boolDialog == true)
-                              DreamBox(
-                                  height: 50,
-                                  width: 100,
-                                  margins: const EdgeInsets.all(Ratioz.appBarMargin),
-                                  verse: 'No',
-                                  verseColor: Colorz.BlackBlack,
-                                  color: Colorz.WhiteSmoke,
-                                  verseScaleFactor: 0.6,
-                                  boxFunction: () => Nav.goBack(context, argument: false)
+                              Expanded(
+                                child: Container(
+                                  // color: Colorz.SkyDarkBlue,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    // mainAxisSize: MainAxisSize.max,
+                                    children: <Widget>[
+
+                                      /// TITLE
+                                      if (title != null)
+                                        SuperVerse(
+                                          verse: title,
+                                          color: Colorz.White,
+                                          labelColor: Colorz.Yellow,
+                                          // designMode: true,
+                                          margin: Ratioz.appBarPadding,
+                                        ),
+
+                                      /// BODY
+                                      SuperVerse(
+                                        verse: body.runtimeType == String ? body : body.toString(),
+                                        color: Colorz.White,
+                                        maxLines: 6,
+                                        // designMode: true,
+                                        margin: Ratioz.appBarPadding,
+                                      ),
+
+                                      if (child != null)
+                                        Center(child: child),
+
+                                    ],
+                                  ),
+                                ),
                               ),
 
-                            DreamBox(
-                                height: 50,
-                                width: 100,
-                                margins: const EdgeInsets.all(Ratioz.appBarMargin),
-                                verse: boolDialog == true ? 'Yes' : 'Ok',
-                                verseColor: Colorz.BlackBlack,
-                                color: Colorz.Yellow,
-                                verseScaleFactor: 0.6,
-                                boxFunction:
-                                boolDialog == true ?
-                                    () => Nav.goBack(context, argument: true)
-                                    :
-                                    () => Nav.goBack(context)
-                            ),
-                          ],
+                              /// BUTTONS
+                              if (boolDialog != null)
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: <Widget>[
+
+                                  if (boolDialog == true)
+                                    DreamBox(
+                                        height: 50,
+                                        width: 100,
+                                        margins: const EdgeInsets.all(Ratioz.appBarMargin),
+                                        verse: 'No',
+                                        verseColor: Colorz.BlackBlack,
+                                        color: Colorz.WhiteSmoke,
+                                        verseScaleFactor: 0.6,
+                                        boxFunction: () => Nav.goBack(context, argument: false)
+                                    ),
+
+                                  DreamBox(
+                                      height: 50,
+                                      width: 100,
+                                      margins: const EdgeInsets.all(Ratioz.appBarMargin),
+                                      verse: boolDialog == true ? 'Yes' : 'Ok',
+                                      verseColor: Colorz.BlackBlack,
+                                      color: Colorz.Yellow,
+                                      verseScaleFactor: 0.6,
+                                      boxFunction:
+                                      boolDialog == true ?
+                                          () => Nav.goBack(context, argument: true)
+                                          :
+                                          () => Nav.goBack(context)
+                                  ),
+                                ],
+                              ),
+
+                            ],
+                          ),
                         ),
 
                       ],
                     ),
                   ),
-
-                ],
+                ),
               );
         },
       ),

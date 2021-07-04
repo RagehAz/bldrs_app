@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/theme/keywordz.dart';
+import 'package:bldrs/models/flyer_type_class.dart';
 import 'package:bldrs/models/section_class.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
@@ -20,23 +21,21 @@ class FilterModel{
   static List<FilterModel> getFiltersBySectionAndFlyerType({Section section, FlyerType flyerType}){
 
     List<FilterModel> _filters =
-        section == Section.RealEstate ? propertiesFilters :
-        section == Section.Construction && flyerType == FlyerType.Design ? designsFilters :
-        section == Section.Construction && flyerType == FlyerType.Project ? projectsFiltersIDs :
-        section == Section.Construction && flyerType == FlyerType.Craft ? craftsFiltersIDs :
-        section == Section.Supplies ? productsFiltersIDs : null;
+        section == Section.NewProperties ? propertiesFilters :
+        section == Section.ResaleProperties ? propertiesFilters :
+        section == Section.RentalProperties ? propertiesFilters :
+
+
+        section == Section.Projects && flyerType == FlyerType.Design ? designsFilters :
+        section == Section.Projects && flyerType == FlyerType.Project ? projectsFiltersIDs :
+
+        section == Section.Crafts ? craftsFiltersIDs :
+
+        section == Section.Products ? productsFiltersIDs :
+        section == Section.Equipment ? equipmentFiltersIDs :
+        null;
 
         return _filters;
-  }
-// -----------------------------------------------------------------------------
-  static FlyerType getDefaultFlyerTypeBySection({Section section}){
-
-    FlyerType _defaultFlyerType =
-    section == Section.RealEstate ? FlyerType.Property :
-    section == Section.Construction ? FlyerType.Design :
-    section == Section.Supplies ? FlyerType.Product : null;
-
-    return _defaultFlyerType;
   }
 // -----------------------------------------------------------------------------
   static FilterModel propertyFormsFilter = FilterModel(groupID: 'group_ppt_form', canPickMany: false, keywordModels: Keywordz.propertyForms);
@@ -98,6 +97,11 @@ class FilterModel{
     productPricesFilter,
   ];
 // -----------------------------------------------------------------------------
+  static List<FilterModel> equipmentFiltersIDs = <FilterModel>[
+    productsFilter,
+    productPricesFilter,
+  ];
+
   static bool getCanFilterPickManyByKeyword(KeywordModel keywordModel){
     List<FilterModel> _allFilters = <FilterModel>[
       ...propertiesFilters,

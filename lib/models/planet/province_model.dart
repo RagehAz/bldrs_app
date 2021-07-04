@@ -1,5 +1,6 @@
 import 'package:bldrs/controllers/drafters/text_manipulators.dart';
 import 'package:bldrs/models/flyer_model.dart';
+import 'package:bldrs/models/flyer_type_class.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/planet/area_model.dart';
 import 'package:bldrs/models/planet/country_model.dart';
@@ -87,7 +88,7 @@ class Province{
 
     KeywordModel _keyword = KeywordModel(
         keywordID: province.name,
-        flyerType: FlyerType.General,
+        flyerType: FlyerType.Non,
         groupID: province.iso3,
         subGroupID: null,
         // name: _name,

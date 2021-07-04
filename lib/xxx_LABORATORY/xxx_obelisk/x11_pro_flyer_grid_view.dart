@@ -3,6 +3,7 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer_model.dart';
+import 'package:bldrs/models/flyer_type_class.dart';
 import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
@@ -20,7 +21,7 @@ class FlyersGridView extends StatefulWidget {
 class _FlyersGridViewState extends State<FlyersGridView> {
   // ScrollController _controller;
   var _showAnkhsOnly = false;
-  FlyerType currentFlyerType = FlyerType.General;
+  FlyerType currentFlyerType = FlyerType.Non;
 
   // List<FlyerType> flyerFilers = [
   //   FlyerType.General,
@@ -88,7 +89,7 @@ class _FlyersGridViewState extends State<FlyersGridView> {
 // -------------------------------------------------------------------------
     double screenWidth = MediaQuery.of(context).size.width;
 
-    int gridColumnsCount = currentFlyerType == FlyerType.General ? 4 : 2;
+    int gridColumnsCount = currentFlyerType == FlyerType.Property ? 4 : 2;
     int numberOfColumns = gridColumnsCount;
     double gridZoneWidth = screenWidth;
     // double flyerHeight = (gridZoneWidth * Ratioz.xxflyerZoneHeight);
@@ -136,9 +137,9 @@ class _FlyersGridViewState extends State<FlyersGridView> {
         ),
 
         ...List<Widget>.generate(
-            FlyerModel.flyerTypesList.length,
+            FlyerTypeClass.flyerTypesList.length,
                 (i) => FilterButton(
-              flyerTypeFilter: FlyerModel.flyerTypesList[i],
+              flyerTypeFilter: FlyerTypeClass.flyerTypesList[i],
               currentFlyerType : currentFlyerType,
               tapButton: (FlyerType selectedFlyerType){setState(() {
                 currentFlyerType = selectedFlyerType;
@@ -217,9 +218,9 @@ class FilterButton extends StatelessWidget {
     String icon =
     flyerTypeFilter == FlyerType.Property && currentFlyerType == FlyerType.Property? Iconz.BxPropertiesOn :
     flyerTypeFilter == FlyerType.Property && currentFlyerType != FlyerType.Property? Iconz.BxPropertiesOff :
-
-    flyerTypeFilter == FlyerType.Design && currentFlyerType == FlyerType.Design? Iconz.BxDesignsOn :
-    flyerTypeFilter == FlyerType.Design && currentFlyerType != FlyerType.Design? Iconz.BxDesignsOff :
+    //
+    // flyerTypeFilter == FlyerType.Design && currentFlyerType == FlyerType.Design? Iconz.BxDesignsOn :
+    // flyerTypeFilter == FlyerType.Design && currentFlyerType != FlyerType.Design? Iconz.BxDesignsOff :
 
     flyerTypeFilter == FlyerType.Project && currentFlyerType == FlyerType.Project? Iconz.BxProjectsOn :
     flyerTypeFilter == FlyerType.Project && currentFlyerType != FlyerType.Project? Iconz.BxProjectsOff :
