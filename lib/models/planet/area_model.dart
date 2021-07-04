@@ -1,6 +1,6 @@
+import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
-
-import 'namez_model.dart';
+import 'package:bldrs/models/secondary_models/namez_model.dart';
 // -----------------------------------------------------------------------------
 class Area{
   /// country id
@@ -71,10 +71,10 @@ class Area{
 
     KeywordModel _keywordModel = KeywordModel(
         keywordID: area.id,
-        filterID: 'zoneArea',
+        flyerType: FlyerType.General,
         groupID: area.iso3,
         subGroupID: area.province,
-        name: area.name,
+        // name: area.name,
         uses: 0,
     );
 

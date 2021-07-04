@@ -111,7 +111,7 @@ class Zone {
 
     List<KeywordModel> _areasAsKeywords = Area.getKeywordsModelsFromAreas(_areas);
 
-    FilterModel _filterModel = FilterModel(filterID: _areasAsKeywords[0].filterID, canPickMany: false, keywordModels: _areasAsKeywords);
+    FilterModel _filterModel = FilterModel(groupID: _areasAsKeywords[0].groupID, canPickMany: false, keywordModels: _areasAsKeywords);
 
     return _filterModel;
   }
