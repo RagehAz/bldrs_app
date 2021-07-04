@@ -12,6 +12,7 @@ import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/views/widgets/bubbles/bzz_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/flyers_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
+import 'package:bldrs/views/widgets/dialogs/dialog_button.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
@@ -87,6 +88,7 @@ AlertDialog _superAlert ({
                               Expanded(
                                 child: Container(
                                   // color: Colorz.SkyDarkBlue,
+                                  // padding: EdgeInsets,
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -97,10 +99,14 @@ AlertDialog _superAlert ({
                                       if (title != null)
                                         SuperVerse(
                                           verse: title,
-                                          color: Colorz.White,
-                                          labelColor: Colorz.Yellow,
+                                          color: Colorz.Yellow,
+                                          shadow: true,
+                                          size: 3,
+                                          italic: true,
+                                          maxLines: 2,
+                                          // labelColor: Colorz.Yellow,
                                           // designMode: true,
-                                          margin: Ratioz.appBarPadding,
+                                          margin: Ratioz.appBarMargin,
                                         ),
 
                                       /// BODY
@@ -109,7 +115,7 @@ AlertDialog _superAlert ({
                                         color: Colorz.White,
                                         maxLines: 6,
                                         // designMode: true,
-                                        margin: Ratioz.appBarPadding,
+                                        margin: Ratioz.appBarMargin,
                                       ),
 
                                       if (child != null)
@@ -128,31 +134,25 @@ AlertDialog _superAlert ({
                                 children: <Widget>[
 
                                   if (boolDialog == true)
-                                    DreamBox(
-                                        height: 50,
-                                        width: 100,
-                                        margins: const EdgeInsets.all(Ratioz.appBarMargin),
-                                        verse: 'No',
-                                        verseColor: Colorz.BlackBlack,
-                                        color: Colorz.WhiteSmoke,
-                                        verseScaleFactor: 0.6,
-                                        boxFunction: () => Nav.goBack(context, argument: false)
+                                    DialogButton(
+                                      verse: 'No',
+                                      verseColor: Colorz.White,
+                                      width: 100,
+                                      color: Colorz.WhiteSmoke,
+                                      onTap: () => Nav.goBack(context, argument: false),
                                     ),
 
-                                  DreamBox(
-                                      height: 50,
-                                      width: 100,
-                                      margins: const EdgeInsets.all(Ratioz.appBarMargin),
-                                      verse: boolDialog == true ? 'Yes' : 'Ok',
-                                      verseColor: Colorz.BlackBlack,
-                                      color: Colorz.Yellow,
-                                      verseScaleFactor: 0.6,
-                                      boxFunction:
-                                      boolDialog == true ?
-                                          () => Nav.goBack(context, argument: true)
-                                          :
-                                          () => Nav.goBack(context)
+                                  DialogButton(
+                                    verse: boolDialog == true ? 'Yes' : 'Ok',
+                                    verseColor: Colorz.BlackBlack,
+                                    width: 100,
+                                    color: Colorz.Yellow,
+                                    onTap: boolDialog == true ?
+                                        () => Nav.goBack(context, argument: true)
+                                        :
+                                        () => Nav.goBack(context),
                                   ),
+
                                 ],
                               ),
 
