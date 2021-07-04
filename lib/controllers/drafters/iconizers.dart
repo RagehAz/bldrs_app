@@ -2,6 +2,7 @@ import 'dart:core';
 import 'package:bldrs/controllers/drafters/text_directionerz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
+import 'package:bldrs/models/flyer_type_class.dart';
 import 'package:bldrs/models/section_class.dart' show Section;
 import 'package:bldrs/models/bz_model.dart' show BzType;
 import 'package:bldrs/models/flyer_model.dart';
@@ -17,11 +18,35 @@ import 'package:flutter/material.dart';
 
 class Iconizer{
 // -----------------------------------------------------------------------------
-  static String sectionIcon (Section section){
+  static String sectionIconOn (Section section){
     return
-      section == Section.RealEstate ? Iconz.BxPropertiesOff :
-      section == Section.Construction ? Iconz.BxProjectsOff :
-      section == Section.Supplies ? Iconz.BxProductsOff :
+      section == Section.NewProperties ? Iconz.BxPropertiesOn :
+      section == Section.ResaleProperties ? Iconz.BxPropertiesOn :
+      section == Section.RentalProperties ? Iconz.BxPropertiesOn :
+
+      section == Section.Designs ? Iconz.BxDesignsOn :
+      section == Section.Projects ? Iconz.BxProjectsOn :
+      section == Section.Crafts ? Iconz.BxCraftsOn :
+
+      section == Section.Products ? Iconz.BxProductsOn :
+      section == Section.Equipment ? Iconz.BxEquipmentOn :
+
+      Iconz.Bz;
+  }
+// -----------------------------------------------------------------------------
+  static String sectionIconOff (Section section){
+    return
+      section == Section.NewProperties ? Iconz.BxPropertiesOff :
+      section == Section.ResaleProperties ? Iconz.BxPropertiesOff :
+      section == Section.RentalProperties ? Iconz.BxPropertiesOff :
+
+      section == Section.Designs ? Iconz.BxDesignsOff :
+      section == Section.Projects ? Iconz.BxProjectsOff :
+      section == Section.Crafts ? Iconz.BxCraftsOff :
+
+      section == Section.Products ? Iconz.BxProductsOff :
+      section == Section.Equipment ? Iconz.BxEquipmentOff :
+
       Iconz.Bz;
   }
 // -----------------------------------------------------------------------------

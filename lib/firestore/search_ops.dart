@@ -2,6 +2,7 @@ import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/models/flyer_model.dart';
+import 'package:bldrs/models/flyer_type_class.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
@@ -216,7 +217,7 @@ class FireSearch {
 
             QuerySnapshot _collectionSnapshot;
 
-            int _flyerType = FlyerModel.cipherFlyerType(flyerType);
+            int _flyerType = FlyerTypeClass.cipherFlyerType(flyerType);
             Zone _zone = zone;
 
             print('searching tiny flyers of type : $_flyerType : in $_zone');

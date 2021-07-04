@@ -10,6 +10,7 @@ import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/section_class.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
+import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/tile_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
@@ -18,43 +19,165 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class SectionsButton extends StatelessWidget {
+// -----------------------------------------------------------------------------
+  void _onSectionTap({BuildContext context, FlyersProvider pro, Section section}){
 
+
+    /// if section is not active * if user is author or not
+
+    /// if section is active
+    pro.changeSection(context, section);
+  }
+// -----------------------------------------------------------------------------
+  String _sectionIcon({Section section, bool inActiveMode}){
+    String _icon;
+
+    if (inActiveMode == true){
+      _icon = Iconizer.sectionIconOff(section);
+    }
+    else {
+      _icon = Iconizer.sectionIconOn(section);
+    }
+
+    return _icon;
+  }
 // -----------------------------------------------------------------------------
 void _changeSection(BuildContext context, FlyersProvider pro) async {
 
   List<Section> _sections = SectionClass.SectionsList;
+  double _bubbleWidth = Scale.superDialogWidth(context) - Ratioz.appBarMargin * 2;
+  double _buttonWidth = _bubbleWidth * 0.9;
+  double _dialogHeight = Scale.superScreenHeight(context) * 0.95;
+
+  Widget _sectionBubble({String title, String icon, List<Widget> buttons}){
+    return
+      InPyramidsBubble(
+        centered: false,
+        title: title,
+        // actionBtIcon: Iconz.BxPropertiesOn,
+        actionBtSizeFactor: 1,
+        actionBtFunction: (){},
+        bubbleColor: Colorz.WhiteGlass,
+        bubbleOnTap: null,
+        bubbleWidth: _bubbleWidth,
+        leadingIcon: icon,
+        leadingIconColor: Colorz.WhiteZircon,
+        titleColor: Colorz.WhiteZircon,
+        columnChildren: <Widget>[
+
+          /// Section buttons
+          Container(
+            width: _buttonWidth,
+            // color: Colorz.BloodTest,
+            // alignment: Alignment.center,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: buttons,
+            ),
+          ),
+
+
+        ],
+      );
+  }
+
+
+  Widget _sectionButton({Section section, bool inActiveMode}){
+
+    return
+      DreamBox(
+        height: _dialogHeight * 0.06,
+        // width: _buttonWidth,
+        icon: _sectionIcon(section: section, inActiveMode: inActiveMode),
+        verse: TextGenerator.sectionStringer(context, section),
+        verseScaleFactor: 0.6,
+        secondLine: TextGenerator.sectionDescriptionStringer(context, section),
+        secondLineColor: Colorz.WhiteLingerie,
+        margins: Ratioz.appBarPadding,
+        inActiveMode: inActiveMode,
+        boxFunction: () => _onSectionTap(context: context, section: section, pro: pro),
+      );
+  }
 
   dynamic _result = await superDialog(
     context: context,
-    title: '',
     body: 'Select a section',
-    height: Scale.superScreenHeight(context) * 0.7,
+    height: _dialogHeight,
     child: Container(
-      height: Scale.superScreenHeight(context) * 0.7 - 30 - 116,
+      height: _dialogHeight  - 60,
+      // color: Colorz.BloodTest,
       child: Column(
         children: <Widget>[
 
-          ...List.generate(
-              _sections.length,
-                  (index) =>
+          /// REAL ESTATE
+          _sectionBubble(
+            title: 'RealEstate',
+            icon: Iconz.PyramidSingleYellow,
+            buttons: <Widget>[
 
-                      TileBubble(
-                        verse: TextGenerator.sectionStringer(context, _sections[index]),
-                        icon: Iconizer.bzTypeIconOn(BzType.Broker),
-                        iconSizeFactor: 1,
-                        secondLine: TextGenerator.sectionDescriptionStringer(context, _sections[index]),
-                        insideDialog: true,
-                        btOnTap: () async {
-                          print(_sections[index]);
+              _sectionButton(
+                section: Section.NewProperties,
+                inActiveMode: false,
+              ),
 
-                          await pro.changeSection(context, _sections[index]);
+              _sectionButton(
+                section: Section.ResaleProperties,
+                inActiveMode: false,
+              ),
 
-                          /// close dialog
-                          Nav.goBack(context);
-                        },
-                      ),
+              _sectionButton(
+                section: Section.RentalProperties,
+                inActiveMode: true,
+              ),
 
-          )
+            ]
+          ),
+
+          /// Construction
+          _sectionBubble(
+              title: 'Construction',
+              icon: Iconz.PyramidSingleYellow,
+              buttons: <Widget>[
+
+                _sectionButton(
+                  section: Section.Designs,
+                  inActiveMode: false,
+                ),
+
+                _sectionButton(
+                  section: Section.Projects,
+                  inActiveMode: false,
+                ),
+
+                _sectionButton(
+                  section: Section.Crafts,
+                  inActiveMode: false,
+                ),
+
+              ]
+          ),
+
+          /// Construction
+          _sectionBubble(
+            title: 'Supplies',
+            icon: Iconz.PyramidSingleYellow,
+            buttons: <Widget>[
+
+              _sectionButton(
+                section: Section.Products,
+                inActiveMode: false,
+                ),
+
+              _sectionButton(
+                section: Section.Equipment,
+                inActiveMode: true,
+              ),
+
+            ],
+          ),
+
+
 
         ],
       ),

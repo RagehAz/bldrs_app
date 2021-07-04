@@ -1,3 +1,4 @@
+import 'package:bldrs/models/flyer_type_class.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:flutter/foundation.dart';
 import '../flyer_model.dart';
@@ -20,7 +21,7 @@ class NanoFlyer with ChangeNotifier{
   Map<String,dynamic> toMap (){
     return {
       'flyerID' : flyerID,
-      'flyerType' : FlyerModel.cipherFlyerType(flyerType),
+      'flyerType' : FlyerTypeClass.cipherFlyerType(flyerType),
       'authorID' : authorID,
       'slidePic' : slidePic,
       'flyerZone' : flyerZone.toMap(),
@@ -73,7 +74,7 @@ class NanoFlyer with ChangeNotifier{
   static NanoFlyer decipherNanoFlyerMap(dynamic map){
     return NanoFlyer(
       flyerID: map['flyerID'],
-      flyerType: FlyerModel.decipherFlyerType(map['flyerType']),
+      flyerType: FlyerTypeClass.decipherFlyerType(map['flyerType']),
       authorID: map['authorID'],
       slidePic: map['slidePic'],
       flyerZone: Zone.decipherZoneMap(map['flyerZone']),

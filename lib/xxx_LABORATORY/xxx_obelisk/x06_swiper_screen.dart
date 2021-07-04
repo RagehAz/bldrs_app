@@ -6,6 +6,7 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer_model.dart';
+import 'package:bldrs/models/flyer_type_class.dart';
 import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/widgets/flyer/aflyer.dart';
@@ -29,7 +30,7 @@ class _SwiperScreenState extends State<SwiperScreen> {
 @override
   void initState() {
   _swiperController = new SwiperController();
-  _currentFlyerType = FlyerModel.flyerTypesList[0];
+  _currentFlyerType = FlyerTypeClass.flyerTypesList[0];
     super.initState();
   }
 // -----------------------------------------------------------------------------
@@ -90,7 +91,7 @@ class _SwiperScreenState extends State<SwiperScreen> {
     final FlyersProvider pro = Provider.of<FlyersProvider>(context, listen: false);
     final List<TinyFlyer> _allTinyFlyers = pro.getAllTinyFlyers;
 // -----------------------------------------------------------------------------
-    List<FlyerType> _flyerTypesList = FlyerModel.flyerTypesList;
+    List<FlyerType> _flyerTypesList = FlyerTypeClass.flyerTypesList;
 // -----------------------------------------------------------------------------
     return MainLayout(
       sky: Sky.Night,

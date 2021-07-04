@@ -190,10 +190,12 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   void _selectASection(int index){
     setState(() {
       _currentSection = SectionClass.SectionsList[index];
+      /// Task : FIX THIS SHIT
       _bzTypeInActivityList =
-          _currentSection == Section.RealEstate ? [false, false, true, true, true, true, true] :
-          _currentSection == Section.Construction ? [true, true, false, false, false, true, true] :
-          _currentSection == Section.Supplies ? [true, true, true, true, true, false, false] :
+
+          _currentSection == Section.NewProperties ? [false, false, true, true, true, true, true] :
+          _currentSection == Section.Projects ? [true, true, false, false, false, true, true] :
+          _currentSection == Section.Products ? [true, true, true, true, true, false, false] :
           _bzTypeInActivityList;
     });
   }
@@ -220,10 +222,11 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         _bzTypeInActivityList = List.filled(BzModel.bzTypesList.length, true);
       });
     } else {
+      /// TASK : FIX THIS SHIT
       _bzTypeInActivityList =
-      _currentSection == Section.RealEstate ? [false, false, true, true, true, true, true] :
-      _currentSection == Section.Construction ? [true, true, false, false, false, true, true] :
-      _currentSection == Section.Supplies ? [true, true, true, true, true, false, false] :
+      _currentSection == Section.NewProperties ? [false, false, true, true, true, true, true] :
+      _currentSection == Section.Projects ? [true, true, false, false, false, true, true] :
+      _currentSection == Section.Products ? [true, true, true, true, true, false, false] :
       _bzTypeInActivityList;
     }
   }

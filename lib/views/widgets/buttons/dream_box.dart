@@ -45,6 +45,7 @@ class DreamBox extends StatelessWidget {
   final bool designMode;
   final double blur;
   final Color secondLineColor;
+  final bool redDot;
 
   DreamBox({
     @required this.height,
@@ -81,6 +82,7 @@ class DreamBox extends StatelessWidget {
     this.designMode = false,
     this.blur,
     this.secondLineColor = Colorz.White,
+    this.redDot = false,
   });
 
   @override
@@ -118,7 +120,9 @@ class DreamBox extends StatelessWidget {
     Colorz.Nothing :
     color;
 
-    Color _iconColor = blackAndWhite == true ? Colorz.WhiteSmoke : iconColor;
+    Color _iconColor =
+    blackAndWhite == true || inActiveMode == true ? Colorz.WhiteSmoke :
+    iconColor;
 
     TextDirection _textDirection = textDirection == null ? superTextDirection(context) : textDirection;
 
@@ -356,24 +360,25 @@ class DreamBox extends StatelessWidget {
                                           verse: verse,
                                           size: _verseSize,
                                           weight: verseWeight,
-                                          color: blackAndWhite == true || inActiveMode == true ? Colorz.White30 : verseColor,
-                                          shadow: blackAndWhite == true ? false : true,
+                                          color: blackAndWhite == true || inActiveMode == true ? Colorz.WhiteSmoke : verseColor,
+                                          shadow: blackAndWhite == true || inActiveMode == true ? false : true,
                                           maxLines: verseMaxLines,
                                           designMode: false,
                                           centered: icon == null ? true : false,
                                           scaleFactor: iconSizeFactor * verseScaleFactor,
                                           italic: verseItalic,
+                                          redDot: redDot,
                                         ),
 
                                         if (secondLine != null)
                                         SuperVerse(
                                           verse: secondLine,
-                                          weight: VerseWeight.regular,
+                                          weight: VerseWeight.thin,
                                           size: 1,
-                                          color: secondLineColor,
+                                          color: blackAndWhite == true || inActiveMode == true ? Colorz.WhiteSmoke : secondLineColor,
                                           maxLines: 10,
                                           italic: true,
-                                          shadow: true,
+                                          shadow: blackAndWhite == true || inActiveMode == true ? false : true,
                                           centered: false,
                                         ),
                                       ],
@@ -433,8 +438,8 @@ class DreamBox extends StatelessWidget {
                                     onTapUp: inActiveMode == true || onTapUp == null ? (TapUpDetails details){} : (TapUpDetails details) => onTapUp(),
                                     child: InkWell(
                                       splashColor: splashColor,
-                                      onTap: inActiveMode == true ? (){} : boxFunction,
-                                      onTapCancel: inActiveMode == true ? (){} : onTapCancel,
+                                      onTap: boxFunction,
+                                      onTapCancel: onTapCancel,
                                     ),
                                   ),
                                 ),

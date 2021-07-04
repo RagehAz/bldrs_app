@@ -1,5 +1,6 @@
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer_model.dart';
+import 'package:bldrs/models/flyer_type_class.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/keywords/group_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
