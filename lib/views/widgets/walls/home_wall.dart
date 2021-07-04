@@ -105,7 +105,7 @@ class _HomeWallState extends State<HomeWall> {
       _spacer,
       _spacer,
 
-      SectionGroupsBubble(
+      WallGroupsBubble(
         gridZoneWidth: Scale.superBubbleClearWidth(context),
         onTap: (){},
         numberOfColumns: 3,

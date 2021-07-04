@@ -7,6 +7,7 @@ import 'package:bldrs/models/planet/area_model.dart';
 import 'package:bldrs/models/planet/province_model.dart';
 import 'package:bldrs/models/planet/country_model.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
+import 'package:bldrs/models/secondary_models/namez_model.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
 class CountryProvider with ChangeNotifier{
@@ -140,12 +141,16 @@ class CountryProvider with ChangeNotifier{
     return nameInCurrentLanguage == null ? area?.name : nameInCurrentLanguage;
   }
 // -----------------------------------------------------------------------------
-  String getProvinceNameWithCurrentLanguageIfPossible(BuildContext context, String provinceName){
-  String _currentLanguageCode = Wordz.languageCode(context);
-  Province province = _provinces.firstWhere((ar) => ar.name == provinceName, orElse: ()=> null);
-  String nameInCurrentLanguage = province?.namez?.singleWhere((name) => name.code == _currentLanguageCode, orElse: ()=> null)?.value;
+  String getProvinceNameWithCurrentLanguageIfPossible(BuildContext context, String provinceID){
+  Province _province = _provinces.firstWhere((ar) => ar.name == provinceID, orElse: ()=> null);
+  // String _nameInCurrentLanguage = _province?.namez?.singleWhere((name) => name.code == _currentLanguageCode, orElse: ()=> null)?.value;
 
-  return nameInCurrentLanguage == null ? provinceName : nameInCurrentLanguage;
+  print('province is : ${_province.iso3} : ${_province.name} : ${_province.areas.length} : ${_province.namez}');
+
+  String _nameInCurrentLanguage = Namez.getNameWithCurrentLanguageFromListOfNamez(context, _province?.namez);
+
+
+  return _nameInCurrentLanguage == null ? provinceID : _nameInCurrentLanguage;
 }
 // -----------------------------------------------------------------------------
   String getProvinceIDByProvinceName(BuildContext context, String provinceName){

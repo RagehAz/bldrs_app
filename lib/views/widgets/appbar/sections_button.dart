@@ -20,6 +20,9 @@ import 'package:bldrs/views/widgets/bubbles/tile_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/dialog_button.dart';
+import 'package:bldrs/views/widgets/dialogs/section_dialog/section_bubble.dart';
+import 'package:bldrs/views/widgets/dialogs/section_dialog/section_button.dart';
+import 'package:bldrs/views/widgets/dialogs/section_dialog/section_dialog.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -37,7 +40,7 @@ class SectionsButton extends StatelessWidget {
 
       await superDialog(
         context: context,
-        title: 'Section "${TextGenerator.sectionStringer(context, section)}"\nis Temporarily closed',
+        title: 'Section "${TextGenerator.sectionStringer(context, section)}" is\nTemporarily closed in $_currentProvince',
         body: 'The Bldrs in $_currentProvince are adding flyers everyday to properly present their markets.\nplease hold for couple of days and come back again.',
         child: Container(
           child: Row(
@@ -77,162 +80,14 @@ class SectionsButton extends StatelessWidget {
 
   }
 // -----------------------------------------------------------------------------
-  String _sectionIcon({Section section, bool inActiveMode}){
-    String _icon;
-
-    if (inActiveMode == true){
-      _icon = Iconizer.sectionIconOff(section);
-    }
-    else {
-      _icon = Iconizer.sectionIconOn(section);
-    }
-
-    return _icon;
-  }
-// -----------------------------------------------------------------------------
 void _changeSection(BuildContext context, FlyersProvider pro) async {
 
-  List<Section> _sections = SectionClass.SectionsList;
-  double _bubbleWidth = Scale.superDialogWidth(context) - Ratioz.appBarMargin * 2;
-  double _buttonWidth = _bubbleWidth * 0.9;
   double _dialogHeight = Scale.superScreenHeight(context) * 0.95;
 
-  Widget _sectionBubble({String title, String icon, List<Widget> buttons}){
-    return
-      InPyramidsBubble(
-        centered: false,
-        title: title,
-        // actionBtIcon: Iconz.BxPropertiesOn,
-        actionBtSizeFactor: 1,
-        actionBtFunction: (){},
-        bubbleColor: Colorz.WhiteGlass,
-        bubbleOnTap: null,
-        bubbleWidth: _bubbleWidth,
-        leadingIcon: icon,
-        leadingIconColor: Colorz.WhiteZircon,
-        titleColor: Colorz.WhiteZircon,
-        columnChildren: <Widget>[
-
-          /// Section buttons
-          Container(
-            width: _buttonWidth,
-            // color: Colorz.BloodTest,
-            // alignment: Alignment.center,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: buttons,
-            ),
-          ),
-
-
-        ],
-      );
-  }
-
-  Widget _sectionButton({Section section, bool inActiveMode}){
-
-    return
-      DreamBox(
-        height: _dialogHeight * 0.06,
-        // width: _buttonWidth,
-        icon: _sectionIcon(section: section, inActiveMode: inActiveMode),
-        verse: TextGenerator.sectionStringer(context, section),
-        verseScaleFactor: 0.55,
-        secondLine: TextGenerator.sectionDescriptionStringer(context, section),
-        secondLineColor: Colorz.WhiteLingerie,
-        margins: Ratioz.appBarPadding,
-        inActiveMode: inActiveMode,
-        boxFunction: () =>
-            _onSectionTap(
-                context: context,
-                section: section,
-                pro: pro,
-                inActiveMode: inActiveMode
-            ),
-      );
-  }
-
-  dynamic _result = await superDialog(
+  await SectionDialog.slideDialog(
     context: context,
-    body: 'Select a section',
-    height: _dialogHeight,
-    child: Container(
-      // height: _dialogHeight,
-      // color: Colorz.BloodTest,
-      child: Column(
-        children: <Widget>[
-
-          /// REAL ESTATE
-          _sectionBubble(
-            title: 'RealEstate',
-            icon: Iconz.PyramidSingleYellow,
-            buttons: <Widget>[
-
-              _sectionButton(
-                section: Section.NewProperties,
-                inActiveMode: false,
-              ),
-
-              _sectionButton(
-                section: Section.ResaleProperties,
-                inActiveMode: false,
-              ),
-
-              _sectionButton(
-                section: Section.RentalProperties,
-                inActiveMode: true,
-              ),
-
-            ]
-          ),
-
-          /// Construction
-          _sectionBubble(
-              title: 'Construction',
-              icon: Iconz.PyramidSingleYellow,
-              buttons: <Widget>[
-
-                _sectionButton(
-                  section: Section.Designs,
-                  inActiveMode: false,
-                ),
-
-                _sectionButton(
-                  section: Section.Projects,
-                  inActiveMode: false,
-                ),
-
-                _sectionButton(
-                  section: Section.Crafts,
-                  inActiveMode: false,
-                ),
-
-              ]
-          ),
-
-          /// Construction
-          _sectionBubble(
-            title: 'Supplies',
-            icon: Iconz.PyramidSingleYellow,
-            buttons: <Widget>[
-
-              _sectionButton(
-                section: Section.Products,
-                inActiveMode: false,
-                ),
-
-              _sectionButton(
-                section: Section.Equipment,
-                inActiveMode: true,
-              ),
-
-            ],
-          ),
-
-        ],
-      ),
-    ),
+    pro: pro,
+    dialogHeight: _dialogHeight,
   );
 
 }
@@ -261,8 +116,6 @@ Widget build(BuildContext context) {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-
-
 
         IntrinsicWidth(
 

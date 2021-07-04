@@ -20,12 +20,12 @@ import 'package:provider/provider.dart';
 
 import 'in_pyramids_bubble.dart';
 
-class SectionGroupsBubble extends StatelessWidget {
+class WallGroupsBubble extends StatelessWidget {
   final double gridZoneWidth;
   final int numberOfColumns;
   final Function onTap;
 
-  SectionGroupsBubble({
+  WallGroupsBubble({
     @required this.gridZoneWidth,
     this.numberOfColumns = 3,
     this.onTap,
@@ -37,8 +37,6 @@ class SectionGroupsBubble extends StatelessWidget {
     final _prof = Provider.of<FlyersProvider>(context, listen: true);
     Section _currentSection = _prof.getCurrentSection;
     List<GroupModel> _groups = GroupModel.getGroupsBySection(section: _currentSection);
-
-    print('groups are ${_groups}');
 
     const List<Color> _boxesColors = [Colorz.White30, Colorz.WhiteGlass, Colorz.WhiteAir];
 
@@ -104,7 +102,6 @@ class SectionGroupsBubble extends StatelessWidget {
                     children: _groups.map(
                           (sectionGroup) =>
 
-
                               Container(
                                 width: _buttonWidth,
                                 height: _buttonHeight,
@@ -116,7 +113,7 @@ class SectionGroupsBubble extends StatelessWidget {
                                       width: _buttonWidth,
                                       height: _buttonWidth,
                                       color: Colorz.BlackPlastic,
-                                      icon: KeywordModel.getImagePath(sectionGroup.firstKeyword),
+                                      icon: KeywordModel.getImagePath(sectionGroup.firstKeywordID),
                                       boxFunction: (){
 
                                         Nav.goToNewScreen(context,
@@ -130,7 +127,7 @@ class SectionGroupsBubble extends StatelessWidget {
                                     ),
 
                                     SuperVerse(
-                                      verse: sectionGroup.firstKeyword,
+                                      verse: KeywordModel.getKeywordNameByKeywordID(context, sectionGroup.firstKeywordID),
                                       centered: true,
                                       maxLines: 3,
                                     ),
