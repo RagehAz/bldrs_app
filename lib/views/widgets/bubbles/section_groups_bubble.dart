@@ -36,9 +36,9 @@ class SectionGroupsBubble extends StatelessWidget {
 
     final _prof = Provider.of<FlyersProvider>(context, listen: true);
     Section _currentSection = _prof.getCurrentSection;
-    FlyerType _flyerType = FlyerTypeClass.getFlyersTypesBySection(section: _currentSection);
+    List<GroupModel> _groups = GroupModel.getGroupsBySection(section: _currentSection);
 
-    List<GroupModel> _groups = GroupModel.getGroupsByFlyerType(flyerType: _flyerType);
+    print('groups are ${_groups}');
 
     const List<Color> _boxesColors = [Colorz.White30, Colorz.WhiteGlass, Colorz.WhiteAir];
 

@@ -22,23 +22,27 @@ class GroupModel {
     this.secondKeywords, // if null, we go directly to KeywordFlyersPage
   });
 // -----------------------------------------------------------------------------
-  static List<GroupModel> getGroupsByFlyerType({FlyerType flyerType}){
+  static List<GroupModel> getGroupsBySection({Section section}){
     List<GroupModel> _groups = new List();
 
-    List<GroupModel> _allGroupsBySection =
-    flyerType == FlyerType.Property ? GroupModel.propertiesGroups :
-    flyerType == FlyerType.Design ? GroupModel.designsGroups :
-    flyerType == FlyerType.Product ? GroupModel.productsGroups :
+    List<GroupModel> _groupsBySection =
+    section == Section.NewProperties ? GroupModel.propertiesGroups() :
+    section == Section.ResaleProperties ? GroupModel.propertiesGroups() :
+    section == Section.RentalProperties ? GroupModel.propertiesGroups() :
+
+    section == Section.Designs ? GroupModel.designsGroups() :
+    section == Section.Projects ? GroupModel.projectsGroups() :
+    section == Section.Crafts ? GroupModel.craftsGroups() :
+
+    section == Section.Products ? GroupModel.productsGroups() :
+    section == Section.Equipment ? GroupModel.equipmentGroups() :
+
     [] ;
 
-    _allGroupsBySection.forEach((group) {
-      if(group.sectionIsOn == true){
-        _groups.add(group);
-      }
-    });
 
-    return _groups;
+    return _groupsBySection;
 }
+
 // -----------------------------------------------------------------------------
 //   static List<GroupModel> propertiesGroupsX(){
 //     List<GroupModel> _propertiesGroups = new List();
@@ -64,75 +68,89 @@ class GroupModel {
 //     return _propertiesGroups;
 //   }
 
-  static List<GroupModel> propertiesGroups = <GroupModel>[
-    GroupModel(sectionIsOn: true, firstKeyword: 'pt_apartment', secondKeywords: FilterModel.propertyAreaFilter),
-    GroupModel(sectionIsOn: true, firstKeyword: 'pt_furnishedApartment', secondKeywords: FilterModel.propertyAreaFilter),
-    GroupModel(sectionIsOn: true, firstKeyword: 'pt_loft', secondKeywords: FilterModel.propertyAreaFilter),
-    GroupModel(sectionIsOn: true, firstKeyword: 'pt_penthouse', secondKeywords: FilterModel.propertyAreaFilter),
-    GroupModel(sectionIsOn: true, firstKeyword: 'pt_chalet', secondKeywords: FilterModel.propertyAreaFilter),
-    GroupModel(sectionIsOn: true, firstKeyword: 'pt_twinhouse', secondKeywords: FilterModel.propertyAreaFilter),
-    GroupModel(sectionIsOn: true, firstKeyword: 'pt_bungalow', secondKeywords: FilterModel.propertyAreaFilter),
-    GroupModel(sectionIsOn: true, firstKeyword: 'pt_villa', secondKeywords: FilterModel.propertyAreaFilter),
-    GroupModel(sectionIsOn: true, firstKeyword: 'pt_condo', secondKeywords: FilterModel.propertyAreaFilter),
-    GroupModel(sectionIsOn: true, firstKeyword: 'pt_farm', secondKeywords: FilterModel.propertyAreaFilter),
-    GroupModel(sectionIsOn: true, firstKeyword: 'pt_townHome', secondKeywords: FilterModel.propertyAreaFilter),
-    GroupModel(sectionIsOn: false, firstKeyword: 'pt_coop', secondKeywords: FilterModel.propertyAreaFilter),
-    GroupModel(sectionIsOn: true, firstKeyword: 'pt_sharedRoom', secondKeywords: FilterModel.propertyAreaFilter),
-    GroupModel(sectionIsOn: true, firstKeyword: 'pt_duplix', secondKeywords: FilterModel.propertyAreaFilter),
-    GroupModel(sectionIsOn: true, firstKeyword: 'pt_hotelApartment', secondKeywords: FilterModel.propertyAreaFilter),
-    GroupModel(sectionIsOn: true, firstKeyword: 'pt_studio', secondKeywords: FilterModel.propertyAreaFilter),
-    GroupModel(sectionIsOn: true, firstKeyword: 'pt_store', secondKeywords: FilterModel.propertyAreaFilter),
-    GroupModel(sectionIsOn: true, firstKeyword: 'pt_supermarket', secondKeywords: FilterModel.propertyAreaFilter),
-    GroupModel(sectionIsOn: true, firstKeyword: 'pt_warehouse', secondKeywords: FilterModel.propertyAreaFilter),
-    GroupModel(sectionIsOn: true, firstKeyword: 'pt_hall', secondKeywords: FilterModel.propertyAreaFilter),
-    GroupModel(sectionIsOn: true, firstKeyword: 'pt_bank', secondKeywords: FilterModel.propertyAreaFilter),
-    GroupModel(sectionIsOn: true, firstKeyword: 'pt_restaurant', secondKeywords: FilterModel.propertyAreaFilter),
-    GroupModel(sectionIsOn: true, firstKeyword: 'pt_pharmacy', secondKeywords: FilterModel.propertyAreaFilter),
-    GroupModel(sectionIsOn: true, firstKeyword: 'pt_studio', secondKeywords: FilterModel.propertyAreaFilter),
-    GroupModel(sectionIsOn: true, firstKeyword: 'pt_factory', secondKeywords: FilterModel.propertyAreaFilter),
-    GroupModel(sectionIsOn: true, firstKeyword: 'pt_office', secondKeywords: FilterModel.propertyAreaFilter),
-    GroupModel(sectionIsOn: true, firstKeyword: 'pt_school', secondKeywords: FilterModel.propertyAreaFilter),
-    GroupModel(sectionIsOn: true, firstKeyword: 'pt_hotel', secondKeywords: FilterModel.propertyAreaFilter),
-    GroupModel(sectionIsOn: true, firstKeyword: 'pt_football', secondKeywords: null),
-    GroupModel(sectionIsOn: true, firstKeyword: 'pt_tennis', secondKeywords: null),
-    GroupModel(sectionIsOn: true, firstKeyword: 'pt_basketball', secondKeywords: null),
-    GroupModel(sectionIsOn: true, firstKeyword: 'pt_gym', secondKeywords: FilterModel.propertyAreaFilter),
-    GroupModel(sectionIsOn: true, firstKeyword: 'pt_gallery', secondKeywords: FilterModel.propertyAreaFilter),
-    GroupModel(sectionIsOn: true, firstKeyword: 'pt_theatre', secondKeywords: FilterModel.propertyAreaFilter),
-    GroupModel(sectionIsOn: true, firstKeyword: 'space_spa', secondKeywords: FilterModel.propertyAreaFilter),
-    GroupModel(sectionIsOn: true, firstKeyword: 'pt_clinic', secondKeywords: FilterModel.propertyAreaFilter),
-    GroupModel(sectionIsOn: true, firstKeyword: 'pf_building', secondKeywords: FilterModel.propertyLicenseFilter),
-  ];
+  static List<GroupModel> propertiesGroups(){
+    return
+      <GroupModel>[
+        GroupModel(sectionIsOn: true, firstKeyword: 'pt_apartment', secondKeywords: FilterModel.propertyAreaFilter),
+        GroupModel(sectionIsOn: true, firstKeyword: 'pt_furnishedApartment', secondKeywords: FilterModel.propertyAreaFilter),
+        GroupModel(sectionIsOn: true, firstKeyword: 'pt_loft', secondKeywords: FilterModel.propertyAreaFilter),
+        GroupModel(sectionIsOn: true, firstKeyword: 'pt_penthouse', secondKeywords: FilterModel.propertyAreaFilter),
+        GroupModel(sectionIsOn: true, firstKeyword: 'pt_chalet', secondKeywords: FilterModel.propertyAreaFilter),
+        GroupModel(sectionIsOn: true, firstKeyword: 'pt_twinhouse', secondKeywords: FilterModel.propertyAreaFilter),
+        GroupModel(sectionIsOn: true, firstKeyword: 'pt_bungalow', secondKeywords: FilterModel.propertyAreaFilter),
+        GroupModel(sectionIsOn: true, firstKeyword: 'pt_villa', secondKeywords: FilterModel.propertyAreaFilter),
+        GroupModel(sectionIsOn: true, firstKeyword: 'pt_condo', secondKeywords: FilterModel.propertyAreaFilter),
+        GroupModel(sectionIsOn: true, firstKeyword: 'pt_farm', secondKeywords: FilterModel.propertyAreaFilter),
+        GroupModel(sectionIsOn: true, firstKeyword: 'pt_townHome', secondKeywords: FilterModel.propertyAreaFilter),
+        GroupModel(sectionIsOn: false, firstKeyword: 'pt_coop', secondKeywords: FilterModel.propertyAreaFilter),
+        GroupModel(sectionIsOn: true, firstKeyword: 'pt_sharedRoom', secondKeywords: FilterModel.propertyAreaFilter),
+        GroupModel(sectionIsOn: true, firstKeyword: 'pt_duplix', secondKeywords: FilterModel.propertyAreaFilter),
+        GroupModel(sectionIsOn: true, firstKeyword: 'pt_hotelApartment', secondKeywords: FilterModel.propertyAreaFilter),
+        GroupModel(sectionIsOn: true, firstKeyword: 'pt_studio', secondKeywords: FilterModel.propertyAreaFilter),
+        GroupModel(sectionIsOn: true, firstKeyword: 'pt_store', secondKeywords: FilterModel.propertyAreaFilter),
+        GroupModel(sectionIsOn: true, firstKeyword: 'pt_supermarket', secondKeywords: FilterModel.propertyAreaFilter),
+        GroupModel(sectionIsOn: true, firstKeyword: 'pt_warehouse', secondKeywords: FilterModel.propertyAreaFilter),
+        GroupModel(sectionIsOn: true, firstKeyword: 'pt_hall', secondKeywords: FilterModel.propertyAreaFilter),
+        GroupModel(sectionIsOn: true, firstKeyword: 'pt_bank', secondKeywords: FilterModel.propertyAreaFilter),
+        GroupModel(sectionIsOn: true, firstKeyword: 'pt_restaurant', secondKeywords: FilterModel.propertyAreaFilter),
+        GroupModel(sectionIsOn: true, firstKeyword: 'pt_pharmacy', secondKeywords: FilterModel.propertyAreaFilter),
+        GroupModel(sectionIsOn: true, firstKeyword: 'pt_studio', secondKeywords: FilterModel.propertyAreaFilter),
+        GroupModel(sectionIsOn: true, firstKeyword: 'pt_factory', secondKeywords: FilterModel.propertyAreaFilter),
+        GroupModel(sectionIsOn: true, firstKeyword: 'pt_office', secondKeywords: FilterModel.propertyAreaFilter),
+        GroupModel(sectionIsOn: true, firstKeyword: 'pt_school', secondKeywords: FilterModel.propertyAreaFilter),
+        GroupModel(sectionIsOn: true, firstKeyword: 'pt_hotel', secondKeywords: FilterModel.propertyAreaFilter),
+        GroupModel(sectionIsOn: true, firstKeyword: 'pt_football', secondKeywords: null),
+        GroupModel(sectionIsOn: true, firstKeyword: 'pt_tennis', secondKeywords: null),
+        GroupModel(sectionIsOn: true, firstKeyword: 'pt_basketball', secondKeywords: null),
+        GroupModel(sectionIsOn: true, firstKeyword: 'pt_gym', secondKeywords: FilterModel.propertyAreaFilter),
+        GroupModel(sectionIsOn: true, firstKeyword: 'pt_gallery', secondKeywords: FilterModel.propertyAreaFilter),
+        GroupModel(sectionIsOn: true, firstKeyword: 'pt_theatre', secondKeywords: FilterModel.propertyAreaFilter),
+        GroupModel(sectionIsOn: true, firstKeyword: 'space_spa', secondKeywords: FilterModel.propertyAreaFilter),
+        GroupModel(sectionIsOn: true, firstKeyword: 'pt_clinic', secondKeywords: FilterModel.propertyAreaFilter),
+        GroupModel(sectionIsOn: true, firstKeyword: 'pf_building', secondKeywords: FilterModel.propertyLicenseFilter),
+      ];
+  }
 // -----------------------------------------------------------------------------
-  static List<GroupModel> designsGroups = <GroupModel>[
-    GroupModel(sectionIsOn: true, firstKeyword: 'designType_architecture', secondKeywords: FilterModel.propertyLicenseFilter),
-    GroupModel(sectionIsOn: true, firstKeyword: 'designType_interior', secondKeywords: FilterModel.spaceTypeFilter),
-    GroupModel(sectionIsOn: true, firstKeyword: 'designType_facade', secondKeywords: FilterModel.propertyLicenseFilter),
-    GroupModel(sectionIsOn: true, firstKeyword: 'designType_urban', secondKeywords: FilterModel.propertyLicenseFilter),
-    GroupModel(sectionIsOn: true, firstKeyword: 'designType_landscape', secondKeywords: FilterModel.propertyAreaFilter),
-    GroupModel(sectionIsOn: true, firstKeyword: 'designType_structural', secondKeywords: FilterModel.propertyLicenseFilter),
-    GroupModel(sectionIsOn: true, firstKeyword: 'designType_kiosk', secondKeywords: FilterModel.kioskTypeFilter),
-  ];
+  static List<GroupModel> designsGroups(){
+    return
+      <GroupModel>[
+        GroupModel(sectionIsOn: true, firstKeyword: 'designType_architecture', secondKeywords: FilterModel.propertyLicenseFilter),
+        GroupModel(sectionIsOn: true, firstKeyword: 'designType_interior', secondKeywords: FilterModel.spaceTypeFilter),
+        GroupModel(sectionIsOn: true, firstKeyword: 'designType_facade', secondKeywords: FilterModel.propertyLicenseFilter),
+        GroupModel(sectionIsOn: true, firstKeyword: 'designType_urban', secondKeywords: FilterModel.propertyLicenseFilter),
+        GroupModel(sectionIsOn: true, firstKeyword: 'designType_landscape', secondKeywords: FilterModel.propertyAreaFilter),
+        GroupModel(sectionIsOn: true, firstKeyword: 'designType_structural', secondKeywords: FilterModel.propertyLicenseFilter),
+        GroupModel(sectionIsOn: true, firstKeyword: 'designType_kiosk', secondKeywords: FilterModel.kioskTypeFilter),
+      ];
+  }
 // -----------------------------------------------------------------------------
-  static List<GroupModel> craftsGroups = <GroupModel>[
-    GroupModel(sectionIsOn: true, firstKeyword: 'con_trade_carpentry', secondKeywords: null),
-    GroupModel(sectionIsOn: true, firstKeyword: 'con_trade_electricity', secondKeywords: null),
-    GroupModel(sectionIsOn: true, firstKeyword: 'con_trade_insulation', secondKeywords: null),
-    GroupModel(sectionIsOn: true, firstKeyword: 'con_trade_masonry', secondKeywords: null),
-    GroupModel(sectionIsOn: true, firstKeyword: 'con_trade_plumbing', secondKeywords: null),
-    GroupModel(sectionIsOn: true, firstKeyword: 'con_trade_blacksmithing', secondKeywords: null),
-    GroupModel(sectionIsOn: true, firstKeyword: 'con_trade_labor', secondKeywords: null),
-    GroupModel(sectionIsOn: true, firstKeyword: 'con_trade_painting', secondKeywords: null),
-    GroupModel(sectionIsOn: true, firstKeyword: 'con_trade_plaster', secondKeywords: null),
-    GroupModel(sectionIsOn: true, firstKeyword: 'con_trade_landscape', secondKeywords: null),
-    GroupModel(sectionIsOn: true, firstKeyword: 'con_trade_hardscape', secondKeywords: null),
-    GroupModel(sectionIsOn: true, firstKeyword: 'con_trade_hvac', secondKeywords: null),
-    GroupModel(sectionIsOn: true, firstKeyword: 'con_trade_firefighting', secondKeywords: null),
-    GroupModel(sectionIsOn: true, firstKeyword: 'con_trade_elevators', secondKeywords: null),
-    GroupModel(sectionIsOn: true, firstKeyword: 'con_trade_tiling', secondKeywords: null),
-    GroupModel(sectionIsOn: true, firstKeyword: 'con_trade_transportation', secondKeywords: null),
-    GroupModel(sectionIsOn: true, firstKeyword: 'con_trade_concrete', secondKeywords: null),
-  ];
+  static List<GroupModel> projectsGroups(){
+    return
+    <GroupModel>[];
+  }
+// -----------------------------------------------------------------------------
+  static List<GroupModel> craftsGroups(){
+    return
+      <GroupModel>[
+        GroupModel(sectionIsOn: true, firstKeyword: 'con_trade_carpentry', secondKeywords: null),
+        GroupModel(sectionIsOn: true, firstKeyword: 'con_trade_electricity', secondKeywords: null),
+        GroupModel(sectionIsOn: true, firstKeyword: 'con_trade_insulation', secondKeywords: null),
+        GroupModel(sectionIsOn: true, firstKeyword: 'con_trade_masonry', secondKeywords: null),
+        GroupModel(sectionIsOn: true, firstKeyword: 'con_trade_plumbing', secondKeywords: null),
+        GroupModel(sectionIsOn: true, firstKeyword: 'con_trade_blacksmithing', secondKeywords: null),
+        GroupModel(sectionIsOn: true, firstKeyword: 'con_trade_labor', secondKeywords: null),
+        GroupModel(sectionIsOn: true, firstKeyword: 'con_trade_painting', secondKeywords: null),
+        GroupModel(sectionIsOn: true, firstKeyword: 'con_trade_plaster', secondKeywords: null),
+        GroupModel(sectionIsOn: true, firstKeyword: 'con_trade_landscape', secondKeywords: null),
+        GroupModel(sectionIsOn: true, firstKeyword: 'con_trade_hardscape', secondKeywords: null),
+        GroupModel(sectionIsOn: true, firstKeyword: 'con_trade_hvac', secondKeywords: null),
+        GroupModel(sectionIsOn: true, firstKeyword: 'con_trade_firefighting', secondKeywords: null),
+        GroupModel(sectionIsOn: true, firstKeyword: 'con_trade_elevators', secondKeywords: null),
+        GroupModel(sectionIsOn: true, firstKeyword: 'con_trade_tiling', secondKeywords: null),
+        GroupModel(sectionIsOn: true, firstKeyword: 'con_trade_transportation', secondKeywords: null),
+        GroupModel(sectionIsOn: true, firstKeyword: 'con_trade_concrete', secondKeywords: null),
+      ];
+  }
 // -----------------------------------------------------------------------------
   static List<GroupModel> productsGroupsX(){
     List<GroupModel> _productsGroups = new List();
@@ -152,28 +170,36 @@ class GroupModel {
     return _productsGroups;
   }
 // -----------------------------------------------------------------------------
-  static List<GroupModel> productsGroups = <GroupModel>[
-    GroupModel(sectionIsOn: true, firstKeyword: 'group_prd_walls', secondKeywords: null),
-    GroupModel(sectionIsOn: true, firstKeyword: 'group_prd_floors', secondKeywords: null),
-    GroupModel(sectionIsOn: true, firstKeyword: 'group_prd_structure', secondKeywords: null),
-    GroupModel(sectionIsOn: true, firstKeyword: 'group_prd_fireFighting', secondKeywords: null),
-    GroupModel(sectionIsOn: true, firstKeyword: 'group_prd_safety', secondKeywords: null),
-    GroupModel(sectionIsOn: true, firstKeyword: 'group_prd_stairs', secondKeywords: null),
-    GroupModel(sectionIsOn: true, firstKeyword: 'group_prd_roofing', secondKeywords: null),
-    GroupModel(sectionIsOn: true, firstKeyword: 'group_prd_doorsWindows', secondKeywords: null),
-    GroupModel(sectionIsOn: true, firstKeyword: 'group_prd_landscape', secondKeywords: null),
-    GroupModel(sectionIsOn: true, firstKeyword: 'group_prd_hvac', secondKeywords: null),
-    GroupModel(sectionIsOn: true, firstKeyword: 'group_prd_plumbing', secondKeywords: null),
-    GroupModel(sectionIsOn: true, firstKeyword: 'group_prd_lighting', secondKeywords: null),
-    GroupModel(sectionIsOn: true, firstKeyword: 'group_prd_electricity', secondKeywords: null),
-    GroupModel(sectionIsOn: true, firstKeyword: 'group_prd_security', secondKeywords: null),
-    GroupModel(sectionIsOn: true, firstKeyword: 'group_prd_poolSpa', secondKeywords: null),
-    GroupModel(sectionIsOn: true, firstKeyword: 'group_prd_smartHome', secondKeywords: null),
-    GroupModel(sectionIsOn: true, firstKeyword: 'group_prd_furniture', secondKeywords: null),
-    GroupModel(sectionIsOn: true, firstKeyword: 'group_prd_appliances', secondKeywords: null),
-    GroupModel(sectionIsOn: true, firstKeyword: 'group_prd_fireplaces', secondKeywords: null),
-    GroupModel(sectionIsOn: true, firstKeyword: 'group_prd_materials', secondKeywords: null),
-    GroupModel(sectionIsOn: true, firstKeyword: 'group_prd_tools', secondKeywords: null),
-  ];
+  static List<GroupModel> productsGroups(){
+    return
+    <GroupModel>[
+      GroupModel(sectionIsOn: true, firstKeyword: 'group_prd_walls', secondKeywords: null),
+      GroupModel(sectionIsOn: true, firstKeyword: 'group_prd_floors', secondKeywords: null),
+      GroupModel(sectionIsOn: true, firstKeyword: 'group_prd_structure', secondKeywords: null),
+      GroupModel(sectionIsOn: true, firstKeyword: 'group_prd_fireFighting', secondKeywords: null),
+      GroupModel(sectionIsOn: true, firstKeyword: 'group_prd_safety', secondKeywords: null),
+      GroupModel(sectionIsOn: true, firstKeyword: 'group_prd_stairs', secondKeywords: null),
+      GroupModel(sectionIsOn: true, firstKeyword: 'group_prd_roofing', secondKeywords: null),
+      GroupModel(sectionIsOn: true, firstKeyword: 'group_prd_doorsWindows', secondKeywords: null),
+      GroupModel(sectionIsOn: true, firstKeyword: 'group_prd_landscape', secondKeywords: null),
+      GroupModel(sectionIsOn: true, firstKeyword: 'group_prd_hvac', secondKeywords: null),
+      GroupModel(sectionIsOn: true, firstKeyword: 'group_prd_plumbing', secondKeywords: null),
+      GroupModel(sectionIsOn: true, firstKeyword: 'group_prd_lighting', secondKeywords: null),
+      GroupModel(sectionIsOn: true, firstKeyword: 'group_prd_electricity', secondKeywords: null),
+      GroupModel(sectionIsOn: true, firstKeyword: 'group_prd_security', secondKeywords: null),
+      GroupModel(sectionIsOn: true, firstKeyword: 'group_prd_poolSpa', secondKeywords: null),
+      GroupModel(sectionIsOn: true, firstKeyword: 'group_prd_smartHome', secondKeywords: null),
+      GroupModel(sectionIsOn: true, firstKeyword: 'group_prd_furniture', secondKeywords: null),
+      GroupModel(sectionIsOn: true, firstKeyword: 'group_prd_appliances', secondKeywords: null),
+      GroupModel(sectionIsOn: true, firstKeyword: 'group_prd_fireplaces', secondKeywords: null),
+      GroupModel(sectionIsOn: true, firstKeyword: 'group_prd_materials', secondKeywords: null),
+      GroupModel(sectionIsOn: true, firstKeyword: 'group_prd_tools', secondKeywords: null),
+    ];
+    }
+// -----------------------------------------------------------------------------
+  static List<GroupModel> equipmentGroups(){
+    return
+        <GroupModel>[];
+  }
 // -----------------------------------------------------------------------------
 }
