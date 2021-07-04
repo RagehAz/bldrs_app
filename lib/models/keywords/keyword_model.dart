@@ -1,22 +1,24 @@
 import 'package:bldrs/controllers/theme/keywordz.dart';
+import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/keywords/filter_model.dart';
+import 'package:bldrs/models/secondary_models/namez_model.dart';
 import 'package:flutter/foundation.dart';
 
 class KeywordModel {
   final String keywordID;
-  final String filterID;
+  final FlyerType flyerType;
   final String groupID;
   final String subGroupID;
-  final String name; //TASK : remove this as it should be translated from JSON files by id
   final int uses;
+  final List<Namez> names;
 
   KeywordModel({
     @required this.keywordID,
-    @required this.filterID,
+    @required this.flyerType,
     @required this.groupID,
     @required this.subGroupID,
-    @required this.name,
     @required this.uses,
+    this.names,
 });
 // -----------------------------------------------------------------------------
   static String getImagePath(String id){
@@ -27,8 +29,8 @@ class KeywordModel {
     bool _keywordsAreTheSame =
         _firstKeyword == null || _secondKeyword == null ? false
         :
-        _firstKeyword.filterID == _secondKeyword.filterID &&
-        _firstKeyword.name == _secondKeyword.name &&
+        _firstKeyword.flyerType == _secondKeyword.flyerType &&
+        // _firstKeyword.name == _secondKeyword.name &&
         _firstKeyword.keywordID == _secondKeyword.keywordID &&
         _firstKeyword.groupID == _secondKeyword.groupID &&
         _firstKeyword.subGroupID == _secondKeyword.subGroupID &&
@@ -37,7 +39,7 @@ class KeywordModel {
 
     return _keywordsAreTheSame;
   }
-
+// -----------------------------------------------------------------------------
   static bool isIconless(KeywordModel keywordModel){
     bool _isIconless =
     keywordModel.groupID == 'numberOfRooms' ? true :
@@ -53,25 +55,75 @@ class KeywordModel {
     return _isIconless;
   }
 // -----------------------------------------------------------------------------
-  static bool keywordsContainThisFilterID({List<KeywordModel> keywords, String filterID}){
+  /// tamam
+  static List<KeywordModel> getKeywordsByFlyerType(FlyerType flyerType){
+    List<KeywordModel> _keywords = new List();
 
-    bool _keywordsContainThisID = false;
-
-    keywords.forEach((keyword) {
-      if(keyword.filterID == filterID){
-        _keywordsContainThisID = true;
+    AllKeywords.bldrsKeywords.forEach((keyword) {
+      if (keyword.flyerType == flyerType){
+        _keywords.add(keyword);
       }
     });
 
-    return _keywordsContainThisID;
+    return _keywords;
   }
 // -----------------------------------------------------------------------------
-  static List<String> getFiltersIDs(){
-    List<String> _filtersIDs = new List();
+  /// tamam
+  static List<KeywordModel> getKeywordsByGroupID(String groupID){
+    List<KeywordModel> _keywords = new List();
 
-    return _filtersIDs;
+    AllKeywords.bldrsKeywords.forEach((keyword) {
+      if (keyword.groupID == groupID){
+        _keywords.add(keyword);
+      }
+    });
+
+    return _keywords;
   }
 // -----------------------------------------------------------------------------
+  /// tamam
+  static List<KeywordModel> getKeywordsBySubGroupID(String subGroupID){
+    List<KeywordModel> _keywords = new List();
+
+    AllKeywords.bldrsKeywords.forEach((keyword) {
+      if (keyword.subGroupID == subGroupID){
+        _keywords.add(keyword);
+      }
+    });
+
+    return _keywords;
+  }
+// -----------------------------------------------------------------------------
+  /// tamam
+  static List<String> getGroupsIDsByFlyerType(FlyerType flyerType){
+    List<String> _groupsIDs = new List();
+
+    AllKeywords.bldrsKeywords.forEach((keyword) {
+      if (keyword.flyerType == flyerType && !_groupsIDs.contains(keyword.groupID)){
+        _groupsIDs.add(keyword.groupID);
+      }
+    });
+
+    return _groupsIDs;
+  }
+// -----------------------------------------------------------------------------
+
+
+// -----------------------------------------------------------------------------
+  static bool keywordsContainThisFlyerType({List<KeywordModel> keywords, FlyerType flyerType}){
+
+    bool _keywordsContainThisFlyerType = false;
+
+    keywords.forEach((keyword) {
+      if(keyword.flyerType == flyerType){
+        _keywordsContainThisFlyerType = true;
+      }
+    });
+
+    return _keywordsContainThisFlyerType;
+  }
+// -----------------------------------------------------------------------------
+  /// Task : should move this to FilterModel class instead
   static List<String> getGroupsIDsFromFilterModel(FilterModel filterModel){
     List<String> _groupsIDs = new List();
 
@@ -101,22 +153,11 @@ class KeywordModel {
     return _keywordModels;
   }
 // -----------------------------------------------------------------------------
-  static List<KeywordModel> getKeywordModelsByFilterID(String filterID){
+  /// TASK : should delete this
+  static List<KeywordModel> getKeywordModelsByCategoryID(String filterID){
     List<KeywordModel> _keywordModels = new List();
 
     return _keywordModels;
-  }
-// -----------------------------------------------------------------------------
-  static List<KeywordModel> getKeywordsModelsByGroupId(String groupID){
-    List<KeywordModel> _keywords = new List();
-
-    AllKeywords.bldrsKeywords.forEach((keyword) {
-      if(keyword.groupID == groupID){
-        _keywords.add(keyword);
-      }
-    });
-
-    return _keywords;
   }
 // -----------------------------------------------------------------------------
 }

@@ -2,7 +2,7 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer_model.dart';
-import 'package:bldrs/models/keywords/sequence_model.dart';
+import 'package:bldrs/models/keywords/group_model.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/walls/group_wall.dart';
@@ -23,9 +23,9 @@ class GroupScreen extends StatelessWidget {
     Widget _appBarKeywordButton =
     DreamBox(
       height: 40,
-      verse: '${groupModel.groupID}',
+      verse: '${groupModel.firstKeyword}',
       bubble: false,
-      color: Colorz.BabyBluePlastic,
+      color: Colorz.YellowLingerie,
       verseScaleFactor: 0.7,
       verseItalic: true,
       margins: EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding * 0.5),

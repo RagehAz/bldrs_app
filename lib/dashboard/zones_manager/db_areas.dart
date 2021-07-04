@@ -1,5 +1,5 @@
 import 'package:bldrs/models/planet/area_model.dart';
-import 'package:bldrs/models/planet/namez_model.dart';
+import 'package:bldrs/models/secondary_models/namez_model.dart';
 
 List<Area> geebAreasByProvince(String province){
   List<Area> _areas = new List();

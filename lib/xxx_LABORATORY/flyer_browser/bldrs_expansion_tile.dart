@@ -192,7 +192,7 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
 
                     /// FILTER TITLE
                     title: SuperVerse(
-                      verse: widget.filterModel.filterID,
+                      verse: widget.filterModel.groupID,
                       color: _titleColor,
                       centered: false,
                       shadow: false,
@@ -200,7 +200,7 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
 
                     /// FILTER SUBTITLE
                     subtitle: SuperVerse(
-                      verse: widget.filterModel.filterID,
+                      verse: widget.filterModel.groupID,
                       color: _isExpanded ? Colorz.WhiteLingerie : Colorz.WhitePlastic,
                       weight: VerseWeight.thin,
                       italic: true,
@@ -351,7 +351,7 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
                             height: _buttonHeight,
                             width: Scale.superScreenWidth(context) - Ratioz.appBarMargin * 4 - _buttonHeight - Ratioz.appBarMargin,
                             color: _keywordIsSelected ? Colorz.Yellow : Colorz.Nothing,
-                            verse: _keyword.name,
+                            verse: _keyword.keywordID,
                             secondLine: _keyword.keywordID,
                             verseColor: _keywordIsSelected ? Colorz.BlackBlack : Colorz.White,
                             verseWeight: _keywordIsSelected ? VerseWeight.bold : VerseWeight.thin,

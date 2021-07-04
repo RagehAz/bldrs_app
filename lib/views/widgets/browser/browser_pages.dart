@@ -4,7 +4,7 @@ import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/models/bldrs_sections.dart';
+import 'package:bldrs/models/section_class.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/keywords/filter_model.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
@@ -112,7 +112,7 @@ class _BrowserPagesState extends State<BrowserPages> {
   }
 // -----------------------------------------------------------------------------
   void _onFilterTap(FilterModel filterModel){
-    print('tapping filter : ${filterModel.filterID}');
+    print('tapping filter : ${filterModel.groupID}');
 
     setState(() {
       _currentFilter = filterModel;
@@ -164,9 +164,9 @@ class _BrowserPagesState extends State<BrowserPages> {
         ''
         :
     _currentGroupID == null ?
-    '${_currentFilter.filterID}'
+    '${_currentFilter.groupID}'
         :
-    '${_currentFilter.filterID} / $_currentGroupID';
+    '${_currentFilter.groupID} / $_currentGroupID';
 
     return _path;
   }

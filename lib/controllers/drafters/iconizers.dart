@@ -2,7 +2,7 @@ import 'dart:core';
 import 'package:bldrs/controllers/drafters/text_directionerz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
-import 'package:bldrs/models/bldrs_sections.dart' show Section;
+import 'package:bldrs/models/section_class.dart' show Section;
 import 'package:bldrs/models/bz_model.dart' show BzType;
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/sub_models/contact_model.dart' show ContactType;

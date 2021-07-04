@@ -1,5 +1,5 @@
 import 'package:bldrs/controllers/theme/wordz.dart';
-import 'package:bldrs/models/bldrs_sections.dart';
+import 'package:bldrs/models/section_class.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
