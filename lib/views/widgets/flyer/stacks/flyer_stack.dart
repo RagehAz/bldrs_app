@@ -4,6 +4,7 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
+import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/flyer/tiny_flyer_widget.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
@@ -14,12 +15,14 @@ class FlyerStack extends StatelessWidget {
   final double flyerSizeFactor;
   final String title;
   final List<TinyFlyer> tinyFlyers;
+  final String titleIcon;
 
   FlyerStack({
     this.flyersType,
     this.flyerSizeFactor = 0.3,
     this.title,
     this.tinyFlyers,
+    this.titleIcon,
 });
 
   @override
@@ -57,33 +60,52 @@ class FlyerStack extends StatelessWidget {
           // mainAxisSize: MainAxisSize.min,
           children: <Widget>[
 
-            // ---  ABOVE TITLE SPACING
+            /// ---  ABOVE TITLE SPACING
             if (title != null)
               SizedBox(
                 width: _screenWidth,
                 height: _titleSpacing,
               ),
-            // --- COLLECTION TITLE
+
+            /// --- COLLECTION TITLE
             if (title != null)
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: SuperVerse(
-                  verse: title,
-                  size: 2,
-                  weight: VerseWeight.bold,
-                  centered: false,
-                  shadow: true,
-                  italic: true,
-                  maxLines: 3,
+                child: Row(
+                  children: <Widget>[
+
+                    if (titleIcon != null)
+                      DreamBox(
+                        height: 35,
+                        icon: titleIcon,
+                        margins: EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding * 0.5),
+                      ),
+
+                    if (titleIcon != null)
+                      SizedBox(width: Ratioz.appBarMargin,),
+
+                    SuperVerse(
+                      verse: title,
+                      size: 2,
+                      weight: VerseWeight.bold,
+                      centered: false,
+                      shadow: true,
+                      italic: true,
+                      maxLines: 3,
+                    ),
+
+                  ],
                 ),
               ),
-            // --- BENEATH TITLE SPACING
+
+            /// --- BENEATH TITLE SPACING
             if (title != null)
               SizedBox(
                 width: _screenWidth,
                 height: _titleSpacing,
               ),
-            // --- COLLECTION FLYER'S ZONE
+
+            /// --- COLLECTION FLYER'S ZONE
             Container(
               width: _screenWidth,
               height: _collectionHeight,
@@ -148,6 +170,7 @@ class FlyerStack extends StatelessWidget {
 
               ),
             ),
+
           ],
         ),
       );

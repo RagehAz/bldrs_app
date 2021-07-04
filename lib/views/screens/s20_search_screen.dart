@@ -8,7 +8,7 @@ import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/models/bldrs_sections.dart';
+import 'package:bldrs/models/section_class.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/keywords/filter_model.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
@@ -154,13 +154,13 @@ class _SearchScreenState extends State<SearchScreen> {
                 bool _highlightedMapIsProvince =
                 _highlightedKeyword == null ? false
                     :
-                _highlightedKeyword.filterID == 'provinces' ? true
+                _highlightedKeyword.flyerType == 'provinces' ? true
                     : false;
 
                 bool _isHighlighted =
-                _highlightedMapIsProvince == true && _keyword.filterID == 'provinces'? true
+                _highlightedMapIsProvince == true && _keyword.flyerType == 'provinces'? true
                     :
-                _highlightedMapIsProvince == true && _keyword.filterID == 'area'? true
+                _highlightedMapIsProvince == true && _keyword.flyerType == 'area'? true
                     :
                 KeywordModel.KeywordsAreTheSame(_highlightedKeyword, _keyword) == true ? true
                     :
@@ -182,7 +182,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   ) :
                   KeywordBarButton(
                     keyword: _keyword.keywordID,
-                    title: '${_keyword.filterID}, ${_keyword.groupID}, ${_keyword.subGroupID}',
+                    title: '${_keyword.flyerType}, ${_keyword.groupID}, ${_keyword.subGroupID}',
                     xIsOn: true,
                     onTap: () => _removeKeyword(index, filtersModels),
                     color: _isHighlighted == true ? Colorz.BloodRed : Colorz.BabyBlueSmoke,
@@ -261,7 +261,7 @@ class _SearchScreenState extends State<SearchScreen> {
 // -----------------------------------------------------------------------------
   List<KeywordModel> _generateFilterKeywords(List<FilterModel> filtersModels){
 
-    FilterModel _currentFilterModel = filtersModels.singleWhere((filterModel) => filterModel.filterID == _currentFilterID, orElse: () => null);
+    FilterModel _currentFilterModel = filtersModels.singleWhere((filterModel) => filterModel.groupID == _currentFilterID, orElse: () => null);
 
     List<KeywordModel> _currentFilterKeywords = _currentFilterModel == null ? [] : _currentFilterModel.keywordModels;
 
@@ -271,18 +271,18 @@ class _SearchScreenState extends State<SearchScreen> {
   void _selectFilter(FilterModel _filterModel){
 
     setState(() {
-      _currentFilterID = _filterModel.filterID;
+      _currentFilterID = _filterModel.groupID;
     });
 
   }
 // -----------------------------------------------------------------------------
   Future<void> _removeKeyword(int index, List<FilterModel> filtersModels) async {
 
-    String _filterID = _selectedKeywords[index].filterID;
-    String _keywordID = _selectedKeywords[index].keywordID;
+    String _groupID = _selectedKeywords[index].groupID;
+    // String _keywordID = _selectedKeywords[index].keywordID;
 
-    bool _isProvince = _filterID == 'province' ? true : false;
-    bool _isArea = _filterID == 'area' ? true : false;
+    bool _isProvince = false;
+    bool _isArea = false;
 
     KeywordModel _keywordModel = _selectedKeywords[index];
 
@@ -310,7 +310,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
     else {
 
-      bool _canPickMany = filtersModels.singleWhere((filter) => filter.filterID == _filterID).canPickMany;
+      bool _canPickMany = filtersModels.singleWhere((filter) => filter.groupID == _groupID).canPickMany;
 
       await _highlightKeyword(_keywordModel, _canPickMany);
 
@@ -356,7 +356,7 @@ class _SearchScreenState extends State<SearchScreen> {
     else {
 
       /// check if SINGULAR keyword is selected by filterTitle
-      bool _keywordsContainThisFilterID = KeywordModel.keywordsContainThisFilterID(keywords : _selectedKeywords, filterID: keyword.filterID);
+      bool _keywordsContainThisFilterID = KeywordModel.keywordsContainThisFlyerType(keywords : _selectedKeywords, flyerType: keyword.flyerType);
 
       /// when SINGULAR keyword already selected
       if (_keywordsContainThisFilterID == true){
@@ -477,7 +477,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
     /// if filter does not allow many keywords. we get index by the filterTitle only
     else {
-      _index = _selectedKeywords.indexWhere((keyword) => keyword.filterID == keywordModel.filterID);
+      _index = _selectedKeywords.indexWhere((keyword) => keyword.flyerType == keywordModel.flyerType);
     }
 
     _scrollToIndex(_index);

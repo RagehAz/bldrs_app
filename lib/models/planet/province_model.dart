@@ -1,12 +1,10 @@
 import 'package:bldrs/controllers/drafters/text_manipulators.dart';
+import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
-import 'package:bldrs/providers/country_provider.dart';
+import 'package:bldrs/models/planet/area_model.dart';
+import 'package:bldrs/models/planet/country_model.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-import 'area_model.dart';
-import 'country_model.dart';
-import 'namez_model.dart';
+import 'package:bldrs/models/secondary_models/namez_model.dart';
 // -----------------------------------------------------------------------------
 class Province{
   final String iso3;
@@ -83,16 +81,16 @@ class Province{
 // -----------------------------------------------------------------------------
   static KeywordModel getKeywordModelFromProvinceModel(BuildContext context, Province province){
 
-    CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
+    // CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
 
-    String _name = _countryPro.getProvinceNameWithCurrentLanguageIfPossible(context, province.name);
+    // String _name = _countryPro.getProvinceNameWithCurrentLanguageIfPossible(context, province.name);
 
     KeywordModel _keyword = KeywordModel(
         keywordID: province.name,
-        filterID: 'provinces',
+        flyerType: FlyerType.General,
         groupID: province.iso3,
         subGroupID: null,
-        name: _name,
+        // name: _name,
         uses: 0
     );
 

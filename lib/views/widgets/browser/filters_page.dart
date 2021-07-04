@@ -29,7 +29,7 @@ class FiltersPage extends StatelessWidget {
 
             FilterModel _filterModel = filtersModels[keyIndex];
 
-            Color _color = selectedFilter?.filterID == _filterModel.filterID ? Colorz.Yellow : Colorz.Nothing;
+            Color _color = selectedFilter?.groupID == _filterModel.groupID ? Colorz.Yellow : Colorz.Nothing;
 
             return
               DreamBox(
@@ -37,7 +37,7 @@ class FiltersPage extends StatelessWidget {
                 // width: 120,
                 color: _color,
                 margins: const EdgeInsets.symmetric(vertical: Ratioz.appBarPadding),
-                verse: _filterModel.filterID,
+                verse: _filterModel.groupID,
                 boxFunction: () => onTap(_filterModel),
               );
           }
