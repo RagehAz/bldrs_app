@@ -3,10 +3,10 @@ import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/models/bldrs_sections.dart';
+import 'package:bldrs/models/section_class.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
-import 'package:bldrs/models/keywords/sequence_model.dart';
+import 'package:bldrs/models/keywords/group_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/screens/s11_group_screen.dart';
@@ -35,7 +35,13 @@ class SectionGroupsBubble extends StatelessWidget {
 
     final _prof = Provider.of<FlyersProvider>(context, listen: true);
     Section _currentSection = _prof.getCurrentSection;
-    List<GroupModel> _groups = GroupModel.getGroupsBySection(section: _currentSection);
+    FlyerType _flyerType =
+    _currentSection == Section.RealEstate ? FlyerType.Property :
+    _currentSection == Section.Construction ? FlyerType.Design :
+    _currentSection == Section.Supplies ? FlyerType.Product :
+        FlyerType.General;
+
+    List<GroupModel> _groups = GroupModel.getGroupsByFlyerType(flyerType: _flyerType);
 
     const List<Color> _boxesColors = [Colorz.White30, Colorz.WhiteGlass, Colorz.WhiteAir];
 
@@ -44,7 +50,7 @@ class SectionGroupsBubble extends StatelessWidget {
     double _buttonWidth = gridZoneWidth / (numberOfColumns + (numberOfColumns * _spacingRatioToGridWidth) + _spacingRatioToGridWidth);
     double _buttonHeight = _buttonWidth * 1.4;
     double _gridSpacing = _buttonWidth * _spacingRatioToGridWidth;
-    int _buttonsCount = _groups == [] || _groups.length == 0 ? _boxesColors.length : _groups.length;
+    int _buttonsCount = _groups == <int>[] || _groups.length == 0 ? _boxesColors.length : _groups.length;
 
     int _numOfGridRows(int buttonsCount){
       int _numOfGridRows = (buttonsCount/_gridColumnsCount).ceil();
@@ -113,7 +119,7 @@ class SectionGroupsBubble extends StatelessWidget {
                                       width: _buttonWidth,
                                       height: _buttonWidth,
                                       color: Colorz.BlackPlastic,
-                                      icon: KeywordModel.getImagePath(sectionGroup.groupID),
+                                      icon: KeywordModel.getImagePath(sectionGroup.firstKeyword),
                                       boxFunction: (){
 
                                         Nav.goToNewScreen(context,
@@ -127,7 +133,7 @@ class SectionGroupsBubble extends StatelessWidget {
                                     ),
 
                                     SuperVerse(
-                                      verse: sectionGroup.groupID,
+                                      verse: sectionGroup.firstKeyword,
                                       centered: true,
                                       maxLines: 3,
                                     ),

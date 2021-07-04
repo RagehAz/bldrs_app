@@ -1,6 +1,6 @@
 import 'package:bldrs/dashboard/zones_manager/db_areas.dart';
 import 'package:bldrs/models/planet/province_model.dart';
-import 'package:bldrs/models/planet/namez_model.dart';
+import 'package:bldrs/models/secondary_models/namez_model.dart';
 
 List<Province> geebProvincesByIso3(String iso3){
   List<Province> _provinces = new List();

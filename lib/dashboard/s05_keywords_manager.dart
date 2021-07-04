@@ -27,7 +27,7 @@ class _KeywordsManagerState extends State<KeywordsManager> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
-    _filtersIDs = KeywordModel.getFiltersIDs();
+    _filtersIDs = [];
     generateExpansionKeys();
     super.initState();
   }
@@ -59,11 +59,11 @@ class _KeywordsManagerState extends State<KeywordsManager> {
       loading: _loading,
       tappingRageh: (){
 
-        List<KeywordModel> _result = KeywordModel.getKeywordModelsByFilterID('product');
+        List<KeywordModel> _result = KeywordModel.getKeywordModelsByCategoryID('product');
         //
 
         _result.forEach((key) {
-          print('KeywordModel(id: \'${key.keywordID}\', filterID: \'${key.filterID}\', groupID: \'${key.groupID}\', subGroupID: \'${key.subGroupID}\', name: \'${key.name}\', uses: 0),');
+          print('KeywordModel(id: \'${key.keywordID}\', filterID: \'${key.flyerType}\', groupID: \'${key.groupID}\', subGroupID: \'${key.subGroupID}\', uses: 0),');
         });
 
 

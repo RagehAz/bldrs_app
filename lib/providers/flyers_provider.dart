@@ -7,7 +7,7 @@ import 'package:bldrs/firestore/record_ops.dart';
 import 'package:bldrs/firestore/search_ops.dart';
 import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/firestore/user_ops.dart';
-import 'package:bldrs/models/bldrs_sections.dart';
+import 'package:bldrs/models/section_class.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/keywords/filter_model.dart';
