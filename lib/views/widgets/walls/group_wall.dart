@@ -22,9 +22,9 @@ class GroupWall extends StatelessWidget {
 
     Widget _spacer = SizedBox(height: Ratioz.appBarMargin, width: Ratioz.appBarMargin,);
 
-    List<KeywordModel> _keywordsByGroupID = KeywordModel.getKeywordsByGroupID(groupModel.firstKeyword);
+    List<KeywordModel> _keywordsByGroupID = KeywordModel.getKeywordsByGroupID(groupModel.firstKeywordID);
 
-    print(groupModel.firstKeyword);
+    print(groupModel.firstKeywordID);
     print(_keywordsByGroupID);
 
     List<Widget> _groupWallWidgets = <Widget>[
@@ -33,7 +33,7 @@ class GroupWall extends StatelessWidget {
 
       FlyerStack(
         flyersType: FlyerType.Property,
-        title: 'New ${groupModel.firstKeyword} flyers in Heliopolis',
+        title: 'New ${groupModel.firstKeywordID} flyers in Heliopolis',
         tinyFlyers: TinyFlyer.dummyTinyFlyers(),
       ),
 
@@ -49,7 +49,7 @@ class GroupWall extends StatelessWidget {
                 padding: const EdgeInsets.only(bottom: Ratioz.appBarMargin * 4),
                 child: FlyerStack(
                   flyersType: null,
-                  title: '${groupModel.firstKeyword} - ${groupModel.secondKeywords.keywordModels[index].keywordID} in Heliopolis, Cairo',
+                  title: '${groupModel.firstKeywordID} - ${groupModel.secondKeywords.keywordModels[index].keywordID} in Heliopolis, Cairo',
                   tinyFlyers: TinyFlyer.dummyTinyFlyers(),
                 ),
               ),
