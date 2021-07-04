@@ -8,6 +8,7 @@ import 'package:bldrs/firestore/search_ops.dart';
 import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/firestore/user_ops.dart';
 import 'package:bldrs/models/flyer_type_class.dart';
+import 'package:bldrs/models/keywords/group_model.dart';
 import 'package:bldrs/models/section_class.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
@@ -117,20 +118,20 @@ class FlyersProvider with ChangeNotifier {
 
     setSectionFilters();
 
-    await fetchAndSetTinyFlyersBySectionType(context, section);
+    await fetchAndSetTinyFlyersBySection(context, section);
 
     // notifyListeners();
   }
 // -----------------------------------------------------------------------------
   void setSectionFilters(){
-    FlyerType _currentFlyerType = FlyerTypeClass.getFlyersTypesBySection(section: _currentSection);
-    List<FilterModel> _filtersBySection = FilterModel.getFiltersBySectionAndFlyerType(
+
+    List<FilterModel> _filtersBySection = FilterModel.getFiltersBySection(
         section: _currentSection,
-        flyerType: _currentFlyerType
     );
+
     _sectionFilters = _filtersBySection;
   }
-
+// -----------------------------------------------------------------------------
   /// if a user is an Author, this READs & sets user tiny bzz form db/users/userID['myBzzIDs']
   Future<void> fetchAndSetUserTinyBzz(BuildContext context) async {
     String _userID = superUserID();
@@ -276,7 +277,7 @@ class FlyersProvider with ChangeNotifier {
 
   }
 // -----------------------------------------------------------------------------
-  Future<void> fetchAndSetTinyFlyersBySectionType(BuildContext context, Section section) async {
+  Future<void> fetchAndSetTinyFlyersBySection(BuildContext context, Section section) async {
     CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
     Zone _currentZone = _countryPro.currentZone;
 
@@ -292,7 +293,7 @@ class FlyersProvider with ChangeNotifier {
         methodName: 'fetchAndSetTinyFlyersBySectionType',
         functions: () async {
 
-          FlyerType _flyerType = FlyerTypeClass.getFlyersTypesBySection(section: section);
+          FlyerType _flyerType = FlyerTypeClass.getFlyerTypeBySection(section: section);
 
           // print('_flyerType is : ${_flyerType.toString()}');
 
