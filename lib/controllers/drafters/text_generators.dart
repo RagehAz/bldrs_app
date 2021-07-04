@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/theme/wordz.dart';
+import 'package:bldrs/models/flyer_type_class.dart';
 import 'package:bldrs/models/section_class.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
@@ -13,17 +14,33 @@ class TextGenerator{
 // -----------------------------------------------------------------------------
   static String sectionStringer (BuildContext context, Section section){
     return
-      section == Section.RealEstate ? Wordz.realEstate(context) :
-      section == Section.Construction ? Wordz.construction(context) :
-      section == Section.Supplies ? Wordz.supplies(context) :
+      section == Section.NewProperties ? 'New Properties' : //Wordz.realEstate(context) :
+      section == Section.ResaleProperties ? 'Resale Properties' : //Wordz.realEstate(context) :
+      section == Section.RentalProperties ? 'Rental Properties' : //Wordz.realEstate(context) :
+
+      section == Section.Designs ? 'Designs' : //Wordz.construction(context) :
+      section == Section.Projects ? 'Projects' : //Wordz.construction(context) :
+      section == Section.Crafts ? 'Crafts & Trades' : //Wordz.construction(context) :
+
+      section == Section.Products ? 'Products & Materials' : //Wordz.supplies(context) :
+      section == Section.Equipment ? 'Tools & Equipment' : //Wordz.supplies(context) :
+
       Wordz.bldrsShortName(context);
   }
 // -----------------------------------------------------------------------------
   static String sectionDescriptionStringer(BuildContext context, Section section){
     String _description =
-    section == Section.RealEstate ? Wordz.realEstateTagLine(context) :
-    section == Section.Construction ? Wordz.constructionTagLine(context) :
-    section == Section.Supplies ? Wordz.suppliesTagLine(context) :
+    section == Section.NewProperties ? 'By RealEstate Developers.' : //Wordz.realEstateTagLine(context) :
+    section == Section.ResaleProperties ? 'By RealEstate Brokers.' : //Wordz.realEstateTagLine(context) :
+    section == Section.RentalProperties ? 'By Developers & Brokers.' : //Wordz.realEstateTagLine(context) :
+
+    section == Section.Designs ? 'By Architects & Designers' : //Wordz.constructionTagLine(context) :
+    section == Section.Projects ? 'By Contractors' : //Wordz.constructionTagLine(context) :
+    section == Section.Crafts ? 'By Craftsmen, Technicians & Artists.' : //Wordz.constructionTagLine(context) :
+
+    section == Section.Products ? 'By Manufacturers & Suppliers.' : //Wordz.suppliesTagLine(context) :
+    section == Section.Equipment ? 'By Manufacturers & Suppliers.' : //Wordz.constructionTagLine(context) :
+
     Wordz.bldrsShortName(context);
 
     return _description;
@@ -80,7 +97,6 @@ class TextGenerator{
       flyerType == FlyerType.Project    ? Wordz.project(context)  :
       flyerType == FlyerType.Equipment  ? Wordz.equipment(context)  :
       flyerType == FlyerType.Craft      ? Wordz.craft(context)  :
-      flyerType == FlyerType.General    ? Wordz.general(context)  :
       Wordz.general(context);
   }
 // -----------------------------------------------------------------------------
@@ -92,7 +108,6 @@ class TextGenerator{
       flyerType == FlyerType.Project    ? Wordz.projects(context)  :
       flyerType == FlyerType.Equipment  ? Wordz.equipments(context)  :
       flyerType == FlyerType.Craft      ? Wordz.crafts(context)  :
-      flyerType == FlyerType.General    ? Wordz.general(context)  :
       Wordz.general(context);
   }
 // -----------------------------------------------------------------------------

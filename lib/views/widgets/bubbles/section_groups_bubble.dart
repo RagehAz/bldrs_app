@@ -3,6 +3,7 @@ import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/models/flyer_type_class.dart';
 import 'package:bldrs/models/section_class.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
@@ -35,11 +36,7 @@ class SectionGroupsBubble extends StatelessWidget {
 
     final _prof = Provider.of<FlyersProvider>(context, listen: true);
     Section _currentSection = _prof.getCurrentSection;
-    FlyerType _flyerType =
-    _currentSection == Section.RealEstate ? FlyerType.Property :
-    _currentSection == Section.Construction ? FlyerType.Design :
-    _currentSection == Section.Supplies ? FlyerType.Product :
-        FlyerType.General;
+    FlyerType _flyerType = FlyerTypeClass.getFlyersTypesBySection(section: _currentSection);
 
     List<GroupModel> _groups = GroupModel.getGroupsByFlyerType(flyerType: _flyerType);
 
@@ -125,7 +122,7 @@ class SectionGroupsBubble extends StatelessWidget {
                                         Nav.goToNewScreen(context,
                                             GroupScreen(
                                               groupModel: sectionGroup,
-                                              flyersType: FlyerType.General,
+                                              flyersType: FlyerType.Non, // TASK : fix this shit
                                             ),
                                         );
 

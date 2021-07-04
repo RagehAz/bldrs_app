@@ -7,6 +7,7 @@ import 'package:bldrs/firestore/record_ops.dart';
 import 'package:bldrs/firestore/search_ops.dart';
 import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/firestore/user_ops.dart';
+import 'package:bldrs/models/flyer_type_class.dart';
 import 'package:bldrs/models/section_class.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
@@ -41,7 +42,7 @@ class FlyersProvider with ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
   Section get getCurrentSection {
-    return _currentSection ?? Section.Construction;
+    return _currentSection ?? Section.NewProperties;
   }
 
   List<FilterModel> get getSectionFilters {
@@ -122,7 +123,7 @@ class FlyersProvider with ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
   void setSectionFilters(){
-    FlyerType _currentFlyerType = FilterModel.getDefaultFlyerTypeBySection(section: _currentSection);
+    FlyerType _currentFlyerType = FlyerTypeClass.getFlyersTypesBySection(section: _currentSection);
     List<FilterModel> _filtersBySection = FilterModel.getFiltersBySectionAndFlyerType(
         section: _currentSection,
         flyerType: _currentFlyerType
@@ -291,39 +292,19 @@ class FlyersProvider with ChangeNotifier {
         methodName: 'fetchAndSetTinyFlyersBySectionType',
         functions: () async {
 
-          List<FlyerType> _flyerTypes = new List();
+          FlyerType _flyerType = FlyerTypeClass.getFlyersTypesBySection(section: section);
 
-          if(section == Section.RealEstate){
-            _flyerTypes.add(FlyerType.Property);
-          }
-
-          else if (section == Section.Construction){
-            _flyerTypes.addAll([FlyerType.Design, FlyerType.Project, FlyerType.Craft]);
-          }
-
-          else if (section == Section.Supplies){
-            _flyerTypes.addAll([FlyerType.Equipment, FlyerType.Product]);
-          }
-
-          else {
-            _flyerTypes.add(FlyerType.General);
-          }
-
-          // print('_flyerTypes is : ${_flyerTypes.toString()}');
+          // print('_flyerType is : ${_flyerType.toString()}');
 
           /// READ data from cloud Firestore flyers collection
 
-          List<TinyFlyer> _foundTinyFlyers = new List();
 
-          for (var flyerType in _flyerTypes){
-            List<TinyFlyer> _foundTinyFlyersOfThisType = await FireSearch.flyersByZoneAndFlyerType(
+            List<TinyFlyer> _foundTinyFlyers = await FireSearch.flyersByZoneAndFlyerType(
               context: context,
               zone: _currentZone,
-              flyerType: flyerType,
+              flyerType: _flyerType,
             );
 
-            _foundTinyFlyers.addAll(_foundTinyFlyersOfThisType);
-          }
 
           // print('${(TinyFlyer.cipherTinyFlyers(_foundTinyFlyers)).toString()}');
 

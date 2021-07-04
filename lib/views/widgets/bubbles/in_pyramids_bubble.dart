@@ -19,6 +19,9 @@ final String actionBtIcon;
 final Function actionBtFunction;
 final double bubbleWidth;
 final Function bubbleOnTap;
+final double actionBtSizeFactor;
+final String leadingIcon;
+final Color leadingIconColor;
 
   InPyramidsBubble({
     @required this.columnChildren,
@@ -32,6 +35,9 @@ final Function bubbleOnTap;
     this.actionBtFunction,
     this.bubbleWidth,
     this.bubbleOnTap,
+    this.actionBtSizeFactor = 0.6,
+    this.leadingIcon,
+    this.leadingIconColor,
 });
 
   @override
@@ -107,6 +113,20 @@ final Function bubbleOnTap;
                         if(centered == true)
                         Expanded(child: Container(),),
 
+                        /// --- LEADING BUTTON
+                        if (leadingIcon != null)
+                          DreamBox(
+                            height: actionBtSize,
+                            width: actionBtSize,
+                            corners: actionBtCorner,
+                            // color: actionBtColor,
+                            icon: leadingIcon,
+                            iconColor: leadingIconColor,
+                            iconSizeFactor: actionBtSizeFactor,
+                            boxFunction: actionBtFunction,
+                            bubble: false,
+                          ),
+
                         /// --- BUBBLE TITLE
                         if (title != null)
                           Container(
@@ -118,6 +138,7 @@ final Function bubbleOnTap;
                               redDot: redDot,
                               centered: centered,
                               color: titleColor,
+                              italic: true,
                             ),
                           ),
 
@@ -133,7 +154,7 @@ final Function bubbleOnTap;
                           corners: actionBtCorner,
                           // color: actionBtColor,
                           icon: actionBtIcon,
-                          iconSizeFactor: 0.6,
+                          iconSizeFactor: actionBtSizeFactor,
                           boxFunction: actionBtFunction,
                         ),
 

@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/models/flyer_type_class.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:flutter/foundation.dart';
 import '../bz_model.dart';
@@ -28,7 +29,7 @@ class TinyFlyer with ChangeNotifier{
   Map<String,dynamic> toMap (){
     return {
       'flyerID' : flyerID,
-      'flyerType' : FlyerModel.cipherFlyerType(flyerType),
+      'flyerType' : FlyerTypeClass.cipherFlyerType(flyerType),
       'tinyBz' : tinyBz.toMap(),
       'authorID' : authorID,
       'slideIndex' : slideIndex,
@@ -64,7 +65,7 @@ class TinyFlyer with ChangeNotifier{
   static TinyFlyer decipherTinyFlyerMap(dynamic map){
     return TinyFlyer(
       flyerID: map['flyerID'],
-      flyerType: FlyerModel.decipherFlyerType(map['flyerType']),
+      flyerType: FlyerTypeClass.decipherFlyerType(map['flyerType']),
       tinyBz: TinyBz.decipherTinyBzMap(map['tinyBz']),
       authorID: map['authorID'],
       slideIndex: map['slideIndex'],
