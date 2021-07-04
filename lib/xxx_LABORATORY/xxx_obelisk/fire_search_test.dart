@@ -14,6 +14,7 @@ import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/firestore/user_ops.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
+import 'package:bldrs/models/flyer_type_class.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/records/save_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
