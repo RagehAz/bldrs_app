@@ -235,7 +235,7 @@ class UserModel {
     print('gender: ${Gender.any }');
     print('country: ${zone.countryID},');
     print('province: ${zone.provinceID},');
-    print('area: ${zone.areaID},');
+    print('area: ${zone.districtID},');
     // print('4 language: ${Wordz.languageCode(context)},');
     print('position: ,');
     print('contacts: ${ContactModel.getContactsFromFirebaseUser(user)},');

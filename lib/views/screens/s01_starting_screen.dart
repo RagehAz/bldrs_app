@@ -27,7 +27,7 @@ class StartingScreen extends StatefulWidget {
 
 class _StartingScreenState extends State<StartingScreen> {
 /// TASK : should fetch user current location automatically and suggest them here
-//   final Zone currentZone = Zone(countryID: '', provinceID: '', areaID: '');
+//   final Zone currentZone = Zone(countryID: '', provinceID: '', districtID: '');
   CountryProvider _countryPro;
   Zone _currentZone;
 // -----------------------------------------------------------------------------

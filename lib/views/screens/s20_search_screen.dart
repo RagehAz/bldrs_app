@@ -386,7 +386,7 @@ class _SearchScreenState extends State<SearchScreen> {
   Future<void> _showZoneDialog({String provinceName}) async {
 
     String provinceID = _countryPro.getProvinceIDByProvinceName(context, provinceName);
-    List<Map<String, dynamic>> _areasMaps = _countryPro.getAreasNameMapsByProvinceID(context, provinceID);
+    List<Map<String, dynamic>> _areasMaps = _countryPro.getDistrictsNameMapsByProvinceID(context, provinceID);
 
     // await superDialog(
     //   context: context,

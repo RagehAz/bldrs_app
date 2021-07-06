@@ -2,15 +2,15 @@ import 'package:bldrs/controllers/drafters/text_manipulators.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/flyer_type_class.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
-import 'package:bldrs/models/planet/area_model.dart';
+import 'package:bldrs/models/planet/district_model.dart';
 import 'package:bldrs/models/planet/country_model.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/models/secondary_models/namez_model.dart';
 // -----------------------------------------------------------------------------
 class Province{
   final String iso3;
-  final String name;
-  final List<Area> areas;
+  final String name; /// TASK : should delete this and get the name from names
+  final List<District> districts;
   final int population;
   final bool isActivated;
   final bool isPublic;
@@ -19,7 +19,7 @@ class Province{
   Province({
     this.iso3,
     this.name,
-    this.areas,
+    this.districts,
     this.population,
     this.isActivated,
     this.isPublic,
@@ -30,7 +30,7 @@ class Province{
     return {
       'iso3' : iso3,
       'name' : name,
-      'areas' : Area.cipherAreas(areas),
+      'areas' : District.cipherDistricts(districts), /// TASK should update field name areas to districts in firebase
       'population' : population,
       'isActivated' : isActivated,
       'isPublic' : isPublic,
@@ -50,7 +50,7 @@ class Province{
     return Province(
       iso3 : map['iso3'],
       name : map['name'],
-      areas : Area.decipherAreasMaps(map['areas']),
+      districts : District.decipherDistrictsMaps(map['areas']),/// TASK should update field name areas to districts in firebase
       population : map['population'],
       isActivated : map['isActivated'],
       isPublic : map['isPublic'],

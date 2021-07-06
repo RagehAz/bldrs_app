@@ -30,15 +30,15 @@ class ZoneButton extends StatelessWidget {
     CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: true);
     String _lastCountryID = _countryPro.currentCountryID;
     String _lastProvinceID = _countryPro.currentProvinceID;
-    String _lastAreaID = _countryPro.currentAreaID;
+    String _lastDistrictID = _countryPro.currentDistrictsID;
     String _lastCountryName = translate(context, _lastCountryID);
     String _lastCountryFlag = Flagz.getFlagByIso3(_lastCountryID);
     String _lastProvinceName = _countryPro.getProvinceNameWithCurrentLanguageIfPossible(context, _lastProvinceID);
-    String _lastAreaName = _countryPro.getAreaNameWithCurrentLanguageIfPossible(context, _lastAreaID);
+    String _lastDistrictName = _countryPro.getDistrictNameWithCurrentLanguageIfPossible(context, _lastDistrictID);
 
     // print('country ID : $_lastCountryID, provinceID : $_lastProvinceID, '
-    //     'areaID : $_lastAreaID, CountryName : $_lastCountryName,'
-    //     ' ProvinceName : $_lastProvinceName, AreaName : $_lastAreaName');
+    //     'districtID : $_lastDistrictID, CountryName : $_lastCountryName,'
+    //     ' ProvinceName : $_lastProvinceName, DistrictName : $_lastDistrictName');
 
     String _countryAndProvinceNames =
         appIsLeftToRight(context) ? '$_lastProvinceName - $_lastCountryName'
@@ -71,7 +71,7 @@ class ZoneButton extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
 
-                    // --- COUNTRY & AREA NAMES
+                    /// --- COUNTRY & DISTRICTS NAMES
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 2.5),
                       child: FittedBox(
@@ -86,7 +86,7 @@ class ZoneButton extends StatelessWidget {
                               color: isOn? Colorz.BlackBlack : Colorz.White,
                             ),
                             SuperVerse(
-                              verse: _lastAreaName,
+                              verse: _lastDistrictName,
                               size: 1,
                               scaleFactor: 0.8,
                               color: isOn? Colorz.BlackBlack : Colorz.White,
@@ -96,7 +96,7 @@ class ZoneButton extends StatelessWidget {
                       ),
                     ),
 
-                    // --- FLAG
+                    /// --- FLAG
                     Stack(
                       children: <Widget>[
 

@@ -36,7 +36,7 @@ class NanoFlyer with ChangeNotifier{
 
     else if (finalFlyer.flyerZone.countryID != originalFlyer.flyerZone.countryID) {nanoFlyerAreTheSame = false;}
     else if (finalFlyer.flyerZone.provinceID != originalFlyer.flyerZone.provinceID) {nanoFlyerAreTheSame = false;}
-    else if (finalFlyer.flyerZone.areaID != originalFlyer.flyerZone.areaID) {nanoFlyerAreTheSame = false;}
+    else if (finalFlyer.flyerZone.districtID != originalFlyer.flyerZone.districtID) {nanoFlyerAreTheSame = false;}
 
     else {nanoFlyerAreTheSame = true;}
 
