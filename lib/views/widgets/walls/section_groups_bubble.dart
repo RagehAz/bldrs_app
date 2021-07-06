@@ -39,7 +39,7 @@ class WallGroupsBubble extends StatelessWidget {
     int _gridColumnsCount = numberOfColumns;
     const double _spacingRatioToGridWidth = 0.1;
     double _buttonWidth = gridZoneWidth / (numberOfColumns + (numberOfColumns * _spacingRatioToGridWidth) + _spacingRatioToGridWidth);
-    double _buttonHeight = _buttonWidth * 1.4;
+    double _buttonHeight = _buttonWidth * 1.65;
     double _gridSpacing = _buttonWidth * _spacingRatioToGridWidth;
     int _buttonsCount = _groups == <int>[] || _groups.length == 0 ? _boxesColors.length : _groups.length;
 
@@ -135,6 +135,9 @@ class WallGroupsBubble extends StatelessWidget {
                                       verse: _groupName,
                                       centered: true,
                                       maxLines: 3,
+                                      margin: Ratioz.appBarPadding,
+                                      size: 2,
+                                      scaleFactor: 0.95,
                                     ),
 
                                   ],

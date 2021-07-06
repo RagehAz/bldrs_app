@@ -1,5 +1,6 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
+import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/flyer_type_class.dart';
@@ -36,12 +37,16 @@ class FlyerStack extends StatelessWidget {
     double _screenWidth = Scale.superScreenWidth(context);
     double _screenHeight = Scale.superScreenHeight(context);
 // -----------------------------------------------------------------------------
-    double _titleSpacing = 5;
+    double _titleSpacing = Ratioz.appBarMargin;
     double _collectionHeight = (_screenWidth * Ratioz.xxflyerZoneHeight * flyerSizeFactor) + 20 ;
 // -----------------------------------------------------------------------------
     // int _x = 0;
 // -----------------------------------------------------------------------------
 //     bool _slidingIsOn = false;
+    double _titleIconWidth = Ratioz.appBarButtonSize;
+    double _titleIconCorner = Ratioz.appBarButtonCorner;
+    double _titleIconMargin = 0;
+    double _titleIconWidthWithMargin = _titleIconWidth + _titleIconMargin;
 // -----------------------------------------------------------------------------
     return
 
@@ -49,12 +54,13 @@ class FlyerStack extends StatelessWidget {
       Container(
         width: _screenWidth,
         // height: _collectionHeight + 2*_titleSpacing + (_screenHeight * Ratioz.fontSize3) + 12,
-        decoration: BoxDecoration(
-          // color: Colorz.BlackLingerie,
-          //   border: Border.symmetric(
-          //       vertical: BorderSide(width: 0.5, color: Colorz.BabyBlueAir, ),
-          //   )
-        ),
+        color: Colorz.WhiteAir,
+        // decoration: BoxDecoration(
+        //   // color: Colorz.BlackLingerie,
+        //   //   border: Border.symmetric(
+        //   //       vertical: BorderSide(width: 0.5, color: Colorz.BabyBlueAir, ),
+        //   //   )
+        // ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -70,29 +76,35 @@ class FlyerStack extends StatelessWidget {
 
             /// --- COLLECTION TITLE
             if (title != null)
-              Padding(
+              Container(
+                width: _screenWidth,
                 padding: const EdgeInsets.symmetric(horizontal: 15),
+                // color: Colorz.BloodTest,
                 child: Row(
                   children: <Widget>[
 
                     if (titleIcon != null)
                       DreamBox(
-                        height: 35,
+                        height: _titleIconWidth,
                         icon: titleIcon,
-                        margins: EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding * 0.5),
+                        margins: EdgeInsets.symmetric(horizontal: _titleIconMargin),
+                        corners: _titleIconCorner,
                       ),
 
                     if (titleIcon != null)
                       SizedBox(width: Ratioz.appBarMargin,),
 
-                    SuperVerse(
-                      verse: title,
-                      size: 2,
-                      weight: VerseWeight.bold,
-                      centered: false,
-                      shadow: true,
-                      italic: true,
-                      maxLines: 3,
+                    Container(
+                      width: _screenWidth - (Ratioz.appBarMargin * 5) - _titleIconWidthWithMargin,
+                      child: SuperVerse(
+                        verse: title,
+                        size: 2,
+                        weight: VerseWeight.bold,
+                        centered: false,
+                        shadow: true,
+                        italic: true,
+                        maxLines: 3,
+                      ),
                     ),
 
                   ],
@@ -110,7 +122,7 @@ class FlyerStack extends StatelessWidget {
             Container(
               width: _screenWidth,
               height: _collectionHeight,
-              // color: Colorz.BloodTest,
+              // color: Colorz.WhiteAir,
               child: ListView.separated(
                 itemCount: _tinyFlyers.length,
                 scrollDirection: Axis.horizontal,
