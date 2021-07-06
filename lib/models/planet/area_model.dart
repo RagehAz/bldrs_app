@@ -10,7 +10,7 @@ class Area{
   /// Area id
   final String id;
   final String name;
-  final List<Namez> namez;
+  final List<Name> namez;
   /// dashboard manual switch to deactivate entire cities.
   final bool isActivated;
   /// automatic switch when flyers reach 'city publishing-target ~ 1000 flyers'
@@ -34,7 +34,7 @@ class Area{
       'province' : province,
       'id' : id,
       'name' : name,
-      'namez' : Namez.cipherNamezz(namez),
+      'namez' : Name.cipherNamezz(namez),
       'isActivated' : isActivated,
       'isPublic' : isPublic,
     };
@@ -54,7 +54,7 @@ class Area{
       province : map['province'],
       id : map['id'],
       name : map['name'],
-      namez : Namez.decipherNamezzMaps(map['names']),
+      namez : Name.decipherNamezzMaps(map['names']),
       isActivated : map['isActivated'],
       isPublic : map['isPublic'],
     );
