@@ -118,7 +118,7 @@ class _BrowserPagesState extends State<BrowserPages> {
 
     if(_groups.isEmpty){
       setState(() {
-        _keywords = filterModel.keywordModels;
+        _keywords = filterModel.keywords;
       });
     }
     // resetPages();

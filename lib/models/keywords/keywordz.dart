@@ -1,4 +1,4 @@
-import 'package:bldrs/models/keywords/group_model.dart';
+import 'package:bldrs/models/keywords/sequence_model.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
 
 class FilterKeys {
@@ -86,7 +86,7 @@ class FilterKeys {
     List<KeywordModel> _keywords = new List();
 
     Sequence.productsSequence().forEach((group) {
-      String _groupID = group.firstKeyID;
+      String _groupID = group.id;
       _keywords.addAll(KeywordModel.getKeywordsByGroupID(_groupID));
     });
 

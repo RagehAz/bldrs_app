@@ -19,6 +19,7 @@ class FlyerStack extends StatelessWidget {
   final List<TinyFlyer> tinyFlyers;
   final String titleIcon;
   final Function flyerOnTap;
+  final Function onStackExpand;
 
   FlyerStack({
     this.flyersType,
@@ -27,6 +28,7 @@ class FlyerStack extends StatelessWidget {
     this.tinyFlyers,
     this.titleIcon,
     this.flyerOnTap,
+    this.onStackExpand,
 });
 
   @override
@@ -78,38 +80,41 @@ class FlyerStack extends StatelessWidget {
 
             /// --- COLLECTION TITLE
             if (title != null)
-              Container(
-                width: _screenWidth,
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                // color: Colorz.BloodTest,
-                child: Row(
-                  children: <Widget>[
+              GestureDetector(
+                onTap: onStackExpand,
+                child: Container(
+                  width: _screenWidth,
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  // color: Colorz.BloodTest,
+                  child: Row(
+                    children: <Widget>[
 
-                    if (titleIcon != null)
-                      DreamBox(
-                        height: _titleIconWidth,
-                        icon: titleIcon,
-                        margins: EdgeInsets.symmetric(horizontal: _titleIconMargin),
-                        corners: _titleIconCorner,
+                      if (titleIcon != null)
+                        DreamBox(
+                          height: _titleIconWidth,
+                          icon: titleIcon,
+                          margins: EdgeInsets.symmetric(horizontal: _titleIconMargin),
+                          corners: _titleIconCorner,
+                        ),
+
+                      if (titleIcon != null)
+                        SizedBox(width: Ratioz.appBarMargin,),
+
+                      Container(
+                        width: _screenWidth - (Ratioz.appBarMargin * 5) - _titleIconWidthWithMargin,
+                        child: SuperVerse(
+                          verse: title,
+                          size: 2,
+                          weight: VerseWeight.bold,
+                          centered: false,
+                          shadow: true,
+                          italic: true,
+                          maxLines: 3,
+                        ),
                       ),
 
-                    if (titleIcon != null)
-                      SizedBox(width: Ratioz.appBarMargin,),
-
-                    Container(
-                      width: _screenWidth - (Ratioz.appBarMargin * 5) - _titleIconWidthWithMargin,
-                      child: SuperVerse(
-                        verse: title,
-                        size: 2,
-                        weight: VerseWeight.bold,
-                        centered: false,
-                        shadow: true,
-                        italic: true,
-                        maxLines: 3,
-                      ),
-                    ),
-
-                  ],
+                    ],
+                  ),
                 ),
               ),
 

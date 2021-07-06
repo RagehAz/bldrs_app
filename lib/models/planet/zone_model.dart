@@ -100,17 +100,5 @@ class Zone {
 //       return bzModel.bzZone;
 //   }
 // -----------------------------------------------------------------------------
-  static FilterModel getFilterModelFromCurrentDistricts(BuildContext context){
-
-    CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: true);
-    String _provinceID = _countryPro.currentProvinceID;
-    List<District> _districts = _countryPro.getDistrictsByProvinceID(context, _provinceID);
-
-    List<KeywordModel> _districtsAsKeywords = District.getKeywordsModelsFromDistricts(_districts);
-
-    FilterModel _filterModel = FilterModel(groupID: _districtsAsKeywords[0].groupID, canPickMany: false, keywordModels: _districtsAsKeywords);
-
-    return _filterModel;
-  }
 // -----------------------------------------------------------------------------
 }
