@@ -1,9 +1,5 @@
 import 'package:bldrs/models/keywords/group_model.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
-import 'package:bldrs/models/flyer_type_class.dart';
-import 'package:bldrs/models/secondary_models/namez_model.dart';
-import 'package:bldrs/models/section_class.dart';
-import 'package:flutter/material.dart';
 
 class FilterKeys {
 // -----------------------------------------------------------------------------
@@ -90,7 +86,7 @@ class FilterKeys {
     List<KeywordModel> _keywords = new List();
 
     GroupModel.productsGroups().forEach((group) {
-      String _groupID = group.firstKeywordID;
+      String _groupID = group.firstKeyID;
       _keywords.addAll(KeywordModel.getKeywordsByGroupID(_groupID));
     });
 

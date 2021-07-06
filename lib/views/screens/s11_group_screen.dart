@@ -24,7 +24,7 @@ class GroupScreen extends StatelessWidget {
     Widget _appBarKeywordButton =
     DreamBox(
       height: 40,
-      verse: '${groupModel.firstKeywordID}',
+      verse: '${groupModel.firstKeyID}',
       bubble: false,
       color: Colorz.YellowLingerie,
       verseScaleFactor: 0.7,
@@ -35,6 +35,7 @@ class GroupScreen extends StatelessWidget {
 
     return MainLayout(
       appBarType: AppBarType.Scrollable,
+
       pyramids: Iconz.DvBlankSVG,
       appBarRowWidgets: <Widget>[
 

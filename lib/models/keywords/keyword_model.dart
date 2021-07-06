@@ -1,9 +1,7 @@
-import 'package:bldrs/controllers/theme/keywordz.dart';
-import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/flyer_type_class.dart';
 import 'package:bldrs/models/keywords/filter_model.dart';
 import 'package:bldrs/models/secondary_models/namez_model.dart';
-import 'package:bldrs/models/section_class.dart';
+import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
