@@ -1,9 +1,9 @@
 import 'package:bldrs/controllers/localization/localization_constants.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
-import 'package:bldrs/dashboard/zones_manager/db_areas.dart';
+import 'package:bldrs/dashboard/zones_manager/db_districts.dart';
 import 'package:bldrs/dashboard/zones_manager/db_countries.dart';
 import 'package:bldrs/dashboard/zones_manager/db_provinces.dart';
-import 'package:bldrs/models/planet/area_model.dart';
+import 'package:bldrs/models/planet/district_model.dart';
 import 'package:bldrs/models/planet/province_model.dart';
 import 'package:bldrs/models/planet/country_model.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
@@ -14,10 +14,10 @@ class CountryProvider with ChangeNotifier{
   /// get user country
   String _currentCountryID = 'egy';
   String _currentProvinceID = 'Cairo';
-  String _currentAreaID = '1';
-  List<Country> _countries = dbCountries;
-  List<Province> _provinces = dbProvinces;
-  List<Area> _areas = dbAreas;
+  String _currentDistrictID = '1';
+  List<Country> _countries = DbCountries.dbCountries();
+  List<Province> _provinces = DbProvinces.dbProvinces();
+  List<District> _districts = DbDistricts.dbDistricts();
 // -----------------------------------------------------------------------------
   String get currentCountryID {
     return _currentCountryID;
@@ -27,15 +27,15 @@ class CountryProvider with ChangeNotifier{
     return _currentProvinceID;
   }
 // -----------------------------------------------------------------------------
-  String get currentAreaID {
-    return _currentAreaID;
+  String get currentDistrictsID {
+    return _currentDistrictID;
   }
 // -----------------------------------------------------------------------------
   Zone get currentZone {
     return Zone(
       countryID: currentCountryID,
       provinceID: currentProvinceID,
-      areaID: currentAreaID,
+      districtID: currentDistrictsID,
     );
   }
 // -----------------------------------------------------------------------------
@@ -49,8 +49,8 @@ class CountryProvider with ChangeNotifier{
     notifyListeners();
   }
 // -----------------------------------------------------------------------------
-  void changeArea(String areaID){
-    _currentAreaID = areaID;
+  void changeDistrict(String districtID){
+    _currentDistrictID = districtID;
     notifyListeners();
   }
 // -----------------------------------------------------------------------------
@@ -106,46 +106,46 @@ class CountryProvider with ChangeNotifier{
 // -----------------------------------------------------------------------------
   /// get Areas list by Province name
   /// uses provinceName in English as ID
-  List<Map<String, String>> getAreasNameMapsByProvinceID(BuildContext context, String provinceID){
-    List<Map<String, String>> _areasNames = new List();
+  List<Map<String, String>> getDistrictsNameMapsByProvinceID(BuildContext context, String provinceID){
+    List<Map<String, String>> _districtsNames = new List();
     String _currentLanguageCode = Wordz.languageCode(context);
-    _areas.forEach((ar) {
+    _districts.forEach((ar) {
       if(ar.province == provinceID){
-          String _areaNameInCurrentLanguage = ar.namez.firstWhere((name) => name.code == _currentLanguageCode, orElse: ()=> null)?.value;
-          if (_areaNameInCurrentLanguage == null){_areasNames.add({'id': ar.id, 'value': ar.name});}
-          else {_areasNames.add({'id': ar.id, 'value': _areaNameInCurrentLanguage});}
+          String _districtNameInCurrentLanguage = ar.namez.firstWhere((name) => name.code == _currentLanguageCode, orElse: ()=> null)?.value;
+          if (_districtNameInCurrentLanguage == null){_districtsNames.add({'id': ar.id, 'value': ar.name});}
+          else {_districtsNames.add({'id': ar.id, 'value': _districtNameInCurrentLanguage});}
       }
     });
-    return _areasNames;
+    return _districtsNames;
   }
 // -----------------------------------------------------------------------------
-  List<Area> getAreasModelsByProvinceID(BuildContext context, String provinceID){
-    List<Area> _provinceAreas = new List();
+  List<District> getDistrictsByProvinceID(BuildContext context, String provinceID){
+    List<District> _provinceDistricts = new List();
 
-    _areas.forEach((ar) {
+    _districts.forEach((ar) {
       if(ar.province == provinceID){
-        _provinceAreas.add(ar);
+        _provinceDistricts.add(ar);
       }
     });
 
-    return _provinceAreas;
+    return _provinceDistricts;
   }
 // -----------------------------------------------------------------------------
-  String getAreaNameWithCurrentLanguageIfPossible(BuildContext context, String areaID){
+  String getDistrictNameWithCurrentLanguageIfPossible(BuildContext context, String districtID){
     String _currentLanguageCode = Wordz.languageCode(context);
-    Area area = _areas.singleWhere((ar) => ar.id == areaID, orElse: ()=> null);
-    String nameInCurrentLanguage = area?.namez?.singleWhere((name) => name.code == _currentLanguageCode, orElse: ()=> null)?.value;
+    District _district = _districts.singleWhere((ar) => ar.id == districtID, orElse: ()=> null);
+    String _nameInCurrentLanguage = _district?.namez?.singleWhere((name) => name.code == _currentLanguageCode, orElse: ()=> null)?.value;
 
-    // print('Area nameInCurrentLanguage = ($nameInCurrentLanguage) ,,area?.name is (${area?.name}) ');
+    // print('Area _nameInCurrentLanguage = ($_nameInCurrentLanguage) ,,_district?.name is (${_district?.name}) ');
 
-    return nameInCurrentLanguage == null ? area?.name : nameInCurrentLanguage;
+    return _nameInCurrentLanguage == null ? _district?.name : _nameInCurrentLanguage;
   }
 // -----------------------------------------------------------------------------
   String getProvinceNameWithCurrentLanguageIfPossible(BuildContext context, String provinceID){
   Province _province = _provinces.firstWhere((ar) => ar.name == provinceID, orElse: ()=> null);
   // String _nameInCurrentLanguage = _province?.namez?.singleWhere((name) => name.code == _currentLanguageCode, orElse: ()=> null)?.value;
 
-  print('province is : ${_province.iso3} : ${_province.name} : ${_province.areas.length} : ${_province.namez}');
+  print('province is : ${_province.iso3} : ${_province.name} : ${_province.districts.length} : ${_province.namez}');
 
   String _nameInCurrentLanguage = Name.getNameWithCurrentLanguageFromListOfNames(context, _province?.namez);
 

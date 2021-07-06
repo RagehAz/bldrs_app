@@ -10,7 +10,7 @@ import 'package:bldrs/views/widgets/walls/group_wall.dart';
 import 'package:flutter/material.dart';
 
 class GroupScreen extends StatelessWidget {
-  final GroupModel groupModel;
+  final Sequence groupModel;
   final FlyerType flyersType;
 
   GroupScreen({

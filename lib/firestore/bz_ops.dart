@@ -277,7 +277,7 @@ class BzOps{
         _finalBz.bzType != originalBz.bzType ||
         _finalBz.bzZone.countryID != originalBz.bzZone.countryID ||
         _finalBz.bzZone.provinceID != originalBz.bzZone.provinceID ||
-        _finalBz.bzZone.areaID != originalBz.bzZone.areaID
+        _finalBz.bzZone.districtID != originalBz.bzZone.districtID
     ){
     TinyBz _modifiedTinyBz = TinyBz.getTinyBzFromBzModel(_finalBz)  ;
     Map<String, dynamic> _modifiedTinyBzMap = _modifiedTinyBz.toMap();

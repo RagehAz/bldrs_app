@@ -247,7 +247,7 @@ class _MyBzScreenState extends State<MyBzScreen> {
 
           String _zoneString = TextGenerator.zoneStringer(context: context, zone: bzModel.bzZone);
 
-          print('bzZone is ${bzModel.bzZone.countryID} : ${bzModel.bzZone.provinceID} : ${bzModel.bzZone.areaID}');
+          print('bzZone is ${bzModel.bzZone.countryID} : ${bzModel.bzZone.provinceID} : ${bzModel.bzZone.districtID}');
 
           print ('_zoneString is : $_zoneString');
 

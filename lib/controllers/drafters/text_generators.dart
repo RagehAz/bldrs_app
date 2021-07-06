@@ -132,15 +132,15 @@ class TextGenerator{
 
     String _countryID = zone.countryID;
     String _provinceID = zone.provinceID;
-    String _areaID = zone.areaID;
+    String _districtID = zone.districtID;
 
     String _countryName = _countryPro.getCountryNameInCurrentLanguageByIso3(context, _countryID);
     String _provinceName = _countryPro.getProvinceNameWithCurrentLanguageIfPossible(context, _provinceID);
-    String _areaName = _countryPro.getAreaNameWithCurrentLanguageIfPossible(context, _areaID);
+    String _districtName = _countryPro.getDistrictNameWithCurrentLanguageIfPossible(context, _districtID);
 
     String verse =
     _countryID == null || _provinceID == null ? '...' :
-    '${Wordz.inn(context)} $_areaName , $_provinceName , $_countryName . ';
+    '${Wordz.inn(context)} $_districtName , $_provinceName , $_countryName . ';
     return verse;
   }
 // -----------------------------------------------------------------------------
