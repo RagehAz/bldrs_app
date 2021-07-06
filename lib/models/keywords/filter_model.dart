@@ -52,9 +52,9 @@ class FilterModel{
   static FilterModel productsFilter = FilterModel(groupID: 'product', canPickMany: true, keywordModels: FilterKeys.products());
   static FilterModel productPricesFilter = FilterModel(groupID: 'productPrices', canPickMany: true, keywordModels: FilterKeys.productPrices());
 // -----------------------------------------------------------------------------
-  static FilterModel zoneAreasAsFilter (BuildContext context){
-    FilterModel _zoneAreaFilter = Zone.getFilterModelFromCurrentZoneAreas(context);
-    return _zoneAreaFilter;
+  static FilterModel zoneDistrictsAsFilter (BuildContext context){
+    FilterModel _zoneDistrictsFilter = Zone.getFilterModelFromCurrentDistricts(context);
+    return _zoneDistrictsFilter;
   }
 // -----------------------------------------------------------------------------
   static List<FilterModel> propertiesFilters = <FilterModel>[

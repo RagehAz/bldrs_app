@@ -69,7 +69,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   TextEditingController _bzScopeTextController = TextEditingController();
   String _currentBzCountry;
   String _currentBzProvince;
-  String _currentBzArea;
+  String _currentBzDistrict;
   TextEditingController _bzAboutTextController = TextEditingController();
   GeoPoint _currentBzPosition;
   List<ContactModel> _currentBzContacts;
@@ -111,7 +111,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
     _bzScopeTextController.text = _bz.bzScope;
     _currentBzCountry = _bz.bzZone.countryID;
     _currentBzProvince = _bz.bzZone.provinceID;
-    _currentBzArea = _bz.bzZone.areaID;
+    _currentBzDistrict = _bz.bzZone.districtID;
     _bzAboutTextController.text =  _bz.bzAbout;
     _currentBzPosition = _bz.bzPosition;
     _currentBzContacts = _bz.bzContacts;
@@ -155,7 +155,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         bzZone: Zone(
           countryID: _currentBzCountry,
           provinceID: _currentBzProvince,
-          areaID: _currentBzArea,
+          districtID: _currentBzDistrict,
         ),
         bzAbout: _bzAboutTextController.text,
         bzPosition: _currentBzPosition,
@@ -279,7 +279,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         _bzScopeTextController.text.length < 3 ||
         _currentBzCountry == null ||
         _currentBzProvince == null ||
-        _currentBzArea == null ||
+        _currentBzDistrict == null ||
         _bzAboutTextController.text == null ||
         _bzAboutTextController.text.length < 6
         // _currentBzContacts.length == 0 ||
@@ -338,7 +338,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         bzZone: Zone(
           countryID: _currentBzCountry,
           provinceID: _currentBzProvince,
-          areaID: _currentBzArea,
+          districtID: _currentBzDistrict,
         ),
         bzAbout: _bzAboutTextController.text,
         bzPosition: _currentBzPosition,
@@ -432,7 +432,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         bzZone: Zone(
           countryID: _currentBzCountry,
           provinceID: _currentBzProvince,
-          areaID: _currentBzArea,
+          districtID: _currentBzDistrict,
         ),
         bzAbout: _bzAboutTextController.text,
         bzPosition: _currentBzPosition,
@@ -512,7 +512,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
     // '${Wordz.about(context)} ${Wordz.yourBusiness(context)}' :
     // '${Wordz.about(context)} ${_bzNameTextController.text}';
 
-    print('bzZone is : countryID : $_currentBzCountry : provinceID : $_currentBzProvince : areaID : $_currentBzArea');
+    print('bzZone is : countryID : $_currentBzCountry : provinceID : $_currentBzProvince : districtID : $_currentBzDistrict');
 
     return MainLayout(
       loading: _loading,
@@ -613,9 +613,9 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
               LocaleBubble(
                 changeCountry : (countryID) => setState(() {_currentBzCountry = countryID;}),
                 changeProvince : (provinceID) => setState(() {_currentBzProvince = provinceID;}),
-                changeArea : (areaID) => setState(() {_currentBzArea = areaID;}),
-                currentZone: Zone(countryID: _currentBzCountry, provinceID: _currentBzProvince, areaID: _currentBzArea),
-                title: 'Headquarters Area',//Wordz.hqCity(context),
+                changeDistrict : (districtID) => setState(() {_currentBzDistrict = districtID;}),
+                currentZone: Zone(countryID: _currentBzCountry, provinceID: _currentBzProvince, districtID: _currentBzDistrict),
+                title: 'Headquarters District',//Wordz.hqCity(context),
               ),
 
               _separator,

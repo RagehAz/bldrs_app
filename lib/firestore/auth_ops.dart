@@ -577,7 +577,7 @@ class AuthOps {
 //       gender: Gender.any,
 //       country: zone.countryID,
 //       province: zone.provinceID,
-//       area: zone.areaID,
+//       area: zone.districtID,
 //       language: Wordz.languageCode(context),
 //       position: GeoPoint(0, 0),
 //       contacts: <ContactModel>[ContactModel(

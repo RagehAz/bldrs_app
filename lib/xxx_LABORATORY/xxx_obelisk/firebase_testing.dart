@@ -527,7 +527,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
           Zone _userZone = Zone(
             countryID: map['country'],
             provinceID: map['province'],
-            areaID: map['area'],
+            districtID: map['area'],
           );
 
           await Fire.updateDocField(
@@ -588,17 +588,17 @@ class _FirebasetestingState extends State<Firebasetesting> {
 
           dynamic _bzZone =  map['bzZone'];
 
-          dynamic _areaID = _bzZone['areaID'];
+          dynamic _districtID = _bzZone['areaID']; /// TASK : should change areaID to districtID in firebase
 
-          if (await ObjectChecker.objectIsIntInString(context, _areaID) == true){
-            /// so areaID is int,, leave it
+          if (await ObjectChecker.objectIsIntInString(context, _districtID) == true){
+            /// so district is int,, leave it
             print('no action needed for $_id');
           } else {
 
             Zone _zone1 = Zone(
               countryID: 'egy',
               provinceID: 'Cairo',
-              areaID: '1',
+              districtID: '1',
             );
 
             await Fire.updateDocField(

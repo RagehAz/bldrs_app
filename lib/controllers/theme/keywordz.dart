@@ -85,7 +85,7 @@ class FilterKeys {
   static  List<KeywordModel> products(){
     List<KeywordModel> _keywords = new List();
 
-    GroupModel.productsGroups().forEach((group) {
+    Sequence.productsSequence().forEach((group) {
       String _groupID = group.firstKeyID;
       _keywords.addAll(KeywordModel.getKeywordsByGroupID(_groupID));
     });

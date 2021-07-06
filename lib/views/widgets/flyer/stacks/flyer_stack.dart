@@ -18,6 +18,7 @@ class FlyerStack extends StatelessWidget {
   final String title;
   final List<TinyFlyer> tinyFlyers;
   final String titleIcon;
+  final Function flyerOnTap;
 
   FlyerStack({
     this.flyersType,
@@ -25,6 +26,7 @@ class FlyerStack extends StatelessWidget {
     this.title,
     this.tinyFlyers,
     this.titleIcon,
+    this.flyerOnTap,
 });
 
   @override
@@ -176,7 +178,17 @@ class FlyerStack extends StatelessWidget {
                     TinyFlyerWidget(
                       flyerSizeFactor: flyerSizeFactor,
                       tinyFlyer: _tinyFlyers[_x],
-                      onTap: (tinyFlyer) => Nav().openFlyer(context, tinyFlyer.flyerID),
+                      onTap: (tinyFlyer){
+
+                        if (flyerOnTap == null){
+                          Nav().openFlyer(context, tinyFlyer.flyerID);
+                        }
+
+                        else {
+                          flyerOnTap(tinyFlyer);
+                        }
+
+                      },
                     );
 
                   },

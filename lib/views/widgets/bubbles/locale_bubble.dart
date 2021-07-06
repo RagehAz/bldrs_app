@@ -19,14 +19,14 @@ import 'package:provider/provider.dart';
 class LocaleBubble extends StatefulWidget {
   final Function changeCountry;
   final Function changeProvince;
-  final Function changeArea;
+  final Function changeDistrict;
   final Zone currentZone;
   final String title;
 
   LocaleBubble({
     @required this.changeCountry,
     @required this.changeProvince,
-    @required this.changeArea,
+    @required this.changeDistrict,
     @required this.currentZone,
     this.title = 'Preferred Location',
 });
@@ -38,7 +38,7 @@ class LocaleBubble extends StatefulWidget {
 class _LocaleBubbleState extends State<LocaleBubble> {
   String _chosenCountryID;
   String _chosenProvinceID;
-  String _chosenAreaID;
+  String _chosenDistrictID;
   Zone _userZone;
 
 
@@ -48,7 +48,7 @@ class _LocaleBubbleState extends State<LocaleBubble> {
     CountryProvider _countryPro = Provider.of<CountryProvider>(context, listen: false);
     _chosenCountryID = _userZone.countryID ;// == null ? _countryPro.currentCountryID : _userZone.countryID;
     _chosenProvinceID = _userZone.provinceID ;// == null ? _countryPro.currentProvinceID : _userZone.provinceID;
-    _chosenAreaID = _userZone.areaID ;// == null ? _countryPro.currentAreaID : _userZone.areaID;
+    _chosenDistrictID = _userZone.districtID ;// == null ? _countryPro.currentDistrictID : _userZone.districtID;
     super.initState();
   }
 
@@ -73,7 +73,7 @@ class _LocaleBubbleState extends State<LocaleBubble> {
           setState(() {
             _chosenCountryID = countryID;
             _chosenProvinceID = null;
-            _chosenAreaID = null;
+            _chosenDistrictID = null;
           });
           widget.changeCountry(countryID);
           print('_currentCountryID : $_chosenCountryID');
@@ -98,7 +98,7 @@ class _LocaleBubbleState extends State<LocaleBubble> {
         buttonTap: (provinceID){
           setState(() {
             _chosenProvinceID = provinceID;
-            _chosenAreaID = null;
+            _chosenDistrictID = null;
           });
           widget.changeProvince(provinceID);
           print('_currentProvince : $_chosenProvinceID');
@@ -119,13 +119,13 @@ class _LocaleBubbleState extends State<LocaleBubble> {
         mapValueIs: MapValueIs.String,
         alignment: Alignment.center,
         provider: countryPro,
-        sheetType: BottomSheetType.Area,
-        buttonTap: (areaID){
+        sheetType: BottomSheetType.District,
+        buttonTap: (districtID){
           setState(() {
-            _chosenAreaID = areaID;
+            _chosenDistrictID = districtID;
           });
-          widget.changeArea(areaID);
-          print('_currentAreaID : $areaID');
+          widget.changeDistrict(districtID);
+          print('_current districtID : $districtID');
           _closeBottomSheet();
         },
       ),
@@ -138,12 +138,12 @@ class _LocaleBubbleState extends State<LocaleBubble> {
 
     List<Map<String,String>> _flags = _countryPro.getAvailableCountries(context);
     List<Map<String,String>> _provinces = _countryPro.getProvincesNameMapsByIso3(context, _chosenCountryID);//_chosenCountry);
-    List<Map<String,String>> _areas = _countryPro.getAreasNameMapsByProvinceID(context, _chosenProvinceID);//_chosenProvince);
+    List<Map<String,String>> _districts = _countryPro.getDistrictsNameMapsByProvinceID(context, _chosenProvinceID);//_chosenProvince);
 
     String _chosenCountryName = _chosenCountryID == null ? '...' : translate(context, _chosenCountryID);
     String _chosenCountryFlag = _chosenCountryID == null ? '' : Flagz.getFlagByIso3(_chosenCountryID);
     String _chosenProvinceName = _chosenProvinceID == null ? '...' : _countryPro.getProvinceNameWithCurrentLanguageIfPossible(context, _chosenProvinceID);
-    String _chosenAreaName = _chosenAreaID == null ? '...' : _countryPro.getAreaNameWithCurrentLanguageIfPossible(context, _chosenAreaID);
+    String _chosenDistrictName = _chosenDistrictID == null ? '...' : _countryPro.getDistrictNameWithCurrentLanguageIfPossible(context, _chosenDistrictID);
 
 
     // double _bubbleClearWidth = Scale.superBubbleClearWidth(context);
@@ -178,8 +178,8 @@ class _LocaleBubbleState extends State<LocaleBubble> {
               // --- AREA BUTTON
               LocaleButton(
                 title: 'Area', //Wordz.area(context),
-                verse: _chosenAreaName,
-                onTap: ()=>_tapAreaButton(context: context, areas: _areas, countryPro: _countryPro),
+                verse: _chosenDistrictName,
+                onTap: ()=>_tapAreaButton(context: context, areas: _districts, countryPro: _countryPro),
               ),
 
             ],

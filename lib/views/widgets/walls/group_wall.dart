@@ -3,6 +3,7 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/flyer_type_class.dart';
+import 'package:bldrs/models/keywords/filter_model.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/keywords/group_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
@@ -13,7 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class GroupWall extends StatelessWidget {
-  final GroupModel groupModel;
+  final Sequence groupModel;
   final FlyerType flyersType;
 
   GroupWall({
@@ -21,7 +22,7 @@ class GroupWall extends StatelessWidget {
     @required this.flyersType,
   });
 
-  String _stackTitle({BuildContext context, GroupModel groupModel, int index}){
+  String _stackTitle({BuildContext context, Sequence groupModel, int index}){
     String _stackTitle;
 
     /// in crafts groups, second keywords are zone areas
@@ -32,13 +33,13 @@ class GroupWall extends StatelessWidget {
     //     firstKeyID: groupModel.firstKeyID
     // );
 
-    bool _groupSecondKeysAreZoneAreas = GroupModel.groupSecondKeysAreZoneAreas(groupModel);
+    bool _groupSecondKeysAreZoneAreas = Sequence.sequenceSecondKeysAreZoneDistricts(groupModel);
 
     CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
     String _provinceName = _countryPro.getProvinceNameWithCurrentLanguageIfPossible(context, _countryPro.currentProvinceID);
 
     if(_groupSecondKeysAreZoneAreas == true){
-      String _areaName = _countryPro.getAreaNameWithCurrentLanguageIfPossible(context, groupModel.secondKeywords.keywordModels[index].keywordID);
+      String _areaName = _countryPro.getDistrictNameWithCurrentLanguageIfPossible(context, groupModel.secondKeywords.keywordModels[index].keywordID);
       String _keywordName = KeywordModel.getKeywordNameByKeywordID(context, groupModel.firstKeyID);
 
       _stackTitle = '$_keywordName - ${Wordz.inn(context)} $_areaName , $_provinceName';
@@ -61,6 +62,22 @@ class GroupWall extends StatelessWidget {
     return _stackTitle;
   }
 
+  void _flyerOnTap({TinyFlyer tinyFlyer, dynamic firstKeyword, dynamic secondKeyword}){
+
+    if (secondKeyword == _newFlyersTag) {
+      print ('flyer is from the new flyers stack');
+    }
+    else {
+
+      print('flyerID : ${tinyFlyer.flyerID} - ${tinyFlyer.flyerType} ---------- ');
+      print('first keyword : ${firstKeyword}');
+      print('second Keyword : ${secondKeyword}');
+    }
+
+  }
+
+  static const String _newFlyersTag = 'newFlyers';
+
   @override
   Widget build(BuildContext context) {
 
@@ -71,7 +88,6 @@ class GroupWall extends StatelessWidget {
     print(groupModel.firstKeyID);
     print(_keywordsByGroupID);
 
-
     List<Widget> _groupWallWidgets = <Widget>[
 
       _spacer,
@@ -80,6 +96,11 @@ class GroupWall extends StatelessWidget {
         flyersType: FlyerType.Property,
         title: 'New ${groupModel.firstKeyID} flyers in Heliopolis',
         tinyFlyers: TinyFlyer.dummyTinyFlyers(),
+        flyerOnTap: (tinyFlyer) => _flyerOnTap(
+          tinyFlyer: tinyFlyer,
+          firstKeyword: groupModel.firstKeyID,
+          secondKeyword: _newFlyersTag,
+        ),
       ),
 
       _spacer,
@@ -89,22 +110,40 @@ class GroupWall extends StatelessWidget {
       if(groupModel?.secondKeywords?.keywordModels != null)
       ...List.generate(
           groupModel.secondKeywords.keywordModels.length,
-              (index) =>
+              (index){
+
+                String _firstKeyword = groupModel?.firstKeyID;
+                FilterModel _secondKeywords = groupModel?.secondKeywords;
+                dynamic _secondKeyword = _secondKeywords == null ? null : groupModel?.secondKeywords?.keywordModels[index];
+
+                return
               Padding(
                 padding: const EdgeInsets.only(bottom: Ratioz.appBarMargin * 2),
                 child: FlyerStack(
                   flyersType: null,
                   title: _stackTitle(context: context, groupModel: groupModel, index: index),
                   tinyFlyers: TinyFlyer.dummyTinyFlyers(),
+                  flyerOnTap: (tinyFlyer) => _flyerOnTap(
+                    tinyFlyer: tinyFlyer,
+                    firstKeyword: _firstKeyword,
+                    secondKeyword: _secondKeyword,
+                  ),
                 ),
-              ),
+              );
+              }
       ),
 
       /// If groupModel has its keywords straight nested (filterID - groupID - subGroupID - keywordID)
       if(groupModel?.secondKeywords?.keywordModels == null)
         ...List.generate(
           _keywordsByGroupID.length,
-              (index) =>
+              (index){
+
+            String _firstKeyword = groupModel?.firstKeyID;
+            FilterModel _secondKeywords = groupModel?.secondKeywords;
+            dynamic _secondKeyword = _secondKeywords == null ? null : groupModel?.secondKeywords?.keywordModels[index];
+
+            return
               Padding(
                 padding: const EdgeInsets.only(bottom: Ratioz.appBarMargin * 2),
                 child: FlyerStack(
@@ -112,8 +151,14 @@ class GroupWall extends StatelessWidget {
                   titleIcon: KeywordModel.getImagePath(_keywordsByGroupID[index].keywordID),
                   title: _stackTitle(context: context, groupModel: groupModel, index: index),//'${KeywordModel.getKeywordNameByKeywordID(context, _keywordsByGroupID[index].keywordID)} in Cairo',
                   tinyFlyers: TinyFlyer.dummyTinyFlyers(),
+                  flyerOnTap: (tinyFlyer) => _flyerOnTap(
+                    tinyFlyer: tinyFlyer,
+                    firstKeyword: _firstKeyword,
+                    secondKeyword: _secondKeyword,
+                  ),
                 ),
-              ),
+              );
+              }
         ),
 
       PyramidsHorizon(heightFactor: 5,),
