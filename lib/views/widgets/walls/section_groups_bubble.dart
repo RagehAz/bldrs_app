@@ -32,7 +32,7 @@ class WallGroupsBubble extends StatelessWidget {
 
     final _prof = Provider.of<FlyersProvider>(context, listen: true);
     Section _currentSection = _prof.getCurrentSection;
-    List<GroupModel> _groups = GroupModel.getGroupsBySection(context: context,section: _currentSection);
+    List<Sequence> _groups = Sequence.getSequencesBySection(context: context,section: _currentSection);
 
     const List<Color> _boxesColors = [Colorz.White30, Colorz.WhiteGlass, Colorz.WhiteAir];
 
@@ -98,10 +98,10 @@ class WallGroupsBubble extends StatelessWidget {
                     children: _groups.map(
                           (sectionGroup) {
 
-                            String _groupName = GroupModel.getGroupNameBySectionAndGroupModel(
+                            String _groupName = Sequence.getSequenceNameBySequenceAndSection(
                               context: context,
                               section: _currentSection,
-                              groupModel: sectionGroup,
+                              sequence: sectionGroup,
                             );
 
                             return

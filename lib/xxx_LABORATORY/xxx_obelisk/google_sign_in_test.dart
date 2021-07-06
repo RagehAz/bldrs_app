@@ -27,7 +27,7 @@ class GoogleSignInTest extends StatefulWidget {
 
 class _GoogleSignInTestState extends State<GoogleSignInTest> {
   /// TASK : should fetch user current location automatically and suggest them here
-  final Zone currentZone = Zone(countryID: '', provinceID: '', areaID: '');
+  final Zone currentZone = Zone(countryID: '', provinceID: '', districtID: '');
   CountryProvider _countryPro;
   bool _isSignedIn = false;
 // -----------------------------------------------------------------------------

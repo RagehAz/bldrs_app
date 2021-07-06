@@ -100,7 +100,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
                           UserModel _userModel = _usersModels[index];
                           String _countryName = _countryPro .getCountryNameInCurrentLanguageByIso3(context, _userModel.zone.countryID);
                           String _provinceName = _countryPro.getProvinceNameWithCurrentLanguageIfPossible(context, _userModel.zone.provinceID);
-                          String _areaName = _countryPro.getAreaNameWithCurrentLanguageIfPossible(context, _userModel.zone.areaID);
+                          String _districtName = _countryPro.getDistrictNameWithCurrentLanguageIfPossible(context, _userModel.zone.districtID);
 
                           List<ContactModel> _stringyContacts = ContactModel.getContactsWithStringsFromContacts(_userModel.contacts);
                           List<String> _stringyContactsValues = ContactModel.getListOfValuesFromContactsModelsList(_stringyContacts);
@@ -204,7 +204,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
                                             _smallVerse(_userModel.company),
 
                                             _titleVerse('Zone'),
-                                            _smallVerse('in [ $_areaName ] - [ $_provinceName ] - [ $_countryName ]'),
+                                            _smallVerse('in [ $_districtName ] - [ $_provinceName ] - [ $_countryName ]'),
 
                                             _titleVerse('joined At'),
                                             _smallVerse(TextGenerator.dayMonthYearStringer(context, _userModel.joinedAt)),

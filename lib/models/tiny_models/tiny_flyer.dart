@@ -47,7 +47,7 @@ class TinyFlyer with ChangeNotifier{
 
     else if (finalFlyer.flyerZone.countryID != originalFlyer.flyerZone.countryID) {tinyFlyersAreTheSame = false;}
     else if (finalFlyer.flyerZone.provinceID != originalFlyer.flyerZone.provinceID) {tinyFlyersAreTheSame = false;}
-    else if (finalFlyer.flyerZone.areaID != originalFlyer.flyerZone.areaID) {tinyFlyersAreTheSame = false;}
+    else if (finalFlyer.flyerZone.districtID != originalFlyer.flyerZone.districtID) {tinyFlyersAreTheSame = false;}
 
     else {tinyFlyersAreTheSame = true;}
 
@@ -146,7 +146,7 @@ class TinyFlyer with ChangeNotifier{
         authorID: 'dummyAuthor',
         slideIndex: 0,
         slidePic: Iconz.DumSlide1,
-        flyerZone: Zone(countryID: 'egy', provinceID: 'cairo', areaID: 'heliopolis'), 
+        flyerZone: Zone(countryID: 'egy', provinceID: 'cairo', districtID: 'heliopolis'),
         tinyBz: TinyBz.dummyTinyBz('bzID'),
     );
   }

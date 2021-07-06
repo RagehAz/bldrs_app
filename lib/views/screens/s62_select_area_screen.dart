@@ -22,7 +22,7 @@ class SelectAreaScreen extends StatelessWidget {
 // -----------------------------------------------------------------------------
     CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: true);
     String _provinceName = _countryPro.getProvinceNameWithCurrentLanguageIfPossible(context, provinceID);
-    List<Map<String, dynamic>> _areasMaps = _countryPro.getAreasNameMapsByProvinceID(context, provinceID);
+    List<Map<String, dynamic>> _areasMaps = _countryPro.getDistrictsNameMapsByProvinceID(context, provinceID);
 // -----------------------------------------------------------------------------
 
     return  ListLayout(
@@ -33,16 +33,16 @@ class SelectAreaScreen extends StatelessWidget {
       pageIcon: null,
       pageIconVerse: _provinceName,
       sky: Sky.Black,
-      onItemTap: (areaID) async {
-        print('areaID is $areaID');
+      onItemTap: (districtID) async {
+        print('districtID is $districtID');
 
         _countryPro.changeCountry(countryID);
         _countryPro.changeProvince(provinceID);
-        _countryPro.changeArea(areaID);
+        _countryPro.changeDistrict(districtID);
 
         print('selected country id is : $countryID');
         print('selected province id is : $provinceID');
-        print('selected city id is : $areaID');
+        print('selected district id is : $districtID');
 
         await _pro.fetchAndSetTinyFlyersBySection(context, _pro.getCurrentSection);
 

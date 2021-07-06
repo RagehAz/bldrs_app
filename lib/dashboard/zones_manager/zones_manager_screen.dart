@@ -47,7 +47,7 @@ class _ZonesManagerScreenState extends State<ZonesManagerScreen> {
     print('starting countries uploading');
     _triggerLoading();
     try {
-      Map<String, dynamic> _postData = geebCountryByIso3('egy').toMap();
+      Map<String, dynamic> _postData = DbCountries.getCountryByIso3('egy').toMap();
 
       /// this specifies country name as Firestore document's id
       await _countriesCollection.doc(_postData['iso3']).set(_postData);

@@ -46,7 +46,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   Gender _currentGender;
   String _currentCountryID;
   String _currentProvinceID;
-  String _currentAreaID;
+  String _currentDistrictID;
   // String _currentLanguageCode;
   GeoPoint _currentPosition;
   // --------------------
@@ -78,7 +78,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     _titleController.text = widget.user.title;
     _currentCountryID = widget.user.zone.countryID;
     _currentProvinceID = widget.user.zone.provinceID;
-    _currentAreaID = widget.user.zone.areaID;
+    _currentDistrictID = widget.user.zone.districtID;
     _phoneController.text = ContactModel.getAContactValueFromContacts(widget.user.contacts, ContactType.Phone);
     _emailController.text = ContactModel.getAContactValueFromContacts(widget.user.contacts, ContactType.Email);
     _websiteController.text = ContactModel.getAContactValueFromContacts(widget.user.contacts, ContactType.WebSite);
@@ -127,19 +127,19 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     setState(() {
       _currentCountryID = countryID;
       _currentProvinceID = null;
-      _currentAreaID = null;
+      _currentDistrictID = null;
     });
   }
 // -----------------------------------------------------------------------------
   void _changeProvince(String provinceID){
     setState(() {
       _currentProvinceID = provinceID;
-      _currentAreaID = null;
+      _currentDistrictID = null;
     });
   }
 // -----------------------------------------------------------------------------
-  void _changeArea(String areaID){
-    setState(() {_currentAreaID = areaID;});
+  void _changeDistrict(String districtID){
+    setState(() {_currentDistrictID = districtID;});
   }
 // -----------------------------------------------------------------------------
   // void _changePosition(GeoPoint geoPoint){
@@ -221,7 +221,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           zone : Zone(
             countryID: _currentCountryID,
             provinceID: _currentProvinceID,
-            areaID: _currentAreaID,
+            districtID: _currentDistrictID,
           ),
           language : Wordz.languageCode(context),
           position : _currentPosition,
@@ -285,7 +285,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           zone : Zone(
             countryID: _currentCountryID,
             provinceID: _currentProvinceID,
-            areaID: _currentAreaID,
+            districtID: _currentDistrictID,
           ),
           language : Wordz.languageCode(context),
           position : _currentPosition,
@@ -326,7 +326,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       loading: _loading,
       appBarType: AppBarType.Basic,
       tappingRageh: (){
-        print(_currentAreaID,);
+        print(_currentDistrictID,);
         print(_currentProvinceID,);
         print(_currentCountryID,);
       },
@@ -386,9 +386,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               title : 'Preferred Location',
               changeCountry : (countryID) => _changeCountry(countryID),
               changeProvince : (provinceID) => _changeProvince(provinceID),
-              changeArea : (areaID) => _changeArea(areaID),
-              // zone: Zone(countryID: userModel.country, provinceID: userModel.province, areaID: userModel.area),
-              currentZone: Zone(countryID: _currentCountryID, provinceID: _currentProvinceID, areaID: _currentAreaID),
+              changeDistrict : (districtID) => _changeDistrict(districtID),
+              // zone: Zone(countryID: userModel.country, provinceID: userModel.province, districtID: userModel.districtID),
+              currentZone: Zone(countryID: _currentCountryID, provinceID: _currentProvinceID, districtID: _currentDistrictID),
             ),
 
             // --- EDIT EMAIL

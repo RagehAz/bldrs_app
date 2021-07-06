@@ -1,7 +1,7 @@
 import 'package:bldrs/controllers/drafters/text_manipulators.dart';
 import 'package:bldrs/models/keywords/filter_model.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
-import 'package:bldrs/models/planet/area_model.dart';
+import 'package:bldrs/models/planet/district_model.dart';
 import 'package:bldrs/providers/country_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -10,19 +10,19 @@ import 'package:provider/provider.dart';
 class Zone {
   String countryID;
   String provinceID;
-  String areaID;
+  String districtID;
 
   Zone({
     this.countryID,
     this.provinceID,
-    this.areaID,
+    this.districtID,
   });
 
   Zone clone(){
     return Zone(
       countryID: countryID,
       provinceID: provinceID,
-      areaID: areaID,
+      districtID: districtID,
     );
   }
 // -----------------------------------------------------------------------------
@@ -30,12 +30,12 @@ class Zone {
     return {
       'countryID' : countryID,
       'provinceID' : provinceID,
-      'areaID' : areaID,
+      'areaID' : districtID, /// TASK : should update areaID to district ID in firebase
     };
   }
 // -----------------------------------------------------------------------------
   String cipherToString(){
-    return '$countryID/$provinceID/$areaID';
+    return '$countryID/$provinceID/$districtID';
   }
 // -----------------------------------------------------------------------------
   static Zone decipherZoneMap(Map<String, dynamic> map){
@@ -44,7 +44,7 @@ class Zone {
     Zone(
       countryID: map['countryID'],
       provinceID: map['provinceID'],
-      areaID: map['areaID'],
+      districtID: map['areaID'], /// TASK : should update areaID to district ID in firebase
     );
 
     return _zone;
@@ -55,7 +55,7 @@ class Zone {
 
     if (finalZone.countryID != originalZone.countryID){_zonesAreTheSame = false;}
     else if (finalZone.provinceID != originalZone.provinceID){_zonesAreTheSame = false;}
-    else if (finalZone.areaID != originalZone.areaID){_zonesAreTheSame = false;}
+    else if (finalZone.districtID != originalZone.districtID){_zonesAreTheSame = false;}
     else {_zonesAreTheSame = true;}
 
     return _zonesAreTheSame;
@@ -64,54 +64,51 @@ class Zone {
   static Zone decipherZoneString(String zoneString){
     String _countryID = decipherZoneStringToCountryID(zoneString);
     String _provinceID = decipherZoneStringToProvinceID(zoneString);
-    String _areaID = decipherZoneStringToAreaID(zoneString);
+    String _districtID = decipherZoneStringToDistrictID(zoneString);
 
     return Zone(
       countryID: _countryID,
       provinceID: _provinceID,
-      areaID: _areaID,
+      districtID: _districtID,
     );
   }
 // -----------------------------------------------------------------------------
-  /// implementation : _zone.decipherZoneToCountryID(_zoneString)
   static String decipherZoneStringToCountryID(String zoneString){
     String _countryID = trimTextAfterFirstSpecialCharacter(zoneString, '/');
     return _countryID;
   }
 // -----------------------------------------------------------------------------
-  /// implementation : _zone.decipherZoneToProvinceID(_zoneString)
   static String decipherZoneStringToProvinceID(String zoneString){
-    String _provinceAndArea = trimTextBeforeFirstSpecialCharacter(zoneString, '/');
-    String _provinceID = trimTextAfterLastSpecialCharacter(_provinceAndArea, '/');
+    String _provinceAndDistrict = trimTextBeforeFirstSpecialCharacter(zoneString, '/');
+    String _provinceID = trimTextAfterLastSpecialCharacter(_provinceAndDistrict, '/');
     return _provinceID;
   }
 // -----------------------------------------------------------------------------
-  /// implementation : _zone.decipherZoneToAreaID(_zoneString)
-  static String decipherZoneStringToAreaID(String zoneString){
-    String _areaID = trimTextBeforeLastSpecialCharacter(zoneString, '/');
-    return _areaID;
+  static String decipherZoneStringToDistrictID(String zoneString){
+    String _districtID = trimTextBeforeLastSpecialCharacter(zoneString, '/');
+    return _districtID;
   }
 // -----------------------------------------------------------------------------
-  static Zone getZoneFromIDs({String countryID, String provinceID, String areaID}){
+  static Zone getZoneFromIDs({String countryID, String provinceID, String districtID}){
     return Zone(
       countryID: countryID,
       provinceID: provinceID,
-      areaID: areaID,
+      districtID: districtID,
     );}
 // -----------------------------------------------------------------------------
 //   static Zone getZoneFromBzModel(BzModel bzModel){
 //       return bzModel.bzZone;
 //   }
 // -----------------------------------------------------------------------------
-  static FilterModel getFilterModelFromCurrentZoneAreas(BuildContext context){
+  static FilterModel getFilterModelFromCurrentDistricts(BuildContext context){
 
     CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: true);
     String _provinceID = _countryPro.currentProvinceID;
-    List<Area> _areas = _countryPro.getAreasModelsByProvinceID(context, _provinceID);
+    List<District> _districts = _countryPro.getDistrictsByProvinceID(context, _provinceID);
 
-    List<KeywordModel> _areasAsKeywords = Area.getKeywordsModelsFromAreas(_areas);
+    List<KeywordModel> _districtsAsKeywords = District.getKeywordsModelsFromDistricts(_districts);
 
-    FilterModel _filterModel = FilterModel(groupID: _areasAsKeywords[0].groupID, canPickMany: false, keywordModels: _areasAsKeywords);
+    FilterModel _filterModel = FilterModel(groupID: _districtsAsKeywords[0].groupID, canPickMany: false, keywordModels: _districtsAsKeywords);
 
     return _filterModel;
   }

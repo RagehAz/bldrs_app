@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 enum BottomSheetType {
   Country,
   Province,
-  Area,
+  District,
   Language,
   BottomSheet,
 }

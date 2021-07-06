@@ -3,11 +3,9 @@ import 'package:bldrs/models/flyer_type_class.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/secondary_models/namez_model.dart';
 // -----------------------------------------------------------------------------
-class Area{
-  /// country id
+class District{
   final String iso3;
   final String province;
-  /// Area id
   final String id;
   final String name;
   final List<Name> namez;
@@ -18,7 +16,7 @@ class Area{
   final bool isPublic;
 
 
-  Area({
+  District({
     this.iso3,
     this.province,
     this.id,
@@ -40,16 +38,16 @@ class Area{
     };
   }
 // -----------------------------------------------------------------------------
-  static List<Map<String,dynamic>> cipherAreas(List<Area> areas){
-    List<Map<String, dynamic>> _areasList = new List();
-    areas.forEach((ar) {
-      _areasList.add(ar.toMap());
+  static List<Map<String,dynamic>> cipherDistricts(List<District> districts){
+    List<Map<String, dynamic>> _districtsList = new List();
+    districts.forEach((ar) {
+      _districtsList.add(ar.toMap());
     });
-    return _areasList;
+    return _districtsList;
   }
 // -----------------------------------------------------------------------------
-  static Area decipherAreaMap(Map<String, dynamic> map){
-    return Area(
+  static District decipherDistrictMap(Map<String, dynamic> map){
+    return District(
       iso3 : map['iso3'],
       province : map['province'],
       id : map['id'],
@@ -60,21 +58,21 @@ class Area{
     );
   }
 // -----------------------------------------------------------------------------
-  static List<Area> decipherAreasMaps(List<dynamic> maps){
-    List<Area> _areas = new List();
+  static List<District> decipherDistrictsMaps(List<dynamic> maps){
+    List<District> _districts = new List();
     maps?.forEach((map) {
-      _areas.add(decipherAreaMap(map));
+      _districts.add(decipherDistrictMap(map));
     });
-    return _areas;
+    return _districts;
   }
 // -----------------------------------------------------------------------------
-  static KeywordModel getKeywordModelFromArea(Area area){
+  static KeywordModel getKeywordModelFromDistrict(District district){
 
     KeywordModel _keywordModel = KeywordModel(
-        keywordID: area.id,
+        keywordID: district.id,
         flyerType: FlyerType.Non,
-        groupID: area.iso3,
-        subGroupID: area.province,
+        groupID: district.iso3,
+        subGroupID: district.province,
         // name: area.name,
         uses: 0,
     );
@@ -82,11 +80,11 @@ class Area{
     return _keywordModel;
   }
 // -----------------------------------------------------------------------------
-  static List<KeywordModel> getKeywordsModelsFromAreas(List<Area> areas){
+  static List<KeywordModel> getKeywordsModelsFromDistricts(List<District> districts){
     List<KeywordModel> _keywords = new List();
 
-    for (Area area in areas){
-      _keywords.add(getKeywordModelFromArea(area));
+    for (District district in districts){
+      _keywords.add(getKeywordModelFromDistrict(district));
     }
 
     return _keywords;

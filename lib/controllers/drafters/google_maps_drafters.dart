@@ -9,7 +9,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
 //   List<City> cityDataBase = dbCities;
-  List<Country> countryDataBase = dbCountries;
+  List<Country> countryDataBase = DbCountries.dbCountries();
 // -----------------------------------------------------------------------------
 Widget aDot (){
   return
