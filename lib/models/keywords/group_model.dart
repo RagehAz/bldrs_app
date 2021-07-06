@@ -1,6 +1,7 @@
 import 'package:bldrs/controllers/theme/keywordz.dart';
 import 'package:bldrs/models/flyer_type_class.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
+import 'package:bldrs/models/secondary_models/namez_model.dart';
 import 'package:bldrs/models/section_class.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/keywords/filter_model.dart';
@@ -42,32 +43,50 @@ class GroupModel {
 
     return _groupsBySection;
 }
-
 // -----------------------------------------------------------------------------
-//   static List<GroupModel> propertiesGroupsX(){
-//     List<GroupModel> _propertiesGroups = new List();
-//
-//     List<KeywordModel> _propertyLicenses = KeywordModel.getKeywordsByGroupID('group_ppt_license');
-//
-//     List<String> _keywordsWithNoSecondKeyword = [
-//       'pt_football',
-//       'pt_tennis',
-//       'pt_basketball',
-//     ];
-//
-//     _propertyLicenses.forEach((keyword) {
-//       _propertiesGroups.add(
-//           GroupModel(
-//             sectionIsOn: true,
-//             firstKeyword: keyword.groupID,
-//             secondKeywords: null,
-//           ),
-//       );
-//     });
-//
-//     return _propertiesGroups;
-//   }
+  static String getGroupNameBySectionAndGroupModel({BuildContext context, Section section, GroupModel groupModel}){
+    KeywordModel _keyword;
+    String _nameInCurrentLang;
 
+    /// where GroupModel.firstKeyword is keywordID
+    if (section == Section.NewProperties ||
+        section == Section.ResaleProperties ||
+        section == Section.RentalProperties ||
+        section == Section.Designs ||
+        section == Section.Crafts
+    ){
+      _keyword = KeywordModel.getKeywordByKeywordID(groupModel?.firstKeywordID);
+      _nameInCurrentLang = Name.getNameWithCurrentLanguageFromListOfNames(context, _keyword.names);
+    }
+
+    else if (section == Section.Products){
+      /// where GroupModel.firstKeyword is groupID
+      _nameInCurrentLang = getGroupNameByGroupID(context, groupModel?.firstKeywordID);
+    }
+
+    else {
+      // nothing
+    }
+
+    return _nameInCurrentLang;
+  }
+// -----------------------------------------------------------------------------
+  static String getSubGroupNameByKeywordID(BuildContext context, String keywordID){
+    KeywordModel _keyword = KeywordModel.getKeywordByKeywordID(keywordID);
+
+    Namez _names = KeywordModel.allSubGroupsNamez().firstWhere((name) => name.id == _keyword.subGroupID, orElse: () => null);
+
+    String _nameInCurrentLang = Name.getNameWithCurrentLanguageFromListOfNames(context, _names.names);
+
+    return _nameInCurrentLang;
+  }
+// -----------------------------------------------------------------------------
+  static String getGroupNameByGroupID(BuildContext context, String groupID){
+    Namez _names = KeywordModel.allGroupsNamez().firstWhere((name) => name.id == groupID, orElse: () => null);
+    String _nameInCurrentLang = Name.getNameWithCurrentLanguageFromListOfNames(context, _names?.names);
+    return _nameInCurrentLang;
+  }
+// -----------------------------------------------------------------------------
   static List<GroupModel> propertiesGroups(){
     return
       <GroupModel>[
@@ -151,24 +170,6 @@ class GroupModel {
       ];
   }
 // -----------------------------------------------------------------------------
-  static List<GroupModel> productsGroupsX(){
-    List<GroupModel> _productsGroups = new List();
-
-    List<KeywordModel> _productsKeywords = KeywordModel.getKeywordsByFlyerType(FlyerType.Product);
-
-    _productsKeywords.forEach((keyword) {
-      _productsGroups.add(
-        GroupModel(
-          sectionIsOn: true,
-          firstKeywordID: keyword.keywordID,
-          secondKeywords: null,
-        ),
-      );
-    });
-
-    return _productsGroups;
-  }
-// -----------------------------------------------------------------------------
   static List<GroupModel> productsGroups(){
     return
     <GroupModel>[
@@ -179,7 +180,7 @@ class GroupModel {
       GroupModel(sectionIsOn: true, firstKeywordID: 'group_prd_safety', secondKeywords: null),
       GroupModel(sectionIsOn: true, firstKeywordID: 'group_prd_stairs', secondKeywords: null),
       GroupModel(sectionIsOn: true, firstKeywordID: 'group_prd_roofing', secondKeywords: null),
-      GroupModel(sectionIsOn: true, firstKeywordID: 'group_prd_doorsWindows', secondKeywords: null),
+      GroupModel(sectionIsOn: true, firstKeywordID: 'group_prd_doors', secondKeywords: null),
       GroupModel(sectionIsOn: true, firstKeywordID: 'group_prd_landscape', secondKeywords: null),
       GroupModel(sectionIsOn: true, firstKeywordID: 'group_prd_hvac', secondKeywords: null),
       GroupModel(sectionIsOn: true, firstKeywordID: 'group_prd_plumbing', secondKeywords: null),
@@ -190,9 +191,7 @@ class GroupModel {
       GroupModel(sectionIsOn: true, firstKeywordID: 'group_prd_smartHome', secondKeywords: null),
       GroupModel(sectionIsOn: true, firstKeywordID: 'group_prd_furniture', secondKeywords: null),
       GroupModel(sectionIsOn: true, firstKeywordID: 'group_prd_appliances', secondKeywords: null),
-      GroupModel(sectionIsOn: true, firstKeywordID: 'group_prd_fireplaces', secondKeywords: null),
       GroupModel(sectionIsOn: true, firstKeywordID: 'group_prd_materials', secondKeywords: null),
-      GroupModel(sectionIsOn: true, firstKeywordID: 'group_prd_tools', secondKeywords: null),
     ];
     }
 // -----------------------------------------------------------------------------
