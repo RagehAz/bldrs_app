@@ -6,21 +6,21 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer_type_class.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
-import 'package:bldrs/models/keywords/group_model.dart';
+import 'package:bldrs/models/keywords/sequence_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
-import 'package:bldrs/views/screens/s11_group_screen.dart';
+import 'package:bldrs/views/screens/s11_sequence_screen.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class WallGroupsBubble extends StatelessWidget {
+class SequencesBubble extends StatelessWidget {
   final double gridZoneWidth;
   final int numberOfColumns;
   final Function onTap;
 
-  WallGroupsBubble({
+  SequencesBubble({
     @required this.gridZoneWidth,
     this.numberOfColumns = 3,
     this.onTap,
@@ -32,7 +32,7 @@ class WallGroupsBubble extends StatelessWidget {
 
     final _prof = Provider.of<FlyersProvider>(context, listen: true);
     Section _currentSection = _prof.getCurrentSection;
-    List<Sequence> _groups = Sequence.getSequencesBySection(context: context,section: _currentSection);
+    List<Sequence> _sequences = Sequence.getActiveSequencesBySection(context: context,section: _currentSection);
 
     const List<Color> _boxesColors = [Colorz.White30, Colorz.WhiteGlass, Colorz.WhiteAir];
 
@@ -41,7 +41,7 @@ class WallGroupsBubble extends StatelessWidget {
     double _buttonWidth = gridZoneWidth / (numberOfColumns + (numberOfColumns * _spacingRatioToGridWidth) + _spacingRatioToGridWidth);
     double _buttonHeight = _buttonWidth * 1.65;
     double _gridSpacing = _buttonWidth * _spacingRatioToGridWidth;
-    int _buttonsCount = _groups == <int>[] || _groups.length == 0 ? _boxesColors.length : _groups.length;
+    int _buttonsCount = _sequences == <int>[] || _sequences.length == 0 ? _boxesColors.length : _sequences.length;
 
     int _numOfGridRows(int buttonsCount){
       int _numOfGridRows = (buttonsCount/_gridColumnsCount).ceil();
@@ -71,7 +71,7 @@ class WallGroupsBubble extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(bottom: Ratioz.appBarPadding, left: Ratioz.appBarMargin, right: Ratioz.appBarMargin),
           child: SuperVerse(
-            verse: 'Section groups',
+            verse: 'Section Sequences',
             centered: false,
             maxLines: 2,
           ),
@@ -86,7 +86,7 @@ class WallGroupsBubble extends StatelessWidget {
             child: Stack(
               children: <Widget>[
 
-                if (_groups.length != 0)
+                if (_sequences.length != 0)
                   GridView(
                     physics: NeverScrollableScrollPhysics(),
                     scrollDirection: Axis.vertical,
@@ -95,13 +95,13 @@ class WallGroupsBubble extends StatelessWidget {
                     padding: EdgeInsets.all(_gridSpacing),
                     // key: new Key(loadedFlyers[flyerIndex].f01flyerID),
                     gridDelegate: _gridDelegate,
-                    children: _groups.map(
-                          (sectionGroup) {
+                    children: _sequences.map(
+                          (sequence) {
 
                             String _groupName = Sequence.getSequenceNameBySequenceAndSection(
                               context: context,
                               section: _currentSection,
-                              sequence: sectionGroup,
+                              sequence: sequence,
                             );
 
                             return
@@ -117,13 +117,14 @@ class WallGroupsBubble extends StatelessWidget {
                                       width: _buttonWidth,
                                       height: _buttonWidth,
                                       color: Colorz.BlackPlastic,
-                                      icon: KeywordModel.getImagePath(sectionGroup.firstKeyID),
+                                      icon: KeywordModel.getImagePath(sequence.id),
                                       boxFunction: (){
 
                                         Nav.goToNewScreen(context,
-                                          GroupScreen(
-                                            groupModel: sectionGroup,
+                                          SequenceScreen(
+                                            sequence: sequence,
                                             flyersType: FlyerType.Non, // TASK : fix this shit
+                                            section: _currentSection,
                                           ),
                                         );
 

@@ -1,5 +1,8 @@
+import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/flyer_type_class.dart';
 import 'package:bldrs/models/keywords/filter_model.dart';
+import 'package:bldrs/models/keywords/sequence_model.dart';
+import 'package:bldrs/models/planet/district_model.dart';
 import 'package:bldrs/models/secondary_models/namez_model.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:flutter/foundation.dart';
@@ -68,13 +71,68 @@ class KeywordModel {
 
     return _keywordsContainThisFlyerType;
   }
+// -----------------------------------------------------------------------------
+  static String translateKeyword(BuildContext context, String id){
+    String _keywordName;
+    KeywordModel _keywordModel;
+
+    List<KeywordModel> _allKeywords = bldrsKeywords();
+
+    KeywordModel _resultIfSearchedByGroup = _allKeywords.firstWhere((keyword) => keyword.groupID == id, orElse: ()=> null);
+
+    if (_resultIfSearchedByGroup == null){
+      /// so given id is not GroupID but keywordID
+      _keywordModel = _allKeywords.firstWhere((keyword) => keyword.keywordID == id, orElse: ()=> null);
+      _keywordName = Name.getNameWithCurrentLanguageFromListOfNames(context, _keywordModel.names);
+    }
+
+    else {
+      _keywordModel = _resultIfSearchedByGroup;
+      _keywordName = KeywordModel.getGroupNameByGroupID(context, _keywordModel.groupID);
+    }
+
+    return _keywordName;
+  }
+// -----------------------------------------------------------------------------
+  static String getTranslatedKeywordTitleBySequence(BuildContext context,Sequence sequence){
+
+    String _title;
+
+    if(sequence.idType == SequenceType.byGroupID){
+      String _groupID = sequence.id;
+      FlyerType _flyerType = KeywordModel.bldrsKeywords().firstWhere(
+              (keyword) => keyword.groupID == _groupID, orElse: () => null).flyerType;
+
+      if (_flyerType == FlyerType.Product){
+        _title = 'Product Type';
+      }
+
+      else if (_flyerType == FlyerType.Equipment){
+        _title = 'Equipment type';
+      }
+
+      else {
+        _title = '${KeywordModel.getGroupNameByGroupID(context, _groupID)}';
+      }
+
+    }
+
+    else {
+      String _keywordID = sequence.id;
+      KeywordModel _keyword = KeywordModel.getKeywordByKeywordID(_keywordID);
+
+      _title = KeywordModel.getGroupNameByGroupID(context, _keyword.groupID);
+    }
+
+    return _title;
+  }
 // =============================================================================
   /// GET KEYWORDS
 // =============================================================================
   static List<KeywordModel> getKeywordsByGroupIDAndFilterModel({FilterModel filterModel, String groupID}){
     List<KeywordModel> _keywordModels = new List();
 
-    filterModel.keywordModels.forEach((keyword) {
+    filterModel.keywords.forEach((keyword) {
       if(!_keywordModels.contains(keyword) && keyword.groupID == groupID){
         _keywordModels.add(keyword);
       }
@@ -145,13 +203,37 @@ class KeywordModel {
     String _nameWithCurrentLanguage = Name.getNameWithCurrentLanguageFromListOfNames(context, _keyword?.names);
     return _nameWithCurrentLanguage;
   }
+// -----------------------------------------------------------------------------
+  static KeywordModel getKeywordModelFromDistrict(District district){
+
+    KeywordModel _keywordModel = KeywordModel(
+      keywordID: district.id,
+      flyerType: FlyerType.Non,
+      groupID: district.iso3,
+      subGroupID: district.province,
+      // name: area.name,
+      uses: 0,
+    );
+
+    return _keywordModel;
+  }
+// -----------------------------------------------------------------------------
+  static List<KeywordModel> getKeywordsModelsFromDistricts(List<District> districts){
+    List<KeywordModel> _keywords = new List();
+
+    for (District district in districts){
+      _keywords.add(getKeywordModelFromDistrict(district));
+    }
+
+    return _keywords;
+  }
 // =============================================================================
   /// GET GROUPS
 // -----------------------------------------------------------------------------
   static List<String> getGroupsIDsFromFilterModel(FilterModel filterModel){
     List<String> _groupsIDs = new List();
 
-    List<KeywordModel> _keywords = filterModel.keywordModels;
+    List<KeywordModel> _keywords = filterModel.keywords;
 
     _keywords.forEach((keyword) {
 
@@ -175,6 +257,12 @@ class KeywordModel {
     });
 
     return _groupsIDs;
+  }
+// -----------------------------------------------------------------------------
+  static String getGroupNameByGroupID(BuildContext context, String groupID){
+    Namez _names = KeywordModel.allGroupsNamez().firstWhere((name) => name.id == groupID, orElse: () => null);
+    String _nameInCurrentLang = Name.getNameWithCurrentLanguageFromListOfNames(context, _names?.names);
+    return _nameInCurrentLang;
   }
 // -----------------------------------------------------------------------------
   static List<Namez> allGroupsNamez(){
@@ -219,9 +307,18 @@ class KeywordModel {
         Namez(id: 'group_prd_price',names: <Name>[Name(code: 'en', value: 'Product Price'), Name(code: 'ar', value: 'سعر المنتج')]),
       ];
   }
-// -----------------------------------------------------------------------------
 // =============================================================================
 /// GET SUBGROUPS
+// -----------------------------------------------------------------------------
+  static String getSubGroupNameByKeywordID(BuildContext context, String keywordID){
+    KeywordModel _keyword = KeywordModel.getKeywordByKeywordID(keywordID);
+
+    Namez _names = KeywordModel.allSubGroupsNamez().firstWhere((name) => name.id == _keyword.subGroupID, orElse: () => null);
+
+    String _nameInCurrentLang = Name.getNameWithCurrentLanguageFromListOfNames(context, _names.names);
+
+    return _nameInCurrentLang;
+  }
 // -----------------------------------------------------------------------------
   static List<Namez> allSubGroupsNamez(){
     return

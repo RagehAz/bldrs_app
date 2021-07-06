@@ -6,15 +6,17 @@ import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class KeywordBarButton extends StatelessWidget {
+  final String keywordID;
   final String title;
-  final String keyword;
+  final String keywordName;
   final bool xIsOn;
   final Function onTap;
   final Color color;
 
   KeywordBarButton({
+    @required this.keywordID,
     this.title,
-    @required this.keyword,
+    @required this.keywordName,
     @required this.xIsOn,
     @required this.onTap,
     this.color = Colorz.BabyBlueSmoke
@@ -96,7 +98,7 @@ class KeywordBarButton extends StatelessWidget {
                           children: <Widget>[
 
                             SuperVerse(
-                              verse: keyword,
+                              verse: keywordName,
                               size: 1,
                               italic: false,
                               color: Colorz.White,

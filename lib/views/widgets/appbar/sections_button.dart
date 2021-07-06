@@ -17,6 +17,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class SectionsButton extends StatelessWidget {
+  final Function onTap;
+  final Color color;
+
+  SectionsButton({
+    this.onTap,
+    this.color = Colorz.WhiteAir,
+});
 // -----------------------------------------------------------------------------
   Future<void> _onSectionTap({BuildContext context, FlyersProvider pro, Section section, bool inActiveMode}) async {
 
@@ -99,7 +106,7 @@ Widget build(BuildContext context) {
   String _sectionName = TextGenerator.sectionStringer(context, _currentSection);
 
   return GestureDetector(
-    onTap: () => _changeSection(context, _pro),
+    onTap: onTap == null ? () => _changeSection(context, _pro) : onTap,
     child: Row(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -114,7 +121,7 @@ Widget build(BuildContext context) {
             // margin: const EdgeInsets.symmetric(horizontal: Ratioz.ddAppBarMargin*0.5),
             alignment: Alignment.center,
             decoration: BoxDecoration(
-              color: Colorz.WhiteAir,
+              color: color,
               borderRadius: BorderRadius.circular(_corners),
             ),
             child: Column(
