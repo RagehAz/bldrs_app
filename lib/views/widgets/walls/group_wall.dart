@@ -91,7 +91,7 @@ class GroupWall extends StatelessWidget {
           groupModel.secondKeywords.keywordModels.length,
               (index) =>
               Padding(
-                padding: const EdgeInsets.only(bottom: Ratioz.appBarMargin * 4),
+                padding: const EdgeInsets.only(bottom: Ratioz.appBarMargin * 2),
                 child: FlyerStack(
                   flyersType: null,
                   title: _stackTitle(context: context, groupModel: groupModel, index: index),
@@ -106,7 +106,7 @@ class GroupWall extends StatelessWidget {
           _keywordsByGroupID.length,
               (index) =>
               Padding(
-                padding: const EdgeInsets.only(bottom: Ratioz.appBarMargin * 4),
+                padding: const EdgeInsets.only(bottom: Ratioz.appBarMargin * 2),
                 child: FlyerStack(
                   flyersType: null,
                   titleIcon: KeywordModel.getImagePath(_keywordsByGroupID[index].keywordID),
