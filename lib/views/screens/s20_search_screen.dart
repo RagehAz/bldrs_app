@@ -178,7 +178,8 @@ class _SearchScreenState extends State<SearchScreen> {
                     ),
                   ) :
                   KeywordBarButton(
-                    keyword: _keyword.keywordID,
+                    keywordID: _keyword.keywordID,
+                    keywordName: KeywordModel.translateKeyword(context, _keyword.keywordID),
                     title: '${_keyword.flyerType}, ${_keyword.groupID}, ${_keyword.subGroupID}',
                     xIsOn: true,
                     onTap: () => _removeKeyword(index, filtersModels),
@@ -260,7 +261,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
     FilterModel _currentFilterModel = filtersModels.singleWhere((filterModel) => filterModel.groupID == _currentFilterID, orElse: () => null);
 
-    List<KeywordModel> _currentFilterKeywords = _currentFilterModel == null ? [] : _currentFilterModel.keywordModels;
+    List<KeywordModel> _currentFilterKeywords = _currentFilterModel == null ? [] : _currentFilterModel.keywords;
 
     return _currentFilterKeywords;
   }

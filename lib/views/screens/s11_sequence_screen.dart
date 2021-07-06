@@ -3,33 +3,41 @@ import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/flyer_type_class.dart';
-import 'package:bldrs/models/keywords/group_model.dart';
+import 'package:bldrs/models/keywords/keyword_model.dart';
+import 'package:bldrs/models/keywords/section_class.dart';
+import 'package:bldrs/models/keywords/sequence_model.dart';
+import 'package:bldrs/views/widgets/appbar/sections_button.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
-import 'package:bldrs/views/widgets/walls/group_wall.dart';
+import 'package:bldrs/views/widgets/walls/sequences_wall.dart';
+import 'package:bldrs/xxx_LABORATORY/flyer_browser/keyword_button.dart';
 import 'package:flutter/material.dart';
 
-class GroupScreen extends StatelessWidget {
-  final Sequence groupModel;
+class SequenceScreen extends StatelessWidget {
+  final Sequence sequence;
   final FlyerType flyersType;
+  final Section section;
 
-  GroupScreen({
-    @required this.groupModel,
+
+  SequenceScreen({
+    @required this.sequence,
     @required this.flyersType,
+    @required this.section,
   });
 
   @override
   Widget build(BuildContext context) {
 
     Widget _appBarKeywordButton =
-    DreamBox(
-      height: 40,
-      verse: '${groupModel.firstKeyID}',
-      bubble: false,
-      color: Colorz.YellowLingerie,
-      verseScaleFactor: 0.7,
-      verseItalic: true,
-      margins: EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding * 0.5),
+    KeywordBarButton(
+      keywordID: sequence.id,
+      keywordName: '${KeywordModel.translateKeyword(context, sequence.id)}',
+      title: '${KeywordModel.getTranslatedKeywordTitleBySequence(context, sequence)}',
+      xIsOn: false,
+      // color: ,
+      onTap: (){
+        print('bashboush');
+        },
     );
 
 
@@ -38,6 +46,11 @@ class GroupScreen extends StatelessWidget {
 
       pyramids: Iconz.DvBlankSVG,
       appBarRowWidgets: <Widget>[
+
+        SectionsButton(
+          color: Colorz.BabyBlueSmoke,
+          onTap: (){},
+        ),
 
         _appBarKeywordButton,
 
@@ -51,8 +64,8 @@ class GroupScreen extends StatelessWidget {
       // _isLoading == true ?
       // Center(child: Loading(loading: _isLoading,))
       //     :
-      GroupWall(
-        groupModel: groupModel,
+      SequencesWall(
+        sequence: sequence,
         flyersType: flyersType,
       ),
     );

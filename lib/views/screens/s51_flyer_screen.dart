@@ -38,10 +38,7 @@ class FlyerScreen extends StatelessWidget {
     // final BzModel _bz = _pro.getBzByBzID(_flyer?.tinyBz?.bzID);
 
     return MainLayout(
-      // appBarIsOn: false,
-      // pyramids: false,
-      // ragehIsOn: true,
-      // tappingRageh: (){print()},
+      appBarType: AppBarType.Non,
       pyramids: Iconz.DvBlankSVG,
       layoutWidget: Center(
         child:
