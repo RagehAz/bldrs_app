@@ -66,28 +66,4 @@ class District{
     return _districts;
   }
 // -----------------------------------------------------------------------------
-  static KeywordModel getKeywordModelFromDistrict(District district){
-
-    KeywordModel _keywordModel = KeywordModel(
-        keywordID: district.id,
-        flyerType: FlyerType.Non,
-        groupID: district.iso3,
-        subGroupID: district.province,
-        // name: area.name,
-        uses: 0,
-    );
-
-    return _keywordModel;
-  }
-// -----------------------------------------------------------------------------
-  static List<KeywordModel> getKeywordsModelsFromDistricts(List<District> districts){
-    List<KeywordModel> _keywords = new List();
-
-    for (District district in districts){
-      _keywords.add(getKeywordModelFromDistrict(district));
-    }
-
-    return _keywords;
-  }
-// -----------------------------------------------------------------------------
 }
