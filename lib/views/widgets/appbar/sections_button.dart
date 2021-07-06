@@ -1,27 +1,16 @@
-import 'package:bldrs/controllers/drafters/aligners.dart';
-import 'package:bldrs/controllers/drafters/iconizers.dart';
 import 'package:bldrs/controllers/drafters/launchers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
-import 'package:bldrs/models/planet/area_model.dart';
-import 'package:bldrs/models/planet/province_model.dart';
 import 'package:bldrs/models/records/share_model.dart';
-import 'package:bldrs/models/section_class.dart';
-import 'package:bldrs/models/bz_model.dart';
+import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
-import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
-import 'package:bldrs/views/widgets/bubbles/tile_bubble.dart';
-import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/dialog_button.dart';
-import 'package:bldrs/views/widgets/dialogs/section_dialog/section_bubble.dart';
-import 'package:bldrs/views/widgets/dialogs/section_dialog/section_button.dart';
 import 'package:bldrs/views/widgets/dialogs/section_dialog/section_dialog.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
@@ -80,7 +69,7 @@ class SectionsButton extends StatelessWidget {
 
   }
 // -----------------------------------------------------------------------------
-void _changeSection(BuildContext context, FlyersProvider pro) async {
+  void _changeSection(BuildContext context, FlyersProvider pro) async {
 
   double _dialogHeight = Scale.superScreenHeight(context) * 0.95;
 

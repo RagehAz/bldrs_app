@@ -1,7 +1,5 @@
 import 'package:bldrs/controllers/theme/keywordz.dart';
-import 'package:bldrs/models/flyer_type_class.dart';
-import 'package:bldrs/models/section_class.dart';
-import 'package:bldrs/models/flyer_model.dart';
+import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:flutter/cupertino.dart';
@@ -56,7 +54,7 @@ class FilterModel{
 // -----------------------------------------------------------------------------
   static FilterModel zoneAreasAsFilter (BuildContext context){
     FilterModel _zoneAreaFilter = Zone.getFilterModelFromCurrentZoneAreas(context);
-    return null;
+    return _zoneAreaFilter;
   }
 // -----------------------------------------------------------------------------
   static List<FilterModel> propertiesFilters = <FilterModel>[

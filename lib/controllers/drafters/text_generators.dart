@@ -1,8 +1,7 @@
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/flyer_type_class.dart';
-import 'package:bldrs/models/section_class.dart';
+import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/models/bz_model.dart';
-import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/providers/country_provider.dart';
 import 'package:flutter/material.dart';

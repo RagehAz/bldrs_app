@@ -6,7 +6,8 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
-import 'package:bldrs/models/section_class.dart';
+import 'package:bldrs/main.dart';
+import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
@@ -20,7 +21,6 @@ import 'package:bldrs/views/widgets/pyramids/pyramids.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/views/widgets/buttons/rageh_button.dart';
 import 'package:provider/provider.dart';
-import '../../../main.dart';
 import 'package:flutter_keyboard_size/flutter_keyboard_size.dart';
 // -----------------------------------------------------------------------------
 enum AppBarType{

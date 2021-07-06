@@ -1,9 +1,8 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
-import 'package:bldrs/controllers/theme/keywordz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
-import 'package:bldrs/models/section_class.dart';
+import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/xxx_LABORATORY/flyer_browser/bldrs_expansion_tile.dart';
 import 'package:flutter/material.dart';
