@@ -38,7 +38,7 @@ class ListLayout extends StatelessWidget {
     double _screenHeight = Scale.superScreenHeight(context);
 // -----------------------------------------------------------------------------
     double _verseHeight = superVerseRealHeight(context, 2, 1, Colorz.WhiteAir);
-    double _bubbleHeight = _screenHeight - Ratioz.stratosphere - 24 - 50 - _verseHeight - 10 - 2.2;
+    double _bubbleHeight = _screenHeight - Ratioz.stratosphere - Ratioz.appBarSmallHeight - _verseHeight  - (Ratioz.appBarMargin * 4);
 // -----------------------------------------------------------------------------
     return MainLayout(
       sky: sky,
@@ -49,6 +49,7 @@ class ListLayout extends StatelessWidget {
       layoutWidget: Container(
         width: _screenWidth,
         height: _screenHeight,
+        // color: Colorz.BloodTest,
         child: Column(
 
           children: <Widget>[
@@ -82,7 +83,7 @@ class ListLayout extends StatelessWidget {
 
                   Container(
                     width: Scale.superBubbleClearWidth(context),
-                    height: _screenHeight - Ratioz.stratosphere - 24 - 50 - _verseHeight - 10 - 2.2 - 30,
+                    height: _bubbleHeight - (Ratioz.appBarMargin * 3),
                     // color: Colorz.BloodTest,
                     child: ListView.builder(
                       itemCount: idValueMaps.length,

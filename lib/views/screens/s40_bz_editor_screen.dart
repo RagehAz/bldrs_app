@@ -10,7 +10,7 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/firestore/bz_ops.dart';
-import 'package:bldrs/models/section_class.dart';
+import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
