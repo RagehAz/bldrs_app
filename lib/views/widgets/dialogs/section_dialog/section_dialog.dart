@@ -1,7 +1,7 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/models/section_class.dart';
+import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/section_dialog/section_bubble.dart';
@@ -107,7 +107,7 @@ SectionDialog({
 
               SectionDialogButton(
                 section: Section.Equipment,
-                inActiveMode: true,
+                inActiveMode: false,
                 dialogHeight: dialogHeight,
               ),
 

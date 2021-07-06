@@ -4,21 +4,16 @@ import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer_type_class.dart';
-import 'package:bldrs/models/section_class.dart';
-import 'package:bldrs/models/flyer_model.dart';
+import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/keywords/group_model.dart';
-import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/screens/s11_group_screen.dart';
-import 'package:bldrs/views/screens/s52_bz_card_screen.dart';
+import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
-import 'package:bldrs/views/widgets/in_pyramids/profile/bz_grid.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import 'in_pyramids_bubble.dart';
 
 class WallGroupsBubble extends StatelessWidget {
   final double gridZoneWidth;
@@ -37,7 +32,7 @@ class WallGroupsBubble extends StatelessWidget {
 
     final _prof = Provider.of<FlyersProvider>(context, listen: true);
     Section _currentSection = _prof.getCurrentSection;
-    List<GroupModel> _groups = GroupModel.getGroupsBySection(section: _currentSection);
+    List<GroupModel> _groups = GroupModel.getGroupsBySection(context: context,section: _currentSection);
 
     const List<Color> _boxesColors = [Colorz.White30, Colorz.WhiteGlass, Colorz.WhiteAir];
 
@@ -122,7 +117,7 @@ class WallGroupsBubble extends StatelessWidget {
                                       width: _buttonWidth,
                                       height: _buttonWidth,
                                       color: Colorz.BlackPlastic,
-                                      icon: KeywordModel.getImagePath(sectionGroup.firstKeywordID),
+                                      icon: KeywordModel.getImagePath(sectionGroup.firstKeyID),
                                       boxFunction: (){
 
                                         Nav.goToNewScreen(context,
