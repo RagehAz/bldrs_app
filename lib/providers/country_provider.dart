@@ -147,8 +147,7 @@ class CountryProvider with ChangeNotifier{
 
   print('province is : ${_province.iso3} : ${_province.name} : ${_province.areas.length} : ${_province.namez}');
 
-  String _nameInCurrentLanguage = Namez.getNameWithCurrentLanguageFromListOfNamez(context, _province?.namez);
-
+  String _nameInCurrentLanguage = Name.getNameWithCurrentLanguageFromListOfNames(context, _province?.namez);
 
   return _nameInCurrentLanguage == null ? provinceID : _nameInCurrentLanguage;
 }

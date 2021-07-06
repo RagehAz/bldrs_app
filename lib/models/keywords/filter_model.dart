@@ -36,23 +36,23 @@ class FilterModel{
         return _filters;
   }
 // -----------------------------------------------------------------------------
-  static FilterModel propertyFormsFilter = FilterModel(groupID: 'group_ppt_form', canPickMany: false, keywordModels: Keywordz.propertyForms);
-  static FilterModel propertyTypesFilter = FilterModel(groupID: 'propertyType', canPickMany: false, keywordModels: Keywordz.propertyTypes);
-  static FilterModel propertySpacesFilter = FilterModel(groupID: 'spaces', canPickMany: true, keywordModels: Keywordz.spaces);
-  static FilterModel propertyFeaturesFilter = FilterModel(groupID: 'propertyFeatures', canPickMany: true, keywordModels: Keywordz.propertyFeatures);
-  static FilterModel propertyPricesFilter = FilterModel(groupID: 'propertyPrice', canPickMany: true, keywordModels: Keywordz.propertyPrices);
-  static FilterModel propertyAreaFilter = FilterModel(groupID: 'area', canPickMany: false, keywordModels: Keywordz.propertyAreas);
-  static FilterModel propertyLicenseFilter = FilterModel(groupID: 'propertyLicense', canPickMany: false, keywordModels: Keywordz.propertyLicenses);
+  static FilterModel propertyFormsFilter = FilterModel(groupID: 'group_ppt_form', canPickMany: false, keywordModels: FilterKeys.propertyForms());
+  static FilterModel propertyTypesFilter = FilterModel(groupID: 'propertyType', canPickMany: false, keywordModels: FilterKeys.propertyTypes());
+  static FilterModel propertySpacesFilter = FilterModel(groupID: 'spaces', canPickMany: true, keywordModels: FilterKeys.spaceTypes());
+  static FilterModel propertyFeaturesFilter = FilterModel(groupID: 'propertyFeatures', canPickMany: true, keywordModels: FilterKeys.propertyFeatures());
+  static FilterModel propertyPricesFilter = FilterModel(groupID: 'propertyPrice', canPickMany: true, keywordModels: FilterKeys.propertyPrices());
+  static FilterModel propertyAreaFilter = FilterModel(groupID: 'area', canPickMany: false, keywordModels: FilterKeys.propertyArea());
+  static FilterModel propertyLicenseFilter = FilterModel(groupID: 'propertyLicense', canPickMany: false, keywordModels: FilterKeys.propertyLicenses());
 // -----------------------------------------------------------------------------
-  static FilterModel designTypesFilter = FilterModel(groupID: 'designType', canPickMany: false, keywordModels: Keywordz.designTypes);
-  static FilterModel architecturalStylesFilter = FilterModel(groupID: 'architecturalStyle', canPickMany: false, keywordModels: Keywordz.architecturalStyles);
-  static FilterModel spaceTypeFilter = FilterModel(groupID: 'spaceType', canPickMany: true, keywordModels: Keywordz.spaceTypes);
-  static FilterModel kioskTypeFilter = FilterModel(groupID: 'kioskType', canPickMany: false, keywordModels: Keywordz.kioskTypes);
+  static FilterModel designTypesFilter = FilterModel(groupID: 'designType', canPickMany: false, keywordModels: FilterKeys.designTypes());
+  static FilterModel architecturalStylesFilter = FilterModel(groupID: 'architecturalStyle', canPickMany: false, keywordModels: FilterKeys.architecturalStyles());
+  static FilterModel spaceTypeFilter = FilterModel(groupID: 'spaceType', canPickMany: true, keywordModels: FilterKeys.spaceTypes());
+  static FilterModel kioskTypeFilter = FilterModel(groupID: 'kioskType', canPickMany: false, keywordModels: FilterKeys.kioskTypes());
 // -----------------------------------------------------------------------------
-  static FilterModel constructionTradesFilter = FilterModel(groupID: 'constructionTrade', canPickMany: true, keywordModels: Keywordz.constructionTrades);
+  static FilterModel constructionTradesFilter = FilterModel(groupID: 'constructionTrade', canPickMany: true, keywordModels: FilterKeys.constructionTrades());
 // -----------------------------------------------------------------------------
-  static FilterModel productsFilter = FilterModel(groupID: 'product', canPickMany: true, keywordModels: Keywordz.products);
-  static FilterModel productPricesFilter = FilterModel(groupID: 'productPrices', canPickMany: true, keywordModels: Keywordz.productPrices);
+  static FilterModel productsFilter = FilterModel(groupID: 'product', canPickMany: true, keywordModels: FilterKeys.products());
+  static FilterModel productPricesFilter = FilterModel(groupID: 'productPrices', canPickMany: true, keywordModels: FilterKeys.productPrices());
 // -----------------------------------------------------------------------------
   static FilterModel zoneAreasAsFilter (BuildContext context){
     FilterModel _zoneAreaFilter = Zone.getFilterModelFromCurrentZoneAreas(context);
@@ -99,7 +99,7 @@ class FilterModel{
     productsFilter,
     productPricesFilter,
   ];
-
+// -----------------------------------------------------------------------------
   static bool getCanFilterPickManyByKeyword(KeywordModel keywordModel){
     List<FilterModel> _allFilters = <FilterModel>[
       ...propertiesFilters,
@@ -113,4 +113,5 @@ class FilterModel{
 
     return _canPickMany;
   }
+// -----------------------------------------------------------------------------
 }

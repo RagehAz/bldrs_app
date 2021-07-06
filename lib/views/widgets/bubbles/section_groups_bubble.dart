@@ -31,6 +31,7 @@ class WallGroupsBubble extends StatelessWidget {
     this.onTap,
   });
 
+
   @override
   Widget build(BuildContext context) {
 
@@ -71,7 +72,7 @@ class WallGroupsBubble extends StatelessWidget {
       bubbleColor: Colorz.WhiteAir,
       columnChildren: <Widget>[
 
-        // --- Title
+        /// --- Title
         Padding(
           padding: const EdgeInsets.only(bottom: Ratioz.appBarPadding, left: Ratioz.appBarMargin, right: Ratioz.appBarMargin),
           child: SuperVerse(
@@ -100,8 +101,15 @@ class WallGroupsBubble extends StatelessWidget {
                     // key: new Key(loadedFlyers[flyerIndex].f01flyerID),
                     gridDelegate: _gridDelegate,
                     children: _groups.map(
-                          (sectionGroup) =>
+                          (sectionGroup) {
 
+                            String _groupName = GroupModel.getGroupNameBySectionAndGroupModel(
+                              context: context,
+                              section: _currentSection,
+                              groupModel: sectionGroup,
+                            );
+
+                            return
                               Container(
                                 width: _buttonWidth,
                                 height: _buttonHeight,
@@ -109,6 +117,7 @@ class WallGroupsBubble extends StatelessWidget {
                                 child: Column(
                                   children: <Widget>[
 
+                                    /// GROUP ICON
                                     DreamBox(
                                       width: _buttonWidth,
                                       height: _buttonWidth,
@@ -117,24 +126,27 @@ class WallGroupsBubble extends StatelessWidget {
                                       boxFunction: (){
 
                                         Nav.goToNewScreen(context,
-                                            GroupScreen(
-                                              groupModel: sectionGroup,
-                                              flyersType: FlyerType.Non, // TASK : fix this shit
-                                            ),
+                                          GroupScreen(
+                                            groupModel: sectionGroup,
+                                            flyersType: FlyerType.Non, // TASK : fix this shit
+                                          ),
                                         );
 
                                       },
                                     ),
 
+                                    /// GROUP NAME
                                     SuperVerse(
-                                      verse: KeywordModel.getKeywordNameByKeywordID(context, sectionGroup.firstKeywordID),
+                                      verse: _groupName,
                                       centered: true,
                                       maxLines: 3,
                                     ),
 
                                   ],
                                 ),
-                              ),
+                              );
+                          }
+
 
                     ).toList(),
 

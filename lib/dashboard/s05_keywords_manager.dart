@@ -1,7 +1,9 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/controllers/theme/keywordz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
+import 'package:bldrs/models/section_class.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/xxx_LABORATORY/flyer_browser/bldrs_expansion_tile.dart';
 import 'package:flutter/material.dart';
@@ -59,7 +61,7 @@ class _KeywordsManagerState extends State<KeywordsManager> {
       loading: _loading,
       tappingRageh: (){
 
-        List<KeywordModel> _result = KeywordModel.getKeywordModelsByCategoryID('product');
+        List<KeywordModel> _result = KeywordModel.getKeywordsBySection(Section.Products);
         //
 
         _result.forEach((key) {
