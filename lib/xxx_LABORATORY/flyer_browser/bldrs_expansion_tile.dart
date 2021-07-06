@@ -117,7 +117,7 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
 // -----------------------------------------------------------------------------
   void _setKeywords(String groupID){
     setState(() {
-    _currentKeywordModels = KeywordModel.getKeywordModelsByGroupIDAndFilterModel(filterModel: widget.filterModel, groupID: groupID);
+    _currentKeywordModels = KeywordModel.getKeywordsByGroupIDAndFilterModel(filterModel: widget.filterModel, groupID: groupID);
     });
   }
 // -----------------------------------------------------------------------------

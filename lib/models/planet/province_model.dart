@@ -14,7 +14,7 @@ class Province{
   final int population;
   final bool isActivated;
   final bool isPublic;
-  final List<Namez> namez; // English
+  final List<Name> namez; // English
 
   Province({
     this.iso3,
@@ -34,7 +34,7 @@ class Province{
       'population' : population,
       'isActivated' : isActivated,
       'isPublic' : isPublic,
-      'namez' : Namez.cipherNamezz(namez),
+      'namez' : Name.cipherNamezz(namez),
     };
   }
 // -----------------------------------------------------------------------------
@@ -54,7 +54,7 @@ class Province{
       population : map['population'],
       isActivated : map['isActivated'],
       isPublic : map['isPublic'],
-      namez : Namez.decipherNamezzMaps(map['names']),
+      namez : Name.decipherNamezzMaps(map['names']),
     );
   }
 // -----------------------------------------------------------------------------

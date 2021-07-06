@@ -133,7 +133,7 @@ class _BrowserPagesState extends State<BrowserPages> {
   void _onGroupTap(String groupID){
     setState(() {
       _currentGroupID = groupID;
-      _keywords = KeywordModel.getKeywordModelsByGroupIDAndFilterModel(filterModel: _currentFilter, groupID: _currentGroupID);
+      _keywords = KeywordModel.getKeywordsByGroupIDAndFilterModel(filterModel: _currentFilter, groupID: _currentGroupID);
     });
     // resetPages();
     _goToNextPage();
