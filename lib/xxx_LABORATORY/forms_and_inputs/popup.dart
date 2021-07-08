@@ -18,21 +18,6 @@ class _PopUpTestScreenState extends State<PopUpTestScreen> {
     // double screenHeight = MediaQuery.of(context).size.height;
 
     return MainLayout(
-      tappingRageh: (){print('there is a function here');},
-      // scrollableAppBar: false,
-      appBarRowWidgets: <Widget>[
-
-        Container(
-          width: 5,
-          height: 40,
-        ),
-
-        DreamBox(
-          height: 40,
-          verse: 'أحا',
-        ),
-
-      ],
 
       layoutWidget:
       ListView(
@@ -78,6 +63,7 @@ class _PopUpTestScreenState extends State<PopUpTestScreen> {
 
           Dismissible(
             key: ValueKey('dd'),
+
             child: DreamBox(
               height: 200,
               icon: Iconz.DvRageh,

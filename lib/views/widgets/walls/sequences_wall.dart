@@ -1,3 +1,5 @@
+import 'package:bldrs/controllers/drafters/animators.dart';
+import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/flyer_type_class.dart';
@@ -6,6 +8,7 @@ import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/keywords/sequence_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/providers/country_provider.dart';
+import 'package:bldrs/views/screens/s11_sequence_flyers_screen.dart';
 import 'package:bldrs/views/widgets/flyer/stacks/flyer_stack.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
@@ -38,51 +41,52 @@ class SequencesWall extends StatelessWidget {
 
     if(_groupSecondKeysAreZoneAreas == true){
       String _areaName = _countryPro.getDistrictNameWithCurrentLanguageIfPossible(context, sequence.secondKeywords.keywords[index].keywordID);
-      String _keywordName = KeywordModel.getKeywordNameByKeywordID(context, sequence.id);
+      String _keywordName = Keyword.getKeywordNameByKeywordID(context, sequence.titleID);
 
       _stackTitle = '$_keywordName - ${Wordz.inn(context)} $_areaName , $_provinceName';
     }
 
     else if (sequence?.secondKeywords?.keywords == null){
-      List<KeywordModel> _keywordsByGroupID = KeywordModel.getKeywordsByGroupID(sequence.id);
-      String _keywordName = KeywordModel.getKeywordNameByKeywordID(context, _keywordsByGroupID[index].keywordID);
+      List<Keyword> _keywordsByGroupID = Keyword.getKeywordsByGroupID(sequence.titleID);
+      String _keywordName = Keyword.getKeywordNameByKeywordID(context, _keywordsByGroupID[index].keywordID);
       _stackTitle = '$_keywordName - ${Wordz.inn(context)} $_provinceName';
     }
 
     else {
       String _keywordID = sequence.secondKeywords.keywords[index].keywordID;
-      KeywordModel _keyword = KeywordModel.getKeywordByKeywordID(_keywordID);
-      String _keywordName = KeywordModel.getKeywordNameByKeywordID(context, _keywordID);
-      String _sequenceName = KeywordModel.getKeywordNameByKeywordID(context, sequence.id);
+      Keyword _keyword = Keyword.getKeywordByKeywordID(_keywordID);
+      String _keywordName = Keyword.getKeywordNameByKeywordID(context, _keywordID);
+      String _sequenceName = Keyword.getKeywordNameByKeywordID(context, sequence.titleID);
       _stackTitle = '$_sequenceName - ${_keywordName} - ${Wordz.inn(context)} $_provinceName';
     }
 
     return _stackTitle;
   }
 
-  void _onStackExpand({BuildContext context, int index,Sequence sequence}){
+  void _onScrollEnd({BuildContext context, int index,Sequence sequence}){
 
     CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
     String _currentProvinceID = _countryPro.currentProvinceID;
 
     bool _sequenceIsNewFlyers = index == null ? true : false;
 
-    KeywordModel _firstKeyword =
-    sequence.idType == SequenceType.byKeyID ? KeywordModel.getKeywordByKeywordID(sequence.id) :
-    sequence.idType == SequenceType.byGroupID && _sequenceIsNewFlyers == false ? KeywordModel.getKeywordsByGroupID(sequence.id)[index] :
+    Keyword _firstKeyword =
+    sequence.idType == SequenceType.byKeyID ? Keyword.getKeywordByKeywordID(sequence.titleID) :
+    sequence.idType == SequenceType.byGroupID && _sequenceIsNewFlyers == false ? Keyword.getKeywordsByGroupID(sequence.titleID)[index] :
     sequence.idType == SequenceType.byGroupID && _sequenceIsNewFlyers == true ? null :
     null;
 
-    KeywordModel _secondKeyword;
+    Keyword _secondKeyword;
 
     if (_sequenceIsNewFlyers == true) {
       print ('1 - flyer is from the new flyers stack');
+
     }
 
     else {
       print ('1 - flyer is from sequence keywords');
 
-      FilterModel _secondKeywords = sequence?.secondKeywords;
+      KeysSet _secondKeywords = sequence?.secondKeywords;
 
       _secondKeyword = _secondKeywords == null ? null : _secondKeywords?.keywords[index];
       bool _sequenceHasSecondKeywords = _secondKeyword != null ? true : false;
@@ -101,21 +105,29 @@ class SequencesWall extends StatelessWidget {
       }
 
       else {
-        print('2 - sequence has NO second keywords, idType is ${sequence.idType}, sequenceID is groupID :${sequence.id}');
-
+        print('2 - sequence has NO second keywords, idType is ${sequence.idType}, sequenceID is groupID :${sequence.titleID}');
         // List<KeywordModel> _keywords = KeywordModel.getKeywordsByGroupID(sequence.id);
 
       }
 
-    }
 
+
+    }
 
     print('first keywordID : ${_firstKeyword?.keywordID}');
     print('second KeywordID : ${_secondKeyword?.keywordID}');
 
     if (_firstKeyword == null && _secondKeyword == null){
-      print('both first and second keywords are null, so will get all flyers by groupID : ${sequence.id}');
+      print('both first and second keywords are null, so will get all flyers by groupID : ${sequence.titleID}');
     }
+
+    Nav.goToNewScreen(context,
+        SequenceFlyersScreen(
+          firstKeyword: _firstKeyword,
+          secondKeyword: _secondKeyword,
+          sequence: sequence,
+        ),
+        transitionType: Animators.superHorizontalTransition(context));
 
   }
 
@@ -126,9 +138,9 @@ class SequencesWall extends StatelessWidget {
 
     Widget _spacer = SizedBox(height: Ratioz.appBarMargin, width: Ratioz.appBarMargin,);
 
-    List<KeywordModel> _keywordsByGroupID = KeywordModel.getKeywordsByGroupID(sequence.id);
+    List<Keyword> _keywordsByGroupID = Keyword.getKeywordsByGroupID(sequence.titleID);
 
-    print(sequence.id);
+    print(sequence.titleID);
     print(_keywordsByGroupID);
 
     List<Widget> _sequenceWallWidgets = <Widget>[
@@ -137,9 +149,9 @@ class SequencesWall extends StatelessWidget {
 
       FlyerStack(
         flyersType: FlyerType.Property,
-        title: 'New ${sequence.id} flyers in Heliopolis',
+        title: 'New ${sequence.titleID} flyers in Heliopolis',
         tinyFlyers: TinyFlyer.dummyTinyFlyers(),
-        onStackExpand: () => _onStackExpand(
+        onScrollEnd: () => _onScrollEnd(
           context: context,
           index: null,
           sequence: sequence,
@@ -155,8 +167,8 @@ class SequencesWall extends StatelessWidget {
           sequence.secondKeywords.keywords.length,
               (index){
 
-                String _firstKeyword = sequence?.id;
-                FilterModel _secondKeywords = sequence?.secondKeywords;
+                String _firstKeyword = sequence?.titleID;
+                KeysSet _secondKeywords = sequence?.secondKeywords;
                 dynamic _secondKeyword = _secondKeywords == null ? null : sequence?.secondKeywords?.keywords[index];
 
                 return
@@ -166,7 +178,7 @@ class SequencesWall extends StatelessWidget {
                   flyersType: null,
                   title: _stackTitle(context: context, sequence: sequence, index: index),
                   tinyFlyers: TinyFlyer.dummyTinyFlyers(),
-                  onStackExpand: () => _onStackExpand(
+                  onScrollEnd: () => _onScrollEnd(
                     context: context,
                     index: index,
                     sequence: sequence,
@@ -182,8 +194,8 @@ class SequencesWall extends StatelessWidget {
           _keywordsByGroupID.length,
               (index){
 
-            String _firstKeyword = sequence?.id;
-            FilterModel _secondKeywords = sequence?.secondKeywords;
+            String _firstKeyword = sequence?.titleID;
+            KeysSet _secondKeywords = sequence?.secondKeywords;
             dynamic _secondKeyword = _secondKeywords == null ? null : sequence?.secondKeywords?.keywords[index];
 
             return
@@ -191,10 +203,10 @@ class SequencesWall extends StatelessWidget {
                 padding: const EdgeInsets.only(bottom: Ratioz.appBarMargin * 2),
                 child: FlyerStack(
                   flyersType: null,
-                  titleIcon: KeywordModel.getImagePath(_keywordsByGroupID[index].keywordID),
+                  titleIcon: Keyword.getImagePath(_keywordsByGroupID[index].keywordID),
                   title: _stackTitle(context: context, sequence: sequence, index: index),//'${KeywordModel.getKeywordNameByKeywordID(context, _keywordsByGroupID[index].keywordID)} in Cairo',
                   tinyFlyers: TinyFlyer.dummyTinyFlyers(),
-                  onStackExpand: () => _onStackExpand(
+                  onScrollEnd: () => _onScrollEnd(
                     context: context,
                     index: index,
                     sequence: sequence,

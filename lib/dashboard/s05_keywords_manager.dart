@@ -15,7 +15,7 @@ class KeywordsManager extends StatefulWidget {
 class _KeywordsManagerState extends State<KeywordsManager> {
   bool _isExpanded = false;
   List<GlobalKey<BldrsExpansionTileState>> _expansionKeys = new List();
-  List<KeywordModel> _selectedKeywords = new List();
+  List<Keyword> _selectedKeywords = new List();
   List<String> _filtersIDs;
 // -----------------------------------------------------------------------------
   /// --- LOADING BLOCK
@@ -39,7 +39,7 @@ class _KeywordsManagerState extends State<KeywordsManager> {
     });
   }
 // -----------------------------------------------------------------------------
-  List<String> getKeywordIDs(List<KeywordModel> _keywordModels){
+  List<String> getKeywordIDs(List<Keyword> _keywordModels){
     List<String> _keywordIDs = new List();
 
     _keywordModels.forEach((key) {
@@ -60,7 +60,7 @@ class _KeywordsManagerState extends State<KeywordsManager> {
       loading: _loading,
       tappingRageh: (){
 
-        List<KeywordModel> _result = KeywordModel.getKeywordsBySection(Section.Products);
+        List<Keyword> _result = Keyword.getKeywordsBySection(Section.Products);
         //
 
         _result.forEach((key) {
@@ -103,7 +103,7 @@ class _KeywordsManagerState extends State<KeywordsManager> {
                       iconSizeFactor: 0.5,
                       filterModel: null,
                       selectedKeywords: _selectedKeywords,
-                      onKeywordTap: (KeywordModel selectedKeyword){
+                      onKeywordTap: (Keyword selectedKeyword){
 
                         if (_selectedKeywords.contains(selectedKeyword)){
                           setState(() {
