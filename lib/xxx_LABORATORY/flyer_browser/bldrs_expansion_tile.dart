@@ -12,13 +12,13 @@ import 'package:flutter/material.dart';
 class BldrsExpansionTile extends StatefulWidget {
   final String icon;
   final double iconSizeFactor;
-  final FilterModel filterModel;
+  final KeysSet filterModel;
   final double height;
   final Function onKeywordTap;
   final Function onGroupTap;
   final ValueChanged<bool> onExpansionChanged;
   final bool initiallyExpanded;
-  final List<KeywordModel> selectedKeywords;
+  final List<Keyword> selectedKeywords;
 
   const BldrsExpansionTile({
     Key key,
@@ -55,11 +55,11 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
   PageController _pageController;
   List<String> _groupsIDs = new List();
   String _currentGroupID;
-  List<KeywordModel> _currentKeywordModels = new List();
+  List<Keyword> _currentKeywordModels = new List();
 // -----------------------------------------------------------------------------
   @override
   void initState() {
-    _groupsIDs = KeywordModel.getGroupsIDsFromFilterModel(widget.filterModel);
+    _groupsIDs = Keyword.getGroupsIDsFromFilterModel(widget.filterModel);
 
     super.initState();
     _controller = new AnimationController(duration: _kExpand, vsync: this);
@@ -117,7 +117,7 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
 // -----------------------------------------------------------------------------
   void _setKeywords(String groupID){
     setState(() {
-    _currentKeywordModels = KeywordModel.getKeywordsByGroupIDAndFilterModel(filterModel: widget.filterModel, groupID: groupID);
+    _currentKeywordModels = Keyword.getKeywordsByGroupIDAndFilterModel(filterModel: widget.filterModel, groupID: groupID);
     });
   }
 // -----------------------------------------------------------------------------
@@ -192,7 +192,7 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
 
                     /// FILTER TITLE
                     title: SuperVerse(
-                      verse: widget.filterModel.groupID,
+                      verse: widget.filterModel.titleID,
                       color: _titleColor,
                       centered: false,
                       shadow: false,
@@ -200,7 +200,7 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
 
                     /// FILTER SUBTITLE
                     subtitle: SuperVerse(
-                      verse: widget.filterModel.groupID,
+                      verse: widget.filterModel.titleID,
                       color: _isExpanded ? Colorz.WhiteLingerie : Colorz.WhitePlastic,
                       weight: VerseWeight.thin,
                       italic: true,
@@ -314,7 +314,7 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
 
                   ...List.generate(_currentKeywordModels.length, (index){
 
-                    KeywordModel _keyword = _currentKeywordModels[index];
+                    Keyword _keyword = _currentKeywordModels[index];
                     bool _keywordIsSelected = widget.selectedKeywords.contains(_keyword);
 
                     List<String> _subGroups = new List();
@@ -357,7 +357,7 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
                             verseWeight: _keywordIsSelected ? VerseWeight.bold : VerseWeight.thin,
                             verseItalic: false,
                             verseScaleFactor: 0.7,
-                            icon: KeywordModel.getImagePath(_keyword.keywordID),
+                            icon: Keyword.getImagePath(_keyword.keywordID),
                             iconSizeFactor: 1,
                             iconColor: Colorz.BlackBlack,
                             margins: const EdgeInsets.symmetric(horizontal: 0, vertical: _buttonVerticalPadding),

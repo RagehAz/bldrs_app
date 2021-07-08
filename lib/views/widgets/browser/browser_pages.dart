@@ -20,9 +20,9 @@ class BrowserPages extends StatefulWidget {
   final double browserZoneHeight;
   final bool browserIsOn;
   final Function closeBrowser;
-  final List<FilterModel> filtersModels;
+  final List<KeysSet> filtersModels;
   final Function onKeywordTap;
-  final List<KeywordModel> selectedKeywords;
+  final List<Keyword> selectedKeywords;
 
   BrowserPages({
     @required this.browserZoneHeight,
@@ -43,10 +43,10 @@ class _BrowserPagesState extends State<BrowserPages> {
   int _currentPage = 0;
 
   // List<FilterModel> _filtersModels;
-  FilterModel _currentFilter;
+  KeysSet _currentFilter;
   List<String> _groups = new List();
   String _currentGroupID;
-  List<KeywordModel> _keywords = new List();
+  List<Keyword> _keywords = new List();
   // List<KeywordModel> _selectedKeywords = new List();
 
   // List<Widget> _pages = new List();
@@ -55,7 +55,7 @@ class _BrowserPagesState extends State<BrowserPages> {
   ItemScrollController _scrollController;
   ItemPositionsListener _itemPositionListener;
 
-  KeywordModel _highlightedKeyword;
+  Keyword _highlightedKeyword;
 
 // -----------------------------------------------------------------------------
   @override
@@ -77,7 +77,7 @@ class _BrowserPagesState extends State<BrowserPages> {
     super.dispose();
   }
 // -----------------------------------------------------------------------------
-  List<Widget> generatePages(List<FilterModel> filters){
+  List<Widget> generatePages(List<KeysSet> filters){
 
     return
         <Widget>[
@@ -106,12 +106,12 @@ class _BrowserPagesState extends State<BrowserPages> {
 
   }
 // -----------------------------------------------------------------------------
-  void _onFilterTap(FilterModel filterModel){
-    print('tapping filter : ${filterModel.groupID}');
+  void _onFilterTap(KeysSet filterModel){
+    print('tapping filter : ${filterModel.titleID}');
 
     setState(() {
       _currentFilter = filterModel;
-      _groups = KeywordModel.getGroupsIDsFromFilterModel(filterModel);
+      _groups = Keyword.getGroupsIDsFromFilterModel(filterModel);
       _currentGroupID = null;
       _keywords = new List();
     });
@@ -128,13 +128,13 @@ class _BrowserPagesState extends State<BrowserPages> {
   void _onGroupTap(String groupID){
     setState(() {
       _currentGroupID = groupID;
-      _keywords = KeywordModel.getKeywordsByGroupIDAndFilterModel(filterModel: _currentFilter, groupID: _currentGroupID);
+      _keywords = Keyword.getKeywordsByGroupIDAndFilterModel(filterModel: _currentFilter, groupID: _currentGroupID);
     });
     // resetPages();
     _goToNextPage();
   }
 // -----------------------------------------------------------------------------
-  void _onKeywordTap(KeywordModel keywordModel){
+  void _onKeywordTap(Keyword keywordModel){
 
     widget.onKeywordTap(keywordModel);
 
@@ -159,9 +159,9 @@ class _BrowserPagesState extends State<BrowserPages> {
         ''
         :
     _currentGroupID == null ?
-    '${_currentFilter.groupID}'
+    '${_currentFilter.titleID}'
         :
-    '${_currentFilter.groupID} / $_currentGroupID';
+    '${_currentFilter.titleID} / $_currentGroupID';
 
     return _path;
   }
@@ -169,7 +169,7 @@ class _BrowserPagesState extends State<BrowserPages> {
   @override
   Widget build(BuildContext context) {
     FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
-    List<FilterModel> _filtersBySection = _flyersProvider.getSectionFilters;
+    List<KeysSet> _filtersBySection = _flyersProvider.getSectionFilters;
 
     List<Widget> _pages = generatePages(_filtersBySection);
     int _numberOfPages = _pages.length;

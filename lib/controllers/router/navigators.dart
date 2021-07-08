@@ -31,10 +31,13 @@ class Nav{
       );
   }
 // -----------------------------------------------------------------------------
-  static Future<dynamic> goToNewScreen (BuildContext context, Widget screen) async {
+  static Future<dynamic> goToNewScreen (BuildContext context, Widget screen, {PageTransitionType transitionType}) async {
+
+    PageTransitionType _transition = transitionType == null ? PageTransitionType.bottomToTop : transitionType;
+
     dynamic _result = await Navigator.push(context,
       PageTransition(
-          type: PageTransitionType.bottomToTop,
+          type: _transition,
           child: screen,
           duration: Ratioz.slidingTransitionDuration,
           reverseDuration: Ratioz.slidingTransitionDuration,

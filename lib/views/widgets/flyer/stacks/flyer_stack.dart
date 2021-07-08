@@ -7,6 +7,7 @@ import 'package:bldrs/models/flyer_type_class.dart';
 import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
+import 'package:bldrs/views/widgets/flyer/stacks/flyer_stack_list.dart';
 import 'package:bldrs/views/widgets/flyer/tiny_flyer_widget.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,8 @@ class FlyerStack extends StatelessWidget {
   final List<TinyFlyer> tinyFlyers;
   final String titleIcon;
   final Function flyerOnTap;
-  final Function onStackExpand;
+  final Function onScrollEnd;
+
 
   FlyerStack({
     this.flyersType,
@@ -28,7 +30,7 @@ class FlyerStack extends StatelessWidget {
     this.tinyFlyers,
     this.titleIcon,
     this.flyerOnTap,
-    this.onStackExpand,
+    this.onScrollEnd,
 });
 
   @override
@@ -81,7 +83,7 @@ class FlyerStack extends StatelessWidget {
             /// --- COLLECTION TITLE
             if (title != null)
               GestureDetector(
-                onTap: onStackExpand,
+                onTap: onScrollEnd,
                 child: Container(
                   width: _screenWidth,
                   padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -130,75 +132,14 @@ class FlyerStack extends StatelessWidget {
               width: _screenWidth,
               height: _collectionHeight,
               // color: Colorz.WhiteAir,
-              child: ListView.separated(
-                itemCount: _tinyFlyers.length,
-                scrollDirection: Axis.horizontal,
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                addAutomaticKeepAlives: true,
-                // cacheExtent: screenHeight*5,
-                // dragStartBehavior: DragStartBehavior.start,
-                separatorBuilder: (context, _y) => SizedBox(height: 300,width: 10,),
-                // key: const PageStorageKey<String>('flyers'),
-                // cacheExtent: screenHeight*5,
-                itemBuilder: (context,_x) {
-
-                  print('_tinyFlyers[_x].flyerID = ${_tinyFlyers[_x].flyerID}');
-
-                  return
-
-                    // --- works
-                    // ChangeNotifierProvider.value(
-                    //   value: _tinyFlyers[_x],
-                    //   child: ChangeNotifierProvider.value(
-                    //     value: _tinyBzz[_x],
-                    //     // child:
-                    //     // Flyer(
-                    //     //   flyerSizeFactor: flyerSizeFactor,
-                    //     //   slidingIsOn: _slidingIsOn,
-                    //     //   tappingFlyerZone: (){
-                    //     //     openFlyer(context, _tinyFlyers[_x].flyerID);
-                    //     //     // _slidingIsOff = false;
-                    //     //     },
-                    //     // ),
-                    //
-                    //     // FlyerZone(
-                    //     //   flyerSizeFactor: flyerSizeFactor,
-                    //     //   stackWidgets: <Widget>[
-                    //     //
-                    //     //     MiniHeader(
-                    //     //
-                    //     //     )
-                    //     //
-                    //     //     SingleSlide(
-                    //     //         flyerZoneWidth: superFlyerZoneWidth(context, flyerSizeFactor),
-                    //     //
-                    //     //     ),
-                    //     //
-                    //     //   ],
-                    //     // ),
-                    //
-                    //   ),
-                    // )
-
-                    TinyFlyerWidget(
-                      flyerSizeFactor: flyerSizeFactor,
-                      tinyFlyer: _tinyFlyers[_x],
-                      onTap: (tinyFlyer){
-
-                        if (flyerOnTap == null){
-                          Nav().openFlyer(context, tinyFlyer.flyerID);
-                        }
-
-                        else {
-                          flyerOnTap(tinyFlyer);
-                        }
-
-                      },
-                    );
-
-                  },
-
+              child: FlyerStackList(
+                tinyFlyers: _tinyFlyers,
+                flyerSizeFactor: flyerSizeFactor,
+                flyerOnTap: flyerOnTap,
+                onScrollEnd: onScrollEnd,
               ),
+
+
             ),
 
           ],

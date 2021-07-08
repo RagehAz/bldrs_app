@@ -25,57 +25,6 @@ class SectionsButton extends StatelessWidget {
     this.color = Colorz.WhiteAir,
 });
 // -----------------------------------------------------------------------------
-  Future<void> _onSectionTap({BuildContext context, FlyersProvider pro, Section section, bool inActiveMode}) async {
-
-    CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
-    String _currentProvince = _countryPro.currentZone.provinceID;
-
-    /// A - if section is not active * if user is author or not
-    if(inActiveMode == true){
-      print('cant go there ,, Bitch!!');
-
-      await superDialog(
-        context: context,
-        title: 'Section "${TextGenerator.sectionStringer(context, section)}" is\nTemporarily closed in $_currentProvince',
-        body: 'The Bldrs in $_currentProvince are adding flyers everyday to properly present their markets.\nplease hold for couple of days and come back again.',
-        child: Container(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-
-              DialogButton(
-                verse: 'Inform a friend',
-                width: 133,
-                onTap: () => shareLink(context, LinkModel.bldrsWebSiteLink),
-              ),
-
-              DialogButton(
-                verse: 'Go back',
-                color: Colorz.Yellow,
-                verseColor: Colorz.BlackBlack,
-                onTap: () => Nav.goBack(context),
-              ),
-
-
-            ],
-          ),
-        ),
-      );
-    }
-
-    /// A - if section is active
-    else {
-     await pro.changeSection(context, section);
-
-     /// B - close dialog
-     Nav.goBack(context);
-
-    }
-
-
-  }
-// -----------------------------------------------------------------------------
   void _changeSection(BuildContext context, FlyersProvider pro) async {
 
   double _dialogHeight = Scale.superScreenHeight(context) * 0.95;

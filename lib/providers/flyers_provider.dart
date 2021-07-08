@@ -27,7 +27,7 @@ import 'package:provider/provider.dart';
 class FlyersProvider with ChangeNotifier {
   List<TinyBz> _sponsors;
   Section _currentSection;
-  List<FilterModel> _sectionFilters;
+  List<KeysSet> _sectionFilters;
   List<TinyBz> _userTinyBzz;
   List<FlyerModel> _loadedFlyers;
   List<TinyFlyer> _loadedTinyFlyers;
@@ -45,8 +45,8 @@ class FlyersProvider with ChangeNotifier {
     return _currentSection ?? Section.NewProperties;
   }
 
-  List<FilterModel> get getSectionFilters {
-    return <FilterModel>[..._sectionFilters];
+  List<KeysSet> get getSectionFilters {
+    return <KeysSet>[..._sectionFilters];
   }
 
 // -----------------------------------------------------------------------------
@@ -124,7 +124,7 @@ class FlyersProvider with ChangeNotifier {
 // -----------------------------------------------------------------------------
   void setSectionFilters(){
 
-    List<FilterModel> _filtersBySection = FilterModel.getFiltersBySection(
+    List<KeysSet> _filtersBySection = KeysSet.getKeysSetBySection(
         section: _currentSection,
     );
 
