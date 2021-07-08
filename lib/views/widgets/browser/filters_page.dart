@@ -5,9 +5,9 @@ import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:flutter/material.dart';
 
 class FiltersPage extends StatelessWidget {
-  final List<FilterModel> filtersModels;
+  final List<KeysSet> filtersModels;
   final Function onTap;
-  final FilterModel selectedFilter;
+  final KeysSet selectedFilter;
 
   FiltersPage({
     Key key,
@@ -27,9 +27,9 @@ class FiltersPage extends StatelessWidget {
           padding: const EdgeInsets.all(Ratioz.appBarMargin),
           itemBuilder: (context, keyIndex){
 
-            FilterModel _filterModel = filtersModels[keyIndex];
+            KeysSet _filterModel = filtersModels[keyIndex];
 
-            Color _color = selectedFilter?.groupID == _filterModel.groupID ? Colorz.Yellow : Colorz.Nothing;
+            Color _color = selectedFilter?.titleID == _filterModel.titleID ? Colorz.Yellow : Colorz.Nothing;
 
             return
               DreamBox(
@@ -37,7 +37,7 @@ class FiltersPage extends StatelessWidget {
                 // width: 120,
                 color: _color,
                 margins: const EdgeInsets.symmetric(vertical: Ratioz.appBarPadding),
-                verse: _filterModel.groupID,
+                verse: _filterModel.titleID,
                 boxFunction: () => onTap(_filterModel),
               );
           }

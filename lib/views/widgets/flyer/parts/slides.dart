@@ -5,6 +5,7 @@ import 'package:bldrs/models/sub_models/slide_model.dart';
 import 'package:flutter/material.dart';
 import 'slides_parts/single_slide.dart';
 
+/// TASK : try InteractiveViewer() in slides to zoom and pan
 class Slides extends StatefulWidget {
   final List<SlideModel> slides;
   final String flyerID;

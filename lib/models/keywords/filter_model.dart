@@ -8,20 +8,20 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_size/flutter_keyboard_size.dart';
 
-class FilterModel{
-  final String groupID;
+class KeysSet{
+  final String titleID;
   final bool canPickMany;
-  final List<KeywordModel> keywords;
+  final List<Keyword> keywords;
 
-  FilterModel({
-    @required this.groupID,
+  KeysSet({
+    @required this.titleID,
     @required this.canPickMany,
     @required this.keywords,
   });
 // -----------------------------------------------------------------------------
-  static List<FilterModel> getFiltersBySection({Section section}){
+  static List<KeysSet> getKeysSetBySection({Section section}){
 
-    List<FilterModel> _filters =
+    List<KeysSet> _filters =
         section == Section.NewProperties ? propertiesFilters :
         section == Section.ResaleProperties ? propertiesFilters :
         section == Section.RentalProperties ? propertiesFilters :
@@ -37,34 +37,34 @@ class FilterModel{
         return _filters;
   }
 // -----------------------------------------------------------------------------
-  static FilterModel propertyFormsFilter = FilterModel(groupID: 'group_ppt_form', canPickMany: false, keywords: FilterKeys.propertyForms());
-  static FilterModel propertyTypesFilter = FilterModel(groupID: 'propertyType', canPickMany: false, keywords: FilterKeys.propertyTypes());
-  static FilterModel propertySpacesFilter = FilterModel(groupID: 'spaces', canPickMany: true, keywords: FilterKeys.spaceTypes());
-  static FilterModel propertyFeaturesFilter = FilterModel(groupID: 'propertyFeatures', canPickMany: true, keywords: FilterKeys.propertyFeatures());
-  static FilterModel propertyPricesFilter = FilterModel(groupID: 'propertyPrice', canPickMany: true, keywords: FilterKeys.propertyPrices());
-  static FilterModel propertyAreaFilter = FilterModel(groupID: 'area', canPickMany: false, keywords: FilterKeys.propertyArea());
-  static FilterModel propertyLicenseFilter = FilterModel(groupID: 'propertyLicense', canPickMany: false, keywords: FilterKeys.propertyLicenses());
+  static KeysSet propertyFormsFilter = KeysSet(titleID: 'group_ppt_form', canPickMany: false, keywords: FilterKeys.propertyForms());
+  static KeysSet propertyTypesFilter = KeysSet(titleID: 'propertyType', canPickMany: false, keywords: FilterKeys.propertyTypes());
+  static KeysSet propertySpacesFilter = KeysSet(titleID: 'spaces', canPickMany: true, keywords: FilterKeys.spaceTypes());
+  static KeysSet propertyFeaturesFilter = KeysSet(titleID: 'propertyFeatures', canPickMany: true, keywords: FilterKeys.propertyFeatures());
+  static KeysSet propertyPricesFilter = KeysSet(titleID: 'propertyPrice', canPickMany: true, keywords: FilterKeys.propertyPrices());
+  static KeysSet propertyAreaFilter = KeysSet(titleID: 'area', canPickMany: false, keywords: FilterKeys.propertyArea());
+  static KeysSet propertyLicenseFilter = KeysSet(titleID: 'propertyLicense', canPickMany: false, keywords: FilterKeys.propertyLicenses());
 // -----------------------------------------------------------------------------
-  static FilterModel designTypesFilter = FilterModel(groupID: 'designType', canPickMany: false, keywords: FilterKeys.designTypes());
-  static FilterModel architecturalStylesFilter = FilterModel(groupID: 'architecturalStyle', canPickMany: false, keywords: FilterKeys.architecturalStyles());
-  static FilterModel spaceTypeFilter = FilterModel(groupID: 'spaceType', canPickMany: true, keywords: FilterKeys.spaceTypes());
-  static FilterModel kioskTypeFilter = FilterModel(groupID: 'kioskType', canPickMany: false, keywords: FilterKeys.kioskTypes());
+  static KeysSet designTypesFilter = KeysSet(titleID: 'designType', canPickMany: false, keywords: FilterKeys.designTypes());
+  static KeysSet architecturalStylesFilter = KeysSet(titleID: 'architecturalStyle', canPickMany: false, keywords: FilterKeys.architecturalStyles());
+  static KeysSet spaceTypeFilter = KeysSet(titleID: 'spaceType', canPickMany: true, keywords: FilterKeys.spaceTypes());
+  static KeysSet kioskTypeFilter = KeysSet(titleID: 'kioskType', canPickMany: false, keywords: FilterKeys.kioskTypes());
 // -----------------------------------------------------------------------------
-  static FilterModel constructionTradesFilter = FilterModel(groupID: 'constructionTrade', canPickMany: true, keywords: FilterKeys.constructionTrades());
+  static KeysSet constructionTradesFilter = KeysSet(titleID: 'constructionTrade', canPickMany: true, keywords: FilterKeys.constructionTrades());
 // -----------------------------------------------------------------------------
-  static FilterModel productsFilter = FilterModel(groupID: 'product', canPickMany: true, keywords: FilterKeys.products());
-  static FilterModel productPricesFilter = FilterModel(groupID: 'productPrices', canPickMany: true, keywords: FilterKeys.productPrices());
+  static KeysSet productsFilter = KeysSet(titleID: 'product', canPickMany: true, keywords: FilterKeys.products());
+  static KeysSet productPricesFilter = KeysSet(titleID: 'productPrices', canPickMany: true, keywords: FilterKeys.productPrices());
 // -----------------------------------------------------------------------------
-  static FilterModel getFilterModelFromCurrentDistricts(BuildContext context){
+  static KeysSet getFilterModelFromCurrentDistricts(BuildContext context){
 
     CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: true);
     String _provinceID = _countryPro.currentProvinceID;
     List<District> _districts = _countryPro.getDistrictsByProvinceID(context, _provinceID);
 
-    List<KeywordModel> _districtsAsKeywords = KeywordModel.getKeywordsModelsFromDistricts(_districts);
+    List<Keyword> _districtsAsKeywords = Keyword.getKeywordsModelsFromDistricts(_districts);
 
-    FilterModel _filterModel = FilterModel(
-        groupID: _districtsAsKeywords[0].groupID,
+    KeysSet _filterModel = KeysSet(
+        titleID: _districtsAsKeywords[0].groupID,
         canPickMany: false,
         keywords: _districtsAsKeywords
     );
@@ -72,12 +72,12 @@ class FilterModel{
     return _filterModel;
   }
 // -----------------------------------------------------------------------------
-  static FilterModel zoneDistrictsAsFilter (BuildContext context){
-    FilterModel _zoneDistrictsFilter = getFilterModelFromCurrentDistricts(context);
+  static KeysSet zoneDistrictsAsFilter (BuildContext context){
+    KeysSet _zoneDistrictsFilter = getFilterModelFromCurrentDistricts(context);
     return _zoneDistrictsFilter;
   }
 // -----------------------------------------------------------------------------
-  static List<FilterModel> propertiesFilters = <FilterModel>[
+  static List<KeysSet> propertiesFilters = <KeysSet>[
     propertyFormsFilter,
     propertyTypesFilter,
     propertyAreaFilter,
@@ -86,7 +86,7 @@ class FilterModel{
     propertyPricesFilter,
   ];
 // -----------------------------------------------------------------------------
-  static List<FilterModel> designsFilters = <FilterModel>[
+  static List<KeysSet> designsFilters = <KeysSet>[
     designTypesFilter,
     architecturalStylesFilter,
     spaceTypeFilter,
@@ -94,7 +94,7 @@ class FilterModel{
     productsFilter,
   ];
 // -----------------------------------------------------------------------------
-  static List<FilterModel> projectsFiltersIDs = <FilterModel>[
+  static List<KeysSet> projectsFiltersIDs = <KeysSet>[
     constructionTradesFilter,
     designTypesFilter,
     spaceTypeFilter,
@@ -102,24 +102,24 @@ class FilterModel{
     productsFilter,
   ];
 // -----------------------------------------------------------------------------
-  static List<FilterModel> craftsFiltersIDs = <FilterModel>[
+  static List<KeysSet> craftsFiltersIDs = <KeysSet>[
     constructionTradesFilter,
     spaceTypeFilter,
     productsFilter,
   ];
 // -----------------------------------------------------------------------------
-  static List<FilterModel> productsFiltersIDs = <FilterModel>[
+  static List<KeysSet> productsFiltersIDs = <KeysSet>[
     productsFilter,
     productPricesFilter,
   ];
 // -----------------------------------------------------------------------------
-  static List<FilterModel> equipmentFiltersIDs = <FilterModel>[
+  static List<KeysSet> equipmentFiltersIDs = <KeysSet>[
     productsFilter,
     productPricesFilter,
   ];
 // -----------------------------------------------------------------------------
-  static bool getCanFilterPickManyByKeyword(KeywordModel keywordModel){
-    List<FilterModel> _allFilters = <FilterModel>[
+  static bool getCanFilterPickManyByKeyword(Keyword keywordModel){
+    List<KeysSet> _allFilters = <KeysSet>[
       ...propertiesFilters,
       ...designsFilters,
       ...projectsFiltersIDs,
@@ -127,7 +127,7 @@ class FilterModel{
       ...productsFiltersIDs,
     ];
 
-    bool _canPickMany = _allFilters.firstWhere((filter) => filter.groupID == keywordModel.flyerType).canPickMany;
+    bool _canPickMany = _allFilters.firstWhere((filter) => filter.titleID == keywordModel.flyerType).canPickMany;
 
     return _canPickMany;
   }

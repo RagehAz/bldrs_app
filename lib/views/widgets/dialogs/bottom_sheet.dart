@@ -14,6 +14,7 @@ enum BottomSheetType {
   BottomSheet,
 }
 // -----------------------------------------------------------------------------
+/// TASK: should check draggable scrollable sheet
 class BldrsBottomSheet extends StatelessWidget {
   final double height;
   final bool draggable;
