@@ -10,13 +10,13 @@ enum SequenceType{
 }
 
 class Sequence {
-  final String id;
+  final String titleID;
   final SequenceType idType;
   final bool isActive;
-  final FilterModel secondKeywords;
+  final KeysSet secondKeywords;
 
   Sequence({
-    @required this.id,
+    @required this.titleID,
     @required this.idType,
     @required this.isActive,
     this.secondKeywords, // if null, we go directly to KeywordFlyersPage
@@ -50,7 +50,7 @@ class Sequence {
 }
 // -----------------------------------------------------------------------------
   static String getSequenceNameBySequenceAndSection({BuildContext context, Section section, Sequence sequence}){
-    KeywordModel _keyword;
+    Keyword _keyword;
     String _nameInCurrentLang;
 
     /// where GroupModel.firstKeyword is keywordID
@@ -60,13 +60,13 @@ class Sequence {
         section == Section.Designs ||
         section == Section.Crafts
     ){
-      _keyword = KeywordModel.getKeywordByKeywordID(sequence?.id);
+      _keyword = Keyword.getKeywordByKeywordID(sequence?.titleID);
       _nameInCurrentLang = Name.getNameWithCurrentLanguageFromListOfNames(context, _keyword.names);
     }
 
     else if (section == Section.Products){
       /// where GroupModel.firstKeyword is groupID
-      _nameInCurrentLang = KeywordModel.getGroupNameByGroupID(context, sequence?.id);
+      _nameInCurrentLang = Keyword.getGroupNameByGroupID(context, sequence?.titleID);
     }
 
     else {
@@ -87,7 +87,7 @@ class Sequence {
 
       else {
 
-        if(sequence.id == firstKeyID){
+        if(sequence.titleID == firstKeyID){
           _sequenceContainThisFirstKeyID = true;
         }
 
@@ -121,7 +121,7 @@ class Sequence {
 
     bool _groupSecondKeysAreZoneDistricts = false;
 
-    if (_sequencesFirstKeyIDsUsingZoneDistrictsAsSecondKeywords.contains(group.id)){
+    if (_sequencesFirstKeyIDsUsingZoneDistrictsAsSecondKeywords.contains(group.titleID)){
       _groupSecondKeysAreZoneDistricts = true;
     }
 
@@ -131,55 +131,55 @@ class Sequence {
   static List<Sequence> propertiesSequences(BuildContext context){
     return
       <Sequence>[
-        Sequence(idType: SequenceType.byKeyID, isActive: true, id: 'pt_apartment', secondKeywords: FilterModel.propertyAreaFilter),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, id: 'pt_furnishedApartment', secondKeywords: FilterModel.propertyAreaFilter),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, id: 'pt_loft', secondKeywords: FilterModel.propertyAreaFilter),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, id: 'pt_penthouse', secondKeywords: FilterModel.propertyAreaFilter),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, id: 'pt_chalet', secondKeywords: FilterModel.propertyAreaFilter),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, id: 'pt_twinhouse', secondKeywords: FilterModel.propertyAreaFilter),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, id: 'pt_bungalow', secondKeywords: FilterModel.propertyAreaFilter),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, id: 'pt_villa', secondKeywords: FilterModel.propertyAreaFilter),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, id: 'pt_condo', secondKeywords: FilterModel.propertyAreaFilter),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, id: 'pt_farm', secondKeywords: FilterModel.propertyAreaFilter),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, id: 'pt_townHome', secondKeywords: FilterModel.propertyAreaFilter),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, id: 'pt_sharedRoom', secondKeywords: FilterModel.propertyAreaFilter),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, id: 'pt_duplix', secondKeywords: FilterModel.propertyAreaFilter),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, id: 'pt_hotelApartment', secondKeywords: FilterModel.propertyAreaFilter),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, id: 'pt_studio', secondKeywords: FilterModel.propertyAreaFilter),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, id: 'pt_store', secondKeywords: FilterModel.propertyAreaFilter),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, id: 'pt_supermarket', secondKeywords: FilterModel.propertyAreaFilter),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, id: 'pt_warehouse', secondKeywords: FilterModel.propertyAreaFilter),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, id: 'pt_hall', secondKeywords: FilterModel.propertyAreaFilter),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, id: 'pt_bank', secondKeywords: FilterModel.propertyAreaFilter),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, id: 'pt_restaurant', secondKeywords: FilterModel.propertyAreaFilter),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, id: 'pt_pharmacy', secondKeywords: FilterModel.propertyAreaFilter),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, id: 'pt_studio', secondKeywords: FilterModel.propertyAreaFilter),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, id: 'pt_factory', secondKeywords: FilterModel.propertyAreaFilter),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, id: 'pt_office', secondKeywords: FilterModel.propertyAreaFilter),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, id: 'pt_school', secondKeywords: FilterModel.propertyAreaFilter),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, id: 'pt_hotel', secondKeywords: FilterModel.propertyAreaFilter),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, id: 'pt_football', secondKeywords: FilterModel.zoneDistrictsAsFilter(context)),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, id: 'pt_tennis', secondKeywords: FilterModel.zoneDistrictsAsFilter(context)),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, id: 'pt_basketball', secondKeywords: FilterModel.zoneDistrictsAsFilter(context)),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, id: 'pt_gym', secondKeywords: FilterModel.propertyAreaFilter),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, id: 'pt_gallery', secondKeywords: FilterModel.propertyAreaFilter),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, id: 'pt_theatre', secondKeywords: FilterModel.propertyAreaFilter),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, id: 'space_spa', secondKeywords: FilterModel.propertyAreaFilter),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, id: 'pt_clinic', secondKeywords: FilterModel.propertyAreaFilter),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, id: 'pf_building', secondKeywords: FilterModel.propertyLicenseFilter),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_apartment', secondKeywords: KeysSet.propertyAreaFilter),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_furnishedApartment', secondKeywords: KeysSet.propertyAreaFilter),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_loft', secondKeywords: KeysSet.propertyAreaFilter),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_penthouse', secondKeywords: KeysSet.propertyAreaFilter),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_chalet', secondKeywords: KeysSet.propertyAreaFilter),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_twinhouse', secondKeywords: KeysSet.propertyAreaFilter),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_bungalow', secondKeywords: KeysSet.propertyAreaFilter),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_villa', secondKeywords: KeysSet.propertyAreaFilter),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_condo', secondKeywords: KeysSet.propertyAreaFilter),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_farm', secondKeywords: KeysSet.propertyAreaFilter),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_townHome', secondKeywords: KeysSet.propertyAreaFilter),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_sharedRoom', secondKeywords: KeysSet.propertyAreaFilter),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_duplix', secondKeywords: KeysSet.propertyAreaFilter),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_hotelApartment', secondKeywords: KeysSet.propertyAreaFilter),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_studio', secondKeywords: KeysSet.propertyAreaFilter),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_store', secondKeywords: KeysSet.propertyAreaFilter),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_supermarket', secondKeywords: KeysSet.propertyAreaFilter),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_warehouse', secondKeywords: KeysSet.propertyAreaFilter),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_hall', secondKeywords: KeysSet.propertyAreaFilter),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_bank', secondKeywords: KeysSet.propertyAreaFilter),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_restaurant', secondKeywords: KeysSet.propertyAreaFilter),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_pharmacy', secondKeywords: KeysSet.propertyAreaFilter),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_studio', secondKeywords: KeysSet.propertyAreaFilter),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_factory', secondKeywords: KeysSet.propertyAreaFilter),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_office', secondKeywords: KeysSet.propertyAreaFilter),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_school', secondKeywords: KeysSet.propertyAreaFilter),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_hotel', secondKeywords: KeysSet.propertyAreaFilter),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_football', secondKeywords: KeysSet.zoneDistrictsAsFilter(context)),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_tennis', secondKeywords: KeysSet.zoneDistrictsAsFilter(context)),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_basketball', secondKeywords: KeysSet.zoneDistrictsAsFilter(context)),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_gym', secondKeywords: KeysSet.propertyAreaFilter),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_gallery', secondKeywords: KeysSet.propertyAreaFilter),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_theatre', secondKeywords: KeysSet.propertyAreaFilter),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'space_spa', secondKeywords: KeysSet.propertyAreaFilter),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_clinic', secondKeywords: KeysSet.propertyAreaFilter),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pf_building', secondKeywords: KeysSet.propertyLicenseFilter),
       ];
   }
 // -----------------------------------------------------------------------------
   static List<Sequence> designsSequences(){
     return
       <Sequence>[
-        Sequence(idType: SequenceType.byKeyID, isActive: true, id: 'designType_architecture', secondKeywords: FilterModel.propertyLicenseFilter),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, id: 'designType_interior', secondKeywords: FilterModel.spaceTypeFilter),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, id: 'designType_facade', secondKeywords: FilterModel.propertyLicenseFilter),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, id: 'designType_urban', secondKeywords: FilterModel.propertyLicenseFilter),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, id: 'designType_landscape', secondKeywords: FilterModel.propertyAreaFilter),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, id: 'designType_structural', secondKeywords: FilterModel.propertyLicenseFilter),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, id: 'designType_kiosk', secondKeywords: FilterModel.kioskTypeFilter),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'designType_architecture', secondKeywords: KeysSet.propertyLicenseFilter),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'designType_interior', secondKeywords: KeysSet.spaceTypeFilter),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'designType_facade', secondKeywords: KeysSet.propertyLicenseFilter),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'designType_urban', secondKeywords: KeysSet.propertyLicenseFilter),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'designType_landscape', secondKeywords: KeysSet.propertyAreaFilter),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'designType_structural', secondKeywords: KeysSet.propertyLicenseFilter),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'designType_kiosk', secondKeywords: KeysSet.kioskTypeFilter),
       ];
   }
 // -----------------------------------------------------------------------------
@@ -191,59 +191,59 @@ class Sequence {
   static List<Sequence> craftsSequences(BuildContext context){
     return
       <Sequence>[
-        Sequence(idType: SequenceType.byKeyID, isActive: true, id: 'con_trade_carpentry', secondKeywords: FilterModel.zoneDistrictsAsFilter(context)),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, id: 'con_trade_electricity', secondKeywords: FilterModel.zoneDistrictsAsFilter(context)),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, id: 'con_trade_insulation', secondKeywords: FilterModel.zoneDistrictsAsFilter(context)),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, id: 'con_trade_masonry', secondKeywords: FilterModel.zoneDistrictsAsFilter(context)),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, id: 'con_trade_plumbing', secondKeywords: FilterModel.zoneDistrictsAsFilter(context)),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, id: 'con_trade_blacksmithing', secondKeywords: FilterModel.zoneDistrictsAsFilter(context)),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, id: 'con_trade_labor', secondKeywords: FilterModel.zoneDistrictsAsFilter(context)),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, id: 'con_trade_painting', secondKeywords: FilterModel.zoneDistrictsAsFilter(context)),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, id: 'con_trade_plaster', secondKeywords: FilterModel.zoneDistrictsAsFilter(context)),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, id: 'con_trade_landscape', secondKeywords: FilterModel.zoneDistrictsAsFilter(context)),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, id: 'con_trade_hardscape', secondKeywords: FilterModel.zoneDistrictsAsFilter(context)),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, id: 'con_trade_hvac', secondKeywords: FilterModel.zoneDistrictsAsFilter(context)),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, id: 'con_trade_firefighting', secondKeywords: FilterModel.zoneDistrictsAsFilter(context)),
-        Sequence(idType: SequenceType.byKeyID, isActive: false, id: 'con_trade_elevators', secondKeywords: FilterModel.zoneDistrictsAsFilter(context)),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, id: 'con_trade_tiling', secondKeywords: FilterModel.zoneDistrictsAsFilter(context)),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, id: 'con_trade_transportation', secondKeywords: FilterModel.zoneDistrictsAsFilter(context)),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, id: 'con_trade_concrete', secondKeywords: FilterModel.zoneDistrictsAsFilter(context)),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'con_trade_carpentry', secondKeywords: KeysSet.zoneDistrictsAsFilter(context)),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'con_trade_electricity', secondKeywords: KeysSet.zoneDistrictsAsFilter(context)),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'con_trade_insulation', secondKeywords: KeysSet.zoneDistrictsAsFilter(context)),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'con_trade_masonry', secondKeywords: KeysSet.zoneDistrictsAsFilter(context)),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'con_trade_plumbing', secondKeywords: KeysSet.zoneDistrictsAsFilter(context)),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'con_trade_blacksmithing', secondKeywords: KeysSet.zoneDistrictsAsFilter(context)),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'con_trade_labor', secondKeywords: KeysSet.zoneDistrictsAsFilter(context)),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'con_trade_painting', secondKeywords: KeysSet.zoneDistrictsAsFilter(context)),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'con_trade_plaster', secondKeywords: KeysSet.zoneDistrictsAsFilter(context)),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'con_trade_landscape', secondKeywords: KeysSet.zoneDistrictsAsFilter(context)),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'con_trade_hardscape', secondKeywords: KeysSet.zoneDistrictsAsFilter(context)),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'con_trade_hvac', secondKeywords: KeysSet.zoneDistrictsAsFilter(context)),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'con_trade_firefighting', secondKeywords: KeysSet.zoneDistrictsAsFilter(context)),
+        Sequence(idType: SequenceType.byKeyID, isActive: false, titleID: 'con_trade_elevators', secondKeywords: KeysSet.zoneDistrictsAsFilter(context)),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'con_trade_tiling', secondKeywords: KeysSet.zoneDistrictsAsFilter(context)),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'con_trade_transportation', secondKeywords: KeysSet.zoneDistrictsAsFilter(context)),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'con_trade_concrete', secondKeywords: KeysSet.zoneDistrictsAsFilter(context)),
       ];
   }
 // -----------------------------------------------------------------------------
   static List<Sequence> productsSequence(){
     return
     <Sequence>[
-      Sequence(idType: SequenceType.byGroupID, isActive: true, id: 'group_prd_walls', secondKeywords: null),
-      Sequence(idType: SequenceType.byGroupID, isActive: true, id: 'group_prd_floors', secondKeywords: null),
-      Sequence(idType: SequenceType.byGroupID, isActive: true, id: 'group_prd_structure', secondKeywords: null),
-      Sequence(idType: SequenceType.byGroupID, isActive: true, id: 'group_prd_fireFighting', secondKeywords: null),
-      Sequence(idType: SequenceType.byGroupID, isActive: true, id: 'group_prd_safety', secondKeywords: null),
-      Sequence(idType: SequenceType.byGroupID, isActive: true, id: 'group_prd_stairs', secondKeywords: null),
-      Sequence(idType: SequenceType.byGroupID, isActive: true, id: 'group_prd_roofing', secondKeywords: null),
-      Sequence(idType: SequenceType.byGroupID, isActive: true, id: 'group_prd_doors', secondKeywords: null),
-      Sequence(idType: SequenceType.byGroupID, isActive: true, id: 'group_prd_landscape', secondKeywords: null),
-      Sequence(idType: SequenceType.byGroupID, isActive: true, id: 'group_prd_hvac', secondKeywords: null),
-      Sequence(idType: SequenceType.byGroupID, isActive: true, id: 'group_prd_plumbing', secondKeywords: null),
-      Sequence(idType: SequenceType.byGroupID, isActive: true, id: 'group_prd_lighting', secondKeywords: null),
-      Sequence(idType: SequenceType.byGroupID, isActive: true, id: 'group_prd_electricity', secondKeywords: null),
-      Sequence(idType: SequenceType.byGroupID, isActive: true, id: 'group_prd_security', secondKeywords: null),
-      Sequence(idType: SequenceType.byGroupID, isActive: true, id: 'group_prd_poolSpa', secondKeywords: null),
-      Sequence(idType: SequenceType.byGroupID, isActive: true, id: 'group_prd_smartHome', secondKeywords: null),
-      Sequence(idType: SequenceType.byGroupID, isActive: true, id: 'group_prd_furniture', secondKeywords: null),
-      Sequence(idType: SequenceType.byGroupID, isActive: true, id: 'group_prd_appliances', secondKeywords: null),
-      Sequence(idType: SequenceType.byGroupID, isActive: true, id: 'group_prd_materials', secondKeywords: null),
+      Sequence(idType: SequenceType.byGroupID, isActive: true, titleID: 'group_prd_walls', secondKeywords: null),
+      Sequence(idType: SequenceType.byGroupID, isActive: true, titleID: 'group_prd_floors', secondKeywords: null),
+      Sequence(idType: SequenceType.byGroupID, isActive: true, titleID: 'group_prd_structure', secondKeywords: null),
+      Sequence(idType: SequenceType.byGroupID, isActive: true, titleID: 'group_prd_fireFighting', secondKeywords: null),
+      Sequence(idType: SequenceType.byGroupID, isActive: true, titleID: 'group_prd_safety', secondKeywords: null),
+      Sequence(idType: SequenceType.byGroupID, isActive: true, titleID: 'group_prd_stairs', secondKeywords: null),
+      Sequence(idType: SequenceType.byGroupID, isActive: true, titleID: 'group_prd_roofing', secondKeywords: null),
+      Sequence(idType: SequenceType.byGroupID, isActive: true, titleID: 'group_prd_doors', secondKeywords: null),
+      Sequence(idType: SequenceType.byGroupID, isActive: true, titleID: 'group_prd_landscape', secondKeywords: null),
+      Sequence(idType: SequenceType.byGroupID, isActive: true, titleID: 'group_prd_hvac', secondKeywords: null),
+      Sequence(idType: SequenceType.byGroupID, isActive: true, titleID: 'group_prd_plumbing', secondKeywords: null),
+      Sequence(idType: SequenceType.byGroupID, isActive: true, titleID: 'group_prd_lighting', secondKeywords: null),
+      Sequence(idType: SequenceType.byGroupID, isActive: true, titleID: 'group_prd_electricity', secondKeywords: null),
+      Sequence(idType: SequenceType.byGroupID, isActive: true, titleID: 'group_prd_security', secondKeywords: null),
+      Sequence(idType: SequenceType.byGroupID, isActive: true, titleID: 'group_prd_poolSpa', secondKeywords: null),
+      Sequence(idType: SequenceType.byGroupID, isActive: true, titleID: 'group_prd_smartHome', secondKeywords: null),
+      Sequence(idType: SequenceType.byGroupID, isActive: true, titleID: 'group_prd_furniture', secondKeywords: null),
+      Sequence(idType: SequenceType.byGroupID, isActive: true, titleID: 'group_prd_appliances', secondKeywords: null),
+      Sequence(idType: SequenceType.byGroupID, isActive: true, titleID: 'group_prd_materials', secondKeywords: null),
     ];
     }
 // -----------------------------------------------------------------------------
   static List<Sequence> equipmentSequences(){
     return
         <Sequence>[
-          Sequence(idType: SequenceType.byGroupID, isActive: true, id: 'group_equip_handheld', secondKeywords: null),
-          Sequence(idType: SequenceType.byGroupID, isActive: true, id: 'group_equip_handling', secondKeywords: null),
-          Sequence(idType: SequenceType.byGroupID, isActive: true, id: 'group_equip_heavy', secondKeywords: null),
-          Sequence(idType: SequenceType.byGroupID, isActive: true, id: 'group_equip_prep', secondKeywords: null),
-          Sequence(idType: SequenceType.byGroupID, isActive: true, id: 'group_equip_vehicle', secondKeywords: null),
+          Sequence(idType: SequenceType.byGroupID, isActive: true, titleID: 'group_equip_handheld', secondKeywords: null),
+          Sequence(idType: SequenceType.byGroupID, isActive: true, titleID: 'group_equip_handling', secondKeywords: null),
+          Sequence(idType: SequenceType.byGroupID, isActive: true, titleID: 'group_equip_heavy', secondKeywords: null),
+          Sequence(idType: SequenceType.byGroupID, isActive: true, titleID: 'group_equip_prep', secondKeywords: null),
+          Sequence(idType: SequenceType.byGroupID, isActive: true, titleID: 'group_equip_vehicle', secondKeywords: null),
         ];
   }
 // -----------------------------------------------------------------------------

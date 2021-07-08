@@ -7,9 +7,9 @@ import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:flutter/material.dart';
 
 class KeywordsPage extends StatelessWidget {
-  final List<KeywordModel> keywords;
+  final List<Keyword> keywords;
   final Function onTap;
-  final List<KeywordModel> selectedKeywords;
+  final List<Keyword> selectedKeywords;
 
   KeywordsPage({
     Key key,
@@ -29,11 +29,11 @@ class KeywordsPage extends StatelessWidget {
           padding: const EdgeInsets.all(Ratioz.appBarMargin),
           itemBuilder: (context, keyIndex){
 
-            KeywordModel _keyword = keywords[keyIndex];
+            Keyword _keyword = keywords[keyIndex];
 
             Color _color = selectedKeywords.contains(_keyword) ? Colorz.Yellow : Colorz.Nothing;
 
-            bool _isIconlessKeyword = KeywordModel.isIconless(_keyword);
+            bool _isIconlessKeyword = Keyword.isIconless(_keyword);
 
             return
               Align(
@@ -42,7 +42,7 @@ class KeywordsPage extends StatelessWidget {
                   height: 100,
                   width: Scale.superScreenWidth(context) * 0.82,
                   color: _color,
-                  icon: _isIconlessKeyword ? null : KeywordModel.getImagePath(_keyword.keywordID),
+                  icon: _isIconlessKeyword ? null : Keyword.getImagePath(_keyword.keywordID),
                   margins: const EdgeInsets.symmetric(vertical: Ratioz.appBarPadding),
                   verse: _keyword.keywordID,
                   boxFunction: () => onTap(_keyword),

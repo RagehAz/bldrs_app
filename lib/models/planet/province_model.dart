@@ -80,13 +80,13 @@ class Province{
     return _provincesNames;
   }
 // -----------------------------------------------------------------------------
-  static KeywordModel getKeywordModelFromProvinceModel(BuildContext context, Province province){
+  static Keyword getKeywordModelFromProvinceModel(BuildContext context, Province province){
 
     // CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
 
     // String _name = _countryPro.getProvinceNameWithCurrentLanguageIfPossible(context, province.name);
 
-    KeywordModel _keyword = KeywordModel(
+    Keyword _keyword = Keyword(
         keywordID: province.name,
         flyerType: FlyerType.Non,
         groupID: province.iso3,
