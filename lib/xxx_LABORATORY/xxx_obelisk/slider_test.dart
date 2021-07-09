@@ -88,7 +88,7 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
               actionBtFunction: (){
                 print('value is : ${_minController.text}');
 
-                int _value = stringToInt(_minController.text);
+                int _value = Numberers.stringToInt(_minController.text);
 
                 setState(() {
                   _minValue = _value.toDouble();
@@ -105,7 +105,7 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
               actionBtFunction: (){
                 print('value is : ${_maxController.text}');
 
-                int _value = stringToInt(_maxController.text);
+                int _value = Numberers.stringToInt(_maxController.text);
 
                 setState(() {
                   _maxValue = _value.toDouble();
@@ -122,7 +122,7 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
               actionBtFunction: (){
                 print('value is : ${_divisionsController.text}');
 
-                int _value = stringToInt(_divisionsController.text);
+                int _value = Numberers.stringToInt(_divisionsController.text);
 
                 setState(() {
                   _divisions = _value;

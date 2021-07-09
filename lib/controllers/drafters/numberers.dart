@@ -1,9 +1,12 @@
+import 'dart:math';
+
 import 'package:bldrs/controllers/drafters/text_manipulators.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
-/// THE SEPARATOR AFTER EACH 3 DIGITS IN AN INTEGER X'XXX'XXX ...
-String separateKilos(int number) {
+class Numberers{
+  /// THE SEPARATOR AFTER EACH 3 DIGITS IN AN INTEGER X'XXX'XXX ...
+  static String separateKilos(int number) {
   if (number == null) return '0';
   if (number > -1000 && number < 1000) return number.toString();
 
@@ -17,7 +20,7 @@ String separateKilos(int number) {
   return result.toString();
 }
 // -----------------------------------------------------------------------------
-String counterCaliber(BuildContext context, int x){
+  static String counterCaliber(BuildContext context, int x){
        return
          x == null ? 0 :
          // FROM 0 TO 999
@@ -41,13 +44,49 @@ String counterCaliber(BuildContext context, int x){
          '${x.toStringAsFixed(0)}';
 }
 // -----------------------------------------------------------------------------
-int stringToInt(String string){
+  static int stringToInt(String string){
   return int.parse(string);
 }
 // -----------------------------------------------------------------------------
-int lastTwoIntegersFromAString(String string){
+  static int lastTwoIntegersFromAString(String string){
   String _lastTwoSubStrings = lastTwoSubStringsFromAString(string);
   int _asIntegers = stringToInt(_lastTwoSubStrings);
   return _asIntegers;
 }
 // -----------------------------------------------------------------------------
+  static int getRandomIntNotInList({@required List<int> list}) {
+  Random _random = new Random();
+  int _randomNumber = _random.nextInt(1000000); // from 0 up to 999'999 included
+
+  if (_randomNumber == null) {
+    _randomNumber = getRandomIntNotInList(list: list);
+  }
+
+  else if (list != null && list.contains(_randomNumber)) {
+    _randomNumber = getRandomIntNotInList(list: list);
+  }
+
+  else {
+    _randomNumber = null;
+  }
+
+  return _randomNumber;
+}
+// -----------------------------------------------------------------------------
+  static List<ValueKey> AddRandomIntToListOfKeys({@required List<ValueKey> keys}){
+    List<int> _numbers = new List();
+
+    if (keys !=null){
+      keys.forEach((key) {
+        _numbers.add(key.value);
+      });
+    }
+
+    int _newValue = getRandomIntNotInList(list: _numbers);
+
+    List<ValueKey> _newKeys = <ValueKey>[...keys, ValueKey(_newValue)];
+
+    return _newKeys;
+  }
+// -----------------------------------------------------------------------------
+}
