@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:bldrs/controllers/drafters/text_manipulators.dart';
 import 'package:flutter/material.dart';
+import 'package:multi_image_picker2/multi_image_picker2.dart';
 
 // -----------------------------------------------------------------------------
 extension FileExtention on FileSystemEntity {
@@ -53,6 +54,17 @@ class ObjectChecker {
 // -----------------------------------------------------------------------------
   static bool objectIsSVG(dynamic object) {
     return fileExtensionOf(object) == 'svg' ? true : false;
+  }
+// -----------------------------------------------------------------------------
+  static bool objectIsAsset(dynamic object){
+
+    bool _objectIsAsset =
+    object == null ? null
+        :
+    object.runtimeType == Asset ? true : false;
+
+    return
+      _objectIsAsset;
   }
 // -----------------------------------------------------------------------------
   static bool objectIsJPGorPNG(dynamic object) {

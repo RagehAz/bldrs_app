@@ -71,7 +71,6 @@ class _ZonesManagerScreenState extends State<ZonesManagerScreen> {
     // List<Country> _countriesList = dbCountries;
 
     double _screenWidth = Scale.superScreenWidth(context);
-    double _screenHeight = Scale.superScreenHeight(context);
 
     double _countryButtonWidth = _screenWidth - superVerseRealHeight(context, 2, 1, null);
 
@@ -82,90 +81,86 @@ class _ZonesManagerScreenState extends State<ZonesManagerScreen> {
       // appBarBackButton: true,
       sky: Sky.Black,
       loading: _loading,
-      layoutWidget: Container(
-        width: _screenWidth,
-        height: _screenHeight,
-        child: ListView(
-          children: <Widget>[
+      layoutWidget: ListView(
+        children: <Widget>[
 
-            Stratosphere(),
+          Stratosphere(),
 
-            DreamBox(
-              width: _screenWidth * 0.9,
-              height: _screenWidth * 0.3,
-              color: Colorz.Yellow,
-              verse: 'Upload Countries to Firebase',
-              verseMaxLines: 3,
-              verseColor: Colorz.BlackBlack,
-              verseWeight: VerseWeight.black,
-              boxFunction: _uploadCountriesToFirebase,
-              margins: const EdgeInsets.all(10),
-            ),
+          DreamBox(
+            width: _screenWidth * 0.9,
+            height: _screenWidth * 0.3,
+            color: Colorz.Yellow,
+            verse: 'Upload Countries to Firebase',
+            verseMaxLines: 3,
+            verseColor: Colorz.BlackBlack,
+            verseWeight: VerseWeight.black,
+            boxFunction: _uploadCountriesToFirebase,
+            margins: const EdgeInsets.all(10),
+          ),
 
-            InPyramidsBubble(
-              centered: true,
-              bubbleColor: Colorz.WhiteGlass,
-              columnChildren: <Widget>[
+          InPyramidsBubble(
+            centered: true,
+            bubbleColor: Colorz.WhiteGlass,
+            columnChildren: <Widget>[
 
-                Container(
-                  width: _screenWidth,
-                  height: _screenWidth,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
+              Container(
+                width: _screenWidth,
+                height: _screenWidth,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
 
-                      SuperVerse(
-                        verse: 'Countries in FireStore',
-                        size: 2,
-                        weight: VerseWeight.bold,
-                        italic: true,
-                        centered: true,
+                    SuperVerse(
+                      verse: 'Countries in FireStore',
+                      size: 2,
+                      weight: VerseWeight.bold,
+                      italic: true,
+                      centered: true,
+                    ),
+
+                    Container(
+                      width: _screenWidth,
+                      height: _countryButtonWidth,
+                      child: StreamBuilder(
+                        stream: _countriesList,
+                        builder: (ctx, streamSnapshots){
+                          List<dynamic> _countriesMaps = streamSnapshots?.data?.docs;
+                          List<Country> _countries = Country.decipherCountriesMaps(_countriesMaps);
+
+                          if (connectionIsWaiting(streamSnapshots)){
+                            return Loading(loading: _loading,);
+                          }
+                          return ListView.builder(
+                            itemCount: _countries.length,
+                            itemBuilder: (context, index){
+
+                              return
+                                DreamBox(
+                                  height: _countryButtonWidth * 0.12,
+                                  width: _countryButtonWidth - _screenWidth * 0.2,
+                                  icon: _countries[index].flag,
+                                  verse: _countries[index].name,
+                                  verseMaxLines: 2,
+                                  verseScaleFactor: 0.6,
+                                  margins: const EdgeInsets.all(7.5),
+                                  boxFunction: () => Nav.goToNewScreen(context, CountryScreen(country: _countries[index])),
+                                );
+
+                            },
+                          );
+                        },
                       ),
+                    ),
 
-                      Container(
-                        width: _screenWidth,
-                        height: _countryButtonWidth,
-                        child: StreamBuilder(
-                          stream: _countriesList,
-                          builder: (ctx, streamSnapshots){
-                            List<dynamic> _countriesMaps = streamSnapshots?.data?.docs;
-                            List<Country> _countries = Country.decipherCountriesMaps(_countriesMaps);
-
-                            if (connectionIsWaiting(streamSnapshots)){
-                              return Loading(loading: _loading,);
-                            }
-                            return ListView.builder(
-                              itemCount: _countries.length,
-                              itemBuilder: (context, index){
-
-                                return
-                                  DreamBox(
-                                    height: _countryButtonWidth * 0.12,
-                                    width: _countryButtonWidth - _screenWidth * 0.2,
-                                    icon: _countries[index].flag,
-                                    verse: _countries[index].name,
-                                    verseMaxLines: 2,
-                                    verseScaleFactor: 0.6,
-                                    margins: const EdgeInsets.all(7.5),
-                                    boxFunction: () => Nav.goToNewScreen(context, CountryScreen(country: _countries[index])),
-                                  );
-
-                              },
-                            );
-                          },
-                        ),
-                      ),
-
-                    ],
-                  ),
+                  ],
                 ),
+              ),
 
-              ],
-            ),
+            ],
+          ),
 
-          ],
-        ),
+        ],
       ),
     );
   }

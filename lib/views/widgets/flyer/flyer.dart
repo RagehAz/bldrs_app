@@ -37,6 +37,7 @@ class Flyer extends StatefulWidget {
 }
 
 class _FlyerState extends State<Flyer> with AutomaticKeepAliveClientMixin{
+  @override
   bool get wantKeepAlive => true;
   bool bzPageIsOn;
   int _currentSlideIndex;
@@ -124,7 +125,7 @@ class _FlyerState extends State<Flyer> with AutomaticKeepAliveClientMixin{
     return
 
        FlyerZone(
-         flyerSizeFactor: Scale.superFlyerSizeFactor(context, _flyerZoneWidth),
+         flyerSizeFactor: Scale.superFlyerSizeFactorByWidth(context, _flyerZoneWidth),
          tappingFlyerZone: widget.tappingFlyerZone,
          stackWidgets: <Widget>[
 

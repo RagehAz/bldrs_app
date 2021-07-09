@@ -4,6 +4,7 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/dashboard/s01_dashboard.dart';
 import 'package:bldrs/firestore/auth_ops.dart';
+import 'package:bldrs/views/screens/x1_flyers_maker_screen.dart';
 import 'package:bldrs/views/widgets/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/views/widgets/buttons/main_button.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
@@ -187,6 +188,8 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
           ),
 
           LogoSlogan(sizeFactor: 0.8,),
+
+          oButton('Multi Image Picker', Iconz.Flyer, MultiImagePicker2()),
 
           oButton('Slider Test Screen', Iconz.Flyer, SliderTestScreen()),
 

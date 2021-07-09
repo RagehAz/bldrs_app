@@ -19,27 +19,23 @@ class SearchHistoryScreen extends StatelessWidget {
       pageTitle: 'Search History',
       // appBarBackButton: true,
       pyramids: Iconz.DvBlankSVG,
-      layoutWidget: Container(
-        width: Scale.superScreenWidth(context),
-        height: Scale.superScreenHeight(context),
-        child: ListView.builder(
-            itemCount: _searchList.length,
-            padding: const EdgeInsets.only(top: Ratioz.stratosphere),
-            itemBuilder: (context, index){
+      layoutWidget: ListView.builder(
+          itemCount: _searchList.length,
+          padding: const EdgeInsets.only(top: Ratioz.stratosphere),
+          itemBuilder: (context, index){
 
-              String _searchWord = _searchList[index];
+            String _searchWord = _searchList[index];
 
-              return TileBubble(
-                verse: _searchWord,
-                icon: Iconz.DvBlankSVG,
-                iconSizeFactor: 0.9,
-                btOnTap: (){
-                  Nav.goBack(context, argument: _searchWord);
-                  },
-              );
+            return TileBubble(
+              verse: _searchWord,
+              icon: Iconz.DvBlankSVG,
+              iconSizeFactor: 0.9,
+              btOnTap: (){
+                Nav.goBack(context, argument: _searchWord);
+                },
+            );
 
-            }
-        ),
+          }
       ),
     );
   }

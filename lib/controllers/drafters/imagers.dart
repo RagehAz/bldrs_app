@@ -5,11 +5,17 @@ import 'dart:async';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'package:bldrs/controllers/drafters/text_manipulators.dart';
+import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/controllers/theme/standards.dart';
+import 'package:bldrs/controllers/theme/wordz.dart';
+import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
+import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 import 'object_checkers.dart';
 import 'dart:io';
@@ -27,7 +33,7 @@ DecorationImage superImage(String picture, BoxFit boxFit){
   return picture == '' ? null : image;
 }
 // -----------------------------------------------------------------------------
-Widget superImageWidget(dynamic pic){
+Widget superImageWidget(dynamic pic, {int width, int height}){
   return
     ObjectChecker.objectIsJPGorPNG(pic)?
     Image.asset(pic, fit: BoxFit.cover,)
@@ -44,8 +50,16 @@ Widget superImageWidget(dynamic pic){
         pic,
         fit: BoxFit.cover,
     )
-    :
-  Container();
+        :
+    ObjectChecker.objectIsAsset(pic)?
+    AssetThumb(
+      asset: pic,
+      width: width,
+      height: height,
+      spinner: Loading(loading: true,),
+    )
+        :
+    Container();
 }
 // -----------------------------------------------------------------------------
 enum PicType{
@@ -226,5 +240,55 @@ Future<File> urlToFile(String imageUrl) async {
 // now return the file which is created with random name in
 // temporary directory and image bytes from response is written to // that file.
   return file;
+}
+
+// Selection full. Deselect
+// -----------------------------------------------------------------------------
+Future<List<Asset>> getMultiImagesFromGallery({BuildContext context, List<Asset> images, bool mounted, @required BzAccountType accountType}) async {
+  List<Asset> resultList = <Asset>[];
+  String error = 'No Error Detected';
+
+  try {
+    resultList = await MultiImagePicker.pickImages(
+      maxImages: Standards.getMaxFlyersSlidesByAccountType(accountType),
+      enableCamera: true,
+      selectedAssets: images,
+      cupertinoOptions: CupertinoOptions(
+        takePhotoIcon: "Take photo",
+        doneButtonTitle: "Done",
+      ),
+      materialOptions: MaterialOptions(
+        actionBarColor: "#13244b",
+        actionBarTitle: Wordz.choose(context),
+        allViewTitle: "All Photos",
+        useDetailsView: false,
+        selectCircleStrokeColor: "#ffc000",
+      ),
+    );
+  } on Exception catch (e) {
+    error = e.toString();
+
+    if (error != 'The user has cancelled the selection'){
+      await superDialog(
+        context: context,
+        boolDialog: false,
+        title: 'Error',
+        body: error,
+      );
+
+    }
+
+  }
+
+  // If the widget was removed from the tree while the asynchronous platform
+  // message was in flight, we want to discard the reply rather than calling
+  // setState to update our non-existent appearance.
+  if (!mounted){
+    return null;
+  } else {
+    return resultList;
+
+  }
+
 }
 // -----------------------------------------------------------------------------
