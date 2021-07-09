@@ -24,6 +24,7 @@ import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/dynamic_links_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/fire_search_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/firebase_testing.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/google_sign_in_test.dart';
+import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/random_test_space.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/share_and_gallery_image_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/slider_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/text_field_test.dart';
@@ -190,6 +191,8 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
           LogoSlogan(sizeFactor: 0.8,),
 
           oButton('Multi Image Picker', Iconz.Flyer, MultiImagePicker2()),
+
+          oButton('Random Test Space', Iconz.Flyer, RandomTestSpace()),
 
           oButton('Slider Test Screen', Iconz.Flyer, SliderTestScreen()),
 
