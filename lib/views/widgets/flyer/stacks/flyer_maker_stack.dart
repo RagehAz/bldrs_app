@@ -95,16 +95,32 @@ class _FlyerMakerStackState extends State<FlyerMakerStack> with AutomaticKeepAli
     /// if still picking images
     else {
 
-      List<Asset> _galleryImages = await getMultiImagesFromGallery(
-        context: context,
-        images: _pictures,
-        mounted: mounted,
-        accountType: accountType,
-      );
+      List<Asset> _galleryImages;
 
-      setState(() {
-        _pictures = _galleryImages;
-      });
+      if(mounted){
+        _galleryImages = await getMultiImagesFromGallery(
+          context: context,
+          images: _pictures,
+          mounted: mounted,
+          accountType: accountType,
+        );
+
+        if(_galleryImages.length == 0){
+          // will do nothing
+        } else {
+          setState(() {
+            _pictures = _galleryImages;
+          });
+        }
+
+      }
+
+      if(_galleryImages.length == _pictures.length){
+        print('lengths are the same, ${_galleryImages.toString()}');
+      } else {
+        print('lengths are not the same , ${_galleryImages.toString()}');
+      }
+
 
     }
 
