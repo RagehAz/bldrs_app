@@ -63,6 +63,12 @@ class _MultiImagePicker2State extends State<MultiImagePicker2> with AutomaticKee
   int _createKeyValue(){
     Random _random = new Random();
     int _randomNumber = _random.nextInt(100000); // from 0 upto 99 included
+
+    if(_keys.contains(ValueKey(_randomNumber))){
+      _randomNumber = _createKeyValue();
+    }
+
+
     return _randomNumber;
   }
 // -----------------------------------------------------------------------------
