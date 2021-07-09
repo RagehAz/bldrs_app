@@ -57,45 +57,41 @@ class _DynamicLinkTestState extends State<DynamicLinkTest> {
       loading: _loading,
       pageTitle: 'Dynamic Links Test',
       appBarRowWidgets: [],
-      layoutWidget: Container(
-        width: Scale.superScreenWidth(context),
-        height: Scale.superScreenHeight(context),
-        child: ListView(
+      layoutWidget: ListView(
 
-          children: <Widget>[
+        children: <Widget>[
 
-            Stratosphere(),
+          Stratosphere(),
 
-            SuperVerse(
-              verse: _link,
-              labelColor: Colorz.White30,
-              labelTap: (){
+          SuperVerse(
+            verse: _link,
+            labelColor: Colorz.White30,
+            labelTap: (){
 
-                print('_link : $_link');
-                // launchURL(_link);
+              print('_link : $_link');
+              // launchURL(_link);
 
-              },
-            ),
+            },
+          ),
 
-            DreamBox(
-              height: 55,
-              margins: 10,
-              verse: 'the thing is : $_thing',
-              verseColor: Colorz.BlackBlack,
-              color: Colorz.White,
-              boxFunction: (){},
-            ),
+          DreamBox(
+            height: 55,
+            margins: 10,
+            verse: 'the thing is : $_thing',
+            verseColor: Colorz.BlackBlack,
+            color: Colorz.White,
+            boxFunction: (){},
+          ),
 
-            DreamBox(
-              height: 55,
-              margins: 10,
-              verse: 'Get Dynamic Link',
-              color: Colorz.Yellow,
-              boxFunction: () => _getDynamicLink(),
-            ),
+          DreamBox(
+            height: 55,
+            margins: 10,
+            verse: 'Get Dynamic Link',
+            color: Colorz.Yellow,
+            boxFunction: () => _getDynamicLink(),
+          ),
 
-          ],
-        ),
+        ],
       ),
     );
   }

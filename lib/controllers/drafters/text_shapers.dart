@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
@@ -174,5 +175,66 @@ double superVerseLabelMargin(BuildContext context, int verseSize, double scaling
   double _sidePaddings = labelIsOn == false ? 0 : _sidePaddingValues;
   double _superVerseLabelMargin = _sidePaddings * 0.25;
   return _superVerseLabelMargin;
+}
+// -----------------------------------------------------------------------------
+TextStyle superVerseStyle({
+  @required BuildContext context,
+  @required Color color,
+  @required VerseWeight weight,
+  @required bool italic,
+  @required int size,
+  @required bool shadow,
+  double scaleFactor = 1,
+  bool designMode = false,
+}){
+
+  const double _verseHeight = 1.42; //1.48; // The sacred golden reverse engineered factor
+  Color _boxColor = designMode ? Colorz.BloodTest : Colorz.Nothing;
+  String _verseFont = superVerseFont(context, weight);
+  FontStyle _verseStyle = italic == true ? FontStyle.italic : FontStyle.normal;
+  double _scalingFactor = scaleFactor == null ? 1: scaleFactor;
+  double _verseSizeValue = superVerseSizeValue(context, size, _scalingFactor);
+  double _verseLetterSpacing = superVerseLetterSpacing(weight, _verseSizeValue);
+  double _verseWordSpacing = superVerseWordSpacing(_verseSizeValue);
+  FontWeight _verseWeight = superVerseWeight(weight);
+  // --- SHADOWS -----------------------------------------------
+  const double _shadowBlur = 0;
+  const double _shadowYOffset = 0;
+  double _shadowXOffset = superVerseXOffset(weight, _verseSizeValue);
+  double _secondShadowXOffset = -0.35 * _shadowXOffset;
+  Color _leftShadow = color == Colorz.BlackBlack ? Colorz.WhitePlastic : Colorz.BlackBlack;
+  Color _rightShadow = color == Colorz.BlackBlack ? Colorz.WhiteSmoke : Colorz.WhiteGlass;
+
+  return
+    TextStyle(
+        backgroundColor: _boxColor,
+        textBaseline: TextBaseline.alphabetic,
+        height: _verseHeight,
+        color: color,
+        fontFamily: _verseFont ,
+        fontStyle: _verseStyle,
+        letterSpacing: _verseLetterSpacing,
+        wordSpacing: _verseWordSpacing,
+        fontSize: _verseSizeValue,
+        fontWeight: _verseWeight,
+        shadows: <Shadow>[
+          if (shadow)
+            Shadow(
+              blurRadius: _shadowBlur,
+              color: _leftShadow,
+              offset: Offset(_shadowXOffset, _shadowYOffset),
+            ),
+          Shadow(
+            blurRadius: _shadowBlur,
+            color: _rightShadow,
+            offset: Offset(_secondShadowXOffset, _shadowYOffset),
+          )
+        ]
+    );
+}
+// -----------------------------------------------------------------------------
+TextStyle superVerseDefaultStyle(BuildContext context){
+  return
+      superVerseStyle(context: context, color: Colorz.White, weight: VerseWeight.thin, italic: true, size: 2, shadow: true);
 }
 // -----------------------------------------------------------------------------

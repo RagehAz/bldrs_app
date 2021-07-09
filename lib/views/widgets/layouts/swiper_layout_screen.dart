@@ -60,59 +60,55 @@ class _SwiperLayoutScreenState extends State<SwiperLayoutScreen> {
       pageTitle: _title,
       pyramids: Iconz.DvBlankSVG,
       // appBarBackButton: true,
-      layoutWidget: Container(
-        width: _screenWidth,
-        height: _screenHeight,
-        child: Swiper(
-          autoplay: false,
-          pagination: new SwiperPagination(
-            builder: DotSwiperPaginationBuilder(
-              color: Colorz.White,
-              activeColor: Colorz.Yellow,
-              activeSize: 8,
-              size: 4,
-              space: 2,
-            ),
-            alignment: Alignment.topCenter,
-            margin: const EdgeInsets.only(top: 54, right: Ratioz.appBarMargin * 2, left: Ratioz.appBarMargin * 2),
+      layoutWidget: Swiper(
+        autoplay: false,
+        pagination: new SwiperPagination(
+          builder: DotSwiperPaginationBuilder(
+            color: Colorz.White,
+            activeColor: Colorz.Yellow,
+            activeSize: 8,
+            size: 4,
+            space: 2,
           ),
-          layout: SwiperLayout.DEFAULT,
-          itemWidth: _itemWidth,
-          itemHeight: _itemHeight,
-          // control: new SwiperControl(),
-          // transformer: ,
-          onIndexChanged: (index){
-            setState(() {
-              _title = widget.swiperPages[index]['title'];
-            });
-          },
-          fade: 0.1,
-          controller: _swiperController,
-          duration: 600,
-          viewportFraction: 1,
-          curve: Curves.easeInOutCirc,
-          scale: 0.6,
-          itemCount: widget.swiperPages.length,
-          itemBuilder: (BuildContext context, int index) {
-
-            return
-
-              Column(
-                children: <Widget>[
-
-                  Stratosphere(),
-
-                  Container(
-                    width: _screenWidth,
-                    height: _screenHeight - Ratioz.stratosphere - 24,
-                    child: widget.swiperPages[index]['widget'],
-                  ),
-
-                ],
-              );
-
-          },
+          alignment: Alignment.topCenter,
+          margin: const EdgeInsets.only(top: 54, right: Ratioz.appBarMargin * 2, left: Ratioz.appBarMargin * 2),
         ),
+        layout: SwiperLayout.DEFAULT,
+        itemWidth: _itemWidth,
+        itemHeight: _itemHeight,
+        // control: new SwiperControl(),
+        // transformer: ,
+        onIndexChanged: (index){
+          setState(() {
+            _title = widget.swiperPages[index]['title'];
+          });
+        },
+        fade: 0.1,
+        controller: _swiperController,
+        duration: 600,
+        viewportFraction: 1,
+        curve: Curves.easeInOutCirc,
+        scale: 0.6,
+        itemCount: widget.swiperPages.length,
+        itemBuilder: (BuildContext context, int index) {
+
+          return
+
+            Column(
+              children: <Widget>[
+
+                Stratosphere(),
+
+                Container(
+                  width: _screenWidth,
+                  height: _screenHeight - Ratioz.stratosphere - 24,
+                  child: widget.swiperPages[index]['widget'],
+                ),
+
+              ],
+            );
+
+        },
       ),
     );
   }

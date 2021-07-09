@@ -77,9 +77,6 @@ class _CountryScreenState extends State<CountryScreen> {
   @override
   Widget build(BuildContext context) {
 
-    double _screenWidth = Scale.superScreenWidth(context);
-    double _screenHeight = Scale.superScreenHeight(context);
-
     List<String> _provincesNames = Province.getProvincesNamesFromCountryModel(widget.country);
 
     return MainLayout(
@@ -107,137 +104,133 @@ class _CountryScreenState extends State<CountryScreen> {
         ),
 
       ],
-      layoutWidget: Container(
-        width: _screenWidth,
-        height: _screenHeight,
-        child: ListView(
-          // mainAxisAlignment: MainAxisAlignment.start,
-          // crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
+      layoutWidget: ListView(
+        // mainAxisAlignment: MainAxisAlignment.start,
+        // crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
 
-            Stratosphere(),
+          Stratosphere(),
 
-            // --- ISO3
-            TileBubble(
-               verse: '${widget.country.name}\'s ISO3 is : ( ${widget.country.iso3} )',
-               icon: Iconz.Info,
-             verseColor: Colorz.Yellow,
-             iconBoxColor: Colorz.GreyZircon,
-           ),
+          // --- ISO3
+          TileBubble(
+             verse: '${widget.country.name}\'s ISO3 is : ( ${widget.country.iso3} )',
+             icon: Iconz.Info,
+           verseColor: Colorz.Yellow,
+           iconBoxColor: Colorz.GreyZircon,
+         ),
 
-            BubblesSeparator(),
+          BubblesSeparator(),
 
-            // --- NAME
-            TextFieldBubble(
-              title: 'Country Name',
-              textOnChanged: (val) => setState(() {_name = val;}),
-              fieldIsRequired: true,
-              fieldIsFormField: true,
-              initialTextValue: _name,
-              bubbleColor: Colorz.WhiteGlass,
-              actionBtIcon: Iconz.Check,
-              actionBtFunction: () => _updateCountryFieldOnFirestore('name', _name),
-            ),
+          // --- NAME
+          TextFieldBubble(
+            title: 'Country Name',
+            textOnChanged: (val) => setState(() {_name = val;}),
+            fieldIsRequired: true,
+            fieldIsFormField: true,
+            initialTextValue: _name,
+            bubbleColor: Colorz.WhiteGlass,
+            actionBtIcon: Iconz.Check,
+            actionBtFunction: () => _updateCountryFieldOnFirestore('name', _name),
+          ),
 
-            // --- Language
-            TextFieldBubble(
-              title: 'Main language',
-              textOnChanged: (val) => setState(() {_language = val;}),
-              fieldIsRequired: true,
-              fieldIsFormField: true,
-              initialTextValue: _language,
-              bubbleColor: Colorz.WhiteGlass,
-              actionBtIcon: Iconz.Check,
-              actionBtFunction: () => _updateCountryFieldOnFirestore('language', _language),
-            ),
+          // --- Language
+          TextFieldBubble(
+            title: 'Main language',
+            textOnChanged: (val) => setState(() {_language = val;}),
+            fieldIsRequired: true,
+            fieldIsFormField: true,
+            initialTextValue: _language,
+            bubbleColor: Colorz.WhiteGlass,
+            actionBtIcon: Iconz.Check,
+            actionBtFunction: () => _updateCountryFieldOnFirestore('language', _language),
+          ),
 
-            // --- FLAG
-            TextFieldBubble(
-              title: 'flag',
-              textOnChanged: (val) => setState(() {_flag = val;}),
-              fieldIsRequired: true,
-              fieldIsFormField: true,
-              initialTextValue: _flag,
-              bubbleColor: Colorz.WhiteGlass,
-              actionBtIcon: Iconz.Check,
-              actionBtFunction: () => _updateCountryFieldOnFirestore('flag', _flag),
-              leadingIcon: _flag,
-            ),
+          // --- FLAG
+          TextFieldBubble(
+            title: 'flag',
+            textOnChanged: (val) => setState(() {_flag = val;}),
+            fieldIsRequired: true,
+            fieldIsFormField: true,
+            initialTextValue: _flag,
+            bubbleColor: Colorz.WhiteGlass,
+            actionBtIcon: Iconz.Check,
+            actionBtFunction: () => _updateCountryFieldOnFirestore('flag', _flag),
+            leadingIcon: _flag,
+          ),
 
-            BubblesSeparator(),
+          BubblesSeparator(),
 
-            // --- REGION
-            TextFieldBubble(
-              title: 'Region',
-              textOnChanged: (val) => setState(() {_region = val;}),
-              fieldIsRequired: true,
-              fieldIsFormField: true,
-              initialTextValue: _region,
-              bubbleColor: Colorz.WhiteGlass,
-              actionBtIcon: Iconz.Check,
-              actionBtFunction: () => _updateCountryFieldOnFirestore('region', _region),
-            ),
+          // --- REGION
+          TextFieldBubble(
+            title: 'Region',
+            textOnChanged: (val) => setState(() {_region = val;}),
+            fieldIsRequired: true,
+            fieldIsFormField: true,
+            initialTextValue: _region,
+            bubbleColor: Colorz.WhiteGlass,
+            actionBtIcon: Iconz.Check,
+            actionBtFunction: () => _updateCountryFieldOnFirestore('region', _region),
+          ),
 
-            // --- CONTINENT
-            TextFieldBubble(
-              title: 'Continent',
-              textOnChanged: (val) => setState(() {_continent = val;}),
-              fieldIsRequired: true,
-              fieldIsFormField: true,
-              initialTextValue: _continent,
-              bubbleColor: Colorz.WhiteGlass,
-              actionBtIcon: Iconz.Check,
-              actionBtFunction: () => _updateCountryFieldOnFirestore('continent', _continent),
-            ),
+          // --- CONTINENT
+          TextFieldBubble(
+            title: 'Continent',
+            textOnChanged: (val) => setState(() {_continent = val;}),
+            fieldIsRequired: true,
+            fieldIsFormField: true,
+            initialTextValue: _continent,
+            bubbleColor: Colorz.WhiteGlass,
+            actionBtIcon: Iconz.Check,
+            actionBtFunction: () => _updateCountryFieldOnFirestore('continent', _continent),
+          ),
 
-            BubblesSeparator(),
+          BubblesSeparator(),
 
-            // --- IS ACTIVATED
-            TileBubble(
-              verse: 'Country is Activated ?',
-              secondLine: 'When Country is Deactivated, only business authors may see it while creating business profile',
-              icon: _flag,
-              verseColor: Colorz.White,
-              iconBoxColor: Colorz.GreyZircon,
-              iconSizeFactor: 1,
-              switchIsOn: _isActivated,
-              switching: (val){
-                setState(() {_isActivated = val;});
-                _updateCountryFieldOnFirestore('isActivated', _isActivated);
-                print(val);
-              },
-            ),
+          // --- IS ACTIVATED
+          TileBubble(
+            verse: 'Country is Activated ?',
+            secondLine: 'When Country is Deactivated, only business authors may see it while creating business profile',
+            icon: _flag,
+            verseColor: Colorz.White,
+            iconBoxColor: Colorz.GreyZircon,
+            iconSizeFactor: 1,
+            switchIsOn: _isActivated,
+            switching: (val){
+              setState(() {_isActivated = val;});
+              _updateCountryFieldOnFirestore('isActivated', _isActivated);
+              print(val);
+            },
+          ),
 
-            // --- IS GLOBAL
-            TileBubble(
-              verse: 'Country is Global ?',
-              secondLine: 'When Country is not Global, only users of this country will see its businesses and flyers',
-              icon: _flag,
-              verseColor: Colorz.White,
-              iconBoxColor: Colorz.GreyZircon,
-              iconSizeFactor: 1,
-              switchIsOn: _isGlobal,
-              switching: (val){
-                setState(() {_isGlobal = val;});
-                _updateCountryFieldOnFirestore('isGlobal', _isGlobal);
-                print(val);
-              },
-            ),
+          // --- IS GLOBAL
+          TileBubble(
+            verse: 'Country is Global ?',
+            secondLine: 'When Country is not Global, only users of this country will see its businesses and flyers',
+            icon: _flag,
+            verseColor: Colorz.White,
+            iconBoxColor: Colorz.GreyZircon,
+            iconSizeFactor: 1,
+            switchIsOn: _isGlobal,
+            switching: (val){
+              setState(() {_isGlobal = val;});
+              _updateCountryFieldOnFirestore('isGlobal', _isGlobal);
+              print(val);
+            },
+          ),
 
-            BubblesSeparator(),
-            
-            WordsBubble(
-              title: '${_provincesNames.length} Provinces',
-              bubbles: true,
-              words: _provincesNames,
-              onTap: (val) {print(val);},
-              selectedWords: [],
-            ),
+          BubblesSeparator(),
 
-            PyramidsHorizon(heightFactor: 10,),
+          WordsBubble(
+            title: '${_provincesNames.length} Provinces',
+            bubbles: true,
+            words: _provincesNames,
+            onTap: (val) {print(val);},
+            selectedWords: [],
+          ),
 
-          ],
-        ),
+          PyramidsHorizon(heightFactor: 10,),
+
+        ],
       ),
     );
   }
