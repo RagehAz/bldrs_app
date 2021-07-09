@@ -263,6 +263,16 @@ Future<List<Asset>> getMultiImagesFromGallery({BuildContext context, List<Asset>
         allViewTitle: "All Photos",
         useDetailsView: false,
         selectCircleStrokeColor: "#ffc000",
+        startInAllView: true,
+        textOnNothingSelected: 'Nothing is Fucking Selected',
+        statusBarColor: "#000000", // the app status bar
+        lightStatusBar: false,
+        // actionBarTitleColor: "#13244b", // page title color, White is Default
+        autoCloseOnSelectionLimit: false,
+        selectionLimitReachedText: 'Can\'t add more Imgaes Bitch !',
+        // unknown impact
+        // backButtonDrawable: 'wtf is this backButtonDrawable',
+        // okButtonDrawable: 'dunno okButtonDrawable',
       ),
     );
   } on Exception catch (e) {
