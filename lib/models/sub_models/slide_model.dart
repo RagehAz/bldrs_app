@@ -143,7 +143,7 @@ class SlideModel {
 // -----------------------------------------------------------------------------
   static int getSlideIndexFromSlideID(String slideID){
     // slide index shall never have more than two digits
-    int _slideIndex = lastTwoIntegersFromAString(slideID);
+    int _slideIndex = Numberers.lastTwoIntegersFromAString(slideID);
     return _slideIndex;
   }
 // -----------------------------------------------------------------------------
