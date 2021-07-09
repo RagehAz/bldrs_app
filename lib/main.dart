@@ -21,6 +21,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(BldrsApp());
+  // TASK : this added for we chat image picker,, check usage before publish
+  // assetPicker.registerObserve();
 }
 
 // main() => runApp(BldrsApp());

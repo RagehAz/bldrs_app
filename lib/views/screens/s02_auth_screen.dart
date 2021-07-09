@@ -61,43 +61,38 @@ class _AuthScreenState extends State<AuthScreen> {
         print('keyboard height is : $_keyboardHeight');
         setState(() {});
         },
-      layoutWidget: Container(
-        width: Scale.superScreenWidth(context),
-        height: Scale.superScreenHeight(context),
-        alignment: Alignment.topCenter,
-        child: Stack(
-          children: <Widget>[
+      layoutWidget: Stack(
+        children: <Widget>[
 
-            ListView(
-              controller: _scrollController,
-              shrinkWrap: true,
-              // keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.manual,
-              children: <Widget>[
+          ListView(
+            controller: _scrollController,
+            shrinkWrap: true,
+            // keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.manual,
+            children: <Widget>[
 
-                // Stratosphere(heightFactor: 0.5,),
+              // Stratosphere(heightFactor: 0.5,),
 
-                signingIn == true ?
-                SignInForm(
-                  switchSignIn: _switchSignIn,
-                  email: _email,
-                  password: _password,
-                  fieldOnTap: (keyboard) => moveScreen(keyboard),
-                )
-                    :
-                // REGISTER NEW ACCOUNT
-                RegisterForm(
-                  switchSignIn: _switchSignIn,
-                  email: _email,
-                  password: _password,
-                ),
+              signingIn == true ?
+              SignInForm(
+                switchSignIn: _switchSignIn,
+                email: _email,
+                password: _password,
+                fieldOnTap: (keyboard) => moveScreen(keyboard),
+              )
+                  :
+              // REGISTER NEW ACCOUNT
+              RegisterForm(
+                switchSignIn: _switchSignIn,
+                email: _email,
+                password: _password,
+              ),
 
-                PyramidsHorizon(heightFactor: 0,),
+              PyramidsHorizon(heightFactor: 0,),
 
-              ],
-            ),
+            ],
+          ),
 
-          ],
-        ),
+        ],
       ),
     );
   }

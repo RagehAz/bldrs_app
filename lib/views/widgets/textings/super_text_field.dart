@@ -213,7 +213,9 @@ class _SuperTextFieldState extends State<SuperTextField> {
     // textIsEnglish(widget.textController.text) == false ? TextDirection.rtl :
     _textDirection;
 // -----------------------------------------------------------------------------
-    InputDecoration _inputDecoration = InputDecoration(
+    InputDecoration _inputDecoration =
+
+    InputDecoration(
       hintText: widget.hintText,
       hintMaxLines: 1,
       hintStyle: superHintStyle(Colorz.WhiteSmoke, 0.8),
@@ -229,6 +231,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
       errorBorder: Borderers.superOutlineInputBorder(Colorz.BloodRedPlastic, _labelCorner),
       border: Borderers.superOutlineInputBorder(Colorz.LinkedIn, _labelCorner),
       disabledBorder: Borderers.superOutlineInputBorder(Colorz.Grey, _labelCorner),
+      counterText: '${widget.textController.text.length} / ${widget.maxLength}',
       counter: widget.counterIsOn ? null : Offstage(),
       counterStyle: superTextStyle(Colorz.WhiteLingerie, 0.7),
 
@@ -247,7 +250,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
     );
 // -----------------------------------------------------------------------------
     EdgeInsets _boxPadding = EdgeInsets.only(
-        bottom: widget.counterIsOn == true ? _sidePaddings : 0);
+        bottom: widget.counterIsOn == true ? _sidePaddings * 0 : 0);
 // -----------------------------------------------------------------------------
     BoxDecoration _boxDecoration = BoxDecoration(
       borderRadius: BorderRadius.all(Radius.circular(_labelCorner)),

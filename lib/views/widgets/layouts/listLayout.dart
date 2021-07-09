@@ -46,79 +46,74 @@ class ListLayout extends StatelessWidget {
       pageTitle: pageTitle,
       pyramids: pyramids,
       // appBarBackButton: true,
-      layoutWidget: Container(
-        width: _screenWidth,
-        height: _screenHeight,
-        // color: Colorz.BloodTest,
-        child: Column(
+      layoutWidget: Column(
 
-          children: <Widget>[
+        children: <Widget>[
 
-            Stratosphere(),
+          Stratosphere(),
 
-            if (pageIcon != null)
-            DreamBox(
-              height: Ratioz.appBarSmallHeight,
-              corners: Iconizer.iconIsContinent(pageIcon) ? Ratioz.appBarSmallHeight / 2 : Ratioz.boxCorner12,
-              icon: pageIcon,
-            ),
+          if (pageIcon != null)
+          DreamBox(
+            height: Ratioz.appBarSmallHeight,
+            corners: Iconizer.iconIsContinent(pageIcon) ? Ratioz.appBarSmallHeight / 2 : Ratioz.boxCorner12,
+            icon: pageIcon,
+          ),
 
-            if (pageIconVerse != null)
-            SuperVerse(
-              verse: pageIconVerse,
-              size: 2,
-              labelColor: Colorz.WhiteAir,
-            ),
+          if (pageIconVerse != null)
+          SuperVerse(
+            verse: pageIconVerse,
+            size: 2,
+            labelColor: Colorz.WhiteAir,
+          ),
 
-            SizedBox(height: 10,),
+          SizedBox(height: 10,),
 
-            Container(
-              width: _screenWidth,
-              height: _bubbleHeight,
-              // color: Colorz.YellowAir,
-              child: InPyramidsBubble(
-                // title: 'Countries',
-                centered: true,
-                columnChildren: <Widget>[
+          Container(
+            width: _screenWidth,
+            height: _bubbleHeight,
+            // color: Colorz.YellowAir,
+            child: InPyramidsBubble(
+              // title: 'Countries',
+              centered: true,
+              columnChildren: <Widget>[
 
-                  Container(
-                    width: Scale.superBubbleClearWidth(context),
-                    height: _bubbleHeight - (Ratioz.appBarMargin * 3),
-                    // color: Colorz.BloodTest,
-                    child: ListView.builder(
-                      itemCount: idValueMaps.length,
-                      itemBuilder: (context, index){
+                Container(
+                  width: Scale.superBubbleClearWidth(context),
+                  height: _bubbleHeight - (Ratioz.appBarMargin * 3),
+                  // color: Colorz.BloodTest,
+                  child: ListView.builder(
+                    itemCount: idValueMaps.length,
+                    itemBuilder: (context, index){
 
-                        return
-                          Align(
-                            alignment: Aligners.superCenterAlignment(context),
-                            child: DreamBox(
-                              height: 35,
-                              width: Scale.superBubbleClearWidth(context) - 10,
-                              icon: icons == null || icons.length == 0 ? null : icons[index],
-                              iconSizeFactor: 0.8,
-                              verse: idValueMaps[index]['value'],
-                              bubble: false,
-                              margins: const EdgeInsets.all(5),
-                              verseScaleFactor: 0.8,
-                              color: Colorz.WhiteAir,
-                              // textDirection: superTextDirection(context),
-                              boxFunction: () => onItemTap(idValueMaps[index]['id']),
-                            ),
-                          );
+                      return
+                        Align(
+                          alignment: Aligners.superCenterAlignment(context),
+                          child: DreamBox(
+                            height: 35,
+                            width: Scale.superBubbleClearWidth(context) - 10,
+                            icon: icons == null || icons.length == 0 ? null : icons[index],
+                            iconSizeFactor: 0.8,
+                            verse: idValueMaps[index]['value'],
+                            bubble: false,
+                            margins: const EdgeInsets.all(5),
+                            verseScaleFactor: 0.8,
+                            color: Colorz.WhiteAir,
+                            // textDirection: superTextDirection(context),
+                            boxFunction: () => onItemTap(idValueMaps[index]['id']),
+                          ),
+                        );
 
-                      },
-                    ),
+                    },
                   ),
+                ),
 
-                ],
-              ),
-            )
+              ],
+            ),
+          )
 
 
-          ],
+        ],
 
-        ),
       ),
     );
   }

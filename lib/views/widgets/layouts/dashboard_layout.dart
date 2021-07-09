@@ -19,9 +19,6 @@ class DashBoardLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double _screenWidth = Scale.superScreenWidth(context);
-    double _screenHeight = Scale.superScreenHeight(context);
-
     return MainLayout(
       pyramids: Iconz.PyramidzYellow,
       appBarType: AppBarType.Basic,
@@ -30,18 +27,14 @@ class DashBoardLayout extends StatelessWidget {
       sky: Sky.Black,
       loading: loading,
       appBarRowWidgets: appBarRowWidgets,
-      layoutWidget: Container(
-        width: _screenWidth,
-        height: _screenHeight,
-        child: ListView(
-          children: <Widget>[
+      layoutWidget: ListView(
+        children: <Widget>[
 
-            Stratosphere(),
+          Stratosphere(),
 
-            ...listWidgets,
+          ...listWidgets,
 
-          ],
-        ),
+        ],
       ),
     );
 

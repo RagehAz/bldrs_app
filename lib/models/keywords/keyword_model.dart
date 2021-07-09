@@ -1,6 +1,6 @@
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/flyer_type_class.dart';
-import 'package:bldrs/models/keywords/filter_model.dart';
+import 'package:bldrs/models/keywords/keys_set.dart';
 import 'package:bldrs/models/keywords/sequence_model.dart';
 import 'package:bldrs/models/planet/district_model.dart';
 import 'package:bldrs/models/secondary_models/namez_model.dart';
