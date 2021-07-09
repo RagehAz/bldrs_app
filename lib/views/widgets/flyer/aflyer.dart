@@ -29,6 +29,7 @@ class AFlyer extends StatefulWidget {
 }
 
 class _AFlyerState extends State<AFlyer> with AutomaticKeepAliveClientMixin{
+  @override
   bool get wantKeepAlive => true;
   bool _bzPageIsOn;
   int _currentSlideIndex;

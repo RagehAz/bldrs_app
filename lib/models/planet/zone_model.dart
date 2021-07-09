@@ -1,5 +1,5 @@
 import 'package:bldrs/controllers/drafters/text_manipulators.dart';
-import 'package:bldrs/models/keywords/filter_model.dart';
+import 'package:bldrs/models/keywords/keys_set.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/planet/district_model.dart';
 import 'package:bldrs/providers/country_provider.dart';

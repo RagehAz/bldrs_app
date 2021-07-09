@@ -105,7 +105,12 @@ class MainLayout extends StatelessWidget {
       NightSky(sky: sky,),
 
       if (layoutWidget != null)
-      layoutWidget,
+        Container(
+          width: Scale.superScreenWidth(context),
+          height: Scale.superScreenHeight(context),
+          alignment: Alignment.topCenter,
+          child: layoutWidget,
+        ),
 
       if(appBarType != AppBarType.Non)
         BldrsAppBar(

@@ -7,7 +7,7 @@ import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/models/keywords/filter_model.dart';
+import 'package:bldrs/models/keywords/keys_set.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
@@ -330,7 +330,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
     // bool _canPickMany = filtersModels.singleWhere((filterModel) => filterModel.filterID == _currentFilterID).canPickMany;
 
-   bool _canPickMany = KeysSet.getCanFilterPickManyByKeyword(keyword);
+   bool _canPickMany = KeysSet.getCanKeysSetPickManyByKeyword(keyword);
 
     bool _isSelected = _selectedKeywords.contains(keyword);
 

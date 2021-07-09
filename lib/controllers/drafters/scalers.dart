@@ -7,82 +7,91 @@ import 'text_directionerz.dart';
 class Scale{
 // -----------------------------------------------------------------------------
   static double superScreenWidth (BuildContext context){
-    double screenWidth = MediaQuery.of(context).size.width;
-    return screenWidth;
+    double _screenWidth = MediaQuery.of(context).size.width;
+    return _screenWidth;
   }
 // -----------------------------------------------------------------------------
   static double superScreenHeight (BuildContext context){
-    double screenHeight = MediaQuery.of(context).size.height;
-    return screenHeight;
+    double _screenHeight = MediaQuery.of(context).size.height;
+    return _screenHeight;
   }
 // -----------------------------------------------------------------------------
   static double superFlyerZoneWidth (BuildContext context, double flyerSizeFactor){
-    double screenWidth = superScreenWidth(context);
-    double flyerZoneWidth = screenWidth * flyerSizeFactor;
-    return flyerZoneWidth;
+    double _screenWidth = superScreenWidth(context);
+    double _flyerZoneWidth = _screenWidth * flyerSizeFactor;
+    return _flyerZoneWidth;
   }
 // -----------------------------------------------------------------------------
   static double superSafeAreaTopPadding (BuildContext context){
-    double safeAreaHeight = MediaQuery.of(context).padding.top;
-    return safeAreaHeight;
+    double _safeAreaHeight = MediaQuery.of(context).padding.top;
+    return _safeAreaHeight;
   }
 // -----------------------------------------------------------------------------
   static double superScreenHeightWithoutSafeArea (BuildContext context){
-    double screenWithoutSafeAreaHeight = superScreenHeight(context) - superSafeAreaTopPadding(context);
-    return screenWithoutSafeAreaHeight;
+    double _screenWithoutSafeAreaHeight = superScreenHeight(context) - superSafeAreaTopPadding(context);
+    return _screenWithoutSafeAreaHeight;
   }
 // -----------------------------------------------------------------------------
-  static double superFlyerSizeFactor (BuildContext context, double flyerZoneWidth){
-    double flyerSizeFactor = flyerZoneWidth/superScreenWidth(context);
-    return flyerSizeFactor;
+  static double superFlyerSizeFactorByWidth (BuildContext context, double flyerZoneWidth){
+    double _flyerSizeFactor = flyerZoneWidth/superScreenWidth(context);
+    return _flyerSizeFactor;
+  }
+// -----------------------------------------------------------------------------
+  static double superFlyerSizeFactorByHeight (BuildContext context, double flyerZoneHeight){
+
+    double _flyerZoneWidth = flyerZoneHeight == superScreenHeightWithoutSafeArea(context) ? superScreenWidth(context) : (flyerZoneHeight / Ratioz.xxflyerZoneHeight);
+
+    double _flyerSizeFactor = superFlyerSizeFactorByWidth(context, _flyerZoneWidth);
+
+    return _flyerSizeFactor;
   }
 // -----------------------------------------------------------------------------
   static double superFlyerZoneHeight (BuildContext context, double flyerZoneWidth){
-    double flyerZoneHeight = superFlyerSizeFactor(context, flyerZoneWidth) == 1 ?
+    double _flyerZoneHeight = superFlyerSizeFactorByWidth(context, flyerZoneWidth) == 1 ?
     superScreenHeightWithoutSafeArea(context)
         :
     flyerZoneWidth * Ratioz.xxflyerZoneHeight;
-    return flyerZoneHeight;
+    return _flyerZoneHeight;
   }
 // -----------------------------------------------------------------------------
   static bool superFlyerMicroMode (BuildContext context, double flyerZoneWidth){
-    bool microMode = flyerZoneWidth < (superScreenWidth(context) * 0.4) ? true : false; // 0.4 needs calibration
-    return microMode;
+    bool _microMode = flyerZoneWidth < (superScreenWidth(context) * 0.4) ? true : false; // 0.4 needs calibration
+    return _microMode;
   }
 // -----------------------------------------------------------------------------
   static bool superFlyerMiniMode (BuildContext context, double flyerZoneWidth){
-    bool miniMode = flyerZoneWidth < (superScreenWidth(context) * 0.70) ? true : false; // 0.4 needs calibration
-    return miniMode;
+    bool _miniMode = flyerZoneWidth < (superScreenWidth(context) * 0.70) ? true : false; // 0.4 needs calibration
+    return _miniMode;
   }
 // -----------------------------------------------------------------------------
   static double superHeaderHeight(bool bzPageIsOn, double flyerZoneWidth){
-    double miniHeaderHeightAtMaxState = flyerZoneWidth * Ratioz.xxflyerHeaderMaxHeight;
-    double miniHeaderHeightAtMiniState = flyerZoneWidth * Ratioz.xxflyerHeaderMiniHeight;
-    double headerHeight = bzPageIsOn == true ? miniHeaderHeightAtMaxState : miniHeaderHeightAtMiniState;
-    return headerHeight;
+    double _miniHeaderHeightAtMaxState = flyerZoneWidth * Ratioz.xxflyerHeaderMaxHeight;
+    double _miniHeaderHeightAtMiniState = flyerZoneWidth * Ratioz.xxflyerHeaderMiniHeight;
+    double _headerHeight = bzPageIsOn == true ? _miniHeaderHeightAtMaxState : _miniHeaderHeightAtMiniState;
+    return _headerHeight;
   }
 // -----------------------------------------------------------------------------
   static double superHeaderStripHeight(bool bzPageIsOn, double flyerZoneWidth){
-    double headerStripHeight = bzPageIsOn == true ? flyerZoneWidth : flyerZoneWidth * Ratioz.xxflyerHeaderMiniHeight;
-    return headerStripHeight;
+    double _headerStripHeight = bzPageIsOn == true ? flyerZoneWidth : flyerZoneWidth * Ratioz.xxflyerHeaderMiniHeight;
+    return _headerStripHeight;
   }
 // -----------------------------------------------------------------------------
   static double superHeaderOffsetHeight(double flyerZoneWidth){
-    double headerOffsetHeight = (flyerZoneWidth * Ratioz.xxflyerHeaderMiniHeight) - (2 * flyerZoneWidth * Ratioz.xxfollowCallSpacing);
-    return headerOffsetHeight;
+    double _headerOffsetHeight = (flyerZoneWidth * Ratioz.xxflyerHeaderMiniHeight) - (2 * flyerZoneWidth * Ratioz.xxfollowCallSpacing);
+    return _headerOffsetHeight;
   }
 // -----------------------------------------------------------------------------
   static double superLogoWidth(bool bzPageIsOn, double flyerZoneWidth ){
-    double headerMainPadding = flyerZoneWidth * Ratioz.xxflyerHeaderMainPadding;
-    double headerOffsetWidth = flyerZoneWidth - (2 * headerMainPadding);
-    double logoWidth = bzPageIsOn == true ? headerOffsetWidth : (flyerZoneWidth*Ratioz.xxflyerLogoWidth);
-    return logoWidth;
+    double _headerMainPadding = flyerZoneWidth * Ratioz.xxflyerHeaderMainPadding;
+    double _headerOffsetWidth = flyerZoneWidth - (2 * _headerMainPadding);
+    double _logoWidth = bzPageIsOn == true ? _headerOffsetWidth : (flyerZoneWidth*Ratioz.xxflyerLogoWidth);
+    return _logoWidth;
   }
 // -----------------------------------------------------------------------------
   static double superDeviceRatio(BuildContext context){
-    final size = MediaQuery.of(context).size;
-    final deviceRatio = size.aspectRatio;
-    return deviceRatio;
+    final _size = MediaQuery.of(context).size;
+    final _deviceRatio = _size.aspectRatio;
+    return _deviceRatio;
   }
 // -----------------------------------------------------------------------------
   static double superBubbleClearWidth(BuildContext context){
