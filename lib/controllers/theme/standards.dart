@@ -8,6 +8,8 @@ class Standards{
   static const int maxFlyerSlidesPremiumAccount = 7;
   static const int maxFlyerSlidesFreeSuper = 15;
 
+  static const int maxDraftsAtOnce = 5;
+
   static const int flyerTitleMaxLength = 50;
 // -----------------------------------------------------------------------------
   static int getMaxFlyersSlidesByAccountType(BzAccountType accountType){

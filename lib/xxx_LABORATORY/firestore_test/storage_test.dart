@@ -140,7 +140,7 @@ class _FireStorageTestState extends State<FireStorageTest> {
           verseMaxLines: 2,
           margins: EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
           verseScaleFactor: 0.4,
-          boxFunction: (){
+          onTap: (){
             _triggerLoading();
           },
         ),
@@ -152,7 +152,7 @@ class _FireStorageTestState extends State<FireStorageTest> {
           verseMaxLines: 2,
           margins: EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
           verseScaleFactor: 0.4,
-          boxFunction: (){
+          onTap: (){
             printResult('');
           },
         ),
@@ -179,7 +179,7 @@ class _FireStorageTestState extends State<FireStorageTest> {
                     verseScaleFactor: 0.7,
                     verse: functions[index]['Name'],
                     color: Colorz.BloodTest,
-                    boxFunction: functions[index]['function'],
+                    onTap: functions[index]['function'],
                   );
               }),
 

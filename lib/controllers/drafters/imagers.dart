@@ -33,22 +33,25 @@ DecorationImage superImage(String picture, BoxFit boxFit){
   return picture == '' ? null : image;
 }
 // -----------------------------------------------------------------------------
-Widget superImageWidget(dynamic pic, {int width, int height}){
+Widget superImageWidget(dynamic pic, {int width, int height, BoxFit fit}){
+
+  BoxFit _boxFit = fit == null ? BoxFit.cover : fit;
+
   return
     ObjectChecker.objectIsJPGorPNG(pic)?
-    Image.asset(pic, fit: BoxFit.cover,)
+    Image.asset(pic, fit: _boxFit,)
         :
     ObjectChecker.objectIsSVG(pic)?
-    WebsafeSvg.asset(pic, fit: BoxFit.cover)
+    WebsafeSvg.asset(pic, fit: _boxFit)
         :
     /// max user NetworkImage(userPic), to try it later
     ObjectChecker.objectIsURL(pic)?
-    Image.network(pic, fit: BoxFit.cover,)
+    Image.network(pic, fit: _boxFit,)
         :
     ObjectChecker.objectIsFile(pic)?
     Image.file(
         pic,
-        fit: BoxFit.cover,
+        fit: _boxFit,
     )
         :
     ObjectChecker.objectIsAsset(pic)?
@@ -119,8 +122,9 @@ Future<File> takeGalleryPicture(PicType picType) async {
     // maxHeight: concludeImageMaxHeight(picType)
   );
 
-  return File(_imageFile.path);
+  File _result = _imageFile != null ? File(_imageFile.path) : null;
 
+  return _result;
 }
 // -----------------------------------------------------------------------------
 Future<PickedFile> takeCameraPicture(PicType picType) async {

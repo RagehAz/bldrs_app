@@ -70,7 +70,7 @@ class WordsBubble extends StatelessWidget {
                     margins: const EdgeInsets.all(5),
                     bubble: true,
                     color: _buttonColor,
-                    boxFunction: () => onTap(words[index]),
+                    onTap: () => onTap(words[index]),
                   )
                       :
                   SuperVerse(

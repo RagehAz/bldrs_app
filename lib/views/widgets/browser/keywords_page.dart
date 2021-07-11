@@ -45,7 +45,7 @@ class KeywordsPage extends StatelessWidget {
                   icon: _isIconlessKeyword ? null : Keyword.getImagePath(_keyword.keywordID),
                   margins: const EdgeInsets.symmetric(vertical: Ratioz.appBarPadding),
                   verse: _keyword.keywordID,
-                  boxFunction: () => onTap(_keyword),
+                  onTap: () => onTap(_keyword),
                 ),
               );
           }

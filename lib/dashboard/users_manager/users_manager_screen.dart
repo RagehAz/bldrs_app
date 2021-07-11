@@ -141,7 +141,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
                                           height: 70,
                                           width: 70,
                                           icon: _userModel.pic,
-                                          boxFunction: () => BottomSlider.slideBottomSheet(
+                                          onTap: () => BottomSlider.slideBottomSheet(
                                             context: context,
                                             draggable: true,
                                             height: null,
@@ -156,7 +156,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
                                                   verseScaleFactor: 0.7,
                                                   secondLine: 'This will delete user document from firebase, and delete his firebase User authentication record',
                                                   secondLineColor: Colorz.BloodRed,
-                                                  boxFunction: () async {
+                                                  onTap: () async {
                                                     _triggerLoading();
 
                                                     try{

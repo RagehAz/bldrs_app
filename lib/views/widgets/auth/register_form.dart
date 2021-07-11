@@ -98,23 +98,9 @@ class _RegisterFormState extends State<RegisterForm> {
       null;
   }
 // -----------------------------------------------------------------------------
-  void _horusOnTapUp(){
-    // _horusOnTapDown or _horusOnTapUp
+  void _horusOnTap(){
     setState(() {
       _passwordObscured = !_passwordObscured;
-    });
-  }
-// -----------------------------------------------------------------------------
-  void _horusOnTapDown(){
-    // _horusOnTapDown or _horusOnTapUp
-    setState(() {
-      _passwordObscured = !_passwordObscured;
-    });
-  }
-// -----------------------------------------------------------------------------
-  void _horusOnTapCancel(){
-    setState(() {
-      _passwordObscured = true;
     });
   }
 // -----------------------------------------------------------------------------
@@ -211,9 +197,7 @@ class _RegisterFormState extends State<RegisterForm> {
               comments: Wordz.min6Char(context),
               maxLines: 1,
               obscured: _passwordObscured,
-              horusOnTapDown: _horusOnTapDown,
-              horusOnTapUp: _horusOnTapUp,
-              horusOnTapCancel: _horusOnTapCancel,
+              horusOnTap: _horusOnTap,
           ),
 
           // --- ENTER CONFIRM PASSWORD
@@ -234,9 +218,7 @@ class _RegisterFormState extends State<RegisterForm> {
               comments: Wordz.min6Char(context),
               maxLines: 1,
               obscured: _passwordObscured,
-              horusOnTapDown: _horusOnTapDown,
-              horusOnTapUp: _horusOnTapUp,
-              horusOnTapCancel: _horusOnTapCancel,
+              horusOnTap: _horusOnTap,
             initialTextValue: null,
           ),
 
@@ -254,7 +236,7 @@ class _RegisterFormState extends State<RegisterForm> {
                 verseMaxLines: 2,
                 verseScaleFactor: 0.55,
                 color: Colorz.WhiteGlass,
-                boxFunction: () => widget.switchSignIn(_emailController.text, _passwordController.text),
+                onTap: () => widget.switchSignIn(_emailController.text, _passwordController.text),
               ),
 
               ChangeNotifierProvider.value(
@@ -267,7 +249,7 @@ class _RegisterFormState extends State<RegisterForm> {
                   verseColor: Colorz.BlackBlack,
                   verseWeight: VerseWeight.black,
                   margins: const EdgeInsets.all(10),
-                  boxFunction: () => _registerOnTap(currentZone: _currentZone),
+                  onTap: () => _registerOnTap(currentZone: _currentZone),
                 ),
               ),
 

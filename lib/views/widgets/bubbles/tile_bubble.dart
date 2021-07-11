@@ -142,7 +142,7 @@ class TileBubble extends StatelessWidget {
                 width: 35,
                 icon: Iconz.More,
                 iconSizeFactor: 0.6,
-                boxFunction: moreBtOnTap,
+                onTap: moreBtOnTap,
               )
 
           ],

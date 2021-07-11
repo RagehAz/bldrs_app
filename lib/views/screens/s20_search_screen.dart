@@ -783,7 +783,7 @@ class _SearchScreenState extends State<SearchScreen> {
               margins: EdgeInsets.all(_browserZoneMargins),
               icon: Iconz.More,
               iconSizeFactor: 0.6,
-              boxFunction: () => Nav.goToNewScreen(context, SearchFiltersScreen()),
+              onTap: () => Nav.goToNewScreen(context, SearchFiltersScreen()),
 
             ),
           ),

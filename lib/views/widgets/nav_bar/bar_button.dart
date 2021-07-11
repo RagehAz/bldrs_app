@@ -82,7 +82,7 @@ class BarButton extends StatelessWidget {
                 color: Colorz.Nothing,
                 corners: _buttonCircleCorner,
                 designMode: _designMode,
-                boxFunction: onTap,
+                onTap: onTap,
               )
                   :
               Container(

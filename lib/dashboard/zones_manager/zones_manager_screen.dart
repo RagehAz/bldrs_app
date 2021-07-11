@@ -94,7 +94,7 @@ class _ZonesManagerScreenState extends State<ZonesManagerScreen> {
             verseMaxLines: 3,
             verseColor: Colorz.BlackBlack,
             verseWeight: VerseWeight.black,
-            boxFunction: _uploadCountriesToFirebase,
+            onTap: _uploadCountriesToFirebase,
             margins: const EdgeInsets.all(10),
           ),
 
@@ -144,7 +144,7 @@ class _ZonesManagerScreenState extends State<ZonesManagerScreen> {
                                   verseMaxLines: 2,
                                   verseScaleFactor: 0.6,
                                   margins: const EdgeInsets.all(7.5),
-                                  boxFunction: () => Nav.goToNewScreen(context, CountryScreen(country: _countries[index])),
+                                  onTap: () => Nav.goToNewScreen(context, CountryScreen(country: _countries[index])),
                                 );
 
                             },

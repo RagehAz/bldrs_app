@@ -72,7 +72,7 @@ class _RandomTestSpaceState extends State<RandomTestSpace> {
             DreamBox(
               height: 40,
               verse: 'Create new key',
-              boxFunction: () async {
+              onTap: () async {
 
                 int _newNumber = await _createKeyValue();
 

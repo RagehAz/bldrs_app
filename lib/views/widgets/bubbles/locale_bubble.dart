@@ -240,7 +240,7 @@ class LocaleButton extends StatelessWidget {
             verse: verse == null ? '' : '$verse    ',
             verseMaxLines: 2,
             color: Colorz.WhiteAir,
-            boxFunction: onTap,
+            onTap: onTap,
           ),
 
         ],

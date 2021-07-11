@@ -85,14 +85,14 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
           height: 40,
           icon: Iconz.Play,
           margins: EdgeInsets.all(5),
-          boxFunction: resizeBox,
+          onTap: resizeBox,
         ),
 
         DreamBox(
           height: 40,
           icon: Iconz.Pause,
           margins: EdgeInsets.all(5),
-          boxFunction: (){
+          onTap: (){
             _controller.stop(canceled: false);
           },
         ),
@@ -101,7 +101,7 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
           height: 40,
           icon: Iconz.Stop,
           margins: EdgeInsets.all(5),
-          boxFunction: (){
+          onTap: (){
             _controller.reset();
           },
         ),
@@ -110,7 +110,7 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
           height: 40,
           icon: Iconz.Clock,
           margins: EdgeInsets.all(5),
-          boxFunction: (){
+          onTap: (){
             _controller.forward();
           },
         ),
@@ -155,7 +155,7 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
                           child: DreamBox(
                             height: 50,
                             icon: Iconz.ComYoutube,
-                            boxFunction: (){
+                            onTap: (){
                               resizeBox();
                             },
                           ),
@@ -184,7 +184,7 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
               underLine: 'Ripple Effect\n Works Now',
               underLineColor: Colorz.BlackBlack,
               underLineLabelColor: Colorz.YellowLingerie,
-              boxFunction: (){
+              onTap: (){
                 print('ripple effect works now');
                 Navigator.push(context,
                 MaterialPageRoute(builder: (context) => HeroMax())
@@ -205,7 +205,7 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
                 height: 100,
                 icon: Iconz.DvDonaldDuck,
                 verse: 'ana ho',
-                boxFunction: (){
+                onTap: (){
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => HeroMax())
                   );
@@ -397,7 +397,7 @@ class HeroMax extends StatelessWidget {
               icon: Iconz.DvDonaldDuck,
               verse: 'ana ho',
               verseMaxLines: 2,
-              boxFunction: (){
+              onTap: (){
                 // Navigator.push(context,
                 //     MaterialPageRoute(builder: (context) => AnimationsScreen());
                 // );

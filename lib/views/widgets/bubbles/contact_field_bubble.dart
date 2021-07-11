@@ -115,7 +115,7 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
                     color: widget.actionBtColor,
                     icon: widget.actionBtIcon,
                     iconSizeFactor: 0.6,
-                    boxFunction: widget.actionBtFunction,
+                    onTap: widget.actionBtFunction,
                   ),
 
                 ],
@@ -188,7 +188,7 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
                         verseWeight: VerseWeight.thin,
                         verseItalic: true,
                         color: Colorz.WhiteAir,
-                        boxFunction: _pasteFunction,
+                        onTap: _pasteFunction,
                       ),
 
                     ],

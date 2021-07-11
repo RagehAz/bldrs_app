@@ -131,7 +131,7 @@ class _AnkhButtonState extends State<AnkhButton> with SingleTickerProviderStateM
                       corners: _saveBTRadius,
                       margins: EdgeInsets.all(_footerBTMargins),
                       color: Colorz.Nothing,
-                      boxFunction: (){
+                      onTap: (){
                         widget.tappingAnkh();
                         // _ankhIsOn == false ? _ankhAniController.forward() :
                         // _ankhAniController.reverse();

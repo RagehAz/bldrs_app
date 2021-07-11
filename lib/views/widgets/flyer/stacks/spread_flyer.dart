@@ -10,44 +10,48 @@ import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/standards.dart';
 import 'package:bldrs/models/bz_model.dart';
-import 'package:bldrs/views/screens/x2_draft_picture_screen.dart';
+import 'package:bldrs/views/screens/x1_flyers_publisher_screen.dart';
+import 'package:bldrs/views/screens/x3_slide_full_screen.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
+import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:bldrs/views/widgets/textings/super_text_field.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 
+class DraftFlyer extends StatefulWidget {
+  final DraftFlyerModel draftFlyerModel;
 
+  final int draftIndex;
+  final Function onDeleteDraft;
+  final Function onAddPics;
+  final double draftOverallHeight;
 
-class FlyerMakerStack extends StatefulWidget {
-  final Function deleteFlyer;
-  final int flyerNumber;
+  DraftFlyer({
+    @required this.draftFlyerModel,
 
-  FlyerMakerStack({
-    @required this.deleteFlyer,
-    @required this.flyerNumber,
-    Key key
-}) : super(key: key);
+    @required this.draftIndex,
+    @required this.onDeleteDraft,
+    @required this.onAddPics,
+    @required this.draftOverallHeight,
+
+});
 
 
   @override
-  _FlyerMakerStackState createState() => _FlyerMakerStackState();
+  _DraftFlyerState createState() => _DraftFlyerState();
 }
 
-class _FlyerMakerStackState extends State<FlyerMakerStack> with AutomaticKeepAliveClientMixin{
+class _DraftFlyerState extends State<DraftFlyer> with AutomaticKeepAliveClientMixin{
 // -----------------------------------------------------------------------------
   @override
   bool get wantKeepAlive => true;
 // -----------------------------------------------------------------------------
-
-  List<Asset> _pictures = <Asset>[];
-  TextEditingController _textController = TextEditingController();
   int _textLength = 0;
   Color _counterColor = Colorz.WhiteSmoke;
   final _formKey = GlobalKey<FormState>();
-
 // -----------------------------------------------------------------------------
   /// --- LOADING BLOCK
   bool _loading = false;
@@ -59,13 +63,11 @@ class _FlyerMakerStackState extends State<FlyerMakerStack> with AutomaticKeepAli
 // -----------------------------------------------------------------------------
   @override
   void initState() {
-    // _textController.text = 'blah';
     super.initState();
   }
 // -----------------------------------------------------------------------------
   @override
   void dispose(){
-    if (TextChecker.textControllerHasNoValue(_textController))_textController.dispose();
     super.dispose();
   }
 // -----------------------------------------------------------------------------
@@ -73,57 +75,12 @@ class _FlyerMakerStackState extends State<FlyerMakerStack> with AutomaticKeepAli
     print('index is : $index');
     dynamic _result = await Nav.goToNewScreen(context,
         DraftPictureScreen(
-          pictures : _pictures,
+          pictures : widget.draftFlyerModel.assets,
           index: index,
         )
     );
 
     minimizeKeyboardOnTapOutSide(context);
-  }
-// -----------------------------------------------------------------------------
-  Future<void> _getMultiImages({BzAccountType accountType, int index}) async {
-
-    /// if flyer reached max slides
-    if(Standards.getMaxFlyersSlidesByAccountType(accountType) <= index ){
-      await superDialog(
-        context: context,
-        title: 'Obbaaaa',
-        body: 'Ta3alaaaaaaa ba2aaa ya 7abibi',
-      );
-    }
-
-    /// if still picking images
-    else {
-
-      List<Asset> _galleryImages;
-
-      if(mounted){
-        _galleryImages = await getMultiImagesFromGallery(
-          context: context,
-          images: _pictures,
-          mounted: mounted,
-          accountType: accountType,
-        );
-
-        if(_galleryImages.length == 0){
-          // will do nothing
-        } else {
-          setState(() {
-            _pictures = _galleryImages;
-          });
-        }
-
-      }
-
-      if(_galleryImages.length == _pictures.length){
-        print('lengths are the same, ${_galleryImages.toString()}');
-      } else {
-        print('lengths are not the same , ${_galleryImages.toString()}');
-      }
-
-
-    }
-
   }
 // -----------------------------------------------------------------------------
 
@@ -132,12 +89,12 @@ class _FlyerMakerStackState extends State<FlyerMakerStack> with AutomaticKeepAli
   @override
   Widget build(BuildContext context) {
 
-    const double _overAllHeight = 340;
+    double _overAllHeight = widget.draftOverallHeight;
     const double _stackTitleHeight = 85;
     const double _flyerNumberTagZoneHeight = 15;
 
-    const double _stackZoneHeight = _overAllHeight - _stackTitleHeight;
-    const double _flyerZoneHeight = _stackZoneHeight - _flyerNumberTagZoneHeight - (Ratioz.appBarPadding * 5);
+    double _stackZoneHeight = _overAllHeight - _stackTitleHeight;
+    double _flyerZoneHeight = _stackZoneHeight - _flyerNumberTagZoneHeight - (Ratioz.appBarPadding * 5);
 
     double _flyerSizeFactor = Scale.superFlyerSizeFactorByHeight(context, _flyerZoneHeight);
     double _flyerZoneWidth = Scale.superFlyerZoneWidth(context, _flyerSizeFactor);
@@ -154,12 +111,19 @@ class _FlyerMakerStackState extends State<FlyerMakerStack> with AutomaticKeepAli
     double _deleteFlyerButtonSize = _stackTitleHeight * 0.4;
     double _flyerTitleZoneWidth = Scale.superScreenWidth(context) - _deleteFlyerButtonSize - (Ratioz.appBarMargin * 3);
 
+    double _verticalMargin = Ratioz.appBarPadding;
+
+    print('SLIDES STACK : num : ${widget.draftIndex + 1}');
+    print('SLIDES STACK : Height : ${widget.draftOverallHeight}');
+
     return Container(
       width: Scale.superScreenWidth(context),
       height: _overAllHeight,
       color: Colorz.WhiteAir,
-      margin: EdgeInsets.symmetric(vertical: Ratioz.appBarPadding),
-      child: Column(
+      margin: EdgeInsets.symmetric(vertical: _verticalMargin),
+      child:
+      ListView(
+        physics: NeverScrollableScrollPhysics(),
         children: <Widget>[
 
           /// FLYER TITLE
@@ -192,7 +156,7 @@ class _FlyerMakerStackState extends State<FlyerMakerStack> with AutomaticKeepAli
 
                             /// TITLE OF THE TITLE
                             SuperVerse(
-                              verse: '${widget.flyerNumber}.',
+                              verse: '${widget.draftIndex + 1}.',
                               size: 1,
                               italic: true,
                               color: Colorz.WhiteSmoke,
@@ -251,7 +215,7 @@ class _FlyerMakerStackState extends State<FlyerMakerStack> with AutomaticKeepAli
                         // margin: EdgeInsets.only(top: Ratioz.appBarPadding),
                         hintText: 'Flyer Headline ...',
                         labelColor: Colorz.WhiteAir,
-                        textController: _textController,
+                        textController: widget.draftFlyerModel.titleController,
                         maxLength: _flyerTitleMaxLength,
                         onChanged: (value){
                           _formKey.currentState.validate();
@@ -283,7 +247,7 @@ class _FlyerMakerStackState extends State<FlyerMakerStack> with AutomaticKeepAli
                     width: _deleteFlyerButtonSize,
                     icon: Iconz.XLarge,
                     iconSizeFactor: 0.7,
-                    boxFunction: widget.deleteFlyer,
+                    onTap: widget.onDeleteDraft,
                   ),
 
 
@@ -300,7 +264,7 @@ class _FlyerMakerStackState extends State<FlyerMakerStack> with AutomaticKeepAli
             // color: Colorz.WhiteAir,
             alignment: Aligners.superCenterAlignment(context),
             child: ListView.builder(
-              itemCount: _pictures.length + 1,
+              itemCount: widget.draftFlyerModel.assets.length + 1,
               scrollDirection: Axis.horizontal,
               itemExtent: _flyerZoneWidth,
               physics: ClampingScrollPhysics(),
@@ -308,7 +272,16 @@ class _FlyerMakerStackState extends State<FlyerMakerStack> with AutomaticKeepAli
               addAutomaticKeepAlives: true,
               itemBuilder: (ctx, index){
 
-                Function _addPics = () => _getMultiImages(accountType : _accountType, index: index);
+                List<Asset> _pictures = widget.draftFlyerModel.assets;
+
+                bool _indexIsForAddButton = _pictures?.length == index ? true : false;
+
+                Asset _asset = _indexIsForAddButton ? null : _pictures[index];
+
+                if(_pictures != null && _pictures.length != 0 && _pictures.length != index){
+                  String _picName = _asset?.name;
+                print('SLIDES STACK : pic : ${_picName}');
+                }
 
                 return
                   Container(
@@ -350,7 +323,7 @@ class _FlyerMakerStackState extends State<FlyerMakerStack> with AutomaticKeepAli
                             child:
                             index < _pictures.length ?
 
-                            /// IMAGES
+                            /// IMAGE
                             GestureDetector(
                               onTap: () => _onPictureTap(index),
                               child: Container(
@@ -358,7 +331,8 @@ class _FlyerMakerStackState extends State<FlyerMakerStack> with AutomaticKeepAli
                                 height: _flyerZoneHeight,
                                 child: ClipRRect(
                                   borderRadius: _flyerBorderRadius,
-                                  child: superImageWidget(_pictures[index], width: _flyerZoneWidth.toInt(), height: _flyerZoneHeight.toInt()),
+                                  child:
+                                  superImageWidget(_asset, width: _flyerZoneWidth.toInt(), height: _flyerZoneHeight.toInt()),
                                 ),
                               ),
                             )
@@ -368,7 +342,7 @@ class _FlyerMakerStackState extends State<FlyerMakerStack> with AutomaticKeepAli
                             /// ADD IMAGE BUTTON
 
                             GestureDetector(
-                              onTap: _addPics,
+                              onTap: widget.onAddPics,
                               child: Container(
                                 width: _flyerZoneWidth,
                                 height: _flyerZoneHeight,
@@ -386,7 +360,7 @@ class _FlyerMakerStackState extends State<FlyerMakerStack> with AutomaticKeepAli
 
                                       iconColor: Colorz.WhiteGlass,
                                       bubble: false,
-                                      boxFunction: _addPics,
+                                      onTap: widget.onAddPics,
                                     ),
 
                                     SizedBox(

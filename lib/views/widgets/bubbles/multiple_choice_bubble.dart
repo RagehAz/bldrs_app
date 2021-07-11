@@ -54,7 +54,7 @@ class MultipleChoiceBubble extends StatelessWidget {
                         verseWeight: chosenButton == buttonsList[index] ? VerseWeight.black :  VerseWeight.bold,
                         verseScaleFactor: 0.6,
                         margins: const EdgeInsets.all(5),
-                        boxFunction: () => tappingAButton(index),
+                        onTap: () => tappingAButton(index),
                       );
                   }
               )

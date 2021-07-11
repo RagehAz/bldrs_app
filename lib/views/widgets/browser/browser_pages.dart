@@ -279,7 +279,7 @@ class _BrowserPagesState extends State<BrowserPages> {
                                 width: _titleIconSize,
                                 icon: Iconz.XLarge,
                                 iconSizeFactor: 0.5,
-                                boxFunction: (){
+                                onTap: (){
                                   widget.closeBrowser();
                                   print('exit browser');
                                 },

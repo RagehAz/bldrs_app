@@ -65,7 +65,7 @@ class DreamWrapper extends StatelessWidget {
                       verseWeight: VerseWeight.thin,
                       verseItalic: false,
                       iconSizeFactor: 0.6,
-                      boxFunction: () => onTap(_verse)
+                      onTap: () => onTap(_verse)
                   );
               }
           ),
