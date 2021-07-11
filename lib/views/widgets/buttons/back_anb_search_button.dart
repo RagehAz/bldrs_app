@@ -55,7 +55,7 @@ class BackAndSearchButton extends StatelessWidget {
       bubble: false,
       color: color,
       // textDirection: superInverseTextDirection(context),
-      boxFunction: () async {
+      onTap: () async {
 
         if (backAndSearchAction == BackAndSearchAction.GoBack){
           Nav.goBack(context);

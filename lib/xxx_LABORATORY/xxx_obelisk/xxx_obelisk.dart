@@ -4,7 +4,8 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/dashboard/s01_dashboard.dart';
 import 'package:bldrs/firestore/auth_ops.dart';
-import 'package:bldrs/views/screens/x1_flyers_maker_screen.dart';
+import 'package:bldrs/views/screens/x1_flyers_publisher_screen.dart';
+import 'package:bldrs/views/screens/x2_flyer_editor_screen.dart';
 import 'package:bldrs/views/widgets/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/views/widgets/buttons/main_button.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
@@ -170,7 +171,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
           color: _isSignedIn ? Colorz.Green : Colorz.GreySmoke,
           verseScaleFactor: 0.6,
           verseColor: _isSignedIn ? Colorz.White : Colorz.ModalGrey,
-          boxFunction: () => AuthOps().signOut(context: context, routeToUserChecker: true),
+          onTap: () => AuthOps().signOut(context: context, routeToUserChecker: true),
         ),
       ],
 
@@ -189,8 +190,6 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
           ),
 
           LogoSlogan(sizeFactor: 0.8,),
-
-          oButton('Multi Image Picker', Iconz.Flyer, MultiImagePicker2()),
 
           oButton('Random Test Space', Iconz.Flyer, RandomTestSpace()),
 
@@ -333,7 +332,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
               corners: 150,
               color: Colorz.WhiteAir,
               verseScaleFactor: 0.8,
-              boxFunction: _enterTheBlackHole,
+              onTap: _enterTheBlackHole,
             ),
           ),
 

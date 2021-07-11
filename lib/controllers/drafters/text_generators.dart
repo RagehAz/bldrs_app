@@ -144,6 +144,22 @@ class TextGenerator{
     return verse;
   }
 // -----------------------------------------------------------------------------
+  static String cityCountryStringer ({BuildContext context, Zone zone,}){
+    CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
+
+    String _countryID = zone.countryID;
+    String _provinceID = zone.provinceID;
+
+    String _countryName = _countryPro.getCountryNameInCurrentLanguageByIso3(context, _countryID);
+    String _provinceName = _countryPro.getProvinceNameWithCurrentLanguageIfPossible(context, _provinceID);
+
+    String verse =
+    _countryID == null || _provinceID == null ? '...' :
+    '${Wordz.inn(context)}, $_provinceName , $_countryName . ';
+    return verse;
+  }
+// -----------------------------------------------------------------------------
+
   static String functionStringer(Function function) {
     String functionNameAsAString = function.toString();
     int s = functionNameAsAString.indexOf('\'');

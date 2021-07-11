@@ -102,7 +102,7 @@ class SectionDialogButton extends StatelessWidget {
       secondLineColor: Colorz.WhiteLingerie,
       margins: Ratioz.appBarPadding,
       inActiveMode: inActiveMode,
-      boxFunction: () =>
+      onTap: () =>
           _onSectionTap(
               context: context,
               section: section,

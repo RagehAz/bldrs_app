@@ -15,18 +15,21 @@ class ZoomableWidget extends StatefulWidget {
 
 class _ZoomableWidgetState extends State<ZoomableWidget> {
   Matrix4 matrix = Matrix4.identity();
-  Matrix4 zerada =  Matrix4.identity();
+  Matrix4 _zero =  Matrix4.identity();
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onDoubleTap: (){
         setState(() {
-          matrix = zerada;
+          matrix = _zero;
         });
       },
       child: MatrixGestureDetector(
-        shouldRotate: false,
+        shouldRotate: true,
+        shouldScale: true,
+        shouldTranslate: true,
+
         onMatrixUpdate: (Matrix4 m, Matrix4 tm, Matrix4 sm, Matrix4 rm) {
           setState(() {
             matrix = m;

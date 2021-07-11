@@ -66,21 +66,9 @@ class _SignInFormState extends State<SignInForm> {
     super.dispose();
   }
 // -----------------------------------------------------------------------------
-  void _horusOnTapDown(){
+  void _horusOnTap(){
     setState(() {
       _passwordObscured = !_passwordObscured;
-    });
-  }
-// -----------------------------------------------------------------------------
-  void _horusOnTapUp(){
-    setState(() {
-      _passwordObscured = !_passwordObscured;
-    });
-  }
-// -----------------------------------------------------------------------------
-  void _horusOnTapCancel(){
-    setState(() {
-      _passwordObscured = true;
     });
   }
 // -----------------------------------------------------------------------------
@@ -203,9 +191,7 @@ class _SignInFormState extends State<SignInForm> {
             maxLines: 1,
             maxLength: 100,
             obscured: _passwordObscured,
-            horusOnTapDown: _horusOnTapDown,
-            horusOnTapUp: _horusOnTapUp,
-            horusOnTapCancel: _horusOnTapCancel,
+            horusOnTap: _horusOnTap,
             validator: (val){
               return
                 val.isEmpty ? Wordz.enterPassword(context) :
@@ -233,7 +219,7 @@ class _SignInFormState extends State<SignInForm> {
                 secondLine: 'New Account',
                 color: Colorz.WhiteGlass,
                 margins: const EdgeInsets.all(0),
-                boxFunction: () => widget.switchSignIn(_emailController.text, _passwordController.text),
+                onTap: () => widget.switchSignIn(_emailController.text, _passwordController.text),
               ),
 
               DreamBox(
@@ -244,7 +230,7 @@ class _SignInFormState extends State<SignInForm> {
                 verseWeight: VerseWeight.black,
                 verseColor: Colorz.BlackBlack,
                 margins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
-                boxFunction: _signInOnTap,
+                onTap: _signInOnTap,
               ),
 
             ],

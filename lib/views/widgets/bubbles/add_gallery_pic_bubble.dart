@@ -92,7 +92,7 @@ class AddGalleryPicBubble extends StatelessWidget {
                           icon: Iconz.PhoneGallery,
                           iconSizeFactor: 0.6,
                           bubble: true,
-                          boxFunction: addBtFunction,
+                          onTap: addBtFunction,
                         ),
 
                         // --- DELETE pic
@@ -102,7 +102,7 @@ class AddGalleryPicBubble extends StatelessWidget {
                           icon: Iconz.XLarge,
                           iconSizeFactor: 0.5,
                           bubble: true,
-                          boxFunction: deletePicFunction,
+                          onTap: deletePicFunction,
                         ),
 
                       ],
@@ -151,7 +151,7 @@ class AddGalleryPicBubble extends StatelessWidget {
                 bubble: false,
                 opacity: 0.9,
                 iconColor: Colorz.White,
-                boxFunction: addBtFunction,
+                onTap: addBtFunction,
               ),
 
             ],

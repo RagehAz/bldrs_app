@@ -122,7 +122,7 @@ class _FeedBackState extends State<FeedBack> {
             verseColor: Colorz.BlackBlack,
             color: Colorz.Yellow,
             verseScaleFactor: 0.6,
-            boxFunction: _uploadFeedBack,
+            onTap: _uploadFeedBack,
           ),
 
           PyramidsHorizon(heightFactor: 10,),

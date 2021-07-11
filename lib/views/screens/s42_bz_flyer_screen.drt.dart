@@ -11,7 +11,7 @@ import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
-import 'package:bldrs/views/screens/s50_flyer_editor_screen.dart';
+import 'package:bldrs/views/screens/x2_old_flyer_editor_screen.dart';
 import 'package:bldrs/views/widgets/bubbles/tile_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/words_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
@@ -71,7 +71,7 @@ class BzFlyerScreen extends StatelessWidget {
     // Nav.goBack(context, argument: true);
 
   }
-
+// -----------------------------------------------------------------------------
   void _slideFlyerOptions(BuildContext context, FlyerModel flyerModel){
 
     BottomSlider.slideButtonsBottomSheet(
@@ -92,7 +92,7 @@ class BzFlyerScreen extends StatelessWidget {
             verseScaleFactor: 1.2,
             verseColor: Colorz.BloodRed,
             // verseWeight: VerseWeight.thin,
-            boxFunction: () => _unpublishFlyerOnTap(context),
+            onTap: () => _unpublishFlyerOnTap(context),
 
           ),
 
@@ -105,7 +105,7 @@ class BzFlyerScreen extends StatelessWidget {
             verse: 'Delete Flyer',
             verseScaleFactor: 1.2,
             verseColor: Colorz.White,
-            boxFunction: () async {
+            onTap: () async {
               Nav.goBack(context);
 
               /// Task : this should be bool dialog instead
@@ -144,10 +144,10 @@ class BzFlyerScreen extends StatelessWidget {
             verse: 'Edit Flyer',
             verseScaleFactor: 1.2,
             verseColor: Colorz.White,
-            boxFunction: (){
+            onTap: (){
 
               Nav.goToNewScreen(context,
-                  FlyerEditorScreen(
+                  OldFlyerEditorScreen(
                   bzModel: bzModel,
                   firstTimer: false,
                   flyerModel: flyerModel

@@ -114,7 +114,7 @@ class _TextFieldTestState extends State<TextFieldTest> {
             DreamBox(
                 height: 50,
               verse: 'change language',
-              boxFunction: _changeLanguage,
+              onTap: _changeLanguage,
             )
           ],
         ),

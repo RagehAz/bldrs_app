@@ -56,7 +56,7 @@ class UserBubble extends StatelessWidget {
             icon: Iconz.Gears,
             iconSizeFactor: 0.6,
             bubble: true,
-            boxFunction: editProfileBtOnTap,
+            onTap: editProfileBtOnTap,
           ),
         ),
 

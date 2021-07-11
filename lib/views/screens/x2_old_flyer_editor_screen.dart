@@ -46,22 +46,22 @@ enum SlidingDirection{
   freeze,
 }
 
-class FlyerEditorScreen extends StatefulWidget {
+class OldFlyerEditorScreen extends StatefulWidget {
   final BzModel bzModel;
   final bool firstTimer;
   final FlyerModel flyerModel;
 
-  FlyerEditorScreen({
+  OldFlyerEditorScreen({
     @required this.bzModel,
     this.firstTimer = false,
     this.flyerModel,
 });
 
   @override
-  _FlyerEditorScreenState createState() => _FlyerEditorScreenState();
+  _OldFlyerEditorScreenState createState() => _OldFlyerEditorScreenState();
 }
 
-class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
+class _OldFlyerEditorScreenState extends State<OldFlyerEditorScreen> {
   FlyersProvider _prof;
   CountryProvider _countryPro;
   BzModel _bz;
@@ -597,7 +597,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
                             verseScaleFactor: 0.7,
                             color: _currentFlyerType == FlyerType.Product ? Colorz.Yellow : Colorz.WhiteGlass,
                             verseColor: _currentFlyerType == FlyerType.Product ? Colorz.BlackBlack : Colorz.White,
-                            boxFunction: (){
+                            onTap: (){
                               setSheetState(() {
                                 _currentFlyerType = FlyerType.Product;
                               });
@@ -612,7 +612,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
                             verseScaleFactor: 0.7,
                             color: _currentFlyerType == FlyerType.Equipment ? Colorz.Yellow : Colorz.WhiteGlass,
                             verseColor: _currentFlyerType == FlyerType.Equipment ? Colorz.BlackBlack : Colorz.White,
-                            boxFunction: (){
+                            onTap: (){
                               setSheetState(() {
                                 _currentFlyerType = FlyerType.Equipment;
                               });
@@ -838,7 +838,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
             icon: icon,
             iconSizeFactor: 0.6,
             bubble: true,
-            boxFunction: function,
+            onTap: function,
           );
     }
 // -----------------------------------------------------------------------------
@@ -853,7 +853,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> {
           color: Colorz.Yellow,
           icon: Iconz.AddFlyer,
           iconSizeFactor: 0.6,
-          boxFunction: widget.firstTimer ? _createNewFlyer : _updateExistingFlyer,
+          onTap: widget.firstTimer ? _createNewFlyer : _updateExistingFlyer,
         );
     }
 // -----------------------------------------------------------------------------

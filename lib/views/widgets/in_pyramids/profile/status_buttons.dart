@@ -59,7 +59,7 @@ class StatusButtons extends StatelessWidget {
                         verse: x['state'],
                         verseScaleFactor: currentUserStatus == x['userStatus'] ? 0.55 : 0.55,
                         verseMaxLines: 4,
-                        boxFunction: () => switchUserStatus(x['userStatus']),
+                        onTap: () => switchUserStatus(x['userStatus']),
                         blackAndWhite: false,
                         color:
                         x['userStatus'] == UserStatus.Finishing &&

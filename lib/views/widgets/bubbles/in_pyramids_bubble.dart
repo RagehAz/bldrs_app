@@ -123,7 +123,7 @@ final Color leadingIconColor;
                             icon: leadingIcon,
                             iconColor: leadingIconColor,
                             iconSizeFactor: actionBtSizeFactor,
-                            boxFunction: actionBtFunction,
+                            onTap: actionBtFunction,
                             bubble: false,
                           ),
 
@@ -155,7 +155,7 @@ final Color leadingIconColor;
                           // color: actionBtColor,
                           icon: actionBtIcon,
                           iconSizeFactor: actionBtSizeFactor,
-                          boxFunction: actionBtFunction,
+                          onTap: actionBtFunction,
                         ),
 
                       ],
