@@ -159,7 +159,7 @@ class NavBar extends StatelessWidget {
                             verseScaleFactor: 0.7,
                             bubble: true,
                             color: Colorz.Nothing,
-                            boxFunction: (){
+                            onTap: (){
                               print('${_tinyBz.bzID}');
 
                               Nav.goBack(context);
@@ -263,7 +263,7 @@ class NavBar extends StatelessWidget {
                            margins: const EdgeInsets.all(Ratioz.appBarPadding),
                            icon: Iconizer.superBackIcon(context),
                            blur : Ratioz.blur1,
-                           boxFunction: () => Nav.goBack(context),
+                           onTap: () => Nav.goBack(context),
                          ),
 
                        _expander,

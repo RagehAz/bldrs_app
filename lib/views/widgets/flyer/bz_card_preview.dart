@@ -6,7 +6,9 @@ import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/models/tiny_models/tiny_user.dart';
-import 'package:bldrs/views/screens/s50_flyer_editor_screen.dart';
+import 'package:bldrs/views/screens/x1_flyers_publisher_screen.dart';
+import 'package:bldrs/views/screens/x2_flyer_editor_screen.dart';
+import 'package:bldrs/views/screens/x2_old_flyer_editor_screen.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
@@ -54,7 +56,7 @@ class _BzCardPreviewState extends State<BzCardPreview> {
   }
 // -----------------------------------------------------------------------------
   void _goToFlyerEditor(){
-    Nav.goToNewScreen(context, FlyerEditorScreen(bzModel: widget.bz,firstTimer: true,));
+    Nav.goToNewScreen(context, FlyerPublisherScreen(bzModel: widget.bz, firstTimer: true,));
   }
 // -----------------------------------------------------------------------------
   @override
@@ -106,11 +108,11 @@ class _BzCardPreviewState extends State<BzCardPreview> {
               iconColor: Colorz.WhiteLingerie,
               iconSizeFactor: 0.6,
               bubble: false,
-              boxFunction: _goToFlyerEditor,
+              onTap: _goToFlyerEditor,
             ),
 
             SuperVerse(
-              verse: 'Add New Flyer',
+              verse: 'Add\nFlyers',
               maxLines: 5,
               size: 2,
               scaleFactor: widget.flyerSizeFactor * 5,

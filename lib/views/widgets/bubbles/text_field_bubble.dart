@@ -30,9 +30,7 @@ class TextFieldBubble extends StatelessWidget {
   final bool loading;
   final String actionBtIcon;
   final Function actionBtFunction;
-  final Function horusOnTapDown;
-  final Function horusOnTapUp;
-  final Function horusOnTapCancel;
+  final Function horusOnTap;
   final String leadingIcon;
   final Function pasteFunction;
   final TextDirection textDirection;
@@ -60,9 +58,7 @@ class TextFieldBubble extends StatelessWidget {
     this.loading = false,
     this.actionBtIcon,
     this.actionBtFunction,
-    this.horusOnTapDown,
-    this.horusOnTapUp,
-    this.horusOnTapCancel,
+    this.horusOnTap,
     this.leadingIcon,
     this.pasteFunction,
     this.textDirection,
@@ -162,9 +158,7 @@ class TextFieldBubble extends StatelessWidget {
                         iconColor: obscured? Colorz.WhiteGlass : Colorz.BlackBlack,
                         iconSizeFactor: 0.7,
                         bubble: false,
-                        onTapDown: horusOnTapDown == null ? (){} : horusOnTapDown,
-                        onTapUp: horusOnTapUp== null ? (){} : horusOnTapUp,
-                        onTapCancel: horusOnTapCancel== null ? (){} : horusOnTapCancel,
+                        onTap: horusOnTap,
                         // boxFunction: horusOnTapCancel== null ? (){} : horusOnTapCancel, // this prevents keyboard action from going to next field in the form
                         corners: superVerseLabelCornerValue(context, 3),
                       ),
@@ -186,7 +180,7 @@ class TextFieldBubble extends StatelessWidget {
                         verseWeight: VerseWeight.thin,
                         verseItalic: true,
                         color: Colorz.WhiteAir,
-                        boxFunction: pasteFunction,
+                        onTap: pasteFunction,
                       ),
 
                 ],

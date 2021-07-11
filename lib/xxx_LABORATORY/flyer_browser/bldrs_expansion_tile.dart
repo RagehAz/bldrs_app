@@ -279,7 +279,7 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
                         iconSizeFactor: 1,
                         iconColor: Colorz.BlackBlack,
                         margins: const EdgeInsets.symmetric(horizontal: 0, vertical: _buttonVerticalPadding),
-                        boxFunction: (){
+                        onTap: (){
 
                           if (_groupIsSelected){
                             // do nothing
@@ -361,7 +361,7 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
                             iconSizeFactor: 1,
                             iconColor: Colorz.BlackBlack,
                             margins: const EdgeInsets.symmetric(horizontal: 0, vertical: _buttonVerticalPadding),
-                            boxFunction: (){
+                            onTap: (){
                               widget.onKeywordTap(_currentKeywordModels[index]);
                             },
                           ),

@@ -239,7 +239,7 @@ class AuthorPic extends StatelessWidget {
                           icon: Iconz.Plus,
                           iconSizeFactor: 1,
                           bubble: false,
-                          boxFunction: () => _tapAddAuthor(context),
+                          onTap: () => _tapAddAuthor(context),
                         ),
 
                         SuperVerse(

@@ -131,7 +131,7 @@ class _FireSearchTestState extends State<FireSearchTest> {
           verseMaxLines: 2,
           margins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
           verseScaleFactor: 0.5,
-          boxFunction: (){
+          onTap: (){
             _triggerLoading();
           },
         ),
@@ -143,7 +143,7 @@ class _FireSearchTestState extends State<FireSearchTest> {
           verseMaxLines: 2,
           margins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
           verseScaleFactor: 0.5,
-          boxFunction: (){
+          onTap: (){
             printResult('');
           },
         ),
@@ -169,7 +169,7 @@ class _FireSearchTestState extends State<FireSearchTest> {
                     verseScaleFactor: 0.7,
                     verse: functions[index]['Name'],
                     color: Colorz.BloodTest,
-                    boxFunction: functions[index]['function'],
+                    onTap: functions[index]['function'],
                   );
               }),
 

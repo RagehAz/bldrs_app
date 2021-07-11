@@ -272,7 +272,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
             verseWeight: VerseWeight.black,
             verseColor: Colorz.BlackBlack,
             // verseWeight: VerseWeight.thin,
-            boxFunction: () => _deleteUserOnTap(userModel),
+            onTap: () => _deleteUserOnTap(userModel),
 
           ),
 
@@ -287,7 +287,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
               verseScaleFactor: 1.2,
               verseColor: Colorz.BloodRed,
               // verseWeight: VerseWeight.thin,
-              boxFunction: () => _deactivateUserOnTap(userModel)
+              onTap: () => _deactivateUserOnTap(userModel)
 
           ),
 
@@ -300,7 +300,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
             verse: 'Edit Business Account info',
             verseScaleFactor: 1.2,
             verseColor: Colorz.White,
-            boxFunction: () => _editUserOnTap(userModel),
+            onTap: () => _editUserOnTap(userModel),
           ),
 
         ],
@@ -345,7 +345,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                           icon: Iconz.News,
                           iconSizeFactor: 0.6,
                           verseWeight: VerseWeight.bold,
-                          boxFunction: () =>
+                          onTap: () =>
                               Nav.goToNewScreen(context, NewsScreen()),
                         ),
                       ],

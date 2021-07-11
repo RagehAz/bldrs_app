@@ -70,7 +70,7 @@ class _DropDownBubbleState extends State<DropDownBubble> {
                 color: widget.actionBtColor,
                 icon: widget.actionBtIcon,
                 iconSizeFactor: 0.6,
-                boxFunction: widget.actionBtFunction,
+                onTap: widget.actionBtFunction,
               ),
 
             ],

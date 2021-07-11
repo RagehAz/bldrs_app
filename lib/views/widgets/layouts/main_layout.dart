@@ -231,7 +231,7 @@ Widget zorar({Function function, String functionName}){
     color: Colorz.WhiteAir,
     verse: functionName,
     verseScaleFactor: 2,
-    boxFunction: function,
+    onTap: function,
     bubble: false,
     icon: Iconz.XLarge,
     iconSizeFactor: 0.3,

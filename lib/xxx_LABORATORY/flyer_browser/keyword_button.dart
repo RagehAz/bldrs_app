@@ -66,7 +66,7 @@ class KeywordBarButton extends StatelessWidget {
                       iconSizeFactor: 0.3,
                       bubble: false,
                       iconColor: Colorz.WhiteLingerie,
-                      boxFunction: onTap,
+                      onTap: onTap,
                       splashColor: Colorz.Nothing,
                     ),
 

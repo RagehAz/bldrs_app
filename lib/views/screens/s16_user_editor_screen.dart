@@ -514,7 +514,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               verseScaleFactor: 0.9,
               verseWeight: VerseWeight.black,
               margins: const EdgeInsets.all(20),
-              boxFunction: _confirmEdits,
+              onTap: _confirmEdits,
             ),
 
             PyramidsHorizon(heightFactor: 5,)

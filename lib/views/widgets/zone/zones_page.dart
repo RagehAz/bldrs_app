@@ -85,7 +85,7 @@ class ZonesPage extends StatelessWidget {
                             verseScaleFactor: 0.8,
                             color: Colorz.WhiteAir,
                             // textDirection: superTextDirection(context),
-                            boxFunction: () => buttonTap(_id),
+                            onTap: () => buttonTap(_id),
                           ),
                         );
                     },

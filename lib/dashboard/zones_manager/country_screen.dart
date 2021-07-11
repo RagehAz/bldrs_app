@@ -94,7 +94,7 @@ class _CountryScreenState extends State<CountryScreen> {
           iconSizeFactor: 0.8,
           bubble: false,
           margins: const EdgeInsets.all(7.5),
-          boxFunction: () async {
+          onTap: () async {
               await superDialog(
                 context: context,
                 title: 'Country ISO3',

@@ -129,7 +129,7 @@ class _FlyersGridViewState extends State<FlyersGridView> {
           icon: Iconz.SavedFlyers,
           iconSizeFactor: 0.8,
           color: _showAnkhsOnly == true ? Colorz.Yellow : Colorz.Nothing,
-          boxFunction: (){
+          onTap: (){
             setState(() {
               _showAnkhsOnly = !_showAnkhsOnly;
             });
@@ -254,7 +254,7 @@ class FilterButton extends StatelessWidget {
       verseScaleFactor: 0.8,
       iconSizeFactor: 0.8,
       color: flyerTypeFilter == currentFlyerType ? Colorz.Yellow : Colorz.Nothing,
-      boxFunction: () => tapButton(flyerTypeFilter),
+      onTap: () => tapButton(flyerTypeFilter),
     );
   }
 }

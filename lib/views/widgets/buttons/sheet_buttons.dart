@@ -82,7 +82,7 @@ class SheetButtons extends StatelessWidget {
                     verseScaleFactor: 0.8,
                     color: Colorz.WhiteAir,
                     textDirection: sheetType == BottomSheetType.BottomSheet? superTextDirection(context) : superInverseTextDirection(context),
-                    boxFunction: () => buttonTap(id),
+                    onTap: () => buttonTap(id),
                 ),
               ),
             );

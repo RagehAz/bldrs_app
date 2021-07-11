@@ -38,7 +38,7 @@ class FiltersPage extends StatelessWidget {
                 color: _color,
                 margins: const EdgeInsets.symmetric(vertical: Ratioz.appBarPadding),
                 verse: _filterModel.titleID,
-                boxFunction: () => onTap(_filterModel),
+                onTap: () => onTap(_filterModel),
               );
           }
       ),

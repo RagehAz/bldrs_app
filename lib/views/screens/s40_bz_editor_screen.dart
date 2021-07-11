@@ -680,7 +680,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                   verseColor: Colorz.BlackBlack,
                   verseMaxLines: 2,
                   margins: const EdgeInsets.all(5),
-                  boxFunction: _showBzCard,
+                  onTap: _showBzCard,
                 ),
 
                 // --- CONFIRM BUTTON
@@ -693,7 +693,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                   secondLine: widget.firstTimer ? 'Create new business profile' : 'Update business profile',
                   verseScaleFactor: 0.7,
                   margins: const EdgeInsets.all(5),
-                  boxFunction: _confirmButton,
+                  onTap: _confirmButton,
                 ),
 
               ],
