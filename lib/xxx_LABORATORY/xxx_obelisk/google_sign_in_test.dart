@@ -247,9 +247,9 @@ class _GoogleSignInTestState extends State<GoogleSignInTest> {
             corners: 20,
             margins: 20,
             verse: _isSignedIn ? 'Signed in' : 'Signed out',
-            color: _isSignedIn ? Colorz.Green : Colorz.GreySmoke,
+            color: _isSignedIn ? Colorz.Green225 : Colorz.Grey80,
             verseScaleFactor: 0.6,
-            verseColor: _isSignedIn ? Colorz.White : Colorz.ModalGrey,
+            verseColor: _isSignedIn ? Colorz.White225 : Colorz.DarkGrey225,
           ),
 
 
@@ -258,8 +258,8 @@ class _GoogleSignInTestState extends State<GoogleSignInTest> {
             weight: VerseWeight.thin,
             maxLines: 50,
             size: 2,
-            labelColor: _isSignedIn ? Colorz.Green : Colorz.GreySmoke,
-            color: _isSignedIn ? Colorz.White : Colorz.ModalGrey,
+            labelColor: _isSignedIn ? Colorz.Green225 : Colorz.Grey80,
+            color: _isSignedIn ? Colorz.White225 : Colorz.DarkGrey225,
           ),
 
 
@@ -268,7 +268,7 @@ class _GoogleSignInTestState extends State<GoogleSignInTest> {
             buttonVerse: "Continue with Google",
             buttonIcon: Iconz.ComGooglePlus,
             buttonColor: Colorz.GoogleRed,
-            splashColor: Colorz.Yellow,
+            splashColor: Colorz.Yellow225,
             buttonVerseShadow: false,
             function: ()=> _tapGoogleTest(),
             stretched: false,
@@ -278,7 +278,7 @@ class _GoogleSignInTestState extends State<GoogleSignInTest> {
             buttonVerse: "SIGN OUT Google",
             buttonIcon: Iconz.ComGooglePlus,
             buttonColor: Colorz.GoogleRed,
-            splashColor: Colorz.Yellow,
+            splashColor: Colorz.Yellow225,
             buttonVerseShadow: false,
             function: ()=> _tapGoogleSignOut(),
             stretched: false,

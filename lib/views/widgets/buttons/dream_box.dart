@@ -58,7 +58,7 @@ class DreamBox extends StatelessWidget {
     this.corners = Ratioz.boxCorner12,
     this.iconColor,
     this.verse,
-    this.verseColor = Colorz.White,
+    this.verseColor = Colorz.White225,
     this.verseWeight = VerseWeight.bold,
     this.verseScaleFactor = 1,
     this.verseItalic = false,
@@ -73,16 +73,16 @@ class DreamBox extends StatelessWidget {
     this.opacity = 1,
     this.inActiveMode = false,
     this.underLine,
-    this.splashColor = Colorz.WhiteSmoke,
-    this.underLineColor = Colorz.White,
-    this.underLineLabelColor = Colorz.WhiteAir,
+    this.splashColor = Colorz.White80,
+    this.underLineColor = Colorz.White225,
+    this.underLineLabelColor = Colorz.White10,
     this.onTapDown,
     this.onTapUp,
     this.onTapCancel,
     this.textDirection,
     this.designMode = false,
     this.blur,
-    this.secondLineColor = Colorz.White,
+    this.secondLineColor = Colorz.White225,
     this.redDot = false,
     this.secondLineScaleFactor = 1,
   });
@@ -94,7 +94,7 @@ class DreamBox extends StatelessWidget {
     double _boxHeight = height ;
 
     Color _imageSaturationColor =
-        blackAndWhite == true ? Colorz.Grey : Colorz.Nothing;
+        blackAndWhite == true ? Colorz.Grey225 : Colorz.Nothing;
 
 
     double _verseIconSpacing = verse != null ? height * 0.3 * iconSizeFactor * verseScaleFactor : 0;
@@ -117,13 +117,13 @@ class DreamBox extends StatelessWidget {
 
     Color _boxColor =
     (blackAndWhite == true && color != Colorz.Nothing) ?
-    Colorz.GreySmoke :
+    Colorz.Grey80 :
     (color == Colorz.Nothing && blackAndWhite == true) ?
     Colorz.Nothing :
     color;
 
     Color _iconColor =
-    blackAndWhite == true || inActiveMode == true ? Colorz.WhiteSmoke :
+    blackAndWhite == true || inActiveMode == true ? Colorz.White80 :
     iconColor;
 
     TextDirection _textDirection = textDirection == null ? superTextDirection(context) : textDirection;
@@ -165,11 +165,11 @@ class DreamBox extends StatelessWidget {
                         height: _boxHeight,
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                            color: inActiveMode == true ? Colorz.WhiteAir : _boxColor,
+                            color: inActiveMode == true ? Colorz.White10 : _boxColor,
                             borderRadius: BorderRadius.circular(corners),
                             boxShadow: <CustomBoxShadow>[
                               CustomBoxShadow(
-                                  color: bubble == true ? Colorz.BlackLingerie : Colorz.Nothing,
+                                  color: bubble == true ? Colorz.Black200 : Colorz.Nothing,
                                   offset: new Offset(0, 0),
                                   blurRadius: height * 0.15,
                                   blurStyle: BlurStyle.outer
@@ -223,7 +223,7 @@ class DreamBox extends StatelessWidget {
                                             borderRadius: BorderRadius.all(Radius.circular(_iconCorners)),
                                             boxShadow: <CustomBoxShadow>[
                                               CustomBoxShadow(
-                                                  color: bubble == true ? Colorz.BlackLingerie : Colorz.Nothing,
+                                                  color: bubble == true ? Colorz.Black200 : Colorz.Nothing,
                                                   offset: new Offset(0, _jpgGraphicWidth * -0.019 ),
                                                   blurRadius: _jpgGraphicWidth * 0.2,
                                                   blurStyle: BlurStyle.outer),
@@ -265,7 +265,7 @@ class DreamBox extends StatelessWidget {
                                             borderRadius: BorderRadius.all(Radius.circular(_iconCorners)),
                                             boxShadow: [
                                               CustomBoxShadow(
-                                                  color: bubble == true ? Colorz.BlackLingerie : Colorz.Nothing,
+                                                  color: bubble == true ? Colorz.Black200 : Colorz.Nothing,
                                                   offset: new Offset(0, _jpgGraphicWidth * -0.019 ),
                                                   blurRadius: _jpgGraphicWidth * 0.2,
                                                   blurStyle: BlurStyle.outer),
@@ -296,7 +296,7 @@ class DreamBox extends StatelessWidget {
                                                 borderRadius: BorderRadius.all(Radius.circular(_iconCorners)),
                                                 boxShadow: <BoxShadow>[
                                                   CustomBoxShadow(
-                                                      color: bubble == true ? Colorz.BlackLingerie : Colorz.Nothing,
+                                                      color: bubble == true ? Colorz.Black200 : Colorz.Nothing,
                                                       offset: new Offset(0, _jpgGraphicWidth * -0.019 ),
                                                       blurRadius: _jpgGraphicWidth * 0.2,
                                                       blurStyle: BlurStyle.outer),
@@ -331,7 +331,7 @@ class DreamBox extends StatelessWidget {
                                           gradient: LinearGradient(
                                               begin: Alignment.topCenter,
                                               end: Alignment.bottomCenter,
-                                              colors: [Colorz.BlackSmoke, Colorz.BlackPlastic],
+                                              colors: [Colorz.Black80, Colorz.Black125],
                                               stops: [0.5, 1]),
                                         ),
                                       ) : Container(),
@@ -362,7 +362,7 @@ class DreamBox extends StatelessWidget {
                                           verse: verse,
                                           size: _verseSize,
                                           weight: verseWeight,
-                                          color: blackAndWhite == true || inActiveMode == true ? Colorz.WhiteSmoke : verseColor,
+                                          color: blackAndWhite == true || inActiveMode == true ? Colorz.White80 : verseColor,
                                           shadow: blackAndWhite == true || inActiveMode == true ? false : true,
                                           maxLines: verseMaxLines,
                                           designMode: false,
@@ -377,7 +377,7 @@ class DreamBox extends StatelessWidget {
                                           verse: secondLine,
                                           weight: VerseWeight.thin,
                                           size: 1,
-                                          color: blackAndWhite == true || inActiveMode == true ? Colorz.WhiteSmoke : secondLineColor,
+                                          color: blackAndWhite == true || inActiveMode == true ? Colorz.White80 : secondLineColor,
                                           maxLines: 10,
                                           italic: true,
                                           shadow: blackAndWhite == true || inActiveMode == true ? false : true,
@@ -407,7 +407,7 @@ class DreamBox extends StatelessWidget {
                                         corners - (height * 0.8) ),
                                     boxShadow: [
                                       CustomBoxShadow(
-                                          color: Colorz.WhiteZircon,
+                                          color: Colorz.White50,
                                           offset: new Offset(0, height * -0.33),
                                           blurRadius: height * 0.2,
                                           blurStyle: BlurStyle.normal),
@@ -425,7 +425,7 @@ class DreamBox extends StatelessWidget {
                                   gradient: LinearGradient(
                                       begin: Alignment.topCenter,
                                       end: Alignment.bottomCenter,
-                                      colors: [Colorz.BlackNothing, Colorz.BlackPlastic],
+                                      colors: [Colorz.Black0, Colorz.Black125],
                                       stops: [0.5, 0.95]),
                                 ),
                               ),

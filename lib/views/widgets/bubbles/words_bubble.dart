@@ -53,8 +53,8 @@ class WordsBubble extends StatelessWidget {
                     return _wordIsSelected;
                   }
 
-                  Color _buttonColor = wordIsSelected() ? Colorz.Yellow : Colorz.WhiteGlass;
-                  Color _verseColor = wordIsSelected() ? Colorz.BlackBlack : Colorz.White;
+                  Color _buttonColor = wordIsSelected() ? Colorz.Yellow225 : Colorz.White20;
+                  Color _verseColor = wordIsSelected() ? Colorz.Black225 : Colorz.White225;
                   VerseWeight _verseWeight = wordIsSelected() ? VerseWeight.bold : VerseWeight.thin;
 
                       return

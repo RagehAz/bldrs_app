@@ -186,11 +186,11 @@ class _MyBzScreenState extends State<MyBzScreen> {
             width: BottomSlider.bottomSheetClearWidth(context),
             icon: Iconz.XSmall,
             iconSizeFactor: 0.5,
-            iconColor: Colorz.BlackBlack,
+            iconColor: Colorz.Black225,
             verse: 'delete Business Account',
             verseScaleFactor: 1.2,
             verseWeight: VerseWeight.black,
-            verseColor: Colorz.BlackBlack,
+            verseColor: Colorz.Black225,
             // verseWeight: VerseWeight.thin,
             onTap: () => _deleteBzOnTap(bzModel),
 
@@ -202,10 +202,10 @@ class _MyBzScreenState extends State<MyBzScreen> {
             width: BottomSlider.bottomSheetClearWidth(context),
             icon: Iconz.XSmall,
             iconSizeFactor: 0.5,
-            iconColor: Colorz.BloodRed,
+            iconColor: Colorz.Red225,
             verse: 'Deactivate Business Account',
             verseScaleFactor: 1.2,
-            verseColor: Colorz.BloodRed,
+            verseColor: Colorz.Red225,
             // verseWeight: VerseWeight.thin,
             onTap: () => _deactivateBzOnTap(bzModel)
 
@@ -219,7 +219,7 @@ class _MyBzScreenState extends State<MyBzScreen> {
             iconSizeFactor: 0.5,
             verse: 'Edit Business Account info',
             verseScaleFactor: 1.2,
-            verseColor: Colorz.White,
+            verseColor: Colorz.White225,
             onTap: () => _editBzOnTap(bzModel),
           ),
 
@@ -287,9 +287,9 @@ class _MyBzScreenState extends State<MyBzScreen> {
                     verse: '${bzModel.bzName}',
                     bubble: false,
                     verseScaleFactor: 0.8,
-                    color: Colorz.WhiteAir,
+                    color: Colorz.White10,
                     secondLine: '${TextGenerator.bzTypeSingleStringer(context, bzModel.bzType)} $_zoneString',
-                    secondLineColor: Colorz.WhiteLingerie,
+                    secondLineColor: Colorz.White200,
                     secondLineScaleFactor: 0.9,
                   ),
 

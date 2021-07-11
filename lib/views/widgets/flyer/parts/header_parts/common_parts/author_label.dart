@@ -81,7 +81,7 @@ class AuthorLabel extends StatelessWidget {
             width: labelIsOn == true? _authorDataWidth : _authorDataHeight,
             margin: showLabel == true ? EdgeInsets.symmetric(horizontal : flyerZoneWidth * 0.01) : const EdgeInsets.all(0),
             decoration: BoxDecoration(
-                color: showLabel == false ? Colorz.Nothing : Colorz.WhiteGlass,
+                color: showLabel == false ? Colorz.Nothing : Colorz.White20,
                 borderRadius: Borderers.superBorderRadius(
                     context: context,
                     enTopLeft: _authorImageCorners,
@@ -206,7 +206,7 @@ class AuthorPic extends StatelessWidget {
         height: _authorImageHeight,
         width: _authorImageWidth,
         decoration: BoxDecoration(
-            color: Colorz.WhiteAir,
+            color: Colorz.White10,
             borderRadius: _authorPicBorders,
             image:
             authorPic == null ? null

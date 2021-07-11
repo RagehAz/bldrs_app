@@ -28,7 +28,7 @@ class GroupsPage extends StatelessWidget {
 
             String _group = groups[groupIndex];
 
-            Color _color = selectedGroup == _group ? Colorz.Yellow : Colorz.Nothing;
+            Color _color = selectedGroup == _group ? Colorz.Yellow225 : Colorz.Nothing;
 
             return
               DreamBox(

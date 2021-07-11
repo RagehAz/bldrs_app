@@ -29,7 +29,7 @@ class ZonesPage extends StatelessWidget {
     double _screenWidth = Scale.superScreenWidth(context);
     double _screenHeight = Scale.superScreenHeight(context);
 // -----------------------------------------------------------------------------
-    double _verseHeight = superVerseRealHeight(context, 2, 1, Colorz.WhiteAir);
+    double _verseHeight = superVerseRealHeight(context, 2, 1, Colorz.White10);
 
     return Container(
       width: _screenWidth,
@@ -47,7 +47,7 @@ class ZonesPage extends StatelessWidget {
           SuperVerse(
             verse: title,
             size: 2,
-            labelColor: Colorz.WhiteAir,
+            labelColor: Colorz.White10,
           ),
 
           SizedBox(height: 10,),
@@ -83,7 +83,7 @@ class ZonesPage extends StatelessWidget {
                             bubble: false,
                             margins: const EdgeInsets.all(5),
                             verseScaleFactor: 0.8,
-                            color: Colorz.WhiteAir,
+                            color: Colorz.White10,
                             // textDirection: superTextDirection(context),
                             onTap: () => buttonTap(_id),
                           ),

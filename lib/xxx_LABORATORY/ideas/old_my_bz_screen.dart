@@ -134,7 +134,7 @@ class _OldMyBzScreenState extends State<OldMyBzScreen> {
                               SingleSlide(
                                 flyerID: '',
                                 flyerZoneWidth: _flyerZoneWidth,
-                                slideColor: Colorz.WhiteSmoke,
+                                slideColor: Colorz.White80,
                               ),
 
                               // --- BZ BUTTONS
@@ -230,7 +230,7 @@ class _OldMyBzScreenState extends State<OldMyBzScreen> {
                                     width: _bWidth,
                                     height: _flyerZoneWidth * 0.2,
                                     margins: EdgeInsets.symmetric(vertical: _spacing),
-                                    color: Colorz.WhiteGlass,
+                                    color: Colorz.White20,
                                     corners: _flyerZoneWidth * 0.05,
                                     icon: Iconz.Gears,
                                     iconSizeFactor: 0.5,

@@ -28,9 +28,9 @@ class FlyersBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InPyramidsBubble(
-      bubbleColor: Colorz.WhiteAir,
+      bubbleColor: Colorz.White10,
       title: title,
-      titleColor: Colorz.White,
+      titleColor: Colorz.White225,
       bubbleWidth: bubbleWidth,
       columnChildren: <Widget>[
 

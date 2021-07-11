@@ -42,7 +42,7 @@ class _PopUpTestScreenState extends State<PopUpTestScreen> {
                         Scaffold.of(context).hideCurrentSnackBar();
                         Scaffold.of(context).showSnackBar(
                             SnackBar(
-                              backgroundColor: Colorz.WhiteAir,
+                              backgroundColor: Colorz.White10,
                               elevation: 0,
                               content: SuperVerse(
                                 verse: 'wtf',
@@ -70,7 +70,7 @@ class _PopUpTestScreenState extends State<PopUpTestScreen> {
             ),
             background: Container(
               height: 20,
-              color: Colorz.Yellow,
+              color: Colorz.Yellow225,
               child: DreamBox(
                 height: 20,
                 width: 20,
@@ -81,7 +81,7 @@ class _PopUpTestScreenState extends State<PopUpTestScreen> {
             confirmDismiss: (direction){
               return showDialog(context: context, builder: (ctx) => AlertDialog(
 
-                backgroundColor: Colorz.WhiteAir,
+                backgroundColor: Colorz.White10,
                 title: SuperVerse(verse: 'fuck you ?',),
                 content: SuperVerse(verse: 'a77a ya man',),
                 actions: [

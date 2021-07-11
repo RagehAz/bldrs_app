@@ -23,14 +23,14 @@ class MainButton extends StatelessWidget {
   MainButton({
     @required this.buttonVerse,
     @required this.buttonIcon,
-    this.buttonColor = Colorz.WhiteZircon,
-    this.splashColor = Colorz.Yellow,
+    this.buttonColor = Colorz.White50,
+    this.splashColor = Colorz.Yellow225,
     this.buttonVerseShadow = true,
     @required this.function,
     this.stretched = false,
 
     this.iconSizeFactor = 0.75,
-    this.verseColor = Colorz.White,
+    this.verseColor = Colorz.White225,
     this.verseWeight = VerseWeight.bold,
     this.iconColor,
   });
@@ -68,7 +68,7 @@ class MainButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(_buttonCorner),
             boxShadow: <BoxShadow>[
               CustomBoxShadow(
-                  color: Colorz.BlackBlack,
+                  color: Colorz.Black225,
                   offset: new Offset(0, 0),
                   blurRadius: _buttonZoneHeight * 0.09,
                   blurStyle: BlurStyle.outer),
@@ -90,7 +90,7 @@ class MainButton extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(_buttonCorner),
           ),
-          disabledColor: Colorz.GreySmoke,
+          disabledColor: Colorz.Grey80,
           padding: const EdgeInsets.all(0),
 
           // --- BUTTON CONTENTS
@@ -106,7 +106,7 @@ class MainButton extends StatelessWidget {
                   // color: Colorz.White,
                   borderRadius: BorderRadius.circular(_buttonCorner-(_buttonHeight-(_buttonHeight * 0.22))),
                   boxShadow: [CustomBoxShadow(
-                    color: Colorz.WhiteZircon,
+                    color: Colorz.White50,
                     offset: new Offset(0, _buttonHeight * -0.23),
                     blurRadius: _buttonHeight * 0.18 ,
                     blurStyle: BlurStyle.normal
@@ -124,7 +124,7 @@ class MainButton extends StatelessWidget {
                     gradient: LinearGradient(
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
-                        colors: [Colorz.BlackAir, Colorz.BlackPlastic],
+                        colors: [Colorz.Black10, Colorz.Black125],
                         stops: [0.1,1]
                     ),
                 ),

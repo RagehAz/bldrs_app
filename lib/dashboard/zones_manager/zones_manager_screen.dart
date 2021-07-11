@@ -89,10 +89,10 @@ class _ZonesManagerScreenState extends State<ZonesManagerScreen> {
           DreamBox(
             width: _screenWidth * 0.9,
             height: _screenWidth * 0.3,
-            color: Colorz.Yellow,
+            color: Colorz.Yellow225,
             verse: 'Upload Countries to Firebase',
             verseMaxLines: 3,
-            verseColor: Colorz.BlackBlack,
+            verseColor: Colorz.Black225,
             verseWeight: VerseWeight.black,
             onTap: _uploadCountriesToFirebase,
             margins: const EdgeInsets.all(10),
@@ -100,7 +100,7 @@ class _ZonesManagerScreenState extends State<ZonesManagerScreen> {
 
           InPyramidsBubble(
             centered: true,
-            bubbleColor: Colorz.WhiteGlass,
+            bubbleColor: Colorz.White20,
             columnChildren: <Widget>[
 
               Container(

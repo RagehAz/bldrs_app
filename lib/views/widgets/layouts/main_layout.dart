@@ -156,7 +156,7 @@ class MainLayout extends StatelessWidget {
             left: 0,
             child: BackAndSearchButton(
               backAndSearchAction: BackAndSearchAction.GoBack,
-              color: sky == Sky.Black ? Colorz.YellowZircon : Colorz.WhiteGlass,
+              color: sky == Sky.Black ? Colorz.Yellow50 : Colorz.White20,
             ),
     ),
 
@@ -164,7 +164,7 @@ class MainLayout extends StatelessWidget {
     // ------------------------------------------------------------------
     // print('superScreenHeightWithoutSafeArea(context) = ${superScreenHeightWithoutSafeArea(context)},, superScreenHeight(context) = ${superScreenHeight(context)}');
 
-    Color _backgroundColor = sky == Sky.Non || sky == Sky.Black? Colorz.BlackBlack : Colorz.SkyDarkBlue;
+    Color _backgroundColor = sky == Sky.Non || sky == Sky.Black? Colorz.Black225 : Colorz.SkyDarkBlue;
 
     return StreamProvider<List<UserModel>>.value(
       value: UserProvider().allUsersStream,
@@ -195,8 +195,8 @@ class MainLayout extends StatelessWidget {
 
                   RefreshIndicator(
                     onRefresh: ()=> _refresh(context),
-                    color: Colorz.BlackBlack,
-                    backgroundColor: Colorz.Yellow,
+                    color: Colorz.Black225,
+                    backgroundColor: Colorz.Yellow225,
                     displacement: Ratioz.appBarMargin,
                     strokeWidth: 4,
                     child: Stack(
@@ -228,7 +228,7 @@ Widget zorar({Function function, String functionName}){
   return DreamBox(
     height: 40,
     margins: const EdgeInsets.all(5),
-    color: Colorz.WhiteAir,
+    color: Colorz.White10,
     verse: functionName,
     verseScaleFactor: 2,
     onTap: function,
@@ -236,7 +236,7 @@ Widget zorar({Function function, String functionName}){
     icon: Iconz.XLarge,
     iconSizeFactor: 0.3,
     secondLine: 'blaaah',
-    secondLineColor: Colorz.WhiteLingerie,
+    secondLineColor: Colorz.White200,
   );
 }
 // -----------------------------------------------------------------------------

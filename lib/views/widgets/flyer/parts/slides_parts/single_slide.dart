@@ -181,7 +181,7 @@ class SingleSlide extends StatelessWidget {
               flyerZoneWidth: flyerZoneWidth,
               verse: title,
               verseSize: _slideTitleSize,
-              verseColor: Colorz.White,
+              verseColor: Colorz.White225,
               tappingVerse: () {
                 print('Flyer Title clicked');
                 },
@@ -193,7 +193,7 @@ class SingleSlide extends StatelessWidget {
 
                   width: flyerZoneWidth,
                   // height: flyerZoneWidth * 0.15,
-                  fieldColor: Colorz.BlackSmoke,
+                  fieldColor: Colorz.Black80,
                   margin: EdgeInsets.only(top: (flyerZoneWidth * 0.3), left: 5, right: 5),
                   maxLines: 4,
                   keyboardTextInputType: TextInputType.multiline,
