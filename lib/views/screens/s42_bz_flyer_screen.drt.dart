@@ -87,10 +87,10 @@ class BzFlyerScreen extends StatelessWidget {
             width: BottomSlider.bottomSheetClearWidth(context),
             icon: Iconz.XSmall,
             iconSizeFactor: 0.5,
-            iconColor: Colorz.BloodRed,
+            iconColor: Colorz.Red225,
             verse: 'Unpublish Flyer',
             verseScaleFactor: 1.2,
-            verseColor: Colorz.BloodRed,
+            verseColor: Colorz.Red225,
             // verseWeight: VerseWeight.thin,
             onTap: () => _unpublishFlyerOnTap(context),
 
@@ -104,7 +104,7 @@ class BzFlyerScreen extends StatelessWidget {
             iconSizeFactor: 0.5,
             verse: 'Delete Flyer',
             verseScaleFactor: 1.2,
-            verseColor: Colorz.White,
+            verseColor: Colorz.White225,
             onTap: () async {
               Nav.goBack(context);
 
@@ -143,7 +143,7 @@ class BzFlyerScreen extends StatelessWidget {
             iconSizeFactor: 0.5,
             verse: 'Edit Flyer',
             verseScaleFactor: 1.2,
-            verseColor: Colorz.White,
+            verseColor: Colorz.White225,
             onTap: (){
 
               Nav.goToNewScreen(context,
@@ -235,7 +235,7 @@ class BzFlyerScreen extends StatelessWidget {
                       words: flyerModel.keyWords,
                       bubbles: false,
                       verseSize: 2,
-                      bubbleColor: Colorz.WhiteGlass,
+                      bubbleColor: Colorz.White20,
                       onTap: (){},
                     ),
 

@@ -60,7 +60,7 @@ class FlyerStack extends StatelessWidget {
       Container(
         width: _screenWidth,
         // height: _collectionHeight + 2*_titleSpacing + (_screenHeight * Ratioz.fontSize3) + 12,
-        color: Colorz.WhiteAir,
+        color: Colorz.White10,
         // decoration: BoxDecoration(
         //   // color: Colorz.BlackLingerie,
         //   //   border: Border.symmetric(

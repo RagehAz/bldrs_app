@@ -98,7 +98,7 @@ class NewFlyerNotification extends StatelessWidget {
                         ),
                         SuperVerse(
                           verse: '. ${newsAge.toStringAsFixed(0)} days ago',
-                          color: Colorz.Grey,
+                          color: Colorz.Grey225,
                           italic: true,
                           weight: VerseWeight.thin,
                           size: 2,

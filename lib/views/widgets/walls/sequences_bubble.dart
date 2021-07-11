@@ -34,7 +34,7 @@ class SequencesBubble extends StatelessWidget {
     Section _currentSection = _prof.getCurrentSection;
     List<Sequence> _sequences = Sequence.getActiveSequencesBySection(context: context,section: _currentSection);
 
-    const List<Color> _boxesColors = [Colorz.White30, Colorz.WhiteGlass, Colorz.WhiteAir];
+    const List<Color> _boxesColors = [Colorz.White30, Colorz.White20, Colorz.White10];
 
     int _gridColumnsCount = numberOfColumns;
     const double _spacingRatioToGridWidth = 0.1;
@@ -64,7 +64,7 @@ class SequencesBubble extends StatelessWidget {
 
 
     return InPyramidsBubble(
-      bubbleColor: Colorz.WhiteAir,
+      bubbleColor: Colorz.White10,
       columnChildren: <Widget>[
 
         /// --- Title
@@ -82,7 +82,7 @@ class SequencesBubble extends StatelessWidget {
           child: Container(
             width: gridZoneWidth,
             height: _gridHeight,
-            color: Colorz.WhiteAir,
+            color: Colorz.White10,
             child: Stack(
               children: <Widget>[
 
@@ -116,7 +116,7 @@ class SequencesBubble extends StatelessWidget {
                                     DreamBox(
                                       width: _buttonWidth,
                                       height: _buttonWidth,
-                                      color: Colorz.BlackPlastic,
+                                      color: Colorz.Black125,
                                       icon: Keyword.getImagePath(sequence.titleID),
                                       onTap: (){
 

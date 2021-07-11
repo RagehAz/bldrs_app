@@ -313,7 +313,7 @@ class _LocalFlyersUploaderState extends State<LocalFlyersUploader> {
             verse: 'This Page will upload The Hard coded flyers and bzz to this user $_userID on firestore',
             maxLines: 5,
             size: 2,
-            labelColor: Colorz.BlackBlack,
+            labelColor: Colorz.Black225,
             margin: 10,
           ),
 
@@ -496,7 +496,7 @@ class Progressor extends StatelessWidget {
       width: Scale.superScreenWidth(context),
       margin: const EdgeInsets.symmetric(vertical: 5),
       decoration: BoxDecoration(
-        color: Colorz.WhiteGlass,
+        color: Colorz.White20,
         borderRadius: Borderers.superBorderAll(context, 5),
       ),
       child: Column(
@@ -568,8 +568,8 @@ class MyDreamBox extends StatelessWidget {
               MainButton(
                 buttonVerse: 'Upload ya basha to user : ${superUserID()}',
                 buttonIcon: null,
-                buttonColor: Colorz.Yellow,
-                splashColor: Colorz.White,
+                buttonColor: Colorz.Yellow225,
+                splashColor: Colorz.White225,
                 stretched: false,
                 function: () => upload(userModel),
               ),
@@ -588,7 +588,7 @@ class MyDreamBox extends StatelessWidget {
                 verseSize: 2,
                 onTap: (){},
                 bubbles: false,
-                bubbleColor: Colorz.WhiteGlass,
+                bubbleColor: Colorz.White20,
                 selectedWords: [],
               ),
 

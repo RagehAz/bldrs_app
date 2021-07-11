@@ -52,7 +52,7 @@ class _Page1State extends State<Page1> {
               secondLine: 'And return true',
               height: 50,
               verseScaleFactor: 1,
-              color: Colorz.BlackBlack,
+              color: Colorz.Black225,
               margins: EdgeInsets.all(5),
               onTap: () async {
 
@@ -66,7 +66,7 @@ class _Page1State extends State<Page1> {
               secondLine: 'And return false',
               height: 50,
               verseScaleFactor: 1,
-              color: Colorz.BlackBlack,
+              color: Colorz.Black225,
               margins: EdgeInsets.all(5),
               onTap: () async {
 
@@ -79,7 +79,7 @@ class _Page1State extends State<Page1> {
               verse: 'Push : page 2',
               verseScaleFactor: 1,
               height: 50,
-              color: Colorz.BlackBlack,
+              color: Colorz.Black225,
               margins: EdgeInsets.all(5),
               onTap: () async {
 
@@ -104,7 +104,7 @@ class _Page1State extends State<Page1> {
               secondLine: ' --- ',
               height: 50,
               verseScaleFactor: 1,
-              color: Colorz.BlackBlack,
+              color: Colorz.Black225,
               margins: EdgeInsets.all(5),
               onTap: () async {
 
@@ -120,12 +120,12 @@ class _Page1State extends State<Page1> {
 
             SuperVerse(
               verse: _string.toString(),
-              labelColor: Colorz.BlackLingerie,
+              labelColor: Colorz.Black200,
               size: 3,
               maxLines: 2,
               margin: 20,
               shadow: true,
-              color: Colorz.Yellow,
+              color: Colorz.Yellow225,
             ),
 
           ],

@@ -69,7 +69,7 @@ class _SearchBarState extends State<SearchBar> {
             width: _appBarClearWidth - (Ratioz.appBarButtonSize + Ratioz.appBarPadding * 3) - 3,
             height: Ratioz.appBarButtonSize * 0.5,
             textController: _searchTextController,
-            labelColor: Colorz.Yellow,
+            labelColor: Colorz.Yellow225,
             centered: false,
             italic: true,
             keyboardTextInputType: TextInputType.text,
@@ -83,7 +83,7 @@ class _SearchBarState extends State<SearchBar> {
               print('search field change : $value');
             },
             hintText: ' Search ... ',
-            inputColor: Colorz.Yellow,
+            inputColor: Colorz.Yellow225,
             inputSize: 2,
             inputShadow: false,
             inputWeight: VerseWeight.thin,

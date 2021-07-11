@@ -31,7 +31,7 @@ class KeywordsPage extends StatelessWidget {
 
             Keyword _keyword = keywords[keyIndex];
 
-            Color _color = selectedKeywords.contains(_keyword) ? Colorz.Yellow : Colorz.Nothing;
+            Color _color = selectedKeywords.contains(_keyword) ? Colorz.Yellow225 : Colorz.Nothing;
 
             bool _isIconlessKeyword = Keyword.isIconless(_keyword);
 

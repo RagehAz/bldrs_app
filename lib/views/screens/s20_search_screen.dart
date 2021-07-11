@@ -133,7 +133,7 @@ class _SearchScreenState extends State<SearchScreen> {
             width: Scale.superScreenWidth(context) - Ratioz.appBarMargin * 2 - Ratioz.appBarPadding * 2,
             height: 40,
             decoration: BoxDecoration(
-              color: Colorz.WhiteAir,
+              color: Colorz.White10,
               // borderRadius: Borderers.superBorderAll(context, Ratioz.appBarButtonCorner),
             ),
             alignment: Alignment.center,
@@ -172,7 +172,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   Container(
                     // width: 10,
                     height: 10,
-                    color: Colorz.YellowGlass,
+                    color: Colorz.Yellow20,
                     child: SuperVerse(
                       verse : 'keyword is null',
                     ),
@@ -183,7 +183,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     title: '${_keyword.flyerType}, ${_keyword.groupID}, ${_keyword.subGroupID}',
                     xIsOn: true,
                     onTap: () => _removeKeyword(index, filtersModels),
-                    color: _isHighlighted == true ? Colorz.BloodRed : Colorz.BabyBlueSmoke,
+                    color: _isHighlighted == true ? Colorz.Red225 : Colorz.Blue80,
                   );
 
               },
@@ -584,7 +584,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 curve: Curves.easeInOut,
                 decoration: BoxDecoration(
                   borderRadius: _browserZoneCorners,
-                  color: Colorz.BlackLingerie,
+                  color: Colorz.Black200,
                 ),
                 margin: EdgeInsets.all(_browserZoneMargins),
                 alignment: Aligners.superTopAlignment(context),

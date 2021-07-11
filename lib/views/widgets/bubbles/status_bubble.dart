@@ -51,7 +51,7 @@ class StatusBubble extends StatelessWidget {
             margin: 0,
             shadow: false,
             italic: true,
-            color: Colorz.Yellow,
+            color: Colorz.Yellow225,
             weight: VerseWeight.thin,
             maxLines: 2,
           ),
@@ -61,7 +61,7 @@ class StatusBubble extends StatelessWidget {
             centered: true,
             shadow: true,
             italic: true,
-            color: Colorz.Yellow,
+            color: Colorz.Yellow225,
             weight: VerseWeight.bold,
             maxLines: 2,
           ),
@@ -89,7 +89,7 @@ class StatusBubble extends StatelessWidget {
             Container(
           width: screenWidth - (abPadding * 4),
           height: 100,
-          color: Colorz.Yellow,
+          color: Colorz.Yellow225,
           margin: const EdgeInsets.only(top: abPadding *  2),
           child: SuperVerse(
             verse: 'SELL SELL SELL FUCKERS !!',

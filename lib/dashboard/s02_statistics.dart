@@ -83,7 +83,7 @@ class GeneralStatistics extends StatelessWidget {
           Container(
             width: screenWidth,
             height: screenWidth * 0.002,
-            color: Colorz.Yellow,
+            color: Colorz.Yellow225,
             margin: EdgeInsets.only(top: screenWidth * 0.05),
           ),
 
@@ -119,7 +119,7 @@ class GeneralStatistics extends StatelessWidget {
             child: Container(
               width: screenWidth * 0.9,
               height: screenWidth * 0.001,
-              color: Colorz.YellowSmoke,
+              color: Colorz.Yellow80,
             ),
           ),
 
@@ -145,7 +145,7 @@ class GeneralStatistics extends StatelessWidget {
             child: Container(
               width: screenWidth * 0.9,
               height: screenWidth * 0.001,
-              color: Colorz.YellowSmoke,
+              color: Colorz.Yellow80,
             ),
           ),
 
@@ -179,7 +179,7 @@ class GeneralStatistics extends StatelessWidget {
             child: Container(
               width: screenWidth * 0.9,
               height: screenWidth * 0.001,
-              color: Colorz.YellowSmoke,
+              color: Colorz.Yellow80,
             ),
           ),
 
@@ -205,7 +205,7 @@ class GeneralStatistics extends StatelessWidget {
             child: Container(
               width: screenWidth * 0.9,
               height: screenWidth * 0.001,
-              color: Colorz.YellowSmoke,
+              color: Colorz.Yellow80,
             ),
           ),
 
@@ -230,7 +230,7 @@ class GeneralStatistics extends StatelessWidget {
           Container(
             width: screenWidth,
             height: screenWidth * 0.002,
-            color: Colorz.Yellow,
+            color: Colorz.Yellow225,
             margin: EdgeInsets.only(top: screenWidth * 0.05),
           ),
 

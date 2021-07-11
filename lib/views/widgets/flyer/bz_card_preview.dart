@@ -105,7 +105,7 @@ class _BzCardPreviewState extends State<BzCardPreview> {
               height: _flyerZoneWidth * 0.4,
               width: _flyerZoneWidth * 0.4,
               icon: Iconz.Plus,
-              iconColor: Colorz.WhiteLingerie,
+              iconColor: Colorz.White200,
               iconSizeFactor: 0.6,
               bubble: false,
               onTap: _goToFlyerEditor,
@@ -116,7 +116,7 @@ class _BzCardPreviewState extends State<BzCardPreview> {
               maxLines: 5,
               size: 2,
               scaleFactor: widget.flyerSizeFactor * 5,
-              color: Colorz.WhiteLingerie,
+              color: Colorz.White200,
             ),
 
           ],

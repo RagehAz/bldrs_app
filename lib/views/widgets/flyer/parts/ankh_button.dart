@@ -42,7 +42,7 @@ class _AnkhButtonState extends State<AnkhButton> with SingleTickerProviderStateM
       vsync: this
     );
 
-    _ankhColorAni = ColorTween(begin: Colorz.WhiteAir, end: Colorz.YellowSmoke)
+    _ankhColorAni = ColorTween(begin: Colorz.White10, end: Colorz.Yellow80)
         .animate(_ankhAniController);
 
     _ankhAniController.addListener(() {
@@ -118,7 +118,7 @@ class _AnkhButtonState extends State<AnkhButton> with SingleTickerProviderStateM
                     height: _saveBTRadius * 2,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: widget.ankhIsOn == true ? Colorz.YellowSmoke : Colorz.Nothing,//_ankhColorAni.value,
+                      color: widget.ankhIsOn == true ? Colorz.Yellow80 : Colorz.Nothing,//_ankhColorAni.value,
                     ),
                   ),
 

@@ -261,11 +261,11 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
             width: BottomSlider.bottomSheetClearWidth(context),
             icon: Iconz.XSmall,
             iconSizeFactor: 0.5,
-            iconColor: Colorz.BlackBlack,
+            iconColor: Colorz.Black225,
             verse: 'delete user Account',
             verseScaleFactor: 1.2,
             verseWeight: VerseWeight.black,
-            verseColor: Colorz.BlackBlack,
+            verseColor: Colorz.Black225,
             // verseWeight: VerseWeight.thin,
             onTap: () => _deleteUserOnTap(userModel),
 
@@ -277,10 +277,10 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
               width: BottomSlider.bottomSheetClearWidth(context),
               icon: Iconz.XSmall,
               iconSizeFactor: 0.5,
-              iconColor: Colorz.BloodRed,
+              iconColor: Colorz.Red225,
               verse: 'Deactivate your Account',
               verseScaleFactor: 1.2,
-              verseColor: Colorz.BloodRed,
+              verseColor: Colorz.Red225,
               // verseWeight: VerseWeight.thin,
               onTap: () => _deactivateUserOnTap(userModel)
 
@@ -294,7 +294,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
             iconSizeFactor: 0.5,
             verse: 'Edit Business Account info',
             verseScaleFactor: 1.2,
-            verseColor: Colorz.White,
+            verseColor: Colorz.White225,
             onTap: () => _editUserOnTap(userModel),
           ),
 

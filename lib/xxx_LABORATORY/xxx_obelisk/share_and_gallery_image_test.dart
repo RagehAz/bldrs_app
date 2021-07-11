@@ -93,7 +93,7 @@ class ShareAndAddImageTestState extends State<ShareAndAddImageTest> {
                   Container(
                     width: double.infinity,
                     height: 20,
-                    color: Colorz.Yellow,
+                    color: Colorz.Yellow225,
                   ),
 
                   ZoomableWidget(

@@ -52,7 +52,7 @@ class AddAuthorScreen extends StatelessWidget {
                     maxLines: 5,
                     centered: false,
                     size: 2,
-                    color: Colorz.WhitePlastic,
+                    color: Colorz.White125,
 
                   ),
                 ),
@@ -63,7 +63,7 @@ class AddAuthorScreen extends StatelessWidget {
                   margin: 10,
                   weight: VerseWeight.thin,
                   italic: true,
-                  color: Colorz.LightBlue,
+                  color: Colorz.Cyan225,
                 ),
 
                 Row(
@@ -72,12 +72,12 @@ class AddAuthorScreen extends StatelessWidget {
 
                     DreamBox(
                       height: 50,
-                      color: Colorz.Yellow,
+                      color: Colorz.Yellow225,
                       icon: Iconz.Share,
                       iconSizeFactor: 0.5,
-                      iconColor: Colorz.BlackBlack,
+                      iconColor: Colorz.Black225,
                       verse: 'Share',
-                      verseColor: Colorz.BlackBlack,
+                      verseColor: Colorz.Black225,
                       verseScaleFactor: 1.2,
                     ),
 

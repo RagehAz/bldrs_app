@@ -52,7 +52,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
       return SuperVerse(
         verse: title,
         size: 0,
-        color: Colorz.GreySmoke,
+        color: Colorz.Grey80,
       );
     }
 
@@ -83,7 +83,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
 
                     SuperVerse(
                       verse: '${_usersModels.length} users in Bldrs.net',
-                      labelColor: Colorz.WhiteGlass,
+                      labelColor: Colorz.White20,
                       centered: true,
                       size: 4,
                       margin: 5,
@@ -155,7 +155,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
                                                   verse: 'Delete this fucker (${_userModel.name})',
                                                   verseScaleFactor: 0.7,
                                                   secondLine: 'This will delete user document from firebase, and delete his firebase User authentication record',
-                                                  secondLineColor: Colorz.BloodRed,
+                                                  secondLineColor: Colorz.Red225,
                                                   onTap: () async {
                                                     _triggerLoading();
 

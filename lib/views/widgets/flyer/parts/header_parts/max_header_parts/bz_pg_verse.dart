@@ -20,7 +20,7 @@ class BzPgVerse extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    dynamic bzPageBGColor = Colorz.BlackSmoke;
+    dynamic bzPageBGColor = Colorz.Black80;
     double bzPageDividers = flyerZoneWidth * 0.005;
 
     double _margins =
@@ -37,7 +37,7 @@ class BzPgVerse extends StatelessWidget {
                 weight: VerseWeight.thin,
                 italic: true,
                 size: size,
-                color: Colorz.WhiteLingerie,
+                color: Colorz.White200,
                 margin: _margins,
                 maxLines: maxLines,
                 // designMode: true,
@@ -75,7 +75,7 @@ class _BzAboutVerseState extends State<BzAboutVerse> {
 
   @override
   Widget build(BuildContext context) {
-    dynamic bzPageBGColor = Colorz.BlackSmoke;
+    dynamic bzPageBGColor = Colorz.Black80;
     double bzPageDividers = widget.flyerZoneWidth * 0.005;
 
     double _margins = widget.flyerZoneWidth * 0.05;
@@ -99,7 +99,7 @@ class _BzAboutVerseState extends State<BzAboutVerse> {
                       weight: VerseWeight.thin,
                       italic: false,
                       margin: 10,
-                      color: Colorz.Grey,
+                      color: Colorz.Grey225,
                       maxLines: 3,
                     ),
 
@@ -108,7 +108,7 @@ class _BzAboutVerseState extends State<BzAboutVerse> {
                       weight: VerseWeight.thin,
                       italic: true,
                       size: 3,
-                      color: Colorz.WhiteLingerie,
+                      color: Colorz.White200,
                       margin: 0,
                       maxLines: aboutMaxLines,
                       // designMode: true,

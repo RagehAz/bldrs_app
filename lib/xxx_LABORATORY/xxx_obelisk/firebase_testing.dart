@@ -192,7 +192,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
           DreamBox(
             height: 50,
             iconSizeFactor: 0.6,
-            color: _buttonIsOn ? Colorz.Yellow : Colorz.Grey,
+            color: _buttonIsOn ? Colorz.Yellow225 : Colorz.Grey225,
             verse: '$_flyerID - 0',
             onTap: () => _save(_flyerID, 0),
           ),
@@ -200,7 +200,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
           DreamBox(
             height: 50,
             iconSizeFactor: 0.6,
-            color: _buttonIsOn ? Colorz.Yellow : Colorz.Grey,
+            color: _buttonIsOn ? Colorz.Yellow225 : Colorz.Grey225,
             verse: '$_flyerID - 1',
             onTap: () => _save(_flyerID, 1),
           ),
@@ -208,7 +208,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
           DreamBox(
             height: 50,
             iconSizeFactor: 0.6,
-            color: _buttonIsOn ? Colorz.Yellow : Colorz.Grey,
+            color: _buttonIsOn ? Colorz.Yellow225 : Colorz.Grey225,
             verse: '$_flyerID - 2',
             onTap: () => _save(_flyerID, 2),
           ),
@@ -231,7 +231,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
                     ': ${_save.saveState}\n'
                     '${TextGenerator.hourMinuteSecondListOfStringsWithIndexes(_save.timeStamps, _save.slideIndexes)}',
                 margin: 10,
-                labelColor: Colorz.WhiteGlass,
+                labelColor: Colorz.White20,
                 weight: VerseWeight.thin,
                 size: 2,
                 maxLines: 10,
@@ -242,7 +242,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
           SuperVerse(
             verse: 'No saved Model yet !',
             margin: 10,
-            labelColor: Colorz.WhiteGlass,
+            labelColor: Colorz.White20,
             weight: VerseWeight.thin,
             size: 2,
           ),
@@ -719,7 +719,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
               DreamBox(
                 width: Scale.superScreenWidth(context) * 0.95,
                 height: 2.5,
-                color: Colorz.WhiteGlass,
+                color: Colorz.White20,
                 corners: 0,
                 margins: const EdgeInsets.symmetric(vertical: 10),
               ),
@@ -747,7 +747,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
                 // icon: _filePic,
                 iconFile: _filePic,
                 iconSizeFactor: 1,
-                color: Colorz.BabyBlue,
+                color: Colorz.Blue225,
               ),
 
 
@@ -760,7 +760,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
           Positioned(
             bottom: 0,
             child: InPyramidsBubble(
-              bubbleColor: Colorz.BlackBlack,
+              bubbleColor: Colorz.Black225,
               centered: true,
               stretchy: false,
               columnChildren: <Widget>[
@@ -768,7 +768,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
                   verse: printVerse ?? 'print Area',
                   maxLines: 12,
                   weight: VerseWeight.thin,
-                  color: printVerse == null ? Colorz.WhiteGlass : Colorz.White,
+                  color: printVerse == null ? Colorz.White20 : Colorz.White225,
                 ),
               ],
             ),

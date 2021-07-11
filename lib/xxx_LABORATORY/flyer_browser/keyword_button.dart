@@ -19,7 +19,7 @@ class KeywordBarButton extends StatelessWidget {
     @required this.keywordName,
     @required this.xIsOn,
     @required this.onTap,
-    this.color = Colorz.BabyBlueSmoke
+    this.color = Colorz.Blue80
 });
 
   @override
@@ -65,7 +65,7 @@ class KeywordBarButton extends StatelessWidget {
                       icon: Iconz.XLarge,
                       iconSizeFactor: 0.3,
                       bubble: false,
-                      iconColor: Colorz.WhiteLingerie,
+                      iconColor: Colorz.White200,
                       onTap: onTap,
                       splashColor: Colorz.Nothing,
                     ),
@@ -83,7 +83,7 @@ class KeywordBarButton extends StatelessWidget {
                             verse: title,
                             size: 1,
                             italic: true,
-                            color: Colorz.White,
+                            color: Colorz.White225,
                             weight: VerseWeight.thin,
                             designMode: _designMode,
                             centered: false,
@@ -101,7 +101,7 @@ class KeywordBarButton extends StatelessWidget {
                               verse: keywordName,
                               size: 1,
                               italic: false,
-                              color: Colorz.White,
+                              color: Colorz.White225,
                               weight: VerseWeight.bold,
                               scaleFactor: 1,
                               designMode: _designMode,

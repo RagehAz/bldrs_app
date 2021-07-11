@@ -30,7 +30,7 @@ class BzzBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InPyramidsBubble(
-      bubbleColor: Colorz.WhiteAir,
+      bubbleColor: Colorz.White10,
       columnChildren: <Widget>[
 
         // --- Title

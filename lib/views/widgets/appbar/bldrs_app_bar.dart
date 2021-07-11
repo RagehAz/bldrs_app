@@ -162,7 +162,7 @@ class BldrsAppBar extends StatelessWidget {
                               child: SuperVerse(
                                 verse: pageTitle,
                                 weight: VerseWeight.thin,
-                                color: Colorz.WhiteLingerie,
+                                color: Colorz.White200,
                                 size: 3,
                                 margin: 0,
                                 shadow: true,

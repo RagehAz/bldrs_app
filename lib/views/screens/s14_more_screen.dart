@@ -54,16 +54,16 @@ class MoreScreen extends StatelessWidget {
           TileBubble(
             verse: Wordz.inviteFriends(context),
             icon: DeviceChecker.deviceIsIOS() ? Iconz.ComApple : DeviceChecker.deviceIsAndroid() ? Iconz.ComGooglePlay : Iconz.Share,
-            iconBoxColor: Colorz.BlackBlack,
-            verseColor: Colorz.White,
+            iconBoxColor: Colorz.Black225,
+            verseColor: Colorz.White225,
             btOnTap: () => shareLink(context, LinkModel.bldrsWebSiteLink),
           ),
 
           TileBubble(
             verse: Wordz.inviteBusinesses(context),
             icon: Iconz.Bz,
-            iconBoxColor: Colorz.BlackBlack,
-            verseColor: Colorz.White,
+            iconBoxColor: Colorz.Black225,
+            verseColor: Colorz.White225,
           ),
 
           _separator,

@@ -61,7 +61,7 @@ class DreamWrapper extends StatelessWidget {
                       icon: icons[index],
                       margins: margins,
                       verse: _verse,
-                      verseColor: Colorz.White,
+                      verseColor: Colorz.White225,
                       verseWeight: VerseWeight.thin,
                       verseItalic: false,
                       iconSizeFactor: 0.6,

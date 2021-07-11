@@ -122,7 +122,7 @@ class CityLabel extends StatelessWidget {
       weight: VerseWeight.thin,
       size: 0,
       scaleFactor: 0.2,
-      labelColor: Colorz.WhiteAir,
+      labelColor: Colorz.White10,
       centered: false,
       labelTap: (){print(cityName);},
       maxLines: 1,
