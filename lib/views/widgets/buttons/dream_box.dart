@@ -25,7 +25,7 @@ class DreamBox extends StatelessWidget {
   final double verseScaleFactor;
   final bool verseItalic;
   final int verseMaxLines;
-  final Function boxFunction;
+  final Function onTap;
   final dynamic margins;
   final bool blackAndWhite;
   final bool iconRounded;
@@ -46,6 +46,7 @@ class DreamBox extends StatelessWidget {
   final double blur;
   final Color secondLineColor;
   final bool redDot;
+  final double secondLineScaleFactor;
 
   DreamBox({
     @required this.height,
@@ -62,7 +63,7 @@ class DreamBox extends StatelessWidget {
     this.verseScaleFactor = 1,
     this.verseItalic = false,
     this.verseMaxLines = 1,
-    this.boxFunction,
+    this.onTap,
     this.margins,
     this.blackAndWhite = false,
     this.iconRounded = true,
@@ -83,6 +84,7 @@ class DreamBox extends StatelessWidget {
     this.blur,
     this.secondLineColor = Colorz.White,
     this.redDot = false,
+    this.secondLineScaleFactor = 1,
   });
 
   @override
@@ -380,6 +382,7 @@ class DreamBox extends StatelessWidget {
                                           italic: true,
                                           shadow: blackAndWhite == true || inActiveMode == true ? false : true,
                                           centered: false,
+                                          scaleFactor: secondLineScaleFactor,
                                         ),
                                       ],
                                     ),
@@ -438,7 +441,7 @@ class DreamBox extends StatelessWidget {
                                     onTapUp: inActiveMode == true || onTapUp == null ? (TapUpDetails details){} : (TapUpDetails details) => onTapUp(),
                                     child: InkWell(
                                       splashColor: splashColor,
-                                      onTap: boxFunction,
+                                      onTap: onTap,
                                       onTapCancel: onTapCancel,
                                     ),
                                   ),

@@ -98,7 +98,7 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
           verseWeight: VerseWeight.black,
           verseColor: Colorz.BlackBlack,
           // verseWeight: VerseWeight.thin,
-          boxFunction: () => _deleteFlyerOnTap(tinyFlyer),
+          onTap: () => _deleteFlyerOnTap(tinyFlyer),
         ),
 
         // --- RE-PUBLISH FLYER
@@ -112,7 +112,7 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
             verseScaleFactor: 1.2,
             verseColor: Colorz.BloodRed,
             // verseWeight: VerseWeight.thin,
-            boxFunction: () => _republishFlyerOnTap(tinyFlyer)
+            onTap: () => _republishFlyerOnTap(tinyFlyer)
 
         ),
 
@@ -125,7 +125,7 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
           verse: 'Edit flyer',
           verseScaleFactor: 1.2,
           verseColor: Colorz.White,
-          boxFunction: () => _editFlyerOnTap(tinyFlyer),
+          onTap: () => _editFlyerOnTap(tinyFlyer),
         ),
 
       ],

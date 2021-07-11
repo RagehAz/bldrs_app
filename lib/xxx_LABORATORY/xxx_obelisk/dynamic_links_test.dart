@@ -80,7 +80,7 @@ class _DynamicLinkTestState extends State<DynamicLinkTest> {
             verse: 'the thing is : $_thing',
             verseColor: Colorz.BlackBlack,
             color: Colorz.White,
-            boxFunction: (){},
+            onTap: (){},
           ),
 
           DreamBox(
@@ -88,7 +88,7 @@ class _DynamicLinkTestState extends State<DynamicLinkTest> {
             margins: 10,
             verse: 'Get Dynamic Link',
             color: Colorz.Yellow,
-            boxFunction: () => _getDynamicLink(),
+            onTap: () => _getDynamicLink(),
           ),
 
         ],

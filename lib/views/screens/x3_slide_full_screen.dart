@@ -1,9 +1,44 @@
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/drafters/zoomable_widget.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_zone.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
+
+
+class ImageFullScreen extends StatelessWidget {
+  final dynamic image;
+
+  ImageFullScreen({
+    @required this.image,
+    Key key
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+
+    return MainLayout(
+      pageTitle: 'Create flyers',
+      pyramids: Iconz.DvBlankSVG,
+      appBarType: AppBarType.Non,
+      appBarRowWidgets: <Widget>[
+
+      ],
+      layoutWidget:
+      Center(
+        child: Container(
+          width: Scale.superScreenWidth(context),
+          height: Scale.superScreenHeight(context),
+          child: ZoomableWidget(
+              child: superImageWidget(image)
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 
 class DraftPictureScreen extends StatefulWidget {
   final List<dynamic> pictures;
@@ -12,7 +47,7 @@ class DraftPictureScreen extends StatefulWidget {
   DraftPictureScreen({
     @required this.pictures,
     @required this.index,
-});
+  });
 
   @override
   _DraftPictureScreenState createState() => _DraftPictureScreenState();
@@ -29,6 +64,8 @@ class _DraftPictureScreenState extends State<DraftPictureScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    print('draft picture screen');
 
     double _flyerSizeFactor = 1;
     double _flyerZoneWidth = Scale.superFlyerZoneWidth(context, _flyerSizeFactor);

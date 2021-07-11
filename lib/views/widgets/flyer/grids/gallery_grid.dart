@@ -93,6 +93,7 @@ class GalleryGrid extends StatelessWidget {
                 addFlyerButton: true,
               ),
 
+              /// GALLERY FLYERS
               ...List<Widget>.generate(_gridFlyers.length,
                       (index) =>
 

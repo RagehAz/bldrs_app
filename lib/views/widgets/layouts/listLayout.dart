@@ -99,7 +99,7 @@ class ListLayout extends StatelessWidget {
                             verseScaleFactor: 0.8,
                             color: Colorz.WhiteAir,
                             // textDirection: superTextDirection(context),
-                            boxFunction: () => onItemTap(idValueMaps[index]['id']),
+                            onTap: () => onItemTap(idValueMaps[index]['id']),
                           ),
                         );
 

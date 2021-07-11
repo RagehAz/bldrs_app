@@ -94,7 +94,7 @@ class AddAuthorScreen extends StatelessWidget {
             icon: Iconz.DvRageh,
             margins: const EdgeInsets.only(top: 30),
             verseScaleFactor: 0.7,
-            boxFunction: () async {
+            onTap: () async {
 
               await superDialog(
                 context: context,

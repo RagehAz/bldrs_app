@@ -44,7 +44,7 @@ class _NavTestHomeState extends State<NavTestHome> {
       color: Colorz.Yellow,
       // boxMargins: EdgeInsets.all(10),
       verseMaxLines: 2,
-      boxFunction: () async {
+      onTap: () async {
 
         var _navResult = await Navigator.push(context,
           PageTransition(
@@ -126,7 +126,7 @@ class _NavTestHomeState extends State<NavTestHome> {
               height: 50,
               color: Colorz.BlackBlack,
               margins: EdgeInsets.all(5),
-              boxFunction: () async {
+              onTap: () async {
 
                 var _navResult = await Navigator.push(context,
                   new MaterialPageRoute(
@@ -149,7 +149,7 @@ class _NavTestHomeState extends State<NavTestHome> {
               verseScaleFactor: 1,
               color: Colorz.BlackBlack,
               margins: EdgeInsets.all(5),
-              boxFunction: () async {
+              onTap: () async {
 
                 var _navResult = Navigator.pushReplacement(
                     context,

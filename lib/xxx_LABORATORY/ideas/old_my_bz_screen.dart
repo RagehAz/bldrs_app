@@ -237,7 +237,7 @@ class _OldMyBzScreenState extends State<OldMyBzScreen> {
                                     verse: 'Edit Business details',
                                     verseScaleFactor: 1.6,
                                     bubble: false,
-                                    boxFunction: () => _goToEditBzProfile(_bzModel),
+                                    onTap: () => _goToEditBzProfile(_bzModel),
                                   ),
 
                                   /// flyersGrid

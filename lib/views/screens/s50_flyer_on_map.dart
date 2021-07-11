@@ -254,7 +254,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
               verseScaleFactor: 0.7,
               verseWeight: VerseWeight.black,
               verseColor: confirmButtonIsActive == true ? Colorz.BlackBlack : Colorz.White,
-              boxFunction: _pickedLocation == null ?
+              onTap: _pickedLocation == null ?
                   (){
                 setState(() {
                   confirmButtonIsActive = false;

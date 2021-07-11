@@ -95,7 +95,7 @@ class _TestFormScreenState extends State<TestFormScreen> {
           margins: const EdgeInsets.symmetric(horizontal: 10),
           verse: 'save the shit',
           verseScaleFactor: 0.5,
-          boxFunction: (){
+          onTap: (){
             _saveForm();
             print('save shit');
           },

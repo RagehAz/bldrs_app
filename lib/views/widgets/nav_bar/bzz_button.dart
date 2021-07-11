@@ -39,7 +39,7 @@ Widget _nanoBzLogo(BuildContext context, String bzID){
               corners: circleWidth * 0.47 * 0.25,
               icon: _tinyBz.bzLogo,
               bubble: true,
-              boxFunction: onTap,
+              onTap: onTap,
             );
         }),
   );
@@ -112,7 +112,7 @@ Widget _nanoBzLogo(BuildContext context, String bzID){
                           color: Colorz.Nothing,
                           corners: _buttonCircleCorner,
                           designMode: _designMode,
-                          boxFunction: onTap,
+                          onTap: onTap,
                         );
                     })
 
@@ -265,7 +265,7 @@ Widget _nanoBzLogo(BuildContext context, String bzID){
                           verseWeight: VerseWeight.thin,
                           verseScaleFactor: 0.3,
                           bubble: false,
-                          boxFunction: onTap,
+                          onTap: onTap,
                         ),
 
                       ],

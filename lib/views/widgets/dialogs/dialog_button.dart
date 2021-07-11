@@ -29,7 +29,7 @@ DialogButton({
         verseColor: verseColor,
         color: color,
         verseScaleFactor: 0.6,
-        boxFunction: onTap,
+        onTap: onTap,
     );
   }
 }

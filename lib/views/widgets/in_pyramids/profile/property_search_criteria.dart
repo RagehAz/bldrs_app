@@ -196,7 +196,7 @@ class PropertySearchCriteria extends StatelessWidget {
                       iconSizeFactor: 0.5,
                       verse: 'Add more details',
                       verseColor: Colorz.BabyBlue,
-                      boxFunction: (){print('3afreet enta');},
+                      onTap: (){print('3afreet enta');},
                       blackAndWhite: false,
 
                     ),

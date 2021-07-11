@@ -192,7 +192,7 @@ class _MyBzScreenState extends State<MyBzScreen> {
             verseWeight: VerseWeight.black,
             verseColor: Colorz.BlackBlack,
             // verseWeight: VerseWeight.thin,
-            boxFunction: () => _deleteBzOnTap(bzModel),
+            onTap: () => _deleteBzOnTap(bzModel),
 
           ),
 
@@ -207,7 +207,7 @@ class _MyBzScreenState extends State<MyBzScreen> {
             verseScaleFactor: 1.2,
             verseColor: Colorz.BloodRed,
             // verseWeight: VerseWeight.thin,
-            boxFunction: () => _deactivateBzOnTap(bzModel)
+            onTap: () => _deactivateBzOnTap(bzModel)
 
           ),
 
@@ -220,7 +220,7 @@ class _MyBzScreenState extends State<MyBzScreen> {
             verse: 'Edit Business Account info',
             verseScaleFactor: 1.2,
             verseColor: Colorz.White,
-            boxFunction: () => _editBzOnTap(bzModel),
+            onTap: () => _editBzOnTap(bzModel),
           ),
 
         ],
@@ -235,17 +235,35 @@ class _MyBzScreenState extends State<MyBzScreen> {
 
   }
 // -----------------------------------------------------------------------------
+  Widget _statsButton({@required String verse, @required String icon}){
+    return
+    DreamBox(
+      height: 30,
+      icon: icon,
+      verse: verse,
+      verseWeight: VerseWeight.thin,
+      verseItalic: true,
+      iconSizeFactor: 0.6,
+      bubble: false,
+    );
+}
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     // double _bubbleWidth = superScreenWidth(context) - (2 * Ratioz.ddAppBarMargin);
+
+    double _appBarBzButtonWidth = Scale.superScreenWidth(context) - (Ratioz.appBarMargin * 2) -
+        (Ratioz.appBarButtonSize * 2) - (Ratioz.appBarPadding * 4);
+
+    String _spaces = '   ';
 
     return bzModelStreamBuilder(
         context: context,
         bzID: widget.tinyBz.bzID,
         builder: (ctx, bzModel){
 
-          String _zoneString = TextGenerator.zoneStringer(context: context, zone: bzModel.bzZone);
+          String _zoneString = TextGenerator.cityCountryStringer(context: context, zone: bzModel.bzZone);
 
           print('bzZone is ${bzModel.bzZone.countryID} : ${bzModel.bzZone.provinceID} : ${bzModel.bzZone.districtID}');
 
@@ -263,28 +281,27 @@ class _MyBzScreenState extends State<MyBzScreen> {
 
                   /// --- BZ LOGO
                   DreamBox(
-                    height: 40,
-                    width: Scale.superScreenWidth(context) * 0.69,
+                    height: Ratioz.appBarButtonSize,
+                    width: _appBarBzButtonWidth,
                     icon: bzModel.bzLogo,
                     verse: '${bzModel.bzName}',
                     bubble: false,
-                    verseScaleFactor: 0.6,
+                    verseScaleFactor: 0.8,
                     color: Colorz.WhiteAir,
                     secondLine: '${TextGenerator.bzTypeSingleStringer(context, bzModel.bzType)} $_zoneString',
+                    secondLineColor: Colorz.WhiteLingerie,
+                    secondLineScaleFactor: 0.9,
                   ),
-
-                  /// --- EXPANDER
-                  Expanded(child: Container()),
 
                   /// -- SLIDE BZ ACCOUNT OPTIONS
                   DreamBox(
-                    height: 35,
-                    width: 35,
+                    height: Ratioz.appBarButtonSize,
+                    width: Ratioz.appBarButtonSize,
                     icon: Iconz.More,
                     iconSizeFactor: 0.6,
-                    margins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
+                    margins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
                     bubble: false,
-                    boxFunction:  () => _slideBzOptions(context, bzModel),
+                    onTap:  () => _slideBzOptions(context, bzModel),
                   ),
 
                 ],
@@ -293,6 +310,76 @@ class _MyBzScreenState extends State<MyBzScreen> {
                   children: <Widget>[
 
                     Stratosphere(),
+
+                    /// --- SCOPE
+                    ParagraphBubble(
+                      title: 'Scope of services',
+                      paragraph: bzModel.bzScope,
+                      maxLines: 5,
+                    ),
+
+                    /// --- ABOUT
+                    ParagraphBubble(
+                      title: 'About ${bzModel.bzName}',
+                      paragraph: bzModel.bzAbout,
+                      maxLines: 5,
+                      centered: false,
+                    ),
+
+                    BubblesSeparator(),
+
+                    /// --- STATS
+                    InPyramidsBubble(
+                        title: 'Stats',
+                        centered: false,
+                        columnChildren: <Widget>[
+
+                          /// FOLLOWERS
+                          _statsButton(
+                            verse: '$_spaces${bzModel.bzTotalFollowers} ${Wordz.followers(context)}',
+                            icon: Iconz.Follow,
+                          ),
+
+                          /// CALLS
+                          _statsButton(
+                            verse: '$_spaces${bzModel.bzTotalCalls} ${Wordz.callsReceived(context)}',
+                            icon: Iconz.ComPhone,
+                          ),
+
+                          /// SLIDES & FLYERS
+                          _statsButton(
+                            verse: '$_spaces${bzModel.bzTotalSlides} ${Wordz.slidesPublished(context)} ${Wordz.inn(context)} ${bzModel.nanoFlyers.length} ${Wordz.flyers(context)}',
+                            icon: Iconz.Gallery,
+                          ),
+
+                          /// SAVES
+                          _statsButton(
+                            verse: '$_spaces${bzModel.bzTotalSaves} ${Wordz.totalSaves(context)}',
+                            icon: Iconz.SaveOn,
+                          ),
+
+                          /// VIEWS
+                          _statsButton(
+                            verse: '$_spaces${bzModel.bzTotalViews} ${Wordz.totalViews(context)}',
+                            icon: Iconz.Views,
+                          ),
+
+                          /// SHARES
+                          _statsButton(
+                            verse: '$_spaces${bzModel.bzTotalShares} ${Wordz.totalShares(context)}',
+                            icon: Iconz.Share,
+                          ),
+
+                          /// BIRTH
+                          _statsButton(
+                            verse: '$_spaces${TextGenerator.monthYearStringer(context,bzModel.bldrBirth)}',
+                            icon: Iconz.Calendar,
+                          ),
+
+                        ]
+                    ),
+
+                    BubblesSeparator(),
 
                     /// --- GALLERY
                     InPyramidsBubble(
@@ -332,94 +419,6 @@ class _MyBzScreenState extends State<MyBzScreen> {
                       ],
                     ),
 
-                    BubblesSeparator(),
-
-                    // --- SCOPE
-                    ParagraphBubble(
-                      title: 'Scope of services',
-                      paragraph: bzModel.bzScope,
-                      maxLines: 5,
-                    ),
-
-                    // --- ABOUT
-                    ParagraphBubble(
-                      title: 'About ${bzModel.bzName}',
-                      paragraph: bzModel.bzAbout,
-                      maxLines: 5,
-                      centered: false,
-                    ),
-
-                    BubblesSeparator(),
-
-                    // --- TOTAL FOLLOWERS
-                    TileBubble(
-                      verse: '${bzModel.bzTotalFollowers} ${Wordz.followers(context)}',
-                      icon: Iconz.Follow,
-                      iconSizeFactor: 0.6,
-                      iconIsBubble: false,
-                    ),
-
-                    // --- TOTAL CALLS
-                    TileBubble(
-                      verse: '${bzModel.bzTotalCalls} ${Wordz.callsReceived(context)}',
-                      icon: Iconz.ComPhone,
-                      iconSizeFactor: 0.6,
-                      iconIsBubble: false,
-                    ),
-
-                    BubblesSeparator(),
-
-                    // --- TOTAL SLIDES
-                    TileBubble(
-                      verse: '${bzModel.bzTotalSlides} ${Wordz.slidesPublished(context)}',
-                      icon: Iconz.Gallery,
-                      iconSizeFactor: 0.6,
-                      iconIsBubble: false,
-                    ),
-
-                    // --- TOTAL FLYERS
-                    TileBubble(
-                      verse: '${bzModel.nanoFlyers.length} ${Wordz.flyers(context)}',
-                      icon: Iconz.Flyer,
-                      iconSizeFactor: 0.6,
-                      iconIsBubble: false,
-                    ),
-
-                    BubblesSeparator(),
-
-                    // --- TOTAL SAVES
-                    TileBubble(
-                      verse: '${bzModel.bzTotalSaves} ${Wordz.totalSaves(context)}',
-                      icon: Iconz.SaveOn,
-                      iconSizeFactor: 0.6,
-                      iconIsBubble: false,
-                    ),
-
-                    // --- TOTAL VIEWS
-                    TileBubble(
-                      verse: '${bzModel.bzTotalViews} ${Wordz.totalViews(context)}',
-                      icon: Iconz.Views,
-                      iconSizeFactor: 0.6,
-                      iconIsBubble: false,
-                    ),
-
-                    // --- TOTAL SHARES
-                    TileBubble(
-                      verse: '${bzModel.bzTotalShares} ${Wordz.totalShares(context)}',
-                      icon: Iconz.Share,
-                      iconSizeFactor: 0.6,
-                      iconIsBubble: false,
-                    ),
-
-                    BubblesSeparator(),
-
-                    // --- BIRTH DATE
-                    TileBubble(
-                      verse: TextGenerator.monthYearStringer(context,bzModel.bldrBirth),
-                      icon: Iconz.Calendar,
-                      iconSizeFactor: 0.6,
-                      iconIsBubble: false,
-                    ),
 
                     PyramidsHorizon(heightFactor: 3,),
 

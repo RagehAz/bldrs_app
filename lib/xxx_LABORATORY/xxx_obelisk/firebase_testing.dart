@@ -194,7 +194,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
             iconSizeFactor: 0.6,
             color: _buttonIsOn ? Colorz.Yellow : Colorz.Grey,
             verse: '$_flyerID - 0',
-            boxFunction: () => _save(_flyerID, 0),
+            onTap: () => _save(_flyerID, 0),
           ),
 
           DreamBox(
@@ -202,7 +202,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
             iconSizeFactor: 0.6,
             color: _buttonIsOn ? Colorz.Yellow : Colorz.Grey,
             verse: '$_flyerID - 1',
-            boxFunction: () => _save(_flyerID, 1),
+            onTap: () => _save(_flyerID, 1),
           ),
 
           DreamBox(
@@ -210,7 +210,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
             iconSizeFactor: 0.6,
             color: _buttonIsOn ? Colorz.Yellow : Colorz.Grey,
             verse: '$_flyerID - 2',
-            boxFunction: () => _save(_flyerID, 2),
+            onTap: () => _save(_flyerID, 2),
           ),
 
         ],
@@ -667,7 +667,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
           verseMaxLines: 2,
           margins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
           verseScaleFactor: 0.5,
-          boxFunction: (){
+          onTap: (){
             _triggerLoading();
           },
         ),
@@ -679,7 +679,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
           verseMaxLines: 2,
           margins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
           verseScaleFactor: 0.5,
-          boxFunction: (){
+          onTap: (){
             printResult('');
           },
         ),
@@ -704,7 +704,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
                     verseScaleFactor: 0.7,
                     verse: functions[index]['Name'],
                     color: Colorz.BloodTest,
-                    boxFunction: functions[index]['function'],
+                    onTap: functions[index]['function'],
                   );
               }),
 
