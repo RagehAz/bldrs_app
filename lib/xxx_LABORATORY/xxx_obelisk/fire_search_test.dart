@@ -184,7 +184,7 @@ class _FireSearchTestState extends State<FireSearchTest> {
               DreamBox(
                 width: Scale.superScreenWidth(context) * 0.95,
                 height: 2.5,
-                color: Colorz.WhiteGlass,
+                color: Colorz.White20,
                 corners: 0,
                 margins: const EdgeInsets.symmetric(vertical: 10),
               ),
@@ -212,7 +212,7 @@ class _FireSearchTestState extends State<FireSearchTest> {
                 // icon: _filePic,
                 iconFile: _filePic,
                 iconSizeFactor: 1,
-                color: Colorz.BabyBlue,
+                color: Colorz.Blue225,
               ),
 
 
@@ -225,7 +225,7 @@ class _FireSearchTestState extends State<FireSearchTest> {
           Positioned(
             bottom: 0,
             child: InPyramidsBubble(
-              bubbleColor: Colorz.BlackBlack,
+              bubbleColor: Colorz.Black225,
               centered: true,
               stretchy: false,
               columnChildren: <Widget>[
@@ -233,7 +233,7 @@ class _FireSearchTestState extends State<FireSearchTest> {
                   verse: printVerse ?? 'print Area',
                   maxLines: 12,
                   weight: VerseWeight.thin,
-                  color: printVerse == null ? Colorz.WhiteGlass : Colorz.White,
+                  color: printVerse == null ? Colorz.White20 : Colorz.White225,
                 ),
               ],
             ),

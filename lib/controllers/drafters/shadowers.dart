@@ -28,12 +28,12 @@ class CustomBoxShadow extends BoxShadow {
 List<BoxShadow> superFollowBtShadow(double btHeight){
   List<BoxShadow> _btShadow = <BoxShadow>[
     CustomBoxShadow(
-        color: Colorz.BlackPlastic,
+        color: Colorz.Black125,
         offset: new Offset(0, 0),
         blurRadius: btHeight * 0.1,
         blurStyle: BlurStyle.outer),
     CustomBoxShadow(
-        color: Colorz.WhiteSmoke,
+        color: Colorz.White80,
         offset: new Offset(0, 0),
         blurRadius: btHeight * 0.1,
         blurStyle: BlurStyle.outer),
@@ -46,7 +46,7 @@ List<BoxShadow> superFollowBtShadow(double btHeight){
 class Shadowz {
 // -----------------------------------------------------------------------------
   static const BoxShadow basicOuterShadow = CustomBoxShadow(
-      color: Colorz.BlackLingerie,
+      color: Colorz.Black200,
       offset: Offset(0, 0),
       blurRadius: 10,
       blurStyle: BlurStyle.outer
@@ -59,7 +59,7 @@ class Shadowz {
   static List<BoxShadow> flyerZoneShadow(double flyerZoneWidth){
     List<BoxShadow> _flyerZoneShadow = <BoxShadow>[
       CustomBoxShadow(
-          color: Colorz.BlackBlack,
+          color: Colorz.Black225,
           blurRadius: flyerZoneWidth * 0.055,
           blurStyle: BlurStyle.outer
       ),
@@ -71,7 +71,7 @@ class Shadowz {
   static List<BoxShadow> flyerHeaderShadow(double flyerZoneWidth){
     List<BoxShadow> _shadows = <BoxShadow>[
       CustomBoxShadow(
-        color: Colorz.BlackLingerie,
+        color: Colorz.Black200,
         offset: Offset(0, 0),
         blurRadius: flyerZoneWidth * 0.1,
         blurStyle: BlurStyle.outer

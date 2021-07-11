@@ -48,7 +48,7 @@ class SequenceScreen extends StatelessWidget {
       appBarRowWidgets: <Widget>[
 
         SectionsButton(
-          color: Colorz.BabyBlueSmoke,
+          color: Colorz.Blue80,
           onTap: (){},
         ),
 

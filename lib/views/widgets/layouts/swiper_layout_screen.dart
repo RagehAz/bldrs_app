@@ -64,8 +64,8 @@ class _SwiperLayoutScreenState extends State<SwiperLayoutScreen> {
         autoplay: false,
         pagination: new SwiperPagination(
           builder: DotSwiperPaginationBuilder(
-            color: Colorz.White,
-            activeColor: Colorz.Yellow,
+            color: Colorz.White225,
+            activeColor: Colorz.Yellow225,
             activeSize: 8,
             size: 4,
             space: 2,

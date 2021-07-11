@@ -29,8 +29,8 @@ class GoldenScroll extends StatelessWidget {
             bottomLeft: Radius.circular(flyerTagsCornerValue),
             bottomRight: Radius.circular(flyerTagsCornerValue),
           ),
-          border: Border.all(width: 0.5, color: Colorz.YellowSmoke),
-          color: Colorz.YellowGlass,
+          border: Border.all(width: 0.5, color: Colorz.Yellow80),
+          color: Colorz.Yellow20,
         ),
 
         child: Column(
@@ -39,7 +39,7 @@ class GoldenScroll extends StatelessWidget {
 
             SuperVerse(
               verse: scrollTitle,
-              color: Colorz.Yellow,
+              color: Colorz.Yellow225,
               weight: VerseWeight.thin,
               italic: true,
               size: 1,
@@ -54,7 +54,7 @@ class GoldenScroll extends StatelessWidget {
 
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: Colorz.White,
+                color: Colorz.White225,
                    fontFamily: Wordz.bodyFont(context),
                 fontStyle: FontStyle.italic,
                 decoration: TextDecoration.none,

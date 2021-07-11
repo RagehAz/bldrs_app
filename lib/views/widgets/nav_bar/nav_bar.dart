@@ -258,7 +258,7 @@ class NavBar extends StatelessWidget {
                          DreamBox(
                            height: _circleWidth,
                            width: _circleWidth,
-                           color: sky == Sky.Black ? Colorz.YellowZircon : Colorz.WhiteGlass,
+                           color: sky == Sky.Black ? Colorz.Yellow50 : Colorz.White20,
                            corners: _buttonCircleCorner,
                            margins: const EdgeInsets.all(Ratioz.appBarPadding),
                            icon: Iconizer.superBackIcon(context),

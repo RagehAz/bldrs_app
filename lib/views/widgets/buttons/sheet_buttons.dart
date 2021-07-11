@@ -56,7 +56,7 @@ class SheetButtons extends StatelessWidget {
       width: _inBarClearWidth,
       margin: EdgeInsets.only(top: _abPadding),
       decoration: BoxDecoration(
-        color: Colorz.WhiteAir,
+        color: Colorz.White10,
         borderRadius: Borderers.superBorderAll(context, _listCorner),
       ),
       child: ListView.builder(
@@ -80,7 +80,7 @@ class SheetButtons extends StatelessWidget {
                     bubble: false,
                     margins: const EdgeInsets.all(5),
                     verseScaleFactor: 0.8,
-                    color: Colorz.WhiteAir,
+                    color: Colorz.White10,
                     textDirection: sheetType == BottomSheetType.BottomSheet? superTextDirection(context) : superInverseTextDirection(context),
                     onTap: () => buttonTap(id),
                 ),

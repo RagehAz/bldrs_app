@@ -60,7 +60,7 @@ AlertDialog _superAlert ({
                   width: _screenWidth,
                   height: _screenHeight,
                   padding: EdgeInsets.symmetric(horizontal: _dialogHorizontalMargin, vertical: _dialogVerticalMargin),
-                  color: Colorz.BlackSmoke,
+                  color: Colorz.Black80,
                   child: Container(
                     width: _screenWidth - (_dialogHorizontalMargin * 2),
                     height: _screenHeight - (_dialogVerticalMargin * 2),
@@ -99,7 +99,7 @@ AlertDialog _superAlert ({
                                       if (title != null)
                                         SuperVerse(
                                           verse: title,
-                                          color: Colorz.Yellow,
+                                          color: Colorz.Yellow225,
                                           shadow: true,
                                           size: 3,
                                           italic: true,
@@ -112,7 +112,7 @@ AlertDialog _superAlert ({
                                       /// BODY
                                       SuperVerse(
                                         verse: body.runtimeType == String ? body : body.toString(),
-                                        color: Colorz.White,
+                                        color: Colorz.White225,
                                         maxLines: 6,
                                         // designMode: true,
                                         margin: Ratioz.appBarMargin,
@@ -136,17 +136,17 @@ AlertDialog _superAlert ({
                                   if (boolDialog == true)
                                     DialogButton(
                                       verse: 'No',
-                                      verseColor: Colorz.White,
+                                      verseColor: Colorz.White225,
                                       width: 100,
-                                      color: Colorz.WhiteSmoke,
+                                      color: Colorz.White80,
                                       onTap: () => Nav.goBack(context, argument: false),
                                     ),
 
                                   DialogButton(
                                     verse: boolDialog == true ? 'Yes' : 'Ok',
-                                    verseColor: Colorz.BlackBlack,
+                                    verseColor: Colorz.Black225,
                                     width: 100,
-                                    color: Colorz.Yellow,
+                                    color: Colorz.Yellow225,
                                     onTap: boolDialog == true ?
                                         () => Nav.goBack(context, argument: true)
                                         :

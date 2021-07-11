@@ -55,7 +55,7 @@ class _SlidesStackState extends State<SlidesStack> with AutomaticKeepAliveClient
   bool get wantKeepAlive => true;
 // -----------------------------------------------------------------------------
   int _textLength = 0;
-  Color _counterColor = Colorz.WhiteSmoke;
+  Color _counterColor = Colorz.White80;
   final _formKey = GlobalKey<FormState>();
 // -----------------------------------------------------------------------------
   /// --- LOADING BLOCK
@@ -109,7 +109,7 @@ class _SlidesStackState extends State<SlidesStack> with AutomaticKeepAliveClient
     BorderRadius _flyerBorderRadius = Borderers.superFlyerCorners(context, _flyerZoneWidth);
     BoxDecoration _flyerDecoration = BoxDecoration(
       borderRadius: _flyerBorderRadius,
-      color: Colorz.WhiteAir,
+      color: Colorz.White10,
     );
 
     BzAccountType _accountType = BzAccountType.Premium;
@@ -127,7 +127,7 @@ class _SlidesStackState extends State<SlidesStack> with AutomaticKeepAliveClient
     return Container(
       width: Scale.superScreenWidth(context),
       height: _overAllHeight,
-      color: Colorz.WhiteAir,
+      color: Colorz.White10,
       margin: EdgeInsets.symmetric(vertical: _verticalMargin),
       child:
       ListView(
@@ -167,7 +167,7 @@ class _SlidesStackState extends State<SlidesStack> with AutomaticKeepAliveClient
                               verse: '${widget.draftIndex + 1}.',
                               size: 1,
                               italic: true,
-                              color: Colorz.WhiteSmoke,
+                              color: Colorz.White80,
                               weight: VerseWeight.thin,
                             ),
 
@@ -201,9 +201,9 @@ class _SlidesStackState extends State<SlidesStack> with AutomaticKeepAliveClient
                         validator: (val){
                           if(val.length >= _flyerTitleMaxLength){
 
-                            if(_counterColor != Colorz.BloodRed){
+                            if(_counterColor != Colorz.Red225){
                               setState(() {
-                                _counterColor = Colorz.BloodRed;
+                                _counterColor = Colorz.Red225;
                               });
                             }
 
@@ -211,9 +211,9 @@ class _SlidesStackState extends State<SlidesStack> with AutomaticKeepAliveClient
                           } else {
 
 
-                            if(_counterColor != Colorz.WhiteSmoke){
+                            if(_counterColor != Colorz.White80){
                               setState(() {
-                                _counterColor = Colorz.WhiteSmoke;
+                                _counterColor = Colorz.White80;
                               });
                             }
 
@@ -222,7 +222,7 @@ class _SlidesStackState extends State<SlidesStack> with AutomaticKeepAliveClient
                         },
                         // margin: EdgeInsets.only(top: Ratioz.appBarPadding),
                         hintText: 'Flyer Headline ...',
-                        labelColor: Colorz.WhiteAir,
+                        labelColor: Colorz.White10,
                         textController: widget.draftFlyerModel.titleController,
                         maxLength: _flyerTitleMaxLength,
                         onChanged: (value){
@@ -313,8 +313,8 @@ class _SlidesStackState extends State<SlidesStack> with AutomaticKeepAliveClient
                           SuperVerse(
                             verse: '${index + 1}',
                             size: 1,
-                            color: Colorz.WhiteLingerie,
-                            labelColor: Colorz.WhiteAir,
+                            color: Colorz.White200,
+                            labelColor: Colorz.White10,
                           ) : Container(),
                         ),
 
@@ -365,7 +365,7 @@ class _SlidesStackState extends State<SlidesStack> with AutomaticKeepAliveClient
                                       width: _flyerZoneWidth * 0.5,
                                       icon: Iconz.Plus,
 
-                                      iconColor: Colorz.WhiteGlass,
+                                      iconColor: Colorz.White20,
                                       bubble: false,
                                       onTap: widget.onAddPics,
                                     ),
@@ -379,7 +379,7 @@ class _SlidesStackState extends State<SlidesStack> with AutomaticKeepAliveClient
                                       child: SuperVerse(
                                         verse: 'Add Photos',
                                         size: 2,
-                                        color: Colorz.WhiteGlass,
+                                        color: Colorz.White20,
                                         maxLines: 2,
                                       ),
                                     ),

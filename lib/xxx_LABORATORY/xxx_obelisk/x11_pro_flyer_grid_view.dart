@@ -128,7 +128,7 @@ class _FlyersGridViewState extends State<FlyersGridView> {
           margins: const EdgeInsets.all(5),
           icon: Iconz.SavedFlyers,
           iconSizeFactor: 0.8,
-          color: _showAnkhsOnly == true ? Colorz.Yellow : Colorz.Nothing,
+          color: _showAnkhsOnly == true ? Colorz.Yellow225 : Colorz.Nothing,
           onTap: (){
             setState(() {
               _showAnkhsOnly = !_showAnkhsOnly;
@@ -250,10 +250,10 @@ class FilterButton extends StatelessWidget {
       margins: EdgeInsets.all(2.5),
       icon: icon,
       verse: buttonVerse,
-      verseColor: flyerTypeFilter == currentFlyerType ? Colorz.BlackBlack : Colorz.White,
+      verseColor: flyerTypeFilter == currentFlyerType ? Colorz.Black225 : Colorz.White225,
       verseScaleFactor: 0.8,
       iconSizeFactor: 0.8,
-      color: flyerTypeFilter == currentFlyerType ? Colorz.Yellow : Colorz.Nothing,
+      color: flyerTypeFilter == currentFlyerType ? Colorz.Yellow225 : Colorz.Nothing,
       onTap: () => tapButton(flyerTypeFilter),
     );
   }

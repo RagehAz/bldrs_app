@@ -39,7 +39,7 @@ class EnumLister extends StatelessWidget {
         Container(
           width: screenWidth,
           height: screenHeight,
-          color: Colorz.BlackSmoke,
+          color: Colorz.Black80,
         ),
 
         // --- THE LIST PAGE
@@ -58,12 +58,12 @@ class EnumLister extends StatelessWidget {
                 ),
                 boxShadow: <BoxShadow>[
                   CustomBoxShadow(
-                      color: Colorz.BlackBlack,
+                      color: Colorz.Black225,
                       offset: const Offset(0, 0),
                       blurRadius: 30,
                       blurStyle: BlurStyle.outer),
                   CustomBoxShadow(
-                      color: Colorz.BlackBlack,
+                      color: Colorz.Black225,
                       offset: const Offset(0, 0),
                       blurRadius: 30,
                       blurStyle: BlurStyle.outer),
@@ -125,7 +125,7 @@ class EnumLister extends StatelessWidget {
                       Container(
                         width: listWidth - Ratioz.appBarMargin,
                         height: 0.5,
-                        color: Colorz.Yellow,
+                        color: Colorz.Yellow225,
                         margin: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin * 2),
 
                       ),
@@ -138,7 +138,7 @@ class EnumLister extends StatelessWidget {
                             gradient: LinearGradient(
                               begin: Alignment.bottomCenter,
                               end: Alignment.topCenter,
-                              colors: [Colorz.BlackLingerie, Colorz.BlackNothing],
+                              colors: [Colorz.Black200, Colorz.Black0],
                               stops: [0, 0.25]
                             )
                           ),

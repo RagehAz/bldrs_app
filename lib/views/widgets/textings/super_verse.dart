@@ -30,7 +30,7 @@ class SuperVerse extends StatelessWidget {
   SuperVerse({
     this.verse = 'Bldrs.net will shock planet Earth isa',
     this.size = 2,
-    this.color = Colorz.White,
+    this.color = Colorz.White225,
     this.weight = VerseWeight.bold,
     this.italic = false,
     this.shadow = false,
@@ -81,8 +81,8 @@ class SuperVerse extends StatelessWidget {
     const double _shadowYOffset = 0;
     double _shadowXOffset = superVerseXOffset(weight, _verseSizeValue);
     double _secondShadowXOffset = -0.35 * _shadowXOffset;
-    Color _leftShadow = color == Colorz.BlackBlack ? Colorz.WhitePlastic : Colorz.BlackBlack;
-    Color _rightShadow = color == Colorz.BlackBlack ? Colorz.WhiteSmoke : Colorz.WhiteGlass;
+    Color _leftShadow = color == Colorz.Black225 ? Colorz.White125 : Colorz.Black225;
+    Color _rightShadow = color == Colorz.Black225 ? Colorz.White80 : Colorz.White20;
     // --- ITALIC -----------------------------------------------
     FontStyle _verseStyle = italic == true ? FontStyle.italic : FontStyle.normal;
     // --- VERSE BOX MARGIN -----------------------------------------------
@@ -175,7 +175,7 @@ class SuperVerse extends StatelessWidget {
                   labelColor == null ?
                   EdgeInsets.only(top: _labelHeight * 0.2) :
                   EdgeInsets.only(top: _labelHeight * 0.05) ,
-                  child: _dot(_dotSize, Colorz.BloodRed),
+                  child: _dot(_dotSize, Colorz.Red225),
                 ),
             ),
 

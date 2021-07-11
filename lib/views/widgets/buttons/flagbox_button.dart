@@ -30,7 +30,7 @@ class FlagBox extends StatelessWidget {
               borderRadius: BorderRadius.circular(_corner),
               boxShadow: <BoxShadow>[
                 CustomBoxShadow(
-                    color: Colorz.BlackBlack,
+                    color: Colorz.Black225,
                     offset: new Offset(0, 0),
                     blurRadius: _flagWidth * 0.12,
                     blurStyle: BlurStyle.outer
@@ -58,7 +58,7 @@ class FlagBox extends StatelessWidget {
                       gradient: LinearGradient(
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
-                          colors: [Colorz.BlackNothing, Colorz.BlackLingerie],
+                          colors: [Colorz.Black0, Colorz.Black200],
                           stops: [0.65,1]
                       ),
                   ),
@@ -74,7 +74,7 @@ class FlagBox extends StatelessWidget {
                       gradient: LinearGradient(
                           begin: Alignment.bottomCenter,
                           end: Alignment.topCenter,
-                          colors: [Colorz.Nothing, Colorz.WhiteSmoke],
+                          colors: [Colorz.Nothing, Colorz.White80],
                           stops: [0.75,1]
                       ),
                   ),

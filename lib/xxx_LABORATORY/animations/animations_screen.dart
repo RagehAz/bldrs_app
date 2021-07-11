@@ -128,8 +128,8 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
           
           InkWell(
             onTap: resizeBox,
-            highlightColor: Colorz.Yellow,
-            splashColor: Colorz.BabyBlue,
+            highlightColor: Colorz.Yellow225,
+            splashColor: Colorz.Blue225,
 
             child: Center(
               child: RotationTransition(
@@ -144,7 +144,7 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
                     width: width,
                     height: height,
                     margin: EdgeInsets.only(top: condition() == true ? 0 : Ratioz.stratosphere),
-                    color: condition() == true ? Colorz.BloodRed : Colorz.Yellow,
+                    color: condition() == true ? Colorz.Red225 : Colorz.Yellow225,
                     child: Stack(
                       alignment: Alignment.center,
                       children: <Widget>[
@@ -173,17 +173,17 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
           Container(
             width: screenWidth,
             height: screenWidth,
-            color: Colorz.BlackBlack,
+            color: Colorz.Black225,
             alignment: Alignment.center,
             child: DreamBox(
               width: 200,
               height: 200,
               icon: Iconz.Clock,
-              color: Colorz.Yellow,
-              splashColor: Colorz.DarkRedPlastic,
+              color: Colorz.Yellow225,
+              splashColor: Colorz.DarkRed125,
               underLine: 'Ripple Effect\n Works Now',
-              underLineColor: Colorz.BlackBlack,
-              underLineLabelColor: Colorz.YellowLingerie,
+              underLineColor: Colorz.Black225,
+              underLineLabelColor: Colorz.Yellow200,
               onTap: (){
                 print('ripple effect works now');
                 Navigator.push(context,
@@ -217,7 +217,7 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
           Container(
             width: screenWidth,
             height: screenWidth,
-            color: Colorz.BabyBlueSmoke,
+            color: Colorz.Blue80,
             alignment: Alignment.center,
             child: GestureDetector(
               onTap: (){
@@ -319,7 +319,7 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
                   width: btWidth,
                   height: btWidth,
                   decoration: BoxDecoration(
-                    color: Colorz.YellowSmoke,
+                    color: Colorz.Yellow80,
                     image: DecorationImage(image: AssetImage(Iconz.DumAuthorPic), fit: BoxFit.fitHeight),
                     borderRadius: Borderers.superBorderRadius(context: context, enTopLeft: btCorner, enBottomLeft: btCorner, enBottomRight: btCorner, enTopRight: btCorner),
                   ),

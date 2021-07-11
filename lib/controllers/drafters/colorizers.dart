@@ -8,7 +8,7 @@ class Colorizer{
     Gradient slideGradient = LinearGradient(
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
-        colors: <Color>[Colorz.BlackLingerie, Colorz.BlackNothing],
+        colors: <Color>[Colorz.Black200, Colorz.Black0],
         stops: <double>[0,0.90]
     );
     return slideGradient;
@@ -27,7 +27,7 @@ class Colorizer{
     Gradient followBTGradient = LinearGradient(
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
-        colors: <Color>[Colorz.WhiteZircon, Colorz.Nothing],
+        colors: <Color>[Colorz.White50, Colorz.Nothing],
         stops: <double>[0, 0.5]
     );
     return followBTGradient;
@@ -44,7 +44,7 @@ class Colorizer{
   ///     colorFilter: superDesaturation(blackAndWhite),
   ///     child: ,
   static ColorFilter superDesaturation(bool isItBlackAndWhite){
-    Color imageSaturationColor = isItBlackAndWhite == true ? Colorz.Grey : Colorz.Nothing;
+    Color imageSaturationColor = isItBlackAndWhite == true ? Colorz.Grey225 : Colorz.Nothing;
     return ColorFilter.mode(
         imageSaturationColor,
         BlendMode.saturation

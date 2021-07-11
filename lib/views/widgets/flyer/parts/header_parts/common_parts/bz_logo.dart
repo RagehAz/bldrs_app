@@ -58,7 +58,7 @@ class BzLogo extends StatelessWidget {
         width: width,
         margin: margins,
         decoration: BoxDecoration(
-          color: ObjectChecker.objectIsColor(image) ? image : Colorz.WhiteAir,
+          color: ObjectChecker.objectIsColor(image) ? image : Colorz.White10,
             image:
             ObjectChecker.objectIsJPGorPNG(image)?
             DecorationImage(image: AssetImage(image), fit: BoxFit.cover) : null,
@@ -67,7 +67,7 @@ class BzLogo extends StatelessWidget {
             boxShadow: <CustomBoxShadow>[
               if (shadowIsOn == true)
               CustomBoxShadow(
-                  color: Colorz.BlackLingerie,
+                  color: Colorz.Black200,
                   offset: new Offset(0, 0),
                   blurRadius: width * 0.15,
                   blurStyle: BlurStyle.outer

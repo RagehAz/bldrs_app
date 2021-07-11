@@ -87,9 +87,9 @@ class _DropDownBubbleState extends State<DropDownBubble> {
           ),
           child: DropdownButtonFormField(
             // value: widget.list[0] ?? widget.list[0],
-            dropdownColor: Colorz.BabyBlue,
+            dropdownColor: Colorz.Blue225,
             elevation: 0,
-            style: TextStyle(color: Colorz.BloodRed, ),
+            style: TextStyle(color: Colorz.Red225, ),
             iconSize: 30,
             isExpanded: true,
             isDense: true,
@@ -98,12 +98,12 @@ class _DropDownBubbleState extends State<DropDownBubble> {
             onTap: (){print('ganzabeel');},
             icon: DreamBox(height: 20, icon: Iconz.ArrowDown, bubble: false,),
             decoration: InputDecoration(
-              border: Borderers.superOutlineInputBorder(Colorz.BloodRed, 10),
+              border: Borderers.superOutlineInputBorder(Colorz.Red225, 10),
               isDense: true,
               contentPadding: EdgeInsets.all(0),
               // labelText: 'label text',
               icon: DreamBox(height: 35, icon: Iconz.DvGouran,),
-              fillColor: Colorz.BabyBlue,
+              fillColor: Colorz.Blue225,
               filled: true,
               enabled: true,
               focusColor: Colorz.BloodTest,
@@ -114,7 +114,7 @@ class _DropDownBubbleState extends State<DropDownBubble> {
                 // value: widget.list[0] ?? widget.list[0],
                 onTap: (){print(item);},
                 child: SuperVerse(
-                  color: Colorz.BlackBlack,
+                  color: Colorz.Black225,
                   verse: item,
                 ),
               );

@@ -235,7 +235,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                 verseWeight: VerseWeight.regular,
                 verseItalic: true,
                 verseMaxLines: 2,
-                color: Colorz.BlackLingerie,
+                color: Colorz.Black200,
                 bubble: false,
                 icon: Iconz.FingerTap,
                 iconSizeFactor: 0.7,
@@ -248,12 +248,12 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
             child: DreamBox(
               height: 60,
               width: 220,
-              color: confirmButtonIsActive == true ? Colorz.Yellow : Colorz.BloodRed,
+              color: confirmButtonIsActive == true ? Colorz.Yellow225 : Colorz.Red225,
               verse: confirmButtonIsActive == true ? 'Confirm flyer Location' : 'Pin the Map first !',
               verseMaxLines: 2,
               verseScaleFactor: 0.7,
               verseWeight: VerseWeight.black,
-              verseColor: confirmButtonIsActive == true ? Colorz.BlackBlack : Colorz.White,
+              verseColor: confirmButtonIsActive == true ? Colorz.Black225 : Colorz.White225,
               onTap: _pickedLocation == null ?
                   (){
                 setState(() {

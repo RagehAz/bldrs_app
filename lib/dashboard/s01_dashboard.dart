@@ -36,9 +36,9 @@ class _DashBoardState extends State<DashBoard> {
       return MainButton(
         buttonVerse: title,
         function: onTap,
-        splashColor: Colorz.Yellow,
-        buttonColor: Colorz.Yellow,
-        verseColor: Colorz.BlackBlack,
+        splashColor: Colorz.Yellow225,
+        buttonColor: Colorz.Yellow225,
+        verseColor: Colorz.Black225,
         verseWeight : VerseWeight.black,
         buttonVerseShadow: false,
         stretched: false,

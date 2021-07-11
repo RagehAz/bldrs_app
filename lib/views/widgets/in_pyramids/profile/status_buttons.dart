@@ -66,9 +66,9 @@ class StatusButtons extends StatelessWidget {
                             ( currentUserStatus == UserStatus.Finishing ||
                                 currentUserStatus == UserStatus.PlanningTalking ||
                                 currentUserStatus == UserStatus.Building) ?
-                        Colorz.Yellow :
+                        Colorz.Yellow225 :
                         currentUserStatus == x['userStatus'] ?
-                        Colorz.Yellow :
+                        Colorz.Yellow225 :
                         Colorz.Nothing,
 
                         verseColor:
@@ -76,10 +76,10 @@ class StatusButtons extends StatelessWidget {
                             ( currentUserStatus == UserStatus.Finishing ||
                                 currentUserStatus == UserStatus.PlanningTalking ||
                                 currentUserStatus == UserStatus.Building) ?
-                        Colorz.BlackBlack :
+                        Colorz.Black225 :
                         currentUserStatus == x['userStatus'] ?
-                        Colorz.BlackBlack :
-                        Colorz.White,
+                        Colorz.Black225 :
+                        Colorz.White225,
 
                         verseWeight:
                         x['userStatus'] == UserStatus.Finishing &&
