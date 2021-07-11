@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
@@ -8,7 +10,7 @@ import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
-import 'package:bldrs/views/widgets/flyer/stacks/spread_flyer.dart';
+import 'package:bldrs/views/widgets/flyer/stacks/slides_stack.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
@@ -20,11 +22,15 @@ import 'package:multi_image_picker2/multi_image_picker2.dart';
 class DraftFlyerModel{
   TextEditingController titleController;
   List<Asset> assets;
+  List<File> assetsAsFiles;
+  List<BoxFit> boxesFits;
   ValueKey key;
 
   DraftFlyerModel({
     @required this.titleController,
     @required this.assets,
+    @required this.assetsAsFiles,
+    @required this.boxesFits,
     @required this.key,
 });
 
@@ -162,6 +168,8 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
             DraftFlyerModel(
               titleController: new TextEditingController(),
               assets: new List(),
+              assetsAsFiles: new List(),
+              boxesFits: new List(),
               key: ValueKey(_createKeyValue(DraftFlyerModel.getKeysOfDrafts(_draftFlyers))),
             )
         );
@@ -283,9 +291,28 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
           if(_outputAssets.length == 0){
             // will do nothing
           } else {
+
+            List<BoxFit> _fits = new List();
+            List<File> _assetsAsFiles = new List();
+
+            for (Asset asset in _outputAssets){
+              File _file = await getFileFromCropperAsset(asset);
+              _assetsAsFiles.add(_file);
+
+              if(asset.isPortrait){
+                _fits.add(BoxFit.fitHeight);
+              } else {
+                _fits.add(BoxFit.fitWidth);
+              }
+
+            }
+
             setState(() {
               _draftFlyers[draftIndex].assets = _outputAssets;
+              _draftFlyers[draftIndex].boxesFits = _fits;
+              _draftFlyers[draftIndex].assetsAsFiles = _assetsAsFiles;
             });
+            
           }
 
         }
@@ -312,25 +339,6 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
       pyramids: Iconz.PyramidzYellow,
       appBarType: AppBarType.Basic,
       loading: _loading,
-      tappingRageh: () async {
-
-        int _index = 1;
-
-        // if (_draftsHeightsList[_index] > 0){
-        //
-        //   await _fadeOutAndShrinkStack(_index);
-        //
-        // } else {
-        //
-        //   await _fadeInAndExpandStack(_index);
-        //
-        // }
-
-        _scrollToDraft(_index);
-
-        // _scrollToBottom();
-
-      },
       appBarRowWidgets: <Widget>[
 
       ],
@@ -368,10 +376,12 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
                       curve: _animationCurve,
                       duration: _animationDuration,
                       opacity: _draftsOpacities[_draftIndex],
-                      child: DraftFlyer(
+                      child: SlidesStack(
+                        bzModel: widget.bzModel,
+                        firstTimer: widget.firstTimer,
                         draftFlyerModel: _draftFlyers[_draftIndex],
                         draftIndex: _draftIndex,
-                        draftOverallHeight: _draftMaxHeight,
+                        stackHeight: _draftMaxHeight,
                         onDeleteDraft: () => _deleteFlyer(index: _draftIndex),
                         onAddPics: () => _getMultiImages(
                           accountType: BzAccountType.Premium,
@@ -394,7 +404,7 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
               height: 70,
               icon: Iconz.AddFlyer,
               iconSizeFactor: 0.7,
-              verse: 'Add new Flyer',
+              verse: 'Add a new Flyer',
               color: Colorz.WhiteAir,
               bubble: false,
               onTap: _addFlyer,
@@ -403,7 +413,10 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
           ),
 
           /// HORIZON
-          PyramidsHorizon(heightFactor: 5,),
+          SizedBox(
+            width: Scale.superScreenWidth(context),
+            height: (Scale.superScreenHeight(context) - (Ratioz.stratosphere + _draftMaxHeight + 100 + (Ratioz.appBarMargin * 4))),
+          ),
 
           /// GIF THING
           // check this
