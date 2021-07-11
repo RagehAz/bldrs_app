@@ -829,7 +829,7 @@ class Fire{
   }) async {
     String _url;
 
-    File _result = await getImageFileFromAssets(context, asset);
+    File _result = await getImageFileFromLocalAsset(context, asset);
 
     print('uploading $fileName pic to fireStorage in folder of $picType');
 

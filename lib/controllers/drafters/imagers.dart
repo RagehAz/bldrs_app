@@ -37,6 +37,11 @@ Widget superImageWidget(dynamic pic, {int width, int height, BoxFit fit}){
 
   BoxFit _boxFit = fit == null ? BoxFit.cover : fit;
 
+  // int _width = fit == BoxFit.fitWidth ? width : null;
+  // int _height = fit == BoxFit.fitHeight ? height : null;
+
+  Asset _asset = ObjectChecker.objectIsAsset(pic) ? pic : null;
+
   return
     ObjectChecker.objectIsJPGorPNG(pic)?
     Image.asset(pic, fit: _boxFit,)
@@ -56,9 +61,9 @@ Widget superImageWidget(dynamic pic, {int width, int height, BoxFit fit}){
         :
     ObjectChecker.objectIsAsset(pic)?
     AssetThumb(
-      asset: pic,
-      width: width,
-      height: height,
+      asset: _asset,
+      width: _asset.originalWidth,
+      height: _asset.originalHeight,
       spinner: Loading(loading: true,),
     )
         :
@@ -170,7 +175,7 @@ Future<Uint8List> getBytesFromAsset(String iconPath, int width) async {
   return (await fi.image.toByteData(format: ui.ImageByteFormat.png)).buffer.asUint8List();
 }
 // -----------------------------------------------------------------------------
-Future < Uint8List > getBytesFromCanvas(int width, int height, urlAsset) async {
+Future <Uint8List> getBytesFromCanvas(int width, int height, urlAsset) async {
   final ui.PictureRecorder pictureRecorder = ui.PictureRecorder();
   final Canvas canvas = Canvas(pictureRecorder);
   final Paint paint = Paint()..color = Colors.transparent;
@@ -196,7 +201,7 @@ Future < Uint8List > getBytesFromCanvas(int width, int height, urlAsset) async {
   return data.buffer.asUint8List();
 }
 // -----------------------------------------------------------------------------
-Future < ui.Image > loadImage(List < int > img) async {
+Future <ui.Image> loadImage(List < int > img) async {
   final Completer < ui.Image > completer = new Completer();
   ui.decodeImageFromList(img, (ui.Image img) {
 
@@ -205,7 +210,7 @@ Future < ui.Image > loadImage(List < int > img) async {
   return completer.future;
 }
 // -----------------------------------------------------------------------------
-Future<File> getImageFileFromAssets(BuildContext context, String inputAsset) async {
+Future<File> getImageFileFromLocalAsset(BuildContext context, String inputAsset) async {
   File _file;
   String asset = ObjectChecker.objectIsSVG(inputAsset) ? Iconz.DumBusinessLogo : inputAsset;
   await tryAndCatch(
@@ -304,5 +309,21 @@ Future<List<Asset>> getMultiImagesFromGallery({BuildContext context, List<Asset>
 
   }
 
+}
+// -----------------------------------------------------------------------------
+Future<File> getFileFromCropperAsset(Asset asset) async {
+  ByteData _byteData = await asset.getThumbByteData(asset.originalWidth, asset.originalHeight, quality: 100);
+
+  String _name = trimTextAfterLastSpecialCharacter(asset.name, '.');
+
+  print('====================================================================================== asset name is : ${asset.runtimeType}');
+
+  final _tempFile = File('${(await getTemporaryDirectory()).path}/${_name}');
+  await _tempFile.writeAsBytes(_byteData.buffer.asUint8List(_byteData.offsetInBytes, _byteData.lengthInBytes));
+  await _tempFile.create(recursive: true);
+
+  File _file = _tempFile;
+
+  return _file;
 }
 // -----------------------------------------------------------------------------

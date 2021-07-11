@@ -1,16 +1,37 @@
+import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/zoomable_widget.dart';
+import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/firestore/auth_ops.dart';
+import 'package:bldrs/models/bz_model.dart';
+import 'package:bldrs/models/flyer_model.dart';
+import 'package:bldrs/models/flyer_type_class.dart';
+import 'package:bldrs/models/sub_models/author_model.dart';
+import 'package:bldrs/models/sub_models/slide_model.dart';
+import 'package:bldrs/models/tiny_models/tiny_bz.dart';
+import 'package:bldrs/models/tiny_models/tiny_user.dart';
+import 'package:bldrs/providers/country_provider.dart';
+import 'package:bldrs/providers/flyers_provider.dart';
+import 'package:bldrs/views/widgets/buttons/dream_box.dart';
+import 'package:bldrs/views/widgets/buttons/panel_button.dart';
+import 'package:bldrs/views/widgets/buttons/publish_button.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_zone.dart';
+import 'package:bldrs/views/widgets/flyer/parts/header.dart';
+import 'package:bldrs/views/widgets/flyer/parts/progress_bar.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_keyboard_size/flutter_keyboard_size.dart';
+import 'package:bldrs/views/screens/x1_flyers_publisher_screen.dart';
+import 'package:multi_image_picker2/multi_image_picker2.dart';
 
-
-class ImageFullScreen extends StatelessWidget {
+class SlideFullScreen extends StatelessWidget {
   final dynamic image;
 
-  ImageFullScreen({
+  SlideFullScreen({
     @required this.image,
     Key key
   }) : super(key: key);
@@ -40,66 +61,5 @@ class ImageFullScreen extends StatelessWidget {
 }
 
 
-class DraftPictureScreen extends StatefulWidget {
-  final List<dynamic> pictures;
-  final int index;
 
-  DraftPictureScreen({
-    @required this.pictures,
-    @required this.index,
-  });
 
-  @override
-  _DraftPictureScreenState createState() => _DraftPictureScreenState();
-}
-
-class _DraftPictureScreenState extends State<DraftPictureScreen> {
-  PageController _pageController;
-
-  @override
-  void initState() {
-    _pageController = PageController(initialPage: widget.index);
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-
-    print('draft picture screen');
-
-    double _flyerSizeFactor = 1;
-    double _flyerZoneWidth = Scale.superFlyerZoneWidth(context, _flyerSizeFactor);
-    double _flyerZoneHeight = Scale.superFlyerZoneHeight(context, _flyerZoneWidth);
-
-    return MainLayout(
-      pyramids: Iconz.DvBlankSVG,
-      appBarType: AppBarType.Non,
-      layoutWidget: PageView.builder(
-          pageSnapping: true,
-          controller: _pageController,
-          itemCount: widget.pictures.length,
-          itemBuilder: (ctx, i){
-
-            return
-              Center(
-                child: FlyerZone(
-                  flyerSizeFactor: _flyerSizeFactor,
-                  tappingFlyerZone: (){},
-                  onLongPress: (){},
-                  stackWidgets: <Widget>[
-
-                    superImageWidget(
-                      widget.pictures[i],
-                      width: _flyerZoneWidth.toInt(),
-                      height: _flyerZoneHeight.toInt(),
-                    ),
-
-                  ],
-                ),
-              );
-
-          }
-      ),
-    );
-  }
-}

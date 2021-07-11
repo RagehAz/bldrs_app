@@ -39,20 +39,15 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   FlyersProvider _pro;
   bool _isInit = true;
 
-// -----------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
   /// --- LOADING BLOCK
   bool _loading = false;
-
-  void _triggerLoading() {
-    setState(() {
-      _loading = !_loading;
-    });
-    _loading == true ?
-    print('LOADING--------------------------------------') : print(
-        'LOADING COMPLETE--------------------------------------');
+  void _triggerLoading(){
+    setState(() {_loading = !_loading;});
+    _loading == true?
+    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
   }
-
-// -----------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
   @override
   void initState() {
     _followedTinyBzz = new List();
