@@ -26,10 +26,10 @@ final Color leadingIconColor;
   InPyramidsBubble({
     @required this.columnChildren,
     this.centered = false,
-    this.bubbleColor = Colorz.WhiteGlass,
+    this.bubbleColor = Colorz.White20,
     this.stretchy = false,
     this.title,
-    this.titleColor = Colorz.White,
+    this.titleColor = Colorz.White225,
     this.redDot = false,
     this.actionBtIcon,
     this.actionBtFunction,
@@ -85,7 +85,7 @@ final Color leadingIconColor;
             color: Colorz.Nothing,
             child: InkWell(
               onTap: bubbleOnTap,
-              splashColor: Colorz.Yellow,
+              splashColor: Colorz.Yellow225,
               borderRadius: BorderRadius.circular(Ratioz.appBarCorner),
               child: Padding(
                 padding: const EdgeInsets.all(_pageMargin),

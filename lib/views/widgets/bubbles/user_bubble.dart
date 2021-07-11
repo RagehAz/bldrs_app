@@ -75,7 +75,7 @@ class UserBubble extends StatelessWidget {
           size: 4,
           margin: 5,
           maxLines: 2,
-          labelColor: Colorz.WhiteAir,
+          labelColor: Colorz.White10,
         ),
 
         // --- USER JOB TITLE
@@ -91,7 +91,7 @@ class UserBubble extends StatelessWidget {
           verse: '${Wordz.inn(context)} $_areaName, $_provinceName, $_countryName',
           weight: VerseWeight.thin,
           italic: true,
-          color: Colorz.Grey,
+          color: Colorz.Grey225,
           size: 2,
           margin: 5,
         ),
@@ -101,7 +101,7 @@ class UserBubble extends StatelessWidget {
           verse: TextGenerator.monthYearStringer(context,user?.joinedAt),
           weight: VerseWeight.thin,
           italic: true,
-          color: Colorz.Grey,
+          color: Colorz.Grey225,
           size: 1,
         ),
 

@@ -33,7 +33,7 @@ import 'package:websafe_svg/websafe_svg.dart';
           designMode: _designMode,
           shadow: true,
           weight: VerseWeight.bold,
-          color: Colorz.White,
+          color: Colorz.White225,
           centered: true,
           italic: true,
           scaleFactor: sizeFactor,
@@ -83,7 +83,7 @@ import 'package:websafe_svg/websafe_svg.dart';
                 shadow: true,
                 centered: true,
                 italic: true,
-                color: Colorz.White,
+                color: Colorz.White225,
                 maxLines: 5,
                 scaleFactor: sizeFactor,
 

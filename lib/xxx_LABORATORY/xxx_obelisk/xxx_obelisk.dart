@@ -114,10 +114,10 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
     return
       MainButton(
         buttonVerse: title,
-        buttonColor: Colorz.BlackPlastic,
+        buttonColor: Colorz.Black125,
         buttonIcon: icon,
         buttonVerseShadow: true,
-        splashColor: Colorz.Yellow,
+        splashColor: Colorz.Yellow225,
         function: () => Nav.goToNewScreen(context, screen),
         stretched: false,
       );
@@ -168,9 +168,9 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
         DreamBox(
           height: 40,
           verse: _isSignedIn ? ' Signed in ' : ' Signed out ',
-          color: _isSignedIn ? Colorz.Green : Colorz.GreySmoke,
+          color: _isSignedIn ? Colorz.Green225 : Colorz.Grey80,
           verseScaleFactor: 0.6,
-          verseColor: _isSignedIn ? Colorz.White : Colorz.ModalGrey,
+          verseColor: _isSignedIn ? Colorz.White225 : Colorz.DarkGrey225,
           onTap: () => AuthOps().signOut(context: context, routeToUserChecker: true),
         ),
       ],
@@ -185,7 +185,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
             size: 0,
             italic: true,
             weight: VerseWeight.thin,
-            color: Colorz.WhiteSmoke,
+            color: Colorz.White80,
             maxLines: 4,
           ),
 
@@ -330,7 +330,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
               iconSizeFactor: 0.95,
               margins: const EdgeInsets.symmetric(vertical: 25),
               corners: 150,
-              color: Colorz.WhiteAir,
+              color: Colorz.White10,
               verseScaleFactor: 0.8,
               onTap: _enterTheBlackHole,
             ),

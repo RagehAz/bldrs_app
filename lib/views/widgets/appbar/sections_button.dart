@@ -22,7 +22,7 @@ class SectionsButton extends StatelessWidget {
 
   SectionsButton({
     this.onTap,
-    this.color = Colorz.WhiteAir,
+    this.color = Colorz.White10,
 });
 // -----------------------------------------------------------------------------
   void _changeSection(BuildContext context, FlyersProvider pro) async {
@@ -85,7 +85,7 @@ Widget build(BuildContext context) {
                     verse: _buttonTitle,
                     size: 0,
                     italic: true,
-                    color: Colorz.Grey,
+                    color: Colorz.Grey225,
                     weight: VerseWeight.thin,
                     designMode: _designMode,
                     centered: false,
@@ -107,7 +107,7 @@ Widget build(BuildContext context) {
                         verse: _sectionName,
                         size: 1,
                         italic: false,
-                        color: Colorz.White,
+                        color: Colorz.White225,
                         weight: VerseWeight.bold,
                         scaleFactor: 1,
                         designMode: _designMode,

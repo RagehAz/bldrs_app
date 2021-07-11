@@ -25,7 +25,7 @@ class TileBubble extends StatelessWidget {
     @required this.icon,
     this.iconBoxColor = Colorz.Nothing,
     this.iconSizeFactor = 0.6,
-    this.verseColor = Colorz.White,
+    this.verseColor = Colorz.White225,
     this.btOnTap,
     this.secondLine,
     this.switchIsOn,
@@ -53,7 +53,7 @@ class TileBubble extends StatelessWidget {
 
     return InPyramidsBubble(
       bubbleOnTap: btOnTap,
-      bubbleColor: Colorz.WhiteGlass,
+      bubbleColor: Colorz.White20,
       columnChildren: <Widget>[
 
         Row(
@@ -104,7 +104,7 @@ class TileBubble extends StatelessWidget {
                   if (secondLine != null)
                   SuperVerse(
                     verse: secondLine,
-                    color: Colorz.WhiteLingerie,
+                    color: Colorz.White200,
                     size: 2,
                     scaleFactor: 0.75,
                     italic: true,
@@ -126,11 +126,11 @@ class TileBubble extends StatelessWidget {
               width: _switchButtonWidth,
               height: 35,
               child: Switch(
-                activeColor: Colorz.Yellow,
-                activeTrackColor: Colorz.YellowSmoke,
+                activeColor: Colorz.Yellow225,
+                activeTrackColor: Colorz.Yellow80,
                 focusColor: Colorz.DarkBlue,
-                inactiveThumbColor: Colorz.Grey,
-                inactiveTrackColor: Colorz.GreySmoke,
+                inactiveThumbColor: Colorz.Grey225,
+                inactiveTrackColor: Colorz.Grey80,
                 value: switchIsOn,
                 onChanged: (val) => switching(val),
               ),

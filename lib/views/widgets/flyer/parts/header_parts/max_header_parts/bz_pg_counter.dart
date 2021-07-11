@@ -25,7 +25,7 @@ class BzPgCounter extends StatelessWidget {
   Widget build(BuildContext context) {
 
 
-    const Color bzPageBGColor = Colorz.BlackSmoke;
+    const Color bzPageBGColor = Colorz.Black80;
     double bzPageDividers = flyerZoneWidth * 0.005;
 
     double iconBoxHeight = flyerZoneWidth * 0.08;
@@ -71,7 +71,7 @@ class BzPgCounter extends StatelessWidget {
                 // --- VERSE
                 SuperVerse(
                   verse: verse,
-                  color: Colorz.WhiteLingerie,
+                  color: Colorz.White200,
                   size: 2,
                   weight: VerseWeight.thin,
                   italic: true,

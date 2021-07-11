@@ -28,7 +28,7 @@ class BzGrid extends StatelessWidget {
 
     List<TinyBz> _tinyBzz = tinyBzz == null ? [] : tinyBzz;
 
-    List<Color> _boxesColors = [Colorz.White30, Colorz.WhiteGlass, Colorz.WhiteAir];
+    List<Color> _boxesColors = [Colorz.White30, Colorz.White20, Colorz.White10];
 
     int _gridColumnsCount = numberOfColumns;
 
@@ -56,7 +56,7 @@ class BzGrid extends StatelessWidget {
         child: Container(
           width: gridZoneWidth,
           height: _gridHeight,
-          color: Colorz.WhiteAir,
+          color: Colorz.White10,
           child: Stack(
             children: <Widget>[
 

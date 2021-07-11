@@ -38,7 +38,7 @@ class Loading extends StatelessWidget {
           child:
           loading == true ?
           SpinKitPulse(
-            color: Colorz.Yellow,
+            color: Colorz.Yellow225,
             size: size,
 
           ) : Container()

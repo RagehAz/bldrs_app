@@ -130,19 +130,19 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
   @override
   Widget build(BuildContext context) {
 
-    _borderColor.end = Colorz.Green;
+    _borderColor.end = Colorz.Green225;
 
     _titleColorTween
-      ..begin = Colorz.White
-      ..end = Colorz.White;
+      ..begin = Colorz.White225
+      ..end = Colorz.White225;
 
     _tileColorTween
-      ..begin = Colorz.WhiteAir
-      ..end = Colorz.BabyBlueSmoke;
+      ..begin = Colorz.White10
+      ..end = Colorz.Blue80;
 
     _subtitleLabelColorTween
-      ..begin = Colorz.WhiteAir
-      ..end = Colorz.WhiteAir;
+      ..begin = Colorz.White10
+      ..end = Colorz.White10;
 
     _borderRadius
        ..begin = BorderRadius.circular(Ratioz.appBarCorner - 5)
@@ -201,7 +201,7 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
                     /// FILTER SUBTITLE
                     subtitle: SuperVerse(
                       verse: widget.filterModel.titleID,
-                      color: _isExpanded ? Colorz.WhiteLingerie : Colorz.WhitePlastic,
+                      color: _isExpanded ? Colorz.White200 : Colorz.White125,
                       weight: VerseWeight.thin,
                       italic: true,
                       size: 2,
@@ -242,7 +242,7 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
       Container(
         height: widget.height == null ? (_buttonExtent * _groupsIDs.length).toDouble() : widget.height,
         decoration: BoxDecoration(
-          color: Colorz.WhiteAir,
+          color: Colorz.White10,
           borderRadius: _borderRadius.evaluate(_easeInAnimation), //Borderers.superBorderAll(context, Ratioz.ddAppBarCorner - 5),
         ),
         margin: const EdgeInsets.symmetric(vertical: Ratioz.appBarPadding, horizontal: 0),
@@ -268,16 +268,16 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
                       child: DreamBox(
                         height: _buttonHeight,
                         width: Scale.superScreenWidth(context) - Ratioz.appBarMargin * 4,
-                        color: _groupIsSelected ? Colorz.Yellow : Colorz.Nothing,
+                        color: _groupIsSelected ? Colorz.Yellow225 : Colorz.Nothing,
                         verse: _groupID,
                         secondLine: _groupID,
-                        verseColor: _groupIsSelected ? Colorz.BlackBlack : Colorz.White,
+                        verseColor: _groupIsSelected ? Colorz.Black225 : Colorz.White225,
                         verseWeight: _groupIsSelected ? VerseWeight.bold : VerseWeight.thin,
                         verseItalic: false,
                         verseScaleFactor: 0.7,
                         // icon: KeywordModel.getImagePath(_groupsIDs[index]),
                         iconSizeFactor: 1,
-                        iconColor: Colorz.BlackBlack,
+                        iconColor: Colorz.Black225,
                         margins: const EdgeInsets.symmetric(horizontal: 0, vertical: _buttonVerticalPadding),
                         onTap: (){
 
@@ -350,16 +350,16 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
                           DreamBox(
                             height: _buttonHeight,
                             width: Scale.superScreenWidth(context) - Ratioz.appBarMargin * 4 - _buttonHeight - Ratioz.appBarMargin,
-                            color: _keywordIsSelected ? Colorz.Yellow : Colorz.Nothing,
+                            color: _keywordIsSelected ? Colorz.Yellow225 : Colorz.Nothing,
                             verse: _keyword.keywordID,
                             secondLine: _keyword.keywordID,
-                            verseColor: _keywordIsSelected ? Colorz.BlackBlack : Colorz.White,
+                            verseColor: _keywordIsSelected ? Colorz.Black225 : Colorz.White225,
                             verseWeight: _keywordIsSelected ? VerseWeight.bold : VerseWeight.thin,
                             verseItalic: false,
                             verseScaleFactor: 0.7,
                             icon: Keyword.getImagePath(_keyword.keywordID),
                             iconSizeFactor: 1,
-                            iconColor: Colorz.BlackBlack,
+                            iconColor: Colorz.Black225,
                             margins: const EdgeInsets.symmetric(horizontal: 0, vertical: _buttonVerticalPadding),
                             onTap: (){
                               widget.onKeywordTap(_currentKeywordModels[index]);

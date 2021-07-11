@@ -36,8 +36,8 @@ class ShareBT extends StatelessWidget {
     double iconHeight = iconWidth;
     dynamic iconTestBoxColor = Colorz.Nothing;
     dynamic verseColor =
-    buttonColor == Colorz.Yellow ? Colorz.BlackBlack :
-        Colorz.White;
+    buttonColor == Colorz.Yellow225 ? Colorz.Black225 :
+        Colorz.White225;
 
     double btOvalSizeFactor = 0.8; // as a ratio of button sizes
 
@@ -54,12 +54,12 @@ class ShareBT extends StatelessWidget {
           boxShadow: <BoxShadow>[
             CustomBoxShadow(
                 color:
-                buttonVerse == Wordz.saved(context) ? Colorz.Yellow:Colorz.BlackPlastic,
+                buttonVerse == Wordz.saved(context) ? Colorz.Yellow225:Colorz.Black125,
                 offset: new Offset(0, buttonMargins * -0.12),
                 blurRadius: buttonMargins * 0.99,
                 blurStyle: BlurStyle.outer),
             CustomBoxShadow(
-                color: Colorz.WhiteGlass,
+                color: Colorz.White20,
                 offset: new Offset(0, buttonMargins * -0.12),
                 blurRadius: buttonMargins * 0.99,
                 blurStyle: BlurStyle.outer),
@@ -89,7 +89,7 @@ class ShareBT extends StatelessWidget {
                       Radius.elliptical(buttonRadius * btOvalSizeFactor, buttonRadius * 0.7 * btOvalSizeFactor)),
                   color: Colorz.Nothing,
                   boxShadow: [CustomBoxShadow(
-                    color: Colorz.WhiteSmoke,
+                    color: Colorz.White80,
                     offset: new Offset(0, buttonRadius * -0.3),
                     blurRadius: buttonRadius * 0.4 ,
                     blurStyle: BlurStyle.normal
@@ -106,7 +106,7 @@ class ShareBT extends StatelessWidget {
                   gradient: LinearGradient(
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
-                      colors: [Colorz.Nothing, Colorz.BlackZircon],
+                      colors: [Colorz.Nothing, Colorz.Black50],
                       stops: [0.3,1]
                   ),
 
@@ -121,9 +121,9 @@ class ShareBT extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(
                       Radius.elliptical(buttonRadius * btOvalSizeFactor, buttonRadius * btOvalSizeFactor)),
-                  color: Colorz.BlackNothing,
+                  color: Colorz.Black0,
                   boxShadow: [CustomBoxShadow(
-                    color: Colorz.Yellow,
+                    color: Colorz.Yellow225,
                     offset: new Offset(0, buttonRadius * 0),
                     blurRadius: buttonRadius * 0.4 ,
                     blurStyle: BlurStyle.normal

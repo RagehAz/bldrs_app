@@ -37,7 +37,7 @@ class ListLayout extends StatelessWidget {
     double _screenWidth = Scale.superScreenWidth(context);
     double _screenHeight = Scale.superScreenHeight(context);
 // -----------------------------------------------------------------------------
-    double _verseHeight = superVerseRealHeight(context, 2, 1, Colorz.WhiteAir);
+    double _verseHeight = superVerseRealHeight(context, 2, 1, Colorz.White10);
     double _bubbleHeight = _screenHeight - Ratioz.stratosphere - Ratioz.appBarSmallHeight - _verseHeight  - (Ratioz.appBarMargin * 4);
 // -----------------------------------------------------------------------------
     return MainLayout(
@@ -63,7 +63,7 @@ class ListLayout extends StatelessWidget {
           SuperVerse(
             verse: pageIconVerse,
             size: 2,
-            labelColor: Colorz.WhiteAir,
+            labelColor: Colorz.White10,
           ),
 
           SizedBox(height: 10,),
@@ -97,7 +97,7 @@ class ListLayout extends StatelessWidget {
                             bubble: false,
                             margins: const EdgeInsets.all(5),
                             verseScaleFactor: 0.8,
-                            color: Colorz.WhiteAir,
+                            color: Colorz.White10,
                             // textDirection: superTextDirection(context),
                             onTap: () => onItemTap(idValueMaps[index]['id']),
                           ),

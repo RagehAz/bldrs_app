@@ -51,7 +51,7 @@ class BzPageHeadline extends StatelessWidget {
                 // softWrap: true,
                 shadow: false,
                 weight: VerseWeight.regular,
-                color: Colorz.WhiteLingerie,
+                color: Colorz.White200,
               ),
             ],
           ),

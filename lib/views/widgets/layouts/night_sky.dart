@@ -62,7 +62,7 @@ class _NightSkyState extends State<NightSky> with TickerProviderStateMixin {
 //     }
 //   }
 // -----------------------------------------------------------------------------
-    Color _starsColor = Colorz.White;
+    Color _starsColor = Colorz.White225;
 // -----------------------------------------------------------------------------
 //   Widget _createAnimatedStars(context) {
 //
@@ -114,7 +114,7 @@ class _NightSkyState extends State<NightSky> with TickerProviderStateMixin {
 // -----------------------------------------------------------------------------
     List<Color> _skyColors =
     widget.sky == Sky.Night ? <Color>[Colorz.SkyLightBlue, Colorz.SkyDarkBlue] :
-        widget.sky == Sky.Black ? <Color>[Colorz.BlackBlack, Colorz.BlackBlack] :
+        widget.sky == Sky.Black ? <Color>[Colorz.Black225, Colorz.Black225] :
         <Color>[Colorz.SkyDarkBlue, Colorz.SkyDarkBlue];
 // -----------------------------------------------------------------------------
     Gradient _skyGradient =

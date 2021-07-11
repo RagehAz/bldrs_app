@@ -29,7 +29,7 @@ class FiltersPage extends StatelessWidget {
 
             KeysSet _filterModel = filtersModels[keyIndex];
 
-            Color _color = selectedFilter?.titleID == _filterModel.titleID ? Colorz.Yellow : Colorz.Nothing;
+            Color _color = selectedFilter?.titleID == _filterModel.titleID ? Colorz.Yellow225 : Colorz.Nothing;
 
             return
               DreamBox(

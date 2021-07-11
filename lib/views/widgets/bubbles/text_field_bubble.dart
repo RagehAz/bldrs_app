@@ -62,7 +62,7 @@ class TextFieldBubble extends StatelessWidget {
     this.leadingIcon,
     this.pasteFunction,
     this.textDirection,
-    this.bubbleColor = Colorz.WhiteGlass,
+    this.bubbleColor = Colorz.White20,
     this.key,
     this.fieldOnTap,
   });
@@ -153,9 +153,9 @@ class TextFieldBubble extends StatelessWidget {
                       DreamBox(
                         height: 35,
                         width: 35,
-                        color: obscured? Colorz.Nothing : Colorz.YellowLingerie,
+                        color: obscured? Colorz.Nothing : Colorz.Yellow200,
                         icon: Iconz.Views,
-                        iconColor: obscured? Colorz.WhiteGlass : Colorz.BlackBlack,
+                        iconColor: obscured? Colorz.White20 : Colorz.Black225,
                         iconSizeFactor: 0.7,
                         bubble: false,
                         onTap: horusOnTap,
@@ -179,7 +179,7 @@ class TextFieldBubble extends StatelessWidget {
                         verseScaleFactor: 0.5,
                         verseWeight: VerseWeight.thin,
                         verseItalic: true,
-                        color: Colorz.WhiteAir,
+                        color: Colorz.White10,
                         onTap: pasteFunction,
                       ),
 
@@ -192,7 +192,7 @@ class TextFieldBubble extends StatelessWidget {
             SuperVerse(
               verse: comments,
               italic: true,
-              color: Colorz.WhiteSmoke,
+              color: Colorz.White80,
               size: 2,
               weight: VerseWeight.thin,
               leadingDot: true,
@@ -226,7 +226,7 @@ class TextFieldBubble extends StatelessWidget {
 //       width: 35,
 //       color: obscured? Colorz.Nothing : Colorz.YellowLingerie,
 //       icon: Iconz.Views,
-//       iconColor: obscured? Colorz.WhiteGlass : Colorz.BlackBlack,
+//       iconColor: obscured? Colorz.WhiteGlass : Colorz.Black225,
 //       iconSizeFactor: 0.7,
 //       bubble: false,
 //       onTapDown: onTapDown == null ? (){} : onTapDown,

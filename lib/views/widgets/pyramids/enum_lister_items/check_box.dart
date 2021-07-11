@@ -19,26 +19,26 @@ class CheckBox extends StatelessWidget {
   Widget build(BuildContext context) {
 
     const double checkBoxRadius = 12.5;
-    Color checkBoxColor = checkBoxIsOn == true ? Colorz.Yellow : Colorz.WhiteGlass;
+    Color checkBoxColor = checkBoxIsOn == true ? Colorz.Yellow225 : Colorz.White20;
     const double btOvalSizeFactor = 0.8; // as a ratio of button sizes
 
-    const Color iconColor = Colorz.BlackBlack;
+    const Color iconColor = Colorz.Black225;
 
 
     return Container(
       alignment: Alignment.center,
       margin: const EdgeInsets.all(checkBoxRadius * 0.75),
       decoration: BoxDecoration(
-        color: Colorz.WhiteGlass,
+        color: Colorz.White20,
         shape: BoxShape.circle,
         boxShadow: [
             CustomBoxShadow(
-                color: Colorz.BlackBlack,
+                color: Colorz.Black225,
                 blurRadius: 10,
                 blurStyle: BlurStyle.outer
             ),
             CustomBoxShadow(
-                color: Colorz.WhiteGlass,
+                color: Colorz.White20,
                 blurRadius: 10,
                 blurStyle: BlurStyle.outer
             ),
@@ -67,7 +67,7 @@ class CheckBox extends StatelessWidget {
                           Radius.elliptical(checkBoxRadius * btOvalSizeFactor, checkBoxRadius * 0.7 * btOvalSizeFactor)),
                       color: Colorz.Nothing,
                       boxShadow: <BoxShadow>[CustomBoxShadow(
-                        color: Colorz.WhiteSmoke,
+                        color: Colorz.White80,
                         offset: Offset(0, checkBoxRadius * -0.5),
                         blurRadius: checkBoxRadius * 0.3 ,
                         blurStyle: BlurStyle.normal
@@ -84,7 +84,7 @@ class CheckBox extends StatelessWidget {
                       gradient: LinearGradient(
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
-                          colors: [Colorz.Nothing, Colorz.BlackZircon],
+                          colors: [Colorz.Nothing, Colorz.Black50],
                           stops: [0.3,1]
                       ),
 

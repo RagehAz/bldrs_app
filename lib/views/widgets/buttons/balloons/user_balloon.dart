@@ -86,7 +86,7 @@ class UserBalloon extends StatelessWidget {
                       color: Colorz.Nothing,
                       boxShadow: <CustomBoxShadow>[
                         CustomBoxShadow(
-                            color: Colorz.WhiteSmoke,
+                            color: Colorz.White80,
                             offset: new Offset(0, balloonWidth * 0.5 * -0.5),
                             blurRadius: balloonWidth * 0.2,
                             blurStyle: BlurStyle.normal),

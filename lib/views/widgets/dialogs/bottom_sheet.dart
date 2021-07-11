@@ -77,7 +77,7 @@ class BldrsBottomSheet extends StatelessWidget {
       height: _sheetHeight,
       width: _screenWidth,
       decoration: BoxDecoration(
-      color: Colorz.WhiteAir,
+      color: Colorz.White10,
         borderRadius: _sheetBorders,
       ),
       child: Stack(
@@ -111,7 +111,7 @@ class BldrsBottomSheet extends StatelessWidget {
                 height: _draggerHeight,
                 margin: _draggerMargins,
                 decoration: BoxDecoration(
-                  color: Colorz.WhiteLingerie,
+                  color: Colorz.White200,
                   borderRadius: Borderers.superBorderAll(context, _draggerCorner),
                 ),
               ),
@@ -129,7 +129,7 @@ class BldrsBottomSheet extends StatelessWidget {
                       enBottomRight: 0,
                       enTopRight: _contentCorners
                   ),
-                  gradient: Colorizer.superHeaderStripGradient(Colorz.WhiteGlass)
+                  gradient: Colorizer.superHeaderStripGradient(Colorz.White20)
                 ),
                 child: child,
               ),
@@ -154,8 +154,8 @@ class BottomSlider{
           enBottomRight:0,
           enTopRight:Ratioz.bottomSheetCorner,
         )),
-        backgroundColor: Colorz.Nothing,
-        barrierColor: Colorz.BlackAir,
+        backgroundColor: Colorz.Black225,
+        barrierColor: Colorz.Black10,
         enableDrag: draggable,
         elevation: 20,
         isScrollControlled: true,
@@ -214,7 +214,7 @@ class BottomSlider{
           enTopRight: Ratioz.bottomSheetCorner
       )),
       backgroundColor: Colorz.Nothing,
-      barrierColor: Colorz.BlackAir,
+      barrierColor: Colorz.Black10,
       enableDrag: draggable,
       elevation: 20,
       isScrollControlled: true,

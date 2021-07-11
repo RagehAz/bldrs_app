@@ -39,7 +39,7 @@ class FlyerFooter extends StatelessWidget {
     // --- SHARE & SAVE BUTTONS
     double _footerBTMargins = flyerZoneWidth * 0.025; //
     double _footerBTRadius = _flyerBottomCorners - _footerBTMargins;
-    dynamic _footerBTColor = Colorz.GreySmoke;
+    dynamic _footerBTColor = Colorz.Grey80;
     String _shareBTIcon = Iconz.Share;
     String _shareBTVerse = Wordz.send(context);
     // String saveBTIcon = ankhOn == true ? Iconz.SaveOn : Iconz.SaveOff;
@@ -84,9 +84,9 @@ class FlyerFooter extends StatelessWidget {
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                       colors: <Color>[
-                        Colorz.BlackNothing,
-                        Colorz.BlackPlastic,
-                        Colorz.BlackBlack
+                        Colorz.Black0,
+                        Colorz.Black125,
+                        Colorz.Black225
                       ],
                       stops: <double>[0.35, 0.85, 1])
               ),

@@ -150,7 +150,7 @@ class AddGalleryPicBubble extends StatelessWidget {
                 iconSizeFactor: 0.4,
                 bubble: false,
                 opacity: 0.9,
-                iconColor: Colorz.White,
+                iconColor: Colorz.White225,
                 onTap: addBtFunction,
               ),
 

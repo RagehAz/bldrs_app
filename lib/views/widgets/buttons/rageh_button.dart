@@ -36,7 +36,7 @@ class Rageh extends StatelessWidget {
         onDoubleTap: (){
           doubleTappingOnMyFace();
         },
-        splashColor: Colorz.BlackSmoke, // don't work yet,, will come back later
+        splashColor: Colorz.Black80, // don't work yet,, will come back later
         splashFactory: InkSplash.splashFactory, // to you too bitch
         child:
           Padding(

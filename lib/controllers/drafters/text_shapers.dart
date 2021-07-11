@@ -202,8 +202,8 @@ TextStyle superVerseStyle({
   const double _shadowYOffset = 0;
   double _shadowXOffset = superVerseXOffset(weight, _verseSizeValue);
   double _secondShadowXOffset = -0.35 * _shadowXOffset;
-  Color _leftShadow = color == Colorz.BlackBlack ? Colorz.WhitePlastic : Colorz.BlackBlack;
-  Color _rightShadow = color == Colorz.BlackBlack ? Colorz.WhiteSmoke : Colorz.WhiteGlass;
+  Color _leftShadow = color == Colorz.Black225 ? Colorz.White125 : Colorz.Black225;
+  Color _rightShadow = color == Colorz.Black225 ? Colorz.White80 : Colorz.White20;
 
   return
     TextStyle(
@@ -235,6 +235,6 @@ TextStyle superVerseStyle({
 // -----------------------------------------------------------------------------
 TextStyle superVerseDefaultStyle(BuildContext context){
   return
-      superVerseStyle(context: context, color: Colorz.White, weight: VerseWeight.thin, italic: true, size: 2, shadow: true);
+      superVerseStyle(context: context, color: Colorz.White225, weight: VerseWeight.thin, italic: true, size: 2, shadow: true);
 }
 // -----------------------------------------------------------------------------
