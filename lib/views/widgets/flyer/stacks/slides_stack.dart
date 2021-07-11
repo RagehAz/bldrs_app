@@ -11,6 +11,7 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/standards.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/views/screens/x1_flyers_publisher_screen.dart';
+import 'package:bldrs/views/screens/x2_flyer_editor_screen.dart';
 import 'package:bldrs/views/screens/x3_slide_full_screen.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
@@ -21,30 +22,34 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 
-class DraftFlyer extends StatefulWidget {
+class SlidesStack extends StatefulWidget {
   final DraftFlyerModel draftFlyerModel;
 
   final int draftIndex;
   final Function onDeleteDraft;
   final Function onAddPics;
-  final double draftOverallHeight;
+  final double stackHeight;
+  final BzModel bzModel;
+  final bool firstTimer;
 
-  DraftFlyer({
+  SlidesStack({
     @required this.draftFlyerModel,
 
     @required this.draftIndex,
     @required this.onDeleteDraft,
     @required this.onAddPics,
-    @required this.draftOverallHeight,
+    @required this.stackHeight,
+    @required this.bzModel,
+    @required this.firstTimer,
 
 });
 
 
   @override
-  _DraftFlyerState createState() => _DraftFlyerState();
+  _SlidesStackState createState() => _SlidesStackState();
 }
 
-class _DraftFlyerState extends State<DraftFlyer> with AutomaticKeepAliveClientMixin{
+class _SlidesStackState extends State<SlidesStack> with AutomaticKeepAliveClientMixin{
 // -----------------------------------------------------------------------------
   @override
   bool get wantKeepAlive => true;
@@ -74,9 +79,12 @@ class _DraftFlyerState extends State<DraftFlyer> with AutomaticKeepAliveClientMi
   Future <void> _onPictureTap(int index) async {
     print('index is : $index');
     dynamic _result = await Nav.goToNewScreen(context,
-        DraftPictureScreen(
-          pictures : widget.draftFlyerModel.assets,
+        FlyerEditorScreen(
+          draftFlyerModel : widget.draftFlyerModel,
           index: index,
+          firstTimer: widget.firstTimer,
+          bzModel: widget.bzModel,
+          flyerModel: null,
         )
     );
 
@@ -89,7 +97,7 @@ class _DraftFlyerState extends State<DraftFlyer> with AutomaticKeepAliveClientMi
   @override
   Widget build(BuildContext context) {
 
-    double _overAllHeight = widget.draftOverallHeight;
+    double _overAllHeight = widget.stackHeight;
     const double _stackTitleHeight = 85;
     const double _flyerNumberTagZoneHeight = 15;
 
@@ -114,7 +122,7 @@ class _DraftFlyerState extends State<DraftFlyer> with AutomaticKeepAliveClientMi
     double _verticalMargin = Ratioz.appBarPadding;
 
     print('SLIDES STACK : num : ${widget.draftIndex + 1}');
-    print('SLIDES STACK : Height : ${widget.draftOverallHeight}');
+    print('SLIDES STACK : Height : ${widget.stackHeight}');
 
     return Container(
       width: Scale.superScreenWidth(context),
@@ -340,7 +348,6 @@ class _DraftFlyerState extends State<DraftFlyer> with AutomaticKeepAliveClientMi
                                 :
 
                             /// ADD IMAGE BUTTON
-
                             GestureDetector(
                               onTap: widget.onAddPics,
                               child: Container(
