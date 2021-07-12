@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/animators.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
@@ -54,9 +55,13 @@ class _FlyerState extends State<Flyer> with AutomaticKeepAliveClientMixin{
     print('bzPageIsOn : $bzPageIsOn');
   }
 // -----------------------------------------------------------------------------
-  void slidingPages (int slideIndex){
-    setState(() {_currentSlideIndex = slideIndex;});
-  }
+  /// SLIDING BLOCK
+  /// usage :  onPageChanged: (i) => _onPageChanged(i),
+  bool _slidingNext;
+  void _onPageChanged (int newIndex){
+    _slidingNext = Animators.slidingNext(newIndex: newIndex, currentIndex: _currentSlideIndex,);
+    setState(() {_currentSlideIndex = newIndex;})
+    ;}
 // -----------------------------------------------------------------------------
 
   // void tappingFollow (){
@@ -134,7 +139,7 @@ class _FlyerState extends State<Flyer> with AutomaticKeepAliveClientMixin{
             flyerZoneWidth: _flyerZoneWidth,
             slidingIsOn: widget.slidingIsOn,
             currentSlideIndex: _currentSlideIndex,
-            sliding: slidingPages,
+            sliding: (i) => _onPageChanged(i),
             slides: _slides,
           ),
 
@@ -162,6 +167,7 @@ class _FlyerState extends State<Flyer> with AutomaticKeepAliveClientMixin{
             barIsOn: _barIsOn,
             currentSlide: _currentSlideIndex >= _numberOfSlides ? 0 : _currentSlideIndex,
             numberOfSlides: _numberOfSlides,
+            slidingNext: _slidingNext,
           ),
 
           Consumer<FlyerModel>(
