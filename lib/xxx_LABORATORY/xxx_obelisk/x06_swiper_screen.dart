@@ -125,7 +125,7 @@ class _SwiperScreenState extends State<SwiperScreen> {
                 pagination: new SwiperPagination(
                   builder: DotSwiperPaginationBuilder(
                     color: Colorz.White225,
-                    activeColor: Colorz.Yellow225,
+                    activeColor: Colorz.Yellow255,
                     activeSize: 8,
                     size: 4,
                     space: 2,

@@ -89,7 +89,7 @@ class BldrsAppBar extends StatelessWidget {
           alignment: Alignment.center,
           margin: const EdgeInsets.all(Ratioz.appBarMargin),
           decoration: BoxDecoration(
-            color: Colorz.Black225,
+            color: Colorz.Black230,
             borderRadius: BorderRadius.all(Radius.circular(Ratioz.appBarCorner)),
             boxShadow: Shadowz.appBarShadow,
           ),

@@ -24,7 +24,8 @@ class Colorz {
   static const Black80 = Color.fromARGB(_80, 0, 0, 0);
   static const Black125 = Color.fromARGB(_125, 0, 0, 0);
   static const Black200 = Color.fromARGB(_200, 0, 0, 0);
-  static const Black225 = Color.fromARGB(_225, 0, 0, 0);
+  static const Black230 = Color.fromARGB(230, 0, 0, 0);
+  static const Black255 = Color.fromARGB(255, 0, 0, 0);
 // -----------------------------------------------------------------------------
   static const BlackSemi225 = Color.fromARGB(_225, 6, 6, 15);
 // -----------------------------------------------------------------------------
@@ -50,7 +51,7 @@ class Colorz {
   static const Yellow80 = Color.fromARGB(_80, 255, 192, 0);
   static const Yellow125 = Color.fromARGB(_125, 255, 192, 0);
   static const Yellow200 = Color.fromARGB(_200, 255, 192, 0);
-  static const Yellow225 = Color.fromARGB(_225, 255, 192, 0); // #ffc000
+  static const Yellow255 = Color.fromARGB(255, 255, 192, 0); // #ffc000
 // -----------------------------------------------------------------------------
   static const Red50 = Color.fromARGB(_50, 233, 0, 0);
   static const Red125 = Color.fromARGB(_125, 233, 0, 0);

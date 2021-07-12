@@ -99,7 +99,7 @@ AlertDialog _superAlert ({
                                       if (title != null)
                                         SuperVerse(
                                           verse: title,
-                                          color: Colorz.Yellow225,
+                                          color: Colorz.Yellow255,
                                           shadow: true,
                                           size: 3,
                                           italic: true,
@@ -144,9 +144,9 @@ AlertDialog _superAlert ({
 
                                   DialogButton(
                                     verse: boolDialog == true ? 'Yes' : 'Ok',
-                                    verseColor: Colorz.Black225,
+                                    verseColor: Colorz.Black230,
                                     width: 100,
-                                    color: Colorz.Yellow225,
+                                    color: Colorz.Yellow255,
                                     onTap: boolDialog == true ?
                                         () => Nav.goBack(context, argument: true)
                                         :

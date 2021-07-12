@@ -261,11 +261,11 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
             width: BottomSlider.bottomSheetClearWidth(context),
             icon: Iconz.XSmall,
             iconSizeFactor: 0.5,
-            iconColor: Colorz.Black225,
+            iconColor: Colorz.Black230,
             verse: 'delete user Account',
             verseScaleFactor: 1.2,
             verseWeight: VerseWeight.black,
-            verseColor: Colorz.Black225,
+            verseColor: Colorz.Black230,
             // verseWeight: VerseWeight.thin,
             onTap: () => _deleteUserOnTap(userModel),
 

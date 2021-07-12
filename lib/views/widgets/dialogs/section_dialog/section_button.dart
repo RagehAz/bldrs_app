@@ -64,8 +64,8 @@ class SectionDialogButton extends StatelessWidget {
 
               DialogButton(
                 verse: 'Go back',
-                color: Colorz.Yellow225,
-                verseColor: Colorz.Black225,
+                color: Colorz.Yellow255,
+                verseColor: Colorz.Black230,
                 onTap: () => Nav.goBack(context),
               ),
 

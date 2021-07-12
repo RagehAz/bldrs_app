@@ -158,7 +158,7 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
 
             SliderTheme(
               data: SliderTheme.of(context).copyWith(
-                activeTickMarkColor: Colorz.Black225,
+                activeTickMarkColor: Colorz.Black230,
                 activeTrackColor: Colorz.Blue225,
                 disabledActiveTickMarkColor: Colorz.Green225,
                 disabledActiveTrackColor: Colorz.Green125,
@@ -171,7 +171,7 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
                 overlappingShapeStrokeColor: Colorz.White200,
                 overlayColor: Colorz.Blue20,
                 trackHeight: 15,
-                thumbColor: Colorz.Black225,
+                thumbColor: Colorz.Black230,
                 showValueIndicator: ShowValueIndicator.always,
                 valueIndicatorColor: Colorz.Green125,
                 valueIndicatorShape: PaddleSliderValueIndicatorShape(),
@@ -273,7 +273,7 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
 
             RangeSlider(
               values: _rangeValues,
-              activeColor: Colorz.Yellow225,
+              activeColor: Colorz.Yellow255,
               labels: RangeLabels('${_onChangeRangeStart?.start?.toInt()}', '${_onChangeRangeStart?.end?.toInt()}'),
               divisions: _divisions == 0 ? null : _divisions,
               inactiveColor: Colorz.BloodTest,

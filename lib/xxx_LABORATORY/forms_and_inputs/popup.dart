@@ -70,7 +70,7 @@ class _PopUpTestScreenState extends State<PopUpTestScreen> {
             ),
             background: Container(
               height: 20,
-              color: Colorz.Yellow225,
+              color: Colorz.Yellow255,
               child: DreamBox(
                 height: 20,
                 width: 20,
