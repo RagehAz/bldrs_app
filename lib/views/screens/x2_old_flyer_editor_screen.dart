@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:bldrs/controllers/drafters/animators.dart';
 import 'package:bldrs/controllers/drafters/flyer_sliders.dart';
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
@@ -68,7 +69,7 @@ class _OldFlyerEditorScreenState extends State<OldFlyerEditorScreen> {
   FlyerModel _flyer;
   FlyerModel _originalFlyer;
   // -------------------------
-  int currentSlide;
+  int _currentSlideIndex;
   // --------------------
   List<TextEditingController> _titleControllers;
   File _storedImage;
@@ -139,7 +140,7 @@ class _OldFlyerEditorScreenState extends State<OldFlyerEditorScreen> {
     _titleControllers = widget.firstTimer == true ? new List() : _createTitlesControllersList();
     // -------------------------
     numberOfSlides = _currentSlides.length;
-    currentSlide = 0;
+    _currentSlideIndex = 0;
     _slidingController = PageController(initialPage: 0,);
     onPageChangedIsOn = true;
     super.initState();
@@ -246,10 +247,10 @@ class _OldFlyerEditorScreenState extends State<OldFlyerEditorScreen> {
   }
 // -----------------------------------------------------------------------------
   void _currentSlideMinus(){
-    if (currentSlide == 0){currentSlide = 0;}
+    if (_currentSlideIndex == 0){_currentSlideIndex = 0;}
     else {
       setState(() {
-        currentSlide = currentSlide - 1;
+        _currentSlideIndex = _currentSlideIndex - 1;
       });
     }
   }
@@ -258,7 +259,7 @@ class _OldFlyerEditorScreenState extends State<OldFlyerEditorScreen> {
     if (_currentSlides.isNotEmpty)
     {
       _decreaseProgressBar();
-      onPageChangedIsOn = false;
+      // onPageChangedIsOn = false;
       _triggerVisibility(currentSlide);
       Future.delayed(Ratioz.fadingDuration, (){
         slidingAction(_slidingController, numberOfSlides, currentSlide);
@@ -272,7 +273,7 @@ class _OldFlyerEditorScreenState extends State<OldFlyerEditorScreen> {
             if(currentSlide == 0){_simpleDelete(currentSlide);snapTo(_slidingController, 0);}
             else{_simpleDelete(currentSlide);}
             setState(() {
-              onPageChangedIsOn = true;
+              // onPageChangedIsOn = true;
               // numberOfSlides = _currentSlides.length;
             });
           }
@@ -329,7 +330,7 @@ class _OldFlyerEditorScreenState extends State<OldFlyerEditorScreen> {
             viewsCount: 0,
             sharesCount: 0,
           ));
-      currentSlide = _currentSlides.length - 1;
+      _currentSlideIndex = _currentSlides.length - 1;
       numberOfSlides = _currentSlides.length;
       _slidesVisibility.add(true);
       slidesModes.add(SlideMode.Editor);
@@ -341,11 +342,17 @@ class _OldFlyerEditorScreenState extends State<OldFlyerEditorScreen> {
     final fileName = path.basename(_imageFile.path);
     final savedImage = await _storedImage.copy('${appDir.path}/$fileName');
     _selectImage(savedImage);
-    slideTo(_slidingController, currentSlide);
+    slideTo(_slidingController, _currentSlideIndex);
     // print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> after _takeGalleryPicture');
   }
 // -----------------------------------------------------------------------------
-  void slidingPages (int slideIndex){setState(() {currentSlide = slideIndex;});}
+  /// SLIDING BLOCK
+  /// usage :  onPageChanged: (i) => _onPageChanged(i),
+  bool _slidingNext;
+  void _onPageChanged (int newIndex){
+    _slidingNext = Animators.slidingNext(newIndex: newIndex, currentIndex: _currentSlideIndex,);
+    setState(() {_currentSlideIndex = newIndex;})
+    ;}
 // -----------------------------------------------------------------------------
   // void tappingNewSlide(){
   //   setState(() {
@@ -421,14 +428,14 @@ class _OldFlyerEditorScreenState extends State<OldFlyerEditorScreen> {
               picture: _mapPreviewImageUrl,
               headline: _titleControllers[_currentSlides.length].text,
             ));
-        currentSlide = _currentSlides.length - 1;
+        _currentSlideIndex = _currentSlides.length - 1;
         numberOfSlides = _currentSlides.length;
         _slidesVisibility.add(true);
         slidesModes.add(SlideMode.Map);
         _titleControllers.add(TextEditingController());
         onPageChangedIsOn = true;
       });
-      slideTo(_slidingController, currentSlide);
+      slideTo(_slidingController, _currentSlideIndex);
 
     } else {
 
@@ -905,7 +912,7 @@ class _OldFlyerEditorScreenState extends State<OldFlyerEditorScreen> {
                       PageView.builder(
                         controller: _slidingController,
                         itemCount: _currentSlides.length,
-                        onPageChanged: onPageChangedIsOn ? slidingPages : zombie,
+                        onPageChanged: onPageChangedIsOn ? (i) => _onPageChanged(i) : zombie,
                         physics: ClampingScrollPhysics(),
                         itemBuilder: (ctx, index) =>
                             AnimatedOpacity(
@@ -943,7 +950,8 @@ class _OldFlyerEditorScreenState extends State<OldFlyerEditorScreen> {
                       ProgressBar(
                         flyerZoneWidth: _flyerZoneWidth,
                         numberOfSlides: numberOfSlides,
-                        currentSlide: currentSlide,
+                        currentSlide: _currentSlideIndex,
+                        slidingNext: _slidingNext,
                       ),
 
                     ],
@@ -985,7 +993,7 @@ class _OldFlyerEditorScreenState extends State<OldFlyerEditorScreen> {
                         /// --- DELETE SLIDE
                          _fButton(
                           icon: Iconz.XLarge,
-                          function: () => _deleteSlide(numberOfSlides, currentSlide),
+                          function: () => _deleteSlide(numberOfSlides, _currentSlideIndex),
                         ),
 
                       ],

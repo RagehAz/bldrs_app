@@ -77,6 +77,13 @@ class _SlidesStackState extends State<SlidesStack> with AutomaticKeepAliveClient
   }
 // -----------------------------------------------------------------------------
   Future <void> _onPictureTap(int index) async {
+
+    /// TASK : calculating flyer editor width is redundant and should be in separate method
+    double _screenWidth = Scale.superScreenWidth(context);
+    double _buttonSize = 50;
+    double _panelWidth = _buttonSize + (Ratioz.appBarMargin * 2);
+    double _flyerZoneWidth = _screenWidth - _panelWidth - Ratioz.appBarMargin;
+
     print('index is : $index');
     dynamic _result = await Nav.goToNewScreen(context,
         FlyerEditorScreen(
@@ -85,6 +92,7 @@ class _SlidesStackState extends State<SlidesStack> with AutomaticKeepAliveClient
           firstTimer: widget.firstTimer,
           bzModel: widget.bzModel,
           flyerModel: null,
+          flyerZoneWidth: _flyerZoneWidth,
         )
     );
 

@@ -301,6 +301,7 @@ class _BrowserPagesState extends State<BrowserPages> {
               barIsOn: true,
               currentSlide: _currentPage,
               margins: const EdgeInsets.all(0),
+              slidingNext: true,
             ),
 
             /// Lists
