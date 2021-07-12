@@ -114,7 +114,7 @@ class _NightSkyState extends State<NightSky> with TickerProviderStateMixin {
 // -----------------------------------------------------------------------------
     List<Color> _skyColors =
     widget.sky == Sky.Night ? <Color>[Colorz.SkyLightBlue, Colorz.SkyDarkBlue] :
-        widget.sky == Sky.Black ? <Color>[Colorz.Black225, Colorz.Black225] :
+        widget.sky == Sky.Black ? <Color>[Colorz.Black230, Colorz.Black230] :
         <Color>[Colorz.SkyDarkBlue, Colorz.SkyDarkBlue];
 // -----------------------------------------------------------------------------
     Gradient _skyGradient =

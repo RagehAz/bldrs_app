@@ -128,7 +128,7 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
           
           InkWell(
             onTap: resizeBox,
-            highlightColor: Colorz.Yellow225,
+            highlightColor: Colorz.Yellow255,
             splashColor: Colorz.Blue225,
 
             child: Center(
@@ -144,7 +144,7 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
                     width: width,
                     height: height,
                     margin: EdgeInsets.only(top: condition() == true ? 0 : Ratioz.stratosphere),
-                    color: condition() == true ? Colorz.Red225 : Colorz.Yellow225,
+                    color: condition() == true ? Colorz.Red225 : Colorz.Yellow255,
                     child: Stack(
                       alignment: Alignment.center,
                       children: <Widget>[
@@ -173,16 +173,16 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
           Container(
             width: screenWidth,
             height: screenWidth,
-            color: Colorz.Black225,
+            color: Colorz.Black230,
             alignment: Alignment.center,
             child: DreamBox(
               width: 200,
               height: 200,
               icon: Iconz.Clock,
-              color: Colorz.Yellow225,
+              color: Colorz.Yellow255,
               splashColor: Colorz.DarkRed125,
               underLine: 'Ripple Effect\n Works Now',
-              underLineColor: Colorz.Black225,
+              underLineColor: Colorz.Black230,
               underLineLabelColor: Colorz.Yellow200,
               onTap: (){
                 print('ripple effect works now');

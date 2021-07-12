@@ -115,7 +115,7 @@ class _CountryScreenState extends State<CountryScreen> {
           TileBubble(
              verse: '${widget.country.name}\'s ISO3 is : ( ${widget.country.iso3} )',
              icon: Iconz.Info,
-           verseColor: Colorz.Yellow225,
+           verseColor: Colorz.Yellow255,
            iconBoxColor: Colorz.Grey50,
          ),
 

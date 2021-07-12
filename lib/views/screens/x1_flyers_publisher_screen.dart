@@ -20,14 +20,14 @@ import 'package:bldrs/controllers/drafters/text_checkers.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 
 class DraftFlyerModel{
-  TextEditingController titleController;
+  List<TextEditingController> titlesControllers;
   List<Asset> assets;
   List<File> assetsAsFiles;
   List<BoxFit> boxesFits;
   ValueKey key;
 
   DraftFlyerModel({
-    @required this.titleController,
+    @required this.titlesControllers,
     @required this.assets,
     @required this.assetsAsFiles,
     @required this.boxesFits,
@@ -97,8 +97,12 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
   void dispose(){
 
     _draftFlyers.forEach((draft) {
-      TextEditingController _controller = draft.titleController;
-      if (TextChecker.textControllerHasNoValue(_controller))_controller.dispose();
+      List<TextEditingController> _controllers = draft.titlesControllers;
+
+      _controllers.forEach((controller) {
+        if (TextChecker.textControllerHasNoValue(controller))controller.dispose();
+      });
+
     });
 
     _scrollController.dispose();
@@ -152,6 +156,17 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
 
   }
 // -----------------------------------------------------------------------------
+  List<TextEditingController> _createTitlesControllersList(List<Asset> assets){
+    List<TextEditingController> _controllers = new List();
+
+    assets.forEach((asset) {
+      TextEditingController _controller = new TextEditingController();
+      _controllers.add(_controller);
+    });
+
+    return _controllers;
+  }
+// -----------------------------------------------------------------------------
   Future<void> _addFlyer() async {
 
     /// A - if less than 5 drafts
@@ -166,7 +181,7 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
 
         _draftFlyers.add(
             DraftFlyerModel(
-              titleController: new TextEditingController(),
+              titlesControllers: new List(),
               assets: new List(),
               assetsAsFiles: new List(),
               boxesFits: new List(),
@@ -311,6 +326,7 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
               _draftFlyers[draftIndex].assets = _outputAssets;
               _draftFlyers[draftIndex].boxesFits = _fits;
               _draftFlyers[draftIndex].assetsAsFiles = _assetsAsFiles;
+              _draftFlyers[draftIndex].titlesControllers = _createTitlesControllersList(_outputAssets);
             });
             
           }
@@ -382,12 +398,22 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
                         draftFlyerModel: _draftFlyers[_draftIndex],
                         draftIndex: _draftIndex,
                         stackHeight: _draftMaxHeight,
+                        onFirstTitleChange: (value){
+                          setState(() {
+                            _draftFlyers[_draftIndex].titlesControllers[0].text = value;
+                          });
+                        },
                         onDeleteDraft: () => _deleteFlyer(index: _draftIndex),
                         onAddPics: () => _getMultiImages(
                           accountType: BzAccountType.Premium,
                           draftIndex: _draftIndex,
-
                         ),
+                        onDeleteImage: (int imageIndex){
+                          setState(() {
+                            _draftFlyers[_draftIndex].assetsAsFiles.removeAt(imageIndex);
+                            _draftFlyers[_draftIndex].assets.removeAt(imageIndex);
+                          });
+                        },
           ),
                     ),
                   )
@@ -422,13 +448,13 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
           // check this
           // https://stackoverflow.com/questions/67173576/how-to-get-or-pick-local-gif-file-from-device
           // https://pub.dev/packages/file_picker
-          // Container(
-          //   width: 200,
-          //   height: 200,
-          //   margin: EdgeInsets.all(30),
-          //   color: Colorz.BloodTest,
-          //   child: Image.network('https://media.giphy.com/media/hYUeC8Z6exWEg/giphy.gif'),
-          // ),
+          Container(
+            width: 200,
+            height: 200,
+            margin: EdgeInsets.all(30),
+            color: Colorz.BloodTest,
+            child: Image.network('https://media.giphy.com/media/hYUeC8Z6exWEg/giphy.gif'),
+          ),
 
 
         ],

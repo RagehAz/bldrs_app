@@ -96,7 +96,7 @@ class FollowBT extends StatelessWidget {
     bool versesDesignMode = false;
     bool versesShadow = false;
     // --- FOLLOW BUTTON --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- FOLLOW BUTTON
-    Color followBTColor = followOn == true ? Colorz.Yellow225 : Colorz.White20;
+    Color followBTColor = followOn == true ? Colorz.Yellow255 : Colorz.White20;
     double followBTHeight = flyerZoneWidth * Ratioz.xxfollowBTHeight;
     double followBTWidth = flyerZoneWidth * Ratioz.xxfollowCallWidth;
     // === === === === === === === === === === === === === === === === === ===
@@ -105,7 +105,7 @@ class FollowBT extends StatelessWidget {
     double followIconHeight = followBTHeight * 0.5;
     double followIconWidth = followIconHeight;
     String followText = Wordz.follow(context);
-    Color followTextColor = followOn == true ? Colorz.Black225 : Colorz.White225;
+    Color followTextColor = followOn == true ? Colorz.Black230 : Colorz.White225;
     // === === === === === === === === === === === === === === === === === ===
     // void followTap() {
     //   onFollowTap();
@@ -151,7 +151,7 @@ class FollowBT extends StatelessWidget {
                   Container(
                     height: followIconHeight,
                     width: followIconWidth,
-                    child: WebsafeSvg.asset(followIcon, color: followOn == true ? Colorz.Black225 : Colorz.White225),
+                    child: WebsafeSvg.asset(followIcon, color: followOn == true ? Colorz.Black230 : Colorz.White225),
                   ),
 
                   // --- FOLLOW TEXT

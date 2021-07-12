@@ -248,12 +248,12 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
             child: DreamBox(
               height: 60,
               width: 220,
-              color: confirmButtonIsActive == true ? Colorz.Yellow225 : Colorz.Red225,
+              color: confirmButtonIsActive == true ? Colorz.Yellow255 : Colorz.Red225,
               verse: confirmButtonIsActive == true ? 'Confirm flyer Location' : 'Pin the Map first !',
               verseMaxLines: 2,
               verseScaleFactor: 0.7,
               verseWeight: VerseWeight.black,
-              verseColor: confirmButtonIsActive == true ? Colorz.Black225 : Colorz.White225,
+              verseColor: confirmButtonIsActive == true ? Colorz.Black230 : Colorz.White225,
               onTap: _pickedLocation == null ?
                   (){
                 setState(() {

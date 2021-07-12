@@ -164,7 +164,7 @@ class MainLayout extends StatelessWidget {
     // ------------------------------------------------------------------
     // print('superScreenHeightWithoutSafeArea(context) = ${superScreenHeightWithoutSafeArea(context)},, superScreenHeight(context) = ${superScreenHeight(context)}');
 
-    Color _backgroundColor = sky == Sky.Non || sky == Sky.Black? Colorz.Black225 : Colorz.SkyDarkBlue;
+    Color _backgroundColor = sky == Sky.Non || sky == Sky.Black? Colorz.Black230 : Colorz.SkyDarkBlue;
 
     return StreamProvider<List<UserModel>>.value(
       value: UserProvider().allUsersStream,
@@ -195,8 +195,8 @@ class MainLayout extends StatelessWidget {
 
                   RefreshIndicator(
                     onRefresh: ()=> _refresh(context),
-                    color: Colorz.Black225,
-                    backgroundColor: Colorz.Yellow225,
+                    color: Colorz.Black230,
+                    backgroundColor: Colorz.Yellow255,
                     displacement: Ratioz.appBarMargin,
                     strokeWidth: 4,
                     child: Stack(
