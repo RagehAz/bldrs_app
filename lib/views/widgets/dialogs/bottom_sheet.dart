@@ -154,7 +154,7 @@ class BottomSlider{
           enBottomRight:0,
           enTopRight:Ratioz.bottomSheetCorner,
         )),
-        backgroundColor: Colorz.Black225,
+        backgroundColor: Colorz.Black230,
         barrierColor: Colorz.Black10,
         enableDrag: draggable,
         elevation: 20,

@@ -134,10 +134,10 @@ class _SuperTextFieldState extends State<SuperTextField> {
     double _shadowYOffset = 0;
     double _shadowXOffset = superVerseXOffset(_weight, _verseSize);
     double _secondShadowXOffset = -0.35 * _shadowXOffset;
-    Color _leftShadow = widget.inputColor == Colorz.Black225 ? Colorz.White125
-        : Colorz.Black225;
+    Color _leftShadow = widget.inputColor == Colorz.Black230 ? Colorz.White125
+        : Colorz.Black230;
 
-    Color _rightShadow = widget.inputColor == Colorz.Black225 ? Colorz.White80
+    Color _rightShadow = widget.inputColor == Colorz.Black230 ? Colorz.White80
         : Colorz.White20;
     // --- ITALIC -----------------------------------------------
     FontStyle _verseStyle =
@@ -231,7 +231,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
       errorBorder: Borderers.superOutlineInputBorder(Colorz.Red125, _labelCorner),
       border: Borderers.superOutlineInputBorder(Colorz.LinkedIn, _labelCorner),
       disabledBorder: Borderers.superOutlineInputBorder(Colorz.Grey225, _labelCorner),
-      counterText: '${widget.textController.text.length} / ${widget.maxLength}',
+      counterText: '${widget.textController?.text?.length} / ${widget.maxLength}',
       counter: widget.counterIsOn ? null : Offstage(),
       counterStyle: superTextStyle(Colorz.White200, 0.7),
 
@@ -316,7 +316,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
               maxLengthEnforced: false,
               enableInteractiveSelection: true, // makes test selectable
               decoration: _inputDecoration,
-              cursorColor: Colorz.Yellow225,
+              cursorColor: Colorz.Yellow255,
               cursorRadius: Radius.circular(3),
               cursorWidth: 2,
               cursorHeight: null,
@@ -354,7 +354,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
               maxLengthEnforced: false,
               enableInteractiveSelection: true, // makes test selectable
               decoration: _inputDecoration,
-              cursorColor: Colorz.Yellow225,
+              cursorColor: Colorz.Yellow255,
               cursorRadius: Radius.circular(3),
               cursorWidth: 2,
               cursorHeight: null,

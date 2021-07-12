@@ -192,7 +192,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
           DreamBox(
             height: 50,
             iconSizeFactor: 0.6,
-            color: _buttonIsOn ? Colorz.Yellow225 : Colorz.Grey225,
+            color: _buttonIsOn ? Colorz.Yellow255 : Colorz.Grey225,
             verse: '$_flyerID - 0',
             onTap: () => _save(_flyerID, 0),
           ),
@@ -200,7 +200,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
           DreamBox(
             height: 50,
             iconSizeFactor: 0.6,
-            color: _buttonIsOn ? Colorz.Yellow225 : Colorz.Grey225,
+            color: _buttonIsOn ? Colorz.Yellow255 : Colorz.Grey225,
             verse: '$_flyerID - 1',
             onTap: () => _save(_flyerID, 1),
           ),
@@ -208,7 +208,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
           DreamBox(
             height: 50,
             iconSizeFactor: 0.6,
-            color: _buttonIsOn ? Colorz.Yellow225 : Colorz.Grey225,
+            color: _buttonIsOn ? Colorz.Yellow255 : Colorz.Grey225,
             verse: '$_flyerID - 2',
             onTap: () => _save(_flyerID, 2),
           ),
@@ -760,7 +760,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
           Positioned(
             bottom: 0,
             child: InPyramidsBubble(
-              bubbleColor: Colorz.Black225,
+              bubbleColor: Colorz.Black230,
               centered: true,
               stretchy: false,
               columnChildren: <Widget>[

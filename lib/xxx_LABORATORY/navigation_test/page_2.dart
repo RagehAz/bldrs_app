@@ -31,7 +31,7 @@ class Page2 extends StatelessWidget {
               secondLine: 'And return true',
               height: 50,
               verseScaleFactor: 0.7,
-              color: Colorz.Black225,
+              color: Colorz.Black230,
               margins: EdgeInsets.all(5),
               onTap: () async {
 
@@ -45,7 +45,7 @@ class Page2 extends StatelessWidget {
               // secondLine: '',
               height: 50,
               verseScaleFactor: 0.7,
-              color: Colorz.Black225,
+              color: Colorz.Black230,
               margins: EdgeInsets.all(5),
               onTap: () async {
 
@@ -61,7 +61,7 @@ class Page2 extends StatelessWidget {
               secondLine: 'And return string',
               height: 50,
               verseScaleFactor: 0.7,
-              color: Colorz.Black225,
+              color: Colorz.Black230,
               margins: EdgeInsets.all(5),
               onTap: () async {
 

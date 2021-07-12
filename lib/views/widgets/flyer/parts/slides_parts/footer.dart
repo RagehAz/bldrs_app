@@ -86,7 +86,7 @@ class FlyerFooter extends StatelessWidget {
                       colors: <Color>[
                         Colorz.Black0,
                         Colorz.Black125,
-                        Colorz.Black225
+                        Colorz.Black230
                       ],
                       stops: <double>[0.35, 0.85, 1])
               ),

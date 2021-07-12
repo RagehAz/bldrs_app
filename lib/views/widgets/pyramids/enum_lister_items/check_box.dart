@@ -19,10 +19,10 @@ class CheckBox extends StatelessWidget {
   Widget build(BuildContext context) {
 
     const double checkBoxRadius = 12.5;
-    Color checkBoxColor = checkBoxIsOn == true ? Colorz.Yellow225 : Colorz.White20;
+    Color checkBoxColor = checkBoxIsOn == true ? Colorz.Yellow255 : Colorz.White20;
     const double btOvalSizeFactor = 0.8; // as a ratio of button sizes
 
-    const Color iconColor = Colorz.Black225;
+    const Color iconColor = Colorz.Black230;
 
 
     return Container(
@@ -33,7 +33,7 @@ class CheckBox extends StatelessWidget {
         shape: BoxShape.circle,
         boxShadow: [
             CustomBoxShadow(
-                color: Colorz.Black225,
+                color: Colorz.Black230,
                 blurRadius: 10,
                 blurStyle: BlurStyle.outer
             ),

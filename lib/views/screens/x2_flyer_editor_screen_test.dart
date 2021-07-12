@@ -111,7 +111,7 @@ class _FlyerEditorScreenTestState extends State<FlyerEditorScreenTest> with Auto
         aspectRatioPresets: Platform.isAndroid ? _androidRatios : _notAndroidRatios,
         androidUiSettings: AndroidUiSettings(
             toolbarTitle: 'Crop flyer Aspect Ratio 1 : ${Ratioz.xxflyerZoneHeight}',
-            toolbarColor: Colorz.Yellow225,
+            toolbarColor: Colorz.Yellow255,
             toolbarWidgetColor: Colorz.DarkBlue,
             initAspectRatio: CropAspectRatioPreset.original,
             lockAspectRatio: true

@@ -126,7 +126,7 @@ class TileBubble extends StatelessWidget {
               width: _switchButtonWidth,
               height: 35,
               child: Switch(
-                activeColor: Colorz.Yellow225,
+                activeColor: Colorz.Yellow255,
                 activeTrackColor: Colorz.Yellow80,
                 focusColor: Colorz.DarkBlue,
                 inactiveThumbColor: Colorz.Grey225,

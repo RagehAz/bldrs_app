@@ -1,9 +1,10 @@
 import 'dart:io';
 import 'package:bldrs/controllers/drafters/animators.dart';
 import 'package:bldrs/controllers/drafters/borderers.dart';
+import 'package:bldrs/controllers/drafters/colorizers.dart';
+import 'package:bldrs/controllers/drafters/flyer_sliders.dart';
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
-import 'package:bldrs/controllers/drafters/zoomable_widget.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/firestore/auth_ops.dart';
@@ -25,6 +26,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_size/flutter_keyboard_size.dart';
 import 'package:bldrs/views/screens/x1_flyers_publisher_screen.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:bldrs/controllers/theme/colorz.dart';
 
 class KeepAlivePage extends StatefulWidget {
   KeepAlivePage({
@@ -38,8 +41,7 @@ class KeepAlivePage extends StatefulWidget {
   _KeepAlivePageState createState() => _KeepAlivePageState();
 }
 
-class _KeepAlivePageState extends State<KeepAlivePage>
-    with AutomaticKeepAliveClientMixin {
+class _KeepAlivePageState extends State<KeepAlivePage> with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
     /// Dont't forget this
@@ -60,6 +62,7 @@ class FlyerEditorScreen extends StatefulWidget {
   final bool firstTimer;
   final FlyerModel flyerModel;
   final double flyerZoneWidth;
+  final Function onDeleteImage;
 
   FlyerEditorScreen({
     @required this.draftFlyerModel,
@@ -68,6 +71,7 @@ class FlyerEditorScreen extends StatefulWidget {
     @required this.firstTimer,
     this.flyerModel,
     @required this.flyerZoneWidth,
+    @required this.onDeleteImage,
   });
 
   @override
@@ -83,17 +87,16 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with TickerProvid
   ScrollController _scrollController;
   TransformationController _transformationController;
   AnimationController _zoomAnimationController;
-  bool _canZoom = true;
   double _buttonSize = 50;
+  List<bool> _slidesVisibility;
+  List<TextEditingController> _titleControllers;
 // -----------------------------------------------------------------------------
-  FlyersProvider _prof;
-  CountryProvider _countryPro;
+//   FlyersProvider _prof;
+//   CountryProvider _countryPro;
   BzModel _bz;
-  FlyerModel _flyer;
-  FlyerModel _originalFlyer;
+  FlyerModel _flyer; // will be used when editing already published flyers
+  // FlyerModel _originalFlyer;
   // -------------------------
-  int numberOfSlides;
-  int _currentSlideIndex;
 
   bool _showAuthor;
 
@@ -114,6 +117,8 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with TickerProvid
   /// SLIDING BLOCK
   /// usage :  onPageChanged: (i) => _onPageChanged(i),
   bool _slidingNext;
+  int _currentSlideIndex; /// in init : _currentSlideIndex = widget.index;
+  int numberOfSlides; /// in init : numberOfSlides = _assets.length;
   void _onPageChanged (int newIndex){
     _slidingNext = Animators.slidingNext(newIndex: newIndex, currentIndex: _currentSlideIndex,);
     setState(() {_currentSlideIndex = newIndex;})
@@ -130,24 +135,28 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with TickerProvid
       animationBehavior: AnimationBehavior.normal,
     );
 
+
     _transformationController.addListener(() {
       if(_transformationController.value.getMaxScaleOnAxis() > 1.5){
         print('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX its bigger than 1.5 now');
       }
     });
 
-    _prof = Provider.of<FlyersProvider>(context, listen: false);
-    _countryPro = Provider.of<CountryProvider>(context, listen: false);
-    _originalFlyer = widget.firstTimer ? null : widget.flyerModel.clone();
-
+    // _prof = Provider.of<FlyersProvider>(context, listen: false);
+    // _countryPro = Provider.of<CountryProvider>(context, listen: false);
+    // _originalFlyer = widget.firstTimer ? null : widget.flyerModel.clone();
     _bz = widget.bzModel;
     // _flyer = widget.firstTimer ? _createTempEmptyFlyer() : widget.flyerModel.clone();
+
     _currentSlideIndex = widget.index;
     _assets = widget.draftFlyerModel.assets;
     _picsFits = widget.draftFlyerModel.boxesFits;
     _assetsAsFiles = widget.draftFlyerModel.assetsAsFiles;
 
     numberOfSlides = _assets.length;
+
+    _slidesVisibility = _createSlidesVisibilityList(); //widget.firstTimer == true ? new List() : _createSlidesVisibilityList();
+    _titleControllers = widget.draftFlyerModel.titlesControllers;
 
     _showAuthor = widget.firstTimer ? true : widget.flyerModel.flyerShowsAuthor;
 
@@ -178,6 +187,195 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with TickerProvid
     _zoomAnimationController.forward();
   }
 // -----------------------------------------------------------------------------
+  Future<void> _cropImage(File file) async {
+
+    _triggerLoading();
+
+    /// flyer ratio is : (1 x 1.74)
+    double _flyerWidthRatio = 1;
+    double _flyerHeightRatio = Ratioz.xxflyerZoneHeight; // 1.74
+
+    double _maxWidth = 1000;
+
+    List<CropAspectRatioPreset> _androidRatios = <CropAspectRatioPreset>[
+      CropAspectRatioPreset.square,
+      CropAspectRatioPreset.ratio3x2,
+      CropAspectRatioPreset.original,
+      CropAspectRatioPreset.ratio4x3,
+    ];
+
+
+    List<CropAspectRatioPreset> _notAndroidRatios = <CropAspectRatioPreset>[
+      CropAspectRatioPreset.original,
+      CropAspectRatioPreset.square,
+      CropAspectRatioPreset.ratio3x2,
+      CropAspectRatioPreset.ratio4x3,
+      CropAspectRatioPreset.ratio5x3,
+      CropAspectRatioPreset.ratio5x4,
+      CropAspectRatioPreset.ratio7x5,
+      CropAspectRatioPreset.ratio16x9,
+    ];
+
+
+    File croppedFile = await ImageCropper.cropImage(
+      sourcePath: file.path,
+      aspectRatio: CropAspectRatio(ratioX: 1, ratioY: Ratioz.xxflyerZoneHeight),
+      aspectRatioPresets: Platform.isAndroid ? _androidRatios : _notAndroidRatios,
+      maxWidth: _maxWidth.toInt(),
+      compressFormat: ImageCompressFormat.jpg, /// TASK : need to test png vs jpg storage sizes on firebase
+      compressQuality: 100, // max
+      cropStyle: CropStyle.rectangle,
+      maxHeight: (_maxWidth * _flyerHeightRatio).toInt(),
+      androidUiSettings: AndroidUiSettings(
+        initAspectRatio: CropAspectRatioPreset.square,
+        lockAspectRatio: false,
+
+        statusBarColor: Colorz.Black255,
+        backgroundColor: Colorz.Black230,
+        dimmedLayerColor: Colorz.Black200,
+
+        toolbarTitle: 'Crop Image',//'Crop flyer Aspect Ratio 1:${Ratioz.xxflyerZoneHeight}',
+        toolbarColor: Colorz.Black255,
+        toolbarWidgetColor: Colorz.White225, // color of : cancel, title, confirm widgets
+
+        activeControlsWidgetColor: Colorz.Yellow255,
+        hideBottomControls: false,
+
+        cropFrameColor: Colorz.Grey80,
+        cropFrameStrokeWidth: 5,
+
+        showCropGrid: true,
+        cropGridColumnCount: 3,
+        cropGridRowCount: 6,
+        cropGridColor: Colorz.Grey80,
+        cropGridStrokeWidth: 2,
+
+      ),
+
+      /// TASK : check cropper in ios
+      // iosUiSettings: IOSUiSettings(
+      //   title: 'Crop flyer Aspect Ratio 1 : ${Ratioz.xxflyerZoneHeight}',
+      //   doneButtonTitle: 'Done babe',
+      //   aspectRatioLockDimensionSwapEnabled: ,
+      //   aspectRatioLockEnabled: ,
+      //   aspectRatioPickerButtonHidden: ,
+      //   cancelButtonTitle: ,
+      //   hidesNavigationBar: ,
+      //   minimumAspectRatio: ,
+      //   rectHeight: ,
+      //   rectWidth: ,
+      //   rectX: ,
+      //   rectY: ,
+      //   resetAspectRatioEnabled: ,
+      //   resetButtonHidden: ,
+      //   rotateButtonsHidden: ,
+      //   rotateClockwiseButtonHidden: ,
+      //   showActivitySheetOnDone: ,
+      //   showCancelConfirmationDialog: ,
+      // ),
+    );
+
+    if (croppedFile != null) {
+      setState(() {
+        _assetsAsFiles[_currentSlideIndex] = croppedFile;
+        // state = AppState.cropped;
+      });
+    }
+
+    _triggerLoading();
+  }
+// -----------------------------------------------------------------------------
+  List<TextEditingController> _createTitlesControllersList(){
+    List<TextEditingController> _controllers = new List();
+
+    widget.draftFlyerModel.assetsAsFiles.forEach((asset) {
+      TextEditingController _controller = new TextEditingController();
+      // _controller.text = slide.headline;
+      _controllers.add(_controller);
+    });
+
+    return _controllers;
+  }
+// -----------------------------------------------------------------------------
+  List<bool> _createSlidesVisibilityList(){
+    int _listLength = widget.draftFlyerModel.assetsAsFiles.length;
+    List<bool> _visibilityList = new List();
+
+    for (int i = 0; i<_listLength; i++){
+      _visibilityList.add(true);
+    }
+
+    return _visibilityList;
+  }
+// -----------------------------------------------------------------------------
+  void _decreaseProgressBar(){
+    setState(() {
+      numberOfSlides > 0 ?
+      numberOfSlides = numberOfSlides - 1 : print('can not decrease progressBar');
+    });
+  }
+// -----------------------------------------------------------------------------
+  void _triggerVisibility(int currentSlide)  {
+    setState(() {
+      _slidesVisibility[currentSlide] = !_slidesVisibility[currentSlide];
+    });
+  }
+// -----------------------------------------------------------------------------
+  void _simpleDelete(int currentSlide){
+    List<File> _currentSlides = _assetsAsFiles;
+    if (_currentSlides.isNotEmpty)
+    {
+      if(currentSlide == 0){
+        _currentSlides.removeAt(currentSlide);
+        // currentSlide=0;
+      }else{_currentSlides.removeAt(currentSlide);}
+      _slidesVisibility.removeAt(currentSlide);
+      // slidesModes.removeAt(currentSlide);
+      _titleControllers.removeAt(currentSlide);
+    } else { print('no Slide to delete'); }
+    // print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> after _simpleDelete');
+  }
+// -----------------------------------------------------------------------------
+  void _currentSlideMinus(){
+    if (_currentSlideIndex == 0){_currentSlideIndex = 0;}
+    else {
+      setState(() {
+        _currentSlideIndex = _currentSlideIndex - 1;
+      });
+    }
+  }
+// -----------------------------------------------------------------------------
+  void _deleteSlide (int numberOfSlides, int currentSlide) {
+    if (_assetsAsFiles.isNotEmpty)
+    {
+      _decreaseProgressBar();
+      // onPageChangedIsOn = false;
+      _triggerVisibility(currentSlide);
+      Future.delayed(Ratioz.fadingDuration, (){
+        if(numberOfSlides != 0){
+        slidingAction(_pageController, numberOfSlides, currentSlide);
+        }
+      });
+      _currentSlideMinus();
+      numberOfSlides <= 1 ?
+      _simpleDelete(currentSlide) :
+      Future.delayed(
+          Ratioz.slidingAndFadingDuration,
+              (){
+            if(currentSlide == 0){_simpleDelete(currentSlide);snapTo(_pageController, 0);}
+            else{_simpleDelete(currentSlide);}
+            setState(() {
+              // onPageChangedIsOn = true;
+              // numberOfSlides = _currentSlides.length;
+            });
+          }
+      );
+      // print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> after _deleteSlide ------------ last shit');
+    }
+    else
+    {print('no slide to delete');}
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // /// when using with AutomaticKeepAliveClientMixin
@@ -205,8 +403,6 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with TickerProvid
       pyramids: Iconz.DvBlankSVG,
       appBarType: AppBarType.Basic,
       appBarRowWidgets: <Widget>[
-
-
 
         Expanded(child: Container(),),
 
@@ -276,15 +472,26 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with TickerProvid
                         },
                       ),
 
-                      /// TRIGGER ZOOM MODE
+                      /// CROP IMAGE
                       PanelButton(
                         size: _buttonSize,
-                        icon:  _canZoom ? Iconz.XLarge : Iconz.XSmall,
-                        verse: _canZoom ? 'Zoom on' : 'Zoom off',
-                        onTap: (){
-                          setState(() {
-                            _canZoom = !_canZoom;
-                          });
+                        icon:  Iconz.BxDesignsOff,
+                        verse: 'Crop Image',
+                        onTap: () async {
+                          await _cropImage(_assetsAsFiles[_currentSlideIndex]);
+                          },
+                      ),
+
+                      /// DELETE IMAGE
+                      PanelButton(
+                        size: _buttonSize,
+                        icon:  Iconz.XSmall,
+                        verse: 'Delete Image',
+                        onTap: () async {
+                          // widget.onDeleteImage(_currentSlideIndex);
+
+                          _deleteSlide(numberOfSlides, _currentSlideIndex);
+
                         },
                       ),
 
@@ -302,149 +509,134 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with TickerProvid
                     child: Stack(
                       children: <Widget>[
 
-                        /// SLIDES AS PAGEVIEW.BUILDER
+                        /// SLIDES
                         NotificationListener<ScrollNotification>(
                           onNotification: (ScrollNotification notification){
-                            // print('${notification.toString()}');
-
                             // if (notification is ScrollUpdateNotification){
                             //   print('bommm');
                             // }
-
-                            return
-                                true;
-                          },
+                            return true;
+                            },
                           child: PageView.builder(
                               pageSnapping: true,
                               controller: _pageController,
-                              physics: _canZoom ? AlwaysScrollableScrollPhysics() : BouncingScrollPhysics(),
+                              physics: AlwaysScrollableScrollPhysics(),
                               allowImplicitScrolling: true,
                               itemCount: numberOfSlides,
                               onPageChanged: (i) => _onPageChanged(i),
                               itemBuilder: (ctx, i){
 
-                                Asset _asset = _assets[i];
-
                                 // print('Width : ${_asset.originalWidth}, Height : ${_asset.originalHeight}');
                                 // print('isPortrait : ${_asset.isPortrait}, isLandscape : ${_asset.isLandscape}');
-
-                                File _file = _assetsAsFiles.length > 0 ? _assetsAsFiles[i] : null;
+                                File _file = _assetsAsFiles[i];//_assetsAsFiles.length > 0 ? _assetsAsFiles[i] : null;
 
                                 return
-                                  KeepAlivePage(
-                                    key: PageStorageKey(widget.draftFlyerModel.key.value + i),
-                                    child: FlyerZone(
-                                      flyerSizeFactor: _flyerSizeFactor,
-                                      tappingFlyerZone: (){},
-                                      onLongPress: (){},
-                                      stackWidgets: <Widget>[
+                                  AnimatedOpacity(
+                                    key: ObjectKey(widget.draftFlyerModel.key.value + i),
+                                    opacity: _slidesVisibility[_currentSlideIndex] == true ? 1 : 0,
+                                    duration: Ratioz.fadingDuration,
+                                    child: KeepAlivePage(
+                                      key: PageStorageKey(widget.draftFlyerModel.key.value + i),
+                                      child: FlyerZone(
+                                        flyerSizeFactor: _flyerSizeFactor,
+                                        tappingFlyerZone: (){},
+                                        onLongPress: (){},
+                                        stackWidgets: <Widget>[
 
-                                        /// if stateless zoomable widget
-                                        // StatelessZoomableWidget(
-                                        //   onDoubleTap: (){},
-                                        //   key: PageStorageKey(widget.draftFlyerModel.key.value + i),
-                                        //   matrix: _matrixes[currentSlide],
-                                        //   shouldRotate: true,
-                                        //   onMatrixUpdate: (matrix) {
-                                        //
-                                        //     print('${matrix.toString()}');
-                                        //     print('neo index 0 is : ${_matrixes[0]}');
-                                        //     print('neo index 1 is : ${_matrixes[1]}');
-                                        //     print('neo index 2 is : ${_matrixes[2]}');
-                                        //
-                                        //     if(_canZoom){
-                                        //     setState(() {
-                                        //       _matrixes[currentSlide] = matrix;
-                                        //     });
-                                        //     }
-                                        //
-                                        //     },
-                                        //
-                                        //   child: Container(
-                                        //     width: _flyerZoneWidth,
-                                        //     height: _flyerZoneHeight,
-                                        //     child: superImageWidget(
-                                        //       _file,
-                                        //       width: _flyerZoneWidth.toInt(),
-                                        //       height: _flyerZoneHeight.toInt(),
-                                        //       fit: _picsFits[i],
-                                        //     ),
-                                        //   ),
-                                        // ),
+                                          /// BACK GROUND IMAGE
+                                          Container(
+                                            width: _flyerZoneWidth,
+                                            height: _flyerZoneHeight,
+                                            child: superImageWidget(
+                                              _file,
+                                              width: (_flyerZoneWidth).toInt(),
+                                              height: (_flyerZoneHeight).toInt(),
+                                              scale: 1.8,
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
 
-                                        /// if interactive viewer
-                                        GestureDetector(
-                                          onTapUp: (TapUpDetails details){
-                                            dynamic _childWasTappedAt = _transformationController.toScene(details.localPosition);
+                                          /// BLUR LAYER
+                                          BlurLayer(
+                                            width: _flyerZoneWidth,
+                                            height: _flyerZoneHeight,
+                                            blur: Ratioz.blur2,
+                                            borders: Borderers.superFlyerCorners(context, _flyerZoneWidth),
+                                            blurIsOn: true,
+                                            color: Colorz.Black80,
+                                          ),
 
-                                            print('_childWasTappedAt : $_childWasTappedAt');
+                                          /// FRONT IMAGE
+                                          GestureDetector(
+                                            onTapUp: (TapUpDetails details){
+                                              dynamic _childWasTappedAt = _transformationController.toScene(details.localPosition);
 
-                                          },
-                                          child: InteractiveViewer(
-                                            transformationController: _transformationController,
-                                            panEnabled: _canZoom ? true : false,
-                                            scaleEnabled: _canZoom ? true : false,
-                                            constrained: false,
-                                            alignPanAxis: false,
-                                            boundaryMargin: EdgeInsets.zero,
-                                            key: PageStorageKey(widget.draftFlyerModel.key.value + i),
-                                            maxScale: 10,
-                                            minScale: 0.5,
-                                            onInteractionEnd: (ScaleEndDetails scaleEndDetails){
-                                              print('scaleEndDetails : $scaleEndDetails');
-                                              // setState(() {
-                                              //   _transformationController.value = new Matrix4.identity();
-                                              //   print('should toScene');
-                                              // });
+                                              // print('_childWasTappedAt : $_childWasTappedAt');
 
-                                              Offset _pixelPerSecond = scaleEndDetails.velocity.pixelsPerSecond;
-                                              Offset _pixelTranslate = scaleEndDetails.velocity.pixelsPerSecond.translate(1, 1);
-                                              Offset _pixelScale = scaleEndDetails.velocity.pixelsPerSecond.scale(0, 0);
-                                              double _direction = scaleEndDetails.velocity.pixelsPerSecond.direction;
-                                              double _distance = scaleEndDetails.velocity.pixelsPerSecond.distance;
-                                              bool _isFinite = scaleEndDetails.velocity.pixelsPerSecond.isFinite;
-                                              Offset _clampingPixelPerSecond = scaleEndDetails.velocity.clampMagnitude(0, 10).pixelsPerSecond;
+                                              },
+                                            child: InteractiveViewer(
+                                              transformationController: _transformationController,
+                                              panEnabled: true,
+                                              scaleEnabled: true,
+                                              constrained: false,
+                                              alignPanAxis: false,
+                                              boundaryMargin: EdgeInsets.zero,
+                                              key: PageStorageKey(widget.draftFlyerModel.key.value + i),
+                                              maxScale: 10,
+                                              minScale: 0.5,
+                                              onInteractionEnd: (ScaleEndDetails scaleEndDetails){
+                                                // print('scaleEndDetails : $scaleEndDetails');
+                                                // setState(() {
+                                                //   _transformationController.value = new Matrix4.identity();
+                                                //   print('should toScene');
+                                                // });
 
-                                              print('_pixelPerSecond : $_pixelPerSecond');
-                                              print('_pixelTranslate : $_pixelTranslate');
-                                              print('_pixelScale : $_pixelScale');
-                                              print('_direction : $_direction');
-                                              print('_distance : $_distance');
-                                              print('_isFinite : $_isFinite');
-                                              print('_clampingPixelPerSecond : $_clampingPixelPerSecond');
+                                                // Offset _pixelPerSecond = scaleEndDetails.velocity.pixelsPerSecond;
+                                                // Offset _pixelTranslate = scaleEndDetails.velocity.pixelsPerSecond.translate(1, 1);
+                                                // Offset _pixelScale = scaleEndDetails.velocity.pixelsPerSecond.scale(0, 0);
+                                                // double _direction = scaleEndDetails.velocity.pixelsPerSecond.direction;
+                                                // double _distance = scaleEndDetails.velocity.pixelsPerSecond.distance;
+                                                // bool _isFinite = scaleEndDetails.velocity.pixelsPerSecond.isFinite;
+                                                // Offset _clampingPixelPerSecond = scaleEndDetails.velocity.clampMagnitude(0, 10).pixelsPerSecond;
+                                                //
+                                                // print('_pixelPerSecond : $_pixelPerSecond');
+                                                // print('_pixelTranslate : $_pixelTranslate');
+                                                // print('_pixelScale : $_pixelScale');
+                                                // print('_direction : $_direction');
+                                                // print('_distance : $_distance');
+                                                // print('_isFinite : $_isFinite');
+                                                // print('_clampingPixelPerSecond : $_clampingPixelPerSecond');
 
-                                              // _transformationController.toScene(_pixelScale);
-
-                                              resetZoom();
-
-                                            },
-                                            onInteractionStart: (ScaleStartDetails scaleStartDetails){
-                                              print('scaleStartDetails : $scaleStartDetails');
-                                            },
-                                            onInteractionUpdate: (ScaleUpdateDetails scaleUpdateDetails){
-                                              print('scaleUpdateDetails : $scaleUpdateDetails');
-                                            },
-                                            child: Container(
-                                              width: _flyerZoneWidth,
-                                              height: _flyerZoneHeight,
-                                              child: superImageWidget(
-                                                _file,
-                                                width: _flyerZoneWidth.toInt(),
-                                                height: _flyerZoneHeight.toInt(),
-                                                fit: _picsFits[i],
+                                                // _transformationController.toScene(_pixelScale);
+                                                resetZoom();
+                                                },
+                                              // onInteractionStart: (ScaleStartDetails scaleStartDetails){
+                                              //   print('scaleStartDetails : $scaleStartDetails');
+                                              //   },
+                                              // onInteractionUpdate: (ScaleUpdateDetails scaleUpdateDetails){
+                                              //   print('scaleUpdateDetails : $scaleUpdateDetails');
+                                              //   },
+                                              child: Container(
+                                                width: _flyerZoneWidth,
+                                                height: _flyerZoneHeight,
+                                                child: superImageWidget(
+                                                  _file,
+                                                  width: _flyerZoneWidth.toInt(),
+                                                  height: _flyerZoneHeight.toInt(),
+                                                  fit: _picsFits[i],
+                                                ),
                                               ),
                                             ),
                                           ),
-                                        ),
 
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                   );
 
                               }
                           ),
                         ),
-
 
                         /// FLYER HEADER
                         AbsorbPointer(

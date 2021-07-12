@@ -50,8 +50,10 @@ void snapToBack(PageController slidingController, int currentSlide){
 }
 // -----------------------------------------------------------------------------
 void slideTo(PageController slidingController, int currentSlide){
+  if (slidingController.positions.length > 0 && slidingController.position.extentAfter == 0.0) {
   slidingController.animateToPage(currentSlide,
       duration: Ratioz.slidingDuration, curve: Curves.easeInOutCirc);
+  }
 }
 // -----------------------------------------------------------------------------
 void snapTo(PageController slidingController, int currentSlide){

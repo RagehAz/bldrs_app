@@ -268,16 +268,16 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
                       child: DreamBox(
                         height: _buttonHeight,
                         width: Scale.superScreenWidth(context) - Ratioz.appBarMargin * 4,
-                        color: _groupIsSelected ? Colorz.Yellow225 : Colorz.Nothing,
+                        color: _groupIsSelected ? Colorz.Yellow255 : Colorz.Nothing,
                         verse: _groupID,
                         secondLine: _groupID,
-                        verseColor: _groupIsSelected ? Colorz.Black225 : Colorz.White225,
+                        verseColor: _groupIsSelected ? Colorz.Black230 : Colorz.White225,
                         verseWeight: _groupIsSelected ? VerseWeight.bold : VerseWeight.thin,
                         verseItalic: false,
                         verseScaleFactor: 0.7,
                         // icon: KeywordModel.getImagePath(_groupsIDs[index]),
                         iconSizeFactor: 1,
-                        iconColor: Colorz.Black225,
+                        iconColor: Colorz.Black230,
                         margins: const EdgeInsets.symmetric(horizontal: 0, vertical: _buttonVerticalPadding),
                         onTap: (){
 
@@ -350,16 +350,16 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
                           DreamBox(
                             height: _buttonHeight,
                             width: Scale.superScreenWidth(context) - Ratioz.appBarMargin * 4 - _buttonHeight - Ratioz.appBarMargin,
-                            color: _keywordIsSelected ? Colorz.Yellow225 : Colorz.Nothing,
+                            color: _keywordIsSelected ? Colorz.Yellow255 : Colorz.Nothing,
                             verse: _keyword.keywordID,
                             secondLine: _keyword.keywordID,
-                            verseColor: _keywordIsSelected ? Colorz.Black225 : Colorz.White225,
+                            verseColor: _keywordIsSelected ? Colorz.Black230 : Colorz.White225,
                             verseWeight: _keywordIsSelected ? VerseWeight.bold : VerseWeight.thin,
                             verseItalic: false,
                             verseScaleFactor: 0.7,
                             icon: Keyword.getImagePath(_keyword.keywordID),
                             iconSizeFactor: 1,
-                            iconColor: Colorz.Black225,
+                            iconColor: Colorz.Black230,
                             margins: const EdgeInsets.symmetric(horizontal: 0, vertical: _buttonVerticalPadding),
                             onTap: (){
                               widget.onKeywordTap(_currentKeywordModels[index]);

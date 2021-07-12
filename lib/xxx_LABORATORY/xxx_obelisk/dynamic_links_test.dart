@@ -78,7 +78,7 @@ class _DynamicLinkTestState extends State<DynamicLinkTest> {
             height: 55,
             margins: 10,
             verse: 'the thing is : $_thing',
-            verseColor: Colorz.Black225,
+            verseColor: Colorz.Black230,
             color: Colorz.White225,
             onTap: (){},
           ),
@@ -87,7 +87,7 @@ class _DynamicLinkTestState extends State<DynamicLinkTest> {
             height: 55,
             margins: 10,
             verse: 'Get Dynamic Link',
-            color: Colorz.Yellow225,
+            color: Colorz.Yellow255,
             onTap: () => _getDynamicLink(),
           ),
 

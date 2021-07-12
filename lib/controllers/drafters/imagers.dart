@@ -33,7 +33,7 @@ DecorationImage superImage(String picture, BoxFit boxFit){
   return picture == '' ? null : image;
 }
 // -----------------------------------------------------------------------------
-Widget superImageWidget(dynamic pic, {int width, int height, BoxFit fit}){
+Widget superImageWidget(dynamic pic, {int width, int height, BoxFit fit, double scale}){
 
   BoxFit _boxFit = fit == null ? BoxFit.cover : fit;
 
@@ -42,32 +42,41 @@ Widget superImageWidget(dynamic pic, {int width, int height, BoxFit fit}){
 
   Asset _asset = ObjectChecker.objectIsAsset(pic) ? pic : null;
 
+  double _scale = scale == null ? 1 : scale;
+
   return
-    ObjectChecker.objectIsJPGorPNG(pic)?
-    Image.asset(pic, fit: _boxFit,)
-        :
-    ObjectChecker.objectIsSVG(pic)?
-    WebsafeSvg.asset(pic, fit: _boxFit)
-        :
-    /// max user NetworkImage(userPic), to try it later
-    ObjectChecker.objectIsURL(pic)?
-    Image.network(pic, fit: _boxFit,)
-        :
-    ObjectChecker.objectIsFile(pic)?
-    Image.file(
+    Transform.scale(
+      scale: _scale,
+      child:
+      ObjectChecker.objectIsJPGorPNG(pic)?
+      Image.asset(pic, fit: _boxFit)
+          :
+      ObjectChecker.objectIsSVG(pic)?
+      WebsafeSvg.asset(pic, fit: _boxFit,)
+          :
+      /// max user NetworkImage(userPic), to try it later
+      ObjectChecker.objectIsURL(pic)?
+      Image.network(pic, fit: _boxFit)
+          :
+      ObjectChecker.objectIsFile(pic)?
+      Image.file(
         pic,
         fit: _boxFit,
-    )
-        :
-    ObjectChecker.objectIsAsset(pic)?
-    AssetThumb(
-      asset: _asset,
-      width: _asset.originalWidth,
-      height: _asset.originalHeight,
-      spinner: Loading(loading: true,),
-    )
-        :
-    Container();
+        width: width.toDouble(),
+        height: height.toDouble(),
+      )
+          :
+      ObjectChecker.objectIsAsset(pic)?
+      AssetThumb(
+        asset: _asset,
+        width: (_asset.originalWidth).toInt(),
+        height: (_asset.originalHeight).toInt(),
+        spinner: Loading(loading: true,),
+      )
+          :
+      Container(),
+    );
+
 }
 // -----------------------------------------------------------------------------
 enum PicType{

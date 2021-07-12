@@ -39,7 +39,7 @@ class GoldenScroll extends StatelessWidget {
 
             SuperVerse(
               verse: scrollTitle,
-              color: Colorz.Yellow225,
+              color: Colorz.Yellow255,
               weight: VerseWeight.thin,
               italic: true,
               size: 1,
