@@ -117,7 +117,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
         buttonColor: Colorz.Black125,
         buttonIcon: icon,
         buttonVerseShadow: true,
-        splashColor: Colorz.Yellow225,
+        splashColor: Colorz.Yellow255,
         function: () => Nav.goToNewScreen(context, screen),
         stretched: false,
       );

@@ -83,7 +83,7 @@ class GeneralStatistics extends StatelessWidget {
           Container(
             width: screenWidth,
             height: screenWidth * 0.002,
-            color: Colorz.Yellow225,
+            color: Colorz.Yellow255,
             margin: EdgeInsets.only(top: screenWidth * 0.05),
           ),
 
@@ -230,7 +230,7 @@ class GeneralStatistics extends StatelessWidget {
           Container(
             width: screenWidth,
             height: screenWidth * 0.002,
-            color: Colorz.Yellow225,
+            color: Colorz.Yellow255,
             margin: EdgeInsets.only(top: screenWidth * 0.05),
           ),
 

@@ -31,6 +31,8 @@ class SlidesStack extends StatefulWidget {
   final double stackHeight;
   final BzModel bzModel;
   final bool firstTimer;
+  final Function onDeleteImage;
+  final Function onFirstTitleChange;
 
   SlidesStack({
     @required this.draftFlyerModel,
@@ -41,6 +43,8 @@ class SlidesStack extends StatefulWidget {
     @required this.stackHeight,
     @required this.bzModel,
     @required this.firstTimer,
+    @required this.onDeleteImage,
+    @required this.onFirstTitleChange,
 
 });
 
@@ -57,6 +61,7 @@ class _SlidesStackState extends State<SlidesStack> with AutomaticKeepAliveClient
   int _textLength = 0;
   Color _counterColor = Colorz.White80;
   final _formKey = GlobalKey<FormState>();
+
 // -----------------------------------------------------------------------------
   /// --- LOADING BLOCK
   bool _loading = false;
@@ -93,6 +98,7 @@ class _SlidesStackState extends State<SlidesStack> with AutomaticKeepAliveClient
           bzModel: widget.bzModel,
           flyerModel: null,
           flyerZoneWidth: _flyerZoneWidth,
+          onDeleteImage: widget.onDeleteImage,
         )
     );
 
@@ -231,10 +237,12 @@ class _SlidesStackState extends State<SlidesStack> with AutomaticKeepAliveClient
                         // margin: EdgeInsets.only(top: Ratioz.appBarPadding),
                         hintText: 'Flyer Headline ...',
                         labelColor: Colorz.White10,
-                        textController: widget.draftFlyerModel.titleController,
+                        textController: widget.draftFlyerModel.titlesControllers.length == 0 ? null : widget.draftFlyerModel.titlesControllers[0],
                         maxLength: _flyerTitleMaxLength,
                         onChanged: (value){
                           _formKey.currentState.validate();
+
+                          widget.onFirstTitleChange(value);
 
                           setState(() {
                             _textLength = value.length;

@@ -114,7 +114,7 @@ class _DropDownBubbleState extends State<DropDownBubble> {
                 // value: widget.list[0] ?? widget.list[0],
                 onTap: (){print(item);},
                 child: SuperVerse(
-                  color: Colorz.Black225,
+                  color: Colorz.Black230,
                   verse: item,
                 ),
               );

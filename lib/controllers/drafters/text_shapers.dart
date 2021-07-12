@@ -202,8 +202,8 @@ TextStyle superVerseStyle({
   const double _shadowYOffset = 0;
   double _shadowXOffset = superVerseXOffset(weight, _verseSizeValue);
   double _secondShadowXOffset = -0.35 * _shadowXOffset;
-  Color _leftShadow = color == Colorz.Black225 ? Colorz.White125 : Colorz.Black225;
-  Color _rightShadow = color == Colorz.Black225 ? Colorz.White80 : Colorz.White20;
+  Color _leftShadow = color == Colorz.Black230 ? Colorz.White125 : Colorz.Black230;
+  Color _rightShadow = color == Colorz.Black230 ? Colorz.White80 : Colorz.White20;
 
   return
     TextStyle(

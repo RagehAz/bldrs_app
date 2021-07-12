@@ -155,7 +155,7 @@ class TextFieldBubble extends StatelessWidget {
                         width: 35,
                         color: obscured? Colorz.Nothing : Colorz.Yellow200,
                         icon: Iconz.Views,
-                        iconColor: obscured? Colorz.White20 : Colorz.Black225,
+                        iconColor: obscured? Colorz.White20 : Colorz.Black230,
                         iconSizeFactor: 0.7,
                         bubble: false,
                         onTap: horusOnTap,

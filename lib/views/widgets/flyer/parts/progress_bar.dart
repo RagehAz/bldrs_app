@@ -31,21 +31,20 @@ class ProgressBar extends StatelessWidget {
     EdgeInsets _boxMargins = margins == null ? EdgeInsets.only(top: flyerZoneWidth * 0.27) : margins;
     double _allStripsLength = flyerZoneWidth * 0.895;
     double _allStripsOneSideMargin = (flyerZoneWidth - _allStripsLength) / 2;
-    double _aStripThickness = flyerZoneWidth * 0.007;
-    double _aStripOnePadding = _aStripThickness / 2;
+    // double _aStripThickness = flyerZoneWidth * 0.007;
+    // double _aStripOnePadding = _aStripThickness / 2;
     double _aStripLength = (_allStripsLength / _numberOfSlides);
-    Color _stripColor = Colorz.White80;
-    double _stripCorner = _aStripThickness * 0.5;
-    Color _currentStripColor = numberOfSlides == 0 ? Colorz. White10 : Colorz.White200;
+    // Color _stripColor = Colorz.White80;
+    // double _stripCorner = _aStripThickness * 0.5;
+    // Color _currentStripColor = numberOfSlides == 0 ? Colorz. White10 : Colorz.White200;
 // -----------------------------------------------------------------------------
     bool _microMode = Scale.superFlyerMicroMode(context, flyerZoneWidth);
 // -----------------------------------------------------------------------------
     double _beginGoingNext = 0;
     double _endGoingNext = _aStripLength;
-
     double _beginGoingPrevious = _aStripLength;
     double _endGoingPrevious = 0;
-    // --------------------------------------------------------o
+    // ----------------------o
     Tween _tween(){
       Tween _tween;
 
@@ -62,53 +61,56 @@ class ProgressBar extends StatelessWidget {
     }
 // -----------------------------------------------------------------------------
     int _numberOfWhiteStrips(){
+      // -----------------------------------------o
       int _numberOfStrips;
       bool _goingNext = slidingNext == null || slidingNext == true ? true : false;
+      // -----------------------------------------o
       /// A - at first slide
       if(currentSlide == 0){
         /// B - GOING NEXT
         if(_goingNext){
-          print('at first slide going next');
+          // print('at first slide going next');
           _numberOfStrips = 1;
         }
         /// B - GOING PREVIOUS
         else{
-          print('at first slide going previous');
+          // print('at first slide going previous');
           _numberOfStrips = 2;
         }
       }
-      // --------------------------------------------------------o
+      // -----------------------------------------o
       /// A - at last slide
       else if (currentSlide + 1 == numberOfSlides){
 
         /// B - GOING NEXT
         if(_goingNext){
-          print('at last slide going next');
+          // print('at last slide going next');
           _numberOfStrips = numberOfSlides;
         }
         /// B - GOING PREVIOUS
         else{
-          print('at last slide going previous');
+          // print('at last slide going previous');
           _numberOfStrips = currentSlide + 3;
         }
       }
       /// A - at middle slides
+      // -----------------------------------------o
       else {
         /// B - GOING NEXT
         if(_goingNext){
-          print('at middle slide going next');
+          // print('at middle slide going next');
           _numberOfStrips = currentSlide + 1;
         }
         /// B - GOING PREVIOUS
         else{
-          print('at middle slide going previous');
+          // print('at middle slide going previous');
           _numberOfStrips = currentSlide + 2;
         }
       }
-
+      // -----------------------------------------o
       return _numberOfStrips;
     }
-
+// -----------------------------------------------------------------------------
     return
       _microMode == true || barIsOn == false  ?
       Container()
@@ -132,7 +134,6 @@ class ProgressBar extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: List.generate(_numberOfSlides, (index) {
 
-                  // --- PROGRESS BAR BASE STRIP
                   return
                     Strip(
                       flyerZoneWidth: flyerZoneWidth,
@@ -150,7 +151,7 @@ class ProgressBar extends StatelessWidget {
                 duration: Ratioz.fadingDuration,
                 tween: _tween(),
                 curve: Curves.easeOut,
-                onEnd: (){},
+                // onEnd: (){},
                 key: ValueKey(currentSlide),
                 builder: (BuildContext context,double tweenVal, Widget child){
                   return
@@ -162,7 +163,7 @@ class ProgressBar extends StatelessWidget {
                         children: <Widget>[
 
                           ...List.generate(_numberOfWhiteStrips(), (index) {
-                            print('numberOfSlides : $numberOfSlides ,currentSlide : $currentSlide, index : $index, _numberOfWhiteStrips() : ${_numberOfWhiteStrips()}' );
+                            // print('numberOfSlides : $numberOfSlides ,currentSlide : $currentSlide, index : $index, _numberOfWhiteStrips() : ${_numberOfWhiteStrips()}' );
 
                             return
                               /// IF ITS LAST STRIP
@@ -217,11 +218,7 @@ class Strip extends StatelessWidget {
   Widget build(BuildContext context) {
     int _numberOfSlides = numberOfSlides == 0 ? 1 : numberOfSlides;
 // -----------------------------------------------------------------------------
-    double _boxWidth = flyerZoneWidth;
-    double _boxHeight = flyerZoneWidth * Ratioz.xxProgressBarHeightRatio;
-    EdgeInsets _boxMargins = margins == null ? EdgeInsets.only(top: flyerZoneWidth * 0.27) : margins;
     double _allStripsLength = flyerZoneWidth * 0.895;
-    double _allStripsOneSideMargin = (flyerZoneWidth - _allStripsLength) / 2;
     double _aStripThickness = flyerZoneWidth * 0.007;
     double _aStripOnePadding = _aStripThickness / 2;
     double _aStripLength = (_allStripsLength / _numberOfSlides);
@@ -233,7 +230,6 @@ class Strip extends StatelessWidget {
         width: stripWidth,
         height: _aStripThickness,
         padding: EdgeInsets.symmetric(horizontal: _aStripOnePadding),
-        // color: Colorz.BloodTest,
         child: Container(
           width: _aStripLength - (2 * _aStripOnePadding),
           height: _aStripThickness,

@@ -85,7 +85,7 @@ final Color leadingIconColor;
             color: Colorz.Nothing,
             child: InkWell(
               onTap: bubbleOnTap,
-              splashColor: Colorz.Yellow225,
+              splashColor: Colorz.Yellow255,
               borderRadius: BorderRadius.circular(Ratioz.appBarCorner),
               child: Padding(
                 padding: const EdgeInsets.all(_pageMargin),

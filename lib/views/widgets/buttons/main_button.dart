@@ -24,7 +24,7 @@ class MainButton extends StatelessWidget {
     @required this.buttonVerse,
     @required this.buttonIcon,
     this.buttonColor = Colorz.White50,
-    this.splashColor = Colorz.Yellow225,
+    this.splashColor = Colorz.Yellow255,
     this.buttonVerseShadow = true,
     @required this.function,
     this.stretched = false,
@@ -68,7 +68,7 @@ class MainButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(_buttonCorner),
             boxShadow: <BoxShadow>[
               CustomBoxShadow(
-                  color: Colorz.Black225,
+                  color: Colorz.Black230,
                   offset: new Offset(0, 0),
                   blurRadius: _buttonZoneHeight * 0.09,
                   blurStyle: BlurStyle.outer),

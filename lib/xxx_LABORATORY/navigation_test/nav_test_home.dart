@@ -38,10 +38,10 @@ class _NavTestHomeState extends State<NavTestHome> {
     return DreamBox(
       verse: type.toString(),
       verseScaleFactor: 0.5,
-      verseColor: Colorz.Black225,
+      verseColor: Colorz.Black230,
       height: 170,
       width: 130,
-      color: Colorz.Yellow225,
+      color: Colorz.Yellow255,
       // boxMargins: EdgeInsets.all(10),
       verseMaxLines: 2,
       onTap: () async {
@@ -124,7 +124,7 @@ class _NavTestHomeState extends State<NavTestHome> {
               verse: 'Push : page 1',
               verseScaleFactor: 1,
               height: 50,
-              color: Colorz.Black225,
+              color: Colorz.Black230,
               margins: EdgeInsets.all(5),
               onTap: () async {
 
@@ -147,7 +147,7 @@ class _NavTestHomeState extends State<NavTestHome> {
               secondLine: ' --- ',
               height: 100,
               verseScaleFactor: 1,
-              color: Colorz.Black225,
+              color: Colorz.Black230,
               margins: EdgeInsets.all(5),
               onTap: () async {
 

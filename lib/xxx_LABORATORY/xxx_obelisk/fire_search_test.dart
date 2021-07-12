@@ -225,7 +225,7 @@ class _FireSearchTestState extends State<FireSearchTest> {
           Positioned(
             bottom: 0,
             child: InPyramidsBubble(
-              bubbleColor: Colorz.Black225,
+              bubbleColor: Colorz.Black230,
               centered: true,
               stretchy: false,
               columnChildren: <Widget>[

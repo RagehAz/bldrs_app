@@ -72,12 +72,12 @@ class AddAuthorScreen extends StatelessWidget {
 
                     DreamBox(
                       height: 50,
-                      color: Colorz.Yellow225,
+                      color: Colorz.Yellow255,
                       icon: Iconz.Share,
                       iconSizeFactor: 0.5,
-                      iconColor: Colorz.Black225,
+                      iconColor: Colorz.Black230,
                       verse: 'Share',
-                      verseColor: Colorz.Black225,
+                      verseColor: Colorz.Black230,
                       verseScaleFactor: 1.2,
                     ),
 

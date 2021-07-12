@@ -602,8 +602,8 @@ class _OldFlyerEditorScreenState extends State<OldFlyerEditorScreen> {
                             verse: 'Product Flyer',
                             verseMaxLines: 2,
                             verseScaleFactor: 0.7,
-                            color: _currentFlyerType == FlyerType.Product ? Colorz.Yellow225 : Colorz.White20,
-                            verseColor: _currentFlyerType == FlyerType.Product ? Colorz.Black225 : Colorz.White225,
+                            color: _currentFlyerType == FlyerType.Product ? Colorz.Yellow255 : Colorz.White20,
+                            verseColor: _currentFlyerType == FlyerType.Product ? Colorz.Black230 : Colorz.White225,
                             onTap: (){
                               setSheetState(() {
                                 _currentFlyerType = FlyerType.Product;
@@ -617,8 +617,8 @@ class _OldFlyerEditorScreenState extends State<OldFlyerEditorScreen> {
                             verse: 'Equipment Flyer',
                             verseMaxLines: 2,
                             verseScaleFactor: 0.7,
-                            color: _currentFlyerType == FlyerType.Equipment ? Colorz.Yellow225 : Colorz.White20,
-                            verseColor: _currentFlyerType == FlyerType.Equipment ? Colorz.Black225 : Colorz.White225,
+                            color: _currentFlyerType == FlyerType.Equipment ? Colorz.Yellow255 : Colorz.White20,
+                            verseColor: _currentFlyerType == FlyerType.Equipment ? Colorz.Black230 : Colorz.White225,
                             onTap: (){
                               setSheetState(() {
                                 _currentFlyerType = FlyerType.Equipment;
@@ -855,9 +855,9 @@ class _OldFlyerEditorScreenState extends State<OldFlyerEditorScreen> {
           height: 35,
           margins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
           verse: widget.firstTimer ? 'Publish flyer' : 'update flyer',
-          verseColor: Colorz.Black225,
+          verseColor: Colorz.Black230,
           verseScaleFactor: 0.8,
-          color: Colorz.Yellow225,
+          color: Colorz.Yellow255,
           icon: Iconz.AddFlyer,
           iconSizeFactor: 0.6,
           onTap: widget.firstTimer ? _createNewFlyer : _updateExistingFlyer,

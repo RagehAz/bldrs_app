@@ -225,10 +225,10 @@ class _SignInFormState extends State<SignInForm> {
               DreamBox(
                 height: 50,
                 verseScaleFactor: 0.7,
-                color: Colorz.Yellow225,
+                color: Colorz.Yellow255,
                 verse: Wordz.signIn(context),
                 verseWeight: VerseWeight.black,
-                verseColor: Colorz.Black225,
+                verseColor: Colorz.Black230,
                 margins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
                 onTap: _signInOnTap,
               ),

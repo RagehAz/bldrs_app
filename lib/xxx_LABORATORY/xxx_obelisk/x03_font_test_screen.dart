@@ -70,7 +70,7 @@ class FontTestScreen extends StatelessWidget {
                       'ّ أَ أً أُ أٌ أ ثَثاً ثُثٌثِثْثثّثٍ خّ خٌ خْخٍ غٍ غَ غٌ غَّ غٌّ يٍ يٍّ شٌ ش \n'
                       '~{}’,.؟":/،ـ><؛×÷‘][!@#\$|%^&*)(\n'
                       'A|أ',
-                  color: Colorz.Yellow225,
+                  color: Colorz.Yellow255,
                   size: 4,
                   weight: weightTest,
                   italic: false,
@@ -84,7 +84,7 @@ class FontTestScreen extends StatelessWidget {
                 Container(
                   width: screenWidth,
                   height: screenHeight * 0.02,
-                  color: Colorz.Black225,
+                  color: Colorz.Black230,
                 ),
 
                 // --- VERSE HEIGHT REVERSE ENGINEERING
@@ -117,7 +117,7 @@ class FontTestScreen extends StatelessWidget {
                 Container(
                   height: 10,
                   width: screenWidth,
-                  color: Colorz.Black225,
+                  color: Colorz.Black230,
                 ),
 
                 // --- FONT SIZE TEST
@@ -217,7 +217,7 @@ class FontTestScreen extends StatelessWidget {
                 Container(
                   height: 10,
                   width: screenWidth,
-                  color: Colorz.Black225,
+                  color: Colorz.Black230,
                 ),
 
                 // --- PARAGRAPH TEST
@@ -256,7 +256,7 @@ class FontTestScreen extends StatelessWidget {
                 Container(
                   height: 10,
                   width: screenWidth,
-                  color: Colorz.Black225,
+                  color: Colorz.Black230,
                 ),
 
                 // --- FONT WEIGHT TEST
@@ -312,7 +312,7 @@ class FontTestScreen extends StatelessWidget {
                 Container(
                   height: 10,
                   width: screenWidth,
-                  color: Colorz.Black225,
+                  color: Colorz.Black230,
                 ),
 
                 // --- SHADOW TEST
@@ -486,7 +486,7 @@ class FontTestScreen extends StatelessWidget {
                 Container(
                   height: 10,
                   width: screenWidth,
-                  color: Colorz.Black225,
+                  color: Colorz.Black230,
                 ),
 
 
@@ -494,7 +494,7 @@ class FontTestScreen extends StatelessWidget {
                 Container(
                   height: 10,
                   width: screenWidth,
-                  color: Colorz.Black225,
+                  color: Colorz.Black230,
                 ),
 
 
@@ -505,7 +505,7 @@ class FontTestScreen extends StatelessWidget {
 
                 SuperVerse(
                   verse: 'SuperVerse Label',
-                  labelColor: Colorz.Yellow225,
+                  labelColor: Colorz.Yellow255,
                   color: Colorz.Black80,
                   size: 6,
                 ),
@@ -537,7 +537,7 @@ class FontTestScreen extends StatelessWidget {
                 Container(
                   height: 10,
                   width: screenWidth,
-                  color: Colorz.Black225,
+                  color: Colorz.Black230,
                 ),
 
                 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- CHIPS LIST
@@ -567,7 +567,7 @@ class FontTestScreen extends StatelessWidget {
                 Container(
                   height: 10,
                   width: screenWidth,
-                  color: Colorz.Black225,
+                  color: Colorz.Black230,
                 ),
 
                 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- GENERATED LIST
@@ -585,8 +585,8 @@ class FontTestScreen extends StatelessWidget {
                                 weight:  VerseWeight.bold,
                                 shadow: true,
                                 designMode: true,
-                                labelColor: Colorz.Yellow225,
-                                color: Colorz.Black225,
+                                labelColor: Colorz.Yellow255,
+                                color: Colorz.Black230,
                                 centered: true,
                                 margin: 0,
                                 italic: false,

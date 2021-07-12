@@ -243,10 +243,10 @@ class _RegisterFormState extends State<RegisterForm> {
                 value: _countryPro,
                 child: DreamBox(
                   height: 50,
-                  color: Colorz.Yellow225,
+                  color: Colorz.Yellow255,
                   verseScaleFactor: 0.7,
                   verse: Wordz.register(context),
-                  verseColor: Colorz.Black225,
+                  verseColor: Colorz.Black230,
                   verseWeight: VerseWeight.black,
                   margins: const EdgeInsets.all(10),
                   onTap: () => _registerOnTap(currentZone: _currentZone),

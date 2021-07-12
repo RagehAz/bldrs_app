@@ -30,7 +30,7 @@ class FlagBox extends StatelessWidget {
               borderRadius: BorderRadius.circular(_corner),
               boxShadow: <BoxShadow>[
                 CustomBoxShadow(
-                    color: Colorz.Black225,
+                    color: Colorz.Black230,
                     offset: new Offset(0, 0),
                     blurRadius: _flagWidth * 0.12,
                     blurStyle: BlurStyle.outer

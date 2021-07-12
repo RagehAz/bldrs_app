@@ -59,7 +59,7 @@ class Shadowz {
   static List<BoxShadow> flyerZoneShadow(double flyerZoneWidth){
     List<BoxShadow> _flyerZoneShadow = <BoxShadow>[
       CustomBoxShadow(
-          color: Colorz.Black225,
+          color: Colorz.Black230,
           blurRadius: flyerZoneWidth * 0.055,
           blurStyle: BlurStyle.outer
       ),
