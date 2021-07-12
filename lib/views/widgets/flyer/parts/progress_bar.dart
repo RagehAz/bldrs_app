@@ -28,12 +28,12 @@ class ProgressBar extends StatelessWidget {
 // -----------------------------------------------------------------------------
     double _boxWidth = flyerZoneWidth;
     double _boxHeight = flyerZoneWidth * Ratioz.xxProgressBarHeightRatio;
-    EdgeInsets _margins = margins == null ? EdgeInsets.only(top: flyerZoneWidth * 0.27) : margins;
+    EdgeInsets _boxMargins = margins == null ? EdgeInsets.only(top: flyerZoneWidth * 0.27) : margins;
     double _allStripsLength = flyerZoneWidth * 0.895;
     double _allStripsOneSideMargin = (flyerZoneWidth - _allStripsLength) / 2;
     double _aStripThickness = flyerZoneWidth * 0.007;
-    double _aStripOneMargin = _aStripThickness / 2;
-    double _aStripLength = (_allStripsLength / _numberOfSlides) - (_aStripOneMargin*2);
+    double _aStripOnePadding = _aStripThickness / 2;
+    double _aStripLength = (_allStripsLength / _numberOfSlides);
     Color _stripColor = Colorz.White80;
     double _stripCorner = _aStripThickness * 0.5;
     Color _currentStripColor = numberOfSlides == 0 ? Colorz. White10 : Colorz.White200;
@@ -118,7 +118,7 @@ class ProgressBar extends StatelessWidget {
         child: Container(
           width: _boxWidth,
           height: _boxHeight,
-          margin: _margins,
+          margin: _boxMargins,
           padding: EdgeInsets.symmetric(horizontal: _allStripsOneSideMargin),
           alignment: Alignment.center,
           child: Stack(
@@ -133,16 +133,14 @@ class ProgressBar extends StatelessWidget {
                 children: List.generate(_numberOfSlides, (index) {
 
                   // --- PROGRESS BAR BASE STRIP
-                  return Flexible(
-                    child: Container(
-                      width: _aStripLength,
-                      height: _aStripThickness,
-                      margin: EdgeInsets.symmetric(horizontal: _aStripOneMargin),
-                      decoration: BoxDecoration(
-                          color: _stripColor,
-                          borderRadius: Borderers.superBorderAll(context, _stripCorner)),
-                    ),
-                  );
+                  return
+                    Strip(
+                      flyerZoneWidth: flyerZoneWidth,
+                      stripWidth: _aStripLength,
+                      numberOfSlides: numberOfSlides,
+                      margins: margins,
+                      isWhite: false,
+                    );
 
                 }),
               ),
@@ -164,36 +162,27 @@ class ProgressBar extends StatelessWidget {
                         children: <Widget>[
 
                           ...List.generate(_numberOfWhiteStrips(), (index) {
-
                             print('numberOfSlides : $numberOfSlides ,currentSlide : $currentSlide, index : $index, _numberOfWhiteStrips() : ${_numberOfWhiteStrips()}' );
 
                             return
-
-                            /// IF ITS LAST STRIP
+                              /// IF ITS LAST STRIP
                               index == currentSlide ?
-                              Flexible(
-                                child: new Container(
-                                  width: tweenVal,
-                                  height: _aStripThickness,
-                                  margin: EdgeInsets.symmetric(horizontal: _aStripOneMargin),
-                                  decoration: BoxDecoration(
-                                      color: _currentStripColor,
-                                      borderRadius: Borderers.superBorderAll(context, _stripCorner)),
-                                ),
+                              Strip(
+                                flyerZoneWidth: flyerZoneWidth,
+                                stripWidth: tweenVal,
+                                numberOfSlides: numberOfSlides,
+                                isWhite: true,
                               )
                                   :
-                              Flexible(
-                                child: Container(
-                                  width: _aStripLength,
-                                  height: _aStripThickness,
-                                  margin: EdgeInsets.symmetric(horizontal: _aStripOneMargin),
-                                  decoration: BoxDecoration(
-                                      color: _currentStripColor,
-                                      borderRadius: Borderers.superBorderAll(context, _stripCorner)),
-                                ),
+                              /// IF STATIC STRIPS
+                              Strip(
+                                flyerZoneWidth: flyerZoneWidth,
+                                stripWidth: _aStripLength,
+                                numberOfSlides: numberOfSlides,
+                                isWhite: true,
                               );
-                          }),
 
+                          }),
                         ],
                       ),
                     );
@@ -206,5 +195,54 @@ class ProgressBar extends StatelessWidget {
           ),
     ),
       );
+  }
+}
+
+class Strip extends StatelessWidget {
+  final double flyerZoneWidth;
+  final double stripWidth;
+  final int numberOfSlides;
+  final EdgeInsets margins;
+  final bool isWhite;
+
+  Strip({
+    @required this.flyerZoneWidth,
+    @required this.stripWidth,
+    @required this.numberOfSlides,
+    this.margins,
+    @required this.isWhite,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    int _numberOfSlides = numberOfSlides == 0 ? 1 : numberOfSlides;
+// -----------------------------------------------------------------------------
+    double _boxWidth = flyerZoneWidth;
+    double _boxHeight = flyerZoneWidth * Ratioz.xxProgressBarHeightRatio;
+    EdgeInsets _boxMargins = margins == null ? EdgeInsets.only(top: flyerZoneWidth * 0.27) : margins;
+    double _allStripsLength = flyerZoneWidth * 0.895;
+    double _allStripsOneSideMargin = (flyerZoneWidth - _allStripsLength) / 2;
+    double _aStripThickness = flyerZoneWidth * 0.007;
+    double _aStripOnePadding = _aStripThickness / 2;
+    double _aStripLength = (_allStripsLength / _numberOfSlides);
+    double _stripCorner = _aStripThickness * 0.5;
+    Color _stripColor = !isWhite ? Colorz.White80 : numberOfSlides == 0 ? Colorz. White10 : Colorz.White200;
+// -----------------------------------------------------------------------------
+    return Flexible(
+      child: Container(
+        width: stripWidth,
+        height: _aStripThickness,
+        padding: EdgeInsets.symmetric(horizontal: _aStripOnePadding),
+        // color: Colorz.BloodTest,
+        child: Container(
+          width: _aStripLength - (2 * _aStripOnePadding),
+          height: _aStripThickness,
+          decoration: BoxDecoration(
+              color: _stripColor,
+              borderRadius: Borderers.superBorderAll(context, _stripCorner)
+          ),
+        ),
+      ),
+    );
   }
 }
