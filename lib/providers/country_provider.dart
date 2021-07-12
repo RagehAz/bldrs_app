@@ -145,7 +145,7 @@ class CountryProvider with ChangeNotifier{
   Province _province = _provinces.firstWhere((ar) => ar.name == provinceID, orElse: ()=> null);
   // String _nameInCurrentLanguage = _province?.namez?.singleWhere((name) => name.code == _currentLanguageCode, orElse: ()=> null)?.value;
 
-  print('province is : ${_province.iso3} : ${_province.name} : ${_province.districts.length} : ${_province.namez}');
+  // print('province is : ${_province.iso3} : ${_province.name} : ${_province.districts.length} : ${_province.namez}');
 
   String _nameInCurrentLanguage = Name.getNameWithCurrentLanguageFromListOfNames(context, _province?.namez);
 

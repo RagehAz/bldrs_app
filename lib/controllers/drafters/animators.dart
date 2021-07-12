@@ -21,4 +21,15 @@ class Animators{
     return radian;
   }
 // -----------------------------------------------------------------------------
+  static bool slidingNext({int currentIndex, int newIndex}){
+    bool _slidingNext;
+    if( newIndex > currentIndex ){
+      _slidingNext = true;
+    } else {
+      _slidingNext = false;
+    }
+
+    return _slidingNext;
+  }
+// -----------------------------------------------------------------------------
 }

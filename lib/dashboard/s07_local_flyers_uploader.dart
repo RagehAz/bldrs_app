@@ -324,6 +324,7 @@ class _LocalFlyersUploaderState extends State<LocalFlyersUploader> {
             index: _currentBzIndex,
             name: _currentBzName,
             id: _currentBzID,
+            goingNext: true,
           ),
 
           /// flyers progress bar
@@ -333,6 +334,7 @@ class _LocalFlyersUploaderState extends State<LocalFlyersUploader> {
             index: _currentFlyerIndex,
             name: _currentFlyerTitle,
             id: _currentFlyerID,
+            goingNext: true,
           ),
 
 
@@ -480,6 +482,7 @@ class Progressor extends StatelessWidget {
   final int index;
   final String name;
   final String id;
+  final bool goingNext;
 
   Progressor({
     @required this.title,
@@ -487,6 +490,7 @@ class Progressor extends StatelessWidget {
     @required this.index,
     @required this.name,
     @required this.id,
+    @required this.goingNext,
   });
 
   @override
@@ -527,6 +531,7 @@ class Progressor extends StatelessWidget {
             barIsOn: true,
             currentSlide: index,
             margins: const EdgeInsets.all(5),
+            slidingNext: true,
           ),
 
           Padding(
