@@ -11,6 +11,7 @@ class ProgressBar extends StatelessWidget {
   final int numberOfSlides;
   final int currentSlide;
   final EdgeInsets margins;
+  final bool slidingNext;
 
   ProgressBar({
     @required this.flyerZoneWidth,
@@ -18,6 +19,7 @@ class ProgressBar extends StatelessWidget {
     @required this.numberOfSlides,
     this.currentSlide = 0,
     this.margins,
+    @required this.slidingNext,
   });
 
   @override
@@ -38,8 +40,79 @@ class ProgressBar extends StatelessWidget {
 // -----------------------------------------------------------------------------
     bool _microMode = Scale.superFlyerMicroMode(context, flyerZoneWidth);
 // -----------------------------------------------------------------------------
+    double _beginGoingNext = 0;
+    double _endGoingNext = _aStripLength;
+
+    double _beginGoingPrevious = _aStripLength;
+    double _endGoingPrevious = 0;
+    // --------------------------------------------------------o
+    Tween _tween(){
+      Tween _tween;
+
+      /// GOING NEXT
+      if(slidingNext == null || slidingNext == true){
+        _tween = Tween<double>(begin: _beginGoingNext, end: _endGoingNext);
+      }
+      /// GOING PREVIOUS
+      else {
+        _tween = Tween<double>(begin: _beginGoingPrevious, end: _endGoingPrevious);
+      }
+
+      return _tween;
+    }
+// -----------------------------------------------------------------------------
+    int _numberOfWhiteStrips(){
+      int _numberOfStrips;
+      bool _goingNext = slidingNext == null || slidingNext == true ? true : false;
+      /// A - at first slide
+      if(currentSlide == 0){
+        /// B - GOING NEXT
+        if(_goingNext){
+          print('at first slide going next');
+          _numberOfStrips = 1;
+        }
+        /// B - GOING PREVIOUS
+        else{
+          print('at first slide going previous');
+          _numberOfStrips = 2;
+        }
+      }
+      // --------------------------------------------------------o
+      /// A - at last slide
+      else if (currentSlide + 1 == numberOfSlides){
+
+        /// B - GOING NEXT
+        if(_goingNext){
+          print('at last slide going next');
+          _numberOfStrips = numberOfSlides;
+        }
+        /// B - GOING PREVIOUS
+        else{
+          print('at last slide going previous');
+          _numberOfStrips = currentSlide + 3;
+        }
+      }
+      /// A - at middle slides
+      else {
+        /// B - GOING NEXT
+        if(_goingNext){
+          print('at middle slide going next');
+          _numberOfStrips = currentSlide + 1;
+        }
+        /// B - GOING PREVIOUS
+        else{
+          print('at middle slide going previous');
+          _numberOfStrips = currentSlide + 2;
+        }
+      }
+
+      return _numberOfStrips;
+    }
+
     return
-      _microMode == true || barIsOn == false  ? Container() :
+      _microMode == true || barIsOn == false  ?
+      Container()
+          :
       Align(
         alignment: Aligners.superTopAlignment(context),
         child: Container(
@@ -52,7 +125,7 @@ class ProgressBar extends StatelessWidget {
             alignment: Aligners.superCenterAlignment(context),
             children: <Widget>[
 
-              // --- BASE STRIP
+              /// --- BASE STRIP
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -74,25 +147,60 @@ class ProgressBar extends StatelessWidget {
                 }),
               ),
 
-              // --- TOP STRIP
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: List.generate(currentSlide + 1, (index) {
-                  // --- PROGRESS BAR BASE STRIP
-                  return Flexible(
-                    child: Container(
-                      width: _aStripLength,
-                      height: _aStripThickness,
-                      margin: EdgeInsets.symmetric(horizontal: _aStripOneMargin),
-                      decoration: BoxDecoration(
-                          color: _currentStripColor,
-                          borderRadius: Borderers.superBorderAll(context, _stripCorner)),
-                    ),
-                  );
-                }),
-              )
+              /// --- TOP STRIP
+              TweenAnimationBuilder<double>(
+                duration: Ratioz.fadingDuration,
+                tween: _tween(),
+                curve: Curves.easeOut,
+                onEnd: (){},
+                key: ValueKey(currentSlide),
+                builder: (BuildContext context,double tweenVal, Widget child){
+                  return
+                    Container(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+
+                          ...List.generate(_numberOfWhiteStrips(), (index) {
+
+                            print('numberOfSlides : $numberOfSlides ,currentSlide : $currentSlide, index : $index, _numberOfWhiteStrips() : ${_numberOfWhiteStrips()}' );
+
+                            return
+
+                            /// IF ITS LAST STRIP
+                              index == currentSlide ?
+                              Flexible(
+                                child: new Container(
+                                  width: tweenVal,
+                                  height: _aStripThickness,
+                                  margin: EdgeInsets.symmetric(horizontal: _aStripOneMargin),
+                                  decoration: BoxDecoration(
+                                      color: _currentStripColor,
+                                      borderRadius: Borderers.superBorderAll(context, _stripCorner)),
+                                ),
+                              )
+                                  :
+                              Flexible(
+                                child: Container(
+                                  width: _aStripLength,
+                                  height: _aStripThickness,
+                                  margin: EdgeInsets.symmetric(horizontal: _aStripOneMargin),
+                                  decoration: BoxDecoration(
+                                      color: _currentStripColor,
+                                      borderRadius: Borderers.superBorderAll(context, _stripCorner)),
+                                ),
+                              );
+                          }),
+
+                        ],
+                      ),
+                    );
+
+                  },
+              ),
+
 
             ],
           ),

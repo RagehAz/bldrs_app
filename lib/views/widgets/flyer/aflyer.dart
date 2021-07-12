@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/animators.dart';
 import 'package:bldrs/controllers/drafters/launchers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/firestore/auth_ops.dart';
@@ -54,12 +55,21 @@ class _AFlyerState extends State<AFlyer> with AutomaticKeepAliveClientMixin{
     print('bzPageIsOn : $_bzPageIsOn');
   }
 // -----------------------------------------------------------------------------
-  void _slidingPages (int slideIndex){
-    print('sliding pages recieved slideIndex :  $slideIndex');
-    setState(() {_currentSlideIndex = slideIndex;});
-    print('rebuild parent flyer with _currentSlideIndex : $_currentSlideIndex');
-
+  /// SLIDING BLOCK
+  /// usage :  onPageChanged: (i) => _onPageChanged(i),
+  bool _slidingNext;
+  void _onPageChanged (int newIndex){
+    _slidingNext = Animators.slidingNext(newIndex: newIndex, currentIndex: _currentSlideIndex,);
+    setState(() {_currentSlideIndex = newIndex;});
   }
+// -----------------------------------------------------------------------------
+  /// SLIDING BLOCK
+  /// usage :  onPageChanged: (i) => _onPageChanged(i),
+  // bool _slidingNext;
+  // void _onPageChanged (int newIndex){
+  //   _slidingNext = Animators.slidingNext(newIndex: newIndex, currentIndex: currentSlide,);
+  //   setState(() {currentSlide = newIndex;})
+  //   ;}
 // -----------------------------------------------------------------------------
   Future<void> _tapAnkh(String flyerID, int slideIndex) async {
 
@@ -149,7 +159,7 @@ class _AFlyerState extends State<AFlyer> with AutomaticKeepAliveClientMixin{
           slides: widget.flyer?.slides,
           flyerZoneWidth: _flyerZoneWidth,
           slidingIsOn: true,
-          sliding: (index) => _slidingPages(index),
+          sliding: (index) => _onPageChanged(index),
           currentSlideIndex: _currentSlideIndex,
           swipeFlyer: widget.swipe,
         ),
@@ -174,6 +184,7 @@ class _AFlyerState extends State<AFlyer> with AutomaticKeepAliveClientMixin{
           numberOfSlides: widget.flyer?.slides?.length,
           barIsOn: _barIsOn,
           currentSlide: _currentSlideIndex,
+          slidingNext: _slidingNext,
         ),
 
         AnkhButton(
