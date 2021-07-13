@@ -25,7 +25,7 @@ class TileBubble extends StatelessWidget {
     @required this.icon,
     this.iconBoxColor = Colorz.Nothing,
     this.iconSizeFactor = 0.6,
-    this.verseColor = Colorz.White225,
+    this.verseColor = Colorz.White255,
     this.btOnTap,
     this.secondLine,
     this.switchIsOn,

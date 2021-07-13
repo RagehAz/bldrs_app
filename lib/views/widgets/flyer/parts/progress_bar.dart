@@ -40,21 +40,16 @@ class ProgressBar extends StatelessWidget {
 // -----------------------------------------------------------------------------
     bool _microMode = Scale.superFlyerMicroMode(context, flyerZoneWidth);
 // -----------------------------------------------------------------------------
-    double _beginGoingNext = 0;
-    double _endGoingNext = _aStripLength;
-    double _beginGoingPrevious = _aStripLength;
-    double _endGoingPrevious = 0;
-    // ----------------------o
     Tween _tween(){
       Tween _tween;
 
       /// GOING NEXT
       if(slidingNext == null || slidingNext == true){
-        _tween = Tween<double>(begin: _beginGoingNext, end: _endGoingNext);
+        _tween = Tween<double>(begin: 0, end: _aStripLength);
       }
       /// GOING PREVIOUS
       else {
-        _tween = Tween<double>(begin: _beginGoingPrevious, end: _endGoingPrevious);
+        _tween = Tween<double>(begin: _aStripLength, end: 0);
       }
 
       return _tween;
@@ -69,12 +64,12 @@ class ProgressBar extends StatelessWidget {
       if(currentSlide == 0){
         /// B - GOING NEXT
         if(_goingNext){
-          // print('at first slide going next');
+          print('1 at first slide going next');
           _numberOfStrips = 1;
         }
         /// B - GOING PREVIOUS
         else{
-          // print('at first slide going previous');
+          print('2 at first slide going previous');
           _numberOfStrips = 2;
         }
       }
@@ -84,12 +79,12 @@ class ProgressBar extends StatelessWidget {
 
         /// B - GOING NEXT
         if(_goingNext){
-          // print('at last slide going next');
+          print('3 at last slide going next');
           _numberOfStrips = numberOfSlides;
         }
         /// B - GOING PREVIOUS
         else{
-          // print('at last slide going previous');
+          print('4 at last slide going previous');
           _numberOfStrips = currentSlide + 3;
         }
       }
@@ -98,12 +93,12 @@ class ProgressBar extends StatelessWidget {
       else {
         /// B - GOING NEXT
         if(_goingNext){
-          // print('at middle slide going next');
+          print('5 at middle slide going next');
           _numberOfStrips = currentSlide + 1;
         }
         /// B - GOING PREVIOUS
         else{
-          // print('at middle slide going previous');
+          print('6 at middle slide going previous');
           _numberOfStrips = currentSlide + 2;
         }
       }
@@ -148,7 +143,7 @@ class ProgressBar extends StatelessWidget {
 
               /// --- TOP STRIP
               TweenAnimationBuilder<double>(
-                duration: Ratioz.fadingDuration,
+                duration: Ratioz.duration150ms,
                 tween: _tween(),
                 curve: Curves.easeOut,
                 // onEnd: (){},

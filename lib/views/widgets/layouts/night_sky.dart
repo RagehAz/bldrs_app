@@ -62,7 +62,7 @@ class _NightSkyState extends State<NightSky> with TickerProviderStateMixin {
 //     }
 //   }
 // -----------------------------------------------------------------------------
-    Color _starsColor = Colorz.White225;
+    Color _starsColor = Colorz.White255;
 // -----------------------------------------------------------------------------
 //   Widget _createAnimatedStars(context) {
 //

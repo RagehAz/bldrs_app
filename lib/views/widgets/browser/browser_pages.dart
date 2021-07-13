@@ -147,7 +147,7 @@ class _BrowserPagesState extends State<BrowserPages> {
 // -----------------------------------------------------------------------------
   void _goToNextPage(){
     _pageController.nextPage(
-        duration: Ratioz.slidingDuration,
+        duration: Ratioz.duration400ms,
         curve: Curves.easeInOut,
     );
   }
@@ -186,7 +186,7 @@ class _BrowserPagesState extends State<BrowserPages> {
 
     return Center(
       child: AnimatedContainer(
-        duration: Ratioz.slidingTransitionDuration,
+        duration: Ratioz.duration200ms,
         width: _clearWidth,
         height: _clearHeight,
         decoration: BoxDecoration(

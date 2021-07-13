@@ -253,7 +253,7 @@ class AuthorPic extends StatelessWidget {
                   ),
                 )
                 :
-            superImageWidget(authorPic)
+            Imagers.superImageWidget(authorPic)
         ),
 
         // objectIsFile(authorPic) ?

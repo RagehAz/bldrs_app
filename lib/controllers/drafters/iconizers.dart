@@ -190,7 +190,7 @@ class Iconizer{
     return _iconIsContinent;
   }
 // -----------------------------------------------------------------------------
-  static List<Map<String, dynamic>> continentsMaps = [
+  static List<Map<String, dynamic>> continentsMaps = <Map<String, dynamic>>[
     {
       'name' : 'Africa',
       'icon' : Iconz.ContAfrica,

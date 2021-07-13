@@ -37,7 +37,7 @@ class ShareBT extends StatelessWidget {
     dynamic iconTestBoxColor = Colorz.Nothing;
     dynamic verseColor =
     buttonColor == Colorz.Yellow255 ? Colorz.Black230 :
-        Colorz.White225;
+        Colorz.White255;
 
     double btOvalSizeFactor = 0.8; // as a ratio of button sizes
 

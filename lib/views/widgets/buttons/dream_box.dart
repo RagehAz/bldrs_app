@@ -1,10 +1,12 @@
 import 'dart:io';
+import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/drafters/colorizers.dart';
 import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/controllers/drafters/shadowers.dart';
 import 'package:bldrs/controllers/drafters/text_directionerz.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:websafe_svg/websafe_svg.dart';
@@ -17,7 +19,7 @@ class DreamBox extends StatelessWidget {
   final Color color;
   final double width;
   final double height;
-  final double corners;
+  final dynamic corners;
   final Color iconColor;
   final String verse;
   final Color verseColor;
@@ -47,6 +49,7 @@ class DreamBox extends StatelessWidget {
   final Color secondLineColor;
   final bool redDot;
   final double secondLineScaleFactor;
+  final bool loading;
 
   DreamBox({
     @required this.height,
@@ -58,7 +61,7 @@ class DreamBox extends StatelessWidget {
     this.corners = Ratioz.boxCorner12,
     this.iconColor,
     this.verse,
-    this.verseColor = Colorz.White225,
+    this.verseColor = Colorz.White255,
     this.verseWeight = VerseWeight.bold,
     this.verseScaleFactor = 1,
     this.verseItalic = false,
@@ -74,7 +77,7 @@ class DreamBox extends StatelessWidget {
     this.inActiveMode = false,
     this.underLine,
     this.splashColor = Colorz.White80,
-    this.underLineColor = Colorz.White225,
+    this.underLineColor = Colorz.White255,
     this.underLineLabelColor = Colorz.White10,
     this.onTapDown,
     this.onTapUp,
@@ -82,52 +85,110 @@ class DreamBox extends StatelessWidget {
     this.textDirection,
     this.designMode = false,
     this.blur,
-    this.secondLineColor = Colorz.White225,
+    this.secondLineColor = Colorz.White255,
     this.redDot = false,
     this.secondLineScaleFactor = 1,
+    this.loading = false,
   });
 
   @override
   Widget build(BuildContext context) {
-
+// -----------------------------------------------------------------------------
     double _sizeFactor = iconSizeFactor;
     double _boxHeight = height ;
-
+// -----------------------------------------------------------------------------
     Color _imageSaturationColor =
         blackAndWhite == true ? Colorz.Grey225 : Colorz.Nothing;
-
-
+// -----------------------------------------------------------------------------
     double _verseIconSpacing = verse != null ? height * 0.3 * iconSizeFactor * verseScaleFactor : 0;
-
+// -----------------------------------------------------------------------------
     double _svgGraphicWidth = height * _sizeFactor;
     double _jpgGraphicWidth = height * _sizeFactor;
-    double _graphicWidth = icon == null ? 0 :
+    double _graphicWidth = icon == null && loading == false ? 0 :
     ObjectChecker.fileExtensionOf(icon) == 'svg' ? _svgGraphicWidth :
     ObjectChecker.fileExtensionOf(icon) == 'jpg' ||
         ObjectChecker.fileExtensionOf(icon) == 'jpeg' ||
         ObjectChecker.fileExtensionOf(icon) == 'png' ? _jpgGraphicWidth : height;
-
+// -----------------------------------------------------------------------------
     double _iconMargin = verse == null || icon == null ? 0 : (height - _graphicWidth)/2;
-
+// -----------------------------------------------------------------------------
     double _verseWidth = width != null ? width - (_iconMargin * 2) - _graphicWidth - ((_verseIconSpacing * 2) + _iconMargin) : width;
-
     int _verseSize =  iconSizeFactor == 1 ? 4 : 4;
+// -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+    double getCornersAsDouble(){
+      BorderRadius _cornerBorders;
+      double _topLeftCorner;
+      if (corners.runtimeType == BorderRadius){
+        _cornerBorders = corners;
+        Radius _topLeftCornerRadius = _cornerBorders?.topLeft;
+        _topLeftCorner =  _topLeftCornerRadius?.x;
+        // print('_topLeftCorner : $_topLeftCorner');
+      } else {
+        _topLeftCorner = corners;
+      }
 
-    double _iconCorners = iconRounded == true ? (corners-_iconMargin) : 0;
+      return _topLeftCorner == null ? 0 : _topLeftCorner;
+    }
+// -----------------------------------------------------------------------------
+    BorderRadius getCornersAsBorderRadius(){
+      BorderRadius _cornerBorders;
+      double _topLeftCorner;
+      if (corners.runtimeType == BorderRadius){
+        _cornerBorders = corners;
+      } else {
+        _cornerBorders = Borderers.superBorderAll(context, corners);
+      }
 
+      return _cornerBorders;
+    }
+// -----------------------------------------------------------------------------
+    BorderRadius _getIconCornerByRadius(){
+      BorderRadius _IconCornerAsBorderRadius;
+      double _iconCorners;
+
+      /// IF ICON IS ROUNDED
+      if(iconRounded == true){
+        _iconCorners =  (getCornersAsDouble() - _iconMargin);
+        _IconCornerAsBorderRadius = Borderers.superBorderAll(context, _iconCorners);
+      }
+
+      /// IF CUSTOM BORDER RADIUS PASSES THROUGH corners
+      else if (corners.runtimeType ==  BorderRadius){
+        BorderRadius _cornerBorders;
+
+        _IconCornerAsBorderRadius = Borderers.superBorderRadius(
+          context: context,
+          enTopRight: corners.topRight.x - _iconMargin,
+          enTopLeft: corners.topLeft.x - _iconMargin,
+          enBottomRight: corners.bottomRight.x - _iconMargin,
+          enBottomLeft: corners.bottomLeft.x - _iconMargin,
+        );
+      }
+
+      /// IF corners IS DOUBLE AND ICON IS NOT ROUNDED
+      else {
+        _IconCornerAsBorderRadius = Borderers.superBorderAll(context, 0);
+      }
+
+
+      return _IconCornerAsBorderRadius;
+    }
+    BorderRadius _iconCorners = _getIconCornerByRadius();
+// -----------------------------------------------------------------------------
     Color _boxColor =
     (blackAndWhite == true && color != Colorz.Nothing) ?
     Colorz.Grey80 :
     (color == Colorz.Nothing && blackAndWhite == true) ?
     Colorz.Nothing :
     color;
-
+// -----------------------------------------------------------------------------
     Color _iconColor =
     blackAndWhite == true || inActiveMode == true ? Colorz.White80 :
     iconColor;
-
+// -----------------------------------------------------------------------------
     TextDirection _textDirection = textDirection == null ? superTextDirection(context) : textDirection;
-
+// -----------------------------------------------------------------------------
     EdgeInsets _boxMargins =
         margins == null ? const EdgeInsets.all(0)
             :
@@ -138,7 +199,7 @@ class DreamBox extends StatelessWidget {
         margins.runtimeType == EdgeInsets ? margins
             :
         margins;
-
+// -----------------------------------------------------------------------------
     return RepaintBoundary(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -159,14 +220,14 @@ class DreamBox extends StatelessWidget {
                     crossAxisAlignment: underLine == null ? CrossAxisAlignment.center : CrossAxisAlignment.start,
                     children: <Widget>[
 
-                      // --- THE BOX
+                      /// --- THE BOX
                       Container(
                         width: width,
                         height: _boxHeight,
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
                             color: inActiveMode == true ? Colorz.White10 : _boxColor,
-                            borderRadius: BorderRadius.circular(corners),
+                            borderRadius: getCornersAsBorderRadius(),
                             boxShadow: <CustomBoxShadow>[
                               CustomBoxShadow(
                                   color: bubble == true ? Colorz.Black200 : Colorz.Nothing,
@@ -177,7 +238,7 @@ class DreamBox extends StatelessWidget {
                             ]
                         ),
                         child: ClipRRect(
-                          borderRadius: BorderRadius.circular(corners),
+                          borderRadius: getCornersAsBorderRadius(),
                           child: Stack(
                             alignment: Alignment.center,
                             children: <Widget>[
@@ -188,7 +249,7 @@ class DreamBox extends StatelessWidget {
                                 width: width,
                                 height: height,
                                 blur: blur,
-                                borders: BorderRadius.circular(corners),
+                                borders: getCornersAsBorderRadius(),
                               ),
 
                               // --- DREAM CHILD
@@ -197,7 +258,7 @@ class DreamBox extends StatelessWidget {
                                 height: height,
                                 width: width,
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(corners),
+                                  borderRadius: getCornersAsBorderRadius(),
                                 ),
                                 child: dreamChild,
                               ),
@@ -209,18 +270,25 @@ class DreamBox extends StatelessWidget {
                                 textDirection: _textDirection,
                                 children: <Widget>[
 
-                                  // --- ICON
+                                  /// --- ICON
                                   Stack(
                                     alignment: Alignment.center,
                                     children: <Widget>[
 
+                                      loading == true ?
+                                      Container(
+                                        width: _jpgGraphicWidth,
+                                        height: _jpgGraphicWidth,
+                                        child: Loading(loading: loading,),
+                                      )
+                                          :
                                       iconFile != null ?
                                       Container(
                                         width: _jpgGraphicWidth,
                                         height: _jpgGraphicWidth,
                                         margin: EdgeInsets.all(_iconMargin),
                                         decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.all(Radius.circular(_iconCorners)),
+                                            borderRadius: _iconCorners,
                                             boxShadow: <CustomBoxShadow>[
                                               CustomBoxShadow(
                                                   color: bubble == true ? Colorz.Black200 : Colorz.Nothing,
@@ -230,7 +298,7 @@ class DreamBox extends StatelessWidget {
                                             ]
                                         ),
                                         child: ClipRRect(
-                                          borderRadius: BorderRadius.all(Radius.circular(_iconCorners)),
+                                          borderRadius: _iconCorners,
                                           child: ColorFiltered(
                                             colorFilter: ColorFilter.mode(
                                                 _imageSaturationColor,
@@ -239,6 +307,7 @@ class DreamBox extends StatelessWidget {
                                               width: _jpgGraphicWidth,
                                               height: _jpgGraphicWidth,
                                               decoration: BoxDecoration(
+                                                borderRadius: _iconCorners,
                                                 image: DecorationImage(image: FileImage(iconFile), fit: BoxFit.cover),
                                               ),
                                             ),
@@ -252,7 +321,7 @@ class DreamBox extends StatelessWidget {
                                       Padding(
                                         padding: EdgeInsets.all(_iconMargin),
                                         child: ClipRRect(
-                                            borderRadius: BorderRadius.all(Radius.circular(_iconCorners)),
+                                            borderRadius: _iconCorners,
                                             child: WebsafeSvg.asset(icon, color: _iconColor, height: _svgGraphicWidth, fit: BoxFit.cover)),
                                       )
                                           :
@@ -262,8 +331,8 @@ class DreamBox extends StatelessWidget {
                                         height: _jpgGraphicWidth,
                                         margin: EdgeInsets.all(_iconMargin),
                                         decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.all(Radius.circular(_iconCorners)),
-                                            boxShadow: [
+                                            borderRadius: _iconCorners,
+                                            boxShadow: <BoxShadow>[
                                               CustomBoxShadow(
                                                   color: bubble == true ? Colorz.Black200 : Colorz.Nothing,
                                                   offset: new Offset(0, _jpgGraphicWidth * -0.019 ),
@@ -272,7 +341,7 @@ class DreamBox extends StatelessWidget {
                                             ]
                                         ),
                                         child: ClipRRect(
-                                          borderRadius: BorderRadius.all(Radius.circular(_iconCorners)),
+                                          borderRadius: _iconCorners,
                                           child: ColorFiltered(
                                             colorFilter: ColorFilter.mode(
                                                 _imageSaturationColor,
@@ -287,13 +356,13 @@ class DreamBox extends StatelessWidget {
                                           ),),
                                       )
                                           :
-                                      ObjectChecker.objectIsURL(icon) ?
+                                      ObjectChecker.objectIsURL(icon) ? /// WORK WITH FILE
                                       Container(
                                             width: _jpgGraphicWidth,
                                             height: _jpgGraphicWidth,
                                             margin: EdgeInsets.all(_iconMargin),
                                             decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.all(Radius.circular(_iconCorners)),
+                                                borderRadius: _iconCorners,
                                                 boxShadow: <BoxShadow>[
                                                   CustomBoxShadow(
                                                       color: bubble == true ? Colorz.Black200 : Colorz.Nothing,
@@ -303,7 +372,7 @@ class DreamBox extends StatelessWidget {
                                                 ]
                                             ),
                                             child: ClipRRect(
-                                              borderRadius: BorderRadius.all(Radius.circular(_iconCorners)),
+                                              borderRadius: _iconCorners,
                                               child: ColorFiltered(
                                                 colorFilter: ColorFilter.mode(
                                                     _imageSaturationColor,
@@ -312,6 +381,7 @@ class DreamBox extends StatelessWidget {
                                                   width: _jpgGraphicWidth,
                                                   height: _jpgGraphicWidth,
                                                   decoration: BoxDecoration(
+                                                    borderRadius: _iconCorners,
                                                     image: DecorationImage(image: NetworkImage(icon), fit: BoxFit.cover),
                                                   ),
                                                 ),
@@ -327,30 +397,30 @@ class DreamBox extends StatelessWidget {
                                         width: _jpgGraphicWidth,
                                         decoration: BoxDecoration(
                                           // color: Colorz.Yellow,
-                                          borderRadius: BorderRadius.circular(_iconCorners),
+                                          borderRadius: _iconCorners,
                                           gradient: LinearGradient(
                                               begin: Alignment.topCenter,
                                               end: Alignment.bottomCenter,
-                                              colors: [Colorz.Black80, Colorz.Black125],
-                                              stops: [0.5, 1]),
+                                              colors: <Color>[Colorz.Black80, Colorz.Black125],
+                                              stops: <double>[0.5, 1]),
                                         ),
                                       ) : Container(),
 
                                     ],
                                   ),
 
-                                  // --- SPACING
+                                  /// --- SPACING
                                   SizedBox(
                                     width: iconSizeFactor != 1 && icon != null ? _verseIconSpacing * 0.25 : _verseIconSpacing,
                                     height: height,
                                   ),
 
-                                  // --- VERSE
+                                  /// --- VERSE
                                   verse == null ? Container() :
                                   Container(
                                     height: height,
                                     width: _verseWidth,
-                                    // color: Colorz.YellowSmoke, // for design purpose only
+                                    // color: Colorz.Yellow80, // for design purpose only
                                     child: Column(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       crossAxisAlignment: icon == null && textDirection == null && secondLine == null ? CrossAxisAlignment.center :
@@ -388,15 +458,16 @@ class DreamBox extends StatelessWidget {
                                     ),
                                   ),
 
-                                  // --- SPACING
+                                  /// --- SPACING
                                   SizedBox(
                                     width: _verseIconSpacing + _iconMargin,
                                     height: height,
                                   ),
+
                                 ],
                               ),
 
-                              // --- BOX HIGHLIGHT
+                              /// --- BOX HIGHLIGHT
                               bubble == false ? Container() :
                               Container(
                                 width: width,
@@ -404,8 +475,8 @@ class DreamBox extends StatelessWidget {
                                 decoration: BoxDecoration(
                                   // color: Colorz.White,
                                     borderRadius: BorderRadius.circular(
-                                        corners - (height * 0.8) ),
-                                    boxShadow: [
+                                        getCornersAsDouble() - (height * 0.8) ),
+                                    boxShadow: <BoxShadow>[
                                       CustomBoxShadow(
                                           color: Colorz.White50,
                                           offset: new Offset(0, height * -0.33),
@@ -414,23 +485,23 @@ class DreamBox extends StatelessWidget {
                                     ]),
                               ),
 
-                              // --- BOX GRADIENT
+                              /// --- BOX GRADIENT
                               bubble == false ? Container() :
                               Container(
                                 height: height,
                                 width: width,
                                 decoration: BoxDecoration(
                                   // color: Colorz.Grey,
-                                  borderRadius: BorderRadius.circular(corners),
+                                  borderRadius: getCornersAsBorderRadius(),
                                   gradient: LinearGradient(
                                       begin: Alignment.topCenter,
                                       end: Alignment.bottomCenter,
-                                      colors: [Colorz.Black0, Colorz.Black125],
-                                      stops: [0.5, 0.95]),
+                                      colors: <Color>[Colorz.Black0, Colorz.Black125],
+                                      stops: <double>[0.5, 0.95]),
                                 ),
                               ),
 
-                              // --- RIPPLE & TAP LAYER
+                              /// --- RIPPLE & TAP LAYER
                               Container(
                                 width: width,
                                 height: height,
@@ -453,7 +524,7 @@ class DreamBox extends StatelessWidget {
                         ),
                       ),
 
-                      // --- THE UnderLine
+                      /// --- THE UnderLine
                       underLine == null ? Container() :
                           SuperVerse(
                             verse: underLine,

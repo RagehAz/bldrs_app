@@ -79,7 +79,7 @@ class StatusButtons extends StatelessWidget {
                         Colorz.Black230 :
                         currentUserStatus == x['userStatus'] ?
                         Colorz.Black230 :
-                        Colorz.White225,
+                        Colorz.White255,
 
                         verseWeight:
                         x['userStatus'] == UserStatus.Finishing &&

@@ -50,7 +50,7 @@ class MultipleChoiceBubble extends StatelessWidget {
                         verse: buttonsList[index],
                         verseItalic: false,
                         color: chosenButton == buttonsList[index] ? Colorz.Yellow255 : Colorz.White10,
-                        verseColor: chosenButton == buttonsList[index] ? Colorz.Black230 : Colorz.White225,
+                        verseColor: chosenButton == buttonsList[index] ? Colorz.Black230 : Colorz.White255,
                         verseWeight: chosenButton == buttonsList[index] ? VerseWeight.black :  VerseWeight.bold,
                         verseScaleFactor: 0.6,
                         margins: const EdgeInsets.all(5),

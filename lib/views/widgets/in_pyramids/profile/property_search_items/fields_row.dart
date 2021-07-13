@@ -89,7 +89,7 @@ class FieldsRow extends StatelessWidget {
                               italic: false,
                               shadow: false,
                               labelColor: Colorz.White50,
-                              color: Colorz.White225,
+                              color: Colorz.White255,
                               weight: VerseWeight.bold,
                               size: 2,
                               margin: _boxHeight * 0 ,

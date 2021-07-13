@@ -249,7 +249,7 @@ class _GoogleSignInTestState extends State<GoogleSignInTest> {
             verse: _isSignedIn ? 'Signed in' : 'Signed out',
             color: _isSignedIn ? Colorz.Green225 : Colorz.Grey80,
             verseScaleFactor: 0.6,
-            verseColor: _isSignedIn ? Colorz.White225 : Colorz.DarkGrey225,
+            verseColor: _isSignedIn ? Colorz.White255 : Colorz.DarkGrey225,
           ),
 
 
@@ -259,7 +259,7 @@ class _GoogleSignInTestState extends State<GoogleSignInTest> {
             maxLines: 50,
             size: 2,
             labelColor: _isSignedIn ? Colorz.Green225 : Colorz.Grey80,
-            color: _isSignedIn ? Colorz.White225 : Colorz.DarkGrey225,
+            color: _isSignedIn ? Colorz.White255 : Colorz.DarkGrey225,
           ),
 
 

@@ -6,7 +6,7 @@ class Standards{
 // -----------------------------------------------------------------------------
   static const int maxFlyerSlidesFreeAccount = 3;
   static const int maxFlyerSlidesPremiumAccount = 7;
-  static const int maxFlyerSlidesFreeSuper = 15;
+  static const int maxFlyerSlidesFreeSuper = 25;
 
   static const int maxDraftsAtOnce = 5;
 

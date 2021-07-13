@@ -16,7 +16,7 @@ class RandomTestSpace extends StatefulWidget {
 }
 
 class _RandomTestSpaceState extends State<RandomTestSpace> {
-  List<int> _list = [1,2,3,4,5,6,7,8];
+  List<int> _list = <int>[1,2,3,4,5,6,7,8];
   int _loops = 0;
 
   Future<int> _createKeyValue() async {
@@ -25,7 +25,7 @@ class _RandomTestSpaceState extends State<RandomTestSpace> {
 
     if(_randomNumber == null){
       _randomNumber = await _createKeyValue();
-      await Future.delayed(Ratioz.fadingDuration, () {
+      await Future.delayed(Ratioz.duration150ms, () {
         setState(() {
           _loops++;
         });
@@ -36,7 +36,7 @@ class _RandomTestSpaceState extends State<RandomTestSpace> {
     else if (_list.contains(_randomNumber)) {
       _randomNumber = await _createKeyValue();
 
-      await Future.delayed(Ratioz.fadingDuration, (){
+      await Future.delayed(Ratioz.duration150ms, (){
         setState(() {
           _loops++;
         });

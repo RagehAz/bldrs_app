@@ -83,13 +83,13 @@ class ZoneButton extends StatelessWidget {
                             SuperVerse(
                               verse: _countryAndProvinceNames,
                               size: 1,
-                              color: isOn? Colorz.Black230 : Colorz.White225,
+                              color: isOn? Colorz.Black230 : Colorz.White255,
                             ),
                             SuperVerse(
                               verse: _lastDistrictName,
                               size: 1,
                               scaleFactor: 0.8,
-                              color: isOn? Colorz.Black230 : Colorz.White225,
+                              color: isOn? Colorz.Black230 : Colorz.White255,
                             ),
                           ],
                         ),
