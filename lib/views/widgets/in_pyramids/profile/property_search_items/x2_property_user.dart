@@ -32,7 +32,7 @@ class PropertyUse extends StatelessWidget {
           centered: false,
           italic: true,
           weight: VerseWeight.thin,
-          color: Colorz.White225,
+          color: Colorz.White255,
           shadow: false,
           designMode: designMode,
         ),

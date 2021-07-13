@@ -135,5 +135,27 @@ class Borderers{
     return logoCorners;
   }
 // -----------------------------------------------------------------------------
+  static BorderRadius superLogoShape({BuildContext context, bool zeroCornerEnIsRight, double corner}){
+    BorderRadius _superLogoShape =
+    zeroCornerEnIsRight ?
+        superBorderRadius(
+          context: context,
+          enBottomLeft: corner,
+          enBottomRight: 0,
+          enTopLeft: corner,
+          enTopRight: corner,
+        )
+        :
+    superBorderRadius(
+      context: context,
+      enBottomLeft: 0,
+      enBottomRight: corner,
+      enTopLeft: corner,
+      enTopRight: corner,
+    );
+
+    return _superLogoShape;
+  }
+// -----------------------------------------------------------------------------
 }
 

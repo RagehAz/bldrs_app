@@ -72,7 +72,7 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
 // -----------------------------------------------------------------------------
   ScrollController _scrollController = new ScrollController();
   Curve _animationCurve = Curves.easeOut;
-  Duration _animationDuration = Ratioz.fadingDuration;
+  Duration _animationDuration = Ratioz.duration150ms;
 // -----------------------------------------------------------------------------
   List<DraftFlyerModel> _draftFlyers = new List();
 // -----------------------------------------------------------------------------
@@ -120,7 +120,7 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
 
     await _scrollController.animateTo(
       _position,
-        duration: Ratioz.slidingTransitionDuration,
+        duration: Ratioz.duration200ms,
         curve: _animationCurve,
     );
   }
@@ -250,7 +250,7 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
 // -----------------------------------------------------------------------------
   Future<void> _fadeInAndExpandStack(int index) async {
 
-    await Future.delayed(Ratioz.slidingTransitionDuration, () async {
+    await Future.delayed(Ratioz.duration200ms, () async {
       setState(() {
         _draftsOpacities[index] = 1;
 
@@ -265,7 +265,7 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
 // -----------------------------------------------------------------------------
   Future<void> _scrollToBottom() async {
 
-    await Future.delayed(Ratioz.slidingTransitionDuration, () async {
+    await Future.delayed(Ratioz.duration200ms, () async {
       await _scrollController.animateTo(
         _scrollController.position.maxScrollExtent,
         duration: _animationDuration,
@@ -296,7 +296,7 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
         List<Asset> _outputAssets;
 
         if(mounted){
-          _outputAssets = await getMultiImagesFromGallery(
+          _outputAssets = await Imagers.getMultiImagesFromGallery(
             context: context,
             images: _inputAssets,
             mounted: mounted,
@@ -311,7 +311,7 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
             List<File> _assetsAsFiles = new List();
 
             for (Asset asset in _outputAssets){
-              File _file = await getFileFromCropperAsset(asset);
+              File _file = await Imagers.getFileFromCropperAsset(asset);
               _assetsAsFiles.add(_file);
 
               if(asset.isPortrait){
@@ -360,6 +360,7 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
       ],
       layoutWidget: ListView(
         controller: _scrollController,
+        physics: BouncingScrollPhysics(),
         shrinkWrap: true,
         reverse: false,
         addAutomaticKeepAlives: true,
@@ -405,7 +406,7 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
                         },
                         onDeleteDraft: () => _deleteFlyer(index: _draftIndex),
                         onAddPics: () => _getMultiImages(
-                          accountType: BzAccountType.Premium,
+                          accountType: BzAccountType.Super,
                           draftIndex: _draftIndex,
                         ),
                         onDeleteImage: (int imageIndex){
@@ -448,13 +449,13 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
           // check this
           // https://stackoverflow.com/questions/67173576/how-to-get-or-pick-local-gif-file-from-device
           // https://pub.dev/packages/file_picker
-          Container(
-            width: 200,
-            height: 200,
-            margin: EdgeInsets.all(30),
-            color: Colorz.BloodTest,
-            child: Image.network('https://media.giphy.com/media/hYUeC8Z6exWEg/giphy.gif'),
-          ),
+          // Container(
+          //   width: 200,
+          //   height: 200,
+          //   margin: EdgeInsets.all(30),
+          //   color: Colorz.BloodTest,
+          //   child: Image.network('https://media.giphy.com/media/hYUeC8Z6exWEg/giphy.gif'),
+          // ),
 
 
         ],

@@ -775,7 +775,7 @@ class Fire{
 
           print('X1 - getting storage ref : $_ref');
 
-          ImageSize imageSize = await superImageSize(inputFile);
+          ImageSize imageSize = await Imagers.superImageSize(inputFile);
 
           print('X2 - image size is ${imageSize.height} * ${imageSize.width}');
 
@@ -829,7 +829,7 @@ class Fire{
   }) async {
     String _url;
 
-    File _result = await getImageFileFromLocalAsset(context, asset);
+    File _result = await Imagers.getImageFileFromLocalAsset(context, asset);
 
     print('uploading $fileName pic to fireStorage in folder of $picType');
 

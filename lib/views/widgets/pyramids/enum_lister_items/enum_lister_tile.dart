@@ -37,7 +37,7 @@ class EnumListerTile extends StatelessWidget {
             SuperVerse(
               verse: verse,
               size: 3,
-              color: tileIsOn == true ? Colorz.White225 : Colorz.Grey225,
+              color: tileIsOn == true ? Colorz.White255 : Colorz.Grey225,
               shadow: tileIsOn == true ? false : false,
               weight: tileIsOn == true ? VerseWeight.bold : VerseWeight.thin,
               labelColor: tileIsOn == true ? Colorz.White50 : null,

@@ -54,7 +54,7 @@ class GoldenScroll extends StatelessWidget {
 
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: Colorz.White225,
+                color: Colorz.White255,
                    fontFamily: Wordz.bodyFont(context),
                 fontStyle: FontStyle.italic,
                 decoration: TextDecoration.none,

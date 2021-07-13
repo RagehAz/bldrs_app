@@ -105,7 +105,7 @@ class FollowBT extends StatelessWidget {
     double followIconHeight = followBTHeight * 0.5;
     double followIconWidth = followIconHeight;
     String followText = Wordz.follow(context);
-    Color followTextColor = followOn == true ? Colorz.Black230 : Colorz.White225;
+    Color followTextColor = followOn == true ? Colorz.Black230 : Colorz.White255;
     // === === === === === === === === === === === === === === === === === ===
     // void followTap() {
     //   onFollowTap();
@@ -151,7 +151,7 @@ class FollowBT extends StatelessWidget {
                   Container(
                     height: followIconHeight,
                     width: followIconWidth,
-                    child: WebsafeSvg.asset(followIcon, color: followOn == true ? Colorz.Black230 : Colorz.White225),
+                    child: WebsafeSvg.asset(followIcon, color: followOn == true ? Colorz.Black230 : Colorz.White255),
                   ),
 
                   // --- FOLLOW TEXT
@@ -251,7 +251,7 @@ class CallBT extends StatelessWidget {
                   // --- FLYERS TEXT
                   SuperVerse(
                     verse: Wordz.call(context),//'$callText',
-                    color: Colorz.White225,
+                    color: Colorz.White255,
                     italic: false,
                     size: 1,
                     centered: true,

@@ -3,7 +3,7 @@ import 'package:bldrs/controllers/drafters/mappers.dart';
 
 void main(){
 
-  List<Map<String, dynamic>> _listOfMaps = [
+  List<Map<String, dynamic>> _listOfMaps = <Map<String, dynamic>>[
     {
       'id' : 'a',
       'name' : 'Ahmad',

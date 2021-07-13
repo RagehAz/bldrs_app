@@ -55,7 +55,7 @@ class ContactsBubble extends StatelessWidget {
                           icon: Iconizer.superContactIcon(_contactsWithStrings[index].contactType),
                           margins: const EdgeInsets.all(_abPadding),
                           verse: _value,
-                          verseColor: Colorz.White225,
+                          verseColor: Colorz.White255,
                           verseWeight: VerseWeight.thin,
                           verseItalic: true,
                           iconSizeFactor: 0.6,

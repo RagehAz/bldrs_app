@@ -183,7 +183,7 @@ class PropertySearchCriteria extends StatelessWidget {
                     FieldsRow(
                       openList: (){print('Locale bitch');},
                       title: 'Location of property',
-                      fields: ['Heliopolis', 'Cairo', 'Egypt'],
+                      fields: <String>['Heliopolis', 'Cairo', 'Egypt'],
                     ),
 
                     // --- ADD MORE DETAILS

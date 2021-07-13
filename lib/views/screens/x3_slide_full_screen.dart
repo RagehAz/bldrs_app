@@ -52,7 +52,7 @@ class SlideFullScreen extends StatelessWidget {
           width: Scale.superScreenWidth(context),
           height: Scale.superScreenHeight(context),
           child: ZoomableWidget(
-              child: superImageWidget(image)
+              child: Imagers.superImageWidget(image)
           ),
         ),
       ),

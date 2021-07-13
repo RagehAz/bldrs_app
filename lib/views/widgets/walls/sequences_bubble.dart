@@ -34,7 +34,7 @@ class SequencesBubble extends StatelessWidget {
     Section _currentSection = _prof.getCurrentSection;
     List<Sequence> _sequences = Sequence.getActiveSequencesBySection(context: context,section: _currentSection);
 
-    const List<Color> _boxesColors = [Colorz.White30, Colorz.White20, Colorz.White10];
+    const List<Color> _boxesColors = <Color>[Colorz.White30, Colorz.White20, Colorz.White10];
 
     int _gridColumnsCount = numberOfColumns;
     const double _spacingRatioToGridWidth = 0.1;

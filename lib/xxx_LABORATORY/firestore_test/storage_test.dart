@@ -70,7 +70,7 @@ class _FireStorageTestState extends State<FireStorageTest> {
         String _url = 'https://ak1.ostkcdn.com/wp-content/uploads/2017/06/highheels-hero.jpg';
 
 
-        File _file = await urlToFile(_url);
+        File _file = await Imagers.urlToFile(_url);
 
         setState(() {
           _filePic = _file;
@@ -234,7 +234,7 @@ class _FireStorageTestState extends State<FireStorageTest> {
                   verse: printVerse ?? 'print Area',
                   maxLines: 12,
                   weight: VerseWeight.thin,
-                  color: printVerse == null ? Colorz.White20 : Colorz.White225,
+                  color: printVerse == null ? Colorz.White20 : Colorz.White255,
                 ),
               ],
             ),
