@@ -107,7 +107,7 @@ Widget build(BuildContext context) {
                         verse: _sectionName,
                         size: 1,
                         italic: false,
-                        color: Colorz.White225,
+                        color: Colorz.White255,
                         weight: VerseWeight.bold,
                         scaleFactor: 1,
                         designMode: _designMode,

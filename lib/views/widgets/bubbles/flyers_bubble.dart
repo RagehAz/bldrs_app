@@ -30,7 +30,7 @@ class FlyersBubble extends StatelessWidget {
     return InPyramidsBubble(
       bubbleColor: Colorz.White10,
       title: title,
-      titleColor: Colorz.White225,
+      titleColor: Colorz.White255,
       bubbleWidth: bubbleWidth,
       columnChildren: <Widget>[
 

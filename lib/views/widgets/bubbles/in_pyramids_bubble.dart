@@ -29,7 +29,7 @@ final Color leadingIconColor;
     this.bubbleColor = Colorz.White20,
     this.stretchy = false,
     this.title,
-    this.titleColor = Colorz.White225,
+    this.titleColor = Colorz.White255,
     this.redDot = false,
     this.actionBtIcon,
     this.actionBtFunction,

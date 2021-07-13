@@ -39,7 +39,7 @@ class MaxHeader extends StatelessWidget {
 // -----------------------------------------------------------------------------
         List<AuthorModel> _bzAuthors = bz != null ? bz?.bzAuthors : [];
 // -----------------------------------------------------------------------------
-        List<String> _bzTeamIDs = [];
+        List<String> _bzTeamIDs = <String>[];
         if(_bzAuthors != null) {
           _bzAuthors.forEach((au) {
             _bzTeamIDs.add(au.userID);

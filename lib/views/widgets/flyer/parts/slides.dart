@@ -11,7 +11,7 @@ class Slides extends StatefulWidget {
   final String flyerID;
   final double flyerZoneWidth;
   final bool slidingIsOn;
-  final Function sliding;
+  final Function onPageChanged;
   final int currentSlideIndex;
   final Function swipeFlyer;
 
@@ -20,7 +20,7 @@ class Slides extends StatefulWidget {
     @required this.flyerID,
     @required this.flyerZoneWidth,
     @required this.slidingIsOn,
-    @required this.sliding,
+    @required this.onPageChanged,
     @required this.currentSlideIndex,
     this.swipeFlyer,
 });
@@ -115,8 +115,9 @@ class _SlidesState extends State<Slides> {
           PageView(
             controller: _slidingController,
             allowImplicitScrolling: true,
-            physics: NeverScrollableScrollPhysics(),
+            physics: BouncingScrollPhysics(),
             pageSnapping: true,
+            onPageChanged: (i) => widget.onPageChanged(i),
             children: <Widget>[
 
               ...List.generate(_slidesLength, (i) => SingleSlide(
@@ -140,9 +141,9 @@ class _SlidesState extends State<Slides> {
 
               /// --- back tap area
               GestureDetector(
-                onTap: (){
+                onTap: () async {
                   print('widget.currentSlideIndex was : ${widget.currentSlideIndex}');
-                  int _newIndex = slideToBackAndGetNewIndex(_slidingController, widget.currentSlideIndex);
+                  int _newIndex = await Sliders.slideToBackAndGetNewIndex(_slidingController, widget.currentSlideIndex);
 
                   /// if its first slide swipe to last flyer
                   if (_newIndex == widget.currentSlideIndex){
@@ -150,7 +151,7 @@ class _SlidesState extends State<Slides> {
                   }
                   /// if its a middle or last slide, slide to the new index
                   else {
-                    widget.sliding(_newIndex);
+                    widget.onPageChanged(_newIndex);
                     print('widget.currentSlideIndex after sliding is : $_newIndex');
                   }
 
@@ -163,29 +164,29 @@ class _SlidesState extends State<Slides> {
                 ),
               ),
 
-              /// --- front tap area
-              GestureDetector(
-                onTap: (){
-                  print('widget.currentSlideIndex was : ${widget.currentSlideIndex}');
-                  int _newIndex = slideToNextAndGetNewIndex(_slidingController, _slidesLength, widget.currentSlideIndex);
-
-                  /// if its last slide swipe to next flyer
-                  if (_newIndex == widget.currentSlideIndex){
-                    widget.swipeFlyer(SlidingDirection.next);
-                  }
-                  /// if its a middle or last slide, slide to the new index
-                  else {
-                    widget.sliding(_newIndex);
-                    print('widget.currentSlideIndex after sliding is : $_newIndex');
-                  }
-                },
-                child: Container(
-                  width: widget.flyerZoneWidth * 0.75,
-                  height: _tapAreaHeight,
-                  margin: EdgeInsets.only(top: _headerHeight + _progressBarHeight),
-                  color: Colorz.Nothing,
-                ),
-              ),
+              // /// --- front tap area
+              // GestureDetector(
+              //   onTap: () async {
+              //     print('widget.currentSlideIndex was : ${widget.currentSlideIndex}');
+              //     int _newIndex = await Sliders.slideToNextAndGetNewIndex(_slidingController, _slidesLength, widget.currentSlideIndex);
+              //
+              //     /// if its last slide swipe to next flyer
+              //     if (_newIndex == widget.currentSlideIndex){
+              //       widget.swipeFlyer(SlidingDirection.next);
+              //     }
+              //     /// if its a middle or last slide, slide to the new index
+              //     else {
+              //       widget.sliding(_newIndex);
+              //       print('widget.currentSlideIndex after sliding is : $_newIndex');
+              //     }
+              //   },
+              //   child: Container(
+              //     width: widget.flyerZoneWidth * 0.75,
+              //     height: _tapAreaHeight,
+              //     margin: EdgeInsets.only(top: _headerHeight + _progressBarHeight),
+              //     color: Colorz.Nothing,
+              //   ),
+              // ),
 
             ],
           ),

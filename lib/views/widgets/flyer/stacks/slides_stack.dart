@@ -224,7 +224,6 @@ class _SlidesStackState extends State<SlidesStack> with AutomaticKeepAliveClient
                             return 'Only $_flyerTitleMaxLength characters allowed for the flyer title';
                           } else {
 
-
                             if(_counterColor != Colorz.White80){
                               setState(() {
                                 _counterColor = Colorz.White80;
@@ -291,7 +290,7 @@ class _SlidesStackState extends State<SlidesStack> with AutomaticKeepAliveClient
               itemCount: widget.draftFlyerModel.assets.length + 1,
               scrollDirection: Axis.horizontal,
               itemExtent: _flyerZoneWidth,
-              physics: ClampingScrollPhysics(),
+              physics: BouncingScrollPhysics(),
               padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
               addAutomaticKeepAlives: true,
               itemBuilder: (ctx, index){
@@ -356,7 +355,7 @@ class _SlidesStackState extends State<SlidesStack> with AutomaticKeepAliveClient
                                 child: ClipRRect(
                                   borderRadius: _flyerBorderRadius,
                                   child:
-                                  superImageWidget(_asset, width: _flyerZoneWidth.toInt(), height: _flyerZoneHeight.toInt()),
+                                  Imagers.superImageWidget(_asset, width: _flyerZoneWidth.toInt(), height: _flyerZoneHeight.toInt()),
                                 ),
                               ),
                             )

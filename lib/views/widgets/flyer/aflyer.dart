@@ -159,7 +159,7 @@ class _AFlyerState extends State<AFlyer> with AutomaticKeepAliveClientMixin{
           slides: widget.flyer?.slides,
           flyerZoneWidth: _flyerZoneWidth,
           slidingIsOn: true,
-          sliding: (index) => _onPageChanged(index),
+          onPageChanged: (index) => _onPageChanged(index),
           currentSlideIndex: _currentSlideIndex,
           swipeFlyer: widget.swipe,
         ),

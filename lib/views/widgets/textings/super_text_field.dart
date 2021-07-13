@@ -43,7 +43,7 @@ class SuperTextField extends StatefulWidget {
 
   SuperTextField({
     this.keyboardTextInputType = TextInputType.text,
-    this.inputColor = Colorz.White225,
+    this.inputColor = Colorz.White255,
     this.designMode = false,
     this.maxLines = 7,
     this.minLines = 1,
@@ -286,7 +286,8 @@ class _SuperTextFieldState extends State<SuperTextField> {
               // onSaved: (String koko) => widget.onSaved(koko),
               validator: widget.validator,
               onChanged: (val) => _onChanged(val),
-              autofocus: false,
+              autofocus: true,
+              focusNode: ,
               onFieldSubmitted: (val) => widget.onSubmitted(val),
               onTap: (){
                 // double _keyboardHeight;

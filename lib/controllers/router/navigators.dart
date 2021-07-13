@@ -12,8 +12,8 @@ class Nav{
       PageTransition(
         child: screen,
         type: PageTransitionType.bottomToTop,
-        duration: Ratioz.slidingTransitionDuration,
-        reverseDuration: Ratioz.slidingTransitionDuration,
+        duration: Ratioz.duration200ms,
+        reverseDuration: Ratioz.duration200ms,
         curve: Curves.fastOutSlowIn,
         settings: settings,
       );
@@ -24,8 +24,8 @@ class Nav{
       PageTransition(
         child: screen,
         type: PageTransitionType.fade,
-        duration: Ratioz.fadingDuration,
-        reverseDuration: Ratioz.fadingDuration,
+        duration: Ratioz.duration150ms,
+        reverseDuration: Ratioz.duration150ms,
         curve: Curves.fastOutSlowIn,
         settings: settings,
       );
@@ -39,8 +39,8 @@ class Nav{
       PageTransition(
           type: _transition,
           child: screen,
-          duration: Ratioz.slidingTransitionDuration,
-          reverseDuration: Ratioz.slidingTransitionDuration,
+          duration: Ratioz.duration200ms,
+          reverseDuration: Ratioz.duration200ms,
           curve: Curves.fastOutSlowIn,
           alignment: Alignment.bottomCenter,
       ),

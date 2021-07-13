@@ -233,7 +233,7 @@ class _FireSearchTestState extends State<FireSearchTest> {
                   verse: printVerse ?? 'print Area',
                   maxLines: 12,
                   weight: VerseWeight.thin,
-                  color: printVerse == null ? Colorz.White20 : Colorz.White225,
+                  color: printVerse == null ? Colorz.White20 : Colorz.White255,
                 ),
               ],
             ),

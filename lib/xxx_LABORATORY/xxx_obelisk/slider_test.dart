@@ -162,7 +162,7 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
                 activeTrackColor: Colorz.Blue225,
                 disabledActiveTickMarkColor: Colorz.Green225,
                 disabledActiveTrackColor: Colorz.Green125,
-                disabledInactiveTickMarkColor: Colorz.White225,
+                disabledInactiveTickMarkColor: Colorz.White255,
                 disabledInactiveTrackColor: Colorz.Black20,
                 disabledThumbColor: Colorz.Yellow20,
                 inactiveTickMarkColor: Colorz.Red225,

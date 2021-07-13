@@ -3,7 +3,7 @@ import 'package:bldrs/controllers/drafters/mappers.dart';
 
 void main(){
 
-  List<Map<String, dynamic>> _listOfMaps = [
+  List<Map<String, dynamic>> _listOfMaps = <Map<String, dynamic>>[
     {
       'id' : 'a',
       'name' : 'Ahmad',
@@ -87,8 +87,8 @@ void main(){
 // -----------------------------------------------------------------------------
   test('Mapper.listsAreTheSame', (){
 
-    List<String> _list1 = ['1', '2', '3'];
-    List<String> _list2 = ['1', '2', '3'];
+    List<String> _list1 = <String>['1', '2', '3'];
+    List<String> _list2 = <String>['1', '2', '3'];
 
 
     bool _result = Mapper.listsAreTheSame(list1: _list1, list2: _list2);
@@ -99,8 +99,8 @@ void main(){
 // -----------------------------------------------------------------------------
   test('lists are not the same', (){
 
-    List<String> _list1 = ['1', '2', '3'];
-    List<String> _list2 = ['1', '2', '4'];
+    List<String> _list1 = <String>['1', '2', '3'];
+    List<String> _list2 = <String>['1', '2', '4'];
 
 
     bool _result = Mapper.listsAreTheSame(list1: _list1, list2: _list2);

@@ -112,7 +112,7 @@ AlertDialog _superAlert ({
                                       /// BODY
                                       SuperVerse(
                                         verse: body.runtimeType == String ? body : body.toString(),
-                                        color: Colorz.White225,
+                                        color: Colorz.White255,
                                         maxLines: 6,
                                         // designMode: true,
                                         margin: Ratioz.appBarMargin,
@@ -136,7 +136,7 @@ AlertDialog _superAlert ({
                                   if (boolDialog == true)
                                     DialogButton(
                                       verse: 'No',
-                                      verseColor: Colorz.White225,
+                                      verseColor: Colorz.White255,
                                       width: 100,
                                       color: Colorz.White80,
                                       onTap: () => Nav.goBack(context, argument: false),

@@ -249,7 +249,7 @@ class FilterButton extends StatelessWidget {
       margins: EdgeInsets.all(2.5),
       icon: icon,
       verse: buttonVerse,
-      verseColor: flyerTypeFilter == currentFlyerType ? Colorz.Black230 : Colorz.White225,
+      verseColor: flyerTypeFilter == currentFlyerType ? Colorz.Black230 : Colorz.White255,
       verseScaleFactor: 0.8,
       iconSizeFactor: 0.8,
       color: flyerTypeFilter == currentFlyerType ? Colorz.Yellow255 : Colorz.Nothing,

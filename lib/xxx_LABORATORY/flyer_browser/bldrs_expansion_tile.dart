@@ -133,8 +133,8 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
     _borderColor.end = Colorz.Green225;
 
     _titleColorTween
-      ..begin = Colorz.White225
-      ..end = Colorz.White225;
+      ..begin = Colorz.White255
+      ..end = Colorz.White255;
 
     _tileColorTween
       ..begin = Colorz.White10
@@ -271,7 +271,7 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
                         color: _groupIsSelected ? Colorz.Yellow255 : Colorz.Nothing,
                         verse: _groupID,
                         secondLine: _groupID,
-                        verseColor: _groupIsSelected ? Colorz.Black230 : Colorz.White225,
+                        verseColor: _groupIsSelected ? Colorz.Black230 : Colorz.White255,
                         verseWeight: _groupIsSelected ? VerseWeight.bold : VerseWeight.thin,
                         verseItalic: false,
                         verseScaleFactor: 0.7,
@@ -353,7 +353,7 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
                             color: _keywordIsSelected ? Colorz.Yellow255 : Colorz.Nothing,
                             verse: _keyword.keywordID,
                             secondLine: _keyword.keywordID,
-                            verseColor: _keywordIsSelected ? Colorz.Black230 : Colorz.White225,
+                            verseColor: _keywordIsSelected ? Colorz.Black230 : Colorz.White255,
                             verseWeight: _keywordIsSelected ? VerseWeight.bold : VerseWeight.thin,
                             verseItalic: false,
                             verseScaleFactor: 0.7,

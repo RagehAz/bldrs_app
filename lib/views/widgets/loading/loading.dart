@@ -3,18 +3,15 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-/// // LOADING BLOCK -----------------------------------------------------------
-/// bool _loading = false;
-/// void _triggerLoading(){
-///   print('loading------------------');
-///   setState(() {
-///     _loading = !_loading;
-///   });
-///   print('loading complete --------');
-///
-/// }
-/// // -------------------------------------------------------------------------
-
+// // ---------------------------------------------------------------------------
+// /// --- LOADING BLOCK
+// bool _loading = false;
+// void _triggerLoading(){
+//   setState(() {_loading = !_loading;});
+//   _loading == true?
+//   print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+// }
+// // ---------------------------------------------------------------------------
 class Loading extends StatelessWidget {
   final double size;
   final Function onTap;

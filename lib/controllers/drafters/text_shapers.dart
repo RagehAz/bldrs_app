@@ -235,6 +235,6 @@ TextStyle superVerseStyle({
 // -----------------------------------------------------------------------------
 TextStyle superVerseDefaultStyle(BuildContext context){
   return
-      superVerseStyle(context: context, color: Colorz.White225, weight: VerseWeight.thin, italic: true, size: 2, shadow: true);
+      superVerseStyle(context: context, color: Colorz.White255, weight: VerseWeight.thin, italic: true, size: 2, shadow: true);
 }
 // -----------------------------------------------------------------------------

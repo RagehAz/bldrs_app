@@ -70,7 +70,7 @@ class UserBalloon extends StatelessWidget {
                         Loading(loading: loading,)
                             :
                         balloonColor == null?
-                        superImageWidget(pic == null ? userModel?.pic : pic)
+                        Imagers.superImageWidget(pic == null ? userModel?.pic : pic)
                             :
                         Container()
                     )

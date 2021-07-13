@@ -574,7 +574,7 @@ class MyDreamBox extends StatelessWidget {
                 buttonVerse: 'Upload ya basha to user : ${superUserID()}',
                 buttonIcon: null,
                 buttonColor: Colorz.Yellow255,
-                splashColor: Colorz.White225,
+                splashColor: Colorz.White255,
                 stretched: false,
                 function: () => upload(userModel),
               ),

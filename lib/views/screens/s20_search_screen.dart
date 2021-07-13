@@ -451,7 +451,7 @@ class _SearchScreenState extends State<SearchScreen> {
     if (_selectedKeywords.length <= 2){
       print('no scroll available');
     } else {
-      _scrollController.scrollTo(index: _selectedKeywords.length - 1, duration: Ratioz.fadingDuration);
+      _scrollController.scrollTo(index: _selectedKeywords.length - 1, duration: Ratioz.duration150ms);
     }
   }
 // -----------------------------------------------------------------------------
@@ -460,7 +460,7 @@ class _SearchScreenState extends State<SearchScreen> {
     if (_selectedKeywords.length <= 1){
       print('no scroll available');
     } else {
-      _scrollController.scrollTo(index: index, duration: Ratioz.fadingDuration);
+      _scrollController.scrollTo(index: index, duration: Ratioz.duration150ms);
     }
   }
 // -----------------------------------------------------------------------------
@@ -580,7 +580,7 @@ class _SearchScreenState extends State<SearchScreen> {
               child: AnimatedContainer(
                 height: _browserZoneHeight,
                 width: _browserZoneWidth,
-                duration: Ratioz.fadingDuration,
+                duration: Ratioz.duration150ms,
                 curve: Curves.easeInOut,
                 decoration: BoxDecoration(
                   borderRadius: _browserZoneCorners,

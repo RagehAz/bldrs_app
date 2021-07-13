@@ -253,7 +253,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
               verseMaxLines: 2,
               verseScaleFactor: 0.7,
               verseWeight: VerseWeight.black,
-              verseColor: confirmButtonIsActive == true ? Colorz.Black230 : Colorz.White225,
+              verseColor: confirmButtonIsActive == true ? Colorz.Black230 : Colorz.White255,
               onTap: _pickedLocation == null ?
                   (){
                 setState(() {

@@ -111,7 +111,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }
 // -----------------------------------------------------------------------------
   Future<void> _takeGalleryPicture() async {
-    final _imageFile = await takeGalleryPicture(PicType.userPic);
+    final _imageFile = await Imagers.takeGalleryPicture(PicType.userPic);
     setState(() {_currentPicFile = _imageFile;});
   }
 // -----------------------------------------------------------------------------

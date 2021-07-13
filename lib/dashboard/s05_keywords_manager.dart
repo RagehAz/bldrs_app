@@ -28,7 +28,7 @@ class _KeywordsManagerState extends State<KeywordsManager> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
-    _filtersIDs = [];
+    _filtersIDs = <String>[];
     generateExpansionKeys();
     super.initState();
   }

@@ -32,18 +32,18 @@ class FontTestScreen extends StatelessWidget {
     VerseWeight weightTest = VerseWeight.thin;
 
     // --- SHADOW TEST PARAMETERS
-    dynamic shadowTestColor = Colorz.White225;
+    dynamic shadowTestColor = Colorz.White255;
     String shadowTestVerse = 'AaBb أبجدية';
     bool italiany = false;
     bool centeredOn = true;
     bool designModeOn = false;
 
-    final List<String> fields = ['Architecture', 'abcd', 'Interior', 'Landscape', '1', 'test', '3abbas ebn fernas', 'thing', 'wtf'];
+    final List<String> fields = <String>['Architecture', 'abcd', 'Interior', 'Landscape', '1', 'test', '3abbas ebn fernas', 'thing', 'wtf'];
 
     return SafeArea(
       child: Scaffold(
         body: Stack(
-          children: [
+          children: <Widget>[
 
             NightSky(),
 
@@ -94,7 +94,7 @@ class FontTestScreen extends StatelessWidget {
                     Container(
                       width: screenWidth,
                       height: screenHeight * 0.034 * 1.42, // 0.034 is ratio of fontSize 4
-                      color: Colorz.White225,
+                      color: Colorz.White255,
                     ),
 
                     Center(
@@ -127,7 +127,7 @@ class FontTestScreen extends StatelessWidget {
                       verse: '$fontSize1 Nano Text test\n$testVerse',
                       size: fontSize1,
                       centered: true,
-                      color: Colorz.White225,
+                      color: Colorz.White255,
                       weight: VerseWeight.regular,
                       italic: false,
                       shadow: false,
@@ -138,7 +138,7 @@ class FontTestScreen extends StatelessWidget {
                       verse: '$fontSize2 Micro Text test\n$testVerse',
                       size: fontSize2,
                       centered: true,
-                      color: Colorz.White225,
+                      color: Colorz.White255,
                       weight: VerseWeight.regular,
                       italic: false,
                       shadow: false,
@@ -149,7 +149,7 @@ class FontTestScreen extends StatelessWidget {
                       verse: '$fontSize3 Mini Text test\n$testVerse',
                       size: fontSize3,
                       centered: true,
-                      color: Colorz.White225,
+                      color: Colorz.White255,
                       weight: weightTest,
                       italic: false,
                       shadow: false,
@@ -160,7 +160,7 @@ class FontTestScreen extends StatelessWidget {
                       verse: '$fontSize4 Medium Text test\n$testVerse',
                       size: fontSize4,
                       centered: true,
-                      color: Colorz.White225,
+                      color: Colorz.White255,
                       weight: weightTest,
                       italic: false,
                       shadow: false,
@@ -171,7 +171,7 @@ class FontTestScreen extends StatelessWidget {
                       verse: '$fontSize5 Macro Text test\n$testVerse',
                       size: fontSize5,
                       centered: true,
-                      color: Colorz.White225,
+                      color: Colorz.White255,
                       weight: weightTest,
                       italic: false,
                       shadow: false,
@@ -182,7 +182,7 @@ class FontTestScreen extends StatelessWidget {
                       verse: '$fontSize6 Big Text test\n$testVerse',
                       size: fontSize6,
                       centered: true,
-                      color: Colorz.White225,
+                      color: Colorz.White255,
                       weight: weightTest,
                       italic: false,
                       shadow: false,
@@ -193,7 +193,7 @@ class FontTestScreen extends StatelessWidget {
                       verse: '$fontSize7 Massive Text test\n$testVerse',
                       size: fontSize7,
                       centered: true,
-                      color: Colorz.White225,
+                      color: Colorz.White255,
                       weight: weightTest,
                       italic: false,
                       shadow: false,
@@ -204,7 +204,7 @@ class FontTestScreen extends StatelessWidget {
                       verse: '$fontSize8 Gigantic Text test\n$testVerse',
                       size: fontSize8,
                       centered: true,
-                      color: Colorz.White225,
+                      color: Colorz.White255,
                       weight: weightTest,
                       italic: false,
                       shadow: false,
@@ -231,7 +231,7 @@ class FontTestScreen extends StatelessWidget {
                       shadow: false,
                       centered: true,
                       italic: false,
-                      color: Colorz.White225,
+                      color: Colorz.White255,
                     ),
 
                     SuperVerse(
@@ -241,7 +241,7 @@ class FontTestScreen extends StatelessWidget {
                           'Најправилно е играње и забава\n'
                           'Το πιο σωστό είναι το παιχνίδι και η διασκέδαση\n'
                           'الراجح يلعب و يلهو',
-                      color: Colorz.White225,
+                      color: Colorz.White255,
                       italic: false,
                       centered: true,
                       shadow: false,
@@ -270,7 +270,7 @@ class FontTestScreen extends StatelessWidget {
                       shadow: false,
                       centered: true,
                       italic: false,
-                      color: Colorz.White225,
+                      color: Colorz.White255,
                     ),
 
                     SuperVerse(
@@ -281,7 +281,7 @@ class FontTestScreen extends StatelessWidget {
                       shadow: false,
                       centered: true,
                       italic: false,
-                      color: Colorz.White225,
+                      color: Colorz.White255,
                     ),
 
                     SuperVerse(
@@ -292,7 +292,7 @@ class FontTestScreen extends StatelessWidget {
                       shadow: false,
                       centered: true,
                       italic: false,
-                      color: Colorz.White225,
+                      color: Colorz.White255,
                     ),
 
                     SuperVerse(
@@ -303,7 +303,7 @@ class FontTestScreen extends StatelessWidget {
                       shadow: false,
                       centered: true,
                       italic: false,
-                      color: Colorz.White225,
+                      color: Colorz.White255,
                     ),
                   ],
                 ),
@@ -519,7 +519,7 @@ class FontTestScreen extends StatelessWidget {
                   size: 3,
                   maxLines: 3,
                   centered: true,
-                  color: Colorz.White225,
+                  color: Colorz.White255,
                   labelColor: Colorz.White20,
                   designMode: true,
                   shadow: true,
