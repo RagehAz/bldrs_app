@@ -48,7 +48,7 @@ class AnimatedDreamBox extends StatefulWidget {
     this.corners = Ratioz.boxCorner12,
     this.iconColor,
     this.verse,
-    this.verseColor = Colorz.White225,
+    this.verseColor = Colorz.White255,
     this.verseWeight = VerseWeight.bold,
     this.verseScaleFactor = 1,
     this.verseItalic = false,
@@ -64,9 +64,9 @@ class AnimatedDreamBox extends StatefulWidget {
     this.inActiveMode = false,
     this.underLine,
     this.splashColor = Colorz.White80,
-    this.underLineColor = Colorz.White225,
+    this.underLineColor = Colorz.White255,
     this.underLineLabelColor = Colorz.White10,
-    this.duration = Ratioz.fadingDuration,
+    this.duration = Ratioz.duration150ms,
   });
 
   @override
@@ -321,7 +321,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                                     verse: widget.secondLine,
                                     weight: VerseWeight.regular,
                                     size: 1,
-                                    color: Colorz.White225,
+                                    color: Colorz.White255,
                                     maxLines: 1,
                                     italic: true,
                                     shadow: true,

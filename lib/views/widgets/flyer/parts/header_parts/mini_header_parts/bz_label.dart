@@ -56,7 +56,7 @@ class BzLabel extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: headerTextSidePadding),
               child: SuperVerse(
                 verse: tinyBz.bzName,
-                color: Colorz.White225,
+                color: Colorz.White255,
                 italic: false,
                 centered: false,
                 shadow: versesShadow,
@@ -82,7 +82,7 @@ class BzLabel extends StatelessWidget {
                 shadow: versesShadow,
                 centered: false,
                 italic: true,
-                color: Colorz.White225,
+                color: Colorz.White255,
                 scaleFactor: (flyerZoneWidth / screenWidth)*0.9,
                 maxLines: 1,
               ),

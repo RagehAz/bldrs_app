@@ -30,7 +30,7 @@ class SuperVerse extends StatelessWidget {
   SuperVerse({
     this.verse = 'Bldrs.net will shock planet Earth isa',
     this.size = 2,
-    this.color = Colorz.White225,
+    this.color = Colorz.White255,
     this.weight = VerseWeight.bold,
     this.italic = false,
     this.shadow = false,

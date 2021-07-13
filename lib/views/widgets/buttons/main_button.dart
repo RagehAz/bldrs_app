@@ -30,7 +30,7 @@ class MainButton extends StatelessWidget {
     this.stretched = false,
 
     this.iconSizeFactor = 0.75,
-    this.verseColor = Colorz.White225,
+    this.verseColor = Colorz.White255,
     this.verseWeight = VerseWeight.bold,
     this.iconColor,
   });
@@ -96,7 +96,7 @@ class MainButton extends StatelessWidget {
           // --- BUTTON CONTENTS
           child: Stack(
             alignment: Alignment.center,
-            children: [
+            children: <Widget>[
 
               // --- BUTTON HIGHLIGHT
               Container(
@@ -105,7 +105,7 @@ class MainButton extends StatelessWidget {
                 decoration: BoxDecoration(
                   // color: Colorz.White,
                   borderRadius: BorderRadius.circular(_buttonCorner-(_buttonHeight-(_buttonHeight * 0.22))),
-                  boxShadow: [CustomBoxShadow(
+                  boxShadow: <BoxShadow>[CustomBoxShadow(
                     color: Colorz.White50,
                     offset: new Offset(0, _buttonHeight * -0.23),
                     blurRadius: _buttonHeight * 0.18 ,
@@ -124,8 +124,8 @@ class MainButton extends StatelessWidget {
                     gradient: LinearGradient(
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
-                        colors: [Colorz.Black10, Colorz.Black125],
-                        stops: [0.1,1]
+                        colors: <Color>[Colorz.Black10, Colorz.Black125],
+                        stops: <double>[0.1,1]
                     ),
                 ),
               ),

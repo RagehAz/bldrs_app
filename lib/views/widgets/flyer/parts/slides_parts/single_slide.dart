@@ -5,11 +5,13 @@ import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/firestore/record_ops.dart';
 import 'package:bldrs/models/records/share_model.dart';
 import 'package:bldrs/views/widgets/flyer/parts/slides_parts/footer.dart';
 import 'package:bldrs/views/widgets/flyer/parts/slides_parts/slide_headline.dart';
+import 'package:bldrs/views/widgets/flyer/parts/slides_parts/zoomable_pic.dart';
 import 'package:bldrs/views/widgets/textings/super_text_field.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
@@ -37,6 +39,8 @@ class SingleSlide extends StatelessWidget {
   final Function textFieldOnChanged;
   final Color slideColor;
   final String flyerID;
+  final ImageSize imageSize;
+  final Key key;
 
   SingleSlide({
     @required this.flyerZoneWidth,
@@ -52,6 +56,8 @@ class SingleSlide extends StatelessWidget {
     this.textFieldOnChanged,
     this.slideColor,
     @required this.flyerID,
+    this.imageSize,
+    this.key,
   });
 
 
@@ -69,21 +75,9 @@ class SingleSlide extends StatelessWidget {
         flyerZoneWidth <= (_screenWidth*0.25) && flyerZoneWidth > (_screenWidth*0.1) ? 1 : 0
     ;
 // -----------------------------------------------------------------------------
-    LinkModel _theFlyerLink = LinkModel(url: 'flyer @ index: $slideIndex', description: 'flyer to be shared aho');
+    LinkModel _theFlyerLink = LinkModel(url: 'flyer @ index: ${slideIndex}', description: 'flyer to be shared aho');
 // -----------------------------------------------------------------------------
-    /// blur layer shall only be active if the height of image supplied is smaller
-    /// than flyer height when image width = flyerWidth
-    /// hangebha ezzay dih
-    bool _blurLayerIsActive =
-    picture == null ? false :
-    ObjectChecker.objectIsJPGorPNG(picture) ? false :
-    boxFit == BoxFit.cover ? true :
-    boxFit == BoxFit.fitWidth || boxFit == BoxFit.contain || boxFit == BoxFit.scaleDown ? true :
-        false;
-// -----------------------------------------------------------------------------
-
     // int _imageWidth = getImageWidth();
-
     Future<void> _shareFlyer() async {
       await RecordOps.shareFlyerOPs(
         context: context,
@@ -92,9 +86,9 @@ class SingleSlide extends StatelessWidget {
         slideIndex: slideIndex,
       );
       await ShareModel.shareFlyer(context, _theFlyerLink);
-
-
     }
+// -----------------------------------------------------------------------------
+    bool _blurLayerIsActive = Imagers.slideBlurIsOn(picture, imageSize);
 // -----------------------------------------------------------------------------
     return Container(
       width: flyerZoneWidth,
@@ -107,7 +101,7 @@ class SingleSlide extends StatelessWidget {
             slideMode == SlideMode.Empty ||
             ObjectChecker.objectIsURL(picture) == true ||
             ObjectChecker.objectIsFile(picture) == true ?
-        null : superImage(picture, boxFit),
+        null : Imagers.superImage(picture, boxFit),
       ),
       child: ClipRRect(
         borderRadius: Borderers.superFlyerCorners(context, flyerZoneWidth),
@@ -117,14 +111,14 @@ class SingleSlide extends StatelessWidget {
 
             /// --- IMAGE FILE FULL HEIGHT
             if (ObjectChecker.objectIsFile(picture) && _blurLayerIsActive)
-            Image.file(
-              picture,
-              fit: BoxFit.fitHeight,
-              width: flyerZoneWidth*1.2,
-              height: Scale.superFlyerZoneHeight(context, flyerZoneWidth*1.2),
-              // colorBlendMode: BlendMode.overlay,
-              // color: Colorz.WhiteAir,
-            ),
+              Image.file(
+                picture,
+                fit: BoxFit.fitHeight,
+                width: flyerZoneWidth*1.2,
+                height: Scale.superFlyerZoneHeight(context, flyerZoneWidth*1.2),
+                // colorBlendMode: BlendMode.overlay,
+                // color: Colorz.WhiteAir,
+              ),
 
             /// --- IMAGE URL FULL HEIGHT
             if (ObjectChecker.objectIsURL(picture) && _blurLayerIsActive)
@@ -136,35 +130,42 @@ class SingleSlide extends StatelessWidget {
               ),
 
             /// --- IMAGE FILE BLUR LAYER
-            // if (_blurLayerIsActive)
-            //   BlurLayer(
-            //     width: flyerZoneWidth,
-            //     height: Scale.superFlyerZoneHeight(context, flyerZoneWidth),
-            //     blur: 6,
-            //     borders: Borderers.superFlyerCorners(context, flyerZoneWidth),
-            //     color: Colorz.Nothing,
-            //   ),
+            if (_blurLayerIsActive)
+              BlurLayer(
+                width: flyerZoneWidth,
+                height: Scale.superFlyerZoneHeight(context, flyerZoneWidth),
+                blur: 6,
+                borders: Borderers.superFlyerCorners(context, flyerZoneWidth),
+                color: Colorz.Nothing,
+                blurIsOn: _blurLayerIsActive,
+              ),
 
             if (picture == null || slideMode == SlideMode.Empty)
               Container(),
 
             /// --- IMAGE FILE
-            // if (ObjectChecker.objectIsFile(picture))
-            //     Image.file(
-            //         picture,
-            //         fit: boxFit,
-            //         width: flyerZoneWidth,
-            //         height: Scale.superFlyerZoneHeight(context, flyerZoneWidth)
-            //     ),
+            if (ObjectChecker.objectIsFile(picture))
+              ZoomablePicture(
+                isOn: !_microMode,
+                child: Image.file(
+                    picture,
+                    fit: boxFit,
+                    width: flyerZoneWidth,
+                    height: Scale.superFlyerZoneHeight(context, flyerZoneWidth)
+                ),
+              ),
 
             /// --- IMAGE NETWORK
-            // if (ObjectChecker.objectIsURL(picture))
-            // Image.network(
-            //     picture,
-            //     fit: BoxFit.fitWidth,
-            //     width: flyerZoneWidth,
-            //     height: Scale.superFlyerZoneHeight(context, flyerZoneWidth)
-            // ),
+            if (ObjectChecker.objectIsURL(picture))
+              ZoomablePicture(
+                isOn: !_microMode,
+                child: Image.network(
+                    picture,
+                    fit: BoxFit.fitWidth,
+                    width: flyerZoneWidth,
+                    height: Scale.superFlyerZoneHeight(context, flyerZoneWidth)
+                ),
+              ),
 
             /// --- SHADOW UNDER PAGE HEADER & OVER PAGE PICTURE
             Container(
@@ -181,7 +182,7 @@ class SingleSlide extends StatelessWidget {
               flyerZoneWidth: flyerZoneWidth,
               verse: title,
               verseSize: _slideTitleSize,
-              verseColor: Colorz.White225,
+              verseColor: Colorz.White255,
               tappingVerse: () {
                 print('Flyer Title clicked');
                 },

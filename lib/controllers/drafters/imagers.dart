@@ -7,6 +7,7 @@ import 'dart:ui' as ui;
 import 'package:bldrs/controllers/drafters/text_manipulators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/standards.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/bz_model.dart';
@@ -14,6 +15,7 @@ import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:websafe_svg/websafe_svg.dart';
@@ -24,7 +26,29 @@ import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
 import 'dart:math';
 // -----------------------------------------------------------------------------
-DecorationImage superImage(String picture, BoxFit boxFit){
+enum PicType{
+  userPic,
+  authorPic,
+  bzLogo,
+  slideHighRes,
+  slideLowRes,
+  dum,
+  askPic,
+}
+// -----------------------------------------------------------------------------
+class ImageSize{
+  final int width;
+  final int height;
+
+  ImageSize({
+    @required this.width,
+    @required this.height,
+  });
+}
+// -----------------------------------------------------------------------------
+class Imagers{
+// -----------------------------------------------------------------------------
+static DecorationImage superImage(String picture, BoxFit boxFit){
   DecorationImage image = DecorationImage(
     image: AssetImage(picture),
     fit: boxFit,
@@ -33,7 +57,7 @@ DecorationImage superImage(String picture, BoxFit boxFit){
   return picture == '' ? null : image;
 }
 // -----------------------------------------------------------------------------
-Widget superImageWidget(dynamic pic, {int width, int height, BoxFit fit, double scale}){
+  static Widget superImageWidget(dynamic pic, {int width, int height, BoxFit fit, double scale}){
 
   BoxFit _boxFit = fit == null ? BoxFit.cover : fit;
 
@@ -79,17 +103,7 @@ Widget superImageWidget(dynamic pic, {int width, int height, BoxFit fit, double 
 
 }
 // -----------------------------------------------------------------------------
-enum PicType{
-  userPic,
-  authorPic,
-  bzLogo,
-  slideHighRes,
-  slideLowRes,
-  dum,
-  askPic,
-}
-// -----------------------------------------------------------------------------
-int concludeImageQuality(PicType picType){
+  static int concludeImageQuality(PicType picType){
   switch (picType){
     case PicType.userPic      :  return  100   ;  break;
     case PicType.authorPic    :  return  100   ;  break;
@@ -102,7 +116,7 @@ int concludeImageQuality(PicType picType){
 }
 }
 // -----------------------------------------------------------------------------
-double concludeImageMaxWidth(PicType picType){
+  static double concludeImageMaxWidth(PicType picType){
   switch (picType){
     case PicType.userPic      :  return  150   ;  break;
     case PicType.authorPic    :  return  150   ;  break;
@@ -115,6 +129,7 @@ double concludeImageMaxWidth(PicType picType){
   }
 }
 // -----------------------------------------------------------------------------
+  ///
 // double concludeImageMaxHeight(PicType picType){
 //   switch (picType){
 //     case PicType.userPic      :   return  150   ;     break;
@@ -125,8 +140,14 @@ double concludeImageMaxWidth(PicType picType){
 //     default : return   null;
 //   }
 // }
+  ///
 // -----------------------------------------------------------------------------
-Future<File> takeGalleryPicture(PicType picType) async {
+  /// secret sacred code that will fix the world someday
+  /// final _appDir = await sysPaths.getApplicationDocumentsDirectory();
+  /// final _fileName = path.basename(_imageFile.path);
+  /// final _savedImage = await _currentPic.copy('${_appDir.path}/$_fileName');
+  /// _selectImage(savedImage);
+  static Future<File> takeGalleryPicture(PicType picType) async {
   final _picker = ImagePicker();
 
   final _imageFile = await _picker.getImage(
@@ -141,7 +162,7 @@ Future<File> takeGalleryPicture(PicType picType) async {
   return _result;
 }
 // -----------------------------------------------------------------------------
-Future<PickedFile> takeCameraPicture(PicType picType) async {
+  static Future<PickedFile> takeCameraPicture(PicType picType) async {
   final _picker = ImagePicker();
 
   final _imageFile = await _picker.getImage(
@@ -155,36 +176,20 @@ Future<PickedFile> takeCameraPicture(PicType picType) async {
 
 }
 // -----------------------------------------------------------------------------
-/// secret sacred code that will fix the world someday
-// final _appDir = await sysPaths.getApplicationDocumentsDirectory();
-// final _fileName = path.basename(_imageFile.path);
-// final _savedImage = await _currentPic.copy('${_appDir.path}/$_fileName');
-// _selectImage(savedImage);
-// -----------------------------------------------------------------------------
-class ImageSize{
-  final int width;
-  final int height;
-
-  ImageSize({
-    @required this.width,
-    @required this.height,
-});
-}
-// -----------------------------------------------------------------------------
-Future<ImageSize> superImageSize(dynamic image) async {
+  static Future<ImageSize> superImageSize(dynamic image) async {
   var decodedImage = await decodeImageFromList(image.readAsBytesSync());
   ImageSize imageSize =  ImageSize(width: decodedImage.width, height: decodedImage.height);
   return imageSize;
 }
 // -----------------------------------------------------------------------------
-Future<Uint8List> getBytesFromAsset(String iconPath, int width) async {
+  static Future<Uint8List> getBytesFromAsset(String iconPath, int width) async {
   ByteData data = await rootBundle.load(iconPath);
   ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(), targetWidth: width);
   ui.FrameInfo fi = await codec.getNextFrame();
   return (await fi.image.toByteData(format: ui.ImageByteFormat.png)).buffer.asUint8List();
 }
 // -----------------------------------------------------------------------------
-Future <Uint8List> getBytesFromCanvas(int width, int height, urlAsset) async {
+  static Future <Uint8List> getBytesFromCanvas(int width, int height, urlAsset) async {
   final ui.PictureRecorder pictureRecorder = ui.PictureRecorder();
   final Canvas canvas = Canvas(pictureRecorder);
   final Paint paint = Paint()..color = Colors.transparent;
@@ -210,7 +215,7 @@ Future <Uint8List> getBytesFromCanvas(int width, int height, urlAsset) async {
   return data.buffer.asUint8List();
 }
 // -----------------------------------------------------------------------------
-Future <ui.Image> loadImage(List < int > img) async {
+  static Future <ui.Image> loadImage(List < int > img) async {
   final Completer < ui.Image > completer = new Completer();
   ui.decodeImageFromList(img, (ui.Image img) {
 
@@ -219,7 +224,7 @@ Future <ui.Image> loadImage(List < int > img) async {
   return completer.future;
 }
 // -----------------------------------------------------------------------------
-Future<File> getImageFileFromLocalAsset(BuildContext context, String inputAsset) async {
+  static Future<File> getImageFileFromLocalAsset(BuildContext context, String inputAsset) async {
   File _file;
   String asset = ObjectChecker.objectIsSVG(inputAsset) ? Iconz.DumBusinessLogo : inputAsset;
   await tryAndCatch(
@@ -242,7 +247,7 @@ Future<File> getImageFileFromLocalAsset(BuildContext context, String inputAsset)
   return _file;
 }
 // -----------------------------------------------------------------------------
-Future<File> urlToFile(String imageUrl) async {
+  static Future<File> urlToFile(String imageUrl) async {
 // generate random number.
   var rng = new Random();
 // get temporary directory of device.
@@ -259,10 +264,8 @@ Future<File> urlToFile(String imageUrl) async {
 // temporary directory and image bytes from response is written to // that file.
   return file;
 }
-
-// Selection full. Deselect
 // -----------------------------------------------------------------------------
-Future<List<Asset>> getMultiImagesFromGallery({BuildContext context, List<Asset> images, bool mounted, @required BzAccountType accountType}) async {
+  static Future<List<Asset>> getMultiImagesFromGallery({BuildContext context, List<Asset> images, bool mounted, @required BzAccountType accountType}) async {
   List<Asset> resultList = <Asset>[];
   String error = 'No Error Detected';
 
@@ -287,7 +290,7 @@ Future<List<Asset>> getMultiImagesFromGallery({BuildContext context, List<Asset>
         lightStatusBar: false,
         // actionBarTitleColor: "#13244b", // page title color, White is Default
         autoCloseOnSelectionLimit: false,
-        selectionLimitReachedText: 'Can\'t add more Imgaes Bitch !',
+        selectionLimitReachedText: 'Can\'t add more Images !',
         // unknown impact
         // backButtonDrawable: 'wtf is this backButtonDrawable',
         // okButtonDrawable: 'dunno okButtonDrawable',
@@ -320,7 +323,7 @@ Future<List<Asset>> getMultiImagesFromGallery({BuildContext context, List<Asset>
 
 }
 // -----------------------------------------------------------------------------
-Future<File> getFileFromCropperAsset(Asset asset) async {
+  static Future<File> getFileFromCropperAsset(Asset asset) async {
   ByteData _byteData = await asset.getThumbByteData(asset.originalWidth, asset.originalHeight, quality: 100);
 
   String _name = trimTextAfterLastSpecialCharacter(asset.name, '.');
@@ -336,3 +339,177 @@ Future<File> getFileFromCropperAsset(Asset asset) async {
   return _file;
 }
 // -----------------------------------------------------------------------------
+  static List<CropAspectRatioPreset> getAndroidCropAspectRatioPresets(){
+    List<CropAspectRatioPreset> _androidRatios = <CropAspectRatioPreset>[
+      CropAspectRatioPreset.square,
+      CropAspectRatioPreset.ratio3x2,
+      CropAspectRatioPreset.original,
+      CropAspectRatioPreset.ratio4x3,
+    ];
+    return _androidRatios;
+  }
+// -----------------------------------------------------------------------------
+  static List<CropAspectRatioPreset> getIOSCropAspectRatioPresets(){
+    List<CropAspectRatioPreset> _androidRatios = <CropAspectRatioPreset>[
+      CropAspectRatioPreset.original,
+      CropAspectRatioPreset.square,
+      CropAspectRatioPreset.ratio3x2,
+      CropAspectRatioPreset.ratio4x3,
+      CropAspectRatioPreset.ratio5x3,
+      CropAspectRatioPreset.ratio5x4,
+      CropAspectRatioPreset.ratio7x5,
+      CropAspectRatioPreset.ratio16x9,
+    ];
+    return _androidRatios;
+  }
+// -----------------------------------------------------------------------------
+  static Future<File> cropImage(BuildContext context, File file) async {
+
+    /// flyer ratio is : (1 x 1.74)
+    double _flyerHeightRatio = Ratioz.xxflyerZoneHeight; // 1.74
+    double _maxWidth = 1000;
+
+    File _croppedFile = await ImageCropper.cropImage(
+      sourcePath: file.path,
+      aspectRatio: CropAspectRatio(ratioX: 1, ratioY: Ratioz.xxflyerZoneHeight),
+      aspectRatioPresets: Platform.isAndroid ? getAndroidCropAspectRatioPresets() : getIOSCropAspectRatioPresets(),
+      maxWidth: _maxWidth.toInt(),
+      compressFormat: ImageCompressFormat.jpg, /// TASK : need to test png vs jpg storage sizes on firebase
+      compressQuality: 100, // max
+      cropStyle: CropStyle.rectangle,
+      maxHeight: (_maxWidth * _flyerHeightRatio).toInt(),
+      androidUiSettings: AndroidUiSettings(
+        initAspectRatio: CropAspectRatioPreset.square,
+        lockAspectRatio: false,
+
+        statusBarColor: Colorz.Black255,
+        backgroundColor: Colorz.Black230,
+        dimmedLayerColor: Colorz.Black200,
+
+        toolbarTitle: 'Crop Image',//'Crop flyer Aspect Ratio 1:${Ratioz.xxflyerZoneHeight}',
+        toolbarColor: Colorz.Black255,
+        toolbarWidgetColor: Colorz.White255, // color of : cancel, title, confirm widgets
+
+        activeControlsWidgetColor: Colorz.Yellow255,
+        hideBottomControls: false,
+
+        cropFrameColor: Colorz.Grey80,
+        cropFrameStrokeWidth: 5,
+
+        showCropGrid: true,
+        cropGridColumnCount: 3,
+        cropGridRowCount: 6,
+        cropGridColor: Colorz.Grey80,
+        cropGridStrokeWidth: 2,
+
+      ),
+
+      /// TASK : check cropper in ios
+      // iosUiSettings: IOSUiSettings(
+      //   title: 'Crop flyer Aspect Ratio 1 : ${Ratioz.xxflyerZoneHeight}',
+      //   doneButtonTitle: 'Done babe',
+      //   aspectRatioLockDimensionSwapEnabled: ,
+      //   aspectRatioLockEnabled: ,
+      //   aspectRatioPickerButtonHidden: ,
+      //   cancelButtonTitle: ,
+      //   hidesNavigationBar: ,
+      //   minimumAspectRatio: ,
+      //   rectHeight: ,
+      //   rectWidth: ,
+      //   rectX: ,
+      //   rectY: ,
+      //   resetAspectRatioEnabled: ,
+      //   resetButtonHidden: ,
+      //   rotateButtonsHidden: ,
+      //   rotateClockwiseButtonHidden: ,
+      //   showActivitySheetOnDone: ,
+      //   showCancelConfirmationDialog: ,
+      // ),
+    );
+
+    if (_croppedFile == null){
+      return null;
+    }
+
+    else {
+      return _croppedFile;
+    }
+
+  }
+// -----------------------------------------------------------------------------
+  static BoxFit concludeBoxFit(Asset asset){
+  BoxFit _fit = asset.isPortrait ? BoxFit.fitHeight : BoxFit.fitWidth;
+  return _fit;
+  }
+// -----------------------------------------------------------------------------
+  static bool slideBlurIsOn(dynamic pic, ImageSize imageSize) {
+    /// blur layer shall only be active if the height of image supplied is smaller
+    /// than flyer height when image width = flyerWidth
+    /// hangebha ezzay dih
+    // picture == null ? false :
+    // ObjectChecker.objectIsJPGorPNG(picture) ? false :
+    // boxFit == BoxFit.cover ? true :
+    // boxFit == BoxFit.fitWidth || boxFit == BoxFit.contain || boxFit == BoxFit.scaleDown ? true :
+    //     false;
+
+    bool _blurIsOn = false;
+
+  // if(ObjectChecker.objectIsJPGorPNG(pic)){
+  //
+  // }
+  // else if(ObjectChecker.objectIsFile(pic)){
+  //   File _file = pic;
+  //   var _decodedImage = await decodeImageFromList(_file.readAsBytesSync());
+  //   _imageWidth = _file.
+  // }
+  // else if(ObjectChecker.objectIsAsset(pic)){
+  //   Asset _asset = pic;
+  //   _imageWidth = _asset.originalWidth.toDouble();
+  //   _imageHeight = _asset.originalHeight.toDouble();
+  // }
+
+  bool _imageSizeIsValid =
+  imageSize == null ? false :
+  imageSize.width == null ? false :
+  imageSize.height == null ? false :
+  imageSize.width <= 0 ? false :
+  imageSize.height <= 0 ? false :
+      true;
+
+  if(_imageSizeIsValid == true){
+
+    int _imageWidth = imageSize.width;
+    int _imageHeight= imageSize.height;;
+
+    /// slide aspect ratio : 1 / 1.74 ~= 0.575
+    double _slideRatio = 1 / Ratioz.xxflyerZoneHeight;
+
+    /// note : if ratio < 1 image is portrait, if ratio > 1 image is landscape
+    double _imageRatio = _imageWidth / _imageHeight ;
+
+    /// so
+    /// if _imageRatio < 0.575 image is narrower than slide,
+    /// if ratio > 0.575 image is wider than slide
+    double _errorPercentage = 10; // % percent
+    double _remainingAsFraction = (100 - _errorPercentage) / 100 ;
+    double _maxRatioWithoutBlur = _slideRatio / _remainingAsFraction; // 0.638
+    double _minRatioWithoutBlur = _slideRatio * _remainingAsFraction; // 0.517
+
+    /// so if narrower more than 10% or wider more than 10%, blur should be active and boxFit shouldn't be cover
+    if(_imageRatio >= _maxRatioWithoutBlur || _imageRatio <= _minRatioWithoutBlur){
+      print('blur is onnnnnnnnnnnnnnnnnnnnnnnnnnnnnn _imageRatio : $_imageRatio');
+      _blurIsOn = true;
+    }
+
+    else {
+      print('blur is offfffffffffffffffffffffffffff _imageRatio : $_imageRatio');
+      _blurIsOn = false;
+    }
+
+  }
+
+
+  return _blurIsOn;
+}
+// -----------------------------------------------------------------------------
+}

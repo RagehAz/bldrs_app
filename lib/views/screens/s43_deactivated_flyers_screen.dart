@@ -124,7 +124,7 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
           iconSizeFactor: 0.5,
           verse: 'Edit flyer',
           verseScaleFactor: 1.2,
-          verseColor: Colorz.White225,
+          verseColor: Colorz.White255,
           onTap: () => _editFlyerOnTap(tinyFlyer),
         ),
 

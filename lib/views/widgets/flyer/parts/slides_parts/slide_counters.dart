@@ -46,7 +46,7 @@ class SlideCounters extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
+          children: <Widget>[
 
             // --- COUNTERS
             Container(
@@ -81,8 +81,8 @@ class SlideCounters extends StatelessWidget {
                   gradient: LinearGradient(
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
-                      colors: [Colorz.Nothing, Colorz.Black50],
-                      stops: [0.3,1]
+                      colors: <Color>[Colorz.Nothing, Colorz.Black50],
+                      stops: <double>[0.3,1]
                   ),
                 ),
 
@@ -97,7 +97,7 @@ class SlideCounters extends StatelessWidget {
                             left: footerBTMargins * singleCounterPaddingRatio,
                           ),
                           child: Row(
-                            children: [
+                            children: <Widget>[
                               Container(
                                 color: Colorz.Nothing,
                                 margin: EdgeInsets.only(
@@ -108,7 +108,7 @@ class SlideCounters extends StatelessWidget {
                               ),
                               SuperVerse(
                                 verse: Numberers.counterCaliber(context, shares),
-                                color: Colorz.White225,
+                                color: Colorz.White255,
                                 size: 1,
                                 weight: VerseWeight.regular,
                                 designMode: false,
@@ -128,7 +128,7 @@ class SlideCounters extends StatelessWidget {
                             left: footerBTMargins * singleCounterPaddingRatio * 1.2,
                           ),
                           child: Row(
-                            children: [
+                            children: <Widget>[
                               Container(
                                   color: Colorz.Nothing,
                                   margin: EdgeInsets.only(
@@ -138,7 +138,7 @@ class SlideCounters extends StatelessWidget {
                                   child: WebsafeSvg.asset(Iconz.Views)),
                               SuperVerse(
                                 verse: Numberers.counterCaliber(context, views),
-                                color: Colorz.White225,
+                                color: Colorz.White255,
                                 size: 1,
                                 weight: VerseWeight.regular,
                                 designMode: false,
@@ -171,7 +171,7 @@ class SlideCounters extends StatelessWidget {
                               ),
                               SuperVerse(
                                 verse: Numberers.counterCaliber(context, saves),
-                                color: Colorz.White225,
+                                color: Colorz.White255,
                                 size: 1,
                                 weight: VerseWeight.regular,
                                 designMode: false,

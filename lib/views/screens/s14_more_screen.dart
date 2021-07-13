@@ -55,7 +55,7 @@ class MoreScreen extends StatelessWidget {
             verse: Wordz.inviteFriends(context),
             icon: DeviceChecker.deviceIsIOS() ? Iconz.ComApple : DeviceChecker.deviceIsAndroid() ? Iconz.ComGooglePlay : Iconz.Share,
             iconBoxColor: Colorz.Black230,
-            verseColor: Colorz.White225,
+            verseColor: Colorz.White255,
             btOnTap: () => shareLink(context, LinkModel.bldrsWebSiteLink),
           ),
 
@@ -63,7 +63,7 @@ class MoreScreen extends StatelessWidget {
             verse: Wordz.inviteBusinesses(context),
             icon: Iconz.Bz,
             iconBoxColor: Colorz.Black230,
-            verseColor: Colorz.White225,
+            verseColor: Colorz.White255,
           ),
 
           _separator,

@@ -130,6 +130,7 @@ class NavBar extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
 
+                  /// TITLE
                   Align(
                     alignment: Aligners.superCenterAlignment(context),
                     child: SuperVerse(
@@ -139,6 +140,7 @@ class NavBar extends StatelessWidget {
                     ),
                   ),
 
+                  /// MY BZZ BUTTONS
                   Container(
                     height: _bzzButtonsZoneHeight,
                     child: ListView.builder(
@@ -159,16 +161,15 @@ class NavBar extends StatelessWidget {
                             verseScaleFactor: 0.7,
                             bubble: true,
                             color: Colorz.Nothing,
-                            onTap: (){
+                            onTap: () async {
                               print('${_tinyBz.bzID}');
 
-                              Nav.goBack(context);
+                                Nav.goToNewScreen(context,
+                                    MyBzScreen(
+                                      userModel: userModel,
+                                      tinyBz: _tinyBz,
+                                    ));
 
-                              Nav.goToNewScreen(context,
-                                  MyBzScreen(
-                                    userModel: userModel,
-                                    tinyBz: _tinyBz,
-                                  ));
                             },
                           ),
                         );

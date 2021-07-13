@@ -12,7 +12,7 @@ final Function onTap;
 
 DialogButton({
   @required this.verse,
-  this.verseColor = Colorz.White225,
+  this.verseColor = Colorz.White255,
   this.width = 100,
   this.color,
   this.onTap,

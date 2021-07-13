@@ -104,7 +104,7 @@ class BzFlyerScreen extends StatelessWidget {
             iconSizeFactor: 0.5,
             verse: 'Delete Flyer',
             verseScaleFactor: 1.2,
-            verseColor: Colorz.White225,
+            verseColor: Colorz.White255,
             onTap: () async {
               Nav.goBack(context);
 
@@ -143,7 +143,7 @@ class BzFlyerScreen extends StatelessWidget {
             iconSizeFactor: 0.5,
             verse: 'Edit Flyer',
             verseScaleFactor: 1.2,
-            verseColor: Colorz.White225,
+            verseColor: Colorz.White255,
             onTap: (){
 
               Nav.goToNewScreen(context,

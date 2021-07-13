@@ -7,8 +7,6 @@ import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/models/tiny_models/tiny_user.dart';
 import 'package:bldrs/views/screens/x1_flyers_publisher_screen.dart';
-import 'package:bldrs/views/screens/x2_flyer_editor_screen_test.dart';
-import 'package:bldrs/views/screens/x2_old_flyer_editor_screen.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';

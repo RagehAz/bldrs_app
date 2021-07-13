@@ -23,6 +23,7 @@ class Colorz {
   static const Black50 = Color.fromARGB(_50, 0, 0, 0);
   static const Black80 = Color.fromARGB(_80, 0, 0, 0);
   static const Black125 = Color.fromARGB(_125, 0, 0, 0);
+  static const Black150 = Color.fromARGB(150, 0, 0, 0);
   static const Black200 = Color.fromARGB(_200, 0, 0, 0);
   static const Black230 = Color.fromARGB(230, 0, 0, 0);
   static const Black255 = Color.fromARGB(255, 0, 0, 0);
@@ -75,7 +76,8 @@ class Colorz {
   static const White80 = Color.fromARGB(_80, 255, 255, 255);
   static const White125 = Color.fromARGB(_125, 255, 255, 255);
   static const White200 = Color.fromARGB(_200, 255, 255, 255);
-  static const White225 = Color.fromARGB(_225, 255, 255, 255);
+  static const White230 = Color.fromARGB(230, 255, 255, 255);
+  static const White255 = Color.fromARGB(255, 255, 255, 255);
 // -----------------------------------------------------------------------------
   static const Grey50 = Color.fromARGB(_50, 121, 121, 121);
   static const Grey80 = Color.fromARGB(_80, 121, 121, 121);

@@ -14,7 +14,7 @@ class ShareAndAddImageTest extends StatefulWidget {
 class ShareAndAddImageTestState extends State<ShareAndAddImageTest> {
   String text = 'Earth';
   String subject = 'Sharing Planet Earth';
-  List<String> imagePaths = [Iconz.DumUniverse, Iconz.DumBusinessLogo];
+  List<String> imagePaths = <String>[Iconz.DumUniverse, Iconz.DumBusinessLogo];
 
   @override
   Widget build(BuildContext context) {

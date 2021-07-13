@@ -41,7 +41,7 @@ class FlagBox extends StatelessWidget {
           BorderRadius.all(Radius.circular(_corner)),
           child: Stack(
             alignment: Alignment.center,
-            children: [
+            children: <Widget>[
 
               // --- FLAG
               flag == '' || flag == 'Black'?
@@ -58,7 +58,7 @@ class FlagBox extends StatelessWidget {
                       gradient: LinearGradient(
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
-                          colors: [Colorz.Black0, Colorz.Black200],
+                          colors: <Color>[Colorz.Black0, Colorz.Black200],
                           stops: [0.65,1]
                       ),
                   ),
