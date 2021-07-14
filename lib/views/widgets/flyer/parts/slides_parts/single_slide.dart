@@ -40,7 +40,7 @@ class SingleSlide extends StatelessWidget {
   final Color slideColor;
   final String flyerID;
   final ImageSize imageSize;
-  final Key key;
+  // Key key;
 
   SingleSlide({
     @required this.flyerZoneWidth,
@@ -57,8 +57,8 @@ class SingleSlide extends StatelessWidget {
     this.slideColor,
     @required this.flyerID,
     this.imageSize,
-    this.key,
-  });
+    Key key,
+  }) : super(key: key);
 
 
   @override
@@ -88,7 +88,13 @@ class SingleSlide extends StatelessWidget {
       await ShareModel.shareFlyer(context, _theFlyerLink);
     }
 // -----------------------------------------------------------------------------
-    bool _blurLayerIsActive = Imagers.slideBlurIsOn(picture, imageSize);
+    double _blurImageScale = 1.5;
+    bool _blurLayerIsActive = Imagers().slideBlurIsOn(
+      pic: picture,
+      boxFit: boxFit,
+      flyerZoneWidth: flyerZoneWidth,
+      imageSize: imageSize,
+    );
 // -----------------------------------------------------------------------------
     return Container(
       width: flyerZoneWidth,
@@ -113,8 +119,8 @@ class SingleSlide extends StatelessWidget {
             if (ObjectChecker.objectIsFile(picture) && _blurLayerIsActive)
               Image.file(
                 picture,
-                fit: BoxFit.fitHeight,
-                width: flyerZoneWidth*1.2,
+                fit: BoxFit.cover,
+                width: flyerZoneWidth * _blurImageScale,
                 height: Scale.superFlyerZoneHeight(context, flyerZoneWidth*1.2),
                 // colorBlendMode: BlendMode.overlay,
                 // color: Colorz.WhiteAir,
@@ -124,8 +130,8 @@ class SingleSlide extends StatelessWidget {
             if (ObjectChecker.objectIsURL(picture) && _blurLayerIsActive)
               Image.network(
                 picture,
-                fit: BoxFit.fitHeight,
-                width: flyerZoneWidth*1.2,
+                fit: BoxFit.cover,
+                width: flyerZoneWidth * _blurImageScale,
                 height: Scale.superFlyerZoneHeight(context, flyerZoneWidth*1.2),
               ),
 
@@ -134,11 +140,12 @@ class SingleSlide extends StatelessWidget {
               BlurLayer(
                 width: flyerZoneWidth,
                 height: Scale.superFlyerZoneHeight(context, flyerZoneWidth),
-                blur: 6,
+                blur: Ratioz.blur4,
                 borders: Borderers.superFlyerCorners(context, flyerZoneWidth),
                 color: Colorz.Nothing,
                 blurIsOn: _blurLayerIsActive,
               ),
+
 
             if (picture == null || slideMode == SlideMode.Empty)
               Container(),

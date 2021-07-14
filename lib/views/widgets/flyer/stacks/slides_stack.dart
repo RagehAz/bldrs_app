@@ -135,8 +135,8 @@ class _SlidesStackState extends State<SlidesStack> with AutomaticKeepAliveClient
 
     double _verticalMargin = Ratioz.appBarPadding;
 
-    print('SLIDES STACK : num : ${widget.draftIndex + 1}');
-    print('SLIDES STACK : Height : ${widget.stackHeight}');
+    // print('SLIDES STACK : num : ${widget.draftIndex + 1}');
+    // print('SLIDES STACK : Height : ${widget.stackHeight}');
 
     return Container(
       width: Scale.superScreenWidth(context),
@@ -303,7 +303,7 @@ class _SlidesStackState extends State<SlidesStack> with AutomaticKeepAliveClient
 
                 if(_pictures != null && _pictures.length != 0 && _pictures.length != index){
                   String _picName = _asset?.name;
-                print('SLIDES STACK : pic : ${_picName}');
+                // print('SLIDES STACK : pic : ${_picName}');
                 }
 
                 return
