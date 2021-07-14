@@ -65,11 +65,11 @@ class _SwiperScreenState extends State<SwiperScreen> {
     _swiperController.previous(animation: true);
   }
 // -----------------------------------------------------------------------------
-  void _swipeFlyer(SlidingDirection swipeDirection){
+  void _swipeFlyer(SwipeDirection swipeDirection){
 
-  if (swipeDirection == SlidingDirection.next){
+  if (swipeDirection == SwipeDirection.next){
     _goToNextFlyer();
-  } else if (swipeDirection == SlidingDirection.back){
+  } else if (swipeDirection == SwipeDirection.back){
     _goToLastFlyer();
   }
 

@@ -147,7 +147,7 @@ class _BrowserPagesState extends State<BrowserPages> {
 // -----------------------------------------------------------------------------
   void _goToNextPage(){
     _pageController.nextPage(
-        duration: Ratioz.duration400ms,
+        duration: Ratioz.durationSliding400,
         curve: Curves.easeInOut,
     );
   }
@@ -186,7 +186,7 @@ class _BrowserPagesState extends State<BrowserPages> {
 
     return Center(
       child: AnimatedContainer(
-        duration: Ratioz.duration200ms,
+        duration: Ratioz.durationFading200,
         width: _clearWidth,
         height: _clearHeight,
         decoration: BoxDecoration(
@@ -297,9 +297,9 @@ class _BrowserPagesState extends State<BrowserPages> {
             /// PROGRESS BAR
             ProgressBar(
               flyerZoneWidth: _clearWidth,
-              numberOfSlides: _numberOfPages,
+              numberOfStrips: _numberOfPages,
               barIsOn: true,
-              currentSlide: _currentPage,
+              slideIndex: _currentPage,
               margins: const EdgeInsets.all(0),
               slidingNext: true,
             ),

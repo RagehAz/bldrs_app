@@ -527,9 +527,9 @@ class Progressor extends StatelessWidget {
 
           ProgressBar(
             flyerZoneWidth: Scale.superScreenWidth(context),
-            numberOfSlides: length,
+            numberOfStrips: length,
             barIsOn: true,
-            currentSlide: index,
+            slideIndex: index,
             margins: const EdgeInsets.all(5),
             slidingNext: true,
           ),

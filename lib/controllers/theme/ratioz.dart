@@ -88,13 +88,19 @@ static const double grandHorizon = pyramidsHeight;
 // -----------------------------------------------------------------------------
 // Durations
 static const Duration duration150ms = Duration(milliseconds: 150);
-static const Duration duration200ms = Duration(milliseconds: 200);
-static const Duration duration400ms = Duration(milliseconds: 400);
+static const Duration durationFading200 = Duration(milliseconds: 200);
+static const Duration durationFading210 = Duration(milliseconds: 210);
+static const Duration durationSliding400 = Duration(milliseconds: 400);
+static const Duration durationSliding410 = Duration(milliseconds: 410);
 static const Duration duration750ms = Duration(milliseconds: 750);
 // -----------------------------------------------------------------------------
 // Blur
 static const double blur1 = 10;
 static const double blur2 = 15;
 static const double blur3 = 20;
+static const double blur4 = 30;
 // -----------------------------------------------------------------------------
+// image ratioz
+/// 90% of slide's flyerZoneHeight is the boxFit limit to turn from fitWidth to fitHeight
+static const double slideFitWidthLimit = 90;
 }

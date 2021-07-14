@@ -2,7 +2,7 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
 // -----------------------------------------------------------------------------
-enum SlidingDirection{
+enum SwipeDirection{
   next,
   back,
   freeze,
@@ -19,7 +19,7 @@ class Sliders{
 
     else {
       await slidingController.animateToPage(currentSlide + 1,
-          duration: Ratioz.duration400ms, curve: Curves.easeInOutCirc);
+          duration: Ratioz.durationSliding400, curve: Curves.easeInOutCirc);
 
       return currentSlide + 1;
     }
@@ -34,7 +34,7 @@ class Sliders{
     return currentSlide;
   } else {
     await slidingController.animateToPage(currentSlide - 1,
-        duration: Ratioz.duration400ms,
+        duration: Ratioz.durationSliding400,
         curve: Curves.easeInOutCirc);
 
     return currentSlide - 1;
@@ -44,13 +44,13 @@ class Sliders{
 // -----------------------------------------------------------------------------
   static Future<void> slideToNext(PageController slidingController, int numberOfSlides, int currentSlide) async {
   await slidingController.animateToPage(currentSlide + 1,
-      duration: Ratioz.duration400ms, curve: Curves.easeInOutCirc);
+      duration: Ratioz.durationSliding400, curve: Curves.easeInOutCirc);
 }
 // -----------------------------------------------------------------------------
   static Future<void> slideToBack(PageController slidingController, int currentSlide) async {
   if (currentSlide == 0){print('can not slide back');} else {
     await slidingController.animateToPage(currentSlide - 1,
-        duration: Ratioz.duration400ms,
+        duration: Ratioz.durationSliding400,
         curve: Curves.easeInOutCirc);
 
   }
@@ -72,7 +72,7 @@ class Sliders{
 
   if (slidingController.positions.length > 0 && slidingController.position.extentAfter == 0.0) {
     await slidingController.animateToPage(currentSlide,
-        duration: Ratioz.duration400ms, curve: Curves.easeInOutCirc);
+        duration: Ratioz.durationSliding400, curve: Curves.easeInOutCirc);
   }
 }
 // -----------------------------------------------------------------------------
@@ -80,21 +80,21 @@ class Sliders{
   await slidingController.jumpToPage(currentSlide,);
 }
 // -----------------------------------------------------------------------------
-  static SlidingDirection slidingDecision(int numberOfSlides, int currentSlide){
-  SlidingDirection decision =
-  numberOfSlides == 0 ? SlidingDirection.freeze :
-  numberOfSlides == 1 ? SlidingDirection.freeze :
-  numberOfSlides > 1 && currentSlide + 1 == numberOfSlides ? SlidingDirection.back :
-  numberOfSlides > 1 && currentSlide == 0 ? SlidingDirection.next :
-  SlidingDirection.back;
+  static SwipeDirection slidingDecision(int numberOfSlides, int currentSlide){
+  SwipeDirection decision =
+  numberOfSlides == 0 ? SwipeDirection.freeze :
+  numberOfSlides == 1 ? SwipeDirection.freeze :
+  numberOfSlides > 1 && currentSlide + 1 == numberOfSlides ? SwipeDirection.back :
+  numberOfSlides > 1 && currentSlide == 0 ? SwipeDirection.next :
+  SwipeDirection.back;
   return decision;
 }
 // -----------------------------------------------------------------------------
   static Future<void> slidingAction(PageController slidingController, int numberOfSlides, int currentSlide) async {
   // print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> before slidingAction');
-    slidingDecision(numberOfSlides, currentSlide) == SlidingDirection.next ? await slideToNext(slidingController, numberOfSlides, currentSlide) :
-    slidingDecision(numberOfSlides, currentSlide) == SlidingDirection.back ? await slideToBack(slidingController, currentSlide) :
-    slidingDecision(numberOfSlides, currentSlide) == SlidingDirection.freeze ? await slideTo(slidingController, currentSlide,)
+    slidingDecision(numberOfSlides, currentSlide) == SwipeDirection.next ? await slideToNext(slidingController, numberOfSlides, currentSlide) :
+    slidingDecision(numberOfSlides, currentSlide) == SwipeDirection.back ? await slideToBack(slidingController, currentSlide) :
+    slidingDecision(numberOfSlides, currentSlide) == SwipeDirection.freeze ? await slideTo(slidingController, currentSlide,)
         :
     print('no sliding possible ');
     // print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> after slidingAction');

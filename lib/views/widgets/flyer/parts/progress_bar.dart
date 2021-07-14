@@ -8,23 +8,25 @@ import 'package:flutter/material.dart';
 class ProgressBar extends StatelessWidget {
   final double flyerZoneWidth;
   final bool barIsOn;
-  final int numberOfSlides;
-  final int currentSlide;
+  final int numberOfStrips;
+  final int slideIndex;
   final EdgeInsets margins;
   final bool slidingNext;
 
   ProgressBar({
     @required this.flyerZoneWidth,
     this.barIsOn = true,
-    @required this.numberOfSlides,
-    this.currentSlide = 0,
+    @required this.numberOfStrips,
+    this.slideIndex = 0,
     this.margins,
     @required this.slidingNext,
   });
 
   @override
   Widget build(BuildContext context) {
-    int _numberOfSlides = numberOfSlides == 0 ? 1 : numberOfSlides;
+    print('========= BUILDING PROGRESS BAR FOR ||| index : $slideIndex, numberOfSlides : $numberOfStrips');
+
+    // int _numberOfSlides = numberOfSlides == 0 ? 1 : numberOfSlides;
 // -----------------------------------------------------------------------------
     double _boxWidth = flyerZoneWidth;
     double _boxHeight = flyerZoneWidth * Ratioz.xxProgressBarHeightRatio;
@@ -33,7 +35,7 @@ class ProgressBar extends StatelessWidget {
     double _allStripsOneSideMargin = (flyerZoneWidth - _allStripsLength) / 2;
     // double _aStripThickness = flyerZoneWidth * 0.007;
     // double _aStripOnePadding = _aStripThickness / 2;
-    double _aStripLength = (_allStripsLength / _numberOfSlides);
+    double _aStripLength = (_allStripsLength / numberOfStrips);
     // Color _stripColor = Colorz.White80;
     // double _stripCorner = _aStripThickness * 0.5;
     // Color _currentStripColor = numberOfSlides == 0 ? Colorz. White10 : Colorz.White200;
@@ -61,31 +63,31 @@ class ProgressBar extends StatelessWidget {
       bool _goingNext = slidingNext == null || slidingNext == true ? true : false;
       // -----------------------------------------o
       /// A - at first slide
-      if(currentSlide == 0){
+      if(slideIndex == 0){
         /// B - GOING NEXT
         if(_goingNext){
-          print('1 at first slide going next');
+          // print('1 at first slide going next');
           _numberOfStrips = 1;
         }
         /// B - GOING PREVIOUS
         else{
-          print('2 at first slide going previous');
+          // print('2 at first slide going previous');
           _numberOfStrips = 2;
         }
       }
       // -----------------------------------------o
       /// A - at last slide
-      else if (currentSlide + 1 == numberOfSlides){
+      else if (slideIndex + 1 == numberOfStrips){
 
         /// B - GOING NEXT
         if(_goingNext){
-          print('3 at last slide going next');
-          _numberOfStrips = numberOfSlides;
+          // print('3 at last slide going next');
+          _numberOfStrips = numberOfStrips;
         }
         /// B - GOING PREVIOUS
         else{
-          print('4 at last slide going previous');
-          _numberOfStrips = currentSlide + 3;
+          // print('4 at last slide going previous');
+          _numberOfStrips = slideIndex + 3;
         }
       }
       /// A - at middle slides
@@ -93,103 +95,125 @@ class ProgressBar extends StatelessWidget {
       else {
         /// B - GOING NEXT
         if(_goingNext){
-          print('5 at middle slide going next');
-          _numberOfStrips = currentSlide + 1;
+          // print('5 at middle slide going next');
+          _numberOfStrips = slideIndex + 1;
         }
         /// B - GOING PREVIOUS
         else{
-          print('6 at middle slide going previous');
-          _numberOfStrips = currentSlide + 2;
+          // print('6 at middle slide going previous');
+          _numberOfStrips = slideIndex + 2;
         }
       }
       // -----------------------------------------o
       return _numberOfStrips;
     }
 // -----------------------------------------------------------------------------
+    Widget _progressBox({List<Widget> children}){
+      return
+        Align(
+          alignment: Aligners.superTopAlignment(context),
+          child: Container(
+            width: _boxWidth,
+            height: _boxHeight,
+            margin: _boxMargins,
+            padding: EdgeInsets.symmetric(horizontal: _allStripsOneSideMargin),
+            alignment: Alignment.center,
+            child: Stack(
+              alignment: Aligners.superCenterAlignment(context),
+              children: children,
+            ),
+          ),
+        );
+    }
+// -----------------------------------------------------------------------------
     return
       _microMode == true || barIsOn == false  ?
       Container()
-          :
-      Align(
-        alignment: Aligners.superTopAlignment(context),
-        child: Container(
-          width: _boxWidth,
-          height: _boxHeight,
-          margin: _boxMargins,
-          padding: EdgeInsets.symmetric(horizontal: _allStripsOneSideMargin),
-          alignment: Alignment.center,
-          child: Stack(
-            alignment: Aligners.superCenterAlignment(context),
-            children: <Widget>[
 
-              /// --- BASE STRIP
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: List.generate(_numberOfSlides, (index) {
+      :
 
-                  return
-                    Strip(
-                      flyerZoneWidth: flyerZoneWidth,
-                      stripWidth: _aStripLength,
-                      numberOfSlides: numberOfSlides,
-                      margins: margins,
-                      isWhite: false,
-                    );
-
-                }),
-              ),
-
-              /// --- TOP STRIP
-              TweenAnimationBuilder<double>(
-                duration: Ratioz.duration150ms,
-                tween: _tween(),
-                curve: Curves.easeOut,
-                // onEnd: (){},
-                key: ValueKey(currentSlide),
-                builder: (BuildContext context,double tweenVal, Widget child){
-                  return
-                    Container(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-
-                          ...List.generate(_numberOfWhiteStrips(), (index) {
-                            // print('numberOfSlides : $numberOfSlides ,currentSlide : $currentSlide, index : $index, _numberOfWhiteStrips() : ${_numberOfWhiteStrips()}' );
-
-                            return
-                              /// IF ITS LAST STRIP
-                              index == currentSlide ?
-                              Strip(
-                                flyerZoneWidth: flyerZoneWidth,
-                                stripWidth: tweenVal,
-                                numberOfSlides: numberOfSlides,
-                                isWhite: true,
-                              )
-                                  :
-                              /// IF STATIC STRIPS
-                              Strip(
-                                flyerZoneWidth: flyerZoneWidth,
-                                stripWidth: _aStripLength,
-                                numberOfSlides: numberOfSlides,
-                                isWhite: true,
-                              );
-
-                          }),
-                        ],
-                      ),
-                    );
-
-                  },
-              ),
-
-
-            ],
+      numberOfStrips == 1 ?
+      _progressBox(
+        children: <Widget>[
+          Strip(
+              flyerZoneWidth: flyerZoneWidth,
+              stripWidth: _allStripsLength,
+              numberOfSlides: 1,
+              isWhite: true
           ),
-    ),
+        ]
+      )
+
+          :
+
+      _progressBox(
+        children: <Widget>[
+
+          /// --- BASE STRIP
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: List.generate(numberOfStrips, (index) {
+
+              return
+                Strip(
+                  flyerZoneWidth: flyerZoneWidth,
+                  stripWidth: _aStripLength,
+                  numberOfSlides: numberOfStrips,
+                  margins: margins,
+                  isWhite: false,
+                );
+
+            }),
+          ),
+
+          /// --- TOP STRIP
+          TweenAnimationBuilder<double>(
+            duration: Ratioz.duration150ms,
+            tween: _tween(),
+            curve: Curves.easeOut,
+            // onEnd: (){},
+            key: ValueKey(slideIndex),
+            builder: (BuildContext context,double tweenVal, Widget child){
+              return
+                Container(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+
+                      ...List.generate(_numberOfWhiteStrips(), (index) {
+                        // print('numberOfSlides : $numberOfSlides ,currentSlide : $currentSlide, index : $index, _numberOfWhiteStrips() : ${_numberOfWhiteStrips()}' );
+
+                        return
+                          /// IF ITS LAST STRIP
+                          index == slideIndex ?
+                          Strip(
+                            flyerZoneWidth: flyerZoneWidth,
+                            stripWidth: tweenVal,
+                            numberOfSlides: numberOfStrips,
+                            isWhite: true,
+                          )
+                              :
+                          /// IF STATIC STRIPS
+                          Strip(
+                            flyerZoneWidth: flyerZoneWidth,
+                            stripWidth: _aStripLength,
+                            numberOfSlides: numberOfStrips,
+                            isWhite: true,
+                          );
+
+                      }),
+                    ],
+                  ),
+                );
+
+            },
+          ),
+
+        ]
       );
   }
 }
@@ -220,18 +244,16 @@ class Strip extends StatelessWidget {
     double _stripCorner = _aStripThickness * 0.5;
     Color _stripColor = !isWhite ? Colorz.White80 : numberOfSlides == 0 ? Colorz. White10 : Colorz.White200;
 // -----------------------------------------------------------------------------
-    return Flexible(
+    return Container(
+      width: stripWidth,
+      height: _aStripThickness,
+      padding: EdgeInsets.symmetric(horizontal: _aStripOnePadding),
       child: Container(
-        width: stripWidth,
+        width: _aStripLength - (2 * _aStripOnePadding),
         height: _aStripThickness,
-        padding: EdgeInsets.symmetric(horizontal: _aStripOnePadding),
-        child: Container(
-          width: _aStripLength - (2 * _aStripOnePadding),
-          height: _aStripThickness,
-          decoration: BoxDecoration(
-              color: _stripColor,
-              borderRadius: Borderers.superBorderAll(context, _stripCorner)
-          ),
+        decoration: BoxDecoration(
+            color: _stripColor,
+            borderRadius: Borderers.superBorderAll(context, _stripCorner)
         ),
       ),
     );
