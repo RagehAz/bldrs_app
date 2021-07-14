@@ -73,7 +73,7 @@ class _FlyerStackListState extends State<FlyerStackList> {
       // cacheExtent: screenHeight*5,
       itemBuilder: (context,_x) {
 
-        print('_tinyFlyers[_x].flyerID = ${_tinyFlyers[_x].flyerID}');
+        // print('_tinyFlyers[_x].flyerID = ${_tinyFlyers[_x].flyerID}');
 
         return
 

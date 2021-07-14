@@ -2,8 +2,8 @@ import 'dart:io';
 import 'package:bldrs/controllers/drafters/animators.dart';
 import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/drafters/colorizers.dart';
-import 'package:bldrs/controllers/drafters/flyer_sliders.dart';
-import 'package:bldrs/controllers/drafters/imagers.dart';
+import 'package:bldrs/controllers/drafters/flyer_sliders.dart' show SwipeDirection, Sliders;
+import 'package:bldrs/controllers/drafters/imagers.dart' ;
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
@@ -31,6 +31,8 @@ import 'package:bldrs/views/screens/x1_flyers_publisher_screen.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:scroll_snap_list/scroll_snap_list.dart';
+import 'dart:math';
 
 class KeepAlivePage extends StatefulWidget {
   KeepAlivePage({
@@ -115,12 +117,14 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
   }
 // -----------------------------------------------------------------------------
   /// SLIDING BLOCK
-  /// usage :  onPageChanged: (i) => _onPageChanged(i),
+  // usage :  onPageChanged: (i) => _onPageChanged(i),
   bool _slidingNext;
   int _currentSlideIndex; /// in init : _currentSlideIndex = widget.index;
   int _numberOfSlides; /// in init : numberOfSlides = _assets.length;
   bool onPageChangedIsOn = true; /// onPageChanged: onPageChangedIsOn ? (i) => _onPageChanged(i) : (i) => Sliders.zombie(i),
+  int _numberOfStrips ;
   void _onPageChanged (int newIndex){
+    print('on page is changeddddddddddddddddddddddddd $newIndex');
     _slidingNext = Animators.slidingNext(newIndex: newIndex, currentIndex: _currentSlideIndex,);
     setState(() {_currentSlideIndex = newIndex;})
     ;}
@@ -139,6 +143,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
     _assets = widget.draftFlyerModel.assets;
     _currentSlideIndex = widget.index;
     _numberOfSlides = _assets.length;
+    _numberOfStrips = _numberOfSlides;
 
     _assetsAsFiles = widget.draftFlyerModel.assetsAsFiles;
     _picsFits = widget.draftFlyerModel.boxesFits;
@@ -164,219 +169,206 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
 
     return _visibilityList;
   }
-// -----------------------------------------------------------------------------
-  void _decreaseProgressBar(){
-
-    // /// A - If slides are not empty
-    // if (_numberOfSlides > 0){
-    //   setState(() {
-    //     _numberOfSlides = _numberOfSlides - 1;
-    //   });
-    //
-    // }
-    // /// A - if slides are empty
-    // else {
-    //   print('can not decrease progressBar');
-    // }
-
-    setState(() {
-      _numberOfSlides > 0 ?
-      _numberOfSlides = _numberOfSlides - 1 : print('can not decrease progressBar');
-    });
-
-
-  }
 // ---------------------------------------------------o
-  void _triggerVisibility(int currentSlide)  {
-    setState(() {
-      _slidesVisibility[currentSlide] = !_slidesVisibility[currentSlide];
-    });
-  }
+  Duration _fadingDuration = Ratioz.durationFading200;
+  Duration _fadingDurationX = Ratioz.durationFading210;
+  Duration _slidingDuration = Ratioz.durationSliding400;
+  Duration _slidingDurationX = Ratioz.durationSliding410;
 // ---------------------------------------------------o
-  void _statelessDelete(int currentSlide){
-    List<File> _currentSlides = _assetsAsFiles;
+  void _statelessTriggerVisibility(int index) {
 
-    /// **************
-    /// A - if slides are not empty
-    // if (_assetsAsFiles.isNotEmpty)
-    // {
-    //   // /// B1 - if at first slide
-    //   // if(currentSlide == 0){
-    //   //   _assetsAsFiles.removeAt(currentSlide);
-    //   //   _assets.removeAt(currentSlide);
-    //   //   // currentSlide=0;
-    //   // }
-    //   //
-    //   // /// B1 - if at a middle or last slide
-    //   // else{
-    //   //   _assetsAsFiles.removeAt(currentSlide);
-    //   //   _assets.removeAt(currentSlide);
-    //   // }
-    //   //
-    //   // /// B2 - visibility - titles - fits - matrixes
-    //   // _slidesVisibility.removeAt(currentSlide);
-    //   // _titleControllers.removeAt(currentSlide);
-    //   // _picsFits.removeAt(currentSlide);
-    //   // _matrixes.removeAt(currentSlide);
-    //
-    //   // slidesModes.removeAt(currentSlide);
-    //
-    //   /// xxxxxxxxxxxxx
-    //   _assetsAsFiles.removeAt(currentSlide);
-    //   _assets.removeAt(currentSlide);
-    //   _slidesVisibility.removeAt(currentSlide);
-    //   _titleControllers.removeAt(currentSlide);
-    //   _picsFits.removeAt(currentSlide);
-    //   _matrixes.removeAt(currentSlide);
-    //
-    // }
-    //
-    // /// A - if slides are empty
-    // else {
-    //   print('no Slide to delete');
-    // }
-    /// *******************
-    if (_assetsAsFiles.isNotEmpty)
-    {
-      if(currentSlide == 0){
-        _assetsAsFiles.removeAt(currentSlide);
-        // currentSlide=0;
+    if (index != null){
+      if(index >= 0 && _slidesVisibility.length != 0){
+        print('_slidesVisibility[index] was ${_slidesVisibility[index]} for index : $index');
+        _slidesVisibility[index] = !_slidesVisibility[index];
+        print('_slidesVisibility[index] is ${_slidesVisibility[index]} for index : $index');
       }
-
       else {
-        _assetsAsFiles.removeAt(currentSlide);
+        print('can not trigger visibility for index : $index');
       }
-
-      _assets.removeAt(currentSlide);
-      _slidesVisibility.removeAt(currentSlide);
-      _titleControllers.removeAt(currentSlide);
-      _picsFits.removeAt(currentSlide);
-      _matrixes.removeAt(currentSlide);
-
-    } else { print('no Slide to delete'); }
-    /// *******************
+    }
 
   }
 // ---------------------------------------------------o
-  void _currentSlideMinus(){
-
-    // /// A - if at first slide
-    // if (_currentSlideIndex == 0){
-    //   print('_currentSlideMinus : at first slide');
-    //   // _currentSlideIndex = 0; // Nothing to do
-    // }
-    //
-    // /// A - if at last slide
-    // else if (_currentSlideIndex + 1 == _numberOfSlides){
-    //   print('_currentSlideMinus : at last slide');
-    //   setState(() {
-    //     _currentSlideIndex = _currentSlideIndex - 1;
-    //   });
-    // }
-    //
-    // /// A - if at a middle
-    // else {
-    //   print('_currentSlideMinus : at middle slide');
-    //   // setState(() {
-    //   //   _currentSlideIndex = _currentSlideIndex - 1;
-    //   // });
-    // }
-
-    if (_currentSlideIndex == 0){_currentSlideIndex = 0;}
-    else {
-      setState(() {
-        _currentSlideIndex = _currentSlideIndex - 1;
-      });
-    }
-
-
+  void _statelessDelete(int index){
+    print('before stateless delete index was $index, _numberOfSlides is : $_numberOfSlides');
+    _assetsAsFiles.removeAt(index);
+    _assets.removeAt(index);
+    _slidesVisibility.removeAt(index);
+    _titleControllers.removeAt(index);
+    _picsFits.removeAt(index);
+    _matrixes.removeAt(index);
+    _numberOfSlides = _assets.length;
+    print('after stateless delete index is $index, _numberOfSlides is : $_numberOfSlides');
+    // _correctedIndex = _currentSlideIndex;
   }
 // -----------------------------------------------------------------------------
-  Future<void> _deleteSlide (int numberOfSlides, int currentSlide) async {
-
-    /// A - if slides are not empty
-    if (_assetsAsFiles.isNotEmpty) {
-
-      // // onPageChangedIsOn = false;
-      /// B1 - progress bar
-      _decreaseProgressBar();
-
-
-
-      /// B2 - visibility
-      _triggerVisibility(currentSlide);
-
-
-      /// B3 - slide to
-      Future.delayed(Ratioz.duration200ms, () async {
-        if(numberOfSlides != 0){
-        Sliders.slidingAction(_pageController, numberOfSlides, currentSlide);
-        }
-      });
-
-      // /// B4 - currentSlideIndex
-      _currentSlideMinus();
-
-      // xxxxxxxxxxxxxxxxxxxxx
-      numberOfSlides <= 1 ?
-      _statelessDelete(currentSlide) :
-      Future.delayed(
-          Ratioz.duration750ms,
-              () async {
-            if(currentSlide == 0){_statelessDelete(currentSlide);await Sliders.snapTo(_pageController, 0);}
-            else{_statelessDelete(currentSlide);}
-            setState(() {
-              // onPageChangedIsOn = true;
-              // numberOfSlides = _currentSlides.length;
-            });
-          }
-      );
-      // xxxxxxxxxxxxxxxxxxxxxx
-
-      // /// B5 - if  only zero or one slides left
-      // if (numberOfSlides <= 1){
-      //   /// C - delete slide
-      //   _statelessDelete(currentSlide);
-      // }
-      //
-      // /// B5 - if slides has more than 1 slide
-      // else {
-      //   Future.delayed(
-      //       Ratioz.duration750ms, () async {
-      //
-      //     /// C - if at first slide
-      //     if(currentSlide == 0){
-      //       _statelessDelete(currentSlide);
-      //       await Sliders.snapTo(_pageController, 0);
-      //     }
-      //
-      //     /// C - if at a middle of last slide
-      //     else{
-      //       _statelessDelete(currentSlide);
-      //     }
-      //
-      //     /// C - rebuild
-      //     setState(() {
-      //       // onPageChangedIsOn = true;
-      //       // numberOfSlides = _assets.length;
-      //     });
-      //
-      //   }
-      //   );
-      // }
-
-    }
+  Future<void> _deleteSlide() async {
 
     /// A - if slides are empty
-    else {
-      print('no slide to delete');
+    if (_numberOfSlides == 0){
+      print('nothing can be done');
     }
 
+    /// A - if slides are not empty
+    else {
 
-    // setState(() {
-    //
-    // });
+      /// B - if at (FIRST) slide
+      if (_currentSlideIndex == 0){
+        await _deleteFirstSlide();
+      }
 
+      /// B - if at (LAST) slide
+      else if (_currentSlideIndex + 1 == _numberOfSlides){
+        // _deleteLastSlide();
+      }
+
+      /// B - if at (Middle) slide
+      else {
+        // _deleteMiddleSlide();
+      }
+
+    }
+
+  }
+// -----------------------------------------------------------------------------
+  Future<void> _deleteFirstSlide() async {
+    print('DELETING STARTS AT (FIRST) index : $_currentSlideIndex, numberOfSlides : $_numberOfSlides ------------------------------------');
+
+    /// 1 - if only one slide remaining
+    if(_numberOfSlides == 1){
+
+      print('_slidesVisibility : ${_slidesVisibility.toString()}, _numberOfSlides : $_numberOfSlides');
+
+      /// A - decrease progress bar and trigger visibility
+      setState(() {
+        _statelessTriggerVisibility(_currentSlideIndex);
+        _numberOfStrips = 0;
+      });
+
+      /// B - wait fading to start deleting
+      await Future.delayed(_fadingDurationX, () async {
+
+          setState(() {
+          /// Dx - delete data
+          _statelessDelete(_currentSlideIndex);
+          _currentSlideIndex = null;
+          });
+
+      });
+
+    }
+
+    /// 2 - if two slides remaining
+    else if(_numberOfSlides == 2){
+      int _originalNumberOfSlides = _numberOfSlides;
+      int _decreasedNumberOfSlides =  _numberOfSlides - 1;
+      // int _originalIndex = 0;
+      // int _decreasedIndex = 0;
+
+      /// A - decrease progress bar and trigger visibility
+      setState(() {
+        onPageChangedIsOn = false;
+        _statelessTriggerVisibility(_currentSlideIndex);
+        _numberOfStrips = _numberOfSlides - 1;
+        // _slidingNext = true;
+      });
+
+
+      /// B - wait fading to start sliding
+      await Future.delayed(_fadingDurationX, () async {
+
+        /// C - slide
+        await Sliders.slideToNext(_pageController, _numberOfSlides, _currentSlideIndex);
+
+
+        /// D - delete when one slide remaining
+        /// E - wait for sliding to end
+        await Future.delayed(_fadingDurationX, () async {
+
+
+          // /// F - snap to index 0
+          // await Sliders.snapTo(_pageController, 0);
+          //
+          // print('now i can swipe again');
+          //
+          // /// G - trigger progress bar listener
+          setState(() {
+            /// Dx - delete data
+            _statelessDelete(_currentSlideIndex);
+            _currentSlideIndex = 0;
+            // _numberOfSlides = 1;
+            onPageChangedIsOn = true;
+          });
+
+        });
+
+
+      });
+    }
+
+    /// 2 - if more than two slides
+    else {
+
+      int _originalNumberOfSlides = _numberOfSlides;
+      int _decreasedNumberOfSlides =  _numberOfSlides - 1;
+      // int _originalIndex = 0;
+      // int _decreasedIndex = 0;
+
+      /// A - decrease progress bar and trigger visibility
+      setState(() {
+        onPageChangedIsOn = false;
+        _statelessTriggerVisibility(_currentSlideIndex);
+        _numberOfSlides = _decreasedNumberOfSlides;
+        _numberOfStrips = _numberOfSlides;
+        // _slidingNext = true;
+      });
+
+      /// B - wait fading to start sliding
+      await Future.delayed(_fadingDurationX, () async {
+
+        /// C - slide
+        await  Sliders.slideToNext(_pageController, _numberOfSlides, _currentSlideIndex);
+
+        /// D - delete when one slide remaining
+        if(_originalNumberOfSlides <= 1){
+
+          setState(() {
+          /// Dx - delte data
+          _statelessDelete(_currentSlideIndex);
+            onPageChangedIsOn = true;
+          });
+
+        }
+
+        /// D - delete when at many slides remaining
+        else {
+
+          /// E - wait for sliding to end
+          await Future.delayed(_fadingDurationX, () async {
+
+            /// Dx - delete data
+            _statelessDelete(_currentSlideIndex);
+            /// F - snap to index 0
+            await Sliders.snapTo(_pageController, 0);
+
+            print('now i can swipe again');
+
+            /// G - trigger progress bar listener
+            setState(() {
+              onPageChangedIsOn = true;
+            });
+
+          });
+
+        }
+
+      });
+
+
+    }
+
+    print('DDELETING ENDS AT (FIRST) : index : $_currentSlideIndex, numberOfSlides : $_numberOfSlides ------------------------------------');
   }
 // -----------------------------------------------------------------------------
   Future<void> _cropImage(File file) async {
@@ -411,6 +403,8 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
 
     /// A - if still picking images
     else {
+
+      _currentSlideIndex = _currentSlideIndex == null ? 0 : _currentSlideIndex;
 
       List<Asset> _newAssets;
 
@@ -450,7 +444,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
             // this asset is new
             if(_assetIndexInExistingAssets == -1){
               /// fit
-              _newFits.add(Imagers.concludeBoxFit(newAsset));
+              _newFits.add(Imagers.concludeBoxFit(asset: newAsset, flyerZoneWidth: widget.flyerZoneWidth));
               /// file
               File _newFile = await Imagers.getFileFromCropperAsset(newAsset);
               _newFiles.add(_newFile);
@@ -496,10 +490,11 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
             _slidesVisibility = _newVisibilities;
 
             _numberOfSlides = _assets.length;
+            _numberOfStrips = _numberOfSlides;
           });
 
           await _pageController.animateToPage(_newAssets.length - 1,
-              duration: Ratioz.duration400ms, curve: Curves.easeInOutCirc);
+              duration: Ratioz.durationSliding400, curve: Curves.easeInOutCirc);
 
           print(_assets.toString());
           print(_picsFits.toString());
@@ -515,6 +510,48 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
 
     _triggerLoading();
 
+  }
+// -----------------------------------------------------------------------------
+  List<Widget> _buildSlides(){
+    // print('========= BUILDING PROGRESS BAR FOR ||| index : $_currentSlideIndex, numberOfSlides : $_numberOfSlides');
+
+    BoxFit _currentPicFit = _picsFits.length == 0 ? null : _picsFits[_currentSlideIndex];
+
+    ImageSize _originalAssetSize =
+    _numberOfSlides == 0 ? null :
+    _assets.length == 0 ? null :
+    ImageSize(
+      width: _assets[_currentSlideIndex].originalWidth,
+      height: _assets[_currentSlideIndex].originalHeight,
+    );
+
+    return
+        <Widget>[
+          ...List.generate(_numberOfSlides, (i){
+
+            return
+            _numberOfSlides == 0 ? Container() :
+              AnimatedOpacity(
+                key: ObjectKey(widget.draftFlyerModel.key.value + i),
+                opacity: _slidesVisibility[i] == true ? 1 : 0,
+                duration: _fadingDuration,
+                child: SingleSlide(
+                  key: ObjectKey(widget.draftFlyerModel.key.value + i),
+                  flyerZoneWidth: widget.flyerZoneWidth,
+                  flyerID: null, //_flyer.flyerID,
+                  picture: _assetsAsFiles[i],//_currentSlides[index].picture,
+                  slideMode: SlideMode.Editor,//slidesModes[index],
+                  boxFit: _currentPicFit, // [fitWidth - contain - scaleDown] have the blur background
+                  titleController: _titleControllers[i],
+                  imageSize: _originalAssetSize,
+                  textFieldOnChanged: (text){
+                    print('text is : $text');
+                  },
+                ),
+              );
+
+          }),
+        ];
   }
 // -----------------------------------------------------------------------------
   @override
@@ -540,6 +577,11 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
     AuthorModel.getAuthorFromBzByAuthorID(_bz, _flyer.tinyAuthor.userID);
 
     BoxFit _currentPicFit = _picsFits.length == 0 ? null : _picsFits[_currentSlideIndex];
+
+    ImageSize _originalAssetSize = _assets.length == 0 || _assets == null ? null : ImageSize(
+      width: _assets[_currentSlideIndex].originalWidth,
+      height: _assets[_currentSlideIndex].originalHeight,
+    );
 
 // ------------------------------
     return MainLayout(
@@ -569,8 +611,26 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
           firstTimer: widget.firstTimer,
           loading: _loading,
           onTap: (){
-            print(_currentSlideIndex);
-            // _triggerLoading();
+
+            bool _blurLayerIsActive = Imagers().slideBlurIsOn(
+              pic: _assetsAsFiles[_currentSlideIndex],
+              boxFit: _picsFits[_currentSlideIndex],
+              flyerZoneWidth: widget.flyerZoneWidth,
+              imageSize: ImageSize(
+                width: _assets[_currentSlideIndex].originalWidth,
+                height: _assets[_currentSlideIndex].originalHeight,
+              ),
+            );
+
+            print('_currentSlideIndex : $_currentSlideIndex');
+            print('_blurLayerIsActive : $_blurLayerIsActive');
+
+            setState(() {
+              // onPageChangedIsOn = true;
+              _numberOfSlides = _assets.length;
+            });
+
+            _triggerLoading();
           },
         ),
 
@@ -641,17 +701,17 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                                 });
                               }
 
-                              else if(_currentPicFit == BoxFit.fitHeight){
-                                setState(() {
-                                  _picsFits[_currentSlideIndex] = BoxFit.cover;
-                                });
-                              }
-
                               else {
                                 setState(() {
                                   _picsFits[_currentSlideIndex] = BoxFit.fitWidth;
                                 });
                               }
+
+                              // else {
+                              //   setState(() {
+                              //     _picsFits[_currentSlideIndex] = BoxFit.fitWidth;
+                              //   });
+                              // }
 
                               // print('fit is : ${_picsFits[currentSlide]}');
 
@@ -694,7 +754,10 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                             onTap: () async {
                               // widget.onDeleteImage(_currentSlideIndex);
 
-                              await _deleteSlide(_numberOfSlides, _currentSlideIndex);
+                              await _deleteSlide(
+                                // numberOfSlides: _numberOfSlides,
+                                // currentSlide: _currentSlideIndex,
+                              );
 
                             },
                           ),
@@ -719,7 +782,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                             verse: 'Visible',
                             onTap: () async {
                               print('Trigger visibility');
-                              _triggerVisibility(_currentSlideIndex);
+                              _statelessTriggerVisibility(_currentSlideIndex);
                             },
                           ),
 
@@ -752,7 +815,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                 ),
 
                 /// FLYER
-                _assetsAsFiles.length == 0 ? Loading(loading: _loading) :
+                // _assetsAsFiles.length == 0 ? Loading(loading: _loading) :
                 Container(
                   width: _flyerZoneWidth,
                   height: _flyerZoneHeight,
@@ -762,52 +825,65 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                       children: <Widget>[
 
                         /// SLIDES
-                        NotificationListener<ScrollNotification>(
-                          onNotification: (ScrollNotification notification){
-                            // if (notification is ScrollUpdateNotification){
-                            //   print('bommm');
-                            // }
-                            return true;
-                            },
-                          child: PageView.builder(
-                              pageSnapping: true,
-                              controller: _pageController,
-                              physics: BouncingScrollPhysics(),
-                              allowImplicitScrolling: true,
-                              itemCount: _assets.length,
-                              onPageChanged: onPageChangedIsOn ? (i) => _onPageChanged(i) : (i) => Sliders.zombie(i),
-                              itemBuilder: (ctx, i){
+                        // NotificationListener<ScrollNotification>(
+                        //   onNotification: (ScrollNotification notification){
+                        // if (notification is ScrollUpdateNotification){
+                        //   print('bommm');
+                        // }
+                        // return true;
+                        // },
+                        //
+                        // /// slides if pageview.builder
+                        // child: PageView.builder(
+                        //     pageSnapping: true,
+                        //     controller: _pageController,
+                        //     physics: BouncingScrollPhysics(),
+                        //     allowImplicitScrolling: true,
+                        //     itemCount: _assets.length,
+                        //     onPageChanged: onPageChangedIsOn ? (i) => _onPageChanged(i) : (i) => Sliders.zombie(i),
+                        //     itemBuilder: (ctx, i){
+                        //
+                        //       double _ratio = _assets[i].originalWidth / _assets[i].originalHeight;
+                        //
+                        //       return
+                        //
+                        //         AnimatedOpacity(
+                        //           key: ObjectKey(widget.draftFlyerModel.key.value + i),
+                        //           opacity: _slidesVisibility[i] == true ? 1 : 0,
+                        //           duration: Duration(milliseconds: 100),
+                        //           child: SingleSlide(
+                        //             key: ObjectKey(widget.draftFlyerModel.key.value + i),
+                        //             flyerZoneWidth: _flyerZoneWidth,
+                        //             flyerID: null, //_flyer.flyerID,
+                        //             picture: _assetsAsFiles[i],//_currentSlides[index].picture,
+                        //             slideMode: SlideMode.Editor,//slidesModes[index],
+                        //             boxFit: _currentPicFit, // [fitWidth - contain - scaleDown] have the blur background
+                        //             titleController: _titleControllers[i],
+                        //             imageSize: _originalAssetSize,
+                        //             textFieldOnChanged: (text){
+                        //               print('text is : $text');
+                        //             },
+                        //           ),
+                        //         );
+                        //
+                        //     }
+                        // ),
+                        // ),
 
-                                double _ratio = _assets[i].originalWidth / _assets[i].originalHeight;
-
-                                ImageSize _imageSize = ImageSize(
-                                  width: _currentPicFit == BoxFit.fitWidth ? _flyerZoneWidth.toInt() : (_flyerZoneHeight*_ratio).toInt(),
-                                  height: _currentPicFit == BoxFit.fitWidth ? (_flyerZoneWidth~/_ratio).toInt() : _flyerZoneHeight.toInt(),
-                                );
-
-                                return
-
-                                  AnimatedOpacity(
-                                    key: ObjectKey(widget.draftFlyerModel.key.value + i),
-                                    opacity: _slidesVisibility[i] == true ? 1 : 0,
-                                    duration: Duration(milliseconds: 100),
-                                    child: SingleSlide(
-                                      key: ObjectKey(widget.draftFlyerModel.key.value + i),
-                                      flyerZoneWidth: _flyerZoneWidth,
-                                      flyerID: null, //_flyer.flyerID,
-                                      picture: _assetsAsFiles[i],//_currentSlides[index].picture,
-                                      slideMode: SlideMode.Editor,//slidesModes[index],
-                                      boxFit: _currentPicFit, // [fitWidth - contain - scaleDown] have the blur background
-                                      titleController: _titleControllers[i],
-                                      imageSize: _imageSize,
-                                      textFieldOnChanged: (text){
-                                        print('text is : $text');
-                                      },
-                                    ),
-                                  );
-
-                              }
-                          ),
+                        /// slides as pageview
+                        if(_currentSlideIndex != null)
+                        PageView(
+                          pageSnapping: true,
+                          controller: _pageController,
+                          physics: BouncingScrollPhysics(),
+                          allowImplicitScrolling: false,
+                          clipBehavior: Clip.antiAlias,
+                          restorationId: '${widget.draftFlyerModel.key.value}',
+                          onPageChanged: onPageChangedIsOn ? (i) => _onPageChanged(i) : (i) => Sliders.zombie(i),
+                          scrollDirection: Axis.horizontal,
+                          children: <Widget>[
+                            ..._buildSlides(),
+                          ],
                         ),
 
                         /// FLYER HEADER
@@ -828,11 +904,12 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                           ),
                         ),
 
-                        /// --- PROGRESS BAR
+                        /// PROGRESS BAR
+                        if(_numberOfStrips != 0 && _currentSlideIndex != null)
                         ProgressBar(
                           flyerZoneWidth: _flyerZoneWidth,
-                          numberOfSlides: _numberOfSlides,
-                          currentSlide: _currentSlideIndex,
+                          numberOfStrips: _numberOfStrips,
+                          slideIndex: _currentSlideIndex,
                           slidingNext: _slidingNext,
                         ),
 

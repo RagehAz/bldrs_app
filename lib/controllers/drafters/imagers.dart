@@ -437,12 +437,17 @@ static DecorationImage superImage(String picture, BoxFit boxFit){
 
   }
 // -----------------------------------------------------------------------------
-  static BoxFit concludeBoxFit(Asset asset){
+  static BoxFit concludeBoxFitOld(Asset asset){
   BoxFit _fit = asset.isPortrait ? BoxFit.fitHeight : BoxFit.fitWidth;
   return _fit;
   }
 // -----------------------------------------------------------------------------
-  static bool slideBlurIsOn(dynamic pic, ImageSize imageSize) {
+  bool slideBlurIsOn({
+    @required dynamic pic,
+    @required ImageSize imageSize,
+    @required BoxFit boxFit,
+    @required double flyerZoneWidth
+  }) {
     /// blur layer shall only be active if the height of image supplied is smaller
     /// than flyer height when image width = flyerWidth
     /// hangebha ezzay dih
@@ -454,62 +459,99 @@ static DecorationImage superImage(String picture, BoxFit boxFit){
 
     bool _blurIsOn = false;
 
-  // if(ObjectChecker.objectIsJPGorPNG(pic)){
-  //
-  // }
-  // else if(ObjectChecker.objectIsFile(pic)){
-  //   File _file = pic;
-  //   var _decodedImage = await decodeImageFromList(_file.readAsBytesSync());
-  //   _imageWidth = _file.
-  // }
-  // else if(ObjectChecker.objectIsAsset(pic)){
-  //   Asset _asset = pic;
-  //   _imageWidth = _asset.originalWidth.toDouble();
-  //   _imageHeight = _asset.originalHeight.toDouble();
-  // }
+    bool _imageSizeIsValid =
+    imageSize == null ? false :
+    imageSize.width == null ? false :
+    imageSize.height == null ? false :
+    imageSize.width <= 0 ? false :
+    imageSize.height <= 0 ? false :
+    true;
 
-  bool _imageSizeIsValid =
-  imageSize == null ? false :
-  imageSize.width == null ? false :
-  imageSize.height == null ? false :
-  imageSize.width <= 0 ? false :
-  imageSize.height <= 0 ? false :
-      true;
+    if(_imageSizeIsValid == true){
 
-  if(_imageSizeIsValid == true){
+      /// note : if ratio < 1 image is portrait, if ratio > 1 image is landscape
+      int _originalImageWidth = imageSize.width;
+      int _originalImageHeight= imageSize.height;
+      double _originalImageRatio = _originalImageWidth / _originalImageHeight
+      ;
+      /// slide aspect ratio : 1 / 1.74 ~= 0.575
+      double _flyerZoneHeight = flyerZoneWidth * Ratioz.xxflyerZoneHeight;
+      double _slideRatio = 1 / Ratioz.xxflyerZoneHeight;
 
-    int _imageWidth = imageSize.width;
-    int _imageHeight= imageSize.height;;
+      double _fittedImageWidth;
+      double _fittedImageHeight;
 
-    /// slide aspect ratio : 1 / 1.74 ~= 0.575
-    double _slideRatio = 1 / Ratioz.xxflyerZoneHeight;
+      /// if fit width
+      if (boxFit == BoxFit.fitWidth){
+        _fittedImageWidth = flyerZoneWidth;
+        _fittedImageHeight= flyerZoneWidth / _originalImageRatio;
+      }
 
-    /// note : if ratio < 1 image is portrait, if ratio > 1 image is landscape
-    double _imageRatio = _imageWidth / _imageHeight ;
+      /// if fit height
+      else {
+        _fittedImageWidth = _flyerZoneHeight * _originalImageRatio;
+        _fittedImageHeight= _flyerZoneHeight;
+      }
 
-    /// so
-    /// if _imageRatio < 0.575 image is narrower than slide,
-    /// if ratio > 0.575 image is wider than slide
-    double _errorPercentage = 10; // % percent
-    double _remainingAsFraction = (100 - _errorPercentage) / 100 ;
-    double _maxRatioWithoutBlur = _slideRatio / _remainingAsFraction; // 0.638
-    double _minRatioWithoutBlur = _slideRatio * _remainingAsFraction; // 0.517
+      double _fittedImageRatio = _fittedImageWidth / _fittedImageHeight;
 
-    /// so if narrower more than 10% or wider more than 10%, blur should be active and boxFit shouldn't be cover
-    if(_imageRatio >= _maxRatioWithoutBlur || _imageRatio <= _minRatioWithoutBlur){
-      print('blur is onnnnnnnnnnnnnnnnnnnnnnnnnnnnnn _imageRatio : $_imageRatio');
-      _blurIsOn = true;
+
+      /// so
+      /// if _originalImageRatio < 0.575 image is narrower than slide,
+      /// if ratio > 0.575 image is wider than slide
+      double _errorPercentage = Ratioz.slideFitWidthLimit; // ~= max limit from flyer width => flyerZoneWidth * 90%
+      double _maxRatioForBlur = _slideRatio / (_errorPercentage / 100);
+      double _minRatioForBlur = _slideRatio * (_errorPercentage / 100);
+
+      /// so if narrower more than 10% or wider more than 10%, blur should be active and boxFit shouldn't be cover
+      if(_minRatioForBlur > _fittedImageRatio || _fittedImageRatio > _maxRatioForBlur){
+        _blurIsOn = true;
+      }
+
+      else {
+        _blurIsOn = false;
+      }
+
+    File _file = pic;
+      // print('A - pic : ${_file?.fileNameWithExtension?.toString()}');
+      // print('B - ratio : $_fittedImageRatio = W:$_fittedImageWidth / H:$_fittedImageHeight');
+      // print('C - Fit : $boxFit');
+      // print('C - blur : $_blurIsOn');
+
     }
 
-    else {
-      print('blur is offfffffffffffffffffffffffffff _imageRatio : $_imageRatio');
-      _blurIsOn = false;
-    }
-
-  }
 
 
-  return _blurIsOn;
+    return _blurIsOn;
 }
 // -----------------------------------------------------------------------------
+  static BoxFit concludeBoxFit({Asset asset, double flyerZoneWidth}){
+  BoxFit _boxFit;
+
+  /// note : if ratio < 1 image is portrait, if ratio > 1 image is landscape
+  int _originalImageWidth = asset.originalWidth;
+  int _originalImageHeight= asset.originalHeight;
+  // double _originalImageRatio = _originalImageWidth / _originalImageHeight
+  ;
+  /// slide aspect ratio : 1 / 1.74 ~= 0.575
+  double _flyerZoneHeight = flyerZoneWidth * Ratioz.xxflyerZoneHeight;
+  // double _slideRatio = 1 / Ratioz.xxflyerZoneHeight;
+
+  // double _fittedImageWidth = flyerZoneWidth; // for info only
+  double _fittedImageHeight = (flyerZoneWidth * _originalImageHeight) / _originalImageWidth;
+
+  double _heightAllowingFitHeight = (Ratioz.slideFitWidthLimit/100) * _flyerZoneHeight;
+
+  /// if fitted height is less than the limit
+  if(_fittedImageHeight < _heightAllowingFitHeight){
+    _boxFit = BoxFit.fitWidth;
+  }
+
+  /// if fitted height is higher that the limit
+  else {
+    _boxFit = BoxFit.fitHeight;
+  }
+
+  return _boxFit;
+  }
 }
