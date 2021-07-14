@@ -949,8 +949,8 @@ class _OldFlyerEditorScreenState extends State<OldFlyerEditorScreen> {
                       // --- PROGRESS BAR
                       ProgressBar(
                         flyerZoneWidth: _flyerZoneWidth,
-                        numberOfSlides: numberOfSlides,
-                        currentSlide: _currentSlideIndex,
+                        numberOfStrips: numberOfSlides,
+                        slideIndex: _currentSlideIndex,
                         slidingNext: _slidingNext,
                       ),
 

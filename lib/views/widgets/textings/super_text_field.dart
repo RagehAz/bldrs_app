@@ -286,8 +286,8 @@ class _SuperTextFieldState extends State<SuperTextField> {
               // onSaved: (String koko) => widget.onSaved(koko),
               validator: widget.validator,
               onChanged: (val) => _onChanged(val),
-              autofocus: true,
-              focusNode: ,
+              autofocus: false,
+              // focusNode: ,
               onFieldSubmitted: (val) => widget.onSubmitted(val),
               onTap: (){
                 // double _keyboardHeight;

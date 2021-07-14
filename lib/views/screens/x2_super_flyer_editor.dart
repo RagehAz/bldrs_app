@@ -23,7 +23,6 @@ import 'package:bldrs/models/tiny_models/tiny_user.dart';
 import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/widgets/bubbles/words_bubble.dart';
-import 'package:bldrs/views/widgets/buttons/publish_button.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_sheet.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_zone.dart';
@@ -34,7 +33,6 @@ import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:bldrs/xxx_LABORATORY/camera_and_location/location_helper.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart' as sysPaths;
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
@@ -263,16 +261,16 @@ class _SuperFlyerEditorScreenState extends State<SuperFlyerEditorScreen> {
       _decreaseProgressBar();
       // onPageChangedIsOn = false;
       _triggerVisibility(currentSlide);
-      Future.delayed(Ratioz.duration150ms, (){
+      Future.delayed(Ratioz.durationFading200, (){
         Sliders.slidingAction(_slidingController, numberOfSlides, currentSlide);
       });
       _currentSlideMinus();
       numberOfSlides <= 1 ?
       _simpleDelete(currentSlide) :
       Future.delayed(
-          Ratioz.duration750ms,
-              () async {
-            if(currentSlide == 0){_simpleDelete(currentSlide);await Sliders.snapTo(_slidingController, 0);}
+          Ratioz.durationSliding400,
+              (){
+            if(currentSlide == 0){_simpleDelete(currentSlide);Sliders.snapTo(_slidingController, 0);}
             else{_simpleDelete(currentSlide);}
             setState(() {
               // onPageChangedIsOn = true;
@@ -287,6 +285,34 @@ class _SuperFlyerEditorScreenState extends State<SuperFlyerEditorScreen> {
   }
 // -----------------------------------------------------------------------------
   void _selectImage(File pickedImage){_pickedImage = pickedImage;}
+// -----------------------------------------------------------------------------
+  // Future<void> _takeCameraPicture() async {
+  //
+  //   final _imageFile = await takeCameraPicture(PicType.slideHighRes);
+  //
+  //   setState(() {
+  //     _storedImage = File(_imageFile.path);
+  //     _currentSlides.add(
+  //         SlideModel(
+  //           slideIndex: 0,
+  //           picture: _storedImage,
+  //           headline: _titleControllers[_currentSlides.length].text,
+  //         ));
+  //     currentSlide = _currentSlides.length - 1;
+  //     numberOfSlides = _currentSlides.length;
+  //     _slidesVisibility.add(true);
+  //     slidesModes.add(SlideMode.Editor);
+  //     _titleControllers.add(TextEditingController());
+  //     onPageChangedIsOn = true;
+  //   });
+  //
+  //   final appDir = await sysPaths.getApplicationDocumentsDirectory();
+  //   final fileName = path.basename(_imageFile.path);
+  //   final savedImage = await _storedImage.copy('${appDir.path}/$fileName');
+  //   _selectImage(savedImage);
+  //   slideTo(_slidingController, currentSlide);
+  //   // print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> after _takeCameraPicture');
+  // }
 // -----------------------------------------------------------------------------
   Future<void> _takeGalleryPicture() async {
 
@@ -823,11 +849,26 @@ class _SuperFlyerEditorScreenState extends State<SuperFlyerEditorScreen> {
         );
     }
 // -----------------------------------------------------------------------------
+    Widget _publishButton(){
+      return
+        DreamBox(
+          height: 35,
+          margins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
+          verse: widget.firstTimer ? 'Publish flyer' : 'update flyer',
+          verseColor: Colorz.Black230,
+          verseScaleFactor: 0.8,
+          color: Colorz.Yellow255,
+          icon: Iconz.AddFlyer,
+          iconSizeFactor: 0.6,
+          onTap: widget.firstTimer ? _createNewFlyer : _updateExistingFlyer,
+        );
+    }
+// -----------------------------------------------------------------------------
     return MainLayout(
       appBarType: AppBarType.Basic,
       pyramids: Iconz.DvBlankSVG,
       // appBarBackButton: true,
-      // sky: Sky.Black,
+      sky: Sky.Black,
       pageTitle: !_loading ? 'Create a New Flyer' : 'Waiting ...',
       loading: _loading,
       tappingRageh: () async {
@@ -847,11 +888,7 @@ class _SuperFlyerEditorScreenState extends State<SuperFlyerEditorScreen> {
 
         Expanded(child: Container(),),
 
-        PublishButton(
-          firstTimer: widget.firstTimer,
-          loading: true,
-          onTap: widget.firstTimer ? _createNewFlyer : _updateExistingFlyer,
-        ),
+        _publishButton(),
 
       ],
       layoutWidget: Stack(
@@ -875,7 +912,7 @@ class _SuperFlyerEditorScreenState extends State<SuperFlyerEditorScreen> {
                       PageView.builder(
                         controller: _slidingController,
                         itemCount: _currentSlides.length,
-                        onPageChanged: onPageChangedIsOn ? (i) => _onPageChanged(i) : (i) => Sliders.zombie(i),
+                        onPageChanged: onPageChangedIsOn ? (i) => _onPageChanged(i) : null,
                         physics: ClampingScrollPhysics(),
                         itemBuilder: (ctx, index) =>
                             AnimatedOpacity(
@@ -912,8 +949,8 @@ class _SuperFlyerEditorScreenState extends State<SuperFlyerEditorScreen> {
                       // --- PROGRESS BAR
                       ProgressBar(
                         flyerZoneWidth: _flyerZoneWidth,
-                        numberOfSlides: numberOfSlides,
-                        currentSlide: _currentSlideIndex,
+                        numberOfStrips: numberOfSlides,
+                        slideIndex:  _currentSlideIndex,
                         slidingNext: _slidingNext,
                       ),
 

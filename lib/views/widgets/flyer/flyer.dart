@@ -165,8 +165,8 @@ class _FlyerState extends State<Flyer> with AutomaticKeepAliveClientMixin{
           ProgressBar(
             flyerZoneWidth: _flyerZoneWidth,
             barIsOn: _barIsOn,
-            currentSlide: _currentSlideIndex >= _numberOfSlides ? 0 : _currentSlideIndex,
-            numberOfSlides: _numberOfSlides,
+            slideIndex: _currentSlideIndex >= _numberOfSlides ? 0 : _currentSlideIndex,
+            numberOfStrips: _numberOfSlides,
             slidingNext: _slidingNext,
           ),
 

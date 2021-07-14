@@ -120,7 +120,7 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
 
     await _scrollController.animateTo(
       _position,
-        duration: Ratioz.duration200ms,
+        duration: Ratioz.durationFading200,
         curve: _animationCurve,
     );
   }
@@ -250,7 +250,7 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
 // -----------------------------------------------------------------------------
   Future<void> _fadeInAndExpandStack(int index) async {
 
-    await Future.delayed(Ratioz.duration200ms, () async {
+    await Future.delayed(Ratioz.durationFading200, () async {
       setState(() {
         _draftsOpacities[index] = 1;
 
@@ -265,7 +265,7 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
 // -----------------------------------------------------------------------------
   Future<void> _scrollToBottom() async {
 
-    await Future.delayed(Ratioz.duration200ms, () async {
+    await Future.delayed(Ratioz.durationFading200, () async {
       await _scrollController.animateTo(
         _scrollController.position.maxScrollExtent,
         duration: _animationDuration,

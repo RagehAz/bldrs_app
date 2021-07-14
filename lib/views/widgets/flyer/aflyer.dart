@@ -181,9 +181,9 @@ class _AFlyerState extends State<AFlyer> with AutomaticKeepAliveClientMixin{
         if (widget.flyer != null)
         ProgressBar(
           flyerZoneWidth: _flyerZoneWidth,
-          numberOfSlides: widget.flyer?.slides?.length,
+          numberOfStrips: widget.flyer?.slides?.length,
           barIsOn: _barIsOn,
-          currentSlide: _currentSlideIndex,
+          slideIndex: _currentSlideIndex,
           slidingNext: _slidingNext,
         ),
 

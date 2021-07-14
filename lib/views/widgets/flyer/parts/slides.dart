@@ -147,7 +147,7 @@ class _SlidesState extends State<Slides> {
 
                   /// if its first slide swipe to last flyer
                   if (_newIndex == widget.currentSlideIndex){
-                    widget.swipeFlyer(SlidingDirection.back);
+                    widget.swipeFlyer(SwipeDirection.back);
                   }
                   /// if its a middle or last slide, slide to the new index
                   else {
@@ -172,7 +172,7 @@ class _SlidesState extends State<Slides> {
               //
               //     /// if its last slide swipe to next flyer
               //     if (_newIndex == widget.currentSlideIndex){
-              //       widget.swipeFlyer(SlidingDirection.next);
+              //       widget.swipeFlyer(SwipeDirection.next);
               //     }
               //     /// if its a middle or last slide, slide to the new index
               //     else {

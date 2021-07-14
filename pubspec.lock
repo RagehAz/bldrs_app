@@ -700,6 +700,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.1.5"
+  scroll_snap_list:
+    dependency: "direct main"
+    description:
+      name: scroll_snap_list
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.6.0"
   scrollable_positioned_list:
     dependency: "direct main"
     description:
