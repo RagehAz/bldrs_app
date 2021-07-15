@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/animators.dart';
+import 'package:bldrs/controllers/drafters/flyer_sliders.dart';
 import 'package:bldrs/controllers/drafters/launchers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/firestore/auth_ops.dart';
@@ -57,9 +58,9 @@ class _AFlyerState extends State<AFlyer> with AutomaticKeepAliveClientMixin{
 // -----------------------------------------------------------------------------
   /// SLIDING BLOCK
   /// usage :  onPageChanged: (i) => _onPageChanged(i),
-  bool _slidingNext;
+  SwipeDirection _slidingNext;
   void _onPageChanged (int newIndex){
-    _slidingNext = Animators.slidingNext(newIndex: newIndex, currentIndex: _currentSlideIndex,);
+    _slidingNext = Animators.getSwipeDirection(newIndex: newIndex, oldIndex: _currentSlideIndex,);
     setState(() {_currentSlideIndex = newIndex;});
   }
 // -----------------------------------------------------------------------------
@@ -184,7 +185,7 @@ class _AFlyerState extends State<AFlyer> with AutomaticKeepAliveClientMixin{
           numberOfStrips: widget.flyer?.slides?.length,
           barIsOn: _barIsOn,
           slideIndex: _currentSlideIndex,
-          slidingNext: _slidingNext,
+          swipeDirection: _slidingNext,
         ),
 
         AnkhButton(

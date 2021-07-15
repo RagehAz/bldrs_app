@@ -47,7 +47,7 @@ class Sliders{
       duration: Ratioz.durationSliding400, curve: Curves.easeInOutCirc);
 }
 // -----------------------------------------------------------------------------
-  static Future<void> slideToBack(PageController slidingController, int currentSlide) async {
+  static Future<void> slideToBackFrom(PageController slidingController, int currentSlide) async {
   if (currentSlide == 0){print('can not slide back');} else {
     await slidingController.animateToPage(currentSlide - 1,
         duration: Ratioz.durationSliding400,
@@ -93,7 +93,7 @@ class Sliders{
   static Future<void> slidingAction(PageController slidingController, int numberOfSlides, int currentSlide) async {
   // print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> before slidingAction');
     slidingDecision(numberOfSlides, currentSlide) == SwipeDirection.next ? await slideToNext(slidingController, numberOfSlides, currentSlide) :
-    slidingDecision(numberOfSlides, currentSlide) == SwipeDirection.back ? await slideToBack(slidingController, currentSlide) :
+    slidingDecision(numberOfSlides, currentSlide) == SwipeDirection.back ? await slideToBackFrom(slidingController, currentSlide) :
     slidingDecision(numberOfSlides, currentSlide) == SwipeDirection.freeze ? await slideTo(slidingController, currentSlide,)
         :
     print('no sliding possible ');
