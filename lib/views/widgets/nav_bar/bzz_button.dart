@@ -263,7 +263,7 @@ Widget _nanoBzLogo(BuildContext context, String bzID){
                           width: _circleWidth * 0.47,
                           verse: '+${(bzzIDs.length - 3)}',
                           verseWeight: VerseWeight.thin,
-                          verseScaleFactor: 0.3,
+                          verseScaleFactor: 0.35,
                           bubble: false,
                           onTap: onTap,
                         ),

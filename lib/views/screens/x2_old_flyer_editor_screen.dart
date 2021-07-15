@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:bldrs/controllers/drafters/animators.dart';
-import 'package:bldrs/controllers/drafters/flyer_sliders.dart';
+import 'package:bldrs/controllers/drafters/sliders.dart';
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/text_shapers.dart';
@@ -348,11 +348,15 @@ class _OldFlyerEditorScreenState extends State<OldFlyerEditorScreen> {
 // -----------------------------------------------------------------------------
   /// SLIDING BLOCK
   /// usage :  onPageChanged: (i) => _onPageChanged(i),
-  SwipeDirection _slidingNext;
+  SwipeDirection _swipeDirection = SwipeDirection.next;
   void _onPageChanged (int newIndex){
-    _slidingNext = Animators.getSwipeDirection(newIndex: newIndex, oldIndex: _currentSlideIndex,);
-    setState(() {_currentSlideIndex = newIndex;})
-    ;}
+    print('on page is changed new index is : $newIndex');
+    SwipeDirection _direction = Animators.getSwipeDirection(newIndex: newIndex, oldIndex: _currentSlideIndex,);
+    setState(() {
+      _swipeDirection = _direction;
+      _currentSlideIndex = newIndex;
+    });
+  }
 // -----------------------------------------------------------------------------
   // void tappingNewSlide(){
   //   setState(() {
@@ -951,7 +955,7 @@ class _OldFlyerEditorScreenState extends State<OldFlyerEditorScreen> {
                         flyerZoneWidth: _flyerZoneWidth,
                         numberOfStrips: numberOfSlides,
                         slideIndex: _currentSlideIndex,
-                        swipeDirection: _slidingNext,
+                        swipeDirection: _swipeDirection,
                       ),
 
                     ],

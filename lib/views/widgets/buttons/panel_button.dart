@@ -1,8 +1,6 @@
-import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
-import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class PanelButton extends StatelessWidget {
@@ -20,66 +18,55 @@ class PanelButton extends StatelessWidget {
     this.icon,
     this.verse,
     @required this.onTap,
-    this.iconSizeFactor,
+    this.iconSizeFactor = 0.6,
     this.blackAndWhite,
     this.isAuthorButton = false,
     @required this.flyerZoneWidth,
   });
 
+  static Widget panelDot({double panelButtonWidth}){
+
+    double _dotSize = panelButtonWidth * 0.15;
+
+    return
+        DreamBox(
+          height: _dotSize,
+          width: _dotSize,
+          color: Colorz.White50,
+          corners: _dotSize * 0.5,
+          margins: _dotSize * 0.5,
+        );
+  }
+
   @override
   Widget build(BuildContext context) {
 
-    double _iconSizeFactor = iconSizeFactor == null ? 0.6 : iconSizeFactor;
-    bool _blackAndWhite = blackAndWhite == null ? false : blackAndWhite;
+    // BorderRadius _authorCorners =
+    // isAuthorButton == true ?
+    // Borderers.superLogoShape(context: context, zeroCornerEnIsRight: false, corner: Ratioz.xxflyerAuthorPicCorner * flyerZoneWidth) :
+    // Borderers.superBorderAll(context,  Ratioz.appBarButtonCorner);
+    // ;
 
-    double _buttonSize = size - Ratioz.appBarPadding * 2;
+    return
+      DreamBox(
+        width: size,
+        height: size * 1.35,
+        margins: EdgeInsets.symmetric(vertical: Ratioz.appBarPadding),
+        color:  Colorz.White80,
+        icon: icon,
+        iconSizeFactor: iconSizeFactor,
+        underLine: verse,
+        underLineShadowIsOn: false,
+        underLineColor: Colorz.White255,
+        // verseScaleFactor: 1.2,
+        // corners: Borderers.superLogoShape(context: context, zeroCornerEnIsRight: false, corner: Ratioz.xxflyerAuthorPicCorner * flyerZoneWidth),
+        bubble: true,
+        onTap: onTap,
+      );
 
-    BorderRadius _authorCorners =
-    isAuthorButton == true ?
-    Borderers.superLogoShape(context: context, zeroCornerEnIsRight: false, corner: Ratioz.xxflyerAuthorPicCorner * flyerZoneWidth) :
-    Borderers.superBorderAll(context,  Ratioz.appBarButtonCorner);
-    ;
-
-    return Container(
-      width: size,
-      height: size * 1.7,
-      margin: EdgeInsets.symmetric(vertical: Ratioz.appBarPadding),
-      decoration: BoxDecoration(
-        color: Colorz.White80,
-        borderRadius: Borderers.superBorderAll(context, Ratioz.appBarButtonCorner),
-      ),
-      child: Column(
-        children: <Widget>[
-
-          DreamBox(
-            height: _buttonSize,
-            width: _buttonSize,
-            color: Colorz.White255,
-            verseWeight: VerseWeight.thin,
-            verseScaleFactor: 0.8,
-            verseColor: Colorz.Black255,
-            icon: icon,
-            iconColor: Colorz.Black255,
-            iconSizeFactor: _iconSizeFactor,
-            margins: 5,
-            blackAndWhite: _blackAndWhite,
-            onTap: onTap,
-            corners: _authorCorners,
-            iconRounded: false,
-          ),
-
-          Container(
-            width: _buttonSize,
-            child: SuperVerse(
-              verse: verse,
-              color: Colorz.Black255,
-              size: 1,
-              maxLines: 2,
-            ),
-          ),
-
-        ],
-      ),
-    );
   }
 }
+
+
+
+
