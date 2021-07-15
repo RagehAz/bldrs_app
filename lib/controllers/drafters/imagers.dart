@@ -86,8 +86,8 @@ static DecorationImage superImage(String picture, BoxFit boxFit){
       Image.file(
         pic,
         fit: _boxFit,
-        width: width.toDouble(),
-        height: height.toDouble(),
+        width: width?.toDouble(),
+        height: height?.toDouble(),
       )
           :
       ObjectChecker.objectIsAsset(pic)?

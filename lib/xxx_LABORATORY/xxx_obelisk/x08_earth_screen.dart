@@ -1,5 +1,4 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
-import 'package:bldrs/controllers/drafters/zoomable_widget.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
@@ -26,19 +25,16 @@ class EarthScreenState extends State<EarthScreen> {
       pageTitle: 'The Entire Fucking Planet',
       appBarType: AppBarType.Basic,
       pyramids: Iconz.PyramidsYellow,
-      layoutWidget: ZoomableWidget(
-
-        child: Container(
-          width: _screenWidth * _countrySizeFactor,
-          height: _screenHeight * _countrySizeFactor,
-          color: Colorz.BloodTest,
-          alignment: Alignment.center,
-          child: Stack(
+      layoutWidget: Container(
+        width: _screenWidth * _countrySizeFactor,
+        height: _screenHeight * _countrySizeFactor,
+        color: Colorz.BloodTest,
+        alignment: Alignment.center,
+        child: Stack(
             alignment: Alignment.center,
             children: <Widget>[]
-            // worldDots(screenWidth,)
-            // countryDots(countryWidth, Flagz.egy),
-          ),
+          // worldDots(screenWidth,)
+          // countryDots(countryWidth, Flagz.egy),
         ),
       ),
     );

@@ -1,7 +1,6 @@
 import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
-import 'package:bldrs/controllers/drafters/zoomable_widget.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
@@ -21,6 +20,7 @@ import 'package:bldrs/views/widgets/buttons/publish_button.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_zone.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header.dart';
 import 'package:bldrs/views/widgets/flyer/parts/progress_bar.dart';
+import 'package:bldrs/views/widgets/flyer/parts/slides_parts/zoomable_pic.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
@@ -41,8 +41,9 @@ class SlideFullScreen extends StatelessWidget {
 
     return MainLayout(
       pageTitle: 'Create flyers',
-      pyramids: Iconz.DvBlankSVG,
+      pyramids: Iconz.PyramidzYellow,
       appBarType: AppBarType.Non,
+      sky: Sky.Black,
       appBarRowWidgets: <Widget>[
 
       ],
@@ -51,8 +52,15 @@ class SlideFullScreen extends StatelessWidget {
         child: Container(
           width: Scale.superScreenWidth(context),
           height: Scale.superScreenHeight(context),
-          child: ZoomableWidget(
-              child: Imagers.superImageWidget(image)
+          alignment: Alignment.center,
+          child: ZoomablePicture(
+            child: Imagers.superImageWidget(
+              image,
+              fit: BoxFit.fitWidth,
+              width: Scale.superScreenWidth(context).toInt(),
+              height: Scale.superScreenHeight(context).toInt(),
+            ),
+            isOn: true,
           ),
         ),
       ),
