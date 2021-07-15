@@ -100,14 +100,15 @@ class _AnkhButtonState extends State<AnkhButton> with SingleTickerProviderStateM
     // Color flyerShadowColor = ankhIsOn == true ? Colorz.BlackBlack : Colorz.BlackBlack;
 // -----------------------------------------------------------------------------
     return
-      AnimatedBuilder(
-        animation: _ankhAniController,
-        builder: (BuildContext context, _) =>
-            Positioned(
-              left: Wordz.textDirection(context) == 'ltr' ? null : 0,
-              right: Wordz.textDirection(context) == 'ltr' ? 0 : null,
-              bottom: 0,
-              child:
+      Positioned(
+        left: Wordz.textDirection(context) == 'ltr' ? null : 0,
+        right: Wordz.textDirection(context) == 'ltr' ? 0 : null,
+        bottom: 0,
+        child:
+        AnimatedBuilder(
+          animation: _ankhAniController,
+          builder: (BuildContext context, _){
+            return
               Stack(
                 alignment: Alignment.center,
                 children: <Widget>[
@@ -121,7 +122,6 @@ class _AnkhButtonState extends State<AnkhButton> with SingleTickerProviderStateM
                       color: widget.ankhIsOn == true ? Colorz.Yellow80 : Colorz.Nothing,//_ankhColorAni.value,
                     ),
                   ),
-
                   (widget.microMode == true && widget.ankhIsOn == false) || widget.bzPageIsOn == true ? Container():
                   DreamBox(
                       icon: widget.ankhIsOn == true ? Iconz.SaveOn : Iconz.SaveOff, // saveBTIcon,
@@ -136,11 +136,12 @@ class _AnkhButtonState extends State<AnkhButton> with SingleTickerProviderStateM
                         // _ankhIsOn == false ? _ankhAniController.forward() :
                         // _ankhAniController.reverse();
                       }
-                  ),
+                      ),
 
                 ],
-              ),
-            ),
+              );
+            },
+        ),
       );
   }
 }

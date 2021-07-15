@@ -1,5 +1,5 @@
 import 'dart:math' as math;
-import 'package:bldrs/controllers/drafters/flyer_sliders.dart';
+import 'package:bldrs/controllers/drafters/sliders.dart';
 import 'package:bldrs/controllers/drafters/text_directionerz.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:flutter/material.dart';
