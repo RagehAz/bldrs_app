@@ -24,7 +24,6 @@ import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/fire_search_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/firebase_testing.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/google_sign_in_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/random_test_space.dart';
-import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/share_and_gallery_image_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/slider_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/text_field_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x03_font_test_screen.dart';
@@ -242,8 +241,6 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
           oButton('22 - PopUp', Iconz.News, PopUpTestScreen()),
 
           oButton('23 - Form', Iconz.Terms, TestFormScreen()),
-
-          oButton('25 - ShareAndAddImageTest', Iconz.Share, ShareAndAddImageTest()),
 
           oButton('26 - City Dots', Iconz.Earth, EarthScreen()),
 
