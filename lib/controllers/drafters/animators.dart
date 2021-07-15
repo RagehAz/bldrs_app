@@ -1,4 +1,5 @@
 import 'dart:math' as math;
+import 'package:bldrs/controllers/drafters/flyer_sliders.dart';
 import 'package:bldrs/controllers/drafters/text_directionerz.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:flutter/material.dart';
@@ -21,15 +22,19 @@ class Animators{
     return radian;
   }
 // -----------------------------------------------------------------------------
-  static bool slidingNext({int currentIndex, int newIndex}){
-    bool _slidingNext;
-    if( newIndex > currentIndex ){
-      _slidingNext = true;
-    } else {
-      _slidingNext = false;
+  static SwipeDirection getSwipeDirection({int oldIndex, int newIndex}){
+    SwipeDirection _swipeDirection;
+    if( newIndex > oldIndex ){
+      _swipeDirection = SwipeDirection.next;
+    }
+    else if( newIndex < oldIndex)
+      _swipeDirection = SwipeDirection.back;
+    else {
+      _swipeDirection = SwipeDirection.freeze;
     }
 
-    return _slidingNext;
+    // print('getSwipeDirection concluded going from [ old index ($oldIndex) ] to [ new index ($newIndex) ] is [$_swipeDirection]');
+    return _swipeDirection;
   }
 // -----------------------------------------------------------------------------
 }
