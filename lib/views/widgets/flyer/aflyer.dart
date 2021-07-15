@@ -1,5 +1,5 @@
 import 'package:bldrs/controllers/drafters/animators.dart';
-import 'package:bldrs/controllers/drafters/flyer_sliders.dart';
+import 'package:bldrs/controllers/drafters/sliders.dart';
 import 'package:bldrs/controllers/drafters/launchers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/firestore/auth_ops.dart';

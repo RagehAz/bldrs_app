@@ -183,7 +183,6 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
               splashColor: Colorz.DarkRed125,
               underLine: 'Ripple Effect\n Works Now',
               underLineColor: Colorz.Black230,
-              underLineLabelColor: Colorz.Yellow200,
               onTap: (){
                 print('ripple effect works now');
                 Navigator.push(context,

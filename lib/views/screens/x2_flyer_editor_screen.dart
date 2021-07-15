@@ -1,8 +1,9 @@
 import 'dart:io';
+import 'package:bldrs/controllers/drafters/aligners.dart';
 import 'package:bldrs/controllers/drafters/animators.dart';
 import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/drafters/colorizers.dart';
-import 'package:bldrs/controllers/drafters/flyer_sliders.dart' show SwipeDirection, Sliders;
+import 'package:bldrs/controllers/drafters/sliders.dart' show SwipeDirection, Sliders;
 import 'package:bldrs/controllers/drafters/imagers.dart' ;
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
@@ -15,24 +16,22 @@ import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/models/tiny_models/tiny_user.dart';
-import 'package:bldrs/views/screens/x2_super_flyer_editor.dart';
+import 'package:bldrs/views/screens/x2_old_flyer_editor_screen.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/buttons/panel_button.dart';
 import 'package:bldrs/views/widgets/buttons/publish_button.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
-import 'package:bldrs/views/widgets/flyer/parts/flyer_zone.dart';
+import 'package:bldrs/views/widgets/flyer/parts/ankh_button.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header.dart';
 import 'package:bldrs/views/widgets/flyer/parts/progress_bar.dart';
+import 'package:bldrs/views/widgets/flyer/parts/slides_parts/footer.dart';
 import 'package:bldrs/views/widgets/flyer/parts/slides_parts/single_slide.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
-import 'package:bldrs/views/widgets/loading/loading.dart';
+import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/views/screens/x1_flyers_publisher_screen.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
-import 'package:image_cropper/image_cropper.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:scroll_snap_list/scroll_snap_list.dart';
-import 'dart:math';
 
 class KeepAlivePage extends StatefulWidget {
   KeepAlivePage({
@@ -124,7 +123,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
   bool onPageChangedIsOn = true; /// onPageChanged: onPageChangedIsOn ? (i) => _onPageChanged(i) : (i) => Sliders.zombie(i),
   int _numberOfStrips ;
   void _onPageChanged (int newIndex){
-    print('on page is changed new index is : $newIndex');
+    print('flyer onPageChanged oldIndex: $_currentSlideIndex, newIndex: $newIndex, _numberOfSlides: $_numberOfSlides');
     SwipeDirection _direction = Animators.getSwipeDirection(newIndex: newIndex, oldIndex: _currentSlideIndex,);
     setState(() {
       _swipeDirection = _direction;
@@ -330,18 +329,32 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                 key: ObjectKey(widget.draftFlyerModel.key.value + i),
                 opacity: _slidesVisibility[i] == true ? 1 : 0,
                 duration: _fadingDuration,
-                child: SingleSlide(
-                  key: ObjectKey(widget.draftFlyerModel.key.value + i),
-                  flyerZoneWidth: widget.flyerZoneWidth,
-                  flyerID: null, //_flyer.flyerID,
-                  picture: _assetsAsFiles[i],//_currentSlides[index].picture,
-                  slideMode: SlideMode.Editor,//slidesModes[index],
-                  boxFit: _currentPicFit, // [fitWidth - contain - scaleDown] have the blur background
-                  titleController: _titleControllers[i],
-                  imageSize: _originalAssetSize,
-                  textFieldOnChanged: (text){
-                    print('text is : $text');
-                  },
+                child: Stack(
+                  children: <Widget>[
+
+                    SingleSlide(
+                      key: ObjectKey(widget.draftFlyerModel.key.value + i),
+                      flyerZoneWidth: widget.flyerZoneWidth,
+                      flyerID: null, //_flyer.flyerID,
+                      picture: _assetsAsFiles[i],//_currentSlides[index].picture,
+                      slideMode: SlideMode.Editor,//slidesModes[index],
+                      boxFit: _currentPicFit, // [fitWidth - contain - scaleDown] have the blur background
+                      titleController: _titleControllers[i],
+                      imageSize: _originalAssetSize,
+                      textFieldOnChanged: (text){
+                        print('text is : $text');
+                      },
+                    ),
+
+                    FlyerFooter(
+                      flyerZoneWidth: widget.flyerZoneWidth,
+                      saves: 0,
+                      shares: 0,
+                      views: 0,
+                      tappingShare: null,
+                    ),
+
+                  ],
                 ),
               );
 
@@ -622,12 +635,15 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
 
     BoxFit _currentPicFit = _picsFits.length == 0 ? null : _picsFits[_currentSlideIndex];
 
-    ImageSize _originalAssetSize = _assets.length == 0 || _assets == null ? null : ImageSize(
-      width: _assets[_currentSlideIndex].originalWidth,
-      height: _assets[_currentSlideIndex].originalHeight,
-    );
+    // ImageSize _originalAssetSize = _assets.length == 0 || _assets == null ? null : ImageSize(
+    //   width: _assets[_currentSlideIndex].originalWidth,
+    //   height: _assets[_currentSlideIndex].originalHeight,
+    // );
 
 // ------------------------------
+
+    double _panelButtonSize = _buttonSize * 0.8;
+
     return MainLayout(
       pyramids: Iconz.DvBlankSVG,
       appBarType: AppBarType.Basic,
@@ -635,17 +651,25 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
 
         DreamBox(
           height: Ratioz.appBarButtonSize,
-          verse: 'super editor',
-          verseScaleFactor: 0.6,
-          color: Colorz.Red225,
-          onTap: (){
-            Nav.goToNewScreen(context,
-                SuperFlyerEditorScreen(
-                  bzModel: widget.bzModel,
-                  firstTimer: true,
-                  flyerModel: null,
-                )
+          // width: Ratioz.appBarButtonSize * 1.3,
+          verse: '122 slides',
+          verseItalic: true,
+          verseMaxLines: 2,
+          verseScaleFactor: 0.5,
+          secondLine: 'available',
+          secondLineScaleFactor: 0.9,
+          verseCentered: false,
+          bubble: false,
+          color: Colorz.White20,
+          onTap: () async {
+
+            await superDialog(
+              context: context,
+              boolDialog: true,
+              title: 'No Slides left',
+              body: 'You don\'t have any more slides to add\nWould you wish to get more slides ?',
             );
+
             },
         ),
 
@@ -655,24 +679,6 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
           firstTimer: widget.firstTimer,
           loading: _loading,
           onTap: (){
-
-            bool _blurLayerIsActive = Imagers().slideBlurIsOn(
-              pic: _assetsAsFiles[_currentSlideIndex],
-              boxFit: _picsFits[_currentSlideIndex],
-              flyerZoneWidth: widget.flyerZoneWidth,
-              imageSize: ImageSize(
-                width: _assets[_currentSlideIndex].originalWidth,
-                height: _assets[_currentSlideIndex].originalHeight,
-              ),
-            );
-
-            print('_currentSlideIndex : $_currentSlideIndex');
-            print('_blurLayerIsActive : $_blurLayerIsActive');
-
-            setState(() {
-              // onPageChangedIsOn = true;
-              _numberOfSlides = _assets.length;
-            });
 
             _triggerLoading();
           },
@@ -702,27 +708,31 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                   child: Container(
                     width: _panelWidth - Ratioz.appBarMargin,
                     height: _panelHeight,
-                    padding: EdgeInsets.all(Ratioz.appBarPadding),
+                    // padding: EdgeInsets.all(Ratioz.appBarPadding),
                     decoration: BoxDecoration(
-                      borderRadius: Borderers.superBorderAll(context, Ratioz.appBarCorner),
-                      color: Colorz.White10,
+                      // borderRadius: Borderers.superBorderAll(context, Ratioz.appBarCorner),
+                      // color: Colorz.Red125,//Colorz.White10,
                     ),
                     child: ClipRRect(
                       borderRadius: Borderers.superBorderAll(context, Ratioz.appBarCorner),
-                      child: ListView(
-                        shrinkWrap: true,
+                      child: Column(
+                        // shrinkWrap: true,
 
                         children: <Widget>[
 
                           /// SHOW AUTHOR
-                          PanelButton(
-                            size: _buttonSize,
-                            flyerZoneWidth: _flyerZoneWidth,
-                            verse: _showAuthor == true ? 'Author Shown' : 'Author Hidden',
+                          DreamBox(
+                            height: Ratioz.xxflyerLogoWidth * _flyerZoneWidth,
+                            margins: EdgeInsets.symmetric(vertical: (Ratioz.xxflyerHeaderMiniHeight - Ratioz.xxflyerLogoWidth) * _flyerZoneWidth / 2),
+                            width: _buttonSize,
+                            color: _showAuthor == true ? Colorz.White80 : Colorz.White80,
                             icon: _author.authorPic,
-                            iconSizeFactor: 1,
+                            underLine: _showAuthor == true ? 'Author Shown' : 'Author Hidden',
+                            underLineShadowIsOn: false,
+                            underLineColor: _showAuthor == true ? Colorz.White255 : Colorz.White80,
+                            corners: Borderers.superLogoShape(context: context, zeroCornerEnIsRight: false, corner: Ratioz.xxflyerAuthorPicCorner * _flyerZoneWidth),
                             blackAndWhite: _showAuthor == true ? false : true,
-                            isAuthorButton: true,
+                            bubble: _showAuthor == true ? true : false,
                             onTap: (){
                               setState(() {
                                 _showAuthor = !_showAuthor;
@@ -730,12 +740,86 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                             },
                           ),
 
+                          /// SPACER
+                          Expanded(
+                            child: Container(),
+                          ),
+
+                          /// ADD IMAGE
+                          PanelButton(
+                            size: _panelButtonSize,
+                            flyerZoneWidth: _flyerZoneWidth,
+                            icon:  Iconz.Plus,
+                            iconSizeFactor: 0.5,
+                            verse: 'Add',
+                            onTap: () async {
+                              print('adding Image');
+                              await _getMultiImages(accountType: BzAccountType.Super);
+                            },
+                          ),
+
+                          /// DELETE IMAGE
+                          PanelButton(
+                            size: _panelButtonSize,
+                            flyerZoneWidth: _flyerZoneWidth,
+                            icon:  Iconz.XSmall,
+                            iconSizeFactor: 0.5,
+                            verse: 'Delete',
+                            onTap: () async {
+                              // widget.onDeleteImage(_currentSlideIndex);
+
+                              await _deleteSlide(
+                                // numberOfSlides: _numberOfSlides,
+                                // currentSlide: _currentSlideIndex,
+                              );
+
+                            },
+                          ),
+
+                          PanelButton.panelDot(panelButtonWidth: _panelButtonSize),
+
+                          /// CROP IMAGE
+                          PanelButton(
+                            size: _panelButtonSize,
+                            flyerZoneWidth: _flyerZoneWidth,
+                            icon:  Iconz.BxDesignsOff,
+                            iconSizeFactor: 0.5,
+                            verse: 'Crop',
+                            onTap: () async {
+
+                              if (_assetsAsFiles.length != 0){
+                                await _cropImage(_assetsAsFiles[_currentSlideIndex]);
+                              }
+
+                              },
+                          ),
+
+                          /// RELOAD
+                          PanelButton(
+                            size: _panelButtonSize,
+                            flyerZoneWidth: _flyerZoneWidth,
+                            icon:  Iconz.Clock,
+                            iconSizeFactor: 0.5,
+                            verse: 'Reset',
+                            onTap: () async {
+
+                              File _file = await Imagers.getFileFromCropperAsset(_assets[_currentSlideIndex]);
+                              setState(() {
+                                _assetsAsFiles[_currentSlideIndex] = _file;
+                              });
+
+                            },
+                          ),
+
+                          PanelButton.panelDot(panelButtonWidth: _panelButtonSize),
+
                           /// CHANGE SLIDE BOX FIT
                           PanelButton(
-                            size: _buttonSize,
+                            size: _panelButtonSize,
                             flyerZoneWidth: _flyerZoneWidth,
-                            verse: _currentPicFit == BoxFit.fitWidth ?  'Full Width' : _currentPicFit == BoxFit.fitHeight ? 'Full Height' : 'cover',
+                            verse: 'Fit',
                             icon: _currentPicFit == BoxFit.fitWidth ? Iconz.ArrowRight : _currentPicFit == BoxFit.fitHeight ? Iconz.ArrowUp : Iconz.DashBoard,
+                            iconSizeFactor: 0.35,
                             isAuthorButton: false,
                             onTap: (){
 
@@ -762,91 +846,9 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                             },
                           ),
 
-                          /// CROP IMAGE
-                          PanelButton(
-                            size: _buttonSize,
-                            flyerZoneWidth: _flyerZoneWidth,
-                            icon:  Iconz.BxDesignsOff,
-                            verse: 'Crop Image',
-                            onTap: () async {
-
-                              if (_assetsAsFiles.length != 0){
-                                await _cropImage(_assetsAsFiles[_currentSlideIndex]);
-                              }
-
-                              },
-                          ),
-
-                          /// RELOAD
-                          PanelButton(
-                            size: _buttonSize,
-                            flyerZoneWidth: _flyerZoneWidth,
-                            icon:  Iconz.Clock,
-                            verse: 'Reset Image',
-                            onTap: () async {
-
-                              File _file = await Imagers.getFileFromCropperAsset(_assets[_currentSlideIndex]);
-                              setState(() {
-                                _assetsAsFiles[_currentSlideIndex] = _file;
-                              });
-
-                            },
-                          ),
-
-                          /// DELETE IMAGE
-                          PanelButton(
-                            size: _buttonSize,
-                            flyerZoneWidth: _flyerZoneWidth,
-                            icon:  Iconz.XSmall,
-                            verse: 'Delete Image',
-                            onTap: () async {
-                              // widget.onDeleteImage(_currentSlideIndex);
-
-                              await _deleteSlide(
-                                // numberOfSlides: _numberOfSlides,
-                                // currentSlide: _currentSlideIndex,
-                              );
-
-                            },
-                          ),
-
-                          /// ADD IMAGE
-                          PanelButton(
-                            size: _buttonSize,
-                            flyerZoneWidth: _flyerZoneWidth,
-                            icon:  Iconz.Plus,
-                            verse: 'Add Images',
-                            onTap: () async {
-                              print('adding Image');
-                              await _getMultiImages(accountType: BzAccountType.Super);
-                            },
-                          ),
-
-                          /// Trigger Visibility
-                          PanelButton(
-                            size: _buttonSize,
-                            flyerZoneWidth: _flyerZoneWidth,
-                            icon:  Iconz.FlyerScale,
-                            verse: 'Visible',
-                            onTap: () async {
-                              print('Trigger visibility');
-                              _statelessTriggerVisibility(_currentSlideIndex);
-                            },
-                          ),
-
-                          /// Slide right
-                          PanelButton(
-                            size: _buttonSize,
-                            flyerZoneWidth: _flyerZoneWidth,
-                            icon:  Iconz.DvDonaldDuck,
-                            verse: 'direction',
-                            onTap: () async {
-
-                              setState(() {
-                                _swipeDirection = SwipeDirection.freeze;
-                              });
-
-                            },
+                          SizedBox(
+                            //Ratioz.xxflyerBottomCorners * _flyerZoneWidth - Ratioz.appBarPadding,
+                            height: Scale.superFlyerFooterHeight(_flyerZoneWidth),
                           ),
 
                         ],
@@ -856,7 +858,6 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                 ),
 
                 /// FLYER
-                // _assetsAsFiles.length == 0 ? Loading(loading: _loading) :
                 Container(
                   width: _flyerZoneWidth,
                   height: _flyerZoneHeight,
@@ -870,66 +871,20 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                       children: <Widget>[
 
                         /// SLIDES
-                        // NotificationListener<ScrollNotification>(
-                        //   onNotification: (ScrollNotification notification){
-                        // if (notification is ScrollUpdateNotification){
-                        //   print('bommm');
-                        // }
-                        // return true;
-                        // },
-                        //
-                        // /// slides if pageview.builder
-                        // child: PageView.builder(
-                        //     pageSnapping: true,
-                        //     controller: _pageController,
-                        //     physics: BouncingScrollPhysics(),
-                        //     allowImplicitScrolling: true,
-                        //     itemCount: _assets.length,
-                        //     onPageChanged: onPageChangedIsOn ? (i) => _onPageChanged(i) : (i) => Sliders.zombie(i),
-                        //     itemBuilder: (ctx, i){
-                        //
-                        //       double _ratio = _assets[i].originalWidth / _assets[i].originalHeight;
-                        //
-                        //       return
-                        //
-                        //         AnimatedOpacity(
-                        //           key: ObjectKey(widget.draftFlyerModel.key.value + i),
-                        //           opacity: _slidesVisibility[i] == true ? 1 : 0,
-                        //           duration: Duration(milliseconds: 100),
-                        //           child: SingleSlide(
-                        //             key: ObjectKey(widget.draftFlyerModel.key.value + i),
-                        //             flyerZoneWidth: _flyerZoneWidth,
-                        //             flyerID: null, //_flyer.flyerID,
-                        //             picture: _assetsAsFiles[i],//_currentSlides[index].picture,
-                        //             slideMode: SlideMode.Editor,//slidesModes[index],
-                        //             boxFit: _currentPicFit, // [fitWidth - contain - scaleDown] have the blur background
-                        //             titleController: _titleControllers[i],
-                        //             imageSize: _originalAssetSize,
-                        //             textFieldOnChanged: (text){
-                        //               print('text is : $text');
-                        //             },
-                        //           ),
-                        //         );
-                        //
-                        //     }
-                        // ),
-                        // ),
-
-                        /// slides as pageview
                         if(_currentSlideIndex != null)
-                        PageView(
-                          pageSnapping: true,
-                          controller: _pageController,
-                          physics: BouncingScrollPhysics(),
-                          allowImplicitScrolling: false,
-                          clipBehavior: Clip.antiAlias,
-                          restorationId: '${widget.draftFlyerModel.key.value}',
-                          onPageChanged: onPageChangedIsOn ? (i) => _onPageChanged(i) : (i) => Sliders.zombie(i),
-                          scrollDirection: Axis.horizontal,
-                          children: <Widget>[
-                            ..._buildSlides(),
-                          ],
-                        ),
+                          PageView(
+                            pageSnapping: true,
+                            controller: _pageController,
+                            physics: BouncingScrollPhysics(),
+                            allowImplicitScrolling: false,
+                            clipBehavior: Clip.antiAlias,
+                            restorationId: '${widget.draftFlyerModel.key.value}',
+                            onPageChanged: onPageChangedIsOn ? (i) => _onPageChanged(i) : (i) => Sliders.zombie(i),
+                            scrollDirection: Axis.horizontal,
+                            children: <Widget>[
+                              ..._buildSlides(),
+                            ],
+                          ),
 
                         /// FLYER HEADER
                         AbsorbPointer(
@@ -945,17 +900,35 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                             onFollowTap: (){},
                             onCallTap: (){
                               print('call');
-                            },
+                              },
                           ),
                         ),
 
                         /// PROGRESS BAR
                         if(_numberOfStrips != 0 && _currentSlideIndex != null)
-                        ProgressBar(
+                          ProgressBar(
+                            flyerZoneWidth: _flyerZoneWidth,
+                            numberOfStrips: _numberOfStrips,
+                            slideIndex: _currentSlideIndex,
+                            swipeDirection: _swipeDirection,
+                          ),
+
+                        if(_currentSlideIndex != null)
+                        AnkhButton(
+                          microMode: false,
+                          bzPageIsOn: false,
                           flyerZoneWidth: _flyerZoneWidth,
-                          numberOfStrips: _numberOfStrips,
-                          slideIndex: _currentSlideIndex,
-                          swipeDirection: _swipeDirection,
+                          slidingIsOn: true,
+                          ankhIsOn: false,
+                          tappingAnkh: (){
+                            Nav.goToNewScreen(context,
+                                OldFlyerEditorScreen(
+                                  bzModel: widget.bzModel,
+                                  firstTimer: true,
+                                  flyerModel: null,
+                                )
+                            );
+                          },
                         ),
 
                       ],
