@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/animators.dart';
+import 'package:bldrs/controllers/drafters/flyer_sliders.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
@@ -57,9 +58,9 @@ class _FlyerState extends State<Flyer> with AutomaticKeepAliveClientMixin{
 // -----------------------------------------------------------------------------
   /// SLIDING BLOCK
   /// usage :  onPageChanged: (i) => _onPageChanged(i),
-  bool _slidingNext;
+  SwipeDirection _slidingNext;
   void _onPageChanged (int newIndex){
-    _slidingNext = Animators.slidingNext(newIndex: newIndex, currentIndex: _currentSlideIndex,);
+    _slidingNext = Animators.getSwipeDirection(newIndex: newIndex, oldIndex: _currentSlideIndex,);
     setState(() {_currentSlideIndex = newIndex;})
     ;}
 // -----------------------------------------------------------------------------
@@ -167,7 +168,7 @@ class _FlyerState extends State<Flyer> with AutomaticKeepAliveClientMixin{
             barIsOn: _barIsOn,
             slideIndex: _currentSlideIndex >= _numberOfSlides ? 0 : _currentSlideIndex,
             numberOfStrips: _numberOfSlides,
-            slidingNext: _slidingNext,
+            swipeDirection: _slidingNext,
           ),
 
           Consumer<FlyerModel>(
