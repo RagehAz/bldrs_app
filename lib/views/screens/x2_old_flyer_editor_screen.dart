@@ -348,9 +348,9 @@ class _OldFlyerEditorScreenState extends State<OldFlyerEditorScreen> {
 // -----------------------------------------------------------------------------
   /// SLIDING BLOCK
   /// usage :  onPageChanged: (i) => _onPageChanged(i),
-  bool _slidingNext;
+  SwipeDirection _slidingNext;
   void _onPageChanged (int newIndex){
-    _slidingNext = Animators.slidingNext(newIndex: newIndex, currentIndex: _currentSlideIndex,);
+    _slidingNext = Animators.getSwipeDirection(newIndex: newIndex, oldIndex: _currentSlideIndex,);
     setState(() {_currentSlideIndex = newIndex;})
     ;}
 // -----------------------------------------------------------------------------
@@ -951,7 +951,7 @@ class _OldFlyerEditorScreenState extends State<OldFlyerEditorScreen> {
                         flyerZoneWidth: _flyerZoneWidth,
                         numberOfStrips: numberOfSlides,
                         slideIndex: _currentSlideIndex,
-                        slidingNext: _slidingNext,
+                        swipeDirection: _slidingNext,
                       ),
 
                     ],

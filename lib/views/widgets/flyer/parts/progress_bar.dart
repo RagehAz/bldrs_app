@@ -1,5 +1,6 @@
 import 'package:bldrs/controllers/drafters/aligners.dart';
 import 'package:bldrs/controllers/drafters/borderers.dart';
+import 'package:bldrs/controllers/drafters/flyer_sliders.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
@@ -11,7 +12,7 @@ class ProgressBar extends StatelessWidget {
   final int numberOfStrips;
   final int slideIndex;
   final EdgeInsets margins;
-  final bool slidingNext;
+  final SwipeDirection swipeDirection;
 
   ProgressBar({
     @required this.flyerZoneWidth,
@@ -19,12 +20,12 @@ class ProgressBar extends StatelessWidget {
     @required this.numberOfStrips,
     this.slideIndex = 0,
     this.margins,
-    @required this.slidingNext,
+    @required this.swipeDirection,
   });
 
   @override
   Widget build(BuildContext context) {
-    print('========= BUILDING PROGRESS BAR FOR ||| index : $slideIndex, numberOfSlides : $numberOfStrips');
+    print('========= BUILDING PROGRESS BAR FOR ||| index : $slideIndex, numberOfSlides : $numberOfStrips, slidingNext $swipeDirection');
 
     // int _numberOfSlides = numberOfSlides == 0 ? 1 : numberOfSlides;
 // -----------------------------------------------------------------------------
@@ -45,8 +46,12 @@ class ProgressBar extends StatelessWidget {
     Tween _tween(){
       Tween _tween;
 
+      /// NO TWEEN
+      if (swipeDirection == SwipeDirection.freeze){
+        _tween = Tween<double>(begin: _aStripLength, end: _aStripLength);
+      }
       /// GOING NEXT
-      if(slidingNext == null || slidingNext == true){
+      else if(swipeDirection == SwipeDirection.next){
         _tween = Tween<double>(begin: 0, end: _aStripLength);
       }
       /// GOING PREVIOUS
@@ -60,18 +65,24 @@ class ProgressBar extends StatelessWidget {
     int _numberOfWhiteStrips(){
       // -----------------------------------------o
       int _numberOfStrips;
-      bool _goingNext = slidingNext == null || slidingNext == true ? true : false;
+      SwipeDirection _swipeDirection = swipeDirection;
       // -----------------------------------------o
       /// A - at first slide
       if(slideIndex == 0){
+
+        /// B - FREEZING
+        if(_swipeDirection == SwipeDirection.freeze){
+          print('1 at first slide frozen');
+          _numberOfStrips = 1;
+        }
         /// B - GOING NEXT
-        if(_goingNext){
-          // print('1 at first slide going next');
+        else if(_swipeDirection == SwipeDirection.next){
+          print('1 at first slide going next');
           _numberOfStrips = 1;
         }
         /// B - GOING PREVIOUS
-        else{
-          // print('2 at first slide going previous');
+        else if (_swipeDirection == SwipeDirection.back){
+          print('2 at first slide going previous');
           _numberOfStrips = 2;
         }
       }
@@ -79,28 +90,39 @@ class ProgressBar extends StatelessWidget {
       /// A - at last slide
       else if (slideIndex + 1 == numberOfStrips){
 
+        /// B - FREEZING
+        if(_swipeDirection == SwipeDirection.freeze){
+          print('3- at last slide frozen');
+          _numberOfStrips = numberOfStrips;
+        }
         /// B - GOING NEXT
-        if(_goingNext){
-          // print('3 at last slide going next');
+        else if(_swipeDirection == SwipeDirection.next){
+          print('3 at last slide going next');
           _numberOfStrips = numberOfStrips;
         }
         /// B - GOING PREVIOUS
         else{
-          // print('4 at last slide going previous');
+          print('4 at last slide going previous');
           _numberOfStrips = slideIndex + 3;
         }
       }
+      // -----------------------------------------o
       /// A - at middle slides
       // -----------------------------------------o
       else {
+        /// B - FREEZING
+        if(_swipeDirection == SwipeDirection.freeze){
+          print('5 at middle slide frozen');
+          _numberOfStrips = slideIndex + 1;
+        }
         /// B - GOING NEXT
-        if(_goingNext){
-          // print('5 at middle slide going next');
+        else if(_swipeDirection == SwipeDirection.next){
+          print('5 at middle slide going next');
           _numberOfStrips = slideIndex + 1;
         }
         /// B - GOING PREVIOUS
         else{
-          // print('6 at middle slide going previous');
+          print('6 at middle slide going previous');
           _numberOfStrips = slideIndex + 2;
         }
       }
@@ -176,6 +198,9 @@ class ProgressBar extends StatelessWidget {
             // onEnd: (){},
             key: ValueKey(slideIndex),
             builder: (BuildContext context,double tweenVal, Widget child){
+
+              double _tweenVal = swipeDirection == SwipeDirection.freeze ? _aStripLength : tweenVal;
+
               return
                 Container(
                   child: Row(
@@ -189,10 +214,11 @@ class ProgressBar extends StatelessWidget {
 
                         return
                           /// IF ITS LAST STRIP
-                          index == slideIndex ?
+                          // index == slideIndex ?
+                          index + 1 == _numberOfWhiteStrips()?
                           Strip(
                             flyerZoneWidth: flyerZoneWidth,
-                            stripWidth: tweenVal,
+                            stripWidth: _tweenVal,
                             numberOfSlides: numberOfStrips,
                             isWhite: true,
                           )
@@ -244,18 +270,31 @@ class Strip extends StatelessWidget {
     double _stripCorner = _aStripThickness * 0.5;
     Color _stripColor = !isWhite ? Colorz.White80 : numberOfSlides == 0 ? Colorz. White10 : Colorz.White200;
 // -----------------------------------------------------------------------------
-    return Container(
-      width: stripWidth,
-      height: _aStripThickness,
-      padding: EdgeInsets.symmetric(horizontal: _aStripOnePadding),
-      child: Container(
-        width: _aStripLength - (2 * _aStripOnePadding),
-        height: _aStripThickness,
-        decoration: BoxDecoration(
-            color: _stripColor,
-            borderRadius: Borderers.superBorderAll(context, _stripCorner)
+    return Stack(
+      children: <Widget>[
+
+        if(isWhite == true)
+        Container(
+          width: _aStripLength,
+          height: _aStripThickness,
+          color: Colorz.Red225,
         ),
-      ),
+
+        Container(
+          width: stripWidth,
+          height: _aStripThickness,
+          padding: EdgeInsets.symmetric(horizontal: _aStripOnePadding),
+          child: Container(
+            width: _aStripLength - (2 * _aStripOnePadding),
+            height: _aStripThickness,
+            decoration: BoxDecoration(
+                color: _stripColor,
+                borderRadius: Borderers.superBorderAll(context, _stripCorner)
+            ),
+          ),
+        ),
+
+      ],
     );
   }
 }

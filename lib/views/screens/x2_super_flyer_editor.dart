@@ -348,11 +348,15 @@ class _SuperFlyerEditorScreenState extends State<SuperFlyerEditorScreen> {
 // -----------------------------------------------------------------------------
   /// SLIDING BLOCK
   /// usage :  onPageChanged: (i) => _onPageChanged(i),
-  bool _slidingNext;
+  SwipeDirection _swipeDirection = SwipeDirection.next;
   void _onPageChanged (int newIndex){
-    _slidingNext = Animators.slidingNext(newIndex: newIndex, currentIndex: _currentSlideIndex,);
-    setState(() {_currentSlideIndex = newIndex;})
-    ;}
+    print('on page is changed new index is : $newIndex');
+    SwipeDirection _direction = Animators.getSwipeDirection(newIndex: newIndex, oldIndex: _currentSlideIndex,);
+    setState(() {
+      _swipeDirection = _direction;
+      _currentSlideIndex = newIndex;
+    });
+  }
 // -----------------------------------------------------------------------------
   // void tappingNewSlide(){
   //   setState(() {
@@ -951,7 +955,7 @@ class _SuperFlyerEditorScreenState extends State<SuperFlyerEditorScreen> {
                         flyerZoneWidth: _flyerZoneWidth,
                         numberOfStrips: numberOfSlides,
                         slideIndex:  _currentSlideIndex,
-                        slidingNext: _slidingNext,
+                        swipeDirection: _swipeDirection,
                       ),
 
                     ],

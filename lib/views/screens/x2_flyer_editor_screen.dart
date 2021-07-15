@@ -118,16 +118,19 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
 // -----------------------------------------------------------------------------
   /// SLIDING BLOCK
   // usage :  onPageChanged: (i) => _onPageChanged(i),
-  bool _slidingNext;
+  SwipeDirection _swipeDirection;
   int _currentSlideIndex; /// in init : _currentSlideIndex = widget.index;
   int _numberOfSlides; /// in init : numberOfSlides = _assets.length;
   bool onPageChangedIsOn = true; /// onPageChanged: onPageChangedIsOn ? (i) => _onPageChanged(i) : (i) => Sliders.zombie(i),
   int _numberOfStrips ;
   void _onPageChanged (int newIndex){
-    print('on page is changeddddddddddddddddddddddddd $newIndex');
-    _slidingNext = Animators.slidingNext(newIndex: newIndex, currentIndex: _currentSlideIndex,);
-    setState(() {_currentSlideIndex = newIndex;})
-    ;}
+    print('on page is changed new index is : $newIndex');
+    SwipeDirection _direction = Animators.getSwipeDirection(newIndex: newIndex, oldIndex: _currentSlideIndex,);
+    setState(() {
+      _swipeDirection = _direction;
+      _currentSlideIndex = newIndex;
+    });
+    }
 // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -144,6 +147,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
     _currentSlideIndex = widget.index;
     _numberOfSlides = _assets.length;
     _numberOfStrips = _numberOfSlides;
+    _swipeDirection = SwipeDirection.next;
 
     _assetsAsFiles = widget.draftFlyerModel.assetsAsFiles;
     _picsFits = widget.draftFlyerModel.boxesFits;
@@ -191,7 +195,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
   }
 // ---------------------------------------------------o
   void _statelessDelete(int index){
-    print('before stateless delete index was $index, _numberOfSlides is : $_numberOfSlides');
+    print('before stateless delete index was $index, _numberOfSlides was : $_numberOfSlides');
     _assetsAsFiles.removeAt(index);
     _assets.removeAt(index);
     _slidesVisibility.removeAt(index);
@@ -200,7 +204,6 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
     _matrixes.removeAt(index);
     _numberOfSlides = _assets.length;
     print('after stateless delete index is $index, _numberOfSlides is : $_numberOfSlides');
-    // _correctedIndex = _currentSlideIndex;
   }
 // -----------------------------------------------------------------------------
   Future<void> _deleteSlide() async {
@@ -225,7 +228,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
 
       /// B - if at (Middle) slide
       else {
-        // _deleteMiddleSlide();
+        _deleteMiddleSlide();
       }
 
     }
@@ -246,11 +249,11 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
         _numberOfStrips = 0;
       });
 
-      /// B - wait fading to start deleting
+      /// B - wait fading to start deleting + update index to null
       await Future.delayed(_fadingDurationX, () async {
 
-          setState(() {
           /// Dx - delete data
+          setState(() {
           _statelessDelete(_currentSlideIndex);
           _currentSlideIndex = null;
           });
@@ -261,10 +264,6 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
 
     /// 2 - if two slides remaining
     else if(_numberOfSlides == 2){
-      int _originalNumberOfSlides = _numberOfSlides;
-      int _decreasedNumberOfSlides =  _numberOfSlides - 1;
-      // int _originalIndex = 0;
-      // int _decreasedIndex = 0;
 
       /// A - decrease progress bar and trigger visibility
       setState(() {
@@ -273,7 +272,6 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
         _numberOfStrips = _numberOfSlides - 1;
         // _slidingNext = true;
       });
-
 
       /// B - wait fading to start sliding
       await Future.delayed(_fadingDurationX, () async {
@@ -292,7 +290,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
           //
           // print('now i can swipe again');
           //
-          // /// G - trigger progress bar listener
+          // /// G - trigger progress bar listener (onPageChangedIsOn)
           setState(() {
             /// Dx - delete data
             _statelessDelete(_currentSlideIndex);
@@ -354,7 +352,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
 
             print('now i can swipe again');
 
-            /// G - trigger progress bar listener
+            /// G - trigger progress bar listener (onPageChangedIsOn)
             setState(() {
               onPageChangedIsOn = true;
             });
@@ -365,10 +363,105 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
 
       });
 
-
     }
 
-    print('DDELETING ENDS AT (FIRST) : index : $_currentSlideIndex, numberOfSlides : $_numberOfSlides ------------------------------------');
+    print('DELETING ENDS AT (FIRST) : index : $_currentSlideIndex, numberOfSlides : $_numberOfSlides ------------------------------------');
+  }
+// -----------------------------------------------------------------------------
+  Future<void> _deleteMiddleSlide() async {
+    print('XXXXX ----- DELETING STARTS AT (MIDDLE) index : $_currentSlideIndex, numberOfSlides : $_numberOfSlides');
+
+    int _originalNumberOfSlides = _numberOfSlides;
+    int _decreasedNumberOfSlides =  _numberOfSlides - 1;
+    int _originalIndex = _currentSlideIndex;
+    int _decreasedIndex = _currentSlideIndex - 1;
+
+    /// A - decrease progress bar and trigger visibility
+    setState(() {
+      onPageChangedIsOn = false;
+      _currentSlideIndex = _decreasedIndex;
+      _swipeDirection = SwipeDirection.freeze;
+      _numberOfStrips = _decreasedNumberOfSlides;
+      _statelessTriggerVisibility(_originalIndex);
+    });
+
+    // print('XXX after first rebuild AT (MIDDLE) index : $_currentSlideIndex, numberOfSlides : $_numberOfSlides');
+
+    /// B - wait fading to start sliding
+    await Future.delayed(_fadingDurationX, () async {
+
+      // print('_currentIndex before slide : $_currentSlideIndex');
+
+      /// C - slide
+      await  Sliders.slideToBackFrom(_pageController, _originalIndex);
+      // print('_currentIndex after slide : $_currentSlideIndex');
+
+      /// E - wait for sliding to end
+      await Future.delayed(_fadingDurationX, () async {
+
+        /// Dx - delete data & trigger progress bar listener (onPageChangedIsOn)
+        setState(() {
+          _statelessDelete(_originalIndex);
+          onPageChangedIsOn = true;
+        });
+
+        // print('XXX after second rebuild AT (MIDDLE) index : $_currentSlideIndex, numberOfSlides : $_numberOfSlides');
+
+      });
+
+      // print('XXX after third LAST rebuild AT (MIDDLE) index : $_currentSlideIndex, numberOfSlides : $_numberOfSlides');
+
+    });
+
+    print('XXXXX -------  DELETING ENDS AT (MIDDLE) : index : $_currentSlideIndex, numberOfSlides : $_numberOfSlides');
+  }
+// -----------------------------------------------------------------------------
+  Future<void> _deleteLastSlide() async {
+    print('XXXXX ----- DELETING STARTS AT (MIDDLE) index : $_currentSlideIndex, numberOfSlides : $_numberOfSlides');
+
+    int _originalNumberOfSlides = _numberOfSlides;
+    int _decreasedNumberOfSlides =  _numberOfSlides - 1;
+    int _originalIndex = _currentSlideIndex;
+    int _decreasedIndex = _currentSlideIndex - 1;
+
+    /// A - decrease progress bar and trigger visibility
+    setState(() {
+      onPageChangedIsOn = false;
+      _currentSlideIndex = _decreasedIndex;
+      _swipeDirection = SwipeDirection.freeze;
+      _numberOfStrips = _decreasedNumberOfSlides;
+      _statelessTriggerVisibility(_originalIndex);
+    });
+
+    print('XXX after first rebuild AT (MIDDLE) index : $_currentSlideIndex, numberOfSlides : $_numberOfSlides');
+
+    /// B - wait fading to start sliding
+    await Future.delayed(_fadingDurationX, () async {
+
+      print('_currentIndex before slide : $_currentSlideIndex');
+
+      /// C - slide
+      await  Sliders.slideToBackFrom(_pageController, _originalIndex);
+      print('_currentIndex after slide : $_currentSlideIndex');
+
+      /// E - wait for sliding to end
+      await Future.delayed(_fadingDurationX, () async {
+
+        /// Dx - delete data & trigger progress bar listener (onPageChangedIsOn)
+        setState(() {
+          _statelessDelete(_originalIndex);
+          onPageChangedIsOn = true;
+        });
+
+        print('XXX after second rebuild AT (MIDDLE) index : $_currentSlideIndex, numberOfSlides : $_numberOfSlides');
+
+      });
+
+      print('XXX after third LAST rebuild AT (MIDDLE) index : $_currentSlideIndex, numberOfSlides : $_numberOfSlides');
+
+    });
+
+    print('XXXXX -------  DELETING ENDS AT (MIDDLE) : index : $_currentSlideIndex, numberOfSlides : $_numberOfSlides');
   }
 // -----------------------------------------------------------------------------
   Future<void> _cropImage(File file) async {
@@ -725,7 +818,11 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                             icon:  Iconz.BxDesignsOff,
                             verse: 'Crop Image',
                             onTap: () async {
-                              await _cropImage(_assetsAsFiles[_currentSlideIndex]);
+
+                              if (_assetsAsFiles.length != 0){
+                                await _cropImage(_assetsAsFiles[_currentSlideIndex]);
+                              }
+
                               },
                           ),
 
@@ -790,21 +887,14 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                           PanelButton(
                             size: _buttonSize,
                             flyerZoneWidth: _flyerZoneWidth,
-                            icon:  Iconz.ArrowRight,
-                            verse: '-->',
+                            icon:  Iconz.DvDonaldDuck,
+                            verse: 'direction',
                             onTap: () async {
-                              await Sliders.slideToNext(_pageController, _numberOfSlides, _currentSlideIndex);
-                            },
-                          ),
 
-                          /// Slide left
-                          PanelButton(
-                            size: _buttonSize,
-                            flyerZoneWidth: _flyerZoneWidth,
-                            icon:  Iconz.ArrowLeft,
-                            verse: '<--',
-                            onTap: () async {
-                              await Sliders.slideToBack(_pageController, _currentSlideIndex);
+                              setState(() {
+                                _swipeDirection = SwipeDirection.freeze;
+                              });
+
                             },
                           ),
 
@@ -910,7 +1000,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                           flyerZoneWidth: _flyerZoneWidth,
                           numberOfStrips: _numberOfStrips,
                           slideIndex: _currentSlideIndex,
-                          slidingNext: _slidingNext,
+                          swipeDirection: _swipeDirection,
                         ),
 
                       ],
