@@ -179,306 +179,6 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
   Duration _slidingDuration = Ratioz.durationSliding400;
   Duration _slidingDurationX = Ratioz.durationSliding410;
 // ---------------------------------------------------o
-  void _statelessTriggerVisibility(int index) {
-
-    if (index != null){
-      if(index >= 0 && _slidesVisibility.length != 0){
-        print('_slidesVisibility[index] was ${_slidesVisibility[index]} for index : $index');
-        _slidesVisibility[index] = !_slidesVisibility[index];
-        print('_slidesVisibility[index] is ${_slidesVisibility[index]} for index : $index');
-      }
-      else {
-        print('can not trigger visibility for index : $index');
-      }
-    }
-
-  }
-// ---------------------------------------------------o
-  void _statelessDelete(int index){
-    print('before stateless delete index was $index, _numberOfSlides was : $_numberOfSlides');
-    _assetsAsFiles.removeAt(index);
-    _assets.removeAt(index);
-    _slidesVisibility.removeAt(index);
-    _titleControllers.removeAt(index);
-    _picsFits.removeAt(index);
-    _matrixes.removeAt(index);
-    _numberOfSlides = _assets.length;
-    print('after stateless delete index is $index, _numberOfSlides is : $_numberOfSlides');
-  }
-// -----------------------------------------------------------------------------
-  Future<void> _deleteSlide() async {
-
-    /// A - if slides are empty
-    if (_numberOfSlides == 0){
-      print('nothing can be done');
-    }
-
-    /// A - if slides are not empty
-    else {
-
-      /// B - if at (FIRST) slide
-      if (_currentSlideIndex == 0){
-        await _deleteFirstSlide();
-      }
-
-      /// B - if at (LAST) slide
-      else if (_currentSlideIndex + 1 == _numberOfSlides){
-        // _deleteLastSlide();
-      }
-
-      /// B - if at (Middle) slide
-      else {
-        _deleteMiddleSlide();
-      }
-
-    }
-
-  }
-// -----------------------------------------------------------------------------
-  Future<void> _deleteFirstSlide() async {
-    print('DELETING STARTS AT (FIRST) index : $_currentSlideIndex, numberOfSlides : $_numberOfSlides ------------------------------------');
-
-    /// 1 - if only one slide remaining
-    if(_numberOfSlides == 1){
-
-      print('_slidesVisibility : ${_slidesVisibility.toString()}, _numberOfSlides : $_numberOfSlides');
-
-      /// A - decrease progress bar and trigger visibility
-      setState(() {
-        _statelessTriggerVisibility(_currentSlideIndex);
-        _numberOfStrips = 0;
-      });
-
-      /// B - wait fading to start deleting + update index to null
-      await Future.delayed(_fadingDurationX, () async {
-
-          /// Dx - delete data
-          setState(() {
-          _statelessDelete(_currentSlideIndex);
-          _currentSlideIndex = null;
-          });
-
-      });
-
-    }
-
-    /// 2 - if two slides remaining
-    else if(_numberOfSlides == 2){
-
-      /// A - decrease progress bar and trigger visibility
-      setState(() {
-        onPageChangedIsOn = false;
-        _statelessTriggerVisibility(_currentSlideIndex);
-        _numberOfStrips = _numberOfSlides - 1;
-        // _slidingNext = true;
-      });
-
-      /// B - wait fading to start sliding
-      await Future.delayed(_fadingDurationX, () async {
-
-        /// C - slide
-        await Sliders.slideToNext(_pageController, _numberOfSlides, _currentSlideIndex);
-
-
-        /// D - delete when one slide remaining
-        /// E - wait for sliding to end
-        await Future.delayed(_fadingDurationX, () async {
-
-
-          // /// F - snap to index 0
-          // await Sliders.snapTo(_pageController, 0);
-          //
-          // print('now i can swipe again');
-          //
-          // /// G - trigger progress bar listener (onPageChangedIsOn)
-          setState(() {
-            /// Dx - delete data
-            _statelessDelete(_currentSlideIndex);
-            _currentSlideIndex = 0;
-            // _numberOfSlides = 1;
-            onPageChangedIsOn = true;
-          });
-
-        });
-
-
-      });
-    }
-
-    /// 2 - if more than two slides
-    else {
-
-      int _originalNumberOfSlides = _numberOfSlides;
-      int _decreasedNumberOfSlides =  _numberOfSlides - 1;
-      // int _originalIndex = 0;
-      // int _decreasedIndex = 0;
-
-      /// A - decrease progress bar and trigger visibility
-      setState(() {
-        onPageChangedIsOn = false;
-        _statelessTriggerVisibility(_currentSlideIndex);
-        _numberOfSlides = _decreasedNumberOfSlides;
-        _numberOfStrips = _numberOfSlides;
-        // _slidingNext = true;
-      });
-
-      /// B - wait fading to start sliding
-      await Future.delayed(_fadingDurationX, () async {
-
-        /// C - slide
-        await  Sliders.slideToNext(_pageController, _numberOfSlides, _currentSlideIndex);
-
-        /// D - delete when one slide remaining
-        if(_originalNumberOfSlides <= 1){
-
-          setState(() {
-          /// Dx - delte data
-          _statelessDelete(_currentSlideIndex);
-            onPageChangedIsOn = true;
-          });
-
-        }
-
-        /// D - delete when at many slides remaining
-        else {
-
-          /// E - wait for sliding to end
-          await Future.delayed(_fadingDurationX, () async {
-
-            /// Dx - delete data
-            _statelessDelete(_currentSlideIndex);
-            /// F - snap to index 0
-            await Sliders.snapTo(_pageController, 0);
-
-            print('now i can swipe again');
-
-            /// G - trigger progress bar listener (onPageChangedIsOn)
-            setState(() {
-              onPageChangedIsOn = true;
-            });
-
-          });
-
-        }
-
-      });
-
-    }
-
-    print('DELETING ENDS AT (FIRST) : index : $_currentSlideIndex, numberOfSlides : $_numberOfSlides ------------------------------------');
-  }
-// -----------------------------------------------------------------------------
-  Future<void> _deleteMiddleSlide() async {
-    print('XXXXX ----- DELETING STARTS AT (MIDDLE) index : $_currentSlideIndex, numberOfSlides : $_numberOfSlides');
-
-    int _originalNumberOfSlides = _numberOfSlides;
-    int _decreasedNumberOfSlides =  _numberOfSlides - 1;
-    int _originalIndex = _currentSlideIndex;
-    int _decreasedIndex = _currentSlideIndex - 1;
-
-    /// A - decrease progress bar and trigger visibility
-    setState(() {
-      onPageChangedIsOn = false;
-      _currentSlideIndex = _decreasedIndex;
-      _swipeDirection = SwipeDirection.freeze;
-      _numberOfStrips = _decreasedNumberOfSlides;
-      _statelessTriggerVisibility(_originalIndex);
-    });
-
-    // print('XXX after first rebuild AT (MIDDLE) index : $_currentSlideIndex, numberOfSlides : $_numberOfSlides');
-
-    /// B - wait fading to start sliding
-    await Future.delayed(_fadingDurationX, () async {
-
-      // print('_currentIndex before slide : $_currentSlideIndex');
-
-      /// C - slide
-      await  Sliders.slideToBackFrom(_pageController, _originalIndex);
-      // print('_currentIndex after slide : $_currentSlideIndex');
-
-      /// E - wait for sliding to end
-      await Future.delayed(_fadingDurationX, () async {
-
-        /// Dx - delete data & trigger progress bar listener (onPageChangedIsOn)
-        setState(() {
-          _statelessDelete(_originalIndex);
-          onPageChangedIsOn = true;
-        });
-
-        // print('XXX after second rebuild AT (MIDDLE) index : $_currentSlideIndex, numberOfSlides : $_numberOfSlides');
-
-      });
-
-      // print('XXX after third LAST rebuild AT (MIDDLE) index : $_currentSlideIndex, numberOfSlides : $_numberOfSlides');
-
-    });
-
-    print('XXXXX -------  DELETING ENDS AT (MIDDLE) : index : $_currentSlideIndex, numberOfSlides : $_numberOfSlides');
-  }
-// -----------------------------------------------------------------------------
-  Future<void> _deleteLastSlide() async {
-    print('XXXXX ----- DELETING STARTS AT (MIDDLE) index : $_currentSlideIndex, numberOfSlides : $_numberOfSlides');
-
-    int _originalNumberOfSlides = _numberOfSlides;
-    int _decreasedNumberOfSlides =  _numberOfSlides - 1;
-    int _originalIndex = _currentSlideIndex;
-    int _decreasedIndex = _currentSlideIndex - 1;
-
-    /// A - decrease progress bar and trigger visibility
-    setState(() {
-      onPageChangedIsOn = false;
-      _currentSlideIndex = _decreasedIndex;
-      _swipeDirection = SwipeDirection.freeze;
-      _numberOfStrips = _decreasedNumberOfSlides;
-      _statelessTriggerVisibility(_originalIndex);
-    });
-
-    print('XXX after first rebuild AT (MIDDLE) index : $_currentSlideIndex, numberOfSlides : $_numberOfSlides');
-
-    /// B - wait fading to start sliding
-    await Future.delayed(_fadingDurationX, () async {
-
-      print('_currentIndex before slide : $_currentSlideIndex');
-
-      /// C - slide
-      await  Sliders.slideToBackFrom(_pageController, _originalIndex);
-      print('_currentIndex after slide : $_currentSlideIndex');
-
-      /// E - wait for sliding to end
-      await Future.delayed(_fadingDurationX, () async {
-
-        /// Dx - delete data & trigger progress bar listener (onPageChangedIsOn)
-        setState(() {
-          _statelessDelete(_originalIndex);
-          onPageChangedIsOn = true;
-        });
-
-        print('XXX after second rebuild AT (MIDDLE) index : $_currentSlideIndex, numberOfSlides : $_numberOfSlides');
-
-      });
-
-      print('XXX after third LAST rebuild AT (MIDDLE) index : $_currentSlideIndex, numberOfSlides : $_numberOfSlides');
-
-    });
-
-    print('XXXXX -------  DELETING ENDS AT (MIDDLE) : index : $_currentSlideIndex, numberOfSlides : $_numberOfSlides');
-  }
-// -----------------------------------------------------------------------------
-  Future<void> _cropImage(File file) async {
-
-    _triggerLoading();
-
-    File croppedFile = await Imagers.cropImage(context, file);
-
-    if (croppedFile != null) {
-      setState(() {
-        _assetsAsFiles[_currentSlideIndex] = croppedFile;
-      });
-    }
-
-    _triggerLoading();
-  }
-// -----------------------------------------------------------------------------
   Future<void> _getMultiImages({BzAccountType accountType}) async {
 
     _triggerLoading();
@@ -586,15 +286,17 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
             _numberOfStrips = _numberOfSlides;
           });
 
-          await _pageController.animateToPage(_newAssets.length - 1,
-              duration: Ratioz.durationSliding400, curve: Curves.easeInOutCirc);
+          await _pageController.animateToPage(
+              _newAssets.length - 1,
+              duration: Ratioz.duration1000ms, curve: Curves.easeInOut
+          );
 
-          print(_assets.toString());
-          print(_picsFits.toString());
-          print(_assetsAsFiles.toString());
-          print(_titleControllers.toString());
-          print(_matrixes.toString());
-          print(_slidesVisibility.toString());
+          // print(_assets.toString());
+          // print(_picsFits.toString());
+          // print(_assetsAsFiles.toString());
+          // print(_titleControllers.toString());
+          // print(_matrixes.toString());
+          // print(_slidesVisibility.toString());
         }
 
       }
@@ -645,6 +347,255 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
 
           }),
         ];
+  }
+// -----------------------------------------------------------------------------
+  Future<void> _deleteSlide() async {
+
+    /// A - if slides are empty
+    if (_numberOfSlides == 0){
+      print('nothing can be done');
+    }
+
+    /// A - if slides are not empty
+    else {
+
+      /// B - if at (FIRST) slide
+      if (_currentSlideIndex == 0){
+        await _deleteFirstSlide();
+      }
+
+      /// B - if at (LAST) slide
+      else if (_currentSlideIndex + 1 == _numberOfSlides){
+        _deleteMiddleOrLastSlide();
+      }
+
+      /// B - if at (Middle) slide
+      else {
+        _deleteMiddleOrLastSlide();
+      }
+
+    }
+
+  }
+// ------------------------------------------------o
+  Future<void> _deleteFirstSlide() async {
+    print('DELETING STARTS AT (FIRST) index : $_currentSlideIndex, numberOfSlides : $_numberOfSlides ------------------------------------');
+
+    /// 1 - if only one slide remaining
+    if(_numberOfSlides == 1){
+
+      print('_slidesVisibility : ${_slidesVisibility.toString()}, _numberOfSlides : $_numberOfSlides');
+
+      /// A - decrease progress bar and trigger visibility
+      setState(() {
+        _statelessTriggerVisibility(_currentSlideIndex);
+        _numberOfStrips = 0;
+      });
+
+      /// B - wait fading to start deleting + update index to null
+      await Future.delayed(_fadingDurationX, () async {
+
+        /// Dx - delete data
+        setState(() {
+          _statelessDelete(_currentSlideIndex);
+          _currentSlideIndex = null;
+        });
+
+      });
+
+    }
+
+    /// 2 - if two slides remaining
+    else if(_numberOfSlides == 2){
+
+      /// A - decrease progress bar and trigger visibility
+      setState(() {
+        onPageChangedIsOn = false;
+        _statelessTriggerVisibility(_currentSlideIndex);
+        _numberOfStrips = _numberOfSlides - 1;
+        // _slidingNext = true;
+      });
+
+      /// B - wait fading to start sliding
+      await Future.delayed(_fadingDurationX, () async {
+
+        /// C - slide
+        await Sliders.slideToNext(_pageController, _numberOfSlides, _currentSlideIndex);
+
+
+        /// D - delete when one slide remaining
+        /// E - wait for sliding to end
+        await Future.delayed(_fadingDurationX, () async {
+
+
+          // /// F - snap to index 0
+          // await Sliders.snapTo(_pageController, 0);
+          //
+          // print('now i can swipe again');
+          //
+          // /// G - trigger progress bar listener (onPageChangedIsOn)
+          setState(() {
+            /// Dx - delete data
+            _statelessDelete(_currentSlideIndex);
+            _currentSlideIndex = 0;
+            // _numberOfSlides = 1;
+            onPageChangedIsOn = true;
+          });
+
+        });
+
+
+      });
+    }
+
+    /// 2 - if more than two slides
+    else {
+
+      int _originalNumberOfSlides = _numberOfSlides;
+      int _decreasedNumberOfSlides =  _numberOfSlides - 1;
+      // int _originalIndex = 0;
+      // int _decreasedIndex = 0;
+
+      /// A - decrease progress bar and trigger visibility
+      setState(() {
+        onPageChangedIsOn = false;
+        _statelessTriggerVisibility(_currentSlideIndex);
+        _numberOfSlides = _decreasedNumberOfSlides;
+        _numberOfStrips = _numberOfSlides;
+        // _slidingNext = true;
+      });
+
+      /// B - wait fading to start sliding
+      await Future.delayed(_fadingDurationX, () async {
+
+        /// C - slide
+        await  Sliders.slideToNext(_pageController, _numberOfSlides, _currentSlideIndex);
+
+        /// D - delete when one slide remaining
+        if(_originalNumberOfSlides <= 1){
+
+          setState(() {
+            /// Dx - delte data
+            _statelessDelete(_currentSlideIndex);
+            onPageChangedIsOn = true;
+          });
+
+        }
+
+        /// D - delete when at many slides remaining
+        else {
+
+          /// E - wait for sliding to end
+          await Future.delayed(_fadingDurationX, () async {
+
+            /// Dx - delete data
+            _statelessDelete(_currentSlideIndex);
+            /// F - snap to index 0
+            await Sliders.snapTo(_pageController, 0);
+
+            print('now i can swipe again');
+
+            /// G - trigger progress bar listener (onPageChangedIsOn)
+            setState(() {
+              onPageChangedIsOn = true;
+            });
+
+          });
+
+        }
+
+      });
+
+    }
+
+    print('DELETING ENDS AT (FIRST) : index : $_currentSlideIndex, numberOfSlides : $_numberOfSlides ------------------------------------');
+  }
+// ------------------------------------------------o
+  Future<void> _deleteMiddleOrLastSlide() async {
+    print('XXXXX ----- DELETING STARTS AT (MIDDLE) index : $_currentSlideIndex, numberOfSlides : $_numberOfSlides');
+
+    int _originalIndex = _currentSlideIndex;
+
+    /// A - decrease progress bar and trigger visibility
+    setState(() {
+      onPageChangedIsOn = false;
+      _currentSlideIndex = _currentSlideIndex - 1;
+      _swipeDirection = SwipeDirection.freeze;
+      _numberOfStrips = _numberOfSlides - 1;
+      _statelessTriggerVisibility(_originalIndex);
+    });
+
+    // print('XXX after first rebuild AT (MIDDLE) index : $_currentSlideIndex, numberOfSlides : $_numberOfSlides');
+
+    /// B - wait fading to start sliding
+    await Future.delayed(_fadingDurationX, () async {
+
+      // print('_currentIndex before slide : $_currentSlideIndex');
+
+      /// C - slide
+      await  Sliders.slideToBackFrom(_pageController, _originalIndex);
+      // print('_currentIndex after slide : $_currentSlideIndex');
+
+      /// E - wait for sliding to end
+      await Future.delayed(_fadingDurationX, () async {
+
+        /// Dx - delete data & trigger progress bar listener (onPageChangedIsOn)
+        setState(() {
+          _statelessDelete(_originalIndex);
+          onPageChangedIsOn = true;
+        });
+
+        // print('XXX after second rebuild AT (MIDDLE) index : $_currentSlideIndex, numberOfSlides : $_numberOfSlides');
+
+      });
+
+      // print('XXX after third LAST rebuild AT (MIDDLE) index : $_currentSlideIndex, numberOfSlides : $_numberOfSlides');
+
+    });
+
+    print('XXXXX -------  DELETING ENDS AT (MIDDLE) : index : $_currentSlideIndex, numberOfSlides : $_numberOfSlides');
+  }
+// ------------------------------------------------o
+  void _statelessTriggerVisibility(int index) {
+
+    if (index != null){
+      if(index >= 0 && _slidesVisibility.length != 0){
+        print('_slidesVisibility[index] was ${_slidesVisibility[index]} for index : $index');
+        _slidesVisibility[index] = !_slidesVisibility[index];
+        print('_slidesVisibility[index] is ${_slidesVisibility[index]} for index : $index');
+      }
+      else {
+        print('can not trigger visibility for index : $index');
+      }
+    }
+
+  }
+// ------------------------------------------------o
+  void _statelessDelete(int index){
+    print('before stateless delete index was $index, _numberOfSlides was : $_numberOfSlides');
+    _assetsAsFiles.removeAt(index);
+    _assets.removeAt(index);
+    _slidesVisibility.removeAt(index);
+    _titleControllers.removeAt(index);
+    _picsFits.removeAt(index);
+    _matrixes.removeAt(index);
+    _numberOfSlides = _assets.length;
+    print('after stateless delete index is $index, _numberOfSlides is : $_numberOfSlides');
+  }
+// -----------------------------------------------------------------------------
+  Future<void> _cropImage(File file) async {
+
+    _triggerLoading();
+
+    File croppedFile = await Imagers.cropImage(context, file);
+
+    if (croppedFile != null) {
+      setState(() {
+        _assetsAsFiles[_currentSlideIndex] = croppedFile;
+      });
+    }
+
+    _triggerLoading();
   }
 // -----------------------------------------------------------------------------
   @override
@@ -909,6 +860,10 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                 Container(
                   width: _flyerZoneWidth,
                   height: _flyerZoneHeight,
+                  decoration: BoxDecoration(
+                    color: Colorz.White10,
+                    borderRadius: Borderers.superFlyerCorners(context, _flyerZoneWidth),
+                  ),
                   child: ClipRRect(
                     borderRadius: Borderers.superFlyerCorners(context, _flyerZoneWidth),
                     child: Stack(

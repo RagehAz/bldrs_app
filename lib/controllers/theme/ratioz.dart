@@ -93,6 +93,7 @@ static const Duration durationFading210 = Duration(milliseconds: 210);
 static const Duration durationSliding400 = Duration(milliseconds: 400);
 static const Duration durationSliding410 = Duration(milliseconds: 410);
 static const Duration duration750ms = Duration(milliseconds: 750);
+static const Duration duration1000ms = Duration(milliseconds: 1000);
 // -----------------------------------------------------------------------------
 // Blur
 static const double blur1 = 10;
