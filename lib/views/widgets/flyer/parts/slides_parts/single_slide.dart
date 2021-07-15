@@ -4,11 +4,13 @@ import 'package:bldrs/controllers/drafters/colorizers.dart';
 import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/firestore/record_ops.dart';
 import 'package:bldrs/models/records/share_model.dart';
+import 'package:bldrs/views/screens/x3_slide_full_screen.dart';
 import 'package:bldrs/views/widgets/flyer/parts/slides_parts/footer.dart';
 import 'package:bldrs/views/widgets/flyer/parts/slides_parts/slide_headline.dart';
 import 'package:bldrs/views/widgets/flyer/parts/slides_parts/zoomable_pic.dart';
@@ -96,137 +98,144 @@ class SingleSlide extends StatelessWidget {
       imageSize: imageSize,
     );
 // -----------------------------------------------------------------------------
-    return Container(
-      width: flyerZoneWidth,
-      height: Scale.superFlyerZoneHeight(context, flyerZoneWidth),
-      alignment: Alignment.topCenter,
-      decoration: BoxDecoration(
-        borderRadius: Borderers.superFlyerCorners(context, flyerZoneWidth),
-        color: slideColor,
-        image: picture == null ||
-            slideMode == SlideMode.Empty ||
-            ObjectChecker.objectIsURL(picture) == true ||
-            ObjectChecker.objectIsFile(picture) == true ?
-        null : Imagers.superImage(picture, boxFit),
-      ),
-      child: ClipRRect(
-        borderRadius: Borderers.superFlyerCorners(context, flyerZoneWidth),
-        child: Stack(
-          alignment: Alignment.topCenter,
-          children: <Widget>[
-
-            /// --- IMAGE FILE FULL HEIGHT
-            if (ObjectChecker.objectIsFile(picture) && _blurLayerIsActive)
-              Image.file(
-                picture,
-                fit: BoxFit.cover,
-                width: flyerZoneWidth * _blurImageScale,
-                height: Scale.superFlyerZoneHeight(context, flyerZoneWidth*1.2),
-                // colorBlendMode: BlendMode.overlay,
-                // color: Colorz.WhiteAir,
-              ),
-
-            /// --- IMAGE URL FULL HEIGHT
-            if (ObjectChecker.objectIsURL(picture) && _blurLayerIsActive)
-              Image.network(
-                picture,
-                fit: BoxFit.cover,
-                width: flyerZoneWidth * _blurImageScale,
-                height: Scale.superFlyerZoneHeight(context, flyerZoneWidth*1.2),
-              ),
-
-            /// --- IMAGE FILE BLUR LAYER
-            if (_blurLayerIsActive)
-              BlurLayer(
-                width: flyerZoneWidth,
-                height: Scale.superFlyerZoneHeight(context, flyerZoneWidth),
-                blur: Ratioz.blur4,
-                borders: Borderers.superFlyerCorners(context, flyerZoneWidth),
-                color: Colorz.Nothing,
-                blurIsOn: _blurLayerIsActive,
-              ),
-
-
-            if (picture == null || slideMode == SlideMode.Empty)
-              Container(),
-
-            /// --- IMAGE FILE
-            if (ObjectChecker.objectIsFile(picture))
-              ZoomablePicture(
-                isOn: !_microMode,
-                child: Image.file(
-                    picture,
-                    fit: boxFit,
-                    width: flyerZoneWidth,
-                    height: Scale.superFlyerZoneHeight(context, flyerZoneWidth)
-                ),
-              ),
-
-            /// --- IMAGE NETWORK
-            if (ObjectChecker.objectIsURL(picture))
-              ZoomablePicture(
-                isOn: !_microMode,
-                child: Image.network(
-                    picture,
-                    fit: BoxFit.fitWidth,
-                    width: flyerZoneWidth,
-                    height: Scale.superFlyerZoneHeight(context, flyerZoneWidth)
-                ),
-              ),
-
-            /// --- SHADOW UNDER PAGE HEADER & OVER PAGE PICTURE
-            Container(
-              width: flyerZoneWidth,
-              height: flyerZoneWidth * 0.6,
-              decoration: BoxDecoration(
-                  borderRadius: Borderers.superHeaderShadowCorners(context, flyerZoneWidth),
-                  gradient: Colorizer.superSlideGradient(),
-              ),
-            ),
-
-            if (_microMode == false && title != null && title != '')
-            SlideTitle(
-              flyerZoneWidth: flyerZoneWidth,
-              verse: title,
-              verseSize: _slideTitleSize,
-              verseColor: Colorz.White255,
-              tappingVerse: () {
-                print('Flyer Title clicked');
-                },
-            ),
-
-            if (slideMode == SlideMode.Editor)
-                SuperTextField(
-                  hintText: 'T i t l e',
-
-                  width: flyerZoneWidth,
-                  // height: flyerZoneWidth * 0.15,
-                  fieldColor: Colorz.Black80,
-                  margin: EdgeInsets.only(top: (flyerZoneWidth * 0.3), left: 5, right: 5),
-                  maxLines: 4,
-                  keyboardTextInputType: TextInputType.multiline,
-                  designMode: false,
-                  counterIsOn: false,
-                  inputSize: 3,
-                  centered: true,
-                  textController: titleController,
-                  onChanged: textFieldOnChanged,
-                  inputWeight: VerseWeight.bold,
-                  inputShadow: true,
-                ),
-
-            slideMode != SlideMode.View ? Container() :
-            FlyerFooter(
-              flyerZoneWidth: flyerZoneWidth,
-              views: views,
-              shares: shares,
-              saves: saves,
-              tappingShare: _shareFlyer, // this will user slide index
-            ),
-
-          ],
+    return GestureDetector(
+      onTap: () async {
+        await Nav.goToNewScreen(context, SlideFullScreen(
+            image: picture,
+        ));
+      },
+      child: Container(
+        width: flyerZoneWidth,
+        height: Scale.superFlyerZoneHeight(context, flyerZoneWidth),
+        alignment: Alignment.topCenter,
+        decoration: BoxDecoration(
+          borderRadius: Borderers.superFlyerCorners(context, flyerZoneWidth),
+          color: slideColor,
+          image: picture == null ||
+              slideMode == SlideMode.Empty ||
+              ObjectChecker.objectIsURL(picture) == true ||
+              ObjectChecker.objectIsFile(picture) == true ?
+          null : Imagers.superImage(picture, boxFit),
         ),
+        child: ClipRRect(
+          borderRadius: Borderers.superFlyerCorners(context, flyerZoneWidth),
+          child: Stack(
+            alignment: Alignment.topCenter,
+            children: <Widget>[
 
+              /// --- IMAGE FILE FULL HEIGHT
+              if (ObjectChecker.objectIsFile(picture) && _blurLayerIsActive)
+                Image.file(
+                  picture,
+                  fit: BoxFit.cover,
+                  width: flyerZoneWidth * _blurImageScale,
+                  height: Scale.superFlyerZoneHeight(context, flyerZoneWidth*1.2),
+                  // colorBlendMode: BlendMode.overlay,
+                  // color: Colorz.WhiteAir,
+                ),
+
+              /// --- IMAGE URL FULL HEIGHT
+              if (ObjectChecker.objectIsURL(picture) && _blurLayerIsActive)
+                Image.network(
+                  picture,
+                  fit: BoxFit.cover,
+                  width: flyerZoneWidth * _blurImageScale,
+                  height: Scale.superFlyerZoneHeight(context, flyerZoneWidth*1.2),
+                ),
+
+              /// --- IMAGE FILE BLUR LAYER
+              if (_blurLayerIsActive)
+                BlurLayer(
+                  width: flyerZoneWidth,
+                  height: Scale.superFlyerZoneHeight(context, flyerZoneWidth),
+                  blur: Ratioz.blur4,
+                  borders: Borderers.superFlyerCorners(context, flyerZoneWidth),
+                  color: Colorz.Nothing,
+                  blurIsOn: _blurLayerIsActive,
+                ),
+
+
+              if (picture == null || slideMode == SlideMode.Empty)
+                Container(),
+
+              /// --- IMAGE FILE
+              if (ObjectChecker.objectIsFile(picture))
+                ZoomablePicture(
+                  isOn: !_microMode,
+                  child: Image.file(
+                      picture,
+                      fit: boxFit,
+                      width: flyerZoneWidth,
+                      height: Scale.superFlyerZoneHeight(context, flyerZoneWidth)
+                  ),
+                ),
+
+              /// --- IMAGE NETWORK
+              if (ObjectChecker.objectIsURL(picture))
+                ZoomablePicture(
+                  isOn: !_microMode,
+                  child: Image.network(
+                      picture,
+                      fit: BoxFit.fitWidth,
+                      width: flyerZoneWidth,
+                      height: Scale.superFlyerZoneHeight(context, flyerZoneWidth)
+                  ),
+                ),
+
+              /// --- SHADOW UNDER PAGE HEADER & OVER PAGE PICTURE
+              Container(
+                width: flyerZoneWidth,
+                height: flyerZoneWidth * 0.6,
+                decoration: BoxDecoration(
+                    borderRadius: Borderers.superHeaderShadowCorners(context, flyerZoneWidth),
+                    gradient: Colorizer.superSlideGradient(),
+                ),
+              ),
+
+              if (_microMode == false && title != null && title != '')
+              SlideTitle(
+                flyerZoneWidth: flyerZoneWidth,
+                verse: title,
+                verseSize: _slideTitleSize,
+                verseColor: Colorz.White255,
+                tappingVerse: () {
+                  print('Flyer Title clicked');
+                  },
+              ),
+
+              if (slideMode == SlideMode.Editor)
+                  SuperTextField(
+                    hintText: 'T i t l e',
+
+                    width: flyerZoneWidth,
+                    // height: flyerZoneWidth * 0.15,
+                    fieldColor: Colorz.Black80,
+                    margin: EdgeInsets.only(top: (flyerZoneWidth * 0.3), left: 5, right: 5),
+                    maxLines: 4,
+                    keyboardTextInputType: TextInputType.multiline,
+                    designMode: false,
+                    counterIsOn: false,
+                    inputSize: 3,
+                    centered: true,
+                    textController: titleController,
+                    onChanged: textFieldOnChanged,
+                    inputWeight: VerseWeight.bold,
+                    inputShadow: true,
+                  ),
+
+              slideMode != SlideMode.View ? Container() :
+              FlyerFooter(
+                flyerZoneWidth: flyerZoneWidth,
+                views: views,
+                shares: shares,
+                saves: saves,
+                tappingShare: _shareFlyer, // this will user slide index
+              ),
+
+            ],
+          ),
+
+        ),
       ),
     );
 
