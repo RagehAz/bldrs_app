@@ -3,10 +3,11 @@ import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/models/bz_model.dart';
+import 'package:bldrs/models/secondary_models/draft_flyer_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/models/tiny_models/tiny_user.dart';
-import 'package:bldrs/views/screens/x1_publisher_screen.dart';
+import 'package:bldrs/views/screens/x1_flyer_editor_screen.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
@@ -40,21 +41,27 @@ class _BzCardPreviewState extends State<BzCardPreview> {
     super.initState();
   }
 // -----------------------------------------------------------------------------
-  void _triggerMaxHeader(){
+  Future<void> _triggerMaxHeader() async {
     bool _mini = Scale.superFlyerMiniMode(context, Scale.superFlyerZoneWidth(context, widget.flyerSizeFactor));
 
     if (_mini == true && widget.addFlyerButton == false){
       // Nothing to be done
     } else if (_mini == true && widget.addFlyerButton == true){
-      _goToFlyerEditor();
+      await _goToFlyerEditor();
     } else {
       setState(() {_bzPageIsOn = !_bzPageIsOn;});
     }
 
   }
 // -----------------------------------------------------------------------------
-  void _goToFlyerEditor(){
-    Nav.goToNewScreen(context, PublisherScreen(bzModel: widget.bz, firstTimer: true,));
+  Future<void> _goToFlyerEditor() async {
+    dynamic _result = await Nav.goToNewScreen(context,
+        FlyerEditorScreen(
+          firstTimer: true,
+          bzModel: widget.bz,
+          flyerModel: null,
+        )
+    );
   }
 // -----------------------------------------------------------------------------
   @override
@@ -64,9 +71,9 @@ class _BzCardPreviewState extends State<BzCardPreview> {
 
     return FlyerZone(
       flyerSizeFactor: widget.flyerSizeFactor,
-      tappingFlyerZone: (){
+      tappingFlyerZone: () async {
         if (widget.addFlyerButton){
-          _goToFlyerEditor();
+          await _goToFlyerEditor();
           print('ohh');
         } else {
         print('fuck you');
@@ -82,7 +89,9 @@ class _BzCardPreviewState extends State<BzCardPreview> {
           followIsOn: false,
           flyerZoneWidth: Scale.superFlyerZoneWidth(context, widget.flyerSizeFactor),
           bzPageIsOn: _bzPageIsOn,
-          tappingHeader: _triggerMaxHeader,
+          tappingHeader: () async {
+            await _triggerMaxHeader();
+          },
           onFollowTap: (){},
           onCallTap: (){},
         ),
@@ -106,7 +115,9 @@ class _BzCardPreviewState extends State<BzCardPreview> {
               iconColor: Colorz.White200,
               iconSizeFactor: 0.6,
               bubble: false,
-              onTap: _goToFlyerEditor,
+              onTap: () async {
+                await _goToFlyerEditor();
+              },
             ),
 
             SuperVerse(
