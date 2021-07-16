@@ -101,7 +101,7 @@ class FontTestScreen extends StatelessWidget {
                       child: SuperVerse(
                         verse: '| أختبر أنا العبد لله هذا الفونط و إنه لشيء عظيمٌ جدا Ohh baby',
                         size: 4,
-                        color: Colorz.Green225,
+                        color: Colorz.Green255,
                         shadow: true,
                         italic: false,
                         weight: VerseWeight.bold,

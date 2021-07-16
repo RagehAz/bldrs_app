@@ -204,8 +204,8 @@ class BottomSlider{
     );
 }
 // -----------------------------------------------------------------------------
-  static slideStatefulBottomSheet({BuildContext context, double height, bool draggable, Widget Function(BuildContext) builder}){
-    showModalBottomSheet(
+  static Future<void> slideStatefulBottomSheet({BuildContext context, double height, bool draggable, Widget Function(BuildContext) builder}) async {
+    await showModalBottomSheet(
       shape: RoundedRectangleBorder(borderRadius: Borderers.superBorderRadius(
           context: context,
           enTopLeft: Ratioz.bottomSheetCorner,

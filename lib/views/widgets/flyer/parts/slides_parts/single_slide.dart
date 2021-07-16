@@ -18,6 +18,7 @@ import 'package:bldrs/views/widgets/textings/super_text_field.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:bldrs/controllers/drafters/keyboarders.dart';
 
 enum SlideMode {
   View, // when viewing a slide as default
@@ -42,6 +43,7 @@ class SingleSlide extends StatelessWidget {
   final Color slideColor;
   final String flyerID;
   final ImageSize imageSize;
+  final bool autoFocus;
   // Key key;
 
   SingleSlide({
@@ -59,6 +61,7 @@ class SingleSlide extends StatelessWidget {
     this.slideColor,
     @required this.flyerID,
     this.imageSize,
+    this.autoFocus,
     Key key,
   }) : super(key: key);
 
@@ -99,11 +102,19 @@ class SingleSlide extends StatelessWidget {
     );
 // -----------------------------------------------------------------------------
     return GestureDetector(
-      onTap: () async {
-        await Nav.goToNewScreen(context, SlideFullScreen(
-            image: picture,
-        ));
-      },
+      onTap: _microMode == true ? null :
+          () async {
+
+        bool _keyboardIsOn = Keyboarders.keyboardIsOn(context);
+
+        if (_keyboardIsOn){
+          Keyboarders.closeKeyboard(context);
+        }
+        else {
+          await Nav.goToNewScreen(context, SlideFullScreen(image: picture,));
+        }
+
+        },
       child: Container(
         width: flyerZoneWidth,
         height: Scale.superFlyerZoneHeight(context, flyerZoneWidth),
@@ -206,7 +217,6 @@ class SingleSlide extends StatelessWidget {
               if (slideMode == SlideMode.Editor)
                   SuperTextField(
                     hintText: 'T i t l e',
-
                     width: flyerZoneWidth,
                     // height: flyerZoneWidth * 0.15,
                     fieldColor: Colorz.Black80,
@@ -221,6 +231,7 @@ class SingleSlide extends StatelessWidget {
                     onChanged: textFieldOnChanged,
                     inputWeight: VerseWeight.bold,
                     inputShadow: true,
+                    autofocus: autoFocus,
                   ),
 
               slideMode != SlideMode.View ? Container() :

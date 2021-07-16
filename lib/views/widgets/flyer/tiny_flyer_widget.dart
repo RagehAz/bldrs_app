@@ -59,7 +59,7 @@ class TinyFlyerWidget extends StatelessWidget {
           flyerShowsAuthor: false,
           bzGalleryCount: 0,
           bzPageIsOn: false,
-          tappingHeader: () => onTap(context, tinyFlyer.flyerID),
+          tappingHeader: () => onTap(tinyFlyer.flyerID),
           onFollowTap: (){},
           onCallTap: (){},
         ),

@@ -39,7 +39,7 @@ import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 's50_flyer_on_map.dart';
+import 'xx_flyer_on_map.dart';
 
 enum SlidingDirection{
   next,

@@ -253,7 +253,7 @@ class FlyersProvider with ChangeNotifier {
       fieldA: 'tinyBz',
       valueA: _tinyBz.toMap(),
       fieldB: 'flyerState',
-      valueB: FlyerModel.cipherFlyerState(FlyerState.DeActivated),
+      valueB: FlyerModel.cipherFlyerState(FlyerState.Unpublished),
     );
 
     final List<FlyerModel> _deactivatedFlyers = FlyerModel.decipherFlyersMaps(maps);

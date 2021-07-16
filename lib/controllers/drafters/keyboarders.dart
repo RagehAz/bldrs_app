@@ -1,23 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+class Keyboarders {
 // -----------------------------------------------------------------------------
-/// TO MINIMIZE KEYBOARD WHEN TAPPING OUTSIDE
-/// USE THIS TO CALL THE FUNCTION TO PASS THE context
-///  onTap: () => minimizeKeyboardOnTapOutSite(context),
-void minimizeKeyboardOnTapOutSide (BuildContext context){
-FocusScope.of(context).requestFocus(FocusNode());
-print('minimizeKeyboardOnTapOutSide() unfocused keyboard');
+  /// TO MINIMIZE KEYBOARD WHEN TAPPING OUTSIDE
+  static void minimizeKeyboardOnTapOutSide (BuildContext context){
+// FocusScope.of(context).requestFocus(FocusNode());
+print('x minimizeKeyboardOnTapOutSide() unfocused keyboard');
   // // ANOTHER SOLUTION
-  // FocusScopeNode currentFocus = FocusScope.of(context);
-  // if(!currentFocus.hasPrimaryFocus){
-  //   currentFocus.unfocus();
-  // }
+  FocusScopeNode currentFocus = FocusScope.of(context);
+  if(!currentFocus.hasPrimaryFocus){
+    currentFocus.unfocus();
+  }
 }
 // -----------------------------------------------------------------------------
-void closeKeyboard(BuildContext context){
+  static void closeKeyboard(BuildContext context){
   FocusScope.of(context).unfocus();
 }
+// -----------------------------------------------------------------------------
+  static bool keyboardIsOn(BuildContext context){
+  bool _keyboardIsOn;
+
+  FocusScopeNode _currentFocus = FocusScope.of(context);
+
+  /// is on
+  if(_currentFocus.hasFocus){
+    _keyboardIsOn = true;
+  }
+
+  /// is off
+  else {
+    _keyboardIsOn = false;
+  }
+
+  return _keyboardIsOn;
+  }
 // -----------------------------------------------------------------------------
 // HOW TO DETECT CURRENT KEYBOARD LANGUAGE OF THE DEVICE (NOT SOLVED)
 // BEST COMMENT HERE https://github.com/flutter/flutter/issues/25841
@@ -30,7 +47,7 @@ void closeKeyboard(BuildContext context){
 // Does anyone know if it's possible to listen for a keyboard language change
 // on native Android?
 // -----------------------------------------------------------------------------
-Future<void> handlePaste(TextSelectionDelegate delegate) async {
+static Future<void> handlePaste(TextSelectionDelegate delegate) async {
   final TextEditingValue value = delegate.textEditingValue; // Snapshot the input before using `await`.
   final ClipboardData data = await Clipboard.getData(Clipboard.kTextPlain);
   if (data != null) {
@@ -47,4 +64,4 @@ Future<void> handlePaste(TextSelectionDelegate delegate) async {
   delegate.hideToolbar();
 }
 // -----------------------------------------------------------------------------
-
+}

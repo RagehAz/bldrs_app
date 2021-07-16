@@ -130,7 +130,7 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
   @override
   Widget build(BuildContext context) {
 
-    _borderColor.end = Colorz.Green225;
+    _borderColor.end = Colorz.Green255;
 
     _titleColorTween
       ..begin = Colorz.White255

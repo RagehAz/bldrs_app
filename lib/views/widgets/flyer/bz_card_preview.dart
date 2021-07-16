@@ -6,7 +6,7 @@ import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/models/tiny_models/tiny_user.dart';
-import 'package:bldrs/views/screens/x1_flyers_publisher_screen.dart';
+import 'package:bldrs/views/screens/x1_publisher_screen.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
@@ -54,7 +54,7 @@ class _BzCardPreviewState extends State<BzCardPreview> {
   }
 // -----------------------------------------------------------------------------
   void _goToFlyerEditor(){
-    Nav.goToNewScreen(context, FlyerPublisherScreen(bzModel: widget.bz, firstTimer: true,));
+    Nav.goToNewScreen(context, PublisherScreen(bzModel: widget.bz, firstTimer: true,));
   }
 // -----------------------------------------------------------------------------
   @override

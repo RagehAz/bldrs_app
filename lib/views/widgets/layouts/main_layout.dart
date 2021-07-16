@@ -171,7 +171,7 @@ class MainLayout extends StatelessWidget {
       child: KeyboardSizeProvider(
         smallSize: 400,
         child: GestureDetector(
-            onTap: (){minimizeKeyboardOnTapOutSide(context);},
+            onTap: (){Keyboarders.minimizeKeyboardOnTapOutSide(context);},
           child: SafeArea(
             top: true,
             bottom: true,

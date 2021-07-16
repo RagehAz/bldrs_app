@@ -40,6 +40,7 @@ class SuperTextField extends StatefulWidget {
   final Function onTap;
   final double corners;
   final Function onSubmitted;
+  final bool autofocus;
 
   SuperTextField({
     this.keyboardTextInputType = TextInputType.text,
@@ -74,6 +75,7 @@ class SuperTextField extends StatefulWidget {
     this.onTap,
     this.corners,
     this.onSubmitted,
+    this.autofocus,
   });
 
   @override
@@ -85,6 +87,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
 // -----------------------------------------------------------------------------
 @override
   void initState() {
+
   // widget.textController = widget.textController ;
   _textDirection = superTextDirectionSwitcher(widget.textController?.text);
     super.initState();
@@ -239,7 +242,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
       isDense: true,
       isCollapsed: true,
       // semanticCounterText: 'semantic',
-      focusColor: Colorz.Green225,
+      focusColor: Colorz.Green255,
       enabled: true,
       filled: true,
       fillColor: Colorz.White10,
@@ -286,7 +289,6 @@ class _SuperTextFieldState extends State<SuperTextField> {
               // onSaved: (String koko) => widget.onSaved(koko),
               validator: widget.validator,
               onChanged: (val) => _onChanged(val),
-              autofocus: false,
               // focusNode: ,
               onFieldSubmitted: (val) => widget.onSubmitted(val),
               onTap: (){
@@ -322,6 +324,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
               cursorWidth: 2,
               cursorHeight: null,
               textAlign: _textAlign,
+              autofocus: widget.autofocus == null ? false : widget.autofocus,
             );
           },
         ),
@@ -360,6 +363,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
               cursorWidth: 2,
               cursorHeight: null,
               textAlign: _textAlign,
+              autofocus: widget.autofocus == null ? false : widget.autofocus,
               onSubmitted: (val) => widget.onSubmitted(val),
             );
           },
