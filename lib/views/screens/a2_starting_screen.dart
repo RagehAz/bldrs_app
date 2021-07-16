@@ -9,7 +9,7 @@ import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/country_provider.dart';
-import 'package:bldrs/views/screens/s02_auth_screen.dart';
+import 'package:bldrs/views/screens/a3_auth_screen.dart';
 import 'package:bldrs/views/widgets/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/views/widgets/buttons/main_button.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
@@ -17,7 +17,7 @@ import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 's00_user_checker_widget.dart';
+import 'a0_user_checker_widget.dart';
 
 class StartingScreen extends StatefulWidget {
 // -----------------------------------------------------------------------------

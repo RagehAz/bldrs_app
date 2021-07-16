@@ -31,6 +31,48 @@ class TextChecker{
     return controllerIsEmpty;
   }
 // -----------------------------------------------------------------------------
+  static void disposeAllTextControllers(List<TextEditingController> controllers){
+    controllers.forEach((controller) {
+      if (TextChecker.textControllerHasNoValue(controller))controller.dispose();
+    });
+  }
+// -----------------------------------------------------------------------------
+  static List<TextEditingController> createEmptyTextControllers(int length){
+    List<TextEditingController> _controllers = new List();
+
+    for (int i = 0; i < length; i++){
+
+      if (i == 0){
+        _controllers.add(TextEditingController());
+      }
+
+      else {
+        _controllers.add(TextEditingController());
+      }
+
+    }
+
+    return _controllers;
+  }
+// -----------------------------------------------------------------------------
+  static List<TextEditingController> createTextControllersAndOverrideOneString({int length, int indexToOverride, String overridingString}){
+    List<TextEditingController> _controllers = new List();
+
+    for (int i = 0; i < length; i++){
+
+      if (i == indexToOverride){
+        _controllers.add(TextEditingController(text: overridingString));
+      }
+
+      else {
+        _controllers.add(TextEditingController());
+      }
+
+    }
+
+    return _controllers;
+  }
+// -----------------------------------------------------------------------------
   static bool stringHasNoValue(String val){
     bool controllerIsEmpty =
     val == null || val == '' || val.length == 0 ||

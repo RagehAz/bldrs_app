@@ -81,7 +81,7 @@ class _SignInFormState extends State<SignInForm> {
   Future<void> _signInOnTap() async {
 
     /// minimize keyboard
-    minimizeKeyboardOnTapOutSide(context);
+    Keyboarders.minimizeKeyboardOnTapOutSide(context);
 
     /// proceed with sign in if fields are valid
     if(_allFieldsAreValid() == true){

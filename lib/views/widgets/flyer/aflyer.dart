@@ -58,10 +58,14 @@ class _AFlyerState extends State<AFlyer> with AutomaticKeepAliveClientMixin{
 // -----------------------------------------------------------------------------
   /// SLIDING BLOCK
   /// usage :  onPageChanged: (i) => _onPageChanged(i),
-  SwipeDirection _slidingNext;
+  SwipeDirection _swipeDirection = SwipeDirection.next;
   void _onPageChanged (int newIndex){
-    _slidingNext = Animators.getSwipeDirection(newIndex: newIndex, oldIndex: _currentSlideIndex,);
-    setState(() {_currentSlideIndex = newIndex;});
+    print('flyer onPageChanged oldIndex: $_currentSlideIndex, newIndex: $newIndex, _numberOfSlides: ${widget.flyer.slides.length}');
+    SwipeDirection _direction = Animators.getSwipeDirection(newIndex: newIndex, oldIndex: _currentSlideIndex,);
+    setState(() {
+      _swipeDirection = _direction;
+      _currentSlideIndex = newIndex;
+    });
   }
 // -----------------------------------------------------------------------------
   /// SLIDING BLOCK
@@ -185,7 +189,7 @@ class _AFlyerState extends State<AFlyer> with AutomaticKeepAliveClientMixin{
           numberOfStrips: widget.flyer?.slides?.length,
           barIsOn: _barIsOn,
           slideIndex: _currentSlideIndex,
-          swipeDirection: _slidingNext,
+          swipeDirection: _swipeDirection,
         ),
 
         AnkhButton(

@@ -8,7 +8,7 @@ import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/keywords/sequence_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/providers/country_provider.dart';
-import 'package:bldrs/views/screens/s11_sequence_flyers_screen.dart';
+import 'package:bldrs/views/screens/b3_sequence_flyers_screen.dart';
 import 'package:bldrs/views/widgets/flyer/stacks/flyer_stack.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
