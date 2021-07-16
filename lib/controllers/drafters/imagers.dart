@@ -271,7 +271,7 @@ static DecorationImage superImage(String picture, BoxFit boxFit){
 
   try {
     resultList = await MultiImagePicker.pickImages(
-      maxImages: Standards.getMaxFlyersSlidesByAccountType(accountType),
+      maxImages: Standards.getMaxSlidesCount(accountType),
       enableCamera: true,
       selectedAssets: images,
       cupertinoOptions: CupertinoOptions(
@@ -323,7 +323,7 @@ static DecorationImage superImage(String picture, BoxFit boxFit){
 
 }
 // -----------------------------------------------------------------------------
-  static Future<File> getFileFromCropperAsset(Asset asset) async {
+  static Future<File> getFileFromAsset(Asset asset) async {
   ByteData _byteData = await asset.getThumbByteData(asset.originalWidth, asset.originalHeight, quality: 100);
 
   String _name = trimTextAfterLastSpecialCharacter(asset.name, '.');
@@ -337,6 +337,18 @@ static DecorationImage superImage(String picture, BoxFit boxFit){
   File _file = _tempFile;
 
   return _file;
+}
+// -----------------------------------------------------------------------------
+static Future<List<File>> getFilesFromAssets(List<Asset> assets) async {
+  List<File> _files = new List();
+
+  for (Asset asset in assets) {
+
+    File _file = await Imagers.getFileFromAsset(asset);
+    _files.add(_file);
+
+  }
+  return _files;
 }
 // -----------------------------------------------------------------------------
   static List<CropAspectRatioPreset> getAndroidCropAspectRatioPresets(){
@@ -554,4 +566,26 @@ static DecorationImage superImage(String picture, BoxFit boxFit){
 
   return _boxFit;
   }
+// -----------------------------------------------------------------------------
+  static List<BoxFit> concludeBoxesFits({List<Asset> assets, double flyerZoneWidth}){
+  List<BoxFit> _fits = new List();
+
+  for (Asset asset in assets){
+
+    /// straigh forward solution,, bas ezzay,, I'm Rage7 and I can't just let it go keda,,
+    // if(asset.isPortrait){
+    //   _fits.add(BoxFit.fitHeight);
+    // } else {
+    //   _fits.add(BoxFit.fitWidth);
+    // }
+
+    /// boss ba2a
+    BoxFit _fit = concludeBoxFit(asset: asset, flyerZoneWidth: flyerZoneWidth);
+
+    _fits.add(_fit);
+  }
+
+  return _fits;
+  }
+// -----------------------------------------------------------------------------
 }

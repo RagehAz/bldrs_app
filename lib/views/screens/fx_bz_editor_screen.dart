@@ -266,7 +266,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
     // if(!isValid){return;}
     // _form.currentState.save();
 
-    minimizeKeyboardOnTapOutSide(context);
+    Keyboarders.minimizeKeyboardOnTapOutSide(context);
 
     bool _inputsAreValid;
     if (

@@ -165,7 +165,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
         DreamBox(
           height: 40,
           verse: _isSignedIn ? ' Signed in ' : ' Signed out ',
-          color: _isSignedIn ? Colorz.Green225 : Colorz.Grey80,
+          color: _isSignedIn ? Colorz.Green255 : Colorz.Grey80,
           verseScaleFactor: 0.6,
           verseColor: _isSignedIn ? Colorz.White255 : Colorz.DarkGrey225,
           onTap: () => AuthOps().signOut(context: context, routeToUserChecker: true),

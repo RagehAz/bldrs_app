@@ -62,7 +62,7 @@ class _CountryScreenState extends State<CountryScreen> {
   Future <void> _updateCountryFieldOnFirestore(String _field, dynamic _input) async {
     _triggerLoading();
 
-    minimizeKeyboardOnTapOutSide(context);
+    Keyboarders.minimizeKeyboardOnTapOutSide(context);
 
     await Fire.updateDocField(
       context: context,

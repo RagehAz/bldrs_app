@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:bldrs/controllers/drafters/imagers.dart';
+import 'package:bldrs/controllers/drafters/numberers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
@@ -10,7 +11,7 @@ import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
-import 'package:bldrs/views/widgets/flyer/stacks/slides_stack.dart';
+import 'package:bldrs/views/widgets/flyer/stacks/flyer_chain.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
@@ -20,18 +21,20 @@ import 'package:bldrs/controllers/drafters/text_checkers.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 
 class DraftFlyerModel{
-  List<TextEditingController> titlesControllers;
-  List<Asset> assets;
-  List<File> assetsAsFiles;
+  List<TextEditingController> headlinesControllers;
+  List<Asset> assetsSources;
+  List<File> assetsFiles;
   List<BoxFit> boxesFits;
-  ValueKey key;
+  final ValueKey key;
+  FlyerState state;
 
   DraftFlyerModel({
-    @required this.titlesControllers,
-    @required this.assets,
-    @required this.assetsAsFiles,
+    @required this.headlinesControllers,
+    @required this.assetsSources,
+    @required this.assetsFiles,
     @required this.boxesFits,
     @required this.key,
+    @required this.state,
 });
 
   static List<ValueKey> getKeysOfDrafts(List<DraftFlyerModel> drafts){
@@ -49,22 +52,23 @@ class DraftFlyerModel{
 
 }
 
-class FlyerPublisherScreen extends StatefulWidget {
+
+class PublisherScreen extends StatefulWidget {
   final BzModel bzModel;
   final bool firstTimer;
   final FlyerModel flyerModel;
 
-  FlyerPublisherScreen({
+  PublisherScreen({
     @required this.bzModel,
     this.firstTimer = false,
     this.flyerModel,
   });
 
   @override
-  _FlyerPublisherScreenState createState() => _FlyerPublisherScreenState();
+  _PublisherScreenState createState() => _PublisherScreenState();
 }
 
-class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with AutomaticKeepAliveClientMixin{
+class _PublisherScreenState extends State<PublisherScreen> with AutomaticKeepAliveClientMixin{
 // -----------------------------------------------------------------------------
   /// to keep out of screen objects alive
   @override
@@ -73,12 +77,11 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
   ScrollController _scrollController = new ScrollController();
   Curve _animationCurve = Curves.easeOut;
   Duration _animationDuration = Ratioz.duration150ms;
+  double _chainMaxHeight = 340;
 // -----------------------------------------------------------------------------
-  List<DraftFlyerModel> _draftFlyers = new List();
-// -----------------------------------------------------------------------------
-  List<double> _draftsOpacities = new List();
-  List<double> _draftsHeightsList = new List();
-  double _draftMaxHeight = 340;
+  List<double> _chainsOpacities = new List();
+  List<double> _chainsHeights = new List();
+  List<ValueKey> _chainsKeys = new List();
 // -----------------------------------------------------------------------------
   /// --- LOADING BLOCK
   bool _loading = false;
@@ -95,28 +98,18 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
 // -----------------------------------------------------------------------------
   @override
   void dispose(){
-
-    _draftFlyers.forEach((draft) {
-      List<TextEditingController> _controllers = draft.titlesControllers;
-
-      _controllers.forEach((controller) {
-        if (TextChecker.textControllerHasNoValue(controller))controller.dispose();
-      });
-
-    });
-
     _scrollController.dispose();
     super.dispose();
   }
 // -----------------------------------------------------------------------------
-  double _getDraftPosition(int index){
-    double _draftYOffsetFromScreenTop = ( (_draftMaxHeight * (index)) + Ratioz.appBarMargin);
-    return _draftYOffsetFromScreenTop;
+  double _getChainPosition(int index){
+    double _verticalOffsetFromScreenTop = ( (_chainMaxHeight * (index)) + Ratioz.appBarMargin);
+    return _verticalOffsetFromScreenTop;
   }
 // -----------------------------------------------------------------------------
-  Future <void> _scrollToDraft(int index) async {
+  Future <void> _scrollToChain(int index) async {
 
-    double _position = _getDraftPosition(index);
+    double _position = _getChainPosition(index);
 
     await _scrollController.animateTo(
       _position,
@@ -136,64 +129,24 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
     return _randomNumber;
   }
 // -----------------------------------------------------------------------------
-  void _printAfter(bool after){
-
-    if(after == true){
-      print('---This line is AFTER EVENTS ----------------------------------------');
-    } else {
-      print('---This line is BEFORE EVENTS ----------------------------------------');
-    }
-
-    print('_stackHeightsList : ${_draftsHeightsList.toString()}');
-    print('_stacksOpacities : ${_draftsOpacities.toString()}');
-    print('_keys : ${_draftFlyers.toString()}');
-
-    if(after == true){
-      print('--- EVENTS & CHECK PRINT ENDED ----------------------------------------');
-    } else {
-      print('---EVENTS START HERE ----------------------------------------');
-    }
-
-  }
-// -----------------------------------------------------------------------------
-  List<TextEditingController> _createTitlesControllersList(List<Asset> assets){
-    List<TextEditingController> _controllers = new List();
-
-    assets.forEach((asset) {
-      TextEditingController _controller = new TextEditingController();
-      _controllers.add(_controller);
-    });
-
-    return _controllers;
-  }
-// -----------------------------------------------------------------------------
-  Future<void> _addFlyer() async {
+  Future<void> _createNewChain() async {
 
     /// A - if less than 5 drafts
-    if (_draftFlyers.length < 5){
-      _printAfter(false);
-      int _newIndex = _draftFlyers.length;
+    if (_chainsKeys.length < 5){
+
+      int _newIndex = _chainsKeys.length;
+      ValueKey _newKey = Numberers.createUniqueKeyFrom(existingKeys: _chainsKeys);
 
       setState(() {
 
-        _draftsHeightsList.add(0);
-        _draftsOpacities.add(0);
-
-        _draftFlyers.add(
-            DraftFlyerModel(
-              titlesControllers: new List(),
-              assets: new List(),
-              assetsAsFiles: new List(),
-              boxesFits: new List(),
-              key: ValueKey(_createKeyValue(DraftFlyerModel.getKeysOfDrafts(_draftFlyers))),
-            )
-        );
+        _chainsHeights.add(0);
+        _chainsOpacities.add(0);
+        _chainsKeys.add(_newKey);
 
       });
 
-      await _fadeInAndExpandStack(_newIndex);
+      await _fadeInAndExpandChain(_newIndex);
       await _scrollToBottom();
-      _printAfter(true);
 
     }
 
@@ -211,54 +164,49 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
 
   }
 // -----------------------------------------------------------------------------
-  Future<void> _deleteFlyer({int index}) async {
+  Future<void> _deleteChain({int index}) async {
 
-    _printAfter(false);
-
-    await _fadeOutAndShrinkStack(index);
+    await _fadeOutAndShrinkChain(index);
 
     await Future.delayed(_animationDuration, () async {
 
       if (index != 0 ){
-        await _scrollToDraft(index - 1);
+        await _scrollToChain(index - 1);
       }
 
       setState(() {
-        _draftFlyers.removeAt(index);
-        _draftsOpacities.removeAt(index);
-        _draftsHeightsList.removeAt(index);
+        _chainsKeys.removeAt(index);
+        _chainsOpacities.removeAt(index);
+        _chainsHeights.removeAt(index);
       });
     });
 
-
-    _printAfter(true);
-
   }
 // -----------------------------------------------------------------------------
-  Future<void> _fadeOutAndShrinkStack(int index) async {
+  Future<void> _fadeOutAndShrinkChain(int index) async {
     await Future.delayed( _animationDuration, () async {
       setState(() {
-      _draftsOpacities[index] = 0;
+      _chainsOpacities[index] = 0;
       });
     });
 
     setState(() {
-      _draftsHeightsList[index] = 0;
+      _chainsHeights[index] = 0;
     });
 
   }
 // -----------------------------------------------------------------------------
-  Future<void> _fadeInAndExpandStack(int index) async {
+  Future<void> _fadeInAndExpandChain(int index) async {
 
     await Future.delayed(Ratioz.durationFading200, () async {
       setState(() {
-        _draftsOpacities[index] = 1;
+        _chainsOpacities[index] = 1;
 
       });
     });
 
     setState(() {
-      _draftsHeightsList[index] = _draftMaxHeight;
+      _chainsHeights[index] = _chainMaxHeight;
     });
 
   }
@@ -275,80 +223,11 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
 
   }
 // -----------------------------------------------------------------------------
-  Future<void> _getMultiImages({BzAccountType accountType, int draftIndex}) async {
-
-    _triggerLoading();
-
-      List<Asset> _inputAssets = _draftFlyers[draftIndex].assets;
-
-      /// if flyer reached max slides
-      if(Standards.getMaxFlyersSlidesByAccountType(accountType) <= _inputAssets.length ){
-        await superDialog(
-          context: context,
-          title: 'Obbaaaa',
-          body: 'Ta3alaaaaaaa ba2aaa ya 7abibi',
-        );
-      }
-
-      /// if still picking images
-      else {
-
-        List<Asset> _outputAssets;
-
-        if(mounted){
-          _outputAssets = await Imagers.getMultiImagesFromGallery(
-            context: context,
-            images: _inputAssets,
-            mounted: mounted,
-            accountType: accountType,
-          );
-
-          if(_outputAssets.length == 0){
-            // will do nothing
-          } else {
-
-            List<BoxFit> _fits = new List();
-            List<File> _assetsAsFiles = new List();
-
-            for (Asset asset in _outputAssets){
-              File _file = await Imagers.getFileFromCropperAsset(asset);
-              _assetsAsFiles.add(_file);
-
-              if(asset.isPortrait){
-                _fits.add(BoxFit.fitHeight);
-              } else {
-                _fits.add(BoxFit.fitWidth);
-              }
-
-            }
-
-            setState(() {
-              _draftFlyers[draftIndex].assets = _outputAssets;
-              _draftFlyers[draftIndex].boxesFits = _fits;
-              _draftFlyers[draftIndex].assetsAsFiles = _assetsAsFiles;
-              _draftFlyers[draftIndex].titlesControllers = _createTitlesControllersList(_outputAssets);
-            });
-            
-          }
-
-        }
-
-        if(_outputAssets.length == _inputAssets.length){
-          print('lengths are the same, length ${_outputAssets.length}');
-        } else {
-          print('lengths are not the same , length ${_outputAssets.length}');
-        }
-
-
-      }
-
-      _triggerLoading();
-
-  }
-// -----------------------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
+    /// when using with AutomaticKeepAliveClientMixin
+    super.build(context);
 
     return MainLayout(
       pageTitle: 'Add multiple flyers',
@@ -381,40 +260,35 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
           //   ),
           // ),
 
-          /// SPREAD FLYERS
+          /// CHAINS
           ...List.generate(
-              _draftFlyers.length,
-                  (_draftIndex) => AnimatedContainer(
+              _chainsKeys.length,
+                  (_chainIndex) => AnimatedContainer(
                     duration: _animationDuration,
                     curve: _animationCurve,
-                    height: _draftsHeightsList[_draftIndex],
+                    height: _chainsHeights[_chainIndex],
                     child: AnimatedOpacity(
-                      key: _draftFlyers[_draftIndex].key,
+                      key: _chainsKeys[_chainIndex],
                       curve: _animationCurve,
                       duration: _animationDuration,
-                      opacity: _draftsOpacities[_draftIndex],
-                      child: SlidesStack(
+                      opacity: _chainsOpacities[_chainIndex],
+                      child: FlyerChain(
+                        chainKey: _chainsKeys[_chainIndex],
                         bzModel: widget.bzModel,
                         firstTimer: widget.firstTimer,
-                        draftFlyerModel: _draftFlyers[_draftIndex],
-                        draftIndex: _draftIndex,
-                        stackHeight: _draftMaxHeight,
-                        onFirstTitleChange: (value){
-                          setState(() {
-                            _draftFlyers[_draftIndex].titlesControllers[0].text = value;
-                          });
-                        },
-                        onDeleteDraft: () => _deleteFlyer(index: _draftIndex),
-                        onAddPics: () => _getMultiImages(
-                          accountType: BzAccountType.Super,
-                          draftIndex: _draftIndex,
-                        ),
-                        onDeleteImage: (int imageIndex){
-                          setState(() {
-                            _draftFlyers[_draftIndex].assetsAsFiles.removeAt(imageIndex);
-                            _draftFlyers[_draftIndex].assets.removeAt(imageIndex);
-                          });
-                        },
+                        chainNumber: _chainIndex + 1,
+                        chainHeight: _chainMaxHeight,
+                        onDeleteChain: () => _deleteChain(index: _chainIndex),
+                        // onAddPics: () => _getMultiImages(
+                        //   accountType: BzAccountType.Super,
+                        //   draftIndex: _chainIndex,
+                        // ),
+                        // onDeleteImage: (int imageIndex){
+                        //   setState(() {
+                        //     _draftFlyers[_chainIndex].assetsAsFiles.removeAt(imageIndex);
+                        //     _draftFlyers[_chainIndex].assets.removeAt(imageIndex);
+                        //   });
+                        // },
           ),
                     ),
                   )
@@ -434,15 +308,15 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
               verse: 'Add a new Flyer',
               color: Colorz.White10,
               bubble: false,
-              onTap: _addFlyer,
-              inActiveMode: _draftFlyers.length < Standards.maxDraftsAtOnce ? false : true,
+              onTap: _createNewChain,
+              inActiveMode: _chainsKeys.length < Standards.maxDraftsAtOnce ? false : true,
             ),
           ),
 
           /// HORIZON
           SizedBox(
             width: Scale.superScreenWidth(context),
-            height: (Scale.superScreenHeight(context) - (Ratioz.stratosphere + _draftMaxHeight + 100 + (Ratioz.appBarMargin * 4))),
+            height: (Scale.superScreenHeight(context) - (Ratioz.stratosphere + _chainMaxHeight + 100 + (Ratioz.appBarMargin * 4))),
           ),
 
           /// GIF THING

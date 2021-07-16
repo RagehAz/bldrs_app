@@ -68,7 +68,7 @@ class FlyerZone extends StatelessWidget {
     return GestureDetector(
       onTap: (){
         tappingFlyerZone();
-        minimizeKeyboardOnTapOutSide(context);
+        Keyboarders.minimizeKeyboardOnTapOutSide(context);
       },
       onLongPress: onLongPress,
       child: Center(

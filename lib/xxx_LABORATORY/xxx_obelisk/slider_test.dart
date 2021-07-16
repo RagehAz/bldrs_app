@@ -160,7 +160,7 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
               data: SliderTheme.of(context).copyWith(
                 activeTickMarkColor: Colorz.Black230,
                 activeTrackColor: Colorz.Blue225,
-                disabledActiveTickMarkColor: Colorz.Green225,
+                disabledActiveTickMarkColor: Colorz.Green255,
                 disabledActiveTrackColor: Colorz.Green125,
                 disabledInactiveTickMarkColor: Colorz.White255,
                 disabledInactiveTrackColor: Colorz.Black20,
