@@ -31,6 +31,7 @@ import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_sheet.dart';
 import 'package:bldrs/views/widgets/dialogs/dialogz.dart';
 import 'package:bldrs/views/widgets/flyer/parts/ankh_button.dart';
+import 'package:bldrs/views/widgets/flyer/parts/flyer_zone.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header.dart';
 import 'package:bldrs/views/widgets/flyer/parts/progress_bar.dart';
 import 'package:bldrs/views/widgets/flyer/parts/slides_parts/footer.dart';
@@ -38,6 +39,7 @@ import 'package:bldrs/views/widgets/flyer/parts/slides_parts/single_slide.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:bldrs/xxx_LABORATORY/camera_and_location/location_helper.dart';
+import 'package:bldrs/xxx_LABORATORY/flyer_states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_size/flutter_keyboard_size.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -145,7 +147,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
   @override
   void initState() {
     _horizontalController = PageController(initialPage: 0, viewportFraction: 1, keepPage: true);
-    _verticalController = PageController(initialPage: 0, keepPage: true);
+    _verticalController = PageController(initialPage: 0, keepPage: true, viewportFraction: 1);
 
     _prof = Provider.of<FlyersProvider>(context, listen: false);
     _countryPro = Provider.of<CountryProvider>(context, listen: false);
@@ -1197,12 +1199,16 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
           color: Colorz.White20,
           onTap: () async {
 
-            await superDialog(
+            dynamic _result = await superDialog(
               context: context,
               boolDialog: true,
               title: 'No Slides left',
               body: 'You don\'t have any more slides to add\nWould you wish to get more slides ?',
             );
+
+            if(_result == false){
+              await Nav.goToNewScreen(context, FlyerStatsTest(bz: widget.bzModel));
+            }
 
             },
         ),
@@ -1403,113 +1409,116 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                 ),
 
                 /// FLYER
-                Container(
-                  width: _flyerZoneWidth,
-                  height: _flyerZoneHeight,
-                  decoration: BoxDecoration(
-                    color: Colorz.White10,
-                    borderRadius: Borderers.superFlyerCorners(context, _flyerZoneWidth),
-                  ),
-                  child: ClipRRect(
-                    borderRadius: Borderers.superFlyerCorners(context, _flyerZoneWidth),
-                    child: Stack(
+                FlyerZone(
+                  flyerSizeFactor: _flyerSizeFactor,
+                  tappingFlyerZone: (){},
+                  onLongPress: (){},
+                  stackWidgets: <Widget>[
+
+                    /// SLIDES
+                    PageView(
+                      pageSnapping: true,
+                      scrollDirection: Axis.vertical,
+                      physics: BouncingScrollPhysics(),
+                      allowImplicitScrolling: true,
+                      onPageChanged: (i) => _onVerticalIndexChanged(i),
+                      controller: _verticalController,
                       children: <Widget>[
 
-                        PageView(
-                          pageSnapping: true,
-                          scrollDirection: Axis.vertical,
-                          physics: BouncingScrollPhysics(),
-                          allowImplicitScrolling: true,
-                          onPageChanged: (i) => _onVerticalIndexChanged(i),
-                          controller: _verticalController,
+                        /// PAGES & ANKH
+                        Stack(
                           children: <Widget>[
 
-                            /// PAGES & ANKH
-                            Stack(
-                              children: <Widget>[
+                            /// SLIDES
+                            if(_draft.currentSlideIndex != null)
+                              PageView(
+                                pageSnapping: true,
+                                controller: _horizontalController,
+                                physics: BouncingScrollPhysics(),
+                                allowImplicitScrolling: false,
+                                clipBehavior: Clip.antiAlias,
+                                restorationId: '${_draft.key.value}',
+                                onPageChanged: _draft.listenToSwipe ? (i) => _onPageChanged(i) : (i) => Sliders.zombie(i),
+                                scrollDirection: Axis.horizontal,
+                                children: <Widget>[
+                                  ..._buildSlides(_flyerZoneWidth),
+                                ],
+                              ),
 
-                                /// SLIDES
-                                if(_draft.currentSlideIndex != null)
-                                  PageView(
-                                    pageSnapping: true,
-                                    controller: _horizontalController,
-                                    physics: BouncingScrollPhysics(),
-                                    allowImplicitScrolling: false,
-                                    clipBehavior: Clip.antiAlias,
-                                    restorationId: '${_draft.key.value}',
-                                    onPageChanged: _draft.listenToSwipe ? (i) => _onPageChanged(i) : (i) => Sliders.zombie(i),
-                                    scrollDirection: Axis.horizontal,
-                                    children: <Widget>[
-                                      ..._buildSlides(_flyerZoneWidth),
-                                    ],
-                                  ),
-
-                                /// ANKH
-                                if(_draft.currentSlideIndex != null)
-                                  AnkhButton(
-                                    microMode: false,
-                                    bzPageIsOn: false,
-                                    flyerZoneWidth: _flyerZoneWidth,
-                                    slidingIsOn: true,
-                                    ankhIsOn: false,
-                                    tappingAnkh: (){
-                                      Nav.goToNewScreen(context,
-                                          OldFlyerEditorScreen(
-                                            bzModel: widget.bzModel,
-                                            firstTimer: true,
-                                            flyerModel: null,
-                                          )
-                                      );
-                                    },
-                                  ),
-
-                              ],
-                            ),
-
-                            /// KEYWORDS
-                            Container(
-                              width: _flyerZoneWidth,
-                              height: _flyerZoneHeight * 0.5,
-                              color: Colorz.BloodTest,
-                            ),
+                            /// ANKH
+                            if(_draft.currentSlideIndex != null)
+                              AnkhButton(
+                                microMode: false,
+                                bzPageIsOn: false,
+                                flyerZoneWidth: _flyerZoneWidth,
+                                slidingIsOn: true,
+                                ankhIsOn: false,
+                                tappingAnkh: (){
+                                  Nav.goToNewScreen(context,
+                                      OldFlyerEditorScreen(
+                                        bzModel: widget.bzModel,
+                                        firstTimer: true,
+                                        flyerModel: null,
+                                      )
+                                  );
+                                },
+                              ),
 
                           ],
                         ),
 
+                        /// KEYWORDS
+                        Column(
+                          children: [
 
-                        /// FLYER HEADER
-                        AbsorbPointer(
-                          absorbing: true,
-                          child: Header(
-                            tinyBz: TinyBz.getTinyBzFromBzModel(_bz),
-                            tinyAuthor: TinyUser.getTinyAuthorFromAuthorModel(_author),
-                            flyerShowsAuthor: _draft.showAuthor,
-                            followIsOn: false,
-                            flyerZoneWidth: Scale.superFlyerZoneWidth(context, _flyerSizeFactor),
-                            bzPageIsOn: false,
-                            tappingHeader: (){},
-                            onFollowTap: (){},
-                            onCallTap: (){
-                              print('call');
-                              },
-                          ),
+                            Container(
+                              width: _flyerZoneWidth,
+                              height: Scale.superHeaderHeight(false, _flyerZoneWidth) + _flyerZoneWidth * Ratioz.xxProgressBarHeightRatio,
+                            ),
+
+                            Container(
+                              width: _flyerZoneWidth,
+                              height: _flyerZoneHeight * 0.5,
+                              child: Container(
+                                color: Colorz.BloodTest,
+                              ),
+                              // color: Colorz.BloodTest,
+                            ),
+                          ],
                         ),
 
-                        /// PROGRESS BAR
-                        if(_draft.numberOfStrips != 0 && _draft.currentSlideIndex != null)
-                          ProgressBar(
-                            flyerZoneWidth: _flyerZoneWidth,
-                            numberOfStrips: _draft.numberOfStrips,
-                            slideIndex: _draft.currentSlideIndex,
-                            swipeDirection: _draft.swipeDirection,
-                          ),
-
-
                       ],
-
-
                     ),
-                  ),
+
+                    /// FLYER HEADER
+                    AbsorbPointer(
+                      absorbing: true,
+                      child: Header(
+                        tinyBz: TinyBz.getTinyBzFromBzModel(_bz),
+                        tinyAuthor: TinyUser.getTinyAuthorFromAuthorModel(_author),
+                        flyerShowsAuthor: _draft.showAuthor,
+                        followIsOn: false,
+                        flyerZoneWidth: Scale.superFlyerZoneWidth(context, _flyerSizeFactor),
+                        bzPageIsOn: false,
+                        tappingHeader: (){},
+                        onFollowTap: (){},
+                        onCallTap: (){
+                          print('call');
+                        },
+                      ),
+                    ),
+
+                    /// PROGRESS BAR
+                    if(_draft.numberOfStrips != 0 && _draft.currentSlideIndex != null)
+                      ProgressBar(
+                        flyerZoneWidth: _flyerZoneWidth,
+                        numberOfStrips: _draft.numberOfStrips,
+                        slideIndex: _draft.currentSlideIndex,
+                        swipeDirection: _draft.swipeDirection,
+                      ),
+
+
+                  ],
                 ),
 
               ],
