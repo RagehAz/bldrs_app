@@ -57,21 +57,21 @@ class Numberers {
     return _asIntegers;
   }
 // -----------------------------------------------------------------------------
+  /// TASK : this method needs testing
   static int createUniqueIntFrom({@required List<int> existingValues}) {
     Random _random = new Random();
-    int _randomNumber = _random.nextInt(
-        1000000); // from 0 up to 999'999 included
+    int _randomNumber = _random.nextInt(1000000); // from 0 up to 999'999 included
 
-    if (_randomNumber == null) {
-      _randomNumber = createUniqueIntFrom(existingValues: existingValues);
+    if (existingValues == null || existingValues.length == 0){
+      _randomNumber = _random.nextInt(1000000);
     }
 
-    else if (existingValues != null && existingValues.contains(_randomNumber)) {
+    else if (existingValues.contains(_randomNumber)) {
       _randomNumber = createUniqueIntFrom(existingValues: existingValues);
     }
 
     else {
-      _randomNumber = null;
+      /// will use initial random number created
     }
 
     return _randomNumber;

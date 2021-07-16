@@ -4,7 +4,7 @@ import 'package:bldrs/models/bz_model.dart';
 
 class Standards{
 // -----------------------------------------------------------------------------
-  static const int maxFlyerSlidesFreeAccount = 3;
+  static const int maxFlyerSlidesFreeAccount = 50; /// TASK : should be save on firestore
   static const int maxFlyerSlidesPremiumAccount = 7;
   static const int maxFlyerSlidesFreeSuper = 25;
 
