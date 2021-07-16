@@ -273,7 +273,7 @@ class _MyBzScreenState extends State<MyBzScreen> {
 
             MainLayout(
                 pyramids: Iconz.PyramidzYellow,
-                sky: Sky.Black,
+                sky: Sky.Night,
                 // appBarBackButton: true,
                 appBarType: AppBarType.Basic,
                 loading: _loading,
@@ -310,6 +310,46 @@ class _MyBzScreenState extends State<MyBzScreen> {
                   children: <Widget>[
 
                     Stratosphere(),
+
+                    /// --- GALLERY
+                    InPyramidsBubble(
+                      title: 'Published Flyers',
+                      centered: false,
+                      actionBtIcon: Iconz.Clock,
+                      actionBtFunction: () => _showOldFlyersOnTap(bzModel),
+                      columnChildren: <Widget>[
+
+                        Gallery(
+                          flyerZoneWidth: Scale.superBubbleClearWidth(context),
+                          showFlyers: true,
+                          bz: bzModel,
+                          // showOldFlyers: _showOldFlyers,
+                          flyerOnTap: (tinyFlyer) async {
+
+                            dynamic _rebuild = await Navigator.push(context,
+                                new MaterialPageRoute(
+                                    builder: (context) => new BzFlyerScreen(
+                                      tinyFlyer: tinyFlyer,
+                                      bzModel: bzModel,
+                                    )
+                                ));
+
+                            if (_rebuild == true){
+                              print('we should rebuild');
+                              setState(() { });
+                            } else if (_rebuild == false){
+                              print('do not rebuild');
+                            } else {
+                              print ('rebuild is null');
+                            }
+
+                          },
+                        ),
+
+                      ],
+                    ),
+
+                    BubblesSeparator(),
 
                     /// --- SCOPE
                     ParagraphBubble(
@@ -378,47 +418,6 @@ class _MyBzScreenState extends State<MyBzScreen> {
 
                         ]
                     ),
-
-                    BubblesSeparator(),
-
-                    /// --- GALLERY
-                    InPyramidsBubble(
-                      title: 'Published Flyers',
-                      centered: false,
-                      actionBtIcon: Iconz.Clock,
-                      actionBtFunction: () => _showOldFlyersOnTap(bzModel),
-                      columnChildren: <Widget>[
-
-                        Gallery(
-                          flyerZoneWidth: Scale.superBubbleClearWidth(context),
-                          showFlyers: true,
-                          bz: bzModel,
-                          // showOldFlyers: _showOldFlyers,
-                          flyerOnTap: (tinyFlyer) async {
-
-                            dynamic _rebuild = await Navigator.push(context,
-                            new MaterialPageRoute(
-                                builder: (context) => new BzFlyerScreen(
-                                    tinyFlyer: tinyFlyer,
-                                    bzModel: bzModel,
-                                )
-                            ));
-
-                            if (_rebuild == true){
-                              print('we should rebuild');
-                              setState(() { });
-                            } else if (_rebuild == false){
-                              print('do not rebuild');
-                            } else {
-                              print ('rebuild is null');
-                            }
-
-                          },
-                        ),
-
-                      ],
-                    ),
-
 
                     PyramidsHorizon(heightFactor: 3,),
 
