@@ -407,7 +407,7 @@ class FlyerOps{
       collName: FireCollection.flyers,
       docName: flyerID,
       field: 'flyerState',
-      input: FlyerModel.cipherFlyerState(FlyerState.DeActivated),
+      input: FlyerModel.cipherFlyerState(FlyerState.Unpublished),
     );
 
 }

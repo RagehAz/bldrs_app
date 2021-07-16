@@ -11,7 +11,7 @@ import 'package:bldrs/models/keywords/keys_set.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
-import 'package:bldrs/views/screens/s22_search_filters_screen.dart';
+import 'package:bldrs/views/screens/c2_search_filters_screen.dart';
 import 'package:bldrs/views/widgets/browser/browser_pages.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';

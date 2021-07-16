@@ -5,8 +5,8 @@ import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/country_provider.dart';
-import 'package:bldrs/views/screens/s00_user_checker_widget.dart';
-import 'package:bldrs/views/screens/s16_user_editor_screen.dart';
+import 'package:bldrs/views/screens/a0_user_checker_widget.dart';
+import 'package:bldrs/views/screens/gx_user_editor_screen.dart';
 import 'package:bldrs/views/widgets/buttons/main_button.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
@@ -247,7 +247,7 @@ class _GoogleSignInTestState extends State<GoogleSignInTest> {
             corners: 20,
             margins: 20,
             verse: _isSignedIn ? 'Signed in' : 'Signed out',
-            color: _isSignedIn ? Colorz.Green225 : Colorz.Grey80,
+            color: _isSignedIn ? Colorz.Green255 : Colorz.Grey80,
             verseScaleFactor: 0.6,
             verseColor: _isSignedIn ? Colorz.White255 : Colorz.DarkGrey225,
           ),
@@ -258,7 +258,7 @@ class _GoogleSignInTestState extends State<GoogleSignInTest> {
             weight: VerseWeight.thin,
             maxLines: 50,
             size: 2,
-            labelColor: _isSignedIn ? Colorz.Green225 : Colorz.Grey80,
+            labelColor: _isSignedIn ? Colorz.Green255 : Colorz.Grey80,
             color: _isSignedIn ? Colorz.White255 : Colorz.DarkGrey225,
           ),
 

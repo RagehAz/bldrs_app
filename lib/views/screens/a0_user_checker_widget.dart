@@ -5,9 +5,9 @@ import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/firestore/user_ops.dart';
 import 'package:bldrs/models/user_model.dart';
-import 'package:bldrs/views/screens/s01_starting_screen.dart';
-import 'package:bldrs/views/screens/s03_loading_screen.dart';
-import 'package:bldrs/views/screens/s16_user_editor_screen.dart';
+import 'package:bldrs/views/screens/a2_starting_screen.dart';
+import 'package:bldrs/views/screens/a4_loading_screen.dart';
+import 'package:bldrs/views/screens/gx_user_editor_screen.dart';
 import 'package:bldrs/views/widgets/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
@@ -15,6 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 /// TASK : if appNeedsUpdate = true ? goTO(AppStore) : check the user as you wish
+/// TASK : if device is offline
 /// and we get this value from database and to be controlled from dashboard
 class UserChecker extends StatefulWidget {
 

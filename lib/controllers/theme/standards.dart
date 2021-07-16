@@ -12,7 +12,7 @@ class Standards{
 
   static const int flyerTitleMaxLength = 50;
 // -----------------------------------------------------------------------------
-  static int getMaxFlyersSlidesByAccountType(BzAccountType accountType){
+  static int getMaxSlidesCount(BzAccountType accountType){
 
     switch (accountType){
       case BzAccountType.Default:   return  maxFlyerSlidesFreeAccount;     break;

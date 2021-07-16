@@ -34,7 +34,7 @@ class DreamBox extends StatelessWidget {
   final bool bubble;
   final String secondLine;
   final bool verseCentered;
-  final Widget dreamChild;
+  final Widget child;
   final double opacity;
   final bool inActiveMode;
   final String underLine;
@@ -74,7 +74,7 @@ class DreamBox extends StatelessWidget {
     this.bubble = true,
     this.secondLine,
     this.verseCentered = true,
-    this.dreamChild,
+    this.child,
     this.opacity = 1,
     this.inActiveMode = false,
     this.underLine,
@@ -269,14 +269,14 @@ class DreamBox extends StatelessWidget {
                               ),
 
                               // --- DREAM CHILD
-                               if (dreamChild != null)
+                               if (child != null)
                               Container(
                                 height: height,
                                 width: width,
                                 decoration: BoxDecoration(
                                   borderRadius: getCornersAsBorderRadius(),
                                 ),
-                                child: dreamChild,
+                                child: child,
                               ),
 
                               /// ICON - VERSE - SECOND LINE
@@ -288,7 +288,7 @@ class DreamBox extends StatelessWidget {
                                 children: <Widget>[
 
                                   /// --- ICON & UNDERLINE BOX footprint
-                                  if (icon != null)
+                                  if (icon != null || loading == true)
                                   Container(
                                     width: underLine == null ? height : width,
                                     height: underLine == null ? height : height,
@@ -459,7 +459,7 @@ class DreamBox extends StatelessWidget {
                                   ),
 
                                   /// --- SPACING
-                                  if (verse != null && icon != null)
+                                  if (verse != null)
                                   SizedBox(
                                     width: iconSizeFactor != 1 && icon != null ? _verseIconSpacing * 0.25 : _verseIconSpacing,
                                     height: height,
@@ -507,7 +507,7 @@ class DreamBox extends StatelessWidget {
                                   ),
 
                                   /// --- SPACING
-                                  if (verse != null && icon != null)
+                                  if (verse != null)
                                   SizedBox(
                                     width: _verseIconSpacing + _iconMargin,
                                     height: height,
