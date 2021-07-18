@@ -47,11 +47,15 @@ class Sliders{
       duration: Ratioz.durationSliding400, curve: Curves.easeInOutCirc);
 }
 // -----------------------------------------------------------------------------
-  static Future<void> slideToBackFrom(PageController slidingController, int currentSlide) async {
+  static Future<void> slideToBackFrom(PageController slidingController, int currentSlide, {Curve curve}) async {
+
+    Curve _curve = curve == null ? Curves.easeInOutCirc : curve;
+
   if (currentSlide == 0){print('can not slide back');} else {
     await slidingController.animateToPage(currentSlide - 1,
         duration: Ratioz.durationSliding400,
-        curve: Curves.easeInOutCirc);
+        curve: _curve,
+    );
 
   }
 }

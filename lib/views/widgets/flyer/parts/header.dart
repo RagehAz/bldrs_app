@@ -41,7 +41,7 @@ class Header extends StatelessWidget {
     return GestureDetector(
         onTap: tappingHeader,
         child: ListView(
-          physics: superScroller(bzPageIsOn),
+          physics: Scrollers.superScroller(bzPageIsOn),
           shrinkWrap: true,
           addAutomaticKeepAlives: true,
           children: <Widget>[
