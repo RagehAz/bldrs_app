@@ -80,7 +80,7 @@ class Province{
     return _provincesNames;
   }
 // -----------------------------------------------------------------------------
-  static Keyword getKeywordModelFromProvinceModel(BuildContext context, Province province){
+  static Keyword getKeywordFromProvince(BuildContext context, Province province){
 
     // CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
 
@@ -97,4 +97,19 @@ class Province{
 
     return _keyword;
   }
+// -----------------------------------------------------------------------------
+  static List<Keyword> getKeywordsFromProvinces(BuildContext context, List<Province> provinces){
+    List<Keyword> _keywords = new List();
+
+    provinces.forEach((province) {
+
+      Keyword _provinceKeyword = getKeywordFromProvince(context, province);
+
+      _keywords.add(_provinceKeyword);
+
+    });
+
+    return _keywords;
+  }
+// -----------------------------------------------------------------------------
 }

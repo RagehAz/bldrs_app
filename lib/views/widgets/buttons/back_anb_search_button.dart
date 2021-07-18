@@ -57,23 +57,33 @@ class BackAndSearchButton extends StatelessWidget {
       // textDirection: superInverseTextDirection(context),
       onTap: () async {
 
-        if (backAndSearchAction == BackAndSearchAction.GoBack){
-          Nav.goBack(context);
-        }
-
-        else if(backAndSearchAction == BackAndSearchAction.GoToSearchScreen){
-          Nav.goToNewScreen(context, SearchScreen());
-        }
-
-        else if(backAndSearchAction == BackAndSearchAction.ShowHistory){
-          String _result = await Nav.goToNewScreen(context, SearchHistoryScreen());
-          print('received back this result : $_result');
-          passSearchHistory(_result);
+        if (onTap != null){
+          onTap();
         }
 
         else {
-          print('nothing to do');
+
+          if (backAndSearchAction == BackAndSearchAction.GoBack){
+            Nav.goBack(context);
+          }
+
+          else if(backAndSearchAction == BackAndSearchAction.GoToSearchScreen){
+            Nav.goToNewScreen(context, SearchScreen());
+          }
+
+          else if(backAndSearchAction == BackAndSearchAction.ShowHistory){
+            String _result = await Nav.goToNewScreen(context, SearchHistoryScreen());
+            print('received back this result : $_result');
+            passSearchHistory(_result);
+          }
+
+          else {
+            print('nothing to do');
+          }
+
         }
+
+
       }
 
     );

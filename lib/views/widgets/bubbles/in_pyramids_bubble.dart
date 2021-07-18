@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/aligners.dart';
+import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/text_shapers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
@@ -19,9 +20,11 @@ final String actionBtIcon;
 final Function actionBtFunction;
 final double bubbleWidth;
 final Function bubbleOnTap;
-final double actionBtSizeFactor;
+final double LeadingAndActionButtonsSizeFactor;
 final String leadingIcon;
 final Color leadingIconColor;
+final dynamic margins;
+final dynamic corners;
 
   InPyramidsBubble({
     @required this.columnChildren,
@@ -35,19 +38,23 @@ final Color leadingIconColor;
     this.actionBtFunction,
     this.bubbleWidth,
     this.bubbleOnTap,
-    this.actionBtSizeFactor = 0.6,
+    this.LeadingAndActionButtonsSizeFactor = 0.6,
     this.leadingIcon,
     this.leadingIconColor,
+    this.margins,
+    this.corners,
 });
 
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
-    const double _pageMargin = Ratioz.appBarMargin ;
+    double _pageMargin = Ratioz.appBarMargin;
 // -----------------------------------------------------------------------------
     EdgeInsets _bubbleMargins =
-    stretchy == true ? const EdgeInsets.all(0) :
-    const EdgeInsets.only(right: _pageMargin, left: _pageMargin, bottom: _pageMargin);
+    margins == null && stretchy == true ? Scale.superMargins(margins: 0) :
+    margins == null && stretchy == false ? Scale.superMargins(margins: _pageMargin) :
+    margins != null ? Scale.superMargins(margins: margins) :
+    Scale.superMargins(margins: margins) ;
 
     ///////////////////////////////////////////////////////////////////////////
     /// bos keda we need to consider this tree here in this bubble
@@ -71,13 +78,20 @@ final Color leadingIconColor;
         :
         null;
 // -----------------------------------------------------------------------------
+    double _titleWidth = stretchy == true ? null : _bubbleWidth - actionBtSize * 2;
+
+    BorderRadius _corners =
+    corners == null ? Borderers.superBorder(context: context, corners: Ratioz.appBarCorner)
+        :
+    Borderers.superBorder(context: context, corners: corners);
+// -----------------------------------------------------------------------------
     return Container(
           width: _bubbleWidth,
           margin: _bubbleMargins,
           // padding: EdgeInsets.all(_pageMargin),
           decoration: BoxDecoration(
             color: bubbleColor,
-            borderRadius: BorderRadius.circular(Ratioz.appBarCorner),
+            borderRadius: _corners,
           ),
           alignment: centered == true ? Alignment.center : Aligners.superCenterAlignment(context),
 
@@ -88,7 +102,7 @@ final Color leadingIconColor;
               splashColor: Colorz.Yellow255,
               borderRadius: BorderRadius.circular(Ratioz.appBarCorner),
               child: Padding(
-                padding: const EdgeInsets.all(_pageMargin),
+                padding: EdgeInsets.all(_pageMargin),
                 child: Column(
                   mainAxisSize: stretchy ? MainAxisSize.min : MainAxisSize.max,
                   mainAxisAlignment: centered == true ? MainAxisAlignment.center : MainAxisAlignment.start,
@@ -122,7 +136,7 @@ final Color leadingIconColor;
                             // color: actionBtColor,
                             icon: leadingIcon,
                             iconColor: leadingIconColor,
-                            iconSizeFactor: actionBtSizeFactor,
+                            iconSizeFactor: LeadingAndActionButtonsSizeFactor,
                             onTap: actionBtFunction,
                             bubble: false,
                           ),
@@ -130,7 +144,7 @@ final Color leadingIconColor;
                         /// --- BUBBLE TITLE
                         if (title != null)
                           Container(
-                            width: _bubbleWidth - actionBtSize * 2,
+                            width: _titleWidth,
                             padding: const EdgeInsets.only(bottom: Ratioz.appBarMargin, left: Ratioz.appBarPadding, right:  Ratioz.appBarPadding),
                             child: SuperVerse(
                               verse: title,
@@ -154,7 +168,7 @@ final Color leadingIconColor;
                           corners: actionBtCorner,
                           // color: actionBtColor,
                           icon: actionBtIcon,
-                          iconSizeFactor: actionBtSizeFactor,
+                          iconSizeFactor: LeadingAndActionButtonsSizeFactor,
                           onTap: actionBtFunction,
                         ),
 

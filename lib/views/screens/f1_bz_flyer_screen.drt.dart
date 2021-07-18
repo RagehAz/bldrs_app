@@ -87,10 +87,10 @@ class BzFlyerScreen extends StatelessWidget {
             width: BottomSlider.bottomSheetClearWidth(context),
             icon: Iconz.XSmall,
             iconSizeFactor: 0.5,
-            iconColor: Colorz.Red225,
+            iconColor: Colorz.Red255,
             verse: 'Unpublish Flyer',
             verseScaleFactor: 1.2,
-            verseColor: Colorz.Red225,
+            verseColor: Colorz.Red255,
             // verseWeight: VerseWeight.thin,
             onTap: () => _unpublishFlyerOnTap(context),
 
@@ -228,11 +228,11 @@ class BzFlyerScreen extends StatelessWidget {
                     SizedBox(height: 10,),
 
                     // --- KEYWORDS
-                    WordsBubble(
+                    KeywordsBubble(
                       bubbleWidth: _flyerZoneWidth,
                       title: 'Flyer Keywords',
                       selectedWords: [],
-                      words: flyerModel.keyWords,
+                      keywords: flyerModel.keyWords,
                       bubbles: false,
                       verseSize: 2,
                       bubbleColor: Colorz.White20,

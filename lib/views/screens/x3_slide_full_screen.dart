@@ -26,21 +26,20 @@ class SlideFullScreen extends StatelessWidget {
 
       ],
       layoutWidget:
-      GestureDetector(
-        onTap: () => Nav.goBack(context),
-        child: Center(
-          child: Container(
-            width: Scale.superScreenWidth(context),
-            height: Scale.superScreenHeight(context),
-            alignment: Alignment.center,
-            child: ZoomablePicture(
-              child: Imagers.superImageWidget(
-                image,
-                fit: BoxFit.fitWidth,
-                width: Scale.superScreenWidth(context).toInt(),
-                height: Scale.superScreenHeight(context).toInt(),
-              ),
-              isOn: true,
+      Center(
+        child: Container(
+          width: Scale.superScreenWidth(context),
+          height: Scale.superScreenHeight(context),
+          alignment: Alignment.center,
+          child: ZoomablePicture(
+            isOn: true,
+            isFullScreen: true,
+            autoShrink: false,
+            child: Imagers.superImageWidget(
+              image,
+              fit: BoxFit.fitWidth,
+              width: Scale.superScreenWidth(context).toInt(),
+              height: Scale.superScreenHeight(context).toInt(),
             ),
           ),
         ),

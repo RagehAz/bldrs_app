@@ -40,7 +40,7 @@ class BzLogo extends StatelessWidget {
     double logoZeroCorner = miniMode == true || zeroCornerIsOn == false ? logoRoundCorners : 0;
 // -----------------------------------------------------------------------------
     BorderRadius bzLogoCorners = corners == null ?
-    Borderers.superBorderRadius(
+    Borderers.superBorders(
         context: context,
         enTopLeft: logoRoundCorners,
         enBottomLeft: logoRoundCorners,

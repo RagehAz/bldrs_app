@@ -183,7 +183,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     title: '${_keyword.flyerType}, ${_keyword.groupID}, ${_keyword.subGroupID}',
                     xIsOn: true,
                     onTap: () => _removeKeyword(index, filtersModels),
-                    color: _isHighlighted == true ? Colorz.Red225 : Colorz.Blue80,
+                    color: _isHighlighted == true ? Colorz.Red255 : Colorz.Blue80,
                   );
 
               },

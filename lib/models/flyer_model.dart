@@ -229,6 +229,45 @@ class FlyerModel with ChangeNotifier{
     return _totalFlyers;
   }
 // -----------------------------------------------------------------------------
+  static int getTotalSaves(FlyerModel flyer){
+    int _totalSaves = 0;
+
+    if (flyer != null && flyer?.slides != null && flyer?.slides?.length !=0){
+
+      flyer.slides.forEach((slide) {
+        _totalSaves = _totalSaves + slide.savesCount;
+      });
+
+    }
+    return _totalSaves;
+  }
+// -----------------------------------------------------------------------------
+  static int getTotalShares(FlyerModel flyer){
+    int _totalShares = 0;
+
+    if (flyer != null && flyer?.slides != null && flyer?.slides?.length !=0){
+
+      flyer.slides.forEach((slide) {
+        _totalShares = _totalShares + slide.sharesCount;
+      });
+
+    }
+    return _totalShares;
+  }
+// -----------------------------------------------------------------------------
+  static int getTotalViews(FlyerModel flyer){
+    int _totalViews = 0;
+
+    if (flyer != null && flyer?.slides != null && flyer?.slides?.length !=0){
+
+      flyer.slides.forEach((slide) {
+        _totalViews = _totalViews + slide.viewsCount;
+      });
+
+    }
+    return _totalViews;
+  }
+// -----------------------------------------------------------------------------
 }
 // -----------------------------------------------------------------------------
 enum FlyerState{

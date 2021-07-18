@@ -283,7 +283,7 @@ class Strip extends StatelessWidget {
             Container(
               width: _aStripLength,
               height: _aStripThickness,
-              color: Colorz.Red225,
+              color: Colorz.Red255,
             ),
 
           Container(

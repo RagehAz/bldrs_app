@@ -277,10 +277,10 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
               width: BottomSlider.bottomSheetClearWidth(context),
               icon: Iconz.XSmall,
               iconSizeFactor: 0.5,
-              iconColor: Colorz.Red225,
+              iconColor: Colorz.Red255,
               verse: 'Deactivate your Account',
               verseScaleFactor: 1.2,
-              verseColor: Colorz.Red225,
+              verseColor: Colorz.Red255,
               // verseWeight: VerseWeight.thin,
               onTap: () => _deactivateUserOnTap(userModel)
 
