@@ -151,16 +151,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   /// return a new contacts list with all old values and new overridden values
     List<ContactModel> newContacts = ContactModel.createContactsList(
       existingContacts: existingContacts,
-      phone: removeSpacesFromAString(_phoneController.text),
-      email: removeSpacesFromAString(_emailController.text),
-      webSite: removeSpacesFromAString(_websiteController.text),
-      facebook: removeSpacesFromAString(_facebookController.text),
-      linkedIn: removeSpacesFromAString(_linkedInController.text),
-      youTube: removeSpacesFromAString(_youTubeController.text),
-      instagram: removeSpacesFromAString(_instagramController.text),
-      pinterest: removeSpacesFromAString(_pinterestController.text),
-      tikTok: removeSpacesFromAString(_tiktokController.text),
-      twitter: removeSpacesFromAString(_twitterController.text),
+      phone: TextMod.removeSpacesFromAString(_phoneController.text),
+      email: TextMod.removeSpacesFromAString(_emailController.text),
+      webSite: TextMod.removeSpacesFromAString(_websiteController.text),
+      facebook: TextMod.removeSpacesFromAString(_facebookController.text),
+      linkedIn: TextMod.removeSpacesFromAString(_linkedInController.text),
+      youTube: TextMod.removeSpacesFromAString(_youTubeController.text),
+      instagram: TextMod.removeSpacesFromAString(_instagramController.text),
+      pinterest: TextMod.removeSpacesFromAString(_pinterestController.text),
+      tikTok: TextMod.removeSpacesFromAString(_tiktokController.text),
+      twitter: TextMod.removeSpacesFromAString(_twitterController.text),
     );
     return newContacts;
   }

@@ -244,11 +244,11 @@ static DecorationImage superImage(String picture, BoxFit boxFit){
       methodName : 'getImageFileFromAssets',
       functions: () async {
         print('0. removing assets/ from input image path');
-        String _pathTrimmed = removeNumberOfCharactersFromAString(asset, 7);
+        String _pathTrimmed = TextMod.removeNumberOfCharactersFromAString(asset, 7);
         print('1. starting getting image from assets');
         final _byteData = await rootBundle.load('assets/$_pathTrimmed');
         print('2. we got byteData and creating the File aho');
-        final _tempFile = File('${(await getTemporaryDirectory()).path}/${getFileNameFromAsset(_pathTrimmed)}');
+        final _tempFile = File('${(await getTemporaryDirectory()).path}/${TextMod.getFileNameFromAsset(_pathTrimmed)}');
         print('3. we created the FILE and will overwrite image data as bytes');
         await _tempFile.writeAsBytes(_byteData.buffer.asUint8List(_byteData.offsetInBytes, _byteData.lengthInBytes));
         await _tempFile.create(recursive: true);
@@ -338,7 +338,7 @@ static DecorationImage superImage(String picture, BoxFit boxFit){
   static Future<File> getFileFromAsset(Asset asset) async {
   ByteData _byteData = await asset.getThumbByteData(asset.originalWidth, asset.originalHeight, quality: 100);
 
-  String _name = trimTextAfterLastSpecialCharacter(asset.name, '.');
+  String _name = TextMod.trimTextAfterLastSpecialCharacter(asset.name, '.');
 
   print('====================================================================================== asset name is : ${asset.runtimeType}');
 
