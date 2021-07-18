@@ -46,9 +46,9 @@ TextDirection superTextDirectionSwitcherByController(TextEditingController contr
 
     String _string = controller.text;
 
-    String _trimmedVal = removeSpacesFromAString(_string.trim());
+    String _trimmedVal = TextMod.removeSpacesFromAString(_string.trim());
 
-    String _firstCharacter = firstCharacterOfAString(_trimmedVal);
+    String _firstCharacter = TextMod.firstCharacterOfAString(_trimmedVal);
 
     // String _val = _trimmedVal; // first character defines the direction
 
@@ -76,9 +76,9 @@ TextDirection superTextDirectionSwitcher(String val){
 
     String _string = val;
 
-    String _trimmedVal = removeSpacesFromAString(_string.trim());
+    String _trimmedVal = TextMod.removeSpacesFromAString(_string.trim());
 
-    String _firstCharacter = firstCharacterOfAString(_trimmedVal);
+    String _firstCharacter = TextMod.firstCharacterOfAString(_trimmedVal);
 
     // String _val = _trimmedVal; // first character defines the direction
 

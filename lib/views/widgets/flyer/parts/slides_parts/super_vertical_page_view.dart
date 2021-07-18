@@ -145,4 +145,3 @@ class _DraggableListViewState extends State<DraggableListView> {
   }
 }
 
-// typedef ValuesChanged<T, E> = void Function(T value, E valueTwo);

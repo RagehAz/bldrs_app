@@ -74,18 +74,18 @@ class Zone {
   }
 // -----------------------------------------------------------------------------
   static String decipherZoneStringToCountryID(String zoneString){
-    String _countryID = trimTextAfterFirstSpecialCharacter(zoneString, '/');
+    String _countryID = TextMod.trimTextAfterFirstSpecialCharacter(zoneString, '/');
     return _countryID;
   }
 // -----------------------------------------------------------------------------
   static String decipherZoneStringToProvinceID(String zoneString){
-    String _provinceAndDistrict = trimTextBeforeFirstSpecialCharacter(zoneString, '/');
-    String _provinceID = trimTextAfterLastSpecialCharacter(_provinceAndDistrict, '/');
+    String _provinceAndDistrict = TextMod.trimTextBeforeFirstSpecialCharacter(zoneString, '/');
+    String _provinceID = TextMod.trimTextAfterLastSpecialCharacter(_provinceAndDistrict, '/');
     return _provinceID;
   }
 // -----------------------------------------------------------------------------
   static String decipherZoneStringToDistrictID(String zoneString){
-    String _districtID = trimTextBeforeLastSpecialCharacter(zoneString, '/');
+    String _districtID = TextMod.trimTextBeforeLastSpecialCharacter(zoneString, '/');
     return _districtID;
   }
 // -----------------------------------------------------------------------------
