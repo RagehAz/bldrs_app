@@ -47,6 +47,7 @@ import 'package:bldrs/views/widgets/flyer/parts/flyer_zone.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header.dart';
 import 'package:bldrs/views/widgets/flyer/parts/progress_bar.dart';
 import 'package:bldrs/views/widgets/flyer/parts/slides_parts/footer.dart';
+import 'package:bldrs/views/widgets/flyer/parts/slides_parts/record_bubble.dart';
 import 'package:bldrs/views/widgets/flyer/parts/slides_parts/single_slide.dart';
 import 'package:bldrs/views/widgets/flyer/parts/slides_parts/info_slide.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
@@ -69,26 +70,36 @@ class InfoSlide extends StatelessWidget {
     @required this.onVerticalBack,
 });
 
-  List<UserModel> _users = <UserModel>[
-    UserModel(
-      name: 'Meshmesh abo halawa',
+  final List<TinyUser> _users = <TinyUser>[
+    TinyUser(
+      name: 'Ahmad Ali',
       pic: Iconz.DumAuthorPic,
       userID: '1',
+      title: '',
     ),
-    UserModel(
-      name: 'Batates maganes',
+    TinyUser(
+      name: 'Morgan Darwish',
       pic: Dumz.XXabohassan_author,
       userID: '2',
+      title: '',
     ),
-    UserModel(
-      name: 'Zaha Fashikh',
+    TinyUser(
+      name: 'Zahi Fayez',
       pic: Dumz.XXzah_author,
       userID: '3',
+      title: '',
     ),
-    UserModel(
+    TinyUser(
       name: 'Hani Wani',
       pic: Dumz.XXhs_author,
       userID: '4',
+      title: '',
+    ),
+    TinyUser(
+      name: 'Nada Mohsen',
+      pic: Dumz.XXmhdh_author,
+      userID: '5',
+      title: '',
     ),
 
   ];
@@ -182,46 +193,6 @@ class InfoSlide extends StatelessWidget {
                 ],
               ),
 
-              /// SAVES BUBBLE
-              InPyramidsBubble(
-                bubbleWidth: _bubbleWidth,
-                margins: _bubbleMargins,
-                corners: _bubbleCorners,
-                title: 'People who saved this flyer',
-                leadingIcon: Iconz.Save,
-                LeadingAndActionButtonsSizeFactor: 1,
-                columnChildren: <Widget>[
-
-                  /// PEOPLE BOX
-                  Container(
-                      width: _bubbleWidth,
-                      height: _peopleBubbleBoxHeight,
-                      color: Colorz.Yellow80,
-                      alignment: Alignment.center,
-                      child:
-                      ListView.builder(
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          physics: BouncingScrollPhysics(),
-                          itemCount: _users.length,
-                          itemBuilder: (ctx, index){
-                            return
-                              PersonButton(
-                                totalHeight: _peopleBubbleBoxHeight,
-                                image: _users[index].pic,
-                                id: _users[index].userID,
-                                name: _users[index].name,
-                                onTap: (userID){
-                                  print('id is : $userID');
-                                },
-                              );
-                          }
-                      )
-                  ),
-
-
-                ],
-              ),
 
               /// ABOUT FLYER
               ParagraphBubble(
@@ -242,12 +213,36 @@ class InfoSlide extends StatelessWidget {
                     '\nThat would be very cool though',
               ),
 
+              /// SAVES BUBBLE
+              RecordBubble(
+                  flyerZoneWidth: flyerZoneWidth,
+                  bubbleTitle: 'Who Saved it',
+                  bubbleIcon: Iconz.Save,
+                  users: _users,
+              ),
+
+              /// SHARES BUBBLE
+              RecordBubble(
+                flyerZoneWidth: flyerZoneWidth,
+                bubbleTitle: 'Who Shared it',
+                bubbleIcon: Iconz.Share,
+                users: _users,
+              ),
+
+              /// VIEWS BUBBLE
+              RecordBubble(
+                flyerZoneWidth: flyerZoneWidth,
+                bubbleTitle: 'Who viewed it',
+                bubbleIcon: Iconz.Views,
+                users: _users,
+              ),
+
               /// KEYWORDS
               KeywordsBubble(
                 bubbleWidth: _bubbleWidth,
                 margins: _bubbleMargins,
                 corners: _keywordsBubbleCorners,
-                title: 'Keywords',
+                title: 'Flyer keywords',
                 keywords: _keywords,
                 selectedWords: <Keyword>[Keyword.bldrsKeywords()[403],],
               ),

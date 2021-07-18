@@ -52,7 +52,7 @@ class Numberers {
   }
 // -----------------------------------------------------------------------------
   static int lastTwoIntegersFromAString(String string) {
-    String _lastTwoSubStrings = lastTwoSubStringsFromAString(string);
+    String _lastTwoSubStrings = TextMod.lastTwoSubStringsFromAString(string);
     int _asIntegers = stringToInt(_lastTwoSubStrings);
     return _asIntegers;
   }

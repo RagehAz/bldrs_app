@@ -1,12 +1,14 @@
+
+class TextMod {
 // -----------------------------------------------------------------------------
-List<String> sortAlphabetically(List<String> inputList){
+  static List<String> sortAlphabetically(List<String> inputList){
   List<String> _outputList = new List();
   inputList.sort();
   _outputList = inputList;
   return _outputList;
 }
 // -----------------------------------------------------------------------------
-List<String> sortAlphabetically2(List<String> inputList){
+  static List<String> sortAlphabetically2(List<String> inputList){
   List<String> _outputList = new List();
 
   inputList.sort((a, b) => a.toString().compareTo(b.toString()));
@@ -14,7 +16,7 @@ List<String> sortAlphabetically2(List<String> inputList){
   return _outputList;
 }
 // -----------------------------------------------------------------------------
-String firstCharacterAfterRemovingSpacesFromAString(String string){
+  static String firstCharacterAfterRemovingSpacesFromAString(String string){
   String _output;
 
   String _stringTrimmed = string.trim();
@@ -32,12 +34,12 @@ String firstCharacterAfterRemovingSpacesFromAString(String string){
     _output;
 }
 // -----------------------------------------------------------------------------
-String removeFirstCharacterFromAString(String string){
+  static String removeFirstCharacterFromAString(String string){
   String stringWithoutFirstCharacter = string.length >0 ? string?.substring(1) : null;
   return stringWithoutFirstCharacter;
 }
 // -----------------------------------------------------------------------------
-String removeNumberOfCharactersFromAString(String string, int numberOfCharacters){
+  static String removeNumberOfCharactersFromAString(String string, int numberOfCharacters){
   String _stringTrimmed;
   if (numberOfCharacters > string.length){
     print('can not remove ($numberOfCharacters) from the given string because : numberOfCharacters > string.length');
@@ -48,7 +50,7 @@ String removeNumberOfCharactersFromAString(String string, int numberOfCharacters
   return _stringTrimmed;
 }
 // -----------------------------------------------------------------------------
-String removeSpacesFromAString(String string){
+  static String removeSpacesFromAString(String string){
   /// solution 1,, won't work, not tested
   // string.replaceAll(new RegExp(r"\s+\b|\b\s"), "");
   /// solution 2
@@ -81,7 +83,7 @@ String removeSpacesFromAString(String string){
     _output5;
 }
 // -----------------------------------------------------------------------------
-String firstCharacterOfAString(String string){
+  static String firstCharacterOfAString(String string){
   String _output = string == null || string.length == 0 || string == '' || string == ' '? null :
   string?.substring(0,1);
 
@@ -91,7 +93,7 @@ String firstCharacterOfAString(String string){
 
 }
 // -----------------------------------------------------------------------------
-String lastTwoSubStringsFromAString(String string){
+  static String lastTwoSubStringsFromAString(String string){
   List<String> _stringSplit = string.split('');
   int _listLength = _stringSplit.length;
   int _lastIndex = _listLength - 1;
@@ -102,23 +104,23 @@ String lastTwoSubStringsFromAString(String string){
     '${_stringSplit[_beforeLastIndex]}${_stringSplit[_lastIndex]}';
 }
 // -----------------------------------------------------------------------------
-String trimTextAfterFirstSpecialCharacter(String verse, String specialCharacter){
+  static String trimTextAfterFirstSpecialCharacter(String verse, String specialCharacter){
   String _result = verse == null ? null : verse.substring(0, verse.indexOf(specialCharacter));
   return _result;
 }
 // -----------------------------------------------------------------------------
-String trimTextBeforeFirstSpecialCharacter(String verse, String specialCharacter){
+  static String trimTextBeforeFirstSpecialCharacter(String verse, String specialCharacter){
   int _position = verse == null ? null : verse.indexOf(specialCharacter);
   String _result = verse == null ? null : (_position != -1)? verse.substring(_position+1, verse.length): verse;
   return _result;
 }
 // -----------------------------------------------------------------------------
-String trimTextAfterLastSpecialCharacter(String verse, String specialCharacter){
+  static String trimTextAfterLastSpecialCharacter(String verse, String specialCharacter){
   String _result = verse == null ? null : verse.substring(0, verse.lastIndexOf(specialCharacter));
   return _result;
 }
 // -----------------------------------------------------------------------------
-String trimTextBeforeLastSpecialCharacter(String verse, String specialCharacter){
+  static String trimTextBeforeLastSpecialCharacter(String verse, String specialCharacter){
   int _position = verse == null ? null : verse.lastIndexOf(specialCharacter);
   String _result = verse == null ? null : (_position != -1)? verse.substring(_position+1, verse.length): verse;
   return _result;
@@ -126,7 +128,7 @@ String trimTextBeforeLastSpecialCharacter(String verse, String specialCharacter)
 // -----------------------------------------------------------------------------
 /// this trims paths like
 /// 'assets/xx/pp_sodic/builds_1.jpg' to 'builds_1.jpg'
-String getFileNameFromAsset(String asset){
+  static String getFileNameFromAsset(String asset){
   String _fileName = trimTextBeforeLastSpecialCharacter(asset, '/');
   return _fileName;
 }
@@ -148,7 +150,7 @@ String getFileNameFromAsset(String asset){
 ///   architecture : 1 ,
 ///   decor : 2 ,
 /// }
-Future<Map<String, dynamic>> getKeyWordsMap(List<dynamic> list) async {
+  static Future<Map<String, dynamic>> getKeyWordsMap(List<dynamic> list) async {
   // old solution
   // Map<String, dynamic> _result = { for (var keyword in list) keyword : true };
 
@@ -170,13 +172,15 @@ Future<Map<String, dynamic>> getKeyWordsMap(List<dynamic> list) async {
   return _stringIndexMap;
 }
 // -----------------------------------------------------------------------------
-Map<String, dynamic> getValueAndTrueMap(List<String> list){
+  static Map<String, dynamic> getValueAndTrueMap(List<String> list){
   Map<String, dynamic> _result = { for (var string in list) string : true };
   return _result;
 }
 // -----------------------------------------------------------------------------
-List<dynamic> getValuesFromValueAndTrueMap(Map<String, dynamic> map){
+static List<dynamic> getValuesFromValueAndTrueMap(Map<String, dynamic> map){
     List<dynamic> _flyersIDs = map.keys.toList();
     return _flyersIDs;
 }
 // -----------------------------------------------------------------------------
+}
+

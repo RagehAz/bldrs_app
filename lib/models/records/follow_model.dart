@@ -36,12 +36,12 @@ class FollowModel{
   }
 // -----------------------------------------------------------------------------
   static Map<String, dynamic> cipherUserFollows (List<String> followedBzIDs){
-     Map<String, dynamic> _userFollowsMap = getValueAndTrueMap(followedBzIDs);
+     Map<String, dynamic> _userFollowsMap = TextMod.getValueAndTrueMap(followedBzIDs);
      return _userFollowsMap;
   }
 // -----------------------------------------------------------------------------
   static List<String> decipherUserFollowsMap (Map<String, dynamic> map){
-     List<dynamic> _followedBzzIds = getValuesFromValueAndTrueMap(map);
+     List<dynamic> _followedBzzIds = TextMod.getValuesFromValueAndTrueMap(map);
      return _followedBzzIds;
   }
 // -----------------------------------------------------------------------------

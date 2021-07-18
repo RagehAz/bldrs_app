@@ -97,7 +97,7 @@ class FlyersProvider with ChangeNotifier {
     );
 
     /// 2 - transform sponsors map into list<String>
-    List<String> _sponsorsIDs = getValuesFromValueAndTrueMap(_sponsorsIDsMap);
+    List<String> _sponsorsIDs = TextMod.getValuesFromValueAndTrueMap(_sponsorsIDsMap);
 
     /// 3- get tinyBz for each id
     List<TinyBz> _sponsorsTinyBzz = new List();

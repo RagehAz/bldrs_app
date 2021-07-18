@@ -24,8 +24,8 @@ class TextChecker{
   static bool textControllerHasNoValue(TextEditingController controller){
     bool controllerIsEmpty =
     controller == null || controller.text == '' || controller.text.length == 0 ||
-        firstCharacterAfterRemovingSpacesFromAString(controller.text) == '' ||
-        firstCharacterAfterRemovingSpacesFromAString(controller.text) == null
+        TextMod.firstCharacterAfterRemovingSpacesFromAString(controller.text) == '' ||
+        TextMod.firstCharacterAfterRemovingSpacesFromAString(controller.text) == null
         ?
     true : false;
     return controllerIsEmpty;
@@ -77,8 +77,8 @@ class TextChecker{
   static bool stringHasNoValue(String val){
     bool controllerIsEmpty =
     val == null || val == '' || val.length == 0 ||
-        firstCharacterAfterRemovingSpacesFromAString(val) == '' ||
-        firstCharacterAfterRemovingSpacesFromAString(val) == null
+        TextMod.firstCharacterAfterRemovingSpacesFromAString(val) == '' ||
+        TextMod.firstCharacterAfterRemovingSpacesFromAString(val) == null
         ?
     true : false;
     return controllerIsEmpty;
@@ -105,7 +105,7 @@ class TextChecker{
     RegExp exp = RegExp(_reg, unicode: false, multiLine: true);
     // bool isArabic;
 
-    String _firstCharacter = firstCharacterAfterRemovingSpacesFromAString(val);
+    String _firstCharacter = TextMod.firstCharacterAfterRemovingSpacesFromAString(val);
 
     return
       _firstCharacter == null  || _firstCharacter == '' ? false :
@@ -117,7 +117,7 @@ class TextChecker{
     // bool isEnglish;
     String _reg = r"[a-zA-Z]";
     RegExp exp = RegExp(_reg, unicode: false, multiLine: true);
-    String _firstCharacter = firstCharacterAfterRemovingSpacesFromAString(val);
+    String _firstCharacter = TextMod.firstCharacterAfterRemovingSpacesFromAString(val);
 
     return
       _firstCharacter == null  || _firstCharacter == '' ? false :
