@@ -150,4 +150,23 @@ class Scale{
     return _abHeight;
   }
 // -----------------------------------------------------------------------------
+  static double superHeaderAndProgressHeights(BuildContext, double flyerZoneHeight){
+    return
+    superHeaderHeight(false, flyerZoneHeight) + flyerZoneHeight * Ratioz.xxProgressBarHeightRatio;
+  }
+// -----------------------------------------------------------------------------
+  static EdgeInsets superMargins({dynamic margins}){
+    EdgeInsets _boxMargins =
+    margins == null || margins == 0 ? const EdgeInsets.all(0)
+        :
+    margins.runtimeType == double ? EdgeInsets.all(margins)
+        :
+    margins.runtimeType == int ? EdgeInsets.all(margins.toDouble())
+        :
+    margins.runtimeType == EdgeInsets ? margins
+        :
+    margins;
+    return _boxMargins;
+  }
+// -----------------------------------------------------------------------------
 }

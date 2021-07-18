@@ -14,6 +14,7 @@ import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/flyer_type_class.dart';
 import 'package:bldrs/models/keywords/keys_set.dart';
+import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/sub_models/slide_model.dart';
@@ -477,6 +478,15 @@ class _OldFlyerEditorScreenState extends State<OldFlyerEditorScreen> {
 
       double _bottomSheetHeightFactor = 0.7;
 
+      List<Keyword> _keywords = <Keyword>[
+        Keyword.bldrsKeywords()[100],
+        Keyword.bldrsKeywords()[120],
+        Keyword.bldrsKeywords()[205],
+        Keyword.bldrsKeywords()[403],
+        Keyword.bldrsKeywords()[600],
+      ];
+
+
       BottomSlider.slideStatefulBottomSheet(
         context: context,
         height: Scale.superScreenHeight(context) * _bottomSheetHeightFactor,
@@ -511,11 +521,11 @@ class _OldFlyerEditorScreenState extends State<OldFlyerEditorScreen> {
                               height: Ratioz.appBarPadding,
                             ),
 
-                            WordsBubble(
+                            KeywordsBubble(
                               verseSize: 1,
                               bubbles: false,
                               title: 'Selected keywords',
-                              words: _currentKeywords,
+                              keywords: _currentKeywords,
                               selectedWords: _currentKeywords,
                               onTap: (value){
                                 setSheetState(() {
@@ -524,11 +534,11 @@ class _OldFlyerEditorScreenState extends State<OldFlyerEditorScreen> {
                               },
                             ),
 
-                            WordsBubble(
+                            KeywordsBubble(
                               verseSize: 1,
                               bubbles: true,
                               title: 'Space Type',
-                              words: ['1', '2', '3'],
+                              keywords: _keywords,
                               selectedWords: _currentKeywords,
                               onTap: (value){
                                 setSheetState(() {
@@ -537,11 +547,11 @@ class _OldFlyerEditorScreenState extends State<OldFlyerEditorScreen> {
                               },
                             ),
 
-                            WordsBubble(
+                            KeywordsBubble(
                               verseSize: 1,
                               bubbles: true,
                               title: 'Product Use',
-                              words: ['1', '2', '3'],
+                              keywords: _keywords,
                               selectedWords: _currentKeywords,
                               onTap: (value){setSheetState(() {_currentKeywords.add(value);});},
                             ),

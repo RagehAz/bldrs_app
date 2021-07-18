@@ -14,7 +14,7 @@ import 'package:flutter/material.dart';
 
 class BldrsAppBar extends StatelessWidget {
   final AppBarType appBarType;
-  // final bool backButtonIsOn;
+  final Function onBack;
   final String pageTitle;
   final List<Widget> appBarRowWidgets;
   final bool loading;
@@ -22,7 +22,7 @@ class BldrsAppBar extends StatelessWidget {
 
   BldrsAppBar({
     this.appBarType,
-    // this.backButtonIsOn = false,
+    this.onBack,
     this.pageTitle,
     this.appBarRowWidgets,
     this.loading = false,
@@ -126,6 +126,7 @@ class BldrsAppBar extends StatelessWidget {
                         if (_backButtonIsOn == true)
                           BackAndSearchButton(
                             backAndSearchAction: BackAndSearchAction.GoBack,
+                            onTap: onBack,
                           ),
 
                         /// Go to Search Button

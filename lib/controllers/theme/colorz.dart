@@ -56,7 +56,8 @@ class Colorz {
 // -----------------------------------------------------------------------------
   static const Red50 = Color.fromARGB(_50, 233, 0, 0);
   static const Red125 = Color.fromARGB(_125, 233, 0, 0);
-  static const Red225 = Color.fromARGB(_225, 233, 0, 0);
+  static const Red230 = Color.fromARGB(230, 233, 0, 0);
+  static const Red255 = Color.fromARGB(255, 233, 0, 0);
 // -----------------------------------------------------------------------------
   static const DarkRed125 = Color.fromARGB(_125, 118, 33, 33);
   static const DarkRed225 = Color.fromARGB(_225, 118, 33, 33);

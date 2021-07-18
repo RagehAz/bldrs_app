@@ -588,9 +588,9 @@ class MyDreamBox extends StatelessWidget {
                 icon: userModel.pic,
               ),
 
-              WordsBubble(
+              KeywordsBubble(
                 title: '${userModel.name} ${userModel?.myBzzIDs?.length} bzz IDs list',
-                words: userModel?.myBzzIDs ?? [],
+                keywords: userModel?.myBzzIDs ?? [],
                 verseSize: 2,
                 onTap: (){},
                 bubbles: false,
