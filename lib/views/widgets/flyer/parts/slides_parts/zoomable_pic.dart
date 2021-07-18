@@ -1,13 +1,18 @@
+import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
 class ZoomablePicture extends StatefulWidget {
   final Widget child;
   final bool isOn;
+  final autoShrink;
+  final bool isFullScreen;
 
   const ZoomablePicture({
     @required this.child,
     @required this.isOn,
+    this.autoShrink = true,
+    this.isFullScreen = false,
     Key key
   }) : super(key: key);
 
@@ -43,8 +48,8 @@ class _ZoomablePictureState extends State<ZoomablePicture> with TickerProviderSt
     super.dispose();
   }
 // -----------------------------------------------------------------------------
-  void resetZoom(){
-    final _reset = Matrix4Tween(
+  Future<void> _resetZoom() async {
+    final _reset = await Matrix4Tween(
       begin: _transformationController.value,
       end: Matrix4.identity(),
     ).animate(_zoomAnimationController);
@@ -57,53 +62,45 @@ class _ZoomablePictureState extends State<ZoomablePicture> with TickerProviderSt
     _zoomAnimationController.forward();
   }
 // -----------------------------------------------------------------------------
+  Future<void> _onDoubleTap() async {
+    await _resetZoom();
+    Nav.goBack(context);
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    return InteractiveViewer(
-      key: widget.key,
-      transformationController: _transformationController,
-      panEnabled: widget.isOn ? true : false,
-      scaleEnabled: widget.isOn ? true : false,
-      constrained: false,
-      alignPanAxis: false,
-      boundaryMargin: EdgeInsets.zero,
-      maxScale: 10,
-      minScale: 0.5,
-      onInteractionEnd: (ScaleEndDetails scaleEndDetails){
-        // print('scaleEndDetails : $scaleEndDetails');
-        // setState(() {
-        //   _transformationController.value = new Matrix4.identity();
-        //   print('should toScene');
-        // });
+    return GestureDetector(
+      onTap: () async {_resetZoom();},
+      onDoubleTap: widget.isFullScreen ? () async {_onDoubleTap();} : null,
+      child: InteractiveViewer(
+        key: widget.key,
+        transformationController: _transformationController,
+        panEnabled: widget.isOn ? true : false,
+        scaleEnabled: widget.isOn ? true : false,
+        constrained: false,
+        alignPanAxis: false,
+        boundaryMargin: EdgeInsets.zero,
+        maxScale: 10,
+        minScale: 0.5,
+        onInteractionEnd: (ScaleEndDetails scaleEndDetails) async {
 
-        // Offset _pixelPerSecond = scaleEndDetails.velocity.pixelsPerSecond;
-        // Offset _pixelTranslate = scaleEndDetails.velocity.pixelsPerSecond.translate(1, 1);
-        // Offset _pixelScale = scaleEndDetails.velocity.pixelsPerSecond.scale(0, 0);
-        // double _direction = scaleEndDetails.velocity.pixelsPerSecond.direction;
-        // double _distance = scaleEndDetails.velocity.pixelsPerSecond.distance;
-        // bool _isFinite = scaleEndDetails.velocity.pixelsPerSecond.isFinite;
-        // Offset _clampingPixelPerSecond = scaleEndDetails.velocity.clampMagnitude(0, 10).pixelsPerSecond;
-        //
-        // print('_pixelPerSecond : $_pixelPerSecond');
-        // print('_pixelTranslate : $_pixelTranslate');
-        // print('_pixelScale : $_pixelScale');
-        // print('_direction : $_direction');
-        // print('_distance : $_distance');
-        // print('_isFinite : $_isFinite');
-        // print('_clampingPixelPerSecond : $_clampingPixelPerSecond');
+          if(widget.autoShrink == true){
+            await _resetZoom();
+          } else {
+            // await Future.delayed(Duration(seconds: 5), () async {
+            //   await resetZoom();
+            // });
+          }
 
-        // _transformationController.toScene(_pixelScale);
-
-        resetZoom();
-
-      },
-      // onInteractionStart: (ScaleStartDetails scaleStartDetails){
-      //   print('scaleStartDetails : $scaleStartDetails');
-      //   },
-      // onInteractionUpdate: (ScaleUpdateDetails scaleUpdateDetails){
-      //   print('scaleUpdateDetails : $scaleUpdateDetails');
-      //   },
-      child: widget.child,
+        },
+        // onInteractionStart: (ScaleStartDetails scaleStartDetails){
+        //   print('scaleStartDetails : $scaleStartDetails');
+        //   },
+        // onInteractionUpdate: (ScaleUpdateDetails scaleUpdateDetails){
+        //   print('scaleUpdateDetails : $scaleUpdateDetails');
+        //   },
+        child: widget.child,
+      ),
     );
   }
 }

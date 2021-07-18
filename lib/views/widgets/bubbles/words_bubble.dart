@@ -1,31 +1,41 @@
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
-class WordsBubble extends StatelessWidget {
+class KeywordsBubble extends StatelessWidget {
   final String title;
-  final List<dynamic> words;
+  final List<Keyword> keywords;
   final int verseSize;
   final Function onTap;
   final bool bubbles;
   final Color bubbleColor;
   final List<dynamic> selectedWords;
   final double bubbleWidth;
+  final dynamic margins;
+  final dynamic corners;
 
-  WordsBubble({
+  KeywordsBubble({
     @required this.title,
-    @required this.words,
+    @required this.keywords,
     this.verseSize = 2,
     this.onTap,
     this.bubbles,
-    this.bubbleColor,
+    this.bubbleColor = Colorz.White20,
     @required this.selectedWords,
     this.bubbleWidth,
+    this.margins,
+    this.corners,
   });
-
+// -----------------------------------------------------------------------------
+  String _getKeywordName(BuildContext context, int index){
+    return
+      Keyword.getKeywordNameByKeywordID(context, keywords[index].keywordID);
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -35,6 +45,8 @@ class WordsBubble extends StatelessWidget {
     return InPyramidsBubble(
       centered: false,
       bubbleColor: bubbleColor,
+      margins: margins,
+      corners: corners,
       title: title,
       bubbleWidth: bubbleWidth,
       columnChildren: <Widget>[
@@ -45,11 +57,13 @@ class WordsBubble extends StatelessWidget {
           children: <Widget>[
 
             ...List<Widget>.generate(
-                words.length,
+                keywords.length,
                     (index){
 
+                  String _keywordName = _getKeywordName(context, index);
+
                   bool wordIsSelected(){
-                    bool _wordIsSelected = selectedWords.contains(words[index]) ?? false;
+                    bool _wordIsSelected = selectedWords.contains(keywords[index]) ?? false;
                     return _wordIsSelected;
                   }
 
@@ -63,25 +77,25 @@ class WordsBubble extends StatelessWidget {
 
                   DreamBox(
                     height: 40,
-                    verse: words[index],
+                    verse: _keywordName,
                     verseScaleFactor: 0.6,
                     verseWeight: _verseWeight,
                     verseColor: _verseColor,
                     margins: const EdgeInsets.all(5),
                     bubble: true,
                     color: _buttonColor,
-                    onTap: () => onTap(words[index]),
+                    onTap: () => onTap(keywords[index]),
                   )
                       :
                   SuperVerse(
-                      verse: words[index],
+                      verse: _keywordName,
                       margin: 0,
                       color: _verseColor,
                       weight: _verseWeight,
                       italic: true,
                       shadow: false,
                       labelColor: _buttonColor,
-                      labelTap: () => onTap(words[index]),
+                      labelTap: () => onTap(keywords[index]),
                     );
 
                 }

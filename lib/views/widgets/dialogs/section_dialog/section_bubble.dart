@@ -21,7 +21,7 @@ class SectionBubble extends StatelessWidget {
       centered: false,
       title: title,
       // actionBtIcon: Iconz.BxPropertiesOn,
-      actionBtSizeFactor: 1,
+      LeadingAndActionButtonsSizeFactor: 1,
       actionBtFunction: (){},
       bubbleColor: Colorz.White20,
       bubbleOnTap: null,

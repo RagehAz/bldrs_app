@@ -12,14 +12,16 @@ class FlyerFooter extends StatelessWidget {
   final int shares;
   final int views;
   final int saves;
-  final Function tappingShare;
+  final Function onShareTap;
+  final Function onCountersTap;
 
   FlyerFooter({
     @required this.flyerZoneWidth,
     @required this.shares,
     @required this.views,
     @required this.saves,
-    @required this.tappingShare,
+    @required this.onShareTap,
+    @required this.onCountersTap,
   });
 
   // FlyerLink theFlyerLink = FlyerLink(flyerLink: 'flyer', description: 'flyer to be shared aho');
@@ -27,16 +29,12 @@ class FlyerFooter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
-
-// -----------------------------------------------------------------------------
-    // double _screenWidth = superScreenWidth(context);
-
     double _flyerZoneWidth = flyerZoneWidth;
     double _flyerBottomCorners = flyerZoneWidth * Ratioz.xxflyerBottomCorners;
 // -----------------------------------------------------------------------------
     bool _miniMode = Scale.superFlyerMiniMode(context, flyerZoneWidth) ;
-
-    // --- SHARE & SAVE BUTTONS
+// -----------------------------------------------------------------------------
+    /// SHARE & SAVE BUTTONS
     double _footerBTMargins = flyerZoneWidth * 0.025; //
     double _footerBTRadius = _flyerBottomCorners - _footerBTMargins;
     dynamic _footerBTColor = Colorz.Grey80;
@@ -46,15 +44,9 @@ class FlyerFooter extends StatelessWidget {
     // String saveBTVerse = ankhOn == true ? translate(context, 'Saved') :
     // Wordz.save(context);
     // dynamic saveBTColor = ankhOn == true ? Colorz.SkyDarkBlue : footerBTColor;
-
-
-    // --- FLYER FOOTER CONTAINER
-    double _flyerFooterWidth =
-        // flyerZoneWidth == MediaQuery.of(context).size.width ?
-        // (flyerZoneWidth-(flyerZoneWidth * Ratioz.xxflyerMainMargins * 2 ))
-        //     : // * only 1 because it starts from bottom left of the flyer neglecting flyer's left margin from screen boarder kalb
-    flyerZoneWidth
-    ;
+// -----------------------------------------------------------------------------
+    /// FLYER FOOTER CONTAINER
+    double _flyerFooterWidth = flyerZoneWidth;
     double _flyerFooterHeight = Scale.superFlyerFooterHeight(_flyerZoneWidth);
     dynamic _flyerFooterColor = Colorz.Nothing;
 
@@ -65,13 +57,11 @@ class FlyerFooter extends StatelessWidget {
       child: Container(
         width: _flyerFooterWidth,
         height: _flyerFooterHeight,
-        color: _flyerFooterColor,
-
-        // --- FLYER FOOTER COMPONENTS
         child: Stack(
           alignment: Alignment.center,
           children: <Widget>[
-            // --- BOTTOM SHADOW
+
+            /// BOTTOM SHADOW
             Container(
               width: double.infinity,
               height: double.infinity,
@@ -92,8 +82,8 @@ class FlyerFooter extends StatelessWidget {
               ),
             ),
 
+            /// SHARE BUTTON
             if (!_miniMode)
-            // --- SHARE BUTTON
             Positioned(
               right: Wordz.textDirection(context) == 'ltr' ? null : 0,
               left: Wordz.textDirection(context) == 'ltr' ? 0 : null,
@@ -105,49 +95,23 @@ class FlyerFooter extends StatelessWidget {
                 buttonIcon: _shareBTIcon,
                 buttonMargins: _footerBTMargins,
                 buttonRadius: _footerBTRadius,
-                tappingButton: tappingShare,
+                tappingButton: onShareTap,
 
                 //() => share(context, theFlyerLink),
               ),
             ),
 
-            // --- FLYER COUNTERS
-            Positioned(
-              bottom: 0,
-              child: _flyerZoneWidth < MediaQuery.of(context).size.width * 0.75
-                  ? Container()
-                  :
-              Column(
-                children: <Widget>[
-
-                  // // --- CONTACT ME BUTTON
-                  // DreamBox(
-                  //   height: _flyerZoneWidth * 0.105,
-                  //   verse: 'اتصل بنا',
-                  //   verseWeight: 'black',
-                  //   icon: Iconz.ComPhone,
-                  //   iconSizeFactor: 0.5,
-                  //   color: Colorz.BabyBluePlastic,
-                  //   verseColor: Colorz.White,
-                  //   iconColor: Colorz.White,
-                  //   boxMargins: EdgeInsets.only(bottom: _flyerZoneWidth * 0.01),
-                  //   boxFunction: (){print('You mother fackerz');},
-                  //   verseScaleFactor: 1.5,
-                  //   verseItalic: true,
-                  // ),
-
-              SlideCounters(
-                      saves: saves,
-                      shares: shares,
-                      views: views,
-                      flyerZoneWidth: _flyerZoneWidth,
-                    ),
-
-                ],
-              ),
+            /// FLYER COUNTERS
+            if(!_miniMode)
+            SlideCounters(
+              saves: saves,
+              shares: shares,
+              views: views,
+              flyerZoneWidth: _flyerZoneWidth,
+              onCountersTap: onCountersTap,
             ),
 
-            // --- Fake space under save button
+            /// Fake space under save button
             Container(
               width: _footerBTRadius * 2,
               height: _footerBTRadius * 2,

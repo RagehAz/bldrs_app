@@ -64,8 +64,24 @@ class SingleSlide extends StatelessWidget {
     this.autoFocus,
     Key key,
   }) : super(key: key);
+// -----------------------------------------------------------------------------
+  Future<void> _onImageDoubleTap(BuildContext context) async {
 
+    bool _keyboardIsOn = Keyboarders.keyboardIsOn(context);
 
+    if (_keyboardIsOn){
+      Keyboarders.closeKeyboard(context);
+    }
+    else {
+      await Nav.goToNewScreen(context,
+          SlideFullScreen(
+            image: picture,
+          )
+      );
+    }
+
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
@@ -102,19 +118,8 @@ class SingleSlide extends StatelessWidget {
     );
 // -----------------------------------------------------------------------------
     return GestureDetector(
-      onTap: _microMode == true ? null :
-          () async {
-
-        bool _keyboardIsOn = Keyboarders.keyboardIsOn(context);
-
-        if (_keyboardIsOn){
-          Keyboarders.closeKeyboard(context);
-        }
-        else {
-          await Nav.goToNewScreen(context, SlideFullScreen(image: picture,));
-        }
-
-        },
+      onTap: (){},
+      onDoubleTap: _microMode == true ? null : () => _onImageDoubleTap(context),
       child: Container(
         width: flyerZoneWidth,
         height: Scale.superFlyerZoneHeight(context, flyerZoneWidth),
@@ -240,7 +245,8 @@ class SingleSlide extends StatelessWidget {
                 views: views,
                 shares: shares,
                 saves: saves,
-                tappingShare: _shareFlyer, // this will user slide index
+                onShareTap: _shareFlyer, // this will user slide index
+                onCountersTap: (){},
               ),
 
             ],

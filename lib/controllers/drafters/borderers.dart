@@ -2,12 +2,13 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:flutter/material.dart';
 
-class Borderers{
+class Borderers {
 // -----------------------------------------------------------------------------
   /// takes context then goes english 'ltr' counter clockwise starting
   ///
   /// context -> topLeft -> bottomLeft -> bottomRight -> topRight
-  static BorderRadius superBorderRadius({BuildContext context, double enTopLeft, double enBottomLeft, double enBottomRight, double enTopRight}){
+  static BorderRadius superBorders(
+      {BuildContext context, double enTopLeft, double enBottomLeft, double enBottomRight, double enTopRight}) {
     return
       Wordz.textDirection(context) == 'rtl' ?
       BorderRadius.only(
@@ -24,11 +25,13 @@ class Borderers{
         bottomRight: Radius.circular(enBottomRight),
       );
   }
+
 // -----------------------------------------------------------------------------
-  static BorderRadius superFlyerCorners (BuildContext context, double flyerZoneWidth){
+  static BorderRadius superFlyerCorners(BuildContext context,
+      double flyerZoneWidth) {
     double bottomFlyerCorner = flyerZoneWidth * Ratioz.xxflyerBottomCorners;
     double upperFlyerCorner = flyerZoneWidth * Ratioz.xxflyerTopCorners;
-    BorderRadius flyerCorners = superBorderRadius(
+    BorderRadius flyerCorners = superBorders(
         context: context,
         enTopLeft: upperFlyerCorner,
         enBottomLeft: bottomFlyerCorner,
@@ -36,10 +39,12 @@ class Borderers{
         enTopRight: upperFlyerCorner);
     return flyerCorners;
   }
+
 // -----------------------------------------------------------------------------
-  static BorderRadius superHeaderShadowCorners (BuildContext context, double flyerZoneWidth){
+  static BorderRadius superHeaderShadowCorners(BuildContext context,
+      double flyerZoneWidth) {
     double upperFlyerCorner = flyerZoneWidth * Ratioz.xxflyerTopCorners;
-    BorderRadius flyerCorners = superBorderRadius(
+    BorderRadius flyerCorners = superBorders(
         context: context,
         enTopLeft: upperFlyerCorner,
         enBottomLeft: 0,
@@ -48,11 +53,13 @@ class Borderers{
     );
     return flyerCorners;
   }
+
 // -----------------------------------------------------------------------------
-  static BorderRadius superHeaderCorners (BuildContext context, bool bzPageIsOn, double flyerZoneWidth){
+  static BorderRadius superHeaderCorners(BuildContext context, bool bzPageIsOn,
+      double flyerZoneWidth) {
     double headerMainCorners = flyerZoneWidth * Ratioz.xxflyerTopCorners;
     double headerZeroCorner = bzPageIsOn == true ? 0 : headerMainCorners;
-    BorderRadius headerCorners = superBorderRadius(
+    BorderRadius headerCorners = superBorders(
         context: context,
         enTopLeft: headerMainCorners,
         enBottomLeft: headerMainCorners,
@@ -61,39 +68,45 @@ class Borderers{
     );
     return headerCorners;
   }
+
 // -----------------------------------------------------------------------------
-  static BorderRadius superHeaderStripCorners(BuildContext context, bool bzPageIsOn, double flyerZoneWidth){
-    double headerMainCorners = flyerZoneWidth * Ratioz.xxflyerTopCorners;//bzPageIsOn == false ? flyerZoneWidth * Ratioz.xxflyerTopCorners : flyerZoneWidth * Ratioz.bzLogCorner;
+  static BorderRadius superHeaderStripCorners(BuildContext context,
+      bool bzPageIsOn, double flyerZoneWidth) {
+    double headerMainCorners = flyerZoneWidth * Ratioz
+        .xxflyerTopCorners; //bzPageIsOn == false ? flyerZoneWidth * Ratioz.xxflyerTopCorners : flyerZoneWidth * Ratioz.bzLogCorner;
     double headerZeroCorner = bzPageIsOn == false ? headerMainCorners : 0;
-    BorderRadius headerStripCorners = superBorderRadius(
-        context: context,
-        enTopLeft: headerMainCorners,
-        enBottomLeft: headerMainCorners,
-        enBottomRight: headerZeroCorner,
-        enTopRight: headerMainCorners,
+    BorderRadius headerStripCorners = superBorders(
+      context: context,
+      enTopLeft: headerMainCorners,
+      enBottomLeft: headerMainCorners,
+      enBottomRight: headerZeroCorner,
+      enTopRight: headerMainCorners,
     );
     return headerStripCorners;
   }
+
 // -----------------------------------------------------------------------------
-  static BorderRadius superFollowOrCallCorners(BuildContext context, double flyerZoneWidth, bool gettingFollowCorner){
+  static BorderRadius superFollowOrCallCorners(BuildContext context,
+      double flyerZoneWidth, bool gettingFollowCorner) {
     double headerMainCorners = flyerZoneWidth * Ratioz.xxflyerTopCorners;
-    double headerOffsetCorner = headerMainCorners - flyerZoneWidth * Ratioz.xxfollowCallSpacing;
+    double headerOffsetCorner = headerMainCorners -
+        flyerZoneWidth * Ratioz.xxfollowCallSpacing;
     double followBTCornerTL = flyerZoneWidth * Ratioz.xxauthorImageCorners;
     double followBTCornerTR = headerOffsetCorner;
     double followBTCornerBL = flyerZoneWidth * Ratioz.xxauthorImageCorners;
     double followBTCornerBR = flyerZoneWidth * 0.021;
-    BorderRadius followCorners = superBorderRadius(
-        context: context,
-        enTopLeft: followBTCornerTL,
-        enBottomLeft: followBTCornerBL,
-        enBottomRight: followBTCornerBR,
-        enTopRight: followBTCornerTR,
+    BorderRadius followCorners = superBorders(
+      context: context,
+      enTopLeft: followBTCornerTL,
+      enBottomLeft: followBTCornerBL,
+      enBottomRight: followBTCornerBR,
+      enTopRight: followBTCornerTR,
     );
     double callBTCornerTL = followBTCornerBL;
     double callBTCornerTR = followBTCornerBR;
     double callBTCornerBL = followBTCornerTL;
     double callBTCornerBR = followBTCornerTR;
-    BorderRadius callCorners = superBorderRadius(
+    BorderRadius callCorners = superBorders(
         context: context,
         enTopLeft: callBTCornerTL,
         enBottomLeft: callBTCornerBL,
@@ -102,8 +115,10 @@ class Borderers{
     );
     return gettingFollowCorner == true ? followCorners : callCorners;
   }
+
 // -----------------------------------------------------------------------------
-  static OutlineInputBorder superOutlineInputBorder(Color borderColor, double corner) {
+  static OutlineInputBorder superOutlineInputBorder(Color borderColor,
+      double corner) {
     return OutlineInputBorder(
       borderRadius: BorderRadius.circular(corner),
       borderSide: BorderSide(
@@ -113,19 +128,22 @@ class Borderers{
       gapPadding: 0,
     );
   }
+
 // -----------------------------------------------------------------------------
-  static BorderRadius superBorderAll(BuildContext context, double corners){
+  static BorderRadius superBorderAll(BuildContext context, double corners) {
     return BorderRadius.all(Radius.circular(corners));
   }
+
 // -----------------------------------------------------------------------------
   /// used in [MiniHeaderStrip] widget
-  static BorderRadius superLogoCorner(BuildContext context, double flyerZoneWidth){
+  static BorderRadius superLogoCorner(BuildContext context,
+      double flyerZoneWidth) {
     double headerMainPadding = flyerZoneWidth * Ratioz.xxflyerHeaderMainPadding;
-    double headerMainCorners = flyerZoneWidth * Ratioz.xxflyerTopCorners;//bzPageIsOn == false ? flyerZoneWidth * Ratioz.xxflyerTopCorners : flyerZoneWidth * Ratioz.bzLogCorner;
+    double headerMainCorners = flyerZoneWidth * Ratioz.xxflyerTopCorners; //bzPageIsOn == false ? flyerZoneWidth * Ratioz.xxflyerTopCorners : flyerZoneWidth * Ratioz.bzLogCorner;
     double headerOffsetCorner = headerMainCorners - headerMainPadding;
-    double logoRoundCorners = headerOffsetCorner;//bzPageIsOn == false ? headerOffsetCorner : logoWidth * Ratioz.bzLogCorner;
+    double logoRoundCorners = headerOffsetCorner; //bzPageIsOn == false ? headerOffsetCorner : logoWidth * Ratioz.bzLogCorner;
 
-    BorderRadius logoCorners = superBorderRadius(
+    BorderRadius logoCorners = superBorders(
         context: context,
         enTopLeft: logoRoundCorners,
         enBottomLeft: logoRoundCorners,
@@ -134,19 +152,21 @@ class Borderers{
     );
     return logoCorners;
   }
+
 // -----------------------------------------------------------------------------
-  static BorderRadius superLogoShape({BuildContext context, bool zeroCornerEnIsRight, double corner}){
+  static BorderRadius superLogoShape(
+      {BuildContext context, bool zeroCornerEnIsRight, double corner}) {
     BorderRadius _superLogoShape =
     zeroCornerEnIsRight ?
-        superBorderRadius(
-          context: context,
-          enBottomLeft: corner,
-          enBottomRight: 0,
-          enTopLeft: corner,
-          enTopRight: corner,
-        )
+    superBorders(
+      context: context,
+      enBottomLeft: corner,
+      enBottomRight: 0,
+      enTopLeft: corner,
+      enTopRight: corner,
+    )
         :
-    superBorderRadius(
+    superBorders(
       context: context,
       enBottomLeft: 0,
       enBottomRight: corner,
@@ -156,6 +176,22 @@ class Borderers{
 
     return _superLogoShape;
   }
-// -----------------------------------------------------------------------------
-}
 
+// -----------------------------------------------------------------------------
+  static BorderRadius superBorder({BuildContext context, dynamic corners}) {
+    BorderRadius _corner =
+    corners == null || corners == 0 ? BorderRadius.zero
+        :
+    corners.runtimeType == double ? superBorderAll(context, corners)
+        :
+    corners.runtimeType == int ? superBorderAll(context, corners.toDouble())
+        :
+    corners.runtimeType == BorderRadius ? corners
+        :
+    corners;
+    return _corner;
+// -----------------------------------------------------------------------------
+
+  }
+
+}

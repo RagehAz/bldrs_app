@@ -54,7 +54,7 @@ class BldrsBottomSheet extends StatelessWidget {
     double _screenWidth = Scale.superScreenWidth(context);
     double _screenHeight = Scale.superScreenHeight(context);
     double _sheetHeight = height == null ? _screenHeight*0.5 : height;
-    BorderRadius _sheetBorders = Borderers.superBorderRadius(
+    BorderRadius _sheetBorders = Borderers.superBorders(
         context: context,
         enTopLeft: Ratioz.bottomSheetCorner,
         enBottomLeft: 0,
@@ -122,7 +122,7 @@ class BldrsBottomSheet extends StatelessWidget {
                 height: _contentHeight,
                 decoration: BoxDecoration(
                   // color: Colorz.WhiteAir,
-                  borderRadius: Borderers.superBorderRadius(
+                  borderRadius: Borderers.superBorders(
                       context: context,
                       enTopLeft: _contentCorners,
                       enBottomLeft: 0,
@@ -147,7 +147,7 @@ class BottomSlider{
   static void slideBottomSheet({BuildContext context, double height, bool draggable, Widget child}){
     showModalBottomSheet(
         shape: RoundedRectangleBorder(borderRadius:
-        Borderers.superBorderRadius(
+        Borderers.superBorders(
           context:context,
           enTopLeft:Ratioz.bottomSheetCorner,
           enBottomLeft:0,
@@ -206,7 +206,7 @@ class BottomSlider{
 // -----------------------------------------------------------------------------
   static Future<void> slideStatefulBottomSheet({BuildContext context, double height, bool draggable, Widget Function(BuildContext) builder}) async {
     await showModalBottomSheet(
-      shape: RoundedRectangleBorder(borderRadius: Borderers.superBorderRadius(
+      shape: RoundedRectangleBorder(borderRadius: Borderers.superBorders(
           context: context,
           enTopLeft: Ratioz.bottomSheetCorner,
           enBottomLeft: 0,

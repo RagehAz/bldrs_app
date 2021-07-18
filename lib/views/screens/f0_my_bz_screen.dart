@@ -17,6 +17,7 @@ import 'package:bldrs/views/screens/f2_deactivated_flyers_screen.dart';
 import 'package:bldrs/views/widgets/bubbles/bubbles_separator.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/paragraph_bubble.dart';
+import 'package:bldrs/views/widgets/bubbles/stats_line.dart';
 import 'package:bldrs/views/widgets/bubbles/tile_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
@@ -202,10 +203,10 @@ class _MyBzScreenState extends State<MyBzScreen> {
             width: BottomSlider.bottomSheetClearWidth(context),
             icon: Iconz.XSmall,
             iconSizeFactor: 0.5,
-            iconColor: Colorz.Red225,
+            iconColor: Colorz.Red255,
             verse: 'Deactivate Business Account',
             verseScaleFactor: 1.2,
-            verseColor: Colorz.Red225,
+            verseColor: Colorz.Red255,
             // verseWeight: VerseWeight.thin,
             onTap: () => _deactivateBzOnTap(bzModel)
 
@@ -255,8 +256,6 @@ class _MyBzScreenState extends State<MyBzScreen> {
 
     double _appBarBzButtonWidth = Scale.superScreenWidth(context) - (Ratioz.appBarMargin * 2) -
         (Ratioz.appBarButtonSize * 2) - (Ratioz.appBarPadding * 4);
-
-    String _spaces = '   ';
 
     return bzModelStreamBuilder(
         context: context,
@@ -375,44 +374,44 @@ class _MyBzScreenState extends State<MyBzScreen> {
                         columnChildren: <Widget>[
 
                           /// FOLLOWERS
-                          _statsButton(
-                            verse: '$_spaces${bzModel.bzTotalFollowers} ${Wordz.followers(context)}',
+                          StatsLine(
+                            verse: '${bzModel.bzTotalFollowers} ${Wordz.followers(context)}',
                             icon: Iconz.Follow,
                           ),
 
                           /// CALLS
-                          _statsButton(
-                            verse: '$_spaces${bzModel.bzTotalCalls} ${Wordz.callsReceived(context)}',
+                          StatsLine(
+                            verse: '${bzModel.bzTotalCalls} ${Wordz.callsReceived(context)}',
                             icon: Iconz.ComPhone,
                           ),
 
                           /// SLIDES & FLYERS
-                          _statsButton(
-                            verse: '$_spaces${bzModel.bzTotalSlides} ${Wordz.slidesPublished(context)} ${Wordz.inn(context)} ${bzModel.nanoFlyers.length} ${Wordz.flyers(context)}',
+                          StatsLine(
+                            verse: '${bzModel.bzTotalSlides} ${Wordz.slidesPublished(context)} ${Wordz.inn(context)} ${bzModel.nanoFlyers.length} ${Wordz.flyers(context)}',
                             icon: Iconz.Gallery,
                           ),
 
                           /// SAVES
-                          _statsButton(
-                            verse: '$_spaces${bzModel.bzTotalSaves} ${Wordz.totalSaves(context)}',
+                          StatsLine(
+                            verse: '${bzModel.bzTotalSaves} ${Wordz.totalSaves(context)}',
                             icon: Iconz.SaveOn,
                           ),
 
                           /// VIEWS
-                          _statsButton(
-                            verse: '$_spaces${bzModel.bzTotalViews} ${Wordz.totalViews(context)}',
+                          StatsLine(
+                            verse: '${bzModel.bzTotalViews} ${Wordz.totalViews(context)}',
                             icon: Iconz.Views,
                           ),
 
                           /// SHARES
-                          _statsButton(
-                            verse: '$_spaces${bzModel.bzTotalShares} ${Wordz.totalShares(context)}',
+                          StatsLine(
+                            verse: '${bzModel.bzTotalShares} ${Wordz.totalShares(context)}',
                             icon: Iconz.Share,
                           ),
 
                           /// BIRTH
-                          _statsButton(
-                            verse: '$_spaces${TextGenerator.monthYearStringer(context,bzModel.bldrBirth)}',
+                          StatsLine(
+                            verse: '${TextGenerator.monthYearStringer(context,bzModel.bldrBirth)}',
                             icon: Iconz.Calendar,
                           ),
 
