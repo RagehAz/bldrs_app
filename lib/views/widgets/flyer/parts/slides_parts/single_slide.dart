@@ -40,6 +40,7 @@ class SingleSlide extends StatelessWidget {
   final BoxFit boxFit;
   final TextEditingController titleController;
   final Function textFieldOnChanged;
+  final Function onTextFieldSubmitted;
   final Color slideColor;
   final String flyerID;
   final ImageSize imageSize;
@@ -58,6 +59,7 @@ class SingleSlide extends StatelessWidget {
     this.boxFit = BoxFit.cover,
     this.titleController,
     this.textFieldOnChanged,
+    this.onTextFieldSubmitted,
     this.slideColor,
     @required this.flyerID,
     this.imageSize,
@@ -227,7 +229,7 @@ class SingleSlide extends StatelessWidget {
                     fieldColor: Colorz.Black80,
                     margin: EdgeInsets.only(top: (flyerZoneWidth * 0.3), left: 5, right: 5),
                     maxLines: 4,
-                    keyboardTextInputType: TextInputType.multiline,
+                    keyboardTextInputType: TextInputType.text,
                     designMode: false,
                     counterIsOn: false,
                     inputSize: 3,
@@ -237,6 +239,9 @@ class SingleSlide extends StatelessWidget {
                     inputWeight: VerseWeight.bold,
                     inputShadow: true,
                     autofocus: autoFocus,
+                    // fieldIsFormField: true,
+                    onSubmitted: onTextFieldSubmitted,
+                    keyboardTextInputAction: TextInputAction.done,
                   ),
 
               slideMode != SlideMode.View ? Container() :

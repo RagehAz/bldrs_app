@@ -14,13 +14,13 @@ class TinyUser {
   final String phone;
 
   TinyUser({
-    @required this.userID,
-    @required this.name,
-    @required this.title,
-    @required this.pic,
-    @required this.userStatus,
-    @required this.email,
-    @required this.phone,
+    this.userID,
+    this.name,
+    this.title,
+    this.pic,
+    this.userStatus,
+    this.email,
+    this.phone,
   });
 // -----------------------------------------------------------------------------
   Map<String, dynamic> toMap(){

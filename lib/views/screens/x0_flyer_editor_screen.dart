@@ -298,7 +298,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
             _draft.numberOfSlides = _draft.assetsSources.length;
             _draft.numberOfStrips = _draft.numberOfSlides;
 
-            _triggerProgressOpacity();
+            _progressOpacity = 1;
           });
 
           /// E - animate to first page
@@ -1401,8 +1401,6 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                         ),
 
                         /// INFO SLIDE
-                        ///
-
                         NotificationListener(
                           onNotification: (ScrollUpdateNotification details){
 

@@ -152,12 +152,12 @@ Map<String, dynamic> toFlyerSaveMap(){
     ///   'flyerID' : true,
     ///   'flyerID' : true,
     /// }
-    Map<String, dynamic> _savedIDsMap = getValueAndTrueMap(savedIDs);
+    Map<String, dynamic> _savedIDsMap = TextMod.getValueAndTrueMap(savedIDs);
     return _savedIDsMap;
   }
 // -----------------------------------------------------------------------------
   static List<String> decipherSavedIDsMap(Map<String, dynamic> savedFlyersMap){
-    List<dynamic> _flyersIDs = getValuesFromValueAndTrueMap(savedFlyersMap);
+    List<dynamic> _flyersIDs = TextMod.getValuesFromValueAndTrueMap(savedFlyersMap);
     return _flyersIDs;
   }
 // -----------------------------------------------------------------------------

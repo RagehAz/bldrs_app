@@ -47,7 +47,7 @@ class ObjectChecker {
     String fileAsString = (file.runtimeType).toString();
     // print('fileAsString is : $fileAsString');
     String stringWithoutFirstCharacter =
-        removeFirstCharacterFromAString(fileAsString);
+    TextMod.removeFirstCharacterFromAString(fileAsString);
     // print('stringWithoutFirstCharacter is : $stringWithoutFirstCharacter');
     return stringWithoutFirstCharacter == 'File' ? true : false;
   }

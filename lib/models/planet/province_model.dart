@@ -75,7 +75,7 @@ class Province{
       _provincesNames.add(pr.name);
     });
 
-    _provincesNames = sortAlphabetically(_provincesNames);
+    _provincesNames = TextMod.sortAlphabetically(_provincesNames);
 
     return _provincesNames;
   }
