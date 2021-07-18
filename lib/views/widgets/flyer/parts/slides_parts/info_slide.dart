@@ -61,10 +61,12 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 class InfoSlide extends StatelessWidget {
   final double flyerZoneWidth;
   final FlyerModel flyer;
+  final Function onVerticalBack;
 
   InfoSlide({
     @required this.flyerZoneWidth,
     @required this.flyer,
+    @required this.onVerticalBack,
 });
 
   List<UserModel> _users = <UserModel>[
@@ -127,32 +129,35 @@ class InfoSlide extends StatelessWidget {
 
 
     return Column(
-      children: [
-
-        /// HEADER FOOTPRINT ZONE
-        Container(
-          width: flyerZoneWidth,
-          height: _headerAndProgressHeights,
-        ),
+      children: <Widget>[
 
         /// FLYER STATS ZONE
         Container(
           width: flyerZoneWidth,
-          height: _flyerZoneHeight - _headerAndProgressHeights,
+          // height: _flyerZoneHeight, //_flyerZoneHeight - _headerAndProgressHeights,
           alignment: Alignment.topCenter,
-          color: Colorz.BloodTest,
-          child: ListView(
-            physics: BouncingScrollPhysics(),
-            shrinkWrap: true,
-            addSemanticIndexes: true,
-            semanticChildCount: 3,
+          // color: Colorz.BloodTest,
+          child: Column(
+            // physics: BouncingScrollPhysics(),
+            // shrinkWrap: true,
+
             children: <Widget>[
+
+              /// HEADER FOOTPRINT ZONE
+              Container(
+                width: flyerZoneWidth,
+                height: _headerAndProgressHeights,
+              ),
 
               /// STATS BUBBLE
               InPyramidsBubble(
                 bubbleWidth: _bubbleWidth,
                 margins: _bubbleMargins,
                 corners: _bubbleCorners,
+                bubbleOnTap: (){
+                  print('bitch');
+                  onVerticalBack();
+                },
                 columnChildren: <Widget>[
 
                   /// Flyer Type
@@ -177,6 +182,48 @@ class InfoSlide extends StatelessWidget {
                 ],
               ),
 
+              /// SAVES BUBBLE
+              InPyramidsBubble(
+                bubbleWidth: _bubbleWidth,
+                margins: _bubbleMargins,
+                corners: _bubbleCorners,
+                title: 'People who saved this flyer',
+                leadingIcon: Iconz.Save,
+                LeadingAndActionButtonsSizeFactor: 1,
+                columnChildren: <Widget>[
+
+                  /// PEOPLE BOX
+                  Container(
+                      width: _bubbleWidth,
+                      height: _peopleBubbleBoxHeight,
+                      color: Colorz.Yellow80,
+                      alignment: Alignment.center,
+                      child:
+                      ListView.builder(
+                          shrinkWrap: true,
+                          scrollDirection: Axis.horizontal,
+                          physics: BouncingScrollPhysics(),
+                          itemCount: _users.length,
+                          itemBuilder: (ctx, index){
+                            return
+                              PersonButton(
+                                totalHeight: _peopleBubbleBoxHeight,
+                                image: _users[index].pic,
+                                id: _users[index].userID,
+                                name: _users[index].name,
+                                onTap: (userID){
+                                  print('id is : $userID');
+                                },
+                              );
+                          }
+                      )
+                  ),
+
+
+                ],
+              ),
+
+              /// ABOUT FLYER
               ParagraphBubble(
                 bubbleWidth: _bubbleWidth,
                 margins: _bubbleMargins,
@@ -195,47 +242,7 @@ class InfoSlide extends StatelessWidget {
                     '\nThat would be very cool though',
               ),
 
-              // /// SAVES BUBBLE
-              // InPyramidsBubble(
-              //   bubbleWidth: _bubbleWidth,
-              //   margins: _bubbleMargins,
-              //   corners: _bubbleBorders,
-              //   title: 'People who saved this flyer',
-              //   leadingIcon: Iconz.Save,
-              //   LeadingAndActionButtonsSizeFactor: 1,
-              //   columnChildren: <Widget>[
-              //
-              //     /// PEOPLE BOX
-              //     Container(
-              //         width: _bubbleWidth,
-              //         height: _peopleBubbleBoxHeight,
-              //         color: Colorz.Yellow80,
-              //         alignment: Alignment.center,
-              //         child:
-              //         ListView.builder(
-              //             shrinkWrap: true,
-              //             scrollDirection: Axis.horizontal,
-              //             physics: BouncingScrollPhysics(),
-              //             itemCount: _users.length,
-              //             itemBuilder: (ctx, index){
-              //               return
-              //                 PersonButton(
-              //                   totalHeight: _peopleBubbleBoxHeight,
-              //                   image: _users[index].pic,
-              //                   id: _users[index].userID,
-              //                   name: _users[index].name,
-              //                   onTap: (userID){
-              //                     print('id is : $userID');
-              //                   },
-              //                 );
-              //             }
-              //         )
-              //     ),
-              //
-              //
-              //   ],
-              // ),
-
+              /// KEYWORDS
               KeywordsBubble(
                 bubbleWidth: _bubbleWidth,
                 margins: _bubbleMargins,
@@ -253,6 +260,7 @@ class InfoSlide extends StatelessWidget {
           ),
           // color: Colorz.BloodTest,
         ),
+
       ],
     );
   }

@@ -3,6 +3,8 @@ import 'package:bldrs/controllers/drafters/animators.dart';
 import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/drafters/iconizers.dart';
 import 'package:bldrs/controllers/drafters/keyboarders.dart';
+import 'package:bldrs/controllers/drafters/numberers.dart';
+import 'package:bldrs/controllers/drafters/scrollers.dart';
 import 'package:bldrs/controllers/drafters/sliders.dart' show SwipeDirection, Sliders;
 import 'package:bldrs/controllers/drafters/imagers.dart' ;
 import 'package:bldrs/controllers/drafters/scalers.dart';
@@ -46,6 +48,7 @@ import 'package:bldrs/views/widgets/flyer/parts/slides_parts/single_slide.dart';
 import 'package:bldrs/views/widgets/flyer/parts/slides_parts/info_slide.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
+import 'package:bldrs/xxx_LABORATORY/CLEANING_SPACE.dart';
 import 'package:bldrs/xxx_LABORATORY/camera_and_location/location_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_size/flutter_keyboard_size.dart';
@@ -83,6 +86,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
 // -----------------------------------------------------------------------------
   PageController _horizontalController;
   PageController _verticalController;
+  ScrollController _infoScrollController;
 // -----------------------------------------------------------------------------
   FlyersProvider _prof;
   CountryProvider _countryPro;
@@ -155,6 +159,8 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
 
     _horizontalController = PageController(initialPage: 0, viewportFraction: 1, keepPage: true);
     _verticalController = PageController(initialPage: 0, keepPage: true, viewportFraction: 1);
+    _infoScrollController = ScrollController(keepScrollOffset: true,);
+
 
     _prof = Provider.of<FlyersProvider>(context, listen: false);
     _countryPro = Provider.of<CountryProvider>(context, listen: false);
@@ -179,7 +185,16 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
   Duration _fadingDurationX = Ratioz.durationFading210;
   Duration _slidingDuration = Ratioz.durationSliding400;
   Duration _slidingDurationX = Ratioz.durationSliding410;
+  double _progressOpacity = 0;
 // ---------------------------------------------------o
+  void _triggerProgressOpacity(){
+    if (_progressOpacity == 1){
+      _progressOpacity = 0;
+    } else {
+      _progressOpacity = 1;
+    }
+  }
+// -----------------------------------------------------------------------------
   Future<void> _getMultiGalleryImages({double flyerZoneWidth}) async {
 
     FocusScope.of(context).unfocus();
@@ -282,6 +297,8 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
 
             _draft.numberOfSlides = _draft.assetsSources.length;
             _draft.numberOfStrips = _draft.numberOfSlides;
+
+            _triggerProgressOpacity();
           });
 
           /// E - animate to first page
@@ -398,6 +415,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
       setState(() {
         _statelessTriggerVisibility(_draft.currentSlideIndex);
         _draft.numberOfStrips = 0;
+        _triggerProgressOpacity();
       });
 
       /// B - wait fading to start deleting + update index to null
@@ -1129,6 +1147,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
     print('verticalIndex was : $_verticalIndex');
     setState(() {
       _verticalIndex = verticalIndex;
+      _triggerProgressOpacity();
     });
     print('verticalIndex is : $_verticalIndex');
 
@@ -1147,6 +1166,10 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
     else {
       await Sliders.slideToBackFrom(_verticalController, 1);
     }
+
+    setState(() {
+      _triggerProgressOpacity();
+    });
 
   }
 /// ----------------------------------------------------------------------------
@@ -1337,7 +1360,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                     PageView(
                       pageSnapping: true,
                       scrollDirection: Axis.vertical,
-                      physics: _verticalIndex == 0 ? NeverScrollableScrollPhysics() : BouncingScrollPhysics(),
+                      physics: BouncingScrollPhysics(),//_verticalIndex == 0 ? NeverScrollableScrollPhysics() : BouncingScrollPhysics(),
                       allowImplicitScrolling: true,
                       onPageChanged: _draft.listenToSwipe ? (i) => _onVerticalIndexChanged(i) : (i) => Sliders.zombie(i),
                       controller: _verticalController,
@@ -1371,25 +1394,55 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                                 flyerZoneWidth: _flyerZoneWidth,
                                 slidingIsOn: true,
                                 ankhIsOn: false,
-                                tappingAnkh: (){
-                                  Nav.goToNewScreen(context,
-                                      OldFlyerEditorScreen(
-                                        bzModel: widget.bzModel,
-                                        firstTimer: true,
-                                        flyerModel: null,
-                                      )
-                                  );
-                                },
+                                tappingAnkh: (){},
                               ),
 
                           ],
                         ),
 
                         /// INFO SLIDE
-                        InfoSlide(
-                          flyerZoneWidth: _flyerZoneWidth,
-                          flyer: _flyer,
+                        ///
+
+                        NotificationListener(
+                          onNotification: (ScrollUpdateNotification details){
+
+                            double _offset = details.metrics.pixels;
+
+                            double _bounceLimit = _flyerZoneHeight * 0.15 * (-1);
+
+                            bool _canPageUp = _offset < _bounceLimit;
+
+                            bool _goingDown = Scrollers.isGoingDown(_infoScrollController);
+
+                            if(_goingDown && _canPageUp){
+                              Sliders.slideToBackFrom(_verticalController, 1, curve: Curves.easeOut);
+                            }
+
+                            return true;
+                          },
+                          child: ListView(
+                            key: PageStorageKey<String>('${Numberers.createUniqueIntFrom(existingValues: [1, 2])}'),
+                            physics: BouncingScrollPhysics(),
+                            shrinkWrap: false,
+                            controller: _infoScrollController,
+                            children: <Widget>[
+
+                              InfoSlide(
+                                flyerZoneWidth: _flyerZoneWidth,
+                                flyer: _flyer,
+                                onVerticalBack: () async {
+
+                                  await Sliders.slideToBackFrom(_verticalController, 1);
+                                  // _onVerticalIndexChanged(0);
+
+                                },
+                              ),
+
+                            ],
+                          ),
                         ),
+
+
 
                       ],
                     ),
@@ -1414,11 +1467,15 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
 
                     /// PROGRESS BAR
                     if(_draft.numberOfStrips != 0 && _draft.currentSlideIndex != null)
-                      ProgressBar(
-                        flyerZoneWidth: _flyerZoneWidth,
-                        numberOfStrips: _draft.numberOfStrips,
-                        slideIndex: _draft.currentSlideIndex,
-                        swipeDirection: _draft.swipeDirection,
+                      AnimatedOpacity(
+                        duration: _slidingDuration,
+                        opacity: _progressOpacity,
+                        child: ProgressBar(
+                          flyerZoneWidth: _flyerZoneWidth,
+                          numberOfStrips: _draft.numberOfStrips,
+                          slideIndex: _draft.currentSlideIndex,
+                          swipeDirection: _draft.swipeDirection,
+                        ),
                       ),
 
 
