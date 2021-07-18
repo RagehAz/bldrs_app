@@ -42,12 +42,12 @@ class AddGalleryPicBubble extends StatelessWidget {
 
     BorderRadius _picBorders =
     bubbleType == BubbleType.bzLogo ?
-    Borderers.superBorderRadius(context:context, enTopLeft:corner, enBottomLeft:corner, enBottomRight:0, enTopRight:corner)
+    Borderers.superBorders(context:context, enTopLeft:corner, enBottomLeft:corner, enBottomRight:0, enTopRight:corner)
         :
     bubbleType == BubbleType.authorPic ?
-    Borderers.superBorderRadius(context: context, enTopLeft: corner, enBottomLeft: 0, enBottomRight: corner, enTopRight: corner,)
+    Borderers.superBorders(context: context, enTopLeft: corner, enBottomLeft: 0, enBottomRight: corner, enTopRight: corner,)
         :
-    Borderers.superBorderRadius(context: context, enTopLeft: corner, enBottomLeft: corner, enBottomRight: corner, enTopRight: corner,);
+    Borderers.superBorders(context: context, enTopLeft: corner, enBottomLeft: corner, enBottomRight: corner, enTopRight: corner,);
 
 
     return InPyramidsBubble(

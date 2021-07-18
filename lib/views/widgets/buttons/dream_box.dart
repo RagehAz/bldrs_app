@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/drafters/colorizers.dart';
 import 'package:bldrs/controllers/drafters/object_checkers.dart';
+import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/shadowers.dart';
 import 'package:bldrs/controllers/drafters/text_directionerz.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
@@ -25,6 +26,7 @@ class DreamBox extends StatelessWidget {
   final Color verseColor;
   final VerseWeight verseWeight;
   final double verseScaleFactor;
+  final bool verseShadow;
   final bool verseItalic;
   final int verseMaxLines;
   final Function onTap;
@@ -65,6 +67,7 @@ class DreamBox extends StatelessWidget {
     this.verseColor = Colorz.White255,
     this.verseWeight = VerseWeight.bold,
     this.verseScaleFactor = 1,
+    this.verseShadow,
     this.verseItalic = false,
     this.verseMaxLines = 1,
     this.onTap,
@@ -135,7 +138,10 @@ class DreamBox extends StatelessWidget {
     BorderRadius getCornersAsBorderRadius(){
       BorderRadius _cornerBorders;
       double _topLeftCorner;
-      if (corners.runtimeType == BorderRadius){
+      if(corners == 0){
+        _cornerBorders = BorderRadius.zero;
+      }
+      else if (corners.runtimeType == BorderRadius){
         _cornerBorders = corners;
       } else {
         _cornerBorders = Borderers.superBorderAll(context, corners);
@@ -158,7 +164,7 @@ class DreamBox extends StatelessWidget {
       else if (corners.runtimeType ==  BorderRadius){
         BorderRadius _cornerBorders;
 
-        _IconCornerAsBorderRadius = Borderers.superBorderRadius(
+        _IconCornerAsBorderRadius = Borderers.superBorders(
           context: context,
           enTopRight: corners.topRight.x - _iconMargin,
           enTopLeft: corners.topLeft.x - _iconMargin,
@@ -190,16 +196,7 @@ class DreamBox extends StatelessWidget {
 // -----------------------------------------------------------------------------
     TextDirection _textDirection = textDirection == null ? superTextDirection(context) : textDirection;
 // -----------------------------------------------------------------------------
-    EdgeInsets _boxMargins =
-        margins == null ? const EdgeInsets.all(0)
-            :
-        margins.runtimeType == double ? EdgeInsets.all(margins)
-            :
-        margins.runtimeType == int ? EdgeInsets.all(margins.toDouble())
-            :
-        margins.runtimeType == EdgeInsets ? margins
-            :
-        margins;
+    EdgeInsets _boxMargins = Scale.superMargins(margins : margins);
 // -----------------------------------------------------------------------------
     CrossAxisAlignment _versesCrossAlignment =
     icon == null && textDirection == null && secondLine == null ? CrossAxisAlignment.center
@@ -481,7 +478,7 @@ class DreamBox extends StatelessWidget {
                                           size: _verseSize,
                                           weight: verseWeight,
                                           color: blackAndWhite == true || inActiveMode == true ? Colorz.White80 : verseColor,
-                                          shadow: blackAndWhite == true || inActiveMode == true ? false : true,
+                                          shadow: verseShadow != null ? verseShadow : blackAndWhite == true || inActiveMode == true ? false : true,
                                           maxLines: verseMaxLines,
                                           designMode: false,
                                           centered: icon == null ? true : false,
@@ -596,7 +593,7 @@ class DreamBox extends StatelessWidget {
                                     onTapUp: inActiveMode == true || onTapUp == null ? (TapUpDetails details){} : (TapUpDetails details) => onTapUp(),
                                     child: InkWell(
                                       splashColor: splashColor,
-                                      onTap: onTap,
+                                      onTap: onTap == null ? null : () async {onTap();},
                                       onTapCancel: onTapCancel,
                                     ),
                                   ),

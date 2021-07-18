@@ -36,6 +36,18 @@ enum PicType{
   askPic,
 }
 // -----------------------------------------------------------------------------
+class ObjectSize{
+  double width;
+  double height;
+  bool maxSize;
+
+  ObjectSize({
+    @required this.width,
+    @required this.height,
+    @required this.maxSize,
+});
+}
+// -----------------------------------------------------------------------------
 class ImageSize{
   final int width;
   final int height;

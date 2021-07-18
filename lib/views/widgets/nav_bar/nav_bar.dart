@@ -197,12 +197,12 @@ class NavBar extends StatelessWidget {
 // -----------------------------------------------------------------------------
     BorderRadius _boxBorders =
     barType == BarType.min ?
-    Borderers.superBorderRadius(context: context, enTopLeft: _boxCorner, enBottomLeft: _boxCorner, enBottomRight: _boxCorner, enTopRight: _boxCorner)
+    Borderers.superBorders(context: context, enTopLeft: _boxCorner, enBottomLeft: _boxCorner, enBottomRight: _boxCorner, enTopRight: _boxCorner)
         :
     barType == BarType.max  || barType == BarType.maxWithText?
-    Borderers.superBorderRadius(context: context, enTopLeft: _boxCorner, enBottomLeft: 0, enBottomRight: 0, enTopRight: _boxCorner)
+    Borderers.superBorders(context: context, enTopLeft: _boxCorner, enBottomLeft: 0, enBottomRight: 0, enTopRight: _boxCorner)
         :
-    Borderers.superBorderRadius(context: context, enTopLeft: _boxCorner, enBottomLeft: _boxCorner * 0.5, enBottomRight: _boxCorner * 0.5, enTopRight: _boxCorner)
+    Borderers.superBorders(context: context, enTopLeft: _boxCorner, enBottomLeft: _boxCorner * 0.5, enBottomRight: _boxCorner * 0.5, enTopRight: _boxCorner)
     ;
 // -----------------------------------------------------------------------------
     double _buttonHeight = _circleWidth + ( 2 * _paddings ) + _textBoxHeight;

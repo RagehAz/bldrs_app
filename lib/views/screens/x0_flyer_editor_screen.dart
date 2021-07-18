@@ -1,14 +1,18 @@
 import 'dart:io';
 import 'package:bldrs/controllers/drafters/animators.dart';
 import 'package:bldrs/controllers/drafters/borderers.dart';
+import 'package:bldrs/controllers/drafters/iconizers.dart';
 import 'package:bldrs/controllers/drafters/keyboarders.dart';
 import 'package:bldrs/controllers/drafters/sliders.dart' show SwipeDirection, Sliders;
 import 'package:bldrs/controllers/drafters/imagers.dart' ;
 import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
+import 'package:bldrs/controllers/theme/flagz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/standards.dart';
+import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
@@ -24,22 +28,25 @@ import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/screens/xx_flyer_on_map.dart';
 import 'package:bldrs/views/screens/x2_old_flyer_editor_screen.dart';
+import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
+import 'package:bldrs/views/widgets/bubbles/stats_line.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/buttons/panel_button.dart';
 import 'package:bldrs/views/widgets/buttons/publish_button.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_sheet.dart';
 import 'package:bldrs/views/widgets/dialogs/dialogz.dart';
+import 'package:bldrs/views/widgets/flyer/editor/editorPanel.dart';
 import 'package:bldrs/views/widgets/flyer/parts/ankh_button.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_zone.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header.dart';
 import 'package:bldrs/views/widgets/flyer/parts/progress_bar.dart';
 import 'package:bldrs/views/widgets/flyer/parts/slides_parts/footer.dart';
 import 'package:bldrs/views/widgets/flyer/parts/slides_parts/single_slide.dart';
+import 'package:bldrs/views/widgets/flyer/parts/slides_parts/info_slide.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:bldrs/xxx_LABORATORY/camera_and_location/location_helper.dart';
-import 'package:bldrs/xxx_LABORATORY/flyer_states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_size/flutter_keyboard_size.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -76,7 +83,6 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
 // -----------------------------------------------------------------------------
   PageController _horizontalController;
   PageController _verticalController;
-  double _buttonSize = 50;
 // -----------------------------------------------------------------------------
   FlyersProvider _prof;
   CountryProvider _countryPro;
@@ -146,6 +152,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
 // -----------------------------------------------------------------------------
   @override
   void initState() {
+
     _horizontalController = PageController(initialPage: 0, viewportFraction: 1, keepPage: true);
     _verticalController = PageController(initialPage: 0, keepPage: true, viewportFraction: 1);
 
@@ -174,6 +181,8 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
   Duration _slidingDurationX = Ratioz.durationSliding410;
 // ---------------------------------------------------o
   Future<void> _getMultiGalleryImages({double flyerZoneWidth}) async {
+
+    FocusScope.of(context).unfocus();
 
     _triggerLoading();
 
@@ -336,7 +345,8 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                       saves: 0,
                       shares: 0,
                       views: 0,
-                      tappingShare: null,
+                      onShareTap: null,
+                      onCountersTap: _triggerKeywordsView,
                     ),
 
                   ],
@@ -579,21 +589,6 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
     _draft.numberOfSlides = _draft.assetsSources.length;
     print('after stateless delete index is $index, _draft.numberOfSlides is : $_draft.numberOfSlides');
   }
-// -----------------------------------------------------------------------------
-  Future<void> _cropImage(File file) async {
-
-    _triggerLoading();
-
-    File croppedFile = await Imagers.cropImage(context, file);
-
-    if (croppedFile != null) {
-      setState(() {
-        _draft.assetsFiles[_draft.currentSlideIndex] = croppedFile;
-      });
-    }
-
-    _triggerLoading();
-  }
 /// ----------------------------------------------------------------------------
   Future<void>_selectOnMap() async {
 
@@ -702,6 +697,14 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
 
     double _bottomSheetHeightFactor = 0.7;
 
+    List<Keyword> _keywords = <Keyword>[
+      Keyword.bldrsKeywords()[100],
+      Keyword.bldrsKeywords()[120],
+      Keyword.bldrsKeywords()[205],
+      Keyword.bldrsKeywords()[403],
+      Keyword.bldrsKeywords()[600],
+    ];
+
     BottomSlider.slideStatefulBottomSheet(
       context: context,
       height: Scale.superScreenHeight(context) * _bottomSheetHeightFactor,
@@ -736,11 +739,11 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                             height: Ratioz.appBarPadding,
                           ),
 
-                          WordsBubble(
+                          KeywordsBubble(
                             verseSize: 1,
                             bubbles: false,
                             title: 'Selected keywords',
-                            words: _draft.keywords,
+                            keywords: _draft.keywords,
                             selectedWords: _draft.keywords,
                             onTap: (value){
                               setSheetState(() {
@@ -749,11 +752,11 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                             },
                           ),
 
-                          WordsBubble(
+                          KeywordsBubble(
                             verseSize: 1,
                             bubbles: true,
                             title: 'Space Type',
-                            words: ['1', '2', '3'],
+                            keywords: _keywords,
                             selectedWords: _draft.keywords,
                             onTap: (value){
                               setSheetState(() {
@@ -762,11 +765,11 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                             },
                           ),
 
-                          WordsBubble(
+                          KeywordsBubble(
                             verseSize: 1,
                             bubbles: true,
                             title: 'Product Use',
-                            words: ['1', '2', '3'],
+                            keywords: _keywords,
                             selectedWords: _draft.keywords,
                             onTap: (value){setSheetState(() {_draft.keywords.add(value);});},
                           ),
@@ -1123,30 +1126,90 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
 /// ----------------------------------------------------------------------------
   int _verticalIndex = 0;
   void _onVerticalIndexChanged(int verticalIndex){
+    print('verticalIndex was : $_verticalIndex');
     setState(() {
       _verticalIndex = verticalIndex;
     });
+    print('verticalIndex is : $_verticalIndex');
+
   }
 // -----------------------------------------------------------------------------
   Future<void> _triggerKeywordsView() async {
 
-    // setState(() {
-    //   _keywordsScrollController = PageController(initialPage: 0, keepPage: true);
-    //   _verticalIndex = 0;
-    // });
+    print('_triggerKeywordsView : _verticalIndex : $_verticalIndex');
+
 
     /// open keywords
     if(_verticalIndex == 0){
-      await Sliders.slideTo(_verticalController, 1);
+      await Sliders.slideToNext(_verticalController, 2, 0);
     }
     /// close keywords
     else {
-      await Sliders.slideTo(_verticalController, 0);
+      await Sliders.slideToBackFrom(_verticalController, 1);
     }
 
   }
 /// ----------------------------------------------------------------------------
+  void _onFitImage(BoxFit fit){
 
+    if(_draft.assetsFiles.isNotEmpty){
+
+      if(fit == BoxFit.fitWidth) {
+        setState(() {
+          _draft.boxesFits[_draft.currentSlideIndex] = BoxFit.fitHeight;
+        });
+      }
+
+      else {
+        setState(() {
+          _draft.boxesFits[_draft.currentSlideIndex] = BoxFit.fitWidth;
+        });
+      }
+
+    }
+
+  }
+// -----------------------------------------------------------------------------
+  Future<void> _onResetImage() async {
+
+    if(_draft.assetsFiles.isNotEmpty){
+
+      File _file = await Imagers.getFileFromAsset(_draft.assetsSources[_draft.currentSlideIndex]);
+
+      setState(() {
+        _draft.assetsFiles[_draft.currentSlideIndex] = _file;
+      });
+
+    }
+
+  }
+// -----------------------------------------------------------------------------
+  void _onAuthorTap(){
+    setState(() {
+      _draft.showAuthor = !_draft.showAuthor;
+    });
+  }
+// -----------------------------------------------------------------------------
+  Future<void> _onCropImage() async {
+
+    if(_draft.assetsFiles.isNotEmpty){
+
+      _triggerLoading();
+
+      File croppedFile = await Imagers.cropImage(context, _draft.assetsFiles[_draft.currentSlideIndex]);
+
+      if (croppedFile != null) {
+        setState(() {
+          _draft.assetsFiles[_draft.currentSlideIndex] = croppedFile;
+        });
+      }
+
+      _triggerLoading();
+
+    }
+
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     /// when using with AutomaticKeepAliveClientMixin
@@ -1157,19 +1220,25 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
     double _screenWidth = Scale.superScreenWidth(context);
     double _screenHeight = Scale.superScreenHeight(context);
 
-    double _panelWidth = _buttonSize + (Ratioz.appBarMargin * 2);
+    // double _panelWidth = _buttonSize + (Ratioz.appBarMargin * 2);
+    // double _flyerZoneWidth = _screenWidth - _panelWidth - Ratioz.appBarMargin;
+    // double _flyerZoneHeight = Scale.superFlyerZoneHeight(context, _flyerZoneWidth);
+    // double _flyerSizeFactor = Scale.superFlyerSizeFactorByWidth(context, _flyerZoneWidth);
 
-    double _flyerZoneWidth = _screenWidth - _panelWidth - Ratioz.appBarMargin;
-    double _flyerZoneHeight = Scale.superFlyerZoneHeight(context, _flyerZoneWidth);
-    double _flyerSizeFactor = Scale.superFlyerSizeFactorByWidth(context, _flyerZoneWidth);
+    double _flyerZoneHeight = Scale.superScreenHeightWithoutSafeArea(context) - Ratioz.appBarSmallHeight - (Ratioz.appBarMargin * 3);
+    double _flyerSizeFactor = Scale.superFlyerSizeFactorByHeight(context, _flyerZoneHeight);
+    double _flyerZoneWidth = Scale.superFlyerZoneWidth(context, _flyerSizeFactor);
+    double _panelWidth = _screenWidth - _flyerZoneWidth - (Ratioz.appBarMargin * 3);
 
     double _panelHeight = _flyerZoneHeight;
+    double _buttonSize = _panelWidth - (Ratioz.appBarPadding);
+    double _panelButtonSize = _buttonSize * 0.8;
+
 
     AuthorModel _author = widget.firstTimer ?
     AuthorModel.getAuthorFromBzByAuthorID(_bz, superUserID()) :
     AuthorModel.getAuthorFromBzByAuthorID(_bz, _flyer.tinyAuthor.userID);
 
-    BoxFit _currentPicFit = _draft.boxesFits.length == 0 ? null : _draft.boxesFits[_draft.currentSlideIndex];
 
     // ImageSize _originalAssetSize = _assets.length == 0 || _assets == null ? null : ImageSize(
     //   width: _assets[_draft.currentSlideIndex].originalWidth,
@@ -1177,8 +1246,8 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
     // );
 
 // ------------------------------
+    BoxFit _currentPicFit = _draft.boxesFits.length == 0 ? null : _draft.boxesFits[_draft.currentSlideIndex];
 
-    double _panelButtonSize = _buttonSize * 0.8;
 
     return MainLayout(
       pyramids: Iconz.DvBlankSVG,
@@ -1207,7 +1276,11 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
             );
 
             if(_result == false){
-              await Nav.goToNewScreen(context, FlyerStatsTest(bz: widget.bzModel));
+              print('No');
+            }
+
+            else {
+              print('yes');
             }
 
             },
@@ -1235,177 +1308,22 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
             width: _screenWidth,
             height: _panelHeight,
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
 
                 /// PANEL
-                Container(
-                  width: _panelWidth,
-                  height: _panelHeight,
-                  alignment: Alignment.center,
-                  child: Container(
-                    width: _panelWidth - Ratioz.appBarMargin,
-                    height: _panelHeight,
-                    // padding: EdgeInsets.all(Ratioz.appBarPadding),
-                    decoration: BoxDecoration(
-                      // borderRadius: Borderers.superBorderAll(context, Ratioz.appBarCorner),
-                      // color: Colorz.Red125,//Colorz.White10,
-                    ),
-                    child: ClipRRect(
-                      borderRadius: Borderers.superBorderAll(context, Ratioz.appBarCorner),
-                      child: Column(
-                        // shrinkWrap: true,
-
-                        children: <Widget>[
-
-                          /// SHOW AUTHOR
-                          DreamBox(
-                            height: Ratioz.xxflyerLogoWidth * _flyerZoneWidth,
-                            margins: EdgeInsets.symmetric(vertical: (Ratioz.xxflyerHeaderMiniHeight - Ratioz.xxflyerLogoWidth) * _flyerZoneWidth / 2),
-                            width: _buttonSize,
-                            color: _draft.showAuthor == true ? Colorz.White80 : Colorz.White80,
-                            icon: _author.authorPic,
-                            underLine: _draft.showAuthor == true ? 'Author Shown' : 'Author Hidden',
-                            underLineShadowIsOn: false,
-                            underLineColor: _draft.showAuthor == true ? Colorz.White255 : Colorz.White80,
-                            corners: Borderers.superLogoShape(context: context, zeroCornerEnIsRight: false, corner: Ratioz.xxflyerAuthorPicCorner * _flyerZoneWidth),
-                            blackAndWhite: _draft.showAuthor == true ? false : true,
-                            bubble: _draft.showAuthor == true ? true : false,
-                            onTap: (){
-                              setState(() {
-                                _draft.showAuthor = !_draft.showAuthor;
-                              });
-                            },
-                          ),
-
-                          /// SPACER
-                          Expanded(
-                            child: Container(),
-                          ),
-
-                          /// ADD IMAGE
-                          PanelButton(
-                            size: _panelButtonSize,
-                            flyerZoneWidth: _flyerZoneWidth,
-                            icon:  Iconz.Plus,
-                            iconSizeFactor: 0.5,
-                            verse: 'Add',
-                            onTap: () async {
-                              print('adding Image');
-                              await _getMultiGalleryImages(flyerZoneWidth: _flyerZoneWidth);
-                            },
-                          ),
-
-                          /// DELETE IMAGE
-                          PanelButton(
-                            size: _panelButtonSize,
-                            flyerZoneWidth: _flyerZoneWidth,
-                            icon:  Iconz.XSmall,
-                            iconSizeFactor: 0.5,
-                            verse: 'Delete',
-                            onTap: () async {
-                              // widget.onDeleteImage(_draft.currentSlideIndex);
-
-                              await _deleteSlide(
-                                // numberOfSlides: _draft.numberOfSlides,
-                                // currentSlide: _draft.currentSlideIndex,
-                              );
-
-                            },
-                          ),
-
-                          PanelButton.panelDot(panelButtonWidth: _panelButtonSize),
-
-                          /// CROP IMAGE
-                          PanelButton(
-                            size: _panelButtonSize,
-                            flyerZoneWidth: _flyerZoneWidth,
-                            icon:  Iconz.BxDesignsOff,
-                            iconSizeFactor: 0.5,
-                            verse: 'Crop',
-                            onTap: () async {
-
-                              if (_draft.assetsFiles.length != 0){
-                                await _cropImage(_draft.assetsFiles[_draft.currentSlideIndex]);
-                              }
-
-                              },
-                          ),
-
-                          /// RELOAD
-                          PanelButton(
-                            size: _panelButtonSize,
-                            flyerZoneWidth: _flyerZoneWidth,
-                            icon:  Iconz.Clock,
-                            iconSizeFactor: 0.5,
-                            verse: 'Reset',
-                            onTap: () async {
-
-                              File _file = await Imagers.getFileFromAsset(_draft.assetsSources[_draft.currentSlideIndex]);
-                              setState(() {
-                                _draft.assetsFiles[_draft.currentSlideIndex] = _file;
-                              });
-
-                            },
-                          ),
-
-                          PanelButton.panelDot(panelButtonWidth: _panelButtonSize),
-
-                          /// CHANGE SLIDE BOX FIT
-                          PanelButton(
-                            size: _panelButtonSize,
-                            flyerZoneWidth: _flyerZoneWidth,
-                            verse: 'Fit',
-                            icon: _currentPicFit == BoxFit.fitWidth ? Iconz.ArrowRight : _currentPicFit == BoxFit.fitHeight ? Iconz.ArrowUp : Iconz.DashBoard,
-                            iconSizeFactor: 0.35,
-                            isAuthorButton: false,
-                            onTap: (){
-
-                              if(_currentPicFit == BoxFit.fitWidth) {
-                                setState(() {
-                                  _draft.boxesFits[_draft.currentSlideIndex] = BoxFit.fitHeight;
-                                });
-                              }
-
-                              else {
-                                setState(() {
-                                  _draft.boxesFits[_draft.currentSlideIndex] = BoxFit.fitWidth;
-                                });
-                              }
-
-                              // else {
-                              //   setState(() {
-                              //     _draft.boxesFits[_draft.currentSlideIndex] = BoxFit.fitWidth;
-                              //   });
-                              // }
-
-                              // print('fit is : ${_draft.boxesFits[currentSlide]}');
-
-                            },
-                          ),
-
-                          PanelButton.panelDot(panelButtonWidth: _panelButtonSize),
-
-                          /// TRIGGER KEYWORDS
-                          PanelButton(
-                            size: _panelButtonSize,
-                            flyerZoneWidth: _flyerZoneWidth,
-                            verse: 'Tags',
-                            icon: Iconz.DvBlackHole,
-                            iconSizeFactor: 1,
-                            isAuthorButton: false,
-                            onTap: _triggerKeywordsView,
-                          ),
-
-                          /// BOTTOM SPACING
-                          // SizedBox(
-                          //   //Ratioz.xxflyerBottomCorners * _flyerZoneWidth - Ratioz.appBarPadding,
-                          //   height: Scale.superFlyerFooterHeight(_flyerZoneWidth),
-                          // ),
-
-                        ],
-                      ),
-                    ),
-                  ),
+                EditorPanel(
+                    flyerZoneWidth: _flyerZoneWidth,
+                    panelWidth: _panelWidth,
+                    author: _author,
+                    boxFit: _currentPicFit,
+                    showAuthor: _draft.showAuthor,
+                    onAuthorTap: _onAuthorTap,
+                    onAddImage: () async {await _getMultiGalleryImages(flyerZoneWidth: _flyerZoneWidth);},
+                    onDeleteImage: _deleteSlide,
+                    onCropImage: () async {_onCropImage();},
+                    onResetImage: _onResetImage,
+                    onFitImage: () async {await _onFitImage(_currentPicFit);},
                 ),
 
                 /// FLYER
@@ -1419,9 +1337,9 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                     PageView(
                       pageSnapping: true,
                       scrollDirection: Axis.vertical,
-                      physics: BouncingScrollPhysics(),
+                      physics: _verticalIndex == 0 ? NeverScrollableScrollPhysics() : BouncingScrollPhysics(),
                       allowImplicitScrolling: true,
-                      onPageChanged: (i) => _onVerticalIndexChanged(i),
+                      onPageChanged: _draft.listenToSwipe ? (i) => _onVerticalIndexChanged(i) : (i) => Sliders.zombie(i),
                       controller: _verticalController,
                       children: <Widget>[
 
@@ -1467,24 +1385,10 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                           ],
                         ),
 
-                        /// KEYWORDS
-                        Column(
-                          children: [
-
-                            Container(
-                              width: _flyerZoneWidth,
-                              height: Scale.superHeaderHeight(false, _flyerZoneWidth) + _flyerZoneWidth * Ratioz.xxProgressBarHeightRatio,
-                            ),
-
-                            Container(
-                              width: _flyerZoneWidth,
-                              height: _flyerZoneHeight * 0.5,
-                              child: Container(
-                                color: Colorz.BloodTest,
-                              ),
-                              // color: Colorz.BloodTest,
-                            ),
-                          ],
+                        /// INFO SLIDE
+                        InfoSlide(
+                          flyerZoneWidth: _flyerZoneWidth,
+                          flyer: _flyer,
                         ),
 
                       ],

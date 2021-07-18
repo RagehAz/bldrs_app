@@ -26,9 +26,9 @@ class ChatBubble extends StatelessWidget {
     BorderRadius _bubbleBorderss = Borderers.superBorderAll(context, _corner);
 
     BorderRadius _bubbleBorders = myVerse ?
-    Borderers.superBorderRadius(context: context, enTopLeft: _corner, enBottomLeft: _corner, enBottomRight: 0, enTopRight: _corner)
+    Borderers.superBorders(context: context, enTopLeft: _corner, enBottomLeft: _corner, enBottomRight: 0, enTopRight: _corner)
         :
-    Borderers.superBorderRadius(context: context, enTopLeft: 0, enBottomLeft: _corner, enBottomRight: _corner, enTopRight: _corner) ;
+    Borderers.superBorders(context: context, enTopLeft: 0, enBottomLeft: _corner, enBottomRight: _corner, enTopRight: _corner) ;
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,

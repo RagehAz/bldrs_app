@@ -144,7 +144,7 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
                     width: width,
                     height: height,
                     margin: EdgeInsets.only(top: condition() == true ? 0 : Ratioz.stratosphere),
-                    color: condition() == true ? Colorz.Red225 : Colorz.Yellow255,
+                    color: condition() == true ? Colorz.Red255 : Colorz.Yellow255,
                     child: Stack(
                       alignment: Alignment.center,
                       children: <Widget>[
@@ -320,7 +320,7 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
                   decoration: BoxDecoration(
                     color: Colorz.Yellow80,
                     image: DecorationImage(image: AssetImage(Iconz.DumAuthorPic), fit: BoxFit.fitHeight),
-                    borderRadius: Borderers.superBorderRadius(context: context, enTopLeft: btCorner, enBottomLeft: btCorner, enBottomRight: btCorner, enTopRight: btCorner),
+                    borderRadius: Borderers.superBorders(context: context, enTopLeft: btCorner, enBottomLeft: btCorner, enBottomRight: btCorner, enTopRight: btCorner),
                   ),
                 ),
               ),

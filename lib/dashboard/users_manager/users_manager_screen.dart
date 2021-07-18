@@ -155,7 +155,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
                                                   verse: 'Delete this fucker (${_userModel.name})',
                                                   verseScaleFactor: 0.7,
                                                   secondLine: 'This will delete user document from firebase, and delete his firebase User authentication record',
-                                                  secondLineColor: Colorz.Red225,
+                                                  secondLineColor: Colorz.Red255,
                                                   onTap: () async {
                                                     _triggerLoading();
 

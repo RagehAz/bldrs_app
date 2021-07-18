@@ -58,7 +58,7 @@ class MainLayout extends StatelessWidget {
   final Sky sky;
   final bool canRefreshFlyers;
   final bool loading;
-  // final bool appBarBackButton;
+  final Function onBack;
   final Key key;
   // final List<TinyBz> myTinyBzz;
   final ScrollController appBarScrollController;
@@ -73,7 +73,7 @@ class MainLayout extends StatelessWidget {
     this.sky = Sky.Night,
     this.canRefreshFlyers = false,
     this.loading = false,
-    // this.appBarBackButton = false,
+    this.onBack,
     this.key,
     // this.myTinyBzz,
     this.appBarScrollController,
@@ -99,68 +99,70 @@ class MainLayout extends StatelessWidget {
     bool _ragehIsOn = tappingRageh == null ? false : true;
 
 // -----------------------------------------------------------------------------
-    final List<Widget> _mainLayoutStackWidgets = <Widget>[
+    List<Widget> _mainLayoutStackWidgets() {
+      return
+        <Widget>[
 
+          NightSky(sky: sky,),
 
-      NightSky(sky: sky,),
-
-      if (layoutWidget != null)
-        Container(
-          width: Scale.superScreenWidth(context),
-          height: Scale.superScreenHeight(context),
-          alignment: Alignment.topCenter,
-          child: layoutWidget,
-        ),
-
-      if(appBarType != AppBarType.Non)
-        BldrsAppBar(
-          appBarType: appBarType,
-          appBarRowWidgets: appBarRowWidgets,
-          pageTitle: pageTitle,
-          // backButtonIsOn: appBarBackButton,
-          loading: loading,
-          appBarScrollController: appBarScrollController,
-        ),
-
-      if (pyramids != null && pyramids != Iconz.DvBlankSVG)
-        Pyramids(
-          pyramidsIcon: pyramids,
-          loading: loading,
-        ),
-
-      // --- NAV BAR
-      if (pyramids == null)
-      NavBar(
-        barType: BarType.minWithText,
-        myTinyBzz: _userTinyBzz,
-      ),
-
-      _ragehIsOn == false ? Container() :
-      Rageh(
-        tappingRageh: tappingRageh != null ? tappingRageh : (){print('no function here bitch');},
-        doubleTappingRageh:
-        Wordz.activeLanguage(context) == 'Arabic' ?
-            () async {
-          Locale temp = await setLocale('en');
-          BldrsApp.setLocale(context, temp);
-        } :
-            () async {
-          Locale temp = await setLocale('ar');
-          BldrsApp.setLocale(context, temp);
-        },
-      ),
-
-      if (pyramids != null && DeviceChecker.deviceIsIOS() == true)
-        Positioned(
-            bottom: 0,
-            left: 0,
-            child: BackAndSearchButton(
-              backAndSearchAction: BackAndSearchAction.GoBack,
-              color: sky == Sky.Black ? Colorz.Yellow50 : Colorz.White20,
+          if (layoutWidget != null)
+            Container(
+              width: Scale.superScreenWidth(context),
+              height: Scale.superScreenHeight(context),
+              alignment: Alignment.topCenter,
+              child: layoutWidget,
             ),
-    ),
 
-    ];
+          if(appBarType != AppBarType.Non)
+            BldrsAppBar(
+              appBarType: appBarType,
+              appBarRowWidgets: appBarRowWidgets,
+              pageTitle: pageTitle,
+              onBack: onBack,
+              loading: loading,
+              appBarScrollController: appBarScrollController,
+            ),
+
+          if (pyramids != null && pyramids != Iconz.DvBlankSVG)
+            Pyramids(
+              pyramidsIcon: pyramids,
+              loading: loading,
+            ),
+
+          // --- NAV BAR
+          if (pyramids == null)
+            NavBar(
+              barType: BarType.minWithText,
+              myTinyBzz: _userTinyBzz,
+            ),
+
+          _ragehIsOn == false ? Container() :
+          Rageh(
+            tappingRageh: tappingRageh != null ? tappingRageh : (){print('no function here bitch');},
+            doubleTappingRageh:
+            Wordz.activeLanguage(context) == 'Arabic' ?
+                () async {
+              Locale temp = await setLocale('en');
+              BldrsApp.setLocale(context, temp);
+            } :
+                () async {
+              Locale temp = await setLocale('ar');
+              BldrsApp.setLocale(context, temp);
+            },
+          ),
+
+          if (pyramids != null && DeviceChecker.deviceIsIOS() == true)
+            Positioned(
+              bottom: 0,
+              left: 0,
+              child: BackAndSearchButton(
+                backAndSearchAction: BackAndSearchAction.GoBack,
+                color: sky == Sky.Black ? Colorz.Yellow50 : Colorz.White20,
+              ),
+            ),
+
+        ];
+    }
     // ------------------------------------------------------------------
     // print('superScreenHeightWithoutSafeArea(context) = ${superScreenHeightWithoutSafeArea(context)},, superScreenHeight(context) = ${superScreenHeight(context)}');
 
@@ -201,7 +203,7 @@ class MainLayout extends StatelessWidget {
                     strokeWidth: 4,
                     child: Stack(
                       alignment: Alignment.topCenter,
-                      children: _mainLayoutStackWidgets,
+                      children: _mainLayoutStackWidgets(),
                     ),
                   )
 
@@ -209,7 +211,7 @@ class MainLayout extends StatelessWidget {
 
                   Stack(
                     alignment: Alignment.topCenter,
-                    children: _mainLayoutStackWidgets,
+                    children: _mainLayoutStackWidgets(),
                   ),
 
                 ),

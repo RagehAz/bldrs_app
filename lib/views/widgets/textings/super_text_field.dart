@@ -228,7 +228,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
       focusedBorder: Borderers.superOutlineInputBorder(Colorz.Yellow80, _labelCorner),
       enabledBorder: Borderers.superOutlineInputBorder(Colorz.Nothing, _labelCorner),
 
-      errorStyle: superTextStyle(Colorz.Red225, 0.7),
+      errorStyle: superTextStyle(Colorz.Red255, 0.7),
       focusedErrorBorder: Borderers.superOutlineInputBorder(Colorz.Yellow80, _labelCorner),
 
       errorBorder: Borderers.superOutlineInputBorder(Colorz.Red125, _labelCorner),

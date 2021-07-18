@@ -175,7 +175,7 @@ class SuperVerse extends StatelessWidget {
                   labelColor == null ?
                   EdgeInsets.only(top: _labelHeight * 0.2) :
                   EdgeInsets.only(top: _labelHeight * 0.05) ,
-                  child: _dot(_dotSize, Colorz.Red225),
+                  child: _dot(_dotSize, Colorz.Red255),
                 ),
             ),
 
