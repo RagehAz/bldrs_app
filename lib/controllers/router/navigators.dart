@@ -91,9 +91,9 @@ class Nav{
     // );
   }
 // -----------------------------------------------------------------------------
-  static goBack(BuildContext context, {argument}){
+  static Future<void> goBack(BuildContext context, {argument}) async {
     // you can send whatever you want in Navigator.pop(context,whatever you want to pass)
-    Navigator.pop(context, argument);
+    await Navigator.pop(context, argument);
   }
 // -----------------------------------------------------------------------------
   static goBackToUserChecker(BuildContext context){

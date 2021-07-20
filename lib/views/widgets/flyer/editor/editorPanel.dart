@@ -1,7 +1,9 @@
 import 'package:bldrs/controllers/drafters/borderers.dart';
+import 'package:bldrs/controllers/drafters/iconizers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/models/flyer_type_class.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
@@ -24,6 +26,9 @@ class EditorPanel extends StatelessWidget {
   final Function onFitImage;
   final PageController panelController;
   final Zone zone;
+  final FlyerType flyerType;
+  final Function onChangeFlyerType;
+  final Function onChangeZone;
 
   EditorPanel({
     @required this.flyerZoneWidth,
@@ -39,6 +44,9 @@ class EditorPanel extends StatelessWidget {
     @required this.onFitImage,
     @required this.panelController,
     @required this.zone,
+    @required this.flyerType,
+    @required this.onChangeFlyerType,
+    @required this.onChangeZone,
 });
 // -----------------------------------------------------------------------------
   Widget _expander(){
@@ -203,21 +211,17 @@ class EditorPanel extends StatelessWidget {
                   // color: Colorz.White50,
                   child: Column(
                     children: <Widget>[
-
-                      /// SPACER
-                      _expander(),
-
+                      
                       /// Flyer type
                       PanelButton(
                         size: _panelButtonSize,
                         flyerZoneWidth: flyerZoneWidth,
-                        icon:  Iconz.Flyer,
-                        iconSizeFactor: 0.5,
+                        icon:  Iconizer.flyerTypeIconOff(flyerType),
+                        iconSizeFactor: 1,
                         verse: 'Type',
-                        onTap: onCropImage,
+                        onTap: onChangeFlyerType,
                       ),
 
-                      PanelButton.panelDot(panelButtonWidth: _panelButtonSize),
 
                       /// Country
                       PanelButton(
@@ -226,8 +230,10 @@ class EditorPanel extends StatelessWidget {
                         icon:  Flagz.getFlagByIso3(zone.countryID),
                         iconSizeFactor: 0.62,
                         verse: 'Target',
-                        onTap: onCropImage,
+                        onTap: onChangeZone,
                       ),
+
+                      _expander(),
 
                       /// About
                       PanelButton(

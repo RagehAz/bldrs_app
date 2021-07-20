@@ -21,7 +21,7 @@ class BzGrid extends StatelessWidget {
     @required this.tinyBzz,
     this.itemOnTap,
     this.scrollDirection,
-    this.numberOfRows,
+    this.numberOfRows = 1,
     this.corners,
 });
 
