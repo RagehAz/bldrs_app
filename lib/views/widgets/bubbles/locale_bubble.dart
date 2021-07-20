@@ -10,7 +10,7 @@ import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/sheet_buttons.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
-import 'package:bldrs/views/widgets/dialogs/bottom_sheet.dart';
+import 'package:bldrs/views/widgets/dialogs/bottom_dialog.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -59,7 +59,7 @@ class _LocaleBubbleState extends State<LocaleBubble> {
 // -----------------------------------------------------------------------------
   void _tapCountryButton({BuildContext context, CountryProvider countryPro, List<Map<String, String>> flags}){
     Keyboarders.minimizeKeyboardOnTapOutSide(context);
-    BottomSlider.slideBottomSheet(
+    BottomDialog.slideBottomDialog(
       context: context,
       draggable: true,
       height: null,
@@ -83,14 +83,14 @@ class _LocaleBubbleState extends State<LocaleBubble> {
     );
   }
 // -----------------------------------------------------------------------------
-  void _tapProvinceButton({BuildContext context, CountryProvider countryPro, List<Map<String, String>> provinces}){
+  void _tapCityButton({BuildContext context, CountryProvider countryPro, List<Map<String, String>> cities}){
     Keyboarders.minimizeKeyboardOnTapOutSide(context);
-    BottomSlider.slideBottomSheet(
+    BottomDialog.slideBottomDialog(
       context: context,
       draggable: true,
       height: null,
       child: SheetButtons(
-        listOfMaps: provinces,
+        listOfMaps: cities,
         mapValueIs: MapValueIs.String,
         alignment: Alignment.center,
         provider: countryPro,
@@ -108,14 +108,14 @@ class _LocaleBubbleState extends State<LocaleBubble> {
     );
   }
 // -----------------------------------------------------------------------------
-  void _tapAreaButton({BuildContext context, CountryProvider countryPro, List<Map<String, String>> areas}){
+  void _tapDistrictButton({BuildContext context, CountryProvider countryPro, List<Map<String, String>> districts}){
     Keyboarders.minimizeKeyboardOnTapOutSide(context);
-    BottomSlider.slideBottomSheet(
+    BottomDialog.slideBottomDialog(
       context: context,
       draggable: true,
       height: null,
       child: SheetButtons(
-        listOfMaps: areas,
+        listOfMaps: districts,
         mapValueIs: MapValueIs.String,
         alignment: Alignment.center,
         provider: countryPro,
@@ -137,12 +137,12 @@ class _LocaleBubbleState extends State<LocaleBubble> {
     CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: true);
 
     List<Map<String,String>> _flags = _countryPro.getAvailableCountries(context);
-    List<Map<String,String>> _provinces = _countryPro.getCitiesNamesMapsByIso3(context, _chosenCountryID);//_chosenCountry);
+    List<Map<String,String>> _cities = _countryPro.getCitiesNamesMapsByIso3(context, _chosenCountryID);//_chosenCountry);
     List<Map<String,String>> _districts = _countryPro.getDistrictsNameMapsByCityID(context, _chosenCityID);//_chosenProvince);
 
     String _chosenCountryName = _chosenCountryID == null ? '...' : translate(context, _chosenCountryID);
     String _chosenCountryFlag = _chosenCountryID == null ? '' : Flagz.getFlagByIso3(_chosenCountryID);
-    String _chosenProvinceName = _chosenCityID == null ? '...' : _countryPro.getCityNameWithCurrentLanguageIfPossible(context, _chosenCityID);
+    String _chosenCityName = _chosenCityID == null ? '...' : _countryPro.getCityNameWithCurrentLanguageIfPossible(context, _chosenCityID);
     String _chosenDistrictName = _chosenDistrictID == null ? '...' : _countryPro.getDistrictNameWithCurrentLanguageIfPossible(context, _chosenDistrictID);
 
 
@@ -170,16 +170,16 @@ class _LocaleBubbleState extends State<LocaleBubble> {
 
               // --- PROVINCE BUTTON
               LocaleButton(
-                title: 'Province', //Wordz.province(context),
-                verse: _chosenProvinceName,
-                onTap: () => _tapProvinceButton(context: context, provinces: _provinces, countryPro: _countryPro ),
+                title: 'City', //Wordz.province(context),
+                verse: _chosenCityName,
+                onTap: () => _tapCityButton(context: context, cities: _cities, countryPro: _countryPro ),
               ),
 
               // --- AREA BUTTON
               LocaleButton(
                 title: 'Area', //Wordz.area(context),
                 verse: _chosenDistrictName,
-                onTap: ()=>_tapAreaButton(context: context, areas: _districts, countryPro: _countryPro),
+                onTap: ()=>_tapDistrictButton(context: context, districts: _districts, countryPro: _countryPro),
               ),
 
             ],

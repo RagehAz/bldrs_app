@@ -10,6 +10,7 @@ import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/flyer_type_class.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
+import 'package:bldrs/models/secondary_models/draft_flyer_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_user.dart';
 import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
@@ -22,12 +23,12 @@ import 'package:flutter_keyboard_size/flutter_keyboard_size.dart';
 
 class InfoSlide extends StatelessWidget {
   final double flyerZoneWidth;
-  final FlyerModel flyer;
+  final DraftFlyerModel draft;
   final Function onVerticalBack;
 
   InfoSlide({
     @required this.flyerZoneWidth,
-    @required this.flyer,
+    @required this.draft,
     @required this.onVerticalBack,
 });
 
@@ -99,11 +100,11 @@ class InfoSlide extends StatelessWidget {
       Keyword.bldrsKeywords()[600],
     ];
 
-    FlyerType _flyerType = flyer.flyerType == null ? FlyerTypeClass.concludeFlyerType(flyer.tinyBz.bzType) : flyer.flyerType;
+    FlyerType _flyerType = draft.flyerType == null ? FlyerTypeClass.concludeFlyerType(draft.bzModel.bzType) : draft.flyerType;
 
     CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
-    String _countryName = _countryPro.getCountryNameInCurrentLanguageByIso3(context, flyer.flyerZone.countryID);
-    String _cityName = _countryPro.getCityNameWithCurrentLanguageIfPossible(context, flyer.flyerZone.cityID);
+    String _countryName = _countryPro.getCountryNameInCurrentLanguageByIso3(context, draft.flyerZone.countryID);
+    String _cityName = _countryPro.getCityNameWithCurrentLanguageIfPossible(context, draft.flyerZone.cityID);
 
 
     return Column(
@@ -155,7 +156,7 @@ class InfoSlide extends StatelessWidget {
                   /// ZONE
                   StatsLine(
                     verse: 'Targeting : ${_cityName} , ${_countryName}',
-                    icon: Flagz.getFlagByIso3(flyer.flyerZone.countryID),
+                    icon: Flagz.getFlagByIso3(draft.flyerZone.countryID),
                   ),
 
 

@@ -16,7 +16,7 @@ import 'package:bldrs/views/widgets/bubbles/tile_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/words_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
-import 'package:bldrs/views/widgets/dialogs/bottom_sheet.dart';
+import 'package:bldrs/views/widgets/dialogs/bottom_dialog.dart';
 import 'package:bldrs/views/widgets/flyer/aflyer.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
@@ -74,7 +74,7 @@ class BzFlyerScreen extends StatelessWidget {
 // -----------------------------------------------------------------------------
   void _slideFlyerOptions(BuildContext context, FlyerModel flyerModel){
 
-    BottomSlider.slideButtonsBottomSheet(
+    BottomDialog.slideButtonsBottomDialog(
       context: context,
       // height: (50+10+50+10+50+30).toDouble(),
       draggable: true,
@@ -84,7 +84,7 @@ class BzFlyerScreen extends StatelessWidget {
           // --- UNPUBLISH FLYER
           DreamBox(
             height: 50,
-            width: BottomSlider.bottomSheetClearWidth(context),
+            width: BottomDialog.dialogClearWidth(context),
             icon: Iconz.XSmall,
             iconSizeFactor: 0.5,
             iconColor: Colorz.Red255,
@@ -99,7 +99,7 @@ class BzFlyerScreen extends StatelessWidget {
           // --- DELETE FLYER
           DreamBox(
             height: 50,
-            width: BottomSlider.bottomSheetClearWidth(context),
+            width: BottomDialog.dialogClearWidth(context),
             icon: Iconz.FlyerScale,
             iconSizeFactor: 0.5,
             verse: 'Delete Flyer',
@@ -138,7 +138,7 @@ class BzFlyerScreen extends StatelessWidget {
           // --- EDIT FLYER
           DreamBox(
             height: 50,
-            width: BottomSlider.bottomSheetClearWidth(context),
+            width: BottomDialog.dialogClearWidth(context),
             icon: Iconz.Gears,
             iconSizeFactor: 0.5,
             verse: 'Edit Flyer',
