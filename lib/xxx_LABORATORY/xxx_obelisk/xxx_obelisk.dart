@@ -124,7 +124,7 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
         ),
 
         /// SPACER
-        Expanded(child: Container(),),
+        Expander(),
 
         /// DASHBOARD
         DreamBox(

@@ -39,7 +39,7 @@ class _HomeWallState extends State<HomeWall> {
       BzzBubble(
         tinyBzz: _userTinyBzz,
         numberOfRows: 1,
-        numberOfColumns: 4,
+        numberOfColumns: 5,
         onTap: (value){print(value);},
         title: '${TextGenerator.bldrsTypePageTitle(context, BzType.Designer)} in Province',
       ),
