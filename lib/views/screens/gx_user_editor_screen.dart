@@ -334,6 +334,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       layoutWidget: Form(
         key: _formKey,
         child: ListView(
+          physics: const BouncingScrollPhysics(),
           children: <Widget>[
 
             Stratosphere(),
