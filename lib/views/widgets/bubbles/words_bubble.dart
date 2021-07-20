@@ -95,7 +95,7 @@ class KeywordsBubble extends StatelessWidget {
                       italic: true,
                       shadow: false,
                       labelColor: _buttonColor,
-                      labelTap: () => onTap(keywords[index]),
+                      onTap: () => onTap(keywords[index]),
                     );
 
                 }

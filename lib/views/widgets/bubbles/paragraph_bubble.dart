@@ -80,7 +80,7 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
               maxLines: _maxLines,
               weight: VerseWeight.thin,
               centered: widget.centered,
-              labelTap: _onParagraphTap,
+              onTap: _onParagraphTap,
             ),
           ),
 

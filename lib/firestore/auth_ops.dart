@@ -500,7 +500,9 @@ class AuthOps {
   }
 // -----------------------------------------------------------------------------
   /// google sign out
-  Future<void> googleSignOutOps(BuildContext context) async {
+  static Future<bool> googleSignOutOps(BuildContext context) async {
+
+    bool _isSignedIn = true;
 
     final GoogleSignIn googleSignIn = GoogleSignIn();
     print('googleSignOutOps : currentUser was : ${googleSignIn.currentUser}');
@@ -516,11 +518,16 @@ class AuthOps {
 
         await FirebaseAuth.instance.signOut();
 
+        _isSignedIn = false;
+      },
+      onError: (){
+        _isSignedIn = true;
       }
     );
 
     print('googleSignOutOps : currentUser is : ${googleSignIn.currentUser}');
 
+    return _isSignedIn;
   }
 // -----------------------------------------------------------------------------
   Future<void> signOut({

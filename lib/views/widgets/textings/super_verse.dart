@@ -23,7 +23,7 @@ class SuperVerse extends StatelessWidget {
   final double margin;
   // final bool softWrap;
   final Color labelColor;
-  final Function labelTap;
+  final Function onTap;
   final bool leadingDot;
   final bool redDot;
 
@@ -41,7 +41,7 @@ class SuperVerse extends StatelessWidget {
     this.margin,
     // this.softWrap = true,
     this.labelColor,
-    this.labelTap,
+    this.onTap,
     this.leadingDot = false,
     this.redDot = false,
   });
@@ -99,7 +99,7 @@ class SuperVerse extends StatelessWidget {
 
 
     return GestureDetector(
-      onTap: labelTap,
+      onTap: onTap,
       child: Padding(
         padding: EdgeInsets.all(_margin),
         child: Row(

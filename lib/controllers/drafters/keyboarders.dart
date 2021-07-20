@@ -19,19 +19,19 @@ print('x minimizeKeyboardOnTapOutSide() unfocused keyboard');
 }
 // -----------------------------------------------------------------------------
   static bool keyboardIsOn(BuildContext context){
-  bool _keyboardIsOn;
+  // bool _keyboardIsOn;
 
-  FocusScopeNode _currentFocus = FocusScope.of(context);
+  bool _keyboardIsOn = FocusScope.of(context).hasFocus;
 
-  /// is on
-  if(_currentFocus.hasFocus){
-    _keyboardIsOn = true;
-  }
-
-  /// is off
-  else {
-    _keyboardIsOn = false;
-  }
+  // /// is on
+  // if(_currentFocus.hasFocus){
+  //   _keyboardIsOn = true;
+  // }
+  //
+  // /// is off
+  // else {
+  //   _keyboardIsOn = false;
+  // }
 
   return _keyboardIsOn;
   }

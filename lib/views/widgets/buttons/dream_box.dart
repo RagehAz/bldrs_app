@@ -129,7 +129,7 @@ class DreamBox extends StatelessWidget {
         _topLeftCorner =  _topLeftCornerRadius?.x;
         // print('_topLeftCorner : $_topLeftCorner');
       } else {
-        _topLeftCorner = corners;
+        _topLeftCorner = corners.toDouble();
       }
 
       return _topLeftCorner == null ? 0 : _topLeftCorner;
@@ -144,7 +144,7 @@ class DreamBox extends StatelessWidget {
       else if (corners.runtimeType == BorderRadius){
         _cornerBorders = corners;
       } else {
-        _cornerBorders = Borderers.superBorderAll(context, corners);
+        _cornerBorders = Borderers.superBorderAll(context, corners.toDouble());
       }
 
       return _cornerBorders;

@@ -120,7 +120,16 @@ class SingleSlide extends StatelessWidget {
     );
 // -----------------------------------------------------------------------------
     return GestureDetector(
-      onTap: (){},
+      onTap: (){
+        if (Keyboarders.keyboardIsOn(context)){
+          Keyboarders.closeKeyboard(context);
+        }
+      },
+      onTapCancel: (){
+        if (Keyboarders.keyboardIsOn(context)){
+          Keyboarders.minimizeKeyboardOnTapOutSide(context);
+        }
+      },
       onDoubleTap: _microMode == true ? null : () => _onImageDoubleTap(context),
       child: Container(
         width: flyerZoneWidth,
