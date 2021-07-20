@@ -50,7 +50,7 @@ class PanelButton extends StatelessWidget {
     return
       DreamBox(
         width: size,
-        height: size * 1.35,
+        height: size * 1.4,
         margins: EdgeInsets.symmetric(vertical: Ratioz.appBarPadding),
         color:  Colorz.White80,
         icon: icon,
