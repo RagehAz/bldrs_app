@@ -5,7 +5,7 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/flagz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/providers/country_provider.dart';
-import 'package:bldrs/views/widgets/dialogs/bottom_sheet.dart';
+import 'package:bldrs/views/widgets/dialogs/bottom_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'dream_box.dart';
@@ -39,21 +39,19 @@ class SheetButtons extends StatelessWidget {
     CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: true);
 
     double _abPadding =  Ratioz.appBarPadding;
-    double _inBarClearWidth = Scale.superScreenWidth(context)
-        - (Ratioz.appBarMargin * 2)
-        - (_abPadding * 2);
+    double _dialogClearWidth = BottomDialog.dialogClearWidth(context);
     /// standard is Ratioz.ddAppBarHeight;
     double _abHeight = Scale.superScreenHeight(context) - Ratioz.pyramidsHeight;
     double _listHeight = _abHeight - Ratioz.appBarSmallHeight - (_abPadding) - 55 - 55; // each 55 is for confirm button & title, 50 +5 margin
     double _listCorner = Ratioz.appBarCorner - _abPadding;
 
     // double _languageButtonHeight = Ratioz.ddAppBarHeight - (_abPadding *2);
-    // double _countryNameButtonWidth = _inBarClearWidth - _abPadding*3 - 35;
+    // double _countryNameButtonWidth = _dialogClearWidth - _abPadding*3 - 35;
 
 
     return Container(
-      height: _listHeight,
-      width: _inBarClearWidth,
+      height: _listHeight - 256,
+      width: _dialogClearWidth,
       margin: EdgeInsets.only(top: _abPadding),
       decoration: BoxDecoration(
         color: Colorz.White10,

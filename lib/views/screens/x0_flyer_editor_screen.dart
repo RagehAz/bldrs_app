@@ -6,7 +6,9 @@ import 'package:bldrs/controllers/drafters/scrollers.dart';
 import 'package:bldrs/controllers/drafters/sliders.dart' show SwipeDirection, Sliders;
 import 'package:bldrs/controllers/drafters/imagers.dart' ;
 import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/localization/localization_constants.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
+import 'package:bldrs/controllers/theme/flagz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/standards.dart';
@@ -25,9 +27,10 @@ import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/screens/xx_flyer_on_map.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/buttons/publish_button.dart';
+import 'package:bldrs/views/widgets/buttons/sheet_buttons.dart';
 import 'package:bldrs/views/widgets/buttons/slides_counter.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
-import 'package:bldrs/views/widgets/dialogs/bottom_sheet.dart';
+import 'package:bldrs/views/widgets/dialogs/bottom_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/dialogz.dart';
 import 'package:bldrs/views/widgets/flyer/editor/editorPanel.dart';
 import 'package:bldrs/views/widgets/flyer/parts/ankh_button.dart';
@@ -719,15 +722,17 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
       Keyword.bldrsKeywords()[600],
     ];
 
-    BottomSlider.slideStatefulBottomSheet(
+    double _dialogHeight = Scale.superScreenHeight(context) * _bottomSheetHeightFactor;
+
+    BottomDialog.slideStatefulBottomSheet(
       context: context,
       height: Scale.superScreenHeight(context) * _bottomSheetHeightFactor,
       draggable: true,
       builder: (context){
         return StatefulBuilder(
             builder: (BuildContext context, StateSetter setSheetState){
-              return BldrsBottomSheet(
-                height: Scale.superScreenHeight(context) * _bottomSheetHeightFactor,
+              return BottomDialog(
+                height: _dialogHeight,
                 draggable: true,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -742,8 +747,8 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                     ),
 
                     Container(
-                      width: BottomSlider.bottomSheetClearWidth(context),
-                      height: BottomSlider.bottomSheetClearHeight(context, _bottomSheetHeightFactor) - superVerseRealHeight(context, 3, 1, null),
+                      width: BottomDialog.dialogClearWidth(context),
+                      height: BottomDialog.dialogClearHeight(title: 'x', context: context, overridingDialogHeight: _dialogHeight),
                       child: ListView(
                         // key: UniqueKey(),
 
@@ -789,7 +794,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                           ),
 
                           // Container(
-                          //   width: bottomSheetClearWidth(context),
+                          //   width: dialogClearWidth(context)(context),
                           //   height: 800,
                           //   color: Colorz.BloodTest,
                           // ),
@@ -809,8 +814,9 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
   Future<void> _selectFlyerType() async {
 
     double _bottomSheetHeightFactor = 0.25;
+    double _dialogHeight = Scale.superScreenHeight(context) * _bottomSheetHeightFactor;
 
-    await BottomSlider.slideStatefulBottomSheet(
+    await BottomDialog.slideStatefulBottomSheet(
       context: context,
       height: Scale.superScreenHeight(context) * _bottomSheetHeightFactor,
       draggable: true,
@@ -819,7 +825,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
             builder: (BuildContext context, StateSetter setSheetState){
 
 
-              return BldrsBottomSheet(
+              return BottomDialog(
                 height: Scale.superScreenHeight(context) * _bottomSheetHeightFactor,
                 draggable: true,
                 child: Column(
@@ -835,8 +841,8 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                     ),
 
                     Container(
-                      width: BottomSlider.bottomSheetClearWidth(context),
-                      height: BottomSlider.bottomSheetClearHeight(context, _bottomSheetHeightFactor) - superVerseRealHeight(context, 3, 1, null),
+                      width: BottomDialog.dialogClearWidth(context),
+                      height: BottomDialog.dialogClearHeight(title: 'x', context: context, overridingDialogHeight: _dialogHeight),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -844,7 +850,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
 
                           DreamBox(
                             height: 60,
-                            width: BottomSlider.bottomSheetClearWidth(context) / 2.2,
+                            width: BottomDialog.dialogClearWidth(context) / 2.2,
                             verse: 'Product Flyer',
                             verseMaxLines: 2,
                             verseScaleFactor: 0.7,
@@ -859,7 +865,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
 
                           DreamBox(
                             height: 60,
-                            width: BottomSlider.bottomSheetClearWidth(context) / 2.2,
+                            width: BottomDialog.dialogClearWidth(context) / 2.2,
                             verse: 'Equipment Flyer',
                             verseMaxLines: 2,
                             verseScaleFactor: 0.7,
@@ -1231,6 +1237,165 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
 
   }
 // -----------------------------------------------------------------------------
+  Future<void> _onChangeFlyerType() async {
+    double _bottomSheetHeightFactor = 0.25;
+    double _dialogHeight = Scale.superScreenHeight(context) * _bottomSheetHeightFactor;
+
+    BottomDialog.slideStatefulBottomSheet(
+      context: context,
+      height: _dialogHeight,
+      draggable: true,
+      builder: (context){
+        return StatefulBuilder(
+            builder: (BuildContext context, StateSetter setSheetState){
+
+
+              return BottomDialog(
+                height: Scale.superScreenHeight(context) * _bottomSheetHeightFactor,
+                title: 'Choose Flyer Type',
+                draggable: true,
+                child: Container(
+                  width: BottomDialog.dialogClearWidth(context),
+                  height: BottomDialog.dialogClearHeight(context: context, overridingDialogHeight: _dialogHeight, title: 'x'),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+
+                      DreamBox(
+                        height: 60,
+                        width: BottomDialog.dialogClearWidth(context) / 2.2,
+                        verse: 'Product Flyer',
+                        verseMaxLines: 2,
+                        verseScaleFactor: 0.7,
+                        color: _draft.flyerType == FlyerType.Product ? Colorz.Yellow255 : Colorz.White20,
+                        verseColor: _draft.flyerType == FlyerType.Product ? Colorz.Black230 : Colorz.White255,
+                        onTap: (){
+                          setSheetState(() {
+                            _draft.flyerType = FlyerType.Product;
+                          });
+
+                          setState(() {
+                            _draft.flyerType = FlyerType.Product;
+                          });
+
+                        },
+                      ),
+
+                      DreamBox(
+                        height: 60,
+                        width: BottomDialog.dialogClearWidth(context) / 2.2,
+                        verse: 'Equipment Flyer',
+                        verseMaxLines: 2,
+                        verseScaleFactor: 0.7,
+                        color: _draft.flyerType == FlyerType.Equipment ? Colorz.Yellow255 : Colorz.White20,
+                        verseColor: _draft.flyerType == FlyerType.Equipment ? Colorz.Black230 : Colorz.White255,
+                        onTap: (){
+                          setSheetState(() {
+                            _draft.flyerType = FlyerType.Equipment;
+                          });
+                          setState(() {
+                            _draft.flyerType = FlyerType.Equipment;
+                          });
+                        },
+                      ),
+
+                    ],
+                  ),
+                ),
+              );
+            }
+        );
+      },
+    );
+  }
+// -----------------------------------------------------------------------------
+  Future<void> _onChangeZone() async {
+
+    CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
+
+    List<Map<String,String>> _flags = _countryPro.getAvailableCountries(context);
+    List<Map<String,String>> _cities = _countryPro.getCitiesNamesMapsByIso3(context, _draft.flyerZone.countryID);//_chosenCountry);
+    List<Map<String,String>> _districts = _countryPro.getDistrictsNameMapsByCityID(context, _draft.flyerZone.cityID);//_chosenProvince);
+
+    String _chosenCountryName = _draft.flyerZone.countryID == null ? '...' : translate(context, _draft.flyerZone.countryID);
+    String _chosenCountryFlag = _draft.flyerZone.countryID == null ? '' : Flagz.getFlagByIso3(_draft.flyerZone.countryID);
+    String _chosenProvinceName = _draft.flyerZone.cityID == null ? '...' : _countryPro.getCityNameWithCurrentLanguageIfPossible(context, _draft.flyerZone.cityID);
+    String _chosenDistrictName = _draft.flyerZone.districtID == null ? '...' : _countryPro.getDistrictNameWithCurrentLanguageIfPossible(context, _draft.flyerZone.districtID);
+
+
+    Keyboarders.minimizeKeyboardOnTapOutSide(context);
+
+    await BottomDialog.slideBottomDialog(
+      context: context,
+      draggable: true,
+      height: null,
+      title: 'Countries',
+      child: SheetButtons(
+        listOfMaps: _flags,
+        mapValueIs: MapValueIs.flag,
+        alignment: Alignment.center,
+        provider: _countryPro,
+        sheetType: BottomSheetType.BottomSheet,
+        buttonTap: (countryID) async {
+          setState(() {
+            _draft.flyerZone.countryID = countryID;
+            _cities = _countryPro.getCitiesNamesMapsByIso3(context, _draft.flyerZone.countryID);
+          });
+
+          await Nav.goBack(context);
+
+        },
+      ),
+    );
+
+    await BottomDialog.slideBottomDialog(
+      context: context,
+      draggable: true,
+      height: null,
+      title: '${_countryPro.getCountryNameInCurrentLanguageByIso3(context, _draft.flyerZone.countryID)} Cities',
+      child: SheetButtons(
+        listOfMaps: _cities,
+        mapValueIs: MapValueIs.String,
+        alignment: Alignment.center,
+        provider: _countryPro,
+        sheetType: BottomSheetType.Province,
+        buttonTap: (cityID) async {
+          setState(() {
+            _draft.flyerZone.cityID = cityID;
+            _districts = _countryPro.getDistrictsNameMapsByCityID(context, cityID);//_chosenProvince);
+          });
+
+          await Nav.goBack(context);
+        },
+      ),
+    );
+
+    await BottomDialog.slideBottomDialog(
+      context: context,
+      draggable: true,
+      height: null,
+      title: '${_countryPro.getCityNameWithCurrentLanguageIfPossible(context, _draft.flyerZone.cityID)} Districts',
+      child: SheetButtons(
+        listOfMaps: _districts,
+        mapValueIs: MapValueIs.String,
+        alignment: Alignment.center,
+        provider: _countryPro,
+        sheetType: BottomSheetType.District,
+        buttonTap: (districtID) async {
+          setState(() {
+            _draft.flyerZone.districtID = districtID;
+          });
+
+          await Nav.goBack(context);
+        },
+      ),
+    );
+
+  }
+
+
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     /// when using with AutomaticKeepAliveClientMixin
@@ -1317,7 +1482,10 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                   onResetImage: _onResetImage,
                   onFitImage: () async {await _onFitImage(_currentPicFit);},
                   panelController: _panelController,
-                  zone: _flyer.flyerZone,
+                  zone: _draft.flyerZone,
+                  flyerType: _draft.flyerType,
+                  onChangeFlyerType: () async {await _onChangeFlyerType();},
+                  onChangeZone: () async {await _onChangeZone();},
                 ),
 
                 /// FLYER
@@ -1398,7 +1566,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
 
                               InfoSlide(
                                 flyerZoneWidth: _flyerZoneWidth,
-                                flyer: _flyer,
+                                draft: _draft,
                                 onVerticalBack: () async {
 
                                   await Sliders.slideToBackFrom(_verticalController, 1);

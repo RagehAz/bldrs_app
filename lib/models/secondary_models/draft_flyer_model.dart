@@ -38,6 +38,7 @@ class DraftFlyerModel{
   GeoPoint position;
   String mapImageURL;
   List<SlideModel> slides;
+  BzModel bzModel;
 
   DraftFlyerModel({
     @required this.headlinesControllers,
@@ -64,6 +65,7 @@ class DraftFlyerModel{
     @required this.position,
     @required this.mapImageURL,
     @required this.slides,
+    @required this.bzModel,
   });
 // -----------------------------------------------------------------------------
   static List<ValueKey> getKeysOfDrafts(List<DraftFlyerModel> drafts){
@@ -109,6 +111,7 @@ class DraftFlyerModel{
       position: null,
       mapImageURL: null,
       slides: new List(),
+      bzModel: bzModel
 
     );
     return _draft;

@@ -12,7 +12,7 @@ import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/buttons/dream_wrapper.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
-import 'package:bldrs/views/widgets/dialogs/bottom_sheet.dart';
+import 'package:bldrs/views/widgets/dialogs/bottom_dialog.dart';
 import 'package:bldrs/views/widgets/layouts/dashboard_layout.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart' show Expander;
 import 'package:bldrs/views/widgets/loading/loading.dart';
@@ -142,7 +142,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
                                           height: 70,
                                           width: 70,
                                           icon: _userModel.pic,
-                                          onTap: () => BottomSlider.slideBottomSheet(
+                                          onTap: () => BottomDialog.slideBottomDialog(
                                             context: context,
                                             draggable: true,
                                             height: null,
@@ -151,7 +151,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
 
                                                 DreamBox(
                                                   height: 60,
-                                                  width: BottomSlider.bottomSheetClearWidth(context),
+                                                  width: BottomDialog.dialogClearWidth(context),
                                                   icon: _userModel.pic,
                                                   verse: 'Delete this fucker (${_userModel.name})',
                                                   verseScaleFactor: 0.7,
