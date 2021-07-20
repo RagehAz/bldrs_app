@@ -45,7 +45,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   TextEditingController _companyController = TextEditingController();
   Gender _currentGender;
   String _currentCountryID;
-  String _currentProvinceID;
+  String _currentCityID;
   String _currentDistrictID;
   // String _currentLanguageCode;
   GeoPoint _currentPosition;
@@ -77,7 +77,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     _currentGender = widget.user.gender;
     _titleController.text = widget.user.title;
     _currentCountryID = widget.user.zone.countryID;
-    _currentProvinceID = widget.user.zone.provinceID;
+    _currentCityID = widget.user.zone.cityID;
     _currentDistrictID = widget.user.zone.districtID;
     _phoneController.text = ContactModel.getAContactValueFromContacts(widget.user.contacts, ContactType.Phone);
     _emailController.text = ContactModel.getAContactValueFromContacts(widget.user.contacts, ContactType.Email);
@@ -126,14 +126,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   void _changeCountry(String countryID){
     setState(() {
       _currentCountryID = countryID;
-      _currentProvinceID = null;
+      _currentCityID = null;
       _currentDistrictID = null;
     });
   }
 // -----------------------------------------------------------------------------
-  void _changeProvince(String provinceID){
+  void _changeCity(String cityID){
     setState(() {
-      _currentProvinceID = provinceID;
+      _currentCityID = cityID;
       _currentDistrictID = null;
     });
   }
@@ -220,7 +220,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           gender : _currentGender,
           zone : Zone(
             countryID: _currentCountryID,
-            provinceID: _currentProvinceID,
+            cityID: _currentCityID,
             districtID: _currentDistrictID,
           ),
           language : Wordz.languageCode(context),
@@ -284,7 +284,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           gender : _currentGender,
           zone : Zone(
             countryID: _currentCountryID,
-            provinceID: _currentProvinceID,
+            cityID: _currentCityID,
             districtID: _currentDistrictID,
           ),
           language : Wordz.languageCode(context),
@@ -327,7 +327,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       appBarType: AppBarType.Basic,
       tappingRageh: (){
         print(_currentDistrictID,);
-        print(_currentProvinceID,);
+        print(_currentCityID,);
         print(_currentCountryID,);
       },
       pageTitle: widget.firstTimer == true ? 'Add your profile data' : Wordz.editProfile(context),
@@ -386,10 +386,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             LocaleBubble(
               title : 'Preferred Location',
               changeCountry : (countryID) => _changeCountry(countryID),
-              changeProvince : (provinceID) => _changeProvince(provinceID),
+              changeCity : (cityID) => _changeCity(cityID),
               changeDistrict : (districtID) => _changeDistrict(districtID),
-              // zone: Zone(countryID: userModel.country, provinceID: userModel.province, districtID: userModel.districtID),
-              currentZone: Zone(countryID: _currentCountryID, provinceID: _currentProvinceID, districtID: _currentDistrictID),
+              // zone: Zone(countryID: userModel.country, cityID: userModel.city, districtID: userModel.districtID),
+              currentZone: Zone(countryID: _currentCountryID, cityID: _currentCityID, districtID: _currentDistrictID),
             ),
 
             // --- EDIT EMAIL

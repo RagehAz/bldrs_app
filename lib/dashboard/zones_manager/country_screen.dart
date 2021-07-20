@@ -3,7 +3,7 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/models/planet/country_model.dart';
-import 'package:bldrs/models/planet/province_model.dart';
+import 'package:bldrs/models/planet/city_model.dart';
 import 'package:bldrs/views/widgets/bubbles/bubbles_separator.dart';
 import 'package:bldrs/views/widgets/bubbles/text_field_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/tile_bubble.dart';
@@ -33,7 +33,7 @@ class _CountryScreenState extends State<CountryScreen> {
   String _flag;
   bool _isActivated;
   bool _isGlobal;
-  List<Province> _provinces;
+  List<City> _provinces;
   String _language;
 // ---------------------------------------------------------------------------
   /// --- LOADING BLOCK
@@ -53,7 +53,7 @@ class _CountryScreenState extends State<CountryScreen> {
     _flag = widget.country.flag;
     _isActivated = widget.country.isActivated;
     _isGlobal = widget.country.isGlobal;
-    _provinces = widget.country.provinces;
+    _provinces = widget.country.cities;
     _language = widget.country.language;
     super.initState();
   }
@@ -76,7 +76,7 @@ class _CountryScreenState extends State<CountryScreen> {
   @override
   Widget build(BuildContext context) {
 
-    List<String> _provincesNames = Province.getProvincesNamesFromCountryModel(widget.country);
+    List<String> _provincesNames = City.getCitiesNamesFromCountryModel(widget.country);
 
     return MainLayout(
       sky: Sky.Black,
@@ -222,7 +222,7 @@ class _CountryScreenState extends State<CountryScreen> {
           KeywordsBubble(
             title: '${_provincesNames.length} Provinces',
             bubbles: true,
-            keywords: Province.getKeywordsFromProvinces(context, _provinces),
+            keywords: City.getKeywordsFromCities(context, _provinces),
             onTap: (val) {print(val);},
             selectedWords: [],
           ),

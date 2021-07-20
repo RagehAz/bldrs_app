@@ -27,7 +27,7 @@ class StartingScreen extends StatefulWidget {
 
 class _StartingScreenState extends State<StartingScreen> {
 /// TASK : should fetch user current location automatically and suggest them here
-//   final Zone currentZone = Zone(countryID: '', provinceID: '', districtID: '');
+//   final Zone currentZone = Zone(countryID: '', cityID: '', districtID: '');
   CountryProvider _countryPro;
   Zone _currentZone;
 // -----------------------------------------------------------------------------
@@ -109,7 +109,7 @@ class _StartingScreenState extends State<StartingScreen> {
       appBarType: AppBarType.Intro,
       loading: _loading,
       tappingRageh: (){
-        print('current zone : ${_currentZone.provinceID}');
+        print('current zone : ${_currentZone.cityID}');
         print('Wordz.languageCode(context) : ${Wordz.languageCode(context)}');
         // print('isa');
       },

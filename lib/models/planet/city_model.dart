@@ -6,7 +6,7 @@ import 'package:bldrs/models/planet/country_model.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/models/secondary_models/namez_model.dart';
 // -----------------------------------------------------------------------------
-class Province{
+class City{
   final String iso3;
   final String name; /// TASK : should delete this and get the name from names
   final List<District> districts;
@@ -15,7 +15,7 @@ class Province{
   final bool isPublic;
   final List<Name> namez; // English
 
-  Province({
+  City({
     this.iso3,
     this.name,
     this.districts,
@@ -37,16 +37,16 @@ class Province{
     };
   }
 // -----------------------------------------------------------------------------
-  static List<Map<String, dynamic>> cipherProvinces(List<Province> provinces){
-    List<Map<String, dynamic>> _provincesMaps = new List();
-    provinces.forEach((pr) {
-      _provincesMaps.add(pr.toMap());
+  static List<Map<String, dynamic>> cipherCities(List<City> cities){
+    List<Map<String, dynamic>> _citiesMaps = new List();
+    cities.forEach((pr) {
+      _citiesMaps.add(pr.toMap());
     });
-    return _provincesMaps;
+    return _citiesMaps;
   }
 // -----------------------------------------------------------------------------
-  static Province decipherProvinceMap(Map<String, dynamic> map){
-    return Province(
+  static City decipherCityMap(Map<String, dynamic> map){
+    return City(
       iso3 : map['iso3'],
       name : map['name'],
       districts : District.decipherDistrictsMaps(map['areas']),/// TASK should update field name areas to districts in firebase
@@ -57,38 +57,38 @@ class Province{
     );
   }
 // -----------------------------------------------------------------------------
-  static List<Province> decipherProvincesMaps(List<dynamic> maps){
-    List<Province> _provinces = new List();
+  static List<City> decipherCitiesMaps(List<dynamic> maps){
+    List<City> _cities = new List();
     maps?.forEach((map) {
-      _provinces.add(decipherProvinceMap(map));
+      _cities.add(decipherCityMap(map));
     });
-    return _provinces;
+    return _cities;
   }
 // -----------------------------------------------------------------------------
-  static List<String> getProvincesNamesFromCountryModel(Country country){
-    List<String> _provincesNames = new List();
+  static List<String> getCitiesNamesFromCountryModel(Country country){
+    List<String> _citiesNames = new List();
 
-    List<Province> _provinces = country.provinces;
+    List<City> _cities = country.cities;
 
-    _provinces.forEach((pr) {
-      _provincesNames.add(pr.name);
+    _cities.forEach((pr) {
+      _citiesNames.add(pr.name);
     });
 
-    _provincesNames = TextMod.sortAlphabetically(_provincesNames);
+    _citiesNames = TextMod.sortAlphabetically(_citiesNames);
 
-    return _provincesNames;
+    return _citiesNames;
   }
 // -----------------------------------------------------------------------------
-  static Keyword getKeywordFromProvince(BuildContext context, Province province){
+  static Keyword getKeywordFromCity(BuildContext context, City city){
 
     // CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
 
-    // String _name = _countryPro.getProvinceNameWithCurrentLanguageIfPossible(context, province.name);
+    // String _name = _countryPro.getCityNameWithCurrentLanguageIfPossible(context, city.name);
 
     Keyword _keyword = Keyword(
-        keywordID: province.name,
+        keywordID: city.name,
         flyerType: FlyerType.Non,
-        groupID: province.iso3,
+        groupID: city.iso3,
         subGroupID: null,
         // name: _name,
         uses: 0
@@ -97,14 +97,14 @@ class Province{
     return _keyword;
   }
 // -----------------------------------------------------------------------------
-  static List<Keyword> getKeywordsFromProvinces(BuildContext context, List<Province> provinces){
+  static List<Keyword> getKeywordsFromCities(BuildContext context, List<City> cities){
     List<Keyword> _keywords = new List();
 
-    provinces.forEach((province) {
+    cities.forEach((city) {
 
-      Keyword _provinceKeyword = getKeywordFromProvince(context, province);
+      Keyword _cityKeyword = getKeywordFromCity(context, city);
 
-      _keywords.add(_provinceKeyword);
+      _keywords.add(_cityKeyword);
 
     });
 

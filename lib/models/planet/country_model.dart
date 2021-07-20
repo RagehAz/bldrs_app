@@ -1,4 +1,4 @@
-import 'province_model.dart';
+import 'city_model.dart';
 // -----------------------------------------------------------------------------
 class Country{
   final String iso3;
@@ -11,7 +11,7 @@ class Country{
   /// automatic switch when country reaches 'Global target' ~ 10'000 flyers
   /// then country flyers will be visible to other countries users 'bzz & users'
   final bool isGlobal;
-  final List<Province> provinces;
+  final List<City> cities;
   /// lang codes tiers
   /// A:-
   /// AR:Arabic, ES:Spanish, FR:French, ZH:Chinese, DE:German, IT:Italian,
@@ -33,7 +33,7 @@ class Country{
     this.flag,
     this.isActivated,
     this.isGlobal,
-    this.provinces,
+    this.cities,
     this.language,
   });
 // -----------------------------------------------------------------------------
@@ -46,7 +46,7 @@ class Country{
       'flag' : flag,
       'isActivated' : isActivated,
       'isGlobal' : isGlobal,
-      'provinces' : Province.cipherProvinces(provinces),
+      'provinces' : City.cipherCities(cities),
       'language' : language,
     };
   }
@@ -60,7 +60,7 @@ class Country{
       flag : map['flag'],
       isActivated : map['isActivated'],
       isGlobal : map['isGlobal'],
-      provinces : Province.decipherProvincesMaps(map['provinces']),
+      cities : City.decipherCitiesMaps(map['provinces']),
       language : map['language'],
     );
   }

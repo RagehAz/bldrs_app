@@ -223,7 +223,7 @@ class FireSearch {
 
             _collectionSnapshot = await _flyersCollection
                 .where('flyerType', isEqualTo: _flyerType)
-                .where('flyerZone.provinceID', isEqualTo: _zone.provinceID)
+                .where('flyerZone.provinceID', isEqualTo: _zone.cityID)
                 .get();
 
 

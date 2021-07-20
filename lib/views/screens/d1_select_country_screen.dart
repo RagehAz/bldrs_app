@@ -1,7 +1,7 @@
 import 'package:bldrs/controllers/drafters/iconizers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/providers/country_provider.dart';
-import 'package:bldrs/views/screens/d2_select_province_screen.dart';
+import 'package:bldrs/views/screens/d2_select_city_screen.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/layouts/swiper_layout_screen.dart';
 import 'package:bldrs/views/widgets/zone/zones_page.dart';
@@ -59,7 +59,7 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
 
               print('countryID is : $countryID');
 
-              Nav.goToNewScreen(context, SelectProvinceScreen(countryID: countryID,));
+              Nav.goToNewScreen(context, SelectCityScreen(countryID: countryID,));
 
             },
           ),
