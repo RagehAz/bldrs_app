@@ -132,7 +132,7 @@ class _DraggableListViewState extends State<DraggableListView> {
       },
       child: ListView(
         key: PageStorageKey<String>(widget.pageStorageKeyValue),
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         shrinkWrap: false,
         controller: _scrollController,
         children: <Widget>[

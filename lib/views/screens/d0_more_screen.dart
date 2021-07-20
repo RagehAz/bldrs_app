@@ -39,6 +39,7 @@ class MoreScreen extends StatelessWidget {
       sky: Sky.Black,
       pyramids: Iconz.PyramidzYellow,
       layoutWidget: ListView(
+        physics: const BouncingScrollPhysics(),
         children: <Widget>[
 
           Stratosphere(),

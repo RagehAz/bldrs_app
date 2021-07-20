@@ -79,10 +79,11 @@ class ListLayout extends StatelessWidget {
 
                 Container(
                   width: Scale.superBubbleClearWidth(context),
-                  height: _bubbleHeight - (Ratioz.appBarMargin * 3),
+                  height: _bubbleHeight - (Ratioz.appBarMargin * 5),
                   // color: Colorz.BloodTest,
                   child: ListView.builder(
                     itemCount: idValueMaps.length,
+                    physics: const BouncingScrollPhysics(),
                     itemBuilder: (context, index){
 
                       return

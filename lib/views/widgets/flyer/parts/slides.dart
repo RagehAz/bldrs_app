@@ -115,7 +115,7 @@ class _SlidesState extends State<Slides> {
           PageView(
             controller: _slidingController,
             allowImplicitScrolling: true,
-            physics: BouncingScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             pageSnapping: true,
             onPageChanged: (i) => widget.onPageChanged(i),
             children: <Widget>[

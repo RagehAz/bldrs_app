@@ -40,7 +40,7 @@ class PersonButton extends StatelessWidget {
       child: Column(
         children: <Widget>[
 
-          ///
+          /// USER IMAGE
           DreamBox(
             height: _imageHeight * 0.90,
             width: _imageWidth * 0.90,
@@ -53,6 +53,7 @@ class PersonButton extends StatelessWidget {
             onTap: () => onTap(id),
           ),
 
+          /// USER FIRST NAME
           Container(
             width: _nameWidth,
             height: _nameHeight,

@@ -66,7 +66,7 @@ class _DynamicLinkTestState extends State<DynamicLinkTest> {
           SuperVerse(
             verse: _link,
             labelColor: Colorz.White30,
-            labelTap: (){
+            onTap: (){
 
               print('_link : $_link');
               // launchURL(_link);
