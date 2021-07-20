@@ -526,6 +526,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
 
           //--- BUBBLES
           ListView(
+            physics: const BouncingScrollPhysics(),
             children: <Widget>[
 
               Stratosphere(),

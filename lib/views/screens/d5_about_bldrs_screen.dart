@@ -16,6 +16,7 @@ class AboutBldrsScreen extends StatelessWidget {
       pageTitle: 'About Bldrs.net',
       sky: Sky.Black,
       layoutWidget: ListView(
+        physics: const BouncingScrollPhysics(),
         children: <Widget>[
 
           Stratosphere(),
