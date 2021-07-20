@@ -1,9 +1,9 @@
+import 'package:bldrs/views/widgets/flyer/parts/header_parts/bz_logo.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
-import 'package:bldrs/views/widgets/flyer/parts/header_parts/common_parts/bz_logo.dart';
 
 class BzGrid extends StatelessWidget {
 
@@ -28,12 +28,12 @@ class BzGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    List<TinyBz> _tinyBzz = tinyBzz == null ? [] : tinyBzz;
-
+    List<TinyBz> _tinyBzz = tinyBzz == null ? <TinyBz>[] : tinyBzz;
+    //
     List<Color> _boxesColors = <Color>[Colorz.White30, Colorz.White20, Colorz.White10];
-
+    //
     int _gridColumnsCount = numberOfColumns;
-
+    //
     const double _spacingRatioToGridWidth = 0.1;
     double _gridBzWidth = gridZoneWidth / (numberOfColumns + (numberOfColumns * _spacingRatioToGridWidth) + _spacingRatioToGridWidth);
     double _gridBzHeight = _gridBzWidth;
@@ -43,14 +43,14 @@ class BzGrid extends StatelessWidget {
     int _numOfRows = numberOfRows == null ? _numOfGridRows(_bzCount) : numberOfRows;
     double _gridHeight = //_gridBzHeight * (_numOfRows + (_numOfRows * _spacingRatioToGridWidth) + _spacingRatioToGridWidth);
     (_gridBzWidth * _numOfRows) + (_gridSpacing * 2) + (_gridSpacing * (_numOfRows - 2));
-
+    //
     SliverGridDelegateWithMaxCrossAxisExtent _gridDelegate = SliverGridDelegateWithMaxCrossAxisExtent(
       crossAxisSpacing: _gridSpacing,
       mainAxisSpacing: _gridSpacing,
       childAspectRatio: 1 / 1,
       maxCrossAxisExtent: _gridBzWidth, //gridFlyerWidth,
     );
-
+    //
     double _zoneCorners = corners == null ? (_gridBzWidth * Ratioz.bzLogoCorner) + _gridSpacing : corners;
 
     return
@@ -63,7 +63,7 @@ class BzGrid extends StatelessWidget {
           child: Stack(
             children: <Widget>[
 
-                // --- GRID FOOTPRINTS
+              /// --- GRID FOOTPRINTS
               if (_tinyBzz == [] || _tinyBzz.length == 0)
                 GridView(
                   physics: scrollDirection == null ? NeverScrollableScrollPhysics() : null,
@@ -79,12 +79,11 @@ class BzGrid extends StatelessWidget {
                           bzPageIsOn: false,
                           miniMode: true,
                           zeroCornerIsOn: false,
-                        // onTap: () => itemOnTap(bz.bzID)
-                    ),
+                          // onTap: () => itemOnTap(bz.bzID)
+                        ),
                   ).toList(),
                 ),
-
-                // --- REAL GRID
+              /// --- REAL GRID
               if (_tinyBzz.length != 0)
                 GridView(
                   physics: scrollDirection == null ? NeverScrollableScrollPhysics() : null,
@@ -96,41 +95,24 @@ class BzGrid extends StatelessWidget {
                   gridDelegate: _gridDelegate,
                   children: <Widget>[
 
-                    ...List.generate(_tinyBzz.length, (index) {
+                    ..._tinyBzz.map(
+                          (bz) => BzLogo(
+                              width: _gridBzWidth,
+                              image: bz.bzLogo,
+                              bzPageIsOn: false,
+                              miniMode: true,
+                              zeroCornerIsOn: false,
+                              onTap: () => itemOnTap(bz.bzID)
+                          ),
 
-                      TinyBz bz = _tinyBzz[index];
-                      return
-                      BzLogo(
-    width: _gridBzWidth,
-    image: bz.bzLogo,
-    bzPageIsOn: false,
-    miniMode: true,
-    zeroCornerIsOn: false,
-    onTap: () => itemOnTap(bz.bzID)
-    );
+                    ).toList(),
 
-                    }
-
-                    ),
-                    Container(),
-                    // _tinyBzz.map(
-                    //       (bz) => BzLogo(
-                    //           width: _gridBzWidth,
-                    //           image: bz.bzLogo,
-                  //           bzPageIsOn: false,
-                  //           miniMode: true,
-                  //           zeroCornerIsOn: false,
-                  //           onTap: () => itemOnTap(bz.bzID)
-                  //       ),
-                  //
-                  // ).toList(),
-
-    ],
+                  ],
                 ),
 
-              ],
-            ),
-    ),
+            ],
+          ),
+        ),
       );
   }
 }

@@ -6,11 +6,11 @@ import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/tiny_models/nano_flyer.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
+import 'package:bldrs/views/widgets/flyer/parts/header_parts/bz_pg_counter.dart';
+import 'package:bldrs/views/widgets/flyer/parts/header_parts/bz_pg_fields.dart';
+import 'package:bldrs/views/widgets/flyer/parts/header_parts/bz_pg_verse.dart';
+import 'package:bldrs/views/widgets/flyer/parts/header_parts/gallery.dart';
 import 'package:flutter/material.dart';
-import 'max_header_parts/bz_pg_counter.dart';
-import 'max_header_parts/bz_pg_fields.dart';
-import 'max_header_parts/bz_pg_verse.dart';
-import 'max_header_parts/gallery.dart';
 
 class MaxHeader extends StatelessWidget {
   final double flyerZoneWidth;
