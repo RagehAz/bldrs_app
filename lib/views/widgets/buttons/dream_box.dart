@@ -136,7 +136,7 @@ class DreamBox extends StatelessWidget {
 // -----------------------------------------------------------------------------
     BorderRadius getCornersAsBorderRadius(){
       BorderRadius _cornerBorders;
-      double _topLeftCorner;
+      // double _topLeftCorner;
       if(corners == 0){
         _cornerBorders = BorderRadius.zero;
       }

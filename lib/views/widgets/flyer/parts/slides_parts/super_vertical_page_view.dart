@@ -1,10 +1,6 @@
 import 'package:bldrs/controllers/drafters/numberers.dart';
-import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/scrollers.dart';
 import 'package:bldrs/controllers/drafters/sliders.dart';
-import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/views/widgets/buttons/dream_box.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 

@@ -1,6 +1,5 @@
 import 'package:bldrs/controllers/drafters/aligners.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
-import 'package:bldrs/controllers/drafters/text_shapers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/router/route_names.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
@@ -11,11 +10,7 @@ import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/widgets/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/views/widgets/bubbles/bzz_bubble.dart';
-import 'package:bldrs/views/widgets/buttons/dream_box.dart';
-import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
-import 'package:bldrs/views/widgets/loading/loading.dart';
-import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_size/flutter_keyboard_size.dart';
 
@@ -82,26 +77,26 @@ class _LoadingScreenState extends State<LoadingScreen> {
           });
 
           await _prof.fetchAndSetUserTinyBzz(context);
-          _increaseProgressTo(50);
+          // _increaseProgressTo(50);
 
           // TASK : should get only first 10 saved tiny flyers,, and continue paginating when entering the savedFlyers screen
           await _prof.fetchAndSetSavedFlyers(context);
-          _increaseProgressTo(70);
+          // _increaseProgressTo(70);
 
           /// TASK : should get only first 10 followed tiny bzz, then paginate in all when entering followed bzz screen
           await _prof.fetchAndSetFollows(context);
-          _increaseProgressTo(90);
+          // _increaseProgressTo(90);
 
           /// TASK : wallahi mana 3aref hane3mel eh hena
           await _prof.fetchAndSetTinyFlyersBySection(context, _prof.getCurrentSection);
-          _increaseProgressTo(99);
+          // _increaseProgressTo(99);
 
 
           _prof.changeSection(context, _prof.getCurrentSection);
 
           setState(() {
             _canContinue = true;
-            _progress = 100;
+            // _progress = 100;
           });
 
           Nav.goToRoute(context, Routez.Home);

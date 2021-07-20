@@ -1,6 +1,3 @@
-import 'package:bldrs/models/flyer_model.dart';
-import 'package:bldrs/models/flyer_type_class.dart';
-import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/secondary_models/namez_model.dart';
 // -----------------------------------------------------------------------------
 class District{

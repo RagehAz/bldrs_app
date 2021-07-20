@@ -43,6 +43,7 @@ class EditorPanel extends StatelessWidget {
 // -----------------------------------------------------------------------------
   Widget _expander(){
     return
+        // Container();
       Expanded(child: Container(),);
   }
 // -----------------------------------------------------------------------------
@@ -51,8 +52,8 @@ class EditorPanel extends StatelessWidget {
 
     // print('draft picture screen');
 
-    double _screenWidth = Scale.superScreenWidth(context);
-    double _screenHeight = Scale.superScreenHeight(context);
+    // double _screenWidth = Scale.superScreenWidth(context);
+    // double _screenHeight = Scale.superScreenHeight(context);
 
     double _panelWidth = panelWidth;
     double _buttonSize = panelWidth;//_panelWidth - (Ratioz.appBarMargin * 2);
@@ -108,7 +109,7 @@ class EditorPanel extends StatelessWidget {
           Container(
             width: _panelWidth,
             height: _panelHeight - _authorButtonHeight,
-            // color: Colorz.BloodTest,
+            color: Colorz.BloodTest,
             child: PageView(
               physics: NeverScrollableScrollPhysics(),
               controller: panelController,

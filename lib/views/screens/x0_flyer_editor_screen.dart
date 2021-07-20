@@ -1,26 +1,20 @@
 import 'dart:io';
 import 'package:bldrs/controllers/drafters/animators.dart';
-import 'package:bldrs/controllers/drafters/borderers.dart';
-import 'package:bldrs/controllers/drafters/iconizers.dart';
 import 'package:bldrs/controllers/drafters/keyboarders.dart';
 import 'package:bldrs/controllers/drafters/numberers.dart';
 import 'package:bldrs/controllers/drafters/scrollers.dart';
 import 'package:bldrs/controllers/drafters/sliders.dart' show SwipeDirection, Sliders;
 import 'package:bldrs/controllers/drafters/imagers.dart' ;
 import 'package:bldrs/controllers/drafters/scalers.dart';
-import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
-import 'package:bldrs/controllers/theme/flagz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/standards.dart';
-import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/flyer_type_class.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
-import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/secondary_models/draft_flyer_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/sub_models/slide_model.dart';
@@ -29,11 +23,7 @@ import 'package:bldrs/models/tiny_models/tiny_user.dart';
 import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/screens/xx_flyer_on_map.dart';
-import 'package:bldrs/views/screens/x2_old_flyer_editor_screen.dart';
-import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
-import 'package:bldrs/views/widgets/bubbles/stats_line.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
-import 'package:bldrs/views/widgets/buttons/panel_button.dart';
 import 'package:bldrs/views/widgets/buttons/publish_button.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_sheet.dart';
@@ -48,7 +38,6 @@ import 'package:bldrs/views/widgets/flyer/parts/slides_parts/single_slide.dart';
 import 'package:bldrs/views/widgets/flyer/parts/slides_parts/info_slide.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
-import 'package:bldrs/xxx_LABORATORY/CLEANING_SPACE.dart';
 import 'package:bldrs/xxx_LABORATORY/camera_and_location/location_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_size/flutter_keyboard_size.dart';
@@ -163,7 +152,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
     _infoScrollController = ScrollController(keepScrollOffset: true,);
     _panelController = PageController(initialPage: 0, keepPage: true, viewportFraction: 1);
     _verticalController..addListener(() {
-      _panelController.animateTo(_verticalController.position.pixels, duration: Ratioz.durationSliding400, curve: Curves.easeOutBack);
+      _panelController.animateTo(_verticalController.position.pixels, duration: Ratioz.duration150ms, curve: Curves.slowMiddle);
     });
 
     _prof = Provider.of<FlyersProvider>(context, listen: false);
@@ -1249,7 +1238,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
     // print('draft picture screen');
 
     double _screenWidth = Scale.superScreenWidth(context);
-    double _screenHeight = Scale.superScreenHeight(context);
+    // double _screenHeight = Scale.superScreenHeight(context);
 
     // double _panelWidth = _buttonSize + (Ratioz.appBarMargin * 2);
     // double _flyerZoneWidth = _screenWidth - _panelWidth - Ratioz.appBarMargin;
@@ -1398,7 +1387,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                               ),
 
                             /// ANKH
-                            if(_draft.currentSlideIndex != null)
+                            if(_draft.currentSlideIndex != null && _draft.numberOfSlides != 0)
                               AnkhButton(
                                 microMode: false,
                                 bzPageIsOn: false,

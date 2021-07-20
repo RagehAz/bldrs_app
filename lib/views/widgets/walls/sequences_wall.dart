@@ -167,9 +167,9 @@ class SequencesWall extends StatelessWidget {
           sequence.secondKeywords.keywords.length,
               (index){
 
-                String _firstKeyword = sequence?.titleID;
-                KeysSet _secondKeywords = sequence?.secondKeywords;
-                dynamic _secondKeyword = _secondKeywords == null ? null : sequence?.secondKeywords?.keywords[index];
+                // String _firstKeyword = sequence?.titleID;
+                // KeysSet _secondKeywords = sequence?.secondKeywords;
+                // dynamic _secondKeyword = _secondKeywords == null ? null : sequence?.secondKeywords?.keywords[index];
 
                 return
               Padding(
@@ -194,9 +194,9 @@ class SequencesWall extends StatelessWidget {
           _keywordsByGroupID.length,
               (index){
 
-            String _firstKeyword = sequence?.titleID;
-            KeysSet _secondKeywords = sequence?.secondKeywords;
-            dynamic _secondKeyword = _secondKeywords == null ? null : sequence?.secondKeywords?.keywords[index];
+            // String _firstKeyword = sequence?.titleID;
+            // KeysSet _secondKeywords = sequence?.secondKeywords;
+            // dynamic _secondKeyword = _secondKeywords == null ? null : sequence?.secondKeywords?.keywords[index];
 
             return
               Padding(
