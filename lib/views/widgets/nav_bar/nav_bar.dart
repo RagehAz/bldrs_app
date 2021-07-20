@@ -19,7 +19,7 @@ import 'package:bldrs/views/screens/g0_profile_screen.dart';
 import 'package:bldrs/views/screens/f0_my_bz_screen.dart';
 import 'package:bldrs/views/widgets/buttons/balloons/user_balloon.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
-import 'package:bldrs/views/widgets/dialogs/bottom_sheet.dart';
+import 'package:bldrs/views/widgets/dialogs/bottom_dialog.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart' show Sky;
 import 'package:bldrs/views/widgets/nav_bar/bar_button.dart';
 import 'package:bldrs/views/widgets/nav_bar/bzz_button.dart';
@@ -66,91 +66,73 @@ class NavBar extends StatelessWidget {
 
     double _sliderHeight = _myBzzListSlideHeight(context);
     double _sliderHeightRatio = _sliderHeight / Scale.superScreenHeight(context);
-    double _bzButtonWidth = Scale.superScreenWidth(context) - BldrsBottomSheet().draggerZoneHeight() * 2;
+    double _bzButtonWidth = Scale.superScreenWidth(context) - BottomDialog.draggerZoneHeight() * 2;
 
     int _titleSize = 2;
     double _titleMargin = 5;
     double _titleZoneHeight = superVerseRealHeight(context, _titleSize, 1, null) + (_titleMargin * 2);
 
-    double _bzzButtonsZoneHeight = BottomSlider.bottomSheetClearHeight(context, _sliderHeightRatio) - _titleZoneHeight - 1;
+    double _bzzButtonsZoneHeight = BottomDialog.dialogClearHeight(context: context, overridingDialogHeight: _sliderHeight, title: 'x');
 
-    BottomSlider.slideBottomSheet(
+    BottomDialog.slideBottomDialog(
             context: context,
             draggable: true,
             height: _sliderHeight,
+            title: 'My Business accounts',
             child: Container(
               // height: 100,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
+              child: NotificationListener(
+                onNotification: (ScrollUpdateNotification details){
 
-                  /// TITLE
-                  Align(
-                    alignment: Aligners.superCenterAlignment(context),
-                    child: SuperVerse(
-                      verse: 'My Business accounts',
-                      size: _titleSize,
-                      margin: _titleMargin,
-                    ),
-                  ),
+                  double _offset = details.metrics.pixels;
 
-                  /// MY BZZ BUTTONS
-                  NotificationListener(
-                    onNotification: (ScrollUpdateNotification details){
+                  double _bounceLimit = _bzzButtonsZoneHeight * 0.3 * (-1);
 
-                      double _offset = details.metrics.pixels;
+                  bool _canPageUp = _offset < _bounceLimit;
 
-                      double _bounceLimit = _bzzButtonsZoneHeight * 0.3 * (-1);
+                  if(_canPageUp){
+                    Nav.goBackToHomeScreen(context);
+                  }
 
-                      bool _canPageUp = _offset < _bounceLimit;
+                  return true;
+                },
+                child: Container(
+                  height: _bzzButtonsZoneHeight,
+                  child: ListView.builder(
+                    padding: const EdgeInsets.all(_paddings),
+                    physics: const BouncingScrollPhysics(),
+                    // controller: _myBzzListController,
+                    itemCount: myTinyBzz.length,
+                    itemBuilder: (context, index){
+                      TinyBz _tinyBz = myTinyBzz[index];
+                      return Align(
+                        alignment: Aligners.superCenterAlignment(context),
+                        child: DreamBox(
+                          height: 60,
+                          width: _bzButtonWidth,
+                          margins: const EdgeInsets.all(Ratioz.appBarPadding),
+                          icon: _tinyBz.bzLogo,
+                          verse: _tinyBz.bzName,
+                          secondLine: TextGenerator.bzTypeSingleStringer(context, _tinyBz.bzType),
+                          iconSizeFactor: 1,
+                          verseScaleFactor: 0.7,
+                          bubble: true,
+                          color: Colorz.Nothing,
+                          onTap: () async {
+                            print('${_tinyBz.bzID}');
 
-                      if(_canPageUp){
-                        Nav.goBackToHomeScreen(context);
-                      }
+                            Nav.goToNewScreen(context,
+                                MyBzScreen(
+                                  userModel: userModel,
+                                  tinyBz: _tinyBz,
+                                ));
 
-                      return true;
+                          },
+                        ),
+                      );
                     },
-                    child: Container(
-                      height: _bzzButtonsZoneHeight,
-                      child: ListView.builder(
-                        padding: const EdgeInsets.all(_paddings),
-                        physics: const BouncingScrollPhysics(),
-                        // controller: _myBzzListController,
-                        itemCount: myTinyBzz.length,
-                        itemBuilder: (context, index){
-                          TinyBz _tinyBz = myTinyBzz[index];
-                          return Align(
-                            alignment: Aligners.superCenterAlignment(context),
-                            child: DreamBox(
-                              height: 60,
-                              width: _bzButtonWidth,
-                              margins: const EdgeInsets.all(Ratioz.appBarPadding),
-                              icon: _tinyBz.bzLogo,
-                              verse: _tinyBz.bzName,
-                              secondLine: TextGenerator.bzTypeSingleStringer(context, _tinyBz.bzType),
-                              iconSizeFactor: 1,
-                              verseScaleFactor: 0.7,
-                              bubble: true,
-                              color: Colorz.Nothing,
-                              onTap: () async {
-                                print('${_tinyBz.bzID}');
-
-                                  Nav.goToNewScreen(context,
-                                      MyBzScreen(
-                                        userModel: userModel,
-                                        tinyBz: _tinyBz,
-                                      ));
-
-                              },
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                  )
-
-                ],
+                  ),
+                ),
               ),
             ),
           );

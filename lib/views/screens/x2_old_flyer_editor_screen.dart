@@ -24,7 +24,7 @@ import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/widgets/bubbles/words_bubble.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
-import 'package:bldrs/views/widgets/dialogs/bottom_sheet.dart';
+import 'package:bldrs/views/widgets/dialogs/bottom_dialog.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_zone.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header.dart';
 import 'package:bldrs/views/widgets/flyer/parts/progress_bar.dart';
@@ -484,87 +484,74 @@ class _OldFlyerEditorScreenState extends State<OldFlyerEditorScreen> {
         Keyword.bldrsKeywords()[403],
         Keyword.bldrsKeywords()[600],
       ];
+      double _dialogHeight = Scale.superScreenHeight(context) * _bottomSheetHeightFactor;
 
-
-      BottomSlider.slideStatefulBottomSheet(
+      BottomDialog.slideStatefulBottomSheet(
         context: context,
-        height: Scale.superScreenHeight(context) * _bottomSheetHeightFactor,
+        height: _dialogHeight,
         draggable: true,
         builder: (context){
           return StatefulBuilder(
               builder: (BuildContext context, StateSetter setSheetState){
-                return BldrsBottomSheet(
+                return BottomDialog(
                   height: Scale.superScreenHeight(context) * _bottomSheetHeightFactor,
+                  title: 'Add Keywords to the flyer',
                   draggable: true,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
+                  child: Container(
+                    width: BottomDialog.dialogClearWidth(context),
+                    height: BottomDialog.dialogClearHeight(title: 'x', context: context, overridingDialogHeight: _dialogHeight),
+                    child: ListView(
+                      // key: UniqueKey(),
 
-                      SuperVerse(
-                        verse: 'Add Keywords to the flyer',
-                        size: 3,
-                        weight: VerseWeight.thin,
-                        italic: true,
-                      ),
+                      children: <Widget>[
 
-                      Container(
-                        width: BottomSlider.bottomSheetClearWidth(context),
-                        height: BottomSlider.bottomSheetClearHeight(context, _bottomSheetHeightFactor) - superVerseRealHeight(context, 3, 1, null),
-                        child: ListView(
-                          // key: UniqueKey(),
-
-                          children: <Widget>[
-
-                            SizedBox(
-                              height: Ratioz.appBarPadding,
-                            ),
-
-                            KeywordsBubble(
-                              verseSize: 1,
-                              bubbles: false,
-                              title: 'Selected keywords',
-                              keywords: _currentKeywords,
-                              selectedWords: _currentKeywords,
-                              onTap: (value){
-                                setSheetState(() {
-                                  _currentKeywords.remove(value);
-                                });
-                              },
-                            ),
-
-                            KeywordsBubble(
-                              verseSize: 1,
-                              bubbles: true,
-                              title: 'Space Type',
-                              keywords: _keywords,
-                              selectedWords: _currentKeywords,
-                              onTap: (value){
-                                setSheetState(() {
-                                  _currentKeywords.add(value);
-                                });
-                              },
-                            ),
-
-                            KeywordsBubble(
-                              verseSize: 1,
-                              bubbles: true,
-                              title: 'Product Use',
-                              keywords: _keywords,
-                              selectedWords: _currentKeywords,
-                              onTap: (value){setSheetState(() {_currentKeywords.add(value);});},
-                            ),
-
-                            // Container(
-                            //   width: bottomSheetClearWidth(context),
-                            //   height: 800,
-                            //   color: Colorz.BloodTest,
-                            // ),
-
-                          ],
+                        SizedBox(
+                          height: Ratioz.appBarPadding,
                         ),
-                      ),
-                    ],
+
+                        KeywordsBubble(
+                          verseSize: 1,
+                          bubbles: false,
+                          title: 'Selected keywords',
+                          keywords: _currentKeywords,
+                          selectedWords: _currentKeywords,
+                          onTap: (value){
+                            setSheetState(() {
+                              _currentKeywords.remove(value);
+                            });
+                          },
+                        ),
+
+                        KeywordsBubble(
+                          verseSize: 1,
+                          bubbles: true,
+                          title: 'Space Type',
+                          keywords: _keywords,
+                          selectedWords: _currentKeywords,
+                          onTap: (value){
+                            setSheetState(() {
+                              _currentKeywords.add(value);
+                            });
+                          },
+                        ),
+
+                        KeywordsBubble(
+                          verseSize: 1,
+                          bubbles: true,
+                          title: 'Product Use',
+                          keywords: _keywords,
+                          selectedWords: _currentKeywords,
+                          onTap: (value){setSheetState(() {_currentKeywords.add(value);});},
+                        ),
+
+                        // Container(
+                        //   width: bottomSheetClearWidth(context),
+                        //   height: 800,
+                        //   color: Colorz.BloodTest,
+                        // ),
+
+                      ],
+                    ),
                   ),
                 );
               }
@@ -576,18 +563,19 @@ class _OldFlyerEditorScreenState extends State<OldFlyerEditorScreen> {
   void _selectFlyerType(){
 
     double _bottomSheetHeightFactor = 0.25;
+    double _dialogHeight = Scale.superScreenHeight(context) * _bottomSheetHeightFactor;
 
-    BottomSlider.slideStatefulBottomSheet(
+    BottomDialog.slideStatefulBottomSheet(
       context: context,
-      height: Scale.superScreenHeight(context) * _bottomSheetHeightFactor,
+      height: _dialogHeight,
       draggable: true,
       builder: (context){
         return StatefulBuilder(
             builder: (BuildContext context, StateSetter setSheetState){
 
 
-              return BldrsBottomSheet(
-                height: Scale.superScreenHeight(context) * _bottomSheetHeightFactor,
+              return BottomDialog(
+                height: _dialogHeight,
                 draggable: true,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -602,8 +590,8 @@ class _OldFlyerEditorScreenState extends State<OldFlyerEditorScreen> {
                     ),
 
                     Container(
-                      width: BottomSlider.bottomSheetClearWidth(context),
-                      height: BottomSlider.bottomSheetClearHeight(context, _bottomSheetHeightFactor) - superVerseRealHeight(context, 3, 1, null),
+                      width: BottomDialog.dialogClearWidth(context),
+                      height: BottomDialog.dialogClearHeight(title: 'x', context: context, overridingDialogHeight: _dialogHeight),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -611,7 +599,7 @@ class _OldFlyerEditorScreenState extends State<OldFlyerEditorScreen> {
 
                           DreamBox(
                             height: 60,
-                            width: BottomSlider.bottomSheetClearWidth(context) / 2.2,
+                            width: BottomDialog.dialogClearWidth(context) / 2.2,
                             verse: 'Product Flyer',
                             verseMaxLines: 2,
                             verseScaleFactor: 0.7,
@@ -626,7 +614,7 @@ class _OldFlyerEditorScreenState extends State<OldFlyerEditorScreen> {
 
                           DreamBox(
                             height: 60,
-                            width: BottomSlider.bottomSheetClearWidth(context) / 2.2,
+                            width: BottomDialog.dialogClearWidth(context) / 2.2,
                             verse: 'Equipment Flyer',
                             verseMaxLines: 2,
                             verseScaleFactor: 0.7,

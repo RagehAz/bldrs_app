@@ -17,7 +17,7 @@ import 'package:bldrs/views/widgets/bubbles/status_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/user_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
-import 'package:bldrs/views/widgets/dialogs/bottom_sheet.dart';
+import 'package:bldrs/views/widgets/dialogs/bottom_dialog.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
@@ -249,7 +249,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     void _slideUserOptions(BuildContext context, UserModel userModel) {
       double _buttonHeight = 50;
 
-      BottomSlider.slideButtonsBottomSheet(
+      BottomDialog.slideButtonsBottomDialog(
         context: context,
         draggable: true,
         buttonHeight: _buttonHeight,
@@ -258,7 +258,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
           // --- Delete user ops
           DreamBox(
             height: _buttonHeight,
-            width: BottomSlider.bottomSheetClearWidth(context),
+            width: BottomDialog.dialogClearWidth(context),
             icon: Iconz.XSmall,
             iconSizeFactor: 0.5,
             iconColor: Colorz.Black230,
@@ -274,7 +274,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
           // --- Deactivate user ops
           DreamBox(
               height: _buttonHeight,
-              width: BottomSlider.bottomSheetClearWidth(context),
+              width: BottomDialog.dialogClearWidth(context),
               icon: Iconz.XSmall,
               iconSizeFactor: 0.5,
               iconColor: Colorz.Red255,
@@ -289,7 +289,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
           // --- EDIT BZ
           DreamBox(
             height: _buttonHeight,
-            width: BottomSlider.bottomSheetClearWidth(context),
+            width: BottomDialog.dialogClearWidth(context),
             icon: Iconz.Gears,
             iconSizeFactor: 0.5,
             verse: 'Edit Business Account info',
