@@ -16,27 +16,23 @@ class SavedFlyersScreen extends StatelessWidget {
 
     return MainLayout(
       appBarType: AppBarType.Basic,
-      // appBarBackButton: true,
       sky: Sky.Black,
       pageTitle: 'Chosen Flyers',
       pyramids: Iconz.PyramidzYellow,
-      layoutWidget: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
+      layoutWidget: ListView(
+        physics: const BouncingScrollPhysics(),
+        children: <Widget>[
 
-            Stratosphere(),
+          Stratosphere(),
 
-            FlyersGrid(
-              gridZoneWidth: screenWidth,
-              numberOfColumns: 3,
-            ),
+          FlyersGrid(
+            gridZoneWidth: screenWidth,
+            numberOfColumns: 3,
+          ),
 
-            PyramidsHorizon(heightFactor: 5,),
+          PyramidsHorizon(heightFactor: 5,),
 
-          ],
-        ),
+        ],
       ),
     );
   }

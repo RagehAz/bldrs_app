@@ -84,7 +84,7 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
             ),
           ),
 
-          if(widget.paragraph.length > 100)
+          if(widget.paragraph != null && widget.paragraph.length > 100)
           Container(
             width: widget.bubbleWidth,
             alignment: Alignment.center,

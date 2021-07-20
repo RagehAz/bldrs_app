@@ -82,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: MainLayout(
         appBarType: AppBarType.Main,
         sky: Sky.Night,
-        canRefreshFlyers: true,
+        canRefreshFlyers: false,
         layoutWidget: _isLoading == true ?
         Center(child: Loading(loading: _isLoading,))
             :

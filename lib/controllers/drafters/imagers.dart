@@ -76,11 +76,12 @@ static DecorationImage superImage(String picture, BoxFit boxFit){
   // int _width = fit == BoxFit.fitWidth ? width : null;
   // int _height = fit == BoxFit.fitHeight ? height : null;
 
-  Asset _asset = ObjectChecker.objectIsAsset(pic) ? pic : null;
+  Asset _asset = ObjectChecker.objectIsAsset(pic) == true ? pic : null;
 
   double _scale = scale == null ? 1 : scale;
 
   return
+  _asset == null ? null :
     Transform.scale(
       scale: _scale,
       child:

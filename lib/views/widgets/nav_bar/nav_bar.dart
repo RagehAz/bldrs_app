@@ -104,7 +104,7 @@ class NavBar extends StatelessWidget {
 
                       double _offset = details.metrics.pixels;
 
-                      double _bounceLimit = _bzzButtonsZoneHeight * 0.1 * (-1);
+                      double _bounceLimit = _bzzButtonsZoneHeight * 0.3 * (-1);
 
                       bool _canPageUp = _offset < _bounceLimit;
 
@@ -116,7 +116,6 @@ class NavBar extends StatelessWidget {
                     },
                     child: Container(
                       height: _bzzButtonsZoneHeight,
-                      color: Colorz.BloodTest,
                       child: ListView.builder(
                         padding: const EdgeInsets.all(_paddings),
                         physics: const BouncingScrollPhysics(),
