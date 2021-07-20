@@ -60,31 +60,29 @@ class SuperVerse extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    String _verse = verse;
-    Color _verseColor = color;
     Color _boxColor = designMode ? Colorz.BloodTest : Colorz.Nothing;
-    const double _verseHeight = 1.42; //1.48; // The sacred golden reverse engineered factor
+    const double verseHeight = 1.42; //1.48; // The sacred golden reverse engineered factor
     double _scalingFactor = scaleFactor == null ? 1: scaleFactor;
     int _maxLines =  maxLines;
     // takes values from 0 to 8 in the entire app
-    double _verseSizeValue = superVerseSizeValue(context, size, _scalingFactor);
+    double verseSizeValue = superVerseSizeValue(context, size, _scalingFactor);
     // --- AVAILABLE FONT WEIGHTS -----------------------------------------------
-    FontWeight _verseWeight = superVerseWeight(weight);
+    FontWeight verseWeight = superVerseWeight(weight);
     // --- AVAILABLE FONTS -----------------------------------------------
-    String _verseFont = superVerseFont(context, weight);
+    String verseFont = superVerseFont(context, weight);
     // --- LETTER SPACING -----------------------------------------------
-    double _verseLetterSpacing = superVerseLetterSpacing(weight, _verseSizeValue);
+    double verseLetterSpacing = superVerseLetterSpacing(weight, verseSizeValue);
     // --- WORD SPACING -----------------------------------------------
-    double _verseWordSpacing = superVerseWordSpacing(_verseSizeValue);
+    double verseWordSpacing = superVerseWordSpacing(verseSizeValue);
     // --- SHADOWS -----------------------------------------------
     const double _shadowBlur = 0;
     const double _shadowYOffset = 0;
-    double _shadowXOffset = superVerseXOffset(weight, _verseSizeValue);
+    double _shadowXOffset = superVerseXOffset(weight, verseSizeValue);
     double _secondShadowXOffset = -0.35 * _shadowXOffset;
     Color _leftShadow = color == Colorz.Black230 ? Colorz.White125 : Colorz.Black230;
     Color _rightShadow = color == Colorz.Black230 ? Colorz.White80 : Colorz.White20;
     // --- ITALIC -----------------------------------------------
-    FontStyle _verseStyle = italic == true ? FontStyle.italic : FontStyle.normal;
+    FontStyle verseStyle = italic == true ? FontStyle.italic : FontStyle.normal;
     // --- VERSE BOX MARGIN -----------------------------------------------
     double _margin = margin == null ? 0 : margin;
     // --- LABEL -----------------------------------------------
@@ -94,7 +92,7 @@ class SuperVerse extends StatelessWidget {
     double _sidePaddings = labelColor == null ? 0 : _sidePaddingValues;
     double _labelHeight = superVerseRealHeight(context, size, scaleFactor, labelColor);
     // --- DOTS -----------------------------------------------
-    double _dotSize = _verseSizeValue * 0.3;
+    double _dotSize = verseSizeValue * 0.3;
     // --- RED DOT -----------------------------------------------
 
 
@@ -108,8 +106,8 @@ class SuperVerse extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
 
-            leadingDot == false ? Container() :
-                Padding(
+            if (leadingDot == true)
+              Padding(
                   padding: EdgeInsets.all(_dotSize),
                   child: _dot(_dotSize, color),
                 ),
@@ -124,7 +122,7 @@ class SuperVerse extends StatelessWidget {
                     color: labelColor
                 ),
                 child: Text(
-                  _verse == null ? '...' : _verse,
+                  verse == null ? '...' : verse,
                   softWrap: false,
                   overflow: TextOverflow.ellipsis,
                   maxLines: _maxLines,
@@ -136,14 +134,14 @@ class SuperVerse extends StatelessWidget {
                   style: TextStyle(
                       backgroundColor: _boxColor,
                       textBaseline: TextBaseline.alphabetic,
-                      height: _verseHeight,
-                      color: _verseColor,
-                      fontFamily: _verseFont ,
-                      fontStyle: _verseStyle,
-                      letterSpacing: _verseLetterSpacing,
-                      wordSpacing: _verseWordSpacing,
-                      fontSize: _verseSizeValue,
-                      fontWeight: _verseWeight,
+                      height: verseHeight,
+                      color: color,
+                      fontFamily: verseFont ,
+                      fontStyle: verseStyle,
+                      letterSpacing: verseLetterSpacing,
+                      wordSpacing: verseWordSpacing,
+                      fontSize: verseSizeValue,
+                      fontWeight: verseWeight,
                       shadows: <Shadow>[
                         if (shadow)
                           Shadow(
@@ -155,7 +153,7 @@ class SuperVerse extends StatelessWidget {
                           blurRadius: _shadowBlur,
                           color: _rightShadow,
                           offset: Offset(_secondShadowXOffset, _shadowYOffset),
-                        )
+                        ),
                       ]
                   ),
                 ),
