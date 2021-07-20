@@ -33,7 +33,7 @@ class UserBubble extends StatelessWidget {
     CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
     String _countryName = translate(context, user?.zone?.countryID);
     String _countryFlag = Flagz.getFlagByIso3(user?.zone?.countryID);
-    String _provinceName = _countryPro.getProvinceNameWithCurrentLanguageIfPossible(context, user?.zone?.provinceID);
+    String _provinceName = _countryPro.getCityNameWithCurrentLanguageIfPossible(context, user?.zone?.cityID);
     String _areaName = _countryPro.getDistrictNameWithCurrentLanguageIfPossible(context, user?.zone?.districtID);
 
     double screenWidth = Scale.superScreenWidth(context);

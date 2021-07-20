@@ -209,7 +209,7 @@ class Keyword {
       keywordID: district.id,
       flyerType: FlyerType.Non,
       groupID: district.iso3,
-      subGroupID: district.province,
+      subGroupID: district.city,
       // name: area.name,
       uses: 0,
     );

@@ -5,7 +5,7 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/flagz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/providers/country_provider.dart';
-import 'package:bldrs/views/screens/d2_select_province_screen.dart';
+import 'package:bldrs/views/screens/d2_select_city_screen.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
@@ -22,18 +22,18 @@ class ZoneButton extends StatelessWidget {
 // -----------------------------------------------------------------------------
   void _zoneButtonOnTap(BuildContext context){
     // print('zone tapped');
-    Nav.goToNewScreen(context, SelectProvinceScreen());
+    Nav.goToNewScreen(context, SelectCityScreen());
   }
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: true);
     String _lastCountryID = _countryPro.currentCountryID;
-    String _lastProvinceID = _countryPro.currentProvinceID;
+    String _lastProvinceID = _countryPro.currentCityID;
     String _lastDistrictID = _countryPro.currentDistrictsID;
     String _lastCountryName = translate(context, _lastCountryID);
     String _lastCountryFlag = Flagz.getFlagByIso3(_lastCountryID);
-    String _lastProvinceName = _countryPro.getProvinceNameWithCurrentLanguageIfPossible(context, _lastProvinceID);
+    String _lastProvinceName = _countryPro.getCityNameWithCurrentLanguageIfPossible(context, _lastProvinceID);
     String _lastDistrictName = _countryPro.getDistrictNameWithCurrentLanguageIfPossible(context, _lastDistrictID);
 
     // print('country ID : $_lastCountryID, provinceID : $_lastProvinceID, '

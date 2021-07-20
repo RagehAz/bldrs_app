@@ -41,7 +41,7 @@ class SectionDialogButton extends StatelessWidget {
   Future<void> _onSectionTap({BuildContext context, FlyersProvider pro, Section section, bool inActiveMode}) async {
 
     CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
-    String _currentProvince = _countryPro.currentZone.provinceID;
+    String _currentProvince = _countryPro.currentZone.cityID;
 
     /// A - if section is not active * if user is author or not
     if(inActiveMode == true){

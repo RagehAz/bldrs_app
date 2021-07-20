@@ -75,8 +75,8 @@ class FlyerTypeClass {
       case BzType.Designer     :   return FlyerType.Design;     break;
       case BzType.Contractor   :   return FlyerType.Project;    break;
       case BzType.Artisan      :   return FlyerType.Craft;      break;
-      case BzType.Manufacturer :   return null;    break; // product or equipment for author to choose while creating flyer
-      case BzType.Supplier     :   return null;    break; // product or equipment for author to choose while creating flyer
+      case BzType.Manufacturer :   return FlyerType.Product;    break; // product or equipment for author to choose while creating flyer
+      case BzType.Supplier     :   return FlyerType.Product;    break; // product or equipment for author to choose while creating flyer
       default : return null;
     }
   }
