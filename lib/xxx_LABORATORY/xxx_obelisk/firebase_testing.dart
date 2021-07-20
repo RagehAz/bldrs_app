@@ -506,7 +506,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
 
           Zone _userZone = Zone(
             countryID: map['country'],
-            provinceID: map['province'],
+            cityID: map['province'],
             districtID: map['area'],
           );
 
@@ -577,7 +577,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
 
             Zone _zone1 = Zone(
               countryID: 'egy',
-              provinceID: 'Cairo',
+              cityID: 'Cairo',
               districtID: '1',
             );
 

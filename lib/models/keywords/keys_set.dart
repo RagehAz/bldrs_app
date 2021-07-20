@@ -57,8 +57,8 @@ class KeysSet{
   static KeysSet getKeysSetFromCurrentDistricts(BuildContext context){
 
     CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: true);
-    String _provinceID = _countryPro.currentProvinceID;
-    List<District> _districts = _countryPro.getDistrictsByProvinceID(context, _provinceID);
+    String _provinceID = _countryPro.currentCityID;
+    List<District> _districts = _countryPro.getDistrictsByCityID(context, _provinceID);
 
     List<Keyword> _districtsAsKeywords = Keyword.getKeywordsModelsFromDistricts(_districts);
 

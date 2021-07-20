@@ -5,11 +5,15 @@ import 'package:flutter/material.dart';
 
 class StatsLine extends StatelessWidget {
   final String icon;
+  final double iconSizeFactor;
+  final double verseScaleFactor;
   final String verse;
   final Function onTap;
 
   StatsLine({
     @required this.icon,
+    this.iconSizeFactor = 0.7,
+    this.verseScaleFactor = 0.85,
     @required this.verse,
     this.onTap,
 });
@@ -27,8 +31,8 @@ class StatsLine extends StatelessWidget {
       verse: '$_spaces$verse',
       verseWeight: VerseWeight.thin,
       verseItalic: true,
-      iconSizeFactor: 0.7,
-      verseScaleFactor: 0.85,
+      iconSizeFactor: iconSizeFactor,
+      verseScaleFactor: verseScaleFactor,
       corners: _height * 0.15,
       bubble: false,
       color: onTap == null ? null : Colorz.White20,

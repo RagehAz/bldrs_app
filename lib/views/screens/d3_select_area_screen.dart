@@ -8,11 +8,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_size/flutter_keyboard_size.dart';
 
 class SelectAreaScreen extends StatelessWidget {
-  final String provinceID;
+  final String cityID;
   final String countryID;
 
   SelectAreaScreen({
-    @required this.provinceID,
+    @required this.cityID,
     @required this.countryID,
   });
 
@@ -21,27 +21,27 @@ class SelectAreaScreen extends StatelessWidget {
     FlyersProvider _pro =  Provider.of<FlyersProvider>(context, listen: true);
 // -----------------------------------------------------------------------------
     CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: true);
-    String _provinceName = _countryPro.getProvinceNameWithCurrentLanguageIfPossible(context, provinceID);
-    List<Map<String, dynamic>> _areasMaps = _countryPro.getDistrictsNameMapsByProvinceID(context, provinceID);
+    String _cityName = _countryPro.getCityNameWithCurrentLanguageIfPossible(context, cityID);
+    List<Map<String, dynamic>> _areasMaps = _countryPro.getDistrictsNameMapsByCityID(context, cityID);
 // -----------------------------------------------------------------------------
 
     return  ListLayout(
       pyramids: Iconz.PyramidzYellow,
-      pageTitle: _provinceName,
+      pageTitle: _cityName,
       icons: null,
       idValueMaps: _areasMaps,
       pageIcon: null,
-      pageIconVerse: _provinceName,
+      pageIconVerse: _cityName,
       sky: Sky.Black,
       onItemTap: (districtID) async {
         print('districtID is $districtID');
 
         _countryPro.changeCountry(countryID);
-        _countryPro.changeProvince(provinceID);
+        _countryPro.changeCity(cityID);
         _countryPro.changeDistrict(districtID);
 
         print('selected country id is : $countryID');
-        print('selected province id is : $provinceID');
+        print('selected city id is : $cityID');
         print('selected district id is : $districtID');
 
         await _pro.fetchAndSetTinyFlyersBySection(context, _pro.getCurrentSection);

@@ -6,15 +6,19 @@ import 'package:bldrs/controllers/theme/dumz.dart';
 import 'package:bldrs/controllers/theme/flagz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/flyer_model.dart';
+import 'package:bldrs/models/flyer_type_class.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_user.dart';
+import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/paragraph_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/stats_line.dart';
 import 'package:bldrs/views/widgets/bubbles/words_bubble.dart';
 import 'package:bldrs/views/widgets/flyer/parts/slides_parts/record_bubble.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_keyboard_size/flutter_keyboard_size.dart';
 
 class InfoSlide extends StatelessWidget {
   final double flyerZoneWidth;
@@ -95,6 +99,12 @@ class InfoSlide extends StatelessWidget {
       Keyword.bldrsKeywords()[600],
     ];
 
+    FlyerType _flyerType = flyer.flyerType == null ? FlyerTypeClass.concludeFlyerType(flyer.tinyBz.bzType) : flyer.flyerType;
+
+    CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
+    String _countryName = _countryPro.getCountryNameInCurrentLanguageByIso3(context, flyer.flyerZone.countryID);
+    String _cityName = _countryPro.getCityNameWithCurrentLanguageIfPossible(context, flyer.flyerZone.cityID);
+
 
     return Column(
       children: <Widget>[
@@ -130,8 +140,10 @@ class InfoSlide extends StatelessWidget {
 
                   /// Flyer Type
                   StatsLine(
-                    verse: '${TextGenerator.flyerTypeSingleStringer(context, flyer.flyerType)}',
-                    icon: Iconizer.flyerTypeIconOff(flyer.flyerType),
+                    verse: 'Flyer Type : ${TextGenerator.flyerTypeSingleStringer(context, _flyerType)}',
+                    icon: Iconizer.flyerTypeIconOff(_flyerType),
+                    iconSizeFactor: 1,
+                    verseScaleFactor: 0.85 * 0.7,
                   ),
 
                   /// PUBLISH TIME
@@ -142,7 +154,7 @@ class InfoSlide extends StatelessWidget {
 
                   /// ZONE
                   StatsLine(
-                    verse: 'Published ${TextGenerator.cityCountryStringer(context: context, zone: flyer.flyerZone)}',
+                    verse: 'Targeting : ${_cityName} , ${_countryName}',
                     icon: Flagz.getFlagByIso3(flyer.flyerZone.countryID),
                   ),
 

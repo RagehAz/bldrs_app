@@ -68,7 +68,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   File _currentBzLogoFile;
   TextEditingController _bzScopeTextController = TextEditingController();
   String _currentBzCountry;
-  String _currentBzProvince;
+  String _currentBzCity;
   String _currentBzDistrict;
   TextEditingController _bzAboutTextController = TextEditingController();
   GeoPoint _currentBzPosition;
@@ -110,7 +110,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
     _currentBzLogoURL = _bz.bzLogo;
     _bzScopeTextController.text = _bz.bzScope;
     _currentBzCountry = _bz.bzZone.countryID;
-    _currentBzProvince = _bz.bzZone.provinceID;
+    _currentBzCity = _bz.bzZone.cityID;
     _currentBzDistrict = _bz.bzZone.districtID;
     _bzAboutTextController.text =  _bz.bzAbout;
     _currentBzPosition = _bz.bzPosition;
@@ -154,7 +154,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         bzScope: _bzScopeTextController.text,
         bzZone: Zone(
           countryID: _currentBzCountry,
-          provinceID: _currentBzProvince,
+          cityID: _currentBzCity,
           districtID: _currentBzDistrict,
         ),
         bzAbout: _bzAboutTextController.text,
@@ -193,10 +193,15 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
       /// Task : FIX THIS SHIT
       _bzTypeInActivityList =
 
-          _currentSection == Section.NewProperties ? [false, false, true, true, true, true, true] :
-          _currentSection == Section.Projects ? [true, true, false, false, false, true, true] :
-          _currentSection == Section.Products ? [true, true, true, true, true, false, false] :
-          _bzTypeInActivityList;
+      _currentSection == Section.NewProperties ?    <bool>[false, false, true, true, true, true, true] :
+      _currentSection == Section.ResaleProperties ? <bool>[false, false, true, true, true, true, true] :
+      _currentSection == Section.RentalProperties ? <bool>[false, false, true, true, true, true, true] :
+      _currentSection == Section.Designs ?          <bool>[true, true, false, false, true, true, true] :
+      _currentSection == Section.Projects ?         <bool>[true, true, false, false, true, true, true] :
+      _currentSection == Section.Crafts ?           <bool>[true, true, true, true, false, true, true] :
+      _currentSection == Section.Products ?         <bool>[true, true, true, true, true, false, false] :
+      _currentSection == Section.Equipment ?        <bool>[true, true, true, true, true, false, false] :
+      _bzTypeInActivityList;
     });
   }
 // -----------------------------------------------------------------------------
@@ -204,13 +209,13 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
       setState(() {
         _currentBzType = BzModel.bzTypesList[index];
         _bzFormInActivityList =
-        _currentBzType == BzType.Developer ? [true, false] :
-        _currentBzType == BzType.Broker ? [false, false] :
-        _currentBzType == BzType.Designer ? [false, false] :
-        _currentBzType == BzType.Contractor ? [false, false] :
-        _currentBzType == BzType.Artisan ? [false, false] :
-        _currentBzType == BzType.Manufacturer ? [true, false] :
-        _currentBzType == BzType.Supplier ? [true, false] :
+        _currentBzType == BzType.Developer ?      <bool>[true, false] :
+        _currentBzType == BzType.Broker ?         <bool>[false, false] :
+        _currentBzType == BzType.Designer ?       <bool>[false, false] :
+        _currentBzType == BzType.Contractor ?     <bool>[false, false] :
+        _currentBzType == BzType.Artisan ?        <bool>[false, false] :
+        _currentBzType == BzType.Manufacturer ?   <bool>[true, false] :
+        _currentBzType == BzType.Supplier ?       <bool>[true, false] :
         _bzFormInActivityList;
         // _currentBz.bzType = _currentBzType;
       });
@@ -223,11 +228,18 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
       });
     } else {
       /// TASK : FIX THIS SHIT
-      _bzTypeInActivityList =
-      _currentSection == Section.NewProperties ? [false, false, true, true, true, true, true] :
-      _currentSection == Section.Projects ? [true, true, false, false, false, true, true] :
-      _currentSection == Section.Products ? [true, true, true, true, true, false, false] :
-      _bzTypeInActivityList;
+
+      Section _section = SectionClass.getSectionByBzType(_currentBzType);
+
+      setState(() {
+        _currentSection = _section;
+      });
+
+      // _bzTypeInActivityList =
+      // _currentSection == Section.NewProperties ?  <bool>[false, false, true, true, true, true, true] :
+      // _currentSection == Section.Projects ?       <bool>[true, true, false, false, false, true, true, true] :
+      // _currentSection == Section.Products ?       <bool>[true, true, true, true, true, false, false, true] :
+      // _bzTypeInActivityList;
     }
   }
 // -----------------------------------------------------------------------------
@@ -238,13 +250,13 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
       });
     } else {
       _bzFormInActivityList =
-      _currentBzType == BzType.Developer ? [true, false] :
-      _currentBzType == BzType.Broker ? [false, false] :
-      _currentBzType == BzType.Designer ? [false, false] :
-      _currentBzType == BzType.Contractor ? [false, false] :
-      _currentBzType == BzType.Artisan ? [false, false] :
-      _currentBzType == BzType.Manufacturer ? [true, false] :
-      _currentBzType == BzType.Supplier ? [true, false] :
+      _currentBzType == BzType.Developer ?      <bool>[true, false] :
+      _currentBzType == BzType.Broker ?         <bool>[false, false] :
+      _currentBzType == BzType.Designer ?       <bool>[false, false] :
+      _currentBzType == BzType.Contractor ?     <bool>[false, false] :
+      _currentBzType == BzType.Artisan ?        <bool>[false, false] :
+      _currentBzType == BzType.Manufacturer ?   <bool>[true, false] :
+      _currentBzType == BzType.Supplier ?       <bool>[true, false] :
       _bzFormInActivityList;
     }
   }
@@ -278,7 +290,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         _bzScopeTextController.text == null ||
         _bzScopeTextController.text.length < 3 ||
         _currentBzCountry == null ||
-        _currentBzProvince == null ||
+        _currentBzCity == null ||
         _currentBzDistrict == null ||
         _bzAboutTextController.text == null ||
         _bzAboutTextController.text.length < 6
@@ -337,7 +349,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         bzScope: _bzScopeTextController.text,
         bzZone: Zone(
           countryID: _currentBzCountry,
-          provinceID: _currentBzProvince,
+          cityID: _currentBzCity,
           districtID: _currentBzDistrict,
         ),
         bzAbout: _bzAboutTextController.text,
@@ -431,7 +443,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         bzScope: _bzScopeTextController.text,
         bzZone: Zone(
           countryID: _currentBzCountry,
-          provinceID: _currentBzProvince,
+          cityID: _currentBzCity,
           districtID: _currentBzDistrict,
         ),
         bzAbout: _bzAboutTextController.text,
@@ -512,7 +524,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
     // '${Wordz.about(context)} ${Wordz.yourBusiness(context)}' :
     // '${Wordz.about(context)} ${_bzNameTextController.text}';
 
-    print('bzZone is : countryID : $_currentBzCountry : provinceID : $_currentBzProvince : districtID : $_currentBzDistrict');
+    print('bzZone is : countryID : $_currentBzCountry : cityID : $_currentBzCity : districtID : $_currentBzDistrict');
 
     return MainLayout(
       loading: _loading,
@@ -613,9 +625,9 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
               // --- bzLocale
               LocaleBubble(
                 changeCountry : (countryID) => setState(() {_currentBzCountry = countryID;}),
-                changeProvince : (provinceID) => setState(() {_currentBzProvince = provinceID;}),
+                changeCity : (cityID) => setState(() {_currentBzCity = cityID;}),
                 changeDistrict : (districtID) => setState(() {_currentBzDistrict = districtID;}),
-                currentZone: Zone(countryID: _currentBzCountry, provinceID: _currentBzProvince, districtID: _currentBzDistrict),
+                currentZone: Zone(countryID: _currentBzCountry, cityID: _currentBzCity, districtID: _currentBzDistrict),
                 title: 'Headquarters District',//Wordz.hqCity(context),
               ),
 

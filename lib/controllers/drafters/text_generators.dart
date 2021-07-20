@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/theme/wordz.dart';
+import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/flyer_type_class.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/models/bz_model.dart';
@@ -99,6 +100,12 @@ class TextGenerator{
       Wordz.general(context);
   }
 // -----------------------------------------------------------------------------
+  static String flyerTypeSingleStringerByBzType(BuildContext context, BzType bzType){
+    FlyerType _defaultFlyerType = FlyerTypeClass.concludeFlyerType(bzType);
+    String _string = flyerTypeSingleStringer(context, _defaultFlyerType);
+    return _string;
+  }
+// -----------------------------------------------------------------------------
   static String flyerTypePluralStringer (BuildContext context, FlyerType flyerType){
     return
       flyerType == FlyerType.Property   ? Wordz.properties(context)  :
@@ -131,11 +138,11 @@ class TextGenerator{
     CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
 
     String _countryID = zone.countryID;
-    String _provinceID = zone.provinceID;
+    String _provinceID = zone.cityID;
     String _districtID = zone.districtID;
 
     String _countryName = _countryPro.getCountryNameInCurrentLanguageByIso3(context, _countryID);
-    String _provinceName = _countryPro.getProvinceNameWithCurrentLanguageIfPossible(context, _provinceID);
+    String _provinceName = _countryPro.getCityNameWithCurrentLanguageIfPossible(context, _provinceID);
     String _districtName = _countryPro.getDistrictNameWithCurrentLanguageIfPossible(context, _districtID);
 
     String verse =
@@ -148,14 +155,14 @@ class TextGenerator{
     CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
 
     String _countryID = zone.countryID;
-    String _provinceID = zone.provinceID;
+    String _cityID = zone.cityID;
 
     String _countryName = _countryPro.getCountryNameInCurrentLanguageByIso3(context, _countryID);
-    String _provinceName = _countryPro.getProvinceNameWithCurrentLanguageIfPossible(context, _provinceID);
+    String _cityName = _countryPro.getCityNameWithCurrentLanguageIfPossible(context, _cityID);
 
     String verse =
-    _countryID == null || _provinceID == null ? '...' :
-    '${Wordz.inn(context)}, $_provinceName , $_countryName . ';
+    _countryID == null || _cityID == null ? '...' :
+    '${Wordz.inn(context)}, $_cityName , $_countryName . ';
     return verse;
   }
 // -----------------------------------------------------------------------------

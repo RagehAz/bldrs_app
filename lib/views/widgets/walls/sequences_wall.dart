@@ -37,7 +37,7 @@ class SequencesWall extends StatelessWidget {
     bool _groupSecondKeysAreZoneAreas = Sequence.sequenceSecondKeysAreZoneDistricts(sequence);
 
     CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
-    String _provinceName = _countryPro.getProvinceNameWithCurrentLanguageIfPossible(context, _countryPro.currentProvinceID);
+    String _provinceName = _countryPro.getCityNameWithCurrentLanguageIfPossible(context, _countryPro.currentCityID);
 
     if(_groupSecondKeysAreZoneAreas == true){
       String _areaName = _countryPro.getDistrictNameWithCurrentLanguageIfPossible(context, sequence.secondKeywords.keywords[index].keywordID);
@@ -66,7 +66,7 @@ class SequencesWall extends StatelessWidget {
   void _onScrollEnd({BuildContext context, int index,Sequence sequence}){
 
     CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
-    String _currentProvinceID = _countryPro.currentProvinceID;
+    String _currentProvinceID = _countryPro.currentCityID;
 
     bool _sequenceIsNewFlyers = index == null ? true : false;
 
@@ -96,7 +96,7 @@ class SequencesWall extends StatelessWidget {
         print('2 - sequence has second keywords : ${_secondKeyword.keywordID}');
 
         if (_secondKeyIsDistrict == true){
-          print ('3 - secondKey is District : ${_countryPro.getProvinceNameWithCurrentLanguageIfPossible(context, _currentProvinceID)}');
+          print ('3 - secondKey is District : ${_countryPro.getCityNameWithCurrentLanguageIfPossible(context, _currentProvinceID)}');
         }
 
         else {

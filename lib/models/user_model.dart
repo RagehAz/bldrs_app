@@ -234,7 +234,7 @@ class UserModel {
     print('title: '',');
     print('gender: ${Gender.any }');
     print('country: ${zone.countryID},');
-    print('province: ${zone.provinceID},');
+    print('province: ${zone.cityID},');
     print('area: ${zone.districtID},');
     // print('4 language: ${Wordz.languageCode(context)},');
     print('position: ,');
@@ -272,7 +272,7 @@ class UserModel {
     if (userModel?.title == null || userModel?.title == ''){_missingFields.add('title');}
     if (userModel?.company == null || userModel?.company == ''){_missingFields.add('company');}
     if (userModel?.zone?.countryID == null || userModel?.zone?.countryID == ''){_missingFields.add('country');}
-    if (userModel?.zone?.provinceID == null || userModel?.zone?.provinceID == ''){_missingFields.add('province');}
+    if (userModel?.zone?.cityID == null || userModel?.zone?.cityID == ''){_missingFields.add('province');}
 
     return _missingFields;
   }

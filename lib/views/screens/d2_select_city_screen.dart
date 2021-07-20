@@ -8,10 +8,10 @@ import 'package:bldrs/views/widgets/layouts/main_layout.dart' show Sky;
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_size/flutter_keyboard_size.dart';
 
-class SelectProvinceScreen extends StatelessWidget {
+class SelectCityScreen extends StatelessWidget {
   final String countryID;
 
-  SelectProvinceScreen({
+  SelectCityScreen({
     this.countryID = 'egy',
   });
 
@@ -20,7 +20,7 @@ class SelectProvinceScreen extends StatelessWidget {
 // -----------------------------------------------------------------------------
     CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: true);
     String _countryName = _countryPro.getCountryNameInCurrentLanguageByIso3(context, countryID);
-    List<Map<String, dynamic>> _provincesMaps = _countryPro.getProvincesNameMapsByIso3(context, countryID);
+    List<Map<String, dynamic>> _citiesMaps = _countryPro.getCitiesNamesMapsByIso3(context, countryID);
     String _countryFlag = Flagz.getFlagByIso3(countryID);
 // -----------------------------------------------------------------------------
 
@@ -28,7 +28,7 @@ class SelectProvinceScreen extends StatelessWidget {
       pyramids: Iconz.PyramidzYellow,
       pageTitle: _countryName,
       icons: null,
-      idValueMaps: _provincesMaps,
+      idValueMaps: _citiesMaps,
       pageIcon: _countryFlag,
       pageIconVerse: _countryName,
       sky: Sky.Black,
@@ -36,7 +36,7 @@ class SelectProvinceScreen extends StatelessWidget {
         print('value is $value');
         Nav.goToNewScreen(context,
             SelectAreaScreen(
-              provinceID : value,
+              cityID : value,
               countryID: countryID,
             )
         );
