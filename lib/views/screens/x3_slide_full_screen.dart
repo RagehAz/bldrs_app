@@ -1,6 +1,5 @@
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
-import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/views/widgets/flyer/parts/slides_parts/zoomable_pic.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
@@ -16,6 +15,8 @@ class SlideFullScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    print('Building full screen with : ${image.toString()} --------------------------------- ');
 
     return MainLayout(
       pageTitle: 'Create flyers',

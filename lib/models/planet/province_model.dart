@@ -1,5 +1,4 @@
 import 'package:bldrs/controllers/drafters/text_manipulators.dart';
-import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/flyer_type_class.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/planet/district_model.dart';

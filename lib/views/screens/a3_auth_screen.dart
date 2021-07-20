@@ -1,4 +1,3 @@
-import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/views/widgets/auth/register_form.dart';
 import 'package:bldrs/views/widgets/auth/signin_form.dart';

@@ -1,6 +1,5 @@
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
-import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/models/keywords/sequence_model.dart';

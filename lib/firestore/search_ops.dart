@@ -1,7 +1,6 @@
 import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/firestore/firestore.dart';
-import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/flyer_type_class.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_flyer.dart';

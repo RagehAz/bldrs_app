@@ -40,7 +40,7 @@ class KeywordsBubble extends StatelessWidget {
   Widget build(BuildContext context) {
 
     double abPadding = Ratioz.appBarPadding;
-    double contactBoxHeight = 35;
+    // double contactBoxHeight = 35;
 
     return InPyramidsBubble(
       centered: false,

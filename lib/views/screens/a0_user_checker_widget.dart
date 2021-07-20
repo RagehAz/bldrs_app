@@ -1,4 +1,3 @@
-import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/router/route_names.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
@@ -80,7 +79,8 @@ class _UserCheckerState extends State<UserChecker> {
 
                 /// XX - userModel is completed : go to LoadingScreen()
                 print('userModel is completed : go to LoadingScreen()');
-                var _result = await Nav.goToNewScreen(context, LoadingScreen(), transitionType: PageTransitionType.fade);
+                // var _result = await Nav.goToNewScreen(context, LoadingScreen(), transitionType: PageTransitionType.fade);
+                await Nav.goToNewScreen(context, LoadingScreen(), transitionType: PageTransitionType.fade);
 
                 print('user has a completed userModel and was in home screen and came back to user checker');
                 /// so we loop once more to user check
@@ -105,7 +105,9 @@ class _UserCheckerState extends State<UserChecker> {
 
                 /// after returning from edit profile, we go to LoadingScreen()
                 print('user has completed profile and good to go to LoadingScreen()');
-                var _result = await Nav.goToNewScreen(context, LoadingScreen(), transitionType: PageTransitionType.fade);
+                // var _result = await Nav.goToNewScreen(context, LoadingScreen(), transitionType: PageTransitionType.fade);
+                await Nav.goToNewScreen(context, LoadingScreen(), transitionType: PageTransitionType.fade);
+
               }
             }
 
