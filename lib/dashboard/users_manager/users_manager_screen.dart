@@ -100,7 +100,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
 
                           UserModel _userModel = _usersModels[index];
                           String _countryName = _countryPro .getCountryNameInCurrentLanguageByIso3(context, _userModel.zone.countryID);
-                          String _provinceName = _countryPro.getProvinceNameWithCurrentLanguageIfPossible(context, _userModel.zone.provinceID);
+                          String _provinceName = _countryPro.getCityNameWithCurrentLanguageIfPossible(context, _userModel.zone.cityID);
                           String _districtName = _countryPro.getDistrictNameWithCurrentLanguageIfPossible(context, _userModel.zone.districtID);
 
                           List<ContactModel> _stringyContacts = ContactModel.getContactsWithStringsFromContacts(_userModel.contacts);

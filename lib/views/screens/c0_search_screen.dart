@@ -100,16 +100,16 @@ class _SearchScreenState extends State<SearchScreen> {
 
     // String _countryID = _countryPro.currentCountryID;
     // String _countryName = _countryPro.getCountryNameInCurrentLanguageByIso3(context, _countryID);
-    // List<Map<String, dynamic>> _provincesMaps = _countryPro.getProvincesNameMapsByIso3(context, _countryID);
+    // List<Map<String, dynamic>> _citiesMaps = _countryPro.getCitiesNameMapsByIso3(context, _countryID);
     // // String _countryFlag = Flagz.getFlagByIso3(_countryID);
-    // List<String> _provincesNames = Mapper.getSecondValuesFromMaps(_provincesMaps);
+    // List<String> _citiesNames = Mapper.getSecondValuesFromMaps(_citiesMaps);
     //
-    // List<KeywordModel> _provincesKeywords = Province.
+    // List<KeywordModel> _citiesKeywords = cities.
     //
     //
     // _filters.insert(0 ,
     //
-    //   FilterModel(filterID: 'Province', canPickMany: false, keywordModels: _provincesNames),
+    //   FilterModel(filterID: 'city', canPickMany: false, keywordModels: _citiesNames),
     //
     // );
   }
@@ -148,16 +148,16 @@ class _SearchScreenState extends State<SearchScreen> {
 
                 Keyword _keyword = index >= 0 ? _selectedKeywords[index] : null;
 
-                bool _highlightedMapIsProvince =
+                bool _highlightedMapIsCity =
                 _highlightedKeyword == null ? false
                     :
-                _highlightedKeyword.flyerType == 'provinces' ? true
+                _highlightedKeyword.flyerType == 'cities' ? true
                     : false;
 
                 bool _isHighlighted =
-                _highlightedMapIsProvince == true && _keyword.flyerType == 'provinces'? true
+                _highlightedMapIsCity == true && _keyword.flyerType == 'cities'? true
                     :
-                _highlightedMapIsProvince == true && _keyword.flyerType == 'area'? true
+                _highlightedMapIsCity == true && _keyword.flyerType == 'area'? true
                     :
                 Keyword.KeywordsAreTheSame(_highlightedKeyword, _keyword) == true ? true
                     :
@@ -279,20 +279,20 @@ class _SearchScreenState extends State<SearchScreen> {
     String _groupID = _selectedKeywords[index].groupID;
     // String _keywordID = _selectedKeywords[index].keywordID;
 
-    bool _isProvince = false;
+    bool _isCity = false;
     bool _isArea = false;
 
     Keyword _keywordModel = _selectedKeywords[index];
 
 
-    if (_isProvince == true){
+    if (_isCity == true){
 
 
       await _highlightKeyword(_keywordModel, false);
 
       setState(() {
         _selectedKeywords.removeAt(index+1); // area index
-        _selectedKeywords.removeAt(index); // province index still the same
+        _selectedKeywords.removeAt(index); // city index still the same
       });
     }
 
@@ -301,7 +301,7 @@ class _SearchScreenState extends State<SearchScreen> {
       await _highlightKeyword(_keywordModel, false);
 
       setState(() {
-        _selectedKeywords.removeAt(index-1); // province index
+        _selectedKeywords.removeAt(index-1); // city index
         _selectedKeywords.removeAt(index-1); // area index after change
       });
     }
@@ -364,11 +364,11 @@ class _SearchScreenState extends State<SearchScreen> {
       /// when SINGULAR keyword not selected
       else{
 
-        /// when selecting province - area
-        if(_currentFilterID == 'Province'){
-          // then keyword is province
+        /// when selecting city - area
+        if(_currentFilterID == 'city'){
+          // then keyword is city
 
-          _showZoneDialog(provinceName: keyword.keywordID);
+          _showZoneDialog(cityName: keyword.keywordID);
 
         }
 
@@ -384,15 +384,15 @@ class _SearchScreenState extends State<SearchScreen> {
 
   }
 // -----------------------------------------------------------------------------
-  Future<void> _showZoneDialog({String provinceName}) async {
+  Future<void> _showZoneDialog({String cityName}) async {
 
-    String provinceID = _countryPro.getProvinceIDByProvinceName(context, provinceName);
-    List<Map<String, dynamic>> _areasMaps = _countryPro.getDistrictsNameMapsByProvinceID(context, provinceID);
+    String _cityID = _countryPro.getCityIDByCityName(context, cityName);
+    List<Map<String, dynamic>> _areasMaps = _countryPro.getDistrictsNameMapsByCityID(context, _cityID);
 
     // await superDialog(
     //   context: context,
-    //   title: '$provinceName',
-    //   body: 'add an Area in $provinceName to search words',
+    //   title: '$cityName',
+    //   body: 'add an Area in $cityName to search words',
     //   height: Scale.superScreenHeight(context) * 0.7,
     //   child: Container(
     //     height: Scale.superScreenHeight(context) * 0.5,
@@ -410,7 +410,7 @@ class _SearchScreenState extends State<SearchScreen> {
     //         String _areaName = _areasMaps[index]['value'];
     //
     //         Map<String, String> _areaMap = {'keyword' : _areaName, 'filterTitle' : 'Area'};
-    //         Map<String, String> _provinceMap = {'keyword' : provinceName, 'filterTitle' : 'Province'};
+    //         Map<String, String> )cityMap = {'keyword' : cityName, 'filterTitle' : 'City'};
     //
     //         bool _isSelected = Mapper.listOfMapsContainMap(listOfMaps: _keywords, map: _areaMap);
     //
@@ -427,7 +427,7 @@ class _SearchScreenState extends State<SearchScreen> {
     //             bubble: false,
     //             boxFunction: (){
     //
-    //               _addKeyword(_provinceMap);
+    //               _addKeyword(_cityMap);
     //               _addKeyword(_areaMap);
     //
     //               _scrollToEndOfAppBar();

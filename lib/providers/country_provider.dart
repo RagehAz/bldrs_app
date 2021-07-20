@@ -2,9 +2,9 @@ import 'package:bldrs/controllers/localization/localization_constants.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/dashboard/zones_manager/db_districts.dart';
 import 'package:bldrs/dashboard/zones_manager/db_countries.dart';
-import 'package:bldrs/dashboard/zones_manager/db_provinces.dart';
+import 'package:bldrs/dashboard/zones_manager/db_cities.dart';
 import 'package:bldrs/models/planet/district_model.dart';
-import 'package:bldrs/models/planet/province_model.dart';
+import 'package:bldrs/models/planet/city_model.dart';
 import 'package:bldrs/models/planet/country_model.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/secondary_models/namez_model.dart';
@@ -13,18 +13,18 @@ import 'package:flutter/material.dart';
 class CountryProvider with ChangeNotifier{
   /// get user country
   String _currentCountryID = 'egy';
-  String _currentProvinceID = 'Cairo';
+  String _currentCityID = 'Cairo';
   String _currentDistrictID = '1';
   List<Country> _countries = DbCountries.dbCountries();
-  List<Province> _provinces = DbProvinces.dbProvinces();
+  List<City> _cities = DbCities.dbCities();
   List<District> _districts = DbDistricts.dbDistricts();
 // -----------------------------------------------------------------------------
   String get currentCountryID {
     return _currentCountryID;
   }
 // -----------------------------------------------------------------------------
-  String get currentProvinceID{
-    return _currentProvinceID;
+  String get currentCityID{
+    return _currentCityID;
   }
 // -----------------------------------------------------------------------------
   String get currentDistrictsID {
@@ -34,7 +34,7 @@ class CountryProvider with ChangeNotifier{
   Zone get currentZone {
     return Zone(
       countryID: currentCountryID,
-      provinceID: currentProvinceID,
+      cityID: currentCityID,
       districtID: currentDistrictsID,
     );
   }
@@ -44,8 +44,8 @@ class CountryProvider with ChangeNotifier{
     notifyListeners();
   }
 // -----------------------------------------------------------------------------
-  void changeProvince(String provinceID){
-    _currentProvinceID = provinceID;
+  void changeCity(String cityID){
+    _currentCityID = cityID;
     notifyListeners();
   }
 // -----------------------------------------------------------------------------
@@ -84,33 +84,33 @@ class CountryProvider with ChangeNotifier{
     return _countriesIDs;
   }
 // -----------------------------------------------------------------------------
-  /// get Provinces list by country iso3
-  List<Map<String,String>> getProvincesNameMapsByIso3(BuildContext context, String iso3){
-    List<Map<String,String>> _provincesNames = new List();
+  /// get Cities list by country iso3
+  List<Map<String,String>> getCitiesNamesMapsByIso3(BuildContext context, String iso3){
+    List<Map<String,String>> _citiesNames = new List();
     String _currentLanguageCode = Wordz.languageCode(context);
 
-    _provinces.forEach((pr) {
+    _cities.forEach((pr) {
       if (pr.iso3 == iso3){
-        if (_currentLanguageCode == 'en'){_provincesNames.add({'id': pr.name, 'value': pr.name});}
+        if (_currentLanguageCode == 'en'){_citiesNames.add({'id': pr.name, 'value': pr.name});}
         else
           {
             String _areaNameInCurrentLanguage = pr.namez.firstWhere((name) => name.code == _currentLanguageCode, orElse: ()=> null)?.value;
-            if (_areaNameInCurrentLanguage == null){_provincesNames.add({'id': pr.name, 'value': pr.name});}
-            else {_provincesNames.add({'id': pr.name, 'value': _areaNameInCurrentLanguage});}
+            if (_areaNameInCurrentLanguage == null){_citiesNames.add({'id': pr.name, 'value': pr.name});}
+            else {_citiesNames.add({'id': pr.name, 'value': _areaNameInCurrentLanguage});}
           }
       }
     });
 
-    return _provincesNames;
+    return _citiesNames;
   }
 // -----------------------------------------------------------------------------
-  /// get Areas list by Province name
-  /// uses provinceName in English as ID
-  List<Map<String, String>> getDistrictsNameMapsByProvinceID(BuildContext context, String provinceID){
+  /// get Areas list by City name
+  /// uses cityName in English as ID
+  List<Map<String, String>> getDistrictsNameMapsByCityID(BuildContext context, String cityID){
     List<Map<String, String>> _districtsNames = new List();
     String _currentLanguageCode = Wordz.languageCode(context);
     _districts.forEach((ar) {
-      if(ar.province == provinceID){
+      if(ar.city == cityID){
           String _districtNameInCurrentLanguage = ar.namez.firstWhere((name) => name.code == _currentLanguageCode, orElse: ()=> null)?.value;
           if (_districtNameInCurrentLanguage == null){_districtsNames.add({'id': ar.id, 'value': ar.name});}
           else {_districtsNames.add({'id': ar.id, 'value': _districtNameInCurrentLanguage});}
@@ -119,16 +119,16 @@ class CountryProvider with ChangeNotifier{
     return _districtsNames;
   }
 // -----------------------------------------------------------------------------
-  List<District> getDistrictsByProvinceID(BuildContext context, String provinceID){
-    List<District> _provinceDistricts = new List();
+  List<District> getDistrictsByCityID(BuildContext context, String cityID){
+    List<District> _cityDistricts = new List();
 
     _districts.forEach((ar) {
-      if(ar.province == provinceID){
-        _provinceDistricts.add(ar);
+      if(ar.city == cityID){
+        _cityDistricts.add(ar);
       }
     });
 
-    return _provinceDistricts;
+    return _cityDistricts;
   }
 // -----------------------------------------------------------------------------
   String getDistrictNameWithCurrentLanguageIfPossible(BuildContext context, String districtID){
@@ -141,31 +141,31 @@ class CountryProvider with ChangeNotifier{
     return _nameInCurrentLanguage == null ? _district?.name : _nameInCurrentLanguage;
   }
 // -----------------------------------------------------------------------------
-  String getProvinceNameWithCurrentLanguageIfPossible(BuildContext context, String provinceID){
-  Province _province = _provinces.firstWhere((ar) => ar.name == provinceID, orElse: ()=> null);
-  // String _nameInCurrentLanguage = _province?.namez?.singleWhere((name) => name.code == _currentLanguageCode, orElse: ()=> null)?.value;
+  String getCityNameWithCurrentLanguageIfPossible(BuildContext context, String cityID){
+  City _city = _cities.firstWhere((ar) => ar.name == cityID, orElse: ()=> null);
+  // String _nameInCurrentLanguage = _city?.namez?.singleWhere((name) => name.code == _currentLanguageCode, orElse: ()=> null)?.value;
 
-  // print('province is : ${_province.iso3} : ${_province.name} : ${_province.districts.length} : ${_province.namez}');
+  // print('city is : ${_city.iso3} : ${_city.name} : ${_city.districts.length} : ${_city.namez}');
 
-  String _nameInCurrentLanguage = Name.getNameWithCurrentLanguageFromListOfNames(context, _province?.namez);
+  String _nameInCurrentLanguage = Name.getNameWithCurrentLanguageFromListOfNames(context, _city?.namez);
 
-  return _nameInCurrentLanguage == null ? provinceID : _nameInCurrentLanguage;
+  return _nameInCurrentLanguage == null ? cityID : _nameInCurrentLanguage;
 }
 // -----------------------------------------------------------------------------
-  String getProvinceIDByProvinceName(BuildContext context, String provinceName){
-    String _provinceID;
+  String getCityIDByCityName(BuildContext context, String cityName){
+    String _cityName;
 
     String _languageCode = Wordz.languageCode(context);
 
     if (_languageCode != 'en'){
-      for (var province in _provinces){
+      for (var city in _cities){
 
-        for (var nmz in province.namez){
+        for (var nmz in city.namez){
 
-          bool _searchIsTrue = nmz.code == _languageCode && nmz.value == provinceName ? true : false;
+          bool _searchIsTrue = nmz.code == _languageCode && nmz.value == cityName ? true : false;
 
           if (_searchIsTrue == true){
-            _provinceID = province.name;
+            _cityName = city.name;
             break;
           }
 
@@ -175,10 +175,10 @@ class CountryProvider with ChangeNotifier{
     }
 
     else {
-      _provinceID = provinceName;
+      _cityName = cityName;
     }
 
-    return _provinceID;
+    return _cityName;
   }
 // -----------------------------------------------------------------------------
 }

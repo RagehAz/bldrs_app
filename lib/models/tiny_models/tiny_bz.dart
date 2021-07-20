@@ -130,7 +130,7 @@ class TinyBz with ChangeNotifier{
             bzLogo: Iconz.DumBusinessLogo,
             bzName: 'Business Name',
             bzType: BzType.Designer,
-            bzZone: Zone(countryID: 'egy', provinceID: 'cairo', districtID: 'heliopolis'),
+            bzZone: Zone(countryID: 'egy', cityID: 'cairo', districtID: 'heliopolis'),
             bzTotalFollowers: 1000,
             bzTotalFlyers: 10,
         );

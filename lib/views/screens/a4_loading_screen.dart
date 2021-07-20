@@ -73,23 +73,23 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
           setState(() {
             _sponsors = _prof.getSponsors;
-            _progress = 30;
+            _progress = 40;
           });
 
           await _prof.fetchAndSetUserTinyBzz(context);
-          // _increaseProgressTo(50);
+          _increaseProgressTo(80);
 
           // TASK : should get only first 10 saved tiny flyers,, and continue paginating when entering the savedFlyers screen
           await _prof.fetchAndSetSavedFlyers(context);
-          _increaseProgressTo(60);
+          _increaseProgressTo(85);
 
           /// TASK : should get only first 10 followed tiny bzz, then paginate in all when entering followed bzz screen
           await _prof.fetchAndSetFollows(context);
-          _increaseProgressTo(80);
+          _increaseProgressTo(95);
 
           /// TASK : wallahi mana 3aref hane3mel eh hena
           await _prof.fetchAndSetTinyFlyersBySection(context, _prof.getCurrentSection);
-          _increaseProgressTo(95);
+          _increaseProgressTo(99);
 
 
           _prof.changeSection(context, _prof.getCurrentSection);
@@ -163,7 +163,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
               color: Colorz.White80,
               alignment: Aligners.superCenterAlignment(context),
               child: AnimatedContainer(
-                duration: Duration(milliseconds: 1500),
+                duration: Duration(milliseconds: 4000),
                 width: Scale.superScreenWidth(context) * _progress / 100,
                 color: Colorz.Yellow255,
               ),

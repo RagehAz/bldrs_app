@@ -10,7 +10,7 @@ import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/models/records/share_model.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/views/screens/fx_bz_editor_screen.dart';
-import 'package:bldrs/views/screens/d2_select_province_screen.dart';
+import 'package:bldrs/views/screens/d2_select_city_screen.dart';
 import 'package:bldrs/views/screens/d4_change_language_screen.dart';
 import 'package:bldrs/views/screens/d5_about_bldrs_screen.dart';
 import 'package:bldrs/views/screens/d6_feedback_screen.dart';
@@ -78,8 +78,8 @@ class MoreScreen extends StatelessWidget {
                 /// PLAN : when we include more countries, we just go to SelectCountryScreen();
                 // SelectCountryScreen()
 
-                /// but now we go to Egypt provinces directly
-              SelectProvinceScreen(countryID: 'egy',)
+                /// but now we go to Egypt cities directly
+              SelectCityScreen(countryID: 'egy',)
 
             ),
           ),

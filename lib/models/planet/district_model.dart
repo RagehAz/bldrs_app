@@ -2,7 +2,7 @@ import 'package:bldrs/models/secondary_models/namez_model.dart';
 // -----------------------------------------------------------------------------
 class District{
   final String iso3;
-  final String province;
+  final String city;
   final String id;
   final String name;
   final List<Name> namez;
@@ -15,7 +15,7 @@ class District{
 
   District({
     this.iso3,
-    this.province,
+    this.city,
     this.id,
     this.name,
     this.namez,
@@ -26,7 +26,7 @@ class District{
   Map<String, Object> toMap(){
     return {
       'iso3' : iso3,
-      'province' : province,
+      'province' : city,
       'id' : id,
       'name' : name,
       'namez' : Name.cipherNamezz(namez),
@@ -46,7 +46,7 @@ class District{
   static District decipherDistrictMap(Map<String, dynamic> map){
     return District(
       iso3 : map['iso3'],
-      province : map['province'],
+      city : map['province'],
       id : map['id'],
       name : map['name'],
       namez : Name.decipherNamezzMaps(map['names']),

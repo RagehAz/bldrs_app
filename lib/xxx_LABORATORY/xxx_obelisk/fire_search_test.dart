@@ -74,7 +74,7 @@ class _FireSearchTestState extends State<FireSearchTest> {
           context: context,
           zone: Zone(
               countryID: 'egy',
-              provinceID: 'Cairo',
+              cityID: 'Cairo',
               districtID: '13'
           ),
           flyerType: FlyerType.Property,

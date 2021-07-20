@@ -276,7 +276,7 @@ class BzOps{
         _finalBz.bzLogo != originalBz.bzLogo ||
         _finalBz.bzType != originalBz.bzType ||
         _finalBz.bzZone.countryID != originalBz.bzZone.countryID ||
-        _finalBz.bzZone.provinceID != originalBz.bzZone.provinceID ||
+        _finalBz.bzZone.cityID != originalBz.bzZone.cityID ||
         _finalBz.bzZone.districtID != originalBz.bzZone.districtID
     ){
     TinyBz _modifiedTinyBz = TinyBz.getTinyBzFromBzModel(_finalBz)  ;

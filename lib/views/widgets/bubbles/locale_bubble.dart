@@ -18,14 +18,14 @@ import 'package:provider/provider.dart';
 
 class LocaleBubble extends StatefulWidget {
   final Function changeCountry;
-  final Function changeProvince;
+  final Function changeCity;
   final Function changeDistrict;
   final Zone currentZone;
   final String title;
 
   LocaleBubble({
     @required this.changeCountry,
-    @required this.changeProvince,
+    @required this.changeCity,
     @required this.changeDistrict,
     @required this.currentZone,
     this.title = 'Preferred Location',
@@ -37,7 +37,7 @@ class LocaleBubble extends StatefulWidget {
 
 class _LocaleBubbleState extends State<LocaleBubble> {
   String _chosenCountryID;
-  String _chosenProvinceID;
+  String _chosenCityID;
   String _chosenDistrictID;
   Zone _userZone;
 
@@ -47,7 +47,7 @@ class _LocaleBubbleState extends State<LocaleBubble> {
     _userZone = widget.currentZone;
     CountryProvider _countryPro = Provider.of<CountryProvider>(context, listen: false);
     _chosenCountryID = _userZone.countryID ;// == null ? _countryPro.currentCountryID : _userZone.countryID;
-    _chosenProvinceID = _userZone.provinceID ;// == null ? _countryPro.currentProvinceID : _userZone.provinceID;
+    _chosenCityID = _userZone.cityID ;// == null ? _countryPro.currentProvinceID : _userZone.provinceID;
     _chosenDistrictID = _userZone.districtID ;// == null ? _countryPro.currentDistrictID : _userZone.districtID;
     super.initState();
   }
@@ -72,7 +72,7 @@ class _LocaleBubbleState extends State<LocaleBubble> {
         buttonTap: (countryID){
           setState(() {
             _chosenCountryID = countryID;
-            _chosenProvinceID = null;
+            _chosenCityID = null;
             _chosenDistrictID = null;
           });
           widget.changeCountry(countryID);
@@ -97,11 +97,11 @@ class _LocaleBubbleState extends State<LocaleBubble> {
         sheetType: BottomSheetType.Province,
         buttonTap: (provinceID){
           setState(() {
-            _chosenProvinceID = provinceID;
+            _chosenCityID = provinceID;
             _chosenDistrictID = null;
           });
-          widget.changeProvince(provinceID);
-          print('_currentProvince : $_chosenProvinceID');
+          widget.changeCity(provinceID);
+          print('_currentProvince : $_chosenCityID');
           _closeBottomSheet();
         },
       ),
@@ -137,12 +137,12 @@ class _LocaleBubbleState extends State<LocaleBubble> {
     CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: true);
 
     List<Map<String,String>> _flags = _countryPro.getAvailableCountries(context);
-    List<Map<String,String>> _provinces = _countryPro.getProvincesNameMapsByIso3(context, _chosenCountryID);//_chosenCountry);
-    List<Map<String,String>> _districts = _countryPro.getDistrictsNameMapsByProvinceID(context, _chosenProvinceID);//_chosenProvince);
+    List<Map<String,String>> _provinces = _countryPro.getCitiesNamesMapsByIso3(context, _chosenCountryID);//_chosenCountry);
+    List<Map<String,String>> _districts = _countryPro.getDistrictsNameMapsByCityID(context, _chosenCityID);//_chosenProvince);
 
     String _chosenCountryName = _chosenCountryID == null ? '...' : translate(context, _chosenCountryID);
     String _chosenCountryFlag = _chosenCountryID == null ? '' : Flagz.getFlagByIso3(_chosenCountryID);
-    String _chosenProvinceName = _chosenProvinceID == null ? '...' : _countryPro.getProvinceNameWithCurrentLanguageIfPossible(context, _chosenProvinceID);
+    String _chosenProvinceName = _chosenCityID == null ? '...' : _countryPro.getCityNameWithCurrentLanguageIfPossible(context, _chosenCityID);
     String _chosenDistrictName = _chosenDistrictID == null ? '...' : _countryPro.getDistrictNameWithCurrentLanguageIfPossible(context, _chosenDistrictID);
 
 
