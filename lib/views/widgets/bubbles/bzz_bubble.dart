@@ -17,6 +17,7 @@ class BzzBubble extends StatelessWidget {
   final int numberOfRows;
   final Axis scrollDirection;
   final Function onTap;
+  final double corners;
 
   BzzBubble({
     @required this.tinyBzz,
@@ -25,17 +26,19 @@ class BzzBubble extends StatelessWidget {
     this.numberOfRows = 2,
     this.scrollDirection = Axis.horizontal,
     this.onTap,
+    this.corners,
 });
 
   @override
   Widget build(BuildContext context) {
     return InPyramidsBubble(
       bubbleColor: Colorz.White10,
+      corners: corners,
       columnChildren: <Widget>[
 
         // --- Title
         Padding(
-          padding: const EdgeInsets.only(bottom: Ratioz.appBarPadding, left: Ratioz.appBarMargin, right: Ratioz.appBarMargin),
+          padding: const EdgeInsets.only(bottom: Ratioz.appBarPadding, left: Ratioz.appBarMargin*2, right: Ratioz.appBarMargin*2),
           child: SuperVerse(
             verse: title,
             centered: false,
@@ -49,6 +52,7 @@ class BzzBubble extends StatelessWidget {
             numberOfColumns: numberOfColumns,
             numberOfRows: numberOfRows,
             scrollDirection: scrollDirection,
+            corners: corners == null ? null : corners - Ratioz.appBarMargin,
             itemOnTap: (bzID) {
 
               if (onTap == null) {
@@ -56,6 +60,7 @@ class BzzBubble extends StatelessWidget {
               } else {
                 onTap(bzID);
               }
+
             },
         ),
 
