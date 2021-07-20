@@ -50,9 +50,6 @@ class BzLogo extends StatelessWidget {
     corners
     ;
 // -----------------------------------------------------------------------------
-
-    print('object is objectIsColor : ${ObjectChecker.objectIsColor(image)} ');
-
     return GestureDetector(
       onTap: onTap == null ? (){} : onTap,
       child: Container(

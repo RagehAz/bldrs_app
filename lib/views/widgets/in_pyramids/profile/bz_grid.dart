@@ -29,52 +29,51 @@ class BzGrid extends StatelessWidget {
   Widget build(BuildContext context) {
 
     List<TinyBz> _tinyBzz = tinyBzz == null ? <TinyBz>[] : tinyBzz;
-    //
+
     List<Color> _boxesColors = <Color>[Colorz.White30, Colorz.White20, Colorz.White10];
-    //
-    int _gridColumnsCount = numberOfColumns;
-    //
+
     const double _spacingRatioToGridWidth = 0.1;
-    double _gridBzWidth = gridZoneWidth / (numberOfColumns + (numberOfColumns * _spacingRatioToGridWidth) + _spacingRatioToGridWidth);
-    double _gridBzHeight = _gridBzWidth;
-    double _gridSpacing = _gridBzWidth * _spacingRatioToGridWidth;
-    int _bzCount = _tinyBzz == <TinyBz>[] || _tinyBzz.length == 0 ? _boxesColors.length : tinyBzz.length;
-    int _numOfGridRows(int _bzCount){return (_bzCount/_gridColumnsCount).ceil();}
-    int _numOfRows = numberOfRows == null ? _numOfGridRows(_bzCount) : numberOfRows;
-    double _gridHeight = //_gridBzHeight * (_numOfRows + (_numOfRows * _spacingRatioToGridWidth) + _spacingRatioToGridWidth);
-    (_gridBzWidth * _numOfRows) + (_gridSpacing * 2) + (_gridSpacing * (_numOfRows - 2));
-    //
+    double _logoWidth = gridZoneWidth / (numberOfColumns + (numberOfColumns * _spacingRatioToGridWidth) + _spacingRatioToGridWidth);
+    double _gridSpacing = _logoWidth * _spacingRatioToGridWidth;
+    // int _bzCount = _tinyBzz == <TinyBz>[] || _tinyBzz.length == 0 ? _boxesColors.length : tinyBzz.length;
+    // int _getNumberOfRowsByCount(int _bzCount){return (_bzCount/numberOfColumns).ceil();}
+    // int _numOfRows = numberOfRows == null ? _getNumberOfRowsByCount(_bzCount) : numberOfRows;
+    double _logoHeight = _logoWidth;
+    double _gridZoneHeight = _gridSpacing + (numberOfRows * (_logoHeight + _gridSpacing));
+
+
     SliverGridDelegateWithMaxCrossAxisExtent _gridDelegate = SliverGridDelegateWithMaxCrossAxisExtent(
       crossAxisSpacing: _gridSpacing,
       mainAxisSpacing: _gridSpacing,
       childAspectRatio: 1 / 1,
-      maxCrossAxisExtent: _gridBzWidth, //gridFlyerWidth,
+      maxCrossAxisExtent: _logoWidth,
     );
     //
-    double _zoneCorners = corners == null ? (_gridBzWidth * Ratioz.bzLogoCorner) + _gridSpacing : corners;
+    double _zoneCorners = corners == null ? (_logoWidth * Ratioz.bzLogoCorner) + _gridSpacing : corners;
 
     return
       ClipRRect(
         borderRadius: Borderers.superBorderAll(context, _zoneCorners),
         child: Container(
           width: gridZoneWidth,
-          height: _gridHeight,
+          height: _gridZoneHeight,
           color: Colorz.White10,
+          padding: EdgeInsets.only(bottom: _gridSpacing),
           child: Stack(
             children: <Widget>[
 
               /// --- GRID FOOTPRINTS
               if (_tinyBzz == [] || _tinyBzz.length == 0)
                 GridView(
-                  physics: scrollDirection == null ? NeverScrollableScrollPhysics() : null,
+                  physics: scrollDirection == null ? const NeverScrollableScrollPhysics() : const BouncingScrollPhysics(),
                   scrollDirection: scrollDirection == null ? Axis.vertical : scrollDirection,
                   addAutomaticKeepAlives: true,
-                  shrinkWrap: true,
+                  shrinkWrap: false,
                   padding: EdgeInsets.only(top: _gridSpacing, left: _gridSpacing, right: _gridSpacing, bottom: 0),
                   gridDelegate: _gridDelegate,
                   children: _boxesColors.map(
                         (color) => BzLogo(
-                          width: _gridBzWidth,
+                          width: _logoWidth,
                           image: color,
                           bzPageIsOn: false,
                           miniMode: true,
@@ -86,10 +85,10 @@ class BzGrid extends StatelessWidget {
               /// --- REAL GRID
               if (_tinyBzz.length != 0)
                 GridView(
-                  physics: scrollDirection == null ? NeverScrollableScrollPhysics() : null,
+                  physics: scrollDirection == null ? const NeverScrollableScrollPhysics() : const BouncingScrollPhysics(),
                   scrollDirection: scrollDirection == null ? Axis.vertical : scrollDirection,
                   addAutomaticKeepAlives: true,
-                  shrinkWrap: true,
+                  shrinkWrap: false,
                   padding: EdgeInsets.only(top: _gridSpacing, left: _gridSpacing, right: _gridSpacing, bottom: 0),
                   // key: new Key(loadedFlyers[flyerIndex].f01flyerID),
                   gridDelegate: _gridDelegate,
@@ -97,7 +96,7 @@ class BzGrid extends StatelessWidget {
 
                     ..._tinyBzz.map(
                           (bz) => BzLogo(
-                              width: _gridBzWidth,
+                              width: _logoWidth,
                               image: bz.bzLogo,
                               bzPageIsOn: false,
                               miniMode: true,

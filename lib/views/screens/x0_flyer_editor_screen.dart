@@ -25,6 +25,7 @@ import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/screens/xx_flyer_on_map.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/buttons/publish_button.dart';
+import 'package:bldrs/views/widgets/buttons/slides_counter.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_sheet.dart';
 import 'package:bldrs/views/widgets/dialogs/dialogz.dart';
@@ -180,7 +181,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
   Duration _fadingDurationX = Ratioz.durationFading210;
   Duration _slidingDuration = Ratioz.durationSliding400;
   Duration _slidingDurationX = Ratioz.durationSliding410;
-  double _progressOpacity = 0;
+  double _progressOpacity = 1;
 // ---------------------------------------------------o
   void _triggerProgressOpacity(){
     if (_progressOpacity == 1){
@@ -1274,39 +1275,9 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
       appBarType: AppBarType.Basic,
       appBarRowWidgets: <Widget>[
 
-        DreamBox(
-          height: Ratioz.appBarButtonSize,
-          // width: Ratioz.appBarButtonSize * 1.3,
-          verse: '122 slides',
-          verseItalic: true,
-          verseMaxLines: 2,
-          verseScaleFactor: 0.5,
-          secondLine: 'available',
-          secondLineScaleFactor: 0.9,
-          verseCentered: false,
-          bubble: false,
-          color: Colorz.White20,
-          onTap: () async {
+        SlidesCounter(),
 
-            dynamic _result = await superDialog(
-              context: context,
-              boolDialog: true,
-              title: 'No Slides left',
-              body: 'You don\'t have any more slides to add\nWould you wish to get more slides ?',
-            );
-
-            if(_result == false){
-              print('No');
-            }
-
-            else {
-              print('yes');
-            }
-
-            },
-        ),
-
-        Expanded(child: Container(),),
+        Expander(),
 
         PublishButton(
           firstTimer: widget.firstTimer,

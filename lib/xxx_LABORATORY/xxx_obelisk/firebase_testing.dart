@@ -638,7 +638,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
       loading: _loading,
       appBarRowWidgets: <Widget>[
 
-        Expanded(child: Container(),),
+        Expander(),
 
         DreamBox(
           height: 35,

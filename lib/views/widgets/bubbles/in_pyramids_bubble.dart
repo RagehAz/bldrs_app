@@ -7,6 +7,7 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
+import 'package:bldrs/views/widgets/layouts/main_layout.dart' show Expander;
 
 class InPyramidsBubble extends StatelessWidget {
 final List<Widget> columnChildren;
@@ -125,7 +126,7 @@ final dynamic corners;
 
                         /// --- EXPANDER
                         if(centered == true)
-                        Expanded(child: Container(),),
+                          Expander(),
 
                         /// --- LEADING BUTTON
                         if (leadingIcon != null)
@@ -158,7 +159,7 @@ final dynamic corners;
 
                         /// --- EXPANDER
                         if(centered == true)
-                          Expanded(child: Container(),),
+                          Expander(),
 
                         /// --- ACTION BUTTON
                         if (actionBtIcon != null)
