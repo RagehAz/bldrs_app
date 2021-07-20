@@ -28,7 +28,7 @@ class BzLogo extends StatelessWidget {
     this.margins,
     this.onTap,
     this.blackAndWhite = false,
-    this.shadowIsOn,
+    this.shadowIsOn = false,
   });
 
 
@@ -51,6 +51,8 @@ class BzLogo extends StatelessWidget {
     ;
 // -----------------------------------------------------------------------------
 
+    print('object is objectIsColor : ${ObjectChecker.objectIsColor(image)} ');
+
     return GestureDetector(
       onTap: onTap == null ? (){} : onTap,
       child: Container(
@@ -58,13 +60,14 @@ class BzLogo extends StatelessWidget {
         width: width,
         margin: margins,
         decoration: BoxDecoration(
-            color: ObjectChecker.objectIsColor(image) ? image : Colorz.White10,
+            color: ObjectChecker.objectIsColor(image) ? null : Colorz.White10,
             image:
-            ObjectChecker.objectIsJPGorPNG(image)?
+            ObjectChecker.objectIsJPGorPNG(image) ?
             DecorationImage(image: AssetImage(image), fit: BoxFit.cover) : null,
             borderRadius: bzLogoCorners,
-            boxShadow: <CustomBoxShadow>[
-              if (shadowIsOn == true)
+            boxShadow:
+            shadowIsOn == false ? null :
+            <CustomBoxShadow>[
                 CustomBoxShadow(
                     color: Colorz.Black200,
                     offset: new Offset(0, 0),

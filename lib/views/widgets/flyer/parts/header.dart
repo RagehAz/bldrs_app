@@ -4,11 +4,11 @@ import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/scrollers.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/models/tiny_models/tiny_user.dart';
+import 'package:bldrs/views/widgets/flyer/parts/header_parts/bz_pg_headline.dart';
+import 'package:bldrs/views/widgets/flyer/parts/header_parts/header_shadow.dart';
+import 'package:bldrs/views/widgets/flyer/parts/header_parts/max_header.dart';
+import 'package:bldrs/views/widgets/flyer/parts/header_parts/mini_header_strip.dart';
 import 'package:flutter/material.dart';
-import 'header_parts/common_parts/header_shadow.dart';
-import 'header_parts/max_header.dart';
-import 'header_parts/max_header_parts/bz_pg_headline.dart';
-import 'header_parts/mini_header_parts/mini_header_strip.dart';
 
 class Header extends StatelessWidget {
   final TinyBz tinyBz;

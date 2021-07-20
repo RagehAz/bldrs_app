@@ -21,7 +21,7 @@ import 'package:bldrs/views/widgets/bubbles/stats_line.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_sheet.dart';
-import 'package:bldrs/views/widgets/flyer/parts/header_parts/max_header_parts/gallery.dart';
+import 'package:bldrs/views/widgets/flyer/parts/header_parts/gallery.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';

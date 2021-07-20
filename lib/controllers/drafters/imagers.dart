@@ -76,12 +76,12 @@ static DecorationImage superImage(String picture, BoxFit boxFit){
   // int _width = fit == BoxFit.fitWidth ? width : null;
   // int _height = fit == BoxFit.fitHeight ? height : null;
 
-  Asset _asset = ObjectChecker.objectIsAsset(pic) == true ? pic : null;
+  // Asset _asset = ObjectChecker.objectIsAsset(pic) == true ? pic : null;
 
   double _scale = scale == null ? 1 : scale;
 
   return
-  _asset == null ? null :
+  pic == null ? null :
     Transform.scale(
       scale: _scale,
       child:
@@ -105,9 +105,9 @@ static DecorationImage superImage(String picture, BoxFit boxFit){
           :
       ObjectChecker.objectIsAsset(pic)?
       AssetThumb(
-        asset: _asset,
-        width: (_asset.originalWidth).toInt(),
-        height: (_asset.originalHeight).toInt(),
+        asset: pic,
+        width: (pic.originalWidth).toInt(),
+        height: (pic.originalHeight).toInt(),
         spinner: Loading(loading: true,),
       )
           :
