@@ -1,12 +1,18 @@
+import 'package:bldrs/controllers/drafters/aligners.dart';
+import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/text_shapers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/router/route_names.dart';
+import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/widgets/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/views/widgets/bubbles/bzz_bubble.dart';
+import 'package:bldrs/views/widgets/buttons/dream_box.dart';
+import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
@@ -22,6 +28,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
   bool _isInit = true;
   List<TinyBz> _sponsors;
   bool _canContinue = false;
+  double _progress = 0;
 // -----------------------------------------------------------------------------
   /// --- LOADING BLOCK
   bool _loading = false;
@@ -29,6 +36,12 @@ class _LoadingScreenState extends State<LoadingScreen> {
     setState(() {_loading = !_loading;});
     _loading == true?
     print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+  }
+// -----------------------------------------------------------------------------
+  void _increaseProgressTo(double percent){
+    setState(() {
+      _progress = percent;
+    });
   }
 // -----------------------------------------------------------------------------
   @override
@@ -65,26 +78,33 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
           setState(() {
             _sponsors = _prof.getSponsors;
+            _progress = 30;
           });
 
           await _prof.fetchAndSetUserTinyBzz(context);
+          _increaseProgressTo(50);
 
           // TASK : should get only first 10 saved tiny flyers,, and continue paginating when entering the savedFlyers screen
           await _prof.fetchAndSetSavedFlyers(context);
+          _increaseProgressTo(70);
 
           /// TASK : should get only first 10 followed tiny bzz, then paginate in all when entering followed bzz screen
           await _prof.fetchAndSetFollows(context);
+          _increaseProgressTo(90);
 
           /// TASK : wallahi mana 3aref hane3mel eh hena
           await _prof.fetchAndSetTinyFlyersBySection(context, _prof.getCurrentSection);
+          _increaseProgressTo(99);
+
 
           _prof.changeSection(context, _prof.getCurrentSection);
 
-          Nav.goToRoute(context, Routez.Home);
+          setState(() {
+            _canContinue = true;
+            _progress = 100;
+          });
 
-          // setState(() {
-          //   _canContinue = true;
-          // });
+          Nav.goToRoute(context, Routez.Home);
 
           _triggerLoading();
         });
@@ -118,7 +138,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
         children: <Widget>[
 
-          Stratosphere(heightFactor: 0.5),
+          Stratosphere(heightFactor: 1),
 
           LogoSlogan(
             showSlogan: true,
@@ -126,7 +146,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
             sizeFactor: 0.7,
           ),
 
-          Expanded(child: Container()),
+          Stratosphere(heightFactor: 0.5),
 
           BzzBubble(
             tinyBzz: _sponsors,
@@ -134,37 +154,39 @@ class _LoadingScreenState extends State<LoadingScreen> {
             numberOfColumns: 3,
             title: 'Sponsored by',
             scrollDirection: Axis.vertical,
+            corners: Ratioz.appBarCorner * 2,
           ),
 
 
           Expanded(child: Container()),
 
+          // if (_loading == true)
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.center,
+          //   crossAxisAlignment: CrossAxisAlignment.center,
+          //   children: <Widget>[
+          //
+          //     Loading(
+          //       size: superVerseRealHeight(context, 2, 1, null),
+          //       loading: _loading,),
+          //
+          //     SuperVerse(
+          //       verse: 'Loading',
+          //       margin: 10,
+          //       size: 2,
+          //     ),
+          //
+          //   ],
+          // ),
 
-          if (_loading == true)
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-
-              Loading(
-                size: superVerseRealHeight(context, 2, 1, null),
-                loading: _loading,),
-
-              SuperVerse(
-                verse: 'Loading',
-                margin: 10,
-                size: 2,
-              ),
-
-            ],
-          ),
+          // Expanded(child: Container()),
 
           // if(_canContinue == true)
           //   DreamBox(
           //     height: 40,
           //     verse: 'Continue',
           //     verseScaleFactor: 0.8,
-          //     boxFunction: () async {
+          //     onTap: () async {
           //       var _navResult = await Nav.goToRoute(context, Routez.Home);
           //
           //       if (_navResult == true){
@@ -175,14 +197,31 @@ class _LoadingScreenState extends State<LoadingScreen> {
           //           boolDialog: false,
           //         );
           //
-          //         Nav.goToNewScreen(context, HomeScreen());
+          //         Nav.goBackToHomeScreen(context);
           //       }
           //
           //       }
           //     ,
           //   ),
 
-          PyramidsHorizon(),
+          /// PROGRESS BAR
+          // if(_progress != 0)
+          GestureDetector(
+            onTap: () => Nav.goBackToUserChecker(context),
+            child: Container(
+              width: Scale.superScreenWidth(context),
+              height: 3,
+              color: Colorz.White80,
+              alignment: Aligners.superCenterAlignment(context),
+              child: AnimatedContainer(
+                duration: Duration(milliseconds: 1500),
+                width: Scale.superScreenWidth(context) * _progress / 100,
+                color: Colorz.Yellow255,
+              ),
+            ),
+          ),
+
+          // PyramidsHorizon(),
         ],
       ),
     );
