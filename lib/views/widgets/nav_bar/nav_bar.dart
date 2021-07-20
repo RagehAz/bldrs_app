@@ -3,6 +3,7 @@ import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/drafters/colorizers.dart';
 import 'package:bldrs/controllers/drafters/device_checkers.dart';
 import 'package:bldrs/controllers/drafters/iconizers.dart';
+import 'package:bldrs/controllers/drafters/keyboarders.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/shadowers.dart';
 import 'package:bldrs/controllers/drafters/streamerz.dart';
@@ -47,53 +48,10 @@ class NavBar extends StatelessWidget {
 });
 // -----------------------------------------------------------------------------
   /// --- MAIN CONTROLS
-  static const double _circleWidth = 40;
-  static const double _paddings = Ratioz.appBarPadding * 1.5;
-  static const double _textScaleFactor = 0.95;
-  static const int _textSize = 0;
+  static const double _circleWidth = Ratioz.appBarButtonSize;
+  static const double _paddings = Scale.navbarPaddings;
 // -----------------------------------------------------------------------------
-  static const double _buttonWidth =_circleWidth + (_paddings * 0.5 * 2) + (_paddings * 0.5 * 2);
-// -----------------------------------------------------------------------------
-  int _calculateNumberOfButtons(UserModel userModel){
-    int _numberOfButtons = UserModel.userIsAuthor(userModel) ? 4 : 3;
-    return _numberOfButtons;
-  }
-// -----------------------------------------------------------------------------
-  double _calculateSpacings(BuildContext context, double buttonWidth, int numberOfButtons, int numberOfSpacings, double spacingFactor){
-    double _spacings =
-    barType == BarType.max || barType == BarType.maxWithText ?
-    ((Scale.superScreenWidth(context) - (buttonWidth * numberOfButtons) ) / numberOfSpacings) * spacingFactor
-        :
-    _paddings * 0
-    ;
-    return _spacings;
-  }
-// -----------------------------------------------------------------------------
-  double _calculateBoxWidth(BuildContext context, UserModel userModel){
-    int _numberOfButtons = _calculateNumberOfButtons(userModel);
-    int _numberOfSpacings = _numberOfButtons - 1;
-    double _spacingFactor = 0.5;
-    double _spacings = _calculateSpacings(context, _buttonWidth, _numberOfButtons, _numberOfSpacings, _spacingFactor);
-
-    double _boxWidth =
-    barType == BarType.maxWithText || barType == BarType.max ?
-    Scale.superScreenWidth(context)
-        :
-    ( _buttonWidth * _numberOfButtons ) + (_spacings * _numberOfSpacings) ;
-
-    return _boxWidth;
-  }
-// -----------------------------------------------------------------------------
-  double _calculateSpacerWidth(BuildContext context, UserModel userModel){
-    int _numberOfButtons = _calculateNumberOfButtons(userModel);
-    int _numberOfSpacings = _numberOfButtons - 1;
-    double _spacingFactor = 0.5;
-    double _spacings = _calculateSpacings(context, _buttonWidth, _numberOfButtons, _numberOfSpacings, _spacingFactor);
-
-    double _halfSpacer = _spacings * 0.5;
-
-    return _halfSpacer;
-  }
+  static const double _buttonWidth = Scale.navBarButtonWidth;
 // -----------------------------------------------------------------------------
   double _myBzzListSlideHeight(BuildContext context){
     double _wantedHeight = (Scale.superScreenWidth(context) * 0.3 * myTinyBzz.length);
@@ -141,39 +99,58 @@ class NavBar extends StatelessWidget {
                   ),
 
                   /// MY BZZ BUTTONS
-                  Container(
-                    height: _bzzButtonsZoneHeight,
-                    child: ListView.builder(
-                      padding: const EdgeInsets.all(_paddings),
-                      itemCount: myTinyBzz.length,
-                      itemBuilder: (context, index){
-                        TinyBz _tinyBz = myTinyBzz[index];
-                        return Align(
-                          alignment: Aligners.superCenterAlignment(context),
-                          child: DreamBox(
-                            height: 60,
-                            width: _bzButtonWidth,
-                            margins: const EdgeInsets.all(Ratioz.appBarPadding),
-                            icon: _tinyBz.bzLogo,
-                            verse: _tinyBz.bzName,
-                            secondLine: TextGenerator.bzTypeSingleStringer(context, _tinyBz.bzType),
-                            iconSizeFactor: 1,
-                            verseScaleFactor: 0.7,
-                            bubble: true,
-                            color: Colorz.Nothing,
-                            onTap: () async {
-                              print('${_tinyBz.bzID}');
+                  NotificationListener(
+                    onNotification: (ScrollUpdateNotification details){
 
-                                Nav.goToNewScreen(context,
-                                    MyBzScreen(
-                                      userModel: userModel,
-                                      tinyBz: _tinyBz,
-                                    ));
+                      double _offset = details.metrics.pixels;
 
-                            },
-                          ),
-                        );
-                      },
+                      double _bounceLimit = _bzzButtonsZoneHeight * 0.1 * (-1);
+
+                      bool _canPageUp = _offset < _bounceLimit;
+
+                      if(_canPageUp){
+                        Nav.goBackToHomeScreen(context);
+                      }
+
+                      return true;
+                    },
+                    child: Container(
+                      height: _bzzButtonsZoneHeight,
+                      color: Colorz.BloodTest,
+                      child: ListView.builder(
+                        padding: const EdgeInsets.all(_paddings),
+                        physics: const BouncingScrollPhysics(),
+                        // controller: _myBzzListController,
+                        itemCount: myTinyBzz.length,
+                        itemBuilder: (context, index){
+                          TinyBz _tinyBz = myTinyBzz[index];
+                          return Align(
+                            alignment: Aligners.superCenterAlignment(context),
+                            child: DreamBox(
+                              height: 60,
+                              width: _bzButtonWidth,
+                              margins: const EdgeInsets.all(Ratioz.appBarPadding),
+                              icon: _tinyBz.bzLogo,
+                              verse: _tinyBz.bzName,
+                              secondLine: TextGenerator.bzTypeSingleStringer(context, _tinyBz.bzType),
+                              iconSizeFactor: 1,
+                              verseScaleFactor: 0.7,
+                              bubble: true,
+                              color: Colorz.Nothing,
+                              onTap: () async {
+                                print('${_tinyBz.bzID}');
+
+                                  Nav.goToNewScreen(context,
+                                      MyBzScreen(
+                                        userModel: userModel,
+                                        tinyBz: _tinyBz,
+                                      ));
+
+                              },
+                            ),
+                          );
+                        },
+                      ),
                     ),
                   )
 
@@ -187,41 +164,13 @@ class NavBar extends StatelessWidget {
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
     double _screenWidth = Scale.superScreenWidth(context);
-    double _buttonCircleCorner = _circleWidth * 0.5;
+    double _buttonCircleCorner = Scale.buttonCircleCorner;
+    BorderRadius _boxCorners = Scale.navBarCorners(context: context, barType: barType);
+    double _boxHeight = Scale.navBarHeight(context: context, barType: barType);
+    double _bottomOffset = Scale.navBarBottomOffset(barType: barType);
 // -----------------------------------------------------------------------------
-    double _textBoxHeight =
-    barType == BarType.maxWithText || barType == BarType.minWithText ?
-    superVerseRealHeight(context, _textSize, _textScaleFactor, null) : 0;
-// -----------------------------------------------------------------------------
-    double _boxCorner = _buttonCircleCorner + _paddings;
-// -----------------------------------------------------------------------------
-    BorderRadius _boxBorders =
-    barType == BarType.min ?
-    Borderers.superBorders(context: context, enTopLeft: _boxCorner, enBottomLeft: _boxCorner, enBottomRight: _boxCorner, enTopRight: _boxCorner)
-        :
-    barType == BarType.max  || barType == BarType.maxWithText?
-    Borderers.superBorders(context: context, enTopLeft: _boxCorner, enBottomLeft: 0, enBottomRight: 0, enTopRight: _boxCorner)
-        :
-    Borderers.superBorders(context: context, enTopLeft: _boxCorner, enBottomLeft: _boxCorner * 0.5, enBottomRight: _boxCorner * 0.5, enTopRight: _boxCorner)
-    ;
-// -----------------------------------------------------------------------------
-    double _buttonHeight = _circleWidth + ( 2 * _paddings ) + _textBoxHeight;
-// -----------------------------------------------------------------------------
-    double _boxHeight =
-        barType == BarType.maxWithText || barType == BarType.minWithText ?
-        _circleWidth + ( _paddings * 2) + (_textBoxHeight)
-            :
-        _circleWidth + ( _paddings * 2);
-// -----------------------------------------------------------------------------
-    double _bottomOffset =
-    barType == BarType.min || barType == BarType.minWithText ? _paddings :
-    barType == BarType.max || barType == BarType.maxWithText ? 0 : 0;
-// -----------------------------------------------------------------------------
-    // final _userID = (FirebaseAuth.instance.currentUser)?.uid;
-// -----------------------------------------------------------------------------
-    // FlyersProvider prof = Provider.of<FlyersProvider>(context, listen: true);
-// -----------------------------------------------------------------------------
-    bool _deviceIsIOS = DeviceChecker.deviceIsIOS() ? true : false;
+    /// TASK : IOS back button needs revision
+    bool _deviceIsIOS = false;//DeviceChecker.deviceIsIOS();
 // -----------------------------------------------------------------------------
     Widget _expander = _deviceIsIOS ? Expanded(child: Container(),) : Container();
 // -----------------------------------------------------------------------------
@@ -232,10 +181,11 @@ class NavBar extends StatelessWidget {
            listen: false,
            builder: (context, UserModel userModel){
 
-             Widget _spacer = SizedBox(width: _calculateSpacerWidth(context, userModel),);
-             Widget _halfSpacer = SizedBox(width: _calculateSpacerWidth(context, userModel) * 0.5,);
+             double _spacerWidth = Scale.navBarSpacerWidth(context, userModel);
+             Widget _spacer = SizedBox(width: _spacerWidth,);
+             Widget _halfSpacer = SizedBox(width: _spacerWidth * 0.5,);
 
-             double _boxWidth = _calculateBoxWidth(context, userModel);
+             double _boxWidth = Scale.navBarWidth(context: context, userModel: userModel);
 
              List<String> _userBzzIDs = TinyBz.getBzzIDsFromTinyBzz(myTinyBzz);
 
@@ -275,7 +225,7 @@ class NavBar extends StatelessWidget {
                          height: _boxHeight,
                          decoration: BoxDecoration(
                            color: Colorz.Black230,
-                           borderRadius: _boxBorders,
+                           borderRadius: _boxCorners,
                            boxShadow: Shadowz.appBarShadow,
                          ),
                          child: Stack(
@@ -286,7 +236,7 @@ class NavBar extends StatelessWidget {
                                width: _boxWidth,
                                height: _boxHeight,
                                blur: Ratioz.blur1,
-                               borders: _boxBorders,
+                               borders: _boxCorners,
                              ),
 
                              // --- BUTTONS

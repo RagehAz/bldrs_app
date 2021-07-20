@@ -1,6 +1,11 @@
+import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/drafters/streamerz.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/nav_bar/nav_bar.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
@@ -14,52 +19,20 @@ class _PopUpTestScreenState extends State<PopUpTestScreen> {
   @override
   Widget build(BuildContext context) {
 
-    double screenWidth = MediaQuery.of(context).size.width;
-    // double screenHeight = MediaQuery.of(context).size.height;
+    double _screenWidth = Scale.superScreenWidth(context);
+    double _screenHeight = Scale.superScreenHeight(context);
+
+    BarType _barType = BarType.minWithText;
+
+    Widget _spacer = SizedBox(height: 20,);
 
     return MainLayout(
 
       layoutWidget:
       ListView(
-        children: [
-          Container(
-            width: screenWidth,
-            height: screenWidth,
-            alignment: Alignment.center,
-            child: Builder(
+        children: <Widget>[
 
-              builder: (context) =>
-
-                  Center(
-                    child: IconButton(
-                      iconSize: 40,
-                      icon: DreamBox(
-                        // width: 100,
-                        height: 40,
-                        icon: Iconz.DvRageh,
-                      ),
-                      onPressed: (){
-                        Scaffold.of(context).hideCurrentSnackBar();
-                        Scaffold.of(context).showSnackBar(
-                            SnackBar(
-                              backgroundColor: Colorz.White10,
-                              elevation: 0,
-                              content: SuperVerse(
-                                verse: 'wtf',
-                                labelColor: Colorz.BloodTest,
-                              ),
-                              duration: Duration(seconds: 2),
-                              action: SnackBarAction(
-                                label: 'koko',
-                                onPressed: (){},
-                              ),
-
-                            ));
-                      },
-                    ),
-                  ),
-            ),
-          ),
+          Stratosphere(),
 
           Dismissible(
             key: ValueKey('dd'),
@@ -94,7 +67,100 @@ class _PopUpTestScreenState extends State<PopUpTestScreen> {
                 ],
               ));
             },
-          )
+          ),
+
+          _spacer,
+          _spacer,
+          _spacer,
+          _spacer,
+          _spacer,
+          _spacer,
+          _spacer,
+          _spacer,
+          _spacer,
+          _spacer,
+
+
+          Container(
+            width: _screenWidth,
+            alignment: Alignment.center,
+            child: userModelBuilder(
+              context: context,
+              userID: superUserID(),
+              builder: (ctx, userModel){
+                return
+                  Builder(
+                    builder: (context){
+                      return
+                        Center(
+                          child: Column(
+                            children: <Widget>[
+
+                              /// open
+                              DreamBox(
+                                // width: 100,
+                                height: 40,
+                                icon: Iconz.DvRageh,
+                                verse: 'press',
+                                onTap: () async {
+                                  Scaffold.of(context).hideCurrentSnackBar();
+                                  await Scaffold.of(context).showSnackBar(
+                                    SnackBar(
+                                      duration: Duration(seconds: 5),
+                                      backgroundColor: Colorz.Nothing,
+                                      behavior: SnackBarBehavior.fixed,
+                                      onVisible: (){
+                                        print('is visible now');
+                                      },
+                                      elevation: 0,
+                                      content: Container(
+                                        width: Scale.superScreenWidth(context),
+                                        height: Scale.navBarHeight(context: context, barType: _barType),
+                                        color: Colorz.Nothing,
+                                        alignment: Alignment.center,
+                                        child: DreamBox(
+                                          height: Scale.navBarHeight(context: context, barType: _barType),
+                                          width: Scale.navBarWidth(context: context,userModel: userModel, barType: _barType),
+                                          color: Colorz.DarkRed255,
+                                          corners: Scale.navBarCorners(context: context, barType: _barType),
+                                          verse: 'No Internet !',
+                                          verseScaleFactor: 0.8,
+                                          verseWeight: VerseWeight.bold,
+                                          verseColor: Colorz.White255,
+                                          verseShadow: true,
+                                          verseItalic: true,
+                                          bubble: false,
+                                          onTap: () => Scaffold.of(context).hideCurrentSnackBar(),
+                                        ),
+                                      ),
+
+                                    ),
+                                  );
+                                },
+                              ),
+
+                              _spacer,
+
+                              /// close
+                              DreamBox(
+                                height: 40,
+                                verse: 'Close Snackbar',
+                                onTap: () async {
+                                  await Scaffold.of(context).hideCurrentSnackBar();
+                                },
+                              ),
+
+                            ],
+                          ),
+                        );
+                    },
+                  );
+              }
+
+            ),
+          ),
+
+
 
         ],
       ),

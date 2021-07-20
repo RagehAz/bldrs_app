@@ -6,9 +6,9 @@ class Scrollers{
 // -----------------------------------------------------------------------------
   static ScrollPhysics superScroller(bool trigger){
     ScrollPhysics scroller = trigger == true ?
-    BouncingScrollPhysics()
+    const BouncingScrollPhysics()
         :
-    NeverScrollableScrollPhysics();
+    const NeverScrollableScrollPhysics();
 
     return scroller;
   }

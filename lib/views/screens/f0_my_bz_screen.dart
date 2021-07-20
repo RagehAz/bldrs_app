@@ -306,6 +306,7 @@ class _MyBzScreenState extends State<MyBzScreen> {
                 ],
 
                 layoutWidget: ListView(
+                  physics: const BouncingScrollPhysics(),
                   children: <Widget>[
 
                     Stratosphere(),

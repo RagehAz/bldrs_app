@@ -1,63 +1,20 @@
-import 'dart:io';
-import 'package:bldrs/controllers/drafters/animators.dart';
 import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/drafters/iconizers.dart';
-import 'package:bldrs/controllers/drafters/keyboarders.dart';
-import 'package:bldrs/controllers/drafters/sliders.dart' show SwipeDirection, Sliders;
-import 'package:bldrs/controllers/drafters/imagers.dart' ;
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/text_generators.dart';
-import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/dumz.dart';
 import 'package:bldrs/controllers/theme/flagz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/controllers/theme/standards.dart';
-import 'package:bldrs/controllers/theme/wordz.dart';
-import 'package:bldrs/firestore/auth_ops.dart';
-import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
-import 'package:bldrs/models/flyer_type_class.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
-import 'package:bldrs/models/planet/zone_model.dart';
-import 'package:bldrs/models/secondary_models/draft_flyer_model.dart';
-import 'package:bldrs/models/sub_models/author_model.dart';
-import 'package:bldrs/models/sub_models/slide_model.dart';
-import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/models/tiny_models/tiny_user.dart';
-import 'package:bldrs/models/user_model.dart';
-import 'package:bldrs/providers/country_provider.dart';
-import 'package:bldrs/providers/flyers_provider.dart';
-import 'package:bldrs/views/screens/xx_flyer_on_map.dart';
-import 'package:bldrs/views/screens/x2_old_flyer_editor_screen.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/paragraph_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/stats_line.dart';
 import 'package:bldrs/views/widgets/bubbles/words_bubble.dart';
-import 'package:bldrs/views/widgets/buttons/PersonButton.dart';
-import 'package:bldrs/views/widgets/buttons/dream_box.dart';
-import 'package:bldrs/views/widgets/buttons/panel_button.dart';
-import 'package:bldrs/views/widgets/buttons/publish_button.dart';
-import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
-import 'package:bldrs/views/widgets/dialogs/bottom_sheet.dart';
-import 'package:bldrs/views/widgets/dialogs/dialogz.dart';
-import 'package:bldrs/views/widgets/flyer/editor/editorPanel.dart';
-import 'package:bldrs/views/widgets/flyer/parts/ankh_button.dart';
-import 'package:bldrs/views/widgets/flyer/parts/flyer_zone.dart';
-import 'package:bldrs/views/widgets/flyer/parts/header.dart';
-import 'package:bldrs/views/widgets/flyer/parts/progress_bar.dart';
-import 'package:bldrs/views/widgets/flyer/parts/slides_parts/footer.dart';
 import 'package:bldrs/views/widgets/flyer/parts/slides_parts/record_bubble.dart';
-import 'package:bldrs/views/widgets/flyer/parts/slides_parts/single_slide.dart';
-import 'package:bldrs/views/widgets/flyer/parts/slides_parts/info_slide.dart';
-import 'package:bldrs/views/widgets/layouts/main_layout.dart';
-import 'package:bldrs/views/widgets/textings/super_verse.dart';
-import 'package:bldrs/xxx_LABORATORY/camera_and_location/location_helper.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_keyboard_size/flutter_keyboard_size.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:multi_image_picker2/multi_image_picker2.dart';
-import 'package:bldrs/controllers/theme/colorz.dart';
 
 class InfoSlide extends StatelessWidget {
   final double flyerZoneWidth;
@@ -149,7 +106,7 @@ class InfoSlide extends StatelessWidget {
           alignment: Alignment.topCenter,
           // color: Colorz.BloodTest,
           child: Column(
-            // physics: BouncingScrollPhysics(),
+            // physics: const BouncingScrollPhysics(),
             // shrinkWrap: true,
 
             children: <Widget>[

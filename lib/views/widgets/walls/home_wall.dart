@@ -36,6 +36,7 @@ class _HomeWallState extends State<HomeWall> {
 // -----------------------------------------------------------------------------
     List<Widget> _homeWallWidgets = <Widget>[
 
+      /// BUSINESSES
       BzzBubble(
         tinyBzz: _userTinyBzz,
         numberOfRows: 1,
@@ -46,6 +47,7 @@ class _HomeWallState extends State<HomeWall> {
 
       _spacer,
 
+      /// PROMOTED
       Container(
         width: Scale.superScreenWidth(context),
         alignment: Alignment.center,
@@ -96,6 +98,7 @@ class _HomeWallState extends State<HomeWall> {
       _spacer,
       _spacer,
 
+      /// NEW FLYERS
       FlyerStack(
         flyersType: FlyerType.Property,
         title: 'New By section flyers in Heliopolis',
@@ -105,6 +108,7 @@ class _HomeWallState extends State<HomeWall> {
       _spacer,
       _spacer,
 
+      /// SEQUENCES
       SequencesBubble(
         gridZoneWidth: Scale.superBubbleClearWidth(context),
         onTap: (){},
@@ -114,6 +118,7 @@ class _HomeWallState extends State<HomeWall> {
       _spacer,
       _spacer,
 
+      /// RECENTLY VIEWED
       FlyerStack(
         flyersType: FlyerType.Property,
         title: 'Recently viewed flyers',
@@ -128,6 +133,7 @@ class _HomeWallState extends State<HomeWall> {
 
     return ListView.builder(
       padding: EdgeInsets.only(top: Ratioz.stratosphere),
+      physics: const BouncingScrollPhysics(),
       scrollDirection: Axis.vertical,
         itemCount: _homeWallWidgets.length,
 
