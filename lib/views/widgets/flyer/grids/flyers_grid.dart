@@ -125,7 +125,7 @@ class _FlyersGridState extends State<FlyersGrid> {
           Center(child: Loading(loading: true,)) :
 
           GridView(
-            physics: widget.scrollable ? AlwaysScrollableScrollPhysics() : NeverScrollableScrollPhysics(),
+            physics: widget.scrollable ? const BouncingScrollPhysics() : const NeverScrollableScrollPhysics(),
             addAutomaticKeepAlives: true,
             scrollDirection: widget.scrollDirection,
             padding: _gridPadding,
