@@ -102,7 +102,7 @@ class _FireSearchTestState extends State<FireSearchTest> {
       loading: _loading,
       appBarRowWidgets: <Widget>[
 
-        Expanded(child: Container(),),
+        Expander(),
 
         DreamBox(
           height: 35,

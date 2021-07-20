@@ -14,6 +14,7 @@ import 'package:bldrs/views/widgets/buttons/dream_wrapper.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_sheet.dart';
 import 'package:bldrs/views/widgets/layouts/dashboard_layout.dart';
+import 'package:bldrs/views/widgets/layouts/main_layout.dart' show Expander;
 import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
@@ -261,7 +262,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
                                         ),
 
                                         // --- Expander
-                                        Expanded(child: Container()),
+                                        Expander(),
 
                                         DreamBox(
                                           height: 25,

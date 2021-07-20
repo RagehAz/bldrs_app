@@ -899,7 +899,7 @@ class _OldFlyerEditorScreenState extends State<OldFlyerEditorScreen> {
           scaleFactor: 0.7,
         ),
 
-        Expanded(child: Container(),),
+        Expander(),
 
         _publishButton(),
 

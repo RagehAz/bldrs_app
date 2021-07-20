@@ -81,22 +81,22 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
           // TASK : should get only first 10 saved tiny flyers,, and continue paginating when entering the savedFlyers screen
           await _prof.fetchAndSetSavedFlyers(context);
-          // _increaseProgressTo(70);
+          _increaseProgressTo(60);
 
           /// TASK : should get only first 10 followed tiny bzz, then paginate in all when entering followed bzz screen
           await _prof.fetchAndSetFollows(context);
-          // _increaseProgressTo(90);
+          _increaseProgressTo(80);
 
           /// TASK : wallahi mana 3aref hane3mel eh hena
           await _prof.fetchAndSetTinyFlyersBySection(context, _prof.getCurrentSection);
-          // _increaseProgressTo(99);
+          _increaseProgressTo(95);
 
 
           _prof.changeSection(context, _prof.getCurrentSection);
 
           setState(() {
             _canContinue = true;
-            // _progress = 100;
+            _progress = 100;
           });
 
           Nav.goToRoute(context, Routez.Home);
@@ -121,7 +121,6 @@ class _LoadingScreenState extends State<LoadingScreen> {
   @override
   Widget build(BuildContext context) {
     print('-------------- Starting Loading screen --------------');
-
 
     return MainLayout(
       pyramids: Iconz.PyramidzYellow,
@@ -152,52 +151,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
             corners: Ratioz.appBarCorner * 2,
           ),
 
-
-          Expanded(child: Container()),
-
-          // if (_loading == true)
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.center,
-          //   crossAxisAlignment: CrossAxisAlignment.center,
-          //   children: <Widget>[
-          //
-          //     Loading(
-          //       size: superVerseRealHeight(context, 2, 1, null),
-          //       loading: _loading,),
-          //
-          //     SuperVerse(
-          //       verse: 'Loading',
-          //       margin: 10,
-          //       size: 2,
-          //     ),
-          //
-          //   ],
-          // ),
-
-          // Expanded(child: Container()),
-
-          // if(_canContinue == true)
-          //   DreamBox(
-          //     height: 40,
-          //     verse: 'Continue',
-          //     verseScaleFactor: 0.8,
-          //     onTap: () async {
-          //       var _navResult = await Nav.goToRoute(context, Routez.Home);
-          //
-          //       if (_navResult == true){
-          //         await superDialog(
-          //           context: context,
-          //           title: 'Estanna bas',
-          //           body: 'Raye7 fein keda enta ?,, Yalla erga3 3ala faslak yalla wala ',
-          //           boolDialog: false,
-          //         );
-          //
-          //         Nav.goBackToHomeScreen(context);
-          //       }
-          //
-          //       }
-          //     ,
-          //   ),
+          Expander(),
 
           /// PROGRESS BAR
           // if(_progress != 0)
