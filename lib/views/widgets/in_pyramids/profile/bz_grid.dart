@@ -1,9 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/common_parts/bz_logo.dart';
-import 'package:flutter/material.dart';
 
 class BzGrid extends StatelessWidget {
 
@@ -94,18 +94,38 @@ class BzGrid extends StatelessWidget {
                   padding: EdgeInsets.only(top: _gridSpacing, left: _gridSpacing, right: _gridSpacing, bottom: 0),
                   // key: new Key(loadedFlyers[flyerIndex].f01flyerID),
                   gridDelegate: _gridDelegate,
-                  children: _tinyBzz.map(
-                        (bz) => BzLogo(
-                            width: _gridBzWidth,
-                            image: bz.bzLogo,
-                            bzPageIsOn: false,
-                            miniMode: true,
-                            zeroCornerIsOn: false,
-                            onTap: () => itemOnTap(bz.bzID)
-                        ),
+                  children: <Widget>[
 
-                  ).toList(),
+                    ...List.generate(_tinyBzz.length, (index) {
 
+                      TinyBz bz = _tinyBzz[index];
+                      return
+                      BzLogo(
+    width: _gridBzWidth,
+    image: bz.bzLogo,
+    bzPageIsOn: false,
+    miniMode: true,
+    zeroCornerIsOn: false,
+    onTap: () => itemOnTap(bz.bzID)
+    );
+
+                    }
+
+                    ),
+                    Container(),
+                    // _tinyBzz.map(
+                    //       (bz) => BzLogo(
+                    //           width: _gridBzWidth,
+                    //           image: bz.bzLogo,
+                  //           bzPageIsOn: false,
+                  //           miniMode: true,
+                  //           zeroCornerIsOn: false,
+                  //           onTap: () => itemOnTap(bz.bzID)
+                  //       ),
+                  //
+                  // ).toList(),
+
+    ],
                 ),
 
               ],

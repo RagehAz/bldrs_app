@@ -1,8 +1,5 @@
-import 'package:bldrs/controllers/drafters/text_generators.dart';
-import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
-import 'package:bldrs/views/widgets/flyer/stacks/flyer_stack.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:bldrs/views/widgets/walls/home_wall.dart';
@@ -75,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: true);
     // List<TinyBz> _tinyBzz = _prof.getAllTinyBzz;
-    List<TinyBz> _userTinyBzz = _prof.getUserTinyBzz;
+    // List<TinyBz> _userTinyBzz = _prof.getUserTinyBzz;
 
     return WillPopScope(
       onWillPop: () => Future.value(false),

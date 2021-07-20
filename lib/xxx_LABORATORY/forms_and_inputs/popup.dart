@@ -2,7 +2,6 @@ import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/streamerz.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
-import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/nav_bar/nav_bar.dart';
@@ -20,7 +19,7 @@ class _PopUpTestScreenState extends State<PopUpTestScreen> {
   Widget build(BuildContext context) {
 
     double _screenWidth = Scale.superScreenWidth(context);
-    double _screenHeight = Scale.superScreenHeight(context);
+    // double _screenHeight = Scale.superScreenHeight(context);
 
     BarType _barType = BarType.minWithText;
 
