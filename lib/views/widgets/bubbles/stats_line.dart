@@ -34,6 +34,6 @@ class StatsLine extends StatelessWidget {
       color: onTap == null ? null : Colorz.White20,
       onTap: onTap,
     );
-    ;
+
   }
 }

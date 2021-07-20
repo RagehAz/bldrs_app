@@ -112,6 +112,11 @@ class _RegisterFormState extends State<RegisterForm> {
 // -----------------------------------------------------------------------------
   Future<void> _registerOnTap({Zone currentZone}) async {
 
+    setState(() {
+      _passwordObscured = true;
+    });
+
+
     /// minimize keyboard
     Keyboarders.minimizeKeyboardOnTapOutSide(context);
 

@@ -16,8 +16,8 @@ class UserProvider{
   List<UserModel> _usersListFromSnapshot(QuerySnapshot snapshot){
     return snapshot.docs.map((doc) {
       // print(doc.data()['savedFlyersIDs']);
-      List<dynamic> _savedFlyersIDs = doc.data()['savedFlyersIDs'] as List<dynamic>;
-      List<dynamic> _followedBzzIDs = doc.data()['followedBzzIDs'] as List<dynamic>;
+      // List<dynamic> _savedFlyersIDs = doc.data()['savedFlyersIDs'] as List<dynamic>;
+      // List<dynamic> _followedBzzIDs = doc.data()['followedBzzIDs'] as List<dynamic>;
       // List<dynamic> _publishedFlyersIDs = doc.data()['publishedFlyersIDs'] as List<dynamic>;
       return UserModel(
         userID : doc.data()['userID'] ?? '',

@@ -54,6 +54,7 @@ class _RandomTestSpaceState extends State<RandomTestSpace> {
       return _randomNumber;
     }
 
+    return _randomNumber;
   }
 
   @override

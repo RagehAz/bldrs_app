@@ -98,7 +98,7 @@ class _FireStorageTestState extends State<FireStorageTest> {
       {'Name' : 'create pic url from another url', 'function' : () async {
         _triggerLoading();
 
-        String _url = 'https://www.cleopatraegypttours.com/wp-content/uploads/2019/10/The-Ankh.jpg';
+        // String _url = 'https://www.cleopatraegypttours.com/wp-content/uploads/2019/10/The-Ankh.jpg';
 
 
         printResult('done');
