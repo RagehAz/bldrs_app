@@ -47,6 +47,13 @@ enum Sky {
 //   print('LOADING') : print('LOADING COMPLETE');
 // }
 // // ---------------------------------------------------------------------------
+class Expander extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(child: Container(),);
+  }
+}
 // -----------------------------------------------------------------------------
 class MainLayout extends StatelessWidget {
   final List<Widget> appBarRowWidgets;
