@@ -207,8 +207,10 @@ class DreamBox extends StatelessWidget {
     CrossAxisAlignment.center; // verseCentered
 // -----------------------------------------------------------------------------
     /// underline should only available if dreambox is portrait && verse is null && secondVerse is null
+    double _iconBoxHeight = width ?? 0;
+    double _underLineHeight = height?? 0 - _iconBoxHeight;
     double _underLineTopMargin = underLine == null ? 0 :
-    ObjectChecker.objectIsSVG(icon) ? width - ((width - _graphicWidth)/2) :
+    ObjectChecker.objectIsSVG(icon) ? (width - (_underLineHeight * 0.1)) * 1 : // (width - ((width - _graphicWidth)/2)) * 0.0 :
     width;
     double _underlineHeight = underLine == null ? 0 : height - _underLineTopMargin;
 // -----------------------------------------------------------------------------

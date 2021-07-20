@@ -87,6 +87,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
   PageController _horizontalController;
   PageController _verticalController;
   ScrollController _infoScrollController;
+  PageController _panelController;
 // -----------------------------------------------------------------------------
   FlyersProvider _prof;
   CountryProvider _countryPro;
@@ -160,7 +161,10 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
     _horizontalController = PageController(initialPage: 0, viewportFraction: 1, keepPage: true);
     _verticalController = PageController(initialPage: 0, keepPage: true, viewportFraction: 1);
     _infoScrollController = ScrollController(keepScrollOffset: true,);
-
+    _panelController = PageController(initialPage: 0, keepPage: true, viewportFraction: 1);
+    _verticalController..addListener(() {
+      _panelController.animateTo(_verticalController.position.pixels, duration: Ratioz.durationSliding400, curve: Curves.easeOutBack);
+    });
 
     _prof = Provider.of<FlyersProvider>(context, listen: false);
     _countryPro = Provider.of<CountryProvider>(context, listen: false);
@@ -178,6 +182,8 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
     TextChecker.disposeAllTextControllers(_draft.headlinesControllers);
     _verticalController.dispose();
     _horizontalController.dispose();
+    _infoScrollController.dispose();
+    _panelController.dispose();
     super.dispose();
   }
 // ---------------------------------------------------o
@@ -1161,10 +1167,12 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
     /// open keywords
     if(_verticalIndex == 0){
       await Sliders.slideToNext(_verticalController, 2, 0);
+      // await Sliders.slideToNext(_panelController, 2, 0);
     }
     /// close keywords
     else {
       await Sliders.slideToBackFrom(_verticalController, 1);
+      // await Sliders.slideToBackFrom(_panelController, 1);
     }
 
     setState(() {
@@ -1320,8 +1328,8 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
       ],
 
       layoutWidget:
-      ListView(
-        physics: NeverScrollableScrollPhysics(),
+      Column(
+        // physics: NeverScrollableScrollPhysics(),
         children: <Widget>[
 
           Stratosphere(),
@@ -1332,21 +1340,24 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
             height: _panelHeight,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
 
                 /// PANEL
                 EditorPanel(
-                    flyerZoneWidth: _flyerZoneWidth,
-                    panelWidth: _panelWidth,
-                    author: _author,
-                    boxFit: _currentPicFit,
-                    showAuthor: _draft.showAuthor,
-                    onAuthorTap: _onAuthorTap,
-                    onAddImage: () async {await _getMultiGalleryImages(flyerZoneWidth: _flyerZoneWidth);},
-                    onDeleteImage: _deleteSlide,
-                    onCropImage: () async {_onCropImage();},
-                    onResetImage: _onResetImage,
-                    onFitImage: () async {await _onFitImage(_currentPicFit);},
+                  flyerZoneWidth: _flyerZoneWidth,
+                  panelWidth: _panelWidth,
+                  author: _author,
+                  boxFit: _currentPicFit,
+                  showAuthor: _draft.showAuthor,
+                  onAuthorTap: _onAuthorTap,
+                  onAddImage: () async {await _getMultiGalleryImages(flyerZoneWidth: _flyerZoneWidth);},
+                  onDeleteImage: _deleteSlide,
+                  onCropImage: () async {_onCropImage();},
+                  onResetImage: _onResetImage,
+                  onFitImage: () async {await _onFitImage(_currentPicFit);},
+                  panelController: _panelController,
+                  zone: _flyer.flyerZone,
                 ),
 
                 /// FLYER

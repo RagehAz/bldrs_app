@@ -5,6 +5,7 @@ import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/dashboard/s01_dashboard.dart';
 import 'package:bldrs/firestore/auth_ops.dart';
+import 'package:bldrs/views/screens/a0_user_checker_widget.dart';
 import 'package:bldrs/views/widgets/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/views/widgets/buttons/main_button.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
@@ -157,6 +158,8 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
           ),
 
           LogoSlogan(sizeFactor: 0.8,),
+
+          oButton('user checker', Iconz.Flyer, UserChecker()),
 
           oButton('Random Test Space', Iconz.Flyer, RandomTestSpace()),
 

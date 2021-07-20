@@ -12,6 +12,7 @@ import 'package:bldrs/views/widgets/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 /// TASK : if appNeedsUpdate = true ? goTO(AppStore) : check the user as you wish
@@ -79,7 +80,7 @@ class _UserCheckerState extends State<UserChecker> {
 
                 /// XX - userModel is completed : go to LoadingScreen()
                 print('userModel is completed : go to LoadingScreen()');
-                var _result = await Nav.goToNewScreen(context, LoadingScreen());
+                var _result = await Nav.goToNewScreen(context, LoadingScreen(), transitionType: PageTransitionType.fade);
 
                 print('user has a completed userModel and was in home screen and came back to user checker');
                 /// so we loop once more to user check
@@ -104,7 +105,7 @@ class _UserCheckerState extends State<UserChecker> {
 
                 /// after returning from edit profile, we go to LoadingScreen()
                 print('user has completed profile and good to go to LoadingScreen()');
-                var _result = await Nav.goToNewScreen(context, LoadingScreen());
+                var _result = await Nav.goToNewScreen(context, LoadingScreen(), transitionType: PageTransitionType.fade);
               }
             }
 
@@ -118,7 +119,7 @@ class _UserCheckerState extends State<UserChecker> {
 
             /// after returning from creating profile, we go to LoadingScreen()
             print('user has created profile and good to go to LoadingScreen()');
-            var _result = await Nav.goToNewScreen(context, LoadingScreen());
+            var _result = await Nav.goToNewScreen(context, LoadingScreen(), transitionType: PageTransitionType.fade);
           }
 
       }
@@ -128,7 +129,7 @@ class _UserCheckerState extends State<UserChecker> {
             _triggerLoading();
 
             /// route to sign in
-            var _result = await Nav.goToNewScreen(context, StartingScreen(),);
+            var _result = await Nav.goToNewScreen(context, StartingScreen(), transitionType: PageTransitionType.fade);
 
             print('just came back from starting screen');
             /// and we loop again in userChecker
