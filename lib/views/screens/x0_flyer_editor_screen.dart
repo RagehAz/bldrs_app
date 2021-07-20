@@ -1360,7 +1360,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                     PageView(
                       pageSnapping: true,
                       scrollDirection: Axis.vertical,
-                      physics: BouncingScrollPhysics(),//_verticalIndex == 0 ? NeverScrollableScrollPhysics() : BouncingScrollPhysics(),
+                      physics: const BouncingScrollPhysics(),//_verticalIndex == 0 ? NeverScrollableScrollPhysics() : BouncingScrollPhysics(),
                       allowImplicitScrolling: true,
                       onPageChanged: _draft.listenToSwipe ? (i) => _onVerticalIndexChanged(i) : (i) => Sliders.zombie(i),
                       controller: _verticalController,
@@ -1375,7 +1375,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                               PageView(
                                 pageSnapping: true,
                                 controller: _horizontalController,
-                                physics: BouncingScrollPhysics(),
+                                physics: const BouncingScrollPhysics(),
                                 allowImplicitScrolling: false,
                                 clipBehavior: Clip.antiAlias,
                                 restorationId: '${_draft.key.value}',
@@ -1420,7 +1420,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                           },
                           child: ListView(
                             key: PageStorageKey<String>('${Numberers.createUniqueIntFrom(existingValues: [1, 2])}'),
-                            physics: BouncingScrollPhysics(),
+                            physics: const BouncingScrollPhysics(),
                             shrinkWrap: false,
                             controller: _infoScrollController,
                             children: <Widget>[

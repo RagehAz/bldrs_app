@@ -197,12 +197,14 @@ Future<bool> superDialog({
 
 }
 // -----------------------------------------------------------------------------
-Future<void> tryAndCatch({Function finals, BuildContext context, Function functions, String methodName,}) async {
+Future<void> tryAndCatch({Function onError, BuildContext context, Function functions, String methodName,}) async {
   try{
     await functions();
   } catch (error){
 
     print('$methodName : tryAndCatch ERROR : $error');
+
+    onError();
 
     await superDialog(
       context: context,
@@ -210,6 +212,8 @@ Future<void> tryAndCatch({Function finals, BuildContext context, Function functi
       body: error,
       boolDialog: false,
     );
+
+
 
     // throw(error);
   }

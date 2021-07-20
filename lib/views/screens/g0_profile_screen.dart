@@ -318,7 +318,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
             builder: (context, UserModel userModel) {
               return
                 ListView(
-
+                  physics: const BouncingScrollPhysics(),
                   children: <Widget>[
 
                     Stratosphere(),

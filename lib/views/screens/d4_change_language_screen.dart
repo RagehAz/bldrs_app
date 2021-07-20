@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 class SelectLanguageScreen extends StatelessWidget {
 // -----------------------------------------------------------------------------
   Future<void> _tapLanguage(BuildContext context,String languageCode) async {
-    await changeAppLanguage(context, languageCode);
+    await Lingo.changeAppLanguage(context, languageCode);
 
     // Nav.pushNamedAndRemoveAllBelow(context, Routez.UserChecker);
   }

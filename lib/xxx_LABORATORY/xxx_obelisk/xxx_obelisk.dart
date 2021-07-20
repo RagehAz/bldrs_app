@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/dashboard/s01_dashboard.dart';
 import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/views/widgets/artworks/bldrs_name_logo_slogan.dart';
@@ -12,32 +13,23 @@ import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:bldrs/views/widgets/textings/the_golden_scroll.dart';
 import 'package:bldrs/xxx_LABORATORY/animations/animations_screen.dart';
+import 'package:bldrs/xxx_LABORATORY/animations/black_hole.dart';
 import 'package:bldrs/xxx_LABORATORY/firestore_test/storage_test.dart';
 import 'package:bldrs/xxx_LABORATORY/forms_and_inputs/popup.dart';
 import 'package:bldrs/xxx_LABORATORY/forms_and_inputs/form.dart';
-import 'package:bldrs/xxx_LABORATORY/navigation_test/nav_test_home.dart';
-import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/aaa_state_test.dart';
-import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/appbar_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/dialog_test_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/dynamic_links_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/fire_search_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/firebase_testing.dart';
-import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/google_sign_in_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/random_test_space.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/slider_test.dart';
-import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/text_field_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x03_font_test_screen.dart';
-import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x04_flyers_sizes_screen.dart';
-import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x06_single_collection_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x06_swiper_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x08_earth_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x10_pro_flyer_page_view.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x11_pro_flyer_grid_view.dart';
-import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x12_checkbox_lesson.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
 
 // === === === === === === === === === === === === === === === === === === ===
 // ---------------------------------------------------------------------------
@@ -55,9 +47,7 @@ class ObeliskScreen extends StatefulWidget {
   _ObeliskScreenState createState() => _ObeliskScreenState();
 }
 
-class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateMixin{
-  AnimationController _blackHoleController;
-  int _spinsDuration = 1;
+class _ObeliskScreenState extends State<ObeliskScreen>{
   bool _isSignedIn;
 // -----------------------------------------------------------------------------
   /// --- LOADING BLOCK
@@ -70,48 +60,25 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
 // -----------------------------------------------------------------------------
   @override
   void initState() {
-    _blackHoleController = AnimationController(
-      duration: Duration(seconds: _spinsDuration),
-      vsync: this
-    );
-
     User _firebaseUser = superFirebaseUser();
     _isSignedIn = _firebaseUser == null ? false : true;
 
     super.initState();
   }
 // ---------------------------------------------------------------------------
-  // final GlobalKey<FormState> _key = GlobalKey<FormState>();
-// ---------------------------------------------------------------------------
-  Timer _timoor(){
-    Timer _timoor = Timer(Duration(seconds: _spinsDuration),
-            (){
-          if(mounted){_blackHoleController.reset();}
-          if(mounted){_enterTheBlackHole();}
-        }
-    );
-    return _timoor;
-  }
-// ---------------------------------------------------------------------------
-  void _enterTheBlackHole(){
-    print('ezayak el awwal');
-    if(mounted){_blackHoleController.forward();}
-    if(mounted){_timoor();}
-  }
-// ---------------------------------------------------------------------------
   @override
   void dispose() {
-    _timoor()?.cancel();
-    _blackHoleController.stop();
-    _blackHoleController.dispose();
     super.dispose();
   }
 // ---------------------------------------------------------------------------
-  Widget oButton (String title, String icon, Widget screen){
+  Widget oButton (String title, String icon, Widget screen, {Color color}){
+
+    Color _color = color == null ? Colorz.Black125 : color;
+
     return
       MainButton(
         buttonVerse: title,
-        buttonColor: Colorz.Black125,
+        buttonColor: _color,
         buttonIcon: icon,
         buttonVerseShadow: true,
         splashColor: Colorz.Yellow255,
@@ -124,32 +91,15 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
 
     _triggerLoading();
 
-    final GoogleSignIn googleSignIn = GoogleSignIn();
-    print('googleSignIn.currentUser was : ${googleSignIn.currentUser}');
-
-    try {
-
-      if (!kIsWeb) {await googleSignIn.signOut();}
-
-      await FirebaseAuth.instance.signOut();
+    bool _isInAfterSignOut = await AuthOps.googleSignOutOps(context);
 
       setState(() {
-        _isSignedIn = false;
+        _isSignedIn = _isInAfterSignOut;
       });
 
-
-    } catch (error) {
-
-      await superDialog(
-        context: context,
-        title: 'Can\'t sign out',
-        body: 'Something is wrong : $error',
-      );
-
-    }
-
     _triggerLoading();
-    print('googleSignIn.currentUser is : ${googleSignIn.currentUser}');
+
+    print('_tapGoogleSignOut _isSignedIn : ${_isSignedIn}');
 
   }
 // ---------------------------------------------------------------------------
@@ -162,17 +112,37 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
       pyramids: Iconz.PyramidsCrystal,
       appBarType: AppBarType.Basic,
       appBarRowWidgets: <Widget>[
+
+        /// IS SIGNED IN ?
         DreamBox(
-          height: 40,
+          height: Ratioz.appBarButtonSize,
           verse: _isSignedIn ? ' Signed in ' : ' Signed out ',
           color: _isSignedIn ? Colorz.Green255 : Colorz.Grey80,
           verseScaleFactor: 0.6,
           verseColor: _isSignedIn ? Colorz.White255 : Colorz.DarkGrey225,
           onTap: () => AuthOps().signOut(context: context, routeToUserChecker: true),
         ),
+
+        /// SPACER
+        Expanded(child: Container(),),
+
+        /// DASHBOARD
+        DreamBox(
+          height: Ratioz.appBarButtonSize,
+          width: Ratioz.appBarButtonSize,
+          color: Colorz.Yellow255,
+          icon: Iconz.DashBoard,
+          iconColor: Colorz.Black255,
+          iconSizeFactor: 0.75,
+          margins: EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
+          bubble: true,
+          onTap: () => Nav.goToNewScreen(context, DashBoard()),
+        ),
+
       ],
 
       layoutWidget: ListView(
+        physics: const BouncingScrollPhysics(),
         children: <Widget>[
 
           Stratosphere(),
@@ -194,39 +164,13 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
 
           oButton('Fire search test', Iconz.Search, FireSearchTest()),
 
-          oButton('App Bar Test', Iconz.Share, AppBarTest()),
-
           oButton('Dynamic Links test', Iconz.Share, DynamicLinkTest()),
 
-          oButton('Google auth test', Iconz.ComGooglePlus, GoogleSignInTest()),
-
-          oButton('Navigation test', Iconz.ArrowUp, NavTestHome()),
-
-          oButton('Dialog Test', Iconz.More, DialogTestScreen()),
-
-          oButton('StateTest', Iconz.XSmall, StateTest(
-            bolbol: Bolbol(
-                tots: [Totta(name: 'tot 1', times: 5)],
-                name: 'shosho',
-                length: 3
-            ),
-          )),
+          oButton('Dialog Test', Iconz.More, DialogTestScreen(), color: Colorz.BloodTest),
 
           oButton('Firebase testing', Iconz.Filter, Firebasetesting()),
 
           oButton('Storage testing', Iconz.ArrowDown, FireStorageTest()),
-
-          oButton('Dash Board', Iconz.DashBoard, DashBoard()),
-
-          oButton('Text field test', Iconz.Language, TextFieldTest()),
-
-          // oButton('MultiGalleryPicker', Iconz.DvGouran, MultiGalleryPicker()),
-
-          // oButton('7 - Flyer Screen', Iconz.Flyer, FlyerScreen()), // () => openFlyer(context, 'f034')
-
-          oButton('8 - Flyer Sizes tests', Iconz.FlyerScale, FlyersSizesScreen()),
-
-          oButton('9 - Single Collection Screen', Iconz.FlyerScale, SingleCollectionScreen()),
 
           oButton('10 - Font lab', Iconz.Language, FontTestScreen()),
 
@@ -252,26 +196,9 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
 
           // oButton('31 - Google Maps - testSpace', Iconz.ComMap, GoogleMapScreen5()),
 
-          oButton('34 - Old CheckBox thing', Iconz.Check, CheckBoxLessonScreen()),
-
           oButton('36 - Animations Screen', Iconz.DvDonaldDuck, AnimationsScreen()),
 
-          // --- DATE PICKER -------------------------------
-          TextFormField(
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              hintText: 'Select Date fucker',
-            ),
-            onTap: () async {
-              FocusScope.of(context).requestFocus(FocusNode());
-              await showDatePicker(
-                context: context,
-                initialDate: DateTime.now(),
-                firstDate: DateTime(DateTime.now().year),
-                lastDate: DateTime(DateTime.now().year + 50),
-              );
-            },
-          ),
+          oButton('BLACK HOLE', Iconz.DvBlackHole, BlackHoleScreen()),
 
           // --- BLDRS DEVELOPMENT SCROLLS --------------------------------
           Column(
@@ -304,31 +231,6 @@ class _ObeliskScreenState extends State<ObeliskScreen> with TickerProviderStateM
                     'git push -u origin master',
               ),
             ],
-          ),
-
-          // -- enter The black hole
-          SuperVerse(
-            verse: 'Enter\nThe Black-Hole',
-            size: 4,
-            maxLines: 2,
-            margin: 50,
-            labelTap: (){_blackHoleController.reset();},
-          ),
-
-          // -- BlackHole
-          RotationTransition(
-            turns: Tween(begin: 0.0, end: 100.0).animate(_blackHoleController),
-            child: DreamBox(
-              height: 300,
-              width: 300,
-              icon: Iconz.DvBlackHole,
-              iconSizeFactor: 0.95,
-              margins: const EdgeInsets.symmetric(vertical: 25),
-              corners: 150,
-              color: Colorz.White10,
-              verseScaleFactor: 0.8,
-              onTap: _enterTheBlackHole,
-            ),
           ),
 
           PyramidsHorizon(heightFactor: 3,),

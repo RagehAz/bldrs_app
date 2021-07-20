@@ -124,7 +124,7 @@ class CityLabel extends StatelessWidget {
       scaleFactor: 0.2,
       labelColor: Colorz.White10,
       centered: false,
-      labelTap: (){print(cityName);},
+      onTap: (){print(cityName);},
       maxLines: 1,
       shadow: false,
     );
