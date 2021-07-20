@@ -1,8 +1,8 @@
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
-import 'package:bldrs/views/widgets/flyer/parts/header_parts/max_header_parts/bz_pg_counter.dart';
-import 'package:bldrs/views/widgets/flyer/parts/header_parts/max_header_parts/bz_pg_verse.dart';
+import 'package:bldrs/views/widgets/flyer/parts/header_parts/bz_pg_counter.dart';
+import 'package:bldrs/views/widgets/flyer/parts/header_parts/bz_pg_verse.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';

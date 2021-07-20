@@ -3,8 +3,8 @@ import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/balloons/user_balloon.dart';
-import 'package:bldrs/views/widgets/flyer/parts/header_parts/common_parts/author_label.dart';
-import 'package:bldrs/views/widgets/flyer/parts/header_parts/common_parts/bz_logo.dart';
+import 'package:bldrs/views/widgets/flyer/parts/header_parts/author_label.dart';
+import 'package:bldrs/views/widgets/flyer/parts/header_parts/bz_logo.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 

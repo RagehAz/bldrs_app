@@ -39,7 +39,7 @@ class NavBar extends StatelessWidget {
   final List<TinyBz> myTinyBzz;
 
   NavBar({
-    this.barType = BarType.maxWithText,
+    this.barType,
     this.sky = Sky.Night,
     this.myTinyBzz,
 });
@@ -161,9 +161,10 @@ class NavBar extends StatelessWidget {
 // -----------------------------------------------------------------------------
     double _screenWidth = Scale.superScreenWidth(context);
     double _buttonCircleCorner = Scale.buttonCircleCorner;
-    BorderRadius _boxCorners = Scale.navBarCorners(context: context, barType: barType);
-    double _boxHeight = Scale.navBarHeight(context: context, barType: barType);
-    double _bottomOffset = Scale.navBarBottomOffset(barType: barType);
+    BarType _barType = barType == null ? BarType.min : barType;
+    BorderRadius _boxCorners = Scale.navBarCorners(context: context, barType: _barType);
+    double _boxHeight = Scale.navBarHeight(context: context, barType: _barType);
+    double _bottomOffset = Scale.navBarBottomOffset(barType: _barType);
 // -----------------------------------------------------------------------------
     /// TASK : IOS back button needs revision
     bool _deviceIsIOS = false;//DeviceChecker.deviceIsIOS();
@@ -249,7 +250,7 @@ class NavBar extends StatelessWidget {
                                    text: 'Choices',
                                    icon: Iconz.SaveOn,
                                    iconSizeFactor: 0.7,
-                                   barType: barType,
+                                   barType: _barType,
                                    onTap: () => Nav.goToRoute(context, Routez.SavedFlyers),
                                  ),
 
@@ -262,7 +263,7 @@ class NavBar extends StatelessWidget {
                                    text: Wordz.more(context),
                                    icon: Iconz.More,
                                    iconSizeFactor: 0.45,
-                                   barType: barType,
+                                   barType: _barType,
                                    onTap: (){
                                      print('fish');
                                      Nav.goToNewScreen(context, MoreScreen(userModel: userModel));
@@ -276,7 +277,7 @@ class NavBar extends StatelessWidget {
                                  BzzButton(
                                    width: _buttonWidth,
                                    circleWidth: _circleWidth,
-                                   barType: barType,
+                                   barType: _barType,
                                    bzzIDs: _userBzzIDs,
                                    onTap: (){
                                      print('fish');
@@ -302,7 +303,7 @@ class NavBar extends StatelessWidget {
                                      text: Wordz.profile(context),
                                      icon: Iconz.NormalUser,
                                      iconSizeFactor: 0.7,
-                                     barType: barType,
+                                     barType: _barType,
                                      onTap: () => Nav.goToNewScreen(context, UserProfileScreen()),
                                      clipperWidget : UserBalloon(
                                        balloonWidth: _circleWidth,

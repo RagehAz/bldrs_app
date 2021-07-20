@@ -2,9 +2,9 @@ import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/models/tiny_models/tiny_user.dart';
-import 'package:bldrs/views/widgets/flyer/parts/header_parts/common_parts/author_label.dart';
+import 'package:bldrs/views/widgets/flyer/parts/header_parts/author_label.dart';
+import 'package:bldrs/views/widgets/flyer/parts/header_parts/mini_bz_label.dart';
 import 'package:flutter/material.dart';
-import 'bz_label.dart';
 
 class HeaderLabels extends StatelessWidget {
   final double flyerZoneWidth;

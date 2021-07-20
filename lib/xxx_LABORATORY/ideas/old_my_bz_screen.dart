@@ -10,7 +10,7 @@ import 'package:bldrs/views/screens/fx_bz_editor_screen.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_zone.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header.dart';
-import 'package:bldrs/views/widgets/flyer/parts/header_parts/max_header_parts/gallery.dart';
+import 'package:bldrs/views/widgets/flyer/parts/header_parts/gallery.dart';
 import 'package:bldrs/views/widgets/flyer/parts/slides_parts/single_slide.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
