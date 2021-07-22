@@ -39,7 +39,10 @@ class TinyFlyerWidget extends StatelessWidget {
 
     return FlyerZone(
       flyerSizeFactor: _flyerSizeFactor,
-      tappingFlyerZone: () => onTap(tinyFlyer),
+      tappingFlyerZone: (){
+        print('tapping flyer zone');
+        onTap(tinyFlyer);
+      },
       onLongPress: () => _onLongPress(tinyFlyer.flyerID),
       stackWidgets: <Widget>[
 
@@ -49,6 +52,10 @@ class TinyFlyerWidget extends StatelessWidget {
           slideMode: SlideMode.View,
           picture: tinyFlyer?.slidePic,
           slideIndex: tinyFlyer?.slideIndex,
+          onTap:  (){
+            print('tapping slide zone');
+            onTap(tinyFlyer);
+          },
         ),
 
         MiniHeader(
