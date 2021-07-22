@@ -142,6 +142,7 @@ class _FlyerState extends State<Flyer> with AutomaticKeepAliveClientMixin{
             currentSlideIndex: _currentSlideIndex,
             onPageChanged: (i) => _onPageChanged(i),
             slides: _slides,
+            onTap: widget.tappingFlyerZone,
           ),
 
           Consumer<BzModel>(
@@ -178,7 +179,6 @@ class _FlyerState extends State<Flyer> with AutomaticKeepAliveClientMixin{
                   // flyerID: flyerID,
                   bzPageIsOn: bzPageIsOn,
                   slidingIsOn: widget.slidingIsOn,
-                  microMode: _microMode,
                   ankhIsOn: flyer?.ankhIsOn ?? false,
                   tappingAnkh: (){
                     flyer.toggleAnkh();

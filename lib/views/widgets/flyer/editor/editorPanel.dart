@@ -5,6 +5,7 @@ import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer_type_class.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
+import 'package:bldrs/models/secondary_models/draft_flyer_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/buttons/panel_button.dart';
@@ -14,39 +15,35 @@ import 'package:bldrs/controllers/theme/flagz.dart';
 
 class EditorPanel extends StatelessWidget {
   final double flyerZoneWidth;
-  final AuthorModel author;
   final BoxFit boxFit;
   final double panelWidth;
   final bool showAuthor;
   final Function onAuthorTap;
-  final Function onAddImage;
-  final Function onDeleteImage;
-  final Function onCropImage;
-  final Function onResetImage;
-  final Function onFitImage;
+  final Function onTriggerEditMode;
   final PageController panelController;
   final Zone zone;
   final FlyerType flyerType;
-  final Function onChangeFlyerType;
-  final Function onChangeZone;
+  final Function onFlyerTypeTap;
+  final Function onZoneTap;
+  final Function onAboutTap;
+  final Function onKeywordsTap;
+  final DraftFlyerModel draft;
 
   EditorPanel({
     @required this.flyerZoneWidth,
-    @required this.author,
     @required this.boxFit,
     @required this.panelWidth,
     @required this.showAuthor,
     @required this.onAuthorTap,
-    @required this.onAddImage,
-    @required this.onDeleteImage,
-    @required this.onCropImage,
-    @required this.onResetImage,
-    @required this.onFitImage,
+    @required this.onTriggerEditMode,
     @required this.panelController,
     @required this.zone,
     @required this.flyerType,
-    @required this.onChangeFlyerType,
-    @required this.onChangeZone,
+    @required this.onFlyerTypeTap,
+    @required this.onZoneTap,
+    @required this.onAboutTap,
+    @required this.onKeywordsTap,
+    @required this.draft,
 });
 // -----------------------------------------------------------------------------
   Widget _expander(){
@@ -72,7 +69,7 @@ class EditorPanel extends StatelessWidget {
 
     double _panelHeight = _flyerZoneHeight;
 
-    AuthorModel _author = author;
+    AuthorModel _author = AuthorModel.getAuthorFromBzByAuthorID(draft.bzModel, draft.authorID);
 
     BoxFit _currentPicFit = boxFit;
 
@@ -117,7 +114,7 @@ class EditorPanel extends StatelessWidget {
           Container(
             width: _panelWidth,
             height: _panelHeight - _authorButtonHeight,
-            color: Colorz.BloodTest,
+            // color: Colorz.BloodTest,
             child: PageView(
               physics: NeverScrollableScrollPhysics(),
               controller: panelController,
@@ -136,63 +133,18 @@ class EditorPanel extends StatelessWidget {
                       _expander(),
 
                       /// ADD IMAGE
+
                       PanelButton(
                         size: _panelButtonSize,
                         flyerZoneWidth: flyerZoneWidth,
-                        icon:  Iconz.Plus,
+                        icon:  Iconz.Gears,
                         iconSizeFactor: 0.5,
-                        verse: 'Add',
-                        onTap: onAddImage,
+                        verse: draft.editMode ? 'Editing' : 'Edit',
+                        verseColor: draft.editMode ? Colorz.Black255 : Colorz.White255,
+                        color: draft.editMode ? Colorz.Yellow255 : Colorz.White80,
+                        onTap: onTriggerEditMode,
                       ),
 
-                      /// DELETE IMAGE
-                      PanelButton(
-                        size: _panelButtonSize,
-                        flyerZoneWidth: flyerZoneWidth,
-                        icon:  Iconz.XSmall,
-                        iconSizeFactor: 0.5,
-                        verse: 'Delete',
-                        onTap: onDeleteImage,
-                      ),
-
-                      PanelButton.panelDot(panelButtonWidth: _panelButtonSize),
-
-                      /// CROP IMAGE
-                      PanelButton(
-                        size: _panelButtonSize,
-                        flyerZoneWidth: flyerZoneWidth,
-                        icon:  Iconz.BxDesignsOff,
-                        iconSizeFactor: 0.5,
-                        verse: 'Crop',
-                        onTap: onCropImage,
-                      ),
-
-                      /// RELOAD
-                      PanelButton(
-                        size: _panelButtonSize,
-                        flyerZoneWidth: flyerZoneWidth,
-                        icon:  Iconz.Clock,
-                        iconSizeFactor: 0.5,
-                        verse: 'Reset',
-                        onTap: onResetImage,
-                      ),
-
-                      PanelButton.panelDot(panelButtonWidth: _panelButtonSize),
-
-                      /// CHANGE SLIDE BOX FIT
-                      PanelButton(
-                        size: _panelButtonSize,
-                        flyerZoneWidth: flyerZoneWidth,
-                        verse: 'Fit',
-                        icon: _currentPicFit == BoxFit.fitWidth ? Iconz.ArrowRight : _currentPicFit == BoxFit.fitHeight ? Iconz.ArrowUp : Iconz.DashBoard,
-                        iconSizeFactor: 0.35,
-                        isAuthorButton: false,
-                        onTap: onFitImage,
-                      ),
-
-
-                      /// SPACER
-                      _expander(),
 
                       /// BOTTOM SPACING
                       // SizedBox(
@@ -219,7 +171,7 @@ class EditorPanel extends StatelessWidget {
                         icon:  Iconizer.flyerTypeIconOff(flyerType),
                         iconSizeFactor: 1,
                         verse: 'Type',
-                        onTap: onChangeFlyerType,
+                        onTap: onFlyerTypeTap,
                       ),
 
                       /// Country
@@ -229,7 +181,7 @@ class EditorPanel extends StatelessWidget {
                         icon:  Flagz.getFlagByIso3(zone.countryID),
                         iconSizeFactor: 0.62,
                         verse: 'Target',
-                        onTap: onChangeZone,
+                        onTap: onZoneTap,
                       ),
 
                       _expander(),
@@ -241,7 +193,7 @@ class EditorPanel extends StatelessWidget {
                         icon: Iconz.Info,
                         iconSizeFactor: 0.5,
                         verse: 'About',
-                        onTap: onCropImage,
+                        onTap: onAboutTap,
                       ),
 
                       PanelButton.panelDot(panelButtonWidth: _panelButtonSize),
@@ -253,7 +205,7 @@ class EditorPanel extends StatelessWidget {
                         icon: Iconz.FlyerScale,
                         iconSizeFactor: 0.5,
                         verse: 'Tags',
-                        onTap: onCropImage,
+                        onTap: onKeywordsTap,
                       ),
 
                       /// SPACER

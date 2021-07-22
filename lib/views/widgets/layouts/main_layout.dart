@@ -21,7 +21,6 @@ import 'package:bldrs/views/widgets/pyramids/pyramids.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/views/widgets/buttons/rageh_button.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_keyboard_size/flutter_keyboard_size.dart';
 // -----------------------------------------------------------------------------
 enum AppBarType{
   Basic,
@@ -177,54 +176,51 @@ class MainLayout extends StatelessWidget {
 
     return StreamProvider<List<UserModel>>.value(
       value: UserProvider().allUsersStream,
-      child: KeyboardSizeProvider(
-        smallSize: 400,
-        child: GestureDetector(
-            onTap: (){Keyboarders.minimizeKeyboardOnTapOutSide(context);},
-          child: SafeArea(
-            top: true,
-            bottom: true,
-            child: Stack(
-              children: <Widget>[
+      child: GestureDetector(
+        onTap: (){Keyboarders.minimizeKeyboardOnTapOutSide(context);},
+        child: SafeArea(
+          top: true,
+          bottom: true,
+          child: Stack(
+            children: <Widget>[
 
-                if(sky == Sky.Non)
+              if(sky == Sky.Non)
                 Container(
                   width: Scale.superScreenWidth(context),
                   height: Scale.superScreenHeight(context),
                   color: _backgroundColor,
                 ),
 
-                Scaffold(
-                  key: key,
-                  resizeToAvoidBottomInset: false, // this false prevents keyboard from pushing pyramids up
-                  // resizeToAvoidBottomPadding: false,
-                  backgroundColor: _backgroundColor,
-                  body:
-                  canRefreshFlyers ?
+              Scaffold(
+                key: key,
+                resizeToAvoidBottomInset: false, // this false prevents keyboard from pushing pyramids up
+                // resizeToAvoidBottomPadding: false,
+                backgroundColor: _backgroundColor,
+                body:
+                canRefreshFlyers ?
 
-                  RefreshIndicator(
-                    onRefresh: ()=> _refresh(context),
-                    color: Colorz.Black230,
-                    backgroundColor: Colorz.Yellow255,
-                    displacement: Ratioz.appBarMargin,
-                    strokeWidth: 4,
-                    child: Stack(
-                      alignment: Alignment.topCenter,
-                      children: _mainLayoutStackWidgets(),
-                    ),
-                  )
-
-                      :
-
-                  Stack(
+                RefreshIndicator(
+                  onRefresh: ()=> _refresh(context),
+                  color: Colorz.Black230,
+                  backgroundColor: Colorz.Yellow255,
+                  displacement: Ratioz.appBarMargin,
+                  strokeWidth: 4,
+                  child: Stack(
                     alignment: Alignment.topCenter,
                     children: _mainLayoutStackWidgets(),
                   ),
+                )
 
+                    :
+
+                Stack(
+                  alignment: Alignment.topCenter,
+                  children: _mainLayoutStackWidgets(),
                 ),
 
-              ],
-            ),
+              ),
+
+            ],
           ),
         ),
       ),

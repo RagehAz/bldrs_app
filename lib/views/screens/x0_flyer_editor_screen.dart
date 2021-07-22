@@ -6,9 +6,7 @@ import 'package:bldrs/controllers/drafters/scrollers.dart';
 import 'package:bldrs/controllers/drafters/sliders.dart' show SwipeDirection, Sliders;
 import 'package:bldrs/controllers/drafters/imagers.dart' ;
 import 'package:bldrs/controllers/drafters/scalers.dart';
-import 'package:bldrs/controllers/localization/localization_constants.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
-import 'package:bldrs/controllers/theme/flagz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/standards.dart';
@@ -37,19 +35,19 @@ import 'package:bldrs/views/widgets/flyer/parts/ankh_button.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_zone.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header.dart';
 import 'package:bldrs/views/widgets/flyer/parts/progress_bar.dart';
+import 'package:bldrs/views/widgets/flyer/parts/slides_parts/editor_footer.dart';
 import 'package:bldrs/views/widgets/flyer/parts/slides_parts/footer.dart';
 import 'package:bldrs/views/widgets/flyer/parts/slides_parts/single_slide.dart';
 import 'package:bldrs/views/widgets/flyer/parts/slides_parts/info_slide.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/textings/super_text_field.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:bldrs/xxx_LABORATORY/camera_and_location/location_helper.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_keyboard_size/flutter_keyboard_size.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/drafters/sliders.dart';
-import 'package:bldrs/controllers/drafters/text_shapers.dart';
 import 'package:bldrs/firestore/flyer_ops.dart';
 import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/views/widgets/bubbles/words_bubble.dart';
@@ -354,8 +352,10 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                       textFieldOnChanged: (text){
                         print('text is : $text');
                       },
+                      onTap: (){},
                     ),
 
+                    if (_draft.editMode == false)
                     FlyerFooter(
                       flyerZoneWidth: flyerZoneWidth,
                       saves: 0,
@@ -712,7 +712,6 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
 // -----------------------------------------------------------------------------
   void _addKeywords(){
 
-    double _bottomSheetHeightFactor = 0.7;
 
     List<Keyword> _keywords = <Keyword>[
       Keyword.bldrsKeywords()[100],
@@ -722,18 +721,19 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
       Keyword.bldrsKeywords()[600],
     ];
 
-    double _dialogHeight = Scale.superScreenHeight(context) * _bottomSheetHeightFactor;
+    double _dialogHeight = BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.7);
 
-    BottomDialog.slideStatefulBottomSheet(
+    BottomDialog.slideStatefulBottomDialog(
       context: context,
-      height: Scale.superScreenHeight(context) * _bottomSheetHeightFactor,
+      height: _dialogHeight,
       draggable: true,
-      builder: (context){
+      builder: (context, title){
         return StatefulBuilder(
-            builder: (BuildContext context, StateSetter setSheetState){
+            builder: (BuildContext context, StateSetter setDialogState){
               return BottomDialog(
                 height: _dialogHeight,
                 draggable: true,
+                title: title,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -765,7 +765,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                             keywords: _draft.keywords,
                             selectedWords: _draft.keywords,
                             onTap: (value){
-                              setSheetState(() {
+                              setDialogState(() {
                                 _draft.keywords.remove(value);
                               });
                             },
@@ -778,7 +778,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                             keywords: _keywords,
                             selectedWords: _draft.keywords,
                             onTap: (value){
-                              setSheetState(() {
+                              setDialogState(() {
                                 _draft.keywords.add(value);
                               });
                             },
@@ -790,7 +790,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                             title: 'Product Use',
                             keywords: _keywords,
                             selectedWords: _draft.keywords,
-                            onTap: (value){setSheetState(() {_draft.keywords.add(value);});},
+                            onTap: (value){setDialogState(() {_draft.keywords.add(value);});},
                           ),
 
                           // Container(
@@ -813,19 +813,18 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
 // -----------------------------------------------------------------------------
   Future<void> _selectFlyerType() async {
 
-    double _bottomSheetHeightFactor = 0.25;
-    double _dialogHeight = Scale.superScreenHeight(context) * _bottomSheetHeightFactor;
+    double _dialogHeight = BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.25);
 
-    await BottomDialog.slideStatefulBottomSheet(
+    await BottomDialog.slideStatefulBottomDialog(
       context: context,
       height: _dialogHeight,
       draggable: true,
-      builder: (context){
+      builder: (context, title){
         return StatefulBuilder(
-            builder: (BuildContext context, StateSetter setSheetState){
+            builder: (BuildContext context, StateSetter setDialogState){
 
               return BottomDialog(
-                height: Scale.superScreenHeight(context) * _bottomSheetHeightFactor,
+                height: _dialogHeight,
                 title: 'Choose Flyer Type',
                 draggable: true,
                 child: Container(
@@ -845,7 +844,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                         color: _draft.flyerType == FlyerType.Product ? Colorz.Yellow255 : Colorz.White20,
                         verseColor: _draft.flyerType == FlyerType.Product ? Colorz.Black230 : Colorz.White255,
                         onTap: (){
-                          setSheetState(() {
+                          setDialogState(() {
                             _draft.flyerType = FlyerType.Product;
                           });
                         },
@@ -860,7 +859,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                         color: _draft.flyerType == FlyerType.Equipment ? Colorz.Yellow255 : Colorz.White20,
                         verseColor: _draft.flyerType == FlyerType.Equipment ? Colorz.Black230 : Colorz.White255,
                         onTap: (){
-                          setSheetState(() {
+                          setDialogState(() {
                             _draft.flyerType = FlyerType.Equipment;
                           });
                         },
@@ -1224,21 +1223,22 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
   }
 // -----------------------------------------------------------------------------
   Future<void> _onChangeFlyerType() async {
-    double _bottomSheetHeightFactor = 0.25;
-    double _dialogHeight = Scale.superScreenHeight(context) * _bottomSheetHeightFactor;
 
-    BottomDialog.slideStatefulBottomSheet(
+    double _dialogHeight = BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.25);
+
+    BottomDialog.slideStatefulBottomDialog(
       context: context,
       height: _dialogHeight,
       draggable: true,
-      builder: (context){
+      title: 'Select Flyer Type',
+      builder: (context, title){
         return StatefulBuilder(
-            builder: (BuildContext context, StateSetter setSheetState){
+            builder: (BuildContext context, StateSetter setDialogState){
 
 
               return BottomDialog(
-                height: Scale.superScreenHeight(context) * _bottomSheetHeightFactor,
-                title: 'Select Flyer Type',
+                height: _dialogHeight,
+                title: title,
                 draggable: true,
                 child: Container(
                   width: BottomDialog.dialogClearWidth(context),
@@ -1260,7 +1260,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                         color: _draft.flyerType == FlyerType.Product ? Colorz.Yellow255 : Colorz.White20,
                         verseColor: _draft.flyerType == FlyerType.Product ? Colorz.Black230 : Colorz.White255,
                         onTap: (){
-                          setSheetState(() {
+                          setDialogState(() {
                             _draft.flyerType = FlyerType.Product;
                           });
 
@@ -1283,7 +1283,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                         color: _draft.flyerType == FlyerType.Equipment ? Colorz.Yellow255 : Colorz.White20,
                         verseColor: _draft.flyerType == FlyerType.Equipment ? Colorz.Black230 : Colorz.White255,
                         onTap: (){
-                          setSheetState(() {
+                          setDialogState(() {
                             _draft.flyerType = FlyerType.Equipment;
                           });
                           setState(() {
@@ -1413,7 +1413,90 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
 
   }
 // -----------------------------------------------------------------------------
+  Future<void> _onAboutTap() async {
 
+    double _dialogHeight = BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.95);
+    double _dialogClearWidth = BottomDialog.dialogClearWidth(context);
+
+    await BottomDialog.slideBottomDialog(
+      context: context,
+      draggable: true,
+      height: _dialogHeight,
+      title: 'Add more info to your flyer',
+      child: Column(
+        children: <Widget>[
+
+          /// TEXTFIELD
+          Container(
+            width: _dialogClearWidth,
+            child: SuperTextField(
+              // autofocus: autoFocus,
+              // onChanged: textFieldOnChanged,
+              width: _dialogClearWidth,
+              hintText: '...',
+              fieldColor: Colorz.White20,
+              // margin: EdgeInsets.only(top: (_dialogClearWidth * 0.3), left: 5, right: 5),
+              maxLines: 10,
+              minLines: 5,
+              maxLength: 500,
+              designMode: false,
+              counterIsOn: true,
+              inputSize: 2,
+              centered: false,
+              textController: _draft.infoController,
+              inputWeight: VerseWeight.thin,
+              inputShadow: false,
+              fieldIsFormField: false,
+
+              onSubmitted: (val){
+                print('val is : $val');
+              },
+              keyboardTextInputType: TextInputType.multiline,
+              keyboardTextInputAction: TextInputAction.newline,
+            ),
+          ),
+
+        ],
+      ),
+    );
+
+  }
+// -----------------------------------------------------------------------------
+  Future<void> _onKeywordsTap() async {
+    double _dialogHeight = BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.5);
+    double _dialogClearWidth = BottomDialog.dialogClearWidth(context);
+
+    await BottomDialog.slideStatefulBottomDialog(
+        context: context,
+        draggable: true,
+        height: _dialogHeight,
+        title: 'Select flyer tags',
+        builder: (context, title) {
+          return StatefulBuilder(
+              builder: (BuildContext context, StateSetter setDialogState) {
+                return
+                  BottomDialog(
+                    title: title,
+                    height: _dialogHeight,
+                    draggable: true,
+                    child: Container(
+                      width: _dialogClearWidth,
+                      height: 100,
+                      // color: Colorz.BloodTest,
+                    ),
+                  );
+              }
+          );
+        }
+    );
+  }
+// -----------------------------------------------------------------------------
+  void _triggerEditMode(){
+    setState(() {
+      _draft.editMode = !_draft.editMode;
+    });
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     /// when using with AutomaticKeepAliveClientMixin
@@ -1470,8 +1553,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
 
       ],
 
-      layoutWidget:
-      Column(
+      layoutWidget: Column(
         // physics: NeverScrollableScrollPhysics(),
         children: <Widget>[
 
@@ -1490,20 +1572,18 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                 EditorPanel(
                   flyerZoneWidth: _flyerZoneWidth,
                   panelWidth: _panelWidth,
-                  author: _author,
                   boxFit: _currentPicFit,
                   showAuthor: _draft.showAuthor,
                   onAuthorTap: _onAuthorTap,
-                  onAddImage: () async {await _getMultiGalleryImages(flyerZoneWidth: _flyerZoneWidth);},
-                  onDeleteImage: _deleteSlide,
-                  onCropImage: () async {_onCropImage();},
-                  onResetImage: _onResetImage,
-                  onFitImage: () async {await _onFitImage(_currentPicFit);},
+                  onTriggerEditMode: _triggerEditMode,
                   panelController: _panelController,
                   zone: _draft.flyerZone,
                   flyerType: _draft.flyerType,
-                  onChangeFlyerType: () async {await _onChangeFlyerType();},
-                  onChangeZone: () async {await _onChangeZone();},
+                  onFlyerTypeTap: () async {await _onChangeFlyerType();},
+                  onZoneTap: () async {await _onChangeZone();},
+                  onAboutTap: () async {await _onAboutTap();},
+                  onKeywordsTap: () async {await _onKeywordsTap();},
+                  draft: _draft,
                 ),
 
                 /// FLYER
@@ -1544,14 +1624,25 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                               ),
 
                             /// ANKH
-                            if(_draft.currentSlideIndex != null && _draft.numberOfSlides != 0)
+                            if(_draft.currentSlideIndex != null && _draft.numberOfSlides != 0 && _draft.editMode == false)
                               AnkhButton(
-                                microMode: false,
                                 bzPageIsOn: false,
                                 flyerZoneWidth: _flyerZoneWidth,
                                 slidingIsOn: true,
                                 ankhIsOn: false,
                                 tappingAnkh: (){},
+                              ),
+
+                            /// EDITOR FOOTER
+                            if (_draft.editMode == true)
+                              EditorFooter(
+                                flyerZoneWidth: _flyerZoneWidth,
+                                currentPicFit: _currentPicFit,
+                                onAddImages: () async {await _getMultiGalleryImages(flyerZoneWidth: _flyerZoneWidth);},
+                                onDeleteSlide: _deleteSlide,
+                                onCropImage: () async {_onCropImage();},
+                                onResetImage: _onResetImage,
+                                onFitImage: () async {await _onFitImage(_currentPicFit);},
                               ),
 
                           ],

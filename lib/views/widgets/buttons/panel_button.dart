@@ -7,21 +7,25 @@ class PanelButton extends StatelessWidget {
   final double size;
   final String icon;
   final String verse;
+  final Color verseColor;
   final Function onTap;
   final double iconSizeFactor;
   final bool blackAndWhite;
   final bool isAuthorButton;
   final double flyerZoneWidth;
+  final Color color;
 
   PanelButton({
     this.size,
     this.icon,
     this.verse,
+    this.verseColor = Colorz.White255,
     @required this.onTap,
     this.iconSizeFactor = 0.6,
     this.blackAndWhite,
     this.isAuthorButton = false,
     @required this.flyerZoneWidth,
+    this.color = Colorz.White80,
   });
 
   static Widget panelDot({double panelButtonWidth}){
@@ -52,12 +56,13 @@ class PanelButton extends StatelessWidget {
         width: size,
         height: size * 1.4,
         margins: EdgeInsets.symmetric(vertical: Ratioz.appBarPadding),
-        color:  Colorz.White80,
+        color: color,
         icon: icon,
         iconSizeFactor: iconSizeFactor,
+        iconColor: verseColor,
         underLine: verse,
         underLineShadowIsOn: false,
-        underLineColor: Colorz.White255,
+        underLineColor: verseColor,
         // verseScaleFactor: 1.2,
         // corners: Borderers.superLogoShape(context: context, zeroCornerEnIsRight: false, corner: Ratioz.xxflyerAuthorPicCorner * flyerZoneWidth),
         bubble: true,

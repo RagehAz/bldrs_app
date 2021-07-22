@@ -125,15 +125,6 @@ class Scale{
       EdgeInsets.only(bottom: _enBottom, left: _enRight, right: _enLeft, top: _enTop);
   }
 // -----------------------------------------------------------------------------
-  static double superFlyerFooterHeight(double flyerZoneWidth){
-    double _flyerBottomCorners = flyerZoneWidth * Ratioz.xxflyerBottomCorners;
-    double _footerBTMargins = flyerZoneWidth * 0.025; //
-    double _footerBTRadius = _flyerBottomCorners - _footerBTMargins;
-    double _flyerFooterHeight = (2 * _footerBTMargins) + (2 * _footerBTRadius);
-
-    return _flyerFooterHeight;
-  }
-// -----------------------------------------------------------------------------
   static double superDialogWidth(BuildContext context){
     double _dialogWidth = superScreenWidth(context) * 0.8;
     return _dialogWidth;

@@ -6,8 +6,6 @@ import 'package:bldrs/controllers/theme/dumz.dart';
 import 'package:bldrs/controllers/theme/flagz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/controllers/theme/wordz.dart';
-import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/flyer_type_class.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/secondary_models/draft_flyer_model.dart';
@@ -19,7 +17,7 @@ import 'package:bldrs/views/widgets/bubbles/stats_line.dart';
 import 'package:bldrs/views/widgets/bubbles/words_bubble.dart';
 import 'package:bldrs/views/widgets/flyer/parts/slides_parts/record_bubble.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_keyboard_size/flutter_keyboard_size.dart';
+import 'package:provider/provider.dart';
 
 class InfoSlide extends StatelessWidget {
   final double flyerZoneWidth;
@@ -173,15 +171,7 @@ class InfoSlide extends StatelessWidget {
                 title: 'About this flyer',
                 maxLines: 3,
                 centered: false,
-                paragraph: 'This is the paragraph here to wrote things and '
-                    'more things about the flyer as much as you can you know,,'
-                    ' and it depends on the author while making the flyer in'
-                    ' the flyer editor here should be able to open uo a text'
-                    ' field and enter the stuff he want in several lines to'
-                    ' be expandable like this one here,, and to be able to '
-                    'write as much as he can and add new lines likes this'
-                    '\nThe he we start here an new pargraph and still going'
-                    '\nThat would be very cool though',
+                paragraph: draft.infoController.text.length == 0 ? '...' : draft.infoController.text,
               ),
 
               /// SAVES BUBBLE
