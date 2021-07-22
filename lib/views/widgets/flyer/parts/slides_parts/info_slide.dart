@@ -104,7 +104,8 @@ class InfoSlide extends StatelessWidget {
 
     CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
     String _countryName = _countryPro.getCountryNameInCurrentLanguageByIso3(context, draft.flyerZone.countryID);
-    String _cityName = _countryPro.getCityNameWithCurrentLanguageIfPossible(context, draft.flyerZone.cityID);
+    String _cityNameRetrieved = _countryPro.getCityNameWithCurrentLanguageIfPossible(context, draft.flyerZone.cityID);
+    String _cityName = _cityNameRetrieved == null ? '.....' : _cityNameRetrieved;
 
 
     return Column(

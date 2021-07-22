@@ -45,6 +45,7 @@ class SingleSlide extends StatelessWidget {
   final String flyerID;
   final ImageSize imageSize;
   final bool autoFocus;
+  final Function onTap;
   // Key key;
 
   SingleSlide({
@@ -64,6 +65,7 @@ class SingleSlide extends StatelessWidget {
     @required this.flyerID,
     this.imageSize,
     this.autoFocus,
+    this.onTap,
     Key key,
   }) : super(key: key);
 // -----------------------------------------------------------------------------
@@ -121,8 +123,12 @@ class SingleSlide extends StatelessWidget {
 // -----------------------------------------------------------------------------
     return GestureDetector(
       onTap: (){
+
         if (Keyboarders.keyboardIsOn(context)){
           Keyboarders.closeKeyboard(context);
+        }
+        else {
+          onTap();
         }
       },
       onTapCancel: (){
@@ -189,11 +195,12 @@ class SingleSlide extends StatelessWidget {
               if (ObjectChecker.objectIsFile(picture))
                 ZoomablePicture(
                   isOn: !_microMode,
+                  onTap: onTap,
                   child: Image.file(
                       picture,
                       fit: boxFit,
                       width: flyerZoneWidth,
-                      height: Scale.superFlyerZoneHeight(context, flyerZoneWidth)
+                      height: Scale.superFlyerZoneHeight(context, flyerZoneWidth),
                   ),
                 ),
 
@@ -201,6 +208,7 @@ class SingleSlide extends StatelessWidget {
               if (ObjectChecker.objectIsURL(picture))
                 ZoomablePicture(
                   isOn: !_microMode,
+                  onTap: onTap,
                   child: Image.network(
                       picture,
                       fit: BoxFit.fitWidth,
