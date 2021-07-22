@@ -4,6 +4,7 @@ import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_type_class.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/sub_models/slide_model.dart';
+import 'package:bldrs/models/sub_models/spec_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/models/tiny_models/tiny_user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -34,6 +35,8 @@ class FlyerModel with ChangeNotifier{
   // -------------------------
   final bool flyerIsBanned;
   final DateTime deletionTime;
+  final List<Spec> specs;
+  final String info;
 
   FlyerModel({
     this.flyerID,
@@ -57,6 +60,8 @@ class FlyerModel with ChangeNotifier{
     // -------------------------
     @required this.flyerIsBanned,
     @required this.deletionTime,
+    this.specs,
+    this.info,
   });
 // -----------------------------------------------------------------------------
   void toggleAnkh(){
@@ -87,6 +92,8 @@ class FlyerModel with ChangeNotifier{
       // -------------------------
       'flyerIsBanned' : flyerIsBanned,
       'deletionTime' : cipherDateTimeToString(deletionTime),
+      'specs' : Spec.cipherSpecs(specs),
+      'info' : info,
     };
   }
 // -----------------------------------------------------------------------------
@@ -107,6 +114,7 @@ class FlyerModel with ChangeNotifier{
       flyerIsBanned: flyerIsBanned,
       deletionTime: deletionTime,
       ankhIsOn: ankhIsOn,
+      specs: Spec.cloneSpecs(specs),
     );
   }
 // -----------------------------------------------------------------------------
@@ -128,6 +136,8 @@ class FlyerModel with ChangeNotifier{
           flyerIsBanned: flyer.flyerIsBanned,
           deletionTime: flyer.deletionTime,
           ankhIsOn: flyer.ankhIsOn,
+          specs: flyer.specs,
+          info: flyer.info,
     );
   }
 // -----------------------------------------------------------------------------
@@ -182,6 +192,8 @@ class FlyerModel with ChangeNotifier{
       // -------------------------
       flyerIsBanned: map['flyerIsBanned'],
       deletionTime: decipherDateTimeString(map['deletionTime']),
+      specs: Spec.decipherSpecs(map['specs']),
+      info: map['info'],
     );
   }
 // -----------------------------------------------------------------------------
@@ -212,6 +224,8 @@ class FlyerModel with ChangeNotifier{
       ankhIsOn: inputFlyerModel.ankhIsOn,
       flyerIsBanned: inputFlyerModel.flyerIsBanned,
       deletionTime: inputFlyerModel.deletionTime,
+      specs: inputFlyerModel.specs,
+      info: inputFlyerModel.info,
     );
   }
 // -----------------------------------------------------------------------------

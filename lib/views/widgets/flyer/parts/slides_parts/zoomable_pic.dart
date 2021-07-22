@@ -7,12 +7,14 @@ class ZoomablePicture extends StatefulWidget {
   final bool isOn;
   final autoShrink;
   final bool isFullScreen;
+  final Function onTap;
 
   const ZoomablePicture({
     @required this.child,
     @required this.isOn,
     this.autoShrink = true,
     this.isFullScreen = false,
+    @required this.onTap,
     Key key
   }) : super(key: key);
 
@@ -70,7 +72,17 @@ class _ZoomablePictureState extends State<ZoomablePicture> with TickerProviderSt
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () async {_resetZoom();},
+      onTap: () async {
+
+        if(widget.isFullScreen == true){
+          _resetZoom();
+        }
+
+        else {
+          widget.onTap();
+        }
+
+        },
       onDoubleTap: widget.isFullScreen ? () async {_onDoubleTap();} : null,
       child: InteractiveViewer(
         key: widget.key,

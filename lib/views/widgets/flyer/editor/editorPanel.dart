@@ -222,7 +222,6 @@ class EditorPanel extends StatelessWidget {
                         onTap: onChangeFlyerType,
                       ),
 
-
                       /// Country
                       PanelButton(
                         size: _panelButtonSize,

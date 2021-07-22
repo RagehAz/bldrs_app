@@ -33,6 +33,7 @@ class SlideFullScreen extends StatelessWidget {
           height: Scale.superScreenHeight(context),
           alignment: Alignment.center,
           child: ZoomablePicture(
+            onTap: null,
             isOn: true,
             isFullScreen: true,
             autoShrink: false,

@@ -818,70 +818,56 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
 
     await BottomDialog.slideStatefulBottomSheet(
       context: context,
-      height: Scale.superScreenHeight(context) * _bottomSheetHeightFactor,
+      height: _dialogHeight,
       draggable: true,
       builder: (context){
         return StatefulBuilder(
             builder: (BuildContext context, StateSetter setSheetState){
 
-
               return BottomDialog(
                 height: Scale.superScreenHeight(context) * _bottomSheetHeightFactor,
+                title: 'Choose Flyer Type',
                 draggable: true,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
+                child: Container(
+                  width: BottomDialog.dialogClearWidth(context),
+                  height: BottomDialog.dialogClearHeight(title: 'x', context: context, overridingDialogHeight: _dialogHeight),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
 
-                    SuperVerse(
-                      verse: 'Choose Flyer Type',
-                      size: 3,
-                      weight: VerseWeight.thin,
-                      italic: true,
-                    ),
-
-                    Container(
-                      width: BottomDialog.dialogClearWidth(context),
-                      height: BottomDialog.dialogClearHeight(title: 'x', context: context, overridingDialogHeight: _dialogHeight),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-
-                          DreamBox(
-                            height: 60,
-                            width: BottomDialog.dialogClearWidth(context) / 2.2,
-                            verse: 'Product Flyer',
-                            verseMaxLines: 2,
-                            verseScaleFactor: 0.7,
-                            color: _draft.flyerType == FlyerType.Product ? Colorz.Yellow255 : Colorz.White20,
-                            verseColor: _draft.flyerType == FlyerType.Product ? Colorz.Black230 : Colorz.White255,
-                            onTap: (){
-                              setSheetState(() {
-                                _draft.flyerType = FlyerType.Product;
-                              });
-                            },
-                          ),
-
-                          DreamBox(
-                            height: 60,
-                            width: BottomDialog.dialogClearWidth(context) / 2.2,
-                            verse: 'Equipment Flyer',
-                            verseMaxLines: 2,
-                            verseScaleFactor: 0.7,
-                            color: _draft.flyerType == FlyerType.Equipment ? Colorz.Yellow255 : Colorz.White20,
-                            verseColor: _draft.flyerType == FlyerType.Equipment ? Colorz.Black230 : Colorz.White255,
-                            onTap: (){
-                              setSheetState(() {
-                                _draft.flyerType = FlyerType.Equipment;
-                              });
-                            },
-                          ),
-
-                        ],
+                      DreamBox(
+                        height: 60,
+                        width: BottomDialog.dialogClearWidth(context) / 2.2,
+                        verse: 'Product Flyer',
+                        verseMaxLines: 2,
+                        verseScaleFactor: 0.7,
+                        color: _draft.flyerType == FlyerType.Product ? Colorz.Yellow255 : Colorz.White20,
+                        verseColor: _draft.flyerType == FlyerType.Product ? Colorz.Black230 : Colorz.White255,
+                        onTap: (){
+                          setSheetState(() {
+                            _draft.flyerType = FlyerType.Product;
+                          });
+                        },
                       ),
-                    ),
-                  ],
+
+                      DreamBox(
+                        height: 60,
+                        width: BottomDialog.dialogClearWidth(context) / 2.2,
+                        verse: 'Equipment Flyer',
+                        verseMaxLines: 2,
+                        verseScaleFactor: 0.7,
+                        color: _draft.flyerType == FlyerType.Equipment ? Colorz.Yellow255 : Colorz.White20,
+                        verseColor: _draft.flyerType == FlyerType.Equipment ? Colorz.Black230 : Colorz.White255,
+                        onTap: (){
+                          setSheetState(() {
+                            _draft.flyerType = FlyerType.Equipment;
+                          });
+                        },
+                      ),
+
+                    ],
+                  ),
                 ),
               );
             }
@@ -1252,7 +1238,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
 
               return BottomDialog(
                 height: Scale.superScreenHeight(context) * _bottomSheetHeightFactor,
-                title: 'Choose Flyer Type',
+                title: 'Select Flyer Type',
                 draggable: true,
                 child: Container(
                   width: BottomDialog.dialogClearWidth(context),
@@ -1266,6 +1252,9 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                         height: 60,
                         width: BottomDialog.dialogClearWidth(context) / 2.2,
                         verse: 'Product Flyer',
+                        // icon: Iconz.BxProductsOff,
+                        // iconColor: _draft.flyerType == FlyerType.Product ? Colorz.Black255 : Colorz.White255,
+                        // iconSizeFactor: 0.5,
                         verseMaxLines: 2,
                         verseScaleFactor: 0.7,
                         color: _draft.flyerType == FlyerType.Product ? Colorz.Yellow255 : Colorz.White20,
@@ -1286,6 +1275,9 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                         height: 60,
                         width: BottomDialog.dialogClearWidth(context) / 2.2,
                         verse: 'Equipment Flyer',
+                        // icon: Iconz.BxEquipmentOff,
+                        // iconColor: _draft.flyerType == FlyerType.Product ? Colorz.Black255 : Colorz.White255,
+                        // iconSizeFactor: 0.5,
                         verseMaxLines: 2,
                         verseScaleFactor: 0.7,
                         color: _draft.flyerType == FlyerType.Equipment ? Colorz.Yellow255 : Colorz.White20,
@@ -1315,22 +1307,19 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
     CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
 
     List<Map<String,String>> _flags = _countryPro.getAvailableCountries(context);
-    List<Map<String,String>> _cities = _countryPro.getCitiesNamesMapsByIso3(context, _draft.flyerZone.countryID);//_chosenCountry);
-    List<Map<String,String>> _districts = _countryPro.getDistrictsNameMapsByCityID(context, _draft.flyerZone.cityID);//_chosenProvince);
-
-    String _chosenCountryName = _draft.flyerZone.countryID == null ? '...' : translate(context, _draft.flyerZone.countryID);
-    String _chosenCountryFlag = _draft.flyerZone.countryID == null ? '' : Flagz.getFlagByIso3(_draft.flyerZone.countryID);
-    String _chosenProvinceName = _draft.flyerZone.cityID == null ? '...' : _countryPro.getCityNameWithCurrentLanguageIfPossible(context, _draft.flyerZone.cityID);
-    String _chosenDistrictName = _draft.flyerZone.districtID == null ? '...' : _countryPro.getDistrictNameWithCurrentLanguageIfPossible(context, _draft.flyerZone.districtID);
-
+    List<Map<String,String>> _cities = _countryPro.getCitiesNamesMapsByIso3(context, _draft.flyerZone.countryID);
+    List<Map<String,String>> _districts = _countryPro.getDistrictsNameMapsByCityID(context, _draft.flyerZone.cityID);
 
     Keyboarders.minimizeKeyboardOnTapOutSide(context);
 
+    bool _openNextDialog = false;
+
+    /// COUNTRY DIALOG
     await BottomDialog.slideBottomDialog(
       context: context,
       draggable: true,
       height: null,
-      title: 'Countries',
+      title: 'Publish this flyer targeting a specific city',
       child: SheetButtons(
         listOfMaps: _flags,
         mapValueIs: MapValueIs.flag,
@@ -1338,10 +1327,22 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
         provider: _countryPro,
         sheetType: BottomSheetType.BottomSheet,
         buttonTap: (countryID) async {
+
+          String _lastCountryID = _draft.flyerZone.countryID;
+
           setState(() {
             _draft.flyerZone.countryID = countryID;
             _cities = _countryPro.getCitiesNamesMapsByIso3(context, _draft.flyerZone.countryID);
+            _openNextDialog = true;
           });
+
+          /// if changed country, reset city & district
+          if (_lastCountryID != countryID){
+            setState(() {
+            _draft.flyerZone.cityID = null;
+            _draft.flyerZone.districtID = null;
+            });
+          }
 
           await Nav.goBack(context);
 
@@ -1349,53 +1350,70 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
       ),
     );
 
-    await BottomDialog.slideBottomDialog(
-      context: context,
-      draggable: true,
-      height: null,
-      title: '${_countryPro.getCountryNameInCurrentLanguageByIso3(context, _draft.flyerZone.countryID)} Cities',
-      child: SheetButtons(
-        listOfMaps: _cities,
-        mapValueIs: MapValueIs.String,
-        alignment: Alignment.center,
-        provider: _countryPro,
-        sheetType: BottomSheetType.Province,
-        buttonTap: (cityID) async {
-          setState(() {
-            _draft.flyerZone.cityID = cityID;
-            _districts = _countryPro.getDistrictsNameMapsByCityID(context, cityID);//_chosenProvince);
-          });
+    /// CITY DIALOG
+    if(_openNextDialog == true) {
+      _openNextDialog = false;
+      await BottomDialog.slideBottomDialog(
+        context: context,
+        draggable: true,
+        height: null,
+        title: '${_countryPro.getCountryNameInCurrentLanguageByIso3(context, _draft.flyerZone.countryID)} Cities',
+        child: SheetButtons(
+          listOfMaps: _cities,
+          mapValueIs: MapValueIs.String,
+          alignment: Alignment.center,
+          provider: _countryPro,
+          sheetType: BottomSheetType.Province,
+          buttonTap: (cityID) async {
 
-          await Nav.goBack(context);
-        },
-      ),
-    );
+            String _lastCity = _draft.flyerZone.cityID;
 
-    await BottomDialog.slideBottomDialog(
-      context: context,
-      draggable: true,
-      height: null,
-      title: '${_countryPro.getCityNameWithCurrentLanguageIfPossible(context, _draft.flyerZone.cityID)} Districts',
-      child: SheetButtons(
-        listOfMaps: _districts,
-        mapValueIs: MapValueIs.String,
-        alignment: Alignment.center,
-        provider: _countryPro,
-        sheetType: BottomSheetType.District,
-        buttonTap: (districtID) async {
-          setState(() {
-            _draft.flyerZone.districtID = districtID;
-          });
+            setState(() {
+              _draft.flyerZone.cityID = cityID;
+              _districts = _countryPro.getDistrictsNameMapsByCityID(context, cityID);
+              _openNextDialog = true;
+            });
 
-          await Nav.goBack(context);
-        },
-      ),
-    );
+            /// if city changed, reset district
+            if (_lastCity != cityID){
+              setState(() {
+                _draft.flyerZone.districtID = null;
+              });
+            }
+
+            await Nav.goBack(context);
+          },
+        ),
+      );
+    }
+
+    /// DISTRICT DIALOG
+    if(_openNextDialog == true) {
+      await BottomDialog.slideBottomDialog(
+        context: context,
+        draggable: true,
+        height: null,
+        title: '${_countryPro.getCityNameWithCurrentLanguageIfPossible(context, _draft.flyerZone.cityID)} Districts',
+        child: SheetButtons(
+          listOfMaps: _districts,
+          mapValueIs: MapValueIs.String,
+          alignment: Alignment.center,
+          provider: _countryPro,
+          sheetType: BottomSheetType.District,
+          buttonTap: (districtID) async {
+            setState(() {
+              _draft.flyerZone.districtID = districtID;
+            });
+
+            await Nav.goBack(context);
+          },
+        ),
+      );
+    }
 
   }
-
-
 // -----------------------------------------------------------------------------
+
   @override
   Widget build(BuildContext context) {
     /// when using with AutomaticKeepAliveClientMixin
