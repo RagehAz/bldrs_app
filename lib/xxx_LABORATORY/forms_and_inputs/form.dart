@@ -188,7 +188,7 @@ class _TestFormScreenState extends State<TestFormScreen> {
                       verse: _imageUrlController.text.isEmpty ?
                       'Picture goes here': null,
 
-                      child: _imageUrlController.text.isEmpty ? null :
+                      subChild: _imageUrlController.text.isEmpty ? null :
                       Image.network(
                         _imageUrlController.text,
                         width: 100,

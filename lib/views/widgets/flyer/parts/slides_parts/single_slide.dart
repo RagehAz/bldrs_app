@@ -65,7 +65,7 @@ class SingleSlide extends StatelessWidget {
     @required this.flyerID,
     this.imageSize,
     this.autoFocus,
-    this.onTap,
+    @required this.onTap,
     Key key,
   }) : super(key: key);
 // -----------------------------------------------------------------------------

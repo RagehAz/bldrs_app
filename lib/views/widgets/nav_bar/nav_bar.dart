@@ -23,7 +23,6 @@ import 'package:bldrs/views/widgets/dialogs/bottom_dialog.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart' show Sky;
 import 'package:bldrs/views/widgets/nav_bar/bar_button.dart';
 import 'package:bldrs/views/widgets/nav_bar/bzz_button.dart';
-import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 enum BarType{

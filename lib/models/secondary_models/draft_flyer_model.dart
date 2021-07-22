@@ -27,6 +27,7 @@ class DraftFlyerModel{
   bool listenToSwipe;
   int currentSlideIndex;
 
+  bool firstTimer;
   String flyerID;
   String authorID;
   FlyerType flyerType;
@@ -39,6 +40,9 @@ class DraftFlyerModel{
   String mapImageURL;
   List<SlideModel> slides;
   BzModel bzModel;
+  TextEditingController infoController;
+
+  bool editMode;
 
   DraftFlyerModel({
     @required this.headlinesControllers,
@@ -54,6 +58,7 @@ class DraftFlyerModel{
     @required this.listenToSwipe,
     @required this.currentSlideIndex,
 
+    @required this.firstTimer,
     @required this.flyerID,
     @required this.authorID,
     @required this.flyerType,
@@ -66,6 +71,9 @@ class DraftFlyerModel{
     @required this.mapImageURL,
     @required this.slides,
     @required this.bzModel,
+    @required this.infoController,
+
+    @required this.editMode,
   });
 // -----------------------------------------------------------------------------
   static List<ValueKey> getKeysOfDrafts(List<DraftFlyerModel> drafts){
@@ -100,6 +108,7 @@ class DraftFlyerModel{
       listenToSwipe: true,
       currentSlideIndex: 0,
 
+      firstTimer: true,
       flyerID: 'draft',
       authorID: superUserID(),
       flyerType: FlyerTypeClass.concludeFlyerType(bzModel.bzType),
@@ -111,8 +120,10 @@ class DraftFlyerModel{
       position: null,
       mapImageURL: null,
       slides: new List(),
-      bzModel: bzModel
+      bzModel: bzModel,
+      infoController: new TextEditingController(),
 
+      editMode: true,
     );
     return _draft;
   }

@@ -167,6 +167,9 @@ class _AFlyerState extends State<AFlyer> with AutomaticKeepAliveClientMixin{
           onPageChanged: (index) => _onPageChanged(index),
           currentSlideIndex: _currentSlideIndex,
           swipeFlyer: widget.swipe,
+          onTap: (){
+            print('tapping slide in aFlyer widget');
+          },
         ),
 
         if (widget.flyer != null)
@@ -193,7 +196,6 @@ class _AFlyerState extends State<AFlyer> with AutomaticKeepAliveClientMixin{
         ),
 
         AnkhButton(
-            microMode: _microMode,
             bzPageIsOn: _bzPageIsOn,
             flyerZoneWidth: _flyerZoneWidth,
             slidingIsOn: true,

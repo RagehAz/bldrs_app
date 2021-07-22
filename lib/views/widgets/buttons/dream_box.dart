@@ -36,7 +36,8 @@ class DreamBox extends StatelessWidget {
   final bool bubble;
   final String secondLine;
   final bool verseCentered;
-  final Widget child;
+  final Widget subChild;
+  final Alignment childAlignment;
   final double opacity;
   final bool inActiveMode;
   final String underLine;
@@ -77,7 +78,8 @@ class DreamBox extends StatelessWidget {
     this.bubble = true,
     this.secondLine,
     this.verseCentered = true,
-    this.child,
+    this.subChild,
+    this.childAlignment = Alignment.center,
     this.opacity = 1,
     this.inActiveMode = false,
     this.underLine,
@@ -259,14 +261,15 @@ class DreamBox extends StatelessWidget {
                           ),
 
                         // --- DREAM CHILD
-                        if (child != null)
+                        if (subChild != null)
                           Container(
                             height: height,
                             width: width,
                             decoration: BoxDecoration(
                               borderRadius: getCornersAsBorderRadius(),
                             ),
-                            child: child,
+                            alignment: childAlignment,
+                            child: subChild,
                           ),
 
                         /// ICON - VERSE - SECOND LINE
