@@ -72,7 +72,6 @@ class TinyFlyerWidget extends StatelessWidget {
         ),
 
         AnkhButton(
-          microMode: Scale.superFlyerMicroMode(context, _flyerZoneWidth),
           bzPageIsOn: false,
           flyerZoneWidth: _flyerZoneWidth,
           slidingIsOn: false,

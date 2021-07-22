@@ -94,11 +94,19 @@ class BottomDialog extends StatelessWidget {
     return _dialogClearWidth;
   }
 // -----------------------------------------------------------------------------
-  static double dialogHeight(BuildContext context, {double overridingDialogHeight}){
-    // double _dialogHeight = Scale.superScreenHeight(context) * _bottomSheetHeightFactor;
-
+  static double dialogHeight(BuildContext context, {double overridingDialogHeight, double ratioOfScreenHeight}){
+    double _dialogHeight;
     double _screenHeight = Scale.superScreenHeight(context);
-    double _dialogHeight = overridingDialogHeight == null ? _screenHeight * 0.5 : overridingDialogHeight;
+
+    double _ratioOfScreenHeight = ratioOfScreenHeight == null ? 0.5 : ratioOfScreenHeight;
+
+    if (overridingDialogHeight == null){
+      _dialogHeight =  _screenHeight * _ratioOfScreenHeight;
+    }
+    else {
+      _dialogHeight = overridingDialogHeight;
+    }
+
     return _dialogHeight;
   }
 // -----------------------------------------------------------------------------
@@ -193,7 +201,7 @@ class BottomDialog extends StatelessWidget {
     );
   }
 // -----------------------------------------------------------------------------
-  static Future<void> slideStatefulBottomSheet({BuildContext context, double height, bool draggable, Widget Function(BuildContext) builder}) async {
+  static Future<void> slideStatefulBottomDialog({BuildContext context, double height, bool draggable, Widget Function(BuildContext, String) builder, String title}) async {
     await showModalBottomSheet(
       shape: RoundedRectangleBorder(borderRadius: BottomDialog.dialogCorners(context)),
       backgroundColor: Colorz.BlackSemi255,
@@ -202,11 +210,11 @@ class BottomDialog extends StatelessWidget {
       elevation: 20,
       isScrollControlled: true,
       context: context,
-      builder: builder,
+      builder: (context) => builder(context, title),
     );
   }
 // -----------------------------------------------------------------------------
-  static void slideBzBottomSheet({BuildContext context, BzModel bz, AuthorModel author}) {
+  static void slideBzBottomDialog({BuildContext context, BzModel bz, AuthorModel author}) {
     BottomDialog.slideBottomDialog(
         context: context,
         height: Scale.superScreenHeight(context) - 100,

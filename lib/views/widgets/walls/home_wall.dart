@@ -14,7 +14,7 @@ import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:bldrs/views/widgets/walls/sequences_bubble.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_keyboard_size/flutter_keyboard_size.dart';
+import 'package:provider/provider.dart';
 
 class HomeWall extends StatefulWidget {
 

@@ -1,22 +1,23 @@
+import 'package:bldrs/controllers/drafters/aligners.dart';
+import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/localization/localization_constants.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/controllers/theme/wordz.dart';
-import 'package:bldrs/views/widgets/buttons/dream_box.dart';
+import 'package:bldrs/views/widgets/flyer/parts/slides_parts/footer.dart';
+import 'package:bldrs/views/widgets/flyer/parts/slides_parts/footer_button.dart';
 import 'package:flutter/material.dart';
 
 class AnkhButton extends StatefulWidget {
-  final bool microMode;
+  final double flyerZoneWidth;
   final bool bzPageIsOn;
   final bool slidingIsOn;
-  final double flyerZoneWidth;
   final bool ankhIsOn;
   final Function tappingAnkh;
 
   AnkhButton({
-    @required this.microMode,
-    @required this.bzPageIsOn,
     @required this.flyerZoneWidth,
+    @required this.bzPageIsOn,
     @required this.slidingIsOn,
     @required this.ankhIsOn,
     @required this.tappingAnkh,
@@ -30,39 +31,43 @@ class _AnkhButtonState extends State<AnkhButton> with SingleTickerProviderStateM
   AnimationController _ankhAniController;
   Animation _ankhColorAni;
   bool _ankhIsOn;
+  String _saveBTIcon;
+
+  Color _onColor = Colorz.Yellow80;
+  Color _offColor = Colorz.Nothing;
 // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
 
     _ankhIsOn = widget.ankhIsOn;
+    _saveBTIcon = _ankhIsOn == true ? Iconz.SaveOn : Iconz.SaveOff;
 
     _ankhAniController = AnimationController(
-      duration: Duration(milliseconds: 1000),
+      duration: Ratioz.durationFading200,
       vsync: this
     );
 
-    _ankhColorAni = ColorTween(begin: Colorz.White10, end: Colorz.Yellow80)
-        .animate(_ankhAniController);
+    _ankhColorAni = _initialTween().animate(_ankhAniController);
 
     _ankhAniController.addListener(() {
       // print(_ankhAniController.value);
       // print(_ankhColorAni.value);
     });
 
-    _ankhAniController.addStatusListener((status) {
-      if(status == AnimationStatus.completed){
-        setState(() {
-          _ankhIsOn = true;
-        });
-      }
-      if(status == AnimationStatus.dismissed){
-        setState(() {
-          _ankhIsOn = false;
-        });
-      }
-
-    });
+    // _ankhAniController.addStatusListener((status) {
+    //   if(status == AnimationStatus.completed){
+    //     setState(() {
+    //       _ankhIsOn = true;
+    //     });
+    //   }
+    //   if(status == AnimationStatus.dismissed){
+    //     setState(() {
+    //       _ankhIsOn = false;
+    //     });
+    //   }
+    //
+    // });
 
   }
 // -----------------------------------------------------------------------------
@@ -72,76 +77,136 @@ class _AnkhButtonState extends State<AnkhButton> with SingleTickerProviderStateM
     super.dispose();
   }
 // -----------------------------------------------------------------------------
+  ColorTween _initialTween(){
+    ColorTween _tween;
+
+    if(widget.ankhIsOn){
+      _tween = ColorTween(begin: _onColor, end: _offColor);
+    }
+
+    else {
+      _tween = ColorTween(begin: _offColor, end: _onColor);
+    }
+
+    return _tween;
+  }
+// -----------------------------------------------------------------------------
+  Future<void> _onAnkhTap() async {
+    widget.tappingAnkh();
+
+    if (_ankhIsOn == true){
+
+      setState(() {
+        _ankhIsOn = false;
+        _saveBTIcon = Iconz.SaveOff;
+      });
+      await _ankhAniController.reverse();
+
+    }
+
+    else {
+
+      setState(() {
+        _ankhIsOn = true;
+        _saveBTIcon = Iconz.SaveOn;
+      });
+      await _ankhAniController.forward();
+
+    }
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
     // final pro = Provider.of<CoFlyer>(context, listen: false);
-    // bool ankhIsOn = pro.ankhIsOn;
     // String flyerID = pro.flyer.flyerID;
 // -----------------------------------------------------------------------------
-    double _footerBTMargins =
-    (
-        (_ankhIsOn == true && widget.microMode == true && widget.slidingIsOn == false) ?
-        widget.flyerZoneWidth * 0.01// for micro flyer when AnkhIsOn
-            :
-        (_ankhIsOn == true) ?
-        widget.flyerZoneWidth * 0.015 // for Normal flyer when AnkhIsOn
-            :
-        widget.flyerZoneWidth * 0.025 // for Normal flyer when !AnkhIsOn
-    );
-// -----------------------------------------------------------------------------
-    double _flyerBottomCorners = widget.flyerZoneWidth * Ratioz.xxflyerBottomCorners;
-    double _saveBTRadius = _flyerBottomCorners - _footerBTMargins;
-    // String saveBTIcon = ankhIsOn == true ? Iconz.SaveOn : Iconz.SaveOff;
-    // String saveBTVerse = ankhIsOn == true ? translate(context, 'Saved') :
-    // translate(context, 'Save');
-    // Color _saveBTColor = _ankhIsOn == true ? Colorz.YellowSmoke : Colorz.Nothing;
+    double _saveBTSize = FlyerFooter.buttonSize(
+      context: context,
+      flyerZoneWidth: widget.flyerZoneWidth,
+      buttonIsOn: _ankhIsOn,
+    ) ;
+
+
+    String _saveBTVerse = widget.ankhIsOn == true ? translate(context, 'Saved') :
+    translate(context, 'Save');
+    Color _saveBTColor = _ankhIsOn == true ? Colorz.Yellow80 : Colorz.White10;
 // -----------------------------------------------------------------------------
     // Color flyerShadowColor = ankhIsOn == true ? Colorz.BlackBlack : Colorz.BlackBlack;
 // -----------------------------------------------------------------------------
+    bool _microMode = Scale.superFlyerMicroMode(context, widget.flyerZoneWidth);
+
     return
       Positioned(
-        left: Wordz.textDirection(context) == 'ltr' ? null : 0,
-        right: Wordz.textDirection(context) == 'ltr' ? 0 : null,
+        right: Aligners.rightPositionInRightAlignmentEn(context, 0),
+        left: Aligners.leftPositionInRightAlignmentEn(context, 0),
         bottom: 0,
         child:
-        AnimatedBuilder(
-          animation: _ankhAniController,
-          builder: (BuildContext context, _){
-            return
-              Stack(
-                alignment: Alignment.center,
-                children: <Widget>[
 
-                  AnimatedContainer(
-                    duration: const Duration(milliseconds: 200),
-                    width: _saveBTRadius * 2,
-                    height: _saveBTRadius * 2,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: widget.ankhIsOn == true ? Colorz.Yellow80 : Colorz.Nothing,//_ankhColorAni.value,
-                    ),
-                  ),
-                  (widget.microMode == true && widget.ankhIsOn == false) || widget.bzPageIsOn == true ? Container():
-                  DreamBox(
-                      icon: widget.ankhIsOn == true ? Iconz.SaveOn : Iconz.SaveOff, // saveBTIcon,
-                      iconSizeFactor: 0.8,
-                      width: _saveBTRadius*2,
-                      height: _saveBTRadius*2,
-                      corners: _saveBTRadius,
-                      margins: EdgeInsets.all(_footerBTMargins),
-                      color: Colorz.Nothing,
-                      onTap: (){
-                        widget.tappingAnkh();
-                        // _ankhIsOn == false ? _ankhAniController.forward() :
-                        // _ankhAniController.reverse();
-                      }
-                      ),
+          widget.bzPageIsOn ?
+          Container()
+              :
 
-                ],
-              );
-            },
-        ),
+          _microMode == true && widget.ankhIsOn == true ?
+          Container()
+              :
+
+          _microMode == false && widget.ankhIsOn == false ?
+          FooterButton(
+            icon: _saveBTIcon,
+            flyerZoneWidth: widget.flyerZoneWidth,
+            isOn: false,
+            verse: _saveBTVerse,
+            onTap: _onAnkhTap,
+          )
+              :
+
+          _microMode == false && widget.ankhIsOn == true ?
+          // (_microMode == true && widget.ankhIsOn == false) || widget.bzPageIsOn == true ? Container():
+          FooterButton(
+            icon: _saveBTIcon,
+            flyerZoneWidth: widget.flyerZoneWidth,
+            isOn: widget.ankhIsOn,
+            verse: _saveBTVerse,
+            onTap: _onAnkhTap,
+          )
+              :
+
+          Container(),
+
+        ///
+        // AnimatedBuilder(
+        //   animation: _ankhAniController,
+        //   builder: (BuildContext context, _){
+        //     return
+        //       Stack(
+        //         alignment: Alignment.center,
+        //         children: <Widget>[
+        //
+        //           // AnimatedContainer(
+        //           //   duration: const Duration(milliseconds: 50),
+        //           //   width: _saveBTSize,
+        //           //   height: _saveBTSize,
+        //           //   decoration: BoxDecoration(
+        //           //     shape: BoxShape.circle,
+        //           //     color: _ankhColorAni.value,
+        //           //   ),
+        //           // ),
+        //
+        //           (widget.microMode == true && widget.ankhIsOn == false) || widget.bzPageIsOn == true ? Container():
+        //           FooterButton(
+        //               icon: _saveBTIcon,
+        //               flyerZoneWidth: widget.flyerZoneWidth,
+        //               isOn: widget.ankhIsOn,
+        //               verse: _saveBTVerse,
+        //               onTap: _onAnkhTap,
+        //           ),
+        //
+        //         ],
+        //       );
+        //     },
+        // ),
+        ///
       );
   }
 }

@@ -134,6 +134,9 @@ class _OldMyBzScreenState extends State<OldMyBzScreen> {
                                 flyerID: '',
                                 flyerZoneWidth: _flyerZoneWidth,
                                 slideColor: Colorz.White80,
+                                onTap: (){
+                                  print('tapping slide in old my bz screen');
+                                },
                               ),
 
                               // --- BZ BUTTONS

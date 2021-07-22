@@ -140,7 +140,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   void _showBzCard (){
     setState(() {});
 
-    BottomDialog.slideBzBottomSheet(
+    BottomDialog.slideBzBottomDialog(
       context: context,
       bz: BzModel(
         bzID: '',

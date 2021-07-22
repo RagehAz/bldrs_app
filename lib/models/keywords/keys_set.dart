@@ -5,7 +5,7 @@ import 'package:bldrs/models/planet/district_model.dart';
 import 'package:bldrs/providers/country_provider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_keyboard_size/flutter_keyboard_size.dart';
+import 'package:provider/provider.dart';
 
 class KeysSet{
   final String titleID;
