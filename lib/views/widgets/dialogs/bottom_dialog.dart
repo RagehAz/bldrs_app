@@ -195,14 +195,8 @@ class BottomDialog extends StatelessWidget {
 // -----------------------------------------------------------------------------
   static Future<void> slideStatefulBottomSheet({BuildContext context, double height, bool draggable, Widget Function(BuildContext) builder}) async {
     await showModalBottomSheet(
-      shape: RoundedRectangleBorder(borderRadius: Borderers.superBorders(
-          context: context,
-          enTopLeft: Ratioz.bottomSheetCorner,
-          enBottomLeft: 0,
-          enBottomRight: 0,
-          enTopRight: Ratioz.bottomSheetCorner
-      )),
-      backgroundColor: Colorz.Black255,
+      shape: RoundedRectangleBorder(borderRadius: BottomDialog.dialogCorners(context)),
+      backgroundColor: Colorz.BlackSemi255,
       barrierColor: Colorz.Black150,
       enableDrag: draggable,
       elevation: 20,
