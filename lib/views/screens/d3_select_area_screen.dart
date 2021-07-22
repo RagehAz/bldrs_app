@@ -5,7 +5,7 @@ import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/widgets/layouts/listLayout.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart' show Sky;
 import 'package:flutter/material.dart';
-import 'package:flutter_keyboard_size/flutter_keyboard_size.dart';
+import 'package:provider/provider.dart';
 
 class SelectAreaScreen extends StatelessWidget {
   final String cityID;

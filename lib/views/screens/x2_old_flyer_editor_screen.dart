@@ -3,7 +3,6 @@ import 'package:bldrs/controllers/drafters/animators.dart';
 import 'package:bldrs/controllers/drafters/sliders.dart';
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
-import 'package:bldrs/controllers/drafters/text_shapers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
@@ -475,7 +474,6 @@ class _OldFlyerEditorScreenState extends State<OldFlyerEditorScreen> {
 // -----------------------------------------------------------------------------
   void _addKeywords(){
 
-      double _bottomSheetHeightFactor = 0.7;
 
       List<Keyword> _keywords = <Keyword>[
         Keyword.bldrsKeywords()[100],
@@ -484,18 +482,19 @@ class _OldFlyerEditorScreenState extends State<OldFlyerEditorScreen> {
         Keyword.bldrsKeywords()[403],
         Keyword.bldrsKeywords()[600],
       ];
-      double _dialogHeight = Scale.superScreenHeight(context) * _bottomSheetHeightFactor;
+      double _dialogHeight = BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.7);
 
-      BottomDialog.slideStatefulBottomSheet(
+      BottomDialog.slideStatefulBottomDialog(
         context: context,
         height: _dialogHeight,
         draggable: true,
-        builder: (context){
+        title: 'Add Keywords to the flyer',
+        builder: (context, title){
           return StatefulBuilder(
-              builder: (BuildContext context, StateSetter setSheetState){
+              builder: (BuildContext context, StateSetter setDialogState){
                 return BottomDialog(
-                  height: Scale.superScreenHeight(context) * _bottomSheetHeightFactor,
-                  title: 'Add Keywords to the flyer',
+                  height: _dialogHeight,
+                  title: title,
                   draggable: true,
                   child: Container(
                     width: BottomDialog.dialogClearWidth(context),
@@ -516,7 +515,7 @@ class _OldFlyerEditorScreenState extends State<OldFlyerEditorScreen> {
                           keywords: _currentKeywords,
                           selectedWords: _currentKeywords,
                           onTap: (value){
-                            setSheetState(() {
+                            setDialogState(() {
                               _currentKeywords.remove(value);
                             });
                           },
@@ -529,7 +528,7 @@ class _OldFlyerEditorScreenState extends State<OldFlyerEditorScreen> {
                           keywords: _keywords,
                           selectedWords: _currentKeywords,
                           onTap: (value){
-                            setSheetState(() {
+                            setDialogState(() {
                               _currentKeywords.add(value);
                             });
                           },
@@ -541,7 +540,7 @@ class _OldFlyerEditorScreenState extends State<OldFlyerEditorScreen> {
                           title: 'Product Use',
                           keywords: _keywords,
                           selectedWords: _currentKeywords,
-                          onTap: (value){setSheetState(() {_currentKeywords.add(value);});},
+                          onTap: (value){setDialogState(() {_currentKeywords.add(value);});},
                         ),
 
                         // Container(
@@ -562,77 +561,65 @@ class _OldFlyerEditorScreenState extends State<OldFlyerEditorScreen> {
 // -----------------------------------------------------------------------------
   void _selectFlyerType(){
 
-    double _bottomSheetHeightFactor = 0.25;
-    double _dialogHeight = Scale.superScreenHeight(context) * _bottomSheetHeightFactor;
+    double _dialogHeight = BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.25);
 
-    BottomDialog.slideStatefulBottomSheet(
+    BottomDialog.slideStatefulBottomDialog(
       context: context,
       height: _dialogHeight,
       draggable: true,
-      builder: (context){
+      title: 'Choose Flyer Type',
+      builder: (context, title){
         return StatefulBuilder(
-            builder: (BuildContext context, StateSetter setSheetState){
+            builder: (BuildContext context, StateSetter setDialogState){
 
 
               return BottomDialog(
                 height: _dialogHeight,
                 draggable: true,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
+                title: title,
+                child: Container(
+                  width: BottomDialog.dialogClearWidth(context),
+                  height: BottomDialog.dialogClearHeight(title: 'x', context: context, overridingDialogHeight: _dialogHeight),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
 
-                    SuperVerse(
-                      verse: 'Choose Flyer Type',
-                      size: 3,
-                      weight: VerseWeight.thin,
-                      italic: true,
-                    ),
-
-                    Container(
-                      width: BottomDialog.dialogClearWidth(context),
-                      height: BottomDialog.dialogClearHeight(title: 'x', context: context, overridingDialogHeight: _dialogHeight),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-
-                          DreamBox(
-                            height: 60,
-                            width: BottomDialog.dialogClearWidth(context) / 2.2,
-                            verse: 'Product Flyer',
-                            verseMaxLines: 2,
-                            verseScaleFactor: 0.7,
-                            color: _currentFlyerType == FlyerType.Product ? Colorz.Yellow255 : Colorz.White20,
-                            verseColor: _currentFlyerType == FlyerType.Product ? Colorz.Black230 : Colorz.White255,
-                            onTap: (){
-                              setSheetState(() {
-                                _currentFlyerType = FlyerType.Product;
-                              });
-                            },
-                          ),
-
-                          DreamBox(
-                            height: 60,
-                            width: BottomDialog.dialogClearWidth(context) / 2.2,
-                            verse: 'Equipment Flyer',
-                            verseMaxLines: 2,
-                            verseScaleFactor: 0.7,
-                            color: _currentFlyerType == FlyerType.Equipment ? Colorz.Yellow255 : Colorz.White20,
-                            verseColor: _currentFlyerType == FlyerType.Equipment ? Colorz.Black230 : Colorz.White255,
-                            onTap: (){
-                              setSheetState(() {
-                                _currentFlyerType = FlyerType.Equipment;
-                              });
-                            },
-                          ),
-
-                        ],
+                      DreamBox(
+                        height: 60,
+                        width: BottomDialog.dialogClearWidth(context) / 2.2,
+                        verse: 'Product Flyer',
+                        verseMaxLines: 2,
+                        verseScaleFactor: 0.7,
+                        color: _currentFlyerType == FlyerType.Product ? Colorz.Yellow255 : Colorz.White20,
+                        verseColor: _currentFlyerType == FlyerType.Product ? Colorz.Black230 : Colorz.White255,
+                        onTap: (){
+                          setDialogState(() {
+                            _currentFlyerType = FlyerType.Product;
+                          });
+                        },
                       ),
-                    ),
-                  ],
+
+                      DreamBox(
+                        height: 60,
+                        width: BottomDialog.dialogClearWidth(context) / 2.2,
+                        verse: 'Equipment Flyer',
+                        verseMaxLines: 2,
+                        verseScaleFactor: 0.7,
+                        color: _currentFlyerType == FlyerType.Equipment ? Colorz.Yellow255 : Colorz.White20,
+                        verseColor: _currentFlyerType == FlyerType.Equipment ? Colorz.Black230 : Colorz.White255,
+                        onTap: (){
+                          setDialogState(() {
+                            _currentFlyerType = FlyerType.Equipment;
+                          });
+                        },
+                      ),
+
+                    ],
+                  ),
                 ),
               );
+
             }
         );
       },
@@ -930,6 +917,7 @@ class _OldFlyerEditorScreenState extends State<OldFlyerEditorScreen> {
                                 textFieldOnChanged: (text){
                                   print('text is : $text');
                                 },
+                                onTap: (){},
                               ),
                             ),
                       ),

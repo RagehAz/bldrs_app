@@ -2,6 +2,7 @@ import 'package:bldrs/controllers/drafters/sliders.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/models/sub_models/slide_model.dart';
+import 'package:bldrs/views/widgets/flyer/parts/slides_parts/footer.dart';
 import 'package:flutter/material.dart';
 import 'slides_parts/single_slide.dart';
 
@@ -14,6 +15,7 @@ class Slides extends StatefulWidget {
   final Function onPageChanged;
   final int currentSlideIndex;
   final Function swipeFlyer;
+  final Function onTap;
 
   Slides({
     @required this.slides,
@@ -23,6 +25,7 @@ class Slides extends StatefulWidget {
     @required this.onPageChanged,
     @required this.currentSlideIndex,
     this.swipeFlyer,
+    @required this.onTap,
 });
 
   @override
@@ -55,7 +58,7 @@ class _SlidesState extends State<Slides> {
 // -----------------------------------------------------------------------------
     double _progressBarHeight = widget.flyerZoneWidth * 0.0125;
     double _headerHeight = Scale.superHeaderHeight(false, widget.flyerZoneWidth);
-    double _footerHeight = Scale.superFlyerFooterHeight(widget.flyerZoneWidth);
+    double _footerHeight = FlyerFooter.boxHeight(context: context, flyerZoneWidth: widget.flyerZoneWidth);
     double _flyerHeight = Scale.superFlyerZoneHeight(context, widget.flyerZoneWidth);
     double _tapAreaHeight = _flyerHeight - (_headerHeight+_progressBarHeight+_footerHeight);
 // -----------------------------------------------------------------------------
@@ -75,6 +78,7 @@ class _SlidesState extends State<Slides> {
         shares: widget.slides[0]?.sharesCount,
         views: widget.slides[0]?.viewsCount,
         slideIndex: 0,
+        onTap: widget.onTap,
         slideMode: SlideMode.View,
       )
           :
@@ -130,6 +134,7 @@ class _SlidesState extends State<Slides> {
                 slideIndex : i,
                 slideMode: SlideMode.View,
                 flyerID: widget.flyerID,
+                onTap: widget.onTap,
               )),
 
             ],
