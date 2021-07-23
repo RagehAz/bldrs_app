@@ -83,7 +83,7 @@ class _DropDownBubbleState extends State<DropDownBubble> {
           height: 35,
           decoration: BoxDecoration(
             color: Colorz.BloodTest,
-            borderRadius: Borderers.superBorders(context: context, enTopLeft: 10, enBottomLeft: 10, enBottomRight: 10, enTopRight: 10),
+            borderRadius: Borderers.superBorderOnly(context: context, enTopLeft: 10, enBottomLeft: 10, enBottomRight: 10, enTopRight: 10),
           ),
           child: DropdownButtonFormField(
             // value: widget.list[0] ?? widget.list[0],

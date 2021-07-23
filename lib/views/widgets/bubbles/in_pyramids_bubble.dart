@@ -80,10 +80,10 @@ final dynamic corners;
         null;
 // -----------------------------------------------------------------------------
     double _titleWidth = stretchy == true ? null : _bubbleWidth - actionBtSize * 2;
-
+// -----------------------------------------------------------------------------
     BorderRadius _corners =
     corners == null ? Borderers.superBorder(context: context, corners: Ratioz.appBarCorner)
-        :
+    :
     Borderers.superBorder(context: context, corners: corners);
 // -----------------------------------------------------------------------------
     return Container(
@@ -101,7 +101,7 @@ final dynamic corners;
             child: InkWell(
               onTap: bubbleOnTap,
               splashColor: Colorz.Yellow255,
-              borderRadius: BorderRadius.circular(Ratioz.appBarCorner),
+              borderRadius: _corners,
               child: Padding(
                 padding: EdgeInsets.all(_pageMargin),
                 child: Column(

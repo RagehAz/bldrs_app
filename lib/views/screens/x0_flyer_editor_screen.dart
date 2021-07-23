@@ -25,10 +25,10 @@ import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/screens/xx_flyer_on_map.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/buttons/publish_button.dart';
-import 'package:bldrs/views/widgets/buttons/sheet_buttons.dart';
 import 'package:bldrs/views/widgets/buttons/slides_counter.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_dialog.dart';
+import 'package:bldrs/views/widgets/dialogs/bottom_dialog_buttons.dart';
 import 'package:bldrs/views/widgets/dialogs/dialogz.dart';
 import 'package:bldrs/views/widgets/flyer/editor/editorPanel.dart';
 import 'package:bldrs/views/widgets/flyer/parts/ankh_button.dart';
@@ -78,7 +78,6 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
   PageController _horizontalController;
   PageController _verticalController;
   ScrollController _infoScrollController;
-  PageController _panelController;
 // -----------------------------------------------------------------------------
   FlyersProvider _prof;
   CountryProvider _countryPro;
@@ -152,10 +151,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
     _horizontalController = PageController(initialPage: 0, viewportFraction: 1, keepPage: true);
     _verticalController = PageController(initialPage: 0, keepPage: true, viewportFraction: 1);
     _infoScrollController = ScrollController(keepScrollOffset: true,);
-    _panelController = PageController(initialPage: 0, keepPage: true, viewportFraction: 1);
-    _verticalController..addListener(() {
-      _panelController.animateTo(_verticalController.position.pixels, duration: Ratioz.duration150ms, curve: Curves.slowMiddle);
-    });
+
 
     _prof = Provider.of<FlyersProvider>(context, listen: false);
     _countryPro = Provider.of<CountryProvider>(context, listen: false);
@@ -174,7 +170,6 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
     _verticalController.dispose();
     _horizontalController.dispose();
     _infoScrollController.dispose();
-    _panelController.dispose();
     super.dispose();
   }
 // ---------------------------------------------------o
@@ -312,65 +307,6 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
 
     _triggerLoading();
 
-  }
-// -----------------------------------------------------------------------------
-  List<Widget> _buildSlides(double flyerZoneWidth){
-    // print('========= BUILDING PROGRESS BAR FOR ||| index : $_draft.currentSlideIndex, numberOfSlides : $_draft.numberOfSlides');
-
-    BoxFit _currentPicFit = _draft.boxesFits.length == 0 ? null : _draft.boxesFits[_draft.currentSlideIndex];
-
-    ImageSize _originalAssetSize =
-    _draft.numberOfSlides == 0 ? null :
-    _draft.assetsSources.length == 0 ? null :
-    ImageSize(
-      width: _draft.assetsSources[_draft.currentSlideIndex].originalWidth,
-      height: _draft.assetsSources[_draft.currentSlideIndex].originalHeight,
-    );
-
-    return
-        <Widget>[
-          ...List.generate(_draft.numberOfSlides, (i){
-
-            return
-            _draft.numberOfSlides == 0 ? Container() :
-              AnimatedOpacity(
-                key: ObjectKey(_draft.key.value + i),
-                opacity: _draft.visibilities[i] == true ? 1 : 0,
-                duration: _fadingDuration,
-                child: Stack(
-                  children: <Widget>[
-
-                    SingleSlide(
-                      key: ObjectKey(_draft.key.value + i),
-                      flyerZoneWidth: flyerZoneWidth,
-                      flyerID: null, //_flyer.flyerID,
-                      picture: _draft.assetsFiles[i],//_currentSlides[index].picture,
-                      slideMode: SlideMode.Editor,//slidesModes[index],
-                      boxFit: _currentPicFit, // [fitWidth - contain - scaleDown] have the blur background
-                      titleController: _draft.headlinesControllers[i],
-                      imageSize: _originalAssetSize,
-                      textFieldOnChanged: (text){
-                        print('text is : $text');
-                      },
-                      onTap: (){},
-                    ),
-
-                    if (_draft.editMode == false)
-                    FlyerFooter(
-                      flyerZoneWidth: flyerZoneWidth,
-                      saves: 0,
-                      shares: 0,
-                      views: 0,
-                      onShareTap: null,
-                      onCountersTap: _triggerKeywordsView,
-                    ),
-
-                  ],
-                ),
-              );
-
-          }),
-        ];
   }
 // -----------------------------------------------------------------------------
   Future<void> _deleteSlide() async {
@@ -1320,7 +1256,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
       draggable: true,
       height: null,
       title: 'Publish this flyer targeting a specific city',
-      child: SheetButtons(
+      child: BottomDialogButtons(
         listOfMaps: _flags,
         mapValueIs: MapValueIs.flag,
         alignment: Alignment.center,
@@ -1358,7 +1294,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
         draggable: true,
         height: null,
         title: '${_countryPro.getCountryNameInCurrentLanguageByIso3(context, _draft.flyerZone.countryID)} Cities',
-        child: SheetButtons(
+        child: BottomDialogButtons(
           listOfMaps: _cities,
           mapValueIs: MapValueIs.String,
           alignment: Alignment.center,
@@ -1394,7 +1330,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
         draggable: true,
         height: null,
         title: '${_countryPro.getCityNameWithCurrentLanguageIfPossible(context, _draft.flyerZone.cityID)} Districts',
-        child: SheetButtons(
+        child: BottomDialogButtons(
           listOfMaps: _districts,
           mapValueIs: MapValueIs.String,
           alignment: Alignment.center,
@@ -1576,7 +1512,6 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                   showAuthor: _draft.showAuthor,
                   onAuthorTap: _onAuthorTap,
                   onTriggerEditMode: _triggerEditMode,
-                  panelController: _panelController,
                   zone: _draft.flyerZone,
                   flyerType: _draft.flyerType,
                   onFlyerTypeTap: () async {await _onChangeFlyerType();},
@@ -1619,7 +1554,62 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                                 onPageChanged: _draft.listenToSwipe ? (i) => _onPageChanged(i) : (i) => Sliders.zombie(i),
                                 scrollDirection: Axis.horizontal,
                                 children: <Widget>[
-                                  ..._buildSlides(_flyerZoneWidth),
+
+                                  ...List.generate(_draft.numberOfSlides, (i){
+
+                                    // print('========= BUILDING PROGRESS BAR FOR ||| index : $_draft.currentSlideIndex, numberOfSlides : $_draft.numberOfSlides');
+
+                                    BoxFit _currentPicFit = _draft.boxesFits.length == 0 ? null : _draft.boxesFits[_draft.currentSlideIndex];
+
+                                    ImageSize _originalAssetSize =
+                                    _draft.numberOfSlides == 0 ? null :
+                                    _draft.assetsSources.length == 0 ? null :
+                                    ImageSize(
+                                      width: _draft.assetsSources[_draft.currentSlideIndex].originalWidth,
+                                      height: _draft.assetsSources[_draft.currentSlideIndex].originalHeight,
+                                    );
+
+
+                                    return
+                                      _draft.numberOfSlides == 0 ? Container() :
+                                      AnimatedOpacity(
+                                        key: ObjectKey(_draft.key.value + i),
+                                        opacity: _draft.visibilities[i] == true ? 1 : 0,
+                                        duration: _fadingDuration,
+                                        child: Stack(
+                                          children: <Widget>[
+
+                                            SingleSlide(
+                                              key: ObjectKey(_draft.key.value + i),
+                                              flyerZoneWidth: _flyerZoneWidth,
+                                              flyerID: null, //_flyer.flyerID,
+                                              picture: _draft.assetsFiles[i],//_currentSlides[index].picture,
+                                              slideMode: SlideMode.Editor,//slidesModes[index],
+                                              boxFit: _currentPicFit, // [fitWidth - contain - scaleDown] have the blur background
+                                              titleController: _draft.headlinesControllers[i],
+                                              imageSize: _originalAssetSize,
+                                              textFieldOnChanged: (text){
+                                                print('text is : $text');
+                                              },
+                                              onTap: (){},
+                                            ),
+
+                                            if (_draft.editMode == false)
+                                              FlyerFooter(
+                                                flyerZoneWidth: _flyerZoneWidth,
+                                                saves: 0,
+                                                shares: 0,
+                                                views: 0,
+                                                onShareTap: null,
+                                                onCountersTap: _triggerKeywordsView,
+                                              ),
+
+                                          ],
+                                        ),
+                                      );
+
+                                  }),
+
                                 ],
                               ),
 
@@ -1643,6 +1633,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                                 onCropImage: () async {_onCropImage();},
                                 onResetImage: _onResetImage,
                                 onFitImage: () async {await _onFitImage(_currentPicFit);},
+                                numberOdSlides: _draft.numberOfSlides,
                               ),
 
                           ],
@@ -1677,11 +1668,13 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                                 flyerZoneWidth: _flyerZoneWidth,
                                 draft: _draft,
                                 onVerticalBack: () async {
-
                                   await Sliders.slideToBackFrom(_verticalController, 1);
                                   // _onVerticalIndexChanged(0);
-
                                 },
+                                onFlyerTypeTap: () async {await _onChangeFlyerType();},
+                                onZoneTap: () async {await _onChangeZone();},
+                                onAboutTap: () async {await _onAboutTap();},
+                                onKeywordsTap: () async {await _onKeywordsTap();},
                               ),
 
                             ],

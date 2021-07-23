@@ -69,7 +69,7 @@ static DecorationImage superImage(String picture, BoxFit boxFit){
   return picture == '' ? null : image;
 }
 // -----------------------------------------------------------------------------
-  static Widget superImageWidget(dynamic pic, {int width, int height, BoxFit fit, double scale}){
+  static Widget superImageWidget(dynamic pic, {int width, int height, BoxFit fit, double scale, Color iconColor}){
 
   BoxFit _boxFit = fit == null ? BoxFit.cover : fit;
 
@@ -79,6 +79,7 @@ static DecorationImage superImage(String picture, BoxFit boxFit){
   // Asset _asset = ObjectChecker.objectIsAsset(pic) == true ? pic : null;
 
   double _scale = scale == null ? 1 : scale;
+  Color _iconColor = iconColor == null ? null : iconColor;
 
   return
   pic == null ? null :
@@ -89,7 +90,7 @@ static DecorationImage superImage(String picture, BoxFit boxFit){
       Image.asset(pic, fit: _boxFit)
           :
       ObjectChecker.objectIsSVG(pic)?
-      WebsafeSvg.asset(pic, fit: _boxFit,)
+      WebsafeSvg.asset(pic, fit: _boxFit,color: _iconColor)
           :
       /// max user NetworkImage(userPic), to try it later
       ObjectChecker.objectIsURL(pic)?
