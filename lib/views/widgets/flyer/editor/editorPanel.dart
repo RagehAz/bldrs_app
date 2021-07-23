@@ -20,7 +20,6 @@ class EditorPanel extends StatelessWidget {
   final bool showAuthor;
   final Function onAuthorTap;
   final Function onTriggerEditMode;
-  final PageController panelController;
   final Zone zone;
   final FlyerType flyerType;
   final Function onFlyerTypeTap;
@@ -36,7 +35,6 @@ class EditorPanel extends StatelessWidget {
     @required this.showAuthor,
     @required this.onAuthorTap,
     @required this.onTriggerEditMode,
-    @required this.panelController,
     @required this.zone,
     @required this.flyerType,
     @required this.onFlyerTypeTap,
@@ -82,7 +80,6 @@ class EditorPanel extends StatelessWidget {
 
 // -----------------------------------------------------------------------------
 
-
     return Container(
       width: _panelWidth,
       height: _panelHeight,
@@ -110,114 +107,23 @@ class EditorPanel extends StatelessWidget {
             onTap: onAuthorTap,
           ),
 
-          /// PANEL BUTTONS ZONE
-          Container(
-            width: _panelWidth,
-            height: _panelHeight - _authorButtonHeight,
-            // color: Colorz.BloodTest,
-            child: PageView(
-              physics: NeverScrollableScrollPhysics(),
-              controller: panelController,
-              scrollDirection: Axis.vertical,
-              children: <Widget>[
+          /// SPACER
+          _expander(),
 
-                /// SLIDES PAGE BUTTONS
-                Container(
-                  width: _panelWidth,
-                  height: _panelHeight - _authorButtonHeight,
-                  // color: Colorz.BloodTest,
-                  child: Column(
-                    children: <Widget>[
+          // PanelButton.panelDot(panelButtonWidth: _panelButtonSize),
 
-                      /// SPACER
-                      _expander(),
-
-                      /// ADD IMAGE
-
-                      PanelButton(
-                        size: _panelButtonSize,
-                        flyerZoneWidth: flyerZoneWidth,
-                        icon:  Iconz.Gears,
-                        iconSizeFactor: 0.5,
-                        verse: draft.editMode ? 'Editing' : 'Edit',
-                        verseColor: draft.editMode ? Colorz.Black255 : Colorz.White255,
-                        color: draft.editMode ? Colorz.Yellow255 : Colorz.White80,
-                        onTap: onTriggerEditMode,
-                      ),
-
-
-                      /// BOTTOM SPACING
-                      // SizedBox(
-                      //   //Ratioz.xxflyerBottomCorners * _flyerZoneWidth - Ratioz.appBarPadding,
-                      //   height: Scale.superFlyerFooterHeight(_flyerZoneWidth),
-                      // ),
-
-                    ],
-                  ),
-                ),
-
-                /// INFO PAGE BUTTONS
-                Container(
-                  width: _panelWidth,
-                  height: _panelHeight - _authorButtonHeight,
-                  // color: Colorz.White50,
-                  child: Column(
-                    children: <Widget>[
-                      
-                      /// Flyer type
-                      PanelButton(
-                        size: _panelButtonSize,
-                        flyerZoneWidth: flyerZoneWidth,
-                        icon:  Iconizer.flyerTypeIconOff(flyerType),
-                        iconSizeFactor: 1,
-                        verse: 'Type',
-                        onTap: onFlyerTypeTap,
-                      ),
-
-                      /// Country
-                      PanelButton(
-                        size: _panelButtonSize,
-                        flyerZoneWidth: flyerZoneWidth,
-                        icon:  Flagz.getFlagByIso3(zone.countryID),
-                        iconSizeFactor: 0.62,
-                        verse: 'Target',
-                        onTap: onZoneTap,
-                      ),
-
-                      _expander(),
-
-                      /// About
-                      PanelButton(
-                        size: _panelButtonSize,
-                        flyerZoneWidth: flyerZoneWidth,
-                        icon: Iconz.Info,
-                        iconSizeFactor: 0.5,
-                        verse: 'About',
-                        onTap: onAboutTap,
-                      ),
-
-                      PanelButton.panelDot(panelButtonWidth: _panelButtonSize),
-
-                      /// KEYWORDS
-                      PanelButton(
-                        size: _panelButtonSize,
-                        flyerZoneWidth: flyerZoneWidth,
-                        icon: Iconz.FlyerScale,
-                        iconSizeFactor: 0.5,
-                        verse: 'Tags',
-                        onTap: onKeywordsTap,
-                      ),
-
-                      /// SPACER
-                      _expander(),
-
-                    ],
-                  ),
-                ),
-
-              ],
-            ),
+          /// ADD IMAGE
+          PanelButton(
+            flyerZoneWidth: flyerZoneWidth,
+            icon:  Iconz.Gears,
+            iconSizeFactor: 0.5,
+            verse: draft.editMode ? 'Editing' : 'Edit',
+            verseColor: draft.editMode ? Colorz.Black255 : Colorz.White255,
+            color: draft.editMode ? Colorz.Yellow255 : Colorz.White80,
+            onTap: onTriggerEditMode,
           ),
+
+
         ],
       ),
     );

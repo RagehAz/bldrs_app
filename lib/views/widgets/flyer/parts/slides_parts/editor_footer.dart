@@ -11,6 +11,7 @@ class EditorFooter extends StatelessWidget {
   final Function onResetImage;
   final Function onFitImage;
   final BoxFit currentPicFit;
+  final int numberOdSlides;
 
   EditorFooter({
     @required this.flyerZoneWidth,
@@ -20,6 +21,7 @@ class EditorFooter extends StatelessWidget {
     @required this.onResetImage,
     @required this.onFitImage,
     @required this.currentPicFit,
+    @required this.numberOdSlides,
   });
 
   @override
@@ -36,6 +38,9 @@ class EditorFooter extends StatelessWidget {
     double _sumOfSpacings = _spacing * (_numberOfButtons + 1);
     double _sumOfButtons = flyerZoneWidth - _sumOfSpacings;
     double _fittingButtonSize = _sumOfButtons / _numberOfButtons;
+
+    bool _buttonInActive = numberOdSlides == 0 ? true : false;
+
 
     // --- FLYER FOOTER
     return Align(
@@ -75,6 +80,7 @@ class EditorFooter extends StatelessWidget {
                   isOn: false,
                   onTap: onDeleteSlide,
                   size: _fittingButtonSize,
+                  inActive: _buttonInActive,
                 ),
 
                 /// CROP IMAGE
@@ -85,6 +91,7 @@ class EditorFooter extends StatelessWidget {
                   isOn: false,
                   onTap: onCropImage,
                   size: _fittingButtonSize,
+                  inActive: _buttonInActive,
                 ),
 
                 /// RESET IMAGE
@@ -95,6 +102,7 @@ class EditorFooter extends StatelessWidget {
                   isOn: false,
                   onTap: onResetImage,
                   size: _fittingButtonSize,
+                  inActive: _buttonInActive,
                 ),
 
                 /// FIT IMAGES
@@ -105,6 +113,7 @@ class EditorFooter extends StatelessWidget {
                   isOn: false,
                   onTap: onFitImage,
                   size: _fittingButtonSize,
+                  inActive: _buttonInActive,
                 ),
 
 

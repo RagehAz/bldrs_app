@@ -8,9 +8,9 @@ import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
-import 'package:bldrs/views/widgets/buttons/sheet_buttons.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_dialog.dart';
+import 'package:bldrs/views/widgets/dialogs/bottom_dialog_buttons.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -63,7 +63,7 @@ class _LocaleBubbleState extends State<LocaleBubble> {
       context: context,
       draggable: true,
       height: null,
-      child: SheetButtons(
+      child: BottomDialogButtons(
         listOfMaps: flags,
         mapValueIs: MapValueIs.flag,
         alignment: Alignment.center,
@@ -89,7 +89,7 @@ class _LocaleBubbleState extends State<LocaleBubble> {
       context: context,
       draggable: true,
       height: null,
-      child: SheetButtons(
+      child: BottomDialogButtons(
         listOfMaps: cities,
         mapValueIs: MapValueIs.String,
         alignment: Alignment.center,
@@ -114,7 +114,7 @@ class _LocaleBubbleState extends State<LocaleBubble> {
       context: context,
       draggable: true,
       height: null,
-      child: SheetButtons(
+      child: BottomDialogButtons(
         listOfMaps: districts,
         mapValueIs: MapValueIs.String,
         alignment: Alignment.center,

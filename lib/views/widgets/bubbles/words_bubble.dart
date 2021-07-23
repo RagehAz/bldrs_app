@@ -49,6 +49,7 @@ class KeywordsBubble extends StatelessWidget {
       corners: corners,
       title: title,
       bubbleWidth: bubbleWidth,
+      bubbleOnTap: onTap,
       columnChildren: <Widget>[
 
         // --- STRINGS
