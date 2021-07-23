@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/drafters/scrollers.dart';
 import 'package:bldrs/controllers/drafters/streamerz.dart';
 import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
@@ -304,123 +305,125 @@ class _MyBzScreenState extends State<MyBzScreen> {
 
                 ],
 
-                layoutWidget: ListView(
-                  physics: const BouncingScrollPhysics(),
-                  children: <Widget>[
+                layoutWidget: GoHomeOnMaxBounce(
+                  child: ListView(
+                    physics: const BouncingScrollPhysics(),
+                    children: <Widget>[
 
-                    Stratosphere(),
+                      Stratosphere(),
 
-                    /// --- GALLERY
-                    InPyramidsBubble(
-                      title: 'Published Flyers',
-                      centered: false,
-                      actionBtIcon: Iconz.Clock,
-                      actionBtFunction: () => _showOldFlyersOnTap(bzModel),
-                      columnChildren: <Widget>[
-
-                        Gallery(
-                          flyerZoneWidth: Scale.superBubbleClearWidth(context),
-                          showFlyers: true,
-                          bz: bzModel,
-                          // showOldFlyers: _showOldFlyers,
-                          flyerOnTap: (tinyFlyer) async {
-
-                            dynamic _rebuild = await Navigator.push(context,
-                                new MaterialPageRoute(
-                                    builder: (context) => new BzFlyerScreen(
-                                      tinyFlyer: tinyFlyer,
-                                      bzModel: bzModel,
-                                    )
-                                ));
-
-                            if (_rebuild == true){
-                              print('we should rebuild');
-                              setState(() { });
-                            } else if (_rebuild == false){
-                              print('do not rebuild');
-                            } else {
-                              print ('rebuild is null');
-                            }
-
-                          },
-                        ),
-
-                      ],
-                    ),
-
-                    BubblesSeparator(),
-
-                    /// --- SCOPE
-                    ParagraphBubble(
-                      title: 'Scope of services',
-                      paragraph: bzModel.bzScope,
-                      maxLines: 5,
-                    ),
-
-                    /// --- ABOUT
-                    ParagraphBubble(
-                      title: 'About ${bzModel.bzName}',
-                      paragraph: bzModel.bzAbout,
-                      maxLines: 5,
-                      centered: false,
-                    ),
-
-                    BubblesSeparator(),
-
-                    /// --- STATS
-                    InPyramidsBubble(
-                        title: 'Stats',
+                      /// --- GALLERY
+                      InPyramidsBubble(
+                        title: 'Published Flyers',
                         centered: false,
+                        actionBtIcon: Iconz.Clock,
+                        actionBtFunction: () => _showOldFlyersOnTap(bzModel),
                         columnChildren: <Widget>[
 
-                          /// FOLLOWERS
-                          StatsLine(
-                            verse: '${bzModel.bzTotalFollowers} ${Wordz.followers(context)}',
-                            icon: Iconz.Follow,
+                          Gallery(
+                            flyerZoneWidth: Scale.superBubbleClearWidth(context),
+                            showFlyers: true,
+                            bz: bzModel,
+                            // showOldFlyers: _showOldFlyers,
+                            flyerOnTap: (tinyFlyer) async {
+
+                              dynamic _rebuild = await Navigator.push(context,
+                                  new MaterialPageRoute(
+                                      builder: (context) => new BzFlyerScreen(
+                                        tinyFlyer: tinyFlyer,
+                                        bzModel: bzModel,
+                                      )
+                                  ));
+
+                              if (_rebuild == true){
+                                print('we should rebuild');
+                                setState(() { });
+                              } else if (_rebuild == false){
+                                print('do not rebuild');
+                              } else {
+                                print ('rebuild is null');
+                              }
+
+                            },
                           ),
 
-                          /// CALLS
-                          StatsLine(
-                            verse: '${bzModel.bzTotalCalls} ${Wordz.callsReceived(context)}',
-                            icon: Iconz.ComPhone,
-                          ),
+                        ],
+                      ),
 
-                          /// SLIDES & FLYERS
-                          StatsLine(
-                            verse: '${bzModel.bzTotalSlides} ${Wordz.slidesPublished(context)} ${Wordz.inn(context)} ${bzModel.nanoFlyers.length} ${Wordz.flyers(context)}',
-                            icon: Iconz.Gallery,
-                          ),
+                      BubblesSeparator(),
 
-                          /// SAVES
-                          StatsLine(
-                            verse: '${bzModel.bzTotalSaves} ${Wordz.totalSaves(context)}',
-                            icon: Iconz.SaveOn,
-                          ),
+                      /// --- SCOPE
+                      ParagraphBubble(
+                        title: 'Scope of services',
+                        paragraph: bzModel.bzScope,
+                        maxLines: 5,
+                      ),
 
-                          /// VIEWS
-                          StatsLine(
-                            verse: '${bzModel.bzTotalViews} ${Wordz.totalViews(context)}',
-                            icon: Iconz.Views,
-                          ),
+                      /// --- ABOUT
+                      ParagraphBubble(
+                        title: 'About ${bzModel.bzName}',
+                        paragraph: bzModel.bzAbout,
+                        maxLines: 5,
+                        centered: false,
+                      ),
 
-                          /// SHARES
-                          StatsLine(
-                            verse: '${bzModel.bzTotalShares} ${Wordz.totalShares(context)}',
-                            icon: Iconz.Share,
-                          ),
+                      BubblesSeparator(),
 
-                          /// BIRTH
-                          StatsLine(
-                            verse: '${TextGenerator.monthYearStringer(context,bzModel.bldrBirth)}',
-                            icon: Iconz.Calendar,
-                          ),
+                      /// --- STATS
+                      InPyramidsBubble(
+                          title: 'Stats',
+                          centered: false,
+                          columnChildren: <Widget>[
 
-                        ]
-                    ),
+                            /// FOLLOWERS
+                            StatsLine(
+                              verse: '${bzModel.bzTotalFollowers} ${Wordz.followers(context)}',
+                              icon: Iconz.Follow,
+                            ),
 
-                    PyramidsHorizon(heightFactor: 3,),
+                            /// CALLS
+                            StatsLine(
+                              verse: '${bzModel.bzTotalCalls} ${Wordz.callsReceived(context)}',
+                              icon: Iconz.ComPhone,
+                            ),
 
-                  ],
+                            /// SLIDES & FLYERS
+                            StatsLine(
+                              verse: '${bzModel.bzTotalSlides} ${Wordz.slidesPublished(context)} ${Wordz.inn(context)} ${bzModel.nanoFlyers.length} ${Wordz.flyers(context)}',
+                              icon: Iconz.Gallery,
+                            ),
+
+                            /// SAVES
+                            StatsLine(
+                              verse: '${bzModel.bzTotalSaves} ${Wordz.totalSaves(context)}',
+                              icon: Iconz.SaveOn,
+                            ),
+
+                            /// VIEWS
+                            StatsLine(
+                              verse: '${bzModel.bzTotalViews} ${Wordz.totalViews(context)}',
+                              icon: Iconz.Views,
+                            ),
+
+                            /// SHARES
+                            StatsLine(
+                              verse: '${bzModel.bzTotalShares} ${Wordz.totalShares(context)}',
+                              icon: Iconz.Share,
+                            ),
+
+                            /// BIRTH
+                            StatsLine(
+                              verse: '${TextGenerator.monthYearStringer(context,bzModel.bldrBirth)}',
+                              icon: Iconz.Calendar,
+                            ),
+
+                          ]
+                      ),
+
+                      PyramidsHorizon(heightFactor: 3,),
+
+                    ],
+                  ),
                 ),
 
             );

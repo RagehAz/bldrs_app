@@ -1,6 +1,7 @@
 import 'package:bldrs/controllers/drafters/aligners.dart';
 import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/drafters/scrollers.dart';
 import 'package:bldrs/controllers/drafters/shadowers.dart';
 import 'package:bldrs/controllers/drafters/text_shapers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
@@ -521,6 +522,9 @@ class _SearchScreenState extends State<SearchScreen> {
 
     List<Keyword> _currentFilterKeywords = _generateFilterKeywords(_filtersBySection);
 
+    double _screenHeight = Scale.superScreenHeight(context);
+    double _screenWidth = Scale.superScreenWidth(context);
+
     return MainLayout(
       appBarType: AppBarType.Search,
       // appBarBackButton: true,
@@ -530,11 +534,33 @@ class _SearchScreenState extends State<SearchScreen> {
         children: <Widget>[
 
           /// SEARCH RESULT
-          Container(
-            width: Scale.superScreenWidth(context),
-            height: Scale.superScreenHeight(context),
-            // color: Colorz.BlackPlastic,
-            child: ListView(),
+          GoHomeOnMaxBounce(
+            height: _screenHeight,
+            child: Container(
+              width: _screenWidth,
+              height: _screenHeight,
+              // color: Colorz.BlackPlastic,
+              child: ListView(
+                physics: BouncingScrollPhysics(),
+                children: <Widget>[
+
+                  Stratosphere(heightFactor: 1.65,),
+
+                  Container(
+                    width: _screenWidth,
+                    height: 100,
+                    color: Colorz.BloodTest,
+                  ),
+
+                  Container(
+                    width: _screenWidth,
+                    height: 700,
+                    color: Colorz.Yellow50,
+                  ),
+
+                ],
+              ),
+            ),
           ),
 
           /// SEARCH FILTERS
