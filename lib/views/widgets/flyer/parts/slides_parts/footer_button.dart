@@ -13,6 +13,7 @@ class FooterButton extends StatelessWidget {
   final Function onTap;
   final String verse;
   final double size;
+  final bool inActive;
 
   const FooterButton({
     @required this.icon,
@@ -22,6 +23,7 @@ class FooterButton extends StatelessWidget {
     @required this.verse,
     /// initializing size value overrides all values and suppresses margins
     this.size,
+    this.inActive = false,
 
     Key key
   }) : super(key: key);
@@ -51,6 +53,7 @@ class FooterButton extends StatelessWidget {
             color: FlyerFooter.buttonColor(buttonIsOn: isOn),
             onTap: (){onTap();},
             childAlignment: Alignment.topCenter,
+            inActiveMode: inActive,
             subChild:
             _microMode ? null :
             Container(
@@ -59,6 +62,7 @@ class FooterButton extends StatelessWidget {
               // color: Colorz.BloodTest,
               child: Imagers.superImageWidget(
                 icon,
+                iconColor: DreamBox.getIconColor(inActiveMode: inActive),
                 scale: 0.7,
               ),
             ),
@@ -74,7 +78,7 @@ class FooterButton extends StatelessWidget {
               weight: VerseWeight.bold,
               italic: false,
               scaleFactor: Scale.superFlyerSizeFactorByWidth(context, flyerZoneWidth),
-              color: Colorz.White125,
+              color: DreamBox.getIconColor(inActiveMode: inActive, colorOverride: Colorz.White125),
             ),
           ),
 

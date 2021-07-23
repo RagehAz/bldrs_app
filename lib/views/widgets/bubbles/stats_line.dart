@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/aligners.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
@@ -9,6 +10,7 @@ class StatsLine extends StatelessWidget {
   final double verseScaleFactor;
   final String verse;
   final Function onTap;
+  final double bubbleWidth;
 
   StatsLine({
     @required this.icon,
@@ -16,6 +18,7 @@ class StatsLine extends StatelessWidget {
     this.verseScaleFactor = 0.85,
     @required this.verse,
     this.onTap,
+    this.bubbleWidth
 });
 
 
@@ -25,18 +28,22 @@ class StatsLine extends StatelessWidget {
     const String _spaces = '   ';
     double _height = onTap == null ? 25 : 40;
 
-    return DreamBox(
-      height: _height,
-      icon: icon,
-      verse: '$_spaces$verse',
-      verseWeight: VerseWeight.thin,
-      verseItalic: true,
-      iconSizeFactor: iconSizeFactor,
-      verseScaleFactor: verseScaleFactor,
-      corners: _height * 0.15,
-      bubble: false,
-      color: onTap == null ? null : Colorz.White20,
-      onTap: onTap,
+    return Container(
+      width: bubbleWidth,
+      alignment: Aligners.superCenterAlignment(context),
+      child: DreamBox(
+        height: _height,
+        icon: icon,
+        verse: '$_spaces$verse',
+        verseWeight: VerseWeight.thin,
+        verseItalic: true,
+        iconSizeFactor: iconSizeFactor,
+        verseScaleFactor: verseScaleFactor,
+        corners: _height * 0.15,
+        bubble: false,
+        color: onTap == null ? null : Colorz.White20,
+        onTap: onTap,
+      ),
     );
 
   }

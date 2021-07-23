@@ -256,12 +256,12 @@ class Scale{
   static BorderRadius navBarCorners({BuildContext context, BarType barType,}){
     BorderRadius _boxBorders =
     barType == BarType.min ?
-    Borderers.superBorders(context: context, enTopLeft: _boxCorner, enBottomLeft: _boxCorner, enBottomRight: _boxCorner, enTopRight: _boxCorner)
+    Borderers.superBorderOnly(context: context, enTopLeft: _boxCorner, enBottomLeft: _boxCorner, enBottomRight: _boxCorner, enTopRight: _boxCorner)
         :
     barType == BarType.max  || barType == BarType.maxWithText?
-    Borderers.superBorders(context: context, enTopLeft: _boxCorner, enBottomLeft: 0, enBottomRight: 0, enTopRight: _boxCorner)
+    Borderers.superBorderOnly(context: context, enTopLeft: _boxCorner, enBottomLeft: 0, enBottomRight: 0, enTopRight: _boxCorner)
         :
-    Borderers.superBorders(context: context, enTopLeft: _boxCorner, enBottomLeft: _boxCorner * 0.5, enBottomRight: _boxCorner * 0.5, enTopRight: _boxCorner)
+    Borderers.superBorderOnly(context: context, enTopLeft: _boxCorner, enBottomLeft: _boxCorner * 0.5, enBottomRight: _boxCorner * 0.5, enTopRight: _boxCorner)
     ;
 
     return _boxBorders;
