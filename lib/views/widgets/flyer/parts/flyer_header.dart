@@ -10,7 +10,7 @@ import 'package:bldrs/views/widgets/flyer/parts/header_parts/max_header.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/mini_header_strip.dart';
 import 'package:flutter/material.dart';
 
-class Header extends StatelessWidget {
+class FlyerHeader extends StatelessWidget {
   final TinyBz tinyBz;
   final TinyUser tinyAuthor;
   final bool flyerShowsAuthor;
@@ -22,7 +22,7 @@ class Header extends StatelessWidget {
   final Function onCallTap;
   final bool stripBlurIsOn;
 
-  Header({
+  FlyerHeader({
     this.tinyBz,
     this.tinyAuthor,
     this.flyerShowsAuthor = true,

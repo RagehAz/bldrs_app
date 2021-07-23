@@ -4,7 +4,7 @@ import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/models/tiny_models/tiny_user.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_zone.dart';
-import 'package:bldrs/views/widgets/flyer/parts/header.dart';
+import 'package:bldrs/views/widgets/flyer/parts/flyer_header.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 
@@ -83,7 +83,7 @@ class _BzCardScreenState extends State<BzCardScreen> {
                   tappingFlyerZone: (){print('fuck you');},
                   stackWidgets: <Widget>[
 
-                    Header(
+                    FlyerHeader(
                       tinyBz: TinyBz.getTinyBzFromBzModel(bz),
                       tinyAuthor: TinyUser.getTinyAuthorFromAuthorModel(bz.bzAuthors[0]),
                       flyerShowsAuthor: true,

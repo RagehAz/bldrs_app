@@ -2,7 +2,7 @@ import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/flagz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/providers/country_provider.dart';
-import 'package:bldrs/views/screens/d3_select_area_screen.dart';
+import 'package:bldrs/views/screens/d_3_select_area_screen.dart';
 import 'package:bldrs/views/widgets/layouts/listLayout.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart' show Sky;
 import 'package:flutter/material.dart';

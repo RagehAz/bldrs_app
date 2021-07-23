@@ -7,13 +7,14 @@ import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/sub_models/slide_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/models/tiny_models/tiny_user.dart';
-import 'package:bldrs/views/widgets/flyer/parts/header.dart';
+import 'package:bldrs/views/widgets/flyer/parts/flyer_header.dart';
+import 'package:bldrs/views/widgets/flyer/parts/flyer_zone.dart';
+import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/footer_parts/ankh_button.dart';
+import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/slides_parts/slides_old.dart';
+import 'package:bldrs/views/widgets/flyer/parts/progress_bar.dart';
+import 'package:bldrs/views/widgets/flyer/parts/progress_bar_parts/strips.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'parts/ankh_button.dart';
-import 'parts/flyer_zone.dart';
-import 'parts/progress_bar.dart';
-import 'parts/slides.dart';
 
 class Flyer extends StatefulWidget {
   final BzModel bz;
@@ -147,7 +148,7 @@ class _FlyerState extends State<Flyer> with AutomaticKeepAliveClientMixin{
 
           Consumer<BzModel>(
             builder: (context, bz, _) =>
-             Header(
+             FlyerHeader(
               flyerZoneWidth: _flyerZoneWidth,
               tinyBz: TinyBz.getTinyBzFromBzModel(bz),
               tinyAuthor: TinyUser.getTinyAuthorFromAuthorModel(_author),
@@ -164,7 +165,7 @@ class _FlyerState extends State<Flyer> with AutomaticKeepAliveClientMixin{
             ),
           ),
 
-          ProgressBar(
+          Strips(
             flyerZoneWidth: _flyerZoneWidth,
             barIsOn: _barIsOn,
             slideIndex: _currentSlideIndex >= _numberOfSlides ? 0 : _currentSlideIndex,

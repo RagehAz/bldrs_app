@@ -12,6 +12,7 @@ import 'package:bldrs/views/widgets/browser/groups_page.dart';
 import 'package:bldrs/views/widgets/browser/keywords_page.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/flyer/parts/progress_bar.dart';
+import 'package:bldrs/views/widgets/flyer/parts/progress_bar_parts/strips.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -296,7 +297,7 @@ class _BrowserPagesState extends State<BrowserPages> {
             ),
 
             /// PROGRESS BAR
-            ProgressBar(
+            Strips(
               flyerZoneWidth: _clearWidth,
               numberOfStrips: _numberOfPages,
               barIsOn: true,
