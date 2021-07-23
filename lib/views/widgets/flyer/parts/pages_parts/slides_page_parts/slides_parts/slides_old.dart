@@ -2,9 +2,9 @@ import 'package:bldrs/controllers/drafters/sliders.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/models/sub_models/slide_model.dart';
-import 'package:bldrs/views/widgets/flyer/parts/slides_parts/footer.dart';
+import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/footer.dart';
+import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/slides_parts/single_slide.dart';
 import 'package:flutter/material.dart';
-import 'slides_parts/single_slide.dart';
 
 /// TASK : try InteractiveViewer() in slides to zoom and pan
 class Slides extends StatefulWidget {

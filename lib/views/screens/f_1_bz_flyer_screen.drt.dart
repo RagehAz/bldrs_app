@@ -11,7 +11,7 @@ import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
-import 'package:bldrs/views/screens/x2_old_flyer_editor_screen.dart';
+import 'package:bldrs/views/screens/x_2_old_flyer_editor_screen.dart';
 import 'package:bldrs/views/widgets/bubbles/tile_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/words_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';

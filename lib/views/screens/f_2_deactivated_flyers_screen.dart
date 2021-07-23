@@ -10,7 +10,7 @@ import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_dialog.dart';
-import 'package:bldrs/views/widgets/flyer/grids/flyers_grid.dart';
+import 'package:bldrs/views/widgets/flyer/stacks/flyers_grid.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';

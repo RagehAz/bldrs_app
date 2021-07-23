@@ -6,12 +6,12 @@ import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/models/tiny_models/tiny_user.dart';
 import 'package:bldrs/models/user_model.dart';
-import 'package:bldrs/views/screens/fx_bz_editor_screen.dart';
+import 'package:bldrs/views/screens/f_x_bz_editor_screen.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_zone.dart';
-import 'package:bldrs/views/widgets/flyer/parts/header.dart';
+import 'package:bldrs/views/widgets/flyer/parts/flyer_header.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/gallery.dart';
-import 'package:bldrs/views/widgets/flyer/parts/slides_parts/single_slide.dart';
+import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/slides_parts/single_slide.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart' show MainLayout, Stratosphere;
@@ -257,7 +257,7 @@ class _OldMyBzScreenState extends State<OldMyBzScreen> {
                                 ],
                               ),
 
-                              Header(
+                              FlyerHeader(
                                 tinyBz: TinyBz.getTinyBzFromBzModel(_bzModel),
                                 tinyAuthor: TinyUser.getTinyAuthorFromAuthorModel(_bzModel.bzAuthors[0] ?? null),
                                 flyerShowsAuthor: false,

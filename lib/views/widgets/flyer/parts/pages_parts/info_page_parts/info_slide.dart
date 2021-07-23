@@ -15,7 +15,7 @@ import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/paragraph_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/stats_line.dart';
 import 'package:bldrs/views/widgets/bubbles/words_bubble.dart';
-import 'package:bldrs/views/widgets/flyer/parts/slides_parts/record_bubble.dart';
+import 'package:bldrs/views/widgets/flyer/parts/pages_parts/info_page_parts/record_bubble.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -38,39 +38,45 @@ class InfoSlide extends StatelessWidget {
     @required this.onKeywordsTap,
   });
 
-  final List<TinyUser> _users = <TinyUser>[
-    TinyUser(
-      name: 'Ahmad Ali',
-      pic: Iconz.DumAuthorPic,
-      userID: '1',
-      title: '',
-    ),
-    TinyUser(
-      name: 'Morgan Darwish',
-      pic: Dumz.XXabohassan_author,
-      userID: '2',
-      title: '',
-    ),
-    TinyUser(
-      name: 'Zahi Fayez',
-      pic: Dumz.XXzah_author,
-      userID: '3',
-      title: '',
-    ),
-    TinyUser(
-      name: 'Hani Wani',
-      pic: Dumz.XXhs_author,
-      userID: '4',
-      title: '',
-    ),
-    TinyUser(
-      name: 'Nada Mohsen',
-      pic: Dumz.XXmhdh_author,
-      userID: '5',
-      title: '',
-    ),
+  List<TinyUser> _getUsers(){
 
-  ];
+    final List<TinyUser> _users = <TinyUser>[
+      TinyUser(
+        name: 'Ahmad Ali',
+        pic: Iconz.DumAuthorPic,
+        userID: '1',
+        title: '',
+      ),
+      TinyUser(
+        name: 'Morgan Darwish',
+        pic: Dumz.XXabohassan_author,
+        userID: '2',
+        title: '',
+      ),
+      TinyUser(
+        name: 'Zahi Fayez',
+        pic: Dumz.XXzah_author,
+        userID: '3',
+        title: '',
+      ),
+      TinyUser(
+        name: 'Hani Wani',
+        pic: Dumz.XXhs_author,
+        userID: '4',
+        title: '',
+      ),
+      TinyUser(
+        name: 'Nada Mohsen',
+        pic: Dumz.XXmhdh_author,
+        userID: '5',
+        title: '',
+      ),
+
+    ];
+
+
+    return _users;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -113,6 +119,7 @@ class InfoSlide extends StatelessWidget {
     String _cityNameRetrieved = _countryPro.getCityNameWithCurrentLanguageIfPossible(context, draft.flyerZone.cityID);
     String _cityName = _cityNameRetrieved == null ? '.....' : _cityNameRetrieved;
 
+    List<TinyUser> _users = _getUsers();
 
     return Column(
       children: <Widget>[

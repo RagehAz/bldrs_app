@@ -21,13 +21,15 @@ import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/models/tiny_models/tiny_user.dart';
 import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
+import 'package:bldrs/views/screens/x_x_flyer_on_map.dart';
 import 'package:bldrs/views/widgets/bubbles/words_bubble.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_dialog.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_zone.dart';
-import 'package:bldrs/views/widgets/flyer/parts/header.dart';
+import 'package:bldrs/views/widgets/flyer/parts/flyer_header.dart';
+import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/slides_parts/single_slide.dart';
 import 'package:bldrs/views/widgets/flyer/parts/progress_bar.dart';
-import 'package:bldrs/views/widgets/flyer/parts/slides_parts/single_slide.dart';
+import 'package:bldrs/views/widgets/flyer/parts/progress_bar_parts/strips.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:bldrs/xxx_LABORATORY/camera_and_location/location_helper.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -38,7 +40,6 @@ import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'xx_flyer_on_map.dart';
 
 enum SlidingDirection{
   next,
@@ -923,7 +924,7 @@ class _OldFlyerEditorScreenState extends State<OldFlyerEditorScreen> {
                       ),
 
                       // --- FLYER HEADER
-                      Header(
+                      FlyerHeader(
                         tinyBz: TinyBz.getTinyBzFromBzModel(_bz),
                         tinyAuthor: TinyUser.getTinyAuthorFromAuthorModel(_author),
                         flyerShowsAuthor: true,
@@ -936,7 +937,7 @@ class _OldFlyerEditorScreenState extends State<OldFlyerEditorScreen> {
                       ),
 
                       // --- PROGRESS BAR
-                      ProgressBar(
+                      Strips(
                         flyerZoneWidth: _flyerZoneWidth,
                         numberOfStrips: numberOfSlides,
                         slideIndex: _currentSlideIndex,

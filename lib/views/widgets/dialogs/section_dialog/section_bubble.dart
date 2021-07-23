@@ -1,5 +1,7 @@
 import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
+import 'package:bldrs/views/widgets/dialogs/bottom_dialog.dart';
 import 'package:flutter/material.dart';
 
 class SectionBubble extends StatelessWidget {
@@ -26,9 +28,10 @@ class SectionBubble extends StatelessWidget {
       bubbleColor: Colorz.White20,
       bubbleOnTap: null,
       bubbleWidth: bubbleWidth,
-      leadingIcon: icon,
+      // leadingIcon: icon,
       leadingIconColor: Colorz.White50,
       titleColor: Colorz.White50,
+      // corners: BottomDialog.dialogClearCornerValue() - Ratioz.appBarMargin,
       columnChildren: <Widget>[
 
         /// Section buttons
