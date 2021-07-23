@@ -6,7 +6,7 @@ import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/providers/country_provider.dart';
-import 'package:bldrs/views/screens/gx_user_editor_screen.dart';
+import 'package:bldrs/views/screens/g_x_user_editor_screen.dart';
 import 'package:bldrs/views/widgets/bubbles/text_field_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';

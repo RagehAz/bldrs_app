@@ -130,13 +130,18 @@ class BottomDialog extends StatelessWidget {
     return _dialogCorners;
   }
 // -----------------------------------------------------------------------------
+  static double dialogClearCornerValue({double corner}){
+    double _corner = corner == null ? Ratioz.appBarCorner : corner ;
+      return _corner;
+  }
+// -----------------------------------------------------------------------------
   static BorderRadius dialogClearCorners(BuildContext context){
     BorderRadius _corners = Borderers.superBorderOnly(
       context: context,
       enBottomRight: 0,
       enBottomLeft: 0,
-      enTopRight: Ratioz.appBarCorner,
-      enTopLeft: Ratioz.appBarCorner,
+      enTopRight: dialogClearCornerValue(),
+      enTopLeft: dialogClearCornerValue(),
     );
     return _corners;
   }

@@ -1,5 +1,4 @@
 import 'package:bldrs/controllers/drafters/borderers.dart';
-import 'package:bldrs/controllers/drafters/iconizers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
@@ -8,10 +7,9 @@ import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/secondary_models/draft_flyer_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
-import 'package:bldrs/views/widgets/buttons/panel_button.dart';
+import 'package:bldrs/views/widgets/flyer/editor/panel_button.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/controllers/theme/flagz.dart';
 
 class EditorPanel extends StatelessWidget {
   final double flyerZoneWidth;

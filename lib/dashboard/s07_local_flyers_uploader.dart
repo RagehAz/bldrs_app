@@ -17,6 +17,7 @@ import 'package:bldrs/views/widgets/bubbles/words_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/main_button.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/flyer/parts/progress_bar.dart';
+import 'package:bldrs/views/widgets/flyer/parts/progress_bar_parts/strips.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -526,7 +527,7 @@ class Progressor extends StatelessWidget {
             ),
           ),
 
-          ProgressBar(
+          Strips(
             flyerZoneWidth: Scale.superScreenWidth(context),
             numberOfStrips: length,
             barIsOn: true,
