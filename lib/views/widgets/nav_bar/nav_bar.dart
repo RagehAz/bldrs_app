@@ -2,6 +2,7 @@ import 'package:bldrs/controllers/drafters/aligners.dart';
 import 'package:bldrs/controllers/drafters/colorizers.dart';
 import 'package:bldrs/controllers/drafters/iconizers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/drafters/scrollers.dart';
 import 'package:bldrs/controllers/drafters/shadowers.dart';
 import 'package:bldrs/controllers/drafters/streamerz.dart';
 import 'package:bldrs/controllers/drafters/text_generators.dart';
@@ -83,11 +84,7 @@ class NavBar extends StatelessWidget {
               child: NotificationListener(
                 onNotification: (ScrollUpdateNotification details){
 
-                  double _offset = details.metrics.pixels;
-
-                  double _bounceLimit = _bzzButtonsZoneHeight * 0.3 * (-1);
-
-                  bool _canPageUp = _offset < _bounceLimit;
+                  bool _canPageUp = Scrollers.canPageUp(details: details, height: _bzzButtonsZoneHeight,);
 
                   if(_canPageUp){
                     Nav.goBackToHomeScreen(context);

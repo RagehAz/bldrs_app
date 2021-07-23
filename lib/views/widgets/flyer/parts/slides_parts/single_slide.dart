@@ -88,6 +88,7 @@ class SingleSlide extends StatelessWidget {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+    print('single slide title is : $title and controller is : ${titleController?.text}');
 // -----------------------------------------------------------------------------
     double _screenWidth = Scale.superScreenWidth(context);
 // -----------------------------------------------------------------------------
@@ -227,10 +228,10 @@ class SingleSlide extends StatelessWidget {
                 ),
               ),
 
-              if (_microMode == false && title != null && title != '')
+              if (_microMode == false && slideMode != SlideMode.Editor) //&& title != null && title != '')
               SlideTitle(
                 flyerZoneWidth: flyerZoneWidth,
-                verse: title,
+                verse: title?.length == 0 ? titleController.text : title,
                 verseSize: _slideTitleSize,
                 verseColor: Colorz.White255,
                 tappingVerse: () {

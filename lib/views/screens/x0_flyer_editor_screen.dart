@@ -1584,9 +1584,10 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                                               flyerZoneWidth: _flyerZoneWidth,
                                               flyerID: null, //_flyer.flyerID,
                                               picture: _draft.assetsFiles[i],//_currentSlides[index].picture,
-                                              slideMode: SlideMode.Editor,//slidesModes[index],
+                                              slideMode: _draft.editMode ? SlideMode.Editor : SlideMode.View,//slidesModes[index],
                                               boxFit: _currentPicFit, // [fitWidth - contain - scaleDown] have the blur background
                                               titleController: _draft.headlinesControllers[i],
+                                              title: _draft.headlinesControllers[i].text,
                                               imageSize: _originalAssetSize,
                                               textFieldOnChanged: (text){
                                                 print('text is : $text');
