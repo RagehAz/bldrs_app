@@ -272,7 +272,7 @@ class _MyBzScreenState extends State<MyBzScreen> {
 
             MainLayout(
                 pyramids: Iconz.PyramidzYellow,
-                sky: Sky.Night,
+                sky: Sky.Black,
                 // appBarBackButton: true,
                 appBarType: AppBarType.Basic,
                 loading: _loading,

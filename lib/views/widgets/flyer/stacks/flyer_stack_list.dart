@@ -54,6 +54,7 @@ class _FlyerStackListState extends State<FlyerStackList> {
     List<TinyFlyer> _tinyFlyers = widget.tinyFlyers;
 
     return ListView.separated(
+      physics: BouncingScrollPhysics(),
       itemCount: _tinyFlyers.length,
       controller: _controller,
       scrollDirection: Axis.horizontal,

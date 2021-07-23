@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/animators.dart';
+import 'package:bldrs/controllers/drafters/scrollers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
@@ -220,16 +221,20 @@ class SequencesWall extends StatelessWidget {
 
     ];
 
-    return ListView.builder(
-      padding: EdgeInsets.only(top: Ratioz.stratosphere),
-      scrollDirection: Axis.vertical,
-      itemCount: _sequenceWallWidgets.length,
+    return GoHomeOnMaxBounce(
 
-      itemBuilder: (ctx, index){
+      child: ListView.builder(
+        physics: BouncingScrollPhysics(),
+        padding: EdgeInsets.only(top: Ratioz.stratosphere),
+        scrollDirection: Axis.vertical,
+        itemCount: _sequenceWallWidgets.length,
 
-        return
-          _sequenceWallWidgets[index];
-      },
+        itemBuilder: (ctx, index){
+
+          return
+            _sequenceWallWidgets[index];
+        },
+      ),
     );
   }
 }
