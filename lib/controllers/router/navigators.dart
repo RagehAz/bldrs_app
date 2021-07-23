@@ -108,6 +108,17 @@ class Nav{
 
   }
 // -----------------------------------------------------------------------------
+  static goBackUntil(BuildContext context, String routez){
+
+    // var _navResult = Navigator.popUntil(context,
+    //     ModalRoute.withName(Routez.UserChecker)
+    // );
+
+    Navigator.popUntil(context, ModalRoute.withName(routez)
+    );
+
+  }
+// -----------------------------------------------------------------------------
   static goBackToHomeScreen(BuildContext context){
 
     Navigator.popUntil(context,

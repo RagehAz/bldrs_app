@@ -1,5 +1,6 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
+import 'package:bldrs/controllers/router/route_names.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 // -----------------------------------------------------------------------------
@@ -59,7 +60,7 @@ class Scrollers{
 
 }
 
-class GoHomeOnMaxBounce extends StatelessWidget {
+class GoHomeOnMaxBounce extends StatefulWidget {
   final double height;
   final Widget child;
 
@@ -70,18 +71,40 @@ class GoHomeOnMaxBounce extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  _GoHomeOnMaxBounceState createState() => _GoHomeOnMaxBounceState();
+}
+
+class _GoHomeOnMaxBounceState extends State<GoHomeOnMaxBounce> {
+  bool _canNavigate = true;
+
+  Future<void> navigate() async {
+
+    setState(() {
+      _canNavigate = false;
+    });
+
+      await Nav.goBack(context);
+
+  }
+
+  @override
   Widget build(BuildContext context) {
 
-    double _height = height == null ? Scale.superScreenHeight(context) : height;
+    double _height = widget.height == null ? Scale.superScreenHeight(context) : widget.height;
 
     return
       NotificationListener(
         onNotification: (ScrollUpdateNotification details){
           bool _canPageUp = Scrollers.canPageUp(details: details, height: _height,);
-          if(_canPageUp){Nav.goBackToHomeScreen(context);}
+
+          if(_canPageUp == true && _canNavigate == true){
+
+            navigate();
+
+          }
           return true;
           },
-        child: child,
+        child: widget.child,
       );
   }
 }
