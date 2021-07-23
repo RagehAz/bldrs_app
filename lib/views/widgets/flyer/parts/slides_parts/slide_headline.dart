@@ -19,6 +19,8 @@ class SlideTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    print('slide title verse is : $verse');
+
     double _titleTopMargin = flyerZoneWidth * 0.3;
 
     // --- FLYER TITLE

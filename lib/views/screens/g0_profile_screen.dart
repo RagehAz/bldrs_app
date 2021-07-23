@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/scrollers.dart';
 import 'package:bldrs/controllers/drafters/streamerz.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
@@ -317,57 +318,59 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
             listen: true,
             builder: (context, UserModel userModel) {
               return
-                ListView(
-                  physics: const BouncingScrollPhysics(),
-                  children: <Widget>[
+                GoHomeOnMaxBounce(
+                  child: ListView(
+                    physics: const BouncingScrollPhysics(),
+                    children: <Widget>[
 
-                    Stratosphere(),
+                      Stratosphere(),
 
-                    UserBubble(
-                      user: userModel,
-                      switchUserType: (type) => _switchUserStatus(type),
-                      editProfileBtOnTap: () =>
-                          _slideUserOptions(context, userModel),
-                      loading: userModelIsLoading(userModel),
-                    ),
+                      UserBubble(
+                        user: userModel,
+                        switchUserType: (type) => _switchUserStatus(type),
+                        editProfileBtOnTap: () =>
+                            _slideUserOptions(context, userModel),
+                        loading: userModelIsLoading(userModel),
+                      ),
 
-                    InPyramidsBubble(
-                      centered: true,
-                      columnChildren: <Widget>[
-                        DreamBox(
-                          height: 40,
-                          verse: Wordz.news(context),
-                          icon: Iconz.News,
-                          iconSizeFactor: 0.6,
-                          verseWeight: VerseWeight.bold,
-                          onTap: () =>
-                              Nav.goToNewScreen(context, NewsScreen()),
-                        ),
-                      ],
-                    ),
+                      InPyramidsBubble(
+                        centered: true,
+                        columnChildren: <Widget>[
+                          DreamBox(
+                            height: 40,
+                            verse: Wordz.news(context),
+                            icon: Iconz.News,
+                            iconSizeFactor: 0.6,
+                            verseWeight: VerseWeight.bold,
+                            onTap: () =>
+                                Nav.goToNewScreen(context, NewsScreen()),
+                          ),
+                        ],
+                      ),
 
-                    FollowingBzzBubble(
-                      tinyBzz: _followedTinyBzz,
-                    ),
+                      FollowingBzzBubble(
+                        tinyBzz: _followedTinyBzz,
+                      ),
 
-                    // --- STATUS LABEL : STATUS SURVEY WILL BE IN VERSION 2 ISA
-                    StatusBubble(
-                      status: _status,
-                      switchUserStatus: (type) => _switchUserStatus(type),
-                      userStatus: _currentUserStatus == null ? userModel
-                          ?.userStatus : _currentUserStatus,
-                      currentUserStatus: _currentUserStatus,
-                      // openEnumLister: widget.openEnumLister,
-                    ),
+                      // --- STATUS LABEL : STATUS SURVEY WILL BE IN VERSION 2 ISA
+                      StatusBubble(
+                        status: _status,
+                        switchUserStatus: (type) => _switchUserStatus(type),
+                        userStatus: _currentUserStatus == null ? userModel
+                            ?.userStatus : _currentUserStatus,
+                        currentUserStatus: _currentUserStatus,
+                        // openEnumLister: widget.openEnumLister,
+                      ),
 
-                    ContactsBubble(
-                      contacts: userModel.contacts,
-                    ),
+                      ContactsBubble(
+                        contacts: userModel.contacts,
+                      ),
 
-                    PyramidsHorizon(heightFactor: 5,),
+                      PyramidsHorizon(heightFactor: 5,),
 
 
-                  ],
+                    ],
+                  ),
                 );
             }
         ),

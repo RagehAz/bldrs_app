@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/drafters/scrollers.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/views/widgets/flyer/grids/flyers_grid.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
@@ -19,20 +20,22 @@ class SavedFlyersScreen extends StatelessWidget {
       sky: Sky.Black,
       pageTitle: 'Chosen Flyers',
       pyramids: Iconz.PyramidzYellow,
-      layoutWidget: ListView(
-        physics: const BouncingScrollPhysics(),
-        children: <Widget>[
+      layoutWidget: GoHomeOnMaxBounce(
+        child: ListView(
+          physics: const BouncingScrollPhysics(),
+          children: <Widget>[
 
-          Stratosphere(),
+            Stratosphere(),
 
-          FlyersGrid(
-            gridZoneWidth: screenWidth,
-            numberOfColumns: 3,
-          ),
+            FlyersGrid(
+              gridZoneWidth: screenWidth,
+              numberOfColumns: 3,
+            ),
 
-          PyramidsHorizon(heightFactor: 5,),
+            PyramidsHorizon(heightFactor: 5,),
 
-        ],
+          ],
+        ),
       ),
     );
   }
