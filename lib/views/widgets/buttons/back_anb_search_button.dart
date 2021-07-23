@@ -3,10 +3,10 @@ import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/views/screens/c1_search_history_screen.dart';
+import 'package:bldrs/views/screens/c_1_search_history_screen.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/views/screens/c0_search_screen.dart';
+import 'package:bldrs/views/screens/c_0_search_screen.dart';
 
 enum BackAndSearchAction{
   GoToSearchScreen,

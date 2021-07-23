@@ -4,11 +4,10 @@ import 'package:bldrs/models/tiny_models/tiny_user.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_zone.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/mini_header.dart';
-import 'package:bldrs/views/widgets/flyer/parts/slides_parts/single_slide.dart';
+import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/footer_parts/ankh_button.dart';
+import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/slides_parts/single_slide.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import 'parts/ankh_button.dart';
 
 
 // void _tappingTinyFlyer(BuildContext context, String flyerID){

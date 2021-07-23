@@ -1,6 +1,7 @@
 import 'package:bldrs/controllers/drafters/aligners.dart';
 import 'package:bldrs/controllers/drafters/iconizers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/drafters/scrollers.dart';
 import 'package:bldrs/controllers/drafters/text_shapers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
@@ -81,30 +82,34 @@ class ListLayout extends StatelessWidget {
                   width: Scale.superBubbleClearWidth(context),
                   height: _bubbleHeight - (Ratioz.appBarMargin * 5),
                   // color: Colorz.BloodTest,
-                  child: ListView.builder(
-                    itemCount: idValueMaps.length,
-                    physics: const BouncingScrollPhysics(),
-                    itemBuilder: (context, index){
+                  child: GoHomeOnMaxBounce(
+                    height: _bubbleHeight - (Ratioz.appBarMargin * 5),
+                    child: ListView.builder(
+                      physics: const BouncingScrollPhysics(),
+                      shrinkWrap: false,
+                      itemCount: idValueMaps.length,
+                      itemBuilder: (context, index){
 
-                      return
-                        Align(
-                          alignment: Aligners.superCenterAlignment(context),
-                          child: DreamBox(
-                            height: 35,
-                            width: Scale.superBubbleClearWidth(context) - 10,
-                            icon: icons == null || icons.length == 0 ? null : icons[index],
-                            iconSizeFactor: 0.8,
-                            verse: idValueMaps[index]['value'],
-                            bubble: false,
-                            margins: const EdgeInsets.all(5),
-                            verseScaleFactor: 0.8,
-                            color: Colorz.White10,
-                            // textDirection: superTextDirection(context),
-                            onTap: () => onItemTap(idValueMaps[index]['id']),
-                          ),
-                        );
+                        return
+                          Align(
+                            alignment: Aligners.superCenterAlignment(context),
+                            child: DreamBox(
+                              height: 40,
+                              width: Scale.superBubbleClearWidth(context) - 10,
+                              icon: icons == null || icons.length == 0 ? null : icons[index],
+                              iconSizeFactor: 0.8,
+                              verse: idValueMaps[index]['value'],
+                              bubble: false,
+                              margins: const EdgeInsets.all(5),
+                              verseScaleFactor: 0.8,
+                              color: Colorz.White10,
+                              // textDirection: superTextDirection(context),
+                              onTap: () => onItemTap(idValueMaps[index]['id']),
+                            ),
+                          );
 
-                    },
+                      },
+                    ),
                   ),
                 ),
 

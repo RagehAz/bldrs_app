@@ -4,8 +4,8 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
-import 'package:bldrs/views/widgets/flyer/parts/slides_parts/footer_button.dart';
-import 'package:bldrs/views/widgets/flyer/parts/slides_parts/slide_counters.dart';
+import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/footer_parts/footer_button.dart';
+import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/footer_parts/slide_counters.dart';
 import 'package:flutter/material.dart';
 
 class FlyerFooter extends StatelessWidget {

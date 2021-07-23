@@ -1,7 +1,7 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/scrollers.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
-import 'package:bldrs/views/widgets/flyer/grids/flyers_grid.dart';
+import 'package:bldrs/views/widgets/flyer/stacks/flyers_grid.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 
