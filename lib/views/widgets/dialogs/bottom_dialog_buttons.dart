@@ -5,10 +5,10 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/flagz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/providers/country_provider.dart';
+import 'package:bldrs/views/widgets/buttons/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'dream_box.dart';
 
 enum MapValueIs{
   icon,
@@ -16,7 +16,7 @@ enum MapValueIs{
   String,
 }
 
-class SheetButtons extends StatelessWidget {
+class BottomDialogButtons extends StatelessWidget {
   final List<Map<String, String>> listOfMaps;
   final MapValueIs mapValueIs;
   final Alignment alignment;
@@ -24,7 +24,7 @@ class SheetButtons extends StatelessWidget {
   final CountryProvider provider;
   final BottomSheetType sheetType;
 
-  SheetButtons({
+  BottomDialogButtons({
     @required this.listOfMaps,
     this.mapValueIs = MapValueIs.String,
     @required this.alignment,
@@ -48,7 +48,6 @@ class SheetButtons extends StatelessWidget {
     // double _languageButtonHeight = Ratioz.ddAppBarHeight - (_abPadding *2);
     // double _countryNameButtonWidth = _dialogClearWidth - _abPadding*3 - 35;
 
-
     return Container(
       height: _listHeight - 256,
       width: _dialogClearWidth,
@@ -58,8 +57,8 @@ class SheetButtons extends StatelessWidget {
         borderRadius: Borderers.superBorderAll(context, _listCorner),
       ),
       child: ListView.builder(
+        physics: BouncingScrollPhysics(),
         itemCount: listOfMaps.length,
-
         itemBuilder: (context, index){
 
           String id = listOfMaps[index]['id'];

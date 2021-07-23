@@ -57,7 +57,7 @@ class FlyerZone extends StatelessWidget {
 
     // print ('slidingIsOn value =$slidingIsOn');
 
-    BorderRadius _flyerBorders = Borderers.superBorders(
+    BorderRadius _flyerBorders = Borderers.superBorderOnly(
         context: context,
         enTopLeft: _flyerTopCorners,
         enBottomLeft: _flyerBottomCorners,

@@ -15,6 +15,8 @@ class ParagraphBubble extends StatefulWidget {
   final double bubbleWidth;
   final dynamic margins;
   final dynamic corners;
+  final bool editMode;
+  final Function onParagraphTap;
 
   ParagraphBubble({
     this.title,
@@ -25,6 +27,8 @@ class ParagraphBubble extends StatefulWidget {
     this.bubbleWidth,
     this.corners,
     this.margins,
+    this.editMode = false,
+    this.onParagraphTap,
 });
 
   @override
@@ -43,21 +47,31 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
 // -----------------------------------------------------------------------------
   void _onParagraphTap(){
 
-    if (_maxLines == widget.maxLines){
-    print('expanding maxLines');
-      setState(() {
-        _isMax = true;
-        _maxLines = 1000;
-      });
+    if (widget.editMode == true){
+      widget.onParagraphTap();
     }
 
     else {
-      print('contracting maxLines');
-      setState(() {
-        _isMax = false;
-        _maxLines = widget.maxLines;
-      });
+      widget.onParagraphTap();
+
+      if (_maxLines == widget.maxLines){
+        print('expanding maxLines');
+        setState(() {
+          _isMax = true;
+          _maxLines = 1000;
+        });
+      }
+
+      else {
+        print('contracting maxLines');
+        setState(() {
+          _isMax = false;
+          _maxLines = widget.maxLines;
+        });
+      }
+
     }
+
   }
 // -----------------------------------------------------------------------------
   @override
@@ -69,6 +83,7 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
         title: widget.title,
         centered: widget.centered,
         actionBtIcon: widget.actionBtIcon,
+        bubbleOnTap: _onParagraphTap,
         columnChildren: <Widget>[
 
           if (widget.paragraph != null)
@@ -79,7 +94,7 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
               maxLines: _maxLines,
               weight: VerseWeight.thin,
               centered: widget.centered,
-              onTap: _onParagraphTap,
+              // onTap: _onParagraphTap,
             ),
           ),
 
@@ -93,7 +108,7 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
               bubble: false,
               margins: Ratioz.appBarPadding,
               icon : _isMax ? Iconz.ArrowUp : Iconz.ArrowDown,
-              onTap: _onParagraphTap,
+              // onTap: _onParagraphTap,
             ),
           ),
 

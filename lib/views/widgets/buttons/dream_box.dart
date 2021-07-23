@@ -97,7 +97,20 @@ class DreamBox extends StatelessWidget {
     this.secondLineScaleFactor = 1,
     this.loading = false,
   });
+// -----------------------------------------------------------------------------
+  static Color getIconColor({bool blackAndWhite, bool inActiveMode, Color colorOverride}){
 
+    bool _blackAndWhite = blackAndWhite == null ? false : blackAndWhite;
+    bool _inActiveMode = inActiveMode == null ? false : inActiveMode;
+    Color _colorOverride = colorOverride == null ? null : colorOverride;
+
+    Color _iconColor =
+    _blackAndWhite == true || _inActiveMode == true ? Colorz.White80 :
+    _colorOverride;
+
+    return _iconColor;
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
@@ -165,7 +178,7 @@ class DreamBox extends StatelessWidget {
       else if (corners.runtimeType ==  BorderRadius){
         BorderRadius _cornerBorders;
 
-        _IconCornerAsBorderRadius = Borderers.superBorders(
+        _IconCornerAsBorderRadius = Borderers.superBorderOnly(
           context: context,
           enTopRight: corners.topRight.x - _iconMargin,
           enTopLeft: corners.topLeft.x - _iconMargin,
@@ -191,9 +204,11 @@ class DreamBox extends StatelessWidget {
     Colorz.Nothing :
     color;
 // -----------------------------------------------------------------------------
-    Color _iconColor =
-    blackAndWhite == true || inActiveMode == true ? Colorz.White80 :
-    iconColor;
+    Color _iconColor = getIconColor(
+      inActiveMode: inActiveMode,
+      blackAndWhite: blackAndWhite,
+      colorOverride: iconColor,
+    );
 // -----------------------------------------------------------------------------
     TextDirection _textDirection = textDirection == null ? superTextDirection(context) : textDirection;
 // -----------------------------------------------------------------------------
@@ -251,7 +266,7 @@ class DreamBox extends StatelessWidget {
                       alignment: Alignment.center,
                       children: <Widget>[
 
-                        // --- BLUR LAYER
+                        /// --- BLUR LAYER
                         if (blur != null)
                           BlurLayer(
                             width: width,
@@ -260,7 +275,7 @@ class DreamBox extends StatelessWidget {
                             borders: getCornersAsBorderRadius(),
                           ),
 
-                        // --- DREAM CHILD
+                        /// --- DREAM CHILD
                         if (subChild != null)
                           Container(
                             height: height,
@@ -589,7 +604,7 @@ class DreamBox extends StatelessWidget {
                                 onTapDown: inActiveMode == true || onTapDown == null ? (TapDownDetails details){} : (TapDownDetails details) => onTapDown(),
                                 onTapUp: inActiveMode == true || onTapUp == null ? (TapUpDetails details){} : (TapUpDetails details) => onTapUp(),
                                 child: InkWell(
-                                  splashColor: splashColor,
+                                  splashColor: inActiveMode == true ? null : splashColor,
                                   onTap: onTap == null ? null : () async {onTap();},
                                   onTapCancel: onTapCancel,
                                 ),

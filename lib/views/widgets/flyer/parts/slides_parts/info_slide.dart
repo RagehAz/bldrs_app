@@ -23,12 +23,20 @@ class InfoSlide extends StatelessWidget {
   final double flyerZoneWidth;
   final DraftFlyerModel draft;
   final Function onVerticalBack;
+  final Function onFlyerTypeTap;
+  final Function onZoneTap;
+  final Function onAboutTap;
+  final Function onKeywordsTap;
 
   InfoSlide({
     @required this.flyerZoneWidth,
     @required this.draft,
     @required this.onVerticalBack,
-});
+    @required this.onFlyerTypeTap,
+    @required this.onZoneTap,
+    @required this.onAboutTap,
+    @required this.onKeywordsTap,
+  });
 
   final List<TinyUser> _users = <TinyUser>[
     TinyUser(
@@ -82,7 +90,7 @@ class InfoSlide extends StatelessWidget {
     double _cornerBig = (flyerZoneWidth - (Ratioz.appBarPadding * 2)) * Ratioz.xxflyerBottomCorners;
     BorderRadius _bubbleCorners = Borderers.superBorderAll(context, flyerZoneWidth * Ratioz.xxflyerTopCorners);
 
-    BorderRadius _keywordsBubbleCorners = Borderers.superBorders(
+    BorderRadius _keywordsBubbleCorners = Borderers.superBorderOnly(
       context: context,
       enTopLeft: _cornerSmall,
       enTopRight: _cornerSmall,
@@ -127,15 +135,13 @@ class InfoSlide extends StatelessWidget {
                 height: _headerAndProgressHeights,
               ),
 
-              /// STATS BUBBLE
+              /// ALL STATS
+              if (draft.editMode == false)
               InPyramidsBubble(
                 bubbleWidth: _bubbleWidth,
                 margins: _bubbleMargins,
                 corners: _bubbleCorners,
-                bubbleOnTap: (){
-                  print('bitch');
-                  onVerticalBack();
-                },
+                bubbleOnTap: (){print('all states in preview mode');},
                 columnChildren: <Widget>[
 
                   /// Flyer Type
@@ -144,24 +150,61 @@ class InfoSlide extends StatelessWidget {
                     icon: Iconizer.flyerTypeIconOff(_flyerType),
                     iconSizeFactor: 1,
                     verseScaleFactor: 0.85 * 0.7,
+                    bubbleWidth: _bubbleWidth,
                   ),
 
                   /// PUBLISH TIME
                   StatsLine(
                     verse: 'Published on Saturday 17 July 2021',
                     icon: Iconz.Calendar,
+                    bubbleWidth: _bubbleWidth,
                   ),
 
                   /// ZONE
                   StatsLine(
                     verse: 'Targeting : ${_cityName} , ${_countryName}',
                     icon: Flagz.getFlagByIso3(draft.flyerZone.countryID),
+                    bubbleWidth: _bubbleWidth,
                   ),
-
 
                 ],
               ),
 
+              /// Flyer Type
+              if (draft.editMode == true)
+              InPyramidsBubble(
+                bubbleWidth: _bubbleWidth,
+                margins: _bubbleMargins,
+                corners: _bubbleCorners,
+                bubbleOnTap: onFlyerTypeTap,
+                columnChildren: <Widget>[
+
+                  StatsLine(
+                    verse: 'Flyer Type : ${TextGenerator.flyerTypeSingleStringer(context, _flyerType)}',
+                    icon: Iconizer.flyerTypeIconOff(_flyerType),
+                    iconSizeFactor: 1,
+                    verseScaleFactor: 0.85 * 0.7,
+                    bubbleWidth: _bubbleWidth,
+                  ),
+
+                ],
+              ),
+
+              /// ZONE
+              if (draft.editMode == true)
+                InPyramidsBubble(
+                  bubbleWidth: _bubbleWidth,
+                  margins: _bubbleMargins,
+                  corners: _bubbleCorners,
+                  bubbleOnTap: onZoneTap,
+                  columnChildren: <Widget>[
+                    StatsLine(
+                      verse: 'Targeting : ${_cityName} , ${_countryName}',
+                      icon: Flagz.getFlagByIso3(draft.flyerZone.countryID),
+                      bubbleWidth: _bubbleWidth,
+                    ),
+                  ],
+                ),
 
               /// ABOUT FLYER
               ParagraphBubble(
@@ -172,10 +215,12 @@ class InfoSlide extends StatelessWidget {
                 maxLines: 3,
                 centered: false,
                 paragraph: draft.infoController.text.length == 0 ? '...' : draft.infoController.text,
+                onParagraphTap: onAboutTap,
               ),
 
               /// SAVES BUBBLE
-              RecordBubble(
+              if (draft.editMode == false)
+                RecordBubble(
                   flyerZoneWidth: flyerZoneWidth,
                   bubbleTitle: 'Who Saved it',
                   bubbleIcon: Iconz.Save,
@@ -183,7 +228,8 @@ class InfoSlide extends StatelessWidget {
               ),
 
               /// SHARES BUBBLE
-              RecordBubble(
+              if (draft.editMode == false)
+                RecordBubble(
                 flyerZoneWidth: flyerZoneWidth,
                 bubbleTitle: 'Who Shared it',
                 bubbleIcon: Iconz.Share,
@@ -191,7 +237,8 @@ class InfoSlide extends StatelessWidget {
               ),
 
               /// VIEWS BUBBLE
-              RecordBubble(
+              if (draft.editMode == false)
+                RecordBubble(
                 flyerZoneWidth: flyerZoneWidth,
                 bubbleTitle: 'Who viewed it',
                 bubbleIcon: Iconz.Views,
@@ -206,6 +253,7 @@ class InfoSlide extends StatelessWidget {
                 title: 'Flyer keywords',
                 keywords: _keywords,
                 selectedWords: <Keyword>[Keyword.bldrsKeywords()[403],],
+                onTap: onKeywordsTap,
               ),
 
               SizedBox(

@@ -120,7 +120,7 @@ class BottomDialog extends StatelessWidget {
   }
 // -----------------------------------------------------------------------------
   static BorderRadius dialogCorners(BuildContext context){
-    BorderRadius _dialogCorners = Borderers.superBorders(
+    BorderRadius _dialogCorners = Borderers.superBorderOnly(
         context: context,
         enTopLeft: Ratioz.bottomSheetCorner,
         enBottomLeft: 0,
@@ -131,7 +131,7 @@ class BottomDialog extends StatelessWidget {
   }
 // -----------------------------------------------------------------------------
   static BorderRadius dialogClearCorners(BuildContext context){
-    BorderRadius _corners = Borderers.superBorders(
+    BorderRadius _corners = Borderers.superBorderOnly(
       context: context,
       enBottomRight: 0,
       enBottomLeft: 0,
@@ -144,7 +144,7 @@ class BottomDialog extends StatelessWidget {
   static Future<void> slideBottomDialog({BuildContext context, double height, bool draggable, Widget child, String title}) async {
     await showModalBottomSheet(
         shape: RoundedRectangleBorder(borderRadius:
-        Borderers.superBorders(
+        Borderers.superBorderOnly(
           context:context,
           enTopLeft:Ratioz.bottomSheetCorner,
           enBottomLeft:0,

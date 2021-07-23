@@ -2,6 +2,7 @@ import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_type_class.dart';
+import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/sub_models/slide_model.dart';
 import 'package:bldrs/models/sub_models/spec_model.dart';
@@ -18,7 +19,7 @@ class FlyerModel with ChangeNotifier{
   // -------------------------
   final FlyerType flyerType;
   final FlyerState flyerState;
-  final List<dynamic> keyWords;
+  final List<Keyword> keyWords;
   final bool flyerShowsAuthor;
   final String flyerURL;
   final Zone flyerZone;
