@@ -1,3 +1,5 @@
+import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 // -----------------------------------------------------------------------------
@@ -44,4 +46,42 @@ class Scrollers{
     return _isAtTenPercentFromTop;
   }
 // -----------------------------------------------------------------------------
+  static bool canPageUp({ScrollUpdateNotification details, double height}){
+    double _offset = details.metrics.pixels;
+
+    double _bounceLimit = height * 0.3 * (-1);
+
+    bool _canPageUp = _offset < _bounceLimit;
+
+    return _canPageUp;
+  }
+// -----------------------------------------------------------------------------
+
+}
+
+class GoHomeOnMaxBounce extends StatelessWidget {
+  final double height;
+  final Widget child;
+
+  const GoHomeOnMaxBounce({
+    this.height,
+    @required this.child,
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+
+    double _height = height == null ? Scale.superScreenHeight(context) : height;
+
+    return
+      NotificationListener(
+        onNotification: (ScrollUpdateNotification details){
+          bool _canPageUp = Scrollers.canPageUp(details: details, height: _height,);
+          if(_canPageUp){Nav.goBackToHomeScreen(context);}
+          return true;
+          },
+        child: child,
+      );
+  }
 }
