@@ -14,7 +14,7 @@ class Slides extends StatefulWidget {
   final bool slidingIsOn;
   final Function onPageChanged;
   final int currentSlideIndex;
-  final Function swipeFlyer;
+  final Function onSwipeFlyer;
   final Function onTap;
 
   Slides({
@@ -24,7 +24,7 @@ class Slides extends StatefulWidget {
     @required this.slidingIsOn,
     @required this.onPageChanged,
     @required this.currentSlideIndex,
-    this.swipeFlyer,
+    this.onSwipeFlyer,
     @required this.onTap,
 });
 
@@ -152,7 +152,7 @@ class _SlidesState extends State<Slides> {
 
                   /// if its first slide swipe to last flyer
                   if (_newIndex == widget.currentSlideIndex){
-                    widget.swipeFlyer(SwipeDirection.back);
+                    widget.onSwipeFlyer(SwipeDirection.back);
                   }
                   /// if its a middle or last slide, slide to the new index
                   else {

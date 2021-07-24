@@ -39,6 +39,8 @@ class BzModel with ChangeNotifier{
   final bool bzShowsTeam;
   // -------------------------
   final bool bzIsVerified;
+
+  /// TASK : create bzState : online - offline - deactivated - deleted - banned
   final bool bzAccountIsDeactivated;
   final bool bzAccountIsBanned;
   // -------------------------

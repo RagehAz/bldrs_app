@@ -4,6 +4,7 @@ import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_type_class.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
+import 'package:bldrs/models/sub_models/publish_time_model.dart';
 import 'package:bldrs/models/sub_models/slide_model.dart';
 import 'package:bldrs/models/sub_models/spec_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
@@ -11,15 +12,12 @@ import 'package:bldrs/models/tiny_models/tiny_user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
-
-/// TASK : WE NEED TO ADD FLYER ZONE IN MODEL, AND DATABASE AND FLYER EDITOR
-
 class FlyerModel with ChangeNotifier{
   final String flyerID;
   // -------------------------
   final FlyerType flyerType;
   final FlyerState flyerState;
-  final List<Keyword> keyWords;
+  final List<Keyword> keywords;
   final bool flyerShowsAuthor;
   final String flyerURL;
   final Zone flyerZone;
@@ -38,13 +36,14 @@ class FlyerModel with ChangeNotifier{
   final DateTime deletionTime;
   final List<Spec> specs;
   final String info;
+  final List<PublishTime> times;
 
   FlyerModel({
     this.flyerID,
     // -------------------------
     this.flyerType,
     this.flyerState = FlyerState.Draft,
-    this.keyWords,
+    this.keywords,
     this.flyerShowsAuthor = false,
     this.flyerURL,
     @required this.flyerZone,
@@ -52,7 +51,7 @@ class FlyerModel with ChangeNotifier{
     this.tinyAuthor,
     this.tinyBz,
     // -------------------------
-    this.publishTime,
+    this.publishTime, /// TASK : delete this
     this.flyerPosition,
     // -------------------------
     this.ankhIsOn,
@@ -60,9 +59,10 @@ class FlyerModel with ChangeNotifier{
     this.slides,
     // -------------------------
     @required this.flyerIsBanned,
-    @required this.deletionTime,
+    @required this.deletionTime, /// TASK : delete this
     this.specs,
     this.info,
+    this.times,
   });
 // -----------------------------------------------------------------------------
   void toggleAnkh(){
@@ -76,7 +76,7 @@ class FlyerModel with ChangeNotifier{
       // -------------------------
       'flyerType' : FlyerTypeClass.cipherFlyerType(flyerType),
       'flyerState' : cipherFlyerState(flyerState),
-      'keyWords' : keyWords,
+      'keyWords' : keywords,
       'flyerShowsAuthor' : flyerShowsAuthor,
       'flyerURL' : flyerURL,
       'flyerZone' : flyerZone.toMap(),
@@ -103,7 +103,7 @@ class FlyerModel with ChangeNotifier{
       flyerID: flyerID,
       flyerType: flyerType,
       flyerState: flyerState,
-      keyWords: Mapper.cloneListOfStrings(keyWords),
+      keywords: Mapper.cloneListOfStrings(keywords),
       flyerShowsAuthor: flyerShowsAuthor,
       flyerURL: flyerURL,
       flyerZone: flyerZone,
@@ -125,7 +125,7 @@ class FlyerModel with ChangeNotifier{
           flyerID: flyer.flyerID,
           flyerType: flyer.flyerType,
           flyerState: flyer.flyerState,
-          keyWords: flyer.keyWords,
+          keywords: flyer.keywords,
           flyerShowsAuthor: flyer.flyerShowsAuthor,
           flyerURL: flyer.flyerURL,
           flyerZone: flyer.flyerZone,
@@ -148,6 +148,7 @@ class FlyerModel with ChangeNotifier{
       case 2:   return  FlyerState.Draft;         break;
       case 3:   return  FlyerState.Deleted;       break;
       case 4:   return  FlyerState.Unpublished;   break;
+      case 5:   return  FlyerState.Banned;        break;
       default : return   null;
     }
   }
@@ -158,6 +159,7 @@ class FlyerModel with ChangeNotifier{
       case FlyerState.Draft         :    return  2;  break;
       case FlyerState.Deleted       :    return  3;  break;
       case FlyerState.Unpublished   :    return  4;  break;
+      case FlyerState.Banned        :    return  5;  break;
       default : return null;
     }
   }
@@ -178,7 +180,7 @@ class FlyerModel with ChangeNotifier{
       // -------------------------
       flyerType: FlyerTypeClass.decipherFlyerType(map['flyerType']),
       flyerState: FlyerModel.decipherFlyerState(map['flyerState']),
-      keyWords: map['keyWords'],
+      keywords: map['keyWords'],
       flyerShowsAuthor: map['flyerShowsAuthor'],
       flyerURL: map['flyerURL'],
       flyerZone: Zone.decipherZoneMap(map['flyerZone']),
@@ -220,7 +222,7 @@ class FlyerModel with ChangeNotifier{
       slides: updatedSlides,
       flyerShowsAuthor: inputFlyerModel.flyerShowsAuthor,
       flyerState: inputFlyerModel.flyerState,
-      keyWords: inputFlyerModel.keyWords,
+      keywords: inputFlyerModel.keywords,
       flyerPosition: inputFlyerModel.flyerPosition,
       ankhIsOn: inputFlyerModel.ankhIsOn,
       flyerIsBanned: inputFlyerModel.flyerIsBanned,
@@ -234,8 +236,11 @@ class FlyerModel with ChangeNotifier{
     FlyerState.Published,
     FlyerState.Draft,
     FlyerState.Deleted,
+    FlyerState.Unpublished,
+    FlyerState.Banned,
   ];
 // -----------------------------------------------------------------------------
+  /// TASK : why ?
   static int getNumberOfFlyersFromBzzModels(List<BzModel> bzzModels){
     int _totalFlyers = 0;
     bzzModels.forEach((bzModel) {
@@ -283,6 +288,40 @@ class FlyerModel with ChangeNotifier{
     return _totalViews;
   }
 // -----------------------------------------------------------------------------
+  static bool canFlyerShowAuthor({BzModel bzModel}){
+    bool _canShow;
+
+    if(bzModel.bzShowsTeam == true){
+      _canShow = true;
+    }
+    else {
+      _canShow = false;
+    }
+    return _canShow;
+  }
+// -----------------------------------------------------------------------------
+  static List<TextEditingController> createHeadlinesControllersForExistingFlyer(FlyerModel flyerModel){
+  List<TextEditingController> _controllers = new List();
+
+  flyerModel.slides.forEach((slide) {
+    TextEditingController _controller = new TextEditingController(text: slide.headline);
+    _controllers.add(_controller);
+  });
+
+  return _controllers;
+}
+// -----------------------------------------------------------------------------
+  static List<TextEditingController> createDescriptionsControllersForExistingFlyer(FlyerModel flyerModel){
+    List<TextEditingController> _controllers = new List();
+
+    flyerModel.slides.forEach((slide) {
+      TextEditingController _controller = new TextEditingController(text: slide.description);
+      _controllers.add(_controller);
+    });
+
+    return _controllers;
+  }
+// -----------------------------------------------------------------------------
 }
 // -----------------------------------------------------------------------------
 enum FlyerState{
@@ -290,5 +329,6 @@ enum FlyerState{
   Draft,
   Deleted,
   Unpublished,
+  Banned,
 }
 // -----------------------------------------------------------------------------

@@ -63,7 +63,7 @@ class FlyerScreen extends StatelessWidget {
           flyerSizeFactor: 1,
           builder: (ctx, flyerModel){
             return
-                AFlyer(
+                NormalFlyerWidget(
                     flyer: flyerModel,
                     flyerSizeFactor: 1,
                 );

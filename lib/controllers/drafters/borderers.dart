@@ -4,9 +4,6 @@ import 'package:flutter/material.dart';
 
 class Borderers {
 // -----------------------------------------------------------------------------
-  /// takes context then goes english 'ltr' counter clockwise starting
-  ///
-  /// context -> topLeft -> bottomLeft -> bottomRight -> topRight
   static BorderRadius superBorderOnly({
     BuildContext context,
     double enTopLeft,

@@ -157,10 +157,10 @@ class _SwiperScreenState extends State<SwiperScreen> {
                             tinyFlyer: _tinyFlyersOfType[index],
                             flyerSizeFactor: _flyerSizeFactor,
                             builder: (ctx, flyerModel){
-                              return AFlyer(
+                              return NormalFlyerWidget(
                                 flyer: flyerModel,
                                 flyerSizeFactor: _flyerSizeFactor,
-                                swipe: (swipeDirection) => _swipeFlyer(swipeDirection),
+                                onSwipeFlyer: (swipeDirection) => _swipeFlyer(swipeDirection),
                               );
                             }
                             ),

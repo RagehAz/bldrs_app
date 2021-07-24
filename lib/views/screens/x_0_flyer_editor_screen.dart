@@ -1,8 +1,6 @@
 import 'dart:io';
 import 'package:bldrs/controllers/drafters/animators.dart';
 import 'package:bldrs/controllers/drafters/keyboarders.dart';
-import 'package:bldrs/controllers/drafters/numberers.dart';
-import 'package:bldrs/controllers/drafters/scrollers.dart';
 import 'package:bldrs/controllers/drafters/sliders.dart' show SwipeDirection, Sliders;
 import 'package:bldrs/controllers/drafters/imagers.dart' ;
 import 'package:bldrs/controllers/drafters/scalers.dart';
@@ -911,7 +909,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
         // -------------------------
         flyerType: _draft.flyerType,
         flyerState: _draft.flyerState,
-        keyWords: _draft.keywords,
+        keywords: _draft.keywords,
         flyerShowsAuthor: _draft.showAuthor,
         flyerURL: null,
         flyerZone: _draft.flyerZone,
@@ -981,7 +979,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
         // -------------------------
         flyerType: _draft.flyerType,
         flyerState: _draft.flyerState,
-        keyWords: _draft.keywords,
+        keywords: _draft.keywords,
         flyerShowsAuthor: _draft.showAuthor,
         flyerURL: null,
         flyerZone: _draft.flyerZone,
@@ -998,6 +996,8 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
         // -------------------------
         flyerIsBanned: _flyer.flyerIsBanned,
         deletionTime: _flyer.deletionTime,
+        info: _draft.infoController.text,
+        // specs: _draft.specs,
       );
 
       print('C- Uploading to cloud');
@@ -1041,7 +1041,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
       // -------------------------
       flyerType : FlyerTypeClass.concludeFlyerType(_bz.bzType),
       flyerState : FlyerState.Draft,
-      keyWords : _draft.keywords,
+      keywords : _draft.keywords,
       flyerShowsAuthor : _draft.showAuthor,
       flyerURL : '...',
       flyerZone: _countryPro.currentZone,
@@ -1505,7 +1505,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                     onHorizontalSwipe: (i) => _onHorizontalSwipe(i),
                     onVerticalSwipe: _triggerKeywordsView,
                     bzPageIsOn: false,
-                    slidingIsOn: true,
+                    listenToSwipe: true,
                     ankhIsOn: false,
                     tappingAnkh: (){},
                     currentPicFit: _currentPicFit,

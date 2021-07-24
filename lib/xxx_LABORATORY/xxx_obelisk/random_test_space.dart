@@ -5,6 +5,7 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/views/widgets/flyer/super_flyer.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,7 @@ class RandomTestSpace extends StatefulWidget {
 class _RandomTestSpaceState extends State<RandomTestSpace> {
   List<int> _list = <int>[1,2,3,4,5,6,7,8];
   int _loops = 0;
+  Color _color = Colorz.BloodTest;
 
   Future<int> _createKeyValue() async {
     Random _random = new Random();
@@ -57,6 +59,25 @@ class _RandomTestSpaceState extends State<RandomTestSpace> {
     return _randomNumber;
   }
 
+  void setStateFromAnotherFile(){
+
+    print('setting state');
+
+    if (_color == Colorz.BloodTest){
+      setState(() {
+        _color = Colorz.Cyan50;
+      });
+    }
+
+    else {
+      setState(() {
+        _color = Colorz.BloodTest;
+      });
+    }
+
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return MainLayout(
@@ -87,7 +108,7 @@ class _RandomTestSpaceState extends State<RandomTestSpace> {
               width: Scale.superScreenWidth(context),
               child: SuperVerse(
                 verse: 'list is :\n${_list.toString()}',
-                labelColor: Colorz.BloodTest,
+                labelColor: _color,
                 size: 3,
                 maxLines: 5,
               ),
@@ -98,11 +119,19 @@ class _RandomTestSpaceState extends State<RandomTestSpace> {
               width: Scale.superScreenWidth(context),
               child: SuperVerse(
                 verse: 'loops are : ${_loops.toString()}',
-                labelColor: Colorz.BloodTest,
+                labelColor: _color,
                 size: 3,
                 maxLines: 5,
               ),
             ),
+
+            DreamBox(
+              height: 50,
+              width: 250,
+              color: _color,
+              verse: 'setState',
+              onTap: setStateFromAnotherFile,
+            )
 
           ],
         ),
