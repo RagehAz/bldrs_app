@@ -9,7 +9,7 @@ import 'package:bldrs/models/keywords/sequence_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/screens/b_2_sequence_screen.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
-import 'package:bldrs/views/widgets/buttons/dream_box.dart';
+import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

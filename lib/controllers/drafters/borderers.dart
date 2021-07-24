@@ -7,8 +7,13 @@ class Borderers {
   /// takes context then goes english 'ltr' counter clockwise starting
   ///
   /// context -> topLeft -> bottomLeft -> bottomRight -> topRight
-  static BorderRadius superBorderOnly(
-      {BuildContext context, double enTopLeft, double enBottomLeft, double enBottomRight, double enTopRight}) {
+  static BorderRadius superBorderOnly({
+    BuildContext context,
+    double enTopLeft,
+    double enBottomLeft,
+    double enBottomRight,
+    double enTopRight
+  }) {
     return
       Wordz.textDirection(context) == 'rtl' ?
       BorderRadius.only(
@@ -25,10 +30,8 @@ class Borderers {
         bottomRight: Radius.circular(enBottomRight),
       );
   }
-
 // -----------------------------------------------------------------------------
-  static BorderRadius superFlyerCorners(BuildContext context,
-      double flyerZoneWidth) {
+  static BorderRadius superFlyerCorners(BuildContext context, double flyerZoneWidth) {
     double bottomFlyerCorner = flyerZoneWidth * Ratioz.xxflyerBottomCorners;
     double upperFlyerCorner = flyerZoneWidth * Ratioz.xxflyerTopCorners;
     BorderRadius flyerCorners = superBorderOnly(
@@ -193,5 +196,35 @@ class Borderers {
 // -----------------------------------------------------------------------------
 
   }
+// -----------------------------------------------------------------------------
+  static double getCornersAsDouble(dynamic corners){
+    BorderRadius _cornerBorders;
+    double _topLeftCorner;
+    if (corners.runtimeType == BorderRadius){
+      _cornerBorders = corners;
+      Radius _topLeftCornerRadius = _cornerBorders?.topLeft;
+      _topLeftCorner =  _topLeftCornerRadius?.x;
+      // print('_topLeftCorner : $_topLeftCorner');
+    } else {
+      _topLeftCorner = corners.toDouble();
+    }
 
+    return _topLeftCorner == null ? 0 : _topLeftCorner;
+  }
+// -----------------------------------------------------------------------------
+  static BorderRadius getCornersAsBorderRadius(BuildContext context, dynamic corners){
+    BorderRadius _cornerBorders;
+    // double _topLeftCorner;
+    if(corners == 0){
+      _cornerBorders = BorderRadius.zero;
+    }
+    else if (corners.runtimeType == BorderRadius){
+      _cornerBorders = corners;
+    } else {
+      _cornerBorders = Borderers.superBorderAll(context, corners.toDouble());
+    }
+
+    return _cornerBorders;
+  }
+// -----------------------------------------------------------------------------
 }

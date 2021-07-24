@@ -16,7 +16,7 @@ import 'package:bldrs/views/widgets/appbar/bldrs_app_bar.dart';
 import 'package:bldrs/views/widgets/buttons/back_anb_search_button.dart';
 import 'package:bldrs/views/widgets/layouts/night_sky.dart';
 import 'package:bldrs/views/widgets/nav_bar/nav_bar.dart';
-import 'package:bldrs/views/widgets/buttons/dream_box.dart';
+import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/pyramids/pyramids.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/views/widgets/buttons/rageh_button.dart';
