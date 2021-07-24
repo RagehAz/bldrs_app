@@ -1,5 +1,5 @@
 import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/views/widgets/buttons/dream_box.dart';
+import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/footer.dart';
 import 'package:flutter/material.dart';
 

@@ -6,7 +6,7 @@ import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/models/secondary_models/feedback_model.dart';
 import 'package:bldrs/views/widgets/bubbles/text_field_bubble.dart';
-import 'package:bldrs/views/widgets/buttons/dream_box.dart';
+import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';

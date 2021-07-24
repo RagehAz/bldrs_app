@@ -10,7 +10,7 @@ import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
-import 'package:bldrs/views/widgets/buttons/dream_box.dart';
+import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';

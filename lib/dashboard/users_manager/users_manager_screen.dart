@@ -9,7 +9,7 @@ import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/providers/users_provider.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
-import 'package:bldrs/views/widgets/buttons/dream_box.dart';
+import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/buttons/dream_wrapper.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_dialog.dart';

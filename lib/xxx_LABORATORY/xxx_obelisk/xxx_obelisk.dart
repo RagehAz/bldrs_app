@@ -8,7 +8,7 @@ import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/views/screens/a_0_user_checker_widget.dart';
 import 'package:bldrs/views/widgets/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/views/widgets/buttons/main_button.dart';
-import 'package:bldrs/views/widgets/buttons/dream_box.dart';
+import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:bldrs/views/widgets/textings/the_golden_scroll.dart';

@@ -6,7 +6,7 @@ import 'package:bldrs/controllers/theme/flagz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
-import 'package:bldrs/views/widgets/buttons/dream_box.dart';
+import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 

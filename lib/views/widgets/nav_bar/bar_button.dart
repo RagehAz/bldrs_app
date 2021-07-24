@@ -1,11 +1,11 @@
 import 'package:bldrs/controllers/drafters/text_shapers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/views/widgets/buttons/dream_box.dart';
+import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/views/widgets/nav_bar/nav_bar.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
-import 'nav_bar.dart' show BarType;
 
 class BarButton extends StatelessWidget {
   final String text;
