@@ -73,9 +73,12 @@ class Spec {
   static List<Map<String, dynamic>> cipherSpecs(List<Spec> specs){
     List<Map<String, dynamic>> _maps = new List();
 
-    for (Spec spec in specs){
-      _maps.add(spec.toMap());
+    if (specs != null && specs.length != 0){
+      for (Spec spec in specs){
+        _maps.add(spec.toMap());
+      }
     }
+
   return _maps;
   }
 // -----------------------------------------------------------------------------

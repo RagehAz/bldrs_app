@@ -11,27 +11,26 @@ import 'package:bldrs/views/widgets/flyer/parts/flyer_zone.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_header.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/footer_parts/ankh_button.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/slides_parts/slides_old.dart';
-import 'package:bldrs/views/widgets/flyer/parts/progress_bar.dart';
 import 'package:bldrs/views/widgets/flyer/parts/progress_bar_parts/strips.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class AFlyer extends StatefulWidget {
+class NormalFlyerWidget extends StatefulWidget {
   final FlyerModel flyer;
   final double flyerSizeFactor;
-  final Function swipe;
+  final Function onSwipeFlyer;
 
-  AFlyer({
+  NormalFlyerWidget({
     @required this.flyer,
     @required this.flyerSizeFactor,
-    this.swipe,
+    this.onSwipeFlyer,
   });
 
   @override
-  _AFlyerState createState() => _AFlyerState();
+  _NormalFlyerWidgetState createState() => _NormalFlyerWidgetState();
 }
 
-class _AFlyerState extends State<AFlyer> with AutomaticKeepAliveClientMixin{
+class _NormalFlyerWidgetState extends State<NormalFlyerWidget> with AutomaticKeepAliveClientMixin{
   @override
   bool get wantKeepAlive => true;
   bool _bzPageIsOn;
@@ -167,7 +166,7 @@ class _AFlyerState extends State<AFlyer> with AutomaticKeepAliveClientMixin{
           slidingIsOn: true,
           onPageChanged: (index) => _onPageChanged(index),
           currentSlideIndex: _currentSlideIndex,
-          swipeFlyer: widget.swipe,
+          onSwipeFlyer: widget.onSwipeFlyer,
           onTap: (){
             print('tapping slide in aFlyer widget');
           },

@@ -12,10 +12,8 @@ import 'package:bldrs/views/widgets/buttons/dream_box/dream_box_highlight.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box_tap_layer.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box_underline.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box_verse.dart';
-import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
-import 'package:websafe_svg/websafe_svg.dart';
 
 class DreamBox extends StatelessWidget {
   final String icon;

@@ -1,4 +1,3 @@
-import 'dart:math' as math;
 import 'package:bldrs/controllers/drafters/sliders.dart';
 import 'package:bldrs/controllers/drafters/text_directionerz.dart';
 import 'package:page_transition/page_transition.dart';
@@ -17,10 +16,11 @@ class Animators{
   /// incrementing the angle degree,, while rotates counter clockwise when decrementing
   /// the angle degree.
   /// simply, Negative value goes counter ClockWise
-  double angleByDegree(double degree){
-    double radian = degree * ( math.pi / 180 );
-    return radian;
-  }
+  // import 'dart:math' as math;
+  // static double angleByDegree(double degree){
+  //   double radian = degree * ( math.pi / 180 );
+  //   return radian;
+  // }
 // -----------------------------------------------------------------------------
   static SwipeDirection getSwipeDirection({int oldIndex, int newIndex}){
     SwipeDirection _swipeDirection;
@@ -35,6 +35,16 @@ class Animators{
 
     // print('getSwipeDirection concluded going from [ old index ($oldIndex) ] to [ new index ($newIndex) ] is [$_swipeDirection]');
     return _swipeDirection;
+  }
+// -----------------------------------------------------------------------------
+  static List<bool> createSlidesVisibilityList(int numberOfSlides){
+    List<bool> _visibilityList = new List();
+
+    for (int i = 0; i<numberOfSlides; i++){
+      _visibilityList.add(true);
+    }
+
+    return _visibilityList;
   }
 // -----------------------------------------------------------------------------
 }

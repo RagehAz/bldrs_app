@@ -33,7 +33,7 @@ class FlyersProvider with ChangeNotifier {
   List<TinyFlyer> _loadedTinyFlyers;
   List<BzModel> _loadedBzz;
   List<TinyBz> _loadedTinyBzz;
-  List<TinyFlyer> _loadedSavedFlyers;
+  List<TinyFlyer> _loadedSavedTinyFlyers;
   List<String> _loadedFollows;
   List<FlyerModel> _bzDeactivatedFlyers;
 // -----------------------------------------------------------------------------
@@ -72,7 +72,7 @@ class FlyersProvider with ChangeNotifier {
 //   }
 // -----------------------------------------------------------------------------
   List<TinyFlyer> get getSavedTinyFlyers {
-    return <TinyFlyer>[..._loadedSavedFlyers];
+    return <TinyFlyer>[..._loadedSavedTinyFlyers];
   }
 // -----------------------------------------------------------------------------
   List<String> get getFollows{
@@ -188,10 +188,10 @@ class FlyersProvider with ChangeNotifier {
     }
 
     /// assign the value to local variable
-    _loadedSavedFlyers = _savedTinyFlyers;
+    _loadedSavedTinyFlyers = _savedTinyFlyers;
 
     notifyListeners();
-    print('_loadedSavedFlyers :::: --------------- ${_loadedSavedFlyers.toString()}');
+    print('_loadedSavedFlyers :::: --------------- ${_loadedSavedTinyFlyers.toString()}');
 
   }
 // -----------------------------------------------------------------------------
@@ -387,7 +387,7 @@ class FlyersProvider with ChangeNotifier {
   bool checkAnkh(String flyerID){
     bool _ankhIsOn = false;
 
-      TinyFlyer _tinyFlyer = _loadedSavedFlyers?.firstWhere((flyer) => flyer.flyerID == flyerID, orElse: () => null);
+      TinyFlyer _tinyFlyer = _loadedSavedTinyFlyers?.firstWhere((flyer) => flyer.flyerID == flyerID, orElse: () => null);
 
       if(_tinyFlyer == null){
         _ankhIsOn = false;
@@ -537,17 +537,17 @@ class FlyersProvider with ChangeNotifier {
   void addOrDeleteTinyFlyerInLocalSavedTinyFlyers(TinyFlyer _inputTinyFlyer){
 
     TinyFlyer _savedTinyFlyer =
-    _loadedSavedFlyers.singleWhere((tf) => tf.flyerID == _inputTinyFlyer.flyerID, orElse: ()=> null);
+    _loadedSavedTinyFlyers.singleWhere((tf) => tf.flyerID == _inputTinyFlyer.flyerID, orElse: ()=> null);
 
     if (_savedTinyFlyer == null){
       /// so flyer is not already saved, so we save it
-      _loadedSavedFlyers.add(_inputTinyFlyer);
+      _loadedSavedTinyFlyers.add(_inputTinyFlyer);
     } else {
       /// so flyer is already saved, so we remove it
       int _savedTinyFlyerIndex =
-      _loadedSavedFlyers.indexWhere((tf) => tf.flyerID == _inputTinyFlyer.flyerID, );
+      _loadedSavedTinyFlyers.indexWhere((tf) => tf.flyerID == _inputTinyFlyer.flyerID, );
 
-      _loadedSavedFlyers.removeAt(_savedTinyFlyerIndex);
+      _loadedSavedTinyFlyers.removeAt(_savedTinyFlyerIndex);
     }
 
     notifyListeners();
@@ -740,4 +740,13 @@ class FlyersProvider with ChangeNotifier {
     );
 
   }
+// -----------------------------------------------------------------------------
+  TinyFlyer getSavedTinyFlyerByFlyerID(String flyerID){
+    TinyFlyer _tinyFlyer = TinyFlyer.getTinyFlyerFromTinyFlyers(
+      tinyFlyers: _loadedSavedTinyFlyers,
+      flyerID: flyerID,
+    );
+    return _tinyFlyer;
+  }
+// -----------------------------------------------------------------------------
 }

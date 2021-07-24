@@ -187,7 +187,7 @@ class _FlyersGridViewState extends State<FlyersGridView> {
             tinyFlyer: _tinyFlyers[i],
             flyerSizeFactor: _flyerSizeFactor,
             builder: (ctx, flyerModel){
-              return AFlyer(
+              return NormalFlyerWidget(
                 flyer: flyerModel,
                 flyerSizeFactor: _flyerSizeFactor,
               );
