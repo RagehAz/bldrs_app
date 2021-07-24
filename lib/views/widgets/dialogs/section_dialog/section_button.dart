@@ -8,7 +8,7 @@ import 'package:bldrs/models/records/share_model.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
-import 'package:bldrs/views/widgets/buttons/dream_box.dart';
+import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/dialog_button.dart';
 import 'package:flutter/material.dart';

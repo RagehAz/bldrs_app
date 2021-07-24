@@ -23,7 +23,7 @@ import 'package:bldrs/models/tiny_models/tiny_user.dart';
 import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/screens/x_x_flyer_on_map.dart';
-import 'package:bldrs/views/widgets/buttons/dream_box.dart';
+import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/buttons/publish_button.dart';
 import 'package:bldrs/views/widgets/buttons/slides_counter.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
@@ -34,14 +34,7 @@ import 'package:bldrs/views/widgets/flyer/editor/editorPanel.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_pages.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_zone.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_header.dart';
-import 'package:bldrs/views/widgets/flyer/parts/pages_parts/info_page_parts/info_page.dart';
-import 'package:bldrs/views/widgets/flyer/parts/pages_parts/info_page_parts/info_slide.dart';
-import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/editor_footer.dart';
-import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/footer_parts/ankh_button.dart';
-import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/slides_page.dart';
-import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/slides_parts/slides_new.dart';
 import 'package:bldrs/views/widgets/flyer/parts/progress_bar.dart';
-import 'package:bldrs/views/widgets/flyer/parts/progress_bar_parts/strips.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_text_field.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
@@ -1441,39 +1434,15 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
     /// when using with AutomaticKeepAliveClientMixin
     super.build(context);
 
-    // print('draft picture screen');
-
     double _screenWidth = Scale.superScreenWidth(context);
-    // double _screenHeight = Scale.superScreenHeight(context);
-
-    // double _panelWidth = _buttonSize + (Ratioz.appBarMargin * 2);
-    // double _flyerZoneWidth = _screenWidth - _panelWidth - Ratioz.appBarMargin;
-    // double _flyerZoneHeight = Scale.superFlyerZoneHeight(context, _flyerZoneWidth);
-    // double _flyerSizeFactor = Scale.superFlyerSizeFactorByWidth(context, _flyerZoneWidth);
-
     double _flyerZoneHeight = Scale.superScreenHeightWithoutSafeArea(context) - Ratioz.appBarSmallHeight - (Ratioz.appBarMargin * 3);
     double _flyerSizeFactor = Scale.superFlyerSizeFactorByHeight(context, _flyerZoneHeight);
     double _flyerZoneWidth = Scale.superFlyerZoneWidth(context, _flyerSizeFactor);
     double _panelWidth = _screenWidth - _flyerZoneWidth - (Ratioz.appBarMargin * 3);
-
-    double _panelHeight = _flyerZoneHeight;
-    double _buttonSize = _panelWidth - (Ratioz.appBarPadding);
-    double _panelButtonSize = _buttonSize * 0.8;
-
-
     AuthorModel _author = widget.firstTimer ?
     AuthorModel.getAuthorFromBzByAuthorID(_bz, superUserID()) :
     AuthorModel.getAuthorFromBzByAuthorID(_bz, _flyer.tinyAuthor.userID);
-
-
-    // ImageSize _originalAssetSize = _assets.length == 0 || _assets == null ? null : ImageSize(
-    //   width: _assets[_draft.currentSlideIndex].originalWidth,
-    //   height: _assets[_draft.currentSlideIndex].originalHeight,
-    // );
-
-// ------------------------------
     BoxFit _currentPicFit = _draft.boxesFits.length == 0 ? null : _draft.boxesFits[_draft.currentSlideIndex];
-
 
     return MainLayout(
       pyramids: Iconz.DvBlankSVG,
@@ -1499,97 +1468,94 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
           Stratosphere(),
 
           /// FLYER & PANEL ZONES
-          Container(
-            width: _screenWidth,
-            height: _panelHeight,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
 
-                /// PANEL
-                EditorPanel(
-                  flyerZoneWidth: _flyerZoneWidth,
-                  panelWidth: _panelWidth,
-                  boxFit: _currentPicFit,
-                  showAuthor: _draft.showAuthor,
-                  onAuthorTap: _onAuthorTap,
-                  onTriggerEditMode: _triggerEditMode,
-                  zone: _draft.flyerZone,
-                  flyerType: _draft.flyerType,
-                  onFlyerTypeTap: () async {await _onChangeFlyerType();},
-                  onZoneTap: () async {await _onChangeZone();},
-                  onAboutTap: () async {await _onAboutTap();},
-                  onKeywordsTap: () async {await _onKeywordsTap();},
-                  draft: _draft,
-                ),
+              /// PANEL
+              EditorPanel(
+                flyerZoneWidth: _flyerZoneWidth,
+                panelWidth: _panelWidth,
+                boxFit: _currentPicFit,
+                showAuthor: _draft.showAuthor,
+                onAuthorTap: _onAuthorTap,
+                onTriggerEditMode: _triggerEditMode,
+                zone: _draft.flyerZone,
+                flyerType: _draft.flyerType,
+                onFlyerTypeTap: () async {await _onChangeFlyerType();},
+                onZoneTap: () async {await _onChangeZone();},
+                onAboutTap: () async {await _onAboutTap();},
+                onKeywordsTap: () async {await _onKeywordsTap();},
+                draft: _draft,
+              ),
 
-                /// FLYER
-                FlyerZone(
-                  flyerSizeFactor: _flyerSizeFactor,
-                  tappingFlyerZone: (){},
-                  onLongPress: (){},
-                  stackWidgets: <Widget>[
+              /// FLYER
+              FlyerZone(
+                flyerSizeFactor: _flyerSizeFactor,
+                tappingFlyerZone: (){},
+                onLongPress: (){},
+                stackWidgets: <Widget>[
 
-                    /// FLYER PAGES
-                    FlyerPages(
+                  /// FLYER PAGES
+                  FlyerPages(
+                    flyerZoneWidth: _flyerZoneWidth,
+                    horizontalController: _horizontalController,
+                    draft: _draft,
+                    onHorizontalSwipe: (i) => _onHorizontalSwipe(i),
+                    onVerticalSwipe: _triggerKeywordsView,
+                    bzPageIsOn: false,
+                    slidingIsOn: true,
+                    ankhIsOn: false,
+                    tappingAnkh: (){},
+                    currentPicFit: _currentPicFit,
+                    onAddImages: () async {await _getMultiGalleryImages(flyerZoneWidth: _flyerZoneWidth);},
+                    onDeleteSlide: _deleteSlide,
+                    onCropImage: () async {_onCropImage();},
+                    onResetImage: _onResetImage,
+                    onFitImage: () async {await _onFitImage(_currentPicFit);},
+                    onVerticalBack: () async {
+                      print('shit');
+                      await Sliders.slideToBackFrom(_verticalController, 1);
+                      // _onVerticalIndexChanged(0);
+                    },
+                    onFlyerTypeTap: () async {await _onChangeFlyerType();},
+                    onZoneTap: () async {await _onChangeZone();},
+                    onAboutTap: () async {await _onAboutTap();},
+                    onKeywordsTap: () async {await _onKeywordsTap();},
+                    verticalController: _verticalController,
+                    infoScrollController: _infoScrollController,
+                    onVerticalIndexChanged:  (i) => _onVerticalIndexChanged(i),
+                  ),
+
+                  /// FLYER HEADER
+                  FlyerHeader(
+                    tinyBz: TinyBz.getTinyBzFromBzModel(_bz),
+                    tinyAuthor: TinyUser.getTinyAuthorFromAuthorModel(_author),
+                    flyerShowsAuthor: _draft.showAuthor,
+                    followIsOn: false,
+                    flyerZoneWidth: Scale.superFlyerZoneWidth(context, _flyerSizeFactor),
+                    bzPageIsOn: false,
+                    tappingHeader: (){},
+                    onFollowTap: (){},
+                    onCallTap: (){
+                      print('call');
+                    },
+                  ),
+
+                  /// PROGRESS BAR
+                  if(_draft.numberOfStrips != 0 && _draft.currentSlideIndex != null)
+                    ProgressBar(
+                      duration: _slidingDuration,
+                      opacity: _progressOpacity,
                       flyerZoneWidth: _flyerZoneWidth,
-                      horizontalController: _horizontalController,
                       draft: _draft,
-                      onHorizontalSwipe: (i) => _onHorizontalSwipe(i),
-                      onVerticalSwipe: _triggerKeywordsView,
-                      bzPageIsOn: false,
-                      slidingIsOn: true,
-                      ankhIsOn: false,
-                      tappingAnkh: (){},
-                      currentPicFit: _currentPicFit,
-                      onAddImages: () async {await _getMultiGalleryImages(flyerZoneWidth: _flyerZoneWidth);},
-                      onDeleteSlide: _deleteSlide,
-                      onCropImage: () async {_onCropImage();},
-                      onResetImage: _onResetImage,
-                      onFitImage: () async {await _onFitImage(_currentPicFit);},
-                      onVerticalBack: () async {
-                        print('shit');
-                        await Sliders.slideToBackFrom(_verticalController, 1);
-                        // _onVerticalIndexChanged(0);
-                      },
-                      onFlyerTypeTap: () async {await _onChangeFlyerType();},
-                      onZoneTap: () async {await _onChangeZone();},
-                      onAboutTap: () async {await _onAboutTap();},
-                      onKeywordsTap: () async {await _onKeywordsTap();},
-                      verticalController: _verticalController,
-                      infoScrollController: _infoScrollController,
-                      onVerticalIndexChanged:  (i) => _onVerticalIndexChanged(i),
                     ),
 
-                    /// FLYER HEADER
-                    FlyerHeader(
-                      tinyBz: TinyBz.getTinyBzFromBzModel(_bz),
-                      tinyAuthor: TinyUser.getTinyAuthorFromAuthorModel(_author),
-                      flyerShowsAuthor: _draft.showAuthor,
-                      followIsOn: false,
-                      flyerZoneWidth: Scale.superFlyerZoneWidth(context, _flyerSizeFactor),
-                      bzPageIsOn: false,
-                      tappingHeader: (){},
-                      onFollowTap: (){},
-                      onCallTap: (){
-                        print('call');
-                      },
-                    ),
+                ],
+              ),
 
-                    /// PROGRESS BAR
-                    if(_draft.numberOfStrips != 0 && _draft.currentSlideIndex != null)
-                      ProgressBar(
-                        duration: _slidingDuration,
-                        opacity: _progressOpacity,
-                        flyerZoneWidth: _flyerZoneWidth,
-                        draft: _draft,
-                      ),
-                  ],
-                ),
-
-              ],
-            ),
+            ],
           ),
 
         ],
