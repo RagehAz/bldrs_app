@@ -121,7 +121,7 @@ class _OldFlyerEditorScreenState extends State<OldFlyerEditorScreen> {
     // -------------------------
     _currentFlyerType = _flyer.flyerType;
     _currentFlyerState = _flyer.flyerState;
-    _currentKeywords = _flyer.keyWords;
+    _currentKeywords = _flyer.keywords;
     _currentFlyerShowsAuthor = _flyer.flyerShowsAuthor;
     _currentFlyerURL = _flyer.flyerURL; // no need for this
     _currentFlyerZone = _flyer.flyerZone;
@@ -195,7 +195,7 @@ class _OldFlyerEditorScreenState extends State<OldFlyerEditorScreen> {
       // -------------------------
       flyerType : FlyerTypeClass.concludeFlyerType(_bz.bzType),
       flyerState : FlyerState.Draft,
-      keyWords : new List(),
+      keywords : new List(),
       flyerShowsAuthor : true,
       flyerURL : '...',
       flyerZone: _countryPro.currentZone,
@@ -685,7 +685,7 @@ class _OldFlyerEditorScreenState extends State<OldFlyerEditorScreen> {
         // -------------------------
         flyerType: _currentFlyerType,
         flyerState: _currentFlyerState,
-        keyWords: _currentKeywords,
+        keywords: _currentKeywords,
         flyerShowsAuthor: _currentFlyerShowsAuthor,
         flyerURL: _currentFlyerURL,
         flyerZone: _currentFlyerZone,
@@ -763,7 +763,7 @@ class _OldFlyerEditorScreenState extends State<OldFlyerEditorScreen> {
         // -------------------------
         flyerType: _currentFlyerType,
         flyerState: _currentFlyerState,
-        keyWords: _currentKeywords,
+        keywords: _currentKeywords,
         flyerShowsAuthor: _currentFlyerShowsAuthor,
         flyerURL: _currentFlyerURL,
         flyerZone: _currentFlyerZone,

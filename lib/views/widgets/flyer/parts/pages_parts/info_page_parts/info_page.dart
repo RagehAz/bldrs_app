@@ -38,6 +38,7 @@ class InfoPage extends StatelessWidget {
     @required this.draft,
     @required this.onVerticalBack,
     @required this.onFlyerTypeTap,
+
     @required this.onZoneTap,
     @required this.onAboutTap,
     @required this.onKeywordsTap,

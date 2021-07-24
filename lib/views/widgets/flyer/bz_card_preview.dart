@@ -120,7 +120,7 @@ class _BzCardPreviewState extends State<BzCardPreview> {
             ),
 
             SuperVerse(
-              verse: 'Add\nFlyers',
+              verse: 'Add\nNew\nFlyer',
               maxLines: 5,
               size: 2,
               scaleFactor: widget.flyerSizeFactor * 5,

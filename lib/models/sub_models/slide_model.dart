@@ -1,5 +1,9 @@
+import 'dart:io';
+
+import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/numberers.dart';
 import 'package:bldrs/models/flyer_model.dart';
+import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
 class SlideModel {
   final int slideIndex;
@@ -9,6 +13,7 @@ class SlideModel {
   int sharesCount;
   int viewsCount;
   int savesCount;
+  BoxFit boxFit;
 
   SlideModel({
     this.slideIndex,
@@ -18,6 +23,7 @@ class SlideModel {
     this.sharesCount,
     this.viewsCount,
     this.savesCount,
+    this.boxFit, /// TASK : update all methods below to include this boxfit parameter
   });
   // -------------------------
   Map<String, dynamic> toMap() {
@@ -188,6 +194,55 @@ class SlideModel {
     });
 
     return _combinedMap;
+  }
+// -----------------------------------------------------------------------------
+  static Future <List<File>> getImageFilesFromPublishedSlides(List<SlideModel> slides) async {
+    List<File> _files = new List();
+
+    if (slides != null && slides.length != 0){
+      for (SlideModel slide in slides){
+
+        File _file = await Imagers.urlToFile(slide.picture);
+
+        _files.add(_file);
+
+      }
+    }
+
+    return _files;
+  }
+// -----------------------------------------------------------------------------
+  static List<BoxFit> getSlidesBoxFits(List<SlideModel> slides) {
+    List<BoxFit> _boxFits = new List();
+
+    if (slides != null && slides.length != 0){
+      for (SlideModel slide in slides){
+
+        BoxFit _fit = slide.boxFit;
+
+        if (_fit == null){
+          _boxFits.add(BoxFit.cover);
+        }
+        else {
+        _boxFits.add(_fit);
+        }
+
+      }
+    }
+
+    return _boxFits;
+  }
+// -----------------------------------------------------------------------------
+  static List<bool> createVisibilityListFromSlides(List<SlideModel> slides){
+    List<bool> _visibilityList = new List();
+
+    if (slides != null && slides.length != 0){
+      for (int i = 0; i < slides.length; i++){
+        _visibilityList.add(true);
+      }
+    }
+
+    return _visibilityList;
   }
 // -----------------------------------------------------------------------------
 }

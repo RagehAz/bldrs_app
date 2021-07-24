@@ -1,9 +1,7 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
-import 'package:bldrs/controllers/router/route_names.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-// -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
 class Scrollers{
 // -----------------------------------------------------------------------------
@@ -59,7 +57,7 @@ class Scrollers{
 // -----------------------------------------------------------------------------
 
 }
-
+// -----------------------------------------------------------------------------
 class GoHomeOnMaxBounce extends StatefulWidget {
   final double height;
   final Widget child;
@@ -108,3 +106,4 @@ class _GoHomeOnMaxBounceState extends State<GoHomeOnMaxBounce> {
       );
   }
 }
+// -----------------------------------------------------------------------------

@@ -11,7 +11,7 @@ class FlyerPages extends StatelessWidget {
   final double flyerZoneWidth;
   final Function onVerticalSwipe;
   final bool bzPageIsOn;
-  final bool slidingIsOn;
+  final bool listenToSwipe;
   final bool ankhIsOn;
   final Function tappingAnkh;
   final Function onAddImages;
@@ -36,7 +36,7 @@ class FlyerPages extends StatelessWidget {
     @required this.flyerZoneWidth,
     @required this.onVerticalSwipe,
     @required this.bzPageIsOn,
-    @required this.slidingIsOn,
+    @required this.listenToSwipe,
     @required this.ankhIsOn,
     @required this.tappingAnkh,
     @required this.onAddImages,
@@ -76,7 +76,7 @@ class FlyerPages extends StatelessWidget {
           onPageChanged: onHorizontalSwipe,
           triggerKeywordsView: onVerticalSwipe,
           bzPageIsOn: bzPageIsOn,
-          slidingIsOn: slidingIsOn,
+          slidingIsOn: listenToSwipe,
           ankhIsOn: ankhIsOn,
           tappingAnkh: tappingAnkh,
           currentPicFit: currentPicFit,
