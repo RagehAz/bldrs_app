@@ -6,7 +6,7 @@ import 'package:bldrs/models/flyer_type_class.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/secondary_models/draft_flyer_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
-import 'package:bldrs/views/widgets/buttons/dream_box.dart';
+import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/flyer/editor/panel_button.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';

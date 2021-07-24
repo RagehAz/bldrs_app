@@ -5,7 +5,7 @@ import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/models/keywords/sequence_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/widgets/appbar/sections_button.dart';
-import 'package:bldrs/views/widgets/buttons/dream_box.dart';
+import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/xxx_LABORATORY/flyer_browser/keyword_button.dart';
 import 'package:flutter/material.dart';

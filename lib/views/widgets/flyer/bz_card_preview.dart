@@ -7,11 +7,11 @@ import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/models/tiny_models/tiny_user.dart';
 import 'package:bldrs/views/screens/x_0_flyer_editor_screen.dart';
-import 'package:bldrs/views/widgets/buttons/dream_box.dart';
+import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/views/widgets/flyer/parts/flyer_header.dart';
+import 'package:bldrs/views/widgets/flyer/parts/flyer_zone.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
-import 'parts/flyer_zone.dart';
-import 'parts/flyer_header.dart';
 
 class BzCardPreview extends StatefulWidget {
   final BzModel bz;
