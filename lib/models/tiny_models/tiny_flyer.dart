@@ -1,7 +1,9 @@
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/models/flyer_type_class.dart';
+import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import '../bz_model.dart';
 import '../flyer_model.dart';
 import 'nano_flyer.dart';
@@ -15,6 +17,8 @@ class TinyFlyer with ChangeNotifier{
   final int slideIndex;
   final String slidePic;
   final Zone flyerZone;
+  final BoxFit picFit;
+  final List<Keyword> keywords;
 
   TinyFlyer({
     @required this.flyerID,
@@ -24,6 +28,8 @@ class TinyFlyer with ChangeNotifier{
     @required this.slideIndex,
     @required this.slidePic,
     @required this.flyerZone,
+    this.keywords, /// TASK : integrate keywords in tiny flyers
+    this.picFit, /// TASK : integrate this in all below methods
   });
 // -----------------------------------------------------------------------------
   Map<String,dynamic> toMap (){
@@ -137,6 +143,11 @@ class TinyFlyer with ChangeNotifier{
     });
 
     return _flyerIDs;
+  }
+// -----------------------------------------------------------------------------
+  static TinyFlyer getTinyFlyerFromTinyFlyers({List<TinyFlyer> tinyFlyers, String flyerID}){
+    TinyFlyer _tinyFlyer = tinyFlyers.singleWhere((tinyFlyer) => tinyFlyer.flyerID == flyerID, orElse: () => null);
+    return _tinyFlyer;
   }
 // -----------------------------------------------------------------------------
   static TinyFlyer dummyTinyFlyer(String id){

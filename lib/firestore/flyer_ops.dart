@@ -65,7 +65,7 @@ class FlyerOps{
     // -------------------------
     flyerType: inputFlyerModel.flyerType,
     flyerState: inputFlyerModel.flyerState,
-    keyWords: inputFlyerModel.keyWords,
+    keywords: inputFlyerModel.keywords,
     flyerShowsAuthor: inputFlyerModel.flyerShowsAuthor,
     flyerURL: _flyerURL,
     flyerZone: inputFlyerModel.flyerZone,
@@ -113,7 +113,7 @@ class FlyerOps{
     context: context,
     collName: FireCollection.flyersKeys,
     docName: _flyerID,
-    input: await TextMod.getKeyWordsMap(_finalFlyerModel.keyWords),
+    input: await TextMod.getKeyWordsMap(_finalFlyerModel.keywords),
   );
 
     print('8- flyer keys add');
@@ -301,12 +301,12 @@ class FlyerOps{
     print('C - flyer updated on fireStore in fireStore/flyers/${_finalFlyer.flyerID}');
 
     /// D - if keywords changed, update flyerKeys doc in : fireStore/flyersKeys/flyerID
-    if (Mapper.listsAreTheSame(list1: _finalFlyer.keyWords, list2: originalFlyer.keyWords) == false){
+    if (Mapper.listsAreTheSame(list1: _finalFlyer.keywords, list2: originalFlyer.keywords) == false){
       await Fire.updateDoc(
           context: context,
           collName: FireCollection.flyersKeys,
           docName: _finalFlyer.flyerID,
-          input: await TextMod.getKeyWordsMap(_finalFlyer.keyWords)
+          input: await TextMod.getKeyWordsMap(_finalFlyer.keywords)
       );
 
       print('D - flyer keywords updated on FireStore');

@@ -64,7 +64,7 @@ class FlyersPageView extends StatelessWidget {
           tinyFlyer: _tinyFlyers[i],
           flyerSizeFactor: 0.8,
           builder: (ctx, flyerModel){
-            return AFlyer(
+            return NormalFlyerWidget(
               flyer: flyerModel,
               flyerSizeFactor: 0.8,
             );

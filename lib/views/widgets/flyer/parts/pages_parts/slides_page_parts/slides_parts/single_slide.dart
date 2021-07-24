@@ -20,6 +20,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:bldrs/controllers/drafters/keyboarders.dart';
 
+/// TASK delete this
 enum SlideMode {
   View, // when viewing a slide as default
   MicroView, // when viewing slide in flyer micro mode

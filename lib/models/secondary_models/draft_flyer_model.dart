@@ -8,6 +8,7 @@ import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/sub_models/slide_model.dart';
 import 'package:bldrs/providers/country_provider.dart';
+import 'package:bldrs/views/widgets/flyer/final_flyer.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:provider/provider.dart';
@@ -76,6 +77,8 @@ class DraftFlyerModel{
     @required this.editMode,
   });
 // -----------------------------------------------------------------------------
+  static String draftID = 'draft';
+// -----------------------------------------------------------------------------
   static List<ValueKey> getKeysOfDrafts(List<DraftFlyerModel> drafts){
     List<ValueKey> _keys = new List();
 
@@ -92,7 +95,6 @@ class DraftFlyerModel{
   static DraftFlyerModel createNewDraftFlyer({BuildContext context, @required BzModel bzModel}){
 
     CountryProvider _countryPro = Provider.of<CountryProvider>(context, listen: false);
-
 
     DraftFlyerModel _draft = DraftFlyerModel(
       assetsSources: new List(),
@@ -129,32 +131,32 @@ class DraftFlyerModel{
   }
 // -----------------------------------------------------------------------------
 //   static DraftFlyerModel createDraftFromFlyer({@required FlyerModel flyer, @required BzModel bzModel}){
-//     // DraftFlyerModel _draft = DraftFlyerModel(
-//     //   assetsSources: new List(),
-//     //   assetsFiles: new List(),
-//     //   boxesFits: new List(),
-//     //   headlinesControllers: new List(),
-//     //   key: ValueKey(7),
-//     //   state: FlyerState.Draft,
-//     //   visibilities: new List(),
-//     //   numberOfSlides: 0,
-//     //   numberOfStrips: 0,
-//     //   swipeDirection: SwipeDirection.next,
-//     //   listenToSwipe: true,
-//     //   currentSlideIndex: 0,
-//     //
-//     //   flyerID: 'draft',
-//     //   authorID: superUserID(),
-//     //   flyerType: FlyerTypeClass.concludeFlyerType(bzModel.bzType),
-//     //   flyerState: FlyerState.Draft,
-//     //   keywords: new List(),
-//     //   showAuthor: true,
-//     //   flyerZone: _countryPro.currentZone,
-//     //   timeStamp: DateTime.now(),
-//     //   position: null,
-//     //   mapImageURL: null,
-//     //   slides: new List(),
-//     // );
+//     DraftFlyerModel _draft = DraftFlyerModel(
+//       assetsSources: new List(),
+//       assetsFiles: new List(),
+//       boxesFits: new List(),
+//       headlinesControllers: new List(),
+//       key: ValueKey(7),
+//       state: FlyerState.Draft,
+//       visibilities: new List(),
+//       numberOfSlides: 0,
+//       numberOfStrips: 0,
+//       swipeDirection: SwipeDirection.next,
+//       listenToSwipe: true,
+//       currentSlideIndex: 0,
+//
+//       flyerID: FinalFlyer.draftID,
+//       authorID: superUserID(),
+//       flyerType: FlyerTypeClass.concludeFlyerType(bzModel.bzType),
+//       flyerState: FlyerState.Draft,
+//       keywords: new List(),
+//       showAuthor: true,
+//       flyerZone: _countryPro.currentZone,
+//       timeStamp: DateTime.now(),
+//       position: null,
+//       mapImageURL: null,
+//       slides: new List(),
+//     );
 //
 //     return _draft;
 //   }

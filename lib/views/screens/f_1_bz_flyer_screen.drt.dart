@@ -184,7 +184,7 @@ class BzFlyerScreen extends StatelessWidget {
               '${TextGenerator.dayMonthYearStringer(context, flyerModel.publishTime)}\n'
               '\n'
               'flyer Keywords :'
-              '${flyerModel.keyWords.toString()}';
+              '${flyerModel.keywords.toString()}';
 
           return
               SingleChildScrollView(
@@ -220,7 +220,7 @@ class BzFlyerScreen extends StatelessWidget {
                       },
                     ),
 
-                    AFlyer(
+                    NormalFlyerWidget(
                       flyer: flyerModel,
                       flyerSizeFactor: _flyerSizeFactor,
                     ),
@@ -232,7 +232,7 @@ class BzFlyerScreen extends StatelessWidget {
                       bubbleWidth: _flyerZoneWidth,
                       title: 'Flyer Keywords',
                       selectedWords: [],
-                      keywords: flyerModel.keyWords,
+                      keywords: flyerModel.keywords,
                       bubbles: false,
                       verseSize: 2,
                       bubbleColor: Colorz.White20,
