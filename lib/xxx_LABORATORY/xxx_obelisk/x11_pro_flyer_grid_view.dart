@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/streamerz.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
@@ -7,6 +8,7 @@ import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/flyer/aflyer.dart';
+import 'package:bldrs/views/widgets/flyer/final_flyer.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -181,18 +183,24 @@ class _FlyersGridViewState extends State<FlyersGridView> {
             //       ),
             //     )
             // ),
+///
+//         flyerModelBuilder(
+//             context: context,
+//             tinyFlyer: _tinyFlyers[i],
+//             flyerSizeFactor: _flyerSizeFactor,
+//             builder: (ctx, flyerModel){
+//               return NormalFlyerWidget(
+//                 flyer: flyerModel,
+//                 flyerSizeFactor: _flyerSizeFactor,
+//               );
+//             }
+//         ),
+///
 
-        flyerModelBuilder(
-            context: context,
-            tinyFlyer: _tinyFlyers[i],
-            flyerSizeFactor: _flyerSizeFactor,
-            builder: (ctx, flyerModel){
-              return NormalFlyerWidget(
-                flyer: flyerModel,
-                flyerSizeFactor: _flyerSizeFactor,
-              );
-            }
-        ),
+        FinalFlyer(
+          flyerZoneWidth: Scale.superFlyerZoneWidth(context, _flyerSizeFactor),
+          tinyFlyer: _tinyFlyers[i],
+        )
 
       ),
     );

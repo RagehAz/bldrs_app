@@ -1530,6 +1530,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
 
                   /// FLYER HEADER
                   FlyerHeader(
+                    superFlyer: null,
                     tinyBz: TinyBz.getTinyBzFromBzModel(_bz),
                     tinyAuthor: TinyUser.getTinyAuthorFromAuthorModel(_author),
                     flyerShowsAuthor: _draft.showAuthor,

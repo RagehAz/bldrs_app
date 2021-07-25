@@ -173,81 +173,83 @@ class BzFlyerScreen extends StatelessWidget {
       appBarType: AppBarType.Basic,
       // appBarBackButton: true,
       sky: Sky.Black,
-      layoutWidget: flyerStreamBuilder(
-        context: context,
-        tinyFlyer: tinyFlyer,
-        listen: true,
-        flyerSizeFactor: _flyerSizeFactor,
-        builder: (ctx, flyerModel){
+      layoutWidget: Container()
 
-          String _flyerMetaData = '${TextGenerator.zoneStringer(context: context, zone: tinyFlyer.flyerZone)}\n'
-              '${TextGenerator.dayMonthYearStringer(context, flyerModel.publishTime)}\n'
-              '\n'
-              'flyer Keywords :'
-              '${flyerModel.keywords.toString()}';
+      // flyerStreamBuilder(
+      //   context: context,
+      //   tinyFlyer: tinyFlyer,
+      //   listen: true,
+      //   flyerSizeFactor: _flyerSizeFactor,
+      //   builder: (ctx, flyerModel){
+      //
+      //     String _flyerMetaData = '${TextGenerator.zoneStringer(context: context, zone: tinyFlyer.flyerZone)}\n'
+      //         '${TextGenerator.dayMonthYearStringer(context, flyerModel.publishTime)}\n'
+      //         '\n'
+      //         'flyer Keywords :'
+      //         '${flyerModel.keywords.toString()}';
+      //
+      //     return
+      //         SingleChildScrollView(
+      //           scrollDirection: Axis.vertical,
+      //           child: Column(
+      //             mainAxisAlignment: MainAxisAlignment.start,
+      //             crossAxisAlignment: CrossAxisAlignment.center,
+      //             children: <Widget>[
+      //
+      //               Stratosphere(),
+      //
+      //               TileBubble(
+      //                 icon: Iconizer.flyerTypeIconOff(flyerModel.flyerType),
+      //                 verse: '${TextGenerator.flyerTypeSingleStringer(context, flyerModel.flyerType)} ${Wordz.flyer(context)}',
+      //                 secondLine: _flyerMetaData,
+      //                 iconSizeFactor: 1,
+      //                 moreBtOnTap: () => _slideFlyerOptions(context, flyerModel),
+      //               ),
+      //
+      //               TileBubble(
+      //                 verse: 'Show Flyer author',
+      //                 icon: flyerModel.tinyAuthor.pic,
+      //                 iconSizeFactor: 1,
+      //                 switchIsOn: flyerModel.flyerShowsAuthor,
+      //                 switching: (val) async {
+      //
+      //                   await FlyerOps().switchFlyerShowsAuthor(
+      //                     context: context,
+      //                     flyerID: flyerModel.flyerID,
+      //                     val: val,
+      //                   );
+      //
+      //                 },
+      //               ),
+      //
+      //               NormalFlyerWidget(
+      //                 flyer: flyerModel,
+      //                 flyerSizeFactor: _flyerSizeFactor,
+      //               ),
+      //
+      //               SizedBox(height: 10,),
+      //
+      //               // --- KEYWORDS
+      //               KeywordsBubble(
+      //                 bubbleWidth: _flyerZoneWidth,
+      //                 title: 'Flyer Keywords',
+      //                 selectedWords: [],
+      //                 keywords: flyerModel.keywords,
+      //                 bubbles: false,
+      //                 verseSize: 2,
+      //                 bubbleColor: Colorz.White20,
+      //                 onTap: (){},
+      //               ),
+      //
+      //               PyramidsHorizon(heightFactor: 5,),
+      //
+      //             ],
+      //
+      //           ),
+      //         );
 
-          return
-              SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-
-                    Stratosphere(),
-
-                    TileBubble(
-                      icon: Iconizer.flyerTypeIconOff(flyerModel.flyerType),
-                      verse: '${TextGenerator.flyerTypeSingleStringer(context, flyerModel.flyerType)} ${Wordz.flyer(context)}',
-                      secondLine: _flyerMetaData,
-                      iconSizeFactor: 1,
-                      moreBtOnTap: () => _slideFlyerOptions(context, flyerModel),
-                    ),
-
-                    TileBubble(
-                      verse: 'Show Flyer author',
-                      icon: flyerModel.tinyAuthor.pic,
-                      iconSizeFactor: 1,
-                      switchIsOn: flyerModel.flyerShowsAuthor,
-                      switching: (val) async {
-
-                        await FlyerOps().switchFlyerShowsAuthor(
-                          context: context,
-                          flyerID: flyerModel.flyerID,
-                          val: val,
-                        );
-
-                      },
-                    ),
-
-                    NormalFlyerWidget(
-                      flyer: flyerModel,
-                      flyerSizeFactor: _flyerSizeFactor,
-                    ),
-
-                    SizedBox(height: 10,),
-
-                    // --- KEYWORDS
-                    KeywordsBubble(
-                      bubbleWidth: _flyerZoneWidth,
-                      title: 'Flyer Keywords',
-                      selectedWords: [],
-                      keywords: flyerModel.keywords,
-                      bubbles: false,
-                      verseSize: 2,
-                      bubbleColor: Colorz.White20,
-                      onTap: (){},
-                    ),
-
-                    PyramidsHorizon(heightFactor: 5,),
-
-                  ],
-
-                ),
-              );
-
-        }
-      ),
+        // }
+      // ),
     );
   }
 }

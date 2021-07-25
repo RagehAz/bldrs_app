@@ -1,9 +1,11 @@
+import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/streamerz.dart';
 import 'package:bldrs/controllers/router/route_names.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/widgets/flyer/aflyer.dart';
+import 'package:bldrs/views/widgets/flyer/final_flyer.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -57,18 +59,29 @@ class FlyerScreen extends StatelessWidget {
         //   ),
         // ),
 
-        flyerModelBuilder(
-          context: context,
-          tinyFlyer : _tinyFlyer,
-          flyerSizeFactor: 1,
-          builder: (ctx, flyerModel){
-            return
-                NormalFlyerWidget(
-                    flyer: flyerModel,
-                    flyerSizeFactor: 1,
-                );
-          }
+        ///
 
+        // flyerModelBuilder(
+        //   context: context,
+        //   tinyFlyer : _tinyFlyer,
+        //   flyerSizeFactor: 1,
+        //   builder: (ctx, flyerModel){
+        //     return
+        //         NormalFlyerWidget(
+        //             flyer: flyerModel,
+        //             flyerSizeFactor: 1,
+        //         );
+        //   }
+        //
+        // ),
+
+        ///
+
+
+        FinalFlyer(
+          flyerZoneWidth: Scale.superFlyerZoneWidth(context, 1),
+          tinyFlyer: tinyFlyer,
+          flyerID: tinyFlyer.flyerID,
         ),
 
       ),
