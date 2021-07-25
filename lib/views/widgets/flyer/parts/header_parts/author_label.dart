@@ -12,11 +12,14 @@ import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/models/tiny_models/tiny_user.dart';
 import 'package:bldrs/views/screens/f_3_add_author_screen.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/views/widgets/flyer/super_flyer.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 
 class AuthorLabel extends StatelessWidget {
+  final SuperFlyer superFlyer;
+
   final double flyerZoneWidth;
   final TinyUser tinyAuthor;
   final TinyBz tinyBz;
@@ -26,10 +29,12 @@ class AuthorLabel extends StatelessWidget {
   final Function tappingLabel;
 
   AuthorLabel({
-    @required this.flyerZoneWidth,
-    @required this.tinyAuthor,
-    @required this.tinyBz,
-    @required this.showLabel,
+    this.superFlyer,
+
+    this.flyerZoneWidth,
+    this.tinyAuthor,
+    this.tinyBz,
+    this.showLabel,
     this.authorGalleryCount,
     this.labelIsOn = false,
     this.tappingLabel,
@@ -49,37 +54,37 @@ class AuthorLabel extends StatelessWidget {
     const bool _versesDesignMode = false;
     const bool _versesShadow = false;
 // -----------------------------------------------------------------------------
-    double _headerTextSidePadding = flyerZoneWidth * Ratioz.xxflyersGridSpacing;
+    double _headerTextSidePadding = superFlyer.flyerZoneWidth * Ratioz.xxflyersGridSpacing;
 // -----------------------------------------------------------------------------
     double _authorDataHeight =
     // flyerShowsAuthor == true ?
-    (flyerZoneWidth * Ratioz.xxflyerAuthorPicWidth)
+    (superFlyer.flyerZoneWidth * Ratioz.xxflyerAuthorPicWidth)
     //     :
     // (flyerZoneWidth * ((Ratioz.xxflyerHeaderHeight* 0.3)-(2*Ratioz.xxflyerHeaderMainPadding)) )
     ;
 // -----------------------------------------------------------------------------
-    double _authorDataWidth = flyerZoneWidth * (Ratioz.xxflyerAuthorPicWidth+Ratioz.xxflyerAuthorNameWidth);
+    double _authorDataWidth = superFlyer.flyerZoneWidth * (Ratioz.xxflyerAuthorPicWidth+Ratioz.xxflyerAuthorNameWidth);
 // -----------------------------------------------------------------------------
     // --- FOLLOWERS COUNTER --- --- --- --- --- --- --- --- --- --- --- FOLLOWERS COUNTER
-    int _followersCount = tinyBz.bzTotalFollowers;
-    int _bzGalleryCount = tinyBz.bzTotalFlyers;
+    int _followersCount = superFlyer.bzTotalFollowers;
+    int _bzGalleryCount = superFlyer.bzTotalFlyers;
     String _followersCounter =
     (authorGalleryCount == 0 && _followersCount == 0) || (authorGalleryCount == null && _followersCount == null) ? '' :
     showLabel == true ?
         '${Numberers.separateKilos(authorGalleryCount)} ${Wordz.flyers(context)}' :
         '${Numberers.counterCaliber(context, _followersCount)} ${Wordz.followers(context)} . ${Numberers.counterCaliber(context, _bzGalleryCount)} ${Wordz.flyers(context)}';
 // -----------------------------------------------------------------------------
-    double _authorImageCorners = flyerZoneWidth * Ratioz.xxflyerAuthorPicCorner;
+    double _authorImageCorners = superFlyer.flyerZoneWidth * Ratioz.xxflyerAuthorPicCorner;
 // -----------------------------------------------------------------------------
 
     return
       GestureDetector(
-        onTap: showLabel == true ? ()=> tappingLabel(tinyAuthor.userID) : null,
+        onTap: showLabel == true ? ()=> tappingLabel(superFlyer.authorID) : null,
         child:
         Container(
             height: _authorDataHeight,
             width: labelIsOn == true? _authorDataWidth : _authorDataHeight,
-            margin: showLabel == true ? EdgeInsets.symmetric(horizontal : flyerZoneWidth * 0.01) : const EdgeInsets.all(0),
+            margin: showLabel == true ? EdgeInsets.symmetric(horizontal : superFlyer.flyerZoneWidth * 0.01) : const EdgeInsets.all(0),
             decoration: BoxDecoration(
                 color: showLabel == false ? Colorz.Nothing : Colorz.White20,
                 borderRadius: Borderers.superBorderOnly(
@@ -100,9 +105,10 @@ class AuthorLabel extends StatelessWidget {
                 Expanded(
                   flex: 15,
                   child: AuthorPic(
-                    flyerZoneWidth: flyerZoneWidth,
-                    authorPic: tinyAuthor.pic,
-                    tinyBz: tinyBz,
+                    superFlyer: superFlyer,
+                    // flyerZoneWidth: superFlyer.flyerZoneWidth,
+                    // authorPic: superFlyer.flyerTinyAuthor.pic,
+                    // tinyBz:
                   ),
                 ),
 
@@ -111,7 +117,7 @@ class AuthorLabel extends StatelessWidget {
                 Expanded(
                   flex: 47,
                   child: Container(
-                    width: flyerZoneWidth * Ratioz.xxflyerAuthorNameWidth,
+                    width: superFlyer.flyerZoneWidth * Ratioz.xxflyerAuthorNameWidth,
                     padding: EdgeInsets.symmetric(horizontal: _headerTextSidePadding),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -121,26 +127,26 @@ class AuthorLabel extends StatelessWidget {
 
                         // --- AUTHOR NAME
                         SuperVerse(
-                          verse: tinyAuthor.name,
+                          verse: superFlyer?.flyerTinyAuthor?.name,
                           italic: false,
                           centered: false,
                           shadow: _versesShadow,
                           designMode: _versesDesignMode,
                           size: 2,
-                          scaleFactor: flyerZoneWidth / _screenWidth,
+                          scaleFactor: superFlyer.flyerZoneWidth / _screenWidth,
                           maxLines: 1,
                         ),
 
                             // --- AUTHOR TITLE
                         SuperVerse(
-                          verse: tinyAuthor.title,
+                          verse: superFlyer?.flyerTinyAuthor?.title,
                           designMode: _versesDesignMode,
                           size: 1,
                           weight: VerseWeight.regular,
                           shadow: _versesShadow,
                           centered: false,
                           italic: true,
-                          scaleFactor: flyerZoneWidth / _screenWidth,
+                          scaleFactor: superFlyer.flyerZoneWidth / _screenWidth,
                           maxLines: 1,
                         ),
 
@@ -153,7 +159,7 @@ class AuthorLabel extends StatelessWidget {
                           weight: VerseWeight.regular,
                           size: 0,
                           designMode: _versesDesignMode,
-                          scaleFactor: flyerZoneWidth / _screenWidth,
+                          scaleFactor: superFlyer.flyerZoneWidth / _screenWidth,
                           maxLines: 1,
                         ),
 
@@ -169,30 +175,36 @@ class AuthorLabel extends StatelessWidget {
 }
 
 class AuthorPic extends StatelessWidget {
+  final SuperFlyer superFlyer;
+  final bool isAddAuthorButton;
+
   final double flyerZoneWidth;
   final dynamic authorPic;
-  final bool isAddAuthorButton;
   final TinyBz tinyBz;
 
   AuthorPic({
-    @required this.flyerZoneWidth,
-    @required this.authorPic,
+    this.superFlyer,
     this.isAddAuthorButton = false,
+
+    this.flyerZoneWidth,
+    this.authorPic,
     this.tinyBz,
   });
 
   void _tapAddAuthor(BuildContext context){
 
-    Nav.goToNewScreen(context, AddAuthorScreen(tinyBz: tinyBz));
+    print('should go to add new author screen');
+
+    // Nav.goToNewScreen(context, AddAuthorScreen(tinyBz: tinyBz));
   }
 
   @override
   Widget build(BuildContext context) {
 
     // === === === === === === === === === === === === === === === === === === === === === === === === === === === ===
-    double _authorImageWidth = flyerZoneWidth * Ratioz.xxflyerAuthorPicWidth;
+    double _authorImageWidth = superFlyer.flyerZoneWidth * Ratioz.xxflyerAuthorPicWidth;
     double _authorImageHeight = _authorImageWidth;
-    double _authorImageCorners = flyerZoneWidth * Ratioz.xxflyerAuthorPicCorner;
+    double _authorImageCorners = superFlyer.flyerZoneWidth * Ratioz.xxflyerAuthorPicCorner;
     // === === === === === === === === === === === === === === === === === === === === === === === === === === === ===
     BorderRadius _authorPicBorders = Borderers.superBorderOnly(
         context: context,
@@ -209,11 +221,11 @@ class AuthorPic extends StatelessWidget {
             color: Colorz.White10,
             borderRadius: _authorPicBorders,
             image:
-            authorPic == null ? null
+            superFlyer.flyerTinyAuthor?.pic == null ? null
                 :
-            ObjectChecker.objectIsJPGorPNG(authorPic)?
+            ObjectChecker.objectIsJPGorPNG(superFlyer.flyerTinyAuthor?.pic)?
             DecorationImage(
-                image: AssetImage(authorPic),
+                image: AssetImage(superFlyer.flyerTinyAuthor?.pic),
                 fit: BoxFit.cover
             ) : null
         ),
@@ -253,7 +265,7 @@ class AuthorPic extends StatelessWidget {
                   ),
                 )
                 :
-            Imagers.superImageWidget(authorPic)
+            Imagers.superImageWidget(superFlyer.flyerTinyAuthor?.pic)
         ),
 
         // objectIsFile(authorPic) ?

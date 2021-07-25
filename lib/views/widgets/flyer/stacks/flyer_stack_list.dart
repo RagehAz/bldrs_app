@@ -3,6 +3,8 @@ import 'package:bldrs/controllers/drafters/spacers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
+import 'package:bldrs/views/widgets/flyer/final_flyer.dart';
+import 'package:bldrs/views/widgets/flyer/super_flyer.dart';
 import 'package:bldrs/views/widgets/flyer/tiny_flyer_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -53,6 +55,8 @@ class _FlyerStackListState extends State<FlyerStackList> {
 
     List<TinyFlyer> _tinyFlyers = widget.tinyFlyers;
 
+    double _flyerZoneWidth = Scale.superFlyerZoneWidth(context, widget.flyerSizeFactor);
+
     return ListView.separated(
       physics: BouncingScrollPhysics(),
       itemCount: _tinyFlyers.length,
@@ -61,7 +65,7 @@ class _FlyerStackListState extends State<FlyerStackList> {
       padding: Spacers.superPadding(
         context: context,
         enLeft: Ratioz.appBarMargin,
-        enRight: Scale.superFlyerZoneWidth(context, widget.flyerSizeFactor),
+        enRight: _flyerZoneWidth,
         bottom: 0,
         top: 0,
       ),
@@ -75,6 +79,14 @@ class _FlyerStackListState extends State<FlyerStackList> {
       itemBuilder: (context,_x) {
 
         // print('_tinyFlyers[_x].flyerID = ${_tinyFlyers[_x].flyerID}');
+
+        // SuperFlyer _superFlyer = SuperFlyer.createViewSuperFlyerFromTinyFlyer(
+        //     context: context,
+        //     flyerZoneWidth: _flyerZoneWidth,
+        //     tinyFlyer: _tinyFlyers[_x],
+        //     onMicroFlyerTap: null,
+        //     onAnkhTap: null
+        // );
 
         return
 
@@ -92,7 +104,7 @@ class _FlyerStackListState extends State<FlyerStackList> {
           //     //     // _slidingIsOff = false;
           //     //     },
           //     // ),
-          //
+          ///
           //     // FlyerZone(
           //     //   flyerSizeFactor: flyerSizeFactor,
           //     //   stackWidgets: <Widget>[
@@ -111,21 +123,28 @@ class _FlyerStackListState extends State<FlyerStackList> {
           //
           //   ),
           // )
-
-          TinyFlyerWidget(
-            flyerSizeFactor: widget.flyerSizeFactor,
+        ///
+          // TinyFlyerWidget(
+          //   superFlyer: _superFlyer,
+          //   // flyerSizeFactor: widget.flyerSizeFactor,
+          //   // tinyFlyer: _tinyFlyers[_x],
+          //   // onTap: (tinyFlyer){
+          //   //
+          //   //   if (widget.flyerOnTap == null){
+          //   //     Nav().openFlyer(context, tinyFlyer.flyerID);
+          //   //   }
+          //   //
+          //   //   else {
+          //   //     widget.flyerOnTap(tinyFlyer);
+          //   //   }
+          //   //
+          //   // },
+          // );
+        ///
+          FinalFlyer(
+            flyerZoneWidth: _flyerZoneWidth,
             tinyFlyer: _tinyFlyers[_x],
-            onTap: (tinyFlyer){
 
-              if (widget.flyerOnTap == null){
-                Nav().openFlyer(context, tinyFlyer.flyerID);
-              }
-
-              else {
-                widget.flyerOnTap(tinyFlyer);
-              }
-
-            },
           );
 
       },

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
@@ -160,7 +161,9 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
 
           oButton('user checker', Iconz.Flyer, UserChecker()),
 
-          oButton('Random Test Space', Iconz.Flyer, RandomTestSpace()),
+          oButton('Random Test Space', Iconz.Flyer, RandomTestSpace(
+            flyerZoneWidth: Scale.superFlyerZoneWidth(context, 0.5),
+          )),
 
           oButton('Slider Test Screen', Iconz.Flyer, SliderTestScreen()),
 

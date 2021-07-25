@@ -9,6 +9,7 @@ import 'package:bldrs/models/flyer_type_class.dart';
 import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/widgets/flyer/aflyer.dart';
+import 'package:bldrs/views/widgets/flyer/final_flyer.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -152,18 +153,23 @@ class _SwiperScreenState extends State<SwiperScreen> {
 
                         Stratosphere(),
 
-                        flyerModelBuilder(
-                            context: context,
-                            tinyFlyer: _tinyFlyersOfType[index],
-                            flyerSizeFactor: _flyerSizeFactor,
-                            builder: (ctx, flyerModel){
-                              return NormalFlyerWidget(
-                                flyer: flyerModel,
-                                flyerSizeFactor: _flyerSizeFactor,
-                                onSwipeFlyer: (swipeDirection) => _swipeFlyer(swipeDirection),
-                              );
-                            }
-                            ),
+                        FinalFlyer(
+                          flyerZoneWidth: Scale.superFlyerZoneWidth(context, _flyerSizeFactor),
+                          tinyFlyer: _tinyFlyersOfType[index],
+                        ),
+
+                        // flyerModelBuilder(
+                        //     context: context,
+                        //     tinyFlyer: _tinyFlyersOfType[index],
+                        //     flyerSizeFactor: _flyerSizeFactor,
+                        //     builder: (ctx, flyerModel){
+                        //       return NormalFlyerWidget(
+                        //         flyer: flyerModel,
+                        //         flyerSizeFactor: _flyerSizeFactor,
+                        //         onSwipeFlyer: (swipeDirection) => _swipeFlyer(swipeDirection),
+                        //       );
+                        //     }
+                        //     ),
 
                       ],
                     );
