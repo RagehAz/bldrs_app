@@ -8,9 +8,12 @@ import 'package:bldrs/views/widgets/flyer/parts/header_parts/bz_pg_headline.dart
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/header_shadow.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/max_header.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/mini_header_strip.dart';
+import 'package:bldrs/views/widgets/flyer/super_flyer.dart';
 import 'package:flutter/material.dart';
 
 class FlyerHeader extends StatelessWidget {
+  final SuperFlyer superFlyer;
+
   final TinyBz tinyBz;
   final TinyUser tinyAuthor;
   final bool flyerShowsAuthor;
@@ -23,15 +26,17 @@ class FlyerHeader extends StatelessWidget {
   final bool stripBlurIsOn;
 
   FlyerHeader({
+    this.superFlyer,
+
     this.tinyBz,
     this.tinyAuthor,
     this.flyerShowsAuthor = true,
     this.followIsOn = false,
-    @required this.flyerZoneWidth,
-    @required this.bzPageIsOn,
-    @required this.tappingHeader,
-    @required this.onFollowTap,
-    @required this.onCallTap,
+    this.flyerZoneWidth,
+    this.bzPageIsOn,
+    this.tappingHeader,
+    this.onFollowTap,
+    this.onCallTap,
     this.stripBlurIsOn = false,
   });
 
@@ -39,52 +44,53 @@ class FlyerHeader extends StatelessWidget {
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
     return GestureDetector(
-        onTap: tappingHeader,
+        onTap: superFlyer.onHeaderTap,
         child: ListView(
-          physics: Scrollers.superScroller(bzPageIsOn),
+          physics: Scrollers.superScroller(superFlyer.bzPageIsOn),
           shrinkWrap: true,
           addAutomaticKeepAlives: true,
           children: <Widget>[
 
             Container(
-              height: Scale.superHeaderHeight(bzPageIsOn, flyerZoneWidth),
-              width: flyerZoneWidth,
+              height: Scale.superHeaderHeight(superFlyer.bzPageIsOn, superFlyer.flyerZoneWidth),
+              width: superFlyer.flyerZoneWidth,
               child: Stack(
                 children: <Widget>[
 
-                  if (stripBlurIsOn)
-                  BlurLayer(
-                    height: Scale.superHeaderHeight(bzPageIsOn, flyerZoneWidth),
-                    width: flyerZoneWidth,
-                    borders: Borderers.superHeaderStripCorners(context, bzPageIsOn, flyerZoneWidth),
-                  ),
+                  // if (stripBlurIsOn)
+                  // BlurLayer(
+                  //   height: Scale.superHeaderHeight(bzPageIsOn, flyerZoneWidth),
+                  //   width: flyerZoneWidth,
+                  //   borders: Borderers.superHeaderStripCorners(context, bzPageIsOn, flyerZoneWidth),
+                  // ),
 
 
                   // --- HEADER SHADOW
                   HeaderShadow(
-                    flyerZoneWidth: flyerZoneWidth,
-                    bzPageIsOn: bzPageIsOn,
+                    flyerZoneWidth: superFlyer.flyerZoneWidth,
+                    bzPageIsOn: superFlyer.bzPageIsOn,
                   ),
 
                   // --- HEADER COMPONENTS
                   MiniHeaderStrip(
-                    flyerZoneWidth: flyerZoneWidth,
-                    bzPageIsOn: bzPageIsOn,
-                    tinyBz: tinyBz,
-                    tinyAuthor: tinyAuthor,
-                    flyerShowsAuthor: flyerShowsAuthor,
-                    followIsOn: followIsOn,
-                    tappingHeader: tappingHeader,
-                    onFollowTap: onFollowTap,
-                    onCallTap: onCallTap,
-                    stripBlurIsOn: stripBlurIsOn,
+                    superFlyer: superFlyer,
+                    // flyerZoneWidth: superFlyer.flyerZoneWidth,
+                    // bzPageIsOn: superFlyer.bzPageIsOn,
+                    // tinyBz: tinyBz,
+                    // tinyAuthor: tinyAuthor,
+                    // flyerShowsAuthor: flyerShowsAuthor,
+                    // followIsOn: followIsOn,
+                    // tappingHeader: tappingHeader,
+                    // onFollowTap: onFollowTap,
+                    // onCallTap: onCallTap,
+                    // stripBlurIsOn: stripBlurIsOn,
                   ),
 
                   // --- HEADER'S MAX STATE'S HEADLINE : BZ.NAME AND BZ.LOCALE
                   BzPageHeadline(
-                    flyerZoneWidth: flyerZoneWidth,
-                    bzPageIsOn: bzPageIsOn,
-                    tinyBz: tinyBz,
+                    flyerZoneWidth: superFlyer.flyerZoneWidth,
+                    bzPageIsOn: superFlyer.bzPageIsOn,
+                    tinyBz: SuperFlyer.getTinyBzFromSuperFlyer(superFlyer),
                   ),
 
                 ],
@@ -92,11 +98,11 @@ class FlyerHeader extends StatelessWidget {
             ),
 
             // TASK : 3ayzeen zorar follow gowwa el bzPage
-            if (bzPageIsOn)
+            if (superFlyer.bzPageIsOn)
             MaxHeader(
-              flyerZoneWidth: flyerZoneWidth,
-              bzPageIsOn: bzPageIsOn,
-              tinyBz: tinyBz,
+              flyerZoneWidth: superFlyer.flyerZoneWidth,
+              bzPageIsOn: superFlyer.bzPageIsOn,
+              tinyBz: SuperFlyer.getTinyBzFromSuperFlyer(superFlyer),
             ),
 
           ],

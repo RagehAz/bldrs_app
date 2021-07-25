@@ -4,13 +4,20 @@ import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/views/widgets/flyer/final_flyer.dart';
 import 'package:bldrs/views/widgets/flyer/super_flyer.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class RandomTestSpace extends StatefulWidget {
+final double flyerZoneWidth;
+
+RandomTestSpace({
+  @required this.flyerZoneWidth,
+});
 
   @override
   _RandomTestSpaceState createState() => _RandomTestSpaceState();
@@ -20,6 +27,40 @@ class _RandomTestSpaceState extends State<RandomTestSpace> {
   List<int> _list = <int>[1,2,3,4,5,6,7,8];
   int _loops = 0;
   Color _color = Colorz.BloodTest;
+  SuperFlyer _flyer;
+  bool _thing;
+
+// -----------------------------------------------------------------------------
+  @override
+  void initState() {
+
+    _flyer = SuperFlyer.createViewSuperFlyerFromTinyFlyer(
+      context: context,
+      flyerZoneWidth: 0.5,
+      tinyFlyer: TinyFlyer.dummyTinyFlyers()[1],
+      onMicroFlyerTap: _createKeyValue,
+      onAnkhTap: setStateFromAnotherFile,
+    );
+
+    super.initState();
+  }
+// -----------------------------------------------------------------------------
+
+  bool _isInit = true;
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
+      // _triggerLoading();
+
+      _thing = Scale.superFlyerMicroMode(context, 15);
+
+      print('thing is : $_thing');
+
+    }
+    _isInit = false;
+    super.didChangeDependencies();
+  }
+// -----------------------------------------------------------------------------
 
   Future<int> _createKeyValue() async {
     Random _random = new Random();
@@ -61,7 +102,7 @@ class _RandomTestSpaceState extends State<RandomTestSpace> {
 
   void setStateFromAnotherFile(){
 
-    print('setting state');
+    print('setting fucking state');
 
     if (_color == Colorz.BloodTest){
       setState(() {
@@ -80,6 +121,8 @@ class _RandomTestSpaceState extends State<RandomTestSpace> {
 
   @override
   Widget build(BuildContext context) {
+
+
     return MainLayout(
       appBarType: AppBarType.Basic,
       pyramids: Iconz.PyramidzYellow,
@@ -87,10 +130,22 @@ class _RandomTestSpaceState extends State<RandomTestSpace> {
         print('wtf');
       },
       layoutWidget: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: ListView(
+          physics: BouncingScrollPhysics(),
           children: [
 
+            Stratosphere(),
+
+            FinalFlyer(
+              flyerZoneWidth: Scale.superFlyerZoneWidth(context, 0.7),
+              flyerID: '1eFVUCIodzzX6dTL49FS',
+            ),
+
+            SizedBox(
+              height: 50,
+            ),
+
+            if (_thing != null)
             DreamBox(
               height: 40,
               verse: 'Create new key',
@@ -130,7 +185,7 @@ class _RandomTestSpaceState extends State<RandomTestSpace> {
               width: 250,
               color: _color,
               verse: 'setState',
-              onTap: setStateFromAnotherFile,
+              onTap: _flyer.onAnkhTap,
             )
 
           ],

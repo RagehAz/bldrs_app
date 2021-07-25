@@ -12,6 +12,7 @@ import 'package:bldrs/views/widgets/flyer/parts/flyer_header.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/footer_parts/ankh_button.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/slides_parts/slides_old.dart';
 import 'package:bldrs/views/widgets/flyer/parts/progress_bar_parts/strips.dart';
+import 'package:bldrs/views/widgets/flyer/super_flyer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -19,11 +20,13 @@ class NormalFlyerWidget extends StatefulWidget {
   final FlyerModel flyer;
   final double flyerSizeFactor;
   final Function onSwipeFlyer;
+  final SuperFlyer superFlyer;
 
   NormalFlyerWidget({
-    @required this.flyer,
-    @required this.flyerSizeFactor,
+    this.flyer,
+    this.flyerSizeFactor,
     this.onSwipeFlyer,
+    this.superFlyer,
   });
 
   @override
@@ -44,8 +47,8 @@ class _NormalFlyerWidgetState extends State<NormalFlyerWidget> with AutomaticKee
   void initState() {
     // UserModel _user = Provider.of<UserModel>(context, listen: false);
     _pro = Provider.of<FlyersProvider>(context, listen: false);
-    _ankhIsOn = _pro.checkAnkh(widget.flyer.flyerID);
-    _followIsOn = _pro.checkFollow(widget.flyer.tinyBz.bzID);
+    _ankhIsOn = _pro.checkAnkh(widget.flyer?.flyerID);
+    _followIsOn = _pro.checkFollow(widget.flyer?.tinyBz?.bzID);
     _currentSlideIndex = 0;//= widget.initialSlide ?? 0;
     _bzPageIsOn = false;
     super.initState();
@@ -147,43 +150,42 @@ class _NormalFlyerWidgetState extends State<NormalFlyerWidget> with AutomaticKee
     super.build(context);
     print('Building flyer : ${widget.flyer?.flyerID}');
 
-    final double _flyerZoneWidth = Scale.superFlyerZoneWidth(context, widget.flyerSizeFactor);
+    final double _flyerZoneWidth = widget.superFlyer.flyerZoneWidth; //Scale.superFlyerZoneWidth(context, widget.flyerSizeFactor);
 // -----------------------------------------------------------------------------
     bool _barIsOn = _bzPageIsOn == false ? true : false;
 // -----------------------------------------------------------------------------
     bool _microMode = Scale.superFlyerMicroMode(context, _flyerZoneWidth);
 // -----------------------------------------------------------------------------
     return FlyerZone(
-      flyerSizeFactor: widget.flyerSizeFactor,
-      tappingFlyerZone: (){},
+      flyerSizeFactor: Scale.superFlyerSizeFactorByWidth(context, widget.superFlyer.flyerZoneWidth),
+      tappingFlyerZone: widget.superFlyer.onSlideRightTap,
       stackWidgets: <Widget>[
 
-        if (widget.flyer != null)
+        if (widget.superFlyer.slides != null)
         Slides(
-          flyerID: widget.flyer?.flyerID,
-          slides: widget.flyer?.slides,
-          flyerZoneWidth: _flyerZoneWidth,
-          slidingIsOn: true,
-          onPageChanged: (index) => _onPageChanged(index),
-          currentSlideIndex: _currentSlideIndex,
-          onSwipeFlyer: widget.onSwipeFlyer,
-          onTap: (){
-            print('tapping slide in aFlyer widget');
-          },
+          flyerID: widget.superFlyer?.flyerID,
+          slides: widget.superFlyer?.slides,
+          flyerZoneWidth: widget.superFlyer.flyerZoneWidth,
+          listenToSwipe: widget.superFlyer.listenToSwipe,
+          onHorizontalSlideSwipe: (index) => widget.superFlyer.onHorizontalSlideSwipe(index),
+          currentSlideIndex: widget.superFlyer.currentSlideIndex,
+          onSwipeFlyer: widget.superFlyer.onSwipeFlyer,
+          onTap: widget.superFlyer.onSlideRightTap,
         ),
 
-        if (widget.flyer != null)
+        if (widget.superFlyer.bzID != null)
         FlyerHeader(
-          tinyBz: widget.flyer.tinyBz,
-          tinyAuthor: widget.flyer.tinyAuthor,
-          flyerZoneWidth: _flyerZoneWidth,
-          bzPageIsOn: _bzPageIsOn,
-          tappingHeader: () {switchBzPage();},
-          onFollowTap: () => _onFollowTap(widget.flyer.tinyBz.bzID),
-          onCallTap: _onCallTap,
-          flyerShowsAuthor: widget.flyer?.flyerShowsAuthor,
-          followIsOn: _followIsOn,
-          stripBlurIsOn: true,
+          superFlyer: widget.superFlyer,
+          // tinyBz: widget.superFlyer.tinyBz,
+          // tinyAuthor: widget.superFlyer.tinyAuthor,
+          // flyerZoneWidth: widget.superFlyer.flyerZoneWidth,
+          // bzPageIsOn: _bzPageIsOn,
+          // tappingHeader: () {switchBzPage();},
+          // onFollowTap: () => _onFollowTap(widget.flyer.tinyBz.bzID),
+          // onCallTap: _onCallTap,
+          // flyerShowsAuthor: widget.flyer?.flyerShowsAuthor,
+          // followIsOn: _followIsOn,
+          // stripBlurIsOn: true,
         ),
 
         if (widget.flyer != null)
