@@ -3,6 +3,7 @@ import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
+import 'package:bldrs/views/widgets/flyer/final_flyer.dart';
 import 'package:bldrs/views/widgets/flyer/tiny_flyer_widget.dart';
 import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:flutter/material.dart';
@@ -160,18 +161,24 @@ class _FlyersGridState extends State<FlyersGrid> {
               //     ),
               //   );
 
-                        TinyFlyerWidget(
+                        ///
+                        // TinyFlyerWidget(
+                        //   tinyFlyer: _tinyFlyers[index],
+                        //   flyerSizeFactor: _flyerSizeFactor,
+                        //   onTap:
+                        //       widget.tinyFlyerOnTap == null ?
+                        //       (tinyFlyer) => Nav().openFlyer(context, _tinyFlyers[index])
+                        //           :
+                        //       (tinyFlyer) => widget.tinyFlyerOnTap(_tinyFlyers[index])
+                        // );
+                      ///
+
+                        FinalFlyer(
+                          flyerZoneWidth: Scale.superFlyerZoneWidth(context, _flyerSizeFactor),
                           tinyFlyer: _tinyFlyers[index],
-                          flyerSizeFactor: _flyerSizeFactor,
-                          onTap:
-                              widget.tinyFlyerOnTap == null ?
-                              (tinyFlyer) => Nav().openFlyer(context, _tinyFlyers[index])
-                                  :
-                              (tinyFlyer) => widget.tinyFlyerOnTap(_tinyFlyers[index])
                         );
 
                     }),
-
               ]
 
             // savedFlyers.map(

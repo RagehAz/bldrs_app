@@ -1,7 +1,5 @@
 import 'dart:io';
 import 'package:bldrs/controllers/drafters/animators.dart';
-import 'package:bldrs/controllers/drafters/imagers.dart';
-import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/sliders.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/firestore/auth_ops.dart';
@@ -17,6 +15,7 @@ import 'package:bldrs/models/sub_models/publish_time_model.dart';
 import 'package:bldrs/models/sub_models/slide_model.dart';
 import 'package:bldrs/models/sub_models/spec_model.dart';
 import 'package:bldrs/models/tiny_models/nano_flyer.dart';
+import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/models/tiny_models/tiny_user.dart';
 import 'package:bldrs/providers/country_provider.dart';
@@ -29,8 +28,6 @@ import 'package:provider/provider.dart';
 class SuperFlyer{
   /// sizes
   double flyerZoneWidth;
-  double flyerZoneHeight;
-  double flyerSizeFactor;
 
   /// animation controller
   final PageController horizontalController;
@@ -45,6 +42,7 @@ class SuperFlyer{
   final Function onSlideRightTap;
   final Function onSlideLeftTap;
   final Function onSwipeFlyer;
+  // final Function onFinalSlideSwipe;
 
   /// animation parameters
   final Duration slidingDuration;
@@ -90,6 +88,7 @@ class SuperFlyer{
   BoxFit currentPicFit;
   final int initialSlideIndex;
   int currentSlideIndex;
+  int verticalIndex;
 
   /// bz data
   final BzType bzType;
@@ -137,7 +136,7 @@ class SuperFlyer{
   /// flyer tags
   String flyerInfo;
   List<Spec> specs;
-  List<Keyword> keywords;
+  List<dynamic> keywords;
 
   /// flyer location
   Zone flyerZone;
@@ -155,8 +154,6 @@ class SuperFlyer{
   SuperFlyer({
     /// sizes
     this.flyerZoneWidth,
-    this.flyerZoneHeight,
-    this.flyerSizeFactor,
 
     /// animation controller
     this.horizontalController,
@@ -216,6 +213,7 @@ class SuperFlyer{
     this.currentPicFit,
     this.initialSlideIndex,
     this.currentSlideIndex,
+    @required this.verticalIndex,
 
     /// bz data
     this.bzType,
@@ -277,16 +275,13 @@ class SuperFlyer{
     this.followIsOn,
   });
 // -----------------------------------------------------------------------------
-  static SuperFlyer createEmptySuperFlyer({BuildContext context, double flyerSizeFactor}){
+  static SuperFlyer createEmptySuperFlyer({BuildContext context, double flyerZoneWidth}){
 
-    double _flyerZoneWidth = Scale.superFlyerZoneWidth(context, flyerSizeFactor);
 
     return
         SuperFlyer(
           /// sizes
-          flyerZoneWidth: _flyerZoneWidth,
-          flyerZoneHeight: Scale.superFlyerZoneHeight(context, _flyerZoneWidth),
-          flyerSizeFactor: flyerSizeFactor,
+          flyerZoneWidth: flyerZoneWidth,
 
           /// animation controller
           horizontalController: null,
@@ -346,6 +341,7 @@ class SuperFlyer{
           currentPicFit: null,
           initialSlideIndex: null,
           currentSlideIndex: null,
+          verticalIndex: 0,
 
           /// bz data
           bzType: null,
@@ -410,7 +406,7 @@ class SuperFlyer{
 // -----------------------------------------------------------------------------
   static SuperFlyer createViewSuperFlyerFromFlyerModel({
     @required BuildContext context,
-    @required double flyerSizeFactor,
+    @required double flyerZoneWidth,
     @required FlyerModel flyerModel,
     @required int initialPage,
     @required Function onHorizontalSlideSwipe,
@@ -427,7 +423,6 @@ class SuperFlyer{
     @required Function onCallTap,
   }){
 
-    double _flyerZoneWidth = Scale.superFlyerZoneWidth(context, flyerSizeFactor);
     int _initialPage = initialPage == null ? 0 : initialPage;
 
     FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
@@ -435,9 +430,7 @@ class SuperFlyer{
     return
       SuperFlyer(
         /// sizes
-        flyerZoneWidth: _flyerZoneWidth,
-        flyerZoneHeight: Scale.superFlyerZoneHeight(context, _flyerZoneWidth),
-        flyerSizeFactor: flyerSizeFactor,
+        flyerZoneWidth: flyerZoneWidth,
 
         /// animation controller
         horizontalController: PageController(initialPage: _initialPage, viewportFraction: 1, keepPage: true),
@@ -497,6 +490,7 @@ class SuperFlyer{
         currentPicFit: flyerModel.slides[_initialPage].boxFit,
         initialSlideIndex: _initialPage,
         currentSlideIndex: _initialPage,
+        verticalIndex: 0,
 
         /// bz data
         bzType: flyerModel.tinyBz.bzType,
@@ -564,22 +558,20 @@ class SuperFlyer{
 // -----------------------------------------------------------------------------
   static SuperFlyer createViewSuperFlyerFromTinyFlyer({
     @required BuildContext context,
-    @required double flyerSizeFactor,
+    @required double flyerZoneWidth,
     @required TinyFlyer tinyFlyer,
     @required Function onMicroFlyerTap,
     @required Function onAnkhTap,
   }){
 
-    double _flyerZoneWidth = Scale.superFlyerZoneWidth(context, flyerSizeFactor);
+    print('CREATING view super flyer from tiny flyer : ${tinyFlyer.flyerID}');
 
     FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
 
     return
       SuperFlyer(
         /// sizes
-        flyerZoneWidth: _flyerZoneWidth,
-        flyerZoneHeight: Scale.superFlyerZoneHeight(context, _flyerZoneWidth),
-        flyerSizeFactor: flyerSizeFactor,
+        flyerZoneWidth: flyerZoneWidth,
 
         /// animation controller
         horizontalController: null,
@@ -639,6 +631,7 @@ class SuperFlyer{
         currentPicFit: tinyFlyer.picFit,
         initialSlideIndex: 0,
         currentSlideIndex: 0,
+        verticalIndex: 0,
 
         /// bz data
         bzType: tinyFlyer.tinyBz.bzType,
@@ -714,7 +707,7 @@ class SuperFlyer{
 // -----------------------------------------------------------------------------
   static SuperFlyer createDraftSuperFlyerFromNothing({
     @required BuildContext context,
-    @required double flyerSizeFactor,
+    @required double flyerZoneWidth,
     @required BzModel bzModel,
     @required Function onHorizontalSlideSwipe,
     @required Function onVerticalPageSwipe,
@@ -739,15 +732,12 @@ class SuperFlyer{
     @required Function onKeywordsTap,
   }){
 
-    double _flyerZoneWidth = Scale.superFlyerZoneWidth(context, flyerSizeFactor);
     CountryProvider _countryPro = Provider.of<CountryProvider>(context, listen: false);
 
     return
       SuperFlyer(
         /// sizes
-        flyerZoneWidth: _flyerZoneWidth,
-        flyerZoneHeight: Scale.superFlyerZoneHeight(context, _flyerZoneWidth),
-        flyerSizeFactor: flyerSizeFactor,
+        flyerZoneWidth: flyerZoneWidth,
 
         /// animation controller
         horizontalController: PageController(initialPage: 0, viewportFraction: 1, keepPage: true),
@@ -807,6 +797,7 @@ class SuperFlyer{
         currentPicFit: null,
         initialSlideIndex: 0,
         currentSlideIndex: 0,
+        verticalIndex: 0,
 
         /// bz data
         bzType: bzModel.bzType,
@@ -874,7 +865,7 @@ class SuperFlyer{
 // -----------------------------------------------------------------------------
   static Future<SuperFlyer> createDraftSuperFlyerFromFlyer({
     @required BuildContext context,
-    @required double flyerSizeFactor,
+    @required double flyerZoneWidth,
     @required BzModel bzModel,
     @required FlyerModel flyerModel,
     @required Function onHorizontalSlideSwipe,
@@ -900,14 +891,10 @@ class SuperFlyer{
     @required Function onKeywordsTap,
   }) async {
 
-    double _flyerZoneWidth = Scale.superFlyerZoneWidth(context, flyerSizeFactor);
-
     return
       SuperFlyer(
         /// sizes
-        flyerZoneWidth: _flyerZoneWidth,
-        flyerZoneHeight: Scale.superFlyerZoneHeight(context, _flyerZoneWidth),
-        flyerSizeFactor: flyerSizeFactor,
+        flyerZoneWidth: flyerZoneWidth,
 
         /// animation controller
         horizontalController: PageController(initialPage: 0, viewportFraction: 1, keepPage: true),
@@ -967,6 +954,7 @@ class SuperFlyer{
         currentPicFit: flyerModel.slides[0].boxFit,
         initialSlideIndex: 0,
         currentSlideIndex: 0,
+        verticalIndex: 0,
 
         /// bz data
         bzType: bzModel.bzType,
@@ -1033,6 +1021,19 @@ class SuperFlyer{
       );
 
   }
+// -----------------------------------------------------------------------------
+static TinyBz getTinyBzFromSuperFlyer(SuperFlyer superFlyer){
+    return
+        TinyBz(
+            bzID: superFlyer.bzID,
+            bzLogo: superFlyer.bzLogo,
+            bzName: superFlyer.bzName,
+            bzType: superFlyer.bzType,
+            bzZone: superFlyer.bzZone,
+            bzTotalFollowers: superFlyer.bzTotalFollowers,
+            bzTotalFlyers: superFlyer.bzTotalFlyers,
+        );
+}
 // -----------------------------------------------------------------------------
 }
 

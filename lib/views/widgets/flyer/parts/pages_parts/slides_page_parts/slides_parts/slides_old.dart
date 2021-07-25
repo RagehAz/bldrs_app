@@ -11,8 +11,8 @@ class Slides extends StatefulWidget {
   final List<SlideModel> slides;
   final String flyerID;
   final double flyerZoneWidth;
-  final bool slidingIsOn;
-  final Function onPageChanged;
+  final bool listenToSwipe;
+  final Function onHorizontalSlideSwipe;
   final int currentSlideIndex;
   final Function onSwipeFlyer;
   final Function onTap;
@@ -21,8 +21,8 @@ class Slides extends StatefulWidget {
     @required this.slides,
     @required this.flyerID,
     @required this.flyerZoneWidth,
-    @required this.slidingIsOn,
-    @required this.onPageChanged,
+    @required this.listenToSwipe,
+    @required this.onHorizontalSlideSwipe,
     @required this.currentSlideIndex,
     this.onSwipeFlyer,
     @required this.onTap,
@@ -68,7 +68,7 @@ class _SlidesState extends State<Slides> {
 // -----------------------------------------------------------------------------
 
     return
-      _microMode == true || widget.slidingIsOn == false ?
+      _microMode == true || widget.listenToSwipe == false ?
       SingleSlide(
         flyerID: widget.flyerID,
         flyerZoneWidth: widget.flyerZoneWidth,
@@ -121,7 +121,7 @@ class _SlidesState extends State<Slides> {
             allowImplicitScrolling: true,
             physics: const BouncingScrollPhysics(),
             pageSnapping: true,
-            onPageChanged: (i) => widget.onPageChanged(i),
+            onPageChanged: (i) => widget.onHorizontalSlideSwipe(i),
             children: <Widget>[
 
               ...List.generate(_slidesLength, (i) => SingleSlide(
@@ -156,7 +156,7 @@ class _SlidesState extends State<Slides> {
                   }
                   /// if its a middle or last slide, slide to the new index
                   else {
-                    widget.onPageChanged(_newIndex);
+                    widget.onHorizontalSlideSwipe(_newIndex);
                     print('widget.currentSlideIndex after sliding is : $_newIndex');
                   }
 

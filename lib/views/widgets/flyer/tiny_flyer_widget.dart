@@ -6,6 +6,7 @@ import 'package:bldrs/views/widgets/flyer/parts/flyer_zone.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/mini_header.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/footer_parts/ankh_button.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/slides_parts/single_slide.dart';
+import 'package:bldrs/views/widgets/flyer/super_flyer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -19,55 +20,58 @@ void _onLongPress(String flyerID){
 }
 
 class TinyFlyerWidget extends StatelessWidget {
-  final double flyerSizeFactor;
-  final TinyFlyer tinyFlyer;
-  final Function onTap;
+  final SuperFlyer superFlyer;
+  // final double flyerSizeFactor;
+  // final TinyFlyer tinyFlyer;
+  // final Function onTap;
 
   TinyFlyerWidget({
-    this.flyerSizeFactor,
-    this.tinyFlyer,
-    @required this.onTap,
+    this.superFlyer,
+    // this.flyerSizeFactor,
+    // this.tinyFlyer,
+    // this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
     final FlyersProvider _pro = Provider.of<FlyersProvider>(context, listen: true);
-    bool _ankhIsOn=_pro.checkAnkh(tinyFlyer.flyerID);
-    double _flyerSizeFactor = flyerSizeFactor ?? 0.5;
-    double _flyerZoneWidth = Scale.superFlyerZoneWidth(context, _flyerSizeFactor);
+    bool _ankhIsOn=_pro.checkAnkh(superFlyer.flyerID);
+    double _flyerZoneWidth = superFlyer.flyerZoneWidth; //Scale.superFlyerZoneWidth(context, _flyerSizeFactor);
+    double _flyerSizeFactor = Scale.superFlyerSizeFactorByWidth(context, _flyerZoneWidth); //flyerSizeFactor ?? 0.5;
 
     return FlyerZone(
       flyerSizeFactor: _flyerSizeFactor,
       tappingFlyerZone: (){
-        print('tapping flyer zone');
-        onTap(tinyFlyer);
+        // print('tapping flyer zone');
+        // onTap(tinyFlyer);
       },
-      onLongPress: () => _onLongPress(tinyFlyer.flyerID),
+      // onLongPress: () => superFlyer.onLo(superFlyer.flyerID),
       stackWidgets: <Widget>[
 
         SingleSlide(
-          flyerID: tinyFlyer?.flyerID,
-          flyerZoneWidth: _flyerZoneWidth,
+          flyerID: superFlyer?.flyerID,
+          flyerZoneWidth: superFlyer.flyerZoneWidth,
           slideMode: SlideMode.View,
-          picture: tinyFlyer?.slidePic,
-          slideIndex: tinyFlyer?.slideIndex,
+          picture: superFlyer?.slides[0].picture,
+          slideIndex: superFlyer?.currentSlideIndex,
           onTap:  (){
             print('tapping slide zone');
-            onTap(tinyFlyer);
+            // superFlyer.onSlideRightTap(tinyFlyer);
           },
         ),
 
         MiniHeader(
-          flyerZoneWidth: Scale.superFlyerZoneWidth(context, _flyerSizeFactor),
-          tinyBz: tinyFlyer.tinyBz,
-          tinyAuthor: TinyUser(userID: tinyFlyer.authorID, name: null, title: null, pic: null, email: null, phone: null, userStatus: null),
-          followIsOn: false,
-          flyerShowsAuthor: false,
-          bzGalleryCount: 0,
-          bzPageIsOn: false,
-          tappingHeader: () => onTap(tinyFlyer.flyerID),
-          onFollowTap: (){},
-          onCallTap: (){},
+          superFlyer: superFlyer,
+          // flyerZoneWidth: Scale.superFlyerZoneWidth(context, _flyerSizeFactor),
+          // tinyBz: tinyFlyer.tinyBz,
+          // tinyAuthor: TinyUser(userID: tinyFlyer.authorID, name: null, title: null, pic: null, email: null, phone: null, userStatus: null),
+          // followIsOn: false,
+          // flyerShowsAuthor: false,
+          // bzGalleryCount: 0,
+          // bzPageIsOn: false,
+          // tappingHeader: () => onTap(tinyFlyer.flyerID),
+          // onFollowTap: (){},
+          // onCallTap: (){},
         ),
 
         AnkhButton(

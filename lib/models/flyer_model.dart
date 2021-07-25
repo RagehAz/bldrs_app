@@ -17,7 +17,7 @@ class FlyerModel with ChangeNotifier{
   // -------------------------
   final FlyerType flyerType;
   final FlyerState flyerState;
-  final List<Keyword> keywords;
+  final List<dynamic> keywords;
   final bool flyerShowsAuthor;
   final String flyerURL;
   final Zone flyerZone;
