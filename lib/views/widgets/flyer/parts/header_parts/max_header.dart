@@ -4,6 +4,7 @@ import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
+import 'package:bldrs/models/super_flyer.dart';
 import 'package:bldrs/models/tiny_models/nano_flyer.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/bz_pg_counter.dart';
@@ -16,12 +17,14 @@ class MaxHeader extends StatelessWidget {
   final double flyerZoneWidth;
   final bool bzPageIsOn;
   final TinyBz tinyBz;
+  final SuperFlyer superFlyer;
 
 
   MaxHeader({
     @required this.flyerZoneWidth,
     @required this.bzPageIsOn,
     @required this.tinyBz,
+    @required this.superFlyer,
   });
 
   @override
@@ -142,6 +145,7 @@ class MaxHeader extends StatelessWidget {
 
               // --- BZ GALLERY
               Gallery(
+                superFlyer: superFlyer,
                 flyerZoneWidth: flyerZoneWidth,
                 showFlyers: bzPageIsOn ? true : false,
                 bz: bz,

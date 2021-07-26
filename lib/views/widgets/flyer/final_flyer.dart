@@ -3,13 +3,16 @@ import 'dart:io';
 import 'package:bldrs/controllers/drafters/animators.dart';
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/keyboarders.dart';
+import 'package:bldrs/controllers/drafters/launchers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/sliders.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/standards.dart';
+import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/firestore/flyer_ops.dart';
+import 'package:bldrs/firestore/record_ops.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/flyer_type_class.dart';
@@ -21,10 +24,18 @@ import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_dialog_buttons.dart';
 import 'package:bldrs/views/widgets/dialogs/dialogz.dart';
-import 'package:bldrs/views/widgets/flyer/aflyer.dart';
+import 'package:bldrs/views/widgets/flyer/parts/flyer_header.dart';
+import 'package:bldrs/views/widgets/flyer/parts/flyer_pages.dart';
+import 'package:bldrs/views/widgets/flyer/parts/header_parts/mini_header.dart';
+import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/footer_parts/ankh_button.dart';
+import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/slides_parts/single_slide.dart';
+import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/slides_parts/slides_old.dart';
+import 'package:bldrs/views/widgets/flyer/parts/progress_bar.dart';
+import 'package:bldrs/views/widgets/flyer/parts/progress_bar_parts/strips.dart';
+import 'package:bldrs/views/widgets/flyer/x_normal_flyer_widget.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_zone.dart';
-import 'package:bldrs/views/widgets/flyer/super_flyer.dart';
-import 'package:bldrs/views/widgets/flyer/tiny_flyer_widget.dart';
+import 'package:bldrs/models/super_flyer.dart';
+import 'package:bldrs/views/widgets/flyer/x_tiny_flyer_widget.dart';
 import 'package:bldrs/views/widgets/textings/super_text_field.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
@@ -124,7 +135,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     bool _microMode = Scale.superFlyerMicroMode(context, flyerZoneWidth);
 
     /// A -
-    if (flyerModel != null && flyerID != DraftFlyerModel.draftID){
+    if (flyerModel != null && flyerID != SuperFlyer.draftID){
         _flyerMode = FlyerMode.normal;
     }
 
@@ -144,12 +155,12 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     }
 
     /// A - when flyerModel & tinyFlyer are absent but flyerID is 'draft'
-    else if (flyerModel == null && flyerID == DraftFlyerModel.draftID){
+    else if (flyerModel == null && flyerID == SuperFlyer.draftID){
       _flyerMode = FlyerMode.newDraft;
     }
 
     /// A - when flyerModel & tinyFlyer are absent but flyerID is 'draft'
-    else if (flyerModel != null &&flyerID == DraftFlyerModel.draftID){
+    else if (flyerModel != null &&flyerID == SuperFlyer.draftID){
       _flyerMode = FlyerMode.draftFromFlyer;
     }
 
@@ -297,33 +308,34 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 // -----------------------------------------------------o
   SuperFlyer _getSuperFlyerFromTinyFlyer({TinyFlyer tinyFlyer}){
     SuperFlyer _superFlyer = SuperFlyer.createViewSuperFlyerFromTinyFlyer(
-        context: context,
-        flyerZoneWidth: widget.flyerZoneWidth,
-        tinyFlyer: tinyFlyer,
-        onMicroFlyerTap: _openTinyFlyer,
-        onAnkhTap: _onAnkhTap,
+      context: context,
+      flyerZoneWidth: widget.flyerZoneWidth,
+      tinyFlyer: tinyFlyer,
+      onTinyFlyerTap: (flyerID) async {await _onTinyFlyerTap(flyerID);},
+      onAnkhTap: () async {await _onAnkhTap();} ,
     );
     return _superFlyer;
   }
 // -----------------------------------------------------o
   SuperFlyer _getSuperFlyerFromFlyer({FlyerModel flyerModel}){
     SuperFlyer _superFlyer = SuperFlyer.createViewSuperFlyerFromFlyerModel(
-        context: context,
-        flyerZoneWidth: widget.flyerZoneWidth,
-        flyerModel: flyerModel,
-        initialPage: widget.initialSlideIndex,
-        onHorizontalSlideSwipe: (i) => _onHorizontalSlideSwipe(i),
-        onVerticalPageSwipe: (i) => _onVerticalPageSwipe(i),
-        onVerticalPageBack: () async {await _onVerticalPageBack();},
-        onHeaderTap: _onHeaderTap,
-        onSlideRightTap: _onSlideRightTap,
-        onSlideLeftTap: _onSlideLeftTap,
-        onSwipeFlyer: widget.onSwipeFlyer,
-        onView: (slideIndex) => _onViewSlide(slideIndex),
-        onAnkhTap: _onAnkhTap,
-        onShareTap: _onShareTap,
-        onFollowTap: _onFollowTap,
-        onCallTap: _onCallTap,
+      context: context,
+      flyerZoneWidth: widget.flyerZoneWidth,
+      flyerModel: flyerModel,
+      initialPage: widget.initialSlideIndex,
+      onHorizontalSlideSwipe: (i) => _onHorizontalSlideSwipe(i),
+      onVerticalPageSwipe: (i) => _onVerticalPageSwipe(i),
+      onVerticalPageBack: () async {await _onVerticalPageBack();},
+      onHeaderTap: _onHeaderTap,
+      onSlideRightTap: _onSlideRightTap,
+      onSlideLeftTap: _onSlideLeftTap,
+      onSwipeFlyer: widget.onSwipeFlyer,
+      onTinyFlyerTap: (flyerID) async {await _onTinyFlyerTap(flyerID);},
+      onView: (slideIndex) => _onViewSlide(slideIndex),
+      onAnkhTap: () async {await _onAnkhTap();} ,
+      onShareTap: _onShareTap,
+      onFollowTap: () async { await _onFollowTap();},
+      onCallTap: () async { await _onCallTap();},
     );
 
     return _superFlyer;
@@ -331,31 +343,32 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 // -----------------------------------------------------o
   Future <SuperFlyer> _getDraftSuperFlyerFromFlyer({FlyerModel flyerModel, BzModel bzModel}) async {
     SuperFlyer _superFlyer = await SuperFlyer.createDraftSuperFlyerFromFlyer(
-        context: context,
-        flyerZoneWidth: widget.flyerZoneWidth,
-        bzModel: bzModel,
-        flyerModel: flyerModel,
-        onHorizontalSlideSwipe: (i) => _onHorizontalSlideSwipe(i),
-        onVerticalPageSwipe: (i) => _onVerticalPageSwipe(i),
-        onVerticalPageBack: () async {await _onVerticalPageBack();},
-        onHeaderTap: _onHeaderTap,
-        onSlideRightTap: _onSlideRightTap,
-        onSlideLeftTap: _onSlideLeftTap,
-        onSwipeFlyer: widget.onSwipeFlyer,
-        onView: (i) => _onViewSlide(i),
-        onAnkhTap: _onAnkhTap,
-        onShareTap: _onShareTap,
-        onFollowTap: _onFollowTap,
-        onCallTap: _onCallTap,
-        onAddImages: () => _onAddImages(flyerZoneWidth: widget.flyerZoneWidth),
-        onDeleteSlide: () async {await _onDeleteSlide();},
-        onCropImage: () async {await _onCropImage();},
-        onResetImage: () async {await _onResetImage();},
-        onFitImage: _onFitImage,
-        onFlyerTypeTap: () async {await _onFlyerTypeTap();},
-        onZoneTap: () async {await _onChangeZone();},
-        onAboutTap: () async {await _onAboutTap();},
-        onKeywordsTap: () async {await _onKeywordsTap();}
+      context: context,
+      flyerZoneWidth: widget.flyerZoneWidth,
+      bzModel: bzModel,
+      flyerModel: flyerModel,
+      onHorizontalSlideSwipe: (i) => _onHorizontalSlideSwipe(i),
+      onVerticalPageSwipe: (i) => _onVerticalPageSwipe(i),
+      onVerticalPageBack: () async {await _onVerticalPageBack();},
+      onHeaderTap: _onHeaderTap,
+      onSlideRightTap: _onSlideRightTap,
+      onSlideLeftTap: _onSlideLeftTap,
+      onSwipeFlyer: widget.onSwipeFlyer,
+      onTinyFlyerTap: (flyerID) async {await _onTinyFlyerTap(flyerID);},
+      onView: (i) => _onViewSlide(i),
+      onAnkhTap: () async {await _onAnkhTap();} ,
+      onShareTap: _onShareTap,
+      onFollowTap: () async { await _onFollowTap();},
+      onCallTap: () async { await _onCallTap();},
+      onAddImages: () => _onAddImages(flyerZoneWidth: widget.flyerZoneWidth),
+      onDeleteSlide: () async {await _onDeleteSlide();},
+      onCropImage: () async {await _onCropImage();},
+      onResetImage: () async {await _onResetImage();},
+      onFitImage: _onFitImage,
+      onFlyerTypeTap: () async {await _onFlyerTypeTap();},
+      onZoneTap: () async {await _onChangeZone();},
+      onAboutTap: () async {await _onAboutTap();},
+      onKeywordsTap: () async {await _onKeywordsTap();}, onShowAuthorTap: _onShowAuthorTap, onTriggerEditMode: _onTriggerEditMode,
     );
 
     return _superFlyer;
@@ -363,30 +376,33 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 // -----------------------------------------------------------------------------
   SuperFlyer _getDraftSuperFlyerFromNothing({BzModel bzModel}){
     SuperFlyer _superFlyer = SuperFlyer.createDraftSuperFlyerFromNothing(
-        context: context,
-        flyerZoneWidth: widget.flyerZoneWidth,
-        bzModel: bzModel,
-        onHorizontalSlideSwipe: (i) => _onHorizontalSlideSwipe(i),
-        onVerticalPageSwipe: (i) => _onVerticalPageSwipe(i),
-        onVerticalPageBack: () async {await _onVerticalPageBack();},
-        onHeaderTap: _onHeaderTap,
-        onSlideRightTap: _onSlideRightTap,
-        onSlideLeftTap: _onSlideLeftTap,
-        onSwipeFlyer: widget.onSwipeFlyer,
-        onView: (i) => _onViewSlide(i),
-        onAnkhTap: _onAnkhTap,
-        onShareTap: _onShareTap,
-        onFollowTap: _onFollowTap,
-        onCallTap: _onCallTap,
-        onAddImages: () => _onAddImages(flyerZoneWidth: widget.flyerZoneWidth),
-        onDeleteSlide: () async {await _onDeleteSlide();},
-        onCropImage: () async {await _onCropImage();},
-        onResetImage: () async {await _onResetImage();},
-        onFitImage: _onFitImage,
-        onFlyerTypeTap: () async {await _onFlyerTypeTap();},
-        onZoneTap: () async {await _onChangeZone();},
-        onAboutTap: () async {await _onAboutTap();},
-        onKeywordsTap: () async {await _onKeywordsTap();}
+      context: context,
+      flyerZoneWidth: widget.flyerZoneWidth,
+      bzModel: bzModel,
+      onHorizontalSlideSwipe: (i) => _onHorizontalSlideSwipe(i),
+      onVerticalPageSwipe: (i) => _onVerticalPageSwipe(i),
+      onVerticalPageBack: () async {await _onVerticalPageBack();},
+      onHeaderTap: _onHeaderTap,
+      onSlideRightTap: _onSlideRightTap,
+      onSlideLeftTap: _onSlideLeftTap,
+      onSwipeFlyer: widget.onSwipeFlyer,
+      onTinyFlyerTap: (flyerID) async {await _onTinyFlyerTap(flyerID);},
+      onView: (i) => _onViewSlide(i),
+      onAnkhTap: () async {await _onAnkhTap();} ,
+      onShareTap: _onShareTap,
+      onFollowTap: () async { await _onFollowTap();},
+      onCallTap: () async { await _onCallTap();},
+      onAddImages: () => _onAddImages(flyerZoneWidth: widget.flyerZoneWidth),
+      onDeleteSlide: () async {await _onDeleteSlide();},
+      onCropImage: () async {await _onCropImage();},
+      onResetImage: () async {await _onResetImage();},
+      onFitImage: _onFitImage,
+      onFlyerTypeTap: () async {await _onFlyerTypeTap();},
+      onZoneTap: () async {await _onChangeZone();},
+      onAboutTap: () async {await _onAboutTap();},
+      onKeywordsTap: () async {await _onKeywordsTap();},
+      onShowAuthorTap: _onShowAuthorTap,
+      onTriggerEditMode: _onTriggerEditMode,
     );
 
     return _superFlyer;
@@ -394,11 +410,11 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 // -----------------------------------------------------------------------------
   ///   NAVIGATION METHODS
 
-  void _openTinyFlyer(){
-    print('opening tiny flyer');
+  Future <void> _onTinyFlyerTap(String flyerID) async {
+    print('opening tiny flyer : $flyerID');
   }
 // -----------------------------------------------------o
-  void _tappingFlyerZone(){
+  void _onFlyerZoneTap(){
     print('Final flyer zone tapped');
   }
 // -----------------------------------------------------o
@@ -407,7 +423,9 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
   }
 // -----------------------------------------------------o
   void _onHeaderTap(){
-    print('tapping header');
+    print('_onHeaderTap : bzPageIsOn was : ${_superFlyer.bzPageIsOn}');
+    setState(() {_superFlyer.bzPageIsOn = !_superFlyer.bzPageIsOn;});
+    print('_onHeaderTap : bzPageIsOn is : ${_superFlyer.bzPageIsOn}');
   }
 // -----------------------------------------------------------------------------
 
@@ -502,25 +520,97 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     print('viewing slide : ${slideIndex} : from flyer : ${_superFlyer.flyerID}');
   }
 // -----------------------------------------------------o
-  void _onAnkhTap(){
+  Future<void> _onAnkhTap() async {
     print('tapping Ankh');
+
+    /// start save flyer ops
+    await RecordOps.saveFlyerOps(
+        context: context,
+        userID: superUserID(),
+        flyerID: _superFlyer.flyerID,
+        slideIndex: _superFlyer.currentSlideIndex,
+    );
+
+    TinyFlyer _tinyFlyer = TinyFlyer.getTinyFlyerFromSuperFlyer(_superFlyer);
+
+    /// add or remove tiny flyer in local saved flyersList
+    _prof.addOrDeleteTinyFlyerInLocalSavedTinyFlyers(_tinyFlyer);
+
+    setState(() {
+      _superFlyer.ankhIsOn = !_superFlyer.ankhIsOn;
+    });
+    print('ankh is ${_superFlyer.ankhIsOn}');
+
   }
 // -----------------------------------------------------o
   void _onShareTap(){
     print('Sharing flyer');
   }
 // -----------------------------------------------------o
-  void _onFollowTap(){
-    print('Sharing flyer');
+  Future <void> _onFollowTap() async {
+    print('Following bz');
+
+    /// start follow bz ops
+    List<String> _updatedBzFollows = await RecordOps.followBzOPs(
+      context: context,
+      bzID: _superFlyer.bzID,
+      userID: superUserID(),
+    );
+
+    /// add or remove tinyBz from local followed bzz
+    _prof.updatedFollowsInLocalList(_updatedBzFollows);
+
+    /// trigger current follow value
+    setState(() {
+      _superFlyer.followIsOn = !_superFlyer.followIsOn;
+    });
+
+
   }
 // -----------------------------------------------------o
-  void _onCallTap(){
-    print('Sharing flyer');
+  Future<void> _onCallTap() async {
+    print('Call Bz');
+
+    String _userID = superUserID();
+    String _bzID = _superFlyer.bzID;
+    String _contact = _superFlyer.flyerTinyAuthor.email;
+
+    /// alert user there is no contact to call
+    if (_contact == null){print('no contact here');}
+
+    /// or launch call and start call bz ops
+    else {
+
+      /// launch call
+      launchCall('tel: $_contact');
+
+      /// start call bz ops
+      await RecordOps.callBzOPs(
+        context: context,
+        bzID: _bzID,
+        userID: _userID,
+        slideIndex: _superFlyer.currentSlideIndex,
+      );
+
+    }
+
   }
 // -----------------------------------------------------------------------------
 
   /// EDITOR METHOD
 
+// -----------------------------------------------------------------------------
+  void _onTriggerEditMode(){
+    setState(() {
+      _superFlyer.editMode = !_superFlyer.editMode;
+    });
+  }
+// -----------------------------------------------------------------------------
+  void _onShowAuthorTap(){
+    setState(() {
+      _superFlyer.flyerShowsAuthor = !_superFlyer.flyerShowsAuthor;
+    });
+  }
 // -----------------------------------------------------------------------------
   Future<void> _onAddImages({@required double flyerZoneWidth}) async {
 
@@ -1207,55 +1297,138 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
   Widget build(BuildContext context) {
     super.build(context);
 
-    FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: true);
-    bool _ankhIsOn = _prof.checkAnkh(widget.flyerID);
+    ///// FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: true);
+    ///// bool _ankhIsOn = _prof.checkAnkh(widget.flyerID);
 
     return
 
-      _flyerMode == FlyerMode.tiny || _flyerMode == FlyerMode.tinyWithID ?
-      TinyFlyerWidget(
-        superFlyer: _superFlyer,
-        // flyerSizeFactor: Scale.superFlyerSizeFactorByWidth(context, widget.flyerZoneWidth),
-        // tinyFlyer: widget.tinyFlyer,
-        // onTap: _tappingFlyerZone,
-      )
+        FlyerZone(
+          flyerSizeFactor: Scale.superFlyerSizeFactorByWidth(context, _superFlyer.flyerZoneWidth),
+          onFlyerZoneTap: _onFlyerZoneTap,
+          onFlyerZoneLongPress: _onFlyerZoneLongPress,
+          stackWidgets: <Widget>[
 
-          :
+            if (_flyerMode == FlyerMode.tiny || _flyerMode == FlyerMode.tinyWithID)
+              SingleSlide(
+                flyerID: _superFlyer.flyerID,
+                flyerZoneWidth: _superFlyer.flyerZoneWidth,
+                picture: _superFlyer.slides[0].picture,
+                slideIndex: _superFlyer.currentSlideIndex,
+                onTap: _onSlideRightTap,
+              ),
 
-      _flyerMode == FlyerMode.normal ?
-      NormalFlyerWidget(
-        superFlyer: _superFlyer,
-        // flyerSizeFactor: Scale.superFlyerSizeFactorByWidth(context, widget.flyerZoneWidth),
-        // flyer: widget.flyerModel,
-        // onSwipeFlyer: widget.onSwipeFlyer,
-      )
+            if (_flyerMode == FlyerMode.tiny || _flyerMode == FlyerMode.tinyWithID)
+              MiniHeader(
+                superFlyer: _superFlyer,
+              ),
 
-          :
+            if (_flyerMode == FlyerMode.tiny || _flyerMode == FlyerMode.tinyWithID)
+              AnkhButton(
+              bzPageIsOn: _superFlyer.bzPageIsOn,
+              flyerZoneWidth: _superFlyer.flyerZoneWidth,
+              listenToSwipe: _superFlyer.listenToSwipe,
+              ankhIsOn: _superFlyer.ankhIsOn,
+              onAnkhTap: _superFlyer.onAnkhTap,
+            ),
 
-      _flyerMode == FlyerMode.normalWithID ?
-      NormalFlyerWidget(
-        superFlyer: _superFlyer,
+            /// --------------------------------------------------o
 
-        // flyerSizeFactor: Scale.superFlyerSizeFactorByWidth(context, widget.flyerZoneWidth),
-        // flyer: _flyerModel,
-        // onSwipeFlyer: widget.onSwipeFlyer,
-      )
+            if ((_flyerMode == FlyerMode.normal || _flyerMode == FlyerMode.normalWithID) && _superFlyer.slides != null && _superFlyer.slides.length != 0)
+              Slides(
+                flyerID: _superFlyer.flyerID,
+                slides: _superFlyer.slides,
+                flyerZoneWidth: _superFlyer.flyerZoneWidth,
+                listenToSwipe: _superFlyer.listenToSwipe,
+                onHorizontalSlideSwipe: (index) => _superFlyer.onHorizontalSlideSwipe(index),
+                currentSlideIndex: _superFlyer.currentSlideIndex,
+                onSwipeFlyer: _superFlyer.onSwipeFlyer,
+                onTap: _superFlyer.onSlideRightTap,
+              ),
 
-      //     :
-      //
-      // _flyerMode == FlyerMode.draft ?
-      //     Container()
-          :
+            if ((_flyerMode == FlyerMode.normal || _flyerMode == FlyerMode.normalWithID) && _superFlyer.bzID != null)
+              FlyerHeader(superFlyer: _superFlyer,),
 
-      FlyerZone(
-       flyerSizeFactor: Scale.superFlyerSizeFactorByWidth(context, widget.flyerZoneWidth),
-        tappingFlyerZone: _tappingFlyerZone,
-        onLongPress: _onFlyerZoneLongPress,
-        stackWidgets: <Widget>[
+            if ((_flyerMode == FlyerMode.normal || _flyerMode == FlyerMode.normalWithID) && _superFlyer.numberOfStrips != 0)
+              Strips(
+                flyerZoneWidth: _superFlyer.flyerZoneWidth,
+                numberOfStrips: _superFlyer.numberOfStrips,
+                barIsOn: _superFlyer.bzPageIsOn == false ? true : false,
+                slideIndex: _superFlyer.currentSlideIndex,
+                swipeDirection: _superFlyer.swipeDirection,
+              ),
 
+            if (_flyerMode == FlyerMode.normal || _flyerMode == FlyerMode.normalWithID)
+              AnkhButton(
+                bzPageIsOn: _superFlyer.bzPageIsOn,
+                flyerZoneWidth: _superFlyer.flyerZoneWidth,
+                listenToSwipe: _superFlyer.listenToSwipe,
+                ankhIsOn: _superFlyer.ankhIsOn,
+                onAnkhTap: _superFlyer.onAnkhTap,
+              ),
 
+            if (_flyerMode == FlyerMode.newDraft || _flyerMode == FlyerMode.draftFromFlyer)
+              FlyerPages(
+                superFlyer: _superFlyer,
+              ),
 
-        ],
-      );
+            if (_flyerMode == FlyerMode.newDraft || _flyerMode == FlyerMode.draftFromFlyer)
+              FlyerHeader(
+                superFlyer: _superFlyer,
+              ),
+
+            if ((_flyerMode == FlyerMode.newDraft || _flyerMode == FlyerMode.draftFromFlyer) && _superFlyer.numberOfStrips != 0 && _superFlyer.currentSlideIndex != null)
+              ProgressBar(
+                superFlyer: _superFlyer,
+              ),
+
+          ],
+        );
+
+/////      _flyerMode == FlyerMode.tiny || _flyerMode == FlyerMode.tinyWithID ?
+/////      TinyFlyerWidget(
+/////        superFlyer: _superFlyer,
+/////        // flyerSizeFactor: Scale.superFlyerSizeFactorByWidth(context, widget.flyerZoneWidth),
+/////        // tinyFlyer: widget.tinyFlyer,
+/////        // onTap: _tappingFlyerZone,
+/////      )
+/////
+/////          :
+/////
+/////      _flyerMode == FlyerMode.normal ?
+/////      NormalFlyerWidget(
+/////        superFlyer: _superFlyer,
+/////        // flyerSizeFactor: Scale.superFlyerSizeFactorByWidth(context, widget.flyerZoneWidth),
+/////        // flyer: widget.flyerModel,
+/////        // onSwipeFlyer: widget.onSwipeFlyer,
+/////      )
+/////
+/////          :
+/////
+/////      _flyerMode == FlyerMode.normalWithID ?
+/////      NormalFlyerWidget(
+/////        superFlyer: _superFlyer,
+/////
+/////        // flyerSizeFactor: Scale.superFlyerSizeFactorByWidth(context, widget.flyerZoneWidth),
+/////        // flyer: _flyerModel,
+/////        // onSwipeFlyer: widget.onSwipeFlyer,
+/////      )
+/////
+/////      //     :
+/////      //
+/////      // _flyerMode == FlyerMode.draft ?
+/////      //     Container()
+/////          :
+/////
+/////      FlyerZone(
+/////        flyerSizeFactor: Scale.superFlyerSizeFactorByWidth(context, widget.flyerZoneWidth),
+/////         tappingFlyerZone: _tappingFlyerZone,
+/////         onLongPress: _onFlyerZoneLongPress,
+/////         stackWidgets: <Widget>[
+/////
+/////
+/////
+/////         ],
+/////       );
+
   }
 }

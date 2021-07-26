@@ -1,6 +1,7 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/streamerz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/models/super_flyer.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/models/tiny_models/tiny_user.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_zone.dart';
@@ -77,26 +78,32 @@ class _BzCardScreenState extends State<BzCardScreen> {
         context: context,
         bzID: widget.bzID,
         builder: (ctx, bz){
+
+          double _flyerZoneWidth = Scale.superFlyerZoneWidth(context, flyerSizeFactor);
+
+          SuperFlyer _superFlyer = SuperFlyer.getSuperFlyerFromBzModelOnly(_flyerZoneWidth, bz);
+
           return
             FlyerZone(
                   flyerSizeFactor: flyerSizeFactor,
-                  tappingFlyerZone: (){print('fuck you');},
+                  onFlyerZoneTap: (){print('fuck you');},
                   stackWidgets: <Widget>[
 
                     FlyerHeader(
-                      tinyBz: TinyBz.getTinyBzFromBzModel(bz),
-                      tinyAuthor: TinyUser.getTinyAuthorFromAuthorModel(bz.bzAuthors[0]),
-                      flyerShowsAuthor: true,
-                      followIsOn: false, // TASK : fix following on/off issue
-                      flyerZoneWidth: Scale.superFlyerZoneWidth(context, flyerSizeFactor),
-                      bzPageIsOn: _bzPageIsOn,
-                      tappingHeader: _triggerMaxHeader,
-                      onCallTap: (){},
-                      onFollowTap: () async {
-                        // await bz.toggleFollow();
-                        // setState(() {});
-                        // print('rebuilding widget with new followIsOn value : ${bz.followIsOn}');
-                      },
+                      superFlyer: _superFlyer,
+                      // tinyBz: TinyBz.getTinyBzFromBzModel(bz),
+                      // tinyAuthor: TinyUser.getTinyAuthorFromAuthorModel(bz.bzAuthors[0]),
+                      // flyerShowsAuthor: true,
+                      // followIsOn: false, // TASK : fix following on/off issue
+                      // flyerZoneWidth: Scale.superFlyerZoneWidth(context, flyerSizeFactor),
+                      // bzPageIsOn: _bzPageIsOn,
+                      // tappingHeader: _triggerMaxHeader,
+                      // onCallTap: (){},
+                      // onFollowTap: () async {
+                      //   // await bz.toggleFollow();
+                      //   // setState(() {});
+                      //   // print('rebuilding widget with new followIsOn value : ${bz.followIsOn}');
+                      // },
                     ),
 
                   ],

@@ -127,7 +127,7 @@ class _OldMyBzScreenState extends State<OldMyBzScreen> {
 
                           FlyerZone(
                             flyerSizeFactor: _flyerSizeFactor,
-                            tappingFlyerZone: (){print('bzID is : (${_bzModel.bzID})');},
+                            onFlyerZoneTap: (){print('bzID is : (${_bzModel.bzID})');},
                             stackWidgets: <Widget>[
 
                               SingleSlide(
@@ -244,12 +244,13 @@ class _OldMyBzScreenState extends State<OldMyBzScreen> {
 
                                   /// flyersGrid
                                   // --- BZ GALLERY
-                                  Gallery(
-                                    flyerZoneWidth: _flyerZoneWidth,
-                                    showFlyers: true,
-                                    bz: _bzModel,
-                                    flyerOnTap: (){},
-                                  ),
+                                  // Gallery(
+                                  //   superFlyer: ,
+                                  //   flyerZoneWidth: _flyerZoneWidth,
+                                  //   showFlyers: true,
+                                  //   bz: _bzModel,
+                                  //   flyerOnTap: (){},
+                                  // ),
 
 
                                   // () =>_deleteBzProfile(context, _prof, widget.userModel)
@@ -257,18 +258,18 @@ class _OldMyBzScreenState extends State<OldMyBzScreen> {
                                 ],
                               ),
 
-                              FlyerHeader(
-                                tinyBz: TinyBz.getTinyBzFromBzModel(_bzModel),
-                                tinyAuthor: TinyUser.getTinyAuthorFromAuthorModel(_bzModel.bzAuthors[0] ?? null),
-                                flyerShowsAuthor: false,
-                                followIsOn: false,
-                                flyerZoneWidth: _flyerZoneWidth,
-                                bzPageIsOn: _bzPageIsOn,
-                                tappingHeader: _triggerMaxHeader,
-                                onFollowTap: (){},
-                                onCallTap: (){},
-                                stripBlurIsOn: true,
-                              ),
+                              // FlyerHeader(
+                              //   tinyBz: TinyBz.getTinyBzFromBzModel(_bzModel),
+                              //   tinyAuthor: TinyUser.getTinyAuthorFromAuthorModel(_bzModel.bzAuthors[0] ?? null),
+                              //   flyerShowsAuthor: false,
+                              //   followIsOn: false,
+                              //   flyerZoneWidth: _flyerZoneWidth,
+                              //   bzPageIsOn: _bzPageIsOn,
+                              //   tappingHeader: _triggerMaxHeader,
+                              //   onFollowTap: (){},
+                              //   onCallTap: (){},
+                              //   stripBlurIsOn: true,
+                              // ),
 
                             ],
                           ),

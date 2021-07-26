@@ -1,5 +1,6 @@
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/models/super_flyer.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/balloons/user_balloon.dart';
@@ -20,12 +21,14 @@ class NewFlyerNotification extends StatelessWidget {
   final PublisherType publisherType;
   final double newsAge;
   final String publisherPic;
+  final SuperFlyer superFlyer;
 
   NewFlyerNotification({
     @required this.publisherName,
     @required this.publisherType,
     @required this.newsAge,
     @required this.publisherPic,
+    @required this.superFlyer,
 });
 
   @override
@@ -51,6 +54,7 @@ class NewFlyerNotification extends StatelessWidget {
                     :
                 publisherType == PublisherType.BzAuthor ?
                 AuthorPic(
+                  superFlyer: superFlyer,
                   authorPic: publisherPic,
                   flyerZoneWidth: screenWidth * 0.89,
                 ) :

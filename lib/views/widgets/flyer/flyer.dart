@@ -132,7 +132,7 @@ class _FlyerState extends State<Flyer> with AutomaticKeepAliveClientMixin{
 
        FlyerZone(
          flyerSizeFactor: Scale.superFlyerSizeFactorByWidth(context, _flyerZoneWidth),
-         tappingFlyerZone: widget.tappingFlyerZone,
+         onFlyerZoneTap: widget.tappingFlyerZone,
          stackWidgets: <Widget>[
 
           Slides(
@@ -145,24 +145,24 @@ class _FlyerState extends State<Flyer> with AutomaticKeepAliveClientMixin{
             onTap: widget.tappingFlyerZone,
           ),
 
-          Consumer<BzModel>(
-            builder: (context, bz, _) =>
-             FlyerHeader(
-              flyerZoneWidth: _flyerZoneWidth,
-              tinyBz: TinyBz.getTinyBzFromBzModel(bz),
-              tinyAuthor: TinyUser.getTinyAuthorFromAuthorModel(_author),
-              flyerShowsAuthor: _flyerShowsAuthor,
-              bzPageIsOn: bzPageIsOn,
-              tappingHeader: () {switchBzPage();},
-              onFollowTap: (){
-                // TASK : fix following issue
-                // print('followIsOn : ${bz.followIsOn}');
-                // bz.toggleFollow();
-                },
-              followIsOn: false, // TASK : fix following issue
-               onCallTap: (){},
-            ),
-          ),
+          // Consumer<BzModel>(
+          //   builder: (context, bz, _) =>
+          //    FlyerHeader(
+          //     flyerZoneWidth: _flyerZoneWidth,
+          //     tinyBz: TinyBz.getTinyBzFromBzModel(bz),
+          //     tinyAuthor: TinyUser.getTinyAuthorFromAuthorModel(_author),
+          //     flyerShowsAuthor: _flyerShowsAuthor,
+          //     bzPageIsOn: bzPageIsOn,
+          //     tappingHeader: () {switchBzPage();},
+          //     onFollowTap: (){
+          //       // TASK : fix following issue
+          //       // print('followIsOn : ${bz.followIsOn}');
+          //       // bz.toggleFollow();
+          //       },
+          //     followIsOn: false, // TASK : fix following issue
+          //      onCallTap: (){},
+          //   ),
+          // ),
 
           Strips(
             flyerZoneWidth: _flyerZoneWidth,
@@ -178,9 +178,9 @@ class _FlyerState extends State<Flyer> with AutomaticKeepAliveClientMixin{
                   flyerZoneWidth: _flyerZoneWidth,
                   // flyerID: flyerID,
                   bzPageIsOn: bzPageIsOn,
-                  slidingIsOn: widget.slidingIsOn,
+                  listenToSwipe: widget.slidingIsOn,
                   ankhIsOn: flyer?.ankhIsOn ?? false,
-                  tappingAnkh: (){
+                  onAnkhTap: (){
                     flyer.toggleAnkh();
                     print('ankh : ${flyer.ankhIsOn}');
                     if(widget.flyerIsInGalleryNow) {widget.rebuildFlyerGrid();}
