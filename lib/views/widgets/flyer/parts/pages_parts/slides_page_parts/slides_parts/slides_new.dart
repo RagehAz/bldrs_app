@@ -29,6 +29,8 @@ class SlidesNew extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+
     return PageView(
       pageSnapping: true,
       controller: superFlyer.horizontalController,
@@ -47,6 +49,7 @@ class SlidesNew extends StatelessWidget {
           BoxFit _currentPicFit = superFlyer.boxesFits.length == 0 ? null : superFlyer.boxesFits[superFlyer.currentSlideIndex];
 
           ImageSize _originalAssetSize =
+          superFlyer.assetsSources == null ? null :
           superFlyer.numberOfSlides == 0 ? null :
           superFlyer.assetsSources.length == 0 ? null :
           ImageSize(
@@ -58,21 +61,21 @@ class SlidesNew extends StatelessWidget {
           return
             superFlyer.numberOfSlides == 0 ? Container() :
             AnimatedOpacity(
-              key: ObjectKey(superFlyer.key.value + i),
+              key: ObjectKey('${superFlyer.key.value}${i}'),
               opacity: superFlyer.slidesVisibilities[i] == true ? 1 : 0,
               duration: Ratioz.durationFading200,
               child: Stack(
                 children: <Widget>[
 
                   SingleSlide(
-                    key: ObjectKey(superFlyer.key.value + i),
+                    key: ObjectKey('${superFlyer.key.value}${i}'),
                     flyerZoneWidth: superFlyer.flyerZoneWidth,
                     flyerID: superFlyer.flyerID, //_flyer.flyerID,
-                    picture: superFlyer.assetsFiles[i],//_currentSlides[index].picture,
+                    picture: superFlyer.editMode ? superFlyer.assetsFiles[i] : superFlyer.slides[i].picture,
                     // slideMode: superFlyer.editMode ? SlideMode.Editor : SlideMode.View,//slidesModes[index],
                     boxFit: _currentPicFit, // [fitWidth - contain - scaleDown] have the blur background
-                    titleController: superFlyer.headlinesControllers[i],
-                    title: superFlyer.headlinesControllers[i].text,
+                    titleController: superFlyer.editMode ? superFlyer.headlinesControllers[i] : null,
+                    title: superFlyer.editMode ? superFlyer.headlinesControllers[i].text : superFlyer.slides[i].headline,
                     imageSize: _originalAssetSize,
                     textFieldOnChanged: (text){
                       print('text is : $text');

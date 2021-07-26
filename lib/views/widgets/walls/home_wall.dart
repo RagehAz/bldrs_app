@@ -8,7 +8,7 @@ import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/widgets/bubbles/bzz_bubble.dart';
-import 'package:bldrs/views/widgets/flyer/parts/flyer_zone.dart';
+import 'package:bldrs/views/widgets/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/views/widgets/flyer/stacks/flyer_stack.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
@@ -75,14 +75,14 @@ class _HomeWallState extends State<HomeWall> {
                 //         //   tappingAskInfo: () {print('Ask info is tapped aho');},
                 //         // ),
 
-                FlyerZone(
+                FlyerZoneBox(
                   flyerSizeFactor: 0.45,
                   onFlyerZoneTap: null,
                 ),
 
                 _spacer,
 
-                FlyerZone(
+                FlyerZoneBox(
                   flyerSizeFactor: 0.45,
                   onFlyerZoneTap: null,
                 ),

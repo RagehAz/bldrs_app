@@ -8,7 +8,7 @@ import 'package:bldrs/models/tiny_models/tiny_user.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/views/screens/f_x_bz_editor_screen.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/views/widgets/flyer/parts/flyer_zone.dart';
+import 'package:bldrs/views/widgets/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_header.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/gallery.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/slides_parts/single_slide.dart';
@@ -125,7 +125,7 @@ class _OldMyBzScreenState extends State<OldMyBzScreen> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
 
-                          FlyerZone(
+                          FlyerZoneBox(
                             flyerSizeFactor: _flyerSizeFactor,
                             onFlyerZoneTap: (){print('bzID is : (${_bzModel.bzID})');},
                             stackWidgets: <Widget>[

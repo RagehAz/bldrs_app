@@ -46,7 +46,7 @@ class FlyerModel with ChangeNotifier{
     this.keywords,
     this.flyerShowsAuthor = false,
     this.flyerURL,
-    @required this.flyerZone,
+    this.flyerZone,
     // -------------------------
     this.tinyAuthor,
     this.tinyBz,
@@ -58,8 +58,8 @@ class FlyerModel with ChangeNotifier{
     // -------------------------
     this.slides,
     // -------------------------
-    @required this.flyerIsBanned,
-    @required this.deletionTime, /// TASK : delete this
+    this.flyerIsBanned,
+    this.deletionTime, /// TASK : delete this
     this.specs,
     this.info,
     this.times,

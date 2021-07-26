@@ -10,6 +10,7 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/firestore/record_ops.dart';
 import 'package:bldrs/models/records/share_model.dart';
+import 'package:bldrs/models/super_flyer.dart';
 import 'package:bldrs/views/screens/x_3_slide_full_screen.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/footer.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/slides_parts/slide_headline.dart';
@@ -47,10 +48,13 @@ class SingleSlide extends StatelessWidget {
   final ImageSize imageSize;
   final bool autoFocus;
   final Function onTap;
+  final SuperFlyer superFlyer;
   // Key key;
 
   SingleSlide({
+
     @required this.flyerZoneWidth,
+    this.superFlyer,
     this.picture,
     this.title,
     this.shares = 0,
@@ -123,6 +127,9 @@ class SingleSlide extends StatelessWidget {
       imageSize: imageSize,
     );
 // -----------------------------------------------------------------------------
+    String _titleVerse = title != null ? title :
+        titleController != null ? titleController.text : 'NO FUCKING TITLE BTICH';
+
     return GestureDetector(
       onTap: (){
 
@@ -130,7 +137,8 @@ class SingleSlide extends StatelessWidget {
           Keyboarders.closeKeyboard(context);
         }
         else {
-          onTap();
+          // onTap();
+          superFlyer.onTinyFlyerTap();
         }
       },
       onTapCancel: (){
@@ -232,7 +240,7 @@ class SingleSlide extends StatelessWidget {
               if (_microMode == false && slideMode != SlideMode.Editor) //&& title != null && title != '')
               SlideTitle(
                 flyerZoneWidth: flyerZoneWidth,
-                verse: title?.length == 0 ? titleController.text : title,
+                verse: _titleVerse,
                 verseSize: _slideTitleSize,
                 verseColor: Colorz.White255,
                 tappingVerse: () {

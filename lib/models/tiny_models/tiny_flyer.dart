@@ -20,7 +20,7 @@ class TinyFlyer with ChangeNotifier{
   final String slidePic;
   final Zone flyerZone;
   final BoxFit picFit;
-  final List<Keyword> keywords;
+  final List<dynamic> keywords;
 
   TinyFlyer({
     @required this.flyerID,
@@ -177,12 +177,15 @@ class TinyFlyer with ChangeNotifier{
 // -----------------------------------------------------------------------------
   static TinyFlyer getTinyFlyerFromSuperFlyer(SuperFlyer superFlyer){
     TinyFlyer _tinyFlyer = TinyFlyer(
-        flyerID: superFlyer.flyerID,
-        flyerType: superFlyer.flyerType,
-        authorID: superFlyer.authorID,
-        slideIndex: superFlyer.currentSlideIndex,
-        slidePic: superFlyer.slides[superFlyer.currentSlideIndex].picture,
-        flyerZone: superFlyer.flyerZone,
+      flyerID: superFlyer.flyerID,
+      flyerType: superFlyer.flyerType,
+      authorID: superFlyer.authorID,
+      slideIndex: superFlyer.currentSlideIndex,
+      slidePic: superFlyer.slides[superFlyer.currentSlideIndex].picture,
+      flyerZone: superFlyer.flyerZone,
+      tinyBz: TinyBz.getTinyBzFromSuperFlyer(superFlyer),
+      picFit: superFlyer.currentPicFit,
+      keywords: superFlyer.keywords,
     );
 
     return _tinyFlyer;

@@ -135,6 +135,12 @@ class InfoPage extends StatelessWidget {
 
     List<TinyUser> _users = _getUsers();
 
+    String _flyerInfoParagraph =
+    superFlyer.editMode && superFlyer.infoController.text.length == 0 ? '...' :
+    superFlyer.editMode && superFlyer.infoController.text.length > 0 ? superFlyer.infoController.text :
+    superFlyer.editMode == false ? superFlyer.flyerInfo : null;
+
+
     return NotificationListener(
       onNotification: (ScrollUpdateNotification details){
 
@@ -237,15 +243,15 @@ class InfoPage extends StatelessWidget {
               ],
             ),
 
-          /// ABOUT FLYER
+          /// FLYER INFO
           ParagraphBubble(
             bubbleWidth: _bubbleWidth,
             margins: _bubbleMargins,
             corners: _bubbleCorners,
-            title: 'About this flyer',
+            title: 'More info',
             maxLines: 3,
             centered: false,
-            paragraph: superFlyer.infoController.text.length == 0 ? '...' : superFlyer.infoController.text,
+            paragraph: _flyerInfoParagraph,
             onParagraphTap: superFlyer.onAboutTap,
           ),
 

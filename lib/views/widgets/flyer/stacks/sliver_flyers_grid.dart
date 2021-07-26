@@ -1,7 +1,7 @@
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer_model.dart';
+import 'package:bldrs/views/widgets/flyer/final_flyer.dart';
 import 'package:flutter/material.dart';
-import '../flyer.dart';
 
 class SliverFlyersGrid extends StatelessWidget {
   final List<FlyerModel> flyersData;
@@ -28,9 +28,10 @@ class SliverFlyersGrid extends StatelessWidget {
 
         delegate: SliverChildBuilderDelegate(
               (context, flyerIndex) {
-                return Flyer(
-                  flyerSizeFactor: ((screenWidth - gridSpacing * 1.5) / 2) / screenWidth,
-                  // flyerID: flyersData[flyerIndex].flyer.flyerID,
+                return FinalFlyer(
+                  flyerZoneWidth: ((screenWidth - gridSpacing * 1.5) / 2),
+                  flyerModel: flyersData[flyerIndex],
+
                 );
                 },
           childCount: flyersData.length,

@@ -38,6 +38,7 @@ class _RandomTestSpaceState extends State<RandomTestSpace> {
       flyerZoneWidth: 0.5,
       tinyFlyer: TinyFlyer.dummyTinyFlyers()[1],
       onTinyFlyerTap: _createKeyValue,
+      onHeaderTap: _createKeyValue,
       onAnkhTap: setStateFromAnotherFile,
     );
 
@@ -137,7 +138,7 @@ class _RandomTestSpaceState extends State<RandomTestSpace> {
 
             FinalFlyer(
               flyerZoneWidth: Scale.superFlyerZoneWidth(context, 0.7),
-              flyerID: '1eFVUCIodzzX6dTL49FS',
+              // flyerID: '1eFVUCIodzzX6dTL49FS',
             ),
 
             SizedBox(
