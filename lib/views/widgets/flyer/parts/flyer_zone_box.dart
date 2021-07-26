@@ -6,13 +6,13 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
-class FlyerZone extends StatelessWidget {
+class FlyerZoneBox extends StatelessWidget {
   final double flyerSizeFactor;
   final Function onFlyerZoneTap;
   final List<Widget> stackWidgets;
   final Function onFlyerZoneLongPress;
 
-  FlyerZone({
+  FlyerZoneBox({
     @required this.flyerSizeFactor,
     @required this.onFlyerZoneTap,
     this.stackWidgets,

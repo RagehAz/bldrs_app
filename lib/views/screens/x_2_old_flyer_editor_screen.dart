@@ -25,7 +25,7 @@ import 'package:bldrs/views/screens/x_x_flyer_on_map.dart';
 import 'package:bldrs/views/widgets/bubbles/words_bubble.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_dialog.dart';
-import 'package:bldrs/views/widgets/flyer/parts/flyer_zone.dart';
+import 'package:bldrs/views/widgets/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_header.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/slides_parts/single_slide.dart';
 import 'package:bldrs/views/widgets/flyer/parts/progress_bar_parts/strips.dart';
@@ -891,7 +891,7 @@ class _OldFlyerEditorScreenState extends State<OldFlyerEditorScreen> {
               Stack(
                 children: <Widget>[
 
-                  FlyerZone(
+                  FlyerZoneBox(
                     flyerSizeFactor: _flyerSizeFactor,
                     onFlyerZoneTap: (){},
                     stackWidgets: <Widget>[

@@ -76,7 +76,7 @@ class BzGrid extends StatelessWidget {
                           width: _logoWidth,
                           image: color,
                           bzPageIsOn: false,
-                          miniMode: true,
+                          microMode: true,
                           zeroCornerIsOn: false,
                           // onTap: () => itemOnTap(bz.bzID)
                         ),
@@ -99,7 +99,7 @@ class BzGrid extends StatelessWidget {
                               width: _logoWidth,
                               image: bz.bzLogo,
                               bzPageIsOn: false,
-                              miniMode: true,
+                              microMode: true,
                               zeroCornerIsOn: false,
                               onTap: () => itemOnTap(bz.bzID)
                           ),

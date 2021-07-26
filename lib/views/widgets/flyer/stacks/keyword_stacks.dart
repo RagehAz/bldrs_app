@@ -2,7 +2,7 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
-import 'package:bldrs/views/widgets/flyer/flyer.dart';
+import 'package:bldrs/views/widgets/flyer/final_flyer.dart';
 import 'package:flutter/material.dart';
 
 List<int> otherFlyers = <int>[0,1,2,3,4,5,6,7,8,9,];
@@ -51,12 +51,9 @@ class FlyerCoversStack extends StatelessWidget {
             Container(
               width: coverFlyerWidth,
               height: coverFlyerHeight,
-              child: Flyer(
-                flyerSizeFactor: coverFlyerWidth/screenWidth,
-                // flyerID: flyersDataList[0].flyer.flyerID,
-                slidingIsOn: false,
-                tappingFlyerZone: (){},
-                initialSlide: 0,
+              child: FinalFlyer(
+                flyerZoneWidth: coverFlyerWidth,
+                flyerModel: flyersDataList[0],
               ),
             ),
 
@@ -83,12 +80,11 @@ class FlyerCoversStack extends StatelessWidget {
                           Container(
                               width: otherFlyersWidth,
                               height: otherFlyersHeight,
-                              child: Flyer(
-                                flyerSizeFactor: otherFlyersWidth/screenWidth,
-                                // flyerID: flyersDataList[index].flyer.flyerID,
-                                slidingIsOn: false,
-                                tappingFlyerZone: (){},
-                                initialSlide: 0,
+                              child: FinalFlyer(
+                                flyerZoneWidth: otherFlyersWidth,
+                                initialSlideIndex: 0,
+                                flyerModel: flyersDataList[index],
+                                onSwipeFlyer: (i) => print('swiping to $i'),
                               )
                           )
                     ],
@@ -158,11 +154,9 @@ class TopFlyersStack extends StatelessWidget {
                       tag: flyersDataList[index].flyerID,
                       child: Material(
                         type: MaterialType.transparency,
-                        child: Flyer(
-                          flyerSizeFactor: flyerWidth/screenWidth,
-                          // flyerID: flyersDataList[index].flyer.flyerID,
-                          slidingIsOn: false,
-                          tappingFlyerZone: (){},
+                        child: FinalFlyer(
+                          flyerZoneWidth: flyerWidth,
+                          flyerModel: flyersDataList[index],
                         ),
                       ),
                     )

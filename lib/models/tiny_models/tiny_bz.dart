@@ -1,5 +1,6 @@
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
+import 'package:bldrs/models/super_flyer.dart';
 import 'package:flutter/foundation.dart';
 import '../bz_model.dart';
 // -----------------------------------------------------------------------------
@@ -143,6 +144,19 @@ class TinyBz with ChangeNotifier{
           dummyTinyBz('bz2'),
           dummyTinyBz('bz3'),
         ];
+  }
+// -----------------------------------------------------------------------------
+  static TinyBz getTinyBzFromSuperFlyer(SuperFlyer superFlyer){
+    return
+        TinyBz(
+            bzID: superFlyer.bzID,
+            bzLogo:  superFlyer.bzLogo,
+            bzName: superFlyer.bzName,
+            bzType: superFlyer.bzType,
+            bzZone:  superFlyer.bzZone,
+            bzTotalFollowers: superFlyer.bzTotalFollowers,
+            bzTotalFlyers: superFlyer.bzTotalFlyers,
+        );
   }
 // -----------------------------------------------------------------------------
 }
