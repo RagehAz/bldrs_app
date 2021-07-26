@@ -10,19 +10,9 @@ import 'package:flutter/material.dart';
 
 class SlidesNew extends StatelessWidget {
   final SuperFlyer superFlyer;
-  // final PageController horizontalController;
-  // final DraftFlyerModel draft;
-  // final Function onPageChanged;
-  // final double flyerZoneWidth;
-  // final Function triggerKeywordsView;
 
   const SlidesNew({
     @required this.superFlyer,
-    // @required this.horizontalController,
-    // @required this.draft,
-    // @required this.onPageChanged,
-    // @required this.flyerZoneWidth,
-    // @required this.triggerKeywordsView,
 
     Key key,
   }) : super(key: key);
@@ -83,13 +73,13 @@ class SlidesNew extends StatelessWidget {
                     onTap: (){},
                   ),
 
-                  if (superFlyer.flyerState != FlyerState.Draft)
+                  if (superFlyer.editMode == false)
                     FlyerFooter(
                       flyerZoneWidth: superFlyer.flyerZoneWidth,
-                      saves: 0,
-                      shares: 0,
-                      views: 0,
-                      onShareTap: null,
+                      saves: superFlyer.slides[superFlyer.currentSlideIndex].savesCount,
+                      shares: superFlyer.slides[superFlyer.currentSlideIndex].sharesCount,
+                      views: superFlyer.slides[superFlyer.currentSlideIndex].viewsCount,
+                      onShareTap: () => superFlyer.onShareTap(),
                       onCountersTap: () => superFlyer.onVerticalPageSwipe(1),
                     ),
 

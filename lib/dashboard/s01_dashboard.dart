@@ -3,6 +3,7 @@
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/dashboard/flyers_manager/all_flyers_screen.dart';
 import 'package:bldrs/dashboard/s02_statistics.dart';
 import 'package:bldrs/dashboard/s05_keywords_manager.dart';
 import 'package:bldrs/dashboard/users_manager/users_manager_screen.dart';
@@ -52,6 +53,12 @@ class _DashBoardState extends State<DashBoard> {
         listWidgets: <Widget>[
 
           LogoSlogan(),
+
+          _button(
+            title: 'All Flyers',
+            icon: Iconz.Flyer,
+            onTap: () => Nav.goToNewScreen(context, AllFlyersScreen()),
+          ),
 
           _button(
               title: 'General Statistics',

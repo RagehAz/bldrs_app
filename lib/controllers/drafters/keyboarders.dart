@@ -20,9 +20,9 @@ print('x minimizeKeyboardOnTapOutSide() unfocused keyboard');
 // -----------------------------------------------------------------------------
   static bool keyboardIsOn(BuildContext context){
   // bool _keyboardIsOn;
-
-  bool _keyboardIsOn = FocusScope.of(context).hasFocus;
-
+///
+//   bool _keyboardIsOn = FocusScope.of(context).hasFocus;
+///
   // /// is on
   // if(_currentFocus.hasFocus){
   //   _keyboardIsOn = true;
@@ -32,6 +32,9 @@ print('x minimizeKeyboardOnTapOutSide() unfocused keyboard');
   // else {
   //   _keyboardIsOn = false;
   // }
+///
+
+    bool _keyboardIsOn = MediaQuery.of(context).viewInsets.bottom != 0;
 
   return _keyboardIsOn;
   }

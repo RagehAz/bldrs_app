@@ -1044,8 +1044,8 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
       // -------------------------
       flyerType : FlyerTypeClass.concludeFlyerType(_bz.bzType),
       flyerState : FlyerState.Draft,
-      keywords : _superFlyer.keywords,
-      flyerShowsAuthor : _superFlyer.flyerShowsAuthor,
+      keywords : _superFlyer?.keywords,
+      flyerShowsAuthor : _superFlyer?.flyerShowsAuthor,
       flyerURL : '...',
       flyerZone: _countryPro.currentZone,
       // -------------------------
@@ -1445,7 +1445,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
     AuthorModel _author = widget.firstTimer ?
     AuthorModel.getAuthorFromBzByAuthorID(_bz, superUserID()) :
     AuthorModel.getAuthorFromBzByAuthorID(_bz, _flyer.tinyAuthor.userID);
-    BoxFit _currentPicFit = _superFlyer.boxesFits.length == 0 ? null : _superFlyer.boxesFits[_superFlyer.currentSlideIndex];
+    // BoxFit _currentPicFit = _superFlyer?.boxesFits?.length == 0 ? null : _superFlyer?.boxesFits[_superFlyer?.currentSlideIndex];
 
     return MainLayout(
       pyramids: Iconz.DvBlankSVG,
@@ -1481,6 +1481,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                 superFlyer: _superFlyer,
                 panelWidth: _panelWidth,
                 bzModel: _bz,
+                flyerZoneWidth: _flyerZoneWidth,
               ),
 
               /// FLYER

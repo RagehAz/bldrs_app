@@ -175,29 +175,35 @@ class FlyerModel with ChangeNotifier{
   }
 // -----------------------------------------------------------------------------
   static FlyerModel decipherFlyerMap(dynamic map){
-    return FlyerModel(
-      flyerID: map['flyerID'],
-      // -------------------------
-      flyerType: FlyerTypeClass.decipherFlyerType(map['flyerType']),
-      flyerState: FlyerModel.decipherFlyerState(map['flyerState']),
-      keywords: map['keyWords'],
-      flyerShowsAuthor: map['flyerShowsAuthor'],
-      flyerURL: map['flyerURL'],
-      flyerZone: Zone.decipherZoneMap(map['flyerZone']),
-      // -------------------------
-      tinyAuthor: TinyUser.decipherTinyUserMap(map['tinyAuthor']),
-      tinyBz: TinyBz.decipherTinyBzMap(map['tinyBz']),
-      // -------------------------
-      publishTime: decipherDateTimeString(map['publishTime']),
-      flyerPosition: map['flyerPosition'],
-      // -------------------------
-      slides: SlideModel.decipherSlidesMaps(map['slides']),
-      // -------------------------
-      flyerIsBanned: map['flyerIsBanned'],
-      deletionTime: decipherDateTimeString(map['deletionTime']),
-      specs: Spec.decipherSpecs(map['specs']),
-      info: map['info'],
-    );
+    FlyerModel _flyerModel;
+    if (map != null){
+      _flyerModel = FlyerModel(
+        flyerID: map['flyerID'],
+        // -------------------------
+        flyerType: FlyerTypeClass.decipherFlyerType(map['flyerType']),
+        flyerState: FlyerModel.decipherFlyerState(map['flyerState']),
+        keywords: map['keyWords'],
+        flyerShowsAuthor: map['flyerShowsAuthor'],
+        flyerURL: map['flyerURL'],
+        flyerZone: Zone.decipherZoneMap(map['flyerZone']),
+        // -------------------------
+        tinyAuthor: TinyUser.decipherTinyUserMap(map['tinyAuthor']),
+        tinyBz: TinyBz.decipherTinyBzMap(map['tinyBz']),
+        // -------------------------
+        publishTime: decipherDateTimeString(map['publishTime']),
+        flyerPosition: map['flyerPosition'],
+        // -------------------------
+        slides: SlideModel.decipherSlidesMaps(map['slides']),
+        // -------------------------
+        flyerIsBanned: map['flyerIsBanned'],
+        deletionTime: decipherDateTimeString(map['deletionTime']),
+        specs: Spec.decipherSpecs(map['specs']),
+        info: map['info'],
+      );
+
+    }
+
+    return _flyerModel;
   }
 // -----------------------------------------------------------------------------
   static List<String> getListOfFlyerIDsFromFlyers(List<FlyerModel> flyers){

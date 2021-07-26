@@ -11,28 +11,10 @@ import 'package:flutter/material.dart';
 
 class MiniHeaderStrip extends StatelessWidget {
   final SuperFlyer superFlyer;
-  // final TinyBz tinyBz;
-  // final TinyUser tinyAuthor;
-  // final double flyerZoneWidth;
-  // final bool bzPageIsOn;
-  // final bool followIsOn;
-  // final Function tappingHeader;
-  // final Function onFollowTap;
-  // final Function onCallTap;
-  // final bool flyerShowsAuthor;
   final bool stripBlurIsOn;
 
   MiniHeaderStrip({
     @required this.superFlyer,
-    // this.tinyBz,
-    // this.tinyAuthor,
-    // this.flyerZoneWidth,
-    // this.bzPageIsOn,
-    // this.followIsOn,
-    // this.onCallTap,
-    // this.tappingHeader,
-    // this.onFollowTap,
-    // this.flyerShowsAuthor,
     this.stripBlurIsOn = false,
   });
 

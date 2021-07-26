@@ -9,39 +9,8 @@ import 'package:flutter/material.dart';
 class SlidesPage extends StatelessWidget {
   final SuperFlyer superFlyer;
 
-  // final PageController horizontalController;
-  // final DraftFlyerModel draft;
-  // final Function onPageChanged;
-  // final double flyerZoneWidth;
-  // final Function triggerKeywordsView;
-  // final bool bzPageIsOn;
-  // final bool slidingIsOn;
-  // final bool ankhIsOn;
-  // final Function tappingAnkh;
-  // final Function onAddImages;
-  // final Function onDeleteSlide;
-  // final Function onCropImage;
-  // final Function onResetImage;
-  // final Function onFitImage;
-  // final BoxFit currentPicFit;
-
   const SlidesPage({
     @required this.superFlyer,
-    // @required this.horizontalController,
-    // @required this.draft,
-    // @required this.onPageChanged,
-    // @required this.flyerZoneWidth,
-    // @required this.triggerKeywordsView,
-    // @required this.bzPageIsOn,
-    // @required this.slidingIsOn,
-    // @required this.ankhIsOn,
-    // @required this.tappingAnkh,
-    // @required this.onAddImages,
-    // @required this.onDeleteSlide,
-    // @required this.onCropImage,
-    // @required this.onResetImage,
-    // @required this.onFitImage,
-    // @required this.currentPicFit,
     Key key,
   }) : super(key: key);
 
@@ -54,15 +23,10 @@ class SlidesPage extends StatelessWidget {
         if(superFlyer.currentSlideIndex != null)
           SlidesNew(
             superFlyer: superFlyer,
-            // horizontalController: superFlyer..horizontalController,
-            // draft: draft,
-            // onPageChanged: onPageChanged,
-            // flyerZoneWidth: flyerZoneWidth,
-            // triggerKeywordsView: triggerKeywordsView,
           ),
 
         /// ANKH
-        if(superFlyer.currentSlideIndex != null && superFlyer.numberOfSlides != 0 && superFlyer.flyerState != FlyerState.Draft)
+        if(superFlyer.currentSlideIndex != null && superFlyer.numberOfSlides != 0 && superFlyer.editMode == false)
           AnkhButton(
             bzPageIsOn: superFlyer.bzPageIsOn,
             flyerZoneWidth: superFlyer.flyerZoneWidth,
@@ -72,7 +36,7 @@ class SlidesPage extends StatelessWidget {
           ),
 
         /// EDITOR FOOTER
-        if (superFlyer.flyerState == FlyerState.Draft)
+        if (superFlyer.editMode == true)
           EditorFooter(
             flyerZoneWidth: superFlyer.flyerZoneWidth,
             currentPicFit: superFlyer.currentPicFit,
