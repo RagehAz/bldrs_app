@@ -59,7 +59,7 @@ class Scale{
   }
 // -----------------------------------------------------------------------------
   static bool superFlyerMicroMode (BuildContext context, double flyerZoneWidth){
-    bool _microMode = flyerZoneWidth < (superScreenWidth(context) * 0.4) ? true : false; // 0.4 needs calibration
+    bool _microMode = flyerZoneWidth < (superScreenWidth(context) * 0.48) ? true : false; // 0.4 needs calibration
     return _microMode;
   }
 // -----------------------------------------------------------------------------

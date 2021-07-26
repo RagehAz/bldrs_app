@@ -29,7 +29,6 @@ import 'package:provider/provider.dart';
 class SuperFlyer{
   /// sizes
   double flyerZoneWidth;
-  FlyerMode flyerMode;
 
   /// animation controller
   final PageController horizontalController;
@@ -53,6 +52,7 @@ class SuperFlyer{
   SwipeDirection swipeDirection;
   bool bzPageIsOn;
   bool listenToSwipe;
+  bool microMode;
 
   /// record functions
   final Function onView;
@@ -76,7 +76,8 @@ class SuperFlyer{
 
   /// editor data
   bool firstTimer;
-  bool editMode;
+  bool editMode; // to trigger between view mode and edit mode for the draft
+  bool isDraft; // to label the flyer that is currently being drafted as new or existing flyer
   List<TextEditingController> headlinesControllers;
   List<TextEditingController> descriptionsControllers;
   TextEditingController infoController;
@@ -158,131 +159,131 @@ class SuperFlyer{
   /// --------------------------------------------------------------------------
   SuperFlyer({
     /// sizes
-    this.flyerZoneWidth,
+    @required this.flyerZoneWidth,
 
     /// animation controller
-    this.horizontalController,
-    this.verticalController,
-    this.infoScrollController,
+    @required this.horizontalController,
+    @required this.verticalController,
+    @required this.infoScrollController,
 
     /// animation functions
-    this.onHorizontalSlideSwipe,
-    this.onVerticalPageSwipe,
-    this.onVerticalPageBack,
-    this.onHeaderTap,
-    this.onSlideRightTap,
-    this.onSlideLeftTap,
-    this.onSwipeFlyer,
+    @required this.onHorizontalSlideSwipe,
+    @required this.onVerticalPageSwipe,
+    @required this.onVerticalPageBack,
+    @required this.onHeaderTap,
+    @required this.onSlideRightTap,
+    @required this.onSlideLeftTap,
+    @required this.onSwipeFlyer,
     @required this.onTinyFlyerTap,
 
     /// animation parameters
-    this.slidingDuration,
-    this.fadingDuration,
-    this.progressBarOpacity,
-    this.swipeDirection,
-    this.bzPageIsOn,
-    this.listenToSwipe,
+    @required this.slidingDuration,
+    @required this.fadingDuration,
+    @required this.progressBarOpacity,
+    @required this.swipeDirection,
+    @required this.bzPageIsOn,
+    @required this.listenToSwipe,
 
     /// record functions
-    this.onView,
-    this.onAnkhTap,
-    this.onShareTap,
-    this.onFollowTap,
-    this.onCallTap,
+    @required this.onView,
+    @required this.onAnkhTap,
+    @required this.onShareTap,
+    @required this.onFollowTap,
+    @required this.onCallTap,
 
     /// editor functions
-    this.onAddImages,
-    this.onDeleteSlide,
-    this.onCropImage,
-    this.onResetImage,
-    this.onFitImage,
-    this.onFlyerTypeTap,
-    this.onZoneTap,
-    this.onAboutTap,
-    this.onKeywordsTap,
+    @required this.onAddImages,
+    @required this.onDeleteSlide,
+    @required this.onCropImage,
+    @required this.onResetImage,
+    @required this.onFitImage,
+    @required this.onFlyerTypeTap,
+    @required this.onZoneTap,
+    @required this.onAboutTap,
+    @required this.onKeywordsTap,
     @required this.onShowAuthorTap,
     @required this.onTriggerEditMode,
 
     /// editor data
-    this.firstTimer,
+    @required this.firstTimer,
     @required this.editMode,
-    @required this.flyerMode,
-    this.headlinesControllers,
-    this.descriptionsControllers,
-    this.infoController,
-    this.assetsSources,
-    this.assetsFiles,
-    this.boxesFits,
+    @required this.isDraft,
+    @required this.headlinesControllers,
+    @required this.descriptionsControllers,
+    @required this.infoController,
+    @required this.assetsSources,
+    @required this.assetsFiles,
+    @required this.boxesFits,
 
     /// slides settings
-    this.slidesVisibilities,
-    this.numberOfSlides,
-    this.numberOfStrips,
+    @required this.slidesVisibilities,
+    @required this.numberOfSlides,
+    @required this.numberOfStrips,
 
     /// current slide settings
-    this.currentPicFit,
-    this.initialSlideIndex,
-    this.currentSlideIndex,
+    @required this.currentPicFit,
+    @required this.initialSlideIndex,
+    @required this.currentSlideIndex,
     @required this.verticalIndex,
 
     /// bz data
-    this.bzType,
-    this.bzForm,
-    this.bldrBirth,
-    this.accountType,
-    this.bzURL,
-    this.bzName,
-    this.bzLogo,
-    this.bzScope,
-    this.bzZone,
-    this.bzAbout,
-    this.bzPosition,
-    this.bzContacts,
-    this.bzAuthors,
-    this.bzShowsTeam,
-    this.bzIsVerified,
-    this.bzAccountIsDeactivated,
-    this.bzAccountIsBanned,
-    this.bzNanoFlyers,
+    @required this.bzType,
+    @required this.bzForm,
+    @required this.bldrBirth,
+    @required this.accountType,
+    @required this.bzURL,
+    @required this.bzName,
+    @required this.bzLogo,
+    @required this.bzScope,
+    @required this.bzZone,
+    @required this.bzAbout,
+    @required this.bzPosition,
+    @required this.bzContacts,
+    @required this.bzAuthors,
+    @required this.bzShowsTeam,
+    @required this.bzIsVerified,
+    @required this.bzAccountIsDeactivated,
+    @required this.bzAccountIsBanned,
+    @required this.bzNanoFlyers,
 
     /// bz records
-    this.bzTotalFollowers,
-    this.bzTotalFlyers,
-    this.bzTotalSaves,
-    this.bzTotalShares,
-    this.bzTotalSlides,
-    this.bzTotalViews,
-    this.bzTotalCalls,
+    @required this.bzTotalFollowers,
+    @required this.bzTotalFlyers,
+    @required this.bzTotalSaves,
+    @required this.bzTotalShares,
+    @required this.bzTotalSlides,
+    @required this.bzTotalViews,
+    @required this.bzTotalCalls,
 
     /// flyer identifiers
-    this.key,
-    this.flyerID,
-    this.bzID,
-    this.authorID,
-    this.flyerURL,
+    @required this.key,
+    @required this.flyerID,
+    @required this.bzID,
+    @required this.authorID,
+    @required this.flyerURL,
 
     /// flyer data
-    this.flyerType,
-    this.flyerState,
-    this.flyerTinyAuthor,
-    this.flyerShowsAuthor,
-    this.slides,
+    @required this.flyerType,
+    @required this.flyerState,
+    @required this.flyerTinyAuthor,
+    @required this.flyerShowsAuthor,
+    @required this.slides,
 
     /// flyer tags
-    this.flyerInfo,
-    this.specs,
-    this.keywords,
+    @required this.flyerInfo,
+    @required this.specs,
+    @required this.keywords,
 
     /// flyer location
-    this.flyerZone,
-    this.position,
+    @required this.flyerZone,
+    @required this.position,
 
     /// publishing times
-    this.flyerTimes,
+    @required this.flyerTimes,
 
     /// user based bool triggers
-    this.ankhIsOn,
-    this.followIsOn,
+    @required this.ankhIsOn,
+    @required this.followIsOn,
   });
 // -----------------------------------------------------------------------------
   static String draftID = 'draft';
@@ -294,7 +295,6 @@ class SuperFlyer{
         SuperFlyer(
           /// sizes
           flyerZoneWidth: flyerZoneWidth,
-          flyerMode: FlyerMode.empty,
 
           /// animation controller
           horizontalController: null,
@@ -342,6 +342,7 @@ class SuperFlyer{
           /// editor data
           firstTimer: null,
           editMode: null,
+          isDraft: null,
           headlinesControllers: null,
           descriptionsControllers: null,
           infoController: null,
@@ -449,7 +450,6 @@ class SuperFlyer{
       SuperFlyer(
         /// sizes
         flyerZoneWidth: flyerZoneWidth,
-        flyerMode: FlyerMode.normal,
 
         /// animation controller
         horizontalController: PageController(initialPage: _initialPage, viewportFraction: 1, keepPage: true),
@@ -497,12 +497,13 @@ class SuperFlyer{
         /// editor data
         firstTimer: null,
         editMode: false,
+        isDraft: false,
         headlinesControllers: null,
         descriptionsControllers: null,
         infoController: null,
         assetsSources: null,
         assetsFiles: null,
-        boxesFits: null,
+        boxesFits: SlideModel.getSlidesBoxFits(flyerModel.slides),
 
         /// slides settings
         slidesVisibilities: Animators.createSlidesVisibilityList(flyerModel.slides.length),
@@ -583,11 +584,12 @@ class SuperFlyer{
     @required BuildContext context,
     @required double flyerZoneWidth,
     @required TinyFlyer tinyFlyer,
+    @required Function onHeaderTap,
     @required Function onTinyFlyerTap,
     @required Function onAnkhTap,
   }){
 
-    print('CREATING view super flyer from tiny flyer : ${tinyFlyer.flyerID}');
+    print('CREATING view super flyer from tiny flyer : ${tinyFlyer.flyerID} : ${tinyFlyer?.flyerType} : : ${tinyFlyer?.tinyBz?.bzName}');
 
     FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
 
@@ -595,7 +597,6 @@ class SuperFlyer{
       SuperFlyer(
         /// sizes
         flyerZoneWidth: flyerZoneWidth,
-        flyerMode: FlyerMode.tiny,
 
         /// animation controller
         horizontalController: null,
@@ -606,7 +607,7 @@ class SuperFlyer{
         onHorizontalSlideSwipe: null,
         onVerticalPageSwipe: null,
         onVerticalPageBack: null,
-        onHeaderTap: onTinyFlyerTap,
+        onHeaderTap: onHeaderTap,
         onSlideRightTap: null,
         onSlideLeftTap: null,
         onSwipeFlyer: null,
@@ -643,6 +644,7 @@ class SuperFlyer{
         /// editor data
         firstTimer: null,
         editMode: false,
+        isDraft: false,
         headlinesControllers: null,
         descriptionsControllers: null,
         infoController: null,
@@ -662,7 +664,7 @@ class SuperFlyer{
         verticalIndex: 0,
 
         /// bz data
-        bzType: tinyFlyer.tinyBz.bzType,
+        bzType: tinyFlyer?.tinyBz?.bzType,
         bzForm: null,
         bldrBirth: null,
         accountType: null,
@@ -769,7 +771,6 @@ class SuperFlyer{
       SuperFlyer(
         /// sizes
         flyerZoneWidth: flyerZoneWidth,
-        flyerMode: FlyerMode.newDraft,
 
         /// animation controller
         horizontalController: PageController(initialPage: 0, viewportFraction: 1, keepPage: true),
@@ -817,6 +818,7 @@ class SuperFlyer{
         /// editor data
         firstTimer: true,
         editMode: true,
+        isDraft: true,
         headlinesControllers: new List(),
         descriptionsControllers: new List(),
         infoController: new TextEditingController(),
@@ -934,7 +936,6 @@ class SuperFlyer{
       SuperFlyer(
         /// sizes
         flyerZoneWidth: flyerZoneWidth,
-        flyerMode: FlyerMode.draftFromFlyer,
 
         /// animation controller
         horizontalController: PageController(initialPage: 0, viewportFraction: 1, keepPage: true),
@@ -982,6 +983,7 @@ class SuperFlyer{
         /// editor data
         firstTimer: false,
         editMode: true,
+        isDraft: true,
         headlinesControllers: FlyerModel.createHeadlinesControllersForExistingFlyer(flyerModel),
         descriptionsControllers: FlyerModel.createDescriptionsControllersForExistingFlyer(flyerModel),
         infoController: new TextEditingController(text: flyerModel.info),
@@ -1079,12 +1081,15 @@ static TinyBz getTinyBzFromSuperFlyer(SuperFlyer superFlyer){
         );
 }
 // -----------------------------------------------------------------------------
-static SuperFlyer getSuperFlyerFromBzModelOnly(double flyerZoneWidth, BzModel bzModel){
+static SuperFlyer getSuperFlyerFromBzModelOnly({
+  double flyerZoneWidth,
+  BzModel bzModel,
+  @required onHeaderTap,
+}){
     return
       SuperFlyer(
         /// sizes
         flyerZoneWidth: flyerZoneWidth,
-        flyerMode: null,
 
         /// animation controller
         horizontalController: PageController(initialPage: 0, viewportFraction: 1, keepPage: true),
@@ -1095,7 +1100,7 @@ static SuperFlyer getSuperFlyerFromBzModelOnly(double flyerZoneWidth, BzModel bz
         onHorizontalSlideSwipe: null,
         onVerticalPageSwipe: null,
         onVerticalPageBack: null,
-        onHeaderTap: null,
+        onHeaderTap: onHeaderTap,
         onSlideRightTap: null,
         onSlideLeftTap: null,
         onSwipeFlyer: null,
@@ -1132,6 +1137,7 @@ static SuperFlyer getSuperFlyerFromBzModelOnly(double flyerZoneWidth, BzModel bz
         /// editor data
         firstTimer: null,
         editMode: null,
+        isDraft: false,
         headlinesControllers: null,
         descriptionsControllers: null,
         infoController: null,

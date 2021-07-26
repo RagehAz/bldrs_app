@@ -56,6 +56,7 @@ class _MyBzScreenState extends State<MyBzScreen> {
   @override
   void initState() {
     _showOldFlyers = false;
+
     // TODO: implement initState
     super.initState();
   }
@@ -322,7 +323,11 @@ class _MyBzScreenState extends State<MyBzScreen> {
                         columnChildren: <Widget>[
 
                           Gallery(
-                            superFlyer: SuperFlyer.getSuperFlyerFromBzModelOnly(Scale.superBubbleClearWidth(context), bzModel),
+                            superFlyer: SuperFlyer.getSuperFlyerFromBzModelOnly(
+                              flyerZoneWidth: Scale.superBubbleClearWidth(context),
+                              bzModel: bzModel,
+                              onHeaderTap: () => print('on header tap in f 0 my bz Screen'),
+                            ),
                             flyerZoneWidth: Scale.superBubbleClearWidth(context),
                             showFlyers: true,
                             bz: bzModel,

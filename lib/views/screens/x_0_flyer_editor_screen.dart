@@ -32,7 +32,7 @@ import 'package:bldrs/views/widgets/dialogs/dialogz.dart';
 import 'package:bldrs/views/widgets/flyer/editor/editorPanel.dart';
 import 'package:bldrs/views/widgets/flyer/final_flyer.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_pages.dart';
-import 'package:bldrs/views/widgets/flyer/parts/flyer_zone.dart';
+import 'package:bldrs/views/widgets/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_header.dart';
 import 'package:bldrs/views/widgets/flyer/parts/progress_bar.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
@@ -1489,9 +1489,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                 flyerZoneWidth: _flyerZoneWidth,
                 flyerModel: _flyer,
                 tinyFlyer: null,
-                flyerID: SuperFlyer.draftID,
-                bzModel: _bz,
-                flyerMode: widget.firstTimer ? FlyerMode.newDraft : FlyerMode.draftFromFlyer,
+                isDraft: true,
                 initialSlideIndex: 0,
 
               ),

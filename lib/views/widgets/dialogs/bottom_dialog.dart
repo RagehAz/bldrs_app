@@ -6,8 +6,11 @@ import 'package:bldrs/controllers/drafters/text_manipulators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/bz_model.dart';
+import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
-import 'package:bldrs/views/widgets/flyer/bz_card_preview.dart';
+import 'package:bldrs/models/tiny_models/tiny_bz.dart';
+import 'package:bldrs/models/tiny_models/tiny_user.dart';
+import 'package:bldrs/views/widgets/flyer/final_flyer.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
@@ -220,15 +223,24 @@ class BottomDialog extends StatelessWidget {
   }
 // -----------------------------------------------------------------------------
   static void slideBzBottomDialog({BuildContext context, BzModel bz, AuthorModel author}) {
+
+    double _flyerZoneWidth = Scale.superFlyerZoneWidth(context, 0.71);
+
     BottomDialog.slideBottomDialog(
         context: context,
         height: Scale.superScreenHeight(context) - 100,
         draggable: true,
         child: Center(
-          child: BzCardPreview(
-            flyerSizeFactor: 0.71,
-            bz: bz,
-            author: author,
+          child: FinalFlyer(
+            flyerZoneWidth: _flyerZoneWidth,
+            flyerModel: FlyerModel(
+              flyerID: null,
+              tinyBz: TinyBz.getTinyBzFromBzModel(bz),
+              tinyAuthor: TinyUser.getTinyAuthorFromAuthorModel(author),
+              flyerZone: bz.bzZone,
+
+            ),
+
           ),
         ));
   }

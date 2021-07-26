@@ -172,7 +172,7 @@ class FlyerFooter extends StatelessWidget {
               ),
 
             /// FLYER COUNTERS
-            if(!_microMode)
+            if(!_microMode && saves != null && shares != null && views != null)
               SlideCounters(
                 saves: saves,
                 shares: shares,
