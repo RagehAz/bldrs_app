@@ -3,12 +3,10 @@ import 'package:bldrs/controllers/drafters/colorizers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/models/tiny_models/tiny_bz.dart';
-import 'package:bldrs/models/tiny_models/tiny_user.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/bz_logo.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/mini_follow_and_call_bts.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/mini_header_labels.dart';
-import 'package:bldrs/views/widgets/flyer/super_flyer.dart';
+import 'package:bldrs/models/super_flyer.dart';
 import 'package:flutter/material.dart';
 
 class MiniHeaderStrip extends StatelessWidget {

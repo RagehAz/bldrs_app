@@ -8,15 +8,15 @@ import 'package:flutter/material.dart';
 
 class FlyerZone extends StatelessWidget {
   final double flyerSizeFactor;
-  final Function tappingFlyerZone;
+  final Function onFlyerZoneTap;
   final List<Widget> stackWidgets;
-  final Function onLongPress;
+  final Function onFlyerZoneLongPress;
 
   FlyerZone({
     @required this.flyerSizeFactor,
-    @required this.tappingFlyerZone,
+    @required this.onFlyerZoneTap,
     this.stackWidgets,
-    this.onLongPress,
+    this.onFlyerZoneLongPress,
   });
 
   @override
@@ -67,10 +67,10 @@ class FlyerZone extends StatelessWidget {
 
     return GestureDetector(
       onTap: (){
-        tappingFlyerZone();
+        onFlyerZoneTap();
         Keyboarders.minimizeKeyboardOnTapOutSide(context);
       },
-      onLongPress: onLongPress,
+      onLongPress: onFlyerZoneLongPress,
       child: Center(
         child: Container(
           width: _flyerZoneWidth,

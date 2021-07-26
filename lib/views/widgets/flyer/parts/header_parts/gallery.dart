@@ -2,6 +2,7 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
+import 'package:bldrs/models/super_flyer.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/models/tiny_models/tiny_user.dart';
@@ -14,12 +15,14 @@ class Gallery extends StatefulWidget {
   final BzModel bz;
   final bool showFlyers;
   final Function flyerOnTap;
+  final SuperFlyer superFlyer;
 
   Gallery({
     @required this.flyerZoneWidth,
     @required this.bz,
     @required this.showFlyers,
     @required this.flyerOnTap,
+    @required this.superFlyer,
   });
 
   @override
@@ -136,6 +139,7 @@ class _GalleryState extends State<Gallery> {
                           Row(
                             children: <Widget>[
                               AuthorLabel(
+                                superFlyer: widget.superFlyer,
                                 showLabel: widget.showFlyers == true ? true : false,
                                 flyerZoneWidth: widget.flyerZoneWidth,
                                 tinyAuthor: _tinyAuthor,
@@ -156,6 +160,7 @@ class _GalleryState extends State<Gallery> {
 
                   if (_thisIsMyBz == true)
                   AuthorPic(
+                    superFlyer: widget.superFlyer,
                     flyerZoneWidth: widget.flyerZoneWidth,
                     authorPic: null,
                     isAddAuthorButton: true,

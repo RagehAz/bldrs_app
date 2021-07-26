@@ -4,7 +4,7 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/widgets/flyer/final_flyer.dart';
-import 'package:bldrs/views/widgets/flyer/tiny_flyer_widget.dart';
+import 'package:bldrs/views/widgets/flyer/x_tiny_flyer_widget.dart';
 import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';

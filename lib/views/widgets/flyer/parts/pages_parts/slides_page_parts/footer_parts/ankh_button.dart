@@ -11,16 +11,16 @@ import 'package:flutter/material.dart';
 class AnkhButton extends StatefulWidget {
   final double flyerZoneWidth;
   final bool bzPageIsOn;
-  final bool slidingIsOn;
+  final bool listenToSwipe;
   final bool ankhIsOn;
-  final Function tappingAnkh;
+  final Function onAnkhTap;
 
   AnkhButton({
     @required this.flyerZoneWidth,
     @required this.bzPageIsOn,
-    @required this.slidingIsOn,
+    @required this.listenToSwipe,
     @required this.ankhIsOn,
-    @required this.tappingAnkh,
+    @required this.onAnkhTap,
 });
 
   @override
@@ -92,7 +92,7 @@ class _AnkhButtonState extends State<AnkhButton> with SingleTickerProviderStateM
   }
 // -----------------------------------------------------------------------------
   Future<void> _onAnkhTap() async {
-    widget.tappingAnkh();
+    widget.onAnkhTap();
 
     if (_ankhIsOn == true){
 
@@ -148,7 +148,13 @@ class _AnkhButtonState extends State<AnkhButton> with SingleTickerProviderStateM
               :
 
           _microMode == true && widget.ankhIsOn == true ?
-          Container()
+          FooterButton(
+            icon: _saveBTIcon,
+            flyerZoneWidth: widget.flyerZoneWidth,
+            isOn: false,
+            verse: _saveBTVerse,
+            onTap: null,
+          )
               :
 
           _microMode == false && widget.ankhIsOn == false ?

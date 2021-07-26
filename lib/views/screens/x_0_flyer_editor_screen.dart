@@ -16,6 +16,7 @@ import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/secondary_models/draft_flyer_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/sub_models/slide_model.dart';
+import 'package:bldrs/models/super_flyer.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/models/tiny_models/tiny_user.dart';
 import 'package:bldrs/providers/country_provider.dart';
@@ -29,6 +30,7 @@ import 'package:bldrs/views/widgets/dialogs/bottom_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_dialog_buttons.dart';
 import 'package:bldrs/views/widgets/dialogs/dialogz.dart';
 import 'package:bldrs/views/widgets/flyer/editor/editorPanel.dart';
+import 'package:bldrs/views/widgets/flyer/final_flyer.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_pages.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_zone.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_header.dart';
@@ -77,7 +79,8 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
   CountryProvider _countryPro;
   BzModel _bz;
   FlyerModel _flyer;
-  DraftFlyerModel _draft;
+  SuperFlyer _superFlyer;
+  String _mapImageURL;
 // -----------------------------------------------------------------------------
   /// --- LOADING BLOCK
   bool _loading = false;
@@ -89,8 +92,8 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
 // -----------------------------------------------------------------------------
   /// SLIDING BLOCK
   void _onHorizontalSwipe (int newIndex){
-    print('flyer onPageChanged oldIndex: ${_draft.currentSlideIndex}, newIndex: $newIndex, _draft.numberOfSlides: ${_draft.numberOfSlides}');
-    SwipeDirection _direction = Animators.getSwipeDirection(newIndex: newIndex, oldIndex: _draft.currentSlideIndex,);
+    print('flyer onPageChanged oldIndex: ${_superFlyer.currentSlideIndex}, newIndex: $newIndex, _draft.numberOfSlides: ${_superFlyer.numberOfSlides}');
+    SwipeDirection _direction = Animators.getSwipeDirection(newIndex: newIndex, oldIndex: _superFlyer.currentSlideIndex,);
 
 
     /// A - if Keyboard is active
@@ -101,8 +104,8 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
       if (_direction == SwipeDirection.next){
         FocusScope.of(context).nextFocus();
         setState(() {
-          _draft.swipeDirection = _direction;
-          _draft.currentSlideIndex = newIndex;
+          _superFlyer.swipeDirection = _direction;
+          _superFlyer.currentSlideIndex = newIndex;
           // _autoFocus = true;
         });
       }
@@ -111,8 +114,8 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
       else if (_direction == SwipeDirection.back){
         FocusScope.of(context).previousFocus();
         setState(() {
-          _draft.swipeDirection = _direction;
-          _draft.currentSlideIndex = newIndex;
+          _superFlyer.swipeDirection = _direction;
+          _superFlyer.currentSlideIndex = newIndex;
           // _autoFocus = true;
         });
       }
@@ -120,8 +123,8 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
       /// B = when direction is freezing
       else {
         setState(() {
-          _draft.swipeDirection = _direction;
-          _draft.currentSlideIndex = newIndex;
+          _superFlyer.swipeDirection = _direction;
+          _superFlyer.currentSlideIndex = newIndex;
           // _autoFocus = true;
         });
       }
@@ -131,8 +134,8 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
     else {
       print('KEYBOARD IS NOT ACTIVE');
       setState(() {
-        _draft.swipeDirection = _direction;
-        _draft.currentSlideIndex = newIndex;
+        _superFlyer.swipeDirection = _direction;
+        _superFlyer.currentSlideIndex = newIndex;
       });
 
     }
@@ -152,7 +155,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
     _bz = widget.bzModel;
 
     /// by defining _flyer and its conditions,, we can use _flyer anywhere
-    _draft = DraftFlyerModel.createNewDraftFlyer(context: context ,bzModel: _bz);
+    // _superFlyer = widget.firstTimer ? SuperFlyer;
     _flyer = widget.firstTimer ? _createTempEmptyFlyer() : widget.flyerModel.clone();
 
     super.initState();
@@ -160,7 +163,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
-    TextChecker.disposeAllTextControllers(_draft.headlinesControllers);
+    TextChecker.disposeAllTextControllers(_superFlyer.headlinesControllers);
     _verticalController.dispose();
     _horizontalController.dispose();
     _infoScrollController.dispose();
@@ -187,7 +190,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
 
     _triggerLoading();
 
-    List<Asset> _assetsSources = _draft.assetsSources;
+    List<Asset> _assetsSources = _superFlyer.assetsSources;
     int _maxLength = Standards.getMaxSlidesCount(widget.bzModel.accountType);
 
     /// A - if max images reached
@@ -200,7 +203,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
     /// A - if still picking images
     else {
 
-      _draft.currentSlideIndex = _draft.currentSlideIndex == null ? 0 : _draft.currentSlideIndex;
+      _superFlyer.currentSlideIndex = _superFlyer.currentSlideIndex == null ? 0 : _superFlyer.currentSlideIndex;
 
       List<Asset> _outputAssets;
 
@@ -234,7 +237,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
           for (Asset newAsset in _outputAssets){
 
             /// C 1 - get index of newAsset in the existing asset if possible
-            int _assetIndexInExistingAssets = _draft.assetsSources.indexWhere(
+            int _assetIndexInExistingAssets = _superFlyer.assetsSources.indexWhere(
                   (existingAsset) => existingAsset.identifier == newAsset.identifier,);
 
             /// C 2 - if this is NEW ASSET
@@ -255,34 +258,34 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
             // found the index of the unchanged asset
             else {
               /// fit
-              _newFits.add(_draft.boxesFits[_assetIndexInExistingAssets]);
+              _newFits.add(_superFlyer.boxesFits[_assetIndexInExistingAssets]);
               /// file
-              _newFiles.add(_draft.assetsFiles[_assetIndexInExistingAssets]);
+              _newFiles.add(_superFlyer.assetsFiles[_assetIndexInExistingAssets]);
               /// controller
-              _newControllers.add(_draft.headlinesControllers[_assetIndexInExistingAssets]);
+              _newControllers.add(_superFlyer.headlinesControllers[_assetIndexInExistingAssets]);
               /// visibilities
-              _newVisibilities.add(_draft.visibilities[_assetIndexInExistingAssets]);
+              _newVisibilities.add(_superFlyer.slidesVisibilities[_assetIndexInExistingAssets]);
             }
 
           }
 
           /// D - assign all new values
           setState(() {
-            _draft.assetsSources = _outputAssets;
-            _draft.assetsSources = _outputAssets;
+            _superFlyer.assetsSources = _outputAssets;
+            _superFlyer.assetsSources = _outputAssets;
 
-            _draft.boxesFits = _newFits;
-            _draft.boxesFits = _newFits;
+            _superFlyer.boxesFits = _newFits;
+            _superFlyer.boxesFits = _newFits;
 
-            _draft.assetsFiles = _newFiles;
-            _draft.assetsFiles = _newFiles;
+            _superFlyer.assetsFiles = _newFiles;
+            _superFlyer.assetsFiles = _newFiles;
 
-            _draft.headlinesControllers = _newControllers;
+            _superFlyer.headlinesControllers = _newControllers;
 
-            _draft.visibilities = _newVisibilities;
+            _superFlyer.slidesVisibilities = _newVisibilities;
 
-            _draft.numberOfSlides = _draft.assetsSources.length;
-            _draft.numberOfStrips = _draft.numberOfSlides;
+            _superFlyer.numberOfSlides = _superFlyer.assetsSources.length;
+            _superFlyer.numberOfStrips = _superFlyer.numberOfSlides;
 
             _progressOpacity = 1;
           });
@@ -306,7 +309,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
   Future<void> _deleteSlide() async {
 
     /// A - if slides are empty
-    if (_draft.numberOfSlides == 0){
+    if (_superFlyer.numberOfSlides == 0){
       print('nothing can be done');
     }
 
@@ -314,12 +317,12 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
     else {
 
       /// B - if at (FIRST) slide
-      if (_draft.currentSlideIndex == 0){
+      if (_superFlyer.currentSlideIndex == 0){
         await _deleteFirstSlide();
       }
 
       /// B - if at (LAST) slide
-      else if (_draft.currentSlideIndex + 1 == _draft.numberOfSlides){
+      else if (_superFlyer.currentSlideIndex + 1 == _superFlyer.numberOfSlides){
         _deleteMiddleOrLastSlide();
       }
 
@@ -333,17 +336,17 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
   }
 // ------------------------------------------------o
   Future<void> _deleteFirstSlide() async {
-    print('DELETING STARTS AT (FIRST) index : $_draft.currentSlideIndex, numberOfSlides : $_draft.numberOfSlides ------------------------------------');
+    print('DELETING STARTS AT (FIRST) index : $_superFlyer.currentSlideIndex, numberOfSlides : $_superFlyer.numberOfSlides ------------------------------------');
 
     /// 1 - if only one slide remaining
-    if(_draft.numberOfSlides == 1){
+    if(_superFlyer.numberOfSlides == 1){
 
-      print('_draft.visibilities : ${_draft.visibilities.toString()}, _draft.numberOfSlides : $_draft.numberOfSlides');
+      print('_draft.visibilities : ${_superFlyer.slidesVisibilities.toString()}, _draft.numberOfSlides : $_superFlyer.numberOfSlides');
 
       /// A - decrease progress bar and trigger visibility
       setState(() {
-        _statelessTriggerVisibility(_draft.currentSlideIndex);
-        _draft.numberOfStrips = 0;
+        _statelessTriggerVisibility(_superFlyer.currentSlideIndex);
+        _superFlyer.numberOfStrips = 0;
         _triggerProgressOpacity();
       });
 
@@ -352,8 +355,8 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
 
         /// Dx - delete data
         setState(() {
-          _statelessDelete(_draft.currentSlideIndex);
-          _draft.currentSlideIndex = null;
+          _statelessDelete(_superFlyer.currentSlideIndex);
+          _superFlyer.currentSlideIndex = null;
         });
 
       });
@@ -361,13 +364,13 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
     }
 
     /// 2 - if two slides remaining
-    else if(_draft.numberOfSlides == 2){
+    else if(_superFlyer.numberOfSlides == 2){
 
       /// A - decrease progress bar and trigger visibility
       setState(() {
-        _draft.listenToSwipe = false;
-        _statelessTriggerVisibility(_draft.currentSlideIndex);
-        _draft.numberOfStrips = _draft.numberOfSlides - 1;
+        _superFlyer.listenToSwipe = false;
+        _statelessTriggerVisibility(_superFlyer.currentSlideIndex);
+        _superFlyer.numberOfStrips = _superFlyer.numberOfSlides - 1;
         // _slidingNext = true;
       });
 
@@ -375,7 +378,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
       await Future.delayed(_fadingDurationX, () async {
 
         /// C - slide
-        await Sliders.slideToNext(_horizontalController, _draft.numberOfSlides, _draft.currentSlideIndex);
+        await Sliders.slideToNext(_horizontalController, _superFlyer.numberOfSlides, _superFlyer.currentSlideIndex);
 
 
         /// D - delete when one slide remaining
@@ -391,10 +394,10 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
           // /// G - trigger progress bar listener (onPageChangedIsOn)
           setState(() {
             /// Dx - delete data
-            _statelessDelete(_draft.currentSlideIndex);
-            _draft.currentSlideIndex = 0;
+            _statelessDelete(_superFlyer.currentSlideIndex);
+            _superFlyer.currentSlideIndex = 0;
             // _draft.numberOfSlides = 1;
-            _draft.listenToSwipe = true;
+            _superFlyer.listenToSwipe = true;
           });
 
         });
@@ -406,17 +409,17 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
     /// 2 - if more than two slides
     else {
 
-      int _originalNumberOfSlides = _draft.numberOfSlides;
-      int _decreasedNumberOfSlides =  _draft.numberOfSlides - 1;
+      int _originalNumberOfSlides = _superFlyer.numberOfSlides;
+      int _decreasedNumberOfSlides =  _superFlyer.numberOfSlides - 1;
       // int _originalIndex = 0;
       // int _decreasedIndex = 0;
 
       /// A - decrease progress bar and trigger visibility
       setState(() {
-        _draft.listenToSwipe = false;
-        _statelessTriggerVisibility(_draft.currentSlideIndex);
-        _draft.numberOfSlides = _decreasedNumberOfSlides;
-        _draft.numberOfStrips = _draft.numberOfSlides;
+        _superFlyer.listenToSwipe = false;
+        _statelessTriggerVisibility(_superFlyer.currentSlideIndex);
+        _superFlyer.numberOfSlides = _decreasedNumberOfSlides;
+        _superFlyer.numberOfStrips = _superFlyer.numberOfSlides;
         // _slidingNext = true;
       });
 
@@ -424,15 +427,15 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
       await Future.delayed(_fadingDurationX, () async {
 
         /// C - slide
-        await  Sliders.slideToNext(_horizontalController, _draft.numberOfSlides, _draft.currentSlideIndex);
+        await  Sliders.slideToNext(_horizontalController, _superFlyer.numberOfSlides, _superFlyer.currentSlideIndex);
 
         /// D - delete when one slide remaining
         if(_originalNumberOfSlides <= 1){
 
           setState(() {
             /// Dx - delte data
-            _statelessDelete(_draft.currentSlideIndex);
-            _draft.listenToSwipe = true;
+            _statelessDelete(_superFlyer.currentSlideIndex);
+            _superFlyer.listenToSwipe = true;
           });
 
         }
@@ -444,7 +447,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
           await Future.delayed(_fadingDurationX, () async {
 
             /// Dx - delete data
-            _statelessDelete(_draft.currentSlideIndex);
+            _statelessDelete(_superFlyer.currentSlideIndex);
             /// F - snap to index 0
             await Sliders.snapTo(_horizontalController, 0);
 
@@ -452,7 +455,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
 
             /// G - trigger progress bar listener (onPageChangedIsOn)
             setState(() {
-              _draft.listenToSwipe = true;
+              _superFlyer.listenToSwipe = true;
             });
 
           });
@@ -463,20 +466,20 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
 
     }
 
-    print('DELETING ENDS AT (FIRST) : index : $_draft.currentSlideIndex, numberOfSlides : $_draft.numberOfSlides ------------------------------------');
+    print('DELETING ENDS AT (FIRST) : index : $_superFlyer.currentSlideIndex, numberOfSlides : $_superFlyer.numberOfSlides ------------------------------------');
   }
 // ------------------------------------------------o
   Future<void> _deleteMiddleOrLastSlide() async {
-    print('XXXXX ----- DELETING STARTS AT (MIDDLE) index : $_draft.currentSlideIndex, numberOfSlides : $_draft.numberOfSlides');
+    print('XXXXX ----- DELETING STARTS AT (MIDDLE) index : $_superFlyer.currentSlideIndex, numberOfSlides : $_superFlyer.numberOfSlides');
 
-    int _originalIndex = _draft.currentSlideIndex;
+    int _originalIndex = _superFlyer.currentSlideIndex;
 
     /// A - decrease progress bar and trigger visibility
     setState(() {
-      _draft.listenToSwipe = false;
-      _draft.currentSlideIndex = _draft.currentSlideIndex - 1;
-      _draft.swipeDirection = SwipeDirection.freeze;
-      _draft.numberOfStrips = _draft.numberOfSlides - 1;
+      _superFlyer.listenToSwipe = false;
+      _superFlyer.currentSlideIndex = _superFlyer.currentSlideIndex - 1;
+      _superFlyer.swipeDirection = SwipeDirection.freeze;
+      _superFlyer.numberOfStrips = _superFlyer.numberOfSlides - 1;
       _statelessTriggerVisibility(_originalIndex);
     });
 
@@ -497,7 +500,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
         /// Dx - delete data & trigger progress bar listener (onPageChangedIsOn)
         setState(() {
           _statelessDelete(_originalIndex);
-          _draft.listenToSwipe = true;
+          _superFlyer.listenToSwipe = true;
         });
 
         // print('XXX after second rebuild AT (MIDDLE) index : $_draft.currentSlideIndex, numberOfSlides : $_draft.numberOfSlides');
@@ -508,16 +511,16 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
 
     });
 
-    print('XXXXX -------  DELETING ENDS AT (MIDDLE) : index : $_draft.currentSlideIndex, numberOfSlides : $_draft.numberOfSlides');
+    print('XXXXX -------  DELETING ENDS AT (MIDDLE) : index : $_superFlyer.currentSlideIndex, numberOfSlides : $_superFlyer.numberOfSlides');
   }
 // ------------------------------------------------o
   void _statelessTriggerVisibility(int index) {
 
     if (index != null){
-      if(index >= 0 && _draft.visibilities.length != 0){
-        print('_draft.visibilities[index] was ${_draft.visibilities[index]} for index : $index');
-        _draft.visibilities[index] = !_draft.visibilities[index];
-        print('_draft.visibilities[index] is ${_draft.visibilities[index]} for index : $index');
+      if(index >= 0 && _superFlyer.slidesVisibilities.length != 0){
+        print('_draft.visibilities[index] was ${_superFlyer.slidesVisibilities[index]} for index : $index');
+        _superFlyer.slidesVisibilities[index] = !_superFlyer.slidesVisibilities[index];
+        print('_draft.visibilities[index] is ${_superFlyer.slidesVisibilities[index]} for index : $index');
       }
       else {
         print('can not trigger visibility for index : $index');
@@ -527,19 +530,19 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
   }
 // ------------------------------------------------o
   void _statelessDelete(int index){
-    print('before stateless delete index was $index, _draft.numberOfSlides was : $_draft.numberOfSlides');
-    _draft.assetsFiles.removeAt(index);
-    _draft.assetsSources.removeAt(index);
-    _draft.visibilities.removeAt(index);
-    _draft.headlinesControllers.removeAt(index);
-    _draft.boxesFits.removeAt(index);
-    _draft.numberOfSlides = _draft.assetsSources.length;
-    print('after stateless delete index is $index, _draft.numberOfSlides is : $_draft.numberOfSlides');
+    print('before stateless delete index was $index, _draft.numberOfSlides was : $_superFlyer.numberOfSlides');
+    _superFlyer.assetsFiles.removeAt(index);
+    _superFlyer.assetsSources.removeAt(index);
+    _superFlyer.slidesVisibilities.removeAt(index);
+    _superFlyer.headlinesControllers.removeAt(index);
+    _superFlyer.boxesFits.removeAt(index);
+    _superFlyer.numberOfSlides = _superFlyer.assetsSources.length;
+    print('after stateless delete index is $index, _draft.numberOfSlides is : $_superFlyer.numberOfSlides');
   }
 /// ----------------------------------------------------------------------------
   Future<void>_selectOnMap() async {
 
-    if (_draft.slides.length == 0){
+    if (_superFlyer.slides.length == 0){
 
       await superDialog(
         context: context,
@@ -570,8 +573,8 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
   void _showMapPreview(double lat, double lng) {
     final staticMapImageUrl = getStaticMapImage(context, lat, lng);
     setState(() {
-      _draft.mapImageURL = staticMapImageUrl;
-      _draft.position = GeoPoint(lat, lng);
+      _mapImageURL = staticMapImageUrl;
+      _superFlyer.position = GeoPoint(lat, lng);
     });
 
     /// TASK : when adding map slide,, should add empty values in _draft.assetsFiles & _assets ... etc
@@ -692,11 +695,11 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                             verseSize: 1,
                             bubbles: false,
                             title: 'Selected keywords',
-                            keywords: _draft.keywords,
-                            selectedWords: _draft.keywords,
+                            keywords: _superFlyer.keywords,
+                            selectedWords: _superFlyer.keywords,
                             onTap: (value){
                               setDialogState(() {
-                                _draft.keywords.remove(value);
+                                _superFlyer.keywords.remove(value);
                               });
                             },
                           ),
@@ -706,10 +709,10 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                             bubbles: true,
                             title: 'Space Type',
                             keywords: _keywords,
-                            selectedWords: _draft.keywords,
+                            selectedWords: _superFlyer.keywords,
                             onTap: (value){
                               setDialogState(() {
-                                _draft.keywords.add(value);
+                                _superFlyer.keywords.add(value);
                               });
                             },
                           ),
@@ -719,8 +722,8 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                             bubbles: true,
                             title: 'Product Use',
                             keywords: _keywords,
-                            selectedWords: _draft.keywords,
-                            onTap: (value){setDialogState(() {_draft.keywords.add(value);});},
+                            selectedWords: _superFlyer.keywords,
+                            onTap: (value){setDialogState(() {_superFlyer.keywords.add(value);});},
                           ),
 
                           // Container(
@@ -771,11 +774,11 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                         verse: 'Product Flyer',
                         verseMaxLines: 2,
                         verseScaleFactor: 0.7,
-                        color: _draft.flyerType == FlyerType.Product ? Colorz.Yellow255 : Colorz.White20,
-                        verseColor: _draft.flyerType == FlyerType.Product ? Colorz.Black230 : Colorz.White255,
+                        color: _superFlyer.flyerType == FlyerType.Product ? Colorz.Yellow255 : Colorz.White20,
+                        verseColor: _superFlyer.flyerType == FlyerType.Product ? Colorz.Black230 : Colorz.White255,
                         onTap: (){
                           setDialogState(() {
-                            _draft.flyerType = FlyerType.Product;
+                            _superFlyer.flyerType = FlyerType.Product;
                           });
                         },
                       ),
@@ -786,11 +789,11 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                         verse: 'Equipment Flyer',
                         verseMaxLines: 2,
                         verseScaleFactor: 0.7,
-                        color: _draft.flyerType == FlyerType.Equipment ? Colorz.Yellow255 : Colorz.White20,
-                        verseColor: _draft.flyerType == FlyerType.Equipment ? Colorz.Black230 : Colorz.White255,
+                        color: _superFlyer.flyerType == FlyerType.Equipment ? Colorz.Yellow255 : Colorz.White20,
+                        verseColor: _superFlyer.flyerType == FlyerType.Equipment ? Colorz.Black230 : Colorz.White255,
                         onTap: (){
                           setDialogState(() {
-                            _draft.flyerType = FlyerType.Equipment;
+                            _superFlyer.flyerType = FlyerType.Equipment;
                           });
                         },
                       ),
@@ -811,7 +814,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
     bool _inputsAreValid;
 
     /// when no pictures picked
-    if (_draft.assetsFiles == null || _draft.assetsFiles.length == 0){
+    if (_superFlyer.assetsFiles == null || _superFlyer.assetsFiles.length == 0){
       await superDialog(
         context: context,
         boolDialog: false,
@@ -822,7 +825,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
     }
 
     /// when less than 3 pictures selected
-    else if (_draft.assetsFiles.length < 3){
+    else if (_superFlyer.assetsFiles.length < 3){
       await superDialog(
         context: context,
         boolDialog: false,
@@ -833,14 +836,14 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
     }
 
     /// when no keywords selected
-    else if (_draft.keywords.length == 0){
+    else if (_superFlyer.keywords.length == 0){
       /// TASK : add these keywords condition in flyer publish validator
       // await
       _inputsAreValid = true;
     }
 
     /// when flyerType is not defined
-    else if (_draft.flyerType == null){
+    else if (_superFlyer.flyerType == null){
       await _selectFlyerType();
       _inputsAreValid = false;
     }
@@ -864,12 +867,12 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
   Future<List<SlideModel>> _createNewSlidesFromAssetsAndTitles() async {
     List<SlideModel> _slides = new List();
 
-    for (int i = 0; i<_draft.assetsFiles.length; i++){
+    for (int i = 0; i<_superFlyer.assetsFiles.length; i++){
 
       SlideModel _newSlide = SlideModel(
         slideIndex: i,
-        picture: _draft.assetsFiles[i],
-        headline: _draft.headlinesControllers[i].text,
+        picture: _superFlyer.assetsFiles[i],
+        headline: _superFlyer.headlinesControllers[i].text,
         description: null,
         savesCount: 0,
         sharesCount: 0,
@@ -905,20 +908,20 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
 
       ///create FlyerModel
       FlyerModel _newFlyerModel = FlyerModel(
-        flyerID: _draft.flyerID, // will be created in createFlyerOps
+        flyerID: _superFlyer.flyerID, // will be created in createFlyerOps
         // -------------------------
-        flyerType: _draft.flyerType,
-        flyerState: _draft.flyerState,
-        keywords: _draft.keywords,
-        flyerShowsAuthor: _draft.showAuthor,
+        flyerType: _superFlyer.flyerType,
+        flyerState: _superFlyer.flyerState,
+        keywords: _superFlyer.keywords,
+        flyerShowsAuthor: _superFlyer.flyerShowsAuthor,
         flyerURL: null,
-        flyerZone: _draft.flyerZone,
+        flyerZone: _superFlyer.flyerZone,
         // -------------------------
         tinyAuthor: _tinyAuthor,
         tinyBz: _tinyBz,
         // -------------------------
         publishTime: null, // will be overriden in createFlyerOps
-        flyerPosition: _draft.position,
+        flyerPosition: _superFlyer.position,
         // -------------------------
         ankhIsOn: false, // shouldn't be saved here but will leave this now
         // -------------------------
@@ -975,20 +978,20 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
 
       ///create updated FlyerModel
       FlyerModel _updatedFlyerModel = FlyerModel(
-        flyerID: _draft.flyerID,
+        flyerID: _superFlyer.flyerID,
         // -------------------------
-        flyerType: _draft.flyerType,
-        flyerState: _draft.flyerState,
-        keywords: _draft.keywords,
-        flyerShowsAuthor: _draft.showAuthor,
+        flyerType: _superFlyer.flyerType,
+        flyerState: _superFlyer.flyerState,
+        keywords: _superFlyer.keywords,
+        flyerShowsAuthor: _superFlyer.flyerShowsAuthor,
         flyerURL: null,
-        flyerZone: _draft.flyerZone,
+        flyerZone: _superFlyer.flyerZone,
         // -------------------------
         tinyAuthor: _flyer.tinyAuthor,
         tinyBz: _flyer.tinyBz,
         // -------------------------
         publishTime: _flyer.publishTime,
-        flyerPosition: _draft.position,
+        flyerPosition: _superFlyer.position,
         // -------------------------
         ankhIsOn: false, // shouldn't be saved here but will leave this now
         // -------------------------
@@ -996,7 +999,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
         // -------------------------
         flyerIsBanned: _flyer.flyerIsBanned,
         deletionTime: _flyer.deletionTime,
-        info: _draft.infoController.text,
+        info: _superFlyer.infoController.text,
         // specs: _draft.specs,
       );
 
@@ -1041,8 +1044,8 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
       // -------------------------
       flyerType : FlyerTypeClass.concludeFlyerType(_bz.bzType),
       flyerState : FlyerState.Draft,
-      keywords : _draft.keywords,
-      flyerShowsAuthor : _draft.showAuthor,
+      keywords : _superFlyer.keywords,
+      flyerShowsAuthor : _superFlyer.flyerShowsAuthor,
       flyerURL : '...',
       flyerZone: _countryPro.currentZone,
       // -------------------------
@@ -1096,17 +1099,17 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
 /// ----------------------------------------------------------------------------
   void _onFitImage(BoxFit fit){
 
-    if(_draft.assetsFiles.isNotEmpty){
+    if(_superFlyer.assetsFiles.isNotEmpty){
 
       if(fit == BoxFit.fitWidth) {
         setState(() {
-          _draft.boxesFits[_draft.currentSlideIndex] = BoxFit.fitHeight;
+          _superFlyer.boxesFits[_superFlyer.currentSlideIndex] = BoxFit.fitHeight;
         });
       }
 
       else {
         setState(() {
-          _draft.boxesFits[_draft.currentSlideIndex] = BoxFit.fitWidth;
+          _superFlyer.boxesFits[_superFlyer.currentSlideIndex] = BoxFit.fitWidth;
         });
       }
 
@@ -1116,12 +1119,12 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
 // -----------------------------------------------------------------------------
   Future<void> _onResetImage() async {
 
-    if(_draft.assetsFiles.isNotEmpty){
+    if(_superFlyer.assetsFiles.isNotEmpty){
 
-      File _file = await Imagers.getFileFromAsset(_draft.assetsSources[_draft.currentSlideIndex]);
+      File _file = await Imagers.getFileFromAsset(_superFlyer.assetsSources[_superFlyer.currentSlideIndex]);
 
       setState(() {
-        _draft.assetsFiles[_draft.currentSlideIndex] = _file;
+        _superFlyer.assetsFiles[_superFlyer.currentSlideIndex] = _file;
       });
 
     }
@@ -1130,21 +1133,21 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
 // -----------------------------------------------------------------------------
   void _onAuthorTap(){
     setState(() {
-      _draft.showAuthor = !_draft.showAuthor;
+      _superFlyer.flyerShowsAuthor = !_superFlyer.flyerShowsAuthor;
     });
   }
 // -----------------------------------------------------------------------------
   Future<void> _onCropImage() async {
 
-    if(_draft.assetsFiles.isNotEmpty){
+    if(_superFlyer.assetsFiles.isNotEmpty){
 
       _triggerLoading();
 
-      File croppedFile = await Imagers.cropImage(context, _draft.assetsFiles[_draft.currentSlideIndex]);
+      File croppedFile = await Imagers.cropImage(context, _superFlyer.assetsFiles[_superFlyer.currentSlideIndex]);
 
       if (croppedFile != null) {
         setState(() {
-          _draft.assetsFiles[_draft.currentSlideIndex] = croppedFile;
+          _superFlyer.assetsFiles[_superFlyer.currentSlideIndex] = croppedFile;
         });
       }
 
@@ -1189,15 +1192,15 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                         // iconSizeFactor: 0.5,
                         verseMaxLines: 2,
                         verseScaleFactor: 0.7,
-                        color: _draft.flyerType == FlyerType.Product ? Colorz.Yellow255 : Colorz.White20,
-                        verseColor: _draft.flyerType == FlyerType.Product ? Colorz.Black230 : Colorz.White255,
+                        color: _superFlyer.flyerType == FlyerType.Product ? Colorz.Yellow255 : Colorz.White20,
+                        verseColor: _superFlyer.flyerType == FlyerType.Product ? Colorz.Black230 : Colorz.White255,
                         onTap: (){
                           setDialogState(() {
-                            _draft.flyerType = FlyerType.Product;
+                            _superFlyer.flyerType = FlyerType.Product;
                           });
 
                           setState(() {
-                            _draft.flyerType = FlyerType.Product;
+                            _superFlyer.flyerType = FlyerType.Product;
                           });
 
                         },
@@ -1212,14 +1215,14 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                         // iconSizeFactor: 0.5,
                         verseMaxLines: 2,
                         verseScaleFactor: 0.7,
-                        color: _draft.flyerType == FlyerType.Equipment ? Colorz.Yellow255 : Colorz.White20,
-                        verseColor: _draft.flyerType == FlyerType.Equipment ? Colorz.Black230 : Colorz.White255,
+                        color: _superFlyer.flyerType == FlyerType.Equipment ? Colorz.Yellow255 : Colorz.White20,
+                        verseColor: _superFlyer.flyerType == FlyerType.Equipment ? Colorz.Black230 : Colorz.White255,
                         onTap: (){
                           setDialogState(() {
-                            _draft.flyerType = FlyerType.Equipment;
+                            _superFlyer.flyerType = FlyerType.Equipment;
                           });
                           setState(() {
-                            _draft.flyerType = FlyerType.Equipment;
+                            _superFlyer.flyerType = FlyerType.Equipment;
                           });
                         },
                       ),
@@ -1239,8 +1242,8 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
     CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
 
     List<Map<String,String>> _flags = _countryPro.getAvailableCountries(context);
-    List<Map<String,String>> _cities = _countryPro.getCitiesNamesMapsByIso3(context, _draft.flyerZone.countryID);
-    List<Map<String,String>> _districts = _countryPro.getDistrictsNameMapsByCityID(context, _draft.flyerZone.cityID);
+    List<Map<String,String>> _cities = _countryPro.getCitiesNamesMapsByIso3(context, _superFlyer.flyerZone.countryID);
+    List<Map<String,String>> _districts = _countryPro.getDistrictsNameMapsByCityID(context, _superFlyer.flyerZone.cityID);
 
     Keyboarders.minimizeKeyboardOnTapOutSide(context);
 
@@ -1260,19 +1263,19 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
         sheetType: BottomSheetType.BottomSheet,
         buttonTap: (countryID) async {
 
-          String _lastCountryID = _draft.flyerZone.countryID;
+          String _lastCountryID = _superFlyer.flyerZone.countryID;
 
           setState(() {
-            _draft.flyerZone.countryID = countryID;
-            _cities = _countryPro.getCitiesNamesMapsByIso3(context, _draft.flyerZone.countryID);
+            _superFlyer.flyerZone.countryID = countryID;
+            _cities = _countryPro.getCitiesNamesMapsByIso3(context, _superFlyer.flyerZone.countryID);
             _openNextDialog = true;
           });
 
           /// if changed country, reset city & district
           if (_lastCountryID != countryID){
             setState(() {
-            _draft.flyerZone.cityID = null;
-            _draft.flyerZone.districtID = null;
+            _superFlyer.flyerZone.cityID = null;
+            _superFlyer.flyerZone.districtID = null;
             });
           }
 
@@ -1289,7 +1292,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
         context: context,
         draggable: true,
         height: null,
-        title: '${_countryPro.getCountryNameInCurrentLanguageByIso3(context, _draft.flyerZone.countryID)} Cities',
+        title: '${_countryPro.getCountryNameInCurrentLanguageByIso3(context, _superFlyer.flyerZone.countryID)} Cities',
         child: BottomDialogButtons(
           listOfMaps: _cities,
           mapValueIs: MapValueIs.String,
@@ -1298,10 +1301,10 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
           sheetType: BottomSheetType.Province,
           buttonTap: (cityID) async {
 
-            String _lastCity = _draft.flyerZone.cityID;
+            String _lastCity = _superFlyer.flyerZone.cityID;
 
             setState(() {
-              _draft.flyerZone.cityID = cityID;
+              _superFlyer.flyerZone.cityID = cityID;
               _districts = _countryPro.getDistrictsNameMapsByCityID(context, cityID);
               _openNextDialog = true;
             });
@@ -1309,7 +1312,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
             /// if city changed, reset district
             if (_lastCity != cityID){
               setState(() {
-                _draft.flyerZone.districtID = null;
+                _superFlyer.flyerZone.districtID = null;
               });
             }
 
@@ -1325,7 +1328,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
         context: context,
         draggable: true,
         height: null,
-        title: '${_countryPro.getCityNameWithCurrentLanguageIfPossible(context, _draft.flyerZone.cityID)} Districts',
+        title: '${_countryPro.getCityNameWithCurrentLanguageIfPossible(context, _superFlyer.flyerZone.cityID)} Districts',
         child: BottomDialogButtons(
           listOfMaps: _districts,
           mapValueIs: MapValueIs.String,
@@ -1334,7 +1337,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
           sheetType: BottomSheetType.District,
           buttonTap: (districtID) async {
             setState(() {
-              _draft.flyerZone.districtID = districtID;
+              _superFlyer.flyerZone.districtID = districtID;
             });
 
             await Nav.goBack(context);
@@ -1375,7 +1378,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
               counterIsOn: true,
               inputSize: 2,
               centered: false,
-              textController: _draft.infoController,
+              textController: _superFlyer.infoController,
               inputWeight: VerseWeight.thin,
               inputShadow: false,
               fieldIsFormField: false,
@@ -1425,7 +1428,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
 // -----------------------------------------------------------------------------
   void _triggerEditMode(){
     setState(() {
-      _draft.editMode = !_draft.editMode;
+      _superFlyer.editMode = !_superFlyer.editMode;
     });
   }
 // -----------------------------------------------------------------------------
@@ -1442,7 +1445,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
     AuthorModel _author = widget.firstTimer ?
     AuthorModel.getAuthorFromBzByAuthorID(_bz, superUserID()) :
     AuthorModel.getAuthorFromBzByAuthorID(_bz, _flyer.tinyAuthor.userID);
-    BoxFit _currentPicFit = _draft.boxesFits.length == 0 ? null : _draft.boxesFits[_draft.currentSlideIndex];
+    BoxFit _currentPicFit = _superFlyer.boxesFits.length == 0 ? null : _superFlyer.boxesFits[_superFlyer.currentSlideIndex];
 
     return MainLayout(
       pyramids: Iconz.DvBlankSVG,
@@ -1475,86 +1478,90 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
 
               /// PANEL
               EditorPanel(
-                flyerZoneWidth: _flyerZoneWidth,
+                superFlyer: _superFlyer,
                 panelWidth: _panelWidth,
-                boxFit: _currentPicFit,
-                showAuthor: _draft.showAuthor,
-                onAuthorTap: _onAuthorTap,
-                onTriggerEditMode: _triggerEditMode,
-                zone: _draft.flyerZone,
-                flyerType: _draft.flyerType,
-                onFlyerTypeTap: () async {await _onChangeFlyerType();},
-                onZoneTap: () async {await _onChangeZone();},
-                onAboutTap: () async {await _onAboutTap();},
-                onKeywordsTap: () async {await _onKeywordsTap();},
-                draft: _draft,
+                bzModel: _bz,
               ),
 
               /// FLYER
-              FlyerZone(
-                flyerSizeFactor: _flyerSizeFactor,
-                tappingFlyerZone: (){},
-                onLongPress: (){},
-                stackWidgets: <Widget>[
 
-                  /// FLYER PAGES
-                  FlyerPages(
-                    flyerZoneWidth: _flyerZoneWidth,
-                    horizontalController: _horizontalController,
-                    draft: _draft,
-                    onHorizontalSwipe: (i) => _onHorizontalSwipe(i),
-                    onVerticalSwipe: _triggerKeywordsView,
-                    bzPageIsOn: false,
-                    listenToSwipe: true,
-                    ankhIsOn: false,
-                    tappingAnkh: (){},
-                    currentPicFit: _currentPicFit,
-                    onAddImages: () async {await _getMultiGalleryImages(flyerZoneWidth: _flyerZoneWidth);},
-                    onDeleteSlide: _deleteSlide,
-                    onCropImage: () async {_onCropImage();},
-                    onResetImage: _onResetImage,
-                    onFitImage: () async {await _onFitImage(_currentPicFit);},
-                    onVerticalBack: () async {
-                      print('shit');
-                      await Sliders.slideToBackFrom(_verticalController, 1);
-                      // _onVerticalIndexChanged(0);
-                    },
-                    onFlyerTypeTap: () async {await _onChangeFlyerType();},
-                    onZoneTap: () async {await _onChangeZone();},
-                    onAboutTap: () async {await _onAboutTap();},
-                    onKeywordsTap: () async {await _onKeywordsTap();},
-                    verticalController: _verticalController,
-                    infoScrollController: _infoScrollController,
-                    onVerticalIndexChanged:  (i) => _onVerticalIndexChanged(i),
-                  ),
+              FinalFlyer(
+                flyerZoneWidth: _flyerZoneWidth,
+                flyerModel: _flyer,
+                tinyFlyer: null,
+                flyerID: SuperFlyer.draftID,
+                bzModel: _bz,
+                flyerMode: widget.firstTimer ? FlyerMode.newDraft : FlyerMode.draftFromFlyer,
+                initialSlideIndex: 0,
 
-                  /// FLYER HEADER
-                  FlyerHeader(
-                    superFlyer: null,
-                    tinyBz: TinyBz.getTinyBzFromBzModel(_bz),
-                    tinyAuthor: TinyUser.getTinyAuthorFromAuthorModel(_author),
-                    flyerShowsAuthor: _draft.showAuthor,
-                    followIsOn: false,
-                    flyerZoneWidth: Scale.superFlyerZoneWidth(context, _flyerSizeFactor),
-                    bzPageIsOn: false,
-                    tappingHeader: (){},
-                    onFollowTap: (){},
-                    onCallTap: (){
-                      print('call');
-                    },
-                  ),
-
-                  /// PROGRESS BAR
-                  if(_draft.numberOfStrips != 0 && _draft.currentSlideIndex != null)
-                    ProgressBar(
-                      duration: _slidingDuration,
-                      opacity: _progressOpacity,
-                      flyerZoneWidth: _flyerZoneWidth,
-                      draft: _draft,
-                    ),
-
-                ],
               ),
+
+              // FlyerZone(
+              //   flyerSizeFactor: _flyerSizeFactor,
+              //   tappingFlyerZone: (){},
+              //   onLongPress: (){},
+              //   stackWidgets: <Widget>[
+              //
+              //     /// FLYER PAGES
+              //     // FlyerPages(
+              //     //   superFlyer: ,
+              //       // flyerZoneWidth: _flyerZoneWidth,
+              //       // horizontalController: _horizontalController,
+              //       // draft: _draft,
+              //       // onHorizontalSwipe: (i) => _onHorizontalSwipe(i),
+              //       // onVerticalSwipe: _triggerKeywordsView,
+              //       // bzPageIsOn: false,
+              //       // listenToSwipe: true,
+              //       // ankhIsOn: false,
+              //       // tappingAnkh: (){},
+              //       // currentPicFit: _currentPicFit,
+              //       // onAddImages: () async {await _getMultiGalleryImages(flyerZoneWidth: _flyerZoneWidth);},
+              //       // onDeleteSlide: _deleteSlide,
+              //       // onCropImage: () async {_onCropImage();},
+              //       // onResetImage: _onResetImage,
+              //       // onFitImage: () async {await _onFitImage(_currentPicFit);},
+              //       // onVerticalBack: () async {
+              //       //   print('shit');
+              //       //   await Sliders.slideToBackFrom(_verticalController, 1);
+              //       //   // _onVerticalIndexChanged(0);
+              //       // },
+              //       // onFlyerTypeTap: () async {await _onChangeFlyerType();},
+              //       // onZoneTap: () async {await _onChangeZone();},
+              //       // onAboutTap: () async {await _onAboutTap();},
+              //       // onKeywordsTap: () async {await _onKeywordsTap();},
+              //       // verticalController: _verticalController,
+              //       // infoScrollController: _infoScrollController,
+              //       // onVerticalIndexChanged:  (i) => _onVerticalIndexChanged(i),
+              //     // ),
+              //
+              //     /// FLYER HEADER
+              //     // FlyerHeader(
+              //     //   superFlyer: null,
+              //       // tinyBz: TinyBz.getTinyBzFromBzModel(_bz),
+              //       // tinyAuthor: TinyUser.getTinyAuthorFromAuthorModel(_author),
+              //       // flyerShowsAuthor: _draft.showAuthor,
+              //       // followIsOn: false,
+              //       // flyerZoneWidth: Scale.superFlyerZoneWidth(context, _flyerSizeFactor),
+              //       // bzPageIsOn: false,
+              //       // tappingHeader: (){},
+              //       // onFollowTap: (){},
+              //       // onCallTap: (){
+              //       //   print('call');
+              //       // },
+              //     // ),
+              //
+              //     /// PROGRESS BAR
+              //     // if(_draft.numberOfStrips != 0 && _draft.currentSlideIndex != null)
+              //     //   ProgressBar(
+              //     //
+              //     //     duration: _slidingDuration,
+              //     //     opacity: _progressOpacity,
+              //     //     flyerZoneWidth: _flyerZoneWidth,
+              //     //     draft: _draft,
+              //     //   ),
+              //
+              //   ],
+              // ),
 
             ],
           ),
