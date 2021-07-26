@@ -98,7 +98,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
       flyerType : FlyerTypeClass.concludeFlyerType(widget.bzModel.bzType),
       flyerState : FlyerState.Draft,
       keywords : _superFlyer?.keywords,
-      flyerShowsAuthor : _superFlyer?.flyerShowsAuthor,
+      flyerShowsAuthor : true,
       flyerURL : '...',
       flyerZone: _countryPro.currentZone,
       // -------------------------
