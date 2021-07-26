@@ -16,7 +16,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 
 class AuthorLabel extends StatelessWidget {
-  final SuperFlyer superFlyer;
   final double flyerZoneWidth;
   final TinyUser tinyAuthor;
   final TinyBz tinyBz;
@@ -26,7 +25,6 @@ class AuthorLabel extends StatelessWidget {
   final Function tappingLabel;
 
   AuthorLabel({
-    @required this.superFlyer,
     @required this.flyerZoneWidth,
     @required this.tinyAuthor,
     @required this.tinyBz,
@@ -101,9 +99,8 @@ class AuthorLabel extends StatelessWidget {
                 Expanded(
                   flex: 15,
                   child: AuthorPic(
-                    superFlyer: superFlyer,
-                    // flyerZoneWidth: superFlyer.flyerZoneWidth,
-                    // authorPic: superFlyer.flyerTinyAuthor.pic,
+                    flyerZoneWidth: flyerZoneWidth,
+                    authorPic: tinyAuthor.pic,
                     // tinyBz:
                   ),
                 ),
@@ -113,7 +110,7 @@ class AuthorLabel extends StatelessWidget {
                 Expanded(
                   flex: 47,
                   child: Container(
-                    width: superFlyer.flyerZoneWidth * Ratioz.xxflyerAuthorNameWidth,
+                    width: flyerZoneWidth * Ratioz.xxflyerAuthorNameWidth,
                     padding: EdgeInsets.symmetric(horizontal: _headerTextSidePadding),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -123,26 +120,26 @@ class AuthorLabel extends StatelessWidget {
 
                         // --- AUTHOR NAME
                         SuperVerse(
-                          verse: superFlyer?.flyerTinyAuthor?.name,
+                          verse: tinyAuthor.name,
                           italic: false,
                           centered: false,
                           shadow: _versesShadow,
                           designMode: _versesDesignMode,
                           size: 2,
-                          scaleFactor: superFlyer.flyerZoneWidth / _screenWidth,
+                          scaleFactor: flyerZoneWidth / _screenWidth,
                           maxLines: 1,
                         ),
 
                             // --- AUTHOR TITLE
                         SuperVerse(
-                          verse: superFlyer?.flyerTinyAuthor?.title,
+                          verse: tinyAuthor?.title,
                           designMode: _versesDesignMode,
                           size: 1,
                           weight: VerseWeight.regular,
                           shadow: _versesShadow,
                           centered: false,
                           italic: true,
-                          scaleFactor: superFlyer.flyerZoneWidth / _screenWidth,
+                          scaleFactor: flyerZoneWidth / _screenWidth,
                           maxLines: 1,
                         ),
 
@@ -155,7 +152,7 @@ class AuthorLabel extends StatelessWidget {
                           weight: VerseWeight.regular,
                           size: 0,
                           designMode: _versesDesignMode,
-                          scaleFactor: superFlyer.flyerZoneWidth / _screenWidth,
+                          scaleFactor: flyerZoneWidth / _screenWidth,
                           maxLines: 1,
                         ),
 
@@ -171,7 +168,6 @@ class AuthorLabel extends StatelessWidget {
 }
 
 class AuthorPic extends StatelessWidget {
-  final SuperFlyer superFlyer;
   final bool isAddAuthorButton;
 
   final double flyerZoneWidth;
@@ -179,7 +175,6 @@ class AuthorPic extends StatelessWidget {
   final TinyBz tinyBz;
 
   AuthorPic({
-    @required this.superFlyer,
     this.isAddAuthorButton = false,
 
     this.flyerZoneWidth,
@@ -197,18 +192,18 @@ class AuthorPic extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    // === === === === === === === === === === === === === === === === === === === === === === === === === === === ===
-    double _authorImageWidth = superFlyer.flyerZoneWidth * Ratioz.xxflyerAuthorPicWidth;
+// -----------------------------------------------------------------------------
+    double _authorImageWidth = flyerZoneWidth * Ratioz.xxflyerAuthorPicWidth;
     double _authorImageHeight = _authorImageWidth;
-    double _authorImageCorners = superFlyer.flyerZoneWidth * Ratioz.xxflyerAuthorPicCorner;
-    // === === === === === === === === === === === === === === === === === === === === === === === === === === === ===
+    double _authorImageCorners = flyerZoneWidth * Ratioz.xxflyerAuthorPicCorner;
+// -----------------------------------------------------------------------------
     BorderRadius _authorPicBorders = Borderers.superBorderOnly(
         context: context,
         enTopLeft: _authorImageCorners,
         enBottomLeft: 0,
         enBottomRight: _authorImageCorners,
         enTopRight: _authorImageCorners);
-    // === === === === === === === === === === === === === === === === === === === === === === === === === === === ===
+// -----------------------------------------------------------------------------
     return
       Container(
         height: _authorImageHeight,
@@ -217,11 +212,11 @@ class AuthorPic extends StatelessWidget {
             color: Colorz.White10,
             borderRadius: _authorPicBorders,
             image:
-            superFlyer.flyerTinyAuthor?.pic == null ? null
+            authorPic == null ? null
                 :
-            ObjectChecker.objectIsJPGorPNG(superFlyer.flyerTinyAuthor?.pic)?
+            ObjectChecker.objectIsJPGorPNG(authorPic)?
             DecorationImage(
-                image: AssetImage(superFlyer.flyerTinyAuthor?.pic),
+                image: AssetImage(authorPic),
                 fit: BoxFit.cover
             ) : null
         ),
@@ -231,53 +226,36 @@ class AuthorPic extends StatelessWidget {
             borderRadius: _authorPicBorders,
             child:
             isAddAuthorButton == true ?
-                GestureDetector(
-                  onTap: () => _tapAddAuthor(context),
-                  child: Container(
-                    width: _authorImageWidth,
-                    height: _authorImageHeight,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-
-                        DreamBox(
-                          width: _authorImageWidth * 0.35,
-                          height: _authorImageHeight * 0.35,
-                          icon: Iconz.Plus,
-                          iconSizeFactor: 1,
-                          bubble: false,
-                          onTap: () => _tapAddAuthor(context),
-                        ),
-
-                        SuperVerse(
-                          verse: 'Add new Author',
-                          size: 0,
-                          maxLines: 2,
-                        ),
-
-                      ],
+            GestureDetector(
+              onTap: () => _tapAddAuthor(context),
+              child: Container(
+                width: _authorImageWidth,
+                height: _authorImageHeight,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    DreamBox(
+                      width: _authorImageWidth * 0.35,
+                      height: _authorImageHeight * 0.35,
+                      icon: Iconz.Plus,
+                      iconSizeFactor: 1,
+                      bubble: false,
+                      onTap: () => _tapAddAuthor(context),
                     ),
-                  ),
-                )
+                    SuperVerse(
+                      verse: 'Add new Author',
+                      size: 0,
+                      maxLines: 2,
+                    ),
+                  ],
+                ),
+              ),
+            )
                 :
-            Imagers.superImageWidget(superFlyer.flyerTinyAuthor?.pic)
+            Imagers.superImageWidget(authorPic)
         ),
 
-        // objectIsFile(authorPic) ?
-        // ClipRRect(
-        //   borderRadius: _authorPicBorders,
-        //   child: Image.file(
-        //     authorPic,
-        //     fit: BoxFit.cover,
-        //     width: _authorImageWidth,
-        //     height: _authorImageHeight,
-        //     // colorBlendMode: BlendMode.overlay,
-        //     // color: Colorz.WhiteAir,
-        //   ),
-        // )
-        //     :
-        // Container(),
       );
   }
 }

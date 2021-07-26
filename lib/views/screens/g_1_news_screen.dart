@@ -1,7 +1,7 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/models/super_flyer.dart';
-import 'package:bldrs/views/widgets/in_pyramids/news/new_flyer.dart';
+import 'package:bldrs/views/widgets/in_pyramids/news/new_flyer_notification.dart';
 import 'package:flutter/material.dart';
 
 class NewsScreen extends StatelessWidget {
@@ -19,7 +19,7 @@ class NewsScreen extends StatelessWidget {
           publisherType: PublisherType.Business,
           newsAge: 5,
           publisherPic: Iconz.Bz,
-          superFlyer: SuperFlyer.createEmptySuperFlyer(context: context, flyerZoneWidth: _flyerZoneWidth),
+          superFlyer: SuperFlyer.createEmptySuperFlyer(flyerZoneWidth: _flyerZoneWidth),
         ),
 
         // --- ALL NEWS : NEW PUBLISHED FLYER BY BZ WITH AUTHOR : (INSTANTANEOUS)
@@ -28,7 +28,7 @@ class NewsScreen extends StatelessWidget {
           publisherPic: Iconz.DumAuthorPic,
           newsAge: 15,
           publisherType: PublisherType.BzAuthor,
-          superFlyer: SuperFlyer.createEmptySuperFlyer(context: context, flyerZoneWidth: _flyerZoneWidth),
+          superFlyer: SuperFlyer.createEmptySuperFlyer(flyerZoneWidth: _flyerZoneWidth),
         ),
 
         // --- ALL NEWS : NEW PUBLISHED FLYER BY USER OF TYPE : (INSTANTANEOUS)
@@ -37,7 +37,7 @@ class NewsScreen extends StatelessWidget {
           publisherPic: Iconz.DvRageh,
           newsAge: 150,
           publisherType: PublisherType.User,
-          superFlyer: SuperFlyer.createEmptySuperFlyer(context: context, flyerZoneWidth: _flyerZoneWidth),
+          superFlyer: SuperFlyer.createEmptySuperFlyer(flyerZoneWidth: _flyerZoneWidth),
         ),
 
         // o ( FOLLOWING NOTIFICATIONS )

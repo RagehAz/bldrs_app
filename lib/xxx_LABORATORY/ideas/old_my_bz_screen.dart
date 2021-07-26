@@ -127,6 +127,7 @@ class _OldMyBzScreenState extends State<OldMyBzScreen> {
                         children: <Widget>[
 
                           FlyerZoneBox(
+                            flyerZoneWidth: _flyerZoneWidth,
                             superFlyer: SuperFlyer.getSuperFlyerFromBzModelOnly(
                               onHeaderTap: null,
                               flyerZoneWidth: _flyerZoneWidth,

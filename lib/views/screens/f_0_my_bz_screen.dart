@@ -314,7 +314,7 @@ class _MyBzScreenState extends State<MyBzScreen> {
 
                       Stratosphere(),
 
-                      /// --- GALLERY
+                      /// --- PUBLISHED FLYERS
                       InPyramidsBubble(
                         title: 'Published Flyers',
                         centered: false,
@@ -328,12 +328,9 @@ class _MyBzScreenState extends State<MyBzScreen> {
                               bzModel: bzModel,
                               onHeaderTap: () => print('on header tap in f 0 my bz Screen'),
                             ),
-                            flyerZoneWidth: Scale.superBubbleClearWidth(context),
                             showFlyers: true,
-                            bz: bzModel,
                             // showOldFlyers: _showOldFlyers,
                             flyerOnTap: (tinyFlyer) async {
-
                               dynamic _rebuild = await Navigator.push(context,
                                   new MaterialPageRoute(
                                       builder: (context) => new BzFlyerScreen(
@@ -341,7 +338,6 @@ class _MyBzScreenState extends State<MyBzScreen> {
                                         bzModel: bzModel,
                                       )
                                   ));
-
                               if (_rebuild == true){
                                 print('we should rebuild');
                                 setState(() { });

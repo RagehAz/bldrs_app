@@ -6,6 +6,7 @@ import 'package:bldrs/controllers/drafters/keyboarders.dart';
 import 'package:bldrs/controllers/drafters/launchers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/sliders.dart';
+import 'package:bldrs/controllers/drafters/text_checkers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
@@ -16,12 +17,21 @@ import 'package:bldrs/firestore/record_ops.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/flyer_type_class.dart';
+import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/records/share_model.dart';
 import 'package:bldrs/models/secondary_models/draft_flyer_model.dart';
+import 'package:bldrs/models/sub_models/author_model.dart';
+import 'package:bldrs/models/sub_models/publish_time_model.dart';
+import 'package:bldrs/models/sub_models/slide_model.dart';
+import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
+import 'package:bldrs/models/tiny_models/tiny_user.dart';
 import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
+import 'package:bldrs/views/screens/x_x_flyer_on_map.dart';
+import 'package:bldrs/views/widgets/bubbles/words_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_dialog_buttons.dart';
 import 'package:bldrs/views/widgets/dialogs/dialogz.dart';
@@ -37,7 +47,9 @@ import 'package:bldrs/views/widgets/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/models/super_flyer.dart';
 import 'package:bldrs/views/widgets/textings/super_text_field.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
+import 'package:bldrs/xxx_LABORATORY/camera_and_location/location_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:provider/provider.dart';
 
@@ -112,11 +124,22 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 // -----------------------------------------------------------------------------
   @override
   void initState() {
+    _superFlyer = SuperFlyer.createEmptySuperFlyer(flyerZoneWidth: widget.flyerZoneWidth);
     _prof = Provider.of<FlyersProvider>(context, listen: false);
      _bzModel = _prof.myCurrentBzModel;
 
     super.initState();
   }
+  // -----------------------------------------------------------------------------
+  @override
+  void dispose() {
+    TextChecker.disposeAllTextControllers(_superFlyer.headlinesControllers);
+    Animators.disposeControllerIfPossible(_superFlyer.verticalController);
+    Animators.disposeControllerIfPossible(_superFlyer.horizontalController);
+    Animators.disposeControllerIfPossible(_superFlyer.infoScrollController);
+    super.dispose();
+  }
+
 // -----------------------------------------------------------------------------
   bool _isInit = true;
   @override
@@ -178,7 +201,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
           /// B - when nothing provided at all
           else {
-            _superFlyer = SuperFlyer.createEmptySuperFlyer(context: context, flyerZoneWidth: widget.flyerZoneWidth);
+            _superFlyer = SuperFlyer.createEmptySuperFlyer(flyerZoneWidth: widget.flyerZoneWidth);
           }
 
         }
@@ -475,6 +498,28 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     } else {
       _superFlyer.progressBarOpacity = 1;
     }
+  }
+// -----------------------------------------------------o
+  Future<void> _triggerKeywordsView() async {
+
+    print('_triggerKeywordsView : _verticalIndex : ${_superFlyer.verticalIndex}');
+
+
+    /// open keywords
+    if(_superFlyer.verticalIndex == 0){
+      await Sliders.slideToNext(_superFlyer.verticalController, 2, 0);
+      // await Sliders.slideToNext(_panelController, 2, 0);
+    }
+    /// close keywords
+    else {
+      await Sliders.slideToBackFrom(_superFlyer.verticalController, 1);
+      // await Sliders.slideToBackFrom(_panelController, 1);
+    }
+
+    setState(() {
+      _statelessTriggerProgressOpacity();
+    });
+
   }
 // -----------------------------------------------------o
   Future<void> _onSwipeFlyer() async {
@@ -1249,7 +1294,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     );
 
   }
-// -----------------------------------------------------------------------------
+// -----------------------------------------------------o
   Future<void> _onKeywordsTap() async {
     double _dialogHeight = BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.5);
     double _dialogClearWidth = BottomDialog.dialogClearWidth(context);
@@ -1278,7 +1323,469 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         }
     );
   }
+// -----------------------------------------------------o
+  void _addKeywords(){
+
+
+    List<Keyword> _keywords = <Keyword>[
+      Keyword.bldrsKeywords()[100],
+      Keyword.bldrsKeywords()[120],
+      Keyword.bldrsKeywords()[205],
+      Keyword.bldrsKeywords()[403],
+      Keyword.bldrsKeywords()[600],
+    ];
+
+    double _dialogHeight = BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.7);
+
+    BottomDialog.slideStatefulBottomDialog(
+      context: context,
+      height: _dialogHeight,
+      draggable: true,
+      builder: (context, title){
+        return StatefulBuilder(
+            builder: (BuildContext context, StateSetter setDialogState){
+              return BottomDialog(
+                height: _dialogHeight,
+                draggable: true,
+                title: title,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+
+                    SuperVerse(
+                      verse: 'Add Keywords to the flyer',
+                      size: 3,
+                      weight: VerseWeight.thin,
+                      italic: true,
+                    ),
+
+                    Container(
+                      width: BottomDialog.dialogClearWidth(context),
+                      height: BottomDialog.dialogClearHeight(title: 'x', context: context, overridingDialogHeight: _dialogHeight),
+                      child: ListView(
+                        // key: UniqueKey(),
+
+                        children: <Widget>[
+
+                          SizedBox(
+                            height: Ratioz.appBarPadding,
+                          ),
+
+                          KeywordsBubble(
+                            verseSize: 1,
+                            bubbles: false,
+                            title: 'Selected keywords',
+                            keywords: _superFlyer.keywords,
+                            selectedWords: _superFlyer.keywords,
+                            onTap: (value){
+                              setDialogState(() {
+                                _superFlyer.keywords.remove(value);
+                              });
+                            },
+                          ),
+
+                          KeywordsBubble(
+                            verseSize: 1,
+                            bubbles: true,
+                            title: 'Space Type',
+                            keywords: _keywords,
+                            selectedWords: _superFlyer.keywords,
+                            onTap: (value){
+                              setDialogState(() {
+                                _superFlyer.keywords.add(value);
+                              });
+                            },
+                          ),
+
+                          KeywordsBubble(
+                            verseSize: 1,
+                            bubbles: true,
+                            title: 'Product Use',
+                            keywords: _keywords,
+                            selectedWords: _superFlyer.keywords,
+                            onTap: (value){setDialogState(() {_superFlyer.keywords.add(value);});},
+                          ),
+
+                          // Container(
+                          //   width: dialogClearWidth(context)(context),
+                          //   height: 800,
+                          //   color: Colorz.BloodTest,
+                          // ),
+
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            }
+        );
+      },
+    );
+  }
+// -----------------------------------------------------o
+  Future<void>_selectOnMap() async {
+
+    if (_superFlyer.slides.length == 0){
+
+      await superDialog(
+        context: context,
+        title: '',
+        body: 'Map Slide Can not be The First Slide',
+        boolDialog: false,
+      );
+
+    } else {
+      final LatLng selectedLocation = await Navigator.of(context).push<LatLng>(
+          MaterialPageRoute(
+              builder: (ctx) =>
+                  GoogleMapScreen(
+                    isSelecting: true,
+                    flyerZoneWidth: Scale.superFlyerZoneWidth(context, 0.8),
+                  )
+          )
+      );
+      if (selectedLocation == null) {
+        return;
+      }
+      _showMapPreview(selectedLocation.latitude, selectedLocation.longitude);
+      _newLocationSlide();
+      print("${selectedLocation.latitude},${selectedLocation.longitude}");
+    }
+  }
+// -----------------------------------------------------o
+  void _showMapPreview(double lat, double lng) {
+    final staticMapImageUrl = getStaticMapImage(context, lat, lng);
+    setState(() {
+      // _mapImageURL = staticMapImageUrl;
+      // _superFlyer.position = GeoPoint(lat, lng);
+    });
+
+    /// TASK : when adding map slide,, should add empty values in _draft.assetsFiles & _assets ... etc
+  }
+// -----------------------------------------------------o
+  Future<void> _newLocationSlide() async {
+
+    /// TASK : REVISION REQUIRED
+    // if (_currentSlides.length == 0){
+    //
+    //   await superDialog(
+    //     context: context,
+    //     title: '',
+    //     body: 'Add at least one Picture Slide First',
+    //     boolDialog: false,
+    //   );
+    //
+    //
+    // } else if (_currentFlyerPosition == null){
+    //
+    //   setState(() {
+    //     _currentSlides.add(
+    //         SlideModel(
+    //           slideIndex: _currentSlides.length,
+    //           picture: _draft.mapImageURL,
+    //           headline: _titleControllers[_currentSlides.length].text,
+    //         ));
+    //     _draft.currentSlideIndex = _currentSlides.length - 1;
+    //     _draft.numberOfSlides = _currentSlides.length;
+    //     _draft.visibilities.add(true);
+    //     // slidesModes.add(SlideMode.Map);
+    //     _titleControllers.add(TextEditingController());
+    //     onPageChangedIsOn = true;
+    //   });
+    //   Sliders.slideTo(_pageController, _draft.currentSlideIndex);
+    //
+    // } else {
+    //
+    // }
+
+  }
 // -----------------------------------------------------------------------------
+
+  /// CREATION METHODS
+
+// -----------------------------------------------------o
+  Future<List<SlideModel>> processSlides(
+      List<String> picturesURLs,
+      List<SlideModel> currentSlides,
+      List<TextEditingController> titleControllers
+      ) async {
+    List<SlideModel> _slides = new List();
+
+    for (var slide in currentSlides){
+
+      int i = slide.slideIndex;
+
+      SlideModel _newSlide = SlideModel(
+        slideIndex: currentSlides[i].slideIndex,
+        picture: picturesURLs[i],
+        headline: titleControllers[i].text,
+        description: '',
+        savesCount: _superFlyer.firstTimer ? 0 : _superFlyer.slides[i].savesCount,
+        sharesCount: _superFlyer.firstTimer ? 0 : _superFlyer.slides[i].sharesCount,
+        viewsCount: _superFlyer.firstTimer ? 0 : _superFlyer.slides[i].viewsCount,
+      );
+
+      _slides.add(_newSlide);
+
+    }
+
+    print('slides are $_slides');
+
+    return _slides;
+  }
+// -----------------------------------------------------o
+  Future<bool> _inputsValidator() async {
+    bool _inputsAreValid;
+
+    /// when no pictures picked
+    if (_superFlyer.assetsFiles == null || _superFlyer.assetsFiles.length == 0){
+      await superDialog(
+        context: context,
+        boolDialog: false,
+        // title: 'No '
+        body: 'First, select some pictures',
+      );
+      _inputsAreValid = false;
+    }
+
+    /// when less than 3 pictures selected
+    else if (_superFlyer.assetsFiles.length < 3){
+      await superDialog(
+        context: context,
+        boolDialog: false,
+        // title: 'No '
+        body: 'At least 3 pictures are required to publish this flyer',
+      );
+      _inputsAreValid = false;
+    }
+
+    /// when no keywords selected
+    else if (_superFlyer.keywords.length == 0){
+      /// TASK : add these keywords condition in flyer publish validator
+      // await
+      _inputsAreValid = true;
+    }
+
+    /// when flyerType is not defined
+    else if (_superFlyer.flyerType == null){
+      await _onFlyerTypeTap();
+      _inputsAreValid = false;
+    }
+
+    /// when everything is okey
+    else {
+      _inputsAreValid = true;
+    }
+
+    await superDialog(
+      context: context,
+      boolDialog: false,
+      title: 'Done ',
+      body: 'Validator End here, Delete me',
+    );
+
+
+    return _inputsAreValid;
+  }
+// -----------------------------------------------------o
+  Future<List<SlideModel>> _createNewSlidesFromAssetsAndTitles() async {
+    List<SlideModel> _slides = new List();
+
+    for (int i = 0; i<_superFlyer.assetsFiles.length; i++){
+
+      SlideModel _newSlide = SlideModel(
+        slideIndex: i,
+        picture: _superFlyer.assetsFiles[i],
+        headline: _superFlyer.headlinesControllers[i].text,
+        description: null,
+        savesCount: 0,
+        sharesCount: 0,
+        viewsCount: 0,
+      );
+
+      _slides.add(_newSlide);
+
+    }
+
+    return _slides;
+  }
+// -----------------------------------------------------o
+  Future<void> _createNewFlyer() async {
+    /// assert that all required fields are valid
+
+    bool _inputsAreValid = await _inputsValidator();
+
+    if (_inputsAreValid == false){
+      // dialogs already pushed in inputsValidator
+
+    } else {
+
+      _triggerLoading();
+
+      /// create slides models
+      List<SlideModel> _slides = await _createNewSlidesFromAssetsAndTitles();
+
+      /// create tiny author model from bz.authors
+      BzModel _bz = BzModel.getBzModelFromSuperFlyer(_superFlyer);
+      AuthorModel _author = AuthorModel.getAuthorFromBzByAuthorID(_bz, superUserID());
+      TinyUser _tinyAuthor = TinyUser.getTinyAuthorFromAuthorModel(_author);
+      TinyBz _tinyBz = TinyBz.getTinyBzFromBzModel(_bz);
+
+      ///create FlyerModel
+      FlyerModel _newFlyerModel = FlyerModel(
+        flyerID: _superFlyer.flyerID, // will be created in createFlyerOps
+        // -------------------------
+        flyerType: _superFlyer.flyerType,
+        flyerState: _superFlyer.flyerState,
+        keywords: _superFlyer.keywords,
+        flyerShowsAuthor: _superFlyer.flyerShowsAuthor,
+        flyerURL: null,
+        flyerZone: _superFlyer.flyerZone,
+        // -------------------------
+        tinyAuthor: _tinyAuthor,
+        tinyBz: _tinyBz,
+        // -------------------------
+        publishTime: null, // will be overriden in createFlyerOps
+        flyerPosition: _superFlyer.position,
+        // -------------------------
+        ankhIsOn: false, // shouldn't be saved here but will leave this now
+        // -------------------------
+        slides: _slides,
+        // -------------------------
+        flyerIsBanned: false,
+        deletionTime: null,
+      );
+
+      /// start create flyer ops
+      FlyerModel _uploadedFlyerModel = await FlyerOps()
+          .createFlyerOps(context, _newFlyerModel, _bz);
+
+      /// add the result final TinyFlyer to local list and notifyListeners
+      _prof.addTinyFlyerToLocalList(TinyFlyer.getTinyFlyerFromFlyerModel(_uploadedFlyerModel));
+
+      _triggerLoading();
+
+      await superDialog(
+        context: context,
+        title: 'Great !',
+        body: 'Flyer has been created',
+        boolDialog: false,
+      );
+
+
+      Nav.goBack(context, argument: 'published');
+
+    }
+  }
+// -----------------------------------------------------o
+  Future<void> _updateExistingFlyer(FlyerModel originalFlyer) async {
+    /// assert that all required fields are valid
+    if (_inputsValidator() == false){
+      // show something for user to know
+
+      await superDialog(
+        context: context,
+        title: '',
+        body: 'Please add all required fields',
+        boolDialog: false,
+      );
+
+
+    } else {
+
+      _triggerLoading();
+
+      print('A- Managing slides');
+
+      /// create slides models
+      List<SlideModel> _slides = await _createNewSlidesFromAssetsAndTitles();
+
+      print('B- Modifying flyer');
+
+      ///create updated FlyerModel
+      FlyerModel _updatedFlyerModel = FlyerModel(
+        flyerID: _superFlyer.flyerID,
+        // -------------------------
+        flyerType: _superFlyer.flyerType,
+        flyerState: _superFlyer.flyerState,
+        keywords: _superFlyer.keywords,
+        flyerShowsAuthor: _superFlyer.flyerShowsAuthor,
+        flyerURL: null,
+        flyerZone: _superFlyer.flyerZone,
+        // -------------------------
+        tinyAuthor: _superFlyer.flyerTinyAuthor,
+        tinyBz: TinyBz.getTinyBzFromSuperFlyer(_superFlyer),
+        // -------------------------
+        publishTime: PublishTime.getPublishTimeFromTimes(times: _superFlyer.flyerTimes, state: FlyerState.Published),
+        flyerPosition: _superFlyer.position,
+        // -------------------------
+        ankhIsOn: false, // shouldn't be saved here but will leave this now
+        // -------------------------
+        slides: _slides,
+        // -------------------------
+        flyerIsBanned: PublishTime.flyerIsBanned(_superFlyer.flyerTimes),
+        deletionTime: PublishTime.getPublishTimeFromTimes(times: _superFlyer.flyerTimes, state: FlyerState.Deleted),
+        info: _superFlyer.infoController.text,
+        // specs: _draft.specs,
+      );
+
+      print('C- Uploading to cloud');
+
+      /// start create flyer ops
+      FlyerModel _publishedFlyerModel = await FlyerOps().updateFlyerOps(
+        context: context,
+        updatedFlyer: _updatedFlyerModel,
+        originalFlyer: originalFlyer,
+        bzModel : BzModel.getBzModelFromSuperFlyer(_superFlyer),
+      );
+
+      print('D- Uploading to cloud');
+
+      /// add the result final Tinyflyer to local list and notifyListeners
+      _prof.replaceTinyFlyerInLocalList(TinyFlyer.getTinyFlyerFromFlyerModel(_publishedFlyerModel));
+
+      print('E- added to local list');
+
+      _triggerLoading();
+
+      await superDialog(
+        context: context,
+        title: 'Great !',
+        body: 'Flyer has been updated',
+        boolDialog: false,
+      );
+
+      Nav.goBack(context);
+    }
+
+  }
+// -----------------------------------------------------o
+  //   // List<TextEditingController> _createHeadlinesForExistingFlyer(){
+//   //   List<TextEditingController> _controllers = new List();
+//   //
+//   //   _flyer.slides.forEach((slide) {
+//   //     TextEditingController _controller = new TextEditingController();
+//   //     _controller.text = slide.headline;
+//   //     _controllers.add(_controller);
+//   //   });
+//   //
+//   //   return _controllers;
+//   // }
+// // -----------------------------------------------------------------------------
+// //   List<bool> _createSlidesVisibilityList(){
+// //     int _listLength = widget.draftFlyer.assetsFiles.length;
+// //     List<bool> _visibilityList = new List();
+// //
+// //     for (int i = 0; i<_listLength; i++){
+// //       _visibilityList.add(true);
+// //     }
+// //
+// //     return _visibilityList;
+// //   }
+//
+// }
 
 
   @override
@@ -1289,19 +1796,26 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     ///// bool _ankhIsOn = _prof.checkAnkh(widget.flyerID);
 
     bool _microMode = Scale.superFlyerMicroMode(context, widget.flyerZoneWidth);
-    bool _superFlyerHasValue = _superFlyer == null ? false : true;
-    bool _flyerHasMoreThanOnePage = _superFlyer == null ? false :
+    bool _superFlyerHasValue = _superFlyer.flyerID == null ? false : true;
+    bool _flyerHasMoreThanOnePage = _superFlyer.flyerID == null ? false :
     _superFlyer.numberOfSlides > 1 ? true : false;
+
+    BzModel _editorBzModel =
+    _superFlyer == null ? null :
+    _superFlyer.isDraft == true ? BzModel.getBzModelFromSuperFlyer(_superFlyer) :
+    null;
 
     return
 
         FlyerZoneBox(
+          flyerZoneWidth: widget.flyerZoneWidth,
           superFlyer: _superFlyer,
           onFlyerZoneTap: _onFlyerZoneTap,
           onFlyerZoneLongPress: _onFlyerZoneLongPress,
+          editorBzModel: _editorBzModel,
           stackWidgets: <Widget>[
 
-            if (_superFlyerHasValue && _flyerHasMoreThanOnePage == false)
+            if (_superFlyerHasValue && _flyerHasMoreThanOnePage == false && _superFlyer.isDraft != true)
               SingleSlide(
                 superFlyer: _superFlyer,
                 flyerID: _superFlyer.flyerID,
@@ -1332,12 +1846,13 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
                 superFlyer: _superFlyer,
               ),
 
-            if ((!_microMode) && _superFlyer?.bzID != null  && _superFlyerHasValue)
+            if ((!_microMode) && _superFlyer?.bzID != null  && _superFlyerHasValue && widget.isDraft != true)
               FlyerHeader(superFlyer: _superFlyer,),
 
             if ((!_microMode) && _superFlyerHasValue && _flyerHasMoreThanOnePage)
               ProgressBar(
                 superFlyer: _superFlyer,
+                flyerZoneWidth: widget.flyerZoneWidth,
               ),
 
             /// --------------------------------------------------o
@@ -1352,59 +1867,14 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
                 superFlyer: _superFlyer,
               ),
 
-            if (widget.isDraft && _superFlyerHasValue)
+            if (widget.isDraft && _superFlyerHasValue && _superFlyer?.bzID != null)
               ProgressBar(
                 superFlyer: _superFlyer,
+                flyerZoneWidth: widget.flyerZoneWidth,
               ),
 
           ],
         );
-
-/////      _flyerMode == FlyerMode.tiny || _flyerMode == FlyerMode.tinyWithID ?
-/////      TinyFlyerWidget(
-/////        superFlyer: _superFlyer,
-/////        // flyerSizeFactor: Scale.superFlyerSizeFactorByWidth(context, widget.flyerZoneWidth),
-/////        // tinyFlyer: widget.tinyFlyer,
-/////        // onTap: _tappingFlyerZone,
-/////      )
-/////
-/////          :
-/////
-/////      _flyerMode == FlyerMode.normal ?
-/////      NormalFlyerWidget(
-/////        superFlyer: _superFlyer,
-/////        // flyerSizeFactor: Scale.superFlyerSizeFactorByWidth(context, widget.flyerZoneWidth),
-/////        // flyer: widget.flyerModel,
-/////        // onSwipeFlyer: widget.onSwipeFlyer,
-/////      )
-/////
-/////          :
-/////
-/////      _flyerMode == FlyerMode.normalWithID ?
-/////      NormalFlyerWidget(
-/////        superFlyer: _superFlyer,
-/////
-/////        // flyerSizeFactor: Scale.superFlyerSizeFactorByWidth(context, widget.flyerZoneWidth),
-/////        // flyer: _flyerModel,
-/////        // onSwipeFlyer: widget.onSwipeFlyer,
-/////      )
-/////
-/////      //     :
-/////      //
-/////      // _flyerMode == FlyerMode.draft ?
-/////      //     Container()
-/////          :
-/////
-/////      FlyerZone(
-/////        flyerSizeFactor: Scale.superFlyerSizeFactorByWidth(context, widget.flyerZoneWidth),
-/////         tappingFlyerZone: _tappingFlyerZone,
-/////         onLongPress: _onFlyerZoneLongPress,
-/////         stackWidgets: <Widget>[
-/////
-/////
-/////
-/////         ],
-/////       );
 
   }
 }
