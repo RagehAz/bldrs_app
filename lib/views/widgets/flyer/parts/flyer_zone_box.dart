@@ -4,19 +4,24 @@ import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/shadowers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/models/bz_model.dart';
+import 'package:bldrs/models/super_flyer.dart';
+import 'package:bldrs/views/widgets/flyer/editor/editorPanel.dart';
 import 'package:flutter/material.dart';
 
 class FlyerZoneBox extends StatelessWidget {
-  final double flyerSizeFactor;
+  final SuperFlyer superFlyer;
   final Function onFlyerZoneTap;
   final List<Widget> stackWidgets;
   final Function onFlyerZoneLongPress;
+  final BzModel editorBzModel;
 
   FlyerZoneBox({
-    @required this.flyerSizeFactor,
+    @required this.superFlyer,
     @required this.onFlyerZoneTap,
     this.stackWidgets,
     this.onFlyerZoneLongPress,
+    this.editorBzModel,
   });
 
   @override
@@ -25,8 +30,9 @@ class FlyerZoneBox extends StatelessWidget {
 // -----------------------------------------------------------------------------
     double _screenWithoutSafeAreaHeight = Scale.superScreenHeightWithoutSafeArea(context);
 // -----------------------------------------------------------------------------
-    double _flyerZoneWidth = Scale.superFlyerZoneWidth(context, flyerSizeFactor);
-    double _flyerZoneHeight = flyerSizeFactor == 1 ?
+    double _flyerZoneWidth = superFlyer.flyerZoneWidth;
+    double _flyerZoneFactor = Scale.superFlyerSizeFactorByWidth(context, superFlyer.flyerZoneWidth);
+    double _flyerZoneHeight = _flyerZoneFactor == 1 ?
     _screenWithoutSafeAreaHeight : _flyerZoneWidth * Ratioz.xxflyerZoneHeight;
     double _flyerTopCorners = _flyerZoneWidth * Ratioz.xxflyerTopCorners;
     double _flyerBottomCorners = _flyerZoneWidth * Ratioz.xxflyerBottomCorners;
@@ -65,35 +71,55 @@ class FlyerZoneBox extends StatelessWidget {
         enTopRight: _flyerTopCorners
     );
 
+    double _screenWidth = Scale.superScreenWidth(context);
+    double _panelWidth = _screenWidth - _flyerZoneWidth - (Ratioz.appBarMargin * 3);
+
     return GestureDetector(
       onTap: (){
         onFlyerZoneTap();
         Keyboarders.minimizeKeyboardOnTapOutSide(context);
       },
       onLongPress: onFlyerZoneLongPress,
-      child: Center(
-        child: Container(
-          width: _flyerZoneWidth,
-          height: _flyerZoneHeight,
-          alignment: Alignment.topCenter,
-          decoration: BoxDecoration(
-            color: Colorz.White20,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+
+          /// EditorPanel
+          if (editorBzModel != null)
+          EditorPanel(
+            superFlyer: superFlyer,
+            panelWidth: _panelWidth,
+            bzModel: editorBzModel,
+            flyerZoneWidth: _flyerZoneWidth,
+          ),
+
+
+          /// flyer zone
+          Container(
+            width: _flyerZoneWidth,
+            height: _flyerZoneHeight,
+            alignment: Alignment.topCenter,
+            decoration: BoxDecoration(
+              color: Colorz.White20,
               borderRadius: _flyerBorders,
               boxShadow: Shadowz.flyerZoneShadow(_flyerZoneWidth),
-          ),
-          child: ClipRRect(
-            borderRadius: _flyerBorders,
+            ),
+            child: ClipRRect(
+              borderRadius: _flyerBorders,
 
-            child: Container(
-              width: _flyerZoneWidth,
-              height: _flyerZoneHeight,
-              child: Stack(
-                alignment: Alignment.topCenter,
-                children: stackWidgets == null ? [] : stackWidgets,
+              child: Container(
+                width: _flyerZoneWidth,
+                height: _flyerZoneHeight,
+                child: Stack(
+                  alignment: Alignment.topCenter,
+                  children: stackWidgets == null ? [] : stackWidgets,
+                ),
               ),
             ),
           ),
-        ),
+
+        ],
       ),
     );
   }

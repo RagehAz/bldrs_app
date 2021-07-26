@@ -84,31 +84,18 @@ class _BzCardScreenState extends State<BzCardScreen> {
           SuperFlyer _superFlyer = SuperFlyer.getSuperFlyerFromBzModelOnly(
               flyerZoneWidth: _flyerZoneWidth,
               bzModel: bz,
-              onHeaderTap: (){print('onheader tap in h 1 bz card screen');},
+              onHeaderTap: (){print('onHeader tap in h 1 bz card screen');},
           );
 
           return
             FlyerZoneBox(
-                  flyerSizeFactor: flyerSizeFactor,
-                  onFlyerZoneTap: (){print('fuck you');},
-                  stackWidgets: <Widget>[
+              superFlyer: _superFlyer,
+              onFlyerZoneTap: (){print('tapping flyer zone in h 1 bz card screen ');},
+              stackWidgets: <Widget>[
 
-                    FlyerHeader(
-                      superFlyer: _superFlyer,
-                      // tinyBz: TinyBz.getTinyBzFromBzModel(bz),
-                      // tinyAuthor: TinyUser.getTinyAuthorFromAuthorModel(bz.bzAuthors[0]),
-                      // flyerShowsAuthor: true,
-                      // followIsOn: false, // TASK : fix following on/off issue
-                      // flyerZoneWidth: Scale.superFlyerZoneWidth(context, flyerSizeFactor),
-                      // bzPageIsOn: _bzPageIsOn,
-                      // tappingHeader: _triggerMaxHeader,
-                      // onCallTap: (){},
-                      // onFollowTap: () async {
-                      //   // await bz.toggleFollow();
-                      //   // setState(() {});
-                      //   // print('rebuilding widget with new followIsOn value : ${bz.followIsOn}');
-                      // },
-                    ),
+                FlyerHeader(
+                  superFlyer: _superFlyer
+                  ,),
 
                   ],
                 );

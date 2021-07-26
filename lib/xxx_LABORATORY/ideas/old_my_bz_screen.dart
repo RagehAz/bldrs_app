@@ -3,6 +3,7 @@ import 'package:bldrs/controllers/drafters/streamerz.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/models/bz_model.dart';
+import 'package:bldrs/models/super_flyer.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/models/tiny_models/tiny_user.dart';
 import 'package:bldrs/models/user_model.dart';
@@ -126,7 +127,11 @@ class _OldMyBzScreenState extends State<OldMyBzScreen> {
                         children: <Widget>[
 
                           FlyerZoneBox(
-                            flyerSizeFactor: _flyerSizeFactor,
+                            superFlyer: SuperFlyer.getSuperFlyerFromBzModelOnly(
+                              onHeaderTap: null,
+                              flyerZoneWidth: _flyerZoneWidth,
+                              bzModel: _bzModel,
+                            ),
                             onFlyerZoneTap: (){print('bzID is : (${_bzModel.bzID})');},
                             stackWidgets: <Widget>[
 
