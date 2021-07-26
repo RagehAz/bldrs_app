@@ -47,4 +47,11 @@ class Animators{
     return _visibilityList;
   }
 // -----------------------------------------------------------------------------
+  static void disposeControllerIfPossible(dynamic controller) {
+    if (controller != null) {
+      controller.dispose();
+    }
+  }
+// -----------------------------------------------------------------------------
+
 }
