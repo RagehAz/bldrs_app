@@ -3,9 +3,11 @@ import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/models/bz_model.dart';
+import 'package:bldrs/models/super_flyer.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/screens/x_0_flyer_editor_screen.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/views/widgets/flyer/parts/flyer_header.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
@@ -40,24 +42,18 @@ class AddFlyerButton extends StatelessWidget {
 
     double _flyerSizeFactor = Scale.superFlyerSizeFactorByWidth(context, flyerZoneWidth);
 
+    SuperFlyer _bzHeaderSuperFlyer = SuperFlyer.getSuperFlyerFromBzModelOnly(
+      onHeaderTap: () async { await _goToFlyerEditor(context); },
+      bzModel: bzModel,
+      flyerZoneWidth: flyerZoneWidth,
+    );
+
     return FlyerZoneBox(
-      flyerSizeFactor: _flyerSizeFactor,
+      superFlyer: _bzHeaderSuperFlyer,
       onFlyerZoneTap: () async { await _goToFlyerEditor(context); },
       stackWidgets: <Widget>[
 
-        // FlyerHeader(
-        //   tinyBz: TinyBz.getTinyBzFromBzModel(widget.bz),
-        //   tinyAuthor: TinyUser.getTinyAuthorFromAuthorModel(widget.author),
-        //   flyerShowsAuthor: true,
-        //   followIsOn: false,
-        //   flyerZoneWidth: Scale.superFlyerZoneWidth(context, widget.flyerSizeFactor),
-        //   bzPageIsOn: _bzPageIsOn,
-        //   tappingHeader: () async {
-        //     await _triggerMaxHeader();
-        //   },
-        //   onFollowTap: (){},
-        //   onCallTap: (){},
-        // ),
+        FlyerHeader(superFlyer: _bzHeaderSuperFlyer,),
 
         // --- ADD FLYER BUTTON
           Column(
