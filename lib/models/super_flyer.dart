@@ -772,6 +772,8 @@ class SuperFlyer{
     @required Function onTriggerEditMode,
   }){
 
+    print('CREATING draft super flyer from nothing for bz  : ${bzModel.bzName} : id : ${bzModel.bzID}');
+
     CountryProvider _countryPro = Provider.of<CountryProvider>(context, listen: false);
 
     return

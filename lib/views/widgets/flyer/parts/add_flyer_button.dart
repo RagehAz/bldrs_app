@@ -33,6 +33,7 @@ class AddFlyerButton extends StatelessWidget {
           firstTimer: true,
           bzModel: bzModel,
           flyerModel: null,
+
         )
     );
   }
