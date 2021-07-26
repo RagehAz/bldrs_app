@@ -640,6 +640,9 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
   }
 // -----------------------------------------------------o
   void _onShowAuthorTap(){
+
+    print('triggering showing author : as _superFlyer is : ${_superFlyer.flyerID} \n and superFlyer.flyerShowsAuthor is : ${_superFlyer.flyerShowsAuthor}');
+
     setState(() {
       _superFlyer.flyerShowsAuthor = !_superFlyer.flyerShowsAuthor;
     });
@@ -1815,7 +1818,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
           editorBzModel: _editorBzModel,
           stackWidgets: <Widget>[
 
-            if (_superFlyerHasValue && _flyerHasMoreThanOnePage == false && _superFlyer.isDraft != true)
+            if (_superFlyerHasValue && _flyerHasMoreThanOnePage == false && widget.isDraft != true)
               SingleSlide(
                 superFlyer: _superFlyer,
                 flyerID: _superFlyer.flyerID,
@@ -1841,7 +1844,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
             /// --------------------------------------------------o
 
-            if ((!_microMode) && _superFlyerHasValue && _flyerHasMoreThanOnePage)
+            if ((!_microMode) && _superFlyerHasValue && _flyerHasMoreThanOnePage && widget.isDraft != true)
               FlyerPages(
                 superFlyer: _superFlyer,
               ),
@@ -1849,7 +1852,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
             if ((!_microMode) && _superFlyer?.bzID != null  && _superFlyerHasValue && widget.isDraft != true)
               FlyerHeader(superFlyer: _superFlyer,),
 
-            if ((!_microMode) && _superFlyerHasValue && _flyerHasMoreThanOnePage)
+            if ((!_microMode) && _superFlyerHasValue && _flyerHasMoreThanOnePage && widget.isDraft != true)
               ProgressBar(
                 superFlyer: _superFlyer,
                 flyerZoneWidth: widget.flyerZoneWidth,
