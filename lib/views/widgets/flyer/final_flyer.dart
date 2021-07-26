@@ -587,19 +587,6 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
   /// EDITOR METHOD
 
-// // -----------------------------------------------------o
-//   bool _flyerIsDraft (FlyerModel flyerModel){
-//     bool _isDraft;
-//
-//     if (flyerModel != null){
-//       _isDraft = flyerModel.flyerState == FlyerState.Draft ? true : false;
-//     }
-//
-//     else {
-//       _isDraft = false;
-//     }
-//     return _isDraft;
-//   }
 // -----------------------------------------------------o
   void _onTriggerEditMode(){
     setState(() {
@@ -1309,7 +1296,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     return
 
         FlyerZoneBox(
-          flyerSizeFactor: Scale.superFlyerSizeFactorByWidth(context, widget.flyerZoneWidth),
+          superFlyer: _superFlyer,
           onFlyerZoneTap: _onFlyerZoneTap,
           onFlyerZoneLongPress: _onFlyerZoneLongPress,
           stackWidgets: <Widget>[
