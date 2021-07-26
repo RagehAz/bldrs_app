@@ -6,9 +6,11 @@ import 'package:bldrs/controllers/drafters/sliders.dart';
 import 'package:bldrs/controllers/theme/dumz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/flyer_type_class.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/secondary_models/draft_flyer_model.dart';
+import 'package:bldrs/models/super_flyer.dart';
 import 'package:bldrs/models/tiny_models/tiny_user.dart';
 import 'package:bldrs/providers/country_provider.dart';
 import 'package:flutter/material.dart';
@@ -23,27 +25,30 @@ import 'package:bldrs/views/widgets/bubbles/words_bubble.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/info_page_parts/record_bubble.dart';
 
 class InfoPage extends StatelessWidget {
-  final double flyerZoneWidth;
-  final DraftFlyerModel draft;
-  final Function onVerticalBack;
-  final Function onFlyerTypeTap;
-  final Function onZoneTap;
-  final Function onAboutTap;
-  final Function onKeywordsTap;
-  final ScrollController infoScrollController;
-  final PageController verticalController;
+  final SuperFlyer superFlyer;
+
+  // final double flyerZoneWidth;
+  // final DraftFlyerModel draft;
+  // final Function onVerticalBack;
+  // final Function onFlyerTypeTap;
+  // final Function onZoneTap;
+  // final Function onAboutTap;
+  // final Function onKeywordsTap;
+  // final ScrollController infoScrollController;
+  // final PageController verticalController;
 
   const InfoPage({
-    @required this.flyerZoneWidth,
-    @required this.draft,
-    @required this.onVerticalBack,
-    @required this.onFlyerTypeTap,
-
-    @required this.onZoneTap,
-    @required this.onAboutTap,
-    @required this.onKeywordsTap,
-    @required this.infoScrollController,
-    @required this.verticalController,
+    @required this.superFlyer,
+    // @required this.flyerZoneWidth,
+    // @required this.draft,
+    // @required this.onVerticalBack,
+    // @required this.onFlyerTypeTap,
+    //
+    // @required this.onZoneTap,
+    // @required this.onAboutTap,
+    // @required this.onKeywordsTap,
+    // @required this.infoScrollController,
+    // @required this.verticalController,
     Key key,
   }) : super(key: key);
 
@@ -90,20 +95,20 @@ class InfoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double _flyerZoneHeight = Scale.superFlyerZoneHeight(context, flyerZoneWidth);
+    double _flyerZoneHeight = Scale.superFlyerZoneHeight(context, superFlyer.flyerZoneWidth);
 
-    double _bubbleWidth = flyerZoneWidth - (Ratioz.appBarPadding * 2);
+    double _bubbleWidth = superFlyer.flyerZoneWidth - (Ratioz.appBarPadding * 2);
 
-    double _peopleBubbleBoxHeight = flyerZoneWidth * Ratioz.xxflyerAuthorPicWidth * 1.5;
-    double _peopleIconSize = flyerZoneWidth * Ratioz.xxflyerAuthorPicWidth * 0.7;
+    double _peopleBubbleBoxHeight = superFlyer.flyerZoneWidth * Ratioz.xxflyerAuthorPicWidth * 1.5;
+    double _peopleIconSize = superFlyer.flyerZoneWidth * Ratioz.xxflyerAuthorPicWidth * 0.7;
     double _peopleNameHeight = _peopleBubbleBoxHeight - _peopleIconSize;
 
-    double _headerAndProgressHeights = Scale.superHeaderAndProgressHeights(context, flyerZoneWidth);
+    double _headerAndProgressHeights = Scale.superHeaderAndProgressHeights(context, superFlyer.flyerZoneWidth);
 
     EdgeInsets _bubbleMargins = EdgeInsets.only(top: Ratioz.appBarPadding, left: Ratioz.appBarPadding, right: Ratioz.appBarPadding);
-    double _cornerSmall = flyerZoneWidth * Ratioz.xxflyerTopCorners;
-    double _cornerBig = (flyerZoneWidth - (Ratioz.appBarPadding * 2)) * Ratioz.xxflyerBottomCorners;
-    BorderRadius _bubbleCorners = Borderers.superBorderAll(context, flyerZoneWidth * Ratioz.xxflyerTopCorners);
+    double _cornerSmall = superFlyer.flyerZoneWidth * Ratioz.xxflyerTopCorners;
+    double _cornerBig = (superFlyer.flyerZoneWidth - (Ratioz.appBarPadding * 2)) * Ratioz.xxflyerBottomCorners;
+    BorderRadius _bubbleCorners = Borderers.superBorderAll(context, superFlyer.flyerZoneWidth * Ratioz.xxflyerTopCorners);
 
     BorderRadius _keywordsBubbleCorners = Borderers.superBorderOnly(
       context: context,
@@ -121,11 +126,11 @@ class InfoPage extends StatelessWidget {
       Keyword.bldrsKeywords()[600],
     ];
 
-    FlyerType _flyerType = draft.flyerType == null ? FlyerTypeClass.concludeFlyerType(draft.bzModel.bzType) : draft.flyerType;
+    FlyerType _flyerType = superFlyer.flyerType == null ? FlyerTypeClass.concludeFlyerType(superFlyer.bzType) : superFlyer.flyerType;
 
     CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
-    String _countryName = _countryPro.getCountryNameInCurrentLanguageByIso3(context, draft.flyerZone.countryID);
-    String _cityNameRetrieved = _countryPro.getCityNameWithCurrentLanguageIfPossible(context, draft.flyerZone.cityID);
+    String _countryName = _countryPro.getCountryNameInCurrentLanguageByIso3(context, superFlyer.flyerZone.countryID);
+    String _cityNameRetrieved = _countryPro.getCityNameWithCurrentLanguageIfPossible(context, superFlyer.flyerZone.cityID);
     String _cityName = _cityNameRetrieved == null ? '.....' : _cityNameRetrieved;
 
     List<TinyUser> _users = _getUsers();
@@ -139,10 +144,10 @@ class InfoPage extends StatelessWidget {
 
         bool _canPageUp = _offset < _bounceLimit;
 
-        bool _goingDown = Scrollers.isGoingDown(infoScrollController);
+        bool _goingDown = Scrollers.isGoingDown(superFlyer.infoScrollController);
 
         if(_goingDown && _canPageUp){
-          Sliders.slideToBackFrom(verticalController, 1, curve: Curves.easeOut);
+          Sliders.slideToBackFrom(superFlyer.verticalController, 1, curve: Curves.easeOut);
         }
 
         return true;
@@ -151,17 +156,17 @@ class InfoPage extends StatelessWidget {
         key: PageStorageKey<String>('${Numberers.createUniqueIntFrom(existingValues: [1, 2])}'), // TASK : fix
         physics: const BouncingScrollPhysics(),
         shrinkWrap: false,
-        controller: infoScrollController,
+        controller: superFlyer.infoScrollController,
         children: <Widget>[
 
           /// HEADER FOOTPRINT ZONE
           Container(
-            width: flyerZoneWidth,
+            width: superFlyer.flyerZoneWidth,
             height: _headerAndProgressHeights,
           ),
 
           /// ALL STATS
-          if (draft.editMode == false)
+          if (superFlyer.flyerState == FlyerState.Draft)
             InPyramidsBubble(
               bubbleWidth: _bubbleWidth,
               margins: _bubbleMargins,
@@ -188,7 +193,7 @@ class InfoPage extends StatelessWidget {
                 /// ZONE
                 StatsLine(
                   verse: 'Targeting : ${_cityName} , ${_countryName}',
-                  icon: Flagz.getFlagByIso3(draft.flyerZone.countryID),
+                  icon: Flagz.getFlagByIso3(superFlyer.flyerZone.countryID),
                   bubbleWidth: _bubbleWidth,
                 ),
 
@@ -196,12 +201,12 @@ class InfoPage extends StatelessWidget {
             ),
 
           /// Flyer Type
-          if (draft.editMode == true)
+          if (superFlyer.flyerState != FlyerState.Draft)
             InPyramidsBubble(
               bubbleWidth: _bubbleWidth,
               margins: _bubbleMargins,
               corners: _bubbleCorners,
-              bubbleOnTap: onFlyerTypeTap,
+              bubbleOnTap: superFlyer.onFlyerTypeTap,
               columnChildren: <Widget>[
 
                 StatsLine(
@@ -216,17 +221,17 @@ class InfoPage extends StatelessWidget {
             ),
 
           /// ZONE
-          if (draft.editMode == true)
+          if (superFlyer.flyerState == FlyerState.Draft)
             InPyramidsBubble(
               bubbleWidth: _bubbleWidth,
               margins: _bubbleMargins,
               corners: _bubbleCorners,
-              bubbleOnTap: onZoneTap,
+              bubbleOnTap: superFlyer.onZoneTap,
               columnChildren: <Widget>[
 
                 StatsLine(
                   verse: 'Targeting : ${_cityName} , ${_countryName}',
-                  icon: Flagz.getFlagByIso3(draft.flyerZone.countryID),
+                  icon: Flagz.getFlagByIso3(superFlyer.flyerZone.countryID),
                   bubbleWidth: _bubbleWidth,
                 ),
               ],
@@ -240,32 +245,32 @@ class InfoPage extends StatelessWidget {
             title: 'About this flyer',
             maxLines: 3,
             centered: false,
-            paragraph: draft.infoController.text.length == 0 ? '...' : draft.infoController.text,
-            onParagraphTap: onAboutTap,
+            paragraph: superFlyer.infoController.text.length == 0 ? '...' : superFlyer.infoController.text,
+            onParagraphTap: superFlyer.onAboutTap,
           ),
 
           /// SAVES BUBBLE
-          if (draft.editMode == false)
+          if (superFlyer.flyerState != FlyerState.Draft)
             RecordBubble(
-              flyerZoneWidth: flyerZoneWidth,
+              flyerZoneWidth: superFlyer.flyerZoneWidth,
               bubbleTitle: 'Who Saved it',
               bubbleIcon: Iconz.Save,
               users: _users,
             ),
 
           /// SHARES BUBBLE
-          if (draft.editMode == false)
+          if (superFlyer.flyerState != FlyerState.Draft)
             RecordBubble(
-              flyerZoneWidth: flyerZoneWidth,
+              flyerZoneWidth: superFlyer.flyerZoneWidth,
               bubbleTitle: 'Who Shared it',
               bubbleIcon: Iconz.Share,
               users: _users,
             ),
 
           /// VIEWS BUBBLE
-          if (draft.editMode == false)
+          if (superFlyer.flyerState != FlyerState.Draft)
             RecordBubble(
-              flyerZoneWidth: flyerZoneWidth,
+              flyerZoneWidth: superFlyer.flyerZoneWidth,
               bubbleTitle: 'Who viewed it',
               bubbleIcon: Iconz.Views,
               users: _users,
@@ -279,7 +284,7 @@ class InfoPage extends StatelessWidget {
             title: 'Flyer keywords',
             keywords: _keywords,
             selectedWords: <Keyword>[Keyword.bldrsKeywords()[403],],
-            onTap: onKeywordsTap,
+            onTap: superFlyer.onKeywordsTap,
           ),
 
           SizedBox(

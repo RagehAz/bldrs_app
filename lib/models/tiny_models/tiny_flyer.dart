@@ -1,13 +1,15 @@
 import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/models/bz_model.dart';
+import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/flyer_type_class.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
+import 'package:bldrs/models/tiny_models/nano_flyer.dart';
+import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import '../bz_model.dart';
-import '../flyer_model.dart';
-import 'nano_flyer.dart';
-import 'tiny_bz.dart';
+import 'package:bldrs/models/super_flyer.dart';
+
 // -----------------------------------------------------------------------------
 class TinyFlyer with ChangeNotifier{
   final String flyerID;
@@ -171,6 +173,19 @@ class TinyFlyer with ChangeNotifier{
           TinyFlyer.dummyTinyFlyer('4'),
           TinyFlyer.dummyTinyFlyer('5'),
         ];
+  }
+// -----------------------------------------------------------------------------
+  static TinyFlyer getTinyFlyerFromSuperFlyer(SuperFlyer superFlyer){
+    TinyFlyer _tinyFlyer = TinyFlyer(
+        flyerID: superFlyer.flyerID,
+        flyerType: superFlyer.flyerType,
+        authorID: superFlyer.authorID,
+        slideIndex: superFlyer.currentSlideIndex,
+        slidePic: superFlyer.slides[superFlyer.currentSlideIndex].picture,
+        flyerZone: superFlyer.flyerZone,
+    );
+
+    return _tinyFlyer;
   }
 // -----------------------------------------------------------------------------
 }

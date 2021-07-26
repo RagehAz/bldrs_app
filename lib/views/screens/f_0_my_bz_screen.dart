@@ -9,6 +9,7 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/firestore/bz_ops.dart';
 import 'package:bldrs/models/bz_model.dart';
+import 'package:bldrs/models/super_flyer.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
@@ -321,6 +322,7 @@ class _MyBzScreenState extends State<MyBzScreen> {
                         columnChildren: <Widget>[
 
                           Gallery(
+                            superFlyer: SuperFlyer.getSuperFlyerFromBzModelOnly(Scale.superBubbleClearWidth(context), bzModel),
                             flyerZoneWidth: Scale.superBubbleClearWidth(context),
                             showFlyers: true,
                             bz: bzModel,

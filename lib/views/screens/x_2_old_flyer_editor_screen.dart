@@ -893,7 +893,7 @@ class _OldFlyerEditorScreenState extends State<OldFlyerEditorScreen> {
 
                   FlyerZone(
                     flyerSizeFactor: _flyerSizeFactor,
-                    tappingFlyerZone: (){},
+                    onFlyerZoneTap: (){},
                     stackWidgets: <Widget>[
 
                       // --- SLIDES
@@ -923,17 +923,17 @@ class _OldFlyerEditorScreenState extends State<OldFlyerEditorScreen> {
                       ),
 
                       // --- FLYER HEADER
-                      FlyerHeader(
-                        tinyBz: TinyBz.getTinyBzFromBzModel(_bz),
-                        tinyAuthor: TinyUser.getTinyAuthorFromAuthorModel(_author),
-                        flyerShowsAuthor: true,
-                        followIsOn: false,
-                        flyerZoneWidth: Scale.superFlyerZoneWidth(context, _flyerSizeFactor),
-                        bzPageIsOn: false,
-                        tappingHeader: (){},
-                        onFollowTap: (){},
-                        onCallTap: (){},
-                      ),
+                      // FlyerHeader(
+                      //   // tinyBz: TinyBz.getTinyBzFromBzModel(_bz),
+                      //   // tinyAuthor: TinyUser.getTinyAuthorFromAuthorModel(_author),
+                      //   // flyerShowsAuthor: true,
+                      //   // followIsOn: false,
+                      //   // flyerZoneWidth: Scale.superFlyerZoneWidth(context, _flyerSizeFactor),
+                      //   // bzPageIsOn: false,
+                      //   // tappingHeader: (){},
+                      //   // onFollowTap: (){},
+                      //   // onCallTap: (){},
+                      // ),
 
                       // --- PROGRESS BAR
                       Strips(

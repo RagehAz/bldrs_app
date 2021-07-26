@@ -70,7 +70,7 @@ class _BzCardPreviewState extends State<BzCardPreview> {
 
     return FlyerZone(
       flyerSizeFactor: widget.flyerSizeFactor,
-      tappingFlyerZone: () async {
+      onFlyerZoneTap: () async {
         if (widget.addFlyerButton){
           await _goToFlyerEditor();
           print('ohh');
@@ -81,19 +81,19 @@ class _BzCardPreviewState extends State<BzCardPreview> {
         },
       stackWidgets: <Widget>[
 
-        FlyerHeader(
-          tinyBz: TinyBz.getTinyBzFromBzModel(widget.bz),
-          tinyAuthor: TinyUser.getTinyAuthorFromAuthorModel(widget.author),
-          flyerShowsAuthor: true,
-          followIsOn: false,
-          flyerZoneWidth: Scale.superFlyerZoneWidth(context, widget.flyerSizeFactor),
-          bzPageIsOn: _bzPageIsOn,
-          tappingHeader: () async {
-            await _triggerMaxHeader();
-          },
-          onFollowTap: (){},
-          onCallTap: (){},
-        ),
+        // FlyerHeader(
+        //   tinyBz: TinyBz.getTinyBzFromBzModel(widget.bz),
+        //   tinyAuthor: TinyUser.getTinyAuthorFromAuthorModel(widget.author),
+        //   flyerShowsAuthor: true,
+        //   followIsOn: false,
+        //   flyerZoneWidth: Scale.superFlyerZoneWidth(context, widget.flyerSizeFactor),
+        //   bzPageIsOn: _bzPageIsOn,
+        //   tappingHeader: () async {
+        //     await _triggerMaxHeader();
+        //   },
+        //   onFollowTap: (){},
+        //   onCallTap: (){},
+        // ),
 
         // --- ADD FLYER BUTTON
         if (widget.addFlyerButton)

@@ -8,36 +8,36 @@ import 'package:bldrs/views/widgets/flyer/parts/header_parts/bz_pg_headline.dart
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/header_shadow.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/max_header.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/mini_header_strip.dart';
-import 'package:bldrs/views/widgets/flyer/super_flyer.dart';
+import 'package:bldrs/models/super_flyer.dart';
 import 'package:flutter/material.dart';
 
 class FlyerHeader extends StatelessWidget {
   final SuperFlyer superFlyer;
 
-  final TinyBz tinyBz;
-  final TinyUser tinyAuthor;
-  final bool flyerShowsAuthor;
-  final bool followIsOn;
-  final double flyerZoneWidth;
-  final bool bzPageIsOn;
-  final Function tappingHeader;
-  final Function onFollowTap;
-  final Function onCallTap;
-  final bool stripBlurIsOn;
+  // final TinyBz tinyBz;
+  // final TinyUser tinyAuthor;
+  // final bool flyerShowsAuthor;
+  // final bool followIsOn;
+  // final double flyerZoneWidth;
+  // final bool bzPageIsOn;
+  // final Function tappingHeader;
+  // final Function onFollowTap;
+  // final Function onCallTap;
+  // final bool stripBlurIsOn;
 
   FlyerHeader({
     this.superFlyer,
 
-    this.tinyBz,
-    this.tinyAuthor,
-    this.flyerShowsAuthor = true,
-    this.followIsOn = false,
-    this.flyerZoneWidth,
-    this.bzPageIsOn,
-    this.tappingHeader,
-    this.onFollowTap,
-    this.onCallTap,
-    this.stripBlurIsOn = false,
+    // this.tinyBz,
+    // this.tinyAuthor,
+    // this.flyerShowsAuthor = true,
+    // this.followIsOn = false,
+    // this.flyerZoneWidth,
+    // this.bzPageIsOn,
+    // this.tappingHeader,
+    // this.onFollowTap,
+    // this.onCallTap,
+    // this.stripBlurIsOn = false,
   });
 
   @override
@@ -100,6 +100,7 @@ class FlyerHeader extends StatelessWidget {
             // TASK : 3ayzeen zorar follow gowwa el bzPage
             if (superFlyer.bzPageIsOn)
             MaxHeader(
+              superFlyer: superFlyer,
               flyerZoneWidth: superFlyer.flyerZoneWidth,
               bzPageIsOn: superFlyer.bzPageIsOn,
               tinyBz: SuperFlyer.getTinyBzFromSuperFlyer(superFlyer),

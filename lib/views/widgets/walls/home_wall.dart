@@ -77,14 +77,14 @@ class _HomeWallState extends State<HomeWall> {
 
                 FlyerZone(
                   flyerSizeFactor: 0.45,
-                  tappingFlyerZone: null,
+                  onFlyerZoneTap: null,
                 ),
 
                 _spacer,
 
                 FlyerZone(
                   flyerSizeFactor: 0.45,
-                  tappingFlyerZone: null,
+                  onFlyerZoneTap: null,
                 ),
 
               ],

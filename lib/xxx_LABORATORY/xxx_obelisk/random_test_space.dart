@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
@@ -7,7 +6,7 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/flyer/final_flyer.dart';
-import 'package:bldrs/views/widgets/flyer/super_flyer.dart';
+import 'package:bldrs/models/super_flyer.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +37,7 @@ class _RandomTestSpaceState extends State<RandomTestSpace> {
       context: context,
       flyerZoneWidth: 0.5,
       tinyFlyer: TinyFlyer.dummyTinyFlyers()[1],
-      onMicroFlyerTap: _createKeyValue,
+      onTinyFlyerTap: _createKeyValue,
       onAnkhTap: setStateFromAnotherFile,
     );
 
