@@ -96,7 +96,9 @@ class SuperVerse extends StatelessWidget {
     // --- RED DOT -----------------------------------------------
 
 
-    return GestureDetector(
+    return
+      verse == null ? Container() :
+      GestureDetector(
       onTap: onTap,
       child: Padding(
         padding: EdgeInsets.all(_margin),
@@ -122,7 +124,7 @@ class SuperVerse extends StatelessWidget {
                     color: labelColor
                 ),
                 child: Text(
-                  verse == null ? '...' : verse,
+                  verse,
                   softWrap: false,
                   overflow: TextOverflow.ellipsis,
                   maxLines: _maxLines,

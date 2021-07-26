@@ -123,73 +123,28 @@ class _FlyersGridState extends State<FlyersGrid> {
 
           Center(child: Loading(loading: true,)) :
 
-          GridView(
+          GridView.builder(
             physics: widget.scrollable ? const BouncingScrollPhysics() : const NeverScrollableScrollPhysics(),
             addAutomaticKeepAlives: true,
             scrollDirection: widget.scrollDirection,
             padding: _gridPadding,
-            // key: new Key(loadedFlyers[flyerIndex].f01flyerID),
             gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
               crossAxisSpacing: gridSpacing,
               mainAxisSpacing: gridSpacing,
               childAspectRatio: 1 / Ratioz.xxflyerZoneHeight,
               maxCrossAxisExtent: gridFlyerWidth,
             ),
-              children: <Widget>[
+              itemCount: _tinyFlyers.length,
+              itemBuilder: (ctx, index){
+              return
 
-                if(_tinyFlyers !=null)
-                ...List<Widget>.generate(
-                    _tinyFlyers.length,
-                        (index){
-                      return
+                FinalFlyer(
+                  flyerZoneWidth: Scale.superFlyerZoneWidth(context, _flyerSizeFactor),
+                  tinyFlyer: _tinyFlyers[index],
+                  initialSlideIndex: _tinyFlyers[index].slideIndex,
+                );
 
-                               // ChangeNotifierProvider.value(
-              //   value: savedFlyers[index],
-              //     child: ChangeNotifierProvider.value(
-              //       value: bzz[index],
-              //       child: Flyer(
-              //         flyerSizeFactor: (((widget.gridZoneWidth - (gridSpacing*(gridColumnsCount+1)))/gridColumnsCount))/screenWidth,
-              //         slidingIsOn: false,
-              //         rebuildFlyerGrid: rebuildGrid,
-              //         tappingFlyerZone: (){
-              //           Nav.openFlyer(context, savedFlyers[index].flyerID);
-              //         },
-              //         flyerIsInGalleryNow: true,
-              //       ),
-              //     ),
-              //   );
-
-                        ///
-                        // TinyFlyerWidget(
-                        //   tinyFlyer: _tinyFlyers[index],
-                        //   flyerSizeFactor: _flyerSizeFactor,
-                        //   onTap:
-                        //       widget.tinyFlyerOnTap == null ?
-                        //       (tinyFlyer) => Nav().openFlyer(context, _tinyFlyers[index])
-                        //           :
-                        //       (tinyFlyer) => widget.tinyFlyerOnTap(_tinyFlyers[index])
-                        // );
-                      ///
-
-                        FinalFlyer(
-                          flyerZoneWidth: Scale.superFlyerZoneWidth(context, _flyerSizeFactor),
-                          tinyFlyer: _tinyFlyers[index],
-                          initialSlideIndex: _tinyFlyers[index].slideIndex,
-                        );
-
-                    }),
-              ]
-
-            // savedFlyers.map(
-            //       (coFlyer, i) => ChangeNotifierProvider.value(
-            //         value: savedFlyers[coFlyerIndex],
-            //         child: ProFlyer(
-            //           flyerSizeFactor: _flyerSizeFactor,
-            //           slidingIsOn: false,
-            //           // flyerID: coFlyer.flyer.flyerID,
-            //         ),
-            //       ),
-            //   ).toList(),
+              },
 
           ),
 

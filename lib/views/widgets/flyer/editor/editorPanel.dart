@@ -16,7 +16,7 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 class EditorPanel extends StatelessWidget {
   final SuperFlyer superFlyer;
   final BzModel bzModel;
-  // final double flyerZoneWidth;
+  final double flyerZoneWidth;
   // final BoxFit boxFit;
   final double panelWidth;
   // final bool showAuthor;
@@ -33,7 +33,7 @@ class EditorPanel extends StatelessWidget {
   EditorPanel({
     @required this.superFlyer,
     @required this.bzModel,
-    // @required this.flyerZoneWidth,
+    @required this.flyerZoneWidth,
     // @required this.boxFit,
     @required this.panelWidth,
     // @required this.showAuthor,
@@ -65,7 +65,7 @@ class EditorPanel extends StatelessWidget {
     double _panelWidth = panelWidth;
     double _buttonSize = panelWidth;//_panelWidth - (Ratioz.appBarMargin * 2);
 
-    double _flyerZoneHeight = Scale.superFlyerZoneHeight(context, superFlyer.flyerZoneWidth);
+    double _flyerZoneHeight = Scale.superFlyerZoneHeight(context, flyerZoneWidth);
 
     double _panelButtonSize = _buttonSize * 0.8;
 
@@ -80,7 +80,7 @@ class EditorPanel extends StatelessWidget {
     //   height: _assets[_draft.currentSlideIndex].originalHeight,
     // );
 
-    double _authorButtonHeight = Ratioz.xxflyerLogoWidth * superFlyer.flyerZoneWidth;
+    double _authorButtonHeight = Ratioz.xxflyerLogoWidth * flyerZoneWidth;
 
 // -----------------------------------------------------------------------------
 
@@ -105,7 +105,7 @@ class EditorPanel extends StatelessWidget {
             underLine: superFlyer.flyerShowsAuthor == true ? 'Author Shown' : 'Author Hidden',
             underLineShadowIsOn: false,
             underLineColor: superFlyer.flyerShowsAuthor == true ? Colorz.White255 : Colorz.White80,
-            corners: Borderers.superLogoShape(context: context, zeroCornerEnIsRight: false, corner: Ratioz.xxflyerAuthorPicCorner * superFlyer.flyerZoneWidth),
+            corners: Borderers.superLogoShape(context: context, zeroCornerEnIsRight: false, corner: Ratioz.xxflyerAuthorPicCorner * flyerZoneWidth),
             blackAndWhite: superFlyer.flyerShowsAuthor == true ? false : true,
             bubble: superFlyer.flyerShowsAuthor == true ? true : false,
             onTap: superFlyer.onShowAuthorTap,
@@ -118,7 +118,7 @@ class EditorPanel extends StatelessWidget {
 
           /// TRIGGER EDIT MODE
           PanelButton(
-            flyerZoneWidth: superFlyer.flyerZoneWidth,
+            flyerZoneWidth: flyerZoneWidth,
             icon:  Iconz.Gears,
             iconSizeFactor: 0.5,
             verse: superFlyer.editMode ? 'Editing' : 'Edit',
