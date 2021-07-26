@@ -4,6 +4,7 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_type_class.dart';
+import 'package:bldrs/models/super_flyer.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
@@ -33,6 +34,9 @@ class _HomeWallState extends State<HomeWall> {
 // -----------------------------------------------------------------------------
     Widget _spacer = SizedBox(height: Ratioz.appBarMargin, width: Ratioz.appBarMargin,);
 // -----------------------------------------------------------------------------
+
+    double _sponsoredFlyerWidth = Scale.superFlyerZoneWidth(context, 0.45);
+
     List<Widget> _homeWallWidgets = <Widget>[
 
       /// BUSINESSES
@@ -76,14 +80,20 @@ class _HomeWallState extends State<HomeWall> {
                 //         // ),
 
                 FlyerZoneBox(
-                  flyerSizeFactor: 0.45,
+                  superFlyer: SuperFlyer.createEmptySuperFlyer(
+                    context: context,
+                    flyerZoneWidth: _sponsoredFlyerWidth,
+                  ),
                   onFlyerZoneTap: null,
                 ),
 
                 _spacer,
 
                 FlyerZoneBox(
-                  flyerSizeFactor: 0.45,
+                  superFlyer: SuperFlyer.createEmptySuperFlyer(
+                    context: context,
+                    flyerZoneWidth: _sponsoredFlyerWidth,
+                  ),
                   onFlyerZoneTap: null,
                 ),
 

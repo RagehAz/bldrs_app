@@ -891,60 +891,60 @@ class _OldFlyerEditorScreenState extends State<OldFlyerEditorScreen> {
               Stack(
                 children: <Widget>[
 
-                  FlyerZoneBox(
-                    flyerSizeFactor: _flyerSizeFactor,
-                    onFlyerZoneTap: (){},
-                    stackWidgets: <Widget>[
-
-                      // --- SLIDES
-                      PageView.builder(
-                        controller: _slidingController,
-                        itemCount: _currentSlides.length,
-                        onPageChanged: onPageChangedIsOn ? (i) => _onPageChanged(i) : (i) => Sliders.zombie(i),
-                        physics: ClampingScrollPhysics(),
-                        itemBuilder: (ctx, index) =>
-                            AnimatedOpacity(
-                              key: ObjectKey(_currentSlides[index].picture),
-                              opacity: _slidesVisibility[index] == true ? 1 : 0,
-                              duration: Duration(milliseconds: 100),
-                              child: SingleSlide(
-                                flyerZoneWidth: _flyerZoneWidth,
-                                flyerID: _flyer.flyerID,
-                                picture: _currentSlides[index].picture,
-                                slideMode: slidesModes[index],
-                                boxFit: BoxFit.fitWidth, // [fitWidth - contain - scaleDown] have the blur background
-                                titleController: _titleControllers[index],
-                                textFieldOnChanged: (text){
-                                  print('text is : $text');
-                                },
-                                onTap: (){},
-                              ),
-                            ),
-                      ),
-
-                      // --- FLYER HEADER
-                      // FlyerHeader(
-                      //   // tinyBz: TinyBz.getTinyBzFromBzModel(_bz),
-                      //   // tinyAuthor: TinyUser.getTinyAuthorFromAuthorModel(_author),
-                      //   // flyerShowsAuthor: true,
-                      //   // followIsOn: false,
-                      //   // flyerZoneWidth: Scale.superFlyerZoneWidth(context, _flyerSizeFactor),
-                      //   // bzPageIsOn: false,
-                      //   // tappingHeader: (){},
-                      //   // onFollowTap: (){},
-                      //   // onCallTap: (){},
-                      // ),
-
-                      // --- PROGRESS BAR
-                      Strips(
-                        flyerZoneWidth: _flyerZoneWidth,
-                        numberOfStrips: numberOfSlides,
-                        slideIndex: _currentSlideIndex,
-                        swipeDirection: _swipeDirection,
-                      ),
-
-                    ],
-                  ),
+                  // FlyerZoneBox(
+                  //   superFlyer: ,
+                  //   onFlyerZoneTap: (){},
+                  //   stackWidgets: <Widget>[
+                  //
+                  //     // --- SLIDES
+                  //     PageView.builder(
+                  //       controller: _slidingController,
+                  //       itemCount: _currentSlides.length,
+                  //       onPageChanged: onPageChangedIsOn ? (i) => _onPageChanged(i) : (i) => Sliders.zombie(i),
+                  //       physics: ClampingScrollPhysics(),
+                  //       itemBuilder: (ctx, index) =>
+                  //           AnimatedOpacity(
+                  //             key: ObjectKey(_currentSlides[index].picture),
+                  //             opacity: _slidesVisibility[index] == true ? 1 : 0,
+                  //             duration: Duration(milliseconds: 100),
+                  //             child: SingleSlide(
+                  //               flyerZoneWidth: _flyerZoneWidth,
+                  //               flyerID: _flyer.flyerID,
+                  //               picture: _currentSlides[index].picture,
+                  //               slideMode: slidesModes[index],
+                  //               boxFit: BoxFit.fitWidth, // [fitWidth - contain - scaleDown] have the blur background
+                  //               titleController: _titleControllers[index],
+                  //               textFieldOnChanged: (text){
+                  //                 print('text is : $text');
+                  //               },
+                  //               onTap: (){},
+                  //             ),
+                  //           ),
+                  //     ),
+                  //
+                  //     // --- FLYER HEADER
+                  //     // FlyerHeader(
+                  //     //   // tinyBz: TinyBz.getTinyBzFromBzModel(_bz),
+                  //     //   // tinyAuthor: TinyUser.getTinyAuthorFromAuthorModel(_author),
+                  //     //   // flyerShowsAuthor: true,
+                  //     //   // followIsOn: false,
+                  //     //   // flyerZoneWidth: Scale.superFlyerZoneWidth(context, _flyerSizeFactor),
+                  //     //   // bzPageIsOn: false,
+                  //     //   // tappingHeader: (){},
+                  //     //   // onFollowTap: (){},
+                  //     //   // onCallTap: (){},
+                  //     // ),
+                  //
+                  //     // --- PROGRESS BAR
+                  //     Strips(
+                  //       flyerZoneWidth: _flyerZoneWidth,
+                  //       numberOfStrips: numberOfSlides,
+                  //       slideIndex: _currentSlideIndex,
+                  //       swipeDirection: _swipeDirection,
+                  //     ),
+                  //
+                  //   ],
+                  // ),
 
                   // --- FLYER EDITING BUTTONS
                   Positioned(
