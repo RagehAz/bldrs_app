@@ -146,9 +146,7 @@ class MaxHeader extends StatelessWidget {
               // --- BZ GALLERY
               Gallery(
                 superFlyer: superFlyer,
-                flyerZoneWidth: flyerZoneWidth,
                 showFlyers: bzPageIsOn ? true : false,
-                bz: bz,
                 flyerOnTap: (flyerID) async { await Nav.openFlyer(context, flyerID);},
               ),
 

@@ -9,21 +9,42 @@ class PublishTime {
     @required this.state,
     @required this.timeStamp,
   });
-
+// -----------------------------------------------------------------------------
 // Map<String, dynamic> toMap(){
 //
 // }
-//
+// -----------------------------------------------------------------------------
 // PublishTime decipherPublishTimeMap(Map<String, dynamic> timeMap){
 //
 // }
-//
+// -----------------------------------------------------------------------------
 // List<PublishTime> decipherPublishTimesMaps(List<Map<String, dynamic>> maps){
 //
 // }
-//
+// -----------------------------------------------------------------------------
 // List<Map<String, dynamic>> cipherPublishTimes(List<PublishTime> publishTimes){
 //
 // }
+// -----------------------------------------------------------------------------
+static DateTime getPublishTimeFromTimes({FlyerState state, List<PublishTime> times}){
+  DateTime _time = times.firstWhere((time) => time.state == state, orElse: () => null)?.timeStamp;
 
+  return _time;
+}
+// -----------------------------------------------------------------------------
+static bool flyerIsBanned(List<PublishTime> times) {
+  bool _flyerIsBanned = false;
+
+  for (int i = 0; i <= times.length; i++){
+    PublishTime _time = times[i];
+    if (_time.state == FlyerState.Banned){
+      _flyerIsBanned = true;
+      break;
+    }
+
+  }
+
+  return _flyerIsBanned;
+}
+// -----------------------------------------------------------------------------
 }

@@ -49,6 +49,7 @@ class AddFlyerButton extends StatelessWidget {
     );
 
     return FlyerZoneBox(
+      flyerZoneWidth: flyerZoneWidth,
       superFlyer: _bzHeaderSuperFlyer,
       onFlyerZoneTap: () async { await _goToFlyerEditor(context); },
       stackWidgets: <Widget>[

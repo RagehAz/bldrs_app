@@ -6,14 +6,14 @@ import 'package:flutter/material.dart';
 class ProgressBar extends StatelessWidget {
   // final Duration duration;
   // final double opacity;
-  // final double flyerZoneWidth;
+  final double flyerZoneWidth;
   // final DraftFlyerModel draft;
   final SuperFlyer superFlyer;
 
   const ProgressBar({
     // @required this.duration,
     // @required this.opacity,
-    // @required this.flyerZoneWidth,
+    @required this.flyerZoneWidth,
     // @required this.draft,
     @required this.superFlyer,
     Key key,
@@ -21,14 +21,22 @@ class ProgressBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedOpacity(
-      duration: superFlyer.fadingDuration,
-      opacity: superFlyer.progressBarOpacity,
-      child: Strips(
-        flyerZoneWidth: superFlyer.flyerZoneWidth,
-        numberOfStrips: superFlyer.numberOfStrips,
-        slideIndex: superFlyer.currentSlideIndex,
-        swipeDirection: superFlyer.swipeDirection,
+    return Container(
+      width: flyerZoneWidth,
+      child: AnimatedOpacity(
+        duration: superFlyer.fadingDuration,
+        opacity: superFlyer.progressBarOpacity,
+        child:
+
+        superFlyer.numberOfSlides > 0?
+        Strips(
+          flyerZoneWidth: flyerZoneWidth,
+          numberOfStrips: superFlyer.numberOfStrips,
+          slideIndex: superFlyer.currentSlideIndex,
+          swipeDirection: superFlyer.swipeDirection,
+        )
+              :
+        Container(),
       ),
     );
   }

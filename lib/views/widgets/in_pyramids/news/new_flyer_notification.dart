@@ -54,7 +54,6 @@ class NewFlyerNotification extends StatelessWidget {
                     :
                 publisherType == PublisherType.BzAuthor ?
                 AuthorPic(
-                  superFlyer: superFlyer,
                   authorPic: publisherPic,
                   flyerZoneWidth: screenWidth * 0.89,
                 ) :

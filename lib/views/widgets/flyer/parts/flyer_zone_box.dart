@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 
 class FlyerZoneBox extends StatelessWidget {
   final SuperFlyer superFlyer;
+  final double flyerZoneWidth;
   final Function onFlyerZoneTap;
   final List<Widget> stackWidgets;
   final Function onFlyerZoneLongPress;
@@ -18,6 +19,7 @@ class FlyerZoneBox extends StatelessWidget {
 
   FlyerZoneBox({
     @required this.superFlyer,
+    @required this.flyerZoneWidth, // NEVER DELETE THIS
     @required this.onFlyerZoneTap,
     this.stackWidgets,
     this.onFlyerZoneLongPress,
@@ -30,7 +32,7 @@ class FlyerZoneBox extends StatelessWidget {
 // -----------------------------------------------------------------------------
     double _screenWithoutSafeAreaHeight = Scale.superScreenHeightWithoutSafeArea(context);
 // -----------------------------------------------------------------------------
-    double _flyerZoneWidth = superFlyer.flyerZoneWidth;
+    double _flyerZoneWidth = flyerZoneWidth;
     double _flyerZoneFactor = Scale.superFlyerSizeFactorByWidth(context, superFlyer.flyerZoneWidth);
     double _flyerZoneHeight = _flyerZoneFactor == 1 ?
     _screenWithoutSafeAreaHeight : _flyerZoneWidth * Ratioz.xxflyerZoneHeight;
@@ -72,7 +74,9 @@ class FlyerZoneBox extends StatelessWidget {
     );
 
     double _screenWidth = Scale.superScreenWidth(context);
-    double _panelWidth = _screenWidth - _flyerZoneWidth - (Ratioz.appBarMargin * 3);
+    double _panelWidth =
+        editorBzModel == null ? 0 :
+        _screenWidth - _flyerZoneWidth - (Ratioz.appBarMargin * 3);
 
     return GestureDetector(
       onTap: (){
@@ -80,46 +84,54 @@ class FlyerZoneBox extends StatelessWidget {
         Keyboarders.minimizeKeyboardOnTapOutSide(context);
       },
       onLongPress: onFlyerZoneLongPress,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
+      child: Container(
+        width: _flyerZoneWidth + _panelWidth + Ratioz.appBarMargin,
+        height: _flyerZoneHeight,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
 
-          /// EditorPanel
-          if (editorBzModel != null)
-          EditorPanel(
-            superFlyer: superFlyer,
-            panelWidth: _panelWidth,
-            bzModel: editorBzModel,
-            flyerZoneWidth: _flyerZoneWidth,
-          ),
-
-
-          /// flyer zone
-          Container(
-            width: _flyerZoneWidth,
-            height: _flyerZoneHeight,
-            alignment: Alignment.topCenter,
-            decoration: BoxDecoration(
-              color: Colorz.White20,
-              borderRadius: _flyerBorders,
-              boxShadow: Shadowz.flyerZoneShadow(_flyerZoneWidth),
+            /// EditorPanel
+            if (editorBzModel != null)
+            EditorPanel(
+              superFlyer: superFlyer,
+              panelWidth: _panelWidth,
+              bzModel: editorBzModel,
+              flyerZoneWidth: _flyerZoneWidth,
             ),
-            child: ClipRRect(
-              borderRadius: _flyerBorders,
 
-              child: Container(
-                width: _flyerZoneWidth,
-                height: _flyerZoneHeight,
-                child: Stack(
-                  alignment: Alignment.topCenter,
-                  children: stackWidgets == null ? [] : stackWidgets,
+            if (editorBzModel != null)
+            SizedBox(
+              width: Ratioz.appBarMargin,
+            ),
+
+            /// flyer zone
+            Container(
+              width: _flyerZoneWidth,
+              height: _flyerZoneHeight,
+              alignment: Alignment.topCenter,
+              decoration: BoxDecoration(
+                color: Colorz.White20,
+                borderRadius: _flyerBorders,
+                boxShadow: Shadowz.flyerZoneShadow(_flyerZoneWidth),
+              ),
+              child: ClipRRect(
+                borderRadius: _flyerBorders,
+
+                child: Container(
+                  width: _flyerZoneWidth,
+                  height: _flyerZoneHeight,
+                  child: Stack(
+                    alignment: Alignment.topCenter,
+                    children: stackWidgets == null ? [] : stackWidgets,
+                  ),
                 ),
               ),
             ),
-          ),
 
-        ],
+          ],
+        ),
       ),
     );
   }

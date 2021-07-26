@@ -32,9 +32,13 @@ class TextChecker{
   }
 // -----------------------------------------------------------------------------
   static void disposeAllTextControllers(List<TextEditingController> controllers){
-    controllers.forEach((controller) {
-      if (TextChecker.textControllerHasNoValue(controller))controller.dispose();
-    });
+
+    if(controllers != null){
+      controllers.forEach((controller) {
+        if (TextChecker.textControllerHasNoValue(controller))controller.dispose();
+      });
+    }
+
   }
 // -----------------------------------------------------------------------------
   static List<TextEditingController> createEmptyTextControllers(int length){
