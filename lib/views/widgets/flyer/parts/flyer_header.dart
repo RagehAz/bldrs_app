@@ -14,30 +14,8 @@ import 'package:flutter/material.dart';
 class FlyerHeader extends StatelessWidget {
   final SuperFlyer superFlyer;
 
-  // final TinyBz tinyBz;
-  // final TinyUser tinyAuthor;
-  // final bool flyerShowsAuthor;
-  // final bool followIsOn;
-  // final double flyerZoneWidth;
-  // final bool bzPageIsOn;
-  // final Function tappingHeader;
-  // final Function onFollowTap;
-  // final Function onCallTap;
-  // final bool stripBlurIsOn;
-
   FlyerHeader({
     this.superFlyer,
-
-    // this.tinyBz,
-    // this.tinyAuthor,
-    // this.flyerShowsAuthor = true,
-    // this.followIsOn = false,
-    // this.flyerZoneWidth,
-    // this.bzPageIsOn,
-    // this.tappingHeader,
-    // this.onFollowTap,
-    // this.onCallTap,
-    // this.stripBlurIsOn = false,
   });
 
   @override
@@ -74,16 +52,6 @@ class FlyerHeader extends StatelessWidget {
                   // --- HEADER COMPONENTS
                   MiniHeaderStrip(
                     superFlyer: superFlyer,
-                    // flyerZoneWidth: superFlyer.flyerZoneWidth,
-                    // bzPageIsOn: superFlyer.bzPageIsOn,
-                    // tinyBz: tinyBz,
-                    // tinyAuthor: tinyAuthor,
-                    // flyerShowsAuthor: flyerShowsAuthor,
-                    // followIsOn: followIsOn,
-                    // tappingHeader: tappingHeader,
-                    // onFollowTap: onFollowTap,
-                    // onCallTap: onCallTap,
-                    // stripBlurIsOn: stripBlurIsOn,
                   ),
 
                   // --- HEADER'S MAX STATE'S HEADLINE : BZ.NAME AND BZ.LOCALE

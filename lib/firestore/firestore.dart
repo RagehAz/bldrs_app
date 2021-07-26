@@ -276,11 +276,11 @@ class Fire{
   }) async {
 
     print('readDoc() : starting to read doc : firestore/$collName/$docName');
-    print('lng : ${Wordz.languageCode(context)}');
+    // print('lng : ${Wordz.languageCode(context)}');
 
     Map<String, dynamic> _map; //QueryDocumentSnapshot
 
-    print('readDoc() : _map starts as : $_map');
+    // print('readDoc() : _map starts as : $_map');
 
     dynamic _result = await tryCatchAndReturn(
       context: context,
@@ -288,16 +288,16 @@ class Fire{
       functions: () async {
 
         final DocumentReference _docRef = Fire.getDocRef(collName, docName);
-        print('readDoc() : _docRef : $_docRef');
+        // print('readDoc() : _docRef : $_docRef');
 
         _map = await _getMapByDocRef(_docRef);
-        print('readDoc() : _map : $_map');
+        // print('readDoc() : _map : $_map');
 
       },
     );
 
-    print('readDoc() : _result : $_result');
-    print('readDoc() : _map : $_map');
+    // print('readDoc() : _result : $_result');
+    // print('readDoc() : _map : $_map');
     // print('lng : ${Wordz.languageCode(context)}');
 
     return
