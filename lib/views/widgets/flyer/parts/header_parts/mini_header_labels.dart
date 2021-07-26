@@ -1,10 +1,8 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/models/tiny_models/tiny_bz.dart';
-import 'package:bldrs/models/tiny_models/tiny_user.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/author_label.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/mini_bz_label.dart';
-import 'package:bldrs/views/widgets/flyer/super_flyer.dart';
+import 'package:bldrs/models/super_flyer.dart';
 import 'package:flutter/material.dart';
 
 class HeaderLabels extends StatelessWidget {
@@ -61,12 +59,14 @@ class HeaderLabels extends StatelessWidget {
               superFlyer.flyerShowsAuthor == false ? Container() :
               AuthorLabel(
                 superFlyer: superFlyer  ,
-                // flyerZoneWidth: flyerZoneWidth,
-                // tinyAuthor: tinyAuthor,
-                // tinyBz: tinyBz,
+                flyerZoneWidth: superFlyer.flyerZoneWidth,
+                tinyAuthor: superFlyer.flyerTinyAuthor,
+                tinyBz: SuperFlyer.getTinyBzFromSuperFlyer(superFlyer),
                 showLabel: superFlyer.bzPageIsOn,
                 authorGalleryCount: 0, // is not needed here
                 labelIsOn: true,
+                tappingLabel: null,
+
               ),
             ],
           )

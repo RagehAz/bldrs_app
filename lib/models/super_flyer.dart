@@ -20,6 +20,7 @@ import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/models/tiny_models/tiny_user.dart';
 import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
+import 'package:bldrs/views/widgets/flyer/final_flyer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
@@ -28,6 +29,7 @@ import 'package:provider/provider.dart';
 class SuperFlyer{
   /// sizes
   double flyerZoneWidth;
+  FlyerMode flyerMode;
 
   /// animation controller
   final PageController horizontalController;
@@ -42,7 +44,7 @@ class SuperFlyer{
   final Function onSlideRightTap;
   final Function onSlideLeftTap;
   final Function onSwipeFlyer;
-  // final Function onFinalSlideSwipe;
+  final Function onTinyFlyerTap;
 
   /// animation parameters
   final Duration slidingDuration;
@@ -69,9 +71,12 @@ class SuperFlyer{
   final Function onZoneTap;
   final Function onAboutTap;
   final Function onKeywordsTap;
+  final Function onShowAuthorTap;
+  final Function onTriggerEditMode;
 
   /// editor data
   bool firstTimer;
+  bool editMode;
   List<TextEditingController> headlinesControllers;
   List<TextEditingController> descriptionsControllers;
   TextEditingController infoController;
@@ -168,6 +173,7 @@ class SuperFlyer{
     this.onSlideRightTap,
     this.onSlideLeftTap,
     this.onSwipeFlyer,
+    @required this.onTinyFlyerTap,
 
     /// animation parameters
     this.slidingDuration,
@@ -194,9 +200,13 @@ class SuperFlyer{
     this.onZoneTap,
     this.onAboutTap,
     this.onKeywordsTap,
+    @required this.onShowAuthorTap,
+    @required this.onTriggerEditMode,
 
     /// editor data
     this.firstTimer,
+    @required this.editMode,
+    @required this.flyerMode,
     this.headlinesControllers,
     this.descriptionsControllers,
     this.infoController,
@@ -275,6 +285,8 @@ class SuperFlyer{
     this.followIsOn,
   });
 // -----------------------------------------------------------------------------
+  static String draftID = 'draft';
+// -----------------------------------------------------------------------------
   static SuperFlyer createEmptySuperFlyer({BuildContext context, double flyerZoneWidth}){
 
 
@@ -282,6 +294,7 @@ class SuperFlyer{
         SuperFlyer(
           /// sizes
           flyerZoneWidth: flyerZoneWidth,
+          flyerMode: FlyerMode.empty,
 
           /// animation controller
           horizontalController: null,
@@ -296,6 +309,7 @@ class SuperFlyer{
           onSlideRightTap: null,
           onSlideLeftTap: null,
           onSwipeFlyer: null,
+          onTinyFlyerTap: null,
 
           /// animation parameters
           slidingDuration: null,
@@ -322,9 +336,12 @@ class SuperFlyer{
           onZoneTap: null,
           onAboutTap: null,
           onKeywordsTap: null,
+          onShowAuthorTap: null,
+          onTriggerEditMode: null,
 
           /// editor data
           firstTimer: null,
+          editMode: null,
           headlinesControllers: null,
           descriptionsControllers: null,
           infoController: null,
@@ -416,6 +433,7 @@ class SuperFlyer{
     @required Function onSlideRightTap,
     @required Function onSlideLeftTap,
     @required Function onSwipeFlyer,
+    @required Function onTinyFlyerTap,
     @required Function onView,
     @required Function onAnkhTap,
     @required Function onShareTap,
@@ -431,6 +449,7 @@ class SuperFlyer{
       SuperFlyer(
         /// sizes
         flyerZoneWidth: flyerZoneWidth,
+        flyerMode: FlyerMode.normal,
 
         /// animation controller
         horizontalController: PageController(initialPage: _initialPage, viewportFraction: 1, keepPage: true),
@@ -445,6 +464,7 @@ class SuperFlyer{
         onSlideRightTap: onSlideRightTap,
         onSlideLeftTap: onSlideLeftTap,
         onSwipeFlyer: onSwipeFlyer,
+        onTinyFlyerTap: onTinyFlyerTap,
 
         /// animation parameters
         slidingDuration: Ratioz.durationSliding400,
@@ -471,9 +491,12 @@ class SuperFlyer{
         onZoneTap: null,
         onAboutTap: null,
         onKeywordsTap: null,
+        onShowAuthorTap: null,
+        onTriggerEditMode: null,
 
         /// editor data
         firstTimer: null,
+        editMode: false,
         headlinesControllers: null,
         descriptionsControllers: null,
         infoController: null,
@@ -560,7 +583,7 @@ class SuperFlyer{
     @required BuildContext context,
     @required double flyerZoneWidth,
     @required TinyFlyer tinyFlyer,
-    @required Function onMicroFlyerTap,
+    @required Function onTinyFlyerTap,
     @required Function onAnkhTap,
   }){
 
@@ -572,6 +595,7 @@ class SuperFlyer{
       SuperFlyer(
         /// sizes
         flyerZoneWidth: flyerZoneWidth,
+        flyerMode: FlyerMode.tiny,
 
         /// animation controller
         horizontalController: null,
@@ -582,10 +606,11 @@ class SuperFlyer{
         onHorizontalSlideSwipe: null,
         onVerticalPageSwipe: null,
         onVerticalPageBack: null,
-        onHeaderTap: onMicroFlyerTap,
-        onSlideRightTap: onMicroFlyerTap,
-        onSlideLeftTap: onMicroFlyerTap,
+        onHeaderTap: onTinyFlyerTap,
+        onSlideRightTap: null,
+        onSlideLeftTap: null,
         onSwipeFlyer: null,
+        onTinyFlyerTap: onTinyFlyerTap,
 
         /// animation parameters
         slidingDuration: null,
@@ -612,9 +637,12 @@ class SuperFlyer{
         onZoneTap: null,
         onAboutTap: null,
         onKeywordsTap: null,
+        onShowAuthorTap: null,
+        onTriggerEditMode: null,
 
         /// editor data
         firstTimer: null,
+        editMode: false,
         headlinesControllers: null,
         descriptionsControllers: null,
         infoController: null,
@@ -716,6 +744,7 @@ class SuperFlyer{
     @required Function onSlideRightTap,
     @required Function onSlideLeftTap,
     @required Function onSwipeFlyer,
+    @required Function onTinyFlyerTap,
     @required Function onView,
     @required Function onAnkhTap,
     @required Function onShareTap,
@@ -730,6 +759,8 @@ class SuperFlyer{
     @required Function onZoneTap,
     @required Function onAboutTap,
     @required Function onKeywordsTap,
+    @required Function onShowAuthorTap,
+    @required Function onTriggerEditMode,
   }){
 
     CountryProvider _countryPro = Provider.of<CountryProvider>(context, listen: false);
@@ -738,6 +769,7 @@ class SuperFlyer{
       SuperFlyer(
         /// sizes
         flyerZoneWidth: flyerZoneWidth,
+        flyerMode: FlyerMode.newDraft,
 
         /// animation controller
         horizontalController: PageController(initialPage: 0, viewportFraction: 1, keepPage: true),
@@ -752,6 +784,7 @@ class SuperFlyer{
         onSlideRightTap: onSlideRightTap,
         onSlideLeftTap: onSlideLeftTap,
         onSwipeFlyer: onSwipeFlyer,
+        onTinyFlyerTap: onTinyFlyerTap,
 
         /// animation parameters
         slidingDuration: Ratioz.durationSliding400,
@@ -778,9 +811,12 @@ class SuperFlyer{
         onZoneTap: onZoneTap,
         onAboutTap: onAboutTap,
         onKeywordsTap: onKeywordsTap,
+        onShowAuthorTap: onShowAuthorTap,
+        onTriggerEditMode: onTriggerEditMode,
 
         /// editor data
         firstTimer: true,
+        editMode: true,
         headlinesControllers: new List(),
         descriptionsControllers: new List(),
         infoController: new TextEditingController(),
@@ -830,7 +866,7 @@ class SuperFlyer{
 
         /// flyer identifiers
         key: ValueKey('${bzModel.bzID} : ${bzModel.nanoFlyers.length + 1} : ${superUserID()}'),
-        flyerID: DraftFlyerModel.draftID,
+        flyerID: SuperFlyer.draftID,
         bzID: bzModel.bzID,
         authorID: superUserID(),
         flyerURL: null,
@@ -875,6 +911,7 @@ class SuperFlyer{
     @required Function onSlideRightTap,
     @required Function onSlideLeftTap,
     @required Function onSwipeFlyer,
+    @required Function onTinyFlyerTap,
     @required Function onView,
     @required Function onAnkhTap,
     @required Function onShareTap,
@@ -889,12 +926,15 @@ class SuperFlyer{
     @required Function onZoneTap,
     @required Function onAboutTap,
     @required Function onKeywordsTap,
+    @required Function onShowAuthorTap,
+    @required Function onTriggerEditMode,
   }) async {
 
     return
       SuperFlyer(
         /// sizes
         flyerZoneWidth: flyerZoneWidth,
+        flyerMode: FlyerMode.draftFromFlyer,
 
         /// animation controller
         horizontalController: PageController(initialPage: 0, viewportFraction: 1, keepPage: true),
@@ -909,6 +949,7 @@ class SuperFlyer{
         onSlideRightTap: onSlideRightTap,
         onSlideLeftTap: onSlideLeftTap,
         onSwipeFlyer: onSwipeFlyer,
+        onTinyFlyerTap: onTinyFlyerTap,
 
         /// animation parameters
         slidingDuration: Ratioz.durationSliding400,
@@ -935,9 +976,12 @@ class SuperFlyer{
         onZoneTap: onZoneTap,
         onAboutTap: onAboutTap,
         onKeywordsTap: onKeywordsTap,
+        onShowAuthorTap: onShowAuthorTap,
+        onTriggerEditMode: onTriggerEditMode,
 
         /// editor data
         firstTimer: false,
+        editMode: true,
         headlinesControllers: FlyerModel.createHeadlinesControllersForExistingFlyer(flyerModel),
         descriptionsControllers: FlyerModel.createDescriptionsControllersForExistingFlyer(flyerModel),
         infoController: new TextEditingController(text: flyerModel.info),
@@ -986,8 +1030,8 @@ class SuperFlyer{
         bzTotalCalls: bzModel.bzTotalCalls,
 
         /// flyer identifiers
-        key: ValueKey('${DraftFlyerModel.draftID} : ${bzModel.bzID} : ${bzModel.nanoFlyers.length + 1} : ${superUserID()}'),
-        flyerID: DraftFlyerModel.draftID,
+        key: ValueKey('${SuperFlyer.draftID} : ${bzModel.bzID} : ${bzModel.nanoFlyers.length + 1} : ${superUserID()}'),
+        flyerID: SuperFlyer.draftID,
         bzID: bzModel.bzID,
         authorID: superUserID(),
         flyerURL: flyerModel.flyerURL,
@@ -1035,5 +1079,136 @@ static TinyBz getTinyBzFromSuperFlyer(SuperFlyer superFlyer){
         );
 }
 // -----------------------------------------------------------------------------
+static SuperFlyer getSuperFlyerFromBzModelOnly(double flyerZoneWidth, BzModel bzModel){
+    return
+      SuperFlyer(
+        /// sizes
+        flyerZoneWidth: flyerZoneWidth,
+        flyerMode: null,
+
+        /// animation controller
+        horizontalController: PageController(initialPage: 0, viewportFraction: 1, keepPage: true),
+        verticalController: PageController(initialPage: 0, keepPage: true, viewportFraction: 1),
+        infoScrollController: ScrollController(keepScrollOffset: true,),
+
+        /// animation functions
+        onHorizontalSlideSwipe: null,
+        onVerticalPageSwipe: null,
+        onVerticalPageBack: null,
+        onHeaderTap: null,
+        onSlideRightTap: null,
+        onSlideLeftTap: null,
+        onSwipeFlyer: null,
+        onTinyFlyerTap: null,
+
+        /// animation parameters
+        slidingDuration: Ratioz.durationSliding400,
+        fadingDuration: Ratioz.durationFading200,
+        progressBarOpacity: 1,
+        swipeDirection: SwipeDirection.next,
+        bzPageIsOn: false,
+        listenToSwipe: true,
+
+        /// record functions
+        onView: null,
+        onAnkhTap: null,
+        onShareTap: null,
+        onFollowTap: null,
+        onCallTap: null,
+
+        /// editor functions
+        onAddImages: null,
+        onDeleteSlide: null,
+        onCropImage: null,
+        onResetImage: null,
+        onFitImage: null,
+        onFlyerTypeTap: null,
+        onZoneTap: null,
+        onAboutTap: null,
+        onKeywordsTap: null,
+        onShowAuthorTap: null,
+        onTriggerEditMode: null,
+
+        /// editor data
+        firstTimer: null,
+        editMode: null,
+        headlinesControllers: null,
+        descriptionsControllers: null,
+        infoController: null,
+        assetsSources: null,
+        assetsFiles: null,
+        boxesFits: null,
+
+        /// slides settings
+        slidesVisibilities: null,
+        numberOfSlides: null,
+        numberOfStrips: null,
+
+        /// current slide settings
+        currentPicFit: null,
+        initialSlideIndex: null,
+        currentSlideIndex: null,
+        verticalIndex: null,
+
+        /// bz data
+        bzType: bzModel.bzType,
+        bzForm: bzModel.bzForm,
+        bldrBirth: bzModel.bldrBirth,
+        accountType: bzModel.accountType,
+        bzURL: bzModel.bzURL,
+        bzName: bzModel.bzName,
+        bzLogo: bzModel.bzLogo,
+        bzScope: bzModel.bzScope,
+        bzZone: bzModel.bzZone,
+        bzAbout: bzModel.bzAbout,
+        bzPosition: bzModel.bzPosition,
+        bzContacts: bzModel.bzContacts,
+        bzAuthors: bzModel.bzAuthors,
+        bzShowsTeam: bzModel.bzShowsTeam,
+        bzIsVerified: bzModel.bzIsVerified,
+        bzAccountIsDeactivated: bzModel.bzAccountIsDeactivated,
+        bzAccountIsBanned: bzModel.bzAccountIsBanned,
+        bzNanoFlyers: bzModel.nanoFlyers,
+
+        /// bz records
+        bzTotalFollowers: bzModel.bzTotalFollowers,
+        bzTotalFlyers: bzModel.nanoFlyers.length,
+        bzTotalSaves: bzModel.bzTotalSaves,
+        bzTotalShares: bzModel.bzTotalShares,
+        bzTotalSlides: bzModel.bzTotalSlides,
+        bzTotalViews: bzModel.bzTotalViews,
+        bzTotalCalls: bzModel.bzTotalCalls,
+
+        /// flyer identifiers
+        key: null,
+        flyerID:null,
+        bzID: bzModel.bzID,
+        authorID: superUserID(),
+        flyerURL: null,
+
+        /// flyer data
+        flyerType: null,
+        flyerState: null,
+        flyerTinyAuthor: null,
+        flyerShowsAuthor: null,
+        slides: null,
+
+        /// flyer tags
+        flyerInfo: null,
+        specs: null,
+        keywords: null,
+
+        /// flyer location
+        flyerZone: null,
+        position: null,
+
+        /// publishing times
+        flyerTimes: null,
+
+        /// user based bool triggers
+        ankhIsOn: null,
+        followIsOn: false,
+      );
+}
 }
 
