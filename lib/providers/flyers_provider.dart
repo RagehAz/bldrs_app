@@ -36,7 +36,17 @@ class FlyersProvider with ChangeNotifier {
   List<TinyFlyer> _loadedSavedTinyFlyers;
   List<String> _loadedFollows;
   List<FlyerModel> _bzDeactivatedFlyers;
+  BzModel _myCurrentBzModel;
 // -----------------------------------------------------------------------------
+  BzModel get myCurrentBzModel {
+    return _myCurrentBzModel;
+  }
+// -----------------------------------------------------------------------------
+  void setCurrentBzModel(BzModel bzModel){
+    _myCurrentBzModel = bzModel;
+    notifyListeners();
+  }
+
   List<TinyBz> get getSponsors {
     return <TinyBz> [..._sponsors];
   }

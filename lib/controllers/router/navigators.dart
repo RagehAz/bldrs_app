@@ -72,14 +72,14 @@ class Nav{
     );
   }
 // -----------------------------------------------------------------------------
-  void openFlyer(BuildContext context, dynamic tinyFlyerOrID){
+  static Future<void> openFlyer(BuildContext context, dynamic tinyFlyerOrID) async {
 
     if (ObjectChecker.objectIsString(tinyFlyerOrID) == true){
 
-      goToRoute(context, Routez.FlyerScreen, arguments: tinyFlyerOrID);
+      await goToRoute(context, Routez.FlyerScreen, arguments: tinyFlyerOrID);
     } else {
 
-      goToNewScreen(context, FlyerScreen(tinyFlyer: tinyFlyerOrID,));
+      await goToNewScreen(context, new FlyerScreen(tinyFlyer: tinyFlyerOrID,));
 
     }
 

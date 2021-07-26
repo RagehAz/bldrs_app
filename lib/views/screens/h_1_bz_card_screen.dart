@@ -4,7 +4,7 @@ import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/models/super_flyer.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/models/tiny_models/tiny_user.dart';
-import 'package:bldrs/views/widgets/flyer/parts/flyer_zone.dart';
+import 'package:bldrs/views/widgets/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_header.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
@@ -81,10 +81,14 @@ class _BzCardScreenState extends State<BzCardScreen> {
 
           double _flyerZoneWidth = Scale.superFlyerZoneWidth(context, flyerSizeFactor);
 
-          SuperFlyer _superFlyer = SuperFlyer.getSuperFlyerFromBzModelOnly(_flyerZoneWidth, bz);
+          SuperFlyer _superFlyer = SuperFlyer.getSuperFlyerFromBzModelOnly(
+              flyerZoneWidth: _flyerZoneWidth,
+              bzModel: bz,
+              onHeaderTap: (){print('onheader tap in h 1 bz card screen');},
+          );
 
           return
-            FlyerZone(
+            FlyerZoneBox(
                   flyerSizeFactor: flyerSizeFactor,
                   onFlyerZoneTap: (){print('fuck you');},
                   stackWidgets: <Widget>[
