@@ -1,5 +1,6 @@
 import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
+import 'package:bldrs/models/super_flyer.dart';
 import 'package:bldrs/models/tiny_models/nano_flyer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -349,6 +350,48 @@ Map<String, dynamic> toMap(){
     }
 
     return   _flyersIDs;
+  }
+// -----------------------------------------------------------------------------
+  static BzModel getBzModelFromSuperFlyer(SuperFlyer superFlyer){
+    BzModel _bzModel;
+
+    if (superFlyer != null){
+      _bzModel = BzModel(
+        bzID : superFlyer.bzID,
+        // -------------------------
+        bzType : superFlyer.bzType,
+        bzForm : superFlyer.bzForm,
+        bldrBirth : superFlyer.bldrBirth,
+        accountType : superFlyer.accountType,
+        bzURL : superFlyer.bzURL,
+        // -------------------------
+        bzName :superFlyer.bzName,
+        bzLogo : superFlyer.bzLogo,
+        bzScope : superFlyer.bzScope,
+        bzZone : superFlyer.bzZone,
+        bzAbout : superFlyer.bzAbout,
+        bzPosition : superFlyer.bzPosition,
+        bzContacts : superFlyer.bzContacts,
+        bzAuthors : superFlyer.bzAuthors,
+        bzShowsTeam : superFlyer.bzShowsTeam,
+        // -------------------------
+        bzIsVerified : superFlyer.bzIsVerified,
+        bzAccountIsDeactivated : superFlyer.bzAccountIsDeactivated,
+        bzAccountIsBanned : superFlyer.bzAccountIsBanned,
+        // -------------------------
+        bzTotalFollowers : superFlyer.bzTotalFollowers,
+        bzTotalSaves : superFlyer.bzTotalSaves,
+        bzTotalShares : superFlyer.bzTotalShares,
+        bzTotalSlides : superFlyer.bzTotalSlides,
+        bzTotalViews : superFlyer.bzTotalViews,
+        bzTotalCalls : superFlyer.bzTotalCalls,
+        // -------------------------
+        nanoFlyers: superFlyer.bzNanoFlyers,
+      );
+
+    }
+
+    return _bzModel;
   }
 }
 // -----------------------------------------------------------------------------

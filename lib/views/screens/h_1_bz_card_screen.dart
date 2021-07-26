@@ -89,6 +89,7 @@ class _BzCardScreenState extends State<BzCardScreen> {
 
           return
             FlyerZoneBox(
+              flyerZoneWidth: _flyerZoneWidth,
               superFlyer: _superFlyer,
               onFlyerZoneTap: (){print('tapping flyer zone in h 1 bz card screen ');},
               stackWidgets: <Widget>[

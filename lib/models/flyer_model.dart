@@ -295,7 +295,7 @@ class FlyerModel with ChangeNotifier{
   }
 // -----------------------------------------------------------------------------
   static bool canFlyerShowAuthor({BzModel bzModel}){
-    bool _canShow;
+    bool _canShow = true;
 
     if(bzModel.bzShowsTeam == true){
       _canShow = true;

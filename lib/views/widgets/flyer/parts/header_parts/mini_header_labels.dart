@@ -56,9 +56,9 @@ class HeaderLabels extends StatelessWidget {
               ) : Container(),
 
               // --- AUTHOR LABEL : AUTHOR.IMAGE, AUTHOR.NAME, AUTHOR.TITLE, BZ.FOLLOWERS
-              superFlyer.flyerShowsAuthor == false || superFlyer.flyerTinyAuthor == null ? Container() :
+              // superFlyer.flyerTinyAuthor
+              if (superFlyer.flyerShowsAuthor == true)
               AuthorLabel(
-                superFlyer: superFlyer  ,
                 flyerZoneWidth: superFlyer.flyerZoneWidth,
                 tinyAuthor: superFlyer.flyerTinyAuthor,
                 tinyBz: SuperFlyer.getTinyBzFromSuperFlyer(superFlyer),

@@ -80,8 +80,8 @@ class _HomeWallState extends State<HomeWall> {
                 //         // ),
 
                 FlyerZoneBox(
+                  flyerZoneWidth: _sponsoredFlyerWidth,
                   superFlyer: SuperFlyer.createEmptySuperFlyer(
-                    context: context,
                     flyerZoneWidth: _sponsoredFlyerWidth,
                   ),
                   onFlyerZoneTap: null,
@@ -90,8 +90,8 @@ class _HomeWallState extends State<HomeWall> {
                 _spacer,
 
                 FlyerZoneBox(
+                  flyerZoneWidth: _sponsoredFlyerWidth,
                   superFlyer: SuperFlyer.createEmptySuperFlyer(
-                    context: context,
                     flyerZoneWidth: _sponsoredFlyerWidth,
                   ),
                   onFlyerZoneTap: null,

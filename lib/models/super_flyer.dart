@@ -26,6 +26,12 @@ import 'package:flutter/material.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:provider/provider.dart';
 
+/// need to add
+/// bool loading
+/// string mapImageURL
+///
+
+
 class SuperFlyer{
   /// sizes
   double flyerZoneWidth;
@@ -287,8 +293,9 @@ class SuperFlyer{
   });
 // -----------------------------------------------------------------------------
   static String draftID = 'draft';
+  static String emptyFlyerBzOnlyFlyerID = 'bzOnly';
 // -----------------------------------------------------------------------------
-  static SuperFlyer createEmptySuperFlyer({BuildContext context, double flyerZoneWidth}){
+  static SuperFlyer createEmptySuperFlyer({@required double flyerZoneWidth}){
 
 
     return
@@ -997,7 +1004,7 @@ class SuperFlyer{
         numberOfStrips: flyerModel.slides.length,
 
         /// current slide settings
-        currentPicFit: flyerModel.slides[0].boxFit,
+        currentPicFit: flyerModel.slides.length == 0 ? null : flyerModel.slides[0].boxFit,
         initialSlideIndex: 0,
         currentSlideIndex: 0,
         verticalIndex: 0,
@@ -1033,7 +1040,7 @@ class SuperFlyer{
 
         /// flyer identifiers
         key: ValueKey('${SuperFlyer.draftID} : ${bzModel.bzID} : ${bzModel.nanoFlyers.length + 1} : ${superUserID()}'),
-        flyerID: SuperFlyer.draftID,
+        flyerID: flyerModel.flyerID,
         bzID: bzModel.bzID,
         authorID: superUserID(),
         flyerURL: flyerModel.flyerURL,
@@ -1187,7 +1194,7 @@ static SuperFlyer getSuperFlyerFromBzModelOnly({
 
         /// flyer identifiers
         key: null,
-        flyerID:null,
+        flyerID: SuperFlyer.emptyFlyerBzOnlyFlyerID,
         bzID: bzModel.bzID,
         authorID: superUserID(),
         flyerURL: null,

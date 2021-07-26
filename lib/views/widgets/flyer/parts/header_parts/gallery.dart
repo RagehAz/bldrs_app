@@ -11,18 +11,14 @@ import 'package:bldrs/views/widgets/flyer/stacks/gallery_grid.dart';
 import 'package:flutter/material.dart';
 
 class Gallery extends StatefulWidget {
-  final double flyerZoneWidth;
-  final BzModel bz;
+  final SuperFlyer superFlyer;
   final bool showFlyers;
   final Function flyerOnTap;
-  final SuperFlyer superFlyer;
 
   Gallery({
-    @required this.flyerZoneWidth,
-    @required this.bz,
+    @required this.superFlyer,
     @required this.showFlyers,
     @required this.flyerOnTap,
-    @required this.superFlyer,
   });
 
   @override
@@ -35,6 +31,7 @@ class _GalleryState extends State<Gallery> {
   String currentSelectedAuthor;
   List<TinyFlyer> _tinyFlyers;
   List<String> _bzTeamIDs;
+  BzModel _bzModel;
 // -----------------------------------------------------------------------------
   /// --- LOADING BLOCK
   bool _loading = false;
@@ -46,8 +43,9 @@ class _GalleryState extends State<Gallery> {
 // -----------------------------------------------------------------------------
   @override
   void initState(){
-    _tinyFlyers = TinyFlyer.getTinyFlyersFromBzModel(widget.bz);
-    _bzTeamIDs = BzModel.getBzTeamIDs(widget.bz);
+    _bzModel = BzModel.getBzModelFromSuperFlyer(widget.superFlyer);
+    _tinyFlyers = TinyFlyer.getTinyFlyersFromBzModel(_bzModel);
+    _bzTeamIDs = BzModel.getBzTeamIDs(_bzModel);
     setFlyersVisibility();
     super.initState();
   }
@@ -76,8 +74,8 @@ class _GalleryState extends State<Gallery> {
     bool _thisIsMyBz = _bzTeamIDs.contains(superUserID());
 
     return Container(
-      width: widget.flyerZoneWidth,
-      margin: EdgeInsets.only(top: widget.flyerZoneWidth * 0.005),
+      width: widget.superFlyer.flyerZoneWidth,
+      margin: EdgeInsets.only(top: widget.superFlyer.flyerZoneWidth * 0.005),
       // color: Colorz.bzPageBGColor,
       child: widget.showFlyers == false ? Container() :
       Column(
@@ -91,7 +89,7 @@ class _GalleryState extends State<Gallery> {
             //   verse: '${Wordz.flyersPublishedBy(context)} ${widget.bz.bzName}',
             //   size: 2,
             //   italic: true,
-            //   margin: widget.flyerZoneWidth * Ratioz.xxflyersGridSpacing,
+            //   margin: widget.superFlyer.flyerZoneWidth * Ratioz.xxflyersGridSpacing,
             //   maxLines: 3,
             //   centered: false,
             //   shadow: true,
@@ -102,7 +100,7 @@ class _GalleryState extends State<Gallery> {
             //   '${widget.bz.bzName} ${Wordz.authorsTeam(context)}',
             //   size: 2,
             //   italic: true,
-            //   margin: widget.flyerZoneWidth * Ratioz.xxflyersGridSpacing,
+            //   margin: widget.superFlyer.flyerZoneWidth * Ratioz.xxflyersGridSpacing,
             //   maxLines: 3,
             //   centered: false,
             //   shadow: true,
@@ -110,48 +108,47 @@ class _GalleryState extends State<Gallery> {
 
             // --- AUTHORS LABELS
 
-            widget.bz.bzShowsTeam == false ? Container() :
+            if (widget.superFlyer.bzShowsTeam != false)
             Container(
-              width: widget.flyerZoneWidth,
-              height: widget.flyerZoneWidth * Ratioz.xxflyerAuthorPicWidth,
+              width: widget.superFlyer.flyerZoneWidth,
+              height: widget.superFlyer.flyerZoneWidth * Ratioz.xxflyerAuthorPicWidth,
               alignment: Alignment.center,
               margin: EdgeInsets.only(
                   top: 0,
-                  bottom: widget.flyerZoneWidth * Ratioz.xxflyersGridSpacing),
+                  bottom: widget.superFlyer.flyerZoneWidth * Ratioz.xxflyersGridSpacing),
               child: ListView(
                 scrollDirection: Axis.horizontal,
-                padding: EdgeInsets.symmetric(horizontal: widget.flyerZoneWidth * 0.01),
+                padding: EdgeInsets.symmetric(horizontal: widget.superFlyer.flyerZoneWidth * 0.01),
                 children:
-                widget.bz.bzAuthors == null ?
+                widget.superFlyer.bzAuthors == null ?
                 <Widget>[Container()]
                     :
 
                 <Widget>[
 
                   ...List<Widget>.generate(
-                      widget.bz.bzAuthors.length,
+                      widget.superFlyer.bzAuthors.length,
                           (authorIndex) {
 
-                        AuthorModel _author = widget.bz.bzAuthors[authorIndex];
+                        AuthorModel _author = widget.superFlyer.bzAuthors[authorIndex];
                         TinyUser _tinyAuthor = TinyUser.getTinyAuthorFromAuthorModel(_author);
 
                         return
                           Row(
                             children: <Widget>[
                               AuthorLabel(
-                                superFlyer: widget.superFlyer,
                                 showLabel: widget.showFlyers == true ? true : false,
-                                flyerZoneWidth: widget.flyerZoneWidth,
+                                flyerZoneWidth: widget.superFlyer.flyerZoneWidth,
                                 tinyAuthor: _tinyAuthor,
-                                tinyBz: TinyBz.getTinyBzFromBzModel(widget.bz),
-                                authorGalleryCount: AuthorModel.getAuthorGalleryCountFromBzModel(widget.bz, _author),
+                                tinyBz: TinyBz.getTinyBzFromSuperFlyer(widget.superFlyer),
+                                authorGalleryCount: AuthorModel.getAuthorGalleryCountFromBzModel(_bzModel, _author),
                                 tappingLabel:
                                 // widget.bzTeamIDs.length == 1 ?
                                     (id) {
                                   tappingAuthorLabel(id);
                                   },
                                 // :(id){print('a77a');// tappingAuthorLabel();},
-                                labelIsOn: currentSelectedAuthor == widget.bz.bzAuthors[authorIndex].userID ? true : false,
+                                labelIsOn: currentSelectedAuthor == widget.superFlyer.bzAuthors[authorIndex].userID ? true : false,
                               )
                             ],
                           );
@@ -160,11 +157,10 @@ class _GalleryState extends State<Gallery> {
 
                   if (_thisIsMyBz == true)
                   AuthorPic(
-                    superFlyer: widget.superFlyer,
-                    flyerZoneWidth: widget.flyerZoneWidth,
+                    flyerZoneWidth: widget.superFlyer.flyerZoneWidth,
                     authorPic: null,
                     isAddAuthorButton: true,
-                    tinyBz: TinyBz.getTinyBzFromBzModel(widget.bz),
+                    tinyBz: TinyBz.getTinyBzFromSuperFlyer(widget.superFlyer),
                   ),
 
                 ]
@@ -174,13 +170,14 @@ class _GalleryState extends State<Gallery> {
             ),
 
             // --- AUTHORS FLYERS
+            if (widget.superFlyer.flyerZoneWidth != null)
             GalleryGrid(
-              gridZoneWidth: widget.flyerZoneWidth,
-              bzID: widget.bz.bzAuthors == null || widget.bz.bzAuthors == [] || widget.bz.bzAuthors.isEmpty ?  '': widget.bz.bzID,
+              gridZoneWidth: widget.superFlyer.flyerZoneWidth,
+              bzID: widget.superFlyer.bzAuthors == null || widget.superFlyer.bzAuthors == [] || widget.superFlyer.bzAuthors.isEmpty ?  '': widget.superFlyer.bzID,
               flyersVisibilities: flyersVisibilities,
               galleryFlyers: _tinyFlyers,
-              bzAuthors: widget.bz.bzAuthors,
-              bz: widget.bz,
+              bzAuthors: widget.superFlyer.bzAuthors,
+              bz: _bzModel, /// TASK : maybe should remove this as long as super flyer is here
               flyerOnTap: widget.flyerOnTap,
             ),
 
