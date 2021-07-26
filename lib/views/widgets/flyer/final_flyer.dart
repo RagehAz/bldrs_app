@@ -16,6 +16,7 @@ import 'package:bldrs/firestore/record_ops.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/flyer_type_class.dart';
+import 'package:bldrs/models/records/share_model.dart';
 import 'package:bldrs/models/secondary_models/draft_flyer_model.dart';
 import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/providers/country_provider.dart';
@@ -183,11 +184,10 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         }
 
         /// X - REBUILD
-        setState(() {});
+      _triggerLoading();
 
       });
 
-      _triggerLoading();
     }
     _isInit = false;
     super.didChangeDependencies();
@@ -260,25 +260,30 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
   }
 // -----------------------------------------------------o
   SuperFlyer _getSuperFlyerFromFlyer({FlyerModel flyerModel}){
-    SuperFlyer _superFlyer = SuperFlyer.createViewSuperFlyerFromFlyerModel(
-      context: context,
-      flyerZoneWidth: widget.flyerZoneWidth,
-      flyerModel: flyerModel,
-      initialPage: widget.initialSlideIndex,
-      onHorizontalSlideSwipe: (i) => _onHorizontalSlideSwipe(i),
-      onVerticalPageSwipe: (i) => _onVerticalPageSwipe(i),
-      onVerticalPageBack: () async {await _onVerticalPageBack();},
-      onHeaderTap: () async {await _onHeaderTap();},
-      onSlideRightTap: _onSlideRightTap,
-      onSlideLeftTap: _onSlideLeftTap,
-      onSwipeFlyer: widget.onSwipeFlyer,
-      onTinyFlyerTap: () async {await _onTinyFlyerTap();},
-      onView: (slideIndex) => _onViewSlide(slideIndex),
-      onAnkhTap: () async {await _onAnkhTap();} ,
-      onShareTap: _onShareTap,
-      onFollowTap: () async { await _onFollowTap();},
-      onCallTap: () async { await _onCallTap();},
-    );
+    SuperFlyer _superFlyer;
+
+    if (flyerModel != null){
+      _superFlyer = SuperFlyer.createViewSuperFlyerFromFlyerModel(
+        context: context,
+        flyerZoneWidth: widget.flyerZoneWidth,
+        flyerModel: flyerModel,
+        initialPage: widget.initialSlideIndex,
+        onHorizontalSlideSwipe: (i) => _onHorizontalSlideSwipe(i),
+        onVerticalPageSwipe: (i) => _onVerticalPageSwipe(i),
+        onVerticalPageBack: () async {await _onVerticalPageBack();},
+        onHeaderTap: () async {await _onHeaderTap();},
+        onSlideRightTap: _onSlideRightTap,
+        onSlideLeftTap: _onSlideLeftTap,
+        onSwipeFlyer: widget.onSwipeFlyer,
+        onTinyFlyerTap: () async {await _onTinyFlyerTap();},
+        onView: (slideIndex) => _onViewSlide(slideIndex),
+        onAnkhTap: () async {await _onAnkhTap();} ,
+        onShareTap: _onShareTap,
+        onFollowTap: () async { await _onFollowTap();},
+        onCallTap: () async { await _onCallTap();},
+      );
+
+    }
 
     return _superFlyer;
   }
@@ -371,7 +376,10 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 // -----------------------------------------------------o
   void _onHeaderTap(){
     print('_onHeaderTap : bzPageIsOn was : ${_superFlyer.bzPageIsOn}');
-    setState(() {_superFlyer.bzPageIsOn = !_superFlyer.bzPageIsOn;});
+    setState(() {
+      _superFlyer.bzPageIsOn = !_superFlyer.bzPageIsOn;
+      _statelessTriggerProgressOpacity();
+    });
     print('_onHeaderTap : bzPageIsOn is : ${_superFlyer.bzPageIsOn}');
   }
 // -----------------------------------------------------------------------------
@@ -382,6 +390,9 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     print('flyer onPageChanged oldIndex: ${_superFlyer.currentSlideIndex}, newIndex: $newIndex, _draft.numberOfSlides: ${_superFlyer.numberOfSlides}');
     SwipeDirection _direction = Animators.getSwipeDirection(newIndex: newIndex, oldIndex: _superFlyer.currentSlideIndex,);
 
+    // if(_superFlyer.editMode == false){
+    //   FocusScope.of(context).dispose();
+    // }
 
     /// A - if Keyboard is active
     if (Keyboarders.keyboardIsOn(context) == true){
@@ -389,6 +400,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
       /// B - when direction is going next
       if (_direction == SwipeDirection.next){
+        print('going next');
         FocusScope.of(context).nextFocus();
         setState(() {
           _superFlyer.swipeDirection = _direction;
@@ -399,6 +411,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
       /// B - when direction is going back
       else if (_direction == SwipeDirection.back){
+        print('going back');
         FocusScope.of(context).previousFocus();
         setState(() {
           _superFlyer.swipeDirection = _direction;
@@ -409,6 +422,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
       /// B = when direction is freezing
       else {
+        print('going no where');
         setState(() {
           _superFlyer.swipeDirection = _direction;
           _superFlyer.currentSlideIndex = newIndex;
@@ -453,6 +467,9 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 }
 // -----------------------------------------------------o
   void _statelessTriggerProgressOpacity(){
+
+    print('triggering progress bar opacity');
+
     if (_superFlyer.progressBarOpacity == 1){
       _superFlyer.progressBarOpacity = 0;
     } else {
@@ -494,8 +511,28 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
   }
 // -----------------------------------------------------o
-  void _onShareTap(){
+  Future<void> _onShareTap() async {
     print('Sharing flyer');
+
+    int _i = _superFlyer.currentSlideIndex;
+
+    /// TASK : adjust link url and description
+    LinkModel _theFlyerLink = LinkModel(
+        url: _superFlyer.flyerURL,
+        description: '${_superFlyer.flyerType} flyer .\n'
+            '- slide number ${_superFlyer.currentSlideIndex} .\n'
+            '- ${_superFlyer.slides[_i].headline} .\n'
+    );
+
+    // don't await this method
+    RecordOps.shareFlyerOPs(
+        context: context,
+        flyerID: _superFlyer.flyerID,
+        userID: superUserID(),
+        slideIndex: _superFlyer.currentSlideIndex,
+      );
+
+      await ShareModel.shareFlyer(context, _theFlyerLink);
   }
 // -----------------------------------------------------o
   Future <void> _onFollowTap() async {
@@ -1277,7 +1314,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
           onFlyerZoneLongPress: _onFlyerZoneLongPress,
           stackWidgets: <Widget>[
 
-            if (_microMode && _superFlyerHasValue)
+            if (_superFlyerHasValue && _flyerHasMoreThanOnePage == false)
               SingleSlide(
                 superFlyer: _superFlyer,
                 flyerID: _superFlyer.flyerID,
@@ -1308,38 +1345,15 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
                 superFlyer: _superFlyer,
               ),
 
-            // Slides(
-              //   superFlyer: _superFlyer,
-              //   // flyerID: _superFlyer.flyerID,
-              //   // slides: _superFlyer.slides,
-              //   // flyerZoneWidth: _superFlyer.flyerZoneWidth,
-              //   // listenToSwipe: _superFlyer.listenToSwipe,
-              //   // onHorizontalSlideSwipe: (index) => _superFlyer.onHorizontalSlideSwipe(index),
-              //   // currentSlideIndex: _superFlyer.currentSlideIndex,
-              //   // onSwipeFlyer: _superFlyer.onSwipeFlyer,
-              //   // onTap: _superFlyer.onSlideRightTap,
-              // ),
-
             if ((!_microMode) && _superFlyer?.bzID != null  && _superFlyerHasValue)
               FlyerHeader(superFlyer: _superFlyer,),
 
             if ((!_microMode) && _superFlyerHasValue && _flyerHasMoreThanOnePage)
-              Strips(
-                flyerZoneWidth: widget.flyerZoneWidth,
-                numberOfStrips: _superFlyer.numberOfStrips,
-                barIsOn: _superFlyer.bzPageIsOn == false ? true : false,
-                slideIndex: _superFlyer.currentSlideIndex,
-                swipeDirection: _superFlyer.swipeDirection,
+              ProgressBar(
+                superFlyer: _superFlyer,
               ),
 
-            if (!_microMode && _superFlyerHasValue)
-              AnkhButton(
-                bzPageIsOn: _superFlyer.bzPageIsOn,
-                flyerZoneWidth: _superFlyer.flyerZoneWidth,
-                listenToSwipe: _superFlyer.listenToSwipe,
-                ankhIsOn: _superFlyer.ankhIsOn,
-                onAnkhTap: _superFlyer.onAnkhTap,
-              ),
+            /// --------------------------------------------------o
 
             if (widget.isDraft && _superFlyerHasValue)
               FlyerPages(

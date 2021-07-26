@@ -616,8 +616,8 @@ class SuperFlyer{
         /// animation parameters
         slidingDuration: null,
         fadingDuration: null,
-        progressBarOpacity: null,
-        swipeDirection: null,
+        progressBarOpacity: 0,
+        swipeDirection: SwipeDirection.next,
         bzPageIsOn: false,
         listenToSwipe: false,
 
@@ -642,7 +642,7 @@ class SuperFlyer{
         onTriggerEditMode: null,
 
         /// editor data
-        firstTimer: null,
+        firstTimer: false,
         editMode: false,
         isDraft: false,
         headlinesControllers: null,

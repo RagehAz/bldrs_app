@@ -93,7 +93,7 @@ class SingleSlide extends StatelessWidget {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    print('single slide title is : $title and controller is : ${titleController?.text}');
+    // print('single slide title is : $title and controller is : ${titleController?.text}');
 // -----------------------------------------------------------------------------
     double _screenWidth = Scale.superScreenWidth(context);
 // -----------------------------------------------------------------------------
@@ -106,19 +106,6 @@ class SingleSlide extends StatelessWidget {
         flyerZoneWidth <= (_screenWidth*0.25) && flyerZoneWidth > (_screenWidth*0.1) ? 1 : 0
     ;
 // -----------------------------------------------------------------------------
-    LinkModel _theFlyerLink = LinkModel(url: 'flyer @ index: ${slideIndex}', description: 'flyer to be shared aho');
-// -----------------------------------------------------------------------------
-    // int _imageWidth = getImageWidth();
-    Future<void> _shareFlyer() async {
-      await RecordOps.shareFlyerOPs(
-        context: context,
-        flyerID: flyerID,
-        userID: superUserID(),
-        slideIndex: slideIndex,
-      );
-      await ShareModel.shareFlyer(context, _theFlyerLink);
-    }
-// -----------------------------------------------------------------------------
     double _blurImageScale = 1.5;
     bool _blurLayerIsActive = Imagers().slideBlurIsOn(
       pic: picture,
@@ -128,7 +115,7 @@ class SingleSlide extends StatelessWidget {
     );
 // -----------------------------------------------------------------------------
     String _titleVerse = title != null ? title :
-        titleController != null ? titleController.text : 'NO FUCKING TITLE BTICH';
+        titleController != null ? titleController.text : null;
 
     return GestureDetector(
       onTap: (){
@@ -277,7 +264,7 @@ class SingleSlide extends StatelessWidget {
                 views: views,
                 shares: shares,
                 saves: saves,
-                onShareTap: _shareFlyer, // this will user slide index
+                onShareTap: () => superFlyer.onShareTap(), // this will user slide index
                 onCountersTap: (){},
               ),
 
