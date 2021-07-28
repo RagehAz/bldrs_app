@@ -54,7 +54,7 @@ class SingleSlide extends StatelessWidget {
   SingleSlide({
 
     @required this.flyerZoneWidth,
-    this.superFlyer,
+    @required this.superFlyer,
     this.picture,
     this.title,
     this.shares = 0,
@@ -73,6 +73,29 @@ class SingleSlide extends StatelessWidget {
     @required this.onTap,
     Key key,
   }) : super(key: key);
+// -----------------------------------------------------------------------------
+  void _onBehindSlideImageTap(BuildContext context, bool microMode){
+
+    if (microMode == true){
+    print('tapping slide behind image while micro mode is $microMode');
+    superFlyer.onTinyFlyerTap();
+    }
+
+    else {
+      print('tapping slide behind image while micro mode is $microMode');
+
+    }
+
+  }
+// -----------------------------------------------------------------------------
+  void _onSingleSlideTapCancel(BuildContext context){
+      print('tap cancel single slide');
+
+      if (Keyboarders.keyboardIsOn(context)){
+        Keyboarders.minimizeKeyboardOnTapOutSide(context);
+      }
+
+  }
 // -----------------------------------------------------------------------------
   Future<void> _onImageDoubleTap(BuildContext context) async {
 
@@ -118,21 +141,8 @@ class SingleSlide extends StatelessWidget {
         titleController != null ? titleController.text : null;
 
     return GestureDetector(
-      onTap: (){
-
-        if (Keyboarders.keyboardIsOn(context)){
-          Keyboarders.closeKeyboard(context);
-        }
-        else {
-          // onTap();
-          superFlyer.onTinyFlyerTap();
-        }
-      },
-      onTapCancel: (){
-        if (Keyboarders.keyboardIsOn(context)){
-          Keyboarders.minimizeKeyboardOnTapOutSide(context);
-        }
-      },
+      onTap: () => _onBehindSlideImageTap(context, _microMode), // listening to taps from inside the zoomable pic widget
+      onTapCancel: () => _onSingleSlideTapCancel(context),
       onDoubleTap: _microMode == true ? null : () => _onImageDoubleTap(context),
       child: Container(
         width: flyerZoneWidth,

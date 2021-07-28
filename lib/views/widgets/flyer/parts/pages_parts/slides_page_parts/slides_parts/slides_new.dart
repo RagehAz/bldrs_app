@@ -1,8 +1,8 @@
 import 'package:bldrs/controllers/drafters/imagers.dart';
+import 'package:bldrs/controllers/drafters/keyboarders.dart';
+import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/sliders.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/models/flyer_model.dart';
-import 'package:bldrs/models/secondary_models/draft_flyer_model.dart';
 import 'package:bldrs/models/super_flyer.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/footer.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/slides_parts/single_slide.dart';
@@ -16,27 +16,47 @@ class SlidesNew extends StatelessWidget {
 
     Key key,
   }) : super(key: key);
+// -----------------------------------------------------------------------------
+  void _onSingleSlideTap(BuildContext context){
 
+    bool _microMode = Scale.superFlyerMicroMode(context, superFlyer.flyerZoneWidth);
+
+    if (Keyboarders.keyboardIsOn(context)){
+      Keyboarders.closeKeyboard(context);
+    }
+
+    if (_microMode == true){
+      superFlyer.onTinyFlyerTap();
+    }
+
+    else {
+      print(' tapping slides new while micro more is false baby');
+    }
+
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
 
     return PageView(
-      pageSnapping: true,
+      scrollDirection: Axis.horizontal,
       controller: superFlyer.horizontalController,
       physics: const BouncingScrollPhysics(),
+      pageSnapping: true,
       allowImplicitScrolling: false,
       clipBehavior: Clip.antiAlias,
       restorationId: '${superFlyer.key.value}',
       onPageChanged: superFlyer.listenToSwipe ? (i) => superFlyer.onHorizontalSlideSwipe(i) : (i) => Sliders.zombie(i),
-      scrollDirection: Axis.horizontal,
       children: <Widget>[
 
         ...List.generate(superFlyer.numberOfSlides, (i){
 
           // print('========= BUILDING PROGRESS BAR FOR ||| index : $draft.currentSlideIndex, numberOfSlides : $draft.numberOfSlides');
 
-          BoxFit _currentPicFit = superFlyer.boxesFits.length == 0 ? null : superFlyer.boxesFits[superFlyer.currentSlideIndex];
+          BoxFit _currentPicFit =
+          superFlyer.boxesFits == null ? null :
+          superFlyer.boxesFits?.length == 0 ? null : superFlyer.boxesFits[superFlyer.currentSlideIndex];
 
           ImageSize _originalAssetSize =
           superFlyer.assetsSources == null ? null :
@@ -58,6 +78,7 @@ class SlidesNew extends StatelessWidget {
                 children: <Widget>[
 
                   SingleSlide(
+                    superFlyer: superFlyer,
                     key: ObjectKey('${superFlyer.key.value}${i}'),
                     flyerZoneWidth: superFlyer.flyerZoneWidth,
                     flyerID: superFlyer.flyerID, //_flyer.flyerID,
@@ -70,7 +91,7 @@ class SlidesNew extends StatelessWidget {
                     textFieldOnChanged: (text){
                       print('text is : $text');
                     },
-                    onTap: (){},
+                    onTap: () => _onSingleSlideTap(context),
                   ),
 
                   if (superFlyer.editMode == false)
@@ -82,6 +103,63 @@ class SlidesNew extends StatelessWidget {
                       onShareTap: () => superFlyer.onShareTap(),
                       onCountersTap: () => superFlyer.onVerticalPageSwipe(1),
                     ),
+
+                  // /// TAP AREAS
+                  // Row(
+                  //   children: <Widget>[
+                  //
+                  //     /// --- back tap area
+                  //     GestureDetector(
+                  //       onTap: () async {
+                  //         print('widget.currentSlideIndex was : ${widget.superFlyer.currentSlideIndex}');
+                  //         int _newIndex = await Sliders.slideToBackAndGetNewIndex(_slidingController, widget.superFlyer.currentSlideIndex);
+                  //
+                  //         /// if its first slide swipe to last flyer
+                  //         if (_newIndex == widget.superFlyer.currentSlideIndex){
+                  //           widget.superFlyer.onSwipeFlyer(SwipeDirection.back);
+                  //         }
+                  //         /// if its a middle or last slide, slide to the new index
+                  //         else {
+                  //           widget.superFlyer.onHorizontalSlideSwipe(_newIndex);
+                  //           print('widget.currentSlideIndex after sliding is : $_newIndex');
+                  //         }
+                  //
+                  //       },
+                  //       child: Container(
+                  //         width: widget.superFlyer.flyerZoneWidth * 0.25,
+                  //         height: _tapAreaHeight,
+                  //         margin: EdgeInsets.only(top: _headerHeight + _progressBarHeight),
+                  //         color: Colorz.Nothing,
+                  //       ),
+                  //     ),
+                  //
+                  //     // /// --- front tap area
+                  //     // GestureDetector(
+                  //     //   onTap: () async {
+                  //     //     print('widget.currentSlideIndex was : ${widget.currentSlideIndex}');
+                  //     //     int _newIndex = await Sliders.slideToNextAndGetNewIndex(_slidingController, _slidesLength, widget.currentSlideIndex);
+                  //     //
+                  //     //     /// if its last slide swipe to next flyer
+                  //     //     if (_newIndex == widget.currentSlideIndex){
+                  //     //       widget.swipeFlyer(SwipeDirection.next);
+                  //     //     }
+                  //     //     /// if its a middle or last slide, slide to the new index
+                  //     //     else {
+                  //     //       widget.sliding(_newIndex);
+                  //     //       print('widget.currentSlideIndex after sliding is : $_newIndex');
+                  //     //     }
+                  //     //   },
+                  //     //   child: Container(
+                  //     //     width: widget.flyerZoneWidth * 0.75,
+                  //     //     height: _tapAreaHeight,
+                  //     //     margin: EdgeInsets.only(top: _headerHeight + _progressBarHeight),
+                  //     //     color: Colorz.Nothing,
+                  //     //   ),
+                  //     // ),
+                  //
+                  //   ],
+                  // ),
+
 
                 ],
               ),

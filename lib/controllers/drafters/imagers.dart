@@ -538,7 +538,7 @@ static Future<List<File>> getFilesFromAssets(List<Asset> assets) async {
         _blurIsOn = false;
       }
 
-    File _file = pic;
+    // File _file = pic;
       // print('A - pic : ${_file?.fileNameWithExtension?.toString()}');
       // print('B - ratio : $_fittedImageRatio = W:$_fittedImageWidth / H:$_fittedImageHeight');
       // print('C - Fit : $boxFit');
