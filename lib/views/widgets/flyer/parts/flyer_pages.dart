@@ -1,7 +1,6 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/scrollers.dart';
 import 'package:bldrs/controllers/drafters/sliders.dart';
-import 'package:bldrs/models/secondary_models/draft_flyer_model.dart';
 import 'package:bldrs/models/super_flyer.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/info_page_parts/info_page.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/slides_page.dart';
@@ -17,6 +16,8 @@ class FlyerPages extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    bool _microMode = Scale.superFlyerMicroMode(context, superFlyer.flyerZoneWidth);
 
     return GoHomeOnMaxBounce(
       child: PageView(
@@ -35,6 +36,7 @@ class FlyerPages extends StatelessWidget {
           ),
 
           /// INFO PAGE
+          if (_microMode == false)
           InfoPage(
             superFlyer : superFlyer,
             key: PageStorageKey('info_${superFlyer.flyerID}'),

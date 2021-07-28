@@ -79,16 +79,16 @@ class FlyerZoneBox extends StatelessWidget {
         _screenWidth - _flyerZoneWidth - (Ratioz.appBarMargin * 3);
 
     return GestureDetector(
-      onTap: (){
+      onTap:
+          (){
         onFlyerZoneTap();
-        Keyboarders.minimizeKeyboardOnTapOutSide(context);
       },
       onLongPress: onFlyerZoneLongPress,
       child: Container(
         width: _flyerZoneWidth + _panelWidth + Ratioz.appBarMargin,
         height: _flyerZoneHeight,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: editorBzModel == null ? MainAxisAlignment.center : MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
 

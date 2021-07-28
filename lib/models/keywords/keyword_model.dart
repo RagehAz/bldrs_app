@@ -1,4 +1,4 @@
-import 'package:bldrs/models/flyer_type_class.dart';
+import 'package:bldrs/models/sub_models/flyer_type_class.dart';
 import 'package:bldrs/models/keywords/keys_set.dart';
 import 'package:bldrs/models/keywords/sequence_model.dart';
 import 'package:bldrs/models/planet/district_model.dart';

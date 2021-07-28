@@ -5,10 +5,8 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
-import 'package:bldrs/models/flyer_type_class.dart';
-import 'package:bldrs/models/keywords/keyword_model.dart';
+import 'package:bldrs/models/sub_models/flyer_type_class.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
-import 'package:bldrs/models/secondary_models/draft_flyer_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/sub_models/contact_model.dart';
 import 'package:bldrs/models/sub_models/publish_time_model.dart';
@@ -20,7 +18,6 @@ import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/models/tiny_models/tiny_user.dart';
 import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
-import 'package:bldrs/views/widgets/flyer/final_flyer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
@@ -30,7 +27,6 @@ import 'package:provider/provider.dart';
 /// bool loading
 /// string mapImageURL
 ///
-
 
 class SuperFlyer{
   /// sizes
@@ -58,7 +54,6 @@ class SuperFlyer{
   SwipeDirection swipeDirection;
   bool bzPageIsOn;
   bool listenToSwipe;
-  bool microMode;
 
   /// record functions
   final Function onView;
@@ -1225,5 +1220,22 @@ static SuperFlyer getSuperFlyerFromBzModelOnly({
         followIsOn: false,
       );
 }
+
+// // -----------------------------------------------------------------------------
+//   static List<ValueKey> getKeysOfDrafts(List<DraftFlyerModel> drafts){
+//     List<ValueKey> _keys = new List();
+//
+//     if(drafts != null){
+//       drafts.forEach((draft) {
+//         _keys.add(draft.key);
+//       });
+//
+//     }
+//
+//     return _keys;
+//   }
+// // -----------------------------------------------------------------------------
+
+
 }
 

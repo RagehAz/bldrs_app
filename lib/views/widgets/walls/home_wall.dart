@@ -3,7 +3,7 @@ import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/bz_model.dart';
-import 'package:bldrs/models/flyer_type_class.dart';
+import 'package:bldrs/models/sub_models/flyer_type_class.dart';
 import 'package:bldrs/models/super_flyer.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
@@ -55,23 +55,26 @@ class _HomeWallState extends State<HomeWall> {
         width: Scale.superScreenWidth(context),
         alignment: Alignment.center,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
 
-            SuperVerse(
-              verse: 'Promoted',
-              size: 1,
-              centered: false,
-              italic: true,
-              color: Colorz.White125,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
+              child: SuperVerse(
+                verse: 'Promoted',
+                size: 1,
+                centered: false,
+                italic: true,
+                color: Colorz.White125,
+              ),
             ),
 
             _spacer,
 
             Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
 

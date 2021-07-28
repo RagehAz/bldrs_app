@@ -30,7 +30,11 @@ class GalleryGrid extends StatelessWidget {
 
   bool _concludeUserIsAuthor(){
     List<String> _authorsIDsList = new List();
-    bzAuthors.forEach((au) {_authorsIDsList.add(au.userID);});
+
+    if (bzAuthors != null){
+      bzAuthors.forEach((au) {_authorsIDsList.add(au.userID);});
+    }
+
     String _viewerID = superUserID();
 
     bool _viewerIsAuthor = _authorsIDsList.contains(_viewerID);
