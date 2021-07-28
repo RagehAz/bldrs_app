@@ -2,7 +2,7 @@ import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/models/flyer_type_class.dart';
+import 'package:bldrs/models/sub_models/flyer_type_class.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/keywords/sequence_model.dart';

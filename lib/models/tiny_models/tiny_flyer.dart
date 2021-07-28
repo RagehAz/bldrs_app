@@ -1,8 +1,7 @@
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
-import 'package:bldrs/models/flyer_type_class.dart';
-import 'package:bldrs/models/keywords/keyword_model.dart';
+import 'package:bldrs/models/sub_models/flyer_type_class.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/tiny_models/nano_flyer.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
@@ -109,18 +108,21 @@ class TinyFlyer with ChangeNotifier{
 
     List<NanoFlyer> _nanoFlyers = bzModel.nanoFlyers;
 
-    for (var nano in _nanoFlyers){
-      _tinyFlyers.add(
-          TinyFlyer(
-            flyerID: nano.flyerID,
-            flyerType: nano.flyerType,
-            authorID: nano.authorID,
-            slideIndex: 0,
-            slidePic: nano.slidePic,
-            tinyBz: TinyBz.getTinyBzFromBzModel(bzModel),
-            flyerZone: nano.flyerZone,
-          )
-      );
+    if (_nanoFlyers != null){
+      for (var nano in _nanoFlyers){
+        _tinyFlyers.add(
+            TinyFlyer(
+              flyerID: nano.flyerID,
+              flyerType: nano.flyerType,
+              authorID: nano.authorID,
+              slideIndex: 0,
+              slidePic: nano.slidePic,
+              tinyBz: TinyBz.getTinyBzFromBzModel(bzModel),
+              flyerZone: nano.flyerZone,
+            )
+        );
+      }
+
     }
 
     return _tinyFlyers;
