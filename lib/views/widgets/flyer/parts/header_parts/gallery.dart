@@ -44,6 +44,9 @@ class _GalleryState extends State<Gallery> {
   @override
   void initState(){
     _bzModel = BzModel.getBzModelFromSuperFlyer(widget.superFlyer);
+
+    print('nano flyers are ${_bzModel.nanoFlyers}');
+
     _tinyFlyers = TinyFlyer.getTinyFlyersFromBzModel(_bzModel);
     _bzTeamIDs = BzModel.getBzTeamIDs(_bzModel);
     setFlyersVisibility();

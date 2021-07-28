@@ -1,5 +1,3 @@
-import 'package:bldrs/models/flyer_model.dart';
-import 'package:bldrs/models/secondary_models/draft_flyer_model.dart';
 import 'package:bldrs/models/super_flyer.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/editor_footer.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/footer_parts/ankh_button.dart';

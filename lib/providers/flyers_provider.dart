@@ -7,7 +7,7 @@ import 'package:bldrs/firestore/record_ops.dart';
 import 'package:bldrs/firestore/search_ops.dart';
 import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/firestore/user_ops.dart';
-import 'package:bldrs/models/flyer_type_class.dart';
+import 'package:bldrs/models/sub_models/flyer_type_class.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
@@ -42,7 +42,7 @@ class FlyersProvider with ChangeNotifier {
     return _myCurrentBzModel;
   }
 // -----------------------------------------------------------------------------
-  void setCurrentBzModel(BzModel bzModel){
+  void setCurrentBzModel(BzModel bzModel) {
     _myCurrentBzModel = bzModel;
     notifyListeners();
   }

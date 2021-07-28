@@ -6,7 +6,7 @@ class Keyboarders {
   /// TO MINIMIZE KEYBOARD WHEN TAPPING OUTSIDE
   static void minimizeKeyboardOnTapOutSide (BuildContext context){
 // FocusScope.of(context).requestFocus(FocusNode());
-print('x minimizeKeyboardOnTapOutSide() unfocused keyboard');
+// print('x minimizeKeyboardOnTapOutSide() unfocused keyboard');
   // // ANOTHER SOLUTION
   FocusScopeNode currentFocus = FocusScope.of(context);
   if(!currentFocus.hasPrimaryFocus){

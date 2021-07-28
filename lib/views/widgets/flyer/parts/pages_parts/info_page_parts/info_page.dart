@@ -7,9 +7,8 @@ import 'package:bldrs/controllers/theme/dumz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer_model.dart';
-import 'package:bldrs/models/flyer_type_class.dart';
+import 'package:bldrs/models/sub_models/flyer_type_class.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
-import 'package:bldrs/models/secondary_models/draft_flyer_model.dart';
 import 'package:bldrs/models/super_flyer.dart';
 import 'package:bldrs/models/tiny_models/tiny_user.dart';
 import 'package:bldrs/providers/country_provider.dart';
@@ -27,28 +26,8 @@ import 'package:bldrs/views/widgets/flyer/parts/pages_parts/info_page_parts/reco
 class InfoPage extends StatelessWidget {
   final SuperFlyer superFlyer;
 
-  // final double flyerZoneWidth;
-  // final DraftFlyerModel draft;
-  // final Function onVerticalBack;
-  // final Function onFlyerTypeTap;
-  // final Function onZoneTap;
-  // final Function onAboutTap;
-  // final Function onKeywordsTap;
-  // final ScrollController infoScrollController;
-  // final PageController verticalController;
-
   const InfoPage({
     @required this.superFlyer,
-    // @required this.flyerZoneWidth,
-    // @required this.draft,
-    // @required this.onVerticalBack,
-    // @required this.onFlyerTypeTap,
-    //
-    // @required this.onZoneTap,
-    // @required this.onAboutTap,
-    // @required this.onKeywordsTap,
-    // @required this.infoScrollController,
-    // @required this.verticalController,
     Key key,
   }) : super(key: key);
 
