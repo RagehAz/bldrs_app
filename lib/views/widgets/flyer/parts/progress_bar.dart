@@ -20,6 +20,9 @@ class ProgressBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    print('building progress bar');
+
     return Container(
       width: flyerZoneWidth,
       child: AnimatedOpacity(

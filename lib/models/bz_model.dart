@@ -2,6 +2,7 @@ import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/super_flyer.dart';
 import 'package:bldrs/models/tiny_models/nano_flyer.dart';
+import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'sub_models/author_model.dart';
@@ -395,6 +396,46 @@ Map<String, dynamic> toMap(){
     }
 
     return _bzModel;
+  }
+// -----------------------------------------------------------------------------
+  static BzModel getTempBzModelFromTinyBz(TinyBz tinyBz){
+    BzModel _bz;
+    if (tinyBz != null){
+      _bz = BzModel(
+        bzID : tinyBz.bzID,
+        // -------------------------
+        bzType : tinyBz.bzType,
+        bzForm : null,
+        bldrBirth : null,
+        accountType : null,
+        bzURL : null,
+        // -------------------------
+        bzName :tinyBz.bzName,
+        bzLogo : tinyBz.bzLogo,
+        bzScope : null,
+        bzZone : tinyBz.bzZone,
+        bzAbout : null,
+        bzPosition : null,
+        bzContacts : null,
+        bzAuthors : null,
+        bzShowsTeam : null,
+        // -------------------------
+        bzIsVerified : null,
+        bzAccountIsDeactivated : null,
+        bzAccountIsBanned : null,
+        // -------------------------
+        bzTotalFollowers : tinyBz.bzTotalFollowers,
+        bzTotalSaves : null,
+        bzTotalShares : null,
+        bzTotalSlides : null,
+        bzTotalViews : null,
+        bzTotalCalls : null,
+        // -------------------------
+        nanoFlyers: null,
+      );
+    }
+
+    return _bz;
   }
 }
 // -----------------------------------------------------------------------------

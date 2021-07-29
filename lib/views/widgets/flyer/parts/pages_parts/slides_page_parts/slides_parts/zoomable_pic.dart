@@ -2,6 +2,7 @@ import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
+/// TASK : try InteractiveViewer() in slides to zoom and pan
 class ZoomablePicture extends StatefulWidget {
   final Widget child;
   final bool isOn;

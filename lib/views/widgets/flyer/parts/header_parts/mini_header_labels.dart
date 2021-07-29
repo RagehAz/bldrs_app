@@ -65,7 +65,7 @@ class HeaderLabels extends StatelessWidget {
                 showLabel: superFlyer.bzPageIsOn,
                 authorGalleryCount: 0, // is not needed here
                 labelIsOn: true,
-                tappingLabel: null,
+                onTap: null,
 
               ),
             ],

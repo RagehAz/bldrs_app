@@ -8,10 +8,10 @@ import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/fo
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/slides_parts/single_slide.dart';
 import 'package:flutter/material.dart';
 
-class SlidesNew extends StatelessWidget {
+class Slides extends StatelessWidget {
   final SuperFlyer superFlyer;
 
-  const SlidesNew({
+  const Slides({
     @required this.superFlyer,
 
     Key key,
@@ -37,7 +37,6 @@ class SlidesNew extends StatelessWidget {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
 
     return PageView(
       scrollDirection: Axis.horizontal,
@@ -67,11 +66,16 @@ class SlidesNew extends StatelessWidget {
             height: superFlyer.assetsSources[superFlyer.currentSlideIndex].originalHeight,
           );
 
+          dynamic _slidePic =
+          superFlyer.isDraft ? superFlyer.assetsFiles[i] : superFlyer.slides[i].picture;
+          // superFlyer.editMode ? superFlyer.assetsFiles[i] : superFlyer.slides[i].picture
+
+          String _slideTitle = superFlyer.isDraft ? superFlyer.headlinesControllers[i].text : superFlyer.slides[i].headline;
 
           return
             superFlyer.numberOfSlides == 0 ? Container() :
             AnimatedOpacity(
-              key: ObjectKey('${superFlyer.key.value}${i}'),
+              // key: ObjectKey('${superFlyer.key.value}${i}'),
               opacity: superFlyer.slidesVisibilities[i] == true ? 1 : 0,
               duration: Ratioz.durationFading200,
               child: Stack(
@@ -79,14 +83,15 @@ class SlidesNew extends StatelessWidget {
 
                   SingleSlide(
                     superFlyer: superFlyer,
-                    key: ObjectKey('${superFlyer.key.value}${i}'),
                     flyerZoneWidth: superFlyer.flyerZoneWidth,
+                    slideIndex: i,
+                    // key: ObjectKey('${superFlyer.key.value}${i}'),
                     flyerID: superFlyer.flyerID, //_flyer.flyerID,
-                    picture: superFlyer.editMode ? superFlyer.assetsFiles[i] : superFlyer.slides[i].picture,
+                    picture: _slidePic,
                     // slideMode: superFlyer.editMode ? SlideMode.Editor : SlideMode.View,//slidesModes[index],
                     boxFit: _currentPicFit, // [fitWidth - contain - scaleDown] have the blur background
                     titleController: superFlyer.editMode ? superFlyer.headlinesControllers[i] : null,
-                    title: superFlyer.editMode ? superFlyer.headlinesControllers[i].text : superFlyer.slides[i].headline,
+                    title: _slideTitle,
                     imageSize: _originalAssetSize,
                     textFieldOnChanged: (text){
                       print('text is : $text');
@@ -97,9 +102,9 @@ class SlidesNew extends StatelessWidget {
                   if (superFlyer.editMode == false)
                     FlyerFooter(
                       flyerZoneWidth: superFlyer.flyerZoneWidth,
-                      saves: superFlyer.slides[superFlyer.currentSlideIndex].savesCount,
-                      shares: superFlyer.slides[superFlyer.currentSlideIndex].sharesCount,
-                      views: superFlyer.slides[superFlyer.currentSlideIndex].viewsCount,
+                      saves: superFlyer.firstTimer == true ? 0 : superFlyer.slides[superFlyer.currentSlideIndex].savesCount,
+                      shares: superFlyer.firstTimer == true? 0 : superFlyer.slides[superFlyer.currentSlideIndex].sharesCount,
+                      views: superFlyer.firstTimer == true ? 0 : superFlyer.slides[superFlyer.currentSlideIndex].viewsCount,
                       onShareTap: () => superFlyer.onShareTap(),
                       onCountersTap: () => superFlyer.onVerticalPageSwipe(1),
                     ),

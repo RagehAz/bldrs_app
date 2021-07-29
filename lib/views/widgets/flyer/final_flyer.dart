@@ -108,10 +108,23 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
   SuperFlyer _superFlyer;
   BzModel _bzModel;
 // -----------------------------------------------------------------------------
-  /// --- LOADING BLOCK
+  /// --- FUTURE LOADING BLOCK
   bool _loading = false;
-  Future <void> _triggerLoading() async {
-    setState(() {_loading = !_loading;});
+  Future <void> _triggerLoading({Function function}) async {
+
+    if (function == null){
+      setState(() {
+        _loading = !_loading;
+      });
+    }
+
+    else {
+      setState(() {
+        _loading = !_loading;
+        function();
+      });
+    }
+
     _loading == true?
     print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
   }
@@ -132,6 +145,8 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     // Animators.disposeControllerIfPossible(_superFlyer.horizontalController);
     // Animators.disposeControllerIfPossible(_superFlyer.infoScrollController);
     // FocusScope.of(context).dispose();
+    //     _slidingController.dispose();
+
     super.dispose();
   }
 
@@ -366,7 +381,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       onShareTap: _onShareTap,
       onFollowTap: () async { await _onFollowTap();},
       onCallTap: () async { await _onCallTap();},
-      onAddImages: () => _onAddImages(flyerZoneWidth: widget.flyerZoneWidth),
+      onAddImages: () => _onAddImages(),
       onDeleteSlide: () async {await _onDeleteSlide();},
       onCropImage: () async {await _onCropImage();},
       onResetImage: () async {await _onResetImage();},
@@ -374,7 +389,10 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       onFlyerTypeTap: () async {await _onFlyerTypeTap();},
       onZoneTap: () async {await _onChangeZone();},
       onAboutTap: () async {await _onAboutTap();},
-      onKeywordsTap: () async {await _onKeywordsTap();}, onShowAuthorTap: _onShowAuthorTap, onTriggerEditMode: _onTriggerEditMode,
+      onKeywordsTap: () async {await _onKeywordsTap();},
+      onShowAuthorTap: _onShowAuthorTap,
+      onTriggerEditMode: _onTriggerEditMode,
+      onPublishFlyer: () async {await _onPublishFlyer();},
     );
 
     return _superFlyer;
@@ -398,7 +416,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       onShareTap: _onShareTap,
       onFollowTap: () async { await _onFollowTap();},
       onCallTap: () async { await _onCallTap();},
-      onAddImages: () => _onAddImages(flyerZoneWidth: widget.flyerZoneWidth),
+      onAddImages: () => _onAddImages(),
       onDeleteSlide: () async {await _onDeleteSlide();},
       onCropImage: () async {await _onCropImage();},
       onResetImage: () async {await _onResetImage();},
@@ -409,6 +427,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       onKeywordsTap: () async {await _onKeywordsTap();},
       onShowAuthorTap: _onShowAuthorTap,
       onTriggerEditMode: _onTriggerEditMode,
+      onPublishFlyer: () async {await _onPublishFlyer();},
     );
 
     return _superFlyer;
@@ -511,7 +530,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         setState(() {
           _superFlyer.swipeDirection = _direction;
           _superFlyer.currentSlideIndex = newIndex;
-          // _autoFocus = true;
+          _superFlyer.currentPicFit = _superFlyer.boxesFits[newIndex];
         });
       }
 
@@ -522,7 +541,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         setState(() {
           _superFlyer.swipeDirection = _direction;
           _superFlyer.currentSlideIndex = newIndex;
-          // _autoFocus = true;
+          _superFlyer.currentPicFit = _superFlyer.boxesFits[newIndex];
         });
       }
 
@@ -532,7 +551,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         setState(() {
           _superFlyer.swipeDirection = _direction;
           _superFlyer.currentSlideIndex = newIndex;
-          // _autoFocus = true;
+          _superFlyer.currentPicFit = _superFlyer.boxesFits[newIndex];
         });
       }
     }
@@ -543,6 +562,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       setState(() {
         _superFlyer.swipeDirection = _direction;
         _superFlyer.currentSlideIndex = newIndex;
+        _superFlyer.currentPicFit = _superFlyer.boxesFits[newIndex];
       });
 
     }
@@ -731,7 +751,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     });
   }
 // -----------------------------------------------------o
-  Future<void> _onAddImages({@required double flyerZoneWidth}) async {
+  Future<void> _onAddImages() async {
 
     FocusScope.of(context).unfocus();
 
@@ -772,7 +792,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         else {
 
           List<File> _assetsFiles = await Imagers.getFilesFromAssets(_outputAssets);
-          List<BoxFit> _fits = Imagers.concludeBoxesFits(assets: _assetsSources, flyerZoneWidth: flyerZoneWidth);
+          List<BoxFit> _fits = Imagers.concludeBoxesFits(assets: _assetsSources, flyerZoneWidth: widget.flyerZoneWidth);
 
 
           List<BoxFit> _newFits = new List();
@@ -791,7 +811,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
             // no match found between new assets and existing assets
             if(_assetIndexInExistingAssets == -1){
               /// fit
-              _newFits.add(Imagers.concludeBoxFit(asset: newAsset, flyerZoneWidth: flyerZoneWidth));
+              _newFits.add(Imagers.concludeBoxFit(asset: newAsset, flyerZoneWidth: widget.flyerZoneWidth));
               /// file
               File _newFile = await Imagers.getFileFromAsset(newAsset);
               _newFiles.add(_newFile);
@@ -835,6 +855,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
             _superFlyer.numberOfStrips = _superFlyer.numberOfSlides;
 
             _superFlyer.progressBarOpacity = 1;
+            _superFlyer.currentPicFit = _superFlyer.boxesFits[_superFlyer.currentSlideIndex];
           });
 
           /// E - animate to first page
@@ -1121,23 +1142,40 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
   }
 // -----------------------------------------------------o
-  void _onFitImage(BoxFit fit){
+  void _onFitImage(){
+
+    print('tapping on fit image : ${_superFlyer.assetsFiles.length} assets and currentPicFit was : ${_superFlyer.currentPicFit}');
 
     if(_superFlyer.assetsFiles.isNotEmpty){
 
-      if(fit == BoxFit.fitWidth) {
+      int index = _superFlyer.currentSlideIndex;
+
+      if(_superFlyer.currentPicFit == BoxFit.fitWidth) {
+        print('trying to get fit width to fit height');
         setState(() {
-          _superFlyer.boxesFits[_superFlyer.currentSlideIndex] = BoxFit.fitHeight;
+          _superFlyer.currentPicFit = BoxFit.fitHeight;
+          _superFlyer.boxesFits[index] = _superFlyer.currentPicFit;
+        });
+      }
+
+      else if (_superFlyer.currentPicFit == BoxFit.fitHeight){
+        print('trying to get fit height to fit width');
+        setState(() {
+          _superFlyer.currentPicFit = BoxFit.fitWidth;
+          _superFlyer.boxesFits[index] = _superFlyer.currentPicFit;
         });
       }
 
       else {
         setState(() {
-          _superFlyer.boxesFits[_superFlyer.currentSlideIndex] = BoxFit.fitWidth;
+          _superFlyer.currentPicFit = BoxFit.fitHeight;
+          _superFlyer.boxesFits[index] = _superFlyer.currentPicFit;
         });
       }
 
     }
+
+    print('tapping on fit image : ${_superFlyer.assetsFiles.length} assets and currentPicFit is : ${_superFlyer.currentPicFit}');
 
   }
 // -----------------------------------------------------o
@@ -1587,6 +1625,21 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     // }
 
   }
+// -----------------------------------------------------o
+  Future<void> _onPublishFlyer() async {
+    print('publishing flyer');
+
+    if (_superFlyer.firstTimer == true){
+      print('first timer');
+      await _createNewFlyer();
+    }
+
+    else {
+      print('updating the flyer not first timer');
+      await _updateExistingFlyer(widget.flyerModel);
+    }
+
+  }
 // -----------------------------------------------------------------------------
 
   /// CREATION METHODS
@@ -1748,8 +1801,9 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       FlyerModel _uploadedFlyerModel = await FlyerOps()
           .createFlyerOps(context, _newFlyerModel, _bz);
 
+      TinyFlyer _uploadedTinyFlyer = TinyFlyer.getTinyFlyerFromFlyerModel(_uploadedFlyerModel);
       /// add the result final TinyFlyer to local list and notifyListeners
-      _prof.addTinyFlyerToLocalList(TinyFlyer.getTinyFlyerFromFlyerModel(_uploadedFlyerModel));
+      _prof.addTinyFlyerToLocalList(_uploadedTinyFlyer);
 
       _triggerLoading();
 
@@ -1761,7 +1815,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       );
 
 
-      Nav.goBack(context, argument: 'published');
+      Nav.goBack(context, argument: _uploadedTinyFlyer);
 
     }
   }
@@ -1847,6 +1901,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     }
 
   }
+
 // -----------------------------------------------------o
   //   // List<TextEditingController> _createHeadlinesForExistingFlyer(){
 //   //   List<TextEditingController> _controllers = new List();

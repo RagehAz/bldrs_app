@@ -1,14 +1,14 @@
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
-class SlideTitle extends StatelessWidget {
+class SlideHeadline extends StatelessWidget {
   final double flyerZoneWidth;
   final String verse;
   final dynamic verseColor;
   final int verseSize;
   final Function tappingVerse;
 
-  SlideTitle({
+  SlideHeadline({
     @required this.flyerZoneWidth,
     @required this.verse,
     @required this.verseSize,

@@ -1,7 +1,7 @@
 import 'package:bldrs/models/super_flyer.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/editor_footer.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/footer_parts/ankh_button.dart';
-import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/slides_parts/slides_new.dart';
+import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/slides_parts/slides.dart';
 import 'package:flutter/material.dart';
 
 class SlidesPage extends StatelessWidget {
@@ -19,7 +19,7 @@ class SlidesPage extends StatelessWidget {
 
         /// SLIDES
         if(superFlyer.currentSlideIndex != null)
-          SlidesNew(
+          Slides(
             superFlyer: superFlyer,
           ),
 
@@ -44,6 +44,7 @@ class SlidesPage extends StatelessWidget {
             onResetImage: superFlyer.onResetImage,
             onFitImage: superFlyer.onFitImage,
             numberOdSlides: superFlyer.numberOfSlides,
+            superFlyer: superFlyer,
           ),
 
       ],

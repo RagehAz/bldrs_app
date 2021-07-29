@@ -55,12 +55,12 @@ class SingleSlide extends StatelessWidget {
 
     @required this.flyerZoneWidth,
     @required this.superFlyer,
+    @required this.slideIndex,
     this.picture,
     this.title,
     this.shares = 0,
     this.views = 0,
     this.saves = 0,
-    this.slideIndex,
     this.slideMode,
     this.boxFit = BoxFit.cover,
     this.titleController,
@@ -234,8 +234,8 @@ class SingleSlide extends StatelessWidget {
                 ),
               ),
 
-              if (_microMode == false && slideMode != SlideMode.Editor) //&& title != null && title != '')
-              SlideTitle(
+              if (superFlyer.editMode == false) //&& title != null && title != '')
+              SlideHeadline(
                 flyerZoneWidth: flyerZoneWidth,
                 verse: _titleVerse,
                 verseSize: _slideTitleSize,
@@ -245,30 +245,31 @@ class SingleSlide extends StatelessWidget {
                   },
               ),
 
-              if (slideMode == SlideMode.Editor)
-                  SuperTextField(
-                    hintText: 'T i t l e',
-                    width: flyerZoneWidth,
-                    // height: flyerZoneWidth * 0.15,
-                    fieldColor: Colorz.Black80,
-                    margin: EdgeInsets.only(top: (flyerZoneWidth * 0.3), left: 5, right: 5),
-                    maxLines: 4,
-                    keyboardTextInputType: TextInputType.text,
-                    designMode: false,
-                    counterIsOn: false,
-                    inputSize: 3,
-                    centered: true,
-                    textController: titleController,
-                    onChanged: textFieldOnChanged,
-                    inputWeight: VerseWeight.bold,
-                    inputShadow: true,
-                    autofocus: autoFocus,
-                    // fieldIsFormField: true,
-                    onSubmitted: onTextFieldSubmitted,
-                    keyboardTextInputAction: TextInputAction.done,
-                  ),
+              if (superFlyer.editMode == true)
+                SuperTextField(
+                  key: ValueKey('slide${slideIndex}'),
+                  hintText: 'T i t l e',
+                  width: flyerZoneWidth,
+                  // height: flyerZoneWidth * 0.15,
+                  fieldColor: Colorz.Black80,
+                  margin: EdgeInsets.only(top: (flyerZoneWidth * 0.3), left: 5, right: 5),
+                  maxLines: 4,
+                  keyboardTextInputType: TextInputType.text,
+                  designMode: false,
+                  counterIsOn: false,
+                  inputSize: 3,
+                  centered: true,
+                  textController: superFlyer.headlinesControllers[slideIndex],
+                  onChanged: textFieldOnChanged,
+                  inputWeight: VerseWeight.bold,
+                  inputShadow: true,
+                  autofocus: autoFocus,
+                  // fieldIsFormField: true,
+                  onSubmitted: onTextFieldSubmitted,
+                  keyboardTextInputAction: TextInputAction.done,
+                ),
 
-              slideMode != SlideMode.View ? Container() :
+              if (superFlyer.editMode == false)
               FlyerFooter(
                 flyerZoneWidth: flyerZoneWidth,
                 views: views,

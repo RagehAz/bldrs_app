@@ -22,7 +22,7 @@ class AuthorLabel extends StatelessWidget {
   final bool showLabel;
   final int authorGalleryCount;
   final bool labelIsOn;
-  final Function tappingLabel;
+  final Function onTap;
 
   AuthorLabel({
     @required this.flyerZoneWidth,
@@ -31,7 +31,7 @@ class AuthorLabel extends StatelessWidget {
     @required this.showLabel,
     @required this.authorGalleryCount,
     this.labelIsOn = false,
-    @required this.tappingLabel,
+    @required this.onTap,
 });
 
 // tappingAuthorLabel (){
@@ -73,7 +73,7 @@ class AuthorLabel extends StatelessWidget {
 
     return
       GestureDetector(
-        onTap: showLabel == true ? ()=> tappingLabel(tinyAuthor.userID) : null,
+        onTap: showLabel == true ? ()=> onTap(tinyAuthor.userID) : null,
         child:
         Container(
             height: _authorDataHeight,
