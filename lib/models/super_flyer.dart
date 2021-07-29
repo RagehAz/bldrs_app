@@ -24,9 +24,8 @@ import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:provider/provider.dart';
 
 /// need to add
-/// bool loading
 /// string mapImageURL
-///
+/// all fields are valid
 
 class SuperFlyer{
   /// sizes
@@ -54,6 +53,7 @@ class SuperFlyer{
   SwipeDirection swipeDirection;
   bool bzPageIsOn;
   bool listenToSwipe;
+  bool loading;
 
   /// record functions
   final Function onView;
@@ -74,6 +74,7 @@ class SuperFlyer{
   final Function onKeywordsTap;
   final Function onShowAuthorTap;
   final Function onTriggerEditMode;
+  final Function onPublishFlyer;
 
   /// editor data
   bool firstTimer;
@@ -184,6 +185,7 @@ class SuperFlyer{
     @required this.swipeDirection,
     @required this.bzPageIsOn,
     @required this.listenToSwipe,
+    @required this.loading,
 
     /// record functions
     @required this.onView,
@@ -204,6 +206,7 @@ class SuperFlyer{
     @required this.onKeywordsTap,
     @required this.onShowAuthorTap,
     @required this.onTriggerEditMode,
+    @required this.onPublishFlyer,
 
     /// editor data
     @required this.firstTimer,
@@ -320,6 +323,7 @@ class SuperFlyer{
           swipeDirection: null,
           bzPageIsOn: null,
           listenToSwipe: null,
+          loading: false,
 
           /// record functions
           onView: null,
@@ -340,6 +344,7 @@ class SuperFlyer{
           onKeywordsTap: null,
           onShowAuthorTap: null,
           onTriggerEditMode: null,
+          onPublishFlyer: null,
 
           /// editor data
           firstTimer: null,
@@ -475,6 +480,7 @@ class SuperFlyer{
         swipeDirection: SwipeDirection.next,
         bzPageIsOn: false,
         listenToSwipe: true,
+        loading: false,
 
         /// record functions
         onView: onView,
@@ -495,6 +501,7 @@ class SuperFlyer{
         onKeywordsTap: null,
         onShowAuthorTap: null,
         onTriggerEditMode: null,
+        onPublishFlyer: null,
 
         /// editor data
         firstTimer: null,
@@ -622,6 +629,7 @@ class SuperFlyer{
         swipeDirection: SwipeDirection.next,
         bzPageIsOn: false,
         listenToSwipe: false,
+        loading: false,
 
         /// record functions
         onView: null,
@@ -642,6 +650,7 @@ class SuperFlyer{
         onKeywordsTap: null,
         onShowAuthorTap: null,
         onTriggerEditMode: null,
+        onPublishFlyer: null,
 
         /// editor data
         firstTimer: false,
@@ -765,6 +774,7 @@ class SuperFlyer{
     @required Function onKeywordsTap,
     @required Function onShowAuthorTap,
     @required Function onTriggerEditMode,
+    @required Function onPublishFlyer,
   }){
 
     print('CREATING draft super flyer from nothing for bz  : ${bzModel.bzName} : id : ${bzModel.bzID}');
@@ -798,6 +808,7 @@ class SuperFlyer{
         swipeDirection: SwipeDirection.next,
         bzPageIsOn: false,
         listenToSwipe: true,
+        loading: false,
 
         /// record functions
         onView: onView,
@@ -818,6 +829,8 @@ class SuperFlyer{
         onKeywordsTap: onKeywordsTap,
         onShowAuthorTap: onShowAuthorTap,
         onTriggerEditMode: onTriggerEditMode,
+        onPublishFlyer: onPublishFlyer,
+
 
         /// editor data
         firstTimer: true,
@@ -934,6 +947,7 @@ class SuperFlyer{
     @required Function onKeywordsTap,
     @required Function onShowAuthorTap,
     @required Function onTriggerEditMode,
+    @required Function onPublishFlyer,
   }) async {
 
     return
@@ -963,6 +977,7 @@ class SuperFlyer{
         swipeDirection: SwipeDirection.next,
         bzPageIsOn: false,
         listenToSwipe: true,
+        loading: false,
 
         /// record functions
         onView: onView,
@@ -983,6 +998,7 @@ class SuperFlyer{
         onKeywordsTap: onKeywordsTap,
         onShowAuthorTap: onShowAuthorTap,
         onTriggerEditMode: onTriggerEditMode,
+        onPublishFlyer: onPublishFlyer,
 
         /// editor data
         firstTimer: false,
@@ -1117,6 +1133,7 @@ static SuperFlyer getSuperFlyerFromBzModelOnly({
         swipeDirection: SwipeDirection.next,
         bzPageIsOn: false,
         listenToSwipe: true,
+        loading: false,
 
         /// record functions
         onView: null,
@@ -1137,6 +1154,8 @@ static SuperFlyer getSuperFlyerFromBzModelOnly({
         onKeywordsTap: null,
         onShowAuthorTap: null,
         onTriggerEditMode: null,
+        onPublishFlyer: null,
+
 
         /// editor data
         firstTimer: null,

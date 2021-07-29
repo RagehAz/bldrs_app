@@ -44,21 +44,72 @@ class MyBzScreen extends StatefulWidget {
 
 class _MyBzScreenState extends State<MyBzScreen> {
   bool _showOldFlyers;
+  BzModel _bzModel;
+  double _bubblesOpacity = 0;
 // -----------------------------------------------------------------------------
-  /// --- LOADING BLOCK
+  /// --- FUTURE LOADING BLOCK
   bool _loading = false;
-  void _triggerLoading(){
-    setState(() {_loading = !_loading;});
+  Future <void> _triggerLoading({Function function}) async {
+
+    if (function == null){
+    setState(() {
+      _loading = !_loading;
+    });
+    }
+
+    else {
+      setState(() {
+        _loading = !_loading;
+        function();
+      });
+    }
+
     _loading == true?
     print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
   }
 // -----------------------------------------------------------------------------
   @override
   void initState() {
+    print('1 - we got temp bzModel');
+
+    _bzModel = BzModel.getTempBzModelFromTinyBz(widget.tinyBz);
     _showOldFlyers = false;
 
     // TODO: implement initState
     super.initState();
+  }
+// -----------------------------------------------------------------------------
+  bool _isInit = true;
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
+      _triggerLoading().then((_) async {
+
+        print('2 - retrieving bzModel from firebase');
+        BzModel _bzFromDB = await BzOps.readBzOps(context: context, bzID: widget.tinyBz.bzID);
+        print('3 - got the bzModel');
+        // setState(() {
+        //   _bzModel = _bzFromDB;
+        //   _bubblesOpacity = 1;
+        // });
+        print('4 - rebuilt tree with the retrieved bzModel');
+
+        FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
+        _prof.setCurrentBzModel(_bzFromDB);
+
+        /// X - REBUILD : TASK : check previous set states malhomsh lazma keda ba2a
+        _triggerLoading(
+          function: (){
+            _bzModel = _bzFromDB;
+            _bubblesOpacity = 1;
+          }
+        );
+
+      });
+
+    }
+    _isInit = false;
+    super.didChangeDependencies();
   }
 // -----------------------------------------------------------------------------
   Future<void> _deleteBzOnTap(BzModel bzModel) async {
@@ -69,7 +120,7 @@ class _MyBzScreenState extends State<MyBzScreen> {
     bool _dialogResult = await superDialog(
       context: context,
       title: '',
-      body: 'Are you sure you want to Delete ${bzModel.bzName} Business account ?',
+      body: 'Are you sure you want to Delete ${_bzModel.bzName} Business account ?',
       boolDialog: true,
     );
 
@@ -93,10 +144,10 @@ class _MyBzScreenState extends State<MyBzScreen> {
 
       // /// remove tinyBz from Local list
       FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
-      // _prof.removeTinyBzFromLocalList(bzModel.bzID);
+      // _prof.removeTinyBzFromLocalList(_bzModel.bzID);
 
       /// remove tinyBz from local userTinyBzz
-      _prof.removeTinyBzFromLocalUserTinyBzz(bzModel.bzID);
+      _prof.removeTinyBzFromLocalUserTinyBzz(_bzModel.bzID);
 
       _triggerLoading();
 
@@ -114,7 +165,7 @@ class _MyBzScreenState extends State<MyBzScreen> {
       bool _dialogResult = await superDialog(
         context: context,
         title: '',
-        body: 'Are you sure you want to Deactivate ${bzModel.bzName} Business account ?',
+        body: 'Are you sure you want to Deactivate ${_bzModel.bzName} Business account ?',
         boolDialog: true,
       );
 
@@ -138,10 +189,10 @@ class _MyBzScreenState extends State<MyBzScreen> {
 
         /// remove tinyBz from Local list
         FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
-        _prof.removeTinyBzFromLocalList(bzModel.bzID);
+        _prof.removeTinyBzFromLocalList(_bzModel.bzID);
 
         /// remove tinyBz from local userTinyBzz
-        _prof.removeTinyBzFromLocalUserTinyBzz(bzModel.bzID);
+        _prof.removeTinyBzFromLocalUserTinyBzz(_bzModel.bzID);
 
         _triggerLoading();
 
@@ -259,179 +310,179 @@ class _MyBzScreenState extends State<MyBzScreen> {
     double _appBarBzButtonWidth = Scale.superScreenWidth(context) - (Ratioz.appBarMargin * 2) -
         (Ratioz.appBarButtonSize * 2) - (Ratioz.appBarPadding * 4);
 
-    return bzModelStreamBuilder(
-        context: context,
-        bzID: widget.tinyBz.bzID,
-        builder: (ctx, bzModel){
+    String _zoneString = TextGenerator.cityCountryStringer(context: context, zone: _bzModel.bzZone);
 
-          String _zoneString = TextGenerator.cityCountryStringer(context: context, zone: bzModel.bzZone);
 
-          // print('bzZone is ${bzModel.bzZone.countryID} : ${bzModel.bzZone.cityID} : ${bzModel.bzZone.districtID}');
+    return MainLayout(
+      pyramids: Iconz.PyramidzYellow,
+      sky: Sky.Black,
+      // appBarBackButton: true,
+      appBarType: AppBarType.Basic,
+      loading: _loading,
+      appBarRowWidgets: <Widget>[
 
-          // print ('_zoneString is : $_zoneString');
+        /// --- BZ LOGO
+        DreamBox(
+          height: Ratioz.appBarButtonSize,
+          width: _appBarBzButtonWidth,
+          icon: _bzModel.bzLogo,
+          verse: '${_bzModel.bzName}',
+          bubble: false,
+          verseScaleFactor: 0.8,
+          color: Colorz.White10,
+          secondLine: '${TextGenerator.bzTypeSingleStringer(context, _bzModel.bzType)} $_zoneString',
+          secondLineColor: Colorz.White200,
+          secondLineScaleFactor: 0.9,
+        ),
 
-          return
+        /// -- SLIDE BZ ACCOUNT OPTIONS
+        DreamBox(
+          height: Ratioz.appBarButtonSize,
+          width: Ratioz.appBarButtonSize,
+          icon: Iconz.More,
+          iconSizeFactor: 0.6,
+          margins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
+          bubble: false,
+          onTap:  () => _slideBzOptions(context, _bzModel),
+        ),
 
-            MainLayout(
-                pyramids: Iconz.PyramidzYellow,
-                sky: Sky.Black,
-                // appBarBackButton: true,
-                appBarType: AppBarType.Basic,
-                loading: _loading,
-                appBarRowWidgets: <Widget>[
+      ],
 
-                  /// --- BZ LOGO
-                  DreamBox(
-                    height: Ratioz.appBarButtonSize,
-                    width: _appBarBzButtonWidth,
-                    icon: bzModel.bzLogo,
-                    verse: '${bzModel.bzName}',
-                    bubble: false,
-                    verseScaleFactor: 0.8,
-                    color: Colorz.White10,
-                    secondLine: '${TextGenerator.bzTypeSingleStringer(context, bzModel.bzType)} $_zoneString',
-                    secondLineColor: Colorz.White200,
-                    secondLineScaleFactor: 0.9,
-                  ),
+      layoutWidget: GoHomeOnMaxBounce(
+        child: AnimatedOpacity(
+          opacity: _bubblesOpacity,
+          duration: Ratioz.durationFading200,
+          curve: Curves.easeOut,
+          child: ListView(
+            physics: const BouncingScrollPhysics(),
+            children: <Widget>[
 
-                  /// -- SLIDE BZ ACCOUNT OPTIONS
-                  DreamBox(
-                    height: Ratioz.appBarButtonSize,
-                    width: Ratioz.appBarButtonSize,
-                    icon: Iconz.More,
-                    iconSizeFactor: 0.6,
-                    margins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
-                    bubble: false,
-                    onTap:  () => _slideBzOptions(context, bzModel),
+              Stratosphere(),
+
+              /// --- PUBLISHED FLYERS
+              if (_bzModel.nanoFlyers != null)
+              InPyramidsBubble(
+                title: 'Published Flyers',
+                centered: false,
+                actionBtIcon: Iconz.Clock,
+                actionBtFunction: () => _showOldFlyersOnTap(_bzModel),
+                columnChildren: <Widget>[
+
+                  Gallery(
+                    superFlyer: SuperFlyer.getSuperFlyerFromBzModelOnly(
+                      flyerZoneWidth: Scale.superBubbleClearWidth(context),
+                      bzModel: _bzModel,
+                      onHeaderTap: () => print('on header tap in f 0 my bz Screen'),
+                    ),
+                    showFlyers: true,
+                    // showOldFlyers: _showOldFlyers,
+                    flyerOnTap: (tinyFlyer) async {
+
+
+                      dynamic _rebuild = await Navigator.push(context,
+                          new MaterialPageRoute(
+                              builder: (context) => new BzFlyerScreen(
+                                tinyFlyer: tinyFlyer,
+                                bzModel: _bzModel,
+                              )
+                          ));
+                      if (_rebuild == true){
+                        print('we should rebuild');
+                        setState(() { });
+                      } else if (_rebuild == false){
+                        print('do not rebuild');
+                      } else {
+                        print ('rebuild is null');
+                      }
+
+                    },
                   ),
 
                 ],
+              ),
 
-                layoutWidget: GoHomeOnMaxBounce(
-                  child: ListView(
-                    physics: const BouncingScrollPhysics(),
-                    children: <Widget>[
+              if (_bzModel.nanoFlyers != null)
+                BubblesSeparator(),
 
-                      Stratosphere(),
+              /// --- SCOPE
+              if (_bzModel.bzScope != null)
+                ParagraphBubble(
+                title: 'Scope of services',
+                paragraph: _bzModel.bzScope,
+                maxLines: 5,
+              ),
 
-                      /// --- PUBLISHED FLYERS
-                      InPyramidsBubble(
-                        title: 'Published Flyers',
-                        centered: false,
-                        actionBtIcon: Iconz.Clock,
-                        actionBtFunction: () => _showOldFlyersOnTap(bzModel),
-                        columnChildren: <Widget>[
+              /// --- ABOUT
+              if (_bzModel.bzAbout != null)
+                ParagraphBubble(
+                title: 'About ${_bzModel.bzName}',
+                paragraph: _bzModel.bzAbout,
+                maxLines: 5,
+                centered: false,
+              ),
 
-                          Gallery(
-                            superFlyer: SuperFlyer.getSuperFlyerFromBzModelOnly(
-                              flyerZoneWidth: Scale.superBubbleClearWidth(context),
-                              bzModel: bzModel,
-                              onHeaderTap: () => print('on header tap in f 0 my bz Screen'),
-                            ),
-                            showFlyers: true,
-                            // showOldFlyers: _showOldFlyers,
-                            flyerOnTap: (tinyFlyer) async {
-                              dynamic _rebuild = await Navigator.push(context,
-                                  new MaterialPageRoute(
-                                      builder: (context) => new BzFlyerScreen(
-                                        tinyFlyer: tinyFlyer,
-                                        bzModel: bzModel,
-                                      )
-                                  ));
-                              if (_rebuild == true){
-                                print('we should rebuild');
-                                setState(() { });
-                              } else if (_rebuild == false){
-                                print('do not rebuild');
-                              } else {
-                                print ('rebuild is null');
-                              }
+              if (_bzModel.bzAbout != null)
+              BubblesSeparator(),
 
-                            },
-                          ),
+              /// --- STATS
+              if (_bzModel.bzTotalSlides != null)
+                InPyramidsBubble(
+                  title: 'Stats',
+                  centered: false,
+                  columnChildren: <Widget>[
 
-                        ],
-                      ),
+                    /// FOLLOWERS
+                    StatsLine(
+                      verse: '${_bzModel.bzTotalFollowers} ${Wordz.followers(context)}',
+                      icon: Iconz.Follow,
+                    ),
 
-                      BubblesSeparator(),
+                    /// CALLS
+                    StatsLine(
+                      verse: '${_bzModel.bzTotalCalls} ${Wordz.callsReceived(context)}',
+                      icon: Iconz.ComPhone,
+                    ),
 
-                      /// --- SCOPE
-                      ParagraphBubble(
-                        title: 'Scope of services',
-                        paragraph: bzModel.bzScope,
-                        maxLines: 5,
-                      ),
+                    /// SLIDES & FLYERS
+                    StatsLine(
+                      verse: '${_bzModel.bzTotalSlides} ${Wordz.slidesPublished(context)} ${Wordz.inn(context)} ${_bzModel.nanoFlyers.length} ${Wordz.flyers(context)}',
+                      icon: Iconz.Gallery,
+                    ),
 
-                      /// --- ABOUT
-                      ParagraphBubble(
-                        title: 'About ${bzModel.bzName}',
-                        paragraph: bzModel.bzAbout,
-                        maxLines: 5,
-                        centered: false,
-                      ),
+                    /// SAVES
+                    StatsLine(
+                      verse: '${_bzModel.bzTotalSaves} ${Wordz.totalSaves(context)}',
+                      icon: Iconz.SaveOn,
+                    ),
 
-                      BubblesSeparator(),
+                    /// VIEWS
+                    StatsLine(
+                      verse: '${_bzModel.bzTotalViews} ${Wordz.totalViews(context)}',
+                      icon: Iconz.Views,
+                    ),
 
-                      /// --- STATS
-                      InPyramidsBubble(
-                          title: 'Stats',
-                          centered: false,
-                          columnChildren: <Widget>[
+                    /// SHARES
+                    StatsLine(
+                      verse: '${_bzModel.bzTotalShares} ${Wordz.totalShares(context)}',
+                      icon: Iconz.Share,
+                    ),
 
-                            /// FOLLOWERS
-                            StatsLine(
-                              verse: '${bzModel.bzTotalFollowers} ${Wordz.followers(context)}',
-                              icon: Iconz.Follow,
-                            ),
+                    /// BIRTH
+                    StatsLine(
+                      verse: '${TextGenerator.monthYearStringer(context,_bzModel.bldrBirth)}',
+                      icon: Iconz.Calendar,
+                    ),
 
-                            /// CALLS
-                            StatsLine(
-                              verse: '${bzModel.bzTotalCalls} ${Wordz.callsReceived(context)}',
-                              icon: Iconz.ComPhone,
-                            ),
+                  ]
+              ),
 
-                            /// SLIDES & FLYERS
-                            StatsLine(
-                              verse: '${bzModel.bzTotalSlides} ${Wordz.slidesPublished(context)} ${Wordz.inn(context)} ${bzModel.nanoFlyers.length} ${Wordz.flyers(context)}',
-                              icon: Iconz.Gallery,
-                            ),
+              PyramidsHorizon(heightFactor: 3,),
 
-                            /// SAVES
-                            StatsLine(
-                              verse: '${bzModel.bzTotalSaves} ${Wordz.totalSaves(context)}',
-                              icon: Iconz.SaveOn,
-                            ),
+            ],
+          ),
+        ),
+      ),
 
-                            /// VIEWS
-                            StatsLine(
-                              verse: '${bzModel.bzTotalViews} ${Wordz.totalViews(context)}',
-                              icon: Iconz.Views,
-                            ),
-
-                            /// SHARES
-                            StatsLine(
-                              verse: '${bzModel.bzTotalShares} ${Wordz.totalShares(context)}',
-                              icon: Iconz.Share,
-                            ),
-
-                            /// BIRTH
-                            StatsLine(
-                              verse: '${TextGenerator.monthYearStringer(context,bzModel.bldrBirth)}',
-                              icon: Iconz.Calendar,
-                            ),
-
-                          ]
-                      ),
-
-                      PyramidsHorizon(heightFactor: 3,),
-
-                    ],
-                  ),
-                ),
-
-            );
-
-          }
-      );
+    );
   }
 }

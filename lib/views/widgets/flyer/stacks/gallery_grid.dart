@@ -17,6 +17,7 @@ class GalleryGrid extends StatelessWidget {
   final List<AuthorModel> bzAuthors;
   final BzModel bz;
   final Function flyerOnTap;
+  final Function addPublishedFlyerToGallery;
 
   GalleryGrid({
     @required this.gridZoneWidth,
@@ -26,6 +27,7 @@ class GalleryGrid extends StatelessWidget {
     @required this.bzAuthors,
     @required this.bz,
     @required this.flyerOnTap,
+    @required this.addPublishedFlyerToGallery,
 });
 
   bool _concludeUserIsAuthor(){
@@ -93,6 +95,7 @@ class GalleryGrid extends StatelessWidget {
               AddFlyerButton(
                 bzModel: bz,
                 flyerZoneWidth: Scale.superFlyerZoneWidth(context, _flyerSizeFactor),
+                addPublishedFlyerToGallery: addPublishedFlyerToGallery,
               ),
 
               /// GALLERY FLYERS

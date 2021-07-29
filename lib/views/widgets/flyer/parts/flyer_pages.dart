@@ -2,8 +2,8 @@ import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/scrollers.dart';
 import 'package:bldrs/controllers/drafters/sliders.dart';
 import 'package:bldrs/models/super_flyer.dart';
-import 'package:bldrs/views/widgets/flyer/parts/pages_parts/info_page_parts/info_page.dart';
-import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/slides_page.dart';
+import 'package:bldrs/views/widgets/flyer/parts/pages_parts/info_page.dart';
+import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page.dart';
 import 'package:flutter/material.dart';
 
 class FlyerPages extends StatelessWidget {
@@ -32,14 +32,14 @@ class FlyerPages extends StatelessWidget {
           /// SLIDES PAGE
           SlidesPage(
             superFlyer: superFlyer,
-            key: PageStorageKey('slides_${superFlyer.flyerID}'),
+            // key: PageStorageKey('slides_${superFlyer.flyerID}'),
           ),
 
           /// INFO PAGE
           if (_microMode == false)
           InfoPage(
             superFlyer : superFlyer,
-            key: PageStorageKey('info_${superFlyer.flyerID}'),
+            // key: PageStorageKey('info_${superFlyer.flyerID}'),
           ),
 
         ],

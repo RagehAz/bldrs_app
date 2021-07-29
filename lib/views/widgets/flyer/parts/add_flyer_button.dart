@@ -4,7 +4,9 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/bz_model.dart';
+import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/super_flyer.dart';
+import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/screens/x_0_flyer_editor_screen.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
@@ -12,24 +14,22 @@ import 'package:bldrs/views/widgets/flyer/parts/flyer_header.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class AddFlyerButton extends StatelessWidget {
   final double flyerZoneWidth;
   final BzModel bzModel;
+  final Function addPublishedFlyerToGallery;
 
   const AddFlyerButton({
     @required this.flyerZoneWidth,
     @required this.bzModel,
+    @required this.addPublishedFlyerToGallery,
   });
 
 // -----------------------------------------------------------------------------
   Future<void> _goToFlyerEditor(BuildContext context) async {
 
     print('going to create new flyer keda');
-
-    // FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
-    // _prof.setCurrentBzModel(bzModel);
 
     await Future.delayed(Ratioz.durationFading200, () async {
       dynamic _result = await Nav.goToNewScreen(context,
@@ -40,6 +40,15 @@ class AddFlyerButton extends StatelessWidget {
 
           )
       );
+
+      if (_result.runtimeType == TinyFlyer){
+        print('_goToFlyerEditor : adding published flyer model to bzPage screen gallery');
+        addPublishedFlyerToGallery(_result);
+      }
+      else {
+        print('_goToFlyerEditor : did not publish the new draft flyer');
+      }
+
     });
   }
 // -----------------------------------------------------------------------------
