@@ -1,6 +1,7 @@
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/models/bz_model.dart';
+import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/super_flyer.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
@@ -26,9 +27,9 @@ class Gallery extends StatefulWidget {
 }
 
 class _GalleryState extends State<Gallery> {
-  List<bool> flyersVisibilities;
-  List<bool> authorsVisibility;
-  String currentSelectedAuthor;
+  List<bool> _flyersVisibilities;
+  List<bool> _authorsVisibilities;
+  String _selectedAuthorID;
   List<TinyFlyer> _tinyFlyers;
   List<String> _bzTeamIDs;
   BzModel _bzModel;
@@ -53,22 +54,57 @@ class _GalleryState extends State<Gallery> {
     super.initState();
   }
 // -----------------------------------------------------------------------------
+  List<bool> _createVisibilities({bool fillingValue}){
+    List<bool> _visibilities = new List();
+
+    for (var flyer in _tinyFlyers){
+      _visibilities.add(fillingValue);
+    }
+
+    return _visibilities;
+  }
+// -----------------------------------------------------------------------------
   void setFlyersVisibility () {
+    List<bool> _visibilities = _createVisibilities(fillingValue: true);
+
     setState(() {
-      flyersVisibilities = List.filled(_tinyFlyers.length, true);
-      currentSelectedAuthor = _bzTeamIDs.length == 1 ? _bzTeamIDs[0] : '';
+      _flyersVisibilities = _visibilities;
+      _selectedAuthorID = _bzTeamIDs.length == 1 ? _bzTeamIDs[0] : '';
     });
   }
 // -----------------------------------------------------------------------------
-  tappingAuthorLabel(String authorID){
+  void _onAuthorLabelTap(String authorID){
     setState(() {
-      flyersVisibilities = List.filled(_tinyFlyers.length, false);
-      currentSelectedAuthor == authorID ? currentSelectedAuthor = '' : currentSelectedAuthor = authorID;
-      currentSelectedAuthor == '' ? flyersVisibilities = List.filled(_tinyFlyers.length, true) : currentSelectedAuthor = authorID;
+
+      _flyersVisibilities = _createVisibilities(fillingValue: false);
+
+      if(_selectedAuthorID != authorID){
+        _selectedAuthorID = '';
+        _flyersVisibilities = _createVisibilities(fillingValue: true);
+      }
+
       _tinyFlyers.asMap().forEach((index, flyer) {
-        if(_tinyFlyers[index].authorID == currentSelectedAuthor){flyersVisibilities[index] = true;}
+        if(_tinyFlyers[index].authorID == _selectedAuthorID){
+          _flyersVisibilities[index] = true;
+        }
       });
+
     });
+  }
+// -----------------------------------------------------------------------------
+  void _addPublishedFlyerToGallery(TinyFlyer tinyFlyer){
+
+    print('starting _addPublishedFlyerToGallery white tiny flyers were ${_tinyFlyers.length} flyers WHILE flyer visibilities were ${_flyersVisibilities.length} visibilities');
+
+    print('tiny flyer is ${tinyFlyer.flyerID}');
+
+      _tinyFlyers.add(tinyFlyer);
+    print('_tinyFlyers are now  ${_tinyFlyers.length} flyers');
+      _flyersVisibilities.add(true);
+    print('_flyersVisibilities are now  ${_flyersVisibilities.length} visibilities');
+
+      _onAuthorLabelTap(tinyFlyer.authorID);
+
   }
 // -----------------------------------------------------------------------------
   @override
@@ -145,13 +181,13 @@ class _GalleryState extends State<Gallery> {
                                 tinyAuthor: _tinyAuthor,
                                 tinyBz: TinyBz.getTinyBzFromSuperFlyer(widget.superFlyer),
                                 authorGalleryCount: AuthorModel.getAuthorGalleryCountFromBzModel(_bzModel, _author),
-                                tappingLabel:
+                                onTap:
                                 // widget.bzTeamIDs.length == 1 ?
                                     (id) {
-                                  tappingAuthorLabel(id);
+                                  _onAuthorLabelTap(id);
                                   },
                                 // :(id){print('a77a');// tappingAuthorLabel();},
-                                labelIsOn: currentSelectedAuthor == widget.superFlyer.bzAuthors[authorIndex].userID ? true : false,
+                                labelIsOn: _selectedAuthorID == widget.superFlyer.bzAuthors[authorIndex].userID ? true : false,
                               )
                             ],
                           );
@@ -174,15 +210,16 @@ class _GalleryState extends State<Gallery> {
 
             // --- AUTHORS FLYERS
             if (widget.superFlyer.flyerZoneWidth != null)
-            GalleryGrid(
-              gridZoneWidth: widget.superFlyer.flyerZoneWidth,
-              bzID: widget.superFlyer.bzAuthors == null || widget.superFlyer.bzAuthors == [] || widget.superFlyer.bzAuthors.isEmpty ?  '': widget.superFlyer.bzID,
-              flyersVisibilities: flyersVisibilities,
-              galleryFlyers: _tinyFlyers,
-              bzAuthors: widget.superFlyer.bzAuthors,
-              bz: _bzModel, /// TASK : maybe should remove this as long as super flyer is here
-              flyerOnTap: widget.flyerOnTap,
-            ),
+              GalleryGrid(
+                  gridZoneWidth: widget.superFlyer.flyerZoneWidth,
+                  bzID: widget.superFlyer.bzAuthors == null || widget.superFlyer.bzAuthors == [] || widget.superFlyer.bzAuthors.isEmpty ?  '': widget.superFlyer.bzID,
+                  flyersVisibilities: _flyersVisibilities,
+                  galleryFlyers: _tinyFlyers,
+                  bzAuthors: widget.superFlyer.bzAuthors,
+                  bz: _bzModel, /// TASK : maybe should remove this as long as super flyer is here
+                  flyerOnTap: widget.flyerOnTap,
+                  addPublishedFlyerToGallery: (flyerModel) => _addPublishedFlyerToGallery(flyerModel),
+                  ),
 
           ]
       ),
