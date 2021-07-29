@@ -139,11 +139,23 @@ class SingleSlide extends StatelessWidget {
 // -----------------------------------------------------------------------------
     String _titleVerse = title != null ? title :
         titleController != null ? titleController.text : null;
+// -----------------------------------------------------------------------------
+    dynamic _slidePic =
+    picture == null ||
+        slideMode == SlideMode.Empty ||
+        ObjectChecker.objectIsURL(picture) == true ||
+        ObjectChecker.objectIsFile(picture) == true ?
+
+    null
+        :
+    Imagers.superImage(picture, boxFit);
+// -----------------------------------------------------------------------------
 
     return GestureDetector(
       onTap: () => _onBehindSlideImageTap(context, _microMode), // listening to taps from inside the zoomable pic widget
       onTapCancel: () => _onSingleSlideTapCancel(context),
       onDoubleTap: _microMode == true ? null : () => _onImageDoubleTap(context),
+
       child: Container(
         width: flyerZoneWidth,
         height: Scale.superFlyerZoneHeight(context, flyerZoneWidth),
@@ -151,14 +163,12 @@ class SingleSlide extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: Borderers.superFlyerCorners(context, flyerZoneWidth),
           color: slideColor,
-          image: picture == null ||
-              slideMode == SlideMode.Empty ||
-              ObjectChecker.objectIsURL(picture) == true ||
-              ObjectChecker.objectIsFile(picture) == true ?
-          null : Imagers.superImage(picture, boxFit),
+          image: _slidePic,
         ),
+
         child: ClipRRect(
           borderRadius: Borderers.superFlyerCorners(context, flyerZoneWidth),
+
           child: Stack(
             alignment: Alignment.topCenter,
             children: <Widget>[
@@ -230,20 +240,20 @@ class SingleSlide extends StatelessWidget {
                 height: flyerZoneWidth * 0.6,
                 decoration: BoxDecoration(
                     borderRadius: Borderers.superHeaderShadowCorners(context, flyerZoneWidth),
-                    gradient: Colorizer.superSlideGradient(),
+                    gradient: Colorizer.superSlideGradient(), /// TASK : can optimize this by adding svg instead
                 ),
               ),
 
               if (superFlyer.editMode == false) //&& title != null && title != '')
-              SlideHeadline(
-                flyerZoneWidth: flyerZoneWidth,
-                verse: _titleVerse,
-                verseSize: _slideTitleSize,
-                verseColor: Colorz.White255,
-                tappingVerse: () {
-                  print('Flyer Title clicked');
-                  },
-              ),
+                SlideHeadline(
+                  flyerZoneWidth: flyerZoneWidth,
+                  verse: _titleVerse,
+                  verseSize: _slideTitleSize,
+                  verseColor: Colorz.White255,
+                  tappingVerse: () {
+                    print('Flyer Title clicked');
+                    },
+                ),
 
               if (superFlyer.editMode == true)
                 SuperTextField(
@@ -270,7 +280,7 @@ class SingleSlide extends StatelessWidget {
                 ),
 
               if (superFlyer.editMode == false)
-              FlyerFooter(
+                FlyerFooter(
                 flyerZoneWidth: flyerZoneWidth,
                 views: views,
                 shares: shares,

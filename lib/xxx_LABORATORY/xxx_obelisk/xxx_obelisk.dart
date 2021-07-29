@@ -15,6 +15,7 @@ import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:bldrs/views/widgets/textings/the_golden_scroll.dart';
 import 'package:bldrs/xxx_LABORATORY/animations/animations_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/animations/black_hole.dart';
+import 'package:bldrs/xxx_LABORATORY/animations/hero.dart';
 import 'package:bldrs/xxx_LABORATORY/firestore_test/storage_test.dart';
 import 'package:bldrs/xxx_LABORATORY/forms_and_inputs/popup.dart';
 import 'package:bldrs/xxx_LABORATORY/forms_and_inputs/form.dart';
@@ -149,7 +150,7 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
           Stratosphere(),
 
           SuperVerse(
-            verse: 'Dear Lord\nPlease give us the power to finish this project and succeeed',
+            verse: 'Dear Lord\nPlease give us the power to finish this project and succeed',
             size: 0,
             italic: true,
             weight: VerseWeight.thin,
@@ -159,7 +160,9 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
 
           LogoSlogan(sizeFactor: 0.8,),
 
-          oButton('user checker', Iconz.Flyer, UserChecker()),
+          oButton('HERO TEST', Iconz.DvDonaldDuck, HeroMinScreen()),
+
+          oButton('go to user checker', Iconz.Flyer, UserChecker()),
 
           oButton('Random Test Space', Iconz.Flyer, RandomTestSpace(
             flyerZoneWidth: Scale.superFlyerZoneWidth(context, 0.5),

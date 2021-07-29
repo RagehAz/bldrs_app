@@ -41,9 +41,8 @@ class FlyerStack extends StatelessWidget {
     // double _screenHeight = Scale.superScreenHeight(context);
 // -----------------------------------------------------------------------------
     double _titleSpacing = Ratioz.appBarMargin;
-    double _collectionHeight = (_screenWidth * Ratioz.xxflyerZoneHeight * flyerSizeFactor) + 20 ;
-// -----------------------------------------------------------------------------
-    // int _x = 0;
+    double _flyerZoneWidth = Scale.superFlyerZoneWidth(context, flyerSizeFactor);
+    double _flyerZoneHeight = Scale.superFlyerZoneHeight(context, _flyerZoneWidth);
 // -----------------------------------------------------------------------------
 //     bool _slidingIsOn = false;
     double _titleIconWidth = Ratioz.appBarButtonSize;
@@ -127,7 +126,7 @@ class FlyerStack extends StatelessWidget {
             /// --- COLLECTION FLYER'S ZONE
             Container(
               width: _screenWidth,
-              height: _collectionHeight,
+              height: _flyerZoneHeight,
               // color: Colorz.WhiteAir,
               child: FlyerStackList(
                 tinyFlyers: _tinyFlyers,
@@ -138,6 +137,13 @@ class FlyerStack extends StatelessWidget {
 
 
             ),
+
+
+            /// --- BENEATH FLYERS SPACING
+              SizedBox(
+                width: _screenWidth,
+                height: _titleSpacing,
+              ),
 
           ],
         ),

@@ -25,6 +25,7 @@ import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/models/tiny_models/tiny_user.dart';
 import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
+import 'package:bldrs/views/screens/h_0_flyer_screen.dart';
 import 'package:bldrs/views/screens/x_x_flyer_on_map.dart';
 import 'package:bldrs/views/widgets/bubbles/words_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
@@ -474,6 +475,13 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     print('opening tiny flyer : ${_tinyFlyer.flyerID}');
 
     await Nav.openFlyer(context, _tinyFlyer);
+
+    // await Navigator.push(context,
+    // MaterialPageRoute(builder: (context) => FlyerScreen(
+    //   tinyFlyer: _tinyFlyer,
+    // )
+    // )
+    // );
 
     print('WWWWWWWWWWWWWTTTTTTTTTTTFFFFFFFFFFF');
   }
