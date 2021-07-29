@@ -1,5 +1,5 @@
 import 'package:bldrs/controllers/drafters/borderers.dart';
-import 'package:bldrs/controllers/drafters/keyboarders.dart';
+import 'package:bldrs/controllers/drafters/numberers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/shadowers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
@@ -29,42 +29,13 @@ class FlyerZoneBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-// -----------------------------------------------------------------------------
-    double _screenWithoutSafeAreaHeight = Scale.superScreenHeightWithoutSafeArea(context);
+    double _screenWidth = Scale.superScreenWidth(context);
 // -----------------------------------------------------------------------------
     double _flyerZoneWidth = flyerZoneWidth;
-    double _flyerZoneFactor = Scale.superFlyerSizeFactorByWidth(context, superFlyer.flyerZoneWidth);
-    double _flyerZoneHeight = _flyerZoneFactor == 1 ?
-    _screenWithoutSafeAreaHeight : _flyerZoneWidth * Ratioz.xxflyerZoneHeight;
     double _flyerTopCorners = _flyerZoneWidth * Ratioz.xxflyerTopCorners;
     double _flyerBottomCorners = _flyerZoneWidth * Ratioz.xxflyerBottomCorners;
+    double _flyerZoneHeight = Scale.superFlyerZoneHeight(context, flyerZoneWidth);
 // -----------------------------------------------------------------------------
-    // void printingShit(){
-    //   print('follow');
-    // }
-// -----------------------------------------------------------------------------
-    // bool _barHidden = (bzPageIsOn == true) || (slidingIsOn = false) ?  true : false;
-// -----------------------------------------------------------------------------
-    // int slideIndex = widget.currentSlideIndex;
-    // bool ankhIsOn = true;//flyerData.flyerAnkhIsOn;
-
-    // bool microMode = flyerZoneWidth < screenWidth * 0.4 ? true : false;
-
-    // double footerBTMargins =
-    // ((ankhIsOn == true && (microMode == true && slidingIsOn == false)) ? flyerZoneWidth * 0.01: // for micro flyer when AnkhIsOn
-    // (ankhIsOn == true) ? flyerZoneWidth * 0.015 : // for Normal flyer when AnkhIsOn
-    // flyerZoneWidth * 0.025); // for Normal flyer when !AnkhIsOn
-    // double saveBTRadius = flyerBottomCorners - footerBTMargins;
-    // Color footerBTColor = Colorz.GreySmoke;
-    // String saveBTIcon = ankhIsOn == true ? Iconz.SaveOn : Iconz.SaveOff;
-    // String saveBTVerse = ankhIsOn == true ? getTranslated(context, 'Saved') :
-    // getTranslated(context, 'Save');
-    // Color saveBTColor = ankhIsOn == true ? Colorz.YellowSmoke : Colorz.Nothing;
-
-// -----------------------------------------------------------------------------
-
-    // print ('slidingIsOn value =$slidingIsOn');
-
     BorderRadius _flyerBorders = Borderers.superBorderOnly(
         context: context,
         enTopLeft: _flyerTopCorners,
@@ -72,21 +43,26 @@ class FlyerZoneBox extends StatelessWidget {
         enBottomRight: _flyerBottomCorners,
         enTopRight: _flyerTopCorners
     );
-
-    double _screenWidth = Scale.superScreenWidth(context);
+// -----------------------------------------------------------------------------
     double _panelWidth =
         editorBzModel == null ? 0 :
         _screenWidth - _flyerZoneWidth - (Ratioz.appBarMargin * 3);
-
+// -----------------------------------------------------------------------------
+    String _heroTag =
+        superFlyer.flyerID == null ?
+            '${Numberers.createUniqueIntFrom(existingValues: [1])}' :
+        'flyerTag : ${superFlyer.flyerID}';
+// -----------------------------------------------------------------------------
+    double _spacerWidth = editorBzModel == null ? 0 : Ratioz.appBarMargin;
+// -----------------------------------------------------------------------------
     return GestureDetector(
-      onTap:
-          (){
-        onFlyerZoneTap();
-      },
+      onTap: onFlyerZoneTap,
       onLongPress: onFlyerZoneLongPress,
       child: Container(
-        width: _flyerZoneWidth + _panelWidth + Ratioz.appBarMargin,
+        width: _flyerZoneWidth + _panelWidth + _spacerWidth,
         height: _flyerZoneHeight,
+        // color: Colorz.BloodTest,
+
         child: Row(
           mainAxisAlignment: editorBzModel == null ? MainAxisAlignment.center : MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -94,17 +70,18 @@ class FlyerZoneBox extends StatelessWidget {
 
             /// EditorPanel
             if (editorBzModel != null)
-            EditorPanel(
-              superFlyer: superFlyer,
-              panelWidth: _panelWidth,
-              bzModel: editorBzModel,
-              flyerZoneWidth: _flyerZoneWidth,
-            ),
+              EditorPanel(
+                superFlyer: superFlyer,
+                panelWidth: _panelWidth,
+                bzModel: editorBzModel,
+                flyerZoneWidth: _flyerZoneWidth,
+              ),
 
+            /// SPACER WIDTH
             if (editorBzModel != null)
-            SizedBox(
-              width: Ratioz.appBarMargin,
-            ),
+              SizedBox(
+                width: _spacerWidth,
+              ),
 
             /// flyer zone
             Container(
@@ -114,7 +91,7 @@ class FlyerZoneBox extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Colorz.White20,
                 borderRadius: _flyerBorders,
-                boxShadow: Shadowz.flyerZoneShadow(_flyerZoneWidth),
+                // boxShadow: Shadowz.flyerZoneShadow(_flyerZoneWidth),
               ),
               child: ClipRRect(
                 borderRadius: _flyerBorders,
@@ -122,9 +99,10 @@ class FlyerZoneBox extends StatelessWidget {
                 child: Container(
                   width: _flyerZoneWidth,
                   height: _flyerZoneHeight,
+                  alignment: Alignment.topCenter,
                   child: Stack(
                     alignment: Alignment.topCenter,
-                    children: stackWidgets == null ? [] : stackWidgets,
+                    children: stackWidgets == null ? <Widget>[] : stackWidgets,
                   ),
                 ),
               ),
