@@ -42,17 +42,17 @@ class FlyerEditorScreen extends StatelessWidget {
 
         Expander(),
 
-        PublishButton(
-            firstTimer: firstTimer,
-            loading: false, /// TASK : add loading to superFlyer
-            onTap: (){
-
-              //widget.firstTimer ? _superFlyer.createNewFlyer : _superFlyer.updateExistingFlyer,
-
-              print('fuck the fucking null');
-
-            }
-        ),
+        // PublishButton(
+        //     firstTimer: firstTimer,
+        //     loading: false, /// TASK : add loading to superFlyer
+        //     onTap: (){
+        //
+        //       //widget.firstTimer ? _superFlyer.createNewFlyer : _superFlyer.updateExistingFlyer,
+        //
+        //       print('fuck the fucking null');
+        //
+        //     }
+        // ),
 
       ],
 

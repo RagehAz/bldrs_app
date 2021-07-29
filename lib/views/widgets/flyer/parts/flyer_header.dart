@@ -20,6 +20,7 @@ class FlyerHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('building flyer header');
 // -----------------------------------------------------------------------------
     return GestureDetector(
         onTap: superFlyer.onHeaderTap,

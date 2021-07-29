@@ -14,35 +14,13 @@ class EditorPanel extends StatelessWidget {
   final SuperFlyer superFlyer;
   final BzModel bzModel;
   final double flyerZoneWidth;
-  // final BoxFit boxFit;
   final double panelWidth;
-  // final bool showAuthor;
-  // final Function onAuthorTap;
-  // final Function onTriggerEditMode;
-  // final Zone zone;
-  // final FlyerType flyerType;
-  // final Function onFlyerTypeTap;
-  // final Function onZoneTap;
-  // final Function onAboutTap;
-  // final Function onKeywordsTap;
-  // final DraftFlyerModel draft;
 
   EditorPanel({
     @required this.superFlyer,
     @required this.bzModel,
     @required this.flyerZoneWidth,
-    // @required this.boxFit,
     @required this.panelWidth,
-    // @required this.showAuthor,
-    // @required this.onAuthorTap,
-    // @required this.onTriggerEditMode,
-    // @required this.zone,
-    // @required this.flyerType,
-    // @required this.onFlyerTypeTap,
-    // @required this.onZoneTap,
-    // @required this.onAboutTap,
-    // @required this.onKeywordsTap,
-    // @required this.draft,
 });
 // -----------------------------------------------------------------------------
   Widget _expander(){
@@ -113,12 +91,26 @@ class EditorPanel extends StatelessWidget {
 
           // PanelButton.panelDot(panelButtonWidth: _panelButtonSize),
 
+          /// Publish button
+          if(superFlyer.editMode == true)
+          PanelButton(
+            flyerZoneWidth: flyerZoneWidth,
+            icon:  Iconz.ArrowUp,
+            iconSizeFactor: 0.5,
+            verse: superFlyer.firstTimer ? 'Publish' : 'Update',
+            verseColor: superFlyer.editMode ? Colorz.Black255 : Colorz.White255,
+
+            /// TASK : if all fields are valid should be green otherWise should be inActive
+            color: Colorz.Green255,
+            onTap: superFlyer.onPublishFlyer,
+          ),
+
           /// TRIGGER EDIT MODE
           PanelButton(
             flyerZoneWidth: flyerZoneWidth,
-            icon:  Iconz.Gears,
+            icon: superFlyer.editMode ? Iconz.Gears : Iconz.Views,
             iconSizeFactor: 0.5,
-            verse: superFlyer.editMode ? 'Editing' : 'Edit',
+            verse: superFlyer.editMode ? 'Editing' : 'Viewing',
             verseColor: superFlyer.editMode ? Colorz.Black255 : Colorz.White255,
             color: superFlyer.editMode ? Colorz.Yellow255 : Colorz.White80,
             onTap: superFlyer.onTriggerEditMode,
