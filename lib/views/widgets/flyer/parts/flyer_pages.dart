@@ -17,7 +17,7 @@ class FlyerPages extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    bool _microMode = Scale.superFlyerMicroMode(context, superFlyer.flyerZoneWidth);
+    bool _tinyMode = Scale.superFlyerTinyMode(context, superFlyer.flyerZoneWidth);
 
     return GoHomeOnMaxBounce(
       child: PageView(
@@ -36,7 +36,7 @@ class FlyerPages extends StatelessWidget {
           ),
 
           /// INFO PAGE
-          if (_microMode == false)
+          if (_tinyMode == false)
           InfoPage(
             superFlyer : superFlyer,
             // key: PageStorageKey('info_${superFlyer.flyerID}'),

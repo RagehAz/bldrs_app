@@ -75,7 +75,7 @@ class EditorPanel extends StatelessWidget {
             // margins: EdgeInsets.symmetric(vertical: (Ratioz.xxflyerHeaderMiniHeight - Ratioz.xxflyerLogoWidth) * _flyerZoneWidth / 2),
             width: _buttonSize,
             color: superFlyer.flyerShowsAuthor == true ? Colorz.White80 : Colorz.White80,
-            icon: _author.authorPic,
+            icon: _author?.authorPic,
             iconSizeFactor: 0.5,
             underLine: superFlyer.flyerShowsAuthor == true ? 'Author Shown' : 'Author Hidden',
             underLineShadowIsOn: false,
@@ -90,6 +90,20 @@ class EditorPanel extends StatelessWidget {
           _expander(),
 
           // PanelButton.panelDot(panelButtonWidth: _panelButtonSize),
+
+          /// DELETE FLYER button
+          if(superFlyer.editMode == true && superFlyer.firstTimer == false)
+            PanelButton(
+              flyerZoneWidth: flyerZoneWidth,
+              icon:  Iconz.XSmall,
+              iconSizeFactor: 0.5,
+              verse: 'Delete',
+              verseColor: Colorz.White255,
+
+              /// TASK : if all fields are valid should be green otherWise should be inActive
+              color: Colorz.Red230,
+              onTap: superFlyer.onDeleteFlyer,
+            ),
 
           /// Publish button
           if(superFlyer.editMode == true)
@@ -108,11 +122,11 @@ class EditorPanel extends StatelessWidget {
           /// TRIGGER EDIT MODE
           PanelButton(
             flyerZoneWidth: flyerZoneWidth,
-            icon: superFlyer.editMode ? Iconz.Gears : Iconz.Views,
+            icon: superFlyer.editMode == true ? Iconz.Gears : Iconz.Views,
             iconSizeFactor: 0.5,
-            verse: superFlyer.editMode ? 'Editing' : 'Viewing',
-            verseColor: superFlyer.editMode ? Colorz.Black255 : Colorz.White255,
-            color: superFlyer.editMode ? Colorz.Yellow255 : Colorz.White80,
+            verse: superFlyer.editMode == true ? 'Editing' : 'Viewing',
+            verseColor: superFlyer.editMode == true ? Colorz.Black255 : Colorz.White255,
+            color: superFlyer.editMode == true ? Colorz.Yellow255 : Colorz.White80,
             onTap: superFlyer.onTriggerEditMode,
           ),
 

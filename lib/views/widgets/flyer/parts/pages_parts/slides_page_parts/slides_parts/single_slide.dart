@@ -24,7 +24,7 @@ import 'package:bldrs/controllers/drafters/keyboarders.dart';
 /// TASK delete this
 enum SlideMode {
   View, // when viewing a slide as default
-  MicroView, // when viewing slide in flyer micro mode
+  TinyView, // when viewing slide in flyer tiny mode
   Editor, // while editing or creating the flyer
   Map, // when the slide is a map slide
   Empty, // while editing the flyer and before picking slide content
@@ -74,15 +74,15 @@ class SingleSlide extends StatelessWidget {
     Key key,
   }) : super(key: key);
 // -----------------------------------------------------------------------------
-  void _onBehindSlideImageTap(BuildContext context, bool microMode){
+  void _onBehindSlideImageTap(BuildContext context, bool tinyMode){
 
-    if (microMode == true){
-    print('tapping slide behind image while micro mode is $microMode');
+    if (tinyMode == true){
+    print('tapping slide behind image while tinyMode is $tinyMode');
     superFlyer.onTinyFlyerTap();
     }
 
     else {
-      print('tapping slide behind image while micro mode is $microMode');
+      print('tapping slide behind image while tinyMode is $tinyMode');
 
     }
 
@@ -120,7 +120,7 @@ class SingleSlide extends StatelessWidget {
 // -----------------------------------------------------------------------------
     double _screenWidth = Scale.superScreenWidth(context);
 // -----------------------------------------------------------------------------
-    bool _microMode = Scale.superFlyerMicroMode(context, flyerZoneWidth);
+    bool _tinyMode = Scale.superFlyerTinyMode(context, flyerZoneWidth);
 // -----------------------------------------------------------------------------
     int _slideTitleSize =
     flyerZoneWidth <= _screenWidth && flyerZoneWidth > (_screenWidth*0.75) ? 4 :
@@ -152,9 +152,9 @@ class SingleSlide extends StatelessWidget {
 // -----------------------------------------------------------------------------
 
     return GestureDetector(
-      onTap: () => _onBehindSlideImageTap(context, _microMode), // listening to taps from inside the zoomable pic widget
+      onTap: () => _onBehindSlideImageTap(context, _tinyMode), // listening to taps from inside the zoomable pic widget
       onTapCancel: () => _onSingleSlideTapCancel(context),
-      onDoubleTap: _microMode == true ? null : () => _onImageDoubleTap(context),
+      onDoubleTap: _tinyMode == true ? null : () => _onImageDoubleTap(context),
 
       child: Container(
         width: flyerZoneWidth,
@@ -211,7 +211,7 @@ class SingleSlide extends StatelessWidget {
               /// --- IMAGE FILE
               if (ObjectChecker.objectIsFile(picture))
                 ZoomablePicture(
-                  isOn: !_microMode,
+                  isOn: !_tinyMode,
                   onTap: onTap,
                   child: Image.file(
                       picture,
@@ -224,7 +224,7 @@ class SingleSlide extends StatelessWidget {
               /// --- IMAGE NETWORK
               if (ObjectChecker.objectIsURL(picture))
                 ZoomablePicture(
-                  isOn: !_microMode,
+                  isOn: !_tinyMode,
                   onTap: onTap,
                   child: Image.network(
                       picture,
@@ -278,16 +278,6 @@ class SingleSlide extends StatelessWidget {
                   onSubmitted: onTextFieldSubmitted,
                   keyboardTextInputAction: TextInputAction.done,
                 ),
-
-              if (superFlyer.editMode == false)
-                FlyerFooter(
-                flyerZoneWidth: flyerZoneWidth,
-                views: views,
-                shares: shares,
-                saves: saves,
-                onShareTap: () => superFlyer.onShareTap(), // this will user slide index
-                onCountersTap: (){},
-              ),
 
             ],
           ),

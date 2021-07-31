@@ -86,6 +86,7 @@ class _HomeWallState extends State<HomeWall> {
                   flyerZoneWidth: _sponsoredFlyerWidth,
                   superFlyer: SuperFlyer.createEmptySuperFlyer(
                     flyerZoneWidth: _sponsoredFlyerWidth,
+                    goesToEditor: false,
                   ),
                   onFlyerZoneTap: null,
                 ),
@@ -96,6 +97,7 @@ class _HomeWallState extends State<HomeWall> {
                   flyerZoneWidth: _sponsoredFlyerWidth,
                   superFlyer: SuperFlyer.createEmptySuperFlyer(
                     flyerZoneWidth: _sponsoredFlyerWidth,
+                    goesToEditor: false
                   ),
                   onFlyerZoneTap: null,
                 ),

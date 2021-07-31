@@ -198,6 +198,7 @@ class _FlyersGridViewState extends State<FlyersGridView> {
         FinalFlyer(
           flyerZoneWidth: Scale.superFlyerZoneWidth(context, _flyerSizeFactor),
           tinyFlyer: _tinyFlyers[i],
+          goesToEditor: false,
         )
 
       ),

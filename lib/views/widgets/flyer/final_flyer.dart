@@ -26,6 +26,7 @@ import 'package:bldrs/models/tiny_models/tiny_user.dart';
 import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/screens/h_0_flyer_screen.dart';
+import 'package:bldrs/views/screens/x_0_flyer_editor_screen.dart';
 import 'package:bldrs/views/screens/x_x_flyer_on_map.dart';
 import 'package:bldrs/views/widgets/bubbles/words_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
@@ -84,7 +85,9 @@ class FinalFlyer extends StatefulWidget {
   final TinyFlyer tinyFlyer;
   final int initialSlideIndex;
   final Function onSwipeFlyer;
-  final bool isDraft;
+  final bool goesToEditor;
+  final bool flyerIsInEditor;
+  final BzModel bzModel;
 
   const FinalFlyer({
     @required this.flyerZoneWidth,
@@ -92,9 +95,15 @@ class FinalFlyer extends StatefulWidget {
     this.tinyFlyer,
     this.initialSlideIndex = 0,
     this.onSwipeFlyer,
-    this.isDraft = false,
+    this.goesToEditor = false,
+    this.flyerIsInEditor = false,
+    this.bzModel,
     Key key
-  }) : super(key: key);
+  }) :
+  // assert(isDraft != null),
+  // assert(child != null),
+  super(key: key);
+
 
   @override
   _FinalFlyerState createState() => _FinalFlyerState();
@@ -108,6 +117,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
   FlyersProvider _prof;
   SuperFlyer _superFlyer;
   BzModel _bzModel;
+  FlyerModel _originalFlyer;
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
   bool _loading = false;
@@ -132,9 +142,13 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 // -----------------------------------------------------------------------------
   @override
   void initState() {
+
+    /// get current bzModel when this flyer goes to editor
     _prof = Provider.of<FlyersProvider>(context, listen: false);
-     _bzModel = _prof.myCurrentBzModel;
-    _superFlyer = _initializeSuperFlyer(bzModel: _bzModel, flyerModel: widget.flyerModel, tinyFlyer: widget.tinyFlyer);
+    _bzModel = widget.bzModel;
+
+    /// initialize initial superFlyer before fetching the actual superFlyer
+    _superFlyer = _initializeSuperFlyer();
 
     super.initState();
   }
@@ -158,81 +172,120 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     if (_isInit) {
       _triggerLoading().then((_) async {
 
-        /// BIG MODE vs MICRO MODE
-        bool _microMode = Scale.superFlyerMicroMode(context, widget.flyerZoneWidth);
-        bool _isDraft = widget.isDraft;
+        bool _isTinyMode = Scale.superFlyerTinyMode(context, widget.flyerZoneWidth);
+        bool _flyerModelProvided = widget.flyerModel != null;
+        bool _tinyFlyerProvided = widget.tinyFlyer != null;
+        bool _bzModelIsProvided = widget.bzModel != null;
 
-        /// A - when by flyerModel
-        if (widget.flyerModel != null){
+        bool _flyerGoesToEditor = widget.goesToEditor;
+        bool _flyerIsInEditor = widget.flyerIsInEditor;
 
-          /// B - if draft
-          if(_isDraft == true){
+        bool _shouldBuildViewFlyerFromFlyerModel = _flyerModelProvided == true;
+        bool _shouldBuildViewFlyerFromTinyFlyer = _tinyFlyerProvided == true && _flyerModelProvided == false;
 
-            _superFlyer = await _getDraftSuperFlyerFromFlyer(flyerModel: widget.flyerModel, bzModel: _bzModel);
-          }
-          /// B - if normal
-          else {
+        bool _shouldBuildEmptyViewFlyer = _flyerModelProvided == false && _tinyFlyerProvided == false && _bzModelIsProvided == false;
+        bool _shouldBuildEmptyViewFlyerWithHeaderOnly = _flyerModelProvided == false && _tinyFlyerProvided == false && _bzModelIsProvided == true;
 
-            FlyerModel _tempFlyer = _createTempEmptyFlyer();
+        bool _shouldBuildEditorFlyerFromNothing = _flyerModelProvided == false && _tinyFlyerProvided == false && _isTinyMode == false && _flyerIsInEditor == true;
+        bool _shouldBuildEditorFlyerFromFlyer = (_flyerModelProvided == true || _tinyFlyerProvided == true) && _isTinyMode == false && _flyerIsInEditor == true;
 
-            _superFlyer = _getSuperFlyerFromFlyer(flyerModel: _tempFlyer);
-          }
+        bool _shouldFetchDBForFlyerModel = _flyerModelProvided == false && _tinyFlyerProvided == true && _isTinyMode == false;
+
+        // --------------------------------------------------------------------X
+        /// A - get superFlyer by given flyerModel if possible (PRIORITY 1)
+        if (_flyerModelProvided){
+          print(' /// A - get superFlyer by given flyerModel if possible (PRIORITY 1) ');
+          _superFlyer = _getSuperFlyerFromFlyer(flyerModel: widget.flyerModel);
+        }
+
+        /// A - get superFlyer by given tinyFlyer if possible (PRIORITY 2)
+        else if (_tinyFlyerProvided){
+          print(' /// A - get superFlyer by given tinyFlyer if possible (PRIORITY 2) ');
+
+          _superFlyer = _getSuperFlyerFromTinyFlyer(tinyFlyer: widget.tinyFlyer);
 
         }
 
-        /// A - when by tinyFlyer
-        else if (widget.tinyFlyer != null){
-
-          /// B - when in microMode
-          if (_microMode){
-            _superFlyer = _getSuperFlyerFromTinyFlyer(tinyFlyer: widget.tinyFlyer);
-          }
-
-          /// B - when in big mode
-          else {
-            SuperFlyer _tempSuperFlyer = _getSuperFlyerFromTinyFlyer(tinyFlyer: widget.tinyFlyer);
-            FlyerModel _flyerModel = await FlyerOps().readFlyerOps(context: context, flyerID: widget.tinyFlyer.flyerID);
-
-            /// C - if no flyer model found on database
-            if (_flyerModel == null) {
-
-              setState(() {
-                _superFlyer = _tempSuperFlyer;
-              });
-
-            }
-
-            /// C - if flyer model found on db
-            else {
-              SuperFlyer _newTempSuperFlyer = _getSuperFlyerFromFlyer(flyerModel: _flyerModel);
-
-              setState(() {
-                _superFlyer = _newTempSuperFlyer;
-              });
-
-            }
-
-          }
-
-        }
-
-        /// A - when both flyerModel & tinyFlyer are null
+        /// A - create empty superFlyer with null flyerID (PRIORITY 3)
         else {
+          print(' /// A - create empty superFlyer with null flyerID (PRIORITY 3) ');
 
-          /// B - when draft
-          if (_isDraft){
-            _superFlyer = _getDraftSuperFlyerFromNothing(bzModel: _bzModel);
+          _superFlyer = SuperFlyer.createEmptySuperFlyer(flyerZoneWidth: widget.flyerZoneWidth, goesToEditor: widget.goesToEditor);
+
+        }
+        // --------------------------------------------------------------------X
+
+        /// B - fetching db when flyerID is provided ( only for priority 1 & 2 scenarios )
+        if (_superFlyer.flyerID != null){
+          print(' /// B - fetching db when flyerID is provided ( only for priority 1 & 2 scenarios ) ');
+
+          bool _tinyMode = Scale.superFlyerTinyMode(context, widget.flyerZoneWidth);
+          print(' /// xxx - CHECK BIG MODE vs TINY MODE ');
+
+          if (_tinyMode) {
+            print(' /// C - showing flyer in tiny mode will use the defined superFlyer ');
+            // superFlyer is already defined for tiny mode and no need to fetch db
           }
 
-          /// B - when nothing provided at all
           else {
-            _superFlyer = SuperFlyer.createEmptySuperFlyer(flyerZoneWidth: widget.flyerZoneWidth);
+            print(' /// C - showing flyer in big mode ');
+
+            if (widget.flyerModel != null){
+              print(' /// D - if flyerModel was provided (PRIORITY 1) ');
+              // no need to fetch flyer model, and superFlyer is defined by the given flyerModel
+            }
+
+            else if (widget.tinyFlyer != null){
+              print(' /// D - if tinyFlyer was provided (PRIORITY 2) ');
+
+              FlyerModel _dbFlyerModel = await FlyerOps().readFlyerOps(context: context, flyerID: widget.tinyFlyer.flyerID);
+              print(' /// E - fetch database for flyerModel ');
+
+              if (_dbFlyerModel != null){
+                print(' /// E - if flyer found ');
+
+                if (widget.goesToEditor == true){
+                  print(' /// F - if should go to editor ');
+                  _superFlyer = await _getDraftSuperFlyerFromFlyer(bzModel: _bzModel, flyerModel: _dbFlyerModel);
+                  _originalFlyer = _dbFlyerModel;
+                }
+
+                else {
+                  print(' /// F - if goes to viewer ');
+                  _superFlyer = _getSuperFlyerFromFlyer(flyerModel: _dbFlyerModel);
+                }
+
+              }
+
+              else {
+                print('  /// E - if flyer NOT found ');
+
+                if (widget.goesToEditor == true){
+                  print(' /// F - if should go to editor ');
+                  _superFlyer = await _getDraftSuperFlyerFromNothing(bzModel: _bzModel);
+                }
+
+                else {
+                  print(' /// F - if goes to viewer ');
+                  print(' // keep the defined superFlyer from the given tinyFlyer ');
+                }
+
+              }
+
+            }
+
           }
 
+        }
+
+        /// B - flyerID is null and flyer is empty
+        else {
+          print(' /// B - flyerID is null and flyer is empty ');
+          // do nothing
         }
 
         /// X - REBUILD : TASK : check previous set states malhomsh lazma keda ba2a
-      _triggerLoading();
+        _triggerLoading();
 
       });
 
@@ -244,79 +297,34 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
   /// SUPER FLYER CREATORS
 
-//   Future<TinyFlyer> _fetchOrSearchTinyFlyerByID(String flyerID) async {
-//
-//     TinyFlyer _tinyFlyer;
-//
-//     /// A - check saved tiny flyers
-//     TinyFlyer _savedTinyFlyer = _prof.getSavedTinyFlyerByFlyerID(flyerID);
-//
-//     /// A - if id found in saved tinyFlyers
-//     if (_savedTinyFlyer != null){
-//       setState(() {
-//         _tinyFlyer = _savedTinyFlyer;
-//       });
-//     }
-//
-//     /// A - if not found locally, get it from database
-//     else {
-//       TinyFlyer _tinyFlyerFromDB = await FlyerOps().readTinyFlyerOps(context: context, flyerID: flyerID);
-//
-//       /// B - if found on database
-//       if (_tinyFlyerFromDB != null){
-//         setState(() {
-//           _tinyFlyer = _tinyFlyerFromDB;
-//         });
-//       }
-//
-//       /// B - if not found on database
-//       // do nothing and let _tinyFlyer be null
-//     }
-//
-//     return _tinyFlyer;
-//   }
-// // -----------------------------------------------------o
-//   Future<FlyerModel> _fetchOrSearchFlyerByID(String flyerID) async {
-//     FlyerModel _flyerModel;
-//
-//     /// A - get it from database directly
-//     FlyerModel _flyerModelFromDB = await FlyerOps().readFlyerOps(context: context, flyerID: flyerID);
-//
-//       /// B - if found on database
-//       if (_flyerModelFromDB != null){
-//         setState(() {
-//           _flyerModel = _flyerModelFromDB;
-//         });
-//
-//       /// B - if not found on database
-//       // do nothing and let _flyerModel be null
-//     }
-//
-//       return _flyerModel;
-//   }
 // -----------------------------------------------------o
-// -----------------------------------------------------o
-  SuperFlyer _initializeSuperFlyer({@required TinyFlyer tinyFlyer, @required FlyerModel flyerModel, @required BzModel bzModel}){
+  SuperFlyer _initializeSuperFlyer(){
     SuperFlyer _superFlyer;
 
     /// A - by flyerModel
-    if (flyerModel != null){
-      _superFlyer = _getSuperFlyerFromFlyer(flyerModel: flyerModel);
+    if (widget.flyerModel != null){
+      _superFlyer = _getSuperFlyerFromFlyer(flyerModel: widget.flyerModel);
     }
 
     /// A - by tinyFlyer
-    else if (tinyFlyer != null){
-      _superFlyer = _getSuperFlyerFromTinyFlyer(tinyFlyer: tinyFlyer);
+    else if (widget.tinyFlyer != null){
+        _superFlyer = _getSuperFlyerFromTinyFlyer(tinyFlyer: widget.tinyFlyer);
+
     }
 
-    /// A - by bzModel
-    else if (bzModel != null){
-      _superFlyer = _getDraftSuperFlyerFromNothing(bzModel: bzModel);
+    /// A - when only bzModel is provided (empty flyer only with header)
+    else if (widget.goesToEditor == true){
+
+      if (widget.tinyFlyer == null){
+      _superFlyer = _getDraftSuperFlyerFromNothing(bzModel: _bzModel);
+      }
+
+
     }
 
     /// A - emptiness
     else {
-      _superFlyer = SuperFlyer.createEmptySuperFlyer(flyerZoneWidth: widget.flyerZoneWidth);
+      _superFlyer = SuperFlyer.createEmptySuperFlyer(flyerZoneWidth: widget.flyerZoneWidth, goesToEditor: widget.goesToEditor);
     }
 
     return _superFlyer;
@@ -394,6 +402,9 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       onShowAuthorTap: _onShowAuthorTap,
       onTriggerEditMode: _onTriggerEditMode,
       onPublishFlyer: () async {await _onPublishFlyer();},
+      onDeleteFlyer: () async {await _onDeleteFlyer();},
+      onUnPublishFlyer: () async {await _onUnpublishFlyer();},
+      onRepublishFlyer: () async {await _onRepublishFlyer();},
     );
 
     return _superFlyer;
@@ -429,6 +440,9 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       onShowAuthorTap: _onShowAuthorTap,
       onTriggerEditMode: _onTriggerEditMode,
       onPublishFlyer: () async {await _onPublishFlyer();},
+      onDeleteFlyer: () async {await _onDeleteFlyer();},
+      onUnPublishFlyer: () async {await _onUnpublishFlyer();},
+      onRepublishFlyer: () async {await _onRepublishFlyer();},
     );
 
     return _superFlyer;
@@ -442,7 +456,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
 
     return new FlyerModel(
-      flyerID : SuperFlyer.draftID,
+      flyerID : SuperFlyer.draftID, // no need
       // -------------------------
       flyerType : FlyerTypeClass.concludeFlyerType(_bzModel.bzType),
       flyerState : FlyerState.Draft,
@@ -472,9 +486,26 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
   Future <void> _openTinyFlyer() async {
 
     TinyFlyer _tinyFlyer = TinyFlyer.getTinyFlyerFromSuperFlyer(_superFlyer);
-    print('opening tiny flyer : ${_tinyFlyer.flyerID}');
+    print('opening tiny flyer : ${_tinyFlyer.flyerID} while THE FUCKING widget.goesToEditor IS : ${widget.goesToEditor}');
 
-    await Nav.openFlyer(context, _tinyFlyer);
+    /// opening editor
+    if (widget.goesToEditor == true){
+      await _goToFlyerEditor(
+        context: context,
+        firstTimer: _superFlyer.firstTimer,
+      );
+    }
+
+    /// opening flyer to view
+    else {
+
+      await Nav.openFlyer(
+          context: context,
+          tinyFlyer: _tinyFlyer,
+      );
+
+    }
+
 
     // await Navigator.push(context,
     // MaterialPageRoute(builder: (context) => FlyerScreen(
@@ -488,13 +519,13 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 // -----------------------------------------------------o
   void _onFlyerZoneTap(){
 
-    bool _microMode = Scale.superFlyerMicroMode(context, widget.flyerZoneWidth);
+    bool _tinyMode = Scale.superFlyerTinyMode(context, widget.flyerZoneWidth);
 
-    print('Final flyer zone tapped : ${_superFlyer.flyerID} : micro mode is $_microMode');
+    print('Final flyer zone tapped : ${_superFlyer.flyerID} : micro mode is $_tinyMode');
 
     Keyboarders.minimizeKeyboardOnTapOutSide(context);
 
-    if (_microMode == true){
+    if (_tinyMode == true){
 
       print('tapping tiny flyer aho');
       _openTinyFlyer();
@@ -514,6 +545,33 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       _statelessTriggerProgressOpacity();
     });
     print('_onHeaderTap : bzPageIsOn is : ${_superFlyer.bzPageIsOn}');
+  }
+// -----------------------------------------------------o
+  Future<void> _goToFlyerEditor({BuildContext context, bool firstTimer}) async {
+
+    print('going to flyer editor for flyerID ${_superFlyer.flyerID} as firstTimer is ${firstTimer}');
+
+    await Future.delayed(Ratioz.durationFading200, () async {
+
+      // FlyerModel _flyer = firstTimer == true ? null : widget.flyerModel;
+
+      dynamic _result = await Nav.goToNewScreen(context,
+          new FlyerEditorScreen(
+            firstTimer: firstTimer,
+            bzModel: _bzModel,
+            tinyFlyer: firstTimer == true ? null : widget.tinyFlyer,
+          )
+      );
+
+      if (_result.runtimeType == TinyFlyer){
+        print('_goToFlyerEditor : adding published flyer model to bzPage screen gallery');
+        _updateTinyFlyerInLocalBzTinyFlyers(_result);
+      }
+      else {
+        print('_goToFlyerEditor : did not publish the new draft flyer');
+      }
+
+    });
   }
 // -----------------------------------------------------------------------------
 
@@ -1644,11 +1702,16 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
     else {
       print('updating the flyer not first timer');
-      await _updateExistingFlyer(widget.flyerModel);
+      await _updateExistingFlyer(_originalFlyer);
     }
 
   }
 // -----------------------------------------------------------------------------
+  void _updateTinyFlyerInLocalBzTinyFlyers(TinyFlyer modifiedTinyFlyer){
+    // _prof.update(modifiedTinyFlyer);
+    print(' should update tiny flyer in current bz tiny flyers shof enta ezay');
+  }
+
 
   /// CREATION METHODS
 
@@ -1909,7 +1972,83 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     }
 
   }
+// -----------------------------------------------------o
+  Future<void> _onDeleteFlyer() async {
+    // Nav.goBack(context);
+    _triggerLoading();
 
+    /// Task : this should be bool dialog instead
+    bool _dialogResult = await superDialog(
+      context: context,
+      title: '',
+      body: 'Are you sure you want to Delete this flyer and never get it back?',
+      boolDialog: true,
+    );
+
+    print(_dialogResult);
+
+
+    /// start delete flyer ops
+    await FlyerOps().deleteFlyerOps(
+      context: context,
+      bzModel: _bzModel,
+      flyerModel : _originalFlyer,
+    );
+
+    /// remove tinyFlyer from Local list
+    // FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
+    // _prof.removeTinyFlyerFromLocalList(tinyFlyer.flyerID);
+
+    _triggerLoading();
+
+    /// re-route back
+    Nav.goBack(context, argument: true);
+  }
+// -----------------------------------------------------o
+  Future<void> _onUnpublishFlyer() async {
+
+    // Nav.goBack(context);
+
+    /// Task : this should be bool dialog instead
+    bool _dialogResult = await superDialog(
+      context: context,
+      title: '',
+      body: 'Are you sure you want to unpublish this flyer ?',
+      boolDialog: true,
+    );
+
+    /// if user stop
+    if (_dialogResult == false) {
+
+      print('cancelled unpublishing flyer');
+
+    }
+
+    /// if user continue
+    else {
+
+      /// start delete flyer ops
+      await FlyerOps().deactivateFlyerOps(
+        context: context,
+        bzModel: _bzModel,
+        flyerID : _superFlyer.flyerID,
+      );
+
+      /// remove tinyFlyer from Local list
+      // FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
+      // _prof.removeTinyFlyerFromLocalList(tinyFlyer.flyerID);
+
+
+    }
+
+    // /// re-route back
+    // Nav.goBack(context, argument: true);
+
+  }
+// -----------------------------------------------------o
+  Future<void> _onRepublishFlyer() async {
+    print('this is here to republish the flyer');
+  }
 // -----------------------------------------------------o
   //   // List<TextEditingController> _createHeadlinesForExistingFlyer(){
 //   //   List<TextEditingController> _controllers = new List();
@@ -1941,19 +2080,21 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
   Widget build(BuildContext context) {
     super.build(context);
 
-    bool _microMode = Scale.superFlyerMicroMode(context, widget.flyerZoneWidth);
+    bool _tinyMode = Scale.superFlyerTinyMode(context, widget.flyerZoneWidth);
 
-    bool _superFlyerHasValue = _superFlyer?.flyerID == null ? false : true;
+    bool _superFlyerHasID = _superFlyer?.flyerID == null ? false : true;
 
     bool _flyerHasMoreThanOnePage =
     _superFlyer == null ? false :
     _superFlyer?.flyerID == null ? false :
     _superFlyer.numberOfSlides > 1 ? true : false;
 
-    BzModel _editorBzModel =
-    _superFlyer == null ? null :
-    _superFlyer.isDraft == true ? BzModel.getBzModelFromSuperFlyer(_superFlyer) :
-    null;
+    // BzModel _editorBzModel =
+    // _superFlyer == null ? null :
+    // _superFlyer.isDraft == true ? BzModel.getBzModelFromSuperFlyer(_superFlyer) :
+    // null;
+
+    print('widget.goesToFlyer is : ${widget.goesToEditor} for ${_superFlyer.flyerID}');
 
     return
 
@@ -1962,19 +2103,20 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
           superFlyer: _superFlyer,
           onFlyerZoneTap: _onFlyerZoneTap,
           onFlyerZoneLongPress: _onFlyerZoneLongPress,
-          editorBzModel: _editorBzModel,
+          editorBzModel: _bzModel,
           stackWidgets: <Widget>[
 
-            if (_superFlyerHasValue)
+            if (_superFlyerHasID)
               FlyerPages(superFlyer: _superFlyer,),
 
-            if (_superFlyerHasValue)
+            if (_superFlyerHasID)
               FlyerHeader(superFlyer: _superFlyer,),
 
-            if ((!_microMode) && _superFlyerHasValue && _flyerHasMoreThanOnePage)
+            if ((!_tinyMode))
               ProgressBar(
                 superFlyer: _superFlyer,
                 flyerZoneWidth: widget.flyerZoneWidth,
+                loading: _loading,
               ),
 
           ],

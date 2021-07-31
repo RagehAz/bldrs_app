@@ -142,6 +142,7 @@ class _FlyersGridState extends State<FlyersGrid> {
                   flyerZoneWidth: Scale.superFlyerZoneWidth(context, _flyerSizeFactor),
                   tinyFlyer: _tinyFlyers[index],
                   initialSlideIndex: _tinyFlyers[index].slideIndex,
+                  goesToEditor: false,
                 );
 
               },

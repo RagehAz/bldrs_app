@@ -13,7 +13,7 @@ import 'package:flutter/material.dart';
 
 class Gallery extends StatefulWidget {
   final SuperFlyer superFlyer;
-  final bool showFlyers;
+  final bool showFlyers; // why ?
   final Function flyerOnTap;
 
   Gallery({
@@ -94,6 +94,9 @@ class _GalleryState extends State<Gallery> {
 // -----------------------------------------------------------------------------
   void _addPublishedFlyerToGallery(TinyFlyer tinyFlyer){
 
+    // TASK : of the tasks
+    // _prof.updateTinyFlyerInLocalBzTinyFlyers(tinyFlyer);
+
     print('starting _addPublishedFlyerToGallery white tiny flyers were ${_tinyFlyers.length} flyers WHILE flyer visibilities were ${_flyersVisibilities.length} visibilities');
 
     print('tiny flyer is ${tinyFlyer.flyerID}');
@@ -147,68 +150,62 @@ class _GalleryState extends State<Gallery> {
 
             // --- AUTHORS LABELS
 
+            /// AUTHORS ROW
             if (widget.superFlyer.bzShowsTeam != false)
-            Container(
-              width: widget.superFlyer.flyerZoneWidth,
-              height: widget.superFlyer.flyerZoneWidth * Ratioz.xxflyerAuthorPicWidth,
-              alignment: Alignment.center,
-              margin: EdgeInsets.only(
-                  top: 0,
-                  bottom: widget.superFlyer.flyerZoneWidth * Ratioz.xxflyersGridSpacing),
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                padding: EdgeInsets.symmetric(horizontal: widget.superFlyer.flyerZoneWidth * 0.01),
-                children:
-                widget.superFlyer.bzAuthors == null ?
-                <Widget>[Container()]
-                    :
-
-                <Widget>[
-
-                  ...List<Widget>.generate(
-                      widget.superFlyer.bzAuthors.length,
-                          (authorIndex) {
-
-                        AuthorModel _author = widget.superFlyer.bzAuthors[authorIndex];
-                        TinyUser _tinyAuthor = TinyUser.getTinyAuthorFromAuthorModel(_author);
-
-                        return
-                          Row(
-                            children: <Widget>[
-                              AuthorLabel(
-                                showLabel: widget.showFlyers == true ? true : false,
-                                flyerZoneWidth: widget.superFlyer.flyerZoneWidth,
-                                tinyAuthor: _tinyAuthor,
-                                tinyBz: TinyBz.getTinyBzFromSuperFlyer(widget.superFlyer),
-                                authorGalleryCount: AuthorModel.getAuthorGalleryCountFromBzModel(_bzModel, _author),
-                                onTap:
-                                // widget.bzTeamIDs.length == 1 ?
-                                    (id) {
-                                  _onAuthorLabelTap(id);
-                                  },
-                                // :(id){print('a77a');// tappingAuthorLabel();},
-                                labelIsOn: _selectedAuthorID == widget.superFlyer.bzAuthors[authorIndex].userID ? true : false,
-                              )
-                            ],
-                          );
-                      }
+              Container(
+                width: widget.superFlyer.flyerZoneWidth,
+                height: widget.superFlyer.flyerZoneWidth * Ratioz.xxflyerAuthorPicWidth,
+                alignment: Alignment.center,
+                margin: EdgeInsets.only(
+                    top: 0,
+                    bottom: widget.superFlyer.flyerZoneWidth * Ratioz.xxflyersGridSpacing),
+                child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    padding: EdgeInsets.symmetric(horizontal: widget.superFlyer.flyerZoneWidth * 0.01),
+                    children:
+                    widget.superFlyer.bzAuthors == null ?
+                    <Widget>[Container()]
+                        :
+                    <Widget>[
+                      ...List<Widget>.generate(
+                          widget.superFlyer.bzAuthors.length,
+                              (authorIndex) {
+                            AuthorModel _author = widget.superFlyer.bzAuthors[authorIndex];
+                            TinyUser _tinyAuthor = TinyUser.getTinyAuthorFromAuthorModel(_author);
+                            return
+                              Row(
+                                children: <Widget>[
+                                  AuthorLabel(
+                                    showLabel: widget.showFlyers == true ? true : false,
+                                    flyerZoneWidth: widget.superFlyer.flyerZoneWidth,
+                                    tinyAuthor: _tinyAuthor,
+                                    tinyBz: TinyBz.getTinyBzFromSuperFlyer(widget.superFlyer),
+                                    authorGalleryCount: AuthorModel.getAuthorGalleryCountFromBzModel(_bzModel, _author),
+                                    onTap:
+                                    // widget.bzTeamIDs.length == 1 ?
+                                        (id) {
+                                      _onAuthorLabelTap(id);
+                                      },
+                                    // :(id){print('a77a');// tappingAuthorLabel();},
+                                    labelIsOn: _selectedAuthorID == widget.superFlyer.bzAuthors[authorIndex].userID ? true : false,
+                                  )
+                                ],
+                              );
+                          }
+                          ),
+                      /// ADD NEW AUTHOR BUTTON
+                      if (_thisIsMyBz == true)
+                        AuthorPic(
+                          flyerZoneWidth: widget.superFlyer.flyerZoneWidth,
+                          authorPic: null,
+                          isAddAuthorButton: true,
+                          tinyBz: TinyBz.getTinyBzFromSuperFlyer(widget.superFlyer),
+                        ),
+                    ]
                 ),
-
-                  if (_thisIsMyBz == true)
-                  AuthorPic(
-                    flyerZoneWidth: widget.superFlyer.flyerZoneWidth,
-                    authorPic: null,
-                    isAddAuthorButton: true,
-                    tinyBz: TinyBz.getTinyBzFromSuperFlyer(widget.superFlyer),
-                  ),
-
-                ]
-
-
               ),
-            ),
 
-            // --- AUTHORS FLYERS
+            /// FLYERS
             if (widget.superFlyer.flyerZoneWidth != null)
               GalleryGrid(
                   gridZoneWidth: widget.superFlyer.flyerZoneWidth,

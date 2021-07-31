@@ -1,5 +1,6 @@
 import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/views/widgets/flyer/parts/progress_bar_parts/strips.dart';
 import 'package:flutter/material.dart';
 
 class Strip extends StatelessWidget {
@@ -21,12 +22,12 @@ class Strip extends StatelessWidget {
   Widget build(BuildContext context) {
     int _numberOfSlides = numberOfSlides == 0 ? 1 : numberOfSlides;
 // -----------------------------------------------------------------------------
-    double _allStripsLength = flyerZoneWidth * 0.895;
-    double _aStripThickness = flyerZoneWidth * 0.007;
+    double _stripsTotalLength = Strips.stripsTotalLength(flyerZoneWidth);
+    double _aStripThickness = Strips.stripThickness(flyerZoneWidth);
     double _aStripOnePadding = _aStripThickness / 2;
-    double _aStripLength = (_allStripsLength / _numberOfSlides);
-    double _stripCorner = _aStripThickness * 0.5;
-    Color _stripColor = !isWhite ? Colorz.White80 : numberOfSlides == 0 ? Colorz. White10 : Colorz.White200;
+    double _aStripLength = Strips.oneStripLength(flyerZoneWidth: flyerZoneWidth, numberOfStrips: numberOfSlides);
+    double _stripCorner = Strips.stripCornerValue(flyerZoneWidth);
+    Color _stripColor = Strips.stripColor(isWhite: isWhite, numberOfSlides: numberOfSlides);
 // -----------------------------------------------------------------------------
 
     /// DESIGN MODE

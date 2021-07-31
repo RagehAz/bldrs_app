@@ -36,10 +36,21 @@ class FlyersProvider with ChangeNotifier {
   List<TinyFlyer> _loadedSavedTinyFlyers;
   List<String> _loadedFollows;
   List<FlyerModel> _bzDeactivatedFlyers;
+
   BzModel _myCurrentBzModel;
+  List<TinyFlyer> _bzTinyFlyers;
 // -----------------------------------------------------------------------------
   BzModel get myCurrentBzModel {
     return _myCurrentBzModel;
+  }
+// -----------------------------------------------------------------------------
+  List<TinyFlyer> get currentBzTinyFlyers{
+    return _bzTinyFlyers;
+  }
+// -----------------------------------------------------------------------------
+  void setCurrentBzTinyFlyers(List<TinyFlyer> tinyFlyers){
+    _bzTinyFlyers = tinyFlyers;
+    notifyListeners();
   }
 // -----------------------------------------------------------------------------
   void setCurrentBzModel(BzModel bzModel) {
@@ -544,6 +555,13 @@ class FlyersProvider with ChangeNotifier {
     notifyListeners();
   }
 // ############################################################################
+  void updateTineFlyerInBzTinyFlyers(TinyFlyer tinyFlyer){
+
+    print('TASK HERE TO ADD THIS updateTineFlyerInBzTinyFlyers');
+
+    // _bzTinyFlyers.indexWhere
+  }
+// ############################################################################
   void addOrDeleteTinyFlyerInLocalSavedTinyFlyers(TinyFlyer _inputTinyFlyer){
 
     TinyFlyer _savedTinyFlyer =
@@ -759,4 +777,5 @@ class FlyersProvider with ChangeNotifier {
     return _tinyFlyer;
   }
 // -----------------------------------------------------------------------------
+
 }

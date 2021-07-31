@@ -38,8 +38,10 @@ class Spec {
   static List<Spec> cloneSpecs(List<Spec> specs){
     List<Spec> _specs = new List();
 
-    for (Spec spec in specs){
-      _specs.add(spec.clone());
+    if (specs != null){
+      for (Spec spec in specs){
+        _specs.add(spec.clone());
+      }
     }
 
     return _specs;

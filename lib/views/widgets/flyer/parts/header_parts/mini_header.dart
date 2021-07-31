@@ -22,11 +22,11 @@ class MiniHeader extends StatelessWidget {
     // String businessLocale = TextGenerator.zoneStringer(context: context, zone: tinyBz?.bzZone,);
 // -----------------------------------------------------------------------------
 
-  bool _microMode = Scale.superFlyerMicroMode(context, superFlyer.flyerZoneWidth);
+  bool _tinyMode = Scale.superFlyerTinyMode(context, superFlyer.flyerZoneWidth);
 
     return
       GestureDetector(
-        onTap: _microMode == true ? null : () async { await superFlyer.onTinyFlyerTap();},
+        onTap: _tinyMode == true ? null : () async { await superFlyer.onTinyFlyerTap();},
         child: Container(
           height: Scale.superHeaderHeight(superFlyer.bzPageIsOn, superFlyer.flyerZoneWidth),
           width: superFlyer.flyerZoneWidth,

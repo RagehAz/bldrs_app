@@ -30,6 +30,7 @@ class SliverFlyersGrid extends StatelessWidget {
               (context, flyerIndex) {
                 return FinalFlyer(
                   flyerZoneWidth: ((screenWidth - gridSpacing * 1.5) / 2),
+                  goesToEditor: false,
                   flyerModel: flyersData[flyerIndex],
 
                 );

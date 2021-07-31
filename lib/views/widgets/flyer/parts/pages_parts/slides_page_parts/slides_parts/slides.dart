@@ -19,18 +19,18 @@ class Slides extends StatelessWidget {
 // -----------------------------------------------------------------------------
   void _onSingleSlideTap(BuildContext context){
 
-    bool _microMode = Scale.superFlyerMicroMode(context, superFlyer.flyerZoneWidth);
+    bool _tinyMode = Scale.superFlyerTinyMode(context, superFlyer.flyerZoneWidth);
 
     if (Keyboarders.keyboardIsOn(context)){
       Keyboarders.closeKeyboard(context);
     }
 
-    if (_microMode == true){
+    if (_tinyMode == true){
       superFlyer.onTinyFlyerTap();
     }
 
     else {
-      print(' tapping slides new while micro more is false baby');
+      print(' tapping slides new while tinyMode is false baby');
     }
 
   }
@@ -67,10 +67,10 @@ class Slides extends StatelessWidget {
           );
 
           dynamic _slidePic =
-          superFlyer.isDraft ? superFlyer.assetsFiles[i] : superFlyer.slides[i].picture;
+          superFlyer.editMode == null ? superFlyer.slides[i].picture : superFlyer.assetsFiles[i];
           // superFlyer.editMode ? superFlyer.assetsFiles[i] : superFlyer.slides[i].picture
 
-          String _slideTitle = superFlyer.isDraft ? superFlyer.headlinesControllers[i].text : superFlyer.slides[i].headline;
+          String _slideTitle = superFlyer.editMode == null ? superFlyer.slides[i].headline : superFlyer.headlinesControllers[i].text;
 
           return
             superFlyer.numberOfSlides == 0 ? Container() :
@@ -90,7 +90,7 @@ class Slides extends StatelessWidget {
                     picture: _slidePic,
                     // slideMode: superFlyer.editMode ? SlideMode.Editor : SlideMode.View,//slidesModes[index],
                     boxFit: _currentPicFit, // [fitWidth - contain - scaleDown] have the blur background
-                    titleController: superFlyer.editMode ? superFlyer.headlinesControllers[i] : null,
+                    titleController: superFlyer.editMode == null ? null : superFlyer.headlinesControllers[i],
                     title: _slideTitle,
                     imageSize: _originalAssetSize,
                     textFieldOnChanged: (text){
@@ -99,14 +99,14 @@ class Slides extends StatelessWidget {
                     onTap: () => _onSingleSlideTap(context),
                   ),
 
-                  if (superFlyer.editMode == false)
+                  if (superFlyer.editMode != true)
                     FlyerFooter(
                       flyerZoneWidth: superFlyer.flyerZoneWidth,
                       saves: superFlyer.firstTimer == true ? 0 : superFlyer.slides[superFlyer.currentSlideIndex].savesCount,
                       shares: superFlyer.firstTimer == true? 0 : superFlyer.slides[superFlyer.currentSlideIndex].sharesCount,
                       views: superFlyer.firstTimer == true ? 0 : superFlyer.slides[superFlyer.currentSlideIndex].viewsCount,
                       onShareTap: () => superFlyer.onShareTap(),
-                      onCountersTap: () => superFlyer.onVerticalPageSwipe(1),
+                      onCountersTap: (){print('tapping slide counter');},
                     ),
 
                   // /// TAP AREAS

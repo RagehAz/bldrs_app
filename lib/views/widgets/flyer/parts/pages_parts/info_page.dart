@@ -115,8 +115,8 @@ class InfoPage extends StatelessWidget {
     List<TinyUser> _users = _getUsers();
 
     String _flyerInfoParagraph =
-    superFlyer.editMode && superFlyer.infoController.text.length == 0 ? '...' :
-    superFlyer.editMode && superFlyer.infoController.text.length > 0 ? superFlyer.infoController.text :
+    superFlyer.editMode == true && superFlyer.infoController.text.length == 0 ? '...' :
+    superFlyer.editMode == true && superFlyer.infoController.text.length > 0 ? superFlyer.infoController.text :
     superFlyer.editMode == false ? superFlyer.flyerInfo : null;
 
 
