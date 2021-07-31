@@ -233,6 +233,7 @@ class BottomDialog extends StatelessWidget {
         child: Center(
           child: FinalFlyer(
             flyerZoneWidth: _flyerZoneWidth,
+            goesToEditor: false,
             flyerModel: FlyerModel(
               flyerID: null,
               tinyBz: TinyBz.getTinyBzFromBzModel(bz),

@@ -27,7 +27,11 @@ class PublishTime {
 // }
 // -----------------------------------------------------------------------------
 static DateTime getPublishTimeFromTimes({FlyerState state, List<PublishTime> times}){
-  DateTime _time = times.firstWhere((time) => time.state == state, orElse: () => null)?.timeStamp;
+  DateTime _time;
+
+  if (times != null){
+    _time = times.firstWhere((time) => time.state == state, orElse: () => null)?.timeStamp;
+  }
 
   return _time;
 }
@@ -35,13 +39,15 @@ static DateTime getPublishTimeFromTimes({FlyerState state, List<PublishTime> tim
 static bool flyerIsBanned(List<PublishTime> times) {
   bool _flyerIsBanned = false;
 
-  for (int i = 0; i <= times.length; i++){
-    PublishTime _time = times[i];
-    if (_time.state == FlyerState.Banned){
-      _flyerIsBanned = true;
-      break;
-    }
+  if (times != null){
+    for (int i = 0; i < times.length; i++){
+      PublishTime _time = times[i];
+      if (_time.state == FlyerState.Banned){
+        _flyerIsBanned = true;
+        break;
+      }
 
+    }
   }
 
   return _flyerIsBanned;

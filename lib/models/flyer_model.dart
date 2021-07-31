@@ -6,6 +6,7 @@ import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/sub_models/publish_time_model.dart';
 import 'package:bldrs/models/sub_models/slide_model.dart';
 import 'package:bldrs/models/sub_models/spec_model.dart';
+import 'package:bldrs/models/super_flyer.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/models/tiny_models/tiny_user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -327,6 +328,33 @@ class FlyerModel with ChangeNotifier{
     return _controllers;
   }
 // -----------------------------------------------------------------------------
+  static FlyerModel getFlyerModelFromSuperFlyer(SuperFlyer superFlyer){
+    FlyerModel _flyer;
+
+    if (superFlyer != null){
+      _flyer = FlyerModel(
+        flyerID: superFlyer.flyerID,
+        flyerType: superFlyer.flyerType,
+        flyerState: superFlyer.flyerState,
+        keywords: superFlyer.keywords,
+        flyerShowsAuthor: superFlyer.flyerShowsAuthor,
+        flyerURL: superFlyer.flyerURL,
+        flyerZone: superFlyer.flyerZone,
+        tinyAuthor: superFlyer.flyerTinyAuthor,
+        tinyBz: TinyBz.getTinyBzFromSuperFlyer(superFlyer),
+        publishTime: PublishTime.getPublishTimeFromTimes(times: superFlyer.flyerTimes, state: FlyerState.Published),
+        flyerPosition: superFlyer.position,
+        slides: superFlyer.slides,
+        flyerIsBanned: PublishTime.flyerIsBanned(superFlyer.flyerTimes),
+        deletionTime: PublishTime.getPublishTimeFromTimes(times: superFlyer.flyerTimes, state: FlyerState.Deleted),
+        ankhIsOn: superFlyer.ankhIsOn,
+        specs: superFlyer.specs,
+
+      );
+    }
+
+    return _flyer;
+  }
 }
 // -----------------------------------------------------------------------------
 enum FlyerState{

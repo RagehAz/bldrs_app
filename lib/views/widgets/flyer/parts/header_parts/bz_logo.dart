@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 class BzLogo extends StatelessWidget {
   final double width;
   final dynamic image;
-  final bool microMode;
+  final bool tinyMode;
   final BorderRadius corners;
   final bool bzPageIsOn;
   final bool zeroCornerIsOn;
@@ -21,7 +21,7 @@ class BzLogo extends StatelessWidget {
   BzLogo({
     @required this.width,
     this.image,
-    this.microMode = true,
+    this.tinyMode = true,
     this.corners,
     this.bzPageIsOn = false,
     this.zeroCornerIsOn,
@@ -37,7 +37,7 @@ class BzLogo extends StatelessWidget {
 // -----------------------------------------------------------------------------
     double logoRoundCorners = width * Ratioz.bzLogoCorner;
 // -----------------------------------------------------------------------------
-    double logoZeroCorner = microMode == true || zeroCornerIsOn == false ? logoRoundCorners : 0;
+    double logoZeroCorner = tinyMode == true || zeroCornerIsOn == false ? logoRoundCorners : 0;
 // -----------------------------------------------------------------------------
     BorderRadius bzLogoCorners = corners == null ?
     Borderers.superBorderOnly(

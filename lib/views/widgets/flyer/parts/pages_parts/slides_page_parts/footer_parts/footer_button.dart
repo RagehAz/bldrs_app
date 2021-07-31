@@ -34,7 +34,7 @@ class FooterButton extends StatelessWidget {
     double _footerBTMargins = size != null ? 0 : FlyerFooter.buttonMargin(context: context, flyerZoneWidth: flyerZoneWidth, buttonIsOn: isOn);
     double _saveBTRadius = size != null ? size/2 : FlyerFooter.buttonRadius(context: context, flyerZoneWidth: flyerZoneWidth, buttonIsOn: isOn);
     double _buttonSize = size != null ? size : FlyerFooter.buttonSize(context: context, flyerZoneWidth: flyerZoneWidth, buttonIsOn: isOn);
-    bool _microMode = Scale.superFlyerMicroMode(context, flyerZoneWidth);
+    bool _tinyMode = Scale.superFlyerTinyMode(context, flyerZoneWidth);
 
     return Container(
       width: _buttonSize,
@@ -45,7 +45,7 @@ class FooterButton extends StatelessWidget {
         children: <Widget>[
 
           DreamBox(
-            icon: _microMode ? icon : null,
+            icon: _tinyMode ? icon : null,
             iconSizeFactor: 0.5,
             width: _buttonSize,
             height: _buttonSize,
@@ -55,7 +55,7 @@ class FooterButton extends StatelessWidget {
             childAlignment: Alignment.topCenter,
             inActiveMode: inActive,
             subChild:
-            _microMode ? null :
+            _tinyMode ? null :
             Container(
               width: _buttonSize * 0.8,
               height: _buttonSize * 0.9,
@@ -69,7 +69,7 @@ class FooterButton extends StatelessWidget {
           ),
 
           /// verse
-          if (!_microMode)
+          if (!_tinyMode)
           Positioned(
             bottom: flyerZoneWidth * 0.01,
             child: SuperVerse(

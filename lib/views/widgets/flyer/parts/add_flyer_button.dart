@@ -36,7 +36,7 @@ class AddFlyerButton extends StatelessWidget {
           new FlyerEditorScreen(
             firstTimer: true,
             bzModel: bzModel,
-            flyerModel: null,
+            tinyFlyer: null,
 
           )
       );

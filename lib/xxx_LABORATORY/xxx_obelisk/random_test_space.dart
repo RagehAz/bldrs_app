@@ -52,7 +52,7 @@ class _RandomTestSpaceState extends State<RandomTestSpace> {
     if (_isInit) {
       // _triggerLoading();
 
-      _thing = Scale.superFlyerMicroMode(context, 15);
+      _thing = Scale.superFlyerTinyMode(context, 15);
 
       print('thing is : $_thing');
 
@@ -138,6 +138,7 @@ class _RandomTestSpaceState extends State<RandomTestSpace> {
 
             FinalFlyer(
               flyerZoneWidth: Scale.superFlyerZoneWidth(context, 0.7),
+              goesToEditor: false,
               // flyerID: '1eFVUCIodzzX6dTL49FS',
             ),
 

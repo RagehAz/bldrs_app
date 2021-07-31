@@ -49,18 +49,18 @@ class FlyerFooter extends StatelessWidget {
 // -----------------------------------------------------------------------------
   static double buttonMargin({BuildContext context, double flyerZoneWidth, bool buttonIsOn}){
 
-    bool _microMode = Scale.superFlyerMicroMode(context, flyerZoneWidth);
+    bool _tinyMode = Scale.superFlyerTinyMode(context, flyerZoneWidth);
     bool _buttonIsOn = buttonIsOn == null ? false : buttonIsOn;
 
     double _footerBTMargins =
 
-        (_buttonIsOn == true && _microMode == true) ? //&& widget.slidingIsOn == false
-        flyerZoneWidth * 0.01// for micro flyer when Button is on
+        (_buttonIsOn == true && _tinyMode == true) ? //&& widget.slidingIsOn == false
+        flyerZoneWidth * 0.01// for tiny flyer when Button is on
             :
         (_buttonIsOn == true) ?
-        flyerZoneWidth * 0.015 // for Normal flyer when button is on
+        flyerZoneWidth * 0.015 // for big flyer when button is on
             :
-        flyerZoneWidth * 0.025; // for Normal flyer when button is off
+        flyerZoneWidth * 0.025; // for big flyer when button is off
 
     return _footerBTMargins;
   }
@@ -125,7 +125,7 @@ class FlyerFooter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
-    bool _microMode = Scale.superFlyerMicroMode(context, flyerZoneWidth) ;
+    bool _tinyMode = Scale.superFlyerTinyMode(context, flyerZoneWidth) ;
 // -----------------------------------------------------------------------------
     /// SHARE & SAVE BUTTONS
 
@@ -157,7 +157,7 @@ class FlyerFooter extends StatelessWidget {
             boxShadow(context: context, flyerZoneWidth: flyerZoneWidth,),
 
             /// SHARE BUTTON
-            if (!_microMode)
+            if (!_tinyMode)
               Positioned(
                 right: Aligners.rightPositionInLeftAlignmentEn(context, 0),
                 left: Aligners.leftPositionInLeftAlignmentEn(context, 0),
@@ -172,7 +172,7 @@ class FlyerFooter extends StatelessWidget {
               ),
 
             /// FLYER COUNTERS
-            if(!_microMode && saves != null && shares != null && views != null)
+            if(!_tinyMode && saves != null && shares != null && views != null)
               SlideCounters(
                 saves: saves,
                 shares: shares,
