@@ -75,11 +75,13 @@ class SuperFlyer{
   final Function onShowAuthorTap;
   final Function onTriggerEditMode;
   final Function onPublishFlyer;
+  final Function onDeleteFlyer;
+  final Function onUnPublishFlyer;
+  final Function onRepublishFlyer;
 
   /// editor data
   bool firstTimer;
   bool editMode; // to trigger between view mode and edit mode for the draft
-  bool isDraft; // to label the flyer that is currently being drafted as new or existing flyer
   List<TextEditingController> headlinesControllers;
   List<TextEditingController> descriptionsControllers;
   TextEditingController infoController;
@@ -207,11 +209,13 @@ class SuperFlyer{
     @required this.onShowAuthorTap,
     @required this.onTriggerEditMode,
     @required this.onPublishFlyer,
+    @required this.onDeleteFlyer,
+    @required this.onUnPublishFlyer,
+    @required this.onRepublishFlyer,
 
     /// editor data
     @required this.firstTimer,
     @required this.editMode,
-    @required this.isDraft,
     @required this.headlinesControllers,
     @required this.descriptionsControllers,
     @required this.infoController,
@@ -293,7 +297,7 @@ class SuperFlyer{
   static String draftID = 'draft';
   static String emptyFlyerBzOnlyFlyerID = 'bzOnly';
 // -----------------------------------------------------------------------------
-  static SuperFlyer createEmptySuperFlyer({@required double flyerZoneWidth}){
+  static SuperFlyer createEmptySuperFlyer({@required double flyerZoneWidth, @required goesToEditor}){
 
 
     return
@@ -345,11 +349,13 @@ class SuperFlyer{
           onShowAuthorTap: null,
           onTriggerEditMode: null,
           onPublishFlyer: null,
+          onDeleteFlyer: null,
+          onUnPublishFlyer: null,
+          onRepublishFlyer: null,
 
           /// editor data
-          firstTimer: null,
-          editMode: null,
-          isDraft: null,
+          firstTimer: goesToEditor == true ? true : null,
+          editMode: goesToEditor == true ? true : null,
           headlinesControllers: null,
           descriptionsControllers: null,
           infoController: null,
@@ -502,11 +508,13 @@ class SuperFlyer{
         onShowAuthorTap: null,
         onTriggerEditMode: null,
         onPublishFlyer: null,
+        onDeleteFlyer: null,
+        onUnPublishFlyer: null,
+        onRepublishFlyer: null,
 
         /// editor data
         firstTimer: null,
-        editMode: false,
-        isDraft: false,
+        editMode: null,
         headlinesControllers: null,
         descriptionsControllers: null,
         infoController: null,
@@ -625,7 +633,7 @@ class SuperFlyer{
         /// animation parameters
         slidingDuration: null,
         fadingDuration: null,
-        progressBarOpacity: 0,
+        progressBarOpacity: 1,
         swipeDirection: SwipeDirection.next,
         bzPageIsOn: false,
         listenToSwipe: false,
@@ -651,11 +659,13 @@ class SuperFlyer{
         onShowAuthorTap: null,
         onTriggerEditMode: null,
         onPublishFlyer: null,
+        onDeleteFlyer: null,
+        onUnPublishFlyer: null,
+        onRepublishFlyer: null,
 
         /// editor data
         firstTimer: false,
-        editMode: false,
-        isDraft: false,
+        editMode: null,
         headlinesControllers: null,
         descriptionsControllers: null,
         infoController: null,
@@ -775,6 +785,9 @@ class SuperFlyer{
     @required Function onShowAuthorTap,
     @required Function onTriggerEditMode,
     @required Function onPublishFlyer,
+    @required Function onDeleteFlyer,
+    @required Function onUnPublishFlyer,
+    @required Function onRepublishFlyer,
   }){
 
     print('CREATING draft super flyer from nothing for bz  : ${bzModel.bzName} : id : ${bzModel.bzID}');
@@ -830,12 +843,15 @@ class SuperFlyer{
         onShowAuthorTap: onShowAuthorTap,
         onTriggerEditMode: onTriggerEditMode,
         onPublishFlyer: onPublishFlyer,
+        onDeleteFlyer: onDeleteFlyer,
+        onUnPublishFlyer: onUnPublishFlyer,
+        onRepublishFlyer: onRepublishFlyer,
+
 
 
         /// editor data
         firstTimer: true,
         editMode: true,
-        isDraft: true,
         headlinesControllers: new List(),
         descriptionsControllers: new List(),
         infoController: new TextEditingController(),
@@ -948,7 +964,12 @@ class SuperFlyer{
     @required Function onShowAuthorTap,
     @required Function onTriggerEditMode,
     @required Function onPublishFlyer,
+    @required Function onDeleteFlyer,
+    @required Function onUnPublishFlyer,
+    @required Function onRepublishFlyer,
   }) async {
+
+    print('CREATING draft super flyer from FLYER : ${flyerModel.flyerID} for bz  : ${bzModel.bzName} : id : ${bzModel.bzID}');
 
     return
       SuperFlyer(
@@ -999,11 +1020,14 @@ class SuperFlyer{
         onShowAuthorTap: onShowAuthorTap,
         onTriggerEditMode: onTriggerEditMode,
         onPublishFlyer: onPublishFlyer,
+        onDeleteFlyer: onDeleteFlyer,
+        onUnPublishFlyer: onUnPublishFlyer,
+        onRepublishFlyer: onRepublishFlyer,
+
 
         /// editor data
         firstTimer: false,
-        editMode: true,
-        isDraft: true,
+        editMode: false,
         headlinesControllers: FlyerModel.createHeadlinesControllersForExistingFlyer(flyerModel),
         descriptionsControllers: FlyerModel.createDescriptionsControllersForExistingFlyer(flyerModel),
         infoController: new TextEditingController(text: flyerModel.info),
@@ -1155,12 +1179,13 @@ static SuperFlyer getSuperFlyerFromBzModelOnly({
         onShowAuthorTap: null,
         onTriggerEditMode: null,
         onPublishFlyer: null,
-
+        onDeleteFlyer: null,
+        onUnPublishFlyer: null,
+        onRepublishFlyer: null,
 
         /// editor data
         firstTimer: null,
         editMode: null,
-        isDraft: false,
         headlinesControllers: null,
         descriptionsControllers: null,
         infoController: null,

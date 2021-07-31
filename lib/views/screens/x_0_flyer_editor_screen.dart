@@ -2,8 +2,7 @@ import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/bz_model.dart';
-import 'package:bldrs/models/flyer_model.dart';
-import 'package:bldrs/views/widgets/buttons/publish_button.dart';
+import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/views/widgets/buttons/slides_counter.dart';
 import 'package:bldrs/views/widgets/flyer/final_flyer.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
@@ -12,12 +11,12 @@ import 'package:flutter/material.dart';
 class FlyerEditorScreen extends StatelessWidget {
   final BzModel bzModel;
   final bool firstTimer;
-  final FlyerModel flyerModel;
+  final TinyFlyer tinyFlyer;
 
   FlyerEditorScreen({
     @required this.bzModel,
     @required this.firstTimer,
-    this.flyerModel,
+    @required this.tinyFlyer,
   });
 
   @override
@@ -66,9 +65,10 @@ class FlyerEditorScreen extends StatelessWidget {
           FinalFlyer(
             flyerZoneWidth: _flyerZoneWidth,
             flyerModel: null,
-            tinyFlyer: null,
-            isDraft: true,
+            tinyFlyer: firstTimer == true ? null : tinyFlyer, // redundant
+            goesToEditor: true,
             initialSlideIndex: 0,
+            flyerIsInEditor: true,
           ),
 
         ],

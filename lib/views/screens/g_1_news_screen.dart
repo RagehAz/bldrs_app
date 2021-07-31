@@ -19,7 +19,7 @@ class NewsScreen extends StatelessWidget {
           publisherType: PublisherType.Business,
           newsAge: 5,
           publisherPic: Iconz.Bz,
-          superFlyer: SuperFlyer.createEmptySuperFlyer(flyerZoneWidth: _flyerZoneWidth),
+          superFlyer: SuperFlyer.createEmptySuperFlyer(flyerZoneWidth: _flyerZoneWidth, goesToEditor: false),
         ),
 
         // --- ALL NEWS : NEW PUBLISHED FLYER BY BZ WITH AUTHOR : (INSTANTANEOUS)
@@ -28,7 +28,7 @@ class NewsScreen extends StatelessWidget {
           publisherPic: Iconz.DumAuthorPic,
           newsAge: 15,
           publisherType: PublisherType.BzAuthor,
-          superFlyer: SuperFlyer.createEmptySuperFlyer(flyerZoneWidth: _flyerZoneWidth),
+          superFlyer: SuperFlyer.createEmptySuperFlyer(flyerZoneWidth: _flyerZoneWidth, goesToEditor: false),
         ),
 
         // --- ALL NEWS : NEW PUBLISHED FLYER BY USER OF TYPE : (INSTANTANEOUS)
@@ -37,7 +37,7 @@ class NewsScreen extends StatelessWidget {
           publisherPic: Iconz.DvRageh,
           newsAge: 150,
           publisherType: PublisherType.User,
-          superFlyer: SuperFlyer.createEmptySuperFlyer(flyerZoneWidth: _flyerZoneWidth),
+          superFlyer: SuperFlyer.createEmptySuperFlyer(flyerZoneWidth: _flyerZoneWidth, goesToEditor: false),
         ),
 
         // o ( FOLLOWING NOTIFICATIONS )

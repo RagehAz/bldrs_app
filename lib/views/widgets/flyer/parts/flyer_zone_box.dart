@@ -1,7 +1,6 @@
 import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/drafters/numberers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
-import 'package:bldrs/controllers/drafters/shadowers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/bz_model.dart';
@@ -29,6 +28,9 @@ class FlyerZoneBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    bool _tinyMode = Scale.superFlyerTinyMode(context, flyerZoneWidth);
+    bool _isEditorZone = editorBzModel != null && _tinyMode == false ? true : false;
+
     double _screenWidth = Scale.superScreenWidth(context);
 // -----------------------------------------------------------------------------
     double _flyerZoneWidth = flyerZoneWidth;
@@ -44,16 +46,15 @@ class FlyerZoneBox extends StatelessWidget {
         enTopRight: _flyerTopCorners
     );
 // -----------------------------------------------------------------------------
-    double _panelWidth =
-        editorBzModel == null ? 0 :
-        _screenWidth - _flyerZoneWidth - (Ratioz.appBarMargin * 3);
+    double _panelWidth = _isEditorZone == true ?
+        _screenWidth - _flyerZoneWidth - (Ratioz.appBarMargin * 3) : 0;
 // -----------------------------------------------------------------------------
     String _heroTag =
         superFlyer.flyerID == null ?
             '${Numberers.createUniqueIntFrom(existingValues: [1])}' :
         'flyerTag : ${superFlyer.flyerID}';
 // -----------------------------------------------------------------------------
-    double _spacerWidth = editorBzModel == null ? 0 : Ratioz.appBarMargin;
+    double _spacerWidth = _isEditorZone == true ? Ratioz.appBarMargin : 0;
 // -----------------------------------------------------------------------------
     return GestureDetector(
       onTap: onFlyerZoneTap,
@@ -64,12 +65,12 @@ class FlyerZoneBox extends StatelessWidget {
         // color: Colorz.BloodTest,
 
         child: Row(
-          mainAxisAlignment: editorBzModel == null ? MainAxisAlignment.center : MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: _isEditorZone == true ? MainAxisAlignment.spaceBetween : MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
 
             /// EditorPanel
-            if (editorBzModel != null)
+            if (_isEditorZone == true)
               EditorPanel(
                 superFlyer: superFlyer,
                 panelWidth: _panelWidth,
@@ -78,7 +79,7 @@ class FlyerZoneBox extends StatelessWidget {
               ),
 
             /// SPACER WIDTH
-            if (editorBzModel != null)
+            if (_isEditorZone == true)
               SizedBox(
                 width: _spacerWidth,
               ),

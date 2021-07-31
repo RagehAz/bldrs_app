@@ -141,7 +141,7 @@ class _FlyerStackListState extends State<FlyerStackList> {
           FinalFlyer(
             flyerZoneWidth: _flyerZoneWidth,
             tinyFlyer: _tinyFlyers[_x],
-
+            goesToEditor: false,
           );
 
       },

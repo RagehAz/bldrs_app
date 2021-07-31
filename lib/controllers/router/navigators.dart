@@ -1,6 +1,8 @@
 import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/views/screens/h_0_flyer_screen.dart';
+import 'package:bldrs/views/screens/x_0_flyer_editor_screen.dart';
 import 'package:flutter/material.dart';
 import 'route_names.dart';
 import 'package:page_transition/page_transition.dart';
@@ -72,23 +74,23 @@ class Nav{
     );
   }
 // -----------------------------------------------------------------------------
-  static Future<void> openFlyer(BuildContext context, dynamic tinyFlyerOrID) async {
+  static Future<void> openFlyer({BuildContext context, String flyerID, TinyFlyer tinyFlyer}) async {
 
-    if (ObjectChecker.objectIsString(tinyFlyerOrID) == true){
-
-      await goToRoute(context, Routez.FlyerScreen, arguments: tinyFlyerOrID);
-    } else {
-
-      await goToNewScreen(context, new FlyerScreen(tinyFlyer: tinyFlyerOrID,));
-
+    /// A - by tinyFlyer
+    if (tinyFlyer != null){
+      await goToNewScreen(context, new FlyerScreen(tinyFlyer: tinyFlyer,));
     }
 
-    // print('open flyer navigator recieved $flyerID');
-    //
-    // Navigator.of(context).pushNamed(
-    //   Routez.FlyerScreen,
-    //   arguments: flyerID,
-    // );
+    /// A - by flyerID
+    else if (flyerID != null){
+      await goToRoute(context, Routez.FlyerScreen, arguments: flyerID);
+    }
+
+    /// A - nothing give
+    else {
+      // do nothing
+    }
+
   }
 // -----------------------------------------------------------------------------
   static Future<void> goBack(BuildContext context, {argument}) async {

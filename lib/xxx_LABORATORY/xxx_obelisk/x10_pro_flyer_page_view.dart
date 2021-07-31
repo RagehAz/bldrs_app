@@ -73,6 +73,7 @@ class FlyersPageView extends StatelessWidget {
         FinalFlyer(
           flyerZoneWidth: Scale.superFlyerZoneWidth(context, 0.8),
           tinyFlyer:_tinyFlyers[i],
+          goesToEditor: false,
         ),
 
       ),
