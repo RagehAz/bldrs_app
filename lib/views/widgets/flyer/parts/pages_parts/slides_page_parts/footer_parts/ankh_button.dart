@@ -134,7 +134,7 @@ class _AnkhButtonState extends State<AnkhButton> with SingleTickerProviderStateM
 // -----------------------------------------------------------------------------
     // Color flyerShadowColor = ankhIsOn == true ? Colorz.BlackBlack : Colorz.BlackBlack;
 // -----------------------------------------------------------------------------
-    bool _microMode = Scale.superFlyerMicroMode(context, widget.flyerZoneWidth);
+    bool _tinyMode = Scale.superFlyerTinyMode(context, widget.flyerZoneWidth);
 
     return
       Positioned(
@@ -147,7 +147,7 @@ class _AnkhButtonState extends State<AnkhButton> with SingleTickerProviderStateM
           Container()
               :
 
-          _microMode == true && widget.ankhIsOn == true ?
+          _tinyMode == true && widget.ankhIsOn == true ?
           FooterButton(
             icon: _saveBTIcon,
             flyerZoneWidth: widget.flyerZoneWidth,
@@ -157,7 +157,7 @@ class _AnkhButtonState extends State<AnkhButton> with SingleTickerProviderStateM
           )
               :
 
-          _microMode == false && widget.ankhIsOn == false ?
+          _tinyMode == false && widget.ankhIsOn == false ?
           FooterButton(
             icon: _saveBTIcon,
             flyerZoneWidth: widget.flyerZoneWidth,
@@ -167,8 +167,8 @@ class _AnkhButtonState extends State<AnkhButton> with SingleTickerProviderStateM
           )
               :
 
-          _microMode == false && widget.ankhIsOn == true ?
-          // (_microMode == true && widget.ankhIsOn == false) || widget.bzPageIsOn == true ? Container():
+          _tinyMode == false && widget.ankhIsOn == true ?
+          // (_tinyMode == true && widget.ankhIsOn == false) || widget.bzPageIsOn == true ? Container():
           FooterButton(
             icon: _saveBTIcon,
             flyerZoneWidth: widget.flyerZoneWidth,
@@ -199,7 +199,7 @@ class _AnkhButtonState extends State<AnkhButton> with SingleTickerProviderStateM
         //           //   ),
         //           // ),
         //
-        //           (widget.microMode == true && widget.ankhIsOn == false) || widget.bzPageIsOn == true ? Container():
+        //           (widget.tinyMode == true && widget.ankhIsOn == false) || widget.bzPageIsOn == true ? Container():
         //           FooterButton(
         //               icon: _saveBTIcon,
         //               flyerZoneWidth: widget.flyerZoneWidth,

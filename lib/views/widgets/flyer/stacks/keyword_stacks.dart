@@ -54,6 +54,7 @@ class FlyerCoversStack extends StatelessWidget {
               child: FinalFlyer(
                 flyerZoneWidth: coverFlyerWidth,
                 flyerModel: flyersDataList[0],
+                goesToEditor: false,
               ),
             ),
 
@@ -84,6 +85,7 @@ class FlyerCoversStack extends StatelessWidget {
                                 flyerZoneWidth: otherFlyersWidth,
                                 initialSlideIndex: 0,
                                 flyerModel: flyersDataList[index],
+                                goesToEditor: false,
                                 onSwipeFlyer: (i) => print('swiping to $i'),
                               )
                           )
@@ -156,6 +158,7 @@ class TopFlyersStack extends StatelessWidget {
                         type: MaterialType.transparency,
                         child: FinalFlyer(
                           flyerZoneWidth: flyerWidth,
+                          goesToEditor: false,
                           flyerModel: flyersDataList[index],
                         ),
                       ),

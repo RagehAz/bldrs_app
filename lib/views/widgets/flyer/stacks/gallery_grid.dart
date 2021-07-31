@@ -71,6 +71,10 @@ class GalleryGrid extends StatelessWidget {
 // -----------------------------------------------------------------------------
     double _flyerSizeFactor = (((gridZoneWidth - (_gridSpacing*(_gridColumnsCount+1)))/_gridColumnsCount))/_screenWidth;
 // -----------------------------------------------------------------------------
+    bool _theFuckingTrueValueOfIsDraft = true;
+
+    print('_theFuckingTrueValueOfIsDraft : $_theFuckingTrueValueOfIsDraft');
+
     return
       Container(
           width: gridZoneWidth,
@@ -109,6 +113,9 @@ class GalleryGrid extends StatelessWidget {
                       FinalFlyer(
                         flyerZoneWidth: Scale.superFlyerZoneWidth(context, _flyerSizeFactor),
                         tinyFlyer: _gridFlyers[index],
+                        goesToEditor: true,
+                        // initialSlideIndex: _gridFlyers[index].slideIndex,
+
                       ),
 
                     ///

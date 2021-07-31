@@ -80,6 +80,7 @@ class FlyerScreen extends StatelessWidget {
           flyerZoneWidth: Scale.superFlyerZoneWidth(context, 1),
           tinyFlyer: tinyFlyer,
           initialSlideIndex: tinyFlyer.slideIndex,
+          goesToEditor: false,
         ),
 
       ),

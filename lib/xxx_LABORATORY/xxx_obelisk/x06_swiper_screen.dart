@@ -154,6 +154,7 @@ class _SwiperScreenState extends State<SwiperScreen> {
                         FinalFlyer(
                           flyerZoneWidth: Scale.superFlyerZoneWidth(context, _flyerSizeFactor),
                           tinyFlyer: _tinyFlyersOfType[index],
+                          goesToEditor: false,
                         ),
 
                         // flyerModelBuilder(

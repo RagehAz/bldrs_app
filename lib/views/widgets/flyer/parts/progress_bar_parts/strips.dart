@@ -1,9 +1,11 @@
 import 'package:bldrs/controllers/drafters/aligners.dart';
 import 'package:bldrs/controllers/drafters/sliders.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/flyer/parts/progress_bar_parts/strip.dart';
 import 'package:flutter/material.dart';
+import 'package:bldrs/controllers/drafters/borderers.dart';
 
 class Strips extends StatelessWidget {
   final double flyerZoneWidth;
@@ -21,26 +23,110 @@ class Strips extends StatelessWidget {
     this.margins,
     @required this.swipeDirection,
   });
+// -----------------------------------------------------------------------------
+  static Widget progressBox({BuildContext context, double flyerZoneWidth, List<Widget> strips, EdgeInsets margins}){
+    return
+      Align(
+        alignment: Aligners.superTopAlignment(context),
+        child: Container(
+          width: boxWidth(flyerZoneWidth),
+          height: boxHeight(flyerZoneWidth),
+          margin: boxMargins(flyerZoneWidth: flyerZoneWidth, margins: margins),
+          padding: EdgeInsets.symmetric(horizontal: stripsOneSideMargin(flyerZoneWidth)),
+          alignment: Alignment.center,
+          // color: Colorz.BloodTest,
+          child: Stack(
+            alignment: Aligners.superCenterAlignment(context),
+            children: strips,
+          ),
+        ),
+      );
+  }
+// -----------------------------------------------------------------------------
+  static double boxWidth(double flyerZoneWidth){
+    return flyerZoneWidth;
+  }
+// -----------------------------------------------------------------------------
+  static double boxHeight(double flyerZoneWidth){
+    double _boxHeight = flyerZoneWidth * Ratioz.xxProgressBarHeightRatio;
+    return _boxHeight;
+  }
+// -----------------------------------------------------------------------------
+  static EdgeInsets boxMargins({EdgeInsets margins, double flyerZoneWidth}){
+    EdgeInsets _boxMargins = margins == null ? EdgeInsets.only(top: flyerZoneWidth * 0.27) : margins;
+    return _boxMargins;
+  }
+// -----------------------------------------------------------------------------
+  static double stripsTotalLength(double flyerZoneWidth){
+    double _stripsTotalLength = flyerZoneWidth * 0.895;
+    return _stripsTotalLength;
+  }
+// -----------------------------------------------------------------------------
+  static double stripThickness(double flyerZoneWidth){
+    double _thickness = flyerZoneWidth * 0.007;
+    return _thickness;
+  }
+// -----------------------------------------------------------------------------
+  static double stripCornerValue(double flyerZoneWidth){
+    double _thickness = stripThickness(flyerZoneWidth);
+    double _stripCorner = _thickness * 0.5;
+    return _stripCorner;
+  }
+// -----------------------------------------------------------------------------
+  static BorderRadius stripBorders({BuildContext context, double flyerZoneWidth}){
+    double _stripCorner = stripCornerValue(flyerZoneWidth);
+    BorderRadius _borders = Borderers.superBorderAll(context, _stripCorner);
+    return _borders;
+  }
+// -----------------------------------------------------------------------------
+  static double stripsOneSideMargin(double flyerZoneWidth){
+    double _stripsTotalLength = stripsTotalLength(flyerZoneWidth);
+    double _allStripsOneSideMargin = (flyerZoneWidth - _stripsTotalLength) / 2;
+    return _allStripsOneSideMargin;
+  }
+// -----------------------------------------------------------------------------
+  static double oneStripLength({double flyerZoneWidth, int numberOfStrips}){
+    double _stripsTotalLength = stripsTotalLength(flyerZoneWidth);
+    int _numberOfStrips = numberOfStrips == null ? 0 : numberOfStrips;
+    double _oneStripLength = (_stripsTotalLength / _numberOfStrips);
+    return _oneStripLength;
+  }
+// -----------------------------------------------------------------------------
+  static Color stripOffColor = Colorz.White10;
+  static Color stripFadedColor = Colorz.White80;
+  static Color stripOnColor = Colorz.White200;
+  static Color stripLoadingColor = Colorz.Yellow200;
 
+  static Color stripColor({bool isWhite, int numberOfSlides,}){
+    int _numberOfSlides = numberOfSlides == 0 ? 1 : numberOfSlides;
+
+    Color _stripColor =
+    !isWhite ? stripFadedColor :
+    _numberOfSlides == 0 ? stripOffColor :
+    stripOnColor;
+
+    return _stripColor;
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // print('========= BUILDING PROGRESS BAR FOR ||| index : $slideIndex, numberOfSlides : $numberOfStrips, slidingNext $swipeDirection');
 
     // int _numberOfSlides = numberOfSlides == 0 ? 1 : numberOfSlides;
-// -----------------------------------------------------------------------------
-    double _boxWidth = flyerZoneWidth;
-    double _boxHeight = flyerZoneWidth * Ratioz.xxProgressBarHeightRatio;
-    EdgeInsets _boxMargins = margins == null ? EdgeInsets.only(top: flyerZoneWidth * 0.27) : margins;
-    double _allStripsLength = flyerZoneWidth * 0.895;
-    double _allStripsOneSideMargin = (flyerZoneWidth - _allStripsLength) / 2;
     // double _aStripThickness = flyerZoneWidth * 0.007;
     // double _aStripOnePadding = _aStripThickness / 2;
-    double _aStripLength = (_allStripsLength / numberOfStrips);
     // Color _stripColor = Colorz.White80;
     // double _stripCorner = _aStripThickness * 0.5;
     // Color _currentStripColor = numberOfSlides == 0 ? Colorz. White10 : Colorz.White200;
+    double _boxWidth = boxWidth(flyerZoneWidth);
+    double _boxHeight = boxHeight(flyerZoneWidth);
 // -----------------------------------------------------------------------------
-    bool _microMode = Scale.superFlyerMicroMode(context, flyerZoneWidth);
+    EdgeInsets _boxMargins = boxMargins(margins: margins, flyerZoneWidth: flyerZoneWidth);
+    double _stripsTotalLength = stripsTotalLength(flyerZoneWidth);
+    double _allStripsOneSideMargin = stripsOneSideMargin(flyerZoneWidth);
+    double _aStripLength = oneStripLength(flyerZoneWidth: flyerZoneWidth, numberOfStrips: numberOfStrips);
+// -----------------------------------------------------------------------------
+    bool _tinyMode = Scale.superFlyerTinyMode(context, flyerZoneWidth);
 // -----------------------------------------------------------------------------
     Tween _tween(){
       Tween _tween;
@@ -129,36 +215,21 @@ class Strips extends StatelessWidget {
       return _numberOfStrips;
     }
 // -----------------------------------------------------------------------------
-    Widget _progressBox({List<Widget> children}){
-      return
-        Align(
-          alignment: Aligners.superTopAlignment(context),
-          child: Container(
-            width: _boxWidth,
-            height: _boxHeight,
-            margin: _boxMargins,
-            padding: EdgeInsets.symmetric(horizontal: _allStripsOneSideMargin),
-            alignment: Alignment.center,
-            child: Stack(
-              alignment: Aligners.superCenterAlignment(context),
-              children: children,
-            ),
-          ),
-        );
-    }
-// -----------------------------------------------------------------------------
     return
-      _microMode == true || barIsOn == false  ?
+      _tinyMode == true || barIsOn == false  ?
       Container()
 
           :
 
       numberOfStrips == 1 ?
-      _progressBox(
-          children: <Widget>[
+      progressBox(
+          context: context,
+          flyerZoneWidth: flyerZoneWidth,
+          margins: margins,
+          strips: <Widget>[
             Strip(
                 flyerZoneWidth: flyerZoneWidth,
-                stripWidth: _allStripsLength,
+                stripWidth: _stripsTotalLength,
                 numberOfSlides: 1,
                 isWhite: true
             ),
@@ -167,8 +238,11 @@ class Strips extends StatelessWidget {
 
           :
 
-      _progressBox(
-          children: <Widget>[
+      progressBox(
+          context: context,
+          flyerZoneWidth: flyerZoneWidth,
+          margins: margins,
+          strips: <Widget>[
 
             /// --- BASE STRIP
             Row(

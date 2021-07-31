@@ -26,7 +26,16 @@ class MaxHeader extends StatelessWidget {
     @required this.tinyBz,
     @required this.superFlyer,
   });
+// -----------------------------------------------------------------------------
+  Future<void> _openGalleryFlyer (BuildContext context, String flyerID) async {
 
+    await Nav.openFlyer(
+        context: context,
+        flyerID: flyerID,
+    );
+
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // final _prof = Provider.of<FlyersProvider>(context);
@@ -147,7 +156,7 @@ class MaxHeader extends StatelessWidget {
               Gallery(
                 superFlyer: superFlyer,
                 showFlyers: bzPageIsOn ? true : false,
-                flyerOnTap: (flyerID) async { await Nav.openFlyer(context, flyerID);},
+                flyerOnTap: (flyerID) => _openGalleryFlyer(context, flyerID),
               ),
 
             ],
