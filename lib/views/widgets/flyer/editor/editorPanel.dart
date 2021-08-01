@@ -46,9 +46,9 @@ class EditorPanel extends StatelessWidget {
 
     double _panelHeight = _flyerZoneHeight;
 
-    AuthorModel _author = AuthorModel.getAuthorFromBzByAuthorID(bzModel, superFlyer.authorID);
+    AuthorModel _author = AuthorModel.getAuthorFromBzByAuthorID(bzModel, superFlyer?.authorID);
 
-    BoxFit _currentPicFit = superFlyer.currentPicFit;
+    BoxFit _currentPicFit = superFlyer?.currentPicFit;
 
     // ImageSize _originalAssetSize = _assets.length == 0 || _assets == null ? null : ImageSize(
     //   width: _assets[_draft.currentSlideIndex].originalWidth,

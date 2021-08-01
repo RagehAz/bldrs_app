@@ -56,7 +56,7 @@ class SuperFlyer{
   bool loading;
 
   /// record functions
-  final Function onView;
+  final Function onViewSlide;
   final Function onAnkhTap;
   final Function onShareTap;
   final Function onFollowTap;
@@ -190,7 +190,7 @@ class SuperFlyer{
     @required this.loading,
 
     /// record functions
-    @required this.onView,
+    @required this.onViewSlide,
     @required this.onAnkhTap,
     @required this.onShareTap,
     @required this.onFollowTap,
@@ -299,7 +299,6 @@ class SuperFlyer{
 // -----------------------------------------------------------------------------
   static SuperFlyer createEmptySuperFlyer({@required double flyerZoneWidth, @required goesToEditor}){
 
-
     return
         SuperFlyer(
           /// sizes
@@ -330,7 +329,7 @@ class SuperFlyer{
           loading: false,
 
           /// record functions
-          onView: null,
+          onViewSlide: null,
           onAnkhTap: null,
           onShareTap: null,
           onFollowTap: null,
@@ -365,8 +364,8 @@ class SuperFlyer{
 
           /// slides settings
           slidesVisibilities: null,
-          numberOfSlides: null,
-          numberOfStrips: null,
+          numberOfSlides: 0,
+          numberOfStrips: 0,
 
           /// current slide settings
           currentPicFit: null,
@@ -489,7 +488,7 @@ class SuperFlyer{
         loading: false,
 
         /// record functions
-        onView: onView,
+        onViewSlide: onView,
         onAnkhTap: onAnkhTap,
         onShareTap: onShareTap,
         onFollowTap: onFollowTap,
@@ -640,7 +639,7 @@ class SuperFlyer{
         loading: false,
 
         /// record functions
-        onView: null,
+        onViewSlide: null,
         onAnkhTap: onAnkhTap,
         onShareTap: null,
         onFollowTap: null,
@@ -676,7 +675,7 @@ class SuperFlyer{
         /// slides settings
         slidesVisibilities: <bool>[true],
         numberOfSlides: 1,
-        numberOfStrips: null,
+        numberOfStrips: 1,
 
         /// current slide settings
         currentPicFit: tinyFlyer.picFit,
@@ -824,7 +823,7 @@ class SuperFlyer{
         loading: false,
 
         /// record functions
-        onView: onView,
+        onViewSlide: onView,
         onAnkhTap: onAnkhTap,
         onShareTap: onShareTap,
         onFollowTap: onFollowTap,
@@ -1001,7 +1000,7 @@ class SuperFlyer{
         loading: false,
 
         /// record functions
-        onView: onView,
+        onViewSlide: onView,
         onAnkhTap: onAnkhTap,
         onShareTap: onShareTap,
         onFollowTap: onFollowTap,
@@ -1160,7 +1159,7 @@ static SuperFlyer getSuperFlyerFromBzModelOnly({
         loading: false,
 
         /// record functions
-        onView: null,
+        onViewSlide: null,
         onAnkhTap: null,
         onShareTap: null,
         onFollowTap: null,
@@ -1195,8 +1194,8 @@ static SuperFlyer getSuperFlyerFromBzModelOnly({
 
         /// slides settings
         slidesVisibilities: null,
-        numberOfSlides: null,
-        numberOfStrips: null,
+        numberOfSlides: 0,
+        numberOfStrips: 0,
 
         /// current slide settings
         currentPicFit: null,

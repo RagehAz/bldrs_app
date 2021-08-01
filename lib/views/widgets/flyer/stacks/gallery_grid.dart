@@ -114,6 +114,9 @@ class GalleryGrid extends StatelessWidget {
                         flyerZoneWidth: Scale.superFlyerZoneWidth(context, _flyerSizeFactor),
                         tinyFlyer: _gridFlyers[index],
                         goesToEditor: true,
+                        bzModel: bz,
+                        inEditor: false,
+                        key: ValueKey('${_gridFlyers[index].flyerID}'),
                         // initialSlideIndex: _gridFlyers[index].slideIndex,
 
                       ),

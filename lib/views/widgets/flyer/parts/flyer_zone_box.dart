@@ -15,6 +15,7 @@ class FlyerZoneBox extends StatelessWidget {
   final List<Widget> stackWidgets;
   final Function onFlyerZoneLongPress;
   final BzModel editorBzModel;
+  final bool editorMode;
 
   FlyerZoneBox({
     @required this.superFlyer,
@@ -23,13 +24,14 @@ class FlyerZoneBox extends StatelessWidget {
     this.stackWidgets,
     this.onFlyerZoneLongPress,
     this.editorBzModel,
+    this.editorMode = false,
   });
 
   @override
   Widget build(BuildContext context) {
 
     bool _tinyMode = Scale.superFlyerTinyMode(context, flyerZoneWidth);
-    bool _isEditorZone = editorBzModel != null && _tinyMode == false ? true : false;
+    bool _isEditorZone = editorMode;
 
     double _screenWidth = Scale.superScreenWidth(context);
 // -----------------------------------------------------------------------------
@@ -49,10 +51,10 @@ class FlyerZoneBox extends StatelessWidget {
     double _panelWidth = _isEditorZone == true ?
         _screenWidth - _flyerZoneWidth - (Ratioz.appBarMargin * 3) : 0;
 // -----------------------------------------------------------------------------
-    String _heroTag =
-        superFlyer.flyerID == null ?
-            '${Numberers.createUniqueIntFrom(existingValues: [1])}' :
-        'flyerTag : ${superFlyer.flyerID}';
+//     String _heroTag =
+//         superFlyer?.flyerID == null ?
+//             '${Numberers.createUniqueIntFrom(existingValues: [1])}' :
+//         'flyerTag : ${superFlyer.flyerID}';
 // -----------------------------------------------------------------------------
     double _spacerWidth = _isEditorZone == true ? Ratioz.appBarMargin : 0;
 // -----------------------------------------------------------------------------
@@ -65,7 +67,7 @@ class FlyerZoneBox extends StatelessWidget {
         // color: Colorz.BloodTest,
 
         child: Row(
-          mainAxisAlignment: _isEditorZone == true ? MainAxisAlignment.spaceBetween : MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
 
