@@ -354,7 +354,7 @@ class SuperFlyer{
 
           /// editor data
           firstTimer: goesToEditor == true ? true : null,
-          editMode: goesToEditor == true ? true : null,
+          editMode: goesToEditor == true ? true : false,
           headlinesControllers: null,
           descriptionsControllers: null,
           infoController: null,
@@ -513,7 +513,7 @@ class SuperFlyer{
 
         /// editor data
         firstTimer: null,
-        editMode: null,
+        editMode: false,
         headlinesControllers: null,
         descriptionsControllers: null,
         infoController: null,
@@ -664,7 +664,7 @@ class SuperFlyer{
 
         /// editor data
         firstTimer: false,
-        editMode: null,
+        editMode: false,
         headlinesControllers: null,
         descriptionsControllers: null,
         infoController: null,
@@ -1030,7 +1030,7 @@ class SuperFlyer{
         headlinesControllers: FlyerModel.createHeadlinesControllersForExistingFlyer(flyerModel),
         descriptionsControllers: FlyerModel.createDescriptionsControllersForExistingFlyer(flyerModel),
         infoController: new TextEditingController(text: flyerModel.info),
-        assetsSources: new List(),
+        assetsSources: await SlideModel.getImageAssetsFromPublishedSlides(flyerModel.slides),
         assetsFiles: await SlideModel.getImageFilesFromPublishedSlides(flyerModel.slides),
         boxesFits: SlideModel.getSlidesBoxFits(flyerModel.slides),
 
@@ -1184,7 +1184,7 @@ static SuperFlyer getSuperFlyerFromBzModelOnly({
 
         /// editor data
         firstTimer: null,
-        editMode: null,
+        editMode: false,
         headlinesControllers: null,
         descriptionsControllers: null,
         infoController: null,

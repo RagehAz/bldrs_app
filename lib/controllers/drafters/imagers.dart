@@ -196,7 +196,7 @@ static DecorationImage superImage(String picture, BoxFit boxFit){
   return imageSize;
 }
 // -----------------------------------------------------------------------------
-  static Future<Uint8List> getBytesFromAsset(String iconPath, int width) async {
+  static Future<Uint8List> getBytesFromLocalAsset(String iconPath, int width) async {
   ByteData data = await rootBundle.load(iconPath);
   ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(), targetWidth: width);
   ui.FrameInfo fi = await codec.getNextFrame();
@@ -229,7 +229,7 @@ static DecorationImage superImage(String picture, BoxFit boxFit){
   return data.buffer.asUint8List();
 }
 // -----------------------------------------------------------------------------
-  static Future <ui.Image> loadImage(List < int > img) async {
+  static Future <ui.Image> loadImage(List<int> img) async {
   final Completer < ui.Image > completer = new Completer();
   ui.decodeImageFromList(img, (ui.Image img) {
 
@@ -278,6 +278,40 @@ static DecorationImage superImage(String picture, BoxFit boxFit){
 // temporary directory and image bytes from response is written to // that file.
   return file;
 }
+// -----------------------------------------------------------------------------
+  static Future<Asset> urlToAsset(String imageUrl) async {
+    File _file = await urlToFile(imageUrl);
+    Asset _asset;
+
+    ImageSize imageSize = await Imagers.superImageSize(_file);
+  //
+  //
+    _asset = Asset(
+      // identifier
+      _file.fileNameWithExtension,
+      // _name
+      _file.fileNameWithExtension,
+      // _originalWidth
+        imageSize.width,
+      // _originalHeight
+      imageSize.height,
+    );
+  //
+  //   // ByteData _byteData = await _file.get(asset.originalWidth, asset.originalHeight, quality: 100);
+  //   //
+  //   // String _name = TextMod.trimTextAfterLastSpecialCharacter(asset.name, '.');
+  //   //
+  //   // print('====================================================================================== asset name is : ${asset.runtimeType}');
+  //   //
+  //   // final _tempFile = File('${(await getTemporaryDirectory()).path}/${_name}');
+  //   // await _tempFile.writeAsBytes(_byteData.buffer.asUint8List(_byteData.offsetInBytes, _byteData.lengthInBytes));
+  //   // await _tempFile.create(recursive: true);
+  //
+  //   // File _file = _tempFile;
+  //
+    return _asset;
+  //
+  }
 // -----------------------------------------------------------------------------
   static Future<List<Asset>> getMultiImagesFromGallery({BuildContext context, List<Asset> images, bool mounted, @required BzAccountType accountType}) async {
   List<Asset> resultList = <Asset>[];

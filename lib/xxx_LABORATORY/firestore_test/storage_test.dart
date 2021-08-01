@@ -48,7 +48,7 @@ class _FireStorageTestState extends State<FireStorageTest> {
       {'Name' : 'upload test image and get URL', 'function' : () async {
         _triggerLoading();
 
-        String _url = await Fire.createStoragePicFromAssetAndGetURL(
+        String _url = await Fire.createStoragePicFromLocalAssetAndGetURL(
           context: context,
           picType: PicType.askPic,
           fileName: 'test',

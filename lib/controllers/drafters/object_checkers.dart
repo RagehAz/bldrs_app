@@ -17,6 +17,15 @@ extension FileExtention on FileSystemEntity {
 // -----------------------------------------------------------------------------
 class ObjectChecker {
 // -----------------------------------------------------------------------------
+  static bool listCanBeUsed(List<dynamic> list){
+
+    bool _canBeUsed =
+    list == null ? false :
+    list.length == 0 ? false : true;
+
+    return _canBeUsed;
+  }
+// -----------------------------------------------------------------------------
   static fileExtensionOf(dynamic file) {
     return
       file == null ? null
