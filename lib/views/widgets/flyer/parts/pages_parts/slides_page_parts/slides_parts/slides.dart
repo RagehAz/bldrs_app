@@ -67,10 +67,10 @@ class Slides extends StatelessWidget {
           );
 
           dynamic _slidePic =
-          superFlyer.editMode == null ? superFlyer.slides[i].picture : superFlyer.assetsFiles[i];
+          superFlyer.editMode == true ? superFlyer.assetsFiles[i] : superFlyer.slides[i].picture;
           // superFlyer.editMode ? superFlyer.assetsFiles[i] : superFlyer.slides[i].picture
 
-          String _slideTitle = superFlyer.editMode == null ? superFlyer.slides[i].headline : superFlyer.headlinesControllers[i].text;
+          String _slideTitle = superFlyer.editMode == true ? superFlyer.headlinesControllers[i].text : superFlyer.slides[i].headline ;
 
           return
             superFlyer.numberOfSlides == 0 ? Container() :
@@ -90,7 +90,7 @@ class Slides extends StatelessWidget {
                     picture: _slidePic,
                     // slideMode: superFlyer.editMode ? SlideMode.Editor : SlideMode.View,//slidesModes[index],
                     boxFit: _currentPicFit, // [fitWidth - contain - scaleDown] have the blur background
-                    titleController: superFlyer.editMode == null ? null : superFlyer.headlinesControllers[i],
+                    titleController: superFlyer.editMode == true ? superFlyer.headlinesControllers[i] : null,
                     title: _slideTitle,
                     imageSize: _originalAssetSize,
                     textFieldOnChanged: (text){
