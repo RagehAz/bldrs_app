@@ -36,7 +36,7 @@ class FlyerPages extends StatelessWidget {
           ),
 
           /// INFO PAGE
-          if (_tinyMode == false)
+          if (_tinyMode == false && superFlyer.slides != null)
           InfoPage(
             superFlyer : superFlyer,
             // key: PageStorageKey('info_${superFlyer.flyerID}'),

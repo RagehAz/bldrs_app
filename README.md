@@ -1,8 +1,4 @@
-# Law 7asally 7aga ba3d elshar 3alaya ya biso el mashrou3 da fer2abtak
-# La ya 3m ba3d el shar 3aleik 8^*
-# 7abeeby ya bebs wallahi
-# commit test
-# will work isa 18 feb 2020 8:16 am
+
 # Bldrs.net
 
 **The Builders Network**

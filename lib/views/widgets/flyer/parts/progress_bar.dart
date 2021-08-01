@@ -37,7 +37,7 @@ class ProgressBar extends StatelessWidget {
         child:
 
         // superFlyer.loading == true ?
-        loading == true || superFlyer.numberOfStrips == null?
+        loading == true || superFlyer?.numberOfStrips == null?
         Strips.progressBox(
               context: context,
               flyerZoneWidth: flyerZoneWidth,
