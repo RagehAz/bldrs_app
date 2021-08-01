@@ -89,8 +89,8 @@ class _MyBzScreenState extends State<MyBzScreen> {
         BzModel _bzFromDB = await BzOps.readBzOps(context: context, bzID: widget.tinyBz.bzID);
         print('3 - got the bzModel');
         // setState(() {
-        //   _bzModel = _bzFromDB;
-        //   _bubblesOpacity = 1;
+          // _bzModel = _bzFromDB;
+          // _bubblesOpacity = 1;
         // });
         print('4 - rebuilt tree with the retrieved bzModel');
 
@@ -283,7 +283,7 @@ class _MyBzScreenState extends State<MyBzScreen> {
 
   }
 // -----------------------------------------------------------------------------
-  void _showOldFlyersOnTap(BzModel bzModel){
+   void _showOldFlyersOnTap(BzModel bzModel){
 
     Nav.goToNewScreen(context, DeactivatedFlyerScreen(bz: bzModel));
 
@@ -346,12 +346,13 @@ class _MyBzScreenState extends State<MyBzScreen> {
           onTap:  () => _slideBzOptions(context, _bzModel),
         ),
 
+
       ],
 
       layoutWidget: GoHomeOnMaxBounce(
         child: AnimatedOpacity(
           opacity: _bubblesOpacity,
-          duration: Ratioz.durationFading200,
+          duration: Ratioz.durationSliding400,
           curve: Curves.easeOut,
           child: ListView(
             physics: const BouncingScrollPhysics(),
