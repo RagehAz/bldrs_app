@@ -3,6 +3,7 @@ import 'package:bldrs/controllers/drafters/animators.dart';
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/keyboarders.dart';
 import 'package:bldrs/controllers/drafters/launchers.dart';
+import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/sliders.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
@@ -242,16 +243,17 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         // --------------------------------------------------------------------X
 
         else if (_flyerMode == FlyerMode.editorModeByFlyerID){
-          FlyerModel _dbFlyerModel = await FlyerOps().readFlyerOps(context: context, flyerID: widget.flyerID);
-          _builtSuperFlyer = await _getDraftSuperFlyerFromFlyer(bzModel: _bzModel, flyerModel: _dbFlyerModel);
+          _originalFlyer = await FlyerOps().readFlyerOps(context: context, flyerID: widget.flyerID);
+          _builtSuperFlyer = await _getDraftSuperFlyerFromFlyer(bzModel: _bzModel, flyerModel: _originalFlyer);
         }
 
         else if (_flyerMode == FlyerMode.editorModeByTinyFlyer){
-          FlyerModel _dbFlyerModel = await FlyerOps().readFlyerOps(context: context, flyerID: widget.tinyFlyer.flyerID);
-          _builtSuperFlyer = await _getDraftSuperFlyerFromFlyer(bzModel: _bzModel, flyerModel: _dbFlyerModel);
+          _originalFlyer = await FlyerOps().readFlyerOps(context: context, flyerID: widget.tinyFlyer.flyerID);
+          _builtSuperFlyer = await _getDraftSuperFlyerFromFlyer(bzModel: _bzModel, flyerModel: _originalFlyer);
         }
 
         else if (_flyerMode == FlyerMode.editorModeByFlyerModel){
+          _originalFlyer = widget.flyerModel;
           _builtSuperFlyer = await _getDraftSuperFlyerFromFlyer(bzModel: _bzModel, flyerModel: widget.flyerModel);
         }
 
@@ -262,6 +264,11 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         else if (_flyerMode == FlyerMode.editorModeByNull){
           _builtSuperFlyer = await _getDraftSuperFlyerFromNothing(bzModel: _bzModel);
         }
+
+        // --------------------------------------------------------------------X
+
+
+        // --------------------------------------------------------------------X
 
 
         /// X - REBUILD
@@ -364,40 +371,47 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
   }
 // -----------------------------------------------------o
   Future <SuperFlyer> _getDraftSuperFlyerFromFlyer({FlyerModel flyerModel, BzModel bzModel}) async {
-    SuperFlyer _superFlyer = await SuperFlyer.createDraftSuperFlyerFromFlyer(
-      context: context,
-      flyerZoneWidth: widget.flyerZoneWidth,
-      bzModel: bzModel,
-      flyerModel: flyerModel,
-      onHorizontalSlideSwipe: (i) => _onHorizontalSlideSwipe(i),
-      onVerticalPageSwipe: (i) => _onVerticalPageSwipe(i),
-      onVerticalPageBack: () async {await _onVerticalPageBack();},
-      onHeaderTap: () async {await _onHeaderTap();},
-      onSlideRightTap: _onSlideRightTap,
-      onSlideLeftTap: _onSlideLeftTap,
-      onSwipeFlyer: widget.onSwipeFlyer,
-      onTinyFlyerTap: () async {await _openTinyFlyer();},
-      onView: (i) => _onViewSlide(i),
-      onAnkhTap: () async {await _onAnkhTap();} ,
-      onShareTap: _onShareTap,
-      onFollowTap: () async { await _onFollowTap();},
-      onCallTap: () async { await _onCallTap();},
-      onAddImages: () => _onAddImages(),
-      onDeleteSlide: () async {await _onDeleteSlide();},
-      onCropImage: () async {await _onCropImage();},
-      onResetImage: () async {await _onResetImage();},
-      onFitImage: _onFitImage,
-      onFlyerTypeTap: () async {await _onFlyerTypeTap();},
-      onZoneTap: () async {await _onChangeZone();},
-      onAboutTap: () async {await _onAboutTap();},
-      onKeywordsTap: () async {await _onKeywordsTap();},
-      onShowAuthorTap: _onShowAuthorTap,
-      onTriggerEditMode: _onTriggerEditMode,
-      onPublishFlyer: () async {await _onPublishFlyer();},
-      onDeleteFlyer: () async {await _onDeleteFlyer();},
-      onUnPublishFlyer: () async {await _onUnpublishFlyer();},
-      onRepublishFlyer: () async {await _onRepublishFlyer();},
-    );
+    SuperFlyer _superFlyer;
+    if(flyerModel != null && bzModel != null){
+      _superFlyer = await SuperFlyer.createDraftSuperFlyerFromFlyer(
+        context: context,
+        flyerZoneWidth: widget.flyerZoneWidth,
+        bzModel: bzModel,
+        flyerModel: flyerModel,
+        onHorizontalSlideSwipe: (i) => _onHorizontalSlideSwipe(i),
+        onVerticalPageSwipe: (i) => _onVerticalPageSwipe(i),
+        onVerticalPageBack: () async {await _onVerticalPageBack();},
+        onHeaderTap: () async {await _onHeaderTap();},
+        onSlideRightTap: _onSlideRightTap,
+        onSlideLeftTap: _onSlideLeftTap,
+        onSwipeFlyer: widget.onSwipeFlyer,
+        onTinyFlyerTap: () async {await _openTinyFlyer();},
+        onView: (i) => _onViewSlide(i),
+        onAnkhTap: () async {await _onAnkhTap();} ,
+        onShareTap: _onShareTap,
+        onFollowTap: () async { await _onFollowTap();},
+        onCallTap: () async { await _onCallTap();},
+        onAddImages: () => _onAddImages(),
+        onDeleteSlide: () async {await _onDeleteSlide();},
+        onCropImage: () async {await _onCropImage();},
+        onResetImage: () async {await _onResetImage();},
+        onFitImage: _onFitImage,
+        onFlyerTypeTap: () async {await _onFlyerTypeTap();},
+        onZoneTap: () async {await _onChangeZone();},
+        onAboutTap: () async {await _onAboutTap();},
+        onKeywordsTap: () async {await _onKeywordsTap();},
+        onShowAuthorTap: _onShowAuthorTap,
+        onTriggerEditMode: _onTriggerEditMode,
+        onPublishFlyer: () async {await _onPublishFlyer();},
+        onDeleteFlyer: () async {await _onDeleteFlyer();},
+        onUnPublishFlyer: () async {await _onUnpublishFlyer();},
+        onRepublishFlyer: () async {await _onRepublishFlyer();},
+      );
+
+    }
+    else {
+      _superFlyer = SuperFlyer.createEmptySuperFlyer(flyerZoneWidth: widget.flyerZoneWidth, goesToEditor: widget.goesToEditor);
+    }
 
     return _superFlyer;
   }
@@ -752,7 +766,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
   }
 // -----------------------------------------------------o
   Future <void> _onFollowTap() async {
-    print('Following bz');
+    print('Following bz : followIsOn was ${_superFlyer.followIsOn} & headline for slide ${_superFlyer.currentSlideIndex} is : ${_superFlyer.slides[_superFlyer.currentSlideIndex].headline}');
 
     /// start follow bz ops
     List<String> _updatedBzFollows = await RecordOps.followBzOPs(
@@ -1167,7 +1181,8 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 // -----------------------------------------------------o
   void _statelessSlideDelete(int index){
     print('before stateless delete index was $index, _draft.numberOfSlides was : ${_superFlyer.numberOfSlides}');
-    _superFlyer.assetsFiles.removeAt(index);
+    if(ObjectChecker.listCanBeUsed(_superFlyer.assetsFiles) == true){_superFlyer.assetsFiles.removeAt(index);}
+    if(ObjectChecker.listCanBeUsed(_superFlyer.assetsFiles) == true){_superFlyer.slides.removeAt(index);}
     _superFlyer.assetsSources.removeAt(index);
     _superFlyer.slidesVisibilities.removeAt(index);
     _superFlyer.headlinesControllers.removeAt(index);
@@ -1748,6 +1763,28 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     return _slides;
   }
 // -----------------------------------------------------o
+  Future<List<SlideModel>> _processNewSlides(List<SlideModel> currentSlides, List<TextEditingController> titleControllers) async {
+    List<SlideModel> _slides = new List();
+
+    for (int i = 0; i<currentSlides.length; i++){
+
+      SlideModel _newSlide = SlideModel(
+        slideIndex: i,
+        picture: currentSlides[i].picture,
+        headline: titleControllers[i].text,
+        description: currentSlides[i].description,
+        savesCount: currentSlides[i].savesCount,
+        sharesCount: currentSlides[i].sharesCount,
+        viewsCount: currentSlides[i].viewsCount,
+      );
+
+      _slides.add(_newSlide);
+
+    }
+
+    return _slides;
+  }
+// -----------------------------------------------------o
   Future<bool> _inputsValidator() async {
     bool _inputsAreValid;
 
@@ -1802,7 +1839,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     return _inputsAreValid;
   }
 // -----------------------------------------------------o
-  Future<List<SlideModel>> _createNewSlidesFromAssetsAndTitles() async {
+  Future<List<SlideModel>> _createNewSlides() async {
     List<SlideModel> _slides = new List();
 
     for (int i = 0; i<_superFlyer.assetsFiles.length; i++){
@@ -1811,10 +1848,34 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         slideIndex: i,
         picture: _superFlyer.assetsFiles[i],
         headline: _superFlyer.headlinesControllers[i].text,
-        description: null,
+        description: _superFlyer.descriptionsControllers[i].text,
         savesCount: 0,
         sharesCount: 0,
         viewsCount: 0,
+        boxFit: _superFlyer.boxesFits[i],
+      );
+
+      _slides.add(_newSlide);
+
+    }
+
+    return _slides;
+  }
+// -----------------------------------------------------o
+  Future<List<SlideModel>> _updateExistingSlides() async {
+    List<SlideModel> _slides = new List();
+
+    for (int i = 0; i<_superFlyer.assetsFiles.length; i++){
+
+      SlideModel _newSlide = SlideModel(
+        slideIndex: i,
+        picture: _superFlyer.assetsFiles[i],
+        headline: _superFlyer.headlinesControllers[i].text,
+        description: _superFlyer.descriptionsControllers[i].text,
+        savesCount: _superFlyer.slides[i].savesCount,
+        sharesCount: _superFlyer.slides[i].sharesCount,
+        viewsCount: _superFlyer.slides[i].viewsCount,
+        boxFit: _superFlyer.boxesFits[i],
       );
 
       _slides.add(_newSlide);
@@ -1837,7 +1898,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       _triggerLoading();
 
       /// create slides models
-      List<SlideModel> _slides = await _createNewSlidesFromAssetsAndTitles();
+      List<SlideModel> _slides = await _createNewSlides();
 
       /// create tiny author model from bz.authors
       BzModel _bz = BzModel.getBzModelFromSuperFlyer(_superFlyer);
@@ -1913,7 +1974,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       print('A- Managing slides');
 
       /// create slides models
-      List<SlideModel> _slides = await _createNewSlidesFromAssetsAndTitles();
+      List<SlideModel> _updatedSlides = await _updateExistingSlides();
 
       print('B- Modifying flyer');
 
@@ -1925,7 +1986,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         flyerState: _superFlyer.flyerState,
         keywords: _superFlyer.keywords,
         flyerShowsAuthor: _superFlyer.flyerShowsAuthor,
-        flyerURL: null,
+        flyerURL: _superFlyer.flyerURL,
         flyerZone: _superFlyer.flyerZone,
         // -------------------------
         tinyAuthor: _superFlyer.flyerTinyAuthor,
@@ -1936,7 +1997,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         // -------------------------
         ankhIsOn: false, // shouldn't be saved here but will leave this now
         // -------------------------
-        slides: _slides,
+        slides: _updatedSlides,
         // -------------------------
         flyerIsBanned: PublishTime.flyerIsBanned(_superFlyer.flyerTimes),
         deletionTime: PublishTime.getPublishTimeFromTimes(times: _superFlyer.flyerTimes, state: FlyerState.Deleted),
@@ -1956,8 +2017,8 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
       print('D- Uploading to cloud');
 
-      /// add the result final Tinyflyer to local list and notifyListeners
-      _prof.replaceTinyFlyerInLocalList(TinyFlyer.getTinyFlyerFromFlyerModel(_publishedFlyerModel));
+      // /// add the result final Tinyflyer to local list and notifyListeners
+      // _prof.replaceTinyFlyerInLocalList(TinyFlyer.getTinyFlyerFromFlyerModel(_publishedFlyerModel));
 
       print('E- added to local list');
 
@@ -1989,22 +2050,30 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
     print(_dialogResult);
 
+    if (_dialogResult == true){
 
-    /// start delete flyer ops
-    await FlyerOps().deleteFlyerOps(
-      context: context,
-      bzModel: _bzModel,
-      flyerModel : _originalFlyer,
-    );
+      /// start delete flyer ops
+      await FlyerOps().deleteFlyerOps(
+        context: context,
+        bzModel: _bzModel,
+        flyerModel : _originalFlyer,
+      );
 
-    /// remove tinyFlyer from Local list
-    // FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
-    // _prof.removeTinyFlyerFromLocalList(tinyFlyer.flyerID);
+      /// remove tinyFlyer from Local list
+      // FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
+      // _prof.removeTinyFlyerFromLocalList(tinyFlyer.flyerID);
 
-    _triggerLoading();
+      _triggerLoading();
 
-    /// re-route back
-    Nav.goBack(context, argument: true);
+      /// re-route back
+      Nav.goBack(context, argument: true);
+
+    }
+
+    else {
+      _triggerLoading();
+    }
+
   }
 // -----------------------------------------------------o
   Future<void> _onUnpublishFlyer() async {

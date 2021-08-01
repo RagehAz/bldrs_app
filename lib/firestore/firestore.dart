@@ -734,8 +734,6 @@ class Fire{
 
 /// FIREBASE STORAGE METHODS
 
-
-
 // =============================================================================
   static Reference getStorageRef({
     BuildContext context,
@@ -821,7 +819,7 @@ class Fire{
   }
 // -----------------------------------------------------------------------------
   /// TASK : createStoragePicFromAssetAndGetURL not tested properly
-  static Future<String> createStoragePicFromAssetAndGetURL ({
+  static Future<String> createStoragePicFromLocalAssetAndGetURL ({
     BuildContext context,
     String asset,
     String fileName,
