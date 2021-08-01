@@ -68,7 +68,8 @@ class FlyerEditorScreen extends StatelessWidget {
             tinyFlyer: firstTimer == true ? null : tinyFlyer, // redundant
             goesToEditor: true,
             initialSlideIndex: 0,
-            flyerIsInEditor: true,
+            inEditor: true,
+            bzModel: bzModel,
           ),
 
         ],
