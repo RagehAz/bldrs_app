@@ -4,6 +4,7 @@ import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/numberers.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:flutter/material.dart';
+import 'package:multi_image_picker2/multi_image_picker2.dart';
 // -----------------------------------------------------------------------------
 class SlideModel {
   final int slideIndex;
@@ -210,6 +211,36 @@ class SlideModel {
     }
 
     return _files;
+  }
+
+  static Future <List<Asset>> getImageAssetsFromPublishedSlides(List<SlideModel> slides) async {
+    List<Asset> _assets = new List();
+
+
+    if (slides != null && slides.length != 0){
+      for (SlideModel slide in slides){
+
+        File _file = await Imagers.urlToFile(slide.picture);
+        ImageSize imageSize = await Imagers.superImageSize(_file);
+
+
+        Asset _asset = new Asset(
+          // identifier
+          '${slide.slideIndex}',
+          // _name
+          '${slide.picture.toString()}',
+          // _originalWidth
+          imageSize.width,
+          // _originalHeight
+          imageSize.height,
+        ); //await Imagers.urlToAsset(slide.picture); /// TASK : URL to Asset needed here if possible
+
+        _assets.add(_asset);
+
+      }
+    }
+
+    return _assets;
   }
 // -----------------------------------------------------------------------------
   static List<BoxFit> getSlidesBoxFits(List<SlideModel> slides) {
