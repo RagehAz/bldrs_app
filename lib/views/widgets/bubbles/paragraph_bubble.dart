@@ -38,10 +38,12 @@ class ParagraphBubble extends StatefulWidget {
 class _ParagraphBubbleState extends State<ParagraphBubble> {
   int _maxLines;
   bool _isMax = false;
+  bool _canExpand;
 // -----------------------------------------------------------------------------
   @override
   void initState() {
     _maxLines = widget.maxLines;
+    _canExpand = widget.paragraph.length > 100;
     super.initState();
   }
 // -----------------------------------------------------------------------------
@@ -51,8 +53,8 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
       widget.onParagraphTap();
     }
 
-    else {
-      widget.onParagraphTap();
+    else if (_canExpand == true){
+      // widget.onParagraphTap();
 
       if (_maxLines == widget.maxLines){
         print('expanding maxLines');
@@ -72,10 +74,25 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
 
     }
 
+
   }
 // -----------------------------------------------------------------------------
+
+  @override
+  void didUpdateWidget(covariant ParagraphBubble oldWidget) {
+    if(widget.editMode != oldWidget.editMode){
+      setState(() {
+
+      });
+    }
+    super.didUpdateWidget(oldWidget);
+  }
+
   @override
   Widget build(BuildContext context) {
+
+    print('--------> building paragraph pyramid with edit mode : ${widget.editMode}');
+
     return InPyramidsBubble(
         bubbleWidth: widget.bubbleWidth,
         margins: widget.margins,
@@ -83,7 +100,7 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
         title: widget.title,
         centered: widget.centered,
         actionBtIcon: widget.actionBtIcon,
-        bubbleOnTap: _onParagraphTap,
+        bubbleOnTap: widget.editMode == true || _canExpand == true ? _onParagraphTap : null,
         columnChildren: <Widget>[
 
           if (widget.paragraph != null)

@@ -103,7 +103,7 @@ class UserOps{
 // -----------------------------------------------------------------------------
   Future<UserModel> readUserOps({BuildContext context, String userID}) async {
 
-    print('Start reading user $userID while lang is : ${Wordz.languageCode(context)},');
+    print('readUserOps : Start reading user $userID while lang is : ${Wordz.languageCode(context)},');
 
     Map<String, dynamic> _userMap = await Fire().readDoc(
       context: context,
@@ -111,12 +111,12 @@ class UserOps{
       docName: userID,
     );
 
-    print('_userMap is : $_userMap');
+    print('readUserOps : _userMap _userMap[\'userID\'] is : ${_userMap['userID']}');
     // print('lng : ${Wordz.languageCode(context)}');
 
     UserModel _user = _userMap == null ? null : UserModel.decipherUserMap(_userMap);
 
-    print('_userModel is : $_user');
+    // print('_userModel is : $_user');
     // print('lng : ${Wordz.languageCode(context)}');
 
     return _user;

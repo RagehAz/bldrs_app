@@ -33,7 +33,7 @@ class ProgressBar extends StatelessWidget {
       width: flyerZoneWidth,
       child: AnimatedOpacity(
         duration: Ratioz.durationFading200,
-        opacity: 1,//superFlyer.progressBarOpacity == null ? 1 : superFlyer.progressBarOpacity,
+        opacity: superFlyer.progressBarOpacity == null ? 1 : superFlyer.progressBarOpacity,
         child:
 
         // superFlyer.loading == true ?

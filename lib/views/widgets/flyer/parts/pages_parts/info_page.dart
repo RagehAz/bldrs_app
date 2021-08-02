@@ -114,10 +114,15 @@ class InfoPage extends StatelessWidget {
 
     List<TinyUser> _users = _getUsers();
 
+    bool _editMode = superFlyer.editMode == true;
+
     String _flyerInfoParagraph =
-    superFlyer.editMode == true && superFlyer.infoController.text.length == 0 ? '...' :
-    superFlyer.editMode == true && superFlyer.infoController.text.length > 0 ? superFlyer.infoController.text :
-    superFlyer.editMode == false ? superFlyer.flyerInfo : null;
+    _editMode == true && superFlyer.infoController.text.length == 0 ? '...' :
+    _editMode == true && superFlyer.infoController.text.length > 0 ? superFlyer.infoController.text :
+    _editMode == false ? superFlyer.flyerInfo : superFlyer.flyerInfo;
+
+    bool _flyerInfoExists = _flyerInfoParagraph == null ? false : _flyerInfoParagraph.length == 0 ? false : true;
+
 
 
     return NotificationListener(
@@ -151,12 +156,12 @@ class InfoPage extends StatelessWidget {
           ),
 
           /// ALL STATS
-          if (superFlyer.flyerState == FlyerState.Draft)
+          if (_editMode == false)
             InPyramidsBubble(
               bubbleWidth: _bubbleWidth,
               margins: _bubbleMargins,
               corners: _bubbleCorners,
-              bubbleOnTap: (){print('all states in preview mode');},
+              bubbleOnTap: null,
               columnChildren: <Widget>[
 
                 /// Flyer Type
@@ -186,7 +191,7 @@ class InfoPage extends StatelessWidget {
             ),
 
           /// Flyer Type
-          if (superFlyer.flyerState != FlyerState.Draft)
+          if (_editMode == true)
             InPyramidsBubble(
               bubbleWidth: _bubbleWidth,
               margins: _bubbleMargins,
@@ -206,7 +211,7 @@ class InfoPage extends StatelessWidget {
             ),
 
           /// ZONE
-          if (superFlyer.flyerState == FlyerState.Draft)
+          if (_editMode == true)
             InPyramidsBubble(
               bubbleWidth: _bubbleWidth,
               margins: _bubbleMargins,
@@ -223,6 +228,7 @@ class InfoPage extends StatelessWidget {
             ),
 
           /// FLYER INFO
+          if (_flyerInfoExists)
           ParagraphBubble(
             bubbleWidth: _bubbleWidth,
             margins: _bubbleMargins,
@@ -231,11 +237,12 @@ class InfoPage extends StatelessWidget {
             maxLines: 3,
             centered: false,
             paragraph: _flyerInfoParagraph,
-            onParagraphTap: superFlyer.onAboutTap,
+            editMode: superFlyer.editMode,
+            onParagraphTap: superFlyer.onMoreInfoTap,
           ),
 
           /// SAVES BUBBLE
-          if (superFlyer.flyerState != FlyerState.Draft)
+          if (_editMode != true)
             RecordBubble(
               flyerZoneWidth: superFlyer.flyerZoneWidth,
               bubbleTitle: 'Who Saved it',
@@ -244,7 +251,7 @@ class InfoPage extends StatelessWidget {
             ),
 
           /// SHARES BUBBLE
-          if (superFlyer.flyerState != FlyerState.Draft)
+          if (_editMode != true)
             RecordBubble(
               flyerZoneWidth: superFlyer.flyerZoneWidth,
               bubbleTitle: 'Who Shared it',
@@ -253,7 +260,7 @@ class InfoPage extends StatelessWidget {
             ),
 
           /// VIEWS BUBBLE
-          if (superFlyer.flyerState != FlyerState.Draft)
+          if (_editMode != true)
             RecordBubble(
               flyerZoneWidth: superFlyer.flyerZoneWidth,
               bubbleTitle: 'Who viewed it',
@@ -269,7 +276,7 @@ class InfoPage extends StatelessWidget {
             title: 'Flyer keywords',
             keywords: _keywords,
             selectedWords: <Keyword>[Keyword.bldrsKeywords()[403],],
-            onTap: superFlyer.onKeywordsTap,
+            onTap: _editMode == true ? superFlyer.onKeywordsTap : null,
           ),
 
           SizedBox(
