@@ -347,7 +347,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         initialPage: widget.initialSlideIndex,
         onHorizontalSlideSwipe: (i) => _onHorizontalSlideSwipe(i),
         onVerticalPageSwipe: (i) => _onVerticalPageSwipe(i),
-        onVerticalPageBack: () async {await _onVerticalPageBack();},
+        onVerticalPageBack: () async {await _slideBackToSlidesPage();},
         onHeaderTap: () async {await _onHeaderTap();},
         onSlideRightTap: _onSlideRightTap,
         onSlideLeftTap: _onSlideLeftTap,
@@ -380,7 +380,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         flyerModel: flyerModel,
         onHorizontalSlideSwipe: (i) => _onHorizontalSlideSwipe(i),
         onVerticalPageSwipe: (i) => _onVerticalPageSwipe(i),
-        onVerticalPageBack: () async {await _onVerticalPageBack();},
+        onVerticalPageBack: () async {await _slideBackToSlidesPage();},
         onHeaderTap: () async {await _onHeaderTap();},
         onSlideRightTap: _onSlideRightTap,
         onSlideLeftTap: _onSlideLeftTap,
@@ -423,7 +423,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       bzModel: bzModel,
       onHorizontalSlideSwipe: (i) => _onHorizontalSlideSwipe(i),
       onVerticalPageSwipe: (i) => _onVerticalPageSwipe(i),
-      onVerticalPageBack: () async {await _onVerticalPageBack();},
+      onVerticalPageBack: () async {await _slideBackToSlidesPage();},
       onHeaderTap: () async {await _onHeaderTap();},
       onSlideRightTap: _onSlideRightTap,
       onSlideLeftTap: _onSlideLeftTap,
@@ -534,6 +534,8 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
   }
 // -----------------------------------------------------o
   void _onFlyerZoneTap(){
+
+    print('aho');
 
     bool _tinyMode = Scale.superFlyerTinyMode(context, widget.flyerZoneWidth);
 
@@ -669,8 +671,8 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
   }
 // -----------------------------------------------------o
-  Future<void> _onVerticalPageBack () async {
-  print('shit');
+  Future<void> _slideBackToSlidesPage() async {
+  print('_slideBackToSlidesPage : sliding from info page to slides page aho by tap');
   await Sliders.slideToBackFrom(_superFlyer.verticalController, 1);
 }
 // -----------------------------------------------------o
@@ -818,9 +820,15 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
   /// EDITOR METHOD
 
 // -----------------------------------------------------o
-  void _onTriggerEditMode(){
+  Future<void> _onTriggerEditMode() async {
+
+    /// to  update slides headlines
+    List<SlideModel> _updatedSlides = await _processNewSlides(_superFlyer.slides, _superFlyer.headlinesControllers);
+
     setState(() {
       _superFlyer.editMode = !_superFlyer.editMode;
+      _superFlyer.flyerInfo = _superFlyer.infoController.text;
+      _superFlyer.slides = _updatedSlides;
     });
   }
 // -----------------------------------------------------o
@@ -879,7 +887,8 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
           List<BoxFit> _newFits = new List();
           List<File> _newFiles = new List();
-          List<TextEditingController> _newControllers = new List();
+          List<TextEditingController> _newHeadlinesControllers = new List();
+          List<TextEditingController> _newDescriptionControllers = new List();
           List<bool> _newVisibilities = new List();
 
           /// C - for every asset received from gallery
@@ -898,7 +907,8 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
               File _newFile = await Imagers.getFileFromAsset(newAsset);
               _newFiles.add(_newFile);
               /// controller
-              _newControllers.add(new TextEditingController());
+              _newHeadlinesControllers.add(new TextEditingController());
+              _newDescriptionControllers.add(new TextEditingController());
               /// visibilities
               _newVisibilities.add(true);
             }
@@ -911,7 +921,8 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
               /// file
               _newFiles.add(_superFlyer.assetsFiles[_assetIndexInExistingAssets]);
               /// controller
-              _newControllers.add(_superFlyer.headlinesControllers[_assetIndexInExistingAssets]);
+              _newHeadlinesControllers.add(_superFlyer.headlinesControllers[_assetIndexInExistingAssets]);
+              _newDescriptionControllers.add(_superFlyer.headlinesControllers[_assetIndexInExistingAssets]);
               /// visibilities
               _newVisibilities.add(_superFlyer.slidesVisibilities[_assetIndexInExistingAssets]);
             }
@@ -929,7 +940,8 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
             _superFlyer.assetsFiles = _newFiles;
             _superFlyer.assetsFiles = _newFiles;
 
-            _superFlyer.headlinesControllers = _newControllers;
+            _superFlyer.headlinesControllers = _newHeadlinesControllers;
+            _superFlyer.descriptionsControllers = _newDescriptionControllers;
 
             _superFlyer.slidesVisibilities = _newVisibilities;
 
@@ -1712,26 +1724,77 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
   Future<void> _onPublishFlyer() async {
     print('publishing flyer');
 
+    await _slideBackToSlidesPage();
+
     if (_superFlyer.firstTimer == true){
       print('first timer');
+
       await _createNewFlyer();
     }
 
     else {
       print('updating the flyer not first timer');
+
       await _updateExistingFlyer(_originalFlyer);
     }
 
   }
-// -----------------------------------------------------------------------------
+// -----------------------------------------------------o
   void _updateTinyFlyerInLocalBzTinyFlyers(TinyFlyer modifiedTinyFlyer){
     // _prof.update(modifiedTinyFlyer);
     print(' should update tiny flyer in current bz tiny flyers shof enta ezay');
   }
-
+// -----------------------------------------------------------------------------
 
   /// CREATION METHODS
 
+// -----------------------------------------------------o
+  Future<bool> _inputsValidator() async {
+    bool _inputsAreValid;
+
+    /// when no pictures picked
+    if (_superFlyer.assetsFiles == null || _superFlyer.assetsFiles.length == 0){
+      await superDialog(
+        context: context,
+        boolDialog: false,
+        // title: 'No '
+        body: 'First, select some pictures',
+      );
+      _inputsAreValid = false;
+    }
+
+    /// when less than 3 pictures selected
+    else if (_superFlyer.assetsFiles.length < 3){
+      await superDialog(
+        context: context,
+        boolDialog: false,
+        // title: 'No '
+        body: 'At least 3 pictures are required to publish this flyer',
+      );
+      _inputsAreValid = false;
+    }
+
+    /// when no keywords selected
+    else if (_superFlyer.keywords.length == 0){
+      /// TASK : add these keywords condition in flyer publish validator
+      // await
+      _inputsAreValid = true;
+    }
+
+    /// when flyerType is not defined
+    else if (_superFlyer.flyerType == null){
+      await _onFlyerTypeTap();
+      _inputsAreValid = false;
+    }
+
+    /// when everything is okey
+    else {
+      _inputsAreValid = true;
+
+    }
+
+    return _inputsAreValid;
+  }
 // -----------------------------------------------------o
   Future<List<SlideModel>> processSlides(
       List<String> picturesURLs,
@@ -1783,60 +1846,6 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     }
 
     return _slides;
-  }
-// -----------------------------------------------------o
-  Future<bool> _inputsValidator() async {
-    bool _inputsAreValid;
-
-    /// when no pictures picked
-    if (_superFlyer.assetsFiles == null || _superFlyer.assetsFiles.length == 0){
-      await superDialog(
-        context: context,
-        boolDialog: false,
-        // title: 'No '
-        body: 'First, select some pictures',
-      );
-      _inputsAreValid = false;
-    }
-
-    /// when less than 3 pictures selected
-    else if (_superFlyer.assetsFiles.length < 3){
-      await superDialog(
-        context: context,
-        boolDialog: false,
-        // title: 'No '
-        body: 'At least 3 pictures are required to publish this flyer',
-      );
-      _inputsAreValid = false;
-    }
-
-    /// when no keywords selected
-    else if (_superFlyer.keywords.length == 0){
-      /// TASK : add these keywords condition in flyer publish validator
-      // await
-      _inputsAreValid = true;
-    }
-
-    /// when flyerType is not defined
-    else if (_superFlyer.flyerType == null){
-      await _onFlyerTypeTap();
-      _inputsAreValid = false;
-    }
-
-    /// when everything is okey
-    else {
-      _inputsAreValid = true;
-    }
-
-    await superDialog(
-      context: context,
-      boolDialog: false,
-      title: 'Done ',
-      body: 'Validator End here, Delete me',
-    );
-
-
-    return _inputsAreValid;
   }
 // -----------------------------------------------------o
   Future<List<SlideModel>> _createNewSlides() async {
@@ -1895,6 +1904,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
     } else {
 
+
       _triggerLoading();
 
       /// create slides models
@@ -1929,6 +1939,9 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         // -------------------------
         flyerIsBanned: false,
         deletionTime: null,
+        info: _superFlyer.infoController.text,
+        specs: _superFlyer.specs,
+        times: <PublishTime>[PublishTime(timeStamp: DateTime.now(), state: FlyerState.Published)],
       );
 
       /// start create flyer ops

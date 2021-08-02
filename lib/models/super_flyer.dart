@@ -70,7 +70,7 @@ class SuperFlyer{
   final Function onFitImage;
   final Function onFlyerTypeTap;
   final Function onZoneTap;
-  final Function onAboutTap;
+  final Function onMoreInfoTap;
   final Function onKeywordsTap;
   final Function onShowAuthorTap;
   final Function onTriggerEditMode;
@@ -204,7 +204,7 @@ class SuperFlyer{
     @required this.onFitImage,
     @required this.onFlyerTypeTap,
     @required this.onZoneTap,
-    @required this.onAboutTap,
+    @required this.onMoreInfoTap,
     @required this.onKeywordsTap,
     @required this.onShowAuthorTap,
     @required this.onTriggerEditMode,
@@ -343,7 +343,7 @@ class SuperFlyer{
           onFitImage: null,
           onFlyerTypeTap: null,
           onZoneTap: null,
-          onAboutTap: null,
+          onMoreInfoTap: null,
           onKeywordsTap: null,
           onShowAuthorTap: null,
           onTriggerEditMode: null,
@@ -502,7 +502,7 @@ class SuperFlyer{
         onFitImage: null,
         onFlyerTypeTap: null,
         onZoneTap: null,
-        onAboutTap: null,
+        onMoreInfoTap: null,
         onKeywordsTap: null,
         onShowAuthorTap: null,
         onTriggerEditMode: null,
@@ -653,7 +653,7 @@ class SuperFlyer{
         onFitImage: null,
         onFlyerTypeTap: null,
         onZoneTap: null,
-        onAboutTap: null,
+        onMoreInfoTap: null,
         onKeywordsTap: null,
         onShowAuthorTap: null,
         onTriggerEditMode: null,
@@ -837,7 +837,7 @@ class SuperFlyer{
         onFitImage: onFitImage,
         onFlyerTypeTap: onFlyerTypeTap,
         onZoneTap: onZoneTap,
-        onAboutTap: onAboutTap,
+        onMoreInfoTap: onAboutTap,
         onKeywordsTap: onKeywordsTap,
         onShowAuthorTap: onShowAuthorTap,
         onTriggerEditMode: onTriggerEditMode,
@@ -1014,7 +1014,7 @@ class SuperFlyer{
         onFitImage: onFitImage,
         onFlyerTypeTap: onFlyerTypeTap,
         onZoneTap: onZoneTap,
-        onAboutTap: onAboutTap,
+        onMoreInfoTap: onAboutTap,
         onKeywordsTap: onKeywordsTap,
         onShowAuthorTap: onShowAuthorTap,
         onTriggerEditMode: onTriggerEditMode,
@@ -1173,7 +1173,7 @@ static SuperFlyer getSuperFlyerFromBzModelOnly({
         onFitImage: null,
         onFlyerTypeTap: null,
         onZoneTap: null,
-        onAboutTap: null,
+        onMoreInfoTap: null,
         onKeywordsTap: null,
         onShowAuthorTap: null,
         onTriggerEditMode: null,

@@ -42,6 +42,9 @@ class KeywordsBubble extends StatelessWidget {
     double abPadding = Ratioz.appBarPadding;
     // double contactBoxHeight = 35;
 
+    /// the keyword bottom bubble corner when set in flyer info page
+    double _bottomPadding = ((bubbleWidth) * Ratioz.xxflyerBottomCorners) - Ratioz.appBarPadding - Ratioz.appBarMargin;
+
     return InPyramidsBubble(
       centered: false,
       bubbleColor: bubbleColor,
@@ -103,6 +106,10 @@ class KeywordsBubble extends StatelessWidget {
             ),
 
           ],
+        ),
+
+        Container(
+          height: _bottomPadding,
         ),
 
       ],
