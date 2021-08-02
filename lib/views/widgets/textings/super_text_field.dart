@@ -263,8 +263,16 @@ class _SuperTextFieldState extends State<SuperTextField> {
     int _maxLines = widget.obscured == true ? 1 : widget.maxLines;
 // -----------------------------------------------------------------------------
     void _onChanged(val){
-      _changeTextDirection(val);
-      widget.onChanged(val);
+
+      if (val != null){
+        _changeTextDirection(val);
+
+        if (widget.onChanged != null){
+          widget.onChanged(val);
+        }
+
+      }
+
     }
 // -----------------------------------------------------------------------------
     return
