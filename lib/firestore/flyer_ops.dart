@@ -82,6 +82,9 @@ class FlyerOps{
     // -------------------------
     flyerIsBanned: inputFlyerModel.flyerIsBanned,
     deletionTime: inputFlyerModel.deletionTime,
+    times: inputFlyerModel.times,
+    info: inputFlyerModel.info,
+    specs: inputFlyerModel.specs,
   );
 
     print('5- flyer model updated with flyerID, flyerURL & updates slides pic URLs');
