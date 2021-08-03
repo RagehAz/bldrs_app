@@ -133,6 +133,7 @@ class _TestFormScreenState extends State<TestFormScreen> {
                   fieldIsFormField: true,
                   validator: (value) => value.isEmpty ? 'noooo' : 'ok',
                   hintText: 'b is here',
+                  textController: TextEditingController(),
                   onSaved: (value){
                     _editedProduct = TempClass(a: _editedProduct.a, b: _editedProduct.b, c: value, d: _editedProduct.d);
                     },

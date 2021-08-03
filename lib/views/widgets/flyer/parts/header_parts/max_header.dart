@@ -156,7 +156,6 @@ class MaxHeader extends StatelessWidget {
               Gallery(
                 superFlyer: superFlyer,
                 showFlyers: bzPageIsOn ? true : false,
-                flyerOnTap: (flyerID) => _openGalleryFlyer(context, flyerID),
               ),
 
             ],

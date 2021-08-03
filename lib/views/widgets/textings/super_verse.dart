@@ -99,23 +99,23 @@ class SuperVerse extends StatelessWidget {
     return
       verse == null ? Container() :
       GestureDetector(
-      onTap: onTap,
-      child: Padding(
-        padding: EdgeInsets.all(_margin),
-        child: Row(
-          mainAxisAlignment: centered == true ? MainAxisAlignment.center : MainAxisAlignment.start,
-          crossAxisAlignment: redDot == true ? CrossAxisAlignment.center : CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
+        onTap: onTap,
+        child: Padding(
+          padding: EdgeInsets.all(_margin),
+          child: Row(
+            mainAxisAlignment: centered == true ? MainAxisAlignment.center : MainAxisAlignment.start,
+            crossAxisAlignment: redDot == true ? CrossAxisAlignment.center : CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
 
-            if (leadingDot == true)
-              Padding(
+              if (leadingDot == true)
+                Padding(
                   padding: EdgeInsets.all(_dotSize),
                   child: _dot(_dotSize, color),
                 ),
 
-            Flexible(
-              flex: 1,//_maxLines >= 1 ? 1 : 0,
+              Flexible(
+                flex: 1,//_maxLines >= 1 ? 1 : 0,
               child: Container(
                 padding: EdgeInsets.only(right: _sidePaddings, left: _sidePaddings),
                 margin: EdgeInsets.all(_sidePaddings * 0.25),
@@ -133,31 +133,34 @@ class SuperVerse extends StatelessWidget {
                       :
                   TextAlign.start,
                   textScaleFactor: 1,
-                  style: TextStyle(
-                      backgroundColor: _boxColor,
-                      textBaseline: TextBaseline.alphabetic,
-                      height: verseHeight,
-                      color: color,
-                      fontFamily: verseFont ,
-                      fontStyle: verseStyle,
-                      letterSpacing: verseLetterSpacing,
-                      wordSpacing: verseWordSpacing,
-                      fontSize: verseSizeValue,
-                      fontWeight: verseWeight,
-                      shadows: <Shadow>[
-                        if (shadow)
-                          Shadow(
-                            blurRadius: _shadowBlur,
-                            color: _leftShadow,
-                            offset: Offset(_shadowXOffset, _shadowYOffset),
-                          ),
-                        Shadow(
-                          blurRadius: _shadowBlur,
-                          color: _rightShadow,
-                          offset: Offset(_secondShadowXOffset, _shadowYOffset),
-                        ),
-                      ]
+                  style:
+                  superVerseStyle(
+                    context: context,
+                    color: color,
+                    weight: weight,
+                    italic: italic,
+                    size: size,
+                    shadow: shadow,
+                    scaleFactor: scaleFactor,
+                    designMode: designMode,
                   ),
+
+                  // TextStyle(
+                  //     fontWeight: verseWeight,
+                  //     shadows: <Shadow>[
+                  //       if (shadow)
+                  //         Shadow(
+                  //           blurRadius: _shadowBlur,
+                  //           color: _leftShadow,
+                  //           offset: Offset(_shadowXOffset, _shadowYOffset),
+                  //         ),
+                  //       Shadow(
+                  //         blurRadius: _shadowBlur,
+                  //         color: _rightShadow,
+                  //         offset: Offset(_secondShadowXOffset, _shadowYOffset),
+                  //       ),
+                  //     ]
+                  // ),
                 ),
               ),
             ),

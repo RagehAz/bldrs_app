@@ -1,7 +1,6 @@
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/sub_models/contact_model.dart';
-import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import '../user_model.dart';
 // -----------------------------------------------------------------------------
 class TinyUser {

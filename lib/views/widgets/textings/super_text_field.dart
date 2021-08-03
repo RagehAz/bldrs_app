@@ -39,6 +39,7 @@ class SuperTextField extends StatefulWidget {
   final double corners;
   final Function onSubmitted;
   final bool autofocus;
+  final Function onMaxLinesReached;
 
   SuperTextField({
     this.keyboardTextInputType = TextInputType.text,
@@ -60,7 +61,7 @@ class SuperTextField extends StatefulWidget {
     this.width,
     this.height,
     this.onChanged,
-    this.textController,
+    @required this.textController,
     this.fieldColor,
     this.hintColor = Colorz.White80,
     this.keyboardTextInputAction,
@@ -74,6 +75,7 @@ class SuperTextField extends StatefulWidget {
     this.corners,
     this.onSubmitted,
     this.autofocus,
+    this.onMaxLinesReached,
   });
 
   @override
@@ -81,7 +83,6 @@ class SuperTextField extends StatefulWidget {
 }
 
 class _SuperTextFieldState extends State<SuperTextField> {
-  // TextEditingController widget.textController;
 // -----------------------------------------------------------------------------
 @override
   void initState() {
@@ -93,7 +94,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
 
   // @override
   // void dispose(){
-  // widget.textController.dispose();
+  //   _innerController.dispose();
   // super.dispose();
   // }
 
@@ -106,7 +107,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
     setState(() {
       _textDirection = superTextDirectionSwitcher(val);
     });
-    print('$val, $_textDirection');
+    // print('$val, $_textDirection');
   }
 // -----------------------------------------------------------------------------
 
@@ -275,11 +276,14 @@ class _SuperTextFieldState extends State<SuperTextField> {
 
     }
 // -----------------------------------------------------------------------------
+
+    bool _maxLengthEnforced = widget.counterIsOn == true ? true : false;
+
     return
 
       widget.fieldIsFormField == true ?
 
-          /// TEXT FORM FIELD -------------------------------
+      /// TEXT FORM FIELD -------------------------------
       Container(
         width: widget.width,
         padding: _boxPadding,
@@ -320,7 +324,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
           keyboardAppearance: Brightness.dark,
           textDirection: _concludedTextDirection,
           obscureText: widget.obscured,
-          maxLengthEnforced: false,
+          maxLengthEnforced: _maxLengthEnforced,
           enableInteractiveSelection: true, // makes test selectable
           decoration: _inputDecoration,
           cursorColor: Colorz.Yellow255,
@@ -355,7 +359,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
           keyboardAppearance: Brightness.dark,
           textDirection: _concludedTextDirection,
           obscureText: widget.obscured,
-          maxLengthEnforced: false,
+          maxLengthEnforced: _maxLengthEnforced,
           enableInteractiveSelection: true, // makes test selectable
           decoration: _inputDecoration,
           cursorColor: Colorz.Yellow255,

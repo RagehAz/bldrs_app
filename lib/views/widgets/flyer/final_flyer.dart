@@ -3,7 +3,6 @@ import 'package:bldrs/controllers/drafters/animators.dart';
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/keyboarders.dart';
 import 'package:bldrs/controllers/drafters/launchers.dart';
-import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/sliders.dart';
 import 'package:bldrs/controllers/drafters/text_checkers.dart';
@@ -27,8 +26,7 @@ import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/models/tiny_models/tiny_user.dart';
 import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
-import 'package:bldrs/views/screens/h_0_flyer_screen.dart';
-import 'package:bldrs/views/screens/x_0_flyer_editor_screen.dart';
+import 'package:bldrs/views/screens/f_1_flyer_editor_screen.dart';
 import 'package:bldrs/views/screens/x_x_flyer_on_map.dart';
 import 'package:bldrs/views/widgets/bubbles/words_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
@@ -39,8 +37,6 @@ import 'package:bldrs/views/widgets/dialogs/dialogz.dart';
 import 'package:bldrs/views/widgets/flyer/flyer_methods.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_header.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_pages.dart';
-import 'package:bldrs/views/widgets/flyer/parts/header_parts/mini_header.dart';
-import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/footer_parts/ankh_button.dart';
 import 'package:bldrs/views/widgets/flyer/parts/progress_bar.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/models/super_flyer.dart';
@@ -104,7 +100,7 @@ class FinalFlyer extends StatefulWidget {
     this.bzModel,
     this.flyerID,
     Key key
-  }) ;
+  });
       // :
   // assert(isDraft != null),
   // assert(child != null),
@@ -169,7 +165,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     Animators.disposeControllerIfPossible(_superFlyer.verticalController);
     Animators.disposeControllerIfPossible(_superFlyer.horizontalController);
     Animators.disposeControllerIfPossible(_superFlyer.infoScrollController);
-    // FocusScope.of(context).dispose();
+    // FocusScope.of(context).dispose(); // error fash5
     print('dispose---> final flyer : end');
     super.dispose();
   }
@@ -402,7 +398,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         onFitImage: _onFitImage,
         onFlyerTypeTap: () async {await _onFlyerTypeTap();},
         onZoneTap: () async {await _onChangeZone();},
-        onAboutTap: () async {await _onAboutTap();},
+        onAboutTap: () async {await _onMoreInfoTap();},
         onKeywordsTap: () async {await _onKeywordsTap();},
         onShowAuthorTap: _onShowAuthorTap,
         onTriggerEditMode: _onTriggerEditMode,
@@ -445,7 +441,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       onFitImage: _onFitImage,
       onFlyerTypeTap: () async {await _onFlyerTypeTap();},
       onZoneTap: () async {await _onChangeZone();},
-      onAboutTap: () async {await _onAboutTap();},
+      onAboutTap: () async {await _onMoreInfoTap();},
       onKeywordsTap: () async {await _onKeywordsTap();},
       onShowAuthorTap: _onShowAuthorTap,
       onTriggerEditMode: _onTriggerEditMode,
@@ -487,6 +483,9 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       // -------------------------
       flyerIsBanned: false,
       deletionTime: null,
+      info: '',
+      specs: new List(),
+      // times:
     );
   }
 // -----------------------------------------------------o
@@ -533,6 +532,28 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     // )
     // )
     // );
+    /// TASK : check this and delete when done
+    // flyerOnTap: (tinyFlyer) async {
+    //
+    //
+    //   dynamic _rebuild = await Navigator.push(context,
+    //       new MaterialPageRoute(
+    //           builder: (context) => new BzFlyerScreen(
+    //             tinyFlyer: tinyFlyer,
+    //             bzModel: _bzModel,
+    //           )
+    //       ));
+    //   if (_rebuild == true){
+    //     print('we should rebuild');
+    //     setState(() { });
+    //   } else if (_rebuild == false){
+    //     print('do not rebuild');
+    //   } else {
+    //     print ('rebuild is null');
+    //   }
+    //
+    // },
+
 
     print('WWWWWWWWWWWWWTTTTTTTTTTTFFFFFFFFFFF');
   }
@@ -1147,7 +1168,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         toIndex: _superFlyer.numberOfSlides - 1,
     );
 
-    _triggerLoading();
+    await _triggerLoading();
 
   }
 // -----------------------------------------------------o
@@ -1657,10 +1678,11 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
   }
 // -----------------------------------------------------o
-  Future<void> _onAboutTap() async {
+  Future<void> _onMoreInfoTap() async {
 
     double _dialogHeight = BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.95);
     double _dialogClearWidth = BottomDialog.dialogClearWidth(context);
+    double _dialogInnerCorners = BottomDialog.dialogClearCornerValue();
 
     await BottomDialog.slideBottomDialog(
       context: context,
@@ -1679,6 +1701,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
               width: _dialogClearWidth,
               hintText: '...',
               fieldColor: Colorz.White20,
+              corners: _dialogInnerCorners,
               // margin: EdgeInsets.only(top: (_dialogClearWidth * 0.3), left: 5, right: 5),
               maxLines: 10,
               minLines: 5,
@@ -1697,6 +1720,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
               },
               keyboardTextInputType: TextInputType.multiline,
               keyboardTextInputAction: TextInputAction.newline,
+              onMaxLinesReached: null,
             ),
           ),
 
@@ -2242,6 +2266,8 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         flyerIsBanned: PublishTime.flyerIsBanned(_superFlyer.flyerTimes),
         deletionTime: PublishTime.getPublishTimeFromTimes(times: _superFlyer.flyerTimes, state: FlyerState.Deleted),
         info: _superFlyer.infoController.text,
+        specs: _superFlyer.specs,
+        // times: _superFlyer.times,
         // specs: _draft.specs,
       );
 
@@ -2353,6 +2379,96 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 // -----------------------------------------------------o
   Future<void> _onRepublishFlyer() async {
     print('this is here to republish the flyer');
+  }
+// -----------------------------------------------------o
+  void _slideFlyerOptions(BuildContext context, FlyerModel flyerModel){
+
+    // BottomDialog.slideButtonsBottomDialog(
+    //   context: context,
+    //   // height: (50+10+50+10+50+30).toDouble(),
+    //   draggable: true,
+    //   buttonHeight: 50,
+    //   buttons: <Widget>[
+    //
+    //     // --- UNPUBLISH FLYER
+    //     DreamBox(
+    //       height: 50,
+    //       width: BottomDialog.dialogClearWidth(context),
+    //       icon: Iconz.XSmall,
+    //       iconSizeFactor: 0.5,
+    //       iconColor: Colorz.Red255,
+    //       verse: 'Unpublish Flyer',
+    //       verseScaleFactor: 1.2,
+    //       verseColor: Colorz.Red255,
+    //       // verseWeight: VerseWeight.thin,
+    //       onTap: () => _unpublishFlyerOnTap(context),
+    //
+    //     ),
+    //
+    //     // --- DELETE FLYER
+    //     DreamBox(
+    //       height: 50,
+    //       width: BottomDialog.dialogClearWidth(context),
+    //       icon: Iconz.FlyerScale,
+    //       iconSizeFactor: 0.5,
+    //       verse: 'Delete Flyer',
+    //       verseScaleFactor: 1.2,
+    //       verseColor: Colorz.White255,
+    //       onTap: () async {
+    //         Nav.goBack(context);
+    //
+    //         /// Task : this should be bool dialog instead
+    //         bool _dialogResult = await superDialog(
+    //           context: context,
+    //           title: '',
+    //           body: 'Are you sure you want to Delete this flyer and never get it back?',
+    //           boolDialog: true,
+    //         );
+    //
+    //         print(_dialogResult);
+    //
+    //
+    //         /// start delete flyer ops
+    //         await FlyerOps().deleteFlyerOps(
+    //           context: context,
+    //           bzModel: bzModel,
+    //           flyerModel : flyerModel,
+    //         );
+    //
+    //         /// remove tinyFlyer from Local list
+    //         FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
+    //         _prof.removeTinyFlyerFromLocalList(tinyFlyer.flyerID);
+    //
+    //         /// re-route back
+    //         Nav.goBack(context, argument: true);
+    //       },
+    //     ),
+    //
+    //     // --- EDIT FLYER
+    //     DreamBox(
+    //       height: 50,
+    //       width: BottomDialog.dialogClearWidth(context),
+    //       icon: Iconz.Gears,
+    //       iconSizeFactor: 0.5,
+    //       verse: 'Edit Flyer',
+    //       verseScaleFactor: 1.2,
+    //       verseColor: Colorz.White255,
+    //       onTap: (){
+    //
+    //         Nav.goToNewScreen(context,
+    //             OldFlyerEditorScreen(
+    //                 bzModel: bzModel,
+    //                 firstTimer: false,
+    //                 flyerModel: flyerModel
+    //             ));
+    //
+    //       },
+    //     ),
+    //
+    //   ],
+    //
+    // );
+
   }
 // -----------------------------------------------------o
   //   // List<TextEditingController> _createHeadlinesForExistingFlyer(){

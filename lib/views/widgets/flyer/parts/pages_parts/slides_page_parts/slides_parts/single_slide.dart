@@ -7,12 +7,8 @@ import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/firestore/auth_ops.dart';
-import 'package:bldrs/firestore/record_ops.dart';
-import 'package:bldrs/models/records/share_model.dart';
 import 'package:bldrs/models/super_flyer.dart';
 import 'package:bldrs/views/screens/x_3_slide_full_screen.dart';
-import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/footer.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/slides_parts/slide_headline.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/slides_parts/zoomable_pic.dart';
 import 'package:bldrs/views/widgets/textings/super_text_field.dart';
@@ -21,14 +17,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:bldrs/controllers/drafters/keyboarders.dart';
 
-/// TASK delete this
-enum SlideMode {
-  View, // when viewing a slide as default
-  TinyView, // when viewing slide in flyer tiny mode
-  Editor, // while editing or creating the flyer
-  Map, // when the slide is a map slide
-  Empty, // while editing the flyer and before picking slide content
-}
 
 class SingleSlide extends StatelessWidget {
   final double flyerZoneWidth;
@@ -38,7 +26,6 @@ class SingleSlide extends StatelessWidget {
   final int views;
   final int saves;
   final int slideIndex;
-  final SlideMode slideMode;
   final BoxFit boxFit;
   final TextEditingController titleController;
   final Function textFieldOnChanged;
@@ -61,7 +48,6 @@ class SingleSlide extends StatelessWidget {
     this.shares = 0,
     this.views = 0,
     this.saves = 0,
-    this.slideMode,
     this.boxFit = BoxFit.cover,
     this.titleController,
     this.textFieldOnChanged,
@@ -141,11 +127,7 @@ class SingleSlide extends StatelessWidget {
         titleController != null ? titleController.text : null;
 // -----------------------------------------------------------------------------
     dynamic _slidePic =
-    picture == null ||
-        slideMode == SlideMode.Empty ||
-        ObjectChecker.objectIsURL(picture) == true ||
-        ObjectChecker.objectIsFile(picture) == true ?
-
+    picture == null || ObjectChecker.objectIsURL(picture) == true || ObjectChecker.objectIsFile(picture) == true ?
     null
         :
     Imagers.superImage(picture, boxFit);
@@ -205,7 +187,7 @@ class SingleSlide extends StatelessWidget {
                 ),
 
 
-              if (picture == null || slideMode == SlideMode.Empty)
+              if (picture == null)
                 Container(),
 
               /// --- IMAGE FILE
