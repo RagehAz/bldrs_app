@@ -2,6 +2,12 @@ import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+
+enum SlidingDirection{
+  next,
+  back,
+  freeze,
+}
 // -----------------------------------------------------------------------------
 class Scrollers{
 // -----------------------------------------------------------------------------
@@ -25,7 +31,14 @@ class Scrollers{
   }
 // -----------------------------------------------------------------------------
   static bool isGoingDown(ScrollController scrollController){
-    bool _goingDown = scrollController.position.userScrollDirection == ScrollDirection.forward;
+    bool _goingDown;
+
+    if(scrollController != null){
+      if(scrollController.position != null){
+        _goingDown = scrollController.position.userScrollDirection == ScrollDirection.forward;
+      }
+    }
+
     return _goingDown;
   }
 // -----------------------------------------------------------------------------

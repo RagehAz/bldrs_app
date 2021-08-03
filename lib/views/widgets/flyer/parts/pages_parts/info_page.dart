@@ -6,7 +6,6 @@ import 'package:bldrs/controllers/drafters/sliders.dart';
 import 'package:bldrs/controllers/theme/dumz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/sub_models/flyer_type_class.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/super_flyer.dart';
@@ -136,7 +135,7 @@ class InfoPage extends StatelessWidget {
 
         bool _goingDown = Scrollers.isGoingDown(superFlyer.infoScrollController);
 
-        if(_goingDown && _canPageUp){
+        if(_goingDown == true && _canPageUp == true){
           Sliders.slideToBackFrom(superFlyer.verticalController, 1, curve: Curves.easeOut);
         }
 

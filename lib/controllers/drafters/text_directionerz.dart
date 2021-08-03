@@ -70,8 +70,13 @@ TextDirection superTextDirectionSwitcherByController(TextEditingController contr
 TextDirection superTextDirectionSwitcher(String val){
   TextDirection _textDirection;
 
+  // bool _appIsLeftToRight = appIsLeftToRight(context);
+  // TextDirection _defaultByLang = _appIsLeftToRight == true ? TextDirection.ltr : TextDirection.rtl;
+
+
   bool controllerIsEmpty = TextChecker.stringHasNoValue(val);
 
+  /// when val has a value
   if (!controllerIsEmpty){
 
     String _string = val;
@@ -89,12 +94,20 @@ TextDirection superTextDirectionSwitcher(String val){
     } else if (TextChecker.textStartsInArabic(_firstCharacter)){
       _textDirection = TextDirection.rtl;
     } else {
+      // _textDirection = _defaultByLang; // can not check app is left to right in initState of SuperTextField
+
       _textDirection = TextDirection.ltr; // instead of null
     }
 
-  } else {
-    _textDirection = TextDirection.ltr; // instead of null
   }
+
+  /// when val is empty
+  else {
+    // _textDirection = _defaultByLang; // can not check app is left to right in initState of SuperTextField
+    _textDirection = TextDirection.ltr; // instead of null
+
+  }
+
 
   return _textDirection;
 }

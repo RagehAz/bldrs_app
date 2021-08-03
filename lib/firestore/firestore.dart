@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/mappers.dart';
-import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/sub_models/slide_model.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

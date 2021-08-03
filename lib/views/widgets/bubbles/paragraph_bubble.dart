@@ -1,9 +1,12 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/drafters/text_shapers.dart';
+import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
+import 'package:bldrs/views/widgets/textings/text_lines_analyzer.dart';
 import 'package:flutter/material.dart';
 
 class ParagraphBubble extends StatefulWidget {
@@ -93,6 +96,19 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
 
     print('B---> ParagraphBubble : edit mode : ${widget.editMode}');
 
+    // bool _infoExceededMaxLines = superFlyer.i
+
+    TextStyle _paragraphTextStyle = superVerseStyle(
+      context: context,
+      color: Colorz.White255,
+      weight: VerseWeight.thin,
+      size: 2,
+      italic: false,
+      shadow: false,
+      designMode: false,
+      scaleFactor: 1,
+    );
+
     return InPyramidsBubble(
         bubbleWidth: widget.bubbleWidth,
         margins: widget.margins,
@@ -103,7 +119,7 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
         bubbleOnTap: widget.editMode == true || _canExpand == true ? _onParagraphTap : null,
         columnChildren: <Widget>[
 
-          if (widget.paragraph != null)
+          /// PARAGRAPH TEXT
           Padding(
             padding: Scale.superMargins(margins: widget.margins),
             child: SuperVerse(
@@ -115,19 +131,27 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
             ),
           ),
 
-          if(widget.paragraph != null && widget.paragraph.length > 100)
-          Container(
-            width: widget.bubbleWidth,
-            alignment: Alignment.center,
-            child: DreamBox(
-              height: Ratioz.appBarMargin,
-              width: Ratioz.appBarMargin,
-              bubble: false,
-              margins: Ratioz.appBarPadding,
-              icon : _isMax ? Iconz.ArrowUp : Iconz.ArrowDown,
-              // onTap: _onParagraphTap,
-            ),
-          ),
+          /// ARROW
+          if (widget.paragraph != null)
+          TextLinesAnalyzer(
+              text: widget.paragraph.trim(),
+              textStyle: _paragraphTextStyle,
+              maxLines: widget.maxLines,
+              childBeforeMaxLines: Container(),
+              childAfterMaxLines: Container(
+                width: widget.bubbleWidth,
+                alignment: Alignment.center,
+                child: DreamBox(
+                  height: Ratioz.appBarMargin,
+                  width: Ratioz.appBarMargin,
+                  bubble: false,
+                  margins: Ratioz.appBarPadding,
+                  icon : _isMax ? Iconz.ArrowUp : Iconz.ArrowDown,
+                  // onTap: _onParagraphTap,
+                ),
+              ),
+          )
+
 
         ]
     );

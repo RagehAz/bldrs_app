@@ -16,7 +16,7 @@ class GalleryGrid extends StatelessWidget {
   final String bzID;
   final List<AuthorModel> bzAuthors;
   final BzModel bz;
-  final Function flyerOnTap;
+  // final Function flyerOnTap;
   final Function addPublishedFlyerToGallery;
 
   GalleryGrid({
@@ -26,7 +26,7 @@ class GalleryGrid extends StatelessWidget {
     @required this.bzID,
     @required this.bzAuthors,
     @required this.bz,
-    @required this.flyerOnTap,
+    // @required this.flyerOnTap,
     @required this.addPublishedFlyerToGallery,
 });
 
