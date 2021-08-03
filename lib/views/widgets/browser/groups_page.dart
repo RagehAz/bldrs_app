@@ -13,7 +13,7 @@ class GroupsPage extends StatelessWidget {
     @required this.groups,
     @required this.onTap,
     @required this.selectedGroup,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

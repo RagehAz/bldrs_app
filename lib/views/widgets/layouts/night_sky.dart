@@ -22,7 +22,7 @@ class NightSky extends StatefulWidget {
   NightSky({
     Key key,
     this.sky,
-}) : super(key: key);
+});
 
   @override
   _NightSkyState createState() => _NightSkyState();

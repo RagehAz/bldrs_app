@@ -6,6 +6,7 @@ import 'package:bldrs/controllers/drafters/launchers.dart';
 import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/sliders.dart';
+import 'package:bldrs/controllers/drafters/text_checkers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
@@ -103,10 +104,11 @@ class FinalFlyer extends StatefulWidget {
     this.bzModel,
     this.flyerID,
     Key key
-  }) :
+  }) ;
+      // :
   // assert(isDraft != null),
   // assert(child != null),
-  super(key: key);
+  // super(key: key);
 
 
   @override
@@ -160,13 +162,15 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
   // -----------------------------------------------------------------------------
   @override
   void dispose() {
-    // TextChecker.disposeAllTextControllers(_superFlyer.headlinesControllers);
-    // Animators.disposeControllerIfPossible(_superFlyer.verticalController);
-    // Animators.disposeControllerIfPossible(_superFlyer.horizontalController);
-    // Animators.disposeControllerIfPossible(_superFlyer.infoScrollController);
+    print('dispose---> final flyer : start');
+    TextChecker.disposeAllTextControllers(_superFlyer.headlinesControllers);
+    TextChecker.disposeAllTextControllers(_superFlyer.descriptionsControllers);
+    TextChecker.disposeControllerIfPossible(_superFlyer.infoController);
+    Animators.disposeControllerIfPossible(_superFlyer.verticalController);
+    Animators.disposeControllerIfPossible(_superFlyer.horizontalController);
+    Animators.disposeControllerIfPossible(_superFlyer.infoScrollController);
     // FocusScope.of(context).dispose();
-    //     _slidingController.dispose();
-
+    print('dispose---> final flyer : end');
     super.dispose();
   }
 
@@ -823,7 +827,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
   Future<void> _onTriggerEditMode() async {
 
     /// to  update slides headlines
-    List<SlideModel> _updatedSlides = await _processNewSlides(_superFlyer.mutableSlides, _superFlyer.headlinesControllers);
+    List<SlideModel> _updatedSlides = await _createSlidesModelsFromCurrentSuperFlyer();
     List<MutableSlide> _updatedMutableSlides = MutableSlide.getMutableSlidesFromSlidesModels(_updatedSlides);
     setState(() {
       _superFlyer.editMode = !_superFlyer.editMode;
@@ -2056,21 +2060,21 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 //     return _slides;
 //   }
 // -----------------------------------------------------o
-  Future<List<SlideModel>> _processNewSlides(List<SlideModel> currentSlides, List<TextEditingController> titleControllers) async {
+  Future<List<SlideModel>> _createSlidesModelsFromCurrentSuperFlyer() async {
     List<SlideModel> _slides = new List();
 
-    for (int i = 0; i<currentSlides.length; i++){
+    for (int i = 0; i<_superFlyer.mutableSlides.length; i++){
 
       SlideModel _newSlide = SlideModel(
         slideIndex: i,
-        picture: currentSlides[i].picture,
-        headline: titleControllers[i].text,
-        description: currentSlides[i].description,
-        savesCount: currentSlides[i].savesCount,
-        sharesCount: currentSlides[i].sharesCount,
-        viewsCount: currentSlides[i].viewsCount,
-        imageSize: currentSlides[i].imageSize,
-        boxFit: currentSlides[i].boxFit,
+        picture: _superFlyer.mutableSlides[i].picture,
+        headline: _superFlyer.headlinesControllers[i].text,
+        description: _superFlyer.descriptionsControllers[i].text,
+        savesCount: _superFlyer.mutableSlides[i].savesCount,
+        sharesCount: _superFlyer.mutableSlides[i].sharesCount,
+        viewsCount: _superFlyer.mutableSlides[i].viewsCount,
+        imageSize: _superFlyer.mutableSlides[i].imageSize,
+        boxFit: _superFlyer.mutableSlides[i].boxFit,
       );
 
       _slides.add(_newSlide);

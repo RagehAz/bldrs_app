@@ -66,7 +66,7 @@ class GoHomeOnMaxBounce extends StatefulWidget {
     this.height,
     @required this.child,
     Key key,
-  }) : super(key: key);
+  });
 
   @override
   _GoHomeOnMaxBounceState createState() => _GoHomeOnMaxBounceState();

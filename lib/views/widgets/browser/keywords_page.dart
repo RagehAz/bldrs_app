@@ -15,7 +15,7 @@ class KeywordsPage extends StatelessWidget {
     @required this.keywords,
     @required this.onTap,
     @required this.selectedKeywords,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

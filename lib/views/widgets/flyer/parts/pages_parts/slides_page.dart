@@ -10,7 +10,7 @@ class SlidesPage extends StatelessWidget {
   const SlidesPage({
     @required this.superFlyer,
     Key key,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
