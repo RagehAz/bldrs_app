@@ -12,7 +12,7 @@ class SlideFullScreen extends StatelessWidget {
   SlideFullScreen({
     @required this.image,
     Key key
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

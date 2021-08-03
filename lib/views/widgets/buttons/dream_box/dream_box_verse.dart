@@ -71,7 +71,7 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
     @required this.secondLineScaleFactor,
     @required this.secondLineColor,
     Key key
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
