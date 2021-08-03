@@ -344,7 +344,7 @@ class FlyerModel with ChangeNotifier{
         tinyBz: TinyBz.getTinyBzFromSuperFlyer(superFlyer),
         publishTime: PublishTime.getPublishTimeFromTimes(times: superFlyer.flyerTimes, state: FlyerState.Published),
         flyerPosition: superFlyer.position,
-        slides: superFlyer.slides,
+        slides: superFlyer.mutableSlides,
         flyerIsBanned: PublishTime.flyerIsBanned(superFlyer.flyerTimes),
         deletionTime: PublishTime.getPublishTimeFromTimes(times: superFlyer.flyerTimes, state: FlyerState.Deleted),
         ankhIsOn: superFlyer.ankhIsOn,

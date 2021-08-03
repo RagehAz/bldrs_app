@@ -108,7 +108,7 @@ class DreamBox extends StatelessWidget {
     Color _colorOverride = colorOverride == null ? null : colorOverride;
 
     Color _iconColor =
-    _blackAndWhite == true || _inActiveMode == true ? Colorz.White80 :
+    _blackAndWhite == true || _inActiveMode == true ? Colorz.White30 :
     _colorOverride;
 
     return _iconColor;
@@ -217,7 +217,7 @@ class DreamBox extends StatelessWidget {
           IntrinsicWidth(
 
             child: Opacity(
-              opacity: inActiveMode == true ? 0.5 : opacity,
+              opacity: inActiveMode == true ? 0.35 : opacity,
               child: Padding(
                 padding: _boxMargins,
                 child: Container(

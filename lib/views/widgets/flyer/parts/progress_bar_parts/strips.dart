@@ -7,6 +7,38 @@ import 'package:bldrs/views/widgets/flyer/parts/progress_bar_parts/strip.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/controllers/drafters/borderers.dart';
 
+class ProgressBox extends StatelessWidget {
+  final double flyerZoneWidth;
+  final List<Widget> strips;
+  final EdgeInsets margins;
+
+  const ProgressBox({
+    @required this.flyerZoneWidth,
+    @required this.strips,
+    @required this.margins,
+});
+
+  @override
+  Widget build(BuildContext context) {
+    return  Align(
+      alignment: Aligners.superTopAlignment(context),
+      child: Container(
+        width: Strips.boxWidth(flyerZoneWidth),
+        height: Strips.boxHeight(flyerZoneWidth),
+        margin: Strips.boxMargins(flyerZoneWidth: flyerZoneWidth, margins: margins),
+        padding: EdgeInsets.symmetric(horizontal: Strips.stripsOneSideMargin(flyerZoneWidth)),
+        alignment: Alignment.center,
+        // color: Colorz.BloodTest,
+        child: Stack(
+          alignment: Aligners.superCenterAlignment(context),
+          children: strips,
+        ),
+      ),
+    );
+  }
+}
+
+
 class Strips extends StatelessWidget {
   final double flyerZoneWidth;
   final bool barIsOn;
@@ -23,25 +55,6 @@ class Strips extends StatelessWidget {
     this.margins,
     @required this.swipeDirection,
   });
-// -----------------------------------------------------------------------------
-  static Widget progressBox({BuildContext context, double flyerZoneWidth, List<Widget> strips, EdgeInsets margins}){
-    return
-      Align(
-        alignment: Aligners.superTopAlignment(context),
-        child: Container(
-          width: boxWidth(flyerZoneWidth),
-          height: boxHeight(flyerZoneWidth),
-          margin: boxMargins(flyerZoneWidth: flyerZoneWidth, margins: margins),
-          padding: EdgeInsets.symmetric(horizontal: stripsOneSideMargin(flyerZoneWidth)),
-          alignment: Alignment.center,
-          // color: Colorz.BloodTest,
-          child: Stack(
-            alignment: Aligners.superCenterAlignment(context),
-            children: strips,
-          ),
-        ),
-      );
-  }
 // -----------------------------------------------------------------------------
   static double boxWidth(double flyerZoneWidth){
     return flyerZoneWidth;
@@ -108,6 +121,18 @@ class Strips extends StatelessWidget {
     return _stripColor;
   }
 // -----------------------------------------------------------------------------
+  static bool canBuildStrips(int numberOfStrips){
+    bool _canBuild = false;
+
+    if(numberOfStrips !=null){
+      if(numberOfStrips > 0){
+        _canBuild = true;
+      }
+    }
+
+    return _canBuild;
+  }
+
   @override
   Widget build(BuildContext context) {
     // print('========= BUILDING PROGRESS BAR FOR ||| index : $slideIndex, numberOfSlides : $numberOfStrips, slidingNext $swipeDirection');
@@ -222,8 +247,7 @@ class Strips extends StatelessWidget {
           :
 
       numberOfStrips == 1 ?
-      progressBox(
-          context: context,
+      ProgressBox(
           flyerZoneWidth: flyerZoneWidth,
           margins: margins,
           strips: <Widget>[
@@ -238,8 +262,7 @@ class Strips extends StatelessWidget {
 
           :
 
-      progressBox(
-          context: context,
+      ProgressBox(
           flyerZoneWidth: flyerZoneWidth,
           margins: margins,
           strips: <Widget>[

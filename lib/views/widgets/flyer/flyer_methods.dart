@@ -240,9 +240,9 @@ class FlyerMethod{
 
     if (superFlyer != null){
 
-      if(superFlyer.slides != null){
+      if(superFlyer.mutableSlides != null){
 
-        if(superFlyer.slides.length > 1){
+        if(superFlyer.mutableSlides.length > 1){
 
           _hasMoreThanOneSlide = true;
 

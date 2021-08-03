@@ -56,6 +56,25 @@ class ImageSize{
     @required this.width,
     @required this.height,
   });
+
+  Map<String, dynamic> toMap(){
+    return
+        {
+          'width' : width,
+          'height' : height,
+        };
+  }
+
+  static ImageSize decipherImageSize(Map<String, dynamic> map){
+    ImageSize _imageSize;
+    if(map != null){
+      _imageSize = ImageSize(
+          width: map['width'],
+          height: map['height'],
+      );
+    }
+    return _imageSize;
+  }
 }
 // -----------------------------------------------------------------------------
 class Imagers{
@@ -191,9 +210,12 @@ static DecorationImage superImage(String picture, BoxFit boxFit){
 }
 // -----------------------------------------------------------------------------
   static Future<ImageSize> superImageSize(dynamic image) async {
-  var decodedImage = await decodeImageFromList(image.readAsBytesSync());
-  ImageSize imageSize =  ImageSize(width: decodedImage.width, height: decodedImage.height);
-  return imageSize;
+    ImageSize _imageSize;
+  if(image != null){
+    var decodedImage = await decodeImageFromList(image.readAsBytesSync());
+    _imageSize =  ImageSize(width: decodedImage.width, height: decodedImage.height);
+  }
+  return _imageSize;
 }
 // -----------------------------------------------------------------------------
   static Future<Uint8List> getBytesFromLocalAsset(String iconPath, int width) async {

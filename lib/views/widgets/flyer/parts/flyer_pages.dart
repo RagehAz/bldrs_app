@@ -19,6 +19,8 @@ class FlyerPages extends StatelessWidget {
 
     bool _tinyMode = Scale.superFlyerTinyMode(context, superFlyer.flyerZoneWidth);
 
+    print('B---> FlyerPages : _tinyMode : ${_tinyMode}');
+
     return GoHomeOnMaxBounce(
       child: PageView(
         pageSnapping: true,
@@ -36,7 +38,7 @@ class FlyerPages extends StatelessWidget {
           ),
 
           /// INFO PAGE
-          if (_tinyMode == false && superFlyer.slides != null)
+          if (_tinyMode == false && superFlyer.mutableSlides != null)
           InfoPage(
             superFlyer : superFlyer,
             // key: PageStorageKey('info_${superFlyer.flyerID}'),

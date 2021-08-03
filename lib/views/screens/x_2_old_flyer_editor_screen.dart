@@ -325,6 +325,8 @@ class _OldFlyerEditorScreenState extends State<OldFlyerEditorScreen> {
             savesCount: 0,
             viewsCount: 0,
             sharesCount: 0,
+            boxFit: null,
+            imageSize: null,
           ));
       _currentSlideIndex = _currentSlides.length - 1;
       numberOfSlides = _currentSlides.length;
@@ -334,11 +336,17 @@ class _OldFlyerEditorScreenState extends State<OldFlyerEditorScreen> {
       onPageChangedIsOn = true;
     });
 
-    final appDir = await sysPaths.getApplicationDocumentsDirectory();
-    final fileName = path.basename(_imageFile.path);
-    final savedImage = await _storedImage.copy('${appDir.path}/$fileName');
+    final Directory appDir = await sysPaths.getApplicationDocumentsDirectory();
+    final String fileName = path.basename(_imageFile.path);
+    final File savedImage = await _storedImage.copy('${appDir.path}/$fileName');
     _selectImage(savedImage);
-    Sliders.slideTo(_slidingController, _currentSlideIndex);
+
+    await Sliders.slideTo(
+        controller: _slidingController,
+        toIndex: _currentSlideIndex
+    );
+
+
     // print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> after _takeGalleryPicture');
   }
 // -----------------------------------------------------------------------------
@@ -427,6 +435,9 @@ class _OldFlyerEditorScreenState extends State<OldFlyerEditorScreen> {
               slideIndex: _currentSlides.length,
               picture: _mapPreviewImageUrl,
               headline: _titleControllers[_currentSlides.length].text,
+              imageSize: null,
+              boxFit: null,
+              description: null,
             ));
         _currentSlideIndex = _currentSlides.length - 1;
         numberOfSlides = _currentSlides.length;
@@ -435,7 +446,9 @@ class _OldFlyerEditorScreenState extends State<OldFlyerEditorScreen> {
         _titleControllers.add(TextEditingController());
         onPageChangedIsOn = true;
       });
-      Sliders.slideTo(_slidingController, _currentSlideIndex);
+
+      await Sliders.slideTo(controller: _slidingController, toIndex: _currentSlideIndex);
+
 
     } else {
 
@@ -443,6 +456,7 @@ class _OldFlyerEditorScreenState extends State<OldFlyerEditorScreen> {
 
   }
 // -----------------------------------------------------------------------------
+  /// delete this old shit
   Future<List<SlideModel>> processSlides(List<String> picturesURLs, List<SlideModel> currentSlides, List<TextEditingController> titleControllers) async {
     List<SlideModel> _slides = new List();
 
@@ -458,6 +472,8 @@ class _OldFlyerEditorScreenState extends State<OldFlyerEditorScreen> {
             savesCount: widget.firstTimer ? 0 : _flyer.slides[i].savesCount,
             sharesCount: widget.firstTimer ? 0 : _flyer.slides[i].sharesCount,
             viewsCount: widget.firstTimer ? 0 : _flyer.slides[i].viewsCount,
+            boxFit: null,
+            imageSize: null,
           );
 
           _slides.add(_newSlide);
@@ -631,6 +647,7 @@ class _OldFlyerEditorScreenState extends State<OldFlyerEditorScreen> {
     return true;
   }
 // -----------------------------------------------------------------------------
+  /// delete this fucking shit
   Future<List<SlideModel>> _processNewSlides(List<SlideModel> currentSlides, List<TextEditingController> titleControllers) async {
     List<SlideModel> _slides = new List();
 
@@ -644,6 +661,8 @@ class _OldFlyerEditorScreenState extends State<OldFlyerEditorScreen> {
         savesCount: currentSlides[i].savesCount,
         sharesCount: currentSlides[i].sharesCount,
         viewsCount: currentSlides[i].viewsCount,
+        imageSize: null,
+        boxFit: null,
       );
 
       _slides.add(_newSlide);

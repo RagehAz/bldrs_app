@@ -160,10 +160,11 @@ class _UserCheckerState extends State<UserChecker> {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    print('-------------- Starting user checker --------------');
 
     final UserModel _userProvided = Provider.of<UserModel>(context);
     List<String> _missingFields = UserModel.missingFields(_userProvided);
+
+    print('B---> UserChecker : userID : ${_userProvided?.userID}');
 
     return
 

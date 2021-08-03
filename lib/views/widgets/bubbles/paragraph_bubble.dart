@@ -91,7 +91,7 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
   @override
   Widget build(BuildContext context) {
 
-    print('--------> building paragraph pyramid with edit mode : ${widget.editMode}');
+    print('B---> ParagraphBubble : edit mode : ${widget.editMode}');
 
     return InPyramidsBubble(
         bubbleWidth: widget.bubbleWidth,

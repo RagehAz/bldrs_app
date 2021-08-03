@@ -151,7 +151,6 @@ class _AnkhButtonState extends State<AnkhButton> with SingleTickerProviderStateM
           FooterButton(
             icon: _saveBTIcon,
             flyerZoneWidth: widget.flyerZoneWidth,
-            isOn: false,
             verse: _saveBTVerse,
             onTap: null,
           )
@@ -161,7 +160,6 @@ class _AnkhButtonState extends State<AnkhButton> with SingleTickerProviderStateM
           FooterButton(
             icon: _saveBTIcon,
             flyerZoneWidth: widget.flyerZoneWidth,
-            isOn: false,
             verse: _saveBTVerse,
             onTap: _onAnkhTap,
           )
