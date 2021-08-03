@@ -1,3 +1,6 @@
+import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/drafters/text_directionerz.dart';
+import 'package:bldrs/controllers/drafters/text_shapers.dart';
 import 'package:bldrs/controllers/localization/localization_constants.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
@@ -7,17 +10,32 @@ import 'package:bldrs/main.dart';
 import 'package:bldrs/views/widgets/buttons/rageh_button.dart';
 import 'package:bldrs/views/widgets/layouts/night_sky.dart';
 import 'package:bldrs/views/widgets/pyramids/pyramids.dart';
+import 'package:bldrs/views/widgets/textings/super_text_field.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:bldrs/views/widgets/textings/the_golden_scroll.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class FontTestScreen extends StatelessWidget {
+class FontLab extends StatefulWidget {
+  @override
+  _FontLabState createState() => _FontLabState();
+}
+
+class _FontLabState extends State<FontLab> {
+  TextEditingController _textController = new TextEditingController();
+
+
+  @override
+  void dispose() {
+    _textController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
 
-    double screenHeight = MediaQuery.of(context).size.height;
-    double screenWidth = MediaQuery.of(context).size.width;
+    double _screenHeight = Scale.superScreenHeight(context);
+    double _screenWidth = Scale.superScreenWidth(context);
     // ---
     int fontSize1 = 1;
     int fontSize2 = 2;
@@ -40,6 +58,15 @@ class FontTestScreen extends StatelessWidget {
 
     final List<String> fields = <String>['Architecture', 'abcd', 'Interior', 'Landscape', '1', 'test', '3abbas ebn fernas', 'thing', 'wtf'];
 
+    TextStyle _style = superVerseStyle(
+      context: context,
+      color: Colorz.White255,
+      weight: VerseWeight.bold,
+      italic: false,
+      size: 2,
+      shadow: false,
+    );
+
     return SafeArea(
       child: Scaffold(
         body: Stack(
@@ -54,7 +81,7 @@ class FontTestScreen extends StatelessWidget {
                 // --- BEGINNING OF SCROLLABLE SCREEN
                 Container(
                   height: Ratioz.pyramidsHeight * 2,
-                  width: screenWidth,
+                  width: _screenWidth,
                 ),
 
                 // --- FONT CHARACTERS TEST
@@ -82,8 +109,8 @@ class FontTestScreen extends StatelessWidget {
 
                 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- SEPARATOR
                 Container(
-                  width: screenWidth,
-                  height: screenHeight * 0.02,
+                  width: _screenWidth,
+                  height: _screenHeight * 0.02,
                   color: Colorz.Black230,
                 ),
 
@@ -92,8 +119,8 @@ class FontTestScreen extends StatelessWidget {
                   children: [
                     // --- BACKGROUND REVERSE ENGINEERING BOX TO MEASURE FONT HEIGHT FACTOR
                     Container(
-                      width: screenWidth,
-                      height: screenHeight * 0.034 * 1.42, // 0.034 is ratio of fontSize 4
+                      width: _screenWidth,
+                      height: _screenHeight * 0.034 * 1.42, // 0.034 is ratio of fontSize 4
                       color: Colorz.White255,
                     ),
 
@@ -116,7 +143,7 @@ class FontTestScreen extends StatelessWidget {
                 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- SEPARATOR
                 Container(
                   height: 10,
-                  width: screenWidth,
+                  width: _screenWidth,
                   color: Colorz.Black230,
                 ),
 
@@ -216,7 +243,7 @@ class FontTestScreen extends StatelessWidget {
                 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- SEPARATOR
                 Container(
                   height: 10,
-                  width: screenWidth,
+                  width: _screenWidth,
                   color: Colorz.Black230,
                 ),
 
@@ -255,7 +282,7 @@ class FontTestScreen extends StatelessWidget {
                 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- SEPARATOR
                 Container(
                   height: 10,
-                  width: screenWidth,
+                  width: _screenWidth,
                   color: Colorz.Black230,
                 ),
 
@@ -311,7 +338,7 @@ class FontTestScreen extends StatelessWidget {
                 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- SEPARATOR
                 Container(
                   height: 10,
-                  width: screenWidth,
+                  width: _screenWidth,
                   color: Colorz.Black230,
                 ),
 
@@ -485,7 +512,7 @@ class FontTestScreen extends StatelessWidget {
                 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- SEPARATOR
                 Container(
                   height: 10,
-                  width: screenWidth,
+                  width: _screenWidth,
                   color: Colorz.Black230,
                 ),
 
@@ -493,7 +520,7 @@ class FontTestScreen extends StatelessWidget {
                 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- SEPARATOR
                 Container(
                   height: 10,
-                  width: screenWidth,
+                  width: _screenWidth,
                   color: Colorz.Black230,
                 ),
 
@@ -536,7 +563,7 @@ class FontTestScreen extends StatelessWidget {
                 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- SEPARATOR
                 Container(
                   height: 10,
-                  width: screenWidth,
+                  width: _screenWidth,
                   color: Colorz.Black230,
                 ),
 
@@ -566,7 +593,7 @@ class FontTestScreen extends StatelessWidget {
                 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- SEPARATOR
                 Container(
                   height: 10,
-                  width: screenWidth,
+                  width: _screenWidth,
                   color: Colorz.Black230,
                 ),
 
@@ -600,7 +627,28 @@ class FontTestScreen extends StatelessWidget {
                 // --- END OF SCROLLABLE SCREEN
                 Container(
                   height: Ratioz.pyramidsHeight * 3,
-                  width: screenWidth,
+                  width: _screenWidth,
+                ),
+
+                Container(
+                  width: _screenWidth,
+                  height: _screenHeight,
+                  color: Colorz.BloodTest,
+                  child: SuperTextField(
+                    width: _screenWidth * 0.8,
+                    inputSize: 2,
+                    height: 100,
+                    maxLength: 500,
+                    minLines: 2,
+                    maxLines: 3,
+                    fieldIsFormField: false,
+                    autofocus: true,
+                    textController: _textController,
+                    keyboardTextInputAction: TextInputAction.newline,
+                    keyboardTextInputType: TextInputType.multiline,
+                    textDirection: superTextDirectionSwitcher(_textController?.text),
+                    // onChanged: (val){},
+                  ),
                 ),
 
               ],
@@ -626,7 +674,7 @@ class FontTestScreen extends StatelessWidget {
               },
 
               doubleTappingRageh: (){
-                print(screenHeight * 0.022 * 1.48);
+                print(_screenHeight * 0.022 * 1.48);
               },
             ),
 

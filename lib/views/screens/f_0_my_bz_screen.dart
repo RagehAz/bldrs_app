@@ -1,6 +1,5 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/scrollers.dart';
-import 'package:bldrs/controllers/drafters/streamerz.dart';
 import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
@@ -14,7 +13,6 @@ import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/models/user_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/screens/f_x_bz_editor_screen.dart';
-import 'package:bldrs/views/screens/f_1_bz_flyer_screen.drt.dart';
 import 'package:bldrs/views/screens/f_2_deactivated_flyers_screen.dart';
 import 'package:bldrs/views/widgets/bubbles/bubbles_separator.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
@@ -376,27 +374,6 @@ class _MyBzScreenState extends State<MyBzScreen> {
                       onHeaderTap: () => print('on header tap in f 0 my bz Screen'),
                     ),
                     showFlyers: true,
-                    // showOldFlyers: _showOldFlyers,
-                    flyerOnTap: (tinyFlyer) async {
-
-
-                      dynamic _rebuild = await Navigator.push(context,
-                          new MaterialPageRoute(
-                              builder: (context) => new BzFlyerScreen(
-                                tinyFlyer: tinyFlyer,
-                                bzModel: _bzModel,
-                              )
-                          ));
-                      if (_rebuild == true){
-                        print('we should rebuild');
-                        setState(() { });
-                      } else if (_rebuild == false){
-                        print('do not rebuild');
-                      } else {
-                        print ('rebuild is null');
-                      }
-
-                    },
                   ),
 
                 ],

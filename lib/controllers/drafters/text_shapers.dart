@@ -231,6 +231,7 @@ TextStyle superVerseStyle({
           )
         ]
     );
+
 }
 // -----------------------------------------------------------------------------
 TextStyle superVerseDefaultStyle(BuildContext context){

@@ -1,7 +1,6 @@
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/models/bz_model.dart';
-import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/super_flyer.dart';
 import 'package:bldrs/models/tiny_models/tiny_bz.dart';
@@ -14,12 +13,10 @@ import 'package:flutter/material.dart';
 class Gallery extends StatefulWidget {
   final SuperFlyer superFlyer;
   final bool showFlyers; // why ?
-  final Function flyerOnTap;
 
   Gallery({
     @required this.superFlyer,
     @required this.showFlyers,
-    @required this.flyerOnTap,
   });
 
   @override
@@ -214,7 +211,7 @@ class _GalleryState extends State<Gallery> {
                   galleryFlyers: _tinyFlyers,
                   bzAuthors: widget.superFlyer.bzAuthors,
                   bz: _bzModel, /// TASK : maybe should remove this as long as super flyer is here
-                  flyerOnTap: widget.flyerOnTap,
+                  // flyerOnTap: widget.flyerOnTap,
                   addPublishedFlyerToGallery: (flyerModel) => _addPublishedFlyerToGallery(flyerModel),
                   ),
 

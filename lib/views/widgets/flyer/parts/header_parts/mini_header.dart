@@ -1,5 +1,4 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
-import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/bz_pg_headline.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/header_shadow.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/mini_header_strip.dart';

@@ -61,7 +61,7 @@ class FlyerModel with ChangeNotifier{
     this.flyerIsBanned,
     this.deletionTime, /// TASK : delete this
     this.specs,
-    this.info,
+    @required this.info,
     this.times,
   });
 // -----------------------------------------------------------------------------
@@ -116,6 +116,8 @@ class FlyerModel with ChangeNotifier{
       deletionTime: deletionTime,
       ankhIsOn: ankhIsOn,
       specs: Spec.cloneSpecs(specs),
+      info: info,
+      // times:
     );
   }
 // -----------------------------------------------------------------------------
@@ -139,6 +141,7 @@ class FlyerModel with ChangeNotifier{
           ankhIsOn: flyer.ankhIsOn,
           specs: flyer.specs,
           info: flyer.info,
+          // times:
     );
   }
 // -----------------------------------------------------------------------------
@@ -349,7 +352,8 @@ class FlyerModel with ChangeNotifier{
         deletionTime: PublishTime.getPublishTimeFromTimes(times: superFlyer.flyerTimes, state: FlyerState.Deleted),
         ankhIsOn: superFlyer.ankhIsOn,
         specs: superFlyer.specs,
-
+        info: superFlyer.infoController.text,
+        // times:
       );
     }
 
