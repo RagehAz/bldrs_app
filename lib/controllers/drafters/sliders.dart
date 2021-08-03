@@ -72,12 +72,15 @@ class Sliders{
 //   }
 // }
 // -----------------------------------------------------------------------------
-  static Future<void> slideTo(PageController slidingController, int currentSlide,) async {
+  static Future<void> slideTo({
+    PageController controller,
+    int toIndex,
+  }) async {
 
-  if (slidingController.positions.length > 0 && slidingController.position.extentAfter == 0.0) {
-    await slidingController.animateToPage(currentSlide,
-        duration: Ratioz.durationSliding400, curve: Curves.easeInOutCirc);
-  }
+  // if (slidingController.positions.length > 0 && slidingController.position.extentAfter == 0.0) {
+    await controller.animateToPage(toIndex,
+        duration: Ratioz.duration1000ms, curve: Curves.easeInOutCirc);
+  // }
 }
 // -----------------------------------------------------------------------------
   static Future<void> snapTo(PageController slidingController, int currentSlide) async {
@@ -98,7 +101,7 @@ class Sliders{
   // print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> before slidingAction');
     slidingDecision(numberOfSlides, currentSlide) == SwipeDirection.next ? await slideToNext(slidingController, numberOfSlides, currentSlide) :
     slidingDecision(numberOfSlides, currentSlide) == SwipeDirection.back ? await slideToBackFrom(slidingController, currentSlide) :
-    slidingDecision(numberOfSlides, currentSlide) == SwipeDirection.freeze ? await slideTo(slidingController, currentSlide,)
+    slidingDecision(numberOfSlides, currentSlide) == SwipeDirection.freeze ? await Sliders.slideTo(controller: slidingController, toIndex: currentSlide)
         :
     print('no sliding possible ');
     // print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> after slidingAction');

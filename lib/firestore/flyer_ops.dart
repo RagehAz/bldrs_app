@@ -231,6 +231,8 @@ class FlyerOps{
             inputFile: slide.picture,
           );
 
+          ImageSize _imageSize = await Imagers.superImageSize(slide.picture);
+
           print('a - slide ${slide.slideIndex} got this URL : $_newPicURL');
 
           /// b - recreate SlideModel with new pic URL
@@ -243,6 +245,8 @@ class FlyerOps{
             sharesCount : slide.sharesCount,
             viewsCount : slide.viewsCount,
             savesCount : slide.savesCount,
+            imageSize: _imageSize,
+            boxFit: slide.boxFit,
           );
 
           /// c - add the updated slide into finalSlides

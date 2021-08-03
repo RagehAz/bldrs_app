@@ -165,7 +165,6 @@ class FlyerFooter extends StatelessWidget {
                 child: FooterButton(
                   icon: Iconz.Share, /// TASK : let share icon point outwards the flyer pointing to outside the phone
                   flyerZoneWidth: flyerZoneWidth,
-                  isOn: false,
                   onTap: onShareTap,
                   verse: _shareBTVerse,
                 ),

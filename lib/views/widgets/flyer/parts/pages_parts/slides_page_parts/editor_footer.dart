@@ -1,4 +1,6 @@
 import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/controllers/theme/standards.dart';
+import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/super_flyer.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/footer.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/footer_parts/footer_button.dart';
@@ -12,7 +14,7 @@ class EditorFooter extends StatelessWidget {
   final Function onResetImage;
   final Function onFitImage;
   final BoxFit currentPicFit;
-  final int numberOdSlides;
+  final int numberOfSlides;
   final SuperFlyer superFlyer;
 
   EditorFooter({
@@ -23,7 +25,7 @@ class EditorFooter extends StatelessWidget {
     @required this.onResetImage,
     @required this.onFitImage,
     @required this.currentPicFit,
-    @required this.numberOdSlides,
+    @required this.numberOfSlides,
     @required this.superFlyer,
   });
 
@@ -42,8 +44,14 @@ class EditorFooter extends StatelessWidget {
     double _sumOfButtons = flyerZoneWidth - _sumOfSpacings;
     double _fittingButtonSize = _sumOfButtons / _numberOfButtons;
 
-    bool _buttonInActive = numberOdSlides == 0 ? true : false;
+    bool _flyerHasNoSlides = numberOfSlides == 0 ? true : false;
 
+
+    bool _addSlidesButtonInActiveMode = Standards.canAddMoreSlides(superFlyer: superFlyer) == true ? false : true;
+    bool _deleteSlideButtonInActiveMode = Standards.canDeleteSlide(superFlyer: superFlyer) == true ? false : true;
+    bool _cropButtonInActiveMode = _flyerHasNoSlides;
+    bool _resetButtonInActiveMode = _flyerHasNoSlides;
+    bool _fitButtonInActiveMode = _flyerHasNoSlides;
 
     // --- FLYER FOOTER
     return Align(
@@ -70,9 +78,9 @@ class EditorFooter extends StatelessWidget {
                   verse: 'Add',
                   icon: Iconz.Plus,
                   flyerZoneWidth: flyerZoneWidth,
-                  isOn: false,
                   onTap: onAddImages,
                   size: _fittingButtonSize,
+                  inActiveMode: _addSlidesButtonInActiveMode,
                 ),
 
                 /// DELETE SLIDE
@@ -80,10 +88,9 @@ class EditorFooter extends StatelessWidget {
                   verse: 'Delete',
                   icon: Iconz.XSmall,
                   flyerZoneWidth: flyerZoneWidth,
-                  isOn: false,
                   onTap: onDeleteSlide,
                   size: _fittingButtonSize,
-                  inActive: _buttonInActive,
+                  inActiveMode: _deleteSlideButtonInActiveMode,
                 ),
 
                 /// CROP IMAGE
@@ -91,10 +98,9 @@ class EditorFooter extends StatelessWidget {
                   verse: 'Crop',
                   icon: Iconz.BxDesignsOff,
                   flyerZoneWidth: flyerZoneWidth,
-                  isOn: false,
                   onTap: onCropImage,
                   size: _fittingButtonSize,
-                  inActive: _buttonInActive,
+                  inActiveMode: _cropButtonInActiveMode,
                 ),
 
                 /// RESET IMAGE
@@ -102,10 +108,9 @@ class EditorFooter extends StatelessWidget {
                   verse: 'Reset',
                   icon: Iconz.Clock,
                   flyerZoneWidth: flyerZoneWidth,
-                  isOn: false,
                   onTap: onResetImage,
                   size: _fittingButtonSize,
-                  inActive: _buttonInActive,
+                  inActiveMode: _resetButtonInActiveMode,
                 ),
 
                 /// FIT IMAGES
@@ -113,10 +118,9 @@ class EditorFooter extends StatelessWidget {
                   verse: 'Fit',
                   icon: currentPicFit == BoxFit.fitWidth ? Iconz.ArrowRight : currentPicFit == BoxFit.fitHeight ? Iconz.ArrowUp : Iconz.DashBoard,
                   flyerZoneWidth: flyerZoneWidth,
-                  isOn: false,
                   onTap: superFlyer.onFitImage, //onFitImage,
                   size: _fittingButtonSize,
-                  inActive: _buttonInActive,
+                  inActiveMode: _fitButtonInActiveMode,
                 ),
 
 

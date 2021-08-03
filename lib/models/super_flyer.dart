@@ -1,5 +1,7 @@
 import 'dart:io';
 import 'package:bldrs/controllers/drafters/animators.dart';
+import 'package:bldrs/controllers/drafters/numberers.dart';
+import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/controllers/drafters/sliders.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/firestore/auth_ops.dart';
@@ -141,7 +143,7 @@ class SuperFlyer{
   FlyerState flyerState;
   TinyUser flyerTinyAuthor;
   bool flyerShowsAuthor;
-  List<SlideModel> slides;
+  List<MutableSlide> mutableSlides;
 
   /// flyer tags
   String flyerInfo;
@@ -275,7 +277,7 @@ class SuperFlyer{
     @required this.flyerState,
     @required this.flyerTinyAuthor,
     @required this.flyerShowsAuthor,
-    @required this.slides,
+    @required this.mutableSlides,
 
     /// flyer tags
     @required this.flyerInfo,
@@ -414,7 +416,7 @@ class SuperFlyer{
           flyerState: null,
           flyerTinyAuthor: null,
           flyerShowsAuthor: null,
-          slides: null,
+          mutableSlides: null,
 
           /// flyer tags
           flyerInfo: null,
@@ -573,7 +575,7 @@ class SuperFlyer{
         flyerState: flyerModel.flyerState,
         flyerTinyAuthor: flyerModel.tinyAuthor,
         flyerShowsAuthor: flyerModel.flyerShowsAuthor,
-        slides: flyerModel.slides,
+        mutableSlides: MutableSlide.getMutableSlidesFromSlidesModels(flyerModel.slides),
 
         /// flyer tags
         flyerInfo: flyerModel.info,
@@ -724,8 +726,8 @@ class SuperFlyer{
         flyerState: null,
         flyerTinyAuthor: null,
         flyerShowsAuthor: null,
-        slides: <SlideModel>[
-          SlideModel(
+        mutableSlides: <MutableSlide>[
+          MutableSlide(
             picture: tinyFlyer.slidePic,
             headline: null, /// TASK : should reconsider slide headlines in tinyFlyers
             description: null,
@@ -734,6 +736,7 @@ class SuperFlyer{
             sharesCount: null,
             slideIndex: 0,
             viewsCount: null,
+            imageSize: null,
           ),
         ],
 
@@ -846,8 +849,6 @@ class SuperFlyer{
         onUnPublishFlyer: onUnPublishFlyer,
         onRepublishFlyer: onRepublishFlyer,
 
-
-
         /// editor data
         firstTimer: true,
         editMode: true,
@@ -910,7 +911,7 @@ class SuperFlyer{
         flyerState: FlyerState.Draft,
         flyerTinyAuthor: TinyUser.getTinyAuthorFromBzModel(bzModel: bzModel, authorID: superUserID()),
         flyerShowsAuthor: FlyerModel.canFlyerShowAuthor(bzModel: bzModel),
-        slides: new List(),
+        mutableSlides: new List(),
 
         /// flyer tags
         flyerInfo: null,
@@ -1030,7 +1031,7 @@ class SuperFlyer{
         headlinesControllers: FlyerModel.createHeadlinesControllersForExistingFlyer(flyerModel),
         descriptionsControllers: FlyerModel.createDescriptionsControllersForExistingFlyer(flyerModel),
         infoController: new TextEditingController(text: flyerModel.info),
-        assetsSources: await SlideModel.getImageAssetsFromPublishedSlides(flyerModel.slides),
+        assetsSources: new List(),//await SlideModel.getImageAssetsFromPublishedSlides(flyerModel.slides),
         assetsFiles: await SlideModel.getImageFilesFromPublishedSlides(flyerModel.slides),
         boxesFits: SlideModel.getSlidesBoxFits(flyerModel.slides),
 
@@ -1086,7 +1087,7 @@ class SuperFlyer{
         flyerState: flyerModel.flyerState,
         flyerTinyAuthor: flyerModel.tinyAuthor,
         flyerShowsAuthor: flyerModel.flyerShowsAuthor,
-        slides: flyerModel.slides,
+        mutableSlides: MutableSlide.getMutableSlidesFromSlidesModels(flyerModel.slides),
 
         /// flyer tags
         flyerInfo: flyerModel.info,
@@ -1244,7 +1245,7 @@ static SuperFlyer getSuperFlyerFromBzModelOnly({
         flyerState: null,
         flyerTinyAuthor: null,
         flyerShowsAuthor: null,
-        slides: null,
+        mutableSlides: null,
 
         /// flyer tags
         flyerInfo: null,
@@ -1279,6 +1280,29 @@ static SuperFlyer getSuperFlyerFromBzModelOnly({
 //   }
 // // -----------------------------------------------------------------------------
 
+// -----------------------------------------------------------------------------
+static Asset getAssetFromDynamicBaby(dynamic input){
+  Asset _asset;
+    if(ObjectChecker.objectIsAsset(input)){
+       _asset = input;
+    }
 
+    return _asset;
+}
+// -----------------------------------------------------------------------------
+static List<Asset> getAssetsFromDynamicsBaby(List<dynamic> inputs){
+    List<Asset> _assets = new List();
+
+    if(inputs != null){
+      if(inputs.length > 0){
+        for (var x in inputs){
+          _assets.add(getAssetFromDynamicBaby(x));
+        }
+      }
+    }
+
+    return _assets;
+}
+// -----------------------------------------------------------------------------
 }
 
