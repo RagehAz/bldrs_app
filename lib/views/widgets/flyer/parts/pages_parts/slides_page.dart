@@ -14,6 +14,8 @@ class SlidesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    print('B---> SlidesPage : numberOfSlides : ${superFlyer.numberOfSlides}');
     return Stack(
       children: <Widget>[
 
@@ -43,7 +45,7 @@ class SlidesPage extends StatelessWidget {
             onCropImage: superFlyer.onCropImage,
             onResetImage: superFlyer.onResetImage,
             onFitImage: superFlyer.onFitImage,
-            numberOdSlides: superFlyer.numberOfSlides,
+            numberOfSlides: superFlyer.numberOfSlides,
             superFlyer: superFlyer,
           ),
 
