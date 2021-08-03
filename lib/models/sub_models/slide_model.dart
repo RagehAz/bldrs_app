@@ -50,12 +50,16 @@ class MutableSlide extends SlideModel{
   static List<MutableSlide> getMutableSlidesFromSlidesModels(List<SlideModel> slides) {
     List<MutableSlide> _slides = new List();
 
-    for (SlideModel slide in slides){
+    if(slides != null){
+      for (SlideModel slide in slides){
 
-      MutableSlide _mutableSlide = getMutableSlideFromSlideModel(slide);
+        MutableSlide _mutableSlide = getMutableSlideFromSlideModel(slide);
 
-      _slides.add(_mutableSlide);
+        _slides.add(_mutableSlide);
+      }
+
     }
+
 
     return _slides;
   }
@@ -328,7 +332,7 @@ class SlideModel {
 
     return _files;
   }
-
+// -----------------------------------------------------------------------------
   static Future <List<Asset>> getImageAssetsFromPublishedSlides(List<SlideModel> slides) async {
     List<Asset> _assets = new List();
 

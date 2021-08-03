@@ -72,7 +72,7 @@ class SingleSlide extends StatelessWidget {
     this.autoFocus,
     @required this.onTap,
     Key key,
-  }) : super(key: key);
+  });
 // -----------------------------------------------------------------------------
   void _onBehindSlideImageTap(BuildContext context, bool tinyMode){
 

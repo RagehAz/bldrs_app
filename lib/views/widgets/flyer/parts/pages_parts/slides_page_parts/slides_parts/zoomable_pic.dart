@@ -17,7 +17,7 @@ class ZoomablePicture extends StatefulWidget {
     this.isFullScreen = false,
     @required this.onTap,
     Key key
-  }) : super(key: key);
+  });
 
   @override
   _ZoomablePictureState createState() => _ZoomablePictureState();

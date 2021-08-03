@@ -28,7 +28,7 @@ class FooterButton extends StatelessWidget {
 
     this.isOn = false,
     Key key
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

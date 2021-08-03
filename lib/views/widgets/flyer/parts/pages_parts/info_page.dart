@@ -29,7 +29,7 @@ class InfoPage extends StatelessWidget {
   const InfoPage({
     @required this.superFlyer,
     Key key,
-  }) : super(key: key);
+  });
 
   List<TinyUser> _getUsers(){
 
