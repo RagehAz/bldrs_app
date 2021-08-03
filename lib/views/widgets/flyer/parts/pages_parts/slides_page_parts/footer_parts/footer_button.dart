@@ -9,22 +9,24 @@ import 'package:flutter/material.dart';
 class FooterButton extends StatelessWidget {
   final String icon;
   final double flyerZoneWidth;
-  final bool isOn;
   final Function onTap;
   final String verse;
   final double size;
-  final bool inActive;
+  final bool inActiveMode;
+
+  /// needed for ankh button value
+  final bool isOn;
 
   const FooterButton({
     @required this.icon,
     @required this.flyerZoneWidth,
-    @required this.isOn,
     @required this.onTap,
     @required this.verse,
     /// initializing size value overrides all values and suppresses margins
     this.size,
-    this.inActive = false,
+    this.inActiveMode = false,
 
+    this.isOn = false,
     Key key
   }) : super(key: key);
 
@@ -51,9 +53,10 @@ class FooterButton extends StatelessWidget {
             height: _buttonSize,
             corners: _saveBTRadius,
             color: FlyerFooter.buttonColor(buttonIsOn: isOn),
-            onTap: onTap,
+            onTap: inActiveMode == true ? null : onTap,
             childAlignment: Alignment.topCenter,
-            inActiveMode: inActive,
+            inActiveMode: inActiveMode,
+            bubble: true,
             subChild:
             _tinyMode ? null :
             Container(
@@ -62,7 +65,7 @@ class FooterButton extends StatelessWidget {
               // color: Colorz.BloodTest,
               child: Imagers.superImageWidget(
                 icon,
-                iconColor: DreamBox.getIconColor(inActiveMode: inActive),
+                iconColor: DreamBox.getIconColor(inActiveMode: inActiveMode),
                 scale: 0.7,
               ),
             ),
@@ -78,7 +81,7 @@ class FooterButton extends StatelessWidget {
               weight: VerseWeight.bold,
               italic: false,
               scaleFactor: Scale.superFlyerSizeFactorByWidth(context, flyerZoneWidth),
-              color: DreamBox.getIconColor(inActiveMode: inActive, colorOverride: Colorz.White125),
+              color: DreamBox.getIconColor(inActiveMode: inActiveMode, colorOverride: Colorz.White125),
             ),
           ),
 

@@ -183,7 +183,7 @@ class TinyFlyer with ChangeNotifier{
       flyerType: superFlyer.flyerType,
       authorID: superFlyer.authorID,
       slideIndex: superFlyer.currentSlideIndex,
-      slidePic: superFlyer.slides[superFlyer.currentSlideIndex].picture,
+      slidePic: superFlyer.mutableSlides[superFlyer.currentSlideIndex].picture,
       flyerZone: superFlyer.flyerZone,
       tinyBz: TinyBz.getTinyBzFromSuperFlyer(superFlyer),
       picFit: superFlyer.currentPicFit,

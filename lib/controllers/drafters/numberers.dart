@@ -107,4 +107,14 @@ class Numberers {
     return ValueKey(_newValue);
   }
 // -----------------------------------------------------------------------------
+  static List<dynamic> createListWithDummyValue({@required int length, @required int value}){
+    List<dynamic> _dummies = new List();
+
+    for (int i = 0; i < length; i++){
+      _dummies.add(value);
+    }
+
+    return _dummies;
+  }
+// -----------------------------------------------------------------------------
 }

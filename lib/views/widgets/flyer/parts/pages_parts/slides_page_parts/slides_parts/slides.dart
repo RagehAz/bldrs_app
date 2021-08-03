@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/keyboarders.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
@@ -57,20 +59,20 @@ class Slides extends StatelessWidget {
           superFlyer.boxesFits == null ? null :
           superFlyer.boxesFits?.length == 0 ? null : superFlyer.boxesFits[superFlyer.currentSlideIndex];
 
-          ImageSize _originalAssetSize =
-          superFlyer.assetsSources == null ? null :
-          superFlyer.numberOfSlides == 0 ? null :
-          superFlyer.assetsSources.length == 0 ? null :
-          ImageSize(
-            width: superFlyer.assetsSources[superFlyer.currentSlideIndex].originalWidth,
-            height: superFlyer.assetsSources[superFlyer.currentSlideIndex].originalHeight,
-          );
+
+          // ImageSize _originalAssetSize =
+          // superFlyer.assetsFiles == null ? null :
+          // superFlyer.numberOfSlides == 0 ? null :
+          // superFlyer.assetsSources.length == 0 ? null :
+          //
+          // await Imagers.superImageSize(superFlyer.assetsFiles[superFlyer.currentSlideIndex]);
+
 
           dynamic _slidePic =
-          superFlyer.editMode == true ? superFlyer.assetsFiles[i] : superFlyer.slides[i].picture;
+          superFlyer.editMode == true ? superFlyer.assetsFiles[i] : superFlyer.mutableSlides[i].picture;
           // superFlyer.editMode ? superFlyer.assetsFiles[i] : superFlyer.slides[i].picture
 
-          String _slideTitle = superFlyer.editMode == true ? superFlyer.headlinesControllers[i].text : superFlyer.slides[i].headline ;
+          String _slideTitle = superFlyer.editMode == true ? superFlyer.headlinesControllers[i].text : superFlyer.mutableSlides[i].headline ;
 
           return
             superFlyer.numberOfSlides == 0 ? Container() :
@@ -92,7 +94,7 @@ class Slides extends StatelessWidget {
                     boxFit: _currentPicFit, // [fitWidth - contain - scaleDown] have the blur background
                     titleController: superFlyer.editMode == true ? superFlyer.headlinesControllers[i] : null,
                     title: _slideTitle,
-                    imageSize: _originalAssetSize,
+                    imageSize: superFlyer.mutableSlides[i].imageSize,
                     textFieldOnChanged: (text){
                       print('text is : $text');
                     },
@@ -102,9 +104,9 @@ class Slides extends StatelessWidget {
                   if (superFlyer.editMode != true)
                     FlyerFooter(
                       flyerZoneWidth: superFlyer.flyerZoneWidth,
-                      saves: superFlyer.firstTimer == true ? 0 : superFlyer.slides[superFlyer.currentSlideIndex].savesCount,
-                      shares: superFlyer.firstTimer == true? 0 : superFlyer.slides[superFlyer.currentSlideIndex].sharesCount,
-                      views: superFlyer.firstTimer == true ? 0 : superFlyer.slides[superFlyer.currentSlideIndex].viewsCount,
+                      saves: superFlyer.firstTimer == true ? 0 : superFlyer.mutableSlides[superFlyer.currentSlideIndex].savesCount,
+                      shares: superFlyer.firstTimer == true? 0 : superFlyer.mutableSlides[superFlyer.currentSlideIndex].sharesCount,
+                      views: superFlyer.firstTimer == true ? 0 : superFlyer.mutableSlides[superFlyer.currentSlideIndex].viewsCount,
                       onShareTap: () => superFlyer.onShareTap(),
                       onCountersTap: (){print('tapping slide counter');},
                     ),

@@ -1,6 +1,7 @@
 
 
 import 'package:bldrs/models/bz_model.dart';
+import 'package:bldrs/models/super_flyer.dart';
 
 class Standards{
 // -----------------------------------------------------------------------------
@@ -22,5 +23,35 @@ class Standards{
     }
 
   }
+// -----------------------------------------------------------------------------
+  static bool canAddMoreSlides({SuperFlyer superFlyer}){
+    bool _canAdd = false;
+
+    if (superFlyer != null){
+      int _maxSlides = getMaxSlidesCount(superFlyer.accountType);
+      int _numberOfSlides = superFlyer.assetsFiles.length;
+
+      if (_numberOfSlides < _maxSlides){
+        _canAdd = true;
+      }
+    }
+
+    return _canAdd;
+  }
+// -----------------------------------------------------------------------------
+static bool canDeleteSlide({SuperFlyer superFlyer}){
+    bool _canDelete = false;
+
+    if (superFlyer != null){
+      if(superFlyer.numberOfSlides != 0){
+        // if(superFlyer.firstTimer == true){
+          _canDelete = true;
+        // }
+      }
+    }
+
+
+    return _canDelete;
+}
 // -----------------------------------------------------------------------------
 }

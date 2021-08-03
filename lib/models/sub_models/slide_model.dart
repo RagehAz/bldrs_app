@@ -2,10 +2,116 @@ import 'dart:io';
 
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/numberers.dart';
+import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 // -----------------------------------------------------------------------------
+class MutableSlide extends SlideModel{
+  int slideIndex;
+  dynamic picture;
+  String headline;
+  String description;
+  int sharesCount;
+  int viewsCount;
+  int savesCount;
+  BoxFit boxFit;
+  ImageSize imageSize;
+
+  MutableSlide({
+    this.slideIndex,
+    this.picture,
+    this.headline,
+    this.description,
+    this.sharesCount,
+    this.viewsCount,
+    this.savesCount,
+    this.boxFit, /// TASK : update all methods below to include this boxfit parameter
+    @required this.imageSize,
+  });
+// -----------------------------------------------------------------------------
+  static MutableSlide getMutableSlideFromSlideModel(SlideModel slide) {
+    // --------------------------------------------------------o
+      return
+      MutableSlide(
+        slideIndex : slide.slideIndex,
+        picture : slide.picture,
+        headline : slide.headline,
+        description : slide.description,
+        // -------------------------
+        sharesCount : slide.sharesCount,
+        viewsCount : slide.viewsCount,
+        savesCount : slide.savesCount,
+        imageSize: slide.imageSize,
+        boxFit: slide.boxFit,
+      );
+  }
+// -----------------------------------------------------------------------------
+  static List<MutableSlide> getMutableSlidesFromSlidesModels(List<SlideModel> slides) {
+    List<MutableSlide> _slides = new List();
+
+    for (SlideModel slide in slides){
+
+      MutableSlide _mutableSlide = getMutableSlideFromSlideModel(slide);
+
+      _slides.add(_mutableSlide);
+    }
+
+    return _slides;
+  }
+// -----------------------------------------------------------------------------
+  static MutableSlide createMutableSlideFromFile({File file, int index}) {
+
+    // ImageSize _imageSize = await Imagers.superImageSize(file);
+
+    return
+        MutableSlide(
+          slideIndex : index,
+          picture : file,
+          headline : null,
+          description : null,
+          // -------------------------
+          sharesCount : null,
+          viewsCount : null,
+          savesCount : null,
+          imageSize: null,
+          boxFit: null,
+        );
+  }
+// -----------------------------------------------------------------------------
+  /// mutable slides pics object types will look like [File, File, File, Asset, Asset, Asset]
+  /// while assets list can't include null values or empty assets, so its list would be [Asset, Asset, Asset]
+  /// so
+  /// when deleting slide index 4, we need to figure that asset true index is 1
+  /// by saying : trueIndex = ( 4 - 3 ) = ( slideIndex - numberOfFiles )
+  /// A - search for first slide where its picture of object type asset
+  /// B - when found
+  ///   C - get number of slides with files
+  ///   C - conclude true index
+  /// B - when not found, return null
+  static int getAssetTrueIndexFromMutableSlides({List<MutableSlide> mutableSlides,int slideIndex }){
+    int _trueIndex;
+
+    /// A - search for first slide where its picture of object type asset
+    MutableSlide _firstSlideWithAssetPicture = mutableSlides.firstWhere((slide) => ObjectChecker.objectIsAsset(slide.picture) == true, orElse: ()=> null);
+
+    /// B - when found
+    if(_firstSlideWithAssetPicture != null){
+
+      /// C - get number of slides with files
+      int _firstAssetIndex = _firstSlideWithAssetPicture.slideIndex;
+      int _numberOfFiles = _firstAssetIndex;
+
+      /// C - conclude true index
+      _trueIndex = slideIndex - _numberOfFiles;
+    }
+
+    /// B - when not found, return null
+    return _trueIndex;
+  }
+// -----------------------------------------------------------------------------
+}
+
 class SlideModel {
   final int slideIndex;
   final dynamic picture;
@@ -15,16 +121,18 @@ class SlideModel {
   int viewsCount;
   int savesCount;
   BoxFit boxFit;
+  ImageSize imageSize;
 
   SlideModel({
     this.slideIndex,
     this.picture,
     this.headline,
-    this.description,
+    @required this.description,
     this.sharesCount,
     this.viewsCount,
     this.savesCount,
-    this.boxFit, /// TASK : update all methods below to include this boxfit parameter
+    @required this.boxFit, /// TASK : update all methods below to include this boxfit parameter
+    @required this.imageSize,
   });
   // -------------------------
   Map<String, dynamic> toMap() {
@@ -36,6 +144,8 @@ class SlideModel {
       'sharesCount': sharesCount,
       'viewsCount': viewsCount,
       'savesCount': savesCount,
+      'boxFit' : cipherBoxFit(boxFit),
+      'imageSize' : imageSize.toMap(),
     };
   }
 // -------------------------
@@ -49,6 +159,8 @@ class SlideModel {
       sharesCount : sharesCount,
       viewsCount : viewsCount,
       savesCount : savesCount,
+      imageSize: imageSize,
+      boxFit: boxFit,
     );
   }
 // -------------------------
@@ -126,6 +238,8 @@ class SlideModel {
       sharesCount : map['sharesCount'],
       viewsCount : map['viewsCount'],
       savesCount : map['savesCount'],
+      boxFit: decipherBoxFit(map['boxFit']),
+      imageSize: ImageSize.decipherImageSize(map['imageSize']),
     );
   }
 // -----------------------------------------------------------------------------
@@ -169,6 +283,8 @@ class SlideModel {
         savesCount: inputSlides[i].savesCount,
         sharesCount: inputSlides[i].sharesCount,
         viewsCount: inputSlides[i].viewsCount,
+        imageSize: inputSlides[i].imageSize,
+        boxFit: inputSlides[i].boxFit,
       );
 
       _outputSlides.add(_newSlide);
@@ -276,4 +392,31 @@ class SlideModel {
     return _visibilityList;
   }
 // -----------------------------------------------------------------------------
+  static int cipherBoxFit(BoxFit boxFit){
+    switch (boxFit){
+      case BoxFit.fitHeight       :    return  1;  break;
+      case BoxFit.fitWidth        :    return  2;  break;
+      case BoxFit.cover           :    return  3;  break;
+      case BoxFit.none            :    return  4;  break;
+      case BoxFit.fill            :    return  5;  break;
+      case BoxFit.scaleDown       :    return  6;  break;
+      case BoxFit.contain         :    return  7;  break;
+      default : return null;
+    }
+  }
+// -----------------------------------------------------------------------------
+  static BoxFit decipherBoxFit(int boxFit){
+    switch (boxFit){
+      case 1 : return BoxFit.fitHeight       ;
+      case 2 : return BoxFit.fitWidth        ;
+      case 3 : return BoxFit.cover           ;
+      case 4 : return BoxFit.none            ;
+      case 5 : return BoxFit.fill            ;
+      case 6 : return BoxFit.scaleDown       ;
+      case 7 : return BoxFit.contain         ;
+      default : return null;
+    }
+  }
+// -----------------------------------------------------------------------------
+
 }

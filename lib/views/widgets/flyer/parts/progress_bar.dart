@@ -27,19 +27,18 @@ class ProgressBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    print('building progress bar');
+    print('B---> ProgressBar : numberOfSlides : ${superFlyer.numberOfSlides}');
 
     return Container(
       width: flyerZoneWidth,
       child: AnimatedOpacity(
         duration: Ratioz.durationFading200,
-        opacity: superFlyer.progressBarOpacity == null ? 1 : superFlyer.progressBarOpacity,
+        opacity: superFlyer?.progressBarOpacity == null ? 1 : superFlyer.progressBarOpacity,
         child:
 
         // superFlyer.loading == true ?
         loading == true || superFlyer?.numberOfStrips == null?
-        Strips.progressBox(
-              context: context,
+        ProgressBox(
               flyerZoneWidth: flyerZoneWidth,
               margins: null,
               strips: <Widget>[
@@ -61,15 +60,16 @@ class ProgressBar extends StatelessWidget {
             )
 
             :
-
-        superFlyer.numberOfSlides > 0?
+        Strips.canBuildStrips(superFlyer?.numberOfStrips) == true?
         Strips(
           flyerZoneWidth: flyerZoneWidth,
           numberOfStrips: superFlyer.numberOfStrips,
           slideIndex: superFlyer.currentSlideIndex,
           swipeDirection: superFlyer.swipeDirection,
         )
+
               :
+
         Container(),
       ),
     );
