@@ -1,10 +1,8 @@
-import 'package:bldrs/controllers/drafters/object_checkers.dart';
+import 'package:bldrs/controllers/router/route_names.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:bldrs/views/screens/h_0_flyer_screen.dart';
-import 'package:bldrs/views/screens/x_0_flyer_editor_screen.dart';
 import 'package:flutter/material.dart';
-import 'route_names.dart';
 import 'package:page_transition/page_transition.dart';
 
 class Nav{

@@ -412,6 +412,9 @@ Future<FlyerModel> createNamedFlyersOps(BuildContext context, FlyerModel inputFl
     slides: _updatedSlides,
     flyerIsBanned: inputFlyerModel.flyerIsBanned,
     deletionTime: inputFlyerModel.deletionTime,
+    info: inputFlyerModel.info,
+    // times: inputFlyerModel.
+    specs: inputFlyerModel.specs,
   );
 
   print('5- flyer model updated with flyerID, flyerURL & updates slides pic URLs');

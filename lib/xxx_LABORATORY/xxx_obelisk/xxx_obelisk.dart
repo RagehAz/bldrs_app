@@ -15,7 +15,6 @@ import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:bldrs/views/widgets/textings/the_golden_scroll.dart';
 import 'package:bldrs/xxx_LABORATORY/animations/animations_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/animations/black_hole.dart';
-import 'package:bldrs/xxx_LABORATORY/animations/hero.dart';
 import 'package:bldrs/xxx_LABORATORY/firestore_test/storage_test.dart';
 import 'package:bldrs/xxx_LABORATORY/forms_and_inputs/popup.dart';
 import 'package:bldrs/xxx_LABORATORY/forms_and_inputs/form.dart';
@@ -26,7 +25,7 @@ import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/firebase_testing.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/flyer_test_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/random_test_space.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/slider_test.dart';
-import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x03_font_test_screen.dart';
+import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x03_font_lab.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x06_swiper_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x08_earth_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x10_pro_flyer_page_view.dart';
@@ -183,7 +182,7 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
 
           oButton('Storage testing', Iconz.ArrowDown, FireStorageTest()),
 
-          oButton('10 - Font lab', Iconz.Language, FontTestScreen()),
+          oButton('10 - Font lab', Iconz.Language, FontLab()),
 
           oButton('12 - Swiper Layout', Iconz.Gallery, SwiperScreen()),
 
