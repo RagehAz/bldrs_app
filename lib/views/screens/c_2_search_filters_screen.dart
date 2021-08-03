@@ -4,7 +4,6 @@ import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 
 class SearchFiltersScreen extends StatefulWidget {
-  const SearchFiltersScreen({Key key}) : super(key: key);
 
   @override
   _SearchFiltersScreenState createState() => _SearchFiltersScreenState();

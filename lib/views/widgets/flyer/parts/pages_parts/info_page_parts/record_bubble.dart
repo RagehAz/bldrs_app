@@ -17,7 +17,7 @@ class RecordBubble extends StatelessWidget {
     @required this.bubbleIcon,
     @required this.users,
     Key key
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

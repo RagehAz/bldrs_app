@@ -31,11 +31,19 @@ class TextChecker{
     return controllerIsEmpty;
   }
 // -----------------------------------------------------------------------------
+  static void disposeControllerIfPossible(TextEditingController controller){
+    if(controller != null){
+      if(TextChecker.textControllerHasNoValue(controller) == true){
+        controller.dispose();
+      }
+    }
+  }
+
   static void disposeAllTextControllers(List<TextEditingController> controllers){
 
     if(controllers != null){
       controllers.forEach((controller) {
-        if (TextChecker.textControllerHasNoValue(controller))controller.dispose();
+        disposeControllerIfPossible(controller);
       });
     }
 

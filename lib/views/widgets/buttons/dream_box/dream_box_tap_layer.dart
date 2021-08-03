@@ -21,7 +21,7 @@ class DreamBoxTapLayer extends StatelessWidget {
     @required this.onTapCancel,
     @required this.inActiveMode,
     Key key,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

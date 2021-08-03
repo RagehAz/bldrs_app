@@ -13,7 +13,7 @@ class DreamBoxHighlight extends StatelessWidget {
     @required this.height,
     @required this.corners,
     Key key,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

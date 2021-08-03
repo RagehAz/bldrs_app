@@ -14,7 +14,7 @@ class FiltersPage extends StatelessWidget {
     @required this.filtersModels,
     @required this.onTap,
     @required this.selectedFilter,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
