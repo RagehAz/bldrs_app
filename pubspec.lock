@@ -686,6 +686,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.1.5"
+  screenshot:
+    dependency: "direct main"
+    description:
+      name: screenshot
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.3.0"
   scroll_snap_list:
     dependency: "direct main"
     description:

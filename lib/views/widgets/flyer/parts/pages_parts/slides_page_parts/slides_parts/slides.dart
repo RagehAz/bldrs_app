@@ -6,6 +6,7 @@ import 'package:bldrs/models/super_flyer.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/footer.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/slides_parts/single_slide.dart';
 import 'package:flutter/material.dart';
+import 'package:screenshot/screenshot.dart';
 
 class Slides extends StatelessWidget {
   final SuperFlyer superFlyer;
@@ -53,8 +54,8 @@ class Slides extends StatelessWidget {
           // print('========= BUILDING PROGRESS BAR FOR ||| index : $draft.currentSlideIndex, numberOfSlides : $draft.numberOfSlides');
 
           BoxFit _currentPicFit =
-          superFlyer.boxesFits == null ? null :
-          superFlyer.boxesFits?.length == 0 ? null : superFlyer.boxesFits[superFlyer.currentSlideIndex];
+          superFlyer.mutableSlides == null ? null :
+          superFlyer.mutableSlides.length == 0 ? null : superFlyer.mutableSlides[superFlyer.currentSlideIndex].boxFit;
 
 
           // ImageSize _originalAssetSize =
@@ -80,22 +81,29 @@ class Slides extends StatelessWidget {
               child: Stack(
                 children: <Widget>[
 
-                  SingleSlide(
-                    superFlyer: superFlyer,
-                    flyerZoneWidth: superFlyer.flyerZoneWidth,
-                    slideIndex: i,
-                    // key: ObjectKey('${superFlyer.key.value}${i}'),
-                    flyerID: superFlyer.flyerID, //_flyer.flyerID,
-                    picture: _slidePic,
-                    // slideMode: superFlyer.editMode ? SlideMode.Editor : SlideMode.View,//slidesModes[index],
-                    boxFit: _currentPicFit, // [fitWidth - contain - scaleDown] have the blur background
-                    titleController: superFlyer.editMode == true ? superFlyer.headlinesControllers[i] : null,
-                    title: _slideTitle,
-                    imageSize: superFlyer.mutableSlides[i].imageSize,
-                    textFieldOnChanged: (text){
-                      print('text is : $text');
-                    },
-                    onTap: () => _onSingleSlideTap(context),
+                  Screenshot(
+                    controller: superFlyer.screenshotsControllers == null ? null : superFlyer.screenshotsControllers[i],
+                    child: SingleSlide(
+                      superFlyer: superFlyer,
+                      flyerZoneWidth: superFlyer.flyerZoneWidth,
+                      slideIndex: i,
+                      // key: ObjectKey('${superFlyer.key.value}${i}'),
+                      flyerID: superFlyer.flyerID, //_flyer.flyerID,
+                      picture: _slidePic,
+                      // slideMode: superFlyer.editMode ? SlideMode.Editor : SlideMode.View,//slidesModes[index],
+                      boxFit: _currentPicFit, // [fitWidth - contain - scaleDown] have the blur background
+                      titleController: superFlyer.editMode == true ? superFlyer.headlinesControllers[i] : null,
+                      title: _slideTitle,
+                      imageSize: superFlyer.mutableSlides[i].imageSize,
+                      slideColor: superFlyer.mutableSlides[i].midColor,
+                      views: superFlyer.mutableSlides[i].viewsCount,
+                      saves: superFlyer.mutableSlides[i].savesCount,
+                      shares: superFlyer.mutableSlides[i].sharesCount,
+                      textFieldOnChanged: (text){
+                        print('text is : $text');
+                      },
+                      onTap: () => _onSingleSlideTap(context),
+                    ),
                   ),
 
                   if (superFlyer.editMode != true)

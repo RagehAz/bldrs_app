@@ -1,5 +1,7 @@
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:bldrs/controllers/drafters/animators.dart';
+import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/controllers/drafters/sliders.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
@@ -23,6 +25,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:provider/provider.dart';
+import 'package:screenshot/screenshot.dart';
 
 /// need to add
 /// string mapImageURL
@@ -86,9 +89,10 @@ class SuperFlyer{
   List<TextEditingController> headlinesControllers;
   List<TextEditingController> descriptionsControllers;
   TextEditingController infoController;
+  List<ScreenshotController> screenshotsControllers;
+  List<Uint8List> screenShots;
   List<Asset> assetsSources;
   List<File> assetsFiles;
-  List<BoxFit> boxesFits;
 
   /// slides settings
   List<bool> slidesVisibilities;
@@ -220,9 +224,10 @@ class SuperFlyer{
     @required this.headlinesControllers,
     @required this.descriptionsControllers,
     @required this.infoController,
+    @required this.screenshotsControllers,
+    @required this.screenShots,
     @required this.assetsSources,
     @required this.assetsFiles,
-    @required this.boxesFits,
 
     /// slides settings
     @required this.slidesVisibilities,
@@ -359,9 +364,10 @@ class SuperFlyer{
           headlinesControllers: null,
           descriptionsControllers: null,
           infoController: null,
+          screenshotsControllers: null,
+          screenShots: null,
           assetsSources: null,
           assetsFiles: null,
-          boxesFits: null,
 
           /// slides settings
           slidesVisibilities: null,
@@ -518,9 +524,10 @@ class SuperFlyer{
         headlinesControllers: null,
         descriptionsControllers: null,
         infoController: null,
+        screenshotsControllers: null,
+        screenShots: null,
         assetsSources: null,
         assetsFiles: null,
-        boxesFits: SlideModel.getSlidesBoxFits(flyerModel.slides),
 
         /// slides settings
         slidesVisibilities: Animators.createSlidesVisibilityList(flyerModel.slides.length),
@@ -669,9 +676,10 @@ class SuperFlyer{
         headlinesControllers: null,
         descriptionsControllers: null,
         infoController: null,
+        screenshotsControllers: null,
+        screenShots: null,
         assetsSources: null,
         assetsFiles: null,
-        boxesFits: null,
 
         /// slides settings
         slidesVisibilities: <bool>[true],
@@ -736,6 +744,7 @@ class SuperFlyer{
             slideIndex: 0,
             viewsCount: null,
             imageSize: null,
+            midColor: tinyFlyer.midColor,
           ),
         ],
 
@@ -854,9 +863,10 @@ class SuperFlyer{
         headlinesControllers: new List(),
         descriptionsControllers: new List(),
         infoController: new TextEditingController(),
+        screenshotsControllers: new List(),
+        screenShots: new List(),
         assetsSources: new List(),
         assetsFiles: new List(),
-        boxesFits: new List(),
 
         /// slides settings
         slidesVisibilities: new List(),
@@ -970,6 +980,8 @@ class SuperFlyer{
 
     print('CREATING draft super flyer from FLYER : ${flyerModel.flyerID} for bz  : ${bzModel.bzName} : id : ${bzModel.bzID}');
 
+    List<File> _assetsFiles = await SlideModel.getImageFilesFromPublishedSlides(flyerModel.slides);
+
     return
       SuperFlyer(
         /// sizes
@@ -1030,9 +1042,10 @@ class SuperFlyer{
         headlinesControllers: FlyerModel.createHeadlinesControllersForExistingFlyer(flyerModel),
         descriptionsControllers: FlyerModel.createDescriptionsControllersForExistingFlyer(flyerModel),
         infoController: new TextEditingController(text: flyerModel.info),
+        screenshotsControllers: FlyerModel.createScreenShotsControllersForExistingFlyer(flyerModel),
+        screenShots: await Imagers.getScreenShotsFromFiles(_assetsFiles),
         assetsSources: new List(),//await SlideModel.getImageAssetsFromPublishedSlides(flyerModel.slides),
-        assetsFiles: await SlideModel.getImageFilesFromPublishedSlides(flyerModel.slides),
-        boxesFits: SlideModel.getSlidesBoxFits(flyerModel.slides),
+        assetsFiles: _assetsFiles,
 
         /// slides settings
         slidesVisibilities: SlideModel.createVisibilityListFromSlides(flyerModel.slides),
@@ -1188,9 +1201,10 @@ static SuperFlyer getSuperFlyerFromBzModelOnly({
         headlinesControllers: null,
         descriptionsControllers: null,
         infoController: null,
+        screenshotsControllers: null,
+        screenShots: null,
         assetsSources: null,
         assetsFiles: null,
-        boxesFits: null,
 
         /// slides settings
         slidesVisibilities: null,
@@ -1279,29 +1293,5 @@ static SuperFlyer getSuperFlyerFromBzModelOnly({
 //   }
 // // -----------------------------------------------------------------------------
 
-// -----------------------------------------------------------------------------
-static Asset getAssetFromDynamicBaby(dynamic input){
-  Asset _asset;
-    if(ObjectChecker.objectIsAsset(input)){
-       _asset = input;
-    }
-
-    return _asset;
-}
-// -----------------------------------------------------------------------------
-static List<Asset> getAssetsFromDynamicsBaby(List<dynamic> inputs){
-    List<Asset> _assets = new List();
-
-    if(inputs != null){
-      if(inputs.length > 0){
-        for (var x in inputs){
-          _assets.add(getAssetFromDynamicBaby(x));
-        }
-      }
-    }
-
-    return _assets;
-}
-// -----------------------------------------------------------------------------
 }
 

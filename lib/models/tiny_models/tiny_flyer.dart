@@ -1,6 +1,9 @@
+import 'package:bldrs/controllers/drafters/colorizers.dart';
+import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
+import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/sub_models/flyer_type_class.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/tiny_models/nano_flyer.dart';
@@ -19,6 +22,7 @@ class TinyFlyer with ChangeNotifier{
   final String slidePic;
   final Zone flyerZone;
   final BoxFit picFit;
+  final Color midColor;
   final List<dynamic> keywords;
 
   TinyFlyer({
@@ -29,6 +33,7 @@ class TinyFlyer with ChangeNotifier{
     @required this.slideIndex,
     @required this.slidePic,
     @required this.flyerZone,
+    @required this.midColor,
     this.keywords, /// TASK : integrate keywords in tiny flyers
     this.picFit, /// TASK : integrate this in all below methods
   });
@@ -42,6 +47,7 @@ class TinyFlyer with ChangeNotifier{
       'slideIndex' : slideIndex,
       'slidePic' : slidePic,
       'flyerZone' : flyerZone.toMap(),
+      'midColor' : Colorizer.cipherColor(midColor),
     };
   }
 // -----------------------------------------------------------------------------
@@ -78,6 +84,8 @@ class TinyFlyer with ChangeNotifier{
       slideIndex: map['slideIndex'],
       slidePic: map['slidePic'],
       flyerZone: Zone.decipherZoneMap(map['flyerZone']),
+      midColor: Colorizer.decipherColor(map['midColor']),
+      // keywords: Keyword.de
     );
   }
 // -----------------------------------------------------------------------------
@@ -88,8 +96,11 @@ class TinyFlyer with ChangeNotifier{
       authorID: flyerModel?.tinyAuthor?.userID,
       slideIndex: 0,
       slidePic: flyerModel == null ? null : flyerModel?.slides[0]?.picture,
+      midColor: flyerModel == null ? null : flyerModel?.slides[0]?.midColor,
+      picFit: flyerModel == null ? null : flyerModel?.slides[0]?.boxFit,
       tinyBz: flyerModel?.tinyBz,
       flyerZone: flyerModel?.flyerZone,
+      keywords: flyerModel?.keywords,
     );
   }
 // -----------------------------------------------------------------------------
@@ -119,6 +130,7 @@ class TinyFlyer with ChangeNotifier{
               slidePic: nano.slidePic,
               tinyBz: TinyBz.getTinyBzFromBzModel(bzModel),
               flyerZone: nano.flyerZone,
+              midColor: nano.midColor,
             )
         );
       }
@@ -156,13 +168,16 @@ class TinyFlyer with ChangeNotifier{
 // -----------------------------------------------------------------------------
   static TinyFlyer dummyTinyFlyer(String id){
     return TinyFlyer(
-        flyerID: id,
-        flyerType: FlyerType.Property,
-        authorID: 'dummyAuthor',
-        slideIndex: 0,
-        slidePic: Iconz.DumSlide1,
-        flyerZone: Zone(countryID: 'egy', cityID: 'cairo', districtID: 'heliopolis'),
-        tinyBz: TinyBz.dummyTinyBz('bzID'),
+      flyerID: id,
+      flyerType: FlyerType.Property,
+      authorID: 'dummyAuthor',
+      slideIndex: 0,
+      slidePic: Iconz.DumSlide1,
+      flyerZone: Zone(countryID: 'egy', cityID: 'cairo', districtID: 'heliopolis'),
+      tinyBz: TinyBz.dummyTinyBz('bzID'),
+      picFit: BoxFit.cover,
+      midColor: Colorz.Black255,
+      keywords: List(),
     );
   }
 // -----------------------------------------------------------------------------
@@ -188,6 +203,7 @@ class TinyFlyer with ChangeNotifier{
       tinyBz: TinyBz.getTinyBzFromSuperFlyer(superFlyer),
       picFit: superFlyer.currentPicFit,
       keywords: superFlyer.keywords,
+      midColor: superFlyer.mutableSlides[superFlyer.currentSlideIndex].midColor,
     );
 
     return _tinyFlyer;

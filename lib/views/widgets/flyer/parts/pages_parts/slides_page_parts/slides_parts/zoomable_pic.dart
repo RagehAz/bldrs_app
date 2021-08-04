@@ -10,7 +10,7 @@ class ZoomablePicture extends StatefulWidget {
   final bool isFullScreen;
   final Function onTap;
 
-  const ZoomablePicture({
+  ZoomablePicture({
     @required this.child,
     @required this.isOn,
     this.autoShrink = true,

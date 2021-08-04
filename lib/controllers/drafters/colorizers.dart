@@ -1,8 +1,14 @@
+import 'dart:io';
+
+import 'package:bldrs/controllers/drafters/imagers.dart';
+import 'package:bldrs/controllers/drafters/numberers.dart';
+import 'package:bldrs/controllers/drafters/text_manipulators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 import 'package:flutter/rendering.dart';
+import 'package:image/image.dart' as img;
 
 // -----------------------------------------------------------------------------
 class Colorizer{
@@ -52,6 +58,95 @@ class Colorizer{
         BlendMode.saturation
     );
   }
+// -----------------------------------------------------------------------------
+  static Future<Color> getAverageColor(dynamic pic) async {
+    File _imageFile = await Imagers.getFileFromDynamic(pic);
+
+    img.Image bitmap =
+    img.decodeImage(_imageFile.readAsBytesSync());
+
+    int redBucket = 0;
+    int greenBucket = 0;
+    int blueBucket = 0;
+    int pixelCount = 0;
+
+    for (int y = 0; y < bitmap.height; y++) {
+      for (int x = 0; x < bitmap.width; x++) {
+        int c = bitmap.getPixel(x, y);
+
+        pixelCount++;
+        redBucket += img.getRed(c);
+        greenBucket += img.getGreen(c);
+        blueBucket += img.getBlue(c);
+      }
+    }
+
+    Color _averageColor = Color.fromRGBO(redBucket ~/ pixelCount,
+        greenBucket ~/ pixelCount, blueBucket ~/ pixelCount, 1);
+
+    return _averageColor;
+  }
+// -----------------------------------------------------------------------------
+  static Color decipherColor(String colorString){
+    Color _color;
+
+    if(colorString != null){
+      /// reference ciphered color code
+      // String _string = '${_alpha}*${_r}*${_g}*${_b}';
+
+      /// ALPHA
+      String _a = TextMod.trimTextAfterFirstSpecialCharacter(colorString, '*');
+      int _alpha = Numberers.stringToInt(_a);
+
+      /// RED
+      String _rX_gX_b = TextMod.trimTextBeforeFirstSpecialCharacter(colorString, '*');
+      String _r = TextMod.trimTextAfterFirstSpecialCharacter(_rX_gX_b, '*');
+      int _red = Numberers.stringToInt(_r);
+
+      /// GREEN
+      String _gX_b = TextMod.trimTextBeforeFirstSpecialCharacter(_rX_gX_b, '*');
+      String _g = TextMod.trimTextAfterFirstSpecialCharacter(_gX_b, '*');
+      int _green = Numberers.stringToInt(_g);
+
+      /// BLUE
+      String _b = TextMod.trimTextBeforeFirstSpecialCharacter(_gX_b, '*');
+      int _blue = Numberers.stringToInt(_b);
+
+      _color = Color.fromARGB(_alpha, _red, _green, _blue);
+
+    }
+
+    return _color;
+  }
+// -----------------------------------------------------------------------------
+  static String cipherColor(Color color){
+    int _alpha = color.alpha;
+    int _r = color.red;
+    int _g = color.green;
+    int _b = color.blue;
+
+    String _string = '${_alpha}*${_r}*${_g}*${_b}';
+    return _string;
+  }
+// -----------------------------------------------------------------------------
+  static bool colorsAreTheSame(Color colorA, Color colorB){
+    bool _areTheSame = false;
+
+    if(
+        colorA.alpha == colorB.alpha
+        &&
+        colorA.red == colorB.red
+        &&
+        colorA.green == colorB.green
+        &&
+        colorA.blue == colorB.blue
+    ){
+      _areTheSame = true;
+    }
+
+    return _areTheSame;
+  }
+// -----------------------------------------------------------------------------
 
 }
 // -----------------------------------------------------------------------------
@@ -63,7 +158,7 @@ class BlurLayer extends StatelessWidget {
   final Color color;
   final bool blurIsOn;
 
-  BlurLayer({
+  const BlurLayer({
     this.borders,
     this.blur = Ratioz.blur1,
     this.width = double.infinity,
@@ -112,6 +207,7 @@ class BlurLayer extends StatelessWidget {
   }
 }
 // -----------------------------------------------------------------------------
+
 /// TASK : test this blur test
 // class CachedFrostedBox extends StatefulWidget {
 //   final Widget child;
