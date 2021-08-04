@@ -1,9 +1,11 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/theme/standards.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/super_flyer.dart';
 import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
 import 'package:flutter/material.dart';
+import 'package:multi_image_picker2/multi_image_picker2.dart';
 
 enum FlyerMode {
   tinyModeByFlyerID,
@@ -255,6 +257,21 @@ class FlyerMethod{
     return _hasMoreThanOneSlide;
   }
 // -----------------------------------------------------------------------------
-
+  static int unNullIndexIfNull(int slideIndex){
+    return slideIndex == null ? 0 : slideIndex;
+  }
+// -----------------------------------------------------------------------------
+  static int getAssetIndexFromAssets({SuperFlyer superFlyer, Asset assetToSearchFor}){
+    int _assetIndexInAssets = superFlyer.assetsSources.indexWhere(
+          (existingAsset) => existingAsset.identifier == assetToSearchFor.identifier,);
+    return _assetIndexInAssets;
+  }
+// -----------------------------------------------------------------------------
+  static bool maxSlidesReached({SuperFlyer superFlyer}){
+    int _maxLength = Standards.getMaxSlidesCount(superFlyer.accountType);
+    bool _reachedMaxSlides = _maxLength <= superFlyer.numberOfSlides;
+    return _reachedMaxSlides;
+  }
+// -----------------------------------------------------------------------------
 }
 

@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:bldrs/controllers/drafters/text_manipulators.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
@@ -52,13 +53,27 @@ class ObjectChecker {
   }
 // -----------------------------------------------------------------------------
   static bool objectIsFile(dynamic file) {
-    // print('runtTimeType is : $file');
-    String fileAsString = (file.runtimeType).toString();
-    // print('fileAsString is : $fileAsString');
-    String stringWithoutFirstCharacter =
-    TextMod.removeFirstCharacterFromAString(fileAsString);
-    // print('stringWithoutFirstCharacter is : $stringWithoutFirstCharacter');
-    return stringWithoutFirstCharacter == 'File' ? true : false;
+    bool _isFile = false;
+
+    if(file != null){
+      if(file.runtimeType.toString() == '_File'){
+        _isFile = true;
+      }
+    }
+
+    return _isFile;
+  }
+// -----------------------------------------------------------------------------
+  static bool objectIsUint8List(dynamic file){
+    bool _isUint8List = false;
+
+    if(file != null){
+      if(file.runtimeType.toString() == '_Uint8ArrayView'){
+        _isUint8List = true;
+      }
+    }
+
+    return _isUint8List;
   }
 // -----------------------------------------------------------------------------
   static bool objectIsSVG(dynamic object) {

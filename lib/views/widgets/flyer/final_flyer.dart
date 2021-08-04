@@ -1,5 +1,7 @@
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:bldrs/controllers/drafters/animators.dart';
+import 'package:bldrs/controllers/drafters/colorizers.dart';
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/keyboarders.dart';
 import 'package:bldrs/controllers/drafters/launchers.dart';
@@ -47,6 +49,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:provider/provider.dart';
+import 'package:screenshot/screenshot.dart';
 
 /*
 
@@ -639,7 +642,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         setState(() {
           _superFlyer.swipeDirection = _direction;
           _superFlyer.currentSlideIndex = newIndex;
-          _superFlyer.currentPicFit = _superFlyer.boxesFits[newIndex];
+          _superFlyer.currentPicFit = _superFlyer.mutableSlides[newIndex].boxFit;
         });
       }
 
@@ -650,7 +653,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         setState(() {
           _superFlyer.swipeDirection = _direction;
           _superFlyer.currentSlideIndex = newIndex;
-          _superFlyer.currentPicFit = _superFlyer.boxesFits[newIndex];
+          _superFlyer.currentPicFit = _superFlyer.mutableSlides[newIndex].boxFit;
         });
       }
 
@@ -660,7 +663,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         setState(() {
           _superFlyer.swipeDirection = _direction;
           _superFlyer.currentSlideIndex = newIndex;
-          _superFlyer.currentPicFit = _superFlyer.boxesFits[newIndex];
+          _superFlyer.currentPicFit = _superFlyer.mutableSlides[newIndex].boxFit;
         });
       }
     }
@@ -671,7 +674,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       setState(() {
         _superFlyer.swipeDirection = _direction;
         _superFlyer.currentSlideIndex = newIndex;
-        _superFlyer.currentPicFit = _superFlyer.boxesFits[newIndex];
+        _superFlyer.currentPicFit = _superFlyer.mutableSlides[newIndex].boxFit;
       });
 
     }
@@ -868,16 +871,14 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 // -----------------------------------------------------o
   Future<void> _onAddImagesFirstTime() async {
 
-    List<Asset> _assetsSources = SuperFlyer.getAssetsFromDynamicsBaby(_superFlyer.assetsSources);
+    List<Asset> _assetsSources = Imagers.getOnlyAssetsFromDynamics(_superFlyer.assetsSources);
 
-    _superFlyer.currentSlideIndex = _superFlyer.currentSlideIndex == null ? 0 : _superFlyer.currentSlideIndex;
-
-    List<dynamic> _phoneAssets;
+    _superFlyer.currentSlideIndex = FlyerMethod.unNullIndexIfNull(_superFlyer.currentSlideIndex);
 
     if(mounted){
 
       /// B - get images from gallery
-      _phoneAssets = await Imagers.getMultiImagesFromGallery(
+      List<dynamic> _phoneAssets = await Imagers.getMultiImagesFromGallery(
         context: context,
         images: _assetsSources,
         mounted: mounted,
@@ -898,8 +899,9 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
         print('picked new picks');
 
-        List<BoxFit> _newFits = new List();
         List<File> _newFiles = new List();
+        List<Uint8List> _newScreenshots = new List();
+        List<ScreenshotController> _newScreenshotsControllers = new List();
         List<MutableSlide> _newMutableSlides = new List();
         List<TextEditingController> _newHeadlinesControllers = new List();
         List<TextEditingController> _newDescriptionControllers = new List();
@@ -910,48 +912,57 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
           Asset _newAsset = _phoneAssets[i];
 
-          print('asset identifier is : ${_newAsset.identifier}');
-          // print('asset name is : ${_newAsset.name}');
-          // print('asset originalHeight is : ${_newAsset.originalHeight}');
-          // print('asset originalWidth is : ${_newAsset.originalWidth}');
-          // print('asset isLandscape is : ${_newAsset.isLandscape}');
 
           /// C 1 - get index of _newAsset in the existing asset if possible
-          int _assetIndexInExistingAssets = _superFlyer.assetsSources.indexWhere(
-                (existingAsset) => existingAsset.identifier == _newAsset.identifier,);
+          int _assetIndexInAssets = FlyerMethod.getAssetIndexFromAssets(
+            superFlyer: _superFlyer,
+            assetToSearchFor: _newAsset,
+          );
 
           /// C 2 - if this is NEW ASSET
           // no match found between new assets and existing assets
-          if(_assetIndexInExistingAssets == -1){
-            /// fit
-            _newFits.add(Imagers.concludeBoxFit(asset: _newAsset, flyerZoneWidth: widget.flyerZoneWidth));
+          if(_assetIndexInAssets == -1){
             /// file
             File _newFile = await Imagers.getFileFromAsset(_newAsset);
             _newFiles.add(_newFile);
+            // Uint8List _newScreenShow =
+            // generate average color then screenShot then make a file out of the resultant screenshot uint8list
             /// mutableSlide
-            MutableSlide _mutableSlide = MutableSlide.createMutableSlideFromFile(file: _newFile, index: i);
+            Color _midColor = await Colorizer.getAverageColor(_newFile);
+            MutableSlide _mutableSlide = MutableSlide.createMutableSlideFromFile(
+              file: _newFile,
+              index: i,
+              midColor: _midColor,
+              boxFit: Imagers.concludeBoxFit(asset: _newAsset, flyerZoneWidth: widget.flyerZoneWidth),
+            );
             _newMutableSlides.add(_mutableSlide);
             /// controller
             _newHeadlinesControllers.add(new TextEditingController());
             _newDescriptionControllers.add(new TextEditingController());
             /// visibilities
+            _newScreenshotsControllers.add(new ScreenshotController());
             _newVisibilities.add(true);
+
+            /// screenShots
+            Uint8List _screenshot = await _takeSlideScreenShot(index : i);
+            _newScreenshots.add(_screenshot);
           }
 
           /// C 3 - if this is EXISTING ASSET
           // found the index of the unchanged asset
           else {
-            /// fit
-            _newFits.add(_superFlyer.boxesFits[_assetIndexInExistingAssets]);
             /// file
-            _newFiles.add(_superFlyer.assetsFiles[_assetIndexInExistingAssets]);
+            _newFiles.add(_superFlyer.assetsFiles[_assetIndexInAssets]);
             /// mutableSlide
-            _newMutableSlides.add(_superFlyer.mutableSlides[_assetIndexInExistingAssets]);
+            _newMutableSlides.add(_superFlyer.mutableSlides[_assetIndexInAssets]);
             /// controller
-            _newHeadlinesControllers.add(_superFlyer.headlinesControllers[_assetIndexInExistingAssets]);
-            _newDescriptionControllers.add(_superFlyer.headlinesControllers[_assetIndexInExistingAssets]);
+            _newHeadlinesControllers.add(_superFlyer.headlinesControllers[_assetIndexInAssets]);
+            _newDescriptionControllers.add(_superFlyer.headlinesControllers[_assetIndexInAssets]);
             /// visibilities
-            _newVisibilities.add(_superFlyer.slidesVisibilities[_assetIndexInExistingAssets]);
+            _newVisibilities.add(_superFlyer.slidesVisibilities[_assetIndexInAssets]);
+            /// screenShots
+            _newScreenshotsControllers.add(_superFlyer.screenshotsControllers[_assetIndexInAssets]);
+            _newScreenshots.add(_superFlyer.screenShots[_assetIndexInAssets]);
           }
 
         }
@@ -959,15 +970,12 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
         /// D - assign all new values
         print('ss---> _superFlyer.assetsFiles.length was : ${_superFlyer.assetsFiles.length}');
-        print('ss---> _superFlyer.assetsSources.length was : ${_superFlyer.assetsSources.length}');
         setState(() {
           _superFlyer.assetsSources = _phoneAssets;
 
-          /// fit
-          _superFlyer.boxesFits = _newFits;
-          _superFlyer.currentPicFit = _superFlyer.boxesFits[_superFlyer.currentSlideIndex];
           /// file
           _superFlyer.assetsFiles = _newFiles;
+          _superFlyer.screenShots = _newScreenshots;
           /// mutableSlide
           _superFlyer.mutableSlides = _newMutableSlides;
           /// controller
@@ -975,23 +983,18 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
           _superFlyer.descriptionsControllers = _newDescriptionControllers;
           /// visibilities
           _superFlyer.slidesVisibilities = _newVisibilities;
+          /// screenshots
+          _superFlyer.screenshotsControllers = _newScreenshotsControllers;
+          _superFlyer.screenShots = _newScreenshots;
+          /// fit
+          _superFlyer.currentPicFit = _superFlyer.mutableSlides[_superFlyer.currentSlideIndex].boxFit;
 
 
           _superFlyer.numberOfSlides = _superFlyer.assetsSources.length;
           _superFlyer.numberOfStrips = _superFlyer.numberOfSlides;
-
           _superFlyer.progressBarOpacity = 1;
-
         });
         print('ss---> _superFlyer.assetsFiles.length is : ${_superFlyer.assetsFiles.length}');
-        print('ss---> _superFlyer.assetsSources.length is : ${_superFlyer.assetsSources.length}');
-
-        /// E - animate to last slide
-        // await _superFlyer.horizontalController.animateToPage(
-        //     _phoneAssets.length - 1,
-        //     duration: Ratioz.duration1000ms, curve: Curves.easeInOut
-        // );
-
 
       }
 
@@ -1003,7 +1006,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
     List<Asset> _assetsSources = _superFlyer.assetsSources;
 
-    _superFlyer.currentSlideIndex = _superFlyer.currentSlideIndex == null ? 0 : _superFlyer.currentSlideIndex;
+    _superFlyer.currentSlideIndex = FlyerMethod.unNullIndexIfNull(_superFlyer.currentSlideIndex);
 
     List<dynamic> _phoneAssets;
 
@@ -1027,7 +1030,6 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         // List<File> _assetsFiles = await Imagers.getFilesFromAssets(_phoneAssets);
         // List<BoxFit> _fits = Imagers.concludeBoxesFits(assets: _assetsSources, flyerZoneWidth: widget.flyerZoneWidth);
 
-        List<BoxFit> _existingFits = _superFlyer.boxesFits;
         List<File> _existingFiles = _superFlyer.assetsFiles;
         List<MutableSlide> _existingMutableSlides = _superFlyer.mutableSlides;
         List<TextEditingController> _existingHeadlinesControllers = _superFlyer.headlinesControllers;
@@ -1039,26 +1041,27 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
           Asset _newAsset = _phoneAssets[i];
 
-          print('asset identifier is : ${_newAsset.identifier}');
-          // print('asset name is : ${_newAsset.name}');
-          // print('asset originalHeight is : ${_newAsset.originalHeight}');
-          // print('asset originalWidth is : ${_newAsset.originalWidth}');
-          // print('asset isLandscape is : ${_newAsset.isLandscape}');
 
           /// C 1 - get index of _newAsset in the existing asset if possible
-          int _assetIndexInExistingAssets = _superFlyer.assetsSources.indexWhere(
-                (existingAsset) => existingAsset.identifier == _newAsset.identifier,);
+          int _assetIndexInAssets =  FlyerMethod.getAssetIndexFromAssets(
+            superFlyer: _superFlyer,
+            assetToSearchFor: _newAsset,
+          );
 
           /// C 2 - if this is NEW ASSET
           // no match found between new assets and existing assets
-          if(_assetIndexInExistingAssets == -1){
-            /// fit
-            _existingFits.add(Imagers.concludeBoxFit(asset: _newAsset, flyerZoneWidth: widget.flyerZoneWidth));
+          if(_assetIndexInAssets == -1){
             /// file
             File _newFile = await Imagers.getFileFromAsset(_newAsset);
             _existingFiles.add(_newFile);
             /// mutableSlide
-            MutableSlide _mutableSlide = MutableSlide.createMutableSlideFromFile(file: _newFile, index: i);
+            Color _midColor = await Colorizer.getAverageColor(_newFile);
+            MutableSlide _mutableSlide = MutableSlide.createMutableSlideFromFile(
+                file: _newFile,
+                index: i,
+                midColor: _midColor,
+                boxFit: Imagers.concludeBoxFit(asset: _newAsset, flyerZoneWidth: widget.flyerZoneWidth),
+            );
             _existingMutableSlides.add(_mutableSlide);
             /// controller
             _existingHeadlinesControllers.add(new TextEditingController());
@@ -1073,16 +1076,16 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
           // found the index of the unchanged asset
           else {
             // /// fit
-            // _existingFits[_assetIndexInExistingAssets] = (_superFlyer.boxesFits[_assetIndexInExistingAssets]);
+            // _existingFits[_assetIndexInAssets] = (_superFlyer.boxesFits[_assetIndexInAssets]);
             // /// file
-            // _existingFiles[_assetIndexInExistingAssets] = .add(_superFlyer.assetsFiles[_assetIndexInExistingAssets]);
+            // _existingFiles[_assetIndexInAssets] = .add(_superFlyer.assetsFiles[_assetIndexInAssets]);
             // /// mutableSlide
-            // _existingMutableSlides.add(_superFlyer.mutableSlides[_assetIndexInExistingAssets]);
+            // _existingMutableSlides.add(_superFlyer.mutableSlides[_assetIndexInAssets]);
             // /// controller
-            // _existingHeadlinesControllers.add(_superFlyer.headlinesControllers[_assetIndexInExistingAssets]);
-            // _existingDescriptionControllers.add(_superFlyer.headlinesControllers[_assetIndexInExistingAssets]);
+            // _existingHeadlinesControllers.add(_superFlyer.headlinesControllers[_assetIndexInAssets]);
+            // _existingDescriptionControllers.add(_superFlyer.headlinesControllers[_assetIndexInAssets]);
             // /// visibilities
-            // _existingVisibilities.add(_superFlyer.slidesVisibilities[_assetIndexInExistingAssets]);
+            // _existingVisibilities.add(_superFlyer.slidesVisibilities[_assetIndexInAssets]);
           }
 
         }
@@ -1095,8 +1098,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
           _superFlyer.assetsSources = _phoneAssets;
 
           /// fit
-          _superFlyer.boxesFits = _existingFits;
-          _superFlyer.currentPicFit = _superFlyer.boxesFits[_superFlyer.currentSlideIndex];
+          _superFlyer.currentPicFit = _superFlyer.mutableSlides[_superFlyer.currentSlideIndex].boxFit;
           /// file
           _superFlyer.assetsFiles = _existingFiles;
           /// mutableSlide
@@ -1141,11 +1143,11 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
     _triggerLoading();
 
-    int _maxLength = Standards.getMaxSlidesCount(_superFlyer.accountType);
 
     /// A - if max slides reached
-    if(_maxLength <= _superFlyer.numberOfSlides ){
+    if(FlyerMethod.maxSlidesReached(superFlyer: _superFlyer) == true){
 
+      int _maxLength = Standards.getMaxSlidesCount(_superFlyer.accountType);
       await Dialogz.maxSlidesReached(context, _maxLength);
 
     }
@@ -1153,16 +1155,19 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     /// A - if can pick more gallery pictures
     else {
 
+      /// B - first timer
       if(_superFlyer.firstTimer == true){
         await _onAddImagesFirstTime();
       }
 
+      /// B - second timer
       else {
         await _onAddImagesSecondTime();
       }
 
     }
 
+    /// C - animate to last slide
     await Sliders.slideTo(
         controller: _superFlyer.horizontalController,
         toIndex: _superFlyer.numberOfSlides - 1,
@@ -1401,17 +1406,24 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     // if(ObjectChecker.listCanBeUsed(_superFlyer.assetsFiles) == true){_superFlyer.assetsFiles.removeAt(index);}
     // if(ObjectChecker.listCanBeUsed(_superFlyer.assetsFiles) == true){_superFlyer.mutableSlides.removeAt(index);}
 
-    int _assetIndex = MutableSlide.getAssetTrueIndexFromMutableSlides(mutableSlides: _superFlyer.mutableSlides, slideIndex: index);
-    if(_assetIndex != null){
-      _superFlyer.assetsSources.removeAt(_assetIndex);
+
+    if(_superFlyer.firstTimer == false){
+      int _assetIndex = MutableSlide.getAssetTrueIndexFromMutableSlides(mutableSlides: _superFlyer.mutableSlides, slideIndex: index);
+      if(_assetIndex != null){
+        _superFlyer.assetsSources.removeAt(_assetIndex);
+      }
+    }
+    else {
+      _superFlyer.assetsSources.removeAt(index);
     }
 
     _superFlyer.assetsFiles.removeAt(index);
     _superFlyer.mutableSlides.removeAt(index);
     _superFlyer.slidesVisibilities.removeAt(index);
     _superFlyer.headlinesControllers.removeAt(index);
-    _superFlyer.boxesFits.removeAt(index);
     _superFlyer.numberOfSlides = _superFlyer.assetsFiles.length;
+    _superFlyer.screenShots.removeAt(index);
+    _superFlyer.screenshotsControllers.removeAt(index);
 
     print('after stateless delete index is $index, _draft.numberOfSlides is : ${_superFlyer.numberOfSlides}');
   }
@@ -1462,7 +1474,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         print('trying to get fit width to fit height');
         setState(() {
           _superFlyer.currentPicFit = BoxFit.fitHeight;
-          _superFlyer.boxesFits[index] = _superFlyer.currentPicFit;
+          _superFlyer.mutableSlides[index].boxFit = _superFlyer.currentPicFit;
         });
       }
 
@@ -1470,14 +1482,14 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         print('trying to get fit height to fit width');
         setState(() {
           _superFlyer.currentPicFit = BoxFit.fitWidth;
-          _superFlyer.boxesFits[index] = _superFlyer.currentPicFit;
+          _superFlyer.mutableSlides[index].boxFit = _superFlyer.currentPicFit;
         });
       }
 
       else {
         setState(() {
           _superFlyer.currentPicFit = BoxFit.fitHeight;
-          _superFlyer.boxesFits[index] = _superFlyer.currentPicFit;
+          _superFlyer.mutableSlides[index].boxFit = _superFlyer.currentPicFit;
         });
       }
 
@@ -1485,6 +1497,25 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
     print('tapping on fit image : ${_superFlyer.assetsFiles.length} assets and currentPicFit is : ${_superFlyer.currentPicFit}');
 
+  }
+// -----------------------------------------------------o
+  Future<Uint8List> _takeSlideScreenShot({int index}) async {
+
+    Uint8List _screenshot;
+
+    if(_superFlyer?.screenshotsControllers?.length != 0){
+      await _superFlyer.screenshotsControllers[index].capture(delay: Duration(milliseconds: 10))
+          .then((imageFile) async {
+
+        _screenshot = imageFile;
+
+      }).catchError((onError) {
+        print(onError);
+      });
+
+    }
+
+      return _screenshot;
   }
 // -----------------------------------------------------o
   Future<void> _onFlyerTypeTap() async {
@@ -2099,6 +2130,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         viewsCount: _superFlyer.mutableSlides[i].viewsCount,
         imageSize: _superFlyer.mutableSlides[i].imageSize,
         boxFit: _superFlyer.mutableSlides[i].boxFit,
+        midColor: _superFlyer.mutableSlides[i].midColor,
       );
 
       _slides.add(_newSlide);
@@ -2124,7 +2156,8 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         sharesCount: 0,
         viewsCount: 0,
         imageSize: _imageSize,
-        boxFit: _superFlyer.boxesFits[i],
+        boxFit: _superFlyer.mutableSlides[i].boxFit,
+        midColor: _superFlyer.mutableSlides[i].midColor,
       );
 
       _slides.add(_newSlide);
@@ -2149,8 +2182,9 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         savesCount: _superFlyer.mutableSlides[i].savesCount,
         sharesCount: _superFlyer.mutableSlides[i].sharesCount,
         viewsCount: _superFlyer.mutableSlides[i].viewsCount,
-        boxFit: _superFlyer.boxesFits[i],
+        boxFit: _superFlyer.mutableSlides[i].boxFit,
         imageSize: _imageSize,
+        midColor:  _superFlyer.mutableSlides[i].midColor,
       );
 
       _slides.add(_newSlide);
@@ -2519,9 +2553,6 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         ' editMode : ${_superFlyer.editMode}');
 
     return
-
-    // Container();
-
         FlyerZoneBox(
           flyerZoneWidth: widget.flyerZoneWidth,
           superFlyer: _superFlyer,

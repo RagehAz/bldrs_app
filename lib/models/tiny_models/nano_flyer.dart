@@ -1,3 +1,6 @@
+import 'dart:ui';
+
+import 'package:bldrs/controllers/drafters/colorizers.dart';
 import 'package:bldrs/models/flyer_model.dart';
 import 'package:bldrs/models/sub_models/flyer_type_class.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
@@ -9,6 +12,7 @@ class NanoFlyer with ChangeNotifier{
   final String authorID;
   final String slidePic;
   final Zone flyerZone;
+  final Color midColor;
 
   NanoFlyer({
     @required this.flyerID,
@@ -16,6 +20,7 @@ class NanoFlyer with ChangeNotifier{
     @required this.authorID,
     @required this.slidePic,
     @required this.flyerZone,
+    @required this.midColor,
   });
 // -----------------------------------------------------------------------------
   Map<String,dynamic> toMap (){
@@ -33,6 +38,7 @@ class NanoFlyer with ChangeNotifier{
 
     if (finalFlyer.flyerType != originalFlyer.flyerType) {nanoFlyerAreTheSame = false;}
     else if (finalFlyer.slides[0].picture != originalFlyer.slides[0].picture) {nanoFlyerAreTheSame = false;}
+    else if (Colorizer.colorsAreTheSame(finalFlyer.slides[0].midColor, originalFlyer.slides[0].midColor) == false){nanoFlyerAreTheSame = false;}
 
     else if (finalFlyer.flyerZone.countryID != originalFlyer.flyerZone.countryID) {nanoFlyerAreTheSame = false;}
     else if (finalFlyer.flyerZone.cityID != originalFlyer.flyerZone.cityID) {nanoFlyerAreTheSame = false;}
@@ -50,6 +56,7 @@ class NanoFlyer with ChangeNotifier{
       authorID: flyerModel?.tinyAuthor?.userID,
       slidePic: flyerModel == null ? null : flyerModel?.slides[0]?.picture,
       flyerZone: flyerModel?.flyerZone,
+      midColor: flyerModel == null ? null : flyerModel?.slides[0]?.picture,
     );
   }
 // -----------------------------------------------------------------------------
@@ -78,6 +85,7 @@ class NanoFlyer with ChangeNotifier{
       authorID: map['authorID'],
       slidePic: map['slidePic'],
       flyerZone: Zone.decipherZoneMap(map['flyerZone']),
+      midColor: Colorizer.decipherColor(map['midColor']),
     );
   }
 // -----------------------------------------------------------------------------
