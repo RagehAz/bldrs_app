@@ -7,16 +7,18 @@ import 'package:flutter/material.dart';
 
 class SlideFullScreen extends StatelessWidget {
   final dynamic image;
+  final ImageSize imageSize;
 
   SlideFullScreen({
     @required this.image,
+    @required this.imageSize,
     Key key
   });
 
   @override
   Widget build(BuildContext context) {
 
-    print('Building full screen with : ${image.toString()} --------------------------------- ');
+    print('Building full screen with width : ${imageSize.width} : height : ${imageSize.height} ');
 
     double _screenWidth = Scale.superScreenWidth(context);
     double _screenHeight = Scale.superScreenHeight(context);
@@ -43,9 +45,14 @@ class SlideFullScreen extends StatelessWidget {
             autoShrink: false,
             child: Imagers.superImageWidget(
               image,
-              fit: BoxFit.cover,
-              width: Scale.superScreenWidth(context).toInt(),
-              height: Scale.superScreenHeight(context).toInt(),
+              fit: Imagers.concludeBoxFit(
+                  viewWidth: _screenWidth,
+                  viewHeight: _screenHeight,
+                  picWidth: imageSize.width,
+                  picHeight: imageSize.height,
+              ),
+              width: Scale.superScreenWidth(context),
+              height: Scale.superScreenHeight(context),
             ),
           ),
         ),

@@ -8,6 +8,7 @@ import 'package:bldrs/controllers/drafters/launchers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/sliders.dart';
 import 'package:bldrs/controllers/drafters/text_checkers.dart';
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
@@ -933,19 +934,19 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
               file: _newFile,
               index: i,
               midColor: _midColor,
-              boxFit: Imagers.concludeBoxFit(asset: _newAsset, flyerZoneWidth: widget.flyerZoneWidth),
+              boxFit: Imagers.concludeBoxFitForAsset(asset: _newAsset, flyerZoneWidth: widget.flyerZoneWidth),
             );
             _newMutableSlides.add(_mutableSlide);
             /// controller
             _newHeadlinesControllers.add(new TextEditingController());
             _newDescriptionControllers.add(new TextEditingController());
             /// visibilities
-            _newScreenshotsControllers.add(new ScreenshotController());
             _newVisibilities.add(true);
 
             /// screenShots
-            Uint8List _screenshot = await _takeSlideScreenShot(index : i);
-            _newScreenshots.add(_screenshot);
+            _newScreenshotsControllers.add(new ScreenshotController());
+            // Uint8List _screenshot = await _takeSlideScreenShot(index : i);
+            // _newScreenshots.add(_screenshot);
           }
 
           /// C 3 - if this is EXISTING ASSET
@@ -975,7 +976,6 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
           /// file
           _superFlyer.assetsFiles = _newFiles;
-          _superFlyer.screenShots = _newScreenshots;
           /// mutableSlide
           _superFlyer.mutableSlides = _newMutableSlides;
           /// controller
@@ -1060,7 +1060,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
                 file: _newFile,
                 index: i,
                 midColor: _midColor,
-                boxFit: Imagers.concludeBoxFit(asset: _newAsset, flyerZoneWidth: widget.flyerZoneWidth),
+                boxFit: Imagers.concludeBoxFitForAsset(asset: _newAsset, flyerZoneWidth: widget.flyerZoneWidth),
             );
             _existingMutableSlides.add(_mutableSlide);
             /// controller
@@ -2548,10 +2548,9 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
     // print('widget.goesToFlyer is : ${widget.goesToEditor} for ${_superFlyer.flyerID}');
 
-    print('B---> FinalFlyer : flyerID : ${_superFlyer.flyerID},'
-        ' numberOfSlides : ${_superFlyer.numberOfSlides},'
-        ' editMode : ${_superFlyer.editMode}');
-
+    Tracer.traceWidgetBuild(number: 1, widgetName: 'FinalFlyer', varName: 'flyerID', varValue: _superFlyer.flyerID);
+    Tracer.traceWidgetBuild(number: 2, widgetName: 'FinalFlyer', varName: 'numberOfSlides', varValue: _superFlyer.numberOfSlides);
+    Tracer.traceWidgetBuild(number: 3, widgetName: 'FinalFlyer', varName: 'editMode', varValue: _superFlyer.editMode);
     return
         FlyerZoneBox(
           flyerZoneWidth: widget.flyerZoneWidth,
