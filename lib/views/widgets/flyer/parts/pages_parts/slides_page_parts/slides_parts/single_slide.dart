@@ -4,9 +4,9 @@ import 'package:bldrs/controllers/drafters/colorizers.dart';
 import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/drafters/streamerz.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/super_flyer.dart';
 import 'package:bldrs/views/screens/x_3_slide_full_screen.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/slides_parts/slide_headline.dart';
@@ -52,7 +52,7 @@ class SingleSlide extends StatelessWidget {
     this.titleController,
     this.textFieldOnChanged,
     this.onTextFieldSubmitted,
-    this.slideColor,
+    @required this.slideColor,
     @required this.flyerID,
     this.imageSize,
     this.autoFocus,
@@ -116,12 +116,15 @@ class SingleSlide extends StatelessWidget {
     ;
 // -----------------------------------------------------------------------------
     double _blurImageScale = 1.5;
-    bool _blurLayerIsActive = Imagers().slideBlurIsOn(
-      pic: picture,
-      boxFit: boxFit,
-      flyerZoneWidth: flyerZoneWidth,
-      imageSize: imageSize,
-    );
+    // -----------------------------o
+    bool _blurLayerIsActive =
+    true;
+    // Imagers().slideBlurIsOn(
+    //   pic: picture,
+    //   boxFit: boxFit,
+    //   flyerZoneWidth: flyerZoneWidth,
+    //   imageSize: imageSize,
+    // );
 // -----------------------------------------------------------------------------
     String _titleVerse = title != null ? title :
         titleController != null ? titleController.text : null;
@@ -132,6 +135,8 @@ class SingleSlide extends StatelessWidget {
         :
     Imagers.superImage(picture, boxFit);
 // -----------------------------------------------------------------------------
+
+    double _flyerZoneHeight = Scale.superFlyerZoneHeight(context, flyerZoneWidth);
 
     return GestureDetector(
       onTap: () => _onBehindSlideImageTap(context, _tinyMode), // listening to taps from inside the zoomable pic widget
@@ -155,40 +160,58 @@ class SingleSlide extends StatelessWidget {
             alignment: Alignment.topCenter,
             children: <Widget>[
 
-              /// --- IMAGE FILE FULL HEIGHT
-              if (ObjectChecker.objectIsFile(picture) && _blurLayerIsActive)
-                Image.file(
-                  picture,
-                  fit: BoxFit.cover,
-                  width: flyerZoneWidth * _blurImageScale,
-                  height: Scale.superFlyerZoneHeight(context, flyerZoneWidth*1.2),
-                  // colorBlendMode: BlendMode.overlay,
-                  // color: Colorz.WhiteAir,
-                ),
+              // /// --- IMAGE FILE FULL HEIGHT
+              // if (ObjectChecker.objectIsFile(picture) && _blurLayerIsActive)
+              //   Image.file(
+              //     picture,
+              //     fit: BoxFit.cover,
+              //     width: flyerZoneWidth * _blurImageScale,
+              //     height: Scale.superFlyerZoneHeight(context, flyerZoneWidth*1.2),
+              //     // colorBlendMode: BlendMode.overlay,
+              //     // color: Colorz.WhiteAir,
+              //   ),
+              //
+              // /// --- IMAGE URL FULL HEIGHT
+              // if (ObjectChecker.objectIsURL(picture) && _blurLayerIsActive)
+              //   Image.network(
+              //     picture,
+              //     fit: BoxFit.cover,
+              //     width: flyerZoneWidth * _blurImageScale,
+              //     height: Scale.superFlyerZoneHeight(context, flyerZoneWidth*1.2),
+              //   ),
 
-              /// --- IMAGE URL FULL HEIGHT
-              if (ObjectChecker.objectIsURL(picture) && _blurLayerIsActive)
-                Image.network(
-                  picture,
-                  fit: BoxFit.cover,
-                  width: flyerZoneWidth * _blurImageScale,
-                  height: Scale.superFlyerZoneHeight(context, flyerZoneWidth*1.2),
-                ),
+              // /// --- IMAGE FILE BLUR LAYER
+              // if (_blurLayerIsActive)
+                // BlurLayer(
+                //   width: flyerZoneWidth,
+                //   height: Scale.superFlyerZoneHeight(context, flyerZoneWidth),
+                //   blur: Ratioz.blur4,
+                //   borders: Borderers.superFlyerCorners(context, flyerZoneWidth),
+                //   color: Colorz.Nothing,
+                //   blurIsOn: _blurLayerIsActive,
+                // ),
 
-              /// --- IMAGE FILE BLUR LAYER
-              if (_blurLayerIsActive)
-                BlurLayer(
-                  width: flyerZoneWidth,
-                  height: Scale.superFlyerZoneHeight(context, flyerZoneWidth),
-                  blur: Ratioz.blur4,
-                  borders: Borderers.superFlyerCorners(context, flyerZoneWidth),
-                  color: Colorz.Nothing,
-                  blurIsOn: _blurLayerIsActive,
-                ),
-
-
-              if (picture == null)
-                Container(),
+                // FutureBuilder(
+                //     future: _getAverageColor(),
+                //     builder: (_, snapshot){
+                //
+                //       Color _color = snapshot.data;
+                //
+                //       if(connectionIsWaiting(snapshot) == true){
+                //         return Container();
+                //       } else {
+                //         return
+                //           BlurLayer(
+                //             width: flyerZoneWidth,
+                //             height: Scale.superFlyerZoneHeight(context, flyerZoneWidth),
+                //             blur: 0,
+                //             borders: Borderers.superFlyerCorners(context, flyerZoneWidth),
+                //             color: _color,
+                //             blurIsOn: _blurLayerIsActive,
+                //           );
+                //       }
+                //     }
+                //     ),
 
               /// --- IMAGE FILE
               if (ObjectChecker.objectIsFile(picture))
@@ -212,7 +235,7 @@ class SingleSlide extends StatelessWidget {
                       picture,
                       fit: BoxFit.fitWidth,
                       width: flyerZoneWidth,
-                      height: Scale.superFlyerZoneHeight(context, flyerZoneWidth)
+                      height: _flyerZoneHeight,
                   ),
                 ),
 

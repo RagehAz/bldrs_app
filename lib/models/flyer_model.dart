@@ -11,6 +11,7 @@ import 'package:bldrs/models/tiny_models/tiny_bz.dart';
 import 'package:bldrs/models/tiny_models/tiny_user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:screenshot/screenshot.dart';
 // -----------------------------------------------------------------------------
 class FlyerModel with ChangeNotifier{
   final String flyerID;
@@ -325,6 +326,17 @@ class FlyerModel with ChangeNotifier{
 
     flyerModel.slides.forEach((slide) {
       TextEditingController _controller = new TextEditingController(text: slide.description);
+      _controllers.add(_controller);
+    });
+
+    return _controllers;
+  }
+// -----------------------------------------------------------------------------
+  static List<ScreenshotController> createScreenShotsControllersForExistingFlyer(FlyerModel flyerModel){
+    List<ScreenshotController> _controllers = new List();
+
+    flyerModel.slides.forEach((slide) {
+      ScreenshotController _controller = new ScreenshotController();
       _controllers.add(_controller);
     });
 

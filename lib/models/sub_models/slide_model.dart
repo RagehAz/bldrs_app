@@ -1,5 +1,7 @@
 import 'dart:io';
+import 'dart:typed_data';
 
+import 'package:bldrs/controllers/drafters/colorizers.dart';
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/numberers.dart';
 import 'package:bldrs/controllers/drafters/object_checkers.dart';
@@ -17,6 +19,7 @@ class MutableSlide extends SlideModel{
   int savesCount;
   BoxFit boxFit;
   ImageSize imageSize;
+  Color midColor;
 
   MutableSlide({
     this.slideIndex,
@@ -28,6 +31,7 @@ class MutableSlide extends SlideModel{
     this.savesCount,
     this.boxFit, /// TASK : update all methods below to include this boxfit parameter
     @required this.imageSize,
+    @required this.midColor,
   });
 // -----------------------------------------------------------------------------
   static MutableSlide getMutableSlideFromSlideModel(SlideModel slide) {
@@ -44,6 +48,7 @@ class MutableSlide extends SlideModel{
         savesCount : slide.savesCount,
         imageSize: slide.imageSize,
         boxFit: slide.boxFit,
+        midColor: slide.midColor,
       );
   }
 // -----------------------------------------------------------------------------
@@ -64,7 +69,12 @@ class MutableSlide extends SlideModel{
     return _slides;
   }
 // -----------------------------------------------------------------------------
-  static MutableSlide createMutableSlideFromFile({File file, int index}) {
+  static MutableSlide createMutableSlideFromFile({
+    File file,
+    int index,
+    @required Color midColor,
+    @required BoxFit boxFit,
+  }) {
 
     // ImageSize _imageSize = await Imagers.superImageSize(file);
 
@@ -79,7 +89,8 @@ class MutableSlide extends SlideModel{
           viewsCount : null,
           savesCount : null,
           imageSize: null,
-          boxFit: null,
+          boxFit: boxFit,
+          midColor: midColor,
         );
   }
 // -----------------------------------------------------------------------------
@@ -126,6 +137,7 @@ class SlideModel {
   int savesCount;
   BoxFit boxFit;
   ImageSize imageSize;
+  Color midColor;
 
   SlideModel({
     this.slideIndex,
@@ -137,6 +149,7 @@ class SlideModel {
     this.savesCount,
     @required this.boxFit, /// TASK : update all methods below to include this boxfit parameter
     @required this.imageSize,
+    @required this.midColor,
   });
   // -------------------------
   Map<String, dynamic> toMap() {
@@ -150,6 +163,7 @@ class SlideModel {
       'savesCount': savesCount,
       'boxFit' : cipherBoxFit(boxFit),
       'imageSize' : imageSize.toMap(),
+      'midColor' : Colorizer.cipherColor(midColor),
     };
   }
 // -------------------------
@@ -165,6 +179,7 @@ class SlideModel {
       savesCount : savesCount,
       imageSize: imageSize,
       boxFit: boxFit,
+      midColor: midColor,
     );
   }
 // -------------------------
@@ -244,6 +259,7 @@ class SlideModel {
       savesCount : map['savesCount'],
       boxFit: decipherBoxFit(map['boxFit']),
       imageSize: ImageSize.decipherImageSize(map['imageSize']),
+      midColor: Colorizer.decipherColor(map['midColor'])
     );
   }
 // -----------------------------------------------------------------------------
@@ -289,6 +305,7 @@ class SlideModel {
         viewsCount: inputSlides[i].viewsCount,
         imageSize: inputSlides[i].imageSize,
         boxFit: inputSlides[i].boxFit,
+        midColor: inputSlides[i].midColor,
       );
 
       _outputSlides.add(_newSlide);
