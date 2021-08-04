@@ -247,6 +247,7 @@ class FlyerOps{
             savesCount : slide.savesCount,
             imageSize: _imageSize,
             boxFit: slide.boxFit,
+            midColor: slide.midColor,
           );
 
           /// c - add the updated slide into finalSlides

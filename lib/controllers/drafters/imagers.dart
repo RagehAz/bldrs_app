@@ -123,6 +123,13 @@ static DecorationImage superImage(String picture, BoxFit boxFit){
         height: height?.toDouble(),
       )
           :
+      ObjectChecker.objectIsUint8List(pic)?
+      Image.memory(pic,
+        fit: _boxFit,
+        // width: width?.toDouble(),
+        // height: height?.toDouble(),
+      )
+          :
       ObjectChecker.objectIsAsset(pic)?
       AssetThumb(
         asset: pic,
@@ -656,6 +663,71 @@ static Future<List<File>> getFilesFromAssets(List<Asset> assets) async {
   }
 
   return _fits;
+  }
+// -----------------------------------------------------------------------------
+  static Future<File> getFileFromDynamic(dynamic pic) async {
+    File _file;
+
+    if(pic != null){
+
+      if(ObjectChecker.objectIsFile(pic) == true){
+        _file = pic;
+      }
+
+      else if (ObjectChecker.objectIsAsset(pic) == true){
+        _file = await  getFileFromAsset(pic);
+      }
+
+      else if (ObjectChecker.objectIsURL(pic) == true){
+        _file = await urlToFile(pic);
+      }
+
+      else if (ObjectChecker.objectIsJPGorPNG(pic) == true){
+        // _file = await getFile
+      }
+
+    }
+
+    return _file;
+  }
+// -----------------------------------------------------------------------------
+  static Future<List<Uint8List>> getScreenShotsFromFiles(List<File> files) async {
+    List<Uint8List> _screenShots = new List();
+
+    if (files != null && files.length != 0){
+      for (File file in files){
+
+        Uint8List _uInt = await file.readAsBytes();
+
+        _screenShots.add(_uInt);
+
+      }
+    }
+
+    return _screenShots;
+  }
+// -----------------------------------------------------------------------------
+  static Asset getOnlyAssetFromDynamic(dynamic input){
+    Asset _asset;
+    if(ObjectChecker.objectIsAsset(input) == true){
+      _asset = input;
+    }
+
+    return _asset;
+  }
+// -----------------------------------------------------------------------------
+  static List<Asset> getOnlyAssetsFromDynamics(List<dynamic> inputs){
+    List<Asset> _assets = new List();
+
+    if(inputs != null){
+      if(inputs.length > 0){
+        for (var x in inputs){
+          _assets.add(getOnlyAssetFromDynamic(x));
+        }
+      }
+    }
+
+    return _assets;
   }
 // -----------------------------------------------------------------------------
 }
