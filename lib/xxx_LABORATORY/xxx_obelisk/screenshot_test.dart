@@ -119,7 +119,7 @@ class _ScreenShotTestState extends State<ScreenShotTest> {
               child: Imagers.superImageWidget(
                 _imageFile,
                 fit: BoxFit.cover,
-                width: _screenWidth.toInt(),
+                width: _screenWidth,
                 height: 200,
                 scale: 1,
 

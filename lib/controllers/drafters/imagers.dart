@@ -49,8 +49,8 @@ class ObjectSize{
 }
 // -----------------------------------------------------------------------------
 class ImageSize{
-  final int width;
-  final int height;
+  final double width;
+  final double height;
 
   ImageSize({
     @required this.width,
@@ -88,7 +88,7 @@ static DecorationImage superImage(String picture, BoxFit boxFit){
   return picture == '' ? null : image;
 }
 // -----------------------------------------------------------------------------
-  static Widget superImageWidget(dynamic pic, {int width, int height, BoxFit fit, double scale, Color iconColor}){
+  static Widget superImageWidget(dynamic pic, {double width, double height, BoxFit fit, double scale, Color iconColor}){
 
   BoxFit _boxFit = fit == null ? BoxFit.cover : fit;
 
@@ -119,8 +119,8 @@ static DecorationImage superImage(String picture, BoxFit boxFit){
       Image.file(
         pic,
         fit: _boxFit,
-        width: width?.toDouble(),
-        height: height?.toDouble(),
+        width: width,
+        height: height,
       )
           :
       ObjectChecker.objectIsUint8List(pic)?
@@ -219,8 +219,13 @@ static DecorationImage superImage(String picture, BoxFit boxFit){
   static Future<ImageSize> superImageSize(dynamic image) async {
     ImageSize _imageSize;
   if(image != null){
+
     var decodedImage = await decodeImageFromList(image.readAsBytesSync());
-    _imageSize =  ImageSize(width: decodedImage.width, height: decodedImage.height);
+
+    _imageSize =  ImageSize(
+        width: decodedImage.width.toDouble(),
+        height: decodedImage.height.toDouble(),
+    );
   }
   return _imageSize;
 }
@@ -232,7 +237,7 @@ static DecorationImage superImage(String picture, BoxFit boxFit){
   return (await fi.image.toByteData(format: ui.ImageByteFormat.png)).buffer.asUint8List();
 }
 // -----------------------------------------------------------------------------
-  static Future <Uint8List> getBytesFromCanvas(int width, int height, urlAsset) async {
+  static Future <Uint8List> getBytesFromCanvas(int width, int height,String urlAsset) async {
   final ui.PictureRecorder pictureRecorder = ui.PictureRecorder();
   final Canvas canvas = Canvas(pictureRecorder);
   final Paint paint = Paint()..color = Colors.transparent;
@@ -247,9 +252,9 @@ static DecorationImage superImage(String picture, BoxFit boxFit){
       ),
       paint);
 
-  final ByteData datai = await rootBundle.load(urlAsset);
+  final ByteData _detail = await rootBundle.load(urlAsset);
 
-  var imaged = await loadImage(new Uint8List.view(datai.buffer));
+  var imaged = await loadImage(new Uint8List.view(_detail.buffer));
 
   canvas.drawImage(imaged, new Offset(0, 0), new Paint());
 
@@ -269,24 +274,53 @@ static DecorationImage superImage(String picture, BoxFit boxFit){
 // -----------------------------------------------------------------------------
   static Future<File> getImageFileFromLocalAsset(BuildContext context, String inputAsset) async {
   File _file;
-  String asset = ObjectChecker.objectIsSVG(inputAsset) ? Iconz.DumBusinessLogo : inputAsset;
+  String _asset = ObjectChecker.objectIsSVG(inputAsset) ? Iconz.DumBusinessLogo : inputAsset;
   await tryAndCatch(
       context: context,
       methodName : 'getImageFileFromAssets',
       functions: () async {
-        print('0. removing assets/ from input image path');
-        String _pathTrimmed = TextMod.removeNumberOfCharactersFromAString(asset, 7);
+        print('0. removing [assets/] from input image path');
+        String _pathTrimmed = TextMod.removeNumberOfCharactersFromAString(_asset, 7);
         print('1. starting getting image from assets');
-        final _byteData = await rootBundle.load('assets/$_pathTrimmed');
+        final ByteData _byteData = await rootBundle.load('assets/$_pathTrimmed');
         print('2. we got byteData and creating the File aho');
-        final _tempFile = File('${(await getTemporaryDirectory()).path}/${TextMod.getFileNameFromAsset(_pathTrimmed)}');
+        final String _tempFileName = TextMod.getFileNameFromAsset(_pathTrimmed);
+        final File _tempFile = await createTempEmptyFile(_tempFileName);
         print('3. we created the FILE and will overwrite image data as bytes');
-        await _tempFile.writeAsBytes(_byteData.buffer.asUint8List(_byteData.offsetInBytes, _byteData.lengthInBytes));
-        await _tempFile.create(recursive: true);
-        _file = _tempFile;
+        final File _finalFile = await writeBytesOnFile(file: _tempFile, byteData: _byteData);
+        _tempFile.delete(recursive: true);
+
+        _file = _finalFile;
+
         print('4. file is ${_file.path}');
+
       }
   );
+  return _file;
+}
+// -----------------------------------------------------------------------------
+  static Future<File> createTempEmptyFile(String fileName) async {
+    final File _tempFile = File('${(await getTemporaryDirectory()).path}/${fileName}');
+    return _tempFile;
+  }
+// -----------------------------------------------------------------------------
+  static Uint8List getUint8ListFromByteData(ByteData byteData){
+    Uint8List _uInts = byteData.buffer.asUint8List(byteData.offsetInBytes, byteData.lengthInBytes);
+    return _uInts;
+  }
+// -----------------------------------------------------------------------------
+  static Future<File> writeUint8ListOnFile({@required File file, @required Uint8List uint8list}) async {
+    await file.writeAsBytes(uint8list);
+    await file.create(recursive: true);
+    return file;
+  }
+// -----------------------------------------------------------------------------
+  static Future<File> writeBytesOnFile({@required File file, @required ByteData byteData}) async {
+  File _file;
+
+  Uint8List _uInts = getUint8ListFromByteData(byteData);
+  _file = await writeUint8ListOnFile(file: file, uint8list: _uInts);
+
   return _file;
 }
 // -----------------------------------------------------------------------------
@@ -321,9 +355,9 @@ static DecorationImage superImage(String picture, BoxFit boxFit){
       // _name
       _file.fileNameWithExtension,
       // _originalWidth
-        imageSize.width,
+        imageSize.width.toInt(),
       // _originalHeight
-      imageSize.height,
+      imageSize.height.toInt(),
     );
   //
   //   // ByteData _byteData = await _file.get(asset.originalWidth, asset.originalHeight, quality: 100);
@@ -559,8 +593,8 @@ static Future<List<File>> getFilesFromAssets(List<Asset> assets) async {
     if(_imageSizeIsValid == true){
 
       /// note : if ratio < 1 image is portrait, if ratio > 1 image is landscape
-      int _originalImageWidth = imageSize.width;
-      int _originalImageHeight= imageSize.height;
+      int _originalImageWidth = imageSize.width.toInt();
+      int _originalImageHeight= imageSize.height.toInt();
       double _originalImageRatio = _originalImageWidth / _originalImageHeight
       ;
       /// slide aspect ratio : 1 / 1.74 ~= 0.575
@@ -614,37 +648,54 @@ static Future<List<File>> getFilesFromAssets(List<Asset> assets) async {
     return _blurIsOn;
 }
 // -----------------------------------------------------------------------------
-  static BoxFit concludeBoxFit({Asset asset, double flyerZoneWidth}){
+  static BoxFit concludeBoxFit({double picWidth, double picHeight,double viewWidth, double viewHeight}){
+    BoxFit _boxFit;
+
+    /// note : if ratio < 1 image is portrait, if ratio > 1 image is landscape
+    // double _originalImageRatio = _originalImageWidth / _originalImageHeight
+        ;
+    // double _slideRatio = 1 / Ratioz.xxflyerZoneHeight;
+
+    // double _fittedImageWidth = flyerZoneWidth; // for info only
+    double _fittedImageHeight = (viewWidth * picHeight) / picWidth;
+
+    double _heightAllowingFitHeight = (Ratioz.slideFitWidthLimit/100) * viewHeight;
+
+    /// if fitted height is less than the limit
+    if(_fittedImageHeight < _heightAllowingFitHeight){
+      _boxFit = BoxFit.fitWidth;
+    }
+
+    /// if fitted height is higher that the limit
+    else {
+      _boxFit = BoxFit.fitHeight;
+    }
+
+    return _boxFit;
+  }
+// -----------------------------------------------------------------------------
+  static BoxFit concludeBoxFitForAsset({Asset asset, double flyerZoneWidth}){
   BoxFit _boxFit;
 
   /// note : if ratio < 1 image is portrait, if ratio > 1 image is landscape
-  int _originalImageWidth = asset.originalWidth;
-  int _originalImageHeight= asset.originalHeight;
+  double _originalImageWidth = asset.originalWidth.toDouble();
+  double _originalImageHeight= asset.originalHeight.toDouble();
   // double _originalImageRatio = _originalImageWidth / _originalImageHeight
   ;
   /// slide aspect ratio : 1 / 1.74 ~= 0.575
   double _flyerZoneHeight = flyerZoneWidth * Ratioz.xxflyerZoneHeight;
-  // double _slideRatio = 1 / Ratioz.xxflyerZoneHeight;
 
-  // double _fittedImageWidth = flyerZoneWidth; // for info only
-  double _fittedImageHeight = (flyerZoneWidth * _originalImageHeight) / _originalImageWidth;
-
-  double _heightAllowingFitHeight = (Ratioz.slideFitWidthLimit/100) * _flyerZoneHeight;
-
-  /// if fitted height is less than the limit
-  if(_fittedImageHeight < _heightAllowingFitHeight){
-    _boxFit = BoxFit.fitWidth;
-  }
-
-  /// if fitted height is higher that the limit
-  else {
-    _boxFit = BoxFit.fitHeight;
-  }
+  _boxFit = concludeBoxFit(
+    picWidth: _originalImageWidth,
+    picHeight: _originalImageHeight,
+    viewWidth: flyerZoneWidth,
+    viewHeight: _flyerZoneHeight,
+  );
 
   return _boxFit;
   }
 // -----------------------------------------------------------------------------
-  static List<BoxFit> concludeBoxesFits({List<Asset> assets, double flyerZoneWidth}){
+  static List<BoxFit> concludeBoxesFitsForAssets({List<Asset> assets, double flyerZoneWidth}){
   List<BoxFit> _fits = new List();
 
   for (Asset asset in assets){
@@ -657,7 +708,7 @@ static Future<List<File>> getFilesFromAssets(List<Asset> assets) async {
     // }
 
     /// boss ba2a
-    BoxFit _fit = concludeBoxFit(asset: asset, flyerZoneWidth: flyerZoneWidth);
+    BoxFit _fit = concludeBoxFitForAsset(asset: asset, flyerZoneWidth: flyerZoneWidth);
 
     _fits.add(_fit);
   }

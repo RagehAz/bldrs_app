@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/models/super_flyer.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/editor_footer.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/footer_parts/ankh_button.dart';
@@ -15,7 +16,8 @@ class SlidesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    print('B---> SlidesPage : numberOfSlides : ${superFlyer.numberOfSlides}');
+    Tracer.traceWidgetBuild(widgetName: 'SlidesPage', varName: 'numberOfSlides', varValue: superFlyer.numberOfSlides);
+
     return Stack(
       children: <Widget>[
 
