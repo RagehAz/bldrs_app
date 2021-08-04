@@ -1,5 +1,6 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/scrollers.dart';
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/bz_pg_headline.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/header_shadow.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/max_header.dart';
@@ -16,8 +17,8 @@ class FlyerHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('B---> FlyerHeader : bzID : ${superFlyer.bzID}');
 // -----------------------------------------------------------------------------
+    Tracer.traceWidgetBuild(widgetName: 'FlyerHeader', varName: 'bzID', varValue: superFlyer.bzID);
     return GestureDetector(
         onTap: superFlyer.onHeaderTap,
         child: ListView(

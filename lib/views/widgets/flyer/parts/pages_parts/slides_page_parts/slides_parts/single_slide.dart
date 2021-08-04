@@ -87,6 +87,8 @@ class SingleSlide extends StatelessWidget {
 
     bool _keyboardIsOn = Keyboarders.keyboardIsOn(context);
 
+    ImageSize _imageSize = await Imagers.superImageSize(picture);
+
     if (_keyboardIsOn){
       Keyboarders.closeKeyboard(context);
     }
@@ -94,6 +96,7 @@ class SingleSlide extends StatelessWidget {
       await Nav.goToNewScreen(context,
           SlideFullScreen(
             image: picture,
+            imageSize: _imageSize,
           )
       );
     }

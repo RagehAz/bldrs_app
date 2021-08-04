@@ -367,9 +367,9 @@ class SlideModel {
           // _name
           '${slide.picture.toString()}',
           // _originalWidth
-          imageSize.width,
+          imageSize.width.toInt(),
           // _originalHeight
-          imageSize.height,
+          imageSize.height.toInt(),
         ); //await Imagers.urlToAsset(slide.picture); /// TASK : URL to Asset needed here if possible
 
         _assets.add(_asset);
