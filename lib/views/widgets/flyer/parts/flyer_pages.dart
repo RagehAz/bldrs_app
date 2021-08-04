@@ -1,6 +1,7 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/scrollers.dart';
 import 'package:bldrs/controllers/drafters/sliders.dart';
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/models/super_flyer.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/info_page.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page.dart';
@@ -19,8 +20,7 @@ class FlyerPages extends StatelessWidget {
 
     bool _tinyMode = Scale.superFlyerTinyMode(context, superFlyer.flyerZoneWidth);
 
-    print('B---> FlyerPages : _tinyMode : ${_tinyMode}');
-
+    Tracer.traceWidgetBuild(widgetName: 'FlyerPages', varName: '_tinyMode', varValue: _tinyMode);
     return GoHomeOnMaxBounce(
       child: PageView(
         pageSnapping: true,

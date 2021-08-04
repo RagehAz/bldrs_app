@@ -164,8 +164,7 @@ class _UserCheckerState extends State<UserChecker> {
     final UserModel _userProvided = Provider.of<UserModel>(context);
     List<String> _missingFields = UserModel.missingFields(_userProvided);
 
-    print('B---> UserChecker : userID : ${_userProvided?.userID}');
-
+    Tracer.traceWidgetBuild(widgetName: 'UserChecker', varName: 'userID', varValue: _userProvided?.userID);
     return
 
       MainLayout(

@@ -1,11 +1,18 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:bldrs/controllers/drafters/borderers.dart';
+import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/bz_model.dart';
 import 'package:bldrs/models/sub_models/author_model.dart';
 import 'package:bldrs/models/super_flyer.dart';
+import 'package:bldrs/views/screens/x_3_slide_full_screen.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/views/widgets/dialogs/bottom_dialog.dart';
 import 'package:bldrs/views/widgets/flyer/editor/panel_button.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
@@ -86,7 +93,76 @@ class EditorPanel extends StatelessWidget {
             onTap: superFlyer.onShowAuthorTap,
           ),
 
-          /// SPACER
+          PanelButton(
+            flyerZoneWidth: flyerZoneWidth,
+            icon:  Iconz.Camera,
+            iconSizeFactor: 0.5,
+            verse: 'shot',
+            verseColor: Colorz.White255,
+            onTap: () async {
+
+              Uint8List _screenshot;
+              ImageSize _screenShotSize;
+
+              if(superFlyer?.screenshotsControllers?.length != 0){
+                await superFlyer.screenshotsControllers[superFlyer.currentSlideIndex].
+                capture(delay: Duration(milliseconds: 10))
+                    .then((imageFile) async {
+
+                  _screenshot = imageFile;
+                  String _fileName = '${superFlyer.flyerID}_${superFlyer.currentSlideIndex}';
+                  File _tempFile = await Imagers.createTempEmptyFile(_fileName);
+                  File _file = await Imagers.writeUint8ListOnFile(file: _tempFile, uint8list: _screenshot);
+
+                  _screenShotSize = await Imagers.superImageSize(_file);
+
+                }).catchError((onError) {
+                  print(onError);
+                });
+
+              }
+
+              double _screenWidth = Scale.superScreenWidth(context);
+              double _screenHeight = Scale.superScreenHeight(context);
+              double _dialogClearHeight = BottomDialog.dialogClearHeight(
+                title: 'x',
+                context: context,
+                overridingDialogHeight: _screenHeight * 0.5,
+              );
+
+              await BottomDialog.slideBottomDialog(
+                context: context,
+                title: 'Screenshot',
+                height: _screenHeight * 0.8,
+                draggable: true,
+                child: Container(
+                  width: BottomDialog.dialogClearWidth(context),
+                  height: _dialogClearHeight,
+                  color: Colorz.Black255,
+                  child: _screenshot == null ? Container()
+                      :
+                      GestureDetector(
+                        onTap: () async {
+                          await Nav.goToNewScreen(context,
+                              SlideFullScreen(
+                                image: _screenshot,
+                                imageSize: _screenShotSize,
+                          ));
+                        },
+                          child: Imagers.superImageWidget(
+                            _screenshot,
+                            height: _dialogClearHeight,
+                            width: BottomDialog.dialogClearWidth(context),
+                            fit: BoxFit.fitHeight,
+                          )
+                      ),
+                ),
+              );
+
+              },
+          ),
+
+              /// SPACER
           _expander(),
 
           // PanelButton.panelDot(panelButtonWidth: _panelButtonSize),

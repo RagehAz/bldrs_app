@@ -69,12 +69,11 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
 
-    print('B---> HomeScreen : _isLoading : $_isLoading');
-
     FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: true);
     // List<TinyBz> _tinyBzz = _prof.getAllTinyBzz;
     // List<TinyBz> _userTinyBzz = _prof.getUserTinyBzz;
 
+    Tracer.traceScreenBuild(screenName: 'HomeScreen');
     return WillPopScope(
       onWillPop: () => Future.value(false),
       child: MainLayout(
