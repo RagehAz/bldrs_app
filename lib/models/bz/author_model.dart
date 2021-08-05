@@ -1,7 +1,7 @@
-import 'package:bldrs/models/tiny_models/nano_flyer.dart';
-import '../bz_model.dart';
-import '../user_model.dart';
-import 'contact_model.dart';
+import 'package:bldrs/models/bz/bz_model.dart';
+import 'package:bldrs/models/flyer/nano_flyer.dart';
+import 'package:bldrs/models/secondary_models/contact_model.dart';
+import 'package:bldrs/models/user/user_model.dart';
 // -----------------------------------------------------------------------------
 class AuthorModel{
   final String userID;

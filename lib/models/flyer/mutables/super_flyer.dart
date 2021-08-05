@@ -2,23 +2,23 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:bldrs/controllers/drafters/animators.dart';
 import 'package:bldrs/controllers/drafters/imagers.dart';
-import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/controllers/drafters/sliders.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/firestore/auth_ops.dart';
-import 'package:bldrs/models/bz_model.dart';
-import 'package:bldrs/models/flyer_model.dart';
-import 'package:bldrs/models/sub_models/flyer_type_class.dart';
+import 'package:bldrs/models/bz/bz_model.dart';
+import 'package:bldrs/models/flyer/flyer_model.dart';
+import 'package:bldrs/models/flyer/mutables/mutable_slide.dart';
+import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
+import 'package:bldrs/models/flyer/sub/spec_model.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
-import 'package:bldrs/models/sub_models/author_model.dart';
-import 'package:bldrs/models/sub_models/contact_model.dart';
-import 'package:bldrs/models/sub_models/publish_time_model.dart';
-import 'package:bldrs/models/sub_models/slide_model.dart';
-import 'package:bldrs/models/sub_models/spec_model.dart';
-import 'package:bldrs/models/tiny_models/nano_flyer.dart';
-import 'package:bldrs/models/tiny_models/tiny_bz.dart';
-import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
-import 'package:bldrs/models/tiny_models/tiny_user.dart';
+import 'package:bldrs/models/bz/author_model.dart';
+import 'package:bldrs/models/secondary_models/contact_model.dart';
+import 'package:bldrs/models/flyer/records/publish_time_model.dart';
+import 'package:bldrs/models/flyer/sub/slide_model.dart';
+import 'package:bldrs/models/flyer/nano_flyer.dart';
+import 'package:bldrs/models/bz/tiny_bz.dart';
+import 'package:bldrs/models/flyer/tiny_flyer.dart';
+import 'package:bldrs/models/user/tiny_user.dart';
 import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -32,8 +32,6 @@ import 'package:screenshot/screenshot.dart';
 /// all fields are valid
 
 class SuperFlyer{
-  /// sizes
-  double flyerZoneWidth; // delete
 
   /// animation controller
   final PageController horizontalController; // FlyerNavigation
@@ -167,8 +165,6 @@ class SuperFlyer{
 
   /// --------------------------------------------------------------------------
   SuperFlyer({
-    /// sizes
-    @required this.flyerZoneWidth,
 
     /// animation controller
     @required this.horizontalController,
@@ -307,8 +303,6 @@ class SuperFlyer{
 
     return
         SuperFlyer(
-          /// sizes
-          flyerZoneWidth: flyerZoneWidth,
 
           /// animation controller
           horizontalController: null,
@@ -443,7 +437,6 @@ class SuperFlyer{
 // -----------------------------------------------------------------------------
   static SuperFlyer createViewSuperFlyerFromFlyerModel({
     @required BuildContext context,
-    @required double flyerZoneWidth,
     @required FlyerModel flyerModel,
     @required int initialPage,
     @required Function onHorizontalSlideSwipe,
@@ -467,8 +460,6 @@ class SuperFlyer{
 
     return
       SuperFlyer(
-        /// sizes
-        flyerZoneWidth: flyerZoneWidth,
 
         /// animation controller
         horizontalController: PageController(initialPage: _initialPage, viewportFraction: 1, keepPage: true),
@@ -606,7 +597,6 @@ class SuperFlyer{
 // -----------------------------------------------------------------------------
   static SuperFlyer createViewSuperFlyerFromTinyFlyer({
     @required BuildContext context,
-    @required double flyerZoneWidth,
     @required TinyFlyer tinyFlyer,
     @required Function onHeaderTap,
     @required Function onTinyFlyerTap,
@@ -619,8 +609,6 @@ class SuperFlyer{
 
     return
       SuperFlyer(
-        /// sizes
-        flyerZoneWidth: flyerZoneWidth,
 
         /// animation controller
         horizontalController: null,
@@ -768,7 +756,6 @@ class SuperFlyer{
 // -----------------------------------------------------------------------------
   static SuperFlyer createDraftSuperFlyerFromNothing({
     @required BuildContext context,
-    @required double flyerZoneWidth,
     @required BzModel bzModel,
     @required Function onHorizontalSlideSwipe,
     @required Function onVerticalPageSwipe,
@@ -806,8 +793,6 @@ class SuperFlyer{
 
     return
       SuperFlyer(
-        /// sizes
-        flyerZoneWidth: flyerZoneWidth,
 
         /// animation controller
         horizontalController: PageController(initialPage: 0, viewportFraction: 1, keepPage: true),
@@ -945,7 +930,6 @@ class SuperFlyer{
 // -----------------------------------------------------------------------------
   static Future<SuperFlyer> createDraftSuperFlyerFromFlyer({
     @required BuildContext context,
-    @required double flyerZoneWidth,
     @required BzModel bzModel,
     @required FlyerModel flyerModel,
     @required Function onHorizontalSlideSwipe,
@@ -984,8 +968,6 @@ class SuperFlyer{
 
     return
       SuperFlyer(
-        /// sizes
-        flyerZoneWidth: flyerZoneWidth,
 
         /// animation controller
         horizontalController: PageController(initialPage: 0, viewportFraction: 1, keepPage: true),
@@ -1138,14 +1120,11 @@ static TinyBz getTinyBzFromSuperFlyer(SuperFlyer superFlyer){
 }
 // -----------------------------------------------------------------------------
 static SuperFlyer getSuperFlyerFromBzModelOnly({
-  double flyerZoneWidth,
   BzModel bzModel,
   @required onHeaderTap,
 }){
     return
       SuperFlyer(
-        /// sizes
-        flyerZoneWidth: flyerZoneWidth,
 
         /// animation controller
         horizontalController: PageController(initialPage: 0, viewportFraction: 1, keepPage: true),

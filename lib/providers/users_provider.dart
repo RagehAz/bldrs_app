@@ -2,8 +2,8 @@ import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/firestore/user_ops.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
-import 'package:bldrs/models/sub_models/contact_model.dart';
-import 'package:bldrs/models/user_model.dart';
+import 'package:bldrs/models/secondary_models/contact_model.dart';
+import 'package:bldrs/models/user/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------

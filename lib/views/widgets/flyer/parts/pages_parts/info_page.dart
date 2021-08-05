@@ -6,10 +6,10 @@ import 'package:bldrs/controllers/drafters/sliders.dart';
 import 'package:bldrs/controllers/theme/dumz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/models/sub_models/flyer_type_class.dart';
+import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
-import 'package:bldrs/models/super_flyer.dart';
-import 'package:bldrs/models/tiny_models/tiny_user.dart';
+import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
+import 'package:bldrs/models/user/tiny_user.dart';
 import 'package:bldrs/providers/country_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -24,9 +24,11 @@ import 'package:bldrs/views/widgets/flyer/parts/pages_parts/info_page_parts/reco
 
 class InfoPage extends StatelessWidget {
   final SuperFlyer superFlyer;
+  final double flyerZoneWidth;
 
   const InfoPage({
     @required this.superFlyer,
+    @required this.flyerZoneWidth,
   });
 
   List<TinyUser> _getUsers(){
@@ -72,20 +74,20 @@ class InfoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double _flyerZoneHeight = Scale.superFlyerZoneHeight(context, superFlyer.flyerZoneWidth);
+    double _flyerZoneHeight = Scale.superFlyerZoneHeight(context, flyerZoneWidth);
 
-    double _bubbleWidth = superFlyer.flyerZoneWidth - (Ratioz.appBarPadding * 2);
+    double _bubbleWidth = flyerZoneWidth - (Ratioz.appBarPadding * 2);
 
-    double _peopleBubbleBoxHeight = superFlyer.flyerZoneWidth * Ratioz.xxflyerAuthorPicWidth * 1.5;
-    double _peopleIconSize = superFlyer.flyerZoneWidth * Ratioz.xxflyerAuthorPicWidth * 0.7;
+    double _peopleBubbleBoxHeight = flyerZoneWidth * Ratioz.xxflyerAuthorPicWidth * 1.5;
+    double _peopleIconSize = flyerZoneWidth * Ratioz.xxflyerAuthorPicWidth * 0.7;
     double _peopleNameHeight = _peopleBubbleBoxHeight - _peopleIconSize;
 
-    double _headerAndProgressHeights = Scale.superHeaderAndProgressHeights(context, superFlyer.flyerZoneWidth);
+    double _headerAndProgressHeights = Scale.superHeaderAndProgressHeights(context, flyerZoneWidth);
 
     EdgeInsets _bubbleMargins = EdgeInsets.only(top: Ratioz.appBarPadding, left: Ratioz.appBarPadding, right: Ratioz.appBarPadding);
-    double _cornerSmall = superFlyer.flyerZoneWidth * Ratioz.xxflyerTopCorners;
-    double _cornerBig = (superFlyer.flyerZoneWidth - (Ratioz.appBarPadding * 2)) * Ratioz.xxflyerBottomCorners;
-    BorderRadius _bubbleCorners = Borderers.superBorderAll(context, superFlyer.flyerZoneWidth * Ratioz.xxflyerTopCorners);
+    double _cornerSmall = flyerZoneWidth * Ratioz.xxflyerTopCorners;
+    double _cornerBig = (flyerZoneWidth - (Ratioz.appBarPadding * 2)) * Ratioz.xxflyerBottomCorners;
+    BorderRadius _bubbleCorners = Borderers.superBorderAll(context, flyerZoneWidth * Ratioz.xxflyerTopCorners);
 
     BorderRadius _keywordsBubbleCorners = Borderers.superBorderOnly(
       context: context,
@@ -149,7 +151,7 @@ class InfoPage extends StatelessWidget {
 
           /// HEADER FOOTPRINT ZONE
           Container(
-            width: superFlyer.flyerZoneWidth,
+            width: flyerZoneWidth,
             height: _headerAndProgressHeights,
           ),
 
@@ -242,7 +244,7 @@ class InfoPage extends StatelessWidget {
           /// SAVES BUBBLE
           if (_editMode != true)
             RecordBubble(
-              flyerZoneWidth: superFlyer.flyerZoneWidth,
+              flyerZoneWidth: flyerZoneWidth,
               bubbleTitle: 'Who Saved it',
               bubbleIcon: Iconz.Save,
               users: _users,
@@ -251,7 +253,7 @@ class InfoPage extends StatelessWidget {
           /// SHARES BUBBLE
           if (_editMode != true)
             RecordBubble(
-              flyerZoneWidth: superFlyer.flyerZoneWidth,
+              flyerZoneWidth: flyerZoneWidth,
               bubbleTitle: 'Who Shared it',
               bubbleIcon: Iconz.Share,
               users: _users,
@@ -260,7 +262,7 @@ class InfoPage extends StatelessWidget {
           /// VIEWS BUBBLE
           if (_editMode != true)
             RecordBubble(
-              flyerZoneWidth: superFlyer.flyerZoneWidth,
+              flyerZoneWidth: flyerZoneWidth,
               bubbleTitle: 'Who viewed it',
               bubbleIcon: Iconz.Views,
               users: _users,

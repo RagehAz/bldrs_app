@@ -2,7 +2,7 @@ import 'package:bldrs/controllers/drafters/keyboarders.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/sliders.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/models/super_flyer.dart';
+import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/footer.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/slides_parts/single_slide.dart';
 import 'package:flutter/material.dart';
@@ -10,16 +10,16 @@ import 'package:screenshot/screenshot.dart';
 
 class Slides extends StatelessWidget {
   final SuperFlyer superFlyer;
+  final double flyerZoneWidth;
 
   const Slides({
     @required this.superFlyer,
-
-    Key key,
+    @required this.flyerZoneWidth,
   });
 // -----------------------------------------------------------------------------
   void _onSingleSlideTap(BuildContext context){
 
-    bool _tinyMode = Scale.superFlyerTinyMode(context, superFlyer.flyerZoneWidth);
+    bool _tinyMode = Scale.superFlyerTinyMode(context, flyerZoneWidth);
 
     if (Keyboarders.keyboardIsOn(context)){
       Keyboarders.closeKeyboard(context);
@@ -85,7 +85,7 @@ class Slides extends StatelessWidget {
                     controller: superFlyer.screenshotsControllers == null ? null : superFlyer.screenshotsControllers[i],
                     child: SingleSlide(
                       superFlyer: superFlyer,
-                      flyerZoneWidth: superFlyer.flyerZoneWidth,
+                      flyerZoneWidth: flyerZoneWidth,
                       slideIndex: i,
                       // key: ObjectKey('${superFlyer.key.value}${i}'),
                       flyerID: superFlyer.flyerID, //_flyer.flyerID,
@@ -108,7 +108,7 @@ class Slides extends StatelessWidget {
 
                   if (superFlyer.editMode != true)
                     FlyerFooter(
-                      flyerZoneWidth: superFlyer.flyerZoneWidth,
+                      flyerZoneWidth: flyerZoneWidth,
                       saves: superFlyer.firstTimer == true ? 0 : superFlyer.mutableSlides[superFlyer.currentSlideIndex].savesCount,
                       shares: superFlyer.firstTimer == true? 0 : superFlyer.mutableSlides[superFlyer.currentSlideIndex].sharesCount,
                       views: superFlyer.firstTimer == true ? 0 : superFlyer.mutableSlides[superFlyer.currentSlideIndex].viewsCount,

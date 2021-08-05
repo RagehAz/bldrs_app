@@ -1,4 +1,4 @@
-import 'package:bldrs/models/flyer_model.dart';
+import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:flutter/material.dart';
 
 class PublishTime {
