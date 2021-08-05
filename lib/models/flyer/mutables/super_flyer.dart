@@ -3,7 +3,6 @@ import 'dart:typed_data';
 import 'package:bldrs/controllers/drafters/animators.dart';
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/sliders.dart';
-import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
@@ -27,6 +26,7 @@ import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:bldrs/models/flyer/mutables/flyer_navigator.dart';
+import 'package:bldrs/models/flyer/mutables/flyer_recorder.dart';
 
 /// need to add
 /// string mapImageURL
@@ -35,19 +35,11 @@ import 'package:bldrs/models/flyer/mutables/flyer_navigator.dart';
 class SuperFlyer{
 
   final FlyerNavigator nav;
+  final FlyerRecorder rec;
 
 
   /// animation parameters
-  final Duration slidingDuration; // delete
-  final Duration fadingDuration; // delete
   bool loading; // ??
-
-  /// record functions
-  final Function onViewSlide; // FlyerRecord
-  final Function onAnkhTap; // FlyerRecord
-  final Function onShareTap; // FlyerRecord
-  final Function onFollowTap; // FlyerRecord
-  final Function onCallTap; // FlyerRecord
 
   /// editor functions
   final Function onAddImages; // FlyerEditor
@@ -143,30 +135,18 @@ class SuperFlyer{
   /// publishing times
   List<PublishTime> flyerTimes; // MutableFlyer -- ?
 
-  /// user based bool triggers
-  bool ankhIsOn; // FlyerRecord
-  bool followIsOn; // FlyerRecord
-
 
   /// --------------------------------------------------------------------------
   SuperFlyer({
 
-    /// animation controller
+    /// navigator
     @required this.nav,
+    /// recorder
+    @required this.rec,
 
-    /// animation functions
 
     /// animation parameters
-    @required this.slidingDuration,
-    @required this.fadingDuration,
     @required this.loading,
-
-    /// record functions
-    @required this.onViewSlide,
-    @required this.onAnkhTap,
-    @required this.onShareTap,
-    @required this.onFollowTap,
-    @required this.onCallTap,
 
     /// editor functions
     @required this.onAddImages,
@@ -262,9 +242,6 @@ class SuperFlyer{
     /// publishing times
     @required this.flyerTimes,
 
-    /// user based bool triggers
-    @required this.ankhIsOn,
-    @required this.followIsOn,
   });
 // -----------------------------------------------------------------------------
   static String draftID = 'draft';
@@ -295,18 +272,20 @@ class SuperFlyer{
             bzPageIsOn: null,
             listenToSwipe: null,
           ),
+          rec: FlyerRecorder(
+            /// record functions
+            onViewSlide: null,
+            onAnkhTap: null,
+            onShareTap: null,
+            onFollowTap: null,
+            onCallTap: null,
+            /// user based bool triggers
+            ankhIsOn: null,
+            followIsOn: null,
+          ),
 
-
-          slidingDuration: null,
-          fadingDuration: null,
           loading: false,
 
-          /// record functions
-          onViewSlide: null,
-          onAnkhTap: null,
-          onShareTap: null,
-          onFollowTap: null,
-          onCallTap: null,
 
           /// editor functions
           onAddImages: null,
@@ -402,9 +381,6 @@ class SuperFlyer{
           /// publishing times
           flyerTimes: null,
 
-          /// user based bool triggers
-          ankhIsOn: null,
-          followIsOn: null,
         );
   }
 // -----------------------------------------------------------------------------
@@ -454,18 +430,21 @@ class SuperFlyer{
         bzPageIsOn: false,
         listenToSwipe: true,
         ),
+        rec: FlyerRecorder(
+          /// record functions
+          onViewSlide: onView,
+          onAnkhTap: onAnkhTap,
+          onShareTap: onShareTap,
+          onFollowTap: onFollowTap,
+          onCallTap: onCallTap,
+          /// user based bool triggers
+          ankhIsOn: _prof.checkAnkh(flyerModel.flyerID),
+          followIsOn: _prof.checkFollow(flyerModel.tinyBz.bzID),
+        ),
 
 
-        slidingDuration: Ratioz.durationSliding400,
-        fadingDuration: Ratioz.durationFading200,
         loading: false,
 
-        /// record functions
-        onViewSlide: onView,
-        onAnkhTap: onAnkhTap,
-        onShareTap: onShareTap,
-        onFollowTap: onFollowTap,
-        onCallTap: onCallTap,
 
         /// editor functions
         onAddImages: null,
@@ -564,9 +543,6 @@ class SuperFlyer{
           PublishTime(state: FlyerState.Deleted, timeStamp: flyerModel.deletionTime),
         ],
 
-        /// user based bool triggers
-        ankhIsOn: _prof.checkAnkh(flyerModel.flyerID),
-        followIsOn: _prof.checkFollow(flyerModel.tinyBz.bzID),
       );
   }
 // -----------------------------------------------------------------------------
@@ -605,17 +581,19 @@ class SuperFlyer{
           bzPageIsOn: false,
           listenToSwipe: false,
         ),
-
-        slidingDuration: null,
-        fadingDuration: null,
+        rec: FlyerRecorder(
+          /// record functions
+          onViewSlide: null,
+          onAnkhTap: onAnkhTap,
+          onShareTap: null,
+          onFollowTap: null,
+          onCallTap: null,
+          /// user based bool triggers
+          ankhIsOn: _prof.checkAnkh(tinyFlyer.flyerID),
+          followIsOn: _prof.checkFollow(tinyFlyer.tinyBz.bzID),
+        ),
         loading: false,
 
-        /// record functions
-        onViewSlide: null,
-        onAnkhTap: onAnkhTap,
-        onShareTap: null,
-        onFollowTap: null,
-        onCallTap: null,
 
         /// editor functions
         onAddImages: null,
@@ -724,9 +702,6 @@ class SuperFlyer{
         /// publishing times
         flyerTimes: null,
 
-        /// user based bool triggers
-        ankhIsOn: _prof.checkAnkh(tinyFlyer.flyerID),
-        followIsOn: _prof.checkFollow(tinyFlyer.tinyBz.bzID),
       );
   }
 // -----------------------------------------------------------------------------
@@ -791,18 +766,21 @@ class SuperFlyer{
           listenToSwipe: true,
 
         ),
+        rec: FlyerRecorder(
+          /// record functions
+          onViewSlide: onView,
+          onAnkhTap: onAnkhTap,
+          onShareTap: onShareTap,
+          onFollowTap: onFollowTap,
+          onCallTap: onCallTap,
+          /// user based bool triggers
+          ankhIsOn: false,
+          followIsOn: false,
+        ),
 
 
-        slidingDuration: Ratioz.durationSliding400,
-        fadingDuration: Ratioz.durationFading200,
         loading: false,
 
-        /// record functions
-        onViewSlide: onView,
-        onAnkhTap: onAnkhTap,
-        onShareTap: onShareTap,
-        onFollowTap: onFollowTap,
-        onCallTap: onCallTap,
 
         /// editor functions
         onAddImages: onAddImages,
@@ -900,9 +878,6 @@ class SuperFlyer{
           PublishTime(state: FlyerState.Draft, timeStamp: DateTime.now()),
         ],
 
-        /// user based bool triggers
-        ankhIsOn: false,
-        followIsOn: false,
       );
 
   }
@@ -968,18 +943,20 @@ class SuperFlyer{
           bzPageIsOn: false,
           listenToSwipe: true,
         ),
+        rec: FlyerRecorder(
+          /// record functions
+          onViewSlide: onView,
+          onAnkhTap: onAnkhTap,
+          onShareTap: onShareTap,
+          onFollowTap: onFollowTap,
+          onCallTap: onCallTap,
+          /// user based bool triggers
+          ankhIsOn: false,
+          followIsOn: false,
+        ),
 
-
-        slidingDuration: Ratioz.durationSliding400,
-        fadingDuration: Ratioz.durationFading200,
         loading: false,
 
-        /// record functions
-        onViewSlide: onView,
-        onAnkhTap: onAnkhTap,
-        onShareTap: onShareTap,
-        onFollowTap: onFollowTap,
-        onCallTap: onCallTap,
 
         /// editor functions
         onAddImages: onAddImages,
@@ -1080,9 +1057,6 @@ class SuperFlyer{
           PublishTime(state: FlyerState.Draft, timeStamp: DateTime.now()),
         ],
 
-        /// user based bool triggers
-        ankhIsOn: false,
-        followIsOn: false,
       );
 
   }
@@ -1126,18 +1100,19 @@ static SuperFlyer getSuperFlyerFromBzModelOnly({
           bzPageIsOn: false,
           listenToSwipe: true,
         ),
+        rec: FlyerRecorder(
+          /// record functions
+          onViewSlide: null,
+          onAnkhTap: null,
+          onShareTap: null,
+          onFollowTap: null,
+          onCallTap: null,
+          /// user based bool triggers
+          ankhIsOn: null,
+          followIsOn: false,
+        ),
 
-
-        slidingDuration: Ratioz.durationSliding400,
-        fadingDuration: Ratioz.durationFading200,
         loading: false,
-
-        /// record functions
-        onViewSlide: null,
-        onAnkhTap: null,
-        onShareTap: null,
-        onFollowTap: null,
-        onCallTap: null,
 
         /// editor functions
         onAddImages: null,
@@ -1233,9 +1208,6 @@ static SuperFlyer getSuperFlyerFromBzModelOnly({
         /// publishing times
         flyerTimes: null,
 
-        /// user based bool triggers
-        ankhIsOn: null,
-        followIsOn: false,
       );
 }
 
