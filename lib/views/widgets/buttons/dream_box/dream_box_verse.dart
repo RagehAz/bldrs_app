@@ -70,7 +70,6 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
     @required this.redDot,
     @required this.secondLineScaleFactor,
     @required this.secondLineColor,
-    Key key
   });
 
   @override

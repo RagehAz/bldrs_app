@@ -27,7 +27,6 @@ class FooterButton extends StatelessWidget {
     this.inActiveMode = false,
 
     this.isOn = false,
-    Key key
   });
 
   @override

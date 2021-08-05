@@ -20,7 +20,6 @@ class NightSky extends StatefulWidget {
   final Sky sky;
 
   NightSky({
-    Key key,
     this.sky,
 });
 

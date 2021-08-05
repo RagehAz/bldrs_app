@@ -33,136 +33,136 @@ import 'package:screenshot/screenshot.dart';
 
 class SuperFlyer{
   /// sizes
-  double flyerZoneWidth;
+  double flyerZoneWidth; // delete
 
   /// animation controller
-  final PageController horizontalController;
-  final PageController verticalController;
-  final ScrollController infoScrollController;
+  final PageController horizontalController; // FlyerNavigation
+  final PageController verticalController; // FlyerNavigation
+  final ScrollController infoScrollController; // FlyerNavigation
 
   /// animation functions
-  final Function onHorizontalSlideSwipe;
-  final Function onVerticalPageSwipe;
-  final Function onVerticalPageBack;
-  final Function onHeaderTap;
-  final Function onSlideRightTap;
-  final Function onSlideLeftTap;
-  final Function onSwipeFlyer;
-  final Function onTinyFlyerTap;
+  final Function onHorizontalSlideSwipe; // FlyerNavigation
+  final Function onVerticalPageSwipe; // FlyerNavigation
+  final Function onVerticalPageBack; // FlyerNavigation
+  final Function onHeaderTap; // FlyerNavigation
+  final Function onSlideRightTap; // FlyerNavigation
+  final Function onSlideLeftTap; // FlyerNavigation
+  final Function onSwipeFlyer; // FlyerNavigation
+  final Function onTinyFlyerTap; // FlyerNavigation
 
   /// animation parameters
-  final Duration slidingDuration;
-  final Duration fadingDuration;
-  double progressBarOpacity;
-  SwipeDirection swipeDirection;
-  bool bzPageIsOn;
-  bool listenToSwipe;
-  bool loading;
+  final Duration slidingDuration; // delete
+  final Duration fadingDuration; // delete
+  double progressBarOpacity; // FlyerNavigation
+  SwipeDirection swipeDirection; // FlyerNavigation
+  bool bzPageIsOn; // FlyerNavigation
+  bool listenToSwipe; // FlyerNavigation
+  bool loading; // ??
 
   /// record functions
-  final Function onViewSlide;
-  final Function onAnkhTap;
-  final Function onShareTap;
-  final Function onFollowTap;
-  final Function onCallTap;
+  final Function onViewSlide; // FlyerRecord
+  final Function onAnkhTap; // FlyerRecord
+  final Function onShareTap; // FlyerRecord
+  final Function onFollowTap; // FlyerRecord
+  final Function onCallTap; // FlyerRecord
 
   /// editor functions
-  final Function onAddImages;
-  final Function onDeleteSlide;
-  final Function onCropImage;
-  final Function onResetImage;
-  final Function onFitImage;
-  final Function onFlyerTypeTap;
-  final Function onZoneTap;
-  final Function onMoreInfoTap;
-  final Function onKeywordsTap;
-  final Function onShowAuthorTap;
-  final Function onTriggerEditMode;
-  final Function onPublishFlyer;
-  final Function onDeleteFlyer;
-  final Function onUnPublishFlyer;
-  final Function onRepublishFlyer;
+  final Function onAddImages; // FlyerEditor
+  final Function onDeleteSlide; // FlyerEditor
+  final Function onCropImage; // FlyerEditor
+  final Function onResetImage; // FlyerEditor
+  final Function onFitImage; // FlyerEditor
+  final Function onFlyerTypeTap; // FlyerEditor
+  final Function onZoneTap; // FlyerEditor
+  final Function onEditInfoTap; // FlyerEditor
+  final Function onEditKeywordsTap; // FlyerEditor
+  final Function onShowAuthorTap; // FlyerEditor
+  final Function onTriggerEditMode; // FlyerEditor
+  final Function onPublishFlyer; // FlyerEditor
+  final Function onDeleteFlyer; // FlyerEditor
+  final Function onUnPublishFlyer; // FlyerEditor
+  final Function onRepublishFlyer; // FlyerEditor
 
   /// editor data
-  bool firstTimer;
-  bool editMode; // to trigger between view mode and edit mode for the draft
-  List<TextEditingController> headlinesControllers;
-  List<TextEditingController> descriptionsControllers;
-  TextEditingController infoController;
-  List<ScreenshotController> screenshotsControllers;
-  List<Uint8List> screenShots;
-  List<Asset> assetsSources;
-  List<File> assetsFiles;
+  bool firstTimer; // FlyerEditor
+  bool editMode; // FlyerEditor
+  List<TextEditingController> headlinesControllers; // MutableSlide
+  List<TextEditingController> descriptionsControllers; // MutableSlide
+  TextEditingController infoController; // MutableFlyer
+  List<ScreenshotController> screenshotsControllers; // MutableSlide
+  List<Uint8List> screenShots; // MutableSlide
+  List<Asset> assetsSources; // MutableSlide
+  List<File> assetsFiles; // MutableSlide
 
   /// slides settings
-  List<bool> slidesVisibilities;
-  int numberOfSlides;
-  int numberOfStrips;
+  List<bool> slidesVisibilities; // MutableSlide
+  int numberOfSlides; // MutableFlyer -- ?
+  int numberOfStrips; // MutableFlyer -- ?
 
   /// current slide settings
-  BoxFit currentPicFit;
-  final int initialSlideIndex;
-  int currentSlideIndex;
-  int verticalIndex;
+  BoxFit currentPicFit; // MutableFlyer -- ?
+  final int initialSlideIndex; // MutableFlyer -- ?
+  int currentSlideIndex; // MutableFlyer -- ?
+  int verticalIndex; // MutableFlyer -- ?
 
   /// bz data
-  final BzType bzType;
-  final BzForm bzForm;
-  final DateTime bldrBirth;
-  final BzAccountType accountType;
-  final String bzURL;
-  final String bzName;
-  final dynamic bzLogo;
-  final String bzScope;
-  final Zone bzZone;
-  final String bzAbout;
-  final GeoPoint bzPosition;
-  final List<ContactModel> bzContacts;
-  final List<AuthorModel> bzAuthors;
-  final bool bzShowsTeam;
-  final bool bzIsVerified;
-  final bool bzAccountIsDeactivated;
-  final bool bzAccountIsBanned;
-  final List<NanoFlyer> bzNanoFlyers;
+  final BzType bzType; // bzModel
+  final BzForm bzForm; // bzModel
+  final DateTime bldrBirth; // bzModel
+  final BzAccountType accountType; // bzModel
+  final String bzURL; // bzModel
+  final String bzName; // bzModel
+  final dynamic bzLogo; // bzModel
+  final String bzScope; // bzModel
+  final Zone bzZone; // bzModel
+  final String bzAbout; // bzModel
+  final GeoPoint bzPosition; // bzModel
+  final List<ContactModel> bzContacts; // bzModel
+  final List<AuthorModel> bzAuthors; // bzModel
+  final bool bzShowsTeam; // bzModel
+  final bool bzIsVerified; // bzModel
+  final bool bzAccountIsDeactivated; // bzModel
+  final bool bzAccountIsBanned; // bzModel
+  final List<NanoFlyer> bzNanoFlyers; // bzModel
 
   /// bz records
-  int bzTotalFollowers;
-  int bzTotalFlyers;
-  int bzTotalSaves;
-  int bzTotalShares;
-  int bzTotalSlides;
-  int bzTotalViews;
-  int bzTotalCalls;
+  int bzTotalFollowers; // bzModel
+  int bzTotalFlyers; // bzModel
+  int bzTotalSaves; // bzModel
+  int bzTotalShares; // bzModel
+  int bzTotalSlides; // bzModel
+  int bzTotalViews; // bzModel
+  int bzTotalCalls; // bzModel
 
   /// flyer identifiers
-  final ValueKey key;
-  final String flyerID;
-  final String bzID;
-  String authorID;
-  final String flyerURL;
+  final ValueKey key; // MutableFlyer -- ?
+  final String flyerID; // MutableFlyer -- ?
+  final String bzID; // bzModel
+  String authorID; // tinyAuthor
+  final String flyerURL; // MutableFlyer -- ?
 
   /// flyer data
-  FlyerType flyerType;
-  FlyerState flyerState;
-  TinyUser flyerTinyAuthor;
-  bool flyerShowsAuthor;
-  List<MutableSlide> mutableSlides;
+  FlyerType flyerType; // MutableFlyer -- ?
+  FlyerState flyerState; // MutableFlyer -- ?
+  TinyUser flyerTinyAuthor; // tinyAuthor
+  bool flyerShowsAuthor; // MutableFlyer -- ?
+  List<MutableSlide> mutableSlides; // MutableSlide
 
   /// flyer tags
-  String flyerInfo;
-  List<Spec> specs;
-  List<dynamic> keywords;
+  String flyerInfo; // MutableFlyer -- ?
+  List<Spec> specs; // MutableFlyer -- ?
+  List<dynamic> keywords; // MutableFlyer -- ?
 
   /// flyer location
-  Zone flyerZone;
-  GeoPoint position;
+  Zone flyerZone; // MutableFlyer -- ?
+  GeoPoint position; // MutableFlyer -- ?
 
   /// publishing times
-  List<PublishTime> flyerTimes;
+  List<PublishTime> flyerTimes; // MutableFlyer -- ?
 
   /// user based bool triggers
-  bool ankhIsOn;
-  bool followIsOn;
+  bool ankhIsOn; // FlyerRecord
+  bool followIsOn; // FlyerRecord
 
 
   /// --------------------------------------------------------------------------
@@ -209,8 +209,8 @@ class SuperFlyer{
     @required this.onFitImage,
     @required this.onFlyerTypeTap,
     @required this.onZoneTap,
-    @required this.onMoreInfoTap,
-    @required this.onKeywordsTap,
+    @required this.onEditInfoTap,
+    @required this.onEditKeywordsTap,
     @required this.onShowAuthorTap,
     @required this.onTriggerEditMode,
     @required this.onPublishFlyer,
@@ -349,8 +349,8 @@ class SuperFlyer{
           onFitImage: null,
           onFlyerTypeTap: null,
           onZoneTap: null,
-          onMoreInfoTap: null,
-          onKeywordsTap: null,
+          onEditInfoTap: null,
+          onEditKeywordsTap: null,
           onShowAuthorTap: null,
           onTriggerEditMode: null,
           onPublishFlyer: null,
@@ -509,8 +509,8 @@ class SuperFlyer{
         onFitImage: null,
         onFlyerTypeTap: null,
         onZoneTap: null,
-        onMoreInfoTap: null,
-        onKeywordsTap: null,
+        onEditInfoTap: null,
+        onEditKeywordsTap: null,
         onShowAuthorTap: null,
         onTriggerEditMode: null,
         onPublishFlyer: null,
@@ -661,8 +661,8 @@ class SuperFlyer{
         onFitImage: null,
         onFlyerTypeTap: null,
         onZoneTap: null,
-        onMoreInfoTap: null,
-        onKeywordsTap: null,
+        onEditInfoTap: null,
+        onEditKeywordsTap: null,
         onShowAuthorTap: null,
         onTriggerEditMode: null,
         onPublishFlyer: null,
@@ -848,8 +848,8 @@ class SuperFlyer{
         onFitImage: onFitImage,
         onFlyerTypeTap: onFlyerTypeTap,
         onZoneTap: onZoneTap,
-        onMoreInfoTap: onAboutTap,
-        onKeywordsTap: onKeywordsTap,
+        onEditInfoTap: onAboutTap,
+        onEditKeywordsTap: onKeywordsTap,
         onShowAuthorTap: onShowAuthorTap,
         onTriggerEditMode: onTriggerEditMode,
         onPublishFlyer: onPublishFlyer,
@@ -1026,8 +1026,8 @@ class SuperFlyer{
         onFitImage: onFitImage,
         onFlyerTypeTap: onFlyerTypeTap,
         onZoneTap: onZoneTap,
-        onMoreInfoTap: onAboutTap,
-        onKeywordsTap: onKeywordsTap,
+        onEditInfoTap: onAboutTap,
+        onEditKeywordsTap: onKeywordsTap,
         onShowAuthorTap: onShowAuthorTap,
         onTriggerEditMode: onTriggerEditMode,
         onPublishFlyer: onPublishFlyer,
@@ -1186,8 +1186,8 @@ static SuperFlyer getSuperFlyerFromBzModelOnly({
         onFitImage: null,
         onFlyerTypeTap: null,
         onZoneTap: null,
-        onMoreInfoTap: null,
-        onKeywordsTap: null,
+        onEditInfoTap: null,
+        onEditKeywordsTap: null,
         onShowAuthorTap: null,
         onTriggerEditMode: null,
         onPublishFlyer: null,

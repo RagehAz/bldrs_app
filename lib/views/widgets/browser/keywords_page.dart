@@ -11,7 +11,6 @@ class KeywordsPage extends StatelessWidget {
   final List<Keyword> selectedKeywords;
 
   KeywordsPage({
-    Key key,
     @required this.keywords,
     @required this.onTap,
     @required this.selectedKeywords,

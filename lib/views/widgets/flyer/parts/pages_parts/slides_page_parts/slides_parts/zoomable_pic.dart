@@ -16,7 +16,6 @@ class ZoomablePicture extends StatefulWidget {
     this.autoShrink = true,
     this.isFullScreen = false,
     @required this.onTap,
-    Key key
   });
 
   @override

@@ -16,7 +16,6 @@ class RecordBubble extends StatelessWidget {
     @required this.bubbleTitle,
     @required this.bubbleIcon,
     @required this.users,
-    Key key
   });
 
   @override
