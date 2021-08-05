@@ -9,7 +9,6 @@ class GroupsPage extends StatelessWidget {
   final String selectedGroup;
 
   GroupsPage({
-    Key key,
     @required this.groups,
     @required this.onTap,
     @required this.selectedGroup,

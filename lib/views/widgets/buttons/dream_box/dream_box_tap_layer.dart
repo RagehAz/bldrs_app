@@ -20,7 +20,6 @@ class DreamBoxTapLayer extends StatelessWidget {
     @required this.onTapDown,
     @required this.onTapCancel,
     @required this.inActiveMode,
-    Key key,
   });
 
   @override

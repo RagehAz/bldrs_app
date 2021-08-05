@@ -22,7 +22,6 @@ class DreamBoxUnderLine extends StatelessWidget {
     @required this.verseSize,
     @required this.scaleFactor,
     @required this.underLineShadowIsOn,
-    Key key,
   });
 
   @override

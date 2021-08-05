@@ -27,7 +27,6 @@ class InfoPage extends StatelessWidget {
 
   const InfoPage({
     @required this.superFlyer,
-    Key key,
   });
 
   List<TinyUser> _getUsers(){
@@ -237,7 +236,7 @@ class InfoPage extends StatelessWidget {
             centered: false,
             paragraph: _flyerInfoParagraph,
             editMode: superFlyer.editMode,
-            onParagraphTap: superFlyer.onMoreInfoTap,
+            onParagraphTap: superFlyer.onEditInfoTap,
           ),
 
           /// SAVES BUBBLE
@@ -275,7 +274,7 @@ class InfoPage extends StatelessWidget {
             title: 'Flyer keywords',
             keywords: _keywords,
             selectedWords: <Keyword>[Keyword.bldrsKeywords()[403],],
-            onTap: _editMode == true ? superFlyer.onKeywordsTap : null,
+            onTap: _editMode == true ? superFlyer.onEditKeywordsTap : null,
           ),
 
           SizedBox(

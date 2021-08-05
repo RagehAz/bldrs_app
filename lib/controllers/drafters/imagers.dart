@@ -36,18 +36,6 @@ enum PicType{
   askPic,
 }
 // -----------------------------------------------------------------------------
-class ObjectSize{
-  double width;
-  double height;
-  bool maxSize;
-
-  ObjectSize({
-    @required this.width,
-    @required this.height,
-    @required this.maxSize,
-});
-}
-// -----------------------------------------------------------------------------
 class ImageSize{
   final double width;
   final double height;
@@ -64,13 +52,17 @@ class ImageSize{
           'height' : height,
         };
   }
-
+// -----------------------------------------------------------------------------
   static ImageSize decipherImageSize(Map<String, dynamic> map){
     ImageSize _imageSize;
     if(map != null){
+// -----------------------------------------------------------------------------
+      dynamic _widthInInt = map['width'];
+      dynamic _heightInInt = map['height'];
+
       _imageSize = ImageSize(
-          width: map['width'],
-          height: map['height'],
+          width: _widthInInt.toDouble(),
+          height: _heightInInt.toDouble(),
       );
     }
     return _imageSize;
@@ -79,7 +71,7 @@ class ImageSize{
 // -----------------------------------------------------------------------------
 class Imagers{
 // -----------------------------------------------------------------------------
-static DecorationImage superImage(String picture, BoxFit boxFit){
+  static DecorationImage superImage(String picture, BoxFit boxFit){
   DecorationImage image = DecorationImage(
     image: AssetImage(picture),
     fit: boxFit,
@@ -217,16 +209,46 @@ static DecorationImage superImage(String picture, BoxFit boxFit){
 }
 // -----------------------------------------------------------------------------
   static Future<ImageSize> superImageSize(dynamic image) async {
-    ImageSize _imageSize;
+  ImageSize _imageSize;
+
   if(image != null){
+    // -----------------------------------------------------------o
+    bool _isURL = ObjectChecker.objectIsURL(image) == true;
+    bool _isAsset = ObjectChecker.objectIsAsset(image) == true;
+    bool _isFile = ObjectChecker.objectIsFile(image) == true;
+    bool _isUints = ObjectChecker.objectIsUint8List(image) == true;
+    // -----------------------------------------------------------o
+    var decodedImage;
+    Uint8List _uInt8List;
+    // -----------------------------------------------------------o
+    if (_isURL == true) {
+      File _file = await Imagers.urlToFile(image);
+      _uInt8List = await _file.readAsBytesSync();
+    }
+    // --------------------------o
+    else if(_isAsset == true){
+      _uInt8List = image.readAsBytesSync();
+    }
+    // --------------------------o
+    else if(_isFile){
+      _uInt8List = await image.readAsBytesSync();
+    }
+    // --------------------------o
+    else if (_isUints == true) {
+      _uInt8List = image;
+    }
+    // -----------------------------------------------------------o
+    decodedImage= await decodeImageFromList(_uInt8List);
 
-    var decodedImage = await decodeImageFromList(image.readAsBytesSync());
+    print('the mysterious type is ${decodedImage.runtimeType}');
 
-    _imageSize =  ImageSize(
-        width: decodedImage.width.toDouble(),
-        height: decodedImage.height.toDouble(),
+    _imageSize = ImageSize(
+      width: decodedImage.width.toDouble(),
+      height: decodedImage.height.toDouble(),
     );
+
   }
+
   return _imageSize;
 }
 // -----------------------------------------------------------------------------

@@ -42,7 +42,6 @@ class ObeliskScreen extends StatefulWidget {
 
   ObeliskScreen({
     this.controller,
-    Key key,
   });
 
 
