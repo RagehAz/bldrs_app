@@ -112,7 +112,7 @@ class Slides extends StatelessWidget {
                       saves: superFlyer.firstTimer == true ? 0 : superFlyer.mutableSlides[superFlyer.currentSlideIndex].savesCount,
                       shares: superFlyer.firstTimer == true? 0 : superFlyer.mutableSlides[superFlyer.currentSlideIndex].sharesCount,
                       views: superFlyer.firstTimer == true ? 0 : superFlyer.mutableSlides[superFlyer.currentSlideIndex].viewsCount,
-                      onShareTap: () => superFlyer.onShareTap(),
+                      onShareTap: () => superFlyer.rec.onShareTap(),
                       onCountersTap: (){print('tapping slide counter');},
                     ),
 

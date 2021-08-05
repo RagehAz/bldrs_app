@@ -362,7 +362,7 @@ class FlyerModel with ChangeNotifier{
         slides: superFlyer.mutableSlides,
         flyerIsBanned: PublishTime.flyerIsBanned(superFlyer.flyerTimes),
         deletionTime: PublishTime.getPublishTimeFromTimes(times: superFlyer.flyerTimes, state: FlyerState.Deleted),
-        ankhIsOn: superFlyer.ankhIsOn,
+        ankhIsOn: superFlyer.rec.ankhIsOn,
         specs: superFlyer.specs,
         info: superFlyer.infoController.text,
         // times:
