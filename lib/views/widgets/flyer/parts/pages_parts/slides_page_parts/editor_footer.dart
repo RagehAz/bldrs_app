@@ -117,7 +117,7 @@ class EditorFooter extends StatelessWidget {
                   verse: 'Fit',
                   icon: currentPicFit == BoxFit.fitWidth ? Iconz.ArrowRight : currentPicFit == BoxFit.fitHeight ? Iconz.ArrowUp : Iconz.DashBoard,
                   flyerZoneWidth: flyerZoneWidth,
-                  onTap: superFlyer.onFitImage, //onFitImage,
+                  onTap: superFlyer.edit.onFitImage, //onFitImage,
                   size: _fittingButtonSize,
                   inActiveMode: _fitButtonInActiveMode,
                 ),

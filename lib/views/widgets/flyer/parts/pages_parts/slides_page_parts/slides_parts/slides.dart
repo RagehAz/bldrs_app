@@ -67,10 +67,10 @@ class Slides extends StatelessWidget {
 
 
           dynamic _slidePic =
-          superFlyer.editMode == true ? superFlyer.assetsFiles[i] : superFlyer.mutableSlides[i].picture;
+          superFlyer.edit.editMode == true ? superFlyer.assetsFiles[i] : superFlyer.mutableSlides[i].picture;
           // superFlyer.editMode ? superFlyer.assetsFiles[i] : superFlyer.slides[i].picture
 
-          String _slideTitle = superFlyer.editMode == true ? superFlyer.headlinesControllers[i].text : superFlyer.mutableSlides[i].headline ;
+          String _slideTitle = superFlyer.edit.editMode == true ? superFlyer.headlinesControllers[i].text : superFlyer.mutableSlides[i].headline ;
 
           return
             superFlyer.numberOfSlides == 0 ? Container() :
@@ -92,7 +92,7 @@ class Slides extends StatelessWidget {
                       picture: _slidePic,
                       // slideMode: superFlyer.editMode ? SlideMode.Editor : SlideMode.View,//slidesModes[index],
                       boxFit: _currentPicFit, // [fitWidth - contain - scaleDown] have the blur background
-                      titleController: superFlyer.editMode == true ? superFlyer.headlinesControllers[i] : null,
+                      titleController: superFlyer.edit.editMode == true ? superFlyer.headlinesControllers[i] : null,
                       title: _slideTitle,
                       imageSize: superFlyer.mutableSlides[i].imageSize,
                       slideColor: superFlyer.mutableSlides[i].midColor,
@@ -106,12 +106,12 @@ class Slides extends StatelessWidget {
                     ),
                   ),
 
-                  if (superFlyer.editMode != true)
+                  if (superFlyer.edit.editMode != true)
                     FlyerFooter(
                       flyerZoneWidth: flyerZoneWidth,
-                      saves: superFlyer.firstTimer == true ? 0 : superFlyer.mutableSlides[superFlyer.currentSlideIndex].savesCount,
-                      shares: superFlyer.firstTimer == true? 0 : superFlyer.mutableSlides[superFlyer.currentSlideIndex].sharesCount,
-                      views: superFlyer.firstTimer == true ? 0 : superFlyer.mutableSlides[superFlyer.currentSlideIndex].viewsCount,
+                      saves: superFlyer.edit.firstTimer == true ? 0 : superFlyer.mutableSlides[superFlyer.currentSlideIndex].savesCount,
+                      shares: superFlyer.edit.firstTimer == true? 0 : superFlyer.mutableSlides[superFlyer.currentSlideIndex].sharesCount,
+                      views: superFlyer.edit.firstTimer == true ? 0 : superFlyer.mutableSlides[superFlyer.currentSlideIndex].viewsCount,
                       onShareTap: () => superFlyer.rec.onShareTap(),
                       onCountersTap: (){print('tapping slide counter');},
                     ),

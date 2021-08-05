@@ -30,7 +30,7 @@ class SlidesPage extends StatelessWidget {
           ),
 
         /// ANKH
-        if(superFlyer.currentSlideIndex != null && superFlyer.numberOfSlides != 0 && superFlyer.editMode != true)
+        if(superFlyer.currentSlideIndex != null && superFlyer.numberOfSlides != 0 && superFlyer.edit.editMode != true)
           AnkhButton(
             bzPageIsOn: superFlyer.nav.bzPageIsOn,
             flyerZoneWidth: flyerZoneWidth,
@@ -40,15 +40,15 @@ class SlidesPage extends StatelessWidget {
           ),
 
         /// EDITOR FOOTER
-        if (superFlyer.editMode == true)
+        if (superFlyer.edit.editMode == true)
           EditorFooter(
             flyerZoneWidth: flyerZoneWidth,
             currentPicFit: superFlyer.currentPicFit,
-            onAddImages: superFlyer.onAddImages,
-            onDeleteSlide: superFlyer.onDeleteSlide,
-            onCropImage: superFlyer.onCropImage,
-            onResetImage: superFlyer.onResetImage,
-            onFitImage: superFlyer.onFitImage,
+            onAddImages: superFlyer.edit.onAddImages,
+            onDeleteSlide: superFlyer.edit.onDeleteSlide,
+            onCropImage: superFlyer.edit.onCropImage,
+            onResetImage: superFlyer.edit.onResetImage,
+            onFitImage: superFlyer.edit.onFitImage,
             numberOfSlides: superFlyer.numberOfSlides,
             superFlyer: superFlyer,
           ),

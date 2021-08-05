@@ -90,7 +90,7 @@ class EditorPanel extends StatelessWidget {
             corners: Borderers.superLogoShape(context: context, zeroCornerEnIsRight: false, corner: Ratioz.xxflyerAuthorPicCorner * flyerZoneWidth),
             blackAndWhite: superFlyer.flyerShowsAuthor == true ? false : true,
             bubble: superFlyer.flyerShowsAuthor == true ? true : false,
-            onTap: superFlyer.onShowAuthorTap,
+            onTap: superFlyer.edit.onShowAuthorTap,
           ),
 
           PanelButton(
@@ -101,10 +101,10 @@ class EditorPanel extends StatelessWidget {
             verseColor: Colorz.White255,
             onTap: () async {
 
-              bool _editModeWas = superFlyer.editMode;
+              bool _editModeWas = superFlyer.edit.editMode;
 
               if(_editModeWas == true){
-                await superFlyer.onTriggerEditMode();
+                await superFlyer.edit.onTriggerEditMode();
               }
 
               // https://flutteragency.com/take-a-screenshot-of-the-current-widget-in-flutter/
@@ -170,7 +170,7 @@ class EditorPanel extends StatelessWidget {
               );
 
               if(_editModeWas == true){
-                await superFlyer.onTriggerEditMode();
+                await superFlyer.edit.onTriggerEditMode();
               }
               },
           ),
@@ -181,7 +181,7 @@ class EditorPanel extends StatelessWidget {
           // PanelButton.panelDot(panelButtonWidth: _panelButtonSize),
 
           /// DELETE FLYER button
-          if(superFlyer.editMode == true && superFlyer.firstTimer == false)
+          if(superFlyer.edit.editMode == true && superFlyer.edit.firstTimer == false)
             PanelButton(
               flyerZoneWidth: flyerZoneWidth,
               icon:  Iconz.XSmall,
@@ -191,32 +191,32 @@ class EditorPanel extends StatelessWidget {
 
               /// TASK : if all fields are valid should be green otherWise should be inActive
               color: Colorz.Red230,
-              onTap: superFlyer.onDeleteFlyer,
+              onTap: superFlyer.edit.onDeleteFlyer,
             ),
 
           /// Publish button
-          if(superFlyer.editMode == true)
+          if(superFlyer.edit.editMode == true)
           PanelButton(
             flyerZoneWidth: flyerZoneWidth,
             icon:  Iconz.ArrowUp,
             iconSizeFactor: 0.5,
-            verse: superFlyer.firstTimer ? 'Publish' : 'Update',
-            verseColor: superFlyer.editMode ? Colorz.Black255 : Colorz.White255,
+            verse: superFlyer.edit.firstTimer ? 'Publish' : 'Update',
+            verseColor: superFlyer.edit.editMode ? Colorz.Black255 : Colorz.White255,
 
             /// TASK : if all fields are valid should be green otherWise should be inActive
             color: Colorz.Green255,
-            onTap: superFlyer.onPublishFlyer,
+            onTap: superFlyer.edit.onPublishFlyer,
           ),
 
           /// TRIGGER EDIT MODE
           PanelButton(
             flyerZoneWidth: flyerZoneWidth,
-            icon: superFlyer.editMode == true ? Iconz.Gears : Iconz.Views,
+            icon: superFlyer.edit.editMode == true ? Iconz.Gears : Iconz.Views,
             iconSizeFactor: 0.5,
-            verse: superFlyer.editMode == true ? 'Editing' : 'Viewing',
-            verseColor: superFlyer.editMode == true ? Colorz.Black255 : Colorz.White255,
-            color: superFlyer.editMode == true ? Colorz.Yellow255 : Colorz.White80,
-            onTap: superFlyer.onTriggerEditMode,
+            verse: superFlyer.edit.editMode == true ? 'Editing' : 'Viewing',
+            verseColor: superFlyer.edit.editMode == true ? Colorz.Black255 : Colorz.White255,
+            color: superFlyer.edit.editMode == true ? Colorz.Yellow255 : Colorz.White80,
+            onTap: superFlyer.edit.onTriggerEditMode,
           ),
 
 
