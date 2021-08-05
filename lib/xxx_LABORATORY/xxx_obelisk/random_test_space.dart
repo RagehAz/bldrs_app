@@ -185,7 +185,7 @@ class _RandomTestSpaceState extends State<RandomTestSpace> {
               width: 250,
               color: _color,
               verse: 'setState',
-              onTap: _flyer.onAnkhTap,
+              onTap: _flyer.rec.onAnkhTap,
             )
 
           ],

@@ -35,8 +35,8 @@ class SlidesPage extends StatelessWidget {
             bzPageIsOn: superFlyer.nav.bzPageIsOn,
             flyerZoneWidth: flyerZoneWidth,
             listenToSwipe: superFlyer.nav.listenToSwipe,
-            ankhIsOn: superFlyer.ankhIsOn,
-            onAnkhTap: superFlyer.onAnkhTap,
+            ankhIsOn: superFlyer.rec.ankhIsOn,
+            onAnkhTap: superFlyer.rec.onAnkhTap,
           ),
 
         /// EDITOR FOOTER
