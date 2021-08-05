@@ -12,7 +12,6 @@ class SlideFullScreen extends StatelessWidget {
   SlideFullScreen({
     @required this.image,
     @required this.imageSize,
-    Key key
   });
 
   @override

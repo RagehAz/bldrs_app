@@ -101,25 +101,35 @@ class EditorPanel extends StatelessWidget {
             verseColor: Colorz.White255,
             onTap: () async {
 
+              bool _editModeWas = superFlyer.editMode;
+
+              if(_editModeWas == true){
+                await superFlyer.onTriggerEditMode();
+              }
+
+              // https://flutteragency.com/take-a-screenshot-of-the-current-widget-in-flutter/
+
               Uint8List _screenshot;
               ImageSize _screenShotSize;
 
               if(superFlyer?.screenshotsControllers?.length != 0){
+
+                // RenderRepaintBoundary boundary = scr.currentContext.findRenderObject();
+                // var image = await boundary.toImage();
+                // var byteData = await image.toByteData(format: ImageByteFormat.png);
+                // var pngBytes = byteData.buffer.asUint8List();
+
                 await superFlyer.screenshotsControllers[superFlyer.currentSlideIndex].
                 capture(delay: Duration(milliseconds: 10))
                     .then((imageFile) async {
-
-                  _screenshot = imageFile;
-                  String _fileName = '${superFlyer.flyerID}_${superFlyer.currentSlideIndex}';
-                  File _tempFile = await Imagers.createTempEmptyFile(_fileName);
-                  File _file = await Imagers.writeUint8ListOnFile(file: _tempFile, uint8list: _screenshot);
-
-                  _screenShotSize = await Imagers.superImageSize(_file);
-
-                }).catchError((onError) {
-                  print(onError);
-                });
-
+                      _screenshot = imageFile;
+                      String _fileName = '${superFlyer.flyerID}_${superFlyer.currentSlideIndex}';
+                      File _tempFile = await Imagers.createTempEmptyFile(_fileName);
+                      File _file = await Imagers.writeUint8ListOnFile(file: _tempFile, uint8list: _screenshot);
+                      _screenShotSize = await Imagers.superImageSize(_file);
+                    }).catchError((onError) {
+                      print(onError);
+                    });
               }
 
               double _screenWidth = Scale.superScreenWidth(context);
@@ -141,24 +151,27 @@ class EditorPanel extends StatelessWidget {
                   color: Colorz.Black255,
                   child: _screenshot == null ? Container()
                       :
-                      GestureDetector(
-                        onTap: () async {
-                          await Nav.goToNewScreen(context,
-                              SlideFullScreen(
-                                image: _screenshot,
-                                imageSize: _screenShotSize,
-                          ));
+                  GestureDetector(
+                      onTap: () async {
+                        await Nav.goToNewScreen(context,
+                            SlideFullScreen(
+                              image: _screenshot,
+                              imageSize: _screenShotSize,
+                            ));
                         },
-                          child: Imagers.superImageWidget(
-                            _screenshot,
-                            height: _dialogClearHeight,
-                            width: BottomDialog.dialogClearWidth(context),
-                            fit: BoxFit.fitHeight,
-                          )
-                      ),
+                      child: Imagers.superImageWidget(
+                        _screenshot,
+                        height: _dialogClearHeight,
+                        width: BottomDialog.dialogClearWidth(context),
+                        fit: BoxFit.fitHeight,
+                      )
+                  ),
                 ),
               );
 
+              if(_editModeWas == true){
+                await superFlyer.onTriggerEditMode();
+              }
               },
           ),
 

@@ -78,7 +78,6 @@ class GoHomeOnMaxBounce extends StatefulWidget {
   const GoHomeOnMaxBounce({
     this.height,
     @required this.child,
-    Key key,
   });
 
   @override

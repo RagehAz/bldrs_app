@@ -136,6 +136,9 @@ class _FlyersGridState extends State<FlyersGrid> {
             ),
               itemCount: _tinyFlyers.length,
               itemBuilder: (ctx, index){
+
+              print('FlyersGrid : flyerID : ${_tinyFlyers[index].flyerID} : midColor : ${_tinyFlyers[index].midColor}');
+
               return
 
                 FinalFlyer(

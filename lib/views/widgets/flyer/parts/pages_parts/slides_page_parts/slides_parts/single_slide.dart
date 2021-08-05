@@ -16,6 +16,7 @@ import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:bldrs/controllers/drafters/keyboarders.dart';
+import 'package:screenshot/screenshot.dart';
 
 
 class SingleSlide extends StatelessWidget {
@@ -36,7 +37,6 @@ class SingleSlide extends StatelessWidget {
   final bool autoFocus;
   final Function onTap;
   final SuperFlyer superFlyer;
-  // Key key;
 
   SingleSlide({
 
@@ -57,7 +57,6 @@ class SingleSlide extends StatelessWidget {
     this.imageSize,
     this.autoFocus,
     @required this.onTap,
-    Key key,
   });
 // -----------------------------------------------------------------------------
   void _onBehindSlideImageTap(BuildContext context, bool tinyMode){
