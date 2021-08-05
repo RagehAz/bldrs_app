@@ -19,7 +19,6 @@ class ProgressBar extends StatelessWidget {
     // @required this.draft,
     @required this.superFlyer,
     this.loading = true,
-    Key key,
   });
 
   @override

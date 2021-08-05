@@ -8,13 +8,11 @@ import 'package:flutter/material.dart';
 class ChatBubble extends StatelessWidget {
   final String verse;
   final bool myVerse;
-  final Key key;
   final String userID;
 
   ChatBubble({
     @required this.verse,
     @required this.myVerse,
-    @required this.key,
     @required this.userID,
 });
 

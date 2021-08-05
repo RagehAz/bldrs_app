@@ -10,7 +10,6 @@ class DreamBoxGradient extends StatelessWidget {
     @required this.width,
     @required this.height,
     @required this.corners,
-    Key key,
   });
 
   @override

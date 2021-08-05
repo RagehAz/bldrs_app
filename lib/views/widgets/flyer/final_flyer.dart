@@ -129,17 +129,21 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
   bool _loading = false;
   Future <void> _triggerLoading({Function function}) async {
 
-    if (function == null){
-      setState(() {
-        _loading = !_loading;
-      });
-    }
+    if(mounted){
 
-    else {
-      setState(() {
-        _loading = !_loading;
-        function();
-      });
+      if (function == null){
+        setState(() {
+          _loading = !_loading;
+        });
+      }
+
+      else {
+        setState(() {
+          _loading = !_loading;
+          function();
+        });
+      }
+
     }
 
     _loading == true?
@@ -169,6 +173,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     Animators.disposeControllerIfPossible(_superFlyer.verticalController);
     Animators.disposeControllerIfPossible(_superFlyer.horizontalController);
     Animators.disposeControllerIfPossible(_superFlyer.infoScrollController);
+
     // FocusScope.of(context).dispose(); // error fash5
     print('dispose---> final flyer : end');
     super.dispose();
@@ -901,7 +906,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         print('picked new picks');
 
         List<File> _newFiles = new List();
-        List<Uint8List> _newScreenshots = new List();
+        // List<Uint8List> _newScreenshots = new List();
         List<ScreenshotController> _newScreenshotsControllers = new List();
         List<MutableSlide> _newMutableSlides = new List();
         List<TextEditingController> _newHeadlinesControllers = new List();
@@ -963,7 +968,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
             _newVisibilities.add(_superFlyer.slidesVisibilities[_assetIndexInAssets]);
             /// screenShots
             _newScreenshotsControllers.add(_superFlyer.screenshotsControllers[_assetIndexInAssets]);
-            _newScreenshots.add(_superFlyer.screenShots[_assetIndexInAssets]);
+            // _newScreenshots.add(_superFlyer.screenShots[_assetIndexInAssets]);
           }
 
         }
@@ -985,7 +990,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
           _superFlyer.slidesVisibilities = _newVisibilities;
           /// screenshots
           _superFlyer.screenshotsControllers = _newScreenshotsControllers;
-          _superFlyer.screenShots = _newScreenshots;
+          // _superFlyer.screenShots = _newScreenshots;
           /// fit
           _superFlyer.currentPicFit = _superFlyer.mutableSlides[_superFlyer.currentSlideIndex].boxFit;
 
@@ -1032,6 +1037,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
         List<File> _existingFiles = _superFlyer.assetsFiles;
         List<MutableSlide> _existingMutableSlides = _superFlyer.mutableSlides;
+        List<ScreenshotController> _existingScreenshotsControllers = _superFlyer.screenshotsControllers;
         List<TextEditingController> _existingHeadlinesControllers = _superFlyer.headlinesControllers;
         List<TextEditingController> _existingDescriptionControllers = _superFlyer.descriptionsControllers;
         List<bool> _existingVisibilities = _superFlyer.slidesVisibilities;
@@ -1068,6 +1074,9 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
             _existingDescriptionControllers.add(new TextEditingController());
             /// visibilities
             _existingVisibilities.add(true);
+
+            /// screenShots
+            _existingScreenshotsControllers.add(new ScreenshotController());
 
             _assetsSources.add(_newAsset);
           }
@@ -1108,6 +1117,9 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
           _superFlyer.descriptionsControllers = _existingDescriptionControllers;
           /// visibilities
           _superFlyer.slidesVisibilities = _existingVisibilities;
+          /// screenshots
+          _superFlyer.screenshotsControllers = _existingScreenshotsControllers;
+          // _superFlyer.screenShots = _newScreenshots;
 
 
           _superFlyer.numberOfSlides = _superFlyer.assetsFiles.length;
@@ -1422,7 +1434,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     _superFlyer.slidesVisibilities.removeAt(index);
     _superFlyer.headlinesControllers.removeAt(index);
     _superFlyer.numberOfSlides = _superFlyer.assetsFiles.length;
-    _superFlyer.screenShots.removeAt(index);
+    // _superFlyer.screenShots.removeAt(index);
     _superFlyer.screenshotsControllers.removeAt(index);
 
     print('after stateless delete index is $index, _draft.numberOfSlides is : ${_superFlyer.numberOfSlides}');
@@ -2460,7 +2472,6 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     //         );
     //
     //         print(_dialogResult);
-    //
     //
     //         /// start delete flyer ops
     //         await FlyerOps().deleteFlyerOps(

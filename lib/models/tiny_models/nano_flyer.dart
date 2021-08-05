@@ -56,7 +56,7 @@ class NanoFlyer with ChangeNotifier{
       authorID: flyerModel?.tinyAuthor?.userID,
       slidePic: flyerModel == null ? null : flyerModel?.slides[0]?.picture,
       flyerZone: flyerModel?.flyerZone,
-      midColor: flyerModel == null ? null : flyerModel?.slides[0]?.picture,
+      midColor: flyerModel == null ? null : flyerModel?.slides[0]?.midColor,
     );
   }
 // -----------------------------------------------------------------------------

@@ -21,7 +21,6 @@ class BldrsExpansionTile extends StatefulWidget {
   final List<Keyword> selectedKeywords;
 
   const BldrsExpansionTile({
-    Key key,
     this.icon,
     this.iconSizeFactor = 1,
     @required this.filterModel,
@@ -31,6 +30,7 @@ class BldrsExpansionTile extends StatefulWidget {
     @required this.onGroupTap,
     this.onExpansionChanged,
     this.initiallyExpanded: false,
+    Key key,
   })
       : assert(initiallyExpanded != null),
         super(key: key);
