@@ -32,9 +32,9 @@ class SlidesPage extends StatelessWidget {
         /// ANKH
         if(superFlyer.currentSlideIndex != null && superFlyer.numberOfSlides != 0 && superFlyer.editMode != true)
           AnkhButton(
-            bzPageIsOn: superFlyer.bzPageIsOn,
+            bzPageIsOn: superFlyer.nav.bzPageIsOn,
             flyerZoneWidth: flyerZoneWidth,
-            listenToSwipe: superFlyer.listenToSwipe,
+            listenToSwipe: superFlyer.nav.listenToSwipe,
             ankhIsOn: superFlyer.ankhIsOn,
             onAnkhTap: superFlyer.onAnkhTap,
           ),

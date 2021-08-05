@@ -60,7 +60,7 @@ class SingleSlide extends StatelessWidget {
 
     if (tinyMode == true){
     print('tapping slide behind image while tinyMode is $tinyMode');
-    superFlyer.onTinyFlyerTap();
+    superFlyer.nav.onTinyFlyerTap();
     }
 
     else {
