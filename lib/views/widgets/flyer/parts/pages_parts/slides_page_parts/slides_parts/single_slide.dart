@@ -248,7 +248,7 @@ class SingleSlide extends StatelessWidget {
                 ),
               ),
 
-              if (superFlyer.editMode == false) //&& title != null && title != '')
+              if (superFlyer.edit.editMode == false) //&& title != null && title != '')
                 SlideHeadline(
                   flyerZoneWidth: flyerZoneWidth,
                   verse: _titleVerse,
@@ -259,7 +259,7 @@ class SingleSlide extends StatelessWidget {
                     },
                 ),
 
-              if (superFlyer.editMode == true)
+              if (superFlyer.edit.editMode == true)
                 SuperTextField(
                   key: ValueKey('slide${slideIndex}'),
                   hintText: 'T i t l e',
