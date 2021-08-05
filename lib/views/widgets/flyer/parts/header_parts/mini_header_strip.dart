@@ -77,9 +77,9 @@ class MiniHeaderStrip extends StatelessWidget {
                 child: FollowAndCallBTs(
                   flyerZoneWidth: flyerZoneWidth,
                   bzPageIsOn: superFlyer.nav.bzPageIsOn,
-                  followIsOn: superFlyer.followIsOn,
-                  onFollowTap: superFlyer.onFollowTap,
-                  onCallTap: superFlyer.onCallTap,
+                  followIsOn: superFlyer.rec.followIsOn,
+                  onFollowTap: superFlyer.rec.onFollowTap,
+                  onCallTap: superFlyer.rec.onCallTap,
                   phoneNumber: superFlyer?.flyerTinyAuthor?.phone,
                 ),
               ),

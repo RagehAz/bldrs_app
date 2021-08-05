@@ -767,9 +767,9 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     _prof.addOrDeleteTinyFlyerInLocalSavedTinyFlyers(_tinyFlyer);
 
     setState(() {
-      _superFlyer.ankhIsOn = !_superFlyer.ankhIsOn;
+      _superFlyer.rec.ankhIsOn = !_superFlyer.rec.ankhIsOn;
     });
-    print('ankh is ${_superFlyer.ankhIsOn}');
+    print('ankh is ${_superFlyer.rec.ankhIsOn}');
 
   }
 // -----------------------------------------------------o
@@ -798,7 +798,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
   }
 // -----------------------------------------------------o
   Future <void> _onFollowTap() async {
-    print('Following bz : followIsOn was ${_superFlyer.followIsOn} & headline for slide ${_superFlyer.currentSlideIndex} is : ${_superFlyer.mutableSlides[_superFlyer.currentSlideIndex].headline}');
+    print('Following bz : followIsOn was ${_superFlyer.rec.followIsOn} & headline for slide ${_superFlyer.currentSlideIndex} is : ${_superFlyer.mutableSlides[_superFlyer.currentSlideIndex].headline}');
 
     /// start follow bz ops
     List<String> _updatedBzFollows = await RecordOps.followBzOPs(
@@ -812,7 +812,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
     /// trigger current follow value
     setState(() {
-      _superFlyer.followIsOn = !_superFlyer.followIsOn;
+      _superFlyer.rec.followIsOn = !_superFlyer.rec.followIsOn;
     });
 
 
