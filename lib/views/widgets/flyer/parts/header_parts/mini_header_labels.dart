@@ -31,7 +31,7 @@ class HeaderLabels extends StatelessWidget {
     double labelsHeight = flyerZoneWidth * (Ratioz.xxflyerHeaderMiniHeight - (2*Ratioz.xxflyerHeaderMainPadding));
 // -----------------------------------------------------------------------------
     return
-      miniMode == true || superFlyer.bzPageIsOn == true ? Container() :
+      miniMode == true || superFlyer.nav.bzPageIsOn == true ? Container() :
       Container(
           width: labelsWidth,
           height: labelsHeight,
@@ -62,7 +62,7 @@ class HeaderLabels extends StatelessWidget {
                 flyerZoneWidth: flyerZoneWidth,
                 tinyAuthor: superFlyer.flyerTinyAuthor,
                 tinyBz: SuperFlyer.getTinyBzFromSuperFlyer(superFlyer),
-                showLabel: superFlyer.bzPageIsOn,
+                showLabel: superFlyer.nav.bzPageIsOn,
                 authorGalleryCount: 0, // is not needed here
                 labelIsOn: true,
                 onTap: null,

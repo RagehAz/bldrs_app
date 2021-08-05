@@ -28,8 +28,8 @@ class FlyerPages extends StatelessWidget {
         scrollDirection: Axis.vertical,
         physics: const BouncingScrollPhysics(),
         allowImplicitScrolling: true,
-        onPageChanged: superFlyer.listenToSwipe ? (i) => superFlyer.onVerticalPageSwipe(i) : (i) => Sliders.zombie(i),
-        controller: superFlyer.verticalController,
+        onPageChanged: superFlyer.nav.listenToSwipe ? (i) => superFlyer.nav.onVerticalPageSwipe(i) : (i) => Sliders.zombie(i),
+        controller: superFlyer.nav.verticalController,
         children: <Widget>[
 
           /// SLIDES PAGE

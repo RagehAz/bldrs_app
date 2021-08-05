@@ -26,7 +26,7 @@ class Slides extends StatelessWidget {
     }
 
     if (_tinyMode == true){
-      superFlyer.onTinyFlyerTap();
+      superFlyer.nav.onTinyFlyerTap();
     }
 
     else {
@@ -40,13 +40,13 @@ class Slides extends StatelessWidget {
 
     return PageView(
       scrollDirection: Axis.horizontal,
-      controller: superFlyer.horizontalController,
+      controller: superFlyer.nav.horizontalController,
       physics: const BouncingScrollPhysics(),
       pageSnapping: true,
       allowImplicitScrolling: false,
       clipBehavior: Clip.antiAlias,
       restorationId: '${superFlyer.key.value}',
-      onPageChanged: superFlyer.listenToSwipe ? (i) => superFlyer.onHorizontalSlideSwipe(i) : (i) => Sliders.zombie(i),
+      onPageChanged: superFlyer.nav.listenToSwipe ? (i) => superFlyer.nav.onHorizontalSlideSwipe(i) : (i) => Sliders.zombie(i),
       children: <Widget>[
 
         ...List.generate(superFlyer.numberOfSlides, (i){

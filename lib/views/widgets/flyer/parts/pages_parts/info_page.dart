@@ -134,10 +134,10 @@ class InfoPage extends StatelessWidget {
 
         bool _canPageUp = _offset < _bounceLimit;
 
-        bool _goingDown = Scrollers.isGoingDown(superFlyer.infoScrollController);
+        bool _goingDown = Scrollers.isGoingDown(superFlyer.nav.infoScrollController);
 
         if(_goingDown == true && _canPageUp == true){
-          Sliders.slideToBackFrom(superFlyer.verticalController, 1, curve: Curves.easeOut);
+          Sliders.slideToBackFrom(superFlyer.nav.verticalController, 1, curve: Curves.easeOut);
         }
 
         return true;
@@ -146,7 +146,7 @@ class InfoPage extends StatelessWidget {
         key: PageStorageKey<String>('${Numberers.createUniqueIntFrom(existingValues: [1, 2])}'), // TASK : fix
         physics: const BouncingScrollPhysics(),
         shrinkWrap: false,
-        controller: superFlyer.infoScrollController,
+        controller: superFlyer.nav.infoScrollController,
         children: <Widget>[
 
           /// HEADER FOOTPRINT ZONE

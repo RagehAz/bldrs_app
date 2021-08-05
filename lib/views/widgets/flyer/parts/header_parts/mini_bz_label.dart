@@ -30,7 +30,7 @@ class BzLabel extends StatelessWidget {
     bool versesDesignMode = false;
     bool versesShadow = false;
 // -----------------------------------------------------------------------------
-    double headerMainHeight = Scale.superHeaderStripHeight(superFlyer.bzPageIsOn, flyerZoneWidth);
+    double headerMainHeight = Scale.superHeaderStripHeight(superFlyer.nav.bzPageIsOn, flyerZoneWidth);
     // --- B.DATA
     double businessDataHeight = superFlyer.flyerShowsAuthor == true ? headerMainHeight * 0.4 : headerMainHeight * 0.7; //0.0475;
     double businessDataWidth = flyerZoneWidth * (Ratioz.xxflyerAuthorPicWidth + Ratioz.xxflyerAuthorNameWidth);
