@@ -1,7 +1,7 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/models/tiny_models/tiny_bz.dart';
+import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/screens/h_1_bz_card_screen.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
@@ -35,7 +35,7 @@ class FollowingBzzBubble extends StatelessWidget {
           numberOfColumns: 7,
           itemOnTap: (bzID){
             print('bzID = $bzID');
-            Nav.goToNewScreen(context, BzCardScreen(bzID: bzID,));
+            Nav.goToNewScreen(context, BzCardScreen(bzID: bzID, flyerZoneWidth: Scale.superScreenWidth(context) - Ratioz.appBarMargin * 4,));
           },
         ),
 

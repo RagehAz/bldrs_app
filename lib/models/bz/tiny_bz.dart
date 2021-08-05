@@ -1,8 +1,8 @@
 import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
-import 'package:bldrs/models/super_flyer.dart';
+import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:flutter/foundation.dart';
-import '../bz_model.dart';
 // -----------------------------------------------------------------------------
 class TinyBz with ChangeNotifier{
   final String bzID;

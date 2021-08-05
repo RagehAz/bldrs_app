@@ -1,9 +1,9 @@
 import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/firestore/firestore.dart';
-import 'package:bldrs/models/records/call_model.dart';
-import 'package:bldrs/models/records/follow_model.dart';
-import 'package:bldrs/models/records/save_model.dart';
-import 'package:bldrs/models/records/share_model.dart';
+import 'package:bldrs/models/flyer/records/call_model.dart';
+import 'package:bldrs/models/flyer/records/follow_model.dart';
+import 'package:bldrs/models/flyer/records/save_model.dart';
+import 'package:bldrs/models/flyer/records/share_model.dart';
 import 'package:flutter/material.dart';
 
 class RecordOps{

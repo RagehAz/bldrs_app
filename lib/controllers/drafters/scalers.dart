@@ -1,12 +1,11 @@
 import 'package:bldrs/controllers/drafters/borderers.dart';
+import 'package:bldrs/controllers/drafters/text_directionerz.dart';
 import 'package:bldrs/controllers/drafters/text_shapers.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/models/user_model.dart';
+import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/nav_bar/nav_bar.dart';
 import 'package:flutter/material.dart';
-
-import 'text_directionerz.dart';
 
 class Scale{
 // -----------------------------------------------------------------------------

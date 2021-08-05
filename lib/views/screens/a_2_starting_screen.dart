@@ -7,7 +7,7 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
-import 'package:bldrs/models/user_model.dart';
+import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/views/screens/a_3_auth_screen.dart';
 import 'package:bldrs/views/widgets/artworks/bldrs_name_logo_slogan.dart';
@@ -108,11 +108,11 @@ class _StartingScreenState extends State<StartingScreen> {
       sky: Sky.Night,
       appBarType: AppBarType.Intro,
       loading: _loading,
-      tappingRageh: (){
-        print('current zone : ${_currentZone.cityID}');
-        print('Wordz.languageCode(context) : ${Wordz.languageCode(context)}');
-        // print('isa');
-      },
+      // tappingRageh: (){
+      //   print('current zone : ${_currentZone.cityID}');
+      //   print('Wordz.languageCode(context) : ${Wordz.languageCode(context)}');
+      //   // print('isa');
+      // },
       layoutWidget: Stack(
         children: <Widget>[
           // --- stuff

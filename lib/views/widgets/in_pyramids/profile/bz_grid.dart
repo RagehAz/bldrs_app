@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/models/tiny_models/tiny_bz.dart';
+import 'package:bldrs/models/bz/tiny_bz.dart';
 
 class BzGrid extends StatelessWidget {
 

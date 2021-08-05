@@ -2,7 +2,7 @@
 // import 'package:bldrs/controllers/router/navigators.dart';
 // import 'package:bldrs/controllers/theme/colorz.dart';
 // import 'package:bldrs/controllers/theme/iconz.dart';
-// import 'package:bldrs/models/super_flyer.dart';
+// import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 // import 'package:bldrs/views/widgets/flyer/parts/flyer_zone_box.dart';
 // import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/footer.dart';
 // import 'package:bldrs/views/widgets/layouts/main_layout.dart';

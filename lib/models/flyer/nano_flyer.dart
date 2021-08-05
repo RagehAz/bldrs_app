@@ -1,8 +1,7 @@
 import 'dart:ui';
-
 import 'package:bldrs/controllers/drafters/colorizers.dart';
-import 'package:bldrs/models/flyer_model.dart';
-import 'package:bldrs/models/sub_models/flyer_type_class.dart';
+import 'package:bldrs/models/flyer/flyer_model.dart';
+import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:flutter/foundation.dart';
 // -----------------------------------------------------------------------------

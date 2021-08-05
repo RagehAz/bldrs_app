@@ -1,6 +1,6 @@
 import 'package:bldrs/controllers/router/route_names.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
+import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/views/screens/h_0_flyer_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';

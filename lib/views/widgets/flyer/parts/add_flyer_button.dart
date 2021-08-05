@@ -3,9 +3,9 @@ import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/models/bz_model.dart';
-import 'package:bldrs/models/super_flyer.dart';
-import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
+import 'package:bldrs/models/bz/bz_model.dart';
+import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
+import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/views/screens/f_1_flyer_editor_screen.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_header.dart';
@@ -58,7 +58,6 @@ class AddFlyerButton extends StatelessWidget {
     SuperFlyer _bzHeaderSuperFlyer = SuperFlyer.getSuperFlyerFromBzModelOnly(
       onHeaderTap: () async { await _goToFlyerEditor(context); },
       bzModel: bzModel,
-      flyerZoneWidth: flyerZoneWidth,
     );
 
     return FlyerZoneBox(
@@ -67,7 +66,7 @@ class AddFlyerButton extends StatelessWidget {
       onFlyerZoneTap: () async { await _goToFlyerEditor(context); },
       stackWidgets: <Widget>[
 
-        FlyerHeader(superFlyer: _bzHeaderSuperFlyer,),
+        FlyerHeader(superFlyer: _bzHeaderSuperFlyer, flyerZoneWidth: flyerZoneWidth,),
 
         // --- ADD FLYER BUTTON
           Column(
