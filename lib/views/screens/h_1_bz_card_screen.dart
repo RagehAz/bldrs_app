@@ -1,7 +1,7 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/streamerz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
-import 'package:bldrs/models/super_flyer.dart';
+import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_header.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
@@ -9,9 +9,11 @@ import 'package:flutter/material.dart';
 
 class BzCardScreen extends StatefulWidget {
   final String bzID;
+  final double flyerZoneWidth;
 
   BzCardScreen({
     @required this.bzID,
+    @required this.flyerZoneWidth,
 });
 
   @override
@@ -80,7 +82,6 @@ class _BzCardScreenState extends State<BzCardScreen> {
           double _flyerZoneWidth = Scale.superFlyerZoneWidth(context, flyerSizeFactor);
 
           SuperFlyer _superFlyer = SuperFlyer.getSuperFlyerFromBzModelOnly(
-              flyerZoneWidth: _flyerZoneWidth,
               bzModel: bz,
               onHeaderTap: (){print('onHeader tap in h 1 bz card screen');},
           );
@@ -93,8 +94,9 @@ class _BzCardScreenState extends State<BzCardScreen> {
               stackWidgets: <Widget>[
 
                 FlyerHeader(
-                  superFlyer: _superFlyer
-                  ,),
+                  superFlyer: _superFlyer,
+                  flyerZoneWidth: widget.flyerZoneWidth,
+                ),
 
                   ],
                 );

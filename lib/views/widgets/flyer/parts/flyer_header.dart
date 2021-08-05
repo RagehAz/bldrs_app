@@ -5,14 +5,16 @@ import 'package:bldrs/views/widgets/flyer/parts/header_parts/bz_pg_headline.dart
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/header_shadow.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/max_header.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/mini_header_strip.dart';
-import 'package:bldrs/models/super_flyer.dart';
+import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:flutter/material.dart';
 
 class FlyerHeader extends StatelessWidget {
   final SuperFlyer superFlyer;
+  final double flyerZoneWidth;
 
   FlyerHeader({
     this.superFlyer,
+    @required this.flyerZoneWidth,
   });
 
   @override
@@ -28,8 +30,8 @@ class FlyerHeader extends StatelessWidget {
           children: <Widget>[
 
             Container(
-              height: Scale.superHeaderHeight(superFlyer.bzPageIsOn, superFlyer.flyerZoneWidth),
-              width: superFlyer.flyerZoneWidth,
+              height: Scale.superHeaderHeight(superFlyer.bzPageIsOn, flyerZoneWidth),
+              width: flyerZoneWidth,
               child: Stack(
                 children: <Widget>[
 
@@ -43,18 +45,19 @@ class FlyerHeader extends StatelessWidget {
 
                   // --- HEADER SHADOW
                   HeaderShadow(
-                    flyerZoneWidth: superFlyer.flyerZoneWidth,
+                    flyerZoneWidth: flyerZoneWidth,
                     bzPageIsOn: superFlyer.bzPageIsOn,
                   ),
 
                   // --- HEADER COMPONENTS
                   MiniHeaderStrip(
                     superFlyer: superFlyer,
+                    flyerZoneWidth: flyerZoneWidth,
                   ),
 
                   // --- HEADER'S MAX STATE'S HEADLINE : BZ.NAME AND BZ.LOCALE
                   BzPageHeadline(
-                    flyerZoneWidth: superFlyer.flyerZoneWidth,
+                    flyerZoneWidth: flyerZoneWidth,
                     bzPageIsOn: superFlyer.bzPageIsOn,
                     tinyBz: SuperFlyer.getTinyBzFromSuperFlyer(superFlyer),
                   ),
@@ -67,7 +70,7 @@ class FlyerHeader extends StatelessWidget {
             if (superFlyer.bzPageIsOn)
             MaxHeader(
               superFlyer: superFlyer,
-              flyerZoneWidth: superFlyer.flyerZoneWidth,
+              flyerZoneWidth: flyerZoneWidth,
               bzPageIsOn: superFlyer.bzPageIsOn,
               tinyBz: SuperFlyer.getTinyBzFromSuperFlyer(superFlyer),
             ),

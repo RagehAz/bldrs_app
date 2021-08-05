@@ -2,11 +2,11 @@
 // import 'package:bldrs/controllers/drafters/streamerz.dart';
 // import 'package:bldrs/controllers/theme/colorz.dart';
 // import 'package:bldrs/controllers/theme/iconz.dart';
-// import 'package:bldrs/models/bz_model.dart';
-// import 'package:bldrs/models/super_flyer.dart';
-// import 'package:bldrs/models/tiny_models/tiny_bz.dart';
-// import 'package:bldrs/models/tiny_models/tiny_user.dart';
-// import 'package:bldrs/models/user_model.dart';
+// import 'package:bldrs/models/bz/bz_model.dart';
+// import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
+// import 'package:bldrs/models/bz/tiny_bz.dart';
+// import 'package:bldrs/models/user/tiny_user.dart';
+// import 'package:bldrs/models/user/user_model.dart';
 // import 'package:bldrs/views/screens/f_x_bz_editor_screen.dart';
 // import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 // import 'package:bldrs/views/widgets/flyer/parts/flyer_zone_box.dart';

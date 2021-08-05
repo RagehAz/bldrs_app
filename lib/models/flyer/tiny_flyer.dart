@@ -1,16 +1,15 @@
 import 'package:bldrs/controllers/drafters/colorizers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
-import 'package:bldrs/models/bz_model.dart';
-import 'package:bldrs/models/flyer_model.dart';
-import 'package:bldrs/models/keywords/keyword_model.dart';
-import 'package:bldrs/models/sub_models/flyer_type_class.dart';
+import 'package:bldrs/models/bz/bz_model.dart';
+import 'package:bldrs/models/flyer/flyer_model.dart';
+import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
-import 'package:bldrs/models/tiny_models/nano_flyer.dart';
-import 'package:bldrs/models/tiny_models/tiny_bz.dart';
+import 'package:bldrs/models/flyer/nano_flyer.dart';
+import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/models/super_flyer.dart';
+import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 
 // -----------------------------------------------------------------------------
 class TinyFlyer with ChangeNotifier{

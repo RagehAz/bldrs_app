@@ -1,13 +1,13 @@
 import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
-import 'package:bldrs/models/super_flyer.dart';
-import 'package:bldrs/models/tiny_models/nano_flyer.dart';
-import 'package:bldrs/models/tiny_models/tiny_bz.dart';
+import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
+import 'package:bldrs/models/flyer/nano_flyer.dart';
+import 'package:bldrs/models/bz/author_model.dart';
+import 'package:bldrs/models/secondary_models/contact_model.dart';
+import 'package:bldrs/models/bz/tiny_bz.dart';
+import 'package:bldrs/models/user/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'sub_models/author_model.dart';
-import 'sub_models/contact_model.dart';
-import 'user_model.dart';
 // -----------------------------------------------------------------------------
 /// Bz account has limited amount of available slides, with each published slide,
 /// credit decreases,

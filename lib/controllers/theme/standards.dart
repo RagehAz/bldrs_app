@@ -1,7 +1,5 @@
-
-
-import 'package:bldrs/models/bz_model.dart';
-import 'package:bldrs/models/super_flyer.dart';
+import 'package:bldrs/models/bz/bz_model.dart';
+import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 
 class Standards{
 // -----------------------------------------------------------------------------
