@@ -26,6 +26,7 @@ import 'package:flutter/material.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
+import 'package:bldrs/models/flyer/mutables/flyer_navigator.dart';
 
 /// need to add
 /// string mapImageURL
@@ -33,28 +34,12 @@ import 'package:screenshot/screenshot.dart';
 
 class SuperFlyer{
 
-  /// animation controller
-  final PageController horizontalController; // FlyerNavigation
-  final PageController verticalController; // FlyerNavigation
-  final ScrollController infoScrollController; // FlyerNavigation
+  final FlyerNavigator nav;
 
-  /// animation functions
-  final Function onHorizontalSlideSwipe; // FlyerNavigation
-  final Function onVerticalPageSwipe; // FlyerNavigation
-  final Function onVerticalPageBack; // FlyerNavigation
-  final Function onHeaderTap; // FlyerNavigation
-  final Function onSlideRightTap; // FlyerNavigation
-  final Function onSlideLeftTap; // FlyerNavigation
-  final Function onSwipeFlyer; // FlyerNavigation
-  final Function onTinyFlyerTap; // FlyerNavigation
 
   /// animation parameters
   final Duration slidingDuration; // delete
   final Duration fadingDuration; // delete
-  double progressBarOpacity; // FlyerNavigation
-  SwipeDirection swipeDirection; // FlyerNavigation
-  bool bzPageIsOn; // FlyerNavigation
-  bool listenToSwipe; // FlyerNavigation
   bool loading; // ??
 
   /// record functions
@@ -167,27 +152,13 @@ class SuperFlyer{
   SuperFlyer({
 
     /// animation controller
-    @required this.horizontalController,
-    @required this.verticalController,
-    @required this.infoScrollController,
+    @required this.nav,
 
     /// animation functions
-    @required this.onHorizontalSlideSwipe,
-    @required this.onVerticalPageSwipe,
-    @required this.onVerticalPageBack,
-    @required this.onHeaderTap,
-    @required this.onSlideRightTap,
-    @required this.onSlideLeftTap,
-    @required this.onSwipeFlyer,
-    @required this.onTinyFlyerTap,
 
     /// animation parameters
     @required this.slidingDuration,
     @required this.fadingDuration,
-    @required this.progressBarOpacity,
-    @required this.swipeDirection,
-    @required this.bzPageIsOn,
-    @required this.listenToSwipe,
     @required this.loading,
 
     /// record functions
@@ -304,28 +275,30 @@ class SuperFlyer{
     return
         SuperFlyer(
 
-          /// animation controller
-          horizontalController: null,
-          verticalController: null,
-          infoScrollController: null,
+          nav: FlyerNavigator(
+            /// animation controller
+            horizontalController: null,
+            verticalController: null,
+            infoScrollController: null,
+            /// animation functions
+            onHorizontalSlideSwipe: null,
+            onVerticalPageSwipe: null,
+            onVerticalPageBack: null,
+            onHeaderTap: null,
+            onSlideRightTap: null,
+            onSlideLeftTap: null,
+            onSwipeFlyer: null,
+            onTinyFlyerTap: null,
+            /// animation parameters
+            progressBarOpacity: null,
+            swipeDirection: null,
+            bzPageIsOn: null,
+            listenToSwipe: null,
+          ),
 
-          /// animation functions
-          onHorizontalSlideSwipe: null,
-          onVerticalPageSwipe: null,
-          onVerticalPageBack: null,
-          onHeaderTap: null,
-          onSlideRightTap: null,
-          onSlideLeftTap: null,
-          onSwipeFlyer: null,
-          onTinyFlyerTap: null,
 
-          /// animation parameters
           slidingDuration: null,
           fadingDuration: null,
-          progressBarOpacity: null,
-          swipeDirection: null,
-          bzPageIsOn: null,
-          listenToSwipe: null,
           loading: false,
 
           /// record functions
@@ -461,11 +434,11 @@ class SuperFlyer{
     return
       SuperFlyer(
 
+        nav: FlyerNavigator(
         /// animation controller
         horizontalController: PageController(initialPage: _initialPage, viewportFraction: 1, keepPage: true),
         verticalController: PageController(initialPage: 0, keepPage: true, viewportFraction: 1),
         infoScrollController: ScrollController(keepScrollOffset: true,),
-
         /// animation functions
         onHorizontalSlideSwipe: onHorizontalSlideSwipe,
         onVerticalPageSwipe: onVerticalPageSwipe,
@@ -475,14 +448,16 @@ class SuperFlyer{
         onSlideLeftTap: onSlideLeftTap,
         onSwipeFlyer: onSwipeFlyer,
         onTinyFlyerTap: onTinyFlyerTap,
-
         /// animation parameters
-        slidingDuration: Ratioz.durationSliding400,
-        fadingDuration: Ratioz.durationFading200,
         progressBarOpacity: 1,
         swipeDirection: SwipeDirection.next,
         bzPageIsOn: false,
         listenToSwipe: true,
+        ),
+
+
+        slidingDuration: Ratioz.durationSliding400,
+        fadingDuration: Ratioz.durationFading200,
         loading: false,
 
         /// record functions
@@ -610,28 +585,29 @@ class SuperFlyer{
     return
       SuperFlyer(
 
-        /// animation controller
-        horizontalController: null,
-        verticalController: null,
-        infoScrollController: null,
+        nav: FlyerNavigator(
+          /// animation controller
+          horizontalController: null,
+          verticalController: null,
+          infoScrollController: null,
+          /// animation functions
+          onHorizontalSlideSwipe: null,
+          onVerticalPageSwipe: null,
+          onVerticalPageBack: null,
+          onHeaderTap: onHeaderTap,
+          onSlideRightTap: null,
+          onSlideLeftTap: null,
+          onSwipeFlyer: null,
+          onTinyFlyerTap: onTinyFlyerTap,
+          /// animation parameters
+          progressBarOpacity: 1,
+          swipeDirection: SwipeDirection.next,
+          bzPageIsOn: false,
+          listenToSwipe: false,
+        ),
 
-        /// animation functions
-        onHorizontalSlideSwipe: null,
-        onVerticalPageSwipe: null,
-        onVerticalPageBack: null,
-        onHeaderTap: onHeaderTap,
-        onSlideRightTap: null,
-        onSlideLeftTap: null,
-        onSwipeFlyer: null,
-        onTinyFlyerTap: onTinyFlyerTap,
-
-        /// animation parameters
         slidingDuration: null,
         fadingDuration: null,
-        progressBarOpacity: 1,
-        swipeDirection: SwipeDirection.next,
-        bzPageIsOn: false,
-        listenToSwipe: false,
         loading: false,
 
         /// record functions
@@ -794,28 +770,31 @@ class SuperFlyer{
     return
       SuperFlyer(
 
-        /// animation controller
-        horizontalController: PageController(initialPage: 0, viewportFraction: 1, keepPage: true),
-        verticalController: PageController(initialPage: 0, keepPage: true, viewportFraction: 1),
-        infoScrollController: ScrollController(keepScrollOffset: true,),
+        nav: FlyerNavigator(
+          /// animation controller
+          horizontalController: PageController(initialPage: 0, viewportFraction: 1, keepPage: true),
+          verticalController: PageController(initialPage: 0, keepPage: true, viewportFraction: 1),
+          infoScrollController: ScrollController(keepScrollOffset: true,),
+          /// animation functions
+          onHorizontalSlideSwipe: onHorizontalSlideSwipe,
+          onVerticalPageSwipe: onVerticalPageSwipe,
+          onVerticalPageBack: onVerticalPageBack,
+          onHeaderTap: onHeaderTap,
+          onSlideRightTap: onSlideRightTap,
+          onSlideLeftTap: onSlideLeftTap,
+          onSwipeFlyer: onSwipeFlyer,
+          onTinyFlyerTap: onTinyFlyerTap,
+          /// animation parameters
+          progressBarOpacity: 1,
+          swipeDirection: SwipeDirection.next,
+          bzPageIsOn: false,
+          listenToSwipe: true,
 
-        /// animation functions
-        onHorizontalSlideSwipe: onHorizontalSlideSwipe,
-        onVerticalPageSwipe: onVerticalPageSwipe,
-        onVerticalPageBack: onVerticalPageBack,
-        onHeaderTap: onHeaderTap,
-        onSlideRightTap: onSlideRightTap,
-        onSlideLeftTap: onSlideLeftTap,
-        onSwipeFlyer: onSwipeFlyer,
-        onTinyFlyerTap: onTinyFlyerTap,
+        ),
 
-        /// animation parameters
+
         slidingDuration: Ratioz.durationSliding400,
         fadingDuration: Ratioz.durationFading200,
-        progressBarOpacity: 1,
-        swipeDirection: SwipeDirection.next,
-        bzPageIsOn: false,
-        listenToSwipe: true,
         loading: false,
 
         /// record functions
@@ -969,28 +948,30 @@ class SuperFlyer{
     return
       SuperFlyer(
 
-        /// animation controller
-        horizontalController: PageController(initialPage: 0, viewportFraction: 1, keepPage: true),
-        verticalController: PageController(initialPage: 0, keepPage: true, viewportFraction: 1),
-        infoScrollController: ScrollController(keepScrollOffset: true,),
+        nav: FlyerNavigator(
+          /// animation controller
+          horizontalController: PageController(initialPage: 0, viewportFraction: 1, keepPage: true),
+          verticalController: PageController(initialPage: 0, keepPage: true, viewportFraction: 1),
+          infoScrollController: ScrollController(keepScrollOffset: true,),
+          /// animation functions
+          onHorizontalSlideSwipe: onHorizontalSlideSwipe,
+          onVerticalPageSwipe: onVerticalPageSwipe,
+          onVerticalPageBack: onVerticalPageBack,
+          onHeaderTap: onHeaderTap,
+          onSlideRightTap: onSlideRightTap,
+          onSlideLeftTap: onSlideLeftTap,
+          onSwipeFlyer: onSwipeFlyer,
+          onTinyFlyerTap: onTinyFlyerTap,
+          /// animation parameters
+          progressBarOpacity: 1,
+          swipeDirection: SwipeDirection.next,
+          bzPageIsOn: false,
+          listenToSwipe: true,
+        ),
 
-        /// animation functions
-        onHorizontalSlideSwipe: onHorizontalSlideSwipe,
-        onVerticalPageSwipe: onVerticalPageSwipe,
-        onVerticalPageBack: onVerticalPageBack,
-        onHeaderTap: onHeaderTap,
-        onSlideRightTap: onSlideRightTap,
-        onSlideLeftTap: onSlideLeftTap,
-        onSwipeFlyer: onSwipeFlyer,
-        onTinyFlyerTap: onTinyFlyerTap,
 
-        /// animation parameters
         slidingDuration: Ratioz.durationSliding400,
         fadingDuration: Ratioz.durationFading200,
-        progressBarOpacity: 1,
-        swipeDirection: SwipeDirection.next,
-        bzPageIsOn: false,
-        listenToSwipe: true,
         loading: false,
 
         /// record functions
@@ -1125,29 +1106,30 @@ static SuperFlyer getSuperFlyerFromBzModelOnly({
 }){
     return
       SuperFlyer(
+        nav: FlyerNavigator(
+          /// animation controller
+          horizontalController: PageController(initialPage: 0, viewportFraction: 1, keepPage: true),
+          verticalController: PageController(initialPage: 0, keepPage: true, viewportFraction: 1),
+          infoScrollController: ScrollController(keepScrollOffset: true,),
+          /// animation functions
+          onHorizontalSlideSwipe: null,
+          onVerticalPageSwipe: null,
+          onVerticalPageBack: null,
+          onHeaderTap: onHeaderTap,
+          onSlideRightTap: null,
+          onSlideLeftTap: null,
+          onSwipeFlyer: null,
+          onTinyFlyerTap: null,
+          /// animation parameters
+          progressBarOpacity: 1,
+          swipeDirection: SwipeDirection.next,
+          bzPageIsOn: false,
+          listenToSwipe: true,
+        ),
 
-        /// animation controller
-        horizontalController: PageController(initialPage: 0, viewportFraction: 1, keepPage: true),
-        verticalController: PageController(initialPage: 0, keepPage: true, viewportFraction: 1),
-        infoScrollController: ScrollController(keepScrollOffset: true,),
 
-        /// animation functions
-        onHorizontalSlideSwipe: null,
-        onVerticalPageSwipe: null,
-        onVerticalPageBack: null,
-        onHeaderTap: onHeaderTap,
-        onSlideRightTap: null,
-        onSlideLeftTap: null,
-        onSwipeFlyer: null,
-        onTinyFlyerTap: null,
-
-        /// animation parameters
         slidingDuration: Ratioz.durationSliding400,
         fadingDuration: Ratioz.durationFading200,
-        progressBarOpacity: 1,
-        swipeDirection: SwipeDirection.next,
-        bzPageIsOn: false,
-        listenToSwipe: true,
         loading: false,
 
         /// record functions

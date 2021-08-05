@@ -171,9 +171,9 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     TextChecker.disposeAllTextControllers(_superFlyer.headlinesControllers);
     TextChecker.disposeAllTextControllers(_superFlyer.descriptionsControllers);
     TextChecker.disposeControllerIfPossible(_superFlyer.infoController);
-    Animators.disposeControllerIfPossible(_superFlyer.verticalController);
-    Animators.disposeControllerIfPossible(_superFlyer.horizontalController);
-    Animators.disposeControllerIfPossible(_superFlyer.infoScrollController);
+    Animators.disposeControllerIfPossible(_superFlyer.nav.verticalController);
+    Animators.disposeControllerIfPossible(_superFlyer.nav.horizontalController);
+    Animators.disposeControllerIfPossible(_superFlyer.nav.infoScrollController);
 
     // FocusScope.of(context).dispose(); // error fash5
     print('dispose---> final flyer : end');
@@ -587,12 +587,12 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
   }
 // -----------------------------------------------------o
   void _onHeaderTap(){
-    print('_onHeaderTap : bzPageIsOn was : ${_superFlyer.bzPageIsOn}');
+    print('_onHeaderTap : bzPageIsOn was : ${_superFlyer.nav.bzPageIsOn}');
     setState(() {
-      _superFlyer.bzPageIsOn = !_superFlyer.bzPageIsOn;
+      _superFlyer.nav.bzPageIsOn = !_superFlyer.nav.bzPageIsOn;
       _statelessTriggerProgressOpacity();
     });
-    print('_onHeaderTap : bzPageIsOn is : ${_superFlyer.bzPageIsOn}');
+    print('_onHeaderTap : bzPageIsOn is : ${_superFlyer.nav.bzPageIsOn}');
   }
 // -----------------------------------------------------o
   Future<void> _goToFlyerEditor({BuildContext context, bool firstTimer}) async {
@@ -642,7 +642,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         print('going next');
         FocusScope.of(context).nextFocus();
         setState(() {
-          _superFlyer.swipeDirection = _direction;
+          _superFlyer.nav.swipeDirection = _direction;
           _superFlyer.currentSlideIndex = newIndex;
           _superFlyer.currentPicFit = _superFlyer.mutableSlides[newIndex].boxFit;
         });
@@ -653,7 +653,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         print('going back');
         FocusScope.of(context).previousFocus();
         setState(() {
-          _superFlyer.swipeDirection = _direction;
+          _superFlyer.nav.swipeDirection = _direction;
           _superFlyer.currentSlideIndex = newIndex;
           _superFlyer.currentPicFit = _superFlyer.mutableSlides[newIndex].boxFit;
         });
@@ -663,7 +663,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       else {
         print('going no where');
         setState(() {
-          _superFlyer.swipeDirection = _direction;
+          _superFlyer.nav.swipeDirection = _direction;
           _superFlyer.currentSlideIndex = newIndex;
           _superFlyer.currentPicFit = _superFlyer.mutableSlides[newIndex].boxFit;
         });
@@ -674,7 +674,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     else {
       // print('KEYBOARD IS NOT ACTIVE');
       setState(() {
-        _superFlyer.swipeDirection = _direction;
+        _superFlyer.nav.swipeDirection = _direction;
         _superFlyer.currentSlideIndex = newIndex;
         _superFlyer.currentPicFit = _superFlyer.mutableSlides[newIndex].boxFit;
       });
@@ -703,17 +703,17 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 // -----------------------------------------------------o
   Future<void> _slideBackToSlidesPage() async {
   print('_slideBackToSlidesPage : sliding from info page to slides page aho by tap');
-  await Sliders.slideToBackFrom(_superFlyer.verticalController, 1);
+  await Sliders.slideToBackFrom(_superFlyer.nav.verticalController, 1);
 }
 // -----------------------------------------------------o
   void _statelessTriggerProgressOpacity(){
 
     print('triggering progress bar opacity');
 
-    if (_superFlyer.progressBarOpacity == 1){
-      _superFlyer.progressBarOpacity = 0;
+    if (_superFlyer.nav.progressBarOpacity == 1){
+      _superFlyer.nav.progressBarOpacity = 0;
     } else {
-      _superFlyer.progressBarOpacity = 1;
+      _superFlyer.nav.progressBarOpacity = 1;
     }
   }
 // -----------------------------------------------------o
@@ -724,12 +724,12 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
     /// open keywords
     if(_superFlyer.verticalIndex == 0){
-      await Sliders.slideToNext(_superFlyer.verticalController, 2, 0);
+      await Sliders.slideToNext(_superFlyer.nav.verticalController, 2, 0);
       // await Sliders.slideToNext(_panelController, 2, 0);
     }
     /// close keywords
     else {
-      await Sliders.slideToBackFrom(_superFlyer.verticalController, 1);
+      await Sliders.slideToBackFrom(_superFlyer.nav.verticalController, 1);
       // await Sliders.slideToBackFrom(_panelController, 1);
     }
 
@@ -993,7 +993,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
           _superFlyer.numberOfSlides = _superFlyer.assetsSources.length;
           _superFlyer.numberOfStrips = _superFlyer.numberOfSlides;
-          _superFlyer.progressBarOpacity = 1;
+          _superFlyer.nav.progressBarOpacity = 1;
         });
         print('ss---> _superFlyer.assetsFiles.length is : ${_superFlyer.assetsFiles.length}');
 
@@ -1121,7 +1121,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
           _superFlyer.numberOfSlides = _superFlyer.assetsFiles.length;
           _superFlyer.numberOfStrips = _superFlyer.numberOfSlides;
 
-          _superFlyer.progressBarOpacity = 1;
+          _superFlyer.nav.progressBarOpacity = 1;
 
         });
         print('ss---> _superFlyer.assetsFiles.length is : ${_superFlyer.assetsFiles.length}');
@@ -1177,7 +1177,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
     /// C - animate to last slide
     await Sliders.slideTo(
-        controller: _superFlyer.horizontalController,
+        controller: _superFlyer.nav.horizontalController,
         toIndex: _superFlyer.numberOfSlides - 1,
     );
 
@@ -1247,7 +1247,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
       /// A - decrease progress bar and trigger visibility
       setState(() {
-        _superFlyer.listenToSwipe = false;
+        _superFlyer.nav.listenToSwipe = false;
         _statelessTriggerSlideVisibility(_superFlyer.currentSlideIndex);
         _superFlyer.numberOfStrips = _superFlyer.numberOfSlides - 1;
         // _slidingNext = true;
@@ -1257,7 +1257,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       await Future.delayed(Ratioz.durationFading210, () async {
 
         /// C - slide
-        await Sliders.slideToNext(_superFlyer.horizontalController, _superFlyer.numberOfSlides, _superFlyer.currentSlideIndex);
+        await Sliders.slideToNext(_superFlyer.nav.horizontalController, _superFlyer.numberOfSlides, _superFlyer.currentSlideIndex);
 
 
         /// D - delete when one slide remaining
@@ -1276,7 +1276,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
             _statelessSlideDelete(_superFlyer.currentSlideIndex);
             _superFlyer.currentSlideIndex = 0;
             // _draft.numberOfSlides = 1;
-            _superFlyer.listenToSwipe = true;
+            _superFlyer.nav.listenToSwipe = true;
           });
 
         });
@@ -1295,7 +1295,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
       /// A - decrease progress bar and trigger visibility
       setState(() {
-        _superFlyer.listenToSwipe = false;
+        _superFlyer.nav.listenToSwipe = false;
         _statelessTriggerSlideVisibility(_superFlyer.currentSlideIndex);
         _superFlyer.numberOfSlides = _decreasedNumberOfSlides;
         _superFlyer.numberOfStrips = _superFlyer.numberOfSlides;
@@ -1306,7 +1306,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       await Future.delayed(Ratioz.durationFading210, () async {
 
         /// C - slide
-        await  Sliders.slideToNext(_superFlyer.horizontalController, _superFlyer.numberOfSlides, _superFlyer.currentSlideIndex);
+        await  Sliders.slideToNext(_superFlyer.nav.horizontalController, _superFlyer.numberOfSlides, _superFlyer.currentSlideIndex);
 
         /// D - delete when one slide remaining
         if(_originalNumberOfSlides <= 1){
@@ -1314,7 +1314,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
           setState(() {
             /// Dx - delte data
             _statelessSlideDelete(_superFlyer.currentSlideIndex);
-            _superFlyer.listenToSwipe = true;
+            _superFlyer.nav.listenToSwipe = true;
           });
 
         }
@@ -1328,13 +1328,13 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
             /// Dx - delete data
             _statelessSlideDelete(_superFlyer.currentSlideIndex);
             /// F - snap to index 0
-            await Sliders.snapTo(_superFlyer.horizontalController, 0);
+            await Sliders.snapTo(_superFlyer.nav.horizontalController, 0);
 
             print('now i can swipe again');
 
             /// G - trigger progress bar listener (onPageChangedIsOn)
             setState(() {
-              _superFlyer.listenToSwipe = true;
+              _superFlyer.nav.listenToSwipe = true;
             });
 
           });
@@ -1355,9 +1355,9 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
     /// A - decrease progress bar and trigger visibility
     setState(() {
-      _superFlyer.listenToSwipe = false;
+      _superFlyer.nav.listenToSwipe = false;
       _superFlyer.currentSlideIndex = _superFlyer.currentSlideIndex - 1;
-      _superFlyer.swipeDirection = SwipeDirection.freeze;
+      _superFlyer.nav.swipeDirection = SwipeDirection.freeze;
       _superFlyer.numberOfStrips = _superFlyer.numberOfSlides - 1;
       _statelessTriggerSlideVisibility(_originalIndex);
     });
@@ -1370,7 +1370,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       // print('_currentIndex before slide : $_draft.currentSlideIndex');
 
       /// C - slide
-      await  Sliders.slideToBackFrom(_superFlyer.horizontalController, _originalIndex);
+      await  Sliders.slideToBackFrom(_superFlyer.nav.horizontalController, _originalIndex);
       // print('_currentIndex after slide : $_draft.currentSlideIndex');
 
       /// E - wait for sliding to end
@@ -1379,7 +1379,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         /// Dx - delete data & trigger progress bar listener (onPageChangedIsOn)
         setState(() {
           _statelessSlideDelete(_originalIndex);
-          _superFlyer.listenToSwipe = true;
+          _superFlyer.nav.listenToSwipe = true;
         });
 
         // print('XXX after second rebuild AT (MIDDLE) index : $_draft.currentSlideIndex, numberOfSlides : $_draft.numberOfSlides');

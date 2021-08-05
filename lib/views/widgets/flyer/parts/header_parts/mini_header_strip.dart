@@ -23,8 +23,8 @@ class MiniHeaderStrip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
-    double _stripHeight = Scale.superHeaderStripHeight(superFlyer.bzPageIsOn, flyerZoneWidth);
-    BorderRadius _stripBorders = Borderers.superHeaderStripCorners(context, superFlyer.bzPageIsOn, flyerZoneWidth);
+    double _stripHeight = Scale.superHeaderStripHeight(superFlyer.nav.bzPageIsOn, flyerZoneWidth);
+    BorderRadius _stripBorders = Borderers.superHeaderStripCorners(context, superFlyer.nav.bzPageIsOn, flyerZoneWidth);
 // -----------------------------------------------------------------------------
     return
       Align(
@@ -46,13 +46,13 @@ class MiniHeaderStrip extends StatelessWidget {
 
               // --- BzLogo
               Expanded(
-                flex: superFlyer.bzPageIsOn ? 1 : 26,
+                flex: superFlyer.nav.bzPageIsOn ? 1 : 26,
                 child: BzLogo(
-                  width: Scale.superLogoWidth(superFlyer.bzPageIsOn, flyerZoneWidth),
+                  width: Scale.superLogoWidth(superFlyer.nav.bzPageIsOn, flyerZoneWidth),
                   image: superFlyer.bzLogo,
                   tinyMode: Scale.superFlyerTinyMode(context, flyerZoneWidth),
                   corners: Borderers.superLogoCorner(context, flyerZoneWidth),
-                  bzPageIsOn: superFlyer.bzPageIsOn,
+                  bzPageIsOn: superFlyer.nav.bzPageIsOn,
                   zeroCornerIsOn: superFlyer.flyerShowsAuthor,
                   // onTap: superFlyer.onHeaderTap,
                 ),
@@ -60,7 +60,7 @@ class MiniHeaderStrip extends StatelessWidget {
 
               // --- B.NAME, B.LOCALE, AUTHOR PICTURE, AUTHOR NAME, AUTHOR TITLE, FOLLOWERS COUNT
               Expanded(
-                flex: superFlyer.bzPageIsOn ? 0 : 62,
+                flex: superFlyer.nav.bzPageIsOn ? 0 : 62,
                 child: HeaderLabels(
                   superFlyer: superFlyer,
                   flyerZoneWidth: flyerZoneWidth,
@@ -73,10 +73,10 @@ class MiniHeaderStrip extends StatelessWidget {
 
               // --- FOLLOW & Call
               Expanded(
-                flex: superFlyer.bzPageIsOn ? 0 : 11,
+                flex: superFlyer.nav.bzPageIsOn ? 0 : 11,
                 child: FollowAndCallBTs(
                   flyerZoneWidth: flyerZoneWidth,
-                  bzPageIsOn: superFlyer.bzPageIsOn,
+                  bzPageIsOn: superFlyer.nav.bzPageIsOn,
                   followIsOn: superFlyer.followIsOn,
                   onFollowTap: superFlyer.onFollowTap,
                   onCallTap: superFlyer.onCallTap,

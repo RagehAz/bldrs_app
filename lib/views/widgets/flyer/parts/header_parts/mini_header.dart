@@ -27,9 +27,9 @@ class MiniHeader extends StatelessWidget {
 
     return
       GestureDetector(
-        onTap: _tinyMode == true ? null : () async { await superFlyer.onTinyFlyerTap();},
+        onTap: _tinyMode == true ? null : () async { await superFlyer.nav.onTinyFlyerTap();},
         child: Container(
-          height: Scale.superHeaderHeight(superFlyer.bzPageIsOn, flyerZoneWidth),
+          height: Scale.superHeaderHeight(superFlyer.nav.bzPageIsOn, flyerZoneWidth),
           width: flyerZoneWidth,
           child: Stack(
             children: <Widget>[
@@ -37,7 +37,7 @@ class MiniHeader extends StatelessWidget {
               // --- HEADER SHADOW
               HeaderShadow(
                 flyerZoneWidth: flyerZoneWidth,
-                bzPageIsOn: superFlyer.bzPageIsOn,
+                bzPageIsOn: superFlyer.nav.bzPageIsOn,
               ),
 
               // --- HEADER COMPONENTS
@@ -49,7 +49,7 @@ class MiniHeader extends StatelessWidget {
               // --- HEADER'S MAX STATE'S HEADLINE : BZ.NAME AND BZ.LOCALE
               BzPageHeadline(
                 flyerZoneWidth: flyerZoneWidth,
-                bzPageIsOn: superFlyer.bzPageIsOn,
+                bzPageIsOn: superFlyer.nav.bzPageIsOn,
                 tinyBz: SuperFlyer.getTinyBzFromSuperFlyer(superFlyer),
               ),
 
