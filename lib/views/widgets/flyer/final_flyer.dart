@@ -516,7 +516,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     if (widget.goesToEditor == true){
       await _goToFlyerEditor(
         context: context,
-        firstTimer: _superFlyer.firstTimer,
+        firstTimer: _superFlyer.edit.firstTimer,
       );
     }
 
@@ -856,7 +856,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     List<SlideModel> _updatedSlides = await _createSlidesModelsFromCurrentSuperFlyer();
     List<MutableSlide> _updatedMutableSlides = MutableSlide.getMutableSlidesFromSlidesModels(_updatedSlides);
     setState(() {
-      _superFlyer.editMode = !_superFlyer.editMode;
+      _superFlyer.edit.editMode = !_superFlyer.edit.editMode;
       _superFlyer.flyerInfo = _superFlyer.infoController.text;
       _superFlyer.mutableSlides = _updatedMutableSlides;
     });
@@ -1164,7 +1164,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     else {
 
       /// B - first timer
-      if(_superFlyer.firstTimer == true){
+      if(_superFlyer.edit.firstTimer == true){
         await _onAddImagesFirstTime();
       }
 
@@ -1188,12 +1188,15 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
   Future<void> _onDeleteSlide() async {
 
     /// A - if slides are empty
-    if (_superFlyer.numberOfSlides == 0){
-      print('nothing can be done');
+    if (_superFlyer.numberOfSlides == 0 || _superFlyer.edit.canDelete == false){
+      print('FinalFlyer : _onDeleteSlide : Can not delete slide : ${_superFlyer.currentSlideIndex}');
     }
+
 
     /// A - if slides are not empty
     else {
+
+      _superFlyer.edit.canDelete = false;
 
       /// B - if at (FIRST) slide
       if (_superFlyer.currentSlideIndex == 0){
@@ -1202,13 +1205,15 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
       /// B - if at (LAST) slide
       else if (_superFlyer.currentSlideIndex + 1 == _superFlyer.numberOfSlides){
-        _deleteMiddleOrLastSlide();
+        await _deleteMiddleOrLastSlide();
       }
 
       /// B - if at (Middle) slide
       else {
-        _deleteMiddleOrLastSlide();
+        await _deleteMiddleOrLastSlide();
       }
+
+      _superFlyer.edit.canDelete = true;
 
     }
 
@@ -1408,14 +1413,14 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
   }
 // -----------------------------------------------------o
-  void _statelessSlideDelete(int index){
+  void _statelessSlideDelete(int index) {
 
     print('before stateless delete index was $index, _draft.numberOfSlides was : ${_superFlyer.numberOfSlides}');
     // if(ObjectChecker.listCanBeUsed(_superFlyer.assetsFiles) == true){_superFlyer.assetsFiles.removeAt(index);}
     // if(ObjectChecker.listCanBeUsed(_superFlyer.assetsFiles) == true){_superFlyer.mutableSlides.removeAt(index);}
 
 
-    if(_superFlyer.firstTimer == false){
+    if(_superFlyer.edit.firstTimer == false){
       int _assetIndex = MutableSlide.getAssetTrueIndexFromMutableSlides(mutableSlides: _superFlyer.mutableSlides, slideIndex: index);
       if(_assetIndex != null){
         _superFlyer.assetsSources.removeAt(_assetIndex);
@@ -1429,9 +1434,9 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     _superFlyer.mutableSlides.removeAt(index);
     _superFlyer.slidesVisibilities.removeAt(index);
     _superFlyer.headlinesControllers.removeAt(index);
-    _superFlyer.numberOfSlides = _superFlyer.assetsFiles.length;
-    // _superFlyer.screenShots.removeAt(index);
     _superFlyer.screenshotsControllers.removeAt(index);
+    _superFlyer.numberOfSlides = _superFlyer.mutableSlides.length;
+    // _superFlyer.screenShots.removeAt(index);
 
     print('after stateless delete index is $index, _draft.numberOfSlides is : ${_superFlyer.numberOfSlides}');
   }
@@ -1986,7 +1991,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     FlyerModel _uploadedFlyer;
 
     /// A - when creating new flyer
-    if (_superFlyer.firstTimer == true){
+    if (_superFlyer.edit.firstTimer == true){
       print('first timer');
 
       _uploadedFlyer = await _createNewFlyer();
@@ -2025,7 +2030,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     await superDialog(
       context: context,
       title: 'Great !',
-      body: _superFlyer.firstTimer == true ? 'Flyer has been created' : 'Flyer has been updated',
+      body: _superFlyer.edit.firstTimer == true ? 'Flyer has been created' : 'Flyer has been updated',
       boolDialog: false,
     );
 
@@ -2557,7 +2562,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
     Tracer.traceWidgetBuild(number: 1, widgetName: 'FinalFlyer', varName: 'flyerID', varValue: _superFlyer.flyerID);
     Tracer.traceWidgetBuild(number: 2, widgetName: 'FinalFlyer', varName: 'numberOfSlides', varValue: _superFlyer.numberOfSlides);
-    Tracer.traceWidgetBuild(number: 3, widgetName: 'FinalFlyer', varName: 'editMode', varValue: _superFlyer.editMode);
+    Tracer.traceWidgetBuild(number: 3, widgetName: 'FinalFlyer', varName: 'editMode', varValue: _superFlyer.edit.editMode);
     return
         FlyerZoneBox(
           flyerZoneWidth: widget.flyerZoneWidth,

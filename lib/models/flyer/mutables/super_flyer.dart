@@ -27,6 +27,7 @@ import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:bldrs/models/flyer/mutables/flyer_navigator.dart';
 import 'package:bldrs/models/flyer/mutables/flyer_recorder.dart';
+import 'package:bldrs/models/flyer/mutables/flyer_editor.dart';
 
 /// need to add
 /// string mapImageURL
@@ -36,31 +37,14 @@ class SuperFlyer{
 
   final FlyerNavigator nav;
   final FlyerRecorder rec;
+  final FlyerEditor edit;
 
 
   /// animation parameters
   bool loading; // ??
 
-  /// editor functions
-  final Function onAddImages; // FlyerEditor
-  final Function onDeleteSlide; // FlyerEditor
-  final Function onCropImage; // FlyerEditor
-  final Function onResetImage; // FlyerEditor
-  final Function onFitImage; // FlyerEditor
-  final Function onFlyerTypeTap; // FlyerEditor
-  final Function onZoneTap; // FlyerEditor
-  final Function onEditInfoTap; // FlyerEditor
-  final Function onEditKeywordsTap; // FlyerEditor
-  final Function onShowAuthorTap; // FlyerEditor
-  final Function onTriggerEditMode; // FlyerEditor
-  final Function onPublishFlyer; // FlyerEditor
-  final Function onDeleteFlyer; // FlyerEditor
-  final Function onUnPublishFlyer; // FlyerEditor
-  final Function onRepublishFlyer; // FlyerEditor
 
   /// editor data
-  bool firstTimer; // FlyerEditor
-  bool editMode; // FlyerEditor
   List<TextEditingController> headlinesControllers; // MutableSlide
   List<TextEditingController> descriptionsControllers; // MutableSlide
   TextEditingController infoController; // MutableFlyer
@@ -143,31 +127,13 @@ class SuperFlyer{
     @required this.nav,
     /// recorder
     @required this.rec,
+    @required this.edit,
 
 
     /// animation parameters
     @required this.loading,
 
-    /// editor functions
-    @required this.onAddImages,
-    @required this.onDeleteSlide,
-    @required this.onCropImage,
-    @required this.onResetImage,
-    @required this.onFitImage,
-    @required this.onFlyerTypeTap,
-    @required this.onZoneTap,
-    @required this.onEditInfoTap,
-    @required this.onEditKeywordsTap,
-    @required this.onShowAuthorTap,
-    @required this.onTriggerEditMode,
-    @required this.onPublishFlyer,
-    @required this.onDeleteFlyer,
-    @required this.onUnPublishFlyer,
-    @required this.onRepublishFlyer,
-
     /// editor data
-    @required this.firstTimer,
-    @required this.editMode,
     @required this.headlinesControllers,
     @required this.descriptionsControllers,
     @required this.infoController,
@@ -283,30 +249,33 @@ class SuperFlyer{
             ankhIsOn: null,
             followIsOn: null,
           ),
+          edit: FlyerEditor(
+            /// editor functions
+            onAddImages: null,
+            onDeleteSlide: null,
+            onCropImage: null,
+            onResetImage: null,
+            onFitImage: null,
+            onFlyerTypeTap: null,
+            onZoneTap: null,
+            onEditInfoTap: null,
+            onEditKeywordsTap: null,
+            onShowAuthorTap: null,
+            onTriggerEditMode: null,
+            onPublishFlyer: null,
+            onDeleteFlyer: null,
+            onUnPublishFlyer: null,
+            onRepublishFlyer: null,
+            /// editor data
+            firstTimer: goesToEditor == true ? true : null,
+            editMode: goesToEditor == true ? true : false,
+            canDelete: true,
+          ),
 
           loading: false,
 
 
-          /// editor functions
-          onAddImages: null,
-          onDeleteSlide: null,
-          onCropImage: null,
-          onResetImage: null,
-          onFitImage: null,
-          onFlyerTypeTap: null,
-          onZoneTap: null,
-          onEditInfoTap: null,
-          onEditKeywordsTap: null,
-          onShowAuthorTap: null,
-          onTriggerEditMode: null,
-          onPublishFlyer: null,
-          onDeleteFlyer: null,
-          onUnPublishFlyer: null,
-          onRepublishFlyer: null,
 
-          /// editor data
-          firstTimer: goesToEditor == true ? true : null,
-          editMode: goesToEditor == true ? true : false,
           headlinesControllers: null,
           descriptionsControllers: null,
           infoController: null,
@@ -441,31 +410,34 @@ class SuperFlyer{
           ankhIsOn: _prof.checkAnkh(flyerModel.flyerID),
           followIsOn: _prof.checkFollow(flyerModel.tinyBz.bzID),
         ),
+        edit: FlyerEditor(
+          /// editor functions
+          onAddImages: null,
+          onDeleteSlide: null,
+          onCropImage: null,
+          onResetImage: null,
+          onFitImage: null,
+          onFlyerTypeTap: null,
+          onZoneTap: null,
+          onEditInfoTap: null,
+          onEditKeywordsTap: null,
+          onShowAuthorTap: null,
+          onTriggerEditMode: null,
+          onPublishFlyer: null,
+          onDeleteFlyer: null,
+          onUnPublishFlyer: null,
+          onRepublishFlyer: null,
+          /// editor data
+          firstTimer: null,
+          editMode: false,
+          canDelete: true,
+        ),
 
 
         loading: false,
 
 
-        /// editor functions
-        onAddImages: null,
-        onDeleteSlide: null,
-        onCropImage: null,
-        onResetImage: null,
-        onFitImage: null,
-        onFlyerTypeTap: null,
-        onZoneTap: null,
-        onEditInfoTap: null,
-        onEditKeywordsTap: null,
-        onShowAuthorTap: null,
-        onTriggerEditMode: null,
-        onPublishFlyer: null,
-        onDeleteFlyer: null,
-        onUnPublishFlyer: null,
-        onRepublishFlyer: null,
 
-        /// editor data
-        firstTimer: null,
-        editMode: false,
         headlinesControllers: null,
         descriptionsControllers: null,
         infoController: null,
@@ -592,29 +564,33 @@ class SuperFlyer{
           ankhIsOn: _prof.checkAnkh(tinyFlyer.flyerID),
           followIsOn: _prof.checkFollow(tinyFlyer.tinyBz.bzID),
         ),
+        edit: FlyerEditor(
+          /// editor functions
+          onAddImages: null,
+          onDeleteSlide: null,
+          onCropImage: null,
+          onResetImage: null,
+          onFitImage: null,
+          onFlyerTypeTap: null,
+          onZoneTap: null,
+          onEditInfoTap: null,
+          onEditKeywordsTap: null,
+          onShowAuthorTap: null,
+          onTriggerEditMode: null,
+          onPublishFlyer: null,
+          onDeleteFlyer: null,
+          onUnPublishFlyer: null,
+          onRepublishFlyer: null,
+          /// editor data
+          firstTimer: false,
+          editMode: false,
+          canDelete: true,
+        ),
         loading: false,
 
 
-        /// editor functions
-        onAddImages: null,
-        onDeleteSlide: null,
-        onCropImage: null,
-        onResetImage: null,
-        onFitImage: null,
-        onFlyerTypeTap: null,
-        onZoneTap: null,
-        onEditInfoTap: null,
-        onEditKeywordsTap: null,
-        onShowAuthorTap: null,
-        onTriggerEditMode: null,
-        onPublishFlyer: null,
-        onDeleteFlyer: null,
-        onUnPublishFlyer: null,
-        onRepublishFlyer: null,
 
         /// editor data
-        firstTimer: false,
-        editMode: false,
         headlinesControllers: null,
         descriptionsControllers: null,
         infoController: null,
@@ -777,31 +753,32 @@ class SuperFlyer{
           ankhIsOn: false,
           followIsOn: false,
         ),
-
+        edit: FlyerEditor(
+          /// editor functions
+          onAddImages: onAddImages,
+          onDeleteSlide: onDeleteSlide,
+          onCropImage: onCropImage,
+          onResetImage: onResetImage,
+          onFitImage: onFitImage,
+          onFlyerTypeTap: onFlyerTypeTap,
+          onZoneTap: onZoneTap,
+          onEditInfoTap: onAboutTap,
+          onEditKeywordsTap: onKeywordsTap,
+          onShowAuthorTap: onShowAuthorTap,
+          onTriggerEditMode: onTriggerEditMode,
+          onPublishFlyer: onPublishFlyer,
+          onDeleteFlyer: onDeleteFlyer,
+          onUnPublishFlyer: onUnPublishFlyer,
+          onRepublishFlyer: onRepublishFlyer,
+          /// editor data
+          firstTimer: true,
+          editMode: true,
+          canDelete: true,
+        ),
 
         loading: false,
 
-
-        /// editor functions
-        onAddImages: onAddImages,
-        onDeleteSlide: onDeleteSlide,
-        onCropImage: onCropImage,
-        onResetImage: onResetImage,
-        onFitImage: onFitImage,
-        onFlyerTypeTap: onFlyerTypeTap,
-        onZoneTap: onZoneTap,
-        onEditInfoTap: onAboutTap,
-        onEditKeywordsTap: onKeywordsTap,
-        onShowAuthorTap: onShowAuthorTap,
-        onTriggerEditMode: onTriggerEditMode,
-        onPublishFlyer: onPublishFlyer,
-        onDeleteFlyer: onDeleteFlyer,
-        onUnPublishFlyer: onUnPublishFlyer,
-        onRepublishFlyer: onRepublishFlyer,
-
         /// editor data
-        firstTimer: true,
-        editMode: true,
         headlinesControllers: new List(),
         descriptionsControllers: new List(),
         infoController: new TextEditingController(),
@@ -954,31 +931,35 @@ class SuperFlyer{
           ankhIsOn: false,
           followIsOn: false,
         ),
+        edit: FlyerEditor(
+          /// editor functions
+          onAddImages: onAddImages,
+          onDeleteSlide: onDeleteSlide,
+          onCropImage: onCropImage,
+          onResetImage: onResetImage,
+          onFitImage: onFitImage,
+          onFlyerTypeTap: onFlyerTypeTap,
+          onZoneTap: onZoneTap,
+          onEditInfoTap: onAboutTap,
+          onEditKeywordsTap: onKeywordsTap,
+          onShowAuthorTap: onShowAuthorTap,
+          onTriggerEditMode: onTriggerEditMode,
+          onPublishFlyer: onPublishFlyer,
+          onDeleteFlyer: onDeleteFlyer,
+          onUnPublishFlyer: onUnPublishFlyer,
+          onRepublishFlyer: onRepublishFlyer,
+          /// editor data
+          firstTimer: false,
+          editMode: false,
+          canDelete: true,
+        ),
 
         loading: false,
 
 
-        /// editor functions
-        onAddImages: onAddImages,
-        onDeleteSlide: onDeleteSlide,
-        onCropImage: onCropImage,
-        onResetImage: onResetImage,
-        onFitImage: onFitImage,
-        onFlyerTypeTap: onFlyerTypeTap,
-        onZoneTap: onZoneTap,
-        onEditInfoTap: onAboutTap,
-        onEditKeywordsTap: onKeywordsTap,
-        onShowAuthorTap: onShowAuthorTap,
-        onTriggerEditMode: onTriggerEditMode,
-        onPublishFlyer: onPublishFlyer,
-        onDeleteFlyer: onDeleteFlyer,
-        onUnPublishFlyer: onUnPublishFlyer,
-        onRepublishFlyer: onRepublishFlyer,
 
 
         /// editor data
-        firstTimer: false,
-        editMode: false,
         headlinesControllers: FlyerModel.createHeadlinesControllersForExistingFlyer(flyerModel),
         descriptionsControllers: FlyerModel.createDescriptionsControllersForExistingFlyer(flyerModel),
         infoController: new TextEditingController(text: flyerModel.info),
@@ -1111,29 +1092,32 @@ static SuperFlyer getSuperFlyerFromBzModelOnly({
           ankhIsOn: null,
           followIsOn: false,
         ),
+        edit: FlyerEditor(
+          /// editor functions
+          onAddImages: null,
+          onDeleteSlide: null,
+          onCropImage: null,
+          onResetImage: null,
+          onFitImage: null,
+          onFlyerTypeTap: null,
+          onZoneTap: null,
+          onEditInfoTap: null,
+          onEditKeywordsTap: null,
+          onShowAuthorTap: null,
+          onTriggerEditMode: null,
+          onPublishFlyer: null,
+          onDeleteFlyer: null,
+          onUnPublishFlyer: null,
+          onRepublishFlyer: null,
+          /// editor data
+          firstTimer: null,
+          editMode: false,
+          canDelete: true,
+        ),
 
         loading: false,
 
-        /// editor functions
-        onAddImages: null,
-        onDeleteSlide: null,
-        onCropImage: null,
-        onResetImage: null,
-        onFitImage: null,
-        onFlyerTypeTap: null,
-        onZoneTap: null,
-        onEditInfoTap: null,
-        onEditKeywordsTap: null,
-        onShowAuthorTap: null,
-        onTriggerEditMode: null,
-        onPublishFlyer: null,
-        onDeleteFlyer: null,
-        onUnPublishFlyer: null,
-        onRepublishFlyer: null,
-
         /// editor data
-        firstTimer: null,
-        editMode: false,
         headlinesControllers: null,
         descriptionsControllers: null,
         infoController: null,
