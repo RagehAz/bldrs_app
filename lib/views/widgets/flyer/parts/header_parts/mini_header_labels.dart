@@ -2,12 +2,12 @@ import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/author_label.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/mini_bz_label.dart';
-import 'package:bldrs/models/super_flyer.dart';
+import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:flutter/material.dart';
 
 class HeaderLabels extends StatelessWidget {
   final SuperFlyer superFlyer;
-  // final double flyerZoneWidth;
+  final double flyerZoneWidth;
   // final bool bzPageIsOn;
   // final bool flyerShowsAuthor;
   // final TinyBz tinyBz;
@@ -15,7 +15,7 @@ class HeaderLabels extends StatelessWidget {
 
   HeaderLabels({
     @required this.superFlyer,
-    // @required this.flyerZoneWidth,
+    @required this.flyerZoneWidth,
     // @required this.bzPageIsOn,
     // @required this.flyerShowsAuthor,
     // @required this.tinyBz,
@@ -25,10 +25,10 @@ class HeaderLabels extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
-    bool miniMode = Scale.superFlyerMiniMode(context, superFlyer.flyerZoneWidth);
+    bool miniMode = Scale.superFlyerMiniMode(context, flyerZoneWidth);
 // -----------------------------------------------------------------------------
-    double labelsWidth = superFlyer.flyerZoneWidth * (Ratioz.xxflyerAuthorPicWidth + Ratioz.xxflyerAuthorNameWidth);
-    double labelsHeight = superFlyer.flyerZoneWidth * (Ratioz.xxflyerHeaderMiniHeight - (2*Ratioz.xxflyerHeaderMainPadding));
+    double labelsWidth = flyerZoneWidth * (Ratioz.xxflyerAuthorPicWidth + Ratioz.xxflyerAuthorNameWidth);
+    double labelsHeight = flyerZoneWidth * (Ratioz.xxflyerHeaderMiniHeight - (2*Ratioz.xxflyerHeaderMainPadding));
 // -----------------------------------------------------------------------------
     return
       miniMode == true || superFlyer.bzPageIsOn == true ? Container() :
@@ -43,7 +43,7 @@ class HeaderLabels extends StatelessWidget {
               // --- BUSINESS LABEL : BZ.NAME & BZ.LOCALE
               BzLabel(
                 superFlyer: superFlyer,
-                // flyerZoneWidth: superFlyer.flyerZoneWidth,
+                flyerZoneWidth: flyerZoneWidth,
                 // bzPageIsOn: superFlyer.bzPageIsOn,
                 // tinyBz: tinyBz,
                 // flyerShowsAuthor: flyerShowsAuthor,
@@ -59,7 +59,7 @@ class HeaderLabels extends StatelessWidget {
               // superFlyer.flyerTinyAuthor
               if (superFlyer.flyerShowsAuthor == true)
               AuthorLabel(
-                flyerZoneWidth: superFlyer.flyerZoneWidth,
+                flyerZoneWidth: flyerZoneWidth,
                 tinyAuthor: superFlyer.flyerTinyAuthor,
                 tinyBz: SuperFlyer.getTinyBzFromSuperFlyer(superFlyer),
                 showLabel: superFlyer.bzPageIsOn,

@@ -1,21 +1,23 @@
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/firestore/auth_ops.dart';
-import 'package:bldrs/models/bz_model.dart';
-import 'package:bldrs/models/sub_models/author_model.dart';
-import 'package:bldrs/models/super_flyer.dart';
-import 'package:bldrs/models/tiny_models/tiny_bz.dart';
-import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
-import 'package:bldrs/models/tiny_models/tiny_user.dart';
+import 'package:bldrs/models/bz/author_model.dart';
+import 'package:bldrs/models/bz/bz_model.dart';
+import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
+import 'package:bldrs/models/bz/tiny_bz.dart';
+import 'package:bldrs/models/flyer/tiny_flyer.dart';
+import 'package:bldrs/models/user/tiny_user.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/author_label.dart';
 import 'package:bldrs/views/widgets/flyer/stacks/gallery_grid.dart';
 import 'package:flutter/material.dart';
 
 class Gallery extends StatefulWidget {
   final SuperFlyer superFlyer;
+  final double flyerZoneWidth;
   final bool showFlyers; // why ?
 
   Gallery({
     @required this.superFlyer,
+    @required this.flyerZoneWidth,
     @required this.showFlyers,
   });
 
@@ -113,8 +115,8 @@ class _GalleryState extends State<Gallery> {
     bool _thisIsMyBz = _bzTeamIDs.contains(superUserID());
 
     return Container(
-      width: widget.superFlyer.flyerZoneWidth,
-      margin: EdgeInsets.only(top: widget.superFlyer.flyerZoneWidth * 0.005),
+      width: widget.flyerZoneWidth,
+      margin: EdgeInsets.only(top: widget.flyerZoneWidth * 0.005),
       // color: Colorz.bzPageBGColor,
       child: widget.showFlyers == false ? Container() :
       Column(
@@ -150,15 +152,15 @@ class _GalleryState extends State<Gallery> {
             /// AUTHORS ROW
             if (widget.superFlyer.bzShowsTeam != false)
               Container(
-                width: widget.superFlyer.flyerZoneWidth,
-                height: widget.superFlyer.flyerZoneWidth * Ratioz.xxflyerAuthorPicWidth,
+                width: widget.flyerZoneWidth,
+                height: widget.flyerZoneWidth * Ratioz.xxflyerAuthorPicWidth,
                 alignment: Alignment.center,
                 margin: EdgeInsets.only(
                     top: 0,
-                    bottom: widget.superFlyer.flyerZoneWidth * Ratioz.xxflyersGridSpacing),
+                    bottom: widget.flyerZoneWidth * Ratioz.xxflyersGridSpacing),
                 child: ListView(
                     scrollDirection: Axis.horizontal,
-                    padding: EdgeInsets.symmetric(horizontal: widget.superFlyer.flyerZoneWidth * 0.01),
+                    padding: EdgeInsets.symmetric(horizontal: widget.flyerZoneWidth * 0.01),
                     children:
                     widget.superFlyer.bzAuthors == null ?
                     <Widget>[Container()]
@@ -174,7 +176,7 @@ class _GalleryState extends State<Gallery> {
                                 children: <Widget>[
                                   AuthorLabel(
                                     showLabel: widget.showFlyers == true ? true : false,
-                                    flyerZoneWidth: widget.superFlyer.flyerZoneWidth,
+                                    flyerZoneWidth: widget.flyerZoneWidth,
                                     tinyAuthor: _tinyAuthor,
                                     tinyBz: TinyBz.getTinyBzFromSuperFlyer(widget.superFlyer),
                                     authorGalleryCount: AuthorModel.getAuthorGalleryCountFromBzModel(_bzModel, _author),
@@ -193,7 +195,7 @@ class _GalleryState extends State<Gallery> {
                       /// ADD NEW AUTHOR BUTTON
                       if (_thisIsMyBz == true)
                         AuthorPic(
-                          flyerZoneWidth: widget.superFlyer.flyerZoneWidth,
+                          flyerZoneWidth: widget.flyerZoneWidth,
                           authorPic: null,
                           isAddAuthorButton: true,
                           tinyBz: TinyBz.getTinyBzFromSuperFlyer(widget.superFlyer),
@@ -203,9 +205,9 @@ class _GalleryState extends State<Gallery> {
               ),
 
             /// FLYERS
-            if (widget.superFlyer.flyerZoneWidth != null)
+            if (widget.flyerZoneWidth != null)
               GalleryGrid(
-                  gridZoneWidth: widget.superFlyer.flyerZoneWidth,
+                  gridZoneWidth: widget.flyerZoneWidth,
                   bzID: widget.superFlyer.bzAuthors == null || widget.superFlyer.bzAuthors == [] || widget.superFlyer.bzAuthors.isEmpty ?  '': widget.superFlyer.bzID,
                   flyersVisibilities: _flyersVisibilities,
                   galleryFlyers: _tinyFlyers,

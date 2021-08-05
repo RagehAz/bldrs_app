@@ -1,7 +1,7 @@
-import 'package:bldrs/models/bz_model.dart';
-import 'package:bldrs/models/sub_models/author_model.dart';
-import 'package:bldrs/models/sub_models/contact_model.dart';
-import '../user_model.dart';
+import 'package:bldrs/models/bz/author_model.dart';
+import 'package:bldrs/models/bz/bz_model.dart';
+import 'package:bldrs/models/secondary_models/contact_model.dart';
+import 'package:bldrs/models/user/user_model.dart';
 // -----------------------------------------------------------------------------
 class TinyUser {
   final String userID;

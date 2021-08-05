@@ -1,6 +1,6 @@
 import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/models/tiny_models/tiny_bz.dart';
+import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 

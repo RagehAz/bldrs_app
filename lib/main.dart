@@ -3,7 +3,7 @@ import 'package:bldrs/controllers/localization/localization_constants.dart';
 import 'package:bldrs/controllers/router/route_names.dart';
 import 'package:bldrs/controllers/router/router.dart';
 import 'package:bldrs/firestore/user_ops.dart';
-import 'package:bldrs/models/user_model.dart';
+import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/screens/a_0_user_checker_widget.dart';

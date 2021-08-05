@@ -1,6 +1,6 @@
 import 'package:bldrs/controllers/drafters/text_manipulators.dart';
 import 'package:bldrs/controllers/drafters/timerz.dart';
-import 'package:bldrs/models/tiny_models/tiny_bz.dart';
+import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:flutter/foundation.dart';
 // -----------------------------------------------------------------------------
 class FollowModel{

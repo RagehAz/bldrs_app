@@ -7,10 +7,10 @@ import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/firestore/bz_ops.dart';
-import 'package:bldrs/models/bz_model.dart';
-import 'package:bldrs/models/super_flyer.dart';
-import 'package:bldrs/models/tiny_models/tiny_bz.dart';
-import 'package:bldrs/models/user_model.dart';
+import 'package:bldrs/models/bz/bz_model.dart';
+import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
+import 'package:bldrs/models/bz/tiny_bz.dart';
+import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/screens/f_x_bz_editor_screen.dart';
 import 'package:bldrs/views/screens/f_2_deactivated_flyers_screen.dart';
@@ -368,8 +368,8 @@ class _MyBzScreenState extends State<MyBzScreen> {
                 columnChildren: <Widget>[
 
                   Gallery(
+                    flyerZoneWidth: Scale.superBubbleClearWidth(context),
                     superFlyer: SuperFlyer.getSuperFlyerFromBzModelOnly(
-                      flyerZoneWidth: Scale.superBubbleClearWidth(context),
                       bzModel: _bzModel,
                       onHeaderTap: () => print('on header tap in f 0 my bz Screen'),
                     ),

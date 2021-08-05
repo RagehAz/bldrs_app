@@ -16,17 +16,18 @@ import 'package:bldrs/controllers/theme/standards.dart';
 import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/firestore/flyer_ops.dart';
 import 'package:bldrs/firestore/record_ops.dart';
-import 'package:bldrs/models/bz_model.dart';
-import 'package:bldrs/models/flyer_model.dart';
-import 'package:bldrs/models/sub_models/flyer_type_class.dart';
+import 'package:bldrs/models/bz/bz_model.dart';
+import 'package:bldrs/models/flyer/flyer_model.dart';
+import 'package:bldrs/models/flyer/mutables/mutable_slide.dart';
+import 'package:bldrs/models/flyer/records/publish_time_model.dart';
+import 'package:bldrs/models/flyer/records/share_model.dart';
+import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
+import 'package:bldrs/models/flyer/sub/slide_model.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
-import 'package:bldrs/models/records/share_model.dart';
-import 'package:bldrs/models/sub_models/author_model.dart';
-import 'package:bldrs/models/sub_models/publish_time_model.dart';
-import 'package:bldrs/models/sub_models/slide_model.dart';
-import 'package:bldrs/models/tiny_models/tiny_bz.dart';
-import 'package:bldrs/models/tiny_models/tiny_flyer.dart';
-import 'package:bldrs/models/tiny_models/tiny_user.dart';
+import 'package:bldrs/models/bz/author_model.dart';
+import 'package:bldrs/models/bz/tiny_bz.dart';
+import 'package:bldrs/models/flyer/tiny_flyer.dart';
+import 'package:bldrs/models/user/tiny_user.dart';
 import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/screens/f_1_flyer_editor_screen.dart';
@@ -42,7 +43,7 @@ import 'package:bldrs/views/widgets/flyer/parts/flyer_header.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_pages.dart';
 import 'package:bldrs/views/widgets/flyer/parts/progress_bar.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_zone_box.dart';
-import 'package:bldrs/models/super_flyer.dart';
+import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/views/widgets/textings/super_text_field.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:bldrs/xxx_LABORATORY/camera_and_location/location_helper.dart';
@@ -336,7 +337,6 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
   SuperFlyer _getSuperFlyerFromTinyFlyer({TinyFlyer tinyFlyer}){
     SuperFlyer _superFlyer = SuperFlyer.createViewSuperFlyerFromTinyFlyer(
       context: context,
-      flyerZoneWidth: widget.flyerZoneWidth,
       tinyFlyer: tinyFlyer,
       onHeaderTap: () async {await _openTinyFlyer();},
       onTinyFlyerTap: () async {await _openTinyFlyer();},
@@ -351,7 +351,6 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     if (flyerModel != null){
       _superFlyer = SuperFlyer.createViewSuperFlyerFromFlyerModel(
         context: context,
-        flyerZoneWidth: widget.flyerZoneWidth,
         flyerModel: flyerModel,
         initialPage: widget.initialSlideIndex,
         onHorizontalSlideSwipe: (i) => _onHorizontalSlideSwipe(i),
@@ -384,7 +383,6 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     if(flyerModel != null && bzModel != null){
       _superFlyer = await SuperFlyer.createDraftSuperFlyerFromFlyer(
         context: context,
-        flyerZoneWidth: widget.flyerZoneWidth,
         bzModel: bzModel,
         flyerModel: flyerModel,
         onHorizontalSlideSwipe: (i) => _onHorizontalSlideSwipe(i),
@@ -428,7 +426,6 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
   SuperFlyer _getDraftSuperFlyerFromNothing({BzModel bzModel}){
     SuperFlyer _superFlyer = SuperFlyer.createDraftSuperFlyerFromNothing(
       context: context,
-      flyerZoneWidth: widget.flyerZoneWidth,
       bzModel: bzModel,
       onHorizontalSlideSwipe: (i) => _onHorizontalSlideSwipe(i),
       onVerticalPageSwipe: (i) => _onVerticalPageSwipe(i),
@@ -501,7 +498,6 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
   SuperFlyer _getSuperFlyerFromBzModel({BzModel bzModel}){
     SuperFlyer _superFlyer = SuperFlyer.getSuperFlyerFromBzModelOnly(
       onHeaderTap: _onHeaderTap,
-      flyerZoneWidth: widget.flyerZoneWidth,
       bzModel: bzModel,
     );
 
@@ -2573,10 +2569,16 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
           stackWidgets: <Widget>[
 
             if (_superFlyerHasID)
-              FlyerPages(superFlyer: _superFlyer,),
+              FlyerPages(
+                superFlyer: _superFlyer,
+                flyerZoneWidth: widget.flyerZoneWidth,
+              ),
 
             if (_superFlyerHasID)
-              FlyerHeader(superFlyer: _superFlyer,),
+              FlyerHeader(
+                superFlyer: _superFlyer,
+                flyerZoneWidth: widget.flyerZoneWidth,
+              ),
 
             if (_tinyMode == false)
               ProgressBar(
