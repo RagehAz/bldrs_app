@@ -22,15 +22,15 @@ class FlyerHeader extends StatelessWidget {
 // -----------------------------------------------------------------------------
     Tracer.traceWidgetBuild(widgetName: 'FlyerHeader', varName: 'bzID', varValue: superFlyer.bzID);
     return GestureDetector(
-        onTap: superFlyer.onHeaderTap,
+        onTap: superFlyer.nav.onHeaderTap,
         child: ListView(
-          physics: Scrollers.superScroller(superFlyer.bzPageIsOn),
+          physics: Scrollers.superScroller(superFlyer.nav.bzPageIsOn),
           shrinkWrap: true,
           addAutomaticKeepAlives: true,
           children: <Widget>[
 
             Container(
-              height: Scale.superHeaderHeight(superFlyer.bzPageIsOn, flyerZoneWidth),
+              height: Scale.superHeaderHeight(superFlyer.nav.bzPageIsOn, flyerZoneWidth),
               width: flyerZoneWidth,
               child: Stack(
                 children: <Widget>[
@@ -46,7 +46,7 @@ class FlyerHeader extends StatelessWidget {
                   // --- HEADER SHADOW
                   HeaderShadow(
                     flyerZoneWidth: flyerZoneWidth,
-                    bzPageIsOn: superFlyer.bzPageIsOn,
+                    bzPageIsOn: superFlyer.nav.bzPageIsOn,
                   ),
 
                   // --- HEADER COMPONENTS
@@ -58,7 +58,7 @@ class FlyerHeader extends StatelessWidget {
                   // --- HEADER'S MAX STATE'S HEADLINE : BZ.NAME AND BZ.LOCALE
                   BzPageHeadline(
                     flyerZoneWidth: flyerZoneWidth,
-                    bzPageIsOn: superFlyer.bzPageIsOn,
+                    bzPageIsOn: superFlyer.nav.bzPageIsOn,
                     tinyBz: SuperFlyer.getTinyBzFromSuperFlyer(superFlyer),
                   ),
 
@@ -67,11 +67,11 @@ class FlyerHeader extends StatelessWidget {
             ),
 
             // TASK : 3ayzeen zorar follow gowwa el bzPage
-            if (superFlyer.bzPageIsOn)
+            if (superFlyer.nav.bzPageIsOn)
             MaxHeader(
               superFlyer: superFlyer,
               flyerZoneWidth: flyerZoneWidth,
-              bzPageIsOn: superFlyer.bzPageIsOn,
+              bzPageIsOn: superFlyer.nav.bzPageIsOn,
               tinyBz: SuperFlyer.getTinyBzFromSuperFlyer(superFlyer),
             ),
 

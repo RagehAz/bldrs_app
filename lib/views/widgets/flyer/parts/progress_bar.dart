@@ -30,7 +30,7 @@ class ProgressBar extends StatelessWidget {
       width: flyerZoneWidth,
       child: AnimatedOpacity(
         duration: Ratioz.durationFading200,
-        opacity: superFlyer?.progressBarOpacity == null ? 1 : superFlyer.progressBarOpacity,
+        opacity: superFlyer?.nav?.progressBarOpacity == null ? 1 : superFlyer.nav.progressBarOpacity,
         child:
 
         // superFlyer.loading == true ?
@@ -62,7 +62,7 @@ class ProgressBar extends StatelessWidget {
           flyerZoneWidth: flyerZoneWidth,
           numberOfStrips: superFlyer.numberOfStrips,
           slideIndex: superFlyer.currentSlideIndex,
-          swipeDirection: superFlyer.swipeDirection,
+          swipeDirection: superFlyer.nav.swipeDirection,
         )
 
               :
