@@ -114,7 +114,7 @@ class InfoPage extends StatelessWidget {
 
     List<TinyUser> _users = _getUsers();
 
-    bool _editMode = superFlyer.editMode == true;
+    bool _editMode = superFlyer.edit.editMode == true;
 
     String _flyerInfoParagraph =
     _editMode == true && superFlyer.infoController.text.length == 0 ? '...' :
@@ -196,7 +196,7 @@ class InfoPage extends StatelessWidget {
               bubbleWidth: _bubbleWidth,
               margins: _bubbleMargins,
               corners: _bubbleCorners,
-              bubbleOnTap: superFlyer.onFlyerTypeTap,
+              bubbleOnTap: superFlyer.edit.onFlyerTypeTap,
               columnChildren: <Widget>[
 
                 StatsLine(
@@ -216,7 +216,7 @@ class InfoPage extends StatelessWidget {
               bubbleWidth: _bubbleWidth,
               margins: _bubbleMargins,
               corners: _bubbleCorners,
-              bubbleOnTap: superFlyer.onZoneTap,
+              bubbleOnTap: superFlyer.edit.onZoneTap,
               columnChildren: <Widget>[
 
                 StatsLine(
@@ -237,8 +237,8 @@ class InfoPage extends StatelessWidget {
             maxLines: 3,
             centered: false,
             paragraph: _flyerInfoParagraph,
-            editMode: superFlyer.editMode,
-            onParagraphTap: superFlyer.onEditInfoTap,
+            editMode: superFlyer.edit.editMode,
+            onParagraphTap: superFlyer.edit.onEditInfoTap,
           ),
 
           /// SAVES BUBBLE
@@ -276,7 +276,7 @@ class InfoPage extends StatelessWidget {
             title: 'Flyer keywords',
             keywords: _keywords,
             selectedWords: <Keyword>[Keyword.bldrsKeywords()[403],],
-            onTap: _editMode == true ? superFlyer.onEditKeywordsTap : null,
+            onTap: _editMode == true ? superFlyer.edit.onEditKeywordsTap : null,
           ),
 
           SizedBox(
