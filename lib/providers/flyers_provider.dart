@@ -642,6 +642,7 @@ class FlyersProvider with ChangeNotifier {
     bzTotalCalls: bz.bzTotalCalls,
     // -------------------------
     nanoFlyers: bz.nanoFlyers,
+    bzTotalFlyers: bz.bzTotalFlyers,
   );
 
   /// add this bz in author's userModel['myBzz']

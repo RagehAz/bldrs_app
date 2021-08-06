@@ -20,7 +20,7 @@ class FlyerHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
-    Tracer.traceWidgetBuild(widgetName: 'FlyerHeader', varName: 'bzID', varValue: superFlyer.bzID);
+    Tracer.traceWidgetBuild(widgetName: 'FlyerHeader', varName: 'bzID', varValue: superFlyer.bz.bzID);
     return GestureDetector(
         onTap: superFlyer.nav.onHeaderTap,
         child: ListView(
