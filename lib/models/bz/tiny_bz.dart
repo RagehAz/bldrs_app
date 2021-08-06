@@ -149,13 +149,13 @@ class TinyBz with ChangeNotifier{
   static TinyBz getTinyBzFromSuperFlyer(SuperFlyer superFlyer){
     return
         TinyBz(
-            bzID: superFlyer.bzID,
-            bzLogo:  superFlyer.bzLogo,
-            bzName: superFlyer.bzName,
-            bzType: superFlyer.bzType,
-            bzZone:  superFlyer.bzZone,
-            bzTotalFollowers: superFlyer.bzTotalFollowers,
-            bzTotalFlyers: superFlyer.bzTotalFlyers,
+            bzID: superFlyer.bz.bzID,
+            bzLogo:  superFlyer.bz.bzLogo,
+            bzName: superFlyer.bz.bzName,
+            bzType: superFlyer.bz.bzType,
+            bzZone:  superFlyer.bz.bzZone,
+            bzTotalFollowers: superFlyer.bz.bzTotalFollowers,
+            bzTotalFlyers: superFlyer.bz.bzTotalFlyers,
         );
   }
 // -----------------------------------------------------------------------------

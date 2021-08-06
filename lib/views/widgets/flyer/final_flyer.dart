@@ -27,6 +27,7 @@ import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/bz/author_model.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
+import 'package:bldrs/models/secondary_models/image_size.dart';
 import 'package:bldrs/models/user/tiny_user.dart';
 import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
@@ -798,7 +799,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     /// start follow bz ops
     List<String> _updatedBzFollows = await RecordOps.followBzOPs(
       context: context,
-      bzID: _superFlyer.bzID,
+      bzID: _superFlyer.bz.bzID,
       userID: superUserID(),
     );
 
@@ -817,7 +818,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     print('Call Bz');
 
     String _userID = superUserID();
-    String _bzID = _superFlyer.bzID;
+    String _bzID = _superFlyer.bz.bzID;
     String _contact = _superFlyer.flyerTinyAuthor.email;
 
     /// alert user there is no contact to call
@@ -883,7 +884,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       /// A - if max slides reached
       if(FlyerMethod.maxSlidesReached(superFlyer: _superFlyer) == true){
 
-        int _maxLength = Standards.getMaxSlidesCount(_superFlyer.accountType);
+        int _maxLength = Standards.getMaxSlidesCount(_superFlyer.bz.accountType);
         await Dialogz.maxSlidesReached(context, _maxLength);
 
       }
@@ -891,7 +892,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       /// A - if can pick more gallery pictures
       else {
 
-        /// B1 - get assests from mutable slides
+        /// B1 - get assets from mutable slides
         List<Asset> _assetsSources = MutableSlide.getAssetsFromMutableSlides(_superFlyer.mSlides); //Imagers.getOnlyAssetsFromDynamics(_superFlyer.assetsSources);
         /// B2 - assert that index in never null
         _superFlyer.currentSlideIndex = FlyerMethod.unNullIndexIfNull(_superFlyer.currentSlideIndex);
@@ -901,7 +902,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
           context: context,
           images: _assetsSources,
           mounted: mounted,
-          accountType: _superFlyer.accountType,
+          accountType: _superFlyer.bz.accountType,
         );
 
         /// B4 - if did not pick new assets
@@ -2032,7 +2033,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       List<SlideModel> _slides = await _createSlidesFromCurrentSuperFlyer();
 
       /// create tiny author model from bz.authors
-      BzModel _bz = BzModel.getBzModelFromSuperFlyer(_superFlyer);
+      BzModel _bz = _superFlyer.bz;
       AuthorModel _author = AuthorModel.getAuthorFromBzByAuthorID(_bz, superUserID());
       TinyUser _tinyAuthor = TinyUser.getTinyAuthorFromAuthorModel(_author);
       TinyBz _tinyBz = TinyBz.getTinyBzFromBzModel(_bz);
@@ -2133,7 +2134,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         context: context,
         updatedFlyer: _tempUpdatedFlyerModel,
         originalFlyer: originalFlyer,
-        bzModel : BzModel.getBzModelFromSuperFlyer(_superFlyer),
+        bzModel : _superFlyer.bz,
       );
 
       print('D- Uploading to cloud');

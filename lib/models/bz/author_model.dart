@@ -146,6 +146,7 @@ class AuthorModel{
       bzTotalViews : bzModel.bzTotalViews,
       bzTotalCalls : bzModel.bzTotalCalls,
       nanoFlyers : bzModel.nanoFlyers,
+      bzTotalFlyers: bzModel.bzTotalFlyers,
     );
   }
 // -----------------------------------------------------------------------------
