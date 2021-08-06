@@ -52,6 +52,7 @@ class BzModel with ChangeNotifier{
   int bzTotalSlides;
   int bzTotalViews;
   int bzTotalCalls;
+  int bzTotalFlyers;
   // -------------------------
   final List<NanoFlyer> nanoFlyers;
 // ###############################
@@ -86,6 +87,7 @@ class BzModel with ChangeNotifier{
     this.bzTotalCalls,
     // -------------------------
     this.nanoFlyers,
+    @required this.bzTotalFlyers,
   });
 // ###############################
   // TASK : this technique to revert back the status if firestore operation fails needs to be adapted elsewhere
@@ -121,6 +123,9 @@ class BzModel with ChangeNotifier{
   // }
 // ###############################
 Map<String, dynamic> toMap(){
+
+  List<NanoFlyer> _nanoFlyers = NanoFlyer.cipherNanoFlyers(nanoFlyers);
+
   return {
     'bzID' : bzID,
     // -------------------------
@@ -151,7 +156,8 @@ Map<String, dynamic> toMap(){
     'bzTotalViews' : bzTotalViews,
     'bzTotalCalls' : bzTotalCalls,
     // -------------------------
-    'nanoFlyers' : NanoFlyer.cipherNanoFlyers(nanoFlyers),
+    'nanoFlyers' : _nanoFlyers,
+    'bzTotalFlyers' : _nanoFlyers.length,
     };
 }
 // -----------------------------------------------------------------------------
@@ -205,6 +211,7 @@ Map<String, dynamic> toMap(){
       bzTotalCalls : map['bzTotalCalls'],
       // -------------------------
       nanoFlyers: NanoFlyer.decipherNanoFlyersMaps(map['nanoFlyers']),
+      bzTotalFlyers: map['bzTotalFlyers'],
     );
   }
 // -----------------------------------------------------------------------------
@@ -258,6 +265,8 @@ Map<String, dynamic> toMap(){
       bzTotalCalls: 0,
       // -------------------------
       nanoFlyers: [],
+      bzTotalFlyers: 0,
+
     );
   }
 // -----------------------------------------------------------------------------
@@ -356,48 +365,6 @@ Map<String, dynamic> toMap(){
     return   _flyersIDs;
   }
 // -----------------------------------------------------------------------------
-  static BzModel getBzModelFromSuperFlyer(SuperFlyer superFlyer){
-    BzModel _bzModel;
-
-    if (superFlyer != null){
-      _bzModel = BzModel(
-        bzID : superFlyer.bzID,
-        // -------------------------
-        bzType : superFlyer.bzType,
-        bzForm : superFlyer.bzForm,
-        bldrBirth : superFlyer.bldrBirth,
-        accountType : superFlyer.accountType,
-        bzURL : superFlyer.bzURL,
-        // -------------------------
-        bzName :superFlyer.bzName,
-        bzLogo : superFlyer.bzLogo,
-        bzScope : superFlyer.bzScope,
-        bzZone : superFlyer.bzZone,
-        bzAbout : superFlyer.bzAbout,
-        bzPosition : superFlyer.bzPosition,
-        bzContacts : superFlyer.bzContacts,
-        bzAuthors : superFlyer.bzAuthors,
-        bzShowsTeam : superFlyer.bzShowsTeam,
-        // -------------------------
-        bzIsVerified : superFlyer.bzIsVerified,
-        bzAccountIsDeactivated : superFlyer.bzAccountIsDeactivated,
-        bzAccountIsBanned : superFlyer.bzAccountIsBanned,
-        // -------------------------
-        bzTotalFollowers : superFlyer.bzTotalFollowers,
-        bzTotalSaves : superFlyer.bzTotalSaves,
-        bzTotalShares : superFlyer.bzTotalShares,
-        bzTotalSlides : superFlyer.bzTotalSlides,
-        bzTotalViews : superFlyer.bzTotalViews,
-        bzTotalCalls : superFlyer.bzTotalCalls,
-        // -------------------------
-        nanoFlyers: superFlyer.bzNanoFlyers,
-      );
-
-    }
-
-    return _bzModel;
-  }
-// -----------------------------------------------------------------------------
   static BzModel getTempBzModelFromTinyBz(TinyBz tinyBz){
     BzModel _bz;
     if (tinyBz != null){
@@ -432,6 +399,7 @@ Map<String, dynamic> toMap(){
         bzTotalCalls : null,
         // -------------------------
         nanoFlyers: null,
+        bzTotalFlyers: null,
       );
     }
 

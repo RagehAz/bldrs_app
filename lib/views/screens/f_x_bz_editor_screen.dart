@@ -172,7 +172,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         bzTotalViews: _bz.bzTotalViews,
         bzTotalCalls: _bz.bzTotalCalls,
         nanoFlyers: _bz.nanoFlyers,
-
+        bzTotalFlyers: _bz.bzTotalFlyers,
       ),
       author: AuthorModel(
         userID: '',
@@ -370,6 +370,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         bzTotalCalls: 0,
         // -------------------------
         nanoFlyers: [],
+        bzTotalFlyers: 0,
       );
 
       /// start createBzOps
@@ -464,6 +465,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         bzTotalCalls: widget.bzModel.bzTotalCalls,
         // -------------------------
         nanoFlyers: widget.bzModel.nanoFlyers,
+        bzTotalFlyers: widget.bzModel.bzTotalFlyers,
       );
 
       /// start updateBzOps

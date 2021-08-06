@@ -43,7 +43,7 @@ class _GalleryState extends State<Gallery> {
 // -----------------------------------------------------------------------------
   @override
   void initState(){
-    _bzModel = BzModel.getBzModelFromSuperFlyer(widget.superFlyer);
+    _bzModel = widget.superFlyer.bz;
 
     print('nano flyers are ${_bzModel.nanoFlyers}');
 
@@ -150,7 +150,7 @@ class _GalleryState extends State<Gallery> {
             // --- AUTHORS LABELS
 
             /// AUTHORS ROW
-            if (widget.superFlyer.bzShowsTeam != false)
+            if (widget.superFlyer.bz.bzShowsTeam != false)
               Container(
                 width: widget.flyerZoneWidth,
                 height: widget.flyerZoneWidth * Ratioz.xxflyerAuthorPicWidth,
@@ -162,14 +162,14 @@ class _GalleryState extends State<Gallery> {
                     scrollDirection: Axis.horizontal,
                     padding: EdgeInsets.symmetric(horizontal: widget.flyerZoneWidth * 0.01),
                     children:
-                    widget.superFlyer.bzAuthors == null ?
+                    widget.superFlyer.bz.bzAuthors == null ?
                     <Widget>[Container()]
                         :
                     <Widget>[
                       ...List<Widget>.generate(
-                          widget.superFlyer.bzAuthors.length,
+                          widget.superFlyer.bz.bzAuthors.length,
                               (authorIndex) {
-                            AuthorModel _author = widget.superFlyer.bzAuthors[authorIndex];
+                            AuthorModel _author = widget.superFlyer.bz.bzAuthors[authorIndex];
                             TinyUser _tinyAuthor = TinyUser.getTinyAuthorFromAuthorModel(_author);
                             return
                               Row(
@@ -186,7 +186,7 @@ class _GalleryState extends State<Gallery> {
                                       _onAuthorLabelTap(id);
                                       },
                                     // :(id){print('a77a');// tappingAuthorLabel();},
-                                    labelIsOn: _selectedAuthorID == widget.superFlyer.bzAuthors[authorIndex].userID ? true : false,
+                                    labelIsOn: _selectedAuthorID == widget.superFlyer.bz.bzAuthors[authorIndex].userID ? true : false,
                                   )
                                 ],
                               );
@@ -208,10 +208,10 @@ class _GalleryState extends State<Gallery> {
             if (widget.flyerZoneWidth != null)
               GalleryGrid(
                   gridZoneWidth: widget.flyerZoneWidth,
-                  bzID: widget.superFlyer.bzAuthors == null || widget.superFlyer.bzAuthors == [] || widget.superFlyer.bzAuthors.isEmpty ?  '': widget.superFlyer.bzID,
+                  bzID: widget.superFlyer.bz.bzAuthors == null || widget.superFlyer.bz.bzAuthors == [] || widget.superFlyer.bz.bzAuthors.isEmpty ?  '': widget.superFlyer.bz.bzID,
                   flyersVisibilities: _flyersVisibilities,
                   galleryFlyers: _tinyFlyers,
-                  bzAuthors: widget.superFlyer.bzAuthors,
+                  bzAuthors: widget.superFlyer.bz.bzAuthors,
                   bz: _bzModel, /// TASK : maybe should remove this as long as super flyer is here
                   // flyerOnTap: widget.flyerOnTap,
                   addPublishedFlyerToGallery: (flyerModel) => _addPublishedFlyerToGallery(flyerModel),
