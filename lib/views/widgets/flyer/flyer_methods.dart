@@ -262,7 +262,7 @@ class FlyerMethod{
   }
 // -----------------------------------------------------------------------------
   static bool maxSlidesReached({SuperFlyer superFlyer}){
-    int _maxLength = Standards.getMaxSlidesCount(superFlyer.accountType);
+    int _maxLength = Standards.getMaxSlidesCount(superFlyer.bz.accountType);
     bool _reachedMaxSlides = _maxLength <= superFlyer.numberOfSlides;
     return _reachedMaxSlides;
   }

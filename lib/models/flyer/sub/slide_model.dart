@@ -3,6 +3,7 @@ import 'package:bldrs/controllers/drafters/colorizers.dart';
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/numberers.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
+import 'package:bldrs/models/secondary_models/image_size.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 

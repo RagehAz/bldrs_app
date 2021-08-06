@@ -36,7 +36,7 @@ class BzLabel extends StatelessWidget {
     double businessDataWidth = flyerZoneWidth * (Ratioz.xxflyerAuthorPicWidth + Ratioz.xxflyerAuthorNameWidth);
     double headerTextSidePadding = flyerZoneWidth * 0.02;
     // --- B.LOCALE
-    String businessLocale = TextGenerator.zoneStringer(context: context, zone: superFlyer.bzZone,);
+    String businessLocale = TextGenerator.zoneStringer(context: context, zone: superFlyer.bz.bzZone,);
 // -----------------------------------------------------------------------------
     int bzNameSize = superFlyer.flyerShowsAuthor == true ? 3 : 5;
     int bLocaleSize = superFlyer.flyerShowsAuthor == true ? 1 : 1;
@@ -57,7 +57,7 @@ class BzLabel extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: headerTextSidePadding),
               child: SuperVerse(
-                verse: superFlyer.bzName,
+                verse: superFlyer.bz.bzName,
                 color: Colorz.White255,
                 italic: false,
                 centered: false,

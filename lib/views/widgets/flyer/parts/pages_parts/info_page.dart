@@ -105,7 +105,7 @@ class InfoPage extends StatelessWidget {
       Keyword.bldrsKeywords()[600],
     ];
 
-    FlyerType _flyerType = superFlyer.flyerType == null ? FlyerTypeClass.concludeFlyerType(superFlyer.bzType) : superFlyer.flyerType;
+    FlyerType _flyerType = superFlyer.flyerType == null ? FlyerTypeClass.concludeFlyerType(superFlyer.bz.bzType) : superFlyer.flyerType;
 
     CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
     String _countryName = _countryPro.getCountryNameInCurrentLanguageByIso3(context, superFlyer.flyerZone.countryID);

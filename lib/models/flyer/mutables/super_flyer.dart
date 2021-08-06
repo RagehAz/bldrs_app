@@ -39,6 +39,7 @@ class SuperFlyer{
   final FlyerRecorder rec;
   final FlyerEditor edit;
   List<MutableSlide> mSlides; // MutableSlide
+  final BzModel bz;
 
 
   /// animation parameters
@@ -60,39 +61,9 @@ class SuperFlyer{
   int currentSlideIndex; // MutableFlyer -- ?
   int verticalIndex; // MutableFlyer -- ?
 
-  /// bz data
-  final BzType bzType; // bzModel
-  final BzForm bzForm; // bzModel
-  final DateTime bldrBirth; // bzModel
-  final BzAccountType accountType; // bzModel
-  final String bzURL; // bzModel
-  final String bzName; // bzModel
-  final dynamic bzLogo; // bzModel
-  final String bzScope; // bzModel
-  final Zone bzZone; // bzModel
-  final String bzAbout; // bzModel
-  final GeoPoint bzPosition; // bzModel
-  final List<ContactModel> bzContacts; // bzModel
-  final List<AuthorModel> bzAuthors; // bzModel
-  final bool bzShowsTeam; // bzModel
-  final bool bzIsVerified; // bzModel
-  final bool bzAccountIsDeactivated; // bzModel
-  final bool bzAccountIsBanned; // bzModel
-  final List<NanoFlyer> bzNanoFlyers; // bzModel
-
-  /// bz records
-  int bzTotalFollowers; // bzModel
-  int bzTotalFlyers; // bzModel
-  int bzTotalSaves; // bzModel
-  int bzTotalShares; // bzModel
-  int bzTotalSlides; // bzModel
-  int bzTotalViews; // bzModel
-  int bzTotalCalls; // bzModel
-
   /// flyer identifiers
   final ValueKey key; // MutableFlyer -- ?
   final String flyerID; // MutableFlyer -- ?
-  final String bzID; // bzModel
   String authorID; // tinyAuthor
   final String flyerURL; // MutableFlyer -- ?
 
@@ -126,6 +97,8 @@ class SuperFlyer{
     @required this.edit,
     /// mutable slides
     @required this.mSlides,
+    /// BzModel
+    @required this.bz,
 
 
     /// animation parameters
@@ -145,39 +118,10 @@ class SuperFlyer{
     @required this.currentSlideIndex,
     @required this.verticalIndex,
 
-    /// bz data
-    @required this.bzType,
-    @required this.bzForm,
-    @required this.bldrBirth,
-    @required this.accountType,
-    @required this.bzURL,
-    @required this.bzName,
-    @required this.bzLogo,
-    @required this.bzScope,
-    @required this.bzZone,
-    @required this.bzAbout,
-    @required this.bzPosition,
-    @required this.bzContacts,
-    @required this.bzAuthors,
-    @required this.bzShowsTeam,
-    @required this.bzIsVerified,
-    @required this.bzAccountIsDeactivated,
-    @required this.bzAccountIsBanned,
-    @required this.bzNanoFlyers,
-
-    /// bz records
-    @required this.bzTotalFollowers,
-    @required this.bzTotalFlyers,
-    @required this.bzTotalSaves,
-    @required this.bzTotalShares,
-    @required this.bzTotalSlides,
-    @required this.bzTotalViews,
-    @required this.bzTotalCalls,
 
     /// flyer identifiers
     @required this.key,
     @required this.flyerID,
-    @required this.bzID,
     @required this.authorID,
     @required this.flyerURL,
 
@@ -263,10 +207,9 @@ class SuperFlyer{
             canDelete: true,
           ),
           mSlides: null,
+          bz: null,
 
           loading: false,
-
-
 
           infoController: null,
           screenshotsControllers: null,
@@ -281,39 +224,9 @@ class SuperFlyer{
           currentSlideIndex: null,
           verticalIndex: 0,
 
-          /// bz data
-          bzType: null,
-          bzForm: null,
-          bldrBirth: null,
-          accountType: null,
-          bzURL: null,
-          bzName: null,
-          bzLogo: null,
-          bzScope: null,
-          bzZone: null,
-          bzAbout: null,
-          bzPosition: null,
-          bzContacts: null,
-          bzAuthors: null,
-          bzShowsTeam: null,
-          bzIsVerified: null,
-          bzAccountIsDeactivated: null,
-          bzAccountIsBanned: null,
-          bzNanoFlyers: null,
-
-          /// bz records
-          bzTotalFollowers: null,
-          bzTotalFlyers: null,
-          bzTotalSaves: null,
-          bzTotalShares: null,
-          bzTotalSlides: null,
-          bzTotalViews: null,
-          bzTotalCalls: null,
-
           /// flyer identifiers
           key: null,
           flyerID: null,
-          bzID: null,
           authorID: null,
           flyerURL: null,
 
@@ -363,7 +276,6 @@ class SuperFlyer{
 
     return
       SuperFlyer(
-
         nav: FlyerNavigator(
         /// animation controller
         horizontalController: PageController(initialPage: _initialPage, viewportFraction: 1, keepPage: true),
@@ -418,7 +330,34 @@ class SuperFlyer{
           canDelete: true,
         ),
         mSlides: MutableSlide.getViewMutableSlidesFromSlidesModels(flyerModel.slides),
-
+        bz: BzModel(
+          bzID: flyerModel.tinyBz.bzID,
+          bzType: flyerModel.tinyBz.bzType,
+          bzForm: null,
+          bldrBirth: null,
+          accountType: null,
+          bzURL: null,
+          bzName: flyerModel.tinyBz.bzName,
+          bzLogo: flyerModel.tinyBz.bzLogo,
+          bzScope: null,
+          bzZone: flyerModel.tinyBz.bzZone,
+          bzAbout: null,
+          bzPosition: null,
+          bzContacts: null,
+          bzAuthors: null,
+          bzShowsTeam: null,
+          bzIsVerified: null,
+          bzAccountIsDeactivated: null,
+          bzAccountIsBanned: null,
+          bzTotalFollowers: flyerModel.tinyBz.bzTotalFollowers,
+          bzTotalSaves: null,
+          bzTotalShares: null,
+          bzTotalSlides: null,
+          bzTotalViews: null,
+          bzTotalCalls: null,
+          nanoFlyers: null,
+          bzTotalFlyers: null,
+        ),
 
         loading: false,
 
@@ -435,39 +374,9 @@ class SuperFlyer{
         currentSlideIndex: _initialPage,
         verticalIndex: 0,
 
-        /// bz data
-        bzType: flyerModel.tinyBz.bzType,
-        bzForm: null,
-        bldrBirth: null,
-        accountType: null,
-        bzURL: null,
-        bzName: flyerModel.tinyBz.bzName,
-        bzLogo: flyerModel.tinyBz.bzLogo,
-        bzScope: null,
-        bzZone: flyerModel.tinyBz.bzZone,
-        bzAbout: null,
-        bzPosition: null,
-        bzContacts: null,
-        bzAuthors: null,
-        bzShowsTeam: null,
-        bzIsVerified: null,
-        bzAccountIsDeactivated: null,
-        bzAccountIsBanned: null,
-        bzNanoFlyers: null,
-
-        /// bz records
-        bzTotalFollowers: flyerModel.tinyBz.bzTotalFollowers,
-        bzTotalFlyers: flyerModel.tinyBz.bzTotalFlyers,
-        bzTotalSaves: null,
-        bzTotalShares: null,
-        bzTotalSlides: null,
-        bzTotalViews: null,
-        bzTotalCalls: null,
-
         /// flyer identifiers
         key: ValueKey(flyerModel.flyerID),
         flyerID: flyerModel.flyerID,
-        bzID: flyerModel.tinyBz.bzID,
         authorID: flyerModel.tinyAuthor.userID,
         flyerURL: flyerModel.flyerURL,
 
@@ -509,7 +418,6 @@ class SuperFlyer{
 
     return
       SuperFlyer(
-
         nav: FlyerNavigator(
           /// animation controller
           horizontalController: null,
@@ -580,6 +488,35 @@ class SuperFlyer{
             midColor: tinyFlyer.midColor,
             opacity: 1,
           ),],
+        bz: BzModel(
+          bzID: tinyFlyer.tinyBz.bzID,
+          bzType: tinyFlyer?.tinyBz?.bzType,
+          bzForm: null,
+          bldrBirth: null,
+          accountType: null,
+          bzURL: null,
+          bzName: tinyFlyer.tinyBz.bzName,
+          bzLogo: tinyFlyer.tinyBz.bzLogo,
+          bzScope: null,
+          bzZone: tinyFlyer.tinyBz.bzZone,
+          bzAbout: null,
+          bzPosition: null,
+          bzContacts: null,
+          bzAuthors: null,
+          bzShowsTeam: null,
+          bzIsVerified: null,
+          bzAccountIsDeactivated: null,
+          bzAccountIsBanned: null,
+          nanoFlyers: null,
+          bzTotalFollowers: tinyFlyer.tinyBz.bzTotalFollowers,
+          bzTotalFlyers: tinyFlyer.tinyBz.bzTotalFlyers,
+          bzTotalSaves: null,
+          bzTotalShares: null,
+          bzTotalSlides: null,
+          bzTotalViews: null,
+          bzTotalCalls: null,
+
+        ),
         loading: false,
 
 
@@ -598,39 +535,10 @@ class SuperFlyer{
         currentSlideIndex: 0,
         verticalIndex: 0,
 
-        /// bz data
-        bzType: tinyFlyer?.tinyBz?.bzType,
-        bzForm: null,
-        bldrBirth: null,
-        accountType: null,
-        bzURL: null,
-        bzName: tinyFlyer.tinyBz.bzName,
-        bzLogo: tinyFlyer.tinyBz.bzLogo,
-        bzScope: null,
-        bzZone: tinyFlyer.tinyBz.bzZone,
-        bzAbout: null,
-        bzPosition: null,
-        bzContacts: null,
-        bzAuthors: null,
-        bzShowsTeam: null,
-        bzIsVerified: null,
-        bzAccountIsDeactivated: null,
-        bzAccountIsBanned: null,
-        bzNanoFlyers: null,
-
-        /// bz records
-        bzTotalFollowers: tinyFlyer.tinyBz.bzTotalFollowers,
-        bzTotalFlyers: tinyFlyer.tinyBz.bzTotalFlyers,
-        bzTotalSaves: null,
-        bzTotalShares: null,
-        bzTotalSlides: null,
-        bzTotalViews: null,
-        bzTotalCalls: null,
 
         /// flyer identifiers
         key: ValueKey(tinyFlyer.flyerID),
         flyerID: tinyFlyer.flyerID,
-        bzID: tinyFlyer.tinyBz.bzID,
         authorID: tinyFlyer.authorID,
         flyerURL: null,
 
@@ -750,6 +658,34 @@ class SuperFlyer{
           canDelete: true,
         ),
         mSlides: new List(),
+        bz: BzModel(
+          bzID: bzModel.bzID,
+          bzType: bzModel.bzType,
+          bzForm: bzModel.bzForm,
+          bldrBirth: bzModel.bldrBirth,
+          accountType: bzModel.accountType,
+          bzURL: bzModel.bzURL,
+          bzName: bzModel.bzName,
+          bzLogo: bzModel.bzLogo,
+          bzScope: bzModel.bzScope,
+          bzZone: bzModel.bzZone,
+          bzAbout: bzModel.bzAbout,
+          bzPosition: bzModel.bzPosition,
+          bzContacts: bzModel.bzContacts,
+          bzAuthors: bzModel.bzAuthors,
+          bzShowsTeam: bzModel.bzShowsTeam,
+          bzIsVerified: bzModel.bzIsVerified,
+          bzAccountIsDeactivated: bzModel.bzAccountIsDeactivated,
+          bzAccountIsBanned: bzModel.bzAccountIsBanned,
+          nanoFlyers: bzModel.nanoFlyers,
+          bzTotalFollowers: bzModel.bzTotalFollowers,
+          bzTotalFlyers: bzModel.nanoFlyers.length,
+          bzTotalSaves: bzModel.bzTotalSaves,
+          bzTotalShares: bzModel.bzTotalShares,
+          bzTotalSlides: bzModel.bzTotalSlides,
+          bzTotalViews: bzModel.bzTotalViews,
+          bzTotalCalls: bzModel.bzTotalCalls,
+        ),
 
         loading: false,
 
@@ -767,39 +703,9 @@ class SuperFlyer{
         currentSlideIndex: 0,
         verticalIndex: 0,
 
-        /// bz data
-        bzType: bzModel.bzType,
-        bzForm: bzModel.bzForm,
-        bldrBirth: bzModel.bldrBirth,
-        accountType: bzModel.accountType,
-        bzURL: bzModel.bzURL,
-        bzName: bzModel.bzName,
-        bzLogo: bzModel.bzLogo,
-        bzScope: bzModel.bzScope,
-        bzZone: bzModel.bzZone,
-        bzAbout: bzModel.bzAbout,
-        bzPosition: bzModel.bzPosition,
-        bzContacts: bzModel.bzContacts,
-        bzAuthors: bzModel.bzAuthors,
-        bzShowsTeam: bzModel.bzShowsTeam,
-        bzIsVerified: bzModel.bzIsVerified,
-        bzAccountIsDeactivated: bzModel.bzAccountIsDeactivated,
-        bzAccountIsBanned: bzModel.bzAccountIsBanned,
-        bzNanoFlyers: bzModel.nanoFlyers,
-
-        /// bz records
-        bzTotalFollowers: bzModel.bzTotalFollowers,
-        bzTotalFlyers: bzModel.nanoFlyers.length,
-        bzTotalSaves: bzModel.bzTotalSaves,
-        bzTotalShares: bzModel.bzTotalShares,
-        bzTotalSlides: bzModel.bzTotalSlides,
-        bzTotalViews: bzModel.bzTotalViews,
-        bzTotalCalls: bzModel.bzTotalCalls,
-
         /// flyer identifiers
         key: ValueKey('${bzModel.bzID} : ${bzModel.nanoFlyers.length + 1} : ${superUserID()}'),
         flyerID: SuperFlyer.draftID,
-        bzID: bzModel.bzID,
         authorID: superUserID(),
         flyerURL: null,
 
@@ -866,7 +772,6 @@ class SuperFlyer{
 
     return
       SuperFlyer(
-
         nav: FlyerNavigator(
           /// animation controller
           horizontalController: PageController(initialPage: 0, viewportFraction: 1, keepPage: true),
@@ -921,7 +826,34 @@ class SuperFlyer{
           canDelete: true,
         ),
         mSlides: await MutableSlide.getDraftMutableSlidesFromSlidesModels(flyerModel.slides),
-
+        bz: BzModel(
+          bzID: bzModel.bzID,
+          bzType: bzModel.bzType,
+          bzForm: bzModel.bzForm,
+          bldrBirth: bzModel.bldrBirth,
+          accountType: bzModel.accountType,
+          bzURL: bzModel.bzURL,
+          bzName: bzModel.bzName,
+          bzLogo: bzModel.bzLogo,
+          bzScope: bzModel.bzScope,
+          bzZone: bzModel.bzZone,
+          bzAbout: bzModel.bzAbout,
+          bzPosition: bzModel.bzPosition,
+          bzContacts: bzModel.bzContacts,
+          bzAuthors: bzModel.bzAuthors,
+          bzShowsTeam: bzModel.bzShowsTeam,
+          bzIsVerified: bzModel.bzIsVerified,
+          bzAccountIsDeactivated: bzModel.bzAccountIsDeactivated,
+          bzAccountIsBanned: bzModel.bzAccountIsBanned,
+          nanoFlyers: bzModel.nanoFlyers,
+          bzTotalFollowers: bzModel.bzTotalFollowers,
+          bzTotalFlyers: bzModel.nanoFlyers.length,
+          bzTotalSaves: bzModel.bzTotalSaves,
+          bzTotalShares: bzModel.bzTotalShares,
+          bzTotalSlides: bzModel.bzTotalSlides,
+          bzTotalViews: bzModel.bzTotalViews,
+          bzTotalCalls: bzModel.bzTotalCalls,
+        ),
         loading: false,
 
 
@@ -941,39 +873,9 @@ class SuperFlyer{
         currentSlideIndex: 0,
         verticalIndex: 0,
 
-        /// bz data
-        bzType: bzModel.bzType,
-        bzForm: bzModel.bzForm,
-        bldrBirth: bzModel.bldrBirth,
-        accountType: bzModel.accountType,
-        bzURL: bzModel.bzURL,
-        bzName: bzModel.bzName,
-        bzLogo: bzModel.bzLogo,
-        bzScope: bzModel.bzScope,
-        bzZone: bzModel.bzZone,
-        bzAbout: bzModel.bzAbout,
-        bzPosition: bzModel.bzPosition,
-        bzContacts: bzModel.bzContacts,
-        bzAuthors: bzModel.bzAuthors,
-        bzShowsTeam: bzModel.bzShowsTeam,
-        bzIsVerified: bzModel.bzIsVerified,
-        bzAccountIsDeactivated: bzModel.bzAccountIsDeactivated,
-        bzAccountIsBanned: bzModel.bzAccountIsBanned,
-        bzNanoFlyers: bzModel.nanoFlyers,
-
-        /// bz records
-        bzTotalFollowers: bzModel.bzTotalFollowers,
-        bzTotalFlyers: bzModel.nanoFlyers.length,
-        bzTotalSaves: bzModel.bzTotalSaves,
-        bzTotalShares: bzModel.bzTotalShares,
-        bzTotalSlides: bzModel.bzTotalSlides,
-        bzTotalViews: bzModel.bzTotalViews,
-        bzTotalCalls: bzModel.bzTotalCalls,
-
         /// flyer identifiers
         key: ValueKey('${SuperFlyer.draftID} : ${bzModel.bzID} : ${bzModel.nanoFlyers.length + 1} : ${superUserID()}'),
         flyerID: flyerModel.flyerID,
-        bzID: bzModel.bzID,
         authorID: superUserID(),
         flyerURL: flyerModel.flyerURL,
 
@@ -1006,13 +908,13 @@ class SuperFlyer{
 static TinyBz getTinyBzFromSuperFlyer(SuperFlyer superFlyer){
     return
         TinyBz(
-            bzID: superFlyer.bzID,
-            bzLogo: superFlyer.bzLogo,
-            bzName: superFlyer.bzName,
-            bzType: superFlyer.bzType,
-            bzZone: superFlyer.bzZone,
-            bzTotalFollowers: superFlyer.bzTotalFollowers,
-            bzTotalFlyers: superFlyer.bzTotalFlyers,
+            bzID: superFlyer.bz.bzID,
+            bzLogo: superFlyer.bz.bzLogo,
+            bzName: superFlyer.bz.bzName,
+            bzType: superFlyer.bz.bzType,
+            bzZone: superFlyer.bz.bzZone,
+            bzTotalFollowers: superFlyer.bz.bzTotalFollowers,
+            bzTotalFlyers: superFlyer.bz.bzTotalFlyers,
         );
 }
 // -----------------------------------------------------------------------------
@@ -1076,6 +978,7 @@ static SuperFlyer getSuperFlyerFromBzModelOnly({
           canDelete: true,
         ),
         mSlides: null,
+        bz: bzModel,
 
         loading: false,
 
@@ -1093,39 +996,10 @@ static SuperFlyer getSuperFlyerFromBzModelOnly({
         currentSlideIndex: null,
         verticalIndex: null,
 
-        /// bz data
-        bzType: bzModel.bzType,
-        bzForm: bzModel.bzForm,
-        bldrBirth: bzModel.bldrBirth,
-        accountType: bzModel.accountType,
-        bzURL: bzModel.bzURL,
-        bzName: bzModel.bzName,
-        bzLogo: bzModel.bzLogo,
-        bzScope: bzModel.bzScope,
-        bzZone: bzModel.bzZone,
-        bzAbout: bzModel.bzAbout,
-        bzPosition: bzModel.bzPosition,
-        bzContacts: bzModel.bzContacts,
-        bzAuthors: bzModel.bzAuthors,
-        bzShowsTeam: bzModel.bzShowsTeam,
-        bzIsVerified: bzModel.bzIsVerified,
-        bzAccountIsDeactivated: bzModel.bzAccountIsDeactivated,
-        bzAccountIsBanned: bzModel.bzAccountIsBanned,
-        bzNanoFlyers: bzModel.nanoFlyers,
-
-        /// bz records
-        bzTotalFollowers: bzModel.bzTotalFollowers,
-        bzTotalFlyers: bzModel.nanoFlyers.length,
-        bzTotalSaves: bzModel.bzTotalSaves,
-        bzTotalShares: bzModel.bzTotalShares,
-        bzTotalSlides: bzModel.bzTotalSlides,
-        bzTotalViews: bzModel.bzTotalViews,
-        bzTotalCalls: bzModel.bzTotalCalls,
 
         /// flyer identifiers
         key: null,
         flyerID: SuperFlyer.emptyFlyerBzOnlyFlyerID,
-        bzID: bzModel.bzID,
         authorID: superUserID(),
         flyerURL: null,
 
