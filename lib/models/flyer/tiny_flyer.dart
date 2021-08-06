@@ -55,7 +55,7 @@ class TinyFlyer with ChangeNotifier{
 
     if (finalFlyer.flyerType != originalFlyer.flyerType) {tinyFlyersAreTheSame = false;}
     else if (TinyBz.tinyBzzAreTheSame(finalFlyer.tinyBz, originalFlyer.tinyBz) == false) {tinyFlyersAreTheSame = false;}
-    else if (finalFlyer.slides[0].picture != originalFlyer.slides[0].picture) {tinyFlyersAreTheSame = false;}
+    else if (finalFlyer.slides[0].pic != originalFlyer.slides[0].pic) {tinyFlyersAreTheSame = false;}
 
     else if (finalFlyer.flyerZone.countryID != originalFlyer.flyerZone.countryID) {tinyFlyersAreTheSame = false;}
     else if (finalFlyer.flyerZone.cityID != originalFlyer.flyerZone.cityID) {tinyFlyersAreTheSame = false;}
@@ -94,9 +94,9 @@ class TinyFlyer with ChangeNotifier{
       flyerType: flyerModel?.flyerType,
       authorID: flyerModel?.tinyAuthor?.userID,
       slideIndex: 0,
-      slidePic: flyerModel == null ? null : flyerModel?.slides[0]?.picture,
+      slidePic: flyerModel == null ? null : flyerModel?.slides[0]?.pic,
       midColor: flyerModel == null ? null : flyerModel?.slides[0]?.midColor,
-      picFit: flyerModel == null ? null : flyerModel?.slides[0]?.boxFit,
+      picFit: flyerModel == null ? null : flyerModel?.slides[0]?.picFit,
       tinyBz: flyerModel?.tinyBz,
       flyerZone: flyerModel?.flyerZone,
       keywords: flyerModel?.keywords,
@@ -197,12 +197,12 @@ class TinyFlyer with ChangeNotifier{
       flyerType: superFlyer.flyerType,
       authorID: superFlyer.authorID,
       slideIndex: superFlyer.currentSlideIndex,
-      slidePic: superFlyer.mutableSlides[superFlyer.currentSlideIndex].picture,
+      slidePic: superFlyer.mSlides[superFlyer.currentSlideIndex].picURL,
       flyerZone: superFlyer.flyerZone,
       tinyBz: TinyBz.getTinyBzFromSuperFlyer(superFlyer),
-      picFit: superFlyer.currentPicFit,
+      picFit: superFlyer.mSlides[superFlyer.currentSlideIndex].picFit,
       keywords: superFlyer.keywords,
-      midColor: superFlyer.mutableSlides[superFlyer.currentSlideIndex].midColor,
+      midColor: superFlyer.mSlides[superFlyer.currentSlideIndex].midColor,
     );
 
     return _tinyFlyer;

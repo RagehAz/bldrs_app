@@ -27,7 +27,7 @@ class Standards{
 
     if (superFlyer != null){
       int _maxSlides = getMaxSlidesCount(superFlyer.accountType);
-      int _numberOfSlides = superFlyer.assetsFiles.length;
+      int _numberOfSlides = superFlyer.mSlides.length;
 
       if (_numberOfSlides < _maxSlides){
         _canAdd = true;

@@ -38,6 +38,7 @@ class SuperFlyer{
   final FlyerNavigator nav;
   final FlyerRecorder rec;
   final FlyerEditor edit;
+  List<MutableSlide> mSlides; // MutableSlide
 
 
   /// animation parameters
@@ -45,21 +46,16 @@ class SuperFlyer{
 
 
   /// editor data
-  List<TextEditingController> headlinesControllers; // MutableSlide
-  List<TextEditingController> descriptionsControllers; // MutableSlide
-  TextEditingController infoController; // MutableFlyer
   List<ScreenshotController> screenshotsControllers; // MutableSlide
-  List<Uint8List> screenShots; // MutableSlide
-  List<Asset> assetsSources; // MutableSlide
-  List<File> assetsFiles; // MutableSlide
+  List<Uint8List> screenShots; // --?
+
+  TextEditingController infoController;
 
   /// slides settings
-  List<bool> slidesVisibilities; // MutableSlide
   int numberOfSlides; // MutableFlyer -- ?
   int numberOfStrips; // MutableFlyer -- ?
 
   /// current slide settings
-  BoxFit currentPicFit; // MutableFlyer -- ?
   final int initialSlideIndex; // MutableFlyer -- ?
   int currentSlideIndex; // MutableFlyer -- ?
   int verticalIndex; // MutableFlyer -- ?
@@ -105,7 +101,6 @@ class SuperFlyer{
   FlyerState flyerState; // MutableFlyer -- ?
   TinyUser flyerTinyAuthor; // tinyAuthor
   bool flyerShowsAuthor; // MutableFlyer -- ?
-  List<MutableSlide> mutableSlides; // MutableSlide
 
   /// flyer tags
   String flyerInfo; // MutableFlyer -- ?
@@ -127,28 +122,25 @@ class SuperFlyer{
     @required this.nav,
     /// recorder
     @required this.rec,
+    /// editor
     @required this.edit,
+    /// mutable slides
+    @required this.mSlides,
 
 
     /// animation parameters
     @required this.loading,
 
     /// editor data
-    @required this.headlinesControllers,
-    @required this.descriptionsControllers,
     @required this.infoController,
     @required this.screenshotsControllers,
-    @required this.screenShots,
-    @required this.assetsSources,
-    @required this.assetsFiles,
+    this.screenShots,
 
     /// slides settings
-    @required this.slidesVisibilities,
     @required this.numberOfSlides,
     @required this.numberOfStrips,
 
     /// current slide settings
-    @required this.currentPicFit,
     @required this.initialSlideIndex,
     @required this.currentSlideIndex,
     @required this.verticalIndex,
@@ -194,7 +186,6 @@ class SuperFlyer{
     @required this.flyerState,
     @required this.flyerTinyAuthor,
     @required this.flyerShowsAuthor,
-    @required this.mutableSlides,
 
     /// flyer tags
     @required this.flyerInfo,
@@ -271,26 +262,21 @@ class SuperFlyer{
             editMode: goesToEditor == true ? true : false,
             canDelete: true,
           ),
+          mSlides: null,
 
           loading: false,
 
 
 
-          headlinesControllers: null,
-          descriptionsControllers: null,
           infoController: null,
           screenshotsControllers: null,
           screenShots: null,
-          assetsSources: null,
-          assetsFiles: null,
 
           /// slides settings
-          slidesVisibilities: null,
           numberOfSlides: 0,
           numberOfStrips: 0,
 
           /// current slide settings
-          currentPicFit: null,
           initialSlideIndex: null,
           currentSlideIndex: null,
           verticalIndex: 0,
@@ -336,7 +322,6 @@ class SuperFlyer{
           flyerState: null,
           flyerTinyAuthor: null,
           flyerShowsAuthor: null,
-          mutableSlides: null,
 
           /// flyer tags
           flyerInfo: null,
@@ -432,27 +417,20 @@ class SuperFlyer{
           editMode: false,
           canDelete: true,
         ),
+        mSlides: MutableSlide.getViewMutableSlidesFromSlidesModels(flyerModel.slides),
 
 
         loading: false,
 
-
-
-        headlinesControllers: null,
-        descriptionsControllers: null,
         infoController: null,
         screenshotsControllers: null,
         screenShots: null,
-        assetsSources: null,
-        assetsFiles: null,
 
         /// slides settings
-        slidesVisibilities: Animators.createSlidesVisibilityList(flyerModel.slides.length),
         numberOfSlides: flyerModel.slides.length,
         numberOfStrips: flyerModel.slides.length,
 
         /// current slide settings
-        currentPicFit: flyerModel.slides[_initialPage].boxFit,
         initialSlideIndex: _initialPage,
         currentSlideIndex: _initialPage,
         verticalIndex: 0,
@@ -498,7 +476,6 @@ class SuperFlyer{
         flyerState: flyerModel.flyerState,
         flyerTinyAuthor: flyerModel.tinyAuthor,
         flyerShowsAuthor: flyerModel.flyerShowsAuthor,
-        mutableSlides: MutableSlide.getMutableSlidesFromSlidesModels(flyerModel.slides),
 
         /// flyer tags
         flyerInfo: flyerModel.info,
@@ -586,26 +563,37 @@ class SuperFlyer{
           editMode: false,
           canDelete: true,
         ),
+        mSlides: <MutableSlide>[MutableSlide(
+            slideIndex: tinyFlyer.slideIndex,
+            picURL: tinyFlyer.slidePic,
+            picFile: null,
+            picAsset: null,
+            headline: null, /// TASK : should reconsider slide headlines in tinyFlyers
+            headlineController: null,
+            description: null,
+            descriptionController: null,
+            picFit: tinyFlyer.picFit,
+            savesCount: null,
+            sharesCount: null,
+            viewsCount: null,
+            imageSize: null,
+            midColor: tinyFlyer.midColor,
+            opacity: 1,
+          ),],
         loading: false,
 
 
 
         /// editor data
-        headlinesControllers: null,
-        descriptionsControllers: null,
         infoController: null,
         screenshotsControllers: null,
         screenShots: null,
-        assetsSources: null,
-        assetsFiles: null,
 
         /// slides settings
-        slidesVisibilities: <bool>[true],
         numberOfSlides: 1,
         numberOfStrips: 1,
 
         /// current slide settings
-        currentPicFit: tinyFlyer.picFit,
         initialSlideIndex: 0,
         currentSlideIndex: 0,
         verticalIndex: 0,
@@ -651,20 +639,6 @@ class SuperFlyer{
         flyerState: null,
         flyerTinyAuthor: null,
         flyerShowsAuthor: null,
-        mutableSlides: <MutableSlide>[
-          MutableSlide(
-            picture: tinyFlyer.slidePic,
-            headline: null, /// TASK : should reconsider slide headlines in tinyFlyers
-            description: null,
-            boxFit: tinyFlyer.picFit,
-            savesCount: null,
-            sharesCount: null,
-            slideIndex: 0,
-            viewsCount: null,
-            imageSize: null,
-            midColor: tinyFlyer.midColor,
-          ),
-        ],
 
         /// flyer tags
         flyerInfo: null,
@@ -775,25 +749,20 @@ class SuperFlyer{
           editMode: true,
           canDelete: true,
         ),
+        mSlides: new List(),
 
         loading: false,
 
         /// editor data
-        headlinesControllers: new List(),
-        descriptionsControllers: new List(),
         infoController: new TextEditingController(),
         screenshotsControllers: new List(),
         screenShots: new List(),
-        assetsSources: new List(),
-        assetsFiles: new List(),
 
         /// slides settings
-        slidesVisibilities: new List(),
         numberOfSlides: 0,
         numberOfStrips: 0,
 
         /// current slide settings
-        currentPicFit: null,
         initialSlideIndex: 0,
         currentSlideIndex: 0,
         verticalIndex: 0,
@@ -839,7 +808,6 @@ class SuperFlyer{
         flyerState: FlyerState.Draft,
         flyerTinyAuthor: TinyUser.getTinyAuthorFromBzModel(bzModel: bzModel, authorID: superUserID()),
         flyerShowsAuthor: FlyerModel.canFlyerShowAuthor(bzModel: bzModel),
-        mutableSlides: new List(),
 
         /// flyer tags
         flyerInfo: null,
@@ -895,7 +863,6 @@ class SuperFlyer{
 
     print('CREATING draft super flyer from FLYER : ${flyerModel.flyerID} for bz  : ${bzModel.bzName} : id : ${bzModel.bzID}');
 
-    List<File> _assetsFiles = await SlideModel.getImageFilesFromPublishedSlides(flyerModel.slides);
 
     return
       SuperFlyer(
@@ -953,6 +920,7 @@ class SuperFlyer{
           editMode: false,
           canDelete: true,
         ),
+        mSlides: await MutableSlide.getDraftMutableSlidesFromSlidesModels(flyerModel.slides),
 
         loading: false,
 
@@ -960,21 +928,15 @@ class SuperFlyer{
 
 
         /// editor data
-        headlinesControllers: FlyerModel.createHeadlinesControllersForExistingFlyer(flyerModel),
-        descriptionsControllers: FlyerModel.createDescriptionsControllersForExistingFlyer(flyerModel),
         infoController: new TextEditingController(text: flyerModel.info),
         screenshotsControllers: FlyerModel.createScreenShotsControllersForExistingFlyer(flyerModel),
-        screenShots: await Imagers.getScreenShotsFromFiles(_assetsFiles),
-        assetsSources: new List(),//await SlideModel.getImageAssetsFromPublishedSlides(flyerModel.slides),
-        assetsFiles: _assetsFiles,
+        // screenShots: await Imagers.getScreenShotsFromFiles(_assetsFiles),
 
         /// slides settings
-        slidesVisibilities: SlideModel.createVisibilityListFromSlides(flyerModel.slides),
         numberOfSlides: flyerModel.slides.length,
         numberOfStrips: flyerModel.slides.length,
 
         /// current slide settings
-        currentPicFit: flyerModel.slides.length == 0 ? null : flyerModel.slides[0].boxFit,
         initialSlideIndex: 0,
         currentSlideIndex: 0,
         verticalIndex: 0,
@@ -1020,7 +982,6 @@ class SuperFlyer{
         flyerState: flyerModel.flyerState,
         flyerTinyAuthor: flyerModel.tinyAuthor,
         flyerShowsAuthor: flyerModel.flyerShowsAuthor,
-        mutableSlides: MutableSlide.getMutableSlidesFromSlidesModels(flyerModel.slides),
 
         /// flyer tags
         flyerInfo: flyerModel.info,
@@ -1114,25 +1075,20 @@ static SuperFlyer getSuperFlyerFromBzModelOnly({
           editMode: false,
           canDelete: true,
         ),
+        mSlides: null,
 
         loading: false,
 
         /// editor data
-        headlinesControllers: null,
-        descriptionsControllers: null,
         infoController: null,
         screenshotsControllers: null,
         screenShots: null,
-        assetsSources: null,
-        assetsFiles: null,
 
         /// slides settings
-        slidesVisibilities: null,
         numberOfSlides: 0,
         numberOfStrips: 0,
 
         /// current slide settings
-        currentPicFit: null,
         initialSlideIndex: null,
         currentSlideIndex: null,
         verticalIndex: null,
@@ -1178,7 +1134,6 @@ static SuperFlyer getSuperFlyerFromBzModelOnly({
         flyerState: null,
         flyerTinyAuthor: null,
         flyerShowsAuthor: null,
-        mutableSlides: null,
 
         /// flyer tags
         flyerInfo: null,

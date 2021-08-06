@@ -8,25 +8,25 @@ import 'package:multi_image_picker2/multi_image_picker2.dart';
 
 class SlideModel {
   final int slideIndex;
-  final dynamic picture;
+  final dynamic pic;
   final String headline;
   final String description;
   int sharesCount;
   int viewsCount;
   int savesCount;
-  BoxFit boxFit;
+  BoxFit picFit;
   ImageSize imageSize;
   Color midColor;
 
   SlideModel({
     this.slideIndex,
-    this.picture,
+    this.pic,
     this.headline,
     @required this.description,
     this.sharesCount,
     this.viewsCount,
     this.savesCount,
-    @required this.boxFit, /// TASK : update all methods below to include this boxfit parameter
+    @required this.picFit, /// TASK : update all methods below to include this boxfit parameter
     @required this.imageSize,
     @required this.midColor,
   });
@@ -34,13 +34,13 @@ class SlideModel {
   Map<String, dynamic> toMap() {
     return {
       'slideIndex': slideIndex,
-      'picture': picture,
+      'picture': pic,
       'headline': headline,
       'description': description,
       'sharesCount': sharesCount,
       'viewsCount': viewsCount,
       'savesCount': savesCount,
-      'boxFit' : cipherBoxFit(boxFit),
+      'boxFit' : cipherBoxFit(picFit),
       'imageSize' : imageSize.toMap(),
       'midColor' : Colorizer.cipherColor(midColor),
     };
@@ -49,7 +49,7 @@ class SlideModel {
   SlideModel clone(){
     return SlideModel(
       slideIndex : slideIndex,
-      picture : picture,
+      pic : pic,
       headline : headline,
       description : description,
       // -------------------------
@@ -57,7 +57,7 @@ class SlideModel {
       viewsCount : viewsCount,
       savesCount : savesCount,
       imageSize: imageSize,
-      boxFit: boxFit,
+      picFit: picFit,
       midColor: midColor,
     );
   }
@@ -74,7 +74,7 @@ class SlideModel {
   static bool slidesPicsAreTheSame(SlideModel finalSlide, SlideModel originalSlide){
     bool _slidesPicsAreTheSame;
 
-    if (finalSlide.picture != originalSlide.picture){_slidesPicsAreTheSame = false;}
+    if (finalSlide.pic != originalSlide.pic){_slidesPicsAreTheSame = false;}
     else {_slidesPicsAreTheSame = true;}
 
     return _slidesPicsAreTheSame;
@@ -129,14 +129,14 @@ class SlideModel {
   static SlideModel decipherSlideMap(dynamic map){
     return SlideModel(
       slideIndex : map['slideIndex'],
-      picture : map['picture'],
+      pic : map['picture'],
       headline : map['headline'],
       description : map['description'],
       // -------------------------
       sharesCount : map['sharesCount'],
       viewsCount : map['viewsCount'],
       savesCount : map['savesCount'],
-      boxFit: decipherBoxFit(map['boxFit']),
+      picFit: decipherBoxFit(map['boxFit']),
       imageSize: ImageSize.decipherImageSize(map['imageSize']),
       midColor: Colorizer.decipherColor(map['midColor'])
     );
@@ -176,14 +176,14 @@ class SlideModel {
 
       SlideModel _newSlide = SlideModel(
         slideIndex: inputSlides[i].slideIndex,
-        picture: newPicturesURLs[i],
+        pic: newPicturesURLs[i],
         headline: inputSlides[i].headline,
         description: inputSlides[i].description,
         savesCount: inputSlides[i].savesCount,
         sharesCount: inputSlides[i].sharesCount,
         viewsCount: inputSlides[i].viewsCount,
         imageSize: inputSlides[i].imageSize,
-        boxFit: inputSlides[i].boxFit,
+        picFit: inputSlides[i].picFit,
         midColor: inputSlides[i].midColor,
       );
 
@@ -219,7 +219,7 @@ class SlideModel {
     if (slides != null && slides.length != 0){
       for (SlideModel slide in slides){
 
-        File _file = await Imagers.urlToFile(slide.picture);
+        File _file = await Imagers.urlToFile(slide.pic);
 
         _files.add(_file);
 
@@ -236,15 +236,15 @@ class SlideModel {
     if (slides != null && slides.length != 0){
       for (SlideModel slide in slides){
 
-        File _file = await Imagers.urlToFile(slide.picture);
-        ImageSize imageSize = await Imagers.superImageSize(_file);
+        File _file = await Imagers.urlToFile(slide.pic);
+        ImageSize imageSize = await ImageSize.superImageSize(_file);
 
 
         Asset _asset = new Asset(
           // identifier
           '${slide.slideIndex}',
           // _name
-          '${slide.picture.toString()}',
+          '${slide.pic.toString()}',
           // _originalWidth
           imageSize.width.toInt(),
           // _originalHeight
@@ -265,7 +265,7 @@ class SlideModel {
     if (slides != null && slides.length != 0){
       for (SlideModel slide in slides){
 
-        BoxFit _fit = slide.boxFit;
+        BoxFit _fit = slide.picFit;
 
         if (_fit == null){
           _boxFits.add(BoxFit.cover);

@@ -36,7 +36,7 @@ class NanoFlyer with ChangeNotifier{
     bool nanoFlyerAreTheSame = true;
 
     if (finalFlyer.flyerType != originalFlyer.flyerType) {nanoFlyerAreTheSame = false;}
-    else if (finalFlyer.slides[0].picture != originalFlyer.slides[0].picture) {nanoFlyerAreTheSame = false;}
+    else if (finalFlyer.slides[0].pic != originalFlyer.slides[0].pic) {nanoFlyerAreTheSame = false;}
     else if (Colorizer.colorsAreTheSame(finalFlyer.slides[0].midColor, originalFlyer.slides[0].midColor) == false){nanoFlyerAreTheSame = false;}
 
     else if (finalFlyer.flyerZone.countryID != originalFlyer.flyerZone.countryID) {nanoFlyerAreTheSame = false;}
@@ -53,7 +53,7 @@ class NanoFlyer with ChangeNotifier{
       flyerID: flyerModel?.flyerID,
       flyerType: flyerModel?.flyerType,
       authorID: flyerModel?.tinyAuthor?.userID,
-      slidePic: flyerModel == null ? null : flyerModel?.slides[0]?.picture,
+      slidePic: flyerModel == null ? null : flyerModel?.slides[0]?.pic,
       flyerZone: flyerModel?.flyerZone,
       midColor: flyerModel == null ? null : flyerModel?.slides[0]?.midColor,
     );
