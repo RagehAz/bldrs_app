@@ -212,7 +212,7 @@ class _FlyerTestScreenState extends State<FlyerTestScreen> {
               });
 
 
-              ImageSize imageSize = await Imagers.superImageSize(_file);
+              ImageSize imageSize = await ImageSize.superImageSize(_file);
 
               print('file test : _theFile.path : ${_theFile.path}');
               print('file test : _theFile.absolute : ${_theFile.absolute}');
@@ -225,7 +225,7 @@ class _FlyerTestScreenState extends State<FlyerTestScreen> {
               String _fileNameWithExtension = TextMod.trimTextBeforeLastSpecialCharacter(_theFile.path, '/');
               String _fileName = TextMod.trimTextAfterLastSpecialCharacter(_fileNameWithExtension, '.');
 
-              print('file test : _fileName : ${_fileName}');
+              print('file test : imageSize : ${imageSize.height} : ${imageSize.width}');
 
               // _asset = Asset(
               //     // identifier

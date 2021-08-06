@@ -242,9 +242,9 @@ class FlyerMethod{
 
     if (superFlyer != null){
 
-      if(superFlyer.mutableSlides != null){
+      if(superFlyer.mSlides != null){
 
-        if(superFlyer.mutableSlides.length > 1){
+        if(superFlyer.mSlides.length > 1){
 
           _hasMoreThanOneSlide = true;
 
@@ -261,16 +261,24 @@ class FlyerMethod{
     return slideIndex == null ? 0 : slideIndex;
   }
 // -----------------------------------------------------------------------------
-  static int getAssetIndexFromAssets({SuperFlyer superFlyer, Asset assetToSearchFor}){
-    int _assetIndexInAssets = superFlyer.assetsSources.indexWhere(
-          (existingAsset) => existingAsset.identifier == assetToSearchFor.identifier,);
-    return _assetIndexInAssets;
-  }
-// -----------------------------------------------------------------------------
   static bool maxSlidesReached({SuperFlyer superFlyer}){
     int _maxLength = Standards.getMaxSlidesCount(superFlyer.accountType);
     bool _reachedMaxSlides = _maxLength <= superFlyer.numberOfSlides;
     return _reachedMaxSlides;
+  }
+// -----------------------------------------------------------------------------
+  static BoxFit getCurrentBoxFitFromSuperFlyer({SuperFlyer superFlyer}){
+    BoxFit _fit;
+
+    if (superFlyer.mSlides != null){
+      if(superFlyer.mSlides.length != 0){
+        if(superFlyer.currentSlideIndex != null){
+          _fit = superFlyer.mSlides[superFlyer.currentSlideIndex].picFit;
+        }
+      }
+    }
+
+    return _fit;
   }
 // -----------------------------------------------------------------------------
 }

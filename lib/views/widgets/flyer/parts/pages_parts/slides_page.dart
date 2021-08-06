@@ -1,5 +1,6 @@
 import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
+import 'package:bldrs/views/widgets/flyer/flyer_methods.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/editor_footer.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/footer_parts/ankh_button.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/slides_parts/slides.dart';
@@ -13,12 +14,11 @@ class SlidesPage extends StatelessWidget {
     @required this.superFlyer,
     @required this.flyerZoneWidth,
   });
-
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     Tracer.traceWidgetBuild(widgetName: 'SlidesPage', varName: 'numberOfSlides', varValue: superFlyer.numberOfSlides);
-
     return Stack(
       children: <Widget>[
 
@@ -43,7 +43,7 @@ class SlidesPage extends StatelessWidget {
         if (superFlyer.edit.editMode == true)
           EditorFooter(
             flyerZoneWidth: flyerZoneWidth,
-            currentPicFit: superFlyer.currentPicFit,
+            currentPicFit: FlyerMethod.getCurrentBoxFitFromSuperFlyer(superFlyer: superFlyer),
             onAddImages: superFlyer.edit.onAddImages,
             onDeleteSlide: superFlyer.edit.onDeleteSlide,
             onCropImage: superFlyer.edit.onCropImage,
