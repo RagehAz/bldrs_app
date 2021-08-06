@@ -40,7 +40,7 @@ class FlyerPages extends StatelessWidget {
           ),
 
           /// INFO PAGE
-          if (_tinyMode == false && superFlyer.mutableSlides != null)
+          if (_tinyMode == false && superFlyer.mSlides != null)
           InfoPage(
             superFlyer : superFlyer,
             flyerZoneWidth: flyerZoneWidth,

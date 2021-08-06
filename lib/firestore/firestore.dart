@@ -772,7 +772,7 @@ class Fire{
 
           print('X1 - getting storage ref : $_ref');
 
-          ImageSize imageSize = await Imagers.superImageSize(inputFile);
+          ImageSize imageSize = await ImageSize.superImageSize(inputFile);
 
           print('X2 - image size is ${imageSize.height} * ${imageSize.width}');
 
@@ -807,7 +807,7 @@ class Fire{
     for (var slide in slides) {
       String _picURL = await Fire.createStoragePicAndGetURL(
         context: context,
-        inputFile: slide.picture,
+        inputFile: slide.pic,
         picType: PicType.slideHighRes,
         fileName: SlideModel.generateSlideID(flyerID, slide.slideIndex),
       );

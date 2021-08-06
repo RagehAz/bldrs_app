@@ -51,7 +51,7 @@ class SingleSlide extends StatelessWidget {
     this.onTextFieldSubmitted,
     @required this.slideColor,
     @required this.flyerID,
-    this.imageSize,
+    @required this.imageSize,
     this.autoFocus,
     @required this.onTap,
   });
@@ -83,8 +83,6 @@ class SingleSlide extends StatelessWidget {
 
     bool _keyboardIsOn = Keyboarders.keyboardIsOn(context);
 
-    ImageSize _imageSize = await Imagers.superImageSize(picture);
-
     if (_keyboardIsOn){
       Keyboarders.closeKeyboard(context);
     }
@@ -92,7 +90,7 @@ class SingleSlide extends StatelessWidget {
       await Nav.goToNewScreen(context,
           SlideFullScreen(
             image: picture,
-            imageSize: _imageSize,
+            imageSize: imageSize,
           )
       );
     }
@@ -273,7 +271,7 @@ class SingleSlide extends StatelessWidget {
                   counterIsOn: false,
                   inputSize: 3,
                   centered: true,
-                  textController: superFlyer.headlinesControllers[slideIndex],
+                  textController: superFlyer.mSlides[slideIndex].headlineController,
                   onChanged: textFieldOnChanged,
                   inputWeight: VerseWeight.bold,
                   inputShadow: true,
