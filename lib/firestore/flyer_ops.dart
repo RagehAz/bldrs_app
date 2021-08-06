@@ -219,7 +219,7 @@ class FlyerOps{
         print('A1 - checking slide ${slide.slideIndex}');
 
         /// x1 - if slide pic changed
-        if (ObjectChecker.objectIsFile(slide.picture) == true){
+        if (ObjectChecker.objectIsFile(slide.pic) == true){
 
           print('x1 - slide ${slide.slideIndex} is FILE');
 
@@ -228,17 +228,17 @@ class FlyerOps{
             context: context,
             picType: PicType.slideHighRes,
             fileName: SlideModel.generateSlideID(updatedFlyer.flyerID, slide.slideIndex),
-            inputFile: slide.picture,
+            inputFile: slide.pic,
           );
 
-          ImageSize _imageSize = await Imagers.superImageSize(slide.picture);
+          ImageSize _imageSize = await ImageSize.superImageSize(slide.pic);
 
           print('a - slide ${slide.slideIndex} got this URL : $_newPicURL');
 
           /// b - recreate SlideModel with new pic URL
           SlideModel _updatedSlide = SlideModel(
             slideIndex : slide.slideIndex,
-            picture : _newPicURL,
+            pic : _newPicURL,
             headline : slide.headline,
             description : slide.description,
             // -------------------------
@@ -246,7 +246,7 @@ class FlyerOps{
             viewsCount : slide.viewsCount,
             savesCount : slide.savesCount,
             imageSize: _imageSize,
-            boxFit: slide.boxFit,
+            picFit: slide.picFit,
             midColor: slide.midColor,
           );
 

@@ -168,8 +168,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
   @override
   void dispose() {
     print('dispose---> final flyer : start');
-    TextChecker.disposeAllTextControllers(_superFlyer.headlinesControllers);
-    TextChecker.disposeAllTextControllers(_superFlyer.descriptionsControllers);
+    MutableSlide.disposeMutableSlidesTextControllers(_superFlyer.mSlides);
     TextChecker.disposeControllerIfPossible(_superFlyer.infoController);
     Animators.disposeControllerIfPossible(_superFlyer.nav.verticalController);
     Animators.disposeControllerIfPossible(_superFlyer.nav.horizontalController);
@@ -644,7 +643,6 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         setState(() {
           _superFlyer.nav.swipeDirection = _direction;
           _superFlyer.currentSlideIndex = newIndex;
-          _superFlyer.currentPicFit = _superFlyer.mutableSlides[newIndex].boxFit;
         });
       }
 
@@ -655,7 +653,6 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         setState(() {
           _superFlyer.nav.swipeDirection = _direction;
           _superFlyer.currentSlideIndex = newIndex;
-          _superFlyer.currentPicFit = _superFlyer.mutableSlides[newIndex].boxFit;
         });
       }
 
@@ -665,7 +662,6 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         setState(() {
           _superFlyer.nav.swipeDirection = _direction;
           _superFlyer.currentSlideIndex = newIndex;
-          _superFlyer.currentPicFit = _superFlyer.mutableSlides[newIndex].boxFit;
         });
       }
     }
@@ -676,8 +672,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       setState(() {
         _superFlyer.nav.swipeDirection = _direction;
         _superFlyer.currentSlideIndex = newIndex;
-        _superFlyer.currentPicFit = _superFlyer.mutableSlides[newIndex].boxFit;
-      });
+     });
 
     }
 
@@ -783,7 +778,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         url: _superFlyer.flyerURL,
         description: '${_superFlyer.flyerType} flyer .\n'
             '- slide number ${_superFlyer.currentSlideIndex} .\n'
-            '- ${_superFlyer.mutableSlides[_i].headline} .\n'
+            '- ${_superFlyer.mSlides[_i].headline} .\n'
     );
 
     // don't await this method
@@ -798,7 +793,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
   }
 // -----------------------------------------------------o
   Future <void> _onFollowTap() async {
-    print('Following bz : followIsOn was ${_superFlyer.rec.followIsOn} & headline for slide ${_superFlyer.currentSlideIndex} is : ${_superFlyer.mutableSlides[_superFlyer.currentSlideIndex].headline}');
+    print('Following bz : followIsOn was ${_superFlyer.rec.followIsOn} & headline for slide ${_superFlyer.currentSlideIndex} is : ${_superFlyer.mSlides[_superFlyer.currentSlideIndex].headline}');
 
     /// start follow bz ops
     List<String> _updatedBzFollows = await RecordOps.followBzOPs(
@@ -854,11 +849,11 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
     /// to  update slides headlines
     List<SlideModel> _updatedSlides = await _createSlidesModelsFromCurrentSuperFlyer();
-    List<MutableSlide> _updatedMutableSlides = MutableSlide.getMutableSlidesFromSlidesModels(_updatedSlides);
+    // List<MutableSlide> _updatedMutableSlides = MutableSlide.getDraftMutableSlidesFromSlidesModels(_updatedSlides);
     setState(() {
       _superFlyer.edit.editMode = !_superFlyer.edit.editMode;
       _superFlyer.flyerInfo = _superFlyer.infoController.text;
-      _superFlyer.mutableSlides = _updatedMutableSlides;
+      // _superFlyer.mutableSlides = _updatedMutableSlides;
     });
   }
 // -----------------------------------------------------o
@@ -871,317 +866,125 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     });
   }
 // -----------------------------------------------------o
-  Future<void> _onAddImagesFirstTime() async {
-
-    List<Asset> _assetsSources = Imagers.getOnlyAssetsFromDynamics(_superFlyer.assetsSources);
-
-    _superFlyer.currentSlideIndex = FlyerMethod.unNullIndexIfNull(_superFlyer.currentSlideIndex);
-
-    if(mounted){
-
-      /// B - get images from gallery
-      List<dynamic> _phoneAssets = await Imagers.getMultiImagesFromGallery(
-        context: context,
-        images: _assetsSources,
-        mounted: mounted,
-        accountType: _superFlyer.accountType,
-      );
-
-      /// B - if did not pick new assets
-      if(_phoneAssets.length == 0){
-        // will do nothing
-        print('no new picks');
-      }
-
-      /// B - if picked new assets
-      else {
-
-        // List<File> _assetsFiles = await Imagers.getFilesFromAssets(_phoneAssets);
-        // List<BoxFit> _fits = Imagers.concludeBoxesFits(assets: _assetsSources, flyerZoneWidth: widget.flyerZoneWidth);
-
-        print('picked new picks');
-
-        List<File> _newFiles = new List();
-        // List<Uint8List> _newScreenshots = new List();
-        List<ScreenshotController> _newScreenshotsControllers = new List();
-        List<MutableSlide> _newMutableSlides = new List();
-        List<TextEditingController> _newHeadlinesControllers = new List();
-        List<TextEditingController> _newDescriptionControllers = new List();
-        List<bool> _newVisibilities = new List();
-
-        /// C - for every asset received from gallery
-        for (int i = 0; i < _phoneAssets.length; i++){
-
-          Asset _newAsset = _phoneAssets[i];
-
-
-          /// C 1 - get index of _newAsset in the existing asset if possible
-          int _assetIndexInAssets = FlyerMethod.getAssetIndexFromAssets(
-            superFlyer: _superFlyer,
-            assetToSearchFor: _newAsset,
-          );
-
-          /// C 2 - if this is NEW ASSET
-          // no match found between new assets and existing assets
-          if(_assetIndexInAssets == -1){
-            /// file
-            File _newFile = await Imagers.getFileFromAsset(_newAsset);
-            _newFiles.add(_newFile);
-            // Uint8List _newScreenShow =
-            // generate average color then screenShot then make a file out of the resultant screenshot uint8list
-            /// mutableSlide
-            Color _midColor = await Colorizer.getAverageColor(_newFile);
-            MutableSlide _mutableSlide = MutableSlide.createMutableSlideFromFile(
-              file: _newFile,
-              index: i,
-              midColor: _midColor,
-              boxFit: Imagers.concludeBoxFitForAsset(asset: _newAsset, flyerZoneWidth: widget.flyerZoneWidth),
-            );
-            _newMutableSlides.add(_mutableSlide);
-            /// controller
-            _newHeadlinesControllers.add(new TextEditingController());
-            _newDescriptionControllers.add(new TextEditingController());
-            /// visibilities
-            _newVisibilities.add(true);
-
-            /// screenShots
-            _newScreenshotsControllers.add(new ScreenshotController());
-            // Uint8List _screenshot = await _takeSlideScreenShot(index : i);
-            // _newScreenshots.add(_screenshot);
-          }
-
-          /// C 3 - if this is EXISTING ASSET
-          // found the index of the unchanged asset
-          else {
-            /// file
-            _newFiles.add(_superFlyer.assetsFiles[_assetIndexInAssets]);
-            /// mutableSlide
-            _newMutableSlides.add(_superFlyer.mutableSlides[_assetIndexInAssets]);
-            /// controller
-            _newHeadlinesControllers.add(_superFlyer.headlinesControllers[_assetIndexInAssets]);
-            _newDescriptionControllers.add(_superFlyer.headlinesControllers[_assetIndexInAssets]);
-            /// visibilities
-            _newVisibilities.add(_superFlyer.slidesVisibilities[_assetIndexInAssets]);
-            /// screenShots
-            _newScreenshotsControllers.add(_superFlyer.screenshotsControllers[_assetIndexInAssets]);
-            // _newScreenshots.add(_superFlyer.screenShots[_assetIndexInAssets]);
-          }
-
-        }
-
-
-        /// D - assign all new values
-        print('ss---> _superFlyer.assetsFiles.length was : ${_superFlyer.assetsFiles.length}');
-        setState(() {
-          _superFlyer.assetsSources = _phoneAssets;
-
-          /// file
-          _superFlyer.assetsFiles = _newFiles;
-          /// mutableSlide
-          _superFlyer.mutableSlides = _newMutableSlides;
-          /// controller
-          _superFlyer.headlinesControllers = _newHeadlinesControllers;
-          _superFlyer.descriptionsControllers = _newDescriptionControllers;
-          /// visibilities
-          _superFlyer.slidesVisibilities = _newVisibilities;
-          /// screenshots
-          _superFlyer.screenshotsControllers = _newScreenshotsControllers;
-          // _superFlyer.screenShots = _newScreenshots;
-          /// fit
-          _superFlyer.currentPicFit = _superFlyer.mutableSlides[_superFlyer.currentSlideIndex].boxFit;
-
-
-          _superFlyer.numberOfSlides = _superFlyer.assetsSources.length;
-          _superFlyer.numberOfStrips = _superFlyer.numberOfSlides;
-          _superFlyer.nav.progressBarOpacity = 1;
-        });
-        print('ss---> _superFlyer.assetsFiles.length is : ${_superFlyer.assetsFiles.length}');
-
-      }
-
-    }
-
-  }
-// -----------------------------------------------------o
-  Future<void> _onAddImagesSecondTime() async {
-
-    List<Asset> _assetsSources = _superFlyer.assetsSources;
-
-    _superFlyer.currentSlideIndex = FlyerMethod.unNullIndexIfNull(_superFlyer.currentSlideIndex);
-
-    List<dynamic> _phoneAssets;
-
-    if(mounted){
-      _phoneAssets = await Imagers.getMultiImagesFromGallery(
-        context: context,
-        images: _assetsSources,
-        mounted: mounted,
-        accountType: _superFlyer.accountType,
-      );
-
-      /// B - if did not pick new assets
-      if(_phoneAssets.length == 0){
-        // will do nothing
-        print('no new picks');
-      }
-
-      /// B - if picked new assets
-      else {
-
-        // List<File> _assetsFiles = await Imagers.getFilesFromAssets(_phoneAssets);
-        // List<BoxFit> _fits = Imagers.concludeBoxesFits(assets: _assetsSources, flyerZoneWidth: widget.flyerZoneWidth);
-
-        List<File> _existingFiles = _superFlyer.assetsFiles;
-        List<MutableSlide> _existingMutableSlides = _superFlyer.mutableSlides;
-        List<ScreenshotController> _existingScreenshotsControllers = _superFlyer.screenshotsControllers;
-        List<TextEditingController> _existingHeadlinesControllers = _superFlyer.headlinesControllers;
-        List<TextEditingController> _existingDescriptionControllers = _superFlyer.descriptionsControllers;
-        List<bool> _existingVisibilities = _superFlyer.slidesVisibilities;
-
-        /// C - for every asset received from gallery
-        for (int i = 0; i < _phoneAssets.length; i++){
-
-          Asset _newAsset = _phoneAssets[i];
-
-
-          /// C 1 - get index of _newAsset in the existing asset if possible
-          int _assetIndexInAssets =  FlyerMethod.getAssetIndexFromAssets(
-            superFlyer: _superFlyer,
-            assetToSearchFor: _newAsset,
-          );
-
-          /// C 2 - if this is NEW ASSET
-          // no match found between new assets and existing assets
-          if(_assetIndexInAssets == -1){
-            /// file
-            File _newFile = await Imagers.getFileFromAsset(_newAsset);
-            _existingFiles.add(_newFile);
-            /// mutableSlide
-            Color _midColor = await Colorizer.getAverageColor(_newFile);
-            MutableSlide _mutableSlide = MutableSlide.createMutableSlideFromFile(
-                file: _newFile,
-                index: i,
-                midColor: _midColor,
-                boxFit: Imagers.concludeBoxFitForAsset(asset: _newAsset, flyerZoneWidth: widget.flyerZoneWidth),
-            );
-            _existingMutableSlides.add(_mutableSlide);
-            /// controller
-            _existingHeadlinesControllers.add(new TextEditingController());
-            _existingDescriptionControllers.add(new TextEditingController());
-            /// visibilities
-            _existingVisibilities.add(true);
-
-            /// screenShots
-            _existingScreenshotsControllers.add(new ScreenshotController());
-
-            _assetsSources.add(_newAsset);
-          }
-
-          /// C 3 - if this is EXISTING ASSET
-          // found the index of the unchanged asset
-          else {
-            // /// fit
-            // _existingFits[_assetIndexInAssets] = (_superFlyer.boxesFits[_assetIndexInAssets]);
-            // /// file
-            // _existingFiles[_assetIndexInAssets] = .add(_superFlyer.assetsFiles[_assetIndexInAssets]);
-            // /// mutableSlide
-            // _existingMutableSlides.add(_superFlyer.mutableSlides[_assetIndexInAssets]);
-            // /// controller
-            // _existingHeadlinesControllers.add(_superFlyer.headlinesControllers[_assetIndexInAssets]);
-            // _existingDescriptionControllers.add(_superFlyer.headlinesControllers[_assetIndexInAssets]);
-            // /// visibilities
-            // _existingVisibilities.add(_superFlyer.slidesVisibilities[_assetIndexInAssets]);
-          }
-
-        }
-
-
-        /// D - assign all new values
-        print('ss---> _superFlyer.assetsFiles.length was : ${_superFlyer.assetsFiles.length}');
-        print('ss---> _superFlyer.assetsSources.length was : ${_superFlyer.assetsSources.length}');
-        setState(() {
-          _superFlyer.assetsSources = _phoneAssets;
-
-          /// fit
-          _superFlyer.currentPicFit = _superFlyer.mutableSlides[_superFlyer.currentSlideIndex].boxFit;
-          /// file
-          _superFlyer.assetsFiles = _existingFiles;
-          /// mutableSlide
-          _superFlyer.mutableSlides = _existingMutableSlides;
-          /// controller
-          _superFlyer.headlinesControllers = _existingHeadlinesControllers;
-          _superFlyer.descriptionsControllers = _existingDescriptionControllers;
-          /// visibilities
-          _superFlyer.slidesVisibilities = _existingVisibilities;
-          /// screenshots
-          _superFlyer.screenshotsControllers = _existingScreenshotsControllers;
-          // _superFlyer.screenShots = _newScreenshots;
-
-
-          _superFlyer.numberOfSlides = _superFlyer.assetsFiles.length;
-          _superFlyer.numberOfStrips = _superFlyer.numberOfSlides;
-
-          _superFlyer.nav.progressBarOpacity = 1;
-
-        });
-        print('ss---> _superFlyer.assetsFiles.length is : ${_superFlyer.assetsFiles.length}');
-        print('ss---> _superFlyer.assetsSources.length is : ${_superFlyer.assetsSources.length}');
-
-        /// E - animate to last slide
-        // await _superFlyer.horizontalController.animateToPage(
-        //     _phoneAssets.length - 1,
-        //     duration: Ratioz.duration1000ms, curve: Curves.easeInOut
-        // );
-
-
-      }
-
-    }
-
-  }
-// -----------------------------------------------------o
   Future<void> _onAddImages() async {
 
-    /// TASK : figure this out ( and study shared preferences )
-    // final Directory appDir = await sysPaths.getApplicationDocumentsDirectory();
-    // final String fileName = path.basename(_imageFile.path);
-    // final File savedImage = await _storedImage.copy('${appDir.path}/$fileName');
+    if (mounted){
 
-    FocusScope.of(context).unfocus();
+      /// TASK : figure this out ( and study shared preferences )
+      // final Directory appDir = await sysPaths.getApplicationDocumentsDirectory();
+      // final String fileName = path.basename(_imageFile.path);
+      // final File savedImage = await _storedImage.copy('${appDir.path}/$fileName');
 
-    _triggerLoading();
+      FocusScope.of(context).unfocus();
+
+      _triggerLoading();
 
 
-    /// A - if max slides reached
-    if(FlyerMethod.maxSlidesReached(superFlyer: _superFlyer) == true){
+      /// A - if max slides reached
+      if(FlyerMethod.maxSlidesReached(superFlyer: _superFlyer) == true){
 
-      int _maxLength = Standards.getMaxSlidesCount(_superFlyer.accountType);
-      await Dialogz.maxSlidesReached(context, _maxLength);
+        int _maxLength = Standards.getMaxSlidesCount(_superFlyer.accountType);
+        await Dialogz.maxSlidesReached(context, _maxLength);
 
-    }
-
-    /// A - if can pick more gallery pictures
-    else {
-
-      /// B - first timer
-      if(_superFlyer.edit.firstTimer == true){
-        await _onAddImagesFirstTime();
       }
 
-      /// B - second timer
+      /// A - if can pick more gallery pictures
       else {
-        await _onAddImagesSecondTime();
+
+        /// B1 - get assests from mutable slides
+        List<Asset> _assetsSources = MutableSlide.getAssetsFromMutableSlides(_superFlyer.mSlides); //Imagers.getOnlyAssetsFromDynamics(_superFlyer.assetsSources);
+        /// B2 - assert that index in never null
+        _superFlyer.currentSlideIndex = FlyerMethod.unNullIndexIfNull(_superFlyer.currentSlideIndex);
+
+        /// B3 - pick images from gallery
+        List<dynamic> _phoneAssets = await Imagers.getMultiImagesFromGallery(
+          context: context,
+          images: _assetsSources,
+          mounted: mounted,
+          accountType: _superFlyer.accountType,
+        );
+
+        /// B4 - if did not pick new assets
+        if(_phoneAssets.length == 0){
+          // will do nothing
+          print('no new picks');
+        }
+
+        /// B4 - if picked new assets
+        else {
+          print('picked new picks');
+
+          /// C1 - declare private existing and new mutable slides
+          List<MutableSlide> _tempMutableSlides = _superFlyer.mSlides;
+
+
+          /// C2 - for every asset received from gallery
+          for (int i = 0; i < _phoneAssets.length; i++){
+
+            /// D1 - declare private asset
+            Asset _newAsset = _phoneAssets[i];
+
+            /// D2 - search index of _newAsset in the existing asset if possible
+            int _assetIndexInAssets =  MutableSlide.getMutableSlideIndexThatContainsThisAsset(
+              mSlides: _tempMutableSlides,
+              assetToSearchFor: _newAsset,
+            );
+
+            bool _assetFound = _assetIndexInAssets == -1 ? false : true;
+
+            if (_assetFound){
+              // nothing shall be added to the existing mutable slides
+              // _tempMutableSlides.add(_existingMutableSlides[i]);
+            }
+
+            else {
+              File _newFile = await Imagers.getFileFromAsset(_newAsset);
+
+              MutableSlide _mutableSlide = MutableSlide(
+                slideIndex: i,
+                opacity: 1,
+                picURL: null,
+                picAsset: _newAsset,
+                picFile:_newFile,
+                imageSize: await ImageSize.superImageSize(_newAsset),
+                picFit: Imagers.concludeBoxFitForAsset(asset: _newAsset, flyerZoneWidth: widget.flyerZoneWidth),
+                midColor: await Colorizer.getAverageColor(_newFile),
+                headline: null,
+                headlineController: new TextEditingController(),
+                description: null,
+                descriptionController: new TextEditingController(),
+                viewsCount: 0,
+                sharesCount: 0,
+                savesCount: 0,
+              );
+
+              _tempMutableSlides.add(_mutableSlide);
+            }
+
+          }
+
+          /// D - assign all new values
+          setState(() {
+            _superFlyer.mSlides = _tempMutableSlides;
+            _superFlyer.numberOfSlides = _tempMutableSlides.length;
+            _superFlyer.numberOfStrips = _superFlyer.numberOfSlides;
+            _superFlyer.nav.progressBarOpacity = 1;
+          });
+          Tracer.traceSetState(screenName: 'FinalFlyer', varName: 'numberOfSlides', varNewValue: _superFlyer.mSlides.length);
+
+          /// C - animate to last slide
+          await Sliders.slideTo(
+            controller: _superFlyer.nav.horizontalController,
+            toIndex: _superFlyer.numberOfSlides - 1,
+          );
+
+        }
+
       }
 
+      await _triggerLoading();
+
     }
-
-    /// C - animate to last slide
-    await Sliders.slideTo(
-        controller: _superFlyer.nav.horizontalController,
-        toIndex: _superFlyer.numberOfSlides - 1,
-    );
-
-    await _triggerLoading();
 
   }
 // -----------------------------------------------------o
@@ -1225,7 +1028,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     /// 1 - if only one slide remaining
     if(_superFlyer.numberOfSlides == 1){
 
-      print('_draft.visibilities : ${_superFlyer.slidesVisibilities.toString()}, _draft.numberOfSlides : $_superFlyer.numberOfSlides');
+      print('_draft.visibilities : ${_superFlyer.mSlides[_superFlyer.currentSlideIndex].toString()}, _draft.numberOfSlides : $_superFlyer.numberOfSlides');
 
       /// A - decrease progress bar and trigger visibility
       setState(() {
@@ -1401,10 +1204,18 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
   void _statelessTriggerSlideVisibility(int index) {
 
     if (index != null){
-      if(index >= 0 && _superFlyer.slidesVisibilities.length != 0){
-        print('_draft.visibilities[index] was ${_superFlyer.slidesVisibilities[index]} for index : $index');
-        _superFlyer.slidesVisibilities[index] = !_superFlyer.slidesVisibilities[index];
-        print('_draft.visibilities[index] is ${_superFlyer.slidesVisibilities[index]} for index : $index');
+      if(index >= 0 && _superFlyer.mSlides.length != 0){
+        print('_superFlyer.mSlides[index].isVisible was ${_superFlyer.mSlides[index].opacity} for index : $index');
+
+
+        if(_superFlyer.mSlides[index].opacity == 1){
+          _superFlyer.mSlides[index].opacity = 0;
+        }
+        else {
+          _superFlyer.mSlides[index].opacity = 1;
+        }
+
+        print('_superFlyer.mSlides[index].isVisible is ${_superFlyer.mSlides[index].opacity} for index : $index');
       }
       else {
         print('can not trigger visibility for index : $index');
@@ -1420,22 +1231,19 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     // if(ObjectChecker.listCanBeUsed(_superFlyer.assetsFiles) == true){_superFlyer.mutableSlides.removeAt(index);}
 
 
-    if(_superFlyer.edit.firstTimer == false){
-      int _assetIndex = MutableSlide.getAssetTrueIndexFromMutableSlides(mutableSlides: _superFlyer.mutableSlides, slideIndex: index);
-      if(_assetIndex != null){
-        _superFlyer.assetsSources.removeAt(_assetIndex);
-      }
-    }
-    else {
-      _superFlyer.assetsSources.removeAt(index);
-    }
+    // if(_superFlyer.edit.firstTimer == false){
+    //   int _assetIndex = MutableSlide.getAssetTrueIndexFromMutableSlides(mutableSlides: _superFlyer.mutableSlides, slideIndex: index);
+    //   if(_assetIndex != null){
+    //     _superFlyer.assetsSources.removeAt(_assetIndex);
+    //   }
+    // }
+    // else {
+    //   _superFlyer.assetsSources.removeAt(index);
+    // }
 
-    _superFlyer.assetsFiles.removeAt(index);
-    _superFlyer.mutableSlides.removeAt(index);
-    _superFlyer.slidesVisibilities.removeAt(index);
-    _superFlyer.headlinesControllers.removeAt(index);
-    _superFlyer.screenshotsControllers.removeAt(index);
-    _superFlyer.numberOfSlides = _superFlyer.mutableSlides.length;
+    _superFlyer.mSlides.removeAt(index);
+    // _superFlyer.screenshotsControllers.removeAt(index);
+    _superFlyer.numberOfSlides = _superFlyer.mSlides.length;
     // _superFlyer.screenShots.removeAt(index);
 
     print('after stateless delete index is $index, _draft.numberOfSlides is : ${_superFlyer.numberOfSlides}');
@@ -1443,15 +1251,15 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 // -----------------------------------------------------o
   Future<void> _onCropImage() async {
 
-    if(_superFlyer.assetsFiles.isNotEmpty){
+    if(_superFlyer.mSlides.isNotEmpty){
 
       _triggerLoading();
 
-      File croppedFile = await Imagers.cropImage(context, _superFlyer.assetsFiles[_superFlyer.currentSlideIndex]);
+      File croppedFile = await Imagers.cropImage(context, _superFlyer.mSlides[_superFlyer.currentSlideIndex].picFile);
 
       if (croppedFile != null) {
         setState(() {
-          _superFlyer.assetsFiles[_superFlyer.currentSlideIndex] = croppedFile;
+          _superFlyer.mSlides[_superFlyer.currentSlideIndex].picFile = croppedFile;
         });
       }
 
@@ -1463,13 +1271,15 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 // -----------------------------------------------------o
   Future<void> _onResetImage() async {
 
-    if(_superFlyer.assetsFiles.isNotEmpty){
+    if(_superFlyer.mSlides.isNotEmpty){
 
-      File _file = await Imagers.getFileFromAsset(_superFlyer.assetsSources[_superFlyer.currentSlideIndex]);
+      if(_superFlyer.mSlides[_superFlyer.currentSlideIndex].picAsset != null){
+        File _file = await Imagers.getFileFromAsset(_superFlyer.mSlides[_superFlyer.currentSlideIndex].picAsset);
 
-      setState(() {
-        _superFlyer.assetsFiles[_superFlyer.currentSlideIndex] = _file;
-      });
+        setState(() {
+          _superFlyer.mSlides[_superFlyer.currentSlideIndex].picFile = _file;
+        });
+      }
 
     }
 
@@ -1477,38 +1287,36 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 // -----------------------------------------------------o
   void _onFitImage(){
 
-    print('tapping on fit image : ${_superFlyer.assetsFiles.length} assets and currentPicFit was : ${_superFlyer.currentPicFit}');
+    int _i = _superFlyer.currentSlideIndex;
+    BoxFit _currentPicFit = _superFlyer.mSlides[_i].picFit;
 
-    if(_superFlyer.assetsFiles.isNotEmpty){
+    print('tapping on fit image : ${_superFlyer.mSlides.length} mSlides and _currentPicFit was : $_currentPicFit');
 
-      int index = _superFlyer.currentSlideIndex;
+    if(_superFlyer.mSlides.isNotEmpty){
 
-      if(_superFlyer.currentPicFit == BoxFit.fitWidth) {
+      if(_currentPicFit == BoxFit.fitWidth) {
         print('trying to get fit width to fit height');
         setState(() {
-          _superFlyer.currentPicFit = BoxFit.fitHeight;
-          _superFlyer.mutableSlides[index].boxFit = _superFlyer.currentPicFit;
+          _superFlyer.mSlides[_i].picFit = BoxFit.fitHeight;
         });
       }
 
-      else if (_superFlyer.currentPicFit == BoxFit.fitHeight){
+      else if (_currentPicFit == BoxFit.fitHeight){
         print('trying to get fit height to fit width');
         setState(() {
-          _superFlyer.currentPicFit = BoxFit.fitWidth;
-          _superFlyer.mutableSlides[index].boxFit = _superFlyer.currentPicFit;
+          _superFlyer.mSlides[_i].picFit = BoxFit.fitWidth;
         });
       }
 
       else {
         setState(() {
-          _superFlyer.currentPicFit = BoxFit.fitHeight;
-          _superFlyer.mutableSlides[index].boxFit = _superFlyer.currentPicFit;
+          _superFlyer.mSlides[_i].picFit = BoxFit.fitHeight;
         });
       }
 
     }
 
-    print('tapping on fit image : ${_superFlyer.assetsFiles.length} assets and currentPicFit is : ${_superFlyer.currentPicFit}');
+    print('tapping on fit image : ${_superFlyer.mSlides.length} mSlides and _currentPicFit is : $_currentPicFit');
 
   }
 // -----------------------------------------------------o
@@ -1906,7 +1714,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 // -----------------------------------------------------o
   Future<void>_selectOnMap() async {
 
-    if (_superFlyer.mutableSlides.length == 0){
+    if (_superFlyer.mSlides.length == 0){
 
       await superDialog(
         context: context,
@@ -1981,64 +1789,6 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
   }
 // -----------------------------------------------------o
-  Future<void> _onPublishFlyer() async {
-    print('publishing flyer');
-
-    _triggerLoading();
-
-    await _slideBackToSlidesPage();
-
-    FlyerModel _uploadedFlyer;
-
-    /// A - when creating new flyer
-    if (_superFlyer.edit.firstTimer == true){
-      print('first timer');
-
-      _uploadedFlyer = await _createNewFlyer();
-    }
-
-    /// A - when creating updated flyer
-    else {
-      print('updating the flyer not first timer');
-
-      _uploadedFlyer = await _updateExistingFlyer(_originalFlyer);
-    }
-
-    // /// B - update local tiny flyer
-    // if(_uploadedFlyer != null){
-
-      // /// B1 - when first time creating the flyer
-      // if(_superFlyer.firstTimer == true){
-      //   /// add the result final TinyFlyer to local list and notifyListeners
-      //   _prof.addTinyFlyerToLocalList(_uploadedTinyFlyer);
-      // }
-      //
-      // /// B1 - when updating existing flyer
-      // else {
-      //   _prof.replaceTinyFlyerInLocalList(_uploadedTinyFlyer);
-      // }
-
-    // }
-
-    // /// B - if uploaded flyer is null
-    // else {
-    //   print('_uploaded flyer is null,, very weird');
-    // }
-
-    _triggerLoading();
-
-    await superDialog(
-      context: context,
-      title: 'Great !',
-      body: _superFlyer.edit.firstTimer == true ? 'Flyer has been created' : 'Flyer has been updated',
-      boolDialog: false,
-    );
-
-    TinyFlyer _uploadedTinyFlyer = TinyFlyer.getTinyFlyerFromFlyerModel(_uploadedFlyer);
-    Nav.goBack(context, argument: _uploadedTinyFlyer);
-
-  }
-// -----------------------------------------------------o
   void _updateTinyFlyerInLocalBzTinyFlyers(TinyFlyer modifiedTinyFlyer){
     // _prof.update(modifiedTinyFlyer);
     print(' should update tiny flyer in current bz tiny flyers shof enta ezay');
@@ -2052,7 +1802,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     bool _inputsAreValid;
 
     /// when no pictures picked
-    if (_superFlyer.assetsFiles == null || _superFlyer.assetsFiles.length == 0){
+    if (_superFlyer.mSlides == null || _superFlyer.mSlides.length == 0){
       await superDialog(
         context: context,
         boolDialog: false,
@@ -2063,7 +1813,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     }
 
     /// when less than 3 pictures selected
-    else if (_superFlyer.assetsFiles.length < 3){
+    else if (_superFlyer.mSlides.length < 3){
       await superDialog(
         context: context,
         boolDialog: false,
@@ -2094,6 +1844,65 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
     return _inputsAreValid;
   }
+// -----------------------------------------------------o
+  Future<void> _onPublishFlyer() async {
+    print('publishing flyer');
+
+    _triggerLoading();
+
+    await _slideBackToSlidesPage();
+
+    FlyerModel _uploadedFlyer;
+
+    /// A - when creating new flyer
+    if (_superFlyer.edit.firstTimer == true){
+      print('first timer');
+
+      _uploadedFlyer = await _createNewFlyer();
+    }
+
+    /// A - when creating updated flyer
+    else {
+      print('updating the flyer not first timer');
+
+      _uploadedFlyer = await _updateExistingFlyer(_originalFlyer);
+    }
+
+    // /// B - update local tiny flyer
+    // if(_uploadedFlyer != null){
+
+    // /// B1 - when first time creating the flyer
+    // if(_superFlyer.firstTimer == true){
+    //   /// add the result final TinyFlyer to local list and notifyListeners
+    //   _prof.addTinyFlyerToLocalList(_uploadedTinyFlyer);
+    // }
+    //
+    // /// B1 - when updating existing flyer
+    // else {
+    //   _prof.replaceTinyFlyerInLocalList(_uploadedTinyFlyer);
+    // }
+
+    // }
+
+    // /// B - if uploaded flyer is null
+    // else {
+    //   print('_uploaded flyer is null,, very weird');
+    // }
+
+    _triggerLoading();
+
+    await superDialog(
+      context: context,
+      title: 'Great !',
+      body: _superFlyer.edit.firstTimer == true ? 'Flyer has been created' : 'Flyer has been updated',
+      boolDialog: false,
+    );
+
+    TinyFlyer _uploadedTinyFlyer = TinyFlyer.getTinyFlyerFromFlyerModel(_uploadedFlyer);
+    Nav.goBack(context, argument: _uploadedTinyFlyer);
+
+  }
+// -----------------------------------------------------o
 // -----------------------------------------------------o
 //   Future<List<SlideModel>> combineSlidesStuffInSlidesModels({
 //     List<String> picturesURLs,
@@ -2131,19 +1940,45 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
   Future<List<SlideModel>> _createSlidesModelsFromCurrentSuperFlyer() async {
     List<SlideModel> _slides = new List();
 
-    for (int i = 0; i<_superFlyer.mutableSlides.length; i++){
+    // for (int i = 0; i<_superFlyer.mutableSlides.length; i++){
+    //
+    //   SlideModel _newSlide = SlideModel(
+    //     slideIndex: i,
+    //     picURL: _superFlyer.mutableSlides[i].picURL,
+    //     headline: _superFlyer.headlinesControllers[i].text,
+    //     description: _superFlyer.descriptionsControllers[i].text,
+    //     savesCount: _superFlyer.mutableSlides[i].savesCount,
+    //     sharesCount: _superFlyer.mutableSlides[i].sharesCount,
+    //     viewsCount: _superFlyer.mutableSlides[i].viewsCount,
+    //     imageSize: _superFlyer.mutableSlides[i].imageSize,
+    //     picFit: _superFlyer.mutableSlides[i].picFit,
+    //     midColor: _superFlyer.mutableSlides[i].midColor,
+    //   );
+    //
+    //   _slides.add(_newSlide);
+    //
+    // }
+
+    return _slides;
+  }
+// -----------------------------------------------------o
+  Future<List<SlideModel>> _createSlidesFromCurrentSuperFlyer() async {
+    List<SlideModel> _slides = new List();
+
+    for (int i = 0; i<_superFlyer.mSlides.length; i++){
+
 
       SlideModel _newSlide = SlideModel(
         slideIndex: i,
-        picture: _superFlyer.mutableSlides[i].picture,
-        headline: _superFlyer.headlinesControllers[i].text,
-        description: _superFlyer.descriptionsControllers[i].text,
-        savesCount: _superFlyer.mutableSlides[i].savesCount,
-        sharesCount: _superFlyer.mutableSlides[i].sharesCount,
-        viewsCount: _superFlyer.mutableSlides[i].viewsCount,
-        imageSize: _superFlyer.mutableSlides[i].imageSize,
-        boxFit: _superFlyer.mutableSlides[i].boxFit,
-        midColor: _superFlyer.mutableSlides[i].midColor,
+        pic: _superFlyer.mSlides[i].picFile,
+        headline: _superFlyer.mSlides[i].headlineController.text,
+        description: _superFlyer.mSlides[i].descriptionController.text,
+        savesCount: _superFlyer.mSlides[i].savesCount,
+        sharesCount: _superFlyer.mSlides[i].sharesCount,
+        viewsCount: _superFlyer.mSlides[i].viewsCount,
+        imageSize: _superFlyer.mSlides[i].imageSize,
+        picFit: _superFlyer.mSlides[i].picFit,
+        midColor: _superFlyer.mSlides[i].midColor,
       );
 
       _slides.add(_newSlide);
@@ -2153,59 +1988,32 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     return _slides;
   }
 // -----------------------------------------------------o
-  Future<List<SlideModel>> _createNewSlides() async {
-    List<SlideModel> _slides = new List();
-
-    for (int i = 0; i<_superFlyer.assetsFiles.length; i++){
-
-      ImageSize _imageSize = await Imagers.superImageSize(_superFlyer.assetsFiles[i]);
-
-      SlideModel _newSlide = SlideModel(
-        slideIndex: i,
-        picture: _superFlyer.assetsFiles[i],
-        headline: _superFlyer.headlinesControllers[i].text,
-        description: _superFlyer.descriptionsControllers[i].text,
-        savesCount: 0,
-        sharesCount: 0,
-        viewsCount: 0,
-        imageSize: _imageSize,
-        boxFit: _superFlyer.mutableSlides[i].boxFit,
-        midColor: _superFlyer.mutableSlides[i].midColor,
-      );
-
-      _slides.add(_newSlide);
-
-    }
-
-    return _slides;
-  }
-// -----------------------------------------------------o
-  Future<List<SlideModel>> _createUpdatesSlides() async {
-    List<SlideModel> _slides = new List();
-
-    for (int i = 0; i<_superFlyer.assetsFiles.length; i++){
-
-      ImageSize _imageSize = await Imagers.superImageSize(_superFlyer.assetsFiles[i]);
-
-      SlideModel _newSlide = SlideModel(
-        slideIndex: i,
-        picture: _superFlyer.assetsFiles[i],
-        headline: _superFlyer.headlinesControllers[i].text,
-        description: _superFlyer.descriptionsControllers[i].text,
-        savesCount: _superFlyer.mutableSlides[i].savesCount,
-        sharesCount: _superFlyer.mutableSlides[i].sharesCount,
-        viewsCount: _superFlyer.mutableSlides[i].viewsCount,
-        boxFit: _superFlyer.mutableSlides[i].boxFit,
-        imageSize: _imageSize,
-        midColor:  _superFlyer.mutableSlides[i].midColor,
-      );
-
-      _slides.add(_newSlide);
-
-    }
-
-    return _slides;
-  }
+//   Future<List<SlideModel>> _createUpdatesSlides() async {
+//     List<SlideModel> _slides = new List();
+//
+//     for (int i = 0; i<_superFlyer.assetsFiles.length; i++){
+//
+//       ImageSize _imageSize = await Imagers.superImageSize(_superFlyer.assetsFiles[i]);
+//
+//       SlideModel _newSlide = SlideModel(
+//         slideIndex: i,
+//         picURL: _superFlyer.assetsFiles[i],
+//         headline: _superFlyer.headlinesControllers[i].text,
+//         description: _superFlyer.descriptionsControllers[i].text,
+//         savesCount: _superFlyer.mutableSlides[i].savesCount,
+//         sharesCount: _superFlyer.mutableSlides[i].sharesCount,
+//         viewsCount: _superFlyer.mutableSlides[i].viewsCount,
+//         picFit: _superFlyer.mutableSlides[i].picFit,
+//         imageSize: _imageSize,
+//         midColor:  _superFlyer.mutableSlides[i].midColor,
+//       );
+//
+//       _slides.add(_newSlide);
+//
+//     }
+//
+//     return _slides;
+//   }
 // -----------------------------------------------------o
   Future<FlyerModel> _createNewFlyer() async {
     FlyerModel _uploadedFlyerModel;
@@ -2221,7 +2029,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
 
       /// create slides models
-      List<SlideModel> _slides = await _createNewSlides();
+      List<SlideModel> _slides = await _createSlidesFromCurrentSuperFlyer();
 
       /// create tiny author model from bz.authors
       BzModel _bz = BzModel.getBzModelFromSuperFlyer(_superFlyer);
@@ -2237,7 +2045,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         flyerState: _superFlyer.flyerState,
         keywords: _superFlyer.keywords,
         flyerShowsAuthor: _superFlyer.flyerShowsAuthor,
-        flyerURL: null,
+        flyerURL: _superFlyer.flyerURL,
         flyerZone: _superFlyer.flyerZone,
         // -------------------------
         tinyAuthor: _tinyAuthor,
@@ -2285,7 +2093,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       print('A- Managing slides');
 
       /// create slides models
-      List<SlideModel> _updatedSlides = await _createUpdatesSlides();
+      List<SlideModel> _updatedSlides = await _createSlidesFromCurrentSuperFlyer();
 
       print('B- Modifying flyer');
 

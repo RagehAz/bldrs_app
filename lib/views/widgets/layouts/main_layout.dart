@@ -67,7 +67,7 @@ class MainLayout extends StatelessWidget {
   final bool canRefreshFlyers;
   final bool loading;
   final Function onBack;
-  final Key key;
+  // final Key key;
   // final List<TinyBz> myTinyBzz;
   final ScrollController appBarScrollController;
 
@@ -82,7 +82,7 @@ class MainLayout extends StatelessWidget {
     this.canRefreshFlyers = false,
     this.loading = false,
     this.onBack,
-    this.key,
+    // this.key,
     // this.myTinyBzz,
     this.appBarScrollController,
 });

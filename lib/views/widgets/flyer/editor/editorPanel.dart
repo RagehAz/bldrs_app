@@ -55,7 +55,7 @@ class EditorPanel extends StatelessWidget {
 
     AuthorModel _author = AuthorModel.getAuthorFromBzByAuthorID(bzModel, superFlyer?.authorID);
 
-    BoxFit _currentPicFit = superFlyer?.currentPicFit;
+    // BoxFit _currentPicFit = superFlyer?.currentPicFit;
 
     // ImageSize _originalAssetSize = _assets.length == 0 || _assets == null ? null : ImageSize(
     //   width: _assets[_draft.currentSlideIndex].originalWidth,
@@ -126,7 +126,7 @@ class EditorPanel extends StatelessWidget {
                       String _fileName = '${superFlyer.flyerID}_${superFlyer.currentSlideIndex}';
                       File _tempFile = await Imagers.createTempEmptyFile(_fileName);
                       File _file = await Imagers.writeUint8ListOnFile(file: _tempFile, uint8list: _screenshot);
-                      _screenShotSize = await Imagers.superImageSize(_file);
+                      _screenShotSize = await ImageSize.superImageSize(_file);
                     }).catchError((onError) {
                       print(onError);
                     });

@@ -343,34 +343,34 @@ class FlyerModel with ChangeNotifier{
     return _controllers;
   }
 // -----------------------------------------------------------------------------
-  static FlyerModel getFlyerModelFromSuperFlyer(SuperFlyer superFlyer){
-    FlyerModel _flyer;
-
-    if (superFlyer != null){
-      _flyer = FlyerModel(
-        flyerID: superFlyer.flyerID,
-        flyerType: superFlyer.flyerType,
-        flyerState: superFlyer.flyerState,
-        keywords: superFlyer.keywords,
-        flyerShowsAuthor: superFlyer.flyerShowsAuthor,
-        flyerURL: superFlyer.flyerURL,
-        flyerZone: superFlyer.flyerZone,
-        tinyAuthor: superFlyer.flyerTinyAuthor,
-        tinyBz: TinyBz.getTinyBzFromSuperFlyer(superFlyer),
-        publishTime: PublishTime.getPublishTimeFromTimes(times: superFlyer.flyerTimes, state: FlyerState.Published),
-        flyerPosition: superFlyer.position,
-        slides: superFlyer.mutableSlides,
-        flyerIsBanned: PublishTime.flyerIsBanned(superFlyer.flyerTimes),
-        deletionTime: PublishTime.getPublishTimeFromTimes(times: superFlyer.flyerTimes, state: FlyerState.Deleted),
-        ankhIsOn: superFlyer.rec.ankhIsOn,
-        specs: superFlyer.specs,
-        info: superFlyer.infoController.text,
-        // times:
-      );
-    }
-
-    return _flyer;
-  }
+//   static FlyerModel getFlyerModelFromSuperFlyer(SuperFlyer superFlyer){
+//     FlyerModel _flyer;
+//
+//     if (superFlyer != null){
+//       _flyer = FlyerModel(
+//         flyerID: superFlyer.flyerID,
+//         flyerType: superFlyer.flyerType,
+//         flyerState: superFlyer.flyerState,
+//         keywords: superFlyer.keywords,
+//         flyerShowsAuthor: superFlyer.flyerShowsAuthor,
+//         flyerURL: superFlyer.flyerURL,
+//         flyerZone: superFlyer.flyerZone,
+//         tinyAuthor: superFlyer.flyerTinyAuthor,
+//         tinyBz: TinyBz.getTinyBzFromSuperFlyer(superFlyer),
+//         publishTime: PublishTime.getPublishTimeFromTimes(times: superFlyer.flyerTimes, state: FlyerState.Published),
+//         flyerPosition: superFlyer.position,
+//         slides: SlideModel.getSlidesModelsFromMutableSlides(superFlyer.mSlides),
+//         flyerIsBanned: PublishTime.flyerIsBanned(superFlyer.flyerTimes),
+//         deletionTime: PublishTime.getPublishTimeFromTimes(times: superFlyer.flyerTimes, state: FlyerState.Deleted),
+//         ankhIsOn: superFlyer.rec.ankhIsOn,
+//         specs: superFlyer.specs,
+//         info: superFlyer.infoController.text,
+//         // times:
+//       );
+//     }
+//
+//     return _flyer;
+//   }
 }
 // -----------------------------------------------------------------------------
 enum FlyerState{

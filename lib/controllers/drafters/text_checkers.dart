@@ -38,7 +38,7 @@ class TextChecker{
       }
     }
   }
-
+// -----------------------------------------------------------------------------
   static void disposeAllTextControllers(List<TextEditingController> controllers){
 
     if(controllers != null){
