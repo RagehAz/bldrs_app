@@ -94,8 +94,9 @@ class FinalFlyer extends StatefulWidget {
   final bool inEditor; // vs inView
   final BzModel bzModel;
   final String flyerID;
+  final Key key;
 
-  const FinalFlyer({
+  FinalFlyer({
     @required this.flyerZoneWidth,
     this.flyerModel,
     this.tinyFlyer,
@@ -105,7 +106,7 @@ class FinalFlyer extends StatefulWidget {
     this.inEditor = false,
     this.bzModel,
     this.flyerID,
-    Key key
+    this.key,
   });
       // :
   // assert(isDraft != null),
@@ -293,7 +294,25 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     super.didChangeDependencies();
   }
 // -----------------------------------------------------------------------------
+  @override
+  void didUpdateWidget(covariant FinalFlyer oldFlyer) {
+    if(
+    oldFlyer.flyerID != widget.flyerID ||
+    oldFlyer.tinyFlyer != widget.tinyFlyer ||
+    oldFlyer.flyerModel != widget.flyerModel ||
+    oldFlyer.bzModel != widget.bzModel ||
+    oldFlyer.initialSlideIndex != widget.initialSlideIndex
+    ){
+      setState(() {
 
+      });
+
+      _isInit = true;
+      didChangeDependencies();
+    }
+    super.didUpdateWidget(oldFlyer);
+  }
+// -----------------------------------------------------------------------------
   /// SUPER FLYER CREATORS
 
 // -----------------------------------------------------o
