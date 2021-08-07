@@ -188,10 +188,14 @@ class MutableSlide {
   }
 // -----------------------------------------------------------------------------
   static void disposeMutableSlidesTextControllers(List<MutableSlide> mutableSlides){
-    for (MutableSlide mSlide in mutableSlides){
-      TextChecker.disposeControllerIfPossible(mSlide.headlineController);
-      TextChecker.disposeControllerIfPossible(mSlide.descriptionController);
+
+    if(mutableSlides != null && mutableSlides.length != 0){
+      for (MutableSlide mSlide in mutableSlides){
+        TextChecker.disposeControllerIfPossible(mSlide.headlineController);
+        TextChecker.disposeControllerIfPossible(mSlide.descriptionController);
+      }
     }
+
   }
 // -----------------------------------------------------------------------------
 static List<Asset> getAssetsFromMutableSlides(List<MutableSlide> mSlides){
