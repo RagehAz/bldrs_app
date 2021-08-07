@@ -41,10 +41,8 @@ class SuperFlyer{
   List<MutableSlide> mSlides; // MutableSlide
   final BzModel bz;
 
-
   /// animation parameters
   bool loading; // ??
-
 
   /// editor data
   List<ScreenshotController> screenshotsControllers; // MutableSlide
