@@ -1,6 +1,6 @@
 import 'package:bldrs/controllers/drafters/keyboarders.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
-import 'package:bldrs/controllers/localization/localization_constants.dart';
+import 'package:bldrs/controllers/localization/localizer.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/flagz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
@@ -140,7 +140,7 @@ class _LocaleBubbleState extends State<LocaleBubble> {
     List<Map<String,String>> _cities = _countryPro.getCitiesNamesMapsByIso3(context, _chosenCountryID);//_chosenCountry);
     List<Map<String,String>> _districts = _countryPro.getDistrictsNameMapsByCityID(context, _chosenCityID);//_chosenProvince);
 
-    String _chosenCountryName = _chosenCountryID == null ? '...' : translate(context, _chosenCountryID);
+    String _chosenCountryName = _chosenCountryID == null ? '...' : Localizer.translate(context, _chosenCountryID);
     String _chosenCountryFlag = _chosenCountryID == null ? '' : Flagz.getFlagByIso3(_chosenCountryID);
     String _chosenCityName = _chosenCityID == null ? '...' : _countryPro.getCityNameWithCurrentLanguageIfPossible(context, _chosenCityID);
     String _chosenDistrictName = _chosenDistrictID == null ? '...' : _countryPro.getDistrictNameWithCurrentLanguageIfPossible(context, _chosenDistrictID);

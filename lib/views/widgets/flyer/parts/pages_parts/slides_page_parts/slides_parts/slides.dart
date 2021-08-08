@@ -7,7 +7,6 @@ import 'package:bldrs/views/widgets/flyer/flyer_methods.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/footer.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/slides_parts/single_slide.dart';
 import 'package:flutter/material.dart';
-import 'package:screenshot/screenshot.dart';
 
 class Slides extends StatelessWidget {
   final SuperFlyer superFlyer;

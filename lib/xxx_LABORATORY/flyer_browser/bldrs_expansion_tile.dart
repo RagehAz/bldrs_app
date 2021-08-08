@@ -12,8 +12,9 @@ import 'package:flutter/material.dart';
 class BldrsExpansionTile extends StatefulWidget {
   final String icon;
   final double iconSizeFactor;
-  final KeysSet filterModel;
+  final KeysSet keysSet;
   final double height;
+  final double tileWidth;
   final Function onKeywordTap;
   final Function onGroupTap;
   final ValueChanged<bool> onExpansionChanged;
@@ -22,8 +23,9 @@ class BldrsExpansionTile extends StatefulWidget {
 
   const BldrsExpansionTile({
     this.icon,
+    this.tileWidth,
     this.iconSizeFactor = 1,
-    @required this.filterModel,
+    @required this.keysSet,
     @required this.selectedKeywords,
     this.height,
     @required this.onKeywordTap,
@@ -59,7 +61,7 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
 // -----------------------------------------------------------------------------
   @override
   void initState() {
-    _groupsIDs = Keyword.getGroupsIDsFromFilterModel(widget.filterModel);
+    _groupsIDs = Keyword.getGroupsIDsFromKeysSet(widget.keysSet);
 
     super.initState();
     _controller = new AnimationController(duration: _kExpand, vsync: this);
@@ -117,7 +119,7 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
 // -----------------------------------------------------------------------------
   void _setKeywords(String groupID){
     setState(() {
-    _currentKeywordModels = Keyword.getKeywordsByGroupIDAndFilterModel(filterModel: widget.filterModel, groupID: groupID);
+    _currentKeywordModels = Keyword.getKeywordsByGroupIDAndFilterModel(filterModel: widget.keysSet, groupID: groupID);
     });
   }
 // -----------------------------------------------------------------------------
@@ -192,7 +194,7 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
 
                     /// FILTER TITLE
                     title: SuperVerse(
-                      verse: widget.filterModel.titleID,
+                      verse: widget.keysSet.groupID,
                       color: _titleColor,
                       centered: false,
                       shadow: false,
@@ -200,7 +202,7 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
 
                     /// FILTER SUBTITLE
                     subtitle: SuperVerse(
-                      verse: widget.filterModel.titleID,
+                      verse: widget.keysSet.groupID,
                       color: _isExpanded ? Colorz.White200 : Colorz.White125,
                       weight: VerseWeight.thin,
                       italic: true,
@@ -247,14 +249,16 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
         ),
         margin: const EdgeInsets.symmetric(vertical: Ratioz.appBarPadding, horizontal: 0),
         child: PageView(
+          physics: const BouncingScrollPhysics(),
           controller: _pageController,
 
           children: <Widget>[
 
             /// GROUPS LIST : first list page
             new ListView(
+              physics: const BouncingScrollPhysics(),
               itemExtent: _buttonExtent,
-              
+
               children: <Widget>[
 
                 ...List.generate(_groupsIDs.length, (index){
@@ -267,7 +271,7 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
                       alignment: Alignment.center,
                       child: DreamBox(
                         height: _buttonHeight,
-                        width: Scale.superScreenWidth(context) - Ratioz.appBarMargin * 4,
+                        width: widget.tileWidth, //Scale.superScreenWidth(context) - Ratioz.appBarMargin * 4,
                         color: _groupIsSelected ? Colorz.Yellow255 : Colorz.Nothing,
                         verse: _groupID,
                         secondLine: _groupID,
@@ -309,6 +313,7 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
                 // color: Colorz.BloodTest,
               ),
               child: ListView(
+                physics: const BouncingScrollPhysics(),
                 itemExtent: _buttonExtent,
                 children: <Widget>[
 
@@ -349,7 +354,7 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
                           /// KEYWORDS
                           DreamBox(
                             height: _buttonHeight,
-                            width: Scale.superScreenWidth(context) - Ratioz.appBarMargin * 4 - _buttonHeight - Ratioz.appBarMargin,
+                            width: widget.tileWidth * 0.4,//Scale.superScreenWidth(context) - Ratioz.appBarMargin * 4 - _buttonHeight - Ratioz.appBarMargin,
                             color: _keywordIsSelected ? Colorz.Yellow255 : Colorz.Nothing,
                             verse: _keyword.keywordID,
                             secondLine: _keyword.keywordID,
@@ -357,7 +362,7 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
                             verseWeight: _keywordIsSelected ? VerseWeight.bold : VerseWeight.thin,
                             verseItalic: false,
                             verseScaleFactor: 0.7,
-                            icon: Keyword.getImagePath(_keyword.keywordID),
+                            icon: Keyword.getImagePath(_keyword),
                             iconSizeFactor: 1,
                             iconColor: Colorz.Black230,
                             margins: const EdgeInsets.symmetric(horizontal: 0, vertical: _buttonVerticalPadding),

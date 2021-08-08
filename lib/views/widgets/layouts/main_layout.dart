@@ -1,7 +1,8 @@
 import 'package:bldrs/controllers/drafters/device_checkers.dart';
 import 'package:bldrs/controllers/drafters/keyboarders.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
-import 'package:bldrs/controllers/localization/localization_constants.dart';
+import 'package:bldrs/controllers/localization/localizer.dart';
+import 'package:bldrs/controllers/localization/lingo.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
@@ -148,13 +149,13 @@ class MainLayout extends StatelessWidget {
           Rageh(
             tappingRageh: tappingRageh != null ? tappingRageh : (){print('no function here bitch');},
             doubleTappingRageh:
-            Wordz.activeLanguage(context) == 'Arabic' ?
+            Wordz.activeLanguage(context) == Lingo.Arabic ?
                 () async {
-              Locale temp = await setLocale('en');
+              Locale temp = await Localizer.setLocale(Lingo.English);
               BldrsApp.setLocale(context, temp);
             } :
                 () async {
-              Locale temp = await setLocale('ar');
+              Locale temp = await Localizer.setLocale(Lingo.Arabic);
               BldrsApp.setLocale(context, temp);
             },
           ),

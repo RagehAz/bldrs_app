@@ -18,7 +18,7 @@ class SlidesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    Tracer.traceWidgetBuild(widgetName: 'SlidesPage', varName: 'numberOfSlides', varValue: superFlyer.numberOfSlides);
+    Tracer.traceWidgetBuild(widgetName: 'SlidesPage', varName: 'numberOfSlides', varValue: superFlyer.numberOfSlides, tracerIsOn: false);
     return Stack(
       children: <Widget>[
 

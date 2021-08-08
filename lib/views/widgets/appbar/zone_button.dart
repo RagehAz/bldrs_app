@@ -1,5 +1,5 @@
 import 'package:bldrs/controllers/drafters/text_directionerz.dart';
-import 'package:bldrs/controllers/localization/localization_constants.dart';
+import 'package:bldrs/controllers/localization/localizer.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/flagz.dart';
@@ -31,7 +31,7 @@ class ZoneButton extends StatelessWidget {
     String _lastCountryID = _countryPro.currentCountryID;
     String _lastProvinceID = _countryPro.currentCityID;
     String _lastDistrictID = _countryPro.currentDistrictsID;
-    String _lastCountryName = translate(context, _lastCountryID);
+    String _lastCountryName = Localizer.translate(context, _lastCountryID);
     String _lastCountryFlag = Flagz.getFlagByIso3(_lastCountryID);
     String _lastProvinceName = _countryPro.getCityNameWithCurrentLanguageIfPossible(context, _lastProvinceID);
     String _lastDistrictName = _countryPro.getDistrictNameWithCurrentLanguageIfPossible(context, _lastDistrictID);

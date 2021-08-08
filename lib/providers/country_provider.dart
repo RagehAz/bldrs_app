@@ -1,4 +1,4 @@
-import 'package:bldrs/controllers/localization/localization_constants.dart';
+import 'package:bldrs/controllers/localization/localizer.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/dashboard/zones_manager/db_districts.dart';
 import 'package:bldrs/dashboard/zones_manager/db_countries.dart';
@@ -55,7 +55,7 @@ class CountryProvider with ChangeNotifier{
   }
 // -----------------------------------------------------------------------------
   String getCountryNameInCurrentLanguageByIso3(BuildContext context, String iso3){
-    return translate(context, iso3);
+    return Localizer.translate(context, iso3);
   }
 // -----------------------------------------------------------------------------
   /// get available countries
@@ -63,7 +63,7 @@ class CountryProvider with ChangeNotifier{
     List<Map<String,String>> _countriesMaps = new List();
     _countries.forEach((co) {
       if (co.isActivated){_countriesMaps.add(
-        { "id" : co.iso3, "value" : translate(context, co.iso3)}
+        { "id" : co.iso3, "value" : Localizer.translate(context, co.iso3)}
       );}
     });
     return _countriesMaps;
@@ -147,7 +147,7 @@ class CountryProvider with ChangeNotifier{
 
   // print('city is : ${_city.iso3} : ${_city.name} : ${_city.districts.length} : ${_city.namez}');
 
-  String _nameInCurrentLanguage = Name.getNameWithCurrentLanguageFromListOfNames(context, _city?.namez);
+  String _nameInCurrentLanguage = Name.getNameByCurrentLingoFromNames(context, _city?.namez);
 
   return _nameInCurrentLanguage == null ? cityID : _nameInCurrentLanguage;
 }
