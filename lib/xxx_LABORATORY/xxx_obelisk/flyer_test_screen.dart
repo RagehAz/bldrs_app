@@ -9,6 +9,7 @@ import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/firestore/flyer_ops.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
+import 'package:bldrs/models/flyer/nano_flyer.dart';
 import 'package:bldrs/models/flyer/sub/slide_model.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/models/secondary_models/image_size.dart';
@@ -351,38 +352,63 @@ void changeColor(Color color){
           verseScaleFactor: 0.7,
           onTap: () async {
 
-            List<dynamic> _flyerMaps = await Fire.readCollectionDocs(FireCollection.flyers);
+            List<dynamic> _bzz = await Fire.readCollectionDocs(FireCollection.bzz);
 
-            int _numberOfFlyers = _flyerMaps.length;
+            int _numberOfBzz = _bzz.length;
 
-            print('_numberOfFlyers is : $_numberOfFlyers');
+            print('_numberOfBzz is : $_numberOfBzz');
 
-            int _currentFlyer = 0;
+            int _currentBz = 0;
 
-            for (var map in _flyerMaps){
-              _currentFlyer++;
+            for (var map in _bzz){
+              _currentBz++;
 
-              FlyerModel _flyer = FlyerModel.decipherFlyerMap(map);
-              print('Flyer : $_currentFlyer :: OOO - working on flyer ---> ${_flyer.flyerID}');
+              BzModel _bz = BzModel.decipherBzMap(map);
+              print('Flyer : $_currentBz :: OOO - working on _bz ---> ${_bz.bzID}');
 
-              if(_flyer != null){
-                if(_flyer.flyerID != null){
-                  TinyFlyer _tiny = TinyFlyer.getTinyFlyerFromFlyerModel(_flyer);
-                  print('Flyer : $_currentFlyer :: OO1 - got tinyFlyer ---> ${_tiny.flyerID}');
+              if(_bz != null){
+                if(_bz.bzID != null){
+                  if(_bz.nanoFlyers.length != 0){
 
-                  setState(() {
-                    _tinyFlyer = _tiny;
-                  });
-                  print('Flyer : $_currentFlyer :: OO2 - setState for db tinyFlyer to widget');
+                    List<NanoFlyer> _nanos = _bz.nanoFlyers;
+                    print('Flyer : $_currentBz :: OO1 - got _nanos ---> ${_nanos.length} nanos');
 
-                  await Fire.updateDoc(
-                    collName: FireCollection.tinyFlyers,
-                    docName: _flyer.flyerID,
-                    context: context,
-                    input: _tiny.toMap(),
-                  );
-                  print('Flyer : $_currentFlyer :: OO3 - updated tinyFlyer in db');
+                    List<NanoFlyer> _newNanoFlyers = new List();
 
+                    for (var nano in _nanos){
+                      TinyFlyer _tiny = await FlyerOps().readTinyFlyerOps(
+                        context: context,
+                        flyerID: nano.flyerID,
+                      );
+
+                      if(_tiny != null){
+                        setState(() {
+                          _tinyFlyer = _tiny;
+                        });
+                        print('Flyer : $_currentBz :: OO2 - setState for db tinyFlyer to widget');
+
+                        NanoFlyer _newNano = NanoFlyer.getNanoFlyerFromTinyFlyer(_tiny);
+                        print('Flyer : $_currentBz :: OO3 - created new nano with mid color : ${Colorizer.cipherColor(_newNano.midColor)}');
+
+                        _newNanoFlyers.add(_newNano);
+
+                      }
+
+                    }
+
+                    List<dynamic> _maps = NanoFlyer.cipherNanoFlyers(_newNanoFlyers);
+
+                    await Fire.updateDocField(
+                      collName: FireCollection.bzz,
+                      docName: _bz.bzID,
+                      context: context,
+                      input: _maps,
+                      field: 'nanoFlyers',
+                    );
+                    print('Flyer : $_currentBz :: OO4 - updated _bz.bzID in db : ${_bz.bzID}');
+
+
+                  }
                 }
               }
 
