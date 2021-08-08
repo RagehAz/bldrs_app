@@ -7,7 +7,7 @@ class HeaderShadow extends StatelessWidget {
   final double flyerZoneWidth;
   final bool bzPageIsOn;
 
-  HeaderShadow({
+  const HeaderShadow({
     @required this.flyerZoneWidth,
     @required this.bzPageIsOn,
 });

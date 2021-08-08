@@ -158,7 +158,7 @@ class BzOps{
         collName: FireCollection.bzz,
         docName: bzID
     );
-    BzModel _bz = BzModel.decipherBzMap(bzID, _bzMap);
+    BzModel _bz = BzModel.decipherBzMap(_bzMap);
 
     return _bz;
   }

@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:bldrs/controllers/drafters/colorizers.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
+import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:flutter/foundation.dart';
 // -----------------------------------------------------------------------------
@@ -29,6 +30,7 @@ class NanoFlyer with ChangeNotifier{
       'authorID' : authorID,
       'slidePic' : slidePic,
       'flyerZone' : flyerZone.toMap(),
+      'midColor' : Colorizer.cipherColor(midColor),
     };
   }
 // -----------------------------------------------------------------------------
@@ -129,5 +131,22 @@ class NanoFlyer with ChangeNotifier{
 
   }
 // -----------------------------------------------------------------------------
+  static NanoFlyer getNanoFlyerFromTinyFlyer(TinyFlyer tinyFlyer){
+    NanoFlyer _nano;
+
+    if(tinyFlyer != null){
+      _nano = NanoFlyer(
+      flyerID : tinyFlyer.flyerID,
+      flyerType : tinyFlyer.flyerType,
+      authorID : tinyFlyer.authorID,
+      slidePic : tinyFlyer.slidePic,
+      flyerZone : tinyFlyer.flyerZone,
+      midColor : tinyFlyer.midColor,
+      );
+
+    }
+
+    return _nano;
+  }
 }
 

@@ -2389,8 +2389,8 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     // print('widget.goesToFlyer is : ${widget.goesToEditor} for ${_superFlyer.flyerID}');
 
     Tracer.traceWidgetBuild(number: 1, widgetName: 'FinalFlyer', varName: 'flyerID', varValue: _superFlyer.flyerID);
-    Tracer.traceWidgetBuild(number: 2, widgetName: 'FinalFlyer', varName: 'numberOfSlides', varValue: _superFlyer.numberOfSlides);
-    Tracer.traceWidgetBuild(number: 3, widgetName: 'FinalFlyer', varName: 'midColor', varValue: Colorizer.cipherColor(_superFlyer.mSlides[0].midColor));
+    // Tracer.traceWidgetBuild(number: 2, widgetName: 'FinalFlyer', varName: 'numberOfSlides', varValue: _superFlyer.numberOfSlides);
+    // Tracer.traceWidgetBuild(number: 3, widgetName: 'FinalFlyer', varName: 'midColor', varValue: Colorizer.cipherColor(_superFlyer.mSlides[0].midColor));
     return
         FlyerZoneBox(
           flyerZoneWidth: widget.flyerZoneWidth,
