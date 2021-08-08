@@ -243,6 +243,24 @@ class TinyFlyer with ChangeNotifier{
     return _tinyFlyer;
   }
 // -----------------------------------------------------------------------------
+  static TinyFlyer getTinyFlyerFromNanoFlyer(NanoFlyer nano){
+    TinyFlyer _tiny;
+    if(nano != null){
+      _tiny = TinyFlyer(
+          flyerID: nano.flyerID,
+          flyerType: nano.flyerType,
+          authorID: nano.authorID,
+          slideIndex: 0,
+          slidePic: nano.slidePic,
+          flyerZone: nano.flyerZone,
+          midColor: nano.midColor,
+          keywords: null,
+          picFit: null,
+          imageSize: null,
+      );
+    }
+    return _tiny;
+  }
 }
 
 

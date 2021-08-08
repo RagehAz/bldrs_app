@@ -179,9 +179,9 @@ Map<String, dynamic> toMap(){
     }
   }
 // -----------------------------------------------------------------------------
-  static BzModel decipherBzMap(String bzID, dynamic map){
+  static BzModel decipherBzMap(dynamic map){
     return BzModel(
-      bzID : bzID,
+      bzID : map['bzID'],
       // -------------------------
       bzType : decipherBzType(map['bzType']),
       bzForm : decipherBzForm(map['bzForm']),
@@ -219,7 +219,7 @@ Map<String, dynamic> toMap(){
     List<BzModel> _bzList = new List();
 
     bigMap?.forEach((bzID, bzMap) {
-      _bzList.add(decipherBzMap(bzID, bzMap));
+      _bzList.add(decipherBzMap(bzMap));
     });
 
     return _bzList;
@@ -229,7 +229,7 @@ Map<String, dynamic> toMap(){
     List<BzModel> _bzList = new List();
 
     maps?.forEach((map) {
-      _bzList.add(decipherBzMap(map['bzID'], map));
+      _bzList.add(decipherBzMap(map));
     });
 
     return _bzList;
