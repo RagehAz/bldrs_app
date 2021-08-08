@@ -61,11 +61,13 @@ class AuthorLabel extends StatelessWidget {
     // --- FOLLOWERS COUNTER --- --- --- --- --- --- --- --- --- --- --- FOLLOWERS COUNTER
     int _followersCount = tinyBz.bzTotalFollowers;
     int _bzGalleryCount = tinyBz.bzTotalFlyers;
+
+    String _galleryCountCalibrated = Numberers.counterCaliber(context, _bzGalleryCount);
     String _followersCounter =
     (authorGalleryCount == 0 && _followersCount == 0) || (authorGalleryCount == null && _followersCount == null) ? '' :
     showLabel == true ?
         '${Numberers.separateKilos(authorGalleryCount)} ${Wordz.flyers(context)}' :
-        '${Numberers.counterCaliber(context, _followersCount)} ${Wordz.followers(context)} . ${Numberers.counterCaliber(context, _bzGalleryCount)} ${Wordz.flyers(context)}';
+        '${Numberers.counterCaliber(context, _followersCount)} ${Wordz.followers(context)} . $_galleryCountCalibrated ${Wordz.flyers(context)}';
 // -----------------------------------------------------------------------------
     double _authorImageCorners = flyerZoneWidth * Ratioz.xxflyerAuthorPicCorner;
 // -----------------------------------------------------------------------------

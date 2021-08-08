@@ -9,6 +9,7 @@ import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/mutables/mutable_slide.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/flyer/sub/spec_model.dart';
+import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/bz/author_model.dart';
 import 'package:bldrs/models/secondary_models/contact_model.dart';
@@ -74,7 +75,7 @@ class SuperFlyer{
   /// flyer tags
   String flyerInfo; // MutableFlyer -- ?
   List<Spec> specs; // MutableFlyer -- ?
-  List<dynamic> keywords; // MutableFlyer -- ?
+  List<Keyword> keywords; // MutableFlyer -- ?
 
   /// flyer location
   Zone flyerZone; // MutableFlyer -- ?
@@ -410,7 +411,7 @@ class SuperFlyer{
     @required Function onAnkhTap,
   }){
 
-    print('CREATING view super flyer from tiny flyer : ${tinyFlyer.flyerID} : ${tinyFlyer?.flyerType} : : ${tinyFlyer?.tinyBz?.bzName}');
+    print('CREATING view super flyer from tiny flyer : ${tinyFlyer.flyerID} : ${tinyFlyer?.midColor} : : ${tinyFlyer?.tinyBz?.bzName}');
 
     FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
 

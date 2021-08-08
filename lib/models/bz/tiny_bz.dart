@@ -83,15 +83,20 @@ class TinyBz with ChangeNotifier{
   }
 // -----------------------------------------------------------------------------
   static TinyBz decipherTinyBzMap(dynamic map){
-    return TinyBz(
-      bzID: map['bzID'],
-      bzLogo: map['bzLogo'],
-      bzName: map['bzName'],
-      bzType: BzModel.decipherBzType(map['bzType']),
-      bzZone: Zone.decipherZoneMap(map['bzZone']),
-      bzTotalFollowers: map['bzTotalFollowers'],
-      bzTotalFlyers: map['bzTotalFlyers'],
-    );
+    TinyBz _tinyBz;
+
+    if(map != null){
+      _tinyBz = TinyBz(
+        bzID: map['bzID'],
+        bzLogo: map['bzLogo'],
+        bzName: map['bzName'],
+        bzType: BzModel.decipherBzType(map['bzType']),
+        bzZone: Zone.decipherZoneMap(map['bzZone']),
+        bzTotalFollowers: map['bzTotalFollowers'],
+        bzTotalFlyers: map['bzTotalFlyers'],
+      );
+    }
+    return _tinyBz;
   }
 // -----------------------------------------------------------------------------
   static List<TinyBz> decipherTinyBzzMaps(List<dynamic> maps){
