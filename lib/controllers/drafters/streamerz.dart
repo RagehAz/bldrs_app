@@ -154,7 +154,7 @@ Widget bzModelBuilder({
           } else {
 
             Map<String, dynamic> _map = snapshot.data;
-            BzModel bzModel = BzModel.decipherBzMap(_map['bzID'], _map);
+            BzModel bzModel = BzModel.decipherBzMap(_map);
 
             return builder(context, bzModel);
           }

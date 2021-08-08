@@ -728,7 +728,7 @@ class FlyersProvider with ChangeNotifier {
 // -----------------------------------------------------------------------------
   BzModel _bzModelFromSnapshot(DocumentSnapshot doc){
   var _map = doc.data();
-  BzModel _bzModel = BzModel.decipherBzMap(_map['bzID'], _map);
+  BzModel _bzModel = BzModel.decipherBzMap(_map);
   return _bzModel;
   }
 // -----------------------------------------------------------------------------
