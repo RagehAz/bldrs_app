@@ -24,6 +24,77 @@ class Keyword {
     this.names,
 });
 // -----------------------------------------------------------------------------
+  static Map<String, dynamic> cipherKeyword(Keyword keyword){
+    Map<String, dynamic> _map;
+
+    if(keyword != null){
+      _map = {
+        'keywordID': keyword.keywordID,
+        'flyerType': FlyerTypeClass.cipherFlyerType(keyword.flyerType),
+        'groupID': keyword.groupID,
+        'subGroupID': keyword.subGroupID,
+        'uses': keyword.uses,
+        'names': Name.cipherNamezz(keyword.names),
+      };
+
+    }
+
+    return _map;
+  }
+// -----------------------------------------------------------------------------
+  static List<Map<String, dynamic>> cipherKeywords(List<Keyword> keywords){
+    List<Map<String, dynamic>> _maps = new List();
+
+    if (keywords != null){
+      if (keywords.length != 0){
+        for (var keyword in keywords){
+          Map<String, dynamic> _map = cipherKeyword(keyword);
+          _maps.add(_map);
+        }
+      }
+    }
+
+    return _maps;
+  }
+// -----------------------------------------------------------------------------
+  static Keyword decipherKeyword(Map<String, dynamic> map){
+    Keyword _keyword;
+
+    if (map != null){
+      _keyword = Keyword(
+        flyerType: FlyerTypeClass.decipherFlyerType(map['flyerType']),
+        groupID: map['groupID'],
+        keywordID: map['keywordID'],
+        subGroupID: map['subGroupID'],
+        uses: map['uses'],
+        names: Name.decipherNamezzMaps(map['names']),
+      );
+    }
+
+    return _keyword;
+  }
+
+  static List<Keyword> decipherKeywords(List<dynamic> maps){
+    List<Keyword> _keywords = new List();
+
+    if (maps != null){
+      if(maps.length != null){
+        for (var map in maps){
+
+          if(map.runtimeType == String){
+
+          }
+          else {
+            _keywords.add(decipherKeyword(map));
+          }
+
+        }
+      }
+    }
+
+    return _keywords;
+  }
+// -----------------------------------------------------------------------------
   static String getImagePath(String id){
     return 'assets/keywords/$id.jpg';
   }
@@ -41,6 +112,27 @@ class Keyword {
             true : false;
 
     return _keywordsAreTheSame;
+  }
+// -----------------------------------------------------------------------------
+  static bool KeywordsListsAreTheSame(List<Keyword> listA, List<Keyword> listB){
+    bool _same;
+
+    if(listA != null && listB != null){
+      if (listA.length == listB.length){
+        for (int i = 0; i < listA.length; i++){
+
+          if (KeywordsAreTheSame(listA[i], listB[i]) == true){
+            _same = true;
+          }
+          else {
+            _same = false;
+            break;
+          }
+        }
+      }
+    }
+
+    return _same;
   }
 // -----------------------------------------------------------------------------
   static bool isIconless(Keyword keywordModel){

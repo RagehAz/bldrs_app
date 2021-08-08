@@ -120,10 +120,13 @@ class Colorizer{
   }
 // -----------------------------------------------------------------------------
   static String cipherColor(Color color){
-    int _alpha = color.alpha;
-    int _r = color.red;
-    int _g = color.green;
-    int _b = color.blue;
+
+      Color _color = color == null ? Colorz.Nothing : color;
+
+      int _alpha = _color.alpha;
+      int _r = _color.red;
+      int _g = _color.green;
+      int _b = _color.blue;
 
     String _string = '${_alpha}*${_r}*${_g}*${_b}';
     return _string;
