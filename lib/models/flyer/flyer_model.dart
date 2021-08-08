@@ -3,6 +3,7 @@ import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/flyer/sub/spec_model.dart';
+import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/flyer/records/publish_time_model.dart';
 import 'package:bldrs/models/flyer/sub/slide_model.dart';
@@ -18,7 +19,7 @@ class FlyerModel with ChangeNotifier{
   // -------------------------
   final FlyerType flyerType;
   final FlyerState flyerState;
-  final List<dynamic> keywords;
+  final List<Keyword> keywords;
   final bool flyerShowsAuthor;
   final String flyerURL;
   final Zone flyerZone;
@@ -186,7 +187,7 @@ class FlyerModel with ChangeNotifier{
         // -------------------------
         flyerType: FlyerTypeClass.decipherFlyerType(map['flyerType']),
         flyerState: FlyerModel.decipherFlyerState(map['flyerState']),
-        keywords: map['keyWords'],
+        keywords: Keyword.decipherKeywords(map['keyWords']),
         flyerShowsAuthor: map['flyerShowsAuthor'],
         flyerURL: map['flyerURL'],
         flyerZone: Zone.decipherZoneMap(map['flyerZone']),
@@ -206,7 +207,6 @@ class FlyerModel with ChangeNotifier{
       );
 
     }
-
     return _flyerModel;
   }
 // -----------------------------------------------------------------------------

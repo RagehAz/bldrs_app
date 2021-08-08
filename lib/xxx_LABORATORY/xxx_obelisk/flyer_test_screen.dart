@@ -177,6 +177,22 @@ void changeColor(Color color){
   });
 }
 // -----------------------------------------------------------------------------
+  bool _someSizeMissing(FlyerModel flyer){
+  bool _isMissing = false;
+
+  if(flyer != null){
+    if(flyer.slides != null && flyer.slides.length != 0){
+      for (var slide in flyer.slides){
+        if(slide.imageSize == null){
+          _isMissing = true;
+        }
+      }
+    }
+  }
+
+  return _isMissing;
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -316,7 +332,7 @@ void changeColor(Color color){
           height: 80,
           width: 300,
           verse: 'firstID : 1ghM9LA8pkDxLcAHNyj2',
-          secondLine: 'current ID : ${_tinyFlyer.flyerID}',
+          secondLine: 'current ID : ${_tinyFlyer?.flyerID}',
           verseScaleFactor: 0.7,
           onTap: () => changeFlyer('1ghM9LA8pkDxLcAHNyj2'),
         ),
@@ -324,7 +340,7 @@ void changeColor(Color color){
           height: 80,
           width: 300,
           verse: 'firstID : 2fDlDyF01sw8GEYPJ9GN',
-          secondLine: 'current ID : ${_tinyFlyer.flyerID}',
+          secondLine: 'current ID : ${_tinyFlyer?.flyerID}',
           verseScaleFactor: 0.7,
           onTap: () => changeFlyer('2fDlDyF01sw8GEYPJ9GN'),
         ),
@@ -335,72 +351,40 @@ void changeColor(Color color){
           verseScaleFactor: 0.7,
           onTap: () async {
 
-            List<Map<String, dynamic>> _flyerMaps = await Fire.readCollectionDocs(FireCollection.flyers);
+            List<dynamic> _flyerMaps = await Fire.readCollectionDocs(FireCollection.flyers);
+
+            int _numberOfFlyers = _flyerMaps.length;
+
+            print('_numberOfFlyers is : $_numberOfFlyers');
+
+            int _currentFlyer = 0;
 
             for (var map in _flyerMaps){
+              _currentFlyer++;
+
               FlyerModel _flyer = FlyerModel.decipherFlyerMap(map);
+              print('Flyer : $_currentFlyer :: OOO - working on flyer ---> ${_flyer.flyerID}');
 
-              TinyFlyer _tiny = TinyFlyer.getTinyFlyerFromFlyerModel(_flyer);
+              if(_flyer != null){
+                if(_flyer.flyerID != null){
+                  TinyFlyer _tiny = TinyFlyer.getTinyFlyerFromFlyerModel(_flyer);
+                  print('Flyer : $_currentFlyer :: OO1 - got tinyFlyer ---> ${_tiny.flyerID}');
 
-              setState(() {
-                _tinyFlyer = _tiny;
-              });
+                  setState(() {
+                    _tinyFlyer = _tiny;
+                  });
+                  print('Flyer : $_currentFlyer :: OO2 - setState for db tinyFlyer to widget');
 
-              print('OOO - working on flyer ---> ${_flyer.flyerID}');
-              if(_tiny.midColor == null){
-
-                List<SlideModel> _newSlides;
-                SlideModel _newSlide;
-
-                for (var slide in _flyer.slides){
-
-                  Color _midColor = await Colorizer.getAverageColor(slide.pic);
-
-                  _newSlide = SlideModel(
-                    picFit: slide.picFit,
-                    imageSize: slide.imageSize,
-                    midColor: _midColor,
-                    description: slide.description,
-                    savesCount: slide.savesCount,
-                    sharesCount: slide.sharesCount,
-                    viewsCount: slide.viewsCount,
-                    slideIndex: slide.slideIndex,
-                    pic: slide.pic,
-                    headline: slide.headline,
+                  await Fire.updateDoc(
+                    collName: FireCollection.tinyFlyers,
+                    docName: _flyer.flyerID,
+                    context: context,
+                    input: _tiny.toMap(),
                   );
-                  _newSlides.add(_newSlide);
+                  print('Flyer : $_currentFlyer :: OO3 - updated tinyFlyer in db');
+
                 }
-
-                await Fire.updateDocField(
-                  context: context,
-                  collName: FireCollection.flyers,
-                  docName: _flyer.flyerID,
-                  field: 'slides',
-                  input: _newSlides,
-                );
-
-                _newSlides = null;
-                _newSlide = null;
-
-                TinyFlyer _updatedTinyFlyer = TinyFlyer(
-                  slideIndex: 0,
-                  midColor: _flyer.slides[0].midColor,
-                  flyerID: _flyer.flyerID,
-                  flyerZone: _flyer.flyerZone,
-                  authorID: _flyer.tinyAuthor.userID,
-                  flyerType: _flyer.flyerType,
-                  slidePic: _flyer.slides[0].pic,
-                  picFit: _flyer.slides[0].picFit,
-                  keywords: _flyer.keywords,
-                  tinyBz: _flyer.tinyBz,
-                );
-
-                setState(() {
-                  _tinyFlyer = _updatedTinyFlyer;
-                });
-
               }
-
 
             }
 

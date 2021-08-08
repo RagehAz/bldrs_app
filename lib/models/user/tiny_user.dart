@@ -47,8 +47,10 @@ class TinyUser {
   }
 // -----------------------------------------------------------------------------
   static TinyUser decipherTinyUserMap(Map<String, dynamic> map){
-    return
-      TinyUser(
+    TinyUser _tinyUser;
+
+    if(map != null){
+      _tinyUser = TinyUser(
         userID: map['userID'],
         name: map['name'],
         title: map['title'],
@@ -57,6 +59,9 @@ class TinyUser {
         email: map['email'],
         phone: map['phone'],
       );
+    }
+
+    return _tinyUser;
   }
 // -----------------------------------------------------------------------------
   static TinyUser getTinyUserFromUserModel(UserModel userModel){

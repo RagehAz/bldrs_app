@@ -1,12 +1,16 @@
 import 'package:bldrs/controllers/drafters/colorizers.dart';
+import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
+import 'package:bldrs/models/flyer/sub/slide_model.dart';
+import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/flyer/nano_flyer.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
+import 'package:bldrs/models/secondary_models/image_size.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
@@ -22,7 +26,8 @@ class TinyFlyer with ChangeNotifier{
   final Zone flyerZone;
   final BoxFit picFit;
   final Color midColor;
-  final List<dynamic> keywords;
+  final List<Keyword> keywords;
+  final ImageSize imageSize;
 
   TinyFlyer({
     @required this.flyerID,
@@ -33,8 +38,9 @@ class TinyFlyer with ChangeNotifier{
     @required this.slidePic,
     @required this.flyerZone,
     @required this.midColor,
-    this.keywords, /// TASK : integrate keywords in tiny flyers
-    this.picFit, /// TASK : integrate this in all below methods
+    @required this.keywords, /// TASK : integrate keywords in tiny flyers
+    @required this.picFit, /// TASK : integrate this in all below methods
+    @required this.imageSize,
   });
 // -----------------------------------------------------------------------------
   Map<String,dynamic> toMap (){
@@ -47,6 +53,9 @@ class TinyFlyer with ChangeNotifier{
       'slidePic' : slidePic,
       'flyerZone' : flyerZone.toMap(),
       'midColor' : Colorizer.cipherColor(midColor),
+      'keywords' : Keyword.cipherKeywords(keywords),
+      'picFit' : SlideModel.cipherBoxFit(picFit),
+      'imageSize' : imageSize.toMap(),
     };
   }
 // -----------------------------------------------------------------------------
@@ -55,7 +64,14 @@ class TinyFlyer with ChangeNotifier{
 
     if (finalFlyer.flyerType != originalFlyer.flyerType) {tinyFlyersAreTheSame = false;}
     else if (TinyBz.tinyBzzAreTheSame(finalFlyer.tinyBz, originalFlyer.tinyBz) == false) {tinyFlyersAreTheSame = false;}
+    else if(Keyword.KeywordsListsAreTheSame(finalFlyer.keywords, originalFlyer.keywords) == false) {tinyFlyersAreTheSame = false;}
+
     else if (finalFlyer.slides[0].pic != originalFlyer.slides[0].pic) {tinyFlyersAreTheSame = false;}
+    else if (finalFlyer.slides[0].picFit != originalFlyer.slides[0].picFit) {tinyFlyersAreTheSame = false;}
+    else if (Colorizer.colorsAreTheSame(finalFlyer.slides[0].midColor, originalFlyer.slides[0].midColor) == false) {tinyFlyersAreTheSame = false;}
+
+    else if (finalFlyer.slides[0].imageSize.width != originalFlyer.slides[0].imageSize.width) {tinyFlyersAreTheSame = false;}
+    else if (finalFlyer.slides[0].imageSize.height != originalFlyer.slides[0].imageSize.height) {tinyFlyersAreTheSame = false;}
 
     else if (finalFlyer.flyerZone.countryID != originalFlyer.flyerZone.countryID) {tinyFlyersAreTheSame = false;}
     else if (finalFlyer.flyerZone.cityID != originalFlyer.flyerZone.cityID) {tinyFlyersAreTheSame = false;}
@@ -84,23 +100,37 @@ class TinyFlyer with ChangeNotifier{
       slidePic: map['slidePic'],
       flyerZone: Zone.decipherZoneMap(map['flyerZone']),
       midColor: Colorizer.decipherColor(map['midColor']),
+      keywords: Keyword.decipherKeywords(map['keywords']),
+      picFit: SlideModel.decipherBoxFit(map['picFit']),
+      imageSize: ImageSize.decipherImageSize(map['imageSize']),
       // keywords: Keyword.de
     );
   }
 // -----------------------------------------------------------------------------
   static TinyFlyer getTinyFlyerFromFlyerModel(FlyerModel flyerModel){
-    return TinyFlyer(
-      flyerID: flyerModel?.flyerID,
-      flyerType: flyerModel?.flyerType,
-      authorID: flyerModel?.tinyAuthor?.userID,
-      slideIndex: 0,
-      slidePic: flyerModel == null ? null : flyerModel?.slides[0]?.pic,
-      midColor: flyerModel == null ? null : flyerModel?.slides[0]?.midColor,
-      picFit: flyerModel == null ? null : flyerModel?.slides[0]?.picFit,
-      tinyBz: flyerModel?.tinyBz,
-      flyerZone: flyerModel?.flyerZone,
-      keywords: flyerModel?.keywords,
-    );
+    TinyFlyer _tinyFlyer;
+
+    if(flyerModel != null){
+      if(flyerModel.slides != null){
+        if(flyerModel.slides.length != 0){
+          _tinyFlyer =TinyFlyer(
+            flyerID: flyerModel?.flyerID,
+            flyerType: flyerModel?.flyerType,
+            authorID: flyerModel?.tinyAuthor?.userID,
+            slideIndex: 0,
+            slidePic: flyerModel == null ? null : flyerModel?.slides[0]?.pic,
+            midColor: flyerModel == null ? null : flyerModel?.slides[0]?.midColor,
+            picFit: flyerModel == null ? null : flyerModel?.slides[0]?.picFit,
+            tinyBz: flyerModel?.tinyBz,
+            flyerZone: flyerModel?.flyerZone,
+            keywords: flyerModel?.keywords,
+            imageSize: flyerModel == null ? null : flyerModel?.slides[0]?.imageSize,
+          );
+        }
+      }
+    }
+
+    return _tinyFlyer;
   }
 // -----------------------------------------------------------------------------
   static List<dynamic> cipherTinyFlyers (List<TinyFlyer> tinyFlyers){
@@ -130,6 +160,9 @@ class TinyFlyer with ChangeNotifier{
               tinyBz: TinyBz.getTinyBzFromBzModel(bzModel),
               flyerZone: nano.flyerZone,
               midColor: nano.midColor,
+              imageSize: null, // TASK : fix this shit
+              picFit: null,
+              keywords: null,
             )
         );
       }
@@ -177,6 +210,7 @@ class TinyFlyer with ChangeNotifier{
       picFit: BoxFit.cover,
       midColor: Colorz.Black255,
       keywords: List(),
+      imageSize: null,
     );
   }
 // -----------------------------------------------------------------------------
@@ -203,6 +237,7 @@ class TinyFlyer with ChangeNotifier{
       picFit: superFlyer.mSlides[superFlyer.currentSlideIndex].picFit,
       keywords: superFlyer.keywords,
       midColor: superFlyer.mSlides[superFlyer.currentSlideIndex].midColor,
+      imageSize: superFlyer.mSlides[superFlyer.currentSlideIndex].imageSize,
     );
 
     return _tinyFlyer;
