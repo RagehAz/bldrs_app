@@ -1,22 +1,27 @@
+import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
+import 'package:bldrs/models/secondary_models/namez_model.dart';
+import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:bldrs/xxx_LABORATORY/flyer_browser/bldrs_expansion_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:bldrs/models/keywords/keys_set.dart';
 
 class KeywordsManager extends StatefulWidget {
+
   @override
   _KeywordsManagerState createState() => _KeywordsManagerState();
 }
 
 class _KeywordsManagerState extends State<KeywordsManager> {
-  bool _isExpanded = false;
-  List<GlobalKey<BldrsExpansionTileState>> _expansionKeys = new List();
   List<Keyword> _selectedKeywords = new List();
-  List<String> _filtersIDs;
 // -----------------------------------------------------------------------------
   /// --- LOADING BLOCK
   bool _loading = false;
@@ -28,108 +33,120 @@ class _KeywordsManagerState extends State<KeywordsManager> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
-    _filtersIDs = <String>[];
-    generateExpansionKeys();
     super.initState();
-  }
-// -----------------------------------------------------------------------------
-  void generateExpansionKeys(){
-    _filtersIDs.forEach((id) {
-      _expansionKeys.add(new GlobalKey());
-    });
-  }
-// -----------------------------------------------------------------------------
-  List<String> getKeywordIDs(List<Keyword> _keywordModels){
-    List<String> _keywordIDs = new List();
-
-    _keywordModels.forEach((key) {
-      _keywordIDs.add(key.keywordID);
-    });
-
-    return _keywordIDs;
   }
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
+    List<Keyword> _allKeywords = Keyword.bldrsKeywords();
+
+    double _screenWidth  = Scale.superScreenWidth(context);
+    double _screenHeight = Scale.superScreenHeight(context);
+
+    double _keywordButtonHeight = 90;
+    double _buttonWidth = _screenWidth * 0.8;
+    const double _spacing = Ratioz.appBarPadding;
+
     return MainLayout(
-      pageTitle: 'Keywords And Filters Manager',
-      // appBarBackButton: true,
+      pageTitle: 'All Keywords',
       appBarType: AppBarType.Basic,
       pyramids: Iconz.PyramidsYellow,
       loading: _loading,
-      tappingRageh: (){
-
-        List<Keyword> _result = Keyword.getKeywordsBySection(Section.Products);
-        //
-
-        _result.forEach((key) {
-          print('KeywordModel(id: \'${key.keywordID}\', filterID: \'${key.flyerType}\', groupID: \'${key.groupID}\', subGroupID: \'${key.subGroupID}\', uses: 0),');
-        });
-
-
-      },
       sky: Sky.Night,
-      // tappingRageh: (){
-      //   // if(_isExpanded){
-      //   //   _expansionTileKey.currentState.collapse();
-      //   // } else {
-      //   //   _expansionTileKey.currentState.expand();
-      //   // }
-      //
-      //   setState(() {
-      //     _isExpanded =! _isExpanded;
-      //   });
-      //
-      // },
       layoutWidget: Container(
         width: Scale.superScreenWidth(context) - Ratioz.appBarMargin * 2, // this dictates overall width
-        child: ListView(
-          children: <Widget>[
+        child: Scrollbar(
+          isAlwaysShown: false,
+          radius: Radius.circular(Ratioz.appBarPadding * 0.5),
+          thickness: Ratioz.appBarPadding,
+          // controller: ,
+          // key: ,
+          child: ListView.builder(
+            itemCount: _allKeywords.length,
+            physics: const BouncingScrollPhysics(),
+            padding: const EdgeInsets.only(top: Ratioz.stratosphere, bottom: Ratioz.stratosphere),
+            itemExtent: _keywordButtonHeight + _spacing,
+            itemBuilder: (ctx, index){
 
-            Stratosphere(),
+              Keyword _keyword = _allKeywords[index];
+              String _keywordID = _allKeywords[index].keywordID;
+              String _icon = Keyword.getImagePath(_keyword);
+              String _keywordName = Keyword.getKeywordNameByKeywordID(context, _keywordID);
+              String _groupID = _keyword.groupID;
+              String _subGroupID = _keyword.subGroupID == '' ? '...' : _keyword.subGroupID;
+              int _uses = _keyword.uses;
+              FlyerType _keywordFlyerType = _keyword.flyerType;
+              List<Name> _keywordNames = _keyword.names;
+              String _arabicName = Keyword.getKeywordArabicName(_keyword);
 
-            ...List.generate(
-                _filtersIDs.length,
-                    (index){
+              return
+                  Container(
+                    width: _buttonWidth,
+                    height: _keywordButtonHeight,
+                    margin: const EdgeInsets.only(bottom: _spacing),
+                    decoration: BoxDecoration(
+                      borderRadius: Borderers.superBorderAll(context, Ratioz.appBarCorner),
+                      color: Colorz.BloodTest,
+                    ),
+                    child: Row(
+                      children: <Widget>[
 
-                  String _filterID = _filtersIDs[index];
+                        DreamBox(
+                          height: _keywordButtonHeight,
+                          width: _keywordButtonHeight,
+                          icon: _icon,
+                          bubble: false,
+                        ),
 
-                  return
-                    BldrsExpansionTile(
-                      height: Scale.superScreenHeight(context) * 0.5,
-                      key: _expansionKeys[index],
-                      // icon: KeywordModel.getImagePath(_filterID),
-                      iconSizeFactor: 0.5,
-                      filterModel: null,
-                      selectedKeywords: _selectedKeywords,
-                      onKeywordTap: (Keyword selectedKeyword){
+                        SizedBox(
+                          width: _spacing,
+                        ),
 
-                        if (_selectedKeywords.contains(selectedKeyword)){
-                          setState(() {
-                            print('a77a');
-                          _selectedKeywords.remove(selectedKeyword);
-                          });
-                        }
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
 
-                        else {
-                          setState(() {
-                            _selectedKeywords.add(selectedKeyword);
-                          });
-                        }
+                            /// index - ID
+                            SuperVerse(
+                              verse: '$index : ID : $_keywordID',
+                              size: 1,
+                            ),
 
-                      },
+                            /// name
+                            SuperVerse(
+                              verse: _keywordName,
+                              size: 2,
+                            ),
 
-                      onGroupTap: (String groupID){
+                            /// GroupID
+                            SuperVerse(
+                              verse: _groupID,
+                              size: 1,
+                              weight: VerseWeight.thin,
+                            ),
 
-                      },
-                    );
 
-            }),
+                            /// subGroupID
+                            SuperVerse(
+                              verse: _subGroupID,
+                              size: 1,
+                              weight: VerseWeight.thin,
+                            ),
 
-            PyramidsHorizon(heightFactor: 5,),
+                            SuperVerse(
+                              verse: _arabicName,
+                            ),
 
-          ],
+                          ],
+                        ),
+                      ],
+                    ),
+                  );
+            },
+
+          ),
         ),
       ),
     );

@@ -86,6 +86,7 @@ class ListLayout extends StatelessWidget {
                     height: _bubbleHeight - (Ratioz.appBarMargin * 5),
                     child: ListView.builder(
                       physics: const BouncingScrollPhysics(),
+
                       shrinkWrap: false,
                       itemCount: idValueMaps.length,
                       itemBuilder: (context, index){
@@ -105,6 +106,7 @@ class ListLayout extends StatelessWidget {
                               color: Colorz.White10,
                               // textDirection: superTextDirection(context),
                               onTap: () => onItemTap(idValueMaps[index]['id']),
+                              verseCentered: true,
                             ),
                           );
 

@@ -1,6 +1,6 @@
 import 'package:bldrs/controllers/drafters/aligners.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
-import 'package:bldrs/controllers/localization/localization_constants.dart';
+import 'package:bldrs/controllers/localization/localizer.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
@@ -128,8 +128,8 @@ class _AnkhButtonState extends State<AnkhButton> with SingleTickerProviderStateM
     ) ;
 
 
-    String _saveBTVerse = widget.ankhIsOn == true ? translate(context, 'Saved') :
-    translate(context, 'Save');
+    String _saveBTVerse = widget.ankhIsOn == true ? Localizer.translate(context, 'Saved') :
+    Localizer.translate(context, 'Save');
     Color _saveBTColor = _ankhIsOn == true ? Colorz.Yellow80 : Colorz.White10;
 // -----------------------------------------------------------------------------
     // Color flyerShadowColor = ankhIsOn == true ? Colorz.BlackBlack : Colorz.BlackBlack;

@@ -108,11 +108,11 @@ class _BrowserPagesState extends State<BrowserPages> {
   }
 // -----------------------------------------------------------------------------
   void _onFilterTap(KeysSet filterModel){
-    print('tapping filter : ${filterModel.titleID}');
+    print('tapping filter : ${filterModel.groupID}');
 
     setState(() {
       _currentFilter = filterModel;
-      _groups = Keyword.getGroupsIDsFromFilterModel(filterModel);
+      _groups = Keyword.getGroupsIDsFromKeysSet(filterModel);
       _currentGroupID = null;
       _keywords = new List();
     });
@@ -160,9 +160,9 @@ class _BrowserPagesState extends State<BrowserPages> {
         ''
         :
     _currentGroupID == null ?
-    '${_currentFilter.titleID}'
+    '${_currentFilter.groupID}'
         :
-    '${_currentFilter.titleID} / $_currentGroupID';
+    '${_currentFilter.groupID} / $_currentGroupID';
 
     return _path;
   }

@@ -1,7 +1,4 @@
-import 'dart:io';
 import 'dart:typed_data';
-import 'package:bldrs/controllers/drafters/animators.dart';
-import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/sliders.dart';
 import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
@@ -11,11 +8,7 @@ import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/flyer/sub/spec_model.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
-import 'package:bldrs/models/bz/author_model.dart';
-import 'package:bldrs/models/secondary_models/contact_model.dart';
 import 'package:bldrs/models/flyer/records/publish_time_model.dart';
-import 'package:bldrs/models/flyer/sub/slide_model.dart';
-import 'package:bldrs/models/flyer/nano_flyer.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/models/user/tiny_user.dart';
@@ -23,9 +16,7 @@ import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:provider/provider.dart';
-import 'package:screenshot/screenshot.dart';
 import 'package:bldrs/models/flyer/mutables/flyer_navigator.dart';
 import 'package:bldrs/models/flyer/mutables/flyer_recorder.dart';
 import 'package:bldrs/models/flyer/mutables/flyer_editor.dart';
@@ -46,7 +37,6 @@ class SuperFlyer{
   bool loading; // ??
 
   /// editor data
-  List<ScreenshotController> screenshotsControllers; // MutableSlide
   List<Uint8List> screenShots; // --?
 
   TextEditingController infoController;
@@ -105,7 +95,6 @@ class SuperFlyer{
 
     /// editor data
     @required this.infoController,
-    @required this.screenshotsControllers,
     this.screenShots,
 
     /// slides settings
@@ -211,7 +200,6 @@ class SuperFlyer{
           loading: false,
 
           infoController: null,
-          screenshotsControllers: null,
           screenShots: null,
 
           /// slides settings
@@ -361,7 +349,6 @@ class SuperFlyer{
         loading: false,
 
         infoController: null,
-        screenshotsControllers: null,
         screenShots: null,
 
         /// slides settings
@@ -522,7 +509,6 @@ class SuperFlyer{
 
         /// editor data
         infoController: null,
-        screenshotsControllers: null,
         screenShots: null,
 
         /// slides settings
@@ -690,7 +676,6 @@ class SuperFlyer{
 
         /// editor data
         infoController: new TextEditingController(),
-        screenshotsControllers: new List(),
         screenShots: new List(),
 
         /// slides settings
@@ -860,7 +845,6 @@ class SuperFlyer{
 
         /// editor data
         infoController: new TextEditingController(text: flyerModel.info),
-        screenshotsControllers: FlyerModel.createScreenShotsControllersForExistingFlyer(flyerModel),
         // screenShots: await Imagers.getScreenShotsFromFiles(_assetsFiles),
 
         /// slides settings
@@ -983,7 +967,6 @@ static SuperFlyer getSuperFlyerFromBzModelOnly({
 
         /// editor data
         infoController: null,
-        screenshotsControllers: null,
         screenShots: null,
 
         /// slides settings

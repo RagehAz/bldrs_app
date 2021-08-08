@@ -85,7 +85,7 @@ class ImageSize{
       if (_decodedImage != null){
         _imageSize = ImageSize(
           width: _decodedImage.width.toDouble(),
-          height: _decodedImage.height.toDouble(),
+          height: _decodedImage.tileMaxHeight.toDouble(),
         );
       }
       // -----------------------------------------------------------o

@@ -54,7 +54,7 @@ class SequenceFlyersScreen extends StatelessWidget {
 
         KeywordBarButton(
           keywordID: secondKeyword?.keywordID,
-          keywordName: '${Keyword.translateKeyword(context, secondKeyword?.keywordID)} ${sequence.secondKeywords.titleID}',
+          keywordName: '${Keyword.translateKeyword(context, secondKeyword?.keywordID)} ${sequence.secondKeywords.groupID}',
           title: '${Keyword.getSubGroupNameByKeywordID(context, secondKeyword?.keywordID)}',
           xIsOn: false,
           // color: ,
