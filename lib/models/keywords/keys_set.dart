@@ -1,3 +1,4 @@
+import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/keywords/keywordz.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
@@ -8,12 +9,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class KeysSet{
-  final String titleID;
+  final String groupID;
   final bool canPickMany;
   final List<Keyword> keywords;
 
   KeysSet({
-    @required this.titleID,
+    @required this.groupID,
     @required this.canPickMany,
     @required this.keywords,
   });
@@ -36,23 +37,40 @@ class KeysSet{
         return _filters;
   }
 // -----------------------------------------------------------------------------
-  static KeysSet propertyFormsKeysSet = KeysSet(titleID: 'group_ppt_form', canPickMany: false, keywords: FilterKeys.propertyForms());
-  static KeysSet propertyTypesKeysSet = KeysSet(titleID: 'propertyType', canPickMany: false, keywords: FilterKeys.propertyTypes());
-  static KeysSet propertySpacesKeysSet = KeysSet(titleID: 'spaces', canPickMany: true, keywords: FilterKeys.spaceTypes());
-  static KeysSet propertyFeaturesKeysSet = KeysSet(titleID: 'propertyFeatures', canPickMany: true, keywords: FilterKeys.propertyFeatures());
-  static KeysSet propertyPricesKeysSet = KeysSet(titleID: 'propertyPrice', canPickMany: true, keywords: FilterKeys.propertyPrices());
-  static KeysSet propertyAreaKeysSet = KeysSet(titleID: 'area', canPickMany: false, keywords: FilterKeys.propertyArea());
-  static KeysSet propertyLicenseKeysSet = KeysSet(titleID: 'propertyLicense', canPickMany: false, keywords: FilterKeys.propertyLicenses());
+  static List<KeysSet> getKeysSetsByFlyerType({FlyerType flyerType}){
+
+    print('getKeysSetsByFlyerType : flyerType : $flyerType');
+
+    switch (flyerType){
+      case FlyerType.Property   :   return propertiesKeysSets;  break;
+
+      case FlyerType.Design     :   return designsKeysSets;     break;
+      case FlyerType.Project    :   return projectsKeysSets;    break;
+      case FlyerType.Craft      :   return craftsKeysSets;      break;
+
+      case FlyerType.Product    :   return productsKeysSets;    break;
+      case FlyerType.Equipment  :   return equipmentKeysSets;   break;
+      default : return   null;
+    }
+  }
 // -----------------------------------------------------------------------------
-  static KeysSet designTypesKeysSet = KeysSet(titleID: 'designType', canPickMany: false, keywords: FilterKeys.designTypes());
-  static KeysSet architecturalStylesKeysSet = KeysSet(titleID: 'architecturalStyle', canPickMany: false, keywords: FilterKeys.architecturalStyles());
-  static KeysSet spaceTypeKeysSet = KeysSet(titleID: 'spaceType', canPickMany: true, keywords: FilterKeys.spaceTypes());
-  static KeysSet kioskTypeKeysSet = KeysSet(titleID: 'kioskType', canPickMany: false, keywords: FilterKeys.kioskTypes());
+  static KeysSet propertyFormsKeysSet = KeysSet(groupID: 'group_ppt_form', canPickMany: false, keywords: FilterKeys.propertyForms());
+  static KeysSet propertyTypesKeysSet = KeysSet(groupID: 'group_ppt_type', canPickMany: false, keywords: FilterKeys.propertyTypes());
+  static KeysSet propertyAreaKeysSet = KeysSet(groupID: 'group_ppt_area', canPickMany: false, keywords: FilterKeys.propertyArea());
+  static KeysSet propertySpacesKeysSet = KeysSet(groupID: 'group_ppt_spaces', canPickMany: true, keywords: FilterKeys.spaceTypes());
+  static KeysSet propertyFeaturesKeysSet = KeysSet(groupID: 'group_ppt_features', canPickMany: true, keywords: FilterKeys.propertyFeatures());
+  static KeysSet propertyPricesKeysSet = KeysSet(groupID: 'group_ppt_price', canPickMany: true, keywords: FilterKeys.propertyPrices());
+  static KeysSet propertyLicenseKeysSet = KeysSet(groupID: 'group_ppt_license', canPickMany: false, keywords: FilterKeys.propertyLicenses());
 // -----------------------------------------------------------------------------
-  static KeysSet constructionTradesKeysSet = KeysSet(titleID: 'constructionTrade', canPickMany: true, keywords: FilterKeys.constructionTrades());
+  static KeysSet designTypesKeysSet = KeysSet(groupID: 'group_dz_type', canPickMany: false, keywords: FilterKeys.designTypes());
+  static KeysSet architecturalStylesKeysSet = KeysSet(groupID: 'group_dz_style', canPickMany: false, keywords: FilterKeys.architecturalStyles());
+  static KeysSet spaceTypeKeysSet = KeysSet(groupID: 'group_space_type', canPickMany: true, keywords: FilterKeys.spaceTypes());
+  static KeysSet kioskTypeKeysSet = KeysSet(groupID: 'group_dz_kioskType', canPickMany: false, keywords: FilterKeys.kioskTypes());
 // -----------------------------------------------------------------------------
-  static KeysSet productsKeysSet = KeysSet(titleID: 'product', canPickMany: true, keywords: FilterKeys.products());
-  static KeysSet productPricesKeysSet = KeysSet(titleID: 'productPrices', canPickMany: true, keywords: FilterKeys.productPrices());
+  static KeysSet constructionTradesKeysSet = KeysSet(groupID: 'group_craft_trade', canPickMany: true, keywords: FilterKeys.constructionTrades());
+// -----------------------------------------------------------------------------
+  static KeysSet productsKeysSet = KeysSet(groupID: 'product', canPickMany: true, keywords: FilterKeys.products());
+  static KeysSet productPricesKeysSet = KeysSet(groupID: 'productPrices', canPickMany: true, keywords: FilterKeys.productPrices());
 // -----------------------------------------------------------------------------
   static KeysSet getKeysSetFromCurrentDistricts(BuildContext context){
 
@@ -63,7 +81,7 @@ class KeysSet{
     List<Keyword> _districtsAsKeywords = Keyword.getKeywordsModelsFromDistricts(_districts);
 
     KeysSet _keysSet = KeysSet(
-        titleID: _districtsAsKeywords[0].groupID,
+        groupID: _districtsAsKeywords[0].groupID,
         canPickMany: false,
         keywords: _districtsAsKeywords
     );
@@ -83,6 +101,7 @@ class KeysSet{
     propertySpacesKeysSet,
     propertyFeaturesKeysSet,
     propertyPricesKeysSet,
+    propertyLicenseKeysSet,
   ];
 // -----------------------------------------------------------------------------
   static List<KeysSet> designsKeysSets = <KeysSet>[
@@ -126,7 +145,7 @@ class KeysSet{
       ...productsKeysSets,
     ];
 
-    bool _canPickMany = _allFilters.firstWhere((filter) => filter.titleID == keywordModel.flyerType).canPickMany;
+    bool _canPickMany = _allFilters.firstWhere((filter) => filter.groupID == keywordModel.flyerType).canPickMany;
 
     return _canPickMany;
   }

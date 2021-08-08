@@ -22,6 +22,12 @@ class Sequence {
     this.secondKeywords, // if null, we go directly to KeywordFlyersPage
   });
 // -----------------------------------------------------------------------------
+  static String getSequenceImage(String id){
+    String _path = 'assets/keywords/$id.jpg';
+
+    return _path;
+  }
+// -----------------------------------------------------------------------------
   static List<Sequence> getActiveSequencesBySection({BuildContext context, Section section}){
 
     List<Sequence> _sequencesBySection =
@@ -61,12 +67,12 @@ class Sequence {
         section == Section.Crafts
     ){
       _keyword = Keyword.getKeywordByKeywordID(sequence?.titleID);
-      _nameInCurrentLang = Name.getNameWithCurrentLanguageFromListOfNames(context, _keyword.names);
+      _nameInCurrentLang = Name.getNameByCurrentLingoFromNames(context, _keyword.names);
     }
 
     else if (section == Section.Products){
       /// where GroupModel.firstKeyword is groupID
-      _nameInCurrentLang = Keyword.getGroupNameByGroupID(context, sequence?.titleID);
+      _nameInCurrentLang = Keyword.getGroupNameInCurrentLingoByGroupID(context, sequence?.titleID);
     }
 
     else {

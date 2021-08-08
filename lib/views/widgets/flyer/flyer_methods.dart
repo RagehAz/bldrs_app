@@ -197,9 +197,9 @@ class FlyerMethod{
 
     }
 
-    print('FlyerMethod.flyerModeSelector : _tinyMode : $_tinyMode');
-    print('FlyerMethod.flyerModeSelector : _editMode : $_editMode');
-    print('FlyerMethod.flyerModeSelector : _flyerMode : $_flyerMode');
+    // print('FlyerMethod.flyerModeSelector : _tinyMode : $_tinyMode');
+    // print('FlyerMethod.flyerModeSelector : _editMode : $_editMode');
+    // print('FlyerMethod.flyerModeSelector : _flyerMode : $_flyerMode');
 
     return _flyerMode;
   }

@@ -259,7 +259,7 @@ class _SearchScreenState extends State<SearchScreen> {
 // -----------------------------------------------------------------------------
   List<Keyword> _generateFilterKeywords(List<KeysSet> filtersModels){
 
-    KeysSet _currentFilterModel = filtersModels.singleWhere((filterModel) => filterModel.titleID == _currentFilterID, orElse: () => null);
+    KeysSet _currentFilterModel = filtersModels.singleWhere((filterModel) => filterModel.groupID == _currentFilterID, orElse: () => null);
 
     List<Keyword> _currentFilterKeywords = _currentFilterModel == null ? [] : _currentFilterModel.keywords;
 
@@ -269,7 +269,7 @@ class _SearchScreenState extends State<SearchScreen> {
   void _selectFilter(KeysSet _filterModel){
 
     setState(() {
-      _currentFilterID = _filterModel.titleID;
+      _currentFilterID = _filterModel.groupID;
     });
 
   }
@@ -308,7 +308,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
     else {
 
-      bool _canPickMany = filtersModels.singleWhere((filter) => filter.titleID == _groupID).canPickMany;
+      bool _canPickMany = filtersModels.singleWhere((filter) => filter.groupID == _groupID).canPickMany;
 
       await _highlightKeyword(_keywordModel, _canPickMany);
 

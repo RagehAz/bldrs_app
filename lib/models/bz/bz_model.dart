@@ -124,7 +124,7 @@ class BzModel with ChangeNotifier{
 // ###############################
 Map<String, dynamic> toMap(){
 
-  List<NanoFlyer> _nanoFlyers = NanoFlyer.cipherNanoFlyers(nanoFlyers);
+  List<dynamic> _nanoFlyersMaps = NanoFlyer.cipherNanoFlyers(nanoFlyers);
 
   return {
     'bzID' : bzID,
@@ -156,8 +156,8 @@ Map<String, dynamic> toMap(){
     'bzTotalViews' : bzTotalViews,
     'bzTotalCalls' : bzTotalCalls,
     // -------------------------
-    'nanoFlyers' : _nanoFlyers,
-    'bzTotalFlyers' : _nanoFlyers.length,
+    'nanoFlyers' : _nanoFlyersMaps,
+    'bzTotalFlyers' : _nanoFlyersMaps.length,
     };
 }
 // -----------------------------------------------------------------------------

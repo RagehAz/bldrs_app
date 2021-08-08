@@ -1,7 +1,8 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/text_directionerz.dart';
 import 'package:bldrs/controllers/drafters/text_shapers.dart';
-import 'package:bldrs/controllers/localization/localization_constants.dart';
+import 'package:bldrs/controllers/localization/localizer.dart';
+import 'package:bldrs/controllers/localization/lingo.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
@@ -662,14 +663,14 @@ class _FontLabState extends State<FontLab> {
 
             Rageh(
               tappingRageh:
-                Wordz.activeLanguage(context) == 'Arabic' ?
+                Wordz.activeLanguage(context) == Lingo.Arabic ?
                     () async {
-                Locale temp = await setLocale('en');
+                Locale temp = await Localizer.setLocale(Lingo.English);
                 BldrsApp.setLocale(context, temp);
               }
               :
                   () async {
-                Locale temp = await setLocale('ar');
+                Locale temp = await Localizer.setLocale(Lingo.Arabic);
                 BldrsApp.setLocale(context, temp);
               },
 

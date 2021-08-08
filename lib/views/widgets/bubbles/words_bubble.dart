@@ -17,6 +17,7 @@ class KeywordsBubble extends StatelessWidget {
   final double bubbleWidth;
   final dynamic margins;
   final dynamic corners;
+  final bool passKeywordOnTap;
 
   KeywordsBubble({
     @required this.title,
@@ -29,6 +30,7 @@ class KeywordsBubble extends StatelessWidget {
     this.bubbleWidth,
     this.margins,
     this.corners,
+    this.passKeywordOnTap = false,
   });
 // -----------------------------------------------------------------------------
   String _getKeywordName(BuildContext context, int index){
@@ -52,7 +54,7 @@ class KeywordsBubble extends StatelessWidget {
       corners: corners,
       title: title,
       bubbleWidth: bubbleWidth,
-      bubbleOnTap: onTap,
+      bubbleOnTap: passKeywordOnTap == true ? null : onTap,
       columnChildren: <Widget>[
 
         // --- STRINGS
@@ -88,7 +90,7 @@ class KeywordsBubble extends StatelessWidget {
                     margins: const EdgeInsets.all(5),
                     bubble: true,
                     color: _buttonColor,
-                    onTap: () => onTap(keywords[index]),
+                    onTap: passKeywordOnTap == true ? () => onTap(keywords[index]) : null,
                   )
                       :
                   SuperVerse(
@@ -99,7 +101,7 @@ class KeywordsBubble extends StatelessWidget {
                       italic: true,
                       shadow: false,
                       labelColor: _buttonColor,
-                      onTap: () => onTap(keywords[index]),
+                      onTap: passKeywordOnTap == true ? () => onTap(keywords[index]) : null,
                     );
 
                 }

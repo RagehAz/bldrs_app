@@ -116,7 +116,7 @@ class SequencesBubble extends StatelessWidget {
                                       width: _buttonWidth,
                                       height: _buttonWidth,
                                       color: Colorz.Black125,
-                                      icon: Keyword.getImagePath(sequence.titleID),
+                                      icon: Sequence.getSequenceImage(sequence.titleID),
                                       onTap: (){
 
                                         Nav.goToNewScreen(context,

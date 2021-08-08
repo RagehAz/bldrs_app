@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/localization/lingo.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/keywords/keys_set.dart';
 import 'package:bldrs/models/keywords/sequence_model.dart';
@@ -23,7 +24,17 @@ class Keyword {
     @required this.uses,
     this.names,
 });
+
 // -----------------------------------------------------------------------------
+  static String getKeywordArabicName(Keyword keyword){
+    List<Name> _names = keyword.names;
+
+    Name _arabicName = _names.firstWhere((name) => name.code == Lingo.Arabic, orElse: () => null);
+    String _name = _arabicName == null ? null : _arabicName.value;
+
+    return _name;
+  }
+
   static Map<String, dynamic> cipherKeyword(Keyword keyword){
     Map<String, dynamic> _map;
 
@@ -73,7 +84,7 @@ class Keyword {
 
     return _keyword;
   }
-
+// -----------------------------------------------------------------------------
   static List<Keyword> decipherKeywords(List<dynamic> maps){
     List<Keyword> _keywords = new List();
 
@@ -95,8 +106,19 @@ class Keyword {
     return _keywords;
   }
 // -----------------------------------------------------------------------------
-  static String getImagePath(String id){
-    return 'assets/keywords/$id.jpg';
+  static String getImagePath(Keyword keyword){
+    String _keywordID = keyword.keywordID;
+    String _path;
+
+    if(isIconless(keyword) == true){
+      // path will be null
+    }
+
+    else {
+      _path = 'assets/keywords/$_keywordID.jpg';
+    }
+
+    return _path;
   }
 // -----------------------------------------------------------------------------
   static bool KeywordsAreTheSame(Keyword _firstKeyword, Keyword _secondKeyword){
@@ -140,11 +162,17 @@ class Keyword {
     keywordModel.groupID == 'numberOfRooms' ? true :
     keywordModel.groupID == 'numberOfBathrooms' ? true :
     keywordModel.groupID == 'parkingLots' ? true :
-    keywordModel.groupID == 'propertyArea' ? true :
+    keywordModel.groupID == 'group_ppt_area' ? true :
+    keywordModel.groupID == 'group_ppt_features' ? true :
+    keywordModel.groupID == 'group_ppt_license' ? true :
+    keywordModel.groupID == 'group_ppt_price' ? true :
+    keywordModel.groupID == 'group_ppt_spaces' ? true :
+    keywordModel.groupID == 'group_prd_price' ? true :
     keywordModel.groupID == 'lotArea' ? true :
     keywordModel.groupID == 'inCompound' ? true :
     keywordModel.groupID == 'numberOfFloor' ? true :
     keywordModel.groupID == 'buildingAge' ? true :
+    keywordModel.groupID == 'group_dz_kioskType' ? true : /// TASK : this is temp until i add kiosk types images
     false;
 
     return _isIconless;
@@ -174,12 +202,12 @@ class Keyword {
     if (_resultIfSearchedByGroup == null){
       /// so given id is not GroupID but keywordID
       _keywordModel = _allKeywords.firstWhere((keyword) => keyword.keywordID == id, orElse: ()=> null);
-      _keywordName = Name.getNameWithCurrentLanguageFromListOfNames(context, _keywordModel?.names);
+      _keywordName = Name.getNameByCurrentLingoFromNames(context, _keywordModel?.names);
     }
 
     else {
       _keywordModel = _resultIfSearchedByGroup;
-      _keywordName = Keyword.getGroupNameByGroupID(context, _keywordModel?.groupID);
+      _keywordName = Keyword.getGroupNameInCurrentLingoByGroupID(context, _keywordModel?.groupID);
     }
 
     return _keywordName;
@@ -203,7 +231,7 @@ class Keyword {
       }
 
       else {
-        _title = '${Keyword.getGroupNameByGroupID(context, _groupID)}';
+        _title = '${Keyword.getGroupNameInCurrentLingoByGroupID(context, _groupID)}';
       }
 
     }
@@ -212,14 +240,16 @@ class Keyword {
       String _keywordID = sequence.titleID;
       Keyword _keyword = Keyword.getKeywordByKeywordID(_keywordID);
 
-      _title = Keyword.getGroupNameByGroupID(context, _keyword.groupID);
+      _title = Keyword.getGroupNameInCurrentLingoByGroupID(context, _keyword.groupID);
     }
 
     return _title;
   }
 // =============================================================================
+
   /// GET KEYWORDS
-// =============================================================================
+
+// ------------------o
   static List<Keyword> getKeywordsByGroupIDAndFilterModel({KeysSet filterModel, String groupID}){
     List<Keyword> _keywordModels = new List();
 
@@ -291,7 +321,7 @@ class Keyword {
   static String getKeywordNameByKeywordID(BuildContext context, String keywordID){
     Keyword _keyword = getKeywordByKeywordID(keywordID);
 
-    String _nameWithCurrentLanguage = Name.getNameWithCurrentLanguageFromListOfNames(context, _keyword?.names);
+    String _nameWithCurrentLanguage = Name.getNameByCurrentLingoFromNames(context, _keyword?.names);
     return _nameWithCurrentLanguage;
   }
 // -----------------------------------------------------------------------------
@@ -318,10 +348,23 @@ class Keyword {
 
     return _keywords;
   }
-// =============================================================================
-  /// GET GROUPS
 // -----------------------------------------------------------------------------
-  static List<String> getGroupsIDsFromFilterModel(KeysSet filterModel){
+  static List<String> getKeywordsIDs(List<Keyword> keywords){
+    List<String> _keywordIDs = new List();
+
+    keywords.forEach((key) {
+      _keywordIDs.add(key.keywordID);
+    });
+
+    return _keywordIDs;
+  }
+
+// =============================================================================
+
+  /// GET GROUPS
+
+// ------------------o
+  static List<String> getGroupsIDsFromKeysSet(KeysSet filterModel){
     List<String> _groupsIDs = new List();
 
     List<Keyword> _keywords = filterModel.keywords;
@@ -350,10 +393,15 @@ class Keyword {
     return _groupsIDs;
   }
 // -----------------------------------------------------------------------------
-  static String getGroupNameByGroupID(BuildContext context, String groupID){
-    Namez _names = Keyword.allGroupsNamez().firstWhere((name) => name.id == groupID, orElse: () => null);
-    String _nameInCurrentLang = Name.getNameWithCurrentLanguageFromListOfNames(context, _names?.names);
+  static String getGroupNameInCurrentLingoByGroupID(BuildContext context, String groupID){
+    Namez _names = getGroupNamezByGroupID(groupID);
+    String _nameInCurrentLang = Name.getNameByCurrentLingoFromNames(context, _names?.names);
     return _nameInCurrentLang;
+  }
+// -----------------------------------------------------------------------------
+  static Namez getGroupNamezByGroupID(String groupID){
+    Namez _namez = Keyword.allGroupsNamez().firstWhere((name) => name.id == groupID, orElse: () => null);
+    return _namez;
   }
 // -----------------------------------------------------------------------------
   static List<Namez> allGroupsNamez(){
@@ -399,14 +447,16 @@ class Keyword {
       ];
   }
 // =============================================================================
+
 /// GET SUBGROUPS
-// -----------------------------------------------------------------------------
+
+// ------------------o
   static String getSubGroupNameByKeywordID(BuildContext context, String keywordID){
     Keyword _keyword = Keyword.getKeywordByKeywordID(keywordID);
 
     Namez _names = Keyword.allSubGroupsNamez().firstWhere((name) => name.id == _keyword?.subGroupID, orElse: () => null);
 
-    String _nameInCurrentLang = Name.getNameWithCurrentLanguageFromListOfNames(context, _names?.names);
+    String _nameInCurrentLang = Name.getNameByCurrentLingoFromNames(context, _names?.names);
 
     return _nameInCurrentLang;
   }
@@ -584,12 +634,12 @@ class Keyword {
       ];
   }
 // =============================================================================
-/// FILTERS KEYWORDS
-// -----------------------------------------------------------------------------
 
-// =============================================================================
+/// FILTERS KEYWORDS
+// ------------------o
+
 /// ALL KEYWORDS
-// -----------------------------------------------------------------------------
+// ------------------o
   static List<Keyword> bldrsKeywords(){
     return
       <Keyword>[

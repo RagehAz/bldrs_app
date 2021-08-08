@@ -21,7 +21,7 @@ class FlyerPages extends StatelessWidget {
 
     bool _tinyMode = Scale.superFlyerTinyMode(context, flyerZoneWidth);
 
-    Tracer.traceWidgetBuild(widgetName: 'FlyerPages', varName: '_tinyMode', varValue: _tinyMode);
+    Tracer.traceWidgetBuild(widgetName: 'FlyerPages', varName: '_tinyMode', varValue: _tinyMode, tracerIsOn: false);
     return GoHomeOnMaxBounce(
       child: PageView(
         pageSnapping: true,

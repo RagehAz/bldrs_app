@@ -1,5 +1,4 @@
-import 'package:bldrs/controllers/localization/demo_localization.dart';
-import 'package:bldrs/controllers/localization/localization_constants.dart';
+import 'package:bldrs/controllers/localization/localizer.dart';
 import 'package:bldrs/controllers/router/route_names.dart';
 import 'package:bldrs/controllers/router/router.dart';
 import 'package:bldrs/firestore/user_ops.dart';
@@ -50,7 +49,7 @@ class _BldrsAppState extends State<BldrsApp> {
     Locale('it', 'IT'),
   ];
   List<LocalizationsDelegate> _localizationDelegates = <LocalizationsDelegate>[
-    DemoLocalization.delegate,
+    Localizer.delegate,
     GlobalMaterialLocalizations.delegate,
     GlobalWidgetsLocalizations.delegate,
     GlobalCupertinoLocalizations.delegate,
@@ -73,7 +72,7 @@ class _BldrsAppState extends State<BldrsApp> {
 // ---------------------------------------------------------------------------
   @override
   void didChangeDependencies() {
-    getLocale().then((locale) {
+    Localizer.getLocale().then((locale) {
       setState(() {
         this._locale = locale;
       });
