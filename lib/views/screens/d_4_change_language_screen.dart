@@ -1,5 +1,5 @@
-import 'package:bldrs/controllers/localization/change_language.dart';
-import 'package:bldrs/controllers/localization/language_class.dart';
+import 'package:bldrs/controllers/localization/localizer.dart';
+import 'package:bldrs/controllers/localization/lingo.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/views/widgets/layouts/listLayout.dart';
@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 class SelectLanguageScreen extends StatelessWidget {
 // -----------------------------------------------------------------------------
   Future<void> _tapLanguage(BuildContext context,String languageCode) async {
-    await Lingo.changeAppLanguage(context, languageCode);
+    await Localizer.changeAppLanguage(context, languageCode);
 
     // Nav.pushNamedAndRemoveAllBelow(context, Routez.UserChecker);
   }
@@ -17,8 +17,8 @@ class SelectLanguageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    List<LanguageClass> _languagesModels = LanguageClass.languageList();
-    List<Map<String ,String>> _languageMaps = LanguageClass.getLanguagesMapsFromLanguages(_languagesModels);
+    List<Lingo> _languagesModels = Lingo.allLanguages();
+    List<Map<String ,String>> _languageMaps = Lingo.cipherLingosToMaps(_languagesModels);
 
     return ListLayout(
       pyramids: Iconz.PyramidzYellow,

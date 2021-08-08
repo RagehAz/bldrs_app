@@ -1,4 +1,4 @@
-import 'package:bldrs/controllers/localization/change_language.dart';
+import 'package:bldrs/controllers/localization/lingo.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -56,25 +56,35 @@ class Name {
     return _namez;
   }
 // -----------------------------------------------------------------------------
-  static String getNameWithCurrentLanguageFromListOfNames(BuildContext context,
-      List<Name> namez) {
+  static String getNameByCurrentLingoFromNames(BuildContext context, List<Name> namez,) {
     String _currentLanguageCode = Wordz.languageCode(context);
     String _name;
 
-    if (namez != null && namez.length != 0) {
-      Name _englishNamez = namez?.firstWhere((name) =>
-      name.code == Lingo.English, orElse: () => null);
-
-      Name _namezInCurrentLanguage = namez?.firstWhere((name) =>
-      name.code == _currentLanguageCode, orElse: () => null);
-
-      _name = _namezInCurrentLanguage == null
-          ? _englishNamez?.value
-          : _namezInCurrentLanguage?.value;
-    }
+      _name = getNameByLingoFromNames(
+        context: context,
+        names: namez,
+        LingoCode: _currentLanguageCode,
+      );
 
     return _name;
   }
 // -----------------------------------------------------------------------------
-}
+  static String getNameByLingoFromNames({BuildContext context, List<Name> names, String LingoCode}){
+
+    String _foundName;
+
+    if (names != null && names.length != 0) {
+
+      Name _englishName = names.firstWhere((name) =>
+      name.code == Lingo.English, orElse: () => null);
+
+      Name _nameByLingo = names.firstWhere((name) =>
+      name.code == LingoCode, orElse: () => null);
+
+      _foundName = _nameByLingo == null ? _englishName?.value : _nameByLingo?.value;
+    }
+
+    return _foundName;
+  }
 // -----------------------------------------------------------------------------
+}

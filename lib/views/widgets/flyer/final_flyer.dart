@@ -23,6 +23,7 @@ import 'package:bldrs/models/flyer/records/publish_time_model.dart';
 import 'package:bldrs/models/flyer/records/share_model.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/flyer/sub/slide_model.dart';
+import 'package:bldrs/models/keywords/keys_set.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/bz/author_model.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
@@ -32,6 +33,7 @@ import 'package:bldrs/models/user/tiny_user.dart';
 import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/screens/f_1_flyer_editor_screen.dart';
+import 'package:bldrs/views/screens/x_select_keywords_screen.dart';
 import 'package:bldrs/views/screens/x_x_flyer_on_map.dart';
 import 'package:bldrs/views/widgets/bubbles/words_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
@@ -48,11 +50,11 @@ import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/views/widgets/textings/super_text_field.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:bldrs/xxx_LABORATORY/camera_and_location/location_helper.dart';
+import 'package:bldrs/xxx_LABORATORY/flyer_browser/bldrs_expansion_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:provider/provider.dart';
-import 'package:screenshot/screenshot.dart';
 
 /*
 
@@ -1340,25 +1342,6 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
   }
 // -----------------------------------------------------o
-  Future<Uint8List> _takeSlideScreenShot({int index}) async {
-
-    Uint8List _screenshot;
-
-    if(_superFlyer?.screenshotsControllers?.length != 0){
-      await _superFlyer.screenshotsControllers[index].capture(delay: Duration(milliseconds: 10))
-          .then((imageFile) async {
-
-        _screenshot = imageFile;
-
-      }).catchError((onError) {
-        print(onError);
-      });
-
-    }
-
-      return _screenshot;
-  }
-// -----------------------------------------------------o
   Future<void> _onFlyerTypeTap() async {
 
     double _dialogHeight = BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.25);
@@ -1603,133 +1586,108 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
   }
 // -----------------------------------------------------o
   Future<void> _onKeywordsTap() async {
-    double _dialogHeight = BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.5);
-    double _dialogClearWidth = BottomDialog.dialogClearWidth(context);
 
-    await BottomDialog.slideStatefulBottomDialog(
-        context: context,
-        draggable: true,
-        height: _dialogHeight,
-        title: 'Select flyer tags',
-        builder: (context, title) {
-          return StatefulBuilder(
-              builder: (BuildContext context, StateSetter setDialogState) {
-                return
-                  BottomDialog(
-                    title: title,
-                    height: _dialogHeight,
-                    draggable: true,
-                    child: Container(
-                      width: _dialogClearWidth,
-                      height: 100,
-                      // color: Colorz.BloodTest,
-                    ),
-                  );
-              }
-          );
-        }
+    dynamic _result = await Nav.goToNewScreen(context,
+        SelectKeywordsScreen(
+          selectedKeywords: _superFlyer.keywords,
+          flyerType: _superFlyer.flyerType,
+        )
     );
-  }
-// -----------------------------------------------------o
-  void _addKeywords(){
 
+    /// when user selected some keywords
+    if (_result != null){
 
-    List<Keyword> _keywords = <Keyword>[
-      Keyword.bldrsKeywords()[100],
-      Keyword.bldrsKeywords()[120],
-      Keyword.bldrsKeywords()[205],
-      Keyword.bldrsKeywords()[403],
-      Keyword.bldrsKeywords()[600],
-    ];
+    }
 
-    double _dialogHeight = BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.7);
+    /// when no keywords selected
+    else {
 
-    BottomDialog.slideStatefulBottomDialog(
-      context: context,
-      height: _dialogHeight,
-      draggable: true,
-      builder: (context, title){
-        return StatefulBuilder(
-            builder: (BuildContext context, StateSetter setDialogState){
-              return BottomDialog(
-                height: _dialogHeight,
-                draggable: true,
-                title: title,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
+    }
 
-                    SuperVerse(
-                      verse: 'Add Keywords to the flyer',
-                      size: 3,
-                      weight: VerseWeight.thin,
-                      italic: true,
-                    ),
-
-                    Container(
-                      width: BottomDialog.dialogClearWidth(context),
-                      height: BottomDialog.dialogClearHeight(title: 'x', context: context, overridingDialogHeight: _dialogHeight),
-                      child: ListView(
-                        // key: UniqueKey(),
-
-                        children: <Widget>[
-
-                          SizedBox(
-                            height: Ratioz.appBarPadding,
-                          ),
-
-                          KeywordsBubble(
-                            verseSize: 1,
-                            bubbles: false,
-                            title: 'Selected keywords',
-                            keywords: _superFlyer.keywords,
-                            selectedWords: _superFlyer.keywords,
-                            onTap: (value){
-                              setDialogState(() {
-                                _superFlyer.keywords.remove(value);
-                              });
-                            },
-                          ),
-
-                          KeywordsBubble(
-                            verseSize: 1,
-                            bubbles: true,
-                            title: 'Space Type',
-                            keywords: _keywords,
-                            selectedWords: _superFlyer.keywords,
-                            onTap: (value){
-                              setDialogState(() {
-                                _superFlyer.keywords.add(value);
-                              });
-                            },
-                          ),
-
-                          KeywordsBubble(
-                            verseSize: 1,
-                            bubbles: true,
-                            title: 'Product Use',
-                            keywords: _keywords,
-                            selectedWords: _superFlyer.keywords,
-                            onTap: (value){setDialogState(() {_superFlyer.keywords.add(value);});},
-                          ),
-
-                          // Container(
-                          //   width: dialogClearWidth(context)(context),
-                          //   height: 800,
-                          //   color: Colorz.BloodTest,
-                          // ),
-
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            }
-        );
-      },
-    );
+    // List<Keyword> _keywords = <Keyword>[
+    //   Keyword.bldrsKeywords()[100],
+    //   Keyword.bldrsKeywords()[120],
+    //   Keyword.bldrsKeywords()[205],
+    //   Keyword.bldrsKeywords()[403],
+    //   Keyword.bldrsKeywords()[600],
+    // ];
+    //
+    // double _dialogHeight = BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.7);
+    // double _dialogClearWidth = BottomDialog.dialogClearWidth(context);
+    // double _dialogClearHeight = BottomDialog.dialogClearHeight(context: context, title: 'x', overridingDialogHeight: _dialogHeight);
+    //
+    // await BottomDialog.slideStatefulBottomDialog(
+    //     context: context,
+    //     draggable: true,
+    //     height: _dialogHeight,
+    //     title: 'Select flyer tags',
+    //     builder: (context, title) {
+    //       return StatefulBuilder(
+    //           builder: (BuildContext context, StateSetter setDialogState) {
+    //             return
+    //               BottomDialog(
+    //                 title: title,
+    //                 height: _dialogHeight,
+    //                 draggable: true,
+    //                 child: Container(
+    //                   width: _dialogClearWidth,
+    //                   height: _dialogClearHeight,
+    //                   color: Colorz.BloodTest,
+    //                   child: Column(
+    //                     children: <Widget>[
+    //
+    //                       Container(
+    //                         width: _dialogClearWidth * 0.9,
+    //                         height: 100,
+    //                         color: Colorz.Yellow200,
+    //                       ),
+    //
+    //                       Container(
+    //                         width: _dialogClearWidth * 0.9,
+    //                         height: _dialogClearHeight - 100,
+    //                         color: Colorz.BlackSemi255,
+    //                         child: ListView.builder(
+    //                           itemCount: 3,
+    //                             itemBuilder: (ctx, index){
+    //                               return
+    //                                 BldrsExpansionTile(
+    //                                   height: _dialogClearHeight * 0.7,
+    //                                   tileWidth: _dialogClearWidth * 0.9,
+    //                                   key: new GlobalKey(),
+    //                                   // icon: KeywordModel.getImagePath(_filterID),
+    //                                   iconSizeFactor: 0.5,
+    //                                   keysSet: KeysSet.architecturalStylesKeysSet,
+    //                                   selectedKeywords: _superFlyer.keywords,
+    //                                   onKeywordTap: (Keyword selectedKeyword){
+    //                                     if (_superFlyer.keywords.contains(selectedKeyword)){
+    //                                       setDialogState(() {
+    //                                         print('a77a');
+    //                                         _superFlyer.keywords.remove(selectedKeyword);
+    //                                       });
+    //                                     }
+    //                                     else {
+    //                                       setDialogState(() {
+    //                                         _superFlyer.keywords.add(selectedKeyword);
+    //                                       });
+    //                                     }
+    //                                     },
+    //                                   onGroupTap: (String groupID){
+    //                                     },
+    //                                 );
+    //                             }
+    //                             ),
+    //                       ),
+    //                     ],
+    //                 ),
+    //               ),
+    //
+    //
+    //
+    //               );
+    //           }
+    //       );
+    //     }
+    // );
   }
 // -----------------------------------------------------o
   Future<void>_selectOnMap() async {
@@ -2388,7 +2346,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
     // print('widget.goesToFlyer is : ${widget.goesToEditor} for ${_superFlyer.flyerID}');
 
-    Tracer.traceWidgetBuild(number: 1, widgetName: 'FinalFlyer', varName: 'flyerID', varValue: _superFlyer.flyerID);
+    Tracer.traceWidgetBuild(number: 1, widgetName: 'FinalFlyer', varName: 'flyerID', varValue: _superFlyer.flyerID, tracerIsOn: false);
     // Tracer.traceWidgetBuild(number: 2, widgetName: 'FinalFlyer', varName: 'numberOfSlides', varValue: _superFlyer.numberOfSlides);
     // Tracer.traceWidgetBuild(number: 3, widgetName: 'FinalFlyer', varName: 'midColor', varValue: Colorizer.cipherColor(_superFlyer.mSlides[0].midColor));
     return

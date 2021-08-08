@@ -114,6 +114,7 @@ class NavBar extends StatelessWidget {
                           verseScaleFactor: 0.7,
                           bubble: true,
                           color: Colorz.Nothing,
+                          verseCentered: false,
                           onTap: () async {
                             print('${_tinyBz.bzID}');
 

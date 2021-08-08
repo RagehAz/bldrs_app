@@ -24,9 +24,7 @@ import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/fire_search_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/firebase_testing.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/flyer_test_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/random_test_space.dart';
-import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/screenshot_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/slider_test.dart';
-import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/stateful_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x03_font_lab.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x06_swiper_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x08_earth_screen.dart';
@@ -161,9 +159,6 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
 
           LogoSlogan(sizeFactor: 0.8,),
 
-          oButton('Stateful test', Iconz.XLarge, StatefulTest()),
-
-          oButton('Screenshot test', Iconz.Flyer, ScreenShotTest()),
 
           oButton('FLYER TEST', Iconz.Flyer, FlyerTestScreen()),
 

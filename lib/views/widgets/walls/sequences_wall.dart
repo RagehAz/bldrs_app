@@ -204,7 +204,7 @@ class SequencesWall extends StatelessWidget {
                 padding: const EdgeInsets.only(bottom: Ratioz.appBarMargin * 2),
                 child: FlyerStack(
                   flyersType: null,
-                  titleIcon: Keyword.getImagePath(_keywordsByGroupID[index].keywordID),
+                  titleIcon: Keyword.getImagePath(_keywordsByGroupID[index]),
                   title: _stackTitle(context: context, sequence: sequence, index: index),//'${KeywordModel.getKeywordNameByKeywordID(context, _keywordsByGroupID[index].keywordID)} in Cairo',
                   tinyFlyers: TinyFlyer.dummyTinyFlyers(),
                   onScrollEnd: () => _onScrollEnd(

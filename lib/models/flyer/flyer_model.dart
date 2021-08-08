@@ -7,12 +7,10 @@ import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/flyer/records/publish_time_model.dart';
 import 'package:bldrs/models/flyer/sub/slide_model.dart';
-import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/models/user/tiny_user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:screenshot/screenshot.dart';
 // -----------------------------------------------------------------------------
 class FlyerModel with ChangeNotifier{
   final String flyerID;
@@ -326,17 +324,6 @@ class FlyerModel with ChangeNotifier{
 
     flyerModel.slides.forEach((slide) {
       TextEditingController _controller = new TextEditingController(text: slide.description);
-      _controllers.add(_controller);
-    });
-
-    return _controllers;
-  }
-// -----------------------------------------------------------------------------
-  static List<ScreenshotController> createScreenShotsControllersForExistingFlyer(FlyerModel flyerModel){
-    List<ScreenshotController> _controllers = new List();
-
-    flyerModel.slides.forEach((slide) {
-      ScreenshotController _controller = new ScreenshotController();
       _controllers.add(_controller);
     });
 

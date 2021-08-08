@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:bldrs/controllers/drafters/aligners.dart';
 import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/controllers/drafters/shadowers.dart';
 import 'package:bldrs/controllers/drafters/text_directionerz.dart';
@@ -39,6 +40,7 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
   final bool redDot;
   final double secondLineScaleFactor;
   final Color secondLineColor;
+  final bool centered;
 
 
   const DreamBoxIconVerseSecondLine({
@@ -70,6 +72,7 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
     @required this.redDot,
     @required this.secondLineScaleFactor,
     @required this.secondLineColor,
+    @required this.centered,
   });
 
   @override
@@ -99,9 +102,12 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
         :
     CrossAxisAlignment.center; // verseCentered
 
+    MainAxisAlignment _mainAxisAlignment = centered == true ? MainAxisAlignment.center : MainAxisAlignment.start;
+
+    Alignment _verseAlignment = centered == true ? Alignment.center : Aligners.superCenterAlignment(context);
 
     return Row(
-      mainAxisAlignment: verse == null ? MainAxisAlignment.center : MainAxisAlignment.start,
+      mainAxisAlignment: _mainAxisAlignment,
       crossAxisAlignment: CrossAxisAlignment.center,
       // mainAxisSize: MainAxisSize.min,
       textDirection: _textDirection,
@@ -304,6 +310,7 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
           Container(
             height: height,
             width: _verseWidth,
+            alignment: _verseAlignment,
             // color: Colorz.Yellow80, // for design purpose only
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
