@@ -461,6 +461,20 @@ class Keyword {
     return _nameInCurrentLang;
   }
 // -----------------------------------------------------------------------------
+  static Namez getSubGroupNamezBySubGroupID({String subGroupID}){
+    Namez _namez = allSubGroupsNamez().firstWhere((namez) => namez.id == subGroupID, orElse: () => null);
+    return _namez;
+  }
+// -----------------------------------------------------------------------------
+  static String getSubGroupNameBySubGroupIDAndLingoCode({BuildContext context, String subGroupID, String lingoCode}){
+    Namez _namez = getSubGroupNamezBySubGroupID(subGroupID: subGroupID);
+    List<Name> _names = _namez?.names;
+
+    String _nameInLang = Name.getNameByLingoFromNames(context: context, LingoCode: lingoCode, names: _names);
+
+    return _nameInLang;
+  }
+// -----------------------------------------------------------------------------
   static List<Namez> allSubGroupsNamez(){
     return
       <Namez>[
