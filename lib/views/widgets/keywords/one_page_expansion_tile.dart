@@ -134,6 +134,30 @@ class OnePageExpansionTileState extends State<OnePageExpansionTile> with SingleT
     });
   }
 // -----------------------------------------------------------------------------
+  List<String> _getSubGroupsIDs(){
+    List<String> _subGroupsIDs = new List();
+
+    for (Keyword keyword in widget.keysSet.keywords){
+      if(!_subGroupsIDs.contains(keyword.subGroupID)){
+        _subGroupsIDs.add(keyword.subGroupID);
+      }
+    }
+
+    return _subGroupsIDs;
+  }
+// -----------------------------------------------------------------------------
+  List<Keyword> _getKeywordBySubGroup(String subGroupID){
+    List<Keyword> _keywords = new List();
+
+    for (Keyword keyword in widget.keysSet.keywords){
+      if(keyword.subGroupID == subGroupID){
+        _keywords.add(keyword);
+      }
+    }
+
+    return _keywords;
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -162,6 +186,7 @@ class OnePageExpansionTileState extends State<OnePageExpansionTile> with SingleT
     const double _buttonHeight = 80;
     const double _buttonExtent = _buttonHeight + _buttonVerticalPadding * 2;
 
+    List<String> _subGroupsIDs = _getSubGroupsIDs();
 
     return new AnimatedBuilder(
       animation: _controller.view,
@@ -358,7 +383,83 @@ class OnePageExpansionTileState extends State<OnePageExpansionTile> with SingleT
           borderRadius: _borderRadius.evaluate(_easeInAnimation), //Borderers.superBorderAll(context, Ratioz.ddAppBarCorner - 5),
         ),
         margin: const EdgeInsets.symmetric(vertical: Ratioz.appBarPadding, horizontal: 0),
-        child: Container(),
+        child: ListView.builder(
+            padding: const EdgeInsets.only(top: Ratioz.appBarPadding),
+            physics: const BouncingScrollPhysics(),
+            itemCount: _subGroupsIDs.length,
+            itemBuilder: (xxx, _subIndex){
+
+              String _subGroupID = _subGroupsIDs[_subIndex];
+              String _subGroupNameEN = Keyword.getSubGroupNameBySubGroupIDAndLingoCode(
+                context: context,
+                subGroupID: _subGroupID,
+                lingoCode: Lingo.English,
+              );
+              String _subGroupNameAR = Keyword.getSubGroupNameBySubGroupIDAndLingoCode(
+                context: context,
+                subGroupID: _subGroupID,
+                lingoCode: Lingo.Arabic,
+              );
+
+              List<Keyword> _subGroupKeywords = _getKeywordBySubGroup(_subGroupID);
+
+
+              return
+                  Column(
+                    children: <Widget>[
+
+                      /// Sub group title
+                      Container(
+                        width: widget.tileWidth,
+                        height: 25,
+                        // color: Colorz.BloodTest,
+                        padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
+                        child: SuperVerse(
+                          verse: _subGroupNameEN,
+                          italic: true,
+                          weight: VerseWeight.thin,
+                          centered: false,
+                          leadingDot: true,
+                        ),
+                      ),
+
+                      /// subGroup keywords
+                      Container(
+                        width: widget.tileWidth,
+                        height: (50 + Ratioz.appBarPadding) * _subGroupKeywords.length,
+                        child: ListView.builder(
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: _subGroupKeywords.length,
+                          itemExtent: 50 + Ratioz.appBarPadding,
+                          itemBuilder: (ctx, keyIndex){
+
+                            Keyword _keyword = _subGroupKeywords[keyIndex];
+                            String _keywordID = _keyword.keywordID;
+                            String _icon = Keyword.getImagePath(_keyword);
+                            String _keywordName = Keyword.getKeywordNameByKeywordID(context, _keywordID);
+                            String _keywordNameArabic = Keyword.getKeywordArabicName(_keyword);
+
+                            return
+                              DreamBox(
+                                height: 50,
+                                width: widget.tileWidth * 0.9,
+                                icon: _icon,
+                                verse: _keywordName,
+                                secondLine: '$_keywordNameArabic',
+                                verseScaleFactor: 0.7,
+                                verseCentered: false,
+                                bubble: false,
+                                color: Colorz.White20,
+                                margins: const EdgeInsets.only(bottom: Ratioz.appBarPadding),
+                              );
+                          },
+                        ),
+                      ),
+
+                    ],
+                  );
+            }
+        ),
       ),
 
     );
