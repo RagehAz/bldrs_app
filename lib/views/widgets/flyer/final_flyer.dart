@@ -23,7 +23,7 @@ import 'package:bldrs/models/flyer/records/publish_time_model.dart';
 import 'package:bldrs/models/flyer/records/share_model.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/flyer/sub/slide_model.dart';
-import 'package:bldrs/models/keywords/keys_set.dart';
+import 'package:bldrs/models/keywords/groups.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/bz/author_model.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
@@ -1656,7 +1656,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     //                                   key: new GlobalKey(),
     //                                   // icon: KeywordModel.getImagePath(_filterID),
     //                                   iconSizeFactor: 0.5,
-    //                                   keysSet: KeysSet.architecturalStylesKeysSet,
+    //                                   group: Group.architecturalStylesGroup,
     //                                   selectedKeywords: _superFlyer.keywords,
     //                                   onKeywordTap: (Keyword selectedKeyword){
     //                                     if (_superFlyer.keywords.contains(selectedKeyword)){
