@@ -4,7 +4,7 @@ import 'package:bldrs/controllers/localization/lingo.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/models/keywords/keys_set.dart';
+import 'package:bldrs/models/keywords/groups.dart';
 import 'package:bldrs/models/secondary_models/namez_model.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
@@ -17,9 +17,8 @@ class OnePageExpansionTile extends StatefulWidget {
 
   final String icon;
   final double iconSizeFactor;
-  final KeysSet keysSet;
+  final Group group;
   final Function onKeywordTap;
-  final Function onGroupTap;
   final ValueChanged<bool> onExpansionChanged;
   final bool initiallyExpanded;
   final List<Keyword> selectedKeywords;
@@ -30,10 +29,9 @@ class OnePageExpansionTile extends StatefulWidget {
 
     this.icon,
     this.iconSizeFactor = 1,
-    @required this.keysSet,
+    @required this.group,
     @required this.selectedKeywords,
     @required this.onKeywordTap,
-    @required this.onGroupTap,
     this.onExpansionChanged,
     this.initiallyExpanded: false,
     Key key,
@@ -66,7 +64,7 @@ class OnePageExpansionTileState extends State<OnePageExpansionTile> with SingleT
 // -----------------------------------------------------------------------------
   @override
   void initState() {
-    _groupsIDs = Keyword.getGroupsIDsFromKeysSet(widget.keysSet);
+    _groupsIDs = Keyword.getGroupsIDsFromGroup(widget.group);
 
     super.initState();
     _controller = new AnimationController(duration: _kExpand, vsync: this);
@@ -124,7 +122,7 @@ class OnePageExpansionTileState extends State<OnePageExpansionTile> with SingleT
 // -----------------------------------------------------------------------------
   void _setKeywords(String groupID){
     setState(() {
-      _currentKeywordModels = Keyword.getKeywordsByGroupIDAndFilterModel(filterModel: widget.keysSet, groupID: groupID);
+      _currentKeywordModels = Keyword.getKeywordsByGroupIDFomGroup(group: widget.group, groupID: groupID);
     });
   }
 // -----------------------------------------------------------------------------
@@ -137,7 +135,7 @@ class OnePageExpansionTileState extends State<OnePageExpansionTile> with SingleT
   List<String> _getSubGroupsIDs(){
     List<String> _subGroupsIDs = new List();
 
-    for (Keyword keyword in widget.keysSet.keywords){
+    for (Keyword keyword in widget.group.keywords){
       if(!_subGroupsIDs.contains(keyword.subGroupID)){
         _subGroupsIDs.add(keyword.subGroupID);
       }
@@ -149,7 +147,7 @@ class OnePageExpansionTileState extends State<OnePageExpansionTile> with SingleT
   List<Keyword> _getKeywordBySubGroup(String subGroupID){
     List<Keyword> _keywords = new List();
 
-    for (Keyword keyword in widget.keysSet.keywords){
+    for (Keyword keyword in widget.group.keywords){
       if(keyword.subGroupID == subGroupID){
         _keywords.add(keyword);
       }
@@ -158,6 +156,8 @@ class OnePageExpansionTileState extends State<OnePageExpansionTile> with SingleT
     return _keywords;
   }
 // -----------------------------------------------------------------------------
+
+
   @override
   Widget build(BuildContext context) {
 
@@ -207,18 +207,18 @@ class OnePageExpansionTileState extends State<OnePageExpansionTile> with SingleT
         final double _arrowSize = _tileMinHeight;
         final double _titleZoneWidth = widget.tileWidth - _iconSize - _arrowSize;
 
-        final String _groupID = widget.keysSet.groupID;
+        final String _groupID = widget.group.groupID;
         final Namez _groupNamez = Keyword.getGroupNamezByGroupID(_groupID);
 
         final String _groupEnglishName = Name.getNameByLingoFromNames(
           context: context,
-          names: _groupNamez.names,
+          names: _groupNamez?.names,
           LingoCode: Lingo.English,
         );
 
         final String _groupArabicName = Name.getNameByLingoFromNames(
           context: context,
-          names: _groupNamez.names,
+          names: _groupNamez?.names,
           LingoCode: Lingo.Arabic,
         );//Lingo.getSecondL
 
@@ -309,54 +309,6 @@ class OnePageExpansionTileState extends State<OnePageExpansionTile> with SingleT
                   ),
                 ),
 
-                // Container(
-                //   width: widget.tileWidth,
-                //   color: Colorz.BloodTest,
-                //   child: IconTheme.merge(
-                //     data: new IconThemeData(color: _tileColorTween.evaluate(_easeInAnimation)),
-                //     child: new ListTile(
-                //
-                //       onTap: toggle,
-                //       leading: widget.icon == null ? null : DreamBox(
-                //         height: _iconSize,
-                //         width: _iconSize,
-                //         icon: widget.icon,
-                //         iconSizeFactor: widget.iconSizeFactor,
-                //       ),
-                //
-                //       /// FILTER TITLE
-                //       title: SuperVerse(
-                //         verse: widget.keysSet.titleID,
-                //         color: _titleColor,
-                //         centered: false,
-                //         shadow: false,
-                //       ),
-                //
-                //       /// FILTER SUBTITLE
-                //       subtitle: SuperVerse(
-                //         verse: widget.keysSet.titleID,
-                //         color: _isExpanded ? Colorz.White200 : Colorz.White125,
-                //         weight: VerseWeight.thin,
-                //         italic: true,
-                //         size: 2,
-                //         centered: false,
-                //         labelColor: _subTitleLabelColor,
-                //       ),
-                //       trailing: new RotationTransition(
-                //         turns: _iconTurns,
-                //         child: DreamBox(
-                //           height: _iconSize,
-                //           width: _iconSize,
-                //           bubble: false,
-                //           icon: Iconz.ArrowDown,
-                //           iconSizeFactor: 0.3,
-                //           iconColor: _titleColor,
-                //         ),
-                //       ),
-                //     ),
-                //   ),
-                // ),
-
                 /// EXPANDABLE ZONE
                 ClipRRect(
                   // borderRadius: _borderRadius.evaluate(_easeInAnimation),
@@ -372,7 +324,7 @@ class OnePageExpansionTileState extends State<OnePageExpansionTile> with SingleT
 
       },
 
-      /// GROUPS & KEYWORDS : Expanded tile children
+      /// SUB - GROUPS & KEYWORDS : Expanded tile children
       child: closed ? null
           :
       Container(
@@ -383,82 +335,88 @@ class OnePageExpansionTileState extends State<OnePageExpansionTile> with SingleT
           borderRadius: _borderRadius.evaluate(_easeInAnimation), //Borderers.superBorderAll(context, Ratioz.ddAppBarCorner - 5),
         ),
         margin: const EdgeInsets.symmetric(vertical: Ratioz.appBarPadding, horizontal: 0),
-        child: ListView.builder(
-            padding: const EdgeInsets.only(top: Ratioz.appBarPadding),
-            physics: const BouncingScrollPhysics(),
-            itemCount: _subGroupsIDs.length,
-            itemBuilder: (xxx, _subIndex){
+        child: Scrollbar(
+          thickness: Ratioz.appBarPadding * 0.5,
+          radius: Radius.circular(Ratioz.appBarPadding * 0.25),
+          isAlwaysShown: false,
+          child: ListView.builder(
+              padding: const EdgeInsets.only(top: Ratioz.appBarPadding),
+              physics: const BouncingScrollPhysics(),
+              itemCount: _subGroupsIDs.length,
+              itemBuilder: (xxx, _subIndex){
 
-              String _subGroupID = _subGroupsIDs[_subIndex];
-              String _subGroupNameEN = Keyword.getSubGroupNameBySubGroupIDAndLingoCode(
-                context: context,
-                subGroupID: _subGroupID,
-                lingoCode: Lingo.English,
-              );
-              String _subGroupNameAR = Keyword.getSubGroupNameBySubGroupIDAndLingoCode(
-                context: context,
-                subGroupID: _subGroupID,
-                lingoCode: Lingo.Arabic,
-              );
+                String _subGroupID = _subGroupsIDs[_subIndex];
+                String _subGroupNameEN = Keyword.getSubGroupNameBySubGroupIDAndLingoCode(
+                  context: context,
+                  subGroupID: _subGroupID,
+                  lingoCode: Lingo.English,
+                );
+                String _subGroupNameAR = Keyword.getSubGroupNameBySubGroupIDAndLingoCode(
+                  context: context,
+                  subGroupID: _subGroupID,
+                  lingoCode: Lingo.Arabic,
+                );
 
-              List<Keyword> _subGroupKeywords = _getKeywordBySubGroup(_subGroupID);
+                List<Keyword> _subGroupKeywords = _getKeywordBySubGroup(_subGroupID);
 
 
-              return
-                  Column(
-                    children: <Widget>[
+                return
+                    Column(
+                      children: <Widget>[
 
-                      /// Sub group title
-                      Container(
-                        width: widget.tileWidth,
-                        height: 25,
-                        // color: Colorz.BloodTest,
-                        padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
-                        child: SuperVerse(
-                          verse: _subGroupNameEN,
-                          italic: true,
-                          weight: VerseWeight.thin,
-                          centered: false,
-                          leadingDot: true,
+                        /// Sub group title
+                        Container(
+                          width: widget.tileWidth,
+                          height: 25,
+                          // color: Colorz.BloodTest,
+                          padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
+                          child: SuperVerse(
+                            verse: '$_subGroupNameEN',
+                            italic: true,
+                            weight: VerseWeight.thin,
+                            centered: false,
+                            leadingDot: true,
+                          ),
                         ),
-                      ),
 
-                      /// subGroup keywords
-                      Container(
-                        width: widget.tileWidth,
-                        height: (50 + Ratioz.appBarPadding) * _subGroupKeywords.length,
-                        child: ListView.builder(
-                          physics: NeverScrollableScrollPhysics(),
-                          itemCount: _subGroupKeywords.length,
-                          itemExtent: 50 + Ratioz.appBarPadding,
-                          itemBuilder: (ctx, keyIndex){
+                        /// subGroup keywords
+                        Container(
+                          width: widget.tileWidth,
+                          height: (50 + Ratioz.appBarPadding) * _subGroupKeywords.length,
+                          child: ListView.builder(
+                            physics: NeverScrollableScrollPhysics(),
+                            itemCount: _subGroupKeywords.length,
+                            itemExtent: 50 + Ratioz.appBarPadding,
+                            itemBuilder: (ctx, keyIndex){
 
-                            Keyword _keyword = _subGroupKeywords[keyIndex];
-                            String _keywordID = _keyword.keywordID;
-                            String _icon = Keyword.getImagePath(_keyword);
-                            String _keywordName = Keyword.getKeywordNameByKeywordID(context, _keywordID);
-                            String _keywordNameArabic = Keyword.getKeywordArabicName(_keyword);
+                              Keyword _keyword = _subGroupKeywords[keyIndex];
+                              String _keywordID = _keyword.keywordID;
+                              String _icon = Keyword.getImagePath(_keyword);
+                              String _keywordName = Keyword.getKeywordNameByKeywordID(context, _keywordID);
+                              String _keywordNameArabic = Keyword.getKeywordArabicName(_keyword);
 
-                            return
-                              DreamBox(
-                                height: 50,
-                                width: widget.tileWidth * 0.9,
-                                icon: _icon,
-                                verse: _keywordName,
-                                secondLine: '$_keywordNameArabic',
-                                verseScaleFactor: 0.7,
-                                verseCentered: false,
-                                bubble: false,
-                                color: Colorz.White20,
-                                margins: const EdgeInsets.only(bottom: Ratioz.appBarPadding),
-                              );
-                          },
+                              return
+                                DreamBox(
+                                  height: 50,
+                                  width: widget.tileWidth * 0.9,
+                                  icon: _icon,
+                                  verse: _keywordName,
+                                  secondLine: '$_keywordNameArabic',
+                                  verseScaleFactor: 0.7,
+                                  verseCentered: false,
+                                  bubble: false,
+                                  color: Colorz.White20,
+                                  margins: const EdgeInsets.only(bottom: Ratioz.appBarPadding),
+                                  onTap: () async {await widget.onKeywordTap(_keyword);},
+                                );
+                            },
+                          ),
                         ),
-                      ),
 
-                    ],
-                  );
-            }
+                      ],
+                    );
+              }
+          ),
         ),
       ),
 

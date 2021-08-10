@@ -4,7 +4,7 @@ import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
-import 'package:bldrs/models/keywords/keys_set.dart';
+import 'package:bldrs/models/keywords/groups.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/keywords/sequence_model.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
@@ -87,7 +87,7 @@ class SequencesWall extends StatelessWidget {
     else {
       print ('1 - flyer is from sequence keywords');
 
-      KeysSet _secondKeywords = sequence?.secondKeywords;
+      Group _secondKeywords = sequence?.secondKeywords;
 
       _secondKeyword = _secondKeywords == null ? null : _secondKeywords?.keywords[index];
       bool _sequenceHasSecondKeywords = _secondKeyword != null ? true : false;
@@ -169,7 +169,7 @@ class SequencesWall extends StatelessWidget {
               (index){
 
                 // String _firstKeyword = sequence?.titleID;
-                // KeysSet _secondKeywords = sequence?.secondKeywords;
+                // Group _secondKeywords = sequence?.secondKeywords;
                 // dynamic _secondKeyword = _secondKeywords == null ? null : sequence?.secondKeywords?.keywords[index];
 
                 return
@@ -196,7 +196,7 @@ class SequencesWall extends StatelessWidget {
               (index){
 
             // String _firstKeyword = sequence?.titleID;
-            // KeysSet _secondKeywords = sequence?.secondKeywords;
+            // Group _secondKeywords = sequence?.secondKeywords;
             // dynamic _secondKeyword = _secondKeywords == null ? null : sequence?.secondKeywords?.keywords[index];
 
             return
