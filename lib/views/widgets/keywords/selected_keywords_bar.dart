@@ -47,7 +47,7 @@ class SelectedKeywordsBar extends StatelessWidget {
     return Container(
       width: _screenWidth,
       height: _selectedKeywordsZoneHeight,
-      margin: EdgeInsets.only(bottom: Ratioz.appBarPadding),
+      // margin: EdgeInsets.only(bottom: Ratioz.appBarPadding),
       color: Colorz.White10,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,

@@ -7,6 +7,7 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/keywords/groups.dart';
 import 'package:bldrs/models/secondary_models/namez_model.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/views/widgets/keywords/keywords_buttons_list.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:flutter/material.dart';
@@ -347,52 +348,50 @@ class SubGroupTileState extends State<SubGroupTile> with SingleTickerProviderSta
       child:
       closed == true ? null
           :
-      Container(
-        width: widget.tileWidth,
-        margin: const EdgeInsets.symmetric(vertical: Ratioz.appBarPadding, horizontal: 0),
-        child: Column(
-          children: <Widget>[
+      /// subGroup keywords
 
-            /// subGroup keywords
-            Container(
-              width: widget.tileWidth,
-              height: SubGroupTile.calculateButtonsTotalHeight(keywords: widget.keywords),
-              // color: Colorz.BloodTest,
-              child: ListView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: widget.keywords.length,
-                itemExtent: SubGroupTile.buttonHeight + Ratioz.appBarPadding,
-                shrinkWrap: true,
-                itemBuilder: (ctx, keyIndex){
-
-                  Keyword _keyword = widget.keywords[keyIndex];
-                  String _keywordID = _keyword.keywordID;
-                  String _icon = Keyword.getImagePath(_keyword);
-                  String _keywordName = Keyword.getKeywordNameByKeywordID(context, _keywordID);
-                  String _keywordNameArabic = Keyword.getKeywordArabicName(_keyword);
-
-                  return
-
-                  DreamBox(
-                      height: SubGroupTile.buttonHeight,
-                      width: widget.tileWidth - (Ratioz.appBarMargin * 2),
-                      icon: _icon,
-                      verse: _keywordName,
-                      secondLine: '$_keywordNameArabic',
-                      verseScaleFactor: 0.7,
-                      verseCentered: false,
-                      bubble: false,
-                      color: Colorz.White20,
-                      margins: const EdgeInsets.only(bottom: SubGroupTile.buttonVerticalPadding),
-                      onTap: () async {await widget.onKeywordTap(_keyword);},
-                    );
-                },
-              ),
-            ),
-
-          ],
-        ),
+      KeywordsButtonsList(
+          buttonWidth: widget.tileWidth,
+          keywords:  widget.keywords,
+          onKeywordTap: widget.onKeywordTap,
       ),
+
+
+      // Container(
+      //   width: widget.tileWidth,
+      //   height: SubGroupTile.calculateButtonsTotalHeight(keywords: widget.keywords),
+      //   margin: const EdgeInsets.symmetric(vertical: Ratioz.appBarPadding, horizontal: 0),
+      //   child: ListView.builder(
+      //     physics: const NeverScrollableScrollPhysics(),
+      //     itemCount: widget.keywords.length,
+      //     itemExtent: SubGroupTile.buttonHeight + Ratioz.appBarPadding,
+      //     shrinkWrap: true,
+      //     itemBuilder: (ctx, keyIndex){
+      //
+      //       Keyword _keyword = widget.keywords[keyIndex];
+      //       String _keywordID = _keyword.keywordID;
+      //       String _icon = Keyword.getImagePath(_keyword);
+      //       String _keywordName = Keyword.getKeywordNameByKeywordID(context, _keywordID);
+      //       String _keywordNameArabic = Keyword.getKeywordArabicName(_keyword);
+      //
+      //       return
+      //
+      //         DreamBox(
+      //           height: SubGroupTile.buttonHeight,
+      //           width: widget.tileWidth - (Ratioz.appBarMargin * 2),
+      //           icon: _icon,
+      //           verse: _keywordName,
+      //           secondLine: '$_keywordNameArabic',
+      //           verseScaleFactor: 0.7,
+      //           verseCentered: false,
+      //           bubble: false,
+      //           color: Colorz.White20,
+      //           margins: const EdgeInsets.only(bottom: SubGroupTile.buttonVerticalPadding),
+      //           onTap: () async {await widget.onKeywordTap(_keyword);},
+      //         );
+      //     },
+      //   ),
+      // ),
 
     );
 

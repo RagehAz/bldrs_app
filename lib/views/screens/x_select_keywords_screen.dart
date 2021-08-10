@@ -4,7 +4,6 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/providers/country_provider.dart';
-import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/keywords/group_expansion_tile.dart';
 import 'package:bldrs/views/widgets/keywords/selected_keywords_bar.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
@@ -109,7 +108,7 @@ class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
 
     bool _isSelected = _selectedKeywords.contains(keyword);
 
-    print('_onKeywordTap : keyword : ${keyword.keywordID} : groupID : ${keyword.groupID} : _canPickMany : $_canPickMany : _isSelected : $_isSelected');
+    print('_onKeywordTap : keyword : ${keyword.keywordID} : groupID : ${keyword.groupID} : subGroupID : ${keyword.subGroupID} : _canPickMany : $_canPickMany : _isSelected : $_isSelected');
 
     /// when filter accepts many keywords [Poly]
     if (_canPickMany == true){
@@ -330,7 +329,7 @@ class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
     double _screenWidth = Scale.superScreenWidth(context);
     double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
     double _selectedKeywordsZoneHeight = 80;
-    double _keywordsZoneHeight =  _screenHeight - Ratioz.stratosphere - _selectedKeywordsZoneHeight - Ratioz.appBarPadding;
+    double _keywordsZoneHeight =  _screenHeight - Ratioz.stratosphere - _selectedKeywordsZoneHeight;
 
     String _screenTitle =
     _selectedKeywords.length == 0 ? 'Select keywords' :
@@ -362,11 +361,11 @@ class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
             width: _screenWidth,
             height: _keywordsZoneHeight,
             alignment: Alignment.topCenter,
-            // color: Colorz.Yellow200,
             child: ListView.builder(
                 physics: const BouncingScrollPhysics(),
                 shrinkWrap: false,
                 itemCount: _groups.length,
+                padding: const EdgeInsets.only(top: Ratioz.appBarPadding),
                 itemBuilder: (ctx, index){
                   return
 
