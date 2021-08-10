@@ -1,6 +1,6 @@
 import 'package:bldrs/controllers/localization/lingo.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
-import 'package:bldrs/models/keywords/keys_set.dart';
+import 'package:bldrs/models/keywords/groups.dart';
 import 'package:bldrs/models/keywords/sequence_model.dart';
 import 'package:bldrs/models/planet/district_model.dart';
 import 'package:bldrs/models/secondary_models/namez_model.dart';
@@ -191,6 +191,26 @@ class Keyword {
     return _keywordsContainThisFlyerType;
   }
 // -----------------------------------------------------------------------------
+  static bool keywordsContainThisGroupID({List<Keyword> keywords, String groupID}){
+    bool _keywordsHaveIt = false;
+
+    if (keywords != null && groupID != null){
+      if(keywords.length != 0){
+
+        // for
+
+        for (Keyword keyword in keywords){
+          if(keyword.groupID == groupID){
+            _keywordsHaveIt = true;
+            break;
+          }
+        }
+      }
+    }
+
+    return _keywordsHaveIt;
+  }
+// -----------------------------------------------------------------------------
   static String translateKeyword(BuildContext context, String id){
     String _keywordName;
     Keyword _keywordModel;
@@ -250,16 +270,17 @@ class Keyword {
   /// GET KEYWORDS
 
 // ------------------o
-  static List<Keyword> getKeywordsByGroupIDAndFilterModel({KeysSet filterModel, String groupID}){
-    List<Keyword> _keywordModels = new List();
+  /// this is weird, I don't know why I wrote it
+  static List<Keyword> getKeywordsByGroupIDFomGroup({Group group, String groupID}){
+    List<Keyword> _keywords = new List();
 
-    filterModel.keywords.forEach((keyword) {
-      if(!_keywordModels.contains(keyword) && keyword.groupID == groupID){
-        _keywordModels.add(keyword);
+    group.keywords.forEach((keyword) {
+      if(!_keywords.contains(keyword) && keyword.groupID == groupID){
+        _keywords.add(keyword);
       }
     });
 
-    return _keywordModels;
+    return _keywords;
   }
 // -----------------------------------------------------------------------------
   static List<Keyword> getKeywordsBySection(Section section){
@@ -358,16 +379,15 @@ class Keyword {
 
     return _keywordIDs;
   }
-
 // =============================================================================
 
   /// GET GROUPS
 
 // ------------------o
-  static List<String> getGroupsIDsFromKeysSet(KeysSet filterModel){
+  static List<String> getGroupsIDsFromGroup(Group group){
     List<String> _groupsIDs = new List();
 
-    List<Keyword> _keywords = filterModel.keywords;
+    List<Keyword> _keywords = group.keywords;
 
     _keywords.forEach((keyword) {
 

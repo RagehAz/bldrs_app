@@ -12,7 +12,7 @@ import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:bldrs/xxx_LABORATORY/flyer_browser/bldrs_expansion_tile.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/models/keywords/keys_set.dart';
+import 'package:bldrs/models/keywords/groups.dart';
 
 class KeywordsManager extends StatefulWidget {
 

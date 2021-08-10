@@ -1,22 +1,19 @@
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class KeywordBarButton extends StatelessWidget {
-  final String keywordID;
-  final String title;
-  final String keywordName;
+  final Keyword keyword;
   final bool xIsOn;
   final Function onTap;
   final Color color;
 
   KeywordBarButton({
-    @required this.keywordID,
-    this.title,
-    @required this.keywordName,
+    @required this.keyword,
     @required this.xIsOn,
     @required this.onTap,
     this.color = Colorz.Blue80
@@ -55,32 +52,33 @@ class KeywordBarButton extends StatelessWidget {
                 children: <Widget>[
 
                   if (xIsOn)
-                    SizedBox(
-                      width: 10,
-                    ),
+                    const SizedBox(width: 10,),
 
                   if (xIsOn)
                     DreamBox(
-                      height: 40,
+                      height: 15,
+                      width: 15,
                       icon: Iconz.XLarge,
-                      iconSizeFactor: 0.3,
+                      iconSizeFactor: 09,
                       bubble: false,
                       iconColor: Colorz.White200,
                       onTap: onTap,
                       splashColor: Colorz.Nothing,
                     ),
 
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
 
-                      /// 'Section' TITLE
-                      if (title != null)
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: SuperVerse(
-                            verse: title,
+                        /// 'Group' TITLE
+                        // if (title != null)
+                          SuperVerse(
+                            // '${Keyword.getSubGroupNameByKeywordID(context, secondKeyword?.keywordID)}'
+                            // '${Keyword.getTranslatedKeywordTitleBySequence(context, sequence)}',
+                            verse: Keyword.translateKeyword(context, keyword.groupID),
                             size: 1,
                             italic: true,
                             color: Colorz.White255,
@@ -88,17 +86,15 @@ class KeywordBarButton extends StatelessWidget {
                             designMode: _designMode,
                             centered: false,
                           ),
-                        ),
-                      /// CURRENT SECTION NAME
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: Row(
+
+                        /// CURRENT SECTION NAME
+                        Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: <Widget>[
 
                             SuperVerse(
-                              verse: keywordName,
+                              verse: Keyword.translateKeyword(context, keyword.keywordID),
                               size: 1,
                               italic: false,
                               color: Colorz.White255,
@@ -110,13 +106,14 @@ class KeywordBarButton extends StatelessWidget {
 
                           ],
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
 
                 ],
               ),
             ),
+
           ),
 
         ],

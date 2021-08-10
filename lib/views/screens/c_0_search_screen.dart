@@ -8,7 +8,7 @@ import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/models/keywords/keys_set.dart';
+import 'package:bldrs/models/keywords/groups.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
@@ -38,7 +38,7 @@ class _SearchScreenState extends State<SearchScreen> {
   List<Keyword> _selectedKeywords = new List();
   Keyword _highlightedKeyword;
   bool _browserIsOn = false;
-  String _currentFilterID;
+  String _currentGroupID;
   ItemScrollController _scrollController;
   ItemPositionsListener _itemPositionListener;
   CountryProvider _countryPro;
@@ -121,7 +121,7 @@ class _SearchScreenState extends State<SearchScreen> {
     });
   }
 // -----------------------------------------------------------------------------
-  List<Widget> _selectedKeywordsWidgets(List<KeysSet> filtersModels){
+  List<Widget> _selectedKeywordsWidgets(List<Group> filtersModels){
 
     return
 
@@ -178,9 +178,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     ),
                   ) :
                   KeywordBarButton(
-                    keywordID: _keyword.keywordID,
-                    keywordName: Keyword.translateKeyword(context, _keyword.keywordID),
-                    title: '${_keyword.flyerType}, ${_keyword.groupID}, ${_keyword.subGroupID}',
+                    keyword: _keyword,
                     xIsOn: true,
                     onTap: () => _removeKeyword(index, filtersModels),
                     color: _isHighlighted == true ? Colorz.Red255 : Colorz.Blue80,
@@ -257,24 +255,24 @@ class _SearchScreenState extends State<SearchScreen> {
     // ];
   }
 // -----------------------------------------------------------------------------
-  List<Keyword> _generateFilterKeywords(List<KeysSet> filtersModels){
+  List<Keyword> _generateFilterKeywords(List<Group> filtersModels){
 
-    KeysSet _currentFilterModel = filtersModels.singleWhere((filterModel) => filterModel.groupID == _currentFilterID, orElse: () => null);
+    Group _currentFilterModel = filtersModels.singleWhere((filterModel) => filterModel.groupID == _currentGroupID, orElse: () => null);
 
     List<Keyword> _currentFilterKeywords = _currentFilterModel == null ? [] : _currentFilterModel.keywords;
 
     return _currentFilterKeywords;
   }
 // -----------------------------------------------------------------------------
-  void _selectFilter(KeysSet _filterModel){
+  void _selectGroup(Group group){
 
     setState(() {
-      _currentFilterID = _filterModel.groupID;
+      _currentGroupID = group.groupID;
     });
 
   }
 // -----------------------------------------------------------------------------
-  Future<void> _removeKeyword(int index, List<KeysSet> filtersModels) async {
+  Future<void> _removeKeyword(int index, List<Group> filtersModels) async {
 
     String _groupID = _selectedKeywords[index].groupID;
     // String _keywordID = _selectedKeywords[index].keywordID;
@@ -330,7 +328,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
     // bool _canPickMany = filtersModels.singleWhere((filterModel) => filterModel.filterID == _currentFilterID).canPickMany;
 
-   bool _canPickMany = KeysSet.getCanKeysSetPickManyByKeyword(keyword);
+   bool _canPickMany = Group.getCanGroupPickManyByKeyword(keyword);
 
     bool _isSelected = _selectedKeywords.contains(keyword);
 
@@ -365,7 +363,7 @@ class _SearchScreenState extends State<SearchScreen> {
       else{
 
         /// when selecting city - area
-        if(_currentFilterID == 'city'){
+        if(_currentGroupID == 'city'){
           // then keyword is city
 
           _showZoneDialog(cityName: keyword.keywordID);
@@ -497,7 +495,7 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: true);
-    List<KeysSet> _filtersBySection = _flyersProvider.getSectionFilters;
+    List<Group> _filtersBySection = _flyersProvider.getSectionFilters;
 
     print('rebuilding search screen with section : ${_filtersBySection.length} filters');
 

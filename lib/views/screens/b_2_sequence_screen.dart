@@ -28,9 +28,7 @@ class SequenceScreen extends StatelessWidget {
 
     Widget _appBarKeywordButton =
     KeywordBarButton(
-      keywordID: sequence.titleID,
-      keywordName: '${Keyword.translateKeyword(context, sequence.titleID)}',
-      title: '${Keyword.getTranslatedKeywordTitleBySequence(context, sequence)}',
+      keyword: Keyword.getKeywordByKeywordID(sequence.titleID),
       xIsOn: false,
       // color: ,
       onTap: (){

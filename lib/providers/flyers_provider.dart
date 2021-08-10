@@ -12,7 +12,7 @@ import 'package:bldrs/models/flyer/records/save_model.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
-import 'package:bldrs/models/keywords/keys_set.dart';
+import 'package:bldrs/models/keywords/groups.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
@@ -27,7 +27,7 @@ import 'package:provider/provider.dart';
 class FlyersProvider with ChangeNotifier {
   List<TinyBz> _sponsors;
   Section _currentSection;
-  List<KeysSet> _sectionFilters;
+  List<Group> _sectionFilters;
   List<TinyBz> _userTinyBzz;
   List<FlyerModel> _loadedFlyers;
   List<TinyFlyer> _loadedTinyFlyers;
@@ -66,8 +66,8 @@ class FlyersProvider with ChangeNotifier {
     return _currentSection ?? Section.NewProperties;
   }
 
-  List<KeysSet> get getSectionFilters {
-    return <KeysSet>[..._sectionFilters];
+  List<Group> get getSectionFilters {
+    return <Group>[..._sectionFilters];
   }
 
 // -----------------------------------------------------------------------------
@@ -145,7 +145,7 @@ class FlyersProvider with ChangeNotifier {
 // -----------------------------------------------------------------------------
   void setSectionFilters(){
 
-    List<KeysSet> _filtersBySection = KeysSet.getKeysSetBySection(
+    List<Group> _filtersBySection = Group.getGroupBySection(
         section: _currentSection,
     );
 

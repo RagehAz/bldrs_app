@@ -3,7 +3,7 @@ import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/models/keywords/keys_set.dart';
+import 'package:bldrs/models/keywords/groups.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 class BldrsExpansionTile extends StatefulWidget {
   final String icon;
   final double iconSizeFactor;
-  final KeysSet keysSet;
+  final Group group;
   final double height;
   final double tileWidth;
   final Function onKeywordTap;
@@ -25,7 +25,7 @@ class BldrsExpansionTile extends StatefulWidget {
     this.icon,
     this.tileWidth,
     this.iconSizeFactor = 1,
-    @required this.keysSet,
+    @required this.group,
     @required this.selectedKeywords,
     this.height,
     @required this.onKeywordTap,
@@ -57,11 +57,11 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
   PageController _pageController;
   List<String> _groupsIDs = new List();
   String _currentGroupID;
-  List<Keyword> _currentKeywordModels = new List();
+  List<Keyword> _currentKeywords = new List();
 // -----------------------------------------------------------------------------
   @override
   void initState() {
-    _groupsIDs = Keyword.getGroupsIDsFromKeysSet(widget.keysSet);
+    _groupsIDs = Keyword.getGroupsIDsFromGroup(widget.group);
 
     super.initState();
     _controller = new AnimationController(duration: _kExpand, vsync: this);
@@ -119,7 +119,7 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
 // -----------------------------------------------------------------------------
   void _setKeywords(String groupID){
     setState(() {
-    _currentKeywordModels = Keyword.getKeywordsByGroupIDAndFilterModel(filterModel: widget.keysSet, groupID: groupID);
+    _currentKeywords = Keyword.getKeywordsByGroupIDFomGroup(group: widget.group, groupID: groupID);
     });
   }
 // -----------------------------------------------------------------------------
@@ -194,7 +194,7 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
 
                     /// FILTER TITLE
                     title: SuperVerse(
-                      verse: widget.keysSet.groupID,
+                      verse: widget.group.groupID,
                       color: _titleColor,
                       centered: false,
                       shadow: false,
@@ -202,7 +202,7 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
 
                     /// FILTER SUBTITLE
                     subtitle: SuperVerse(
-                      verse: widget.keysSet.groupID,
+                      verse: widget.group.groupID,
                       color: _isExpanded ? Colorz.White200 : Colorz.White125,
                       weight: VerseWeight.thin,
                       italic: true,
@@ -317,14 +317,14 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
                 itemExtent: _buttonExtent,
                 children: <Widget>[
 
-                  ...List.generate(_currentKeywordModels.length, (index){
+                  ...List.generate(_currentKeywords.length, (index){
 
-                    Keyword _keyword = _currentKeywordModels[index];
+                    Keyword _keyword = _currentKeywords[index];
                     bool _keywordIsSelected = widget.selectedKeywords.contains(_keyword);
 
                     List<String> _subGroups = new List();
 
-                    _currentKeywordModels.forEach((keyword) {
+                    _currentKeywords.forEach((keyword) {
                       if(!_subGroups.contains(keyword.groupID)){
                         _subGroups.add(keyword.groupID);
                       }
@@ -367,7 +367,7 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
                             iconColor: Colorz.Black230,
                             margins: const EdgeInsets.symmetric(horizontal: 0, vertical: _buttonVerticalPadding),
                             onTap: (){
-                              widget.onKeywordTap(_currentKeywordModels[index]);
+                              widget.onKeywordTap(_currentKeywords[index]);
                             },
                           ),
                         ],
