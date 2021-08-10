@@ -38,9 +38,7 @@ class SequenceFlyersScreen extends StatelessWidget {
         ),
 
         KeywordBarButton(
-          keywordID: firstKeyword?.keywordID,
-          keywordName: '${Keyword.translateKeyword(context, firstKeyword?.keywordID)}',
-          title: '${Keyword.getTranslatedKeywordTitleBySequence(context, sequence)}',
+          keyword: firstKeyword,
           xIsOn: false,
           // color: ,
           onTap: (){
@@ -53,9 +51,7 @@ class SequenceFlyersScreen extends StatelessWidget {
         // ),
 
         KeywordBarButton(
-          keywordID: secondKeyword?.keywordID,
-          keywordName: '${Keyword.translateKeyword(context, secondKeyword?.keywordID)} ${sequence.secondKeywords.groupID}',
-          title: '${Keyword.getSubGroupNameByKeywordID(context, secondKeyword?.keywordID)}',
+          keyword: secondKeyword,
           xIsOn: false,
           // color: ,
           onTap: (){

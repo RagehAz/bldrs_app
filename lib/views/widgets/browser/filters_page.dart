@@ -1,19 +1,19 @@
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/models/keywords/keys_set.dart';
+import 'package:bldrs/models/keywords/groups.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:flutter/material.dart';
 
 class FiltersPage extends StatelessWidget {
-  final List<KeysSet> filtersModels;
+  final List<Group> groups;
   final Function onTap;
-  final KeysSet selectedFilter;
+  final Group selectedGroup;
 
   FiltersPage({
     Key key,
-    @required this.filtersModels,
+    @required this.groups,
     @required this.onTap,
-    @required this.selectedFilter,
+    @required this.selectedGroup,
   });
 
   @override
@@ -23,13 +23,13 @@ class FiltersPage extends StatelessWidget {
       // height: 20,
       // color: _colors[pageIndex],
       child: ListView.builder(
-          itemCount: filtersModels.length,
+          itemCount: groups.length,
           padding: const EdgeInsets.all(Ratioz.appBarMargin),
           itemBuilder: (context, keyIndex){
 
-            KeysSet _filterModel = filtersModels[keyIndex];
+            Group _group = groups[keyIndex];
 
-            Color _color = selectedFilter?.groupID == _filterModel.groupID ? Colorz.Yellow255 : Colorz.Nothing;
+            Color _color = selectedGroup?.groupID == _group.groupID ? Colorz.Yellow255 : Colorz.Nothing;
 
             return
               DreamBox(
@@ -37,8 +37,8 @@ class FiltersPage extends StatelessWidget {
                 // width: 120,
                 color: _color,
                 margins: const EdgeInsets.symmetric(vertical: Ratioz.appBarPadding),
-                verse: _filterModel.groupID,
-                onTap: () => onTap(_filterModel),
+                verse: _group.groupID,
+                onTap: () => onTap(_group),
               );
           }
       ),

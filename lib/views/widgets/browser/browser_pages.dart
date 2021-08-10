@@ -4,7 +4,7 @@ import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/models/keywords/keys_set.dart';
+import 'package:bldrs/models/keywords/groups.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/widgets/browser/filters_page.dart';
@@ -21,7 +21,7 @@ class BrowserPages extends StatefulWidget {
   final double browserZoneHeight;
   final bool browserIsOn;
   final Function closeBrowser;
-  final List<KeysSet> filtersModels;
+  final List<Group> filtersModels;
   final Function onKeywordTap;
   final List<Keyword> selectedKeywords;
 
@@ -43,8 +43,8 @@ class _BrowserPagesState extends State<BrowserPages> {
   // int _numberOfPages = 1;
   int _currentPage = 0;
 
-  // List<FilterModel> _filtersModels;
-  KeysSet _currentFilter;
+  // List<Group> _groups;
+  Group _currentGroup;
   List<String> _groups = new List();
   String _currentGroupID;
   List<Keyword> _keywords = new List();
@@ -78,15 +78,15 @@ class _BrowserPagesState extends State<BrowserPages> {
     super.dispose();
   }
 // -----------------------------------------------------------------------------
-  List<Widget> generatePages(List<KeysSet> filters){
+  List<Widget> generatePages(List<Group> filters){
 
     return
         <Widget>[
 
           FiltersPage(
-            filtersModels: filters,
-            onTap: (filterModel) => _onFilterTap(filterModel),
-            selectedFilter: _currentFilter,
+            groups: filters,
+            onTap: (group) => _onGroupTappp(group),
+            selectedGroup: _currentGroup,
           ),
 
           if (_groups.isNotEmpty)
@@ -107,19 +107,19 @@ class _BrowserPagesState extends State<BrowserPages> {
 
   }
 // -----------------------------------------------------------------------------
-  void _onFilterTap(KeysSet filterModel){
-    print('tapping filter : ${filterModel.groupID}');
+  void _onGroupTappp(Group group){
+    print('tapping filter : ${group.groupID}');
 
     setState(() {
-      _currentFilter = filterModel;
-      _groups = Keyword.getGroupsIDsFromKeysSet(filterModel);
+      _currentGroup = group;
+      _groups = Keyword.getGroupsIDsFromGroup(group);
       _currentGroupID = null;
       _keywords = new List();
     });
 
     if(_groups.isEmpty){
       setState(() {
-        _keywords = filterModel.keywords;
+        _keywords = group.keywords;
       });
     }
     // resetPages();
@@ -129,7 +129,7 @@ class _BrowserPagesState extends State<BrowserPages> {
   void _onGroupTap(String groupID){
     setState(() {
       _currentGroupID = groupID;
-      _keywords = Keyword.getKeywordsByGroupIDAndFilterModel(filterModel: _currentFilter, groupID: _currentGroupID);
+      _keywords = Keyword.getKeywordsByGroupIDFomGroup(group: _currentGroup, groupID: _currentGroupID);
     });
     // resetPages();
     _goToNextPage();
@@ -156,13 +156,13 @@ class _BrowserPagesState extends State<BrowserPages> {
   String _generatePathString(){
 
     String _path =
-    _currentFilter == null ?
+    _currentGroup == null ?
         ''
         :
     _currentGroupID == null ?
-    '${_currentFilter.groupID}'
+    '${_currentGroup.groupID}'
         :
-    '${_currentFilter.groupID} / $_currentGroupID';
+    '${_currentGroup.groupID} / $_currentGroupID';
 
     return _path;
   }
@@ -170,7 +170,7 @@ class _BrowserPagesState extends State<BrowserPages> {
   @override
   Widget build(BuildContext context) {
     FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
-    List<KeysSet> _filtersBySection = _flyersProvider.getSectionFilters;
+    List<Group> _filtersBySection = _flyersProvider.getSectionFilters;
 
     List<Widget> _pages = generatePages(_filtersBySection);
     int _numberOfPages = _pages.length;
