@@ -7,6 +7,7 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/keywords/groups.dart';
 import 'package:bldrs/models/secondary_models/namez_model.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/views/widgets/keywords/keywords_buttons_list.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:flutter/material.dart';
@@ -49,7 +50,7 @@ class GroupTile extends StatefulWidget {
 class GroupTileState extends State<GroupTile> with SingleTickerProviderStateMixin {
 
   AnimationController _controller;
-  CurvedAnimation _easeOutAnimation;
+  // CurvedAnimation _easeOutAnimation;
   CurvedAnimation _easeInAnimation;
   ColorTween _borderColor;
   ColorTween _titleColorTween;
@@ -59,18 +60,18 @@ class GroupTileState extends State<GroupTile> with SingleTickerProviderStateMixi
   Animation<double> _iconTurns;
   bool _isExpanded = false;
   static const Duration _kExpand = const Duration(milliseconds: 200);
-  PageController _pageController;
-  List<String> _groupsIDs = new List();
-  String _currentGroupID;
-  List<Keyword> _currentKeywordModels = new List();
+  // PageController _pageController;
+  // List<String> _groupsIDs = new List();
+  // String _currentGroupID;
+  // List<Keyword> _currentKeywordModels = new List();
 // -----------------------------------------------------------------------------
   @override
   void initState() {
-    _groupsIDs = Keyword.getGroupsIDsFromGroup(widget.group);
+    // _groupsIDs = Keyword.getGroupsIDsFromGroup(widget.group);
 
     super.initState();
     _controller = new AnimationController(duration: _kExpand, vsync: this);
-    _easeOutAnimation = new CurvedAnimation(parent: _controller, curve: Curves.easeOut);
+    // _easeOutAnimation = new CurvedAnimation(parent: _controller, curve: Curves.easeOut);
     _easeInAnimation = new CurvedAnimation(parent: _controller, curve: Curves.easeIn);
     _borderColor = new ColorTween();
     _titleColorTween = new ColorTween();
@@ -78,7 +79,7 @@ class GroupTileState extends State<GroupTile> with SingleTickerProviderStateMixi
     _subtitleLabelColorTween = new ColorTween();
     _iconTurns = new Tween<double>(begin: 0.0, end: 0.5).animate(_easeInAnimation);
     _borderRadius = BorderRadiusTween();
-    _pageController = PageController();
+    // _pageController = PageController();
     _isExpanded = PageStorage.of(context)?.readState(context) ?? widget.initiallyExpanded;
     if (_isExpanded)
       _controller.value = 1.0;
@@ -120,18 +121,6 @@ class GroupTileState extends State<GroupTile> with SingleTickerProviderStateMixi
         widget.onGroupTap(_isExpanded);
       }
     }
-  }
-// -----------------------------------------------------------------------------
-  void _setKeywords(String groupID){
-    setState(() {
-      _currentKeywordModels = Keyword.getKeywordsByGroupIDFomGroup(group: widget.group, groupID: groupID);
-    });
-  }
-// -----------------------------------------------------------------------------
-  void _selectGroup(String groupID){
-    setState(() {
-      _currentGroupID = groupID;
-    });
   }
 // -----------------------------------------------------------------------------
   List<String> _getSubGroupsIDs(){
@@ -180,26 +169,26 @@ class GroupTileState extends State<GroupTile> with SingleTickerProviderStateMixi
     final bool closed = _isExpanded == false && _controller.isDismissed == true;
     //------------------------------------------------------------o
 
-    int _totalNumberOfButtons = widget.group.keywords.length;
+    // int _totalNumberOfButtons = widget.group.keywords.length;
 
-    const double _buttonHeight = 50;
-    const double _buttonVerticalPadding = Ratioz.appBarPadding;
+    const double _buttonHeight = ((Ratioz.appBarCorner + Ratioz.appBarMargin) * 2) + Ratioz.appBarMargin;
+    // const double _buttonVerticalPadding = Ratioz.appBarPadding;
 
     List<String> _subGroupsIDs = _getSubGroupsIDs();
-    int _numberOfSubGroups = _subGroupsIDs.length;
+    // int _numberOfSubGroups = _subGroupsIDs.length;
 
-    double _subGroupTitleHeight = 25;
+    // double _subGroupTitleHeight = 25;
 
-    double _maxHeight =
-    /// keywords heights
-    ( ( _buttonHeight + (_buttonVerticalPadding) ) * _totalNumberOfButtons)
-    +
-    /// subGroups titles boxes heights
-    (_subGroupTitleHeight * _numberOfSubGroups)
-    +
-    /// bottom padding
-    Ratioz.appBarMargin
-    ;
+    // double _maxHeight =
+    // /// keywords heights
+    // ( ( _buttonHeight + (_buttonVerticalPadding) ) * _totalNumberOfButtons)
+    // +
+    // /// subGroups titles boxes heights
+    // (_subGroupTitleHeight * _numberOfSubGroups)
+    // +
+    // /// bottom padding
+    // Ratioz.appBarMargin
+    // ;
     //------------------------------------------------------------o
     return new AnimatedBuilder(
       animation: _controller.view,
@@ -209,12 +198,12 @@ class GroupTileState extends State<GroupTile> with SingleTickerProviderStateMixi
         // final Color borderSideColor = _borderColor.evaluate(_easeOutAnimation) ?? Colors.transparent;
         final Color _titleColor = _titleColorTween.evaluate(_easeInAnimation);
         final Color _tileColor = _tileColorTween.evaluate(_easeInAnimation);
-        final Color _subTitleLabelColor = _subtitleLabelColorTween.evaluate(_easeInAnimation);
+        // final Color _subTitleLabelColor = _subtitleLabelColorTween.evaluate(_easeInAnimation);
 
         /// Collapsed parameters
         const double _tileMinHeight = _buttonHeight;
-        const double _tileOneMargin = Ratioz.appBarMargin;
-        const double _tileOnePadding = Ratioz.appBarPadding;
+        // const double _tileOneMargin = Ratioz.appBarMargin;
+        // const double _tileOnePadding = Ratioz.appBarPadding;
 
         final double _iconSize = widget.icon == null ? 0 : 40;
         final double _arrowSize = _tileMinHeight;
@@ -248,7 +237,7 @@ class GroupTileState extends State<GroupTile> with SingleTickerProviderStateMixi
             margin: const EdgeInsets.symmetric(vertical: Ratioz.appBarPadding, horizontal: Ratioz.appBarMargin),
             decoration: BoxDecoration(
               color: _tileColor,
-              borderRadius: Borderers.superBorderAll(context, Ratioz.appBarCorner),
+              borderRadius: Borderers.superBorderAll(context, Ratioz.appBarCorner + Ratioz.appBarMargin),
             ),
             child: new Column(
               mainAxisSize: MainAxisSize.min,
@@ -340,45 +329,52 @@ class GroupTileState extends State<GroupTile> with SingleTickerProviderStateMixi
       /// SUB - GROUPS & KEYWORDS : Expanded tile children
       child: closed == true ? null
           :
-      Center(
-        child: Container(
-          width: widget.tileWidth,
-          margin: const EdgeInsets.symmetric(vertical: Ratioz.appBarPadding, horizontal: 0),
-          child: ListView.builder(
-              padding: const EdgeInsets.only(top: Ratioz.appBarPadding),
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: _subGroupsIDs.length,
-              shrinkWrap: true,
-              itemBuilder: (xxx, _subIndex){
+      Container(
+        width: widget.tileWidth,
+        child: ListView.builder(
+            padding: const EdgeInsets.only(bottom: Ratioz.appBarPadding),
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: _subGroupsIDs.length,
+            shrinkWrap: true,
+            itemBuilder: (xxx, _subIndex){
 
-                String _subGroupID = _subGroupsIDs[_subIndex];
-                String _subGroupNameEN = Keyword.getSubGroupNameBySubGroupIDAndLingoCode(
-                  context: context,
-                  subGroupID: _subGroupID,
-                  lingoCode: Lingo.English,
+              String _subGroupID = _subGroupsIDs[_subIndex];
+              String _subGroupNameEN = Keyword.getSubGroupNameBySubGroupIDAndLingoCode(
+                context: context,
+                subGroupID: _subGroupID,
+                lingoCode: Lingo.English,
+              );
+              String _subGroupNameAR = Keyword.getSubGroupNameBySubGroupIDAndLingoCode(
+                context: context,
+                subGroupID: _subGroupID,
+                lingoCode: Lingo.Arabic,
+              );
+
+              List<Keyword> _subGroupKeywords = _getKeywordBySubGroup(_subGroupID);
+
+              return
+              _subGroupID == '' ?
+
+                  KeywordsButtonsList(
+                      buttonWidth: widget.tileWidth - (Ratioz.appBarMargin * 2),
+                      keywords: _subGroupKeywords,
+                      onKeywordTap: widget.onKeywordTap,
+                  )
+
+                  :
+
+                SubGroupTile(
+                  tileWidth: widget.tileWidth - (Ratioz.appBarMargin * 2),
+                  // tileMaxHeight: ,
+                  keywords: _subGroupKeywords,
+                  onKeywordTap: widget.onKeywordTap,
+                  subGroupName: _subGroupNameEN,
+                  subGroupSecondName: _subGroupNameAR,
+                  scrollable: false,
+                  onExpansionChanged: null,
                 );
-                String _subGroupNameAR = Keyword.getSubGroupNameBySubGroupIDAndLingoCode(
-                  context: context,
-                  subGroupID: _subGroupID,
-                  lingoCode: Lingo.Arabic,
-                );
 
-                List<Keyword> _subGroupKeywords = _getKeywordBySubGroup(_subGroupID);
-
-                return
-                  SubGroupTile(
-                    tileWidth: widget.tileWidth - (Ratioz.appBarMargin * 2),
-                    // tileMaxHeight: ,
-                    keywords: _subGroupKeywords,
-                    onKeywordTap: widget.onKeywordTap,
-                    subGroupName: _subGroupNameEN,
-                    subGroupSecondName: _subGroupNameAR,
-                    scrollable: false,
-                    onExpansionChanged: null,
-                  );
-
-              }
-          ),
+            }
         ),
       ),
 
