@@ -1,19 +1,14 @@
-import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
-import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
-import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/providers/country_provider.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/views/widgets/keywords/one_page_expansion_tile.dart';
+import 'package:bldrs/views/widgets/keywords/group_expansion_tile.dart';
+import 'package:bldrs/views/widgets/keywords/selected_keywords_bar.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
-import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:bldrs/xxx_LABORATORY/flyer_browser/bldrs_expansion_tile.dart';
-import 'package:bldrs/xxx_LABORATORY/flyer_browser/keyword_button.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/models/keywords/groups.dart';
 import 'package:provider/provider.dart';
@@ -106,7 +101,6 @@ class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
     return _keywordIDs;
   }
 // -----------------------------------------------------------------------------
-// -----------------------------------------------------------------------------
   Future<void> _onKeywordTap(Keyword keyword) async {
 
     // bool _canPickMany = filtersModels.singleWhere((filterModel) => filterModel.filterID == _currentFilterID).canPickMany;
@@ -122,7 +116,7 @@ class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
 
       /// when POLY keyword is already selected
       if(_isSelected == true){
-        _highlightKeyword(keyword, _canPickMany);
+        await _highlightKeyword(keyword, _canPickMany);
       }
 
       /// when POLY keyword is not selected
@@ -143,7 +137,7 @@ class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
 
       /// when SINGULAR keyword already selected
       if (_selectedKeywordsHaveThisGroupID == true){
-        _highlightKeyword(keyword, _canPickMany);
+        await _highlightKeyword(keyword, _canPickMany);
       }
 
       /// when SINGULAR keyword not selected
@@ -153,7 +147,7 @@ class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
         if(_currentGroupID == 'city'){
           // then keyword is city
 
-          _showZoneDialog(cityName: keyword.keywordID);
+          await _showZoneDialog(cityName: keyword.keywordID);
 
         }
 
@@ -205,10 +199,10 @@ class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
   void _scrollToEndOfAppBar(){
     // _scrollController.animateTo(_scrollController.position.maxScrollExtent + 100, duration: Ratioz.fadingDuration, curve: Curves.easeInOut);
 
-    if (_selectedKeywords.length <= 2){
+    if (_selectedKeywords.length <= 2 || _scrollController == null){
       print('no scroll available');
     } else {
-      _scrollController.scrollTo(index: _selectedKeywords.length - 1, duration: Ratioz.duration150ms);
+      _scrollController?.scrollTo(index: _selectedKeywords.length - 1, duration: Ratioz.duration150ms);
     }
   }
 // -----------------------------------------------------------------------------
@@ -336,7 +330,7 @@ class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
     double _screenWidth = Scale.superScreenWidth(context);
     double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
     double _selectedKeywordsZoneHeight = 80;
-    double _keywordsZoneHeight =  _screenHeight - Ratioz.stratosphere - _selectedKeywordsZoneHeight;
+    double _keywordsZoneHeight =  _screenHeight - Ratioz.stratosphere - _selectedKeywordsZoneHeight - Ratioz.appBarPadding;
 
     String _screenTitle =
     _selectedKeywords.length == 0 ? 'Select keywords' :
@@ -347,7 +341,7 @@ class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
     return MainLayout(
       pageTitle: 'Select Flyer keywords',
       appBarType: AppBarType.Basic,
-      pyramids: Iconz.PyramidsYellow,
+      pyramids: Iconz.DvBlankSVG,
       loading: _loading,
       layoutWidget: Column(
         children: <Widget>[
@@ -355,108 +349,12 @@ class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
           Stratosphere(),
 
           /// selected keywords zone
-          Container(
-            width: _screenWidth,
-            height: _selectedKeywordsZoneHeight,
-            color: Colorz.BloodTest,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-
-                /// Selected keywords Title
-                Container(
-                  width: _screenHeight,
-                  height: _selectedKeywordsZoneHeight * 0.3,
-                  padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
-                  child: SuperVerse(
-                    verse: _screenTitle,
-                    size: 1,
-                    weight: VerseWeight.bold,
-                    centered: false,
-                  ),
-                ),
-
-                /// Selected keywords
-                Container(
-                  width: _screenWidth,
-                  height: _selectedKeywordsZoneHeight * 0.7,
-
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    physics: const BouncingScrollPhysics(),
-                    children: <Widget>[
-
-                      Container(
-                        width: _screenWidth,//Scale.superScreenWidth(context) - Ratioz.appBarMargin * 2 - Ratioz.appBarPadding * 2,
-                        height: 40,
-                        // padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
-                        decoration: BoxDecoration(
-                          color: Colorz.White10,
-                          // borderRadius: Borderers.superBorderAll(context, Ratioz.appBarButtonCorner),
-                        ),
-                        alignment: Alignment.center,
-                        child:
-                        _selectedKeywords.length == 0 ? Container() :
-                        ScrollablePositionedList.builder(
-                          physics: const AlwaysScrollableScrollPhysics(),
-                          itemScrollController: _scrollController,
-                          scrollDirection: Axis.horizontal,
-                          itemPositionsListener: _itemPositionListener,
-                          itemCount: _selectedKeywords.length,
-                          padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
-                          itemBuilder: (ctx, index){
-
-                            Keyword _keyword = index >= 0 ? _selectedKeywords[index] : null;
-
-                            bool _highlightedMapIsCity =
-                            _highlightedKeyword == null ? false
-                                :
-                            _highlightedKeyword.flyerType == 'cities' ? true
-                                : false;
-
-                            bool _isHighlighted =
-                            _highlightedMapIsCity == true && _keyword.flyerType == 'cities'? true
-                                :
-                            _highlightedMapIsCity == true && _keyword.flyerType == 'area'? true
-                                :
-                            Keyword.KeywordsAreTheSame(_highlightedKeyword, _keyword) == true ? true
-                                :
-                            false;
-
-                            print('_keywords.length : ${_selectedKeywords.length}');
-                            print('index : $index');
-
-                            return
-
-                              _keyword == null ?
-                              Container(
-                                // width: 10,
-                                height: 10,
-                                color: Colorz.Yellow20,
-                                child: SuperVerse(
-                                  verse : 'keyword is null',
-                                ),
-                              )
-                                  :
-                              KeywordBarButton(
-                                keyword: _keyword,
-                                xIsOn: true,
-                                onTap: () => _removeKeyword(index),
-                                color: _isHighlighted == true ? Colorz.Red255 : Colorz.Blue80,
-                              );
-
-                          },
-                        ),
-                      ),
-                      // ..._selectedKeywordsWidgets(_groups),
-
-                    ],
-                  ),
-                ),
-
-              ],
-            ),
+          SelectedKeywordsBar(
+              selectedKeywords: _selectedKeywords,
+              scrollController: _scrollController,
+              itemPositionListener: _itemPositionListener,
+              highlightedKeyword: _highlightedKeyword,
+              removeKeyword: (index) => _removeKeyword(index)
           ),
 
           /// keywords zone
@@ -466,92 +364,24 @@ class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
             alignment: Alignment.topCenter,
             // color: Colorz.Yellow200,
             child: ListView.builder(
-                physics: BouncingScrollPhysics(),
-
+                physics: const BouncingScrollPhysics(),
+                shrinkWrap: false,
                 itemCount: _groups.length,
                 itemBuilder: (ctx, index){
                   return
 
-                    OnePageExpansionTile(
+                    GroupTile(
                       tileWidth: _screenWidth - (2 * Ratioz.appBarMargin),
-                      tileMaxHeight: _keywordsZoneHeight * 0.7,
+                      scrollable: false,
                       group: _groups[index],
                       selectedKeywords: _selectedKeywords,
                       onKeywordTap: (keyword) async {await _onKeywordTap(keyword);},
-                      // onGroupTap: (group) => _selectGroup(group),
-                      onExpansionChanged: (bool isExpanded) => _selectGroup(isExpanded: isExpanded, group: _groups[index]),
+                      onGroupTap: (bool isExpanded) => _selectGroup(isExpanded: isExpanded, group: _groups[index]),
+                      // tileMaxHeight: _keywordsZoneHeight * 0.7,
                     );
                 }
                 ),
           ),
-
-          // BldrsExpansionTile(
-          //   height: Scale.superScreenHeight(context) * 0.5,
-          //   key: _expansionKeys[0],
-          //   // icon: KeywordModel.getImagePath(_filterID),
-          //   iconSizeFactor: 0.5,
-          //   group: Group.architecturalStylesGroup,
-          //   selectedKeywords: _selectedKeywords,
-          //   onKeywordTap: (Keyword selectedKeyword){
-          //
-          //     if (_selectedKeywords.contains(selectedKeyword)){
-          //       setState(() {
-          //         print('a77a');
-          //         _selectedKeywords.remove(selectedKeyword);
-          //       });
-          //     }
-          //
-          //     else {
-          //       setState(() {
-          //         _selectedKeywords.add(selectedKeyword);
-          //       });
-          //     }
-          //
-          //   },
-          //
-          //   onGroupTap: (String groupID){
-          //
-          //   },
-          // ),
-
-
-          // ...List.generate(
-          //     _filtersIDs.length,
-          //         (index){
-          //
-          //       String _filterID = _filtersIDs[index];
-          //
-          //       return
-          //         BldrsExpansionTile(
-          //           height: Scale.superScreenHeight(context) * 0.5,
-          //           key: _expansionKeys[index],
-          //           // icon: KeywordModel.getImagePath(_filterID),
-          //           iconSizeFactor: 0.5,
-          //           group: null,
-          //           selectedKeywords: _selectedKeywords,
-          //           onKeywordTap: (Keyword selectedKeyword){
-          //
-          //             if (_selectedKeywords.contains(selectedKeyword)){
-          //               setState(() {
-          //                 print('a77a');
-          //               _selectedKeywords.remove(selectedKeyword);
-          //               });
-          //             }
-          //
-          //             else {
-          //               setState(() {
-          //                 _selectedKeywords.add(selectedKeyword);
-          //               });
-          //             }
-          //
-          //           },
-          //
-          //           onGroupTap: (String groupID){
-          //
-          //           },
-          //         );
-          //
-          // }),
 
         ],
       ),
