@@ -11,40 +11,94 @@ import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:flutter/material.dart';
 
-class OnePageExpansionTile extends StatefulWidget {
+class SubGroupTile extends StatefulWidget {
   final double tileWidth;
   final double tileMaxHeight;
 
-  final String icon;
+  final String subGroupName;
+  final String subGroupSecondName;
+
+  final bool scrollable;
+
+  final String subGroupIcon;
   final double iconSizeFactor;
-  final Group group;
   final Function onKeywordTap;
+
   final ValueChanged<bool> onExpansionChanged;
   final bool initiallyExpanded;
-  final List<Keyword> selectedKeywords;
 
-  const OnePageExpansionTile({
+  final List<Keyword> keywords;
+  // final List<Keyword> selectedKeywords;
+
+  const SubGroupTile({
     this.tileWidth,
     this.tileMaxHeight,
 
-    this.icon,
+    @required this.subGroupName,
+    @required this.subGroupSecondName,
+
+    this.scrollable = true,
+
+    this.subGroupIcon,
     this.iconSizeFactor = 1,
-    @required this.group,
-    @required this.selectedKeywords,
+    @required this.keywords,
+    // @required this.selectedKeywords,
     @required this.onKeywordTap,
     this.onExpansionChanged,
-    this.initiallyExpanded: false,
-    Key key,
-  })
-      : assert(initiallyExpanded != null),
-        super(key: key);
+    this.initiallyExpanded = false,
+  });
+// -----------------------------------------------------------------------------
+  static const double buttonHeight = 50;
+  static const double buttonVerticalPadding = Ratioz.appBarPadding;
+  static const double titleHeight = 25;
+  static const double collapsedTileHeight = buttonHeight;
 
+// -----------------------------------------------------------------------------
+  static double calculateButtonExtent(){
+    return buttonHeight + buttonVerticalPadding;
+  }
 
+  static double calculateTitleIconSize({String subGroupIcon}){
+     final double _iconSize = subGroupIcon == null ? 0 : 40;
+     return _iconSize;
+  }
+// -----------------------------------------------------------------------------
+  static double calculateTitleBoxWidth({double tileWidth, String subGroupIcon}){
+    final double _iconSize = calculateTitleIconSize(subGroupIcon: subGroupIcon);
+    final double _titleZoneWidth = tileWidth - _iconSize - SubGroupTile.collapsedTileHeight;
+    return _titleZoneWidth;
+  }
+// -----------------------------------------------------------------------------
+  static int numberOfButtons({List<Keyword> keywords}){
+    return keywords.length;
+  }
+// -----------------------------------------------------------------------------
+  static double calculateMaxHeight({List<Keyword> keywords}){
+    final int _totalNumberOfButtons = numberOfButtons(keywords: keywords);
+
+    final double _maxHeight =
+    /// keywords heights
+    ( ( buttonHeight + buttonVerticalPadding ) * _totalNumberOfButtons)
+        +
+        /// subGroups titles boxes heights
+        (titleHeight)
+        +
+        /// bottom padding
+        0;
+
+    return _maxHeight;
+  }
+// -----------------------------------------------------------------------------
+  static double calculateButtonsTotalHeight({List<Keyword> keywords}){
+    final double _totalButtonsHeight = (buttonHeight + buttonVerticalPadding) * numberOfButtons(keywords: keywords);
+    return _totalButtonsHeight;
+  }
+// -----------------------------------------------------------------------------
   @override
-  OnePageExpansionTileState createState() => new OnePageExpansionTileState();
+  SubGroupTileState createState() => new SubGroupTileState();
 }
 
-class OnePageExpansionTileState extends State<OnePageExpansionTile> with SingleTickerProviderStateMixin {
+class SubGroupTileState extends State<SubGroupTile> with SingleTickerProviderStateMixin {
 
   AnimationController _controller;
   CurvedAnimation _easeOutAnimation;
@@ -64,7 +118,7 @@ class OnePageExpansionTileState extends State<OnePageExpansionTile> with SingleT
 // -----------------------------------------------------------------------------
   @override
   void initState() {
-    _groupsIDs = Keyword.getGroupsIDsFromGroup(widget.group);
+    // _groupsIDs = Keyword.getGroupsIDsFromGroup(widget.group);
 
     super.initState();
     _controller = new AnimationController(duration: _kExpand, vsync: this);
@@ -120,11 +174,11 @@ class OnePageExpansionTileState extends State<OnePageExpansionTile> with SingleT
     }
   }
 // -----------------------------------------------------------------------------
-  void _setKeywords(String groupID){
-    setState(() {
-      _currentKeywordModels = Keyword.getKeywordsByGroupIDFomGroup(group: widget.group, groupID: groupID);
-    });
-  }
+//   void _setKeywords(String groupID){
+//     setState(() {
+//       _currentKeywordModels = Keyword.getKeywordsByGroupIDFomGroup(group: widget.group, groupID: groupID);
+//     });
+//   }
 // -----------------------------------------------------------------------------
   void _selectGroup(String groupID){
     setState(() {
@@ -132,62 +186,57 @@ class OnePageExpansionTileState extends State<OnePageExpansionTile> with SingleT
     });
   }
 // -----------------------------------------------------------------------------
-  List<String> _getSubGroupsIDs(){
-    List<String> _subGroupsIDs = new List();
-
-    for (Keyword keyword in widget.group.keywords){
-      if(!_subGroupsIDs.contains(keyword.subGroupID)){
-        _subGroupsIDs.add(keyword.subGroupID);
-      }
-    }
-
-    return _subGroupsIDs;
-  }
+//   List<String> _getSubGroupsIDs(){
+//     List<String> _subGroupsIDs = new List();
+//
+//     for (Keyword keyword in widget.group.keywords){
+//       if(!_subGroupsIDs.contains(keyword.subGroupID)){
+//         _subGroupsIDs.add(keyword.subGroupID);
+//       }
+//     }
+//
+//     return _subGroupsIDs;
+//   }
 // -----------------------------------------------------------------------------
-  List<Keyword> _getKeywordBySubGroup(String subGroupID){
-    List<Keyword> _keywords = new List();
-
-    for (Keyword keyword in widget.group.keywords){
-      if(keyword.subGroupID == subGroupID){
-        _keywords.add(keyword);
-      }
-    }
-
-    return _keywords;
-  }
+//   List<Keyword> _getKeywordBySubGroup(String subGroupID){
+//     List<Keyword> _keywords = new List();
+//
+//     for (Keyword keyword in widget.group.keywords){
+//       if(keyword.subGroupID == subGroupID){
+//         _keywords.add(keyword);
+//       }
+//     }
+//
+//     return _keywords;
+//   }
 // -----------------------------------------------------------------------------
 
 
   @override
   Widget build(BuildContext context) {
-
+    //--------------------------------o
     _borderColor.end = Colorz.Green255;
-
     _titleColorTween
       ..begin = Colorz.White255
       ..end = Colorz.White255;
-
     _tileColorTween
       ..begin = Colorz.White10
       ..end = Colorz.Blue80;
-
     _subtitleLabelColorTween
       ..begin = Colorz.White10
       ..end = Colorz.White10;
-
     _borderRadius
       ..begin = BorderRadius.circular(Ratioz.appBarCorner - 5)
       ..end = BorderRadius.circular(Ratioz.appBarCorner - 5);
-
-
-    final bool closed = !_isExpanded && _controller.isDismissed;
-
-    const double _buttonVerticalPadding = 5;
-    const double _buttonHeight = 80;
-    const double _buttonExtent = _buttonHeight + _buttonVerticalPadding * 2;
-
-    List<String> _subGroupsIDs = _getSubGroupsIDs();
-
+    //------------------------------------------------------------o
+    final bool closed = _isExpanded == false && _controller.isDismissed == true;
+    //------------------------------------------------------------o
+    final double _iconSize = SubGroupTile.calculateTitleIconSize(subGroupIcon: widget.subGroupIcon);
+    final double _titleBoxWidth = SubGroupTile.calculateTitleBoxWidth(
+        tileWidth: widget.tileWidth,
+        subGroupIcon: widget.subGroupIcon
+    );
+    //------------------------------------------------------------o
     return new AnimatedBuilder(
       animation: _controller.view,
       /// Collapsed Tile
@@ -198,46 +247,16 @@ class OnePageExpansionTileState extends State<OnePageExpansionTile> with SingleT
         final Color _tileColor = _tileColorTween.evaluate(_easeInAnimation);
         final Color _subTitleLabelColor = _subtitleLabelColorTween.evaluate(_easeInAnimation);
 
-        /// Collapsed parameters
-        const double _tileMinHeight = 50;
-        const double _tileOneMargin = Ratioz.appBarMargin;
-        const double _tileOnePadding = Ratioz.appBarPadding;
-
-        final double _iconSize = widget.icon == null ? 0 : 40;
-        final double _arrowSize = _tileMinHeight;
-        final double _titleZoneWidth = widget.tileWidth - _iconSize - _arrowSize;
-
-        final String _groupID = widget.group.groupID;
-        final Namez _groupNamez = Keyword.getGroupNamezByGroupID(_groupID);
-
-        final String _groupEnglishName = Name.getNameByLingoFromNames(
-          context: context,
-          names: _groupNamez?.names,
-          LingoCode: Lingo.English,
-        );
-
-        final String _groupArabicName = Name.getNameByLingoFromNames(
-          context: context,
-          names: _groupNamez?.names,
-          LingoCode: Lingo.Arabic,
-        );//Lingo.getSecondL
-
-        bool _appIsArabic = Localizer.appIsArabic(context);
-
-        final String _groupFirstName = _appIsArabic == true ? _groupArabicName : _groupEnglishName;
-        final String _groupSecondName = _appIsArabic == true ? _groupEnglishName : _groupArabicName;
-
         return
 
           Container(
             width: widget.tileWidth,
-            // height: 70,
             margin: const EdgeInsets.symmetric(vertical: Ratioz.appBarPadding, horizontal: Ratioz.appBarMargin),
             decoration: BoxDecoration(
               color: _tileColor,
               borderRadius: Borderers.superBorderAll(context, Ratioz.appBarCorner),
             ),
-            child: new Column(
+            child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
 
@@ -254,17 +273,17 @@ class OnePageExpansionTileState extends State<OnePageExpansionTile> with SingleT
                       children: <Widget>[
 
                         /// Icon
-                        if (widget.icon != null)
+                        if (widget.subGroupIcon != null)
                           DreamBox(
-                            height: _tileMinHeight,
+                            height: SubGroupTile.collapsedTileHeight,
                             width: _iconSize,
-                            icon: widget.icon,
+                            icon: widget.subGroupIcon,
                           ),
 
                         /// Tile title
                         Container(
-                          width: _titleZoneWidth,
-                          height: _tileMinHeight,
+                          width: _titleBoxWidth,
+                          height: SubGroupTile.collapsedTileHeight,
                           color: Colorz.Nothing,
                           padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin * 2),
                           child: Column(
@@ -273,14 +292,14 @@ class OnePageExpansionTileState extends State<OnePageExpansionTile> with SingleT
                             children: <Widget>[
 
                               SuperVerse(
-                                verse: _groupFirstName,
+                                verse: widget.subGroupName,
                                 weight: VerseWeight.bold,
                                 italic: false,
                                 size: 2,
                               ),
 
                               SuperVerse(
-                                verse: _groupSecondName,
+                                verse: widget.subGroupSecondName,
                                 weight: VerseWeight.thin,
                                 italic: true,
                                 size: 1,
@@ -295,8 +314,8 @@ class OnePageExpansionTileState extends State<OnePageExpansionTile> with SingleT
                         new RotationTransition(
                           turns: _iconTurns,
                           child: DreamBox(
-                            height: _arrowSize,
-                            width: _arrowSize,
+                            height: SubGroupTile.collapsedTileHeight,
+                            width: SubGroupTile.collapsedTileHeight,
                             bubble: false,
                             icon: Iconz.ArrowDown,
                             iconSizeFactor: 0.3,
@@ -324,99 +343,54 @@ class OnePageExpansionTileState extends State<OnePageExpansionTile> with SingleT
 
       },
 
-      /// SUB - GROUPS & KEYWORDS : Expanded tile children
-      child: closed ? null
+      /// SUB GROUP KEYWORDS : Expanded tile children
+      child:
+      closed == true ? null
           :
       Container(
         width: widget.tileWidth,
-        height: widget.tileMaxHeight == null ? (_buttonExtent * _groupsIDs.length).toDouble() : widget.tileMaxHeight,
-        decoration: BoxDecoration(
-          color: Colorz.White10,
-          borderRadius: _borderRadius.evaluate(_easeInAnimation), //Borderers.superBorderAll(context, Ratioz.ddAppBarCorner - 5),
-        ),
         margin: const EdgeInsets.symmetric(vertical: Ratioz.appBarPadding, horizontal: 0),
-        child: Scrollbar(
-          thickness: Ratioz.appBarPadding * 0.5,
-          radius: Radius.circular(Ratioz.appBarPadding * 0.25),
-          isAlwaysShown: false,
-          child: ListView.builder(
-              padding: const EdgeInsets.only(top: Ratioz.appBarPadding),
-              physics: const BouncingScrollPhysics(),
-              itemCount: _subGroupsIDs.length,
-              itemBuilder: (xxx, _subIndex){
+        child: Column(
+          children: <Widget>[
 
-                String _subGroupID = _subGroupsIDs[_subIndex];
-                String _subGroupNameEN = Keyword.getSubGroupNameBySubGroupIDAndLingoCode(
-                  context: context,
-                  subGroupID: _subGroupID,
-                  lingoCode: Lingo.English,
-                );
-                String _subGroupNameAR = Keyword.getSubGroupNameBySubGroupIDAndLingoCode(
-                  context: context,
-                  subGroupID: _subGroupID,
-                  lingoCode: Lingo.Arabic,
-                );
+            /// subGroup keywords
+            Container(
+              width: widget.tileWidth,
+              height: SubGroupTile.calculateButtonsTotalHeight(keywords: widget.keywords),
+              // color: Colorz.BloodTest,
+              child: ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: widget.keywords.length,
+                itemExtent: SubGroupTile.buttonHeight + Ratioz.appBarPadding,
+                shrinkWrap: true,
+                itemBuilder: (ctx, keyIndex){
 
-                List<Keyword> _subGroupKeywords = _getKeywordBySubGroup(_subGroupID);
+                  Keyword _keyword = widget.keywords[keyIndex];
+                  String _keywordID = _keyword.keywordID;
+                  String _icon = Keyword.getImagePath(_keyword);
+                  String _keywordName = Keyword.getKeywordNameByKeywordID(context, _keywordID);
+                  String _keywordNameArabic = Keyword.getKeywordArabicName(_keyword);
 
+                  return
 
-                return
-                    Column(
-                      children: <Widget>[
-
-                        /// Sub group title
-                        Container(
-                          width: widget.tileWidth,
-                          height: 25,
-                          // color: Colorz.BloodTest,
-                          padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
-                          child: SuperVerse(
-                            verse: '$_subGroupNameEN',
-                            italic: true,
-                            weight: VerseWeight.thin,
-                            centered: false,
-                            leadingDot: true,
-                          ),
-                        ),
-
-                        /// subGroup keywords
-                        Container(
-                          width: widget.tileWidth,
-                          height: (50 + Ratioz.appBarPadding) * _subGroupKeywords.length,
-                          child: ListView.builder(
-                            physics: NeverScrollableScrollPhysics(),
-                            itemCount: _subGroupKeywords.length,
-                            itemExtent: 50 + Ratioz.appBarPadding,
-                            itemBuilder: (ctx, keyIndex){
-
-                              Keyword _keyword = _subGroupKeywords[keyIndex];
-                              String _keywordID = _keyword.keywordID;
-                              String _icon = Keyword.getImagePath(_keyword);
-                              String _keywordName = Keyword.getKeywordNameByKeywordID(context, _keywordID);
-                              String _keywordNameArabic = Keyword.getKeywordArabicName(_keyword);
-
-                              return
-                                DreamBox(
-                                  height: 50,
-                                  width: widget.tileWidth * 0.9,
-                                  icon: _icon,
-                                  verse: _keywordName,
-                                  secondLine: '$_keywordNameArabic',
-                                  verseScaleFactor: 0.7,
-                                  verseCentered: false,
-                                  bubble: false,
-                                  color: Colorz.White20,
-                                  margins: const EdgeInsets.only(bottom: Ratioz.appBarPadding),
-                                  onTap: () async {await widget.onKeywordTap(_keyword);},
-                                );
-                            },
-                          ),
-                        ),
-
-                      ],
+                  DreamBox(
+                      height: SubGroupTile.buttonHeight,
+                      width: widget.tileWidth - (Ratioz.appBarMargin * 2),
+                      icon: _icon,
+                      verse: _keywordName,
+                      secondLine: '$_keywordNameArabic',
+                      verseScaleFactor: 0.7,
+                      verseCentered: false,
+                      bubble: false,
+                      color: Colorz.White20,
+                      margins: const EdgeInsets.only(bottom: SubGroupTile.buttonVerticalPadding),
+                      onTap: () async {await widget.onKeywordTap(_keyword);},
                     );
-              }
-          ),
+                },
+              ),
+            ),
+
+          ],
         ),
       ),
 
