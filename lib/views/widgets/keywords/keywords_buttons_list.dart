@@ -25,7 +25,7 @@ class KeywordsButtonsList extends StatelessWidget {
       child: ListView.builder(
         physics: const NeverScrollableScrollPhysics(),
         itemCount: keywords.length,
-        itemExtent: SubGroupTile.buttonHeight + Ratioz.appBarPadding,
+        itemExtent: SubGroupTile.collapsedTileHeight + Ratioz.appBarPadding,
         shrinkWrap: true,
         itemBuilder: (ctx, keyIndex){
 
@@ -38,7 +38,7 @@ class KeywordsButtonsList extends StatelessWidget {
           return
 
             DreamBox(
-              height: SubGroupTile.buttonHeight,
+              height: SubGroupTile.collapsedTileHeight,
               width: buttonWidth - (Ratioz.appBarMargin * 2),
               icon: _icon,
               verse: _keywordName,
