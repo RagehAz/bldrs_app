@@ -7,6 +7,7 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/keywords/groups.dart';
 import 'package:bldrs/models/secondary_models/namez_model.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/views/widgets/keywords/collapsed_tile.dart';
 import 'package:bldrs/views/widgets/keywords/keywords_buttons_list.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
@@ -42,47 +43,40 @@ class GroupTile extends StatefulWidget {
     this.initiallyExpanded: false,
   });
 
+  static const double collapsedGroupHeight = ((Ratioz.appBarCorner + Ratioz.appBarMargin) * 2) + Ratioz.appBarMargin;
+  static const double arrowBoxSize = SubGroupTile.arrowBoxSize;
 
   @override
   GroupTileState createState() => new GroupTileState();
 }
 
 class GroupTileState extends State<GroupTile> with SingleTickerProviderStateMixin {
-
   AnimationController _controller;
   // CurvedAnimation _easeOutAnimation;
   CurvedAnimation _easeInAnimation;
   ColorTween _borderColor;
-  ColorTween _titleColorTween;
+  ColorTween _headlineColorTween;
   ColorTween _tileColorTween;
   ColorTween _subtitleLabelColorTween;
   BorderRadiusTween _borderRadius;
-  Animation<double> _iconTurns;
+  Animation<double> _arrowTurns;
   bool _isExpanded = false;
   static const Duration _kExpand = const Duration(milliseconds: 200);
-  // PageController _pageController;
-  // List<String> _groupsIDs = new List();
-  // String _currentGroupID;
-  // List<Keyword> _currentKeywordModels = new List();
 // -----------------------------------------------------------------------------
   @override
   void initState() {
-    // _groupsIDs = Keyword.getGroupsIDsFromGroup(widget.group);
-
-    super.initState();
     _controller = new AnimationController(duration: _kExpand, vsync: this);
     // _easeOutAnimation = new CurvedAnimation(parent: _controller, curve: Curves.easeOut);
     _easeInAnimation = new CurvedAnimation(parent: _controller, curve: Curves.easeIn);
     _borderColor = new ColorTween();
-    _titleColorTween = new ColorTween();
+    _headlineColorTween = new ColorTween();
     _tileColorTween = new ColorTween();
     _subtitleLabelColorTween = new ColorTween();
-    _iconTurns = new Tween<double>(begin: 0.0, end: 0.5).animate(_easeInAnimation);
+    _arrowTurns = new Tween<double>(begin: 0.0, end: 0.5).animate(_easeInAnimation);
     _borderRadius = BorderRadiusTween();
-    // _pageController = PageController();
     _isExpanded = PageStorage.of(context)?.readState(context) ?? widget.initiallyExpanded;
-    if (_isExpanded)
-      _controller.value = 1.0;
+    if (_isExpanded) {_controller.value = 1.0;}
+    super.initState();
   }
 // -----------------------------------------------------------------------------
   @override
@@ -123,37 +117,12 @@ class GroupTileState extends State<GroupTile> with SingleTickerProviderStateMixi
     }
   }
 // -----------------------------------------------------------------------------
-  List<String> _getSubGroupsIDs(){
-    List<String> _subGroupsIDs = new List();
-
-    for (Keyword keyword in widget.group.keywords){
-      if(!_subGroupsIDs.contains(keyword.subGroupID)){
-        _subGroupsIDs.add(keyword.subGroupID);
-      }
-    }
-
-    return _subGroupsIDs;
-  }
-// -----------------------------------------------------------------------------
-  List<Keyword> _getKeywordBySubGroup(String subGroupID){
-    List<Keyword> _keywords = new List();
-
-    for (Keyword keyword in widget.group.keywords){
-      if(keyword.subGroupID == subGroupID){
-        _keywords.add(keyword);
-      }
-    }
-
-    return _keywords;
-  }
-// -----------------------------------------------------------------------------
-
 
   @override
   Widget build(BuildContext context) {
     //--------------------------------o
     _borderColor.end = Colorz.Green255;
-    _titleColorTween
+    _headlineColorTween
       ..begin = Colorz.White255
       ..end = Colorz.White255;
     _tileColorTween
@@ -168,160 +137,49 @@ class GroupTileState extends State<GroupTile> with SingleTickerProviderStateMixi
     //------------------------------------------------------------o
     final bool closed = _isExpanded == false && _controller.isDismissed == true;
     //------------------------------------------------------------o
-
-    // int _totalNumberOfButtons = widget.group.keywords.length;
-
-    const double _buttonHeight = ((Ratioz.appBarCorner + Ratioz.appBarMargin) * 2) + Ratioz.appBarMargin;
-    // const double _buttonVerticalPadding = Ratioz.appBarPadding;
-
-    List<String> _subGroupsIDs = _getSubGroupsIDs();
-    // int _numberOfSubGroups = _subGroupsIDs.length;
-
-    // double _subGroupTitleHeight = 25;
-
-    // double _maxHeight =
-    // /// keywords heights
-    // ( ( _buttonHeight + (_buttonVerticalPadding) ) * _totalNumberOfButtons)
-    // +
-    // /// subGroups titles boxes heights
-    // (_subGroupTitleHeight * _numberOfSubGroups)
-    // +
-    // /// bottom padding
-    // Ratioz.appBarMargin
-    // ;
+    final double _iconSize = SubGroupTile.calculateTitleIconSize(icon: widget.icon);
+    //------------------------------------------------------------o
+    final String _groupID = widget.group.groupID;
+    List<String> _subGroupsIDs = Keyword.getSubGroupsIDsFromKeywords(keywords: widget.group.keywords);
+    final Namez _groupNamez = Keyword.getGroupNamezByGroupID(_groupID);
+    final String _groupEnglishName = Name.getNameByLingoFromNames(
+      context: context,
+      names: _groupNamez?.names,
+      LingoCode: Lingo.English,
+    );
+    final String _groupArabicName = Name.getNameByLingoFromNames(
+      context: context,
+      names: _groupNamez?.names,
+      LingoCode: Lingo.Arabic,
+    );//Lingo.getSecondL
+    final bool _appIsArabic = Localizer.appIsArabic(context);
+    final String _groupFirstName = _appIsArabic == true ? _groupArabicName : _groupEnglishName;
+    final String _groupSecondName = _appIsArabic == true ? _groupEnglishName : _groupArabicName;
     //------------------------------------------------------------o
     return new AnimatedBuilder(
       animation: _controller.view,
-      /// Collapsed Tile
       builder: (context, child){
 
-        // final Color borderSideColor = _borderColor.evaluate(_easeOutAnimation) ?? Colors.transparent;
-        final Color _titleColor = _titleColorTween.evaluate(_easeInAnimation);
+        /// final Color borderSideColor = _borderColor.evaluate(_easeOutAnimation) ?? Colors.transparent;
+        /// final Color _subTitleLabelColor = _subtitleLabelColorTween.evaluate(_easeInAnimation);
+        final Color _headlineColor = _headlineColorTween.evaluate(_easeInAnimation);
         final Color _tileColor = _tileColorTween.evaluate(_easeInAnimation);
-        // final Color _subTitleLabelColor = _subtitleLabelColorTween.evaluate(_easeInAnimation);
-
-        /// Collapsed parameters
-        const double _tileMinHeight = _buttonHeight;
-        // const double _tileOneMargin = Ratioz.appBarMargin;
-        // const double _tileOnePadding = Ratioz.appBarPadding;
-
-        final double _iconSize = widget.icon == null ? 0 : 40;
-        final double _arrowSize = _tileMinHeight;
-        final double _titleZoneWidth = widget.tileWidth - _iconSize - _arrowSize;
-
-        final String _groupID = widget.group.groupID;
-        final Namez _groupNamez = Keyword.getGroupNamezByGroupID(_groupID);
-
-        final String _groupEnglishName = Name.getNameByLingoFromNames(
-          context: context,
-          names: _groupNamez?.names,
-          LingoCode: Lingo.English,
-        );
-
-        final String _groupArabicName = Name.getNameByLingoFromNames(
-          context: context,
-          names: _groupNamez?.names,
-          LingoCode: Lingo.Arabic,
-        );//Lingo.getSecondL
-
-        bool _appIsArabic = Localizer.appIsArabic(context);
-
-        final String _groupFirstName = _appIsArabic == true ? _groupArabicName : _groupEnglishName;
-        final String _groupSecondName = _appIsArabic == true ? _groupEnglishName : _groupArabicName;
 
         return
 
-          Container(
-            width: widget.tileWidth,
-            // height: 70,
-            margin: const EdgeInsets.symmetric(vertical: Ratioz.appBarPadding, horizontal: Ratioz.appBarMargin),
-            decoration: BoxDecoration(
-              color: _tileColor,
-              borderRadius: Borderers.superBorderAll(context, Ratioz.appBarCorner + Ratioz.appBarMargin),
-            ),
-            child: new Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-
-                /// COLLAPSED ZONE
-                GestureDetector(
-                  onTap: toggle,
-                  child: Container(
-                    width: widget.tileWidth,
-                    // height: _tileMinHeight,
-                    // color: Colorz.Yellow200,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-
-                        /// Icon
-                        if (widget.icon != null)
-                          DreamBox(
-                            height: _tileMinHeight,
-                            width: _iconSize,
-                            icon: widget.icon,
-                          ),
-
-                        /// Tile title
-                        Container(
-                          width: _titleZoneWidth,
-                          height: _tileMinHeight,
-                          color: Colorz.Nothing,
-                          padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin * 2),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-
-                              SuperVerse(
-                                verse: _groupFirstName,
-                                weight: VerseWeight.bold,
-                                italic: false,
-                                size: 2,
-                              ),
-
-                              SuperVerse(
-                                verse: _groupSecondName,
-                                weight: VerseWeight.thin,
-                                italic: true,
-                                size: 1,
-                                color: Colorz.White125,
-                              ),
-
-                            ],
-                          ),
-                        ),
-
-                        /// Arrow
-                        new RotationTransition(
-                          turns: _iconTurns,
-                          child: DreamBox(
-                            height: _arrowSize,
-                            width: _arrowSize,
-                            bubble: false,
-                            icon: Iconz.ArrowDown,
-                            iconSizeFactor: 0.3,
-                            iconColor: _titleColor,
-                          ),
-                        ),
-
-                      ],
-                    ),
-                  ),
-                ),
-
-                /// EXPANDABLE ZONE
-                ClipRRect(
-                  // borderRadius: _borderRadius.evaluate(_easeInAnimation),
-                  child: new Align(
-                    heightFactor: _easeInAnimation.value,
-                    child: child,
-                  ),
-                ),
-
-              ],
-            ),
+          CollapsedTile(
+            tileWidth: widget.tileWidth,
+            collapsedHeight: GroupTile.collapsedGroupHeight,
+            tileColor: _tileColor,
+            corners: Ratioz.appBarCorner + Ratioz.appBarMargin,
+            firstHeadline: _groupFirstName,
+            secondHeadline: _groupSecondName,
+            icon: widget.icon,
+            arrowColor: _headlineColor,
+            arrowTurns: _arrowTurns,
+            toggleExpansion: toggle,
+            expandableHeightFactorAnimationValue: _easeInAnimation.value,
+            child: child,
           );
 
       },
@@ -350,7 +208,7 @@ class GroupTileState extends State<GroupTile> with SingleTickerProviderStateMixi
                 lingoCode: Lingo.Arabic,
               );
 
-              List<Keyword> _subGroupKeywords = _getKeywordBySubGroup(_subGroupID);
+              List<Keyword> _subGroupKeywords = Keyword.getKeywordsBySubGroupIDFromKeywords(keywords: widget.group.keywords, subGroupID: _subGroupID);
 
               return
               _subGroupID == '' ?
@@ -365,7 +223,6 @@ class GroupTileState extends State<GroupTile> with SingleTickerProviderStateMixi
 
                 SubGroupTile(
                   tileWidth: widget.tileWidth - (Ratioz.appBarMargin * 2),
-                  // tileMaxHeight: ,
                   keywords: _subGroupKeywords,
                   onKeywordTap: widget.onKeywordTap,
                   subGroupName: _subGroupNameEN,

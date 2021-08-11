@@ -283,6 +283,19 @@ class Keyword {
     return _keywords;
   }
 // -----------------------------------------------------------------------------
+  static List<Keyword> getKeywordsBySubGroupIDFromKeywords({List<Keyword>keywords, String subGroupID}){
+    List<Keyword> _keywords = new List();
+
+    for (Keyword keyword in keywords){
+      if(keyword.subGroupID == subGroupID){
+        _keywords.add(keyword);
+      }
+    }
+
+    return _keywords;
+  }
+
+// -----------------------------------------------------------------------------
   static List<Keyword> getKeywordsBySection(Section section){
     List<Keyword> _keywords = new List();
 
@@ -666,6 +679,18 @@ class Keyword {
         Namez(id: 'sub_prd_rentType',names: <Name>[Name(code: 'en', value: 'Rent type'), Name(code: 'ar', value: 'نوع الإيجار')]),
         Namez(id: 'sub_prd_price_unit',names: <Name>[Name(code: 'en', value: 'Measurement unit'), Name(code: 'ar', value: 'وحدة القياس')]),
       ];
+  }
+// -----------------------------------------------------------------------------
+  static List<String> getSubGroupsIDsFromKeywords({List<Keyword> keywords}){
+    List<String> _subGroupsIDs = new List();
+
+    for (Keyword keyword in keywords){
+      if(!_subGroupsIDs.contains(keyword.subGroupID)){
+        _subGroupsIDs.add(keyword.subGroupID);
+      }
+    }
+
+    return _subGroupsIDs;
   }
 // =============================================================================
 
