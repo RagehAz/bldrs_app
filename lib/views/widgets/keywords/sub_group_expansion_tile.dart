@@ -7,6 +7,7 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/keywords/groups.dart';
 import 'package:bldrs/models/secondary_models/namez_model.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/views/widgets/keywords/collapsed_tile.dart';
 import 'package:bldrs/views/widgets/keywords/keywords_buttons_list.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
@@ -49,24 +50,24 @@ class SubGroupTile extends StatefulWidget {
     this.initiallyExpanded = false,
   });
 // -----------------------------------------------------------------------------
-  static const double buttonHeight = 50;
+  static const double collapsedTileHeight = 50;
   static const double buttonVerticalPadding = Ratioz.appBarPadding;
-  static const double titleHeight = 25;
-  static const double collapsedTileHeight = buttonHeight;
-
+  static const double titleBoxHeight = 25;
+  static const double arrowBoxSize = collapsedTileHeight;
 // -----------------------------------------------------------------------------
   static double calculateButtonExtent(){
-    return buttonHeight + buttonVerticalPadding;
+    return collapsedTileHeight + buttonVerticalPadding;
   }
-
-  static double calculateTitleIconSize({String subGroupIcon}){
-     final double _iconSize = subGroupIcon == null ? 0 : 40;
+// -----------------------------------------------------------------------------
+  static double calculateTitleIconSize({String icon}){
+     final double _iconSize = icon == null ? 0 : 40;
      return _iconSize;
   }
 // -----------------------------------------------------------------------------
-  static double calculateTitleBoxWidth({double tileWidth, String subGroupIcon}){
-    final double _iconSize = calculateTitleIconSize(subGroupIcon: subGroupIcon);
-    final double _titleZoneWidth = tileWidth - _iconSize - SubGroupTile.collapsedTileHeight;
+  static double calculateTitleBoxWidth({double tileWidth, String icon, double buttonHeight}){
+    final double _iconSize = calculateTitleIconSize(icon: icon);
+        /// arrow size is button height but differs between groupTile and subGroupTile
+    final double _titleZoneWidth = tileWidth - _iconSize - buttonHeight;
     return _titleZoneWidth;
   }
 // -----------------------------------------------------------------------------
@@ -79,10 +80,10 @@ class SubGroupTile extends StatefulWidget {
 
     final double _maxHeight =
     /// keywords heights
-    ( ( buttonHeight + buttonVerticalPadding ) * _totalNumberOfButtons)
+    ( ( collapsedTileHeight + buttonVerticalPadding ) * _totalNumberOfButtons)
         +
         /// subGroups titles boxes heights
-        (titleHeight)
+        (titleBoxHeight)
         +
         /// bottom padding
         0;
@@ -91,7 +92,7 @@ class SubGroupTile extends StatefulWidget {
   }
 // -----------------------------------------------------------------------------
   static double calculateButtonsTotalHeight({List<Keyword> keywords}){
-    final double _totalButtonsHeight = (buttonHeight + buttonVerticalPadding) * numberOfButtons(keywords: keywords);
+    final double _totalButtonsHeight = (collapsedTileHeight + buttonVerticalPadding) * numberOfButtons(keywords: keywords);
     return _totalButtonsHeight;
   }
 // -----------------------------------------------------------------------------
@@ -100,7 +101,6 @@ class SubGroupTile extends StatefulWidget {
 }
 
 class SubGroupTileState extends State<SubGroupTile> with SingleTickerProviderStateMixin {
-
   AnimationController _controller;
   CurvedAnimation _easeOutAnimation;
   CurvedAnimation _easeInAnimation;
@@ -109,19 +109,12 @@ class SubGroupTileState extends State<SubGroupTile> with SingleTickerProviderSta
   ColorTween _tileColorTween;
   ColorTween _subtitleLabelColorTween;
   BorderRadiusTween _borderRadius;
-  Animation<double> _iconTurns;
+  Animation<double> _arrowTurns;
   bool _isExpanded = false;
   static const Duration _kExpand = const Duration(milliseconds: 200);
-  PageController _pageController;
-  List<String> _groupsIDs = new List();
-  String _currentGroupID;
-  List<Keyword> _currentKeywordModels = new List();
 // -----------------------------------------------------------------------------
   @override
   void initState() {
-    // _groupsIDs = Keyword.getGroupsIDsFromGroup(widget.group);
-
-    super.initState();
     _controller = new AnimationController(duration: _kExpand, vsync: this);
     _easeOutAnimation = new CurvedAnimation(parent: _controller, curve: Curves.easeOut);
     _easeInAnimation = new CurvedAnimation(parent: _controller, curve: Curves.easeIn);
@@ -129,12 +122,11 @@ class SubGroupTileState extends State<SubGroupTile> with SingleTickerProviderSta
     _titleColorTween = new ColorTween();
     _tileColorTween = new ColorTween();
     _subtitleLabelColorTween = new ColorTween();
-    _iconTurns = new Tween<double>(begin: 0.0, end: 0.5).animate(_easeInAnimation);
+    _arrowTurns = new Tween<double>(begin: 0.0, end: 0.5).animate(_easeInAnimation);
     _borderRadius = BorderRadiusTween();
-    _pageController = PageController();
     _isExpanded = PageStorage.of(context)?.readState(context) ?? widget.initiallyExpanded;
-    if (_isExpanded)
-      _controller.value = 1.0;
+    if (_isExpanded) {_controller.value = 1.0;}
+    super.initState();
   }
 // -----------------------------------------------------------------------------
   @override
@@ -175,44 +167,6 @@ class SubGroupTileState extends State<SubGroupTile> with SingleTickerProviderSta
     }
   }
 // -----------------------------------------------------------------------------
-//   void _setKeywords(String groupID){
-//     setState(() {
-//       _currentKeywordModels = Keyword.getKeywordsByGroupIDFomGroup(group: widget.group, groupID: groupID);
-//     });
-//   }
-// -----------------------------------------------------------------------------
-  void _selectGroup(String groupID){
-    setState(() {
-      _currentGroupID = groupID;
-    });
-  }
-// -----------------------------------------------------------------------------
-//   List<String> _getSubGroupsIDs(){
-//     List<String> _subGroupsIDs = new List();
-//
-//     for (Keyword keyword in widget.group.keywords){
-//       if(!_subGroupsIDs.contains(keyword.subGroupID)){
-//         _subGroupsIDs.add(keyword.subGroupID);
-//       }
-//     }
-//
-//     return _subGroupsIDs;
-//   }
-// -----------------------------------------------------------------------------
-//   List<Keyword> _getKeywordBySubGroup(String subGroupID){
-//     List<Keyword> _keywords = new List();
-//
-//     for (Keyword keyword in widget.group.keywords){
-//       if(keyword.subGroupID == subGroupID){
-//         _keywords.add(keyword);
-//       }
-//     }
-//
-//     return _keywords;
-//   }
-// -----------------------------------------------------------------------------
-
-
   @override
   Widget build(BuildContext context) {
     //--------------------------------o
@@ -232,114 +186,28 @@ class SubGroupTileState extends State<SubGroupTile> with SingleTickerProviderSta
     //------------------------------------------------------------o
     final bool closed = _isExpanded == false && _controller.isDismissed == true;
     //------------------------------------------------------------o
-    final double _iconSize = SubGroupTile.calculateTitleIconSize(subGroupIcon: widget.subGroupIcon);
-    final double _titleBoxWidth = SubGroupTile.calculateTitleBoxWidth(
-        tileWidth: widget.tileWidth,
-        subGroupIcon: widget.subGroupIcon
-    );
-    //------------------------------------------------------------o
     return new AnimatedBuilder(
       animation: _controller.view,
-      /// Collapsed Tile
       builder: (context, child){
 
-        // final Color borderSideColor = _borderColor.evaluate(_easeOutAnimation) ?? Colors.transparent;
-        final Color _titleColor = _titleColorTween.evaluate(_easeInAnimation);
+        final Color _headlineColor = _titleColorTween.evaluate(_easeInAnimation);
         final Color _tileColor = _tileColorTween.evaluate(_easeInAnimation);
-        final Color _subTitleLabelColor = _subtitleLabelColorTween.evaluate(_easeInAnimation);
 
         return
 
-          Container(
-            width: widget.tileWidth,
-            margin: const EdgeInsets.symmetric(vertical: Ratioz.appBarPadding, horizontal: Ratioz.appBarMargin),
-            decoration: BoxDecoration(
-              color: _tileColor,
-              borderRadius: Borderers.superBorderAll(context, Ratioz.appBarCorner),
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-
-                /// COLLAPSED ZONE
-                GestureDetector(
-                  onTap: toggle,
-                  child: Container(
-                    width: widget.tileWidth,
-                    // height: _tileMinHeight,
-                    // color: Colorz.Yellow200,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-
-                        /// Icon
-                        if (widget.subGroupIcon != null)
-                          DreamBox(
-                            height: SubGroupTile.collapsedTileHeight,
-                            width: _iconSize,
-                            icon: widget.subGroupIcon,
-                          ),
-
-                        /// Tile title
-                        Container(
-                          width: _titleBoxWidth,
-                          height: SubGroupTile.collapsedTileHeight,
-                          color: Colorz.Nothing,
-                          padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin * 2),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-
-                              SuperVerse(
-                                verse: widget.subGroupName,
-                                weight: VerseWeight.bold,
-                                italic: false,
-                                size: 2,
-                              ),
-
-                              SuperVerse(
-                                verse: widget.subGroupSecondName,
-                                weight: VerseWeight.thin,
-                                italic: true,
-                                size: 1,
-                                color: Colorz.White125,
-                              ),
-
-                            ],
-                          ),
-                        ),
-
-                        /// Arrow
-                        new RotationTransition(
-                          turns: _iconTurns,
-                          child: DreamBox(
-                            height: SubGroupTile.collapsedTileHeight,
-                            width: SubGroupTile.collapsedTileHeight,
-                            bubble: false,
-                            icon: Iconz.ArrowDown,
-                            iconSizeFactor: 0.3,
-                            iconColor: _titleColor,
-                          ),
-                        ),
-
-                      ],
-                    ),
-                  ),
-                ),
-
-                /// EXPANDABLE ZONE
-                ClipRRect(
-                  // borderRadius: _borderRadius.evaluate(_easeInAnimation),
-                  child: new Align(
-                    heightFactor: _easeInAnimation.value,
-                    child: child,
-                  ),
-                ),
-
-              ],
-            ),
+          CollapsedTile(
+            tileWidth: widget.tileWidth,
+            collapsedHeight: SubGroupTile.collapsedTileHeight,
+            tileColor: _tileColor,
+            corners: Ratioz.appBarCorner,
+            firstHeadline: widget.subGroupName,
+            secondHeadline: widget.subGroupSecondName,
+            icon: widget.subGroupIcon,
+            arrowColor: _headlineColor,
+            arrowTurns: _arrowTurns,
+            toggleExpansion: toggle,
+            expandableHeightFactorAnimationValue: _easeInAnimation.value,
+            child: child,
           );
 
       },
@@ -349,49 +217,11 @@ class SubGroupTileState extends State<SubGroupTile> with SingleTickerProviderSta
       closed == true ? null
           :
       /// subGroup keywords
-
       KeywordsButtonsList(
           buttonWidth: widget.tileWidth,
           keywords:  widget.keywords,
           onKeywordTap: widget.onKeywordTap,
       ),
-
-
-      // Container(
-      //   width: widget.tileWidth,
-      //   height: SubGroupTile.calculateButtonsTotalHeight(keywords: widget.keywords),
-      //   margin: const EdgeInsets.symmetric(vertical: Ratioz.appBarPadding, horizontal: 0),
-      //   child: ListView.builder(
-      //     physics: const NeverScrollableScrollPhysics(),
-      //     itemCount: widget.keywords.length,
-      //     itemExtent: SubGroupTile.buttonHeight + Ratioz.appBarPadding,
-      //     shrinkWrap: true,
-      //     itemBuilder: (ctx, keyIndex){
-      //
-      //       Keyword _keyword = widget.keywords[keyIndex];
-      //       String _keywordID = _keyword.keywordID;
-      //       String _icon = Keyword.getImagePath(_keyword);
-      //       String _keywordName = Keyword.getKeywordNameByKeywordID(context, _keywordID);
-      //       String _keywordNameArabic = Keyword.getKeywordArabicName(_keyword);
-      //
-      //       return
-      //
-      //         DreamBox(
-      //           height: SubGroupTile.buttonHeight,
-      //           width: widget.tileWidth - (Ratioz.appBarMargin * 2),
-      //           icon: _icon,
-      //           verse: _keywordName,
-      //           secondLine: '$_keywordNameArabic',
-      //           verseScaleFactor: 0.7,
-      //           verseCentered: false,
-      //           bubble: false,
-      //           color: Colorz.White20,
-      //           margins: const EdgeInsets.only(bottom: SubGroupTile.buttonVerticalPadding),
-      //           onTap: () async {await widget.onKeywordTap(_keyword);},
-      //         );
-      //     },
-      //   ),
-      // ),
 
     );
 

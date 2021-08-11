@@ -30,18 +30,8 @@ class SelectKeywordsScreen extends StatefulWidget {
 
 class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
   List<Keyword> _selectedKeywords = new List();
-
   List<Group> _groups;
   CountryProvider _countryPro;
-
-// -----------------------------------------------------------------------------
-  /// --- LOADING BLOCK
-  bool _loading = false;
-  void _triggerLoading(){
-    setState(() {_loading = !_loading;});
-    _loading == true?
-    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
-  }
 // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -63,20 +53,6 @@ class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
     _groups.forEach((x) {
       _expansionKeys.add(new GlobalKey());
     });
-  }
-// -----------------------------------------------------------------------------
-  bool _isExpanded = false;
-  void _triggerExpansion(GlobalKey<BldrsExpansionTileState> key){
-    if(_isExpanded){
-      key.currentState.collapse();
-    } else {
-      key.currentState.expand();
-    }
-
-    setState(() {
-      _isExpanded =! _isExpanded;
-    });
-
   }
 // -----------------------------------------------------------------------------
   String _currentGroupID;
@@ -331,17 +307,11 @@ class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
     double _selectedKeywordsZoneHeight = 80;
     double _keywordsZoneHeight =  _screenHeight - Ratioz.stratosphere - _selectedKeywordsZoneHeight;
 
-    String _screenTitle =
-    _selectedKeywords.length == 0 ? 'Select keywords' :
-    _selectedKeywords.length == 1 ? '1 Selected keyword' :
-    '${_selectedKeywords.length} Selected keywords';
-
     Tracer.traceWidgetBuild(widgetName: 'SelectKeywordsScreen', varName: '_selectedKeywords.length', varValue: _selectedKeywords.length);
     return MainLayout(
       pageTitle: 'Select Flyer keywords',
       appBarType: AppBarType.Basic,
       pyramids: Iconz.DvBlankSVG,
-      loading: _loading,
       layoutWidget: Column(
         children: <Widget>[
 
