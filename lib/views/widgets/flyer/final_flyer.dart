@@ -1771,6 +1771,11 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     // _prof.update(modifiedTinyFlyer);
     print(' should update tiny flyer in current bz tiny flyers shof enta ezay');
   }
+
+  void _onReorderSlides(){
+    /// check this package
+    // https://pub.dev/packages/reorderables
+  }
 // -----------------------------------------------------------------------------
 
   /// CREATION METHODS

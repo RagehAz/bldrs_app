@@ -6,9 +6,9 @@ import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/models/keywords/sequence_model.dart';
 import 'package:bldrs/views/widgets/appbar/sections_button.dart';
+import 'package:bldrs/views/widgets/keywords/keyword_button.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/walls/sequences_wall.dart';
-import 'package:bldrs/xxx_LABORATORY/flyer_browser/keyword_button.dart';
 import 'package:flutter/material.dart';
 
 class SequenceScreen extends StatelessWidget {
