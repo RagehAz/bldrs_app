@@ -13,10 +13,10 @@ import 'package:bldrs/models/flyer/sub/slide_model.dart';
 import 'package:bldrs/models/flyer/nano_flyer.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/models/user/user_model.dart';
-import 'package:bldrs/views/widgets/bubbles/words_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/main_button.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/flyer/parts/progress_bar_parts/strips.dart';
+import 'package:bldrs/views/widgets/keywords/keywords_bubble.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -596,7 +596,6 @@ class MyDreamBox extends StatelessWidget {
                 keywords: userModel?.myBzzIDs ?? [],
                 verseSize: 2,
                 onTap: (){},
-                bubbles: false,
                 bubbleColor: Colorz.White20,
                 selectedWords: [],
               ),
