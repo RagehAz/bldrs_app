@@ -28,6 +28,8 @@ class Colorz {
   static const Black230 = Color.fromARGB(230, 0, 0, 0);
   static const Black255 = Color.fromARGB(255, 0, 0, 0);
 // -----------------------------------------------------------------------------
+  static const BlackSemi20 = Color.fromARGB(20, 20, 20, 35);
+  static const BlackSemi125 = Color.fromARGB(125, 20, 20, 35);
   static const BlackSemi230 = Color.fromARGB(230, 20, 20, 35);
   static const BlackSemi255 = Color.fromARGB(255, 20, 20, 35);
 // -----------------------------------------------------------------------------
