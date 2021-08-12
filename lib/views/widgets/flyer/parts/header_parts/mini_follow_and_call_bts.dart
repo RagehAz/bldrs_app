@@ -49,7 +49,6 @@ class FollowAndCallBTs extends StatelessWidget {
       Container(
         height: followGalleryHeight,
         width: followGalleryWidth,
-        color: Colorz.BloodTest,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
