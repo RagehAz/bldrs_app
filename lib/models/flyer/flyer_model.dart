@@ -76,7 +76,7 @@ class FlyerModel with ChangeNotifier{
       // -------------------------
       'flyerType' : FlyerTypeClass.cipherFlyerType(flyerType),
       'flyerState' : cipherFlyerState(flyerState),
-      'keyWords' : keywords,
+      'keyWords' : Keyword.cipherKeywordsToKeywordsIds(keywords),
       'flyerShowsAuthor' : flyerShowsAuthor,
       'flyerURL' : flyerURL,
       'flyerZone' : flyerZone.toMap(),
@@ -185,7 +185,7 @@ class FlyerModel with ChangeNotifier{
         // -------------------------
         flyerType: FlyerTypeClass.decipherFlyerType(map['flyerType']),
         flyerState: FlyerModel.decipherFlyerState(map['flyerState']),
-        keywords: Keyword.decipherKeywords(map['keyWords']),
+        keywords: Keyword.decipherKeywordsIDsToKeywords(map['keyWords']),
         flyerShowsAuthor: map['flyerShowsAuthor'],
         flyerURL: map['flyerURL'],
         flyerZone: Zone.decipherZoneMap(map['flyerZone']),

@@ -53,7 +53,7 @@ class TinyFlyer with ChangeNotifier{
       'slidePic' : slidePic,
       'flyerZone' : flyerZone.toMap(),
       'midColor' : Colorizer.cipherColor(midColor),
-      'keywords' : Keyword.cipherKeywords(keywords),
+      'keywords' : Keyword.cipherKeywordsToKeywordsIds(keywords),
       'picFit' : SlideModel.cipherBoxFit(picFit),
       'imageSize' : imageSize.toMap(),
     };
@@ -100,7 +100,7 @@ class TinyFlyer with ChangeNotifier{
       slidePic: map['slidePic'],
       flyerZone: Zone.decipherZoneMap(map['flyerZone']),
       midColor: Colorizer.decipherColor(map['midColor']),
-      keywords: Keyword.decipherKeywords(map['keywords']),
+      keywords: Keyword.decipherKeywordsIDsToKeywords(map['keywords']),
       picFit: SlideModel.decipherBoxFit(map['picFit']),
       imageSize: ImageSize.decipherImageSize(map['imageSize']),
       // keywords: Keyword.de

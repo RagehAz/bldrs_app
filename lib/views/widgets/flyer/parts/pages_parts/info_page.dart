@@ -11,6 +11,7 @@ import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/models/user/tiny_user.dart';
 import 'package:bldrs/providers/country_provider.dart';
+import 'package:bldrs/views/widgets/keywords/keywords_bubble.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:bldrs/controllers/drafters/iconizers.dart';
@@ -19,7 +20,6 @@ import 'package:bldrs/controllers/theme/flagz.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/paragraph_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/stats_line.dart';
-import 'package:bldrs/views/widgets/bubbles/words_bubble.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/info_page_parts/record_bubble.dart';
 
 class InfoPage extends StatelessWidget {
@@ -97,13 +97,13 @@ class InfoPage extends StatelessWidget {
       enBottomRight: _cornerBig,
     );
 
-    List<Keyword> _keywords = <Keyword>[
-      Keyword.bldrsKeywords()[100],
-      Keyword.bldrsKeywords()[120],
-      Keyword.bldrsKeywords()[205],
-      Keyword.bldrsKeywords()[403],
-      Keyword.bldrsKeywords()[600],
-    ];
+    // List<Keyword> _keywords = <Keyword>[
+    //   Keyword.bldrsKeywords()[100],
+    //   Keyword.bldrsKeywords()[120],
+    //   Keyword.bldrsKeywords()[205],
+    //   Keyword.bldrsKeywords()[403],
+    //   Keyword.bldrsKeywords()[600],
+    // ];
 
     FlyerType _flyerType = superFlyer.flyerType == null ? FlyerTypeClass.concludeFlyerType(superFlyer.bz.bzType) : superFlyer.flyerType;
 
@@ -274,8 +274,8 @@ class InfoPage extends StatelessWidget {
             margins: _bubbleMargins,
             corners: _keywordsBubbleCorners,
             title: 'Flyer keywords',
-            keywords: _keywords,
-            selectedWords: <Keyword>[Keyword.bldrsKeywords()[403],],
+            keywords: superFlyer.keywords,
+            selectedWords: null,
             onTap: _editMode == true ? superFlyer.edit.onEditKeywordsTap : null,
           ),
 

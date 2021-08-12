@@ -31,8 +31,6 @@ class SelectedKeywordsBar extends StatelessWidget {
 
     double _selectedKeywordsZoneHeight = 80;
 
-    double _keywordsZoneHeight =  _screenHeight - Ratioz.stratosphere - _selectedKeywordsZoneHeight - Ratioz.appBarPadding;
-
     String _screenTitle =
     selectedKeywords.length == 0 ? 'Select keywords' :
     selectedKeywords.length == 1 ? '1 Selected keyword' :
@@ -44,10 +42,11 @@ class SelectedKeywordsBar extends StatelessWidget {
     EdgeInsets.only(left: _selectedKeywordsZoneHeight, right: Ratioz.appBarPadding)
     ;
 
+    double _yellowLineHeight = 1;
+
     return Container(
       width: _screenWidth,
       height: _selectedKeywordsZoneHeight,
-      // margin: EdgeInsets.only(bottom: Ratioz.appBarPadding),
       color: Colorz.White10,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -57,7 +56,7 @@ class SelectedKeywordsBar extends StatelessWidget {
           /// Selected keywords Title
           Container(
             width: _screenHeight,
-            height: _selectedKeywordsZoneHeight * 0.3,
+            height: (_selectedKeywordsZoneHeight * 0.3) - _yellowLineHeight,
             padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
             child: SuperVerse(
               verse: _screenTitle,
@@ -70,7 +69,7 @@ class SelectedKeywordsBar extends StatelessWidget {
           /// Selected keywords
           Container(
             width: _screenWidth,
-            height: _selectedKeywordsZoneHeight * 0.7,
+            height: (_selectedKeywordsZoneHeight * 0.7),
 
             child:
             selectedKeywords.length == 0 ? Container() :
@@ -125,6 +124,13 @@ class SelectedKeywordsBar extends StatelessWidget {
               },
             ),
 
+          ),
+
+          /// yellow line
+          Container(
+            width: _screenWidth,
+            height: _yellowLineHeight,
+            color: Colorz.Yellow50,
           ),
 
         ],

@@ -3,6 +3,7 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/views/widgets/keywords/keyword_button.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +12,6 @@ class KeywordsBubble extends StatelessWidget {
   final List<Keyword> keywords;
   final int verseSize;
   final Function onTap;
-  final bool bubbles;
   final Color bubbleColor;
   final List<dynamic> selectedWords;
   final double bubbleWidth;
@@ -24,7 +24,6 @@ class KeywordsBubble extends StatelessWidget {
     @required this.keywords,
     this.verseSize = 2,
     this.onTap,
-    this.bubbles,
     this.bubbleColor = Colorz.White20,
     @required this.selectedWords,
     this.bubbleWidth,
@@ -33,16 +32,8 @@ class KeywordsBubble extends StatelessWidget {
     this.passKeywordOnTap = false,
   });
 // -----------------------------------------------------------------------------
-  String _getKeywordName(BuildContext context, int index){
-    return
-      Keyword.getKeywordNameByKeywordID(context, keywords[index].keywordID);
-  }
-// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
-    double abPadding = Ratioz.appBarPadding;
-    // double contactBoxHeight = 35;
 
     /// the keyword bottom bubble corner when set in flyer info page
     double _bottomPadding = ((bubbleWidth) * Ratioz.xxflyerBottomCorners) - Ratioz.appBarPadding - Ratioz.appBarMargin;
@@ -58,50 +49,25 @@ class KeywordsBubble extends StatelessWidget {
       columnChildren: <Widget>[
 
         // --- STRINGS
+        if(keywords.length != 0)
         Wrap(
-          spacing: abPadding,
           children: <Widget>[
 
             ...List<Widget>.generate(
                 keywords.length,
                     (index){
 
-                  String _keywordName = _getKeywordName(context, index);
+                  Keyword _keyword = keywords[index];
 
-                  bool wordIsSelected(){
-                    bool _wordIsSelected = selectedWords.contains(keywords[index]) ?? false;
-                    return _wordIsSelected;
-                  }
+                  return
 
-                  Color _buttonColor = wordIsSelected() ? Colorz.Yellow255 : Colorz.White20;
-                  Color _verseColor = wordIsSelected() ? Colorz.Black230 : Colorz.White255;
-                  VerseWeight _verseWeight = wordIsSelected() ? VerseWeight.bold : VerseWeight.thin;
-
-                      return
-
-                  bubbles == true ?
-
-                  DreamBox(
-                    height: 40,
-                    verse: _keywordName,
-                    verseScaleFactor: 0.6,
-                    verseWeight: _verseWeight,
-                    verseColor: _verseColor,
-                    margins: const EdgeInsets.all(5),
-                    bubble: true,
-                    color: _buttonColor,
-                    onTap: passKeywordOnTap == true ? () => onTap(keywords[index]) : null,
-                  )
-                      :
-                  SuperVerse(
-                      verse: _keywordName,
-                      margin: 0,
-                      color: _verseColor,
-                      weight: _verseWeight,
-                      italic: true,
-                      shadow: false,
-                      labelColor: _buttonColor,
-                      onTap: passKeywordOnTap == true ? () => onTap(keywords[index]) : null,
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: Ratioz.appBarPadding),
+                      child: KeywordBarButton(
+                        keyword: _keyword,
+                        xIsOn: false,
+                        onTap: passKeywordOnTap == true ? () => onTap(_keyword) : null,
+                      ),
                     );
 
                 }
@@ -110,7 +76,13 @@ class KeywordsBubble extends StatelessWidget {
           ],
         ),
 
-        Container(
+        if(keywords.length == 0)
+          AddKeywordsButton(
+            onTap: passKeywordOnTap == true ? null : onTap,
+          ),
+
+
+    Container(
           height: _bottomPadding,
         ),
 

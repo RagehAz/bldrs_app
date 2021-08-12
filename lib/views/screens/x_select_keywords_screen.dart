@@ -1,9 +1,11 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/providers/country_provider.dart';
+import 'package:bldrs/views/widgets/dialogs/nav_dialog.dart';
 import 'package:bldrs/views/widgets/keywords/group_expansion_tile.dart';
 import 'package:bldrs/views/widgets/keywords/selected_keywords_bar.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
@@ -76,7 +78,7 @@ class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
     return _keywordIDs;
   }
 // -----------------------------------------------------------------------------
-  Future<void> _onKeywordTap(Keyword keyword) async {
+  Future<void> _onKeywordTap(BuildContext ctx, Keyword keyword) async {
 
     // bool _canPickMany = filtersModels.singleWhere((filterModel) => filterModel.filterID == _currentFilterID).canPickMany;
 
@@ -91,6 +93,14 @@ class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
 
       /// when POLY keyword is already selected
       if(_isSelected == true){
+
+        NavDialog.showNavDialog(
+            context: ctx,
+            firstLine: 'Already selected',
+            secondLine: '${Keyword.getKeywordNameByKeywordID(context, keyword.keywordID)} ${Keyword.getGroupNameInCurrentLingoByGroupID(ctx, keyword.groupID)} can not be added multiple times',
+            isBig: true
+        );
+
         await _highlightKeyword(keyword, _canPickMany);
       }
 
@@ -111,7 +121,24 @@ class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
       print('_selectedKeywordsHaveThisGroupID : $_selectedKeywordsHaveThisGroupID');
 
       /// when SINGULAR keyword already selected
-      if (_selectedKeywordsHaveThisGroupID == true){
+      if (_isSelected == true){
+        NavDialog.showNavDialog(
+            context: ctx,
+            firstLine: 'Already selected',
+            secondLine: '${Keyword.getKeywordNameByKeywordID(context, keyword.keywordID)} ${Keyword.getGroupNameInCurrentLingoByGroupID(ctx, keyword.groupID)} can not be added multiple times',
+            isBig: true
+        );
+        await _highlightKeyword(keyword, _canPickMany);
+      }
+
+      /// when SINGULAR keyword of same group is selected
+      else if (_selectedKeywordsHaveThisGroupID == true){
+        NavDialog.showNavDialog(
+          context: ctx,
+          firstLine: 'Can\'t add keyword',
+          secondLine: 'only one ${Keyword.getGroupNameInCurrentLingoByGroupID(ctx, keyword.groupID)} can be added',
+          isBig: true
+        );
         await _highlightKeyword(keyword, _canPickMany);
       }
 
@@ -312,6 +339,9 @@ class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
       pageTitle: 'Select Flyer keywords',
       appBarType: AppBarType.Basic,
       pyramids: Iconz.DvBlankSVG,
+      onBack: () async {
+        await Nav.goBack(context, argument: _selectedKeywords);
+      },
       layoutWidget: Column(
         children: <Widget>[
 
@@ -344,7 +374,7 @@ class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
                       scrollable: false,
                       group: _groups[index],
                       selectedKeywords: _selectedKeywords,
-                      onKeywordTap: (keyword) async {await _onKeywordTap(keyword);},
+                      onKeywordTap: (keyword) async {await _onKeywordTap(ctx, keyword);},
                       onGroupTap: (bool isExpanded) => _selectGroup(isExpanded: isExpanded, group: _groups[index]),
                       // tileMaxHeight: _keywordsZoneHeight * 0.7,
                     );
