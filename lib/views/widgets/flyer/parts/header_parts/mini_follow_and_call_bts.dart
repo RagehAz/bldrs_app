@@ -6,66 +6,72 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
+import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/painting.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 
 class FollowAndCallBTs extends StatelessWidget {
-
+  final SuperFlyer superFlyer;
   final double flyerZoneWidth;
-  final bool bzPageIsOn;
-  final bool followIsOn;
-  final Function onFollowTap;
-  final String phoneNumber;
-  final Function onCallTap;
 
   FollowAndCallBTs({
+    @required this.superFlyer,
     @required this.flyerZoneWidth,
-    @required this.bzPageIsOn,
-    @required this.followIsOn,
-    @required this.onFollowTap,
-    @required this.phoneNumber,
-    @required this.onCallTap,
 });
-
-
+// -----------------------------------------------------------------------------
+  static double getPaddings({double flyerZoneWidth}){
+    return flyerZoneWidth * Ratioz.xxflyerHeaderMainPadding;
+  }
+// -----------------------------------------------------------------------------
+  static double getBoxHeight({double flyerZoneWidth, bool bzPageIsOn}){
+    double _headerMainHeight = Scale.superHeaderStripHeight(bzPageIsOn, flyerZoneWidth);
+    double _headerMainPadding = flyerZoneWidth * Ratioz.xxflyerHeaderMainPadding;
+    double _followGalleryHeight = _headerMainHeight - (2 * _headerMainPadding);
+    return _followGalleryHeight;
+  }
+// -----------------------------------------------------------------------------
+  static double getBoxWidth({double flyerZoneWidth}){
+    return flyerZoneWidth * Ratioz.xxflyerFollowBtWidth;
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
-    double headerMainHeight = Scale.superHeaderStripHeight(bzPageIsOn, flyerZoneWidth);
-    double headerMainPadding = flyerZoneWidth * Ratioz.xxflyerHeaderMainPadding;
-    double headerOffsetHeight = headerMainHeight - (2 * headerMainPadding);
+    double _paddings = getPaddings(flyerZoneWidth: flyerZoneWidth);
     // --- FOLLOWERS & GALLERY --- --- --- --- --- --- --- --- --- --- --- --- ---
-    double followGalleryHeight = headerOffsetHeight;
-    double followGalleryWidth = flyerZoneWidth * Ratioz.xxflyerFollowBtWidth;
-    double fakeSpaceBetweenFollowGallery = headerMainPadding;
+    double followGalleryHeight = getBoxHeight(flyerZoneWidth: flyerZoneWidth, bzPageIsOn: superFlyer.nav.bzPageIsOn);
+    double followGalleryWidth = getBoxWidth(flyerZoneWidth: flyerZoneWidth);
 // -----------------------------------------------------------------------------
     return
-      bzPageIsOn == true ? Container () :
+      superFlyer.nav.bzPageIsOn == true ? Container () :
       Container(
         height: followGalleryHeight,
         width: followGalleryWidth,
+        color: Colorz.BloodTest,
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
 
             // --- FOLLOW BUTTON
             FollowBT(
               flyerZoneWidth: flyerZoneWidth,
-              onFollowTap: onFollowTap,
+              onFollowTap: superFlyer.rec.onFollowTap,
               tappingUnfollow: (){},
-              followOn: followIsOn,
+              followOn: superFlyer.rec.followIsOn,
             ),
 
             // --- FAKE SPACE PADDING BETWEEN FOLLOW & GALLERY BUTTONS
             SizedBox(
-              height: fakeSpaceBetweenFollowGallery,
+              height: _paddings,
             ),
 
             // --- Call BUTTON
             CallBT(
               flyerZoneWidth: flyerZoneWidth,
-              onCallTap: onCallTap,
+              onCallTap: superFlyer.rec.onCallTap,
             ),
 
           ],
@@ -131,7 +137,7 @@ class FollowBT extends StatelessWidget {
             alignment: Alignment.center,
             children: <Widget>[
 
-              // --- BUTTON GRADIENT
+              /// BUTTON GRADIENT
               Container(
                 height: followBTHeight,
                 width: followBTWidth,
@@ -141,21 +147,21 @@ class FollowBT extends StatelessWidget {
                 ),
               ),
 
-              // --- FOLLOW BUTTON CONTENTS
+              /// FOLLOW BUTTON CONTENTS
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
 
-                  // --- FOLLOW ICON
+                  /// FOLLOW ICON
                   Container(
                     height: followIconHeight,
                     width: followIconWidth,
                     child: WebsafeSvg.asset(followIcon, color: followOn == true ? Colorz.Black230 : Colorz.White255),
                   ),
 
-                  // --- FOLLOW TEXT
-                  followOn == true ? Container() :
+                  /// FOLLOW TEXT
+                  if (followOn == false)
                   SuperVerse(
                     verse: followText,
                     centered: true,

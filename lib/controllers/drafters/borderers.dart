@@ -136,21 +136,26 @@ class Borderers {
 
 // -----------------------------------------------------------------------------
   /// used in [MiniHeaderStrip] widget
-  static BorderRadius superLogoCorner(BuildContext context,
-      double flyerZoneWidth) {
-    double headerMainPadding = flyerZoneWidth * Ratioz.xxflyerHeaderMainPadding;
-    double headerMainCorners = flyerZoneWidth * Ratioz.xxflyerTopCorners; //bzPageIsOn == false ? flyerZoneWidth * Ratioz.xxflyerTopCorners : flyerZoneWidth * Ratioz.bzLogCorner;
-    double headerOffsetCorner = headerMainCorners - headerMainPadding;
-    double logoRoundCorners = headerOffsetCorner; //bzPageIsOn == false ? headerOffsetCorner : logoWidth * Ratioz.bzLogCorner;
+  static BorderRadius superLogoCorner({BuildContext context, double flyerZoneWidth, bool zeroCornerIsOn = false}) {
+    double _headerMainPadding = flyerZoneWidth * Ratioz.xxflyerHeaderMainPadding;
+    double _headerMainCorners = flyerZoneWidth * Ratioz.xxflyerTopCorners; //bzPageIsOn == false ? flyerZoneWidth * Ratioz.xxflyerTopCorners : flyerZoneWidth * Ratioz.bzLogCorner;
+    double _headerOffsetCorner = _headerMainCorners - _headerMainPadding;
+    double _logoRoundCorners = _headerOffsetCorner; //bzPageIsOn == false ? _headerOffsetCorner : logoWidth * Ratioz.bzLogCorner;
 
-    BorderRadius logoCorners = superBorderOnly(
+    BorderRadius _logoCornersWithZeroCorner = superBorderOnly(
         context: context,
-        enTopLeft: logoRoundCorners,
-        enBottomLeft: logoRoundCorners,
+        enTopLeft: _logoRoundCorners,
+        enBottomLeft: _logoRoundCorners,
         enBottomRight: 0,
-        enTopRight: logoRoundCorners
+        enTopRight: _logoRoundCorners
     );
-    return logoCorners;
+
+
+    BorderRadius _logoCornersAllRounded = superBorderAll(context, _logoRoundCorners);
+
+    BorderRadius _logoCorners = zeroCornerIsOn == true ? _logoCornersWithZeroCorner : _logoCornersAllRounded;
+
+    return _logoCorners;
   }
 
 // -----------------------------------------------------------------------------
