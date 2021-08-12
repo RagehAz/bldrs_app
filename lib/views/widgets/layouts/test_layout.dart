@@ -22,7 +22,7 @@ class TestLayout extends StatelessWidget {
 
     return MainLayout(
       appBarType: AppBarType.Basic,
-      pyramids: Iconz.PyramidsYellow,
+      pyramids: Iconz.DvBlankSVG,
       pageTitle: screenTitle,
       // loading: _loading,
       appBarRowWidgets: [

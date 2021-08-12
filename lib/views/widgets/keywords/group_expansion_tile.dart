@@ -73,7 +73,7 @@ class GroupTileState extends State<GroupTile> with SingleTickerProviderStateMixi
     _tileColorTween = new ColorTween();
     _subtitleLabelColorTween = new ColorTween();
     _arrowTurns = new Tween<double>(begin: 0.0, end: 0.5).animate(_easeInAnimation);
-    _borderRadius = BorderRadiusTween();
+    _borderRadius = new BorderRadiusTween();
     _isExpanded = PageStorage.of(context)?.readState(context) ?? widget.initiallyExpanded;
     if (_isExpanded) {_controller.value = 1.0;}
     super.initState();
@@ -135,7 +135,7 @@ class GroupTileState extends State<GroupTile> with SingleTickerProviderStateMixi
       ..begin = BorderRadius.circular(Ratioz.appBarCorner - 5)
       ..end = BorderRadius.circular(Ratioz.appBarCorner - 5);
     //------------------------------------------------------------o
-    final bool closed = _isExpanded == false && _controller.isDismissed == true;
+    final bool _closed = _isExpanded == false && _controller.isDismissed == true;
     //------------------------------------------------------------o
     final double _iconSize = SubGroupTile.calculateTitleIconSize(icon: widget.icon);
     //------------------------------------------------------------o
@@ -185,7 +185,7 @@ class GroupTileState extends State<GroupTile> with SingleTickerProviderStateMixi
       },
 
       /// SUB - GROUPS & KEYWORDS : Expanded tile children
-      child: closed == true ? null
+      child: _closed == true ? null
           :
       Container(
         width: widget.tileWidth,

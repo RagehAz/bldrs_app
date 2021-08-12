@@ -54,34 +54,36 @@ class BzLogo extends StatelessWidget {
 
     return GestureDetector(
       onTap: onTap,
-      child: Container(
-        height: width,
-        width: width,
-        margin: margins,
-        decoration: BoxDecoration(
-            color: ObjectChecker.objectIsColor(image) ? null : Colorz.White10,
-            image:
-            ObjectChecker.objectIsJPGorPNG(image) ?
-            DecorationImage(image: AssetImage(image), fit: BoxFit.cover) : null,
-            borderRadius: bzLogoCorners,
-            boxShadow:
-            shadowIsOn == false ? null :
-            <CustomBoxShadow>[
-                CustomBoxShadow(
-                    color: Colorz.Black200,
-                    offset: new Offset(0, 0),
-                    blurRadius: width * 0.15,
-                    blurStyle: BlurStyle.outer
-                ),
-            ]
-        ),
+      child: Center(
+        child: Container(
+          height: width,
+          width: width,
+          margin: margins,
+          decoration: BoxDecoration(
+              color: ObjectChecker.objectIsColor(image) ? null : Colorz.White10,
+              image:
+              ObjectChecker.objectIsJPGorPNG(image) ?
+              DecorationImage(image: AssetImage(image), fit: BoxFit.cover) : null,
+              borderRadius: bzLogoCorners,
+              boxShadow:
+              shadowIsOn == false ? null :
+              <CustomBoxShadow>[
+                  CustomBoxShadow(
+                      color: Colorz.Black200,
+                      offset: new Offset(0, 0),
+                      blurRadius: width * 0.15,
+                      blurStyle: BlurStyle.outer
+                  ),
+              ]
+          ),
 
-        child:
-        ClipRRect(
-            borderRadius: bzLogoCorners,
-            child: Imagers.superImageWidget(image)
-        ),
+          child:
+          ClipRRect(
+              borderRadius: bzLogoCorners,
+              child: Imagers.superImageWidget(image)
+          ),
 
+        ),
       ),
     );
   }
