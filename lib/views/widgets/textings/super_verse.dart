@@ -116,34 +116,34 @@ class SuperVerse extends StatelessWidget {
 
               Flexible(
                 flex: 1,//_maxLines >= 1 ? 1 : 0,
-              child: Container(
-                padding: EdgeInsets.only(right: _sidePaddings, left: _sidePaddings),
-                margin: EdgeInsets.all(_sidePaddings * 0.25),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(_labelCorner)),
-                    color: labelColor
-                ),
-                child: Text(
-                  verse,
-                  softWrap: false,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: _maxLines,
-                  textAlign: centered == true ?
-                  TextAlign.center
-                      :
-                  TextAlign.start,
-                  textScaleFactor: 1,
-                  style:
-                  superVerseStyle(
-                    context: context,
-                    color: color,
-                    weight: weight,
-                    italic: italic,
-                    size: size,
-                    shadow: shadow,
-                    scaleFactor: scaleFactor,
-                    designMode: designMode,
+                child: Container(
+                  padding: EdgeInsets.only(right: _sidePaddings, left: _sidePaddings),
+                  margin: EdgeInsets.all(_sidePaddings * 0.25),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(_labelCorner)),
+                      color: labelColor
                   ),
+                  child: Text(
+                    verse,
+                    softWrap: false,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: _maxLines,
+                    textAlign: centered == true ?
+                    TextAlign.center
+                        :
+                    TextAlign.start,
+                    textScaleFactor: 1,
+                    style:
+                    superVerseStyle(
+                      context: context,
+                      color: color,
+                      weight: weight,
+                      italic: italic,
+                      size: size,
+                      shadow: shadow,
+                      scaleFactor: scaleFactor,
+                      designMode: designMode,
+                    ),
 
                   // TextStyle(
                   //     fontWeight: verseWeight,

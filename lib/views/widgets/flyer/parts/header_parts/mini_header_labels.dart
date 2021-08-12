@@ -8,18 +8,10 @@ import 'package:flutter/material.dart';
 class HeaderLabels extends StatelessWidget {
   final SuperFlyer superFlyer;
   final double flyerZoneWidth;
-  // final bool bzPageIsOn;
-  // final bool flyerShowsAuthor;
-  // final TinyBz tinyBz;
-  // final TinyUser tinyAuthor;
 
   HeaderLabels({
     @required this.superFlyer,
     @required this.flyerZoneWidth,
-    // @required this.bzPageIsOn,
-    // @required this.flyerShowsAuthor,
-    // @required this.tinyBz,
-    // @required this.tinyAuthor,
   });
 
   static double getHeaderLabelWidth(double flyerZoneWidth){

@@ -119,3 +119,21 @@ class _GoHomeOnMaxBounceState extends State<GoHomeOnMaxBounce> {
   }
 }
 // -----------------------------------------------------------------------------
+class Scroller extends StatelessWidget {
+  final Widget child;
+
+  Scroller({
+    @required this.child,
+});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scrollbar(
+      thickness: 3,
+      radius: Radius.circular(1.5),
+      isAlwaysShown: false,
+      // controller: ,
+      child: child,
+    );
+  }
+}
