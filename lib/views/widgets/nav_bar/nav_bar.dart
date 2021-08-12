@@ -94,40 +94,42 @@ class NavBar extends StatelessWidget {
                 },
                 child: Container(
                   height: _bzzButtonsZoneHeight,
-                  child: ListView.builder(
-                    padding: const EdgeInsets.all(_paddings),
-                    physics: const BouncingScrollPhysics(),
-                    // controller: _myBzzListController,
-                    itemCount: myTinyBzz.length,
-                    itemBuilder: (context, index){
-                      TinyBz _tinyBz = myTinyBzz[index];
-                      return Align(
-                        alignment: Aligners.superCenterAlignment(context),
-                        child: DreamBox(
-                          height: 60,
-                          width: _bzButtonWidth,
-                          margins: const EdgeInsets.all(Ratioz.appBarPadding),
-                          icon: _tinyBz.bzLogo,
-                          verse: _tinyBz.bzName,
-                          secondLine: TextGenerator.bzTypeSingleStringer(context, _tinyBz.bzType),
-                          iconSizeFactor: 1,
-                          verseScaleFactor: 0.7,
-                          bubble: true,
-                          color: Colorz.Nothing,
-                          verseCentered: false,
-                          onTap: () async {
-                            print('${_tinyBz.bzID}');
+                  child: Scroller(
+                    child: ListView.builder(
+                      padding: const EdgeInsets.all(_paddings),
+                      physics: const BouncingScrollPhysics(),
+                      // controller: _myBzzListController,
+                      itemCount: myTinyBzz.length,
+                      itemBuilder: (context, index){
+                        TinyBz _tinyBz = myTinyBzz[index];
+                        return Align(
+                          alignment: Aligners.superCenterAlignment(context),
+                          child: DreamBox(
+                            height: 60,
+                            width: _bzButtonWidth,
+                            margins: const EdgeInsets.all(Ratioz.appBarPadding),
+                            icon: _tinyBz.bzLogo,
+                            verse: _tinyBz.bzName,
+                            secondLine: TextGenerator.bzTypeSingleStringer(context, _tinyBz.bzType),
+                            iconSizeFactor: 1,
+                            verseScaleFactor: 0.7,
+                            bubble: true,
+                            color: Colorz.Nothing,
+                            verseCentered: false,
+                            onTap: () async {
+                              print('${_tinyBz.bzID}');
 
-                            Nav.goToNewScreen(context,
-                                MyBzScreen(
-                                  userModel: userModel,
-                                  tinyBz: _tinyBz,
-                                ));
+                              Nav.goToNewScreen(context,
+                                  MyBzScreen(
+                                    userModel: userModel,
+                                    tinyBz: _tinyBz,
+                                  ));
 
-                          },
-                        ),
-                      );
-                    },
+                            },
+                          ),
+                        );
+                      },
+                    ),
                   ),
                 ),
               ),
