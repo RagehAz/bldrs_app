@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:bldrs/controllers/drafters/colorizers.dart';
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/drafters/streamerz.dart';
 import 'package:bldrs/controllers/drafters/text_manipulators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
@@ -9,6 +10,7 @@ import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/firestore/flyer_ops.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
+import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/models/flyer/nano_flyer.dart';
 import 'package:bldrs/models/flyer/sub/slide_model.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
@@ -17,6 +19,7 @@ import 'package:bldrs/views/widgets/appbar/app_bar_button.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/flyer/final_flyer.dart';
 import 'package:bldrs/views/widgets/flyer/flyer.dart';
+import 'package:bldrs/views/widgets/flyer/parts/header_parts/new_header.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/layouts/test_layout.dart';
 import 'package:flutter/material.dart';
@@ -218,302 +221,27 @@ void changeColor(Color color){
       listViewWidgets: [
 
 
-        if(_canBuildFlyer == true)
-          FinalFlyer(
-            flyerZoneWidth: Scale.superFlyerZoneWidth(context, 0.5),
-            tinyFlyer: _tinyFlyer,
-            initialSlideIndex: 0,
-            goesToEditor: false,
-            // flyerID: _flyerID,
-          ),
+        bzModelBuilder(
+          context: context,
+          bzID: '4q5byHJEKfO5Y7SrAxEX',
+          builder: (ctx, bzModel){
+            return
+              NewHeader(
+                  superFlyer: SuperFlyer.getSuperFlyerFromBzModelOnly(
+                      onHeaderTap: null,
+                      bzModel: bzModel
+                  ),
+                  flyerZoneWidth: Scale.superScreenWidth(context) * 0.8,
+              );
 
-        // DreamBox(
-        //   height: 80,
-        //   width: 300,
-        //   verse: 'url : ${_url}',
-        //   verseScaleFactor: 0.7,
-        //   icon: _url,
-        //   onTap: () async {
-        //
-        //     // _triggerLoading();
-        //     //
-        //     // File _theFile = await Imagers.urlToFile(_url);
-        //     // // Asset _theAsset = await Imagers.urlToAsset(_url);
-        //     // setState(() {
-        //     //   _file = _theFile;
-        //     //   // _asset = _theAsset;
-        //     // });
-        //     //
-        //     //
-        //     // ImageSize imageSize = await ImageSize.superImageSize(_file);
-        //     //
-        //     // print('file test : _theFile.path : ${_theFile.path}');
-        //     // print('file test : _theFile.absolute : ${_theFile.absolute}');
-        //     // print('file test : _theFile.uri : ${_theFile.uri}');
-        //     // print('file test : _theFile.hashCode : ${_theFile.hashCode}');
-        //     // print('file test : _theFile.parent : ${_theFile.parent}');
-        //     // print('file test : _theFile.isAbsolute : ${_theFile.isAbsolute}');
-        //     // print('file test : _theFile.statSync() : ${_theFile.statSync()}');
-        //     //
-        //     // String _fileNameWithExtension = TextMod.trimTextBeforeLastSpecialCharacter(_theFile.path, '/');
-        //     // String _fileName = TextMod.trimTextAfterLastSpecialCharacter(_fileNameWithExtension, '.');
-        //     //
-        //     // print('file test : imageSize : ${imageSize.height} : ${imageSize.width}');
-        //
-        //     // _asset = Asset(
-        //     //     // identifier
-        //     //     _theFile.,
-        //     //     // _name
-        //     //     _theFile.fileNameWithExtension,
-        //     //     // _originalWidth
-        //     //       imageSize.width,
-        //     //     // _originalHeight
-        //     //     imageSize.height,
-        //     //   );
-        //
-        //     // setState(() {
-        //     //   _file = _theFile;
-        //     //   // _asset = _theAsset;
-        //     // });
-        //
-        //     // print('DON DON : _asset is : ${_asset.name}');
-        //
-        //     _triggerLoading();
-        //
-        //   },
-        // ),
-        //
-        // DreamBox(
-        //   height: 80,
-        //   width: 300,
-        //   verse: 'file : ${_file}',
-        //   verseScaleFactor: 0.7,
-        //   subChild: Imagers.superImageWidget(_file, ),
-        // ),
-
-        // DreamBox(
-        //   height: 80,
-        //   width: 300,
-        //   verse: 'asset : ${_asset}',
-        //   verseScaleFactor: 0.7,
-        //   subChild: Imagers.superImageWidget(_asset, ),
-        // ),
-
-        // DreamBox(
-        //   height: 80,
-        //   width: 300,
-        //   verse: 'picker',
-        //   verseScaleFactor: 0.7,
-        //   onTap: () async {
-        //     List<Asset> _outputAssets;
-        //     _outputAssets = await Imagers.getMultiImagesFromGallery(
-        //       context: context,
-        //       images: _assets,
-        //       mounted: mounted,
-        //       accountType: BzAccountType.Premium,
-        //     );
-        //
-        //     if (_outputAssets != null){
-        //       print('file test : _outputAssets[0].name : ${_outputAssets[0].name}');
-        //       print('file test : _outputAssets[0].identifier : ${_outputAssets[0].identifier}');
-        //       print('file test : _outputAssets[0].identifier : ${_outputAssets[0].metadata}');
-        //
-        //       setState(() {
-        //         _asset = _outputAssets[0];
-        //       });
-        //
-        //     }
-        //
-        //
-        //   },
-        // ),
-
-        ///----------
-        DreamBox(
-          height: 80,
-          width: 300,
-          verse: 'firstID : 1ghM9LA8pkDxLcAHNyj2',
-          secondLine: 'current ID : ${_tinyFlyer?.flyerID}',
-          verseScaleFactor: 0.7,
-          onTap: () => changeFlyer('1ghM9LA8pkDxLcAHNyj2'),
+          }
         ),
-        DreamBox(
-          height: 80,
-          width: 300,
-          verse: 'firstID : 2fDlDyF01sw8GEYPJ9GN',
-          secondLine: 'current ID : ${_tinyFlyer?.flyerID}',
-          verseScaleFactor: 0.7,
-          onTap: () => changeFlyer('2fDlDyF01sw8GEYPJ9GN'),
-        ),
-        DreamBox(
-          height: 80,
-          width: 300,
-          verse: 'do the thing',
-          verseScaleFactor: 0.7,
-          onTap: () async {
 
-            List<dynamic> _bzz = await Fire.readCollectionDocs(FireCollection.bzz);
-
-            int _numberOfBzz = _bzz.length;
-
-            print('_numberOfBzz is : $_numberOfBzz');
-
-            int _currentBz = 0;
-
-            for (var map in _bzz){
-              _currentBz++;
-
-              BzModel _bz = BzModel.decipherBzMap(map);
-              print('Flyer : $_currentBz :: OOO - working on _bz ---> ${_bz.bzID}');
-
-              if(_bz != null){
-                if(_bz.bzID != null){
-                  if(_bz.nanoFlyers.length != 0){
-
-                    List<NanoFlyer> _nanos = _bz.nanoFlyers;
-                    print('Flyer : $_currentBz :: OO1 - got _nanos ---> ${_nanos.length} nanos');
-
-                    List<NanoFlyer> _newNanoFlyers = new List();
-
-                    for (var nano in _nanos){
-                      TinyFlyer _tiny = await FlyerOps().readTinyFlyerOps(
-                        context: context,
-                        flyerID: nano.flyerID,
-                      );
-
-                      if(_tiny != null){
-                        setState(() {
-                          _tinyFlyer = _tiny;
-                        });
-                        print('Flyer : $_currentBz :: OO2 - setState for db tinyFlyer to widget');
-
-                        NanoFlyer _newNano = NanoFlyer.getNanoFlyerFromTinyFlyer(_tiny);
-                        print('Flyer : $_currentBz :: OO3 - created new nano with mid color : ${Colorizer.cipherColor(_newNano.midColor)}');
-
-                        _newNanoFlyers.add(_newNano);
-
-                      }
-
-                    }
-
-                    List<dynamic> _maps = NanoFlyer.cipherNanoFlyers(_newNanoFlyers);
-
-                    await Fire.updateDocField(
-                      collName: FireCollection.bzz,
-                      docName: _bz.bzID,
-                      context: context,
-                      input: _maps,
-                      field: 'nanoFlyers',
-                    );
-                    print('Flyer : $_currentBz :: OO4 - updated _bz.bzID in db : ${_bz.bzID}');
-
-
-                  }
-                }
-              }
-
-            }
-
-            },
-        ),
-        ///----------
       ],
 
     );
 
 
 
-  }
-}
-
-class BOXXX extends StatefulWidget {
-  final Color color;
-  BOXXX({
-    @required this.color,
-  });
-  @override
-  _BOXXXState createState() => _BOXXXState();
-}
-
-class _BOXXXState extends State<BOXXX> {
-  Color _color;
-// -----------------------------------------------------------------------------
-  /// --- FUTURE LOADING BLOCK
-  bool _loading = false;
-  Future <void> _triggerLoading({Function function}) async {
-    if (function == null){
-      setState(() {
-        _loading = !_loading;
-      });
-    }
-    else {
-      setState(() {
-        _loading = !_loading;
-        function();
-      });
-    }
-    _loading == true?
-    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
-  }
-// -----------------------------------------------------------------------------
-  @override
-  void initState() {
-
-    if(widget.color == null){
-      _color = Colorz.Red255;
-    }
-    else {
-      _color = widget.color;
-    }
-
-    super.initState();
-  }
-// -----------------------------------------------------------------------------
-//   bool _isInit = true;
-//   @override
-//   void didChangeDependencies() {
-//     if (_isInit) {
-//       _triggerLoading().then((_) async {
-//
-//         Future.delayed(Duration(seconds: 5), () async {
-//
-//           setState(() {
-//             _color = Colorz.Yellow200;
-//           });
-//
-//         });
-//
-//
-//         /// X - REBUILD
-//         _triggerLoading(function: (){
-//
-//         });
-//
-//       });
-//
-//     }
-//     _isInit = false;
-//     super.didChangeDependencies();
-//   }
-// -----------------------------------------------------------------------------
-
-  @override
-  void didUpdateWidget(covariant BOXXX oldWidget) {
-    if(_color != widget.color){
-      setState(() {
-        _color = widget.color;
-      });
-    }
-    super.didUpdateWidget(oldWidget);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return DreamBox(
-      height: 50,
-      width: 50,
-      color: _color,
-      // color: widget.color,
-    );
   }
 }
