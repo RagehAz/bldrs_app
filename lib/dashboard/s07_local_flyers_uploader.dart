@@ -598,6 +598,7 @@ class MyDreamBox extends StatelessWidget {
                 onTap: (){},
                 bubbleColor: Colorz.White20,
                 selectedWords: [],
+                addButtonIsOn: false,
               ),
 
             ],

@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
@@ -145,6 +146,7 @@ Widget bzModelBuilder({
         docName: bzID,
       ),
       builder: (ctx, snapshot){
+
 
         if (snapshot.connectionState == ConnectionState.waiting){
           return Container();
