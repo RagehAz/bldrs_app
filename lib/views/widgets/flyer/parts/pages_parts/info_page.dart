@@ -277,6 +277,7 @@ class InfoPage extends StatelessWidget {
             keywords: superFlyer.keywords,
             selectedWords: null,
             onTap: _editMode == true ? superFlyer.edit.onEditKeywordsTap : null,
+            addButtonIsOn: superFlyer.edit.editMode,
           ),
 
           SizedBox(
