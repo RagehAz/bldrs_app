@@ -35,7 +35,6 @@ import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/screens/f_1_flyer_editor_screen.dart';
 import 'package:bldrs/views/screens/x_select_keywords_screen.dart';
 import 'package:bldrs/views/screens/x_x_flyer_on_map.dart';
-import 'package:bldrs/views/widgets/bubbles/words_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_dialog.dart';
@@ -50,7 +49,6 @@ import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/views/widgets/textings/super_text_field.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:bldrs/xxx_LABORATORY/camera_and_location/location_helper.dart';
-import 'package:bldrs/xxx_LABORATORY/flyer_browser/bldrs_expansion_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
@@ -427,7 +425,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         onFlyerTypeTap: () async {await _onFlyerTypeTap();},
         onZoneTap: () async {await _onChangeZone();},
         onAboutTap: () async {await _onMoreInfoTap();},
-        onKeywordsTap: () async {await _onKeywordsTap();},
+        onKeywordsTap: () async {await _onAddKeywords();},
         onShowAuthorTap: _onShowAuthorTap,
         onTriggerEditMode: _onTriggerEditMode,
         onPublishFlyer: () async {await _onPublishFlyer();},
@@ -469,7 +467,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       onFlyerTypeTap: () async {await _onFlyerTypeTap();},
       onZoneTap: () async {await _onChangeZone();},
       onAboutTap: () async {await _onMoreInfoTap();},
-      onKeywordsTap: () async {await _onKeywordsTap();},
+      onKeywordsTap: () async {await _onAddKeywords();},
       onShowAuthorTap: _onShowAuthorTap,
       onTriggerEditMode: _onTriggerEditMode,
       onPublishFlyer: () async {await _onPublishFlyer();},
@@ -1585,7 +1583,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
   }
 // -----------------------------------------------------o
-  Future<void> _onKeywordsTap() async {
+  Future<void> _onAddKeywords() async {
 
     dynamic _result = await Nav.goToNewScreen(context,
         SelectKeywordsScreen(
@@ -1596,7 +1594,9 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
     /// when user selected some keywords
     if (_result != null){
-
+      setState(() {
+        _superFlyer.keywords = _result;
+      });
     }
 
     /// when no keywords selected

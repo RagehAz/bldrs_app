@@ -7,9 +7,9 @@ import 'package:bldrs/models/planet/city_model.dart';
 import 'package:bldrs/views/widgets/bubbles/bubbles_separator.dart';
 import 'package:bldrs/views/widgets/bubbles/text_field_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/tile_bubble.dart';
-import 'package:bldrs/views/widgets/bubbles/words_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
+import 'package:bldrs/views/widgets/keywords/keywords_bubble.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -221,7 +221,6 @@ class _CountryScreenState extends State<CountryScreen> {
 
           KeywordsBubble(
             title: '${_provincesNames.length} Provinces',
-            bubbles: true,
             keywords: City.getKeywordsFromCities(context, _provinces),
             onTap: (val) {print(val);},
             selectedWords: [],
