@@ -40,138 +40,140 @@ class MoreScreen extends StatelessWidget {
       sky: Sky.Black,
       pyramids: Iconz.PyramidzYellow,
       layoutWidget: GoHomeOnMaxBounce(
-        child: ListView(
-          physics: const BouncingScrollPhysics(),
-          children: <Widget>[
+        child: Scroller(
+          child: ListView(
+            physics: const BouncingScrollPhysics(),
+            children: <Widget>[
 
-            Stratosphere(),
-            TileBubble(
-              verse: Wordz.createBzAccount(context),
-              icon: Iconz.Bz,
-              iconSizeFactor: 0.9,
-              btOnTap: () => Nav.goToNewScreen(context, BzEditorScreen(firstTimer: true, userModel: userModel)),
-            ),
+              Stratosphere(),
+              TileBubble(
+                verse: Wordz.createBzAccount(context),
+                icon: Iconz.Bz,
+                iconSizeFactor: 0.9,
+                btOnTap: () => Nav.goToNewScreen(context, BzEditorScreen(firstTimer: true, userModel: userModel)),
+              ),
 
-            _separator,
+              _separator,
 
-            TileBubble(
-              verse: Wordz.inviteFriends(context),
-              icon: DeviceChecker.deviceIsIOS() ? Iconz.ComApple : DeviceChecker.deviceIsAndroid() ? Iconz.ComGooglePlay : Iconz.Share,
-              iconBoxColor: Colorz.Black230,
-              verseColor: Colorz.White255,
-              btOnTap: () => shareLink(context, LinkModel.bldrsWebSiteLink),
-            ),
+              TileBubble(
+                verse: Wordz.inviteFriends(context),
+                icon: DeviceChecker.deviceIsIOS() ? Iconz.ComApple : DeviceChecker.deviceIsAndroid() ? Iconz.ComGooglePlay : Iconz.Share,
+                iconBoxColor: Colorz.Black230,
+                verseColor: Colorz.White255,
+                btOnTap: () => shareLink(context, LinkModel.bldrsWebSiteLink),
+              ),
 
-            TileBubble(
-              verse: Wordz.inviteBusinesses(context),
-              icon: Iconz.Bz,
-              iconBoxColor: Colorz.Black230,
-              verseColor: Colorz.White255,
-            ),
+              TileBubble(
+                verse: Wordz.inviteBusinesses(context),
+                icon: Iconz.Bz,
+                iconBoxColor: Colorz.Black230,
+                verseColor: Colorz.White255,
+              ),
 
-            _separator,
+              _separator,
 
-            TileBubble(
-              verse: Wordz.changeCountry(context),
-              icon: FlagBox(flag: Flagz.egy),
-              iconSizeFactor: 0.9,
-              btOnTap: () => Nav.goToNewScreen(context,
+              TileBubble(
+                verse: Wordz.changeCountry(context),
+                icon: FlagBox(flag: Flagz.egy),
+                iconSizeFactor: 0.9,
+                btOnTap: () => Nav.goToNewScreen(context,
 
-                  /// PLAN : when we include more countries, we just go to SelectCountryScreen();
-                  // SelectCountryScreen()
+                    /// PLAN : when we include more countries, we just go to SelectCountryScreen();
+                    // SelectCountryScreen()
 
-                  /// but now we go to Egypt cities directly
-                SelectCityScreen(countryID: 'egy',)
+                    /// but now we go to Egypt cities directly
+                  SelectCityScreen(countryID: 'egy',)
+
+                ),
+              ),
+
+              TileBubble(
+                verse: Wordz.changeLanguage(context),
+                icon: Iconz.Language,
+                btOnTap: () => Nav.goToNewScreen(context, SelectLanguageScreen()),
+              ),
+
+              _separator,
+
+              TileBubble(
+                verse: '${Wordz.about(context)} ${Wordz.bldrsShortName(context)}',
+                icon: Iconz.PyramidSingleYellow,
+                iconSizeFactor: 0.8,
+                btOnTap: () => Nav.goToNewScreen(context, AboutBldrsScreen()),
 
               ),
-            ),
+              TileBubble(
+                verse: Wordz.feedback(context),
+                icon: Iconz.UTPlanning,
+                iconSizeFactor: 0.6,
+                btOnTap: () => Nav.goToNewScreen(context, FeedBack()),
+              ),
+              TileBubble(
+                verse: Wordz.termsRegulations(context),
+                icon: Iconz.Terms,
+                iconSizeFactor: 0.6,
+              ),
 
-            TileBubble(
-              verse: Wordz.changeLanguage(context),
-              icon: Iconz.Language,
-              btOnTap: () => Nav.goToNewScreen(context, SelectLanguageScreen()),
-            ),
+              _separator,
 
-            _separator,
+              TileBubble(
+                verse: Wordz.advertiseOnBldrs(context),
+                icon: Iconz.Advertise,
+                iconSizeFactor: 0.6,
+              ),
+              TileBubble(
+                verse: 'Get Blrs.net Marketing materials',
+                icon: Iconz.Marketing,
+                iconSizeFactor: 0.7,
+              ),
 
-            TileBubble(
-              verse: '${Wordz.about(context)} ${Wordz.bldrsShortName(context)}',
-              icon: Iconz.PyramidSingleYellow,
-              iconSizeFactor: 0.8,
-              btOnTap: () => Nav.goToNewScreen(context, AboutBldrsScreen()),
+              _separator,
 
-            ),
-            TileBubble(
-              verse: Wordz.feedback(context),
-              icon: Iconz.UTPlanning,
-              iconSizeFactor: 0.6,
-              btOnTap: () => Nav.goToNewScreen(context, FeedBack()),
-            ),
-            TileBubble(
-              verse: Wordz.termsRegulations(context),
-              icon: Iconz.Terms,
-              iconSizeFactor: 0.6,
-            ),
+              TileBubble(
+                verse: 'Open App Tutorial',
+                icon: Iconz.Scholar,
+                iconSizeFactor: 0.6,
+              ),
+              TileBubble(
+                verse: Wordz.whatIsFlyer(context),
+                icon: Iconz.Flyer,
+                iconSizeFactor: 0.6,
+              ),
+              TileBubble(
+                verse: Wordz.whoAreBldrs(context),
+                icon: Iconz.Bz,
+                iconSizeFactor: 0.6,
+              ),
+              TileBubble(
+                verse: Wordz.howItWorks(context),
+                icon: Iconz.Gears,
+                iconSizeFactor: 0.6,
+              ),
 
-            _separator,
+              _separator,
 
-            TileBubble(
-              verse: Wordz.advertiseOnBldrs(context),
-              icon: Iconz.Advertise,
-              iconSizeFactor: 0.6,
-            ),
-            TileBubble(
-              verse: 'Get Blrs.net Marketing materials',
-              icon: Iconz.Marketing,
-              iconSizeFactor: 0.7,
-            ),
+              TileBubble(
+                verse: Wordz.signOut(context),
+                icon: Iconz.Exit,
+                iconSizeFactor: 0.6,
+                btOnTap: () => AuthOps().signOut(context: context, routeToUserChecker: true),
+              ),
 
-            _separator,
+              _separator,
 
-            TileBubble(
-              verse: 'Open App Tutorial',
-              icon: Iconz.Scholar,
-              iconSizeFactor: 0.6,
-            ),
-            TileBubble(
-              verse: Wordz.whatIsFlyer(context),
-              icon: Iconz.Flyer,
-              iconSizeFactor: 0.6,
-            ),
-            TileBubble(
-              verse: Wordz.whoAreBldrs(context),
-              icon: Iconz.Bz,
-              iconSizeFactor: 0.6,
-            ),
-            TileBubble(
-              verse: Wordz.howItWorks(context),
-              icon: Iconz.Gears,
-              iconSizeFactor: 0.6,
-            ),
+              TileBubble(
+                verse: 'To the Beyond and Further',
+                icon: Iconz.DvRageh,
+                iconSizeFactor: 1,
+                btOnTap: () => Nav.goToRoute(context, Routez.Obelisk),
+              ),
 
-            _separator,
+              PyramidsHorizon(
+                heightFactor: 5,
+              ),
 
-            TileBubble(
-              verse: Wordz.signOut(context),
-              icon: Iconz.Exit,
-              iconSizeFactor: 0.6,
-              btOnTap: () => AuthOps().signOut(context: context, routeToUserChecker: true),
-            ),
-
-            _separator,
-
-            TileBubble(
-              verse: 'To the Beyond and Further',
-              icon: Iconz.DvRageh,
-              iconSizeFactor: 1,
-              btOnTap: () => Nav.goToRoute(context, Routez.Obelisk),
-            ),
-
-            PyramidsHorizon(
-              heightFactor: 5,
-            ),
-
-          ],
+            ],
+          ),
         ),
       ),
     );

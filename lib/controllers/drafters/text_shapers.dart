@@ -31,27 +31,51 @@ double verseLabelHeight (int verseSize, double screenHeight){
 // -----------------------------------------------------------------------------
 double superVerseSizeValue (BuildContext context, int verseSize, double scalingFactor){
   double _screenHeight = Scale.superScreenHeight(context);
+
+  // double _verseSizeValue =
+  // (verseSize == 0) ? _screenHeight * Ratioz.fontSize0 * scalingFactor // -- 8 -- A77A
+  //     :
+  // (verseSize == 1) ? _screenHeight * Ratioz.fontSize1 * scalingFactor // -- 10 -- Nano
+  //     :
+  // (verseSize == 2) ? _screenHeight * Ratioz.fontSize2 * scalingFactor // -- 12 -- Micro
+  //     :
+  // (verseSize == 3) ? _screenHeight * Ratioz.fontSize3 * scalingFactor // -- 14 -- Mini
+  //     :
+  // (verseSize == 4) ? _screenHeight * Ratioz.fontSize4 * scalingFactor // -- 16 -- Medium
+  //     :
+  // (verseSize == 5) ? _screenHeight * Ratioz.fontSize5 * scalingFactor // -- 20 -- Macro
+  //     :
+  // (verseSize == 6) ? _screenHeight * Ratioz.fontSize6 * scalingFactor // -- 24 -- Big
+  //     :
+  // (verseSize == 7) ? _screenHeight * Ratioz.fontSize7 * scalingFactor // -- 28 -- Massive
+  //     :
+  // (verseSize == 8) ? _screenHeight * Ratioz.fontSize8 * scalingFactor // -- 28 -- Gigantic
+  //     :
+  // _screenHeight * Ratioz.fontSize1
+  // ;
+
   double _verseSizeValue =
-  (verseSize == 0) ? _screenHeight * Ratioz.fontSize0 * scalingFactor // -- 8 -- A77A
+  (verseSize == 0) ? 8 * scalingFactor
       :
-  (verseSize == 1) ? _screenHeight * Ratioz.fontSize1 * scalingFactor // -- 10 -- Nano
+  (verseSize == 1) ? 12 * scalingFactor
       :
-  (verseSize == 2) ? _screenHeight * Ratioz.fontSize2 * scalingFactor // -- 12 -- Micro
+  (verseSize == 2) ? 16 * scalingFactor
       :
-  (verseSize == 3) ? _screenHeight * Ratioz.fontSize3 * scalingFactor // -- 14 -- Mini
+  (verseSize == 3) ? 20 * scalingFactor
       :
-  (verseSize == 4) ? _screenHeight * Ratioz.fontSize4 * scalingFactor // -- 16 -- Medium
+  (verseSize == 4) ? 24 * scalingFactor
       :
-  (verseSize == 5) ? _screenHeight * Ratioz.fontSize5 * scalingFactor // -- 20 -- Macro
+  (verseSize == 5) ? 28 * scalingFactor
       :
-  (verseSize == 6) ? _screenHeight * Ratioz.fontSize6 * scalingFactor // -- 24 -- Big
+  (verseSize == 6) ? 32 * scalingFactor
       :
-  (verseSize == 7) ? _screenHeight * Ratioz.fontSize7 * scalingFactor // -- 28 -- Massive
+  (verseSize == 7) ? 36 * scalingFactor
       :
-  (verseSize == 8) ? _screenHeight * Ratioz.fontSize8 * scalingFactor // -- 28 -- Gigantic
+  (verseSize == 8) ? 40 * scalingFactor
       :
-  _screenHeight * Ratioz.fontSize1
+  12 * scalingFactor
   ;
+
   return _verseSizeValue;
 }
 // -----------------------------------------------------------------------------

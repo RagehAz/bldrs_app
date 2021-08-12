@@ -21,20 +21,22 @@ class SavedFlyersScreen extends StatelessWidget {
       pageTitle: 'Chosen Flyers',
       pyramids: Iconz.PyramidzYellow,
       layoutWidget: GoHomeOnMaxBounce(
-        child: ListView(
-          physics: const BouncingScrollPhysics(),
-          children: <Widget>[
+        child: Scroller(
+          child: ListView(
+            physics: const BouncingScrollPhysics(),
+            children: <Widget>[
 
-            Stratosphere(),
+              Stratosphere(),
 
-            FlyersGrid(
-              gridZoneWidth: screenWidth,
-              numberOfColumns: 3,
-            ),
+              FlyersGrid(
+                gridZoneWidth: screenWidth,
+                numberOfColumns: 3,
+              ),
 
-            PyramidsHorizon(heightFactor: 5,),
+              PyramidsHorizon(heightFactor: 5,),
 
-          ],
+            ],
+          ),
         ),
       ),
     );

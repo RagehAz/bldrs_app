@@ -23,7 +23,7 @@ class ParagraphBubble extends StatefulWidget {
 
   ParagraphBubble({
     this.title,
-    this.paragraph,
+    @required this.paragraph,
     this.maxLines = 5,
     this.centered = false,
     this.actionBtIcon,
@@ -120,6 +120,7 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
         columnChildren: <Widget>[
 
           /// PARAGRAPH TEXT
+          if (widget.paragraph != null && widget.paragraph != '')
           Padding(
             padding: Scale.superMargins(margins: widget.margins),
             child: SuperVerse(
@@ -132,7 +133,7 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
           ),
 
           /// ARROW
-          if (widget.paragraph != null)
+          if (widget.paragraph != null && widget.paragraph != '')
           TextLinesAnalyzer(
               text: widget.paragraph.trim(),
               textStyle: _paragraphTextStyle,

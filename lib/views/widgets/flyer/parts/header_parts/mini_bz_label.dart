@@ -10,16 +10,10 @@ import 'package:flutter/painting.dart';
 class BzLabel extends StatelessWidget {
   final SuperFlyer superFlyer;
   final double flyerZoneWidth;
-  // final TinyBz tinyBz;
-  // final bool bzPageIsOn;
-  // final bool flyerShowsAuthor;
 
   BzLabel({
     this.superFlyer,
     @required this.flyerZoneWidth,
-    // @required this.tinyBz,
-    // @required this.bzPageIsOn,
-    // @required this.flyerShowsAuthor,
 });
 
   @override
