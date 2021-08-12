@@ -96,69 +96,63 @@ class AuthorLabel extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
 
-                // --- AUTHOR IMAGE
-                Expanded(
-                  flex: 15,
-                  child: AuthorPic(
-                    flyerZoneWidth: flyerZoneWidth,
-                    authorPic: tinyAuthor.pic,
-                    // tinyBz:
-                  ),
+                /// AUTHOR IMAGE
+                AuthorPic(
+                  flyerZoneWidth: flyerZoneWidth,
+                  authorPic: tinyAuthor?.pic,
+                  // tinyBz:
                 ),
 
-                // --- AUTHOR LABEL : NAME, TITLE, FOLLOWERS COUNTER
-                labelIsOn == false ? Container() :
-                Expanded(
-                  flex: 47,
-                  child: Container(
-                    width: flyerZoneWidth * Ratioz.xxflyerAuthorNameWidth,
-                    padding: EdgeInsets.symmetric(horizontal: _headerTextSidePadding),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children:
-                      <Widget>[
+                /// AUTHOR LABEL : NAME, TITLE, FOLLOWERS COUNTER
+                if (labelIsOn == true)
+                Container(
+                  width: flyerZoneWidth * Ratioz.xxflyerAuthorNameWidth,
+                  padding: EdgeInsets.symmetric(horizontal: _headerTextSidePadding),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children:
+                    <Widget>[
 
-                        // --- AUTHOR NAME
-                        SuperVerse(
-                          verse: tinyAuthor.name,
-                          italic: false,
-                          centered: false,
-                          shadow: _versesShadow,
-                          designMode: _versesDesignMode,
-                          size: 2,
-                          scaleFactor: flyerZoneWidth / _screenWidth,
-                          maxLines: 1,
-                        ),
+                      // --- AUTHOR NAME
+                      SuperVerse(
+                        verse: tinyAuthor?.name,
+                        italic: false,
+                        centered: false,
+                        shadow: _versesShadow,
+                        designMode: _versesDesignMode,
+                        size: 2,
+                        scaleFactor: flyerZoneWidth / _screenWidth,
+                        maxLines: 1,
+                      ),
 
-                            // --- AUTHOR TITLE
-                        SuperVerse(
-                          verse: tinyAuthor?.title,
-                          designMode: _versesDesignMode,
-                          size: 1,
-                          weight: VerseWeight.regular,
-                          shadow: _versesShadow,
-                          centered: false,
-                          italic: true,
-                          scaleFactor: flyerZoneWidth / _screenWidth,
-                          maxLines: 1,
-                        ),
+                          // --- AUTHOR TITLE
+                      SuperVerse(
+                        verse: tinyAuthor?.title,
+                        designMode: _versesDesignMode,
+                        size: 1,
+                        weight: VerseWeight.regular,
+                        shadow: _versesShadow,
+                        centered: false,
+                        italic: true,
+                        scaleFactor: flyerZoneWidth / _screenWidth,
+                        maxLines: 1,
+                      ),
 
-                        // --- FOLLOWERS COUNTER
-                        SuperVerse(
-                          verse: _followersCounter,
-                          italic: true,
-                          centered: false,
-                          shadow: _versesShadow,
-                          weight: VerseWeight.regular,
-                          size: 0,
-                          designMode: _versesDesignMode,
-                          scaleFactor: flyerZoneWidth / _screenWidth,
-                          maxLines: 1,
-                        ),
+                      // --- FOLLOWERS COUNTER
+                      SuperVerse(
+                        verse: _followersCounter,
+                        italic: true,
+                        centered: false,
+                        shadow: _versesShadow,
+                        weight: VerseWeight.regular,
+                        size: 0,
+                        designMode: _versesDesignMode,
+                        scaleFactor: flyerZoneWidth / _screenWidth,
+                        maxLines: 1,
+                      ),
 
-                      ],
-                    ),
+                    ],
                   ),
                 ),
               ],

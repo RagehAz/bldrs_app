@@ -12,12 +12,10 @@ import 'package:flutter/material.dart';
 class MiniHeaderStrip extends StatelessWidget {
   final SuperFlyer superFlyer;
   final double flyerZoneWidth;
-  final bool stripBlurIsOn;
 
   MiniHeaderStrip({
     @required this.superFlyer,
     @required this.flyerZoneWidth,
-    this.stripBlurIsOn = false,
   });
 
   @override
@@ -45,43 +43,26 @@ class MiniHeaderStrip extends StatelessWidget {
             <Widget>[
 
               // --- BzLogo
-              Expanded(
-                flex: superFlyer.nav.bzPageIsOn ? 1 : 26,
-                child: BzLogo(
-                  width: Scale.superLogoWidth(superFlyer.nav.bzPageIsOn, flyerZoneWidth),
-                  image: superFlyer.bz.bzLogo,
-                  tinyMode: Scale.superFlyerTinyMode(context, flyerZoneWidth),
-                  corners: Borderers.superLogoCorner(context, flyerZoneWidth),
-                  bzPageIsOn: superFlyer.nav.bzPageIsOn,
-                  zeroCornerIsOn: superFlyer.flyerShowsAuthor,
-                  // onTap: superFlyer.onHeaderTap,
-                ),
+              BzLogo(
+                width: Scale.superLogoWidth(superFlyer.nav.bzPageIsOn, flyerZoneWidth),
+                image: superFlyer.bz.bzLogo,
+                tinyMode: Scale.superFlyerTinyMode(context, flyerZoneWidth),
+                corners: Borderers.superLogoCorner(context: context, flyerZoneWidth: flyerZoneWidth, zeroCornerIsOn: superFlyer.flyerShowsAuthor),
+                bzPageIsOn: superFlyer.nav.bzPageIsOn,
+                zeroCornerIsOn: superFlyer.flyerShowsAuthor,
+                // onTap: superFlyer.onHeaderTap,
               ),
 
               // --- B.NAME, B.LOCALE, AUTHOR PICTURE, AUTHOR NAME, AUTHOR TITLE, FOLLOWERS COUNT
-              Expanded(
-                flex: superFlyer.nav.bzPageIsOn ? 0 : 62,
-                child: HeaderLabels(
-                  superFlyer: superFlyer,
-                  flyerZoneWidth: flyerZoneWidth,
-                  // bzPageIsOn: superFlyer.bzPageIsOn,
-                  // flyerShowsAuthor: superFlyer.flyerShowsAuthor ?? false,
-                  // tinyBz: tinyBz,
-                  // tinyAuthor: tinyAuthor,
-                ),
+              HeaderLabels(
+                superFlyer: superFlyer,
+                flyerZoneWidth: flyerZoneWidth,
               ),
 
               // --- FOLLOW & Call
-              Expanded(
-                flex: superFlyer.nav.bzPageIsOn ? 0 : 11,
-                child: FollowAndCallBTs(
-                  flyerZoneWidth: flyerZoneWidth,
-                  bzPageIsOn: superFlyer.nav.bzPageIsOn,
-                  followIsOn: superFlyer.rec.followIsOn,
-                  onFollowTap: superFlyer.rec.onFollowTap,
-                  onCallTap: superFlyer.rec.onCallTap,
-                  phoneNumber: superFlyer?.flyerTinyAuthor?.phone,
-                ),
+              FollowAndCallBTs(
+                flyerZoneWidth: flyerZoneWidth,
+                superFlyer: superFlyer,
               ),
 
             ],

@@ -22,12 +22,16 @@ class HeaderLabels extends StatelessWidget {
     // @required this.tinyAuthor,
   });
 
+  static double getHeaderLabelWidth(double flyerZoneWidth){
+    return flyerZoneWidth * (Ratioz.xxflyerAuthorPicWidth + Ratioz.xxflyerAuthorNameWidth);
+  }
+
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
     bool miniMode = Scale.superFlyerMiniMode(context, flyerZoneWidth);
 // -----------------------------------------------------------------------------
-    double labelsWidth = flyerZoneWidth * (Ratioz.xxflyerAuthorPicWidth + Ratioz.xxflyerAuthorNameWidth);
+    double labelsWidth = getHeaderLabelWidth(flyerZoneWidth);
     double labelsHeight = flyerZoneWidth * (Ratioz.xxflyerHeaderMiniHeight - (2*Ratioz.xxflyerHeaderMainPadding));
 // -----------------------------------------------------------------------------
     return
@@ -35,6 +39,7 @@ class HeaderLabels extends StatelessWidget {
       Container(
           width: labelsWidth,
           height: labelsHeight,
+          // color: Colorz.Bl,
           child: Column(
             mainAxisAlignment: superFlyer.flyerShowsAuthor == true ? MainAxisAlignment.end : MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
