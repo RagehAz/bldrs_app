@@ -3,6 +3,7 @@ import 'package:bldrs/controllers/drafters/streamerz.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/firestore/auth_ops.dart';
+import 'package:bldrs/views/widgets/dialogs/nav_dialog.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/nav_bar/nav_bar.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
@@ -101,41 +102,46 @@ class _PopUpTestScreenState extends State<PopUpTestScreen> {
                                 height: 40,
                                 icon: Iconz.DvRageh,
                                 verse: 'press',
-                                onTap: () async {
-                                  Scaffold.of(context).hideCurrentSnackBar();
-                                  await Scaffold.of(context).showSnackBar(
-                                    SnackBar(
-                                      duration: Duration(seconds: 5),
-                                      backgroundColor: Colorz.Nothing,
-                                      behavior: SnackBarBehavior.fixed,
-                                      onVisible: (){
-                                        print('is visible now');
-                                      },
-                                      elevation: 0,
-                                      content: Container(
-                                        width: Scale.superScreenWidth(context),
-                                        height: Scale.navBarHeight(context: context, barType: _barType),
-                                        color: Colorz.Nothing,
-                                        alignment: Alignment.center,
-                                        child: DreamBox(
-                                          height: Scale.navBarHeight(context: context, barType: _barType),
-                                          width: Scale.navBarWidth(context: context,userModel: userModel, barType: _barType),
-                                          color: Colorz.DarkRed255,
-                                          corners: Scale.navBarCorners(context: context, barType: _barType),
-                                          verse: 'No Internet !',
-                                          verseScaleFactor: 0.8,
-                                          verseWeight: VerseWeight.bold,
-                                          verseColor: Colorz.White255,
-                                          verseShadow: true,
-                                          verseItalic: true,
-                                          bubble: false,
-                                          onTap: () => Scaffold.of(context).hideCurrentSnackBar(),
-                                        ),
-                                      ),
+                                onTap:
 
-                                    ),
-                                  );
-                                },
+                                () => NavDialog.showNoInternetDialog(context),
+
+                                //     () async {
+                                //   Scaffold.of(context).hideCurrentSnackBar();
+                                //   await Scaffold.of(context).showSnackBar(
+                                //     SnackBar(
+                                //       duration: Duration(seconds: 5),
+                                //       backgroundColor: Colorz.Nothing,
+                                //       behavior: SnackBarBehavior.fixed,
+                                //       onVisible: (){
+                                //         print('is visible now');
+                                //       },
+                                //       elevation: 0,
+                                //       content: Container(
+                                //         width: Scale.superScreenWidth(context),
+                                //         height: Scale.navBarHeight(context: context, barType: _barType),
+                                //         color: Colorz.Nothing,
+                                //         alignment: Alignment.center,
+                                //         child: DreamBox(
+                                //           height: Scale.navBarHeight(context: context, barType: _barType),
+                                //           width: Scale.navBarWidth(context: context,userModel: userModel, barType: _barType),
+                                //           color: Colorz.DarkRed255,
+                                //           corners: Scale.navBarCorners(context: context, barType: _barType),
+                                //           verse: 'No Internet !',
+                                //           verseScaleFactor: 0.8,
+                                //           verseWeight: VerseWeight.bold,
+                                //           verseColor: Colorz.White255,
+                                //           verseShadow: true,
+                                //           verseItalic: true,
+                                //           bubble: false,
+                                //           onTap: () => Scaffold.of(context).hideCurrentSnackBar(),
+                                //         ),
+                                //       ),
+                                //
+                                //     ),
+                                //   );
+                                // },
+
                               ),
 
                               _spacer,

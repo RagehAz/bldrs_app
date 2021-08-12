@@ -111,14 +111,14 @@ class FlyerOps{
 
     print('7- Tiny flyer model added to tinyFlyers/$_flyerID');
 
-    /// add new flyerKeys in fireStore
-    /// TASK : perform string.toLowerCase() on each string before upload
-  await Fire.createNamedDoc(
-    context: context,
-    collName: FireCollection.flyersKeys,
-    docName: _flyerID,
-    input: await TextMod.getKeyWordsMap(_finalFlyerModel.keywords),
-  );
+  //   /// add new flyerKeys in fireStore
+  //   /// TASK : perform string.toLowerCase() on each string before upload
+  // await Fire.createNamedDoc(
+  //   context: context,
+  //   collName: FireCollection.flyersKeys,
+  //   docName: _flyerID,
+  //   input: await TextMod.getKeyWordsMap(_finalFlyerModel.keywords),
+  // );
 
     print('8- flyer keys add');
 

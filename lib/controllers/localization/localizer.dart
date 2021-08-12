@@ -21,6 +21,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 // --- TAWAKAL 3ALA ALLAH ---
 //
 // -----------------------------------------------------------------------------
+
+/// check this https://pub.dev/packages/localize_and_translate
+
 class Localizer{
   final Locale locale;
   Map<String, String> _localizedValues;

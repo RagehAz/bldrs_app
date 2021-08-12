@@ -219,7 +219,7 @@ void changeColor(Color color){
 
 
         if(_canBuildFlyer == true)
-          Flyer(
+          FinalFlyer(
             flyerZoneWidth: Scale.superFlyerZoneWidth(context, 0.5),
             tinyFlyer: _tinyFlyer,
             initialSlideIndex: 0,

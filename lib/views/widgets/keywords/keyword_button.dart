@@ -122,3 +122,95 @@ class KeywordBarButton extends StatelessWidget {
   }
 }
 
+class AddKeywordsButton extends StatelessWidget {
+  final Function onTap;
+
+  AddKeywordsButton({
+    @required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+
+    double _corners = Ratioz.boxCorner12;
+
+    bool _designMode = false;
+
+    return GestureDetector(
+      onTap: onTap,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+
+          IntrinsicWidth(
+
+            child: Container(
+              height: 40,
+              // width: buttonWidth,
+              margin: const EdgeInsets.symmetric(horizontal: 2.5),
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: Colorz.Blue20,
+                borderRadius: BorderRadius.circular(_corners),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+
+                        /// 'Group' TITLE
+                        // if (title != null)
+                        SuperVerse(
+                          verse: 'Add ...',
+                          size: 1,
+                          italic: true,
+                          color: Colorz.White125,
+                          weight: VerseWeight.thin,
+                          designMode: _designMode,
+                          centered: false,
+                        ),
+
+                        /// CURRENT SECTION NAME
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: <Widget>[
+
+                            SuperVerse(
+                              verse: 'Keywords',
+                              size: 1,
+                              italic: false,
+                              color: Colorz.White125,
+                              weight: VerseWeight.bold,
+                              scaleFactor: 1,
+                              designMode: _designMode,
+                              centered: false,
+                            ),
+
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+
+                ],
+              ),
+            ),
+
+          ),
+
+        ],
+      ),
+    );
+  }
+}

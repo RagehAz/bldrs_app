@@ -35,68 +35,67 @@ class Keyword {
     return _name;
   }
 // -----------------------------------------------------------------------------
-  static Map<String, dynamic> cipherKeyword(Keyword keyword){
-    Map<String, dynamic> _map;
-
-    if(keyword != null){
-      _map = {
-        'keywordID': keyword.keywordID,
-        'flyerType': FlyerTypeClass.cipherFlyerType(keyword.flyerType),
-        'groupID': keyword.groupID,
-        'subGroupID': keyword.subGroupID,
-        'uses': keyword.uses,
-        'names': Name.cipherNamezz(keyword.names),
-      };
-
-    }
-
-    return _map;
-  }
+//   static Map<String, dynamic> cipherKeyword(Keyword keyword){
+//     Map<String, dynamic> _map;
+//
+//     if(keyword != null){
+//       _map = {
+//         'keywordID': keyword.keywordID,
+//         'flyerType': FlyerTypeClass.cipherFlyerType(keyword.flyerType),
+//         'groupID': keyword.groupID,
+//         'subGroupID': keyword.subGroupID,
+//         'uses': keyword.uses,
+//         'names': Name.cipherNamezz(keyword.names),
+//       };
+//
+//     }
+//
+//     return _map;
+//   }
 // -----------------------------------------------------------------------------
-  static List<Map<String, dynamic>> cipherKeywords(List<Keyword> keywords){
-    List<Map<String, dynamic>> _maps = new List();
+  static List<String> cipherKeywordsToKeywordsIds(List<Keyword> keywords){
+    List<String> _ids = new List();
 
     if (keywords != null){
       if (keywords.length != 0){
         for (var keyword in keywords){
-          Map<String, dynamic> _map = cipherKeyword(keyword);
-          _maps.add(_map);
+
+          _ids.add(keyword.keywordID);
         }
       }
     }
 
-    return _maps;
+    return _ids;
   }
 // -----------------------------------------------------------------------------
-  static Keyword decipherKeyword(Map<String, dynamic> map){
-    Keyword _keyword;
-
-    if (map != null){
-      _keyword = Keyword(
-        flyerType: FlyerTypeClass.decipherFlyerType(map['flyerType']),
-        groupID: map['groupID'],
-        keywordID: map['keywordID'],
-        subGroupID: map['subGroupID'],
-        uses: map['uses'],
-        names: Name.decipherNamezzMaps(map['names']),
-      );
-    }
-
-    return _keyword;
-  }
+//   static Keyword decipherKeyword(Map<String, dynamic> map){
+//     Keyword _keyword;
+//
+//     if (map != null){
+//       _keyword = Keyword(
+//         flyerType: FlyerTypeClass.decipherFlyerType(map['flyerType']),
+//         groupID: map['groupID'],
+//         keywordID: map['keywordID'],
+//         subGroupID: map['subGroupID'],
+//         uses: map['uses'],
+//         names: Name.decipherNamezzMaps(map['names']),
+//       );
+//     }
+//
+//     return _keyword;
+//   }
 // -----------------------------------------------------------------------------
-  static List<Keyword> decipherKeywords(List<dynamic> maps){
+  static List<Keyword> decipherKeywordsIDsToKeywords(List<dynamic> ids){
     List<Keyword> _keywords = new List();
 
-    if (maps != null){
-      if(maps.length != null){
-        for (var map in maps){
+    if (ids != null){
+      if(ids.length != null){
+        for (var id in ids){
 
-          if(map.runtimeType == String){
+          Keyword _keyword = Keyword.getKeywordByKeywordID(id);
 
-          }
-          else {
-            _keywords.add(decipherKeyword(map));
+          if(_keyword != null){
+            _keywords.add(_keyword);
           }
 
         }
@@ -209,6 +208,18 @@ class Keyword {
     }
 
     return _keywordsHaveIt;
+  }
+// -----------------------------------------------------------------------------
+  static bool keywordsContainThisKeyword({List<Keyword> keywords, Keyword keyword}){
+    bool _wordIsSelected = false;
+
+    if (keywords != null){
+      if(keywords.length != 0){
+        _wordIsSelected = keywords.contains(keyword) == true ? true : false;
+      }
+    }
+
+    return _wordIsSelected;
   }
 // -----------------------------------------------------------------------------
   static String translateKeyword(BuildContext context, String id){
@@ -699,6 +710,8 @@ class Keyword {
 
 /// ALL KEYWORDS
 // ------------------o
+  /// TASK : add clinic keyword under medical sub group in space type for properties
+  /// TASK : number of floor to be renamed to floor number
   static List<Keyword> bldrsKeywords(){
     return
       <Keyword>[
