@@ -224,6 +224,7 @@ class _CountryScreenState extends State<CountryScreen> {
             keywords: City.getKeywordsFromCities(context, _provinces),
             onTap: (val) {print(val);},
             selectedWords: [],
+            addButtonIsOn: false,
           ),
 
           PyramidsHorizon(heightFactor: 10,),

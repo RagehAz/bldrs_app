@@ -66,7 +66,6 @@ class FlyerHeader extends StatelessWidget {
               ),
             ),
 
-            // TASK : 3ayzeen zorar follow gowwa el bzPage
             if (superFlyer.nav.bzPageIsOn)
             MaxHeader(
               superFlyer: superFlyer,

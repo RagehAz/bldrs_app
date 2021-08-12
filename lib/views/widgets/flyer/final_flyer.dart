@@ -53,36 +53,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:provider/provider.dart';
-
-/*
-
-1 - user view random published flyer
-2 - user view saved published flyer
-3 - author view random published flyer
-4 - author view owned published flyer
-5 - author edit owned published flyer
-6 - author edit owned draft flyer
-
-A - flyer is saved flyers
-B - flyer in walls
-C - flyer in MyBzScreen
-D - flyer in editor
-E - flyer in bzGallery
-
- */
-
-// enum FlyerMode {
-//   tiny,
-//   tinyWithID,
-//
-//   normal,
-//   normalWithID,
-//
-//   newDraft,
-//   draftFromFlyer,
-//
-//   empty,
-// }
+import 'package:bldrs/views/widgets/flyer/parts/header_parts/new_header.dart';
 
 class FinalFlyer extends StatefulWidget {
   final double flyerZoneWidth;
@@ -607,10 +578,21 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 // -----------------------------------------------------o
   void _onHeaderTap(){
     print('_onHeaderTap : bzPageIsOn was : ${_superFlyer.nav.bzPageIsOn}');
-    setState(() {
-      _superFlyer.nav.bzPageIsOn = !_superFlyer.nav.bzPageIsOn;
-      _statelessTriggerProgressOpacity();
-    });
+      // _superFlyer.nav.bzPageIsOn = !_superFlyer.nav.bzPageIsOn;
+
+    if (_superFlyer.nav.progressBarOpacity == 1){
+      setState(() {
+        _statelessTriggerProgressOpacity();
+      });
+    }
+    else {
+      Future.delayed(Ratioz.durationFading210, (){
+        setState(() {
+          _statelessTriggerProgressOpacity();
+        });
+      });
+    }
+
     print('_onHeaderTap : bzPageIsOn is : ${_superFlyer.nav.bzPageIsOn}');
   }
 // -----------------------------------------------------o
@@ -710,7 +692,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     print('verticalIndex was : ${_superFlyer.verticalIndex}');
     setState(() {
       _superFlyer.verticalIndex = verticalIndex;
-      _statelessTriggerProgressOpacity();
+      _statelessTriggerProgressOpacity(verticalIndex: verticalIndex);
     });
     print('verticalIndex is : ${_superFlyer.verticalIndex}');
 
@@ -721,15 +703,34 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
   await Sliders.slideToBackFrom(_superFlyer.nav.verticalController, 1);
 }
 // -----------------------------------------------------o
-  void _statelessTriggerProgressOpacity(){
+  void _statelessTriggerProgressOpacity({int verticalIndex}){
 
     print('triggering progress bar opacity');
 
-    if (_superFlyer.nav.progressBarOpacity == 1){
-      _superFlyer.nav.progressBarOpacity = 0;
-    } else {
-      _superFlyer.nav.progressBarOpacity = 1;
+    if (verticalIndex == null){
+
+      if (_superFlyer.nav.progressBarOpacity == 1){
+        _superFlyer.nav.progressBarOpacity = 0;
+      }
+
+      else {
+        _superFlyer.nav.progressBarOpacity = 1;
+      }
+
     }
+
+    else {
+
+      if (verticalIndex == 1){
+        _superFlyer.nav.progressBarOpacity = 0;
+      }
+
+      else {
+        _superFlyer.nav.progressBarOpacity = 1;
+      }
+
+    }
+
   }
 // -----------------------------------------------------o
   Future<void> _triggerKeywordsView() async {
@@ -2364,14 +2365,14 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
           editorMode: widget.inEditor,
           stackWidgets: <Widget>[
 
-            if (_superFlyerHasID)
+            if (_superFlyerHasID == true)
               FlyerPages(
                 superFlyer: _superFlyer,
                 flyerZoneWidth: widget.flyerZoneWidth,
               ),
 
-            if (_superFlyerHasID)
-              FlyerHeader(
+            if (_superFlyerHasID == true)
+              NewHeader(
                 superFlyer: _superFlyer,
                 flyerZoneWidth: widget.flyerZoneWidth,
               ),

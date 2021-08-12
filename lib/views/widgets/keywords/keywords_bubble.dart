@@ -18,6 +18,7 @@ class KeywordsBubble extends StatelessWidget {
   final dynamic margins;
   final dynamic corners;
   final bool passKeywordOnTap;
+  final bool addButtonIsOn;
 
   KeywordsBubble({
     @required this.title,
@@ -30,6 +31,7 @@ class KeywordsBubble extends StatelessWidget {
     this.margins,
     this.corners,
     this.passKeywordOnTap = false,
+    @required this.addButtonIsOn,
   });
 // -----------------------------------------------------------------------------
   @override
@@ -49,12 +51,12 @@ class KeywordsBubble extends StatelessWidget {
       columnChildren: <Widget>[
 
         // --- STRINGS
-        if(keywords.length != 0)
+        if(keywords != null && keywords?.length != 0)
         Wrap(
           children: <Widget>[
 
             ...List<Widget>.generate(
-                keywords.length,
+                keywords?.length,
                     (index){
 
                   Keyword _keyword = keywords[index];
@@ -76,7 +78,7 @@ class KeywordsBubble extends StatelessWidget {
           ],
         ),
 
-        if(keywords.length == 0)
+        if(keywords != null && keywords.length == 0 && addButtonIsOn == true)
           AddKeywordsButton(
             onTap: passKeywordOnTap == true ? null : onTap,
           ),
