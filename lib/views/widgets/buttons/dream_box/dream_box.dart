@@ -12,6 +12,7 @@ import 'package:bldrs/views/widgets/buttons/dream_box/dream_box_highlight.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box_tap_layer.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box_underline.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box_verse.dart';
+import 'package:bldrs/views/widgets/effects/white_gradient_layer.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
@@ -208,141 +209,158 @@ class DreamBox extends StatelessWidget {
     BorderRadius _cornersAsBorderRadius = Borderers.getCornersAsBorderRadius(context, corners);
 
     return RepaintBoundary(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
+      child:LayoutBuilder(
+        builder: (ctx, size){
 
-          IntrinsicWidth(
+          return
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
 
-            child: Opacity(
-              opacity: inActiveMode == true ? 0.35 : opacity,
-              child: Padding(
-                padding: _boxMargins,
-                child: Container(
-                  width: width,
-                  height: height,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                      color: inActiveMode == true ? Colorz.White10 : _boxColor,
-                      borderRadius: _cornersAsBorderRadius,
-                      boxShadow: <CustomBoxShadow>[
-                        CustomBoxShadow(
-                            color: bubble == true ? Colorz.Black200 : Colorz.Nothing,
-                            offset: new Offset(0, 0),
-                            blurRadius: height * 0.15,
-                            blurStyle: BlurStyle.outer
-                        ),
-                      ]
-                  ),
-                  child: ClipRRect(
-                    borderRadius: _cornersAsBorderRadius,
-                    child: Stack(
+              IntrinsicWidth(
+
+                child: Opacity(
+                  opacity: inActiveMode == true ? 0.35 : opacity,
+                  child: Padding(
+                    padding: _boxMargins,
+                    child: Container(
+                      width: width,
+                      height: height,
                       alignment: Alignment.center,
-                      children: <Widget>[
+                      decoration: BoxDecoration(
+                          color: inActiveMode == true ? Colorz.White10 : _boxColor,
+                          borderRadius: _cornersAsBorderRadius,
+                          boxShadow: <CustomBoxShadow>[
+                            // CustomBoxShadow(
+                            //     color: bubble == true ? Colorz.Black200 : Colorz.Nothing,
+                            //     offset: new Offset(0, 0),
+                            //     blurRadius: height * 0.15,
+                            //     blurStyle: BlurStyle.outer
+                            // ),
+                          ]
+                      ),
+                      child: ClipRRect(
+                        borderRadius: _cornersAsBorderRadius,
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: <Widget>[
 
-                        /// --- BLUR LAYER
-                        if (blur != null)
-                          BlurLayer(
-                            width: width,
-                            height: height,
-                            blur: blur,
-                            borders: _cornersAsBorderRadius,
-                          ),
+                            // /// --- BLUR LAYER
+                            // if (blur != null)
+                            //   BlurLayer(
+                            //     width: width,
+                            //     height: height,
+                            //     blur: blur,
+                            //     borders: _cornersAsBorderRadius,
+                            //   ),
 
-                        /// --- DREAM CHILD
-                        if (subChild != null)
-                          Container(
-                            height: height,
-                            width: width,
-                            decoration: BoxDecoration(
-                              borderRadius: _cornersAsBorderRadius,
+                            /// --- DREAM CHILD
+                            if (subChild != null)
+                              Container(
+                                height: height,
+                                width: width,
+                                decoration: BoxDecoration(
+                                  borderRadius: _cornersAsBorderRadius,
+                                ),
+                                alignment: childAlignment,
+                                child: subChild,
+                              ),
+
+                            /// ICON - VERSE - SECOND LINE
+                            DreamBoxIconVerseSecondLine(
+                              verse : verse,
+                              textDirection : _textDirection,
+                              icon : icon,
+                              loading : loading,
+                              underLine : underLine,
+                              height : height,
+                              width : width,
+                              iconCorners : _iconCorners,
+                              iconFile : iconFile,
+                              iconMargin : _iconMargin,
+                              imageSaturationColor : _imageSaturationColor,
+                              bubble : bubble,
+                              blackAndWhite : blackAndWhite,
+                              iconColor : _iconColor,
+                              iconSizeFactor : iconSizeFactor,
+                              verseScaleFactor : verseScaleFactor,
+                              verseCentered : verseCentered,
+                              secondLine : secondLine,
+                              verseSize : _verseSize,
+                              verseWeight : verseWeight,
+                              inActiveMode : inActiveMode,
+                              verseColor : verseColor,
+                              verseShadow : verseShadow,
+                              verseMaxLines : verseMaxLines,
+                              verseItalic : verseItalic,
+                              redDot : redDot,
+                              secondLineScaleFactor : secondLineScaleFactor,
+                              secondLineColor : secondLineColor,
+                              centered: verseCentered,
                             ),
-                            alignment: childAlignment,
-                            child: subChild,
-                          ),
 
-                        /// ICON - VERSE - SECOND LINE
-                        DreamBoxIconVerseSecondLine(
-                          verse : verse,
-                          textDirection : _textDirection,
-                          icon : icon,
-                          loading : loading,
-                          underLine : underLine,
-                          height : height,
-                          width : width,
-                          iconCorners : _iconCorners,
-                          iconFile : iconFile,
-                          iconMargin : _iconMargin,
-                          imageSaturationColor : _imageSaturationColor,
-                          bubble : bubble,
-                          blackAndWhite : blackAndWhite,
-                          iconColor : _iconColor,
-                          iconSizeFactor : iconSizeFactor,
-                          verseScaleFactor : verseScaleFactor,
-                          verseCentered : verseCentered,
-                          secondLine : secondLine,
-                          verseSize : _verseSize,
-                          verseWeight : verseWeight,
-                          inActiveMode : inActiveMode,
-                          verseColor : verseColor,
-                          verseShadow : verseShadow,
-                          verseMaxLines : verseMaxLines,
-                          verseItalic : verseItalic,
-                          redDot : redDot,
-                          secondLineScaleFactor : secondLineScaleFactor,
-                          secondLineColor : secondLineColor,
-                          centered: verseCentered,
-                        ),
+                            /// --- BOX HIGHLIGHT
+                            if (bubble == true)
+                              // GradientLayer(
+                              //   width: size.hasBoundedWidth ? 100 : SuperVerse.,
+                              //   height: size.maxHeight,
+                              //   isWhite: true,
+                              // ),
+                            DreamBoxHighlight(width: width, height: height, corners: corners),
 
-                        /// --- BOX HIGHLIGHT
-                        if (bubble == true)
-                          DreamBoxHighlight(width: width, height: height, corners: corners),
-
-                        /// --- BOX GRADIENT
-                        if (bubble == true)
-                          DreamBoxGradient(
-                            width: width,
-                            height: height,
-                            corners: _cornersAsBorderRadius,
-                          ),
-
-                        /// --- UNDERLINE
-                        if (underLine != null)
-                          DreamBoxUnderLine(
-                            width: width,
-                            height: height,
-                            underLine: underLine,
-                            icon: icon,
-                            scaleFactor: verseScaleFactor * 0.45,
-                            underLineShadowIsOn: underLineShadowIsOn,
-                            underLineColor: underLineColor,
-                            verseSize: _verseSize,
-                          ),
-
-                        /// --- RIPPLE & TAP LAYER
-                        if (onTap != null)
-                          DreamBoxTapLayer(
+                            /// --- BOX GRADIENT
+                            if (bubble == true)
+                              // GradientLayer(
+                              //   width: size.hasBoundedWidth ? 100 : 200,
+                              //   height: size.maxHeight,
+                              //   isWhite: false,
+                              // ),
+                            DreamBoxGradient(
                               width: width,
                               height: height,
-                              splashColor: splashColor,
-                              onTap: onTap,
-                              onTapUp: onTapUp,
-                              onTapDown: onTapDown,
-                              onTapCancel: onTapCancel,
-                              inActiveMode: inActiveMode
-                          ),
+                              corners: _cornersAsBorderRadius,
+                            ),
 
-                      ],
+                            /// --- UNDERLINE
+                            if (underLine != null)
+                              DreamBoxUnderLine(
+                                width: width,
+                                height: height,
+                                underLine: underLine,
+                                icon: icon,
+                                scaleFactor: verseScaleFactor * 0.45,
+                                underLineShadowIsOn: underLineShadowIsOn,
+                                underLineColor: underLineColor,
+                                verseSize: _verseSize,
+                              ),
+
+                            /// --- RIPPLE & TAP LAYER
+                            if (onTap != null)
+                              DreamBoxTapLayer(
+                                  width: width,
+                                  height: height,
+                                  splashColor: splashColor,
+                                  onTap: onTap,
+                                  onTapUp: onTapUp,
+                                  onTapDown: onTapDown,
+                                  onTapCancel: onTapCancel,
+                                  inActiveMode: inActiveMode
+                              ),
+
+                          ],
+                        ),
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-          ),
 
-        ],
+            ],
+          );
+
+        },
       ),
     );
   }

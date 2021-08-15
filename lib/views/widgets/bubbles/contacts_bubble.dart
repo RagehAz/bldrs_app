@@ -59,6 +59,7 @@ class ContactsBubble extends StatelessWidget {
                           verseWeight: VerseWeight.thin,
                           verseItalic: true,
                           iconSizeFactor: 0.6,
+                          color: Colorz.BloodTest,
                           onTap:
                               onTap == null ?
                               (){launchURL('https://${_contactsWithStrings[index].contact}');}

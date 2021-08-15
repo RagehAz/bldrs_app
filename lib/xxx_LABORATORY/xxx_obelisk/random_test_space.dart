@@ -1,10 +1,12 @@
 import 'dart:math';
+import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/views/widgets/effects/white_gradient_layer.dart';
 import 'package:bldrs/views/widgets/flyer/final_flyer.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
@@ -30,30 +32,53 @@ class _RandomTestSpaceState extends State<RandomTestSpace> {
   bool _thing;
 
 // -----------------------------------------------------------------------------
+  /// --- FUTURE LOADING BLOCK
+  bool _loading = false;
+  Future <void> _triggerLoading({Function function}) async {
+
+    if(mounted){
+
+      if (function == null){
+        setState(() {
+          _loading = !_loading;
+        });
+      }
+
+      else {
+        setState(() {
+          _loading = !_loading;
+          function();
+        });
+      }
+
+    }
+
+    _loading == true?
+    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+  }
+// -----------------------------------------------------------------------------
   @override
   void initState() {
 
-    _flyer = SuperFlyer.createViewSuperFlyerFromTinyFlyer(
-      context: context,
-      tinyFlyer: TinyFlyer.dummyTinyFlyers()[1],
-      onTinyFlyerTap: _createKeyValue,
-      onHeaderTap: _createKeyValue,
-      onAnkhTap: setStateFromAnotherFile,
-    );
 
     super.initState();
   }
 // -----------------------------------------------------------------------------
-
   bool _isInit = true;
   @override
   void didChangeDependencies() {
     if (_isInit) {
-      // _triggerLoading();
+      _triggerLoading().then((_) async{
 
-      _thing = Scale.superFlyerTinyMode(context, 15);
+        /// do Futures here
 
-      print('thing is : $_thing');
+        _triggerLoading(
+          function: (){
+            /// set new values here
+          }
+        );
+      });
+
 
     }
     _isInit = false;
@@ -61,65 +86,16 @@ class _RandomTestSpaceState extends State<RandomTestSpace> {
   }
 // -----------------------------------------------------------------------------
 
-  Future<int> _createKeyValue() async {
-    Random _random = new Random();
-    int _randomNumber = _random.nextInt(20); // from 0 upto 99 included
-
-    if(_randomNumber == null){
-      _randomNumber = await _createKeyValue();
-      await Future.delayed(Ratioz.duration150ms, () {
-        setState(() {
-          _loops++;
-        });
-      });
-
-      }
-
-    else if (_list.contains(_randomNumber)) {
-      _randomNumber = await _createKeyValue();
-
-      await Future.delayed(Ratioz.duration150ms, (){
-        setState(() {
-          _loops++;
-        });
-      });
-
-    }
-
-    else {
-
-      setState(() {
-        _list.add(_randomNumber);
-        _loops = 0;
-      });
-
-      return _randomNumber;
-    }
-
-    return _randomNumber;
-  }
-
-  void setStateFromAnotherFile(){
-
-    print('setting fucking state');
-
-    if (_color == Colorz.BloodTest){
-      setState(() {
-        _color = Colorz.Cyan50;
-      });
-    }
-
-    else {
-      setState(() {
-        _color = Colorz.BloodTest;
-      });
-    }
-
-  }
-
-
   @override
   Widget build(BuildContext context) {
+
+// -----------------------------------------------------------------------------
+    double _screenWidth = Scale.superScreenWidth(context);
+    double _screenHeight = Scale.superScreenHeight(context);
+// -----------------------------------------------------------------------------
+
+    double _gWidth = _screenWidth * 0.4;
+    double _gHeight = _screenWidth * 0.6;
 
 
     return MainLayout(
@@ -131,62 +107,25 @@ class _RandomTestSpaceState extends State<RandomTestSpace> {
       layoutWidget: Center(
         child: ListView(
           physics: BouncingScrollPhysics(),
-          children: [
+          children: <Widget>[
 
             Stratosphere(),
 
-            FinalFlyer(
-              flyerZoneWidth: Scale.superFlyerZoneWidth(context, 0.7),
-              goesToEditor: false,
-              // flyerID: '1eFVUCIodzzX6dTL49FS',
-            ),
-
-            SizedBox(
-              height: 50,
-            ),
-
-            if (_thing != null)
-            DreamBox(
-              height: 40,
-              verse: 'Create new key',
-              onTap: () async {
-
-                int _newNumber = await _createKeyValue();
-
-                print('new number is : $_newNumber');
-
-              },
-            ),
-
-            // list
-            Container(
-              width: Scale.superScreenWidth(context),
-              child: SuperVerse(
-                verse: 'list is :\n${_list.toString()}',
-                labelColor: _color,
-                size: 3,
-                maxLines: 5,
-              ),
-            ),
-
-            // loops
-            Container(
-              width: Scale.superScreenWidth(context),
-              child: SuperVerse(
-                verse: 'loops are : ${_loops.toString()}',
-                labelColor: _color,
-                size: 3,
-                maxLines: 5,
-              ),
+            GradientLayer(
+              width: _gWidth,
+              height: _gHeight,
+              isWhite: false,
             ),
 
             DreamBox(
-              height: 50,
-              width: 250,
-              color: _color,
-              verse: 'setState',
-              onTap: _flyer.rec.onAnkhTap,
-            )
+              width: _gWidth,
+              height: _gHeight,
+              bubble: true,
+              color: Colorz.BloodTest,
+              corners: 0,
+            ),
+
+            Stratosphere(heightFactor: 2,),
 
           ],
         ),

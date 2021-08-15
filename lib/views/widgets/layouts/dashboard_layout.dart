@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/scrollers.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
@@ -26,14 +27,17 @@ class DashBoardLayout extends StatelessWidget {
       sky: Sky.Black,
       loading: loading,
       appBarRowWidgets: appBarRowWidgets,
-      layoutWidget: ListView(
-        children: <Widget>[
+      layoutWidget: Scroller(
+        child: ListView(
+          physics: const BouncingScrollPhysics(),
+          children: <Widget>[
 
-          Stratosphere(),
+            Stratosphere(),
 
-          ...listWidgets,
+            ...listWidgets,
 
-        ],
+          ],
+        ),
       ),
     );
 

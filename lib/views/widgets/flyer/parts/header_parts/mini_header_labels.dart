@@ -1,6 +1,6 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/views/widgets/flyer/parts/header_parts/author_label.dart';
+import 'package:bldrs/views/widgets/flyer/parts/header_parts/author_bubble/author_label.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/mini_bz_label.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:flutter/material.dart';
@@ -21,13 +21,13 @@ class HeaderLabels extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
-    bool miniMode = Scale.superFlyerMiniMode(context, flyerZoneWidth);
+    bool _tinyMode = Scale.superFlyerTinyMode(context, flyerZoneWidth);
 // -----------------------------------------------------------------------------
     double labelsWidth = getHeaderLabelWidth(flyerZoneWidth);
     double labelsHeight = flyerZoneWidth * (Ratioz.xxflyerHeaderMiniHeight - (2*Ratioz.xxflyerHeaderMainPadding));
 // -----------------------------------------------------------------------------
     return
-      miniMode == true || superFlyer.nav.bzPageIsOn == true ? Container() :
+      _tinyMode == true ? Container() :
       Container(
           width: labelsWidth,
           height: labelsHeight,
@@ -37,23 +37,19 @@ class HeaderLabels extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
 
-              // --- BUSINESS LABEL : BZ.NAME & BZ.LOCALE
+              /// BUSINESS LABEL : BZ.NAME & BZ.LOCALE
               BzLabel(
                 superFlyer: superFlyer,
                 flyerZoneWidth: flyerZoneWidth,
-                // bzPageIsOn: superFlyer.bzPageIsOn,
-                // tinyBz: tinyBz,
-                // flyerShowsAuthor: flyerShowsAuthor,
               ),
 
-              // -- middle expander ,, will delete i don't like it
+              /// middle expander ,, will delete i don't like it
               superFlyer.flyerShowsAuthor == true ?
               Expanded(
                 child: Container(),
               ) : Container(),
 
-              // --- AUTHOR LABEL : AUTHOR.IMAGE, AUTHOR.NAME, AUTHOR.TITLE, BZ.FOLLOWERS
-              // superFlyer.flyerTinyAuthor
+              /// AUTHOR LABEL : AUTHOR.IMAGE, AUTHOR.NAME, AUTHOR.TITLE, BZ.FOLLOWERS
               if (superFlyer.flyerShowsAuthor == true)
               AuthorLabel(
                 flyerZoneWidth: flyerZoneWidth,
@@ -63,8 +59,8 @@ class HeaderLabels extends StatelessWidget {
                 authorGalleryCount: 0, // is not needed here
                 labelIsOn: true,
                 onTap: null,
-
               ),
+
             ],
           )
       )

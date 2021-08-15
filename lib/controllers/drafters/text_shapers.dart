@@ -30,7 +30,7 @@ double verseLabelHeight (int verseSize, double screenHeight){
 }
 // -----------------------------------------------------------------------------
 double superVerseSizeValue (BuildContext context, int verseSize, double scalingFactor){
-  double _screenHeight = Scale.superScreenHeight(context);
+  // double _screenHeight = Scale.superScreenHeight(context);
 
   // double _verseSizeValue =
   // (verseSize == 0) ? _screenHeight * Ratioz.fontSize0 * scalingFactor // -- 8 -- A77A
@@ -201,65 +201,9 @@ double superVerseLabelMargin(BuildContext context, int verseSize, double scaling
   return _superVerseLabelMargin;
 }
 // -----------------------------------------------------------------------------
-TextStyle superVerseStyle({
-  @required BuildContext context,
-  @required Color color,
-  @required VerseWeight weight,
-  @required bool italic,
-  @required int size,
-  @required bool shadow,
-  double scaleFactor = 1,
-  bool designMode = false,
-}){
-
-  const double _verseHeight = 1.42; //1.48; // The sacred golden reverse engineered factor
-  Color _boxColor = designMode ? Colorz.BloodTest : Colorz.Nothing;
-  String _verseFont = superVerseFont(context, weight);
-  FontStyle _verseStyle = italic == true ? FontStyle.italic : FontStyle.normal;
-  double _scalingFactor = scaleFactor == null ? 1: scaleFactor;
-  double _verseSizeValue = superVerseSizeValue(context, size, _scalingFactor);
-  double _verseLetterSpacing = superVerseLetterSpacing(weight, _verseSizeValue);
-  double _verseWordSpacing = superVerseWordSpacing(_verseSizeValue);
-  FontWeight _verseWeight = superVerseWeight(weight);
-  // --- SHADOWS -----------------------------------------------
-  const double _shadowBlur = 0;
-  const double _shadowYOffset = 0;
-  double _shadowXOffset = superVerseXOffset(weight, _verseSizeValue);
-  double _secondShadowXOffset = -0.35 * _shadowXOffset;
-  Color _leftShadow = color == Colorz.Black230 ? Colorz.White125 : Colorz.Black230;
-  Color _rightShadow = color == Colorz.Black230 ? Colorz.White80 : Colorz.White20;
-
-  return
-    TextStyle(
-        backgroundColor: _boxColor,
-        textBaseline: TextBaseline.alphabetic,
-        height: _verseHeight,
-        color: color,
-        fontFamily: _verseFont ,
-        fontStyle: _verseStyle,
-        letterSpacing: _verseLetterSpacing,
-        wordSpacing: _verseWordSpacing,
-        fontSize: _verseSizeValue,
-        fontWeight: _verseWeight,
-        shadows: <Shadow>[
-          if (shadow)
-            Shadow(
-              blurRadius: _shadowBlur,
-              color: _leftShadow,
-              offset: Offset(_shadowXOffset, _shadowYOffset),
-            ),
-          Shadow(
-            blurRadius: _shadowBlur,
-            color: _rightShadow,
-            offset: Offset(_secondShadowXOffset, _shadowYOffset),
-          )
-        ]
-    );
-
-}
 // -----------------------------------------------------------------------------
 TextStyle superVerseDefaultStyle(BuildContext context){
   return
-      superVerseStyle(context: context, color: Colorz.White255, weight: VerseWeight.thin, italic: true, size: 2, shadow: true);
+      SuperVerse.createStyle(context: context, color: Colorz.White255, weight: VerseWeight.thin, italic: true, size: 2, shadow: true);
 }
 // -----------------------------------------------------------------------------
