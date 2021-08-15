@@ -74,8 +74,8 @@ class FlagBox extends StatelessWidget {
                       gradient: LinearGradient(
                           begin: Alignment.bottomCenter,
                           end: Alignment.topCenter,
-                          colors: [Colorz.Nothing, Colorz.White80],
-                          stops: [0.75,1]
+                          colors: <Color>[Colorz.Nothing, Colorz.White80],
+                          stops: <double>[0.75,1]
                       ),
                   ),
                 ),

@@ -285,7 +285,7 @@ class NavBar extends StatelessWidget {
                                      icon: Iconz.NormalUser,
                                      iconSizeFactor: 0.7,
                                      barType: _barType,
-                                     onTap: () => Nav.goToNewScreen(context, UserProfileScreen()),
+                                     onTap: () => Nav.goToNewScreen(context, UserProfileScreen(userModel: userModel,)),
                                      clipperWidget : UserBalloon(
                                        balloonWidth: _circleWidth,
                                        loading: false,

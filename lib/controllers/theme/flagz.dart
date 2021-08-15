@@ -251,6 +251,7 @@ class Flagz {
   static const String yem = "assets/icons/flags/flag_as_w_yemen.svg" ;
   static const String zmb = "assets/icons/flags/flag_af_e_zambia.svg" ;
   static const String zwe = "assets/icons/flags/flag_af_e_zimbabwe.svg" ;
+  static const String euz = "assets/icons/flags/flag_eu_euro.svg" ;
 // -----------------------------------------------------------------------------
   static String getFlagByIso3(String iso3) {
     String flag;
@@ -512,6 +513,7 @@ class Flagz {
   {"id" : "yem", "value" : Flagz.yem},
   {"id" : "zmb", "value" : Flagz.zmb},
   {"id" : "zwe", "value" : Flagz.zwe},
+  {"id" : "euz", "value" : Flagz.euz},
   ];
 // -----------------------------------------------------------------------------
 }
