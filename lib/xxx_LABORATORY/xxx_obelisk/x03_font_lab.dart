@@ -75,7 +75,7 @@ class _FontLabState extends State<FontLab> {
 
     final List<String> fields = <String>['Architecture', 'abcd', 'Interior', 'Landscape', '1', 'test', '3abbas ebn fernas', 'thing', 'wtf'];
 
-    TextStyle _style = superVerseStyle(
+    TextStyle _style = SuperVerse.createStyle(
       context: context,
       color: Colorz.White255,
       weight: VerseWeight.bold,

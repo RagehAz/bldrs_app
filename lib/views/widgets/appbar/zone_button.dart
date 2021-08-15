@@ -48,82 +48,78 @@ class ZoneButton extends StatelessWidget {
 
     return GestureDetector(
       onTap: () => _zoneButtonOnTap(context),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Flexible(
-            flex: 1,
-            child: Container(
-              // width: 40,
-              height: 40,
-              alignment: Alignment.centerRight,
-              padding: const EdgeInsets.all(5),
-              margin: const EdgeInsets.all(Ratioz.appBarMargin * 0.5),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(
-                      Radius.circular(Ratioz.appBarButtonCorner)),
-                  color: isOn ? Colorz.Yellow255 : Colorz.White10
-              ),
-              child: ChangeNotifierProvider.value(
-                value: _countryPro,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
+      child: Container(
+        // width: 40,
+        height: 40,
+        alignment: Alignment.centerRight,
+        padding: const EdgeInsets.all(5),
+        margin: const EdgeInsets.all(Ratioz.appBarMargin * 0.5),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(
+                Radius.circular(Ratioz.appBarButtonCorner)),
+            color: isOn ? Colorz.Yellow255 : Colorz.White10
+        ),
+        child: ChangeNotifierProvider.value(
+          value: _countryPro,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
 
-                    /// --- COUNTRY & DISTRICTS NAMES
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 2.5),
-                      child: FittedBox(
-                        fit: BoxFit.contain,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: <Widget>[
-                            SuperVerse(
-                              verse: _countryAndProvinceNames,
-                              size: 1,
-                              color: isOn? Colorz.Black230 : Colorz.White255,
-                            ),
-                            SuperVerse(
-                              verse: _lastDistrictName,
-                              size: 1,
-                              scaleFactor: 0.8,
-                              color: isOn? Colorz.Black230 : Colorz.White255,
-                            ),
-                          ],
-                        ),
+              /// --- COUNTRY & DISTRICTS NAMES
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 2.5),
+                child: FittedBox(
+                  fit: BoxFit.contain,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: <Widget>[
+                      SuperVerse(
+                        verse: _countryAndProvinceNames,
+                        size: 1,
+                        color: isOn? Colorz.Black230 : Colorz.White255,
                       ),
-                    ),
-
-                    /// --- FLAG
-                    Stack(
-                      children: <Widget>[
-
-                        // --- FAKE FOOTPRINT to occupy space for flag while loading
-                        Container(
-                          width: 30,
-                          height: 30,
-                          margin: const EdgeInsets.symmetric(horizontal: _flagHorizontalMargins),
-                        ),
-
-                        DreamBox(
-                          height: 30,
-                          icon: _lastCountryFlag,
-                          corners: Ratioz.boxCorner8,
-                          margins: const EdgeInsets.symmetric(horizontal: _flagHorizontalMargins),
-                          onTap: onTap,
-                        ),
-
-                      ],
-                    ),
-
-                  ],
+                      SuperVerse(
+                        verse: _lastDistrictName,
+                        size: 1,
+                        scaleFactor: 0.8,
+                        color: isOn? Colorz.Black230 : Colorz.White255,
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          )
-        ],
+
+              /// --- FLAG
+              Stack(
+                alignment: Alignment.center,
+                children: <Widget>[
+
+                  // --- FAKE FOOTPRINT to occupy space for flag while loading
+                  Container(
+                    width: 30,
+                    height: 30,
+                    margin: const EdgeInsets.symmetric(horizontal: _flagHorizontalMargins),
+                  ),
+
+                  Center(
+                    child: DreamBox(
+                      width: 30,
+                      height: 30,
+                      icon: _lastCountryFlag,
+                      corners: Ratioz.boxCorner8,
+                      margins: const EdgeInsets.symmetric(horizontal: _flagHorizontalMargins),
+                      onTap: onTap,
+                    ),
+                  ),
+
+                ],
+              ),
+
+            ],
+          ),
+        ),
       ),
     );
   }

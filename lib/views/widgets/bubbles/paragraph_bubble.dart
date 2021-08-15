@@ -98,7 +98,7 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
 
     // bool _infoExceededMaxLines = superFlyer.i
 
-    TextStyle _paragraphTextStyle = superVerseStyle(
+    TextStyle _paragraphTextStyle = SuperVerse.createStyle(
       context: context,
       color: Colorz.White255,
       weight: VerseWeight.thin,
@@ -138,8 +138,8 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
               text: widget.paragraph.trim(),
               textStyle: _paragraphTextStyle,
               maxLines: widget.maxLines,
-              childBeforeMaxLines: Container(),
-              childAfterMaxLines: Container(
+              childIfWithinMaxLines: Container(),
+              childIfExceededMaxLines: Container(
                 width: widget.bubbleWidth,
                 alignment: Alignment.center,
                 child: DreamBox(

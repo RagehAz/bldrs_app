@@ -79,7 +79,7 @@ class AuthorLabel extends StatelessWidget {
         Container(
             height: _authorDataHeight,
             width: labelIsOn == true? _authorDataWidth : _authorDataHeight,
-            margin: showLabel == true ? EdgeInsets.symmetric(horizontal : flyerZoneWidth * 0.01) : const EdgeInsets.all(0),
+            // margin: showLabel == true ? EdgeInsets.symmetric(horizontal : flyerZoneWidth * 0.01) : const EdgeInsets.all(0),
             decoration: BoxDecoration(
                 color: showLabel == false ? Colorz.Nothing : Colorz.White20,
                 borderRadius: Borderers.superBorderOnly(
@@ -176,21 +176,26 @@ class AuthorPic extends StatelessWidget {
     this.authorPic,
     this.tinyBz,
   });
-
+// -----------------------------------------------------------------------------
   void _tapAddAuthor(BuildContext context){
 
     print('should go to add new author screen');
 
     // Nav.goToNewScreen(context, AddAuthorScreen(tinyBz: tinyBz));
   }
-
+// -----------------------------------------------------------------------------
+  static double getCornerValue(double flyerZoneWidth){
+    return
+      flyerZoneWidth * Ratioz.xxflyerAuthorPicCorner;
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
 // -----------------------------------------------------------------------------
     double _authorImageWidth = flyerZoneWidth * Ratioz.xxflyerAuthorPicWidth;
     double _authorImageHeight = _authorImageWidth;
-    double _authorImageCorners = flyerZoneWidth * Ratioz.xxflyerAuthorPicCorner;
+    double _authorImageCorners = getCornerValue(flyerZoneWidth);
 // -----------------------------------------------------------------------------
     BorderRadius _authorPicBorders = Borderers.superBorderOnly(
         context: context,
@@ -200,57 +205,59 @@ class AuthorPic extends StatelessWidget {
         enTopRight: _authorImageCorners);
 // -----------------------------------------------------------------------------
     return
-      Container(
-        height: _authorImageHeight,
-        width: _authorImageWidth,
-        decoration: BoxDecoration(
-            color: Colorz.White10,
-            borderRadius: _authorPicBorders,
-            image:
-            authorPic == null ? null
-                :
-            ObjectChecker.objectIsJPGorPNG(authorPic)?
-            DecorationImage(
-                image: AssetImage(authorPic),
-                fit: BoxFit.cover
-            ) : null
-        ),
+      Center(
+        child: Container(
+          height: _authorImageHeight,
+          width: _authorImageWidth,
+          decoration: BoxDecoration(
+              color: Colorz.White10,
+              borderRadius: _authorPicBorders,
+              image:
+              authorPic == null ? null
+                  :
+              ObjectChecker.objectIsJPGorPNG(authorPic)?
+              DecorationImage(
+                  image: AssetImage(authorPic),
+                  fit: BoxFit.cover
+              ) : null
+          ),
 
-        child:
-        ClipRRect(
-            borderRadius: _authorPicBorders,
-            child:
-            isAddAuthorButton == true ?
-            GestureDetector(
-              onTap: () => _tapAddAuthor(context),
-              child: Container(
-                width: _authorImageWidth,
-                height: _authorImageHeight,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    DreamBox(
-                      width: _authorImageWidth * 0.35,
-                      height: _authorImageHeight * 0.35,
-                      icon: Iconz.Plus,
-                      iconSizeFactor: 1,
-                      bubble: false,
-                      onTap: () => _tapAddAuthor(context),
-                    ),
-                    SuperVerse(
-                      verse: 'Add new Author',
-                      size: 0,
-                      maxLines: 2,
-                    ),
-                  ],
+          child:
+          ClipRRect(
+              borderRadius: _authorPicBorders,
+              child:
+              isAddAuthorButton == true ?
+              GestureDetector(
+                onTap: () => _tapAddAuthor(context),
+                child: Container(
+                  width: _authorImageWidth,
+                  height: _authorImageHeight,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      DreamBox(
+                        width: _authorImageWidth * 0.35,
+                        height: _authorImageHeight * 0.35,
+                        icon: Iconz.Plus,
+                        iconSizeFactor: 1,
+                        bubble: false,
+                        onTap: () => _tapAddAuthor(context),
+                      ),
+                      SuperVerse(
+                        verse: 'Add new Author',
+                        size: 0,
+                        maxLines: 2,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            )
-                :
-            Imagers.superImageWidget(authorPic)
-        ),
+              )
+                  :
+              Imagers.superImageWidget(authorPic)
+          ),
 
+        ),
       );
   }
 }

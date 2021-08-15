@@ -31,7 +31,7 @@ class SuperFlyer{
   final FlyerRecorder rec;
   final FlyerEditor edit;
   List<MutableSlide> mSlides; // MutableSlide
-  final BzModel bz;
+  BzModel bz;
 
   /// animation parameters
   bool loading; // ??

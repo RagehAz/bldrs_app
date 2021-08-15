@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/text_directionerz.dart';
 import 'package:bldrs/controllers/drafters/text_shapers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:flutter/material.dart';
@@ -45,7 +46,7 @@ class SuperVerse extends StatelessWidget {
     this.leadingDot = false,
     this.redDot = false,
   });
-
+// -----------------------------------------------------------------------------
   Widget _dot(double _dotSize, Color _color){
     return Container(
       width: _dotSize,
@@ -56,7 +57,86 @@ class SuperVerse extends StatelessWidget {
       ),
     );
   }
+// -----------------------------------------------------------------------------
+     static TextStyle createStyle({
+      @required BuildContext context,
+      @required Color color,
+      @required VerseWeight weight,
+      @required bool italic,
+      @required int size,
+      @required bool shadow,
+      double scaleFactor = 1,
+      bool designMode = false,
+    }){
 
+      const double _verseHeight = 1.42; //1.48; // The sacred golden reverse engineered factor
+      Color _boxColor = designMode ? Colorz.BloodTest : Colorz.Nothing;
+      String _verseFont = superVerseFont(context, weight);
+      FontStyle _verseStyle = italic == true ? FontStyle.italic : FontStyle.normal;
+      double _scalingFactor = scaleFactor == null ? 1: scaleFactor;
+      double _verseSizeValue = superVerseSizeValue(context, size, _scalingFactor);
+      double _verseLetterSpacing = superVerseLetterSpacing(weight, _verseSizeValue);
+      double _verseWordSpacing = superVerseWordSpacing(_verseSizeValue);
+      FontWeight _verseWeight = superVerseWeight(weight);
+      // --- SHADOWS -----------------------------------------------
+      const double _shadowBlur = 0;
+      const double _shadowYOffset = 0;
+      double _shadowXOffset = superVerseXOffset(weight, _verseSizeValue);
+      double _secondShadowXOffset = -0.35 * _shadowXOffset;
+      Color _leftShadow = color == Colorz.Black230 ? Colorz.White125 : Colorz.Black230;
+      Color _rightShadow = color == Colorz.Black230 ? Colorz.White80 : Colorz.White20;
+
+      return
+        TextStyle(
+            backgroundColor: _boxColor,
+            textBaseline: TextBaseline.alphabetic,
+            height: _verseHeight,
+            color: color,
+            fontFamily: _verseFont ,
+            fontStyle: _verseStyle,
+            letterSpacing: _verseLetterSpacing,
+            wordSpacing: _verseWordSpacing,
+            fontSize: _verseSizeValue,
+            fontWeight: _verseWeight,
+            shadows: <Shadow>[
+              if (shadow)
+                Shadow(
+                  blurRadius: _shadowBlur,
+                  color: _leftShadow,
+                  offset: Offset(_shadowXOffset, _shadowYOffset),
+                ),
+              Shadow(
+                blurRadius: _shadowBlur,
+                color: _rightShadow,
+                offset: Offset(_secondShadowXOffset, _shadowYOffset),
+              )
+            ]
+        );
+
+    }
+
+// -----------------------------------------------------------------------------
+//   static Size getSize({String verse, TextStyle style, int maxLines, bool centered = true}) {
+//
+//     int _maxLines = maxLines == null ? 1 : maxLines;
+//
+//     final TextPainter textPainter =
+//     TextPainter(
+//       text: TextSpan(text: verse, style: style, ),
+//       maxLines: _maxLines,
+//       textDirection: superTextDirectionSwitcher(verse),
+//       ellipsis: true,
+//       textAlign:
+//     )
+//       ..layout(minWidth: 0, maxWidth: double.infinity);
+//     return textPainter.size;
+//   }
+// -----------------------------------------------------------------------------
+  static dynamic getTextAlign(bool centered){
+    return
+    centered == true ? TextAlign.center : TextAlign.start;
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -128,13 +208,10 @@ class SuperVerse extends StatelessWidget {
                     softWrap: false,
                     overflow: TextOverflow.ellipsis,
                     maxLines: _maxLines,
-                    textAlign: centered == true ?
-                    TextAlign.center
-                        :
-                    TextAlign.start,
+                    textAlign: getTextAlign(centered),
                     textScaleFactor: 1,
                     style:
-                    superVerseStyle(
+                    createStyle(
                       context: context,
                       color: color,
                       weight: weight,

@@ -50,9 +50,9 @@ class Routerer {
 //       case Routez.More:
 //         return MaterialPageRoute(builder: (_) => MoreScreen());
 // -----------------------------------------------------------------------------
-    /// s15
-      case Routez.Profile:
-        return Nav.slideToScreen(UserProfileScreen(), settings); break;
+//     /// s15
+//       case Routez.Profile:
+//         return Nav.slideToScreen(UserProfileScreen(), settings); break;
 // -----------------------------------------------------------------------------
 //     /// s16
 //       case Routez.EditProfile:
