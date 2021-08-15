@@ -1,46 +1,67 @@
+import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
+import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/views/widgets/flyer/final_flyer.dart';
+import 'package:bldrs/views/widgets/flyer/stacks/flyers_grid.dart';
+import 'package:bldrs/views/widgets/flyer/stacks/gallery_grid.dart';
 import 'package:flutter/material.dart';
 
 class SliverFlyersGrid extends StatelessWidget {
-  final List<FlyerModel> flyersData;
+  final List<TinyFlyer> tinyFlyers;
 
-  SliverFlyersGrid({@required this.flyersData});
-
+  SliverFlyersGrid({
+    @required this.tinyFlyers,
+  });
+// -----------------------------------------------------------------------------
+  static const double spacing = Ratioz.appBarMargin;
+// -----------------------------------------------------------------------------
+  static double calculateFlyerZoneWidth({BuildContext context, int flyersLength}){
+    double _screenWidth = Scale.superScreenWidth(context);
+    double _gridWidth = _screenWidth - (2 * spacing);
+    int _numberOfColumns = GalleryGrid.gridColumnCount(flyersLength);
+    double _flyerZoneWidth = (_gridWidth - ((_numberOfColumns - 1) * spacing)) / _numberOfColumns;
+    return _flyerZoneWidth;
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-      int flyerIndex = 0;
-// -----------------------------------------------------------------------------
-    double screenWidth = MediaQuery.of(context).size.width * 0.5;
-    const double gridSpacing = 10;
+
+    double _flyerZoneWidth = calculateFlyerZoneWidth(
+      flyersLength: tinyFlyers.length,
+      context: context,
+    );
+
+    int _numberOfColumns = GalleryGrid.gridColumnCount(tinyFlyers.length);
 
     return SliverPadding(
-      padding: const EdgeInsets.all(gridSpacing),
+      padding: EdgeInsets.all(spacing),
       sliver: SliverGrid(
-        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-          maxCrossAxisExtent: screenWidth,
-          mainAxisSpacing: gridSpacing,
-          crossAxisSpacing: gridSpacing,
-          childAspectRatio: 1 / Ratioz.xxflyerZoneHeight,
-
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: _numberOfColumns,
+          mainAxisSpacing: spacing,
+          crossAxisSpacing: spacing,
+          childAspectRatio: 1  / Ratioz.xxflyerZoneHeight,
         ),
 
         delegate: SliverChildBuilderDelegate(
               (context, flyerIndex) {
-                return FinalFlyer(
-                  flyerZoneWidth: ((screenWidth - gridSpacing * 1.5) / 2),
-                  goesToEditor: false,
-                  flyerModel: flyersData[flyerIndex],
 
-                );
+                return
+
+                  FinalFlyer(
+                    flyerZoneWidth: _flyerZoneWidth,
+                    goesToEditor: false,
+                    tinyFlyer: tinyFlyers[flyerIndex],
+                    key: Key(tinyFlyers[flyerIndex].flyerID),
+                  );
                 },
-          childCount: flyersData.length,
+          childCount: tinyFlyers.length,
           addAutomaticKeepAlives: true,
           // addSemanticIndexes: false,
           // addRepaintBoundaries: false,
         ),
-           key: new Key(flyersData[flyerIndex].flyerID),
+        // key: new Key(tinyFlyers[flyerIndex].flyerID),
 
 
       ),

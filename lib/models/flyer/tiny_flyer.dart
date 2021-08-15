@@ -7,6 +7,7 @@ import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/flyer/sub/slide_model.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
+import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/flyer/nano_flyer.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
@@ -201,7 +202,7 @@ class TinyFlyer with ChangeNotifier{
   static TinyFlyer dummyTinyFlyer(String id){
     return TinyFlyer(
       flyerID: id,
-      flyerType: FlyerType.Property,
+      flyerType: FlyerType.rentalProperty,
       authorID: 'dummyAuthor',
       slideIndex: 0,
       slidePic: Iconz.DumSlide1,
@@ -261,6 +262,29 @@ class TinyFlyer with ChangeNotifier{
     }
     return _tiny;
   }
+// -----------------------------------------------------------------------------
+  static List<TinyFlyer> filterTinyFlyersBySection({List<TinyFlyer> tinyFlyers, Section section}){
+    List<TinyFlyer> _filteredTinyFlyers = new List();
+
+    if (section == Section.All){
+      _filteredTinyFlyers = tinyFlyers;
+    }
+
+    else {
+
+      FlyerType _flyerType = FlyerTypeClass.getFlyerTypeBySection(section: section);
+
+      for (TinyFlyer tiny in tinyFlyers){
+        if (tiny.flyerType == _flyerType){
+          _filteredTinyFlyers.add(tiny);
+        }
+      }
+
+    }
+
+    return _filteredTinyFlyers;
+  }
+// -----------------------------------------------------------------------------
 }
 
 
