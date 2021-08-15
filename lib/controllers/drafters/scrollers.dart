@@ -140,6 +140,7 @@ class Scroller extends StatelessWidget {
       thickness: 3,
       radius: Radius.circular(1.5),
       isAlwaysShown: false,
+      controller: ScrollController(keepScrollOffset: true, initialScrollOffset: 0,),
       // controller: ,
       child: child,
     );

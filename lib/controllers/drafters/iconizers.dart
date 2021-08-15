@@ -46,6 +46,8 @@ class Iconizer{
       section == Section.Products ? Iconz.BxProductsOff :
       section == Section.Equipment ? Iconz.BxEquipmentOff :
 
+      section == Section.All ? Iconz.SavedFlyers :
+
       Iconz.Bz;
   }
 // -----------------------------------------------------------------------------
@@ -91,24 +93,24 @@ class Iconizer{
 // -----------------------------------------------------------------------------
   static String flyerTypeIconOn (FlyerType flyerType){
     String icon =
-    flyerType == FlyerType.Property ? Iconz.BxPropertiesOn :
-    flyerType == FlyerType.Design ? Iconz.BxDesignsOn :
-    flyerType == FlyerType.Project ? Iconz.BxProjectsOn :
-    flyerType == FlyerType.Craft ? Iconz.BxCraftsOn :
-    flyerType == FlyerType.Product ? Iconz.BxProductsOn :
-    flyerType == FlyerType.Equipment ? Iconz.BxEquipmentOn :
+    flyerType == FlyerType.rentalProperty ? Iconz.BxPropertiesOn :
+    flyerType == FlyerType.design ? Iconz.BxDesignsOn :
+    flyerType == FlyerType.project ? Iconz.BxProjectsOn :
+    flyerType == FlyerType.craft ? Iconz.BxCraftsOn :
+    flyerType == FlyerType.product ? Iconz.BxProductsOn :
+    flyerType == FlyerType.equipment ? Iconz.BxEquipmentOn :
     null;
     return icon;
   }
 // -----------------------------------------------------------------------------
   static String flyerTypeIconOff (FlyerType flyerType){
     String _icon =
-    flyerType == FlyerType.Property ? Iconz.BxPropertiesOff :
-    flyerType == FlyerType.Design ? Iconz.BxDesignsOff :
-    flyerType == FlyerType.Project ? Iconz.BxProjectsOff :
-    flyerType == FlyerType.Craft ? Iconz.BxCraftsOff :
-    flyerType == FlyerType.Product ? Iconz.BxProductsOff :
-    flyerType == FlyerType.Equipment ? Iconz.BxEquipmentOff :
+    flyerType == FlyerType.rentalProperty ? Iconz.BxPropertiesOff :
+    flyerType == FlyerType.design ? Iconz.BxDesignsOff :
+    flyerType == FlyerType.project ? Iconz.BxProjectsOff :
+    flyerType == FlyerType.craft ? Iconz.BxCraftsOff :
+    flyerType == FlyerType.product ? Iconz.BxProductsOff :
+    flyerType == FlyerType.equipment ? Iconz.BxEquipmentOff :
     null;
     return _icon;
   }

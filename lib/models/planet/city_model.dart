@@ -87,7 +87,7 @@ class City{
 
     Keyword _keyword = Keyword(
         keywordID: city.name,
-        flyerType: FlyerType.Non,
+        flyerType: FlyerType.non,
         groupID: city.iso3,
         subGroupID: null,
         // name: _name,
