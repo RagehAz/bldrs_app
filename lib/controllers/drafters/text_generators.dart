@@ -24,6 +24,8 @@ class TextGenerator{
       section == Section.Products ? 'Products & Materials' : //Wordz.supplies(context) :
       section == Section.Equipment ? 'Tools & Equipment' : //Wordz.supplies(context) :
 
+      section == Section.All ? 'All flyers' : //Wordz.supplies(context) :
+
       Wordz.bldrsShortName(context);
   }
 // -----------------------------------------------------------------------------
@@ -90,12 +92,12 @@ class TextGenerator{
   static String flyerTypeSingleStringer (BuildContext context, FlyerType flyerType){
 
     return
-      flyerType == FlyerType.Property   ? Wordz.property(context)  :
-      flyerType == FlyerType.Design     ? Wordz.design(context)  :
-      flyerType == FlyerType.Product    ? Wordz.product(context)  :
-      flyerType == FlyerType.Project    ? Wordz.project(context)  :
-      flyerType == FlyerType.Equipment  ? Wordz.equipment(context)  :
-      flyerType == FlyerType.Craft      ? Wordz.craft(context)  :
+      flyerType == FlyerType.rentalProperty   ? Wordz.property(context)  :
+      flyerType == FlyerType.design     ? Wordz.design(context)  :
+      flyerType == FlyerType.product    ? Wordz.product(context)  :
+      flyerType == FlyerType.project    ? Wordz.project(context)  :
+      flyerType == FlyerType.equipment  ? Wordz.equipment(context)  :
+      flyerType == FlyerType.craft      ? Wordz.craft(context)  :
       Wordz.general(context);
   }
 // -----------------------------------------------------------------------------
@@ -107,12 +109,12 @@ class TextGenerator{
 // -----------------------------------------------------------------------------
   static String flyerTypePluralStringer (BuildContext context, FlyerType flyerType){
     return
-      flyerType == FlyerType.Property   ? Wordz.properties(context)  :
-      flyerType == FlyerType.Design     ? Wordz.designs(context)  :
-      flyerType == FlyerType.Product    ? Wordz.products(context)  :
-      flyerType == FlyerType.Project    ? Wordz.projects(context)  :
-      flyerType == FlyerType.Equipment  ? Wordz.equipments(context)  :
-      flyerType == FlyerType.Craft      ? Wordz.crafts(context)  :
+      flyerType == FlyerType.rentalProperty   ? Wordz.properties(context)  :
+      flyerType == FlyerType.design     ? Wordz.designs(context)  :
+      flyerType == FlyerType.product    ? Wordz.products(context)  :
+      flyerType == FlyerType.project    ? Wordz.projects(context)  :
+      flyerType == FlyerType.equipment  ? Wordz.equipments(context)  :
+      flyerType == FlyerType.craft      ? Wordz.crafts(context)  :
       Wordz.general(context);
   }
 // -----------------------------------------------------------------------------

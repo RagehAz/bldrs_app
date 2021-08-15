@@ -122,7 +122,7 @@ class SequencesBubble extends StatelessWidget {
                                         Nav.goToNewScreen(context,
                                           SequenceScreen(
                                             sequence: sequence,
-                                            flyersType: FlyerType.Non, // TASK : fix this shit
+                                            flyersType: FlyerType.non, // TASK : fix this shit
                                             section: _currentSection,
                                           ),
                                         );

@@ -114,7 +114,7 @@ class _HomeWallState extends State<HomeWall> {
 
       /// NEW FLYERS
       FlyerStack(
-        flyersType: FlyerType.Property,
+        flyersType: FlyerType.rentalProperty,
         title: 'New By section flyers in Heliopolis',
         tinyFlyers: TinyFlyer.dummyTinyFlyers(),
       ),
@@ -134,7 +134,7 @@ class _HomeWallState extends State<HomeWall> {
 
       /// RECENTLY VIEWED
       FlyerStack(
-        flyersType: FlyerType.Property,
+        flyersType: FlyerType.rentalProperty,
         title: 'Recently viewed flyers',
         tinyFlyers: TinyFlyer.dummyTinyFlyers(),
       ),
