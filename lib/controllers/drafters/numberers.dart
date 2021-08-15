@@ -65,6 +65,10 @@ class Numberers {
     return int.parse(string);
   }
 // -----------------------------------------------------------------------------
+  static double stringToDouble(String string){
+    return double.parse(string);
+  }
+// -----------------------------------------------------------------------------
   static int lastTwoIntegersFromAString(String string) {
     String _lastTwoSubStrings = TextMod.lastTwoSubStringsFromAString(string);
     int _asIntegers = stringToInt(_lastTwoSubStrings);
@@ -129,6 +133,12 @@ class Numberers {
     }
 
     return _dummies;
+  }
+// -----------------------------------------------------------------------------
+  static double roundFractions(double value, int fractions){
+    String _roundedAsString = value.toStringAsFixed(fractions);
+    double _rounded = stringToDouble(_roundedAsString);
+    return _rounded;
   }
 // -----------------------------------------------------------------------------
 }

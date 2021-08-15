@@ -326,11 +326,11 @@ class _MyBzScreenState extends State<MyBzScreen> {
           icon: _bzModel.bzLogo,
           verse: '${_bzModel.bzName}',
           bubble: false,
-          verseScaleFactor: 0.8,
+          verseScaleFactor: 0.7,
           color: Colorz.White10,
           secondLine: '${TextGenerator.bzTypeSingleStringer(context, _bzModel.bzType)} $_zoneString',
           secondLineColor: Colorz.White200,
-          secondLineScaleFactor: 0.9,
+          secondLineScaleFactor: 0.8,
         ),
 
         /// -- SLIDE BZ ACCOUNT OPTIONS

@@ -5,15 +5,15 @@ class TextLinesAnalyzer extends StatelessWidget {
   final String text;
   final TextStyle textStyle;
   final int maxLines;
-  final Widget childAfterMaxLines;
-  final Widget childBeforeMaxLines;
+  final Widget childIfExceededMaxLines;
+  final Widget childIfWithinMaxLines;
 
   const TextLinesAnalyzer({
     @required this.text,
     @required this.textStyle,
     @required this.maxLines,
-    @required this.childAfterMaxLines,
-    @required this.childBeforeMaxLines,
+    @required this.childIfExceededMaxLines,
+    @required this.childIfWithinMaxLines,
 });
 
   @override
@@ -39,13 +39,13 @@ class TextLinesAnalyzer extends StatelessWidget {
 
         if (_textPainter.didExceedMaxLines) {
           return
-            childAfterMaxLines;
+            childIfExceededMaxLines;
         }
 
         else {
 
           return
-            childBeforeMaxLines;
+            childIfWithinMaxLines;
 
         }
 

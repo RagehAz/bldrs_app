@@ -346,7 +346,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         onHorizontalSlideSwipe: (i) => _onHorizontalSlideSwipe(i),
         onVerticalPageSwipe: (i) => _onVerticalPageSwipe(i),
         onVerticalPageBack: () async {await _slideBackToSlidesPage();},
-        onHeaderTap: () async {await _onHeaderTap();},
+        onHeaderTap: (bool isExpanded) { _onHeaderTap(isExpanded);},
         onSlideRightTap: _onSlideRightTap,
         onSlideLeftTap: _onSlideLeftTap,
         onSwipeFlyer: widget.onSwipeFlyer,
@@ -378,7 +378,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         onHorizontalSlideSwipe: (i) => _onHorizontalSlideSwipe(i),
         onVerticalPageSwipe: (i) => _onVerticalPageSwipe(i),
         onVerticalPageBack: () async {await _slideBackToSlidesPage();},
-        onHeaderTap: () async {await _onHeaderTap();},
+        onHeaderTap: (isExpanded) {_onHeaderTap(isExpanded);},
         onSlideRightTap: _onSlideRightTap,
         onSlideLeftTap: _onSlideLeftTap,
         onSwipeFlyer: widget.onSwipeFlyer,
@@ -420,7 +420,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       onHorizontalSlideSwipe: (i) => _onHorizontalSlideSwipe(i),
       onVerticalPageSwipe: (i) => _onVerticalPageSwipe(i),
       onVerticalPageBack: () async {await _slideBackToSlidesPage();},
-      onHeaderTap: () async {await _onHeaderTap();},
+      onHeaderTap: (isExpanded) { _onHeaderTap(isExpanded);},
       onSlideRightTap: _onSlideRightTap,
       onSlideLeftTap: _onSlideLeftTap,
       onSwipeFlyer: widget.onSwipeFlyer,
@@ -576,21 +576,28 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     print('Final flyer zone long pressed');
   }
 // -----------------------------------------------------o
-  void _onHeaderTap(){
+  void _onHeaderTap(bool isExpanded){
     print('_onHeaderTap : bzPageIsOn was : ${_superFlyer.nav.bzPageIsOn}');
       // _superFlyer.nav.bzPageIsOn = !_superFlyer.nav.bzPageIsOn;
 
-    if (_superFlyer.nav.progressBarOpacity == 1){
-      setState(() {
-        _statelessTriggerProgressOpacity();
-      });
-    }
-    else {
-      Future.delayed(Ratioz.durationFading210, (){
+    if(_superFlyer.verticalIndex == 0){
+
+      if (_superFlyer.nav.progressBarOpacity == 1){
         setState(() {
           _statelessTriggerProgressOpacity();
+          // _superFlyer.nav.bzPageIsOn = isExpanded;
         });
-      });
+      }
+      else {
+        Future.delayed(Ratioz.durationFading210, (){
+          setState(() {
+            _statelessTriggerProgressOpacity();
+            // _superFlyer.nav.bzPageIsOn = isExpanded;
+          });
+        });
+      }
+
+
     }
 
     print('_onHeaderTap : bzPageIsOn is : ${_superFlyer.nav.bzPageIsOn}');

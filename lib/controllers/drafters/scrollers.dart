@@ -74,10 +74,12 @@ class Scrollers{
 class GoHomeOnMaxBounce extends StatefulWidget {
   final double height;
   final Widget child;
+  final Function onNavigate;
 
   const GoHomeOnMaxBounce({
     this.height,
     @required this.child,
+    this.onNavigate,
   });
 
   @override
@@ -93,7 +95,13 @@ class _GoHomeOnMaxBounceState extends State<GoHomeOnMaxBounce> {
       _canNavigate = false;
     });
 
+    if (widget.onNavigate == null){
       await Nav.goBack(context);
+    }
+
+    else {
+      widget.onNavigate();
+    }
 
   }
 
@@ -137,3 +145,4 @@ class Scroller extends StatelessWidget {
     );
   }
 }
+// -----------------------------------------------------------------------------

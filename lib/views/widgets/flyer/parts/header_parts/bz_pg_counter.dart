@@ -1,5 +1,6 @@
 import 'package:bldrs/controllers/drafters/numberers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:websafe_svg/websafe_svg.dart';
@@ -26,7 +27,7 @@ class BzPgCounter extends StatelessWidget {
 
 
     const Color bzPageBGColor = Colorz.Black80;
-    double bzPageDividers = flyerZoneWidth * 0.005;
+    double bzPageDividers = flyerZoneWidth * Ratioz.xxbzPageSpacing;
 
     double iconBoxHeight = flyerZoneWidth * 0.08;
     double iconHeight = iconBoxHeight * iconSizeFactor;

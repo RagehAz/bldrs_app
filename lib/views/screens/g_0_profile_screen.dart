@@ -27,7 +27,11 @@ import 'package:bldrs/controllers/router/route_names.dart';
 
 
 class UserProfileScreen extends StatefulWidget {
+  final UserModel userModel;
 
+  UserProfileScreen({
+    @required this.userModel,
+});
 
   @override
   _UserProfileScreenState createState() => _UserProfileScreenState();
@@ -40,15 +44,32 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   FlyersProvider _pro;
   bool _isInit = true;
 
-// ---------------------------------------------------------------------------
-  /// --- LOADING BLOCK
+// -----------------------------------------------------------------------------
+  /// --- FUTURE LOADING BLOCK
   bool _loading = false;
-  void _triggerLoading(){
-    setState(() {_loading = !_loading;});
+  Future <void> _triggerLoading({Function function}) async {
+
+    if(mounted){
+
+      if (function == null){
+        setState(() {
+          _loading = !_loading;
+        });
+      }
+
+      else {
+        setState(() {
+          _loading = !_loading;
+          function();
+        });
+      }
+
+    }
+
     _loading == true?
     print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   @override
   void initState() {
     _followedTinyBzz = new List();
@@ -60,11 +81,12 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   @override
   void didChangeDependencies() {
     if (_isInit) {
-      _triggerLoading();
-      FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: true);
+      _triggerLoading().then((_) async {
 
-      _prof.fetchAndSetFollows(context)
-          .then((_) async {
+        FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
+
+        await _prof.fetchAndSetFollows(context);
+
         _followedBzzIDs = _prof.getFollows;
 
         for (var id in _followedBzzIDs) {
@@ -72,22 +94,16 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
             context: context,
             bzID: id,
           );
-
           _followedTinyBzz.add(_tinyBz);
         }
 
-        rebuildGrid();
-
         _triggerLoading();
+
       });
+
     }
     _isInit = false;
     super.didChangeDependencies();
-  }
-
-// -----------------------------------------------------------------------------
-  void rebuildGrid() {
-    setState(() {});
   }
 
 // -----------------------------------------------------------------------------
@@ -313,66 +329,59 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
         sky: Sky.Black,
         // appBarBackButton: true,
         pyramids: Iconz.PyramidzYellow,
-        layoutWidget: userStreamBuilder(
-            context: context,
-            listen: true,
-            builder: (context, UserModel userModel) {
-              return
-                GoHomeOnMaxBounce(
-                  child: ListView(
-                    physics: const BouncingScrollPhysics(),
-                    children: <Widget>[
+        layoutWidget: GoHomeOnMaxBounce(
+          child: ListView(
+            physics: const BouncingScrollPhysics(),
+            children: <Widget>[
 
-                      Stratosphere(),
+              Stratosphere(),
 
-                      UserBubble(
-                        user: userModel,
-                        switchUserType: (type) => _switchUserStatus(type),
-                        editProfileBtOnTap: () =>
-                            _slideUserOptions(context, userModel),
-                        loading: userModelIsLoading(userModel),
-                      ),
+              UserBubble(
+                user: widget.userModel,
+                switchUserType: (type) => _switchUserStatus(type),
+                editProfileBtOnTap: () =>
+                    _slideUserOptions(context, widget.userModel),
+                loading: userModelIsLoading(widget.userModel),
+              ),
 
-                      InPyramidsBubble(
-                        centered: true,
-                        columnChildren: <Widget>[
-                          DreamBox(
-                            height: 40,
-                            verse: Wordz.news(context),
-                            icon: Iconz.News,
-                            iconSizeFactor: 0.6,
-                            verseWeight: VerseWeight.bold,
-                            onTap: () =>
-                                Nav.goToNewScreen(context, NewsScreen()),
-                          ),
-                        ],
-                      ),
-
-                      FollowingBzzBubble(
-                        tinyBzz: _followedTinyBzz,
-                      ),
-
-                      // --- STATUS LABEL : STATUS SURVEY WILL BE IN VERSION 2 ISA
-                      StatusBubble(
-                        status: _status,
-                        switchUserStatus: (type) => _switchUserStatus(type),
-                        userStatus: _currentUserStatus == null ? userModel
-                            ?.userStatus : _currentUserStatus,
-                        currentUserStatus: _currentUserStatus,
-                        // openEnumLister: widget.openEnumLister,
-                      ),
-
-                      ContactsBubble(
-                        contacts: userModel.contacts,
-                      ),
-
-                      PyramidsHorizon(heightFactor: 5,),
-
-
-                    ],
+              InPyramidsBubble(
+                centered: true,
+                columnChildren: <Widget>[
+                  DreamBox(
+                    height: 40,
+                    verse: Wordz.news(context),
+                    icon: Iconz.News,
+                    iconSizeFactor: 0.6,
+                    verseWeight: VerseWeight.bold,
+                    onTap: () =>
+                        Nav.goToNewScreen(context, NewsScreen()),
                   ),
-                );
-            }
+                ],
+              ),
+
+              FollowingBzzBubble(
+                tinyBzz: _followedTinyBzz,
+              ),
+
+              // --- STATUS LABEL : STATUS SURVEY WILL BE IN VERSION 2 ISA
+              StatusBubble(
+                status: _status,
+                switchUserStatus: (type) => _switchUserStatus(type),
+                userStatus: _currentUserStatus == null ? widget.userModel
+                    ?.userStatus : _currentUserStatus,
+                currentUserStatus: _currentUserStatus,
+                // openEnumLister: widget.openEnumLister,
+              ),
+
+              ContactsBubble(
+                contacts: widget.userModel.contacts,
+              ),
+
+              PyramidsHorizon(heightFactor: 5,),
+
+
+            ],
+          ),
         ),
       );
     }

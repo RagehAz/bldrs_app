@@ -1,9 +1,12 @@
 class Iconz {
   static const String _iconzPath = 'assets/icons/';
+  static const String _artworkPath = 'assets/aw/';
 // -----------------------------------------------------------------------------
 // artworks
-static const String BldrsNameEn = 'assets/aw/aw_bldrs_name_en.svg' ;
-static const String BldrsAppIcon = 'assets/aw/aw_bldrs_app_icon.png' ;
+static const String BldrsNameEn = _artworkPath + 'aw_bldrs_name_en.svg' ;
+static const String BldrsAppIcon = _artworkPath + 'aw_bldrs_app_icon.png' ;
+static const String WhiteGradient = _artworkPath + 'white_gradient.svg';
+static const String BlackGradient = _artworkPath + 'black_gradient.svg';
 // -----------------------------------------------------------------------------
 // COMMUNICATION
 static const String ComApple = _iconzPath + 'com_apple.svg' ;

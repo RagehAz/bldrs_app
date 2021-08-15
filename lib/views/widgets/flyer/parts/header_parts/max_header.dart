@@ -1,7 +1,10 @@
+import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/drafters/streamerz.dart';
 import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
+import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/bz/author_model.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
@@ -65,6 +68,9 @@ class MaxHeader extends StatelessWidget {
         int _bzTotalViews    = bz != null ? bz.bzTotalViews      : 0;
         int _callsCount      = bz != null ? bz.bzTotalCalls      : 0;
 // -----------------------------------------------------------------------------
+
+        superFlyer.bz = bz;
+
         return
           Column(
             children: <Widget>[
@@ -153,10 +159,29 @@ class MaxHeader extends StatelessWidget {
               ),
 
               // --- BZ GALLERY
+              // if (superFlyer.mSlides.length != 0)
+              if (superFlyer.bz.nanoFlyers != null)
               Gallery(
                 superFlyer: superFlyer,
-                showFlyers: bzPageIsOn ? true : false,
+                showFlyers: true,
                 flyerZoneWidth: flyerZoneWidth,
+                addAuthorButtonIsOn: false,
+              ),
+
+              Container(
+                width: flyerZoneWidth,
+                height: flyerZoneWidth * Ratioz.xxflyerBottomCorners + Ratioz.appBarMargin,
+                margin: EdgeInsets.only(top: flyerZoneWidth * Ratioz.xxbzPageSpacing),
+                decoration: BoxDecoration(
+                  color: Colorz.Black80,
+                  borderRadius: Borderers.superBorderOnly(
+                    context: context,
+                    enTopLeft: 0,
+                    enTopRight: 0,
+                    enBottomLeft: flyerZoneWidth * Ratioz.xxflyerBottomCorners,
+                    enBottomRight: flyerZoneWidth * Ratioz.xxflyerBottomCorners,
+                  ),
+                ),
               ),
 
             ],
