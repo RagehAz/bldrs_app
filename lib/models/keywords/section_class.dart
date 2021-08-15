@@ -1,6 +1,7 @@
 import 'package:bldrs/models/bz/bz_model.dart';
 
 enum Section{
+  All,
   NewProperties,
   ResaleProperties,
   RentalProperties,

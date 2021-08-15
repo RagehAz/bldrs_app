@@ -43,14 +43,14 @@ class Group{
     print('getGroupsByFlyerType : flyerType : $flyerType');
 
     switch (flyerType){
-      case FlyerType.Property   :   return getPropertiesGroups();  break;
+      case FlyerType.rentalProperty   :   return getPropertiesGroups();  break;
 
-      case FlyerType.Design     :   return getDesignsGroups();     break;
-      case FlyerType.Project    :   return getProjectsGroups();    break;
-      case FlyerType.Craft      :   return getCraftsGroups();      break;
+      case FlyerType.design     :   return getDesignsGroups();     break;
+      case FlyerType.project    :   return getProjectsGroups();    break;
+      case FlyerType.craft      :   return getCraftsGroups();      break;
 
-      case FlyerType.Product    :   return getProductsGroups();    break;
-      case FlyerType.Equipment  :   return getEquipmentGroups();   break;
+      case FlyerType.product    :   return getProductsGroups();    break;
+      case FlyerType.equipment  :   return getEquipmentGroups();   break;
       default : return   null;
     }
   }

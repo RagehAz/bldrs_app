@@ -2,13 +2,15 @@ import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
 
 enum FlyerType {
-  Property,
-  Design,
-  Project,
-  Craft,
-  Product,
-  Equipment,
-  Non,
+  newProperty,
+  resaleProperty,
+  rentalProperty,
+  design,
+  project,
+  craft,
+  product,
+  equipment,
+  non,
 }
 // -----------------------------------------------------------------------------
 
@@ -17,65 +19,71 @@ class FlyerTypeClass {
   static FlyerType getFlyerTypeBySection({Section section}){
 
     FlyerType _flyersTypes =
-    section == Section.NewProperties ? FlyerType.Property :
-    section == Section.ResaleProperties ? FlyerType.Property :
-    section == Section.RentalProperties ? FlyerType.Property :
-    section == Section.Designs ? FlyerType.Design :
-    section == Section.Projects ? FlyerType.Project :
-    section == Section.Crafts ? FlyerType.Craft :
-    section == Section.Products ? FlyerType.Product :
-    section == Section.Equipment ? FlyerType.Equipment :
+    section == Section.NewProperties ? FlyerType.rentalProperty :
+    section == Section.ResaleProperties ? FlyerType.rentalProperty :
+    section == Section.RentalProperties ? FlyerType.rentalProperty :
+    section == Section.Designs ? FlyerType.design :
+    section == Section.Projects ? FlyerType.project :
+    section == Section.Crafts ? FlyerType.craft :
+    section == Section.Products ? FlyerType.product :
+    section == Section.Equipment ? FlyerType.equipment :
     null;
 
     return _flyersTypes;
   }
 // -----------------------------------------------------------------------------
   static List<FlyerType> flyerTypesList = <FlyerType>[
-    FlyerType.Property,
-    FlyerType.Design,
-    FlyerType.Product,
-    FlyerType.Project,
-    FlyerType.Craft,
-    FlyerType.Equipment,
+    FlyerType.rentalProperty,
+    FlyerType.design,
+    FlyerType.product,
+    FlyerType.project,
+    FlyerType.craft,
+    FlyerType.equipment,
     // FlyerType.General,
   ];
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
   static FlyerType decipherFlyerType (int x){
     switch (x){
-      case 1:   return  FlyerType.Property;     break;
-      case 2:   return  FlyerType.Design;       break;
-      case 3:   return  FlyerType.Product;      break;
-      case 4:   return  FlyerType.Project;      break;
-      case 5:   return  FlyerType.Craft;        break;
-      case 6:   return  FlyerType.Equipment;    break;
-    // case 7:   return  FlyerType.General;      break;
+      case 1:   return  FlyerType.rentalProperty;     break;
+      case 2:   return  FlyerType.design;             break;
+      case 3:   return  FlyerType.product;            break;
+      case 4:   return  FlyerType.project;            break;
+      case 5:   return  FlyerType.craft;              break;
+      case 6:   return  FlyerType.equipment;          break;
+
+      case 7:   return  FlyerType.newProperty;        break;
+      case 8:   return  FlyerType.resaleProperty;     break;
+
       default : return   null;
     }
   }
 // -----------------------------------------------------------------------------
   static int cipherFlyerType (FlyerType x){
     switch (x){
-      case FlyerType.Property    :    return  1;  break;
-      case FlyerType.Design      :    return  2;  break;
-      case FlyerType.Product     :    return  3;  break;
-      case FlyerType.Project     :    return  4;  break;
-      case FlyerType.Craft       :    return  5;  break;
-      case FlyerType.Equipment   :    return  6;  break;
-    // case FlyerType.General     :    return  7;  break;
+      case FlyerType.rentalProperty   :    return  1;  break;
+      case FlyerType.design           :    return  2;  break;
+      case FlyerType.product          :    return  3;  break;
+      case FlyerType.project          :    return  4;  break;
+      case FlyerType.craft            :    return  5;  break;
+      case FlyerType.equipment        :    return  6;  break;
+
+      case FlyerType.newProperty      :    return  7;  break;
+      case FlyerType.resaleProperty   :    return  8;  break;
+
       default : return null;
     }
   }
 // -----------------------------------------------------------------------------
   static FlyerType concludeFlyerType(BzType bzType){
     switch (bzType){
-      case BzType.Developer    :   return FlyerType.Property;   break;
-      case BzType.Broker       :   return FlyerType.Property;   break;
-      case BzType.Designer     :   return FlyerType.Design;     break;
-      case BzType.Contractor   :   return FlyerType.Project;    break;
-      case BzType.Artisan      :   return FlyerType.Craft;      break;
-      case BzType.Manufacturer :   return FlyerType.Product;    break; // product or equipment for author to choose while creating flyer
-      case BzType.Supplier     :   return FlyerType.Product;    break; // product or equipment for author to choose while creating flyer
+      case BzType.Developer    :   return FlyerType.rentalProperty;   break;
+      case BzType.Broker       :   return FlyerType.rentalProperty;   break;
+      case BzType.Designer     :   return FlyerType.design;     break;
+      case BzType.Contractor   :   return FlyerType.project;    break;
+      case BzType.Artisan      :   return FlyerType.craft;      break;
+      case BzType.Manufacturer :   return FlyerType.product;    break; // product or equipment for author to choose while creating flyer
+      case BzType.Supplier     :   return FlyerType.product;    break; // product or equipment for author to choose while creating flyer
       default : return null;
     }
   }

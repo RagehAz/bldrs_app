@@ -1383,15 +1383,15 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
                         // iconSizeFactor: 0.5,
                         verseMaxLines: 2,
                         verseScaleFactor: 0.7,
-                        color: _superFlyer.flyerType == FlyerType.Product ? Colorz.Yellow255 : Colorz.White20,
-                        verseColor: _superFlyer.flyerType == FlyerType.Product ? Colorz.Black230 : Colorz.White255,
+                        color: _superFlyer.flyerType == FlyerType.product ? Colorz.Yellow255 : Colorz.White20,
+                        verseColor: _superFlyer.flyerType == FlyerType.product ? Colorz.Black230 : Colorz.White255,
                         onTap: (){
                           setDialogState(() {
-                            _superFlyer.flyerType = FlyerType.Product;
+                            _superFlyer.flyerType = FlyerType.product;
                           });
 
                           setState(() {
-                            _superFlyer.flyerType = FlyerType.Product;
+                            _superFlyer.flyerType = FlyerType.product;
                           });
 
                         },
@@ -1406,14 +1406,14 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
                         // iconSizeFactor: 0.5,
                         verseMaxLines: 2,
                         verseScaleFactor: 0.7,
-                        color: _superFlyer.flyerType == FlyerType.Equipment ? Colorz.Yellow255 : Colorz.White20,
-                        verseColor: _superFlyer.flyerType == FlyerType.Equipment ? Colorz.Black230 : Colorz.White255,
+                        color: _superFlyer.flyerType == FlyerType.equipment ? Colorz.Yellow255 : Colorz.White20,
+                        verseColor: _superFlyer.flyerType == FlyerType.equipment ? Colorz.Black230 : Colorz.White255,
                         onTap: (){
                           setDialogState(() {
-                            _superFlyer.flyerType = FlyerType.Equipment;
+                            _superFlyer.flyerType = FlyerType.equipment;
                           });
                           setState(() {
-                            _superFlyer.flyerType = FlyerType.Equipment;
+                            _superFlyer.flyerType = FlyerType.equipment;
                           });
                         },
                       ),

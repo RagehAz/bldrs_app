@@ -20,7 +20,7 @@ class FlyersGridView extends StatefulWidget {
 class _FlyersGridViewState extends State<FlyersGridView> {
   // ScrollController _controller;
   var _showAnkhsOnly = false;
-  FlyerType currentFlyerType = FlyerType.Non;
+  FlyerType currentFlyerType = FlyerType.non;
 
   // List<FlyerType> flyerFilers = [
   //   FlyerType.General,
@@ -88,7 +88,7 @@ class _FlyersGridViewState extends State<FlyersGridView> {
 // -------------------------------------------------------------------------
     double screenWidth = MediaQuery.of(context).size.width;
 
-    int gridColumnsCount = currentFlyerType == FlyerType.Property ? 4 : 2;
+    int gridColumnsCount = currentFlyerType == FlyerType.rentalProperty ? 4 : 2;
     int numberOfColumns = gridColumnsCount;
     double gridZoneWidth = screenWidth;
     // double flyerHeight = (gridZoneWidth * Ratioz.xxflyerZoneHeight);
@@ -222,32 +222,32 @@ class FilterButton extends StatelessWidget {
   Widget build(BuildContext context) {
 
     String icon =
-    flyerTypeFilter == FlyerType.Property && currentFlyerType == FlyerType.Property? Iconz.BxPropertiesOn :
-    flyerTypeFilter == FlyerType.Property && currentFlyerType != FlyerType.Property? Iconz.BxPropertiesOff :
+    flyerTypeFilter == FlyerType.rentalProperty && currentFlyerType == FlyerType.rentalProperty? Iconz.BxPropertiesOn :
+    flyerTypeFilter == FlyerType.rentalProperty && currentFlyerType != FlyerType.rentalProperty? Iconz.BxPropertiesOff :
     //
     // flyerTypeFilter == FlyerType.Design && currentFlyerType == FlyerType.Design? Iconz.BxDesignsOn :
     // flyerTypeFilter == FlyerType.Design && currentFlyerType != FlyerType.Design? Iconz.BxDesignsOff :
 
-    flyerTypeFilter == FlyerType.Project && currentFlyerType == FlyerType.Project? Iconz.BxProjectsOn :
-    flyerTypeFilter == FlyerType.Project && currentFlyerType != FlyerType.Project? Iconz.BxProjectsOff :
+    flyerTypeFilter == FlyerType.project && currentFlyerType == FlyerType.project? Iconz.BxProjectsOn :
+    flyerTypeFilter == FlyerType.project && currentFlyerType != FlyerType.project? Iconz.BxProjectsOff :
 
-    flyerTypeFilter == FlyerType.Product && currentFlyerType == FlyerType.Product? Iconz.BxProductsOn :
-    flyerTypeFilter == FlyerType.Product && currentFlyerType != FlyerType.Product? Iconz.BxProductsOff :
+    flyerTypeFilter == FlyerType.product && currentFlyerType == FlyerType.product? Iconz.BxProductsOn :
+    flyerTypeFilter == FlyerType.product && currentFlyerType != FlyerType.product? Iconz.BxProductsOff :
 
-    flyerTypeFilter == FlyerType.Craft && currentFlyerType == FlyerType.Craft? Iconz.BxCraftsOn :
-    flyerTypeFilter == FlyerType.Craft && currentFlyerType != FlyerType.Craft? Iconz.BxCraftsOff :
+    flyerTypeFilter == FlyerType.craft && currentFlyerType == FlyerType.craft? Iconz.BxCraftsOn :
+    flyerTypeFilter == FlyerType.craft && currentFlyerType != FlyerType.craft? Iconz.BxCraftsOff :
 
-    flyerTypeFilter == FlyerType.Equipment && currentFlyerType == FlyerType.Equipment? Iconz.BxEquipmentOn :
-    flyerTypeFilter == FlyerType.Equipment && currentFlyerType != FlyerType.Equipment? Iconz.BxEquipmentOff :
+    flyerTypeFilter == FlyerType.equipment && currentFlyerType == FlyerType.equipment? Iconz.BxEquipmentOn :
+    flyerTypeFilter == FlyerType.equipment && currentFlyerType != FlyerType.equipment? Iconz.BxEquipmentOff :
         Iconz.Gallery;
 
     String buttonVerse =
-    flyerTypeFilter == FlyerType.Property ?   'Properties' :
-    flyerTypeFilter == FlyerType.Design ?     'Designs' :
-    flyerTypeFilter == FlyerType.Project ?    'Projects' :
-    flyerTypeFilter == FlyerType.Product ?    'Products' :
-    flyerTypeFilter == FlyerType.Craft ?      'Crafts' :
-    flyerTypeFilter == FlyerType.Equipment ?  'Equipment' : 'All Flyers' ;
+    flyerTypeFilter == FlyerType.rentalProperty ?   'Properties' :
+    flyerTypeFilter == FlyerType.design ?     'Designs' :
+    flyerTypeFilter == FlyerType.project ?    'Projects' :
+    flyerTypeFilter == FlyerType.product ?    'Products' :
+    flyerTypeFilter == FlyerType.craft ?      'Crafts' :
+    flyerTypeFilter == FlyerType.equipment ?  'Equipment' : 'All Flyers' ;
 
 
     return DreamBox(

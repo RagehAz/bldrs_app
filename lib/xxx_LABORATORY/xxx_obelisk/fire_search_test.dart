@@ -77,7 +77,7 @@ class _FireSearchTestState extends State<FireSearchTest> {
               cityID: 'Cairo',
               districtID: '13'
           ),
-          flyerType: FlyerType.Property,
+          flyerType: FlyerType.rentalProperty,
         );
 
         printResult('_tinyFlyers : ${_searchedTinyFlyers?.length} : ${_searchedTinyFlyers?.toString()}');

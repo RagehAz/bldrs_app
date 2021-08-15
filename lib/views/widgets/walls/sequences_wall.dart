@@ -149,7 +149,7 @@ class SequencesWall extends StatelessWidget {
       _spacer,
 
       FlyerStack(
-        flyersType: FlyerType.Property,
+        flyersType: FlyerType.rentalProperty,
         title: 'New ${sequence.titleID} flyers in Heliopolis',
         tinyFlyers: TinyFlyer.dummyTinyFlyers(),
         onScrollEnd: () => _onScrollEnd(
