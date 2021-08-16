@@ -123,7 +123,7 @@ class InfoPage extends StatelessWidget {
 
     bool _flyerInfoExists = _flyerInfoParagraph == null ? false : _flyerInfoParagraph.length == 0 ? false : true;
 
-
+    final List<FlyerType> _possibleFlyerTypes = FlyerTypeClass.concludePossibleFlyerTypesForBz(bzType: superFlyer.bz.bzType);
 
     return NotificationListener(
       onNotification: (ScrollUpdateNotification details){
@@ -196,7 +196,7 @@ class InfoPage extends StatelessWidget {
               bubbleWidth: _bubbleWidth,
               margins: _bubbleMargins,
               corners: _bubbleCorners,
-              bubbleOnTap: superFlyer.edit.onFlyerTypeTap,
+              bubbleOnTap: _possibleFlyerTypes.length == 1 ? null : superFlyer.edit.onFlyerTypeTap,
               columnChildren: <Widget>[
 
                 StatsLine(

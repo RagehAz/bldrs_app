@@ -92,12 +92,14 @@ class TextGenerator{
   static String flyerTypeSingleStringer (BuildContext context, FlyerType flyerType){
 
     return
-      flyerType == FlyerType.rentalProperty   ? Wordz.property(context)  :
-      flyerType == FlyerType.design     ? Wordz.design(context)  :
-      flyerType == FlyerType.product    ? Wordz.product(context)  :
-      flyerType == FlyerType.project    ? Wordz.project(context)  :
-      flyerType == FlyerType.equipment  ? Wordz.equipment(context)  :
-      flyerType == FlyerType.craft      ? Wordz.craft(context)  :
+      flyerType == FlyerType.newProperty      ? 'New Property'  :
+      flyerType == FlyerType.resaleProperty   ? 'Resale Property'  :
+      flyerType == FlyerType.rentalProperty   ? 'Rental Property'  :
+      flyerType == FlyerType.design           ? Wordz.design(context)  :
+      flyerType == FlyerType.product          ? Wordz.product(context)  :
+      flyerType == FlyerType.project          ? Wordz.project(context)  :
+      flyerType == FlyerType.equipment        ? Wordz.equipment(context)  :
+      flyerType == FlyerType.craft            ? Wordz.craft(context)  :
       Wordz.general(context);
   }
 // -----------------------------------------------------------------------------
