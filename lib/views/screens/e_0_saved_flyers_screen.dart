@@ -9,7 +9,9 @@ import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/views/widgets/flyer/final_flyer.dart';
 import 'package:bldrs/views/widgets/flyer/stacks/flyers_grid.dart';
+import 'package:bldrs/views/widgets/flyer/stacks/gallery_grid.dart';
 import 'package:bldrs/views/widgets/flyer/stacks/sliver_flyers_grid.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
@@ -26,11 +28,13 @@ class SavedFlyersScreen extends StatefulWidget {
   _SavedFlyersScreenState createState() => _SavedFlyersScreenState();
 }
 
-class _SavedFlyersScreenState extends State<SavedFlyersScreen> {
+class _SavedFlyersScreenState extends State<SavedFlyersScreen> with SingleTickerProviderStateMixin {
   Section _currentSection;
   List<Section> _sectionsList;
   List<TinyFlyer> _allTinyFlyers;
   List<TinyFlyer> _filteredTinyFlyers;
+  TabController _tabController;
+
 
   @override
   void initState() {
@@ -46,6 +50,8 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen> {
        tinyFlyers : _allTinyFlyers,
        section: _currentSection,
      );
+
+     _tabController = TabController(vsync: this, length: 2);
 
      super.initState();
   }
@@ -83,83 +89,143 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen> {
       pageTitle: 'Chosen Flyers',
       pyramids: Iconz.DvBlankSVG,
       layoutWidget: GoHomeOnMaxBounce(
-        child: CustomScrollView(
+        child: NestedScrollView(
           physics: const BouncingScrollPhysics(),
-          shrinkWrap: false,
-          slivers: <Widget>[
+          // shrinkWrap: false,
+          floatHeaderSlivers: true,
 
-            SliverAppBar(
-              collapsedHeight: Ratioz.stratosphere + _sectionBarHeight,
-              backgroundColor: Colorz.BlackSemi230,
-              // title: SuperVerse(verse: 'thing'),
-              leadingWidth: 0,
-              floating: true,
-              leading: Container(),
-              flexibleSpace: Container(
-                width: _screenWidth,
-                height: Ratioz.stratosphere + _sectionBarHeight,
-                // color: Colorz.BloodTest,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
+          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled){
+            return
+              <Widget>[
 
-                    Container(
-                      width: _screenWidth,
-                      height: _sectionBarHeight,
-                      alignment: Alignment.center,
-                      // color: Colorz.Yellow50,
-                      child: ListView.separated(
-                        separatorBuilder: (xxx, index){
-                          return
-                            SizedBox(width: Ratioz.appBarPadding,);
-                        },
-                        physics: const BouncingScrollPhysics(),
-                        scrollDirection: Axis.horizontal,
-                        shrinkWrap: false,
-                        itemCount: _sectionsList.length,
-                        padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
-                        itemBuilder: (ctx, index){
+                SliverAppBar(
+                  collapsedHeight: Ratioz.stratosphere + _sectionBarHeight,
+                  backgroundColor: Colorz.BlackSemi230,
+                  // title: SuperVerse(verse: 'thing'),
+                  leadingWidth: 0,
+                  floating: true,
+                  leading: Container(),
+                  flexibleSpace: Container(
+                    width: _screenWidth,
+                    height: Ratioz.stratosphere + _sectionBarHeight,
+                    // color: Colorz.BloodTest,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
 
-                          Section _section = _sectionsList[index];
+                        Container(
+                          width: _screenWidth,
+                          height: _sectionBarHeight,
+                          alignment: Alignment.center,
+                          // color: Colorz.Yellow50,
+                          child: ListView.separated(
+                            separatorBuilder: (xxx, index){
+                              return
+                                SizedBox(width: Ratioz.appBarPadding,);
+                            },
+                            physics: const BouncingScrollPhysics(),
+                            scrollDirection: Axis.horizontal,
+                            shrinkWrap: false,
+                            itemCount: _sectionsList.length,
+                            padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
+                            itemBuilder: (ctx, index){
 
-                          Color _buttonColor = _currentSection == _section ? Colorz.Yellow255 : null;
+                              Section _section = _sectionsList[index];
 
-                          return
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: Ratioz.appBarPadding),
-                              child: DreamBox(
-                                height: Ratioz.appBarButtonSize,
-                                icon: Iconizer.sectionIconOff(_section),
-                                iconSizeFactor: 0.8,
-                                verse: TextGenerator.sectionStringer(context, _section),
-                                color: _buttonColor,
-                                verseMaxLines: 1,
-                                verseCentered: false,
-                                bubble: true,
-                                verseScaleFactor: 0.7,
-                                onTap: () => _setSection(_section),
-                              ),
-                            );
-                        },
-                      ),
+                              Color _buttonColor = _currentSection == _section ? Colorz.Yellow255 : null;
+
+                              return
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: Ratioz.appBarPadding),
+                                  child: DreamBox(
+                                    height: Ratioz.appBarButtonSize,
+                                    icon: Iconizer.sectionIconOff(_section),
+                                    iconSizeFactor: 0.8,
+                                    verse: TextGenerator.sectionStringer(context, _section),
+                                    color: _buttonColor,
+                                    verseMaxLines: 1,
+                                    verseCentered: false,
+                                    bubble: true,
+                                    verseScaleFactor: 0.7,
+                                    onTap: () => _setSection(_section),
+                                  ),
+                                );
+                            },
+                          ),
+                        ),
+
+                      ],
                     ),
-
-                  ],
+                  ),
                 ),
-              ),
-            ),
 
-            SliverPadding(
-                padding: EdgeInsets.only(bottom: Ratioz.stratosphere),
-                sliver: SliverFlyersGrid(
-                  tinyFlyers: _filteredTinyFlyers,
-                )
-            ),
+              ];
 
-          ],
+          },
+          body: TabBarView(
+            controller: _tabController,
+            children: <Widget>[
+
+              pageView(),
+
+              pageView(),
+
+            ],
+          ),
         ),
       ),
     );
+
+
   }
+
+    Widget SliverFlyersGridThatWorksGoodInCustomScrollViewParent(){
+      return
+        SliverPadding(
+            padding: EdgeInsets.only(bottom: Ratioz.stratosphere),
+            sliver: SliverFlyersGrid(
+              tinyFlyers: _filteredTinyFlyers,
+            )
+        );
+    }
+
+    Widget pageView(){
+
+      int _numberOfColumns = GalleryGrid.gridColumnCount(_filteredTinyFlyers.length);
+      double _spacing = SliverFlyersGrid.spacing;
+
+      double _flyerZoneWidth = SliverFlyersGrid.calculateFlyerZoneWidth(
+        flyersLength: _filteredTinyFlyers.length,
+        context: context,
+      );
+
+      double _screenWidth = Scale.superScreenWidth(context);
+
+      return
+        GridView.builder(
+          itemCount: _filteredTinyFlyers.length,
+          physics: const BouncingScrollPhysics(),
+          shrinkWrap: false,
+          padding: EdgeInsets.all(_spacing),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: _numberOfColumns,
+            mainAxisSpacing: _spacing,
+            crossAxisSpacing: _spacing,
+            childAspectRatio: 1  / Ratioz.xxflyerZoneHeight,
+          ),
+          itemBuilder: (ctx, index){
+            return
+              FinalFlyer(
+                flyerZoneWidth: _flyerZoneWidth,
+                    tinyFlyer: _filteredTinyFlyers[index],
+                    inEditor: false,
+                    goesToEditor: false,
+                    initialSlideIndex: _filteredTinyFlyers[index].slideIndex,
+                  );
+            },
+        );
+    }
+
 }
+
