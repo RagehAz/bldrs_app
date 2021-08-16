@@ -8,6 +8,7 @@ import 'package:bldrs/controllers/drafters/launchers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/sliders.dart';
 import 'package:bldrs/controllers/drafters/text_checkers.dart';
+import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
@@ -1352,6 +1353,13 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
     double _dialogHeight = BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.25);
 
+    final List<FlyerType> _possibleFlyerTypes = FlyerTypeClass.concludePossibleFlyerTypesForBz(bzType: _superFlyer.bz.bzType);
+    final int _numberOfButtons = _possibleFlyerTypes.length;
+    final double _dialogClearWidth = BottomDialog.dialogClearWidth(context);
+    final double _dialogClearHeight = BottomDialog.dialogClearHeight(context: context, overridingDialogHeight: _dialogHeight, title: 'x');
+    final double _spacing = Ratioz.appBarMargin;
+    final double _buttonWidth = (_dialogClearWidth - ((_numberOfButtons + 1) * _spacing) ) / _numberOfButtons;
+
     BottomDialog.slideStatefulBottomDialog(
       context: context,
       height: _dialogHeight,
@@ -1361,62 +1369,52 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         return StatefulBuilder(
             builder: (BuildContext context, StateSetter setDialogState){
 
-
               return BottomDialog(
                 height: _dialogHeight,
                 title: title,
                 draggable: true,
                 child: Container(
-                  width: BottomDialog.dialogClearWidth(context),
-                  height: BottomDialog.dialogClearHeight(context: context, overridingDialogHeight: _dialogHeight, title: 'x'),
+                  width: _dialogClearWidth,
+                  height: _dialogClearHeight,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
 
-                      DreamBox(
-                        height: 60,
-                        width: BottomDialog.dialogClearWidth(context) / 2.2,
-                        verse: 'Product Flyer',
-                        // icon: Iconz.BxProductsOff,
-                        // iconColor: _draft.flyerType == FlyerType.Product ? Colorz.Black255 : Colorz.White255,
-                        // iconSizeFactor: 0.5,
-                        verseMaxLines: 2,
-                        verseScaleFactor: 0.7,
-                        color: _superFlyer.flyerType == FlyerType.product ? Colorz.Yellow255 : Colorz.White20,
-                        verseColor: _superFlyer.flyerType == FlyerType.product ? Colorz.Black230 : Colorz.White255,
-                        onTap: (){
-                          setDialogState(() {
-                            _superFlyer.flyerType = FlyerType.product;
-                          });
+                      ...List.generate(
+                          _numberOfButtons,
+                              (index) {
 
-                          setState(() {
-                            _superFlyer.flyerType = FlyerType.product;
-                          });
+                            FlyerType _flyerType = _possibleFlyerTypes[index];
+                            String _flyerTypeName = TextGenerator.flyerTypeSingleStringer(context, _flyerType);
+                            Color _buttonColor = _superFlyer.flyerType == _flyerType ? Colorz.Yellow255 : Colorz.White20;
+                            Color _verseColor = _superFlyer.flyerType == _flyerType ? Colorz.Black230 : Colorz.White255;
 
-                        },
-                      ),
+                            return
 
-                      DreamBox(
-                        height: 60,
-                        width: BottomDialog.dialogClearWidth(context) / 2.2,
-                        verse: 'Equipment Flyer',
-                        // icon: Iconz.BxEquipmentOff,
-                        // iconColor: _draft.flyerType == FlyerType.Product ? Colorz.Black255 : Colorz.White255,
-                        // iconSizeFactor: 0.5,
-                        verseMaxLines: 2,
-                        verseScaleFactor: 0.7,
-                        color: _superFlyer.flyerType == FlyerType.equipment ? Colorz.Yellow255 : Colorz.White20,
-                        verseColor: _superFlyer.flyerType == FlyerType.equipment ? Colorz.Black230 : Colorz.White255,
-                        onTap: (){
-                          setDialogState(() {
-                            _superFlyer.flyerType = FlyerType.equipment;
-                          });
-                          setState(() {
-                            _superFlyer.flyerType = FlyerType.equipment;
-                          });
-                        },
-                      ),
+                              DreamBox(
+                                height: 60,
+                                width: _buttonWidth,
+                                verse: _flyerTypeName,
+                                verseMaxLines: 2,
+                                verseScaleFactor: 0.7,
+                                color: _buttonColor,
+                                verseColor: _verseColor,
+                                onTap: (){
+                                  setDialogState(() {
+                                    _superFlyer.flyerType = _flyerType;
+                                  });
+
+                                  setState(() {
+                                    _superFlyer.flyerType = _flyerType;
+                                  });
+
+                                },
+                              );
+
+                              }
+
+                      )
 
                     ],
                   ),

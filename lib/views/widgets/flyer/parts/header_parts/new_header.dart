@@ -175,10 +175,14 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
     double _logoSizeBegin = Scale.superLogoWidth(false, widget.flyerZoneWidth);
     double _logoSizeEnd = widget.flyerZoneWidth * 0.6;
     double _logoScaleRatio = _logoSizeEnd / _logoSizeBegin;
+
+    bool _tinyMode = Scale.superFlyerTinyMode(context, widget.flyerZoneWidth);
+
     //--------------------------------o
     _backgroundColorTween
-      ..begin = Colorz.White125
-      ..end = widget.superFlyer.mSlides[widget.superFlyer.currentSlideIndex].midColor;
+      ..begin = _tinyMode == true ? Colorz.Nothing :  Colorz.BlackSemi230
+      ..end = widget.superFlyer.mSlides.length == 0 ?
+      Colorz.BlackSemi230 : widget.superFlyer.mSlides[widget.superFlyer.currentSlideIndex].midColor;
 
     _headerCornerTween
       ..begin = Borderers.superHeaderCorners(context, false, widget.flyerZoneWidth)
@@ -226,7 +230,6 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
     //------------------------------------------------------------o
     final _slideHeightWithoutHeader = Scale.superFlyerZoneHeight(context, widget.flyerZoneWidth) - Scale.superHeaderHeight(false, widget.flyerZoneWidth);
 
-    bool _tinyMode = Scale.superFlyerTinyMode(context, widget.flyerZoneWidth);
 
 
     return AnimatedBuilder(
@@ -268,7 +271,7 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
                         alignment: Alignment.center,
                         padding: EdgeInsets.only(top: _headerLeftSpacerTween.value),
                         decoration: BoxDecoration(
-                          color: Colorz.Black80,
+                          color: _tinyMode == true ? Colorz.White50 :  Colorz.Black80,
                           borderRadius: Borderers.superBorderOnly(
                             context: context,
                             enTopRight: _headerBorders.topRight.x,
