@@ -175,35 +175,33 @@ class BlurLayer extends StatelessWidget {
 
     bool _blurIsOn = blurIsOn == null ? false : blurIsOn;
 
-    return RepaintBoundary(
-      child: Container(
-        width: width,
-        height: height,
-        child: ClipRRect(
-          borderRadius: borders,
-          child:
-          _blurIsOn == true ?
-          BackdropFilter(
-            filter: ui.ImageFilter.blur(sigmaX: blur, sigmaY: blur),
-            child: Container(
-              width: width,
-              height: height,
-              decoration: BoxDecoration(
-                color: color,
-                borderRadius: borders,
-              ),
-            ),
-          )
-              :
-          Container(
+    return Container(
+      width: width,
+      height: height,
+      child: ClipRRect(
+        borderRadius: borders,
+        child:
+        _blurIsOn == true ?
+        BackdropFilter(
+          filter: ui.ImageFilter.blur(sigmaX: blur, sigmaY: blur),
+          child: Container(
             width: width,
             height: height,
             decoration: BoxDecoration(
               color: color,
               borderRadius: borders,
             ),
-            // child: child,
           ),
+        )
+            :
+        Container(
+          width: width,
+          height: height,
+          decoration: BoxDecoration(
+            color: color,
+            borderRadius: borders,
+          ),
+          // child: child,
         ),
       ),
     );

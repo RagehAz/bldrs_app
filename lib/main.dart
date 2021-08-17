@@ -15,16 +15,24 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/rendering.dart';
 
 void main() async {
+
+  /// TASK : In optimization : study this : https://pub.dev/packages/keframe
+  // debugPrintMarkNeedsPaintStacks = false;
+  // debugProfilePaintsEnabled = false;
+  // debugProfileBuildsEnabled = false;
+  // debugRepaintTextRainbowEnabled = false;
+  // debugPaintLayerBordersEnabled = false;
+  // debugRepaintRainbowEnabled = false;
+
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(BldrsApp());
-  // TASK : this added for we chat image picker,, check usage before publish
-  // assetPicker.registerObserve();
+
 }
 
-// main() => runApp(BldrsApp());
 
 class BldrsApp extends StatefulWidget {
 
@@ -89,17 +97,17 @@ class _BldrsAppState extends State<BldrsApp> {
   bool _initialized = false;
   bool _error = false;
 // ---------------------------------------------------------------------------
-  // Define an async function to initialize FlutterFire
+  /// Define an async function to initialize FlutterFire
   void _initializeFlutterFire() async {
     _triggerLoading();
     try {
-      // Wait for Firebase to initialize and set `_initialized` state to true
+      /// Wait for Firebase to initialize and set `_initialized` state to true
       await Firebase.initializeApp();
       setState(() {
         _initialized = true;
       });
     } catch (e) {
-      // Set `_error` state to true if Firebase initialization fails
+      /// Set `_error` state to true if Firebase initialization fails
       print(e.message);
       setState(() {
         _error = true;
@@ -122,14 +130,14 @@ class _BldrsAppState extends State<BldrsApp> {
     }
 
     else {
-      // Show error message if initialization failed
+      /// Show error message if initialization failed
       if (_error) {
-        print("Error has occured");
+        print("Error has occurred");
       }
 
-      // Show a loader until FlutterFire is initialized
+      /// Show a loader until FlutterFire is initialized
       if (!_initialized) {
-        print("Firebase Coudn't be initialized");
+        print("Firebase Couldn't be initialized");
       }
 
       return MultiProvider(
@@ -151,6 +159,8 @@ class _BldrsAppState extends State<BldrsApp> {
           debugShowCheckedModeBanner: false,
           debugShowMaterialGrid: false,
           showPerformanceOverlay: false,
+          checkerboardRasterCacheImages: false,
+
           title: 'Bldrs.net',
 
           // theme:
