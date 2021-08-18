@@ -1,5 +1,7 @@
+import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
+import 'package:bldrs/views/screens/xx_questions_screen.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:bldrs/views/widgets/walls/home_wall.dart';
@@ -7,6 +9,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
+  final bool notiIsOn;
+
+  HomeScreen({
+    @required this.notiIsOn,
+});
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -80,6 +88,9 @@ class _HomeScreenState extends State<HomeScreen> {
         appBarType: AppBarType.Main,
         sky: Sky.Night,
         canRefreshFlyers: false,
+        tappingRageh: () async {
+          await Nav.goToNewScreen(context, QuestionsScreen());
+        },
         layoutWidget: _isLoading == true ?
         Center(child: Loading(loading: _isLoading,))
             :
