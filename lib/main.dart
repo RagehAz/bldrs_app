@@ -16,6 +16,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/rendering.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:bldrs/models/notification/noti_model.dart';
+import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 
 void main() async {
 
@@ -46,22 +49,6 @@ class BldrsApp extends StatefulWidget {
 }
 
 class _BldrsAppState extends State<BldrsApp> {
-  Locale _locale;
-  List<Locale> _supportedLocales = <Locale>[
-    Locale('en', 'US'),
-    Locale('ar', 'EG'),
-    Locale('es', 'ES'),
-    Locale('fr', 'FR'),
-    Locale('zh', 'CN'),
-    Locale('de', 'DE'),
-    Locale('it', 'IT'),
-  ];
-  List<LocalizationsDelegate> _localizationDelegates = <LocalizationsDelegate>[
-    Localizer.delegate,
-    GlobalMaterialLocalizations.delegate,
-    GlobalWidgetsLocalizations.delegate,
-    GlobalCupertinoLocalizations.delegate,
-  ];
 // ---------------------------------------------------------------------------
   /// --- LOADING BLOCK
   bool _loading = false;
@@ -74,7 +61,7 @@ class _BldrsAppState extends State<BldrsApp> {
   @override
   void initState() {
     _initializeFlutterFire();
-    print("successfully initialized FlutterFire");
+    _initializeNotifications();
     super.initState();
   }
 // ---------------------------------------------------------------------------
@@ -88,6 +75,9 @@ class _BldrsAppState extends State<BldrsApp> {
     super.didChangeDependencies();
   }
 // ---------------------------------------------------------------------------
+  Locale _locale;
+  List<Locale> _supportedLocales = Localizer.getSupportedLocales();
+  List<LocalizationsDelegate> _localizationDelegates = Localizer.getLocalizationDelegates();
   void _setLocale(Locale locale) {
     setState(() {
       _locale = locale;
@@ -96,8 +86,6 @@ class _BldrsAppState extends State<BldrsApp> {
 // ---------------------------------------------------------------------------
   bool _initialized = false;
   bool _error = false;
-// ---------------------------------------------------------------------------
-  /// Define an async function to initialize FlutterFire
   void _initializeFlutterFire() async {
     _triggerLoading();
     try {
@@ -116,7 +104,80 @@ class _BldrsAppState extends State<BldrsApp> {
     _triggerLoading();
   }
 // ---------------------------------------------------------------------------
-  @override
+  final fbm = FirebaseMessaging();
+  void _initializeNotifications(){
+    /// for ios notifications
+    fbm.requestNotificationPermissions();
+    fbm.configure(
+
+      /// when app is running on screen
+        onMessage: (msgMap){
+          // print('Notification : onMessage : msgMap : $msgMap');
+
+          receiveAndActUponNoti(msgMap: msgMap, notiType: NotiType.onMessage);
+
+          return;
+        },
+
+        /// when app running in background and notification tapped while having
+        /// msg['data']['click_action'] == 'FLUTTER_NOTIFICATION_CLICK';
+        onResume: (msgMap){
+          // print('Notification : onResume : msgMap : $msgMap');
+          receiveAndActUponNoti(msgMap: msgMap, notiType: NotiType.onResume);
+          return;
+        },
+
+        // onBackgroundMessage: (msg){
+        //   print('Notification : onBackgroundMessage : msg : $msg');
+        //   return;
+        //   },
+
+        onLaunch: (msgMap){
+          // print('Notification : onLaunch : msgMap : $msgMap');
+          receiveAndActUponNoti(msgMap: msgMap, notiType: NotiType.onLaunch);
+
+          return;
+        }
+
+    );
+
+    // fbm.getToken();
+    fbm.subscribeToTopic('flyers');
+
+  }
+// -----------------------------------------------------------------------------
+  NotiModel _noti;
+  bool _notiIsOn = false;
+  void _setNoti(NotiModel noti){
+
+    if (noti != null){
+      setState(() {
+        _noti = noti;
+        _notiIsOn = true;
+      });
+    }
+
+  }
+// -----------------------------------------------------------------------------
+void receiveAndActUponNoti({dynamic msgMap, NotiType notiType}){
+  print('receiveAndActUponNoti : notiType : $notiType');
+
+  NotiModel _noti;
+
+  tryAndCatch(
+    context: context,
+    onError: (error) => print(error),
+    methodName: 'receiveAndActUponNoti',
+    functions: (){
+      _noti = NotiModel.decipherNotiModel(msgMap);
+    },
+  );
+
+  _setNoti(_noti);
+}
+// -----------------------------------------------------------------------------
+
+@override
   Widget build(BuildContext context) {
 
     print({'building Bldrs with _locale : $_locale'});
@@ -187,7 +248,7 @@ class _BldrsAppState extends State<BldrsApp> {
             Routez.DynamicLinkTest: (ctx) => DynamicLinkTest(),
             // Routez.Starting: (ctx) => StartingScreen(),
             Routez.UserChecker: (ctx) => UserChecker(),
-            Routez.Home: (ctx) => HomeScreen(),
+            Routez.Home: (ctx) => HomeScreen(notiIsOn: _notiIsOn,),
             // Routez.InPyramids: (ctx) => InPyramidsScreen(),
           },
         ),

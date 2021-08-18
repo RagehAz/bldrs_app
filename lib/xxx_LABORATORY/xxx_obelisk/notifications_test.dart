@@ -55,6 +55,8 @@ class _NotificationsTestScreenState extends State<NotificationsTestScreen> {
 
         );
 
+    // fbm.getToken();
+    fbm.subscribeToTopic('flyers');
     super.initState();
   }
 // -----------------------------------------------------------------------------
