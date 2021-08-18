@@ -40,7 +40,7 @@ class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
     _countryPro =  Provider.of<CountryProvider>(context, listen: false);
     _groups = Group.getGroupsByFlyerType(flyerType: widget.flyerType);
 
-    print('_groups.length = ${_groups.length} ,, and _groups[0].groupID is : ${_groups[0].groupID}');
+    print('_groups.length = ${_groups?.length} ,, and _groups[0].groupID is : ${_groups[0].groupID}');
 
     _scrollController = ItemScrollController();
     _itemPositionListener = ItemPositionsListener.create();

@@ -7,6 +7,10 @@ import 'package:bldrs/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter/rendering.dart';
+
+
 //
 // --- BEHOLD ---
 //
@@ -111,6 +115,35 @@ class Localizer{
     bool _isArabic = Wordz.languageCode(context) == Lingo.Arabic ? true : false;
     return _isArabic;
   }
+// -----------------------------------------------------------------------------
+  static List<Locale> getSupportedLocales(){
+
+    List<Locale> _supportedLocales = <Locale>[
+      Locale('en', 'US'),
+      Locale('ar', 'EG'),
+      Locale('es', 'ES'),
+      Locale('fr', 'FR'),
+      Locale('zh', 'CN'),
+      Locale('de', 'DE'),
+      Locale('it', 'IT'),
+    ];
+
+
+    return _supportedLocales;
+  }
+// -----------------------------------------------------------------------------
+  static List<LocalizationsDelegate> getLocalizationDelegates(){
+    List<LocalizationsDelegate> _localizationDelegates = <LocalizationsDelegate>[
+      Localizer.delegate,
+      GlobalMaterialLocalizations.delegate,
+      GlobalWidgetsLocalizations.delegate,
+      GlobalCupertinoLocalizations.delegate,
+    ];
+
+    return _localizationDelegates;
+  }
+// -----------------------------------------------------------------------------
+
 }
 // -----------------------------------------------------------------------------
 class _DemoLocalizationDelegate extends LocalizationsDelegate<Localizer> {

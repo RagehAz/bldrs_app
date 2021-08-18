@@ -34,9 +34,9 @@ class Routerer {
       case Routez.Starting:
         return Nav.fadeToScreen(StartingScreen(), settings); break;
 // -----------------------------------------------------------------------------
-    /// s10
-      case Routez.Home:
-        return Nav.fadeToScreen(HomeScreen(), settings); break;
+//     /// s10
+//       case Routez.Home:
+//         return Nav.fadeToScreen(HomeScreen(), settings); break;
 // -----------------------------------------------------------------------------
     /// s12
       case Routez.SavedFlyers:
