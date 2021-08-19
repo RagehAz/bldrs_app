@@ -1,9 +1,7 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/views/widgets/flyer/final_flyer.dart';
-import 'package:bldrs/views/widgets/flyer/stacks/flyers_grid.dart';
 import 'package:bldrs/views/widgets/flyer/stacks/gallery_grid.dart';
 import 'package:flutter/material.dart';
 

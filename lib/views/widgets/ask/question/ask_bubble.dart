@@ -3,7 +3,6 @@ import 'package:bldrs/controllers/drafters/aligners.dart';
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/keyboarders.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
-import 'package:bldrs/controllers/drafters/streamerz.dart';
 import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
@@ -11,7 +10,8 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
-import 'package:bldrs/views/widgets/ask/questions_provider.dart';
+import 'package:bldrs/providers/users/user_streamer.dart';
+import 'package:bldrs/views/widgets/ask/question/questions_provider.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/balloons/user_balloon.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
@@ -21,20 +21,20 @@ import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class AskBubble extends StatefulWidget {
+class QuestionBubble extends StatefulWidget {
   final BzType bzType;
   final Function tappingAskInfo;
 
-  AskBubble({
+  QuestionBubble({
     this.bzType,
     @required this.tappingAskInfo,
   });
 
   @override
-  _AskBubbleState createState() => _AskBubbleState();
+  _QuestionBubbleState createState() => _QuestionBubbleState();
 }
 
-class _AskBubbleState extends State<AskBubble> {
+class _QuestionBubbleState extends State<QuestionBubble> {
   TextEditingController _askBodyController;
   TextEditingController _askTitleController;
   bool _askButtonInactive = true;

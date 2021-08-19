@@ -8,7 +8,7 @@ import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
-import 'package:bldrs/providers/country_provider.dart';
+import 'package:bldrs/providers/zones/zone_provider.dart';
 import 'package:bldrs/views/screens/a_3_auth_screen.dart';
 import 'package:bldrs/views/widgets/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/views/widgets/buttons/main_button.dart';

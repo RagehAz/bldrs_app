@@ -330,6 +330,12 @@ class FlyerModel with ChangeNotifier{
     return _controllers;
   }
 // -----------------------------------------------------------------------------
+  static FlyerModel getFlyerModelFromSnapshot(DocumentSnapshot doc){
+    var _map = doc.data();
+    FlyerModel _flyerModel = FlyerModel.decipherFlyerMap(_map);
+    return _flyerModel;
+  }
+// -----------------------------------------------------------------------------
 //   static FlyerModel getFlyerModelFromSuperFlyer(SuperFlyer superFlyer){
 //     FlyerModel _flyer;
 //

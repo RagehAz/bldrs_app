@@ -3,7 +3,7 @@ import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
-import 'package:bldrs/providers/country_provider.dart';
+import 'package:bldrs/providers/zones/zone_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

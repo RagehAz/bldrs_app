@@ -1,5 +1,5 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
-import 'package:bldrs/controllers/drafters/streamerz.dart';
+import 'package:bldrs/controllers/drafters/stream_checkers.dart';
 import 'package:bldrs/controllers/drafters/text_shapers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
@@ -128,7 +128,7 @@ class _ZonesManagerScreenState extends State<ZonesManagerScreen> {
                           List<dynamic> _countriesMaps = streamSnapshots?.data?.docs;
                           List<Country> _countries = Country.decipherCountriesMaps(_countriesMaps);
 
-                          if (connectionIsWaiting(streamSnapshots)){
+                          if (StreamChecker.connectionIsLoading(streamSnapshots)){
                             return Loading(loading: _loading,);
                           }
                           return ListView.builder(

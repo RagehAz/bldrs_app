@@ -25,7 +25,10 @@ class FlyerOps{
   /// flyer document reference
   DocumentReference flyerDocRef(String flyerID){
     return
-      Fire.getDocRef(FireCollection.flyers, flyerID);
+      Fire.getDocRef(
+          collName: FireCollection.flyers,
+          docName: flyerID
+      );
   }
 // -----------------------------------------------------------------------------
   /// create empty firestore flyer doc and return flyerID 'docID'
@@ -153,7 +156,7 @@ class FlyerOps{
 // -----------------------------------------------------------------------------
   Future<FlyerModel> readFlyerOps({BuildContext context, String flyerID}) async {
 
-    dynamic _flyerMap = await Fire().readDoc(
+    dynamic _flyerMap = await Fire.readDoc(
         context: context,
         collName: FireCollection.flyers,
         docName: flyerID
@@ -165,7 +168,7 @@ class FlyerOps{
 // -----------------------------------------------------------------------------
   Future<TinyFlyer> readTinyFlyerOps({BuildContext context, String flyerID}) async {
 
-    Map<String, dynamic> _tinyFlyerMap = await Fire().readDoc(
+    Map<String, dynamic> _tinyFlyerMap = await Fire.readDoc(
       context: context,
       collName: FireCollection.tinyFlyers,
       docName: flyerID,

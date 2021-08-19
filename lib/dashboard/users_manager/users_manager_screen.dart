@@ -1,13 +1,13 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
-import 'package:bldrs/controllers/drafters/streamerz.dart';
+import 'package:bldrs/controllers/drafters/stream_checkers.dart';
 import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/flagz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/secondary_models/contact_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
-import 'package:bldrs/providers/country_provider.dart';
-import 'package:bldrs/providers/users_provider.dart';
+import 'package:bldrs/providers/users/users_provider.dart';
+import 'package:bldrs/providers/zones/zone_provider.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/buttons/dream_wrapper.dart';
@@ -73,7 +73,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
         StreamBuilder<List<UserModel>>(
             stream: UserProvider().allUsersStream,
             builder: (context, snapshot){
-              if(connectionHasNoData(snapshot) || connectionIsWaiting(snapshot)){
+              if(StreamChecker.connectionIsLoading(snapshot) == true){
                 return LoadingFullScreenLayer();
               } else {
                 List<UserModel> _usersModels = snapshot.data;
