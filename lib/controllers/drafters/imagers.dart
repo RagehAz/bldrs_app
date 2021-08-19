@@ -737,4 +737,31 @@ static Future<List<File>> getFilesFromAssets(List<Asset> assets) async {
     return _assets;
   }
 // -----------------------------------------------------------------------------
+  static bool picturesURLsAreTheSame({List<String> urlsA, List<String> urlsB}){
+    bool _areTheSame = true;
+
+    if (urlsA == null && urlsB != null){
+      _areTheSame = false;
+    }
+
+    else if (urlsA != null && urlsB == null){
+      _areTheSame = false;
+    }
+
+    else if (urlsA.length != urlsB.length){
+      _areTheSame = false;
+    }
+
+    else {
+      for (int i =0; i< urlsA.length; i++){
+        if (urlsA[i] != urlsB[i]){
+          _areTheSame = false;
+          break;
+        }
+      }
+    }
+
+    return _areTheSame;
+  }
+// -----------------------------------------------------------------------------
 }

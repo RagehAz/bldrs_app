@@ -28,7 +28,10 @@ class BzOps{
   /// bz firestore document reference
   DocumentReference bzDocRef(String bzID){
     return
-      Fire.getDocRef(FireCollection.bzz, bzID);
+      Fire.getDocRef(
+          collName: FireCollection.bzz,
+          docName: bzID
+      );
   }
 // -----------------------------------------------------------------------------
   /// create bz operations on firestore
@@ -153,7 +156,7 @@ class BzOps{
 // -----------------------------------------------------------------------------
   static Future<BzModel> readBzOps({BuildContext context, String bzID}) async {
 
-    dynamic _bzMap = await Fire().readDoc(
+    dynamic _bzMap = await Fire.readDoc(
         context: context,
         collName: FireCollection.bzz,
         docName: bzID
@@ -165,7 +168,7 @@ class BzOps{
 // -----------------------------------------------------------------------------
   static Future<TinyBz> readTinyBzOps({BuildContext context, String bzID}) async {
 
-    Map<String, dynamic> _tinyBzMap = await Fire().readDoc(
+    Map<String, dynamic> _tinyBzMap = await Fire.readDoc(
       context: context,
       collName: FireCollection.tinyBzz,
       docName: bzID,

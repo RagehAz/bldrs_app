@@ -6,7 +6,6 @@ import 'package:bldrs/firestore/flyer_ops.dart';
 import 'package:bldrs/firestore/record_ops.dart';
 import 'package:bldrs/firestore/search_ops.dart';
 import 'package:bldrs/firestore/firestore.dart';
-import 'package:bldrs/firestore/user_ops.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/records/save_model.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
@@ -17,7 +16,7 @@ import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/models/user/user_model.dart';
-import 'package:bldrs/providers/country_provider.dart';
+import 'package:bldrs/providers/zones/zone_provider.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
@@ -111,7 +110,7 @@ class FlyersProvider with ChangeNotifier {
     print('fetching sponsors');
 
     /// 1 - get sponsors map from db/admin/sponsors
-    Map<String, dynamic> _sponsorsIDsMap = await Fire().readDoc(
+    Map<String, dynamic> _sponsorsIDsMap = await Fire.readDoc(
       context: context,
       collName: FireCollection.admin,
       docName: AdminDoc.sponsors,
@@ -156,7 +155,7 @@ class FlyersProvider with ChangeNotifier {
   Future<void> fetchAndSetUserTinyBzz(BuildContext context) async {
     String _userID = superUserID();
 
-    Map<String, dynamic> _userMap = await Fire().readDoc(
+    Map<String, dynamic> _userMap = await Fire.readDoc(
       context: context,
       collName: FireCollection.users,
       docName: _userID,
@@ -169,7 +168,7 @@ class FlyersProvider with ChangeNotifier {
     List<TinyBz> _userTinyBzzList = new List();
 
     for (var id in _userBzzIDs){
-      dynamic _tinyBzMap = await Fire().readDoc(
+      dynamic _tinyBzMap = await Fire.readDoc(
         context: context,
         collName: FireCollection.tinyBzz,
         docName: id,
@@ -593,152 +592,7 @@ class FlyersProvider with ChangeNotifier {
     notifyListeners();
   }
 // ############################################################################
-/// BZZ ON FIRE STORE
-// -----------------------------------------------------------------------------
-  /// bzz collection reference
-  final CollectionReference bzzCollection =
-  FirebaseFirestore.instance.collection(FireCollection.bzz);
-// -----------------------------------------------------------------------------
-  /// create Bz document
-  Future<void> createBzDocument(BzModel bz, UserModel userModel) async {
-
-  /// add bz to firestore
-  DocumentReference _docRef = bzzCollection.doc();
-  await _docRef.set(bz.toMap());
-
-  /// get back the document id and patch/update the document with id value
-  String bzID = _docRef.id;
-  await bzzCollection.doc(bzID).update({'bzID' : bzID});
-
-  /// create local bzModel adding the bzId
-  final BzModel _newBz = BzModel(
-    bzID: bzID,
-    // -------------------------
-    bzType: bz.bzType,
-    bzForm: bz.bzForm,
-    bldrBirth: bz.bldrBirth,
-    accountType: bz.accountType,
-    bzURL: bz.bzURL,
-    // -------------------------
-    bzName: bz.bzName,
-    bzLogo: bz.bzLogo,
-    bzScope: bz.bzScope,
-    bzZone: bz.bzZone,
-    bzAbout: bz.bzAbout,
-    bzPosition: bz.bzPosition,
-    bzContacts: bz.bzContacts,
-    bzAuthors: bz.bzAuthors,
-    bzShowsTeam: bz.bzShowsTeam,
-    // -------------------------
-    bzIsVerified: bz.bzIsVerified,
-    bzAccountIsDeactivated: bz.bzAccountIsDeactivated,
-    bzAccountIsBanned: bz.bzAccountIsBanned,
-    // -------------------------
-    bzTotalFollowers: bz.bzTotalFollowers,
-    bzTotalSaves: bz.bzTotalSaves,
-    bzTotalShares: bz.bzTotalShares,
-    bzTotalSlides: bz.bzTotalSlides,
-    bzTotalViews: bz.bzTotalViews,
-    bzTotalCalls: bz.bzTotalCalls,
-    // -------------------------
-    nanoFlyers: bz.nanoFlyers,
-    bzTotalFlyers: bz.bzTotalFlyers,
-  );
-
-  /// add this bz in author's userModel['myBzz']
-  userModel.myBzzIDs.insert(0, bzID);
-  List<String> _newMyBzzIDsList = userModel.myBzzIDs;
-
-  /// create new userModel with the new list of tempFollowedBzzIDs
-  UserModel _newUserModel = UserModel(
-    // -------------------------
-    userID : userModel.userID,
-    joinedAt : userModel.joinedAt,
-    userStatus : UserStatus.BzAuthor,
-    // -------------------------
-    name : userModel.name,
-    pic : userModel.pic,
-    title : userModel.title,
-    company : userModel.company,
-    gender : userModel.gender,
-    zone : userModel.zone,
-    language : userModel.language,
-    position : userModel.position,
-    contacts : userModel.contacts,
-    // -------------------------
-    myBzzIDs: _newMyBzzIDsList,
-  );
-
-  /// update firestore with the _newUserModel
-  /// when firebase finds the same userID
-  await UserOps().updateUserOps(updatedUserModel: _newUserModel, oldUserModel: userModel);
-
-  /// add the local bzModel to the local list of bzModels _loadedBzz
-  _loadedBzz.add(_newBz);
-
-  /// for sure never forget
-  notifyListeners();
-
-}
 // === === === === === === === === === === === === === === === === === === ===
-  Future<void> deleteBzDocument(BzModel bzModel) async {
-  DocumentReference _bzDocument = Fire.getDocRef(FireCollection.bzz, bzModel.bzID);
-  await _bzDocument.delete();
-}
-// === === === === === === === === === === === === === === === === === === ===
-  Future<void> updateFirestoreBz(BzModel bz) async {
-    final bzIndex = _loadedBzz.indexWhere((bzModel) => bzModel.bzID == bz.bzID);
-    if (bzIndex >= 0){
-
-      bzzCollection.doc(bz.bzID).set(bz.toMap());
-
-      _loadedBzz[bzIndex] = bz;
-      notifyListeners();
-    } else {
-      print('could not update this fucking bz : ${bz.bzName} : ${bz.bzID}');
-    }
-  }
-// === === === === === === === === === === === === === === === === === === ===
-  /// get flyer doc stream
-  Stream<FlyerModel> getFlyerStream(String flyerID) {
-    Stream<DocumentSnapshot> _flyerSnapshot = Fire.streamDoc(FireCollection.flyers, flyerID);
-    Stream<FlyerModel> _flyerStream = _flyerSnapshot.map(_flyerModelFromSnapshot);
-    return _flyerStream;
-  }
-// -----------------------------------------------------------------------------
-  /// get bz doc stream
-  Stream<BzModel> getBzStream(String bzID) {
-    Stream<DocumentSnapshot> _bzSnapshot = Fire.streamDoc(FireCollection.bzz, bzID);
-    Stream<BzModel> _bzStream = _bzSnapshot.map(_bzModelFromSnapshot);
-    return _bzStream;
-  }
-// -----------------------------------------------------------------------------
-  /// get bz doc stream
-  Stream<TinyBz> getTinyBzStream(String bzID) {
-    Stream<DocumentSnapshot> _bzSnapshot = Fire.streamDoc(FireCollection.tinyBzz, bzID);
-    Stream<TinyBz> _tinyBzStream = _bzSnapshot.map(_tinyBzModelFromSnapshot);
-    return _tinyBzStream;
-  }
-// -----------------------------------------------------------------------------
-  FlyerModel _flyerModelFromSnapshot(DocumentSnapshot doc){
-    var _map = doc.data();
-    FlyerModel _flyerModel = FlyerModel.decipherFlyerMap(_map);
-    return _flyerModel;
-  }
-// -----------------------------------------------------------------------------
-  BzModel _bzModelFromSnapshot(DocumentSnapshot doc){
-  var _map = doc.data();
-  BzModel _bzModel = BzModel.decipherBzMap(_map);
-  return _bzModel;
-  }
-// -----------------------------------------------------------------------------
-  TinyBz _tinyBzModelFromSnapshot(DocumentSnapshot doc){
-    var _map = doc.data();
-    TinyBz _tinyBz = TinyBz.decipherTinyBzMap(_map);
-    return _tinyBz;
-  }
-// -----------------------------------------------------------------------------
-  /// READs all Bzz in firebase realtime database
   Future<void> fetchAndSetBzz(BuildContext context) async {
 
     await tryAndCatch(

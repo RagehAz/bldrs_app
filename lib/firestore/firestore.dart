@@ -16,9 +16,9 @@ class FireCollection{
 
   static const String countries = 'countries';
 
-  static const String asks = 'asks';
-  static const String subAskChats = 'chats';
-  static const String subAskCounters = 'counters';
+  static const String questions = 'questions';
+  static const String subQuestionChats = 'chats';
+  static const String subQuestionCounters = 'counters';
 
   static const String bzz = 'bzz';
   static const String tinyBzz = 'tinyBzz';
@@ -83,7 +83,7 @@ class Fire{
   return _collection;
 }
 // -----------------------------------------------------------------------------
-  static DocumentReference getDocRef (String collName, String docName){
+  static DocumentReference getDocRef ({String collName, String docName}){
     CollectionReference _collection = Fire.getCollectionRef(collName);
     DocumentReference _doc =  _collection.doc(docName);
 
@@ -183,7 +183,10 @@ class Fire{
         methodName: 'createNamedDoc',
         functions: () async {
 
-          final _docRef = getDocRef(collName, docName);
+          final _docRef = getDocRef(
+              collName: collName,
+              docName: docName,
+          );
 
           await _docRef.set(input);
 
@@ -269,7 +272,7 @@ class Fire{
     return _maps;
   }
 // -----------------------------------------------------------------------------
-  Future<dynamic> readDoc({
+  static Future<dynamic> readDoc({
     BuildContext context,
     String collName,
     String docName
@@ -287,7 +290,10 @@ class Fire{
       methodName: 'readDoc',
       functions: () async {
 
-        final DocumentReference _docRef = Fire.getDocRef(collName, docName);
+        final DocumentReference _docRef = Fire.getDocRef(
+            collName: collName,
+            docName: docName
+        );
         // print('readDoc() : _docRef : $_docRef');
 
         _map = await _getMapByDocRef(_docRef);
@@ -318,7 +324,7 @@ class Fire{
         context: context,
         methodName: 'readDocField',
         functions: () async {
-          _map = await Fire().readDoc(
+          _map = await Fire.readDoc(
             context: context,
             collName: collName,
             docName: docName,
@@ -430,7 +436,10 @@ class Fire{
   }
 // -----------------------------------------------------------------------------
   static Stream<DocumentSnapshot> streamDoc(String collectionName, String documentName){
-    DocumentReference _document = Fire.getDocRef(collectionName, documentName);
+    DocumentReference _document = Fire.getDocRef(
+        collName: collectionName,
+        docName: documentName
+    );
     Stream<DocumentSnapshot> _snapshots = _document.snapshots();
     return _snapshots;
   }
@@ -447,6 +456,7 @@ class Fire{
       subCollName: subCollName,
       subDocName: subDocName,
     );
+
 
     Stream<DocumentSnapshot> _snapshots = _document.snapshots();
     return _snapshots;
@@ -489,7 +499,10 @@ class Fire{
     dynamic input
   }) async {
 
-    DocumentReference _doc =  Fire.getDocRef(collName, docName);
+    DocumentReference _doc =  Fire.getDocRef(
+        collName: collName,
+        docName: docName
+    );
 
     await tryAndCatch(
       context: context,
@@ -582,7 +595,12 @@ class Fire{
         context: context,
         methodName: 'deleteDoc',
         functions: () async {
-          DocumentReference _doc = Fire.getDocRef(collName, docName);
+
+          DocumentReference _doc = Fire.getDocRef(
+              collName: collName,
+              docName: docName,
+          );
+
           await _doc.delete();
         }
     );
@@ -675,7 +693,10 @@ class Fire{
     String field,
 }) async {
 
-    DocumentReference _docRef = Fire.getDocRef(collName, docName);
+    DocumentReference _docRef = Fire.getDocRef(
+        collName: collName,
+        docName: docName,
+    );
 
     // await tryAndCatch(
     //     context: context,
@@ -817,6 +838,26 @@ class Fire{
 
     return _picturesURLs;
   }
+// -----------------------------------------------------------------------------
+  static Future<List<String>> createMultipleStoragePicsAndGetURLs({
+    BuildContext context,
+    List<dynamic> pics,
+    List<String> names,
+  }) async {
+    List<String> picsURLs = new List();
+
+    for (var pic in pics) {
+      String _picURL = await Fire.createStoragePicAndGetURL(
+        context: context,
+        inputFile: pic,
+        picType: PicType.slideHighRes,
+        fileName: null,
+      );
+      picsURLs.add(_picURL);
+    }
+
+    return picsURLs;
+}
 // -----------------------------------------------------------------------------
   /// TASK : createStoragePicFromAssetAndGetURL not tested properly
   static Future<String> createStoragePicFromLocalAssetAndGetURL ({
