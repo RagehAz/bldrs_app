@@ -1,4 +1,3 @@
-import 'package:bldrs/controllers/drafters/text_directionerz.dart';
 import 'package:bldrs/controllers/drafters/text_shapers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:flutter/material.dart';

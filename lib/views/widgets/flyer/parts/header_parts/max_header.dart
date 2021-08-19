@@ -1,5 +1,4 @@
 import 'package:bldrs/controllers/drafters/borderers.dart';
-import 'package:bldrs/controllers/drafters/streamerz.dart';
 import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
@@ -10,6 +9,7 @@ import 'package:bldrs/models/bz/author_model.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/models/flyer/nano_flyer.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
+import 'package:bldrs/providers/flyers_and_bzz/bz_streamer.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/bz_pg_counter.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/bz_pg_fields.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/bz_pg_verse.dart';

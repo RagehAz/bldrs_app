@@ -3,17 +3,17 @@ import 'package:bldrs/controllers/router/route_names.dart';
 import 'package:bldrs/controllers/router/router.dart';
 import 'package:bldrs/firestore/user_ops.dart';
 import 'package:bldrs/models/user/user_model.dart';
-import 'package:bldrs/providers/country_provider.dart';
-import 'package:bldrs/providers/flyers_provider.dart';
+import 'package:bldrs/providers/zones/zone_provider.dart';
+import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
 import 'package:bldrs/views/screens/a_0_user_checker_widget.dart';
 import 'package:bldrs/views/screens/b_0_home_screen.dart';
 import 'package:bldrs/views/screens/h_0_flyer_screen.dart';
+import 'package:bldrs/views/widgets/ask/question/questions_provider.dart';
 import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:bldrs/xxx_LABORATORY/camera_and_location/test_provider.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/dynamic_links_test.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/rendering.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -214,6 +214,9 @@ void receiveAndActUponNoti({dynamic msgMap, NotiType notiType}){
           ),
           ChangeNotifierProvider(
             create: (ctx) => GreatPlaces(),
+          ),
+          ChangeNotifierProvider(
+            create: (ctx) => QuestionsProvider(),
           ),
         ],
         child: MaterialApp(

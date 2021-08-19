@@ -1,19 +1,11 @@
-import 'dart:io';
-import 'dart:typed_data';
-
 import 'package:bldrs/controllers/drafters/borderers.dart';
-import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
-import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/bz/author_model.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
-import 'package:bldrs/models/secondary_models/image_size.dart';
-import 'package:bldrs/views/screens/x_3_slide_full_screen.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/views/widgets/dialogs/bottom_dialog.dart';
 import 'package:bldrs/views/widgets/flyer/editor/panel_button.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';

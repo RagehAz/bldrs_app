@@ -1,9 +1,9 @@
+import 'package:bldrs/views/widgets/ask/quest/quest_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'question_model.dart';
 
 class QuestionsProvider with ChangeNotifier {
-  List<Question> _questions = [];
+  List<Quest> _questions = [];
 // ----------------------------------------------------------------------------
   CollectionReference questionsFirebase =
       FirebaseFirestore.instance.collection('questions');
@@ -18,7 +18,7 @@ class QuestionsProvider with ChangeNotifier {
     _questions.clear();
     questionsFirebase.get().then((QuerySnapshot querySnapshot) => {
           querySnapshot.docs.forEach((doc) {
-            Question newQuestion = Question.fromMap(doc.data());
+            Quest newQuestion = Quest.fromMap(doc.data());
             _questions.add(newQuestion);
           })
         });

@@ -1,7 +1,7 @@
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
-import 'package:bldrs/providers/flyers_provider.dart';
-import 'package:bldrs/views/screens/xx_questions_screen.dart';
+import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
+import 'package:bldrs/views/widgets/ask/question/s30_ask_screen.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:bldrs/views/widgets/walls/home_wall.dart';
@@ -89,7 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
         sky: Sky.Night,
         canRefreshFlyers: false,
         tappingRageh: () async {
-          await Nav.goToNewScreen(context, QuestionsScreen());
+          await Nav.goToNewScreen(context, QuestionScreen());
         },
         layoutWidget: _isLoading == true ?
         Center(child: Loading(loading: _isLoading,))

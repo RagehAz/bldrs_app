@@ -1,12 +1,12 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
-import 'package:bldrs/controllers/drafters/streamerz.dart';
+import 'package:bldrs/providers/users/user_streamer.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/firestore/bz_ops.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
-import 'package:bldrs/providers/flyers_provider.dart';
+import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
 import 'package:bldrs/views/widgets/bubbles/flyers_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/main_button.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';

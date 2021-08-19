@@ -31,7 +31,10 @@ class UserOps{
   /// user firestore document reference
   DocumentReference userDocRef(String userID){
     return
-      Fire.getDocRef(FireCollection.users, userID);
+      Fire.getDocRef(
+          collName: FireCollection.users,
+          docName: userID,
+      );
   }
 // -----------------------------------------------------------------------------
   /// create or update user document
@@ -105,7 +108,7 @@ class UserOps{
 
     print('readUserOps : Start reading user $userID while lang is : ${Wordz.languageCode(context)},');
 
-    Map<String, dynamic> _userMap = await Fire().readDoc(
+    Map<String, dynamic> _userMap = await Fire.readDoc(
       context: context,
       collName: FireCollection.users,
       docName: userID,

@@ -7,12 +7,12 @@ import 'package:flutter/material.dart';
 
 import 'ask_bubble.dart';
 
-class AskScreen extends StatefulWidget {
+class QuestionScreen extends StatefulWidget {
   @override
-  _AskScreenState createState() => _AskScreenState();
+  _QuestionScreenState createState() => _QuestionScreenState();
 }
 
-class _AskScreenState extends State<AskScreen> {
+class _QuestionScreenState extends State<QuestionScreen> {
 
   // ----------------------------------------------------------------------
   /// --- LOADING BLOCK
@@ -73,7 +73,7 @@ class _AskScreenState extends State<AskScreen> {
               ),
 
               // --- ASK BUBBLE
-              AskBubble(
+              QuestionBubble(
                 tappingAskInfo: () {print('Ask info is tapped aho');},
               ),
 

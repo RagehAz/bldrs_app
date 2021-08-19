@@ -4,7 +4,7 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
-import 'package:bldrs/providers/flyers_provider.dart';
+import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
 import 'package:bldrs/views/widgets/dialogs/section_dialog/section_dialog.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';

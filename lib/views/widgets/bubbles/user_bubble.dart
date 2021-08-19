@@ -7,7 +7,7 @@ import 'package:bldrs/controllers/theme/flagz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/user/user_model.dart';
-import 'package:bldrs/providers/country_provider.dart';
+import 'package:bldrs/providers/zones/zone_provider.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/balloons/user_balloon.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
@@ -36,11 +36,11 @@ class UserBubble extends StatelessWidget {
     String _provinceName = _countryPro.getCityNameWithCurrentLanguageIfPossible(context, user?.zone?.cityID);
     String _areaName = _countryPro.getDistrictNameWithCurrentLanguageIfPossible(context, user?.zone?.districtID);
 
-    double screenWidth = Scale.superScreenWidth(context);
-    double screenHeight = Scale.superScreenHeight(context);
+    double _screenWidth = Scale.superScreenWidth(context);
+    double _screenHeight = Scale.superScreenHeight(context);
 
-    double topPadding = screenHeight * 0.05;
-    double editProfileBtSize = topPadding ;
+    double _topPadding = _screenHeight * 0.05;
+    double _editProfileBtSize = _topPadding ;
 
     return InPyramidsBubble(
 
@@ -48,11 +48,11 @@ class UserBubble extends StatelessWidget {
       columnChildren: <Widget>[
 
         Container(
-          height: topPadding,
+          height: _topPadding,
           alignment: Aligners.superInverseCenterAlignment(context),
           child: DreamBox(
-            height: editProfileBtSize,
-            width: editProfileBtSize,
+            height: _editProfileBtSize,
+            width: _editProfileBtSize,
             icon: Iconz.Gears,
             iconSizeFactor: 0.6,
             bubble: true,
@@ -106,8 +106,8 @@ class UserBubble extends StatelessWidget {
         ),
 
         SizedBox(
-          width: screenWidth,
-          height: screenHeight * 0.05,
+          width: _screenWidth,
+          height: _screenHeight * 0.05,
         ),
 
       ],

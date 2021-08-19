@@ -1,17 +1,12 @@
 import 'package:bldrs/controllers/drafters/aligners.dart';
-import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/firestore/auth_ops.dart';
-import 'package:bldrs/models/bz/author_model.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
-import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
-import 'package:bldrs/models/user/tiny_user.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/author_bubble/author_bubble.dart';
-import 'package:bldrs/views/widgets/flyer/parts/header_parts/author_bubble/author_label.dart';
 import 'package:bldrs/views/widgets/flyer/stacks/gallery_grid.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';

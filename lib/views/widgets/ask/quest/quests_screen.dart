@@ -1,15 +1,15 @@
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/views/widgets/ask/quest/quests_list.dart';
+import 'package:bldrs/views/widgets/ask/question/questions_provider.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'questions_list.dart';
-import 'questions_provider.dart';
 
-class QuestionsScreen extends StatelessWidget {
-  const QuestionsScreen({Key key}) : super(key: key);
+class QuesScreen extends StatelessWidget {
+  const QuesScreen({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class QuestionsScreen extends StatelessWidget {
 
         ],
 
-        layoutWidget: QuestionsList(questions: questionsProvider.getQuestionsList()),
+        layoutWidget: QuestList(questions: questionsProvider.getQuestionsList()),
       ),
     );
   }
