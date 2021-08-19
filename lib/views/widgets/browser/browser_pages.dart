@@ -6,7 +6,7 @@ import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/keywords/groups.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
-import 'package:bldrs/providers/flyers_provider.dart';
+import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
 import 'package:bldrs/views/widgets/browser/filters_page.dart';
 import 'package:bldrs/views/widgets/browser/groups_page.dart';
 import 'package:bldrs/views/widgets/browser/keywords_page.dart';

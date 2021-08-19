@@ -2,6 +2,7 @@ import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 // -----------------------------------------------------------------------------
 class TinyBz with ChangeNotifier{
@@ -162,6 +163,12 @@ class TinyBz with ChangeNotifier{
             bzTotalFollowers: superFlyer.bz.bzTotalFollowers,
             bzTotalFlyers: superFlyer.bz.bzTotalFlyers,
         );
+  }
+// -----------------------------------------------------------------------------
+  static TinyBz getTinyBzModelFromSnapshot(DocumentSnapshot doc){
+    var _map = doc.data();
+    TinyBz _tinyBz = TinyBz.decipherTinyBzMap(_map);
+    return _tinyBz;
   }
 // -----------------------------------------------------------------------------
 }

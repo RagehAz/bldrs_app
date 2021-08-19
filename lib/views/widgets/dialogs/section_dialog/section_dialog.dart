@@ -3,7 +3,7 @@ import 'package:bldrs/controllers/drafters/scrollers.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
-import 'package:bldrs/providers/flyers_provider.dart';
+import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/section_dialog/section_bubble.dart';
 import 'package:bldrs/views/widgets/dialogs/section_dialog/section_button.dart';

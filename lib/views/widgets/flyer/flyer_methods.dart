@@ -5,7 +5,6 @@ import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:flutter/material.dart';
-import 'package:multi_image_picker2/multi_image_picker2.dart';
 
 enum FlyerMode {
   tinyModeByFlyerID,

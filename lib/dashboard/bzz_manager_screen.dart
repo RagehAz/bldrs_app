@@ -69,7 +69,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
         // loading: _loading,
         layoutWidget: FutureBuilder(
           // TASK : can use bzModelBuilder here
-            future: Fire().readDoc(
+            future: Fire.readDoc(
               context: context,
                 collName: FireCollection.bzz,
                 docName: _bzID,

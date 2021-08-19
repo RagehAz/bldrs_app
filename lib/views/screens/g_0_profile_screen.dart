@@ -1,5 +1,5 @@
 import 'package:bldrs/controllers/drafters/scrollers.dart';
-import 'package:bldrs/controllers/drafters/streamerz.dart';
+import 'package:bldrs/controllers/drafters/stream_checkers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
@@ -8,7 +8,7 @@ import 'package:bldrs/firestore/bz_ops.dart';
 import 'package:bldrs/firestore/user_ops.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/models/user/user_model.dart';
-import 'package:bldrs/providers/flyers_provider.dart';
+import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
 import 'package:bldrs/views/screens/g_1_news_screen.dart';
 import 'package:bldrs/views/screens/g_x_user_editor_screen.dart';
 import 'package:bldrs/views/widgets/bubbles/contacts_bubble.dart';
@@ -341,7 +341,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                 switchUserType: (type) => _switchUserStatus(type),
                 editProfileBtOnTap: () =>
                     _slideUserOptions(context, widget.userModel),
-                loading: userModelIsLoading(widget.userModel),
+                loading: StreamChecker.valueIsLoading(widget.userModel),
               ),
 
               InPyramidsBubble(

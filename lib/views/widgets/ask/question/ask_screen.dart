@@ -1,12 +1,11 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
-import 'package:bldrs/views/widgets/ask/ask_bubble.dart';
+import 'package:bldrs/views/widgets/ask/quest/quests_screen.dart';
+import 'package:bldrs/views/widgets/ask/question/ask_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/pyramids/enum_lister.dart';
 import 'package:flutter/material.dart';
-
-import 'questions_screen.dart';
 
 Map<String, Object> bzTypesMap = {
   'Title' : 'Business Types',
@@ -82,7 +81,7 @@ class _OldAskScreenState extends State<OldAskScreen> {
                   Stratosphere(),
 
 
-                  AskBubble(
+                  QuestionBubble(
                     tappingAskInfo: () {
                       print('Ask info is tapped aho');
                     },
@@ -99,15 +98,11 @@ class _OldAskScreenState extends State<OldAskScreen> {
                     height: 80,
                     width: Scale.superScreenWidth(context),
                     verse: 'Go to Questions Screen',
-                    onTap: () => Nav.goToNewScreen(context, QuestionsScreen()),
+                    onTap: () => Nav.goToNewScreen(context, QuesScreen()),
                   ),
 
-
-
-
-
-
                   PyramidsHorizon(heightFactor: 10),
+
                 ]),
               ),
 

@@ -7,12 +7,12 @@ import 'package:flutter/material.dart';
 
 class ChatBubble extends StatelessWidget {
   final String verse;
-  final bool myVerse;
+  final bool isMyVerse;
   final String userID;
 
   ChatBubble({
     @required this.verse,
-    @required this.myVerse,
+    @required this.isMyVerse,
     @required this.userID,
 });
 
@@ -23,14 +23,14 @@ class ChatBubble extends StatelessWidget {
     double _corner = Ratioz.appBarCorner;
     BorderRadius _bubbleBorderss = Borderers.superBorderAll(context, _corner);
 
-    BorderRadius _bubbleBorders = myVerse ?
+    BorderRadius _bubbleBorders = isMyVerse ?
     Borderers.superBorderOnly(context: context, enTopLeft: _corner, enBottomLeft: _corner, enBottomRight: 0, enTopRight: _corner)
         :
     Borderers.superBorderOnly(context: context, enTopLeft: 0, enBottomLeft: _corner, enBottomRight: _corner, enTopRight: _corner) ;
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: myVerse ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+      crossAxisAlignment: isMyVerse ? CrossAxisAlignment.end : CrossAxisAlignment.start,
       children: <Widget>[
 
         // FutureBuilder(
@@ -52,7 +52,7 @@ class ChatBubble extends StatelessWidget {
         // ),
 
         Row(
-          mainAxisAlignment: myVerse ? MainAxisAlignment.end : MainAxisAlignment.start,
+          mainAxisAlignment: isMyVerse ? MainAxisAlignment.end : MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Container(
@@ -61,7 +61,7 @@ class ChatBubble extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: Ratioz.appBarPadding, horizontal: Ratioz.appBarMargin * 2),
               decoration: BoxDecoration(
                 borderRadius: _bubbleBorders,
-                color: myVerse ? Colorz.BloodTest : Colorz.White10,
+                color: isMyVerse ? Colorz.BloodTest : Colorz.White10,
 
               ),
               child: SuperVerse(

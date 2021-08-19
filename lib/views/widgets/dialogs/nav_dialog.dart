@@ -1,5 +1,4 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
-import 'package:bldrs/controllers/drafters/streamerz.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/firestore/auth_ops.dart';
@@ -7,6 +6,8 @@ import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/nav_bar/nav_bar.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
+import 'package:bldrs/providers/users/user_streamer.dart';
+
 
 class NavDialog extends StatelessWidget {
   final String firstLine;

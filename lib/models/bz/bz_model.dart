@@ -1,6 +1,5 @@
 import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
-import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/models/flyer/nano_flyer.dart';
 import 'package:bldrs/models/bz/author_model.dart';
 import 'package:bldrs/models/secondary_models/contact_model.dart';
@@ -405,6 +404,13 @@ Map<String, dynamic> toMap(){
 
     return _bz;
   }
+// -----------------------------------------------------------------------------
+  static BzModel getBzModelFromSnapshot(DocumentSnapshot doc){
+    var _map = doc.data();
+    BzModel _bzModel = BzModel.decipherBzMap(_map);
+    return _bzModel;
+  }
+// -----------------------------------------------------------------------------
 }
 // -----------------------------------------------------------------------------
 enum BzType {

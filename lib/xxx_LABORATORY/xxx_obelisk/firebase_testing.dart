@@ -246,7 +246,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
       {'Name' : 'Fire.readDoc', 'function' : () async {
         _triggerLoading();
 
-        dynamic _subDoc = await Fire().readDoc(
+        dynamic _subDoc = await Fire.readDoc(
           collName: FireCollection.flyers,
           docName: 'f005',
         );
