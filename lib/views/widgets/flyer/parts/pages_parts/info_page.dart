@@ -1,15 +1,14 @@
 import 'package:bldrs/controllers/drafters/borderers.dart';
-import 'package:bldrs/controllers/drafters/numberers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/scrollers.dart';
 import 'package:bldrs/controllers/drafters/sliders.dart';
-import 'package:bldrs/controllers/theme/dumz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/models/user/tiny_user.dart';
 import 'package:bldrs/providers/zones/zone_provider.dart';
+import 'package:bldrs/views/widgets/flyer/parts/pages_parts/info_page_parts/review_bubble.dart';
 import 'package:bldrs/views/widgets/keywords/keywords_bubble.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -30,46 +29,6 @@ class InfoPage extends StatelessWidget {
     @required this.flyerZoneWidth,
   });
 
-  List<TinyUser> _getUsers(){
-
-    final List<TinyUser> _users = <TinyUser>[
-      TinyUser(
-        name: 'Ahmad Ali',
-        pic: Iconz.DumAuthorPic,
-        userID: '1',
-        title: '',
-      ),
-      TinyUser(
-        name: 'Morgan Darwish',
-        pic: Dumz.XXabohassan_author,
-        userID: '2',
-        title: '',
-      ),
-      TinyUser(
-        name: 'Zahi Fayez',
-        pic: Dumz.XXzah_author,
-        userID: '3',
-        title: '',
-      ),
-      TinyUser(
-        name: 'Hani Wani',
-        pic: Dumz.XXhs_author,
-        userID: '4',
-        title: '',
-      ),
-      TinyUser(
-        name: 'Nada Mohsen',
-        pic: Dumz.XXmhdh_author,
-        userID: '5',
-        title: '',
-      ),
-
-    ];
-
-
-    return _users;
-  }
-
   @override
   Widget build(BuildContext context) {
 
@@ -81,28 +40,14 @@ class InfoPage extends StatelessWidget {
     double _peopleIconSize = flyerZoneWidth * Ratioz.xxflyerAuthorPicWidth * 0.7;
     double _peopleNameHeight = _peopleBubbleBoxHeight - _peopleIconSize;
 
-    double _headerAndProgressHeights = Scale.superHeaderAndProgressHeights(context, flyerZoneWidth);
+    double _headerHeight = Scale.superHeaderHeight(false, flyerZoneWidth);
 
     EdgeInsets _bubbleMargins = EdgeInsets.only(top: Ratioz.appBarPadding, left: Ratioz.appBarPadding, right: Ratioz.appBarPadding);
     double _cornerSmall = flyerZoneWidth * Ratioz.xxflyerTopCorners;
     double _cornerBig = (flyerZoneWidth - (Ratioz.appBarPadding * 2)) * Ratioz.xxflyerBottomCorners;
     BorderRadius _bubbleCorners = Borderers.superBorderAll(context, flyerZoneWidth * Ratioz.xxflyerTopCorners);
 
-    BorderRadius _keywordsBubbleCorners = Borderers.superBorderOnly(
-      context: context,
-      enTopLeft: _cornerSmall,
-      enTopRight: _cornerSmall,
-      enBottomLeft: _cornerBig,
-      enBottomRight: _cornerBig,
-    );
-
-    // List<Keyword> _keywords = <Keyword>[
-    //   Keyword.bldrsKeywords()[100],
-    //   Keyword.bldrsKeywords()[120],
-    //   Keyword.bldrsKeywords()[205],
-    //   Keyword.bldrsKeywords()[403],
-    //   Keyword.bldrsKeywords()[600],
-    // ];
+    BorderRadius _keywordsBubbleCorners = Borderers.superBorderAll(context, flyerZoneWidth * Ratioz.xxflyerTopCorners);
 
     FlyerType _flyerType = superFlyer.flyerType == null ? FlyerTypeClass.concludeFlyerType(superFlyer.bz.bzType) : superFlyer.flyerType;
 
@@ -111,7 +56,7 @@ class InfoPage extends StatelessWidget {
     String _cityNameRetrieved = _countryPro.getCityNameWithCurrentLanguageIfPossible(context, superFlyer.flyerZone.cityID);
     String _cityName = _cityNameRetrieved == null ? '.....' : _cityNameRetrieved;
 
-    List<TinyUser> _users = _getUsers();
+    List<TinyUser> _users = TinyUser.dummyTinyUsers();
 
     bool _editMode = superFlyer.edit.editMode == true;
 
@@ -140,9 +85,9 @@ class InfoPage extends StatelessWidget {
         }
 
         return true;
-        },
+      },
       child: ListView(
-        key: PageStorageKey<String>('${Numberers.createUniqueIntFrom(existingValues: [1, 2])}'), // TASK : fix
+        key: PageStorageKey(2),
         physics: const BouncingScrollPhysics(),
         shrinkWrap: false,
         controller: superFlyer.nav.infoScrollController,
@@ -151,7 +96,7 @@ class InfoPage extends StatelessWidget {
           /// HEADER FOOTPRINT ZONE
           Container(
             width: flyerZoneWidth,
-            height: _headerAndProgressHeights,
+            height: _headerHeight,
           ),
 
           /// ALL STATS
@@ -228,17 +173,17 @@ class InfoPage extends StatelessWidget {
 
           /// FLYER INFO
           if (_flyerInfoExists)
-          ParagraphBubble(
-            bubbleWidth: _bubbleWidth,
-            margins: _bubbleMargins,
-            corners: _bubbleCorners,
-            title: 'More info',
-            maxLines: 3,
-            centered: false,
-            paragraph: _flyerInfoParagraph,
-            editMode: superFlyer.edit.editMode,
-            onParagraphTap: superFlyer.edit.onEditInfoTap,
-          ),
+            ParagraphBubble(
+              bubbleWidth: _bubbleWidth,
+              margins: _bubbleMargins,
+              corners: _bubbleCorners,
+              title: 'More info',
+              maxLines: 3,
+              centered: false,
+              paragraph: _flyerInfoParagraph,
+              editMode: superFlyer.edit.editMode,
+              onParagraphTap: superFlyer.edit.onEditInfoTap,
+            ),
 
           /// SAVES BUBBLE
           if (_editMode != true)
@@ -268,15 +213,22 @@ class InfoPage extends StatelessWidget {
             ),
 
           /// KEYWORDS
-          KeywordsBubble(
-            bubbleWidth: _bubbleWidth,
-            margins: _bubbleMargins,
-            corners: _keywordsBubbleCorners,
-            title: 'Flyer keywords',
-            keywords: superFlyer.keywords,
-            selectedWords: null,
-            onTap: _editMode == true ? superFlyer.edit.onEditKeywordsTap : null,
-            addButtonIsOn: superFlyer.edit.editMode,
+          if (superFlyer.keywords != null && superFlyer.keywords.length != 0)
+            KeywordsBubble(
+              bubbleWidth: _bubbleWidth,
+              margins: _bubbleMargins,
+              corners: _keywordsBubbleCorners,
+              title: 'Flyer keywords',
+              keywords: superFlyer.keywords,
+              selectedWords: null,
+              onTap: _editMode == true ? superFlyer.edit.onEditKeywordsTap : null,
+              addButtonIsOn: superFlyer.edit.editMode,
+            ),
+
+
+          ReviewBubble(
+            flyerZoneWidth: flyerZoneWidth,
+            superFlyer: superFlyer,
           ),
 
           SizedBox(
@@ -287,4 +239,5 @@ class InfoPage extends StatelessWidget {
       ),
     );
   }
+
 }

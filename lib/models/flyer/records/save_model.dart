@@ -21,7 +21,7 @@ Map<String, dynamic> toFlyerSaveMap(){
   return {
     'slideIndexes' : slideIndexes,
     'saveState' : cipherSaveState(saveState),
-    'timeStamps' : cipherListOfDateTimes(timeStamps),
+    'timeStamps' : Timers.cipherListOfDateTimes(timeStamps),
   };
 }
 // -----------------------------------------------------------------------------
@@ -55,7 +55,7 @@ Map<String, dynamic> toFlyerSaveMap(){
       String _flyerID = saveModels[_index].flyerID;
       List<dynamic> slideIndexes = saveModels[_index].slideIndexes;
       int _saveState = cipherSaveState(saveModels[_index].saveState);
-      List<String> _timeStamps = cipherListOfDateTimes(saveModels[_index].timeStamps);
+      List<String> _timeStamps = Timers.cipherListOfDateTimes(saveModels[_index].timeStamps);
 
       _mapOfSaves.addAll({
 
@@ -86,7 +86,7 @@ Map<String, dynamic> toFlyerSaveMap(){
       flyerID: _flyersIDs[i],
       slideIndexes: _savesMaps[i]['slideIndexes'],
       saveState: SaveModel.decipherSaveState(_savesMaps[i]['saveState']),
-      timeStamps: decipherListOfDateTimesStrings(_savesMaps[i]['timeStamps']),
+      timeStamps: Timers.decipherListOfDateTimesStrings(_savesMaps[i]['timeStamps']),
     ));
   }
 

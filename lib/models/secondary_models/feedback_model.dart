@@ -15,7 +15,7 @@ class FeedbackModel{
   Map<String, dynamic> toMap(){
     return {
       'userID' : userID,
-      'timeStamp' : cipherDateTimeToString(timeStamp),
+      'timeStamp' : Timers.cipherDateTimeToString(timeStamp),
       'feedback' : feedback,
     };
   }
@@ -24,7 +24,7 @@ static FeedbackModel decipherFeedbackMap(Map<String, dynamic> map){
     return
         FeedbackModel(
           userID: map['userID'],
-          timeStamp: decipherDateTimeString(map['timeStamp']),
+          timeStamp: Timers.decipherDateTimeString(map['timeStamp']),
           feedback: map['feedback'],
         );
 }

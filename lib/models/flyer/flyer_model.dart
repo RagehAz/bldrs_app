@@ -84,7 +84,7 @@ class FlyerModel with ChangeNotifier{
       'tinyAuthor' : tinyAuthor.toMap(),
       'tinyBz' : tinyBz.toMap(),
       // -------------------------
-      'publishTime' : cipherDateTimeToString(publishTime),
+      'publishTime' : Timers.cipherDateTimeToString(publishTime),
       'flyerPosition' : flyerPosition,
       // -------------------------
       'ankhIsOn' : ankhIsOn,
@@ -92,7 +92,7 @@ class FlyerModel with ChangeNotifier{
       'slides' : SlideModel.cipherSlidesModels(slides),
       // -------------------------
       'flyerIsBanned' : flyerIsBanned,
-      'deletionTime' : cipherDateTimeToString(deletionTime),
+      'deletionTime' : Timers.cipherDateTimeToString(deletionTime),
       'specs' : Spec.cipherSpecs(specs),
       'info' : info,
     };
@@ -193,13 +193,13 @@ class FlyerModel with ChangeNotifier{
         tinyAuthor: TinyUser.decipherTinyUserMap(map['tinyAuthor']),
         tinyBz: TinyBz.decipherTinyBzMap(map['tinyBz']),
         // -------------------------
-        publishTime: decipherDateTimeString(map['publishTime']),
+        publishTime: Timers.decipherDateTimeString(map['publishTime']),
         flyerPosition: map['flyerPosition'],
         // -------------------------
         slides: SlideModel.decipherSlidesMaps(map['slides']),
         // -------------------------
         flyerIsBanned: map['flyerIsBanned'],
-        deletionTime: decipherDateTimeString(map['deletionTime']),
+        deletionTime: Timers.decipherDateTimeString(map['deletionTime']),
         specs: Spec.decipherSpecs(map['specs']),
         info: map['info'],
       );

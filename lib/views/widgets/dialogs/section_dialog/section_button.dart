@@ -10,7 +10,7 @@ import 'package:bldrs/providers/zones/zone_provider.dart';
 import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
-import 'package:bldrs/views/widgets/dialogs/dialog_button.dart';
+import 'package:bldrs/views/widgets/dialogs/center_dialog/dialog_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

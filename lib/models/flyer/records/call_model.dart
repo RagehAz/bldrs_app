@@ -12,14 +12,14 @@ class CallModel {
   Map<String, Object> toMap(){
     return {
       'slidesIndexes' : slidesIndexes,
-      'timeStamps' : cipherListOfDateTimes(timeStamps),
+      'timeStamps' : Timers.cipherListOfDateTimes(timeStamps),
     };
   }
 // -----------------------------------------------------------------------------
   static CallModel decipherCallMap(Map<String, dynamic> map){
     return CallModel(
       slidesIndexes: map['slidesIndexes'],
-      timeStamps: decipherListOfDateTimesStrings(map['timeStamps']),
+      timeStamps: Timers.decipherListOfDateTimesStrings(map['timeStamps']),
     );
   }
 // -----------------------------------------------------------------------------

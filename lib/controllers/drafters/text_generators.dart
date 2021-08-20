@@ -169,7 +169,6 @@ class TextGenerator{
     return verse;
   }
 // -----------------------------------------------------------------------------
-
   static String functionStringer(Function function) {
     String functionNameAsAString = function.toString();
     int s = functionNameAsAString.indexOf('\'');
@@ -201,43 +200,6 @@ class TextGenerator{
       bzType == BzType.Contractor ? Wordz.contractors(context) :
       bzType == BzType.Artisan ? Wordz.craftsmen(context) :
       Wordz.bldrsShortName(context);
-  }
-// -----------------------------------------------------------------------------
-  static String monthYearStringer(BuildContext context, DateTime time){
-    return
-      '${Wordz.inn(context)} ${Wordz.bldrsShortName(context)} since : ${getMonthNameByInt(context, (time).month)} ${(time).year}';
-  }
-// -----------------------------------------------------------------------------
-  static String dayMonthYearStringer(BuildContext context, DateTime time){
-    return
-      '${Wordz.inn(context)} ${Wordz.bldrsShortName(context)} since : ${(time).day} ${getMonthNameByInt(context, (time).month)} ${(time).year}';
-  }
-// -----------------------------------------------------------------------------
-static String hourMinuteSecondStringer(DateTime time){
-    return
-        '${time.hour}:${time.minute}:${time.second}';
-}
-// -----------------------------------------------------------------------------
-static String hourMinuteSecondListOfStrings(List<DateTime> times){
-    String _output = '';
-
-    for (int i = 0; i<times.length; i++){
-      _output = '${_output+hourMinuteSecondStringer(times[i])}\n';
-    }
-    return _output;
-}
-// -----------------------------------------------------------------------------
-  static String hourMinuteSecondListOfStringsWithIndexes(List<DateTime> times, List<int> indexes){
-    String _output = '';
-
-    for (int i = 0; i<times.length; i++){
-
-      String _indexString = '${indexes[i]} : ';
-      String _timeStampString =  '${hourMinuteSecondStringer(times[i])}';
-
-      _output = '${_output+_indexString+_timeStampString}\n';
-    }
-    return _output;
   }
 // -----------------------------------------------------------------------------
 }

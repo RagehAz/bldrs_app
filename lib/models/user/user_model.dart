@@ -46,7 +46,7 @@ class UserModel {
     return {
       'userID' : userID,
       'authBy' : cipherAuthBy(authBy),
-      'joinedAt' : cipherDateTimeToString(joinedAt),
+      'joinedAt' : Timers.cipherDateTimeToString(joinedAt),
       'userStatus' : cipherUserStatus(userStatus),
 // -------------------------
       'name' : name,
@@ -72,7 +72,7 @@ class UserModel {
       UserModel(
       userID : map['userID'] ?? '',
       authBy: decipherAuthBy(map['authBy'] ?? 0),
-      joinedAt : decipherDateTimeString(map['joinedAt'] ?? ''),
+      joinedAt : Timers.decipherDateTimeString(map['joinedAt'] ?? ''),
       userStatus : decipherUserStatus(map['userStatus'] ?? 1),
       // -------------------------
       name : map['name'] ?? '',

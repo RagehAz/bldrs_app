@@ -412,7 +412,7 @@ class FlyerOps{
       collName: FireCollection.flyers,
       docName: flyerID,
       field: 'deletionTime',
-      input: cipherDateTimeToString(_deletionTime),
+      input: Timers.cipherDateTimeToString(_deletionTime),
     );
 
     /// D - Update fireStore/flyers/flyerID['flyerState'] to Deactivated

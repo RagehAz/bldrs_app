@@ -1,6 +1,7 @@
 import 'package:bldrs/controllers/drafters/aligners.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/text_generators.dart';
+import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/controllers/localization/localizer.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/flagz.dart';
@@ -98,7 +99,7 @@ class UserBubble extends StatelessWidget {
 
         // --- Joined at
         SuperVerse(
-          verse: TextGenerator.monthYearStringer(context,user?.joinedAt),
+          verse: Timers.monthYearStringer(context,user?.joinedAt),
           weight: VerseWeight.thin,
           italic: true,
           color: Colorz.Grey225,

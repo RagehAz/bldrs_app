@@ -14,12 +14,14 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/standards.dart';
 import 'package:bldrs/firestore/auth_ops.dart';
+import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/firestore/flyer_ops.dart';
 import 'package:bldrs/firestore/record_ops.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/mutables/mutable_slide.dart';
 import 'package:bldrs/models/flyer/records/publish_time_model.dart';
+import 'package:bldrs/models/flyer/records/review_model.dart';
 import 'package:bldrs/models/flyer/records/share_model.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/flyer/sub/slide_model.dart';
@@ -35,9 +37,11 @@ import 'package:bldrs/views/screens/x_select_keywords_screen.dart';
 import 'package:bldrs/views/screens/x_x_flyer_on_map.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
-import 'package:bldrs/views/widgets/dialogs/bottom_dialog.dart';
-import 'package:bldrs/views/widgets/dialogs/bottom_dialog_buttons.dart';
+import 'package:bldrs/views/widgets/dialogs/bottom_dialog/bottom_dialog.dart';
+import 'package:bldrs/views/widgets/dialogs/bottom_dialog/bottom_dialog_buttons.dart';
+import 'package:bldrs/views/widgets/dialogs/center_dialog/center_alert.dart';
 import 'package:bldrs/views/widgets/dialogs/dialogz.dart';
+import 'package:bldrs/views/widgets/dialogs/nav_dialog/nav_dialog.dart';
 import 'package:bldrs/views/widgets/flyer/flyer_methods.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_pages.dart';
 import 'package:bldrs/views/widgets/flyer/parts/progress_bar.dart';
@@ -353,6 +357,8 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         onShareTap: _onShareTap,
         onFollowTap: () async { await _onFollowTap();},
         onCallTap: () async { await _onCallTap();},
+        onEditReview: () async {await _onEditReview();},
+        onSubmitReview: () async {await _onSubmitReview();},
       );
 
     }
@@ -864,6 +870,99 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
     }
 
+  }
+// -----------------------------------------------------o
+  Future<void> _onEditReview() async {
+
+
+    double _dialogHeight = BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.7);
+    double _dialogClearWidth = BottomDialog.dialogClearWidth(context);
+    double _dialogInnerCorners = BottomDialog.dialogClearCornerValue();
+
+    await BottomDialog.slideBottomDialog(
+      context: context,
+      draggable: true,
+      height: _dialogHeight,
+      title: 'Add your review on this flyer',
+      child: Column(
+        children: <Widget>[
+
+          /// TEXTFIELD
+          Container(
+            width: _dialogClearWidth,
+            child: SuperTextField(
+              // autofocus: autoFocus,
+              // onChanged: textFieldOnChanged,
+              width: _dialogClearWidth,
+              hintText: '...',
+              fieldColor: Colorz.White20,
+              corners: _dialogInnerCorners,
+              // margin: EdgeInsets.only(top: (_dialogClearWidth * 0.3), left: 5, right: 5),
+              maxLines: 10,
+              minLines: 3,
+              maxLength: 500,
+              designMode: false,
+              counterIsOn: true,
+              inputSize: 2,
+              centered: false,
+              textController: _superFlyer.rec.reviewController,
+              inputWeight: VerseWeight.thin,
+              inputShadow: false,
+              fieldIsFormField: false,
+
+              onSubmitted: (val){
+                print('val is : $val');
+              },
+              keyboardTextInputType: TextInputType.multiline,
+              keyboardTextInputAction: TextInputAction.newline,
+              onMaxLinesReached: null,
+            ),
+          ),
+
+        ],
+      ),
+    );
+
+  }
+
+  Future<void> _onSubmitReview() async {
+
+    if (TextChecker.textControllerHasNoValue(_superFlyer.rec.reviewController) == true){
+      await NavDialog.showNavDialog(
+        context: context,
+        firstLine: 'Review is Empty',
+        secondLine: 'Add Your review before adding it',
+        isBig: true,
+      );
+    }
+
+    else {
+      ReviewModel _review = ReviewModel(
+        review: _superFlyer.rec.reviewController.text,
+        userID: superUserID(),
+        time: DateTime.now(),
+      );
+
+      await Fire.createSubDoc(
+        context: context,
+        collName: FireCollection.flyers,
+        docName: _superFlyer.flyerID,
+        subCollName: FireCollection.subFlyerReviews,
+        input: _review.toMap(),
+      );
+
+      setState(() {
+        _superFlyer.rec.reviewController.clear();
+      });
+
+      // await CenterDialog.superDialog(
+      //   context: context,
+      //   title: 'Review Added',
+      //   body: 'review added',
+      //   boolDialog: false,
+      // );
+
+    }
   }
 // -----------------------------------------------------------------------------
 

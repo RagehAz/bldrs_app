@@ -14,7 +14,7 @@ class FollowModel{
 // -----------------------------------------------------------------------------
    Map<String, Object> toMap(){
      return {
-       'timeStamps': cipherListOfDateTimes(timeStamps),
+       'timeStamps': Timers.cipherListOfDateTimes(timeStamps),
        'followState': cipherFollowState(followState),
      };
    }
@@ -47,7 +47,7 @@ class FollowModel{
 // -----------------------------------------------------------------------------
   static FollowModel decipherBzFollowMap(Map<String, dynamic> map){
      return FollowModel(
-       timeStamps: decipherListOfDateTimesStrings(map['timeStamps']),
+       timeStamps: Timers.decipherListOfDateTimesStrings(map['timeStamps']),
        followState: decipherFollowState(map['followState']),
      );
   }

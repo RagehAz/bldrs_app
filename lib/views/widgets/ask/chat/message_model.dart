@@ -17,7 +17,7 @@ class MessageModel{
     return {
       'ownerID' : ownerID,
       'body' : body,
-      'time' : cipherDateTimeToString(time),
+      'time' : Timers.cipherDateTimeToString(time),
     };
   }
 // -----------------------------------------------------------------------------
@@ -25,7 +25,7 @@ class MessageModel{
     return MessageModel(
       body: map['body'],
       ownerID: map['ownerID'],
-      time: decipherDateTimeString(map['time']),
+      time: Timers.decipherDateTimeString(map['time']),
     );
   }
 // -----------------------------------------------------------------------------
@@ -41,7 +41,7 @@ class MessageModel{
     return MessageModel(
       ownerID: msgMap['ownerID'],
       body: msgMap['body'],
-      time: decipherDateTimeString(msgMap['time']),
+      time: Timers.decipherDateTimeString(msgMap['time']),
     );
   }
 // -----------------------------------------------------------------------------
