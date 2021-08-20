@@ -1,5 +1,3 @@
-
-
 import 'package:bldrs/controllers/drafters/aligners.dart';
 import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/drafters/text_checkers.dart';
@@ -9,7 +7,6 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/models/user/tiny_user.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/views/widgets/flyer/parts/pages_parts/info_page_parts/review_card.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/info_page_parts/review_user_label.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/foundation.dart';
@@ -50,8 +47,11 @@ class ReviewCreator extends StatelessWidget {
             /// USER LABEL
             ReviewUserLabel(
               tinyUser: tinyUser,
+              hasEditButton: false,
+              onReviewOptions: null,
             ),
 
+            /// REVIEW BODY
             Container(
               width: width,
               padding: EdgeInsets.all(Ratioz.appBarMargin),

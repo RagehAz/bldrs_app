@@ -7,7 +7,7 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/views/widgets/layouts/main_layout.dart' show Expander;
+import 'package:bldrs/views/widgets/layouts/main_layout.dart' show Expander, Tracer;
 
 class InPyramidsBubble extends StatelessWidget {
 final List<Widget> columnChildren;
@@ -86,6 +86,7 @@ final dynamic corners;
     :
     Borderers.superBorder(context: context, corners: corners);
 // -----------------------------------------------------------------------------
+//     Tracer.traceWidgetBuild(widgetName: 'InPyramidsBubble', varName: 'title', varValue: title);
     return Container(
           width: _bubbleWidth,
           margin: _bubbleMargins,

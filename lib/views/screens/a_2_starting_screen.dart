@@ -42,11 +42,11 @@ class _StartingScreenState extends State<StartingScreen> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
+    super.initState();
     /// get user current location
     // TASK : need to trace user current location and pass it here while creating the userModel from firebase User
     _countryPro = Provider.of<CountryProvider>(context, listen: false);
     _currentZone = _countryPro.currentZone;
-    super.initState();
   }
 // -----------------------------------------------------------------------------
   Future<void> _tapContinueWith(BuildContext context, AuthBy authBy) async {

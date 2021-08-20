@@ -28,6 +28,7 @@ class _ZoomablePictureState extends State<ZoomablePicture> with TickerProviderSt
 // -----------------------------------------------------------------------------
   @override
   void initState() {
+    super.initState();
     _transformationController = TransformationController();
     _zoomAnimationController = AnimationController(
       vsync: this,
@@ -39,7 +40,6 @@ class _ZoomablePictureState extends State<ZoomablePicture> with TickerProviderSt
         print('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX its bigger than 1.5 now');
       }
     });
-    super.initState();
   }
 // -----------------------------------------------------------------------------
   @override

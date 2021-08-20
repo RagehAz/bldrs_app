@@ -79,12 +79,12 @@ class _QuestionBubbleState extends State<QuestionBubble> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
+    super.initState();
     _bodyController = new TextEditingController();
     _titleController = new TextEditingController();
     _bodyController.addListener(textListener);
 
     _questionPics = new List();
-    super.initState();
   }
   // ----------------------------------------------------------------------
   @override

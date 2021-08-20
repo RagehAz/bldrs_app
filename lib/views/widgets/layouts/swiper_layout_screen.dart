@@ -30,10 +30,10 @@ class _SwiperLayoutScreenState extends State<SwiperLayoutScreen> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
+    super.initState();
     _title = widget.swiperPages[0]['title'];
 
     _swiperController = new SwiperController();
-    super.initState();
   }
 // -----------------------------------------------------------------------------
   @override

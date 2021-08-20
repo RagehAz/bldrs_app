@@ -436,7 +436,13 @@ class Fire{
     return _snapshots;
   }
 // -----------------------------------------------------------------------------
-  static Stream<QuerySnapshot> streamSubCollection({String collName, String docName, String subCollName, bool descending, @required String orderBy}){
+  static Stream<QuerySnapshot> streamSubCollection({
+    @required String collName,
+    @required String docName,
+    @required String subCollName,
+    @required bool descending,
+    @required String orderBy, // field name to order by
+  }){
     CollectionReference _collection = Fire.getSubCollectionRef(
       collName: collName,
       docName: docName,

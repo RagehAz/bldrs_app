@@ -37,6 +37,7 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen> with SingleTicker
 
   @override
   void initState() {
+     super.initState();
      _sectionsList = addAllButtonToSections();
 
      _currentSection = Section.All;
@@ -52,7 +53,6 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen> with SingleTicker
 
      _tabController = TabController(vsync: this, length: 2);
 
-     super.initState();
   }
 // -----------------------------------------------------------------------------
   List<Section> addAllButtonToSections(){

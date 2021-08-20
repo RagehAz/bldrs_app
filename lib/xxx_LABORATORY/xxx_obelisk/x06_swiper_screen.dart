@@ -27,9 +27,9 @@ class _SwiperScreenState extends State<SwiperScreen> {
 // -----------------------------------------------------------------------------
 @override
   void initState() {
+    super.initState();
   _swiperController = new SwiperController();
   _currentFlyerType = FlyerTypeClass.flyerTypesList[0];
-    super.initState();
   }
 // -----------------------------------------------------------------------------
   @override

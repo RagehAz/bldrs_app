@@ -29,9 +29,9 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
+    super.initState();
     _countryPro =  Provider.of<CountryProvider>(context, listen: false);
 
-    super.initState();
   }
 // -----------------------------------------------------------------------------
   List<Map<String, dynamic>> _generatePages(){

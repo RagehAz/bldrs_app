@@ -39,8 +39,8 @@ class _ZonesManagerScreenState extends State<ZonesManagerScreen> {
 // ---------------------------------------------------------------------------
   @override
   void initState() {
-    _countriesCollection = _fireInstance.collection('countries');
     super.initState();
+    _countriesCollection = _fireInstance.collection('countries');
   }
 // ---------------------------------------------------------------------------
   Future<void> _uploadCountriesToFirebase() async {

@@ -174,6 +174,7 @@ class SuperFlyer{
             onEditReview: null,
             onSubmitReview: null,
             reviewController: null,
+            onShowReviewOptions: null,
           ),
           edit: FlyerEditor(
             /// editor functions
@@ -260,6 +261,7 @@ class SuperFlyer{
     @required Function onCallTap,
     @required Function onEditReview,
     @required Function onSubmitReview,
+    @required Function onShowReviewOptions,
   }){
 
     int _initialPage = initialPage == null ? 0 : initialPage;
@@ -300,7 +302,8 @@ class SuperFlyer{
             followIsOn: _prof.checkFollow(flyerModel.tinyBz.bzID),
             onEditReview: onEditReview,
             onSubmitReview: onSubmitReview,
-            reviewController: new TextEditingController()
+            reviewController: new TextEditingController(),
+            onShowReviewOptions: onShowReviewOptions,
 
         ),
         edit: FlyerEditor(
@@ -446,6 +449,7 @@ class SuperFlyer{
           onEditReview: null,
           onSubmitReview: null,
           reviewController: null,
+          onShowReviewOptions: null,
         ),
         edit: FlyerEditor(
           /// editor functions
@@ -634,6 +638,7 @@ class SuperFlyer{
           onEditReview: null,
           onSubmitReview: null,
           reviewController: null,
+          onShowReviewOptions: null,
         ),
         edit: FlyerEditor(
           /// editor functions
@@ -804,6 +809,7 @@ class SuperFlyer{
           onEditReview: null,
           onSubmitReview: null,
           reviewController: null,
+          onShowReviewOptions: null,
         ),
         edit: FlyerEditor(
           /// editor functions
@@ -958,6 +964,7 @@ static SuperFlyer getSuperFlyerFromBzModelOnly({
           onEditReview: null,
           onSubmitReview: null,
           reviewController: null,
+          onShowReviewOptions: null,
         ),
         edit: FlyerEditor(
           /// editor functions

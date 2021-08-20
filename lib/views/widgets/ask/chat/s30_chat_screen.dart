@@ -43,8 +43,8 @@ class _ChatScreenState extends State<ChatScreen> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
-
     super.initState();
+
   }
 // -----------------------------------------------------------------------------
   Future<void> _sendMessage({String body, List<MessageModel> existingMsgs}) async {

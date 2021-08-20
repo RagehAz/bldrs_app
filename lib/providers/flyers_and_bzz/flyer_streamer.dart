@@ -116,6 +116,7 @@ Stream<List<ReviewModel>> getFlyerReviewsStream(String flyerID) {
             userID: doc['userID'],
             time: Timers.decipherDateTimeString(doc['time']),
             review: doc['review'],
+            reviewID: doc.id,
           )
           ).toList()
   );

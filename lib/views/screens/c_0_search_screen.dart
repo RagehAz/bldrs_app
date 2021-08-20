@@ -56,6 +56,7 @@ class _SearchScreenState extends State<SearchScreen> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
+    super.initState();
     // _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
     _countryPro =  Provider.of<CountryProvider>(context, listen: false);
 
@@ -75,7 +76,6 @@ class _SearchScreenState extends State<SearchScreen> {
 
     // generateExpansionKeys();
 
-    super.initState();
   }
 // -----------------------------------------------------------------------------
   @override

@@ -60,9 +60,10 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
 // -----------------------------------------------------------------------------
   @override
   void initState() {
+    super.initState();
+
     _groupsIDs = Keyword.getGroupsIDsFromGroup(widget.group);
 
-    super.initState();
     _controller = new AnimationController(duration: _kExpand, vsync: this);
     _easeOutAnimation = new CurvedAnimation(parent: _controller, curve: Curves.easeOut);
     _easeInAnimation = new CurvedAnimation(parent: _controller, curve: Curves.easeIn);

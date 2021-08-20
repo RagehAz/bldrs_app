@@ -37,6 +37,7 @@ class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
+    super.initState();
     _countryPro =  Provider.of<CountryProvider>(context, listen: false);
     _groups = Group.getGroupsByFlyerType(flyerType: widget.flyerType);
 
@@ -47,7 +48,6 @@ class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
 
     _selectedKeywords.addAll(widget.selectedKeywords);
     generateExpansionKeys();
-    super.initState();
   }
 // -----------------------------------------------------------------------------
   List<GlobalKey<BldrsExpansionTileState>> _expansionKeys = new List();
