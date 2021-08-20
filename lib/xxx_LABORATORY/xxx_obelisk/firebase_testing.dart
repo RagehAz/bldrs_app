@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/text_generators.dart';
+import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
@@ -219,7 +220,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
               SuperVerse(
                 verse: '${_save.flyerID}-${_save.slideIndexes[_save.slideIndexes.length-1]} '
                     ': ${_save.saveState}\n'
-                    '${TextGenerator.hourMinuteSecondListOfStringsWithIndexes(_save.timeStamps, _save.slideIndexes)}',
+                    '${Timers.hourMinuteSecondListOfStringsWithIndexes(_save.timeStamps, _save.slideIndexes)}',
                 margin: 10,
                 labelColor: Colorz.White20,
                 weight: VerseWeight.thin,

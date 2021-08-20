@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:bldrs/controllers/drafters/text_manipulators.dart';
 import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/views/widgets/ask/question/question_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -55,9 +58,18 @@ class QuestionOps {
     /// A - save image attachments if existed
     if (question.pics != null && question.pics.length !=0){
 
+      /// A2 - create pics names
+      List<String> _picsNames = new List();
+      for (int i = 0; i < question.pics.length; i++){
+        File _file = question.pics[i];
+        String _name = TextMod.trimTextBeforeLastSpecialCharacter(_file.path, '.');
+        _picsNames.add(_name);
+      }
+
+      /// A3 - upload pics and get URLs
       _picsURLs = await Fire.createMultipleStoragePicsAndGetURLs(
         context: context,
-        names: null,
+        names: _picsNames,
         pics: question.pics,
       );
 
@@ -71,6 +83,19 @@ class QuestionOps {
       context: context,
       collName: FireCollection.questions,
       input: _question.toMap(),
+    );
+
+    /// D - update user questionsIDs list adding this new questionID
+
+    List<String> _updatedQuestionsIDs = new List();
+
+    String _questionID = _questionDocRef.id;
+    await Fire.updateDocField(
+      context: context,
+      collName: FireCollection.users,
+      docName: _question.ownerID,
+      field: 'questions',
+      input: _updatedQuestionsIDs,
     );
 
 

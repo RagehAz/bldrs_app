@@ -10,6 +10,7 @@ import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
 import 'package:bldrs/views/widgets/bubbles/flyers_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/main_button.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
+import 'package:bldrs/views/widgets/dialogs/dialogz.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
@@ -106,7 +107,7 @@ class DialogTestScreen extends StatelessWidget {
                             List<BzModel> _bzzToDeactivate = _userBzzMap['bzzToDeactivate'];
                             List<BzModel> _bzzToKeep = _userBzzMap['bzzToKeep'];
 
-                            await bzzDeactivationDialog(
+                            await Dialogz.bzzDeactivationDialog(
                               context: context,
                               bzzToKeep: _bzzToKeep,
                               bzzToDeactivate: _bzzToDeactivate,
@@ -137,7 +138,7 @@ class DialogTestScreen extends StatelessWidget {
                             List<BzModel> _bzzToDeactivate = _userBzzMap['bzzToDeactivate'];
                             List<BzModel> _bzzToKeep = _userBzzMap['bzzToKeep'];
 
-                            await flyersDeactivationDialog(
+                            await Dialogz.flyersDeactivationDialog(
                               context: context,
                               bzzToDeactivate: _bzzToDeactivate,
                             );

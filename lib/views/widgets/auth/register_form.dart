@@ -10,6 +10,7 @@ import 'package:bldrs/views/screens/g_x_user_editor_screen.dart';
 import 'package:bldrs/views/widgets/bubbles/text_field_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
+import 'package:bldrs/views/widgets/dialogs/dialogz.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
@@ -135,7 +136,7 @@ class _RegisterFormState extends State<RegisterForm> {
         _triggerLoading();
 
         /// pop error dialog
-        await authErrorDialog(context: context, result: _result);
+        await Dialogz.authErrorDialog(context: context, result: _result);
 
       } else {
 

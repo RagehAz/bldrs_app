@@ -1,5 +1,6 @@
 import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/drafters/text_generators.dart';
+import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
@@ -86,7 +87,7 @@ class MaxHeader extends StatelessWidget {
               BzPgVerse(
                 flyerZoneWidth: flyerZoneWidth,
                 bzPageIsOn: bzPageIsOn,
-                verse: TextGenerator.monthYearStringer(context,bz.bldrBirth),
+                verse: Timers.monthYearStringer(context,bz.bldrBirth),
                 size: 2,
               ),
 

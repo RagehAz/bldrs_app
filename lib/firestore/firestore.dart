@@ -34,6 +34,7 @@ class FireCollection{
   static const String subFlyerSaves = 'saves';
   static const String subFlyerShares = 'shares';
   static const String subFlyerViews = 'views';
+  static const String subFlyerReviews = 'reviews';
 
   static const String feedbacks = 'feedbacks';
   static const String admin = 'admin';
@@ -432,6 +433,16 @@ class Fire{
   static Stream<QuerySnapshot> streamCollection(String collectionName){
     CollectionReference _collection = Fire.getCollectionRef(collectionName);
     Stream<QuerySnapshot> _snapshots = _collection.snapshots();
+    return _snapshots;
+  }
+// -----------------------------------------------------------------------------
+  static Stream<QuerySnapshot> streamSubCollection({String collName, String docName, String subCollName, bool descending, @required String orderBy}){
+    CollectionReference _collection = Fire.getSubCollectionRef(
+      collName: collName,
+      docName: docName,
+      subCollName: subCollName,
+    );
+    Stream<QuerySnapshot> _snapshots = _collection.orderBy(orderBy, descending: descending).snapshots();
     return _snapshots;
   }
 // -----------------------------------------------------------------------------
@@ -846,12 +857,12 @@ class Fire{
   }) async {
     List<String> picsURLs = new List();
 
-    for (var pic in pics) {
+    for (int i =0; i < pics.length; i++) {
       String _picURL = await Fire.createStoragePicAndGetURL(
         context: context,
-        inputFile: pic,
+        inputFile: pics[i],
         picType: PicType.slideHighRes,
-        fileName: null,
+        fileName: names[i],
       );
       picsURLs.add(_picURL);
     }

@@ -1,6 +1,6 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/stream_checkers.dart';
-import 'package:bldrs/controllers/drafters/text_generators.dart';
+import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/flagz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
@@ -12,7 +12,7 @@ import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/buttons/dream_wrapper.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
-import 'package:bldrs/views/widgets/dialogs/bottom_dialog.dart';
+import 'package:bldrs/views/widgets/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/views/widgets/layouts/dashboard_layout.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart' show Expander;
 import 'package:bldrs/views/widgets/loading/loading.dart';
@@ -208,7 +208,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
                                             _smallVerse('in [ $_districtName ] - [ $_provinceName ] - [ $_countryName ]'),
 
                                             _titleVerse('joined At'),
-                                            _smallVerse(TextGenerator.dayMonthYearStringer(context, _userModel.joinedAt)),
+                                            _smallVerse(Timers.dayMonthYearStringer(context, _userModel.joinedAt)),
 
                                             _titleVerse('preferred language'),
                                             _smallVerse(_userModel.language),

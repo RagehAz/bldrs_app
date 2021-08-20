@@ -3,7 +3,7 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/providers/users/user_streamer.dart';
-import 'package:bldrs/views/widgets/dialogs/nav_dialog.dart';
+import 'package:bldrs/views/widgets/dialogs/nav_dialog/nav_dialog.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/nav_bar/nav_bar.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';

@@ -5,7 +5,7 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/providers/zones/zone_provider.dart';
-import 'package:bldrs/views/widgets/dialogs/nav_dialog.dart';
+import 'package:bldrs/views/widgets/dialogs/nav_dialog/nav_dialog.dart';
 import 'package:bldrs/views/widgets/keywords/group_expansion_tile.dart';
 import 'package:bldrs/views/widgets/keywords/selected_keywords_bar.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';

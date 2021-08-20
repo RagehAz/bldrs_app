@@ -25,7 +25,7 @@ import 'package:bldrs/views/widgets/bubbles/multiple_choice_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/text_field_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
-import 'package:bldrs/views/widgets/dialogs/bottom_dialog.dart';
+import 'package:bldrs/views/widgets/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';

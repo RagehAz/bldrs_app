@@ -40,7 +40,7 @@ class QuestionModel {
     'questionID' : questionID,
     'userID' : ownerID,
     'questionType' : FlyerTypeClass.cipherFlyerType(questionType),
-    'askTime' : cipherDateTimeToString(time),
+    'askTime' : Timers.cipherDateTimeToString(time),
     'keywords' : keywords,
     'pics' : pics,
     'body' : body,

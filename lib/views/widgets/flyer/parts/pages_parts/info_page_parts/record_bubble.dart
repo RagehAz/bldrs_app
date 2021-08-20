@@ -24,7 +24,7 @@ class RecordBubble extends StatelessWidget {
     double _bubbleWidth = flyerZoneWidth - (Ratioz.appBarPadding * 2);
     EdgeInsets _bubbleMargins = EdgeInsets.only(top: Ratioz.appBarPadding, left: Ratioz.appBarPadding, right: Ratioz.appBarPadding);
     BorderRadius _bubbleCorners = Borderers.superBorderAll(context, flyerZoneWidth * Ratioz.xxflyerTopCorners);
-    double _peopleBubbleBoxHeight = flyerZoneWidth * Ratioz.xxflyerAuthorPicWidth * 1.5;
+    double _peopleBubbleBoxHeight = flyerZoneWidth * Ratioz.xxflyerAuthorPicWidth * 1.2;
 
 
     return InPyramidsBubble(

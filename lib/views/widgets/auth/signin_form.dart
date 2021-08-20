@@ -7,6 +7,7 @@ import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/views/widgets/bubbles/text_field_bubble.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
+import 'package:bldrs/views/widgets/dialogs/dialogz.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart' show Expander;
 import 'package:email_validator/email_validator.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
@@ -102,7 +103,7 @@ class _SignInFormState extends State<SignInForm> {
       _triggerLoading();
 
       /// pop error dialog
-      await authErrorDialog(context: context, result: _result);
+      await Dialogz.authErrorDialog(context: context, result: _result);
 
     } else {
 
