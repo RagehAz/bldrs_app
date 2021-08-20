@@ -61,6 +61,7 @@ class _BrowserPagesState extends State<BrowserPages> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
+    super.initState();
     // _filtersModels = widget.filtersModels;
     //
     // print('_filtersModels : $_filtersModels');
@@ -69,7 +70,6 @@ class _BrowserPagesState extends State<BrowserPages> {
     _pageController = new PageController();
     _scrollController = ItemScrollController();
     _itemPositionListener = ItemPositionsListener.create();
-    super.initState();
   }
 // -----------------------------------------------------------------------------
   @override

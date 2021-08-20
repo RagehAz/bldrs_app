@@ -25,13 +25,13 @@ int _fadeCycleDuration = 750;
 
   @override
   void initState() {
+    super.initState();
 
     _controller = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: _fadeCycleDuration),
     );
 
-    super.initState();
   }
 
   @override

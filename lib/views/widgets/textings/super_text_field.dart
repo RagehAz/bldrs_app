@@ -86,10 +86,10 @@ class _SuperTextFieldState extends State<SuperTextField> {
 // -----------------------------------------------------------------------------
 @override
   void initState() {
+    super.initState();
 
   // widget.textController = widget.textController ;
   _textDirection = superTextDirectionSwitcher(widget.textController?.text);
-    super.initState();
   }
 
   // @override

@@ -44,9 +44,9 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
+    super.initState();
     _maxLines = widget.maxLines;
     _canExpand = widget.paragraph.length > 100;
-    super.initState();
   }
 // -----------------------------------------------------------------------------
   void _onParagraphTap(){

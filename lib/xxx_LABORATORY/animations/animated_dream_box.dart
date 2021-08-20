@@ -81,9 +81,9 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
 
   @override
   void initState() {
+    super.initState();
      boxWidth = widget.width ;
      boxHeight = widget.height;
-    super.initState();
   }
 
   @override

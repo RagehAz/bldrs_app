@@ -47,6 +47,7 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
 
   @override
   void initState() {
+    super.initState();
 
     // widget.superFlyer.flyerShowsAuthor = true;
     // widget.superFlyer.authorID = widget.superFlyer.bz.bzAuthors[0].userID;
@@ -69,7 +70,6 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
       end: 1.5,
     ).animate(_controller);
 
-    super.initState();
   }
 // -----------------------------------------------------------------------------
   @override

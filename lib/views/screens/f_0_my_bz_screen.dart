@@ -69,13 +69,13 @@ class _MyBzScreenState extends State<MyBzScreen> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
+    super.initState();
     print('1 - we got temp bzModel');
 
     _bzModel = BzModel.getTempBzModelFromTinyBz(widget.tinyBz);
     _showOldFlyers = false;
 
     // TODO: implement initState
-    super.initState();
   }
 // -----------------------------------------------------------------------------
   bool _isInit = true;

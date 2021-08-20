@@ -25,12 +25,12 @@ class _BlackHoleScreenState extends State<BlackHoleScreen> with TickerProviderSt
 // -----------------------------------------------------------------------------
   @override
   void initState() {
+    super.initState();
     _blackHoleController = AnimationController(
         duration: Duration(seconds: _spinsDuration),
         vsync: this
     );
 
-    super.initState();
   }
 // ---------------------------------------------------------------------------
   @override

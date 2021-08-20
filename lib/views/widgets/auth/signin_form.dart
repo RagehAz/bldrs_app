@@ -53,11 +53,11 @@ class _SignInFormState extends State<SignInForm> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
+    super.initState();
     // _email = widget.email;
     // _password = widget.password;
     _emailController.text = widget.email;
     _passwordController.text = widget.password;
-    super.initState();
   }
 // -----------------------------------------------------------------------------
   @override

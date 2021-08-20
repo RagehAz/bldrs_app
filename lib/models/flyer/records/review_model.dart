@@ -3,11 +3,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 
 class ReviewModel {
+  final String reviewID;
   final String review;
   final String userID;
   final DateTime time;
 
   ReviewModel ({
+    this.reviewID,
     @required this.review,
     @required this.userID,
     @required this.time,

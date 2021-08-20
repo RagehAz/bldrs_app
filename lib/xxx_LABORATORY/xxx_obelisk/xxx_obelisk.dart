@@ -62,10 +62,10 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
 // -----------------------------------------------------------------------------
   @override
   void initState() {
+    super.initState();
+
     User _firebaseUser = superFirebaseUser();
     _isSignedIn = _firebaseUser == null ? false : true;
-
-    super.initState();
   }
 // ---------------------------------------------------------------------------
   @override

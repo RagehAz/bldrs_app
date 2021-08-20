@@ -92,6 +92,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   }
 // -----------------------------------------------------------------------------
   void initState(){
+    super.initState();
     // -------------------------
     _prof = Provider.of<FlyersProvider>(context, listen: false);
     _bz = widget.firstTimer == true ? BzModel.createInitialBzModelFromUserData(widget.userModel) : widget.bzModel;
@@ -124,7 +125,6 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
     _authorTitleTextController.text = _currentAuthor.authorTitle;
     _currentAuthorContacts = _currentAuthor.authorContacts;
     // -------------------------
-    super.initState();
   }
 // -----------------------------------------------------------------------------
   @override

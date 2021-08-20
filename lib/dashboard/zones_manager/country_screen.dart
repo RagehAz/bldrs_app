@@ -46,6 +46,7 @@ class _CountryScreenState extends State<CountryScreen> {
 // ---------------------------------------------------------------------------
   @override
   void initState() {
+    super.initState();
     _countriesCollection = _fireInstance.collection('countries');
     _name = widget.country.name;
     _region = widget.country.region;
@@ -55,7 +56,6 @@ class _CountryScreenState extends State<CountryScreen> {
     _isGlobal = widget.country.isGlobal;
     _provinces = widget.country.cities;
     _language = widget.country.language;
-    super.initState();
   }
 // ---------------------------------------------------------------------------
   Future <void> _updateCountryFieldOnFirestore(String _field, dynamic _input) async {
