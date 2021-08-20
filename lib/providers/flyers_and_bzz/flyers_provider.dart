@@ -428,7 +428,7 @@ class FlyersProvider with ChangeNotifier {
     } else {
       _followIsOn = true;
     }
-    print('_followIsOn = $_followIsOn');
+    // print('_followIsOn = $_followIsOn');
 
     return _followIsOn;
   }

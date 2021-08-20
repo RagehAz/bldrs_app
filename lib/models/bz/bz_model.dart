@@ -130,7 +130,7 @@ Map<String, dynamic> toMap(){
     // -------------------------
     'bzType' : cipherBzType(bzType),
     'bzForm' : cipherBzForm(bzForm),
-    'bldrBirth' : cipherDateTimeToString(bldrBirth),
+    'bldrBirth' : Timers.cipherDateTimeToString(bldrBirth),
     'accountType' : cipherBzAccountType(accountType),
     'bzURL' : bzURL,
     // -------------------------
@@ -184,7 +184,7 @@ Map<String, dynamic> toMap(){
       // -------------------------
       bzType : decipherBzType(map['bzType']),
       bzForm : decipherBzForm(map['bzForm']),
-      bldrBirth : decipherDateTimeString(map['bldrBirth']),
+      bldrBirth : Timers.decipherDateTimeString(map['bldrBirth']),
       accountType : decipherBzAccountType(map['accountType']),
       bzURL : map['bzURL'],
       // -------------------------

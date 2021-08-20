@@ -108,7 +108,6 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     mapController = controller;
   }
 // -----------------------------------------------------------------------------
-
   void _selectLocation(LatLng position){
     setState(() {
       _pickedLocation = position;

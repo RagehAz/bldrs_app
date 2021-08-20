@@ -171,6 +171,9 @@ class SuperFlyer{
             /// user based bool triggers
             ankhIsOn: null,
             followIsOn: null,
+            onEditReview: null,
+            onSubmitReview: null,
+            reviewController: null,
           ),
           edit: FlyerEditor(
             /// editor functions
@@ -255,6 +258,8 @@ class SuperFlyer{
     @required Function onShareTap,
     @required Function onFollowTap,
     @required Function onCallTap,
+    @required Function onEditReview,
+    @required Function onSubmitReview,
   }){
 
     int _initialPage = initialPage == null ? 0 : initialPage;
@@ -264,35 +269,39 @@ class SuperFlyer{
     return
       SuperFlyer(
         nav: FlyerNavigator(
-        /// animation controller
-        horizontalController: PageController(initialPage: _initialPage, viewportFraction: 1, keepPage: true),
-        verticalController: PageController(initialPage: 0, keepPage: true, viewportFraction: 1),
-        infoScrollController: ScrollController(keepScrollOffset: true,),
-        /// animation functions
-        onHorizontalSlideSwipe: onHorizontalSlideSwipe,
-        onVerticalPageSwipe: onVerticalPageSwipe,
-        onVerticalPageBack: onVerticalPageBack,
-        onHeaderTap: onHeaderTap,
-        onSlideRightTap: onSlideRightTap,
-        onSlideLeftTap: onSlideLeftTap,
-        onSwipeFlyer: onSwipeFlyer,
-        onTinyFlyerTap: onTinyFlyerTap,
-        /// animation parameters
-        progressBarOpacity: 1,
-        swipeDirection: SwipeDirection.next,
-        bzPageIsOn: false,
-        listenToSwipe: true,
+          /// animation controller
+          horizontalController: PageController(initialPage: _initialPage, viewportFraction: 1, keepPage: true),
+          verticalController: PageController(initialPage: 0, keepPage: true, viewportFraction: 1),
+          infoScrollController: ScrollController(keepScrollOffset: true, ),
+          /// animation functions
+          onHorizontalSlideSwipe: onHorizontalSlideSwipe,
+          onVerticalPageSwipe: onVerticalPageSwipe,
+          onVerticalPageBack: onVerticalPageBack,
+          onHeaderTap: onHeaderTap,
+          onSlideRightTap: onSlideRightTap,
+          onSlideLeftTap: onSlideLeftTap,
+          onSwipeFlyer: onSwipeFlyer,
+          onTinyFlyerTap: onTinyFlyerTap,
+          /// animation parameters
+          progressBarOpacity: 1,
+          swipeDirection: SwipeDirection.next,
+          bzPageIsOn: false,
+          listenToSwipe: true,
         ),
         rec: FlyerRecorder(
           /// record functions
-          onViewSlide: onView,
-          onAnkhTap: onAnkhTap,
-          onShareTap: onShareTap,
-          onFollowTap: onFollowTap,
-          onCallTap: onCallTap,
-          /// user based bool triggers
-          ankhIsOn: _prof.checkAnkh(flyerModel.flyerID),
-          followIsOn: _prof.checkFollow(flyerModel.tinyBz.bzID),
+            onViewSlide: onView,
+            onAnkhTap: onAnkhTap,
+            onShareTap: onShareTap,
+            onFollowTap: onFollowTap,
+            onCallTap: onCallTap,
+            /// user based bool triggers
+            ankhIsOn: _prof.checkAnkh(flyerModel.flyerID),
+            followIsOn: _prof.checkFollow(flyerModel.tinyBz.bzID),
+            onEditReview: onEditReview,
+            onSubmitReview: onSubmitReview,
+            reviewController: new TextEditingController()
+
         ),
         edit: FlyerEditor(
           /// editor functions
@@ -398,7 +407,7 @@ class SuperFlyer{
     @required Function onAnkhTap,
   }){
 
-    print('CREATING view super flyer from tiny flyer : ${tinyFlyer.flyerID} : ${tinyFlyer?.midColor} : : ${tinyFlyer?.tinyBz?.bzName}');
+    // print('CREATING view super flyer from tiny flyer : ${tinyFlyer.flyerID} : ${tinyFlyer?.midColor} : : ${tinyFlyer?.tinyBz?.bzName}');
 
     FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
 
@@ -434,6 +443,9 @@ class SuperFlyer{
           /// user based bool triggers
           ankhIsOn: _prof.checkAnkh(tinyFlyer.flyerID),
           followIsOn: _prof.checkFollow(tinyFlyer.tinyBz.bzID),
+          onEditReview: null,
+          onSubmitReview: null,
+          reviewController: null,
         ),
         edit: FlyerEditor(
           /// editor functions
@@ -619,6 +631,9 @@ class SuperFlyer{
           /// user based bool triggers
           ankhIsOn: false,
           followIsOn: false,
+          onEditReview: null,
+          onSubmitReview: null,
+          reviewController: null,
         ),
         edit: FlyerEditor(
           /// editor functions
@@ -786,6 +801,9 @@ class SuperFlyer{
           /// user based bool triggers
           ankhIsOn: false,
           followIsOn: false,
+          onEditReview: null,
+          onSubmitReview: null,
+          reviewController: null,
         ),
         edit: FlyerEditor(
           /// editor functions
@@ -937,6 +955,9 @@ static SuperFlyer getSuperFlyerFromBzModelOnly({
           /// user based bool triggers
           ankhIsOn: null,
           followIsOn: false,
+          onEditReview: null,
+          onSubmitReview: null,
+          reviewController: null,
         ),
         edit: FlyerEditor(
           /// editor functions

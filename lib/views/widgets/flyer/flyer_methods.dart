@@ -231,7 +231,7 @@ class FlyerMethod{
     //   _flyerSource = null;
     // }
 
-    print('FlyerMethod.selectFlyerSource : _flyerSource : $_flyerSource');
+    // print('FlyerMethod.selectFlyerSource : _flyerSource : $_flyerSource');
 
     return _flyerSource;
   }

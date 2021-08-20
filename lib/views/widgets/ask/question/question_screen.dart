@@ -1,11 +1,9 @@
-import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/views/widgets/ask/question/ask_bubble.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
-
-import 'ask_bubble.dart';
 
 class QuestionScreen extends StatefulWidget {
   @override
@@ -14,7 +12,7 @@ class QuestionScreen extends StatefulWidget {
 
 class _QuestionScreenState extends State<QuestionScreen> {
 
-  // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   /// --- LOADING BLOCK
   bool _loading = false;
   void _triggerLoading(){
@@ -22,9 +20,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
     _loading == true?
     print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
   }
-  // ----------------------------------------------------------------------
-
-
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return MainLayout(
@@ -40,11 +36,11 @@ class _QuestionScreenState extends State<QuestionScreen> {
           Stratosphere(),
 
           Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
 
-              // --- INSTRUCTIONS
+              /// INSTRUCTIONS
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin * 2),
                 child: SuperVerse(
@@ -53,40 +49,32 @@ class _QuestionScreenState extends State<QuestionScreen> {
                 ),
               ),
 
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin * 2),
-                child: SuperVerse(
-                  verse: 'searching for a property ?'
-                      '\nbuilding or finishing a project ?'
-                      '\nseeking professional help ?'
-                      '\nAsk ..'
-                      '\n& receive private replies from the Builders',
-                  color: Colorz.White50,
-                  italic: true,
-                  weight: VerseWeight.thin,
-                  size: 2,
-                  scaleFactor: 0.9,
-                  maxLines: 10,
-                  centered: false,
-                  margin: Ratioz.appBarPadding,
-                ),
-              ),
+              // Padding(
+              //   padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin * 2),
+              //   child: SuperVerse(
+              //     verse: 'searching for a property ?'
+              //         '\nbuilding or finishing a project ?'
+              //         '\nseeking professional help ?'
+              //         '\nAsk ..'
+              //         '\n& receive private replies from the Builders',
+              //     color: Colorz.White50,
+              //     italic: true,
+              //     weight: VerseWeight.thin,
+              //     size: 2,
+              //     scaleFactor: 0.9,
+              //     maxLines: 10,
+              //     centered: false,
+              //     margin: Ratioz.appBarPadding,
+              //   ),
+              // ),
 
-              // --- ASK BUBBLE
+              /// ASK BUBBLE
               QuestionBubble(
                 tappingAskInfo: () {print('Ask info is tapped aho');},
               ),
 
             ],
           ),
-
-
-
-
-          /// my asks bubbles
-          ///
-          ///
-          /// temp
 
         ],
       ),

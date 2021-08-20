@@ -23,7 +23,10 @@ class StreamChecker{
     bool _isLoading =
     _connectionHasNoData(snapshot) == true
         ||
-    _connectionIsWaiting(snapshot) == true ?
+    _connectionIsWaiting(snapshot) == true
+    //     ||
+    // snapshot.error == null
+        ?
     true : false;
 
     return _isLoading;
