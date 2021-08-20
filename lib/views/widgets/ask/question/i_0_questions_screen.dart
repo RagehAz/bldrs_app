@@ -34,8 +34,8 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+    // TODO: implement initState
   }
 
   @override

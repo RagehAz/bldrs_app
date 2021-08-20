@@ -46,6 +46,7 @@ class _GalleryState extends State<Gallery> {
 // -----------------------------------------------------------------------------
   @override
   void initState(){
+    super.initState();
     _bzModel = widget.superFlyer.bz;
 
     print('nano flyers are ${_bzModel.nanoFlyers}');
@@ -53,7 +54,6 @@ class _GalleryState extends State<Gallery> {
     _tinyFlyers = TinyFlyer.getTinyFlyersFromBzModel(_bzModel);
     _bzTeamIDs = BzModel.getBzTeamIDs(_bzModel);
     setFlyersVisibility();
-    super.initState();
   }
 // -----------------------------------------------------------------------------
   List<bool> _createVisibilities({bool fillingValue}){

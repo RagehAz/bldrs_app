@@ -71,6 +71,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
+    super.initState();
     _nameController.text = widget.user.name;
     _currentPicURL = widget.user.pic;
     _companyController.text = widget.user.company;
@@ -89,7 +90,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     _pinterestController.text = ContactModel.getAContactValueFromContacts(widget.user.contacts, ContactType.Pinterest);
     _tiktokController.text = ContactModel.getAContactValueFromContacts(widget.user.contacts, ContactType.TikTok);
     _twitterController.text = ContactModel.getAContactValueFromContacts(widget.user.contacts, ContactType.Twitter);
-    super.initState();
   }
 // -----------------------------------------------------------------------------
   @override

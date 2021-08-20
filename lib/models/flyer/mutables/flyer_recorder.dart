@@ -13,6 +13,7 @@ class FlyerRecorder{
   bool ankhIsOn; // FlyerRecord
   bool followIsOn; // FlyerRecord
   TextEditingController reviewController;
+  final Function onShowReviewOptions;
 
   FlyerRecorder({
     @required this.onViewSlide,
@@ -25,6 +26,7 @@ class FlyerRecorder{
     @required this.reviewController,
     @required this.onEditReview,
     @required this.onSubmitReview,
+    @required this.onShowReviewOptions,
   });
 
 }

@@ -20,8 +20,8 @@ class _AuthScreenState extends State<AuthScreen> {
 
   @override
   void initState() {
-    _scrollController = ScrollController();
     super.initState();
+    _scrollController = ScrollController();
   }
 // -----------------------------------------------------------------------------
   void _switchSignIn (String email, String password){

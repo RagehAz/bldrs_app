@@ -36,10 +36,10 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
+    super.initState();
     _theValue = _minValue;
     _rangeValues = RangeValues(_startRangeValue, _endRangeValue);
     _rangeLabels = RangeLabels(_stringLabel, _endLabel);
-    super.initState();
   }
 // -----------------------------------------------------------------------------
   Widget _button(String verse){

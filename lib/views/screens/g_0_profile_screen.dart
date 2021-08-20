@@ -72,9 +72,9 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
+    super.initState();
     _followedTinyBzz = new List();
     _followedBzzIDs = new List();
-    super.initState();
   }
 
 // -----------------------------------------------------------------------------

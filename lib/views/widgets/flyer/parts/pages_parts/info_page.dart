@@ -2,6 +2,7 @@ import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/scrollers.dart';
 import 'package:bldrs/controllers/drafters/sliders.dart';
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
@@ -20,7 +21,7 @@ import 'package:bldrs/views/widgets/bubbles/paragraph_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/stats_line.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/info_page_parts/record_bubble.dart';
 
-class InfoPage extends StatelessWidget {
+class InfoPage extends StatefulWidget {
   final SuperFlyer superFlyer;
   final double flyerZoneWidth;
 
@@ -30,45 +31,55 @@ class InfoPage extends StatelessWidget {
   });
 
   @override
+  _InfoPageState createState() => _InfoPageState();
+}
+
+class _InfoPageState extends State<InfoPage> with AutomaticKeepAliveClientMixin<InfoPage>{
+  @override
+  bool get wantKeepAlive => true;
+
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
 
-    double _flyerZoneHeight = Scale.superFlyerZoneHeight(context, flyerZoneWidth);
+    double _flyerZoneHeight = Scale.superFlyerZoneHeight(context, widget.flyerZoneWidth);
 
-    double _bubbleWidth = flyerZoneWidth - (Ratioz.appBarPadding * 2);
+    double _bubbleWidth = widget.flyerZoneWidth - (Ratioz.appBarPadding * 2);
 
-    double _peopleBubbleBoxHeight = flyerZoneWidth * Ratioz.xxflyerAuthorPicWidth * 1.5;
-    double _peopleIconSize = flyerZoneWidth * Ratioz.xxflyerAuthorPicWidth * 0.7;
+    double _peopleBubbleBoxHeight = widget.flyerZoneWidth * Ratioz.xxflyerAuthorPicWidth * 1.5;
+    double _peopleIconSize = widget.flyerZoneWidth * Ratioz.xxflyerAuthorPicWidth * 0.7;
     double _peopleNameHeight = _peopleBubbleBoxHeight - _peopleIconSize;
 
-    double _headerHeight = Scale.superHeaderHeight(false, flyerZoneWidth);
+    double _headerHeight = Scale.superHeaderHeight(false, widget.flyerZoneWidth);
 
     EdgeInsets _bubbleMargins = EdgeInsets.only(top: Ratioz.appBarPadding, left: Ratioz.appBarPadding, right: Ratioz.appBarPadding);
-    double _cornerSmall = flyerZoneWidth * Ratioz.xxflyerTopCorners;
-    double _cornerBig = (flyerZoneWidth - (Ratioz.appBarPadding * 2)) * Ratioz.xxflyerBottomCorners;
-    BorderRadius _bubbleCorners = Borderers.superBorderAll(context, flyerZoneWidth * Ratioz.xxflyerTopCorners);
+    double _cornerSmall = widget.flyerZoneWidth * Ratioz.xxflyerTopCorners;
+    double _cornerBig = (widget.flyerZoneWidth - (Ratioz.appBarPadding * 2)) * Ratioz.xxflyerBottomCorners;
+    BorderRadius _bubbleCorners = Borderers.superBorderAll(context, widget.flyerZoneWidth * Ratioz.xxflyerTopCorners);
 
-    BorderRadius _keywordsBubbleCorners = Borderers.superBorderAll(context, flyerZoneWidth * Ratioz.xxflyerTopCorners);
+    BorderRadius _keywordsBubbleCorners = Borderers.superBorderAll(context, widget.flyerZoneWidth * Ratioz.xxflyerTopCorners);
 
-    FlyerType _flyerType = superFlyer.flyerType == null ? FlyerTypeClass.concludeFlyerType(superFlyer.bz.bzType) : superFlyer.flyerType;
+    FlyerType _flyerType = widget.superFlyer.flyerType == null ? FlyerTypeClass.concludeFlyerType(widget.superFlyer.bz.bzType) : widget.superFlyer.flyerType;
 
     CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
-    String _countryName = _countryPro.getCountryNameInCurrentLanguageByIso3(context, superFlyer.flyerZone.countryID);
-    String _cityNameRetrieved = _countryPro.getCityNameWithCurrentLanguageIfPossible(context, superFlyer.flyerZone.cityID);
+    String _countryName = _countryPro.getCountryNameInCurrentLanguageByIso3(context, widget.superFlyer.flyerZone.countryID);
+    String _cityNameRetrieved = _countryPro.getCityNameWithCurrentLanguageIfPossible(context, widget.superFlyer.flyerZone.cityID);
     String _cityName = _cityNameRetrieved == null ? '.....' : _cityNameRetrieved;
 
     List<TinyUser> _users = TinyUser.dummyTinyUsers();
 
-    bool _editMode = superFlyer.edit.editMode == true;
+    bool _editMode = widget.superFlyer.edit.editMode == true;
 
     String _flyerInfoParagraph =
-    _editMode == true && superFlyer.infoController.text.length == 0 ? '...' :
-    _editMode == true && superFlyer.infoController.text.length > 0 ? superFlyer.infoController.text :
-    _editMode == false ? superFlyer.flyerInfo : superFlyer.flyerInfo;
+    _editMode == true && widget.superFlyer.infoController.text.length == 0 ? '...' :
+    _editMode == true && widget.superFlyer.infoController.text.length > 0 ? widget.superFlyer.infoController.text :
+    _editMode == false ? widget.superFlyer.flyerInfo : widget.superFlyer.flyerInfo;
 
     bool _flyerInfoExists = _flyerInfoParagraph == null ? false : _flyerInfoParagraph.length == 0 ? false : true;
 
-    final List<FlyerType> _possibleFlyerTypes = FlyerTypeClass.concludePossibleFlyerTypesForBz(bzType: superFlyer.bz.bzType);
+    final List<FlyerType> _possibleFlyerTypes = FlyerTypeClass.concludePossibleFlyerTypesForBz(bzType: widget.superFlyer.bz.bzType);
 
+    // Tracer.traceWidgetBuild(widgetName: 'InfoPage', varName: 'widget.superFlyer.nav.infoScrollController.offset', varValue: fire an error as info scroll controller has not yet been attached to a widget);
     return NotificationListener(
       onNotification: (ScrollUpdateNotification details){
 
@@ -78,24 +89,25 @@ class InfoPage extends StatelessWidget {
 
         bool _canPageUp = _offset < _bounceLimit;
 
-        bool _goingDown = Scrollers.isGoingDown(superFlyer.nav.infoScrollController);
+        bool _goingDown = Scrollers.isGoingDown(widget.superFlyer.nav.infoScrollController);
 
         if(_goingDown == true && _canPageUp == true){
-          Sliders.slideToBackFrom(superFlyer.nav.verticalController, 1, curve: Curves.easeOut);
+          Sliders.slideToBackFrom(widget.superFlyer.nav.verticalController, 1, curve: Curves.easeOut);
         }
+
 
         return true;
       },
       child: ListView(
-        key: PageStorageKey(2),
+        key: PageStorageKey<String>('${widget.superFlyer.flyerID}_2'),
         physics: const BouncingScrollPhysics(),
         shrinkWrap: false,
-        controller: superFlyer.nav.infoScrollController,
+        controller: widget.superFlyer.nav.infoScrollController,
         children: <Widget>[
 
           /// HEADER FOOTPRINT ZONE
           Container(
-            width: flyerZoneWidth,
+            width: widget.flyerZoneWidth,
             height: _headerHeight,
           ),
 
@@ -127,7 +139,7 @@ class InfoPage extends StatelessWidget {
                 /// ZONE
                 StatsLine(
                   verse: 'Targeting : ${_cityName} , ${_countryName}',
-                  icon: Flagz.getFlagByIso3(superFlyer.flyerZone.countryID),
+                  icon: Flagz.getFlagByIso3(widget.superFlyer.flyerZone.countryID),
                   bubbleWidth: _bubbleWidth,
                 ),
 
@@ -140,7 +152,7 @@ class InfoPage extends StatelessWidget {
               bubbleWidth: _bubbleWidth,
               margins: _bubbleMargins,
               corners: _bubbleCorners,
-              bubbleOnTap: _possibleFlyerTypes.length == 1 ? null : superFlyer.edit.onFlyerTypeTap,
+              bubbleOnTap: _possibleFlyerTypes.length == 1 ? null : widget.superFlyer.edit.onFlyerTypeTap,
               columnChildren: <Widget>[
 
                 StatsLine(
@@ -160,12 +172,12 @@ class InfoPage extends StatelessWidget {
               bubbleWidth: _bubbleWidth,
               margins: _bubbleMargins,
               corners: _bubbleCorners,
-              bubbleOnTap: superFlyer.edit.onZoneTap,
+              bubbleOnTap: widget.superFlyer.edit.onZoneTap,
               columnChildren: <Widget>[
 
                 StatsLine(
                   verse: 'Targeting : ${_cityName} , ${_countryName}',
-                  icon: Flagz.getFlagByIso3(superFlyer.flyerZone.countryID),
+                  icon: Flagz.getFlagByIso3(widget.superFlyer.flyerZone.countryID),
                   bubbleWidth: _bubbleWidth,
                 ),
               ],
@@ -181,14 +193,14 @@ class InfoPage extends StatelessWidget {
               maxLines: 3,
               centered: false,
               paragraph: _flyerInfoParagraph,
-              editMode: superFlyer.edit.editMode,
-              onParagraphTap: superFlyer.edit.onEditInfoTap,
+              editMode: widget.superFlyer.edit.editMode,
+              onParagraphTap: widget.superFlyer.edit.onEditInfoTap,
             ),
 
           /// SAVES BUBBLE
           if (_editMode != true)
             RecordBubble(
-              flyerZoneWidth: flyerZoneWidth,
+              flyerZoneWidth: widget.flyerZoneWidth,
               bubbleTitle: 'Who Saved it',
               bubbleIcon: Iconz.Save,
               users: _users,
@@ -197,7 +209,7 @@ class InfoPage extends StatelessWidget {
           /// SHARES BUBBLE
           if (_editMode != true)
             RecordBubble(
-              flyerZoneWidth: flyerZoneWidth,
+              flyerZoneWidth: widget.flyerZoneWidth,
               bubbleTitle: 'Who Shared it',
               bubbleIcon: Iconz.Share,
               users: _users,
@@ -206,29 +218,29 @@ class InfoPage extends StatelessWidget {
           /// VIEWS BUBBLE
           if (_editMode != true)
             RecordBubble(
-              flyerZoneWidth: flyerZoneWidth,
+              flyerZoneWidth: widget.flyerZoneWidth,
               bubbleTitle: 'Who viewed it',
               bubbleIcon: Iconz.Views,
               users: _users,
             ),
 
           /// KEYWORDS
-          if (superFlyer.keywords != null && superFlyer.keywords.length != 0)
+          if (widget.superFlyer.keywords != null && widget.superFlyer.keywords.length != 0)
             KeywordsBubble(
               bubbleWidth: _bubbleWidth,
               margins: _bubbleMargins,
               corners: _keywordsBubbleCorners,
               title: 'Flyer keywords',
-              keywords: superFlyer.keywords,
+              keywords: widget.superFlyer.keywords,
               selectedWords: null,
-              onTap: _editMode == true ? superFlyer.edit.onEditKeywordsTap : null,
-              addButtonIsOn: superFlyer.edit.editMode,
+              onTap: _editMode == true ? widget.superFlyer.edit.onEditKeywordsTap : null,
+              addButtonIsOn: widget.superFlyer.edit.editMode,
             ),
 
 
           ReviewBubble(
-            flyerZoneWidth: flyerZoneWidth,
-            superFlyer: superFlyer,
+            flyerZoneWidth: widget.flyerZoneWidth,
+            superFlyer: widget.superFlyer,
           ),
 
           SizedBox(
@@ -239,5 +251,4 @@ class InfoPage extends StatelessWidget {
       ),
     );
   }
-
 }

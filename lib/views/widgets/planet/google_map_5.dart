@@ -82,9 +82,9 @@
 //
 //   @override
 //   void initState() {
+//       super.initState();
 //       _getUserLocation();
 //       _missingFunction();
-//       super.initState();
 //   }
 //
 //   @override

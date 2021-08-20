@@ -40,8 +40,8 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
-    getFirestoreBzz();
     super.initState();
+    getFirestoreBzz();
   }
 // -----------------------------------------------------------------------------
   /// --- LOADING BLOCK

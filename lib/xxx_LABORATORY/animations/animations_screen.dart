@@ -24,6 +24,7 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
 
   @override
   void initState() {
+    super.initState();
     width = 100;
     height = 100;
     btWidth = 100;
@@ -43,7 +44,6 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
 
       });
     });
-    super.initState();
   }
 
   void resizeBox(){

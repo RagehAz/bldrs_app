@@ -46,10 +46,10 @@ class _FlyersGridState extends State<FlyersGrid> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
+    super.initState();
     final FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
     // savedFlyers = await pro.getSavedFlyers;
     _tinyFlyers = widget.tinyFlyers == null ? _prof.getSavedTinyFlyers : widget.tinyFlyers;
-    super.initState();
   }
 // -----------------------------------------------------------------------------
 //   @override

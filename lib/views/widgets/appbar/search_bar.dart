@@ -20,8 +20,8 @@ class _SearchBarState extends State<SearchBar> {
 
   @override
   void initState() {
-    _searchTextController.text = '';
     super.initState();
+    _searchTextController.text = '';
   }
 
   @override

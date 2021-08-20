@@ -20,6 +20,7 @@ class _NotificationsTestScreenState extends State<NotificationsTestScreen> {
 
   @override
   void initState() {
+    super.initState();
     /// for ios notifications
     fbm.requestNotificationPermissions();
     fbm.configure(
@@ -57,7 +58,6 @@ class _NotificationsTestScreenState extends State<NotificationsTestScreen> {
 
     // fbm.getToken();
     fbm.subscribeToTopic('flyers');
-    super.initState();
   }
 // -----------------------------------------------------------------------------
   NotiModel _noti;

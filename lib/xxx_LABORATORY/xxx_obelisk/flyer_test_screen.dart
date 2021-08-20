@@ -52,9 +52,9 @@ class _FlyerTestScreenState extends State<FlyerTestScreen> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
+    super.initState();
     // _flyerOpacity = 1;
 
-    super.initState();
   }
   // -----------------------------------------------------------------------------
   bool _isInit = true;
