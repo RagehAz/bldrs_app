@@ -40,6 +40,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
+    super.initState();
     // works
     // Provider.of<FlyersProvider>(context,listen: false).fetchAndSetBzz();
 
@@ -48,7 +49,6 @@ class _LoadingScreenState extends State<LoadingScreen> {
     //   Provider.of<FlyersProvider>(context,listen: true).fetchAndSetBzz();
     // });
 
-    super.initState();
   }
 // -----------------------------------------------------------------------------
   /// this method of fetching provided data allows listening true or false,

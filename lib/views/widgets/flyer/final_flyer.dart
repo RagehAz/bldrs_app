@@ -55,6 +55,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:provider/provider.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/new_header.dart';
+import 'package:bldrs/controllers/drafters/aligners.dart';
 
 class FinalFlyer extends StatefulWidget {
   final double flyerZoneWidth;
@@ -127,6 +128,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 // -----------------------------------------------------------------------------
   @override
   void initState() {
+    super.initState();
 
     /// get current bzModel when this flyer goes to editor
     _prof = Provider.of<FlyersProvider>(context, listen: false);
@@ -136,7 +138,6 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     /// initialize initial superFlyer before fetching the actual superFlyer
     _superFlyer = _initializeSuperFlyer();
 
-    super.initState();
   }
   // -----------------------------------------------------------------------------
   @override
@@ -359,6 +360,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         onCallTap: () async { await _onCallTap();},
         onEditReview: () async {await _onEditReview();},
         onSubmitReview: () async {await _onSubmitReview();},
+        onShowReviewOptions: (ReviewModel review) async {await _onShowReviewOptions(review);}
       );
 
     }
@@ -872,60 +874,211 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
   }
 // -----------------------------------------------------o
-  Future<void> _onEditReview() async {
+  Future<void> _onEditReview({ReviewModel review}) async {
 
+    /// existing review
+    String _existingReview = review?.review;
 
-    double _dialogHeight = BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.7);
+    /// assign review controller
+    if (review != null){
+      _superFlyer.rec.reviewController.text = review.review;
+    }
+
+    double _dialogHeight = BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.8);
     double _dialogClearWidth = BottomDialog.dialogClearWidth(context);
     double _dialogInnerCorners = BottomDialog.dialogClearCornerValue();
 
-    await BottomDialog.slideBottomDialog(
+    bool _canUploadReview = false;
+
+    await BottomDialog.slideStatefulBottomDialog(
       context: context,
       draggable: true,
       height: _dialogHeight,
       title: 'Add your review on this flyer',
-      child: Column(
-        children: <Widget>[
+      builder: (ctx, title){
 
-          /// TEXTFIELD
-          Container(
-            width: _dialogClearWidth,
-            child: SuperTextField(
-              // autofocus: autoFocus,
-              // onChanged: textFieldOnChanged,
-              width: _dialogClearWidth,
-              hintText: '...',
-              fieldColor: Colorz.White20,
-              corners: _dialogInnerCorners,
-              // margin: EdgeInsets.only(top: (_dialogClearWidth * 0.3), left: 5, right: 5),
-              maxLines: 10,
-              minLines: 3,
-              maxLength: 500,
-              designMode: false,
-              counterIsOn: true,
-              inputSize: 2,
-              centered: false,
-              textController: _superFlyer.rec.reviewController,
-              inputWeight: VerseWeight.thin,
-              inputShadow: false,
-              fieldIsFormField: false,
+        return
+          StatefulBuilder(
+            builder: (xxx, setDialogState){
 
-              onSubmitted: (val){
-                print('val is : $val');
-              },
-              keyboardTextInputType: TextInputType.multiline,
-              keyboardTextInputAction: TextInputAction.newline,
-              onMaxLinesReached: null,
-            ),
-          ),
+              return
+                BottomDialog(
+                  title: title,
+                  height: _dialogHeight,
+                  draggable: true,
+                  child: Column(
+                    children: <Widget>[
 
-        ],
-      ),
+                      /// REVIEW TEXT FIELD
+                      Container(
+                        width: _dialogClearWidth,
+                        child: SuperTextField(
+                          autofocus: true,
+                          // onChanged: textFieldOnChanged,
+                          width: _dialogClearWidth,
+                          hintText: '...',
+                          fieldColor: Colorz.White20,
+                          corners: _dialogInnerCorners,
+                          // margin: EdgeInsets.only(top: (_dialogClearWidth * 0.3), left: 5, right: 5),
+                          maxLines: 10,
+                          minLines: 3,
+                          maxLength: 500,
+                          designMode: false,
+                          counterIsOn: true,
+                          inputSize: 2,
+                          centered: false,
+                          textController: _superFlyer.rec.reviewController,
+                          inputWeight: VerseWeight.thin,
+                          inputShadow: false,
+                          fieldIsFormField: false,
+                          onChanged: (val){
+
+                            bool _reviewControllerHasValue = TextChecker.textControllerHasNoValue(_superFlyer.rec.reviewController) == false;
+
+                            print('_existingReview : $_existingReview');
+                            print('_reviewControllerHasValue : $_reviewControllerHasValue');
+                            print('_superFlyer.rec.reviewController.text : ${_superFlyer.rec.reviewController.text}');
+                            // print('val : $val');
+                            print('_canUploadReview : $_canUploadReview');
+
+                            if (_reviewControllerHasValue == true){
+                              if (_superFlyer.rec.reviewController.text != _existingReview){
+                                setDialogState((){
+                                  _canUploadReview = true;
+                                });
+
+                              }
+                            }
+                            else if (_canUploadReview == true){
+                              setDialogState((){
+                                _canUploadReview = false;
+                              });
+                            }
+
+                          },
+                          onSubmitted: (val){
+                            print('val is : $val');
+                          },
+                          keyboardTextInputType: TextInputType.multiline,
+                          keyboardTextInputAction: TextInputAction.newline,
+                          onMaxLinesReached: null,
+                        ),
+                      ),
+
+                      Container(
+                        width: _dialogClearWidth,
+                        height: 40,
+                        margin: EdgeInsets.only(top: Ratioz.appBarPadding),
+                        alignment: Aligners.superInverseCenterAlignment(context),
+                        child: DreamBox(
+                          height: 40,
+                          verse: _existingReview == null ? 'Add Review' : 'Edit Review',
+                          verseScaleFactor: 0.6,
+                          color: Colorz.Yellow255,
+                          verseColor: Colorz.Black255,
+                          verseShadow: false,
+                          verseWeight: VerseWeight.bold,
+                          inActiveMode: !_canUploadReview,
+                          onTap: () async {
+
+                            Keyboarders.minimizeKeyboardOnTapOutSide(context);
+
+                            await _onSubmitReview(
+                              review: ReviewModel(
+                                review: _superFlyer.rec.reviewController.text, time: DateTime.now(),
+                                userID: superUserID(),
+                                reviewID: review?.reviewID,
+                              ),
+                            );
+
+                            if (_existingReview != null){
+                              setState(() {
+                                _superFlyer.rec.reviewController.clear();
+                                _existingReview = null;
+                              });
+
+                              await Nav.goBack(context);
+
+                            }
+
+                            await Nav.goBack(context);
+
+                          },
+                        ),
+                      ),
+
+                    ],
+                  ),
+                );
+
+            },
+          );
+
+      },
     );
 
   }
+// -----------------------------------------------------o
+  Future<void> _onShowReviewOptions(ReviewModel review) async {
 
-  Future<void> _onSubmitReview() async {
+    double _dialogHeight = BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.25);
+
+
+    final int _numberOfButtons = 2;
+    final double _dialogClearWidth = BottomDialog.dialogClearWidth(context);
+    final double _dialogClearHeight = BottomDialog.dialogClearHeight(context: context, overridingDialogHeight: _dialogHeight, title: 'x');
+    final double _spacing = Ratioz.appBarMargin;
+    final double _buttonWidth = (_dialogClearWidth - ((_numberOfButtons + 1) * _spacing) ) / _numberOfButtons;
+
+    Color _buttonColor = Colorz.White20;
+    Color _verseColor = Colorz.White255;
+
+    await BottomDialog.slideBottomDialog(
+      context: context,
+      height: _dialogHeight,
+      draggable: true,
+      title: 'Review options',
+      child: Container(
+        width: _dialogClearWidth,
+        height: _dialogClearHeight,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+
+            DreamBox(
+              height: 60,
+              width: _buttonWidth,
+              verse: 'Delete review',
+              verseMaxLines: 2,
+              verseScaleFactor: 0.7,
+              color: _buttonColor,
+              verseColor: _verseColor,
+              onTap: () => _deleteReview(review.reviewID),
+            ),
+
+            DreamBox(
+              height: 60,
+              width: _buttonWidth,
+              verse: 'Edit review',
+              verseMaxLines: 2,
+              verseScaleFactor: 0.7,
+              color: _buttonColor,
+              verseColor: _verseColor,
+              onTap:  () => _onEditReview(review: review),
+            ),
+
+          ],
+        ),
+      ),
+    );
+
+
+  }
+// -----------------------------------------------------o
+  Future<void> _onSubmitReview({ReviewModel review}) async {
+
+    print('review text is : ${review.review}');
 
     if (TextChecker.textControllerHasNoValue(_superFlyer.rec.reviewController) == true){
       await NavDialog.showNavDialog(
@@ -937,17 +1090,22 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     }
 
     else {
-      ReviewModel _review = ReviewModel(
+
+      ReviewModel _review = review != null ?
+      review
+          :
+      ReviewModel(
         review: _superFlyer.rec.reviewController.text,
         userID: superUserID(),
         time: DateTime.now(),
       );
 
-      await Fire.createSubDoc(
+      await Fire.updateSubDoc(
         context: context,
         collName: FireCollection.flyers,
         docName: _superFlyer.flyerID,
         subCollName: FireCollection.subFlyerReviews,
+        subDocName: review.reviewID,
         input: _review.toMap(),
       );
 
@@ -964,6 +1122,28 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
     }
   }
+// -----------------------------------------------------o
+  Future<void> _deleteReview(String reviewID) async {
+
+    await Nav.goBack(context);
+
+    await Fire.deleteSubDoc(
+      context: context,
+      collName: FireCollection.flyers,
+      docName: _superFlyer.flyerID,
+      subCollName: FireCollection.subFlyerReviews,
+      subDocName: reviewID,
+    );
+
+    await NavDialog.showNavDialog(
+      context: context,
+      isBig: true,
+      firstLine: 'Review Deleted',
+    );
+
+
+  }
+
 // -----------------------------------------------------------------------------
 
   /// EDITOR METHOD
@@ -1455,7 +1635,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     final double _spacing = Ratioz.appBarMargin;
     final double _buttonWidth = (_dialogClearWidth - ((_numberOfButtons + 1) * _spacing) ) / _numberOfButtons;
 
-    BottomDialog.slideStatefulBottomDialog(
+    await BottomDialog.slideStatefulBottomDialog(
       context: context,
       height: _dialogHeight,
       draggable: true,

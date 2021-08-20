@@ -107,6 +107,7 @@ class SubGroupTileState extends State<SubGroupTile> with SingleTickerProviderSta
 // -----------------------------------------------------------------------------
   @override
   void initState() {
+    super.initState();
     _controller = new AnimationController(duration: _kExpand, vsync: this);
     _easeOutAnimation = new CurvedAnimation(parent: _controller, curve: Curves.easeOut);
     _easeInAnimation = new CurvedAnimation(parent: _controller, curve: Curves.easeIn);
@@ -118,7 +119,6 @@ class SubGroupTileState extends State<SubGroupTile> with SingleTickerProviderSta
     _borderRadius = BorderRadiusTween();
     _isExpanded = PageStorage.of(context)?.readState(context) ?? widget.initiallyExpanded;
     if (_isExpanded) {_controller.value = 1.0;}
-    super.initState();
   }
 // -----------------------------------------------------------------------------
   @override

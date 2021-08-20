@@ -60,9 +60,9 @@ class _BldrsAppState extends State<BldrsApp> {
 // ---------------------------------------------------------------------------
   @override
   void initState() {
+    super.initState();
     _initializeFlutterFire();
     _initializeNotifications();
-    super.initState();
   }
 // ---------------------------------------------------------------------------
   @override

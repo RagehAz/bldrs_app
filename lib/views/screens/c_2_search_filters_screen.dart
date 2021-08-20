@@ -14,8 +14,8 @@ class _SearchFiltersScreenState extends State<SearchFiltersScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+    // TODO: implement initState
   }
 
   @override

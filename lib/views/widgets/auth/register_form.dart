@@ -56,10 +56,10 @@ class _RegisterFormState extends State<RegisterForm> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
+    super.initState();
     _emailController.text = widget.email;
     _passwordController.text = widget.password;
 
-    super.initState();
   }
 // -----------------------------------------------------------------------------
   @override

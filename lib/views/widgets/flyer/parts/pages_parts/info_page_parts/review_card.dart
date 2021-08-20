@@ -1,14 +1,18 @@
 import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/controllers/drafters/timerz.dart';
+import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/models/flyer/records/review_model.dart';
 import 'package:bldrs/models/user/tiny_user.dart';
 import 'package:bldrs/providers/users/user_streamer.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/views/widgets/dialogs/bottom_dialog/bottom_dialog.dart';
+import 'package:bldrs/views/widgets/dialogs/nav_dialog/nav_dialog.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/info_page_parts/review_user_label.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
@@ -17,13 +21,18 @@ class ReviewCard extends StatelessWidget {
   final double width;
   final double corners;
   final ReviewModel review;
+  final TinyUser tinyUser;
+  final String flyerID;
+  final Function onShowReviewOptions;
 
   const ReviewCard({
     @required this.width,
     @required this.corners,
     @required this.review,
+    @required this.tinyUser,
+    @required this.flyerID,
+    @required this.onShowReviewOptions,
 });
-
   @override
   Widget build(BuildContext context) {
 
@@ -41,17 +50,13 @@ class ReviewCard extends StatelessWidget {
         children: <Widget>[
 
           /// USER LABEL
-          tinyUserModelBuilder(
-            context: context,
-            userID: review.userID,
-            builder: (ctx, tinyUser){
-              return
-                ReviewUserLabel(
-                  tinyUser: tinyUser,
-                );
-            }
+          ReviewUserLabel(
+            tinyUser: tinyUser,
+            hasEditButton: true,
+            onReviewOptions: onShowReviewOptions,
           ),
 
+          /// REVIEW BODY
           Container(
             width: width,
             padding: EdgeInsets.all(Ratioz.appBarMargin),

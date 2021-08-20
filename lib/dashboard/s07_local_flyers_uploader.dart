@@ -49,8 +49,8 @@ class _LocalFlyersUploaderState extends State<LocalFlyersUploader> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
-    _userID = superUserID();
     super.initState();
+    _userID = superUserID();
   }
   // -----------------------------------------------------------------------------
 // void _doBz(int length, int index, String name, String id){
