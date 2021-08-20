@@ -21,7 +21,7 @@ class UserProvider{
       // List<dynamic> _publishedFlyersIDs = doc.data()['publishedFlyersIDs'] as List<dynamic>;
       return UserModel(
         userID : doc.data()['userID'] ?? '',
-        joinedAt : decipherDateTimeString(doc.data()['joinedAt'] ?? ''),
+        joinedAt : Timers.decipherDateTimeString(doc.data()['joinedAt'] ?? ''),
         userStatus : UserModel.decipherUserStatus(doc.data()['userStatus']?? 1),
         // -------------------------
         name : doc.data()['name'] ?? '',
@@ -59,7 +59,7 @@ class UserProvider{
 
         return UserModel(
           userID : _map['userID'] ?? '',
-          joinedAt : decipherDateTimeString(_map['joinedAt'] ?? ''),
+          joinedAt : Timers.decipherDateTimeString(_map['joinedAt'] ?? ''),
           userStatus : UserModel.decipherUserStatus(_map['userStatus']?? 1),
           // -------------------------
           name : _map['name'] ?? '',

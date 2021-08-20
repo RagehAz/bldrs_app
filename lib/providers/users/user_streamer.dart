@@ -1,16 +1,11 @@
 import 'package:bldrs/controllers/drafters/stream_checkers.dart';
 import 'package:bldrs/firestore/firestore.dart';
+import 'package:bldrs/models/user/tiny_user.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/providers/users/users_provider.dart';
 import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-// -----------------------------------------------------------------------------
-typedef userModelWidgetBuilder = Widget Function(
-    BuildContext context,
-    UserModel userModel,
-    );
-// ----------------------
 /// IMPLEMENTATION
 /// userStreamBuilder(
 ///         context: context,
@@ -19,6 +14,12 @@ typedef userModelWidgetBuilder = Widget Function(
 ///           return WidgetThatUsesTheAboveUserModel;
 ///         }
 ///      ) xxxxxxxxxxxxx ; or , xxxxxxxxxxxxx
+// -----------------------------------------------------------------------------
+typedef userModelWidgetBuilder = Widget Function(
+    BuildContext context,
+    UserModel userModel,
+    );
+// -----------------------------------------------------------------------------
 Widget userStreamBuilder({
   BuildContext context,
   userModelWidgetBuilder builder,
@@ -43,15 +44,7 @@ Widget userStreamBuilder({
     );
 
 }
-// ----------------------
-/// IMPLEMENTATION
-/// bzModelBuilder(
-///         bzID: bzID,
-///         context: context,
-///         builder: (context, BzModel bzModel){
-///           return WidgetThatUsesTheAboveBzModel;
-///         }
-///      ) xxxxxxxxxxxxx ; or , xxxxxxxxxxxxx
+// -----------------------------------------------------------------------------
 Widget userModelBuilder({
   String userID,
   BuildContext context,
@@ -76,6 +69,41 @@ Widget userModelBuilder({
           UserModel userModel = UserModel.decipherUserMap(_map);
 
           return builder(context, userModel);
+        }
+      }
+
+  );
+}
+// -----------------------------------------------------------------------------
+typedef tinyUserModelWidgetBuilder = Widget Function(
+    BuildContext context,
+    TinyUser tinyUser,
+    );
+// -----------------------------------------------------------------------------
+Widget tinyUserModelBuilder({
+  String userID,
+  BuildContext context,
+  tinyUserModelWidgetBuilder builder,
+}){
+
+  return FutureBuilder(
+      future: Fire.readDoc(
+        context: context,
+        collName: FireCollection.tinyUsers,
+        docName: userID,
+      ),
+      builder: (ctx, snapshot){
+
+        if (StreamChecker.connectionIsLoading(snapshot) == true){
+          return Loading(loading: true,);
+        }
+
+        else {
+
+          Map<String, dynamic> _map = snapshot.data;
+          TinyUser tinyUser = TinyUser.decipherTinyUserMap(_map);
+
+          return builder(context, tinyUser);
         }
       }
 

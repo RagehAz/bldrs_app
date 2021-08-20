@@ -3,19 +3,29 @@ import 'package:bldrs/controllers/drafters/aligners.dart';
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/keyboarders.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/drafters/text_checkers.dart';
 import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
+import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
+import 'package:bldrs/models/flyer/flyer_model.dart';
+import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
+import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/providers/users/user_streamer.dart';
+import 'package:bldrs/views/widgets/ask/question/question_model.dart';
+import 'package:bldrs/views/widgets/ask/question/question_ops.dart';
 import 'package:bldrs/views/widgets/ask/question/questions_provider.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/balloons/user_balloon.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/views/widgets/dialogs/bottom_dialog/bottom_dialog.dart';
+import 'package:bldrs/views/widgets/dialogs/nav_dialog/nav_dialog.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/bz_logo.dart';
+import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_text_field.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
@@ -35,26 +45,45 @@ class QuestionBubble extends StatefulWidget {
 }
 
 class _QuestionBubbleState extends State<QuestionBubble> {
-  TextEditingController _askBodyController;
-  TextEditingController _askTitleController;
+  TextEditingController _bodyController;
+  TextEditingController _titleController;
   bool _askButtonInactive = true;
-  List<File> _askPics;
-  // ----------------------------------------------------------------------
-  /// --- LOADING BLOCK
+  List<File> _questionPics;
+  List<Keyword> _keywords;
+  FlyerType _questionType;
+// -----------------------------------------------------------------------------
+  /// --- FUTURE LOADING BLOCK
   bool _loading = false;
-  void _triggerLoading(){
-    setState(() {_loading = !_loading;});
+  Future <void> _triggerLoading({Function function}) async {
+
+    if(mounted){
+
+      if (function == null){
+        setState(() {
+          _loading = !_loading;
+        });
+      }
+
+      else {
+        setState(() {
+          _loading = !_loading;
+          function();
+        });
+      }
+
+    }
+
     _loading == true?
     print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
   }
-  // ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   @override
   void initState() {
-    _askBodyController = new TextEditingController();
-    _askTitleController = new TextEditingController();
-    _askBodyController.addListener(textListener);
+    _bodyController = new TextEditingController();
+    _titleController = new TextEditingController();
+    _bodyController.addListener(textListener);
 
-    _askPics = new List();
+    _questionPics = new List();
     super.initState();
   }
   // ----------------------------------------------------------------------
@@ -62,14 +91,14 @@ class _QuestionBubbleState extends State<QuestionBubble> {
   void dispose() {
     // if (textControllerHasNoValue(_askBodyController))_askBodyController.dispose();
     // if (textControllerHasNoValue(_askTitleController))_askTitleController.dispose();
-    _askBodyController.dispose();
-    _askTitleController.dispose();
+    _bodyController.dispose();
+    _titleController.dispose();
     super.dispose();
   }
   // ----------------------------------------------------------------------
   void textListener(){
     // print('ask body text controller value is : ${_askBodyController.text}');
-    String _text = _askBodyController.text;
+    String _text = _bodyController.text;
     if (_text.length == 1 || _text.length == 0){
       setState(() {
         _askButtonInactive = _text.length > 0 ? false : true;
@@ -78,16 +107,16 @@ class _QuestionBubbleState extends State<QuestionBubble> {
 
   }
   // ----------------------------------------------------------------------
-  Future<void> _addAskPic() async {
+  Future<void> _addPic() async {
     final _imageFile = await Imagers.takeGalleryPicture(PicType.askPic);
-    setState(() {_askPics.add(File(_imageFile.path));});
+    setState(() {_questionPics.add(File(_imageFile.path));});
   }
   // ----------------------------------------------------------------------
-  void _deleteAskPic(File pic) async {
-  int _picFileIndex = _askPics.indexWhere((p) => p == pic);
-  setState(() {
-  _askPics.remove(pic);
-  });
+  void _deletePic(File pic) async {
+    int _picFileIndex = _questionPics.indexWhere((p) => p == pic);
+    setState(() {
+      _questionPics.remove(pic);
+    });
   }
   // ----------------------------------------------------------------------
   void submitQuestion() {
@@ -96,15 +125,64 @@ class _QuestionBubbleState extends State<QuestionBubble> {
     // print('Your Question is Submitted');
   }
 // ---------------------------------------------------------------------------
-  void _askButton(){
+  Future<void> _onAsk() async {
 
-      // if (_askBody == '' || _askBody == null){
-      //   print('question cannot be empty');
-      // } else {
-      //   _questionsProvider.add(_askBody);
-      //   submitQuestion();
-      //   goToNewScreen(context, QuestionsScreen());
-      // }
+      if (TextChecker.textControllerHasNoValue(_bodyController) == true){
+
+        await NavDialog.showNavDialog(
+          context: context,
+          isBig: true,
+          firstLine: 'Question is empty',
+          secondLine: 'Please type your question first'
+        );
+
+      }
+
+      else if (TextChecker.textControllerHasNoValue(_titleController) == true){
+
+        await NavDialog.showNavDialog(
+            context: context,
+            isBig: true,
+            firstLine: 'Title is empty',
+            secondLine: 'Please type question title to proceed'
+        );
+
+      }
+
+      else {
+
+        QuestionModel _question = QuestionModel(
+          questionID: 'mafeesh id',
+          body: _bodyController.text,
+          pics: _questionPics,
+          time: DateTime.now(),
+          keywords: _keywords,
+          title: _titleController.text,
+          ownerID: superUserID(),
+          questionIsOpen: true,
+          questionType: _questionType,
+          totalChats: 0,
+          totalViews: 0,
+          userDeletedQuestion: false,
+          userSeenAll: true,
+        );
+
+        await QuestionOps.createQuestionOps(
+          context: context,
+          question: _question,
+        );
+
+        await NavDialog.showNavDialog(
+            context: context,
+            isBig: true,
+            firstLine: 'Question submitted',
+            secondLine: 'Question is submitted, and all bitched will see now'
+        );
+
+        _titleController.clear();
+        _bodyController.clear();
+
+      }
 
   }
   // ----------------------------------------------------------------------
@@ -131,7 +209,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
     double _gridBzWidth = gridZoneWidth / (numberOfColumns + (numberOfColumns * _spacingRatioToGridWidth) + _spacingRatioToGridWidth);
     double _gridBzHeight = _gridBzWidth;
     double _gridSpacing = _gridBzWidth * _spacingRatioToGridWidth;
-    int _picCount = _askPics.length == 0 ? _boxesColors.length : _askPics.length;
+    int _picCount = _questionPics.length == 0 ? _boxesColors.length : _questionPics.length;
     int _numOfGridRows(int _bzCount){return (_bzCount/_gridColumnsCount).ceil();}
     int _numOfRows = numberOfRows == null ? _numOfGridRows(_picCount) : numberOfRows;
     double _gridHeight = _gridBzHeight * (_numOfRows + (_numOfRows * _spacingRatioToGridWidth) + _spacingRatioToGridWidth);
@@ -145,14 +223,12 @@ class _QuestionBubbleState extends State<QuestionBubble> {
 
     double zoneCorners = (_gridBzWidth * Ratioz.bzLogoCorner) + _gridSpacing;
 
-
-
     return InPyramidsBubble(
       centered: true,
       bubbleColor: Colorz.White10,
       columnChildren: <Widget>[
 
-        // --- USER LABEL
+        /// USER LABEL
         Container(
           height: _abButtonsHeight * 1.2,
           child: Row(
@@ -160,7 +236,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
 
-              // --- USER PICTURE
+              /// USER PICTURE
               UserBalloon(
                 // userPic: Iconz.DumAuthorPic,
                 balloonType: _userStatus,
@@ -172,7 +248,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
                 },
               ),
 
-              // --- SPACER
+              /// SPACER
               Container(
                 width: Ratioz.appBarMargin,
                 height: _abButtonsHeight,
@@ -182,6 +258,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
                 context: context,
                 listen: false,
                 builder: (context, userModel){
+
                   return
                     /// USER NAME AND TITLE
                     Column(
@@ -201,14 +278,13 @@ class _QuestionBubbleState extends State<QuestionBubble> {
                         ),
                       ],
                     );
+
                 }
               ),
 
 
-              // --- EXPANDER SPACE
-              Expanded(
-                child: Container(),
-              ),
+              /// EXPANDER SPACE
+              Expander(),
 
               /// INFO BUTTON
               DreamBox(
@@ -217,24 +293,26 @@ class _QuestionBubbleState extends State<QuestionBubble> {
                 icon: Iconz.Info,
                 iconSizeFactor: 0.5,
                 onTap: widget.tappingAskInfo,
-              )
+              ),
+
             ],
           ),
         ),
 
-        // --- ASK TITLE TEXT FIELD
+        /// ASK TITLE TEXT FIELD
         Padding(
           padding: const EdgeInsets.symmetric(vertical: Ratioz.appBarMargin),
           child: SuperTextField(
             maxLines: 2,
             labelColor: Colorz.White10,
-            textController: _askTitleController,
+            textController: _titleController,
             inputColor: Colorz.White255,
             hintText: 'Question title',
             centered: true,
             height: 60,
             inputSize: 3,
-            keyboardTextInputType: TextInputType.multiline,
+            keyboardTextInputType: TextInputType.text,
+            keyboardTextInputAction: TextInputAction.next,
             maxLength: 100,
             counterIsOn: false,
             fieldIsFormField: false,
@@ -242,11 +320,11 @@ class _QuestionBubbleState extends State<QuestionBubble> {
           ),
         ),
 
-        // --- ASK BODY TEXT FIELD
+        /// ASK BODY TEXT FIELD
         Padding(
           padding: const EdgeInsets.symmetric(vertical: Ratioz.appBarMargin),
           child: SuperTextField(
-            textController: _askBodyController,
+            textController: _bodyController,
             inputColor: Colorz.White255,
             hintText: askHint,
             keyboardTextInputType: TextInputType.multiline,
@@ -258,7 +336,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
           ),
         ),
 
-        // --- ASK PICS
+        /// ASK PICS
         Container(
           // color: Colorz.BloodTest,
           child: Column(
@@ -277,8 +355,8 @@ class _QuestionBubbleState extends State<QuestionBubble> {
               Stack(
                 children: <Widget>[
 
-                  // --- GRID FOOTPRINTS
-                  if (_askPics.length == 0)
+                  /// GRID FOOTPRINTS
+                  if (_questionPics.length == 0)
                     GridView(
                       physics: NeverScrollableScrollPhysics() ,
                       scrollDirection: Axis.vertical,
@@ -295,15 +373,15 @@ class _QuestionBubbleState extends State<QuestionBubble> {
                               zeroCornerIsOn: false,
                               onTap: (){
                                 Keyboarders.minimizeKeyboardOnTapOutSide(context);
-                                _addAskPic();
+                                _addPic();
                                 },
                             ),
                       ).toList(),
                     ),
 
 
-                  // --- ASK PICS GRID
-                  if (_askPics.length != 0)
+                  /// ASK PICS GRID
+                  if (_questionPics.length != 0)
                     GridView(
                       physics: NeverScrollableScrollPhysics(),
                       scrollDirection: Axis.vertical,
@@ -312,7 +390,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
                       // padding: EdgeInsets.all(_gridSpacing),
                       // key: new Key(loadedFlyers[flyerIndex].f01flyerID),
                       gridDelegate: _gridDelegate,
-                      children: _askPics.map(
+                      children: _questionPics.map(
                             (pic) => BzLogo(
                             width: _gridBzWidth,
                             image: pic,
@@ -323,7 +401,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
                               // TASK : tap ask picture to go full screen
                               print('SHOULD GO FULL SCREEN AND BACK : ${pic.path}');
                               // for now it will delete image
-                              _deleteAskPic(pic);
+                              _deletePic(pic);
                             }
                         ),
 
@@ -338,7 +416,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
           ),
         ),
 
-        // --- ASK BUTTON
+        /// ASK BUTTON
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -353,7 +431,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
               iconSizeFactor: 0.6,
               onTap: (){
                 Keyboarders.minimizeKeyboardOnTapOutSide(context);
-                _addAskPic();
+                _addPic();
               },
 
             ),
@@ -370,7 +448,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
                 verseScaleFactor: 0.7,
                 color: Colorz.Yellow255,
                 verseWeight: VerseWeight.bold,
-                onTap: _askButton,
+                onTap: _onAsk,
               ),
             ),
 

@@ -17,14 +17,14 @@ class ShareModel{
   Map<String, Object> toMap(){
     return {
       'slideIndexes' : slideIndexes,
-      'timeStamps' : cipherListOfDateTimes(timeStamps),
+      'timeStamps' : Timers.cipherListOfDateTimes(timeStamps),
     };
   }
 // -----------------------------------------------------------------------------
   static ShareModel decipherShareMap(Map<String, dynamic> map){
     return ShareModel(
       slideIndexes: map['slideIndexes'],
-      timeStamps: decipherListOfDateTimesStrings(map['timeStamps']),
+      timeStamps: Timers.decipherListOfDateTimesStrings(map['timeStamps']),
     );
 }
 // -----------------------------------------------------------------------------

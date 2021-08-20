@@ -10,6 +10,7 @@ import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/user/tiny_user.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
+import 'package:bldrs/views/widgets/dialogs/dialogz.dart';
 import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -271,7 +272,7 @@ class UserOps{
         Nav.goBack(context);
 
         /// C - show deactivable bzz dialog
-        bool _bzzReviewResult = await bzzDeactivationDialog(
+        bool _bzzReviewResult = await Dialogz.bzzDeactivationDialog(
           context: context,
           bzzToDeactivate: _bzzToDeactivate,
           bzzToKeep: _bzzToKeep,
@@ -289,7 +290,7 @@ class UserOps{
         else  {
 
           /// E - show flyers that will be DEACTIVATED
-          bool _flyersReviewResult = await flyersDeactivationDialog(
+          bool _flyersReviewResult = await Dialogz.flyersDeactivationDialog(
             context: context,
             bzzToDeactivate: _bzzToDeactivate,
           );
@@ -469,7 +470,7 @@ class UserOps{
         Nav.goBack(context);
 
         /// C - show deactivable bzz dialog
-        bool _bzzReviewResult = await bzzDeactivationDialog(
+        bool _bzzReviewResult = await Dialogz.bzzDeactivationDialog(
           context: context,
           bzzToDeactivate: _bzzToDeactivate,
           bzzToKeep: _bzzToKeep,
@@ -486,7 +487,7 @@ class UserOps{
         else {
 
           /// E - show flyers that will be DELETED
-          bool _flyersReviewResult = await flyersDeactivationDialog(
+          bool _flyersReviewResult = await Dialogz.flyersDeactivationDialog(
             context: context,
             bzzToDeactivate: _bzzToDeactivate,
           );

@@ -7,9 +7,12 @@ class FlyerRecorder{
   final Function onShareTap; // FlyerRecord
   final Function onFollowTap; // FlyerRecord
   final Function onCallTap; // FlyerRecord
+  final Function onEditReview;
+  final Function onSubmitReview;
   /// user based bool triggers
   bool ankhIsOn; // FlyerRecord
   bool followIsOn; // FlyerRecord
+  TextEditingController reviewController;
 
   FlyerRecorder({
     @required this.onViewSlide,
@@ -19,6 +22,9 @@ class FlyerRecorder{
     @required this.onCallTap,
     @required this.ankhIsOn,
     @required this.followIsOn,
+    @required this.reviewController,
+    @required this.onEditReview,
+    @required this.onSubmitReview,
   });
 
 }

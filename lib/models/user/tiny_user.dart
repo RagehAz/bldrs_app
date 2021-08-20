@@ -1,3 +1,5 @@
+import 'package:bldrs/controllers/theme/dumz.dart';
+import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/models/bz/author_model.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/secondary_models/contact_model.dart';
@@ -115,6 +117,59 @@ class TinyUser {
     }
 
     return _tinyUsersAreTheSame;
+  }
+// -----------------------------------------------------------------------------
+  static TinyUser dummyTinyUser(){
+    return
+      TinyUser(
+        userID: 'a77a',
+        name: 'User fucking name',
+        title: 'super fucking user title',
+        pic: Iconz.DumAuthorPic,
+        email: 'fuckyou@hotmail.com',
+        phone: '1234567',
+        userStatus: UserStatus.Building,
+      );
+  }
+// -----------------------------------------------------------------------------
+  static List<TinyUser> dummyTinyUsers(){
+
+    final List<TinyUser> _users = <TinyUser>[
+      TinyUser(
+        name: 'Ahmad Ali',
+        pic: Iconz.DumAuthorPic,
+        userID: '1',
+        title: '',
+      ),
+      TinyUser(
+        name: 'Morgan Darwish',
+        pic: Dumz.XXabohassan_author,
+        userID: '2',
+        title: '',
+      ),
+      TinyUser(
+        name: 'Zahi Fayez',
+        pic: Dumz.XXzah_author,
+        userID: '3',
+        title: '',
+      ),
+      TinyUser(
+        name: 'Hani Wani',
+        pic: Dumz.XXhs_author,
+        userID: '4',
+        title: '',
+      ),
+      TinyUser(
+        name: 'Nada Mohsen',
+        pic: Dumz.XXmhdh_author,
+        userID: '5',
+        title: '',
+      ),
+
+    ];
+
+
+    return _users;
   }
 // -----------------------------------------------------------------------------
 }

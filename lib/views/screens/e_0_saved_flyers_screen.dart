@@ -8,6 +8,7 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
+import 'package:bldrs/views/widgets/appbar/sections_button.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/flyer/final_flyer.dart';
 import 'package:bldrs/views/widgets/flyer/stacks/gallery_grid.dart';
@@ -86,6 +87,9 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen> with SingleTicker
       sky: Sky.Black,
       pageTitle: 'Chosen Flyers',
       pyramids: Iconz.DvBlankSVG,
+      appBarRowWidgets: <Widget>[
+        SectionsButton(),
+      ],
       layoutWidget: GoHomeOnMaxBounce(
         child: NestedScrollView(
           physics: const BouncingScrollPhysics(),
