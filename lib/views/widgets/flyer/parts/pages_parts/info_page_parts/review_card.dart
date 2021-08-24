@@ -77,7 +77,7 @@ class ReviewCard extends StatelessWidget {
 
                 /// REVIEW TEXT
                 SuperVerse(
-                  verse: review.review,
+                  verse: review.body,
                   size: 2,
                   centered: false,
                   maxLines: 3,

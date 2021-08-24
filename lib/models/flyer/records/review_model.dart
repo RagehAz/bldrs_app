@@ -4,13 +4,13 @@ import 'package:flutter/foundation.dart';
 
 class ReviewModel {
   final String reviewID;
-  final String review;
+  final String body;
   final String userID;
   final DateTime time;
 
   ReviewModel ({
     this.reviewID,
-    @required this.review,
+    @required this.body,
     @required this.userID,
     @required this.time,
 });
@@ -18,7 +18,7 @@ class ReviewModel {
   Map<String, dynamic> toMap(){
     return
         {
-          'review' : review,
+          'body' : body,
           'userID' : userID,
           'time' : Timers.cipherDateTimeToString(time),
         };
@@ -29,7 +29,7 @@ class ReviewModel {
 
     if (map != null){
       _review = ReviewModel(
-          review: map['review'],
+          body: map['body'],
           userID: map['userID'],
           time: Timers.decipherDateTimeString(map['time']),
       );
@@ -41,7 +41,7 @@ class ReviewModel {
   static ReviewModel dummyReview(){
     return
         ReviewModel(
-            review: 'This is a dummy review that extends for several lines you know,, lorum ipsum plenty of gypsum',
+            body: 'This is a dummy review that extends for several lines you know,, lorum ipsum plenty of gypsum',
             userID: '2wviVfmJGyQon98JKRVSv25jxU33',
             time: DateTime.now(),
         );
