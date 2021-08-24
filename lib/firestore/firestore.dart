@@ -69,6 +69,21 @@ class StorageDoc{
 }
 
 class Fire{
+// -----------------------------------------------------------------------------
+  static String pathOfColl({String collName, String docName,}){
+    return
+      '$collName/$docName';
+  }
+// -----------------------------------------------------------------------------
+  static String pathOfSubColl({String collName, String docName, String subCollName}){
+    return
+      '$collName/$docName/$subCollName';
+  }
+// -----------------------------------------------------------------------------
+  static String pathOfSubDoc({String collName, String docName, String subCollName, String subDocName}){
+    return
+      '$collName/$docName/$subCollName/$subDocName';
+  }
 // =============================================================================
 
 
@@ -79,10 +94,10 @@ class Fire{
 
 // =============================================================================
   static CollectionReference getCollectionRef (String collName){
-  final FirebaseFirestore _fireInstance = FirebaseFirestore.instance;
-  CollectionReference _collection = _fireInstance.collection(collName);
-  return _collection;
-}
+    final FirebaseFirestore _fireInstance = FirebaseFirestore.instance;
+    CollectionReference _collection = _fireInstance.collection(collName);
+    return _collection;
+  }
 // -----------------------------------------------------------------------------
   static DocumentReference getDocRef ({String collName, String docName}){
     CollectionReference _collection = Fire.getCollectionRef(collName);
@@ -109,7 +124,7 @@ class Fire{
     //     .collection(subCollName);
 
     return _subCollection;
-}
+  }
 // -----------------------------------------------------------------------------
   static DocumentReference getSubDocRef ({String collName, String docName, String subCollName, String subDocName}){
     final CollectionReference _subCollection = FirebaseFirestore.instance
@@ -185,8 +200,8 @@ class Fire{
         functions: () async {
 
           final _docRef = getDocRef(
-              collName: collName,
-              docName: docName,
+            collName: collName,
+            docName: docName,
           );
 
           await _docRef.set(input);
@@ -348,24 +363,24 @@ class Fire{
     List<Map<String, dynamic>> _maps = new List();
 
     await tryAndCatch(
-      context: context,
+        context: context,
         methodName: 'readSubCollectionDocs',
-      functions: () async {
+        functions: () async {
 
-        final CollectionReference _subCollection = getSubCollectionRef(
-          collName: collName,
-          docName: docName,
-          subCollName: subCollName,
-        );
+          final CollectionReference _subCollection = getSubCollectionRef(
+            collName: collName,
+            docName: docName,
+            subCollName: subCollName,
+          );
 
-        final QuerySnapshot _collectionSnapshot = await _subCollection.get();
+          final QuerySnapshot _collectionSnapshot = await _subCollection.get();
 
-        _maps = Mapper.getMapsFromQuerySnapshot(
-          querySnapshot: _collectionSnapshot,
-          addDocsIDs: addDocsIDs,
-        );
+          _maps = Mapper.getMapsFromQuerySnapshot(
+            querySnapshot: _collectionSnapshot,
+            addDocsIDs: addDocsIDs,
+          );
 
-      }
+        }
     );
 
     return _maps;
@@ -522,15 +537,15 @@ class Fire{
     );
 
     await tryAndCatch(
-      context: context,
+        context: context,
         methodName: 'updateDocField',
-      functions: () async {
+        functions: () async {
 
-        await _doc.update({field : input});
+          await _doc.update({field : input});
 
-        print('Updated doc : $docName : field : [$field] : to : ${input.toString()}');
+          print('Updated doc : $docName : field : [$field] : to : ${input.toString()}');
 
-      }
+        }
     );
 
   }
@@ -542,7 +557,7 @@ class Fire{
     String field,
     String key,
     dynamic input,
-}) async {
+  }) async {
 
     await updateDocField(
       context: context,
@@ -552,7 +567,7 @@ class Fire{
       input: input,
     );
 
-}
+  }
 // -----------------------------------------------------------------------------
   static Future<void> updateSubDoc({
     BuildContext context,
@@ -593,11 +608,11 @@ class Fire{
     );
 
     await tryAndCatch(
-      context: context,
+        context: context,
         methodName: 'updateSubDocField',
-      functions: () async {
-        await _subDoc.update({field : input});
-      }
+        functions: () async {
+          await _subDoc.update({field : input});
+        }
     );
 
   }
@@ -614,8 +629,8 @@ class Fire{
         functions: () async {
 
           DocumentReference _doc = Fire.getDocRef(
-              collName: collName,
-              docName: docName,
+            collName: collName,
+            docName: docName,
           );
 
           await _doc.delete();
@@ -630,7 +645,7 @@ class Fire{
     String docName,
     String subCollName,
     String subDocName,
-}) async {
+  }) async {
 
     await tryAndCatch(
         context: context,
@@ -638,10 +653,10 @@ class Fire{
         functions: () async {
 
           DocumentReference _subDoc = Fire.getSubDocRef(
-          collName: collName,
-          docName: docName,
-          subCollName: subCollName,
-          subDocName: subDocName,
+            collName: collName,
+            docName: docName,
+            subCollName: subCollName,
+            subDocName: subDocName,
           );
 
           await _subDoc.delete();
@@ -701,18 +716,18 @@ class Fire{
 
     }
 
-}
+  }
 // -----------------------------------------------------------------------------
   static Future<void> deleteDocField({
     BuildContext context,
     String collName,
     String docName,
     String field,
-}) async {
+  }) async {
 
     DocumentReference _docRef = Fire.getDocRef(
-        collName: collName,
-        docName: docName,
+      collName: collName,
+      docName: docName,
     );
 
     // await tryAndCatch(
@@ -720,14 +735,14 @@ class Fire{
     //     methodName: 'deleteSubDocField',
     //     functions: () async {
 
-          // Remove field from the document
-          Map<String, Object> updates = new Map();
+    // Remove field from the document
+    Map<String, Object> updates = new Map();
 
-          updates.addAll({
-            field : FieldValue.delete(),
-          });
+    updates.addAll({
+      field : FieldValue.delete(),
+    });
 
-          await _docRef.update(updates);
+    await _docRef.update(updates);
 
     //     }
     // );
@@ -751,26 +766,26 @@ class Fire{
     );
 
     await tryAndCatch(
-      context: context,
-      methodName: 'deleteSubDocField',
-      functions: () async {
+        context: context,
+        methodName: 'deleteSubDocField',
+        functions: () async {
 
-        // Remove field from the document
-        Map<String, Object> updates = new Map();
+          // Remove field from the document
+          Map<String, Object> updates = new Map();
 
-        updates.addAll({
-          field : FieldValue.delete(),
-        });
+          updates.addAll({
+            field : FieldValue.delete(),
+          });
 
-        await _docRef.update(updates);
+          await _docRef.update(updates);
 
-      }
+        }
     );
 
   }
 // =============================================================================
 
-/// FIREBASE STORAGE METHODS
+  /// FIREBASE STORAGE METHODS
 
 // =============================================================================
   static Reference getStorageRef({
@@ -781,10 +796,10 @@ class Fire{
 
     print('getting fire storage reference');
 
-      final Reference _ref = FirebaseStorage.instance
-            .ref()
-            .child(docName)
-            .child(fileName + '.jpg') ?? null;
+    final Reference _ref = FirebaseStorage.instance
+        .ref()
+        .child(docName)
+        .child(fileName + '.jpg') ?? null;
 
     return _ref;
   }
@@ -805,8 +820,8 @@ class Fire{
         functions: () async {
 
           final Reference _ref = getStorageRef(
-              docName: StorageDoc.docName(picType),
-              fileName: fileName,
+            docName: StorageDoc.docName(picType),
+            fileName: fileName,
           );
 
           print('X1 - getting storage ref : $_ref');
@@ -874,7 +889,7 @@ class Fire{
     }
 
     return picsURLs;
-}
+  }
 // -----------------------------------------------------------------------------
   /// TASK : createStoragePicFromAssetAndGetURL not tested properly
   static Future<String> createStoragePicFromLocalAssetAndGetURL ({
