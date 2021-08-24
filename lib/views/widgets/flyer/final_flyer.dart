@@ -877,11 +877,11 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
   Future<void> _onEditReview({ReviewModel review}) async {
 
     /// existing review
-    String _existingReview = review?.review;
+    String _existingReview = review?.body;
 
     /// assign review controller
     if (review != null){
-      _superFlyer.rec.reviewController.text = review.review;
+      _superFlyer.rec.reviewController.text = review.body;
     }
 
     double _dialogHeight = BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.8);
@@ -985,7 +985,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
                             await _onSubmitReview(
                               review: ReviewModel(
-                                review: _superFlyer.rec.reviewController.text, time: DateTime.now(),
+                                body: _superFlyer.rec.reviewController.text, time: DateTime.now(),
                                 userID: superUserID(),
                                 reviewID: review?.reviewID,
                               ),
@@ -1078,7 +1078,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 // -----------------------------------------------------o
   Future<void> _onSubmitReview({ReviewModel review}) async {
 
-    print('review text is : ${review.review}');
+    print('review text is : ${review.body}');
 
     if (TextChecker.textControllerHasNoValue(_superFlyer.rec.reviewController) == true){
       await NavDialog.showNavDialog(
@@ -1095,7 +1095,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       review
           :
       ReviewModel(
-        review: _superFlyer.rec.reviewController.text,
+        body: _superFlyer.rec.reviewController.text,
         userID: superUserID(),
         time: DateTime.now(),
       );
