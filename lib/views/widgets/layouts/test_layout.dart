@@ -8,12 +8,14 @@ class TestLayout extends StatelessWidget {
   final String appbarButtonVerse;
   final Function appbarButtonOnTap;
   final Key scaffoldKey;
+  final bool scrollable;
 
   const TestLayout({
     @required this.listViewWidgets,
     @required this.screenTitle,
     @required this.appbarButtonVerse,
     @required this.appbarButtonOnTap,
+    this.scrollable = false,
     this.scaffoldKey,
   });
 
@@ -38,6 +40,7 @@ class TestLayout extends StatelessWidget {
 
       ],
       layoutWidget: ListView(
+        physics: scrollable == true ? const BouncingScrollPhysics() : const NeverScrollableScrollPhysics(),
         children: <Widget>[
 
           Stratosphere(),

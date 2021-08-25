@@ -85,7 +85,8 @@ abstract class LDB{
   }
 // -----------------------------------------------------------------------------
   /// RAW INSERT TO LOCAL DATABASE
-  static Future<void> InsertRawToLDB({BuildContext context, Database db, LDBTable dbTable, Map<String, dynamic> input}) async {
+  static Future<void> InsertRawToLDB({BuildContext context, Database db, LDBTable dbTable, Map<String, Object> input}) async {
+
     await tryAndCatch(
       context: context,
       methodName: 'insertToDB',
