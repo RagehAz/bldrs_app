@@ -1,32 +1,30 @@
 import 'package:bldrs/controllers/drafters/text_manipulators.dart';
 import 'package:flutter/foundation.dart';
 
-class DBColumn{
-  final String field;
+class LDBColumn{
+  final String key;
   final String type;
   final bool isPrimary;
-  dynamic value;
 
-  DBColumn({
-    @required this.field,
+  LDBColumn({
+    @required this.key,
     @required this.type,
     this.isPrimary = false,
-    this.value,
   });
 // -----------------------------------------------------------------------------
-  static String getSQLQueryFromColumn({DBColumn column}){
+  static String _getSQLQueryFromColumn({LDBColumn column}){
 
     String _primary = column.isPrimary == true ? ' PRIMARY KEY' : '';
 
     return
-      '${column.field} ${column.type}$_primary, ';
+      '${column.key} ${column.type}$_primary, ';
   }
 // -----------------------------------------------------------------------------
-  static String getSQLQueryFromColumns({List<DBColumn> columns}){
+  static String getSQLQueryFromColumns({List<LDBColumn> columns}){
     String _sqlQuery = '';
 
     columns.forEach((column) {
-      String _columnSQL = getSQLQueryFromColumn(column: column);
+      String _columnSQL = _getSQLQueryFromColumn(column: column);
 
       _sqlQuery = _sqlQuery + _columnSQL;
 
@@ -37,15 +35,15 @@ class DBColumn{
     return _sqlWithoutLastSpace;
   }
 // -----------------------------------------------------------------------------
-  static String getFieldsRawInsertString(List<DBColumn> columns){
+  static String getFieldsRawInsertString(List<LDBColumn> columns){
     /// should return '(field, field, field, field)'
 
     String _output = '';
 
-    for (DBColumn column in columns){
+    for (LDBColumn column in columns){
 
       if (column.isPrimary != true){
-        _output = _output + '${column.field}, ';
+        _output = _output + '${column.key}, ';
       }
 
     }
@@ -57,24 +55,10 @@ class DBColumn{
     return _finalOutput;
   }
 // -----------------------------------------------------------------------------
-  static String getValuesRawInsertString(List<DBColumn> columns){
-    /// should return ("value", "value", "value", "value")
-
-    String _output = '';
-
-    for (DBColumn column in columns){
-
-      if (column.isPrimary != true){
-        _output = _output + '"${column.value}", ';
-      }
-
-    }
-
-    String _outputAfterRemovingLastComma = TextMod.trimTextAfterLastSpecialCharacter(_output, ',');
-
-    String _finalOutput = '($_outputAfterRemovingLastComma)';
-
-    return _finalOutput;
+  static String getPrimaryKeyFromColumns(List<LDBColumn> columns){
+    LDBColumn _primaryColumn = columns.singleWhere((column) => column.isPrimary == true, orElse: ()=> null);
+    String _primaryKey = _primaryColumn == null ? null : _primaryColumn.key;
+    return _primaryKey;
   }
 // -----------------------------------------------------------------------------
 }
