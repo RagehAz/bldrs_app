@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:bldrs/providers/local_db/ldb.dart';
 import 'package:flutter/foundation.dart';
 
 import 'db_helper.dart';
@@ -52,29 +53,29 @@ class GreatPlaces with ChangeNotifier {
     _items.add(newPlace);
     notifyListeners();
 
-    DBHelper.insert('user_places', {
-      'id': newPlace.id,
-      'title': newPlace.title,
-      'image': newPlace.image.path,
-      'loc_lat': newPlace.location.latitude,
-      'loc_lng': newPlace.location.longitude,
-      'address' : newPlace.location.address,
-    });
-  }
-
-  Future<void> fetchAndSetPlaces() async {
-    final dataList = await DBHelper.getData('user_places');
-    dataList.map((item)=>Place(
-        id: item['id'],
-        title: item['title'],
-        image: File(item['image']),
-        location: PlaceLocation(
-            latitude: item['loc_lat'],
-            longitude: item['loc_lng'],
-            address: item['address'],
-        ),
-    )
-    ).toList();
-    notifyListeners();
+  //   LDB.insert('user_places', {
+  //     'id': newPlace.id,
+  //     'title': newPlace.title,
+  //     'image': newPlace.image.path,
+  //     'loc_lat': newPlace.location.latitude,
+  //     'loc_lng': newPlace.location.longitude,
+  //     'address' : newPlace.location.address,
+  //   });
+  // }
+///
+//   Future<void> fetchAndSetPlaces() async {
+//     final dataList = await DBHelper.getData('user_places');
+//     dataList.map((item)=>Place(
+//         id: item['id'],
+//         title: item['title'],
+//         image: File(item['image']),
+//         location: PlaceLocation(
+//             latitude: item['loc_lat'],
+//             longitude: item['loc_lng'],
+//             address: item['address'],
+//         ),
+//     )
+//     ).toList();
+//     notifyListeners();
 }
 }
