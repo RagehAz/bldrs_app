@@ -6,6 +6,7 @@ import 'package:bldrs/providers/local_db/ldb_column.dart';
 import 'package:bldrs/providers/local_db/ldb_table.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/layouts/test_layout.dart';
+import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -19,9 +20,35 @@ class SQLTestScreen extends StatefulWidget {
 class _SQLTestScreenState extends State<SQLTestScreen> {
 
 // -----------------------------------------------------------------------------
+  /// --- FUTURE LOADING BLOCK
+  bool _loading = false;
+  Future <void> _triggerLoading({Function function}) async {
+
+    if(mounted){
+
+      if (function == null){
+        setState(() {
+          _loading = !_loading;
+        });
+      }
+
+      else {
+        setState(() {
+          _loading = !_loading;
+          function();
+        });
+      }
+
+    }
+
+    _loading == true?
+    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+  }
+// -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
+
 
     _dbTable = ViewModel.createLDBTable();
   }
@@ -35,15 +62,19 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
 // -----------------------------------------------------------------------------
   Future<void> insertToDB() async {
 
-    Map<String, dynamic> _map = {};
+    print('1 - creating map');
 
-    LDBColumn _newColumn = LDBColumn(key: null, type: null,);
-
-    _dbTable = LDBTable(
-        tableName: null,
-        columns: null,
-      maps: [],
+    ViewModel _viewModel = ViewModel(
+      viewID: '1',
+      viewTime: DateTime.now(),
+      userID: 'ana',
+      flyerID: 'flyer',
+      slideIndex: 0,
     );
+
+    Map<String, Object> _map = _viewModel.toMap();
+
+    print('2 - inserting table');
 
     await LDB.InsertRawToLDB(
       context: context,
@@ -51,15 +82,58 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
       dbTable: _dbTable,
       input: _map,
     );
+
+    print('3 - done inserting table');
+
   }
 // -----------------------------------------------------------------------------
-  Future<List<Map>> readFromDB() async {
+  Future<void> readFromDB() async {
+
+    _triggerLoading();
+
     List<Map> _maps = await LDB.readRawFromLDB(
       db: _db,
       tableName: _dbTable.tableName,
     );
 
-    return _maps;
+    setState(() {
+      _dbTable.maps = _maps;
+    });
+
+
+    _triggerLoading();
+
+  }
+// -----------------------------------------------------------------------------
+  Widget valueBox({String key, String value}){
+    return
+      Container(
+        height: 40,
+        width: 80,
+        color: Colorz.BloodTest,
+        margin: EdgeInsets.all(2),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+
+            SuperVerse(
+              verse: key,
+              weight: VerseWeight.thin,
+              italic: true,
+              size: 1,
+            ),
+
+            SuperVerse(
+              verse: value,
+              weight: VerseWeight.bold,
+              italic: false,
+              size: 1,
+            ),
+
+          ],
+        ),
+      );
   }
 // -----------------------------------------------------------------------------
   @override
@@ -69,63 +143,101 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
     // double _screenHeight = Scale.superScreenHeight(context);
 
     return TestLayout(
-        screenTitle: 'SQL Test Screen',
-        appbarButtonVerse: 'Button',
-        appbarButtonOnTap: (){
-          print('Button');
+      screenTitle: 'SQL Test Screen',
+      appbarButtonVerse: 'Button',
+      appbarButtonOnTap: (){
+        print('Button');
         },
       scaffoldKey: scaffoldKey,
-        listViewWidgets: <Widget>[
+      listViewWidgets: <Widget>[
 
-          Container(
-            width: _screenWidth,
-            height: 100,
-            color: Colorz.BloodTest,
+        Container(
+          width: _screenWidth,
+          height: 550,
+          color: Colorz.White10,
+          child: ListView.builder(
+              physics: const BouncingScrollPhysics(),
+              itemCount: _dbTable.maps.length,
+              itemBuilder: (ctx, index){
+
+                Map<String, Object> _map = _dbTable.maps[index];
+                List<Object> _keys = _map.keys.toList();
+                List<Object> _values = _map.values.toList();
+
+                return
+                  Container(
+                    width: _screenWidth,
+                    height: 42,
+                    child: ListView(
+                      physics: const BouncingScrollPhysics(),
+                      shrinkWrap: false,
+                      scrollDirection: Axis.horizontal,
+                      children: <Widget>[
+
+                        DreamBox(
+                          height: 40,
+                          width: 40,
+                          verse: '$index',
+                          verseScaleFactor: 0.6,
+                          margins: EdgeInsets.all(5),
+                        ),
+
+                        ...List.generate(
+                            _values.length,
+                                (i){
+
+                              String _key = _keys[i];
+                              String _value = _values[i].toString();
+
+                              return
+                                valueBox(
+                                  key: _key,
+                                  value: _value,
+                                );
+
+                            }
+                            ),
+                      ],
+                    ),
+                  );
+              }
+              ),
+        ),
+
+          Row(
+            children: <Widget>[
+
+              /// CREATE
+              DreamBox(
+                height: 30,
+                width: _screenWidth / 2,
+                verse: 'Create db',
+                verseScaleFactor: 0.7,
+                onTap: () async {
+
+                  await createDB();
+
+                  print('db created successfully isa');
+
+                },
+              ),
+              /// INSERT
+              DreamBox(
+                height: 30,
+                width: _screenWidth / 2,
+                verse: 'Insert to DB',
+                verseScaleFactor: 0.7,
+                onTap: () async {
+
+                  await insertToDB();
+                  await readFromDB();
+
+
+                },
+              ),
+
+            ],
           ),
-
-          DreamBox(
-            height: 30,
-            width: 150,
-            verse: 'Insert to DB',
-            verseScaleFactor: 0.7,
-            onTap: () async {
-
-              await insertToDB();
-
-            },
-          ),
-
-          DreamBox(
-            height: 30,
-            width: 150,
-            verse: 'Create db',
-            verseScaleFactor: 0.7,
-            onTap: () async {
-
-              await createDB();
-
-              print('db created successfully isa');
-
-            },
-          ),
-
-          DreamBox(
-            height: 30,
-            width: 150,
-            verse: 'read from db',
-            verseScaleFactor: 0.7,
-            onTap: () async {
-
-              List<Map> _maps = await readFromDB();
-
-              _maps.forEach((map) {
-                print('reading db : map is : $map');
-              });
-
-
-            },
-          ),
-
         ],
     );
   }
