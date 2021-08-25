@@ -7,13 +7,14 @@ class TestLayout extends StatelessWidget {
   final String screenTitle;
   final String appbarButtonVerse;
   final Function appbarButtonOnTap;
+  final Key scaffoldKey;
 
   const TestLayout({
     @required this.listViewWidgets,
     @required this.screenTitle,
     @required this.appbarButtonVerse,
     @required this.appbarButtonOnTap,
-
+    this.scaffoldKey,
   });
 
   @override
@@ -24,6 +25,8 @@ class TestLayout extends StatelessWidget {
       appBarType: AppBarType.Basic,
       pyramids: Iconz.DvBlankSVG,
       pageTitle: screenTitle,
+      scaffoldKey: scaffoldKey,
+
       // loading: _loading,
       appBarRowWidgets: [
 

@@ -203,7 +203,7 @@ Future<void> tryAndCatch({Function onError, BuildContext context, Function funct
 
     print('$methodName : tryAndCatch ERROR : $error');
 
-    onError();
+    onError(error);
 
     await superDialog(
       context: context,
