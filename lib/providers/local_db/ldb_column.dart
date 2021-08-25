@@ -61,4 +61,24 @@ class LDBColumn{
     return _primaryKey;
   }
 // -----------------------------------------------------------------------------
+//   static List<LDBColumn> getColumnsFromMap({Map<String, Object> map, String primaryKey}){
+//     List<LDBColumn> _columns = new List();
+//
+//     List<Object> _keys = map.keys.toList();
+//
+//     for (String key in _keys){
+//
+//       _columns.add(
+//           LDBColumn(
+//             key: key,
+//             type: 'TEXT', // this entire method aslan does not make sence
+//             isPrimary: key == primaryKey ? true : false,
+//           )
+//       );
+//
+//     }
+//
+//     return _columns;
+//   }
+// -----------------------------------------------------------------------------
 }
