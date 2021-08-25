@@ -107,6 +107,7 @@ class CenterDialog extends StatelessWidget {
                             borderRadius: _borders
                         ),
 
+                        /// TASK : center dialog body should be inside a listview not a column
                         child: Column(
                           // mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.start,
