@@ -68,7 +68,7 @@ class MainLayout extends StatelessWidget {
   final bool canRefreshFlyers;
   final bool loading;
   final Function onBack;
-  // final Key key;
+  final Key scaffoldKey;
   // final List<TinyBz> myTinyBzz;
   final ScrollController appBarScrollController;
 
@@ -83,7 +83,7 @@ class MainLayout extends StatelessWidget {
     this.canRefreshFlyers = false,
     this.loading = false,
     this.onBack,
-    // this.key,
+    this.scaffoldKey,
     // this.myTinyBzz,
     this.appBarScrollController,
 });
@@ -195,7 +195,7 @@ class MainLayout extends StatelessWidget {
                 ),
 
               Scaffold(
-                key: key,
+                key: scaffoldKey == null ? key : scaffoldKey,
                 resizeToAvoidBottomInset: false, // this false prevents keyboard from pushing pyramids up
                 // resizeToAvoidBottomPadding: false,
                 backgroundColor: _backgroundColor,

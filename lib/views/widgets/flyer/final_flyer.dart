@@ -39,7 +39,7 @@ import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_dialog/bottom_dialog_buttons.dart';
-import 'package:bldrs/views/widgets/dialogs/center_dialog/center_alert.dart';
+import 'package:bldrs/views/widgets/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/dialogz.dart';
 import 'package:bldrs/views/widgets/dialogs/nav_dialog/nav_dialog.dart';
 import 'package:bldrs/views/widgets/flyer/flyer_methods.dart';
