@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:bldrs/providers/local_db/ldb.dart';
 import 'package:flutter/foundation.dart';
 
-import 'db_helper.dart';
 import 'location_helper.dart';
 
 class PlaceLocation {
