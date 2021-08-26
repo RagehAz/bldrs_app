@@ -37,7 +37,7 @@ abstract class LDB{
   }
 // -----------------------------------------------------------------------------
   /// CREATE LOCAL DATABASE
-  static Future<Database> createLDB({@required BuildContext context, @required LDBTable table,}) async {
+  static Future<LDBTable> createAndSetLDB({@required BuildContext context, @required LDBTable table,}) async {
 
     print('createLDB : starting to open LDB : table.tableName : ${table.tableName}');
 
@@ -72,9 +72,10 @@ abstract class LDB{
       },
       onOpen: (database) async {
 
+        table.db = database;
+
         await readRawFromLDB(
-          db: database,
-          tableName: table.tableName,
+          table: table,
         );
 
         print('createDB : database is opened : database.path : ${database.path}');
@@ -88,20 +89,22 @@ abstract class LDB{
 
     print('createLDB : _db.isOpen : ${_db.isOpen}');
 
-    return _db;
+    table.db = _db;
+
+    return table;
   }
 // -----------------------------------------------------------------------------
   /// RAW INSERT TO LOCAL DATABASE ( inserts new row to LDB )
-  static Future<void> InsertRawToLDB({BuildContext context, Database db, LDBTable table, Map<String, Object> input}) async {
+  static Future<void> InsertRawToLDB({BuildContext context, LDBTable table, Map<String, Object> input}) async {
 
-    if (db.isOpen == true){
+    if (table.db.isOpen == true){
 
       await tryAndCatch(
         context: context,
         methodName: 'insertToDB',
         functions: () async {
 
-          await db.transaction((txn) async {
+          await table.db.transaction((txn) async {
 
             String _rawInsertSQLQuery = LDBTable.getRawInsertSQLQuery(
               tableName: table.tableName,
@@ -130,13 +133,13 @@ abstract class LDB{
   }
 // -----------------------------------------------------------------------------
   /// INSERT TO LOCAL DATABASE
-  static Future<void> insert({Database db, LDBTable table, Map<String, Object> data}) async {
+  static Future<void> insert({LDBTable table, Map<String, Object> input}) async {
 
-    if (db.isOpen == true){
+    if (table.db.isOpen == true){
 
-      await db.insert(
+      await table.db.insert(
         table.tableName,
-        data,
+        input,
         conflictAlgorithm: ConflictAlgorithm.replace,
       );
 
@@ -145,7 +148,7 @@ abstract class LDB{
   }
 // -----------------------------------------------------------------------------
   /// RAW READ FROM LOCAL DATABASE
-  static Future<List<dynamic>> readRawFromLDB({BuildContext context, Database db,String tableName}) async {
+  static Future<List<dynamic>> readRawFromLDB({BuildContext context, LDBTable table}) async {
     List<Map<String, Object>> _sqfMaps = new List();
 
     await tryAndCatch(
@@ -153,15 +156,15 @@ abstract class LDB{
       methodName: 'readRawFromLDB',
       functions: () async {
 
-        print('readRawFromLDB : reading tableName : $tableName : db.isOpen : ${db.isOpen} : db == null : ${db != null}');
+        print('readRawFromLDB : reading tableName : ${table.tableName} : db.isOpen : ${table.db.isOpen} : db == null : ${table.db != null}');
 
-        if (db != null && db.isOpen == true){
-          String _tableName = tableName;
+        if (table.db != null && table.db.isOpen == true){
+          String _tableName = table.tableName;
           String _sql = 'SELECT * FROM $_tableName';
 
           print('readRawFromLDB : starting rawQuery for _sql: $_sql');
 
-          _sqfMaps = await db.rawQuery(_sql);
+          _sqfMaps = await table.db.rawQuery(_sql);
 
           print('readRawFromLDB : finished rawQuery with _sqfMaps: $_sqfMaps');
 
@@ -176,11 +179,11 @@ abstract class LDB{
   }
 // -----------------------------------------------------------------------------
   /// works exactly like [readRawFromLDB]
-  static Future<List<dynamic>> readFromLDB({Database db, String tableName}) async {
-    return db.query(tableName);
+  static Future<List<dynamic>> readFromLDB({LDBTable table}) async {
+    return table.db.query(table.tableName);
   }
 // -----------------------------------------------------------------------------
-  static Future<void> deleteLDB({BuildContext context, LDBTable table, Database db}) async {
+  static Future<void> deleteLDB({BuildContext context, LDBTable table,}) async {
 
     await tryAndCatch(
       context: context,
@@ -190,7 +193,7 @@ abstract class LDB{
         final String dbPath = await getDatabasesPath();
         String _path = path.join(dbPath, table.tableName);
 
-        await db.close();
+        await table.db.close();
         await deleteDatabase(_path);
 
         print('deleteLDB : tableName : ${table.tableName} :  _path : ${_path}');
@@ -201,7 +204,7 @@ abstract class LDB{
 
   }
 // -----------------------------------------------------------------------------
-  static Future<void> updateRow({BuildContext context, LDBTable table, Database db, int rowNumber, Map<String, Object> input}) async {
+  static Future<void> updateRow({BuildContext context, LDBTable table, int rowNumber, Map<String, Object> input}) async {
 
     // String _time = Timers.cipherDateTimeToString(DateTime.now());
     // String _tableName = table.tableName;
@@ -212,7 +215,7 @@ abstract class LDB{
 
     String _primaryKey = LDBColumn.getPrimaryKeyFromColumns(table.columns);
 
-    var _result = await db.update(
+    var _result = await table.db.update(
       table.tableName,
       input,
       where: "$_primaryKey = ?",
@@ -222,15 +225,16 @@ abstract class LDB{
 
   }
 // -----------------------------------------------------------------------------
-  static Future<void> deleteRow({BuildContext context, LDBTable table, Database db, int rowNumber}) async {
+  static Future<void> deleteRow({BuildContext context, LDBTable table, int rowNumber}) async {
 
     String _primaryKey = LDBColumn.getPrimaryKeyFromColumns(table.columns);
 
-    var result = await db.delete(
+    var result = await table.db.delete(
       table.tableName,
       where: "$_primaryKey = ?",
       whereArgs: [rowNumber],
     );
+
   }
 // -----------------------------------------------------------------------------
 }

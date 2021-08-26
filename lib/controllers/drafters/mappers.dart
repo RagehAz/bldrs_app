@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/text_manipulators.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Mapper{
@@ -217,5 +218,74 @@ class Mapper{
     int _indexOfTheMap = listOfMaps.indexWhere((map) => map[key] == value);
     return _indexOfTheMap;
   }
+// -----------------------------------------------------------------------------
+  static Map<String, dynamic> insertPairInMap({Map<String,dynamic> map, String key, dynamic value}){
+    map.putIfAbsent(key, () => value);
 
+    Map<String, dynamic> _result = {};
+    _result.addAll(map);
+
+    return _result;
+  }
+// -----------------------------------------------------------------------------
+  /// url query looks like "key1=value1&key1=value2&key3=value3"
+  static Map<String, dynamic> getMapFromURLQuery({String urlQuery}){
+    /// url query should look like this
+    /// 'country=eg&category=business&apiKey=65f7556ec76449fa7dc7c0069f040ca';
+
+    Map<String, dynamic> _output = {};
+
+    int _numberOfAnds = '&'.allMatches(urlQuery).length;
+    int _numberOfEquals = '='.allMatches(urlQuery).length;
+    bool _countsOfPairsAreGood = _numberOfAnds + 1 == _numberOfEquals;
+
+    /// if urlQuery counts are good
+    if (_countsOfPairsAreGood == true){
+
+      /// pairs should look like this : key=value
+      List<String> _pairs = new List();
+
+      /// holds temp trimmed url in here while trimming loops
+      String _trimmedURL = urlQuery;
+
+      print('_trimmedURL : $_trimmedURL');
+
+      /// trim urlQuery into string pairs
+      for (int i = 0; i < _numberOfAnds; i++){
+
+        String _beforeAnd = TextMod.trimTextAfterFirstSpecialCharacter(_trimmedURL, '&');
+        _pairs.add(_beforeAnd);
+
+        String _afterAnd = TextMod.trimTextBeforeFirstSpecialCharacter(_trimmedURL, '&');
+
+        if (i == _numberOfAnds - 1){
+          _pairs.add(_afterAnd);
+        } else {
+          _trimmedURL = _afterAnd;
+        }
+
+      }
+
+      /// add pairs to a map
+      for (String pair in _pairs){
+
+        String _key = TextMod.trimTextAfterFirstSpecialCharacter(pair, '=');
+        String _value = TextMod.trimTextBeforeFirstSpecialCharacter(pair, '=');
+
+        _output = Mapper.insertPairInMap(map: _output, key: _key,value: _value,);
+
+      }
+
+    }
+
+    /// if counts are no good
+    else {
+      print('getMapFromURLQuery : _countsOfPairsAreGood : $_countsOfPairsAreGood');
+      print('getMapFromURLQuery : something is wrong in this : urlQuery : $urlQuery');
+    }
+
+
+    return _output;
+  }
+// -----------------------------------------------------------------------------
 }
