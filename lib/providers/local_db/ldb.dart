@@ -35,18 +35,21 @@ abstract class LDB{
   }
 // -----------------------------------------------------------------------------
   /// CREATE LOCAL DATABASE
-  static Future<Database> createLDB({
-    @required BuildContext context,
-    @required LDBTable table,
-  }) async {
+  static Future<Database> createLDB({@required BuildContext context, @required LDBTable table,}) async {
 
-    final String dbPath = await getDatabasesPath();
+    print('createLDB : starting to open LDB : table.tableName : ${table.tableName}');
+
+    final String _dbPath = await getDatabasesPath();
+
+    print('createLDB : _dbPath : $_dbPath');
 
     /// this open the ldb from the given path, or creates a new one if does not exist
     Database _db = await openDatabase(
-      path.join(dbPath, table.tableName),
+      path.join(_dbPath, table.tableName),
       version: 1,
       onCreate: (database, version) async {
+
+        print('createLDB : database.isOpen : ${database.isOpen}');
 
         await tryAndCatch(
           context: context,
@@ -81,71 +84,119 @@ abstract class LDB{
       // singleInstance:
     );
 
+    print('createLDB : _db.isOpen : ${_db.isOpen}');
+
     return _db;
   }
 // -----------------------------------------------------------------------------
-  /// RAW INSERT TO LOCAL DATABASE
-  static Future<void> InsertRawToLDB({BuildContext context, Database db, LDBTable dbTable, Map<String, Object> input}) async {
+  /// RAW INSERT TO LOCAL DATABASE ( inserts new row to LDB )
+  static Future<void> InsertRawToLDB({BuildContext context, Database db, LDBTable table, Map<String, Object> input}) async {
 
-    await tryAndCatch(
-      context: context,
-      methodName: 'insertToDB',
-      functions: () async {
+    if (db.isOpen == true){
 
-        await db.transaction((txn) async {
+      await tryAndCatch(
+        context: context,
+        methodName: 'insertToDB',
+        functions: () async {
 
-          String _rawInsertSQLQuery = LDBTable.getRawInsertSQLQuery(
-            tableName: dbTable.tableName,
-            map: input,
-            columns: dbTable.columns,
-          );
-          List<dynamic> _arguments = [];
+          await db.transaction((txn) async {
 
-          /// fields below do not include the integer primary key
-          await txn.rawInsert(_rawInsertSQLQuery, _arguments);
+            String _rawInsertSQLQuery = LDBTable.getRawInsertSQLQuery(
+              tableName: table.tableName,
+              map: input,
+              columns: table.columns,
+            );
+            List<dynamic> _arguments = [];
 
-          // print ('insertToDB : added data to ${db.path} : and dbTable.toRawInsertString() is : $_rawInsertSQLQuery');
+            /// fields below do not include the integer primary key
+            await txn.rawInsert(_rawInsertSQLQuery, _arguments);
 
-          return null;
-        });
+            // print ('insertToDB : added data to ${db.path} : and dbTable.toRawInsertString() is : $_rawInsertSQLQuery');
 
-      },
-      // onError: (e){
-      //
-      // }
+            return null;
+          });
 
-    );
-    
+        },
+        // onError: (e){
+        //
+        // }
+
+      );
+
+    }
+
   }
 // -----------------------------------------------------------------------------
   /// INSERT TO LOCAL DATABASE
-  static Future<void> insert({Database db, LDBTable dbTable, Map<String, Object> data}) async {
+  static Future<void> insert({Database db, LDBTable table, Map<String, Object> data}) async {
 
-    db.insert(
-      dbTable.tableName,
-      data,
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
+    if (db.isOpen == true){
+
+      await db.insert(
+        table.tableName,
+        data,
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
+
+    }
 
   }
 // -----------------------------------------------------------------------------
   /// RAW READ FROM LOCAL DATABASE
-  static Future<List<dynamic>> readRawFromLDB({Database db,String tableName}) async {
+  static Future<List<dynamic>> readRawFromLDB({BuildContext context, Database db,String tableName}) async {
     List<Map<String, Object>> _sqfMaps = new List();
 
-    if (db != null){
-      String _tableName = tableName;
-      String _sql = 'SELECT * FROM $_tableName';
+    await tryAndCatch(
+      context: context,
+      methodName: 'readRawFromLDB',
+      functions: () async {
 
-      _sqfMaps = await db.rawQuery(_sql);
+        print('readRawFromLDB : reading tableName : $tableName : db.isOpen : ${db.isOpen} : db == null : ${db != null}');
 
-    }
+        if (db != null && db.isOpen == true){
+          String _tableName = tableName;
+          String _sql = 'SELECT * FROM $_tableName';
+
+          print('readRawFromLDB : starting rawQuery for _sql: $_sql');
+
+          _sqfMaps = await db.rawQuery(_sql);
+
+          print('readRawFromLDB : finished rawQuery with _sqfMaps: $_sqfMaps');
+
+        }
+
+      },
+      // onError: (){},
+    );
+
 
     return _sqfMaps;
   }
 // -----------------------------------------------------------------------------
+  /// works exactly like [readRawFromLDB]
   static Future<List<dynamic>> readFromLDB({Database db, String tableName}) async {
     return db.query(tableName);
+  }
+// -----------------------------------------------------------------------------
+  static Future<void> deleteLDB({BuildContext context, LDBTable table, Database db}) async {
+
+    await tryAndCatch(
+      context: context,
+      methodName: 'deleteLDB',
+      functions: () async {
+
+        final String dbPath = await getDatabasesPath();
+        String _path = path.join(dbPath, table.tableName);
+
+        await db.close();
+        await deleteDatabase(_path);
+
+        print('deleteLDB : tableName : ${table.tableName} :  _path : ${_path}');
+
+      }
+
+    );
+
   }
 // -----------------------------------------------------------------------------
 }

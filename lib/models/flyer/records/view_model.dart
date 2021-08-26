@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/models/flyer/sub/slide_model.dart';
 import 'package:bldrs/providers/local_db/ldb_column.dart';
 import 'package:bldrs/providers/local_db/ldb_table.dart';
@@ -23,7 +24,7 @@ Map<String, Object> toMap(){
     'userID' : userID,
     'flyerID' : flyerID,
     'slideIndex' : slideIndex,
-    'viewTime' : viewTime,
+    'viewTime' : Timers.cipherDateTimeToString(viewTime),
   };
 }
 // -----------------------------------------------------------------------------
@@ -52,5 +53,6 @@ Map<String, Object> toMap(){
     return _dbTable;
   }
 // -----------------------------------------------------------------------------
+
 }
 
