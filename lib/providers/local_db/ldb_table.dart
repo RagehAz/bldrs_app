@@ -1,14 +1,17 @@
 import 'package:bldrs/controllers/drafters/text_manipulators.dart';
 import 'package:bldrs/providers/local_db/ldb_column.dart';
 import 'package:flutter/foundation.dart';
+import 'package:sqflite/sqflite.dart';
 
 class LDBTable{
+  // final Database db;
   final String tableName;
   final List<LDBColumn> columns;
   /// each map is a row in the table, map keys are the column fields
   List<Map<String, dynamic>> maps;
 
   LDBTable({
+    // @required this.db,
     @required this.tableName,
     @required this.columns,
     @required this.maps,
