@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/timerz.dart';
+import 'package:bldrs/providers/local_db/ldb_column.dart';
 import 'package:bldrs/providers/local_db/ldb_table.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:flutter/foundation.dart';
@@ -200,7 +201,7 @@ abstract class LDB{
 
   }
 // -----------------------------------------------------------------------------
-  static Future<void> updateRow({BuildContext context, LDBTable table, Database db, int viewID, Map<String, Object> input}) async {
+  static Future<void> updateRow({BuildContext context, LDBTable table, Database db, int rowNumber, Map<String, Object> input}) async {
 
     // String _time = Timers.cipherDateTimeToString(DateTime.now());
     // String _tableName = table.tableName;
@@ -209,23 +210,26 @@ abstract class LDB{
     //
     // await db.rawUpdate(_rawUpdateSQLQuery, _arguments,);
 
+    String _primaryKey = LDBColumn.getPrimaryKeyFromColumns(table.columns);
 
     var _result = await db.update(
       table.tableName,
       input,
-      where: "viewID = ?",
-      whereArgs: [viewID],
+      where: "$_primaryKey = ?",
+      whereArgs: [rowNumber],
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
 
   }
 // -----------------------------------------------------------------------------
-  static Future<void> deleteRow({BuildContext context, LDBTable table, Database db, int id}) async {
+  static Future<void> deleteRow({BuildContext context, LDBTable table, Database db, int rowNumber}) async {
+
+    String _primaryKey = LDBColumn.getPrimaryKeyFromColumns(table.columns);
 
     var result = await db.delete(
       table.tableName,
-      where: "viewID = ?",
-      whereArgs: [id],
+      where: "$_primaryKey = ?",
+      whereArgs: [rowNumber],
     );
   }
 // -----------------------------------------------------------------------------
