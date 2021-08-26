@@ -49,20 +49,42 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
   void initState() {
     super.initState();
 
-
     _dbTable = ViewModel.createLDBTable();
+
+  }
+// -----------------------------------------------------------------------------
+  bool _isInit = true;
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    if(_isInit){
+      _triggerLoading().then((_) async {
+
+        await createDB();
+        List<Map<String, Object>> _maps = await readFromDB();
+
+        _triggerLoading(function: (){
+            _dbTable.maps = _maps;
+        });
+
+      });
+
+    }
+    _isInit = false;
+
   }
 // -----------------------------------------------------------------------------
   Database _db;
   LDBTable _dbTable;
-  var scaffoldKey = GlobalKey<ScaffoldState>();
+
   Future<void> createDB() async {
     _db = await LDB.createLDB(context: context, table: _dbTable);
   }
 // -----------------------------------------------------------------------------
   Future<void> insertToDB() async {
 
-    print('1 - creating map');
+    // print('1 - creating map');
 
     ViewModel _viewModel = ViewModel(
       viewID: '1',
@@ -74,7 +96,7 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
 
     Map<String, Object> _map = _viewModel.toMap();
 
-    print('2 - inserting table');
+    // print('2 - inserting table');
 
     await LDB.InsertRawToLDB(
       context: context,
@@ -83,26 +105,18 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
       input: _map,
     );
 
-    print('3 - done inserting table');
+    // print('3 - done inserting table');
 
   }
 // -----------------------------------------------------------------------------
-  Future<void> readFromDB() async {
+  Future<List<Map<String, Object>>> readFromDB() async {
 
-    _triggerLoading();
-
-    List<Map> _maps = await LDB.readRawFromLDB(
+    List<Map<String, Object>> _maps = await LDB.readRawFromLDB(
       db: _db,
       tableName: _dbTable.tableName,
     );
 
-    setState(() {
-      _dbTable.maps = _maps;
-    });
-
-
-    _triggerLoading();
-
+    return _maps;
   }
 // -----------------------------------------------------------------------------
   Widget valueBox({String key, String value}){
@@ -144,11 +158,11 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
 
     return TestLayout(
       screenTitle: 'SQL Test Screen',
-      appbarButtonVerse: 'Button',
+      appbarButtonVerse: _loading == true ? 'xxx Loading ......... ' : ' ---> Loaded',
       appbarButtonOnTap: (){
         print('Button');
+        _triggerLoading();
         },
-      scaffoldKey: scaffoldKey,
       listViewWidgets: <Widget>[
 
         Container(
