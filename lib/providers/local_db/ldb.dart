@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/providers/local_db/ldb_table.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:flutter/foundation.dart';
@@ -197,6 +198,26 @@ abstract class LDB{
 
     );
 
+  }
+// -----------------------------------------------------------------------------
+  static Future<void> updateRow({BuildContext context, LDBTable table, Database db}) async {
+
+    String _time = Timers.cipherDateTimeToString(DateTime.now());
+    String _tableName = table.tableName;
+    String _rawUpdateSQLQuery = 'UPDATE $_tableName SET userID = userIteez, flyerID = flyerIteez, slideIndex = 9, viewTime = 5555 WHERE viewID = 7';
+    List<String> _arguments = <String>['userID','flyerID', 'slideIndex', 'viewTime'];
+
+    await db.rawUpdate(_rawUpdateSQLQuery, _arguments,);
+
+  }
+// -----------------------------------------------------------------------------
+  static Future<void> deleteRow({BuildContext context, LDBTable table, Database db, int id}) async {
+
+    var result = await db.delete(
+      table.tableName,
+      where: "viewID = ?",
+      whereArgs: [id],
+    );
   }
 // -----------------------------------------------------------------------------
 }
