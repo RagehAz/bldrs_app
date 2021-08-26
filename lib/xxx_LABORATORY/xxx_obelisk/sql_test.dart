@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/drafters/scrollers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/models/flyer/records/view_model.dart';
 import 'package:bldrs/providers/local_db/ldb.dart';
@@ -18,7 +19,7 @@ class SQLTestScreen extends StatefulWidget {
 }
 
 class _SQLTestScreenState extends State<SQLTestScreen> {
-
+  ScrollController _verticalController = ScrollController();
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
   bool _loading = false;
@@ -49,7 +50,7 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
   void initState() {
     super.initState();
 
-    _dbTable = ViewModel.createLDBTable();
+    _table = ViewModel.createLDBTable();
 
   }
 // -----------------------------------------------------------------------------
@@ -61,12 +62,9 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
     if(_isInit){
       _triggerLoading().then((_) async {
 
-        await createDB();
-        List<Map<String, Object>> _maps = await readFromDB();
+        await createLDB();
+        await _readLDB();
 
-        _triggerLoading(function: (){
-            _dbTable.maps = _maps;
-        });
 
       });
 
@@ -76,56 +74,112 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
   }
 // -----------------------------------------------------------------------------
   Database _db;
-  LDBTable _dbTable;
-
-  Future<void> createDB() async {
-    _db = await LDB.createLDB(context: context, table: _dbTable);
+  LDBTable _table;
+  Future<void> createLDB() async {
+    _db = await LDB.createLDB(context: context, table: _table);
   }
 // -----------------------------------------------------------------------------
-  Future<void> insertToDB() async {
+  Future<void> _A_insertToLDB() async {
 
-    // print('1 - creating map');
+    print('1 - creating map');
 
     ViewModel _viewModel = ViewModel(
       viewID: '1',
       viewTime: DateTime.now(),
-      userID: 'ana',
-      flyerID: 'flyer',
+      userID: 'sharmota',
+      flyerID: 'sho5a5',
       slideIndex: 0,
     );
 
     Map<String, Object> _map = _viewModel.toMap();
 
-    // print('2 - inserting table');
+    print('2 - inserting table');
 
     await LDB.InsertRawToLDB(
       context: context,
       db: _db,
-      dbTable: _dbTable,
+      table: _table,
       input: _map,
     );
 
-    // print('3 - done inserting table');
+    await _readLDB();
+    print('3 - done inserting table');
 
   }
 // -----------------------------------------------------------------------------
-  Future<List<Map<String, Object>>> readFromDB() async {
+  Future<void> _overrideRow(String id) async {
+
+    ViewModel _newView = ViewModel(
+      userID: 'xxx',
+      slideIndex: 0,
+      flyerID: 'xxx',
+      viewTime: DateTime.now(),
+      viewID: '$id',
+    );
+
+    Map<String, Object> _newMap = _newView.toMap();
+    print('new map');
+
+    await LDB.insert(
+      db: _db,
+      table: _table,
+      data: _newMap,
+    );
+    print('inserted');
+
+    await _readLDB();
+    print('read done');
+
+  }
+// -----------------------------------------------------------------------------
+  Future<void> _readLDB() async {
 
     List<Map<String, Object>> _maps = await LDB.readRawFromLDB(
       db: _db,
-      tableName: _dbTable.tableName,
+      tableName: _table.tableName,
     );
+
+    setState(() {
+      _table.maps =  _maps;
+      _loading = false;
+    });
+
+    await _scrollToBottomOfListView();
 
     return _maps;
   }
 // -----------------------------------------------------------------------------
+  Future<void> _deleteLDB() async {
+
+    print('_deleteLDB : starting delete LDB : _table.tableName : ${_table.tableName}');
+
+    await LDB.deleteLDB(
+      context: context,
+      table: _table,
+      db: _db,
+    );
+
+    print('_deleteLDB : deleted LDB');
+
+    await _readLDB();
+
+  }
+// -----------------------------------------------------------------------------
+  Future<void> _scrollToBottomOfListView() async {
+    await Scrollers.scrollTo(
+      controller: _verticalController,
+      offset: _verticalController.position.maxScrollExtent,
+    );
+// -----------------------------------------------------------------------------
+  }
+
   Widget valueBox({String key, String value}){
     return
       Container(
         height: 40,
         width: 80,
         color: Colorz.BloodTest,
-        margin: EdgeInsets.all(2),
+        margin: const EdgeInsets.all(2),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -156,6 +210,8 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
     double _screenWidth = Scale.superScreenWidth(context);
     // double _screenHeight = Scale.superScreenHeight(context);
 
+    double _buttonWidth = _screenWidth / 5;
+
     return TestLayout(
       screenTitle: 'SQL Test Screen',
       appbarButtonVerse: _loading == true ? 'xxx Loading ......... ' : ' ---> Loaded',
@@ -165,16 +221,18 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
         },
       listViewWidgets: <Widget>[
 
+        /// LDB data
         Container(
           width: _screenWidth,
           height: 550,
           color: Colorz.White10,
           child: ListView.builder(
               physics: const BouncingScrollPhysics(),
-              itemCount: _dbTable.maps.length,
+              controller: _verticalController,
+              itemCount: _table.maps.length,
               itemBuilder: (ctx, index){
 
-                Map<String, Object> _map = _dbTable.maps[index];
+                Map<String, Object> _map = _table.maps[index];
                 List<Object> _keys = _map.keys.toList();
                 List<Object> _values = _map.values.toList();
 
@@ -191,7 +249,7 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
                         DreamBox(
                           height: 40,
                           width: 40,
-                          verse: '$index',
+                          verse: '${index + 1}',
                           verseScaleFactor: 0.6,
                           margins: EdgeInsets.all(5),
                         ),
@@ -218,41 +276,69 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
               ),
         ),
 
+        /// LDB Buttons
           Row(
             children: <Widget>[
 
               /// CREATE
-              DreamBox(
-                height: 30,
-                width: _screenWidth / 2,
-                verse: 'Create db',
-                verseScaleFactor: 0.7,
-                onTap: () async {
-
-                  await createDB();
-
-                  print('db created successfully isa');
-
-                },
+              SmallFuckingButton(
+                  verse: 'Create LDB',
+                  onTap: createLDB,
               ),
-              /// INSERT
-              DreamBox(
-                height: 30,
-                width: _screenWidth / 2,
-                verse: 'Insert to DB',
-                verseScaleFactor: 0.7,
-                onTap: () async {
 
-                  await insertToDB();
-                  await readFromDB();
+              /// INSERT A
+              SmallFuckingButton(
+                verse: 'raw Insert A to LDB',
+                onTap: _A_insertToLDB,
+              ),
 
+              /// INSERT B
+              SmallFuckingButton(
+                  verse: 'Override row 32',
+                  onTap: () => _overrideRow('32'),
+              ),
 
-                },
+              /// Delete LDB
+              SmallFuckingButton(
+                  verse: 'Delete LDB',
+                  onTap: _deleteLDB,
               ),
 
             ],
           ),
+
         ],
     );
+  }
+}
+
+
+class SmallFuckingButton extends StatelessWidget {
+  final String verse;
+  final Function onTap;
+
+  const SmallFuckingButton({
+    @required this.verse,
+    @required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+
+    double _screenWidth = Scale.superScreenWidth(context);
+    double _buttonWidth = _screenWidth / 5;
+
+    return DreamBox(
+      height: 30,
+      width: _buttonWidth,
+      color: Colorz.Blue80,
+      margins: const EdgeInsets.symmetric(horizontal: 1),
+      verse: verse,
+      verseScaleFactor: 0.4,
+      verseWeight: VerseWeight.thin,
+      verseMaxLines: 2,
+      onTap: onTap,
+    );
+
   }
 }
