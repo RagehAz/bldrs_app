@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/numberers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/scrollers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
@@ -165,6 +166,30 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
 
   }
 // -----------------------------------------------------------------------------
+  Future<void> _updateRow() async {
+    print('_updateRow : starting to update row');
+
+    await LDB.updateRow(
+      context: context,
+      db: _db,
+      table: _table,
+    );
+
+    print('_updateRow : finished updating row');
+  }
+// -----------------------------------------------------------------------------
+  Future<void> _deleteRow(int id) async {
+    await LDB.deleteRow(
+      context: context,
+      table: _table,
+      db: _db,
+      id: id,
+    );
+
+    await _readLDB();
+
+  }
+// -----------------------------------------------------------------------------
   Future<void> _scrollToBottomOfListView() async {
     await Scrollers.scrollTo(
       controller: _verticalController,
@@ -172,7 +197,7 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
     );
 // -----------------------------------------------------------------------------
   }
-
+// -----------------------------------------------------------------------------
   Widget valueBox({String key, String value}){
     return
       Container(
@@ -210,8 +235,6 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
     double _screenWidth = Scale.superScreenWidth(context);
     // double _screenHeight = Scale.superScreenHeight(context);
 
-    double _buttonWidth = _screenWidth / 5;
-
     return TestLayout(
       screenTitle: 'SQL Test Screen',
       appbarButtonVerse: _loading == true ? 'xxx Loading ......... ' : ' ---> Loaded',
@@ -236,6 +259,9 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
                 List<Object> _keys = _map.keys.toList();
                 List<Object> _values = _map.values.toList();
 
+                int _id = _map['viewID'];
+                // int _idInt = Numberers.stringToInt(_id);
+
                 return
                   Container(
                     width: _screenWidth,
@@ -252,6 +278,7 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
                           verse: '${index + 1}',
                           verseScaleFactor: 0.6,
                           margins: EdgeInsets.all(5),
+                          onTap: () => _deleteRow(_id),
                         ),
 
                         ...List.generate(
@@ -294,14 +321,26 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
 
               /// INSERT B
               SmallFuckingButton(
-                  verse: 'Override row 32',
-                  onTap: () => _overrideRow('32'),
+                  verse: 'Override row 5',
+                  onTap: () => _overrideRow('5'),
               ),
 
               /// Delete LDB
               SmallFuckingButton(
                   verse: 'Delete LDB',
                   onTap: _deleteLDB,
+              ),
+
+              /// Delete LDB
+              SmallFuckingButton(
+                verse: 'Update row',
+                onTap: _updateRow,
+              ),
+
+              /// Delete LDB
+              SmallFuckingButton(
+                verse: 'Delete row',
+                onTap: () => _deleteRow(16),
               ),
 
             ],
@@ -326,7 +365,7 @@ class SmallFuckingButton extends StatelessWidget {
   Widget build(BuildContext context) {
 
     double _screenWidth = Scale.superScreenWidth(context);
-    double _buttonWidth = _screenWidth / 5;
+    double _buttonWidth = _screenWidth / 8;
 
     return DreamBox(
       height: 30,
