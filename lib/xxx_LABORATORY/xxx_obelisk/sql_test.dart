@@ -186,7 +186,7 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
       context: context,
       db: _db,
       table: _table,
-      viewID: 22,
+      rowNumber: 22,
       input: _newView.toMap(),
     );
 
@@ -200,7 +200,7 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
       context: context,
       table: _table,
       db: _db,
-      id: id,
+      rowNumber: id,
     );
 
     await _readLDB();
@@ -313,6 +313,7 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
 
                             }
                             ),
+
                       ],
                     ),
                   );
