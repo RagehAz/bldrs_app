@@ -20,32 +20,32 @@ class LDBTable{
     String _output = '';
 
       List<Object> _mapKeys = map.keys.toList();
-      print('A - _getValuesRawInsertString : _mapKeys : $_mapKeys');
+      // print('A - _getValuesRawInsertString : _mapKeys : $_mapKeys');
 
       List<Object> _mapValues = map.values.toList();
-      print('B - _getValuesRawInsertString : _mapValues : $_mapValues');
+      // print('B - _getValuesRawInsertString : _mapValues : $_mapValues');
 
     for (int i = 0; i < map.values.length; i++){
 
       bool _isPrimary = _mapKeys[i] == LDBColumn.getPrimaryKeyFromColumns(columns);
-      print('C1 - i:$i - _getValuesRawInsertString : _isPrimary : $_isPrimary');
+      // print('C1 - i:$i - _getValuesRawInsertString : _isPrimary : $_isPrimary');
 
       if (_isPrimary == false){
 
         dynamic _value = _mapValues[i].toString();
-        print('C2 - i:$i - _getValuesRawInsertString : _value : $_value');
+        // print('C2 - i:$i - _getValuesRawInsertString : _value : $_value');
 
         _output = _output + '"$_value", ';
-        print('C3 - i:$i - _getValuesRawInsertString : _output : $_output');
+        // print('C3 - i:$i - _getValuesRawInsertString : _output : $_output');
       }
 
     }
 
     String _outputAfterRemovingLastComma = TextMod.trimTextAfterLastSpecialCharacter(_output, ',');
-    print('D - _getValuesRawInsertString : _outputAfterRemovingLastComma $_outputAfterRemovingLastComma');
+    // print('D - _getValuesRawInsertString : _outputAfterRemovingLastComma $_outputAfterRemovingLastComma');
 
     String _finalOutput = '($_outputAfterRemovingLastComma)';
-    print('E - _getValuesRawInsertString : _finalOutput $_finalOutput');
+    // print('E - _getValuesRawInsertString : _finalOutput $_finalOutput');
 
     return _finalOutput;
   }
@@ -62,13 +62,13 @@ class LDBTable{
   static String getRawInsertSQLQuery({Map<String, dynamic> map, List<LDBColumn> columns, String tableName}){
 
     String _fieldsRawInsertString = LDBColumn.getFieldsRawInsertString(columns);
-    print('1 - getRawInsertSQLQuery : _fieldsRawInsertString : $_fieldsRawInsertString');
+    // print('1 - getRawInsertSQLQuery : _fieldsRawInsertString : $_fieldsRawInsertString');
 
     String _valuesRawInsertString = _getValuesRawInsertString(
       columns: columns,
       map: map,
     );
-    print('2 - getRawInsertSQLQuery : _valuesRawInsertString : $_valuesRawInsertString');
+    // print('2 - getRawInsertSQLQuery : _valuesRawInsertString : $_valuesRawInsertString');
 
     /// 'INSERT INTO dbName(field, field, field, field) VALUES("value", "value", "value", "value")'
     String _rawInsertString = 'INSERT INTO $tableName$_fieldsRawInsertString VALUES$_valuesRawInsertString';

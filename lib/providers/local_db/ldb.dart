@@ -131,11 +131,15 @@ abstract class LDB{
 // -----------------------------------------------------------------------------
   /// RAW READ FROM LOCAL DATABASE
   static Future<List<dynamic>> readRawFromLDB({Database db,String tableName}) async {
+    List<Map<String, Object>> _sqfMaps = new List();
 
-    String _tableName = tableName;
-    String _sql = 'SELECT * FROM $_tableName';
+    if (db != null){
+      String _tableName = tableName;
+      String _sql = 'SELECT * FROM $_tableName';
 
-    List<Map<String, dynamic>> _sqfMaps = await db.rawQuery(_sql);
+      _sqfMaps = await db.rawQuery(_sql);
+
+    }
 
     return _sqfMaps;
   }

@@ -158,6 +158,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
   bool _isInit = true;
   @override
   void didChangeDependencies() {
+    super.didChangeDependencies();
     if (_isInit) {
       _triggerLoading().then((_) async {
 
@@ -264,7 +265,6 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
     }
     _isInit = false;
-    super.didChangeDependencies();
   }
 // -----------------------------------------------------------------------------
   @override
