@@ -71,11 +71,13 @@ class Scrollers{
 // -----------------------------------------------------------------------------
   static Future<void> scrollTo({ScrollController controller, double offset}) async {
 
-    controller.animateTo(
-      offset,
-      curve: Curves.easeInOutCirc,
-      duration: Ratioz.durationSliding400,
-    );
+    if (controller.positions.isEmpty == true){
+      controller.animateTo(
+        offset,
+        curve: Curves.easeInOutCirc,
+        duration: Ratioz.durationSliding400,
+      );
+    }
 
   }
 
