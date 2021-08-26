@@ -149,5 +149,22 @@ void main(){
 
   });
 // -----------------------------------------------------------------------------
+  test('get map from urlQuery', (){
 
+    String _urlQuery = 'country=eg&category=business&apiKey=65f7556ec76449fa7dc7c0069f040ca';
+
+    Map<String,dynamic> _map = Mapper.getMapFromURLQuery(urlQuery: _urlQuery);
+
+    Map<String, dynamic> _expected = {
+      'country':'eg',
+      'category':'business',
+      'apiKey':'65f7556ec76449fa7dc7c0069f040ca',
+    };
+
+    expect(_map, _expected);
+
+  });
+// -----------------------------------------------------------------------------
+
+// -----------------------------------------------------------------------------
 }

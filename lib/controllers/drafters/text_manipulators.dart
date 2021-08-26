@@ -110,7 +110,9 @@ class TextMod {
 }
 // -----------------------------------------------------------------------------
   static String trimTextAfterFirstSpecialCharacter(String verse, String specialCharacter){
-  String _result = verse == null ? null : verse.substring(0, verse.indexOf(specialCharacter));
+    int _position = verse == null ? null : verse.indexOf(specialCharacter);
+
+    String _result = verse == null ? null : verse.substring(0, verse.indexOf(specialCharacter));
   return _result;
 }
 // -----------------------------------------------------------------------------
