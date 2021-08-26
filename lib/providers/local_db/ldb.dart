@@ -200,14 +200,23 @@ abstract class LDB{
 
   }
 // -----------------------------------------------------------------------------
-  static Future<void> updateRow({BuildContext context, LDBTable table, Database db}) async {
+  static Future<void> updateRow({BuildContext context, LDBTable table, Database db, int viewID, Map<String, Object> input}) async {
 
-    String _time = Timers.cipherDateTimeToString(DateTime.now());
-    String _tableName = table.tableName;
-    String _rawUpdateSQLQuery = 'UPDATE $_tableName SET userID = userIteez, flyerID = flyerIteez, slideIndex = 9, viewTime = 5555 WHERE viewID = 7';
-    List<String> _arguments = <String>['userID','flyerID', 'slideIndex', 'viewTime'];
+    // String _time = Timers.cipherDateTimeToString(DateTime.now());
+    // String _tableName = table.tableName;
+    // String _rawUpdateSQLQuery = 'UPDATE $_tableName SET userID = userIteez, flyerID = flyerIteez, slideIndex = 9, viewTime = 5555 WHERE viewID = 7';
+    // List<String> _arguments = <String>['userID','flyerID', 'slideIndex', 'viewTime'];
+    //
+    // await db.rawUpdate(_rawUpdateSQLQuery, _arguments,);
 
-    await db.rawUpdate(_rawUpdateSQLQuery, _arguments,);
+
+    var _result = await db.update(
+      table.tableName,
+      input,
+      where: "viewID = ?",
+      whereArgs: [viewID],
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
 
   }
 // -----------------------------------------------------------------------------
@@ -221,3 +230,26 @@ abstract class LDB{
   }
 // -----------------------------------------------------------------------------
 }
+
+// To avoid ping-pong between dart and native code, you can use Batch:
+
+// batch = db.batch();
+// batch.insert('Test', {'name': 'item'});
+// batch.update('Test', {'name': 'new_item'}, where: 'name = ?', whereArgs: ['item']);
+// batch.delete('Test', where: 'name = ?', whereArgs: ['item']);
+// results = await batch.commit();
+
+// If you don't care about the result and worry about performance in big batches, you can use
+// await batch.commit(noResult: true);
+
+// await database.transaction((txn) async {
+// var batch = txn.batch();
+//
+// // ...
+//
+// // commit but the actual commit will happen when the transaction is committed
+// // however the data is available in this transaction
+// await batch.commit();
+//
+// //  ...
+// });
