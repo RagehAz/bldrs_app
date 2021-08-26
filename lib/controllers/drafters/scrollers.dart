@@ -1,5 +1,6 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
+import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -68,6 +69,15 @@ class Scrollers{
     return _canPageUp;
   }
 // -----------------------------------------------------------------------------
+  static Future<void> scrollTo({ScrollController controller, double offset}) async {
+
+    controller.animateTo(
+      offset,
+      curve: Curves.easeInOutCirc,
+      duration: Ratioz.durationSliding400,
+    );
+
+  }
 
 }
 // -----------------------------------------------------------------------------
