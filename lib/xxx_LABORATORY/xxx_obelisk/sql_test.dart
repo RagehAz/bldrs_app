@@ -78,6 +78,11 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
   LDBTable _table;
   Future<void> createLDB() async {
     _db = await LDB.createLDB(context: context, table: _table);
+
+    if (_db.isOpen == true){
+      await _readLDB();
+    }
+
   }
 // -----------------------------------------------------------------------------
   Future<void> _A_insertToLDB() async {
@@ -108,14 +113,14 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
 
   }
 // -----------------------------------------------------------------------------
-  Future<void> _overrideRow(String id) async {
+  Future<void> _B_insertToDB(String id) async {
 
     ViewModel _newView = ViewModel(
       userID: 'xxx',
       slideIndex: 0,
       flyerID: 'xxx',
       viewTime: DateTime.now(),
-      viewID: '$id',
+      viewID: 21,
     );
 
     Map<String, Object> _newMap = _newView.toMap();
@@ -166,14 +171,26 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
 
   }
 // -----------------------------------------------------------------------------
-  Future<void> _updateRow() async {
+  Future<void> _updateRow(int viewID) async {
     print('_updateRow : starting to update row');
+
+    ViewModel _newView = ViewModel(
+      viewID: 10,
+      flyerID: 'kos o5tak',
+      userID: 'abo omak',
+      slideIndex: 4,
+      viewTime: DateTime.now(),
+    );
 
     await LDB.updateRow(
       context: context,
       db: _db,
       table: _table,
+      viewID: 22,
+      input: _newView.toMap(),
     );
+
+    await _readLDB();
 
     print('_updateRow : finished updating row');
   }
@@ -237,7 +254,7 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
 
     return TestLayout(
       screenTitle: 'SQL Test Screen',
-      appbarButtonVerse: _loading == true ? 'xxx Loading ......... ' : ' ---> Loaded',
+      appbarButtonVerse: _loading == true ? 'xxx Loading ......... ' : _db.isOpen == true ? ' ---> Loaded' : 'LDB IS OFF',
       appbarButtonOnTap: (){
         print('Button');
         _triggerLoading();
@@ -307,10 +324,16 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
           Row(
             children: <Widget>[
 
-              /// CREATE
+              /// CREATE LDB
               SmallFuckingButton(
                   verse: 'Create LDB',
                   onTap: createLDB,
+              ),
+
+              /// Delete LDB
+              SmallFuckingButton(
+                verse: 'Delete LDB',
+                onTap: _deleteLDB,
               ),
 
               /// INSERT A
@@ -321,26 +344,20 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
 
               /// INSERT B
               SmallFuckingButton(
-                  verse: 'Override row 5',
-                  onTap: () => _overrideRow('5'),
+                  verse: 'raw insert B To LDB',
+                  onTap: () => _B_insertToDB('5'),
               ),
 
-              /// Delete LDB
-              SmallFuckingButton(
-                  verse: 'Delete LDB',
-                  onTap: _deleteLDB,
-              ),
-
-              /// Delete LDB
+              /// Update row LDB
               SmallFuckingButton(
                 verse: 'Update row',
-                onTap: _updateRow,
+                onTap: () => _updateRow(5),
               ),
 
-              /// Delete LDB
+              /// Delete row
               SmallFuckingButton(
                 verse: 'Delete row',
-                onTap: () => _deleteRow(16),
+                onTap: () => _deleteRow(11),
               ),
 
             ],

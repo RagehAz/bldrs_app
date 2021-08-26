@@ -4,7 +4,7 @@ import 'package:bldrs/providers/local_db/ldb_column.dart';
 import 'package:bldrs/providers/local_db/ldb_table.dart';
 
 class ViewModel{
-  final String viewID;
+  final dynamic viewID;
   final String userID;
   final String flyerID;
   final int slideIndex;
@@ -20,7 +20,7 @@ class ViewModel{
 // -----------------------------------------------------------------------------
 Map<String, Object> toMap(){
   return {
-    'viewID' : viewID,
+    // 'viewID' : viewID,
     'userID' : userID,
     'flyerID' : flyerID,
     'slideIndex' : slideIndex,
