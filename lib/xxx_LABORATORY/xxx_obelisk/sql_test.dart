@@ -51,7 +51,6 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
   void initState() {
     super.initState();
 
-    _table = ViewModel.createLDBTable();
 
   }
 // -----------------------------------------------------------------------------
@@ -63,7 +62,9 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
     if(_isInit){
       _triggerLoading().then((_) async {
 
-        await createLDB();
+        _table = await ViewModel.createLDBTable(
+          context: context,
+        );
         await _readLDB();
 
 
@@ -74,12 +75,12 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
 
   }
 // -----------------------------------------------------------------------------
-  Database _db;
   LDBTable _table;
   Future<void> createLDB() async {
-    _db = await LDB.createLDB(context: context, table: _table);
 
-    if (_db.isOpen == true){
+    _table = await LDB.createAndSetLDB(context: context, table: _table);
+
+    if (_table.db.isOpen == true){
       await _readLDB();
     }
 
@@ -103,7 +104,6 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
 
     await LDB.InsertRawToLDB(
       context: context,
-      db: _db,
       table: _table,
       input: _map,
     );
@@ -127,9 +127,8 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
     print('new map');
 
     await LDB.insert(
-      db: _db,
       table: _table,
-      data: _newMap,
+      input: _newMap,
     );
     print('inserted');
 
@@ -141,8 +140,7 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
   Future<void> _readLDB() async {
 
     List<Map<String, Object>> _maps = await LDB.readRawFromLDB(
-      db: _db,
-      tableName: _table.tableName,
+      table: _table,
     );
 
     setState(() {
@@ -162,7 +160,6 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
     await LDB.deleteLDB(
       context: context,
       table: _table,
-      db: _db,
     );
 
     print('_deleteLDB : deleted LDB');
@@ -184,7 +181,6 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
 
     await LDB.updateRow(
       context: context,
-      db: _db,
       table: _table,
       rowNumber: 22,
       input: _newView.toMap(),
@@ -199,7 +195,6 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
     await LDB.deleteRow(
       context: context,
       table: _table,
-      db: _db,
       rowNumber: id,
     );
 
@@ -208,10 +203,14 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
   }
 // -----------------------------------------------------------------------------
   Future<void> _scrollToBottomOfListView() async {
-    await Scrollers.scrollTo(
-      controller: _verticalController,
-      offset: _verticalController.position.maxScrollExtent,
-    );
+
+    if (_verticalController.hasClients == true){
+      await Scrollers.scrollTo(
+        controller: _verticalController,
+        offset: _verticalController.position.maxScrollExtent,
+      );
+    }
+
 // -----------------------------------------------------------------------------
   }
 // -----------------------------------------------------------------------------
@@ -254,7 +253,7 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
 
     return TestLayout(
       screenTitle: 'SQL Test Screen',
-      appbarButtonVerse: _loading == true ? 'xxx Loading ......... ' : _db.isOpen == true ? ' ---> Loaded' : 'LDB IS OFF',
+      appbarButtonVerse: _loading == true ? 'xxx Loading ......... ' : _table.db.isOpen == true ? ' ---> Loaded' : 'LDB IS OFF',
       appbarButtonOnTap: (){
         print('Button');
         _triggerLoading();
@@ -269,7 +268,7 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
           child: ListView.builder(
               physics: const BouncingScrollPhysics(),
               controller: _verticalController,
-              itemCount: _table.maps.length,
+              itemCount: _table?.maps?.length ?? 0,
               itemBuilder: (ctx, index){
 
                 Map<String, Object> _map = _table.maps[index];

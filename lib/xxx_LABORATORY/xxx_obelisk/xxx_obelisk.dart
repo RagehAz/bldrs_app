@@ -19,6 +19,7 @@ import 'package:bldrs/xxx_LABORATORY/firestore_test/storage_test.dart';
 import 'package:bldrs/xxx_LABORATORY/forms_and_inputs/popup.dart';
 import 'package:bldrs/xxx_LABORATORY/forms_and_inputs/form.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/dialog_test_screen.dart';
+import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/dio_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/dynamic_links_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/fire_search_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/firebase_testing.dart';
@@ -160,6 +161,8 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
           ),
 
           LogoSlogan(sizeFactor: 0.8,),
+
+          oButton('DIO Test Screen', Iconz.Terms, DioTestScreen()),
 
           oButton('SQL Test Screen', Iconz.Terms, SQLTestScreen()),
 
