@@ -38,26 +38,26 @@ class BottomDialog extends StatelessWidget {
 
 // -----------------------------------------------------------------------------
   /// one side value only
-  static double draggerMarginValue(){
-    double _draggerHeight = draggerHeight();
-    double _draggerZoneHeight = draggerZoneHeight();
-    double _draggerMarginValue = (_draggerZoneHeight - _draggerHeight)/2;
+  static double draggerMarginValue({@required bool draggable}){
+    double _draggerHeight = draggerHeight(draggable: draggable);
+    double _draggerZoneHeight = draggerZoneHeight(draggable: draggable);
+    double _draggerMarginValue = draggable != true ? 0 : (_draggerZoneHeight - _draggerHeight)/2;
     return _draggerMarginValue;
   }
 // -----------------------------------------------------------------------------
-  static EdgeInsets draggerMargins(){
-    EdgeInsets _draggerMargins = EdgeInsets.symmetric(vertical: draggerMarginValue());
+  static EdgeInsets draggerMargins({@required bool draggable}){
+    EdgeInsets _draggerMargins = EdgeInsets.symmetric(vertical: draggerMarginValue(draggable: draggable));
     return _draggerMargins;
 
   }
 // -----------------------------------------------------------------------------
-  static double draggerZoneHeight(){
-    double _draggerZoneHeight = Ratioz.appBarMargin * 3;
+  static double draggerZoneHeight({@required bool draggable}){
+    double _draggerZoneHeight = draggable == true ? Ratioz.appBarMargin * 3 : 0;
     return _draggerZoneHeight;
   }
 // -----------------------------------------------------------------------------
-  static double draggerHeight(){
-    double _draggerZoneHeight = draggerZoneHeight();
+  static double draggerHeight({@required bool draggable}){
+    double _draggerZoneHeight = draggerZoneHeight(draggable: draggable);
     double _draggerHeight = _draggerZoneHeight * 0.35 * 0.5;
     return _draggerHeight;
   }
@@ -113,10 +113,13 @@ class BottomDialog extends StatelessWidget {
     return _dialogHeight;
   }
 // -----------------------------------------------------------------------------
-  static double dialogClearHeight({BuildContext context, double overridingDialogHeight, String title}){
+  static double dialogClearHeight({BuildContext context, double overridingDialogHeight, String title, @required bool draggable}){
+
+    // bool _draggable = draggable == null ? false : draggable;
+
     double _dialogHeight = dialogHeight(context, overridingDialogHeight: overridingDialogHeight);
     double _titleZoneHeight = titleZoneHeight(title: title);
-    double _draggerZoneHeight = draggerZoneHeight();
+    double _draggerZoneHeight = draggerZoneHeight(draggable: draggable);
 
     double _dialogClearHeight = _dialogHeight - _titleZoneHeight - _draggerZoneHeight;
     return _dialogClearHeight;
@@ -255,16 +258,16 @@ class BottomDialog extends StatelessWidget {
     double _dialogHeight = dialogHeight(context, overridingDialogHeight: height);
     BorderRadius _dialogCorners = dialogCorners(context);
 
-    double _draggerZoneHeight = draggerZoneHeight();
-    double _draggerHeight = draggerHeight();
+    double _draggerZoneHeight = draggerZoneHeight(draggable: draggable);
+    double _draggerHeight = draggerHeight(draggable: draggable);
     double _draggerWidth = draggerWidth(context);
     double _draggerCorner = _draggerHeight *0.5;
-    EdgeInsets _draggerMargins = draggerMargins();
+    EdgeInsets _draggerMargins = draggerMargins(draggable: draggable);
 
     double _titleZoneHeight = titleZoneHeight(title: title);
 
     double _dialogClearWidth = dialogClearWidth(context);
-    double _dialogClearHeight  = dialogClearHeight(context: context, title: title, overridingDialogHeight: height);
+    double _dialogClearHeight  = dialogClearHeight(context: context, title: title, overridingDialogHeight: height, draggable: draggable);
     BorderRadius _dialogClearCorners = dialogClearCorners(context);
 
     return Container(
@@ -303,10 +306,12 @@ class BottomDialog extends StatelessWidget {
               children: <Widget>[
 
                 /// --- DRAGGER
+                if (draggable == true)
                 Container(
                   width : _dialogWidth,
                   height: _draggerZoneHeight,
                   alignment: Alignment.center,
+                  // color: Colorz.BloodTest,
                   child: Container(
                     width: _draggerWidth,
                     height: _draggerHeight,
@@ -324,6 +329,7 @@ class BottomDialog extends StatelessWidget {
                   width: _dialogWidth,
                   height: _titleZoneHeight,
                   alignment: Alignment.center,
+                  // color: Colorz.BloodTest,
                   child: SuperVerse(
                     verse: title,
                     size: 2,
