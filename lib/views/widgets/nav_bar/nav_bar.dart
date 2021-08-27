@@ -65,14 +65,14 @@ class NavBar extends StatelessWidget {
   void _multiBzzSlider(BuildContext context, UserModel userModel){
 
     double _sliderHeight = _myBzzListSlideHeight(context);
-    double _sliderHeightRatio = _sliderHeight / Scale.superScreenHeight(context);
-    double _bzButtonWidth = Scale.superScreenWidth(context) - BottomDialog.draggerZoneHeight() * 2;
+    // double _sliderHeightRatio = _sliderHeight / Scale.superScreenHeight(context);
+    double _bzButtonWidth = Scale.superScreenWidth(context) - BottomDialog.draggerZoneHeight(draggable: true) * 2;
 
-    int _titleSize = 2;
-    double _titleMargin = 5;
-    double _titleZoneHeight = superVerseRealHeight(context, _titleSize, 1, null) + (_titleMargin * 2);
+    // int _titleSize = 2;
+    // double _titleMargin = 5;
+    // double _titleZoneHeight = superVerseRealHeight(context, _titleSize, 1, null) + (_titleMargin * 2);
 
-    double _bzzButtonsZoneHeight = BottomDialog.dialogClearHeight(context: context, overridingDialogHeight: _sliderHeight, title: 'x');
+    double _bzzButtonsZoneHeight = BottomDialog.dialogClearHeight(context: context, overridingDialogHeight: _sliderHeight, title: 'x', draggable: true);
 
     BottomDialog.slideBottomDialog(
             context: context,
