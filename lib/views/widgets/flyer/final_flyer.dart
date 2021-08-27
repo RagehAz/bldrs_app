@@ -1026,7 +1026,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
     final int _numberOfButtons = 2;
     final double _dialogClearWidth = BottomDialog.dialogClearWidth(context);
-    final double _dialogClearHeight = BottomDialog.dialogClearHeight(context: context, overridingDialogHeight: _dialogHeight, title: 'x');
+    final double _dialogClearHeight = BottomDialog.dialogClearHeight(context: context, overridingDialogHeight: _dialogHeight, title: 'x', draggable: true);
     final double _spacing = Ratioz.appBarMargin;
     final double _buttonWidth = (_dialogClearWidth - ((_numberOfButtons + 1) * _spacing) ) / _numberOfButtons;
 
@@ -1631,7 +1631,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     final List<FlyerType> _possibleFlyerTypes = FlyerTypeClass.concludePossibleFlyerTypesForBz(bzType: _superFlyer.bz.bzType);
     final int _numberOfButtons = _possibleFlyerTypes.length;
     final double _dialogClearWidth = BottomDialog.dialogClearWidth(context);
-    final double _dialogClearHeight = BottomDialog.dialogClearHeight(context: context, overridingDialogHeight: _dialogHeight, title: 'x');
+    final double _dialogClearHeight = BottomDialog.dialogClearHeight(context: context, overridingDialogHeight: _dialogHeight, title: 'x', draggable: true);
     final double _spacing = Ratioz.appBarMargin;
     final double _buttonWidth = (_dialogClearWidth - ((_numberOfButtons + 1) * _spacing) ) / _numberOfButtons;
 

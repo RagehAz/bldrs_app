@@ -30,7 +30,9 @@ void main() async {
   // debugPaintLayerBordersEnabled = false;
   // debugRepaintRainbowEnabled = false;
 
+  /// insures awaiting async methods below to finish then continue
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp();
   runApp(BldrsApp());
 
