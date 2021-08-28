@@ -15,15 +15,15 @@ class NotificationsTestScreen extends StatefulWidget {
 }
 
 class _NotificationsTestScreenState extends State<NotificationsTestScreen> {
-  final fbm = FirebaseMessaging();
+  final FirebaseMessaging firebaseMasseging = FirebaseMessaging();
 
 
   @override
   void initState() {
     super.initState();
     /// for ios notifications
-    fbm.requestNotificationPermissions();
-    fbm.configure(
+    firebaseMasseging.requestNotificationPermissions();
+    firebaseMasseging.configure(
 
       /// when app is running on screen
         onMessage: (msgMap){
@@ -57,7 +57,7 @@ class _NotificationsTestScreenState extends State<NotificationsTestScreen> {
         );
 
     // fbm.getToken();
-    fbm.subscribeToTopic('flyers');
+    firebaseMasseging.subscribeToTopic('flyers');
   }
 // -----------------------------------------------------------------------------
   NotiModel _noti;
@@ -133,7 +133,7 @@ class _NotificationsTestScreenState extends State<NotificationsTestScreen> {
                 _noti = null;
               });
 
-              await fbm.setAutoInitEnabled(false);
+              await firebaseMasseging.setAutoInitEnabled(false);
               print('the thing is : ');
 
             },
@@ -147,11 +147,11 @@ class _NotificationsTestScreenState extends State<NotificationsTestScreen> {
           // if (_notiIsOn == true)
           SuperVerse(
             verse:
-              '_noti.notification.title : ${_noti?.notification?.title}\n'
+              '_noti.notification.title : ${_noti?.notiContent?.title}\n'
               ' '
-              '_noti.notification.body : ${_noti?.notification?.body}\n'
+              '_noti.notification.body : ${_noti?.notiContent?.body}\n'
               ' '
-              '_noti.data : ${_noti?.data}\n',
+              '_noti.data : ${_noti?.metaData}\n',
             maxLines: 100,
           ),
         ],

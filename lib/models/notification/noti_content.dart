@@ -1,20 +1,22 @@
 import 'package:flutter/foundation.dart';
 
-class NotiNotification{
-  final String body;
+class NotiContent{
+  /// should not exceed max 30 characters including spaces
   final String title;
+  /// max 80 characters including spaces
+  final String body;
 
-  NotiNotification ({
+  NotiContent ({
     @required this.body,
     @required this.title,
   });
 // -----------------------------------------------------------------------------
-  static NotiNotification decipherNotiNotification(dynamic map){
-    NotiNotification _notiMessage;
+  static NotiContent decipherNotiNotification(dynamic map){
+    NotiContent _notiMessage;
 
     if (map != null){
 
-      _notiMessage = NotiNotification(
+      _notiMessage = NotiContent(
         body: map['body'],
         title: map['title'],
       );
