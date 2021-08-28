@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:bldrs/models/notification/noti_notification.dart';
+import 'package:bldrs/models/notification/noti_content.dart';
 
 enum NotiType{
   onMessage,
@@ -7,15 +7,55 @@ enum NotiType{
   onLaunch,
 }
 
+enum NotiReason{
+  ad,
+  event,
+  reminder,
+  education,
+}
+
+enum NotiReciever{
+  user,
+  users,
+  author,
+  authors,
+}
+
+enum CityState{
+  private, /// app shows bzz only ,, all flyers hidden to public,, currently building content
+  public, /// app shows all
+  any,
+}
+
 class NotiModel{
+  final NotiReason reason;
+  /// timing describes the condition "when" something happens to trigger the notification
+  final String timing;
+  /// sudo code for condition logic
+  final String Condition;
+  /// timeStamp
+  final String dayHour;
+  ///
+  final NotiReciever reciever;
+  ///
+  final CityState cityState;
   /// {notification: {body: Bldrs.net is super Awesome, title: Bldrs.net}, data: {}}
-  final NotiNotification notification;
+  final NotiContent notiContent;
   /// Actually, it is of type : InternalLinkedHashMap<dynamic, dynamic>
-  final dynamic data;
+  final dynamic metaData;
+  /// sends notification automatically, if false, should manually be triggered by onTap event
+  final bool autoFire;
 
   NotiModel({
-    @required this.notification,
-    @required this.data,
+    this.reason,
+    this.timing,
+    this.Condition,
+    this.dayHour,
+    this.reciever,
+    this.cityState,
+    this.autoFire,
+    @required this.notiContent,
+    @required this.metaData,
   });
 // -----------------------------------------------------------------------------
   static NotiModel decipherNotiModel(dynamic map){
@@ -24,8 +64,8 @@ class NotiModel{
     if (map != null){
 
       _noti = NotiModel(
-        notification: NotiNotification.decipherNotiNotification(map['notification']),
-        data: map['data'],
+        notiContent: NotiContent.decipherNotiNotification(map['notification']),
+        metaData: map['data'],
       );
 
     }

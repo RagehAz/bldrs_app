@@ -22,6 +22,7 @@ class UserModel {
   final List<ContactModel> contacts;
   // -------------------------
   final List<dynamic> myBzzIDs;
+  final bool emailIsVerified;
 // ###############################
   UserModel({
     this.userID,
@@ -40,6 +41,7 @@ class UserModel {
     this.contacts,
     // -------------------------
     this.myBzzIDs,
+    this.emailIsVerified,
   });
 // -----------------------------------------------------------------------------
   Map<String, dynamic> toMap(){
@@ -60,6 +62,7 @@ class UserModel {
       'contacts' : ContactModel.cipherContactsModels(contacts),
 // -------------------------
       'myBzzIDs' : myBzzIDs,
+      'emailIsVerified' : emailIsVerified,
     };
   }
 // -----------------------------------------------------------------------------
@@ -70,23 +73,24 @@ class UserModel {
     return
       map == null ? null :
       UserModel(
-      userID : map['userID'] ?? '',
-      authBy: decipherAuthBy(map['authBy'] ?? 0),
-      joinedAt : Timers.decipherDateTimeString(map['joinedAt'] ?? ''),
-      userStatus : decipherUserStatus(map['userStatus'] ?? 1),
-      // -------------------------
-      name : map['name'] ?? '',
-      pic : map['pic'] ?? '',
-      title : map['title'] ?? '',
-      company : map['company'] ?? '',
-      gender : decipherGender(map['gender'] ?? 2),
-      zone : Zone.decipherZoneMap(map['zone']) ?? '',
-      language : map['language'] ?? 'en',
-      position : map['position'] ?? GeoPoint(0, 0),
-      contacts : ContactModel.decipherContactsMaps(map['contacts'] ?? []),
-      // -------------------------
-      myBzzIDs: map['myBzzIDs'],
-    );
+        userID : map['userID'] ?? '',
+        authBy: decipherAuthBy(map['authBy'] ?? 0),
+        joinedAt : Timers.decipherDateTimeString(map['joinedAt'] ?? ''),
+        userStatus : decipherUserStatus(map['userStatus'] ?? 1),
+        // -------------------------
+        name : map['name'] ?? '',
+        pic : map['pic'] ?? '',
+        title : map['title'] ?? '',
+        company : map['company'] ?? '',
+        gender : decipherGender(map['gender'] ?? 2),
+        zone : Zone.decipherZoneMap(map['zone']) ?? '',
+        language : map['language'] ?? 'en',
+        position : map['position'] ?? GeoPoint(0, 0),
+        contacts : ContactModel.decipherContactsMaps(map['contacts'] ?? []),
+        // -------------------------
+        myBzzIDs: map['myBzzIDs'],
+        emailIsVerified : map['emailIsVerified'],
+      );
 
   }
 // -----------------------------------------------------------------------------
@@ -206,6 +210,7 @@ class UserModel {
         contacts: [],
         // -------------------------
         myBzzIDs: [],
+        emailIsVerified: user.emailVerified,
       );
 
   }
@@ -240,6 +245,7 @@ class UserModel {
     print('position: ,');
     print('contacts: ${ContactModel.getContactsFromFirebaseUser(user)},');
     print('myBzzIDs: [],');
+    print('emailIsVerified: ${user.emailVerified}');
 
     UserModel _userModel = UserModel(
       userID: user.uid,
@@ -257,6 +263,7 @@ class UserModel {
       contacts: ContactModel.getContactsFromFirebaseUser(user),
       // -------------------------
       myBzzIDs: [],
+      emailIsVerified: user.emailVerified,
     );
 
     print('userModel created : $_userModel');

@@ -5,6 +5,7 @@ import 'package:bldrs/firestore/user_ops.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
+import 'package:bldrs/views/widgets/dialogs/nav_dialog/nav_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
@@ -545,6 +546,42 @@ class AuthOps {
     }
 
   }
+// -----------------------------------------------------------------------------
+
+  /// TASK : send email verification : not tested yet
+  static Future<void> sendVerificationEmail({BuildContext context, }) async {
+
+    await tryAndCatch(
+      context: context,
+      methodName: 'sendVerificationEmail',
+      functions: () async {
+
+        User _currentUser = superFirebaseUser();
+
+        ActionCodeSettings actionCodeSettings = ActionCodeSettings(
+          url: '',
+          androidInstallApp: true,
+          androidMinimumVersion: '',
+          androidPackageName: '',
+          dynamicLinkDomain: '',
+          handleCodeInApp: true,
+          iOSBundleId: '',
+        );
+
+        await _currentUser.sendEmailVerification(actionCodeSettings);
+
+        await NavDialog.showNavDialog(
+          context: context,
+          firstLine: 'Verification E-mail sent',
+          secondLine: 'Please Check Your E-mail',
+          isBig: true,
+        );
+
+      }
+      // onError:
+    );
+
+}
 }
 // =============================================================================
   String superUserID(){
