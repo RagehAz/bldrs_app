@@ -1,3 +1,5 @@
+
+/// TASK : check keyboard icons from https://emojipedia.org/
 class Iconz {
   static const String _iconzPath = 'assets/icons/';
   static const String _artworkPath = 'assets/aw/';

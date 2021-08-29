@@ -364,6 +364,48 @@ class FlyerModel with ChangeNotifier{
 //
 //     return _flyer;
 //   }
+  static void printFlyer(FlyerModel flyerModel){
+    print('FLYER-PRINT --------------------------------------------------START');
+    print('FLYER-PRINT : flyerID : ${flyerModel.flyerID}');
+    print('FLYER-PRINT : flyerType : ${flyerModel.flyerType}');
+    print('FLYER-PRINT : flyerState : ${flyerModel.flyerState}');
+    print('FLYER-PRINT : keywords : ${flyerModel.keywords}');
+    print('FLYER-PRINT : flyerShowsAuthor : ${flyerModel.flyerShowsAuthor}');
+    print('FLYER-PRINT : flyerURL : ${flyerModel.flyerURL}');
+    print('FLYER-PRINT : flyerZone : ${flyerModel.flyerZone}');
+    print('FLYER-PRINT : tinyAuthor : ${flyerModel.tinyAuthor}');
+    print('FLYER-PRINT : tinyBz : ${flyerModel.tinyBz}');
+    print('FLYER-PRINT : publishTime : ${flyerModel.publishTime}');
+    print('FLYER-PRINT : flyerPosition : ${flyerModel.flyerPosition}');
+    print('FLYER-PRINT : ankhIsOn : ${flyerModel.ankhIsOn}');
+    print('FLYER-PRINT : slides : ${flyerModel.slides}');
+    print('FLYER-PRINT : flyerIsBanned : ${flyerModel.flyerIsBanned}');
+    print('FLYER-PRINT : deletionTime : ${flyerModel.deletionTime}');
+    print('FLYER-PRINT : specs : ${flyerModel.specs}');
+    print('FLYER-PRINT : info : ${flyerModel.info}');
+    print('FLYER-PRINT : times : ${flyerModel.times}');
+    print('FLYER-PRINT --------------------------------------------------END');
+  }
+// -----------------------------------------------------------------------------
+  static bool flyersContainThisID({String flyerID, List<FlyerModel> flyers}){
+    bool _hasTheID = false;
+
+      if (flyerID != null && flyers != null && flyers.length != 0){
+
+        for (FlyerModel flyer in flyers){
+
+          if (flyer.flyerID == flyerID){
+            _hasTheID = true;
+            break;
+          }
+
+        }
+
+    }
+
+      return _hasTheID;
+  }
+
 }
 // -----------------------------------------------------------------------------
 enum FlyerState{
