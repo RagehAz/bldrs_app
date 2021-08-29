@@ -179,7 +179,10 @@ Map<String, dynamic> toMap(){
   }
 // -----------------------------------------------------------------------------
   static BzModel decipherBzMap(dynamic map){
-    return BzModel(
+  BzModel _bzModel;
+
+  if (map != null){
+    _bzModel = BzModel(
       bzID : map['bzID'],
       // -------------------------
       bzType : decipherBzType(map['bzType']),
@@ -212,6 +215,9 @@ Map<String, dynamic> toMap(){
       nanoFlyers: NanoFlyer.decipherNanoFlyersMaps(map['nanoFlyers']),
       bzTotalFlyers: map['bzTotalFlyers'],
     );
+  }
+
+    return _bzModel;
   }
 // -----------------------------------------------------------------------------
   static List<BzModel> decipherBzMapsFromRealTimeDatabase(Map<String, dynamic> bigMap){

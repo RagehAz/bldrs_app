@@ -1,6 +1,14 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/firestore/bz_ops.dart';
+import 'package:bldrs/firestore/firestore.dart';
+import 'package:bldrs/firestore/flyer_ops.dart';
+import 'package:bldrs/models/bz/bz_model.dart';
+import 'package:bldrs/models/flyer/flyer_model.dart';
+import 'package:bldrs/models/flyer/sub/slide_model.dart';
+import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/effects/white_gradient_layer.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
@@ -94,6 +102,7 @@ class _RandomTestSpaceState extends State<RandomTestSpace> {
     return MainLayout(
       appBarType: AppBarType.Basic,
       pyramids: Iconz.PyramidzYellow,
+      loading: _loading,
       tappingRageh: (){
         print('wtf');
       },
@@ -115,7 +124,42 @@ class _RandomTestSpaceState extends State<RandomTestSpace> {
               height: _gHeight,
               bubble: true,
               color: Colorz.BloodTest,
-              corners: 0,
+              // corners: 0,
+              verse: 'add headlines to tiny flyers',
+              verseMaxLines: 5,
+              verseScaleFactor: 0.7,
+              onTap: () async {
+
+                _triggerLoading();
+
+                print('starting ---------- ');
+
+                List<dynamic> _maps = await Fire.readCollectionDocs(FireCollection.flyers);
+                List<FlyerModel> _flyers = new List();
+                for (var map in _maps){
+                  _flyers.add(FlyerModel.decipherFlyerMap(map));
+                }
+
+                List<dynamic> _tinyMaps = await Fire.readCollectionDocs(FireCollection.tinyFlyers);
+                List<TinyFlyer> _tinyFlyers = new List();
+                for (var tinyMap in _tinyMaps){
+                  _tinyFlyers.add(TinyFlyer.decipherTinyFlyerMap(tinyMap));
+                }
+
+
+                for (var flyer in _flyers){
+
+                  bool flyersContainThisID = TinyFlyer.tinyFlyersContainThisID(flyerID: flyer.flyerID, tinyFlyers: _tinyFlyers);
+
+                  print('flyerID : ${flyer.flyerID} : flyersContainThisID : $flyersContainThisID');
+
+                }
+
+                print(' DONE isa');
+
+                _triggerLoading();
+
+              },
             ),
 
             Stratosphere(heightFactor: 2,),
@@ -125,4 +169,5 @@ class _RandomTestSpaceState extends State<RandomTestSpace> {
       ),
     );
   }
+
 }

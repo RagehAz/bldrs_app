@@ -30,7 +30,7 @@ class MutableSlide {
     this.picURL,
     @required this.picAsset,
     @required this.picFile,
-    this.headline,
+    @required this.headline,
     @required this.headlineController,
     this.description,
     @required this.descriptionController,
@@ -210,7 +210,6 @@ static List<Asset> getAssetsFromMutableSlides(List<MutableSlide> mSlides){
     return _assets;
 }
 // -----------------------------------------------------------------------------
-  // -----------------------------------------------------------------------------
   static int getMutableSlideIndexThatContainsThisAsset({List<MutableSlide> mSlides, Asset assetToSearchFor}){
     int _assetIndexInAssets = -1;
 
@@ -221,5 +220,5 @@ static List<Asset> getAssetsFromMutableSlides(List<MutableSlide> mSlides){
 
     return _assetIndexInAssets;
   }
-
+// -----------------------------------------------------------------------------
 }

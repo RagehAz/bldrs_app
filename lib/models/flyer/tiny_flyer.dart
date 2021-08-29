@@ -28,6 +28,7 @@ class TinyFlyer with ChangeNotifier{
   final Color midColor;
   final List<Keyword> keywords;
   final ImageSize imageSize;
+  final String headline;
 
   TinyFlyer({
     @required this.flyerID,
@@ -41,6 +42,7 @@ class TinyFlyer with ChangeNotifier{
     @required this.keywords, /// TASK : integrate keywords in tiny flyers
     @required this.picFit, /// TASK : integrate this in all below methods
     @required this.imageSize,
+    @required this.headline,
   });
 // -----------------------------------------------------------------------------
   Map<String,dynamic> toMap (){
@@ -56,6 +58,7 @@ class TinyFlyer with ChangeNotifier{
       'keywords' : Keyword.cipherKeywordsToKeywordsIds(keywords),
       'picFit' : SlideModel.cipherBoxFit(picFit),
       'imageSize' : imageSize.toMap(),
+      'headline' : headline,
     };
   }
 // -----------------------------------------------------------------------------
@@ -69,6 +72,7 @@ class TinyFlyer with ChangeNotifier{
     else if (finalFlyer.slides[0].pic != originalFlyer.slides[0].pic) {tinyFlyersAreTheSame = false;}
     else if (finalFlyer.slides[0].picFit != originalFlyer.slides[0].picFit) {tinyFlyersAreTheSame = false;}
     else if (Colorizer.colorsAreTheSame(finalFlyer.slides[0].midColor, originalFlyer.slides[0].midColor) == false) {tinyFlyersAreTheSame = false;}
+    else if (finalFlyer.slides[0].headline != originalFlyer.slides[0].headline) {tinyFlyersAreTheSame = false;}
 
     else if (finalFlyer.slides[0].imageSize.width != originalFlyer.slides[0].imageSize.width) {tinyFlyersAreTheSame = false;}
     else if (finalFlyer.slides[0].imageSize.height != originalFlyer.slides[0].imageSize.height) {tinyFlyersAreTheSame = false;}
@@ -103,6 +107,7 @@ class TinyFlyer with ChangeNotifier{
       keywords: Keyword.decipherKeywordsIDsToKeywords(map['keywords']),
       picFit: SlideModel.decipherBoxFit(map['picFit']),
       imageSize: ImageSize.decipherImageSize(map['imageSize']),
+      headline: map['headline'],
       // keywords: Keyword.de
     );
   }
@@ -113,18 +118,19 @@ class TinyFlyer with ChangeNotifier{
     if(flyerModel != null){
       if(flyerModel.slides != null){
         if(flyerModel.slides.length != 0){
-          _tinyFlyer =TinyFlyer(
+          _tinyFlyer = TinyFlyer(
             flyerID: flyerModel?.flyerID,
             flyerType: flyerModel?.flyerType,
             authorID: flyerModel?.tinyAuthor?.userID,
             slideIndex: 0,
-            slidePic: flyerModel == null ? null : flyerModel?.slides[0]?.pic,
-            midColor: flyerModel == null ? null : flyerModel?.slides[0]?.midColor,
-            picFit: flyerModel == null ? null : flyerModel?.slides[0]?.picFit,
+            slidePic: flyerModel?.slides[0]?.pic,
+            midColor: flyerModel?.slides[0]?.midColor,
+            picFit: flyerModel?.slides[0]?.picFit,
             tinyBz: flyerModel?.tinyBz,
             flyerZone: flyerModel?.flyerZone,
             keywords: flyerModel?.keywords,
-            imageSize: flyerModel == null ? null : flyerModel?.slides[0]?.imageSize,
+            imageSize: flyerModel?.slides[0]?.imageSize,
+            headline: flyerModel?.slides[0]?.headline,
           );
         }
       }
@@ -150,21 +156,10 @@ class TinyFlyer with ChangeNotifier{
 
     if (_nanoFlyers != null){
       for (var nano in _nanoFlyers){
-        _tinyFlyers.add(
-            TinyFlyer(
-              flyerID: nano.flyerID,
-              flyerType: nano.flyerType,
-              authorID: nano.authorID,
-              slideIndex: 0,
-              slidePic: nano.slidePic,
-              tinyBz: TinyBz.getTinyBzFromBzModel(bzModel),
-              flyerZone: nano.flyerZone,
-              midColor: nano.midColor,
-              imageSize: null, // TASK : fix this shit
-              picFit: null,
-              keywords: null,
-            )
-        );
+
+        TinyFlyer _tinyFlyer = TinyFlyer.getTinyFlyerFromNanoFlyerAndBzModel(nano: nano, bzModel: bzModel);
+
+        _tinyFlyers.add(_tinyFlyer);
       }
 
     }
@@ -211,6 +206,7 @@ class TinyFlyer with ChangeNotifier{
       midColor: Colorz.Black255,
       keywords: List(),
       imageSize: null,
+      headline: 'Headline'
     );
   }
 // -----------------------------------------------------------------------------
@@ -238,25 +234,28 @@ class TinyFlyer with ChangeNotifier{
       keywords: superFlyer.keywords,
       midColor: superFlyer.mSlides[superFlyer.currentSlideIndex].midColor,
       imageSize: superFlyer.mSlides[superFlyer.currentSlideIndex].imageSize,
+      headline: superFlyer.mSlides[superFlyer.currentSlideIndex].headline,
     );
 
     return _tinyFlyer;
   }
 // -----------------------------------------------------------------------------
-  static TinyFlyer getTinyFlyerFromNanoFlyer(NanoFlyer nano){
+  static TinyFlyer getTinyFlyerFromNanoFlyerAndBzModel({NanoFlyer nano, BzModel bzModel}){
     TinyFlyer _tiny;
     if(nano != null){
       _tiny = TinyFlyer(
-          flyerID: nano.flyerID,
-          flyerType: nano.flyerType,
-          authorID: nano.authorID,
-          slideIndex: 0,
-          slidePic: nano.slidePic,
-          flyerZone: nano.flyerZone,
-          midColor: nano.midColor,
-          keywords: null,
-          picFit: null,
-          imageSize: null,
+        flyerID: nano.flyerID,
+        flyerType: nano.flyerType,
+        authorID: nano.authorID,
+        slideIndex: 0,
+        slidePic: nano.slidePic,
+        flyerZone: nano.flyerZone,
+        midColor: nano.midColor,
+        keywords: null, /// TASK : add keywords to tinyFlyers from nano flyers
+        picFit: null, /// TASK : add picFit to tinyFlyers from nano flyers
+        imageSize: null, /// TASK : add imageSize to tinyFlyers from nano flyers
+        headline: 'fix nano headline',
+        tinyBz: TinyBz.getTinyBzFromBzModel(bzModel),
       );
     }
     return _tiny;
@@ -284,6 +283,24 @@ class TinyFlyer with ChangeNotifier{
     return _filteredTinyFlyers;
   }
 // -----------------------------------------------------------------------------
+  static bool tinyFlyersContainThisID({String flyerID, List<TinyFlyer> tinyFlyers}){
+    bool _hasTheID = false;
+
+    if (flyerID != null && tinyFlyers != null && tinyFlyers.length != 0){
+
+      for (TinyFlyer tinyFlyer in tinyFlyers){
+
+        if (tinyFlyer.flyerID == flyerID){
+          _hasTheID = true;
+          break;
+        }
+
+      }
+
+    }
+
+    return _hasTheID;
+  }
 }
 
 
