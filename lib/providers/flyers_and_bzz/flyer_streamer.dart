@@ -115,7 +115,7 @@ Stream<List<ReviewModel>> getFlyerReviewsStream(String flyerID) {
           (qShot) => qShot.docs.map((doc) => ReviewModel(
             userID: doc['userID'],
             time: Timers.decipherDateTimeString(doc['time']),
-            body: doc['review'],
+            body: doc['body'],
             reviewID: doc.id,
           )
           ).toList()
@@ -140,6 +140,7 @@ Widget reviewsStreamBuilder({
   return
 
     StreamBuilder<List<ReviewModel>>(
+      key: ValueKey<String>('reviews_stream_builder'),
       stream: getFlyerReviewsStream(flyerID),
       builder: (context, snapshot){
 

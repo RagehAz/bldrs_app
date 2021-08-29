@@ -126,6 +126,27 @@ class UserOps{
     return _user;
   }
 // -----------------------------------------------------------------------------
+  Future<TinyUser> readTinyUserOps({BuildContext context, String userID}) async {
+
+    print('readUserOps : Start reading user $userID while lang is : ${Wordz.languageCode(context)},');
+
+    Map<String, dynamic> _tinyUserMap = await Fire.readDoc(
+      context: context,
+      collName: FireCollection.tinyUsers,
+      docName: userID,
+    );
+
+    print('readUserOps : _tinyUserMap _tinyUserMap[\'userID\'] is : ${_tinyUserMap['userID']}');
+    // print('lng : ${Wordz.languageCode(context)}');
+
+    TinyUser _tinyUser = _tinyUserMap == null ? null : TinyUser.decipherTinyUserMap(_tinyUserMap);
+
+    // print('_userModel is : $_user');
+    // print('lng : ${Wordz.languageCode(context)}');
+
+    return _tinyUser;
+  }
+// -----------------------------------------------------------------------------
   /// auth change user stream
   Stream<UserModel> streamInitialUser(){
     final FirebaseAuth _auth = FirebaseAuth?.instance;

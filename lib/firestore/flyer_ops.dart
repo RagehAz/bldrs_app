@@ -6,6 +6,7 @@ import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
+import 'package:bldrs/models/flyer/records/review_model.dart';
 import 'package:bldrs/models/flyer/sub/slide_model.dart';
 import 'package:bldrs/models/flyer/nano_flyer.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
@@ -540,6 +541,20 @@ class FlyerOps{
       field: 'flyerShowsAuthor',
       input: val,
     );
+  }
+// -----------------------------------------------------------------------------
+  static Future<List<ReviewModel>> readAllReviews({BuildContext context, String flyerID,}) async {
+    List<dynamic> _maps = await Fire.readSubCollectionDocs(
+      context: context,
+      collName: FireCollection.flyers,
+      docName: flyerID,
+      subCollName: FireCollection.subFlyerReviews,
+      addDocsIDs: true,
+    );
+
+    List<ReviewModel> _reviews = ReviewModel.decipherReviews(_maps);
+
+    return _reviews;
   }
 // -----------------------------------------------------------------------------
 }

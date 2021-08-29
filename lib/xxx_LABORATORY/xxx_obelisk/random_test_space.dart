@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/drafters/scrollers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
@@ -107,64 +108,20 @@ class _RandomTestSpaceState extends State<RandomTestSpace> {
         print('wtf');
       },
       layoutWidget: Center(
-        child: ListView(
-          physics: BouncingScrollPhysics(),
-          children: <Widget>[
-
-            Stratosphere(),
-
-            GradientLayer(
-              width: _gWidth,
-              height: _gHeight,
-              isWhite: false,
-            ),
-
-            DreamBox(
-              width: _gWidth,
-              height: _gHeight,
-              bubble: true,
-              color: Colorz.BloodTest,
-              // corners: 0,
-              verse: 'add headlines to tiny flyers',
-              verseMaxLines: 5,
-              verseScaleFactor: 0.7,
-              onTap: () async {
-
-                _triggerLoading();
-
-                print('starting ---------- ');
-
-                List<dynamic> _maps = await Fire.readCollectionDocs(FireCollection.flyers);
-                List<FlyerModel> _flyers = new List();
-                for (var map in _maps){
-                  _flyers.add(FlyerModel.decipherFlyerMap(map));
-                }
-
-                List<dynamic> _tinyMaps = await Fire.readCollectionDocs(FireCollection.tinyFlyers);
-                List<TinyFlyer> _tinyFlyers = new List();
-                for (var tinyMap in _tinyMaps){
-                  _tinyFlyers.add(TinyFlyer.decipherTinyFlyerMap(tinyMap));
-                }
-
-
-                for (var flyer in _flyers){
-
-                  bool flyersContainThisID = TinyFlyer.tinyFlyersContainThisID(flyerID: flyer.flyerID, tinyFlyers: _tinyFlyers);
-
-                  print('flyerID : ${flyer.flyerID} : flyersContainThisID : $flyersContainThisID');
-
-                }
-
-                print(' DONE isa');
-
-                _triggerLoading();
-
+        child: GoHomeOnMaxBounce(
+          child: ListView.builder(
+            physics: BouncingScrollPhysics(),
+            itemCount: 100,
+            itemBuilder: (ctx, index){
+              return
+                DreamBox(
+                  height: 60,
+                  width: 250,
+                  verse: '$index : --',
+                  verseScaleFactor: 0.7,
+                );
               },
-            ),
-
-            Stratosphere(heightFactor: 2,),
-
-          ],
+          ),
         ),
       ),
     );

@@ -23,11 +23,12 @@ class FlyerPages extends StatelessWidget {
 
     Tracer.traceWidgetBuild(widgetName: 'FlyerPages', varName: '_tinyMode', varValue: _tinyMode, tracerIsOn: false);
     return GoHomeOnMaxBounce(
+      notificationListenerKey: ValueKey('${superFlyer.flyerID}_flyerPages_notification_listener_key'),
       child: PageView(
         pageSnapping: true,
         scrollDirection: Axis.vertical,
         physics: const BouncingScrollPhysics(),
-        allowImplicitScrolling: true,
+        allowImplicitScrolling: true, /// test keda w shoof
         onPageChanged: superFlyer.nav.listenToSwipe ? (i) => superFlyer.nav.onVerticalPageSwipe(i) : (i) => Sliders.zombie(i),
         controller: superFlyer.nav.verticalController,
         children: <Widget>[
@@ -36,7 +37,6 @@ class FlyerPages extends StatelessWidget {
           SlidesPage(
             superFlyer: superFlyer,
             flyerZoneWidth: flyerZoneWidth,
-            // key: PageStorageKey('slides_${superFlyer.flyerID}'),
           ),
 
           /// INFO PAGE
@@ -44,7 +44,6 @@ class FlyerPages extends StatelessWidget {
           InfoPage(
             superFlyer : superFlyer,
             flyerZoneWidth: flyerZoneWidth,
-            // key: PageStorageKey('info_${superFlyer.flyerID}'),
           ),
 
         ],
