@@ -37,6 +37,19 @@ class ReviewModel {
 
     return _review;
   }
+
+  static List<ReviewModel> decipherReviews(List<dynamic> maps){
+    List<ReviewModel> _reviews = new List();
+
+    if (maps != null && maps.length != 0){
+
+      for (var map in maps){
+        _reviews.add(decipherReview(map));
+      }
+
+    }
+    return _reviews;
+  }
 // -----------------------------------------------------------------------------
   static ReviewModel dummyReview(){
     return

@@ -135,7 +135,7 @@ class GalleryGrid extends StatelessWidget {
                         goesToEditor: true,
                         bzModel: bz,
                         inEditor: false,
-                        key: ValueKey('${_gridFlyers[index].flyerID}'),
+                        flyerKey: ValueKey('${_gridFlyers[index].flyerID}'),
                         // initialSlideIndex: _gridFlyers[index].slideIndex,
 
                       ),

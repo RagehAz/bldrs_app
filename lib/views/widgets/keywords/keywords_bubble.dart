@@ -17,6 +17,7 @@ class KeywordsBubble extends StatelessWidget {
   final dynamic corners;
   final bool passKeywordOnTap;
   final bool addButtonIsOn;
+  final Key key;
 
   KeywordsBubble({
     @required this.title,
@@ -30,6 +31,7 @@ class KeywordsBubble extends StatelessWidget {
     this.corners,
     this.passKeywordOnTap = false,
     @required this.addButtonIsOn,
+    this.key,
   });
 // -----------------------------------------------------------------------------
   @override
@@ -39,6 +41,7 @@ class KeywordsBubble extends StatelessWidget {
     double _bottomPadding = ((bubbleWidth) * Ratioz.xxflyerBottomCorners) - Ratioz.appBarPadding - Ratioz.appBarMargin;
 
     return InPyramidsBubble(
+      key: key,
       centered: false,
       bubbleColor: bubbleColor,
       margins: margins,

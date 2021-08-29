@@ -81,6 +81,7 @@ class FlyerScreen extends StatelessWidget {
           tinyFlyer: tinyFlyer,
           initialSlideIndex: tinyFlyer.slideIndex,
           goesToEditor: false,
+          flyerKey: PageStorageKey<String>('${tinyFlyer.flyerID}'),
         ),
 
       ),
