@@ -478,7 +478,7 @@ class SuperFlyer{
             picURL: tinyFlyer.slidePic,
             picFile: null,
             picAsset: null,
-            headline: null, /// TASK : should reconsider slide headlines in tinyFlyers
+            headline: tinyFlyer.headline,
             headlineController: null,
             description: null,
             descriptionController: null,

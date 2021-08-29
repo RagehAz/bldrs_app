@@ -21,7 +21,7 @@ class SlideHeadline extends StatelessWidget {
 
     // print('slide title verse is : $verse');
 
-    double _titleTopMargin = flyerZoneWidth * 0.3;
+    double _headlineTopMargin = flyerZoneWidth * 0.3;
 
     // --- FLYER TITLE
     return GestureDetector(
@@ -30,7 +30,7 @@ class SlideHeadline extends StatelessWidget {
           width: flyerZoneWidth,
           height: flyerZoneWidth*0.4,
           // color: Colorz.BloodTest,
-          margin: EdgeInsets.only(top: _titleTopMargin),
+          margin: EdgeInsets.only(top: _headlineTopMargin),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,

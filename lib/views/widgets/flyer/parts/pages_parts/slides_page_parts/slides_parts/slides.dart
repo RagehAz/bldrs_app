@@ -58,7 +58,7 @@ class Slides extends StatelessWidget {
               :
           superFlyer.mSlides[i].picURL;
           // ------------------------------------------------------o
-          String _slideTitle = superFlyer.edit.editMode == true ?
+          String _slideHeadline = superFlyer.edit.editMode == true ?
           superFlyer.mSlides[i].headlineController.text
               :
           superFlyer.mSlides[i].headline ;
@@ -82,7 +82,7 @@ class Slides extends StatelessWidget {
                     // slideMode: superFlyer.editMode ? SlideMode.Editor : SlideMode.View,//slidesModes[index],
                     boxFit: _currentPicFit, // [fitWidth - contain - scaleDown] have the blur background
                     titleController: superFlyer.edit.editMode == true ? superFlyer.mSlides[i].headlineController : null,
-                    title: _slideTitle,
+                    headline: _slideHeadline,
                     imageSize: superFlyer.mSlides[i].imageSize,
                     slideColor: superFlyer.mSlides[i].midColor,
                     views: superFlyer.mSlides[i].viewsCount,

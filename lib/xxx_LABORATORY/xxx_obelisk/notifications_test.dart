@@ -1,10 +1,18 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/firestore/auth_ops.dart';
+import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/models/notification/noti_model.dart';
+import 'package:bldrs/models/user/fcm_token.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/layouts/test_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
@@ -15,15 +23,37 @@ class NotificationsTestScreen extends StatefulWidget {
 }
 
 class _NotificationsTestScreenState extends State<NotificationsTestScreen> {
-  final FirebaseMessaging firebaseMasseging = FirebaseMessaging();
+  /// FCM : firebase cloud messaging
+  final FirebaseMessaging _fcm = FirebaseMessaging();
 
+  StreamSubscription iosSubscription;
 
   @override
   void initState() {
     super.initState();
     /// for ios notifications
-    firebaseMasseging.requestNotificationPermissions();
-    firebaseMasseging.configure(
+    if (Platform.isIOS){
+
+      iosSubscription = _fcm.onIosSettingsRegistered.listen((data) {
+        _saveDeviceTokenToUserDocInFireStore();
+      });
+
+    _fcm.requestNotificationPermissions(
+        IosNotificationSettings(
+          alert: true,
+          badge: true,
+          provisional: true,
+          sound: true,
+        )
+    );
+
+    }
+
+    else {
+      _saveDeviceTokenToUserDocInFireStore();
+    }
+
+    _fcm.configure(
 
       /// when app is running on screen
         onMessage: (msgMap){
@@ -47,6 +77,8 @@ class _NotificationsTestScreenState extends State<NotificationsTestScreen> {
         //   return;
         //   },
 
+
+        /// when app is terminated and needs to launch from scratch
         onLaunch: (msgMap){
           // print('Notification : onLaunch : msgMap : $msgMap');
           receiveAndActUponNoti(msgMap: msgMap, notiType: NotiType.onLaunch);
@@ -57,9 +89,36 @@ class _NotificationsTestScreenState extends State<NotificationsTestScreen> {
         );
 
     // fbm.getToken();
-    firebaseMasseging.subscribeToTopic('flyers');
+    _fcm.subscribeToTopic('flyers');
+    // firebaseMessaging.unsubscribeFromTopic('flyers');
   }
 // -----------------------------------------------------------------------------
+   Future<void> _saveDeviceTokenToUserDocInFireStore() async {
+    String _userID = superUserID();
+    User _firebaseUser = superFirebaseUser();
+
+    String _fcmToken = await _fcm.getToken();
+
+    if (_fcmToken != null){
+
+      FCMToken _token = FCMToken(
+          token: _fcmToken,
+          createdAt: FieldValue.serverTimestamp(),
+          platform: Platform.operatingSystem,
+      );
+
+      await Fire.updateDocField(
+        context: context,
+        collName: FireCollection.users,
+        docName: _userID,
+        field: 'fcmToken',
+        input: _token.toMap(),
+      );
+
+    }
+   }
+// -----------------------------------------------------------------------------
+
   NotiModel _noti;
   bool _notiIsOn = false;
   void _setNoti(NotiModel noti){
@@ -133,7 +192,7 @@ class _NotificationsTestScreenState extends State<NotificationsTestScreen> {
                 _noti = null;
               });
 
-              await firebaseMasseging.setAutoInitEnabled(false);
+              await _fcm.setAutoInitEnabled(false);
               print('the thing is : ');
 
             },

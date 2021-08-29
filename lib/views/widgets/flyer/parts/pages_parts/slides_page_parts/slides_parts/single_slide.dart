@@ -20,7 +20,7 @@ import 'package:bldrs/controllers/drafters/keyboarders.dart';
 class SingleSlide extends StatelessWidget {
   final double flyerZoneWidth;
   final dynamic picture;
-  final String title;
+  final String headline;
   final int shares;
   final int views;
   final int saves;
@@ -42,7 +42,7 @@ class SingleSlide extends StatelessWidget {
     @required this.superFlyer,
     @required this.slideIndex,
     this.picture,
-    this.title,
+    this.headline,
     this.shares = 0,
     this.views = 0,
     this.saves = 0,
@@ -124,7 +124,7 @@ class SingleSlide extends StatelessWidget {
     //   imageSize: imageSize,
     // );
 // -----------------------------------------------------------------------------
-    String _titleVerse = title != null ? title :
+    String _titleVerse = headline != null ? headline :
         titleController != null ? titleController.text : null;
 // -----------------------------------------------------------------------------
     dynamic _slidePic =
