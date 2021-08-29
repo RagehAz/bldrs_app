@@ -15,6 +15,7 @@ class FlyerZoneBox extends StatelessWidget {
   final Function onFlyerZoneLongPress;
   final BzModel editorBzModel;
   final bool editorMode;
+  final Key key;
 
   FlyerZoneBox({
     @required this.superFlyer,
@@ -24,6 +25,7 @@ class FlyerZoneBox extends StatelessWidget {
     this.onFlyerZoneLongPress,
     this.editorBzModel,
     this.editorMode = false,
+    this.key,
   });
 
   @override
@@ -60,6 +62,7 @@ class FlyerZoneBox extends StatelessWidget {
     return GestureDetector(
       onTap: onFlyerZoneTap,
       onLongPress: onFlyerZoneLongPress,
+      key: key,
       child: Container(
         width: _flyerZoneWidth + _panelWidth + _spacerWidth,
         height: _flyerZoneHeight,

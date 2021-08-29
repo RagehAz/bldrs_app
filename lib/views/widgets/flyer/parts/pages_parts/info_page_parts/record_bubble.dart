@@ -10,12 +10,14 @@ class RecordBubble extends StatelessWidget {
   final String bubbleTitle;
   final String bubbleIcon;
   final List<TinyUser> users;
+  final Key key;
 
   const RecordBubble({
     @required this.flyerZoneWidth,
     @required this.bubbleTitle,
     @required this.bubbleIcon,
     @required this.users,
+    this.key,
   });
 
   @override
@@ -28,6 +30,7 @@ class RecordBubble extends StatelessWidget {
 
 
     return InPyramidsBubble(
+      key: key,
       bubbleWidth: _bubbleWidth,
       margins: _bubbleMargins,
       corners: _bubbleCorners,

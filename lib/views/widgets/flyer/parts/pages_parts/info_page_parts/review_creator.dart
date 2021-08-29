@@ -17,12 +17,14 @@ class ReviewCreator extends StatelessWidget {
   final double corners;
   final TinyUser tinyUser;
   final SuperFlyer superFlyer;
+  final Function reloadReviews;
 
   const ReviewCreator({
     @required this.width,
     @required this.corners,
     @required this.tinyUser,
     @required this.superFlyer,
+    @required this.reloadReviews,
   });
 
   @override
@@ -110,7 +112,13 @@ class ReviewCreator extends StatelessWidget {
                       verseColor: Colorz.Black255,
                       verseShadow: false,
                       verseWeight: VerseWeight.bold,
-                      onTap: superFlyer.rec.onSubmitReview,
+                      onTap: (){
+
+                        superFlyer.rec.onSubmitReview();
+
+                        reloadReviews();
+
+                      },
                     ),
                   ),
 

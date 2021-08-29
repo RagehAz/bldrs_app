@@ -51,7 +51,7 @@ class SliverFlyersGrid extends StatelessWidget {
                     flyerZoneWidth: _flyerZoneWidth,
                     goesToEditor: false,
                     tinyFlyer: tinyFlyers[flyerIndex],
-                    key: Key(tinyFlyers[flyerIndex].flyerID),
+                    flyerKey: Key(tinyFlyers[flyerIndex].flyerID),
                   );
                 },
           childCount: tinyFlyers.length,
