@@ -233,34 +233,34 @@ class _MyBzScreenState extends State<MyBzScreen> {
       buttonHeight: _buttonHeight,
       buttons: <Widget>[
 
-          // --- DELETE BZ
-          DreamBox(
-            height: _buttonHeight,
-            width: BottomDialog.dialogClearWidth(context),
-            icon: Iconz.XSmall,
-            iconSizeFactor: 0.5,
-            iconColor: Colorz.Black230,
-            verse: 'delete Business Account',
-            verseScaleFactor: 1.2,
-            verseWeight: VerseWeight.black,
-            verseColor: Colorz.Black230,
-            // verseWeight: VerseWeight.thin,
-            onTap: () => _deleteBzOnTap(bzModel),
+        // --- DELETE BZ
+        DreamBox(
+          height: _buttonHeight,
+          width: BottomDialog.dialogClearWidth(context),
+          icon: Iconz.XSmall,
+          iconSizeFactor: 0.5,
+          iconColor: Colorz.Red255,
+          verse: 'Delete Business Account',
+          verseScaleFactor: 1.2,
+          verseWeight: VerseWeight.black,
+          verseColor: Colorz.Red255,
+          // verseWeight: VerseWeight.thin,
+          onTap: () => _deleteBzOnTap(bzModel),
+        ),
 
-          ),
-
-          // --- DEACTIVATE BZ
-          DreamBox(
-            height: _buttonHeight,
-            width: BottomDialog.dialogClearWidth(context),
-            icon: Iconz.XSmall,
-            iconSizeFactor: 0.5,
-            iconColor: Colorz.Red255,
-            verse: 'Deactivate Business Account',
-            verseScaleFactor: 1.2,
-            verseColor: Colorz.Red255,
-            // verseWeight: VerseWeight.thin,
-            onTap: () => _deactivateBzOnTap(bzModel)
+        // --- DEACTIVATE BZ
+        DreamBox(
+              height: _buttonHeight,
+              width: BottomDialog.dialogClearWidth(context),
+              icon: Iconz.XSmall,
+              iconSizeFactor: 0.5,
+              iconColor: Colorz.Red255,
+              verse: 'Deactivate Business Account',
+              verseScaleFactor: 1.2,
+              verseWeight: VerseWeight.black,
+              verseColor: Colorz.Red255,
+              // verseWeight: VerseWeight.thin,
+              onTap: () => _deactivateBzOnTap(bzModel)
 
           ),
 

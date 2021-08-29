@@ -121,11 +121,11 @@ class MoreScreen extends StatelessWidget {
                 icon: Iconz.Advertise,
                 iconSizeFactor: 0.6,
               ),
-              TileBubble(
-                verse: 'Get Blrs.net Marketing materials',
-                icon: Iconz.Marketing,
-                iconSizeFactor: 0.7,
-              ),
+              // TileBubble(
+              //   verse: 'Get Blrs.net Marketing materials',
+              //   icon: Iconz.Marketing,
+              //   iconSizeFactor: 0.7,
+              // ),
 
               _separator,
 

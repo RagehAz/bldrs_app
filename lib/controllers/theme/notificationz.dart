@@ -534,7 +534,44 @@ class Notificationz {
       );
   }
 // -----------------------------------------------------------------------------
-
+  /// 22 - potential customer to bzz
+  static NotiModel potentialCustomerQuestion(){
+    return
+      NotiModel(
+        reason: NotiReason.event,
+        timing: 'when user ask a question related to a specific keyword topic',
+        Condition: 'bz is subscribed to a keyword topic in questions',
+        dayHour: "asPerDay : asPerHour",
+        reciever: NotiReciever.authors,
+        cityState: CityState.any,
+        notiContent: NotiContent(
+          title: 'Potential customer',
+          body: '{userName} asked a public question about {keyword} in {cityName - districtName}',
+        ),
+        metaData: notiDefaultMap,
+        autoFire: true,
+      );
+  }
+// -----------------------------------------------------------------------------
+  /// 23 - question reply
+  static NotiModel questionReply(){
+    return
+      NotiModel(
+        reason: NotiReason.event,
+        timing: 'when an author answers a question by user',
+        Condition: 'use has a question + new reply in question replies sub doc',
+        dayHour: "asPerDay : asPerHour",
+        reciever: NotiReciever.user,
+        cityState: CityState.any,
+        notiContent: NotiContent(
+          title: 'You received an answer',
+          body: '{bzName} replied to your question : {questionReply}',
+        ),
+        metaData: notiDefaultMap,
+        autoFire: true,
+      );
+  }
+// -----------------------------------------------------------------------------
 //   /// X -
 //   static NotiModel xxx(){
 //     return
@@ -573,6 +610,7 @@ class Notificationz {
       weeklyBzStatistics(),
       monthlyBzStatistics(),
       authorInvitationCC(),
+      potentialCustomerQuestion(),
 
       ///   o - to USER
       buildSomething(),
@@ -590,6 +628,8 @@ class Notificationz {
 
       countryWentGlobal(),
       sectionWentLive(),
+
+      questionReply(),
 
       ///   o - to AUTHOR
       authorInvitationReply(),
