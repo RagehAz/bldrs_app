@@ -87,11 +87,13 @@ class GoHomeOnMaxBounce extends StatefulWidget {
   final double height;
   final Widget child;
   final Function onNavigate;
+  final Key notificationListenerKey;
 
   const GoHomeOnMaxBounce({
     this.height,
     @required this.child,
     this.onNavigate,
+    this.notificationListenerKey,
   });
 
   @override
@@ -124,6 +126,7 @@ class _GoHomeOnMaxBounceState extends State<GoHomeOnMaxBounce> {
 
     return
       NotificationListener(
+        key: widget.notificationListenerKey,
         onNotification: (ScrollUpdateNotification details){
           bool _canPageUp = Scrollers.canPageUp(details: details, height: _height,);
 

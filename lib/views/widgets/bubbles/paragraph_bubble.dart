@@ -19,6 +19,7 @@ class ParagraphBubble extends StatefulWidget {
   final dynamic corners;
   final bool editMode;
   final Function onParagraphTap;
+  final Key key;
 
   ParagraphBubble({
     this.title,
@@ -31,6 +32,7 @@ class ParagraphBubble extends StatefulWidget {
     this.margins,
     this.editMode = false,
     this.onParagraphTap,
+    this.key,
 });
 
   @override
@@ -109,6 +111,7 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
     );
 
     return InPyramidsBubble(
+        key: widget.key,
         bubbleWidth: widget.bubbleWidth,
         margins: widget.margins,
         corners: widget.corners,
@@ -120,20 +123,20 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
 
           /// PARAGRAPH TEXT
           if (widget.paragraph != null && widget.paragraph != '')
-          Padding(
-            padding: Scale.superMargins(margins: widget.margins),
-            child: SuperVerse(
-              verse: widget.paragraph,
-              maxLines: _maxLines,
-              weight: VerseWeight.thin,
-              centered: widget.centered,
-              // onTap: _onParagraphTap,
+            Padding(
+              padding: Scale.superMargins(margins: widget.margins),
+              child: SuperVerse(
+                verse: widget.paragraph,
+                maxLines: _maxLines,
+                weight: VerseWeight.thin,
+                centered: widget.centered,
+                // onTap: _onParagraphTap,
+              ),
             ),
-          ),
 
           /// ARROW
           if (widget.paragraph != null && widget.paragraph != '')
-          TextLinesAnalyzer(
+            TextLinesAnalyzer(
               text: widget.paragraph.trim(),
               textStyle: _paragraphTextStyle,
               maxLines: widget.maxLines,
@@ -150,7 +153,7 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
                   // onTap: _onParagraphTap,
                 ),
               ),
-          )
+            )
 
 
         ]

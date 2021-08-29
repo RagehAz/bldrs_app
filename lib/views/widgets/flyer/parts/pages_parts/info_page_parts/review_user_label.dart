@@ -29,10 +29,10 @@ class ReviewUserLabel extends StatelessWidget {
           height: 40,
           // width: 40,
           margins: 5,
-          icon: tinyUser.pic,
-          verse: tinyUser.name,
+          icon: tinyUser?.pic,
+          verse: tinyUser?.name,
           verseScaleFactor: 0.6,
-          secondLine: tinyUser.title,
+          secondLine: tinyUser?.title,
           underLineShadowIsOn: true,
           iconRounded: false,
           bubble: false,
@@ -43,7 +43,7 @@ class ReviewUserLabel extends StatelessWidget {
           child: Container(),
         ),
 
-        if(tinyUser.userID == superUserID() && hasEditButton == true)
+        if(tinyUser?.userID == superUserID() && hasEditButton == true)
         DreamBox(
           height: 30,
           width: 30,

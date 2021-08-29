@@ -56,6 +56,7 @@ import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:provider/provider.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/new_header.dart';
 import 'package:bldrs/controllers/drafters/aligners.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class FinalFlyer extends StatefulWidget {
   final double flyerZoneWidth;
@@ -67,7 +68,7 @@ class FinalFlyer extends StatefulWidget {
   final bool inEditor; // vs inView
   final BzModel bzModel;
   final String flyerID;
-  final Key key;
+  final Key flyerKey;
 
   FinalFlyer({
     @required this.flyerZoneWidth,
@@ -79,7 +80,7 @@ class FinalFlyer extends StatefulWidget {
     this.inEditor = false,
     this.bzModel,
     this.flyerID,
-    this.key,
+    this.flyerKey,
   });
       // :
   // assert(isDraft != null),
@@ -92,7 +93,7 @@ class FinalFlyer extends StatefulWidget {
 
 }
 
-class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMixin{
+class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMixin<FinalFlyer>{
   @override
   bool get wantKeepAlive => true;
 
@@ -155,12 +156,17 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
   }
 
 // -----------------------------------------------------------------------------
+
+  SharedPreferences _prefs;
+
   bool _isInit = true;
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     if (_isInit) {
       _triggerLoading().then((_) async {
+
+        _prefs = await SharedPreferences.getInstance();
 
         dynamic _flyerSource = FlyerMethod.selectFlyerSource(
           flyerID: widget.flyerID,
@@ -360,9 +366,11 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         onCallTap: () async { await _onCallTap();},
         onEditReview: () async {await _onEditReview();},
         onSubmitReview: () async {await _onSubmitReview();},
-        onShowReviewOptions: (ReviewModel review) async {await _onShowReviewOptions(review);}
+        onShowReviewOptions: (ReviewModel review) async {await _onShowReviewOptions(review);},
+        onSaveInfoScrollOffset: onSaveInfoScrollOffset,
+        getInfoScrollOffset: getInfoScrollOffset,
+        initialInfoScrollOffset: getInfoScrollOffset(),
       );
-
     }
 
     /// TASK : below code is temp,,, should see what to do if flyer not found on db
@@ -408,6 +416,9 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         onDeleteFlyer: () async {await _onDeleteFlyer();},
         onUnPublishFlyer: () async {await _onUnpublishFlyer();},
         onRepublishFlyer: () async {await _onRepublishFlyer();},
+        onSaveInfoScrollOffset: onSaveInfoScrollOffset,
+        getInfoScrollOffset: getInfoScrollOffset,
+        initialInfoScrollOffset: getInfoScrollOffset(),
       );
 
     }
@@ -450,6 +461,9 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       onDeleteFlyer: () async {await _onDeleteFlyer();},
       onUnPublishFlyer: () async {await _onUnpublishFlyer();},
       onRepublishFlyer: () async {await _onRepublishFlyer();},
+      onSaveInfoScrollOffset: onSaveInfoScrollOffset,
+      getInfoScrollOffset: getInfoScrollOffset,
+      initialInfoScrollOffset: getInfoScrollOffset(),
     );
 
     return _superFlyer;
@@ -769,6 +783,36 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 // -----------------------------------------------------o
   Future<void> _onSwipeFlyer() async {
     /// TASK : do some magic
+  }
+// -----------------------------------------------------o ////////////////
+
+
+  final PageStorageBucket flyerBucket = PageStorageBucket();
+// -----------------------------------------------------o
+  void onSaveInfoScrollOffset(){
+    // final String bucketOffsetKey = '${_superFlyer.flyerID}_infoPage_offset';
+    // flyerBucket.writeState(context, offset, identifier: ValueKey(bucketOffsetKey));
+
+    String _prefName = '${_superFlyer.flyerID}_info_scroll_pos';
+
+    double offset = _superFlyer.nav.infoScrollController.position.pixels;
+
+    _prefs.setDouble(_prefName, offset);
+
+
+    print('X-X-X : offset is $offset : for _prefName : $_prefName');
+  }
+// -----------------------------------------------------o
+  double getInfoScrollOffset(){
+    // final String bucketOffsetKey = '${_superFlyer.flyerID}_infoPage_offset';
+    // double _offset = flyerBucket.readState(context, identifier: ValueKey(bucketOffsetKey)) ?? 0.0;
+
+    String _prefName = '${_superFlyer.flyerID}_info_scroll_pos';
+    double _offset = _prefs.getDouble(_prefName) ?? 0;
+
+    print('O-O-O : offset is $_offset : for _prefName : $_prefName');
+
+    return _offset;
   }
 // -----------------------------------------------------------------------------
 
@@ -2643,6 +2687,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
           onFlyerZoneLongPress: _onFlyerZoneLongPress,
           editorBzModel: _bzModel,
           editorMode: widget.inEditor,
+          key: widget.flyerKey,
           stackWidgets: <Widget>[
 
             if (_superFlyerHasID == true)

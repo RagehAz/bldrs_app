@@ -160,6 +160,9 @@ class SuperFlyer{
             swipeDirection: null,
             bzPageIsOn: null,
             listenToSwipe: null,
+
+            onSaveInfoScrollOffset: null,
+            getInfoScrollOffset: null,
           ),
           rec: FlyerRecorder(
             /// record functions
@@ -262,11 +265,17 @@ class SuperFlyer{
     @required Function onEditReview,
     @required Function onSubmitReview,
     @required Function onShowReviewOptions,
+    @required Function onSaveInfoScrollOffset,
+    @required Function getInfoScrollOffset,
+    @required double initialInfoScrollOffset,
   }){
 
     int _initialPage = initialPage == null ? 0 : initialPage;
 
     FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
+
+    ScrollController _infoScrollController = ScrollController(initialScrollOffset: initialInfoScrollOffset ?? 0, keepScrollOffset: true,);
+    _infoScrollController.addListener(onSaveInfoScrollOffset);
 
     return
       SuperFlyer(
@@ -274,7 +283,7 @@ class SuperFlyer{
           /// animation controller
           horizontalController: PageController(initialPage: _initialPage, viewportFraction: 1, keepPage: true),
           verticalController: PageController(initialPage: 0, keepPage: true, viewportFraction: 1),
-          infoScrollController: ScrollController(keepScrollOffset: true, ),
+          infoScrollController: _infoScrollController,
           /// animation functions
           onHorizontalSlideSwipe: onHorizontalSlideSwipe,
           onVerticalPageSwipe: onVerticalPageSwipe,
@@ -282,13 +291,15 @@ class SuperFlyer{
           onHeaderTap: onHeaderTap,
           onSlideRightTap: onSlideRightTap,
           onSlideLeftTap: onSlideLeftTap,
-          onSwipeFlyer: onSwipeFlyer,
-          onTinyFlyerTap: onTinyFlyerTap,
+          onSwipeFlyer: onSwipeFlyer,          onTinyFlyerTap: onTinyFlyerTap,
           /// animation parameters
           progressBarOpacity: 1,
           swipeDirection: SwipeDirection.next,
           bzPageIsOn: false,
           listenToSwipe: true,
+
+          onSaveInfoScrollOffset: onSaveInfoScrollOffset,
+          getInfoScrollOffset: getInfoScrollOffset,
         ),
         rec: FlyerRecorder(
           /// record functions
@@ -435,6 +446,8 @@ class SuperFlyer{
           swipeDirection: SwipeDirection.next,
           bzPageIsOn: false,
           listenToSwipe: false,
+          getInfoScrollOffset: null,
+          onSaveInfoScrollOffset: null,
         ),
         rec: FlyerRecorder(
           /// record functions
@@ -595,11 +608,17 @@ class SuperFlyer{
     @required Function onDeleteFlyer,
     @required Function onUnPublishFlyer,
     @required Function onRepublishFlyer,
+    @required double initialInfoScrollOffset,
+    @required Function onSaveInfoScrollOffset,
+    @required Function getInfoScrollOffset,
   }){
 
     print('CREATING draft super flyer from nothing for bz  : ${bzModel.bzName} : id : ${bzModel.bzID}');
 
     CountryProvider _countryPro = Provider.of<CountryProvider>(context, listen: false);
+
+    ScrollController _infoScrollController = ScrollController(initialScrollOffset: initialInfoScrollOffset ?? 0, keepScrollOffset: true,);
+    _infoScrollController.addListener(onSaveInfoScrollOffset);
 
     return
       SuperFlyer(
@@ -608,7 +627,7 @@ class SuperFlyer{
           /// animation controller
           horizontalController: PageController(initialPage: 0, viewportFraction: 1, keepPage: true),
           verticalController: PageController(initialPage: 0, keepPage: true, viewportFraction: 1),
-          infoScrollController: ScrollController(keepScrollOffset: true,),
+          infoScrollController: _infoScrollController,
           /// animation functions
           onHorizontalSlideSwipe: onHorizontalSlideSwipe,
           onVerticalPageSwipe: onVerticalPageSwipe,
@@ -623,6 +642,8 @@ class SuperFlyer{
           swipeDirection: SwipeDirection.next,
           bzPageIsOn: false,
           listenToSwipe: true,
+          onSaveInfoScrollOffset: onSaveInfoScrollOffset,
+          getInfoScrollOffset: getInfoScrollOffset,
 
         ),
         rec: FlyerRecorder(
@@ -769,10 +790,15 @@ class SuperFlyer{
     @required Function onDeleteFlyer,
     @required Function onUnPublishFlyer,
     @required Function onRepublishFlyer,
+    @required double initialInfoScrollOffset,
+    @required Function onSaveInfoScrollOffset,
+    @required Function getInfoScrollOffset,
   }) async {
 
     print('CREATING draft super flyer from FLYER : ${flyerModel.flyerID} for bz  : ${bzModel.bzName} : id : ${bzModel.bzID}');
 
+    ScrollController _infoScrollController = ScrollController(initialScrollOffset: initialInfoScrollOffset ?? 0, keepScrollOffset: true,);
+    _infoScrollController.addListener(onSaveInfoScrollOffset);
 
     return
       SuperFlyer(
@@ -780,7 +806,7 @@ class SuperFlyer{
           /// animation controller
           horizontalController: PageController(initialPage: 0, viewportFraction: 1, keepPage: true),
           verticalController: PageController(initialPage: 0, keepPage: true, viewportFraction: 1),
-          infoScrollController: ScrollController(keepScrollOffset: true,),
+          infoScrollController: _infoScrollController,
           /// animation functions
           onHorizontalSlideSwipe: onHorizontalSlideSwipe,
           onVerticalPageSwipe: onVerticalPageSwipe,
@@ -795,6 +821,8 @@ class SuperFlyer{
           swipeDirection: SwipeDirection.next,
           bzPageIsOn: false,
           listenToSwipe: true,
+          onSaveInfoScrollOffset: onSaveInfoScrollOffset,
+          getInfoScrollOffset: getInfoScrollOffset,
         ),
         rec: FlyerRecorder(
           /// record functions
@@ -950,6 +978,8 @@ static SuperFlyer getSuperFlyerFromBzModelOnly({
           swipeDirection: SwipeDirection.next,
           bzPageIsOn: false,
           listenToSwipe: true,
+          getInfoScrollOffset: null,
+          onSaveInfoScrollOffset: null,
         ),
         rec: FlyerRecorder(
           /// record functions

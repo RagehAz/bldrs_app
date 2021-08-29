@@ -26,6 +26,7 @@ final String leadingIcon;
 final Color leadingIconColor;
 final dynamic margins;
 final dynamic corners;
+final Key key;
 
   InPyramidsBubble({
     @required this.columnChildren,
@@ -44,6 +45,7 @@ final dynamic corners;
     this.leadingIconColor,
     this.margins,
     this.corners,
+    this.key,
 });
 
   @override
@@ -88,38 +90,36 @@ final dynamic corners;
 // -----------------------------------------------------------------------------
 //     Tracer.traceWidgetBuild(widgetName: 'InPyramidsBubble', varName: 'title', varValue: title);
     return Container(
-          width: _bubbleWidth,
-          margin: _bubbleMargins,
-          // padding: EdgeInsets.all(_pageMargin),
-          decoration: BoxDecoration(
-            color: bubbleColor,
-            borderRadius: _corners,
-          ),
-          alignment: centered == true ? Alignment.center : Aligners.superCenterAlignment(context),
-
-          child: Material(
-            color: Colorz.Nothing,
-            child: InkWell(
-              onTap: bubbleOnTap,
-              splashColor: Colorz.Yellow255,
-              borderRadius: _corners,
-              child: Padding(
-                padding: EdgeInsets.all(_pageMargin),
-                child: Column(
-                  mainAxisSize: stretchy ? MainAxisSize.min : MainAxisSize.max,
-                  mainAxisAlignment: centered == true ? MainAxisAlignment.center : MainAxisAlignment.start,
-                  crossAxisAlignment: centered == true ? CrossAxisAlignment.center : CrossAxisAlignment.start,
-                  children: <Widget>[
-
-                    if (title !=null || actionBtIcon != null)
-                    Row(
-                      mainAxisAlignment: centered == true ? MainAxisAlignment.start : MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: centered == true ? MainAxisSize.min : MainAxisSize.max,
-                      children: <Widget>[
-
-                        /// --- ACTION BUTTON
-                        if(centered == true && actionBtIcon !=null)
+      key: key,
+      width: _bubbleWidth,
+      margin: _bubbleMargins,
+      // padding: EdgeInsets.all(_pageMargin),
+      decoration: BoxDecoration(
+        color: bubbleColor,
+        borderRadius: _corners,
+      ),
+      alignment: centered == true ? Alignment.center : Aligners.superCenterAlignment(context),
+      child: Material(
+        color: Colorz.Nothing,
+        child: InkWell(
+          onTap: bubbleOnTap,
+          splashColor: Colorz.Yellow255,
+          borderRadius: _corners,
+          child: Padding(
+            padding: EdgeInsets.all(_pageMargin),
+            child: Column(
+              mainAxisSize: stretchy ? MainAxisSize.min : MainAxisSize.max,
+              mainAxisAlignment: centered == true ? MainAxisAlignment.center : MainAxisAlignment.start,
+              crossAxisAlignment: centered == true ? CrossAxisAlignment.center : CrossAxisAlignment.start,
+              children: <Widget>[
+                if (title !=null || actionBtIcon != null)
+                  Row(
+                    mainAxisAlignment: centered == true ? MainAxisAlignment.start : MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: centered == true ? MainAxisSize.min : MainAxisSize.max,
+                    children: <Widget>[
+                      /// --- ACTION BUTTON
+                      if(centered == true && actionBtIcon !=null)
                           Container(
                             height: actionBtSize,
                             width: actionBtSize,

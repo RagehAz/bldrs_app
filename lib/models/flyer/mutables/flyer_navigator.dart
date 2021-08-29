@@ -21,6 +21,9 @@ class FlyerNavigator {
   bool bzPageIsOn; // FlyerNavigation
   bool listenToSwipe; // FlyerNavigation
 
+  final Function onSaveInfoScrollOffset;
+  final Function getInfoScrollOffset;
+
   FlyerNavigator({
     /// animation controller
     @required this.horizontalController,
@@ -36,6 +39,8 @@ class FlyerNavigator {
     @required this.onSlideLeftTap,
     @required this.onSwipeFlyer,
     @required this.onTinyFlyerTap,
+    @required this.onSaveInfoScrollOffset,
+    @required this.getInfoScrollOffset,
 
     /// animation parameters
     @required this.progressBarOpacity,
