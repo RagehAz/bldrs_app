@@ -1,3 +1,4 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/foundation.dart';
 import 'package:bldrs/models/notification/noti_content.dart';
 
@@ -25,6 +26,11 @@ enum CityState{
   private, /// app shows bzz only ,, all flyers hidden to public,, currently building content
   public, /// app shows all
   any,
+}
+
+enum NotiChannel{
+  basic,
+
 }
 
 class NotiModel{
@@ -73,4 +79,13 @@ class NotiModel{
     return _noti;
   }
 // -----------------------------------------------------------------------------
+  static String notiChannelName(NotiChannel channel){
+    switch (channel){
+      case NotiChannel.basic: return 'Basic Notifications'; break;
+      default: return 'Basic Notifications';
+    }
+  }
+
+// -----------------------------------------------------------------------------
+
 }
