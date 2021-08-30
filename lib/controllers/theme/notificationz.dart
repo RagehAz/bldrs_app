@@ -1,5 +1,9 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:bldrs/controllers/drafters/numberers.dart';
+import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/models/notification/noti_model.dart';
 import 'package:bldrs/models/notification/noti_content.dart';
+import 'package:intl/intl.dart';
 
 // -----------------------------------------------------------------------------
 /// BLDRS.NET notifications classification
@@ -591,6 +595,38 @@ class Notificationz {
 //       );
 //   }
 // -----------------------------------------------------------------------------
+  ///
+// -----------------------------------------------------------------------------
+  static Future<void> createWelcomeNotification() async {
+    await AwesomeNotifications().createNotification(
+      content: NotificationContent(
+        id: Numberers.createUniqueID(),
+        channelKey: NotiModel.notiChannelName(NotiChannel.basic),
+        title: '${Emojis.shape_red_triangle_pointed_up} Welcome to Builders',
+        body: '',
+      ),
+    );
+  }
+// -----------------------------------------------------------------------------
+  static NotificationChannel basicNotificationChannel(){
+    return
+      NotificationChannel(
+        channelKey: NotiModel.notiChannelName(NotiChannel.basic),
+        channelName: NotiModel.notiChannelName(NotiChannel.basic),
+        channelDescription: 'this is for testing', // this will be visible to user in android notification settings
+        defaultColor: Colorz.Yellow255,
+        channelShowBadge: true,
+        enableLights: true,
+        icon: 'resource://drawable/res_notification_app_icon',
+        ledColor: Colorz.Yellow255,
+        importance: NotificationImportance.High,
+        enableVibration: true,
+        playSound: true,
+        locked: true,
+        soundSource: 'resource://raw/res_notification_sound',
+
+      );
+  }
 
   static List<NotiModel> allNotifications(){
     return <NotiModel>[
