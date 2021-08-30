@@ -16,13 +16,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
-class NotificationsTestScreen extends StatefulWidget {
+class FCMTestScreen extends StatefulWidget {
 
   @override
-  _NotificationsTestScreenState createState() => _NotificationsTestScreenState();
+  _FCMTestScreenState createState() => _FCMTestScreenState();
 }
 
-class _NotificationsTestScreenState extends State<NotificationsTestScreen> {
+class _FCMTestScreenState extends State<FCMTestScreen> {
   /// FCM : firebase cloud messaging
   final FirebaseMessaging _fcm = FirebaseMessaging();
 
