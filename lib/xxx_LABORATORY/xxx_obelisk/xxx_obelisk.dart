@@ -22,9 +22,11 @@ import 'package:bldrs/xxx_LABORATORY/forms_and_inputs/form.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/dialog_test_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/dio_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/dynamic_links_test.dart';
+import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/emoji_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/fire_search_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/firebase_testing.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/flyer_test_screen.dart';
+import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/notification_awesome_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/notifications_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/random_test_space.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/slider_test.dart';
@@ -163,6 +165,8 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
 
           LogoSlogan(sizeFactor: 0.8,),
 
+          oButton('Emojis', Iconz.DvDonaldDuck, EmojiTest()),
+
           oButton('Web view test', Iconz.Terms, WebViewTestScreen()),
 
           oButton('DIO Test Screen', Iconz.Terms, DioTestScreen()),
@@ -170,6 +174,8 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
           oButton('SQL Test Screen', Iconz.Terms, SQLTestScreen()),
 
           oButton('Notification test', Iconz.News, NotificationsTestScreen()),
+
+          oButton('Awesome Notification test', Iconz.News, AwesomeNotificationTest()),
 
           oButton('FLYER TEST', Iconz.Flyer, FlyerTestScreen()),
 

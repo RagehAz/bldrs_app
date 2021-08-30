@@ -87,7 +87,6 @@ class InfoPage extends StatelessWidget {
             key: ValueKey<String>('info_page_top_space'),
             width: flyerZoneWidth,
             height: _headerHeight,
-            color: Colorz.BloodTest,
           ),
 
         /// ALL STATS
