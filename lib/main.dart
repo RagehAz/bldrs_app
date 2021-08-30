@@ -1,6 +1,7 @@
 import 'package:bldrs/controllers/localization/localizer.dart';
 import 'package:bldrs/controllers/router/route_names.dart';
 import 'package:bldrs/controllers/router/router.dart';
+import 'package:bldrs/controllers/theme/notificationz.dart';
 import 'package:bldrs/firestore/user_ops.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/providers/zones/zone_provider.dart';
@@ -19,7 +20,8 @@ import 'package:flutter/rendering.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:bldrs/models/notification/noti_model.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
-
+import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:bldrs/controllers/theme/colorz.dart';
 void main() async {
 
   /// TASK : In optimization : study this : https://pub.dev/packages/keframe
@@ -34,6 +36,18 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp();
+
+  AwesomeNotifications _awesomeNotification = AwesomeNotifications();
+
+
+  _awesomeNotification.initialize(
+    'resource://drawable/res_notification_app_icon',
+    <NotificationChannel>[
+      Notificationz.basicNotificationChannel(),
+    ],
+  );
+
+
   runApp(BldrsApp());
 
 }
