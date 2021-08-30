@@ -542,7 +542,7 @@ class AuthOps {
     // Nav.goToRoute(context, Routez.Starting);
 
     if (routeToUserChecker == true){
-    Nav.pushNamedAndRemoveAllBelow(context, Routez.UserChecker);
+    await Nav.pushNamedAndRemoveAllBelow(context, Routez.UserChecker);
     }
 
   }

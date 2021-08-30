@@ -30,6 +30,7 @@ enum CityState{
 
 enum NotiChannel{
   basic,
+  scheduled,
 
 }
 
@@ -78,14 +79,6 @@ class NotiModel{
 
     return _noti;
   }
-// -----------------------------------------------------------------------------
-  static String notiChannelName(NotiChannel channel){
-    switch (channel){
-      case NotiChannel.basic: return 'Basic Notifications'; break;
-      default: return 'Basic Notifications';
-    }
-  }
-
 // -----------------------------------------------------------------------------
 
 }

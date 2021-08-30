@@ -137,9 +137,21 @@ class Nav{
     return _result;
   }
 // -----------------------------------------------------------------------------
-  static void pushNamedAndRemoveAllBelow(BuildContext context, String goToRoute){
-    Navigator.of(context)
+  static Future<void> pushNamedAndRemoveAllBelow(BuildContext context, String goToRoute) async {
+    await Navigator.of(context)
         .pushNamedAndRemoveUntil(goToRoute, (Route<dynamic> route) => false);
+  }
+// -----------------------------------------------------------------------------
+  static void pushAndRemoveUntil({BuildContext context, Widget screen}) async {
+
+
+    await Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+            builder: (_) => screen,
+        ),
+            (route) => route.isFirst
+    );
   }
 // -----------------------------------------------------------------------------
 }
