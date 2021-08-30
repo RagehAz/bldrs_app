@@ -84,7 +84,7 @@ class _UserCheckerState extends State<UserChecker> {
 
                 print('user has a completed userModel and was in home screen and came back to user checker');
                 /// so we loop once more to user check
-                Nav.pushNamedAndRemoveAllBelow(context, Routez.UserChecker);
+                await Nav.pushNamedAndRemoveAllBelow(context, Routez.UserChecker);
               }
 
               /// C - if userModel is not completed
@@ -135,7 +135,7 @@ class _UserCheckerState extends State<UserChecker> {
 
             print('just came back from starting screen');
             /// and we loop again in userChecker
-            Nav.pushNamedAndRemoveAllBelow(context, Routez.UserChecker);
+            await Nav.pushNamedAndRemoveAllBelow(context, Routez.UserChecker);
           }
 
         });

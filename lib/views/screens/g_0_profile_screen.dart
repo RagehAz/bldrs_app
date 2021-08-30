@@ -187,7 +187,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
         print('successfully deleted user ops and got back to profile screen');
 
         /// go to user checker and remove all below screens
-        Nav.pushNamedAndRemoveAllBelow(context, Routez.UserChecker);
+        await Nav.pushNamedAndRemoveAllBelow(context, Routez.UserChecker);
       }
 
       /// if it fails
@@ -195,7 +195,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
         print('something went wrong');
 
         /// go to user checker and remove all below screens
-        Nav.pushNamedAndRemoveAllBelow(context, Routez.UserChecker);
+        await Nav.pushNamedAndRemoveAllBelow(context, Routez.UserChecker);
       }
     }
   }
@@ -246,7 +246,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
         _triggerLoading();
 
         /// go to user checker and remove all below screens
-        Nav.pushNamedAndRemoveAllBelow(context, Routez.UserChecker);
+        await Nav.pushNamedAndRemoveAllBelow(context, Routez.UserChecker);
 
       }
 

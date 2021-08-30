@@ -1,7 +1,8 @@
 import 'package:bldrs/controllers/localization/localizer.dart';
+import 'package:bldrs/controllers/notifications/bldrs_notiz.dart';
+import 'package:bldrs/controllers/notifications/noti_channelz.dart';
 import 'package:bldrs/controllers/router/route_names.dart';
 import 'package:bldrs/controllers/router/router.dart';
-import 'package:bldrs/controllers/theme/notificationz.dart';
 import 'package:bldrs/firestore/user_ops.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/providers/zones/zone_provider.dart';
@@ -41,9 +42,10 @@ void main() async {
 
 
   _awesomeNotification.initialize(
-    'resource://drawable/res_notification_app_icon',
+    'resource://drawable/res_flat_logo',
     <NotificationChannel>[
-      Notificationz.basicNotificationChannel(),
+      NotiChannelz.basicNotificationChannel(),
+      NotiChannelz.scheduledNotificationChannel(),
     ],
   );
 
