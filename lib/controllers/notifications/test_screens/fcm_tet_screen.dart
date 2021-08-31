@@ -31,6 +31,9 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
   @override
   void initState() {
     super.initState();
+
+
+
     /// for ios notifications
     if (Platform.isIOS){
 

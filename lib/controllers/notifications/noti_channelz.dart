@@ -5,6 +5,7 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/models/notification/noti_model.dart';
 
 class NotiChannelz{
+  static String _ahmedURL = 'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/slidesPics%2FXmwKpOsu1RZW3YfDAkli_00.jpg?alt=media&token=a4c8a548-74d2-4086-b3db-1678f46db00a';
 // -----------------------------------------------------------------------------
   static String notiChannelName(NotiChannel channel){
     switch (channel){
@@ -21,7 +22,7 @@ class NotiChannelz{
         channelKey: notiChannelName(NotiChannel.basic),
         title: '${Emojis.shape_red_triangle_pointed_up} Welcome to Bldrs.net',
         body: 'Browse Thousands of flyers and pick your choices',
-        bigPicture: 'resource://drawable/res_red_bldrs',
+        bigPicture: _ahmedURL,//'resource://drawable/res_red_bldrs',
         notificationLayout: NotificationLayout.BigPicture,
         color: Colorz.Yellow255,
         backgroundColor: Colorz.BloodTest,
@@ -77,14 +78,14 @@ class NotiChannelz{
         channelDescription: 'this is for testing', // this will be visible to user in android notification settings
         defaultColor: Colorz.Yellow255,
         channelShowBadge: true,
-        enableLights: true,
         icon: 'resource://drawable/res_flat_logo',
         ledColor: Colorz.Yellow255,
         importance: NotificationImportance.High,
-        enableVibration: true,
-        playSound: true,
         locked: true,
-        soundSource: 'resource://raw/res_name_salli',
+        playSound: true,
+        soundSource: 'resource://raw/res_hi',//Audioz.randomBldrsNameSoundPath(),
+        enableLights: true,
+        enableVibration: true,
 
       );
   }
