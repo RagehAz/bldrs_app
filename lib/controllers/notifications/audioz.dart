@@ -8,7 +8,6 @@ class Audioz{
   static String _soundFile_name_justina = 'res_name_justina';
   static String _soundFile_name_emma = 'res_name_emma';
   static String _soundFile_name_amy = 'res_name_amy';
-  static String _soundFile_name_salli = 'res_name_salli';
 // -----------------------------------------------------------------------------
   static String getNotificationFilesPath(String fileNameWithoutExtension){
     return
@@ -22,12 +21,11 @@ class Audioz{
       _soundFile_name_justina,
       _soundFile_name_emma,
       _soundFile_name_amy,
-      _soundFile_name_salli,
     ];
     
     int _randomIndex = Random().nextInt(_notiSounds.length); // from 0 up to _notiSounds.length included
 
-    return getNotificationFilesPath(_soundFile_name_justina); //_notiSounds[_randomIndex]);
+    return getNotificationFilesPath(_notiSounds[_randomIndex]);
   }
 // -----------------------------------------------------------------------------
 
