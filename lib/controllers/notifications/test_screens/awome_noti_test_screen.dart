@@ -55,6 +55,10 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
   void initState() {
     super.initState();
 
+    /// should be put in main
+    // FirebaseMessaging.onBackgroundMessage(_firebasePushHandler)
+
+
     final _scaffoldKey = GlobalKey<ScaffoldState>();
 
     _awesomeNotification = AwesomeNotifications();
@@ -100,6 +104,12 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
     _awesomeNotification.createdSink.close();
     super.dispose();
   }
+// -----------------------------------------------------------------------------
+//   Future<void> _firebasePushHandler(RemoteMessage message){
+//     print('_firebasePushHandler : message : $message');
+//
+//     _awesomeNotification.createNotificationFromJsonData(message.data);
+//   }
 // -----------------------------------------------------------------------------
   Future<void> _notiStream(BuildContext context) async {
 
