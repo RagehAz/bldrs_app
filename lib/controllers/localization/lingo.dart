@@ -31,7 +31,7 @@ class Lingo{
   }
 // -----------------------------------------------------------------------------
   static List<Map<String, String>> cipherLingosToMaps(List<Lingo> lingos){
-    List<Map<String, String>> _maps = new List();
+    List<Map<String, String>> _maps = [];
 
     for (Lingo lingo in lingos){
       _maps.add(cipherLingoToMap(lingo));

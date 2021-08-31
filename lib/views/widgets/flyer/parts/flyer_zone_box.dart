@@ -31,7 +31,7 @@ class FlyerZoneBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    bool _tinyMode = Scale.superFlyerTinyMode(context, flyerZoneWidth);
+    // bool _tinyMode = Scale.superFlyerTinyMode(context, flyerZoneWidth);
     bool _isEditorZone = editorMode;
 
     double _screenWidth = Scale.superScreenWidth(context);

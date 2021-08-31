@@ -22,7 +22,7 @@ import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 
 class MoreScreen extends StatelessWidget {
-  final AuthOps _authOps = AuthOps();
+  // final AuthOps _authOps = AuthOps();
   final UserModel userModel;
 
   MoreScreen({

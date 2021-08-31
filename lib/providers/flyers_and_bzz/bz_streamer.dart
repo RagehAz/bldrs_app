@@ -88,8 +88,7 @@ Widget tinyBzModelStreamBuilder({
   bool listen,
 }){
 
-  bool _listen = listen == null ? true : listen;
-
+  // bool _listen = listen == null ? true : listen;
 
   return
 

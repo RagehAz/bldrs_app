@@ -54,7 +54,7 @@ class Keyword {
 //   }
 // -----------------------------------------------------------------------------
   static List<String> cipherKeywordsToKeywordsIds(List<Keyword> keywords){
-    List<String> _ids = new List();
+    List<String> _ids = [];
 
     if (keywords != null){
       if (keywords.length != 0){
@@ -86,7 +86,7 @@ class Keyword {
 //   }
 // -----------------------------------------------------------------------------
   static List<Keyword> decipherKeywordsIDsToKeywords(List<dynamic> ids){
-    List<Keyword> _keywords = new List();
+    List<Keyword> _keywords = [];
 
     if (ids != null){
       if(ids.length != null){
@@ -283,7 +283,7 @@ class Keyword {
 // ------------------o
   /// this is weird, I don't know why I wrote it
   static List<Keyword> getKeywordsByGroupIDFomGroup({Group group, String groupID}){
-    List<Keyword> _keywords = new List();
+    List<Keyword> _keywords = [];
 
     group.keywords.forEach((keyword) {
       if(!_keywords.contains(keyword) && keyword.groupID == groupID){
@@ -295,7 +295,7 @@ class Keyword {
   }
 // -----------------------------------------------------------------------------
   static List<Keyword> getKeywordsBySubGroupIDFromKeywords({List<Keyword>keywords, String subGroupID}){
-    List<Keyword> _keywords = new List();
+    List<Keyword> _keywords = [];
 
     for (Keyword keyword in keywords){
       if(keyword.subGroupID == subGroupID){
@@ -308,7 +308,7 @@ class Keyword {
 
 // -----------------------------------------------------------------------------
   static List<Keyword> getKeywordsBySection(Section section){
-    List<Keyword> _keywords = new List();
+    List<Keyword> _keywords = [];
 
     FlyerType _flyerType = FlyerTypeClass.getFlyerTypeBySection(section: section);
 
@@ -322,7 +322,7 @@ class Keyword {
   }
 // -----------------------------------------------------------------------------
   static List<Keyword> getKeywordsByFlyerType(FlyerType flyerType){
-    List<Keyword> _keywords = new List();
+    List<Keyword> _keywords = [];
 
     bldrsKeywords().forEach((keyword) {
       if (keyword.flyerType == flyerType){
@@ -334,7 +334,7 @@ class Keyword {
   }
 // -----------------------------------------------------------------------------
   static List<Keyword> getKeywordsByGroupID(String groupID){
-    List<Keyword> _keywords = new List();
+    List<Keyword> _keywords = [];
 
     bldrsKeywords().forEach((keyword) {
       if (keyword.groupID == groupID){
@@ -346,7 +346,7 @@ class Keyword {
   }
 // -----------------------------------------------------------------------------
   static List<Keyword> getKeywordsBySubGroupID(String subGroupID){
-    List<Keyword> _keywords = new List();
+    List<Keyword> _keywords = [];
 
     bldrsKeywords().forEach((keyword) {
       if (keyword.subGroupID == subGroupID){
@@ -385,7 +385,7 @@ class Keyword {
   }
 // -----------------------------------------------------------------------------
   static List<Keyword> getKeywordsModelsFromDistricts(List<District> districts){
-    List<Keyword> _keywords = new List();
+    List<Keyword> _keywords = [];
 
     for (District district in districts){
       _keywords.add(getKeywordModelFromDistrict(district));
@@ -395,7 +395,7 @@ class Keyword {
   }
 // -----------------------------------------------------------------------------
   static List<String> getKeywordsIDs(List<Keyword> keywords){
-    List<String> _keywordIDs = new List();
+    List<String> _keywordIDs = [];
 
     keywords.forEach((key) {
       _keywordIDs.add(key.keywordID);
@@ -409,7 +409,7 @@ class Keyword {
 
 // ------------------o
   static List<String> getGroupsIDsFromGroup(Group group){
-    List<String> _groupsIDs = new List();
+    List<String> _groupsIDs = [];
 
     List<Keyword> _keywords = group.keywords;
 
@@ -426,7 +426,7 @@ class Keyword {
   }
 // -----------------------------------------------------------------------------
   static List<String> getGroupsIDsByFlyerType(FlyerType flyerType){
-    List<String> _groupsIDs = new List();
+    List<String> _groupsIDs = [];
 
     bldrsKeywords().forEach((keyword) {
       if (keyword.flyerType == flyerType && !_groupsIDs.contains(keyword.groupID)){
@@ -693,7 +693,7 @@ class Keyword {
   }
 // -----------------------------------------------------------------------------
   static List<String> getSubGroupsIDsFromKeywords({List<Keyword> keywords}){
-    List<String> _subGroupsIDs = new List();
+    List<String> _subGroupsIDs = [];
 
     for (Keyword keyword in keywords){
       if(!_subGroupsIDs.contains(keyword.subGroupID)){

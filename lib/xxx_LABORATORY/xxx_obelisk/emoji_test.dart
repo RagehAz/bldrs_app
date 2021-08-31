@@ -1,16 +1,12 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
-import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
-import 'package:bldrs/views/widgets/layouts/test_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
-
-
 
 class EmojiTest extends StatelessWidget {
 
@@ -40,7 +36,7 @@ class EmojiTest extends StatelessWidget {
 
     List<EmojiModel> _emojis = EmojiModel.allEmojis();
 
-    double _screenWidth = Scale.superScreenWidth(context);
+    // double _screenWidth = Scale.superScreenWidth(context);
 
     return MainLayout(
         pageTitle: 'Emojis',

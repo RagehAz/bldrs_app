@@ -218,7 +218,7 @@ class FlyerOps{
       print('A -  slides are not the same');
 
       /// A1 - loop each slide in updated slides to check which changed
-      List<SlideModel> _finalSlides = new List();
+      List<SlideModel> _finalSlides = [];
       for (var slide in updatedFlyer.slides){
 
         print('A1 - checking slide ${slide.slideIndex}');
@@ -285,7 +285,7 @@ class FlyerOps{
 
     /// B - Delete fire storage pictures if updatedFlyer.slides.length > originalFlyer.slides.length
     if(originalFlyer.slides.length > _finalFlyer.slides.length){
-      List<String> _slidesIDsToBeDeleted = new List();
+      List<String> _slidesIDsToBeDeleted = [];
 
       /// B1 - get slides IDs which should be deleted starting first index after updatedFlyer.slides.length
       for (int i = _finalFlyer.slides.length; i < originalFlyer.slides.length; i++){

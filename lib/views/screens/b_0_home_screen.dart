@@ -1,12 +1,9 @@
 import 'package:bldrs/controllers/router/navigators.dart';
-import 'package:bldrs/models/bz/tiny_bz.dart';
-import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
 import 'package:bldrs/views/widgets/ask/question/question_screen.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:bldrs/views/widgets/walls/home_wall.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   final bool notiIsOn;
@@ -20,18 +17,18 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  bool _isInit = true;
+  // bool _isInit = true;
   bool _isLoading = false;
-  List<TinyBz> _tinyBzz;
-  List<TinyBz> _myTinyBzz;
+  // List<TinyBz> _tinyBzz;
+  // List<TinyBz> _myTinyBzz;
 // -----------------------------------------------------------------------------
-  /// --- LOADING BLOCK
-  bool _loading = false;
-  void _triggerLoading(){
-    setState(() {_loading = !_loading;});
-    _loading == true?
-    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
-  }
+//   /// --- LOADING BLOCK
+//   bool _loading = false;
+//   void _triggerLoading(){
+//     setState(() {_loading = !_loading;});
+//     _loading == true?
+//     print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+//   }
 // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -77,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
 
-    FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: true);
+    // FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: true);
     // List<TinyBz> _tinyBzz = _prof.getAllTinyBzz;
     // List<TinyBz> _userTinyBzz = _prof.getUserTinyBzz;
 

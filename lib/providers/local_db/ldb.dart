@@ -1,4 +1,3 @@
-import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/providers/local_db/ldb_column.dart';
 import 'package:bldrs/providers/local_db/ldb_table.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
@@ -149,7 +148,7 @@ abstract class LDB{
 // -----------------------------------------------------------------------------
   /// RAW READ FROM LOCAL DATABASE
   static Future<List<dynamic>> readRawFromLDB({BuildContext context, LDBTable table}) async {
-    List<Map<String, Object>> _sqfMaps = new List();
+    List<Map<String, Object>> _sqfMaps = [];
 
     await tryAndCatch(
       context: context,
@@ -223,6 +222,8 @@ abstract class LDB{
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
 
+    print('_result : $_result');
+
   }
 // -----------------------------------------------------------------------------
   static Future<void> deleteRow({BuildContext context, LDBTable table, int rowNumber}) async {
@@ -234,6 +235,8 @@ abstract class LDB{
       where: "$_primaryKey = ?",
       whereArgs: [rowNumber],
     );
+
+    print(result);
 
   }
 // -----------------------------------------------------------------------------

@@ -21,13 +21,13 @@ class BzCardScreen extends StatefulWidget {
 }
 
 class _BzCardScreenState extends State<BzCardScreen> {
-  bool _bzPageIsOn = false;
+  // bool _bzPageIsOn = false;
 
-  void _triggerMaxHeader(){
-    setState(() {
-      _bzPageIsOn = !_bzPageIsOn;
-    });
-  }
+  // void _triggerMaxHeader(){
+  //   setState(() {
+  //     _bzPageIsOn = !_bzPageIsOn;
+  //   });
+  // }
 
   // void _tappingFollow(){
   //   print('follow is tapped');

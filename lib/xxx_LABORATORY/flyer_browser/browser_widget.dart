@@ -20,7 +20,7 @@
 // }
 //
 // class _FlyersBrowserState extends State<FlyersBrowser> {
-//   List<String> _keywords = new List();
+//   List<String> _keywords = [];
 //   bool _browserIsOn = false;
 //   String _currentFilter;
 //   ScrollController _scrollController = new ScrollController();

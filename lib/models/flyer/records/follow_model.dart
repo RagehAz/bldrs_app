@@ -53,7 +53,7 @@ class FollowModel{
   }
 // -----------------------------------------------------------------------------
   static List<String> editFollows(List<String> existingFollowsList, String bzID){
-     List<String> _updatedBzzFollows = new List();
+     List<String> _updatedBzzFollows = [];
 
      /// --- IF BZ IS NOT FOLLOWED
      if (existingFollowsList == null || existingFollowsList.contains(bzID) == false){

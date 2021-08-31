@@ -17,14 +17,14 @@ Widget chatStreamBuilder({
   String questionID,
   String bzID,
 }) {
-  CollectionReference _chatsSubCollectionRef = Fire.getSubCollectionRef(
-    collName: FireCollection.questions,
-    docName: questionID,
-    subCollName: bzID,
-  );
+  // CollectionReference _chatsSubCollectionRef = Fire.getSubCollectionRef(
+  //   collName: FireCollection.questions,
+  //   docName: questionID,
+  //   subCollName: bzID,
+  // );
 
-  final Stream<QuerySnapshot> _chatStream = _chatsSubCollectionRef.orderBy(
-      'at', descending: false).snapshots();
+  // final Stream<QuerySnapshot> _chatStream = _chatsSubCollectionRef.orderBy(
+  //     'at', descending: false).snapshots();
 
   return
 

@@ -2,19 +2,18 @@ import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
-import 'dart:math' as math;
 
 //double  _width = 500.0;
 //double _height = 500.0;
-const _durations = <Duration>[
-//  Duration(seconds: 1),
-  Duration(seconds: 10),
-  Duration(seconds: 3),
-  Duration(seconds: 6),
-  Duration(seconds: 5),
-  Duration(seconds: 2),
-];
-final _random = math.Random();
+// const _durations = <Duration>[
+// //  Duration(seconds: 1),
+//   Duration(seconds: 10),
+//   Duration(seconds: 3),
+//   Duration(seconds: 6),
+//   Duration(seconds: 5),
+//   Duration(seconds: 2),
+// ];
+// final _random = math.Random();
 
 class NightSky extends StatefulWidget {
   final Sky sky;
@@ -61,7 +60,7 @@ class _NightSkyState extends State<NightSky> with TickerProviderStateMixin {
 //     }
 //   }
 // -----------------------------------------------------------------------------
-    Color _starsColor = Colorz.White255;
+//     Color _starsColor = Colorz.White255;
 // -----------------------------------------------------------------------------
 //   Widget _createAnimatedStars(context) {
 //

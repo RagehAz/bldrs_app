@@ -18,7 +18,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
   // BzModel _someBz;
   final String _bzID = '85XtJiWDEmPJ54ZPHmzO';
   // dynamic _name;
-  List<QueryDocumentSnapshot> _bzzSnapshots;
+  // List<QueryDocumentSnapshot> _bzzSnapshots;
   dynamic _toPrint;
 // -----------------------------------------------------------------------------
   Future<dynamic> getFirestoreBzz() async {
@@ -83,7 +83,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
                   return Container(); // superDialog(context, snapshot.error, 'error');
                 } else {
 
-                  Map<String, dynamic> _map = snapshot.data;
+                  // Map<String, dynamic> _map = snapshot.data;
                   // BzModel _someBz = BzModel.decipherBzMap(_map['bzID'], _map);
 
                   return ListView(

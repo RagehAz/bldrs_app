@@ -2,14 +2,14 @@
 class TextMod {
 // -----------------------------------------------------------------------------
   static List<String> sortAlphabetically(List<String> inputList){
-  List<String> _outputList = new List();
+  List<String> _outputList = [];
   inputList.sort();
   _outputList = inputList;
   return _outputList;
 }
 // -----------------------------------------------------------------------------
   static List<String> sortAlphabetically2(List<String> inputList){
-  List<String> _outputList = new List();
+  List<String> _outputList = [];
 
   inputList.sort((a, b) => a.toString().compareTo(b.toString()));
 
@@ -110,7 +110,7 @@ class TextMod {
 }
 // -----------------------------------------------------------------------------
   static String trimTextAfterFirstSpecialCharacter(String verse, String specialCharacter){
-    int _position = verse == null ? null : verse.indexOf(specialCharacter);
+    // int _position = verse == null ? null : verse.indexOf(specialCharacter);
 
     String _result = verse == null ? null : verse.substring(0, verse.indexOf(specialCharacter));
   return _result;

@@ -42,7 +42,7 @@ class MyBzScreen extends StatefulWidget {
 }
 
 class _MyBzScreenState extends State<MyBzScreen> {
-  bool _showOldFlyers;
+  // bool _showOldFlyers;
   BzModel _bzModel;
   double _bubblesOpacity = 0;
 // -----------------------------------------------------------------------------
@@ -73,7 +73,7 @@ class _MyBzScreenState extends State<MyBzScreen> {
     print('1 - we got temp bzModel');
 
     _bzModel = BzModel.getTempBzModelFromTinyBz(widget.tinyBz);
-    _showOldFlyers = false;
+    // _showOldFlyers = false;
 
     // TODO: implement initState
   }
@@ -288,18 +288,18 @@ class _MyBzScreenState extends State<MyBzScreen> {
 
   }
 // -----------------------------------------------------------------------------
-  Widget _statsButton({@required String verse, @required String icon}){
-    return
-    DreamBox(
-      height: 30,
-      icon: icon,
-      verse: verse,
-      verseWeight: VerseWeight.thin,
-      verseItalic: true,
-      iconSizeFactor: 0.6,
-      bubble: false,
-    );
-}
+//   Widget _statsButton({@required String verse, @required String icon}){
+//     return
+//     DreamBox(
+//       height: 30,
+//       icon: icon,
+//       verse: verse,
+//       verseWeight: VerseWeight.thin,
+//       verseItalic: true,
+//       iconSizeFactor: 0.6,
+//       bubble: false,
+//     );
+// }
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

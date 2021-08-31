@@ -165,12 +165,14 @@ class Imagers{
   static Future<PickedFile> takeCameraPicture(PicType picType) async {
   final _picker = ImagePicker();
 
-  final _imageFile = await _picker.getImage(
+  final PickedFile _imageFile = await _picker.getImage(
     source: ImageSource.camera,
     imageQuality: concludeImageQuality(picType),
     maxWidth: concludeImageMaxWidth(picType),
     // maxHeight: concludeImageMaxHeight(picType)
   );
+
+  // PickedFile _imageFile = _imageXFile; // ne3mel eh ba2a
 
   return _imageFile;
 
@@ -281,20 +283,21 @@ class Imagers{
 }
 // -----------------------------------------------------------------------------
   static Future<File> urlToFile(String imageUrl) async {
-// generate random number.
+/// generate random number.
   var rng = new Random();
-// get temporary directory of device.
+/// get temporary directory of device.
   Directory tempDir = await getTemporaryDirectory();
-// get temporary path from temporary directory.
+/// get temporary path from temporary directory.
   String tempPath = tempDir.path;
-// create a new file in temporary path with random file name.
+/// create a new file in temporary path with random file name.
   File file = new File('$tempPath'+ (rng.nextInt(100)).toString() +'.png');
-// call http.get method and pass imageUrl into it to get response.
-  http.Response response = await http.get(imageUrl);
-// write bodyBytes received in response to file.
+/// call http.get method and pass imageUrl into it to get response.
+  Uri imageUri = Uri.parse(imageUrl);
+  http.Response response = await http.get(imageUri);
+/// write bodyBytes received in response to file.
   await file.writeAsBytes(response.bodyBytes);
-// now return the file which is created with random name in
-// temporary directory and image bytes from response is written to // that file.
+/// now return the file which is created with random name in
+/// temporary directory and image bytes from response is written to // that file.
   return file;
 }
 // -----------------------------------------------------------------------------
@@ -407,7 +410,7 @@ class Imagers{
 }
 // -----------------------------------------------------------------------------
 static Future<List<File>> getFilesFromAssets(List<Asset> assets) async {
-  List<File> _files = new List();
+  List<File> _files = [];
 
   for (Asset asset in assets) {
 
@@ -652,7 +655,7 @@ static Future<List<File>> getFilesFromAssets(List<Asset> assets) async {
   }
 // -----------------------------------------------------------------------------
   static List<BoxFit> concludeBoxesFitsForAssets({List<Asset> assets, double flyerZoneWidth}){
-  List<BoxFit> _fits = new List();
+  List<BoxFit> _fits = [];
 
   for (Asset asset in assets){
 
@@ -699,7 +702,7 @@ static Future<List<File>> getFilesFromAssets(List<Asset> assets) async {
   }
 // -----------------------------------------------------------------------------
   static Future<List<Uint8List>> getScreenShotsFromFiles(List<File> files) async {
-    List<Uint8List> _screenShots = new List();
+    List<Uint8List> _screenShots = [];
 
     if (files != null && files.length != 0){
       for (File file in files){
@@ -724,7 +727,7 @@ static Future<List<File>> getFilesFromAssets(List<Asset> assets) async {
   }
 // -----------------------------------------------------------------------------
   static List<Asset> getOnlyAssetsFromDynamics(List<dynamic> inputs){
-    List<Asset> _assets = new List();
+    List<Asset> _assets = [];
 
     if(inputs != null){
       if(inputs.length > 0){

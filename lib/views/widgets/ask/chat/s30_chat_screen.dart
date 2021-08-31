@@ -35,11 +35,11 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   final String _currentUserID = superUserID();
   TextEditingController _msgController = new TextEditingController();
-  List<MessageModel> _messages;
+  // List<MessageModel> _messages;
 
   bool _userSeen;
   bool _author1Seen;
-  bool _author2Seen;
+  // bool _author2Seen;
 // -----------------------------------------------------------------------------
   @override
   void initState() {

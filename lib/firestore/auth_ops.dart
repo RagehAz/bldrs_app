@@ -93,40 +93,40 @@ class AuthOps {
   }
 // -----------------------------------------------------------------------------
   /// delete firebase user
-  Future<void> _deleteFirebaseUser({
-    BuildContext context,
-    String email,
-    String password,
-  }) async {
-
-    try {
-
-      User user = _auth.currentUser;
-
-      AuthCredential credentials = EmailAuthProvider.credential(email: email, password: password);
-
-      print(user);
-
-      UserCredential result = await user.reauthenticateWithCredential(credentials);
-
-      await result.user.delete();
-
-      return true;
-
-    } catch (error) {
-
-      print(error.toString());
-
-      await superDialog(
-        context: context,
-        title: 'Could not delete account',
-        body: error,
-        boolDialog: false,
-      );
-
-      return null;
-    }
-  }
+  // Future<void> _deleteFirebaseUser({
+  //   BuildContext context,
+  //   String email,
+  //   String password,
+  // }) async {
+  //
+  //   try {
+  //
+  //     User user = _auth.currentUser;
+  //
+  //     AuthCredential credentials = EmailAuthProvider.credential(email: email, password: password);
+  //
+  //     print(user);
+  //
+  //     UserCredential result = await user.reauthenticateWithCredential(credentials);
+  //
+  //     await result.user.delete();
+  //
+  //     return true;
+  //
+  //   } catch (error) {
+  //
+  //     print(error.toString());
+  //
+  //     await superDialog(
+  //       context: context,
+  //       title: 'Could not delete account',
+  //       body: error,
+  //       boolDialog: false,
+  //     );
+  //
+  //     return null;
+  //   }
+  // }
 // -----------------------------------------------------------------------------
   /// sign in with email & password
   Future<dynamic> emailSignInOps(BuildContext context, String email, String password) async {
@@ -275,7 +275,8 @@ class AuthOps {
 
 
           /// B - get [accessToken]
-          final AccessToken _accessToken = await FacebookAuth.instance.login();
+          final LoginResult _loginResult = await FacebookAuth.instance.login();
+          final AccessToken _accessToken =_loginResult.accessToken;
           print('facebookSignInOps : _accessToken : $_accessToken');
 
             if(_accessToken != null){

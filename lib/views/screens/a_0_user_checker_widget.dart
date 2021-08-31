@@ -120,8 +120,8 @@ class _UserCheckerState extends State<UserChecker> {
               user: _userModel, firstTimer: true,),);
 
             /// after returning from creating profile, we go to LoadingScreen()
-            print('user has created profile and good to go to LoadingScreen()');
             var _result = await Nav.goToNewScreen(context, LoadingScreen(), transitionType: PageTransitionType.fade);
+            print('user has created profile and good to go to LoadingScreen() : _result : $_result');
           }
 
       }
@@ -133,7 +133,7 @@ class _UserCheckerState extends State<UserChecker> {
             /// route to sign in
             var _result = await Nav.goToNewScreen(context, StartingScreen(), transitionType: PageTransitionType.fade);
 
-            print('just came back from starting screen');
+            print('just came back from starting screen : _result : $_result');
             /// and we loop again in userChecker
             await Nav.pushNamedAndRemoveAllBelow(context, Routez.UserChecker);
           }
@@ -153,16 +153,16 @@ class _UserCheckerState extends State<UserChecker> {
     });
   }
 // -----------------------------------------------------------------------------
-  void _exitApp(BuildContext context) {
-    Nav.goBack(context);
-  }
+//   void _exitApp(BuildContext context) {
+//     Nav.goBack(context);
+//   }
 
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     final UserModel _userProvided = Provider.of<UserModel>(context);
-    List<String> _missingFields = UserModel.missingFields(_userProvided);
+    // List<String> _missingFields = UserModel.missingFields(_userProvided);
 
     Tracer.traceWidgetBuild(widgetName: 'UserChecker', varName: 'userID', varValue: _userProvided?.userID);
     return

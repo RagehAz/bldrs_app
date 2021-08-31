@@ -2,10 +2,8 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/firestore/auth_ops.dart';
-import 'package:bldrs/models/flyer/records/review_model.dart';
 import 'package:bldrs/models/user/tiny_user.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/views/widgets/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:flutter/material.dart';
 
 class ReviewUserLabel extends StatelessWidget {

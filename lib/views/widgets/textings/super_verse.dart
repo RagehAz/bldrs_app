@@ -140,32 +140,32 @@ class SuperVerse extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    Color _boxColor = designMode ? Colorz.BloodTest : Colorz.Nothing;
-    const double verseHeight = 1.42; //1.48; // The sacred golden reverse engineered factor
+    // Color _boxColor = designMode ? Colorz.BloodTest : Colorz.Nothing;
+    // const double verseHeight = 1.42; //1.48; // The sacred golden reverse engineered factor
     double _scalingFactor = scaleFactor == null ? 1: scaleFactor;
     int _maxLines =  maxLines;
-    // takes values from 0 to 8 in the entire app
+    /// takes values from 0 to 8 in the entire app
     double verseSizeValue = superVerseSizeValue(context, size, _scalingFactor);
-    // --- AVAILABLE FONT WEIGHTS -----------------------------------------------
-    FontWeight verseWeight = superVerseWeight(weight);
-    // --- AVAILABLE FONTS -----------------------------------------------
-    String verseFont = superVerseFont(context, weight);
-    // --- LETTER SPACING -----------------------------------------------
-    double verseLetterSpacing = superVerseLetterSpacing(weight, verseSizeValue);
-    // --- WORD SPACING -----------------------------------------------
-    double verseWordSpacing = superVerseWordSpacing(verseSizeValue);
-    // --- SHADOWS -----------------------------------------------
-    const double _shadowBlur = 0;
-    const double _shadowYOffset = 0;
-    double _shadowXOffset = superVerseXOffset(weight, verseSizeValue);
-    double _secondShadowXOffset = -0.35 * _shadowXOffset;
-    Color _leftShadow = color == Colorz.Black230 ? Colorz.White125 : Colorz.Black230;
-    Color _rightShadow = color == Colorz.Black230 ? Colorz.White80 : Colorz.White20;
-    // --- ITALIC -----------------------------------------------
-    FontStyle verseStyle = italic == true ? FontStyle.italic : FontStyle.normal;
-    // --- VERSE BOX MARGIN -----------------------------------------------
+    /// --- AVAILABLE FONT WEIGHTS -----------------------------------------------
+    // FontWeight verseWeight = superVerseWeight(weight);
+    /// --- AVAILABLE FONTS -----------------------------------------------
+    // String verseFont = superVerseFont(context, weight);
+    /// --- LETTER SPACING -----------------------------------------------
+    // double verseLetterSpacing = superVerseLetterSpacing(weight, verseSizeValue);
+    /// --- WORD SPACING -----------------------------------------------
+    // double verseWordSpacing = superVerseWordSpacing(verseSizeValue);
+    /// --- SHADOWS -----------------------------------------------
+    // const double _shadowBlur = 0;
+    // const double _shadowYOffset = 0;
+    // double _shadowXOffset = superVerseXOffset(weight, verseSizeValue);
+    // double _secondShadowXOffset = -0.35 * _shadowXOffset;
+    // Color _leftShadow = color == Colorz.Black230 ? Colorz.White125 : Colorz.Black230;
+    // Color _rightShadow = color == Colorz.Black230 ? Colorz.White80 : Colorz.White20;
+    /// --- ITALIC -----------------------------------------------
+    // FontStyle verseStyle = italic == true ? FontStyle.italic : FontStyle.normal;
+    /// --- VERSE BOX MARGIN -----------------------------------------------
     double _margin = margin == null ? 0 : margin;
-    // --- LABEL -----------------------------------------------
+    /// --- LABEL -----------------------------------------------
     double _labelCornerValues = superVerseLabelCornerValue(context, size);
     double _labelCorner = labelColor == null ? 0 : _labelCornerValues;
     double _sidePaddingValues = superVerseSidePaddingValues(context, size);

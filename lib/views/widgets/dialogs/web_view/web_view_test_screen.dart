@@ -81,7 +81,7 @@ class _WebViewTestScreenState extends State<WebViewTestScreen> {
   Widget build(BuildContext context) {
 
     double _screenWidth = Scale.superScreenWidth(context);
-    double _screenHeight = Scale.superScreenHeight(context);
+    // double _screenHeight = Scale.superScreenHeight(context);
 
     return TestLayout(
         screenTitle: 'web view test screen',

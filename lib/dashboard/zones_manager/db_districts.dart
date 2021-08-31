@@ -4,7 +4,7 @@ import 'package:bldrs/models/secondary_models/namez_model.dart';
 class DbDistricts {
 
   static List<District> getDistrictsByCity(String city){
-    List<District> _districts = new List();
+    List<District> _districts = [];
     dbDistricts().forEach((ar) {
       if(ar.city == city){
         _districts.add(ar);

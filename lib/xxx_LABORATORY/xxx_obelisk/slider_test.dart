@@ -28,9 +28,9 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
   RangeValues _rangeValues;
   double _startRangeValue = 100000;
   double _endRangeValue = 500000000;
-  RangeLabels _rangeLabels;
-  String _stringLabel = 'start';
-  String _endLabel = 'end';
+  // RangeLabels _rangeLabels;
+  // String _stringLabel = 'start';
+  // String _endLabel = 'end';
   RangeValues _onChangeRangeEnd;
   RangeValues _onChangeRangeStart;
 // -----------------------------------------------------------------------------
@@ -39,7 +39,7 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
     super.initState();
     _theValue = _minValue;
     _rangeValues = RangeValues(_startRangeValue, _endRangeValue);
-    _rangeLabels = RangeLabels(_stringLabel, _endLabel);
+    // _rangeLabels = RangeLabels(_stringLabel, _endLabel);
   }
 // -----------------------------------------------------------------------------
   Widget _button(String verse){

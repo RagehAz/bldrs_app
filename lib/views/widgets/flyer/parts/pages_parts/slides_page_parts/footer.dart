@@ -129,10 +129,10 @@ class FlyerFooter extends StatelessWidget {
 // -----------------------------------------------------------------------------
     /// SHARE & SAVE BUTTONS
 
-    double _footerBTRadius = buttonRadius(context: context, flyerZoneWidth: flyerZoneWidth, buttonIsOn: false,);
+    // double _footerBTRadius = buttonRadius(context: context, flyerZoneWidth: flyerZoneWidth, buttonIsOn: false,);
 
-    dynamic _footerBTColor = Colorz.Grey80;
-    String _shareBTIcon = Iconz.Share;
+    // dynamic _footerBTColor = Colorz.Grey80;
+    // String _shareBTIcon = Iconz.Share;
     String _shareBTVerse = Wordz.send(context);
     // String saveBTIcon = ankhOn == true ? Iconz.SaveOn : Iconz.SaveOff;
     // String saveBTVerse = ankhOn == true ? translate(context, 'Saved') :

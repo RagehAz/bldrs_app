@@ -38,7 +38,7 @@ class City{
   }
 // -----------------------------------------------------------------------------
   static List<Map<String, dynamic>> cipherCities(List<City> cities){
-    List<Map<String, dynamic>> _citiesMaps = new List();
+    List<Map<String, dynamic>> _citiesMaps = [];
     cities.forEach((pr) {
       _citiesMaps.add(pr.toMap());
     });
@@ -58,7 +58,7 @@ class City{
   }
 // -----------------------------------------------------------------------------
   static List<City> decipherCitiesMaps(List<dynamic> maps){
-    List<City> _cities = new List();
+    List<City> _cities = [];
     maps?.forEach((map) {
       _cities.add(decipherCityMap(map));
     });
@@ -66,7 +66,7 @@ class City{
   }
 // -----------------------------------------------------------------------------
   static List<String> getCitiesNamesFromCountryModel(Country country){
-    List<String> _citiesNames = new List();
+    List<String> _citiesNames = [];
 
     List<City> _cities = country.cities;
 
@@ -98,7 +98,7 @@ class City{
   }
 // -----------------------------------------------------------------------------
   static List<Keyword> getKeywordsFromCities(BuildContext context, List<City> cities){
-    List<Keyword> _keywords = new List();
+    List<Keyword> _keywords = [];
 
     cities.forEach((city) {
 

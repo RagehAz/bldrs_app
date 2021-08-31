@@ -76,7 +76,7 @@ class TinyBz with ChangeNotifier{
   }
 // -----------------------------------------------------------------------------
   static List<dynamic> cipherTinyBzzModels(List<TinyBz> tinyBzz){
-    List<dynamic> _tinyBzzMaps = new List();
+    List<dynamic> _tinyBzzMaps = [];
     tinyBzz.forEach((b) {
       _tinyBzzMaps.add(b.toMap());
     });
@@ -101,7 +101,7 @@ class TinyBz with ChangeNotifier{
   }
 // -----------------------------------------------------------------------------
   static List<TinyBz> decipherTinyBzzMaps(List<dynamic> maps){
-    List<TinyBz> _tinyBzz = new List();
+    List<TinyBz> _tinyBzz = [];
     maps.forEach((map){
       _tinyBzz.add(decipherTinyBzMap(map));
     });
@@ -109,7 +109,7 @@ class TinyBz with ChangeNotifier{
   }
 // -----------------------------------------------------------------------------
   static List<String> getBzzIDsFromTinyBzz(List<TinyBz> _tinyBzz){
-    List<String> _ids = new List();
+    List<String> _ids = [];
 
     if (_tinyBzz != null){
       _tinyBzz.forEach((tinyBz) {
@@ -121,7 +121,7 @@ class TinyBz with ChangeNotifier{
   }
 // -----------------------------------------------------------------------------
   static List<TinyBz> getTinyBzzFromBzzModels(List<BzModel> bzzModels){
-    List<TinyBz> _tinyBzz = new List();
+    List<TinyBz> _tinyBzz = [];
 
     bzzModels.forEach((bz) {
       _tinyBzz.add(getTinyBzFromBzModel(bz));

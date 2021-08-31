@@ -11,7 +11,6 @@ import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/keywords/keywords_bubble.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class CountryScreen extends StatefulWidget {
@@ -25,8 +24,8 @@ class CountryScreen extends StatefulWidget {
 
 class _CountryScreenState extends State<CountryScreen> {
   String _countriesCollectionName = 'countries';
-  CollectionReference _countriesCollection;
-  final FirebaseFirestore _fireInstance = FirebaseFirestore.instance;
+  // CollectionReference _countriesCollection;
+  // final FirebaseFirestore _fireInstance = FirebaseFirestore.instance;
   String _name;
   String _region;
   String _continent;
@@ -47,7 +46,7 @@ class _CountryScreenState extends State<CountryScreen> {
   @override
   void initState() {
     super.initState();
-    _countriesCollection = _fireInstance.collection('countries');
+    // _countriesCollection = _fireInstance.collection('countries');
     _name = widget.country.name;
     _region = widget.country.region;
     _continent = widget.country.continent;

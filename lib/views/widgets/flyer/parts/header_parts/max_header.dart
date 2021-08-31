@@ -1,14 +1,11 @@
 import 'package:bldrs/controllers/drafters/borderers.dart';
-import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/controllers/drafters/timerz.dart';
-import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/bz/author_model.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
-import 'package:bldrs/models/flyer/nano_flyer.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/providers/flyers_and_bzz/bz_streamer.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/bz_pg_counter.dart';
@@ -31,14 +28,14 @@ class MaxHeader extends StatelessWidget {
     @required this.superFlyer,
   });
 // -----------------------------------------------------------------------------
-  Future<void> _openGalleryFlyer (BuildContext context, String flyerID) async {
-
-    await Nav.openFlyer(
-        context: context,
-        flyerID: flyerID,
-    );
-
-  }
+//   Future<void> _openGalleryFlyer (BuildContext context, String flyerID) async {
+//
+//     await Nav.openFlyer(
+//         context: context,
+//         flyerID: flyerID,
+//     );
+//
+//   }
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -51,7 +48,7 @@ class MaxHeader extends StatelessWidget {
 // -----------------------------------------------------------------------------
         String _bzScope = bz != null ? bz.bzScope : '';
 // -----------------------------------------------------------------------------
-        final List<NanoFlyer> _galleryFlyers = bz.nanoFlyers;
+//         final List<NanoFlyer> _galleryFlyers = bz.nanoFlyers;
 // -----------------------------------------------------------------------------
         List<AuthorModel> _bzAuthors = bz != null ? bz?.bzAuthors : [];
 // -----------------------------------------------------------------------------

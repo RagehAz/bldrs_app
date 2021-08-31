@@ -1,5 +1,4 @@
 import 'package:bldrs/controllers/drafters/timerz.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 
 class ReviewModel {
@@ -39,7 +38,7 @@ class ReviewModel {
   }
 
   static List<ReviewModel> decipherReviews(List<dynamic> maps){
-    List<ReviewModel> _reviews = new List();
+    List<ReviewModel> _reviews = [];
 
     if (maps != null && maps.length != 0){
 
@@ -60,9 +59,9 @@ class ReviewModel {
         );
   }
 // -----------------------------------------------------------------------------
-  Stream<ReviewModel> decipherReviewsStream(Stream<QuerySnapshot> snapshots){
-    // final Stream<QuerySnapshot> _chatSnapshots = _chatsCollection.orderBy(
-    //     'at', descending: false).snapshots();
-
-  }
+//   Stream<ReviewModel> decipherReviewsStream(Stream<QuerySnapshot> snapshots){
+//     // final Stream<QuerySnapshot> _chatSnapshots = _chatsCollection.orderBy(
+//     //     'at', descending: false).snapshots();
+//
+//   }
 }

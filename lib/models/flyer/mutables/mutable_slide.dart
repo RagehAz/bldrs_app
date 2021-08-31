@@ -90,7 +90,7 @@ class MutableSlide {
   }
 // -----------------------------------------------------------------------------
   static List<MutableSlide> getViewMutableSlidesFromSlidesModels(List<SlideModel> slides) {
-    List<MutableSlide> _slides = new List();
+    List<MutableSlide> _slides = [];
 
     if(slides != null){
       for (SlideModel slide in slides){
@@ -107,7 +107,7 @@ class MutableSlide {
   }
 // -----------------------------------------------------------------------------
   static Future<List<MutableSlide>> getDraftMutableSlidesFromSlidesModels(List<SlideModel> slides) async {
-    List<MutableSlide> _slides = new List();
+    List<MutableSlide> _slides = [];
 
     if(slides != null){
       for (SlideModel slide in slides){
@@ -199,7 +199,7 @@ class MutableSlide {
   }
 // -----------------------------------------------------------------------------
 static List<Asset> getAssetsFromMutableSlides(List<MutableSlide> mSlides){
-    List<Asset> _assets = new List();
+    List<Asset> _assets = [];
 
     for (MutableSlide mSlide in mSlides){
       if (mSlide.picAsset != null){

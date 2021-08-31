@@ -66,9 +66,9 @@ class BigMac{
 // -----------------------------------------------------------------------------
 
   static List<BigMac> getBigMacsOrdered(){
-    List<BigMac> _macs = new List();
+    List<BigMac> _macs = [];
 
-    List<String> _orderedISO3s = new List();
+    // List<String> _orderedISO3s = [];
 
     // for (var mac in bigMacs()){
     //   _orderedISO3s.sort()

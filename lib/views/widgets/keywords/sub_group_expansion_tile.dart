@@ -94,7 +94,7 @@ class SubGroupTile extends StatefulWidget {
 
 class SubGroupTileState extends State<SubGroupTile> with SingleTickerProviderStateMixin {
   AnimationController _controller;
-  CurvedAnimation _easeOutAnimation;
+  // CurvedAnimation _easeOutAnimation;
   CurvedAnimation _easeInAnimation;
   ColorTween _borderColor;
   ColorTween _titleColorTween;
@@ -109,7 +109,7 @@ class SubGroupTileState extends State<SubGroupTile> with SingleTickerProviderSta
   void initState() {
     super.initState();
     _controller = new AnimationController(duration: _kExpand, vsync: this);
-    _easeOutAnimation = new CurvedAnimation(parent: _controller, curve: Curves.easeOut);
+    // _easeOutAnimation = new CurvedAnimation(parent: _controller, curve: Curves.easeOut);
     _easeInAnimation = new CurvedAnimation(parent: _controller, curve: Curves.easeIn);
     _borderColor = new ColorTween();
     _titleColorTween = new ColorTween();
