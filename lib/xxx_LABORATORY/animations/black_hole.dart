@@ -15,13 +15,13 @@ class _BlackHoleScreenState extends State<BlackHoleScreen> with TickerProviderSt
   AnimationController _blackHoleController;
   int _spinsDuration = 1;
 // -----------------------------------------------------------------------------
-  /// --- LOADING BLOCK
-  bool _loading = false;
-  void _triggerLoading(){
-    setState(() {_loading = !_loading;});
-    _loading == true?
-    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
-  }
+//   /// --- LOADING BLOCK
+//   bool _loading = false;
+//   void _triggerLoading(){
+//     setState(() {_loading = !_loading;});
+//     _loading == true?
+//     print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+//   }
 // -----------------------------------------------------------------------------
   @override
   void initState() {

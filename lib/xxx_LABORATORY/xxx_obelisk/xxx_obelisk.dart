@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/notifications/test_screens/awome_noti_test_screen.dart';
 import 'package:bldrs/controllers/notifications/test_screens/fcm_tet_screen.dart';
@@ -58,12 +57,12 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
   bool _isSignedIn;
 // -----------------------------------------------------------------------------
   /// --- LOADING BLOCK
-  bool _loading = false;
-  void _triggerLoading(){
-    setState(() {_loading = !_loading;});
-    _loading == true?
-    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
-  }
+  // bool _loading = false;
+  // void _triggerLoading(){
+  //   setState(() {_loading = !_loading;});
+  //   _loading == true?
+  //   print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+  // }
 // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -94,21 +93,21 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
       );
   }
 // ---------------------------------------------------------------------------
-  Future<void> _tapGoogleSignOut() async {
-
-    _triggerLoading();
-
-    bool _isInAfterSignOut = await AuthOps.googleSignOutOps(context);
-
-      setState(() {
-        _isSignedIn = _isInAfterSignOut;
-      });
-
-    _triggerLoading();
-
-    print('_tapGoogleSignOut _isSignedIn : ${_isSignedIn}');
-
-  }
+//   Future<void> _tapGoogleSignOut() async {
+//
+//     _triggerLoading();
+//
+//     bool _isInAfterSignOut = await AuthOps.googleSignOutOps(context);
+//
+//       setState(() {
+//         _isSignedIn = _isInAfterSignOut;
+//       });
+//
+//     _triggerLoading();
+//
+//     print('_tapGoogleSignOut _isSignedIn : ${_isSignedIn}');
+//
+//   }
 // ---------------------------------------------------------------------------
 
   @override

@@ -2,11 +2,9 @@ import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/router/route_names.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
-import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
 import 'package:bldrs/views/widgets/flyer/final_flyer.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 // === === === === === === === === === === === === === === === === === === === === === === === === === === === ===
 // Flyer in Full screen mode
@@ -33,8 +31,8 @@ class FlyerScreen extends StatelessWidget {
 
     final String _flyerID = ModalRoute.of(context).settings.arguments as String;
     print('_flyerID is $_flyerID');
-    final FlyersProvider _pro = Provider.of<FlyersProvider>(context, listen: false);
-    final TinyFlyer _tinyFlyer = tinyFlyer == null ? _pro.getTinyFlyerByFlyerID(_flyerID) : tinyFlyer;
+    // final FlyersProvider _pro = Provider.of<FlyersProvider>(context, listen: false);
+    // final TinyFlyer _tinyFlyer = tinyFlyer == null ? _pro.getTinyFlyerByFlyerID(_flyerID) : tinyFlyer;
     // final BzModel _bz = _pro.getBzByBzID(_flyer?.tinyBz?.bzID);
 
     return MainLayout(

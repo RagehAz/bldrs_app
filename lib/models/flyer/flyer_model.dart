@@ -168,7 +168,7 @@ class FlyerModel with ChangeNotifier{
   }
 // -----------------------------------------------------------------------------
   static List<FlyerModel> decipherFlyersMaps(List<dynamic> maps){
-    List<FlyerModel> _flyersList = new List();
+    List<FlyerModel> _flyersList = [];
 
     maps?.forEach((map) {
       _flyersList.add(decipherFlyerMap(map));
@@ -209,7 +209,7 @@ class FlyerModel with ChangeNotifier{
   }
 // -----------------------------------------------------------------------------
   static List<String> getListOfFlyerIDsFromFlyers(List<FlyerModel> flyers){
-    List<String> _flyerIDs = new List();
+    List<String> _flyerIDs = [];
 
     flyers.forEach((flyer) {
       _flyerIDs.add(flyer.flyerID);
@@ -309,7 +309,7 @@ class FlyerModel with ChangeNotifier{
   }
 // -----------------------------------------------------------------------------
   static List<TextEditingController> createHeadlinesControllersForExistingFlyer(FlyerModel flyerModel){
-  List<TextEditingController> _controllers = new List();
+  List<TextEditingController> _controllers = [];
 
   flyerModel.slides.forEach((slide) {
     TextEditingController _controller = new TextEditingController(text: slide.headline);
@@ -320,7 +320,7 @@ class FlyerModel with ChangeNotifier{
 }
 // -----------------------------------------------------------------------------
   static List<TextEditingController> createDescriptionsControllersForExistingFlyer(FlyerModel flyerModel){
-    List<TextEditingController> _controllers = new List();
+    List<TextEditingController> _controllers = [];
 
     flyerModel.slides.forEach((slide) {
       TextEditingController _controller = new TextEditingController(text: slide.description);

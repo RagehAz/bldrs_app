@@ -19,7 +19,7 @@ class ContactModel{
   }
 // -----------------------------------------------------------------------------
   static List<Map<String,Object>> cipherContactsModels(List<ContactModel> contactsList){
-    List<Map<String,Object>> listOfMaps = new List();
+    List<Map<String,Object>> listOfMaps = [];
     contactsList?.forEach((contact) {
       listOfMaps.add(contact.toMap());
     });
@@ -34,7 +34,7 @@ class ContactModel{
   }
 // -----------------------------------------------------------------
   static List<ContactModel> decipherContactsMaps(List<dynamic> maps){
-    List<ContactModel> contacts = new List();
+    List<ContactModel> contacts = [];
     maps?.forEach((map) {
       contacts.add(decipherContactMap(map));
     });
@@ -89,7 +89,7 @@ class ContactModel{
   /// are Phone, Email, WhatsApp, website
   /// which are presented by both string of value and an icon
   static List<ContactModel> getContactsWithStringsFromContacts(List<ContactModel> contacts){
-    List<ContactModel> _contactsList = new List();
+    List<ContactModel> _contactsList = [];
 
     ContactModel _phone = getAContactModelFromContacts(contacts, ContactType.Phone);
     ContactModel _email = getAContactModelFromContacts(contacts, ContactType.Email);
@@ -105,7 +105,7 @@ class ContactModel{
   /// contacts without strings
   /// are Facebook LinkedIn YouTube Instagram Pinterest TikTok Twitter
   static List<ContactModel> getSocialMediaContactsFromContacts(List<ContactModel> contacts){
-    List<ContactModel> _contactsList = new List();
+    List<ContactModel> _contactsList = [];
 
     ContactModel _facebook = getAContactModelFromContacts(contacts, ContactType.Facebook);
     ContactModel _linkedin = getAContactModelFromContacts(contacts, ContactType.LinkedIn);
@@ -129,7 +129,7 @@ class ContactModel{
   /// will let user to only have one phone contact
   static String getFirstPhoneFromContacts(List<ContactModel> contacts){
     // String phone = contacts?.singleWhere((co) => co.contactType == ContactType.Phone, orElse: ()=> null)?.contact;
-    List<String> phones = new List();
+    List<String> phones = [];
     contacts?.forEach((co) {
       if(co.contactType == ContactType.Phone){phones.add(co.contact);}
     });
@@ -167,13 +167,13 @@ class ContactModel{
   }
 // -----------------------------------------------------------------------------
   static List<String> getListOfValuesFromContactsModelsList(List<ContactModel> contacts){
-    List<String> values = new List();
+    List<String> values = [];
     contacts.forEach((co) {values.add(co.contact); });
     return values;
   }
 // -----------------------------------------------------------------------------
   static List<String> getListOfIconzFromContactsModelsList(List<ContactModel> contacts){
-    List<String> icons = new List();
+    List<String> icons = [];
     contacts.forEach((co) {icons.add(Iconizer.superContactIcon(co.contactType));});
     return icons;
   }
@@ -205,7 +205,7 @@ class ContactModel{
     String tikTok,
     String twitter,
   }){
-    List<ContactModel> _newContacts = new List();
+    List<ContactModel> _newContacts = [];
     // ---------------
     addContactIfPossibleToANewContactsList(existingContacts, phone, ContactType.Phone, _newContacts);
     addContactIfPossibleToANewContactsList(existingContacts, email, ContactType.Email, _newContacts);
@@ -222,7 +222,7 @@ class ContactModel{
   }
 // -----------------------------------------------------------------------------
   static List<ContactModel> getContactsFromFirebaseUser(User user){
-    List<ContactModel> _userContacts = new List();
+    List<ContactModel> _userContacts = [];
     String _userEmail = user.email;
     String _userPhone = user.phoneNumber;
 

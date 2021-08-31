@@ -46,7 +46,7 @@ class _LocaleBubbleState extends State<LocaleBubble> {
   void initState() {
     super.initState();
     _userZone = widget.currentZone;
-    CountryProvider _countryPro = Provider.of<CountryProvider>(context, listen: false);
+    // CountryProvider _countryPro = Provider.of<CountryProvider>(context, listen: false);
     _chosenCountryID = _userZone.countryID ;// == null ? _countryPro.currentCountryID : _userZone.countryID;
     _chosenCityID = _userZone.cityID ;// == null ? _countryPro.currentProvinceID : _userZone.provinceID;
     _chosenDistrictID = _userZone.districtID ;// == null ? _countryPro.currentDistrictID : _userZone.districtID;

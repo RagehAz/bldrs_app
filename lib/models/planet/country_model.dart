@@ -66,7 +66,7 @@ class Country{
   }
 // -----------------------------------------------------------------------------
   static List<Country> decipherCountriesMaps(List<dynamic> maps){
-    List<Country> _countries = new List();
+    List<Country> _countries = [];
     maps?.forEach((map) {
       _countries.add(decipherCountryMap(map));
     });

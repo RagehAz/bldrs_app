@@ -41,7 +41,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   UserStatus _currentUserStatus;
   List<TinyBz> _followedTinyBzz;
   List<String> _followedBzzIDs;
-  FlyersProvider _pro;
+  // FlyersProvider _pro;
   bool _isInit = true;
 
 // -----------------------------------------------------------------------------
@@ -73,8 +73,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   @override
   void initState() {
     super.initState();
-    _followedTinyBzz = new List();
-    _followedBzzIDs = new List();
+    _followedTinyBzz = [];
+    _followedBzzIDs = [];
   }
 
 // -----------------------------------------------------------------------------

@@ -62,7 +62,7 @@ class LDBColumn{
   }
 // -----------------------------------------------------------------------------
 //   static List<LDBColumn> getColumnsFromMap({Map<String, Object> map, String primaryKey}){
-//     List<LDBColumn> _columns = new List();
+//     List<LDBColumn> _columns = [];
 //
 //     List<Object> _keys = map.keys.toList();
 //

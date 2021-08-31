@@ -120,7 +120,7 @@ class FlyersProvider with ChangeNotifier {
     List<String> _sponsorsIDs = TextMod.getValuesFromValueAndTrueMap(_sponsorsIDsMap);
 
     /// 3- get tinyBz for each id
-    List<TinyBz> _sponsorsTinyBzz = new List();
+    List<TinyBz> _sponsorsTinyBzz = [];
     for (var id in _sponsorsIDs){
       TinyBz _tinyBz = await BzOps.readTinyBzOps(context: context, bzID: id);
       _sponsorsTinyBzz.add(_tinyBz);
@@ -165,7 +165,7 @@ class FlyersProvider with ChangeNotifier {
 
     List<dynamic> _userBzzIDs = _userModel.myBzzIDs;
 
-    List<TinyBz> _userTinyBzzList = new List();
+    List<TinyBz> _userTinyBzzList = [];
 
     for (var id in _userBzzIDs){
       dynamic _tinyBzMap = await Fire.readDoc(
@@ -192,7 +192,7 @@ class FlyersProvider with ChangeNotifier {
     List<SaveModel> _userSaveModels = await RecordOps.readUserSavesOps(context);
 
     /// from saveModels, get a list of saved tinyFlyers
-    List<TinyFlyer> _savedTinyFlyers = new List();
+    List<TinyFlyer> _savedTinyFlyers = [];
 
     if (_userSaveModels != null || _userSaveModels?.length != 0){
       for (var saveModel in _userSaveModels){
@@ -373,13 +373,13 @@ class FlyersProvider with ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
   List<FlyerModel> getFlyersByFlyersIDs(List<dynamic> flyersIDs){
-    List<FlyerModel> flyers = new List();
+    List<FlyerModel> flyers = [];
     flyersIDs?.forEach((id) {flyers.add(getFlyerByFlyerID(id));});
     return flyers;
   }
 // -----------------------------------------------------------------------------
   List<String> getTinyFlyersIDsByFlyerType(FlyerType flyerType){
-    List<String> flyersIDs = new List();
+    List<String> flyersIDs = [];
     _loadedTinyFlyers?.forEach((fl) {
       if(fl.flyerType == flyerType){flyersIDs.add(fl.flyerID);}
     });
@@ -387,7 +387,7 @@ class FlyersProvider with ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
   List<FlyerModel> getFlyersByFlyerType(FlyerType flyerType){
-    List<FlyerModel> _flyers = new List();
+    List<FlyerModel> _flyers = [];
     List<String> _flyersIDs = getTinyFlyersIDsByFlyerType(flyerType);
     _flyersIDs.forEach((fID) {
       _flyers.add(getFlyerByFlyerID(fID));
@@ -396,7 +396,7 @@ class FlyersProvider with ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
   List<TinyFlyer> getTinyFlyersByFlyerType(FlyerType flyerType){
-    List<TinyFlyer> _tinyFlyers = new List();
+    List<TinyFlyer> _tinyFlyers = [];
     List<String> _flyersIDs = getTinyFlyersIDsByFlyerType(flyerType);
     _flyersIDs.forEach((fID) {
       _tinyFlyers.add(getTinyFlyerByFlyerID(fID));
@@ -434,7 +434,7 @@ class FlyersProvider with ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
 //   List<FlyerModel> getSavedFlyersFromFlyersList (List<FlyerModel> inputList, String userID){
-//     List<FlyerModel> savedFlyers = new List();
+//     List<FlyerModel> savedFlyers = [];
 //     List<FlyerModel> _inputList = inputList.isEmpty || inputList == null ? [] : inputList;
 //     _inputList.forEach((flyer) {
 //       if (getAnkhByFlyerID(flyer.flyerID, userID) == true){savedFlyers.add(flyer);}
@@ -443,7 +443,7 @@ class FlyersProvider with ChangeNotifier {
 //   }
 // -----------------------------------------------------------------------------
   List<FlyerModel> getFlyersByAuthorID(String authorID){
-    List<FlyerModel> authorFlyers = new List();
+    List<FlyerModel> authorFlyers = [];
     for (FlyerModel fl in _loadedFlyers){
       if (fl.tinyAuthor.userID == authorID){
         authorFlyers.add(fl);
@@ -453,15 +453,15 @@ class FlyersProvider with ChangeNotifier {
   }
 // ############################################################################
 //   List<FlyerModel> getFlyersByBzModel(BzModel bz){
-//     List<dynamic> bzFlyersIDs = new List();
+//     List<dynamic> bzFlyersIDs = [];
 //     bz?.bzAuthors?.forEach((au) {
-//       List<dynamic> _publishedFlyersIDs = new List();
+//       List<dynamic> _publishedFlyersIDs = [];
 //       if(au?.publishedFlyersIDs == null || _publishedFlyersIDs == [])
 //       {_publishedFlyersIDs = [];}
 //       else {_publishedFlyersIDs = au?.publishedFlyersIDs;}
 //       bzFlyersIDs.addAll(_publishedFlyersIDs);
 //     });
-//     List<FlyerModel> flyers = new List();
+//     List<FlyerModel> flyers = [];
 //     print('bzFlyersIDs = $bzFlyersIDs');
 //     bzFlyersIDs?.forEach((id) {flyers.add(getFlyerByFlyerID(id));});
 //     return flyers;
@@ -487,7 +487,7 @@ class FlyersProvider with ChangeNotifier {
 // -----------------------------------------------------------------------------
 
   List<BzModel> getBzzOfFlyersList(List<FlyerModel> flyersList){
-    List<BzModel> _bzz = new List();
+    List<BzModel> _bzz = [];
     flyersList.forEach((fl) {
       _bzz.add(getBzByBzID(fl.tinyBz.bzID));
     });
@@ -495,7 +495,7 @@ class FlyersProvider with ChangeNotifier {
 }
 // -----------------------------------------------------------------------------
   List<TinyBz> getTinyBzzOfTinyFlyersList(List<TinyFlyer> tinyFlyersList){
-    List<TinyBz> _tinyBzz = new List();
+    List<TinyBz> _tinyBzz = [];
     tinyFlyersList.forEach((fl) {
       _tinyBzz.add(getTinyBzByBzID(fl?.tinyBz?.bzID));
     });
@@ -503,7 +503,7 @@ class FlyersProvider with ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
   List<BzModel> getBzzByBzzIDs(List<String> bzzIDs){
-    List<BzModel> bzz = new List();
+    List<BzModel> bzz = [];
     bzzIDs.forEach((bzID) {bzz.add(getBzByBzID(bzID));});
     return bzz;
 }

@@ -1,5 +1,4 @@
 import 'package:bldrs/controllers/localization/localizer.dart';
-import 'package:bldrs/controllers/notifications/bldrs_notiz.dart';
 import 'package:bldrs/controllers/notifications/noti_channelz.dart';
 import 'package:bldrs/controllers/router/route_names.dart';
 import 'package:bldrs/controllers/router/router.dart';
@@ -22,7 +21,6 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:bldrs/models/notification/noti_model.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
-import 'package:bldrs/controllers/theme/colorz.dart';
 
 void main() async {
 
@@ -38,6 +36,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp();
+
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   AwesomeNotifications _awesomeNotification = AwesomeNotifications();
 
@@ -55,6 +55,40 @@ void main() async {
 
 }
 
+
+// AndroidNotificationChannel channel;
+// FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  // if (!kIsWeb) {
+  //   channel = const AndroidNotificationChannel(
+  //     'high_importance_channel', // id
+  //     'High Importance Notifications', // title
+  //     'This channel is used for important notifications.', // description
+  //     importance: Importance.high,
+  //   );
+  //
+  //   flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+  //
+  //   /// Create an Android Notification Channel.
+  //   ///
+  //   /// We use this channel in the `AndroidManifest.xml` file to override the
+  //   /// default FCM channel to enable heads up notifications.
+  //   await flutterLocalNotificationsPlugin
+  //       .resolvePlatformSpecificImplementation<
+  //       AndroidFlutterLocalNotificationsPlugin>()
+  //       ?.createNotificationChannel(channel);
+
+    /// Update the iOS foreground notification presentation options to allow
+    /// heads up notifications.
+    await FirebaseMessaging.instance
+        .setForegroundNotificationPresentationOptions(
+      alert: true,
+      badge: true,
+      sound: true,
+    );
+  // }
+    print('Handling a background message ${message.messageId}');
+}
 
 class BldrsApp extends StatefulWidget {
 
@@ -123,55 +157,65 @@ class _BldrsAppState extends State<BldrsApp> {
     _triggerLoading();
   }
 // ---------------------------------------------------------------------------
-  final fbm = FirebaseMessaging();
+  final fbm = FirebaseMessaging.instance;
   void _initializeNotifications(){
-    /// for ios notifications
-    fbm.requestNotificationPermissions();
-    fbm.configure(
 
-      /// when app is running on screen
-        onMessage: (msgMap){
-          // print('Notification : onMessage : msgMap : $msgMap');
-
-          receiveAndActUponNoti(msgMap: msgMap, notiType: NotiType.onMessage);
-
-          return;
-        },
-
-        /// when app running in background and notification tapped while having
-        /// msg['data']['click_action'] == 'FLUTTER_NOTIFICATION_CLICK';
-        onResume: (msgMap){
-          // print('Notification : onResume : msgMap : $msgMap');
-          receiveAndActUponNoti(msgMap: msgMap, notiType: NotiType.onResume);
-          return;
-        },
-
-        // onBackgroundMessage: (msg){
-        //   print('Notification : onBackgroundMessage : msg : $msg');
-        //   return;
-        //   },
-
-        onLaunch: (msgMap){
-          // print('Notification : onLaunch : msgMap : $msgMap');
-          receiveAndActUponNoti(msgMap: msgMap, notiType: NotiType.onLaunch);
-
-          return;
-        }
+    fbm.requestPermission(
+      criticalAlert: true,
+      carPlay: true,
+      announcement: true,
+      sound: true,
+      provisional: true,
+      badge: true,
+      alert: true,
 
     );
+
+    /// when app running in foreground
+    FirebaseMessaging.onMessage.listen((event) {
+      Map<String, dynamic> msgMap = event.data;
+
+      receiveAndActUponNoti(msgMap: msgMap, notiType: NotiType.onMessage);
+
+    });
+
+    /// when launching the app
+    FirebaseMessaging.onMessageOpenedApp.listen((event) {
+
+      // RemoteNotification remoteNotification = event.notification;
+      // String category = event.category;
+      // String collapseKey = event.collapseKey;
+      // bool contentAvailable = event.contentAvailable;
+      // String from = event.from;
+      // String messageId = event.messageId;
+      // String messageType = event.messageType;
+      // bool mutableContent = event.mutableContent;
+      // String senderId = event.senderId;
+      // DateTime sentTime = event.sentTime;
+      // String threadId = event.threadId;
+      // int ttl = event.ttl;
+
+      Map<String, dynamic> msgMap = event.data;
+      receiveAndActUponNoti(msgMap: msgMap, notiType: NotiType.onLaunch);
+    });
+
+    /// when app running in background and notification tapped while having
+    /// msg['data']['click_action'] == 'FLUTTER_NOTIFICATION_CLICK';
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
 
     // fbm.getToken();
     fbm.subscribeToTopic('flyers');
 
   }
 // -----------------------------------------------------------------------------
-  NotiModel _noti;
+//   NotiModel _noti;
   bool _notiIsOn = false;
   void _setNoti(NotiModel noti){
 
     if (noti != null){
       setState(() {
-        _noti = noti;
+        // _noti = noti;
         _notiIsOn = true;
       });
     }
@@ -224,6 +268,7 @@ void receiveAndActUponNoti({dynamic msgMap, NotiType notiType}){
         providers: [
           StreamProvider<UserModel>.value(
               value: UserOps().streamInitialUser(),
+            initialData: UserModel(),
           ),
           ChangeNotifierProvider(
             create: (ctx) => CountryProvider(),

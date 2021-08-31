@@ -143,12 +143,12 @@ class Strips extends StatelessWidget {
     // Color _stripColor = Colorz.White80;
     // double _stripCorner = _aStripThickness * 0.5;
     // Color _currentStripColor = numberOfSlides == 0 ? Colorz. White10 : Colorz.White200;
-    double _boxWidth = boxWidth(flyerZoneWidth);
-    double _boxHeight = boxHeight(flyerZoneWidth);
+    // double _boxWidth = boxWidth(flyerZoneWidth);
+    // double _boxHeight = boxHeight(flyerZoneWidth);
 // -----------------------------------------------------------------------------
-    EdgeInsets _boxMargins = boxMargins(margins: margins, flyerZoneWidth: flyerZoneWidth);
+//     EdgeInsets _boxMargins = boxMargins(margins: margins, flyerZoneWidth: flyerZoneWidth);
     double _stripsTotalLength = stripsTotalLength(flyerZoneWidth);
-    double _allStripsOneSideMargin = stripsOneSideMargin(flyerZoneWidth);
+    // double _allStripsOneSideMargin = stripsOneSideMargin(flyerZoneWidth);
     double _aStripLength = oneStripLength(flyerZoneWidth: flyerZoneWidth, numberOfStrips: numberOfStrips);
 // -----------------------------------------------------------------------------
     bool _tinyMode = Scale.superFlyerTinyMode(context, flyerZoneWidth);

@@ -36,7 +36,7 @@ class BottomDialogButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: true);
+    // CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: true);
 
     double _abPadding =  Ratioz.appBarPadding;
     double _dialogClearWidth = BottomDialog.dialogClearWidth(context);

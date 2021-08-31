@@ -15,7 +15,6 @@ import 'package:bldrs/views/widgets/flyer/parts/progress_bar_parts/strips.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class BrowserPages extends StatefulWidget {
   final double browserZoneHeight;
@@ -45,18 +44,18 @@ class _BrowserPagesState extends State<BrowserPages> {
 
   // List<Group> _groups;
   Group _currentGroup;
-  List<String> _groups = new List();
+  List<String> _groups = [];
   String _currentGroupID;
-  List<Keyword> _keywords = new List();
-  // List<KeywordModel> _selectedKeywords = new List();
+  List<Keyword> _keywords = [];
+  // List<KeywordModel> _selectedKeywords = [];
 
-  // List<Widget> _pages = new List();
+  // List<Widget> _pages = [];
 
   PageController _pageController;
-  ItemScrollController _scrollController;
-  ItemPositionsListener _itemPositionListener;
+  // ItemScrollController _scrollController;
+  // ItemPositionsListener _itemPositionListener;
 
-  Keyword _highlightedKeyword;
+  // Keyword _highlightedKeyword;
 
 // -----------------------------------------------------------------------------
   @override
@@ -68,8 +67,8 @@ class _BrowserPagesState extends State<BrowserPages> {
     // print('widget.filtersModels : ${widget.filtersModels}');
 
     _pageController = new PageController();
-    _scrollController = ItemScrollController();
-    _itemPositionListener = ItemPositionsListener.create();
+    // _scrollController = ItemScrollController();
+    // _itemPositionListener = ItemPositionsListener.create();
   }
 // -----------------------------------------------------------------------------
   @override
@@ -114,7 +113,7 @@ class _BrowserPagesState extends State<BrowserPages> {
       _currentGroup = group;
       _groups = Keyword.getGroupsIDsFromGroup(group);
       _currentGroupID = null;
-      _keywords = new List();
+      _keywords = [];
     });
 
     if(_groups.isEmpty){

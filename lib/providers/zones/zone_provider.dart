@@ -60,7 +60,7 @@ class CountryProvider with ChangeNotifier{
 // -----------------------------------------------------------------------------
   /// get available countries
   List<Map<String,String>> getAvailableCountries(BuildContext context){
-    List<Map<String,String>> _countriesMaps = new List();
+    List<Map<String,String>> _countriesMaps = [];
     _countries.forEach((co) {
       if (co.isActivated){_countriesMaps.add(
         { "id" : co.iso3, "value" : Localizer.translate(context, co.iso3)}
@@ -71,7 +71,7 @@ class CountryProvider with ChangeNotifier{
 // -----------------------------------------------------------------------------
   /// get available countries
   List<String> getCountriesIDsByContinent({BuildContext context,String continent}){
-    List<String> _countriesIDs = new List();
+    List<String> _countriesIDs = [];
 
     _countries.forEach((co) {
       if (
@@ -86,7 +86,7 @@ class CountryProvider with ChangeNotifier{
 // -----------------------------------------------------------------------------
   /// get Cities list by country iso3
   List<Map<String,String>> getCitiesNamesMapsByIso3(BuildContext context, String iso3){
-    List<Map<String,String>> _citiesNames = new List();
+    List<Map<String,String>> _citiesNames = [];
     String _currentLanguageCode = Wordz.languageCode(context);
 
     _cities.forEach((pr) {
@@ -107,7 +107,7 @@ class CountryProvider with ChangeNotifier{
   /// get Areas list by City name
   /// uses cityName in English as ID
   List<Map<String, String>> getDistrictsNameMapsByCityID(BuildContext context, String cityID){
-    List<Map<String, String>> _districtsNames = new List();
+    List<Map<String, String>> _districtsNames = [];
     String _currentLanguageCode = Wordz.languageCode(context);
     _districts.forEach((ar) {
       if(ar.city == cityID){
@@ -120,7 +120,7 @@ class CountryProvider with ChangeNotifier{
   }
 // -----------------------------------------------------------------------------
   List<District> getDistrictsByCityID(BuildContext context, String cityID){
-    List<District> _cityDistricts = new List();
+    List<District> _cityDistricts = [];
 
     _districts.forEach((ar) {
       if(ar.city == cityID){

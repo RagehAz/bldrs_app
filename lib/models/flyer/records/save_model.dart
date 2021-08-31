@@ -75,7 +75,7 @@ Map<String, dynamic> toFlyerSaveMap(){
   }
 // -----------------------------------------------------------------------------
   static List<SaveModel> decipherUserSavesMap(dynamic userSavesMap){
-  List<SaveModel> _savesModels = new List();
+  List<SaveModel> _savesModels = [];
 
   List<dynamic> _flyersIDs = userSavesMap.keys.toList();
   List<dynamic> _savesMaps = userSavesMap.values.toList();
@@ -95,7 +95,7 @@ Map<String, dynamic> toFlyerSaveMap(){
 // -----------------------------------------------------------------------------
   static List<SaveModel> editSavesModels(List<SaveModel> originalSavesModels, String flyerID, int slideIndex){
 
-    List<SaveModel> _updatedSavesModels = new List();
+    List<SaveModel> _updatedSavesModels = [];
 
     /// --- IF FLYER WAS NEVER SAVED
     if (_flyerIsSaved(originalSavesModels, flyerID) == null){

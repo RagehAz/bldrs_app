@@ -83,7 +83,7 @@ class FilterKeywords {
   }
 // -----------------------------------------------------------------------------
   static  List<Keyword> products(){
-    List<Keyword> _keywords = new List();
+    List<Keyword> _keywords = [];
 
     Sequence.productsSequence().forEach((group) {
       String _groupID = group.titleID;

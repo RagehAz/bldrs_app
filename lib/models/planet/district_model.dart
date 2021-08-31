@@ -36,7 +36,7 @@ class District{
   }
 // -----------------------------------------------------------------------------
   static List<Map<String,dynamic>> cipherDistricts(List<District> districts){
-    List<Map<String, dynamic>> _districtsList = new List();
+    List<Map<String, dynamic>> _districtsList = [];
     districts.forEach((ar) {
       _districtsList.add(ar.toMap());
     });
@@ -56,7 +56,7 @@ class District{
   }
 // -----------------------------------------------------------------------------
   static List<District> decipherDistrictsMaps(List<dynamic> maps){
-    List<District> _districts = new List();
+    List<District> _districts = [];
     maps?.forEach((map) {
       _districts.add(decipherDistrictMap(map));
     });

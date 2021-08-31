@@ -63,6 +63,7 @@ class UserModel {
 // -------------------------
       'myBzzIDs' : myBzzIDs,
       'emailIsVerified' : emailIsVerified,
+
     };
   }
 // -----------------------------------------------------------------------------
@@ -146,7 +147,7 @@ class UserModel {
       case 1:   return   AuthBy.facebook; break;
       case 2:   return   AuthBy.apple; break;
       case 3:   return   AuthBy.google; break;
-      default : return   null;
+      default : return   AuthBy.Unknown;
     }
   }
 // -----------------------------------------------------------------------------
@@ -272,7 +273,7 @@ class UserModel {
 }
 // -----------------------------------------------------------------------------
   static List<String> missingFields(UserModel userModel){
-    List<String> _missingFields = new List();
+    List<String> _missingFields = [];
 
     if (userModel?.name == null || userModel?.name == ''){_missingFields.add('name');}
     if (userModel?.pic == null || userModel?.pic == ''){_missingFields.add('pic');}
@@ -308,5 +309,6 @@ enum AuthBy {
   facebook,
   google,
   apple,
+  Unknown,
 }
 // -----------------------------------------------------------------------------

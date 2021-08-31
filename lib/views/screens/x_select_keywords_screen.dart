@@ -4,7 +4,6 @@ import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
-import 'package:bldrs/providers/zones/zone_provider.dart';
 import 'package:bldrs/views/widgets/dialogs/nav_dialog/nav_dialog.dart';
 import 'package:bldrs/views/widgets/keywords/group_expansion_tile.dart';
 import 'package:bldrs/views/widgets/keywords/selected_keywords_bar.dart';
@@ -12,7 +11,6 @@ import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/xxx_LABORATORY/flyer_browser/bldrs_expansion_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/models/keywords/groups.dart';
-import 'package:provider/provider.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class SelectKeywordsScreen extends StatefulWidget {
@@ -31,14 +29,14 @@ class SelectKeywordsScreen extends StatefulWidget {
 }
 
 class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
-  List<Keyword> _selectedKeywords = new List();
+  List<Keyword> _selectedKeywords = [];
   List<Group> _groups;
-  CountryProvider _countryPro;
+  // CountryProvider _countryPro;
 // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
-    _countryPro =  Provider.of<CountryProvider>(context, listen: false);
+    // _countryPro =  Provider.of<CountryProvider>(context, listen: false);
     _groups = Group.getGroupsByFlyerType(flyerType: widget.flyerType);
 
     print('_groups.length = ${_groups?.length} ,, and _groups[0].groupID is : ${_groups[0].groupID}');
@@ -50,7 +48,7 @@ class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
     generateExpansionKeys();
   }
 // -----------------------------------------------------------------------------
-  List<GlobalKey<BldrsExpansionTileState>> _expansionKeys = new List();
+  List<GlobalKey<BldrsExpansionTileState>> _expansionKeys = [];
   void generateExpansionKeys(){
     _groups.forEach((x) {
       _expansionKeys.add(new GlobalKey());
@@ -69,7 +67,7 @@ class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
   }
 // -----------------------------------------------------------------------------
   List<String> getKeywordIDs(List<Keyword> _keywordModels){
-    List<String> _keywordIDs = new List();
+    List<String> _keywordIDs = [];
 
     _keywordModels.forEach((key) {
       _keywordIDs.add(key.keywordID);
@@ -225,8 +223,8 @@ class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
 // -----------------------------------------------------------------------------
   Future<void> _showZoneDialog({String cityName}) async {
 
-    String _cityID = _countryPro.getCityIDByCityName(context, cityName);
-    List<Map<String, dynamic>> _areasMaps = _countryPro.getDistrictsNameMapsByCityID(context, _cityID);
+    // String _cityID = _countryPro.getCityIDByCityName(context, cityName);
+    // List<Map<String, dynamic>> _areasMaps = _countryPro.getDistrictsNameMapsByCityID(context, _cityID);
 
     // await superDialog(
     //   context: context,

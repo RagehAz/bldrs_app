@@ -44,7 +44,7 @@ class Sequence {
 
     [] ;
 
-    List<Sequence> _activeSequences = new List();
+    List<Sequence> _activeSequences = [];
 
     _sequencesBySection.forEach((sequence) {
       if(sequence.isActive == true){

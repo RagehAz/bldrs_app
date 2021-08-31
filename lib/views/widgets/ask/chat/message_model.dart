@@ -30,7 +30,7 @@ class MessageModel{
   }
 // -----------------------------------------------------------------------------
   static List<dynamic> cipherMessages(List<MessageModel> messages){
-    List<Map<String, dynamic>> _messagesMaps = new List();
+    List<Map<String, dynamic>> _messagesMaps = [];
     messages.forEach((msg) {
       _messagesMaps.add(msg.toMap());
     });
@@ -46,7 +46,7 @@ class MessageModel{
   }
 // -----------------------------------------------------------------------------
   static List<MessageModel> decipherMessages(List<dynamic> msgsMaps){
-    List<MessageModel> _postsModels = new List();
+    List<MessageModel> _postsModels = [];
 
     msgsMaps.forEach((postMap) {
       _postsModels.add(decipherMessage(postMap));

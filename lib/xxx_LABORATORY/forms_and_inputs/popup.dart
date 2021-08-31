@@ -5,7 +5,6 @@ import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/providers/users/user_streamer.dart';
 import 'package:bldrs/views/widgets/dialogs/nav_dialog/nav_dialog.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
-import 'package:bldrs/views/widgets/nav_bar/nav_bar.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
@@ -22,7 +21,7 @@ class _PopUpTestScreenState extends State<PopUpTestScreen> {
     double _screenWidth = Scale.superScreenWidth(context);
     // double _screenHeight = Scale.superScreenHeight(context);
 
-    BarType _barType = BarType.minWithText;
+    // BarType _barType = BarType.minWithText;
 
     Widget _spacer = SizedBox(height: 20,);
 
@@ -58,12 +57,12 @@ class _PopUpTestScreenState extends State<PopUpTestScreen> {
                 title: SuperVerse(verse: 'fuck you ?',),
                 content: SuperVerse(verse: 'a77a ya man',),
                 actions: [
-                  FlatButton(child: Text('no'), onPressed: (){
-                    Navigator.of(ctx).pop(false);
-                  },),
-                  FlatButton(child: Text('yes'), onPressed: (){
-                    Navigator.of(ctx).pop(true);
-                  },),
+                  // FlatButton(child: Text('no'), onPressed: (){
+                  //   Navigator.of(ctx).pop(false);
+                  // },),
+                  // FlatButton(child: Text('yes'), onPressed: (){
+                  //   Navigator.of(ctx).pop(true);
+                  // },),
                 ],
               ));
             },

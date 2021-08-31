@@ -121,7 +121,7 @@ class DreamBox extends StatelessWidget {
     Color _imageSaturationColor =
         blackAndWhite == true ? Colorz.Grey225 : Colorz.Nothing;
 // -----------------------------------------------------------------------------
-    double _verseIconSpacing = verse != null ? height * 0.3 * iconSizeFactor * verseScaleFactor : 0;
+//     double _verseIconSpacing = verse != null ? height * 0.3 * iconSizeFactor * verseScaleFactor : 0;
 // -----------------------------------------------------------------------------
     double _svgGraphicWidth = height * _sizeFactor;
     double _jpgGraphicWidth = height * _sizeFactor;
@@ -133,40 +133,40 @@ class DreamBox extends StatelessWidget {
 // -----------------------------------------------------------------------------
     double _iconMargin = verse == null || icon == null ? 0 : (height - _graphicWidth)/2;
 // -----------------------------------------------------------------------------
-    double _verseWidth = width != null ? width - (_iconMargin * 2) - _graphicWidth - ((_verseIconSpacing * 2) + _iconMargin) : width;
+//     double _verseWidth = width != null ? width - (_iconMargin * 2) - _graphicWidth - ((_verseIconSpacing * 2) + _iconMargin) : width;
     int _verseSize =  iconSizeFactor == 1 ? 4 : 4;
 // -----------------------------------------------------------------------------
-    BorderRadius _getIconCornerByRadius(){
-      BorderRadius _IconCornerAsBorderRadius;
-      double _iconCorners;
-
-      /// IF ICON IS ROUNDED
-      if(iconRounded == true){
-        _iconCorners =  (Borderers.getCornersAsDouble(corners) - _iconMargin);
-        _IconCornerAsBorderRadius = Borderers.superBorderAll(context, _iconCorners);
-      }
-
-      /// IF CUSTOM BORDER RADIUS PASSES THROUGH corners
-      else if (corners.runtimeType ==  BorderRadius){
-        BorderRadius _cornerBorders;
-
-        _IconCornerAsBorderRadius = Borderers.superBorderOnly(
-          context: context,
-          enTopRight: corners.topRight.x - _iconMargin,
-          enTopLeft: corners.topLeft.x - _iconMargin,
-          enBottomRight: corners.bottomRight.x - _iconMargin,
-          enBottomLeft: corners.bottomLeft.x - _iconMargin,
-        );
-      }
-
-      /// IF corners IS DOUBLE AND ICON IS NOT ROUNDED
-      else {
-        _IconCornerAsBorderRadius = Borderers.superBorderAll(context, 0);
-      }
-
-
-      return _IconCornerAsBorderRadius;
-    }
+//     BorderRadius _getIconCornerByRadius(){
+//       BorderRadius _IconCornerAsBorderRadius;
+//       double _iconCorners;
+//
+//       /// IF ICON IS ROUNDED
+//       if(iconRounded == true){
+//         _iconCorners =  (Borderers.getCornersAsDouble(corners) - _iconMargin);
+//         _IconCornerAsBorderRadius = Borderers.superBorderAll(context, _iconCorners);
+//       }
+//
+//       /// IF CUSTOM BORDER RADIUS PASSES THROUGH corners
+//       else if (corners.runtimeType ==  BorderRadius){
+//         BorderRadius _cornerBorders;
+//
+//         _IconCornerAsBorderRadius = Borderers.superBorderOnly(
+//           context: context,
+//           enTopRight: corners.topRight.x - _iconMargin,
+//           enTopLeft: corners.topLeft.x - _iconMargin,
+//           enBottomRight: corners.bottomRight.x - _iconMargin,
+//           enBottomLeft: corners.bottomLeft.x - _iconMargin,
+//         );
+//       }
+//
+//       /// IF corners IS DOUBLE AND ICON IS NOT ROUNDED
+//       else {
+//         _IconCornerAsBorderRadius = Borderers.superBorderAll(context, 0);
+//       }
+//
+//
+//       return _IconCornerAsBorderRadius;
+//     }
     BorderRadius _iconCorners = Borderers.getCornersAsBorderRadius(context, corners);
 // -----------------------------------------------------------------------------
     Color _boxColor =
@@ -186,22 +186,22 @@ class DreamBox extends StatelessWidget {
 // -----------------------------------------------------------------------------
     EdgeInsets _boxMargins = Scale.superMargins(margins : margins);
 // -----------------------------------------------------------------------------
-    CrossAxisAlignment _versesCrossAlignment =
-    icon == null && textDirection == null && secondLine == null ? CrossAxisAlignment.center
-        :
-    textDirection != null ? CrossAxisAlignment.end // dunno why
-        :
-    (icon != null && secondLine != null) || (verseCentered == false) ? CrossAxisAlignment.start
-        :
-    CrossAxisAlignment.center; // verseCentered
+//     CrossAxisAlignment _versesCrossAlignment =
+//     icon == null && textDirection == null && secondLine == null ? CrossAxisAlignment.center
+//         :
+//     textDirection != null ? CrossAxisAlignment.end // dunno why
+//         :
+//     (icon != null && secondLine != null) || (verseCentered == false) ? CrossAxisAlignment.start
+//         :
+//     CrossAxisAlignment.center; // verseCentered
 // -----------------------------------------------------------------------------
     /// underline should only available if dreambox is portrait && verse is null && secondVerse is null
-    double _iconBoxHeight = width ?? 0;
-    double _underLineHeight = height?? 0 - _iconBoxHeight;
-    double _underLineTopMargin = underLine == null ? 0 :
-    ObjectChecker.objectIsSVG(icon) ? (width - (_underLineHeight * 0.1)) * 1 : // (width - ((width - _graphicWidth)/2)) * 0.0 :
-    width;
-    double _underlineHeight = underLine == null ? 0 : height - _underLineTopMargin;
+    // double _iconBoxHeight = width ?? 0;
+    // double _underLineHeight = height?? 0 - _iconBoxHeight;
+    // double _underLineTopMargin = underLine == null ? 0 :
+    // ObjectChecker.objectIsSVG(icon) ? (width - (_underLineHeight * 0.1)) * 1 : // (width - ((width - _graphicWidth)/2)) * 0.0 :
+    // width;
+    // double _underlineHeight = underLine == null ? 0 : height - _underLineTopMargin;
 // -----------------------------------------------------------------------------
 
     BorderRadius _cornersAsBorderRadius = Borderers.getCornersAsBorderRadius(context, corners);

@@ -41,7 +41,7 @@ class UserBalloon extends StatelessWidget {
 
   Widget _balloon([UserModel userModel]){
 
-    CustomClipper _nullClipper;
+    // CustomClipper _nullClipper;
 
     return
       Container(
