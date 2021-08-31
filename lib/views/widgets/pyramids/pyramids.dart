@@ -20,7 +20,7 @@ class Pyramids extends StatefulWidget {
 
 class _PyramidsState extends State<Pyramids> with TickerProviderStateMixin {
 AnimationController _controller;
-Animation _pyramidsAnimation;
+// Animation _pyramidsAnimation;
 int _fadeCycleDuration = 750;
 
   @override

@@ -31,6 +31,9 @@ class NotiChannelz{
   }
 // -----------------------------------------------------------------------------
   static Future<void> createScheduledNotification() async {
+
+
+
     await AwesomeNotifications().createNotification(
 
         content: NotificationContent(
@@ -55,14 +58,33 @@ class NotiChannelz{
           ),
         ],
 
-        schedule: NotificationSchedule(
-          allowWhileIdle: true,
-          // crontabSchedule:
-          initialDateTime: DateTime.now(),
-          preciseSchedules: <DateTime>[
-            DateTime.now(),
-          ],
+        schedule: NotificationCalendar(
+          repeats: true,
+          weekday: 1,
+          hour: 5,
+          minute: 10,
+          second: 10,
+          millisecond: 10,
+          month: 8,
+          // timeZone:
+          // weekOfMonth:,
+          // weekOfYear: ,
+          // year: ,
+          // day: ,
+          // allowWhileIdle: ,
+          // era: ,
+          // timeZone: ,
         ),
+
+        // NotificationSchedule(
+        //   allowWhileIdle: true,
+        //   // crontabSchedule:
+        //   initialDateTime: DateTime.now(),
+        //   preciseSchedules: <DateTime>[
+        //     DateTime.now(),
+        //   ],
+        // ),
+
     );
   }
 // -----------------------------------------------------------------------------

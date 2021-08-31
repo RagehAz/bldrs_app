@@ -43,7 +43,7 @@ class BldrsExpansionTile extends StatefulWidget {
 
 class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTickerProviderStateMixin {
   AnimationController _controller;
-  CurvedAnimation _easeOutAnimation;
+  // CurvedAnimation _easeOutAnimation;
   CurvedAnimation _easeInAnimation;
   ColorTween _borderColor;
   ColorTween _titleColorTween;
@@ -54,9 +54,9 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
   bool _isExpanded = false;
   static const Duration _kExpand = const Duration(milliseconds: 200);
   PageController _pageController;
-  List<String> _groupsIDs = new List();
+  List<String> _groupsIDs = [];
   String _currentGroupID;
-  List<Keyword> _currentKeywords = new List();
+  List<Keyword> _currentKeywords = [];
 // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -65,7 +65,7 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
     _groupsIDs = Keyword.getGroupsIDsFromGroup(widget.group);
 
     _controller = new AnimationController(duration: _kExpand, vsync: this);
-    _easeOutAnimation = new CurvedAnimation(parent: _controller, curve: Curves.easeOut);
+    // _easeOutAnimation = new CurvedAnimation(parent: _controller, curve: Curves.easeOut);
     _easeInAnimation = new CurvedAnimation(parent: _controller, curve: Curves.easeIn);
     _borderColor = new ColorTween();
     _titleColorTween = new ColorTween();
@@ -322,7 +322,7 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
                     Keyword _keyword = _currentKeywords[index];
                     bool _keywordIsSelected = widget.selectedKeywords.contains(_keyword);
 
-                    List<String> _subGroups = new List();
+                    List<String> _subGroups = [];
 
                     _currentKeywords.forEach((keyword) {
                       if(!_subGroups.contains(keyword.groupID)){

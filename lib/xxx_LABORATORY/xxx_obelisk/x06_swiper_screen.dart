@@ -1,4 +1,3 @@
-import 'package:bldrs/controllers/drafters/sliders.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
@@ -55,23 +54,23 @@ class _SwiperScreenState extends State<SwiperScreen> {
     });
   }
 // -----------------------------------------------------------------------------
-  void _goToNextFlyer(){
-    _swiperController.next(animation: true);
-  }
+//   void _goToNextFlyer(){
+//     _swiperController.next(animation: true);
+//   }
 // -----------------------------------------------------------------------------
-  void _goToLastFlyer(){
-    _swiperController.previous(animation: true);
-  }
+//   void _goToLastFlyer(){
+//     _swiperController.previous(animation: true);
+//   }
 // -----------------------------------------------------------------------------
-  void _swipeFlyer(SwipeDirection swipeDirection){
-
-  if (swipeDirection == SwipeDirection.next){
-    _goToNextFlyer();
-  } else if (swipeDirection == SwipeDirection.back){
-    _goToLastFlyer();
-  }
-
-  }
+//   void _swipeFlyer(SwipeDirection swipeDirection){
+//
+//   if (swipeDirection == SwipeDirection.next){
+//     _goToNextFlyer();
+//   } else if (swipeDirection == SwipeDirection.back){
+//     _goToLastFlyer();
+//   }
+//
+//   }
 // -----------------------------------------------------------------------------
 //   void _changePage(FlyerType flyerType){
 //   setState(() {
@@ -87,7 +86,7 @@ class _SwiperScreenState extends State<SwiperScreen> {
     double _flyerSizeFactor = 0.8;
 // -----------------------------------------------------------------------------
     final FlyersProvider pro = Provider.of<FlyersProvider>(context, listen: false);
-    final List<TinyFlyer> _allTinyFlyers = pro.getAllTinyFlyers;
+    // final List<TinyFlyer> _allTinyFlyers = pro.getAllTinyFlyers;
 // -----------------------------------------------------------------------------
     List<FlyerType> _flyerTypesList = FlyerTypeClass.flyerTypesList;
 // -----------------------------------------------------------------------------

@@ -133,7 +133,7 @@ class GroupTileState extends State<GroupTile> with SingleTickerProviderStateMixi
     //------------------------------------------------------------o
     final bool _closed = _isExpanded == false && _controller.isDismissed == true;
     //------------------------------------------------------------o
-    final double _iconSize = SubGroupTile.calculateTitleIconSize(icon: widget.icon);
+    // final double _iconSize = SubGroupTile.calculateTitleIconSize(icon: widget.icon);
     //------------------------------------------------------------o
     final String _groupID = widget.group.groupID;
     List<String> _subGroupsIDs = Keyword.getSubGroupsIDsFromKeywords(keywords: widget.group.keywords);

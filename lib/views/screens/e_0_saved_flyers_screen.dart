@@ -76,7 +76,7 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen> with SingleTicker
   Widget build(BuildContext context) {
 
     double _screenWidth = Scale.superScreenWidth(context);
-    double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
+    // double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
 
 
     double _sectionBarHeight = Ratioz.appBarButtonSize + Ratioz.appBarPadding;
@@ -202,7 +202,7 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen> with SingleTicker
         context: context,
       );
 
-      double _screenWidth = Scale.superScreenWidth(context);
+      // double _screenWidth = Scale.superScreenWidth(context);
 
       return
         GridView.builder(

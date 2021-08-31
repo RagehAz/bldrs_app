@@ -26,18 +26,18 @@ class CustomBoxShadow extends BoxShadow {
 }
 // -----------------------------------------------------------------------------
 List<BoxShadow> superFollowBtShadow(double btHeight){
-  List<BoxShadow> _btShadow = <BoxShadow>[
-    CustomBoxShadow(
-        color: Colorz.Black125,
-        offset: new Offset(0, 0),
-        blurRadius: btHeight * 0.1,
-        blurStyle: BlurStyle.outer),
-    CustomBoxShadow(
-        color: Colorz.White80,
-        offset: new Offset(0, 0),
-        blurRadius: btHeight * 0.1,
-        blurStyle: BlurStyle.outer),
-  ];
+  // List<BoxShadow> _btShadow = <BoxShadow>[
+  //   CustomBoxShadow(
+  //       color: Colorz.Black125,
+  //       offset: new Offset(0, 0),
+  //       blurRadius: btHeight * 0.1,
+  //       blurStyle: BlurStyle.outer),
+  //   CustomBoxShadow(
+  //       color: Colorz.White80,
+  //       offset: new Offset(0, 0),
+  //       blurRadius: btHeight * 0.1,
+  //       blurStyle: BlurStyle.outer),
+  // ];
   // return _btShadow;
   /// TASK : optimize shadows
   return null;

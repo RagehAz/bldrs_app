@@ -10,7 +10,6 @@ import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/keywords/groups.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
-import 'package:bldrs/providers/zones/zone_provider.dart';
 import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
 import 'package:bldrs/views/screens/c_2_search_filters_screen.dart';
 import 'package:bldrs/views/widgets/browser/browser_pages.dart';
@@ -23,8 +22,6 @@ import 'package:provider/provider.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:bldrs/views/widgets/nav_bar/bar_button.dart';
 import 'package:bldrs/views/widgets/nav_bar/nav_bar.dart';
-import 'package:bldrs/xxx_LABORATORY/flyer_browser/bldrs_expansion_tile.dart';
-
 
 class SearchScreen extends StatefulWidget {
 
@@ -33,32 +30,32 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  // List<FilterModel> _filters = new List();
-  // List<KeywordModel> _keywords = new List();
-  List<Keyword> _selectedKeywords = new List();
+  // List<FilterModel> _filters = [];
+  // List<KeywordModel> _keywords = [];
+  List<Keyword> _selectedKeywords = [];
   Keyword _highlightedKeyword;
   bool _browserIsOn = false;
   String _currentGroupID;
   ItemScrollController _scrollController;
   ItemPositionsListener _itemPositionListener;
-  CountryProvider _countryPro;
+  // CountryProvider _countryPro;
   // FlyersProvider _flyersProvider;
   // FlyerType _currentFlyerType;
-  List<GlobalKey<BldrsExpansionTileState>> _expansionKeys = new List();
+  // List<GlobalKey<BldrsExpansionTileState>> _expansionKeys = [];
 // -----------------------------------------------------------------------------
   /// --- LOADING BLOCK
   bool _loading = false;
-  void _triggerLoading(){
-    setState(() {_loading = !_loading;});
-    _loading == true?
-    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
-  }
+//   void _triggerLoading(){
+//     setState(() {_loading = !_loading;});
+//     _loading == true?
+//     print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+//   }
 // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
     // _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
-    _countryPro =  Provider.of<CountryProvider>(context, listen: false);
+    // _countryPro =  Provider.of<CountryProvider>(context, listen: false);
 
     // BldrsSection _bldrsSection = _flyersProvider.getCurrentSection;
     // _currentFlyerType = FilterModel.getDefaultFlyerTypeBySection(bldrsSection: _bldrsSection);
@@ -255,22 +252,22 @@ class _SearchScreenState extends State<SearchScreen> {
     // ];
   }
 // -----------------------------------------------------------------------------
-  List<Keyword> _generateFilterKeywords(List<Group> filtersModels){
-
-    Group _currentFilterModel = filtersModels.singleWhere((filterModel) => filterModel.groupID == _currentGroupID, orElse: () => null);
-
-    List<Keyword> _currentFilterKeywords = _currentFilterModel == null ? [] : _currentFilterModel.keywords;
-
-    return _currentFilterKeywords;
-  }
+//   List<Keyword> _generateFilterKeywords(List<Group> filtersModels){
+//
+//     Group _currentFilterModel = filtersModels.singleWhere((filterModel) => filterModel.groupID == _currentGroupID, orElse: () => null);
+//
+//     List<Keyword> _currentFilterKeywords = _currentFilterModel == null ? [] : _currentFilterModel.keywords;
+//
+//     return _currentFilterKeywords;
+//   }
 // -----------------------------------------------------------------------------
-  void _selectGroup(Group group){
-
-    setState(() {
-      _currentGroupID = group.groupID;
-    });
-
-  }
+//   void _selectGroup(Group group){
+//
+//     setState(() {
+//       _currentGroupID = group.groupID;
+//     });
+//
+//   }
 // -----------------------------------------------------------------------------
   Future<void> _removeKeyword(int index, List<Group> filtersModels) async {
 
@@ -384,8 +381,8 @@ class _SearchScreenState extends State<SearchScreen> {
 // -----------------------------------------------------------------------------
   Future<void> _showZoneDialog({String cityName}) async {
 
-    String _cityID = _countryPro.getCityIDByCityName(context, cityName);
-    List<Map<String, dynamic>> _areasMaps = _countryPro.getDistrictsNameMapsByCityID(context, _cityID);
+    // String _cityID = _countryPro.getCityIDByCityName(context, cityName);
+    // List<Map<String, dynamic>> _areasMaps = _countryPro.getDistrictsNameMapsByCityID(context, _cityID);
 
     // await superDialog(
     //   context: context,
@@ -512,12 +509,12 @@ class _SearchScreenState extends State<SearchScreen> {
     double _browserZoneMargins = _browserIsOn == true ? _buttonPadding : _buttonPadding;
     BorderRadius _browserZoneCorners = Borderers.superBorderAll(context, Ratioz.appBarCorner);
 
-    double _browserScrollZoneWidth = _browserZoneWidth * 0.96;
-    double _browserScrollZoneHeight = _browserZoneHeight * 0.94;
+    // double _browserScrollZoneWidth = _browserZoneWidth * 0.96;
+    // double _browserScrollZoneHeight = _browserZoneHeight * 0.94;
 
-    double _filtersZoneWidth = (_browserScrollZoneWidth - _buttonPadding) / 2 ;
+    // double _filtersZoneWidth = (_browserScrollZoneWidth - _buttonPadding) / 2 ;
 
-    List<Keyword> _currentFilterKeywords = _generateFilterKeywords(_filtersBySection);
+    // List<Keyword> _currentFilterKeywords = _generateFilterKeywords(_filtersBySection);
 
     double _screenHeight = Scale.superScreenHeight(context);
     double _screenWidth = Scale.superScreenWidth(context);

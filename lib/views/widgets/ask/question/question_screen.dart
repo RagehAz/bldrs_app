@@ -15,11 +15,11 @@ class _QuestionScreenState extends State<QuestionScreen> {
 // -----------------------------------------------------------------------------
   /// --- LOADING BLOCK
   bool _loading = false;
-  void _triggerLoading(){
-    setState(() {_loading = !_loading;});
-    _loading == true?
-    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
-  }
+  // void _triggerLoading(){
+  //   setState(() {_loading = !_loading;});
+  //   _loading == true?
+  //   print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+  // }
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

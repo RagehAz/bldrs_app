@@ -55,7 +55,7 @@ class SequencesWall extends StatelessWidget {
 
     else {
       String _keywordID = sequence.secondKeywords.keywords[index].keywordID;
-      Keyword _keyword = Keyword.getKeywordByKeywordID(_keywordID);
+      // Keyword _keyword = Keyword.getKeywordByKeywordID(_keywordID);
       String _keywordName = Keyword.getKeywordNameByKeywordID(context, _keywordID);
       String _sequenceName = Keyword.getKeywordNameByKeywordID(context, sequence.titleID);
       _stackTitle = '$_sequenceName - ${_keywordName} - ${Wordz.inn(context)} $_provinceName';

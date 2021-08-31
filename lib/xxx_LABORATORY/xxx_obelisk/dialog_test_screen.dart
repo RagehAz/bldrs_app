@@ -136,7 +136,7 @@ class DialogTestScreen extends StatelessWidget {
                             );
 
                             List<BzModel> _bzzToDeactivate = _userBzzMap['bzzToDeactivate'];
-                            List<BzModel> _bzzToKeep = _userBzzMap['bzzToKeep'];
+                            // List<BzModel> _bzzToKeep = _userBzzMap['bzzToKeep'];
 
                             await Dialogz.flyersDeactivationDialog(
                               context: context,

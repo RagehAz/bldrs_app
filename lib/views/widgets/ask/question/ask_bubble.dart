@@ -11,25 +11,21 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
-import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/providers/users/user_streamer.dart';
 import 'package:bldrs/views/widgets/ask/question/question_model.dart';
 import 'package:bldrs/views/widgets/ask/question/question_ops.dart';
-import 'package:bldrs/views/widgets/ask/question/questions_provider.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/balloons/user_balloon.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/views/widgets/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/nav_dialog/nav_dialog.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/bz_logo.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_text_field.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class QuestionBubble extends StatefulWidget {
   final BzType bzType;
@@ -52,30 +48,30 @@ class _QuestionBubbleState extends State<QuestionBubble> {
   List<Keyword> _keywords;
   FlyerType _questionType;
 // -----------------------------------------------------------------------------
-  /// --- FUTURE LOADING BLOCK
-  bool _loading = false;
-  Future <void> _triggerLoading({Function function}) async {
-
-    if(mounted){
-
-      if (function == null){
-        setState(() {
-          _loading = !_loading;
-        });
-      }
-
-      else {
-        setState(() {
-          _loading = !_loading;
-          function();
-        });
-      }
-
-    }
-
-    _loading == true?
-    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
-  }
+//   /// --- FUTURE LOADING BLOCK
+//   bool _loading = false;
+//   Future <void> _triggerLoading({Function function}) async {
+//
+//     if(mounted){
+//
+//       if (function == null){
+//         setState(() {
+//           _loading = !_loading;
+//         });
+//       }
+//
+//       else {
+//         setState(() {
+//           _loading = !_loading;
+//           function();
+//         });
+//       }
+//
+//     }
+//
+//     _loading == true?
+//     print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+//   }
 // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -84,7 +80,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
     _titleController = new TextEditingController();
     _bodyController.addListener(textListener);
 
-    _questionPics = new List();
+    _questionPics = [];
   }
   // ----------------------------------------------------------------------
   @override
@@ -113,7 +109,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
   }
   // ----------------------------------------------------------------------
   void _deletePic(File pic) async {
-    int _picFileIndex = _questionPics.indexWhere((p) => p == pic);
+    // int _picFileIndex = _questionPics.indexWhere((p) => p == pic);
     setState(() {
       _questionPics.remove(pic);
     });
@@ -188,7 +184,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
   // ----------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    final _questionsProvider = Provider.of<QuestionsProvider>(context);
+    // final _questionsProvider = Provider.of<QuestionsProvider>(context);
     UserStatus _userStatus = UserStatus.PlanningTalking;
     double _abPadding = Ratioz.appBarPadding;
     double _abHeight = Ratioz.appBarSmallHeight;
@@ -200,19 +196,19 @@ class _QuestionBubbleState extends State<QuestionBubble> {
 // ---------------------------------------------------------------------------
 
     int numberOfColumns = 3;
-    int numberOfRows = 1;
+    // int numberOfRows = 1;
 
-    int _gridColumnsCount = numberOfColumns;
+    // int _gridColumnsCount = numberOfColumns;
     double gridZoneWidth = Scale.superBubbleClearWidth(context);
     List<Color> _boxesColors = [Colorz.White30, Colorz.White20, Colorz.White10];
     double _spacingRatioToGridWidth = 0.1;
     double _gridBzWidth = gridZoneWidth / (numberOfColumns + (numberOfColumns * _spacingRatioToGridWidth) + _spacingRatioToGridWidth);
-    double _gridBzHeight = _gridBzWidth;
+    // double _gridBzHeight = _gridBzWidth;
     double _gridSpacing = _gridBzWidth * _spacingRatioToGridWidth;
-    int _picCount = _questionPics.length == 0 ? _boxesColors.length : _questionPics.length;
-    int _numOfGridRows(int _bzCount){return (_bzCount/_gridColumnsCount).ceil();}
-    int _numOfRows = numberOfRows == null ? _numOfGridRows(_picCount) : numberOfRows;
-    double _gridHeight = _gridBzHeight * (_numOfRows + (_numOfRows * _spacingRatioToGridWidth) + _spacingRatioToGridWidth);
+    // int _picCount = _questionPics.length == 0 ? _boxesColors.length : _questionPics.length;
+    // int _numOfGridRows(int _bzCount){return (_bzCount/_gridColumnsCount).ceil();}
+    // int _numOfRows = numberOfRows == null ? _numOfGridRows(_picCount) : numberOfRows;
+    // double _gridHeight = _gridBzHeight * (_numOfRows + (_numOfRows * _spacingRatioToGridWidth) + _spacingRatioToGridWidth);
 
     SliverGridDelegateWithMaxCrossAxisExtent _gridDelegate = SliverGridDelegateWithMaxCrossAxisExtent(
       crossAxisSpacing: _gridSpacing,
@@ -221,7 +217,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
       maxCrossAxisExtent: _gridBzWidth,//gridFlyerWidth,
     );
 
-    double zoneCorners = (_gridBzWidth * Ratioz.bzLogoCorner) + _gridSpacing;
+    // double zoneCorners = (_gridBzWidth * Ratioz.bzLogoCorner) + _gridSpacing;
 
     return InPyramidsBubble(
       centered: true,

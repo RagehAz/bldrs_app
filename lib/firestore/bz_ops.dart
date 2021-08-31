@@ -337,7 +337,7 @@ class BzOps{
   Future<void> deactivateBzOps({BuildContext context, BzModel bzModel}) async {
 
     /// 1 - perform deactivate flyer ops for all flyers
-    List<String> _flyersIDs = new List();
+    List<String> _flyersIDs = [];
     List<NanoFlyer> _bzNanoFlyers = bzModel.nanoFlyers;
     _bzNanoFlyers.forEach((flyer) {
       _flyersIDs.add(flyer.flyerID);
@@ -521,8 +521,8 @@ class BzOps{
   /// 2 - filters which bz can be deleted and which can not be deleted
   /// 3 - return {'bzzToKeep' : _bzzToKeep, 'bzzToDeactivate' : _bzzToDeactivate, }
   static Future<dynamic> readAndFilterTeamlessBzzByUserModel({BuildContext context, UserModel userModel}) async {
-    List<BzModel> _bzzToDeactivate = new List();
-    List<BzModel> _bzzToKeep = new List();
+    List<BzModel> _bzzToDeactivate = [];
+    List<BzModel> _bzzToKeep = [];
     for (var id in userModel.myBzzIDs){
 
       BzModel _bz = await BzOps.readBzOps(

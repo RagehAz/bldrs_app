@@ -4,7 +4,6 @@ import 'package:bldrs/controllers/localization/localizer.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/footer.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/footer_parts/footer_button.dart';
 import 'package:flutter/material.dart';
 
@@ -121,21 +120,22 @@ class _AnkhButtonState extends State<AnkhButton> with SingleTickerProviderStateM
     // final pro = Provider.of<CoFlyer>(context, listen: false);
     // String flyerID = pro.flyer.flyerID;
 // -----------------------------------------------------------------------------
-    double _saveBTSize = FlyerFooter.buttonSize(
-      context: context,
-      flyerZoneWidth: widget.flyerZoneWidth,
-      buttonIsOn: _ankhIsOn,
-    ) ;
+//     double _saveBTSize = FlyerFooter.buttonSize(
+//       context: context,
+//       flyerZoneWidth: widget.flyerZoneWidth,
+//       buttonIsOn: _ankhIsOn,
+//     ) ;
 
 
     String _saveBTVerse = widget.ankhIsOn == true ? Localizer.translate(context, 'Saved') :
     Localizer.translate(context, 'Save');
-    Color _saveBTColor = _ankhIsOn == true ? Colorz.Yellow80 : Colorz.White10;
+    // Color _saveBTColor = _ankhIsOn == true ? Colorz.Yellow80 : Colorz.White10;
 // -----------------------------------------------------------------------------
     // Color flyerShadowColor = ankhIsOn == true ? Colorz.BlackBlack : Colorz.BlackBlack;
 // -----------------------------------------------------------------------------
     bool _tinyMode = Scale.superFlyerTinyMode(context, widget.flyerZoneWidth);
 
+    print('AnkhButton : _ankhColorAni : $_ankhColorAni');
     return
       Positioned(
         right: Aligners.rightPositionInRightAlignmentEn(context, 0),

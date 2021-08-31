@@ -4,8 +4,6 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/firestore/search_ops.dart';
-import 'package:bldrs/models/flyer/flyer_model.dart';
-import 'package:bldrs/models/flyer/records/save_model.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
@@ -25,14 +23,14 @@ class FireSearchTest extends StatefulWidget {
 class _FireSearchTestState extends State<FireSearchTest> {
   // List<Map<String, Object>> functions;
   String printVerse;
-  File _dumFile;
-  String _dumURL;
-  List<SaveModel> _userSavesModels;
-  Map<String, dynamic> _userSavesMap;
-  List<SaveModel> _decipheredSavesModels;
+  // File _dumFile;
+  // String _dumURL;
+  // List<SaveModel> _userSavesModels;
+  // Map<String, dynamic> _userSavesMap;
+  // List<SaveModel> _decipheredSavesModels;
   List<TinyFlyer> _tinyFlyers;
-  List<FlyerModel> _allFLyers;
-  String _picURL;
+  // List<FlyerModel> _allFLyers;
+  // String _picURL;
   File _filePic;
 // ---------------------------------------------------------------------------
   /// --- LOADING BLOCK

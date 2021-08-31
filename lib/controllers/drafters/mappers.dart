@@ -9,7 +9,7 @@ class Mapper{
   /// {'key' : 'firstValue' , 'key' : 'secondValue' },
   /// ]
   static List<String> getFirstValuesFromMaps(List<Map<String, Object>> listOfMaps){
-    List<String> listOfFirstValues = new List();
+    List<String> listOfFirstValues = [];
 
     for (int x = 0; x<listOfMaps.length; x++){
       String firstValue = (listOfMaps[x].values.toList())[0];
@@ -25,7 +25,7 @@ class Mapper{
   /// {'key' : 'firstValue' , 'key' : 'secondValue' },
   /// ]
   static List<String> getSecondValuesFromMaps(List<Map<String, Object>> listOfMaps){
-    List<String> listOfValues = new List();
+    List<String> listOfValues = [];
 
     for (int x = 0; x<listOfMaps.length; x++){
       String secondValue = (listOfMaps[x].values.toList())[1];
@@ -36,7 +36,7 @@ class Mapper{
   }
 // -----------------------------------------------------------------------------
   static List<dynamic> cloneListOfStrings(List<dynamic> list){
-    List<dynamic> _newList = new List();
+    List<dynamic> _newList = [];
 
     for (var x in list){
       _newList.add(x);
@@ -64,7 +64,7 @@ class Mapper{
     bool addDocsIDs,
   }){
 
-    List<Map<String, dynamic>> _maps = new List();
+    List<Map<String, dynamic>> _maps = [];
 
     for (var docSnapshot in queryDocumentSnapshots){
       String _docID = docSnapshot.id;
@@ -243,7 +243,7 @@ class Mapper{
     if (_countsOfPairsAreGood == true){
 
       /// pairs should look like this : key=value
-      List<String> _pairs = new List();
+      List<String> _pairs = [];
 
       /// holds temp trimmed url in here while trimming loops
       String _trimmedURL = urlQuery;

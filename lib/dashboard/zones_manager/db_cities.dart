@@ -5,7 +5,7 @@ import 'package:bldrs/models/secondary_models/namez_model.dart';
 class DbCities {
 
   static List<City> getCitiesByIso3(String iso3){
-    List<City> _cities = new List();
+    List<City> _cities = [];
     dbCities().forEach((pr) {
       if (pr.iso3 == iso3){_cities.add(pr);}
     });

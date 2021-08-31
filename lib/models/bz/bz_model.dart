@@ -221,7 +221,7 @@ Map<String, dynamic> toMap(){
   }
 // -----------------------------------------------------------------------------
   static List<BzModel> decipherBzMapsFromRealTimeDatabase(Map<String, dynamic> bigMap){
-    List<BzModel> _bzList = new List();
+    List<BzModel> _bzList = [];
 
     bigMap?.forEach((bzID, bzMap) {
       _bzList.add(decipherBzMap(bzMap));
@@ -231,7 +231,7 @@ Map<String, dynamic> toMap(){
   }
 // -----------------------------------------------------------------------------
   static List<BzModel> decipherBzzMapsFromFireStore(List<dynamic> maps) {
-    List<BzModel> _bzList = new List();
+    List<BzModel> _bzList = [];
 
     maps?.forEach((map) {
       _bzList.add(decipherBzMap(map));
@@ -342,7 +342,7 @@ Map<String, dynamic> toMap(){
 // -----------------------------------------------------------------------------
   static List<String> getBzTeamIDs(BzModel bzModel){
   List<AuthorModel> _authors = bzModel.bzAuthors;
-  List<String> _bzTeamIDs = new List();
+  List<String> _bzTeamIDs = [];
 
   if (_authors != null){
     _authors.forEach((au) {
@@ -360,7 +360,7 @@ Map<String, dynamic> toMap(){
   }
 // -----------------------------------------------------------------------------
   static List<String> getBzFlyersIDs(BzModel bzModel){
-    List<String> _flyersIDs = new List();
+    List<String> _flyersIDs = [];
     List<NanoFlyer> _nanoFlyers = bzModel.nanoFlyers;
 
     for (var nano in _nanoFlyers){

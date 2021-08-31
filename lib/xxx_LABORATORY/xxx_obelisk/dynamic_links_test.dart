@@ -20,11 +20,11 @@ class _DynamicLinkTestState extends State<DynamicLinkTest> {
 // -----------------------------------------------------------------------------
   /// --- LOADING BLOCK
   bool _loading = false;
-  void _triggerLoading(){
-    setState(() {_loading = !_loading;});
-    _loading == true?
-    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
-  }
+//   void _triggerLoading(){
+//     setState(() {_loading = !_loading;});
+//     _loading == true?
+//     print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+//   }
 // -----------------------------------------------------------------------------
   @override
   void initState() {

@@ -1,26 +1,15 @@
 import 'package:bldrs/controllers/drafters/borderers.dart';
-import 'package:bldrs/controllers/drafters/stream_checkers.dart';
-import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/firestore/auth_ops.dart';
-import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/firestore/flyer_ops.dart';
 import 'package:bldrs/firestore/user_ops.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/models/flyer/records/review_model.dart';
 import 'package:bldrs/models/user/tiny_user.dart';
-import 'package:bldrs/models/user/user_model.dart';
-import 'package:bldrs/providers/flyers_and_bzz/flyer_streamer.dart';
-import 'package:bldrs/providers/users/user_streamer.dart';
 import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
-import 'package:bldrs/views/widgets/buttons/PersonButton.dart';
-import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/views/widgets/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/info_page_parts/review_card.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/info_page_parts/review_creator.dart';
-import 'package:bldrs/views/widgets/loading/loading.dart';
-import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class ReviewBubble extends StatefulWidget {
@@ -116,7 +105,7 @@ class _ReviewBubbleState extends State<ReviewBubble> {
 
     double _bubbleWidth = widget.flyerZoneWidth - (Ratioz.appBarPadding * 2);
     EdgeInsets _bubbleMargins = EdgeInsets.only(top: Ratioz.appBarPadding, left: Ratioz.appBarPadding, right: Ratioz.appBarPadding);
-    double _peopleBubbleBoxHeight = widget.flyerZoneWidth * Ratioz.xxflyerAuthorPicWidth * 1.5;
+    // double _peopleBubbleBoxHeight = widget.flyerZoneWidth * Ratioz.xxflyerAuthorPicWidth * 1.5;
 
     double _cornerSmall = widget.flyerZoneWidth * Ratioz.xxflyerTopCorners;
     double _cornerBig = (widget.flyerZoneWidth - (Ratioz.appBarPadding * 2)) * Ratioz.xxflyerBottomCorners;

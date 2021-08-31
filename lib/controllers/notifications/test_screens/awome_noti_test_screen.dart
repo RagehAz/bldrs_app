@@ -1,12 +1,10 @@
 import 'package:bldrs/controllers/drafters/device_checkers.dart';
 import 'package:bldrs/controllers/notifications/audioz.dart';
-import 'package:bldrs/controllers/notifications/bldrs_notiz.dart';
 import 'package:bldrs/controllers/notifications/noti_channelz.dart';
 import 'package:bldrs/controllers/notifications/test_screens/second_noti_test_screen.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
-import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/notification/noti_model.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/center_dialog/center_dialog.dart';
@@ -59,7 +57,7 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
     // FirebaseMessaging.onBackgroundMessage(_firebasePushHandler)
 
 
-    final _scaffoldKey = GlobalKey<ScaffoldState>();
+    // final _scaffoldKey = GlobalKey<ScaffoldState>();
 
     _awesomeNotification = AwesomeNotifications();
 
@@ -170,7 +168,7 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
   String _pyramids;
   Future<void> _flickerPyramids() async {
 
-    Duration _duration = Ratioz.duration150ms;
+    // Duration _duration = Ratioz.duration150ms;
 
       setState(() {
           _pyramids = Iconz.PyramidsWhite;

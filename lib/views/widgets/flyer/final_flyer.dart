@@ -34,12 +34,10 @@ import 'package:bldrs/providers/zones/zone_provider.dart';
 import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
 import 'package:bldrs/views/screens/f_1_flyer_editor_screen.dart';
 import 'package:bldrs/views/screens/x_select_keywords_screen.dart';
-import 'package:bldrs/views/screens/x_x_flyer_on_map.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_dialog/bottom_dialog_buttons.dart';
-import 'package:bldrs/views/widgets/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/dialogz.dart';
 import 'package:bldrs/views/widgets/dialogs/nav_dialog/nav_dialog.dart';
 import 'package:bldrs/views/widgets/flyer/flyer_methods.dart';
@@ -49,9 +47,7 @@ import 'package:bldrs/views/widgets/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/views/widgets/textings/super_text_field.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
-import 'package:bldrs/xxx_LABORATORY/camera_and_location/location_helper.dart';
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:provider/provider.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/new_header.dart';
@@ -469,40 +465,40 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     return _superFlyer;
   }
 // -----------------------------------------------------o
-  FlyerModel _createTempEmptyFlyer(){
-
-    AuthorModel _author = AuthorModel.getAuthorFromBzByAuthorID(_bzModel, superUserID());
-    TinyUser _tinyAuthor = TinyUser.getTinyAuthorFromAuthorModel(_author);
-
-    CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
-
-    return new FlyerModel(
-      flyerID : SuperFlyer.draftID, // no need
-      // -------------------------
-      flyerType : FlyerTypeClass.concludeFlyerType(_bzModel.bzType),
-      flyerState : FlyerState.Draft,
-      keywords : _superFlyer?.keywords,
-      flyerShowsAuthor : true,
-      flyerURL : '...',
-      flyerZone: _countryPro.currentZone,
-      // -------------------------
-      tinyAuthor : _tinyAuthor,
-      tinyBz : TinyBz.getTinyBzFromBzModel(_bzModel),
-      // -------------------------
-      publishTime : DateTime.now(),
-      flyerPosition : null,
-      // -------------------------
-      ankhIsOn : false,
-      // -------------------------
-      slides : new List(),
-      // -------------------------
-      flyerIsBanned: false,
-      deletionTime: null,
-      info: '',
-      specs: new List(),
-      // times:
-    );
-  }
+//   FlyerModel _createTempEmptyFlyer(){
+//
+//     AuthorModel _author = AuthorModel.getAuthorFromBzByAuthorID(_bzModel, superUserID());
+//     TinyUser _tinyAuthor = TinyUser.getTinyAuthorFromAuthorModel(_author);
+//
+//     CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
+//
+//     return new FlyerModel(
+//       flyerID : SuperFlyer.draftID, // no need
+//       // -------------------------
+//       flyerType : FlyerTypeClass.concludeFlyerType(_bzModel.bzType),
+//       flyerState : FlyerState.Draft,
+//       keywords : _superFlyer?.keywords,
+//       flyerShowsAuthor : true,
+//       flyerURL : '...',
+//       flyerZone: _countryPro.currentZone,
+//       // -------------------------
+//       tinyAuthor : _tinyAuthor,
+//       tinyBz : TinyBz.getTinyBzFromBzModel(_bzModel),
+//       // -------------------------
+//       publishTime : DateTime.now(),
+//       flyerPosition : null,
+//       // -------------------------
+//       ankhIsOn : false,
+//       // -------------------------
+//       slides : [],
+//       // -------------------------
+//       flyerIsBanned: false,
+//       deletionTime: null,
+//       info: '',
+//       specs: [],
+//       // times:
+//     );
+//   }
 // -----------------------------------------------------o
   SuperFlyer _getSuperFlyerFromBzModel({BzModel bzModel}){
     SuperFlyer _superFlyer = SuperFlyer.getSuperFlyerFromBzModelOnly(
@@ -759,31 +755,31 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
   }
 // -----------------------------------------------------o
-  Future<void> _triggerKeywordsView() async {
-
-    print('_triggerKeywordsView : _verticalIndex : ${_superFlyer.verticalIndex}');
-
-
-    /// open keywords
-    if(_superFlyer.verticalIndex == 0){
-      await Sliders.slideToNext(_superFlyer.nav.verticalController, 2, 0);
-      // await Sliders.slideToNext(_panelController, 2, 0);
-    }
-    /// close keywords
-    else {
-      await Sliders.slideToBackFrom(_superFlyer.nav.verticalController, 1);
-      // await Sliders.slideToBackFrom(_panelController, 1);
-    }
-
-    setState(() {
-      _statelessTriggerProgressOpacity();
-    });
-
-  }
+//   Future<void> _triggerKeywordsView() async {
+//
+//     print('_triggerKeywordsView : _verticalIndex : ${_superFlyer.verticalIndex}');
+//
+//
+//     /// open keywords
+//     if(_superFlyer.verticalIndex == 0){
+//       await Sliders.slideToNext(_superFlyer.nav.verticalController, 2, 0);
+//       // await Sliders.slideToNext(_panelController, 2, 0);
+//     }
+//     /// close keywords
+//     else {
+//       await Sliders.slideToBackFrom(_superFlyer.nav.verticalController, 1);
+//       // await Sliders.slideToBackFrom(_panelController, 1);
+//     }
+//
+//     setState(() {
+//       _statelessTriggerProgressOpacity();
+//     });
+//
+//   }
 // -----------------------------------------------------o
-  Future<void> _onSwipeFlyer() async {
-    /// TASK : do some magic
-  }
+//   Future<void> _onSwipeFlyer() async {
+//     /// TASK : do some magic
+//   }
 // -----------------------------------------------------o ////////////////
 
 
@@ -1196,7 +1192,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
   Future<void> _onTriggerEditMode() async {
 
     /// to  update slides headlines
-    List<SlideModel> _updatedSlides = await _createSlidesModelsFromCurrentSuperFlyer();
+    // List<SlideModel> _updatedSlides = await _createSlidesModelsFromCurrentSuperFlyer();
     // List<MutableSlide> _updatedMutableSlides = MutableSlide.getDraftMutableSlidesFromSlidesModels(_updatedSlides);
     setState(() {
       _superFlyer.edit.editMode = !_superFlyer.edit.editMode;
@@ -2015,92 +2011,92 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     // );
   }
 // -----------------------------------------------------o
-  Future<void>_selectOnMap() async {
-
-    if (_superFlyer.mSlides.length == 0){
-
-      await superDialog(
-        context: context,
-        title: '',
-        body: 'Map Slide Can not be The First Slide',
-        boolDialog: false,
-      );
-
-    } else {
-      final LatLng selectedLocation = await Navigator.of(context).push<LatLng>(
-          MaterialPageRoute(
-              builder: (ctx) =>
-                  GoogleMapScreen(
-                    isSelecting: true,
-                    flyerZoneWidth: Scale.superFlyerZoneWidth(context, 0.8),
-                  )
-          )
-      );
-      if (selectedLocation == null) {
-        return;
-      }
-      _showMapPreview(selectedLocation.latitude, selectedLocation.longitude);
-      _newLocationSlide();
-      print("${selectedLocation.latitude},${selectedLocation.longitude}");
-    }
-  }
+//   Future<void>_selectOnMap() async {
+//
+//     if (_superFlyer.mSlides.length == 0){
+//
+//       await superDialog(
+//         context: context,
+//         title: '',
+//         body: 'Map Slide Can not be The First Slide',
+//         boolDialog: false,
+//       );
+//
+//     } else {
+//       final LatLng selectedLocation = await Navigator.of(context).push<LatLng>(
+//           MaterialPageRoute(
+//               builder: (ctx) =>
+//                   GoogleMapScreen(
+//                     isSelecting: true,
+//                     flyerZoneWidth: Scale.superFlyerZoneWidth(context, 0.8),
+//                   )
+//           )
+//       );
+//       if (selectedLocation == null) {
+//         return;
+//       }
+//       _showMapPreview(selectedLocation.latitude, selectedLocation.longitude);
+//       _newLocationSlide();
+//       print("${selectedLocation.latitude},${selectedLocation.longitude}");
+//     }
+//   }
 // -----------------------------------------------------o
-  void _showMapPreview(double lat, double lng) {
-    final staticMapImageUrl = getStaticMapImage(context, lat, lng);
-    setState(() {
-      // _mapImageURL = staticMapImageUrl;
-      // _superFlyer.position = GeoPoint(lat, lng);
-    });
-
-    /// TASK : when adding map slide,, should add empty values in _draft.assetsFiles & _assets ... etc
-  }
+//   void _showMapPreview(double lat, double lng) {
+//     final staticMapImageUrl = getStaticMapImage(context, lat, lng);
+//     setState(() {
+//       // _mapImageURL = staticMapImageUrl;
+//       // _superFlyer.position = GeoPoint(lat, lng);
+//     });
+//
+//     /// TASK : when adding map slide,, should add empty values in _draft.assetsFiles & _assets ... etc
+//   }
 // -----------------------------------------------------o
-  Future<void> _newLocationSlide() async {
-
-    /// TASK : REVISION REQUIRED
-    // if (_currentSlides.length == 0){
-    //
-    //   await superDialog(
-    //     context: context,
-    //     title: '',
-    //     body: 'Add at least one Picture Slide First',
-    //     boolDialog: false,
-    //   );
-    //
-    //
-    // } else if (_currentFlyerPosition == null){
-    //
-    //   setState(() {
-    //     _currentSlides.add(
-    //         SlideModel(
-    //           slideIndex: _currentSlides.length,
-    //           picture: _draft.mapImageURL,
-    //           headline: _titleControllers[_currentSlides.length].text,
-    //         ));
-    //     _draft.currentSlideIndex = _currentSlides.length - 1;
-    //     _draft.numberOfSlides = _currentSlides.length;
-    //     _draft.visibilities.add(true);
-    //     // slidesModes.add(SlideMode.Map);
-    //     _titleControllers.add(TextEditingController());
-    //     onPageChangedIsOn = true;
-    //   });
-    //   Sliders.slideTo(_pageController, _draft.currentSlideIndex);
-    //
-    // } else {
-    //
-    // }
-
-  }
+//   Future<void> _newLocationSlide() async {
+//
+//     /// TASK : REVISION REQUIRED
+//     // if (_currentSlides.length == 0){
+//     //
+//     //   await superDialog(
+//     //     context: context,
+//     //     title: '',
+//     //     body: 'Add at least one Picture Slide First',
+//     //     boolDialog: false,
+//     //   );
+//     //
+//     //
+//     // } else if (_currentFlyerPosition == null){
+//     //
+//     //   setState(() {
+//     //     _currentSlides.add(
+//     //         SlideModel(
+//     //           slideIndex: _currentSlides.length,
+//     //           picture: _draft.mapImageURL,
+//     //           headline: _titleControllers[_currentSlides.length].text,
+//     //         ));
+//     //     _draft.currentSlideIndex = _currentSlides.length - 1;
+//     //     _draft.numberOfSlides = _currentSlides.length;
+//     //     _draft.visibilities.add(true);
+//     //     // slidesModes.add(SlideMode.Map);
+//     //     _titleControllers.add(TextEditingController());
+//     //     onPageChangedIsOn = true;
+//     //   });
+//     //   Sliders.slideTo(_pageController, _draft.currentSlideIndex);
+//     //
+//     // } else {
+//     //
+//     // }
+//
+//   }
 // -----------------------------------------------------o
   void _updateTinyFlyerInLocalBzTinyFlyers(TinyFlyer modifiedTinyFlyer){
     // _prof.update(modifiedTinyFlyer);
     print(' should update tiny flyer in current bz tiny flyers shof enta ezay');
   }
 
-  void _onReorderSlides(){
-    /// check this package
-    // https://pub.dev/packages/reorderables
-  }
+  // void _onReorderSlides(){
+  //   /// check this package
+  //   // https://pub.dev/packages/reorderables
+  // }
 // -----------------------------------------------------------------------------
 
   /// CREATION METHODS
@@ -2218,7 +2214,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 //     List<TextEditingController> titlesControllers,
 //     List<TextEditingController> descriptionsControllers,
 //   }) async {
-//     List<SlideModel> _slides = new List();
+//     List<SlideModel> _slides = [];
 //
 //     for (var slide in currentSlides){
 //
@@ -2245,33 +2241,33 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 //     return _slides;
 //   }
 // -----------------------------------------------------o
-  Future<List<SlideModel>> _createSlidesModelsFromCurrentSuperFlyer() async {
-    List<SlideModel> _slides = new List();
-
-    // for (int i = 0; i<_superFlyer.mutableSlides.length; i++){
-    //
-    //   SlideModel _newSlide = SlideModel(
-    //     slideIndex: i,
-    //     picURL: _superFlyer.mutableSlides[i].picURL,
-    //     headline: _superFlyer.headlinesControllers[i].text,
-    //     description: _superFlyer.descriptionsControllers[i].text,
-    //     savesCount: _superFlyer.mutableSlides[i].savesCount,
-    //     sharesCount: _superFlyer.mutableSlides[i].sharesCount,
-    //     viewsCount: _superFlyer.mutableSlides[i].viewsCount,
-    //     imageSize: _superFlyer.mutableSlides[i].imageSize,
-    //     picFit: _superFlyer.mutableSlides[i].picFit,
-    //     midColor: _superFlyer.mutableSlides[i].midColor,
-    //   );
-    //
-    //   _slides.add(_newSlide);
-    //
-    // }
-
-    return _slides;
-  }
+//   Future<List<SlideModel>> _createSlidesModelsFromCurrentSuperFlyer() async {
+//     List<SlideModel> _slides = [];
+//
+//     // for (int i = 0; i<_superFlyer.mutableSlides.length; i++){
+//     //
+//     //   SlideModel _newSlide = SlideModel(
+//     //     slideIndex: i,
+//     //     picURL: _superFlyer.mutableSlides[i].picURL,
+//     //     headline: _superFlyer.headlinesControllers[i].text,
+//     //     description: _superFlyer.descriptionsControllers[i].text,
+//     //     savesCount: _superFlyer.mutableSlides[i].savesCount,
+//     //     sharesCount: _superFlyer.mutableSlides[i].sharesCount,
+//     //     viewsCount: _superFlyer.mutableSlides[i].viewsCount,
+//     //     imageSize: _superFlyer.mutableSlides[i].imageSize,
+//     //     picFit: _superFlyer.mutableSlides[i].picFit,
+//     //     midColor: _superFlyer.mutableSlides[i].midColor,
+//     //   );
+//     //
+//     //   _slides.add(_newSlide);
+//     //
+//     // }
+//
+//     return _slides;
+//   }
 // -----------------------------------------------------o
   Future<List<SlideModel>> _createSlidesFromCurrentSuperFlyer() async {
-    List<SlideModel> _slides = new List();
+    List<SlideModel> _slides = [];
 
     for (int i = 0; i<_superFlyer.mSlides.length; i++){
 
@@ -2297,7 +2293,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
   }
 // -----------------------------------------------------o
 //   Future<List<SlideModel>> _createUpdatesSlides() async {
-//     List<SlideModel> _slides = new List();
+//     List<SlideModel> _slides = [];
 //
 //     for (int i = 0; i<_superFlyer.assetsFiles.length; i++){
 //
@@ -2544,97 +2540,97 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     print('this is here to republish the flyer');
   }
 // -----------------------------------------------------o
-  void _slideFlyerOptions(BuildContext context, FlyerModel flyerModel){
-
-    // BottomDialog.slideButtonsBottomDialog(
-    //   context: context,
-    //   // height: (50+10+50+10+50+30).toDouble(),
-    //   draggable: true,
-    //   buttonHeight: 50,
-    //   buttons: <Widget>[
-    //
-    //     // --- UNPUBLISH FLYER
-    //     DreamBox(
-    //       height: 50,
-    //       width: BottomDialog.dialogClearWidth(context),
-    //       icon: Iconz.XSmall,
-    //       iconSizeFactor: 0.5,
-    //       iconColor: Colorz.Red255,
-    //       verse: 'Unpublish Flyer',
-    //       verseScaleFactor: 1.2,
-    //       verseColor: Colorz.Red255,
-    //       // verseWeight: VerseWeight.thin,
-    //       onTap: () => _unpublishFlyerOnTap(context),
-    //
-    //     ),
-    //
-    //     // --- DELETE FLYER
-    //     DreamBox(
-    //       height: 50,
-    //       width: BottomDialog.dialogClearWidth(context),
-    //       icon: Iconz.FlyerScale,
-    //       iconSizeFactor: 0.5,
-    //       verse: 'Delete Flyer',
-    //       verseScaleFactor: 1.2,
-    //       verseColor: Colorz.White255,
-    //       onTap: () async {
-    //         Nav.goBack(context);
-    //
-    //         /// Task : this should be bool dialog instead
-    //         bool _dialogResult = await superDialog(
-    //           context: context,
-    //           title: '',
-    //           body: 'Are you sure you want to Delete this flyer and never get it back?',
-    //           boolDialog: true,
-    //         );
-    //
-    //         print(_dialogResult);
-    //
-    //         /// start delete flyer ops
-    //         await FlyerOps().deleteFlyerOps(
-    //           context: context,
-    //           bzModel: bzModel,
-    //           flyerModel : flyerModel,
-    //         );
-    //
-    //         /// remove tinyFlyer from Local list
-    //         FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
-    //         _prof.removeTinyFlyerFromLocalList(tinyFlyer.flyerID);
-    //
-    //         /// re-route back
-    //         Nav.goBack(context, argument: true);
-    //       },
-    //     ),
-    //
-    //     // --- EDIT FLYER
-    //     DreamBox(
-    //       height: 50,
-    //       width: BottomDialog.dialogClearWidth(context),
-    //       icon: Iconz.Gears,
-    //       iconSizeFactor: 0.5,
-    //       verse: 'Edit Flyer',
-    //       verseScaleFactor: 1.2,
-    //       verseColor: Colorz.White255,
-    //       onTap: (){
-    //
-    //         Nav.goToNewScreen(context,
-    //             OldFlyerEditorScreen(
-    //                 bzModel: bzModel,
-    //                 firstTimer: false,
-    //                 flyerModel: flyerModel
-    //             ));
-    //
-    //       },
-    //     ),
-    //
-    //   ],
-    //
-    // );
-
-  }
+//   void _slideFlyerOptions(BuildContext context, FlyerModel flyerModel){
+//
+//     // BottomDialog.slideButtonsBottomDialog(
+//     //   context: context,
+//     //   // height: (50+10+50+10+50+30).toDouble(),
+//     //   draggable: true,
+//     //   buttonHeight: 50,
+//     //   buttons: <Widget>[
+//     //
+//     //     // --- UNPUBLISH FLYER
+//     //     DreamBox(
+//     //       height: 50,
+//     //       width: BottomDialog.dialogClearWidth(context),
+//     //       icon: Iconz.XSmall,
+//     //       iconSizeFactor: 0.5,
+//     //       iconColor: Colorz.Red255,
+//     //       verse: 'Unpublish Flyer',
+//     //       verseScaleFactor: 1.2,
+//     //       verseColor: Colorz.Red255,
+//     //       // verseWeight: VerseWeight.thin,
+//     //       onTap: () => _unpublishFlyerOnTap(context),
+//     //
+//     //     ),
+//     //
+//     //     // --- DELETE FLYER
+//     //     DreamBox(
+//     //       height: 50,
+//     //       width: BottomDialog.dialogClearWidth(context),
+//     //       icon: Iconz.FlyerScale,
+//     //       iconSizeFactor: 0.5,
+//     //       verse: 'Delete Flyer',
+//     //       verseScaleFactor: 1.2,
+//     //       verseColor: Colorz.White255,
+//     //       onTap: () async {
+//     //         Nav.goBack(context);
+//     //
+//     //         /// Task : this should be bool dialog instead
+//     //         bool _dialogResult = await superDialog(
+//     //           context: context,
+//     //           title: '',
+//     //           body: 'Are you sure you want to Delete this flyer and never get it back?',
+//     //           boolDialog: true,
+//     //         );
+//     //
+//     //         print(_dialogResult);
+//     //
+//     //         /// start delete flyer ops
+//     //         await FlyerOps().deleteFlyerOps(
+//     //           context: context,
+//     //           bzModel: bzModel,
+//     //           flyerModel : flyerModel,
+//     //         );
+//     //
+//     //         /// remove tinyFlyer from Local list
+//     //         FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
+//     //         _prof.removeTinyFlyerFromLocalList(tinyFlyer.flyerID);
+//     //
+//     //         /// re-route back
+//     //         Nav.goBack(context, argument: true);
+//     //       },
+//     //     ),
+//     //
+//     //     // --- EDIT FLYER
+//     //     DreamBox(
+//     //       height: 50,
+//     //       width: BottomDialog.dialogClearWidth(context),
+//     //       icon: Iconz.Gears,
+//     //       iconSizeFactor: 0.5,
+//     //       verse: 'Edit Flyer',
+//     //       verseScaleFactor: 1.2,
+//     //       verseColor: Colorz.White255,
+//     //       onTap: (){
+//     //
+//     //         Nav.goToNewScreen(context,
+//     //             OldFlyerEditorScreen(
+//     //                 bzModel: bzModel,
+//     //                 firstTimer: false,
+//     //                 flyerModel: flyerModel
+//     //             ));
+//     //
+//     //       },
+//     //     ),
+//     //
+//     //   ],
+//     //
+//     // );
+//
+//   }
 // -----------------------------------------------------o
   //   // List<TextEditingController> _createHeadlinesForExistingFlyer(){
-//   //   List<TextEditingController> _controllers = new List();
+//   //   List<TextEditingController> _controllers = [];
 //   //
 //   //   _flyer.slides.forEach((slide) {
 //   //     TextEditingController _controller = new TextEditingController();
@@ -2647,7 +2643,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 // // -----------------------------------------------------------------------------
 // //   List<bool> _createSlidesVisibilityList(){
 // //     int _listLength = widget.draftFlyer.assetsFiles.length;
-// //     List<bool> _visibilityList = new List();
+// //     List<bool> _visibilityList = [];
 // //
 // //     for (int i = 0; i<_listLength; i++){
 // //       _visibilityList.add(true);

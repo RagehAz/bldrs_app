@@ -19,13 +19,13 @@ class SelectCountryScreen extends StatefulWidget {
 class _SelectCountryScreenState extends State<SelectCountryScreen> {
     CountryProvider _countryPro;
 // -----------------------------------------------------------------------------
-  /// --- LOADING BLOCK
-  bool _loading = false;
-  void _triggerLoading(){
-    setState(() {_loading = !_loading;});
-    _loading == true?
-    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
-  }
+//   /// --- LOADING BLOCK
+//   bool _loading = false;
+//   void _triggerLoading(){
+//     setState(() {_loading = !_loading;});
+//     _loading == true?
+//     print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+//   }
 // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -35,7 +35,7 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
   }
 // -----------------------------------------------------------------------------
   List<Map<String, dynamic>> _generatePages(){
-    List<Map<String, dynamic>> _pages = new List();
+    List<Map<String, dynamic>> _pages = [];
 
     Iconizer.continentsMaps.forEach((cont) {
 

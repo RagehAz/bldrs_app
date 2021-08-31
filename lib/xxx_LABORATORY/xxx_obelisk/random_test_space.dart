@@ -1,18 +1,6 @@
-import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/scrollers.dart';
-import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
-import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/firestore/bz_ops.dart';
-import 'package:bldrs/firestore/firestore.dart';
-import 'package:bldrs/firestore/flyer_ops.dart';
-import 'package:bldrs/models/bz/bz_model.dart';
-import 'package:bldrs/models/flyer/flyer_model.dart';
-import 'package:bldrs/models/flyer/sub/slide_model.dart';
-import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/views/widgets/effects/white_gradient_layer.dart';
-import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 
@@ -28,11 +16,11 @@ RandomTestSpace({
 }
 
 class _RandomTestSpaceState extends State<RandomTestSpace> {
-  List<int> _list = <int>[1,2,3,4,5,6,7,8];
-  int _loops = 0;
-  Color _color = Colorz.BloodTest;
-  SuperFlyer _flyer;
-  bool _thing;
+  // List<int> _list = <int>[1,2,3,4,5,6,7,8];
+  // int _loops = 0;
+  // Color _color = Colorz.BloodTest;
+  // SuperFlyer _flyer;
+  // bool _thing;
 
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
@@ -92,12 +80,12 @@ class _RandomTestSpaceState extends State<RandomTestSpace> {
   Widget build(BuildContext context) {
 
 // -----------------------------------------------------------------------------
-    double _screenWidth = Scale.superScreenWidth(context);
-    double _screenHeight = Scale.superScreenHeight(context);
+//     double _screenWidth = Scale.superScreenWidth(context);
+    // double _screenHeight = Scale.superScreenHeight(context);
 // -----------------------------------------------------------------------------
 
-    double _gWidth = _screenWidth * 0.4;
-    double _gHeight = _screenWidth * 0.6;
+    // double _gWidth = _screenWidth * 0.4;
+    // double _gHeight = _screenWidth * 0.6;
 
 
     return MainLayout(

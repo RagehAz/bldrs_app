@@ -17,8 +17,9 @@ class LocationHelper{
   }
 
   static Future<String> getPlaceAddress(double lat, double lng) async {
-    final url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$lng&key=$GOOGLE_API_KEY';
-    final response = await http.get(url);
+    final _url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$lng&key=$GOOGLE_API_KEY';
+    Uri _uri = Uri.parse(_url);
+    final response = await http.get(_uri);
     return json.decode(response.body)['results'][0]['formatted_address'];
   }
 }

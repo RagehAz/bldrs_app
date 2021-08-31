@@ -38,7 +38,7 @@ class Animators{
   }
 // -----------------------------------------------------------------------------
   static List<bool> createSlidesVisibilityList(int numberOfSlides){
-    List<bool> _visibilityList = new List();
+    List<bool> _visibilityList = [];
 
     for (int i = 0; i<numberOfSlides; i++){
       _visibilityList.add(true);

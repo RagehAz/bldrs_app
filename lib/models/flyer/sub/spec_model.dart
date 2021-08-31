@@ -36,7 +36,7 @@ class Spec {
   }
 // -----------------------------------------------------------------------------
   static List<Spec> cloneSpecs(List<Spec> specs){
-    List<Spec> _specs = new List();
+    List<Spec> _specs = [];
 
     if (specs != null){
       for (Spec spec in specs){
@@ -73,7 +73,7 @@ class Spec {
   }
 // -----------------------------------------------------------------------------
   static List<Map<String, dynamic>> cipherSpecs(List<Spec> specs){
-    List<Map<String, dynamic>> _maps = new List();
+    List<Map<String, dynamic>> _maps = [];
 
     if (specs != null && specs.length != 0){
       for (Spec spec in specs){
@@ -85,7 +85,7 @@ class Spec {
   }
 // -----------------------------------------------------------------------------
   static List<Spec> decipherSpecs(List<dynamic> maps){
-    List<Spec> _specs = new List();
+    List<Spec> _specs = [];
 
     if(maps != null && maps.length != 0){
       for (var map in maps){

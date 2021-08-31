@@ -21,7 +21,7 @@ class LoadingScreen extends StatefulWidget {
 
 class _LoadingScreenState extends State<LoadingScreen> {
   List<TinyBz> _sponsors;
-  bool _canContinue = false;
+  // bool _canContinue = false;
   double _progress = 0;
 // -----------------------------------------------------------------------------
   /// --- LOADING BLOCK
@@ -95,7 +95,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
           _prof.changeSection(context, _prof.getCurrentSection);
 
           setState(() {
-            _canContinue = true;
+            // _canContinue = true;
             _progress = 100;
           });
 
