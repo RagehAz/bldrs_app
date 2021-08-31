@@ -198,7 +198,7 @@ class _LocalFlyersUploaderState extends State<LocalFlyersUploader> {
 //         FlyerModel _flyer = geebFlyerByFlyerID(tinyFlyer.flyerID);
 //
 //         /// convert flyer slide pics to files
-//         List<SlideModel> _updatedSlides = new List();
+//         List<SlideModel> _updatedSlides = [];
 //         for (var slide in _flyer.slides){
 //           _updatedSlides.add(
 //               SlideModel(
@@ -263,7 +263,7 @@ class _LocalFlyersUploaderState extends State<LocalFlyersUploader> {
 //     documentName: superUserID(),
 //     fieldName: 'myBzzIDs',
 //   );
-//   List<String> _finalBzzIDsList = new List();
+//   List<String> _finalBzzIDsList = [];
 //
 //   _userBzzIDs.forEach((id) {
 //     if (_finalBzzIDsList.contains(id)){

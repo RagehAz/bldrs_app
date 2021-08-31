@@ -12,7 +12,6 @@ import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/layouts/test_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
@@ -24,7 +23,7 @@ class FCMTestScreen extends StatefulWidget {
 
 class _FCMTestScreenState extends State<FCMTestScreen> {
   /// FCM : firebase cloud messaging
-  final FirebaseMessaging _fcm = FirebaseMessaging();
+  final FirebaseMessaging _fcm = FirebaseMessaging.instance;
 
   StreamSubscription iosSubscription;
 
@@ -37,18 +36,19 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
     /// for ios notifications
     if (Platform.isIOS){
 
-      iosSubscription = _fcm.onIosSettingsRegistered.listen((data) {
-        _saveDeviceTokenToUserDocInFireStore();
-      });
-
-    _fcm.requestNotificationPermissions(
-        IosNotificationSettings(
-          alert: true,
-          badge: true,
-          provisional: true,
-          sound: true,
-        )
-    );
+      // iosSubscription = _fcm.onIosSettingsRegistered.listen((data) {
+      //   _saveDeviceTokenToUserDocInFireStore();
+      // });
+      //
+      // _fcm.requestPermission(
+      //   alert: true,
+      //   badge: true,
+      //   provisional: true,
+      //   sound: true,
+      //   announcement: true,
+      //   carPlay: true,
+      //   criticalAlert: true,
+      // );
 
     }
 
@@ -56,40 +56,6 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
       _saveDeviceTokenToUserDocInFireStore();
     }
 
-    _fcm.configure(
-
-      /// when app is running on screen
-        onMessage: (msgMap){
-          // print('Notification : onMessage : msgMap : $msgMap');
-
-          receiveAndActUponNoti(msgMap: msgMap, notiType: NotiType.onMessage);
-
-          return;
-          },
-
-        /// when app running in background and notification tapped while having
-        /// msg['data']['click_action'] == 'FLUTTER_NOTIFICATION_CLICK';
-        onResume: (msgMap){
-          // print('Notification : onResume : msgMap : $msgMap');
-          receiveAndActUponNoti(msgMap: msgMap, notiType: NotiType.onResume);
-          return;
-          },
-
-        // onBackgroundMessage: (msg){
-        //   print('Notification : onBackgroundMessage : msg : $msg');
-        //   return;
-        //   },
-
-
-        /// when app is terminated and needs to launch from scratch
-        onLaunch: (msgMap){
-          // print('Notification : onLaunch : msgMap : $msgMap');
-          receiveAndActUponNoti(msgMap: msgMap, notiType: NotiType.onLaunch);
-
-          return;
-        }
-
-        );
 
     // fbm.getToken();
     _fcm.subscribeToTopic('flyers');
@@ -98,7 +64,7 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
 // -----------------------------------------------------------------------------
    Future<void> _saveDeviceTokenToUserDocInFireStore() async {
     String _userID = superUserID();
-    User _firebaseUser = superFirebaseUser();
+    // User _firebaseUser = superFirebaseUser();
 
     String _fcmToken = await _fcm.getToken();
 

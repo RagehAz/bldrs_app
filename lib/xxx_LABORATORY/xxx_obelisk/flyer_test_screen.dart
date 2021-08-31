@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/firestore/flyer_ops.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
@@ -9,7 +8,6 @@ import 'package:bldrs/providers/flyers_and_bzz/bz_streamer.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/new_header.dart';
 import 'package:bldrs/views/widgets/layouts/test_layout.dart';
 import 'package:flutter/material.dart';
-import 'package:multi_image_picker2/multi_image_picker2.dart';
 
 class FlyerTestScreen extends StatefulWidget {
 
@@ -24,10 +22,10 @@ class _FlyerTestScreenState extends State<FlyerTestScreen> {
   BzModel _bzModel;
   double _flyerOpacity = 0;
 
-  String _url;
-  File _file;
-  Asset _asset;
-  List<Asset> _assets = new List();
+  // String _url;
+  // File _file;
+  // Asset _asset;
+  // List<Asset> _assets = [];
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
   bool _loading = false;
@@ -148,7 +146,7 @@ class _FlyerTestScreenState extends State<FlyerTestScreen> {
 
   TinyFlyer _tinyFlyer;
   Future<void> changeFlyer(String newFlyerID) async {
-    String _oldFlyerID = _flyerID;
+    // String _oldFlyerID = _flyerID;
 
     TinyFlyer _dbTinyFlyer = await FlyerOps().readTinyFlyerOps(
       flyerID: newFlyerID,
@@ -160,38 +158,38 @@ class _FlyerTestScreenState extends State<FlyerTestScreen> {
     });
   }
 // -----------------------------------------------------------------------------
-  Color _testColor;
-void changeColor(Color color){
-  setState(() {
-    _testColor = color;
-  });
-}
+//   Color _testColor;
+// void changeColor(Color color){
+//   setState(() {
+//     _testColor = color;
+//   });
+// }
 // -----------------------------------------------------------------------------
-  bool _someSizeMissing(FlyerModel flyer){
-  bool _isMissing = false;
-
-  if(flyer != null){
-    if(flyer.slides != null && flyer.slides.length != 0){
-      for (var slide in flyer.slides){
-        if(slide.imageSize == null){
-          _isMissing = true;
-        }
-      }
-    }
-  }
-
-  return _isMissing;
-  }
+//   bool _someSizeMissing(FlyerModel flyer){
+//   bool _isMissing = false;
+//
+//   if(flyer != null){
+//     if(flyer.slides != null && flyer.slides.length != 0){
+//       for (var slide in flyer.slides){
+//         if(slide.imageSize == null){
+//           _isMissing = true;
+//         }
+//       }
+//     }
+//   }
+//
+//   return _isMissing;
+//   }
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    double _flyerZoneWidth = Scale.superFlyerZoneWidth(context, 0.8);
+    // double _flyerZoneWidth = Scale.superFlyerZoneWidth(context, 0.8);
 
     print('----------> building flyer test screen flyerID : $_flyerID, tinyFlyer : $_tinyFlyer, FlyerModel : $_flyerModel, BzModel : $_bzModel');
 
-    bool _canBuildFlyer = _flyerID != null || _tinyFlyer != null || _flyerModel != null || _bzModel != null ? true : false;
-    bool _canFadeFlyer = _flyerOpacity != null ? true : false;
+    // bool _canBuildFlyer = _flyerID != null || _tinyFlyer != null || _flyerModel != null || _bzModel != null ? true : false;
+    // bool _canFadeFlyer = _flyerOpacity != null ? true : false;
 
     return TestLayout(
       screenTitle: 'Flyer Test Screen',

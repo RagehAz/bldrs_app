@@ -34,15 +34,15 @@ class FlyersGrid extends StatefulWidget {
 
 class _FlyersGridState extends State<FlyersGrid> {
   List<TinyFlyer> _tinyFlyers;
-  bool _isInit = true;
+  // bool _isInit = true;
 // -----------------------------------------------------------------------------
-  /// --- LOADING BLOCK
-  bool _loading = false;
-  void _triggerLoading(){
-    setState(() {_loading = !_loading;});
-    _loading == true?
-    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
-  }
+//   /// --- LOADING BLOCK
+//   bool _loading = false;
+//   void _triggerLoading(){
+//     setState(() {_loading = !_loading;});
+//     _loading == true?
+//     print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+//   }
 // -----------------------------------------------------------------------------
   @override
   void initState() {

@@ -50,11 +50,11 @@ class BzEditorScreen extends StatefulWidget {
 class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStateMixin{
   FlyersProvider _prof;
   // -------------------------
-  final _formKey = GlobalKey<FormState>();
+  // final _formKey = GlobalKey<FormState>();
   // -------------------------
   BzModel _bz;
   // -------------------------
-  String _currentBzID;
+  // String _currentBzID;
   BzAccountType _currentAccountType;
   // -------------------------
   Section _currentSection;
@@ -97,7 +97,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
     _prof = Provider.of<FlyersProvider>(context, listen: false);
     _bz = widget.firstTimer == true ? BzModel.createInitialBzModelFromUserData(widget.userModel) : widget.bzModel;
     // -------------------------
-    _currentBzID = _bz.bzID;
+    // _currentBzID = _bz.bzID;
     _currentAccountType = _bz.accountType;
     // -------------------------
     _currentBzType = _bz.bzType;
@@ -302,8 +302,9 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
       _inputsAreValid = true;
     }
 
+
     /// TASK : temp bzEditor validator = true
-    return true;
+    return _inputsAreValid;
     }
 // -----------------------------------------------------------------------------
   /// create new bzModel with current data and start createBzOps

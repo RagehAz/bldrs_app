@@ -2,7 +2,6 @@ import 'package:bldrs/controllers/drafters/aligners.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
-import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
@@ -30,19 +29,19 @@ class Gallery extends StatefulWidget {
 
 class _GalleryState extends State<Gallery> {
   List<bool> _flyersVisibilities;
-  List<bool> _authorsVisibilities;
+  // List<bool> _authorsVisibilities;
   String _selectedAuthorID;
   List<TinyFlyer> _tinyFlyers;
   List<String> _bzTeamIDs;
   BzModel _bzModel;
 // -----------------------------------------------------------------------------
   /// --- LOADING BLOCK
-  bool _loading = false;
-  void _triggerLoading(){
-    setState(() {_loading = !_loading;});
-    _loading == true?
-    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
-  }
+  // bool _loading = false;
+  // void _triggerLoading(){
+  //   setState(() {_loading = !_loading;});
+  //   _loading == true?
+  //   print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+  // }
 // -----------------------------------------------------------------------------
   @override
   void initState(){
@@ -57,9 +56,9 @@ class _GalleryState extends State<Gallery> {
   }
 // -----------------------------------------------------------------------------
   List<bool> _createVisibilities({bool fillingValue}){
-    List<bool> _visibilities = new List();
+    List<bool> _visibilities = [];
 
-    for (var flyer in _tinyFlyers){
+    for (int i = 0; i< _tinyFlyers.length; i++){
       _visibilities.add(fillingValue);
     }
 
@@ -115,7 +114,7 @@ class _GalleryState extends State<Gallery> {
   @override
   Widget build(BuildContext context) {
 
-    bool _thisIsMyBz = _bzTeamIDs.contains(superUserID());
+    // bool _thisIsMyBz = _bzTeamIDs.contains(superUserID());
 
     return Container(
       width: widget.flyerZoneWidth,

@@ -72,7 +72,7 @@ class NanoFlyer with ChangeNotifier{
   }
 // -----------------------------------------------------------------------------
   static List<NanoFlyer> decipherNanoFlyersMaps(List<dynamic> nanoFlyersMaps){
-    List<NanoFlyer> _nanoFlyers = new List();
+    List<NanoFlyer> _nanoFlyers = [];
     nanoFlyersMaps.forEach((map) {
       _nanoFlyers.add(decipherNanoFlyerMap(map));
     });
@@ -91,7 +91,7 @@ class NanoFlyer with ChangeNotifier{
   }
 // -----------------------------------------------------------------------------
   static List<dynamic> cipherNanoFlyers (List<NanoFlyer> nanoFlyers){
-    List<dynamic> _nanoFlyersMaps = new List();
+    List<dynamic> _nanoFlyersMaps = [];
 
     nanoFlyers.forEach((f) {
       _nanoFlyersMaps.add(f.toMap());
@@ -101,7 +101,7 @@ class NanoFlyer with ChangeNotifier{
   }
 // -----------------------------------------------------------------------------
   static List<String> getListOfFlyerIDsFromNanoFlyers(List<NanoFlyer> nanoFlyers){
-    List<String> _flyerIDs = new List();
+    List<String> _flyerIDs = [];
 
     nanoFlyers.forEach((nano) {
       _flyerIDs.add(nano.flyerID);

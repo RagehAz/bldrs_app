@@ -96,7 +96,7 @@ class Numberers {
   }
 // -----------------------------------------------------------------------------
   static List<int> getValuesFromKeys({@required List<ValueKey> keys}) {
-    List<int> _values = new List();
+    List<int> _values = [];
 
     if (keys != null && keys.length != 0) {
       keys.forEach((key) {
@@ -126,7 +126,7 @@ class Numberers {
   }
 // -----------------------------------------------------------------------------
   static List<dynamic> createListWithDummyValue({@required int length, @required int value}){
-    List<dynamic> _dummies = new List();
+    List<dynamic> _dummies = [];
 
     for (int i = 0; i < length; i++){
       _dummies.add(value);

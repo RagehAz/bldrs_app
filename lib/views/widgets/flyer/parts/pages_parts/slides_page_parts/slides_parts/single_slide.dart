@@ -113,10 +113,9 @@ class SingleSlide extends StatelessWidget {
         flyerZoneWidth <= (_screenWidth*0.25) && flyerZoneWidth > (_screenWidth*0.1) ? 1 : 0
     ;
 // -----------------------------------------------------------------------------
-    double _blurImageScale = 1.5;
+//     double _blurImageScale = 1.5;
     // -----------------------------o
-    bool _blurLayerIsActive =
-    true;
+    // bool _blurLayerIsActive = true;
     // Imagers().slideBlurIsOn(
     //   pic: picture,
     //   boxFit: boxFit,

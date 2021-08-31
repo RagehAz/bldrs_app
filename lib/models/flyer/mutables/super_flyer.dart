@@ -683,7 +683,7 @@ class SuperFlyer{
           editMode: true,
           canDelete: true,
         ),
-        mSlides: new List(),
+        mSlides: [],
         bz: BzModel(
           bzID: bzModel.bzID,
           bzType: bzModel.bzType,
@@ -717,7 +717,7 @@ class SuperFlyer{
 
         /// editor data
         infoController: new TextEditingController(),
-        screenShots: new List(),
+        screenShots: [],
 
         /// slides settings
         numberOfSlides: 0,
@@ -742,8 +742,8 @@ class SuperFlyer{
 
         /// flyer tags
         flyerInfo: null,
-        specs: new List(),
-        keywords: new List(),
+        specs: [],
+        keywords: [],
 
         /// flyer location
         flyerZone: _countryPro.currentZone,
@@ -1066,7 +1066,7 @@ static SuperFlyer getSuperFlyerFromBzModelOnly({
 
 // // -----------------------------------------------------------------------------
 //   static List<ValueKey> getKeysOfDrafts(List<DraftFlyerModel> drafts){
-//     List<ValueKey> _keys = new List();
+//     List<ValueKey> _keys = [];
 //
 //     if(drafts != null){
 //       drafts.forEach((draft) {

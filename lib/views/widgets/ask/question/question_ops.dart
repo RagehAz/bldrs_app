@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 
 // for all asks IDs update the the tiny user
 // /// PLAN : while update user Ops ,, get all asks IDs in a list
-// List<String> _userAsksIDs = new List();
+// List<String> _userAsksIDs = [];
 // List<QueryDocumentSnapshot> _asksMaps = await getFireStoreSubCollectionMaps(
 //   collectionName: FireStoreCollection.users,
 //   docName: oldUserModel.userID,
@@ -59,7 +59,7 @@ class QuestionOps {
     if (question.pics != null && question.pics.length !=0){
 
       /// A2 - create pics names
-      List<String> _picsNames = new List();
+      List<String> _picsNames = [];
       for (int i = 0; i < question.pics.length; i++){
         File _file = question.pics[i];
         String _name = TextMod.trimTextBeforeLastSpecialCharacter(_file.path, '.');
@@ -85,11 +85,13 @@ class QuestionOps {
       input: _question.toMap(),
     );
 
+    print('createQuestionOps : _questionDocRef : $_questionDocRef');
+
     /// D - update user questionsIDs list adding this new questionID
 
-    List<String> _updatedQuestionsIDs = new List();
+    List<String> _updatedQuestionsIDs = [];
 
-    String _questionID = _questionDocRef.id;
+    // String _questionID = _questionDocRef.id;
     await Fire.updateDocField(
       context: context,
       collName: FireCollection.users,

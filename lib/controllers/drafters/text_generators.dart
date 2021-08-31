@@ -7,8 +7,6 @@ import 'package:bldrs/providers/zones/zone_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'timerz.dart';
-
 class TextGenerator{
 // -----------------------------------------------------------------------------
   static String sectionStringer (BuildContext context, Section section){
@@ -49,7 +47,7 @@ class TextGenerator{
 // -----------------------------------------------------------------------------
   static List<String> sectionsListStrings (BuildContext context){
     List<Section> sections = SectionClass.SectionsList;
-    List<String> sectionsStrings = new List();
+    List<String> sectionsStrings = [];
     for(Section bs in sections){
       sectionsStrings.add(sectionStringer(context, bs));
     }
@@ -57,7 +55,7 @@ class TextGenerator{
   }
 // -----------------------------------------------------------------------------
   static List<String> bzTypesStrings (BuildContext context){
-    List<String> bzTypesStrings = new List();
+    List<String> bzTypesStrings = [];
 
     for(BzType bt in BzModel.bzTypesList){
       bzTypesStrings.add(bzTypeSingleStringer(context, bt));
@@ -129,7 +127,7 @@ class TextGenerator{
   }
 // -----------------------------------------------------------------------------
   static List<String> bzFormStrings (BuildContext context){
-    List<String> bzFormStrings = new List();
+    List<String> bzFormStrings = [];
 
     for(BzForm bt in BzModel.bzFormsList){
       bzFormStrings.add(bzFormStringer(context, bt));

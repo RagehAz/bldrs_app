@@ -13,24 +13,24 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
   bool _loading = false;
-  Future <void> _triggerLoading({Function function}) async {
-
-    if (function == null){
-      setState(() {
-        _loading = !_loading;
-      });
-    }
-
-    else {
-      setState(() {
-        _loading = !_loading;
-        function();
-      });
-    }
-
-    _loading == true?
-    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
-  }
+//   Future <void> _triggerLoading({Function function}) async {
+//
+//     if (function == null){
+//       setState(() {
+//         _loading = !_loading;
+//       });
+//     }
+//
+//     else {
+//       setState(() {
+//         _loading = !_loading;
+//         function();
+//       });
+//     }
+//
+//     _loading == true?
+//     print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+//   }
 // -----------------------------------------------------------------------------
   @override
   void initState() {

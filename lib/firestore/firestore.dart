@@ -279,7 +279,7 @@ class Fire{
     List<QueryDocumentSnapshot> _docsSnapshots = _collectionSnapshot.docs;
 
     /// to return maps
-    List<dynamic> _maps = new List();
+    List<dynamic> _maps = [];
     for (var docSnapShot in _docsSnapshots){
       _maps.add(docSnapShot.data());
     }
@@ -360,7 +360,7 @@ class Fire{
     String subCollName,
   }) async {
 
-    List<Map<String, dynamic>> _maps = new List();
+    List<Map<String, dynamic>> _maps = [];
 
     await tryAndCatch(
         context: context,
@@ -856,7 +856,7 @@ class Fire{
     List<SlideModel> slides,
     String flyerID
   }) async {
-    List<String> _picturesURLs = new List();
+    List<String> _picturesURLs = [];
 
     for (var slide in slides) {
       String _picURL = await Fire.createStoragePicAndGetURL(
@@ -876,7 +876,7 @@ class Fire{
     List<dynamic> pics,
     List<String> names,
   }) async {
-    List<String> picsURLs = new List();
+    List<String> picsURLs = [];
 
     for (int i =0; i < pics.length; i++) {
       String _picURL = await Fire.createStoragePicAndGetURL(

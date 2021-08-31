@@ -64,7 +64,7 @@ class SlideModel {
   }
 // -------------------------
   static List<SlideModel> cloneSlides(List<SlideModel> slides){
-    List<SlideModel> _newSlides = new List();
+    List<SlideModel> _newSlides = [];
 
     for (var slide in slides){
       _newSlides.add(slide.clone());
@@ -110,7 +110,7 @@ class SlideModel {
   }
 // -----------------------------------------------------------------------------
   static List<Map<String,Object>> cipherSlidesModels(List<SlideModel> slidesList) {
-    List<Map<String,Object>> _slidesMaps = new List();
+    List<Map<String,Object>> _slidesMaps = [];
     slidesList.forEach((sl) {
       _slidesMaps.add(sl.toMap());
     });
@@ -118,7 +118,7 @@ class SlideModel {
   }
 // -----------------------------------------------------------------------------
   static List<SlideModel> decipherSlidesMaps(List<dynamic> maps){
-    List<SlideModel> _slidesList = new List();
+    List<SlideModel> _slidesList = [];
 
     maps?.forEach((map) {
       _slidesList.add(decipherSlideMap(map));
@@ -152,7 +152,7 @@ class SlideModel {
   }
 // -----------------------------------------------------------------------------
   static List<String> generateSlidesIDs(FlyerModel flyerModel){
-    List<String> _slidesIDs = new List();
+    List<String> _slidesIDs = [];
 
     flyerModel.slides.forEach((slide) {
       String _slideID = generateSlideID(flyerModel.flyerID, slide.slideIndex);
@@ -169,7 +169,7 @@ class SlideModel {
   }
 // -----------------------------------------------------------------------------
   static Future<List<SlideModel>> replaceSlidesPicturesWithNewURLs(List<String> newPicturesURLs, List<SlideModel> inputSlides) async {
-    List<SlideModel> _outputSlides = new List();
+    List<SlideModel> _outputSlides = [];
 
     for (var slide in inputSlides){
 
@@ -215,7 +215,7 @@ class SlideModel {
   }
 // -----------------------------------------------------------------------------
   static Future <List<File>> getImageFilesFromPublishedSlides(List<SlideModel> slides) async {
-    List<File> _files = new List();
+    List<File> _files = [];
 
     if (slides != null && slides.length != 0){
       for (SlideModel slide in slides){
@@ -231,7 +231,7 @@ class SlideModel {
   }
 // -----------------------------------------------------------------------------
   static Future <List<Asset>> getImageAssetsFromPublishedSlides(List<SlideModel> slides) async {
-    List<Asset> _assets = new List();
+    List<Asset> _assets = [];
 
 
     if (slides != null && slides.length != 0){
@@ -261,7 +261,7 @@ class SlideModel {
   }
 // -----------------------------------------------------------------------------
   static List<BoxFit> getSlidesBoxFits(List<SlideModel> slides) {
-    List<BoxFit> _boxFits = new List();
+    List<BoxFit> _boxFits = [];
 
     if (slides != null && slides.length != 0){
       for (SlideModel slide in slides){
@@ -282,7 +282,7 @@ class SlideModel {
   }
 // -----------------------------------------------------------------------------
   static List<bool> createVisibilityListFromSlides(List<SlideModel> slides){
-    List<bool> _visibilityList = new List();
+    List<bool> _visibilityList = [];
 
     if (slides != null && slides.length != 0){
       for (int i = 0; i < slides.length; i++){

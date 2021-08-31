@@ -34,7 +34,7 @@ class Name {
   }
 // -----------------------------------------------------------------------------
   static List<Map<String, dynamic>> cipherNamezz(List<Name> namezz) {
-    List<Map<String, dynamic>> _namezMaps = new List();
+    List<Map<String, dynamic>> _namezMaps = [];
     namezz.forEach((nm) {
       _namezMaps.add(nm.toMap());
     });
@@ -49,7 +49,7 @@ class Name {
   }
 // -----------------------------------------------------------------------------
   static List<Name> decipherNamezzMaps(List<dynamic> maps) {
-    List<Name> _namez = new List();
+    List<Name> _namez = [];
     maps?.forEach((map) {
       _namez.add(decipherNamezMap(map));
     });

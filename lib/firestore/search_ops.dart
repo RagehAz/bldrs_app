@@ -33,7 +33,7 @@ class FireSearch {
       bool addDocsIDs,
   }) async {
 
-    List<Map<String, dynamic>> _maps = new List();
+    List<Map<String, dynamic>> _maps = [];
 
     await tryAndCatch(
         context: context,
@@ -128,7 +128,7 @@ class FireSearch {
     bool addDocsIDs,
 }) async {
 
-    List<Map<String, dynamic>> _maps = new List();
+    List<Map<String, dynamic>> _maps = [];
 
     await tryAndCatch(
         context: context,
@@ -169,7 +169,7 @@ class FireSearch {
     bool addDocsIDs,
 }) async {
 
-    List<Map<String, dynamic>> _maps = new List();
+    List<Map<String, dynamic>> _maps = [];
 
     await tryAndCatch(
         context: context,
@@ -205,7 +205,7 @@ class FireSearch {
     FlyerType flyerType,
   }) async {
 
-      List<TinyFlyer> _tinyFlyers = new List();
+      List<TinyFlyer> _tinyFlyers = [];
 
       await tryAndCatch(
           context: context,

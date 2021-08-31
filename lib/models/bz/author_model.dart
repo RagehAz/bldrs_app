@@ -35,7 +35,7 @@ class AuthorModel{
     String _authorID = author.userID;
     List<NanoFlyer> _nanoFlyers = bzModel.nanoFlyers;
 
-    List<String> _authorFlyersIDs = new List();
+    List<String> _authorFlyersIDs = [];
 
     for (var flyer in _nanoFlyers){
       if(flyer.authorID == _authorID){
@@ -60,7 +60,7 @@ class AuthorModel{
   }
 // -----------------------------------------------------------------------------
   static List<AuthorModel> decipherBzAuthorsMaps(List<dynamic> listOfMaps){
-    List<AuthorModel> _authorsList = new List();
+    List<AuthorModel> _authorsList = [];
 
     listOfMaps.forEach((map) {
       _authorsList.add(decipherBzAuthorMap(map));
@@ -70,7 +70,7 @@ class AuthorModel{
   }
 // -----------------------------------------------------------------------------
   static List<Map<String,Object>> cipherAuthorsModels(List<AuthorModel> authorsList){
-    List<Map<String,Object>> listOfAuthorsMaps = new List();
+    List<Map<String,Object>> listOfAuthorsMaps = [];
     authorsList?.forEach((author) {
       listOfAuthorsMaps.add(author.toMap());
     });
@@ -162,7 +162,7 @@ class AuthorModel{
   }
 // -----------------------------------------------------------------------------
   static List<String> getAuthorsIDsFromAuthors(List<AuthorModel> authors){
-    List<String> _authorsIDs = new List();
+    List<String> _authorsIDs = [];
 
     for (var author in authors){
       _authorsIDs.add(author.userID);

@@ -1,5 +1,4 @@
 import 'package:bldrs/controllers/drafters/borderers.dart';
-import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
@@ -19,9 +18,9 @@ class ChatBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double _bubbleWidth = Scale.superScreenWidth(context);
+    // double _bubbleWidth = Scale.superScreenWidth(context);
     double _corner = Ratioz.appBarCorner;
-    BorderRadius _bubbleBorderss = Borderers.superBorderAll(context, _corner);
+    // BorderRadius _bubbleBorderss = Borderers.superBorderAll(context, _corner);
 
     BorderRadius _bubbleBorders = isMyVerse ?
     Borderers.superBorderOnly(context: context, enTopLeft: _corner, enBottomLeft: _corner, enBottomRight: 0, enTopRight: _corner)

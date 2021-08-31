@@ -20,9 +20,9 @@ class Strip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int _numberOfSlides = numberOfSlides == 0 ? 1 : numberOfSlides;
+    // int _numberOfSlides = numberOfSlides == 0 ? 1 : numberOfSlides;
 // -----------------------------------------------------------------------------
-    double _stripsTotalLength = Strips.stripsTotalLength(flyerZoneWidth);
+//     double _stripsTotalLength = Strips.stripsTotalLength(flyerZoneWidth);
     double _aStripThickness = Strips.stripThickness(flyerZoneWidth);
     double _aStripOnePadding = _aStripThickness / 2;
     double _aStripLength = Strips.oneStripLength(flyerZoneWidth: flyerZoneWidth, numberOfStrips: numberOfSlides);

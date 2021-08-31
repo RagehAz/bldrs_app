@@ -1,10 +1,8 @@
 import 'package:bldrs/controllers/drafters/aligners.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
-import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/controllers/localization/localizer.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/controllers/theme/flagz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/user/user_model.dart';
@@ -33,7 +31,7 @@ class UserBubble extends StatelessWidget {
   Widget build(BuildContext context) {
     CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
     String _countryName = Localizer.translate(context, user?.zone?.countryID);
-    String _countryFlag = Flagz.getFlagByIso3(user?.zone?.countryID);
+    // String _countryFlag = Flagz.getFlagByIso3(user?.zone?.countryID);
     String _provinceName = _countryPro.getCityNameWithCurrentLanguageIfPossible(context, user?.zone?.cityID);
     String _areaName = _countryPro.getDistrictNameWithCurrentLanguageIfPossible(context, user?.zone?.districtID);
 

@@ -1,8 +1,6 @@
 import 'dart:io';
 import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
-import 'package:bldrs/controllers/drafters/text_generators.dart';
-import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
@@ -13,7 +11,6 @@ import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/firestore/user_ops.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
-import 'package:bldrs/models/flyer/records/save_model.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/bz/author_model.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
@@ -35,14 +32,14 @@ class Firebasetesting extends StatefulWidget {
 class _FirebasetestingState extends State<Firebasetesting> {
   // List<Map<String, Object>> functions;
   String printVerse;
-  File _dumFile;
-  String _dumURL;
-  List<SaveModel> _userSavesModels;
-  Map<String, dynamic> _userSavesMap;
-  List<SaveModel> _decipheredSavesModels;
+  // File _dumFile;
+  // String _dumURL;
+  // List<SaveModel> _userSavesModels;
+  // Map<String, dynamic> _userSavesMap;
+  // List<SaveModel> _decipheredSavesModels;
   List<TinyFlyer> _tinyFlyers;
-  List<FlyerModel> _allFLyers;
-  String _picURL;
+  // List<FlyerModel> _allFLyers;
+  // String _picURL;
   File _filePic;
 // -----------------------------------------------------------------------------
   /// --- LOADING BLOCK
@@ -64,183 +61,183 @@ class _FirebasetestingState extends State<Firebasetesting> {
     print(verse);
   }
 // -----------------------------------------------------------------------------
-  void _save (String flyerID, int slideIndex){
-
-    /// --- IF FLYER WAS NEVER SAVED
-    if (_flyerIsSaved(flyerID) == null){
-
-      /// create a new SaveModel
-      SaveModel _newSaveModel = SaveModel(
-        flyerID: flyerID,
-        slideIndexes: [slideIndex],
-        saveState: SaveState.Saved,
-        timeStamps: <DateTime>[DateTime.now()],
-      );
-
-      /// if userSaveModels is not initialized
-      if(_userSavesModels == null || _userSavesModels.length == 0){
-        setState(() {
-        _userSavesModels = new List();
-        _userSavesModels.add(_newSaveModel);
-        });
-      }
-      /// if userSaveModels is initialized and have other entries
-      else {
-        setState(() {
-        _userSavesModels.add(_newSaveModel);
-        });
-      }
-
-    }
-    // -----------------------------------------------
-    /// --- IF FLYER WAS SAVED THEN UNSAVED OR STILL SAVED
-    else {
-
-      /// get the SlideModel from the List
-      SaveModel _existingSaveModel = _userSavesModels.singleWhere((sm) => sm.flyerID == flyerID);
-
-      /// overwrite slideIndex with the new one, add new timeStamp, and change state to saved
-      SaveModel _updatedSaveModel = new SaveModel(
-        flyerID: flyerID,
-        slideIndexes: [...(_existingSaveModel.slideIndexes), slideIndex],
-        saveState: _existingSaveModel.saveState == SaveState.Saved ? SaveState.UnSaved : SaveState.Saved,
-        timeStamps: <DateTime>[...(_existingSaveModel.timeStamps), DateTime.now()],
-      );
-
-      /// update the List with the new Model
-      int _existingSaveModelIndex = _userSavesModels.indexWhere((sm) => sm.flyerID == flyerID);
-      setState(() {
-      _userSavesModels.removeAt(_existingSaveModelIndex);
-      _userSavesModels.insert(_existingSaveModelIndex, _updatedSaveModel);
-      });
-    }
-    // -----------------------------------------------
-
-  }
+//   void _save (String flyerID, int slideIndex){
+//
+//     /// --- IF FLYER WAS NEVER SAVED
+//     if (_flyerIsSaved(flyerID) == null){
+//
+//       /// create a new SaveModel
+//       SaveModel _newSaveModel = SaveModel(
+//         flyerID: flyerID,
+//         slideIndexes: [slideIndex],
+//         saveState: SaveState.Saved,
+//         timeStamps: <DateTime>[DateTime.now()],
+//       );
+//
+//       /// if userSaveModels is not initialized
+//       if(_userSavesModels == null || _userSavesModels.length == 0){
+//         setState(() {
+//         _userSavesModels = [];
+//         _userSavesModels.add(_newSaveModel);
+//         });
+//       }
+//       /// if userSaveModels is initialized and have other entries
+//       else {
+//         setState(() {
+//         _userSavesModels.add(_newSaveModel);
+//         });
+//       }
+//
+//     }
+//     // -----------------------------------------------
+//     /// --- IF FLYER WAS SAVED THEN UNSAVED OR STILL SAVED
+//     else {
+//
+//       /// get the SlideModel from the List
+//       SaveModel _existingSaveModel = _userSavesModels.singleWhere((sm) => sm.flyerID == flyerID);
+//
+//       /// overwrite slideIndex with the new one, add new timeStamp, and change state to saved
+//       SaveModel _updatedSaveModel = new SaveModel(
+//         flyerID: flyerID,
+//         slideIndexes: [...(_existingSaveModel.slideIndexes), slideIndex],
+//         saveState: _existingSaveModel.saveState == SaveState.Saved ? SaveState.UnSaved : SaveState.Saved,
+//         timeStamps: <DateTime>[...(_existingSaveModel.timeStamps), DateTime.now()],
+//       );
+//
+//       /// update the List with the new Model
+//       int _existingSaveModelIndex = _userSavesModels.indexWhere((sm) => sm.flyerID == flyerID);
+//       setState(() {
+//       _userSavesModels.removeAt(_existingSaveModelIndex);
+//       _userSavesModels.insert(_existingSaveModelIndex, _updatedSaveModel);
+//       });
+//     }
+//     // -----------------------------------------------
+//
+//   }
 // -----------------------------------------------------------------------------
-  bool _flyerWasSavedOnce(String flyerID){
-    bool _flyerWasSavedOnce;
-
-    /// if user's saves list is null or empty
-    if (_userSavesModels == null || _userSavesModels.length == 0){
-      _flyerWasSavedOnce = false;
-    } else {
-      /// so user's saves list have some save models
-      for (int i = _userSavesModels.length - 1; i >= 0; i--){
-
-        if (_userSavesModels[i].flyerID == flyerID){
-          /// we found a saveModel for this flyerID
-          _flyerWasSavedOnce = true;
-          break;
-        } else {
-          /// we didn't find this flyer in the list
-          _flyerWasSavedOnce = false;
-        }
-      }
-
-    }
-
-    return _flyerWasSavedOnce;
-  }
+//   bool _flyerWasSavedOnce(String flyerID){
+//     bool _flyerWasSavedOnce;
+//
+//     /// if user's saves list is null or empty
+//     if (_userSavesModels == null || _userSavesModels.length == 0){
+//       _flyerWasSavedOnce = false;
+//     } else {
+//       /// so user's saves list have some save models
+//       for (int i = _userSavesModels.length - 1; i >= 0; i--){
+//
+//         if (_userSavesModels[i].flyerID == flyerID){
+//           /// we found a saveModel for this flyerID
+//           _flyerWasSavedOnce = true;
+//           break;
+//         } else {
+//           /// we didn't find this flyer in the list
+//           _flyerWasSavedOnce = false;
+//         }
+//       }
+//
+//     }
+//
+//     return _flyerWasSavedOnce;
+//   }
 // -----------------------------------------------------------------------------
-  bool _flyerIsSaved(String flyerID){
-    bool _flyerIsSaved;
-
-    if (_flyerWasSavedOnce(flyerID) == true){
-
-      SaveModel _thisFlyersSaveModel = _userSavesModels.singleWhere((saveModel) => saveModel.flyerID == flyerID);
-
-      if (_thisFlyersSaveModel.saveState == SaveState.Saved){
-        _flyerIsSaved = true; // is saved
-      } else {
-        _flyerIsSaved = false; // was saved once but now its not
-      }
-
-    } else {
-      _flyerIsSaved = null; // was never saved
-    }
-
-    return _flyerIsSaved;
-  }
+//   bool _flyerIsSaved(String flyerID){
+//     bool _flyerIsSaved;
+//
+//     if (_flyerWasSavedOnce(flyerID) == true){
+//
+//       SaveModel _thisFlyersSaveModel = _userSavesModels.singleWhere((saveModel) => saveModel.flyerID == flyerID);
+//
+//       if (_thisFlyersSaveModel.saveState == SaveState.Saved){
+//         _flyerIsSaved = true; // is saved
+//       } else {
+//         _flyerIsSaved = false; // was saved once but now its not
+//       }
+//
+//     } else {
+//       _flyerIsSaved = null; // was never saved
+//     }
+//
+//     return _flyerIsSaved;
+//   }
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    Widget _theSlides(String flyerID){
+    // Widget _theSlides(String flyerID){
+    //
+    //   String _flyerID = flyerID;
+    //
+    //   bool _buttonIsOn =
+    //   _flyerIsSaved(flyerID) == true ? true :
+    //   _flyerIsSaved(flyerID) == false ? false :
+    //       false;
+    //
+    //   return Row(
+    //     mainAxisAlignment: MainAxisAlignment.center,
+    //     crossAxisAlignment: CrossAxisAlignment.center,
+    //     children: <Widget>[
+    //
+    //       DreamBox(
+    //         height: 50,
+    //         iconSizeFactor: 0.6,
+    //         color: _buttonIsOn ? Colorz.Yellow255 : Colorz.Grey225,
+    //         verse: '$_flyerID - 0',
+    //         onTap: () => _save(_flyerID, 0),
+    //       ),
+    //
+    //       DreamBox(
+    //         height: 50,
+    //         iconSizeFactor: 0.6,
+    //         color: _buttonIsOn ? Colorz.Yellow255 : Colorz.Grey225,
+    //         verse: '$_flyerID - 1',
+    //         onTap: () => _save(_flyerID, 1),
+    //       ),
+    //
+    //       DreamBox(
+    //         height: 50,
+    //         iconSizeFactor: 0.6,
+    //         color: _buttonIsOn ? Colorz.Yellow255 : Colorz.Grey225,
+    //         verse: '$_flyerID - 2',
+    //         onTap: () => _save(_flyerID, 2),
+    //       ),
+    //
+    //     ],
+    //   );
+    // }
 
-      String _flyerID = flyerID;
-
-      bool _buttonIsOn =
-      _flyerIsSaved(flyerID) == true ? true :
-      _flyerIsSaved(flyerID) == false ? false :
-          false;
-
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-
-          DreamBox(
-            height: 50,
-            iconSizeFactor: 0.6,
-            color: _buttonIsOn ? Colorz.Yellow255 : Colorz.Grey225,
-            verse: '$_flyerID - 0',
-            onTap: () => _save(_flyerID, 0),
-          ),
-
-          DreamBox(
-            height: 50,
-            iconSizeFactor: 0.6,
-            color: _buttonIsOn ? Colorz.Yellow255 : Colorz.Grey225,
-            verse: '$_flyerID - 1',
-            onTap: () => _save(_flyerID, 1),
-          ),
-
-          DreamBox(
-            height: 50,
-            iconSizeFactor: 0.6,
-            color: _buttonIsOn ? Colorz.Yellow255 : Colorz.Grey225,
-            verse: '$_flyerID - 2',
-            onTap: () => _save(_flyerID, 2),
-          ),
-
-        ],
-      );
-    }
-
-    List<Widget> _savesWidgets(List<SaveModel> savesModels){
-      return <Widget>[
-
-        if (savesModels != null)
-          ...List.generate(savesModels.length, (index){
-
-            SaveModel _save = savesModels[index];
-
-            return
-              SuperVerse(
-                verse: '${_save.flyerID}-${_save.slideIndexes[_save.slideIndexes.length-1]} '
-                    ': ${_save.saveState}\n'
-                    '${Timers.hourMinuteSecondListOfStringsWithIndexes(_save.timeStamps, _save.slideIndexes)}',
-                margin: 10,
-                labelColor: Colorz.White20,
-                weight: VerseWeight.thin,
-                size: 2,
-                maxLines: 10,
-              );
-          }),
-
-        if (savesModels == null)
-          SuperVerse(
-            verse: 'No saved Model yet !',
-            margin: 10,
-            labelColor: Colorz.White20,
-            weight: VerseWeight.thin,
-            size: 2,
-          ),
-
-      ];
-
-    }
+    // List<Widget> _savesWidgets(List<SaveModel> savesModels){
+    //   return <Widget>[
+    //
+    //     if (savesModels != null)
+    //       ...List.generate(savesModels.length, (index){
+    //
+    //         SaveModel _save = savesModels[index];
+    //
+    //         return
+    //           SuperVerse(
+    //             verse: '${_save.flyerID}-${_save.slideIndexes[_save.slideIndexes.length-1]} '
+    //                 ': ${_save.saveState}\n'
+    //                 '${Timers.hourMinuteSecondListOfStringsWithIndexes(_save.timeStamps, _save.slideIndexes)}',
+    //             margin: 10,
+    //             labelColor: Colorz.White20,
+    //             weight: VerseWeight.thin,
+    //             size: 2,
+    //             maxLines: 10,
+    //           );
+    //       }),
+    //
+    //     if (savesModels == null)
+    //       SuperVerse(
+    //         verse: 'No saved Model yet !',
+    //         margin: 10,
+    //         labelColor: Colorz.White20,
+    //         weight: VerseWeight.thin,
+    //         size: 2,
+    //       ),
+    //
+    //   ];
+    //
+    // }
 
     List<Map<String, dynamic>> functions = <Map<String, dynamic>>[
 
@@ -427,7 +424,7 @@ class _FirebasetestingState extends State<Firebasetesting> {
 
         setState(() {
           _tinyFlyers = _dbTinyFlyers;
-          _allFLyers = _flyers;
+          // _allFLyers = _flyers;
         });
 
         printResult('_tinyFlyers are ${_tinyFlyers.length}');
@@ -453,8 +450,8 @@ class _FirebasetestingState extends State<Firebasetesting> {
       {'Name' : 'delete firebase user with email', 'function' : () async {
         _triggerLoading();
 
-        String _email = 'tester@bldrs.net';
-        String _password = '123456';
+        // String _email = 'tester@bldrs.net';
+        // String _password = '123456';
 
         // await AuthOps().deleteFirebaseUser(context, _email, _password);
 

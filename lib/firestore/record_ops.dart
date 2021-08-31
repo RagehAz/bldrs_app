@@ -27,7 +27,7 @@ class RecordOps{
 // -----------------------------------------------------------------------------
   static Future<List<SaveModel>> readFlyerSavesOps() async {
     /// TASK : paginate in Flyer saves to get batches of tiny users after getting those savesModels
-    List<SaveModel> _flyerSaves = new List();
+    List<SaveModel> _flyerSaves = [];
     return _flyerSaves;
   }
 // -----------------------------------------------------------------------------

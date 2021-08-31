@@ -87,7 +87,7 @@ class TinyFlyer with ChangeNotifier{
   }
 // -----------------------------------------------------------------------------
   static List<TinyFlyer> decipherTinyFlyersMaps(List<dynamic> tinyFlyersMaps){
-    List<TinyFlyer> _tinyFlyers = new List();
+    List<TinyFlyer> _tinyFlyers = [];
     tinyFlyersMaps.forEach((map) {
       _tinyFlyers.add(decipherTinyFlyerMap(map));
     });
@@ -140,7 +140,7 @@ class TinyFlyer with ChangeNotifier{
   }
 // -----------------------------------------------------------------------------
   static List<dynamic> cipherTinyFlyers (List<TinyFlyer> tinyFlyers){
-    List<dynamic> _tinyFlyersMaps = new List();
+    List<dynamic> _tinyFlyersMaps = [];
 
     tinyFlyers.forEach((f) {
       _tinyFlyersMaps.add(f.toMap());
@@ -150,7 +150,7 @@ class TinyFlyer with ChangeNotifier{
   }
 // -----------------------------------------------------------------------------
   static List<TinyFlyer> getTinyFlyersFromBzModel(BzModel bzModel){
-    List<TinyFlyer> _tinyFlyers = new List();
+    List<TinyFlyer> _tinyFlyers = [];
 
     List<NanoFlyer> _nanoFlyers = bzModel.nanoFlyers;
 
@@ -168,7 +168,7 @@ class TinyFlyer with ChangeNotifier{
   }
 // -----------------------------------------------------------------------------
   static List<TinyFlyer> getTinyFlyersFromFlyersModels(List<FlyerModel> flyers){
-    List<TinyFlyer> _tinyFlyers = new List();
+    List<TinyFlyer> _tinyFlyers = [];
 
     for (var flyer in flyers){
       TinyFlyer _tinyFlyer = getTinyFlyerFromFlyerModel(flyer);
@@ -179,7 +179,7 @@ class TinyFlyer with ChangeNotifier{
   }
 // -----------------------------------------------------------------------------
   static List<String> getListOfFlyerIDsFromTinyFlyers(List<TinyFlyer> tinyFlyers){
-    List<String> _flyerIDs = new List();
+    List<String> _flyerIDs = [];
 
     tinyFlyers?.forEach((flyer) {
       _flyerIDs.add(flyer.flyerID);
@@ -204,7 +204,7 @@ class TinyFlyer with ChangeNotifier{
       tinyBz: TinyBz.dummyTinyBz('bzID'),
       picFit: BoxFit.cover,
       midColor: Colorz.Black255,
-      keywords: List(),
+      keywords: [],
       imageSize: null,
       headline: 'Headline'
     );
@@ -262,7 +262,7 @@ class TinyFlyer with ChangeNotifier{
   }
 // -----------------------------------------------------------------------------
   static List<TinyFlyer> filterTinyFlyersBySection({List<TinyFlyer> tinyFlyers, Section section}){
-    List<TinyFlyer> _filteredTinyFlyers = new List();
+    List<TinyFlyer> _filteredTinyFlyers = [];
 
     if (section == Section.All){
       _filteredTinyFlyers = tinyFlyers;

@@ -50,7 +50,7 @@ class TextChecker{
   }
 // -----------------------------------------------------------------------------
   static List<TextEditingController> createEmptyTextControllers(int length){
-    List<TextEditingController> _controllers = new List();
+    List<TextEditingController> _controllers = [];
 
     for (int i = 0; i <= length; i++){
 
@@ -69,7 +69,7 @@ class TextChecker{
 // -----------------------------------------------------------------------------
   /// createTextControllersAndOverrideOneString
 //   static List<TextEditingController> createTextControllersAndOverrideOneString({int length, int indexToOverride, String overridingString}){
-//     List<TextEditingController> _controllers = new List();
+//     List<TextEditingController> _controllers = [];
 //
 //     for (int i = 0; i < length; i++){
 //

@@ -3,9 +3,7 @@ import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
-import 'package:bldrs/models/secondary_models/namez_model.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
@@ -18,15 +16,15 @@ class KeywordsManager extends StatefulWidget {
 }
 
 class _KeywordsManagerState extends State<KeywordsManager> {
-  List<Keyword> _selectedKeywords = new List();
+  // List<Keyword> _selectedKeywords = [];
 // -----------------------------------------------------------------------------
   /// --- LOADING BLOCK
   bool _loading = false;
-  void _triggerLoading(){
-    setState(() {_loading = !_loading;});
-    _loading == true?
-    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
-  }
+//   void _triggerLoading(){
+//     setState(() {_loading = !_loading;});
+//     _loading == true?
+//     print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+//   }
 // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -39,7 +37,7 @@ class _KeywordsManagerState extends State<KeywordsManager> {
     List<Keyword> _allKeywords = Keyword.bldrsKeywords();
 
     double _screenWidth  = Scale.superScreenWidth(context);
-    double _screenHeight = Scale.superScreenHeight(context);
+    // double _screenHeight = Scale.superScreenHeight(context);
 
     double _keywordButtonHeight = 90;
     double _buttonWidth = _screenWidth * 0.8;
@@ -72,9 +70,9 @@ class _KeywordsManagerState extends State<KeywordsManager> {
               String _keywordName = Keyword.getKeywordNameByKeywordID(context, _keywordID);
               String _groupID = _keyword.groupID;
               String _subGroupID = _keyword.subGroupID == '' ? '...' : _keyword.subGroupID;
-              int _uses = _keyword.uses;
-              FlyerType _keywordFlyerType = _keyword.flyerType;
-              List<Name> _keywordNames = _keyword.names;
+              // int _uses = _keyword.uses;
+              // FlyerType _keywordFlyerType = _keyword.flyerType;
+              // List<Name> _keywordNames = _keyword.names;
               String _arabicName = Keyword.getKeywordArabicName(_keyword);
 
               return
