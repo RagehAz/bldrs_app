@@ -150,7 +150,7 @@ class Imagers{
   static Future<File> takeGalleryPicture(PicType picType) async {
   final _picker = ImagePicker();
 
-  final _imageFile = await _picker.getImage(
+  final XFile _imageFile = await _picker.pickImage(
     source: ImageSource.gallery,
     imageQuality: concludeImageQuality(picType),
     maxWidth: concludeImageMaxWidth(picType),
@@ -162,19 +162,19 @@ class Imagers{
   return _result;
 }
 // -----------------------------------------------------------------------------
-  static Future<PickedFile> takeCameraPicture(PicType picType) async {
+  static Future<File> takeCameraPicture(PicType picType) async {
   final _picker = ImagePicker();
 
-  final PickedFile _imageFile = await _picker.getImage(
+  final XFile _imageFile = await _picker.pickImage(
     source: ImageSource.camera,
     imageQuality: concludeImageQuality(picType),
     maxWidth: concludeImageMaxWidth(picType),
     // maxHeight: concludeImageMaxHeight(picType)
   );
 
-  // PickedFile _imageFile = _imageXFile; // ne3mel eh ba2a
+  File _result = _imageFile != null ? File(_imageFile.path) : null;
 
-  return _imageFile;
+  return _result;
 
 }
 // -----------------------------------------------------------------------------

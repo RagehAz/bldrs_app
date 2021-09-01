@@ -26,8 +26,8 @@ class NavDialog extends StatelessWidget {
     bool _isBig = isBig == null ? false : isBig;
     // double _screenWidth = Scale.superScreenWidth(context);
 
-    Scaffold.of(context).hideCurrentSnackBar();
-    await Scaffold.of(context).showSnackBar(
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    await ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         duration: Duration(seconds: 5),
         backgroundColor: Colorz.Nothing,
@@ -87,7 +87,7 @@ class NavDialog extends StatelessWidget {
             verseItalic: true,
             bubble: false,
             verseCentered: true,
-            onTap: () => Scaffold.of(context).hideCurrentSnackBar(),
+            onTap: () => ScaffoldMessenger.of(context).hideCurrentSnackBar(),
           ),
         )
             :
@@ -117,7 +117,7 @@ class NavDialog extends StatelessWidget {
                     verseItalic: true,
                     bubble: false,
                     verseCentered: true,
-                    onTap: () => Scaffold.of(context).hideCurrentSnackBar(),
+                    onTap: () => ScaffoldMessenger.of(context).hideCurrentSnackBar(),
                   ),
                 );
             }
