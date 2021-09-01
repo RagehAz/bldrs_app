@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 
 void showSnackBar(BuildContext context, AnimationController _snackController) {
   double screenHeight = Scale.superScreenHeight(context);
-  Scaffold.of(context).hideCurrentSnackBar();
-  Scaffold.of(context).showSnackBar(SnackBar(
+  ScaffoldMessenger.of(context).hideCurrentSnackBar();
+  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
     backgroundColor: Colorz.BloodTest,
     shape: RoundedRectangleBorder(
         borderRadius: Borderers.superBorderOnly(context: context, enTopLeft: 20, enBottomLeft: 0, enBottomRight: 0, enTopRight: 20)),

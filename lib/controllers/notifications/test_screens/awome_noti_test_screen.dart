@@ -1,6 +1,6 @@
 import 'package:bldrs/controllers/drafters/device_checkers.dart';
 import 'package:bldrs/controllers/notifications/audioz.dart';
-import 'package:bldrs/controllers/notifications/noti_channelz.dart';
+import 'package:bldrs/controllers/notifications/noti_ops.dart';
 import 'package:bldrs/controllers/notifications/test_screens/second_noti_test_screen.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
@@ -133,7 +133,7 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
 
       _awesomeNotification.actionStream.listen((notification) async {
 
-        bool _isBasicChannel = notification.channelKey == NotiChannelz.notiChannelName(NotiChannel.basic);
+        bool _isBasicChannel = notification.channelKey == NotiOps.getNotiChannelName(NotiChannel.basic);
         bool _isIOS = DeviceChecker.deviceIsIOS();
 
         if (_isBasicChannel && _isIOS){
@@ -158,11 +158,11 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
   }
 // -----------------------------------------------------------------------------
   Future<void> _onSendNotification() async {
-      await NotiChannelz.createWelcomeNotification();
+      await NotiOps.createWelcomeNotification();
   }
 // -----------------------------------------------------------------------------
   Future<void> _onSendScheduledNotification() async {
-    await NotiChannelz.createScheduledNotification();
+    await NotiOps.createScheduledNotification();
   }
 // -----------------------------------------------------------------------------
   String _pyramids;
@@ -268,7 +268,7 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
             verseColor: Colorz.Black255,
             verseShadow: false,
             onTap: () async {
-              await NotiChannelz.cancelScheduledNotification();
+              await NotiOps.cancelScheduledNotification();
             },
           ),
 

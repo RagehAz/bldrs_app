@@ -52,7 +52,7 @@ class MainButton extends StatelessWidget {
 
     double _buttonHeight = _buttonZoneHeight * 0.85;
 
-    // BUTTON FOOTPRINT
+    /// BUTTON FOOTPRINT
     return Container(
       width: _screenWidth,
       height: _buttonZoneHeight,
@@ -74,7 +74,7 @@ class MainButton extends StatelessWidget {
                   blurStyle: BlurStyle.outer),
             ]
         ),
-        child: RaisedButton(
+        child: ElevatedButton(
           onPressed: () {
             if (function.runtimeType != String)
             {function();}
@@ -84,14 +84,20 @@ class MainButton extends StatelessWidget {
               else {Navigator.pushNamed(context, function);}
 }
           },
-          splashColor: splashColor,
-          elevation: 1,
-          color: buttonColor,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(_buttonCorner),
+          style: ButtonStyle(
+            elevation: MaterialStateProperty.all(1),
+            backgroundColor: MaterialStateProperty.all(buttonColor),
+            shape: MaterialStateProperty.all(RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(_buttonCorner),
+            )),
+            foregroundColor: MaterialStateProperty.all(Colorz.Grey80),
+            padding: MaterialStateProperty.all(const EdgeInsets.all(0)),
+            animationDuration: Ratioz.durationFading200,
+            // splashFactory: ElevatedButton.styleFrom(
+            //   splashFactory: NoSplash.splashFactory,
+            // ),
           ),
-          disabledColor: Colorz.Grey80,
-          padding: const EdgeInsets.all(0),
+          // splashColor: splashColor,
 
           // --- BUTTON CONTENTS
           child: Stack(

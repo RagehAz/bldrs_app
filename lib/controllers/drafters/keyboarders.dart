@@ -51,10 +51,13 @@ class Keyboarders {
 // on native Android?
 // -----------------------------------------------------------------------------
 static Future<void> handlePaste(TextSelectionDelegate delegate) async {
+
   final TextEditingValue value = delegate.textEditingValue; // Snapshot the input before using `await`.
   final ClipboardData data = await Clipboard.getData(Clipboard.kTextPlain);
+
   if (data != null) {
-    delegate.textEditingValue = TextEditingValue(
+
+    TextEditingValue _textEditingValue = TextEditingValue(
       text: value.selection.textBefore(value.text)
           + data.text
           + value.selection.textAfter(value.text),
@@ -62,8 +65,14 @@ static Future<void> handlePaste(TextSelectionDelegate delegate) async {
           offset: value.selection.start + data.text.length
       ),
     );
+
+    SelectionChangedCause _selectionChangedCause = SelectionChangedCause.tap;
+
+    delegate.userUpdateTextEditingValue(_textEditingValue, _selectionChangedCause);
   }
+
   delegate.bringIntoView(delegate.textEditingValue.selection.extent);
+
   delegate.hideToolbar();
 }
 // -----------------------------------------------------------------------------
