@@ -115,7 +115,7 @@ class _StartingScreenState extends State<StartingScreen> {
       // },
       layoutWidget: Stack(
         children: <Widget>[
-          // --- stuff
+
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -130,7 +130,7 @@ class _StartingScreenState extends State<StartingScreen> {
 
               SizedBox(height: Ratioz.appBarMargin,),
 
-              // --- CONTINUE WITH APPLE
+              /// --- CONTINUE WITH APPLE
               DeviceChecker.deviceIsIOS() ?
               MainButton(
                 buttonVerse: Wordz.continueApple(context),
@@ -143,7 +143,7 @@ class _StartingScreenState extends State<StartingScreen> {
 
               )
                   :
-              // CONTINUE WITH GOOGLE
+              /// CONTINUE WITH GOOGLE
               DeviceChecker.deviceIsAndroid() ?
               MainButton(
                 buttonVerse: "Continue with Google",
@@ -158,7 +158,7 @@ class _StartingScreenState extends State<StartingScreen> {
               Container(),
 
 
-              // --- CONTINUE WITH FACEBOOK
+              /// --- CONTINUE WITH FACEBOOK
               MainButton(
                 buttonVerse: Wordz.continueFacebook(context),
                 buttonIcon: Iconz.ComFacebookWhite,
@@ -169,7 +169,7 @@ class _StartingScreenState extends State<StartingScreen> {
                 stretched: false,
               ),
 
-              // --- CONTINUE WITH EMAIL
+              /// --- CONTINUE WITH EMAIL
               MainButton(
                 buttonVerse: Wordz.continueEmail(context),
                 buttonIcon: Iconz.ComEmail,

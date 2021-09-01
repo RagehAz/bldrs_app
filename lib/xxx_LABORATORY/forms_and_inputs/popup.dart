@@ -150,7 +150,7 @@ class _PopUpTestScreenState extends State<PopUpTestScreen> {
                                 height: 40,
                                 verse: 'Close Snackbar',
                                 onTap: () async {
-                                  await Scaffold.of(context).hideCurrentSnackBar();
+                                  await ScaffoldMessenger.of(context).hideCurrentSnackBar();
                                 },
                               ),
 
