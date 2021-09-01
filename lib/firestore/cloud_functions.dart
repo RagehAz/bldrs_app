@@ -2,8 +2,14 @@ import 'package:cloud_functions/cloud_functions.dart';
 
 class CloudFunctionz{
 
-  Future<dynamic> getTheThing() async {
-    final function = _getCallableFunction(funcName: 'theThing');
+  static String funcName_myFunction = 'myFunction';
+  static String funcName_randomNumber = 'randomNumber';
+  static String funcName_toBlackHole = 'toBlackHole';
+  static String funcName_sayHello = 'sayHello';
+
+  /// http trigger -> ( callable function - end point request )
+  static Future<dynamic> callFunction({String cloudFunctionName}) async {
+    final HttpsCallable function = _getCallableFunction(funcName: cloudFunctionName);
 
     try {
 
@@ -21,7 +27,7 @@ class CloudFunctionz{
 
   }
 
-  HttpsCallable _getCallableFunction({String funcName}){
+  static HttpsCallable _getCallableFunction({String funcName}){
     return
         FirebaseFunctions.instance.httpsCallable(
           funcName,

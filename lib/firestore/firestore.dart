@@ -69,6 +69,8 @@ class StorageDoc{
 }
 
 class Fire{
+
+
 // -----------------------------------------------------------------------------
   static String pathOfColl({String collName, String docName,}){
     return

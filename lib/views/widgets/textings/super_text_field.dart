@@ -4,6 +4,7 @@ import 'package:bldrs/controllers/drafters/text_shapers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class SuperTextField extends StatefulWidget {
   final TextInputType keyboardTextInputType;
@@ -277,7 +278,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
     }
 // -----------------------------------------------------------------------------
 
-    bool _maxLengthEnforced = widget.counterIsOn == true ? true : false;
+    MaxLengthEnforcement _maxLengthEnforced = widget.counterIsOn == true ? MaxLengthEnforcement.enforced : MaxLengthEnforcement.none;
 
     return
 
@@ -324,7 +325,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
           keyboardAppearance: Brightness.dark,
           textDirection: _concludedTextDirection,
           obscureText: widget.obscured,
-          maxLengthEnforced: _maxLengthEnforced,
+          maxLengthEnforcement: _maxLengthEnforced,
           enableInteractiveSelection: true, // makes test selectable
           decoration: _inputDecoration,
           cursorColor: Colorz.Yellow255,
@@ -359,7 +360,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
           keyboardAppearance: Brightness.dark,
           textDirection: _concludedTextDirection,
           obscureText: widget.obscured,
-          maxLengthEnforced: _maxLengthEnforced,
+          maxLengthEnforcement: _maxLengthEnforced,
           enableInteractiveSelection: true, // makes test selectable
           decoration: _inputDecoration,
           cursorColor: Colorz.Yellow255,
