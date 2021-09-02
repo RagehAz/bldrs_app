@@ -23,7 +23,12 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
 // -----------------------------------------------------------------------------
   Future<dynamic> getFirestoreBzz() async {
     _triggerLoading();
-    List<QueryDocumentSnapshot> _bzzMaps = await Fire.readCollectionDocs(FireCollection.tinyBzz);
+    List<QueryDocumentSnapshot> _bzzMaps = await Fire.readCollectionDocs(
+      collectionName: FireCollection.tinyBzz,
+      orderBy: 'bzID',
+      limit: 5,
+
+    );
 
     setState(() {
     _tinyBzz = TinyBz.decipherTinyBzzMaps(_bzzMaps);

@@ -15,6 +15,7 @@ class CloudFunctionz{
 
       final _result = await function.call({
         // arguments here
+        'name' : 'Abbas El Daw',
       });
 
       return _result.data;

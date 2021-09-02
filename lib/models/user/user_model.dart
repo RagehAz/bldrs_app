@@ -95,6 +95,21 @@ class UserModel {
 
   }
 // -----------------------------------------------------------------------------
+  static List<UserModel> decipherUsersMaps(List<dynamic> maps){
+    List<UserModel> _users = [];
+
+    if (maps != null && maps.length != 0){
+
+      for (var map in maps){
+
+        _users.add(decipherUserMap(map));
+
+      }
+
+    }
+    return _users;
+  }
+// -----------------------------------------------------------------------------
   static UserStatus decipherUserStatus (int userStatus){
     switch (userStatus){
       case 1:   return   UserStatus.Normal;                 break;

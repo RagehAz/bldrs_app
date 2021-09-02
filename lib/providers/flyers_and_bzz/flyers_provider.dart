@@ -227,36 +227,37 @@ class FlyersProvider with ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
   /// READs all TinyBzz in firebase realtime database
-  Future<void> fetchAndSetAllTinyBzzAndAllTinyFlyers(BuildContext context) async {
-
-    await tryAndCatch(
-        context: context,
-        methodName: 'fetchAndSetTinyBzzAndTinyFlyers',
-        functions: () async {
-
-          /// READ data from cloud Firestore bzz collection
-          List<dynamic> _fireStoreTinyBzzMaps = await Fire.readCollectionDocs(FireCollection.tinyBzz);
-          final List<TinyBz> _fireStoreTinyBzzModels = TinyBz.decipherTinyBzzMaps(_fireStoreTinyBzzMaps);
-
-          /// TASK : BOOMMM : should be _loadedTinyBzz = _fireStoreTinyBzzModels,, but this bom bom crash crash
-          // _loadedTinyBzz.addAll(_fireStoreTinyBzzModels);
-          _loadedTinyBzz = _fireStoreTinyBzzModels;
-
-          /// READ data from cloud Firestore flyers collection
-          List<dynamic> _fireStoreTinyFlyersMaps = await Fire.readCollectionDocs(FireCollection.tinyFlyers);
-          final List<TinyFlyer> _fireStoreTinyFlyersModels = TinyFlyer.decipherTinyFlyersMaps(_fireStoreTinyFlyersMaps);
-
-          /// TASK : after migrating local flyers to firestore, _loadedTinyFlyers = _fireStoreTinyFlyersModels;;
-          // _loadedTinyFlyers.addAll(_fireStoreTinyFlyersModels);
-          _loadedTinyFlyers = _fireStoreTinyFlyersModels;
-
-          notifyListeners();
-          print('_loadedTinyBzz :::: --------------- $_loadedTinyBzz');
-
-        }
-    );
-
-  }
+  /// SUPER EXPENSIVE METHOD
+  // Future<void> fetchAndSetAllTinyBzzAndAllTinyFlyers(BuildContext context) async {
+  //
+  //   await tryAndCatch(
+  //       context: context,
+  //       methodName: 'fetchAndSetTinyBzzAndTinyFlyers',
+  //       functions: () async {
+  //
+  //         /// READ data from cloud Firestore bzz collection
+  //         List<dynamic> _fireStoreTinyBzzMaps = await Fire.readCollectionDocs(FireCollection.tinyBzz);
+  //         final List<TinyBz> _fireStoreTinyBzzModels = TinyBz.decipherTinyBzzMaps(_fireStoreTinyBzzMaps);
+  //
+  //         /// TASK : BOOMMM : should be _loadedTinyBzz = _fireStoreTinyBzzModels,, but this bom bom crash crash
+  //         // _loadedTinyBzz.addAll(_fireStoreTinyBzzModels);
+  //         _loadedTinyBzz = _fireStoreTinyBzzModels;
+  //
+  //         /// READ data from cloud Firestore flyers collection
+  //         List<dynamic> _fireStoreTinyFlyersMaps = await Fire.readCollectionDocs(FireCollection.tinyFlyers);
+  //         final List<TinyFlyer> _fireStoreTinyFlyersModels = TinyFlyer.decipherTinyFlyersMaps(_fireStoreTinyFlyersMaps);
+  //
+  //         /// TASK : after migrating local flyers to firestore, _loadedTinyFlyers = _fireStoreTinyFlyersModels;;
+  //         // _loadedTinyFlyers.addAll(_fireStoreTinyFlyersModels);
+  //         _loadedTinyFlyers = _fireStoreTinyFlyersModels;
+  //
+  //         notifyListeners();
+  //         print('_loadedTinyBzz :::: --------------- $_loadedTinyBzz');
+  //
+  //       }
+  //   );
+  //
+  // }
 // -----------------------------------------------------------------------------
   /// READs all TinyBzz in firebase realtime database
   Future<void> fetchAndSetBzDeactivatedFlyers(BuildContext context, BzModel bzModel) async {
@@ -593,36 +594,37 @@ class FlyersProvider with ChangeNotifier {
   }
 // ############################################################################
 // === === === === === === === === === === === === === === === === === === ===
-  Future<void> fetchAndSetBzz(BuildContext context) async {
-
-    await tryAndCatch(
-        context: context,
-        methodName: 'fetchAndSetBzz',
-        functions: () async {
-
-          /// READ data from cloud Firestore bzz collection
-          List<QueryDocumentSnapshot> _fireStoreBzzMaps = await Fire.readCollectionDocs(FireCollection.bzz);
-          final List<BzModel> _fireStoreBzzModels = BzModel.decipherBzzMapsFromFireStore(_fireStoreBzzMaps);
-
-          /// TASK : BOOMMM : should be _loadedBzz = _loadedBzzFromDB,, but this bom bom crash crash
-          // _loadedBzz.addAll(_fireStoreBzzModels);
-          _loadedBzz = _fireStoreBzzModels;
-
-          /// READ data from cloud Firestore flyers collection
-          List<QueryDocumentSnapshot> _fireStoreFlyersMaps = await Fire.readCollectionDocs(FireCollection.flyers);
-          final List<FlyerModel> _fireStoreFlyersModels = FlyerModel.decipherFlyersMaps(_fireStoreFlyersMaps);
-
-         /// TASK : after migrating local flyers to firestore, _loadedFlyers should = _fireStoreFlyersModels;
-         //  _loadedFlyers.addAll(_fireStoreFlyersModels);
-          _loadedFlyers = _fireStoreFlyersModels;
-
-          notifyListeners();
-          print('_loadedBzz :::: --------------- $_loadedBzz');
-
-        }
-    );
-
-  }
+  /// super expensive method
+//   Future<void> fetchAndSetBzz(BuildContext context) async {
+//
+//     await tryAndCatch(
+//         context: context,
+//         methodName: 'fetchAndSetBzz',
+//         functions: () async {
+//
+//           /// READ data from cloud Firestore bzz collection
+//           List<QueryDocumentSnapshot> _fireStoreBzzMaps = await Fire.readCollectionDocs(FireCollection.bzz);
+//           final List<BzModel> _fireStoreBzzModels = BzModel.decipherBzzMapsFromFireStore(_fireStoreBzzMaps);
+//
+//           /// TASK : BOOMMM : should be _loadedBzz = _loadedBzzFromDB,, but this bom bom crash crash
+//           // _loadedBzz.addAll(_fireStoreBzzModels);
+//           _loadedBzz = _fireStoreBzzModels;
+//
+//           /// READ data from cloud Firestore flyers collection
+//           List<QueryDocumentSnapshot> _fireStoreFlyersMaps = await Fire.readCollectionDocs(FireCollection.flyers);
+//           final List<FlyerModel> _fireStoreFlyersModels = FlyerModel.decipherFlyersMaps(_fireStoreFlyersMaps);
+//
+//          /// TASK : after migrating local flyers to firestore, _loadedFlyers should = _fireStoreFlyersModels;
+//          //  _loadedFlyers.addAll(_fireStoreFlyersModels);
+//           _loadedFlyers = _fireStoreFlyersModels;
+//
+//           notifyListeners();
+//           print('_loadedBzz :::: --------------- $_loadedBzz');
+//
+//         }
+//     );
+//
+//   }
 // -----------------------------------------------------------------------------
   TinyFlyer getSavedTinyFlyerByFlyerID(String flyerID){
     TinyFlyer _tinyFlyer = TinyFlyer.getTinyFlyerFromTinyFlyers(
