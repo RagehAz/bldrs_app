@@ -1,9 +1,12 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/drafters/scrollers.dart';
 import 'package:bldrs/controllers/drafters/stream_checkers.dart';
 import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/flagz.dart';
+import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/models/secondary_models/contact_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/providers/users/users_provider.dart';
@@ -14,9 +17,12 @@ import 'package:bldrs/views/widgets/buttons/dream_wrapper.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/views/widgets/layouts/dashboard_layout.dart';
-import 'package:bldrs/views/widgets/layouts/main_layout.dart' show Expander;
+import 'package:bldrs/views/widgets/layouts/main_layout.dart' show Expander, MainLayout;
+import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
+import 'package:bldrs/xxx_LABORATORY/flyer_browser/bldrs_expansion_tile.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -28,10 +34,23 @@ class UsersManagerScreen extends StatefulWidget {
 
 class _UsersManagerScreenState extends State<UsersManagerScreen> {
 // -----------------------------------------------------------------------------
-  /// --- LOADING BLOCK
+  /// --- FUTURE LOADING BLOCK
   bool _loading = false;
-  void _triggerLoading(){
-    setState(() {_loading = !_loading;});
+  Future <void> _triggerLoading({Function function}) async {
+
+    if (function == null){
+      setState(() {
+        _loading = !_loading;
+      });
+    }
+
+    else {
+      setState(() {
+        _loading = !_loading;
+        function();
+      });
+    }
+
     _loading == true?
     print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
   }
@@ -39,6 +58,47 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
   @override
   void initState() {
     super.initState();
+
+  }
+  // -----------------------------------------------------------------------------
+  bool _isInit = true;
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
+
+      _triggerLoading(function: (){}).then((_) async {
+        /// ---------------------------------------------------------0
+
+        _readMoreUsers();
+
+        /// ---------------------------------------------------------0
+      });
+
+    }
+    _isInit = false;
+    super.didChangeDependencies();
+  }
+// -----------------------------------------------------------------------------
+  QueryDocumentSnapshot _lastSnapshot;
+  List<UserModel> _usersModels = [];
+  Future<void> _readMoreUsers() async {
+
+    List<dynamic> _maps = await Fire.readCollectionDocs(
+      collectionName:  FireCollection.users,
+      orderBy: 'userID',
+      limit: 5,
+      startAfter: _lastSnapshot,
+      addDocSnapshotToEachMap: true,
+    );
+
+    List<UserModel> _fetchedModel = UserModel.decipherUsersMaps(_maps);
+
+    setState(() {
+      _lastSnapshot = _maps[_maps.length - 1]['docSnapshot'];
+      _usersModels.addAll(_fetchedModel);
+    });
+
+
   }
 // -----------------------------------------------------------------------------
   @override
@@ -65,232 +125,233 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
       );
     }
 
-    return DashBoardLayout(
+    return MainLayout(
       loading: _loading,
       pageTitle: 'Users Manager',
-      listWidgets: <Widget>[
+      appBarType: AppBarType.Basic,
+      pyramids: Iconz.DvBlankSVG,
+      sky: Sky.Black,
+      appBarRowWidgets: <Widget>[
 
-        StreamBuilder<List<UserModel>>(
-            stream: UserProvider().allUsersStream,
-            builder: (context, snapshot){
-              if(StreamChecker.connectionIsLoading(snapshot) == true){
-                return LoadingFullScreenLayer();
-              } else {
-                List<UserModel> _usersModels = snapshot.data;
-                return
+        Expander(),
 
-                Column(
-                  children: <Widget>[
+        DreamBox(
+          width: 150,
+          height: 40,
+          verse: 'Load More',
+          secondLine: 'showing ${_usersModels.length} users',
+          verseScaleFactor: 0.7,
+          secondLineScaleFactor: 0.9,
+          margins: EdgeInsets.symmetric(horizontal: 5),
+          onTap: () async {
 
-                    SuperVerse(
-                      verse: '${_usersModels.length} users in Bldrs.net',
-                      labelColor: Colorz.White20,
-                      centered: true,
-                      size: 4,
-                      margin: 5,
-                    ),
+            await _readMoreUsers();
 
-                    Container(
-                      width: _screenWidth,
-                      height: _screenHeight - Ratioz.stratosphere,
-                      child: ListView.builder(
-                        itemCount: _usersModels.length,
-                        padding: const EdgeInsets.only(bottom: Ratioz.grandHorizon),
-                        itemBuilder: (context, index){
-
-                          UserModel _userModel = _usersModels[index];
-                          String _countryName = _countryPro .getCountryNameInCurrentLanguageByIso3(context, _userModel.zone.countryID);
-                          String _provinceName = _countryPro.getCityNameWithCurrentLanguageIfPossible(context, _userModel.zone.cityID);
-                          String _districtName = _countryPro.getDistrictNameWithCurrentLanguageIfPossible(context, _userModel.zone.districtID);
-
-                          List<ContactModel> _stringyContacts = ContactModel.getContactsWithStringsFromContacts(_userModel.contacts);
-                          List<String> _stringyContactsValues = ContactModel.getListOfValuesFromContactsModelsList(_stringyContacts);
-                          List<String> _stringyContactsIcons = ContactModel.getListOfIconzFromContactsModelsList(_stringyContacts);
-
-                          List<ContactModel> _socialContacts = ContactModel.getSocialMediaContactsFromContacts(_userModel.contacts);
-                          List<String> _socialContactsValues = ContactModel.getListOfValuesFromContactsModelsList(_socialContacts);
-                          List<String> _socialContactsIcons = ContactModel.getListOfIconzFromContactsModelsList(_socialContacts);
-
-                          // dynamic bobo = ContactModel.getListOfValuesFromContactsModelsList(_stringyContacts);
-
-                          return
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-
-                                // --- INDEX AND ID
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
-                                  child: SuperVerse(
-                                    verse: '$index : ${_userModel.userID}',
-                                    size: 1,
-                                    weight: VerseWeight.thin,
-                                  ),
-                                ),
-
-                                InPyramidsBubble(
-                                  columnChildren: <Widget>[
-
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: <Widget>[
-
-                                        // --- USER PIC
-                                        DreamBox(
-                                          height: 70,
-                                          width: 70,
-                                          icon: _userModel.pic,
-                                          onTap: () => BottomDialog.slideBottomDialog(
-                                            context: context,
-                                            draggable: true,
-                                            height: null,
-                                            child: Column(
-                                              children: <Widget>[
-
-                                                DreamBox(
-                                                  height: 60,
-                                                  width: BottomDialog.dialogClearWidth(context),
-                                                  icon: _userModel.pic,
-                                                  verse: 'Delete this fucker (${_userModel.name})',
-                                                  verseScaleFactor: 0.7,
-                                                  secondLine: 'This will delete user document from firebase, and delete his firebase User authentication record',
-                                                  secondLineColor: Colorz.Red255,
-                                                  onTap: () async {
-                                                    _triggerLoading();
-
-                                                    try{
-                                                      // await UserCRUD().deleteUserDoc(_userModel.userID);
-                                                    } catch (error){
-
-                                                      await superDialog(
-                                                        context: context,
-                                                        title: 'Ops',
-                                                        body: error,
-                                                        boolDialog: true,
-                                                      );
-
-                                                    }
-
-                                                    _triggerLoading();
-                                                  },
-                                                ),
-
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-
-                                        SizedBox(
-                                          width: Ratioz.appBarMargin,
-                                        ),
-
-                                        // --- USER DATA
-                                        Column(
-                                          mainAxisAlignment: MainAxisAlignment.start,
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: <Widget>[
-
-                                            _titleVerse('Name'),
-                                            SuperVerse(
-                                              verse: _userModel.name,
-                                            ),
-
-                                            _titleVerse('Title'),
-                                            _smallVerse(_userModel.title),
-
-
-                                            _titleVerse('Company'),
-                                            _smallVerse(_userModel.company),
-
-                                            _titleVerse('Zone'),
-                                            _smallVerse('in [ $_districtName ] - [ $_provinceName ] - [ $_countryName ]'),
-
-                                            _titleVerse('joined At'),
-                                            _smallVerse(Timers.dayMonthYearStringer(context, _userModel.joinedAt)),
-
-                                            _titleVerse('preferred language'),
-                                            _smallVerse(_userModel.language),
-
-                                            _titleVerse('Following'),
-                                            // _smallVerse('${_userModel.followedBzzIDs.length} Businesses'),
-
-                                            _titleVerse('Saved flyers'),
-                                            // _smallVerse('${_userModel.savedFlyersIDs.length} flyers'),
-
-                                            _titleVerse('Main Contacts'),
-                                            DreamWrapper(
-                                              boxWidth: 250,
-                                              boxHeight: 100,
-                                              verses: _stringyContactsValues,
-                                              icons: _stringyContactsIcons,
-                                              buttonHeight: 20,
-                                              spacing: 2.5,
-                                              margins: const EdgeInsets.all(2.5),
-                                              onTap: () async {
-                                                await superDialog(
-                                                  context: context,
-                                                  title: 'Contact',
-                                                  body: '$_stringyContactsValues',
-                                                  boolDialog: false,
-                                                );
-                                              }
-
-                                            ),
-
-                                            _titleVerse('Social Media Contacts'),
-                                            DreamWrapper(
-                                              boxWidth: 250,
-                                              boxHeight: 100,
-                                              verses: _socialContactsValues,
-                                              icons: _socialContactsIcons,
-                                              buttonHeight: 20,
-                                              spacing: 2.5,
-                                              margins: const EdgeInsets.all(2.5),
-                                              onTap: () async {
-                                                  await superDialog(
-                                                    context: context,
-                                                    title: 'Contact',
-                                                    body: '$_socialContactsValues',
-                                                    boolDialog: false,
-                                                  );
-                                              }
-                                            ),
-
-                                          ],
-                                        ),
-
-                                        // --- Expander
-                                        Expander(),
-
-                                        DreamBox(
-                                          height: 25,
-                                          width: 25,
-                                          icon: Flagz.getFlagByIso3(_userModel.zone.countryID),
-                                          corners: 5,
-                                        ),
-
-                                      ],
-                                    ),
-
-                                  ],
-                                ),
-
-                              ],
-                            );
-                          },
-                      ),
-                    ),
-
-
-                  ],
-                );
-              }
-            }
-            ),
+          },
+        ),
 
       ],
+      layoutWidget: Container(
+        width: _screenWidth,
+        height: _screenHeight - Ratioz.stratosphere,
+        child: ListView.builder(
+          physics: const BouncingScrollPhysics(),
+          itemCount: _usersModels.length,
+          padding: const EdgeInsets.only(bottom: Ratioz.grandHorizon, top: Ratioz.stratosphere),
+          itemExtent: 70,
+          itemBuilder: (context, index){
+
+            UserModel _userModel = _usersModels[index];
+            String _countryName = _countryPro .getCountryNameInCurrentLanguageByIso3(context, _userModel.zone.countryID);
+            String _provinceName = _countryPro.getCityNameWithCurrentLanguageIfPossible(context, _userModel.zone.cityID);
+            String _districtName = _countryPro.getDistrictNameWithCurrentLanguageIfPossible(context, _userModel.zone.districtID);
+
+            List<ContactModel> _stringyContacts = ContactModel.getContactsWithStringsFromContacts(_userModel.contacts);
+            List<String> _stringyContactsValues = ContactModel.getListOfValuesFromContactsModelsList(_stringyContacts);
+            List<String> _stringyContactsIcons = ContactModel.getListOfIconzFromContactsModelsList(_stringyContacts);
+
+            List<ContactModel> _socialContacts = ContactModel.getSocialMediaContactsFromContacts(_userModel.contacts);
+            List<String> _socialContactsValues = ContactModel.getListOfValuesFromContactsModelsList(_socialContacts);
+            List<String> _socialContactsIcons = ContactModel.getListOfIconzFromContactsModelsList(_socialContacts);
+
+            // dynamic bobo = ContactModel.getListOfValuesFromContactsModelsList(_stringyContacts);
+
+            return
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+
+
+                  DreamBox(
+                    height: 60,
+                    width: _screenWidth - 20,
+                    icon: _userModel.pic,
+                    color: Colorz.White20,
+                    verse: _userModel.name,
+                    secondLine: '$index : ${_userModel.userID}',
+                    verseScaleFactor: 0.6,
+                    verseCentered: false,
+                    secondLineScaleFactor: 0.9,
+                    margins: EdgeInsets.symmetric(vertical: 5),
+                    onTap: () async {
+
+                      await BottomDialog.slideBottomDialog(
+                        context: context,
+                        title: _userModel.name,
+                        draggable: true,
+                        child: Container(
+                          width: BottomDialog.dialogClearWidth(context),
+                          height: BottomDialog.dialogClearHeight(draggable: true, title: 'x', context: context,),
+                          color: Colorz.BloodTest,
+                          child: GoHomeOnMaxBounce(
+                            child: ListView(
+                              physics: const BouncingScrollPhysics(),
+                              children: <Widget>[
+
+                                DreamBox(
+                                  height: 25,
+                                  width: 25,
+                                  icon: Flagz.getFlagByIso3(_userModel.zone.countryID),
+                                  corners: 5,
+                                ),
+
+                                DataRow(dataKey: 'userID', value: _userModel.userID),
+                                DataRow(dataKey: 'authBy', value: _userModel.authBy),
+                                DataRow(dataKey: 'joinedAt', value: _userModel.joinedAt),
+                                DataRow(dataKey: 'timeString', value: Timers.dayMonthYearStringer(context, _userModel.joinedAt)),
+                                DataRow(dataKey: 'userStatus', value: _userModel.userStatus),
+                                DataRow(dataKey: 'name', value: _userModel.name),
+                                DataRow(dataKey: 'pic', value: _userModel.pic),
+                                DataRow(dataKey: 'title', value: _userModel.title),
+                                DataRow(dataKey: 'company', value: _userModel.company),
+                                DataRow(dataKey: 'gender', value: _userModel.gender),
+                                DataRow(dataKey: 'zone', value: _userModel.zone),
+                                DataRow(dataKey: 'zone String', value: 'in [ $_districtName ] - [ $_provinceName ] - [ $_countryName ]'),
+                                DataRow(dataKey: 'language', value: _userModel.language),
+                                DataRow(dataKey: 'position', value: _userModel.position),
+                                DataRow(dataKey: 'contacts', value: _userModel.contacts),
+                                DataRow(dataKey: 'Stringy contacts', value: '$_stringyContactsValues'),
+                                DataRow(dataKey: 'Social Contacts', value: '$_socialContactsValues'),
+                                DataRow(dataKey: 'myBzzIDs', value: _userModel.myBzzIDs),
+                                DataRow(dataKey: 'emailIsVerified', value: _userModel.emailIsVerified),
+                                // DataRow(dataKey: 'SavedFlyers', value: '${_userModel.savedFlyersIDs.length} flyers')
+                                // DataRow(dataKey: 'followedBzz', value: '${_userModel.followedBzzIDs.length} Businesses'),
+
+                                _titleVerse('Main Contacts'),
+                                DreamWrapper(
+                                    boxWidth: 250,
+                                    boxHeight: 100,
+                                    verses: _stringyContactsValues,
+                                    icons: _stringyContactsIcons,
+                                    buttonHeight: 20,
+                                    spacing: 2.5,
+                                    margins: const EdgeInsets.all(2.5),
+                                    onTap: () async {
+                                      await superDialog(
+                                        context: context,
+                                        title: 'Contact',
+                                        body: '$_stringyContactsValues',
+                                        boolDialog: false,
+                                      );
+                                    }
+
+                                ),
+
+                                _titleVerse('Social Media Contacts'),
+                                DreamWrapper(
+                                    boxWidth: 250,
+                                    boxHeight: 100,
+                                    verses: _socialContactsValues,
+                                    icons: _socialContactsIcons,
+                                    buttonHeight: 20,
+                                    spacing: 2.5,
+                                    margins: const EdgeInsets.all(2.5),
+                                    onTap: () async {
+                                      await superDialog(
+                                        context: context,
+                                        title: 'Contact',
+                                        body: '$_socialContactsValues',
+                                        boolDialog: false,
+                                      );
+                                    }
+                                ),
+
+
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+
+                    },
+                  ),
+
+
+                ],
+              );
+          },
+        ),
+      ),
+
+    );
+  }
+}
+
+
+class DataRow extends StatelessWidget {
+  final dynamic dataKey;
+  final dynamic value;
+
+  const DataRow({
+    @required this.dataKey,
+    @required this.value,
+});
+
+  @override
+  Widget build(BuildContext context) {
+
+    const double _rowHeight = 40;
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 2.5),
+      child: Row(
+        children: <Widget>[
+
+          /// Box
+          DreamBox(
+            height: 20,
+            width: 20,
+            color: Colorz.White200,
+          ),
+
+          /// Key
+          DreamBox(
+            height: _rowHeight,
+            width: 80,
+            color: Colorz.Yellow255,
+            verse: dataKey.toString(),
+            verseMaxLines: 2,
+            verseScaleFactor: 0.5,
+            verseWeight: VerseWeight.bold,
+            verseColor: Colorz.Black255,
+            verseShadow: false,
+            margins: EdgeInsets.symmetric(horizontal: 5),
+          ),
+
+          Container(
+            width: 260,
+            height: _rowHeight,
+            // color: Colorz.White20,
+            child: SuperVerse(
+              verse: value.toString(),
+              size: 1,
+              centered: false,
+            ),
+          ),
+
+        ],
+      ),
     );
   }
 }

@@ -276,14 +276,41 @@ class Fire{
     return _subDocRef;
   }
 // =============================================================================
-  static Future<List<dynamic>> readCollectionDocs(String collectionName) async {
-    QuerySnapshot _collectionSnapshot = await FirebaseFirestore.instance.collection(collectionName).get();
+  static Future<List<dynamic>> readCollectionDocs({String collectionName, String orderBy, @required int limit, QueryDocumentSnapshot startAfter, bool addDocSnapshotToEachMap}) async {
+
+    QueryDocumentSnapshot _startAfter = startAfter ?? null;
+
+    QuerySnapshot _collectionSnapshot;
+
+
+    if(_startAfter == null){
+      _collectionSnapshot = await FirebaseFirestore.instance.collection(collectionName).orderBy(orderBy).limit(limit).get();
+    }
+
+    else {
+      _collectionSnapshot = await FirebaseFirestore.instance.collection(collectionName).orderBy(orderBy).limit(limit).startAfterDocument(startAfter).get();
+    }
+
+
+
     List<QueryDocumentSnapshot> _docsSnapshots = _collectionSnapshot.docs;
 
     /// to return maps
     List<dynamic> _maps = [];
-    for (var docSnapShot in _docsSnapshots){
-      _maps.add(docSnapShot.data());
+    for (var docSnapshot in _docsSnapshots){
+
+      Map<String, dynamic> _map = docSnapshot.data();
+
+      if (addDocSnapshotToEachMap == true){
+        _map = Mapper.insertPairInMap(
+          map: _map,
+          key: 'docSnapshot',
+          value: docSnapshot,
+        );
+      }
+
+      _maps.add(_map);
+
     }
     // return <List<QueryDocumentSnapshot>>
 
