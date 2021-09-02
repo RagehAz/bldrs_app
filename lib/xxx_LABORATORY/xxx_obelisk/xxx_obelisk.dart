@@ -25,7 +25,6 @@ import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/dio_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/dynamic_links_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/emoji_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/fire_search_test.dart';
-import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/firebase_testing.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/flyer_test_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/random_test_space.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/slider_test.dart';
@@ -193,8 +192,6 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
           oButton('Dynamic Links test', Iconz.Share, DynamicLinkTest()),
 
           oButton('Dialog Test', Iconz.More, DialogTestScreen(), color: Colorz.BloodTest),
-
-          oButton('Firebase testing', Iconz.Filter, Firebasetesting()),
 
           oButton('Storage testing', Iconz.ArrowDown, FireStorageTest()),
 

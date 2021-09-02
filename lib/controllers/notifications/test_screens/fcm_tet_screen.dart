@@ -147,7 +147,12 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
 
   void _resetCounter(){
     _stopWatchTimer.onExecute.add(StopWatchExecute.reset);
+    setState(() {
+      _received = 'Nothing yet';
+    });
   }
+
+  String _received = 'Nothing yet';
 
   @override
   Widget build(BuildContext context) {
@@ -220,17 +225,30 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
           DreamBox(
             height: 60,
             width: 250,
-            verse: 'call function',
+            verse: 'call cloud function \n'
+                '$_received',
             verseScaleFactor: 0.7,
+            verseMaxLines: 2,
             color: Colorz.Blue80,
             verseColor: Colorz.Black255,
             verseShadow: false,
             onTap: () async {
 
+              _startCounter();
+
               dynamic map = await CloudFunctionz.callFunction(cloudFunctionName: 'sayHello');
+
+              _lapCounter();
 
               print("The Map is Amazingly : $map");
 
+              setState(() {
+                _received = 'received : ${map.toString()}';
+              });
+
+              _lapCounter();
+
+              _stopCounter();
             },
           ),
 
