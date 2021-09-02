@@ -44,7 +44,12 @@ class _AllFlyersScreenState extends State<AllFlyersScreen> {
 
         print('starting things');
 
-        List<dynamic> _maps = await Fire.readCollectionDocs(FireCollection.tinyFlyers);
+        List<dynamic> _maps = await Fire.readCollectionDocs(
+          collectionName: FireCollection.tinyFlyers,
+          orderBy: 'flyerID',
+          limit: 5,
+        );
+
         print('we got ${_maps.length} maps');
         List<TinyFlyer> _tinyFlyersFromMaps = TinyFlyer.decipherTinyFlyersMaps(_maps);
         print('we got ${_tinyFlyersFromMaps.length} tinyFlyers');
