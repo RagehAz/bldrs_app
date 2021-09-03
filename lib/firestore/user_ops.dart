@@ -85,6 +85,8 @@ class UserOps{
       contacts : userModel.contacts,
       // -------------------------
       myBzzIDs : userModel.myBzzIDs,
+      isAdmin: userModel.isAdmin,
+      emailIsVerified: userModel.emailIsVerified,
     );
 
     /// create user doc in fireStore
@@ -198,6 +200,8 @@ class UserOps{
       contacts : updatedUserModel.contacts,
       // -------------------------
       myBzzIDs : updatedUserModel.myBzzIDs,
+      isAdmin: updatedUserModel.isAdmin,
+      emailIsVerified: updatedUserModel.emailIsVerified,
     );
 
     /// C - update firestore/users/userID

@@ -1,36 +1,238 @@
 rules_version = '2';
 service cloud.firestore {
+
   match /databases/{database}/documents {
-  
-    match/admin/sponsors {
-  allow read : if request.auth == null;
-  }
-  
-  match/chats {
-  allow read, write: if request.auth !=null;
-  }
-  
-  match/countries {
-  allow read: if request.auth !=null;
-  }
-  
-  // 
-  //match /users/{userID} {
-  //allow write: if request.auth != null && request.auth.uid == userID;
-  //}
-  
-  match /users {
-  allow write: if request.auth != null;
-  }
-  
-  match /users/{userID}{
-  allow read, write: if request.auth != null;
-  }
-  
-  // to add ablity to read all docs in a collection 'chats' for example,, syntax would be ;-
-  // match/chats/{document=**}{ ... etc
-    match /{document=**} {
-      allow read, write: if request.auth != null;
+    
+    // GETTERS  -------------------------------------------
+    function getUserID(){
+      return request.auth.uid;
     }
+
+    function getUserModel(){
+      return get( /databases/$(database)/documents/users/$(request.auth.uid)).data;
+    }
+
+    // function getFieldValue(fieldName){
+    //   return request.resource.data[fieldName];
+    // }
+
+    function getBzModel(bzID){
+      return get( /databases/$(database)/documents/bzz/$(bzID)).data;
+    }
+
+    function getFlyerModel(flyerID){
+      return get( /databases/$(database)/documents/flyers/$(flyerID)).data;
+    }
+
+    // GENERAL CHECKERS  -------------------------------------------
+    function isAuthenticated(){
+      return getUserID() != null;
+    }
+
+    function isUserModel(){
+      return isAuthenticated() &&
+      exists( /databases/$(database)/documents/users/$(getUserID()));
+    }
+
+    // function isAnonymous(){
+    //   return request.auth == null;
+    // }
+
+    function isNormalUser(){
+      return isAuthenticated() && isUserModel();
+    }
+
+      // RAGEH  -------------------------------------------
+    function isRageh(){
+      return getUserID() == "r1dqipDtBmRzK6HzL8Ug2vmcYVl1";
+    }
+
+    function isAdmin(){
+    
+    	let userModel = getUserModel();  
+    	let isAdmin = userModel.isAdmin;
+
+      return isNormalUser() && isAdmin;
+    }
+
+    // BZ CHECKERS  -------------------------------------------
+    function isAuthor(){
+      return isAuthenticated() && isUserModel() &&
+      getUserModel().myBzzIDs.length > 0;
+    }
+
+    function isAuthorOfThisBz(bzID){
+      return getUserID() in getBzModel(bzID).authorsIDs;
+    }
+
+    function isOwnerOfThisFlyer(flyerID){
+      let flyerModel = getFlyerModel(flyerID); //xx
+      let tinyAuthor = flyerModel.tinyAuthor;
+      let authorID = tinyAuthor.userID;
+
+      return getUserID() == authorID;
+    }
+    
+
+    // VALUE CHECKERS  -------------------------------------------
+    // function valueIsString(value){
+    //   return value is string;
+    // }
+
+    // function valueIsNumber(value){
+    //   return value is number;
+    // }
+
+    // function stringIsEmpty(stringValue){
+    //   return valueIsString(stringValue) && stringValue.size() > 0;
+    // }
+
+    // PERMISSIONS  -------------------------------------------
+    
+    // x -> db / collName / docName -> to specify specifc doc
+    // x -> db / collName / {docName} -> to get doc name and handle
+
+    // DONE : db / admin / sponsors
+    match /admin/sponsors {
+      allow read: if true;
+      allow write: if isRageh();
+    }
+
+    // DONE : db / admin / statistics
+     match /admin/statistics {
+      allow read: if isAdmin();
+      allow write: if isAdmin();
+    }
+
+    // DONE : db / bzz
+    match /bzz/{bzID} {
+      allow read: if true;
+      allow create: if isNormalUser();
+      allow update: if isAuthorOfThisBz(bzID);
+      allow delete: if isAuthorOfThisBz(bzID);
+    }
+
+    // DONE : db / tinyBzz
+    match /tinyBzz/{bzID} {
+      allow read: if true;
+      allow create: if isNormalUser();
+      allow update: if isAuthorOfThisBz(bzID);
+      allow delete: if isAuthorOfThisBz(bzID);
+    }
+
+    // DONE : db / bzz / bzID / calls
+    match /bzz/{bzID}/calls/{callID} {
+      allow read: if isAuthorOfThisBz(bzID);
+      allow create: if isNormalUser();
+      allow update: if isNormalUser();
+      allow delete: if isAdmin();
+    }
+
+    // DONE : db / bzz / bzID / follows
+    match /bzz/{bzID}/follows/{followID} {
+      allow read: if true;
+      allow create: if isNormalUser();
+      allow update: if isNormalUser();
+      allow delete: if isAdmin();
+    }
+
+    // DONE : db / bzz / bzID / flyers
+    match /bzz/{bzID}/flyers/{flyerID} {
+      allow read: if true;
+      allow write: if isAuthorOfThisBz(bzID);
+    }
+
+    // DONE : db / countries
+    match /countries/{countryID} {
+    allow read: if isNormalUser();
+    allow write: if isAdmin(); 
+    }
+
+    // DONE : db / feedbacks
+    match /feedbacks/{feedbackID} {
+      allow read: if true;
+      allow write: if isNormalUser();
+    }
+
+    // DONE : db / flyers
+    match /flyers/{flyerID} {
+      allow read: if true;
+      allow create: if isNormalUser();
+      allow update: if isOwnerOfThisFlyer(flyerID);
+      allow delete: if isOwnerOfThisFlyer(flyerID);
+    }
+
+    // DONE : db / tinyFlyers
+    match /tinyFlyers/{tinyFlyerID} {
+      allow read: if true;
+      allow write: if isAuthor();
+    }
+
+    // DONE : db / flyers / flyerID / counters
+    match /flyers/{flyerID}/counters/{docID} {
+      allow read: if true;
+      allow write: if false; // should be written only by a cloud function
+    }
+
+    // DONE : db / flyers / flyerID / saves
+    match /flyers/{flyerID}/saves/{saveID} {
+      allow read: if true;
+      allow create: if isNormalUser();
+      allow update: if getUserID() == saveID;
+      allow delete: if getUserID() == saveID;
+    }
+
+    // DONE : db / flyers / flyerID / shares
+    match /flyers/{flyerID}/shares/{shareID} {
+      allow read: if true;
+      allow create: if isNormalUser();
+      allow update: if getUserID() == shareID;
+      allow delete: if isOwnerOfThisFlyer(flyerID);
+    }
+
+    // DONE : db / flyers / flyerID / reviews
+    match /flyers/{flyerID}/reviews/{reviewID} {
+      allow read: if true;
+      allow create: if isNormalUser();
+      allow update: if getUserID() == reviewID;
+      allow delete: if getUserID() == reviewID;
+    }
+
+    // DONE : db / users
+    match /users/{userID} {
+      allow read: if true;
+      allow create: if true;
+      allow update: if getUserID() == userID;
+      allow delete: if getUserID() == userID;
+    }
+
+    // DONE : db / users / userID / saves
+    // DONE : db / users / userID / saves / bzz
+    // DONE : db / users / userID / saves / flyers
+		match /users/{userID}/saves/{docID} {
+      allow read: if true;
+      allow write: if getUserID() == userID;
+    }
+
+
+    // DONE : db / tinyUsers
+    match /tinyUsers/{userID} {
+      allow read: if true;
+      allow create: if true;
+      allow update: if getUserID() == userID;
+      allow delete: if getUserID() == userID;
+    }
+      
+    // ESHTA : db / questions
+    match /questions/{questionID=**} {
+      allow read, write: if isNormalUser();
+    }
+
+    // DONE : LOCK DOWN DATABASE by default
+    match /{document=**} {
+      allow read: if isAdmin();
+      allow write: if isRageh();
+    }
+
   }
 }

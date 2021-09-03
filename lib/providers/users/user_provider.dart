@@ -16,7 +16,6 @@ class UserProvider {
 //   /// users list from snapshot
   List<UserModel> _usersListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
-
       // print(doc.data()['savedFlyersIDs']);
       // List<dynamic> _savedFlyersIDs = doc.data()['savedFlyersIDs'] as List<dynamic>;
       // List<dynamic> _followedBzzIDs = doc.data()['followedBzzIDs'] as List<dynamic>;
@@ -25,27 +24,30 @@ class UserProvider {
       Map<String, dynamic> _map = doc.data() as Map;
 
       return UserModel(
-        userID : _map['userID'] ?? '',
-        joinedAt : Timers.decipherDateTimeString(_map['joinedAt'] ?? ''),
-        userStatus : UserModel.decipherUserStatus(_map['userStatus']?? 1),
+        userID: _map['userID'] ?? '',
+        joinedAt: Timers.decipherDateTimeString(_map['joinedAt'] ?? ''),
+        userStatus: UserModel.decipherUserStatus(_map['userStatus'] ?? 1),
         // -------------------------
-        name : _map['name'] ?? '',
-        pic : _map['pic'] ?? '',
-        title : _map['title'] ?? '',
-        company : _map['company'] ?? '',
-        gender : UserModel.decipherGender(_map['gender'] ?? 2),
-        zone : _map['zone'] ?? '',
-        language : _map['language'] ?? 'en',
-        position : _map['position'] ?? GeoPoint(0, 0),
-        contacts : ContactModel.decipherContactsMaps(_map['contacts'] ?? []),
+        name: _map['name'] ?? '',
+        pic: _map['pic'] ?? '',
+        title: _map['title'] ?? '',
+        company: _map['company'] ?? '',
+        gender: UserModel.decipherGender(_map['gender'] ?? 2),
+        zone: _map['zone'] ?? '',
+        language: _map['language'] ?? 'en',
+        position: _map['position'] ?? GeoPoint(0, 0),
+        contacts: ContactModel.decipherContactsMaps(_map['contacts'] ?? []),
         // -------------------------
         myBzzIDs: _map['myBzzIDs'] ?? [],
-        authBy: _map['authBy'] ?? null, /// TASK : user auth by in stream,
-        emailIsVerified: _map['emailIsVerified'] ?? false, /// TASK : make sure about this,
+        authBy: _map['authBy'] ?? null,
 
+        /// TASK : user auth by in stream,
+        emailIsVerified: _map['emailIsVerified'] ?? false,
+
+        /// TASK : make sure about this,
+        isAdmin: _map['isAdmin'] ?? false,
       );
     }).toList();
-
   }
 
 // -----------------------------------------------------------------------------
@@ -84,9 +86,11 @@ class UserProvider {
           myBzzIDs: _myBzzIDs ?? [],
           emailIsVerified: _map['emailIsVerified'] ?? false,
           authBy: UserModel.decipherAuthBy(_map['authBy']) ?? AuthBy.Unknown,
+          isAdmin: _map['isAdmin'] ?? false,
         );
       } catch (error) {
-        print('_userModelFromSnapshot error is : $error : _map[\'authBy\'] : ${_mapa['authBy']}');
+        print(
+            '_userModelFromSnapshot error is : $error : _map[\'authBy\'] : ${_mapa['authBy']}');
         throw (error);
       }
     }
