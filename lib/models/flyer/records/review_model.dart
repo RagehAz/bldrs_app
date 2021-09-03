@@ -2,10 +2,14 @@ import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:flutter/foundation.dart';
 
 class ReviewModel {
-  final String reviewID;
+  final String reviewID; // has to be the userID for security rules
   final String body;
   final String userID;
   final DateTime time;
+
+  /// TASK : Review model should be
+  // final List<ReviewPost> posts; // ReviewPost(body:, time: , bzReply:, bzReplyTime: ,replyAuthorID: )
+  // final DateTime lastTimeStamp; // to help firebase query
 
   ReviewModel ({
     this.reviewID,

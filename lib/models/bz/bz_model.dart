@@ -54,6 +54,8 @@ class BzModel with ChangeNotifier{
   int bzTotalFlyers;
   // -------------------------
   final List<NanoFlyer> nanoFlyers;
+  final List<String> authorsIDs;
+
 // ###############################
   BzModel({
     this.bzID,
@@ -87,6 +89,7 @@ class BzModel with ChangeNotifier{
     // -------------------------
     this.nanoFlyers,
     @required this.bzTotalFlyers,
+    @required this.authorsIDs,
   });
 // ###############################
   // TASK : this technique to revert back the status if firestore operation fails needs to be adapted elsewhere
@@ -157,6 +160,7 @@ Map<String, dynamic> toMap(){
     // -------------------------
     'nanoFlyers' : _nanoFlyersMaps,
     'bzTotalFlyers' : _nanoFlyersMaps.length,
+    'authorsIDs' : authorsIDs,
     };
 }
 // -----------------------------------------------------------------------------
@@ -214,6 +218,7 @@ Map<String, dynamic> toMap(){
       // -------------------------
       nanoFlyers: NanoFlyer.decipherNanoFlyersMaps(map['nanoFlyers']),
       bzTotalFlyers: map['bzTotalFlyers'],
+      authorsIDs: map['authorsIDs'],
     );
   }
 
@@ -271,6 +276,7 @@ Map<String, dynamic> toMap(){
       // -------------------------
       nanoFlyers: [],
       bzTotalFlyers: 0,
+      authorsIDs: <String>[userModel.userID],
 
     );
   }
@@ -405,6 +411,7 @@ Map<String, dynamic> toMap(){
         // -------------------------
         nanoFlyers: null,
         bzTotalFlyers: null,
+        authorsIDs: <String>[],
       );
     }
 

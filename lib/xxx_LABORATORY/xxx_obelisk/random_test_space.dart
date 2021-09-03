@@ -1,5 +1,9 @@
 import 'package:bldrs/controllers/drafters/scrollers.dart';
+import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/firestore/firestore.dart';
+import 'package:bldrs/models/bz/author_model.dart';
+import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
@@ -95,6 +99,54 @@ class _RandomTestSpaceState extends State<RandomTestSpace> {
       tappingRageh: (){
         print('wtf');
       },
+
+      appBarRowWidgets: <Widget>[
+
+        DreamBox(
+          height: 40,
+          width: 150,
+          color: Colorz.BloodTest,
+          verse: 'fix isAdmin in all users',
+          verseMaxLines: 2,
+          verseScaleFactor: 0.6,
+          onTap: () async {
+
+            List<dynamic> _usersMaps = await Fire.readCollectionDocs(
+              limit: 200,
+              addDocSnapshotToEachMap: false,
+              startAfter: null,
+              orderBy: 'userID',
+              collectionName: FireCollection.users,
+            );
+
+            for (var userMap in _usersMaps){
+
+              UserModel _user = UserModel.decipherUserMap(userMap);
+
+              print('user : ${_user.userID} : ${_user.name} : _user.isAdmin : ${_user.isAdmin}');
+
+              // if (_user.isAdmin != true){
+              //   await Fire.updateDocField(
+              //     context: context,
+              //     collName: FireCollection.users,
+              //     docName: _user.userID,
+              //     field: 'isAdmin',
+              //     input: false,
+              //   );
+              // }
+
+
+              print('DONEEEEEEEEEEEEEEEEEEEEEEEEEEEE');
+
+            }
+
+
+          }
+        ),
+
+
+      ],
+
       layoutWidget: Center(
         child: GoHomeOnMaxBounce(
           child: ListView.builder(
