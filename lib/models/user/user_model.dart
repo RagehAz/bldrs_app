@@ -23,6 +23,7 @@ class UserModel {
   // -------------------------
   final List<dynamic> myBzzIDs;
   final bool emailIsVerified;
+  final bool isAdmin;
 // ###############################
   UserModel({
     this.userID,
@@ -42,6 +43,7 @@ class UserModel {
     // -------------------------
     this.myBzzIDs,
     this.emailIsVerified,
+    this.isAdmin,
   });
 // -----------------------------------------------------------------------------
   Map<String, dynamic> toMap(){
@@ -63,7 +65,7 @@ class UserModel {
 // -------------------------
       'myBzzIDs' : myBzzIDs,
       'emailIsVerified' : emailIsVerified,
-
+      'isAdmin': isAdmin,
     };
   }
 // -----------------------------------------------------------------------------
@@ -91,6 +93,7 @@ class UserModel {
         // -------------------------
         myBzzIDs: map['myBzzIDs'],
         emailIsVerified : map['emailIsVerified'],
+        isAdmin: map['isAdmin'],
       );
 
   }
@@ -227,6 +230,7 @@ class UserModel {
         // -------------------------
         myBzzIDs: [],
         emailIsVerified: user.emailVerified,
+        isAdmin: false,
       );
 
   }
@@ -237,8 +241,6 @@ class UserModel {
     Zone zone,
     AuthBy authBy,
   }) async {
-    // print('lng : ${Wordz.languageCode(context)}');
-
 
     assert(!user.isAnonymous);
     print('createInitialUserModelFromUser : !_user.isAnonymous : ${!user.isAnonymous}');
@@ -246,22 +248,6 @@ class UserModel {
     assert(await user.getIdToken() != null);
     print('createInitialUserModelFromUser : _user.getIdToken() != null : ${user.getIdToken() != null}');
 
-    print('userID: ${user.uid},');
-    print('authBy: $authBy,');
-    print('joinedAt: ${DateTime.now()},');
-    print('userStatus: ${UserStatus.Normal},');
-    print('name: ${user.displayName},');
-    print('pic: ${user.photoURL},');
-    print('title: '',');
-    print('gender: ${Gender.any }');
-    print('country: ${zone.countryID},');
-    print('province: ${zone.cityID},');
-    print('area: ${zone.districtID},');
-    // print('4 language: ${Wordz.languageCode(context)},');
-    print('position: ,');
-    print('contacts: ${ContactModel.getContactsFromFirebaseUser(user)},');
-    print('myBzzIDs: [],');
-    print('emailIsVerified: ${user.emailVerified}');
 
     UserModel _userModel = UserModel(
       userID: user.uid,
@@ -280,9 +266,11 @@ class UserModel {
       // -------------------------
       myBzzIDs: [],
       emailIsVerified: user.emailVerified,
+      isAdmin: false,
+      company: null,
     );
 
-    print('userModel created : $_userModel');
+    _userModel.printUserModel(methodName: 'createInitialUserModelFromUser');
 
     return _userModel;
 }
@@ -300,6 +288,29 @@ class UserModel {
     return _missingFields;
   }
 // -----------------------------------------------------------------------------
+  void printUserModel({@required String methodName}){
+
+    print('$methodName : PRINTING USER MODEL ---------------- START -- ');
+
+    print('userID : $userID');
+    print('authBy : $authBy');
+    print('joinedAt : $joinedAt');
+    print('userStatus : $userStatus');
+    print('name : $name');
+    print('pic : $pic');
+    print('title : $title');
+    print('company : $company');
+    print('gender : $gender');
+    print('zone : $zone');
+    print('language : $language');
+    print('position : $position');
+    print('contacts : $contacts');
+    print('myBzzIDs : $myBzzIDs');
+    print('emailIsVerified : $emailIsVerified');
+
+    print('$methodName : PRINTING USER MODEL ---------------- END -- ');
+
+  }
 }
 // -----------------------------------------------------------------------------
 enum UserStatus {

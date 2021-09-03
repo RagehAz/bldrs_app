@@ -80,7 +80,13 @@ class Scrollers{
     // }
 
   }
+// -----------------------------------------------------------------------------
+  static Future<void> scrollToBottom({@required ScrollController controller}) async {
 
+    await controller.animateTo(controller.position.maxScrollExtent, duration: Ratioz.durationSliding400, curve: Curves.easeInOutCirc);
+
+  }
+// -----------------------------------------------------------------------------
 }
 // -----------------------------------------------------------------------------
 class GoHomeOnMaxBounce extends StatefulWidget {

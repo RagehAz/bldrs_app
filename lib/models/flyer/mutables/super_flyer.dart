@@ -367,6 +367,7 @@ class SuperFlyer{
           bzTotalCalls: null,
           nanoFlyers: null,
           bzTotalFlyers: null,
+          authorsIDs: <String>[flyerModel.tinyAuthor.userID],
         ),
 
         loading: false,
@@ -530,6 +531,7 @@ class SuperFlyer{
           bzTotalSlides: null,
           bzTotalViews: null,
           bzTotalCalls: null,
+          authorsIDs: <String>[tinyFlyer.authorID],
 
         ),
         loading: false,
@@ -711,6 +713,7 @@ class SuperFlyer{
           bzTotalSlides: bzModel.bzTotalSlides,
           bzTotalViews: bzModel.bzTotalViews,
           bzTotalCalls: bzModel.bzTotalCalls,
+          authorsIDs: bzModel.authorsIDs,
         ),
 
         loading: false,
@@ -889,6 +892,7 @@ class SuperFlyer{
           bzTotalSlides: bzModel.bzTotalSlides,
           bzTotalViews: bzModel.bzTotalViews,
           bzTotalCalls: bzModel.bzTotalCalls,
+          authorsIDs: bzModel.authorsIDs,
         ),
         loading: false,
 

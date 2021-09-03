@@ -173,6 +173,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         bzTotalCalls: _bz.bzTotalCalls,
         nanoFlyers: _bz.nanoFlyers,
         bzTotalFlyers: _bz.bzTotalFlyers,
+        authorsIDs: _bz.authorsIDs,
       ),
       author: AuthorModel(
         userID: '',
@@ -372,6 +373,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         // -------------------------
         nanoFlyers: [],
         bzTotalFlyers: 0,
+        authorsIDs: <String>[widget.userModel.userID],
       );
 
       /// start createBzOps
@@ -429,6 +431,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         authorContacts: _currentAuthorContacts,
       );
       List<AuthorModel> _modifiedAuthorsList = AuthorModel.replaceAuthorModelInAuthorsList(_currentBzAuthors, _modifiedAuthor);
+      List<String> _modifiedAuthorsIDsList = AuthorModel.replaceAuthorIDInAuthorsIDsList(_currentBzAuthors, _modifiedAuthor);
 
       /// create modified bzModel
       BzModel _modifiedBzModel = BzModel(
@@ -467,6 +470,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         // -------------------------
         nanoFlyers: widget.bzModel.nanoFlyers,
         bzTotalFlyers: widget.bzModel.bzTotalFlyers,
+        authorsIDs: _modifiedAuthorsIDsList,
       );
 
       /// start updateBzOps

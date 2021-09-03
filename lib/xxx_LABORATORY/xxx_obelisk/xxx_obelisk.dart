@@ -112,6 +112,8 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
   @override
   Widget build(BuildContext context) {
 
+    User _firebaseUser = superFirebaseUser();
+
 // ---------------------------------------------------------------------------
     return MainLayout(
       pyramids: Iconz.PyramidsCrystal,
@@ -253,6 +255,12 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
                     'git remote add origin https://github.com/RagehAz/bldrs.net \n'
                     'git push -u origin master',
               ),
+
+              GoldenScroll(
+                  scrollTitle: 'my ID',
+                  scrollScript: '${_firebaseUser?.displayName} : ${_firebaseUser?.uid}',
+              ),
+
             ],
           ),
 

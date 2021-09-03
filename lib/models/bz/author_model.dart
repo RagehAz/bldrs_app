@@ -120,6 +120,9 @@ class AuthorModel{
     List<AuthorModel> _modifiedAuthorsList =
     replaceAuthorModelInAuthorsList(bzModel.bzAuthors, inputAuthor);
 
+    List<String> _modifiedAuthorsIDsList =
+    replaceAuthorIDInAuthorsIDsList(bzModel.bzAuthors, inputAuthor);
+
     return BzModel(
       bzID : bzModel.bzID,
       bzType : bzModel.bzType,
@@ -147,6 +150,7 @@ class AuthorModel{
       bzTotalCalls : bzModel.bzTotalCalls,
       nanoFlyers : bzModel.nanoFlyers,
       bzTotalFlyers: bzModel.bzTotalFlyers,
+      authorsIDs: _modifiedAuthorsIDsList,
     );
   }
 // -----------------------------------------------------------------------------
@@ -159,6 +163,17 @@ class AuthorModel{
     _modifiedAuthorsList = _originalAuthors;
 
     return _modifiedAuthorsList;
+  }
+// -----------------------------------------------------------------------------
+  static List<String> replaceAuthorIDInAuthorsIDsList(List<AuthorModel> originalAuthors, AuthorModel inputAuthor){
+    List<String> _modifiedAuthorsIDsList;
+    List<String> _originalAuthorsIDs = getAuthorsIDsFromAuthors(originalAuthors);
+    int _indexOfCurrentAuthor = getAuthorIndexByAuthorID(originalAuthors, inputAuthor.userID);
+    _originalAuthorsIDs.removeAt(_indexOfCurrentAuthor);
+    _originalAuthorsIDs.insert(_indexOfCurrentAuthor, inputAuthor.userID);
+    _modifiedAuthorsIDsList = _originalAuthorsIDs;
+
+    return _modifiedAuthorsIDsList;
   }
 // -----------------------------------------------------------------------------
   static List<String> getAuthorsIDsFromAuthors(List<AuthorModel> authors){

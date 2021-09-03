@@ -122,6 +122,7 @@ class BzOps{
       // -------------------------
       nanoFlyers : inputBz.nanoFlyers,
       bzTotalFlyers: inputBz.bzTotalFlyers,
+      authorsIDs: inputBz.authorsIDs,
     );
 
     /// replace empty bz document with the new refactored one _bz
@@ -264,6 +265,7 @@ class BzOps{
       // -------------------------
       nanoFlyers: modifiedBz.nanoFlyers,
       bzTotalFlyers: modifiedBz.bzTotalFlyers,
+      authorsIDs: modifiedBz.authorsIDs,
     );
 
     /// update firestore bz document
