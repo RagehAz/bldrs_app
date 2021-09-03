@@ -229,6 +229,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           // -------------------------
           myBzzIDs: [],
         // -------------------------
+        isAdmin: widget.user.isAdmin,
+        authBy: widget.user.authBy,
+        emailIsVerified: widget.user.emailIsVerified,
       );
 
       /// start create user ops
@@ -273,26 +276,29 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       /// create new updated user model
       UserModel _updatedModel = UserModel(
         // -------------------------
-          userID : widget.user.userID,
-          joinedAt : widget.user.joinedAt,
-          userStatus : widget.user.userStatus,
-          // -------------------------
-          name : _nameController.text,
-          pic :  _currentPicFile ?? _currentPicURL,
-          title :  _titleController.text,
-          company: _companyController.text,
-          gender : _currentGender,
-          zone : Zone(
-            countryID: _currentCountryID,
-            cityID: _currentCityID,
-            districtID: _currentDistrictID,
-          ),
-          language : Wordz.languageCode(context),
-          position : _currentPosition,
-          contacts : _createContactList(existingContacts : widget.user.contacts),
-          // -------------------------
-          myBzzIDs: widget.user.myBzzIDs,
+        userID : widget.user.userID,
+        joinedAt : widget.user.joinedAt,
+        userStatus : widget.user.userStatus,
         // -------------------------
+        name : _nameController.text,
+        pic :  _currentPicFile ?? _currentPicURL,
+        title :  _titleController.text,
+        company: _companyController.text,
+        gender : _currentGender,
+        zone : Zone(
+          countryID: _currentCountryID,
+          cityID: _currentCityID,
+          districtID: _currentDistrictID,
+        ),
+        language : Wordz.languageCode(context),
+        position : _currentPosition,
+        contacts : _createContactList(existingContacts : widget.user.contacts),
+        // -------------------------
+        myBzzIDs: widget.user.myBzzIDs,
+        // -------------------------
+        isAdmin: widget.user.isAdmin,
+        emailIsVerified: widget.user.emailIsVerified,
+        authBy: widget.user.authBy,
       );
 
       /// start create user ops
