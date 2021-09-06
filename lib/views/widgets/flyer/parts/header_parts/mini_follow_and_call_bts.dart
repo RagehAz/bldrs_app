@@ -33,7 +33,7 @@ class FollowAndCallBTs extends StatelessWidget {
   }
 // -----------------------------------------------------------------------------
   static double getBoxWidth({double flyerZoneWidth}){
-    return flyerZoneWidth * Ratioz.xxflyerFollowBtWidth;
+    return (flyerZoneWidth * Ratioz.xxflyerFollowBtWidth) - 1;
   }
 // -----------------------------------------------------------------------------
   @override
@@ -54,7 +54,7 @@ class FollowAndCallBTs extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
 
-            // --- FOLLOW BUTTON
+            /// --- FOLLOW BUTTON
             FollowBT(
               flyerZoneWidth: flyerZoneWidth,
               onFollowTap: superFlyer.rec.onFollowTap,
@@ -62,12 +62,12 @@ class FollowAndCallBTs extends StatelessWidget {
               followOn: superFlyer.rec.followIsOn,
             ),
 
-            // --- FAKE SPACE PADDING BETWEEN FOLLOW & GALLERY BUTTONS
+            /// --- FAKE SPACE PADDING BETWEEN FOLLOW & GALLERY BUTTONS
             SizedBox(
               height: _paddings,
             ),
 
-            // --- Call BUTTON
+            /// --- Call BUTTON
             CallBT(
               flyerZoneWidth: flyerZoneWidth,
               onCallTap: superFlyer.rec.onCallTap,
