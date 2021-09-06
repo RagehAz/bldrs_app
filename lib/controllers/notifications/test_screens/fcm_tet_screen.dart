@@ -236,7 +236,10 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
 
               _startCounter();
 
-              dynamic map = await CloudFunctionz.callFunction(cloudFunctionName: 'sayHello');
+              dynamic map = await CloudFunctionz.callFunction(
+                  context: context,
+                  cloudFunctionName: 'sayHello'
+              );
 
               _lapCounter();
 

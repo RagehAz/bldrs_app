@@ -5,8 +5,8 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/flagz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/firestore/cloud_functions.dart';
 import 'package:bldrs/firestore/firestore.dart';
-import 'package:bldrs/firestore/user_ops.dart';
 import 'package:bldrs/models/secondary_models/contact_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/providers/zones/zone_provider.dart';
@@ -108,13 +108,10 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
 // -----------------------------------------------------------------------------
   Future<void> _deleteUser(UserModel userModel) async {
 
-    String _result = await UserOps().superDeleteUserOps(
-      context: context,
-      userModel: userModel,
-    );
+    String _result = await CloudFunctionz.deleteFirebaseUser(userID: userModel.userID);
 
     if (_result == 'stop'){
-
+      print('operation stopped');
     }
 
     else if (_result == 'deleted'){
