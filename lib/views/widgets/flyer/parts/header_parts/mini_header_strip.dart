@@ -42,7 +42,7 @@ class MiniHeaderStrip extends StatelessWidget {
             children:
             <Widget>[
 
-              // --- BzLogo
+              /// --- BzLogo
               BzLogo(
                 width: Scale.superLogoWidth(superFlyer.nav.bzPageIsOn, flyerZoneWidth),
                 image: superFlyer.bz.bzLogo,
@@ -53,13 +53,13 @@ class MiniHeaderStrip extends StatelessWidget {
                 // onTap: superFlyer.onHeaderTap,
               ),
 
-              // --- B.NAME, B.LOCALE, AUTHOR PICTURE, AUTHOR NAME, AUTHOR TITLE, FOLLOWERS COUNT
+              /// --- B.NAME, B.LOCALE, AUTHOR PICTURE, AUTHOR NAME, AUTHOR TITLE, FOLLOWERS COUNT
               HeaderLabels(
                 superFlyer: superFlyer,
                 flyerZoneWidth: flyerZoneWidth,
               ),
 
-              // --- FOLLOW & Call
+              /// --- FOLLOW & Call
               FollowAndCallBTs(
                 flyerZoneWidth: flyerZoneWidth,
                 superFlyer: superFlyer,
