@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/flyer/nano_flyer.dart';
@@ -218,7 +219,7 @@ Map<String, dynamic> toMap(){
       // -------------------------
       nanoFlyers: NanoFlyer.decipherNanoFlyersMaps(map['nanoFlyers']),
       bzTotalFlyers: map['bzTotalFlyers'],
-      authorsIDs: map['authorsIDs'],
+      authorsIDs: Mapper.getStringsFromDynamics(dynamics: map['authorsIDs']),
     );
   }
 

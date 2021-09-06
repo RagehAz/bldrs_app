@@ -321,7 +321,7 @@ class FlyerOps{
           context: context,
           collName: FireCollection.flyersKeys,
           docName: _finalFlyer.flyerID,
-          input: await TextMod.getKeyWordsMap(_finalFlyer.keywords)
+          input: await TextMod.getKeywordsMap(_finalFlyer.keywords)
       );
 
       print('D - flyer keywords updated on FireStore');

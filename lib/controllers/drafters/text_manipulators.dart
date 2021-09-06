@@ -157,7 +157,7 @@ class TextMod {
 ///   architecture : 1 ,
 ///   decor : 2 ,
 /// }
-  static Future<Map<String, dynamic>> getKeyWordsMap(List<dynamic> list) async {
+  static Future<Map<String, dynamic>> getKeywordsMap(List<dynamic> list) async {
   // old solution
   // Map<String, dynamic> _result = { for (var keyword in list) keyword : true };
 
@@ -184,10 +184,14 @@ class TextMod {
   return _result;
 }
 // -----------------------------------------------------------------------------
-static List<dynamic> getValuesFromValueAndTrueMap(Map<String, dynamic> map){
+  static List<dynamic> getValuesFromValueAndTrueMap(Map<String, dynamic> map){
     List<dynamic> _flyersIDs = map.keys.toList();
     return _flyersIDs;
 }
+// -----------------------------------------------------------------------------
+  static String lowerCase(String val){
+    return val.toLowerCase();
+  }
 // -----------------------------------------------------------------------------
 }
 

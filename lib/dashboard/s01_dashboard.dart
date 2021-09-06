@@ -13,7 +13,7 @@ import 'package:bldrs/views/widgets/buttons/main_button.dart';
 import 'package:bldrs/views/widgets/layouts/dashboard_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
-import 'bzz_manager_screen.dart';
+import 'bzz_manager/bzz_manager_screen.dart';
 import 's04_notifications_manager.dart';
 import 's06_flyers_auditor.dart';
 import 's07_local_flyers_uploader.dart';

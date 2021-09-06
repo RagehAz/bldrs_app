@@ -1,4 +1,5 @@
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/bz_logo.dart';
+import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
@@ -39,14 +40,14 @@ class BzGrid extends StatelessWidget {
     // int _getNumberOfRowsByCount(int _bzCount){return (_bzCount/numberOfColumns).ceil();}
     // int _numOfRows = numberOfRows == null ? _getNumberOfRowsByCount(_bzCount) : numberOfRows;
     double _logoHeight = _logoWidth;
-    double _gridZoneHeight = _gridSpacing + (numberOfRows * (_logoHeight + _gridSpacing));
+    double _gridZoneHeight = _gridSpacing + (numberOfRows * (_logoHeight * 1.25 + _gridSpacing));
 
 
     SliverGridDelegateWithMaxCrossAxisExtent _gridDelegate = SliverGridDelegateWithMaxCrossAxisExtent(
       crossAxisSpacing: _gridSpacing,
       mainAxisSpacing: _gridSpacing,
-      childAspectRatio: 1 / 1,
-      maxCrossAxisExtent: _logoWidth,
+      childAspectRatio: scrollDirection == Axis.vertical ?  1/1.25 : 1.25/1,
+      maxCrossAxisExtent: scrollDirection == Axis.vertical ? _logoWidth : _logoWidth * 1.25,
     );
     //
     double _zoneCorners = corners == null ? (_logoWidth * Ratioz.bzLogoCorner) + _gridSpacing : corners;
@@ -72,16 +73,32 @@ class BzGrid extends StatelessWidget {
                   padding: EdgeInsets.only(top: _gridSpacing, left: _gridSpacing, right: _gridSpacing, bottom: 0),
                   gridDelegate: _gridDelegate,
                   children: _boxesColors.map(
-                        (color) => BzLogo(
-                          width: _logoWidth,
-                          image: color,
-                          bzPageIsOn: false,
-                          tinyMode: true,
-                          zeroCornerIsOn: false,
-                          // onTap: () => itemOnTap(bz.bzID)
+                        (color) => Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+
+                            /// LOGO
+                            BzLogo(
+                              width: _logoWidth,
+                              image: color,
+                              bzPageIsOn: false,
+                              tinyMode: true,
+                              zeroCornerIsOn: false,
+                              // onTap: () => itemOnTap(bz.bzID)
+                            ),
+
+                            // /// BZ NAME FOOTPRINT
+                            // Container(
+                            //   width: _logoWidth,
+                            //   height: _logoWidth * 0.25,
+                            // ),
+
+                          ],
                         ),
                   ).toList(),
                 ),
+
               /// --- REAL GRID
               if (_tinyBzz.length != 0)
                 GridView(
@@ -95,13 +112,33 @@ class BzGrid extends StatelessWidget {
                   children: <Widget>[
 
                     ..._tinyBzz.map(
-                          (bz) => BzLogo(
-                              width: _logoWidth,
-                              image: bz.bzLogo,
-                              bzPageIsOn: false,
-                              tinyMode: true,
-                              zeroCornerIsOn: false,
-                              onTap: () => itemOnTap(bz.bzID)
+                          (bz) => Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+
+                              /// BZ LOGO
+                              BzLogo(
+                                  width: _logoWidth,
+                                  image: bz.bzLogo,
+                                  bzPageIsOn: false,
+                                  tinyMode: true,
+                                  zeroCornerIsOn: false,
+                                  onTap: () => itemOnTap(bz.bzID),
+                              ),
+
+                              /// BZ NAME
+                              Container(
+                                width: _logoWidth,
+                                height: _logoWidth * 0.25,
+                                color: Colorz.BloodTest,
+                                child: SuperVerse(
+                                  verse: bz.bzName,
+                                  scaleFactor: _logoWidth / 120,
+                                ),
+                              ),
+
+                            ],
                           ),
 
                     ).toList(),

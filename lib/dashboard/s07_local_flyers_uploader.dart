@@ -446,7 +446,7 @@ Future<FlyerModel> createNamedFlyersOps(BuildContext context, FlyerModel inputFl
     context: context,
     collName: FireCollection.flyersKeys,
     docName: _flyerID,
-    input: await TextMod.getKeyWordsMap(_finalFlyerModel.keywords),
+    input: await TextMod.getKeywordsMap(_finalFlyerModel.keywords),
   );
 
   print('8- flyer keys add');
