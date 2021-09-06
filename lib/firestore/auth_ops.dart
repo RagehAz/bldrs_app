@@ -56,6 +56,7 @@ class AuthOps {
 
         _auth.currentUser.delete();
 
+
       }
     );
 

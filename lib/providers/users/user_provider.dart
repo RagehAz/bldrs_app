@@ -70,7 +70,7 @@ class UserProvider {
 
         _userModel = UserModel(
           userID: _map['userID'] ?? '',
-          joinedAt: Timers.decipherDateTimeString(_map['joinedAt'] ?? ''),
+          joinedAt: Timers.decipherDateTimeString(_map['joinedAt']) ?? null,
           userStatus: UserModel.decipherUserStatus(_map['userStatus'] ?? 1),
           // -------------------------
           name: _map['name'] ?? '',

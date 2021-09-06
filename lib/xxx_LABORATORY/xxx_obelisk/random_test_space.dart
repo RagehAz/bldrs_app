@@ -1,11 +1,16 @@
 import 'package:bldrs/controllers/drafters/scrollers.dart';
+import 'package:bldrs/controllers/drafters/stream_checkers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/firestore/firestore.dart';
-import 'package:bldrs/models/bz/author_model.dart';
+import 'package:bldrs/firestore/user_ops.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/loading/loading.dart';
+import 'package:bldrs/views/widgets/textings/super_verse.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class RandomTestSpace extends StatefulWidget {
@@ -135,8 +140,7 @@ class _RandomTestSpaceState extends State<RandomTestSpace> {
               //   );
               // }
 
-
-              print('DONEEEEEEEEEEEEEEEEEEEEEEEEEEEE');
+              print('done');
 
             }
 
@@ -149,18 +153,86 @@ class _RandomTestSpaceState extends State<RandomTestSpace> {
 
       layoutWidget: Center(
         child: GoHomeOnMaxBounce(
-          child: ListView.builder(
-            physics: BouncingScrollPhysics(),
-            itemCount: 100,
-            itemBuilder: (ctx, index){
-              return
-                DreamBox(
-                  height: 60,
-                  width: 250,
-                  verse: '$index : --',
-                  verseScaleFactor: 0.7,
-                );
-              },
+          child: ListView(
+            physics: const BouncingScrollPhysics(),
+            controller: ScrollController(),
+            children: <Widget>[
+
+              Stratosphere(),
+
+              DreamBox(
+                height: 50,
+                width: 200,
+                verse: 'fix rageh',
+                verseScaleFactor: 0.7,
+                onTap: () async {
+
+                  UserModel _oldRageh = await UserOps().readUserOps(
+                    context: context,
+                    userID: 'rBjNU5WybKgJXaiBnlcBnfFaQSq1'
+                  );
+
+                  UserModel _newRageh = UserModel(
+                    userID: superUserID(),
+                    authBy: _oldRageh.authBy,
+                    joinedAt: _oldRageh.joinedAt,
+                    userStatus: _oldRageh.userStatus,
+                    name: _oldRageh.name,
+                    pic: _oldRageh.pic,
+                    title: _oldRageh.title,
+                    company: _oldRageh.company,
+                    gender: _oldRageh.gender,
+                    zone: _oldRageh.zone,
+                    language: _oldRageh.language,
+                    position: _oldRageh.position,
+                    contacts: _oldRageh.contacts,
+                    myBzzIDs: _oldRageh.myBzzIDs,
+                    emailIsVerified: _oldRageh.emailIsVerified,
+                    isAdmin: _oldRageh.isAdmin,
+                  );
+
+                  await UserOps().updateUserOps(
+                    context: context,
+                    oldUserModel: _oldRageh,
+                    updatedUserModel: _newRageh,
+                  );
+
+                  _newRageh.printUserModel(methodName: 'TESTING XXX');
+
+                  print('done el7amdolellah');
+
+                },),
+
+              Container(
+                  width: 100,
+                  height: 100,
+                  color: Colorz.BloodTest,
+                  child: StreamBuilder(
+                    stream: Fire.streamDoc(FireCollection.admin, 'statistics'),
+                    initialData: null,
+                    builder: (context, snapshot){
+
+                      if(StreamChecker.connectionIsLoading(snapshot) == true){
+                        return Loading(loading: true,);
+
+                      } else {
+                        dynamic map = snapshot.data;
+
+                        int _num = map['numberOfUsers'];
+
+                        return
+                          Center(
+                            child: SuperVerse(
+                              verse: '${_num} users',
+                            ),
+                          );
+                      }
+                    },
+                  ),
+                ),
+
+
+            ],
           ),
         ),
       ),
@@ -168,3 +240,12 @@ class _RandomTestSpaceState extends State<RandomTestSpace> {
   }
 
 }
+
+/*
+
+clean cdCn0xNwoGaxWOgTc3gvN6sr6BH2
+qEmHQl1d5wM0lORHSGopNhFvkg82
+OhkyYuCTdOX6X3pnOPUc6kTigYH3
+bFMwW4QaJqNwFznjtg6YoZ5jMmC2
+
+ */
