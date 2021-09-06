@@ -10,8 +10,11 @@ import 'package:bldrs/firestore/bz_ops.dart';
 import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
+import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_dialog/bottom_dialog.dart';
+import 'package:bldrs/views/widgets/flyer/parts/flyer_header.dart';
+import 'package:bldrs/views/widgets/flyer/parts/header_parts/mini_header_strip.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -94,10 +97,11 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
   }
 // -----------------------------------------------------------------------------
   List<TinyBz> _searchedTinyBzz = [];
-  void _onSearchChanged(String val){
-    print('the fucking ebn a7ba val is : $val');
+  void _onSearchChanged(String value){
 
-    bool _searchValueIsEmpty = val == '';
+    String val = TextMod.removeSpacesFromAString(value);
+
+    bool _searchValueIsEmpty =  val == '';
     bool _searchResultIsEmpty = _searchedTinyBzz.length == 0;
 
     /// A - when field has NO value
@@ -215,8 +219,6 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
               padding: const EdgeInsets.only(bottom: Ratioz.stratosphere, top: Stratosphere.bigAppBarStratosphere),
               itemBuilder: (ctx, index){
 
-
-
                 TinyBz _tinyBz = _bzz[index];
                 String _bzName = _tinyBz.bzName == null || _tinyBz.bzName == '' ? '.....' : _tinyBz.bzName;
 
@@ -239,53 +241,71 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
                         bzID: _tinyBz.bzID,
                       );
 
+                      double _dialogHeight = _screenHeight * 0.8;
+
                       await BottomDialog.slideBottomDialog(
                         context: context,
                         title: _bzName,
                         draggable: true,
+                        height: _dialogHeight,
                         child: Container(
                           width: _clearDialogWidth,
-                          height: BottomDialog.dialogClearHeight(draggable: true, title: 'x', context: context,),
-                          color: Colorz.BloodTest,
+                          height: BottomDialog.dialogClearHeight(draggable: true, title: 'x', context: context, overridingDialogHeight: _dialogHeight),
+                          // color: Colorz.BloodTest,
                           child: GoHomeOnMaxBounce(
                             child: ListView(
                               physics: const BouncingScrollPhysics(),
                               children: <Widget>[
 
-                                DreamBox(
-                                  height: 25,
-                                  width: 25,
-                                  icon: Flagz.getFlagByIso3(_tinyBz.bzZone.countryID),
-                                  corners: 5,
+                                Container(
+                                  width: _clearDialogWidth,
+                                  height: Scale.superHeaderStripHeight(false, _clearDialogWidth),
+                                  child: Column(
+
+                                    children: <Widget>[
+
+                                      MiniHeaderStrip(
+                                        superFlyer: SuperFlyer.getSuperFlyerFromBzModelOnly(
+                                            onHeaderTap: (){},
+                                            bzModel: _bz,
+                                        ),
+                                        flyerZoneWidth: _clearDialogWidth,
+                                      ),
+
+                                    ],
+
+                                  ),
                                 ),
 
-                                DashboardDataRow(dataKey: 'bzID', value: _bz.bzID, ),
-                                DashboardDataRow(dataKey: 'bzType', value: _bz.bzType, ),
-                                DashboardDataRow(dataKey: 'bzForm', value: _bz.bzForm, ),
-                                DashboardDataRow(dataKey: 'bldrBirth', value: _bz.bldrBirth, ),
-                                DashboardDataRow(dataKey: 'accountType', value: _bz.accountType, ),
-                                DashboardDataRow(dataKey: 'bzURL', value: _bz.bzURL, ),
-                                DashboardDataRow(dataKey: 'bzName', value: _bz.bzName, ),
-                                DashboardDataRow(dataKey: 'bzLogo', value: _bz.bzLogo, ),
-                                DashboardDataRow(dataKey: 'bzScope', value: _bz.bzScope, ),
-                                DashboardDataRow(dataKey: 'bzZone', value: _bz.bzZone, ),
-                                DashboardDataRow(dataKey: 'bzAbout', value: _bz.bzAbout, ),
-                                DashboardDataRow(dataKey: 'bzPosition', value: _bz.bzPosition, ),
-                                DashboardDataRow(dataKey: 'bzContacts', value: _bz.bzContacts, ),
-                                DashboardDataRow(dataKey: 'bzAuthors', value: _bz.bzAuthors, ),
-                                DashboardDataRow(dataKey: 'bzShowsTeam', value: _bz.bzShowsTeam, ),
-                                DashboardDataRow(dataKey: 'bzIsVerified', value: _bz.bzIsVerified, ),
-                                DashboardDataRow(dataKey: 'bzAccountIsDeactivated', value: _bz.bzAccountIsDeactivated, ),
-                                DashboardDataRow(dataKey: 'bzAccountIsBanned', value: _bz.bzAccountIsBanned, ),
-                                DashboardDataRow(dataKey: 'bzTotalFollowers', value: _bz.bzTotalFollowers, ),
-                                DashboardDataRow(dataKey: 'bzTotalSaves', value: _bz.bzTotalSaves, ),
-                                DashboardDataRow(dataKey: 'bzTotalShares', value: _bz.bzTotalShares, ),
-                                DashboardDataRow(dataKey: 'bzTotalSlides', value: _bz.bzTotalSlides, ),
-                                DashboardDataRow(dataKey: 'bzTotalViews', value: _bz.bzTotalViews, ),
-                                DashboardDataRow(dataKey: 'bzTotalCalls', value: _bz.bzTotalCalls, ),
-                                DashboardDataRow(dataKey: 'nanoFlyers,', value: _bz.nanoFlyers, ),
-                                DashboardDataRow(dataKey: 'bzTotalFlyers', value: _bz.bzTotalFlyers, ),
-                                DashboardDataRow(dataKey: 'authorsIDs', value: _bz.authorsIDs, ),
+
+
+                                BottomDialogRow(dataKey: 'bzName', value: _bz.bzName, ),
+                                BottomDialogRow(dataKey: 'bzLogo', value: _bz.bzLogo, ),
+                                BottomDialogRow(dataKey: 'bzID', value: _bz.bzID, ),
+                                BottomDialogRow(dataKey: 'bzType', value: _bz.bzType, ),
+                                BottomDialogRow(dataKey: 'bzForm', value: _bz.bzForm, ),
+                                BottomDialogRow(dataKey: 'bldrBirth', value: _bz.bldrBirth, ),
+                                BottomDialogRow(dataKey: 'accountType', value: _bz.accountType, ),
+                                BottomDialogRow(dataKey: 'bzURL', value: _bz.bzURL, ),
+                                BottomDialogRow(dataKey: 'bzScope', value: _bz.bzScope, ),
+                                BottomDialogRow(dataKey: 'bzZone', value: _bz.bzZone, ),
+                                BottomDialogRow(dataKey: 'bzAbout', value: _bz.bzAbout, ),
+                                BottomDialogRow(dataKey: 'bzPosition', value: _bz.bzPosition, ),
+                                BottomDialogRow(dataKey: 'bzContacts', value: _bz.bzContacts, ),
+                                BottomDialogRow(dataKey: 'bzAuthors', value: _bz.bzAuthors, ),
+                                BottomDialogRow(dataKey: 'bzShowsTeam', value: _bz.bzShowsTeam, ),
+                                BottomDialogRow(dataKey: 'bzIsVerified', value: _bz.bzIsVerified, ),
+                                BottomDialogRow(dataKey: 'bzAccountIsDeactivated', value: _bz.bzAccountIsDeactivated, ),
+                                BottomDialogRow(dataKey: 'bzAccountIsBanned', value: _bz.bzAccountIsBanned, ),
+                                BottomDialogRow(dataKey: 'bzTotalFollowers', value: _bz.bzTotalFollowers, ),
+                                BottomDialogRow(dataKey: 'bzTotalSaves', value: _bz.bzTotalSaves, ),
+                                BottomDialogRow(dataKey: 'bzTotalShares', value: _bz.bzTotalShares, ),
+                                BottomDialogRow(dataKey: 'bzTotalSlides', value: _bz.bzTotalSlides, ),
+                                BottomDialogRow(dataKey: 'bzTotalViews', value: _bz.bzTotalViews, ),
+                                BottomDialogRow(dataKey: 'bzTotalCalls', value: _bz.bzTotalCalls, ),
+                                BottomDialogRow(dataKey: 'nanoFlyers,', value: _bz.nanoFlyers, ),
+                                BottomDialogRow(dataKey: 'bzTotalFlyers', value: _bz.bzTotalFlyers, ),
+                                BottomDialogRow(dataKey: 'authorsIDs', value: _bz.authorsIDs, ),
 
 
                                 // Container(
