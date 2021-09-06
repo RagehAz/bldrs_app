@@ -5,6 +5,7 @@ admin.initializeApp();
 
 const db = functions.firestore;
 const fbm = admin.messaging();
+const fire = admin.firestore();
 
 // COLLECTION PATHS
 // const flyerDoc = "flyers/{flyerID}";
@@ -24,7 +25,8 @@ exports.randomNumber = functions.https.onRequest((request, response) => {
 
 // http callable function
 exports.sayHello = functions.https.onCall((data, context) => {
-  const name = data.name;
+  const name = data.name +
+  "xx this string added inside the callable function xx";
   return `hello, Bldrs, welcome Mr ${name}`;
 });
 
@@ -40,18 +42,62 @@ exports.myFunction = db
       });
     });
 
-// auth trigger
-exports.newUserSignup = functions.auth.user().onCreate((user) => {
-  console.log(
-      `New user joined Bldrs : userID : ${user.uid} : email : ${user.email}`
-  );
-});
+// to call a function for any db change u can say "/{collection}/{id}"
+exports.logEverything = functions.firestore.document("/{collection}/{id}")
+    .onCreate((snap, context) => {
+      console.log(snap.data());
 
-// auth trigger
+      const collection = context.params.collection;
+      const id = context.params.id;
+
+      const activities = admin.firestore().collection("activities");
+
+      if (collection === "users") {
+        return activities.add({text: `a new user is created : ${id}`});
+      }
+      if (collection === "flyers") {
+        return activities.add({text: `a new flyer is created : ${id}`});
+      }
+      if (collection === "bzz") {
+        return activities.add({text: `a new bz is created : ${id}`});
+      }
+
+      return null;
+    });
+
+// exports.onUserCreation = db.document("/users/{userID}")
+//     .onCreate((snap, context) => {
+//       const collection = context.params
+//   });
+
+// DB / admin / statistics.numberOfUsers increment 1
+exports.increaseNumberOfUsersInStatistics = functions.auth.user().onCreate(
+    (user) => {
+      const docReference = fire.collection("admin").doc("statistics");
+      console.log(`aho yabn el weskha : ${user.uid}`);
+      return docReference.update({
+        numberOfUsers: admin.firestore.FieldValue.increment(1),
+      });
+    });
+
+// DB / admin / statistics.numberOfUsers increment -1
+exports.decreaseNumberOfUsersInStatistics = functions.auth.user().onDelete(
+    (user) => {
+      const docReference = fire.collection("admin").doc("statistics");
+      console.log(`aho yabn el a7ba : ${user.uid}`);
+      return docReference.update({
+        numberOfUsers: admin.firestore.FieldValue.increment(-1),
+      });
+    });
+
+// auth trigger (background trigger)
 exports.userDeleted = functions.auth.user().onDelete((user) => {
   console.log(
       `user Deleted account : userID : ${user.uid} : email : ${user.email}`
   );
+
+  const doc = fire.collection("users").doc(user.uid);
+  return doc.delete;
 });
 
 // exports.newUserSignedUp = db.document(userDoc).onCreate(doc, context) => {
@@ -71,4 +117,6 @@ exports.userDeleted = functions.auth.user().onDelete((user) => {
 //     });
 
 // firebase deploy --only functions
+// firebase deploy --only functions:decreaseNumberOfUsersInStatistics
 // firebase login --reauth
+// firebase functions:log --only increaseNumberOfUsersInStatistics

@@ -142,4 +142,10 @@ class TextChecker{
     return international.Bidi.detectRtlDirectionality(text);
   }
 // -----------------------------------------------------------------------------
+  static bool stringContainsSubString({String string, String subString, bool caseSensitive, bool multiLine = false}){
+    bool _itContainsIt = string.contains(new RegExp(subString, caseSensitive: caseSensitive, multiLine: multiLine));
+
+    return _itContainsIt;
+  }
+// -----------------------------------------------------------------------------
 }

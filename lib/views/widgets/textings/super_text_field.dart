@@ -299,7 +299,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
           validator: widget.validator,
           onChanged: (val) => _onChanged(val),
           // focusNode: ,
-          onFieldSubmitted: (val) => widget.onSubmitted(val),
+          onFieldSubmitted: widget.onSubmitted == null ? null : (val) => widget.onSubmitted(val),
           onTap: (){
             // double _keyboardHeight;
             //
