@@ -73,6 +73,11 @@ class MainLayout extends StatelessWidget {
   final Key scaffoldKey;
   // final List<TinyBz> myTinyBzz;
   final ScrollController appBarScrollController;
+  final bool sectionButtonIsOn;
+  final TextEditingController searchController;
+  final Function onSearchSubmit;
+  final bool historyButtonIsOn;
+  final Function onSearchChanged;
 
   MainLayout({
     this.appBarRowWidgets,
@@ -88,6 +93,11 @@ class MainLayout extends StatelessWidget {
     this.scaffoldKey,
     // this.myTinyBzz,
     this.appBarScrollController,
+    this.sectionButtonIsOn,
+    this.searchController,
+    this.onSearchSubmit,
+    this.historyButtonIsOn = true,
+    this.onSearchChanged,
 });
 
 // -----------------------------------------------------------------------------
@@ -133,6 +143,11 @@ class MainLayout extends StatelessWidget {
               onBack: onBack,
               loading: loading,
               appBarScrollController: appBarScrollController,
+              sectionButtonIsOn: sectionButtonIsOn,
+              searchController: searchController,
+              onSearchSubmit: onSearchSubmit,
+              historyButtonIsOn: historyButtonIsOn,
+              onSearchChanged: onSearchChanged,
             ),
 
           if (pyramids != null && pyramids != Iconz.DvBlankSVG)
@@ -272,20 +287,29 @@ class PyramidsHorizon extends StatelessWidget {
 /// --- STRATOSPHERE IS UPPER SCREEN PADDING THAT RESPECTS APPBAR HEIGHT
 class Stratosphere extends StatelessWidget {
   final double heightFactor;
+  final bool bigAppBar;
 
   Stratosphere({
     this.heightFactor = 1,
+    this.bigAppBar = false,
 });
 
   static const EdgeInsets stratosphereInsets = EdgeInsets.only(top: Ratioz.stratosphere);
   static const EdgeInsets stratosphereSandwich = EdgeInsets.only(top: Ratioz.stratosphere, bottom: Ratioz.stratosphere);
 
+  static const double _margins = Ratioz.appBarMargin * 2;
+  static const double bigAppBarStratosphere = Ratioz.appBarBigHeight + _margins;
+  static const double smallAppBarStratosphere = Ratioz.appBarSmallHeight + _margins;
+
+
   @override
   Widget build(BuildContext context) {
 
+    double _height = bigAppBar == true ? bigAppBarStratosphere : smallAppBarStratosphere;
+
     return Container(
       width: Scale.superScreenWidth(context),
-      height: 70 * heightFactor,
+      height: _height * heightFactor,
     );
   }
 }

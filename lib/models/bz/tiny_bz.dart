@@ -171,4 +171,25 @@ class TinyBz with ChangeNotifier{
     return _tinyBz;
   }
 // -----------------------------------------------------------------------------
+  static bool tinyBzzContainThisTinyBz({List<TinyBz> tinyBzz, TinyBz tinyBz}){
+    bool _contains = false;
+
+    bool _canLoop = tinyBzz != null && tinyBzz.length > 0 && tinyBz != null;
+
+    if (_canLoop == true){
+
+      for (TinyBz bz in tinyBzz){
+
+        if (bz.bzID == tinyBz.bzID){
+          _contains = true;
+          break;
+        }
+
+      }
+
+    }
+
+    return _contains;
+  }
+// -----------------------------------------------------------------------------
 }
