@@ -135,7 +135,7 @@ class _AnkhButtonState extends State<AnkhButton> with SingleTickerProviderStateM
 // -----------------------------------------------------------------------------
     bool _tinyMode = Scale.superFlyerTinyMode(context, widget.flyerZoneWidth);
 
-    print('AnkhButton : _ankhColorAni : $_ankhColorAni');
+    // print('AnkhButton : _ankhColorAni : $_ankhColorAni');
     return
       Positioned(
         right: Aligners.rightPositionInRightAlignmentEn(context, 0),
