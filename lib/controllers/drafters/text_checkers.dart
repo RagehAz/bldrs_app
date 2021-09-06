@@ -143,7 +143,15 @@ class TextChecker{
   }
 // -----------------------------------------------------------------------------
   static bool stringContainsSubString({String string, String subString, bool caseSensitive, bool multiLine = false}){
-    bool _itContainsIt = string.contains(new RegExp(subString, caseSensitive: caseSensitive, multiLine: multiLine));
+    bool _itContainsIt = false;
+    // string.contains(new RegExp(subString, caseSensitive: caseSensitive, multiLine: multiLine));
+
+    if (string.toLowerCase().contains(subString.toLowerCase())){
+      _itContainsIt = true;
+    }
+
+    String _blah = _itContainsIt == true ? 'CONTAIN' : 'DOES NOT CONTAIN';
+    print('string : $string : $_blah this : $subString');
 
     return _itContainsIt;
   }
