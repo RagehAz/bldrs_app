@@ -5,6 +5,7 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/flagz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/dashboard/widgets/dashboard_data_row.dart';
 import 'package:bldrs/firestore/cloud_functions.dart';
 import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/models/secondary_models/contact_model.dart';
@@ -14,7 +15,6 @@ import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/buttons/dream_wrapper.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_dialog/bottom_dialog.dart';
-import 'package:bldrs/views/widgets/layouts/main_layout.dart' show Expander, MainLayout;
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -229,25 +229,25 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
 
                           SuperVerse(verse: 'is admin or not ? ,, work this out please',),
 
-                          DataRow(dataKey: 'userID', value: _userModel.userID),
-                          DataRow(dataKey: 'authBy', value: _userModel.authBy),
-                          DataRow(dataKey: 'joinedAt', value: _userModel.joinedAt),
-                          DataRow(dataKey: 'timeString', value: Timers.dayMonthYearStringer(context, _userModel.joinedAt)),
-                          DataRow(dataKey: 'userStatus', value: _userModel.userStatus),
-                          DataRow(dataKey: 'name', value: _userModel.name),
-                          DataRow(dataKey: 'pic', value: _userModel.pic),
-                          DataRow(dataKey: 'title', value: _userModel.title),
-                          DataRow(dataKey: 'company', value: _userModel.company),
-                          DataRow(dataKey: 'gender', value: _userModel.gender),
-                          DataRow(dataKey: 'zone', value: _userModel.zone),
-                          DataRow(dataKey: 'zone String', value: 'in [ $_districtName ] - [ $_provinceName ] - [ $_countryName ]'),
-                          DataRow(dataKey: 'language', value: _userModel.language),
-                          DataRow(dataKey: 'position', value: _userModel.position),
-                          DataRow(dataKey: 'contacts', value: _userModel.contacts),
-                          DataRow(dataKey: 'Stringy contacts', value: '$_stringyContactsValues'),
-                          DataRow(dataKey: 'Social Contacts', value: '$_socialContactsValues'),
-                          DataRow(dataKey: 'myBzzIDs', value: _userModel.myBzzIDs),
-                          DataRow(dataKey: 'emailIsVerified', value: _userModel.emailIsVerified),
+                          DashboardDataRow(dataKey: 'userID', value: _userModel.userID),
+                          DashboardDataRow(dataKey: 'authBy', value: _userModel.authBy),
+                          DashboardDataRow(dataKey: 'joinedAt', value: _userModel.joinedAt),
+                          DashboardDataRow(dataKey: 'timeString', value: Timers.dayMonthYearStringer(context, _userModel.joinedAt)),
+                          DashboardDataRow(dataKey: 'userStatus', value: _userModel.userStatus),
+                          DashboardDataRow(dataKey: 'name', value: _userModel.name),
+                          DashboardDataRow(dataKey: 'pic', value: _userModel.pic),
+                          DashboardDataRow(dataKey: 'title', value: _userModel.title),
+                          DashboardDataRow(dataKey: 'company', value: _userModel.company),
+                          DashboardDataRow(dataKey: 'gender', value: _userModel.gender),
+                          DashboardDataRow(dataKey: 'zone', value: _userModel.zone),
+                          DashboardDataRow(dataKey: 'zone String', value: 'in [ $_districtName ] - [ $_provinceName ] - [ $_countryName ]'),
+                          DashboardDataRow(dataKey: 'language', value: _userModel.language),
+                          DashboardDataRow(dataKey: 'position', value: _userModel.position),
+                          DashboardDataRow(dataKey: 'contacts', value: _userModel.contacts),
+                          DashboardDataRow(dataKey: 'Stringy contacts', value: '$_stringyContactsValues'),
+                          DashboardDataRow(dataKey: 'Social Contacts', value: '$_socialContactsValues'),
+                          DashboardDataRow(dataKey: 'myBzzIDs', value: _userModel.myBzzIDs),
+                          DashboardDataRow(dataKey: 'emailIsVerified', value: _userModel.emailIsVerified),
                           // DataRow(dataKey: 'SavedFlyers', value: '${_userModel.savedFlyersIDs.length} flyers')
                           // DataRow(dataKey: 'followedBzz', value: '${_userModel.followedBzzIDs.length} Businesses'),
 
@@ -321,64 +321,6 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
         },
       ),
 
-    );
-  }
-}
-
-
-class DataRow extends StatelessWidget {
-  final dynamic dataKey;
-  final dynamic value;
-
-  const DataRow({
-    @required this.dataKey,
-    @required this.value,
-});
-
-  @override
-  Widget build(BuildContext context) {
-
-    const double _rowHeight = 40;
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 2.5),
-      child: Row(
-        children: <Widget>[
-
-          /// Box
-          DreamBox(
-            height: 20,
-            width: 20,
-            color: Colorz.White200,
-          ),
-
-          /// Key
-          DreamBox(
-            height: _rowHeight,
-            width: 80,
-            color: Colorz.Yellow255,
-            verse: dataKey.toString(),
-            verseMaxLines: 2,
-            verseScaleFactor: 0.5,
-            verseWeight: VerseWeight.bold,
-            verseColor: Colorz.Black255,
-            verseShadow: false,
-            margins: EdgeInsets.symmetric(horizontal: 5),
-          ),
-
-          Container(
-            width: 260,
-            height: _rowHeight,
-            // color: Colorz.White20,
-            child: SuperVerse(
-              verse: value.toString(),
-              size: 1,
-              centered: false,
-            ),
-          ),
-
-        ],
-      ),
     );
   }
 }

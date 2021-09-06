@@ -19,6 +19,11 @@ class BldrsAppBar extends StatelessWidget {
   final List<Widget> appBarRowWidgets;
   final bool loading;
   final ScrollController appBarScrollController;
+  final bool sectionButtonIsOn;
+  final TextEditingController searchController;
+  final Function onSearchSubmit;
+  final bool historyButtonIsOn;
+  final Function onSearchChanged;
 
   BldrsAppBar({
     this.appBarType,
@@ -27,6 +32,11 @@ class BldrsAppBar extends StatelessWidget {
     this.appBarRowWidgets,
     this.loading = false,
     this.appBarScrollController,
+    this.sectionButtonIsOn,
+    this.searchController,
+    this.onSearchSubmit,
+    this.historyButtonIsOn,
+    this.onSearchChanged,
   });
 // -----------------------------------------------------------------------------
   @override
@@ -55,6 +65,8 @@ class BldrsAppBar extends StatelessWidget {
     false;
 // -----------------------------------------------------------------------------
     bool _sectionButtonIsOn =
+    sectionButtonIsOn == true ? true :
+    sectionButtonIsOn == false ? false :
     appBarType == AppBarType.Basic ? false :
     appBarType == AppBarType.Scrollable ? false :
     appBarType == AppBarType.Main ? true :
@@ -121,6 +133,10 @@ class BldrsAppBar extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
+
+                        SizedBox(
+                          width: Ratioz.appBarPadding,
+                        ),
 
                         /// BackButton
                         if (_backButtonIsOn == true)
@@ -191,7 +207,12 @@ class BldrsAppBar extends StatelessWidget {
 
                     /// SEARCH BAR,
                     if (appBarType == AppBarType.Search)
-                      SearchBar(),
+                      SearchBar(
+                        searchController: searchController,
+                        onSearchSubmit: onSearchSubmit,
+                        historyButtonIsOn: historyButtonIsOn,
+                        onSearchChanged: onSearchChanged,
+                      ),
 
                   ],
                 ),

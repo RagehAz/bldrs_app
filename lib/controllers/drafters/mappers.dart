@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/controllers/drafters/text_manipulators.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -286,6 +287,24 @@ class Mapper{
 
 
     return _output;
+  }
+// -----------------------------------------------------------------------------
+  static List<String> getStringsFromDynamics({List<dynamic> dynamics}){
+    List<String> _strings = [];
+
+    for (dynamic thing in dynamics){
+
+      if (ObjectChecker.objectIsString(thing) == true){
+        _strings.add(thing);
+      }
+
+      else {
+        _strings.add(thing.toString());
+      }
+
+    }
+
+    return _strings;
   }
 // -----------------------------------------------------------------------------
 }
