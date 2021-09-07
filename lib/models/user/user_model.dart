@@ -1,6 +1,7 @@
 import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/secondary_models/contact_model.dart';
+import 'package:bldrs/models/user/fcm_token.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +25,7 @@ class UserModel {
   final List<dynamic> myBzzIDs;
   final bool emailIsVerified;
   final bool isAdmin;
+  final FCMToken fcmToken;
 // ###############################
   UserModel({
     this.userID,
@@ -44,6 +46,7 @@ class UserModel {
     this.myBzzIDs,
     this.emailIsVerified,
     this.isAdmin,
+    this.fcmToken,
   });
 // -----------------------------------------------------------------------------
   Map<String, dynamic> toMap(){
@@ -66,6 +69,7 @@ class UserModel {
       'myBzzIDs' : myBzzIDs,
       'emailIsVerified' : emailIsVerified,
       'isAdmin': isAdmin,
+      'fcmToken' : fcmToken.toMap(),
     };
   }
 // -----------------------------------------------------------------------------
@@ -94,6 +98,7 @@ class UserModel {
         myBzzIDs: map['myBzzIDs'],
         emailIsVerified : map['emailIsVerified'],
         isAdmin: map['isAdmin'],
+        fcmToken: FCMToken.decipherFCMToken(map['fcmToken']),
       );
 
   }
@@ -231,6 +236,8 @@ class UserModel {
         myBzzIDs: [],
         emailIsVerified: user.emailVerified,
         isAdmin: false,
+        fcmToken: null,
+        company: null,
       );
 
   }
@@ -268,6 +275,7 @@ class UserModel {
       emailIsVerified: user.emailVerified,
       isAdmin: false,
       company: null,
+      fcmToken: null,
     );
 
     _userModel.printUserModel(methodName: 'createInitialUserModelFromUser');
@@ -307,6 +315,7 @@ class UserModel {
     print('contacts : $contacts');
     print('myBzzIDs : $myBzzIDs');
     print('emailIsVerified : $emailIsVerified');
+    print('fcmToken : ${fcmToken.createdAt}');
 
     print('$methodName : PRINTING USER MODEL ---------------- END -- ');
 

@@ -115,13 +115,21 @@ class AuthorModel{
     return _currentAuthorIndex;
   }
 // -----------------------------------------------------------------------------
-  static BzModel replaceAuthorModelInBzModel(BzModel bzModel, AuthorModel inputAuthor){
+  static BzModel replaceAuthorModelInBzModel({BzModel bzModel, AuthorModel oldAuthor, AuthorModel newAuthor}){
 
     List<AuthorModel> _modifiedAuthorsList =
-    replaceAuthorModelInAuthorsList(bzModel.bzAuthors, inputAuthor);
+    replaceAuthorModelInAuthorsList(
+      originalAuthors: bzModel.bzAuthors,
+      oldAuthor: oldAuthor,
+      newAuthor: newAuthor,
+    );
 
     List<String> _modifiedAuthorsIDsList =
-    replaceAuthorIDInAuthorsIDsList(bzModel.bzAuthors, inputAuthor);
+    replaceAuthorIDInAuthorsIDsList(
+        originalAuthors: bzModel.bzAuthors,
+        oldAuthor: oldAuthor,
+        newAuthor: newAuthor,
+    );
 
     return BzModel(
       bzID : bzModel.bzID,
@@ -154,24 +162,35 @@ class AuthorModel{
     );
   }
 // -----------------------------------------------------------------------------
-  static List<AuthorModel> replaceAuthorModelInAuthorsList(List<AuthorModel> originalAuthors, AuthorModel inputAuthor){
+  static List<AuthorModel> replaceAuthorModelInAuthorsList({List<AuthorModel> originalAuthors, AuthorModel oldAuthor, AuthorModel newAuthor}){
     List<AuthorModel> _modifiedAuthorsList;
     List<AuthorModel> _originalAuthors = originalAuthors;
-    int _indexOfCurrentAuthor = getAuthorIndexByAuthorID(_originalAuthors, inputAuthor.userID);
-    _originalAuthors.removeAt(_indexOfCurrentAuthor);
-    _originalAuthors.insert(_indexOfCurrentAuthor, inputAuthor);
+    int _indexOfOldAuthor = getAuthorIndexByAuthorID(_originalAuthors, oldAuthor.userID);
+
+    if (_indexOfOldAuthor != -1){
+
+    _originalAuthors.removeAt(_indexOfOldAuthor);
+    _originalAuthors.insert(_indexOfOldAuthor, newAuthor);
     _modifiedAuthorsList = _originalAuthors;
+
+    }
 
     return _modifiedAuthorsList;
   }
 // -----------------------------------------------------------------------------
-  static List<String> replaceAuthorIDInAuthorsIDsList(List<AuthorModel> originalAuthors, AuthorModel inputAuthor){
+  static List<String> replaceAuthorIDInAuthorsIDsList({List<AuthorModel> originalAuthors, AuthorModel oldAuthor, AuthorModel newAuthor}){
     List<String> _modifiedAuthorsIDsList;
     List<String> _originalAuthorsIDs = getAuthorsIDsFromAuthors(originalAuthors);
-    int _indexOfCurrentAuthor = getAuthorIndexByAuthorID(originalAuthors, inputAuthor.userID);
-    _originalAuthorsIDs.removeAt(_indexOfCurrentAuthor);
-    _originalAuthorsIDs.insert(_indexOfCurrentAuthor, inputAuthor.userID);
+    print('getAuthorsIDsFromAuthors : _originalAuthorsIDs : $_originalAuthorsIDs');
+    int _indexOfOldAuthor = getAuthorIndexByAuthorID(originalAuthors, oldAuthor.userID);
+
+    if (_indexOfOldAuthor != -1){
+
+    _originalAuthorsIDs.removeAt(_indexOfOldAuthor);
+    _originalAuthorsIDs.insert(_indexOfOldAuthor, newAuthor.userID);
     _modifiedAuthorsIDsList = _originalAuthorsIDs;
+
+    }
 
     return _modifiedAuthorsIDsList;
   }

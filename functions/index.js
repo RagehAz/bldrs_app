@@ -3,6 +3,7 @@ const admin = require("firebase-admin");
 
 admin.initializeApp();
 
+
 const db = functions.firestore;
 const fbm = admin.messaging();
 const fire = admin.firestore();
@@ -10,9 +11,104 @@ const fire = admin.firestore();
 // COLLECTION PATHS
 // const flyerDoc = "flyers/{flyerID}";
 // const userDoc = "users/{userID}";
+const docStatistics = fire.collection("admin").doc("statistics");
+
+// T001 : DB / admin / statistics.numberOfUsers increment 1
+exports.t001_onCreateNewFirebaseUser = functions.auth.user().onCreate(
+    (user) => {
+      console.log(`T001 : firebase new user CREATED : ${user.uid}`);
+      return docStatistics.update({
+        numberOfUsers: admin.firestore.FieldValue.increment(1),
+      });
+    });
+
+// T002 : DB / admin / statistics.numberOfUsers increment -1
+exports.t002_onDeleteFirebaseUser = functions.auth.user().onDelete(
+    (user) => {
+      console.log(`T002 : firebase user DELETED : ${user.uid}`);
+      return docStatistics.update({
+        numberOfUsers: admin.firestore.FieldValue.increment(-1),
+      });
+    });
+
+// T003 : DB / admin / statistics.numberOfCountries increment 1
+exports.t003_onCreateNewCountry = db.document("countries/{countryID}")
+    .onCreate(
+        (snapshot, context) => {
+          const map = snapshot.data();
+          console.log(`T003 : new Country ADDED : ${map.iso3}`);
+          return docStatistics.update({
+            numberOfCountries: admin.firestore.FieldValue.increment(1),
+          });
+        }
+    );
+
+// T004 : DB / admin / statistics.numberOfCountries increment -1
+exports.t004_onDeleteCountry = db.document("countries/{countryID}")
+    .onDelete(
+        (snapshot, context) => {
+          const map = snapshot.data();
+          console.log(`T004 : new Country DELETED : ${map.iso3}`);
+          return docStatistics.update({
+            numberOfCountries: admin.firestore.FieldValue.increment(-1),
+          });
+        }
+    );
+
+// T005 : DB / admin / statistics.numberOfBzz increment 1
+exports.t005_onCreateNewBz = db.document("bzz/{bzID}")
+    .onCreate(
+        (snapshot, context) => {
+          const map = snapshot.data();
+          console.log(`T005 : new Bz ADDED : ${map.bzID}`);
+          return docStatistics.update({
+            numberOfBzz: admin.firestore.FieldValue.increment(1),
+          });
+        }
+    );
+
+// T006 : DB / admin / statistics.numberOfBzz increment -1
+exports.t006_onDeleteBz = db.document("bzz/{bzID}")
+    .onDelete(
+        (snapshot, context) => {
+          const map = snapshot.data();
+          console.log(`T006 : Bz DELETED : ${map.bzID}`);
+          return docStatistics.update({
+            numberOfBzz: admin.firestore.FieldValue.increment(-1),
+          });
+        }
+    );
+
+// T007 : DB / admin / statistics.numberOfBzz increment 1
+exports.t007_onCreateNewFlyer = db.document("flyers/{flyerID}")
+    .onCreate(
+        (snapshot, context) => {
+          const map = snapshot.data();
+          console.log(`T007 : new flyer ADDED : ${map.flyerID}`);
+
+          const slidesCount = map.slides.length;
+
+          return docStatistics.update({
+            numberOfFlyers: admin.firestore.FieldValue.increment(1),
+            numberOfSlides: admin.firestore.FieldValue.increment(slidesCount),
+          });
+        }
+    );
+
+// T008 : DB / admin / statistics.numberOfBzz increment -1
+exports.t008_onDeleteFlyer = db.document("flyers/{flyerID}")
+    .onDelete(
+        (snapshot, context) => {
+          const map = snapshot.data();
+          console.log(`T008 : flyer DELETED : ${map.flyerID}`);
+          return docStatistics.update({
+            numberOfFlyers: admin.firestore.FieldValue.increment(-1),
+          });
+        }
+    );
 
 // http request 1
-exports.randomNumber = functions.https.onRequest((request, response) => {
+exports.x_randomNumber = functions.https.onRequest((request, response) => {
   const number = Math.round(Math.random() * 100);
   console.log("The Random Number is : " + number);
   response.send(number.toString());
@@ -24,13 +120,13 @@ exports.randomNumber = functions.https.onRequest((request, response) => {
 // });
 
 // http callable function
-exports.sayHello = functions.https.onCall((data, context) => {
+exports.x_sayHello = functions.https.onCall((data, context) => {
   const name = data.name +
   "xx this string added inside the callable function xx";
   return `hello, Bldrs, welcome Mr ${name}`;
 });
 
-exports.myFunction = db
+exports.x_myFunction = db
     .document("flyers/{flyer}")
     .onCreate((snapshot, context) => {
       return fbm.sendToTopic("flyers", {
@@ -43,7 +139,7 @@ exports.myFunction = db
     });
 
 // to call a function for any db change u can say "/{collection}/{id}"
-exports.logEverything = functions.firestore.document("/{collection}/{id}")
+exports.x_logEverything = db.document("/{collection}/{id}")
     .onCreate((snap, context) => {
       console.log(snap.data());
 
@@ -70,35 +166,15 @@ exports.logEverything = functions.firestore.document("/{collection}/{id}")
 //       const collection = context.params
 //   });
 
-// DB / admin / statistics.numberOfUsers increment 1
-exports.increaseNumberOfUsersInStatistics = functions.auth.user().onCreate(
-    (user) => {
-      const docReference = fire.collection("admin").doc("statistics");
-      console.log(`aho yabn el weskha : ${user.uid}`);
-      return docReference.update({
-        numberOfUsers: admin.firestore.FieldValue.increment(1),
-      });
-    });
-
-// DB / admin / statistics.numberOfUsers increment -1
-exports.decreaseNumberOfUsersInStatistics = functions.auth.user().onDelete(
-    (user) => {
-      const docReference = fire.collection("admin").doc("statistics");
-      console.log(`aho yabn el a7ba : ${user.uid}`);
-      return docReference.update({
-        numberOfUsers: admin.firestore.FieldValue.increment(-1),
-      });
-    });
-
 // auth trigger (background trigger)
-exports.userDeleted = functions.auth.user().onDelete((user) => {
-  console.log(
-      `user Deleted account : userID : ${user.uid} : email : ${user.email}`
-  );
-
-  const doc = fire.collection("users").doc(user.uid);
-  return doc.delete;
-});
+// exports.userDeleted = functions.auth.user().onDelete((user) => {
+//  console.log(
+//      `user Deleted account : userID : ${user.uid} : email : ${user.email}`
+//  );
+//
+//  const doc = fire.collection("users").doc(user.uid);
+//  return doc.delete;
+// });
 
 // exports.newUserSignedUp = db.document(userDoc).onCreate(doc, context) => {
 // return fbm.sendToTopic

@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 // -----------------------------------------------------------------------------
 class FCMToken {
   final String token;
-  final FieldValue createdAt;
+  final DateTime createdAt;
   final String platform;
 
   FCMToken({
@@ -13,12 +13,28 @@ class FCMToken {
 });
 // -----------------------------------------------------------------------------
   Map<String, dynamic> toMap(){
+
     return
         {
           'token' : token,
           'createdAt' : createdAt,
           'platform' : platform,
         };
+  }
+// -----------------------------------------------------------------------------
+  static FCMToken decipherFCMToken(Map<String, dynamic> map){
+    FCMToken _token;
+
+    if (map != null){
+
+      _token = FCMToken(
+          token: map['token'],
+          createdAt: map['createdAt'].toDate(),
+          platform: map['platform'],
+      );
+
+    }
+    return _token;
   }
 // -----------------------------------------------------------------------------
 }

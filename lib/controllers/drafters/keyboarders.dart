@@ -1,3 +1,5 @@
+import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/views/widgets/dialogs/nav_dialog/nav_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -50,7 +52,7 @@ class Keyboarders {
 // Does anyone know if it's possible to listen for a keyboard language change
 // on native Android?
 // -----------------------------------------------------------------------------
-static Future<void> handlePaste(TextSelectionDelegate delegate) async {
+  static Future<void> handlePaste(TextSelectionDelegate delegate) async {
 
   final TextEditingValue value = delegate.textEditingValue; // Snapshot the input before using `await`.
   final ClipboardData data = await Clipboard.getData(Clipboard.kTextPlain);
@@ -76,4 +78,20 @@ static Future<void> handlePaste(TextSelectionDelegate delegate) async {
   delegate.hideToolbar();
 }
 // -----------------------------------------------------------------------------
+  static Future<void> copyToClipboard({BuildContext context, String copy}) async {
+    await Clipboard.setData(ClipboardData(text: copy,));
+
+    await NavDialog.showNavDialog(
+      context: context,
+      isBig: true,
+      firstLine: 'Copied to clipboard',
+      secondLine: copy,
+      color: Colorz.Black255,
+    );
+
+    print('copied to clipboard : $copy');
+
+  }
+// -----------------------------------------------------------------------------
+
 }
