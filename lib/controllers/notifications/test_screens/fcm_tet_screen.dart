@@ -75,7 +75,7 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
 
       FCMToken _token = FCMToken(
           token: _fcmToken,
-          createdAt: FieldValue.serverTimestamp(),
+          createdAt: DateTime.now(),
           platform: Platform.operatingSystem,
       );
 

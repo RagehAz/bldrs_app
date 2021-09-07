@@ -63,7 +63,7 @@ class _WebViewTestScreenState extends State<WebViewTestScreen> {
               width: BottomDialog.dialogClearWidth(context),
               height: BottomDialog.dialogClearHeight(
                 context: context,
-                title: 'webSite',
+                titleIsOn: true,
                 overridingDialogHeight: _dialogHeight,
                 draggable: false,
               ),

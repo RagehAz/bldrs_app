@@ -341,7 +341,7 @@ class BldrsNotiModelz {
       );
   }
 // -----------------------------------------------------------------------------
-  /// 14 - flyerSaved
+  /// 14 - flyer Saved
   static NotiModel flyerSaved(){
     return
       NotiModel(
@@ -360,7 +360,7 @@ class BldrsNotiModelz {
       );
   }
 // -----------------------------------------------------------------------------
-  /// 14 - flyerSaved
+  /// 14 - flyer Shared
   static NotiModel flyerShared(){
     return
       NotiModel(
@@ -379,7 +379,7 @@ class BldrsNotiModelz {
       );
   }
 // -----------------------------------------------------------------------------
-  /// 14 - flyerSaved
+  /// 14 - user follow
   static NotiModel userFollowed(){
     return
       NotiModel(
