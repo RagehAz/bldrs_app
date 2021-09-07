@@ -422,7 +422,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
       _triggerLoading();
 
       /// create modified authorModel
-      AuthorModel _modifiedAuthor = AuthorModel(
+      AuthorModel _newAuthor = AuthorModel(
         userID: widget.userModel.userID,
         authorName: _authorNameTextController.text,
         authorPic: _currentAuthorPicFile ?? _currentAuthorPicURL,
@@ -430,8 +430,20 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         authorIsMaster: _currentAuthor.authorIsMaster,
         authorContacts: _currentAuthorContacts,
       );
-      List<AuthorModel> _modifiedAuthorsList = AuthorModel.replaceAuthorModelInAuthorsList(_currentBzAuthors, _modifiedAuthor);
-      List<String> _modifiedAuthorsIDsList = AuthorModel.replaceAuthorIDInAuthorsIDsList(_currentBzAuthors, _modifiedAuthor);
+
+      AuthorModel _oldAuthor = AuthorModel.getAuthorFromBzByAuthorID(widget.bzModel, widget.userModel.userID);
+
+      List<AuthorModel> _modifiedAuthorsList = AuthorModel.replaceAuthorModelInAuthorsList(
+        originalAuthors: _currentBzAuthors,
+        oldAuthor: _oldAuthor,
+        newAuthor: _newAuthor,
+      );
+
+      List<String> _modifiedAuthorsIDsList = AuthorModel.replaceAuthorIDInAuthorsIDsList(
+        originalAuthors: _currentBzAuthors,
+        oldAuthor: _oldAuthor,
+        newAuthor: _newAuthor,
+      );
 
       /// create modified bzModel
       BzModel _modifiedBzModel = BzModel(

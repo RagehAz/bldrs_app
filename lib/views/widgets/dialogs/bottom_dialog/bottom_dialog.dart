@@ -67,11 +67,8 @@ class BottomDialog extends StatelessWidget {
     return _draggerWidth;
   }
 // -----------------------------------------------------------------------------
-  static double titleZoneHeight({@required String title}){
-    bool _titleIsOn =
-    title == null ? false :
-    TextMod.removeSpacesFromAString(title).length == 0 ? false :
-        true;
+  static double titleZoneHeight({@required bool titleIsOn}){
+    bool _titleIsOn = titleIsOn == null ? false : titleIsOn;
 
     double _titleZoneHeight = _titleIsOn == true ? Ratioz.appBarSmallHeight :  0;
 
@@ -113,12 +110,12 @@ class BottomDialog extends StatelessWidget {
     return _dialogHeight;
   }
 // -----------------------------------------------------------------------------
-  static double dialogClearHeight({BuildContext context, double overridingDialogHeight, String title, @required bool draggable}){
+  static double dialogClearHeight({BuildContext context, double overridingDialogHeight, bool titleIsOn, @required bool draggable}){
 
     // bool _draggable = draggable == null ? false : draggable;
 
     double _dialogHeight = dialogHeight(context, overridingDialogHeight: overridingDialogHeight);
-    double _titleZoneHeight = titleZoneHeight(title: title);
+    double _titleZoneHeight = titleZoneHeight(titleIsOn: titleIsOn);
     double _draggerZoneHeight = draggerZoneHeight(draggable: draggable);
 
     double _dialogClearHeight = _dialogHeight - _titleZoneHeight - _draggerZoneHeight;
@@ -169,11 +166,18 @@ class BottomDialog extends StatelessWidget {
         isScrollControlled: true,
         context: context,
         builder: (bCtx){
-          return BottomDialog(
+          return Container(
             height: height,
-            draggable: draggable,
-            title: title,
-            child: child,
+            width: Scale.superScreenWidth(context),
+            child: Scaffold(
+              backgroundColor: Colorz.Nothing,
+              body: BottomDialog(
+                height: height,
+                draggable: draggable,
+                title: title,
+                child: child,
+              ),
+            ),
           );}
     );
   }
@@ -264,10 +268,12 @@ class BottomDialog extends StatelessWidget {
     double _draggerCorner = _draggerHeight *0.5;
     EdgeInsets _draggerMargins = draggerMargins(draggable: draggable);
 
-    double _titleZoneHeight = titleZoneHeight(title: title);
+    bool _titleIsOn = title == null || TextMod.removeSpacesFromAString(title) == '' ? false : true;
+
+    double _titleZoneHeight = titleZoneHeight(titleIsOn: _titleIsOn);
 
     double _dialogClearWidth = dialogClearWidth(context);
-    double _dialogClearHeight  = dialogClearHeight(context: context, title: title, overridingDialogHeight: height, draggable: draggable);
+    double _dialogClearHeight  = dialogClearHeight(context: context, titleIsOn: _titleIsOn, overridingDialogHeight: height, draggable: draggable);
     BorderRadius _dialogClearCorners = dialogClearCorners(context);
 
     return Container(

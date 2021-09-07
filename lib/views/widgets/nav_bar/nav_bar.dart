@@ -71,7 +71,7 @@ class NavBar extends StatelessWidget {
     // double _titleMargin = 5;
     // double _titleZoneHeight = superVerseRealHeight(context, _titleSize, 1, null) + (_titleMargin * 2);
 
-    double _bzzButtonsZoneHeight = BottomDialog.dialogClearHeight(context: context, overridingDialogHeight: _sliderHeight, title: 'x', draggable: true);
+    double _bzzButtonsZoneHeight = BottomDialog.dialogClearHeight(context: context, overridingDialogHeight: _sliderHeight, titleIsOn: true, draggable: true);
 
     BottomDialog.slideBottomDialog(
             context: context,

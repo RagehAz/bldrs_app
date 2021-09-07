@@ -3,6 +3,7 @@ import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/firestore/user_ops.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/secondary_models/contact_model.dart';
+import 'package:bldrs/models/user/fcm_token.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -46,6 +47,7 @@ class UserProvider {
 
         /// TASK : make sure about this,
         isAdmin: _map['isAdmin'] ?? false,
+        fcmToken: FCMToken.decipherFCMToken(_map['fcmToken']) ?? null,
       );
     }).toList();
   }
@@ -87,6 +89,7 @@ class UserProvider {
           emailIsVerified: _map['emailIsVerified'] ?? false,
           authBy: UserModel.decipherAuthBy(_map['authBy']) ?? AuthBy.Unknown,
           isAdmin: _map['isAdmin'] ?? false,
+          fcmToken: FCMToken.decipherFCMToken(_map['fcmToken']) ?? null,
         );
       } catch (error) {
         print(

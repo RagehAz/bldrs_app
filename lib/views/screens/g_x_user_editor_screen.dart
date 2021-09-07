@@ -232,6 +232,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         isAdmin: widget.user.isAdmin,
         authBy: widget.user.authBy,
         emailIsVerified: widget.user.emailIsVerified,
+        fcmToken: widget.user.fcmToken,
       );
 
       /// start create user ops
@@ -299,6 +300,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         isAdmin: widget.user.isAdmin,
         emailIsVerified: widget.user.emailIsVerified,
         authBy: widget.user.authBy,
+        fcmToken: widget.user.fcmToken,
       );
 
       /// start create user ops

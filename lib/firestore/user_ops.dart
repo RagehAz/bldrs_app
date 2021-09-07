@@ -87,6 +87,7 @@ class UserOps{
       myBzzIDs : userModel.myBzzIDs,
       isAdmin: userModel.isAdmin,
       emailIsVerified: userModel.emailIsVerified,
+      fcmToken: userModel.fcmToken,
     );
 
     /// create user doc in fireStore
@@ -202,6 +203,7 @@ class UserOps{
       myBzzIDs : updatedUserModel.myBzzIDs,
       isAdmin: updatedUserModel.isAdmin,
       emailIsVerified: updatedUserModel.emailIsVerified,
+      fcmToken: updatedUserModel.fcmToken,
     );
 
     /// C - update firestore/users/userID

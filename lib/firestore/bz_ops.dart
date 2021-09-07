@@ -205,7 +205,7 @@ class BzOps{
     }
 
     /// 2 - update authorPic if changed
-    AuthorModel _modifiedAuthor = AuthorModel.getAuthorFromBzByAuthorID(modifiedBz, superUserID());
+    AuthorModel _oldAuthor = AuthorModel.getAuthorFromBzByAuthorID(modifiedBz, superUserID());
     String _authorPicURL;
     if(authorPicFile == null) {
       // do Nothing, author pic was not changed, will keep as
@@ -222,15 +222,19 @@ class BzOps{
     }
 
     /// update authorsList if authorPicChanged
-    AuthorModel _finalAuthorModel = AuthorModel(
-      userID : _modifiedAuthor.userID,
-      authorName : _modifiedAuthor.authorName,
-      authorPic : _authorPicURL ?? originalBz.bzAuthors[AuthorModel.getAuthorIndexByAuthorID(originalBz.bzAuthors, _modifiedAuthor.userID)].authorPic,
-      authorTitle : _modifiedAuthor.authorTitle,
-      authorIsMaster : _modifiedAuthor.authorIsMaster,
-      authorContacts : _modifiedAuthor.authorContacts,
+    AuthorModel _newAuthor = AuthorModel(
+      userID : _oldAuthor.userID,
+      authorName : _oldAuthor.authorName,
+      authorPic : _authorPicURL ?? originalBz.bzAuthors[AuthorModel.getAuthorIndexByAuthorID(originalBz.bzAuthors, _oldAuthor.userID)].authorPic,
+      authorTitle : _oldAuthor.authorTitle,
+      authorIsMaster : _oldAuthor.authorIsMaster,
+      authorContacts : _oldAuthor.authorContacts,
     );
-    List<AuthorModel> _finalAuthorList = AuthorModel.replaceAuthorModelInAuthorsList(modifiedBz.bzAuthors, _finalAuthorModel);
+    List<AuthorModel> _finalAuthorList = AuthorModel.replaceAuthorModelInAuthorsList(
+        originalAuthors: modifiedBz.bzAuthors,
+        oldAuthor: _oldAuthor,
+        newAuthor: _newAuthor,
+    );
 
     /// update bzModel if images changed
     BzModel _finalBz = BzModel(

@@ -13,15 +13,19 @@ class NavDialog extends StatelessWidget {
   final String firstLine;
   final String secondLine;
   final bool isBig;
+  final Color color;
 
 
   const NavDialog({
     @required this.firstLine,
     @required this.secondLine,
     this.isBig = false,
+    this.color = Colorz.DarkRed255,
 });
 // -----------------------------------------------------------------------------
-  static Future<void> showNavDialog({BuildContext context, String firstLine, String secondLine, bool isBig}) async {
+  static Future<void> showNavDialog({BuildContext context, String firstLine, String secondLine, bool isBig, Color color}) async {
+
+    Color _color = color == null ? Colorz.DarkRed255 : color;
 
     bool _isBig = isBig == null ? false : isBig;
     // double _screenWidth = Scale.superScreenWidth(context);
@@ -41,10 +45,11 @@ class NavDialog extends StatelessWidget {
         // },
         elevation: 0,
         content: NavDialog(
-        firstLine: firstLine,
-        secondLine: secondLine,
-        isBig: _isBig,
-          ),
+          firstLine: firstLine,
+          secondLine: secondLine,
+          isBig: _isBig,
+          color: _color,
+        ),
       ),
     );
   }
@@ -74,7 +79,7 @@ class NavDialog extends StatelessWidget {
             height: Scale.navBarHeight(context: context, barType: _barType),
 
             width: _screenWidth - (4 * Ratioz.appBarMargin),
-            color: Colorz.DarkRed255,
+            color: color,
             // corners: 0,
             verse: firstLine,
             verseScaleFactor: secondLine == null ? 0.8 : 0.65,
