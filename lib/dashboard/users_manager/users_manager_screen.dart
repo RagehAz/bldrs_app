@@ -5,7 +5,7 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/flagz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/dashboard/widgets/dashboard_data_row.dart';
+import 'package:bldrs/views/widgets/dialogs/bottom_dialog/bottom_dialog_data_row.dart';
 import 'package:bldrs/firestore/cloud_functions.dart';
 import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/models/secondary_models/contact_model.dart';
@@ -213,7 +213,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
                   draggable: true,
                   child: Container(
                     width: _clearDialogWidth,
-                    height: BottomDialog.dialogClearHeight(draggable: true, title: 'x', context: context,),
+                    height: BottomDialog.dialogClearHeight(draggable: true, titleIsOn: true, context: context,),
                     color: Colorz.BloodTest,
                     child: GoHomeOnMaxBounce(
                       child: ListView(
@@ -229,25 +229,25 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
 
                           SuperVerse(verse: 'is admin or not ? ,, work this out please',),
 
-                          BottomDialogRow(dataKey: 'userID', value: _userModel.userID),
-                          BottomDialogRow(dataKey: 'authBy', value: _userModel.authBy),
-                          BottomDialogRow(dataKey: 'joinedAt', value: _userModel.joinedAt),
-                          BottomDialogRow(dataKey: 'timeString', value: Timers.dayMonthYearStringer(context, _userModel.joinedAt)),
-                          BottomDialogRow(dataKey: 'userStatus', value: _userModel.userStatus),
-                          BottomDialogRow(dataKey: 'name', value: _userModel.name),
-                          BottomDialogRow(dataKey: 'pic', value: _userModel.pic),
-                          BottomDialogRow(dataKey: 'title', value: _userModel.title),
-                          BottomDialogRow(dataKey: 'company', value: _userModel.company),
-                          BottomDialogRow(dataKey: 'gender', value: _userModel.gender),
-                          BottomDialogRow(dataKey: 'zone', value: _userModel.zone),
-                          BottomDialogRow(dataKey: 'zone String', value: 'in [ $_districtName ] - [ $_provinceName ] - [ $_countryName ]'),
-                          BottomDialogRow(dataKey: 'language', value: _userModel.language),
-                          BottomDialogRow(dataKey: 'position', value: _userModel.position),
-                          BottomDialogRow(dataKey: 'contacts', value: _userModel.contacts),
-                          BottomDialogRow(dataKey: 'Stringy contacts', value: '$_stringyContactsValues'),
-                          BottomDialogRow(dataKey: 'Social Contacts', value: '$_socialContactsValues'),
-                          BottomDialogRow(dataKey: 'myBzzIDs', value: _userModel.myBzzIDs),
-                          BottomDialogRow(dataKey: 'emailIsVerified', value: _userModel.emailIsVerified),
+                          BottomDialogRow(dataKey: 'userID', dataValue: _userModel.userID),
+                          BottomDialogRow(dataKey: 'authBy', dataValue: _userModel.authBy),
+                          BottomDialogRow(dataKey: 'joinedAt', dataValue: _userModel.joinedAt),
+                          BottomDialogRow(dataKey: 'timeString', dataValue: Timers.dayMonthYearStringer(context, _userModel.joinedAt)),
+                          BottomDialogRow(dataKey: 'userStatus', dataValue: _userModel.userStatus),
+                          BottomDialogRow(dataKey: 'name', dataValue: _userModel.name),
+                          BottomDialogRow(dataKey: 'pic', dataValue: _userModel.pic),
+                          BottomDialogRow(dataKey: 'title', dataValue: _userModel.title),
+                          BottomDialogRow(dataKey: 'company', dataValue: _userModel.company),
+                          BottomDialogRow(dataKey: 'gender', dataValue: _userModel.gender),
+                          BottomDialogRow(dataKey: 'zone', dataValue: _userModel.zone),
+                          BottomDialogRow(dataKey: 'zone String', dataValue: 'in [ $_districtName ] - [ $_provinceName ] - [ $_countryName ]'),
+                          BottomDialogRow(dataKey: 'language', dataValue: _userModel.language),
+                          BottomDialogRow(dataKey: 'position', dataValue: _userModel.position),
+                          BottomDialogRow(dataKey: 'contacts', dataValue: _userModel.contacts),
+                          BottomDialogRow(dataKey: 'Stringy contacts', dataValue: '$_stringyContactsValues'),
+                          BottomDialogRow(dataKey: 'Social Contacts', dataValue: '$_socialContactsValues'),
+                          BottomDialogRow(dataKey: 'myBzzIDs', dataValue: _userModel.myBzzIDs),
+                          BottomDialogRow(dataKey: 'emailIsVerified', dataValue: _userModel.emailIsVerified),
                           // DataRow(dataKey: 'SavedFlyers', value: '${_userModel.savedFlyersIDs.length} flyers')
                           // DataRow(dataKey: 'followedBzz', value: '${_userModel.followedBzzIDs.length} Businesses'),
 

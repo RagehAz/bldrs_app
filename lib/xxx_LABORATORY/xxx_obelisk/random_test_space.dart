@@ -4,7 +4,13 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/firestore/firestore.dart';
+import 'package:bldrs/firestore/flyer_ops.dart';
 import 'package:bldrs/firestore/user_ops.dart';
+import 'package:bldrs/models/bz/author_model.dart';
+import 'package:bldrs/models/bz/bz_model.dart';
+import 'package:bldrs/models/flyer/flyer_model.dart';
+import 'package:bldrs/models/flyer/nano_flyer.dart';
+import 'package:bldrs/models/user/tiny_user.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
@@ -107,42 +113,73 @@ class _RandomTestSpaceState extends State<RandomTestSpace> {
       appBarRowWidgets: <Widget>[
 
         DreamBox(
+            height: 40,
+            width: 100,
+            color: Colorz.BloodTest,
+            verse: 'create',
+            verseMaxLines: 2,
+            verseScaleFactor: 0.6,
+            onTap: () async {
+
+              print(' staring sub field update test');
+
+              await Fire.createNamedDoc(
+                context: context,
+                collName: FireCollection.admin,
+                docName: 'test',
+                input: {
+                  'key1' : 'value1',
+                  'key2' : 'value2',
+                  'key3' : {
+                    '0': {
+                      'sub1' : 'x',
+                      'sub2' : 'a',
+                      'sub3' : '2',
+                    }
+                    ,
+                    '1': {
+                      'sub1' : 'd',
+                      'sub2' : 'f',
+                      'sub3' : 'v',
+                    }
+                    ,
+                    '2': {
+                      'sub1' : 't',
+                      'sub2' : 'h',
+                      'sub3' : 'j',
+                    }
+                  },
+                }
+              );
+
+              print('test finished el7amdolellah');
+
+            }
+        ),
+
+
+        DreamBox(
           height: 40,
-          width: 150,
+          width: 100,
+          margins: 5,
           color: Colorz.BloodTest,
-          verse: 'fix isAdmin in all users',
+          verse: 'update',
           verseMaxLines: 2,
           verseScaleFactor: 0.6,
           onTap: () async {
 
-            List<dynamic> _usersMaps = await Fire.readCollectionDocs(
-              limit: 200,
-              addDocSnapshotToEachMap: false,
-              startAfter: null,
-              orderBy: 'userID',
-              collectionName: FireCollection.users,
+            print(' staring sub field update test');
+
+            await Fire.updateDocField(
+              context: context,
+              collName: FireCollection.admin,
+              docName: 'test',
+              field: 'key3.1.sub2',
+              input: 'koko',
             );
 
-            for (var userMap in _usersMaps){
 
-              UserModel _user = UserModel.decipherUserMap(userMap);
-
-              print('user : ${_user.userID} : ${_user.name} : _user.isAdmin : ${_user.isAdmin}');
-
-              // if (_user.isAdmin != true){
-              //   await Fire.updateDocField(
-              //     context: context,
-              //     collName: FireCollection.users,
-              //     docName: _user.userID,
-              //     field: 'isAdmin',
-              //     input: false,
-              //   );
-              // }
-
-              print('done');
-
-            }
-
+            print('test finished el7amdolellah');
 
           }
         ),
@@ -162,74 +199,174 @@ class _RandomTestSpaceState extends State<RandomTestSpace> {
               DreamBox(
                 height: 50,
                 width: 200,
-                verse: 'fix rageh',
+                verse: 'fix rBjNU5WybKgJXaiBnlcBnfFaQSq1',
                 verseScaleFactor: 0.7,
                 onTap: () async {
 
-                  UserModel _oldRageh = await UserOps().readUserOps(
-                    context: context,
-                    userID: 'rBjNU5WybKgJXaiBnlcBnfFaQSq1'
+                  String ragehID = superUserID();
+                  String _oldID = 'rBjNU5WybKgJXaiBnlcBnfFaQSq1';
+
+                  // fix bzz
+                  List<dynamic> _bzzMaps = await Fire.readCollectionDocs(
+                    limit: 200,
+                    collectionName: FireCollection.bzz,
+                    orderBy: 'bzID',
+                    startAfter: null,
+                    addDocSnapshotToEachMap: false,
                   );
 
-                  UserModel _newRageh = UserModel(
-                    userID: superUserID(),
-                    authBy: _oldRageh.authBy,
-                    joinedAt: _oldRageh.joinedAt,
-                    userStatus: _oldRageh.userStatus,
-                    name: _oldRageh.name,
-                    pic: _oldRageh.pic,
-                    title: _oldRageh.title,
-                    company: _oldRageh.company,
-                    gender: _oldRageh.gender,
-                    zone: _oldRageh.zone,
-                    language: _oldRageh.language,
-                    position: _oldRageh.position,
-                    contacts: _oldRageh.contacts,
-                    myBzzIDs: _oldRageh.myBzzIDs,
-                    emailIsVerified: _oldRageh.emailIsVerified,
-                    isAdmin: _oldRageh.isAdmin,
-                  );
+                  List<BzModel> _bzz = await BzModel.decipherBzzMapsFromFireStore(_bzzMaps);
 
-                  await UserOps().updateUserOps(
-                    context: context,
-                    oldUserModel: _oldRageh,
-                    updatedUserModel: _newRageh,
-                  );
+                  List<BzModel> _myBzz = [];
 
-                  _newRageh.printUserModel(methodName: 'TESTING XXX');
+                  for (var bz in _bzz){
+                    if (bz.authorsIDs.contains(ragehID) == true){
+                      print('bz is : ${bz.bzID}');
+                      _myBzz.add(bz);
+                    }
+                    else {
+                      print('not ${bz.bzID} -> authors are ${bz.authorsIDs.toString()}');
+                    }
+                  }
 
-                  print('done el7amdolellah');
+                  /// fix my bzz
+                  for (var biz in _myBzz){
+
+                    print('working on ${biz.bzID}');
+
+                    // AuthorModel _rbjAuthor = AuthorModel.getAuthorFromBzByAuthorID(biz, _oldID);
+                    // AuthorModel _ragehAuthor = AuthorModel(
+                    //   userID: ragehID,
+                    //   authorName: _rbjAuthor.authorName,
+                    //   authorPic: _rbjAuthor.authorPic,
+                    //   authorTitle: _rbjAuthor.authorTitle,
+                    //   authorIsMaster: true,
+                    //   authorContacts: _rbjAuthor.authorContacts,
+                    // );
+
+                    // List<String> _newIDs = AuthorModel.replaceAuthorIDInAuthorsIDsList(
+                    //   originalAuthors: biz.bzAuthors,
+                    //     oldAuthor: _rbjAuthor,
+                    //     newAuthor: _ragehAuthor
+                    // );
+                    //
+                    // List<AuthorModel> _newAuthors = AuthorModel.replaceAuthorModelInAuthorsList(
+                    //     originalAuthors: biz.bzAuthors,
+                    //     oldAuthor: _rbjAuthor,
+                    //     newAuthor: _ragehAuthor
+                    // );
+                    //
+                    // await Fire.updateDocField(
+                    //   context: context,
+                    //   collName: FireCollection.bzz,
+                    //   docName: biz.bzID,
+                    //   field: 'bzAuthors',
+                    //   input: AuthorModel.cipherAuthorsModels(_newAuthors),
+                    // );
+                    //
+                    // await Fire.updateDocField(
+                    //   context: context,
+                    //   collName: FireCollection.bzz,
+                    //   docName: biz.bzID,
+                    //   field: 'authorsIDs',
+                    //   input: _newIDs,
+                    // );
+
+                    List<NanoFlyer> nanos = biz.nanoFlyers;
+
+                    for (NanoFlyer nano in nanos){
+
+                      FlyerModel _flyer = await FlyerOps().readFlyerOps(
+                        context: context,
+                        flyerID: nano.flyerID,
+                      );
+
+                      TinyUser _oldTinyAuthor = _flyer.tinyAuthor;
+
+                      TinyUser _newTinyAuthor = TinyUser(
+                        userID: ragehID,
+                        name: _oldTinyAuthor.name,
+                        title: _oldTinyAuthor.title,
+                        pic: _oldTinyAuthor.pic,
+                        userStatus: _oldTinyAuthor.userStatus,
+                        email: _oldTinyAuthor.email,
+                        phone: _oldTinyAuthor.phone,
+                      );
+
+                      await Fire.updateDocField(
+                        context: context,
+                        collName: FireCollection.flyers,
+                        docName: nano.flyerID,
+                        field: 'tinyAuthor',
+                        input: _newTinyAuthor.toMap(),
+                      );
+
+                      await Fire.updateDocField(
+                        context: context,
+                        collName: FireCollection.tinyFlyers,
+                        docName: nano.flyerID,
+                        field: 'authorID',
+                        input: ragehID,
+                      );
+
+                    }
+
+
+                    // print('_newIDs : $_newIDs');
+
+                  }
+
+                  print('DONEEEEEEEEEEEEEEEEEEEE');
 
                 },),
 
-              Container(
-                  width: 100,
-                  height: 100,
-                  color: Colorz.BloodTest,
-                  child: StreamBuilder(
-                    stream: Fire.streamDoc(FireCollection.admin, 'statistics'),
-                    initialData: null,
-                    builder: (context, snapshot){
 
-                      if(StreamChecker.connectionIsLoading(snapshot) == true){
-                        return Loading(loading: true,);
+              DreamBox(
+                height: 50,
+                width: 200,
+                verse: 'user',
+                verseScaleFactor: 0.7,
+                onTap: () async {
 
-                      } else {
-                        dynamic map = snapshot.data;
+                  String ragehID = superUserID();
+                  String _oldID = 'rBjNU5WybKgJXaiBnlcBnfFaQSq1';
 
-                        int _num = map['numberOfUsers'];
+                  UserModel _oldUser =  await UserOps().readUserOps(
+                    context: context,
+                    userID: _oldID,
+                  );
 
-                        return
-                          Center(
-                            child: SuperVerse(
-                              verse: '${_num} users',
-                            ),
-                          );
-                      }
-                    },
-                  ),
-                ),
+                  UserModel _newUser = UserModel(
+                    userID: _oldUser.userID,
+                    authBy: _oldUser.authBy,
+                    joinedAt: _oldUser.joinedAt,
+                    userStatus: _oldUser.userStatus,
+                    name: _oldUser.name,
+                    pic: _oldUser.pic,
+                    title: _oldUser.title,
+                    company: _oldUser.company,
+                    gender: _oldUser.gender,
+                    zone: _oldUser.zone,
+                    language: _oldUser.language,
+                    position: _oldUser.position,
+                    contacts: _oldUser.contacts,
+                    myBzzIDs: _oldUser.myBzzIDs,
+                    emailIsVerified: _oldUser.emailIsVerified,
+                    isAdmin: _oldUser.isAdmin,
+                    fcmToken: _oldUser.fcmToken,
+                  );
 
+                  await Fire.updateDoc(
+                    context: context,
+                    collName: FireCollection.users,
+                    docName: ragehID,
+                    input: _newUser.toMap(),
+                  );
+
+                  _newUser.printUserModel(methodName: 'KKKK');
+
+                },
+              ),
 
             ],
           ),
