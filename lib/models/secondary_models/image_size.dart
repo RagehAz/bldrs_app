@@ -84,7 +84,7 @@ class ImageSize{
       // -----------------------------------------------------------o
       if (_decodedImage != null){
         _imageSize = ImageSize(
-          width: _decodedImage.width.toDouble(),
+          width: _decodedImage.size.toDouble(),
           height: _decodedImage.height.toDouble(),
         );
       }

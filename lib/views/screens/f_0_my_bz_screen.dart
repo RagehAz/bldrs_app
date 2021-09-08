@@ -16,7 +16,7 @@ import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
 import 'package:bldrs/views/screens/f_x_bz_editor_screen.dart';
 import 'package:bldrs/views/screens/f_2_deactivated_flyers_screen.dart';
 import 'package:bldrs/views/widgets/bubbles/bubbles_separator.dart';
-import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
+import 'package:bldrs/views/widgets/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/paragraph_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/stats_line.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
@@ -361,7 +361,7 @@ class _MyBzScreenState extends State<MyBzScreen> {
 
               /// --- PUBLISHED FLYERS
               if (_bzModel.nanoFlyers != null)
-              InPyramidsBubble(
+              Bubble(
                 title: 'Published Flyers',
                 centered: false,
                 actionBtIcon: Iconz.Clock,
@@ -369,7 +369,7 @@ class _MyBzScreenState extends State<MyBzScreen> {
                 columnChildren: <Widget>[
 
                   Gallery(
-                    flyerZoneWidth: Scale.superBubbleClearWidth(context),
+                    flyerZoneWidth: Bubble.clearWidth(context),
                     superFlyer: SuperFlyer.getSuperFlyerFromBzModelOnly(
                       bzModel: _bzModel,
                       onHeaderTap: () => print('on header tap in f 0 my bz Screen'),
@@ -405,7 +405,7 @@ class _MyBzScreenState extends State<MyBzScreen> {
 
               /// --- STATS
               if (_bzModel.bzTotalSlides != null)
-                InPyramidsBubble(
+                Bubble(
                   title: 'Stats',
                   centered: false,
                   columnChildren: <Widget>[

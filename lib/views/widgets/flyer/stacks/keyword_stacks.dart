@@ -1,7 +1,7 @@
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
-import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
+import 'package:bldrs/views/widgets/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/flyer/final_flyer.dart';
 import 'package:flutter/material.dart';
 
@@ -37,7 +37,7 @@ class FlyerCoversStack extends StatelessWidget {
 
     int gridLoopLength = flyersDataList.length > 11 ? 11 : flyersDataList.length;
 
-    return InPyramidsBubble(
+    return Bubble(
       centered: true,
       bubbleColor: Colorz.White10,
       title: collectionTitle,
@@ -132,7 +132,7 @@ class TopFlyersStack extends StatelessWidget {
 
     int gridLoopLength = flyersDataList.length > numberOfFlyers ? numberOfFlyers : flyersDataList.length;
 
-    return InPyramidsBubble(
+    return Bubble(
       centered: false,
       bubbleColor: Colorz.White10,
       title: collectionTitle,

@@ -7,7 +7,7 @@ import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/dashboard/zones_manager/country_screen.dart';
 import 'package:bldrs/dashboard/zones_manager/db_countries.dart';
 import 'package:bldrs/models/planet/country_model.dart';
-import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
+import 'package:bldrs/views/widgets/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
@@ -98,7 +98,7 @@ class _ZonesManagerScreenState extends State<ZonesManagerScreen> {
             margins: const EdgeInsets.all(10),
           ),
 
-          InPyramidsBubble(
+          Bubble(
             centered: true,
             bubbleColor: Colorz.White20,
             columnChildren: <Widget>[

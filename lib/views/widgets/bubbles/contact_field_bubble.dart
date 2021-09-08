@@ -1,10 +1,9 @@
 import 'package:bldrs/controllers/drafters/aligners.dart';
-import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/text_shapers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
-import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
+import 'package:bldrs/views/widgets/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:bldrs/views/widgets/textings/super_text_field.dart';
@@ -82,11 +81,11 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
     double actionBtCorner = actionBtSize * 0.4;
     double leadingIconSize = 35;
     double leadingAndFieldSpacing = 5;
-    double bubbleClearWidth = Scale.superBubbleClearWidth(context);
+    double bubbleClearWidth = Bubble.clearWidth(context);
     double fieldWidth = widget.leadingIcon == null ? bubbleClearWidth : bubbleClearWidth - leadingIconSize - leadingAndFieldSpacing;
 
     return
-      InPyramidsBubble(
+      Bubble(
           columnChildren: <Widget>[
 
             Container(

@@ -1,7 +1,7 @@
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/user/user_model.dart';
-import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
+import 'package:bldrs/views/widgets/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/in_pyramids/profile/property_search_criteria.dart';
 import 'package:bldrs/views/widgets/in_pyramids/profile/status_buttons.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
@@ -39,7 +39,7 @@ class StatusBubble extends StatelessWidget {
     // double propertyStatusBtWidth = (screenWidth - (2 * pageMargin) - (8 * abPadding)) / 3;
     // double propertyStatusBtHeight = 40;
 
-    return InPyramidsBubble(
+    return Bubble(
       centered: true,
       columnChildren: <Widget>[
 

@@ -1,6 +1,6 @@
 // import 'package:bldrs/02_widgets/flyer/old_flyer_data.dart';
 // import 'package:bldrs/02_widgets/flyer/grids/flyers_grid.dart';
-// import 'package:bldrs/02_widgets/in_pyramids/in_pyramids_items/in_pyramids_bubble.dart';
+// import 'package:bldrs/02_widgets/in_pyramids/in_pyramids_items/bubble.dart';
 // import 'package:bldrs/02_widgets/textings/super_verse.dart';
 // import 'package:bldrs/view_brain.x_ui_stuff/colorz.dart';
 // import 'package:bldrs/view_brain.x_ui_stuff/ratioz.dart';

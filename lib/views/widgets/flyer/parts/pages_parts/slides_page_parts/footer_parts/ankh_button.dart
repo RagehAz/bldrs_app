@@ -1,7 +1,6 @@
 import 'package:bldrs/controllers/drafters/aligners.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/localization/localizer.dart';
-import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/footer_parts/footer_button.dart';
@@ -28,12 +27,12 @@ class AnkhButton extends StatefulWidget {
 
 class _AnkhButtonState extends State<AnkhButton> with SingleTickerProviderStateMixin{
   AnimationController _ankhAniController;
-  Animation _ankhColorAni;
+  // Animation _ankhColorAni;
   bool _ankhIsOn;
   String _saveBTIcon;
 
-  Color _onColor = Colorz.Yellow80;
-  Color _offColor = Colorz.Nothing;
+  // Color _onColor = Colorz.Yellow80;
+  // Color _offColor = Colorz.Nothing;
 // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -47,7 +46,7 @@ class _AnkhButtonState extends State<AnkhButton> with SingleTickerProviderStateM
       vsync: this
     );
 
-    _ankhColorAni = _initialTween().animate(_ankhAniController);
+    // _ankhColorAni = _initialTween().animate(_ankhAniController);
 
     _ankhAniController.addListener(() {
       // print(_ankhAniController.value);
@@ -76,19 +75,19 @@ class _AnkhButtonState extends State<AnkhButton> with SingleTickerProviderStateM
     super.dispose();
   }
 // -----------------------------------------------------------------------------
-  ColorTween _initialTween(){
-    ColorTween _tween;
-
-    if(widget.ankhIsOn){
-      _tween = ColorTween(begin: _onColor, end: _offColor);
-    }
-
-    else {
-      _tween = ColorTween(begin: _offColor, end: _onColor);
-    }
-
-    return _tween;
-  }
+//   ColorTween _initialTween(){
+//     ColorTween _tween;
+//
+//     if(widget.ankhIsOn){
+//       _tween = ColorTween(begin: _onColor, end: _offColor);
+//     }
+//
+//     else {
+//       _tween = ColorTween(begin: _offColor, end: _onColor);
+//     }
+//
+//     return _tween;
+//   }
 // -----------------------------------------------------------------------------
   Future<void> _onAnkhTap() async {
     widget.onAnkhTap();

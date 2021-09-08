@@ -1,21 +1,12 @@
 import 'package:bldrs/controllers/drafters/scrollers.dart';
-import 'package:bldrs/controllers/drafters/stream_checkers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/firestore/firestore.dart';
-import 'package:bldrs/firestore/flyer_ops.dart';
 import 'package:bldrs/firestore/user_ops.dart';
-import 'package:bldrs/models/bz/author_model.dart';
-import 'package:bldrs/models/bz/bz_model.dart';
-import 'package:bldrs/models/flyer/flyer_model.dart';
-import 'package:bldrs/models/flyer/nano_flyer.dart';
-import 'package:bldrs/models/user/tiny_user.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
-import 'package:bldrs/views/widgets/loading/loading.dart';
-import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class RandomTestSpace extends StatefulWidget {
@@ -203,122 +194,123 @@ class _RandomTestSpaceState extends State<RandomTestSpace> {
                 verseScaleFactor: 0.7,
                 onTap: () async {
 
-                  String ragehID = superUserID();
-                  String _oldID = 'rBjNU5WybKgJXaiBnlcBnfFaQSq1';
-
-                  // fix bzz
-                  List<dynamic> _bzzMaps = await Fire.readCollectionDocs(
-                    limit: 200,
-                    collectionName: FireCollection.bzz,
-                    orderBy: 'bzID',
-                    startAfter: null,
-                    addDocSnapshotToEachMap: false,
-                  );
-
-                  List<BzModel> _bzz = await BzModel.decipherBzzMapsFromFireStore(_bzzMaps);
-
-                  List<BzModel> _myBzz = [];
-
-                  for (var bz in _bzz){
-                    if (bz.authorsIDs.contains(ragehID) == true){
-                      print('bz is : ${bz.bzID}');
-                      _myBzz.add(bz);
-                    }
-                    else {
-                      print('not ${bz.bzID} -> authors are ${bz.authorsIDs.toString()}');
-                    }
-                  }
-
-                  /// fix my bzz
-                  for (var biz in _myBzz){
-
-                    print('working on ${biz.bzID}');
-
-                    // AuthorModel _rbjAuthor = AuthorModel.getAuthorFromBzByAuthorID(biz, _oldID);
-                    // AuthorModel _ragehAuthor = AuthorModel(
-                    //   userID: ragehID,
-                    //   authorName: _rbjAuthor.authorName,
-                    //   authorPic: _rbjAuthor.authorPic,
-                    //   authorTitle: _rbjAuthor.authorTitle,
-                    //   authorIsMaster: true,
-                    //   authorContacts: _rbjAuthor.authorContacts,
-                    // );
-
-                    // List<String> _newIDs = AuthorModel.replaceAuthorIDInAuthorsIDsList(
-                    //   originalAuthors: biz.bzAuthors,
-                    //     oldAuthor: _rbjAuthor,
-                    //     newAuthor: _ragehAuthor
-                    // );
-                    //
-                    // List<AuthorModel> _newAuthors = AuthorModel.replaceAuthorModelInAuthorsList(
-                    //     originalAuthors: biz.bzAuthors,
-                    //     oldAuthor: _rbjAuthor,
-                    //     newAuthor: _ragehAuthor
-                    // );
-                    //
-                    // await Fire.updateDocField(
-                    //   context: context,
-                    //   collName: FireCollection.bzz,
-                    //   docName: biz.bzID,
-                    //   field: 'bzAuthors',
-                    //   input: AuthorModel.cipherAuthorsModels(_newAuthors),
-                    // );
-                    //
-                    // await Fire.updateDocField(
-                    //   context: context,
-                    //   collName: FireCollection.bzz,
-                    //   docName: biz.bzID,
-                    //   field: 'authorsIDs',
-                    //   input: _newIDs,
-                    // );
-
-                    List<NanoFlyer> nanos = biz.nanoFlyers;
-
-                    for (NanoFlyer nano in nanos){
-
-                      FlyerModel _flyer = await FlyerOps().readFlyerOps(
-                        context: context,
-                        flyerID: nano.flyerID,
-                      );
-
-                      TinyUser _oldTinyAuthor = _flyer.tinyAuthor;
-
-                      TinyUser _newTinyAuthor = TinyUser(
-                        userID: ragehID,
-                        name: _oldTinyAuthor.name,
-                        title: _oldTinyAuthor.title,
-                        pic: _oldTinyAuthor.pic,
-                        userStatus: _oldTinyAuthor.userStatus,
-                        email: _oldTinyAuthor.email,
-                        phone: _oldTinyAuthor.phone,
-                      );
-
-                      await Fire.updateDocField(
-                        context: context,
-                        collName: FireCollection.flyers,
-                        docName: nano.flyerID,
-                        field: 'tinyAuthor',
-                        input: _newTinyAuthor.toMap(),
-                      );
-
-                      await Fire.updateDocField(
-                        context: context,
-                        collName: FireCollection.tinyFlyers,
-                        docName: nano.flyerID,
-                        field: 'authorID',
-                        input: ragehID,
-                      );
-
-                    }
+                  // String ragehID = superUserID();
+                  // // String _oldID = 'rBjNU5WybKgJXaiBnlcBnfFaQSq1';
+                  //
+                  // // fix bzz
+                  // List<dynamic> _bzzMaps = await Fire.readCollectionDocs(
+                  //   limit: 200,
+                  //   collectionName: FireCollection.bzz,
+                  //   orderBy: 'bzID',
+                  //   startAfter: null,
+                  //   addDocSnapshotToEachMap: false,
+                  // );
+                  //
+                  // List<BzModel> _bzz = await BzModel.decipherBzzMapsFromFireStore(_bzzMaps);
+                  //
+                  // List<BzModel> _myBzz = [];
+                  //
+                  // for (var bz in _bzz){
+                  //   if (bz.authorsIDs.contains(ragehID) == true){
+                  //     print('bz is : ${bz.bzID}');
+                  //     _myBzz.add(bz);
+                  //   }
+                  //   else {
+                  //     print('not ${bz.bzID} -> authors are ${bz.authorsIDs.toString()}');
+                  //   }
+                  // }
+                  //
+                  // /// fix my bzz
+                  // for (var biz in _myBzz){
+                  //
+                  //   print('working on ${biz.bzID}');
+                  //
+                  //   // AuthorModel _rbjAuthor = AuthorModel.getAuthorFromBzByAuthorID(biz, _oldID);
+                  //   // AuthorModel _ragehAuthor = AuthorModel(
+                  //   //   userID: ragehID,
+                  //   //   authorName: _rbjAuthor.authorName,
+                  //   //   authorPic: _rbjAuthor.authorPic,
+                  //   //   authorTitle: _rbjAuthor.authorTitle,
+                  //   //   authorIsMaster: true,
+                  //   //   authorContacts: _rbjAuthor.authorContacts,
+                  //   // );
+                  //
+                  //   // List<String> _newIDs = AuthorModel.replaceAuthorIDInAuthorsIDsList(
+                  //   //   originalAuthors: biz.bzAuthors,
+                  //   //     oldAuthor: _rbjAuthor,
+                  //   //     newAuthor: _ragehAuthor
+                  //   // );
+                  //   //
+                  //   // List<AuthorModel> _newAuthors = AuthorModel.replaceAuthorModelInAuthorsList(
+                  //   //     originalAuthors: biz.bzAuthors,
+                  //   //     oldAuthor: _rbjAuthor,
+                  //   //     newAuthor: _ragehAuthor
+                  //   // );
+                  //   //
+                  //   // await Fire.updateDocField(
+                  //   //   context: context,
+                  //   //   collName: FireCollection.bzz,
+                  //   //   docName: biz.bzID,
+                  //   //   field: 'bzAuthors',
+                  //   //   input: AuthorModel.cipherAuthorsModels(_newAuthors),
+                  //   // );
+                  //   //
+                  //   // await Fire.updateDocField(
+                  //   //   context: context,
+                  //   //   collName: FireCollection.bzz,
+                  //   //   docName: biz.bzID,
+                  //   //   field: 'authorsIDs',
+                  //   //   input: _newIDs,
+                  //   // );
+                  //
+                  //   List<NanoFlyer> nanos = biz.nanoFlyers;
+                  //
+                  //   for (NanoFlyer nano in nanos){
+                  //
+                  //     FlyerModel _flyer = await FlyerOps().readFlyerOps(
+                  //       context: context,
+                  //       flyerID: nano.flyerID,
+                  //     );
+                  //
+                  //     TinyUser _oldTinyAuthor = _flyer.tinyAuthor;
+                  //
+                  //     TinyUser _newTinyAuthor = TinyUser(
+                  //       userID: ragehID,
+                  //       name: _oldTinyAuthor.name,
+                  //       title: _oldTinyAuthor.title,
+                  //       pic: _oldTinyAuthor.pic,
+                  //       userStatus: _oldTinyAuthor.userStatus,
+                  //       email: _oldTinyAuthor.email,
+                  //       phone: _oldTinyAuthor.phone,
+                  //     );
+                  //
+                  //     await Fire.updateDocField(
+                  //       context: context,
+                  //       collName: FireCollection.flyers,
+                  //       docName: nano.flyerID,
+                  //       field: 'tinyAuthor',
+                  //       input: _newTinyAuthor.toMap(),
+                  //     );
+                  //
+                  //     await Fire.updateDocField(
+                  //       context: context,
+                  //       collName: FireCollection.tinyFlyers,
+                  //       docName: nano.flyerID,
+                  //       field: 'authorID',
+                  //       input: ragehID,
+                  //     );
+                  //
+                  //   }
 
 
                     // print('_newIDs : $_newIDs');
 
-                  }
+                  // }
+                  //
+                  // print('DONEEEEEEEEEEEEEEEEEEEE');
 
-                  print('DONEEEEEEEEEEEEEEEEEEEE');
-
-                },),
+                },
+              ),
 
 
               DreamBox(

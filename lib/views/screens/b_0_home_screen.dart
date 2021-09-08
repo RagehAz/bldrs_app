@@ -1,5 +1,3 @@
-import 'package:bldrs/controllers/router/navigators.dart';
-import 'package:bldrs/views/widgets/ask/question/question_screen.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:bldrs/views/widgets/walls/home_wall.dart';
@@ -85,9 +83,9 @@ class _HomeScreenState extends State<HomeScreen> {
         appBarType: AppBarType.Main,
         sky: Sky.Night,
         canRefreshFlyers: false,
-        tappingRageh: () async {
-          await Nav.goToNewScreen(context, QuestionScreen());
-        },
+        // tappingRageh: () async {
+        //   await Nav.goToNewScreen(context, QuestionScreen());
+        // },
         layoutWidget: _isLoading == true ?
         Center(child: Loading(loading: _isLoading,))
             :

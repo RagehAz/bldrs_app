@@ -13,7 +13,7 @@ import 'package:bldrs/views/screens/g_1_news_screen.dart';
 import 'package:bldrs/views/screens/g_x_user_editor_screen.dart';
 import 'package:bldrs/views/widgets/bubbles/contacts_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/following_bzz_bubble.dart';
-import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
+import 'package:bldrs/views/widgets/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/status_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/user_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
@@ -344,7 +344,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                 loading: StreamChecker.valueIsLoading(widget.userModel),
               ),
 
-              InPyramidsBubble(
+              Bubble(
                 centered: true,
                 columnChildren: <Widget>[
                   DreamBox(
@@ -354,7 +354,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                     iconSizeFactor: 0.6,
                     verseWeight: VerseWeight.bold,
                     onTap: () =>
-                        Nav.goToNewScreen(context, NewsScreen()),
+                        Nav.goToNewScreen(context, NotificationsScreen()),
                   ),
                 ],
               ),
