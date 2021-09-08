@@ -4,6 +4,8 @@ import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/firestore/firestore.dart';
+import 'package:bldrs/firestore/flyer_ops.dart';
+import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/bz_pg_counter.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/bz_pg_verse.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
@@ -24,6 +26,46 @@ class GeneralStatistics extends StatelessWidget {
       appBarType: AppBarType.Basic,
       sky: Sky.Black,
       pageTitle: Wordz.allahoAkbar(context),
+      tappingRageh: () async {
+
+        FlyerModel _flyer = await FlyerOps().readFlyerOps(
+          context: context,
+          flyerID: 'dlfd1m7S28ND2GIuEA1r',
+        );
+
+        FlyerModel _testFlyer = FlyerModel(
+          flyerID: '000000000000xxxxxx1saaa',
+          flyerType: _flyer.flyerType,
+          flyerState: _flyer.flyerState,
+          keywords: _flyer.keywords,
+          flyerShowsAuthor: _flyer.flyerShowsAuthor,
+          flyerURL: _flyer.flyerURL,
+          flyerZone: _flyer.flyerZone,
+          tinyAuthor: _flyer.tinyAuthor,
+          tinyBz: _flyer.tinyBz,
+          publishTime: _flyer.publishTime,
+          flyerPosition: _flyer.flyerPosition,
+          ankhIsOn: _flyer.ankhIsOn,
+          slides: [..._flyer.slides,..._flyer.slides,..._flyer.slides],
+          flyerIsBanned: _flyer.flyerIsBanned,
+          deletionTime: _flyer.deletionTime,
+          specs: _flyer.specs,
+          info: _flyer.info,
+          times: _flyer.times,
+        );
+
+        print('the fucking fucking slides length is : ${_testFlyer.slides.length}');
+
+        await Fire.createNamedDoc(
+          context: context,
+          collName: FireCollection.flyers,
+          docName: '000000000000xxxxxx1saaa',
+          input: _testFlyer.toMap(),
+        );
+
+        print('done bitch');
+
+      },
       appBarRowWidgets: <Widget>[
 
         Expander(),
