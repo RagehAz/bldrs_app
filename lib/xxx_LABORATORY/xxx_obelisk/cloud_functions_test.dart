@@ -2,6 +2,7 @@ import 'package:bldrs/controllers/drafters/scrollers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/firestore/cloud_functions.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
@@ -100,15 +101,20 @@ class _CloudFunctionsTestState extends State<CloudFunctionsTest> {
             height: 40,
             width: 150,
             color: Colorz.Yellow255,
-            verse: 'call a cloud function',
+            verse: 'call a cloud function callable_sayHello',
             verseMaxLines: 2,
             verseScaleFactor: 0.6,
             onTap: () async {
 
               dynamic map = await CloudFunctionz.callFunction(
                   context: context,
-                  cloudFunctionName: CloudFunctionz.callable_sayHello,
-                  toDBMap: {'name' : 'FUCKING fucking FUCK',}
+                  cloudFunctionName: 'n001_notifyUser',
+                  toDBMap: {
+                    'from': superUserID(),
+                    'to': '60a1SPzftGdH6rt15NF96m0j9Et2', // rageh by facebook
+                    'title': 'Targetted notification',
+                    'body': 'this is by far the first true targeted notification in this app',
+                  }
               );
 
                 print('done : map is : $map');
