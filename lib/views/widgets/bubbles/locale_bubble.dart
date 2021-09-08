@@ -1,5 +1,4 @@
 import 'package:bldrs/controllers/drafters/keyboarders.dart';
-import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/localization/localizer.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/flagz.dart';
@@ -7,7 +6,7 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/providers/zones/zone_provider.dart';
-import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
+import 'package:bldrs/views/widgets/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_dialog/bottom_dialog_buttons.dart';
@@ -150,7 +149,7 @@ class _LocaleBubbleState extends State<LocaleBubble> {
     // double _buttonsSpacing = Ratioz.ddAppBarMargin;
     // double _buttonWidth = (_bubbleClearWidth / 3)-((2*_buttonsSpacing)/3);
 
-    return InPyramidsBubble(
+    return Bubble(
       title: widget.title,
         redDot: true,
         columnChildren: <Widget>[
@@ -205,7 +204,7 @@ class LocaleButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double _bubbleClearWidth = Scale.superBubbleClearWidth(context);
+    double _bubbleClearWidth = Bubble.clearWidth(context);
     const double _buttonsSpacing = Ratioz.appBarPadding;
     double _buttonWidth = (_bubbleClearWidth / 3)-((2*_buttonsSpacing)/3);
 

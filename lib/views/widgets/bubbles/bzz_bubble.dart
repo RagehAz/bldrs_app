@@ -1,14 +1,12 @@
-import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/views/screens/h_1_bz_card_screen.dart';
+import 'package:bldrs/views/widgets/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/in_pyramids/profile/bz_grid.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
-
-import 'in_pyramids_bubble.dart';
 
 class BzzBubble extends StatelessWidget {
   final List<TinyBz> tinyBzz;
@@ -31,12 +29,12 @@ class BzzBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InPyramidsBubble(
+    return Bubble(
       bubbleColor: Colorz.White10,
       corners: corners,
       columnChildren: <Widget>[
 
-        // --- Title
+        /// --- Title
         Padding(
           padding: const EdgeInsets.only(bottom: Ratioz.appBarPadding, left: Ratioz.appBarMargin*2, right: Ratioz.appBarMargin*2),
           child: SuperVerse(
@@ -47,7 +45,7 @@ class BzzBubble extends StatelessWidget {
         ),
 
         BzGrid(
-            gridZoneWidth: Scale.superBubbleClearWidth(context),
+            gridZoneWidth: Bubble.clearWidth(context),
             tinyBzz: tinyBzz == null ? [] : tinyBzz,
             numberOfColumns: numberOfColumns,
             numberOfRows: numberOfRows,
@@ -56,7 +54,7 @@ class BzzBubble extends StatelessWidget {
             itemOnTap: (bzID) {
 
               if (onTap == null) {
-                Nav.goToNewScreen(context, BzCardScreen(bzID: bzID, flyerZoneWidth: Scale.superBubbleClearWidth(context),));
+                Nav.goToNewScreen(context, BzCardScreen(bzID: bzID, flyerZoneWidth: Bubble.clearWidth(context),));
               } else {
                 onTap(bzID);
               }

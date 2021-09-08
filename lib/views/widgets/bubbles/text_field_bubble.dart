@@ -1,9 +1,8 @@
 import 'package:bldrs/controllers/drafters/aligners.dart';
-import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/text_shapers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
-import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
+import 'package:bldrs/views/widgets/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:bldrs/views/widgets/textings/super_text_field.dart';
@@ -77,19 +76,19 @@ class TextFieldBubble extends StatelessWidget {
     double leadingAndFieldSpacing = leadingIcon == null ? 0 : 5;
     double obscureBtSize = obscured == null ? 0 : 35;
     double obscureBtSpacing = obscured == null ? 0 : 5;
-    double bubbleClearWidth = Scale.superBubbleClearWidth(context);
+    double bubbleClearWidth = Bubble.clearWidth(context);
     double fieldWidth =
         bubbleClearWidth - leadingIconSize - leadingAndFieldSpacing - obscureBtSize - obscureBtSpacing;
 
     return
-      InPyramidsBubble(
+      Bubble(
           bubbleColor: bubbleColor,
           title: title,
           redDot: fieldIsRequired,
           actionBtIcon: actionBtIcon,
           actionBtFunction: actionBtFunction,
           stretchy: false,
-          bubbleWidth: Scale.superBubbleWidth(context),
+          width: Bubble.defaultWidth(context),
           columnChildren: <Widget>[
 
             Container(

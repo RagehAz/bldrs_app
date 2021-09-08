@@ -3,7 +3,7 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/user/user_model.dart';
-import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
+import 'package:bldrs/views/widgets/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/buttons/balloons/user_balloon.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/bz_logo.dart';
@@ -50,7 +50,7 @@ class AddGalleryPicBubble extends StatelessWidget {
     Borderers.superBorderOnly(context: context, enTopLeft: corner, enBottomLeft: corner, enBottomRight: corner, enTopRight: corner,);
 
 
-    return InPyramidsBubble(
+    return Bubble(
         centered: true,
         columnChildren: <Widget>[
 

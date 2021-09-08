@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:bldrs/controllers/drafters/aligners.dart';
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/keyboarders.dart';
-import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/text_checkers.dart';
 import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
@@ -17,7 +16,7 @@ import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/providers/users/user_streamer.dart';
 import 'package:bldrs/views/widgets/ask/question/question_model.dart';
 import 'package:bldrs/views/widgets/ask/question/question_ops.dart';
-import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
+import 'package:bldrs/views/widgets/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/buttons/balloons/user_balloon.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/nav_dialog/nav_dialog.dart';
@@ -199,7 +198,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
     // int numberOfRows = 1;
 
     // int _gridColumnsCount = numberOfColumns;
-    double gridZoneWidth = Scale.superBubbleClearWidth(context);
+    double gridZoneWidth = Bubble.clearWidth(context);
     List<Color> _boxesColors = [Colorz.White30, Colorz.White20, Colorz.White10];
     double _spacingRatioToGridWidth = 0.1;
     double _gridBzWidth = gridZoneWidth / (numberOfColumns + (numberOfColumns * _spacingRatioToGridWidth) + _spacingRatioToGridWidth);
@@ -219,7 +218,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
 
     // double zoneCorners = (_gridBzWidth * Ratioz.bzLogoCorner) + _gridSpacing;
 
-    return InPyramidsBubble(
+    return Bubble(
       centered: true,
       bubbleColor: Colorz.White10,
       columnChildren: <Widget>[

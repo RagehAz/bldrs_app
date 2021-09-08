@@ -16,7 +16,7 @@ import 'package:provider/provider.dart';
 import 'package:bldrs/controllers/drafters/iconizers.dart';
 import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/controllers/theme/flagz.dart';
-import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
+import 'package:bldrs/views/widgets/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/paragraph_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/stats_line.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/info_page_parts/record_bubble.dart';
@@ -88,9 +88,9 @@ class InfoPage extends StatelessWidget {
 
         /// ALL STATS
         if (_editMode == false)
-          InPyramidsBubble(
+          Bubble(
             key: ValueKey<String>('info_page_stats_bubble'),
-            bubbleWidth: _bubbleWidth,
+            width: _bubbleWidth,
             margins: _bubbleMargins,
             corners: _bubbleCorners,
             bubbleOnTap: null,
@@ -124,9 +124,9 @@ class InfoPage extends StatelessWidget {
 
         /// Flyer Type
         if (_editMode == true)
-          InPyramidsBubble(
+          Bubble(
             key: ValueKey<String>('info_page_flyer_type_bubble'),
-            bubbleWidth: _bubbleWidth,
+            width: _bubbleWidth,
             margins: _bubbleMargins,
             corners: _bubbleCorners,
             bubbleOnTap: _possibleFlyerTypes.length == 1 ? null : superFlyer.edit.onFlyerTypeTap,
@@ -145,9 +145,9 @@ class InfoPage extends StatelessWidget {
 
         /// ZONE
         if (_editMode == true)
-          InPyramidsBubble(
+          Bubble(
             key: ValueKey<String>('info_page_cone_bubble'),
-            bubbleWidth: _bubbleWidth,
+            width: _bubbleWidth,
             margins: _bubbleMargins,
             corners: _bubbleCorners,
             bubbleOnTap: superFlyer.edit.onZoneTap,

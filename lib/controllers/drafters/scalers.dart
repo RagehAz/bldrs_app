@@ -97,20 +97,6 @@ class Scale{
     return _deviceRatio;
   }
 // -----------------------------------------------------------------------------
-  static double superBubbleClearWidth(BuildContext context){
-    double _bubbleWidth = superBubbleWidth(context);
-    double _bubblePaddings = Ratioz.appBarMargin * 2;
-    double _inBubbleClearWidth = _bubbleWidth - _bubblePaddings;
-    return _inBubbleClearWidth;
-  }
-// -----------------------------------------------------------------------------
-  static double superBubbleWidth(BuildContext context){
-    double _screenWidth = superScreenWidth(context);
-    double _bubbleMargins = Ratioz.appBarMargin * 2;
-    double _bubbleWidth = _screenWidth - _bubbleMargins;
-    return _bubbleWidth;
-  }
-// -----------------------------------------------------------------------------
   static EdgeInsets superInsets(BuildContext context,{double enBottom, double enLeft, double enRight, double enTop}){
 
     double _enBottom = enBottom ?? 0;
@@ -214,7 +200,7 @@ class Scale{
 }
 // -----------------------------------------------------------------------------
   static int navBarNumberOfButtons(UserModel userModel) {
-    int _numberOfButtons = UserModel.userIsAuthor(userModel) ? 4 : 3;
+    int _numberOfButtons = UserModel.userIsAuthor(userModel) ? 5 : 4;
     return _numberOfButtons;
   }
 // -----------------------------------------------------------------------------
