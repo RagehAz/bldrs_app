@@ -8,7 +8,7 @@ class CloudFunctionz{
   static String funcName_myFunction = 'myFunction';
   // static String callable_toBlackHole = 'toBlackHole';
   static String callable_randomNumber = 'randomNumber';
-  static String callable_sayHello = 'sayHello';
+  static String callable_sayHello = 'x_sayHello';
 
   /// http trigger -> ( callable function - end point request )
   static Future<dynamic> callFunction({@required BuildContext context, String cloudFunctionName, Map<String, dynamic> toDBMap}) async {
@@ -43,6 +43,17 @@ class CloudFunctionz{
           context: context,
           title: 'You Are not Signed in',
           body: 'Please Sign in into your account first',
+          boolDialog: false,
+        );
+
+      }
+
+      else {
+
+        await CenterDialog.superDialog(
+          context: context,
+          title: 'error',
+          body: e.toString(),
           boolDialog: false,
         );
 
