@@ -1,4 +1,3 @@
-import 'package:bldrs/controllers/drafters/aligners.dart';
 import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/notifications/bldrs_notiz.dart';
@@ -18,7 +17,7 @@ class NotificationsScreen extends StatefulWidget {
 }
 
 class _NotificationsScreenState extends State<NotificationsScreen> {
-  List<dynamic> _notifications = BldrsNotiModelz.allNotifications();
+  List<dynamic> _notifications = [];
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
   bool _loading = false;
@@ -43,6 +42,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
+    _notifications.addAll(BldrsNotiModelz.allNotifications());
     super.initState();
 
   }
@@ -68,8 +68,12 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     super.didChangeDependencies();
   }
 // -----------------------------------------------------------------------------
-
-
+  void _dismissNotification(String id){
+    setState(() {
+      _notifications.removeWhere((notiModel) => notiModel.id == id,);
+    });
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -82,70 +86,86 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
       pageTitle: 'News & Notifications',
       sky: Sky.Black,
       pyramids: Iconz.PyramidzYellow,
-      layoutWidget: ListView.builder(
-        physics: const BouncingScrollPhysics(),
-        controller: ScrollController(),
-        addAutomaticKeepAlives: true,
-        itemCount: _notifications.length,
-        padding: const EdgeInsets.only(top: Ratioz.stratosphere, bottom: Ratioz.horizon),
-        itemBuilder: (ctx, index){
+      layoutWidget:
 
-          NotiModel _notiModel = _notifications[index];
-
-          return Dismissible(
-            key: ValueKey<String>(_notiModel.body),
-            background: Container(
-              alignment: Aligners.superCenterAlignment(context),
-              // color: Colorz.White10,
+        _notifications.length == 0 ?
+            Center(
               child: SuperVerse(
-                verse: 'Dismiss -->',
-                size: 2,
+                verse: 'No new Notifications',
                 weight: VerseWeight.thin,
                 italic: true,
-                color: Colorz.White10,
+                color: Colorz.White20,
               ),
-            ),
-            // behavior: HitTestBehavior.translucent,
-            confirmDismiss: (DismissDirection direction) async {
-              print('confirmDismiss : direction is : $direction');
-              return true;
-            },
-            crossAxisEndOffset: 0,
-            direction: DismissDirection.startToEnd,
-            movementDuration: Duration(milliseconds: 500),
-            onDismissed: (DismissDirection direction){
-              print('onDismissed : direction is : $direction');
-            },
-            onResize: (){
-              print('resizing');
-            },
-            resizeDuration: Duration(milliseconds: 500),
-            secondaryBackground: Container(
-              width: _screenWidth,
-              height: 50,
-              color: Colorz.BloodTest,
-            ),
-            // dismissThresholds: {
-            //   DismissDirection.down : 10,
-            //   DismissDirection.endToStart : 20,
-            // },
-            // dragStartBehavior: DragStartBehavior.start,
-            child: Container(
-              width: _screenWidth,
-              decoration: BoxDecoration(
-                borderRadius: Borderers.superBorderAll(context, Bubble.cornersValue() + Ratioz.appBarMargin),
-                // color: Colorz.BloodTest,
+            )
+
+            :
+
+        ListView.builder(
+          physics: const BouncingScrollPhysics(),
+          controller: ScrollController(),
+          addAutomaticKeepAlives: true,
+          itemCount: _notifications.length,
+          padding: const EdgeInsets.only(top: Ratioz.stratosphere, bottom: Ratioz.horizon),
+          itemBuilder: (ctx, index){
+
+            NotiModel _notiModel = _notifications[index];
+
+            return Dismissible(
+              key: ValueKey<String>(_notiModel.id),
+              // background: Container(
+              //   alignment: Aligners.superCenterAlignment(context),
+              //   // color: Colorz.White10,
+              //   child: SuperVerse(
+              //     verse: 'Dismiss -->',
+              //     size: 2,
+              //     weight: VerseWeight.thin,
+              //     italic: true,
+              //     color: Colorz.White10,
+              //   ),
+              // ),
+              // behavior: HitTestBehavior.translucent,
+              confirmDismiss: (DismissDirection direction) async {
+                print('confirmDismiss : direction is : $direction');
+                return true;
+              },
+              crossAxisEndOffset: 0,
+              direction: DismissDirection.horizontal,
+              movementDuration: Duration(milliseconds: 250),
+              onDismissed: (DismissDirection direction){
+                _dismissNotification(_notiModel.id);
+                // print('onDismissed : direction is : $direction');
+              },
+              onResize: (){
+                // print('resizing');
+              },
+              resizeDuration: Duration(milliseconds: 250),
+              // secondaryBackground: Container(
+              //   width: _screenWidth,
+              //   height: 50,
+              //   color: Colorz.BloodTest,
+              // ),
+              // dismissThresholds: {
+              //   DismissDirection.down : 10,
+              //   DismissDirection.endToStart : 20,
+              // },
+              // dragStartBehavior: DragStartBehavior.start,
+              child: Container(
+                width: _screenWidth,
+                decoration: BoxDecoration(
+                  borderRadius: Borderers.superBorderAll(context, Bubble.cornersValue() + Ratioz.appBarMargin),
+                  // color: Colorz.BloodTest,
+                ),
+                child: NotificationCard(
+                  notiModel: _notiModel,
+                ),
               ),
-              child: NotificationCard(
-                notiModel: _notiModel,
-              ),
-            ),
-          );
+            );
 
-        },
+          },
 
 
-      ),
+        ),
+
     );
   }
 }
