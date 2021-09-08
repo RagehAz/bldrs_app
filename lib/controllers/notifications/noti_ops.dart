@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/notifications/local_notification_service.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -65,8 +66,8 @@ class NotiOps{
     );
 
     /// when app running in foreground
-    FirebaseMessaging.onMessage.listen((event) {
-      Map<String, dynamic> msgMap = event.data;
+    FirebaseMessaging.onMessage.listen((RemoteMessage remoteMessage) {
+      Map<String, dynamic> msgMap = remoteMessage.data;
 
       receiveAndActUponNoti(msgMap: msgMap, notiType: NotiType.onMessage);
 
@@ -82,6 +83,9 @@ class NotiOps{
 
       Map<String, dynamic> msgMap = event.data;
       receiveAndActUponNoti(msgMap: msgMap, notiType: NotiType.onLaunch);
+
+      /// to display the notification while app in foreground
+      LocalNotificationService.display(event);
     });
 
     /// when app running in background and notification tapped while having
