@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:bldrs/controllers/drafters/colorizers.dart';
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/numberers.dart';
+import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/secondary_models/image_size.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +36,7 @@ class SlideModel {
   Map<String, dynamic> toMap() {
     return {
       'slideIndex': slideIndex,
-      'picture': pic,
+      'picture': ObjectChecker.objectIsString(pic) == true ? pic : null,
       'headline': headline,
       'description': description,
       'sharesCount': sharesCount,
