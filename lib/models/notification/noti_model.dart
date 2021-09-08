@@ -44,6 +44,7 @@ enum NotiSender {
 }
 
 class NotiModel{
+  final String id;
   final NotiSubject subject;
   /// timing describes the condition "when" something happens to trigger the notification
   final String timing;
@@ -68,6 +69,7 @@ class NotiModel{
   final bool autoFire;
 
   NotiModel({
+    @required this.id,
     this.subject,
     this.timing,
     this.Condition,
@@ -110,6 +112,7 @@ class NotiModel{
     if (map != null){
 
       _noti = NotiModel(
+        id: map['id'],
         subject: map['subject'],
         timing: map['timing'],
         Condition: map['Condition'],
