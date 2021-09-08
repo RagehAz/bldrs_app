@@ -3,17 +3,14 @@ import 'package:bldrs/controllers/drafters/stream_checkers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
-import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/firestore/bz_ops.dart';
 import 'package:bldrs/firestore/user_ops.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
-import 'package:bldrs/views/screens/g_1_news_screen.dart';
 import 'package:bldrs/views/screens/g_x_user_editor_screen.dart';
 import 'package:bldrs/views/widgets/bubbles/contacts_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/following_bzz_bubble.dart';
-import 'package:bldrs/views/widgets/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/status_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/user_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
@@ -24,7 +21,6 @@ import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:bldrs/controllers/router/route_names.dart';
-
 
 class UserProfileScreen extends StatefulWidget {
   final UserModel userModel;
@@ -272,7 +268,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
         buttonHeight: _buttonHeight,
         buttons: <Widget>[
 
-          // --- Delete user ops
+          /// --- Delete user ops
           DreamBox(
             height: _buttonHeight,
             width: BottomDialog.dialogClearWidth(context),
@@ -288,7 +284,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
 
           ),
 
-          // --- Deactivate user ops
+          /// --- Deactivate user ops
           DreamBox(
               height: _buttonHeight,
               width: BottomDialog.dialogClearWidth(context),
@@ -303,7 +299,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
 
           ),
 
-          // --- EDIT BZ
+          /// --- EDIT BZ
           DreamBox(
             height: _buttonHeight,
             width: BottomDialog.dialogClearWidth(context),
@@ -342,21 +338,6 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                 editProfileBtOnTap: () =>
                     _slideUserOptions(context, widget.userModel),
                 loading: StreamChecker.valueIsLoading(widget.userModel),
-              ),
-
-              Bubble(
-                centered: true,
-                columnChildren: <Widget>[
-                  DreamBox(
-                    height: 40,
-                    verse: Wordz.news(context),
-                    icon: Iconz.News,
-                    iconSizeFactor: 0.6,
-                    verseWeight: VerseWeight.bold,
-                    onTap: () =>
-                        Nav.goToNewScreen(context, NotificationsScreen()),
-                  ),
-                ],
               ),
 
               FollowingBzzBubble(

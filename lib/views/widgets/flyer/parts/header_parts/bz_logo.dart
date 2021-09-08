@@ -31,11 +31,15 @@ class BzLogo extends StatelessWidget {
     this.shadowIsOn = false,
   });
 
+  static double cornersValue(double logoWidth){
+    return  logoWidth * Ratioz.bzLogoCorner;
+  }
+
 
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
-    double logoRoundCorners = width * Ratioz.bzLogoCorner;
+    double logoRoundCorners = cornersValue(width);
 // -----------------------------------------------------------------------------
     double logoZeroCorner = tinyMode == true || zeroCornerIsOn == false ? logoRoundCorners : 0;
 // -----------------------------------------------------------------------------
