@@ -1,7 +1,7 @@
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
-import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
+import 'package:bldrs/views/widgets/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/keywords/keyword_button.dart';
 import 'package:flutter/material.dart';
 
@@ -40,14 +40,14 @@ class KeywordsBubble extends StatelessWidget {
     /// the keyword bottom bubble corner when set in flyer info page
     double _bottomPadding = ((bubbleWidth) * Ratioz.xxflyerBottomCorners) - Ratioz.appBarPadding - Ratioz.appBarMargin;
 
-    return InPyramidsBubble(
+    return Bubble(
       key: key,
       centered: false,
       bubbleColor: bubbleColor,
       margins: margins,
       corners: corners,
       title: title,
-      bubbleWidth: bubbleWidth,
+      width: bubbleWidth,
       bubbleOnTap: passKeywordOnTap == true ? null : onTap,
       columnChildren: <Widget>[
 

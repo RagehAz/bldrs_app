@@ -7,7 +7,7 @@ import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/providers/zones/zone_provider.dart';
-import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
+import 'package:bldrs/views/widgets/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/buttons/balloons/user_balloon.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
@@ -41,7 +41,7 @@ class UserBubble extends StatelessWidget {
     double _topPadding = _screenHeight * 0.05;
     double _editProfileBtSize = _topPadding ;
 
-    return InPyramidsBubble(
+    return Bubble(
 
       centered: true,
       columnChildren: <Widget>[

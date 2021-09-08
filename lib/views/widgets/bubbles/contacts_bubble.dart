@@ -5,7 +5,7 @@ import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/secondary_models/contact_model.dart';
-import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
+import 'package:bldrs/views/widgets/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +32,7 @@ class ContactsBubble extends StatelessWidget {
     List<ContactModel> _contactsWithStrings = ContactModel.getContactsWithStringsFromContacts(contacts);
     List<ContactModel> _socialMediaContacts = ContactModel.getSocialMediaContactsFromContacts(contacts);
 
-    return InPyramidsBubble(
+    return Bubble(
       centered: false,
       stretchy: stretchy,
       title: '${Wordz.contacts(context)} :',

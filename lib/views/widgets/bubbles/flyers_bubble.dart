@@ -1,6 +1,6 @@
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
-import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
+import 'package:bldrs/views/widgets/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/flyer/stacks/flyer_stack.dart';
 import 'package:flutter/material.dart';
 
@@ -27,11 +27,11 @@ class FlyersBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InPyramidsBubble(
+    return Bubble(
       bubbleColor: Colorz.White10,
       title: title,
       titleColor: Colorz.White255,
-      bubbleWidth: bubbleWidth,
+      width: bubbleWidth,
       columnChildren: <Widget>[
 
         FlyerStack(

@@ -7,7 +7,7 @@ import 'package:bldrs/firestore/user_ops.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/models/flyer/records/review_model.dart';
 import 'package:bldrs/models/user/tiny_user.dart';
-import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
+import 'package:bldrs/views/widgets/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/info_page_parts/review_card.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/info_page_parts/review_creator.dart';
 import 'package:flutter/material.dart';
@@ -120,9 +120,9 @@ class _ReviewBubbleState extends State<ReviewBubble> {
 
     double _cardCorners = _cornerSmall - Ratioz.appBarMargin;
 
-    return InPyramidsBubble(
+    return Bubble(
       key: widget.key,
-      bubbleWidth: _bubbleWidth,
+      width: _bubbleWidth,
       margins: _bubbleMargins,
       corners: _bubbleCorners,
       title: 'Flyer Reviews',

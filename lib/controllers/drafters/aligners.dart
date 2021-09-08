@@ -8,6 +8,11 @@ class Aligners{
       appIsLeftToRight(context) ? Alignment.topLeft : Alignment.topRight;
   }
 // -----------------------------------------------------------------------------
+  static Alignment superBottomAlignment(BuildContext context){
+    return
+      appIsLeftToRight(context) ? Alignment.bottomLeft : Alignment.bottomRight;
+  }
+// -----------------------------------------------------------------------------
   static Alignment superCenterAlignment(BuildContext context){
     return
       appIsLeftToRight(context) ? Alignment.centerLeft : Alignment.centerRight;

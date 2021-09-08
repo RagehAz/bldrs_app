@@ -1,5 +1,5 @@
 import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
+import 'package:bldrs/views/widgets/bubbles/bubble.dart';
 import 'package:flutter/material.dart';
 
 class SectionBubble extends StatelessWidget {
@@ -17,7 +17,7 @@ class SectionBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InPyramidsBubble(
+    return Bubble(
       centered: false,
       title: title,
       // actionBtIcon: Iconz.BxPropertiesOn,
@@ -25,7 +25,7 @@ class SectionBubble extends StatelessWidget {
       actionBtFunction: (){},
       bubbleColor: Colorz.White20,
       bubbleOnTap: null,
-      bubbleWidth: bubbleWidth,
+      width: bubbleWidth,
       // leadingIcon: icon,
       leadingIconColor: Colorz.White50,
       titleColor: Colorz.White50,

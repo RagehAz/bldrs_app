@@ -7,13 +7,11 @@ import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/firestore/flyer_ops.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/bz_pg_counter.dart';
-import 'package:bldrs/views/widgets/flyer/parts/header_parts/bz_pg_verse.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:bldrs/views/widgets/pyramids/bldrs_name.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
-import 'package:websafe_svg/websafe_svg.dart';
 
 class GeneralStatistics extends StatelessWidget {
   @override
@@ -73,8 +71,7 @@ class GeneralStatistics extends StatelessWidget {
         Padding(
           padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
           child: BldrsName(
-              width: 40,
-              height: 40
+              size: 40,
           ),
         ),
 

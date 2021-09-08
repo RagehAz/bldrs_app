@@ -1,9 +1,8 @@
 import 'package:bldrs/controllers/drafters/borderers.dart';
-import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/text_shapers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
-import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
+import 'package:bldrs/views/widgets/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +39,7 @@ class _DropDownBubbleState extends State<DropDownBubble> {
     double actionBtSize = superVerseRealHeight(context, titleVerseSize, 1, null);
     double actionBtCorner = actionBtSize * 0.4;
 
-    return InPyramidsBubble(
+    return Bubble(
       columnChildren: <Widget>[
 
 
@@ -79,7 +78,7 @@ class _DropDownBubbleState extends State<DropDownBubble> {
 
 
         Container(
-          width: Scale.superBubbleClearWidth(context),
+          width: Bubble.clearWidth(context),
           height: 35,
           decoration: BoxDecoration(
             color: Colorz.BloodTest,

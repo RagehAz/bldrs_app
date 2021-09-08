@@ -18,7 +18,6 @@ import 'package:bldrs/views/widgets/textings/the_golden_scroll.dart';
 import 'package:bldrs/xxx_LABORATORY/animations/animations_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/animations/black_hole.dart';
 import 'package:bldrs/xxx_LABORATORY/firestore_test/storage_test.dart';
-import 'package:bldrs/xxx_LABORATORY/forms_and_inputs/popup.dart';
 import 'package:bldrs/xxx_LABORATORY/forms_and_inputs/form.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/cloud_functions_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/dialog_test_screen.dart';
@@ -209,8 +208,6 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
           oButton('14 - FlyersGridView', Iconz.FlyerGrid, FlyersGridView()),
 
           // oButton('21 - Soundz', Iconz.News, SoundzScreen()),
-
-          oButton('22 - PopUp', Iconz.News, PopUpTestScreen()),
 
           oButton('23 - Form', Iconz.Terms, TestFormScreen()),
 

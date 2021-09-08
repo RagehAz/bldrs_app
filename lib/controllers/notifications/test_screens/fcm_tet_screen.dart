@@ -12,7 +12,6 @@ import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/layouts/test_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
@@ -214,9 +213,9 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
           // if (_notiIsOn == true)
           SuperVerse(
             verse:
-              '_noti.notification.title : ${_noti?.notiContent?.title}\n'
+              '_noti.notification.title : ${_noti?.title}\n'
               ' '
-              '_noti.notification.body : ${_noti?.notiContent?.body}\n'
+              '_noti.notification.body : ${_noti?.body}\n'
               ' '
               '_noti.data : ${_noti?.metaData}\n',
             maxLines: 100,
