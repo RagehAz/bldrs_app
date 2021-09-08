@@ -4,14 +4,14 @@ const admin = require("firebase-admin");
 admin.initializeApp();
 
 
-const db = functions.firestore;
+const fireFunction = functions.firestore;
 const fbm = admin.messaging();
-const fire = admin.firestore();
+const fireAdmin = admin.firestore();
 
 // COLLECTION PATHS
 // const flyerDoc = "flyers/{flyerID}";
 // const userDoc = "users/{userID}";
-const docStatistics = fire.collection("admin").doc("statistics");
+const docStatistics = fireAdmin.collection("admin").doc("statistics");
 
 // T001 : DB / admin / statistics.numberOfUsers increment 1
 exports.t001_onCreateNewFirebaseUser = functions.auth.user().onCreate(
@@ -32,7 +32,7 @@ exports.t002_onDeleteFirebaseUser = functions.auth.user().onDelete(
     });
 
 // T003 : DB / admin / statistics.numberOfCountries increment 1
-exports.t003_onCreateNewCountry = db.document("countries/{countryID}")
+exports.t003_onCreateNewCountry = fireFunction.document("countries/{countryID}")
     .onCreate(
         (snapshot, context) => {
           const map = snapshot.data();
@@ -44,7 +44,7 @@ exports.t003_onCreateNewCountry = db.document("countries/{countryID}")
     );
 
 // T004 : DB / admin / statistics.numberOfCountries increment -1
-exports.t004_onDeleteCountry = db.document("countries/{countryID}")
+exports.t004_onDeleteCountry = fireFunction.document("countries/{countryID}")
     .onDelete(
         (snapshot, context) => {
           const map = snapshot.data();
@@ -56,7 +56,7 @@ exports.t004_onDeleteCountry = db.document("countries/{countryID}")
     );
 
 // T005 : DB / admin / statistics.numberOfBzz increment 1
-exports.t005_onCreateNewBz = db.document("bzz/{bzID}")
+exports.t005_onCreateNewBz = fireFunction.document("bzz/{bzID}")
     .onCreate(
         (snapshot, context) => {
           const map = snapshot.data();
@@ -68,7 +68,7 @@ exports.t005_onCreateNewBz = db.document("bzz/{bzID}")
     );
 
 // T006 : DB / admin / statistics.numberOfBzz increment -1
-exports.t006_onDeleteBz = db.document("bzz/{bzID}")
+exports.t006_onDeleteBz = fireFunction.document("bzz/{bzID}")
     .onDelete(
         (snapshot, context) => {
           const map = snapshot.data();
@@ -80,14 +80,12 @@ exports.t006_onDeleteBz = db.document("bzz/{bzID}")
     );
 
 // T007 : DB / admin / statistics.numberOfBzz increment 1
-exports.t007_onCreateNewFlyer = db.document("flyers/{flyerID}")
+exports.t007_onCreateNewFlyer = fireFunction.document("flyers/{id}")
     .onCreate(
-        (snapshot, context) => {
-          const map = snapshot.data();
-          console.log(`T007 : new flyer ADDED : ${map.flyerID}`);
-
-          const slidesCount = map.slides.length;
-
+        (snap, context) => {
+          const slides = snap.data().slides;
+          const slidesCount = slides.length;
+          console.log(`T007 : new flyer ADDED : slidesCount : ${slidesCount}`);
           return docStatistics.update({
             numberOfFlyers: admin.firestore.FieldValue.increment(1),
             numberOfSlides: admin.firestore.FieldValue.increment(slidesCount),
@@ -96,13 +94,15 @@ exports.t007_onCreateNewFlyer = db.document("flyers/{flyerID}")
     );
 
 // T008 : DB / admin / statistics.numberOfBzz increment -1
-exports.t008_onDeleteFlyer = db.document("flyers/{flyerID}")
+exports.t008_onDeleteFlyer = fireFunction.document("flyers/{id}")
     .onDelete(
-        (snapshot, context) => {
-          const map = snapshot.data();
-          console.log(`T008 : flyer DELETED : ${map.flyerID}`);
+        (snap, context) => {
+          const slides = snap.data().slides;
+          const slidesCount = slides.length;
+          console.log(`T008 : flyer DELETED : slidesCount : ${slidesCount}`);
           return docStatistics.update({
             numberOfFlyers: admin.firestore.FieldValue.increment(-1),
+            numberOfSlides: admin.firestore.FieldValue.increment(-slidesCount),
           });
         }
     );
@@ -126,7 +126,7 @@ exports.x_sayHello = functions.https.onCall((data, context) => {
   return `hello, Bldrs, welcome Mr ${name}`;
 });
 
-exports.x_myFunction = db
+exports.x_myFunction = fireFunction
     .document("flyers/{flyer}")
     .onCreate((snapshot, context) => {
       return fbm.sendToTopic("flyers", {
@@ -139,7 +139,7 @@ exports.x_myFunction = db
     });
 
 // to call a function for any db change u can say "/{collection}/{id}"
-exports.x_logEverything = db.document("/{collection}/{id}")
+exports.x_logEverything = fireFunction.document("{collection}/{id}")
     .onCreate((snap, context) => {
       console.log(snap.data());
 

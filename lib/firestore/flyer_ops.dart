@@ -41,7 +41,7 @@ class FlyerOps{
   DocumentReference _docRef = await Fire.createDoc(
     context: context,
     collName: FireCollection.flyers,
-    input: {},
+    input: inputFlyerModel.toMap(),
   );
   String _flyerID = _docRef.id;
 
