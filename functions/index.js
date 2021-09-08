@@ -86,10 +86,15 @@ exports.t007_onCreateNewFlyer = fireFunction.document("flyers/{id}")
           const slides = snap.data().slides;
           const slidesCount = slides.length;
           console.log(`T007 : new flyer ADDED : slidesCount : ${slidesCount}`);
-          return docStatistics.update({
-            numberOfFlyers: admin.firestore.FieldValue.increment(1),
-            numberOfSlides: admin.firestore.FieldValue.increment(slidesCount),
-          });
+          return Promise.all([
+            docStatistics.update({
+              numberOfFlyers: admin.firestore.FieldValue.increment(1),
+              numberOfSlides: admin.firestore.FieldValue.increment(slidesCount),
+            }),
+            fireAdmin.collection("admin").doc("test").update({
+              key2: "it works aho halawa",
+            }),
+          ]);
         }
     );
 
@@ -193,6 +198,6 @@ exports.x_logEverything = fireFunction.document("{collection}/{id}")
 //     });
 
 // firebase deploy --only functions
-// firebase deploy --only functions:decreaseNumberOfUsersInStatistics
+// firebase deploy --only functions:t007_onCreateNewFlyer
 // firebase login --reauth
 // firebase functions:log --only increaseNumberOfUsersInStatistics

@@ -36,6 +36,21 @@ class NotiOps{
 // -----------------------------------------------------------------------------
   /// THIS GOES IN MAIN WIDGET INIT
   static Future<void> initializeNoti() async  {
+
+    RemoteMessage initialRemoteMessage = await FirebaseMessaging.instance.getInitialMessage();
+
+    if (initialRemoteMessage != null){
+
+      printRemoteMessage(
+        methodName: 'initializeNoti',
+        remoteMessage: initialRemoteMessage,
+      );
+
+      // can navigate here and shit
+
+    }
+
+
     final fbm = FirebaseMessaging.instance;
 
     fbm.requestPermission(
