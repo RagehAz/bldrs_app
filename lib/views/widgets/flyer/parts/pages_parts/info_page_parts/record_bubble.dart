@@ -1,7 +1,7 @@
 import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/user/tiny_user.dart';
-import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
+import 'package:bldrs/views/widgets/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/buttons/PersonButton.dart';
 import 'package:flutter/material.dart';
 
@@ -29,9 +29,9 @@ class RecordBubble extends StatelessWidget {
     double _peopleBubbleBoxHeight = flyerZoneWidth * Ratioz.xxflyerAuthorPicWidth * 1.2;
 
 
-    return InPyramidsBubble(
+    return Bubble(
       key: key,
-      bubbleWidth: _bubbleWidth,
+      width: _bubbleWidth,
       margins: _bubbleMargins,
       corners: _bubbleCorners,
       title: bubbleTitle,

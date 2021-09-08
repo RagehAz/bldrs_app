@@ -1,4 +1,3 @@
-import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
@@ -9,7 +8,7 @@ import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/models/bz/author_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
-import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
+import 'package:bldrs/views/widgets/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
@@ -36,14 +35,14 @@ class AddAuthorScreen extends StatelessWidget {
 
           Stratosphere(),
 
-          InPyramidsBubble(
+          Bubble(
               centered: false,
               title: 'Share invitation Link',
-              bubbleWidth: Scale.superBubbleWidth(context),
+              width: Bubble.defaultWidth(context),
               columnChildren: <Widget>[
 
                 Container(
-                  width: Scale.superBubbleClearWidth(context),
+                  width: Bubble.clearWidth(context),
                   child: SuperVerse(
                     verse: 'This Link is available for one time use only, '
                         'to allow its reciever to be redirected to '

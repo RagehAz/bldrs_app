@@ -5,7 +5,7 @@ import 'package:bldrs/controllers/drafters/scrollers.dart';
 import 'package:bldrs/controllers/drafters/text_shapers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
+import 'package:bldrs/views/widgets/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
@@ -73,13 +73,13 @@ class ListLayout extends StatelessWidget {
             width: _screenWidth,
             height: _bubbleHeight,
             // color: Colorz.YellowAir,
-            child: InPyramidsBubble(
+            child: Bubble(
               // title: 'Countries',
               centered: true,
               columnChildren: <Widget>[
 
                 Container(
-                  width: Scale.superBubbleClearWidth(context),
+                  width: Bubble.clearWidth(context),
                   height: _bubbleHeight - (Ratioz.appBarMargin * 5),
                   // color: Colorz.BloodTest,
                   child: GoHomeOnMaxBounce(
@@ -96,7 +96,7 @@ class ListLayout extends StatelessWidget {
                             alignment: Aligners.superCenterAlignment(context),
                             child: DreamBox(
                               height: 40,
-                              width: Scale.superBubbleClearWidth(context) - 10,
+                              width: Bubble.clearWidth(context) - 10,
                               icon: icons == null || icons.length == 0 ? null : icons[index],
                               iconSizeFactor: 0.8,
                               verse: idValueMaps[index]['value'],

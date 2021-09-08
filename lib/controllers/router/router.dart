@@ -42,7 +42,7 @@ class Routerer {
 // -----------------------------------------------------------------------------
     /// s13
       case Routez.News:
-        return Nav.slideToScreen(NewsScreen(), settings); break;
+        return Nav.slideToScreen(NotificationsScreen(), settings); break;
 // -----------------------------------------------------------------------------
 //     /// s14
 //       case Routez.More:

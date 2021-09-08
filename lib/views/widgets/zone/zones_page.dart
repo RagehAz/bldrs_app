@@ -5,7 +5,7 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/flagz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/providers/zones/zone_provider.dart';
-import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
+import 'package:bldrs/views/widgets/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
@@ -56,13 +56,13 @@ class ZonesPage extends StatelessWidget {
             width: _screenWidth,
             height: _screenHeight - Ratioz.stratosphere - 24 - 50 - _verseHeight - 10 - 2.2,
             // color: Colorz.YellowAir,
-            child:InPyramidsBubble(
+            child:Bubble(
               // title: 'Countries',
               centered: true,
               columnChildren: <Widget>[
 
                 Container(
-                  width: Scale.superBubbleClearWidth(context),
+                  width: Bubble.clearWidth(context),
                   height: _screenHeight - Ratioz.stratosphere - 24 - 50 - _verseHeight - 10 - 2.2 - 30,
                   // color: Colorz.BloodTest,
                   child: ListView.builder(
@@ -76,7 +76,7 @@ class ZonesPage extends StatelessWidget {
                           alignment: Aligners.superCenterAlignment(context),
                           child: DreamBox(
                             height: 35,
-                            width: Scale.superBubbleClearWidth(context) - 10,
+                            width: Bubble.clearWidth(context) - 10,
                             icon: Flagz.getFlagByIso3(_id),
                             iconSizeFactor: 0.8,
                             verse: CountryProvider().getCountryNameInCurrentLanguageByIso3(context, _id),

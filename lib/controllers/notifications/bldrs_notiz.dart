@@ -1,5 +1,4 @@
 import 'package:bldrs/models/notification/noti_model.dart';
-import 'package:bldrs/models/notification/noti_content.dart';
 
 // -----------------------------------------------------------------------------
 /// BLDRS.NET notifications classification
@@ -89,22 +88,26 @@ class BldrsNotiModelz {
     "screen": "",
   };
 // -----------------------------------------------------------------------------
+  static String _bldrsLogoURL = 'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/usersPics%2FrBjNU5WybKgJXaiBnlcBnfFaQSq1.jpg?alt=media&token=54a23d82-5642-4086-82b3-b4c1cb885b64';
+  static String _dummyBzLogoURL = 'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/bzLogos%2Far1.jpg?alt=media&token=f68673f8-409a-426a-9a80-f1026715c469';
+  static String _dummyUserPic = 'https://lh3.googleusercontent.com/a-/AOh14Gj3FAh76iQck0pD8EkRGraEP1OsElK8HysuToZp_A=s96-c';
+  // -----------------------------------------------------------------------------
   /// 1 - 28 days reminder
   static NotiModel buildSomething(){
     return
       NotiModel(
-        reason: NotiReason.reminder,
-        timing: 'when user did not sign in for 4 weeks',
+        subject: NotiSubject.reminder,
+        timing: 'when user did not sign in for 4 weeks - asPerDays : 9 pm',
         Condition: 'last sign in timeStamp > 28 days',
-        dayHour: "asPerDays : 9 pm",
+        timeStamp: DateTime.now(),
         reciever: NotiReciever.user,
         cityState: CityState.public,
-        notiContent: NotiContent(
-            title: 'Build Something',
-            body: 'Bldrs.net'
-        ),
+        title: 'Build Something',
+        body: 'Bldrs.net',
         metaData: notiDefaultMap,
         autoFire: true,
+        senderPicURL: _bldrsLogoURL,
+        sender: NotiSender.bldrs,
       );
   }
 // -----------------------------------------------------------------------------
@@ -112,18 +115,18 @@ class BldrsNotiModelz {
   static NotiModel createSomethingNew(){
     return
       NotiModel(
-        reason: NotiReason.reminder,
-        timing: 'when user did not sign in for a 5 weeks',
+        subject: NotiSubject.reminder,
+        timing: 'when user did not sign in for a 5 weeks - asPerDays : 10 am',
         Condition: 'last sign in timeStamp > 35 days',
-        dayHour: "asPerDays : 10 am",
+        timeStamp: DateTime.now(),
         reciever: NotiReciever.user,
         cityState: CityState.public,
-        notiContent: NotiContent(
-            title: 'Create Something new',
-            body: 'Bldrs.net'
-        ),
+        title: 'Create Something new',
+        body: 'Bldrs.net',
         metaData: notiDefaultMap,
         autoFire: true,
+        senderPicURL: _bldrsLogoURL,
+        sender: NotiSender.bldrs,
       );
   }
 // -----------------------------------------------------------------------------
@@ -131,18 +134,18 @@ class BldrsNotiModelz {
   static NotiModel planYourFuture(){
     return
       NotiModel(
-        reason: NotiReason.reminder,
-        timing: 'when user did not sign in for  5 weeks',
+        subject: NotiSubject.reminder,
+        timing: 'when user did not sign in for  5 weeks - asPerDays : 10 am',
         Condition: 'last sign in timeStamp > 35 days',
-        dayHour: "asPerDays : 10 am",
+        timeStamp: DateTime.now(),
         reciever: NotiReciever.user,
         cityState: CityState.public,
-        notiContent: NotiContent(
-            title: 'Plan your future',
-            body: 'Collect as many flyers as you can NOW, so when you start, You are ready. 👌',
-        ),
+        title: 'Plan your future',
+        body: 'Collect as many flyers as you can NOW, so when you start, You are ready. 👌',
         metaData: notiDefaultMap,
         autoFire: true,
+        senderPicURL: _bldrsLogoURL,
+        sender: NotiSender.bldrs,
       );
   }
 // -----------------------------------------------------------------------------
@@ -150,18 +153,18 @@ class BldrsNotiModelz {
   static NotiModel youDidNotSee(){
     return
       NotiModel(
-        reason: NotiReason.reminder,
-        timing: 'when user downloaded app but did not sign up aslan for 7 days',
+        subject: NotiSubject.reminder,
+        timing: 'when user downloaded app but did not sign up aslan for 7 days - asPerDays : 10 am',
         Condition: 'firebase user.id exists && UserModel does not exist && last signed in timeStamp > 7 days',
-        dayHour: "asPerDays : 10 am",
+        timeStamp: DateTime.now(),
         reciever: NotiReciever.user,
         cityState: CityState.public,
-        notiContent: NotiContent(
-          title: 'Come and See',
-          body: '👁️ You did not see what lies inside Bldrs.net',
-        ),
+        title: 'Come and See',
+        body: '👁️ You did not see what lies inside Bldrs.net',
         metaData: notiDefaultMap,
         autoFire: true,
+        senderPicURL: _bldrsLogoURL,
+        sender: NotiSender.bldrs,
       );
   }
 // -----------------------------------------------------------------------------
@@ -169,18 +172,18 @@ class BldrsNotiModelz {
   static NotiModel rememberYourOptions(){
     return
       NotiModel(
-        reason: NotiReason.reminder,
-        timing: 'when user downloaded app but did not sign up aslan for 7 days',
+        subject: NotiSubject.reminder,
+        timing: 'when user downloaded app but did not sign up aslan for 7 days - asPerDays : 10 am',
         Condition: 'firebase user.id exists && UserModel does not exist && last signed in timeStamp > 7 days',
-        dayHour: "asPerDays : 10 am",
+        timeStamp: DateTime.now(),
         reciever: NotiReciever.user,
         cityState: CityState.public,
-        notiContent: NotiContent(
-          title: 'Consider your Options',
-          body: '🔺 Bldrs.net is your RealEstate, Construction & Supplies search engine.',
-        ),
+        title: 'Consider your Options',
+        body: '🔺 Bldrs.net is your RealEstate, Construction & Supplies search engine.',
         metaData: notiDefaultMap,
         autoFire: true,
+        senderPicURL: _bldrsLogoURL,
+        sender: NotiSender.bldrs,
       );
   }
 // -----------------------------------------------------------------------------
@@ -188,18 +191,18 @@ class BldrsNotiModelz {
   static NotiModel cityWentPublic(){
     return
       NotiModel(
-        reason: NotiReason.event,
-        timing: 'when city goes public',
+        subject: NotiSubject.event,
+        timing: 'when city goes public - asPerDay : 7:00 pm',
         Condition: 'user.zone.city == this city & cityIsPublic = true after it was false',
-        dayHour: "asPerDay : 7:00 pm",
+        timeStamp: DateTime.now(),
         reciever: NotiReciever.users,
         cityState: CityState.public,
-        notiContent: NotiContent(
-          title: '{cityName} Builders went public.',
-          body: '📢 Bldrs businesses have been posting for some time, and now all their work is LIVE !',
-        ),
+        title: '{cityName} Builders went public.',
+        body: '📢 Bldrs businesses have been posting for some time, and now all their work is LIVE !',
         metaData: notiDefaultMap,
         autoFire: true,
+        senderPicURL: _bldrsLogoURL,
+        sender: NotiSender.bldrs,
       );
   }
 // -----------------------------------------------------------------------------
@@ -207,18 +210,18 @@ class BldrsNotiModelz {
   static NotiModel feedbackAutoReply(){
     return
       NotiModel(
-        reason: NotiReason.event,
-        timing: 'after user posts opinion feedback with 24 hours',
+        subject: NotiSubject.event,
+        timing: 'after user posts opinion feedback with 24 hours - asPerDay : 10:00 am',
         Condition: 'feedback.time.sinceThen == 24 hours',
-        dayHour: "asPerDay : 10:00 am",
+        timeStamp: DateTime.now(),
         reciever: NotiReciever.user,
         cityState: CityState.any,
-        notiContent: NotiContent(
-          title: 'Thank you',
-          body: 'Thank you for taking part in building Bldrs.net, Your feedback is currently being reviewed.',
-        ),
+        title: 'Thank you',
+        body: 'Thank you for taking part in building Bldrs.net, Your feedback is currently being reviewed.',
         metaData: notiDefaultMap,
         autoFire: true,
+        senderPicURL: _bldrsLogoURL,
+        sender: NotiSender.bldrs,
       );
   }
 // -----------------------------------------------------------------------------
@@ -231,18 +234,18 @@ class BldrsNotiModelz {
 
     return
       NotiModel(
-        reason: NotiReason.event,
-        timing: 'when bldrs.net replies over customer feedback',
+        subject: NotiSubject.event,
+        timing: 'when bldrs.net replies over customer feedback - $_dayHour',
         Condition: 'if bldrs.net admin decides to reply',
-        dayHour: _dayHour,
+        timeStamp: DateTime.now(),
         reciever: NotiReciever.user,
         cityState: CityState.any,
-        notiContent: NotiContent(
-          title: _title,
-          body: _body,
-        ),
+        title: _title,
+        body: _body,
         metaData: notiDefaultMap,
         autoFire: false,
+        senderPicURL: _bldrsLogoURL,
+        sender: NotiSender.bldrs,
       );
   }
 // -----------------------------------------------------------------------------
@@ -250,18 +253,18 @@ class BldrsNotiModelz {
   static NotiModel chooseYourCustomerStatus(){
     return
       NotiModel(
-        reason: NotiReason.reminder,
-        timing: 'when user did not assign userStatus for 2 days',
+        subject: NotiSubject.reminder,
+        timing: 'when user did not assign userStatus for 2 days - asPerDay : 2:00 pm',
         Condition: 'if userModel.userStatus == null,, or not assigned',
-        dayHour: "asPerDay : 2:00 pm",
+        timeStamp: DateTime.now(),
         reciever: NotiReciever.user,
         cityState: CityState.any,
-        notiContent: NotiContent(
-          title: 'The Easy way',
-          body: 'Builders will assist find your specific needs, just assign your profile status 👌',
-        ),
+        title: 'The Easy way',
+        body: 'Builders will assist find your specific needs, just assign your profile status 👌',
         metaData: notiDefaultMap,
         autoFire: true,
+        senderPicURL: _bldrsLogoURL,
+        sender: NotiSender.bldrs,
       );
   }
 // -----------------------------------------------------------------------------
@@ -269,18 +272,18 @@ class BldrsNotiModelz {
   static NotiModel monthlyStatistics(){
     return
       NotiModel(
-        reason: NotiReason.ad,
-        timing: 'every month',
+        subject: NotiSubject.ad,
+        timing: 'every month - first day in the month : 10:00 am',
         Condition: 'no condition',
-        dayHour: "first day in the month : 10:00 am",
+        timeStamp: DateTime.now(),
         reciever: NotiReciever.users,
         cityState: CityState.public,
-        notiContent: NotiContent(
-          title: 'The Community is Growing',
-          body: '{xx} new businesses had joined and {xx} new flyers were published on Bldrs.net Last month',
-        ),
+        title: 'The Community is Growing',
+        body: '{xx} new businesses had joined and {xx} new flyers were published on Bldrs.net Last month',
         metaData: notiDefaultMap,
         autoFire: true,
+        senderPicURL: _bldrsLogoURL,
+        sender: NotiSender.bldrs,
       );
   }
 // -----------------------------------------------------------------------------
@@ -288,18 +291,18 @@ class BldrsNotiModelz {
   static NotiModel newFlyerByFollowedPremiumBz(){
     return
       NotiModel(
-        reason: NotiReason.event,
-        timing: 'when followed premium bz adds new flyers',
+        subject: NotiSubject.event,
+        timing: 'when followed premium bz adds new flyers - asPerDay : asPerHour',
         Condition: 'bz.followers.include(userID)',
-        dayHour: "asPerDay : asPerHour",
+        timeStamp: DateTime.now(),
         reciever: NotiReciever.users,
         cityState: CityState.public,
-        notiContent: NotiContent(
-          title: 'New flyer',
-          body: '{bzName} published a new flyer {data about flyer}',
-        ),
+        title: 'New flyer',
+        body: '{bzName} published a new flyer {data about flyer}',
         metaData: notiDefaultMap,
         autoFire: true,
+        sender: NotiSender.bz,
+        senderPicURL: _dummyBzLogoURL,
       );
   }
 // -----------------------------------------------------------------------------
@@ -307,18 +310,18 @@ class BldrsNotiModelz {
   static NotiModel flyerReviewReply(){
     return
       NotiModel(
-        reason: NotiReason.event,
-        timing: 'when author replies on user review',
+        subject: NotiSubject.event,
+        timing: 'when author replies on user review - asPerDay : asPerTime',
         Condition: 'if reviewModel.authorReplied turns true',
-        dayHour: "asPerDay : asPerTime",
+        timeStamp: DateTime.now(),
         reciever: NotiReciever.user,
         cityState: CityState.public,
-        notiContent: NotiContent(
-          title: '{Author name} has replied on your review',
-          body: '{review.body}',
-        ),
+        title: '{Author name} has replied on your review',
+        body: '{review.body}',
         metaData: notiDefaultMap,
         autoFire: true,
+        sender: NotiSender.bz,
+        senderPicURL: _dummyBzLogoURL,
       );
   }
 // -----------------------------------------------------------------------------
@@ -326,18 +329,18 @@ class BldrsNotiModelz {
   static NotiModel flyerReviewed(){
     return
       NotiModel(
-        reason: NotiReason.event,
-        timing: 'when user posts flyer review',
+        subject: NotiSubject.event,
+        timing: 'when user posts flyer review - asPerDay : asPerTime',
         Condition: 'on review doc created && bz.AuthorsIDs.include(userID)',
-        dayHour: "asPerDay : asPerTime",
+        timeStamp: DateTime.now(),
         reciever: NotiReciever.authors,
         cityState: CityState.public,
-        notiContent: NotiContent(
-          title: '{userName} wrote a review on you flyer',
-          body: '{review body}',
-        ),
+        title: '{userName} wrote a review on you flyer',
+        body: '{review body}',
         metaData: notiDefaultMap,
         autoFire: true,
+        sender: NotiSender.user,
+        senderPicURL: _dummyUserPic,
       );
   }
 // -----------------------------------------------------------------------------
@@ -345,18 +348,18 @@ class BldrsNotiModelz {
   static NotiModel flyerSaved(){
     return
       NotiModel(
-        reason: NotiReason.event,
-        timing: 'when a user saves a flyer',
+        subject: NotiSubject.event,
+        timing: 'when a user saves a flyer - asPerDay : asPerTime',
         Condition: 'send to all bz authors',
-        dayHour: "asPerDay : asPerTime",
+        timeStamp: DateTime.now(),
         reciever: NotiReciever.authors,
         cityState: CityState.public,
-        notiContent: NotiContent(
-          title: '{userName} saved your flyer',
-          body: '{flyerTitle} , blah',
-        ),
+        title: '{userName} saved your flyer',
+        body: '{flyerTitle} , blah',
         metaData: notiDefaultMap,
         autoFire: true,
+        sender: NotiSender.user,
+        senderPicURL: _dummyUserPic,
       );
   }
 // -----------------------------------------------------------------------------
@@ -364,18 +367,18 @@ class BldrsNotiModelz {
   static NotiModel flyerShared(){
     return
       NotiModel(
-        reason: NotiReason.event,
-        timing: 'when a user shares a flyer',
+        subject: NotiSubject.event,
+        timing: 'when a user shares a flyer - asPerDay : asPerTime',
         Condition: 'send to all bz authors',
-        dayHour: "asPerDay : asPerTime",
+        timeStamp: DateTime.now(),
         reciever: NotiReciever.authors,
         cityState: CityState.public,
-        notiContent: NotiContent(
-          title: '{userName} shared your flyer',
-          body: '{flyerTitle} , blah',
-        ),
+        title: '{userName} shared your flyer',
+        body: '{flyerTitle} , blah',
         metaData: notiDefaultMap,
         autoFire: true,
+        sender: NotiSender.user,
+        senderPicURL: _dummyUserPic,
       );
   }
 // -----------------------------------------------------------------------------
@@ -383,18 +386,18 @@ class BldrsNotiModelz {
   static NotiModel userFollowed(){
     return
       NotiModel(
-        reason: NotiReason.event,
-        timing: 'when a user follows bz',
+        subject: NotiSubject.event,
+        timing: 'when a user follows bz - asPerDay : asPerTime',
         Condition: 'send to all bz authors',
-        dayHour: "asPerDay : asPerTime",
+        timeStamp: DateTime.now(),
         reciever: NotiReciever.authors,
         cityState: CityState.public,
-        notiContent: NotiContent(
-          title: '{userName} followed your {bzName}',
-          body: 'He/She will be updated with you activity',
-        ),
+        title: '{userName} followed your {bzName}',
+        body: 'He/She will be updated with you activity',
         metaData: notiDefaultMap,
         autoFire: true,
+        sender: NotiSender.user,
+        senderPicURL: _dummyUserPic,
       );
   }
 // -----------------------------------------------------------------------------
@@ -402,18 +405,18 @@ class BldrsNotiModelz {
   static NotiModel weeklyBzStatistics(){
     return
       NotiModel(
-        reason: NotiReason.ad,
-        timing: 'every week',
+        subject: NotiSubject.ad,
+        timing: 'every week - Monday : 10:00 am',
         Condition: 'send to all bz authors',
-        dayHour: "Monday : 10:00 am",
+        timeStamp: DateTime.now(),
         reciever: NotiReciever.authors,
         cityState: CityState.any,
-        notiContent: NotiContent(
-          title: 'Your weekly stats',
-          body: '{xx} users viewed your flyers last week, getting {xx} saves, {xx} reviews and {xx} calls',
-        ),
+        title: 'Your weekly stats',
+        body: '{xx} users viewed your flyers last week, getting {xx} saves, {xx} reviews and {xx} calls',
         metaData: notiDefaultMap,
         autoFire: true,
+        sender: NotiSender.bldrs,
+        senderPicURL: _bldrsLogoURL,
       );
   }
 // -----------------------------------------------------------------------------
@@ -421,18 +424,18 @@ class BldrsNotiModelz {
   static NotiModel authorInvitation(){
     return
       NotiModel(
-        reason: NotiReason.event,
-        timing: 'when author sends author invitation to a user',
+        subject: NotiSubject.event,
+        timing: 'when author sends author invitation to a user - asPerDate : asPerTime',
         Condition: '',
-        dayHour: "asPerDate : asPerTime",
+        timeStamp: DateTime.now(),
         reciever: NotiReciever.user,
         cityState: CityState.any,
-        notiContent: NotiContent(
-          title: '{authorName} invites you',
-          body: 'You are invited to become an author of the Bldr account : {bzName}',
-        ),
+        title: '{authorName} invites you',
+        body: 'You are invited to become an author of the Bldr account : {bzName}',
         metaData: notiDefaultMap,
         autoFire: true,
+        sender: NotiSender.bz,
+        senderPicURL: _dummyBzLogoURL,
       );
   }
 // -----------------------------------------------------------------------------
@@ -443,18 +446,18 @@ class BldrsNotiModelz {
 
     return
       NotiModel(
-        reason: NotiReason.event,
-        timing: 'when user replies on author invitation',
+        subject: NotiSubject.event,
+        timing: 'when user replies on author invitation - asPerDate : asPerTime',
         Condition: ' for all bz authors to know ',
-        dayHour: "asPerDate : asPerTime",
+        timeStamp: DateTime.now(),
         reciever: NotiReciever.authors,
         cityState: CityState.any,
-        notiContent: NotiContent(
-          title: '{userName} Replied on his invitation',
-          body: 'Invitation has been $_reply.',
-        ),
+        title: '{userName} Replied on his invitation',
+        body: 'Invitation has been $_reply.',
         metaData: notiDefaultMap,
         autoFire: true,
+        sender: NotiSender.user,
+        senderPicURL: _dummyUserPic,
       );
   }
 // -----------------------------------------------------------------------------
@@ -462,18 +465,18 @@ class BldrsNotiModelz {
   static NotiModel authorInvitationCC(){
     return
       NotiModel(
-        reason: NotiReason.event,
-        timing: 'when author sends author invitation to a user',
+        subject: NotiSubject.event,
+        timing: 'when author sends author invitation to a user - asPerDate : asPerTime',
         Condition: 'for all authors in the team except the invitation sender',
-        dayHour: "asPerDate : asPerTime",
+        timeStamp: DateTime.now(),
         reciever: NotiReciever.authors,
         cityState: CityState.any,
-        notiContent: NotiContent(
-          title: '{authorName} invited {userName}',
-          body: 'An invitation has been sent for {userName} to join the team of {bzName}',
-        ),
+        title: '{authorName} invited {userName}',
+        body: 'An invitation has been sent for {userName} to join the team of {bzName}',
         metaData: notiDefaultMap,
         autoFire: true,
+        sender: NotiSender.bz,
+        senderPicURL: _dummyBzLogoURL,
       );
   }
 // -----------------------------------------------------------------------------
@@ -481,18 +484,18 @@ class BldrsNotiModelz {
   static NotiModel countryWentGlobal(){
     return
       NotiModel(
-        reason: NotiReason.event,
-        timing: 'when a county goes global',
+        subject: NotiSubject.event,
+        timing: 'when a county goes global - Saturday : 9:00 pm',
         Condition: 'country.isGlobal turns true -- all people in the world receive this',
-        dayHour: "Saturday : 9:00 pm",
+        timeStamp: DateTime.now(),
         reciever: NotiReciever.users,
         cityState: CityState.any,
-        notiContent: NotiContent(
-          title: '{countryName} Builders are Global',
-          body: '{countryFlag} All {countryName} Business and their flyers are now available world wide to reach',
-        ),
+        title: '{countryName} Builders are Global',
+        body: '{countryFlag} All {countryName} Business and their flyers are now available world wide to reach',
         metaData: notiDefaultMap,
         autoFire: true,
+        sender: NotiSender.bldrs,
+        senderPicURL: _bldrsLogoURL,
       );
   }
 // -----------------------------------------------------------------------------
@@ -500,18 +503,18 @@ class BldrsNotiModelz {
   static NotiModel sectionWentLive(){
     return
       NotiModel(
-        reason: NotiReason.event,
-        timing: 'when a section goes live',
+        subject: NotiSubject.event,
+        timing: 'when a section goes live - Monday : 8 pm',
         Condition: 'section.isLive turns true',
-        dayHour: "Monday : 8 pm",
+        timeStamp: DateTime.now(),
         reciever: NotiReciever.users,
         cityState: CityState.any,
-        notiContent: NotiContent(
-          title: 'Section {sectionName} is now available',
-          body: 'You can now view the businesses publishing flyers in section {sectionName}',
-        ),
+        title: 'Section {sectionName} is now available',
+        body: 'You can now view the businesses publishing flyers in section {sectionName}',
         metaData: notiDefaultMap,
         autoFire: true,
+        sender: NotiSender.bldrs,
+        senderPicURL: _bldrsLogoURL,
       );
   }
 // -----------------------------------------------------------------------------
@@ -519,18 +522,18 @@ class BldrsNotiModelz {
   static NotiModel monthlyBzStatistics(){
     return
       NotiModel(
-        reason: NotiReason.ad,
-        timing: 'every week',
+        subject: NotiSubject.ad,
+        timing: 'every week - Monday : 10:00 am',
         Condition: 'send to all bz authors',
-        dayHour: "Monday : 10:00 am",
+        timeStamp: DateTime.now(),
         reciever: NotiReciever.authors,
         cityState: CityState.any,
-        notiContent: NotiContent(
-          title: 'Your monthly stats',
-          body: ' ?? followers , calls, saves, views, shares, competitors in keywords, a77a',
-        ),
+        title: 'Your monthly stats',
+        body: ' ?? followers , calls, saves, views, shares, competitors in keywords, a77a',
         metaData: notiDefaultMap,
         autoFire: true,
+        sender: NotiSender.bldrs,
+        senderPicURL: _bldrsLogoURL,
       );
   }
 // -----------------------------------------------------------------------------
@@ -538,18 +541,18 @@ class BldrsNotiModelz {
   static NotiModel potentialCustomerQuestion(){
     return
       NotiModel(
-        reason: NotiReason.event,
-        timing: 'when user ask a question related to a specific keyword topic',
+        subject: NotiSubject.event,
+        timing: 'when user ask a question related to a specific keyword topic - asPerDay : asPerHour',
         Condition: 'bz is subscribed to a keyword topic in questions',
-        dayHour: "asPerDay : asPerHour",
+        timeStamp: DateTime.now(),
         reciever: NotiReciever.authors,
         cityState: CityState.any,
-        notiContent: NotiContent(
-          title: 'Potential customer',
-          body: '{userName} asked a public question about {keyword} in {cityName - districtName}',
-        ),
+        title: 'Potential customer',
+        body: '{userName} asked a public question about {keyword} in {cityName - districtName}',
         metaData: notiDefaultMap,
         autoFire: true,
+        sender: NotiSender.bldrs,
+        senderPicURL: _bldrsLogoURL,
       );
   }
 // -----------------------------------------------------------------------------
@@ -557,18 +560,18 @@ class BldrsNotiModelz {
   static NotiModel questionReply(){
     return
       NotiModel(
-        reason: NotiReason.event,
-        timing: 'when an author answers a question by user',
+        subject: NotiSubject.event,
+        timing: 'when an author answers a question by user - asPerDay : asPerHour',
         Condition: 'use has a question + new reply in question replies sub doc',
-        dayHour: "asPerDay : asPerHour",
+        timeStamp: DateTime.now(),
         reciever: NotiReciever.user,
         cityState: CityState.any,
-        notiContent: NotiContent(
-          title: 'You received an answer',
-          body: '{bzName} replied to your question : {questionReply}',
-        ),
+        title: 'You received an answer',
+        body: '{bzName} replied to your question : {questionReply}',
         metaData: notiDefaultMap,
         autoFire: true,
+        sender: NotiSender.bz,
+        senderPicURL: _dummyBzLogoURL,
       );
   }
 // -----------------------------------------------------------------------------
@@ -657,3 +660,37 @@ class BldrsNotiModelz {
     ];
   }
 }
+
+// --- ALL NEWS : NEW PUBLISHED FLYER BY BZ WITHOUT AUTHOR : (INSTANTANEOUS)
+
+// --- ALL NEWS : NEW PUBLISHED FLYER BY BZ WITH AUTHOR : (INSTANTANEOUS)
+
+// --- ALL NEWS : NEW PUBLISHED FLYER BY USER OF TYPE : (INSTANTANEOUS)
+
+// o ( FOLLOWING NOTIFICATIONS )
+// --- BZ NEWS : NEW FOLLOWERS : (MIN OF NUMBER = X && MIN OF DURATION = T)
+
+// o ( CONNECTION NOTIFICATION )
+// --- BZ NEWS : NEW RECEIVED CONNECTION REQUEST : (INSTANTANEOUS)
+// --- BZ NEWS : SENT CONNECTION REPLY 'ACCEPTED, REJECTED' : (INSTANTANEOUS)
+
+// o ( BZ AUTHOR REQUEST NOTIFICATION )
+// --- BZ NEWS : USER REPLIED TO YOUR SENT AUTHORSHIP REQUEST 'ACCEPTED, REJECTED' : (INSTANTANEOUS)
+// --- USER NEWS : BZ SENT YOU AUTHORSHIP REQUEST 'ACCEPT, REJECT' : (INSTANTANEOUS)
+
+// o ( BZ PUBLISHED FLYER EDITOR'S REPLY )
+// --- BZ NEWS : BLDRS EDITORS 'REJECTED, EDITED, HIGHLIGHTED' YOUR FLYER : (INSTANTANEOUS)
+
+// o ( FLYERS SHARING )
+// --- ANY USER : RECEIVED A FLYER : (INSTANTANEOUS)
+// --- ANY USER : RECEIVED A COLLECTION OF FLYERS : (INSTANTANEOUS)
+
+// o ( PAID NEWS )
+// --- USER NEWS : BZ PAID NEWS : ( LIMITED AMOUNT PER WEEK AND LIMITED AMOUNT OF NOTIFICATION ALERTS )
+
+// o ( STATISTICS )
+// --- BZ NEWS : COMPETITION SIGNUPS IN SAME FIELD : (MIN OF NUM = X && MIN OF DURATION = T)
+// --- BZ NEWS : ALL BZ SIGNUPS IN ALL FIELDS : (MIN OF NUM = X && MIN OF DURATION = T)
+// --- BZ NEWS : DAILY BZ PROFILE STATISTICS 'FOLLOWERS, VIEWS, SAVES, SHARES, CONTACTS, CALLS'
+// --- ANY USER : WEEKLY NATIONAL STATISTICS
+// --- ANY USER : MONTHLY GLOBAL STATISTICS

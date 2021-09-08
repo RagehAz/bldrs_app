@@ -2,7 +2,7 @@ import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/views/widgets/bubbles/in_pyramids_bubble.dart';
+import 'package:bldrs/views/widgets/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:bldrs/views/widgets/textings/text_lines_analyzer.dart';
@@ -110,9 +110,9 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
       scaleFactor: 1,
     );
 
-    return InPyramidsBubble(
+    return Bubble(
         key: widget.key,
-        bubbleWidth: widget.bubbleWidth,
+        width: widget.bubbleWidth,
         margins: widget.margins,
         corners: widget.corners,
         title: widget.title,

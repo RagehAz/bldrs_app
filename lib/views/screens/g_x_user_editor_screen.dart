@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:bldrs/controllers/drafters/imagers.dart';
-import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/text_checkers.dart';
 import 'package:bldrs/controllers/drafters/text_manipulators.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
@@ -12,6 +11,7 @@ import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/secondary_models/contact_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/views/widgets/bubbles/add_gallery_pic_bubble.dart';
+import 'package:bldrs/views/widgets/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/contact_field_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/locale_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/text_field_bubble.dart';
@@ -354,7 +354,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               bubbleType: BubbleType.userPic,
             ),
 
-            // --- EDIT NAME
+            /// --- EDIT NAME
             TextFieldBubble(
               textController: _nameController,
               key: Key('name'),
@@ -366,7 +366,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               validator: (val) => val.isEmpty ? Wordz.enterName(context) : null,
             ),
 
-            // --- EDIT JOB TITLE
+            /// --- EDIT JOB TITLE
             TextFieldBubble(
               textController: _titleController,
               key: Key('title'),
@@ -378,7 +378,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               validator: (val) => val.isEmpty ? Wordz.enterJobTitle(context) : null,
             ),
 
-            // --- EDIT COMPANY NAME
+            /// --- EDIT COMPANY NAME
             TextFieldBubble(
               textController: _companyController,
               key: Key('company'),
@@ -390,7 +390,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               validator: (val) => val.isEmpty ? Wordz.enterCompanyName(context) : null,
             ),
 
-            // --- EDIT HQ
+            /// --- EDIT HQ
             LocaleBubble(
               title : 'Preferred Location',
               changeCountry : (countryID) => _changeCountry(countryID),
@@ -400,7 +400,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               currentZone: Zone(countryID: _currentCountryID, cityID: _currentCityID, districtID: _currentDistrictID),
             ),
 
-            // --- EDIT EMAIL
+            /// --- EDIT EMAIL
             ContactFieldBubble(
               textController: _emailController,
               fieldIsFormField: true,
@@ -411,7 +411,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               keyboardTextInputType: TextInputType.emailAddress,
             ),
 
-            // --- EDIT PHONE
+            /// --- EDIT PHONE
             ContactFieldBubble(
               textController: _phoneController,
               fieldIsFormField: true,
@@ -422,7 +422,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               keyboardTextInputType: TextInputType.phone,
             ),
 
-            // --- EDIT WEBSITE
+            /// --- EDIT WEBSITE
             ContactFieldBubble(
               textController: _websiteController,
               fieldIsFormField: true,
@@ -433,7 +433,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               keyboardTextInputType: TextInputType.url,
             ),
 
-            // --- EDIT FACEBOOK
+            /// --- EDIT FACEBOOK
             ContactFieldBubble(
               textController: _facebookController,
               fieldIsFormField: true,
@@ -444,7 +444,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               keyboardTextInputType: TextInputType.url,
             ),
 
-            // --- EDIT INSTAGRAM
+            /// --- EDIT INSTAGRAM
             ContactFieldBubble(
               textController: _instagramController,
               fieldIsFormField: true,
@@ -455,7 +455,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               keyboardTextInputType: TextInputType.url,
             ),
 
-            // --- EDIT LINKEDIN
+            /// --- EDIT LINKEDIN
             ContactFieldBubble(
               textController: _linkedInController,
               fieldIsFormField: true,
@@ -466,7 +466,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               keyboardTextInputType: TextInputType.url,
             ),
 
-            // --- EDIT YOUTUBE
+            /// --- EDIT YOUTUBE
             ContactFieldBubble(
               textController: _youTubeController,
               fieldIsFormField: true,
@@ -477,7 +477,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               keyboardTextInputType: TextInputType.url,
             ),
 
-            // --- EDIT PINTEREST
+            /// --- EDIT PINTEREST
             ContactFieldBubble(
               textController: _pinterestController,
               fieldIsFormField: true,
@@ -488,7 +488,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               keyboardTextInputType: TextInputType.url,
             ),
 
-            // --- EDIT TIKTOK
+            /// --- EDIT TIKTOK
             ContactFieldBubble(
               textController: _tiktokController,
               fieldIsFormField: true,
@@ -499,7 +499,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               keyboardTextInputType: TextInputType.url,
             ),
 
-            // --- EDIT TWITTER
+            /// --- EDIT TWITTER
             ContactFieldBubble(
               textController: _twitterController,
               fieldIsFormField: true,
@@ -510,10 +510,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               keyboardTextInputType: TextInputType.url,
             ),
 
-            // --- CONFIRM BUTTON
+            /// --- CONFIRM BUTTON
             DreamBox(
               height: 50,
-              width: Scale.superBubbleClearWidth(context),
+              width: Bubble.clearWidth(context),
               color: Colorz.Yellow255,
               // icon: Iconz.Check,
               // iconColor: Colorz.Black225,

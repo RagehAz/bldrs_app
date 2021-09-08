@@ -8,9 +8,8 @@ import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
-// import 'package:bldrs/views/widgets/layouts/main_layout.dart' show Expander, Tracer;
 
-class InPyramidsBubble extends StatelessWidget {
+class Bubble extends StatelessWidget {
 final List<Widget> columnChildren;
 final bool centered;
 final Color bubbleColor;
@@ -20,7 +19,7 @@ final Color titleColor;
 final bool redDot;
 final String actionBtIcon;
 final Function actionBtFunction;
-final double bubbleWidth;
+final double width;
 final Function bubbleOnTap;
 final double LeadingAndActionButtonsSizeFactor;
 final String leadingIcon;
@@ -29,7 +28,7 @@ final dynamic margins;
 final dynamic corners;
 final Key key;
 
-  InPyramidsBubble({
+  Bubble({
     @required this.columnChildren,
     this.centered = false,
     this.bubbleColor = Colorz.White20,
@@ -39,7 +38,7 @@ final Key key;
     this.redDot = false,
     this.actionBtIcon,
     this.actionBtFunction,
-    this.bubbleWidth,
+    this.width,
     this.bubbleOnTap,
     this.LeadingAndActionButtonsSizeFactor = 0.6,
     this.leadingIcon,
@@ -48,7 +47,38 @@ final Key key;
     this.corners,
     this.key,
 });
+// -----------------------------------------------------------------------------
+  static double clearWidth(BuildContext context){
+    double _bubbleWidth = defaultWidth(context);
+    double _bubblePaddings = Ratioz.appBarMargin * 2;
+    double _inBubbleClearWidth = _bubbleWidth - _bubblePaddings;
+    return _inBubbleClearWidth;
+  }
+// -----------------------------------------------------------------------------
+  static double defaultWidth(BuildContext context){
+    double _screenWidth = Scale.superScreenWidth(context);
+    double _bubbleMargins = Ratioz.appBarMargin * 2;
+    double _bubbleWidth = _screenWidth - _bubbleMargins;
+    return _bubbleWidth;
+  }
+// -----------------------------------------------------------------------------
+  static double bubbleWidth({BuildContext context, bool stretchy, }){
+    double _bubbleWidth = stretchy == true ? null
+        :
+    clearWidth(context);
 
+    return _bubbleWidth;
+  }
+// -----------------------------------------------------------------------------
+  static double cornersValue(){
+    return Ratioz.appBarCorner;
+  }
+// -----------------------------------------------------------------------------
+  static BorderRadius borders(BuildContext context,){
+    return
+    Borderers.superBorder(context: context, corners: cornersValue());
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
@@ -74,18 +104,17 @@ final Key key;
     double actionBtSize = superVerseRealHeight(context, titleVerseSize, 1, null);
     double actionBtCorner = actionBtSize * 0.4;
 
-    double _bubbleWidth = stretchy == true ? null
-        :
-    bubbleWidth != null ? bubbleWidth
-        :
-    bubbleWidth == null ? Scale.superBubbleClearWidth(context) + (2 * _pageMargin * 0)
-        :
-        null;
+    double _bubbleWidth = width != null ? width :
+    bubbleWidth(
+      context: context,
+      stretchy: stretchy,
+    );
+
 // -----------------------------------------------------------------------------
     double _titleWidth = stretchy == true ? null : _bubbleWidth - actionBtSize * 2;
 // -----------------------------------------------------------------------------
     BorderRadius _corners =
-    corners == null ? Borderers.superBorder(context: context, corners: Ratioz.appBarCorner)
+    corners == null ? borders(context)
     :
     Borderers.superBorder(context: context, corners: corners);
 // -----------------------------------------------------------------------------
