@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/localization/localizer.dart';
+import 'package:bldrs/controllers/notifications/local_notification_service.dart';
 import 'package:bldrs/controllers/notifications/noti_ops.dart';
 import 'package:bldrs/controllers/router/route_names.dart';
 import 'package:bldrs/controllers/router/router.dart';
@@ -67,6 +68,7 @@ class _BldrsAppState extends State<BldrsApp> {
   void initState() {
     super.initState();
     _initializeFlutterFire();
+    LocalNotificationService.initialize(context);
     NotiOps.initializeNoti();
   }
 // ---------------------------------------------------------------------------
