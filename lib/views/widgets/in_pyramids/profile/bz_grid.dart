@@ -21,7 +21,7 @@ class BzGrid extends StatelessWidget {
     this.numberOfColumns = 3,
     @required this.tinyBzz,
     this.itemOnTap,
-    this.scrollDirection,
+    @required this.scrollDirection,
     this.numberOfRows = 1,
     this.corners,
 });
@@ -52,6 +52,11 @@ class BzGrid extends StatelessWidget {
     //
     double _zoneCorners = corners == null ? (_logoWidth * Ratioz.bzLogoCorner) + _gridSpacing : corners;
 
+    EdgeInsets _gridPadding = EdgeInsets.only(top: _gridSpacing, left: _gridSpacing, right: _gridSpacing, bottom: 0);
+
+    Axis _scrollDirection = scrollDirection == null ? Axis.vertical : scrollDirection;
+    ScrollPhysics _physics = scrollDirection == null ? const NeverScrollableScrollPhysics() : const BouncingScrollPhysics();
+
     return
       ClipRRect(
         borderRadius: Borderers.superBorderAll(context, _zoneCorners),
@@ -64,37 +69,48 @@ class BzGrid extends StatelessWidget {
             children: <Widget>[
 
               /// --- GRID FOOTPRINTS
-              if (_tinyBzz == [] || _tinyBzz.length == 0)
+              if (_tinyBzz.length == 0)
                 GridView(
-                  physics: scrollDirection == null ? const NeverScrollableScrollPhysics() : const BouncingScrollPhysics(),
-                  scrollDirection: scrollDirection == null ? Axis.vertical : scrollDirection,
+                  physics: _physics,
+                  scrollDirection: _scrollDirection,
                   addAutomaticKeepAlives: true,
                   shrinkWrap: false,
-                  padding: EdgeInsets.only(top: _gridSpacing, left: _gridSpacing, right: _gridSpacing, bottom: 0),
+                  padding: _gridPadding,
                   gridDelegate: _gridDelegate,
                   children: _boxesColors.map(
-                        (color) => Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
+                        (color) => Container(
+                          width: _logoWidth,
+                          height: _logoWidth * 1.25,
+                          // color: Colorz.Yellow50,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
 
-                            /// LOGO
-                            BzLogo(
-                              width: _logoWidth,
-                              image: color,
-                              bzPageIsOn: false,
-                              tinyMode: true,
-                              zeroCornerIsOn: false,
-                              // onTap: () => itemOnTap(bz.bzID)
-                            ),
+                              /// LOGO
+                              Container(
+                                width: _logoWidth,
+                                height: _logoWidth,
+                                decoration: BoxDecoration(
+                                  color: color,
+                                  borderRadius: Borderers.superBorderAll(context, BzLogo.cornersValue(_logoWidth))
+                                ),
+                              ),
 
-                            // /// BZ NAME FOOTPRINT
-                            // Container(
-                            //   width: _logoWidth,
-                            //   height: _logoWidth * 0.25,
-                            // ),
+                              /// BZ NAME FOOTPRINT
+                              Container(
+                                width: _logoWidth,
+                                height: _logoWidth * 0.25,
+                                child: SuperVerse(
+                                  verse: '...',
+                                  color: color,
+                                  weight: VerseWeight.black,
+                                  size: 0,
+                                ),
+                              ),
 
-                          ],
+                            ],
+                          ),
                         ),
                   ).toList(),
                 ),
@@ -102,11 +118,11 @@ class BzGrid extends StatelessWidget {
               /// --- REAL GRID
               if (_tinyBzz.length != 0)
                 GridView(
-                  physics: scrollDirection == null ? const NeverScrollableScrollPhysics() : const BouncingScrollPhysics(),
-                  scrollDirection: scrollDirection == null ? Axis.vertical : scrollDirection,
+                  physics: _physics,
+                  scrollDirection: _scrollDirection,
                   addAutomaticKeepAlives: true,
                   shrinkWrap: false,
-                  padding: EdgeInsets.only(top: _gridSpacing, left: _gridSpacing, right: _gridSpacing, bottom: 0),
+                  padding: _gridPadding,
                   // key: new Key(loadedFlyers[flyerIndex].f01flyerID),
                   gridDelegate: _gridDelegate,
                   children: <Widget>[

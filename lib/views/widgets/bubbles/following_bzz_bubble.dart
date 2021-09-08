@@ -33,6 +33,7 @@ class FollowingBzzBubble extends StatelessWidget {
           gridZoneWidth: Scale.superScreenWidth(context) - Ratioz.appBarMargin * 4,
           tinyBzz: tinyBzz,
           numberOfColumns: 7,
+          scrollDirection: Axis.horizontal,
           itemOnTap: (bzID){
             print('bzID = $bzID');
             Nav.goToNewScreen(context, BzCardScreen(bzID: bzID, flyerZoneWidth: Scale.superScreenWidth(context) - Ratioz.appBarMargin * 4,));

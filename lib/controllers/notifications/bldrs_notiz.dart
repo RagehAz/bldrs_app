@@ -96,6 +96,7 @@ class BldrsNotiModelz {
   static NotiModel buildSomething(){
     return
       NotiModel(
+        id: 'n01',
         subject: NotiSubject.reminder,
         timing: 'when user did not sign in for 4 weeks - asPerDays : 9 pm',
         Condition: 'last sign in timeStamp > 28 days',
@@ -115,6 +116,7 @@ class BldrsNotiModelz {
   static NotiModel createSomethingNew(){
     return
       NotiModel(
+        id: 'n02',
         subject: NotiSubject.reminder,
         timing: 'when user did not sign in for a 5 weeks - asPerDays : 10 am',
         Condition: 'last sign in timeStamp > 35 days',
@@ -134,6 +136,7 @@ class BldrsNotiModelz {
   static NotiModel planYourFuture(){
     return
       NotiModel(
+        id: 'n03',
         subject: NotiSubject.reminder,
         timing: 'when user did not sign in for  5 weeks - asPerDays : 10 am',
         Condition: 'last sign in timeStamp > 35 days',
@@ -153,6 +156,7 @@ class BldrsNotiModelz {
   static NotiModel youDidNotSee(){
     return
       NotiModel(
+        id: 'n04',
         subject: NotiSubject.reminder,
         timing: 'when user downloaded app but did not sign up aslan for 7 days - asPerDays : 10 am',
         Condition: 'firebase user.id exists && UserModel does not exist && last signed in timeStamp > 7 days',
@@ -172,6 +176,7 @@ class BldrsNotiModelz {
   static NotiModel rememberYourOptions(){
     return
       NotiModel(
+        id: 'n05',
         subject: NotiSubject.reminder,
         timing: 'when user downloaded app but did not sign up aslan for 7 days - asPerDays : 10 am',
         Condition: 'firebase user.id exists && UserModel does not exist && last signed in timeStamp > 7 days',
@@ -191,6 +196,7 @@ class BldrsNotiModelz {
   static NotiModel cityWentPublic(){
     return
       NotiModel(
+        id: 'n06',
         subject: NotiSubject.event,
         timing: 'when city goes public - asPerDay : 7:00 pm',
         Condition: 'user.zone.city == this city & cityIsPublic = true after it was false',
@@ -210,6 +216,7 @@ class BldrsNotiModelz {
   static NotiModel feedbackAutoReply(){
     return
       NotiModel(
+        id: 'n07',
         subject: NotiSubject.event,
         timing: 'after user posts opinion feedback with 24 hours - asPerDay : 10:00 am',
         Condition: 'feedback.time.sinceThen == 24 hours',
@@ -234,6 +241,7 @@ class BldrsNotiModelz {
 
     return
       NotiModel(
+        id: 'n08',
         subject: NotiSubject.event,
         timing: 'when bldrs.net replies over customer feedback - $_dayHour',
         Condition: 'if bldrs.net admin decides to reply',
@@ -253,6 +261,7 @@ class BldrsNotiModelz {
   static NotiModel chooseYourCustomerStatus(){
     return
       NotiModel(
+        id: 'n09',
         subject: NotiSubject.reminder,
         timing: 'when user did not assign userStatus for 2 days - asPerDay : 2:00 pm',
         Condition: 'if userModel.userStatus == null,, or not assigned',
@@ -272,6 +281,7 @@ class BldrsNotiModelz {
   static NotiModel monthlyStatistics(){
     return
       NotiModel(
+        id: 'n10',
         subject: NotiSubject.ad,
         timing: 'every month - first day in the month : 10:00 am',
         Condition: 'no condition',
@@ -291,6 +301,7 @@ class BldrsNotiModelz {
   static NotiModel newFlyerByFollowedPremiumBz(){
     return
       NotiModel(
+        id: 'n11',
         subject: NotiSubject.event,
         timing: 'when followed premium bz adds new flyers - asPerDay : asPerHour',
         Condition: 'bz.followers.include(userID)',
@@ -310,6 +321,7 @@ class BldrsNotiModelz {
   static NotiModel flyerReviewReply(){
     return
       NotiModel(
+        id: 'n12',
         subject: NotiSubject.event,
         timing: 'when author replies on user review - asPerDay : asPerTime',
         Condition: 'if reviewModel.authorReplied turns true',
@@ -329,6 +341,7 @@ class BldrsNotiModelz {
   static NotiModel flyerReviewed(){
     return
       NotiModel(
+        id: 'n13',
         subject: NotiSubject.event,
         timing: 'when user posts flyer review - asPerDay : asPerTime',
         Condition: 'on review doc created && bz.AuthorsIDs.include(userID)',
@@ -348,6 +361,7 @@ class BldrsNotiModelz {
   static NotiModel flyerSaved(){
     return
       NotiModel(
+        id: 'n14',
         subject: NotiSubject.event,
         timing: 'when a user saves a flyer - asPerDay : asPerTime',
         Condition: 'send to all bz authors',
@@ -367,6 +381,7 @@ class BldrsNotiModelz {
   static NotiModel flyerShared(){
     return
       NotiModel(
+        id: 'n15',
         subject: NotiSubject.event,
         timing: 'when a user shares a flyer - asPerDay : asPerTime',
         Condition: 'send to all bz authors',
@@ -386,6 +401,7 @@ class BldrsNotiModelz {
   static NotiModel userFollowed(){
     return
       NotiModel(
+        id: 'n16',
         subject: NotiSubject.event,
         timing: 'when a user follows bz - asPerDay : asPerTime',
         Condition: 'send to all bz authors',
@@ -405,6 +421,7 @@ class BldrsNotiModelz {
   static NotiModel weeklyBzStatistics(){
     return
       NotiModel(
+        id: 'n17',
         subject: NotiSubject.ad,
         timing: 'every week - Monday : 10:00 am',
         Condition: 'send to all bz authors',
@@ -424,6 +441,7 @@ class BldrsNotiModelz {
   static NotiModel authorInvitation(){
     return
       NotiModel(
+        id: 'n18',
         subject: NotiSubject.event,
         timing: 'when author sends author invitation to a user - asPerDate : asPerTime',
         Condition: '',
@@ -446,6 +464,7 @@ class BldrsNotiModelz {
 
     return
       NotiModel(
+        id: 'n19',
         subject: NotiSubject.event,
         timing: 'when user replies on author invitation - asPerDate : asPerTime',
         Condition: ' for all bz authors to know ',
@@ -465,6 +484,7 @@ class BldrsNotiModelz {
   static NotiModel authorInvitationCC(){
     return
       NotiModel(
+        id: 'n20',
         subject: NotiSubject.event,
         timing: 'when author sends author invitation to a user - asPerDate : asPerTime',
         Condition: 'for all authors in the team except the invitation sender',
@@ -484,6 +504,7 @@ class BldrsNotiModelz {
   static NotiModel countryWentGlobal(){
     return
       NotiModel(
+        id: 'n21',
         subject: NotiSubject.event,
         timing: 'when a county goes global - Saturday : 9:00 pm',
         Condition: 'country.isGlobal turns true -- all people in the world receive this',
@@ -503,6 +524,7 @@ class BldrsNotiModelz {
   static NotiModel sectionWentLive(){
     return
       NotiModel(
+        id: 'n22',
         subject: NotiSubject.event,
         timing: 'when a section goes live - Monday : 8 pm',
         Condition: 'section.isLive turns true',
@@ -522,6 +544,7 @@ class BldrsNotiModelz {
   static NotiModel monthlyBzStatistics(){
     return
       NotiModel(
+        id: 'n23',
         subject: NotiSubject.ad,
         timing: 'every week - Monday : 10:00 am',
         Condition: 'send to all bz authors',
@@ -541,6 +564,7 @@ class BldrsNotiModelz {
   static NotiModel potentialCustomerQuestion(){
     return
       NotiModel(
+        id: 'n24',
         subject: NotiSubject.event,
         timing: 'when user ask a question related to a specific keyword topic - asPerDay : asPerHour',
         Condition: 'bz is subscribed to a keyword topic in questions',
@@ -560,6 +584,7 @@ class BldrsNotiModelz {
   static NotiModel questionReply(){
     return
       NotiModel(
+        id: 'n25',
         subject: NotiSubject.event,
         timing: 'when an author answers a question by user - asPerDay : asPerHour',
         Condition: 'use has a question + new reply in question replies sub doc',
