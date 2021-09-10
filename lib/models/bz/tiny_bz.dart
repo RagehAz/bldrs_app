@@ -131,10 +131,13 @@ class TinyBz with ChangeNotifier{
   }
 // -----------------------------------------------------------------------------
   static TinyBz dummyTinyBz(String bzID){
+
+    String _bzID = bzID ?? 'ytLfMwdqK565ByP1p56G';
+
     return
         TinyBz(
-            bzID: bzID,
-            bzLogo: Iconz.DumBusinessLogo,
+            bzID: _bzID,
+            bzLogo: Iconz.DumBusinessLogo, //'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/bzLogos%2Far1.jpg?alt=media&token=f68673f8-409a-426a-9a80-f1026715c469'
             bzName: 'Business Name',
             bzType: BzType.Designer,
             bzZone: Zone(countryID: 'egy', cityID: 'cairo', districtID: 'heliopolis'),

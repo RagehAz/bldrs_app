@@ -17,7 +17,7 @@ import 'package:bldrs/providers/users/user_streamer.dart';
 import 'package:bldrs/views/screens/d_0_more_screen.dart';
 import 'package:bldrs/views/screens/g_0_profile_screen.dart';
 import 'package:bldrs/views/screens/f_0_my_bz_screen.dart';
-import 'package:bldrs/views/screens/g_1_news_screen.dart';
+import 'package:bldrs/views/screens/g_1_notifications_screen.dart';
 import 'package:bldrs/views/widgets/buttons/balloons/user_balloon.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_dialog/bottom_dialog.dart';

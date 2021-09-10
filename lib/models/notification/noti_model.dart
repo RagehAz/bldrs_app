@@ -6,18 +6,24 @@ enum NotiType{
   onLaunch,
 }
 
+// enum NotiSubject{
+//   ad,
+//   welcome,
+//   newFlyer,
+//   event,
+//   reminder,
+//   education,
+//   non,
+// }
 
-
-enum NotiSubject{
-  ad,
-  welcome,
-  newFlyerPublishedByFollowedBz,
-  event,
-  reminder,
-  education,
+enum NotiAttachmentType{
+  non,
+  flyers,
+  bz,
+  banner,
 }
 
-enum NotiReciever{
+enum NotiRecieverType{
   user,
   users,
   author,
@@ -36,72 +42,75 @@ enum NotiChannel{
 
 }
 
-enum NotiSender {
+enum NotiPicType {
   bz,
   author,
   user,
   bldrs,
+  country,
 }
 
 class NotiModel{
   final String id;
-  final NotiSubject subject;
-  /// timing describes the condition "when" something happens to trigger the notification
-  final String timing;
-  /// sudo code for condition logic
-  final String Condition;
-  /// timeStamp
+  final String name;
+  final String sudo; /// sudo description for /// event trigger : /// scheduled timing : /// if statement /// cityState :
+
+  final String senderID;
+  final String pic;
+  final NotiPicType picType;
+  final String title; /// max 30 char
   final DateTime timeStamp;
-  ///
-  final NotiReciever reciever;
-  final NotiSender sender;
-  final String senderPicURL;
-  ///
-  final CityState cityState;
-  /// {notification: {body: Bldrs.net is super Awesome, title: Bldrs.net}, data: {}}
-  /// should not exceed max 30 characters including spaces
-  final String title;
-  /// max 80 characters including spaces
-  final String body;
-  /// Actually, it is of type : InternalLinkedHashMap<dynamic, dynamic>
-  final dynamic metaData;
-  /// sends notification automatically, if false, should manually be triggered by onTap event
-  final bool autoFire;
+  final String body; /// max 80 char
+  final dynamic attachment;
+  final NotiAttachmentType attachmentType;
+
+  final bool dismissed;
+  final bool sendFCM;
+  final dynamic metaData; /// of type : InternalLinkedHashMap<dynamic, dynamic>
 
   NotiModel({
     @required this.id,
-    this.subject,
-    this.timing,
-    this.Condition,
-    this.timeStamp,
-    this.reciever,
-    @required this.sender,
-    @required this.senderPicURL,
-    this.cityState,
-    this.autoFire,
+    @required this.name,
+    @required this.sudo,
+
+    @required this.senderID,
+    @required this.pic,
+    @required this.picType,
     @required this.title,
+    @required this.timeStamp,
     @required this.body,
+    @required this.attachment,
+    @required this.attachmentType,
+
+    @required this.dismissed,
+    @required this.sendFCM,
     @required this.metaData,
   });
 // -----------------------------------------------------------------------------
   Map<String, dynamic> toMap(){
     return
         {
-          'subject' : subject,
-          'timing' : timing,
-          'Condition' : Condition,
-          'timeStamp' : timeStamp,
-          'reciever' : reciever,
-          'sender' : sender,
-          'senderPicURL' : senderPicURL,
-          'cityState' : cityState,
-          'autoFire' : autoFire,
-          'notification' : {
-            'title' : title,
-            'body' : body,
-          },
-          'metaData' : metaData,
+          'id' : id,
+          'name' : name,
+          'sudo' : sudo,
 
+          'senderID' : senderID,
+          'pic' : pic,
+          'picType' : cipherNotiPicType(picType),
+          'timeStamp' : timeStamp,
+          /// {notification: {body: Bldrs.net is super Awesome, title: Bldrs.net}, data: {}}
+          'notification' : {
+            'notification' : {
+              'title' : title,
+              'body' : body,
+            },
+            'data' : metaData,
+          },
+          'attachment' : attachment,
+          'attachmentType' : cipherNotiAttachmentType(attachmentType),
+
+          'dismissed' : dismissed,
+          'sendFCM' : sendFCM,
   };
 
   }
@@ -113,23 +122,112 @@ class NotiModel{
 
       _noti = NotiModel(
         id: map['id'],
-        subject: map['subject'],
-        timing: map['timing'],
-        Condition: map['Condition'],
+        name: map['name'],
+        sudo: map['sudo'],
+
+        senderID: map['senderID'],
+        pic: map['pic'],
+        picType: decipherNotiPicType(map['picType']),
+        title: map['notification.notification.title'],
         timeStamp: map['timeStamp'],
-        reciever: map['reciever'],
-        sender: map['sender'],
-        senderPicURL: map['senderPicURL'],
-        cityState: map['cityState'],
-        autoFire: map['autoFire'],
-        body: map['notification.body'],
-        title: map['notification.title'],
-        metaData: map['data'],
+        body: map['notification.notification.body'],
+        attachment: map['attachment'],
+        attachmentType: decipherNotiAttachmentType(map['attachmentType']),
+
+        dismissed: map['seen'],
+        sendFCM: map['sendFCM'],
+        metaData: map['notification.data'],
       );
     }
 
     return _noti;
   }
 // -----------------------------------------------------------------------------
+  static String cipherNotiPicType(NotiPicType sender){
+    switch (sender){
+      case NotiPicType.bldrs   : return 'bldrs'; break;
+      case NotiPicType.bz      : return 'bz'; break;
+      case NotiPicType.user    : return 'user'; break;
+      case NotiPicType.author  : return 'author'; break;
+      case NotiPicType.country    : return 'country'; break;
+      default: return 'bldrs';
+    }
+  }
+// -----------------------------------------------------------------------------
+  static NotiPicType decipherNotiPicType(String sender){
+    switch (sender){
+      case 'bldrs'    : return NotiPicType.bldrs; break;
+      case 'bz'       : return NotiPicType.bz   ; break;
+      case 'user'     : return NotiPicType.user ; break;
+      case 'author'   : return NotiPicType.author; break;
+      case 'country'     : return NotiPicType.country; break;
+      default: return NotiPicType.bldrs;
+    }
+  }
+// -----------------------------------------------------------------------------
+  static NotiAttachmentType decipherNotiAttachmentType(String attachmentType){
+    switch (attachmentType){
+      case 'non'  : return NotiAttachmentType.non; break;
+      case 'flyers' : return NotiAttachmentType.flyers; break;
+      case 'banner' : return NotiAttachmentType.banner; break;
+      case 'bz' : return NotiAttachmentType.bz; break;
+      default: return NotiAttachmentType.non;
+    }
+  }
+// -----------------------------------------------------------------------------
+  static String cipherNotiAttachmentType(NotiAttachmentType attachmentType){
+    switch (attachmentType){
+      case NotiAttachmentType.non : return 'non'; break;
+      case NotiAttachmentType.flyers : return 'flyers'; break;
+      case NotiAttachmentType.banner : return 'banner'; break;
+      case NotiAttachmentType.bz : return 'bz'; break;
+      default: return 'non';
+    }
+  }
+// -----------------------------------------------------------------------------
+//   static String cipherNotiReciever(NotiRecieverType reciever){
+//     switch (reciever){
+//       case NotiRecieverType.author : return 'author'; break;
+//       case NotiRecieverType.authors : return 'authors'; break;
+//       case NotiRecieverType.user : return 'user'; break;
+//       case NotiRecieverType.users : return 'users'; break;
+//       default: return 'user';
+//     }
+//   }
+// // -----------------------------------------------------------------------------
+//   static NotiRecieverType decipherNotiReciever(String reciever){
+//     switch (reciever){
+//       case 'author': return NotiRecieverType.author; break;
+//       case 'authors': return NotiRecieverType.authors; break;
+//       case 'user': return NotiRecieverType.user; break;
+//       case 'users': return NotiRecieverType.users; break;
+//       default: return NotiRecieverType.user;
+//     }
+//   }
+// // // -----------------------------------------------------------------------------
+//   static String cipherNotiSubject(NotiSubject notiSubject){
+//     switch(notiSubject){
+//       case NotiSubject.ad       : return 'ad'; break;
+//       case NotiSubject.welcome  : return 'welcome'; break;
+//       case NotiSubject.education: return 'education'; break;
+//       case NotiSubject.event    : return 'event'; break;
+//       case NotiSubject.newFlyer : return 'newFlyer'; break;
+//       case NotiSubject.reminder : return 'reminder'; break;
+//       default: return 'non';
+//     }
+//   }
+// // -----------------------------------------------------------------------------
+//   static NotiSubject decipherNotiSubject(String notiSubject){
+//     switch(notiSubject){
+//       case 'ad' : return NotiSubject.ad       ; break;
+//       case 'welcome' : return NotiSubject.welcome  ; break;
+//       case 'education' : return NotiSubject.education; break;
+//       case 'event' : return NotiSubject.event    ; break;
+//       case 'newFlyer' : return NotiSubject.newFlyer ; break;
+//       case 'reminder' : return NotiSubject.reminder ; break;
+//       default: return NotiSubject.non;
+//     }
+//   }
+// // -----------------------------------------------------------------------------
 
 }

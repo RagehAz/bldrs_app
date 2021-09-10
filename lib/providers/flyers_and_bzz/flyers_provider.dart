@@ -113,7 +113,7 @@ class FlyersProvider with ChangeNotifier {
     Map<String, dynamic> _sponsorsIDsMap = await Fire.readDoc(
       context: context,
       collName: FireCollection.admin,
-      docName: AdminDoc.sponsors,
+      docName: FireCollection.subAdminSponsors,
     );
 
     /// 2 - transform sponsors map into list<String>
