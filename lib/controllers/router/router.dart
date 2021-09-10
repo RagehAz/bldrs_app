@@ -2,7 +2,7 @@ import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/router/route_names.dart';
 import 'package:bldrs/views/screens/a_0_user_checker_widget.dart';
 import 'package:bldrs/views/screens/e_0_saved_flyers_screen.dart';
-import 'package:bldrs/views/screens/g_1_news_screen.dart';
+import 'package:bldrs/views/screens/g_1_notifications_screen.dart';
 import 'package:bldrs/views/screens/h_0_flyer_screen.dart';
 import 'package:bldrs/views/screens/a_2_starting_screen.dart';
 import 'package:bldrs/views/screens/c_0_search_screen.dart';
