@@ -1,4 +1,9 @@
+import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/models/bz/tiny_bz.dart';
+import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/models/notification/noti_model.dart';
+import 'package:bldrs/models/user/tiny_user.dart';
+import 'package:flutter/foundation.dart';
 
 // -----------------------------------------------------------------------------
 /// BLDRS.NET notifications classification
@@ -87,29 +92,43 @@ class BldrsNotiModelz {
     "status": notiStatus,
     "screen": "",
   };
+
+  static String _bldrsSenderID = 'bldrs';
 // -----------------------------------------------------------------------------
   static String _bldrsLogoURL = 'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/usersPics%2FrBjNU5WybKgJXaiBnlcBnfFaQSq1.jpg?alt=media&token=54a23d82-5642-4086-82b3-b4c1cb885b64';
-  static String _dummyBzLogoURL = 'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/bzLogos%2Far1.jpg?alt=media&token=f68673f8-409a-426a-9a80-f1026715c469';
-  static String _dummyUserPic = 'https://lh3.googleusercontent.com/a-/AOh14Gj3FAh76iQck0pD8EkRGraEP1OsElK8HysuToZp_A=s96-c';
+
+  static TinyBz _dummyTinyBz = TinyBz.dummyTinyBz('ar1');
+  static TinyFlyer _dummyTinyFlyer = TinyFlyer.dummyTinyFlyer('f001');
+  static TinyUser _dummyTinyUser = TinyUser.dummyTinyUser();
+  static TinyUser _dummyTinyAuthor = TinyUser.dummyTinyAuthor();
   // -----------------------------------------------------------------------------
   /// 1 - 28 days reminder
   static NotiModel buildSomething(){
     return
       NotiModel(
         id: 'n01',
-        subject: NotiSubject.reminder,
-        timing: 'when user did not sign in for 4 weeks - asPerDays : 9 pm',
-        Condition: 'last sign in timeStamp > 28 days',
-        timeStamp: DateTime.now(),
-        reciever: NotiReciever.user,
-        cityState: CityState.public,
+        name: 'buildSomething',
+        sudo:
+            'subject          :   NotiSubject.reminder'
+            'event trigger    :   when user did not sign in for 4 weeks'
+            'scheduled timing :   asPerDays : 9 pm'
+            'if statement     :   last sign in timeStamp > 28 days'
+            'cityState        :   CityState.public'
+            'reciever         :   NotiRecieverType.user',
+
+        senderID: _bldrsSenderID,
+        pic: _bldrsLogoURL,
+        picType: NotiPicType.bldrs,
         title: 'Build Something',
+        timeStamp: DateTime.now(),
         body: 'Bldrs.net',
+        attachment: null,
+        attachmentType: null,
+
+        dismissed: false,
+        sendFCM: true,
         metaData: notiDefaultMap,
-        autoFire: true,
-        senderPicURL: _bldrsLogoURL,
-        sender: NotiSender.bldrs,
-      );
+              );
   }
 // -----------------------------------------------------------------------------
   /// 2 - 35 days reminder
@@ -117,18 +136,27 @@ class BldrsNotiModelz {
     return
       NotiModel(
         id: 'n02',
-        subject: NotiSubject.reminder,
-        timing: 'when user did not sign in for a 5 weeks - asPerDays : 10 am',
-        Condition: 'last sign in timeStamp > 35 days',
-        timeStamp: DateTime.now(),
-        reciever: NotiReciever.user,
-        cityState: CityState.public,
+        name: 'createSomethingNew',
+        sudo:
+            'subject          :   NotiSubject.reminder'
+            'event trigger    :   when user did not sign in for a 5 weeks'
+            'scheduled timing :   asPerDays : 10 am'
+            'if statement     :   last sign in timeStamp > 35 days'
+            'cityState        :   CityState.public'
+            'reciever         :   NotiRecieverType.user,',
+
+        senderID: _bldrsSenderID,
+        pic: _bldrsLogoURL,
+        picType: NotiPicType.bldrs,
         title: 'Create Something new',
+        timeStamp: DateTime.now(),
         body: 'Bldrs.net',
+        attachment: null,
+        attachmentType: null,
+
+        dismissed: false,
+        sendFCM: true,
         metaData: notiDefaultMap,
-        autoFire: true,
-        senderPicURL: _bldrsLogoURL,
-        sender: NotiSender.bldrs,
       );
   }
 // -----------------------------------------------------------------------------
@@ -137,18 +165,27 @@ class BldrsNotiModelz {
     return
       NotiModel(
         id: 'n03',
-        subject: NotiSubject.reminder,
-        timing: 'when user did not sign in for  5 weeks - asPerDays : 10 am',
-        Condition: 'last sign in timeStamp > 35 days',
-        timeStamp: DateTime.now(),
-        reciever: NotiReciever.user,
-        cityState: CityState.public,
+        name: 'planYourFuture',
+        sudo:
+            'subject          :   NotiSubject.reminder,'
+            'event trigger    :   when user did not sign in for  6 weeks'
+            'scheduled timing :   asPerDays : 10 am'
+            'if statement     :   last sign in timeStamp > 42 days'
+            'cityState        :   CityState.public'
+            'reciever         :   NotiRecieverType.user,',
+
+        senderID: _bldrsSenderID,
+        pic: _bldrsLogoURL,
+        picType: NotiPicType.bldrs,
         title: 'Plan your future',
+        timeStamp: DateTime.now(),
         body: 'Collect as many flyers as you can NOW, so when you start, You are ready. 👌',
+        attachment: null,
+        attachmentType: null,
+
+        dismissed: false,
+        sendFCM: true,
         metaData: notiDefaultMap,
-        autoFire: true,
-        senderPicURL: _bldrsLogoURL,
-        sender: NotiSender.bldrs,
       );
   }
 // -----------------------------------------------------------------------------
@@ -157,18 +194,27 @@ class BldrsNotiModelz {
     return
       NotiModel(
         id: 'n04',
-        subject: NotiSubject.reminder,
-        timing: 'when user downloaded app but did not sign up aslan for 7 days - asPerDays : 10 am',
-        Condition: 'firebase user.id exists && UserModel does not exist && last signed in timeStamp > 7 days',
-        timeStamp: DateTime.now(),
-        reciever: NotiReciever.user,
-        cityState: CityState.public,
+        name: 'youDidNotSee',
+        sudo:
+            'subject          :   NotiSubject.reminder,'
+            'event trigger    :   when user downloaded app but did not sign up aslan for 7 days'
+            'scheduled timing :   asPerDays : 10 am'
+            'if statement     :   firebase user.id exists && UserModel does not exist && last signed in timeStamp > 7 days'
+            'cityState        :   CityState.public'
+            'reciever         :   NotiRecieverType.user',
+
+        senderID: _bldrsSenderID,
+        pic: _bldrsLogoURL,
+        picType: NotiPicType.bldrs,
         title: 'Come and See',
+        timeStamp: DateTime.now(),
         body: '👁️ You did not see what lies inside Bldrs.net',
+        attachment: null,
+        attachmentType: null,
+
+        dismissed: false,
+        sendFCM: true,
         metaData: notiDefaultMap,
-        autoFire: true,
-        senderPicURL: _bldrsLogoURL,
-        sender: NotiSender.bldrs,
       );
   }
 // -----------------------------------------------------------------------------
@@ -177,38 +223,59 @@ class BldrsNotiModelz {
     return
       NotiModel(
         id: 'n05',
-        subject: NotiSubject.reminder,
-        timing: 'when user downloaded app but did not sign up aslan for 7 days - asPerDays : 10 am',
-        Condition: 'firebase user.id exists && UserModel does not exist && last signed in timeStamp > 7 days',
-        timeStamp: DateTime.now(),
-        reciever: NotiReciever.user,
-        cityState: CityState.public,
+        name: 'rememberYourOptions',
+        sudo:
+            'subject          :   NotiSubject.reminder,'
+            'event trigger    :   when user downloaded app but did not sign up aslan for 14 days'
+            'scheduled timing :   asPerDays : 10 am'
+            'if statement     :   firebase user.id exists && UserModel does not exist && last signed in timeStamp > 14 days'
+            'cityState        :   CityState.public'
+            'reciever         :   NotiRecieverType.user',
+
+        senderID: _bldrsSenderID,
+        pic: _bldrsLogoURL,
+        picType: NotiPicType.bldrs,
         title: 'Consider your Options',
+        timeStamp: DateTime.now(),
         body: '🔺 Bldrs.net is your RealEstate, Construction & Supplies search engine.',
+        attachment: null,
+        attachmentType: null,
+
+        dismissed: false,
+        sendFCM: true,
         metaData: notiDefaultMap,
-        autoFire: true,
-        senderPicURL: _bldrsLogoURL,
-        sender: NotiSender.bldrs,
       );
   }
 // -----------------------------------------------------------------------------
   /// 6 - city went public
   static NotiModel cityWentPublic(){
+
+    String _iso3 = 'usa';
+
     return
       NotiModel(
         id: 'n06',
-        subject: NotiSubject.event,
-        timing: 'when city goes public - asPerDay : 7:00 pm',
-        Condition: 'user.zone.city == this city & cityIsPublic = true after it was false',
-        timeStamp: DateTime.now(),
-        reciever: NotiReciever.users,
-        cityState: CityState.public,
+        name: 'cityWentPublic',
+        sudo:
+            'subject          :   NotiSubject.event,'
+            'event trigger    :   when city goes public'
+            'scheduled timing :   asPerDay : 7:00 pm'
+            'if statement     :   user.zone.city == this city & cityIsPublic = true after it was false'
+            'cityState        :   CityState.public'
+            'reciever         :   NotiRecieverType.users',
+
+        senderID: _bldrsSenderID,
+        pic: _iso3,
+        picType: NotiPicType.country,
         title: '{cityName} Builders went public.',
+        timeStamp: DateTime.now(),
         body: '📢 Bldrs businesses have been posting for some time, and now all their work is LIVE !',
+        attachment: null,
+        attachmentType: null,
+
+        dismissed: false,
+        sendFCM: true,
         metaData: notiDefaultMap,
-        autoFire: true,
-        senderPicURL: _bldrsLogoURL,
-        sender: NotiSender.bldrs,
       );
   }
 // -----------------------------------------------------------------------------
@@ -217,43 +284,60 @@ class BldrsNotiModelz {
     return
       NotiModel(
         id: 'n07',
-        subject: NotiSubject.event,
-        timing: 'after user posts opinion feedback with 24 hours - asPerDay : 10:00 am',
-        Condition: 'feedback.time.sinceThen == 24 hours',
-        timeStamp: DateTime.now(),
-        reciever: NotiReciever.user,
-        cityState: CityState.any,
+        name: 'feedbackAutoReply',
+        sudo:
+            'subject          :   NotiSubject.event,'
+            'event trigger    :   after user posts opinion feedback with 24 hours'
+            'scheduled timing :   asPerDay : 10:00 am'
+            'if statement     :   feedback.time.sinceThen == 24 hours'
+            'cityState        :   CityState.any'
+            'reciever         :   NotiRecieverType.user',
+
+        senderID: _bldrsSenderID,
+        pic: _bldrsLogoURL,
+        picType: NotiPicType.bldrs,
         title: 'Thank you',
+        timeStamp: DateTime.now(),
         body: 'Thank you for taking part in building Bldrs.net, Your feedback is currently being reviewed.',
+        attachment: null,
+        attachmentType: null,
+
+        dismissed: false,
+        sendFCM: true,
         metaData: notiDefaultMap,
-        autoFire: true,
-        senderPicURL: _bldrsLogoURL,
-        sender: NotiSender.bldrs,
       );
   }
 // -----------------------------------------------------------------------------
   /// 8 - feedback bldrs reply
   static NotiModel bldrsFeedbackReply(){
 
-    String _dayHour = 'manual';
     String _title = '';
     String _body = '';
 
     return
       NotiModel(
         id: 'n08',
-        subject: NotiSubject.event,
-        timing: 'when bldrs.net replies over customer feedback - $_dayHour',
-        Condition: 'if bldrs.net admin decides to reply',
-        timeStamp: DateTime.now(),
-        reciever: NotiReciever.user,
-        cityState: CityState.any,
+        name: 'bldrsFeedbackReply',
+        sudo:
+            'subject          :   NotiSubject.event,'
+            'event trigger    :   when bldrs.net replies over customer feedback'
+            'scheduled timing :   on time'
+            'if statement     :   if bldrs.net admin decides to reply'
+            'cityState        :   CityState.any'
+            'reciever         :   NotiRecieverType.user,',
+
+        senderID: _bldrsSenderID,
+        pic: _bldrsLogoURL,
+        picType: NotiPicType.bldrs,
         title: _title,
+        timeStamp: DateTime.now(),
         body: _body,
+        attachment: null,
+        attachmentType: null,
+
+        dismissed: false,
+        sendFCM: true,
         metaData: notiDefaultMap,
-        autoFire: false,
-        senderPicURL: _bldrsLogoURL,
-        sender: NotiSender.bldrs,
       );
   }
 // -----------------------------------------------------------------------------
@@ -262,18 +346,27 @@ class BldrsNotiModelz {
     return
       NotiModel(
         id: 'n09',
-        subject: NotiSubject.reminder,
-        timing: 'when user did not assign userStatus for 2 days - asPerDay : 2:00 pm',
-        Condition: 'if userModel.userStatus == null,, or not assigned',
-        timeStamp: DateTime.now(),
-        reciever: NotiReciever.user,
-        cityState: CityState.any,
+        name: 'chooseYourCustomerStatus',
+        sudo:
+            'subject          :   NotiSubject.reminder,'
+            'event trigger    :   when user did not assign userStatus for 2 days'
+            'scheduled timing :   asPerDay : 2:00 pm'
+            'if statement     :   if userModel.userStatus == null,, or not assigned'
+            'cityState        :   CityState.any'
+            'reciever         :   NotiRecieverType.user',
+
+        senderID: _bldrsSenderID,
+        pic: _bldrsLogoURL,
+        picType: NotiPicType.bldrs,
         title: 'The Easy way',
+        timeStamp: DateTime.now(),
         body: 'Builders will assist find your specific needs, just assign your profile status 👌',
+        attachment: null,
+        attachmentType: null,
+
+        dismissed: false,
+        sendFCM: true,
         metaData: notiDefaultMap,
-        autoFire: true,
-        senderPicURL: _bldrsLogoURL,
-        sender: NotiSender.bldrs,
       );
   }
 // -----------------------------------------------------------------------------
@@ -282,341 +375,521 @@ class BldrsNotiModelz {
     return
       NotiModel(
         id: 'n10',
-        subject: NotiSubject.ad,
-        timing: 'every month - first day in the month : 10:00 am',
-        Condition: 'no condition',
-        timeStamp: DateTime.now(),
-        reciever: NotiReciever.users,
-        cityState: CityState.public,
+        name: 'monthlyStatistics',
+        sudo:
+            'subject          :   NotiSubject.ad,'
+            'event trigger    :   every month'
+            'scheduled timing :   first day in the month : 10:00 am'
+            'if statement     :   no condition'
+            'cityState        :   CityState.public'
+            'reciever         :   NotiRecieverType.users',
+
+        senderID: _bldrsSenderID,
+        pic: _bldrsLogoURL,
+        picType: NotiPicType.bldrs,
         title: 'The Community is Growing',
+        timeStamp: DateTime.now(),
         body: '{xx} new businesses had joined and {xx} new flyers were published on Bldrs.net Last month',
+        attachment: null,
+        attachmentType: null,
+
+        dismissed: false,
+        sendFCM: true,
         metaData: notiDefaultMap,
-        autoFire: true,
-        senderPicURL: _bldrsLogoURL,
-        sender: NotiSender.bldrs,
       );
   }
 // -----------------------------------------------------------------------------
   /// 11 - new flyer by followed non free bz account (premium - super)
-  static NotiModel newFlyerByFollowedPremiumBz(){
+  static NotiModel newPublishedFlyer({@required TinyBz tinyBz, @required TinyFlyer tinyFlyer}){
+
+    // String _flyerType = TextGenerator.flyerTypeSingleStringer(context, flyerType);
+
     return
       NotiModel(
         id: 'n11',
-        subject: NotiSubject.event,
-        timing: 'when followed premium bz adds new flyers - asPerDay : asPerHour',
-        Condition: 'bz.followers.include(userID)',
-        timeStamp: DateTime.now(),
-        reciever: NotiReciever.users,
-        cityState: CityState.public,
+        name: 'newFlyerByFollowedPremiumBz',
+        sudo:
+            'subject          :   NotiSubject.event,'
+            'event trigger    :   when followed premium bz adds new flyers'
+            'scheduled timing :   asPerDay : asPerHour'
+            'if statement     :   bz.followers.include(userID)'
+            'cityState        :   CityState.public'
+            'reciever         :   NotiRecieverType.users',
+
+        senderID: tinyBz.bzID,
+        pic: tinyBz.bzLogo,
+        picType: NotiPicType.bz,
         title: 'New flyer',
-        body: '{bzName} published a new flyer {data about flyer}',
+        timeStamp: DateTime.now(),
+        body: '${tinyBz.bzName} published a new ${tinyFlyer.flyerType.toString()}flyer', // TASK : fix this flyer type localized in notification
+        attachment: tinyFlyer.flyerID,
+        attachmentType: NotiAttachmentType.flyers,
+
+        dismissed: false,
+        sendFCM: true,
         metaData: notiDefaultMap,
-        autoFire: true,
-        sender: NotiSender.bz,
-        senderPicURL: _dummyBzLogoURL,
       );
   }
 // -----------------------------------------------------------------------------
   /// 12 - flyer review reply
-  static NotiModel flyerReviewReply(){
+  static NotiModel flyerReviewReply({@required TinyBz tinyBz, @required String reviewBody}){
     return
       NotiModel(
         id: 'n12',
-        subject: NotiSubject.event,
-        timing: 'when author replies on user review - asPerDay : asPerTime',
-        Condition: 'if reviewModel.authorReplied turns true',
+        name: 'flyerReviewReply',
+        sudo:
+            'subject          :   NotiSubject.event,'
+            'event trigger    :   when author replies on user review'
+            'scheduled timing :   asPerDay : asPerTime'
+            'if statement     :   if reviewModel.authorReplied turns true'
+            'cityState        :   CityState.public'
+            'reciever         :   NotiRecieverType.user',
+
+        senderID: tinyBz.bzID,
+        pic: tinyBz.bzLogo,
+        picType: NotiPicType.bz,
+        title: '${tinyBz.bzName} has replied on your review',
         timeStamp: DateTime.now(),
-        reciever: NotiReciever.user,
-        cityState: CityState.public,
-        title: '{Author name} has replied on your review',
-        body: '{review.body}',
+        body: reviewBody,
+        attachment: null,
+        attachmentType: null,
+
+        dismissed: false,
+        sendFCM: true,
         metaData: notiDefaultMap,
-        autoFire: true,
-        sender: NotiSender.bz,
-        senderPicURL: _dummyBzLogoURL,
       );
   }
 // -----------------------------------------------------------------------------
   /// 13 - flyerReview
-  static NotiModel flyerReviewed(){
+  static NotiModel flyerReviewed({@required TinyUser tinyUser, @required String reviewBody}){
     return
       NotiModel(
         id: 'n13',
-        subject: NotiSubject.event,
-        timing: 'when user posts flyer review - asPerDay : asPerTime',
-        Condition: 'on review doc created && bz.AuthorsIDs.include(userID)',
+        name: 'flyerReviewed',
+        sudo:
+            'subject          : NotiSubject.event,'
+            'event trigger    :   when user posts flyer review'
+            'scheduled timing :   asPerDay : asPerTime'
+            'if statement     :   on review doc created && bz.AuthorsIDs.include(userID)'
+            'cityState        :   CityState.public'
+            'reciever         : NotiRecieverType.authors',
+
+        senderID: tinyUser.userID,
+        pic: tinyUser.pic,
+        picType: NotiPicType.user,
+        title: '${tinyUser.name} wrote a review on your flyer',
         timeStamp: DateTime.now(),
-        reciever: NotiReciever.authors,
-        cityState: CityState.public,
-        title: '{userName} wrote a review on you flyer',
-        body: '{review body}',
+        body: reviewBody,
+        attachment: null,
+        attachmentType: null,
+
+        dismissed: false,
+        sendFCM: true,
         metaData: notiDefaultMap,
-        autoFire: true,
-        sender: NotiSender.user,
-        senderPicURL: _dummyUserPic,
       );
   }
 // -----------------------------------------------------------------------------
   /// 14 - flyer Saved
-  static NotiModel flyerSaved(){
+  static NotiModel flyerSaved({@required TinyUser tinyUser, @required String flyerID}){
     return
       NotiModel(
         id: 'n14',
-        subject: NotiSubject.event,
-        timing: 'when a user saves a flyer - asPerDay : asPerTime',
-        Condition: 'send to all bz authors',
+        name: 'flyerSaved',
+        sudo:
+            'subject          :   NotiSubject.event,'
+            'event trigger    :   when a user saves a flyer'
+            'scheduled timing :   asPerDay : asPerTime'
+            'if statement     :   send to all bz authors'
+            'cityState        :   CityState.public'
+            'reciever         :   NotiRecieverType.authors',
+
+        senderID: tinyUser.userID,
+        pic: tinyUser.pic,
+        picType: NotiPicType.user,
+        title: '${tinyUser.name} saved your flyer',
         timeStamp: DateTime.now(),
-        reciever: NotiReciever.authors,
-        cityState: CityState.public,
-        title: '{userName} saved your flyer',
-        body: '{flyerTitle} , blah',
+        body: null,
+        attachment: flyerID,
+        attachmentType: NotiAttachmentType.flyers,
+
+        dismissed: false,
+        sendFCM: true,
         metaData: notiDefaultMap,
-        autoFire: true,
-        sender: NotiSender.user,
-        senderPicURL: _dummyUserPic,
       );
   }
 // -----------------------------------------------------------------------------
   /// 14 - flyer Shared
-  static NotiModel flyerShared(){
+  static NotiModel flyerShared({@required TinyUser tinyUser, @required String flyerID}){
     return
       NotiModel(
         id: 'n15',
-        subject: NotiSubject.event,
-        timing: 'when a user shares a flyer - asPerDay : asPerTime',
-        Condition: 'send to all bz authors',
+        name: 'flyerShared',
+        sudo:
+            'subject          :   NotiSubject.event,'
+            'event trigger    :   when a user shares a flyer'
+            'scheduled timing :   asPerDay : asPerTime'
+            'if statement     :   send to all bz authors'
+            'cityState        :   CityState.public'
+            'reciever         :   NotiRecieverType.authors',
+
+        senderID: tinyUser.userID,
+        pic: tinyUser.pic,
+        picType: NotiPicType.user,
+        title: '${tinyUser.name} shared your flyer',
         timeStamp: DateTime.now(),
-        reciever: NotiReciever.authors,
-        cityState: CityState.public,
-        title: '{userName} shared your flyer',
-        body: '{flyerTitle} , blah',
+        body: null,
+        attachment: flyerID,
+        attachmentType: NotiAttachmentType.flyers,
+
+        dismissed: false,
+        sendFCM: true,
         metaData: notiDefaultMap,
-        autoFire: true,
-        sender: NotiSender.user,
-        senderPicURL: _dummyUserPic,
+
       );
   }
 // -----------------------------------------------------------------------------
   /// 14 - user follow
-  static NotiModel userFollowed(){
+  static NotiModel userFollowed({@required TinyUser tinyUser}){
     return
       NotiModel(
         id: 'n16',
-        subject: NotiSubject.event,
-        timing: 'when a user follows bz - asPerDay : asPerTime',
-        Condition: 'send to all bz authors',
+        name: 'userFollowed',
+        sudo:
+            'subject          :   NotiSubject.event,'
+            'event trigger    :   when a user follows bz'
+            'scheduled timing :   asPerDay : asPerTime'
+            'if statement     :   send to all bz authors'
+            'cityState        :   CityState.public'
+            'reciever         :   NotiRecieverType.authors',
+
+        senderID: tinyUser.userID,
+        pic: tinyUser.pic,
+        picType: NotiPicType.user,
+        title: '${tinyUser.name} followed your business page',
         timeStamp: DateTime.now(),
-        reciever: NotiReciever.authors,
-        cityState: CityState.public,
-        title: '{userName} followed your {bzName}',
-        body: 'He/She will be updated with you activity',
+        body: '${tinyUser.name} will be updated with you activity',
+        attachment: null,
+        attachmentType: null,
+
+        dismissed: false,
+        sendFCM: true,
         metaData: notiDefaultMap,
-        autoFire: true,
-        sender: NotiSender.user,
-        senderPicURL: _dummyUserPic,
       );
   }
 // -----------------------------------------------------------------------------
   /// 15 - weekly bz statistics
-  static NotiModel weeklyBzStatistics(){
+  static NotiModel weeklyBzStatistics({@required int views, @required int saves, @required int shares, @required int reviews, @required int calls}){
     return
       NotiModel(
         id: 'n17',
-        subject: NotiSubject.ad,
-        timing: 'every week - Monday : 10:00 am',
-        Condition: 'send to all bz authors',
-        timeStamp: DateTime.now(),
-        reciever: NotiReciever.authors,
-        cityState: CityState.any,
+        name: 'weeklyBzStatistics',
+        sudo:
+            'subject          :   NotiSubject.ad,'
+            'event trigger    :   every week'
+            'scheduled timing :   Monday : 10:00 am'
+            'if statement     :   send to all bz authors'
+            'cityState        :   CityState.any'
+            'reciever         :   NotiRecieverType.authors',
+
+        senderID: _bldrsSenderID,
+        pic: _bldrsLogoURL,
+        picType: NotiPicType.bldrs,
         title: 'Your weekly stats',
-        body: '{xx} users viewed your flyers last week, getting {xx} saves, {xx} reviews and {xx} calls',
+        timeStamp: DateTime.now(),
+        body: '$views users viewed your flyers last week, getting $saves saves, $shares shares, $reviews reviews and $calls phone calls',
+        attachment: null,
+        attachmentType: null,
+
+        dismissed: false,
+        sendFCM: true,
         metaData: notiDefaultMap,
-        autoFire: true,
-        sender: NotiSender.bldrs,
-        senderPicURL: _bldrsLogoURL,
       );
   }
 // -----------------------------------------------------------------------------
   /// 16 - authorInvitation
-  static NotiModel authorInvitation(){
+  static NotiModel authorInvitation({@required TinyUser tinyAuthor, @required TinyBz tinyBz}){
     return
       NotiModel(
         id: 'n18',
-        subject: NotiSubject.event,
-        timing: 'when author sends author invitation to a user - asPerDate : asPerTime',
-        Condition: '',
+        name: 'authorInvitation',
+        sudo:
+            'subject          :   NotiSubject.event,'
+            'event trigger    :   when author sends author invitation to a user'
+            'scheduled timing :   asPerDate : asPerTime'
+            'if statement     :   ... will see ' /// TASK : Develop author invitation thing
+            'cityState        :   CityState.any'
+            'reciever         :   NotiRecieverType.user',
+
+        senderID: tinyAuthor.userID,
+        pic: tinyBz.bzLogo,
+        picType: NotiPicType.author,
         timeStamp: DateTime.now(),
-        reciever: NotiReciever.user,
-        cityState: CityState.any,
-        title: '{authorName} invites you',
-        body: 'You are invited to become an author of the Bldr account : {bzName}',
+        title: '${tinyAuthor.name} invites you',
+        body: 'You are invited to become an author of the Bldr account : ${tinyBz.bzName}',
+        attachment: tinyBz.bzLogo,
+        attachmentType: NotiAttachmentType.bz,
+
+        dismissed: false,
+        sendFCM: true,
         metaData: notiDefaultMap,
-        autoFire: true,
-        sender: NotiSender.bz,
-        senderPicURL: _dummyBzLogoURL,
       );
   }
 // -----------------------------------------------------------------------------
   /// 17 - author Invitation reply
-  static NotiModel authorInvitationReply(){
+  static NotiModel authorInvitationReply({@required TinyUser tinyUser, @required bool invitationAccepted}){
 
-    String _reply = 'accepted / rejected';
+    String _reply = invitationAccepted == true ? 'accepted' : 'rejected';
 
     return
       NotiModel(
         id: 'n19',
-        subject: NotiSubject.event,
-        timing: 'when user replies on author invitation - asPerDate : asPerTime',
-        Condition: ' for all bz authors to know ',
+        name: 'authorInvitationReply',
+        sudo:
+            'subject          :   NotiSubject.event,'
+            'event trigger    :   when user replies on author invitation'
+            'scheduled timing :   asPerDate : asPerTime'
+            'if statement     :   for all bz authors to know ' /// TASK : Develop author invitation thing
+            'cityState        :   CityState.any'
+            'reciever         :   NotiRecieverType.authors',
+
+        senderID: tinyUser.userID,
+        pic: tinyUser.pic,
+        picType: NotiPicType.user,
+        title: '${tinyUser.name} Replied on his author invitation',
         timeStamp: DateTime.now(),
-        reciever: NotiReciever.authors,
-        cityState: CityState.any,
-        title: '{userName} Replied on his invitation',
         body: 'Invitation has been $_reply.',
+        attachment: null,
+        attachmentType: null,
+
+        dismissed: false,
+        sendFCM: true,
         metaData: notiDefaultMap,
-        autoFire: true,
-        sender: NotiSender.user,
-        senderPicURL: _dummyUserPic,
       );
   }
 // -----------------------------------------------------------------------------
   /// 18 - authorInvitation
-  static NotiModel authorInvitationCC(){
+  static NotiModel authorInvitationCC({@required TinyUser sender, @required TinyUser reciever, @required TinyBz tinyBz}){
     return
       NotiModel(
         id: 'n20',
-        subject: NotiSubject.event,
-        timing: 'when author sends author invitation to a user - asPerDate : asPerTime',
-        Condition: 'for all authors in the team except the invitation sender',
+        name: 'authorInvitationCC',
+        sudo:
+            'subject          : NotiSubject.event,'
+            'event trigger    :   when author sends author invitation to a user'
+            'scheduled timing :   asPerDate : asPerTime'
+            'if statement     :   for all authors in the team except the invitation sender'
+            'cityState        :   CityState.any'
+            'reciever         : NotiRecieverType.authors',
+
+        senderID: sender.userID,
+        pic: sender.pic,
+        picType: NotiPicType.author,
+        title: '${sender.name} invited ${reciever.name}',
         timeStamp: DateTime.now(),
-        reciever: NotiReciever.authors,
-        cityState: CityState.any,
-        title: '{authorName} invited {userName}',
-        body: 'An invitation has been sent for {userName} to join the team of {bzName}',
+        body: 'An invitation has been sent for ${reciever.name} to join the team of ${tinyBz.bzName}',
+        attachment: null,
+        attachmentType: null,
+
+        sendFCM: true,
+        dismissed: false,
         metaData: notiDefaultMap,
-        autoFire: true,
-        sender: NotiSender.bz,
-        senderPicURL: _dummyBzLogoURL,
       );
   }
 // -----------------------------------------------------------------------------
   /// 19 - country went global
-  static NotiModel countryWentGlobal(){
+  static NotiModel countryWentGlobal({@required String iso3, @required String countryName}){
+
     return
       NotiModel(
         id: 'n21',
-        subject: NotiSubject.event,
-        timing: 'when a county goes global - Saturday : 9:00 pm',
-        Condition: 'country.isGlobal turns true -- all people in the world receive this',
+        name: 'countryWentGlobal',
+        sudo:
+            'subject          : NotiSubject.event,'
+            'event trigger    :   when a county goes global'
+            'scheduled timing :   Saturday : 9:00 pm'
+            'if statement     :   country.isGlobal turns true -- all people in the world receive this'
+            'cityState        :   CityState.any'
+            'reciever         : NotiRecieverType.users',
+
+        senderID: _bldrsSenderID,
+        picType: NotiPicType.country,
+        pic: iso3,
+        title: '${countryName} Builders are Global',
         timeStamp: DateTime.now(),
-        reciever: NotiReciever.users,
-        cityState: CityState.any,
-        title: '{countryName} Builders are Global',
-        body: '{countryFlag} All {countryName} Business and their flyers are now available world wide to reach',
+        body: '${countryName} Business and their flyers are now available world wide to reach',
+        attachment: null,
+        attachmentType: null,
+
+        dismissed: false,
+        sendFCM: true,
         metaData: notiDefaultMap,
-        autoFire: true,
-        sender: NotiSender.bldrs,
-        senderPicURL: _bldrsLogoURL,
       );
   }
 // -----------------------------------------------------------------------------
   /// 20 - section went live
-  static NotiModel sectionWentLive(){
+  static NotiModel sectionWentLive({@required String sectionName}){
     return
       NotiModel(
         id: 'n22',
-        subject: NotiSubject.event,
-        timing: 'when a section goes live - Monday : 8 pm',
-        Condition: 'section.isLive turns true',
+        name: 'sectionWentLive',
+        sudo:
+            'subject          :   NotiSubject.event,'
+            'event trigger    :   when a section goes live'
+            'scheduled timing :   Monday : 8 pm'
+            'if statement     :   section.isLive turns true'
+            'cityState        :   CityState.any'
+            'reciever         :   NotiRecieverType.users',
+
+        senderID: _bldrsSenderID,
+        pic: _bldrsLogoURL,
+        picType: NotiPicType.bldrs,
+        title: 'Section ${sectionName} is now available',
         timeStamp: DateTime.now(),
-        reciever: NotiReciever.users,
-        cityState: CityState.any,
-        title: 'Section {sectionName} is now available',
-        body: 'You can now view the businesses publishing flyers in section {sectionName}',
+        body: 'You can now view the businesses publishing flyers in section ${sectionName}',
+        attachment: null,
+        attachmentType: null,
+
+        dismissed: false,
+        sendFCM: true,
         metaData: notiDefaultMap,
-        autoFire: true,
-        sender: NotiSender.bldrs,
-        senderPicURL: _bldrsLogoURL,
       );
   }
 // -----------------------------------------------------------------------------
   /// 21 - monthly bz statistics
-  static NotiModel monthlyBzStatistics(){
+  static NotiModel monthlyBzStatistics({@required TinyBz tinyBz, @required String monthName, @required int followers, @required int calls, @required int saves, @required int views, @required int shares, @required int competitors,}){
     return
       NotiModel(
         id: 'n23',
-        subject: NotiSubject.ad,
-        timing: 'every week - Monday : 10:00 am',
-        Condition: 'send to all bz authors',
+        name: 'monthlyBzStatistics',
+        sudo:
+            'subject          :   NotiSubject.ad,'
+            'event trigger    :   every week'
+            'scheduled timing :   Monday : 10:00 am'
+            'if statement     :   send to all bz authors'
+            'cityState        :   CityState.any'
+            'reciever         :   NotiRecieverType.authors',
+
+        senderID: _bldrsSenderID,
+        pic: _bldrsLogoURL,
+        picType: NotiPicType.bldrs,
+        title: '${tinyBz.bzName} statistics for $monthName',
         timeStamp: DateTime.now(),
-        reciever: NotiReciever.authors,
-        cityState: CityState.any,
-        title: 'Your monthly stats',
-        body: ' ?? followers , calls, saves, views, shares, competitors in keywords, a77a',
+        body: 'on $monthName you have got $followers followers, $calls calls, $saves saves, $views views, $shares shares while $competitors new businesses specialized in ${tinyBz.bzType.toString()} have joined Bldrs.net this month',
+        attachment: null,
+        attachmentType: null,
+
+        sendFCM: true,
+        dismissed: false,
         metaData: notiDefaultMap,
-        autoFire: true,
-        sender: NotiSender.bldrs,
-        senderPicURL: _bldrsLogoURL,
       );
   }
 // -----------------------------------------------------------------------------
   /// 22 - potential customer to bzz
-  static NotiModel potentialCustomerQuestion(){
+  static NotiModel potentialCustomerQuestion({@required TinyUser tinyUser, @required String keyword, @required String cityName, @required String district}){
     return
       NotiModel(
         id: 'n24',
-        subject: NotiSubject.event,
-        timing: 'when user ask a question related to a specific keyword topic - asPerDay : asPerHour',
-        Condition: 'bz is subscribed to a keyword topic in questions',
-        timeStamp: DateTime.now(),
-        reciever: NotiReciever.authors,
-        cityState: CityState.any,
+        name: 'potentialCustomerQuestion',
+        sudo:
+            'subject          :   NotiSubject.event,'
+            'event trigger    :   when user ask a question related to a specific keyword topic'
+            'scheduled timing :   asPerDay : asPerHour'
+            'if statement     :   bz is subscribed to a keyword topic in questions'
+            'cityState        :   CityState.any'
+            'reciever         :   NotiRecieverType.authors',
+
+        senderID: tinyUser.userID,
+        pic: tinyUser.pic,
+        picType: NotiPicType.user,
         title: 'Potential customer',
-        body: '{userName} asked a public question about {keyword} in {cityName - districtName}',
+        timeStamp: DateTime.now(),
+        body: '${tinyUser.name} asked a public question about ${keyword} in $district, $cityName',
+        attachment: null,
+        attachmentType: null,
+
+        dismissed: false,
+        sendFCM: true,
         metaData: notiDefaultMap,
-        autoFire: true,
-        sender: NotiSender.bldrs,
-        senderPicURL: _bldrsLogoURL,
       );
   }
 // -----------------------------------------------------------------------------
   /// 23 - question reply
-  static NotiModel questionReply(){
+  static NotiModel questionReply({@required TinyBz tinyBz, @required String reply}){
     return
       NotiModel(
         id: 'n25',
-        subject: NotiSubject.event,
-        timing: 'when an author answers a question by user - asPerDay : asPerHour',
-        Condition: 'use has a question + new reply in question replies sub doc',
-        timeStamp: DateTime.now(),
-        reciever: NotiReciever.user,
-        cityState: CityState.any,
+        name: 'questionReply',
+        sudo:
+            'subject          :   NotiSubject.event,'
+            'event trigger    :   when an author answers a question by user'
+            'scheduled timing :   asPerDay : asPerHour'
+            'if statement     :   user has a question + new reply in question replies sub doc'
+            'cityState        :   CityState.any'
+            'reciever         :   NotiRecieverType.user',
+
+        senderID: tinyBz.bzID,
+        pic: tinyBz.bzID,
+        picType: NotiPicType.bz,
         title: 'You received an answer',
-        body: '{bzName} replied to your question : {questionReply}',
+        timeStamp: DateTime.now(),
+        body: '${tinyBz.bzName} replied to your question :\n$reply',
+        attachment: null,
+        attachmentType: null,
+
+        dismissed: false,
+        sendFCM: true,
         metaData: notiDefaultMap,
-        autoFire: true,
-        sender: NotiSender.bz,
-        senderPicURL: _dummyBzLogoURL,
+      );
+  }
+// -----------------------------------------------------------------------------
+  /// 24 - welcome to bldrs
+  static NotiModel welcomeToBldrs(){
+    return
+      NotiModel(
+        id: 'n26',
+        name: 'welcomeToBldrs',
+        sudo:
+            'subject          :   NotiSubject.welcome,'
+            'event trigger    :   when new user joins bldrs.net'
+            'scheduled timing :   asPerDay : asPerHour'
+            'if statement     :   on new firebase user created'
+            'cityState        :   CityState.any'
+            'reciever         :   NotiRecieverType.user',
+
+        senderID: _bldrsSenderID,
+        title: 'Welcome to Bldrs.net',
+        pic: _bldrsLogoURL,
+        picType: NotiPicType.bldrs,
+        timeStamp: DateTime.now(),
+        body: 'Find thousands of businesses to help you find and build what you want to build',
+        attachment: Iconz.WelcomeToBldrsBanner_22x18,
+        attachmentType: NotiAttachmentType.banner,
+
+        dismissed: false,
+        sendFCM: true,
+        metaData: notiDefaultMap,
       );
   }
 // -----------------------------------------------------------------------------
 //   /// X -
 //   static NotiModel xxx(){
 //     return
-//       NotiModel(
-//         reason: NotiReason.,
-//         timing: '',
-//         Condition: '',
-//         dayHour: "",
-//         reciever: NotiReciever.,
-//         cityState: CityState.,
-//         notiContent: NotiContent(
-//           title: '',
-//           body: '',
-//         ),
-//         metaData: notiDefaultMap,
-//         autoFire: true,
-//       );
+//   NotiModel(
+//   reason: NotiReason.,
+//   timing: '',
+//   Condition: '',
+//   reciever: NotiReciever.,
+//   cityState: CityState.,
+//   title: '',
+//   body: '',
+//   metaData: notiDefaultMap,
+//
+//
+//   senderPicURL: ,
+//   sender: ,
+//   id: ,
+//   subject: ,
+//   );
 //   }
 // -----------------------------------------------------------------------------
   ///
@@ -624,22 +897,61 @@ class BldrsNotiModelz {
   static List<NotiModel> allNotifications(){
     return <NotiModel>[
       ///
+      welcomeToBldrs(),
       // AUTO NOTIFICATIONS
       /// ============================
       ///   o - to USERS
       cityWentPublic(),
       monthlyStatistics(),
-      newFlyerByFollowedPremiumBz(),
+      newPublishedFlyer(
+        tinyBz: _dummyTinyBz,
+        tinyFlyer: _dummyTinyFlyer
+      ),
 
       ///   o - to AUTHORS
-      flyerSaved(),
-      flyerReviewed(),
-      flyerShared(),
-      userFollowed(),
-      weeklyBzStatistics(),
-      monthlyBzStatistics(),
-      authorInvitationCC(),
-      potentialCustomerQuestion(),
+      flyerSaved(
+        flyerID: _dummyTinyFlyer.flyerID,
+        tinyUser: _dummyTinyUser,
+      ),
+      flyerReviewed(
+        tinyUser: _dummyTinyUser,
+        reviewBody: 'This is a dummy review on the flyer'
+      ),
+      flyerShared(
+        tinyUser: _dummyTinyUser,
+        flyerID: _dummyTinyFlyer.flyerID,
+      ),
+      userFollowed(
+        tinyUser: _dummyTinyUser,
+      ),
+      weeklyBzStatistics(
+        calls: 777,
+        reviews: 888,
+        saves: 999,
+        shares: 1010,
+        views: 2222,
+      ),
+      monthlyBzStatistics(
+        views: 11111,
+        shares: 22212,
+        saves: 1245,
+        calls: 1254,
+        followers: 6666,
+        tinyBz: _dummyTinyBz,
+        competitors: 45,
+        monthName: 'November',
+      ),
+      authorInvitationCC(
+        tinyBz: _dummyTinyBz,
+        sender: _dummyTinyAuthor,
+        reciever: _dummyTinyUser,
+      ),
+      potentialCustomerQuestion(
+        keyword: 'dummyKeyword',
+        tinyUser: _dummyTinyUser,
+        cityName: 'El Suiz',
+        district: 'ElMa3moura',
+      ),
 
       ///   o - to USER
       buildSomething(),
@@ -652,16 +964,33 @@ class BldrsNotiModelz {
       rememberYourOptions(),
 
       chooseYourCustomerStatus(),
-      flyerReviewReply(),
-      authorInvitation(),
+      flyerReviewReply(
+        reviewBody: 'This is a dummy review',
+        tinyBz: _dummyTinyBz,
+      ),
+      authorInvitation(
+        tinyBz: _dummyTinyBz,
+        tinyAuthor: _dummyTinyAuthor,
+      ),
 
-      countryWentGlobal(),
-      sectionWentLive(),
+      countryWentGlobal(
+        countryName: 'United States of Amrika',
+        iso3: 'usa',
+      ),
+      sectionWentLive(
+        sectionName: 'Resale properties'
+      ),
 
-      questionReply(),
+      questionReply(
+        tinyBz: _dummyTinyBz,
+        reply: 'This is a dummy bz reply'
+      ),
 
       ///   o - to AUTHOR
-      authorInvitationReply(),
+      authorInvitationReply(
+        tinyUser: _dummyTinyUser,
+        invitationAccepted: true,
+      ),
 
       // ------------------------------
       ///

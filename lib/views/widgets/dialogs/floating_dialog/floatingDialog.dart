@@ -7,7 +7,7 @@ import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
-class DropDownBubble extends StatefulWidget {
+class FloatingDialog extends StatefulWidget {
   final String title;
   final List<String> list;
   final bool fieldIsRequired;
@@ -16,7 +16,7 @@ class DropDownBubble extends StatefulWidget {
   final Function actionBtFunction;
 
 
-  DropDownBubble({
+  FloatingDialog({
     @required this.title,
     @required this.list,
     this.fieldIsRequired = false,
@@ -26,10 +26,10 @@ class DropDownBubble extends StatefulWidget {
   });
 
   @override
-  _DropDownBubbleState createState() => _DropDownBubbleState();
+  _FloatingDialogState createState() => _FloatingDialogState();
 }
 
-class _DropDownBubbleState extends State<DropDownBubble> {
+class _FloatingDialogState extends State<FloatingDialog> {
   String chosenValue = '';
 
   @override
@@ -85,11 +85,11 @@ class _DropDownBubbleState extends State<DropDownBubble> {
             borderRadius: Borderers.superBorderOnly(context: context, enTopLeft: 10, enBottomLeft: 10, enBottomRight: 10, enTopRight: 10),
           ),
           child: DropdownButtonFormField(
-            // value: widget.list[0] ?? widget.list[0],
+            value: widget.list[0] ?? widget.list[0],
             dropdownColor: Colorz.Blue225,
             elevation: 0,
             style: TextStyle(color: Colorz.Red255, ),
-            iconSize: 30,
+            iconSize: 20,
             isExpanded: true,
             isDense: true,
 
@@ -97,6 +97,7 @@ class _DropDownBubbleState extends State<DropDownBubble> {
             onTap: (){print('ganzabeel');},
             icon: DreamBox(height: 20, icon: Iconz.ArrowDown, bubble: false,),
             decoration: InputDecoration(
+
               border: Borderers.superOutlineInputBorder(Colorz.Red255, 10),
               isDense: true,
               contentPadding: EdgeInsets.all(0),
@@ -110,7 +111,7 @@ class _DropDownBubbleState extends State<DropDownBubble> {
             ),
             items: widget.list.map((item){
               return DropdownMenuItem(
-                // value: widget.list[0] ?? widget.list[0],
+                value: item,
                 onTap: (){print(item);},
                 child: SuperVerse(
                   color: Colorz.Black230,

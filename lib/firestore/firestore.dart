@@ -13,6 +13,7 @@ class FireCollection{
   static const String tinyUsers = 'tinyUsers';
   static const String subUserAsks = 'asks' ;
   static const String subUserSaves = 'saves';
+  static const String subUserNotifications = 'notifications';
 
   static const String countries = 'countries';
 
@@ -26,6 +27,7 @@ class FireCollection{
   static const String subBzFollows = 'follows';
   static const String subBzCalls = 'calls';
   static const String subBzChats = 'chats';
+  static const String subBzNotifications = 'notifications';
 
   static const String flyers = 'flyers';
   static const String tinyFlyers = 'tinyFlyers';
@@ -38,10 +40,8 @@ class FireCollection{
 
   static const String feedbacks = 'feedbacks';
   static const String admin = 'admin';
-}
-
-class AdminDoc{
-  static const String sponsors = 'sponsors';
+  static const String subAdminSponsors = 'sponsors';
+  static const String subAdminStatistics = 'statistics';
 }
 
 class StorageDoc{

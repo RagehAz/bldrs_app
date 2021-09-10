@@ -9,7 +9,7 @@ import 'package:bldrs/views/widgets/pyramids/bldrs_name.dart';
 import 'package:flutter/material.dart';
 
 class NotificationSenderBalloon extends StatelessWidget {
-  final NotiSender sender;
+  final NotiPicType sender;
   final String pic;
 
   const NotificationSenderBalloon({
@@ -29,19 +29,19 @@ class NotificationSenderBalloon extends StatelessWidget {
 
     return
 
-      sender == NotiSender.bz ?
+      sender == NotiPicType.bz ?
       BzLogo(
         width: _balloonWidth,
         image: pic,
       )
           :
-      sender == NotiSender.author ?
+      sender == NotiPicType.author ?
       AuthorPic(
         authorPic: pic,
         flyerZoneWidth: _screenWidth * 0.89,
       )
           :
-      sender == NotiSender.user ?
+      sender == NotiPicType.user ?
       UserBalloon(
         pic: pic,
         balloonWidth: _balloonWidth,
@@ -51,10 +51,17 @@ class NotificationSenderBalloon extends StatelessWidget {
         loading: false,
       )
           :
-      sender == NotiSender.bldrs ?
+      sender == NotiPicType.bldrs ?
       BldrsName(
         size: _balloonWidth,
       )
+          :
+          sender == NotiPicType.country ?
+              DreamBox(
+                width: _balloonWidth,
+                height: _balloonWidth,
+                icon: pic,
+              )
           :
       DreamBox(
         width: _balloonWidth,

@@ -17,8 +17,8 @@ import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:bldrs/views/widgets/textings/the_golden_scroll.dart';
 import 'package:bldrs/xxx_LABORATORY/animations/animations_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/animations/black_hole.dart';
-import 'package:bldrs/xxx_LABORATORY/firestore_test/storage_test.dart';
-import 'package:bldrs/xxx_LABORATORY/forms_and_inputs/form.dart';
+import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/storage_test.dart';
+import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/forms_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/cloud_functions_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/dialog_test_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/dio_test.dart';
@@ -218,8 +218,6 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
           // oButton('29 - Google Maps - Image Pin', Iconz.ComMap, GoogleMapScreen3()),
 
           // oButton('30 - Google Maps - text box canvas', Iconz.ComMap, GoogleMapScreen4()),
-
-          // oButton('31 - Google Maps - testSpace', Iconz.ComMap, GoogleMapScreen5()),
 
           oButton('36 - Animations Screen', Iconz.DvDonaldDuck, AnimationsScreen()),
 

@@ -72,7 +72,6 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     _followedTinyBzz = [];
     _followedBzzIDs = [];
   }
-
 // -----------------------------------------------------------------------------
   @override
   void didChangeDependencies() {
@@ -101,7 +100,6 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     _isInit = false;
     super.didChangeDependencies();
   }
-
 // -----------------------------------------------------------------------------
   final _status = <Map<String, dynamic>>[
     {
@@ -132,14 +130,12 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
       ],
     },
   ];
-
 // -----------------------------------------------------------------------------
   void _switchUserStatus(UserStatus type) {
     setState(() {
       _currentUserStatus = type;
     });
   }
-
 // -----------------------------------------------------------------------------
   Future<void> _deleteUserOnTap(UserModel userModel) async {
 
@@ -195,7 +191,6 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
       }
     }
   }
-
 // -----------------------------------------------------------------------------
   Future<void> _deactivateUserOnTap(UserModel userModel) async {
 
