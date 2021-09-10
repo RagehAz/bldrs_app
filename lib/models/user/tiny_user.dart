@@ -122,8 +122,21 @@ class TinyUser {
   static TinyUser dummyTinyUser(){
     return
       TinyUser(
-        userID: 'a77a',
+        userID: 'r1dqipDtBmRzK6HzL8Ug2vmcYVl1',
         name: 'User fucking name',
+        title: 'super fucking user title',
+        pic: Iconz.DumAuthorPic, // 'https://lh3.googleusercontent.com/a-/AOh14Gj3FAh76iQck0pD8EkRGraEP1OsElK8HysuToZp_A=s96-c'
+        email: 'fuckyou@hotmail.com',
+        phone: '1234567',
+        userStatus: UserStatus.Building,
+      );
+  }
+
+  static TinyUser dummyTinyAuthor(){
+    return
+      TinyUser(
+        userID: '60a1SPzftGdH6rt15NF96m0j9Et2',
+        name: 'Author name',
         title: 'super fucking user title',
         pic: Iconz.DumAuthorPic,
         email: 'fuckyou@hotmail.com',

@@ -6,6 +6,7 @@ import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/notification/noti_model.dart';
 import 'package:bldrs/views/widgets/bubbles/bubble.dart';
+import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/notifications/notification_card.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
@@ -69,6 +70,9 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
   }
 // -----------------------------------------------------------------------------
   void _dismissNotification(String id){
+
+    print('removing noti with id : $id');
+
     setState(() {
       _notifications.removeWhere((notiModel) => notiModel.id == id,);
     });
@@ -81,22 +85,44 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
 
     return MainLayout(
       appBarType: AppBarType.Basic,
-      appBarRowWidgets: [],
+      appBarRowWidgets: <Widget>[
+
+        Expander(),
+
+        DreamBox(
+          width: 40,
+          height: 40,
+          iconSizeFactor: 0.5,
+          icon: Iconz.Clock,
+          color: Colorz.Blue20,
+          corners: Borderers.superBorderAll(context, Ratioz.appBarButtonCorner),
+          margins: EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
+          onTap: (){
+            print('to dismissed notifications');
+          },
+        ),
+
+      ],
       loading: _loading,
       pageTitle: 'News & Notifications',
       sky: Sky.Black,
       pyramids: Iconz.PyramidzYellow,
+      tappingRageh: (){
+
+      },
+
+
       layoutWidget:
 
         _notifications.length == 0 ?
-            Center(
-              child: SuperVerse(
-                verse: 'No new Notifications',
-                weight: VerseWeight.thin,
-                italic: true,
-                color: Colorz.White20,
-              ),
-            )
+        Center(
+          child: SuperVerse(
+            verse: 'No new Notifications',
+            weight: VerseWeight.thin,
+            italic: true,
+            color: Colorz.White20,
+          ),
+        )
 
             :
 
@@ -111,7 +137,9 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
             NotiModel _notiModel = _notifications[index];
 
             return Dismissible(
-              key: ValueKey<String>(_notiModel.id),
+              // onResize: (){
+              // print('resizing');
+              // },
               // background: Container(
               //   alignment: Aligners.superCenterAlignment(context),
               //   // color: Colorz.White10,
@@ -124,21 +152,6 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
               //   ),
               // ),
               // behavior: HitTestBehavior.translucent,
-              confirmDismiss: (DismissDirection direction) async {
-                print('confirmDismiss : direction is : $direction');
-                return true;
-              },
-              crossAxisEndOffset: 0,
-              direction: DismissDirection.horizontal,
-              movementDuration: Duration(milliseconds: 250),
-              onDismissed: (DismissDirection direction){
-                _dismissNotification(_notiModel.id);
-                // print('onDismissed : direction is : $direction');
-              },
-              onResize: (){
-                // print('resizing');
-              },
-              resizeDuration: Duration(milliseconds: 250),
               // secondaryBackground: Container(
               //   width: _screenWidth,
               //   height: 50,
@@ -149,6 +162,23 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
               //   DismissDirection.endToStart : 20,
               // },
               // dragStartBehavior: DragStartBehavior.start,
+              key: ValueKey<String>(_notiModel.id),
+              crossAxisEndOffset: 0,
+              direction: DismissDirection.horizontal,
+              movementDuration: Duration(milliseconds: 250),
+              resizeDuration: Duration(milliseconds: 250),
+              confirmDismiss: (DismissDirection direction) async {
+                // print('confirmDismiss : direction is : $direction');
+
+                /// if needed to make the bubble un-dismissible set to false
+                bool _dismissible = true;
+
+                return _dismissible;
+                },
+              onDismissed: (DismissDirection direction){
+                _dismissNotification(_notiModel.id);
+                // print('onDismissed : direction is : $direction');
+              },
               child: Container(
                 width: _screenWidth,
                 decoration: BoxDecoration(

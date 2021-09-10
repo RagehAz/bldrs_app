@@ -767,4 +767,9 @@ static Future<List<File>> getFilesFromAssets(List<Asset> assets) async {
     return _areTheSame;
   }
 // -----------------------------------------------------------------------------
+  static double concludeHeightByGraphicSizes({double width, double graphicWidth, double graphicHeight}){
+    /// height / width = graphicHeight / graphicWidth
+    return (graphicHeight * width) / graphicWidth;
+  }
+// -----------------------------------------------------------------------------
 }
