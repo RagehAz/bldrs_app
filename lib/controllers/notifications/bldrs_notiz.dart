@@ -248,9 +248,7 @@ class BldrsNotiModelz {
   }
 // -----------------------------------------------------------------------------
   /// 6 - city went public
-  static NotiModel cityWentPublic(){
-
-    String _iso3 = 'usa';
+  static NotiModel cityWentPublic({@required String cityName, @required String iso3}){
 
     return
       NotiModel(
@@ -265,9 +263,9 @@ class BldrsNotiModelz {
             'reciever         :   NotiRecieverType.users',
 
         senderID: _bldrsSenderID,
-        pic: _iso3,
+        pic: iso3,
         picType: NotiPicType.country,
-        title: '{cityName} Builders went public.',
+        title: '${cityName} Builders went public.',
         timeStamp: DateTime.now(),
         body: '📢 Bldrs businesses have been posting for some time, and now all their work is LIVE !',
         attachment: null,
@@ -309,10 +307,7 @@ class BldrsNotiModelz {
   }
 // -----------------------------------------------------------------------------
   /// 8 - feedback bldrs reply
-  static NotiModel bldrsFeedbackReply(){
-
-    String _title = '';
-    String _body = '';
+  static NotiModel bldrsFeedbackReply({@required String reply}){
 
     return
       NotiModel(
@@ -329,9 +324,9 @@ class BldrsNotiModelz {
         senderID: _bldrsSenderID,
         pic: _bldrsLogoURL,
         picType: NotiPicType.bldrs,
-        title: _title,
+        title: 'Bldrs.net team have replied over your feedback',
         timeStamp: DateTime.now(),
-        body: _body,
+        body: reply,
         attachment: null,
         attachmentType: null,
 
@@ -371,7 +366,7 @@ class BldrsNotiModelz {
   }
 // -----------------------------------------------------------------------------
   /// 10 - monthly statistics
-  static NotiModel monthlyStatistics(){
+  static NotiModel monthlyStatistics({@required int numberOfNewBzz, @required int numberOfNewFlyers}){
     return
       NotiModel(
         id: 'n10',
@@ -389,7 +384,7 @@ class BldrsNotiModelz {
         picType: NotiPicType.bldrs,
         title: 'The Community is Growing',
         timeStamp: DateTime.now(),
-        body: '{xx} new businesses had joined and {xx} new flyers were published on Bldrs.net Last month',
+        body: '$numberOfNewBzz new businesses had joined and $numberOfNewFlyers new flyers were published on Bldrs.net Last month',
         attachment: null,
         attachmentType: null,
 
@@ -596,7 +591,12 @@ class BldrsNotiModelz {
         picType: NotiPicType.bldrs,
         title: 'Your weekly stats',
         timeStamp: DateTime.now(),
-        body: '$views users viewed your flyers last week, getting $saves saves, $shares shares, $reviews reviews and $calls phone calls',
+        body: 'This week you got :\n'
+            '$views flyer views\n'
+            '$saves saves\n'
+            '$shares shares\n'
+            '$reviews reviews\n'
+            '$calls phone calls',
         attachment: null,
         attachmentType: null,
 
@@ -901,8 +901,14 @@ class BldrsNotiModelz {
       // AUTO NOTIFICATIONS
       /// ============================
       ///   o - to USERS
-      cityWentPublic(),
-      monthlyStatistics(),
+      cityWentPublic(
+        cityName:'Arizona',
+        iso3: 'usa',
+      ),
+      monthlyStatistics(
+        numberOfNewBzz: 15,
+        numberOfNewFlyers: 250,
+      ),
       newPublishedFlyer(
         tinyBz: _dummyTinyBz,
         tinyFlyer: _dummyTinyFlyer
@@ -1007,7 +1013,9 @@ class BldrsNotiModelz {
       ///   o - to AUTHOR
 
       ///   o - to USER-OR-AUTHOR
-      bldrsFeedbackReply(),
+      bldrsFeedbackReply(
+        reply: 'This is bldrs replying over the user\'s feedback',
+      ),
       // ------------------------------
       ///
 // -----------------------------------------------------------------------------
