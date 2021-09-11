@@ -1073,7 +1073,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     Color _buttonColor = Colorz.White20;
     Color _verseColor = Colorz.White255;
 
-    await BottomDialog.slideBottomDialog(
+    await BottomDialog.showBottomDialog(
       context: context,
       height: _dialogHeight,
       draggable: true,
@@ -1754,7 +1754,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     bool _openNextDialog = false;
 
     /// COUNTRY DIALOG
-    await BottomDialog.slideBottomDialog(
+    await BottomDialog.showBottomDialog(
       context: context,
       draggable: true,
       height: null,
@@ -1792,7 +1792,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     /// CITY DIALOG
     if(_openNextDialog == true) {
       _openNextDialog = false;
-      await BottomDialog.slideBottomDialog(
+      await BottomDialog.showBottomDialog(
         context: context,
         draggable: true,
         height: null,
@@ -1828,7 +1828,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
     /// DISTRICT DIALOG
     if(_openNextDialog == true) {
-      await BottomDialog.slideBottomDialog(
+      await BottomDialog.showBottomDialog(
         context: context,
         draggable: true,
         height: null,
@@ -1858,7 +1858,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     double _dialogClearWidth = BottomDialog.dialogClearWidth(context);
     double _dialogInnerCorners = BottomDialog.dialogClearCornerValue();
 
-    await BottomDialog.slideBottomDialog(
+    await BottomDialog.showBottomDialog(
       context: context,
       draggable: true,
       height: _dialogHeight,

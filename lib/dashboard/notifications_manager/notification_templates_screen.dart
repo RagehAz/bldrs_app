@@ -7,6 +7,7 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/notification/noti_model.dart';
 import 'package:bldrs/views/widgets/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/views/widgets/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/notifications/notification_card.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
@@ -85,6 +86,22 @@ class _NotificationTemplatesScreenState extends State<NotificationTemplatesScree
 
     return MainLayout(
       appBarType: AppBarType.Basic,
+      tappingRageh: () async {
+
+        bool upload = await CenterDialog.showCenterDialog(
+          context: context,
+          title: 'Upload ?',
+          body: 'upload all these local templates ?',
+          boolDialog: true,
+        );
+
+        if (upload == true){
+          print('uploading aho');
+
+
+        }
+
+      },
       appBarRowWidgets: <Widget>[
 
         Expander(),

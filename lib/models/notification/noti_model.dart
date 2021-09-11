@@ -165,5 +165,15 @@ class NotiModel{
       default: return 'non';
     }
   }
-
+// -----------------------------------------------------------------------------
+  static List<NotiAttachmentType> notiAttachmentTypesList(){
+    return <NotiAttachmentType>[
+      NotiAttachmentType.non,
+      NotiAttachmentType.flyers,
+      NotiAttachmentType.bz,
+      NotiAttachmentType.banner,
+      NotiAttachmentType.buttons,
+    ];
+  }
+// -----------------------------------------------------------------------------
 }

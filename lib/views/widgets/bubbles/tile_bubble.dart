@@ -1,8 +1,8 @@
-import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/views/widgets/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/views/widgets/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart' show Expander;
@@ -47,7 +47,7 @@ class TileBubble extends StatelessWidget {
 
     double _verseWidth =
         insideDialog == true ?
-        Scale.superDialogWidth(context) - 30 - 50 - _switchButtonWidth
+        CenterDialog.dialogWidth(context: context) - 30 - 50 - _switchButtonWidth
             :
         Bubble.clearWidth(context) - iconBoxWidth - 50 - _switchButtonWidth
     ;
