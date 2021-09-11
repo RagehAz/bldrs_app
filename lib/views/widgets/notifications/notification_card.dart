@@ -16,6 +16,18 @@ class NotificationCard extends StatelessWidget {
     @required this.notiModel,
 });
 // -----------------------------------------------------------------------------
+  static double bubbleWidth(BuildContext context){
+    return Bubble.defaultWidth(context);
+  }
+// -----------------------------------------------------------------------------
+  static double bodyWidth(BuildContext context){
+    return Bubble.defaultWidth(context) - NotificationSenderBalloon.balloonWidth() - (Ratioz.appBarMargin * 3);
+  }
+// -----------------------------------------------------------------------------
+  static double bannerCorners(){
+    return Bubble.cornersValue() - Ratioz.appBarMargin;
+  }
+// -----------------------------------------------------------------------------
   void _onBubbleTap(){
 
     print('_onBubbleTap : noti id is : ${notiModel.id} : ${notiModel.name}');
@@ -32,13 +44,10 @@ class NotificationCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double _bubbleWidth = Bubble.defaultWidth(context);
-    double _balloonWidth = NotificationSenderBalloon.balloonWidth();
-    double _padding = Ratioz.appBarMargin;
-    double _bodyWidth = _bubbleWidth - _balloonWidth - (_padding * 3);
+    double _bodyWidth = bodyWidth(context);
     bool _designMode = false;
-
     bool _notiHasButtons = notiModel.attachmentType == NotiAttachmentType.buttons;
+    double _bannerCorner = bannerCorners();
 
     return Bubble(
           centered: true,
@@ -112,7 +121,7 @@ class NotificationCard extends StatelessWidget {
                       if(notiModel.attachmentType == NotiAttachmentType.banner)
                       BldrsWelcomeBanner(
                         width: _bodyWidth,
-                        corners: Bubble.cornersValue() - Ratioz.appBarMargin,
+                        corners: _bannerCorner,
                       ),
 
                       /// BUTTONS

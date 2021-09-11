@@ -48,7 +48,7 @@ class BottomDialogRow extends StatelessWidget {
             margins: EdgeInsets.symmetric(horizontal: _keyButtonMargin),
             onTap: () async {
 
-              await BottomDialog.slideBottomDialog(
+              await BottomDialog.showBottomDialog(
                 context: context,
                 draggable: true,
                 title: '${dataKey.toString()} : ${dataValue.toString()}',

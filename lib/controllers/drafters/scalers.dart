@@ -110,11 +110,6 @@ class Scale{
       EdgeInsets.only(bottom: _enBottom, left: _enRight, right: _enLeft, top: _enTop);
   }
 // -----------------------------------------------------------------------------
-  static double superDialogWidth(BuildContext context){
-    double _dialogWidth = superScreenWidth(context) * 0.8;
-    return _dialogWidth;
-  }
-// -----------------------------------------------------------------------------
   static double appBarScrollWidth(BuildContext context){
     double _appBarScrollWidth = superScreenWidth(context) - (Ratioz.appBarMargin * 2) - (Ratioz.appBarPadding * 2) - Ratioz.appBarButtonSize - Ratioz.appBarPadding;
     return _appBarScrollWidth;

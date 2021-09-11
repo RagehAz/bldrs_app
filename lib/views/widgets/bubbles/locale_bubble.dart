@@ -58,7 +58,7 @@ class _LocaleBubbleState extends State<LocaleBubble> {
 // -----------------------------------------------------------------------------
   void _tapCountryButton({BuildContext context, CountryProvider countryPro, List<Map<String, String>> flags}){
     Keyboarders.minimizeKeyboardOnTapOutSide(context);
-    BottomDialog.slideBottomDialog(
+    BottomDialog.showBottomDialog(
       context: context,
       draggable: true,
       height: null,
@@ -84,7 +84,7 @@ class _LocaleBubbleState extends State<LocaleBubble> {
 // -----------------------------------------------------------------------------
   void _tapCityButton({BuildContext context, CountryProvider countryPro, List<Map<String, String>> cities}){
     Keyboarders.minimizeKeyboardOnTapOutSide(context);
-    BottomDialog.slideBottomDialog(
+    BottomDialog.showBottomDialog(
       context: context,
       draggable: true,
       height: null,
@@ -109,7 +109,7 @@ class _LocaleBubbleState extends State<LocaleBubble> {
 // -----------------------------------------------------------------------------
   void _tapDistrictButton({BuildContext context, CountryProvider countryPro, List<Map<String, String>> districts}){
     Keyboarders.minimizeKeyboardOnTapOutSide(context);
-    BottomDialog.slideBottomDialog(
+    BottomDialog.showBottomDialog(
       context: context,
       draggable: true,
       height: null,

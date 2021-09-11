@@ -241,7 +241,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
 
                       double _dialogHeight = _screenHeight * 0.8;
 
-                      await BottomDialog.slideBottomDialog(
+                      await BottomDialog.showBottomDialog(
                         context: context,
                         title: _bzName,
                         draggable: true,

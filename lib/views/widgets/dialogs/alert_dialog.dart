@@ -5,6 +5,7 @@ import 'package:bldrs/controllers/drafters/shadowers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/views/widgets/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/center_dialog/dialog_button.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,7 @@ AlertDialog _superAlert ({
   double _screenHeight = Scale.superScreenHeight(context);
 
   double _dialogHeight = height == null ? _screenHeight * 0.4 : height;
-  double _dialogWidth = Scale.superDialogWidth(context);
+  double _dialogWidth = CenterDialog.dialogWidth(context: context);
 
   double _dialogVerticalMargin = (_screenHeight - _dialogHeight) / 2;
   double _dialogHorizontalMargin = (_screenWidth - _dialogWidth) / 2;

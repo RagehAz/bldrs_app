@@ -8,6 +8,7 @@ import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/views/widgets/bubbles/bzz_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/flyers_bubble.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
+import 'package:bldrs/views/widgets/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
@@ -171,7 +172,7 @@ class Dialogz{
                     numberOfColumns: 2,
                     title: 'flyers of ${bzzToDeactivate[index].bzName}',
                     numberOfRows: 1,
-                    bubbleWidth: Scale.superDialogWidth(context) - (Ratioz.appBarMargin * 4),
+                    bubbleWidth: CenterDialog.dialogWidth(context: context) - (Ratioz.appBarMargin * 4),
                     onTap: (value){
                       print(value);
                     },

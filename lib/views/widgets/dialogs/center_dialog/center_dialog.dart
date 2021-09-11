@@ -1,5 +1,3 @@
-
-
 import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/shadowers.dart';
@@ -25,7 +23,7 @@ class CenterDialog extends StatelessWidget {
     @required this.child,
 });
 // -----------------------------------------------------------------------------
-  static Future<bool> superDialog({
+  static Future<bool> showCenterDialog({
     BuildContext context,
     dynamic body,
     String title,
@@ -51,151 +49,205 @@ class CenterDialog extends StatelessWidget {
 
   }
 // -----------------------------------------------------------------------------
-
+  static double dialogWidth({BuildContext context, }){
+    return Scale.superScreenWidth(context) * 0.85;
+  }
+// -----------------------------------------------------------------------------
+  static double dialogCornerValue(){
+    return 20;
+  }
+// -----------------------------------------------------------------------------
+  static BorderRadius dialogBorders(BuildContext context){
+    return Borderers.superBorderAll(context, dialogCornerValue());
+  }
+// -----------------------------------------------------------------------------
+//   static double dialogVerticalMargin({BuildContext context, double dialogHeight}){
+//     double _screenHeight = Scale.superScreenHeight(context);
+//     return (_screenHeight - dialogHeight) / 2;
+//   }
+// // -----------------------------------------------------------------------------
+//   static double dialogHorizontalMargin({BuildContext context, double dialogWidth}){
+//     double _screenWidth = Scale.superScreenWidth(context);
+//     return (_screenWidth - dialogWidth) / 2;
+//   }
+// -----------------------------------------------------------------------------
+  static double dialogHeight({BuildContext context, double heightOverride}){
+    double _screenHeight = Scale.superScreenHeight(context);
+    double _height = heightOverride == null ? _screenHeight * 0.4 : heightOverride;
+    return _height;
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    BorderRadius _borders = Borderers.superBorderAll(context, 20);
     double _screenWidth = Scale.superScreenWidth(context);
     double _screenHeight = Scale.superScreenHeight(context);
 
-    double _dialogHeight = height == null ? _screenHeight * 0.4 : height;
-    double _dialogWidth = Scale.superDialogWidth(context);
+    BorderRadius _dialogBorders = dialogBorders(context);
 
-    double _dialogVerticalMargin = (_screenHeight - _dialogHeight) / 2;
-    double _dialogHorizontalMargin = (_screenWidth - _dialogWidth) / 2;
+    double _dialogHeight = dialogHeight(
+      context: context,
+      heightOverride: height,
+    );
 
+    double _dialogWidth = dialogWidth(context: context);
 
-    return AlertDialog(
-      backgroundColor: Colorz.Nothing,
-      // shape: RoundedRectangleBorder(borderRadius: Borderers.superBorderAll(context, 20)),
-      contentPadding: const EdgeInsets.all(0),
-      elevation: 10,
+    // double _dialogVerticalMargin = dialogVerticalMargin(
+    //   context: context,
+    //   dialogHeight: _dialogHeight,
+    // );
+    // double _dialogHorizontalMargin = dialogHorizontalMargin(
+    //   context: context,
+    //   dialogWidth: _dialogWidth,
+    // );
 
-      insetPadding: EdgeInsets.symmetric(
-        vertical: 0,
-        horizontal: 0,
-      ),
+    double _buttonHeight = DialogButton.height();
+    double _buttonZoneHeight = _buttonHeight + (2 * Ratioz.appBarPadding);
+    double _contentZoneHeight = _dialogHeight - _buttonZoneHeight;
 
-      content: Builder(
-        builder: (context){
-          return
+    return SafeArea(
+      child: AlertDialog(
+        backgroundColor: Colorz.Nothing,
+        // shape: RoundedRectangleBorder(borderRadius: Borderers.superBorderAll(context, 20)),
+        contentPadding: const EdgeInsets.all(0),
+        elevation: 10,
 
-            GestureDetector(
-              onTap: () => Nav.goBack(context),
-              child: Container(
-                width: _screenWidth,
-                height: _screenHeight,
-                padding: EdgeInsets.symmetric(horizontal: _dialogHorizontalMargin, vertical: _dialogVerticalMargin),
-                color: Colorz.Black80,
+        insetPadding: const EdgeInsets.symmetric(
+          vertical: 0,
+          horizontal: 0,
+        ),
+
+        content: Builder(
+          builder: (context){
+            return
+
+              GestureDetector(
+                onTap: () => Nav.goBack(context),
                 child: Container(
-                  width: _screenWidth - (_dialogHorizontalMargin * 2),
-                  height: _screenHeight - (_dialogVerticalMargin * 2),
-                  // color: Colorz.Yellow,
-                  child: Stack(
-                    children: <Widget>[
+                  width: _screenWidth,
+                  height: _screenHeight,
+                  // padding: EdgeInsets.symmetric(horizontal: _dialogHorizontalMargin, vertical: _dialogVerticalMargin),
+                  color: Colorz.Black80,
+                  alignment: Alignment.center,
+                  child: Container(
+                    width: _dialogWidth,
+                    height: _dialogHeight,
+                    decoration: BoxDecoration(
+                        color: Colorz.SkyDarkBlue,
+                        boxShadow: Shadowz.appBarShadow,
+                        borderRadius: _dialogBorders
+                    ),
 
-                      // BlurLayer(borders: _borders,),
+                    child: Column(
+                      // mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
 
-                      Container(
-                        width: _dialogWidth,
-                        height: _dialogHeight,
-                        decoration: BoxDecoration(
-                            color: Colorz.SkyDarkBlue,
-                            boxShadow: Shadowz.appBarShadow,
-                            borderRadius: _borders
-                        ),
+                        Container(
+                          width: _dialogWidth,
+                          height: _contentZoneHeight,
+                          alignment: Alignment.center,
+                          // color: Colorz.White30,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
 
-                        /// TASK : center dialog body should be inside a listview not a column
-                        child: Column(
-                          // mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-
-                            Expanded(
-                              child: Container(
-                                // color: Colorz.SkyDarkBlue,
-                                // padding: EdgeInsets,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  // mainAxisSize: MainAxisSize.max,
-                                  children: <Widget>[
-
-                                    /// TITLE
-                                    if (title != null)
-                                      SuperVerse(
-                                        verse: title,
-                                        color: Colorz.Yellow255,
-                                        shadow: true,
-                                        size: 3,
-                                        italic: true,
-                                        maxLines: 2,
-                                        // labelColor: Colorz.Yellow,
-                                        // designMode: true,
-                                        margin: Ratioz.appBarMargin,
-                                      ),
-
-                                    /// BODY
-                                    SuperVerse(
-                                      verse: body.runtimeType == String ? body : body.toString(),
-                                      color: Colorz.White255,
-                                      maxLines: 6,
-                                      // designMode: true,
-                                      margin: Ratioz.appBarMargin,
-                                    ),
-
-                                    if (child != null)
-                                      Center(child: child),
-
-                                  ],
+                              /// TITLE
+                              Container(
+                                width: _dialogWidth,
+                                // height: _titleZoneHeight,
+                                alignment: Alignment.center,
+                                // color: Colorz.BloodTest,
+                                child: title == null ? Container() :
+                                SuperVerse(
+                                  verse: title,
+                                  color: Colorz.Yellow255,
+                                  shadow: true,
+                                  size: 3,
+                                  italic: true,
+                                  maxLines: 2,
+                                  // labelColor: Colorz.Yellow,
+                                  // designMode: true,
+                                  margin: Ratioz.appBarMargin,
+                                  centered: true,
                                 ),
                               ),
-                            ),
 
-                            /// BUTTONS
-                            if (boolDialog != null)
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: <Widget>[
-
-                                  if (boolDialog == true)
-                                    DialogButton(
-                                      verse: 'No',
-                                      verseColor: Colorz.White255,
-                                      width: 100,
-                                      color: Colorz.White80,
-                                      onTap: () => Nav.goBack(context, argument: false),
-                                    ),
-
-                                  DialogButton(
-                                    verse: boolDialog == true ? 'Yes' : 'Ok',
-                                    verseColor: Colorz.Black230,
-                                    width: 100,
-                                    color: Colorz.Yellow255,
-                                    onTap: boolDialog == true ?
-                                        () => Nav.goBack(context, argument: true)
-                                        :
-                                        () => Nav.goBack(context),
-                                  ),
-
-                                ],
+                              /// BODY
+                              Container(
+                                width: _dialogWidth,
+                                // height: _bodyZoneHeight,
+                                child: SuperVerse(
+                                  verse: body.runtimeType == String ? body : body.toString(),
+                                  color: Colorz.White255,
+                                  maxLines: 6,
+                                  // designMode: true,
+                                  margin: Ratioz.appBarMargin,
+                                  centered: true,
+                                ),
                               ),
 
-                          ],
-                        ),
-                      ),
+                              /// child
+                              if (child != null)
+                                Container(
+                                    width: _dialogWidth,
+                                    // height: _childZoneHeight,
+                                    child: child
+                                ),
 
-                    ],
+                            ],
+                          ),
+                        ),
+
+
+                        /// BUTTONS
+                        if (boolDialog != null)
+                          Container(
+                            width: _dialogWidth,
+                            height: _buttonZoneHeight,
+                            // color: Colorz.BloodTest,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+
+                                if (boolDialog == true)
+                                  DialogButton(
+                                    verse: 'No',
+                                    verseColor: Colorz.White255,
+                                    width: 100,
+                                    color: Colorz.White80,
+                                    onTap: () => Nav.goBack(context, argument: false),
+                                  ),
+
+                                DialogButton(
+                                  verse: boolDialog == true ? 'Yes' : 'Ok',
+                                  verseColor: Colorz.Black230,
+                                  width: 100,
+                                  color: Colorz.Yellow255,
+                                  onTap: boolDialog == true ?
+                                      () => Nav.goBack(context, argument: true)
+                                      :
+                                      () => Nav.goBack(context),
+                                ),
+
+                              ],
+                            ),
+                          ),
+
+                      ],
+                    ),
+
                   ),
                 ),
-              ),
-            );
-        },
-      ),
+              );
+          },
+        ),
 
+      ),
     );
   }
 }
