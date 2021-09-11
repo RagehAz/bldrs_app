@@ -27,7 +27,6 @@ class PricingScreen extends StatelessWidget {
     // CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
 
     return DashBoardLayout(
-      appBarRowWidgets: [],
         loading: false,
         pageTitle: 'Prices',
         listWidgets: <Widget>[

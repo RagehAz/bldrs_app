@@ -101,7 +101,7 @@ class _OldAskScreenState extends State<OldAskScreen> {
                     onTap: () => Nav.goToNewScreen(context, QuesScreen()),
                   ),
 
-                  PyramidsHorizon(heightFactor: 10),
+                  PyramidsHorizon(),
 
                 ]),
               ),

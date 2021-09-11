@@ -1,4 +1,3 @@
-import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/flagz.dart';
 import 'package:bldrs/models/notification/noti_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
@@ -25,7 +24,7 @@ class NotificationSenderBalloon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double _screenWidth = Scale.superScreenWidth(context);
+    // double _screenWidth = Scale.superScreenWidth(context);
     double _balloonWidth = balloonWidth();
 
     return
@@ -50,6 +49,7 @@ class NotificationSenderBalloon extends StatelessWidget {
         onTap: null,
         blackAndWhite: false,
         loading: false,
+        shadowIsOn: false,
       )
           :
       sender == NotiPicType.bldrs ?

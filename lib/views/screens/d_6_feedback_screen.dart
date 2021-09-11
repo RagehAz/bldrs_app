@@ -125,7 +125,7 @@ class _FeedBackState extends State<FeedBack> {
             onTap: _uploadFeedBack,
           ),
 
-          PyramidsHorizon(heightFactor: 10,),
+          PyramidsHorizon(),
 
         ],
       ),

@@ -217,7 +217,7 @@ class _FireStorageTestState extends State<FireStorageTest> {
 
 
 
-              PyramidsHorizon(heightFactor: 10,),
+              PyramidsHorizon(),
 
             ],
           ),

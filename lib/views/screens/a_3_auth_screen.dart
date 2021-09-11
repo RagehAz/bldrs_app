@@ -86,7 +86,7 @@ class _AuthScreenState extends State<AuthScreen> {
                 password: _password,
               ),
 
-              PyramidsHorizon(heightFactor: 0,),
+              PyramidsHorizon(),
 
             ],
           ),

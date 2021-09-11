@@ -132,6 +132,8 @@ static const String FlyerPinPNG = _iconzPath + 'gi_flyer_pin_png.png' ;
 static const String Stop = _iconzPath + 'gi_stop.svg' ;
 static const String Play = _iconzPath + 'gi_play.svg' ;
 static const String Pause = _iconzPath + 'gi_pause.svg' ;
+static const String BigMac = _iconzPath + 'gi_bigmac.svg' ;
+
 // -----------------------------------------------------------------------------
 // PYRAMIDS
 static const String PyramidsYellow = _iconzPath + 'pyramids_yellow.svg' ;

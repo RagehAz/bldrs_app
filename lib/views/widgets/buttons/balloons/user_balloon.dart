@@ -22,6 +22,7 @@ class UserBalloon extends StatelessWidget {
   final Color balloonColor;
   final Widget child;
   final dynamic pic;
+  final bool shadowIsOn;
 
   UserBalloon({
     this.balloonType,
@@ -31,7 +32,8 @@ class UserBalloon extends StatelessWidget {
     @required this.loading,
     this.balloonColor,
     this.child,
-    this.pic
+    this.pic,
+    this.shadowIsOn = true,
   });
 
   // Color _bubbleDarkness(){
@@ -39,92 +41,6 @@ class UserBalloon extends StatelessWidget {
   //     blackAndWhite == false ? Colorz.BlackSmoke :  Colorz.BlackNothing;
   // }
 
-  Widget _balloon([UserModel userModel]){
-
-    // CustomClipper _nullClipper;
-
-    return
-      Container(
-        width: balloonWidth,
-        height: balloonWidth,
-        // color: Colorz.BloodTest,
-        child: GestureDetector(
-          onTap: onTap,
-          child: ClipShadowPath(
-            clipper: balloonType == null ? Iconizer.userBalloon(userModel?.userStatus) : Iconizer.userBalloon(balloonType),
-            shadow: Shadowz.basicOuterShadow,
-            child: Stack(
-              alignment: Alignment.center,
-              children: <Widget>[
-
-                // --- USER IMAGE LAYER
-                Container(
-                  // color: Colorz.Yellow,
-                    width: balloonWidth,
-                    height: balloonWidth,
-                    color: balloonColor,
-                    child: ColorFiltered(
-                        colorFilter: Colorizer.superDesaturation(blackAndWhite),
-                        child:
-                        loading ?
-                        Loading(loading: loading,)
-                            :
-                        balloonColor == null?
-                        Imagers.superImageWidget(pic == null ? userModel?.pic : pic)
-                            :
-                        Container()
-                    )
-                ),
-
-                // --- BUTTON OVAL HIGHLIGHT
-                Container(
-                  width: 2 * balloonWidth * 0.5 * 0.7,
-                  height: 1.4 * balloonWidth * 0.5 * 0.35,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.elliptical(
-                          balloonWidth * 0.8 * 0.5, balloonWidth * 0.7 * 0.8 * 0.5)),
-                      color: Colorz.Nothing,
-                      boxShadow: <CustomBoxShadow>[
-                        CustomBoxShadow(
-                            color: Colorz.White80,
-                            offset: new Offset(0, balloonWidth * 0.5 * -0.5),
-                            blurRadius: balloonWidth * 0.2,
-                            blurStyle: BlurStyle.normal),
-                      ]
-                  ),
-                ),
-
-                // --- BUTTON GRADIENT
-                // Container(
-                //   height: balloonWidth,
-                //   width: balloonWidth,
-                //   decoration: BoxDecoration(
-                //     gradient:
-                //     RadialGradient(
-                //       colors: <Color>[_bubbleDarkness(), Colorz.BlackNothing],
-                //       stops: <double>[0.0, 0.3],
-                //       radius: 1,
-                //       center: const Alignment(0, 0),
-                //       focal: const Alignment(0, 0),
-                //       focalRadius: 0.5,
-                //       tileMode: TileMode.mirror,
-                //
-                //     ),
-                //
-                //   ),
-                //
-                // ),
-
-                // --- Child
-                if(child != null)
-                  child,
-
-              ],
-            ),
-          ),
-        ),
-      );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -146,14 +62,200 @@ class UserBalloon extends StatelessWidget {
           } else {
             UserModel userModel = snapshot.data;
             return
-              _balloon(userModel);
+              Balloona(
+                  balloonWidth: balloonWidth,
+                  onTap: onTap,
+                  userModel: userModel,
+                  balloonType: balloonType,
+                  shadowIsOn: shadowIsOn,
+                  pic: pic,
+                  child: child,
+                  loading: loading,
+                  balloonColor: balloonColor,
+                  blackAndWhite: blackAndWhite
+              );
           }
         },
       )
 
         :
 
-    _balloon();
+    Balloona(
+        balloonWidth: balloonWidth,
+        onTap: onTap,
+        userModel: null,
+        balloonType: balloonType,
+        shadowIsOn: shadowIsOn,
+        pic: pic,
+        child: child,
+        loading: loading,
+        balloonColor: balloonColor,
+        blackAndWhite: blackAndWhite);
 
+  }
+}
+
+class Balloona extends StatelessWidget {
+  final double balloonWidth;
+  final Function onTap;
+  final UserModel userModel;
+  final UserStatus balloonType;
+  final bool shadowIsOn;
+  final String pic;
+  final Widget child;
+  final bool loading;
+  final Color balloonColor;
+  final bool blackAndWhite;
+
+  const Balloona({
+    @required this.balloonWidth,
+    @required this.onTap,
+    @required this.userModel,
+    @required this.balloonType,
+    @required this.shadowIsOn,
+    @required this.pic,
+    @required this.child,
+    @required this.loading,
+    @required this.balloonColor,
+    @required this.blackAndWhite,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+
+    CustomClipper _clipper = balloonType == null ? Iconizer.userBalloon(userModel?.userStatus) : Iconizer.userBalloon(balloonType);
+
+    return Container(
+      width: balloonWidth,
+      height: balloonWidth,
+      // color: Colorz.BloodTest,
+      child: GestureDetector(
+        onTap: onTap,
+        child:
+
+          shadowIsOn == true ?
+          ClipShadowPath(
+            clipper: _clipper,
+            shadow: Shadowz.basicOuterShadow,
+            child: BalloonComponents(
+              userModel: userModel,
+              pic: pic,
+              child: child,
+              loading: loading,
+              balloonColor: balloonColor,
+              balloonWidth: balloonWidth,
+              blackAndWhite: blackAndWhite,
+            ),
+          )
+
+              :
+
+          ClipPath(
+            clipper: _clipper,
+            child: BalloonComponents(
+              userModel: userModel,
+              pic: pic,
+              loading: loading,
+              balloonColor: balloonColor,
+              balloonWidth: balloonWidth,
+              blackAndWhite: blackAndWhite,
+              child: child,
+            ),
+          ),
+
+      ),
+    );
+  }
+}
+
+class BalloonComponents extends StatelessWidget {
+  final double balloonWidth;
+  final Color balloonColor;
+  final bool blackAndWhite;
+  final bool loading;
+  final String pic;
+  final UserModel userModel;
+  final Widget child;
+
+  const BalloonComponents({
+    @required this.balloonWidth,
+    @required this.balloonColor,
+    @required this.blackAndWhite,
+    @required this.loading,
+    @required this.pic,
+    @required this.userModel,
+    @required this.child,
+});
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      alignment: Alignment.center,
+      children: <Widget>[
+
+        /// --- USER IMAGE LAYER
+        Container(
+          // color: Colorz.Yellow,
+            width: balloonWidth,
+            height: balloonWidth,
+            color: balloonColor,
+            child: ColorFiltered(
+                colorFilter: Colorizer.superDesaturation(blackAndWhite),
+                child:
+                loading ?
+                Loading(loading: loading,)
+                    :
+                balloonColor == null?
+                Imagers.superImageWidget(pic == null ? userModel?.pic : pic)
+                    :
+                Container()
+            )
+        ),
+
+        /// --- BUTTON OVAL HIGHLIGHT
+        Container(
+          width: 2 * balloonWidth * 0.5 * 0.7,
+          height: 1.4 * balloonWidth * 0.5 * 0.35,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.elliptical(
+                  balloonWidth * 0.8 * 0.5, balloonWidth * 0.7 * 0.8 * 0.5)),
+              color: Colorz.Nothing,
+              boxShadow: <CustomBoxShadow>[
+                CustomBoxShadow(
+                    color: Colorz.White80,
+                    offset: new Offset(0, balloonWidth * 0.5 * -0.5),
+                    blurRadius: balloonWidth * 0.2,
+                    blurStyle: BlurStyle.normal),
+              ]
+          ),
+        ),
+
+        /// --- BUTTON GRADIENT
+        // Container(
+        //   height: balloonWidth,
+        //   width: balloonWidth,
+        //   decoration: BoxDecoration(
+        //     gradient:
+        //     RadialGradient(
+        //       colors: <Color>[_bubbleDarkness(), Colorz.BlackNothing],
+        //       stops: <double>[0.0, 0.3],
+        //       radius: 1,
+        //       center: const Alignment(0, 0),
+        //       focal: const Alignment(0, 0),
+        //       focalRadius: 0.5,
+        //       tileMode: TileMode.mirror,
+        //
+        //     ),
+        //
+        //   ),
+        //
+        // ),
+
+        // --- Child
+        if(child != null)
+          child,
+
+      ],
+    );
   }
 }

@@ -353,7 +353,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                 contacts: widget.userModel.contacts,
               ),
 
-              PyramidsHorizon(heightFactor: 5,),
+              PyramidsHorizon(),
 
 
             ],
