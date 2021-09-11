@@ -168,9 +168,7 @@ class MoreScreen extends StatelessWidget {
                 btOnTap: () => Nav.goToRoute(context, Routez.Obelisk),
               ),
 
-              PyramidsHorizon(
-                heightFactor: 5,
-              ),
+              PyramidsHorizon(),
 
             ],
           ),

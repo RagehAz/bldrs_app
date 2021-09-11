@@ -455,7 +455,7 @@ class _MyBzScreenState extends State<MyBzScreen> {
                   ]
               ),
 
-              PyramidsHorizon(heightFactor: 3,),
+              PyramidsHorizon(),
 
             ],
           ),

@@ -526,7 +526,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               onTap: _confirmEdits,
             ),
 
-            PyramidsHorizon(heightFactor: 5,)
+            PyramidsHorizon()
 
           ],
         ),

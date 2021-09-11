@@ -1,19 +1,19 @@
 import 'package:bldrs/controllers/drafters/scrollers.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/pyramids/bldrs_name.dart';
 import 'package:flutter/material.dart';
 
 class DashBoardLayout extends StatelessWidget {
   final List<Widget> listWidgets;
   final String pageTitle;
   final bool loading;
-  final List<Widget> appBarRowWidgets;
 
   DashBoardLayout({
     @required this.listWidgets,
     this.pageTitle,
     this.loading = false,
-    this.appBarRowWidgets,
 });
 
   @override
@@ -26,7 +26,18 @@ class DashBoardLayout extends StatelessWidget {
       // appBarBackButton: true,
       sky: Sky.Black,
       loading: loading,
-      appBarRowWidgets: appBarRowWidgets,
+      appBarRowWidgets: [
+
+          Expander(),
+
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
+            child: BldrsName(
+              size: 40,
+            ),
+          ),
+
+      ],
       layoutWidget: Scroller(
         child: ListView(
           physics: const BouncingScrollPhysics(),
