@@ -59,6 +59,8 @@ class NotificationCard extends StatelessWidget {
                         verse: notiModel.title,
                         size: 2,
                         designMode: _designMode,
+                        maxLines: 3,
+                        centered: false,
                       ),
 
                       /// TIME STAMP
@@ -69,6 +71,8 @@ class NotificationCard extends StatelessWidget {
                         weight: VerseWeight.thin,
                         size: 1,
                         designMode: _designMode,
+                        maxLines: 2,
+                        centered: false,
                       ),
 
                       /// BODY
