@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/theme/flagz.dart';
 import 'package:bldrs/models/notification/noti_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/views/widgets/buttons/balloons/user_balloon.dart';
@@ -38,7 +39,7 @@ class NotificationSenderBalloon extends StatelessWidget {
       sender == NotiPicType.author ?
       AuthorPic(
         authorPic: pic,
-        flyerZoneWidth: _screenWidth * 0.89,
+        width: _balloonWidth,
       )
           :
       sender == NotiPicType.user ?
@@ -56,12 +57,12 @@ class NotificationSenderBalloon extends StatelessWidget {
         size: _balloonWidth,
       )
           :
-          sender == NotiPicType.country ?
-              DreamBox(
-                width: _balloonWidth,
-                height: _balloonWidth,
-                icon: pic,
-              )
+      sender == NotiPicType.country ?
+      DreamBox(
+        width: _balloonWidth,
+        height: _balloonWidth,
+        icon: Flagz.getFlagByIso3(pic),
+      )
           :
       DreamBox(
         width: _balloonWidth,

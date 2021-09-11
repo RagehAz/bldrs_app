@@ -98,7 +98,7 @@ class AuthorLabel extends StatelessWidget {
 
                 /// AUTHOR IMAGE
                 AuthorPic(
-                  flyerZoneWidth: flyerZoneWidth,
+                  width: flyerZoneWidth * Ratioz.xxflyerAuthorPicWidth,
                   authorPic: tinyAuthor?.pic,
                   // tinyBz:
                 ),
@@ -165,14 +165,14 @@ class AuthorLabel extends StatelessWidget {
 class AuthorPic extends StatelessWidget {
   final bool isAddAuthorButton;
 
-  final double flyerZoneWidth;
+  final double width;
   final dynamic authorPic;
   final TinyBz tinyBz;
 
   AuthorPic({
     this.isAddAuthorButton = false,
 
-    this.flyerZoneWidth,
+    this.width,
     this.authorPic,
     this.tinyBz,
   });
@@ -193,22 +193,22 @@ class AuthorPic extends StatelessWidget {
   Widget build(BuildContext context) {
 
 // -----------------------------------------------------------------------------
-    double _authorImageWidth = flyerZoneWidth * Ratioz.xxflyerAuthorPicWidth;
-    double _authorImageHeight = _authorImageWidth;
-    double _authorImageCorners = getCornerValue(flyerZoneWidth);
+    double _authorImageHeight = width;
+    double _authorImageCorners = getCornerValue(width / Ratioz.xxflyerAuthorPicWidth);
 // -----------------------------------------------------------------------------
     BorderRadius _authorPicBorders = Borderers.superBorderOnly(
         context: context,
         enTopLeft: _authorImageCorners,
         enBottomLeft: 0,
         enBottomRight: _authorImageCorners,
-        enTopRight: _authorImageCorners);
+        enTopRight: _authorImageCorners
+    );
 // -----------------------------------------------------------------------------
     return
       Center(
         child: Container(
           height: _authorImageHeight,
-          width: _authorImageWidth,
+          width: width,
           decoration: BoxDecoration(
               color: Colorz.White10,
               borderRadius: _authorPicBorders,
@@ -230,14 +230,14 @@ class AuthorPic extends StatelessWidget {
               GestureDetector(
                 onTap: () => _tapAddAuthor(context),
                 child: Container(
-                  width: _authorImageWidth,
+                  width: width,
                   height: _authorImageHeight,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       DreamBox(
-                        width: _authorImageWidth * 0.35,
+                        width: width * 0.35,
                         height: _authorImageHeight * 0.35,
                         icon: Iconz.Plus,
                         iconSizeFactor: 1,

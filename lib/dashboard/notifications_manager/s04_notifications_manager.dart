@@ -1,3 +1,7 @@
+import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/router/navigators.dart';
+import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/dashboard/notifications_manager/notification_templates_screen.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/layouts/dashboard_layout.dart';
 import 'package:flutter/material.dart';
@@ -43,20 +47,53 @@ class _NotificationsManagerState extends State<NotificationsManager> {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
+
     return DashBoardLayout(
       pageTitle: 'Notifications Manager',
       loading: _loading,
       appBarRowWidgets: <Widget>[],
       listWidgets: <Widget>[
 
-        DreamBox(
-          height: 50,
-          width: 200,
-          verse: 'click me',
-          onTap: (){},
+        WideButton(
+            verse: 'Templates',
+            onTap: () => Nav.goToNewScreen(context, NotificationTemplatesScreen()),
         ),
+
+        WideButton(
+          verse: 'Send to single user',
+          onTap: () => Nav.goToNewScreen(context, NotificationTemplatesScreen()),
+        ),
+
 
       ],
     );
+  }
+}
+
+class WideButton extends StatelessWidget {
+  final Function onTap;
+  final String verse;
+
+  const WideButton({
+    @required this.verse,
+    this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+
+    double _screenWidth = Scale.superScreenWidth(context);
+    // double _screenHeight = Scale.superScreenHeight(context);
+
+    return
+      DreamBox(
+        height: 50,
+        width: _screenWidth - (2 * Ratioz.appBarMargin),
+        verse: verse,
+        verseScaleFactor: 0.7,
+        onTap: onTap,
+      );
+
   }
 }

@@ -152,7 +152,7 @@ class AuthorBubble extends StatelessWidget {
                   /// ADD NEW AUTHOR BUTTON
                   if (_thisIsMyBz == true && addAuthorButtonIsOn == true)
                     AuthorPic(
-                      flyerZoneWidth: flyerZoneWidth,
+                      width: flyerZoneWidth * Ratioz.xxflyerAuthorPicWidth,
                       authorPic: null,
                       isAddAuthorButton: true,
                       tinyBz: _tinyBz,
