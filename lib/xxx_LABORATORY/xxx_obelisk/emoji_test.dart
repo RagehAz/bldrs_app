@@ -12,7 +12,7 @@ class EmojiTest extends StatelessWidget {
 
   Future<void> onEmojiTap({BuildContext context, EmojiModel emo, int index}) async {
 
-    await BottomDialog.slideBottomDialog(
+    await BottomDialog.showBottomDialog(
       context: context,
       title: '${emo.emoji}  ${emo.name}',
       height: 400,

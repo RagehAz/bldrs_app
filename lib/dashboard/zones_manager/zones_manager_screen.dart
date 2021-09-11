@@ -43,27 +43,27 @@ class _ZonesManagerScreenState extends State<ZonesManagerScreen> {
     _countriesCollection = _fireInstance.collection('countries');
   }
 // ---------------------------------------------------------------------------
-  Future<void> _uploadCountriesToFirebase() async {
-    print('starting countries uploading');
-    _triggerLoading();
-    try {
-      Map<String, dynamic> _postData = DbCountries.getCountryByIso3('egy').toMap();
-
-      /// this specifies country name as Firestore document's id
-      await _countriesCollection.doc(_postData['iso3']).set(_postData);
-
-    } catch(error) {
-
-          await superDialog(
-            context: context,
-            title: 'Uploading error',
-            body: error,
-            boolDialog: false,
-          );
-
-    }
-    _triggerLoading();
-  }
+//   Future<void> _uploadCountriesToFirebase() async {
+//     print('starting countries uploading');
+//     _triggerLoading();
+//     try {
+//       Map<String, dynamic> _postData = DbCountries.getCountryByIso3('egy').toMap();
+//
+//       /// this specifies country name as Firestore document's id
+//       await _countriesCollection.doc(_postData['iso3']).set(_postData);
+//
+//     } catch(error) {
+//
+//           await superDialog(
+//             context: context,
+//             title: 'Uploading error',
+//             body: error,
+//             boolDialog: false,
+//           );
+//
+//     }
+//     _triggerLoading();
+//   }
 // ---------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -86,17 +86,17 @@ class _ZonesManagerScreenState extends State<ZonesManagerScreen> {
 
           Stratosphere(),
 
-          DreamBox(
-            width: _screenWidth * 0.9,
-            height: _screenWidth * 0.3,
-            color: Colorz.Yellow255,
-            verse: 'Upload Countries to Firebase',
-            verseMaxLines: 3,
-            verseColor: Colorz.Black230,
-            verseWeight: VerseWeight.black,
-            onTap: _uploadCountriesToFirebase,
-            margins: const EdgeInsets.all(10),
-          ),
+          // DreamBox(
+          //   width: _screenWidth * 0.9,
+          //   height: _screenWidth * 0.3,
+          //   color: Colorz.Yellow255,
+          //   verse: 'Upload Countries to Firebase',
+          //   verseMaxLines: 3,
+          //   verseColor: Colorz.Black230,
+          //   verseWeight: VerseWeight.black,
+          //   onTap: _uploadCountriesToFirebase,
+          //   margins: const EdgeInsets.all(10),
+          // ),
 
           Bubble(
             centered: true,
@@ -144,7 +144,7 @@ class _ZonesManagerScreenState extends State<ZonesManagerScreen> {
                                   verseMaxLines: 2,
                                   verseScaleFactor: 0.6,
                                   margins: const EdgeInsets.all(7.5),
-                                  onTap: () => Nav.goToNewScreen(context, CountryScreen(country: _countries[index])),
+                                  onTap: () => Nav.goToNewScreen(context, CountryEditorScreen(country: _countries[index])),
                                 );
 
                             },

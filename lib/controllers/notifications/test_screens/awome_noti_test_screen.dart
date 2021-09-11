@@ -72,7 +72,7 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
         bool _isAllowed = await _awesomeNotification.isNotificationAllowed();
 
         if (_isAllowed == false) {
-          bool _result = await CenterDialog.superDialog(
+          bool _result = await CenterDialog.showCenterDialog(
             context: context,
             title: 'Allow notifications',
             body: 'To be able to know what is going on',

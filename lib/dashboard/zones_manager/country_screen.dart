@@ -13,16 +13,16 @@ import 'package:bldrs/views/widgets/keywords/keywords_bubble.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 
-class CountryScreen extends StatefulWidget {
+class CountryEditorScreen extends StatefulWidget {
   final Country country;
 
-  CountryScreen({@required this.country});
+  CountryEditorScreen({@required this.country});
 
   @override
-  _CountryScreenState createState() => _CountryScreenState();
+  _CountryEditorScreenState createState() => _CountryEditorScreenState();
 }
 
-class _CountryScreenState extends State<CountryScreen> {
+class _CountryEditorScreenState extends State<CountryEditorScreen> {
   String _countriesCollectionName = 'countries';
   // CollectionReference _countriesCollection;
   // final FirebaseFirestore _fireInstance = FirebaseFirestore.instance;
@@ -131,7 +131,7 @@ class _CountryScreenState extends State<CountryScreen> {
             actionBtFunction: () => _updateCountryFieldOnFirestore('name', _name),
           ),
 
-          // --- Language
+          /// --- Language
           TextFieldBubble(
             title: 'Main language',
             textOnChanged: (val) => setState(() {_language = val;}),
@@ -143,7 +143,7 @@ class _CountryScreenState extends State<CountryScreen> {
             actionBtFunction: () => _updateCountryFieldOnFirestore('language', _language),
           ),
 
-          // --- FLAG
+          /// --- FLAG
           TextFieldBubble(
             title: 'flag',
             textOnChanged: (val) => setState(() {_flag = val;}),
@@ -158,7 +158,7 @@ class _CountryScreenState extends State<CountryScreen> {
 
           BubblesSeparator(),
 
-          // --- REGION
+          /// --- REGION
           TextFieldBubble(
             title: 'Region',
             textOnChanged: (val) => setState(() {_region = val;}),
@@ -170,7 +170,7 @@ class _CountryScreenState extends State<CountryScreen> {
             actionBtFunction: () => _updateCountryFieldOnFirestore('region', _region),
           ),
 
-          // --- CONTINENT
+          /// --- CONTINENT
           TextFieldBubble(
             title: 'Continent',
             textOnChanged: (val) => setState(() {_continent = val;}),
@@ -184,7 +184,7 @@ class _CountryScreenState extends State<CountryScreen> {
 
           BubblesSeparator(),
 
-          // --- IS ACTIVATED
+          /// --- IS ACTIVATED
           TileBubble(
             verse: 'Country is Activated ?',
             secondLine: 'When Country is Deactivated, only business authors may see it while creating business profile',
@@ -200,7 +200,7 @@ class _CountryScreenState extends State<CountryScreen> {
             },
           ),
 
-          // --- IS GLOBAL
+          /// --- IS GLOBAL
           TileBubble(
             verse: 'Country is Global ?',
             secondLine: 'When Country is not Global, only users of this country will see its businesses and flyers',

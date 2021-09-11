@@ -207,7 +207,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
 
                 double _clearDialogWidth = BottomDialog.dialogClearWidth(context);
 
-                await BottomDialog.slideBottomDialog(
+                await BottomDialog.showBottomDialog(
                   context: context,
                   title: _userModel.name,
                   draggable: true,

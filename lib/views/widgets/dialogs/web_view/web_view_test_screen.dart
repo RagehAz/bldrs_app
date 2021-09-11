@@ -54,7 +54,7 @@ class _WebViewTestScreenState extends State<WebViewTestScreen> {
 
           double _dialogHeight = BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.8);
 
-          await BottomDialog.slideBottomDialog(
+          await BottomDialog.showBottomDialog(
             context: context,
             height: _dialogHeight,
             draggable: false,
