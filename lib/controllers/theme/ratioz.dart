@@ -85,7 +85,7 @@ class Ratioz {
 // -----------------------------------------------------------------------------
   /// paddings
   static const double stratosphere = 70;
-  static const double horizon = pyramidsHeight * 0.4;
+  static const double horizon = pyramidsHeight * 1.5;
   static const double grandHorizon = pyramidsHeight;
 // -----------------------------------------------------------------------------
   /// Durations

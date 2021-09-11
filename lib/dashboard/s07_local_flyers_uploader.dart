@@ -344,7 +344,7 @@ class _LocalFlyersUploaderState extends State<LocalFlyersUploader> {
           // ),
 
 
-          PyramidsHorizon(heightFactor: 5,),
+          PyramidsHorizon(),
 
         ],
 

@@ -107,11 +107,6 @@ class _NotificationTemplatesScreenState extends State<NotificationTemplatesScree
       pageTitle: 'News & Notifications',
       sky: Sky.Black,
       pyramids: Iconz.PyramidzYellow,
-      tappingRageh: (){
-
-      },
-
-
       layoutWidget:
 
       _notifications.length == 0 ?

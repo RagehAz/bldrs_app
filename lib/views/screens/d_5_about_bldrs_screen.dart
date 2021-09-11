@@ -139,7 +139,7 @@ class AboutBldrsScreen extends StatelessWidget {
 
             BubblesSeparator(),
 
-            PyramidsHorizon(heightFactor: 5,),
+            PyramidsHorizon(),
 
           ],
         ),

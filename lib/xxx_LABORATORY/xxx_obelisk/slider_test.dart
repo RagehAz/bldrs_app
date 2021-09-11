@@ -302,7 +302,7 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
               },
             ),
 
-            PyramidsHorizon(heightFactor: 10,),
+            PyramidsHorizon(),
 
           ],
         ),

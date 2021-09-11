@@ -689,7 +689,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                 bubbleType: BubbleType.authorPic,
               ),
 
-              PyramidsHorizon(heightFactor: 5,),
+              PyramidsHorizon(),
 
             ],
           ),

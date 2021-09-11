@@ -262,7 +262,7 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
             ],
           ),
 
-          PyramidsHorizon(heightFactor: 3,),
+          PyramidsHorizon(),
 
         ],
       ),

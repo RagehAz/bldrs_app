@@ -277,8 +277,9 @@ class PyramidsHorizon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Container(
-      width: double.infinity,
+      width: Scale.superScreenWidth(context),
       height: Ratioz.horizon * heightFactor,
     );
   }
