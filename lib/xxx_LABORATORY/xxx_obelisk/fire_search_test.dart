@@ -194,7 +194,7 @@ class _FireSearchTestState extends State<FireSearchTest> {
               ),
 
 
-                PyramidsHorizon(heightFactor: 10,),
+                PyramidsHorizon(),
 
             ],
           ),

@@ -1,17 +1,13 @@
-// this in app dashboard will be separated into separate app to control database and audit app content
-// or now it will be developed here until launch version is complete
 import 'package:bldrs/controllers/router/navigators.dart';
-import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/dashboard/flyers_manager/all_flyers_screen.dart';
 import 'package:bldrs/dashboard/pricing_manager/pricing_screen.dart';
 import 'package:bldrs/dashboard/s02_statistics.dart';
 import 'package:bldrs/dashboard/s05_keywords_manager.dart';
 import 'package:bldrs/dashboard/users_manager/users_manager_screen.dart';
-import 'package:bldrs/views/widgets/artworks/bldrs_name_logo_slogan.dart';
-import 'package:bldrs/views/widgets/buttons/main_button.dart';
+import 'package:bldrs/dashboard/widgets/wide_button.dart';
 import 'package:bldrs/views/widgets/layouts/dashboard_layout.dart';
-import 'package:bldrs/views/widgets/textings/super_verse.dart';
+import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 import 'bzz_manager/bzz_manager_screen.dart';
 import 'notifications_manager/s04_notifications_manager.dart';
@@ -27,93 +23,81 @@ class DashBoard extends StatefulWidget {
 
 class _DashBoardState extends State<DashBoard> {
 
-
   @override
   Widget build(BuildContext context) {
-
-    // double _screenWidth = superScreenWidth(context);
-    // double _screenHeight = superScreenHeight(context);
-
-    Widget _button ({String title, String icon, Function onTap,}){
-      return MainButton(
-        buttonVerse: title,
-        function: onTap,
-        splashColor: Colorz.Yellow255,
-        buttonColor: Colorz.Yellow255,
-        verseColor: Colorz.Black230,
-        verseWeight : VerseWeight.black,
-        buttonVerseShadow: false,
-        stretched: false,
-        buttonIcon: icon,
-      );
-    }
 
     return DashBoardLayout(
         pageTitle: 'DashBoard',
         loading: false,
         listWidgets: <Widget>[
 
-          LogoSlogan(),
+          WideButton(
+            title: 'Big Mac Price Index',
+            icon: Iconz.BigMac,
+            onTap: () => Nav.goToNewScreen(context, PricingScreen()),
+          ),
 
-          _button(
+          WideButton(
             title: 'Pricing',
             icon: Iconz.Dollar,
             onTap: () => Nav.goToNewScreen(context, PricingScreen()),
           ),
 
-          _button(
+          WideButton(
             title: 'All Flyers',
             icon: Iconz.Flyer,
             onTap: () => Nav.goToNewScreen(context, AllFlyersScreen()),
           ),
 
-          _button(
+          WideButton(
               title: 'General Statistics',
               icon: Iconz.Statistics,
               onTap: () => Nav.goToNewScreen(context, GeneralStatistics()),
           ),
 
-          _button(
+          WideButton(
               title: 'Users Manager',
               icon: Iconz.NormalUser,
               onTap: () => Nav.goToNewScreen(context, UsersManagerScreen()),
           ),
 
-          _button(
+          WideButton(
             title: 'Zones Manager',
             icon: Iconz.Earth,
             onTap: () => Nav.goToNewScreen(context, ZonesManagerScreen()),
           ),
 
-          _button(
+          WideButton(
             title: 'Bzz Manager',
             icon: Iconz.Bz,
             onTap: () => Nav.goToNewScreen(context, BzzManagerScreen()),
           ),
 
-          _button(
+          WideButton(
             title: 'Notifications Manager',
             icon: Iconz.News,
             onTap: () => Nav.goToNewScreen(context, NotificationsManager()),
           ),
 
-          _button(
+          WideButton(
             title: 'Keywords Manager',
             icon: Iconz.Language,
             onTap: () => Nav.goToNewScreen(context, KeywordsManager()),
           ),
 
-          _button(
+          WideButton(
             title: 'Flyers Auditor',
             icon: Iconz.FlyerGrid,
             onTap: () => Nav.goToNewScreen(context, FlyersAuditor()),
           ),
 
-          _button(
+          WideButton(
             title: 'Local Bz & Flyers Uploader',
             icon: Iconz.AddFlyer,
             onTap: () => Nav.goToNewScreen(context, LocalFlyersUploader()),
           ),
+
+          PyramidsHorizon(),
 
         ]
     );

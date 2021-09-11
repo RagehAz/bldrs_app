@@ -20,6 +20,29 @@ import 'package:flutter/material.dart';
 ///   {'challenge' : 'publish 100 flyers',  'progress' : 9   , 'claimed' : false},
 /// ];
 /// List<Map<String,Object>> progress; <------
+enum BzType {
+  Developer, // dv -> pp (property flyer - property source flyer)
+  Broker, // br -> pp (property flyer)
+
+  Designer, // dr - ds (design flyer)
+  Contractor, // cn - pj (project flyer)
+  Artisan, // ar - cr (craft flyer)
+
+  Manufacturer, // mn - pd (product flyer - product source flyer)
+  Supplier, // sp - pd (product flyer)
+}
+// -----------------------------------------------------------------------------
+enum BzForm {
+  Individual,
+  Company,
+}
+// -----------------------------------------------------------------------------
+enum BzAccountType{
+  Default,
+  Premium,
+  Super,
+}
+// -----------------------------------------------------------------------------
 class BzModel with ChangeNotifier{
   final String bzID;
   // -------------------------
@@ -425,28 +448,42 @@ Map<String, dynamic> toMap(){
     return _bzModel;
   }
 // -----------------------------------------------------------------------------
-}
-// -----------------------------------------------------------------------------
-enum BzType {
-  Developer, // dv -> pp (property flyer - property source flyer)
-  Broker, // br -> pp (property flyer)
+  void printBzModel({@required String methodName}){
 
-  Designer, // dr - ds (design flyer)
-  Contractor, // cn - pj (project flyer)
-  Artisan, // ar - cr (craft flyer)
+    print('$methodName : PRINTING BZ MODEL ---------------- START -- ');
 
-  Manufacturer, // mn - pd (product flyer - product source flyer)
-  Supplier, // sp - pd (product flyer)
-}
+    print('bzID : $bzID');
+    print('bzType : $bzType');
+    print('bzForm : $bzForm');
+    print('bldrBirth : $bldrBirth');
+    print('accountType : $accountType');
+    print('bzURL : $bzURL');
+    print('bzName : $bzName');
+    print('bzLogo : $bzLogo');
+    print('bzScope : $bzScope');
+    print('bzZone : $bzZone');
+    print('bzAbout : $bzAbout');
+    print('bzPosition : $bzPosition');
+    print('bzContacts : $bzContacts');
+    print('bzAuthors : $bzAuthors');
+    print('bzShowsTeam : $bzShowsTeam');
+    print('bzIsVerified : $bzIsVerified');
+    print('bzAccountIsDeactivated : $bzAccountIsDeactivated');
+    print('bzAccountIsBanned : $bzAccountIsBanned');
+    print('bzTotalFollowers : $bzTotalFollowers');
+    print('bzTotalSaves : $bzTotalSaves');
+    print('bzTotalShares : $bzTotalShares');
+    print('bzTotalSlides : $bzTotalSlides');
+    print('bzTotalViews : $bzTotalViews');
+    print('bzTotalCalls : $bzTotalCalls');
+    print('nanoFlyers : $nanoFlyers');
+    print('bzTotalFlyers : $bzTotalFlyers');
+    print('authorsIDs : $authorsIDs');
+
+    print('$methodName : PRINTING BZ MODEL ---------------- END -- ');
+
+  }
 // -----------------------------------------------------------------------------
-enum BzForm {
-  Individual,
-  Company,
 }
-// -----------------------------------------------------------------------------
-enum BzAccountType{
-  Default,
-  Premium,
-  Super,
-}
-// -----------------------------------------------------------------------------
+
+

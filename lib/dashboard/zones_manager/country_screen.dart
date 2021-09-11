@@ -226,7 +226,7 @@ class _CountryScreenState extends State<CountryScreen> {
             addButtonIsOn: false,
           ),
 
-          PyramidsHorizon(heightFactor: 10,),
+          PyramidsHorizon(),
 
         ],
       ),

@@ -337,7 +337,7 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
             boxFunction: (){},
             ),
 
-          PyramidsHorizon(heightFactor: 5,),
+          PyramidsHorizon(),
 
 
         ],

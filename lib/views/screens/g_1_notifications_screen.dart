@@ -99,7 +99,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
           margins: EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
           onTap: (){
             print('to dismissed notifications');
-          },
+            },
         ),
 
       ],
@@ -109,8 +109,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
       pyramids: Iconz.PyramidzYellow,
       tappingRageh: (){
 
-      },
-
+        },
 
       layoutWidget:
 

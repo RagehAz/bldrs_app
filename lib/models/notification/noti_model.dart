@@ -1,3 +1,4 @@
+import 'package:bldrs/models/notification/noti_sudo.dart';
 import 'package:flutter/foundation.dart';
 
 enum NotiType{
@@ -6,34 +7,12 @@ enum NotiType{
   onLaunch,
 }
 
-// enum NotiSubject{
-//   ad,
-//   welcome,
-//   newFlyer,
-//   event,
-//   reminder,
-//   education,
-//   non,
-// }
-
 enum NotiAttachmentType{
   non,
   flyers,
   bz,
   banner,
-}
-
-enum NotiRecieverType{
-  user,
-  users,
-  author,
-  authors,
-}
-
-enum CityState{
-  private, /// app shows bzz only ,, all flyers hidden to public,, currently building content
-  public, /// app shows all
-  any,
+  buttons,
 }
 
 enum NotiChannel{
@@ -53,7 +32,7 @@ enum NotiPicType {
 class NotiModel{
   final String id;
   final String name;
-  final String sudo; /// sudo description for /// event trigger : /// scheduled timing : /// if statement /// cityState :
+  final NotiSudo sudo; /// sudo description for /// event trigger : /// scheduled timing : /// if statement /// cityState :
 
   final String senderID;
   final String pic;
@@ -171,6 +150,7 @@ class NotiModel{
       case 'flyers' : return NotiAttachmentType.flyers; break;
       case 'banner' : return NotiAttachmentType.banner; break;
       case 'bz' : return NotiAttachmentType.bz; break;
+      case 'buttons' : return NotiAttachmentType.buttons; break;
       default: return NotiAttachmentType.non;
     }
   }
@@ -181,53 +161,9 @@ class NotiModel{
       case NotiAttachmentType.flyers : return 'flyers'; break;
       case NotiAttachmentType.banner : return 'banner'; break;
       case NotiAttachmentType.bz : return 'bz'; break;
+      case NotiAttachmentType.buttons : return 'buttons'; break;
       default: return 'non';
     }
   }
-// -----------------------------------------------------------------------------
-//   static String cipherNotiReciever(NotiRecieverType reciever){
-//     switch (reciever){
-//       case NotiRecieverType.author : return 'author'; break;
-//       case NotiRecieverType.authors : return 'authors'; break;
-//       case NotiRecieverType.user : return 'user'; break;
-//       case NotiRecieverType.users : return 'users'; break;
-//       default: return 'user';
-//     }
-//   }
-// // -----------------------------------------------------------------------------
-//   static NotiRecieverType decipherNotiReciever(String reciever){
-//     switch (reciever){
-//       case 'author': return NotiRecieverType.author; break;
-//       case 'authors': return NotiRecieverType.authors; break;
-//       case 'user': return NotiRecieverType.user; break;
-//       case 'users': return NotiRecieverType.users; break;
-//       default: return NotiRecieverType.user;
-//     }
-//   }
-// // // -----------------------------------------------------------------------------
-//   static String cipherNotiSubject(NotiSubject notiSubject){
-//     switch(notiSubject){
-//       case NotiSubject.ad       : return 'ad'; break;
-//       case NotiSubject.welcome  : return 'welcome'; break;
-//       case NotiSubject.education: return 'education'; break;
-//       case NotiSubject.event    : return 'event'; break;
-//       case NotiSubject.newFlyer : return 'newFlyer'; break;
-//       case NotiSubject.reminder : return 'reminder'; break;
-//       default: return 'non';
-//     }
-//   }
-// // -----------------------------------------------------------------------------
-//   static NotiSubject decipherNotiSubject(String notiSubject){
-//     switch(notiSubject){
-//       case 'ad' : return NotiSubject.ad       ; break;
-//       case 'welcome' : return NotiSubject.welcome  ; break;
-//       case 'education' : return NotiSubject.education; break;
-//       case 'event' : return NotiSubject.event    ; break;
-//       case 'newFlyer' : return NotiSubject.newFlyer ; break;
-//       case 'reminder' : return NotiSubject.reminder ; break;
-//       default: return NotiSubject.non;
-//     }
-//   }
-// // -----------------------------------------------------------------------------
 
 }

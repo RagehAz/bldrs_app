@@ -4,6 +4,7 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/notification/noti_model.dart';
 import 'package:bldrs/views/widgets/artworks/bldrs_welcome_banner.dart';
 import 'package:bldrs/views/widgets/bubbles/bubble.dart';
+import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/notifications/notification_balloon.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,20 @@ class NotificationCard extends StatelessWidget {
   NotificationCard({
     @required this.notiModel,
 });
+// -----------------------------------------------------------------------------
+  void _onBubbleTap(){
 
+    print('_onBubbleTap : noti id is : ${notiModel.id} : ${notiModel.name}');
+
+      // notiModel.sudo.printSudo(methodName: '${notiModel.id} : ${notiModel.name}');
+    }
+// -----------------------------------------------------------------------------
+  void _onButtonTap(String value){
+    /// TASK : notification buttons accept reject need better logic handling for translation
+    bool _accepted = value == 'Accept' ? true : false;
+    print('_onButtonTap : _accepted : $_accepted');
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -24,9 +38,12 @@ class NotificationCard extends StatelessWidget {
     double _bodyWidth = _bubbleWidth - _balloonWidth - (_padding * 3);
     bool _designMode = false;
 
+    bool _notiHasButtons = notiModel.attachmentType == NotiAttachmentType.buttons;
+
     return Bubble(
           centered: true,
           margins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin, vertical: Ratioz.appBarPadding),
+          bubbleOnTap: _notiHasButtons ? null : _onBubbleTap,
           columnChildren: <Widget>[
 
             Row(
@@ -97,6 +114,39 @@ class NotificationCard extends StatelessWidget {
                         width: _bodyWidth,
                         corners: Bubble.cornersValue() - Ratioz.appBarMargin,
                       ),
+
+                      /// BUTTONS
+                      if(notiModel.attachmentType == NotiAttachmentType.buttons && notiModel.attachment is List<String>)
+                        Container(
+                          width: _bodyWidth,
+                          height: 70,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+
+                              ...List.generate(notiModel.attachment.length,
+                                      (index){
+
+                                double _width = (_bodyWidth - ((notiModel.attachment.length + 1) * Ratioz.appBarMargin) ) / (notiModel.attachment.length);
+
+                                return
+                                  DreamBox(
+                                    width: _width,
+                                    height: 60,
+                                    verse: notiModel.attachment[index],
+                                    verseScaleFactor: 0.7,
+                                    color: Colorz.Blue80,
+                                    splashColor: Colorz.Yellow255,
+                                    onTap: () => _onButtonTap(notiModel.attachment[index]),
+                                  );
+
+                              }
+                              ),
+
+                            ],
+                          ),
+                        ),
 
                     ],
                   ),

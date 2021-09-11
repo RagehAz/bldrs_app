@@ -2,6 +2,7 @@ import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/models/notification/noti_model.dart';
+import 'package:bldrs/models/notification/noti_sudo.dart';
 import 'package:bldrs/models/user/tiny_user.dart';
 import 'package:flutter/foundation.dart';
 
@@ -108,14 +109,14 @@ class BldrsNotiModelz {
       NotiModel(
         id: 'n01',
         name: 'buildSomething',
-        sudo:
-            'subject          :   NotiSubject.reminder'
-            'event trigger    :   when user did not sign in for 4 weeks'
-            'scheduled timing :   asPerDays : 9 pm'
-            'if statement     :   last sign in timeStamp > 28 days'
-            'cityState        :   CityState.public'
-            'reciever         :   NotiRecieverType.user',
-
+        sudo: NotiSudo(
+            subject         :   NotiSubject.reminder,
+            eventTrigger    :   'when user did not sign in for 4 weeks',
+            scheduledTiming :   'asPerDays : 9 pm',
+            ifStatement     :   'last sign in timeStamp > 28 days',
+            cityState       :   CityState.public,
+            reciever        :   NotiRecieverType.user,
+        ),
         senderID: _bldrsSenderID,
         pic: _bldrsLogoURL,
         picType: NotiPicType.bldrs,
@@ -137,14 +138,14 @@ class BldrsNotiModelz {
       NotiModel(
         id: 'n02',
         name: 'createSomethingNew',
-        sudo:
-            'subject          :   NotiSubject.reminder'
-            'event trigger    :   when user did not sign in for a 5 weeks'
-            'scheduled timing :   asPerDays : 10 am'
-            'if statement     :   last sign in timeStamp > 35 days'
-            'cityState        :   CityState.public'
-            'reciever         :   NotiRecieverType.user,',
-
+        sudo: NotiSudo(
+            subject           :   NotiSubject.reminder,
+            eventTrigger      :   'when user did not sign in for a 5 weeks',
+            scheduledTiming   :   'asPerDays : 10 am',
+            ifStatement       :   'last sign in timeStamp > 35 days',
+            cityState         :   CityState.public,
+            reciever          :   NotiRecieverType.user,
+        ),
         senderID: _bldrsSenderID,
         pic: _bldrsLogoURL,
         picType: NotiPicType.bldrs,
@@ -166,14 +167,14 @@ class BldrsNotiModelz {
       NotiModel(
         id: 'n03',
         name: 'planYourFuture',
-        sudo:
-            'subject          :   NotiSubject.reminder,'
-            'event trigger    :   when user did not sign in for  6 weeks'
-            'scheduled timing :   asPerDays : 10 am'
-            'if statement     :   last sign in timeStamp > 42 days'
-            'cityState        :   CityState.public'
-            'reciever         :   NotiRecieverType.user,',
-
+        sudo: NotiSudo(
+            subject         : NotiSubject.reminder,
+            eventTrigger    : 'when user did not sign in for  6 weeks',
+            scheduledTiming : 'asPerDays : 10 am',
+            ifStatement     : 'last sign in timeStamp > 42 days',
+            cityState       : CityState.public,
+            reciever        : NotiRecieverType.user,
+        ),
         senderID: _bldrsSenderID,
         pic: _bldrsLogoURL,
         picType: NotiPicType.bldrs,
@@ -195,14 +196,14 @@ class BldrsNotiModelz {
       NotiModel(
         id: 'n04',
         name: 'youDidNotSee',
-        sudo:
-            'subject          :   NotiSubject.reminder,'
-            'event trigger    :   when user downloaded app but did not sign up aslan for 7 days'
-            'scheduled timing :   asPerDays : 10 am'
-            'if statement     :   firebase user.id exists && UserModel does not exist && last signed in timeStamp > 7 days'
-            'cityState        :   CityState.public'
-            'reciever         :   NotiRecieverType.user',
-
+        sudo: NotiSudo(
+            subject         :   NotiSubject.reminder,
+            eventTrigger    :   'when user downloaded app but did not sign up aslan for 7 days',
+            scheduledTiming :   'asPerDays : 10 am',
+            ifStatement     :   'firebase user.id exists && UserModel does not exist && last signed in timeStamp > 7 days',
+            cityState       :   CityState.public,
+            reciever        :   NotiRecieverType.user,
+        ),
         senderID: _bldrsSenderID,
         pic: _bldrsLogoURL,
         picType: NotiPicType.bldrs,
@@ -224,14 +225,14 @@ class BldrsNotiModelz {
       NotiModel(
         id: 'n05',
         name: 'rememberYourOptions',
-        sudo:
-            'subject          :   NotiSubject.reminder,'
-            'event trigger    :   when user downloaded app but did not sign up aslan for 14 days'
-            'scheduled timing :   asPerDays : 10 am'
-            'if statement     :   firebase user.id exists && UserModel does not exist && last signed in timeStamp > 14 days'
-            'cityState        :   CityState.public'
-            'reciever         :   NotiRecieverType.user',
-
+        sudo: NotiSudo(
+            subject         :   NotiSubject.reminder,
+            eventTrigger    :   'when user downloaded app but did not sign up aslan for 14 days',
+            scheduledTiming :   'asPerDays : 10 am',
+            ifStatement     :   'firebase user.id exists && UserModel does not exist && last signed in timeStamp > 14 days',
+            cityState       :   CityState.public,
+            reciever        :   NotiRecieverType.user,
+        ),
         senderID: _bldrsSenderID,
         pic: _bldrsLogoURL,
         picType: NotiPicType.bldrs,
@@ -254,14 +255,14 @@ class BldrsNotiModelz {
       NotiModel(
         id: 'n06',
         name: 'cityWentPublic',
-        sudo:
-            'subject          :   NotiSubject.event,'
-            'event trigger    :   when city goes public'
-            'scheduled timing :   asPerDay : 7:00 pm'
-            'if statement     :   user.zone.city == this city & cityIsPublic = true after it was false'
-            'cityState        :   CityState.public'
-            'reciever         :   NotiRecieverType.users',
-
+        sudo: NotiSudo(
+            subject         :   NotiSubject.event,
+            eventTrigger    :   'when city goes public',
+            scheduledTiming :   'asPerDay : 7:00 pm',
+            ifStatement     :   'user.zone.city == this city & cityIsPublic = true after it was false',
+            cityState       :   CityState.public,
+            reciever        :   NotiRecieverType.users,
+        ),
         senderID: _bldrsSenderID,
         pic: iso3,
         picType: NotiPicType.country,
@@ -283,14 +284,14 @@ class BldrsNotiModelz {
       NotiModel(
         id: 'n07',
         name: 'feedbackAutoReply',
-        sudo:
-            'subject          :   NotiSubject.event,'
-            'event trigger    :   after user posts opinion feedback with 24 hours'
-            'scheduled timing :   asPerDay : 10:00 am'
-            'if statement     :   feedback.time.sinceThen == 24 hours'
-            'cityState        :   CityState.any'
-            'reciever         :   NotiRecieverType.user',
-
+        sudo: NotiSudo(
+            subject         :   NotiSubject.event,
+            eventTrigger    :   'after user posts opinion feedback with 24 hours',
+            scheduledTiming :   'asPerDay : 10:00 am',
+            ifStatement     :   'feedback.time.sinceThen == 24 hours',
+            cityState       :   CityState.any,
+            reciever        :   NotiRecieverType.user,
+        ),
         senderID: _bldrsSenderID,
         pic: _bldrsLogoURL,
         picType: NotiPicType.bldrs,
@@ -313,14 +314,14 @@ class BldrsNotiModelz {
       NotiModel(
         id: 'n08',
         name: 'bldrsFeedbackReply',
-        sudo:
-            'subject          :   NotiSubject.event,'
-            'event trigger    :   when bldrs.net replies over customer feedback'
-            'scheduled timing :   on time'
-            'if statement     :   if bldrs.net admin decides to reply'
-            'cityState        :   CityState.any'
-            'reciever         :   NotiRecieverType.user,',
-
+        sudo: NotiSudo(
+            subject         :   NotiSubject.event,
+            eventTrigger    :   'when bldrs.net replies over customer feedback',
+            scheduledTiming :   'on time',
+            ifStatement     :   'if bldrs.net admin decides to reply',
+            cityState       :   CityState.any,
+            reciever        :   NotiRecieverType.user,
+        ),
         senderID: _bldrsSenderID,
         pic: _bldrsLogoURL,
         picType: NotiPicType.bldrs,
@@ -342,14 +343,14 @@ class BldrsNotiModelz {
       NotiModel(
         id: 'n09',
         name: 'chooseYourCustomerStatus',
-        sudo:
-            'subject          :   NotiSubject.reminder,'
-            'event trigger    :   when user did not assign userStatus for 2 days'
-            'scheduled timing :   asPerDay : 2:00 pm'
-            'if statement     :   if userModel.userStatus == null,, or not assigned'
-            'cityState        :   CityState.any'
-            'reciever         :   NotiRecieverType.user',
-
+        sudo: NotiSudo(
+            subject         :   NotiSubject.reminder,
+            eventTrigger    :   'when user did not assign userStatus for 2 days',
+            scheduledTiming :   'asPerDay : 2:00 pm',
+            ifStatement     :   'if userModel.userStatus == null,, or not assigned',
+            cityState       :   CityState.any,
+            reciever        :   NotiRecieverType.user,
+        ),
         senderID: _bldrsSenderID,
         pic: _bldrsLogoURL,
         picType: NotiPicType.bldrs,
@@ -371,14 +372,14 @@ class BldrsNotiModelz {
       NotiModel(
         id: 'n10',
         name: 'monthlyStatistics',
-        sudo:
-            'subject          :   NotiSubject.ad,'
-            'event trigger    :   every month'
-            'scheduled timing :   first day in the month : 10:00 am'
-            'if statement     :   no condition'
-            'cityState        :   CityState.public'
-            'reciever         :   NotiRecieverType.users',
-
+        sudo: NotiSudo(
+            subject         :   NotiSubject.ad,
+            eventTrigger    :   'every month',
+            scheduledTiming :   'first day in the month : 10:00 am',
+            ifStatement     :   'no condition',
+            cityState       :   CityState.public,
+            reciever        :   NotiRecieverType.users,
+        ),
         senderID: _bldrsSenderID,
         pic: _bldrsLogoURL,
         picType: NotiPicType.bldrs,
@@ -403,14 +404,14 @@ class BldrsNotiModelz {
       NotiModel(
         id: 'n11',
         name: 'newFlyerByFollowedPremiumBz',
-        sudo:
-            'subject          :   NotiSubject.event,'
-            'event trigger    :   when followed premium bz adds new flyers'
-            'scheduled timing :   asPerDay : asPerHour'
-            'if statement     :   bz.followers.include(userID)'
-            'cityState        :   CityState.public'
-            'reciever         :   NotiRecieverType.users',
-
+        sudo: NotiSudo(
+            subject         :   NotiSubject.event,
+            eventTrigger    :   'when followed premium bz adds new flyers',
+            scheduledTiming :   'asPerDay : asPerHour',
+            ifStatement     :   'bz.followers.include(userID)',
+            cityState       :   CityState.public,
+            reciever        :   NotiRecieverType.users,
+        ),
         senderID: tinyBz.bzID,
         pic: tinyBz.bzLogo,
         picType: NotiPicType.bz,
@@ -432,14 +433,14 @@ class BldrsNotiModelz {
       NotiModel(
         id: 'n12',
         name: 'flyerReviewReply',
-        sudo:
-            'subject          :   NotiSubject.event,'
-            'event trigger    :   when author replies on user review'
-            'scheduled timing :   asPerDay : asPerTime'
-            'if statement     :   if reviewModel.authorReplied turns true'
-            'cityState        :   CityState.public'
-            'reciever         :   NotiRecieverType.user',
-
+        sudo: NotiSudo(
+            subject         :   NotiSubject.event,
+            eventTrigger    :   'when author replies on user review',
+            scheduledTiming :   'asPerDay : asPerTime',
+            ifStatement     :   'if reviewModel.authorReplied turns true',
+            cityState       :   CityState.public,
+            reciever        :   NotiRecieverType.user,
+        ),
         senderID: tinyBz.bzID,
         pic: tinyBz.bzLogo,
         picType: NotiPicType.bz,
@@ -461,14 +462,14 @@ class BldrsNotiModelz {
       NotiModel(
         id: 'n13',
         name: 'flyerReviewed',
-        sudo:
-            'subject          : NotiSubject.event,'
-            'event trigger    :   when user posts flyer review'
-            'scheduled timing :   asPerDay : asPerTime'
-            'if statement     :   on review doc created && bz.AuthorsIDs.include(userID)'
-            'cityState        :   CityState.public'
-            'reciever         : NotiRecieverType.authors',
-
+        sudo: NotiSudo(
+            subject         :   NotiSubject.event,
+            eventTrigger    :   'when user posts flyer review',
+            scheduledTiming :   'asPerDay : asPerTime',
+            ifStatement     :   'on review doc created && bz.AuthorsIDs.include(userID)',
+            cityState       :   CityState.public,
+            reciever        :   NotiRecieverType.authors,
+        ),
         senderID: tinyUser.userID,
         pic: tinyUser.pic,
         picType: NotiPicType.user,
@@ -490,14 +491,14 @@ class BldrsNotiModelz {
       NotiModel(
         id: 'n14',
         name: 'flyerSaved',
-        sudo:
-            'subject          :   NotiSubject.event,'
-            'event trigger    :   when a user saves a flyer'
-            'scheduled timing :   asPerDay : asPerTime'
-            'if statement     :   send to all bz authors'
-            'cityState        :   CityState.public'
-            'reciever         :   NotiRecieverType.authors',
-
+        sudo: NotiSudo(
+            subject         :   NotiSubject.event,
+            eventTrigger    :   'when a user saves a flyer',
+            scheduledTiming :   'asPerDay : asPerTime',
+            ifStatement     :   'send to all bz authors',
+            cityState       :   CityState.public,
+            reciever        :   NotiRecieverType.authors,
+        ),
         senderID: tinyUser.userID,
         pic: tinyUser.pic,
         picType: NotiPicType.user,
@@ -519,14 +520,14 @@ class BldrsNotiModelz {
       NotiModel(
         id: 'n15',
         name: 'flyerShared',
-        sudo:
-            'subject          :   NotiSubject.event,'
-            'event trigger    :   when a user shares a flyer'
-            'scheduled timing :   asPerDay : asPerTime'
-            'if statement     :   send to all bz authors'
-            'cityState        :   CityState.public'
-            'reciever         :   NotiRecieverType.authors',
-
+        sudo: NotiSudo(
+            subject         :   NotiSubject.event,
+            eventTrigger    :   'when a user shares a flyer',
+            scheduledTiming :   'asPerDay : asPerTime',
+            ifStatement     :   'send to all bz authors',
+            cityState       :   CityState.public,
+            reciever        :   NotiRecieverType.authors,
+        ),
         senderID: tinyUser.userID,
         pic: tinyUser.pic,
         picType: NotiPicType.user,
@@ -549,14 +550,14 @@ class BldrsNotiModelz {
       NotiModel(
         id: 'n16',
         name: 'userFollowed',
-        sudo:
-            'subject          :   NotiSubject.event,'
-            'event trigger    :   when a user follows bz'
-            'scheduled timing :   asPerDay : asPerTime'
-            'if statement     :   send to all bz authors'
-            'cityState        :   CityState.public'
-            'reciever         :   NotiRecieverType.authors',
-
+        sudo: NotiSudo(
+            subject         :   NotiSubject.event,
+            eventTrigger    :   'when a user follows bz',
+            scheduledTiming :   'asPerDay : asPerTime',
+            ifStatement     :   'send to all bz authors',
+            cityState       :   CityState.public,
+            reciever        :   NotiRecieverType.authors,
+        ),
         senderID: tinyUser.userID,
         pic: tinyUser.pic,
         picType: NotiPicType.user,
@@ -578,14 +579,14 @@ class BldrsNotiModelz {
       NotiModel(
         id: 'n17',
         name: 'weeklyBzStatistics',
-        sudo:
-            'subject          :   NotiSubject.ad,'
-            'event trigger    :   every week'
-            'scheduled timing :   Monday : 10:00 am'
-            'if statement     :   send to all bz authors'
-            'cityState        :   CityState.any'
-            'reciever         :   NotiRecieverType.authors',
-
+        sudo: NotiSudo(
+            subject         :   NotiSubject.ad,
+            eventTrigger    :   'every week',
+            scheduledTiming :   'Monday : 10:00 am',
+            ifStatement     :   'send to all bz authors',
+            cityState       :   CityState.any,
+            reciever        :   NotiRecieverType.authors,
+        ),
         senderID: _bldrsSenderID,
         pic: _bldrsLogoURL,
         picType: NotiPicType.bldrs,
@@ -612,14 +613,14 @@ class BldrsNotiModelz {
       NotiModel(
         id: 'n18',
         name: 'authorInvitation',
-        sudo:
-            'subject          :   NotiSubject.event,'
-            'event trigger    :   when author sends author invitation to a user'
-            'scheduled timing :   asPerDate : asPerTime'
-            'if statement     :   ... will see ' /// TASK : Develop author invitation thing
-            'cityState        :   CityState.any'
-            'reciever         :   NotiRecieverType.user',
-
+        sudo: NotiSudo(
+            subject         :   NotiSubject.event,
+            eventTrigger    :   'when author sends author invitation to a user',
+            scheduledTiming :   'asPerDate : asPerTime',
+            ifStatement     :   '... will see ', /// TASK : Develop author invitation thing
+            cityState       :   CityState.any,
+            reciever        :   NotiRecieverType.user,
+        ),
         senderID: tinyAuthor.userID,
         pic: tinyBz.bzLogo,
         picType: NotiPicType.author,
@@ -644,14 +645,14 @@ class BldrsNotiModelz {
       NotiModel(
         id: 'n19',
         name: 'authorInvitationReply',
-        sudo:
-            'subject          :   NotiSubject.event,'
-            'event trigger    :   when user replies on author invitation'
-            'scheduled timing :   asPerDate : asPerTime'
-            'if statement     :   for all bz authors to know ' /// TASK : Develop author invitation thing
-            'cityState        :   CityState.any'
-            'reciever         :   NotiRecieverType.authors',
-
+        sudo: NotiSudo(
+            subject         :   NotiSubject.event,
+            eventTrigger    :   'when user replies on author invitation',
+            scheduledTiming :   'asPerDate : asPerTime',
+            ifStatement     :   'for all bz authors to know ', /// TASK : Develop author invitation thing
+            cityState       :   CityState.any,
+            reciever        :   NotiRecieverType.authors,
+        ),
         senderID: tinyUser.userID,
         pic: tinyUser.pic,
         picType: NotiPicType.user,
@@ -673,22 +674,22 @@ class BldrsNotiModelz {
       NotiModel(
         id: 'n20',
         name: 'authorInvitationCC',
-        sudo:
-            'subject          : NotiSubject.event,'
-            'event trigger    :   when author sends author invitation to a user'
-            'scheduled timing :   asPerDate : asPerTime'
-            'if statement     :   for all authors in the team except the invitation sender'
-            'cityState        :   CityState.any'
-            'reciever         : NotiRecieverType.authors',
-
+        sudo: NotiSudo(
+            subject         :   NotiSubject.event,
+            eventTrigger    :   'when author sends author invitation to a user',
+            scheduledTiming :   'asPerDate : asPerTime',
+            ifStatement     :   'for all authors in the team except the invitation sender',
+            cityState       :   CityState.any,
+            reciever        :   NotiRecieverType.authors,
+        ),
         senderID: sender.userID,
         pic: sender.pic,
         picType: NotiPicType.author,
         title: '${sender.name} invited ${reciever.name}',
         timeStamp: DateTime.now(),
         body: 'An invitation has been sent for ${reciever.name} to join the team of ${tinyBz.bzName}',
-        attachment: null,
-        attachmentType: null,
+        attachment: <String>['Accept', 'Decline'],
+        attachmentType: NotiAttachmentType.buttons,
 
         sendFCM: true,
         dismissed: false,
@@ -703,14 +704,14 @@ class BldrsNotiModelz {
       NotiModel(
         id: 'n21',
         name: 'countryWentGlobal',
-        sudo:
-            'subject          : NotiSubject.event,'
-            'event trigger    :   when a county goes global'
-            'scheduled timing :   Saturday : 9:00 pm'
-            'if statement     :   country.isGlobal turns true -- all people in the world receive this'
-            'cityState        :   CityState.any'
-            'reciever         : NotiRecieverType.users',
-
+        sudo: NotiSudo(
+            subject         :   NotiSubject.event,
+            eventTrigger    :   'when a county goes global',
+            scheduledTiming :   'Saturday : 9:00 pm',
+            ifStatement     :   'country.isGlobal turns true -- all people in the world receive this',
+            cityState       :   CityState.any,
+            reciever        :   NotiRecieverType.users,
+        ),
         senderID: _bldrsSenderID,
         picType: NotiPicType.country,
         pic: iso3,
@@ -732,14 +733,14 @@ class BldrsNotiModelz {
       NotiModel(
         id: 'n22',
         name: 'sectionWentLive',
-        sudo:
-            'subject          :   NotiSubject.event,'
-            'event trigger    :   when a section goes live'
-            'scheduled timing :   Monday : 8 pm'
-            'if statement     :   section.isLive turns true'
-            'cityState        :   CityState.any'
-            'reciever         :   NotiRecieverType.users',
-
+        sudo: NotiSudo(
+            subject         :   NotiSubject.event,
+            eventTrigger    :   'when a section goes live',
+            scheduledTiming :   'Monday : 8 pm',
+            ifStatement     :   'section.isLive turns true',
+            cityState       :   CityState.any,
+            reciever        :   NotiRecieverType.users,
+        ),
         senderID: _bldrsSenderID,
         pic: _bldrsLogoURL,
         picType: NotiPicType.bldrs,
@@ -761,14 +762,14 @@ class BldrsNotiModelz {
       NotiModel(
         id: 'n23',
         name: 'monthlyBzStatistics',
-        sudo:
-            'subject          :   NotiSubject.ad,'
-            'event trigger    :   every week'
-            'scheduled timing :   Monday : 10:00 am'
-            'if statement     :   send to all bz authors'
-            'cityState        :   CityState.any'
-            'reciever         :   NotiRecieverType.authors',
-
+        sudo: NotiSudo(
+            subject         :   NotiSubject.ad,
+            eventTrigger    :   'every week',
+            scheduledTiming :   'Monday : 10:00 am',
+            ifStatement     :   'send to all bz authors',
+            cityState       :   CityState.any,
+            reciever        :   NotiRecieverType.authors,
+        ),
         senderID: _bldrsSenderID,
         pic: _bldrsLogoURL,
         picType: NotiPicType.bldrs,
@@ -790,14 +791,14 @@ class BldrsNotiModelz {
       NotiModel(
         id: 'n24',
         name: 'potentialCustomerQuestion',
-        sudo:
-            'subject          :   NotiSubject.event,'
-            'event trigger    :   when user ask a question related to a specific keyword topic'
-            'scheduled timing :   asPerDay : asPerHour'
-            'if statement     :   bz is subscribed to a keyword topic in questions'
-            'cityState        :   CityState.any'
-            'reciever         :   NotiRecieverType.authors',
-
+        sudo: NotiSudo(
+            subject         :   NotiSubject.event,
+            eventTrigger    :   'when user ask a question related to a specific keyword topic',
+            scheduledTiming :   'asPerDay : asPerHour',
+            ifStatement     :   'bz is subscribed to a keyword topic in questions',
+            cityState       :   CityState.any,
+            reciever        :   NotiRecieverType.authors,
+        ),
         senderID: tinyUser.userID,
         pic: tinyUser.pic,
         picType: NotiPicType.user,
@@ -819,16 +820,16 @@ class BldrsNotiModelz {
       NotiModel(
         id: 'n25',
         name: 'questionReply',
-        sudo:
-            'subject          :   NotiSubject.event,'
-            'event trigger    :   when an author answers a question by user'
-            'scheduled timing :   asPerDay : asPerHour'
-            'if statement     :   user has a question + new reply in question replies sub doc'
-            'cityState        :   CityState.any'
-            'reciever         :   NotiRecieverType.user',
-
+        sudo: NotiSudo(
+            subject         :   NotiSubject.event,
+            eventTrigger    :   'when an author answers a question by user',
+            scheduledTiming :   'asPerDay : asPerHour',
+            ifStatement     :   'user has a question + new reply in question replies sub doc',
+            cityState       :   CityState.any,
+            reciever        :   NotiRecieverType.user,
+        ),
         senderID: tinyBz.bzID,
-        pic: tinyBz.bzID,
+        pic: tinyBz.bzLogo,
         picType: NotiPicType.bz,
         title: 'You received an answer',
         timeStamp: DateTime.now(),
@@ -846,16 +847,16 @@ class BldrsNotiModelz {
   static NotiModel welcomeToBldrs(){
     return
       NotiModel(
-        id: 'n26',
+        id: 'n01',
         name: 'welcomeToBldrs',
-        sudo:
-            'subject          :   NotiSubject.welcome,'
-            'event trigger    :   when new user joins bldrs.net'
-            'scheduled timing :   asPerDay : asPerHour'
-            'if statement     :   on new firebase user created'
-            'cityState        :   CityState.any'
-            'reciever         :   NotiRecieverType.user',
-
+        sudo: NotiSudo(
+            subject         :   NotiSubject.welcome,
+            eventTrigger    :   'when new user joins bldrs.net',
+            scheduledTiming :   'asPerDay : asPerHour',
+            ifStatement     :   'on new firebase user created',
+            cityState       :   CityState.any,
+            reciever        :   NotiRecieverType.user,
+        ),
         senderID: _bldrsSenderID,
         title: 'Welcome to Bldrs.net',
         pic: _bldrsLogoURL,
