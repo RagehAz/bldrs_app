@@ -1,10 +1,10 @@
-import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/scrollers.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_dialog/bottom_dialog.dart';
+import 'package:bldrs/views/widgets/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/section_dialog/section_bubble.dart';
 import 'package:bldrs/views/widgets/dialogs/section_dialog/section_button.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +17,7 @@ SectionDialog({
 });
 // -----------------------------------------------------------------------------
   static Future<void> slideDialog({BuildContext context, FlyersProvider pro, double dialogHeight}) async {
-    await BottomDialog.slideBottomDialog(
+    await BottomDialog.showBottomDialog(
       context: context,
       title: 'Select a section',
       height: BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.7),
@@ -42,7 +42,7 @@ SectionDialog({
   @override
   Widget build(BuildContext context) {
 
-    double _bubbleWidth = Scale.superDialogWidth(context) - Ratioz.appBarMargin * 2;
+    double _bubbleWidth = CenterDialog.dialogWidth(context: context) - Ratioz.appBarMargin * 2;
     double _buttonWidth = _bubbleWidth * 0.9;
 
     return GoHomeOnMaxBounce(

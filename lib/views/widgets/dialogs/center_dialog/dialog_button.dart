@@ -18,10 +18,14 @@ DialogButton({
   this.onTap,
 });
 
+  static double height(){
+    return 50;
+  }
+
   @override
   Widget build(BuildContext context) {
     return DreamBox(
-        height: 50,
+        height: height(),
         width: width,
         margins: const EdgeInsets.all(Ratioz.appBarPadding),
         verse: verse,

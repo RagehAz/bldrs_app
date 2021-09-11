@@ -149,7 +149,10 @@ class BottomDialog extends StatelessWidget {
     return _corners;
   }
 // -----------------------------------------------------------------------------
-  static Future<void> slideBottomDialog({BuildContext context, double height, bool draggable, Widget child, String title}) async {
+  static Future<void> showBottomDialog({BuildContext context, double height, bool draggable, Widget child, String title}) async {
+
+    double _height = height ?? BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.5);
+
     await showModalBottomSheet(
         shape: RoundedRectangleBorder(borderRadius:
         Borderers.superBorderOnly(
@@ -167,12 +170,12 @@ class BottomDialog extends StatelessWidget {
         context: context,
         builder: (bCtx){
           return Container(
-            height: height,
+            height: _height,
             width: Scale.superScreenWidth(context),
             child: Scaffold(
               backgroundColor: Colorz.Nothing,
               body: BottomDialog(
-                height: height,
+                height: _height,
                 draggable: draggable,
                 title: title,
                 child: child,
@@ -192,7 +195,7 @@ class BottomDialog extends StatelessWidget {
     double _spacing = buttonHeight * 0.1;
     double _height = (buttonHeight * buttons.length) + (_spacing * buttons.length) + 30 ;
 
-    slideBottomDialog(
+    showBottomDialog(
       context: context,
       draggable: draggable,
       height: _height,
@@ -233,7 +236,7 @@ class BottomDialog extends StatelessWidget {
 
     double _flyerZoneWidth = Scale.superFlyerZoneWidth(context, 0.71);
 
-    BottomDialog.slideBottomDialog(
+    BottomDialog.showBottomDialog(
         context: context,
         height: Scale.superScreenHeight(context) - 100,
         draggable: true,

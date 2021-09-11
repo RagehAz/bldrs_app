@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/router/navigators.dart';
+import 'package:bldrs/dashboard/notifications_manager/notification_maker.dart';
 import 'package:bldrs/dashboard/notifications_manager/notification_templates_screen.dart';
 import 'package:bldrs/dashboard/widgets/wide_button.dart';
 import 'package:bldrs/views/widgets/layouts/dashboard_layout.dart';
@@ -59,7 +60,7 @@ class _NotificationsManagerState extends State<NotificationsManager> {
 
         WideButton(
           title: 'Send to single user',
-          onTap: () => Nav.goToNewScreen(context, NotificationTemplatesScreen()),
+          onTap: () => Nav.goToNewScreen(context, NotificationMaker()),
         ),
 
 

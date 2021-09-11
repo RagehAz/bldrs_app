@@ -39,7 +39,7 @@ class CloudFunctionz{
 
       if (unauthenticated == true){
 
-        await CenterDialog.superDialog(
+        await CenterDialog.showCenterDialog(
           context: context,
           title: 'You Are not Signed in',
           body: 'Please Sign in into your account first',
@@ -50,7 +50,7 @@ class CloudFunctionz{
 
       else {
 
-        await CenterDialog.superDialog(
+        await CenterDialog.showCenterDialog(
           context: context,
           title: 'error',
           body: e.toString(),
