@@ -74,6 +74,10 @@ final Key key;
     return Ratioz.appBarCorner;
   }
 // -----------------------------------------------------------------------------
+  static double clearCornersValue(){
+    return Ratioz.appBarCorner - Ratioz.appBarMargin;
+  }
+// -----------------------------------------------------------------------------
   static BorderRadius borders(BuildContext context,){
     return
     Borderers.superBorder(context: context, corners: cornersValue());

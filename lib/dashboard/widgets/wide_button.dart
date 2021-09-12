@@ -7,11 +7,13 @@ class DashboardWideButton extends StatelessWidget {
   final String icon;
   final Function onTap;
   final String title;
+  final bool isActive;
 
   const DashboardWideButton({
     @required this.title,
     this.onTap,
     this.icon,
+    this.isActive = true,
   });
 
   @override
@@ -30,6 +32,7 @@ class DashboardWideButton extends StatelessWidget {
         verseScaleFactor: 1,
         verseCentered: false,
         margins: const EdgeInsets.symmetric(vertical: Ratioz.appBarPadding),
+        inActiveMode: !isActive,
         onTap: onTap,
       );
 

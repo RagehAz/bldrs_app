@@ -21,8 +21,8 @@ class StreamChecker{
 // -----------------------------------------------------------------------------
   static bool connectionIsLoading(AsyncSnapshot<dynamic> snapshot){
     bool _isLoading =
-    _connectionHasNoData(snapshot) == true
-        ||
+    // _connectionHasNoData(snapshot) == true
+    //     ||
     _connectionIsWaiting(snapshot) == true
     //     ||
     // snapshot.error == null

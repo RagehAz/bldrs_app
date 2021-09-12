@@ -1,4 +1,5 @@
 import 'package:bldrs/models/notification/noti_sudo.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 
 enum NotiType{
@@ -36,7 +37,7 @@ class NotiModel{
 
   final String senderID;
   final String pic;
-  final NotiPicType picType;
+  final NotiPicType notiPicType;
   final String title; /// max 30 char
   final DateTime timeStamp;
   final String body; /// max 80 char
@@ -54,7 +55,7 @@ class NotiModel{
 
     @required this.senderID,
     @required this.pic,
-    @required this.picType,
+    @required this.notiPicType,
     @required this.title,
     @required this.timeStamp,
     @required this.body,
@@ -71,11 +72,11 @@ class NotiModel{
         {
           'id' : id,
           'name' : name,
-          'sudo' : sudo,
+          'sudo' : sudo?.toMap(),
 
           'senderID' : senderID,
           'pic' : pic,
-          'picType' : cipherNotiPicType(picType),
+          'picType' : cipherNotiPicType(notiPicType),
           'timeStamp' : timeStamp,
           /// {notification: {body: Bldrs.net is super Awesome, title: Bldrs.net}, data: {}}
           'notification' : {
@@ -102,28 +103,50 @@ class NotiModel{
       _noti = NotiModel(
         id: map['id'],
         name: map['name'],
-        sudo: map['sudo'],
+        sudo: NotiSudo.decipherNotiSudo(map['sudo']),
 
         senderID: map['senderID'],
         pic: map['pic'],
-        picType: decipherNotiPicType(map['picType']),
-        title: map['notification.notification.title'],
-        timeStamp: map['timeStamp'],
-        body: map['notification.notification.body'],
+        notiPicType: decipherNotiPicType(map['picType']),
+        title: map['notification']['notification']['title'],
+        timeStamp: map['timeStamp'].toDate(),
+        body: map['notification']['notification']['body'],
         attachment: map['attachment'],
         attachmentType: decipherNotiAttachmentType(map['attachmentType']),
 
-        dismissed: map['seen'],
+        dismissed: map['dismissed'],
         sendFCM: map['sendFCM'],
-        metaData: map['notification.data'],
+        metaData: map['notification']['data'],
       );
     }
+
+    print('the damn damn damn noti boy is : $_noti');
+
+    _noti.printNotiModel(methodName: 'bitchhh');
 
     return _noti;
   }
 // -----------------------------------------------------------------------------
-  static String cipherNotiPicType(NotiPicType sender){
-    switch (sender){
+  static List<NotiModel> decipherNotiModels(List<dynamic> maps){
+    List<NotiModel> _notiModels = [];
+
+    if (maps != null && maps.length != 0){
+
+      for (var map in maps){
+
+        NotiModel _notiModel = decipherNotiModel(map);
+
+        _notiModels.add(_notiModel);
+
+      }
+
+    }
+
+    return _notiModels;
+  }
+// -----------------------------------------------------------------------------
+  static String cipherNotiPicType(NotiPicType picType){
+    switch (picType){
       case NotiPicType.bldrs   : return 'bldrs'; break;
       case NotiPicType.bz      : return 'bz'; break;
       case NotiPicType.user    : return 'user'; break;
@@ -133,8 +156,8 @@ class NotiModel{
     }
   }
 // -----------------------------------------------------------------------------
-  static NotiPicType decipherNotiPicType(String sender){
-    switch (sender){
+  static NotiPicType decipherNotiPicType(String picType){
+    switch (picType){
       case 'bldrs'    : return NotiPicType.bldrs; break;
       case 'bz'       : return NotiPicType.bz   ; break;
       case 'user'     : return NotiPicType.user ; break;
@@ -176,4 +199,34 @@ class NotiModel{
     ];
   }
 // -----------------------------------------------------------------------------
+  void printNotiModel({String methodName}){
+    print('$methodName : PRINTING NotiModel ---------------- START -- ');
+
+    print('id : ${id.toString()}');
+    print('name : ${name.toString()}');
+    print('sudo : ${sudo.toString()}');
+    print('senderID : ${senderID.toString()}');
+    print('pic : ${pic.toString()}');
+    print('notiPicType : ${notiPicType.toString()}');
+    print('title : ${title.toString()}');
+    print('timeStamp : ${timeStamp.toString()}');
+    print('body : ${body.toString()}');
+    print('attachment : ${attachment.toString()}');
+    print('attachmentType : ${attachmentType.toString()}');
+    print('dismissed : ${dismissed.toString()}');
+    print('sendFCM : ${sendFCM.toString()}');
+    print('metaData : ${metaData.toString()}');
+
+    print('$methodName : PRINTING NotiModel ---------------- END -- ');
+  }
+// -----------------------------------------------------------------------------
+
+  // -----------------------------------------------------------------------------
+  static List<NotiModel> getNotiModelsFromSnapshot(DocumentSnapshot doc){
+    var _maps = doc.data();
+    List<NotiModel> _notiModels = decipherNotiModels(_maps);
+    return _notiModels;
+  }
+// -----------------------------------------------------------------------------
+
 }

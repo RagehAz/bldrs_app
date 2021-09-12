@@ -1,10 +1,17 @@
 import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/drafters/text_manipulators.dart';
 import 'package:bldrs/controllers/notifications/bldrs_notiz.dart';
+import 'package:bldrs/controllers/notifications/noti_ops.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/dashboard/super_methods.dart';
+import 'package:bldrs/firestore/auth_ops.dart';
+import 'package:bldrs/firestore/firestore.dart';
+import 'package:bldrs/firestore/user_ops.dart';
 import 'package:bldrs/models/notification/noti_model.dart';
+import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/views/widgets/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
@@ -18,7 +25,7 @@ class NotificationsScreen extends StatefulWidget {
 }
 
 class _NotificationsScreenState extends State<NotificationsScreen> {
-  List<dynamic> _notifications = [];
+  // List<dynamic> _notifications = [];
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
   bool _loading = false;
@@ -43,7 +50,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
-    _notifications.addAll(BldrsNotiModelz.allNotifications());
+    // _notifications.addAll(BldrsNotiModelz.allNotifications());
     super.initState();
 
   }
@@ -56,7 +63,14 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
       _triggerLoading(function: (){}).then((_) async {
         /// ---------------------------------------------------------0
 
+        List<NotiModel> _notiModelsAho = await SuperBldrsMethod.readAllNotiModels(
+          context: context,
+          userID: superUserID(),
+        );
 
+        // _notiModelsAho[0].printNotiModel(methodName: 'kos omak');
+        //
+        // print('ahooooooooooooooooooooooooooooooooooo : the noti fucking models are here aho : ${_notiModelsAho.toString()}');
 
         /// ---------------------------------------------------------0
       });
@@ -73,9 +87,9 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
 
     print('removing noti with id : $id');
 
-    setState(() {
-      _notifications.removeWhere((notiModel) => notiModel.id == id,);
-    });
+    // setState(() {
+    //   _notifications.removeWhere((notiModel) => notiModel.id == id,);
+    // });
   }
 // -----------------------------------------------------------------------------
   @override
@@ -104,96 +118,127 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
 
       ],
       loading: _loading,
-      pageTitle: 'News & Notifications',
+      pageTitle: 'News And Notifications',
       sky: Sky.Black,
       pyramids: Iconz.PyramidzYellow,
-      tappingRageh: (){
+      tappingRageh: () async {
+
+        print('fuck fuck');
+
+        UserModel _rageh = await UserOps().readUserOps(
+          context: context,
+          userID: superUserID(),
+        );
+
+        List<String> _tri = TextMod.createTrigram(input: _rageh.name, maxTrigramLength: 15);
+
+        await Fire.updateDocField(
+          context: context,
+          collName: FireCollection.users,
+          docName: _rageh.userID,
+          field: 'nameTrigram',
+          input: _tri,
+        );
+
+        print('finished');
 
         },
 
       layoutWidget:
 
-        _notifications.length == 0 ?
-        Center(
-          child: SuperVerse(
-            verse: 'No new Notifications',
-            weight: VerseWeight.thin,
-            italic: true,
-            color: Colorz.White20,
-          ),
-        )
+        // _notifications.length == 0 ?
+        // Center(
+        //   child: SuperVerse(
+        //     verse: 'No new Notifications',
+        //     weight: VerseWeight.thin,
+        //     italic: true,
+        //     color: Colorz.White20,
+        //   ),
+        // )
+        //
+        //     :
 
-            :
+      notiStreamBuilder(
+          context: context,
+          userID: superUserID(),
+          builder: (ctx, notiModels){
 
-        ListView.builder(
-          physics: const BouncingScrollPhysics(),
-          controller: ScrollController(),
-          addAutomaticKeepAlives: true,
-          itemCount: _notifications.length,
-          padding: const EdgeInsets.only(top: Ratioz.stratosphere, bottom: Ratioz.horizon),
-          itemBuilder: (ctx, index){
+            print('the shit is : notiModels : $notiModels');
 
-            NotiModel _notiModel = _notifications[index];
+            return
+              ListView.builder(
+                physics: const BouncingScrollPhysics(),
+                controller: ScrollController(),
+                addAutomaticKeepAlives: true,
+                itemCount: notiModels?.length,
+                padding: const EdgeInsets.only(top: Ratioz.stratosphere, bottom: Ratioz.horizon),
+                itemBuilder: (ctx, index){
 
-            return Dismissible(
-              // onResize: (){
-              // print('resizing');
-              // },
-              // background: Container(
-              //   alignment: Aligners.superCenterAlignment(context),
-              //   // color: Colorz.White10,
-              //   child: SuperVerse(
-              //     verse: 'Dismiss -->',
-              //     size: 2,
-              //     weight: VerseWeight.thin,
-              //     italic: true,
-              //     color: Colorz.White10,
-              //   ),
-              // ),
-              // behavior: HitTestBehavior.translucent,
-              // secondaryBackground: Container(
-              //   width: _screenWidth,
-              //   height: 50,
-              //   color: Colorz.BloodTest,
-              // ),
-              // dismissThresholds: {
-              //   DismissDirection.down : 10,
-              //   DismissDirection.endToStart : 20,
-              // },
-              // dragStartBehavior: DragStartBehavior.start,
-              key: ValueKey<String>(_notiModel.id),
-              crossAxisEndOffset: 0,
-              direction: DismissDirection.horizontal,
-              movementDuration: Duration(milliseconds: 250),
-              resizeDuration: Duration(milliseconds: 250),
-              confirmDismiss: (DismissDirection direction) async {
-                // print('confirmDismiss : direction is : $direction');
+                  NotiModel _notiModel = notiModels == null ? null : notiModels[index];
 
-                /// if needed to make the bubble un-dismissible set to false
-                bool _dismissible = true;
+                  return Dismissible(
+                    // onResize: (){
+                    // print('resizing');
+                    // },
+                    // background: Container(
+                    //   alignment: Aligners.superCenterAlignment(context),
+                    //   // color: Colorz.White10,
+                    //   child: SuperVerse(
+                    //     verse: 'Dismiss -->',
+                    //     size: 2,
+                    //     weight: VerseWeight.thin,
+                    //     italic: true,
+                    //     color: Colorz.White10,
+                    //   ),
+                    // ),
+                    // behavior: HitTestBehavior.translucent,
+                    // secondaryBackground: Container(
+                    //   width: _screenWidth,
+                    //   height: 50,
+                    //   color: Colorz.BloodTest,
+                    // ),
+                    // dismissThresholds: {
+                    //   DismissDirection.down : 10,
+                    //   DismissDirection.endToStart : 20,
+                    // },
+                    // dragStartBehavior: DragStartBehavior.start,
+                    key: ValueKey<String>(_notiModel?.id),
+                    crossAxisEndOffset: 0,
+                    direction: DismissDirection.horizontal,
+                    movementDuration: Duration(milliseconds: 250),
+                    resizeDuration: Duration(milliseconds: 250),
+                    confirmDismiss: (DismissDirection direction) async {
+                      // print('confirmDismiss : direction is : $direction');
 
-                return _dismissible;
+                      /// if needed to make the bubble un-dismissible set to false
+                      bool _dismissible = true;
+
+                      return _dismissible;
+                    },
+                    onDismissed: (DismissDirection direction){
+                      _dismissNotification(_notiModel.id);
+                      // print('onDismissed : direction is : $direction');
+                    },
+                    child: Container(
+                      width: _screenWidth,
+                      decoration: BoxDecoration(
+                        borderRadius: Borderers.superBorderAll(context, Bubble.cornersValue() + Ratioz.appBarMargin),
+                        // color: Colorz.BloodTest,
+                      ),
+                      child: NotificationCard(
+                        notiModel: _notiModel,
+                      ),
+                    ),
+                  );
+
                 },
-              onDismissed: (DismissDirection direction){
-                _dismissNotification(_notiModel.id);
-                // print('onDismissed : direction is : $direction');
-              },
-              child: Container(
-                width: _screenWidth,
-                decoration: BoxDecoration(
-                  borderRadius: Borderers.superBorderAll(context, Bubble.cornersValue() + Ratioz.appBarMargin),
-                  // color: Colorz.BloodTest,
-                ),
-                child: NotificationCard(
-                  notiModel: _notiModel,
-                ),
-              ),
-            );
-
-          },
 
 
-        ),
+              );
+          }
+      ),
+
+
 
     );
   }
