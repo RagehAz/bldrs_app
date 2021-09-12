@@ -254,28 +254,33 @@ class FireSearch {
 //
 
 /// SEARCHING USERS
+// -----------------------------------------------------------------------------
   static Future<List<UserModel>> usersByUserName({BuildContext context, String compareValue}) async {
 
-      dynamic _resultBad = await mapsByFieldValue(
-        context: context,
-        collName: FireCollection.users,
-        valueIs: ValueIs.GreaterOrEqualThan,
-        compareValue: compareValue,
-        field: 'name',
-        addDocsIDs: false,
-      );
+    // /// WORK GOOD WITH 1 SINGLE WORD FIELDS,, AND SEARCHES BY MATCHES THE INITIAL CHARACTERS :
+    // /// 'Rag' --->    gets [Rageh Mohamed]
+    // /// 'geh' -/->    doesn't get [Rageh Mohamed]
+    // /// 'Moh' -/->    doesn't get [Rageh Mohamed]
+    // /// 'Mohamed -/-> doesn't get [Rageh Mohamed]
+    // QuerySnapshot<Map<String, dynamic>> _snapshots = await Fire.getCollectionRef(FireCollection.users).orderBy("name").where("name",isGreaterThanOrEqualTo: compareValue).where("name",isLessThanOrEqualTo: compareValue+"z").get();
 
-      /// WORK GOOD WITH 1 SINGLE WORD FIELDS,, AND SEARCHES BY MATCHES THE INITIAL CHARACTERS :
-      /// 'Rag' --->    gets [Rageh Mohamed]
-      /// 'geh' -/->    doesn't get [Rageh Mohamed]
-      /// 'Moh' -/->    doesn't get [Rageh Mohamed]
-      /// 'Mohamed -/-> doesn't get [Rageh Mohamed]
-      QuerySnapshot<Map<String, dynamic>> _snapshots = await Fire.getCollectionRef(FireCollection.users).orderBy("name").where("name",isGreaterThanOrEqualTo: compareValue).where("name",isLessThanOrEqualTo: compareValue+"z").get();
+    // QuerySnapshot<Map<String, dynamic>> _snapshots = await Fire.getCollectionRef(FireCollection.users)
+    //     .orderBy("name")
+    //     .where("nameTrigram", arrayContainsAny: [compareValue]).get();
+    //     // .where("name",isLessThanOrEqualTo: compareValue+"z")
+    // List<Map<String, dynamic> >_result = Mapper.getMapsFromQuerySnapshot(
+    //   querySnapshot: _snapshots,
+    //   addDocsIDs: false,
+    // );
 
-      List<Map<String, dynamic> >_result = Mapper.getMapsFromQuerySnapshot(
-        querySnapshot: _snapshots,
-        addDocsIDs: false,
-      );
+    dynamic _result = await mapsByFieldValue(
+      context: context,
+      collName: FireCollection.users,
+      field: 'nameTrigram',
+      compareValue: compareValue,
+      addDocsIDs: false,
+      valueIs: ValueIs.ArrayContains,
+    );
 
       List<UserModel> _usersModels = [];
 
@@ -285,7 +290,7 @@ class FireSearch {
 
       return _usersModels;
     }
-
+// -----------------------------------------------------------------------------
 }
 
 

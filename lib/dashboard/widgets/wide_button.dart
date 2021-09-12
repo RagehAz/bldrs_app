@@ -3,12 +3,12 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:flutter/material.dart';
 
-class WideButton extends StatelessWidget {
+class DashboardWideButton extends StatelessWidget {
   final String icon;
   final Function onTap;
   final String title;
 
-  const WideButton({
+  const DashboardWideButton({
     @required this.title,
     this.onTap,
     this.icon,
