@@ -147,6 +147,6 @@ class Numberers {
   }
 // -----------------------------------------------------------------------------
   static int createUniqueID(){
-    return DateTime.now().microsecondsSinceEpoch.remainder(1);
+    return DateTime.now().microsecondsSinceEpoch;
   }
 }

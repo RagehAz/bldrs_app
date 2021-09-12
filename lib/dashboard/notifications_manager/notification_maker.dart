@@ -6,16 +6,20 @@ import 'package:bldrs/controllers/drafters/aligners.dart';
 import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/drafters/colorizers.dart';
 import 'package:bldrs/controllers/drafters/imagers.dart';
+import 'package:bldrs/controllers/drafters/numberers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/scrollers.dart';
+import 'package:bldrs/controllers/drafters/text_checkers.dart';
 import 'package:bldrs/controllers/drafters/text_manipulators.dart';
 import 'package:bldrs/controllers/drafters/timerz.dart';
+import 'package:bldrs/controllers/notifications/bldrs_notiz.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/dashboard/notifications_manager/noti_banner_editor.dart';
 import 'package:bldrs/dashboard/widgets/user_button.dart';
+import 'package:bldrs/dashboard/widgets/wide_button.dart';
 import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/firestore/search_ops.dart';
 import 'package:bldrs/models/notification/noti_model.dart';
@@ -27,7 +31,9 @@ import 'package:bldrs/views/widgets/bubbles/tile_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/user_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_dialog/bottom_dialog.dart';
+import 'package:bldrs/views/widgets/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/views/widgets/layouts/dashboard_layout.dart';
+import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/notifications/notification_balloon.dart';
 import 'package:bldrs/views/widgets/notifications/notification_card.dart';
 import 'package:bldrs/views/widgets/textings/super_text_field.dart';
@@ -45,6 +51,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
   TextEditingController _titleController = new TextEditingController();
   TextEditingController _bodyController = new TextEditingController();
   TextEditingController _userNameController = new TextEditingController();
+  UserModel _selectedUser;
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
   bool _loading = false;
@@ -276,6 +283,9 @@ class _NotificationMakerState extends State<NotificationMaker> {
                           padding: const EdgeInsets.only(bottom: Ratioz.horizon),
                           itemCount: _usersModels.length,
                           itemBuilder: (xyz, index){
+
+                          bool _userSelected = _selectedUser == _usersModels[index];
+
                             return
 
                               _usersModels == [] ?
@@ -313,8 +323,21 @@ class _NotificationMakerState extends State<NotificationMaker> {
                                       width: 50,
                                       icon: Iconz.Check,
                                       iconSizeFactor: 0.5,
-                                      iconColor: Colorz.White50,
-                                      onTap: (){print('fuck you');},
+                                      iconColor: _userSelected == true ? Colorz.Green255 : Colorz.White50,
+                                      color: null,
+                                      onTap: () async {
+
+                                        setDialogState((){
+                                          _selectedUser = _usersModels[index];
+                                        });
+
+                                        setState(() {
+                                          _selectedUser = _usersModels[index];
+                                        });
+
+                                        await Nav.goBack(context);
+
+                                      },
                                     ),
                                   )
 
@@ -337,6 +360,92 @@ class _NotificationMakerState extends State<NotificationMaker> {
 
   }
 // -----------------------------------------------------------------------------
+  Future<void> _onSendNotification() async {
+
+    bool _confirmSend = await CenterDialog.showCenterDialog(
+      context: context,
+      title: 'Send ?',
+      body: 'Do you want to confirm sending this notification to ${_selectedUser.name}',
+      boolDialog: true,
+    );
+
+    if (_confirmSend == true){
+      String _bannerURL;
+
+      String _id = '${Numberers.createUniqueID()}';
+
+      if (_attachment != null && _attachmentType == NotiAttachmentType.banner){
+        _bannerURL = await Fire.createStoragePicAndGetURL(
+          context: context,
+          inputFile: _attachment,
+          fileName: _id,
+          picType: PicType.notiBanner,
+        );
+      }
+
+      NotiModel _newNoti = NotiModel(
+        id: _id,
+        name: 'targeted notification',
+        sudo: null,
+        senderID: BldrsNotiModelz.bldrsSenderID,
+        pic: BldrsNotiModelz.bldrsLogoURL,
+        notiPicType: NotiPicType.bldrs,
+        title: _titleController.text,
+        timeStamp: DateTime.now(),
+        body: _bodyController.text,
+        attachment: _bannerURL,
+        attachmentType: NotiAttachmentType.banner,
+        dismissed: false,
+        sendFCM: _sendFCMIsOn,
+        metaData: BldrsNotiModelz.notiDefaultMap,
+      );
+
+      // _newNoti.printNotiModel(methodName: '_onSendNotification');
+
+      await Fire.createNamedSubDoc(
+        context: context,
+        collName: FireCollection.users,
+        docName: _selectedUser.userID,
+        subCollName: FireCollection.subUserNotifications,
+        input: _newNoti.toMap(),
+        subDocName: _id,
+      );
+
+      await CenterDialog.showCenterDialog(
+        context: context,
+        title: 'Done',
+        body: 'Notification has been sent to ${_selectedUser.name}',
+      );
+
+      setState(() {
+        _titleController.clear();
+        _bodyController.clear();
+        _attachment = null;
+        _attachmentType = null;
+        _sendFCMIsOn = false;
+        _selectedUser = null;
+      });
+
+    }
+
+  }
+// -----------------------------------------------------------------------------
+  bool _canSendNotification(){
+    bool _canSend = false;
+
+    if (
+    TextChecker.textControllerHasNoValue(_titleController) == false &&
+        TextChecker.textControllerHasNoValue(_bodyController) == false &&
+        _attachment != null &&
+        _attachmentType != null &&
+        _sendFCMIsOn != null &&
+        _selectedUser != null
+    ){
+      _canSend = true;
+    }
+
+    return _canSend;
+  }
   @override
   Widget build(BuildContext context) {
 
@@ -344,6 +453,8 @@ class _NotificationMakerState extends State<NotificationMaker> {
     double _screenWidth = Scale.superScreenWidth(context);
 
     double _bodyWidth = NotificationCard.bodyWidth(context);
+
+    bool _canSend = _canSendNotification();
 
     return DashBoardLayout(
       loading: _loading,
@@ -525,7 +636,56 @@ class _NotificationMakerState extends State<NotificationMaker> {
             verseColor: Colorz.White255,
             iconBoxColor: Colorz.Grey50,
             btOnTap: _onTapReciever,
+            child: Container(
+              width: Bubble.clearWidth(context),
+              // height: 50,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+
+                  if (_selectedUser != null)
+                  dashboardUserButton(
+                    width: TileBubble.childWidth(context),
+                    index: 0,
+                    userModel: _selectedUser,
+                    onDeleteUser: null,
+                  ),
+
+                  if (_selectedUser != null)
+                    DreamBox(
+                      height: 40,
+                      verse: 'Delete ${_selectedUser.name}',
+                      icon: Iconz.XSmall,
+                      iconSizeFactor: 0.5,
+                      onTap: (){
+                        setState(() {
+                          _selectedUser = null;
+                        });
+                      },
+                    ),
+
+                ],
+              ),
+
+            ),
           ),
+
+          Container(
+            width: _screenWidth,
+            height: 150,
+            child: Center(
+              child: DashboardWideButton(
+                title: 'Send Notification',
+                icon: Iconz.Share,
+                onTap: _onSendNotification,
+                isActive: _canSend,
+              ),
+            ),
+          ),
+
+          /// HORIZON
+          PyramidsHorizon(),
 
         ],
     );
