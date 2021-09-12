@@ -1,9 +1,14 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/text_manipulators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/dashboard/super_methods.dart';
+import 'package:bldrs/dashboard/widgets/wide_button.dart';
+import 'package:bldrs/firestore/firestore.dart';
+import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/layouts/test_layout.dart';
+import 'package:bldrs/views/widgets/textings/super_text_field.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
@@ -15,13 +20,15 @@ class TrigramTest extends StatefulWidget {
 
 class _TrigramTestState extends State<TrigramTest> {
 
+  TextEditingController _controller = new TextEditingController();
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
   }
 
-  String _input = 'Muhammed Abdul Quddouss a7mad';
+  String _input = 'Rageh mohammed Fawzi Fahim Soliman El Azzazy';
   List<String> _result = ['Nothing Yet'];
 
   void _createTrigramOld(){
@@ -91,17 +98,17 @@ class _TrigramTestState extends State<TrigramTest> {
     print(_result);
   }
 
-  void _createTrigram(){
-
-    List<String> _trigram = TextMod.createTrigram(
-      input: _input,
-      maxTrigramLength: null,
-    );
-
-    setState(() {
-      _result = _trigram;
-    });
-  }
+  // void _createTrigram(String input){
+  //
+  //   List<String> _trigram = TextMod.createTrigram(
+  //     input: input,
+  //     maxTrigramLength: 80,
+  //   );
+  //
+  //   setState(() {
+  //     _result = _trigram;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -115,10 +122,44 @@ class _TrigramTestState extends State<TrigramTest> {
         scrollable: false,
         listViewWidgets: <Widget>[
 
+          /// TEXT FIELD
+          Container(
+            width: 400,
+            height: 70,
+            alignment: Alignment.center,
+            child: SuperTextField(
+              width: 400,
+              height: 70,
+              inputSize: 2,
+              textController: _controller,
+              inputColor: Colorz.White255,
+              hintText: 'user name ...',
+              keyboardTextInputType: TextInputType.multiline,
+              maxLength: 20,
+              maxLines: 1,
+              counterIsOn: true,
+              fieldIsFormField: true,
+              keyboardTextInputAction: TextInputAction.search,
+              onChanged: (String val){
+
+                List<String> _trigram = TextMod.createTrigram(
+                  input: val,
+                  maxTrigramLength: 10,
+                );
+
+                setState(() {
+                  _result = _trigram;
+                });
+
+              },
+            ),
+          ),
+
+          /// TRIGRAMS
           Container(
             width: _screenWidth,
-            height: 300,
-            color: Colorz.Yellow125,
+            height: 220,
+            color: Colorz.BloodTest,
             child: Center(
 
               child: ListView.builder(
@@ -140,19 +181,45 @@ class _TrigramTestState extends State<TrigramTest> {
             ),
           ),
 
-          DreamBox(
-            height: 50,
-            width: 200,
-            verse: 'Do Trigram for $_input',
-            verseScaleFactor: 0.6,
-            onTap: _createTrigram,
-          ),
-
+          /// NUMBER OF TRIGRAMS
           SuperVerse(
             verse: 'tirgram has : ${_result.length} entries',
             labelColor: Colorz.Blue125,
             margin: 10,
           ),
+
+          /// ADD TO FIREBASE
+          DashboardWideButton(
+            title: 'add trigrams to db',
+            icon: null,
+            onTap: () async {
+
+              List<UserModel> _allUsers = await SuperBldrsMethod.readAllUserModels();
+
+              for (var user in _allUsers){
+
+                List<String> _trigram = TextMod.createTrigram(
+                  input: user.name,
+                  maxTrigramLength: 10,
+                );
+
+                await Fire.updateDocField(
+                  context: context,
+                  collName: FireCollection.users,
+                  docName: user.userID,
+                  input: _trigram,
+                  field: 'nameTrigram',
+                );
+
+                setState(() {
+                  _result = _trigram;
+                });
+
+              }
+
+
+              },
+          )
 
       ],
     );
