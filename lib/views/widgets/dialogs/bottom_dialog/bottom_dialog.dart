@@ -110,7 +110,7 @@ class BottomDialog extends StatelessWidget {
     return _dialogHeight;
   }
 // -----------------------------------------------------------------------------
-  static double dialogClearHeight({BuildContext context, double overridingDialogHeight, bool titleIsOn, @required bool draggable}){
+  static double dialogClearHeight({@required BuildContext context, double overridingDialogHeight, bool titleIsOn, @required bool draggable}){
 
     // bool _draggable = draggable == null ? false : draggable;
 
@@ -174,6 +174,7 @@ class BottomDialog extends StatelessWidget {
             width: Scale.superScreenWidth(context),
             child: Scaffold(
               backgroundColor: Colorz.Nothing,
+              resizeToAvoidBottomInset: false,
               body: BottomDialog(
                 height: _height,
                 draggable: draggable,
@@ -185,7 +186,7 @@ class BottomDialog extends StatelessWidget {
     );
   }
 // -----------------------------------------------------------------------------
-  static void slideButtonsBottomDialog({
+  static void showButtonsBottomDialog({
     BuildContext context,
     bool draggable,
     List<Widget> buttons,
@@ -219,7 +220,10 @@ class BottomDialog extends StatelessWidget {
     );
   }
 // -----------------------------------------------------------------------------
-  static Future<void> slideStatefulBottomDialog({BuildContext context, double height, bool draggable, Widget Function(BuildContext, String) builder, String title}) async {
+  static Future<void> showStatefulBottomDialog({BuildContext context, double height, bool draggable, Widget Function(BuildContext, String) builder, String title}) async {
+
+    double _height = height ?? BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.5);
+
     await showModalBottomSheet(
       shape: RoundedRectangleBorder(borderRadius: BottomDialog.dialogCorners(context)),
       backgroundColor: Colorz.BlackSemi255,
@@ -228,7 +232,21 @@ class BottomDialog extends StatelessWidget {
       elevation: 20,
       isScrollControlled: true,
       context: context,
-      builder: (context) => builder(context, title),
+      builder: (context) => Container(
+        height: _height,
+        width: Scale.superScreenWidth(context),
+        child: Scaffold(
+          backgroundColor: Colorz.Nothing,
+          resizeToAvoidBottomInset: false,
+          body: BottomDialog(
+            height: _height,
+            draggable: draggable,
+            title: title,
+            child: builder(context, title),
+          ),
+        )
+
+      ),
     );
   }
 // -----------------------------------------------------------------------------

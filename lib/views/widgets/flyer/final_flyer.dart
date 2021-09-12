@@ -930,7 +930,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
     bool _canUploadReview = false;
 
-    await BottomDialog.slideStatefulBottomDialog(
+    await BottomDialog.showStatefulBottomDialog(
       context: context,
       draggable: true,
       height: _dialogHeight,
@@ -1241,7 +1241,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         _superFlyer.currentSlideIndex = FlyerMethod.unNullIndexIfNull(_superFlyer.currentSlideIndex);
 
         /// B3 - pick images from gallery
-        List<dynamic> _phoneAssets = await Imagers.getMultiImagesFromGallery(
+        List<dynamic> _phoneAssets = await Imagers.takeGalleryMultiPictures(
           context: context,
           images: _assetsSources,
           mounted: mounted,
@@ -1675,7 +1675,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     final double _spacing = Ratioz.appBarMargin;
     final double _buttonWidth = (_dialogClearWidth - ((_numberOfButtons + 1) * _spacing) ) / _numberOfButtons;
 
-    await BottomDialog.slideStatefulBottomDialog(
+    await BottomDialog.showStatefulBottomDialog(
       context: context,
       height: _dialogHeight,
       draggable: true,

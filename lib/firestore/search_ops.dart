@@ -1,9 +1,11 @@
 import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/controllers/drafters/mappers.dart';
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
+import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
@@ -26,12 +28,14 @@ class FireSearch {
 // -----------------------------------------------------------------------------
     static Future<dynamic> mapsByFieldValue({
       BuildContext context,
-      CollectionReference collRef,
+      String collName,
       String field,
       dynamic compareValue,
       ValueIs valueIs,
       bool addDocsIDs,
   }) async {
+
+      Tracer.traceMethod(methodName: 'mapsByFieldValue', varName: field, varNewValue: compareValue, tracerIsOn: true);
 
     List<Map<String, dynamic>> _maps = [];
 
@@ -42,79 +46,85 @@ class FireSearch {
 
       QuerySnapshot _collectionSnapshot;
 
+      CollectionReference _collRef = Fire.getCollectionRef(collName);
+
       /// IF EQUAL TO
       if (valueIs == ValueIs.EqualTo){
-        _collectionSnapshot = await collRef
+        _collectionSnapshot = await _collRef
             .where(field, isEqualTo: compareValue)
             .get();
       }
       /// IF GREATER THAN
       else if (valueIs == ValueIs.GreaterThan){
-        _collectionSnapshot = await collRef
+        _collectionSnapshot = await _collRef
             .where(field, isGreaterThan: compareValue)
             .get();
       }
       /// IF GREATER THAN OR EQUAL
       else if (valueIs == ValueIs.GreaterOrEqualThan){
-        _collectionSnapshot = await collRef
+        _collectionSnapshot = await _collRef
             .where(field, isGreaterThanOrEqualTo: compareValue)
             .get();
       }
       /// IF LESS THAN
       else if (valueIs == ValueIs.LessThan){
-        _collectionSnapshot = await collRef
+        _collectionSnapshot = await _collRef
             .where(field, isLessThan: compareValue)
             .get();
       }
       /// IF LESS THAN OR EQUAL
       else if (valueIs == ValueIs.LessOrEqualThan){
-        _collectionSnapshot = await collRef
+        _collectionSnapshot = await _collRef
             .where(field, isLessThanOrEqualTo: compareValue)
             .get();
       }
       /// IF IS NOT EQUAL TO
       else if (valueIs == ValueIs.NotEqualTo){
-        _collectionSnapshot = await collRef
+        _collectionSnapshot = await _collRef
             .where(field, isNotEqualTo: compareValue)
             .get();
       }
       /// IF IS NULL
       else if (valueIs == ValueIs.Null){
-        _collectionSnapshot = await collRef
+        _collectionSnapshot = await _collRef
             .where(field, isNull: compareValue)
             .get();
       }
       /// IF whereIn
       else if (valueIs == ValueIs.WhereIn){
-        _collectionSnapshot = await collRef
+        _collectionSnapshot = await _collRef
             .where(field, whereIn: compareValue)
             .get();
       }
       /// IF whereNotIn
       else if (valueIs == ValueIs.WhereNotIn){
-        _collectionSnapshot = await collRef
+        _collectionSnapshot = await _collRef
             .where(field, whereNotIn: compareValue)
             .get();
       }
       /// IF array contains
       else if (valueIs == ValueIs.ArrayContains){
-        _collectionSnapshot = await collRef
+        _collectionSnapshot = await _collRef
             .where(field, arrayContains: compareValue)
             .get();
       }
       /// IF array contains any
       else if (valueIs == ValueIs.ArrayContainsAny){
-        _collectionSnapshot = await collRef
+        _collectionSnapshot = await _collRef
             .where(field, arrayContainsAny: compareValue)
             .get();
       }
+
+      Tracer.traceMethod(methodName: 'mapsByFieldValue', varName: 'valueIs', varNewValue: valueIs, tracerIsOn: true);
 
       _maps = Mapper.getMapsFromQuerySnapshot(
         querySnapshot: _collectionSnapshot,
         addDocsIDs: true,
       );
 
-    });
+      Tracer.traceMethod(methodName: 'mapsByFieldValue', varName: '_maps', varNewValue: _maps, tracerIsOn: true);
+
+        });
 
     return _maps;
 
@@ -196,8 +206,7 @@ class FireSearch {
   }
 // -----------------------------------------------------------------------------
 /// SEARCHING FLYERS
-/// -------------------
-
+// --------------------------------------
 /// SEARCH FLYERS BY AREA AND FLYER TYPE
   static Future<List<TinyFlyer>> flyersByZoneAndFlyerType({
     BuildContext context,
@@ -242,9 +251,40 @@ class FireSearch {
 
 
 /// SEARCHING BZZ
-///
-///
+//
+
 /// SEARCHING USERS
+  static Future<List<UserModel>> usersByUserName({BuildContext context, String compareValue}) async {
+
+      dynamic _resultBad = await mapsByFieldValue(
+        context: context,
+        collName: FireCollection.users,
+        valueIs: ValueIs.GreaterOrEqualThan,
+        compareValue: compareValue,
+        field: 'name',
+        addDocsIDs: false,
+      );
+
+      /// WORK GOOD WITH 1 SINGLE WORD FIELDS,, AND SEARCHES BY MATCHES THE INITIAL CHARACTERS :
+      /// 'Rag' --->    gets [Rageh Mohamed]
+      /// 'geh' -/->    doesn't get [Rageh Mohamed]
+      /// 'Moh' -/->    doesn't get [Rageh Mohamed]
+      /// 'Mohamed -/-> doesn't get [Rageh Mohamed]
+      QuerySnapshot<Map<String, dynamic>> _snapshots = await Fire.getCollectionRef(FireCollection.users).orderBy("name").where("name",isGreaterThanOrEqualTo: compareValue).where("name",isLessThanOrEqualTo: compareValue+"z").get();
+
+      List<Map<String, dynamic> >_result = Mapper.getMapsFromQuerySnapshot(
+        querySnapshot: _snapshots,
+        addDocsIDs: false,
+      );
+
+      List<UserModel> _usersModels = [];
+
+      if (_result != [] || _result != null){
+        _usersModels = UserModel.decipherUsersMaps(_result);
+      }
+
+      return _usersModels;
+    }
 
 }
 
