@@ -53,9 +53,13 @@ class ImageSize{
     if(image != null){
       // -----------------------------------------------------------o
       bool _isURL = ObjectChecker.objectIsURL(image) == true;
+      // print('_isURL : $_isURL');
       bool _isAsset = ObjectChecker.objectIsAsset(image) == true;
+      // print('_isAsset : $_isAsset');
       bool _isFile = ObjectChecker.objectIsFile(image) == true;
+      // print('_isFile : $_isFile');
       bool _isUints = ObjectChecker.objectIsUint8List(image) == true;
+      // print('_isUints : $_isUints');
       // -----------------------------------------------------------o
       var _decodedImage;
       Uint8List _uInt8List;
@@ -74,8 +78,11 @@ class ImageSize{
       }
       // --------------------------o
       else if(_isFile){
+        // print('_isFile staring aho : $_isFile');
         _uInt8List = await image.readAsBytesSync();
+        // print('_uInt8List : $_uInt8List');
         _decodedImage = await Imagers.decodeUint8List(_uInt8List);
+        // print('_decodedImage : $_decodedImage');
       }
       // --------------------------o
       else if (_isUints == true) {
@@ -84,7 +91,7 @@ class ImageSize{
       // -----------------------------------------------------------o
       if (_decodedImage != null){
         _imageSize = ImageSize(
-          width: _decodedImage.size.toDouble(),
+          width: _decodedImage.width.toDouble(), // was _decodedImage.size.toDouble() I don't know why,, needs a test
           height: _decodedImage.height.toDouble(),
         );
       }
@@ -92,6 +99,14 @@ class ImageSize{
     }
 
     return _imageSize;
+  }
+// -----------------------------------------------------------------------------
+  void printSize({String methodName}){
+    print('START - PRINT IMAGE SIZE - IN - $methodName - ------------------------------------- START ---');
+
+    print('image size: W [ $width ] x H [ $height ]');
+
+    print('END - PRINT IMAGE SIZE - IN - $methodName - ------------------------------------- END ---');
   }
 // -----------------------------------------------------------------------------
 }

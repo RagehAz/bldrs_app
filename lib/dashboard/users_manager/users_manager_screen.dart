@@ -5,6 +5,7 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/flagz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/dashboard/widgets/user_button.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_dialog/bottom_dialog_data_row.dart';
 import 'package:bldrs/firestore/cloud_functions.dart';
 import 'package:bldrs/firestore/firestore.dart';
@@ -74,8 +75,6 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
     super.didChangeDependencies();
   }
 // -----------------------------------------------------------------------------
-
-
   ScrollController _scrollController = ScrollController();
 // -----------------------------------------------------------------------------
   QueryDocumentSnapshot _lastSnapshot;
@@ -106,7 +105,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
 
   }
 // -----------------------------------------------------------------------------
-  Future<void> _deleteUser(UserModel userModel) async {
+  Future<void> _onDeleteUser(UserModel userModel) async {
 
     String _result = await CloudFunctionz.deleteFirebaseUser(userID: userModel.userID);
 
@@ -124,23 +123,9 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
     }
 
   }
-
-
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
-    CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: true);
-
-    double _screenWidth = Scale.superScreenWidth(context);
-    // double _screenHeight = Scale.superScreenHeight(context);
-
-    SuperVerse _titleVerse(String title){
-      return SuperVerse(
-        verse: title,
-        size: 0,
-        color: Colorz.Grey80,
-      );
-    }
 
     return MainLayout(
       loading: _loading,
@@ -176,148 +161,14 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
         itemExtent: 70,
         itemBuilder: (context, index){
 
-          UserModel _userModel = _usersModels[index];
-          String _countryName = _countryPro .getCountryNameInCurrentLanguageByIso3(context, _userModel.zone.countryID);
-          String _provinceName = _countryPro.getCityNameWithCurrentLanguageIfPossible(context, _userModel.zone.cityID);
-          String _districtName = _countryPro.getDistrictNameWithCurrentLanguageIfPossible(context, _userModel.zone.districtID);
-
-          List<ContactModel> _stringyContacts = ContactModel.getContactsWithStringsFromContacts(_userModel.contacts);
-          List<String> _stringyContactsValues = ContactModel.getListOfValuesFromContactsModelsList(_stringyContacts);
-          List<String> _stringyContactsIcons = ContactModel.getListOfIconzFromContactsModelsList(_stringyContacts);
-
-          List<ContactModel> _socialContacts = ContactModel.getSocialMediaContactsFromContacts(_userModel.contacts);
-          List<String> _socialContactsValues = ContactModel.getListOfValuesFromContactsModelsList(_socialContacts);
-          List<String> _socialContactsIcons = ContactModel.getListOfIconzFromContactsModelsList(_socialContacts);
-
-          // dynamic bobo = ContactModel.getListOfValuesFromContactsModelsList(_stringyContacts);
-
           return
-            DreamBox(
-              height: 60,
-              width: _screenWidth - 20,
-              icon: _userModel.pic,
-              color: Colorz.White20,
-              verse: _userModel.name,
-              secondLine: '$index : ${_userModel.userID}',
-              verseScaleFactor: 0.6,
-              verseCentered: false,
-              secondLineScaleFactor: 0.9,
-              margins: EdgeInsets.symmetric(vertical: 5),
-              onTap: () async {
-
-                double _clearDialogWidth = BottomDialog.dialogClearWidth(context);
-
-                await BottomDialog.showBottomDialog(
-                  context: context,
-                  title: _userModel.name,
-                  draggable: true,
-                  child: Container(
-                    width: _clearDialogWidth,
-                    height: BottomDialog.dialogClearHeight(draggable: true, titleIsOn: true, context: context,),
-                    color: Colorz.BloodTest,
-                    child: GoHomeOnMaxBounce(
-                      child: ListView(
-                        physics: const BouncingScrollPhysics(),
-                        children: <Widget>[
-
-                          DreamBox(
-                            height: 25,
-                            width: 25,
-                            icon: Flagz.getFlagByIso3(_userModel.zone.countryID),
-                            corners: 5,
-                          ),
-
-                          SuperVerse(verse: 'is admin or not ? ,, work this out please',),
-
-                          BottomDialogRow(dataKey: 'userID', dataValue: _userModel.userID),
-                          BottomDialogRow(dataKey: 'authBy', dataValue: _userModel.authBy),
-                          BottomDialogRow(dataKey: 'joinedAt', dataValue: _userModel.joinedAt),
-                          BottomDialogRow(dataKey: 'timeString', dataValue: Timers.dayMonthYearStringer(context, _userModel.joinedAt)),
-                          BottomDialogRow(dataKey: 'userStatus', dataValue: _userModel.userStatus),
-                          BottomDialogRow(dataKey: 'name', dataValue: _userModel.name),
-                          BottomDialogRow(dataKey: 'pic', dataValue: _userModel.pic),
-                          BottomDialogRow(dataKey: 'title', dataValue: _userModel.title),
-                          BottomDialogRow(dataKey: 'company', dataValue: _userModel.company),
-                          BottomDialogRow(dataKey: 'gender', dataValue: _userModel.gender),
-                          BottomDialogRow(dataKey: 'zone', dataValue: _userModel.zone),
-                          BottomDialogRow(dataKey: 'zone String', dataValue: 'in [ $_districtName ] - [ $_provinceName ] - [ $_countryName ]'),
-                          BottomDialogRow(dataKey: 'language', dataValue: _userModel.language),
-                          BottomDialogRow(dataKey: 'position', dataValue: _userModel.position),
-                          BottomDialogRow(dataKey: 'contacts', dataValue: _userModel.contacts),
-                          BottomDialogRow(dataKey: 'Stringy contacts', dataValue: '$_stringyContactsValues'),
-                          BottomDialogRow(dataKey: 'Social Contacts', dataValue: '$_socialContactsValues'),
-                          BottomDialogRow(dataKey: 'myBzzIDs', dataValue: _userModel.myBzzIDs),
-                          BottomDialogRow(dataKey: 'emailIsVerified', dataValue: _userModel.emailIsVerified),
-                          // DataRow(dataKey: 'SavedFlyers', value: '${_userModel.savedFlyersIDs.length} flyers')
-                          // DataRow(dataKey: 'followedBzz', value: '${_userModel.followedBzzIDs.length} Businesses'),
-
-                          _titleVerse('Main Contacts'),
-                          DreamWrapper(
-                              boxWidth: 250,
-                              boxHeight: 100,
-                              verses: _stringyContactsValues,
-                              icons: _stringyContactsIcons,
-                              buttonHeight: 20,
-                              spacing: 2.5,
-                              margins: const EdgeInsets.all(2.5),
-                              onTap: () async {
-                                await superDialog(
-                                  context: context,
-                                  title: 'Contact',
-                                  body: '$_stringyContactsValues',
-                                  boolDialog: false,
-                                );
-                              }
-
-                          ),
-
-                          _titleVerse('Social Media Contacts'),
-                          DreamWrapper(
-                              boxWidth: 250,
-                              boxHeight: 100,
-                              verses: _socialContactsValues,
-                              icons: _socialContactsIcons,
-                              buttonHeight: 20,
-                              spacing: 2.5,
-                              margins: const EdgeInsets.all(2.5),
-                              onTap: () async {
-                                await superDialog(
-                                  context: context,
-                                  title: 'Contact',
-                                  body: '$_socialContactsValues',
-                                  boolDialog: false,
-                                );
-                              }
-                          ),
-
-                          Container(
-                              width: _clearDialogWidth,
-                              height: 100,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: <Widget>[
-
-                                  DreamBox(
-                                    height: 80,
-                                    width: 80,
-                                    verse: 'Delete User',
-                                    verseMaxLines: 2,
-                                    onTap: () => _deleteUser(_userModel),
-                                  ),
-
-                                ],
-                              )
-                          )
-
-                        ],
-                      ),
-                    ),
-                  ),
-                );
-
-              },
+            dashboardUserButton(
+              width: Scale.superScreenWidth(context) - 20,
+              userModel: _usersModels[index],
+              index: index,
+              onDeleteUser: (UserModel userModel) => _onDeleteUser(userModel),
             );
+
         },
       ),
 

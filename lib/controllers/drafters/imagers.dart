@@ -178,6 +178,64 @@ class Imagers{
 
 }
 // -----------------------------------------------------------------------------
+  static Future<List<Asset>> takeGalleryMultiPictures({BuildContext context, List<Asset> images, bool mounted, @required BzAccountType accountType}) async {
+    List<Asset> resultList = <Asset>[];
+    String error = 'No Error Detected';
+
+    try {
+      resultList = await MultiImagePicker.pickImages(
+        maxImages: Standards.getMaxSlidesCount(accountType),
+        enableCamera: true,
+        selectedAssets: images,
+        cupertinoOptions: CupertinoOptions(
+          takePhotoIcon: "Take photo",
+          doneButtonTitle: "Done",
+        ),
+        materialOptions: MaterialOptions(
+          actionBarColor: "#13244b",
+          actionBarTitle: Wordz.choose(context),
+          allViewTitle: "All Photos",
+          useDetailsView: false,
+          selectCircleStrokeColor: "#ffc000",
+          startInAllView: true,
+          textOnNothingSelected: 'Nothing is Fucking Selected',
+          statusBarColor: "#000000", // the app status bar
+          lightStatusBar: false,
+          // actionBarTitleColor: "#13244b", // page title color, White is Default
+          autoCloseOnSelectionLimit: false,
+          selectionLimitReachedText: 'Can\'t add more Images !',
+          // unknown impact
+          // backButtonDrawable: 'wtf is this backButtonDrawable',
+          // okButtonDrawable: 'dunno okButtonDrawable',
+        ),
+      );
+    } on Exception catch (e) {
+      error = e.toString();
+
+      if (error != 'The user has cancelled the selection'){
+        await superDialog(
+          context: context,
+          boolDialog: false,
+          title: 'Error',
+          body: error,
+        );
+
+      }
+
+    }
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted){
+      return null;
+    } else {
+      return resultList;
+
+    }
+
+  }
+// -----------------------------------------------------------------------------
   static Future<dynamic> decodeUint8List(Uint8List uInt) async {
     var _decodedImage;
 
@@ -334,64 +392,6 @@ class Imagers{
     return _asset;
   //
   }
-// -----------------------------------------------------------------------------
-  static Future<List<Asset>> getMultiImagesFromGallery({BuildContext context, List<Asset> images, bool mounted, @required BzAccountType accountType}) async {
-  List<Asset> resultList = <Asset>[];
-  String error = 'No Error Detected';
-
-  try {
-    resultList = await MultiImagePicker.pickImages(
-      maxImages: Standards.getMaxSlidesCount(accountType),
-      enableCamera: true,
-      selectedAssets: images,
-      cupertinoOptions: CupertinoOptions(
-        takePhotoIcon: "Take photo",
-        doneButtonTitle: "Done",
-      ),
-      materialOptions: MaterialOptions(
-        actionBarColor: "#13244b",
-        actionBarTitle: Wordz.choose(context),
-        allViewTitle: "All Photos",
-        useDetailsView: false,
-        selectCircleStrokeColor: "#ffc000",
-        startInAllView: true,
-        textOnNothingSelected: 'Nothing is Fucking Selected',
-        statusBarColor: "#000000", // the app status bar
-        lightStatusBar: false,
-        // actionBarTitleColor: "#13244b", // page title color, White is Default
-        autoCloseOnSelectionLimit: false,
-        selectionLimitReachedText: 'Can\'t add more Images !',
-        // unknown impact
-        // backButtonDrawable: 'wtf is this backButtonDrawable',
-        // okButtonDrawable: 'dunno okButtonDrawable',
-      ),
-    );
-  } on Exception catch (e) {
-    error = e.toString();
-
-    if (error != 'The user has cancelled the selection'){
-      await superDialog(
-        context: context,
-        boolDialog: false,
-        title: 'Error',
-        body: error,
-      );
-
-    }
-
-  }
-
-  // If the widget was removed from the tree while the asynchronous platform
-  // message was in flight, we want to discard the reply rather than calling
-  // setState to update our non-existent appearance.
-  if (!mounted){
-    return null;
-  } else {
-    return resultList;
-
-  }
-
-}
 // -----------------------------------------------------------------------------
   static Future<File> getFileFromAsset(Asset asset) async {
   ByteData _byteData = await asset.getThumbByteData(asset.originalWidth, asset.originalHeight, quality: 100);

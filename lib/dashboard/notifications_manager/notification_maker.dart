@@ -1,18 +1,30 @@
 
 
+import 'dart:io';
+
 import 'package:bldrs/controllers/drafters/aligners.dart';
 import 'package:bldrs/controllers/drafters/borderers.dart';
+import 'package:bldrs/controllers/drafters/colorizers.dart';
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/drafters/scrollers.dart';
 import 'package:bldrs/controllers/drafters/text_manipulators.dart';
 import 'package:bldrs/controllers/drafters/timerz.dart';
+import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/dashboard/notifications_manager/noti_banner_editor.dart';
+import 'package:bldrs/dashboard/widgets/user_button.dart';
+import 'package:bldrs/firestore/firestore.dart';
+import 'package:bldrs/firestore/search_ops.dart';
 import 'package:bldrs/models/notification/noti_model.dart';
+import 'package:bldrs/models/secondary_models/image_size.dart';
+import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/views/widgets/artworks/bldrs_welcome_banner.dart';
 import 'package:bldrs/views/widgets/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/tile_bubble.dart';
+import 'package:bldrs/views/widgets/bubbles/user_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/views/widgets/layouts/dashboard_layout.dart';
@@ -32,6 +44,7 @@ class NotificationMaker extends StatefulWidget {
 class _NotificationMakerState extends State<NotificationMaker> {
   TextEditingController _titleController = new TextEditingController();
   TextEditingController _bodyController = new TextEditingController();
+  TextEditingController _userNameController = new TextEditingController();
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
   bool _loading = false;
@@ -90,7 +103,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
   dynamic _attachment;
   NotiAttachmentType _attachmentType;
 
-  dynamic _bannerImage;
+  // dynamic _bannerImage;
   double _bannerHeight = 0;
   Future<void> _onAddAttachment() async {
     print('choosing attachment');
@@ -108,18 +121,18 @@ class _NotificationMakerState extends State<NotificationMaker> {
               _attachmentTypesList.length,
                   (index) {
 
-                String _attachmentType = TextMod.trimTextBeforeLastSpecialCharacter(_attachmentTypesList[index].toString(), '.');
+                String _attachmentTypeString = TextMod.trimTextBeforeLastSpecialCharacter(_attachmentTypesList[index].toString(), '.');
+                Color _color = _attachmentType == _attachmentTypesList[index]? Colorz.Yellow255 : Colorz.Blue20;
+
 
                 return
                   DreamBox(
                     height: 50,
                     width: BottomDialog.dialogClearWidth(context),
-                    verse: _attachmentType,
+                    verse: _attachmentTypeString,
                     verseScaleFactor: 0.6,
-                    color: Colorz.Blue20,
-                    onTap: (){
-                      print(_attachmentType);
-                      },
+                    color: _color,
+                    onTap: () => _onChooseAttachmentType(_attachmentTypesList[index]),
                   );
 
               }
@@ -130,9 +143,198 @@ class _NotificationMakerState extends State<NotificationMaker> {
     );
   }
 // -----------------------------------------------------------------------------
+  Future<void> _onChooseAttachmentType(NotiAttachmentType attachmentType) async {
+
+    if (attachmentType == NotiAttachmentType.banner){
+      await _takeGalleryPicAndAttachToBanner();
+    }
+
+    else {
+      print('attachment type is ${attachmentType.toString()}');
+    }
+
+  }
+// -----------------------------------------------------------------------------
+  Future<void> _takeGalleryPicAndAttachToBanner() async {
+    File _pic = await Imagers.takeGalleryPicture(PicType.slideHighRes);
+
+    print('pic is : $_pic');
+
+    ImageSize _picSize = await ImageSize.superImageSize(_pic);
+
+    print('_picSize is : W ${_picSize.width} x H ${_picSize.height}');
+
+    double _picViewHeight = Imagers.concludeHeightByGraphicSizes(
+      width: NotificationCard.bodyWidth(context),
+      graphicWidth: _picSize.width,
+      graphicHeight: _picSize.height,
+    );
+
+    await Nav.goBack(context);
+
+    if (_pic != null){
+      setState(() {
+        _attachmentType = NotiAttachmentType.banner;
+        _attachment = _pic;
+        _bannerHeight = _picViewHeight;
+      });
+    }
+
+  }
+// -----------------------------------------------------------------------------
+  void _onDeleteAttachment(){
+    setState(() {
+      _attachment = null;
+      _attachmentType = null;
+    });
+  }
+// -----------------------------------------------------------------------------
   bool _sendFCMIsOn = false;
-  void _onSendFCMSwitch(bool val){
+  void _onSwitchSendFCM(bool val){
     print('send fcm val is : $val');
+    setState(() {
+      _sendFCMIsOn = val;
+    });
+  }
+// -----------------------------------------------------------------------------
+  Future<void> _onTapReciever() async {
+
+    double _dialogHeight = BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.85);
+
+    double _dialogClearWidth = BottomDialog.dialogClearWidth(context);
+    double _dialogClearHeight = BottomDialog.dialogClearHeight(
+      context: context,
+      draggable: true,
+      titleIsOn: true,
+      overridingDialogHeight: _dialogHeight,
+    );
+    double _textFieldHeight = 70;
+
+    List<UserModel> _usersModels = [];
+
+    await BottomDialog.showStatefulBottomDialog(
+      context: context,
+      draggable: true,
+      title: 'Search for a user',
+      height: _dialogHeight,
+      builder: (ctx, title){
+        return StatefulBuilder(
+          builder: (xxx, setDialogState){
+
+            return
+              Column(
+                children: <Widget>[
+
+                  /// USER NAME TEXT FIELD
+                  Container(
+                    width: _dialogClearWidth,
+                    height: _textFieldHeight,
+                    child: SuperTextField(
+                      height: _textFieldHeight,
+                      inputSize: 2,
+                      textController: _userNameController,
+                      inputColor: Colorz.White255,
+                      hintText: 'user name ...',
+                      keyboardTextInputType: TextInputType.multiline,
+                      maxLength: 30,
+                      maxLines: 2,
+                      counterIsOn: true,
+                      fieldIsFormField: true,
+                      keyboardTextInputAction: TextInputAction.search,
+                      onSubmitted: (String val) async {
+                        print('submitted : val : $val');
+
+                        List<UserModel> _resultUsers = await FireSearch.usersByUserName(
+                          context: context,
+                          compareValue: val,
+                        );
+
+                        if (_resultUsers == []){
+                          print('result is null, no result found');
+                        }
+                        else {
+                          print('_result found : ${_resultUsers.length} matches');
+
+
+                          setDialogState(() {
+                            _usersModels = _resultUsers;
+                          });
+
+                        }
+
+                      },
+
+                    ),
+                  ),
+
+                  Container(
+                    width: _dialogClearWidth,
+                    height: _dialogClearHeight - _textFieldHeight,
+                    child: GoHomeOnMaxBounce(
+                      child: ListView.builder(
+                        physics: const BouncingScrollPhysics(),
+                          padding: const EdgeInsets.only(bottom: Ratioz.horizon),
+                          itemCount: _usersModels.length,
+                          itemBuilder: (xyz, index){
+                            return
+
+                              _usersModels == [] ?
+
+                              Container(
+                                width: _dialogClearWidth,
+                                height: 70,
+                                child: SuperVerse(
+                                  verse: 'No match found',
+                                  size: 1,
+                                  weight: VerseWeight.thin,
+                                  italic: true,
+                                  color: Colorz.White30,
+                                ),
+                              )
+
+                                  :
+
+                              Row(
+                                children: <Widget>[
+
+                                  dashboardUserButton(
+                                      width: _dialogClearWidth - dashboardUserButton.height() ,
+                                      userModel: _usersModels[index],
+                                      index: index,
+                                      onDeleteUser: null
+                                  ),
+
+                                  Container(
+                                    height: dashboardUserButton.height(),
+                                    width: dashboardUserButton.height(),
+                                    alignment: Alignment.center,
+                                    child: DreamBox(
+                                      height: 50,
+                                      width: 50,
+                                      icon: Iconz.Check,
+                                      iconSizeFactor: 0.5,
+                                      iconColor: Colorz.White50,
+                                      onTap: (){print('fuck you');},
+                                    ),
+                                  )
+
+                                ],
+                              );
+
+
+                          }
+                      ),
+                    ),
+                  ),
+
+                ],
+              );
+          }
+        );
+        },
+
+    );
+
   }
 // -----------------------------------------------------------------------------
   @override
@@ -250,20 +452,13 @@ class _NotificationMakerState extends State<NotificationMaker> {
                           ),
                         ),
 
-                        /// WELCOME BANNER
+                        /// BANNER
                         if(_attachment != null && _attachmentType == NotiAttachmentType.banner)
-                          Container(
-                            width: _bodyWidth,
-                            height: _bannerHeight,
-                            child: ClipRRect(
-                              borderRadius: Borderers.superBorderAll(context, NotificationCard.bannerCorners()),
-                              child: Imagers.superImageWidget(
-                                _bannerImage,
-                                fit: BoxFit.fitWidth,
-                                width: _bodyWidth,
-                                height: _bannerHeight,
-                              ),
-                            ),
+                          NotiBannerEditor(
+                              width: _bodyWidth,
+                              height: _bannerHeight,
+                              attachment: _attachment,
+                              onDelete: _onDeleteAttachment,
                           ),
 
                         /// BUTTONS
@@ -312,20 +507,24 @@ class _NotificationMakerState extends State<NotificationMaker> {
           /// FCM SWITCH
           TileBubble(
             verse: 'Send FCM',
-            secondLine: 'This sends firebase cloud message to the reciever',
+            secondLine: 'This sends firebase cloud message to the receiver or to a group of receivers through a channel',
             icon: Iconz.News,
             iconSizeFactor: 0.5,
             verseColor: Colorz.White255,
             iconBoxColor: Colorz.Grey50,
             switchIsOn: _sendFCMIsOn,
-            switching: (bool val) => _onSendFCMSwitch(val),
+            switching: (bool val) => _onSwitchSendFCM(val),
           ),
 
           /// USER SELECTOR
-          Bubble(
-            title: 'Reciever',
-            leadingIcon: Iconz.NormalUser,
-            columnChildren: <Widget>[],
+          TileBubble(
+            verse: 'Reciever',
+            secondLine: 'Choose who to send this notification to',
+            icon: Iconz.NormalUser,
+            iconSizeFactor: 0.5,
+            verseColor: Colorz.White255,
+            iconBoxColor: Colorz.Grey50,
+            btOnTap: _onTapReciever,
           ),
 
         ],
