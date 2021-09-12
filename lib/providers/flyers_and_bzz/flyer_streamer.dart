@@ -126,14 +126,14 @@ Stream<List<ReviewModel>> getFlyerReviewsStream(String flyerID) {
   return _reviews;
 }
 // -----------------------------------------------------------------------------
-typedef ReviewModelWidgetBuilder = Widget Function(
+typedef ReviewModelsWidgetsBuilder = Widget Function(
     BuildContext context,
     List<ReviewModel> reviews,
     );
 // -----------------------------------------------------------------------------
 Widget reviewsStreamBuilder({
   BuildContext context,
-  ReviewModelWidgetBuilder builder,
+  ReviewModelsWidgetsBuilder builder,
   String flyerID,
 }){
 

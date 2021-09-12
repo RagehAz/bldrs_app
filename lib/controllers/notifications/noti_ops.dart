@@ -1,5 +1,8 @@
+import 'package:bldrs/controllers/drafters/mappers.dart';
+import 'package:bldrs/controllers/notifications/bldrs_notiz.dart';
 import 'package:bldrs/controllers/notifications/local_notification_service.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
+import 'package:bldrs/views/widgets/dialogs/center_dialog/center_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:bldrs/models/notification/noti_model.dart';
@@ -8,6 +11,10 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:bldrs/controllers/drafters/numberers.dart';
 import 'package:bldrs/controllers/notifications/audioz.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/controllers/drafters/stream_checkers.dart';
+import 'package:bldrs/firestore/firestore.dart';
+import 'package:bldrs/views/widgets/loading/loading.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class NotiOps{
 // -----------------------------------------------------------------------------
@@ -357,3 +364,73 @@ class NotiOps{
   }
 // -----------------------------------------------------------------------------
 }
+
+Widget notiStreamBuilder({
+  BuildContext context,
+  notiModelsWidgetsBuilder builder,
+  String userID,
+}){
+
+  return
+
+    StreamBuilder<List<NotiModel>>(
+      key: ValueKey<String>('notifications_stream_builder'),
+      stream: getNotiModelsStream(context, userID),
+      initialData: [],
+      builder: (ctx, snapshot){
+        if(StreamChecker.connectionIsLoading(snapshot) == true){
+
+          print('the shit is looooooooooooooooooooooooading');
+
+          return LoadingFullScreenLayer();
+        } else {
+
+          List<NotiModel> notiModels = snapshot.data;
+
+          print('the shit is getting reaaaaaaaaaaaaaaaaaaaaaaal');
+
+          return
+            builder(ctx, notiModels);
+        }
+        },
+    );
+
+}
+// -----------------------------------------------------------------------------
+/// get NotiModels stream
+Stream<List<NotiModel>> getNotiModelsStream(BuildContext context, String userID) {
+
+  Stream<List<NotiModel>> _notiModelsStream;
+
+  tryAndCatch(
+    context: context,
+    methodName: 'getNotiModelsStream',
+    functions: (){
+
+      final Stream<QuerySnapshot<Object>> _querySnapshots = Fire.streamSubCollection(
+        collName: FireCollection.users,
+        docName: userID,
+        subCollName: FireCollection.subUserNotifications,
+        orderBy: 'timeStamp',
+        descending: true,
+      );
+
+      _notiModelsStream = _querySnapshots.map(
+              (qShot) => qShot.docs.map((doc) =>
+                  NotiModel.decipherNotiModel(doc)
+          ).toList()
+      );
+
+
+    }
+  );
+
+  return _notiModelsStream;
+}
+// -----------------------------------------------------------------------------
+
+typedef notiModelsWidgetsBuilder = Widget Function(
+    BuildContext context,
+    List<NotiModel> notiModels,
+    );
+// -----------------------------------------------------------------------------

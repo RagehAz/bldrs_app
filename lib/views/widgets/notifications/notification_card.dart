@@ -1,6 +1,7 @@
 import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/dashboard/notifications_manager/noti_banner_editor.dart';
 import 'package:bldrs/models/notification/noti_model.dart';
 import 'package:bldrs/views/widgets/artworks/bldrs_welcome_banner.dart';
 import 'package:bldrs/views/widgets/bubbles/bubble.dart';
@@ -62,7 +63,7 @@ class NotificationCard extends StatelessWidget {
 
                 /// SENDER BALLOON
                 NotificationSenderBalloon(
-                  sender: notiModel.picType,
+                  sender: notiModel.notiPicType,
                   pic: notiModel.pic,
                 ),
 
@@ -119,10 +120,16 @@ class NotificationCard extends StatelessWidget {
 
                       /// WELCOME BANNER
                       if(notiModel.attachmentType == NotiAttachmentType.banner)
-                      BldrsWelcomeBanner(
-                        width: _bodyWidth,
-                        corners: _bannerCorner,
-                      ),
+                        NotiBannerEditor(
+                          width: _bodyWidth,
+                          height: 300,
+                          attachment: notiModel.attachment,
+                          onDelete: null,
+                        ),
+                      // BldrsWelcomeBanner(
+                      //   width: _bodyWidth,
+                      //   corners: _bannerCorner,
+                      // ),
 
                       /// BUTTONS
                       if(notiModel.attachmentType == NotiAttachmentType.buttons && notiModel.attachment is List<String>)

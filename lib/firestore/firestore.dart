@@ -52,6 +52,7 @@ class StorageDoc{
   static String slideLowRes   = 'slidesPicsLow';  // uses flyerID_slideIndex as file name
   static String dumz          = 'dumz';
   static String askPics       = 'askPics';
+  static String notiBanners = 'notiBanners';
 // -----------------------------------------------------------------------------
   static String docName(PicType picType){
     switch (picType){
@@ -62,6 +63,7 @@ class StorageDoc{
       case PicType.slideLowRes    :   return   slideLowRes;   break; // uses flyerID_slideIndex as file name
       case PicType.dum            :   return   dumz;          break;
       case PicType.askPic         :   return   askPics;       break;
+      case PicType.notiBanner     :   return   notiBanners;   break;
       default : return   null;
     }
   }

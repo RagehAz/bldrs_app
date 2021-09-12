@@ -188,38 +188,38 @@ class _TrigramTestState extends State<TrigramTest> {
             margin: 10,
           ),
 
-          /// ADD TO FIREBASE
-          DashboardWideButton(
-            title: 'add trigrams to db',
-            icon: null,
-            onTap: () async {
-
-              List<UserModel> _allUsers = await SuperBldrsMethod.readAllUserModels();
-
-              for (var user in _allUsers){
-
-                List<String> _trigram = TextMod.createTrigram(
-                  input: user.name,
-                  maxTrigramLength: 10,
-                );
-
-                await Fire.updateDocField(
-                  context: context,
-                  collName: FireCollection.users,
-                  docName: user.userID,
-                  input: _trigram,
-                  field: 'nameTrigram',
-                );
-
-                setState(() {
-                  _result = _trigram;
-                });
-
-              }
-
-
-              },
-          )
+          // /// ADD TO FIREBASE
+          // DashboardWideButton(
+          //   title: 'add trigrams to db',
+          //   icon: null,
+          //   onTap: () async {
+          //
+          //     List<UserModel> _allUsers = await SuperBldrsMethod.readAllUserModels();
+          //
+          //     for (var user in _allUsers){
+          //
+          //       List<String> _trigram = TextMod.createTrigram(
+          //         input: user.name,
+          //         maxTrigramLength: 10,
+          //       );
+          //
+          //       await Fire.updateDocField(
+          //         context: context,
+          //         collName: FireCollection.users,
+          //         docName: user.userID,
+          //         input: _trigram,
+          //         field: 'nameTrigram',
+          //       );
+          //
+          //       setState(() {
+          //         _result = _trigram;
+          //       });
+          //
+          //     }
+          //
+          //
+          //     },
+          // )
 
       ],
     );
