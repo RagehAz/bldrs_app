@@ -25,4 +25,10 @@ class Tracer{
     }
   }
 // -----------------------------------------------------------------------------
+  static void traceMethod({@required methodName, @required String varName,@required dynamic varNewValue, bool tracerIsOn = true}){
+    if(_traceSetState == true && tracerIsOn == true){
+      print('x - mm-> ${methodName} : ${varName} : ${varNewValue.toString()}');
+    }
+  }
+// -----------------------------------------------------------------------------
 }

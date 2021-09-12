@@ -227,7 +227,7 @@ class _MyBzScreenState extends State<MyBzScreen> {
 
     double _buttonHeight = 50;
 
-    BottomDialog.slideButtonsBottomDialog(
+    BottomDialog.showButtonsBottomDialog(
       context: context,
       draggable: true,
       buttonHeight: _buttonHeight,

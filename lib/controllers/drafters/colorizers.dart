@@ -150,7 +150,12 @@ class Colorizer{
     return _areTheSame;
   }
 // -----------------------------------------------------------------------------
-
+  static Color getRandomColor(){
+    List<Color> _bldrsColors = Colorz.allColorz();
+    int _randomIndex = Numberers.createRandomIndex(listLength: _bldrsColors.length);
+    return _bldrsColors[_randomIndex];
+  }
+// -----------------------------------------------------------------------------
 }
 // -----------------------------------------------------------------------------
 class BlurLayer extends StatelessWidget {
