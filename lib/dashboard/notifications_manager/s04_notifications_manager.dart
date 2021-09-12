@@ -53,12 +53,12 @@ class _NotificationsManagerState extends State<NotificationsManager> {
       loading: _loading,
       listWidgets: <Widget>[
 
-        WideButton(
+        DashboardWideButton(
             title: 'Templates',
             onTap: () => Nav.goToNewScreen(context, NotificationTemplatesScreen()),
         ),
 
-        WideButton(
+        DashboardWideButton(
           title: 'Send to single user',
           onTap: () => Nav.goToNewScreen(context, NotificationMaker()),
         ),
