@@ -80,7 +80,7 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
 
     double _buttonHeight = 50;
 
-    BottomDialog.slideButtonsBottomDialog(
+    BottomDialog.showButtonsBottomDialog(
       context: context,
       draggable: true,
       buttonHeight: _buttonHeight,

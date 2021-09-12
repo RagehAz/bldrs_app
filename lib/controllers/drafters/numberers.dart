@@ -75,6 +75,11 @@ class Numberers {
     return _asIntegers;
   }
 // -----------------------------------------------------------------------------
+  static int createRandomIndex({int listLength}){
+    Random _random = new Random();
+    return _random.nextInt(listLength);
+  }
+// -----------------------------------------------------------------------------
   /// TASK : this method needs testing
   static int createUniqueIntFrom({@required List<int> existingValues}) {
     Random _random = new Random();

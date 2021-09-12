@@ -257,7 +257,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     void _slideUserOptions(BuildContext context, UserModel userModel) {
       double _buttonHeight = 50;
 
-      BottomDialog.slideButtonsBottomDialog(
+      BottomDialog.showButtonsBottomDialog(
         context: context,
         draggable: true,
         buttonHeight: _buttonHeight,

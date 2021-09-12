@@ -1,5 +1,20 @@
 
+import 'package:flutter/foundation.dart';
+
 class TextMod {
+  static List<String> addStringToListIfDoesNotContainIt({List<String> strings, String stringToAdd}){
+
+    List<String> _result = strings;
+
+    bool _containsIt = strings.contains(stringToAdd) == true;
+
+    if (_containsIt == false){
+      _result = [...strings, stringToAdd];
+    }
+
+    return _result;
+  }
+
 // -----------------------------------------------------------------------------
   static List<String> sortAlphabetically(List<String> inputList){
   List<String> _outputList = [];
@@ -193,5 +208,93 @@ class TextMod {
     return val.toLowerCase();
   }
 // -----------------------------------------------------------------------------
+  static List<String> createTrigram({@required String input, int maxTrigramLength}){
+    List<String> _trigram = [];
+
+    /// 0 - to lower cases
+    final String _lowerCased = input.toLowerCase();
+
+    /// 1 - first add each word separately
+    final List<String> _splitWords = _lowerCased.trim().split(' ');
+    _trigram.addAll(_splitWords);
+
+    /// 2 - start trigramming after clearing spaces
+    final String _withoutSpaces = TextMod.removeSpacesFromAString(_lowerCased);
+
+    /// 3 - split characters into a list
+    final List<String> _characters = _withoutSpaces.split('');
+    final int _charactersLength = _characters.length;
+    int _maxTrigramLength = maxTrigramLength ?? _charactersLength;
+
+    /// 4 - loop through trigram length 3 -> 4 -> 5 -> ... -> _charactersLength
+    for (int trigramLength = 3; trigramLength <= _maxTrigramLength; trigramLength++){
+
+      int _difference = trigramLength - 1;
+
+      /// 5 - loop in characters
+      for (int i = 0; i < _charactersLength - _difference; i++){
+
+        String _combined = '';
+
+        /// 6 - combine
+        for (int c = 0; c < trigramLength;c++){
+          String _char = _characters[i + c];
+          _combined = '$_combined$_char';
+        }
+
+        /// 7 - add combination
+        _trigram = TextMod.addStringToListIfDoesNotContainIt(strings : _trigram, stringToAdd : _combined,);
+      }
+
+    }
+
+    // /// 3 - generate the triplets
+    // for (int i = 0; i < _charactersLength - 2; i++){
+    //   String _first = _characters[i];
+    //   String _second = _characters[i+1];
+    //   String _third = _characters[i+2];
+    //   String _combined = '$_first$_second$_third';
+    //   _trigram = TextMod.addStringToListIfDoesNotContainIt(strings : _trigram, stringToAdd : _combined,);
+    // }
+
+    // _trigramLength = 4;
+    // /// 4 - generate quadruplets
+    // for (int i = 0; i < _characters.length - 3; i++){
+    //   String _first = _characters[i];
+    //   String _second = _characters[i+1];
+    //   String _third = _characters[i+2];
+    //   String _fourth = _characters[i+3];
+    //   String _combined = '$_first$_second$_third$_fourth';
+    //   _trigram = TextMod.addStringToListIfDoesNotContainIt(strings : _trigram, stringToAdd : _combined,);
+    // }
+
+    // _trigramLength = 5;
+    // /// 5 - generate Quintuplets
+    // for (int i = 0; i < _characters.length - 4; i++){
+    //   String _first = _characters[i];
+    //   String _second = _characters[i+1];
+    //   String _third = _characters[i+2];
+    //   String _fourth = _characters[i+3];
+    //   String _fifth = _characters[i+4];
+    //   String _combined = '$_first$_second$_third$_fourth$_fifth';
+    //   _trigram = TextMod.addStringToListIfDoesNotContainIt(strings : _trigram, stringToAdd : _combined,);
+    // }
+
+    // _trigramLength = 6;
+    // /// 6 - generate Sextuplets
+    // for (int i = 0; i < _characters.length - 5; i++){
+    //   String _first = _characters[i];
+    //   String _second = _characters[i+1];
+    //   String _third = _characters[i+2];
+    //   String _fourth = _characters[i+3];
+    //   String _fifth = _characters[i+4];
+    //   String _sixth = _characters[i+5];
+    //   String _combined = '$_first$_second$_third$_fourth$_fifth$_sixth';
+    //   _trigram = TextMod.addStringToListIfDoesNotContainIt(strings : _trigram, stringToAdd : _combined,);
+    // }
+
+    return _trigram;
+  }
+
 }
 

@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/timerz.dart';
+import 'package:bldrs/firestore/user_ops.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/secondary_models/contact_model.dart';
 import 'package:bldrs/models/user/fcm_token.dart';
@@ -320,6 +321,17 @@ class UserModel {
     print('$methodName : PRINTING USER MODEL ---------------- END -- ');
 
   }
+// -----------------------------------------------------------------------------
+  static Future<UserModel> dummyUserModel(BuildContext context) async {
+
+    UserModel _user = await UserOps().readUserOps(
+      context: context,
+      userID: '60a1SPzftGdH6rt15NF96m0j9Et2',
+    );
+
+    return _user;
+  }
+// -----------------------------------------------------------------------------
 }
 // -----------------------------------------------------------------------------
 enum UserStatus {
