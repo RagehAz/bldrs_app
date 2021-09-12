@@ -38,6 +38,7 @@ class NotiBannerEditor extends StatelessWidget {
               height: height,
             ),
 
+            if (onDelete != null)
             Align(
               alignment: Aligners.superBottomAlignment(context),
               child: DreamBox(

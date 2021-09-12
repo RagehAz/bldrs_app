@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/views/widgets/bubbles/bubble.dart';
@@ -20,6 +21,7 @@ class TileBubble extends StatelessWidget {
   final bool iconIsBubble;
   final bool insideDialog;
   final Function moreBtOnTap;
+  final Widget child;
 
   TileBubble({
     @required this.verse,
@@ -34,12 +36,18 @@ class TileBubble extends StatelessWidget {
     this.iconIsBubble = true,
     this.insideDialog = false,
     this.moreBtOnTap,
+    this.child,
   });
-
+// -----------------------------------------------------------------------------
+  static const double iconBoxWidth = 30;
+// -----------------------------------------------------------------------------
+  static double childWidth(BuildContext context){
+    return Bubble.bubbleWidth(context: context, stretchy: false) - iconBoxWidth;
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    const double iconBoxWidth = 30;
     double iconWidth = (iconSizeFactor * iconBoxWidth);
     double iconBoxPadding = iconBoxWidth - iconWidth;
 
@@ -62,7 +70,7 @@ class TileBubble extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
 
-            // --- LEADING ICON
+            /// --- LEADING ICON
             icon.runtimeType == String ?
             DreamBox(
               width: iconBoxWidth,
@@ -85,7 +93,7 @@ class TileBubble extends StatelessWidget {
               ),
             ),
 
-            // --- MAIN TEXT
+            /// --- MAIN TEXT
             Container(
               width: _verseWidth,
               padding: const EdgeInsets.symmetric(horizontal: 5),
@@ -144,9 +152,41 @@ class TileBubble extends StatelessWidget {
                 icon: Iconz.More,
                 iconSizeFactor: 0.6,
                 onTap: moreBtOnTap,
-              )
+              ),
 
           ],
+        ),
+
+        if (child != null)
+        Container(
+          width: Bubble.bubbleWidth(context: context, stretchy: false),
+          // height: 200,
+          // padding: const EdgeInsets.symmetric(horizontal: 5),
+          // color: Colorz.Yellow255,
+          child: Row(
+            children: <Widget>[
+
+              /// under leading icon area
+              Container(
+                width: iconBoxWidth,
+                // height: 1,
+                // color: Colorz.BloodTest,
+              ),
+
+              /// child
+              Container(
+                width: childWidth(context),
+                // height: 200,
+                decoration: BoxDecoration(
+                  color: Colorz.White10,
+                  borderRadius: Borderers.superBorderAll(context, Bubble.clearCornersValue())
+                ),
+                alignment: Alignment.center,
+                child: child,
+              ),
+
+            ],
+          ),
         ),
 
       ],

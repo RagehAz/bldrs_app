@@ -35,6 +35,7 @@ enum PicType{
   slideLowRes,
   dum,
   askPic,
+  notiBanner,
 }
 // -----------------------------------------------------------------------------
 class Imagers{
@@ -112,7 +113,8 @@ class Imagers{
     case PicType.slideLowRes  :  return  80   ;  break;
     case PicType.dum          :  return  100  ;  break;
     case PicType.askPic       :  return  100  ;  break;
-    default : return   null;
+    case PicType.notiBanner   :  return  100  ; break;
+    default : return   100;
 }
 }
 // -----------------------------------------------------------------------------
@@ -125,7 +127,7 @@ class Imagers{
     case PicType.slideLowRes  :  return  150   ;  break;
     case PicType.dum          :  return  null  ;  break;
     case PicType.askPic       :  return  null  ;  break;
-    default : return   null;
+    default : return   200;
   }
 }
 // -----------------------------------------------------------------------------

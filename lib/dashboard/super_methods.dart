@@ -1,5 +1,7 @@
 import 'package:bldrs/firestore/firestore.dart';
+import 'package:bldrs/models/notification/noti_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
+import 'package:flutter/material.dart';
 
 class SuperBldrsMethod{
 // -----------------------------------------------------------------------------
@@ -17,5 +19,18 @@ class SuperBldrsMethod{
     return _allUsers;
   }
 // -----------------------------------------------------------------------------
+  static Future<List<NotiModel>> readAllNotiModels({BuildContext context, String userID,}) async {
 
+    List<dynamic> _maps = await Fire.readSubCollectionDocs(
+      context: context,
+      collName: FireCollection.users,
+      docName: userID,
+      subCollName: FireCollection.subUserNotifications,
+    );
+
+    List<NotiModel> _notiModels = NotiModel.decipherNotiModels(_maps);
+
+    return _notiModels;
+  }
+// -----------------------------------------------------------------------------
 }
