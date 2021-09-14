@@ -152,17 +152,21 @@ class FlyerModel with ChangeNotifier{
       case 3:   return  FlyerState.Deleted;       break;
       case 4:   return  FlyerState.Unpublished;   break;
       case 5:   return  FlyerState.Banned;        break;
+      case 6:   return  FlyerState.Verified;      break;
+      case 7:   return  FlyerState.Suspended;     break;
       default : return   null;
     }
   }
 // -----------------------------------------------------------------------------
   static int cipherFlyerState (FlyerState x){
     switch (x){
-      case FlyerState.Published     :    return  1;  break;
-      case FlyerState.Draft         :    return  2;  break;
-      case FlyerState.Deleted       :    return  3;  break;
-      case FlyerState.Unpublished   :    return  4;  break;
-      case FlyerState.Banned        :    return  5;  break;
+      case FlyerState.Published     :     return  1;  break;
+      case FlyerState.Draft         :     return  2;  break;
+      case FlyerState.Deleted       :     return  3;  break;
+      case FlyerState.Unpublished   :     return  4;  break;
+      case FlyerState.Banned        :     return  5;  break;
+      case FlyerState.Verified      :     return  6;  break;
+      case FlyerState.Suspended     :     return  7;  break;
       default : return null;
     }
   }
@@ -246,6 +250,8 @@ class FlyerModel with ChangeNotifier{
     FlyerState.Deleted,
     FlyerState.Unpublished,
     FlyerState.Banned,
+    FlyerState.Verified,
+    FlyerState.Suspended,
   ];
 // -----------------------------------------------------------------------------
   /// TASK : why ?
@@ -414,5 +420,7 @@ enum FlyerState{
   Deleted,
   Unpublished,
   Banned,
+  Verified,
+  Suspended,
 }
 // -----------------------------------------------------------------------------
