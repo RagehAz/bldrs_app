@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/scrollers.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
@@ -15,12 +16,17 @@ class DashBoardLayout extends StatelessWidget {
     this.pageTitle,
     this.loading = false,
 });
-
+// -----------------------------------------------------------------------------
+  static double clearScreenHeight(BuildContext context){
+    return
+      Scale.superScreenHeight(context) - Ratioz.stratosphere - ( 2 * Ratioz.appBarMargin);
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     return MainLayout(
-      pyramids: Iconz.PyramidzYellow,
+      pyramids: Iconz.DvBlankSVG,
       appBarType: AppBarType.Basic,
       pageTitle: pageTitle,
       // appBarBackButton: true,

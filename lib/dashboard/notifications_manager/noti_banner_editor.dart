@@ -47,7 +47,7 @@ class NotiBannerEditor extends StatelessWidget {
                 icon: Iconz.XLarge,
                 iconSizeFactor: 0.5,
                 color: Colorz.Black255,
-                margins: EdgeInsets.all(Ratioz.appBarPadding),
+                margins: const EdgeInsets.all(Ratioz.appBarPadding),
                 onTap: onDelete,
               ),
             ),

@@ -320,7 +320,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
         sky: Sky.Black,
         // appBarBackButton: true,
         pyramids: Iconz.PyramidzYellow,
-        layoutWidget: GoHomeOnMaxBounce(
+        layoutWidget: MaxBounceNavigator(
           child: ListView(
             physics: const BouncingScrollPhysics(),
             children: <Widget>[

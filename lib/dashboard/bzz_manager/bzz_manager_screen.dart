@@ -206,7 +206,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
           height: _screenHeight,
           color: Colorz.Blue80,
           alignment: Alignment.topCenter,
-          child: GoHomeOnMaxBounce(
+          child: MaxBounceNavigator(
             child: ListView.builder(
               controller: ScrollController(),
               physics: const BouncingScrollPhysics(),
@@ -250,7 +250,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
                           width: _clearDialogWidth,
                           height: BottomDialog.dialogClearHeight(draggable: true, titleIsOn: true, context: context, overridingDialogHeight: _dialogHeight),
                           // color: Colorz.BloodTest,
-                          child: GoHomeOnMaxBounce(
+                          child: MaxBounceNavigator(
                             child: ListView(
                               physics: const BouncingScrollPhysics(),
                               children: <Widget>[

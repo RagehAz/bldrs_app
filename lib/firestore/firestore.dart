@@ -488,13 +488,31 @@ class Fire{
     @required String subCollName,
     @required bool descending,
     @required String orderBy, // field name to order by
+    String field,
+    dynamic compareValue,
   }){
     CollectionReference _collection = Fire.getSubCollectionRef(
       collName: collName,
       docName: docName,
       subCollName: subCollName,
     );
-    Stream<QuerySnapshot> _snapshots = _collection.orderBy(orderBy, descending: descending).snapshots();
+
+    Stream<QuerySnapshot> _snapshots;
+
+    if (field != null && compareValue != null){
+      _snapshots = _collection
+          .orderBy(orderBy, descending: descending)
+          .where('$field', isNotEqualTo: compareValue)
+          .snapshots();
+    }
+
+    else {
+      _snapshots = _collection
+          .orderBy(orderBy, descending: descending)
+          .snapshots();
+    }
+
+
     return _snapshots;
   }
 // -----------------------------------------------------------------------------

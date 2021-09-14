@@ -255,4 +255,12 @@ class Scale{
     return _bottomOffset;
   }
 // -----------------------------------------------------------------------------
+  /// this concludes item width after dividing screen width over number of items
+  /// while considering 10 pixels spacing between them
+  static double getUniformRowItemWidth(BuildContext context, int numberOfItems){
+    double _screenWidth = superScreenWidth(context);
+    double _width = (_screenWidth - (Ratioz.appBarMargin * (numberOfItems + 1))) / numberOfItems;
+    return _width;
+  }
+// -----------------------------------------------------------------------------
 }

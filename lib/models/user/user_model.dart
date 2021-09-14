@@ -316,7 +316,7 @@ class UserModel {
     print('contacts : $contacts');
     print('myBzzIDs : $myBzzIDs');
     print('emailIsVerified : $emailIsVerified');
-    print('fcmToken : ${fcmToken.createdAt}');
+    print('fcmToken : ${fcmToken?.createdAt}');
 
     print('$methodName : PRINTING USER MODEL ---------------- END -- ');
 

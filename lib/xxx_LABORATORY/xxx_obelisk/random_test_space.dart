@@ -179,7 +179,7 @@ class _RandomTestSpaceState extends State<RandomTestSpace> {
       ],
 
       layoutWidget: Center(
-        child: GoHomeOnMaxBounce(
+        child: MaxBounceNavigator(
           child: ListView(
             physics: const BouncingScrollPhysics(),
             controller: ScrollController(),

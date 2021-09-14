@@ -45,8 +45,8 @@ SectionDialog({
     double _bubbleWidth = CenterDialog.dialogWidth(context: context) - Ratioz.appBarMargin * 2;
     double _buttonWidth = _bubbleWidth * 0.9;
 
-    return GoHomeOnMaxBounce(
-      height: BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.7),
+    return MaxBounceNavigator(
+      boxDistance: BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.7),
       child: Container(
         width: BottomDialog.dialogClearWidth(context),
         // height: _dialogHeight,

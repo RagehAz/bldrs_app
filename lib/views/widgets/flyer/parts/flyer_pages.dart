@@ -22,7 +22,7 @@ class FlyerPages extends StatelessWidget {
     bool _tinyMode = Scale.superFlyerTinyMode(context, flyerZoneWidth);
 
     Tracer.traceWidgetBuild(widgetName: 'FlyerPages', varName: '_tinyMode', varValue: _tinyMode, tracerIsOn: false);
-    return GoHomeOnMaxBounce(
+    return MaxBounceNavigator(
       notificationListenerKey: ValueKey('${superFlyer.flyerID}_flyerPages_notification_listener_key'),
       child: PageView(
         pageSnapping: true,

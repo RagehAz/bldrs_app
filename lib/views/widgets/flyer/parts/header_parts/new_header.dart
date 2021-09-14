@@ -255,7 +255,7 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
                 alignment: Alignment.topCenter,
                 child: ClipRRect(
                   borderRadius: _headerBorders,
-                  child: new GoHomeOnMaxBounce(
+                  child: new MaxBounceNavigator(
                     // onNavigate: collapse,
                     child: ListView(
                       shrinkWrap: false,
