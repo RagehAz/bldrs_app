@@ -528,8 +528,8 @@ class _SearchScreenState extends State<SearchScreen> {
         children: <Widget>[
 
           /// SEARCH RESULT
-          GoHomeOnMaxBounce(
-            height: _screenHeight,
+          MaxBounceNavigator(
+            boxDistance: _screenHeight,
             child: Container(
               width: _screenWidth,
               height: _screenHeight,

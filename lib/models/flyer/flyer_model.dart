@@ -364,26 +364,26 @@ class FlyerModel with ChangeNotifier{
 //
 //     return _flyer;
 //   }
-  static void printFlyer(FlyerModel flyerModel){
+  void printFlyer(){
     print('FLYER-PRINT --------------------------------------------------START');
-    print('FLYER-PRINT : flyerID : ${flyerModel.flyerID}');
-    print('FLYER-PRINT : flyerType : ${flyerModel.flyerType}');
-    print('FLYER-PRINT : flyerState : ${flyerModel.flyerState}');
-    print('FLYER-PRINT : keywords : ${flyerModel.keywords}');
-    print('FLYER-PRINT : flyerShowsAuthor : ${flyerModel.flyerShowsAuthor}');
-    print('FLYER-PRINT : flyerURL : ${flyerModel.flyerURL}');
-    print('FLYER-PRINT : flyerZone : ${flyerModel.flyerZone}');
-    print('FLYER-PRINT : tinyAuthor : ${flyerModel.tinyAuthor}');
-    print('FLYER-PRINT : tinyBz : ${flyerModel.tinyBz}');
-    print('FLYER-PRINT : publishTime : ${flyerModel.publishTime}');
-    print('FLYER-PRINT : flyerPosition : ${flyerModel.flyerPosition}');
-    print('FLYER-PRINT : ankhIsOn : ${flyerModel.ankhIsOn}');
-    print('FLYER-PRINT : slides : ${flyerModel.slides}');
-    print('FLYER-PRINT : flyerIsBanned : ${flyerModel.flyerIsBanned}');
-    print('FLYER-PRINT : deletionTime : ${flyerModel.deletionTime}');
-    print('FLYER-PRINT : specs : ${flyerModel.specs}');
-    print('FLYER-PRINT : info : ${flyerModel.info}');
-    print('FLYER-PRINT : times : ${flyerModel.times}');
+    print('FLYER-PRINT : flyerID : ${flyerID}');
+    print('FLYER-PRINT : flyerType : ${flyerType}');
+    print('FLYER-PRINT : flyerState : ${flyerState}');
+    print('FLYER-PRINT : keywords : ${keywords}');
+    print('FLYER-PRINT : flyerShowsAuthor : ${flyerShowsAuthor}');
+    print('FLYER-PRINT : flyerURL : ${flyerURL}');
+    print('FLYER-PRINT : flyerZone : ${flyerZone}');
+    print('FLYER-PRINT : tinyAuthor : ${tinyAuthor}');
+    print('FLYER-PRINT : tinyBz : ${tinyBz}');
+    print('FLYER-PRINT : publishTime : ${publishTime}');
+    print('FLYER-PRINT : flyerPosition : ${flyerPosition}');
+    print('FLYER-PRINT : ankhIsOn : ${ankhIsOn}');
+    print('FLYER-PRINT : slides : ${slides}');
+    print('FLYER-PRINT : flyerIsBanned : ${flyerIsBanned}');
+    print('FLYER-PRINT : deletionTime : ${deletionTime}');
+    print('FLYER-PRINT : specs : ${specs}');
+    print('FLYER-PRINT : info : ${info}');
+    print('FLYER-PRINT : times : ${times}');
     print('FLYER-PRINT --------------------------------------------------END');
   }
 // -----------------------------------------------------------------------------

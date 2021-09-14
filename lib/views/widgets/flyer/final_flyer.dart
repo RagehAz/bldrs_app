@@ -353,7 +353,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         onHeaderTap: (bool isExpanded) { _onHeaderTap(isExpanded);},
         onSlideRightTap: _onSlideRightTap,
         onSlideLeftTap: _onSlideLeftTap,
-        onSwipeFlyer: widget.onSwipeFlyer,
+        onSwipeFlyer: (SwipeDirection direction) => widget.onSwipeFlyer(direction),
         onTinyFlyerTap: () async {await _openTinyFlyer();},
         onView: (slideIndex) => _onViewSlide(slideIndex),
         onAnkhTap: () async {await _onAnkhTap();} ,
@@ -390,7 +390,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         onHeaderTap: (isExpanded) {_onHeaderTap(isExpanded);},
         onSlideRightTap: _onSlideRightTap,
         onSlideLeftTap: _onSlideLeftTap,
-        onSwipeFlyer: widget.onSwipeFlyer,
+        onSwipeFlyer: (SwipeDirection direction) => widget.onSwipeFlyer(direction),
         onTinyFlyerTap: () async {await _openTinyFlyer();},
         onView: (i) => _onViewSlide(i),
         onAnkhTap: () async {await _onAnkhTap();} ,
@@ -435,7 +435,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       onHeaderTap: (isExpanded) { _onHeaderTap(isExpanded);},
       onSlideRightTap: _onSlideRightTap,
       onSlideLeftTap: _onSlideLeftTap,
-      onSwipeFlyer: widget.onSwipeFlyer,
+      onSwipeFlyer: (SwipeDirection direction) => widget.onSwipeFlyer(direction),
       onTinyFlyerTap: () async {await _openTinyFlyer();},
       onView: (i) => _onViewSlide(i),
       onAnkhTap: () async {await _onAnkhTap();} ,
@@ -652,10 +652,6 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     // print('flyer onPageChanged oldIndex: ${_superFlyer.currentSlideIndex}, newIndex: $newIndex, _draft.numberOfSlides: ${_superFlyer.numberOfSlides}');
     SwipeDirection _direction = Animators.getSwipeDirection(newIndex: newIndex, oldIndex: _superFlyer.currentSlideIndex,);
 
-    // if(_superFlyer.editMode == false){
-    //   FocusScope.of(context).dispose();
-    // }
-
     /// A - if Keyboard is active
     if (Keyboarders.keyboardIsOn(context) == true){
       print('KEYBOARD IS ACTIVE');
@@ -699,6 +695,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
      });
 
     }
+
 
   }
 // -----------------------------------------------------o
@@ -803,8 +800,8 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     // final String bucketOffsetKey = '${_superFlyer.flyerID}_infoPage_offset';
     // double _offset = flyerBucket.readState(context, identifier: ValueKey(bucketOffsetKey)) ?? 0.0;
 
-    String _prefName = '${_superFlyer.flyerID}_info_scroll_pos';
-    double _offset = _prefs.getDouble(_prefName) ?? 0;
+    String _prefName = '${_superFlyer?.flyerID}_info_scroll_pos';
+    double _offset = _prefs?.getDouble(_prefName) ?? 0;
 
     print('O-O-O : offset is $_offset : for _prefName : $_prefName');
 

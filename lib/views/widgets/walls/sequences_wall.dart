@@ -221,7 +221,7 @@ class SequencesWall extends StatelessWidget {
 
     ];
 
-    return GoHomeOnMaxBounce(
+    return MaxBounceNavigator(
 
       child: ListView.builder(
         physics: BouncingScrollPhysics(),
