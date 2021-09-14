@@ -793,7 +793,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     _prefs.setDouble(_prefName, offset);
 
 
-    print('X-X-X : offset is $offset : for _prefName : $_prefName');
+    // print('X-X-X : offset is $offset : for _prefName : $_prefName');
   }
 // -----------------------------------------------------o
   double getInfoScrollOffset(){
@@ -803,7 +803,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     String _prefName = '${_superFlyer?.flyerID}_info_scroll_pos';
     double _offset = _prefs?.getDouble(_prefName) ?? 0;
 
-    print('O-O-O : offset is $_offset : for _prefName : $_prefName');
+    // print('O-O-O : offset is $_offset : for _prefName : $_prefName');
 
     return _offset;
   }
@@ -2697,7 +2697,11 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
             if (_tinyMode == false)
               ProgressBar(
-                superFlyer: _superFlyer,
+                swipeDirection: _superFlyer.nav.swipeDirection,
+                opacity: _superFlyer.nav.progressBarOpacity,
+                numberOfStrips: _superFlyer.numberOfStrips,
+                numberOfSlides: _superFlyer.mSlides.length,
+                index: _superFlyer.currentSlideIndex,
                 flyerZoneWidth: widget.flyerZoneWidth,
                 loading: _loading,
               ),
