@@ -92,7 +92,7 @@ class ImageSize{
       if (_decodedImage != null){
         _imageSize = ImageSize(
           width: _decodedImage.width.toDouble(), // was _decodedImage.size.toDouble() I don't know why,, needs a test
-          height: _decodedImage.height.toDouble(),
+          height: _decodedImage.boxDistance.toDouble(),
         );
       }
       // -----------------------------------------------------------o

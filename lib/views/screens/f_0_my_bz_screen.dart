@@ -348,7 +348,7 @@ class _MyBzScreenState extends State<MyBzScreen> {
 
       ],
 
-      layoutWidget: GoHomeOnMaxBounce(
+      layoutWidget: MaxBounceNavigator(
         child: AnimatedOpacity(
           opacity: _bubblesOpacity,
           duration: Ratioz.durationSliding400,

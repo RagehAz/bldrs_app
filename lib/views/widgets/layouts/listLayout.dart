@@ -82,8 +82,8 @@ class ListLayout extends StatelessWidget {
                   width: Bubble.clearWidth(context),
                   height: _bubbleHeight - (Ratioz.appBarMargin * 5),
                   // color: Colorz.BloodTest,
-                  child: GoHomeOnMaxBounce(
-                    height: _bubbleHeight - (Ratioz.appBarMargin * 5),
+                  child: MaxBounceNavigator(
+                    boxDistance: _bubbleHeight - (Ratioz.appBarMargin * 5),
                     child: ListView.builder(
                       physics: const BouncingScrollPhysics(),
 

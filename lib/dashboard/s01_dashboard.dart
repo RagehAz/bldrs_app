@@ -4,6 +4,7 @@ import 'package:bldrs/dashboard/flyers_manager/all_flyers_screen.dart';
 import 'package:bldrs/dashboard/pricing_manager/pricing_screen.dart';
 import 'package:bldrs/dashboard/s02_statistics.dart';
 import 'package:bldrs/dashboard/s05_keywords_manager.dart';
+import 'package:bldrs/dashboard/screens_manager.dart';
 import 'package:bldrs/dashboard/users_manager/users_manager_screen.dart';
 import 'package:bldrs/dashboard/widgets/wide_button.dart';
 import 'package:bldrs/views/widgets/layouts/dashboard_layout.dart';
@@ -12,7 +13,6 @@ import 'package:flutter/material.dart';
 import 'bzz_manager/bzz_manager_screen.dart';
 import 'notifications_manager/s04_notifications_manager.dart';
 import 's06_flyers_auditor.dart';
-import 's07_local_flyers_uploader.dart';
 import 'zones_manager/zones_manager_screen.dart';
 
 class DashBoard extends StatefulWidget {
@@ -92,9 +92,9 @@ class _DashBoardState extends State<DashBoard> {
           ),
 
           DashboardWideButton(
-            title: 'Local Bz & Flyers Uploader',
-            icon: Iconz.AddFlyer,
-            onTap: () => Nav.goToNewScreen(context, LocalFlyersUploader()),
+            title: 'Screens Manager',
+            icon: Iconz.FlyerGrid,
+            onTap: () => Nav.goToNewScreen(context, ScreensManager()),
           ),
 
           PyramidsHorizon(),

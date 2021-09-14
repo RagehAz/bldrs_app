@@ -90,7 +90,7 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen> with SingleTicker
       appBarRowWidgets: <Widget>[
         SectionsButton(),
       ],
-      layoutWidget: GoHomeOnMaxBounce(
+      layoutWidget: MaxBounceNavigator(
         child: NestedScrollView(
           physics: const BouncingScrollPhysics(),
           // shrinkWrap: false,
