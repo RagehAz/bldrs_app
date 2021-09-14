@@ -15,6 +15,7 @@ class ProgressBar extends StatelessWidget {
   // final DraftFlyerModel draft;
   final bool loading;
   final SwipeDirection swipeDirection;
+  final EdgeInsets margins;
 
   const ProgressBar({
     @required this.numberOfSlides,
@@ -26,6 +27,7 @@ class ProgressBar extends StatelessWidget {
     // @required this.draft,
     this.loading = true,
     @required this.swipeDirection,
+    this.margins,
   });
 
   @override
@@ -44,7 +46,7 @@ class ProgressBar extends StatelessWidget {
         loading == true || numberOfStrips == null?
         ProgressBox(
               flyerZoneWidth: flyerZoneWidth,
-              margins: null,
+              margins: margins,
               strips: <Widget>[
                 Container(
                   width: Strips.stripsTotalLength(flyerZoneWidth),
@@ -70,6 +72,7 @@ class ProgressBar extends StatelessWidget {
           numberOfStrips: numberOfStrips,
           slideIndex: index,
           swipeDirection: swipeDirection,
+          margins: margins,
         )
 
               :
