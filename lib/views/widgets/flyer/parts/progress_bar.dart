@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/sliders.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
@@ -5,36 +6,42 @@ import 'package:bldrs/views/widgets/flyer/parts/progress_bar_parts/strips.dart';
 import 'package:flutter/material.dart';
 
 class ProgressBar extends StatelessWidget {
+  final int numberOfSlides;
+  final int numberOfStrips;
+  final int index;
   // final Duration duration;
-  // final double opacity;
+  final double opacity;
   final double flyerZoneWidth;
   // final DraftFlyerModel draft;
-  final SuperFlyer superFlyer;
   final bool loading;
+  final SwipeDirection swipeDirection;
 
   const ProgressBar({
+    @required this.numberOfSlides,
+    @required this.numberOfStrips,
+    @required this.index,
     // @required this.duration,
-    // @required this.opacity,
+    @required this.opacity,
     @required this.flyerZoneWidth,
     // @required this.draft,
-    @required this.superFlyer,
     this.loading = true,
+    @required this.swipeDirection,
   });
 
   @override
   Widget build(BuildContext context) {
 
-    print('B---> ProgressBar : numberOfSlides : ${superFlyer.numberOfSlides}');
+    print('B---> ProgressBar : numberOfSlides : ${numberOfSlides}');
 
     return Container(
       width: flyerZoneWidth,
       child: AnimatedOpacity(
         duration: Ratioz.durationFading200,
-        opacity: superFlyer?.nav?.progressBarOpacity == null ? 1 : superFlyer.nav.progressBarOpacity,
+        opacity: opacity == null ? 1 : opacity,
         child:
 
         // superFlyer.loading == true ?
-        loading == true || superFlyer?.numberOfStrips == null?
+        loading == true || numberOfStrips == null?
         ProgressBox(
               flyerZoneWidth: flyerZoneWidth,
               margins: null,
@@ -57,12 +64,12 @@ class ProgressBar extends StatelessWidget {
             )
 
             :
-        Strips.canBuildStrips(superFlyer?.numberOfStrips) == true?
+        Strips.canBuildStrips(numberOfStrips) == true?
         Strips(
           flyerZoneWidth: flyerZoneWidth,
-          numberOfStrips: superFlyer.numberOfStrips,
-          slideIndex: superFlyer.currentSlideIndex,
-          swipeDirection: superFlyer.nav.swipeDirection,
+          numberOfStrips: numberOfStrips,
+          slideIndex: index,
+          swipeDirection: swipeDirection,
         )
 
               :
