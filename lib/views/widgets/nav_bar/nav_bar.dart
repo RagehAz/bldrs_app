@@ -84,7 +84,11 @@ class NavBar extends StatelessWidget {
               child: NotificationListener(
                 onNotification: (ScrollUpdateNotification details){
 
-                  bool _canPageUp = Scrollers.canSlide(details: details, boxDistance: _bzzButtonsZoneHeight,);
+                  bool _canPageUp = Scrollers.canSlide(
+                    details: details,
+                    boxDistance: _bzzButtonsZoneHeight,
+                    goesBackOnly: true,
+                  );
 
                   if(_canPageUp){
                     Nav.goBackToHomeScreen(context);

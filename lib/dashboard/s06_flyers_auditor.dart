@@ -1,3 +1,5 @@
+import 'package:bldrs/controllers/drafters/animators.dart';
+import 'package:bldrs/controllers/drafters/keyboarders.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/sliders.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
@@ -10,6 +12,7 @@ import 'package:bldrs/views/widgets/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/nav_dialog/nav_dialog.dart';
 import 'package:bldrs/views/widgets/flyer/final_flyer.dart';
 import 'package:bldrs/views/widgets/flyer/parts/progress_bar.dart';
+import 'package:bldrs/views/widgets/flyer/parts/progress_bar_parts/strips.dart';
 import 'package:bldrs/views/widgets/layouts/dashboard_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -84,6 +87,12 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
   QueryDocumentSnapshot _lastSnapshot;
   Future<void> _readMoreFlyers() async {
 
+    if (_loading == false){
+      setState(() {
+        _loading = true;
+      });
+    }
+
     List<dynamic> _maps = await Fire.readCollectionDocs(
       collectionName:  FireCollection.flyers,
       orderBy: 'flyerID',
@@ -97,6 +106,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
     _fetchedModels[1].printFlyer();
 
     setState(() {
+      _loading = false;
       _lastSnapshot = _maps[_maps.length - 1]['docSnapshot'];
       _flyers.addAll(_fetchedModels);
       _currentPageIndex = 0;
@@ -109,14 +119,22 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
 
   }
 // -----------------------------------------------------------------------------
-  void _onSwipeFlyer(SwipeDirection direction, int pageIndex){
+  Future<void> _onSwipeFlyer(SwipeDirection direction, int pageIndex) async {
 
     _lastSwipeDirection = direction;
 
     if (direction == SwipeDirection.next){
-      Sliders.slideToNext(_pageController, _flyers.length, pageIndex);
+
+      if (pageIndex + 1 != _flyers.length){
+        await Sliders.slideToNext(_pageController, _flyers.length, pageIndex);
+      }
+
     } else if (direction == SwipeDirection.back){
-      Sliders.slideToBackFrom(_pageController, pageIndex);
+
+      if (pageIndex != 0){
+        await Sliders.slideToBackFrom(_pageController, pageIndex);
+      }
+
     }
 
   }
@@ -474,13 +492,65 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
     return _opacities;
   }
 // -----------------------------------------------------o
+  void _onPageChange (int newIndex){
+    // print('flyer onPageChanged oldIndex: ${_superFlyer.currentSlideIndex}, newIndex: $newIndex, _draft.numberOfSlides: ${_superFlyer.numberOfSlides}');
+    SwipeDirection _direction = Animators.getSwipeDirection(newIndex: newIndex, oldIndex: _currentPageIndex,);
+
+    // /// A - if Keyboard is active
+    // if (Keyboarders.keyboardIsOn(context) == true){
+    //   print('KEYBOARD IS ACTIVE');
+    //
+    //   /// B - when direction is going next
+    //   if (_direction == SwipeDirection.next){
+    //     print('going next');
+    //     FocusScope.of(context).nextFocus();
+    //     setState(() {
+    //       _superFlyer.nav.swipeDirection = _direction;
+    //       _superFlyer.currentSlideIndex = newIndex;
+    //     });
+    //   }
+    //
+    //   /// B - when direction is going back
+    //   else if (_direction == SwipeDirection.back){
+    //     print('going back');
+    //     FocusScope.of(context).previousFocus();
+    //     setState(() {
+    //       _superFlyer.nav.swipeDirection = _direction;
+    //       _superFlyer.currentSlideIndex = newIndex;
+    //     });
+    //   }
+    //
+    //   /// B = when direction is freezing
+    //   else {
+    //     print('going no where');
+    //     setState(() {
+    //       _superFlyer.nav.swipeDirection = _direction;
+    //       _superFlyer.currentSlideIndex = newIndex;
+    //     });
+    //   }
+    // }
+
+    // /// A - if keyboard is not active
+    // else {
+      // print('KEYBOARD IS NOT ACTIVE');
+      setState(() {
+        _lastSwipeDirection = _direction;
+        _currentPageIndex = newIndex;
+        _currentFlyer = _flyers[newIndex];
+      });
+
+    // }
+
+
+  }
+// -----------------------------------------------------o
   @override
   Widget build(BuildContext context) {
 
     double _screenWidth = Scale.superScreenWidth(context);
     double _clearScreenHeight = DashBoardLayout.clearScreenHeight(context);
     const double _footerZoneHeight = 70;
-    const double _progressBarHeight = 20;
+    double _progressBarHeight = Strips.boxHeight(_screenWidth);
     double _bodyZoneHeight = _clearScreenHeight - _footerZoneHeight - _progressBarHeight;
     double _flyerSizeFactor = 0.7;
 
@@ -499,6 +569,8 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
               Container(
                 width: _screenWidth,
                 height: _progressBarHeight,
+                // color: Colorz.BloodTest,
+                // alignment: Alignment.center,
                 child: ProgressBar(
                   index: _currentPageIndex,
                   numberOfSlides: _flyers.length,
@@ -507,6 +579,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
                   swipeDirection: _lastSwipeDirection,
                   loading: _loading,
                   flyerZoneWidth: _screenWidth,
+                  margins: EdgeInsets.zero,
 
                 ),
               ),
@@ -526,11 +599,8 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
                     itemCount: _flyers.length,
                     controller: _pageController,
                     allowImplicitScrolling: true,
-                    onPageChanged: (int i){
-                    print('slide to page index : $i');
-                    _currentFlyer = _flyers[i];
-                    _currentPageIndex = i;
-                    },
+                    onPageChanged: (int i) => _onPageChange(i),
+
                     pageSnapping: true,
                     // scrollBehavior: ScrollBehavior().,
                     itemBuilder: (ctx, index){
